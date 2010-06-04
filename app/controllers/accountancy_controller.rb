@@ -117,30 +117,54 @@ class AccountancyController < ApplicationController
 
 
   dyta(:cashes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name
-    t.column :iban_label
-    t.column :name, :through=>:journal, :url=>{:action=>:journal}
+    t.column :name, :url=>{:action=>:cash}
+    t.column :nature_label
     t.column :name, :through=>:currency
-    t.column :number, :through=>:account
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.action :cash_update
     t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure
   end
-  
-
 
   # lists all the cashes with the mainly characteristics. 
   def cashes
   end
 
+  dyta(:cash_embankments, :model=>:embankments, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:embankment}
+    t.column :created_on
+    t.column :payments_count
+    t.column :amount
+    t.column :name, :through=>:mode
+    t.column :comment
+  end
+
+  dyta(:cash_bank_statements, :model=>:bank_statements, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
+    t.column :number, :url=>{:action=>:bank_statement}
+    t.column :started_on
+    t.column :stopped_on
+    t.column :credit
+    t.column :debit
+  end
+
+  def cash
+    return unless @cash = find_and_check(:cash)
+    session[:current_cash_id] = @cash.id
+    t3e @cash.attributes.merge(:nature_label=>@cash.nature_label)
+  end
+
   # this method creates a cash with a form.
   def cash_create
-    if request.post? 
+    if request.xhr?
+      @cash = Cash.new(params[:cash])
+      render :partial=>'cash_accountancy_form', :locals=>{:nature=>params[:nature]}
+    elsif request.post? 
       @cash = Cash.new(params[:cash])
       @cash.company_id = @current_company.id
       @cash.entity_id = session[:entity_id] 
       return if save_and_redirect(@cash)
     else
-      @cash = Cash.new(:mode=>"bban")
+      @cash = Cash.new(:mode=>"bban", :nature=>"bank_account")
       session[:entity_id] = params[:entity_id]||@current_company.entity_id
       @valid_account = @current_company.accounts.empty?
       @valid_journal = @current_company.journals.empty?  
@@ -155,15 +179,14 @@ class AccountancyController < ApplicationController
       @cash.attributes = params[:cash]
       return if save_and_redirect(@cash)
     end
+    t3e @cash.attributes
     render_form
   end
   
   # this method deletes a cash.
   def cash_delete
     return unless @cash = find_and_check(:cash)
-    if request.delete? and @cash.destroyable?
-      @cash.destroy
-    end
+    @cash.destroy if request.delete? and @cash.destroyable?
     redirect_to :action => :cashes
   end
 
@@ -231,8 +254,8 @@ class AccountancyController < ApplicationController
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    clients_account = @current_company.parameter('accountancy.third_accounts.clients').value.to_s
-    suppliers_account = @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s
+    clients_account = @current_company.parameter('accountancy.accounts.clients').value.to_s
+    suppliers_account = @current_company.parameter('accountancy.accounts.suppliers').value.to_s
     
     Account.create!(:name=>"Clients", :number=>clients_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>clients_account)
     Account.create!(:name=>"Fournisseurs", :number=>suppliers_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>suppliers_account)
@@ -674,7 +697,7 @@ class AccountancyController < ApplicationController
     t3e @journal.attributes
   end
 
-  manage :journals, :nature=>"Journal.natures[0][1]"
+  manage :journals, :nature=>"params[:nature]||Journal.natures[0][1]"
 
 
   # This method allows to close the journal.

@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payments
+# == Table: sale_payments
 #
 #  account_number :string(255)      
 #  accounted_at   :datetime         
@@ -29,16 +29,15 @@
 #  created_at     :datetime         not null
 #  created_on     :date             
 #  creator_id     :integer          
-#  direction      :string(64)       default("received")
 #  embanker_id    :integer          
 #  embankment_id  :integer          
-#  entity_id      :integer          
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  mode_id        :integer          not null
 #  number         :string(255)      
 #  paid_on        :date             
 #  parts_amount   :decimal(16, 2)   
+#  payer_id       :integer          
 #  receipt        :text             
 #  received       :boolean          default(TRUE), not null
 #  scheduled      :boolean          not null
@@ -47,9 +46,9 @@
 #  updater_id     :integer          
 #
 #
-# == Fixture: payments
+# == Fixture: sale_payments
 #
-# payments_001:
+# sale_payments_001:
 #   amount: 0
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
@@ -63,13 +62,13 @@
 #   updater_id: 1
 #
 
-payments_001:
+sale_payments_001:
   amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
-  entity_id: 1
+  payer_id: 1
   mode_id: 1
   received: true
   scheduled: true
@@ -77,12 +76,12 @@ payments_001:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-payments_002:
+sale_payments_002:
   amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
-  entity_id: 1
+  payer_id: 1
   id: 2
   mode_id: 1
   received: true
@@ -91,12 +90,12 @@ payments_002:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-payments_003:
+sale_payments_003:
   amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
-  entity_id: 3
+  payer_id: 3
   id: 3
   mode_id: 1
   received: true

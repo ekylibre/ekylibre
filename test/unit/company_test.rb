@@ -51,7 +51,6 @@ class CompanyTest < ActiveSupport::TestCase
     
     should "not be locked" do
       assert !@company.locked
-      assert_nil @company.deleted_at
       assert !@user.locked
     end
 

@@ -1,9 +1,0 @@
--direction = (@payment_mode.new_record? ? params[:direction]||"received" : @payment_mode.direction)
-=formalize do |f|
-  -f.error :payment_mode
-  -f.field PaymentMode.human_attribute_name("direction"), PaymentMode.direction_label(direction)
-  -f.field :payment_mode, :name
-  -f.field :payment_mode, :nature, :field=>:radio, :choices=>PaymentMode.natures
-  -f.field :payment_mode, :account_id, :choices=>:account, :new=>{:controller=>:accountancy, :action=>:account_create}, :resize=>true
-
-=hidden_field_tag("payment_mode[direction]", params[:direction]) if params[:direction] and @payment_mode.new_record?

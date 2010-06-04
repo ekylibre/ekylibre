@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payment_modes
+# == Table: sale_payment_modes
 #
 #  account_id            :integer          
 #  cash_id               :integer          
@@ -27,11 +27,9 @@
 #  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
-#  direction             :string(64)       default("received"), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(50)       not null
-#  nature                :string(16)       
 #  published             :boolean          
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
@@ -40,11 +38,17 @@
 #  with_embankment       :boolean          not null
 #
 
-require 'test_helper'
+class SalePaymentMode < ActiveRecord::Base
+  attr_readonly :company_id
+  belongs_to :account
+  belongs_to :cash
+  belongs_to :company
+  belongs_to :commission_account, :class_name=>Account.name
+  has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
+  has_many :payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name
+  has_many :embankable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:embankment_id=>nil}
 
-class PaymentModeTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  def destroyable?
+    self.payments.size <= 0
+  end  
 end

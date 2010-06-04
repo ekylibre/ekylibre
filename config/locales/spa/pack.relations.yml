@@ -196,7 +196,6 @@ spa:
           #>one: '1 observation'
           #>other: '{{count}} observations'
           #>zero: '0 observation'
-        #>payment_create: 'Ajouter un règlement'
         payments:
           #>one: '1 réglement'
           #>other: '{{count}} réglements'
@@ -211,6 +210,7 @@ spa:
           #>one: '1 vente '
           #>other: '{{count}} ventes'
           #>zero: '0 vente'
+        #>sale_payment_create: 'Ajouter un règlement'
         #>state: 'État'
         #>subscription_create: 'Ajouter un abonnement'
         subscriptions:

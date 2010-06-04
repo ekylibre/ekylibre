@@ -4,13 +4,14 @@
   -f.error 'sale_order'
   -f.title :client
   -sale_order_client_id = f.field :sale_order, :client_id, :choices=>:clients, :new=>{:controller=>:relations, :action=>:entity_create}
+
+#contacts=render 'sale_order_contacts'
+
+=formalize do |f| 
   -f.title :conditions
   -f.field :sale_order, :nature_id, :choices=>{:reflection=>:sale_order_natures}, :new=>{:action=>:sale_order_nature_create}
   -f.field :sale_order, :currency_id, :choices=>{:reflection=>:currencies}
   -f.field :sale_order, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
-  -f.field :sale_order, :contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@current_company.entity_id}
-  -f.field :sale_order, :delivery_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@current_company.entity_id}
-  -f.field :sale_order, :invoice_contact_id, :choices=>@contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@current_company.entity_id}
   -f.field :sale_order, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>"--Aucun--"}
   -f.field :sale_order, :comment, :field=>:textarea
   -f.field :sale_order, :letter_format
@@ -32,5 +33,6 @@
   window.letterInformations = function(){ toggleElement('letter_format', $('sale_order_letter_format').checked); }
   letterInformations();
 
-=observe_field(sale_order_client_id, :frequency => 0.25, :function=>"updateContacts(value)")
+=#observe_field sale_order_client_id, :frequency=>0.25, :function=>"updateContacts(value)"
+=observe_field sale_order_client_id, :frequency=>0.25,  :update=>"contacts", :url=>{:action=>:sale_order_contacts, :sale_order_id=>@sale_order.id}, :with=>:id
 =observe_field("sale_order_letter_format", :frequency=>0.25, :function=>"letterInformations()")

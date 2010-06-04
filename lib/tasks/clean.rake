@@ -330,7 +330,7 @@ namespace :clean do
           attributes[attribute] = (trans.nil? ? "(((#{attribute.to_s.upper})))" : "'"+trans.gsub("'","''")+"'")
         end
         for x in [:creator, :updater]
-          attributes[x] ||= "'"+default_attributes[x].gsub("'","''")+"'"
+          attributes[x] ||= "'"+default_attributes[x].to_s.gsub("'","''")+"'"
         end
 
         # Sort attributes and build yaml

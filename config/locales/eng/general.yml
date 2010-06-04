@@ -135,11 +135,12 @@ eng:
       #>error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
       #>error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
     cash:
-      #>bban: 'Relevé d''identité bancaire (RIB)'
-      #>bban_unvalid_key: 'Un ou plusieurs éléments du RIB sont incorrects.'
-      #>iban: 'IBAN'
-      #>iban_length: 'La longueur de l''IBAN n''est pas correcte.'
-      #>iban_unvalid_key: 'La clé de l''IBAN n''est pas correcte.'
+      modes:
+        #>bban: 'Relevé d''identité bancaire (RIB)'
+        #>iban: 'IBAN'
+      natures:
+        #>bank_account: 'Compte bancaire'
+        #>cash_box: 'Caisse'
     company:
       #>cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       default:
@@ -579,6 +580,7 @@ eng:
         #>accountancy_tasks: 'Travaux comptables'
         #>accountize: 'Bascule comptable'
         #>bank_statements: 'Relevés de compte'
+        #>documents: 'Documents'
         #>informations: 'Informations'
         #>my_account: 'Mon compte'
         #>parameters: 'Paramètres'

@@ -26,6 +26,7 @@ __minimum__:
 __not_used__:
   actions:
   - accountancy::import
+  - management::client_contacts_dyli
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -52,9 +53,6 @@ administrate_management:
   - critic_stocks_dyta
   - entities_dyli
   - index
-  - payment_purchase_orders_dyta
-  - payment_sale_orders_dyta
-  - payments_dyta
   - purchase_order_payment_parts_dyta
   - sale_lines_dyta
   - sale_order_deliveries_dyta
@@ -62,6 +60,8 @@ administrate_management:
   - sale_order_natures_dyta
   - sale_order_payments_dyta
   - sale_orders_dyta
+  - sale_payment_sale_orders_dyta
+  - sale_payments_dyta
   - subscription_contacts_dyli
   - undelivered_quantities_dyta
   - undelivered_sales_dyta
@@ -116,9 +116,13 @@ consult_entities:
   - entities_dyta
   - entity
   - entity_cashes_dyta
+  - entity_contacts_dyta
+  - entity_events_dyta
   - entity_invoices_dyta
-  - entity_payments_dyta
+  - entity_purchase_orders_dyta
   - entity_sale_orders_dyta
+  - entity_sale_payments_dyta
+  - entity_subscriptions_dyta
 # Consulter les écritures
 consult_entries:
   controller: accountancy
@@ -182,11 +186,16 @@ create_purchases:
   actions:
   - purchase_order_create
   - purchase_order_delete
+  - purchase_order_update
   - purchase_order_line_create
   - purchase_order_line_delete
   - purchase_order_line_update
   - purchase_order_lines
   - purchase_order_summary
+  - purchase_payment_create
+  - purchase_payment_delete
+  - purchase_payment_update
+  - purchase_payments
 # Effectuer des extractions (sans pouvoir les concevoir)
 extract_listings:
   controller: company
@@ -221,10 +230,30 @@ manage_accounts:
 manage_areas:
   controller: relations
   actions: [area_create, area_delete, area_update, areas, areas_dyta]
-# Gérer les comptes bancaires
-manage_bank_accounts:
+# Pointage des relevés de comptes
+manage_bank_statements:
   controller: accountancy
-  actions: [cash_create, cash_delete, cash_update, cashes, cashes_dyta]
+  actions:
+  - bank_statement
+  - bank_statement_create
+  - bank_statement_delete
+  - bank_statement_entries_dyta
+  - bank_statement_point
+  - bank_statement_update
+  - bank_statements
+  - bank_statements_dyta
+# Gérer les comptes de trésorerie
+manage_cashes:
+  controller: accountancy
+  actions:
+  - cash
+  - cash_bank_statements_dyta
+  - cash_create
+  - cash_delete
+  - cash_embankments_dyta
+  - cash_update
+  - cashes
+  - cashes_dyta
 # Gérer les informations de la société
 manage_company:
   controller: company
@@ -317,11 +346,15 @@ manage_entities:
   - contact_create
   - contact_delete
   - contact_update
+  - entity_cashes_dyta
   - entity_contacts_dyta
   - entity_create
   - entity_delete
   - entity_events_dyta
+  - entity_invoices_dyta
   - entity_purchase_orders_dyta
+  - entity_sale_orders_dyta
+  - entity_sale_payments_dyta
   - entity_subscriptions_dyta
   - entity_update
 # Gérer les types de fiche
@@ -413,15 +446,15 @@ manage_inventories:
 manage_invoicing:
   controller: management
   actions:
-  - payment
-  - payment_create
-  - payment_delete
-  - payment_part_create
-  - payment_part_delete
-  - payment_update
-  - payments
   - sale_order_payment_parts_dyta
   - sale_order_summary
+  - sale_payment
+  - sale_payment_create
+  - sale_payment_delete
+  - sale_payment_part_create
+  - sale_payment_part_delete
+  - sale_payment_update
+  - sale_payments
 # Gérer les journaux
 manage_journals:
   controller: accountancy
@@ -520,22 +553,15 @@ manage_orders:
 manage_payment_modes:
   controller: management
   actions:
-  - given_payment_mode_create # UNEXISTENT ACTION !!!
-  - given_payment_mode_delete # UNEXISTENT ACTION !!!
-  - given_payment_mode_update # UNEXISTENT ACTION !!!
-  - given_payment_modes # UNEXISTENT ACTION !!!
-  - given_payment_modes_dyta
-  - payment_mode_create
-  - payment_mode_delete
-  - payment_mode_update
   - payment_modes
-  - payment_modes
-  - payment_modes_dyta
-  - received_payment_mode_create # UNEXISTENT ACTION !!!
-  - received_payment_mode_delete # UNEXISTENT ACTION !!!
-  - received_payment_mode_update # UNEXISTENT ACTION !!!
-  - received_payment_modes # UNEXISTENT ACTION !!!
-  - received_payment_modes_dyta
+  - purchase_payment_mode_create
+  - purchase_payment_mode_delete
+  - purchase_payment_mode_update
+  - purchase_payment_modes_dyta
+  - sale_payment_mode_create
+  - sale_payment_mode_delete
+  - sale_payment_mode_update
+  - sale_payment_modes_dyta
 # Gérer les prix
 manage_prices:
   controller: management
@@ -591,18 +617,6 @@ manage_shelves:
   - shelf_update
   - shelves
   - shelves_dyta
-# Pointage des relevés de comptes
-manage_statements:
-  controller: accountancy
-  actions:
-  - bank_statement
-  - bank_statement_create
-  - bank_statement_delete
-  - bank_statement_entries_dyta
-  - bank_statement_point
-  - bank_statement_update
-  - bank_statements
-  - bank_statements_dyta
 # Gérer les mouvements de stocks
 manage_stock_moves:
   controller: management

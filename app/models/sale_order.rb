@@ -62,6 +62,7 @@
 class SaleOrder < ActiveRecord::Base
   attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
+  belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
   belongs_to :company
   belongs_to :contact
   belongs_to :currency
@@ -75,7 +76,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :deliveries, :foreign_key=>:order_id
   has_many :invoices
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
-  has_many :payment_parts, :as=>:expense
+  has_many :payment_parts, :as=>:expense, :class_name=>SalePaymentPart.name
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
@@ -352,13 +353,9 @@ class SaleOrder < ActiveRecord::Base
     self.amount_with_taxes - self.amount
   end
 
-  def payment_entity_id
-    self.client.id
-  end
-
   def usable_payments
     # self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
-    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount, 0)<COALESCE(amount,0)"], :order=>"amount")
+    self.company.sale_payments.find(:all, :conditions=>["COALESCE(parts_amount, 0)<COALESCE(amount, 0)"], :order=>"amount")
   end
 
   # Build general sales condition for the sale order
@@ -372,7 +369,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def last_payment
-    self.client.payments.find(:first, :order=>"paid_on desc")
+    self.client.sale_payments.find(:first, :order=>"paid_on desc")
   end
   
   def unpaid_days

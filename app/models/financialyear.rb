@@ -122,10 +122,10 @@ class Financialyear < ActiveRecord::Base
       if balance_account.size > 0
         renew_record = renew_journal.records.create!(:financialyear_id => new_financialyear.id, :company_id => self.company.id, :created_on => new_financialyear.started_on, :printed_on => new_financialyear.started_on)
         result   = 0
-        gains    = self.company.account(self.company.parameter("accountancy.minor_accounts.gains").value)
-        losses   = self.company.account(self.company.parameter("accountancy.minor_accounts.losses").value)
-        charges  = self.company.account(self.company.parameter("accountancy.major_accounts.charges").value)
-        products = self.company.account(self.company.parameter("accountancy.major_accounts.products").value)
+        gains    = self.company.account(self.company.parameter("accountancy.accounts.gains").value)
+        losses   = self.company.account(self.company.parameter("accountancy.accounts.losses").value)
+        charges  = self.company.account(self.company.parameter("accountancy.accounts.charges").value)
+        products = self.company.account(self.company.parameter("accountancy.accounts.products").value)
         for account in balance_account
           if account[:number].to_s.match /^#{gains.number}/
             result += account[:balance]

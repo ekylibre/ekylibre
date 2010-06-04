@@ -83,19 +83,23 @@ eng:
         #>title: 'Modifier le relevé N°{{number}}'
       bank_statements:
         #>title: 'Relevés de compte bancaire'
-      cash_create:
-        #>title: 'Créer un nouveau compte bancaire'
-      _cash_form:
+      cash:
+        cash:
+          #>bank_statements: 'Relevés de compte'
+          #>embankments: 'Remises en banque'
+        #>cash_update: 'Modifier le compte de trésorerie'
+        #>title: '{{nature_label}} : {{name}}'
+      _cash_accountancy_form:
         #>accountancy: 'Comptabilité'
-        #>create_account: 'Vous devez d''abord créer un compte comptable.'
-        #>create_journal: 'Vous devez d''abord créer un journal.'
+      cash_create:
+        #>title: 'Créer un nouveau compte de trésorerie'
+      _cash_form:
+        #>general: 'Description générale'
         #>iban: 'Numéro de compte bancaire internationale (IBAN)'
-        #>rib: 'Description générale'
       cash_update:
-        #>title: 'Modifier le compte bancaire'
+        #>title: 'Modifier le compte de trésorerie : {{name}}'
       cashes:
-        #>cash_create: 'Créer un nouveau compte bancaire'
-        #>title: 'Comptes bancaires'
+        #>title: 'Trésorerie'
       _currencies_find:
         #>currency_code: 'Code de devise'
         #>currency_id: 'Numéro de devise'
@@ -115,7 +119,7 @@ eng:
         #>balance: 'Balance comptable'
         #>export: 'Exportation de documents'
         #>print: 'Impression de documents'
-        #>title: 'Documents comptables'
+        #>title: 'Impression, exportation'
       draft_entries:
         #>accountize: 'Comptabiliser les écritures'
         #>title: 'Listing des écritures du brouillard'
@@ -189,11 +193,11 @@ eng:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
@@ -208,12 +212,12 @@ eng:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      print_balance_sheet:
-        #>period: 'Période'
-        #>title: 'Impression du bilan'
       _print_balance_sheet:
         #>balance_sheet: 'Sélectionnez l''exercice'
         #>select_financialyear: 'Exercice'
+      print_balance_sheet:
+        #>period: 'Période'
+        #>title: 'Impression du bilan'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

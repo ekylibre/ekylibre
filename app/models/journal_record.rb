@@ -58,7 +58,10 @@ class JournalRecord < ActiveRecord::Base
 
   #
   def before_validation
-    self.company_id = self.journal.company_id if self.journal
+    if self.journal
+      self.company_id  = self.journal.company_id 
+      self.currency_id = self.journal.currency_id
+    end
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
     self.created_on = Date.today

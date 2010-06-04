@@ -18,26 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payment_parts
+# == Table: purchase_payment_modes
 #
-#  amount       :decimal(16, 2)   
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  downpayment  :boolean          not null
-#  expense_id   :integer          default(0), not null
-#  expense_type :string(255)      default("UnknownModel"), not null
-#  id           :integer          not null, primary key
-#  invoice_id   :integer          
-#  lock_version :integer          default(0), not null
-#  payment_id   :integer          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  cash_id         :integer          
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  creator_id      :integer          
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  name            :string(50)       not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
+#  with_accounting :boolean          not null
 #
 
 require 'test_helper'
 
-class PaymentPartTest < ActiveSupport::TestCase
+class PurchasePaymentModeTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

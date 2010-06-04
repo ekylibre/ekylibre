@@ -8,13 +8,13 @@ Lors de l'enregistrement d'un utilisateur, vous pouvez utiliser les rôles qui v
 **Le rôle** permet de **sélectionner automatiquement une liste de droits** pour l'utilisateur. Vous pouvez créer différents rôles. 
 Par défaut, deux rôles vous sont crées, un donnant accès à l'intégralité du logiciel (Gérant), et un qui restreint l'accès seulement à l'accueil du logiciel (Public). 
 
-!!! Les droits permettent d'autoriser ou non l'accès aux différentes parties du logiciel à l'utilisateur.
+Les droits permettent d'autoriser ou non l'accès aux différentes parties du logiciel à l'utilisateur.
 
 !!! Si le champ **Administrateur système** est coché, l'utilisateur aura **accès à l'intégralité du logiciel**.
 
 Il vous suffit de modifier les champs que vous désirez, vous pouvez le faire pour des champs déjà renseignés ou pour des champs qui ne le sont pas encore.
 Vous pouvez **cocher ou décocher les différents droits** utilisateurs afin d'**autoriser** ou de **restreindre l'accès** à différentes parties du logiciel.
 
->>> La **modification des droits d'un utilisateur** ne sera **effective** qu'**à la prochaine connexion** de celui-ci.
+!!! La **modification des droits d'un utilisateur** ne sera **effective** qu'**à la prochaine connexion** de celui-ci.
 
 >>> Les champs relatifs au mot de passe n'ont pas besoin d'être renseignés si vous ne voulez pas que celui-ci ne change.

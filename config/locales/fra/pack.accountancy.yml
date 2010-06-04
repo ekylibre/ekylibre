@@ -76,19 +76,25 @@ fra:
       bank_statements:
         title: 'Relevés de compte bancaire'
         #>bank_statement_create: # Potentially missing translation
-      cash_create:
-        title: 'Créer un nouveau compte bancaire'
-      _cash_form:
+      cash:
+        cash:  #!
+          bank_statements: 'Relevés de compte' #!
+          embankments: 'Remises en banque' #!
+ #!
+        cash_update: 'Modifier le compte de trésorerie'
+        title: '{{nature_label}} : {{name}}'
+      _cash_accountancy_form:
         accountancy: 'Comptabilité'
-        create_account: 'Vous devez d''abord créer un compte comptable.' #!
-        create_journal: 'Vous devez d''abord créer un journal.' #!
+      cash_create:
+        title: 'Créer un nouveau compte de trésorerie'
+      _cash_form:
+        general: 'Description générale'
         iban: 'Numéro de compte bancaire internationale (IBAN)' #!
-        rib: 'Description générale'
       cash_update:
-        title: 'Modifier le compte bancaire'
+        title: 'Modifier le compte de trésorerie : {{name}}'
       cashes:
-        cash_create: 'Créer un nouveau compte bancaire'
-        title: 'Comptes bancaires'
+        title: 'Trésorerie'
+        #>cash_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_currencies_find
       _currencies_find:
         currency_code: 'Code de devise'
@@ -110,7 +116,7 @@ fra:
         balance: 'Balance comptable'
         export: 'Exportation de documents'
         print: 'Impression de documents'
-        title: 'Documents comptables'
+        title: 'Impression, exportation'
       # No defined action for this view !!!
       draft_entries:
         accountize: 'Comptabiliser les écritures' #!
@@ -191,12 +197,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      _journals:
-        journal_detail: 'Cloturé au {{closed_on}}'
-        journal_name: '{{name}}'
       journals:
         title: 'Journaux'
         #>journal_create: # Potentially missing translation
+      _journals:
+        journal_detail: 'Cloturé au {{closed_on}}'
+        journal_name: '{{name}}'
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
@@ -212,15 +218,15 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
-      # Unfound view ./app/views/accountancy/_print_balance_sheet
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_balance_sheet
       print_balance_sheet:
         period: 'Période'
         title: 'Impression du bilan'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:

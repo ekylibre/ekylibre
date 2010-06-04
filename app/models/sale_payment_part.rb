@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payment_parts
+# == Table: sale_payment_parts
 #
 #  amount       :decimal(16, 2)   
 #  company_id   :integer          not null
@@ -35,7 +35,7 @@
 #  updater_id   :integer          
 #
 
-class PaymentPart < ActiveRecord::Base
+class SalePaymentPart < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :payment

@@ -1,30 +1,43 @@
 =formalize do |f|
-  - f.error :cash
-  - f.title :rib
-  - f.field :cash, :name
-  - f.field :cash, :bank_name
-  - f.field :cash, :address, :field=>:textarea
-  - f.title BankAccount.human_name
-  - f.field :cash, :mode, :field=>:radio, :choices=>BankAccount.modes  
-=formalize(:id=>:bban) do |f|
-  - f.field :cash, :bank_code, :size=>10
-  - f.field :cash, :agency_code, :size=>10
-  - f.field :cash, :number
-  - f.field :cash, :key, :size=>4
-=formalize(:id=>:iban) do |f|  
-  - f.field :cash, :iban
-  - f.field :cash, :bic
-=formalize do |f|  
-  - f.title :accountancy
-  - f.field :cash, :account_id,  :choices=>{:reflection=>:banks_accounts}, :new=>{:action => :account_create}
-  - f.field :cash, :currency_id, :choices=>{:reflection=>:currencies}
-  - f.field :cash, :journal_id,  :choices=>{:reflection=>:journals}, :new => {:action => :journal_create}
- 
+  -f.error :cash
+  -f.title :general
+  -f.field :cash, :name
+  -f.field :cash, :currency_id, :choices=>{:reflection=>:currencies}
+  -if @cash.new_record? 
+    -f.field :cash, :nature, :choices=>Cash.natures, :field=>:radio
+  -else
+    -f.field :cash, :nature_label, :field=>:label
 
-:javascript
-  window.banToggle = function() {
-    toggleElement('iban', $('cash_mode_iban').checked, 'bban');
-  }
-  banToggle()
+-if @cash.new_record? or @cash.bank_account?
+  #bank_account
+    =formalize do |f|
+      -f.title @cash.nature_label
+      -f.field :cash, :bank_name
+      -f.field :cash, :address, :field=>:textarea
+      -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes  
+    =formalize(:id=>:bban) do |f|
+      -f.field :cash, :bank_code, :size=>10
+      -f.field :cash, :agency_code, :size=>10
+      -f.field :cash, :number
+      -f.field :cash, :key, :size=>4
+    =formalize(:id=>:iban) do |f|  
+      -f.field :cash, :iban, :size=>48
+      -f.field :cash, :bic
+  :javascript
+    window.toggleBAN = function() { toggleElement('iban', $('cash_mode_iban').checked, 'bban'); }
+    toggleBAN();
+  =observe_field "cash_mode_iban", :frequency => 0.25, :function =>"toggleBAN()"
 
-=observe_field "cash_mode_iban", :frequency => 0.25, :function =>"banToggle()"
+-if @cash.new_record? or !@cash.bank_account?
+  #cash_box
+
+#cash_accountancy=render :partial=>'cash_accountancy_form'
+
+-if @cash.new_record? 
+  :javascript
+    window.toggleCash = function() { toggleElement('bank_account', $('cash_nature_bank_account').checked, 'cash_box'); }
+    toggleCash();
+  =observe_field "cash_nature_bank_account", :frequency => 0.25, :function =>"toggleCash()"
+  =observe_field "cash_nature_bank_account", :frequency => 0.25, :update=>:cash_accountancy, :url=>{:action=>:cash_create}, :with=>"'nature='+(this.checked ? 'bank_account' : 'cash_box')", :loading=>"onLoading()", :loaded=>"onLoaded()"
+
+

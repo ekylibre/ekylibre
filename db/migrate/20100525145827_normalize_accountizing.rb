@@ -3,6 +3,26 @@ class NormalizeAccountizing < ActiveRecord::Migration
   TABLES_DELETED = [:accounts, :cashes, :companies, :document_templates, :entity_categories, :journals, :taxes]
   TABLES_DEFAULT = [:cashes, :contacts, :document_templates, :entity_categories, :prices]
   TABLES_LANGUAGE = [:document_templates, :users, :entities]
+  PARAMETERS = {
+    'accountancy.default_journals.sales'           => 'accountancy.journals.sales',
+    'accountancy.default_journals.purchase'        => 'accountancy.journals.purchases',
+    'accountancy.default_journals.bank'            => 'accountancy.journals.bank',
+    'accountancy.third_accounts.clients'           => 'accountancy.accounts.clients',
+    'accountancy.third_accounts.suppliers'         => 'accountancy.accounts.suppliers',
+    'accountancy.major_accounts.charges'           => 'accountancy.accounts.charges',
+    'accountancy.major_accounts.products'          => 'accountancy.accounts.products',
+    'accountancy.minor_accounts.banks'             => 'accountancy.accounts.banks',
+    'accountancy.minor_accounts.cashes'            => 'accountancy.accounts.cashes',
+    'accountancy.minor_accounts.gains'             => 'accountancy.accounts.gains',
+    'accountancy.minor_accounts.losses'            => 'accountancy.accounts.losses',
+    'accountancy.taxes_accounts.acquisition_taxes' => 'accountancy.accounts.acquisition_taxes',
+    'accountancy.taxes_accounts.collected_taxes'   => 'accountancy.accounts.collected_taxes',
+    'accountancy.taxes_accounts.paid_taxes'        => 'accountancy.accounts.paid_taxes',
+    'accountancy.taxes_accounts.balance_taxes'     => 'accountancy.accounts.balance_taxes',
+    'accountancy.taxes_accounts.assimilated_taxes' => 'accountancy.accounts.assimilated_taxes',
+    'accountancy.taxes_accounts.payback_taxes'     => 'accountancy.accounts.payback_taxes',
+    'accountancy.to_accountancy.automatic'         => 'accountancy.accountize.automatic'
+  }.to_a.sort{|a,b| a[0]<=>b[0]}
 
   def self.up
     # Drop languages in order to add a universal support of languages
@@ -30,6 +50,43 @@ class NormalizeAccountizing < ActiveRecord::Migration
     rename_table :bank_accounts, :cashes
 
     rename_table :bank_account_statements, :bank_statements
+
+    rename_table :payment_modes, :sale_payment_modes
+    
+    rename_table :payment_parts, :sale_payment_parts
+    
+    rename_table :payments, :sale_payments
+
+    create_table :purchase_payment_modes do |t|
+      t.column :name,            :string,  :null=>false, :limit=>50
+      t.column :with_accounting, :boolean, :null=>false, :default=>false
+      t.column :cash_id,         :integer
+      t.column :company_id,      :integer, :null=>false
+    end
+    
+    create_table :purchase_payment_parts do |t|
+      t.column :amount,      :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :downpayment, :boolean, :null=>false, :default=>false
+      t.column :expense_id,  :integer, :null=>false
+      t.column :payment_id,  :integer, :null=>false
+      t.column :company_id,  :integer, :null=>false
+    end
+    
+    create_table :purchase_payments do |t|
+      t.column :accounted_at,  :datetime         
+      t.column :amount,        :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :check_number,  :string
+      t.column :created_on,    :date             
+      t.column :responsible_id,:integer, :null=>false
+      t.column :payee_id,      :integer, :null=>false
+      t.column :mode_id,       :integer, :null=>false
+      t.column :number,        :string
+      t.column :paid_on,       :date             
+      t.column :parts_amount,  :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :to_bank_on,    :date,    :null=>false
+      t.column :company_id,    :integer, :null=>false
+    end
+    
 
     # Remove "deleted"
     # > accounts, bank_accounts, companies, contacts, document_templates, entity_categories, journals, taxes
@@ -63,7 +120,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     change_column_null :cashes, :iban, true
     change_column_null :cashes, :iban_label, true
-    add_column :cashes, :nature, :string, :limit=>16, :null=>false, :default=>"BankAccount"
+    add_column :cashes, :nature, :string, :limit=>16, :null=>false, :default=>"bank_account"
 
     change_column :companies, :code, :string, :limit=>16
 
@@ -123,33 +180,34 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     add_column :listings, :source, :text
 
-    rename_column :payment_modes, :bank_account_id, :cash_id
-    remove_column :payment_modes, :nature
-    change_column :payment_modes, :mode, :string, :limit=>16
-    rename_column :payment_modes, :mode, :nature
-    add_column :payment_modes, :direction, :string, :limit=>64, :null=>false, :default=>'received' #  / given
-    add_column :payment_modes, :published, :boolean, :null=>true, :default=>false
-    add_column :payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
-    add_column :payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
-    add_column :payment_modes, :with_commission, :boolean, :null=>false, :default=>false
-    add_column :payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
-    add_column :payment_modes, :commission_account_id, :integer
-    execute "UPDATE payment_modes SET with_accounting=#{quoted_true}, with_embankment=(nature='check' OR nature='card')"
-    execute "UPDATE payment_modes SET nature='check' WHERE LENGTH(TRIM(COALESCE(nature, ''))) <= 0"
-    execute "INSERT INTO payment_modes (nature, direction, name, account_id, company_id, created_at, updated_at) SELECT nature, 'given', name, account_id, company_id, created_at, updated_at FROM payment_modes" 
-    # WHERE id IN (SELECT mode_id FROM payment_parts JOIN payments ON (payment_id=payments.id) WHERE expense_type='PurchaseOrder')"
+    add_column :sale_payment_modes, :published, :boolean, :null=>true, :default=>false
+    add_column :sale_payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
+    add_column :sale_payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
+    add_column :sale_payment_modes, :with_commission, :boolean, :null=>false, :default=>false
+    add_column :sale_payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :sale_payment_modes, :commission_account_id, :integer
+    execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}"
+    execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card'"
+    rename_column :sale_payment_modes, :bank_account_id, :cash_id
+    remove_column :sale_payment_modes, :nature
+    remove_column :sale_payment_modes, :mode
+    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes" 
 
-    remove_column :payments, :account_id
-    add_column :payments, :receipt, :text
-    add_column :payments, :direction, :string, :limit=>64, :null=>true, :default=>'received' #  / given
-    suppliers=select_all("SELECT payments.id, entity_id from payment_parts JOIN payments ON (payments.id=payment_id) where expense_type='PurchaseOrder'")
-    modes    =select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.direction='given' AND b.direction='received' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)")
-    if suppliers.size > 0 and modes.size > 0
-      suppliers = "CASE "+suppliers.collect{|l| "WHEN id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      modes = "CASE "+modes.collect{|l| "WHEN mode_id=#{l['r']} THEN #{l['g']}"}.join(" ")+" ELSE 0 END"
-      entities  = "CASE "+select_all("SELECT * FROM companies").collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      execute "UPDATE payments SET direction='given', entity_id=#{suppliers}, mode_id=#{modes} WHERE entity_id=#{entities}"
-    end
+    execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id) SELECT amount, downpayment, expense_id, payment_id, company_id FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
+    execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
+
+    remove_column :sale_payments, :account_id
+    rename_column :sale_payments, :entity_id, :payer_id
+    add_column :sale_payments, :receipt, :text
+    suppliers=select_all("SELECT payment_id, supplier_id FROM purchase_payment_parts JOIN purchase_orders ON (expense_id=purchase_orders.id)")
+    suppliers=(suppliers.size>0 ?  "CASE "+suppliers.collect{|l| "WHEN id=#{l['payment_id']} THEN #{l['supplier_id']}"}.join(" ")+" ELSE 0 END" : "0")
+    modes=select_all("SELECT a.id AS o, b.id AS n FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
+    modes=(modes.size>0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['o']} THEN #{l['n']}"}.join(" ")+" ELSE 0 END" : '0')
+    purchase_cond = "id IN (SELECT payment_id FROM purchase_payment_parts)"
+    execute "INSERT INTO purchase_payments(id, accounted_at, amount, check_number, created_on, responsible_id, mode_id, number, paid_on, parts_amount, to_bank_on, company_id, payee_id)"+
+                                  " SELECT id, accounted_at, amount, check_number, created_on, embanker_id,   #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, #{suppliers} FROM sale_payments WHERE #{purchase_cond}"
+    execute "DELETE FROM sale_payments WHERE #{purchase_cond}"
+    reset_sequence! :purchase_payments, :id
 
     change_column :products, :code, :string, :limit=>16
     remove_column :products, :to_rent
@@ -178,18 +236,26 @@ class NormalizeAccountizing < ActiveRecord::Migration
     execute "UPDATE journals SET nature='sales' WHERE nature='sale'"
     execute "UPDATE journals SET nature='purchases' WHERE nature='purchase'"
     execute "UPDATE journals SET nature='forward' WHERE nature='renew'"
-    execute "UPDATE parameters SET name='accountancy.journals.sales' WHERE name='accountancy.default_journals.sales'"
-    execute "UPDATE parameters SET name='accountancy.journals.purchases' WHERE name='accountancy.default_journals.purchase'"
-    execute "UPDATE parameters SET name='accountancy.journals.bank' WHERE name='accountancy.default_journals.bank'"
+    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_accounts', 'manage_cashes')"
+    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_statements', 'manage_bank_statements')"
+    execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_accounts', 'manage_cashes')"
+    execute "UPDATE users SET rights=REPLACE(rights, 'manage_statements', 'manage_bank_statements')"
     execute "UPDATE taxes SET amount=amount*100 WHERE nature='percent'"
+    for o, n in PARAMETERS
+      execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
+    end
   end
 
   def self.down
     # Update some values in tables
+    for n, o in PARAMETERS.reverse
+      execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
+    end
     execute "UPDATE taxes SET amount=amount/100 WHERE nature='percent'"
-    execute "UPDATE parameters SET name='accountancy.default_journals.bank' WHERE name='accountancy.journals.bank'"
-    execute "UPDATE parameters SET name='accountancy.default_journals.purchase' WHERE name='accountancy.journals.purchases'"
-    execute "UPDATE parameters SET name='accountancy.default_journals.sales' WHERE name='accountancy.journals.sales'"
+    execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+    execute "UPDATE users SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
+    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
     execute "UPDATE journals SET nature='renew' WHERE nature='forward'"
     execute "UPDATE journals SET nature='purchase' WHERE nature='purchases'"
     execute "UPDATE journals SET nature='sale' WHERE nature='sales'"
@@ -212,28 +278,28 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :products, :to_rent, :boolean, :null=>false, :default=>false
     # change_column :products, :code, :string, :limit=>16
 
-    if (suppliers=select_all("SELECT payments.id, entity_id from payment_parts JOIN payments ON (payments.id=payment_id) where expense_type='PurchaseOrder'")).size > 0
-      suppliers = "CASE "+suppliers.collect{|l| "WHEN id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      entities  = "CASE "+select_all("SELECT * FROM companies").collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END"
-      modes = "CASE "+select_all("SELECT a.id AS g, b.id AS r FROM payment_modes AS a JOIN payment_modes AS b ON (a.direction='given' AND b.direction='received' AND a.nature=b.nature AND a.name=b.name AND a.company_id=b.company_id)").collect{|l| "WHEN mode_id=#{l['g']} THEN #{l['r']}"}.join(" ")+" ELSE 0 END"
-      execute "UPDATE payments SET entity_id=#{entities}, mode_id=#{modes} WHERE entity_id=#{suppliers}"
-    end
-    remove_column :payments, :direction
-    remove_column :payments, :receipt
-    add_column :payments, :account_id, :integer
+    # Work only if last migration !!!!
+    suppliers=select_all("SELECT id, entity_id from companies")
+    suppliers=(suppliers.size > 0 ? "CASE "+suppliers.collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END" : '0')
+    modes=select_all("SELECT a.id AS n, b.id AS o FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
+    modes=(modes.size > 0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['n']} THEN #{l['o']}"}.join(" ")+" ELSE 0 END" : '0')
+    execute "INSERT INTO sale_payments(id, accounted_at, amount, check_number, created_on, embanker_id,     mode_id, number, paid_on, parts_amount, to_bank_on, company_id, payer_id)"+
+                              " SELECT id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, #{suppliers} FROM purchase_payments"
+    remove_column :sale_payments, :receipt
+    rename_column :sale_payments, :payer_id, :entity_id
+    add_column :sale_payments, :account_id, :integer
 
-    execute "DELETE FROM payment_modes WHERE direction='given'"
-    remove_column :payment_modes, :commission_account_id
-    remove_column :payment_modes, :commission_percent
-    remove_column :payment_modes, :with_commission
-    remove_column :payment_modes, :with_embankment
-    remove_column :payment_modes, :with_accounting
-    remove_column :payment_modes, :published
-    remove_column :payment_modes, :direction
-    rename_column :payment_modes, :nature, :mode
-    # change_column :payment_modes, :mode, :string, :limit=>16
-    add_column :payment_modes, :nature, :string, :limit=>1, :default=>"U"
-    rename_column :payment_modes, :cash_id, :bank_account_id
+    execute "INSERT INTO sale_payment_parts(amount, downpayment, expense_type, expense_id, payment_id, company_id) SELECT amount, downpayment, 'PurchaseOrder', expense_id, payment_id, company_id FROM purchase_payment_parts"
+
+    add_column :sale_payment_modes, :mode,   :string, :null=>false, :default=>'check'
+    add_column :sale_payment_modes, :nature, :string, :null=>false, :default=>"U", :limit=>1
+    rename_column :sale_payment_modes, :cash_id, :bank_account_id
+    remove_column :sale_payment_modes, :commission_account_id
+    remove_column :sale_payment_modes, :commission_percent
+    remove_column :sale_payment_modes, :with_commission
+    remove_column :sale_payment_modes, :with_embankment
+    remove_column :sale_payment_modes, :with_accounting
+    remove_column :sale_payment_modes, :published
 
     remove_column :listings, :source
 
@@ -324,6 +390,18 @@ class NormalizeAccountizing < ActiveRecord::Migration
       add_column table, :deleted, :boolean, :null=>false, :default=>false
     end
 
+    drop_table :purchase_payments
+
+    drop_table :purchase_payment_parts
+
+    drop_table :purchase_payment_modes
+
+    rename_table :sale_payments, :payments
+
+    rename_table :sale_payment_parts, :payment_parts
+    
+    rename_table :sale_payment_modes, :payment_modes
+    
     rename_table :bank_statements, :bank_account_statements
 
     rename_table :cashes, :bank_accounts

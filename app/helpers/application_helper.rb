@@ -77,10 +77,14 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_statements},
              {:name=>:lettering},
-             {:name=>:document_print},
+             # {:name=>:document_print},
              # {:name=>:tax_declarations},
              {:name=>:accountize},
              {:name=>:financialyear_close}
+           ] },
+         {:name=>:documents, :list=>
+           [ {:name=>:document_print}
+             # {:name=>:general_ledger}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
@@ -94,7 +98,7 @@ module ApplicationHelper
            [ {:name=>:sale_order_create},
              {:name=>:sale_orders},
              {:name=>:invoices},
-             {:name=>:payments, :url=>{:action=>:payments, :mode=>:sale_order}},
+             {:name=>:sale_payments},
              {:name=>:embankments},
              {:name=>:transports},
              {:name=>:subscriptions},
@@ -103,7 +107,7 @@ module ApplicationHelper
          {:name=>:purchases, :list=>
            [ {:name=>:purchase_order_create},
              {:name=>:purchase_orders},
-             {:name=>:payments, :url=>{:action=>:payments, :mode=>:purchase}} 
+             {:name=>:purchase_payments}
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
@@ -166,6 +170,10 @@ module ApplicationHelper
     MENUS
   end
 
+  def parameter(name)
+    # name = self.controller.controller_name.to_s+name.to_s if name.to_s.match(/^\./)
+    @current_company.parameter(name)
+  end
 
   def locale_selector
     select_tag("locale", options_for_select(::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| [::I18n.translate(l, :locale=>:languages), l]}, :selected=>::I18n.locale), :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
@@ -238,11 +246,12 @@ module ApplicationHelper
     else
       #     label = object.class.human_attribute_name(attribute.to_s)
       value = object.send(attribute)
-      label = t("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}")
-      label = t("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id") if label.match(/translation.missing/)
+      default = ["activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id".to_sym]
+      default << "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
+      label = ::I18n.translate("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}".to_sym, :default=>default)
       if value.is_a? ActiveRecord::Base
         record = value
-        value = record.send(options[:label]||:name)
+        value = record.send(options[:label]||[:label, :name, :code, :inspect].detect{|x| record.respond_to?(x)})
         options[:url][:id] ||= record.id if options[:url]
         # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
       else
@@ -912,13 +921,13 @@ module ApplicationHelper
     #help  = content_tag(:td, help,  :class=>"help",  :id=>options[:help_id])
 
     if line[:model] and line[:attribute]
-      record  = line[:model]
-      method  = line[:attribute]
+      record  = line.delete(:model)
+      method  = line.delete(:attribute)
       options = line
 
       record.to_sym if record.is_a?(String)
       object = record.is_a?(Symbol) ? instance_variable_get('@'+record.to_s) : record
-      raise Exception.new('NilError on object: '+object.inspect) if object.nil?
+      raise Exception.new("Object #{record.inspect} is "+object.inspect) if object.nil?
       model = object.class
       raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
 
@@ -930,7 +939,7 @@ module ApplicationHelper
       input_id = object.class.name.tableize.singularize+'_'+method.to_s
 
       html_options = {}
-      html_options[:size] = 24
+      html_options[:size] = options[:size]||24
       html_options[:onchange] = options[:onchange] if options[:onchange]
       html_options[:class] = options[:class].to_s
       if column.nil?
@@ -978,7 +987,7 @@ module ApplicationHelper
               when :password
                 password_field(record, method, html_options)
               when :label
-                record.send(method)
+                object.send(method)
               when :checkbox
                 check_box(record, method, html_options)
               when :select

@@ -43,7 +43,7 @@ class Embankment < ActiveRecord::Base
   belongs_to :cash
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
-  belongs_to :mode, :class_name=>PaymentMode.to_s
+  belongs_to :mode, :class_name=>SalePaymentMode.to_s
   has_many   :payments, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :embanker_id, :number, :cash_id
@@ -52,7 +52,7 @@ class Embankment < ActiveRecord::Base
 
   def before_validation
     if !self.id.nil?
-      payments = Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
+      payments = SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
       self.payments_count = payments.size
       self.amount = payments.sum{|p| p.amount}
     end
@@ -80,12 +80,12 @@ class Embankment < ActiveRecord::Base
   end
 
   def checks
-    Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
+    SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
   end
 
   # this method valids the embankment and accountizes the matching payments.
   # def confirm
-#     payments = Payment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
+#     payments = SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
 #     payments.each do |payment|
 #       payment.to_accountancy
       

@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payment_parts
+# == Table: sale_payment_parts
 #
 #  amount       :decimal(16, 2)   
 #  company_id   :integer          not null
@@ -34,19 +34,12 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
-#
-# == Fixture: payment_parts
-#
-# payment_parts_001:
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   downpayment: true
-#   expense_id: 1
-#   expense_type: "Lorem ipsum"
-#   id: 1
-#   payment_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
 
+require 'test_helper'
+
+class SalePaymentPartTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  test "the truth" do
+    assert true
+  end
+end

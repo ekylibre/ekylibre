@@ -39,10 +39,11 @@
 #
 
 class Transfer < ActiveRecord::Base
+  attr_readonly :company_id, :comment
   belongs_to :company
   belongs_to :supplier, :class_name=>Entity.to_s
-  attr_readonly :company_id, :comment
-  has_many :payment_parts, :as=>:expense
+  belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
+  has_many :payment_parts, :as=>:expense, :class_name=>SalePaymentPart.name
 
   validates_presence_of :created_on
 

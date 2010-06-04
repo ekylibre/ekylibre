@@ -3,7 +3,7 @@
 - if @sale_order.amount_with_taxes > 0
   %h2=tc :payments
   =toolbar do |t|
-    -t.link :payment_part_create, :expense_type=>:sale_order, :expense_id=>@sale_order.id
+    -t.link :sale_payment_part_create, :expense_type=>:sale_order, :expense_id=>@sale_order.id
   =dyta :sale_order_payment_parts
 
 -if @sale_order.invoices.size>0

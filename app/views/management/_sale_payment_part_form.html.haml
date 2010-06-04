@@ -1,5 +1,5 @@
 =formalize do |f|
-  -f.field :payment_part, :downpayment
+  -f.field :sale_payment_part, :downpayment
   -f.field content_tag(:label, tc("new_payment"), :for=>:new_payment), check_box_tag(:new_payment, "1", true)
 
 #existing_payment
@@ -7,7 +7,7 @@
     -f.title tc(:select_existing_payment)
     -f.field tc(:unused_payment), select(:pay, :part, @expense.usable_payments.collect{|x| [tc(:payment_label, :amount=>x.amount.to_s, :date=>x.created_at.to_date, :mode=>x.mode.name, :usable_amount=>x.unused_amount.to_s, :entity=>x.entity.full_name, :number=>x.number), x.id]})
 
-#create_payment=render :partial=>'payment_form'
+#create_payment=render :partial=>'sale_payment_form'
 
 :javascript
   window.paymentToggle = function(){ toggleElement('create_payment', $('new_payment').checked, 'existing_payment'); };

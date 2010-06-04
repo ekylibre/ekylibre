@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: payment_modes
+# == Table: sale_payment_modes
 #
 #  account_id            :integer          
 #  cash_id               :integer          
@@ -27,11 +27,9 @@
 #  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
-#  direction             :string(64)       default("received"), not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(50)       not null
-#  nature                :string(16)       
 #  published             :boolean          
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
@@ -40,41 +38,11 @@
 #  with_embankment       :boolean          not null
 #
 
-class PaymentMode < ActiveRecord::Base
-  @@natures = [:card, :cash, :check, :other, :transfer] 
-  attr_readonly :company_id, :direction
-  belongs_to :account
-  belongs_to :cash
-  belongs_to :company
-  has_many :entities, :dependent=>:nullify
-  has_many :payments, :foreign_key=>:mode_id
-  validates_inclusion_of :direction, :in=>%w( received given )
-  validates_inclusion_of :nature, :in=>@@natures.collect{|x| x.to_s}
+require 'test_helper'
 
-  # validates_presence_of :account_id
-
-  def self.nature_label(nat)
-    tc('natures.'+nat.to_s)
+class SalePaymentModeTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  test "the truth" do
+    assert true
   end
-
-  def self.direction_label(dir)
-    tc('directions.'+dir.to_s)
-  end
-
-  def self.natures
-    @@natures.collect{|x| [nature_label(x), x]}
-  end
-
-  def nature_label
-    self.class.nature_label(self.nature)
-  end
-  
-  def embankable_payments
-    self.payments.find(:all, :conditions=>["embankment_id IS NULL AND entity_id!=?", self.company.entity_id])
-  end
-
-  def destroyable?
-    self.payments.size <= 0
-  end
-  
 end

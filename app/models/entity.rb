@@ -80,7 +80,7 @@ class Entity < ActiveRecord::Base
   belongs_to :company
   belongs_to :nature, :class_name=>EntityNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :payment_mode
+  belongs_to :payment_mode, :class_name=>SalePaymentMode.name
   belongs_to :proposer, :class_name=>Entity.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
@@ -93,13 +93,14 @@ class Entity < ActiveRecord::Base
   has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
-  has_many :payments
+  has_many :sale_payments, :foreign_key=>:payer_id
+  has_many :purchase_payments, :foreign_key=>:payee_id
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :trackings, :foreign_key=>:producer_id
   has_many :subscriptions
-  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>Payment.name
+  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>SalePayment.name
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
   validates_uniqueness_of :code, :scope=>:company_id
@@ -167,8 +168,8 @@ class Entity < ActiveRecord::Base
   
   #
   def balance
-    #payments = Payment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
-    payments = Payment.sum(:amount, :conditions=>{:company_id=>self.company_id, :entity_id=>self.id})
+    #payments = SalePayment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
+    payments = SalePayment.sum(:amount, :conditions=>{:company_id=>self.company_id, :payer_id=>self.id})
     invoices = Invoice.sum(:amount_with_taxes, :conditions=>{:company_id=>self.company_id, :client_id=>self.id})
     #invoices = Invoice.find_all_by_client_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
     #raise Exception.new.to_i.inspect
@@ -249,7 +250,7 @@ class Entity < ActiveRecord::Base
     if user
       event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
       event_natures.each do |event_nature|
-        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :user_id=>user.id)
+        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :responsible_id=>user.id)
       end
     end
   end

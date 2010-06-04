@@ -42,14 +42,14 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
-  has_many :payment_parts, :as=>:expense
+  has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>PurchasePaymentPart.name
 
   validates_presence_of :planned_on, :created_on
-  attr_readonly :company_id
 
   ## shipped used as received
 
@@ -106,15 +106,6 @@ class PurchaseOrder < ActiveRecord::Base
   def payments_sum
     self.payment_parts.sum(:amount)
   end
-
-  def editable
-    if self.amount_with_taxes == 0 
-      return true
-    else
-      return self.payments_sum != self.amount_with_taxes
-    end
-  end
-
   
   #this method saves the purchase in the accountancy module.
   def to_accountancy
@@ -135,7 +126,11 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
-  def editable
+  def destroyable?
+    self.updatable?
+  end
+
+  def updatable?
     if self.amount_with_taxes == 0 
       return true
     else

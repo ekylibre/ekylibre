@@ -80,19 +80,22 @@ class Company < ActiveRecord::Base
   has_many :operations
   has_many :operation_lines
   has_many :parameters
-  has_many :payments
-  has_many :payment_modes
-  has_many :payment_parts
   has_many :prices
   has_many :products, :order=>'active DESC, name'
   has_many :product_components
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
+  has_many :purchase_payments
+  has_many :purchase_payment_modes
+  has_many :purchase_payment_parts
   has_many :roles
   has_many :sale_orders
   has_many :sale_order_lines
   has_many :sale_order_natures
+  has_many :sale_payments
+  has_many :sale_payment_modes
+  has_many :sale_payment_parts
   has_many :sequences
   has_many :shapes, :order=>:name
   has_many :shelves, :order=>:name
@@ -115,19 +118,24 @@ class Company < ActiveRecord::Base
   # Specifics
   has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
-  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.minor_accounts.banks\').value.to_s+\'%\')}'
-  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.charges\').value.to_s+\'%\')}'
+  has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.banks\').value.to_s+\'%\')}'
+  has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
+  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.cashes\').value.to_s+\'%\')}'
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.charges\').value.to_s+\'%\')}'
   has_many :choice_complements, :class_name=>Complement.name, :conditions=>{:nature=>"choice"}, :order=>"name"
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.clients\').value.to_s+\'%\')}'
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :embankable_payments, :class_name=>Payment.name, :conditions=>{:embankment_id=>nil}
+  has_many :embankable_payments, :class_name=>SalePayment.name, :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment)'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
+  has_many :payments_to_embank, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment) AND to_bank_on >= CURRENT_DATE-14'
+  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.payments_to_embank\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
-  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.major_accounts.products\').value.to_s+\'%\')}'
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.third_accounts.suppliers\').value.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.suppliers\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
@@ -168,7 +176,7 @@ class Company < ActiveRecord::Base
   end
 
   def accountizing?
-    if parameter = self.parameter('accountancy.to_accountancy.automatic')
+    if parameter = self.parameter('accountancy.accountize.automatic')
       return true if parameter.value == true
     end
     return false
@@ -307,41 +315,6 @@ class Company < ActiveRecord::Base
     return list
   end
 
-  #   def checks_to_embank_on_update(embankment)
-  #     checks = []
-  #     for payment in self.payments
-  #       checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == embankment.mode_id) and (payment.embankment_id.nil? or payment.embankment_id == embankment.id) ) 
-  #     end
-  #     checks
-  #   end
-  
-  #  def checks_to_embank(mode_id)
-  #     checks = []
-  #     #raise Exception.new self.payments.inspect
-  #     for payment in self.payments
-  #       if mode_id == 0
-  #         checks << payment if ((payment.mode.mode == "check") and payment.embankment_id.nil?)
-  #       elsif mode_id == -1
-  #         checks << payment if ((payment.mode.mode == "check") and (payment.embankment_id.nil?) and Date.today >= (payment.to_bank_on+(15)) )
-  #       else
-  #         checks << payment if ((payment.mode.mode == "check") and (payment.mode_id == mode_id) and payment.embankment_id.nil?)
-  #       end
-  #     end
-  #     checks
-  #   end
-
-  def checks_to_embank(mode_id=0)
-    checks = []
-    finder = {:joins=>"INNER JOIN payment_modes p ON p.nature = 'check' AND p.id = payments.mode_id"}
-    if mode_id == 0 
-      checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL'] ))
-    elsif mode_id == -1
-      checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL AND current_date >= to_bank_on+14']))
-    else
-      checks = self.payments.find(:all, finder.merge(:conditions=>['embankment_id IS NULL AND mode_id = ?', mode_id]))
-    end
-    checks
-  end
 
   def embankments_to_lock
     embankments = []
@@ -371,19 +344,6 @@ class Company < ActiveRecord::Base
     return param.value
   end
 
-  def find_sales_journal
-    if self.sales_journal_id.nil?
-      journal_id = self.journals.find_by_nature("sale")
-      journal_id = Journal.create!(:company_id=>self.id, :nature=>"sale", :currency_id=>self.currencies(:first), :name=>tc(:sales), :code=>"V", :closed_on=>Date.today+(365)) if journal_id.nil?
-    else
-      journal_id = self.sales_journal_id
-    end
-    journal_id
-  end
-
-  #def usable_payments
-  # self.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"created_at desc")
-  #end
 
   def backup(options={})
     creator, with_prints = options[:creator], options[:with_prints]
@@ -661,7 +621,7 @@ class Company < ActiveRecord::Base
       # loading of all the templates
       company.load_prints
       
-      company.payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
+      company.sale_payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
       delays = []
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)

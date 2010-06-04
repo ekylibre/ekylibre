@@ -40,7 +40,7 @@
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
-#  nature       :string(16)       default("BankAccount"), not null
+#  nature       :string(16)       default("bank_account"), not null
 #  number       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          

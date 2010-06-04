@@ -4,7 +4,7 @@
   -product_id = f.field :purchase_order_line, :product_id, :choices=>{:reflection=>:products, :include_blank=>""}, :new=>{:action=>:product_create}
   -f.field :purchase_order_line, :quantity
   -#f.field :purchase_order_line, :unit_id, :choices=>[]
-
+  -@price ||= @purchase_order_line.price
   -if @price
     -f.field :price, :amount 
     -f.field :price, :tax_id ,:choices=>{:reflection=>:taxes}
@@ -12,5 +12,5 @@
     -f.field :purchase_order_line, :location_id, :choices=>{:reflection=>:locations}
   -f.field :purchase_order_line, :tracking_serial
 
+=hidden_field_tag :order_id, params[:order_id]
 =observe_field product_id, :url=>{:action => :price_find, :entity_id=>@purchase_order_line.order.supplier_id}, :frequency => 0.25, :with=>"purchase_order_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"
-

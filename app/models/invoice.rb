@@ -131,8 +131,8 @@ class Invoice < ActiveRecord::Base
         end
       end
       if saved
-        if self.company.parameter('accountancy.to_accountancy.automatic')
-          invoice.to_accountancy if self.company.parameter('accountancy.to_accountancy.automatic').value == true
+        if self.company.parameter('accountancy.accountize.automatic')
+          invoice.to_accountancy if self.company.parameter('accountancy.accountize.automatic').value == true
         end
       else
         raise ActiveRecord::Rollback

@@ -52,11 +52,10 @@
   -if @invoices_count>0
     -tb.tab(tc(:invoices, :count=>@invoices_count)) do |c|
       -c << dyta(:entity_invoices)
-  -#if @payments_count>0
   -tb.tab(tc(:payments, :count=>@payments_count)) do |c|
     -c << toolbar do
-      -link :payment_create,{:controller=>:management, :entity_id=>@entity.id}
-    -c << dyta(:entity_payments)
+      -link :sale_payment_create,{:controller=>:management, :payer_id=>@entity.id}
+    -c << dyta(:entity_sale_payments)
   -tb.tab(tc(:events, :count=>@events_count)) do |c|
     -c << toolbar do
       -link :event_create, :entity_id=>@entity.id

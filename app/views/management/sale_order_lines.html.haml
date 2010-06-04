@@ -6,10 +6,6 @@
       - t.link :sale_order_confirm, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_confirm)
     - if (@sale_order.amount_with_taxes > @sale_order.invoiced_amount and @sale_order.deliveries.size <= 0)
       - t.link :sale_order_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
-  -# if @sale_order.estimate?
-    -# t.link(:sale_order_update, {:id=>@sale_order.id})
-    -# t.link(:sale_order_line_create)
-  -# t.link :sale_order_print, :id=>@sale_order.id
   -t.print :sale_order, :id=>@sale_order.id
 
 %h2=tc :general
@@ -41,6 +37,7 @@
     - t.link(:sale_order_line_create)
 =render :partial=>"quick_line" if @sale_order.estimate?
 =dyta :sale_order_lines
+
 %table.dyta
   %tr.total
     %th=tc :amount

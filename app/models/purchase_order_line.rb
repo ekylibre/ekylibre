@@ -63,7 +63,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     if self.price
       product = self.price.product
       if product.purchases_account.nil?
-        account_number = self.company.parameter("accountancy.major_accounts.charges").value
+        account_number = self.company.parameter("accountancy.accounts.charges").value
         product.purchases_account = self.company.accounts.find_by_number(account_number.to_s)
         product.purchases_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('parameters.accountancy.major_accounts.charges')) if product.purchases_account.nil?
         product.save!

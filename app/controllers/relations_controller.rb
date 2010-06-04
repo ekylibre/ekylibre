@@ -374,7 +374,7 @@ class RelationsController < ApplicationController
     t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_payments, :model=>:payments, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     #t.column :id, :url=>{:controller=>:management, :action=>:payment}
     t.column :number, :url=>{:controller=>:management, :action=>:payment}
     t.column :paid_on
@@ -386,8 +386,8 @@ class RelationsController < ApplicationController
     t.column :parts_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:payment}
     t.column :number, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}
-    t.action :payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
-    t.action :payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :sale_payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
+    t.action :sale_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
 
@@ -410,7 +410,7 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
-    t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.editable'
+    t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   def entity
@@ -420,7 +420,7 @@ class RelationsController < ApplicationController
     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
     @key = ""
     @invoices_count = @entity.invoices.size
-    @payments_count = @entity.payments.size
+    @payments_count = @entity.sale_payments.size
     # @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
@@ -438,8 +438,8 @@ class RelationsController < ApplicationController
   def entity_create
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    # @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.clients').value.to_s+'%'])
-    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.third_accounts.suppliers').value.to_s+'%'])
+    # @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.accounts.clients').value.to_s+'%'])
+    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.accounts.suppliers').value.to_s+'%'])
     
     if request.post?
       @entity = Entity.new(params[:entity])

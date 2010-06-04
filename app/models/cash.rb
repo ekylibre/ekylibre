@@ -40,14 +40,14 @@
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
-#  nature       :string(16)       default("BankAccount"), not null
+#  nature       :string(16)       default("bank_account"), not null
 #  number       :string(255)      
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
 class Cash < ActiveRecord::Base
-  attr_readonly :company_id
+  attr_readonly :company_id, :nature
   belongs_to :account
   belongs_to :company
   belongs_to :currency
@@ -55,11 +55,14 @@ class Cash < ActiveRecord::Base
   belongs_to :journal
   has_many :embankments
   has_many :statements, :class_name=>BankStatement.name
+  has_many :bank_statements
+  has_many :payment_modes
   validates_inclusion_of :mode, :in=>%w( bban iban )
   validates_uniqueness_of :account_id
 
   #validates_presence_of :bank_name
-    
+  @@natures = ["bank_account", "cash_box"]
+  @@modes = ["iban", "bban"]
   @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
   
   COUNTRY_CODE_FR="FR"
@@ -76,10 +79,12 @@ class Cash < ActiveRecord::Base
   
   # IBAN have to be checked before saved.
   def validate
-    if self.use_mode?(:bban)
-      errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(COUNTRY_CODE_FR, self.attributes)
+    if self.bank_account?
+      if self.use_mode?(:bban)
+        errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(COUNTRY_CODE_FR, self.attributes)
+      end
+      errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
     end
-    errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
   end
 
   def destroyable?
@@ -87,14 +92,34 @@ class Cash < ActiveRecord::Base
   end
 
 
+  def bank_account?
+    self.nature.to_s == "bank_account"
+  end
+
   def use_mode?(value=:iban)
     self.mode.to_s.lower == value.to_s.lower
   end
 
+
+
   # this method returns an array .
   def self.modes
-    ["iban", "bban"].collect{|x| [tc(x.to_s), x] }
+    @@modes.collect{|x| [tc('modes.'+x.to_s), x] }
   end
+
+  def self.nature_label(name)
+    tc('natures.'+name.to_s)
+  end
+
+  def nature_label
+    self.class.nature_label(self.nature.to_s)
+  end
+
+  def self.natures
+    @@natures.collect{|x| [self.nature_label(x), x] }
+  end
+
+
 
   
   #this method checks if the BBAN is valid.
@@ -123,6 +148,8 @@ class Cash < ActiveRecord::Base
   
   #this method checks if the IBAN is valid.
   def self.valid_iban?(iban) 
+    iban = iban.to_s
+    return false unless iban.length > 4
     str = iban[4..iban.length]+iban[0..1]+"00" 
         
     # test the iban key

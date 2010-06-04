@@ -1,0 +1,27 @@
+=formalize do |f|
+  -f.error :sale_payment_mode
+  -f.title :general
+  -f.field :sale_payment_mode, :name
+  -f.field :sale_payment_mode, :with_accounting, :onchange=>"toggleAccountancy();"
+
+#accountancy
+  =formalize do |f|
+    -f.title :accountancy
+    -f.field :sale_payment_mode, :with_embankment, :onchange=>"toggleEmbankment();"
+    -f.field :sale_payment_mode, :account_id, :choices=>{:reflection=>:payments_to_embank_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.payments_to_embank").value}, :resize=>true, :html_options=>{:id=>"sale_payment_mode_account"}
+    -f.field :sale_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}, :html_options=>{:id=>"sale_payment_mode_cash"}
+    -f.field :sale_payment_mode, :with_commission, :onchange=>"toggleCommission();"
+
+  #commission
+    =formalize do |f|
+      -f.title :commission
+      -f.field :sale_payment_mode, :commission_percent
+      -f.field :sale_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.charges").value}, :resize=>true
+
+:javascript
+  window.toggleAccountancy = function() { toggleElement('accountancy', $('sale_payment_mode_with_accounting').checked); }
+  toggleAccountancy();
+  window.toggleCommission = function() { toggleElement('commission', $('sale_payment_mode_with_commission').checked); }
+  toggleCommission();
+  window.toggleEmbankment = function() { toggleElement('sale_payment_mode_account', $('sale_payment_mode_with_embankment').checked, 'sale_payment_mode_cash'); }
+  toggleEmbankment();

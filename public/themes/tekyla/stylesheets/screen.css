@@ -396,8 +396,8 @@ fieldset.quick-add { color: #008; }
 .journals .journal { padding: 4px 8px; height: 48px; background: #EEE; border: 1px solid #DDD; overflow: auto;}
 .journals .journal .journal-detail { font-size: 11px; color: #777}
 .journals .journal.bank { background: #DEF; }
-.journals .journal.sale { background: #DFE; }
-.journals .journal.purchase { background: #FED; }
+.journals .journal.sales { background: #DFE; }
+.journals .journal.purchases { background: #FED; }
 
 
 tbody.lines td input { width: 95%; }

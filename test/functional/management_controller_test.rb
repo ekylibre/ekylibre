@@ -10,6 +10,7 @@ class ManagementControllerTest < ActionController::TestCase
                    :sale_order_deliveries=>:select, 
                    :sale_order_lines=>:select, 
                    :sale_order_line_create=>{:order_id=>1},
+                   :sale_order_create=>{:entity_id=>1},
                    :delivery_create=>{:order_id=>3},
                    :delivery_update=>{:id=>1},
                    :purchase_order_summary=>:select, 

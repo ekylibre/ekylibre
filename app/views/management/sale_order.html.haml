@@ -38,7 +38,7 @@
 -if @sale_order.payment_parts.count > 0
   %h2= tc 'payments'
   =toolbar do |t|
-    -t.link :payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
+    -t.link :sale_payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
   =dyta :sale_order_payments
 
 -if @sale_order.subscriptions.count>0
