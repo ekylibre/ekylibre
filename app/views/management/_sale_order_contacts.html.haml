@@ -1,0 +1,6 @@
+-client ||= @sale_order.client
+-if client
+  =formalize do |f| 
+    -f.field :sale_order, :contact_id,          :choices=>:client_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}
+    -f.field :sale_order, :delivery_contact_id, :choices=>:client_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}
+    -f.field :sale_order, :invoice_contact_id,  :choices=>:client_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}

@@ -1,0 +1,23 @@
+=toolbar do |t|
+  -t.link :cash_update, :id=>@cash.id
+
+%table
+  %tr
+    %td
+      =evalue @cash, :name
+      =evalue @cash, :nature_label
+      =evalue @cash, :journal, :url=>{:action=>:journal}
+      =evalue @cash, :account, :url=>{:action=>:account}
+    -if @cash.bank_account?
+      %td
+        =evalue @cash, :iban_label
+        =evalue @cash, :bic
+        -if @cash.use_mode? :bban
+          =evalue @cash, :bank_code
+          =evalue @cash, :agency_code
+          =evalue @cash, :number
+          =evalue @cash, :key
+
+=tabbox(:cash) do |tb|
+  -tb.tab(:embankments,     :content=>dyta(:cash_embankments))
+  -tb.tab(:bank_statements, :content=>dyta(:cash_bank_statements)) if @cash.bank_account?
