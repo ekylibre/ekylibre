@@ -7,6 +7,11 @@ fra:
   helpers:
     accountancy:
       all_accounts: 'Tous les comptes'
+      all_periods: 'Tous les exercices'
+      month_period: '{{code}} - {{month}} {{year}}'
+      view_entries: 'Écritures'
+      view_mixed: 'Pièces et écritures'
+      view_records: 'Pièces'
   views:
     accountancy:
       account:
@@ -168,10 +173,12 @@ fra:
           zero: 'Aucune écriture'
         title: 'Comptabilité générale'
       journal:
-        end: 'au'
+        filter_entries_with: 'Filtrer les écritures avec' #!
+        interval: 'Intervalle'
         journal_update: 'Modifier le journal'
-        search: 'Rechercher des pièces/écritures'
-        start: 'du'
+        manual_period: 'du {{start}} au {{finish}}'
+        period: 'Période'
+        search: 'Rechercher des pièces/écritures' #!
         title: '{{name}} ({{code}})'
         #>journal_record_create: # Potentially missing translation
       journal_close:
@@ -197,12 +204,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      _journals:
-        journal_detail: 'Cloturé au {{closed_on}}'
-        journal_name: '{{name}}'
       journals:
         title: 'Journaux'
         #>journal_create: # Potentially missing translation
+      _journals:
+        journal_detail: 'Cloturé au {{closed_on}}'
+        journal_name: '{{name}}'
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'

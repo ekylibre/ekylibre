@@ -20,30 +20,31 @@
 # 
 # == Table: sale_payments
 #
-#  account_number :string(255)      
-#  accounted_at   :datetime         
-#  amount         :decimal(16, 2)   not null
-#  bank           :string(255)      
-#  check_number   :string(255)      
-#  company_id     :integer          not null
-#  created_at     :datetime         not null
-#  created_on     :date             
-#  creator_id     :integer          
-#  embanker_id    :integer          
-#  embankment_id  :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  mode_id        :integer          not null
-#  number         :string(255)      
-#  paid_on        :date             
-#  parts_amount   :decimal(16, 2)   
-#  payer_id       :integer          
-#  receipt        :text             
-#  received       :boolean          default(TRUE), not null
-#  scheduled      :boolean          not null
-#  to_bank_on     :date             default(CURRENT_DATE), not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  account_number    :string(255)      
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 2)   not null
+#  bank              :string(255)      
+#  check_number      :string(255)      
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  embanker_id       :integer          
+#  embankment_id     :integer          
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  paid_on           :date             
+#  parts_amount      :decimal(16, 2)   
+#  payer_id          :integer          
+#  receipt           :text             
+#  received          :boolean          default(TRUE), not null
+#  scheduled         :boolean          not null
+#  to_bank_on        :date             default(CURRENT_DATE), not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class SalePayment < ActiveRecord::Base
@@ -52,6 +53,7 @@ class SalePayment < ActiveRecord::Base
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
   belongs_to :embankment
+  belongs_to :journal_record
   # belongs_to :entity
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>SalePaymentMode.name
@@ -92,16 +94,16 @@ class SalePayment < ActiveRecord::Base
 
   # Create initial journal record
   def after_create
-    #self.to_accountancy if self.company.accountizing?
+    self.to_accountancy if self.company.accountizing?
   end
 
   # Add journal records in order to correct accountancy
   def before_update
-    #self.to_accountancy(:update) if self.company.accountizing?
+    self.to_accountancy(:update) if self.company.accountizing?
   end
 
   def before_destroy
-    #self.to_accountancy(:delete) if self.company.accountizing?
+    self.to_accountancy(:delete) if self.company.accountizing?
   end
   
   def after_update
@@ -138,78 +140,77 @@ class SalePayment < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   # The options :old permits to cancel the old existing record by adding counter-entries
-  def to_accountancy2(mode=:create, options={})
-    raise Exception.new("Unvalid mode #{mode.inspect}") unless [:create, :update, :delete].include? mode
-    journal = self.company.journal(mode == :create ? :bank : :various)
-    record = journal.records.create!(:resource=>self, :printed_on=>self.created_on)
+  def to_accountancy(action=:create, options={})
+    mode = self.mode
+    raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
+    journal = self.company.journal(:bank) # (action == :create ? :bank : :various)
     # Add counter-entries
-    if mode != :create
-      old = self.class.find_by_id(self.id)      
-      if old.given?
-        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account.id, old.amount)
-        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:supplier).id, old.amount)
-      else
-        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:client).id, old.amount)
-        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account_id, old.amount)
-      end    
-    end
-    # Add entries
-    if mode != :delete
-      if self.given?
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:supplier).id, self.amount)
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account.id, self.amount)
-      else
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
-      end    
-    end
-
-    self.update_attribute(:accounted_at, Time.now)      
+    ActiveRecord::Base.transaction do
+      if action != :create and not self.journal_record.nil?
+        if self.journal_record.draft?
+          self.journal_record.entries.destroy_all
+        else
+          self.journal_record.cancel
+            self.journal_record = nil
+        end
+      end
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on)
+      # Add entries
+      if action != :delete
+        self.journal_record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
+        if mode.with_embankment?
+          self.journal_record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)        
+        else
+          self.journal_record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
+        end
+      end
+      self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
+    end if mode.with_accounting?
   end
 
 
- #this method accountizes the payment.
-  def to_accountancy
-    financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
+  #this method accountizes the payment.
+#   def to_accountancy
+#     financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+Date.today.to_s+'%', false])
     
-    journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ?', 'bank'])
+#     journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ?', 'bank'])
    
-    unless financialyear.nil? or journal_bank.nil?
-      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
+#     unless financialyear.nil? or journal_bank.nil?
+#       record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.created_on, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
       
-      mode_account_id = self.mode.account_id
-      mode_account = self.mode.account.name
+#       mode_account_id = self.mode.account_id
+#       mode_account = self.mode.account.name
       
-      account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%']).id
-      bank_name = (self.mode.cash_id ? (self.mode.cash.bank_name || 'Banque') : 'Banque')
+#       account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%']).id
+#       bank_name = (self.mode.cash_id ? (self.mode.cash.bank_name || 'Banque') : 'Banque')
 
      
-      self.parts.each do |part|
+#       self.parts.each do |part|
             
-        if [:SaleOrder].include? part.expense_type.to_sym
-          client_id =  self.payer.client_account_id || self.payer.reload.update_attribute(:client_account_id, self.payer.create_update_account(:client).id)
-        end
+#         if [:SaleOrder].include? part.expense_type.to_sym
+#           client_id =  self.payer.client_account_id || self.payer.reload.update_attribute(:client_account_id, self.payer.create_update_account(:client).id)
+#         end
         
-        if [:PurchaseOrder].include? part.expense_type.to_sym
-          supplier_id =  self.payer.supplier_account_id || self.payer.reload.update_attribute(:supplier_account_id, self.payer.create_update_account(:supplier).id) 
-        end
+#         if [:PurchaseOrder].include? part.expense_type.to_sym
+#           supplier_id =  self.payer.supplier_account_id || self.payer.reload.update_attribute(:supplier_account_id, self.payer.create_update_account(:supplier).id) 
+#         end
         
-        if [:Transfer].include? part.expense_type.to_sym
-          transfer_id = part.transfer.supplier.supplier_account_id || self.payer.reload.update_attribute(:supplier_account_id, self.payer.create_update_account(:supplier).id) 
-        end
+#         if [:Transfer].include? part.expense_type.to_sym
+#           transfer_id = part.transfer.supplier.supplier_account_id || self.payer.reload.update_attribute(:supplier_account_id, self.payer.create_update_account(:supplier).id) 
+#         end
         
-        record.add_credit(self.payer.full_name, client_id, part.amount, :draft=>true) if client_id
-        record.add_debit(self.payer.full_name, supplier_id, part.amount, :draft=>true) if supplier_id
+#         record.add_credit(self.payer.full_name, client_id, part.amount, :draft=>true) if client_id
+#         record.add_debit(self.payer.full_name, supplier_id, part.amount, :draft=>true) if supplier_id
                 
-        record.add_debit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if client_id
-        record.add_credit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if supplier_id
+#         record.add_debit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if client_id
+#         record.add_credit(bank_name, (self.account_id.nil? ? account_bank_id : self.account_id), part.amount, :draft=>true) if supplier_id
         
-        record.add_debit(mode_account, mode_account_id, part.amount, :draft=>true)
-        record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true)
-      end
+#         record.add_debit(mode_account, mode_account_id, part.amount, :draft=>true)
+#         record.add_credit(mode_account, mode_account_id, part.amount, :draft=>true)
+#       end
    
-      self.update_attribute(:accounted_at, Time.now)
-    end
-  end
+#       self.update_attribute(:accounted_at, Time.now)
+#     end
+#   end
   
 end

@@ -335,9 +335,10 @@ class SaleOrder < ActiveRecord::Base
     self.letter_format and self.estimate? 
   end
 
-  def need_check?
-    self.letter? and self.nature.payment_type == "check"
-  end
+  # Conserved (retro-compability with document templates)
+  #   def need_check?
+  #     self.letter? and self.nature.payment_type == "check"
+  #   end
 
   def address
     a = self.client.full_name+"\n"

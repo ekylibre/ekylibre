@@ -20,34 +20,31 @@
 # 
 # == Table: sale_order_natures
 #
-#  active              :boolean          default(TRUE), not null
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  downpayment         :boolean          not null
-#  downpayment_minimum :decimal(16, 2)   default(0.0), not null
-#  downpayment_rate    :decimal(16, 2)   default(0.0), not null
-#  expiration_id       :integer          not null
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  payment_delay_id    :integer          not null
-#  payment_type        :string(8)        
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
+#  active                  :boolean          default(TRUE), not null
+#  comment                 :text             
+#  company_id              :integer          not null
+#  created_at              :datetime         not null
+#  creator_id              :integer          
+#  downpayment             :boolean          not null
+#  downpayment_minimum     :decimal(16, 2)   default(0.0), not null
+#  downpayment_rate        :decimal(16, 2)   default(0.0), not null
+#  expiration_id           :integer          not null
+#  id                      :integer          not null, primary key
+#  lock_version            :integer          default(0), not null
+#  name                    :string(255)      not null
+#  payment_delay_id        :integer          not null
+#  payment_mode_complement :text             
+#  payment_mode_id         :integer          
+#  updated_at              :datetime         not null
+#  updater_id              :integer          
 #
 
 class SaleOrderNature < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :payment_delay, :class_name=>Delay.to_s
+  belongs_to :payment_mode, :class_name=>SalePaymentMode.name
   belongs_to :expiration, :class_name=>Delay.to_s
   has_many :sale_orders
-
-  def self.payment_types
-    [:card, :cash, :check,  :none, :transfer].collect{|x| [tc('payment_types.'+x.to_s), x] }
-  end
-  
 
 end

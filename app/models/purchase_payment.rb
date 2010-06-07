@@ -20,24 +20,25 @@
 # 
 # == Table: purchase_payments
 #
-#  accounted_at   :datetime         
-#  amount         :decimal(16, 2)   default(0.0), not null
-#  check_number   :string(255)      
-#  company_id     :integer          not null
-#  created_at     :datetime         not null
-#  created_on     :date             
-#  creator_id     :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  mode_id        :integer          not null
-#  number         :string(255)      
-#  paid_on        :date             
-#  parts_amount   :decimal(16, 2)   default(0.0), not null
-#  payee_id       :integer          not null
-#  responsible_id :integer          not null
-#  to_bank_on     :date             not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  check_number      :string(255)      
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  paid_on           :date             
+#  parts_amount      :decimal(16, 2)   default(0.0), not null
+#  payee_id          :integer          not null
+#  responsible_id    :integer          not null
+#  to_bank_on        :date             not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class PurchasePayment < ActiveRecord::Base
@@ -92,6 +93,39 @@ class PurchasePayment < ActiveRecord::Base
       return false
     end
     return true
+  end
+
+
+  # This method permits to add journal entries corresponding to the payment
+  # It depends on the parameter which permit to activate the "automatic accountizing"
+  # The options :old permits to cancel the old existing record by adding counter-entries
+  def to_accountancy(mode=:create, options={})
+    raise Exception.new("Unvalid mode #{mode.inspect}") unless [:create, :update, :delete].include? mode
+    journal = self.company.journal(mode == :create ? :bank : :various)
+    record = journal.records.create!(:resource=>self, :printed_on=>self.created_on)
+    # Add counter-entries
+    if mode != :create
+      old = self.class.find_by_id(self.id)      
+      if old.given?
+        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account.id, old.amount)
+        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:supplier).id, old.amount)
+      else
+        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:client).id, old.amount)
+        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account_id, old.amount)
+      end    
+    end
+    # Add entries
+    if mode != :delete
+      if self.given?
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:supplier).id, self.amount)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account.id, self.amount)
+      else
+        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
+        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
+      end    
+    end
+
+    self.update_attribute(:accounted_at, Time.now)      
   end
 
 

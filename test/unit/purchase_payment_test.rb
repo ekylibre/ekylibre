@@ -20,24 +20,25 @@
 # 
 # == Table: purchase_payments
 #
-#  accounted_at   :datetime         
-#  amount         :decimal(16, 2)   default(0.0), not null
-#  check_number   :string(255)      
-#  company_id     :integer          not null
-#  created_at     :datetime         not null
-#  created_on     :date             
-#  creator_id     :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  mode_id        :integer          not null
-#  number         :string(255)      
-#  paid_on        :date             
-#  parts_amount   :decimal(16, 2)   default(0.0), not null
-#  payee_id       :integer          not null
-#  responsible_id :integer          not null
-#  to_bank_on     :date             not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  check_number      :string(255)      
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  paid_on           :date             
+#  parts_amount      :decimal(16, 2)   default(0.0), not null
+#  payee_id          :integer          not null
+#  responsible_id    :integer          not null
+#  to_bank_on        :date             not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 require 'test_helper'

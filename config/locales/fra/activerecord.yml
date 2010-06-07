@@ -35,6 +35,8 @@ fra:
           too_long: '{{field}} est trop long ({{length}} caractères)'
         delivery_line:
           greater_than_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité non livrée ({{maximum}}{{unit}})'
+        embankment:
+          must_be_a_bank_account: '{{field}} doit être un compte bancaire et non une caisse'
         entity:
           missing_title: '{{attribute}} doit contenir la dénomination sociale "{{title}}"'
           nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
@@ -1298,6 +1300,8 @@ fra:
       journal_entry:
         account: 'Compte'
         account_id: 'Compte'
+        bank_statement: 'Relevés de compte bancaire'
+        bank_statement_id: 'Relevé de compte bancaire'
         closed: 'Cloturée'
         comment: 'Commentaire'
         company: 'Société'
@@ -1327,14 +1331,15 @@ fra:
         position: 'Position'
         record: 'Pièce comptable'
         record_id: 'Pièce comptable'
-        statement: 'Relevé de compte'
-        statement_id: 'Relevé de compte'
+        statement: 'Relevé de compte' #?
+        statement_id: 'Relevé de compte' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
       # Pièce comptable
       journal_record:
+        always_draft: (((ALWAYS_DRAFT)))
         closed: 'Fermé'
         company: 'Société'
         company_id: 'Société'
@@ -1349,6 +1354,7 @@ fra:
         currency_id: 'Devise'
         currency_rate: 'Taux de change'
         debit: 'Débit'
+        draft: (((DRAFT)))
         entries: 'Écritures'
         financialyear: 'Exercices'
         id: 'ID'
@@ -1361,7 +1367,7 @@ fra:
         resource: 'Origine'
         resource_id: 'Origine'
         resource_type: 'Origine'
-        status: 'État'
+        status: 'État' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1862,6 +1868,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         mode: 'Mode de règlement'
         mode_id: 'Mode de règlement'
@@ -1908,11 +1915,11 @@ fra:
         downpayment: 'Acompte'
         expense: 'Dépense'
         expense_id: 'Dépense'
-        payment_way: 'Mode de règlement'
         id: 'ID'
         lock_version: 'Version'
         payment: 'Règlement'
         payment_id: 'Règlement'
+        payment_way: 'Mode de règlement'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -2090,6 +2097,8 @@ fra:
         embankment: 'Encaissement'
         embankment_id: 'Encaissement'
         id: 'ID'
+        journal_record: 'Pièces comptables'
+        journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         mode: 'Mode de paiement'
         mode_id: 'Mode de paiement'

@@ -73,18 +73,19 @@ class NormalizeAccountizing < ActiveRecord::Migration
     end
     
     create_table :purchase_payments do |t|
-      t.column :accounted_at,  :datetime         
-      t.column :amount,        :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :check_number,  :string
-      t.column :created_on,    :date             
-      t.column :responsible_id,:integer, :null=>false
-      t.column :payee_id,      :integer, :null=>false
-      t.column :mode_id,       :integer, :null=>false
-      t.column :number,        :string
-      t.column :paid_on,       :date             
-      t.column :parts_amount,  :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :to_bank_on,    :date,    :null=>false
-      t.column :company_id,    :integer, :null=>false
+      t.column :accounted_at,      :datetime         
+      t.column :amount,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :check_number,      :string
+      t.column :created_on,        :date             
+      t.column :journal_record_id, :integer
+      t.column :responsible_id,    :integer, :null=>false
+      t.column :payee_id,          :integer, :null=>false
+      t.column :mode_id,           :integer, :null=>false
+      t.column :number,            :string
+      t.column :paid_on,           :date             
+      t.column :parts_amount,      :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :to_bank_on,        :date,    :null=>false
+      t.column :company_id,        :integer, :null=>false
     end
     
 
@@ -167,16 +168,22 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :journal_entries, :currency_rate
     remove_column :journal_entries, :currency_id
     remove_column :journal_entries, :intermediate_id
+    rename_column :journal_entries, :statement_id, :bank_statement_id
     
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
     remove_column :journal_records, :financialyear_id
+    remove_column :journal_records, :status
     add_column :journal_records, :currency_debit,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :journal_records, :currency_credit, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :journal_records, :currency_rate,   :decimal, :precision=>16, :scale=>6, :default=>0.0, :null=>false
     add_column :journal_records, :currency_id,     :integer, :default=>0, :null=>false
+    add_column :journal_records, :always_draft,    :boolean, :default=>false, :null=>false
+    add_column :journal_records, :draft,           :boolean, :default=>false, :null=>false
     if (currencies=select_all("SELECT * FROM currencies")).size > 0
       execute "UPDATE journal_records SET currency_debit=debit, currency_credit=credit, currency_rate=1, currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
+    execute "UPDATE journal_records SET draft=#{quoted_true}, always_draft=#{quoted_true} WHERE id in (SELECT record_id FROM journal_entries WHERE draft=#{quoted_true})"
+    execute "UPDATE journal_entries SET draft=#{quoted_true} WHERE record_id in (SELECT id FROM journal_records WHERE draft=#{quoted_true})"
 
     add_column :listings, :source, :text
 
@@ -197,20 +204,21 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :sale_payment_modes, :mode
     execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes" 
 
-    execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id) SELECT amount, downpayment, expense_id, payment_id, company_id FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
+    execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at) SELECT amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     remove_column :sale_payment_parts, :invoice_id
 
     remove_column :sale_payments, :account_id
     rename_column :sale_payments, :entity_id, :payer_id
     add_column :sale_payments, :receipt, :text
+    add_column :sale_payments, :journal_record_id, :integer
     suppliers=select_all("SELECT payment_id, supplier_id FROM purchase_payment_parts JOIN purchase_orders ON (expense_id=purchase_orders.id)")
     suppliers=(suppliers.size>0 ?  "CASE "+suppliers.collect{|l| "WHEN id=#{l['payment_id']} THEN #{l['supplier_id']}"}.join(" ")+" ELSE 0 END" : "0")
     modes=select_all("SELECT a.id AS o, b.id AS n FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
     modes=(modes.size>0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['o']} THEN #{l['n']}"}.join(" ")+" ELSE 0 END" : '0')
     purchase_cond = "id IN (SELECT payment_id FROM purchase_payment_parts)"
-    execute "INSERT INTO purchase_payments(id, accounted_at, amount, check_number, created_on, responsible_id, mode_id, number, paid_on, parts_amount, to_bank_on, company_id, payee_id)"+
-                                  " SELECT id, accounted_at, amount, check_number, created_on, embanker_id,   #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, #{suppliers} FROM sale_payments WHERE #{purchase_cond}"
+    execute "INSERT INTO purchase_payments(id, accounted_at, amount, check_number, created_on, responsible_id, mode_id, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, payee_id)"+
+                                  " SELECT id, accounted_at, amount, check_number, created_on, embanker_id,   #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM sale_payments WHERE #{purchase_cond}"
     execute "DELETE FROM sale_payments WHERE #{purchase_cond}"
     reset_sequence! :purchase_payments, :id
 
@@ -284,18 +292,22 @@ class NormalizeAccountizing < ActiveRecord::Migration
     # change_column :products, :code, :string, :limit=>16
 
     # Work only if last migration !!!!
+    add_column :sale_payments, :old_id, :integer
     suppliers=select_all("SELECT id, entity_id from companies")
     suppliers=(suppliers.size > 0 ? "CASE "+suppliers.collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END" : '0')
     modes=select_all("SELECT a.id AS n, b.id AS o FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
     modes=(modes.size > 0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['n']} THEN #{l['o']}"}.join(" ")+" ELSE 0 END" : '0')
-    execute "INSERT INTO sale_payments(id, accounted_at, amount, check_number, created_on, embanker_id,     mode_id, number, paid_on, parts_amount, to_bank_on, company_id, payer_id)"+
-                              " SELECT id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, #{suppliers} FROM purchase_payments"
+    execute "INSERT INTO sale_payments(old_id, accounted_at, amount, check_number, created_on, embanker_id,     mode_id, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, payer_id)"+
+                              " SELECT     id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM purchase_payments"
+    remove_column :sale_payments, :journal_record_id
     remove_column :sale_payments, :receipt
     rename_column :sale_payments, :payer_id, :entity_id
     add_column :sale_payments, :account_id, :integer
 
     add_column :sale_payment_parts, :invoice_id, :integer
-    execute "INSERT INTO sale_payment_parts(amount, downpayment, expense_type, expense_id, payment_id, company_id) SELECT amount, downpayment, 'PurchaseOrder', expense_id, payment_id, company_id FROM purchase_payment_parts"
+    execute "INSERT INTO sale_payment_parts(amount,   downpayment,    expense_type, expense_id, payment_id,   company_id,   created_at,   updated_at)"+
+                                    "SELECT p.amount, downpayment, 'PurchaseOrder', expense_id,      sp.id, p.company_id, p.created_at, p.updated_at FROM purchase_payment_parts AS p JOIN sale_payments AS sp ON (old_id=payment_id)"
+    remove_column :sale_payments, :old_id
 
     add_column :sale_payment_modes, :mode,   :string, :null=>false, :default=>'check'
     add_column :sale_payment_modes, :nature, :string, :null=>false, :default=>"U", :limit=>1
@@ -314,15 +326,19 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :listings, :source
 
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
+    remove_column :journal_records, :draft
+    remove_column :journal_records, :always_draft
     remove_column :journal_records, :currency_id
     remove_column :journal_records, :currency_rate
     remove_column :journal_records, :currency_credit
     remove_column :journal_records, :currency_debit
+    add_column :journal_records, :status, :string, :null=>false, :default=>"A", :limit=>1
     add_column :journal_records, :financialyear_id, :integer
     if (financialyears=select_all("SELECT * FROM financialyears")).size > 0
       execute "UPDATE journal_records SET financialyear_id=CASE "+financialyears.collect{|l| "WHEN company_id=#{l['company_id']} AND printed_on BETWEEN #{quote(l['started_on'].to_date)} AND #{quote(l['stopped_on'].to_date)} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
     
+    rename_column :journal_entries, :bank_statement_id, :statement_id
     add_column :journal_entries, :intermediate_id, :integer
     add_column :journal_entries, :currency_id, :integer, :null=>false, :default=>0
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0

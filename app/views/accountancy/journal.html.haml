@@ -2,6 +2,7 @@
 =toolbar do |t|
   -t.link :journal_update, :id=>@journal.id
   -t.link :journal_record_create, :id=>@journal.id
+
 %table
   %tr
     %td
@@ -12,17 +13,24 @@
       =evalue @journal, :nature_label
       =evalue @journal, :currency
 
-%h2=Journal.human_attribute_name("records")
 .search
-  - form_tag(:action=>:journal, :id=>@journal.id) do
+  - form_tag({:action=>:journal, :id=>@journal.id}, :method=>:get) do
     %table
       %tr
-        -#%td.label=tc(:search)
-        -#%td.field=text_field_tag :key, session[:journal_record_key]
-        %td.label=tc(:start)
-        %td.field=calendar_field_tag(:start, session[:journal_record_start], :size=>8)
-        %td.label=tc(:end)
-        %td.field=calendar_field_tag(:end, session[:journal_record_end], :size=>8)
-        %td.submit=submit_tag tg(:search_go)
+        %td
+          =radio_button_tag("period_mode", "automatic", (params[:period_mode] == "automatic"))
+          %label{:for=>"period_mode_automatic"}=tc(:period)
+          =select_tag("period", journal_periods_tag(params[:period]))
+        %td
+          =radio_button_tag("period_mode", "manual", (params[:period_mode].nil? ? true : params[:period_mode] == "manual"))
+          %label{:for=>"period_mode_manual"}=tc(:interval)
+          =tc(:manual_period, :start=>calendar_field_tag(:start, session[:journal_record_start], :size=>8), :finish=>calendar_field_tag(:finish, session[:journal_record_finish], :size=>8))
+        %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
 
-=dyta(:journal_records)
+=journal_view_tag
+-if @journal_view == :entries
+  =dyta(:journal_entries)
+-elsif @journal_view == :records
+  =dyta(:journal_records)
+-elsif @journal_view == :mixed
+  =dyta(:journal_mixed)

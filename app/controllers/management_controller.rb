@@ -1591,7 +1591,7 @@ class ManagementController < ApplicationController
     t.column :number, :url=>{:action=>:embankment}
     t.column :amount, :url=>{:action=>:embankment}
     t.column :payments_count
-    t.column :name, :through=>:cash
+    t.column :name, :through=>:cash, :url=>{:action=>:cash, :controller=>:accountancy}
     t.column :label, :through=>:embanker
     t.column :created_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:embankment}

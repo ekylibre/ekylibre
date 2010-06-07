@@ -40,23 +40,21 @@
 #
 
 class Embankment < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
-  belongs_to :mode, :class_name=>SalePaymentMode.to_s
-  has_many   :payments, :dependent=>:nullify, :order=>"created_at"
+  belongs_to :mode, :class_name=>SalePaymentMode.name
+  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"created_at"
 
-  validates_presence_of :embanker_id, :number, :cash_id
+  validates_presence_of :embanker, :number, :cash
 
-  attr_readonly :company_id
+  def before_validation_on_update
+    self.payments_count = self.payments.count
+    self.amount = self.payments.sum(:amount)
+  end
 
   def before_validation
-    if !self.id.nil?
-      payments = SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
-      self.payments_count = payments.size
-      self.amount = payments.sum{|p| p.amount}
-    end
-
     specific_numeration = self.company.parameter("management.embankments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
@@ -64,17 +62,14 @@ class Embankment < ActiveRecord::Base
       last = self.company.embankments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
     end
-
   end
 
-  
-  def before_destroy
-    for check in self.checks
-      check.update_attributes(:embankment_id=>nil)
+  def validate
+    if self.cash
+      error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
     end
   end
-
-
+  
   def refresh
     self.save
   end
@@ -85,12 +80,15 @@ class Embankment < ActiveRecord::Base
 
   # this method valids the embankment and accountizes the matching payments.
   # def confirm
-#     payments = SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
-#     payments.each do |payment|
-#       payment.to_accountancy
-      
-#     end
-#   end
+  #     payments = SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
+  #     payments.each do |payment|
+  #       payment.to_accountancy
+  #     end
+  #   end
+
+  def to_accountancy
+    
+  end
 
   
 end

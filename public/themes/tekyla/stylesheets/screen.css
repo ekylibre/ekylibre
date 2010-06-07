@@ -270,6 +270,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
 .toolbar ul > li > a.update    {background: url(../images/buttons/update.png) no-repeat center left;}
 
+
 a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/buttons/down2.png) no-repeat center left;}
 
 
@@ -423,3 +424,7 @@ table.accounts tr td.list { /*border: 4px solid #BACFE6;*/ background:#BACFE6; p
 .major-accounts a, .major-accounts strong { background: #DBE4F6; display: block; -moz-border-radius-topleft: 8px; -moz-border-radius-bottomleft: 8px; padding:4px 8px; margin-bottom:2px; }
 .major-accounts strong { background: #BACFE6 }
 .major-accounts > *:last-child { margin-bottom: 0 }
+
+.view { -moz-border-radius: 8px; background: #DBE4F6; padding:8px 6px; margin: 0 0 8px; }
+.view a:hover, .view strong { background: #BACFE6 }
+.view a, .view span, .view strong { padding:8px; border-right: 1px solid #F0F0FF;}

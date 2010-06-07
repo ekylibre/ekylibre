@@ -70,13 +70,10 @@
         </set>
       </part>
   
-
-
-      
-      <part height="8mm" if="sale_order.need_check?">
+      <part height="8mm" if="sale_order/letter?">
         <set top="2mm">
           <text value="Mode de paiement : " bold="true"/>
-          <text value="Chèque bancaire" left="31mm"/>
+          <text value="{{sale_order/nature/payment_mode/name}} {{sale_order/nature/payment_mode_complement}}" left="31mm"/>
         </set>
       </part>
       

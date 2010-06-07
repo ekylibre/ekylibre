@@ -28,7 +28,6 @@
 #  expense_id   :integer          default(0), not null
 #  expense_type :string(255)      default("UnknownModel"), not null
 #  id           :integer          not null, primary key
-#  invoice_id   :integer          
 #  lock_version :integer          default(0), not null
 #  payment_id   :integer          not null
 #  updated_at   :datetime         not null

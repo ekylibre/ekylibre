@@ -229,7 +229,7 @@ class AccountancyController < ApplicationController
 
   manage :accounts, :number=>"params[:number]"
 
-  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:account_id]']], :order=>"created_at DESC") do |t|
+  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
@@ -247,7 +247,7 @@ class AccountancyController < ApplicationController
 
   def account
     return unless @account = find_and_check(:account)
-    session[:current_account_number] = @account.number
+    session[:current_account_id] = @account.id
     t3e @account.attributes
   end
 
@@ -664,36 +664,66 @@ class AccountancyController < ApplicationController
 
   def self.journal_records_conditions
     code = ""
-    code += "c=['company_id=? AND journal_id=?', @current_company.id, session[:current_journal_id]]\n"
+    code += "c=['journal_records.company_id=? AND journal_records.journal_id=?', @current_company.id, session[:current_journal_id]]\n"
     code += "if (session[:journal_record_start].to_date rescue nil)\n"
-    code += "  c[0]+=' AND created_on>=?'\n"
+    code += "  c[0]+=' AND journal_records.created_on>=?'\n"
     code += "  c<<session[:journal_record_start].to_date\n"
     code += "end\n"
-    code += "if (session[:journal_record_end].to_date rescue nil)\n"
-    code += "  c[0]+=' AND created_on<=?'\n"
-    code += "  c<<session[:journal_record_end].to_date\n"
+    code += "if (session[:journal_record_finish].to_date rescue nil)\n"
+    code += "  c[0]+=' AND journal_records.created_on<=?'\n"
+    code += "  c<<session[:journal_record_finish].to_date\n"
     code += "end\n"
     code += "c\n"
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:journal_records, :conditions=>journal_records_conditions, :order=>"created_at DESC") do |t|
-    t.column :number, :url=>{:action=>:journal_record}
+  dyta(:journal_entries, :conditions=>journal_records_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :printed_on, :through=>:record, :url=>{:action=>:journal_record}, :datatype=>:date
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:account, :url=>{:action=>:account}
+    t.column :name
     t.column :debit
     t.column :credit
+  end
+  
+  dyta(:journal_records, :conditions=>journal_records_conditions, :order=>"created_at DESC") do |t|
+    t.column :number, :url=>{:action=>:journal_record}
     t.column :printed_on
-    t.column :created_at
+    t.column :debit
+    t.column :credit
     t.action :journal_record_update, :if=>'!RECORD.closed? '
     t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'!RECORD.closed? '
   end
   
+  dyta(:journal_mixed, :model=>:journal_records, :conditions=>journal_records_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
+    t.column :number, :url=>{:action=>:journal_record}, :children=>:name
+    t.column :printed_on, :url=>{:action=>:journal_record}, :datatype=>:date, :children=>false
+    # t.column :label, :through=>:account, :url=>{:action=>:account}
+    t.column :debit
+    t.column :credit
+    t.action :journal_record_update, :if=>'!RECORD.closed? '
+    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'!RECORD.closed? '
+  end
 
   def journal
     return unless @journal = find_and_check(:journal)
     session[:current_journal_id]   = @journal.id
     fy = @current_company.current_financialyear
+    if params[:period_mode] == "automatic"
+      dates = params[:period].split("_")
+      params[:start]  = dates[0].to_date
+      params[:finish] = dates[1].to_date
+    end
     session[:journal_record_start] = params[:start]||fy.started_on
-    session[:journal_record_end]   = params[:end]||fy.stopped_on
+    session[:journal_record_finish]   = params[:finish]||fy.stopped_on
+    journal_view = @current_user.parameter("interface.journal.#{@journal.code}.view")
+    journal_view.value = "entries" if journal_view.value.nil?
+    if view = ["entries", "records", "mixed"].detect{|x| params[:view] == x}
+      journal_view.value = view
+      journal_view.save
+    end
+    @journal_view = journal_view.value.to_sym
     t3e @journal.attributes
   end
 
@@ -741,7 +771,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :letter
-    t.column :number, :through=>:statement
+    t.column :number, :through=>:bank_statement
     t.column :currency_debit
     t.column :currency_credit
   end
@@ -828,13 +858,13 @@ class AccountancyController < ApplicationController
       redirect_to :action=>:cash_create
       return
     end
-    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
+    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
   end
 
 
 
 
-  dyta(:bank_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :statement_id=>['session[:current_bank_statement_id]']}, :order=>"record_id") do |t|
+  dyta(:bank_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"record_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")

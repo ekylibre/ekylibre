@@ -48,6 +48,9 @@ class SalePaymentMode < ActiveRecord::Base
   has_many :payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name
   has_many :embankable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:embankment_id=>nil}
 
+  validates_presence_of :account_id, :if=>Proc.new{|x| x.with_embankment? and x.with_accounting? }
+  validates_presence_of :cash_id, :if=>Proc.new{|x| !x.with_embankment? and x.with_accounting? }
+
   def before_validation
     if self.with_embankment
       self.cash_id = nil

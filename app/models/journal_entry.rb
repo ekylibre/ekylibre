@@ -20,28 +20,28 @@
 # 
 # == Table: journal_entries
 #
-#  account_id      :integer          not null
-#  closed          :boolean          not null
-#  comment         :text             
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  debit           :decimal(16, 2)   default(0.0), not null
-#  draft           :boolean          not null
-#  expired_on      :date             
-#  id              :integer          not null, primary key
-#  journal_id      :integer          
-#  letter          :string(8)        
-#  lock_version    :integer          default(0), not null
-#  name            :string(255)      not null
-#  position        :integer          
-#  record_id       :integer          not null
-#  statement_id    :integer          
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  account_id        :integer          not null
+#  bank_statement_id :integer          
+#  closed            :boolean          not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  credit            :decimal(16, 2)   default(0.0), not null
+#  currency_credit   :decimal(16, 2)   default(0.0), not null
+#  currency_debit    :decimal(16, 2)   default(0.0), not null
+#  debit             :decimal(16, 2)   default(0.0), not null
+#  draft             :boolean          not null
+#  expired_on        :date             
+#  id                :integer          not null, primary key
+#  journal_id        :integer          
+#  letter            :string(8)        
+#  lock_version      :integer          default(0), not null
+#  name              :string(255)      not null
+#  position          :integer          
+#  record_id         :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class JournalEntry < ActiveRecord::Base
@@ -54,7 +54,7 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :company
   belongs_to :journal
   belongs_to :record, :class_name=>JournalRecord.name
-  belongs_to :statement, :class_name=>BankStatement.name
+  belongs_to :bank_statement
   validates_presence_of :account_id
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
@@ -67,7 +67,8 @@ class JournalEntry < ActiveRecord::Base
     self.currency_credit ||= 0
     currency_rate = nil
     if self.record
-      self.editable = false if self.record.closed?
+      self.draft = self.record.draft
+      self.closed = self.record.closed
       self.company_id ||= self.record.company_id 
       self.journal_id ||= self.record.journal_id
       currency_rate = self.record.currency.rate

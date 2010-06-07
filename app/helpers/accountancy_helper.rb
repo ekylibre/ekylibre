@@ -60,4 +60,42 @@ module AccountancyHelper
     return ""
   end
 
+
+  def journal_view_tag
+    code = content_tag(:span, tg(:view))
+    for mode in [:entries, :records, :mixed]
+      if @journal_view == mode
+        code += content_tag(:strong, tc("view_#{mode}"))
+      else
+        url = {:action=>:journal, :id=>@journal.id, :view=>mode, :period_mode=>params[:period_mode]}
+        if url[:period_mode] == "automatic"
+          url[:period] = params[:period]
+        else
+          url[:start] = params[:start]
+          url[:finish] = params[:finish]
+        end
+        code += link_to tc("view_#{mode}"), url
+      end
+    end
+    return content_tag(:div, code, :class=>:view)
+  end
+
+  def journal_periods_tag(value=nil)
+    list = []
+    for year in @current_company.financialyears
+      list << [tc(:all_periods), year.started_on.to_s+"_"+Date.today.to_s] if list.empty?
+      list << [year.code, year.started_on.to_s+"_"+year.stopped_on.to_s]
+      list2 = []
+      date = year.started_on
+      while date<year.stopped_on and date < Date.today
+        date2 = date.end_of_month
+        list2 << [tc(:month_period, :year=>date.year, :month=>t("date.month_names")[date.month], :code=>year.code), date.to_s+"_"+date2.to_s]
+        date = date2+1
+      end
+      list += list2.reverse
+    end
+    options_for_select(list, value)
+  end
+
+
 end

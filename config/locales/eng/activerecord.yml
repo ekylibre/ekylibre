@@ -970,6 +970,8 @@ eng:
       journal_entry:
         #>account: 'Compte'
         #>account_id: 'Compte'
+        #>bank_statement: 'Relevés de compte bancaire'
+        #>bank_statement_id: 'Relevé de compte bancaire'
         #>closed: 'Cloturée'
         comment: 'Comment'
         company: 'Company'
@@ -1005,6 +1007,7 @@ eng:
         updater: 'Updater'
         updater_id: 'Updater'
       journal_record:
+        #>always_draft: '(((ALWAYS_DRAFT)))'
         #>closed: 'Fermé'
         company: 'Company'
         company_id: 'Company'
@@ -1019,6 +1022,7 @@ eng:
         #>currency_id: 'Devise'
         #>currency_rate: 'Taux de change'
         #>debit: 'Débit'
+        #>draft: '(((DRAFT)))'
         #>entries: 'Écritures'
         #>financialyear: 'Exercices'
         id: 'ID'
@@ -1498,6 +1502,7 @@ eng:
         #>creator: 'Créateur'
         #>creator_id: 'Créateur'
         #>id: 'ID'
+        #>journal_record_id: 'Pièce comptable'
         #>lock_version: 'Version'
         #>mode: 'Mode de règlement'
         #>mode_id: 'Mode de règlement'
@@ -1510,7 +1515,7 @@ eng:
         #>purchase_orders: 'Achats'
         #>responsible: 'Responsable'
         #>responsible_id: 'Responsable'
-        #>to_bank_on: 'À encaisser'
+        #>to_bank_on: 'À décaisser le'
         #>updated_at: 'Mis à jour le'
         #>updater: 'Modificateur'
         #>updater_id: 'Modificateur'
@@ -1544,6 +1549,7 @@ eng:
         #>lock_version: 'Version'
         #>payment: 'Règlement'
         #>payment_id: 'Règlement'
+        #>payment_way: 'Mode de règlement'
         #>updated_at: 'Mis à jour le'
         #>updater: 'Modificateur'
         #>updater_id: 'Modificateur'
@@ -1711,6 +1717,8 @@ eng:
         #>embankment: 'Encaissement'
         #>embankment_id: 'Encaissement'
         id: 'ID'
+        #>journal_record: 'Pièces comptables'
+        #>journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         #>mode: 'Mode de paiement'
         #>mode_id: 'Mode de paiement'
@@ -2264,6 +2272,8 @@ eng:
           #>too_long: '{{field}} est trop long ({{length}} caractères)'
         delivery_line:
           #>greater_than_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité non livrée ({{maximum}}{{unit}})'
+        embankment:
+          #>must_be_a_bank_account: '{{field}} doit être un compte bancaire et non une caisse'
         entity:
           #>missing_title: '{{attribute}} doit contenir la dénomination sociale "{{title}}"'
           #>nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'

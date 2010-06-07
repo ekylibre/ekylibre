@@ -11,5 +11,5 @@
                 %nobr
                   %strong=tc('journal_name', attributes)
               -else
-                %nobr=link_to(tc('journal_name', attributes), :action=>:journal, :controller=>:accountancy, :id=>journal.id)
+                %nobr=link_to(tc('journal_name', attributes), :action=>:journal, :controller=>:accountancy, :id=>journal.id, :start=>params[:start], :finish=>params[:finish])
             %nobr.journal-detail=tc('journal_detail', attributes)

@@ -363,13 +363,22 @@ fra:
           other: '{{count}} achats'
           zero: 'Aucun achat'
         title: 'Achats'
+      purchase_payment:
+        purchase_orders: 'Ventes payées grâce à ce règlement'
+        purchase_payment_update: 'Modifier le règlement'
+        title: 'Règlement d''achat n°{{number}} pour {{payee}}'
       purchase_payment_create:
         title: 'Ajout d''un règlement d''achat'
       _purchase_payment_form:
         embankable: 'Complément d''information'
         title: 'Renseignez les conditions du règlement'
       purchase_payment_mode_create:
-        title: 'Ajouter un nouveau mode de règlement d''achat'
+        title: 'Ajouter un mode de règlement d''achat'
+      _purchase_payment_mode_form:
+        accountancy: 'Comptabilisation'
+        general: 'Description générale'
+      purchase_payment_mode_update:
+        title: 'Modifier un mode de règlement d''achat'
       purchase_payment_part_create:
         title: 'Régler l''achat avec un règlement'
       purchase_payments:
@@ -512,10 +521,6 @@ fra:
         sale_orders: 'Ventes payées grâce à ce règlement'
         sale_payment_update: 'Modifier le règlement'
         title: 'Règlement n°{{number}} de {{entity}}'
-      purchase_payment:
-        purchase_orders: 'Ventes payées grâce à ce règlement'
-        purchase_payment_update: 'Modifier le règlement'
-        title: 'Règlement d''achat n°{{number}} pour {{payee}}'
       sale_payment_create:
         title: 'Ajout d''un nouveau règlement'
       _sale_payment_form:
@@ -654,13 +659,13 @@ fra:
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_form:
         info: 'Renseignez les informations du transport'
       transport_update:

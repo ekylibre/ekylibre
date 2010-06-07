@@ -12,6 +12,11 @@ spa:
   helpers:
     accountancy:
       #>all_accounts: 'Tous les comptes'
+      #>all_periods: 'Tous les exercices'
+      #>month_period: '{{code}} - {{month}} {{year}}'
+      #>view_entries: 'Écritures'
+      #>view_mixed: 'Pièces et écritures'
+      #>view_records: 'Pièces'
   views:
     accountancy:
       account:
@@ -166,10 +171,12 @@ spa:
           #>zero: 'Aucune écriture'
         #>title: 'Comptabilité générale'
       journal:
-        #>end: 'au'
+        #>filter_entries_with: 'Filtrer les écritures avec'
+        #>interval: 'Intervalle'
         #>journal_update: 'Modifier le journal'
+        #>manual_period: 'du {{start}} au {{finish}}'
+        #>period: 'Période'
         #>search: 'Rechercher des pièces/écritures'
-        #>start: 'du'
         #>title: '{{name}} ({{code}})'
       journal_close:
         #>close: 'Clôturer le journal'
@@ -212,12 +219,12 @@ spa:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
       print_balance_sheet:
         #>period: 'Période'
         #>title: 'Impression du bilan'
+      _print_balance_sheet:
+        #>balance_sheet: 'Sélectionnez l''exercice'
+        #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

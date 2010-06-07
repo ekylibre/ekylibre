@@ -121,6 +121,7 @@ fra:
     up: 'Monter'
     update: 'Modifier'
     validate: 'Valider'
+    view: 'Affichage'
     y: 'oui'
   models:
     account:
@@ -371,8 +372,8 @@ fra:
         purchases: 'Achats'
         sales: 'Ventes'
         various: 'Opérations diverses'
-    journal_entry:
-      error_amount_rate: 'Le taux de conversion n''existe pas.'
+    journal_record:
+      record_cancel: 'Contre-passation de la pièce {{number}} : {{name}}'
     listing_node:
       add_filter: ' Ajouter un filtre '
       all_columns: '-- Toutes les colonnes --'
@@ -476,6 +477,7 @@ fra:
       tracking: 'N°Lot : {{serial}}'
     sale_payment:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{payer}}'
+      to_accountancy: '[{{number}}] {{detail}}'
     sequence:
       periods:
         cweek: 'Semaine'

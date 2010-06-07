@@ -19,7 +19,7 @@
       <part height="15mm"> 
         <set left="50%"> 
           <text value="Remise en banque du {{embankment.created_on?format=classic}}" top="1mm" bold="true" size="12" align="center"/>
-          <text value="À remettre sur le compte {{embankment.bank_account/iban_label}}" top="6mm" align="center"/>
+          <text value="À remettre sur le compte {{embankment.cash/iban_label}}" top="6mm" align="center"/>
         </set>
       </part>
 

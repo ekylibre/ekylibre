@@ -41,8 +41,8 @@ class BankStatement < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  has_many :entries, :class_name=>JournalEntry.name, :foreign_key=>:statement_id, :dependent=>:nullify
-  has_many :journal_entries, :foreign_key=>:statement_id, :dependent=>:nullify
+  # has_many :entries, :class_name=>JournalEntry.name, :dependent=>:nullify
+  has_many :journal_entries, :dependent=>:nullify
 
 
   def before_validation
@@ -58,10 +58,10 @@ class BankStatement < ActiveRecord::Base
 
   def eligible_entries
     self.company.journal_entries.find(:all, 
-                                      :conditions =>["statement_id = ? OR (account_id = ? AND (statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
-                                      # :conditions =>["account_id = ? AND draft=? AND (statement_id IS NULL OR statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.cash.account_id, false, self.id, self.started_on, self.stopped_on], 
+                                      :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
+                                      # :conditions =>["account_id = ? AND draft=? AND (bank_statement_id IS NULL OR bank_statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.cash.account_id, false, self.id, self.started_on, self.stopped_on], 
                                       :joins => "INNER JOIN journal_records ON journal_records.id = journal_entries.record_id", 
-                                      :order => "statement_id DESC, journal_entries.created_at DESC")
+                                      :order => "bank_statement_id DESC, journal_entries.created_at DESC")
   end
 
 end
