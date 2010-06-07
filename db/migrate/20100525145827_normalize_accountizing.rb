@@ -61,6 +61,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :name,            :string,  :null=>false, :limit=>50
       t.column :with_accounting, :boolean, :null=>false, :default=>false
       t.column :cash_id,         :integer
+      t.column :draft_mode,      :boolean, :null=>false, :default=>false
       t.column :company_id,      :integer, :null=>false
     end
     
@@ -122,6 +123,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     change_column_null :cashes, :iban, true
     change_column_null :cashes, :iban_label, true
     add_column :cashes, :nature, :string, :limit=>16, :null=>false, :default=>"bank_account"
+    execute "UPDATE cashes SET nature='cash_box' WHERE account_id IN (SELECT id FROM accounts WHERE number LIKE '53%')"
 
     change_column :companies, :code, :string, :limit=>16
 
@@ -177,28 +179,34 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :journal_records, :currency_credit, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :journal_records, :currency_rate,   :decimal, :precision=>16, :scale=>6, :default=>0.0, :null=>false
     add_column :journal_records, :currency_id,     :integer, :default=>0, :null=>false
-    add_column :journal_records, :always_draft,    :boolean, :default=>false, :null=>false
+    add_column :journal_records, :draft_mode,      :boolean, :default=>false, :null=>false
     add_column :journal_records, :draft,           :boolean, :default=>false, :null=>false
     if (currencies=select_all("SELECT * FROM currencies")).size > 0
       execute "UPDATE journal_records SET currency_debit=debit, currency_credit=credit, currency_rate=1, currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
-    execute "UPDATE journal_records SET draft=#{quoted_true}, always_draft=#{quoted_true} WHERE id in (SELECT record_id FROM journal_entries WHERE draft=#{quoted_true})"
+    execute "UPDATE journal_records SET draft=#{quoted_true}, draft_mode=#{quoted_true} WHERE id in (SELECT record_id FROM journal_entries WHERE draft=#{quoted_true})"
     execute "UPDATE journal_entries SET draft=#{quoted_true} WHERE record_id in (SELECT id FROM journal_records WHERE draft=#{quoted_true})"
 
     add_column :listings, :source, :text
+
+    add_column :purchase_orders, :parts_amount, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    ppps = select_all("SELECT expense_id, sum(amount) AS total FROM sale_payment_parts WHERE expense_type='PurchaseOrder' GROUP BY expense_id")
+    execute "UPDATE purchase_orders SET parts_amount=CASE "+ppps.collect{|x| "WHEN id="+x['expense_id']+" THEN "+x['total']}.join(" ")+" ELSE 0 END" if ppps.size > 0
 
     remove_column :sale_order_natures, :payment_type
     add_column :sale_order_natures, :payment_mode_id, :integer
     add_column :sale_order_natures, :payment_mode_complement, :text
 
     add_column :sale_payment_modes, :published, :boolean, :null=>true, :default=>false
+    add_column :sale_payment_modes, :draft_mode, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_commission, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :sale_payment_modes, :commission_amount,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_account_id, :integer
     execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}"
-    execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card'"
+    execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card' OR account_id IS NOT NULL"
     rename_column :sale_payment_modes, :bank_account_id, :cash_id
     remove_column :sale_payment_modes, :nature
     remove_column :sale_payment_modes, :mode
@@ -313,21 +321,25 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payment_modes, :nature, :string, :null=>false, :default=>"U", :limit=>1
     rename_column :sale_payment_modes, :cash_id, :bank_account_id
     remove_column :sale_payment_modes, :commission_account_id
+    remove_column :sale_payment_modes, :commission_amount
     remove_column :sale_payment_modes, :commission_percent
     remove_column :sale_payment_modes, :with_commission
     remove_column :sale_payment_modes, :with_embankment
     remove_column :sale_payment_modes, :with_accounting
+    remove_column :sale_payment_modes, :draft_mode
     remove_column :sale_payment_modes, :published
 
     remove_column :sale_order_natures, :payment_mode_complement
     remove_column :sale_order_natures, :payment_mode_id
     add_column :sale_order_natures, :payment_type, :string, :null=>false, :default=>'none'
 
+    remove_column :purchase_orders, :parts_amount
+
     remove_column :listings, :source
 
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
     remove_column :journal_records, :draft
-    remove_column :journal_records, :always_draft
+    remove_column :journal_records, :draft_mode
     remove_column :journal_records, :currency_id
     remove_column :journal_records, :currency_rate
     remove_column :journal_records, :currency_credit

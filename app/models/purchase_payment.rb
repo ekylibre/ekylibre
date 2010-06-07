@@ -47,6 +47,7 @@ class PurchasePayment < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :mode, :class_name=>PurchasePaymentMode.name
+  belongs_to :journal_record
   has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
   has_many :purchase_orders, :through=>:parts
 
@@ -68,6 +69,24 @@ class PurchasePayment < ActiveRecord::Base
 
   def before_validation
     self.parts_amount = self.parts.sum(:amount)
+  end
+
+  def validate
+    errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
+  end
+
+  # Create initial journal record
+  def after_create
+    self.to_accountancy if self.company.accountizing?
+  end
+
+  # Add journal records in order to correct accountancy
+  def before_update
+    self.to_accountancy(:update) if self.company.accountizing?
+  end
+
+  def before_destroy
+    self.to_accountancy(:delete) if self.company.accountizing?
   end
 
   def label
@@ -99,33 +118,32 @@ class PurchasePayment < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   # The options :old permits to cancel the old existing record by adding counter-entries
-  def to_accountancy(mode=:create, options={})
-    raise Exception.new("Unvalid mode #{mode.inspect}") unless [:create, :update, :delete].include? mode
-    journal = self.company.journal(mode == :create ? :bank : :various)
-    record = journal.records.create!(:resource=>self, :printed_on=>self.created_on)
+  def to_accountancy(action=:create, options={})
+    mode = self.mode
+    unless mode.with_accounting?
+      self.class.update_all({:accounted_at=>Time.now}, {:id=>self.id})
+      return
+    end
+    raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
+    journal = self.company.journal(:bank) # (action == :create ? :bank : :various)
     # Add counter-entries
-    if mode != :create
-      old = self.class.find_by_id(self.id)      
-      if old.given?
-        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account.id, old.amount)
-        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:supplier).id, old.amount)
-      else
-        record.add_debit( tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.entity.full_name), old.entity.account(:client).id, old.amount)
-        record.add_credit(tc(:to_accountancy_cancel, :number=>old.number, :detail=>old.mode.name), old.mode.account_id, old.amount)
-      end    
-    end
-    # Add entries
-    if mode != :delete
-      if self.given?
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:supplier).id, self.amount)
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account.id, self.amount)
-      else
-        record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
-        record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
-      end    
-    end
-
-    self.update_attribute(:accounted_at, Time.now)      
+    ActiveRecord::Base.transaction do
+      if action != :create and not self.journal_record.nil?
+        if self.journal_record.draft?
+          self.journal_record.entries.destroy_all
+        else
+          self.journal_record.cancel
+          self.journal_record = nil
+        end
+      end
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>mode.draft_mode)
+      # Add entries
+      if action != :delete
+        self.journal_record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, self.amount)
+        self.journal_record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
+      end
+      self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
+    end 
   end
 
 

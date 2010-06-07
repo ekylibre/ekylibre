@@ -381,6 +381,8 @@ fra:
         title: 'Modifier un mode de règlement d''achat'
       purchase_payment_part_create:
         title: 'Régler l''achat avec un règlement'
+      purchase_payment_update:
+        title: 'Modification du règlement d''achat : {{number}}'
       purchase_payments:
         title: 'Règlements d''achat'
       sale_order:
@@ -659,13 +661,13 @@ fra:
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_form:
         info: 'Renseignez les informations du transport'
       transport_update:

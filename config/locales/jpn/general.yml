@@ -461,6 +461,7 @@ jpn:
       #>tracking: 'N°Lot : {{serial}}'
     purchase_payment:
       #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'
+      #>to_accountancy: '[{{number}}] {{detail}}'
     sale_order:
       label:
         #>estimate: 'Devis N°{{number}}'

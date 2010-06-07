@@ -825,7 +825,7 @@ class ManagementController < ApplicationController
 
   def purchase_order
     return unless @purchase_order = find_and_check(:purchase_order)
-    session[:current_purchase] = @purchase_order.id
+    session[:current_purchase_order_id] = @purchase_order.id
     @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
   end
 
@@ -853,7 +853,7 @@ class ManagementController < ApplicationController
 #     redirect_to :action=>:purchase_orders
 #   end
 
-  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_id]']}) do |t|
+  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :tracking_serial
     t.column :quantity
@@ -867,7 +867,7 @@ class ManagementController < ApplicationController
 
   def purchase_order_lines
     return unless @purchase_order = find_and_check(:purchase_order)
-    session[:current_purchase_id] = @purchase_order.id
+    session[:current_purchase_order_id] = @purchase_order.id
     if request.post?
       @purchase_order.finish
       redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
@@ -875,16 +875,6 @@ class ManagementController < ApplicationController
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
   end
 
-  dyta(:purchase_order_payment_parts, :model=>:purchase_payment_parts, :conditions=>{:company_id=>['@current_company.id'], :expense_id=>['session[:current_purchase]']}) do |t|
-    t.column :number, :through=>:payment, :url=>{:action=>:purchase_payment}
-    t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:purchase_payment}
-    t.column :amount
-    t.column :payment_way
-    t.column :downpayment
-    t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :sale_payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
-  end
-  
   def price_find
     if !params[:purchase_order_line_price_id].blank?
       return unless @price = find_and_check(:price, params[:purchase_order_line_price_id])
@@ -954,9 +944,20 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
+
+  dyta(:purchase_order_payment_parts, :model=>:purchase_payment_parts, :conditions=>{:company_id=>['@current_company.id'], :expense_id=>['session[:current_purchase_order_id]']}) do |t|
+    t.column :number, :through=>:payment, :url=>{:action=>:purchase_payment}
+    t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:purchase_payment}
+    t.column :amount
+    t.column :payment_way
+    t.column :downpayment
+    t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
+    t.action :sale_payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
+  end
+  
   def purchase_order_summary
     return unless @purchase_order = find_and_check(:purchase_order)
-    session[:current_purchase_order] = @purchase_order.id
+    session[:current_purchase_order_id] = @purchase_order.id
   end
 
 

@@ -34,6 +34,7 @@
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
 #  number            :string(64)       not null
+#  parts_amount      :decimal(16, 2)   default(0.0), not null
 #  planned_on        :date             
 #  shipped           :boolean          not null
 #  supplier_id       :integer          not null

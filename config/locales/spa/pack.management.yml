@@ -387,6 +387,8 @@ spa:
         #>title: 'Modifier un mode de règlement d''achat'
       purchase_payment_part_create:
         #>title: 'Régler l''achat avec un règlement'
+      purchase_payment_update:
+        #>title: 'Modification du règlement d''achat : {{number}}'
       purchase_payments:
         #>title: 'Règlements d''achat'
       sale_order:

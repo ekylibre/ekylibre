@@ -20,7 +20,6 @@
 # 
 # == Table: journal_records
 #
-#  always_draft    :boolean          not null
 #  closed          :boolean          
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
@@ -33,6 +32,7 @@
 #  currency_rate   :decimal(16, 6)   default(0.0), not null
 #  debit           :decimal(16, 2)   default(0.0), not null
 #  draft           :boolean          not null
+#  draft_mode      :boolean          not null
 #  id              :integer          not null, primary key
 #  journal_id      :integer          not null
 #  lock_version    :integer          default(0), not null

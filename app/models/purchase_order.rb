@@ -34,6 +34,7 @@
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
 #  number            :string(64)       not null
+#  parts_amount      :decimal(16, 2)   default(0.0), not null
 #  planned_on        :date             
 #  shipped           :boolean          not null
 #  supplier_id       :integer          not null
@@ -56,6 +57,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def before_validation
     self.created_on ||= Date.today
+    self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
       #last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
       last = self.company.purchase_orders.find(:first, :order=>"number desc")
@@ -104,10 +106,6 @@ class PurchaseOrder < ActiveRecord::Base
     ''
   end
 
-  def payments_sum
-    self.payment_parts.sum(:amount)
-  end
-  
   #this method saves the purchase in the accountancy module.
   def to_accountancy
     journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
@@ -135,7 +133,7 @@ class PurchaseOrder < ActiveRecord::Base
     if self.amount_with_taxes == 0 
       return true
     else
-      return (self.payments_sum < self.amount_with_taxes and not self.shipped)
+      return (self.parts_amount < self.amount_with_taxes and not self.shipped)
     end
   end
 
@@ -145,7 +143,7 @@ class PurchaseOrder < ActiveRecord::Base
 
 
   def unpaid_amount(all=true)
-    self.amount_with_taxes - self.payments_sum
+    self.amount_with_taxes - self.parts_amount
   end
 
   def payment_entity_id
@@ -158,7 +156,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def status
     status = ""
-    status = "critic" if self.payments_sum < self.amount_with_taxes
+    status = "critic" if self.parts_amount < self.amount_with_taxes
     status
   end
 

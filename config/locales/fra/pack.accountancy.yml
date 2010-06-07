@@ -173,6 +173,9 @@ fra:
           zero: 'Aucune écriture'
         title: 'Comptabilité générale'
       journal:
+        balance: 'Soldes' #!
+        credit: 'Crédit' #!
+        debit: 'Débit' #!
         filter_entries_with: 'Filtrer les écritures avec' #!
         interval: 'Intervalle'
         journal_update: 'Modifier le journal'
@@ -180,6 +183,7 @@ fra:
         period: 'Période'
         search: 'Rechercher des pièces/écritures' #!
         title: '{{name}} ({{code}})'
+        totals: 'Totaux' #!
         #>journal_record_create: # Potentially missing translation
       journal_close:
         close: 'Clôturer le journal'

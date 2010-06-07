@@ -23,10 +23,12 @@
 #  account_id            :integer          
 #  cash_id               :integer          
 #  commission_account_id :integer          
+#  commission_amount     :decimal(16, 2)   default(0.0), not null
 #  commission_percent    :decimal(16, 2)   default(0.0), not null
 #  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
+#  draft_mode            :boolean          not null
 #  id                    :integer          not null, primary key
 #  lock_version          :integer          default(0), not null
 #  name                  :string(50)       not null

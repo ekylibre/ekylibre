@@ -382,6 +382,8 @@ eng:
         #>title: 'Modifier un mode de règlement d''achat'
       purchase_payment_part_create:
         #>title: 'Régler l''achat avec un règlement'
+      purchase_payment_update:
+        #>title: 'Modification du règlement d''achat : {{number}}'
       purchase_payments:
         #>title: 'Règlements d''achat'
       sale_order:
@@ -427,13 +429,13 @@ eng:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       _sale_order_line_row_form:
         #>discount: 'Réduction (en %)'
         #>from: 'Du numéro'
@@ -658,13 +660,13 @@ eng:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

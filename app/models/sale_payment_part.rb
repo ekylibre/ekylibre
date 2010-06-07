@@ -75,34 +75,5 @@ class SalePaymentPart < ActiveRecord::Base
   def real?
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
- 
-  #this method saves the payment_part in the accountancy module. 
-  #def to_accountancy(record_id, currency_id)
-    #financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) and closed=?", '%'+self.payment.payment_on.year.to_s+'%', true])
-      
-    #journal_bank =  self.company.journals.find(:first, :conditions => ['nature = ? AND closed_on < ?', 'bank', self.created_at.to_s])
-    
-    #record = self.company.journal_records.create!(:resource_id=>self.payment.id, :resource_type=>tc(:payment_part), :created_on=>self.payment.paid_on, :printed_on => self.created_at, :journal_id=>journal_bank.id, :financialyear_id => financialyear.id)
-
-   #  mode_account_id = self.payment.mode.account_id
-#     mode_account = self.payment.mode.account.name
-      
-#     client_id =  self.payment.entity.client_account_id if [:SaleOrder].include? self.expense_type.to_sym
-#     supplier_id =  self.payment.entity.supplier_account_id if [:PurchaseOrder].include? self.expense_type.to_sym
-#     transfer_id = self.transfer.supplier.supplier_account_id if [:Transfer].include? self.expense_type.to_sym
-
-#     if self.downpayment
-#       entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
-#     end
-
-#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>(client_id || supplier_id), :name=> self.payment.entity.full_name, :currency_credit=>(client_id ? self.amount : 0.0), :currency_debit=>(supplier_id ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true) unless transfer_id 
-
-#     account_bank_id = self.company.accounts.find(:first, :conditions=>["number LIKE ?", '512%'])
-# #    raise Exception.new(self.payment.bank.to_s)
-#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>self.payment.account_id || account_bank_id, :name=>'Banque', :currency_debit=>(client_id ? self.amount : 0.0), :currency_credit=>((supplier_id || transfer_id) ? self.amount : 0.0), :currency_id=>currency_id,:draft=>true)
-    
-#     entry = self.company.journal_entries.create!(:record_id=>record_id, :account_id=>mode_account_id, :name=>mode_account, :currency_debit=>0.0, :currency_credit=>self.amount, :currency_id=>currency_id,:draft=>true)
-    
-  #end
-  
+   
 end
