@@ -41,15 +41,14 @@ class BankStatement < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-
-  has_many :intermediate_entries, :class_name=>JournalEntry.name, :foreign_key=>:intermediate_id
   has_many :entries, :class_name=>JournalEntry.name, :foreign_key=>:statement_id, :dependent=>:nullify
+  has_many :journal_entries, :foreign_key=>:statement_id, :dependent=>:nullify
 
 
   def before_validation
     self.company_id = self.cash.company_id if self.cash
-    self.debit  = self.entries.sum(:debit)
-    self.credit = self.entries.sum(:credit)
+    self.debit  = self.journal_entries.sum(:debit)
+    self.credit = self.journal_entries.sum(:credit)
   end
 
   # A bank account statement has to contain all the planned records.

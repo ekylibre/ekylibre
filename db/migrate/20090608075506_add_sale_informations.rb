@@ -24,14 +24,7 @@ class AddSaleInformations < ActiveRecord::Migration
       end
     end
     
-    PaymentMode.find(:all).each do |mode|
-      if mode.name == "Chèque"
-        mode.mode = "check"
-      else
-        mode.mode = "other"
-      end
-      mode.save
-    end
+    execute "UPDATE payment_modes SET mode=CASE WHEN LOWER(name) LIKE '%ch%' THEN 'check' ELSE 'other' END"
     
   end
   

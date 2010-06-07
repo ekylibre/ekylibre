@@ -368,10 +368,6 @@ class SaleOrder < ActiveRecord::Base
     c
   end
 
-  def last_payment
-    self.client.sale_payments.find(:first, :order=>"paid_on desc")
-  end
-  
   def unpaid_days
     #(self.invoices.first.created_on - self.last_payment.paid_on) if self.last_payment and self.invoices.first
     (Date.today - self.invoices.first.created_on) if self.invoices.first

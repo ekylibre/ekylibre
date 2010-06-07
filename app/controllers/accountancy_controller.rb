@@ -155,7 +155,7 @@ class AccountancyController < ApplicationController
 
   # this method creates a cash with a form.
   def cash_create
-    if request.xhr?
+    if request.xhr? and params[:mode] == "accountancy"
       @cash = Cash.new(params[:cash])
       render :partial=>'cash_accountancy_form', :locals=>{:nature=>params[:nature]}
     elsif request.post? 

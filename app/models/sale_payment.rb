@@ -110,14 +110,15 @@ class SalePayment < ActiveRecord::Base
     end
   end
 
+  def label
+    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number)
+  end
+
+
   def unused_amount
     (self.amount||0)-(self.parts_amount||0)
   end
 
-  def given?
-    self[:type] == 'GivenPayment'
-  end
-  
   # Use the minimum amount to pay the expense
   # If the payment is a downpayment, we look at the total unpaid amount
   def pay(expense, options={})

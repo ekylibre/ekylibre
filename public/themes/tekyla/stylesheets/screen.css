@@ -4,6 +4,7 @@ html {background: #FFF;}
 fieldset { border:1px solid #95b0e4; -moz-border-radius: 4px; padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
 fieldset legend { padding: 0 4px;  margin: 0 4px; color: #047; font-size: 15px; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
+fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
@@ -217,6 +218,7 @@ table.formalize a.fastadd { margin: 0px 8px; }
 .actions * { margin: 0px 8px; }
 .actions a { padding: 4px; margin: 4px;}
 .actions a:link, .actions a:visited, .actions a:hover { color:#080;} /* 080 */
+
 
 
 a.firefox  {padding-left: 20px; background: url(../images/buttons/firefox.png) no-repeat center left;}

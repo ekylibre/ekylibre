@@ -1,10 +1,11 @@
 =formalize do |f|
   -f.error 'sale_payment'
   -f.title :title
+  -f.field :sale_payment, :payer_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create}
   -f.field :sale_payment, :amount
   -f.field :sale_payment, :to_bank_on
   -f.field :sale_payment, :mode_id, :choices=>{:reflection=>:sale_payment_modes}, :new=>{:action=>:sale_payment_mode_create}
-  -f.title :check
+  -f.title :embankable
   -f.field :sale_payment, :embanker_id, :choices=>{:reflection=>:users}
   -f.field :sale_payment, :paid_on
   -f.field :sale_payment, :check_number

@@ -180,6 +180,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     add_column :listings, :source, :text
 
+    remove_column :sale_order_natures, :payment_type
+    add_column :sale_order_natures, :payment_mode_id, :integer
+    add_column :sale_order_natures, :payment_mode_complement, :text
+
     add_column :sale_payment_modes, :published, :boolean, :null=>true, :default=>false
     add_column :sale_payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
@@ -195,6 +199,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id) SELECT amount, downpayment, expense_id, payment_id, company_id FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
+    remove_column :sale_payment_parts, :invoice_id
 
     remove_column :sale_payments, :account_id
     rename_column :sale_payments, :entity_id, :payer_id
@@ -289,6 +294,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     rename_column :sale_payments, :payer_id, :entity_id
     add_column :sale_payments, :account_id, :integer
 
+    add_column :sale_payment_parts, :invoice_id, :integer
     execute "INSERT INTO sale_payment_parts(amount, downpayment, expense_type, expense_id, payment_id, company_id) SELECT amount, downpayment, 'PurchaseOrder', expense_id, payment_id, company_id FROM purchase_payment_parts"
 
     add_column :sale_payment_modes, :mode,   :string, :null=>false, :default=>'check'
@@ -300,6 +306,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :sale_payment_modes, :with_embankment
     remove_column :sale_payment_modes, :with_accounting
     remove_column :sale_payment_modes, :published
+
+    remove_column :sale_order_natures, :payment_mode_complement
+    remove_column :sale_order_natures, :payment_mode_id
+    add_column :sale_order_natures, :payment_type, :string, :null=>false, :default=>'none'
 
     remove_column :listings, :source
 

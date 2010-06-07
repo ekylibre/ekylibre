@@ -829,7 +829,8 @@ class ManagementController < ApplicationController
     @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
   end
 
-  manage :purchase_orders, :planned_on=>Date.today, :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
+  manage :purchase_orders, :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
+
 #   def purchase_order_create
 #     if request.post?
 #       @purchase_order = PurchaseOrder.new(params[:purchase_order])
@@ -879,7 +880,6 @@ class ManagementController < ApplicationController
     t.column :amount, :through=>:payment, :label=>tc('payment_amount'), :url=>{:action=>:purchase_payment}
     t.column :amount
     t.column :payment_way
-    t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>tc('scheduled')
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
     t.action :sale_payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
@@ -901,33 +901,34 @@ class ManagementController < ApplicationController
     if @current_company.locations.size <= 0
       notify(:need_location_to_create_purchase_order_line, :warning)
       redirect_to :action=>:location_create
+      return
     elsif @purchase_order.shipped
       notify(:impossible_to_add_lines_to_purchase, :warning)
       redirect_to :action=>:purchase_order_lines, :id=>@purchase_order.id
-    else
-      if request.post?
-        return unless product = find_and_check(:product, params[:purchase_order_line][:product_id].to_i)
-        price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
-        price = product.prices.create!(:entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
-        params[:purchase_order_line][:price_id] = price.id
-#         serial = params[:purchase_order_line][:tracking_serial].to_s.strip
-#         serial = nil if serial.blank?
-#         existing_purchase_order_line = @purchase_order.lines.find(:first, :conditions=>{:price_id=>price.id, :tracking_serial=>serial})
-#         if existing_purchase_order_line
-#           @purchase_order_line = existing_purchase_order_line
-#           @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
-#           @purchase_order_line.annotation = @purchase_order_line.annotation.to_s+params[:purchase_order_line][:annotation].to_s
-#         else
-#         end
-
-        return if save_and_redirect(@purchase_order_line, :url=>{:action=>:purchase_order_lines, :id=>session[:current_purchase]})
-      else
-        @purchase_order_line = @purchase_order.lines.new
-        @price = Price.new(:amount=>0.0)
-      end
-      t3e @purchase_order.attributes
-      render_form
+      return
     end
+    if request.post?
+      return unless product = find_and_check(:product, params[:purchase_order_line][:product_id].to_i)
+      price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
+      price = product.prices.create!(:entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
+      params[:purchase_order_line][:price_id] = price.id
+      @purchase_order_line = @purchase_order.lines.new(params[:purchase_order_line])
+      #         serial = params[:purchase_order_line][:tracking_serial].to_s.strip
+      #         serial = nil if serial.blank?
+      #         existing_purchase_order_line = @purchase_order.lines.find(:first, :conditions=>{:price_id=>price.id, :tracking_serial=>serial})
+      #         if existing_purchase_order_line
+      #           @purchase_order_line = existing_purchase_order_line
+      #           @purchase_order_line.quantity += params[:purchase_order_line][:quantity].to_d
+      #           @purchase_order_line.annotation = @purchase_order_line.annotation.to_s+params[:purchase_order_line][:annotation].to_s
+      #         else
+      #         end      
+      return if save_and_redirect(@purchase_order_line, :url=>{:action=>:purchase_order_lines, :id=>@purchase_order.id})
+    else
+      @purchase_order_line = @purchase_order.lines.new
+      @price = Price.new(:amount=>0.0)
+    end
+    t3e @purchase_order.attributes
+    render_form
   end
   
   def purchase_order_line_update
@@ -959,28 +960,51 @@ class ManagementController < ApplicationController
   end
 
 
+  # manage :purchase_payment_parts, :expense_id=>"(@current_company.purchase_orders.find(params[:expense_id]).id rescue 0)"
 
-  def purchase_payments
-
+  def purchase_payment_part_create
+    return unless expense = find_and_check(:purchase_order, params[:expense_id])
+    @purchase_payment_part = PurchasePaymentPart.new(:expense=>expense)
+    if request.post?
+      unless purchase_payment = @current_company.purchase_payments.find_by_id(params[:purchase_payment_part][:payment_id])
+        @purchase_payment_part.errors.add(:payment_id, :required)
+        return
+      end
+      if purchase_payment.pay(expense, :downpayment=>params[:purchase_payment_part][:downpayment])
+        redirect_to_back
+      end
+    end
+    t3e :number=>expense.number
+    render_form
   end
 
-  manage :purchase_payments, :responsible_id=>"@current_user.id"
+  def purchase_payment_part_delete
+    return unless @purchase_payment_part = find_and_check(:purchase_payment_part)
+    if request.post? or request.delete?
+      redirect_to_current if @purchase_payment_part.destroy #:action=>:purchase_order_summary, :id=>@purchase_order.id
+    end
+  end
+  
 
 
+  manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
+  def purchase_payments
+  end
 
-
-
-
-
-
-
-
-
-
-
-
-
+  dyta(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM purchase_payment_parts WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
+    t.column :number, :url=>{:action=>:purchase_order}
+    t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :created_on
+    t.column :amount
+    t.column :amount_with_taxes
+  end
+  
+  def purchase_payment
+    return unless @purchase_payment = find_and_check(:purchase_payment)
+    session[:current_purchase_payment_id] = @purchase_payment.id
+    t3e :number=>@purchase_payment.number, :payee=>@purchase_payment.payee.full_name
+  end
 
 
 
@@ -1782,7 +1806,7 @@ class ManagementController < ApplicationController
     t3e :number=>@sale_payment.number, :entity=>@sale_payment.payer.full_name
   end
 
-  manage :sale_payments, :embanker_id=>"@current_user.id"
+  manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :embanker_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
 #   def sale_payment_create
 #     if request.post?
@@ -1819,27 +1843,18 @@ class ManagementController < ApplicationController
       redirect_to_back
       return
     end
-    return unless @expense = find_and_check(expense_type, params[:expense_id]||session[:expense_id])
-    @sale_payment_part = SalePaymentPart.new
+    return unless expense = find_and_check(expense_type, params[:expense_id]||session[:expense_id])
+    @sale_payment_part = SalePaymentPart.new(:expense=>expense)
     if request.post?
-      if params[:new_payment]
-        @current_company.sale_payments.build(params[:sale_payment])
-        @sale_payment.payer_id = @expense.payer.id
-        @sale_payment.save
-      else
-        return unless @sale_payment = find_and_check(:sale_payment, params[:pay][:part])
+      unless sale_payment = @current_company.sale_payments.find_by_id(params[:sale_payment_part][:payment_id])
+        @sale_payment_part.errors.add(:payment_id, :required)
+        return
       end
-      if @sale_payment.errors.size <= 0
-        if @sale_payment.pay(@expense, :downpayment=>params[:sale_payment_part][:downpayment])
-          redirect_to_back
-        end
+      if sale_payment.pay(expense, :downpayment=>params[:sale_payment_part][:downpayment])
+        redirect_to_back
       end
-    else
-      session[:expense_type], session[:expense_id] = params[:expense_type], params[:expense_id]
-      last_payment = @expense.last_payment
-      @sale_payment = SalePayment.new(:paid_on=>Date.today, :to_bank_on=>Date.today, :amount=>@expense.unpaid_amount, :embanker_id=>@current_user.id, :bank=>last_payment.nil? ? "" : last_payment.bank, :account_number=>last_payment.nil? ? "" : last_payment.account_number) 
     end
-    t3e :type=>t("activerecord.models."+expense_type), :number=>@expense.number
+    t3e :type=>t("activerecord.models."+expense_type), :number=>expense.number
     render_form
   end
 

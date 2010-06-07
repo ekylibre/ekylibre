@@ -54,7 +54,6 @@ class Cash < ActiveRecord::Base
   belongs_to :entity
   belongs_to :journal
   has_many :embankments
-  has_many :statements, :class_name=>BankStatement.name
   has_many :bank_statements
   has_many :payment_modes
   validates_inclusion_of :mode, :in=>%w( bban iban )
@@ -88,7 +87,7 @@ class Cash < ActiveRecord::Base
   end
 
   def destroyable?
-    self.embankments.size <= 0 and self.statements.size <= 0
+    self.embankments.size <= 0 and self.bank_statements.size <= 0
   end
 
 

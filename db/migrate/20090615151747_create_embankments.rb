@@ -15,12 +15,8 @@ class CreateEmbankments < ActiveRecord::Migration
     add_column :bank_accounts, :address, :text
     add_column :payments, :embanker_id,  :integer,  :references=>:users, :on_delete=>:cascade, :on_update=>:cascade
 
-    Payment.find(:all).each do |payment|
-      if payment.entity_id.nil?
-        payment.entity_id = Entity.find(:first, :conditions=>{:company_id=>payment.company_id}).id
-        payment.save
-      end
-    end
+    entities = select_all("SELECT id, entity_id FROM companies")
+    execute "UPDATE payments SET entity_id=CASE "+entities.collect{|x| "WHEN company_id=#{x['id']} THEN #{x['entity_id']}"}.join(" ")+" ELSE 0 END WHERE entity_id IS NULL" if entities.size > 0
   end
 
   def self.down

@@ -46,7 +46,53 @@ class PurchasePayment < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :mode, :class_name=>PurchasePaymentMode.name
-  has_many :parts, :class_name=>PurchasePaymentPart.name
+  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
   has_many :purchase_orders, :through=>:parts
+
+  validates_numericality_of :amount, :greater_than=>0
+  validates_presence_of :to_bank_on, :created_on
+
+
+  def before_validation_on_create
+    self.created_on ||= Date.today
+    specific_numeration = self.company.parameter("management.purchase_payments.numeration")
+    if specific_numeration and specific_numeration.value
+      self.number = specific_numeration.value.next_value
+    else
+      last = self.company.purchase_payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
+      self.number = last ? last.number.succ : '000000'
+    end
+    true
+  end
+
+  def before_validation
+    self.parts_amount = self.parts.sum(:amount)
+  end
+
+  def label
+    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payee=>self.payee.full_name, :number=>self.number)
+  end
+
+  def unused_amount
+    self.amount-self.parts_amount
+  end
+
+
+  # Use the minimum amount to pay the expense
+  # If the payment is a downpayment, we look at the total unpaid amount
+  def pay(expense, options={})
+    raise Exception.new("Expense must be PurchaseOrder (not #{expense.class.name})") unless expense.class.name == PurchaseOrder.name
+    downpayment = options[:downpayment]
+    PurchasePaymentPart.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
+    self.reload
+    part_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
+    part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
+    if part.errors.size > 0
+      errors.add_from_record(part)
+      return false
+    end
+    return true
+  end
+
 
 end

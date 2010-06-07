@@ -38,6 +38,6 @@
     window.toggleCash = function() { toggleElement('bank_account', $('cash_nature_bank_account').checked, 'cash_box'); }
     toggleCash();
   =observe_field "cash_nature_bank_account", :frequency => 0.25, :function =>"toggleCash()"
-  =observe_field "cash_nature_bank_account", :frequency => 0.25, :update=>:cash_accountancy, :url=>{:action=>:cash_create}, :with=>"'nature='+(this.checked ? 'bank_account' : 'cash_box')", :loading=>"onLoading()", :loaded=>"onLoaded()"
+  =observe_field "cash_nature_bank_account", :frequency => 0.25, :update=>:cash_accountancy, :url=>{:action=>:cash_create, :mode=>:accountancy}, :with=>"'nature='+(this.checked ? 'bank_account' : 'cash_box')", :loading=>"onLoading()", :loaded=>"onLoaded()"
 
 

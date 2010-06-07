@@ -2,7 +2,7 @@ class AddBankAccountsDefault < ActiveRecord::Migration
   def self.up
     add_column :bank_accounts, :default, :boolean, :null => false, :default => false
 
-    Entity.find_all_by_id(BankAccount.all.collect{|b| b.entity_id}).each do |entity|
+    for entity in Entity.find_all_by_id(select_all("SELECT * FROM bank_accounts").collect{|b| b['entity_id'].to_i})
       bank_account = entity.bank_accounts.find(:first, :order=>:id)
       bank_account.update_attribute(:default, true) if bank_account
     end

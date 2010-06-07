@@ -40,6 +40,7 @@ class Currency < ActiveRecord::Base
   belongs_to :company
   has_many :journals
   has_many :prices
+  has_many :cashes
 
   validates_uniqueness_of :code, :scope=>:company_id
 

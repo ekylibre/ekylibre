@@ -35,7 +35,7 @@
 = toolbar do |t|
   - if @sale_order.estimate?
     - t.link(:sale_order_line_create)
-=render :partial=>"quick_line" if @sale_order.estimate?
+=render :partial=>"sale_order_line_row_form" if @sale_order.estimate?
 =dyta :sale_order_lines
 
 %table.dyta

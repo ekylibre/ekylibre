@@ -26,7 +26,6 @@ __minimum__:
 __not_used__:
   actions:
   - accountancy::import
-  - management::client_contacts_dyli
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -50,6 +49,7 @@ administrate_management:
   actions:
   - account_dyli
   - all_contacts_dyli
+  - client_contacts_dyli
   - critic_stocks_dyta
   - entities_dyli
   - index
@@ -186,14 +186,19 @@ create_purchases:
   actions:
   - purchase_order_create
   - purchase_order_delete
-  - purchase_order_update
   - purchase_order_line_create
   - purchase_order_line_delete
   - purchase_order_line_update
   - purchase_order_lines
   - purchase_order_summary
+  - purchase_order_update
+  - purchase_payment
   - purchase_payment_create
   - purchase_payment_delete
+  - purchase_payment_part_create
+  - purchase_payment_part_delete # UNEXISTENT ACTION !!!
+  - purchase_payment_part_update # UNEXISTENT ACTION !!!
+  - purchase_payment_purchase_orders_dyta
   - purchase_payment_update
   - purchase_payments
 # Effectuer des extractions (sans pouvoir les concevoir)

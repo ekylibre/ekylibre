@@ -50,7 +50,7 @@ spa:
     #>no_financialyear: 'Aucun exercice enregistré'
     #>no_lines_found: 'Aucun pruduit n''a été ajouté à la commande '
     #>no_location: 'Aucun lieu de stockage n''est défini. Veuillez en créer un pour pouvoir gérer vos stocks'
-    #>no_payment_to_embank: 'Aucun chèque à encaisser'
+    #>no_payment_to_embank: 'Aucun règlement à encaisser'
     #>no_reopenable_journal: 'Vous ne pouvez pas déclôturer ce journal.'
     #>no_stocks: 'Vous n''avez aucun stock. Si vous désirez gérer le stock d''un produit, veuillez cocher l''option "Gérer les stocks" dans les caractéristiques de votre produit.'
     #>no_template_journal: 'Pas de modèle journal'

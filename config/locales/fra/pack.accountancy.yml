@@ -197,12 +197,12 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       _journals:
         journal_detail: 'Cloturé au {{closed_on}}'
         journal_name: '{{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'

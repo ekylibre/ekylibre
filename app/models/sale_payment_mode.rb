@@ -48,6 +48,15 @@ class SalePaymentMode < ActiveRecord::Base
   has_many :payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name
   has_many :embankable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:embankment_id=>nil}
 
+  def before_validation
+    if self.with_embankment
+      self.cash_id = nil
+    else
+      self.account_id = nil
+    end
+    return true
+  end
+
   def destroyable?
     self.payments.size <= 0
   end  

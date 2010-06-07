@@ -343,7 +343,7 @@ spa:
       _purchase_order_form:
         #>infos: 'Renseignez les caractéristiques de l''achat '
       purchase_order_line_create:
-        #>title: 'Ajouter un produit à la commande'
+        #>title: 'Ajouter un produit à la commande : {{number}}'
       purchase_order_line_update:
         #>title: 'Modifier une ligne de la commande'
       purchase_order_lines:
@@ -369,17 +369,17 @@ spa:
           #>other: '{{count}} achats'
           #>zero: 'Aucun achat'
         #>title: 'Achats'
+      purchase_payment_create:
+        #>title: 'Ajout d''un règlement d''achat'
+      _purchase_payment_form:
+        #>embankable: 'Complément d''information'
+        #>title: 'Renseignez les conditions du règlement'
       purchase_payment_mode_create:
         #>title: 'Ajouter un nouveau mode de règlement d''achat'
-      _quick_line:
-        #>discount: 'Réduction (en %)'
-        #>from: 'Du numéro'
-        #>location: 'Lieu de stockage'
-        #>product: 'Produit'
-        #>quantity: 'Quantité'
-        #>title: 'Saisie rapide'
-        #>to: 'au'
-        #>valid: 'Valider'
+      purchase_payment_part_create:
+        #>title: 'Régler l''achat avec un règlement'
+      purchase_payments:
+        #>title: 'Règlements d''achat'
       sale_order:
         #>deliveries: 'Livraisons'
         #>general_informations: 'Informations générales'
@@ -423,13 +423,22 @@ spa:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
+      _sale_order_line_row_form:
+        #>discount: 'Réduction (en %)'
+        #>from: 'Du numéro'
+        #>location: 'Lieu de stockage'
+        #>product: 'Produit'
+        #>quantity: 'Quantité'
+        #>title: 'Saisie rapide'
+        #>to: 'au'
+        #>valid: 'Valider'
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -470,10 +479,8 @@ spa:
         #>title: 'Types de ventes'
       sale_order_print:
       sale_order_summary:
-        #>amount_wt: 'Montant TTC'
-        #>balance_amount: 'Solde du client'
+        #>add_payment: 'Ajouter un règlement'
         #>client_balance: 'Solde du client'
-        #>close_sale: 'Clôturer la vente'
         #>financial_state: 'État de la vente'
         #>invoice: 'Facture'
         #>invoiced_amount: 'Montant facturé'
@@ -513,7 +520,7 @@ spa:
       sale_payment_create:
         #>title: 'Ajout d''un nouveau règlement'
       _sale_payment_form:
-        #>check: 'Pour les règlements de type chèque'
+        #>embankable: 'Complément d''information'
         #>title: 'Renseignez les conditions du règlement'
       sale_payment_mode_create:
         #>title: 'Ajouter un nouveau mode de règlement de vente'
@@ -647,13 +654,13 @@ spa:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

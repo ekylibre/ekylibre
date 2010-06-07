@@ -424,16 +424,6 @@ jpn:
         #>in: 'Intrant'
         #>out: 'Sortant'
     payment_mode:
-      directions:
-        #>given: 'Pour les achats'
-        #>received: 'Pour les ventes'
-      modes:
-      natures:
-        #>card: 'Carte bancaire'
-        #>cash: 'Espèces'
-        #>check: 'Chèque'
-        #>other: 'Autre'
-        #>transfer: 'Virement'
     price:
       #>label: '{{product}} / {{amount}} {{currency}}'
       #>no_range: 'Pas d''intervalle'
@@ -467,6 +457,8 @@ jpn:
       #>purchase: 'Achat'
     purchase_order_line:
       #>tracking: 'N°Lot : {{serial}}'
+    purchase_payment:
+      #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'
     sale_order:
       label:
         #>estimate: 'Devis N°{{number}}'
@@ -491,12 +483,8 @@ jpn:
       #>reduction_on: 'Remise de {{percent}}% sur : {{product}}'
       #>tracking: 'N°Lot : {{serial}}'
     sale_order_nature:
-      payment_types:
-        #>card: 'Carte bancaire'
-        #>cash: 'Espèce'
-        #>check: 'Chèque bancaire'
-        #>none: 'Aucun'
-        #>transfer: 'Virement'
+    sale_payment:
+      #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{payer}}'
     sequence:
       periods:
         #>cweek: 'Semaine'

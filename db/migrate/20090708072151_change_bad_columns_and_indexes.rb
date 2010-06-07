@@ -21,7 +21,7 @@ class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
     
     add_column :languages, :company_id, :integer
     execute "DELETE FROM languages"
-    insert  "INSERT INTO languages(name, native_name, iso2, iso3, company_id) SELECT 'French', 'Français', 'fr', 'fra', id FROM companies"
+    insert  "INSERT INTO languages (name, native_name, iso2, iso3, company_id) SELECT 'French', 'Français', 'fr', 'fra', id FROM companies"
     languages = select_all("SELECT * FROM languages")
     if languages.size > 0
       languages = "CASE "+languages.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"

@@ -1,0 +1,20 @@
+=toolbar do |t|
+  -t.link :purchase_payment_update, :id=>@purchase_payment.id
+
+%table
+  %tr
+    %td
+      =evalue @purchase_payment, :number
+      =evalue @purchase_payment, :amount
+      =evalue @purchase_payment, :parts_amount
+      =evalue @purchase_payment, :payee, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+      =evalue @purchase_payment, :responsible, :label=>:label
+    %td
+      =evalue @purchase_payment, :mode
+      =evalue @purchase_payment, :paid_on
+      =evalue @purchase_payment, :to_bank_on
+      =evalue @purchase_payment, :check_number
+
+-if @purchase_payment.parts.size>0
+  %h2=tc(:purchase_orders)
+  =dyta :purchase_payment_purchase_orders

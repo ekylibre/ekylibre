@@ -87,14 +87,14 @@ class Company < ActiveRecord::Base
   has_many :purchase_orders
   has_many :purchase_order_lines
   has_many :purchase_payments
-  has_many :purchase_payment_modes
+  has_many :purchase_payment_modes, :order=>:name
   has_many :purchase_payment_parts
   has_many :roles
   has_many :sale_orders
   has_many :sale_order_lines
   has_many :sale_order_natures
   has_many :sale_payments
-  has_many :sale_payment_modes
+  has_many :sale_payment_modes, :order=>:name
   has_many :sale_payment_parts
   has_many :sequences
   has_many :shapes, :order=>:name
@@ -133,12 +133,15 @@ class Company < ActiveRecord::Base
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
+  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id} AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
   has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.suppliers\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
+  has_many :usable_purchase_payments, :class_name=>PurchasePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
+  has_many :usable_sale_payments, :class_name=>SalePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
 
   has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"

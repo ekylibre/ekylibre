@@ -100,7 +100,7 @@ class Entity < ActiveRecord::Base
   has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :trackings, :foreign_key=>:producer_id
   has_many :subscriptions
-  has_many :usable_payments, :conditions=>["parts_amount<amount"], :class_name=>SalePayment.name
+  has_many :usable_sale_payments, :conditions=>["parts_amount < amount"], :class_name=>SalePayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
   validates_uniqueness_of :code, :scope=>:company_id
@@ -164,6 +164,10 @@ class Entity < ActiveRecord::Base
   #
   def last_invoice
     self.invoices.find(:first, :order=>"created_at DESC")
+  end
+  
+  def last_sale_payment
+    self.sale_payments.find(:first, :order=>"updated_at DESC")
   end
   
   #

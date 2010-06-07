@@ -142,9 +142,9 @@ fra:
       profession: 'Profession'
       purchase_order: 'Achat'
       purchase_order_line: 'Ligne d''achat'
-      purchase_payment: (((PURCHASE_PAYMENT)))
-      purchase_payment_mode: (((PURCHASE_PAYMENT_MODE)))
-      purchase_payment_part: (((PURCHASE_PAYMENT_PART)))
+      purchase_payment: 'Règlement d''achat'
+      purchase_payment_mode: 'Mode de règlement d''achat'
+      purchase_payment_part: 'Partie de règlement d''achat'
       role: 'Rôle'
       sale_order: 'Vente'
       sale_order_line: 'Ligne de vente'
@@ -223,9 +223,9 @@ fra:
       profession: 'Professions'
       purchase_order: 'Achats'
       purchase_order_line: 'Lignes d''achat'
-      purchase_payment: (((PURCHASE_PAYMENT)))
-      purchase_payment_mode: (((PURCHASE_PAYMENT_MODE)))
-      purchase_payment_part: (((PURCHASE_PAYMENT_PART)))
+      purchase_payment: 'Règlements d''achat'
+      purchase_payment_mode: 'Modes de règlement d''achat'
+      purchase_payment_part: 'Parties de règlement d''achat'
       role: 'Rôles'
       sale_order: 'Ventes'
       sale_order_line: 'Lignes de vente'
@@ -252,8 +252,15 @@ fra:
       user: 'Utilisateurs'
 
     default_attributes:
+      company: 'Société'
+      company_id: 'Société'
+      created_at: 'Créé le'
       creator: 'Créateur'
       creator_id: 'Créateur'
+      id: 'ID'
+      lock_version: 'Version'
+      position: 'Position'
+      updated_at: 'Mis à jour le'
       updater: 'Modificateur'
       updater_id: 'Modificateur'
 
@@ -270,8 +277,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        deleted_at: 'Supprimé le' #?
-        deleter_id: 'Supprimeur' #?
         entries: 'Écritures'
         id: 'ID'
         is_debit: 'Débit'
@@ -352,7 +357,7 @@ fra:
         debit: 'Débit'
         entries: 'Écritures'
         id: 'ID'
-        intermediate_entries: (((INTERMEDIATE_ENTRIES)))
+        journal_entries: 'Écritures'
         lock_version: 'Version'
         number: 'Numéro'
         started_on: 'Du'
@@ -396,7 +401,6 @@ fra:
         nature_label: 'Nature'
         number: 'Numéro de compte bancaire'
         payment_modes: 'Modes de réglement'
-        statements: (((STATEMENTS)))
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -408,14 +412,13 @@ fra:
         areas: 'Zones postales'
         available_prices: 'Prix disponibles'
         available_products: 'Produits disponibles'
-        bank_journal: 'Journal de banque' #?
-        bank_journals: (((BANK_JOURNALS)))
+        bank_journals: 'Journaux de banque'
         bank_statements: 'Relevés de compte bancaire'
         banks_accounts: 'Comptes comptables de banque'
         born_on: 'Créée le'
-        cash_journals: (((CASH_JOURNALS)))
-        cashes: 'Comptes bancaires'
-        cashes_accounts: (((CASHES_ACCOUNTS)))
+        cash_journals: 'Journaux de caisse'
+        cashes: 'Comptes de trésorerie'
+        cashes_accounts: 'Comptes de caisse'
         charges_accounts: 'Comptes de charge'
         choice_complements: 'Chmaps complémentaires "liste de choix"'
         client_accounts: 'Comptes clients'
@@ -431,9 +434,6 @@ fra:
         current_financialyear: 'Exercice comptable en cours'
         default_currency: 'Devise par défaut'
         delays: 'Délais'
-        deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le' #?
-        deleter_id: 'Supprimeur' #?
         deliveries: 'Livraisons'
         delivery_lines: 'Lignes de livraison'
         delivery_modes: 'Modes de livraison'
@@ -477,11 +477,8 @@ fra:
         operation_natures: 'Types de travail'
         operations: 'Travaux'
         parameters: 'Paramètres'
-        payment_modes: 'Modes de réglement' #?
-        payment_parts: 'Parties de réglement' #?
-        payments: 'Réglements' #?
-        payments_to_embank: (((PAYMENTS_TO_EMBANK)))
-        payments_to_embank_accounts: (((PAYMENTS_TO_EMBANK_ACCOUNTS)))
+        payments_to_embank: 'Règlements à encaisser'
+        payments_to_embank_accounts: 'Comptes des règlements à encaisser'
         prices: 'Prix'
         product_components: 'Composants de produit'
         productable_products: 'Produits produisibles'
@@ -490,10 +487,9 @@ fra:
         professions: 'Professions'
         purchase_order_lines: 'Lignes d''achat'
         purchase_orders: 'Achats'
-        purchase_payment_modes: (((PURCHASE_PAYMENT_MODES)))
-        purchase_payment_parts: (((PURCHASE_PAYMENT_PARTS)))
-        purchase_payments: (((PURCHASE_PAYMENTS)))
-        purchases_journal: 'Journal d''achats' #?
+        purchase_payment_modes: 'Modes de règlements d''achat'
+        purchase_payment_parts: 'Parties de règlements d''achat'
+        purchase_payments: 'Règlements d''achat'
         roles: 'Rôles'
         sale_order_lines: 'Lignes de vente'
         sale_order_natures: 'Types de vente'
@@ -502,7 +498,7 @@ fra:
         sale_payment_parts: 'Parties de réglement'
         sale_payments: 'Réglements'
         sales_conditions: 'Conditions Générales de Vente'
-        sales_journal: 'Journal de Ventes' #?
+        self_bank_accounts: (((SELF_BANK_ACCOUNTS)))
         self_cashes: 'Comptes bancaires en propre'
         self_contacts: 'Contacts en propre'
         sequences: 'Séquences'
@@ -529,6 +525,8 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
+        usable_purchase_payments: (((USABLE_PURCHASE_PAYMENTS)))
+        usable_sale_payments: 'Règlements de vente utilisables'
         users: 'Utilisateurs'
 
       # Champ complémentaire
@@ -601,12 +599,10 @@ fra:
 
       # Contact
       contact:
-        active: 'Actif' #?
         address: 'Adresse'
         area: 'Zone postale'
         area_id: 'Zone postale'
         by_default: 'Par défaut'
-        closed_on: 'Annulé le' #?
         code: 'Code'
         company: 'Société'
         company_id: 'Société'
@@ -614,10 +610,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        default: 'Par défaut' #?
-        deleted: 'Effacé' #?
         deleted_at: 'Supprimé le'
-        deleter_id: 'Supprimeur' #?
         deliveries: 'Livraisons'
         email: 'Adresse e-mail'
         entity: 'Fiche'
@@ -640,8 +633,6 @@ fra:
         phone: 'Téléphone'
         purchase_orders: 'Achats'
         sale_orders: 'Ventes'
-        started_at: 'Du' #?
-        stopped_at: 'Au' #?
         subscriptions: 'Abonnement'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -652,7 +643,7 @@ fra:
       currency:
         active: 'Actif'
         by_default: 'Par défaut'
-        cashes: 'Comptes bancaires' #?
+        cashes: 'Comptes de trésorerie'
         code: 'Code'
         comment: 'Commentaire'
         company: 'Société'
@@ -660,7 +651,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        entries: 'Écritures' #?
         format: 'Format'
         id: 'ID'
         journals: 'Journaux'
@@ -855,8 +845,6 @@ fra:
         creator_id: 'Créateur'
         default: 'Par défaut' #?
         deleted: 'Supprimé' #?
-        deleted_at: 'Supprimé le' #?
-        deleter_id: 'Supprimeur' #?
         documents: 'Documents'
         family: 'Module'
         family_label: 'Module'
@@ -930,7 +918,6 @@ fra:
         direct_links: 'Liens directs'
         discount_rate: 'Taux d''escompte'
         ean13: 'Ean13'
-        employee_id: 'Représentant' #?
         events: 'Évènements'
         excise: 'Numéro d''accises'
         first_met_on: 'Date de la première rencontre'
@@ -964,7 +951,7 @@ fra:
         proposer_id: 'Parrain'
         prospect: 'Prospect'
         purchase_orders: 'Achats'
-        purchase_payments: (((PURCHASE_PAYMENTS)))
+        purchase_payments: 'Règlements d''achat'
         reduction_rate: 'Taux de réduction'
         reflation_submissive: 'Soumis à la relance'
         responsible: 'Responsable'
@@ -983,7 +970,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        usable_payments: 'Réglements utilisables'
+        usable_sale_payments: 'Règlements de vente utilisables'
         vat_number: 'Numéro de TVA intra-communautaire'
         vat_submissive: 'Soumis à la TVA'
         webpass: 'Mot de passe web'
@@ -1296,8 +1283,6 @@ fra:
         currency: 'Devise'
         currency_id: 'Devise'
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le' #?
-        deleter_id: 'Supprimeur' #?
         entries: 'Écritures'
         id: 'ID'
         lock_version: 'Version'
@@ -1820,6 +1805,7 @@ fra:
         lock_version: 'Version'
         moved_on: 'Reçu le'
         number: 'Numéro'
+        payee: (((PAYEE)))
         payment_parts: 'Parties de réglement'
         planned_on: 'Réception prévue le'
         quantity: 'Quantité'
@@ -1864,70 +1850,70 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # (((PURCHASE_PAYMENT)))
+      # Règlement d'achat
       purchase_payment:
-        accounted_at: (((ACCOUNTED_AT)))
-        amount: (((AMOUNT)))
-        check_number: (((CHECK_NUMBER)))
+        accounted_at: 'Comptabilisé à'
+        amount: 'Montant'
+        check_number: 'N°Chèque'
         company: 'Société'
         company_id: 'Société'
-        created_at: (((CREATED_AT)))
-        created_on: (((CREATED_ON)))
+        created_at: 'Créé le'
+        created_on: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        id: (((ID)))
-        lock_version: (((LOCK_VERSION)))
-        mode: (((MODE)))
-        mode_id: (((MODE_ID)))
-        number: (((NUMBER)))
-        paid_on: (((PAID_ON)))
-        parts: (((PARTS)))
-        parts_amount: (((PARTS_AMOUNT)))
-        payee: (((PAYEE)))
-        payee_id: (((PAYEE_ID)))
+        id: 'ID'
+        lock_version: 'Version'
+        mode: 'Mode de règlement'
+        mode_id: 'Mode de règlement'
+        number: 'Numéro'
+        paid_on: 'Payé le'
+        parts: 'Parts'
+        parts_amount: 'Montant utilisé'
+        payee: 'Bénéficiaire'
+        payee_id: 'Bénéficiaire'
         purchase_orders: 'Achats'
-        responsible: (((RESPONSIBLE)))
-        responsible_id: (((RESPONSIBLE_ID)))
-        to_bank_on: (((TO_BANK_ON)))
-        updated_at: (((UPDATED_AT)))
+        responsible: 'Responsable'
+        responsible_id: 'Responsable'
+        to_bank_on: 'À décaisser le'
+        updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # (((PURCHASE_PAYMENT_MODE)))
+      # Mode de règlement d'achat
       purchase_payment_mode:
         cash: 'Compte de trésorerie'
         cash_id: 'Compte de trésorerie'
         company: 'Société'
         company_id: 'Société'
-        created_at: (((CREATED_AT)))
+        created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        id: (((ID)))
-        lock_version: (((LOCK_VERSION)))
-        name: (((NAME)))
-        payments: (((PAYMENTS)))
-        updated_at: (((UPDATED_AT)))
+        id: 'ID'
+        lock_version: 'Version'
+        name: 'Nom'
+        payments: 'Règlements'
+        updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        with_accounting: (((WITH_ACCOUNTING)))
+        with_accounting: 'Comptabiliser les règlements'
 
-      # (((PURCHASE_PAYMENT_PART)))
+      # Partie de règlement d'achat
       purchase_payment_part:
-        amount: (((AMOUNT)))
+        amount: 'Montant'
         company: 'Société'
         company_id: 'Société'
-        created_at: (((CREATED_AT)))
+        created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        downpayment: (((DOWNPAYMENT)))
-        expense: (((EXPENSE)))
-        expense_id: (((EXPENSE_ID)))
-        id: (((ID)))
-        lock_version: (((LOCK_VERSION)))
-        order_id: '(((ORDER_ID)))' #?
-        payment: (((PAYMENT)))
-        payment_id: (((PAYMENT_ID)))
-        updated_at: (((UPDATED_AT)))
+        downpayment: 'Acompte'
+        expense: 'Dépense'
+        expense_id: 'Dépense'
+        payment_way: 'Mode de règlement'
+        id: 'ID'
+        lock_version: 'Version'
+        payment: 'Règlement'
+        payment_id: 'Règlement'
+        updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
@@ -1993,12 +1979,12 @@ fra:
         nature_id: 'Nature'
         number: 'Numéro'
         parts_amount: 'Montant payé'
+        payer: 'Payeur'
         payment_delay: 'Délai de paiement'
         payment_delay_id: 'Délai de paiement'
         payment_parts: 'Parties de réglement'
         responsible: 'Responsable'
         responsible_id: 'Responsable'
-        sale: 'Vente' #?
         state: 'État'
         stock_moves: 'Mouvements de stock'
         subject: 'Objet'
@@ -2078,7 +2064,9 @@ fra:
         name: 'Nom'
         payment_delay: 'Délai de paiement'
         payment_delay_id: 'Délai de paiement'
-        payment_type: 'Type de paiement'
+        payment_mode_complement: (((PAYMENT_MODE_COMPLEMENT)))
+        payment_mode_id: (((PAYMENT_MODE_ID)))
+        payment_type: 'Type de paiement' #?
         sale_orders: 'Ventes'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -2086,10 +2074,7 @@ fra:
 
       # Réglement
       sale_payment:
-        account: 'Compte associé' #?
-        account_id: 'Compte associé' #?
         account_number: 'Numéro de compte'
-        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant'
         bank: 'Banque'
@@ -2100,26 +2085,20 @@ fra:
         created_on: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        direction: 'Type' #?
-        downpayment: 'Acompte' #?
         embanker: 'Responsable'
         embanker_id: 'Responsable'
         embankment: 'Encaissement'
         embankment_id: 'Encaissement'
-        entity: 'Client' #?
-        entity_id: 'Client' #?
         id: 'ID'
         lock_version: 'Version'
         mode: 'Mode de paiement'
         mode_id: 'Mode de paiement'
         number: 'Numéro'
-        orders: 'Ventes' #?
         paid_on: 'Réglé le'
         parts: 'Parties de réglement'
         parts_amount: 'Montant utilisé'
-        payer: (((PAYER)))
-        payer_id: (((PAYER_ID)))
-        purchase_orders: 'Achats' #?
+        payer: 'Payeur'
+        payer_id: 'Payeur'
         receipt: 'Reçu électronique'
         received: 'Reçu'
         sale_orders: 'Ventes'
@@ -2144,14 +2123,11 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        direction: 'Type' #?
-        embankable_payments: (((EMBANKABLE_PAYMENTS)))
+        embankable_payments: 'Règlements encaissables'
         entities: 'Personnes'
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
-        nature: 'Nature' #?
-        nature_label: 'Nature' #?
         payments: 'Réglements'
         published: 'Publié'
         updated_at: 'Mis à jour le'
@@ -2174,10 +2150,9 @@ fra:
         expense_id: 'Dépense'
         expense_type: 'Type de dépense'
         id: 'ID'
-        invoice: 'Facture'
-        invoice_id: 'Facture'
+        invoice: 'Facture' #?
+        invoice_id: 'Facture' #?
         lock_version: 'Version'
-        order_id: 'Vente' #?
         payment: 'Réglement'
         payment_id: 'Réglement'
         payment_way: 'Moyen de paiement'
@@ -2428,8 +2403,6 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         deleted: 'Effacé' #?
-        deleted_at: 'Supprimé le' #?
-        deleter_id: 'Supprimeur' #?
         description: 'Description'
         group_name: 'Groupe' #?
         id: 'ID'
@@ -2543,7 +2516,6 @@ fra:
 
       # Transfert
       transfer:
-        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant'
         comment: 'Commentaire'
@@ -2557,6 +2529,7 @@ fra:
         label: 'Libellé'
         lock_version: 'Version'
         parts_amount: 'Montant payé'
+        payer: 'Payeur'
         payment_parts: 'Parties de réglement'
         started_on: 'Débuté le'
         stopped_on: 'Fini le'
@@ -2623,7 +2596,6 @@ fra:
         credits: 'Création d''avoirs' #?
         deleted: 'Effacé' #?
         deleted_at: 'Supprimé à' #?
-        deleter_id: 'Supprimeur' #?
         departed_on: 'Parti le'
         department: 'Département'
         department_id: 'Département'

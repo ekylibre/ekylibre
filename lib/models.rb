@@ -451,6 +451,7 @@ EKYLIBRE_REFERENCES = {
     :creator_id => :user,
     :expiration_id => :delay,
     :payment_delay_id => :delay,
+    :payment_mode_id => :sale_payment_mode,
     :updater_id => :user
   },
   :sale_payment => {
@@ -474,7 +475,6 @@ EKYLIBRE_REFERENCES = {
     :company_id => :company,
     :creator_id => :user,
     :expense_id => "expense_type",
-    :invoice_id => :invoice,
     :payment_id => :sale_payment,
     :updater_id => :user
   },

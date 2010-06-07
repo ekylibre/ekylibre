@@ -36,6 +36,28 @@
 class PurchasePaymentPart < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :payment
+  belongs_to :payment, :class_name=>PurchasePayment.name
   belongs_to :expense, :class_name=>PurchaseOrder.name
+
+  validates_numericality_of :amount, :greater_than=>0
+
+  def before_validation
+    self.downpayment = false if self.downpayment.nil?
+    return true
+  end
+
+  def after_save
+    self.payment.save
+    self.expense.save 
+  end
+
+  def after_destroy
+    self.payment.save
+    self.expense.save
+  end
+
+  def payment_way
+    self.payment.mode.name if self.payment.mode
+  end
+
 end

@@ -38,12 +38,12 @@
 class SalePaymentPart < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :payment
+  belongs_to :payment, :class_name=>SalePayment.name
   belongs_to :expense, :polymorphic=>true
-  belongs_to :invoice # TODEL
+  # belongs_to :invoice # TODEL
 
   cattr_reader :expense_types
-  @@expense_types = [PurchaseOrder.name, SaleOrder.name, Transfer.name]
+  @@expense_types = [SaleOrder.name, Transfer.name] # PurchaseOrder.name, 
 
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type
@@ -68,7 +68,6 @@ class SalePaymentPart < ActiveRecord::Base
     self.payment.save
     self.expense.save
   end
-
 
   def payment_way
     self.payment.mode.name if self.payment.mode

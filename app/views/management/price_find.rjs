@@ -1,6 +1,6 @@
 if @price
   page['price_amount'].value=@price.amount
-  page['price_tax_id'].value=@price.tax_id
+  # page['price_tax_id'].value=@price.tax_id
 end
 #if @product
 #  page['purchase_order_line_unit_id'].update(options_for_select(@product.units.collect{|x| [x.label, x.id]}, @product.unit_id))
