@@ -1,23 +1,15 @@
 -journals = @current_company.journals
--if journals.size > 1
-  .journals
-    %table
-      %tr
-        -if !@current_company.journal_entries.find_by_draft(true)
-          %td.journal
-            .journal-name
-              -if action_name=="draft"
-                %nobr
-                  %strong=tc('draft')
-              -else
-                %nobr=link_to(tc('draft'), :action=>:draft, :controller=>:accountancy, :start=>params[:start], :finish=>params[:finish])            
-        -for journal in journals
-          %td.journal{:class=>journal.nature}
-            -attributes = {:name=>journal.name, :code=>journal.code, :nature_label=>journal.nature_label, :nature=>journal.nature, :closed_on=>::I18n.localize(journal.closed_on), :currency_code=>journal.currency.code, :currency_name=>journal.currency.name}
-            .journal-name
-              -if action_name=="journal" and journal.id==@journal.id
-                %nobr
-                  %strong=tc('journal_name', attributes)
-              -else
-                %nobr=link_to(tc('journal_name', attributes), :action=>:journal, :controller=>:accountancy, :id=>journal.id, :start=>params[:start], :finish=>params[:finish])
-            %nobr.journal-detail=tc('journal_detail', attributes)
+.tabbox.journals
+  .tabs
+    -if @current_company.journal_entries.find_by_draft(true)
+      -name=tc('draft_entries').gsub(/\s+/, '&nbsp;')
+      -if action_name=="draft_entries"
+        %strong.tab.current.special=name
+      -else
+        =link_to(name, {:action=>:draft_entries, :controller=>:accountancy, :start=>params[:start], :finish=>params[:finish]}, :class=>"tab special")
+    -for journal in journals
+      -name= journal.name.gsub(/\s+/, '&nbsp;')
+      -if action_name=="journal" and journal.id==@journal.id
+        %strong.tab.current=name
+      -else
+        =link_to(name, {:action=>:journal, :controller=>:accountancy, :id=>journal.id, :start=>params[:start], :finish=>params[:finish]}, :title=>journal.name, :class=>:tab)

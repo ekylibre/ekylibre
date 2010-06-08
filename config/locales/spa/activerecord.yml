@@ -2204,6 +2204,7 @@ spa:
         #>not_a_number: '{{attribute}} n''est pas un nombre'
         #>odd: '{{attribute}} doit être pair'
         #>posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
+        #>record_has_been_already_validated: 'La pièce a été validée et ne peut plus être modifiée'
         #>taken: '{{attribute}} a déjà été pris'
         #>too_long: '{{attribute}} est trop long ({{count}} caractères maximum)'
         #>too_short: '{{attribute}} est trop court ({{count}} caractères minimum)'

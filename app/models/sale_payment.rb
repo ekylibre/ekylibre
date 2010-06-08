@@ -158,7 +158,7 @@ class SalePayment < ActiveRecord::Base
           self.journal_record = nil
         end
       end
-      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>mode.draft_mode)
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||mode.draft_mode)
       # Add entries
       if action != :delete
         self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)

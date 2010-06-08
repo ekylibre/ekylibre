@@ -80,7 +80,11 @@ class JournalEntry < ActiveRecord::Base
       end
     end
   end
-  
+    
+  def validate_on_update
+    errors.add_to_base(:record_has_been_already_validated) unless self.draft?
+  end
+
   #
   def validate
     unless self.updatable?
@@ -90,16 +94,12 @@ class JournalEntry < ActiveRecord::Base
     errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
     errors.add(:debit,  :greater_or_equal_than, :count=>0) if self.debit<0
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
-    #     errors.add(:debit,  :greater_than, :count=>0) if self.debit<=0 and self.credit.zero?
-    #     errors.add(:credit, :greater_than, :count=>0) if self.credit<=0 and self.debit.zero?
-    #     if self.debit.zero? ^ self.credit.zero?
-    #       errors.add(:debit,  :greater_than, :count=>0) if self.debit<=0 and self.credit.zero?
-    #       errors.add(:credit, :greater_than, :count=>0) if self.credit<=0 and self.debit.zero?
-    #     else
-    #       errors.add_to_base :empty_amounts
-    #     end
   end
   
+  def before_destroy
+    return false unless self.destroyable?
+  end
+
   # this method tests if the entry is locked or not.
   def close?
     return self.closed?
@@ -107,6 +107,10 @@ class JournalEntry < ActiveRecord::Base
 
   def updatable?
     not self.closed? and self.record.updatable?
+  end
+
+  def destroyable?
+    self.draft?
   end
 
   # updates the amounts to the debit and the credit 
@@ -140,7 +144,7 @@ class JournalEntry < ActiveRecord::Base
   #this method allows to fix a display color if the entry is in draft mode.
   def mode
     mode=""
-    mode="warning" if self.draft
+    mode+="warning" if self.draft
     mode
   end
   

@@ -179,7 +179,5 @@ class PurchaseOrder < ActiveRecord::Base
     end
   end
 
-
-
   
 end

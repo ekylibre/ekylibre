@@ -205,12 +205,12 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_amount,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_account_id, :integer
-    execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}"
+    execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}, draft_mode=#{quoted_true}"
     execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card' OR account_id IS NOT NULL"
     rename_column :sale_payment_modes, :bank_account_id, :cash_id
     remove_column :sale_payment_modes, :nature
     remove_column :sale_payment_modes, :mode
-    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes" 
+    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, draft_mode, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), #{quoted_true}, company_id, created_at, updated_at FROM sale_payment_modes" 
 
     execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at) SELECT amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"

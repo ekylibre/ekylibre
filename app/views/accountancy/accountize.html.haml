@@ -7,16 +7,12 @@
 
 
 -if @step == 2
-  -#.count=tc(:nb_invoices, :count=>@invoices.size)
-  -#.count=tc(:nb_sales, :count=>@current_company.sale_orders.find(:all,:conditions=>['accounted_at IS NOT NULL']).size)
-  -#.count=tc(:nb_purchases, :count=>@current_company.purchase_orders.find(:all,:conditions=>['accounted_at IS NOT NULL']).size)
-  -#.count=tc(:nb_payments, :count=>@current_company.payments.find(:all,:conditions=>['accounted_at IS NOT NULL']).size)
-  -#.count=tc(:nb_transfers, :count=>@current_company.transfers.find(:all,:conditions=>['accounted_at IS NOT NULL']).size)
-  - form_tag({}, :method=>:post) do
+  -form_tag({}, :method=>:post) do
     =formalize do |f|
       -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_accountization_on])
-      -f.field tc(:invoices_count), @invoices.size
-      -#f.field tc(:dont_save_in_draft), check_box_tag("dont_save_in_draft")
+      -for nature in @natures
+        -f.field tc("#{nature.to_s.pluralize}_count"), @records[nature].size
+      -f.field tc(:save_in_draft), check_box_tag("save_in_draft")
     .actions
       =submit_tag(tg(:save))
       =link_to tg(:back), :action=>:accountize, :finish_accountization_on=>params[:finish_accountization_on]

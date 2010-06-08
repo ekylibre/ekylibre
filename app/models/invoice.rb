@@ -191,13 +191,14 @@ class Invoice < ActiveRecord::Base
   end
 
   #this method accountizes the invoice.
-  def to_accountancy(options={})
+  def to_accountancy(mode=:create, options={})
+    return unless mode==:create and self.accounted_at.nil?
     ActiveRecord::Base.transaction do 
       if self.lines.size > 0
         journal = self.company.journal(:sales)
         client_account = self.client.account(:client)
         record = journal.records.create!(:printed_on=>self.created_on, :resource=>self)
-        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes)
+        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes, :draft_mode=>options[:draft])
         for line in self.lines
           record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
           record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?

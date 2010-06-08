@@ -34,30 +34,15 @@ jpn:
       account_update:
         #>title: 'Modifier le compte : {{number}} - {{name}}'
       accountize:
-        #>cashed_payments: 'Inclure les règlements non encaissés'
-        #>dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
-        #>draft_generate: 'Enregistrer dans le brouillard'
         #>invoices_count: 'Nombre de factures de vente à comptabiliser'
         nb_invoices:
-          #>one: '1 facture enregistrée'
-          #>other: '{{count}} factures enregistrées'
-          #>zero: 'Aucune facture enregistrée'
         nb_payments:
-          #>one: '1 règlement enregistrée'
-          #>other: '{{count}} règlements enregistrés'
-          #>zero: 'Aucun règlement enregistré'
         nb_purchases:
-          #>one: '1 achat enregistrée'
-          #>other: '{{count}} achats enregistrés'
-          #>zero: 'Aucun achat enregistré'
         nb_sales:
-          #>one: '1 vente enregistrée'
-          #>other: '{{count}} ventes enregistrées'
-          #>zero: 'Aucune vente enregistrée'
         nb_transfers:
-          #>one: '1 transfert enregistrée'
-          #>other: '{{count}} transferts enregistrés'
-          #>zero: 'Aucun transfert enregistré'
+        #>purchase_payments_count: 'Nombre de règlement d''achat à comptabiliser'
+        #>sale_payments_count: 'Nombre de règlement de vente à comptabiliser'
+        #>save_in_draft: 'Sauvegarder dans le brouillard'
         #>select_date_generation: 'Date limite d''intégration'
         #>title: 'Bascule comptable'
       accounts:
@@ -127,8 +112,8 @@ jpn:
         #>print: 'Impression de documents'
         #>title: 'Impression, exportation'
       draft_entries:
-        #>accountize: 'Comptabiliser les écritures'
-        #>title: 'Listing des écritures du brouillard'
+        #>title: 'Brouillard'
+        #>validate_selected_entries: 'Valider les écritures sélectionnées'
       entries:
         #>account_number: 'N°Compte'
         #>all_financialyears: '--- Tous les exercices ---'
@@ -166,6 +151,7 @@ jpn:
         #>financialyear_create: 'Ouvrir un nouvel exercice comptable'
         #>title: 'Exercices comptables'
       index:
+        #>journals: 'Journaux'
         nb_entries:
           #>one: '1 écriture'
           #>other: '{{count}} écritures'
@@ -175,13 +161,9 @@ jpn:
         #>balance: 'Soldes'
         #>credit: 'Crédit'
         #>debit: 'Débit'
-        #>filter_entries_with: 'Filtrer les écritures avec'
-        #>interval: 'Intervalle'
         #>journal_update: 'Modifier le journal'
-        #>manual_period: 'du {{start}} au {{finish}}'
-        #>period: 'Période'
         #>search: 'Rechercher des pièces/écritures'
-        #>title: '{{name}} ({{code}})'
+        #>title: 'Journal : {{name}} ({{code}})'
         #>totals: 'Totaux'
       journal_close:
         #>close: 'Clôturer le journal'
@@ -208,12 +190,17 @@ jpn:
       journals:
         #>title: 'Journaux'
       _journals:
-        #>draft: 'Brouillard'
+        #>draft_entries: 'Brouillard'
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'
+      _journals_search:
+        #>filter_entries_with: 'Filtrer les écritures avec'
+        #>interval: 'Intervalle'
+        #>manual_period: 'du {{start}} au {{finish}}'
+        #>period: 'Période'
       lettering:
         #>lettering_account_client: 'Lettrage des comptes clients'
         #>lettering_account_supplier: 'Lettrage des comptes fournisseurs'

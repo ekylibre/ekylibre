@@ -25,7 +25,6 @@ __minimum__:
 # Droit par défaut (inaccessible)
 __not_used__:
   actions:
-  - accountancy::import
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -199,6 +198,7 @@ create_purchases:
   - purchase_payment_purchase_orders_dyta
   - purchase_payment_update
   - purchase_payments
+  - purchase_payments_dyta
 # Effectuer des extractions (sans pouvoir les concevoir)
 extract_listings:
   controller: company
@@ -400,14 +400,16 @@ manage_entries:
   - account_dyli
   - account_letter
   - account_unletter
-  - draft # UNEXISTENT ACTION !!!
+  - draft_entries
+  - draft_entries_dyta
   - journal
+  - journal_draft_entries_dyta
   - journal_entries_dyta
   - journal_entry_create
   - journal_mixed_dyta
-  - accountancy::journal_draft_entries_dyta
   - journal_record
   - journal_record_create
+  - journal_record_delete
   - journal_record_entries_dyta
   - journal_record_update
   - journal_records_dyta

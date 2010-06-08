@@ -16,8 +16,8 @@
       #columns.columns{:orient=>:horizontal, :flex=>1}
         -side=side_tag
         -unless side.blank?
-          #side{:orient=>:vertical, :style=>"overflow: visible"+(session[:side] ? "" : "; display:none")}=side      
-        #main.main{:flex=>9, :orient=>:vertical, :class=>("with-side" unless side.blank?), :style=>"position: absolute; top: 0px; overflow: visible;"}
+          #side{:orient=>:vertical, :style=>"overflow: visible"+(session[:side] ? "" : "; display:none")}=side
+        #main.main{:flex=>9, :orient=>:vertical, :class=>("with-side" if session[:side]), :style=>"position: absolute; top: 0px; overflow: visible;"}
           .nav
             =help_link_tag
             =side_link_tag

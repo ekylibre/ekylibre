@@ -1,7 +1,17 @@
-====== Ajout/modification de pièce comptable ======
+====== Pièces comptables ======
 
-Pour aller le plus vite possible lors de la saisie de pièces comptables, 
-il est possible de tout saidir au clavier (sans la souris). 
-Grâce à la touche tabulation, vous pouvez changer de champ comme traditionnellement, 
-mais lorsque vous êtes en fin de ligne, 
-une nouvelle écriture vous sera proposée tant que la pièce n'est pas équilibrée.
+===== Numérotation =====
+
+Les pièces comptables représente des transactions au sein de votre entreprise, exemple : factures, règlements, inventaires...
+Elles ont une numérotation indépendante qui permet de classer les pièces en question et de les retrouver plus facilement.
+
+===== Saisie =====
+
+Pour aller le plus vite possible lors de la saisie de pièces comptables, il est possible de tout saisir au clavier (sans la souris). 
+Grâce à la touche tabulation, vous pouvez changer de champ comme traditionnellement, mais lorsque vous êtes en fin de ligne, une nouvelle écriture vous sera proposée tant que la pièce n'est pas équilibrée.
+
+===== Mode Brouillard =====
+
+En activant le mode brouillard, sur une pice vous pourrez la modifier à volonté. Elle sera visible dans le [[>accountancy/draft_entries|brouillard]].
+
+!!! Une pièce validée (sans //mode brouillard//) ne pourra plus être modifiée, il faudra //contrepasser// la pièce pour l'annuler.

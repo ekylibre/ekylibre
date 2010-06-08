@@ -73,7 +73,7 @@ journal_entries_001:
   currency_credit: 0
   currency_debit: 0
   debit: 0
-  draft: false
+  draft: true
   id: 1
   name: "Lorem ipsum"
   record_id: 1

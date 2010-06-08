@@ -7,6 +7,7 @@
 #accountancy
   =formalize do |f|
     -f.title :accountancy
+    -f.field :sale_payment_mode, :draft_mode
     -f.field :sale_payment_mode, :with_embankment, :onchange=>"toggleEmbankment();"
     -f.field :sale_payment_mode, :account_id, :choices=>{:reflection=>:payments_to_embank_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.payments_to_embank").value}, :resize=>true, :html_options=>{:id=>"sale_payment_mode_account"}
     -f.field :sale_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}, :html_options=>{:id=>"sale_payment_mode_cash"}

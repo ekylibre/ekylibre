@@ -1,32 +1,23 @@
-=render :partial=>"journals"
+=journals_tag
 =toolbar do |t|
   -t.link :journal_update, :id=>@journal.id
-  -t.link :journal_record_create, :id=>@journal.id
+  -t.link :journal_record_create, :journal_id=>@journal.id
 
 %table
   %tr
     %td
       =evalue @journal, :name
       =evalue @journal, :code
-      =evalue @journal, :closed_on
     %td
       =evalue @journal, :nature_label
       =evalue @journal, :currency
+    %td
+      =evalue @journal, :closed_on
 
 .search
-  - form_tag({:action=>:journal, :id=>@journal.id}, :method=>:get) do
-    %table
-      %tr
-        %td
-          =radio_button_tag("period_mode", "automatic", (params[:period_mode] == "automatic"))
-          %label{:for=>"period_mode_automatic"}=tc(:period)
-          =select_tag("period", journal_periods_tag(params[:period]))
-        %td
-          =radio_button_tag("period_mode", "manual", (params[:period_mode].nil? ? true : params[:period_mode] == "manual"))
-          %label{:for=>"period_mode_manual"}=tc(:interval)
-          =tc(:manual_period, :start=>calendar_field_tag(:start, session[:journal_record_start], :size=>8), :finish=>calendar_field_tag(:finish, session[:journal_record_finish], :size=>8))
-        %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
+  -form_tag({}, :method=>:get) do
+    =render :partial=>"journals_search"
+
 
 =journal_view_tag
-
-=dyta("journal_#{@journal_view}")
+.tab-content=dyta("journal_#{@journal_view}")

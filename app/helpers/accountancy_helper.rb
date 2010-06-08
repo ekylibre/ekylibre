@@ -19,6 +19,8 @@
 
 module AccountancyHelper
 
+  
+
 
   def major_accounts_tag
     majors = []
@@ -58,6 +60,11 @@ module AccountancyHelper
       return content_tag(:div, majors.join, :class=>'major-accounts')
     end
     return ""
+  end
+
+
+  def journals_tag
+    render :partial=>"journals"
   end
 
 

@@ -987,11 +987,18 @@ class ManagementController < ApplicationController
   end
   
 
-
-  manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
+  dyta(:purchase_payments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number
+    t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :name, :through=>:mode
+    t.column :amount
+  end
 
   def purchase_payments
   end
+
+  manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
+
 
   dyta(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM purchase_payment_parts WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
     t.column :number, :url=>{:action=>:purchase_order}
@@ -1698,6 +1705,7 @@ class ManagementController < ApplicationController
   dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :with_accounting
+    t.column :draft_mode
     t.column :with_embankment
     t.column :label, :through=>:account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
@@ -1709,6 +1717,7 @@ class ManagementController < ApplicationController
   dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :with_accounting
+    t.column :draft_mode
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
     t.action :purchase_payment_mode_update
     t.action :purchase_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"

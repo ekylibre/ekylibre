@@ -5,7 +5,9 @@
   -f.field JournalRecord.human_attribute_name("journal"), link_to(@journal_record.journal.name, :action=>:journal, :id=>@journal.id)
   -f.field :journal_record, :number
   -f.field :journal_record, :printed_on
+  -f.field :journal_record, :draft_mode
   -# f.field :journal_record, :created_on
+=hidden_field_tag "journal_id", params[:journal_id]
 %table.dyta{:style=>"margin-bottom: 8px;"}
   %thead
     %tr

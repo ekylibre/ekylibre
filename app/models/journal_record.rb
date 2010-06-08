@@ -72,15 +72,20 @@ class JournalRecord < ActiveRecord::Base
     self.debit  = self.entries.sum(:debit)
     self.credit = self.entries.sum(:credit)
     self.created_on = Date.today
+    # self.draft = (self.draft_mode or not self.balanced?)
     if self.draft_mode
       self.draft = true
     else
-      self.draft = !self.balanced?
+      self.draft = (self.balanced? ? false : true)
     end
     if self.journal and not self.number
       self.number ||= self.journal.next_number 
     end
   end 
+  
+  def validate_on_update
+    errors.add_to_base(:record_has_been_already_validated) unless self.draft?
+  end
   
   #
   def validate
@@ -108,12 +113,11 @@ class JournalRecord < ActiveRecord::Base
   end
 
   def before_destroy
-    return false if self.printed_on < self.journal.closed_on 
+    return false unless self.destroyable?
   end
 
-
   def destroyable?
-    self.printed_on >= self.journal.closed_on 
+    self.printed_on > self.journal.closed_on and self.draft?
   end
 
   
@@ -128,7 +132,7 @@ class JournalRecord < ActiveRecord::Base
   
   #determines if the record is balanced or not.
   def balanced?
-    self.debit == self.credit and self.debit > 0
+    self.debit == self.credit and self.entries.count > 0
   end
 
   def updatable?

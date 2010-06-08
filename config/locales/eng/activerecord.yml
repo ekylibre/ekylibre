@@ -2214,6 +2214,7 @@ eng:
         not_a_number: '{{attribute}} is not a number'
         odd: '{{attribute}} must be odd'
         #>posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
+        #>record_has_been_already_validated: 'La pièce a été validée et ne peut plus être modifiée'
         taken: '{{attribute}} has already been taken'
         too_long: '{{attribute}} is too long (maximum is {{count}} characters)'
         too_short: '{{attribute}} is too short (minimum is {{count}} characters)'

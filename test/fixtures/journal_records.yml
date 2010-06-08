@@ -76,6 +76,8 @@ journal_records_001:
   creator_id: 1
   credit: 0
   debit: 0
+  draft_mode: true
+  draft: true
   id: 1
   journal_id: 1
   number: "XYZ0001"
@@ -96,6 +98,8 @@ journal_records_002:
   debit: 0
   id: 2
   journal_id: 1
+  draft_mode: true
+  draft: true
   number: "XYZ0002"
   position: 0
   printed_on: 2007-07-25
@@ -113,6 +117,8 @@ journal_records_003:
   debit: 0
   id: 3
   journal_id: 1
+  draft_mode: true
+  draft: true
   number: "XYZ0003"
   position: 0
   printed_on: 2007-05-19
@@ -130,6 +136,8 @@ journal_records_004:
   debit: 0
   id: 4
   journal_id: 1
+  draft_mode: true
+  draft: true
   number: "XYZ0004"
   position: 0
   printed_on: 2007-01-19

@@ -32,9 +32,10 @@ class AccountancyController < ApplicationController
   # this method displays the form to choose the journal and financialyear.
   def accountize
     params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
+    @natures = [:invoice, :sale_payment, :purchase_payment]
 
     if request.get?
-      notify(:accountizing_works_only_with_sales_invoices, :information, :now)
+      notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.human_name}.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2
@@ -42,48 +43,23 @@ class AccountancyController < ApplicationController
       @step = 3
     end
 
+
     if @step >= 2
       session[:finish_accountization_on] = params[:finish_accountization_on]
-      @invoices = @current_company.invoices.find(:all, :conditions=>["accounted_at IS NULL and amount != 0 AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]])
+      @records = {}
+      for nature in @natures
+        @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>["accounted_at IS NULL AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]])
+      end
 
       if @step == 3
-        no_draft = true # (params[:dont_save_in_draft] == "1" ? true : false)
-        for invoice in @invoices
-          invoice.to_accountancy(:no_draft=>no_draft)
+        draft = (params[:save_in_draft].to_i == 1 ? true : false)
+        for nature in @natures
+          for record in @records[nature]
+            record.to_accountancy(:create, :draft=>draft)
+          end
         end
-        
-        #       # all the purchase_orders are accountized.
-        #       @purchase_orders = @current_company.purchase_orders.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s], :order=>"created_on DESC")                                                         
-        #       @purchase_orders.each do |purchase_order|
-        #         purchase_order.to_accountancy
-        #       end
-        
-        #       #      # all the transfers are accountized.
-        #       @transfers = @current_company.transfers.find(:all, :conditions=>["accounted_at IS NULL AND created_on < ? ", session[:limit_period].to_s],:order=>"created_on DESC")
-        #       @transfers.each do |transfer|
-        #         transfer.to_accountancy
-        #       end
-        
-        #       # all the payments are comptabilized if they have been embanked or not.  
-        #       #   join = "inner join embankments e on e.id=payments.embankment_id" unless session[:cashed_payments]
-        #       #       @payments = @current_company.payments.find(:all, :conditions=>["payments.created_on < ? and payments.accounted_at IS NULL and payments.amount!=0", session[:limit_period].to_s], :joins=>join||nil, :order=>"created_on DESC", :limit=>100)    
-        #       #       @payments.each do |payment|
-        #       #         payment.to_accountancy
-        #       #       end
-        
-        #       #       # the sale_orders are comptabilized if the matching payments and invoices have been already accountized.  
-        #       #       @sale_orders = @current_company.sale_orders.find(:all, :conditions=>["sale_orders.created_on < ? and sale_orders.accounted_at IS NULL and p.accounted_at IS NOT NULL and i.accounted_at IS NOT NULL", session[:limit_period].to_s], :joins=>"inner join payment_parts part on part.expense_id=sale_orders.id and part.expense_type='#{SaleOrder.name}' inner join payments p on p.id=part.payment_id inner join invoices i on i.id=part.invoice_id",:order=>"created_on DESC", :limit=>100)    
-        #       #       @sale_orders.each do |sale_order|
-        #       #         sale_order.to_accountancy 
-        #       #       end
-
         notify(:accountizing_is_finished, :success)
-        redirect_to :action=>:accountize
-        # if no_draft
-        #   redirect_to :action=>:accountize
-        # else
-        #   redirect_to :action=>:draft_entries
-        # end
+        redirect_to :action=>(draft ? :draft_entries : :accountize)
       end
     end
     
@@ -93,27 +69,6 @@ class AccountancyController < ApplicationController
 
 
 
-
-  # dyta(:draft_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :draft=>true}, :order=>:record_id, :line_class=>'RECORD.mode') do |t|
-  #   t.column :journal_name, :label=>'Journal'
-  #   t.column :resource, :label=>'Type'
-  #   t.column :resource_id, :label=>'Id', :through=>:record
-  #   t.column :number, :label=>"Numéro", :through=>:record
-  #   t.column :created_on, :label=>"Créée le", :through=>:record, :datatype=>:date
-  #   t.column :printed_on, :label=>"Saisie le", :through=>:record, :datatype=>:date
-  #   t.column :name
-  #   t.column :number, :label=>"Compte" , :through=>:account
-  #   t.column :debit
-  #   t.column :credit
-  #   t.action :entry_update, :if => '!RECORD.close?', :url=>{:action=>:entry_update, :accountize=>true}   
-  #   t.action :entry_delete, :method => :delete, :confirm=>:are_you_sure, :if => '!RECORD.close? and !RECORD.letter?'
-  # end
-  
-
-  # #this method lists all the entries generated in draft mode.
-  # def draft_entries
-  # end
-  
 
 
   dyta(:cashes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
@@ -664,11 +619,13 @@ class AccountancyController < ApplicationController
 
   def self.journal_records_conditions(options={})
     code = ""
-    if options[:draft]
-      code += "c=['journal_records.company_id=? AND journal_records.journal_id=? AND journal_records.draft=?', @current_company.id, session[:current_journal_id], true]\n"
-    else
-      code += "c=['journal_records.company_id=? AND journal_records.journal_id=?', @current_company.id, session[:current_journal_id]]\n"
-    end
+    code += "c=['journal_records.company_id=? "
+    code += " AND journal_records.journal_id=? " unless options[:all_journals]
+    code += " AND journal_records.draft=? " if options[:draft]
+    code += "', @current_company.id"
+    code += ", session[:current_journal_id]" unless options[:all_journals]
+    code += ", true" if options[:draft]
+    code += "]\n"
     code += "if (session[:journal_record_start].to_date rescue nil)\n"
     code += "  c[0]+=' AND journal_records.created_on>=?'\n"
     code += "  c<<session[:journal_record_start].to_date\n"
@@ -683,7 +640,7 @@ class AccountancyController < ApplicationController
 
   dyta(:journal_entries, :conditions=>journal_records_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :url=>{:action=>:journal_record}, :datatype=>:date
+    t.column :printed_on, :through=>:record, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
@@ -698,24 +655,24 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'!RECORD.closed? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'!RECORD.closed? '
+    t.action :journal_record_update, :if=>'RECORD.draft? '
+    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
   
   dyta(:journal_mixed, :model=>:journal_records, :conditions=>journal_records_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
     t.column :number, :url=>{:action=>:journal_record}, :children=>:name
-    t.column :printed_on, :url=>{:action=>:journal_record}, :datatype=>:date, :children=>false
+    t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'!RECORD.closed? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'!RECORD.closed? '
+    t.action :journal_record_update, :if=>'RECORD.draft? '
+    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
   dyta(:journal_draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :url=>{:action=>:journal_record}, :datatype=>:date
+    t.column :printed_on, :through=>:record, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
@@ -724,17 +681,22 @@ class AccountancyController < ApplicationController
     t.column :credit
   end  
 
-  def journal
-    return unless @journal = find_and_check(:journal)
-    session[:current_journal_id]   = @journal.id
+
+  def journal_filter()
     fy = @current_company.current_financialyear
     if params[:period_mode] == "automatic"
       dates = params[:period].split("_")
       params[:start]  = dates[0].to_date
       params[:finish] = dates[1].to_date
     end
-    session[:journal_record_start] = params[:start]||fy.started_on
-    session[:journal_record_finish]   = params[:finish]||fy.stopped_on
+    session[:journal_record_start]  =  params[:start]||fy.started_on
+    session[:journal_record_finish] = params[:finish]||fy.stopped_on    
+  end
+
+  def journal
+    return unless @journal = find_and_check(:journal)
+    session[:current_journal_id] = @journal.id
+    journal_filter
     journal_view = @current_user.parameter("interface.journal.#{@journal.code}.view")
     journal_view.value = "entries" if journal_view.value.nil?
     if view = ["entries", "records", "mixed", "draft_entries"].detect{|x| params[:view] == x}
@@ -744,6 +706,42 @@ class AccountancyController < ApplicationController
     @journal_view = journal_view.value.to_sym
     t3e @journal.attributes
   end
+
+
+  dyta(:draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true, :all_journals=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+    t.column :name, :through=>:journal, :url=>{:action=>:journal}
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :printed_on, :through=>:record, :datatype=>:date
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:account, :url=>{:action=>:account}
+    t.column :name
+    t.column :debit
+    t.column :credit
+  end
+  
+  # this method lists all the entries generated in draft mode.
+  def draft_entries
+    journal_filter
+    if request.post? and params[:validate]
+      conditions = nil
+      begin
+        conditions = eval(self.class.journal_records_conditions(:draft=>true, :all_journals=>true))
+        journal_records = @current_company.journal_records.find(:all, :conditions=>conditions)
+        undone = 0
+        for record in journal_records
+          record.draft_mode = false
+          record.save
+          undone += 1 if record.draft?
+        end
+        notify(:draft_entries_are_validated, :success, :now, :count=>journal_records.size-undone)
+      rescue Exception=>e
+        notify(:exception_raised, :error, :now, :message=>e.message)
+      end
+    end
+  end
+  
+
+
 
   manage :journals, :nature=>"params[:nature]||Journal.natures[0][1]"
 
@@ -805,18 +803,19 @@ class AccountancyController < ApplicationController
 
   # Permits to write records and entries in journal
   def journal_record_create
-    return unless @journal = find_and_check(:journal)  
+    return unless @journal = find_and_check(:journal, params[:journal_id])  
     session[:current_journal_id] = @journal.id
     @journal_record = @journal.records.build(params[:journal_record])
     if request.post?
       @journal_entries = (params[:entries]||{}).values
       if @journal_record.save_with_entries(@journal_entries)
         notify(:journal_record_has_been_saved, :success, :number=>@journal_record.number)
-        redirect_to :action=>:journal_record_create, :id=>@journal.id
+        redirect_to :action=>:journal_record_create, :journal_id=>@journal.id, :draft_mode=>(1 if @journal_record.draft_mode)
       end
     else
       @journal_record.printed_on = @journal_record.created_on = Date.today
       @journal_record.number = @journal.next_number
+      @journal_record.draft_mode = true if params[:draft_mode].to_i == 1
       @journal_entries = []
     end
     t3e @journal.attributes
@@ -824,7 +823,12 @@ class AccountancyController < ApplicationController
   end
 
   def journal_record_update
-    return unless @journal_record = find_and_check(:journal_record)  
+    return unless @journal_record = find_and_check(:journal_record)
+    unless @journal_record.draft?
+      notify(:journal_record_already_validated, :error)
+      redirect_to_back
+      return
+    end
     @journal = @journal_record.journal
     if request.post?
       @journal_record.attributes = params[:journal_record]
@@ -837,6 +841,20 @@ class AccountancyController < ApplicationController
     end
     t3e @journal_record.attributes
     render_form
+  end
+
+  def journal_record_delete
+    return unless @journal_record = find_and_check(:journal_record)
+    unless @journal_record.destroyable?
+      notify(:journal_record_already_validated, :error)
+      redirect_to_back
+      return
+    end
+    if request.delete?
+      @journal_record.destroy
+      notify(:record_has_been_correctly_removed, :success)
+    end
+    redirect_to_current
   end
 
 
@@ -1135,11 +1153,6 @@ class AccountancyController < ApplicationController
   #   end    
   #   redirect_to :action => "tax_declarations"
   # end
-
-
-  def import
-    
-  end
 
 end
 

@@ -81,6 +81,7 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 .content .md.md-right  { display:block; margin: 2px; float: right; }
 
 
+
 .side-link { display:block;  float: left;}
 .side-link div { width: 22px; height:32px; background: url(../images/buttons/open3.png) left center no-repeat;}
 #side-open div  { background: url(../images/buttons/open3.png) left center no-repeat;}
@@ -394,13 +395,10 @@ fieldset.quick-add { color: #008; }
 .branch:hover { background-color: #DEF; }
 
 
-.journals { height: 84px; overflow: auto; margin-bottom: 8px; }
-.journals table { height: 58px; }
-.journals .journal { padding: 4px 8px; height: 48px; background: #EEE; border: 1px solid #DDD; overflow: auto;}
-.journals .journal .journal-detail { font-size: 11px; color: #777}
-.journals .journal.bank { background: #DEF; }
-.journals .journal.sales { background: #DFE; }
-.journals .journal.purchases { background: #FED; }
+.journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }
+.journals.tabbox .tabs { padding-left: 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
+.journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
+.journals.tabbox .tabs .tab.special{ border-top: 3px solid #95b0e4;  }
 
 
 tbody.lines td input { width: 95%; }
@@ -420,11 +418,13 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .param:last-child { border-bottom:none;}
 
 table.accounts tr td.tabs { width: 16em; }
-table.accounts tr td.list { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px;}
+table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px;}
 .major-accounts a, .major-accounts strong { background: #DBE4F6; display: block; -moz-border-radius-topleft: 8px; -moz-border-radius-bottomleft: 8px; padding:4px 8px; margin-bottom:2px; }
 .major-accounts strong { background: #BACFE6 }
 .major-accounts > *:last-child { margin-bottom: 0 }
 
-.view { -moz-border-radius: 8px; background: #DBE4F6; padding:8px 6px; margin: 0 0 8px; }
-.view a:hover, .view strong { background: #BACFE6 }
-.view a, .view span, .view strong { padding:8px; border-right: 1px solid #F0F0FF;}
+.view { padding:4px;}/* background: #DBE4F6; margin: 0 0 8px; }*/
+.view span { padding:4px 8px; }
+.view a, .view strong { padding:4px 8px; margin: 0 2px; background: #DBE4F6;  -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px;}
+.view strong { background: #BACFE6; margin: 0 2px;}
+

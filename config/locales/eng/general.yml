@@ -1,4 +1,5 @@
 eng:
+  csv: 'CSV' #!
   date:
     abbr_day_names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
     abbr_month_names: ['', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
@@ -54,6 +55,11 @@ eng:
       #>true_value: 'VRAI'
       #>xcsv: 'CSV pour Excel'
     #>no_records: 'Aucun enregistrement'
+  edit: 'Edit' #!
+  error: 'Error' #!
+  export:
+  false_value: 'FALSE' #!
+  format_date:
   general:
     add: 'Add'
     apply: 'Apply'
@@ -73,22 +79,15 @@ eng:
     down: 'Down'
     duplicate: 'Duplicate'
     #>duration: '{{hours}}h {{minutes}}min'
-    dyta:  #!
-  export: #!
-    csv: 'CSV' #!
-    false_value: 'FALSE' #!
-    title: 'Export' #!
-    true_value: 'TRUE' #!
-    xcsv: 'Excel CSV' #!
- #!
-    edit: 'Edit'
+    dyta:
+    #>edit: 'Modifier'
     #>example: 'Exemple&nbsp;: {{value}}'
     #>export: 'Exporter'
     #>extract: 'Extraire'
     #>filter: 'Filtrer'
     #>finish: 'Terminer'
     format_date:
-      iso: '(YYYY-MM-DD)'
+      #>iso: '(AAAA-MM-JJ)'
     #>from: 'À partir du'
     #>hint: 'Astuce&nbsp;: {{value}}'
     #>import: 'Importer'
@@ -101,23 +100,23 @@ eng:
     #>lock: 'Verrouiller'
     #>mail: 'Envoyer un courriel'
     #>n: 'non'
-    new: 'New...'
-    next: 'Next'
+    #>new: 'Nouveau...'
+    #>next: 'Suivant'
     #>no_records: 'Pas d''enregistrements'
     notifications:
-      error: 'Error'
-      information: 'Information'
-      success: 'Success'
-      warning: 'Warning!'
-    previous: 'Previous'
-    print: 'Print'
+      #>error: 'Erreur'
+      #>information: 'Information'
+      #>success: 'Opération réalisée avec succès'
+      #>warning: 'Attention!'
+    #>previous: 'Précédent'
+    #>print: 'Imprimer'
     #>record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'
     #>record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
     #>reflect: 'Refléter'
     #>reopen: 'Déclôturer'
     #>save: 'Enregistrer'
     #>search: 'Rechercher'
-    search_go: 'Go!'
+    #>search_go: 'Lancer la recherche'
     #>submit: 'Envoyer'
     #>to: 'Au'
     #>total: 'Total'
@@ -126,12 +125,14 @@ eng:
       #>financialyear: 'L''exercice comptable est indisponible {{value}}'
       #>journal: 'Le journal demandé est indisponible ({{value}})'
       #>product: 'Le produit demandé est indisponible'
-    unlock: 'unlock'
+    #>unlock: 'Déverrouiller'
     #>up: 'Monter'
     #>update: 'Modifier'
     #>validate: 'Valider'
     #>view: 'Affichage'
     #>y: 'oui'
+  information: 'Information' #!
+  iso: '(YYYY-MM-DD)' #!
   models:
     account:
       #>default_account_name: 'Compte comptable {{number}}'
@@ -540,6 +541,9 @@ eng:
     user:
       #>no_right_defined_for_this_part_of_the_application: 'Aucun droit défini pour cette partie de l''application : {{controller}}/{{action}}'
       #>no_right_defined_for_this_part_of_the_application_and_this_user: 'Vous n''avez pas accès à cette partie de l''application'
+  new: 'New...' #!
+  next: 'Next' #!
+  notifications:
   number:
     currency:
       format:
@@ -562,6 +566,10 @@ eng:
     precision:
       format:
         #>delimiter: ''
+  previous: 'Previous' #!
+  print: 'Print' #!
+  search_go: 'Go!' #!
+  success: 'Success' #!
   support:
     array:
       #>last_word_connector: ' et '
@@ -576,6 +584,9 @@ eng:
       #>long: '%B %d, %Y %H:%M'
       #>short: '%d %b %H:%M'
     pm: 'pm'
+  title: 'Export' #!
+  true_value: 'TRUE' #!
+  unlock: 'unlock' #!
   views:
     shared:
       _entities_search:
@@ -595,3 +606,5 @@ eng:
         #>stock_transfers: 'Transferts et pertes'
         #>stocks_tasks: 'Stocks'
         #>tools: 'Outils'
+  warning: 'Warning!' #!
+  xcsv: 'Excel CSV' #!

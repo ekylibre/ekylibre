@@ -7,6 +7,8 @@ Utiliser les modes de règlement vous permet de suivre précisément vos encaiss
 
 En paramétrant le compte associé à chaque mode de réglement, vous pourrez avoir une comptabilité en ordre automatiquement.
 
+!!! La [[>company/configure|comptabilisation automatiquement]] doit être activée pour une comptabilisation en temps réel.
+
 ==== Pour les ventes ====
 En général, les comptes associés sont différents pour chaque mode :
   * Espèces : //53. Caisse//
@@ -18,5 +20,9 @@ En général, les comptes associés sont différents pour chaque mode :
 En général, les comptes associés sont :
   * Espèces : //53. Caisse//
   * Virement, chèques : //512. Banques//
+
+==== Mode brouillard ====
+
+Lors de la comptabilisation, si le mode brouillard est activé, les écritures ne seront pas contre-passées à chaque modification mais juste remplacées. Cela permet d'avoir des journaux plus légers et plus clairs.
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

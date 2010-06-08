@@ -2,4 +2,5 @@
   %h2= tg('indicator')
   %ul
     =li_link_to tc(:nb_entries, :count=>@entries.size), :action=>:journals
-=render :partial=>'journals'
+%h2=tc :journals
+=journals_tag

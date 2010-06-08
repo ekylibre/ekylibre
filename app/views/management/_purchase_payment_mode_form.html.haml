@@ -7,6 +7,7 @@
 #accountancy
   =formalize do |f|
     -f.title :accountancy
+    -f.field :purchase_payment_mode, :draft_mode
     -f.field :purchase_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}
 
 :javascript

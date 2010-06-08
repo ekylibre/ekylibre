@@ -136,7 +136,7 @@ class PurchasePayment < ActiveRecord::Base
           self.journal_record = nil
         end
       end
-      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>mode.draft_mode)
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||mode.draft_mode)
       # Add entries
       if action != :delete
         self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, self.amount)
