@@ -869,7 +869,7 @@ class ManagementController < ApplicationController
     return unless @purchase_order = find_and_check(:purchase_order)
     session[:current_purchase_order_id] = @purchase_order.id
     if request.post?
-      @purchase_order.finish
+      @purchase_order.confirm
       redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
     end
     @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}

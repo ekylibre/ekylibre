@@ -194,14 +194,13 @@ class Invoice < ActiveRecord::Base
   def to_accountancy(options={})
     ActiveRecord::Base.transaction do 
       if self.lines.size > 0
-        draft = options[:no_draft] ? false : true
         journal = self.company.journal(:sales)
         client_account = self.client.account(:client)
         record = journal.records.create!(:printed_on=>self.created_on, :resource=>self)
-        record.add_debit(tc(:to_accountancy, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes, :draft=>draft)
+        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes)
         for line in self.lines
-          record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount, :draft=>draft) unless line.amount.zero?
-          record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes, :draft=>draft) unless line.taxes.zero?
+          record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
+          record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
         end
       end
       self.update_attribute(:accounted_at, Time.now)

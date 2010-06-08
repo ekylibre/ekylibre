@@ -70,7 +70,7 @@
         </set>
       </part>
   
-      <part height="8mm" if="sale_order/letter?">
+      <part height="8mm" if="sale_order/letter? and sale_order/nature/payment_mode">
         <set top="2mm">
           <text value="Mode de paiement : " bold="true"/>
           <text value="{{sale_order/nature/payment_mode/name}} {{sale_order/nature/payment_mode_complement}}" left="31mm"/>

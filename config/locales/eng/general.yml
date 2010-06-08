@@ -365,7 +365,7 @@ eng:
       label:
         #>credit: 'Avoir N°{{number}}'
         #>normal: 'Facture N°{{number}}'
-      #>to_accountancy: '[{{number}}] {{detail}}'
+      #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     invoice_line:
       #>no_product: '[Pas de produit]'
     journal:
@@ -457,11 +457,12 @@ eng:
     purchase_order:
       #>label: '{{supplier}} à {{address}}'
       #>purchase: 'Achat'
+      #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     purchase_order_line:
       #>tracking: 'N°Lot : {{serial}}'
     purchase_payment:
       #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'
-      #>to_accountancy: '[{{number}}] {{detail}}'
+      #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     sale_order:
       label:
         #>estimate: 'Devis N°{{number}}'
@@ -488,7 +489,7 @@ eng:
     sale_order_nature:
     sale_payment:
       #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{payer}}'
-      #>to_accountancy: '[{{number}}] {{detail}}'
+      #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     sequence:
       periods:
         #>cweek: 'Semaine'

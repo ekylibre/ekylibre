@@ -147,7 +147,7 @@ class SalePayment < ActiveRecord::Base
       return
     end
     raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
-    journal = self.company.journal(:bank) # (action == :create ? :bank : :various)
+    journal = self.company.journal(:bank)
     # Add counter-entries
     ActiveRecord::Base.transaction do
       if action != :create and not self.journal_record.nil?
@@ -161,12 +161,8 @@ class SalePayment < ActiveRecord::Base
       self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>mode.draft_mode)
       # Add entries
       if action != :delete
-        self.journal_record.add_credit(tc(:to_accountancy, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
-        if mode.with_embankment?
-          self.journal_record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
-        else
-          self.journal_record.add_debit( tc(:to_accountancy, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
-        end
+        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
+        self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), (mode.with_embankment? ? mode.account_id : mode.cash.account_id), self.amount)
       end
       self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
     end 

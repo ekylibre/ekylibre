@@ -22,8 +22,8 @@ spa:
       #>inventory: 'Inventaire'
       #>invoice: 'Facture'
       #>invoice_number: 'Numéro de facture'
-      #>last_payment_amount: 'Montant du dernier réglement'
-      #>last_payment_date: 'Date du dernier réglement'
+      #>last_payment_amount: 'Montant du dernier règlement'
+      #>last_payment_date: 'Date du dernier règlement'
       locations:
         #>location_create: 'Ajouter un nouveau lieu de stockage'
       #>mobile: 'Portable'
@@ -32,7 +32,7 @@ spa:
       #>order: 'Commande'
       #>paid_on: 'Réglé le'
       #>parts_amount: 'Montant réglé'
-      #>payment_amount: 'Montant du réglement'
+      #>payment_amount: 'Montant du règlement'
       #>phone: 'Tél.'
       #>price: 'Prix'
       #>price_amount_with_taxes: 'Prix TTC'
@@ -252,8 +252,8 @@ spa:
       _payment_mode_form:
       payment_mode_update:
       payment_modes:
-        #>purchase_payment_modes: 'Modes de paiement utilisés pour les achats'
-        #>sale_payment_modes: 'Modes de paiement utilisés pour les ventes'
+        #>purchase_payment_modes: 'Modes de règlement utilisés pour les achats'
+        #>sale_payment_modes: 'Modes de règlement utilisés pour les ventes'
         #>title: 'Modes de règlement'
       payments:
       _payments_search:
@@ -434,13 +434,13 @@ spa:
         #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       _sale_order_line_row_form:
         #>discount: 'Réduction (en %)'
         #>from: 'Du numéro'
@@ -665,13 +665,13 @@ spa:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

@@ -86,8 +86,9 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
 
-  # Finishes the purchase by moving virtual and real stocks et closing
-  def finish(finished_on=Date.today)
+  # Confirm the purchase by moving virtual and real stocks et closing
+  # Move to accountancy if automatic
+  def confirm(finished_on=Date.today)
     self.shipped = true
     self.moved_on = finished_on
     if self.save
@@ -95,6 +96,7 @@ class PurchaseOrder < ActiveRecord::Base
         line.product.reserve_incoming_stock(:origin=>line)
         line.product.move_incoming_stock(:origin=>line)
       end
+      self.to_accountancy if self.company.accountizing?
     end
   end
 
@@ -102,27 +104,9 @@ class PurchaseOrder < ActiveRecord::Base
     tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
   end
 
+  # Need for use in dyta
   def quantity 
     ''
-  end
-
-  #this method saves the purchase in the accountancy module.
-  def to_accountancy
-    journal_purchase=  self.company.journals.find(:first, :conditions => ['nature = ?', 'purchase'],:order=>:id)
-    financialyear = self.company.financialyears.find(:first, :conditions => ["(? BETWEEN started_on and stopped_on) AND closed=?", '%'+Date.today.to_s+'%', false])
-    unless financialyear.nil? or journal_purchase.nil?
-      record = self.company.journal_records.create!(:resource_id=>self.id, :resource_type=>self.class.name, :created_on=>Date.today, :printed_on => self.planned_on, :journal_id=>journal_purchase.id, :financialyear_id => financialyear.id)
-      supplier_account = self.supplier.account(:supplier)
-      record.add_credit(self.supplier.full_name, supplier_account.id, self.amount_with_taxes, :draft=>true)
-      self.lines.each do |line|
-        line_amount = (line.amount * line.quantity)
-        record.add_debit('sale '+line.product.name, line.product.charge_account_id, line_amount, :draft=>true)
-        unless line.price.tax_id.nil?
-          record.add_debit(line.price.tax.name, line.price.tax.account_paid_id, line.price.tax.amount*line_amount, :draft=>true)
-        end
-      end
-      self.update_attribute(:accounted_at, Time.now)
-    end
   end
 
   def destroyable?
@@ -175,5 +159,27 @@ class PurchaseOrder < ActiveRecord::Base
   def taxes
     self.amount_with_taxes - self.amount
   end
+
+
+  # This method permits to add journal entries corresponding to the purchase order/invoice
+  # It depends on the parameter which permit to activate the "automatic accountizing"
+  def to_accountancy
+    ActiveRecord::Base.transaction do
+      if self.lines.size > 0
+        journal = self.company.journal(:purchases)
+        supplier_account = self.supplier.account(:supplier)
+        record = journal.records.create!(:printed_on=>self.created_on, :resource=>self)
+        record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), supplier_account.id, self.amount_with_taxes)
+        for line in self.lines
+          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
+          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
+        end
+      end
+      self.update_attribute(:accounted_at, Time.now)
+    end
+  end
+
+
+
   
 end
