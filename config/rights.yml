@@ -54,7 +54,6 @@ administrate_management:
   - entities_dyli
   - index
   - purchase_order_payment_parts_dyta
-  - sale_lines_dyta
   - sale_order_deliveries_dyta
   - sale_order_lines_dyta
   - sale_order_natures_dyta
@@ -401,10 +400,12 @@ manage_entries:
   - account_dyli
   - account_letter
   - account_unletter
+  - draft # UNEXISTENT ACTION !!!
   - journal
   - journal_entries_dyta
   - journal_entry_create
   - journal_mixed_dyta
+  - accountancy::journal_draft_entries_dyta
   - journal_record
   - journal_record_create
   - journal_record_entries_dyta

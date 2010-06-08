@@ -28,9 +28,5 @@
         %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
 
 =journal_view_tag
--if @journal_view == :entries
-  =dyta(:journal_entries)
--elsif @journal_view == :records
-  =dyta(:journal_records)
--elsif @journal_view == :mixed
-  =dyta(:journal_mixed)
+
+=dyta("journal_#{@journal_view}")

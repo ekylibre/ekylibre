@@ -1081,14 +1081,14 @@ class ManagementController < ApplicationController
     end
   end
   
-  dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']},:model=>:sale_order_lines,:empty=>true) do |t|
-    t.column :name, :through=>:product
-    t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :amount, :through=>:price, :label=>tc(:price)
-    t.column :amount
-    t.column :amount_with_taxes
-  end
+#   dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']},:model=>:sale_order_lines) do |t|
+#     t.column :name, :through=>:product
+#     t.column :quantity
+#     t.column :label, :through=>:unit
+#     t.column :amount, :through=>:price, :label=>tc(:price)
+#     t.column :amount
+#     t.column :amount_with_taxes
+#   end
 
   dyta(:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order]']}, :children=>:lines) do |t|
     t.column :address, :through=>:contact, :children=>:product_name, :label=>"Livraison"

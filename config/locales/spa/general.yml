@@ -46,6 +46,14 @@ spa:
       x_seconds:
         #>many: '{{count}} secondes'
         #>one: '1 seconde'
+  dyta:
+    export:
+      #>csv: 'CSV'
+      #>false_value: 'FAUX'
+      #>title: 'Export'
+      #>true_value: 'VRAI'
+      #>xcsv: 'CSV pour Excel'
+    #>no_records: 'Aucun enregistrement'
   general:
     #>add: 'Ajouter'
     #>apply: 'Appliquer'
@@ -65,13 +73,14 @@ spa:
     #>down: 'Descendre'
     #>duplicate: 'Dupliquer'
     #>duration: '{{hours}}h {{minutes}}min'
-    dyta:
-      export:
-        csv: 'CSV'
-        false_value: 'falso'
-        title: 'Exportar'
-        true_value: 'verdadero'
-        xcsv: 'CSV por Excel'
+    dyta:  #!
+  export: #!
+    csv: 'CSV' #!
+    false_value: 'falso' #!
+    title: 'Exportar' #!
+    true_value: 'verdadero' #!
+    xcsv: 'CSV por Excel' #!
+ #!
     #>edit: 'Modifier'
     #>example: 'Exemple&nbsp;: {{value}}'
     #>export: 'Exporter'
@@ -459,6 +468,8 @@ spa:
       #>purchase: 'Achat'
       #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     purchase_order_line:
+      #>name: '{{product}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
+      #>name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
       #>tracking: 'N°Lot : {{serial}}'
     purchase_payment:
       #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'

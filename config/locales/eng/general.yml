@@ -46,6 +46,14 @@ eng:
       x_seconds:
         #>many: '{{count}} secondes'
         #>one: '1 seconde'
+  dyta:
+    export:
+      #>csv: 'CSV'
+      #>false_value: 'FAUX'
+      #>title: 'Export'
+      #>true_value: 'VRAI'
+      #>xcsv: 'CSV pour Excel'
+    #>no_records: 'Aucun enregistrement'
   general:
     add: 'Add'
     apply: 'Apply'
@@ -65,13 +73,14 @@ eng:
     down: 'Down'
     duplicate: 'Duplicate'
     #>duration: '{{hours}}h {{minutes}}min'
-    dyta:
-      export:
-        csv: 'CSV'
-        false_value: 'FALSE'
-        title: 'Export'
-        true_value: 'TRUE'
-        xcsv: 'Excel CSV'
+    dyta:  #!
+  export: #!
+    csv: 'CSV' #!
+    false_value: 'FALSE' #!
+    title: 'Export' #!
+    true_value: 'TRUE' #!
+    xcsv: 'Excel CSV' #!
+ #!
     edit: 'Edit'
     #>example: 'Exemple&nbsp;: {{value}}'
     #>export: 'Exporter'
@@ -459,6 +468,8 @@ eng:
       #>purchase: 'Achat'
       #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     purchase_order_line:
+      #>name: '{{product}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
+      #>name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
       #>tracking: 'N°Lot : {{serial}}'
     purchase_payment:
       #>label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'

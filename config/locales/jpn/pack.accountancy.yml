@@ -14,6 +14,7 @@ jpn:
       #>all_accounts: 'Tous les comptes'
       #>all_periods: 'Tous les exercices'
       #>month_period: '{{code}} - {{month}} {{year}}'
+      #>view_draft_entries: 'Brouillard'
       #>view_entries: 'Écritures'
       #>view_mixed: 'Pièces et écritures'
       #>view_records: 'Pièces'
@@ -35,7 +36,7 @@ jpn:
       accountize:
         #>cashed_payments: 'Inclure les règlements non encaissés'
         #>dont_save_in_draft: 'Ne pas sauvegarder dans le brouillard'
-        #>draft_generate: 'Enregistrer dans le brouillon'
+        #>draft_generate: 'Enregistrer dans le brouillard'
         #>invoices_count: 'Nombre de factures de vente à comptabiliser'
         nb_invoices:
           #>one: '1 facture enregistrée'
@@ -207,6 +208,7 @@ jpn:
       journals:
         #>title: 'Journaux'
       _journals:
+        #>draft: 'Brouillard'
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
       _journals_find:
@@ -223,12 +225,12 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      print_balance_sheet:
-        #>period: 'Période'
-        #>title: 'Impression du bilan'
       _print_balance_sheet:
         #>balance_sheet: 'Sélectionnez l''exercice'
         #>select_financialyear: 'Exercice'
+      print_balance_sheet:
+        #>period: 'Période'
+        #>title: 'Impression du bilan'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

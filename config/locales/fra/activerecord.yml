@@ -357,7 +357,6 @@ fra:
         currency_credit: 'Crédit'
         currency_debit: 'Débit'
         debit: 'Débit'
-        entries: 'Écritures' #?
         id: 'ID'
         journal_entries: 'Écritures'
         lock_version: 'Version'
@@ -500,8 +499,8 @@ fra:
         sale_payment_parts: 'Parties de règlement'
         sale_payments: 'Règlements'
         sales_conditions: 'Conditions Générales de Vente'
-        self_bank_accounts: (((SELF_BANK_ACCOUNTS)))
-        self_cashes: 'Comptes bancaires en propre'
+        self_bank_accounts: 'Comptes bancaires en propre'
+        self_cashes: 'Caisses en propre'
         self_contacts: 'Contacts en propre'
         sequences: 'Séquences'
         shapes: 'Îlots'
@@ -527,7 +526,7 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        usable_purchase_payments: (((USABLE_PURCHASE_PAYMENTS)))
+        usable_purchase_payments: 'Règlements d''achats utilisables'
         usable_sale_payments: 'Règlements de vente utilisables'
         users: 'Utilisateurs'
 
@@ -710,7 +709,6 @@ fra:
         mode: 'Type'
         mode_id: 'Type'
         moved_on: 'Faite le'
-        nature: 'Type' #?
         order: 'Vente'
         order_id: 'Vente'
         planned_on: 'Prévue le'
@@ -845,8 +843,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        default: 'Par défaut' #?
-        deleted: 'Supprimé' #?
         documents: 'Documents'
         family: 'Module'
         family_label: 'Module'
@@ -889,7 +885,6 @@ fra:
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        validated: 'Valider' #?
 
       # Personne
       entity:
@@ -945,8 +940,6 @@ fra:
         payment_delay_id: 'Délai de paiement'
         payment_mode: 'Mode de règlement'
         payment_mode_id: 'Mode de règlement'
-        payments: 'Règlements' #?
-        payments_number: 'Nombre de paiements' #?
         photo: 'Photo'
         prices: 'Prix'
         proposer: 'Parrain'
@@ -1041,7 +1034,6 @@ fra:
 
       # Type de personne
       entity_nature:
-        abbreviation: 'Abréviation' #?
         active: 'Actif'
         company: 'Société'
         company_id: 'Société'
@@ -1135,18 +1127,16 @@ fra:
         id: 'ID'
         journal_records: 'Pièces comptables'
         lock_version: 'Version'
-        records: 'Pièces comptables' #?
         started_on: 'Commencé le'
         stopped_on: 'Date de clôture'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
-        written_on: 'Autoriser l''écriture jusqu''au' #?
 
       # Inventaire
       inventory:
         accounted_at: 'Comptabilisé le'
-        changes_reflected: 'Refleter les changements'
+        changes_reflected: 'Refléter les changements'
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -1154,8 +1144,6 @@ fra:
         created_on: 'Effectué le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        date: 'Créé le' #?
-        employee_id: 'Responsable' #?
         id: 'ID'
         lines: 'Lignes d''inventaire'
         lock_version: 'Version'
@@ -1194,7 +1182,6 @@ fra:
 
       # Facture
       invoice:
-        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
@@ -1214,7 +1201,6 @@ fra:
         currency_id: 'Devise'
         deliveries: 'Livraisons'
         downpayment_amount: 'Montant de l''acompte'
-        facture: 'Facture' #?
         has_downpayment: 'A un acompte'
         id: 'ID'
         lines: 'Lignes de facture'
@@ -1228,7 +1214,6 @@ fra:
         payment_delay: 'Délai de paiement'
         payment_delay_id: 'Délai de paiement'
         payment_on: 'A régler au plus tard le'
-        sale: 'Vente' #?
         sale_order: 'Vente'
         sale_order_id: 'Vente'
         updated_at: 'Mis à jour le'
@@ -1284,7 +1269,6 @@ fra:
         creator_id: 'Créateur'
         currency: 'Devise'
         currency_id: 'Devise'
-        deleted: 'Effacé' #?
         entries: 'Écritures'
         id: 'ID'
         lock_version: 'Version'
@@ -1310,29 +1294,20 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         credit: 'Crédit'
-        currency: 'Devise' #?
         currency_credit: 'Crédit'
         currency_debit: 'Débit'
-        currency_id: 'Devise' #?
-        currency_rate: 'Taux de change' #?
         debit: 'Débit'
-        draft: 'Brouillon'
-        editable: 'Éditable' #?
+        draft: 'Brouillard'
         expired_on: 'Expire le'
         id: 'ID'
-        intermediate: 'Relevé de compte intermédiaire' #?
-        intermediate_id: 'Relevé de compte intermédiaire' #?
         journal: 'Journal'
         journal_id: 'Journal'
         letter: 'Lettre'
         lock_version: 'Version'
         name: 'Nom'
-        number_account: 'Nber' #?
         position: 'Position'
         record: 'Pièce comptable'
         record_id: 'Pièce comptable'
-        statement: 'Relevé de compte' #?
-        statement_id: 'Relevé de compte' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1367,7 +1342,6 @@ fra:
         resource: 'Origine'
         resource_id: 'Origine'
         resource_type: 'Origine'
-        status: 'État' #?
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1496,7 +1470,6 @@ fra:
         entity: 'Fiche'
         entity_id: 'Fiche'
         family: 'Famille'
-        group: 'Groupe' #?
         id: 'ID'
         lock_version: 'Version'
         organization: 'Organisation'
@@ -1535,7 +1508,6 @@ fra:
         creator_id: 'Créateur'
         description: 'Description'
         duration: 'Durée'
-        employee_id: 'Employé' #?
         hour_duration: 'Heure(s)'
         id: 'ID'
         lines: 'Intrants/sortants'
@@ -1548,7 +1520,6 @@ fra:
         planned_on: 'Prévu le'
         responsible: 'Responsable'
         responsible_id: 'Responsable'
-        shape_id: 'Îlot' #?
         started_at: 'Du'
         stopped_at: 'Au'
         target: 'Parcelle'
@@ -1561,7 +1532,6 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
         uses: 'Matériels utilisés'
-        validated: 'Effectué' #?
 
       # Intrant/sortant
       operation_line:
@@ -1650,15 +1620,12 @@ fra:
         creator_id: 'Créateur'
         currency: 'Devise'
         currency_id: 'Devise'
-        default: 'Par défaut' #?
         delivery_lines: 'Lignes de livraison'
         entity: 'Fournisseur'
         entity_id: 'Fournisseur'
         id: 'ID'
         invoice_lines: 'Lignes de facture'
-        list_id: 'Liste de prix' #?
         lock_version: 'Version'
-        price: 'Prix' #?
         product: 'Produit'
         product_id: 'Produit'
         purchase_order_lines: 'Lignes d''achat'
@@ -1679,7 +1646,6 @@ fra:
       # Produit
       product:
         active: 'Utilisable'
-        actual_number: 'Numéro en cours' #?
         catalog_description: 'Description pour le catalogue'
         catalog_name: 'Nom pour le catalogue'
         code: 'Code'
@@ -1732,7 +1698,6 @@ fra:
         subscription_period: 'Période'
         subscription_quantity: 'Quantité'
         subscriptions: 'Abonnement'
-        supply_method: 'Moyen d''approvisionnement' #?
         to: 'Pour'
         trackings: 'Lots traçables'
         unit: 'Unité de mesure'
@@ -1944,7 +1909,6 @@ fra:
 
       # Vente
       sale_order:
-        accounted: 'Comptabilisé(e)' #?
         accounted_at: 'Comptabilisé(e) le'
         amount: 'Montant HT'
         amount_with_taxes: 'Montant TTC'
@@ -2033,7 +1997,6 @@ fra:
         price: 'Produit tarifé'
         price_amount: 'Montant HT'
         price_id: 'Produit tarifé'
-        price_list_id: 'Tarif' #?
         product: 'Produit'
         product_id: 'Produit'
         quantity: 'Quantité'
@@ -2074,7 +2037,6 @@ fra:
         payment_mode: 'Mode de règlement'
         payment_mode_complement: 'Complément d''information sur le mode règlement'
         payment_mode_id: 'Mode de règlement'
-        payment_type: 'Type de paiement' #?
         sale_orders: 'Ventes'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -2162,8 +2124,6 @@ fra:
         expense_id: 'Dépense'
         expense_type: 'Type de dépense'
         id: 'ID'
-        invoice: 'Facture' #?
-        invoice_id: 'Facture' #?
         lock_version: 'Version'
         payment: 'Règlement'
         payment_id: 'Règlement'
@@ -2218,7 +2178,6 @@ fra:
         parent: 'Parent'
         parent_id: 'Parent'
         polygon: 'Coordonnées'
-        shape_id: 'Îlot maître' #?
         shapes: 'Îlots'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
@@ -2286,7 +2245,6 @@ fra:
         creator_id: 'Créateur'
         generated: 'Généré'
         id: 'ID'
-        input: 'Entrée' #?
         location: 'Lieu de stockage'
         location_id: 'Lieu de stockage'
         lock_version: 'Version'
@@ -2320,7 +2278,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        executed: 'Réalisé' #?
         id: 'ID'
         location: 'Lieu de stockage de départ'
         location_id: 'Lieu de stockage de départ'
@@ -2344,7 +2301,6 @@ fra:
 
       # Abonnement
       subscription:
-        beginning: 'Débute le' #?
         comment: 'Commentaire'
         company: 'Société'
         company_id: 'Société'
@@ -2414,9 +2370,7 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        deleted: 'Effacé' #?
         description: 'Description'
-        group_name: 'Groupe' #?
         id: 'ID'
         included: 'Incluse'
         lock_version: 'Version'
@@ -2450,7 +2404,6 @@ fra:
         id: 'ID'
         lock_version: 'Version'
         nature: 'Régime de la déclaration'
-        normal: 'Réel normal' #?
         paid_amount: 'TVA déductible'
         paid_on: ''
         period: 'Période'
@@ -2605,9 +2558,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        credits: 'Création d''avoirs' #?
-        deleted: 'Effacé' #?
-        deleted_at: 'Supprimé à' #?
         departed_on: 'Parti le'
         department: 'Département'
         department_id: 'Département'
@@ -2618,7 +2568,6 @@ fra:
         establishment_id: 'Établissement'
         events: 'Évènements'
         first_name: 'Prénom'
-        free_price: 'Prix libres' #?
         full_name: 'Nom complet'
         future_events: 'Evènements futurs'
         hashed_password: 'Mot de passe crypté'

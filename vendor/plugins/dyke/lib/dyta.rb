@@ -49,7 +49,7 @@ module Ekylibre
             end
 
 
-            options = {:pagination=>:default, :empty=>true, :export=>'general.dyta.export'}
+            options = {:pagination=>:default, :empty=>false, :export=>'dyta.export'}
             options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
 
@@ -225,7 +225,7 @@ module Ekylibre
             if options[:empty]
               code += "    text = ''\n"
             else
-              code += "    text = '"+content_tag(:tr,content_tag(:td, ::I18n.translate('dyta.no_records').gsub(/\'/,'&apos;'), :class=>:empty))+"'\n"
+              code += "    text = content_tag(:thead, "+header+")+'<tr class=\"empty\"><td colspan=\"#{definition.columns.size}\">'+::I18n.translate('dyta.no_records')+'</td></tr>'\n"
             end
             code += "  end\n"
             code += footer;
@@ -355,7 +355,7 @@ module Ekylibre
                 else
                   datum = column.data(record)
                   if column.datatype == :boolean
-                    datum = "(#{datum} ? ::I18n.translate('general.dyta.export.true_value') : ::I18n.translate('general.dyta.export.false_value'))"
+                    datum = "(#{datum} ? ::I18n.translate('dyta.export.true_value') : ::I18n.translate('dyta.export.false_value'))"
                   end
                   if column.datatype == :date
                     datum = "::I18n.localize(#{datum})"

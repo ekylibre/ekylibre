@@ -662,9 +662,13 @@ class AccountancyController < ApplicationController
   def journals
   end
 
-  def self.journal_records_conditions
+  def self.journal_records_conditions(options={})
     code = ""
-    code += "c=['journal_records.company_id=? AND journal_records.journal_id=?', @current_company.id, session[:current_journal_id]]\n"
+    if options[:draft]
+      code += "c=['journal_records.company_id=? AND journal_records.journal_id=? AND journal_records.draft=?', @current_company.id, session[:current_journal_id], true]\n"
+    else
+      code += "c=['journal_records.company_id=? AND journal_records.journal_id=?', @current_company.id, session[:current_journal_id]]\n"
+    end
     code += "if (session[:journal_record_start].to_date rescue nil)\n"
     code += "  c[0]+=' AND journal_records.created_on>=?'\n"
     code += "  c<<session[:journal_record_start].to_date\n"
@@ -683,6 +687,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
+    t.column :draft
     t.column :debit
     t.column :credit
   end
@@ -690,6 +695,7 @@ class AccountancyController < ApplicationController
   dyta(:journal_records, :conditions=>journal_records_conditions, :order=>"created_at DESC") do |t|
     t.column :number, :url=>{:action=>:journal_record}
     t.column :printed_on
+    t.column :draft
     t.column :debit
     t.column :credit
     t.action :journal_record_update, :if=>'!RECORD.closed? '
@@ -700,11 +706,23 @@ class AccountancyController < ApplicationController
     t.column :number, :url=>{:action=>:journal_record}, :children=>:name
     t.column :printed_on, :url=>{:action=>:journal_record}, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
+    t.column :draft
     t.column :debit
     t.column :credit
     t.action :journal_record_update, :if=>'!RECORD.closed? '
     t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'!RECORD.closed? '
   end
+
+  dyta(:journal_draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :printed_on, :through=>:record, :url=>{:action=>:journal_record}, :datatype=>:date
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:account, :url=>{:action=>:account}
+    t.column :name
+    t.column :draft
+    t.column :debit
+    t.column :credit
+  end  
 
   def journal
     return unless @journal = find_and_check(:journal)
@@ -719,7 +737,7 @@ class AccountancyController < ApplicationController
     session[:journal_record_finish]   = params[:finish]||fy.stopped_on
     journal_view = @current_user.parameter("interface.journal.#{@journal.code}.view")
     journal_view.value = "entries" if journal_view.value.nil?
-    if view = ["entries", "records", "mixed"].detect{|x| params[:view] == x}
+    if view = ["entries", "records", "mixed", "draft_entries"].detect{|x| params[:view] == x}
       journal_view.value = view
       journal_view.save
     end

@@ -90,7 +90,7 @@ class ResourcesController < ApplicationController
 
   # manage :employees
 
-  dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :empty=>true) do |t|
+  dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name 
     t.column :code 
     t.column :rome 

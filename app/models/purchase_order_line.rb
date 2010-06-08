@@ -113,6 +113,16 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.order.refresh
   end
 
+  def name
+    options = {:product=>self.product.name, :unit=>self.unit.name, :quantity=>quantity.to_s, :amount=>self.price.amount, :currency=>self.price.currency.name}
+    if self.tracking
+      options[:tracking] = self.tracking.name
+      tc(:name_with_tracking, options)
+    else
+      tc(:name, options)
+    end
+  end
+
   def product_name
     self.product.name
   end
