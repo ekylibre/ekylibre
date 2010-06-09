@@ -168,8 +168,8 @@ class PurchaseOrder < ActiveRecord::Base
         supplier_account = self.supplier.account(:supplier)
         record = journal.records.create!(:printed_on=>self.created_on, :resource=>self, :draft_mode=>options[:draft]||self.company.draft_mode?)
         for line in self.lines
-          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
-          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
+          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.purchases_account_id, line.amount) unless line.amount.zero?
+          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
         end
         record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), supplier_account.id, self.amount_with_taxes)
       end
