@@ -287,9 +287,9 @@ class RelationsController < ApplicationController
   end
 
 
-  # dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'], ['@current_company.id'] ,['session[:current_entity]'],['session[:current_entity]'] ]) do |t|
-  # dyta(:entity_contacts, :model=>:contacts, :conditions=>{:entity_id=>['session[:current_entity]']}) do |t|
-  dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON (entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity_1_id = ? OR entity_2_id = ?) ) )', ['@current_company.id'], ['session[:current_entity]'], true, ['session[:current_entity]'], ['session[:current_entity]'], true, ['session[:current_entity]'], ['session[:current_entity]'] ]) do |t|
+  # dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'] ]) do |t|
+  # dyta(:entity_contacts, :model=>:contacts, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
+  dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON (entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity_1_id = ? OR entity_2_id = ?) ) )', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
     t.column :address, :url=>{:action=>:contact_update}
     t.column :phone
     t.column :fax
@@ -302,8 +302,8 @@ class RelationsController < ApplicationController
     t.action :contact_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
-#  dyta(:entity_subscriptions, :joins=>"JOIN subscription_natures AS sn ON (sn.id=subscriptions.nature_id) LEFT JOIN entity_links AS el ON (sn.entity_link_nature_id=el.nature_id AND COALESCE(el.stopped_on,CURRENT_DATE) <= CURRENT_DATE AND entity_id IN (entity_1_id, entity_2_id))", :conditions=>["subscriptions.company_id = ? AND ? IN (entity_id, COALESCE(entity_1_id,0), COALESCE(entity_2_id,0))", ['@current_company.id'], ['session[:current_entity]']], :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+#  dyta(:entity_subscriptions, :joins=>"JOIN subscription_natures AS sn ON (sn.id=subscriptions.nature_id) LEFT JOIN entity_links AS el ON (sn.entity_link_nature_id=el.nature_id AND COALESCE(el.stopped_on,CURRENT_DATE) <= CURRENT_DATE AND entity_id IN (entity_1_id, entity_2_id))", :conditions=>["subscriptions.company_id = ? AND ? IN (entity_id, COALESCE(entity_1_id,0), COALESCE(entity_2_id,0))", ['@current_company.id'], ['session[:current_entity_id]']], :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :number
     t.column :name, :through=>:nature
     t.column :start
@@ -318,7 +318,7 @@ class RelationsController < ApplicationController
     t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
+  dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sale_order}, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
@@ -331,7 +331,7 @@ class RelationsController < ApplicationController
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
   end
   
-  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}, :order=>"created_at DESC") do |t|
+  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -342,7 +342,7 @@ class RelationsController < ApplicationController
     t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+  dyta(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :name
     t.column :number
     t.column :iban_label
@@ -350,7 +350,7 @@ class RelationsController < ApplicationController
     t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure 
   end
   
-  dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
+  dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoice}, :children=>:label
     t.column :number, :through=>:sale_order, :url=>{:controller=>:management, :action=>:sale_order}, :children=>false
     # t.column :full_name, :through=>:client
@@ -364,7 +364,7 @@ class RelationsController < ApplicationController
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
   
-  dyta(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']}) do |t|
+  dyta(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :title
     t.column :organization, :url=>{:action=>:mandates}
     t.column :family
@@ -374,7 +374,7 @@ class RelationsController < ApplicationController
     t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     #t.column :id, :url=>{:controller=>:management, :action=>:payment}
     t.column :number, :url=>{:controller=>:management, :action=>:payment}
     t.column :paid_on
@@ -391,7 +391,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
+  dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
     t.action :observation_update
@@ -399,7 +399,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_purchase_orders, :model=>:purchase_order,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity]']}, :line_class=>'RECORD.status') do |t|
+  dyta(:entity_purchase_orders, :model=>:purchase_order,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
     t.column :number ,:url=>{:controller=>:management, :action=>:purchase_order}
     t.column :created_on
     t.column :moved_on
@@ -415,7 +415,7 @@ class RelationsController < ApplicationController
 
   def entity
     return unless @entity = find_and_check(:entity)
-    session[:current_entity] = @entity.id
+    session[:current_entity_id] = @entity.id
     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
     @key = ""
@@ -501,7 +501,7 @@ class RelationsController < ApplicationController
   #
   def entity_update
     return unless @entity = find_and_check(:entity)
-    session[:current_entity] = @entity.id
+    session[:current_entity_id] = @entity.id
    
     
     @complements = @current_company.complements.find(:all,:order=>:position)
@@ -627,10 +627,10 @@ class RelationsController < ApplicationController
   
   manage :entity_categories
 
-  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
+  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
 
 #   def contact_create
-#     return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity])
+#     return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity_id])
 #     #raise Exception.new(@entity.id.to_s)
 #     if request.post?
 #       @contact = Contact.new(params[:contact])
@@ -702,7 +702,7 @@ class RelationsController < ApplicationController
 
   manage :entity_link_natures
 
-  dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity_1_id = ? OR entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity]'],['session[:current_entity]']], :per_page=>5) do |t|
+  dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity_1_id = ? OR entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity_id]'],['session[:current_entity_id]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity_1, :url=>{:action=>:entity}
     t.column :name_1_to_2, :through=>:nature
     t.column :description, :through=>:entity_2, :url=>{:action=>:entity}

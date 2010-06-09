@@ -23,6 +23,23 @@ class NormalizeAccountizing < ActiveRecord::Migration
     'accountancy.taxes_accounts.payback_taxes'     => 'accountancy.accounts.payback_taxes',
     'accountancy.to_accountancy.automatic'         => 'accountancy.accountize.automatic'
   }.to_a.sort{|a,b| a[0]<=>b[0]}
+  RIGHTS = {
+    'manage_bank_accounts' => 'manage_cashes',
+    'manage_statements' => 'manage_bank_statements',
+    'search_and_consult_invoices' => 'consult_invoices',
+    'search_and_consult_products' => 'consult_products',
+    'administrate_' => '____access_',
+    'close_journals' => '____close_journals',
+    'mail_listings' => 'mail_to_listings',
+    'create_estimates' => 'manage_estimates',
+    'manage_invoicing' => 'manage_sale_payments',
+    'manage_orders' => 'manage_sale_orders',
+    'create_purchases' => 'manage_purchase_orders',
+    'consult_sales' => 'consult_sale_orders',
+    'print_accounting_document' => 'consult_accounting_documents',
+    'manage_company' => '____manage_company'
+  }.to_a.sort{|a,b| a[0]<=>b[0]}
+
 
   def self.up
     # Drop languages in order to add a universal support of languages
@@ -61,7 +78,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :name,            :string,  :null=>false, :limit=>50
       t.column :with_accounting, :boolean, :null=>false, :default=>false
       t.column :cash_id,         :integer
-      t.column :draft_mode,      :boolean, :null=>false, :default=>false
+      # t.column :draft_mode,      :boolean, :null=>false, :default=>false
       t.column :company_id,      :integer, :null=>false
     end
     
@@ -134,11 +151,13 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :contacts, :active
 
     add_column :currencies, :by_default, :boolean, :null=>false, :default=>false
-    execute "UPDATE currencies SET by_default=#{quoted_true}"
+    add_column :currencies, :symbol, :string, :null=>false, :default=>'-'
+    execute "UPDATE currencies SET by_default=#{quoted_true}, symbol='€' WHERE code='EUR'"
 
     change_column :delivery_modes, :code, :string, :limit=>8
 
     add_column :embankments, :accounted_at, :datetime
+    add_column :embankments, :journal_record_id, :integer
     rename_column :embankments, :bank_account_id, :cash_id
 
     add_column :entities, :prospect, :boolean, :null=>false, :default=>false
@@ -193,24 +212,29 @@ class NormalizeAccountizing < ActiveRecord::Migration
     ppps = select_all("SELECT expense_id, sum(amount) AS total FROM sale_payment_parts WHERE expense_type='PurchaseOrder' GROUP BY expense_id")
     execute "UPDATE purchase_orders SET parts_amount=CASE "+ppps.collect{|x| "WHEN id="+x['expense_id']+" THEN "+x['total']}.join(" ")+" ELSE 0 END" if ppps.size > 0
 
+    add_column :sale_order_lines, :reduction_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    reductions = select_all("SELECT b.id AS id, round(-100*b.quantity/a.quantity,2) AS reduction from sale_order_lines AS a join sale_order_lines AS b on (a.id=b.reduction_origin_id)")
+    execute "UPDATE sale_order_lines SET reduction_percent = CASE "+reductions.collect{|r| "WHEN id=#{r['id']} THEN #{r['reduction']}"}.join(" ")+" ELSE 0 END WHERE reduction_origin_id IS NOT NULL" if reductions.size > 0
+
     remove_column :sale_order_natures, :payment_type
     add_column :sale_order_natures, :payment_mode_id, :integer
     add_column :sale_order_natures, :payment_mode_complement, :text
 
     add_column :sale_payment_modes, :published, :boolean, :null=>true, :default=>false
-    add_column :sale_payment_modes, :draft_mode, :boolean, :null=>false, :default=>false
+    # add_column :sale_payment_modes, :draft_mode, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_embankment, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_commission, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :commission_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_amount,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_account_id, :integer
-    execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}, draft_mode=#{quoted_true}"
+    execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}" # , draft_mode=#{quoted_true}
     execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card' OR account_id IS NOT NULL"
     rename_column :sale_payment_modes, :bank_account_id, :cash_id
     remove_column :sale_payment_modes, :nature
     remove_column :sale_payment_modes, :mode
-    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, draft_mode, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), #{quoted_true}, company_id, created_at, updated_at FROM sale_payment_modes" 
+    # execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, draft_mode, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), #{quoted_true}, company_id, created_at, updated_at FROM sale_payment_modes" 
+    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes"
 
     execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at) SELECT amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
@@ -218,6 +242,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     remove_column :sale_payments, :account_id
     rename_column :sale_payments, :entity_id, :payer_id
+    change_column_null :sale_payments, :parts_amount, false, 0.0
     add_column :sale_payments, :receipt, :text
     add_column :sale_payments, :journal_record_id, :integer
     suppliers=select_all("SELECT payment_id, supplier_id FROM purchase_payment_parts JOIN purchase_orders ON (expense_id=purchase_orders.id)")
@@ -257,22 +282,30 @@ class NormalizeAccountizing < ActiveRecord::Migration
     execute "UPDATE journals SET nature='sales' WHERE nature='sale'"
     execute "UPDATE journals SET nature='purchases' WHERE nature='purchase'"
     execute "UPDATE journals SET nature='forward' WHERE nature='renew'"
-    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_accounts', 'manage_cashes')"
-    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_statements', 'manage_bank_statements')"
-    execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_accounts', 'manage_cashes')"
-    execute "UPDATE users SET rights=REPLACE(rights, 'manage_statements', 'manage_bank_statements')"
+    for t in [:roles, :users]
+      for o, n in RIGHTS
+        execute "UPDATE #{t} SET rights=REPLACE(rights, '#{o}', '#{n}')"
+      end
+    end
     execute "UPDATE taxes SET amount=amount*100 WHERE nature='percent'"
     for o, n in PARAMETERS
       execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
     end
+    execute "INSERT INTO parameters (name, nature, boolean_value, company_id, created_at, updated_at) SELECT 'accountancy.accountize.draft_mode', 'boolean', #{quoted_true}, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
   end
 
   def self.down
     # Update some values in tables
+    execute "DELETE FROM parameters WHERE name = 'accountancy.accountize.draft_mode'"
     for n, o in PARAMETERS.reverse
       execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
     end
     execute "UPDATE taxes SET amount=amount/100 WHERE nature='percent'"
+    for t in [:users, :roles]
+      for o, n in RIGHTS.reverse
+        execute "UPDATE #{t} SET rights=REPLACE(rights, '#{n}', '#{o}')"
+      end
+    end
     execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
     execute "UPDATE users SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
     execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
@@ -309,6 +342,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
                               " SELECT     id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM purchase_payments"
     remove_column :sale_payments, :journal_record_id
     remove_column :sale_payments, :receipt
+    # change_column_null :sale_payments, :parts_amount, false, 0.0
     rename_column :sale_payments, :payer_id, :entity_id
     add_column :sale_payments, :account_id, :integer
 
@@ -326,12 +360,14 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :sale_payment_modes, :with_commission
     remove_column :sale_payment_modes, :with_embankment
     remove_column :sale_payment_modes, :with_accounting
-    remove_column :sale_payment_modes, :draft_mode
+    # remove_column :sale_payment_modes, :draft_mode
     remove_column :sale_payment_modes, :published
 
     remove_column :sale_order_natures, :payment_mode_complement
     remove_column :sale_order_natures, :payment_mode_id
     add_column :sale_order_natures, :payment_type, :string, :null=>false, :default=>'none'
+
+    remove_column :sale_order_lines, :reduction_percent
 
     remove_column :purchase_orders, :parts_amount
 
@@ -382,10 +418,12 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :entities, :prospect
 
     rename_column :embankments, :cash_id, :bank_account_id
+    remove_column :embankments, :journal_record_id
     remove_column :embankments, :accounted_at
 
     # change_column :delivery_modes, :code, :string, :limit=>8
 
+    remove_column :currencies, :symbol
     remove_column :currencies, :by_default
 
     add_column :contacts, :active, :boolean, :null=>false, :default=>false

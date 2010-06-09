@@ -20,23 +20,24 @@
 # 
 # == Table: embankments
 #
-#  accounted_at   :datetime         
-#  amount         :decimal(16, 4)   default(0.0), not null
-#  cash_id        :integer          not null
-#  comment        :text             
-#  company_id     :integer          not null
-#  created_at     :datetime         not null
-#  created_on     :date             not null
-#  creator_id     :integer          
-#  embanker_id    :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  locked         :boolean          not null
-#  mode_id        :integer          not null
-#  number         :string(255)      
-#  payments_count :integer          default(0), not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 4)   default(0.0), not null
+#  cash_id           :integer          not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             not null
+#  creator_id        :integer          
+#  embanker_id       :integer          
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  locked            :boolean          not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  payments_count    :integer          default(0), not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class Embankment < ActiveRecord::Base
@@ -44,8 +45,10 @@ class Embankment < ActiveRecord::Base
   belongs_to :cash
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
+  belongs_to :journal_record
   belongs_to :mode, :class_name=>SalePaymentMode.name
   has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"created_at"
+  has_many :journal_records, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :embanker, :number, :cash
 
@@ -69,13 +72,23 @@ class Embankment < ActiveRecord::Base
       error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
     end
   end
+
+  # Create initial journal record
+  def after_create
+    self.to_accountancy if self.company.accountizing?
+  end
+
+  # Add journal records in order to correct accountancy
+  def before_update
+    self.to_accountancy(:update) if self.company.accountizing?
+  end
+
+  def before_destroy
+    self.to_accountancy(:delete) if self.company.accountizing?
+  end
   
   def refresh
     self.save
-  end
-
-  def checks
-    SalePayment.find_all_by_company_id_and_embankment_id(self.company_id, self.id)
   end
 
   # this method valids the embankment and accountizes the matching payments.
@@ -86,9 +99,31 @@ class Embankment < ActiveRecord::Base
   #     end
   #   end
 
-  def to_accountancy
-    
+  # This method permits to add journal entries corresponding to the payment
+  # It depends on the parameter which permit to activate the "automatic accountizing"
+  def to_accountancy(action=:create, options={})
+    raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
+    journal = self.company.journal(:bank)
+    # Add counter-entries
+    ActiveRecord::Base.transaction do
+      if action != :create and not self.journal_record.nil?
+        if self.journal_record.draft?
+          self.journal_record.entries.destroy_all
+        else
+          self.journal_record.cancel
+          self.journal_record = nil
+        end
+      end
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||self.company.draft_mode?)
+      # Add entries
+      if action != :delete
+        self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.cash.name), self.cash.account_id, self.amount)
+        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
+      end
+      self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
+    end 
   end
+
 
   
 end

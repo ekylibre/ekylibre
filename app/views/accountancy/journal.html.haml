@@ -18,6 +18,19 @@
   -form_tag({}, :method=>:get) do
     =render :partial=>"journals_search"
 
-
 =journal_view_tag
 .tab-content=dyta("journal_#{@journal_view}")
+
+%table.dyta
+  %tr.total
+    %th
+    %th=JournalRecord.human_attribute_name("debit")
+    %th=JournalRecord.human_attribute_name("credit")
+  %tr.important.total
+    %th=tc :totals
+    %td=@totals[:debit]
+    %td=@totals[:credit]
+  %tr.important.total
+    %th=tc :balance
+    %td=@totals[:balance_debit]
+    %td=@totals[:balance_credit]

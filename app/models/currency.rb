@@ -32,20 +32,18 @@
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  rate         :decimal(16, 6)   default(1.0), not null
+#  symbol       :string(255)      default("-"), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
 class Currency < ActiveRecord::Base
+  attr_readonly :company
   belongs_to :company
   has_many :journals
   has_many :prices
   has_many :cashes
 
   validates_uniqueness_of :code, :scope=>:company_id
-
-  def symbol
-    return "€" 
-  end
 
 end

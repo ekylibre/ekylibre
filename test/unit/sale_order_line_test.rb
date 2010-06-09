@@ -40,6 +40,7 @@
 #  product_id          :integer          not null
 #  quantity            :decimal(16, 4)   default(1.0), not null
 #  reduction_origin_id :integer          
+#  reduction_percent   :decimal(16, 2)   default(0.0), not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
 #  unit_id             :integer          not null

@@ -123,6 +123,7 @@ class JournalRecord < ActiveRecord::Base
   
   # this method computes the debit and the credit of the record.
   def refresh
+    self.reload
     self.save!
   end
 

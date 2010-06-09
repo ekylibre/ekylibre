@@ -135,6 +135,7 @@ EKYLIBRE_REFERENCES = {
     :company_id => :company,
     :creator_id => :user,
     :embanker_id => :user,
+    :journal_record_id => :journal_record,
     :mode_id => :sale_payment_mode,
     :updater_id => :user
   },

@@ -32,7 +32,7 @@ class AccountancyController < ApplicationController
   # this method displays the form to choose the journal and financialyear.
   def accountize
     params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
-    @natures = [:invoice, :sale_payment, :purchase_payment]
+    @natures = [:invoice, :sale_payment, :purchase_payment, :embankment, :purchase_order]
 
     if request.get?
       notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.human_name}.to_sentence)
@@ -48,7 +48,12 @@ class AccountancyController < ApplicationController
       session[:finish_accountization_on] = params[:finish_accountization_on]
       @records = {}
       for nature in @natures
-        @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>["accounted_at IS NULL AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]])
+        conditions = ["accounted_at IS NULL AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]]
+        if nature == :purchase_order
+          conditions[0] += " AND shipped = ? " 
+          conditions << true
+        end
+        @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>conditions)
       end
 
       if @step == 3
@@ -263,7 +268,7 @@ class AccountancyController < ApplicationController
     end
     if request.post?
       if params[:export]
-        query  = "SELECT accounts.number, accounts.name, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
+        query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
         query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
         query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
         query += " GROUP BY accounts.name, accounts.number"
@@ -287,6 +292,10 @@ class AccountancyController < ApplicationController
     end
     @document_template ||= @document_templates[0]
   end
+
+#  def balance
+#  end
+  
 
   # PRINTS=[[:balance, {:partial=>"balance"}],
   #         [:general_ledger, {:partial=>"ledger"}],
@@ -703,6 +712,15 @@ class AccountancyController < ApplicationController
       journal_view.value = view
       journal_view.save
     end
+
+    conditions = eval(self.class.journal_records_conditions)
+    @totals = {}
+    @totals[:debit]  = JournalRecord.sum(:debit, :conditions=>conditions)
+    @totals[:credit] = JournalRecord.sum(:credit, :conditions=>conditions)
+    @totals[:balance_debit] = 0.0
+    @totals[:balance_credit] = 0.0
+    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
+
     @journal_view = journal_view.value.to_sym
     t3e @journal.attributes
   end

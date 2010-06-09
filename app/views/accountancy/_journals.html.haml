@@ -9,7 +9,6 @@
         =link_to(name, {:action=>:draft_entries, :controller=>:accountancy, :start=>params[:start], :finish=>params[:finish]}, :class=>"tab special")
     -for journal in journals
       -name= journal.name.gsub(/\s+/, '&nbsp;')
-      -if action_name=="journal" and journal.id==@journal.id
-        %strong.tab.current=name
-      -else
-        =link_to(name, {:action=>:journal, :controller=>:accountancy, :id=>journal.id, :start=>params[:start], :finish=>params[:finish]}, :title=>journal.name, :class=>:tab)
+      -klass = "tab"
+      -klass += " current" if (action_name=="journal" and journal.id==@journal.id) or (@journal_record and @journal_record.journal_id==journal.id)
+      =link_to(name, {:action=>:journal, :controller=>:accountancy, :id=>journal.id, :start=>params[:start], :finish=>params[:finish]}, :title=>journal.name, :class=>klass)

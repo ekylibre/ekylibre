@@ -99,7 +99,7 @@ eng:
     #>letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     #>lock: 'Verrouiller'
     #>mail: 'Envoyer un courriel'
-    #>n: 'non'
+    #>n: 'Non'
     #>new: 'Nouveau...'
     #>next: 'Suivant'
     #>no_records: 'Pas d''enregistrements'
@@ -130,7 +130,7 @@ eng:
     #>update: 'Modifier'
     #>validate: 'Valider'
     #>view: 'Affichage'
-    #>y: 'oui'
+    #>y: 'Oui'
   information: 'Information' #!
   iso: '(YYYY-MM-DD)' #!
   models:
@@ -353,6 +353,8 @@ eng:
         #>stocks: 'État des stocks'
         #>transport: 'Transport'
       #>unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
+    embankment:
+      #>to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     entity:
       #>client: 'Client'
       #>supplier: 'Fournisseur'

@@ -37,7 +37,7 @@
 #  mode_id           :integer          not null
 #  number            :string(255)      
 #  paid_on           :date             
-#  parts_amount      :decimal(16, 2)   
+#  parts_amount      :decimal(16, 2)   not null
 #  payer_id          :integer          
 #  receipt           :text             
 #  received          :boolean          default(TRUE), not null
@@ -139,7 +139,6 @@ class SalePayment < ActiveRecord::Base
   
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
-  # The options :old permits to cancel the old existing record by adding counter-entries
   def to_accountancy(action=:create, options={})
     mode = self.mode
     unless mode.with_accounting?
@@ -158,11 +157,11 @@ class SalePayment < ActiveRecord::Base
           self.journal_record = nil
         end
       end
-      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||mode.draft_mode)
+      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||self.company.draft_mode?)
       # Add entries
       if action != :delete
-        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
         self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), (mode.with_embankment? ? mode.account_id : mode.cash.account_id), self.amount)
+        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
       end
       self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
     end 

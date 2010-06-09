@@ -158,13 +158,13 @@ jpn:
           #>zero: 'Aucune écriture'
         #>title: 'Comptabilité générale'
       journal:
-        #>balance: 'Soldes'
+        #>balance: 'Solde'
         #>credit: 'Crédit'
         #>debit: 'Débit'
         #>journal_update: 'Modifier le journal'
         #>search: 'Rechercher des pièces/écritures'
         #>title: 'Journal : {{name}} ({{code}})'
-        #>totals: 'Totaux'
+        #>totals: 'Totaux (pièces validées et brouillard)'
       journal_close:
         #>close: 'Clôturer le journal'
         #>select_closure_date: 'Choisissez la date de clôture'

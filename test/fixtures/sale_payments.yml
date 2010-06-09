@@ -37,7 +37,7 @@
 #  mode_id           :integer          not null
 #  number            :string(255)      
 #  paid_on           :date             
-#  parts_amount      :decimal(16, 2)   
+#  parts_amount      :decimal(16, 2)   not null
 #  payer_id          :integer          
 #  receipt           :text             
 #  received          :boolean          default(TRUE), not null
@@ -56,6 +56,7 @@
 #   creator_id: 1
 #   id: 1
 #   mode_id: 1
+#   parts_amount: 0
 #   received: true
 #   scheduled: true
 #   to_bank_on: 2009-07-19
@@ -71,6 +72,7 @@ sale_payments_001:
   id: 1
   payer_id: 1
   mode_id: 1
+  parts_amount: 0
   received: true
   scheduled: true
   to_bank_on: 2009-07-19
@@ -85,6 +87,7 @@ sale_payments_002:
   payer_id: 1
   id: 2
   mode_id: 1
+  parts_amount: 0
   received: true
   scheduled: true
   to_bank_on: 2009-07-19
@@ -99,6 +102,7 @@ sale_payments_003:
   payer_id: 3
   id: 3
   mode_id: 1
+  parts_amount: 0
   received: true
   scheduled: false
   to_bank_on: 2009-07-19

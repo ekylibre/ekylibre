@@ -263,9 +263,9 @@ class Entity < ActiveRecord::Base
     self.default_contact ? self.default_contact.address : '[NoDefaultContactError]'
   end
 
-  def max_reduction_rate(computed_on=Date.today)
+  def max_reduction_percent(computed_on=Date.today)
     # Subscription.count_by_sql(["SELECT max(reduction_rate) FROM subscriptions AS s JOIN subscription_natures ON (s.nature_id = subscription_natures.id) WHERE s.entity_id = ? AND s.company_id = ? AND ? BETWEEN s.started_on AND s.stopped_on", self.id, self.company_id, computed_on]).to_f
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (subscriptions.nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (subscriptions.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ? AND COALESCE(subscriptions.sale_order_id, 0) NOT IN (SELECT id FROM sale_orders WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN subscription_natures AS sn ON (subscriptions.nature_id = sn.id) LEFT JOIN entity_links AS el ON (el.nature_id = sn.entity_link_nature_id AND subscriptions.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (subscriptions.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN subscriptions.started_on AND subscriptions.stopped_on AND subscriptions.company_id = ? AND COALESCE(subscriptions.sale_order_id, 0) NOT IN (SELECT id FROM sale_orders WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
   end
   
   def description

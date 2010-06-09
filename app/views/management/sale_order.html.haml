@@ -29,11 +29,11 @@
 
 -if @sale_order.deliveries.count > 0
   %h2= tc 'deliveries'
-  =dyta :deliveries
+  =dyta :sale_order_deliveries
 
 -if @sale_order.invoices.count > 0
   %h2= tc 'invoices' 
-  =dyta :invoice_lines
+  =dyta :sale_order_invoices
 
 -if @sale_order.payment_parts.count > 0
   %h2= tc 'payments'
@@ -44,7 +44,3 @@
 -if @sale_order.subscriptions.count>0
   %h2= tc :subscriptions
   =dyta :sale_order_subscriptions
-
-
-.actions
-  =link_to_back

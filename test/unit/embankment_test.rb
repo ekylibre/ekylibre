@@ -20,23 +20,24 @@
 # 
 # == Table: embankments
 #
-#  accounted_at   :datetime         
-#  amount         :decimal(16, 4)   default(0.0), not null
-#  cash_id        :integer          not null
-#  comment        :text             
-#  company_id     :integer          not null
-#  created_at     :datetime         not null
-#  created_on     :date             not null
-#  creator_id     :integer          
-#  embanker_id    :integer          
-#  id             :integer          not null, primary key
-#  lock_version   :integer          default(0), not null
-#  locked         :boolean          not null
-#  mode_id        :integer          not null
-#  number         :string(255)      
-#  payments_count :integer          default(0), not null
-#  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  accounted_at      :datetime         
+#  amount            :decimal(16, 4)   default(0.0), not null
+#  cash_id           :integer          not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             not null
+#  creator_id        :integer          
+#  embanker_id       :integer          
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  locked            :boolean          not null
+#  mode_id           :integer          not null
+#  number            :string(255)      
+#  payments_count    :integer          default(0), not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 require 'test_helper'

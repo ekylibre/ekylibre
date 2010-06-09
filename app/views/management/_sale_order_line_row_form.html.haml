@@ -5,7 +5,7 @@
     %nobr=tc('product')+" "+dyli(:sale_order_line, :price_id, :available_prices)
     %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>5, :value=>1.0)
     -if @current_user.can?(:give_discounts_on_sale)
-      %nobr=tc('discount')+" "+text_field(:sale_order_line, :discount, :size=>5)
+      %nobr=tc('discount')+" "+text_field(:sale_order_line, :reduction_percent, :size=>5)
 
     -if @current_company.locations.size > 1
       %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.locations.collect{|x| [x.name, x.id]})

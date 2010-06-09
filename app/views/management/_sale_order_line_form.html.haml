@@ -22,7 +22,7 @@
 -if @current_user.can?(:give_discounts_on_sale)
   =formalize do |f|
     -f.title :give_discount
-    -f.field :sale_order_line, :discount, :size=>5
+    -f.field :sale_order_line, :reduction_percent, :size=>5
 
 -#=observe_field(price_id, :url=>{:action => :subscription_find}, :frequency => 0.25, :with=>"sale_order_line_price_id")
 =observe_field(price_id, :url=>{:action=>:subscription_coordinates, :entity_id=>@sale_order.client_id}, :frequency=>0.25, :with=>"price_id", :update=>:subscription, :loading=>"onLoading()", :loaded=>"onLoaded()")

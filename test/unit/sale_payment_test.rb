@@ -37,7 +37,7 @@
 #  mode_id           :integer          not null
 #  number            :string(255)      
 #  paid_on           :date             
-#  parts_amount      :decimal(16, 2)   
+#  parts_amount      :decimal(16, 2)   not null
 #  payer_id          :integer          
 #  receipt           :text             
 #  received          :boolean          default(TRUE), not null

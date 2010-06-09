@@ -40,6 +40,7 @@
 #  product_id          :integer          not null
 #  quantity            :decimal(16, 4)   default(1.0), not null
 #  reduction_origin_id :integer          
+#  reduction_percent   :decimal(16, 2)   default(0.0), not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
 #  unit_id             :integer          not null
@@ -147,10 +148,9 @@ class SaleOrderLine < ActiveRecord::Base
   
   
   def after_save
-    reduction_rate = [self.order.client.max_reduction_rate, self.discount/100].max
-    if reduction_rate > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
+    if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_rate, :label=>tc('reduction_on', :product=>self.product.catalog_name, :rate=>reduction_rate, :percent=>reduction_rate*100)}
+      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -177,18 +177,6 @@ class SaleOrderLine < ActiveRecord::Base
     d += "\n"+tc(:tracking, :serial=>self.tracking.serial.to_s) if self.tracking
     d
   end
-
-
-  # Returns percentage of discount using reduction line
-  def discount
-    @discount ||= (self.reduction ? (self.reduction.amount/self.amount).abs : self.order.client.max_reduction_rate||0.0)*100
-    @discount
-  end
-
-  def discount=(value)
-    @discount = value.to_f
-  end
-
 
   def subscription?
     self.product.nature == "subscrip"

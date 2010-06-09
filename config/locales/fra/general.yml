@@ -92,7 +92,7 @@ fra:
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     lock: 'Verrouiller'
     mail: 'Envoyer un courriel'
-    n: 'non'
+    n: 'Non'
     new: 'Nouveau...'
     next: 'Suivant'
     no_records: 'Pas d''enregistrements'
@@ -123,7 +123,7 @@ fra:
     update: 'Modifier'
     validate: 'Valider'
     view: 'Affichage'
-    y: 'oui'
+    y: 'Oui'
   models:
     account:
       default_account_name: 'Compte comptable {{number}}'
@@ -342,6 +342,8 @@ fra:
         stocks: 'État des stocks'
         transport: 'Transport'
       unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
+    embankment:
+      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
     entity:
       client: 'Client'
       supplier: 'Fournisseur'

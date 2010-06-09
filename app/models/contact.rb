@@ -108,8 +108,9 @@ class Contact < ActiveRecord::Base
   def update_without_callbacks
     current_time = Time.now
     stamper = self.class.stamper_class.stamper
-    self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper.id, :updater_id=>stamper.id))
+    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper.id, :updater_id=>stamper.id))
     self.class.update_all({:deleted_at=>current_time}, {:id=>self.id})
+    return nc
   end
 
   def destroy_without_callbacks

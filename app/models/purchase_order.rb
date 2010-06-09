@@ -69,12 +69,8 @@ class PurchaseOrder < ActiveRecord::Base
     end
 
 
-    self.amount = 0
-    self.amount_with_taxes = 0
-    for line in self.lines
-      self.amount += line.amount
-      self.amount_with_taxes += line.amount_with_taxes
-    end
+    self.amount = self.lines.sum(:amount)
+    self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
   end
 
   def after_create
@@ -163,17 +159,18 @@ class PurchaseOrder < ActiveRecord::Base
 
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the parameter which permit to activate the "automatic accountizing"
-  def to_accountancy
+  def to_accountancy(mode=:create, options={})
+    return unless mode==:create and self.accounted_at.nil?
     ActiveRecord::Base.transaction do
       if self.lines.size > 0
         journal = self.company.journal(:purchases)
         supplier_account = self.supplier.account(:supplier)
-        record = journal.records.create!(:printed_on=>self.created_on, :resource=>self)
-        record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), supplier_account.id, self.amount_with_taxes)
+        record = journal.records.create!(:printed_on=>self.created_on, :resource=>self, :draft_mode=>options[:draft]||self.company.draft_mode?)
         for line in self.lines
           record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
           record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
         end
+        record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), supplier_account.id, self.amount_with_taxes)
       end
       self.update_attribute(:accounted_at, Time.now)
     end

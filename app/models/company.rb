@@ -185,6 +185,13 @@ class Company < ActiveRecord::Base
     return false
   end
 
+  def draft_mode?
+    if parameter = self.parameter('accountancy.accountize.draft_mode')
+      return true if parameter.value == true
+    end
+    return false
+  end
+
 
 
   def account(number, name=nil)

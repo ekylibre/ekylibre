@@ -2,7 +2,8 @@ jpn:
   parameters:
     accountancy:
       accountize:
-        #>automatic: 'Bascule comptable des données automatique'
+        #>automatic: 'Activer la bascule automatique des données comptables'
+        #>draft_mode: 'Enregistrer les pièces dans le brouillard lors de la bascule automatique'
       accounts:
         #>acquisition_taxes: 'Compte des taxes d''acquisitions intracommunautaires'
         #>assimilated_taxes: 'Compte des taxes assimilées'
