@@ -194,6 +194,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
     remove_column :journal_records, :financialyear_id
     remove_column :journal_records, :status
+    change_column_null :journal_records, :position, true
     add_column :journal_records, :currency_debit,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :journal_records, :currency_credit, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :journal_records, :currency_rate,   :decimal, :precision=>16, :scale=>6, :default=>0.0, :null=>false
@@ -382,6 +383,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :journal_records, :currency_rate
     remove_column :journal_records, :currency_credit
     remove_column :journal_records, :currency_debit
+    # change_column_null :journal_records, :position
     add_column :journal_records, :status, :string, :null=>false, :default=>"A", :limit=>1
     add_column :journal_records, :financialyear_id, :integer
     if (financialyears=select_all("SELECT * FROM financialyears")).size > 0

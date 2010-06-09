@@ -37,7 +37,7 @@
 #  journal_id      :integer          not null
 #  lock_version    :integer          default(0), not null
 #  number          :string(255)      not null
-#  position        :integer          not null
+#  position        :integer          
 #  printed_on      :date             not null
 #  resource_id     :integer          
 #  resource_type   :string(255)      
