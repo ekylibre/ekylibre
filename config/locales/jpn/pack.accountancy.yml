@@ -25,7 +25,9 @@ jpn:
           #>children: 'Sous-comptes'
           #>journal_entries: 'Écritures'
         #>account_update: 'Modifier le compte'
+        #>balance: 'Solde'
         #>title: 'Compte : {{number}} - {{name}}'
+        #>totals: 'Totaux (pièces validées et brouillard)'
       account_create:
         #>title: 'Créer un nouveau compte'
       account_letter:

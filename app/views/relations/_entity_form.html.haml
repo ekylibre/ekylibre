@@ -4,7 +4,7 @@
   -f.title :title
   -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
   -f.field :entity, :language, :choices=>languages
-  -f.field :entity, :name
+  -f.field :entity, :last_name
   -f.field :entity, :first_name
   -f.field :entity, :active
   -f.field :entity, :client, :onchange=>"displayFields()"
@@ -41,7 +41,8 @@
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier
-  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
+  -#f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
+  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>[[tc(:account_supplier_to_create), "supplier"], [tc(:account_third_to_create), "various"]]}, :new=>{:controller=>:accountancy, :action=>:account_create}
 
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}
 

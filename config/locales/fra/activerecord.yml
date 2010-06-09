@@ -1773,6 +1773,7 @@ fra:
         dest_contact: 'Adresse de livraison'
         dest_contact_id: 'Adresse de livraison'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         label: 'Commande'
         lines: 'Lignes d''achat'
         lock_version: 'Version'

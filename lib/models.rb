@@ -376,6 +376,7 @@ EKYLIBRE_REFERENCES = {
     :creator_id => :user,
     :currency_id => :currency,
     :dest_contact_id => :contact,
+    :journal_record_id => :journal_record,
     :supplier_id => :entity,
     :updater_id => :user
   },

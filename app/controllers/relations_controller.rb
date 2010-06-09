@@ -438,8 +438,6 @@ class RelationsController < ApplicationController
   def entity_create
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
-    # @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.accounts.clients').value.to_s+'%'])
-    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", @current_company.parameter('accountancy.accounts.suppliers').value.to_s+'%'])
     
     if request.post?
       @entity = Entity.new(params[:entity])
@@ -455,23 +453,8 @@ class RelationsController < ApplicationController
 
       ActiveRecord::Base.transaction do
         if saved = @entity.save
-          unless params[:entity][:client].to_i.zero?
-            if params[:entity][:client_account_id].to_i.zero?
-              account = @entity.create_update_account(:client) 
-              @entity.client_account_id = account.id
-            else
-              @entity.client_account_id = params[:entity][:client_account_id]
-            end
-          end
-          
-          unless params[:entity][:supplier].to_i.zero?
-            if params[:entity][:supplier_account_id].to_i.zero?
-              account=@entity.create_update_account(:supplier)
-              @entity.supplier_account_id = account.id
-            else
-              @entity.supplier_account_id = params[:entity][:supplier_account_id]
-            end
-          end
+          @entity.account(:client) if @entity.client?
+          @entity.account(params[:entity][:supplier_account_id].to_sym) if @entity.supplier? and params[:entity][:supplier_account_id].match(/^(supplier|various)$/)
           
           for datum in @complement_data
             datum.entity_id = @entity.id
@@ -502,14 +485,10 @@ class RelationsController < ApplicationController
   def entity_update
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
-   
-    
+       
     @complements = @current_company.complements.find(:all,:order=>:position)
     @complement_data = []
     @contact = @entity.default_contact||@entity.contacts.new
-    
-    @client_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '411%'])
-    @supplier_accounts = @current_company.accounts.find(:all, :conditions => ["number LIKE ?", '401%'])
     
     if request.post? and @entity
       
@@ -529,19 +508,8 @@ class RelationsController < ApplicationController
       ActiveRecord::Base.transaction do
         saved = @entity.update_attributes(params[:entity])
         if saved
-          unless params[:entity][:client].to_i.zero?
-            if params[:entity][:client_account_id].to_i.zero?
-              account = @entity.create_update_account(:client) 
-              @entity.update_attribute(:client_account_id, account.id)
-            end
-          end
-          
-          unless params[:entity][:supplier].to_i.zero?
-            if params[:entity][:supplier_account_id].to_i.zero?
-              account = @entity.create_update_account(:supplier) 
-              @entity.update_attribute(:supplier_account_id, account.id)
-            end
-          end
+          @entity.account(:client) if @entity.client?
+          @entity.account(params[:entity][:supplier_account_id].to_sym) if @entity.supplier? and params[:entity][:supplier_account_id].match(/^(supplier|various)$/)
           
           for datum in @complement_data
             datum.entity_id = @entity.id

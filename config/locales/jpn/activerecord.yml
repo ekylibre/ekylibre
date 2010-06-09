@@ -1406,6 +1406,7 @@ jpn:
         #>dest_contact: 'Adresse de livraison'
         #>dest_contact_id: 'Adresse de livraison'
         id: '唯一の番号'
+        #>journal_record_id: 'Pièce comptable'
         #>label: 'Commande'
         #>lines: 'Lignes d''achat'
         lock_version: '修正の番号'

@@ -119,24 +119,24 @@ class Company < ActiveRecord::Base
   has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
-  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.banks\').value.to_s+\'%\')}'
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
   has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
-  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.cashes\').value.to_s+\'%\')}'
+  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_cashes\').value.to_s+\'%\')}'
   has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.charges\').value.to_s+\'%\')}'
   has_many :choice_complements, :class_name=>Complement.name, :conditions=>{:nature=>"choice"}, :order=>"name"
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.clients\').value.to_s+\'%\')}'
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
   has_many :embankable_payments, :class_name=>SalePayment.name, :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment)'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
   has_many :payments_to_embank, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment) AND to_bank_on >= CURRENT_DATE-14'
-  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.payments_to_embank\').value.to_s+\'%\')}'
+  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_payments_to_embank\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
   has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id} AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.suppliers\').value.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')} OR number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_various\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
@@ -321,7 +321,11 @@ class Company < ActiveRecord::Base
     list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
       [record.send(label), record.id]
     end
-    list.insert(0, [options[:include_blank], '']) if options[:include_blank].is_a? String
+    if options[:include_blank].is_a? String
+      list.insert(0, [options[:include_blank], '']) 
+    elsif options[:include_blank].is_a? Array
+      list.insert(0, *options[:include_blank])
+    end
     return list
   end
 

@@ -21,7 +21,9 @@ fra:
           journal_entries: 'Écritures' #!
  #!
         account_update: 'Modifier le compte'
+        balance: 'Solde'
         title: 'Compte : {{number}} - {{name}}'
+        totals: 'Totaux (pièces validées et brouillard)'
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
@@ -212,15 +214,15 @@ fra:
         dates: 'Saisissez les dates de début et de fin de la période'
         from: 'Période du'
         to: 'Au'
+      # Unfound view ./app/views/accountancy/_print_balance_sheet
+      _print_balance_sheet:
+        balance_sheet: 'Sélectionnez l''exercice'
+        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_balance_sheet
       print_balance_sheet:
         period: 'Période'
         title: 'Impression du bilan'
-      # Unfound view ./app/views/accountancy/_print_balance_sheet
-      _print_balance_sheet:
-        balance_sheet: 'Sélectionnez l''exercice'
-        select_financialyear: 'Exercice'
       # No defined action for this view !!!
       # Unfound view ./app/views/accountancy/print_by_financial_year
       print_by_financial_year:

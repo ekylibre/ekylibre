@@ -1,8 +1,27 @@
 =toolbar do |t|
   -t.link :account_update, :id=>@account.id
-=evalue @account, :number
-=evalue @account, :name
-=evalue @account, :comment
+%table.flex
+  %tr
+    %td
+      =evalue @account, :number
+      =evalue @account, :name
+      =evalue @account, :comment
+    %td
+      %table.dyta
+        %tr.total
+          %th
+          %th=JournalRecord.human_attribute_name("debit")
+          %th=JournalRecord.human_attribute_name("credit")
+        %tr.total
+          %th=tc(:totals)
+          %td.value=@totals[:debit]
+          %td.value=@totals[:credit]
+        %tr.total
+          %th=tc(:balance)
+          %td.value=@totals[:balance_debit]
+          %td.value=@totals[:balance_credit]
+
+
 
 =tabbox(:account) do |tb|
   -tb.tab(:journal_entries, :content=>dyta(:account_journal_entries))

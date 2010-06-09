@@ -999,7 +999,7 @@ module ApplicationHelper
               when :checkbox
                 check_box(record, method, html_options)
               when :select
-                options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
+                options[:choices].insert(0, [options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                 select(record, method, options[:choices], options[:options], html_options)
               when :dyselect
                 select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options)

@@ -7,20 +7,20 @@ class NormalizeAccountizing < ActiveRecord::Migration
     'accountancy.default_journals.sales'           => 'accountancy.journals.sales',
     'accountancy.default_journals.purchase'        => 'accountancy.journals.purchases',
     'accountancy.default_journals.bank'            => 'accountancy.journals.bank',
-    'accountancy.third_accounts.clients'           => 'accountancy.accounts.clients',
-    'accountancy.third_accounts.suppliers'         => 'accountancy.accounts.suppliers',
+    'accountancy.third_accounts.clients'           => 'accountancy.accounts.third_clients',
+    'accountancy.third_accounts.suppliers'         => 'accountancy.accounts.third_suppliers',
     'accountancy.major_accounts.charges'           => 'accountancy.accounts.charges',
     'accountancy.major_accounts.products'          => 'accountancy.accounts.products',
-    'accountancy.minor_accounts.banks'             => 'accountancy.accounts.banks',
-    'accountancy.minor_accounts.cashes'            => 'accountancy.accounts.cashes',
-    'accountancy.minor_accounts.gains'             => 'accountancy.accounts.gains',
-    'accountancy.minor_accounts.losses'            => 'accountancy.accounts.losses',
-    'accountancy.taxes_accounts.acquisition_taxes' => 'accountancy.accounts.acquisition_taxes',
-    'accountancy.taxes_accounts.collected_taxes'   => 'accountancy.accounts.collected_taxes',
-    'accountancy.taxes_accounts.paid_taxes'        => 'accountancy.accounts.paid_taxes',
-    'accountancy.taxes_accounts.balance_taxes'     => 'accountancy.accounts.balance_taxes',
-    'accountancy.taxes_accounts.assimilated_taxes' => 'accountancy.accounts.assimilated_taxes',
-    'accountancy.taxes_accounts.payback_taxes'     => 'accountancy.accounts.payback_taxes',
+    'accountancy.minor_accounts.banks'             => 'accountancy.accounts.financial_banks',
+    'accountancy.minor_accounts.cashes'            => 'accountancy.accounts.financial_cashes',
+    'accountancy.minor_accounts.gains'             => 'accountancy.accounts.capital_gains',
+    'accountancy.minor_accounts.losses'            => 'accountancy.accounts.capital_losses',
+    'accountancy.taxes_accounts.acquisition_taxes' => 'accountancy.accounts.taxes_acquisition',
+    'accountancy.taxes_accounts.collected_taxes'   => 'accountancy.accounts.taxes_collected',
+    'accountancy.taxes_accounts.paid_taxes'        => 'accountancy.accounts.taxes_paid',
+    'accountancy.taxes_accounts.balance_taxes'     => 'accountancy.accounts.taxes_balance',
+    'accountancy.taxes_accounts.assimilated_taxes' => 'accountancy.accounts.taxes_assimilated',
+    'accountancy.taxes_accounts.payback_taxes'     => 'accountancy.accounts.taxes_payback',
     'accountancy.to_accountancy.automatic'         => 'accountancy.accountize.automatic'
   }.to_a.sort{|a,b| a[0]<=>b[0]}
   RIGHTS = {
@@ -209,6 +209,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :listings, :source, :text
 
     add_column :purchase_orders, :parts_amount, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :purchase_orders, :journal_record_id, :integer
     ppps = select_all("SELECT expense_id, sum(amount) AS total FROM sale_payment_parts WHERE expense_type='PurchaseOrder' GROUP BY expense_id")
     execute "UPDATE purchase_orders SET parts_amount=CASE "+ppps.collect{|x| "WHEN id="+x['expense_id']+" THEN "+x['total']}.join(" ")+" ELSE 0 END" if ppps.size > 0
 
@@ -369,6 +370,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     remove_column :sale_order_lines, :reduction_percent
 
+    remove_column :purchase_orders, :journal_record_id
     remove_column :purchase_orders, :parts_amount
 
     remove_column :listings, :source

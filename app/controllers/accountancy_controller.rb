@@ -194,6 +194,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
     t.column :name
+    t.column :draft
     t.column :debit
     t.column :credit
   end
@@ -208,20 +209,23 @@ class AccountancyController < ApplicationController
   def account
     return unless @account = find_and_check(:account)
     session[:current_account_id] = @account.id
+
+    @totals = {}
+    @totals[:debit]  = @account.journal_entries.sum(:debit)
+    @totals[:credit] = @account.journal_entries.sum(:credit)
+    @totals[:balance_debit] = 0.0
+    @totals[:balance_credit] = 0.0
+    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
+
+    
     t3e @account.attributes
   end
 
 
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    clients_account = @current_company.parameter('accountancy.accounts.clients').value.to_s
-    suppliers_account = @current_company.parameter('accountancy.accounts.suppliers').value.to_s
-    
-    Account.create!(:name=>"Clients", :number=>clients_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>clients_account)
-    Account.create!(:name=>"Fournisseurs", :number=>suppliers_account, :company_id=>@current_company.id) unless @current_company.accounts.exists?(:number=>suppliers_account)
-    @accounts_client=@current_company.accounts.find(:all, :conditions => ["number LIKE ?", clients_account+'%'])
-    @accounts_supplier=@current_company.accounts.find(:all, :conditions=>["number LIKE ?", suppliers_account+'%'])
-
+    @accounts_client=@current_company.client_accounts
+    @accounts_supplier=@current_company.supplier_accounts
     if request.post?
       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
       redirect_to :action => :account_letter, :id => @account.id
