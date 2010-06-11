@@ -75,19 +75,20 @@ class NormalizeAccountizing < ActiveRecord::Migration
     rename_table :payments, :sale_payments
 
     create_table :purchase_payment_modes do |t|
-      t.column :name,            :string,  :null=>false, :limit=>50
-      t.column :with_accounting, :boolean, :null=>false, :default=>false
-      t.column :cash_id,         :integer
-      # t.column :draft_mode,      :boolean, :null=>false, :default=>false
-      t.column :company_id,      :integer, :null=>false
+      t.column :name,              :string,  :null=>false, :limit=>50
+      t.column :with_accounting,   :boolean, :null=>false, :default=>false
+      t.column :cash_id,           :integer
+      # t.column :draft_mode,        :boolean, :null=>false, :default=>false
+      t.column :company_id,        :integer, :null=>false
     end
     
     create_table :purchase_payment_parts do |t|
-      t.column :amount,      :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :downpayment, :boolean, :null=>false, :default=>false
-      t.column :expense_id,  :integer, :null=>false
-      t.column :payment_id,  :integer, :null=>false
-      t.column :company_id,  :integer, :null=>false
+      t.column :amount,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :downpayment,       :boolean, :null=>false, :default=>false
+      t.column :expense_id,        :integer, :null=>false
+      t.column :payment_id,        :integer, :null=>false
+      t.column :journal_record_id, :integer
+      t.column :company_id,        :integer, :null=>false
     end
     
     create_table :purchase_payments do |t|
@@ -161,6 +162,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     rename_column :embankments, :bank_account_id, :cash_id
 
     add_column :entities, :prospect, :boolean, :null=>false, :default=>false
+    add_column :entities, :attorney, :boolean, :null=>false, :default=>false
+    add_column :entities, :attorney_account_id, :integer
     rename_column :entities, :name, :last_name
     add_column :entities, :name, :string, :limit=>32
     add_column :entities, :salt, :string, :limit=>64
@@ -238,6 +241,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     # execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, draft_mode, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), #{quoted_true}, company_id, created_at, updated_at FROM sale_payment_modes" 
     execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes"
 
+    add_column :sale_payment_parts, :journal_record_id, :integer
     execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at) SELECT amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     remove_column :sale_payment_parts, :invoice_id
@@ -351,6 +355,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payment_parts, :invoice_id, :integer
     execute "INSERT INTO sale_payment_parts(amount,   downpayment,    expense_type, expense_id, payment_id,   company_id,   created_at,   updated_at)"+
                                     "SELECT p.amount, downpayment, 'PurchaseOrder', expense_id,      sp.id, p.company_id, p.created_at, p.updated_at FROM purchase_payment_parts AS p JOIN sale_payments AS sp ON (old_id=payment_id)"
+    remove_column :sale_payment_parts, :journal_record_id
     remove_column :sale_payments, :old_id
 
     add_column :sale_payment_modes, :mode,   :string, :null=>false, :default=>'check'
@@ -419,6 +424,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :entities, :salt
     remove_column :entities, :name
     rename_column :entities, :last_name, :name
+    remove_column :entities, :attorney_account_id
+    remove_column :entities, :attorney
     remove_column :entities, :prospect
 
     rename_column :embankments, :cash_id, :bank_account_id

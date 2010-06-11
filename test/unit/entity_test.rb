@@ -22,6 +22,8 @@
 #
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string(32)       
+#  attorney                  :boolean          not null
+#  attorney_account_id       :integer          
 #  authorized_payments_count :integer          
 #  born_on                   :date             
 #  category_id               :integer          

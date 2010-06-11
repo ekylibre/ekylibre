@@ -20,17 +20,18 @@
 # 
 # == Table: purchase_payment_parts
 #
-#  amount       :decimal(16, 2)   default(0.0), not null
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  downpayment  :boolean          not null
-#  expense_id   :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  payment_id   :integer          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  downpayment       :boolean          not null
+#  expense_id        :integer          not null
+#  id                :integer          not null, primary key
+#  journal_record_id :integer          
+#  lock_version      :integer          default(0), not null
+#  payment_id        :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
 #
 
 class PurchasePaymentPart < ActiveRecord::Base
