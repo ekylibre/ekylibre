@@ -42,6 +42,7 @@
 #
 
 class PurchasePayment < ActiveRecord::Base
+  acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
@@ -75,20 +76,6 @@ class PurchasePayment < ActiveRecord::Base
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
 
-  # Create initial journal record
-  def after_create
-    self.to_accountancy if self.company.accountizing?
-  end
-
-  # Add journal records in order to correct accountancy
-  def before_update
-    self.to_accountancy(:update) if self.company.accountizing?
-  end
-
-  def before_destroy
-    self.to_accountancy(:delete) if self.company.accountizing?
-  end
-
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payee=>self.payee.full_name, :number=>self.number)
   end
@@ -119,31 +106,10 @@ class PurchasePayment < ActiveRecord::Base
   # It depends on the parameter which permit to activate the "automatic accountizing"
   # The options :old permits to cancel the old existing record by adding counter-entries
   def to_accountancy(action=:create, options={})
-    mode = self.mode
-    unless mode.with_accounting?
-      self.class.update_all({:accounted_at=>Time.now}, {:id=>self.id})
-      return
+    accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}) do |record|
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, self.amount)
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
     end
-    raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
-    journal = self.company.journal(:bank) # (action == :create ? :bank : :various)
-    # Add counter-entries
-    ActiveRecord::Base.transaction do
-      if action != :create and not self.journal_record.nil?
-        if self.journal_record.draft?
-          self.journal_record.entries.destroy_all
-        else
-          self.journal_record.cancel
-          self.journal_record = nil
-        end
-      end
-      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||self.company.draft_mode?)
-      # Add entries
-      if action != :delete
-        self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, self.amount)
-        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
-      end
-      self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
-    end 
   end
 
 

@@ -44,6 +44,7 @@
 #  introduction        :text             
 #  invoice_contact_id  :integer          
 #  invoiced            :boolean          not null
+#  journal_record_id   :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
@@ -60,6 +61,7 @@
 #
 
 class SaleOrder < ActiveRecord::Base
+  acts_as_accountable :callbacks=>false
   attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
@@ -383,7 +385,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   #this method accountizes the sale.
-  def to_accountancy
+  def to_accountancy(action=:create, options={})
     self.reload
     self.update_attribute(:accounted_at, Time.now) #  unless self.amount.zero?
   end

@@ -69,19 +69,19 @@ fra:
           bank_statements: 'Relevés de compte' #!
           embankments: 'Remises en banque' #!
  #!
-        cash_update: 'Modifier le compte de trésorerie'
+        cash_update: 'Modifier la trésorerie'
         title: '{{nature_label}} : {{name}}'
       _cash_accountancy_form:
         accountancy: 'Comptabilité'
       cash_create:
-        title: 'Créer un nouveau compte de trésorerie'
+        title: 'Enregistrer une nouvelle trésorerie'
       _cash_form:
         general: 'Description générale'
         iban: 'Numéro de compte bancaire internationale (IBAN)' #!
       cash_update:
-        title: 'Modifier le compte de trésorerie : {{name}}'
+        title: 'Modifier la trésorerie : {{name}}'
       cashes:
-        title: 'Trésorerie'
+        title: 'Trésoreries'
         #>cash_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_currencies_find
       _currencies_find:

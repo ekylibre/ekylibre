@@ -18,9 +18,9 @@ spa:
         #>taxes_collected: 'Compte des taxes collectées'
         #>taxes_paid: 'Compte des taxes déductibles'
         #>taxes_payback: 'Compte de taxes de remboursement'
+        #>third_attorneys: 'Débiteurs divers et créditeurs divers'
         #>third_clients: 'Comptes clients'
         #>third_suppliers: 'Comptes fournisseurs'
-        #>third_various: 'Débiteurs divers et créditeurs divers'
       default_journals:
       journals:
         #>bank: 'Journal de banque par défaut'

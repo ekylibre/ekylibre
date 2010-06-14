@@ -28,6 +28,7 @@
 #  created_on        :date             not null
 #  creator_id        :integer          
 #  id                :integer          not null, primary key
+#  journal_record_id :integer          
 #  lock_version      :integer          default(0), not null
 #  number            :string(16)       
 #  responsible_id    :integer          
@@ -36,6 +37,7 @@
 #
 
 class Inventory < ActiveRecord::Base
+  acts_as_accountable :callbacks=>false
   attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
@@ -96,6 +98,7 @@ class Inventory < ActiveRecord::Base
 
   end
 
-
+  def to_accountancy(action=:create, options={})
+  end
 
 end

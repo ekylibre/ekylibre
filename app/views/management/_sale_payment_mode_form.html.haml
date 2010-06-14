@@ -7,14 +7,19 @@
 #accountancy
   =formalize do |f|
     -f.title :accountancy
+    -f.field :sale_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}
     -f.field :sale_payment_mode, :with_embankment, :onchange=>"toggleEmbankment();"
-    -f.field :sale_payment_mode, :account_id, :choices=>{:reflection=>:payments_to_embank_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.financial_payments_to_embank").value}, :resize=>true, :html_options=>{:id=>"sale_payment_mode_account"}
-    -f.field :sale_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}, :html_options=>{:id=>"sale_payment_mode_cash"}
     -f.field :sale_payment_mode, :with_commission, :onchange=>"toggleCommission();"
+  
+  #embankment
+    =formalize do |f|
+      -f.title :embankment
+      -f.field :sale_payment_mode, :embankables_account_id, :choices=>{:reflection=>:payments_to_embank_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.financial_payments_to_embank").value}, :resize=>true
 
   #commission
     =formalize do |f|
       -f.title :commission
+      -f.field :sale_payment_mode, :commission_amount
       -f.field :sale_payment_mode, :commission_percent
       -f.field :sale_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.charges").value}, :resize=>true
 
@@ -23,5 +28,5 @@
   toggleAccountancy();
   window.toggleCommission = function() { toggleElement('commission', $('sale_payment_mode_with_commission').checked); }
   toggleCommission();
-  window.toggleEmbankment = function() { toggleElement('sale_payment_mode_account', $('sale_payment_mode_with_embankment').checked, 'sale_payment_mode_cash'); }
+  window.toggleEmbankment = function() { toggleElement('embankment', $('sale_payment_mode_with_embankment').checked); }
   toggleEmbankment();

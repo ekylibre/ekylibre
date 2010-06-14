@@ -136,7 +136,7 @@ module ApplicationHelper
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:tools},
-              {:name=>:operation_natures}
+             {:name=>:operation_natures}
            ] }
        ] }
      #  ,
@@ -287,9 +287,9 @@ module ApplicationHelper
   end
 
 
-#   def sessany
-#     return (@current_company ? session[@current_company.code] ||= {} : session)
-#   end
+  #   def sessany
+  #     return (@current_company ? session[@current_company.code] ||= {} : session)
+  #   end
   
   def last_page(controller)
     session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
@@ -1151,5 +1151,22 @@ module ActiveRecord
 
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

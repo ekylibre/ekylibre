@@ -1706,9 +1706,9 @@ class ManagementController < ApplicationController
   dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :with_accounting
-    t.column :with_embankment
-    t.column :label, :through=>:account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
+    t.column :with_embankment
+    t.column :label, :through=>:embankables_account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :with_commission
     t.action :sale_payment_mode_update
     t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"

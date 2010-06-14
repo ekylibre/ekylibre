@@ -47,6 +47,10 @@
 #
 
 class Cash < ActiveRecord::Base
+  @@natures = ["bank_account", "cash_box"]
+  @@modes = ["iban", "bban"]
+  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
+
   attr_readonly :company_id, :nature
   belongs_to :account
   belongs_to :company
@@ -56,18 +60,19 @@ class Cash < ActiveRecord::Base
   has_many :embankments
   has_many :bank_statements
   has_many :payment_modes
-  validates_inclusion_of :mode, :in=>%w( bban iban )
+  validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id
 
   #validates_presence_of :bank_name
-  @@natures = ["bank_account", "cash_box"]
-  @@modes = ["iban", "bban"]
-  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
   
   COUNTRY_CODE_FR="FR"
 
   # before create a bank account, this computes automatically code iban.
   def before_validation
+    self.mode.lower!
+    self.mode = @@modes[0] if self.mode.blank?
+    # raise Exception.new self.mode.inspect
+    self.currency ||= self.company.default_currency
     if self.use_mode?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
     else

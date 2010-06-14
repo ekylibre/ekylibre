@@ -20,6 +20,7 @@
 # 
 # == Table: sale_payment_parts
 #
+#  accounted_at      :datetime         
 #  amount            :decimal(16, 2)   
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -36,10 +37,13 @@
 #
 
 class SalePaymentPart < ActiveRecord::Base
+  acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :payment, :class_name=>SalePayment.name
   belongs_to :expense, :polymorphic=>true
+  belongs_to :journal_record
+  belongs_to :payment, :class_name=>SalePayment.name
+
   # belongs_to :invoice # TODEL
 
   cattr_reader :expense_types
@@ -77,4 +81,12 @@ class SalePaymentPart < ActiveRecord::Base
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
    
+
+  def to_accountancy(action=:create, options={})
+    accountize(action, {:journal=>self.payment.mode.cash.journal, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.payer_id == self.payment.client_id)) do |record|
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payment.payer.full_name), self.payment.payer.account(:attorney).id, self.amount)
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.expense.client.full_name), self.expense.client.account(:client).id, self.amount)
+    end
+  end
+
 end

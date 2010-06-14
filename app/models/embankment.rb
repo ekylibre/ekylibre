@@ -41,6 +41,7 @@
 #
 
 class Embankment < ActiveRecord::Base
+  acts_as_accountable
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
@@ -73,20 +74,6 @@ class Embankment < ActiveRecord::Base
     end
   end
 
-  # Create initial journal record
-  def after_create
-    self.to_accountancy if self.company.accountizing?
-  end
-
-  # Add journal records in order to correct accountancy
-  def before_update
-    self.to_accountancy(:update) if self.company.accountizing?
-  end
-
-  def before_destroy
-    self.to_accountancy(:delete) if self.company.accountizing?
-  end
-  
   def refresh
     self.save
   end
@@ -102,26 +89,10 @@ class Embankment < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
-    raise Exception.new("Unvalid action #{action.inspect}") unless [:create, :update, :delete].include? action
-    journal = self.company.journal(:bank)
-    # Add counter-entries
-    ActiveRecord::Base.transaction do
-      if action != :create and not self.journal_record.nil?
-        if self.journal_record.draft?
-          self.journal_record.entries.destroy_all
-        else
-          self.journal_record.cancel
-          self.journal_record = nil
-        end
-      end
-      self.journal_record ||= journal.records.create!(:resource=>self, :printed_on=>self.created_on, :draft_mode=>options[:draft]||self.company.draft_mode?)
-      # Add entries
-      if action != :delete
-        self.journal_record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.cash.name), self.cash.account_id, self.amount)
-        self.journal_record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.account_id, self.amount)
-      end
-      self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
-    end 
+    accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.cash.name), self.cash.account_id, self.amount)
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.embankables_account_id, self.amount)
+    end
   end
 
 

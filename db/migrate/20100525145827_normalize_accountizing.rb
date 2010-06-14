@@ -83,6 +83,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     end
     
     create_table :purchase_payment_parts do |t|
+      t.column :accounted_at,      :datetime         
       t.column :amount,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :downpayment,       :boolean, :null=>false, :default=>false
       t.column :expense_id,        :integer, :null=>false
@@ -184,7 +185,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     rename_column :inventories, :date, :created_on
     add_column :inventories, :accounted_at, :datetime
+    add_column :inventories, :journal_record_id, :integer
     add_column :inventories, :number, :string, :limit=>16
+
+    add_column :invoices, :journal_record_id, :integer
     
     add_column :journal_entries, :closed, :boolean, :null=>false, :default=>false
     execute "UPDATE journal_entries SET closed = NOT COALESCE(editable, #{quoted_true})"
@@ -217,6 +221,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     ppps = select_all("SELECT expense_id, sum(amount) AS total FROM sale_payment_parts WHERE expense_type='PurchaseOrder' GROUP BY expense_id")
     execute "UPDATE purchase_orders SET parts_amount=CASE "+ppps.collect{|x| "WHEN id="+x['expense_id']+" THEN "+x['total']}.join(" ")+" ELSE 0 END" if ppps.size > 0
 
+    add_column :sale_orders, :journal_record_id, :integer
+
     add_column :sale_order_lines, :reduction_percent, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     reductions = select_all("SELECT b.id AS id, round(-100*b.quantity/a.quantity,2) AS reduction from sale_order_lines AS a join sale_order_lines AS b on (a.id=b.reduction_origin_id)")
     execute "UPDATE sale_order_lines SET reduction_percent = CASE "+reductions.collect{|r| "WHEN id=#{r['id']} THEN #{r['reduction']}"}.join(" ")+" ELSE 0 END WHERE reduction_origin_id IS NOT NULL" if reductions.size > 0
@@ -225,6 +231,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_order_natures, :payment_mode_id, :integer
     add_column :sale_order_natures, :payment_mode_complement, :text
 
+    rename_column :sale_payment_modes, :account_id, :embankables_account_id
     add_column :sale_payment_modes, :published, :boolean, :null=>true, :default=>false
     # add_column :sale_payment_modes, :draft_mode, :boolean, :null=>false, :default=>false
     add_column :sale_payment_modes, :with_accounting, :boolean, :null=>false, :default=>false
@@ -234,7 +241,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payment_modes, :commission_amount,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :sale_payment_modes, :commission_account_id, :integer
     execute "UPDATE sale_payment_modes SET with_accounting=#{quoted_true}" # , draft_mode=#{quoted_true}
-    execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature='check' OR nature='card' OR account_id IS NOT NULL"
+    execute "UPDATE sale_payment_modes SET with_embankment=#{quoted_true} WHERE nature!='transfer'"
     rename_column :sale_payment_modes, :bank_account_id, :cash_id
     remove_column :sale_payment_modes, :nature
     remove_column :sale_payment_modes, :mode
@@ -242,6 +249,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes"
 
     add_column :sale_payment_parts, :journal_record_id, :integer
+    add_column :sale_payment_parts, :accounted_at,      :datetime
     execute "INSERT INTO purchase_payment_parts(amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at) SELECT amount, downpayment, expense_id, payment_id, company_id, created_at, updated_at FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     execute "DELETE FROM sale_payment_parts WHERE expense_type='PurchaseOrder'"
     remove_column :sale_payment_parts, :invoice_id
@@ -275,6 +283,11 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     add_column :shelves, :published, :boolean, :null=>false, :default=>false
     execute "UPDATE shelves SET published=#{quoted_true}"
+
+    add_column :tax_declarations, :accounted_at, :datetime
+    add_column :tax_declarations, :journal_record_id, :integer
+
+    add_column :transfers, :journal_record_id, :integer
 
     add_column :users, :connected_at, :datetime
     remove_column :users, :free_price
@@ -325,6 +338,11 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :users, :free_price, :boolean, :null=>false, :default=>false
     remove_column :users, :connected_at
 
+    remove_column :transfers, :journal_record_id
+
+    remove_column :tax_declarations, :journal_record_id
+    remove_column :tax_declarations, :accounted_at
+
     remove_column :shelves, :published
 
     remove_column :products, :published
@@ -355,6 +373,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payment_parts, :invoice_id, :integer
     execute "INSERT INTO sale_payment_parts(amount,   downpayment,    expense_type, expense_id, payment_id,   company_id,   created_at,   updated_at)"+
                                     "SELECT p.amount, downpayment, 'PurchaseOrder', expense_id,      sp.id, p.company_id, p.created_at, p.updated_at FROM purchase_payment_parts AS p JOIN sale_payments AS sp ON (old_id=payment_id)"
+    remove_column :sale_payment_parts, :accounted_at
     remove_column :sale_payment_parts, :journal_record_id
     remove_column :sale_payments, :old_id
 
@@ -369,12 +388,15 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :sale_payment_modes, :with_accounting
     # remove_column :sale_payment_modes, :draft_mode
     remove_column :sale_payment_modes, :published
+    rename_column :sale_payment_modes, :embankables_account_id, :account_id
 
     remove_column :sale_order_natures, :payment_mode_complement
     remove_column :sale_order_natures, :payment_mode_id
     add_column :sale_order_natures, :payment_type, :string, :null=>false, :default=>'none'
 
     remove_column :sale_order_lines, :reduction_percent
+
+    remove_column :sale_orders, :journal_record_id
 
     remove_column :purchase_orders, :journal_record_id
     remove_column :purchase_orders, :parts_amount
@@ -405,7 +427,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
     end
     remove_column :journal_entries, :closed
   
+    remove_column :invoices, :journal_record_id
+
     remove_column :inventories, :number
+    remove_column :inventories, :journal_record_id
     remove_column :inventories, :accounted_at
     rename_column :inventories, :created_on, :date
     

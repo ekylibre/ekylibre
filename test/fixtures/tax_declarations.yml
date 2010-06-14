@@ -20,6 +20,7 @@
 # 
 # == Table: tax_declarations
 #
+#  accounted_at             :datetime         
 #  acquisition_amount       :decimal(16, 2)   
 #  address                  :string(255)      
 #  amount                   :decimal(16, 2)   
@@ -33,6 +34,7 @@
 #  deferred_payment         :boolean          
 #  financialyear_id         :integer          
 #  id                       :integer          not null, primary key
+#  journal_record_id        :integer          
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
 #  paid_amount              :decimal(16, 2)   

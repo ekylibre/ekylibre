@@ -147,7 +147,13 @@ fra:
         admin: 'Administrateur'
         bank_journal_nature_name: 'Banque'
         category: 'Par défaut'
-        check: 'Chèque'
+        cash:
+          name: 'Caisse'
+        sale_payment_modes:
+          check: 
+            name: 'Chèque'
+          cash:
+            name: 'Espèces'
         delays:
           expression:
             expiration: '1 mois'
@@ -209,6 +215,7 @@ fra:
         establishment_name: 'Établissement principal'
         financialyear_code: '1A2'
         journals:
+          cash: 'Journal de caisse'
           bank: 'Journal de banque'
           purchases: 'Journal des achats'
           sales: 'Journal des ventes'

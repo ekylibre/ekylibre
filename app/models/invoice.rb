@@ -35,6 +35,7 @@
 #  downpayment_amount :decimal(16, 2)   default(0.0), not null
 #  has_downpayment    :boolean          not null
 #  id                 :integer          not null, primary key
+#  journal_record_id  :integer          
 #  lock_version       :integer          default(0), not null
 #  lost               :boolean          not null
 #  nature             :string(1)        not null
@@ -49,6 +50,7 @@
 #
 
 class Invoice < ActiveRecord::Base
+  acts_as_accountable :callbacks=>false
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
@@ -191,20 +193,13 @@ class Invoice < ActiveRecord::Base
   end
 
   #this method accountizes the invoice.
-  def to_accountancy(mode=:create, options={})
-    return unless mode==:create and self.accounted_at.nil?
-    ActiveRecord::Base.transaction do 
-      if self.lines.size > 0
-        journal = self.company.journal(:sales)
-        client_account = self.client.account(:client)
-        record = journal.records.create!(:printed_on=>self.created_on, :resource=>self, :draft_mode=>options[:draft]||self.company.draft_mode?)
-        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), client_account.id, self.amount_with_taxes)
-        for line in self.lines
-          record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.amount.zero?
-          record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
-        end
+  def to_accountancy(action=:create, options={})
+    accountize(action, {:journal=>self.company.journal(:sales), :draft_mode=>options[:draft]}) do |record|
+      record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), self.client.account(:client).id, self.amount_with_taxes)
+      for line in self.lines
+        record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.quantity.zero?
+        record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
       end
-      self.update_attribute(:accounted_at, Time.now)
     end
   end
   

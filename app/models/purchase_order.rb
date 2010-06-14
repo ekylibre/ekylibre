@@ -44,6 +44,7 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
+  acts_as_accountable :callbacks=>false
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
@@ -160,20 +161,13 @@ class PurchaseOrder < ActiveRecord::Base
 
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the parameter which permit to activate the "automatic accountizing"
-  def to_accountancy(mode=:create, options={})
-    return unless mode==:create and self.accounted_at.nil?
-    ActiveRecord::Base.transaction do
-      if self.lines.size > 0
-        journal = self.company.journal(:purchases)
-        supplier_account = self.supplier.account(:supplier)
-        record = journal.records.create!(:printed_on=>self.created_on, :resource=>self, :draft_mode=>options[:draft]||self.company.draft_mode?)
-        for line in self.lines
-          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.purchases_account_id, line.amount) unless line.amount.zero?
-          record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
-        end
-        record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), supplier_account.id, self.amount_with_taxes)
+  def to_accountancy(action=:create, options={})
+    accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>self.lines.size.zero?) do |record|
+      for line in self.lines
+        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.purchases_account_id, line.amount) unless line.quantity.zero?
+        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
       end
-      self.update_attribute(:accounted_at, Time.now)
+      record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), self.supplier.account(:supplier).id, self.amount_with_taxes)
     end
   end
 

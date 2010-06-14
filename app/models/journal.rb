@@ -99,8 +99,7 @@ class Journal < ActiveRecord::Base
       end
     end
     return true
-  end
-  
+  end  
 
   #
   def closable?(closed_on=nil)

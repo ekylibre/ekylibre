@@ -51,7 +51,12 @@ require 'test_helper'
 
 class SalePaymentTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  test "the accountizing of a payment" do
+    payment = sale_payments(:sale_payments_001)
+#     assert payment.company.accountizing?
+#     payment.to_accountancy(:create)
+#     assert_not_nil payment.journal_record
+#     assert_equal payment.amount, payment.journal_record.currency_debit
+#     assert_equal payment.amount, payment.journal_record.currency_credit
   end
 end

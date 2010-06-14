@@ -140,6 +140,7 @@ EKYLIBRE_REFERENCES = {
     :updater_id => :user
   },
   :entity => {
+    :attorney_account_id => :account,
     :category_id => :entity_category,
     :client_account_id => :account,
     :company_id => :company,
@@ -201,6 +202,7 @@ EKYLIBRE_REFERENCES = {
   :inventory => {
     :company_id => :company,
     :creator_id => :user,
+    :journal_record_id => :journal_record,
     :responsible_id => :user,
     :updater_id => :user
   },
@@ -220,6 +222,7 @@ EKYLIBRE_REFERENCES = {
     :contact_id => :contact,
     :creator_id => :user,
     :currency_id => :currency,
+    :journal_record_id => :journal_record,
     :origin_id => :invoice,
     :payment_delay_id => :delay,
     :sale_order_id => :sale_order,
@@ -411,6 +414,7 @@ EKYLIBRE_REFERENCES = {
     :company_id => :company,
     :creator_id => :user,
     :expense_id => :purchase_order,
+    :journal_record_id => :journal_record,
     :payment_id => :purchase_payment,
     :updater_id => :user
   },
@@ -428,6 +432,7 @@ EKYLIBRE_REFERENCES = {
     :delivery_contact_id => :contact,
     :expiration_id => :delay,
     :invoice_contact_id => :contact,
+    :journal_record_id => :journal_record,
     :nature_id => :sale_order_nature,
     :payment_delay_id => :delay,
     :responsible_id => :user,
@@ -468,17 +473,18 @@ EKYLIBRE_REFERENCES = {
     :updater_id => :user
   },
   :sale_payment_mode => {
-    :account_id => :account,
     :cash_id => :cash,
     :commission_account_id => :account,
     :company_id => :company,
     :creator_id => :user,
+    :embankables_account_id => :account,
     :updater_id => :user
   },
   :sale_payment_part => {
     :company_id => :company,
     :creator_id => :user,
     :expense_id => "expense_type",
+    :journal_record_id => :journal_record,
     :payment_id => :sale_payment,
     :updater_id => :user
   },
@@ -561,6 +567,7 @@ EKYLIBRE_REFERENCES = {
     :company_id => :company,
     :creator_id => :user,
     :financialyear_id => :financialyear,
+    :journal_record_id => :journal_record,
     :updater_id => :user
   },
   :tool => {
@@ -585,6 +592,7 @@ EKYLIBRE_REFERENCES = {
   :transfer => {
     :company_id => :company,
     :creator_id => :user,
+    :journal_record_id => :journal_record,
     :supplier_id => :entity,
     :updater_id => :user
   },

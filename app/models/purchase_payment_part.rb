@@ -20,6 +20,7 @@
 # 
 # == Table: purchase_payment_parts
 #
+#  accounted_at      :datetime         
 #  amount            :decimal(16, 2)   default(0.0), not null
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -35,16 +36,22 @@
 #
 
 class PurchasePaymentPart < ActiveRecord::Base
+  acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :payment, :class_name=>PurchasePayment.name
   belongs_to :expense, :class_name=>PurchaseOrder.name
+  belongs_to :journal_record
+  belongs_to :payment, :class_name=>PurchasePayment.name
 
   validates_numericality_of :amount, :greater_than=>0
 
   def before_validation
     self.downpayment = false if self.downpayment.nil?
     return true
+  end
+
+  def validate
+    errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
   def after_save
@@ -59,6 +66,13 @@ class PurchasePaymentPart < ActiveRecord::Base
 
   def payment_way
     self.payment.mode.name if self.payment.mode
+  end
+
+  def to_accountancy(action=:create, options={})
+    accountize(action, {:journal=>self.payment.mode.cash.journal, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.payee_id == self.payment.supplier_id)) do |record|
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.expense.supplier.full_name), self.expense.supplier.account(:supplier).id, self.amount)
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payment.payee.full_name), self.payment.payee.account(:attorney).id, self.amount)
+    end
   end
 
 end

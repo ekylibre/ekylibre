@@ -71,8 +71,8 @@ cashes_001:
   creator_id: 1
   currency_id: 1
   by_default: true
-  iban: "FR76"
-  iban_label: "FR76"
+  iban: "FR7611111222223333333333391"
+  iban_label: "FR76 1111 1222 2233 3333 3333 391"
   id: 1
   journal_id: 1
   mode: "iban"

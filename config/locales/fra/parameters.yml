@@ -18,10 +18,11 @@ fra:
         taxes_collected: 'Compte des taxes collectées'
         taxes_paid: 'Compte des taxes déductibles'
         taxes_payback: 'Compte de taxes de remboursement'
+        third_attorneys: 'Débiteurs divers et créditeurs divers'
         third_clients: 'Comptes clients'
         third_suppliers: 'Comptes fournisseurs'
-        third_various: 'Débiteurs divers et créditeurs divers'
       journals:
+        cash: 'Journal de caisse par défaut'
         bank: 'Journal de banque par défaut'
         forward: 'Journal des reports à nouveau par défaut'
         purchases: 'Journal des achats par défaut'

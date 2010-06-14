@@ -44,6 +44,7 @@
 #  introduction        :text             
 #  invoice_contact_id  :integer          
 #  invoiced            :boolean          not null
+#  journal_record_id   :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null

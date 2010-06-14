@@ -20,6 +20,7 @@
 # 
 # == Table: tax_declarations
 #
+#  accounted_at             :datetime         
 #  acquisition_amount       :decimal(16, 2)   
 #  address                  :string(255)      
 #  amount                   :decimal(16, 2)   
@@ -33,6 +34,7 @@
 #  deferred_payment         :boolean          
 #  financialyear_id         :integer          
 #  id                       :integer          not null, primary key
+#  journal_record_id        :integer          
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
 #  paid_amount              :decimal(16, 2)   
@@ -44,10 +46,11 @@
 #
 
 class TaxDeclaration < ActiveRecord::Base
+  acts_as_accountable :callbacks=>false
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :financialyear
 
-  attr_readonly :company_id
 
   NB_DAYS_MONTH=30.42
 
@@ -120,38 +123,33 @@ class TaxDeclaration < ActiveRecord::Base
  end
 
 
- #
- def after_create
-
- end
-
-
  # this method allows to comptabilize the tax declaration after it creation. 
- def to_accountancy
+ def to_accountancy(action=:create, options={})
+
    
-   @journal_od = self.company.journals.find(:last, :conditions => ["nature = ? AND closed_on < ?", :various.to_s, Date.today.to_s])
+#    @journal_od = self.company.journals.find(:last, :conditions => ["nature = ? AND closed_on < ?", :various.to_s, Date.today.to_s])
    
-   @record = self.company.journal_records.create!({:financialyear_id=> self.financialyear_id, :created_on=> self.financialyear.created_on, :printed_on=>self.financialyear.stopped_on, :journal_id=> @journal_od.id})
+#    @record = self.company.journal_records.create!({:financialyear_id=> self.financialyear_id, :created_on=> self.financialyear.created_on, :printed_on=>self.financialyear.stopped_on, :journal_id=> @journal_od.id})
       
-   unless self.collected_amount.zero?
-     @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_collected').value.to_s, :name => '', :currency_debit => self.collected_amount})
-   end
+#    unless self.collected_amount.zero?
+#      @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_collected').value.to_s, :name => '', :currency_debit => self.collected_amount})
+#    end
    
-   unless self.acquisition_amount.zero?
-     @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_acquisitions').value.to_s, :name => '', :currency_debit => self.acquisition_amount})
-   end
+#    unless self.acquisition_amount.zero?
+#      @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_acquisitions').value.to_s, :name => '', :currency_debit => self.acquisition_amount})
+#    end
    
-   unless self.assimilated_taxes_amount.zero?
-     @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_assimilated').value.to_s, :name => '', :currency_debit => self.assimilated_taxes_amount})
-   end
+#    unless self.assimilated_taxes_amount.zero?
+#      @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_assimilated').value.to_s, :name => '', :currency_debit => self.assimilated_taxes_amount})
+#    end
    
-   unless self.paid_amount.zero?
-     @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_paid').value.to_s, :name => '', :currency_credit => self.paid_amount})
-   end
+#    unless self.paid_amount.zero?
+#      @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.parameter('accountancy.accounts.taxes_paid').value.to_s, :name => '', :currency_credit => self.paid_amount})
+#    end
    
-   unless self.balance_amount.zero?
-     @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id => self.company.parameter('accountancy.accounts.taxes_balance').value.to_s, :name => '', :currency_credit => self.balance_amount})
-   end
+#    unless self.balance_amount.zero?
+#      @entry = self.company.journal_entries.create!({:record_id => @record.id, :currency_id => @journal_od.currency_id, :account_id => self.company.parameter('accountancy.accounts.taxes_balance').value.to_s, :name => '', :currency_credit => self.balance_amount})
+#    end
    
  end
 

@@ -20,6 +20,7 @@
 # 
 # == Table: purchase_payment_parts
 #
+#  accounted_at      :datetime         
 #  amount            :decimal(16, 2)   default(0.0), not null
 #  company_id        :integer          not null
 #  created_at        :datetime         not null

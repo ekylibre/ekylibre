@@ -53,7 +53,10 @@ class JournalRecord < ActiveRecord::Base
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
   has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
-
+  has_many :purchase_payments, :dependent=>:nullify
+  has_many :purchase_payment_parts, :dependent=>:nullify
+  has_many :sale_payments, :dependent=>:nullify
+  has_many :sale_payment_parts, :dependent=>:nullify
   validates_presence_of :currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :currency_rate, :greater_than=>0
@@ -84,7 +87,8 @@ class JournalRecord < ActiveRecord::Base
   end 
   
   def validate_on_update
-    errors.add_to_base(:record_has_been_already_validated) unless self.draft?
+    old = self.class.find(self.id)
+    errors.add_to_base(:record_has_been_already_validated) unless old.draft?
   end
   
   #
@@ -149,12 +153,26 @@ class JournalRecord < ActiveRecord::Base
   # Add a record which cancel the record
   # Create counter-entries
   def cancel
-    record = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on)
+    record = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?)
     ActiveRecord::Base.transaction do
       record.save!
       for entry in self.entries
         record.send(:add!, tc(:record_cancel, :number=>self.number, :name=>entry.name), entry.account, (entry.debit-entry.credit).abs, :credit=>(entry.debit>0))
       end
+    end
+    return record
+  end
+
+  # Cancel a journal record and return a journal record which can be used to 
+  # be refilled with entries
+  def __reset(attributes={})
+    record = nil
+    if self.draft?
+      self.entries.destroy_all
+      record = self
+    else
+      self.cancel
+      record = self.journal.records.create!({:resource=>self.resource, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?}.merge(attributes))
     end
     return record
   end

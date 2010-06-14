@@ -1,4 +1,5 @@
 general.language,string,fra
+accountancy.journals.cash,record,journal
 accountancy.journals.bank,record,journal
 accountancy.journals.purchases,record,journal
 accountancy.journals.sales,record,journal
@@ -9,7 +10,7 @@ accountancy.accounts.financial_cashes,integer,53
 accountancy.accounts.financial_payments_to_embank,integer,511
 accountancy.accounts.third_clients,integer,411
 accountancy.accounts.third_suppliers,integer,401
-accountancy.accounts.third_various,integer,467
+accountancy.accounts.third_attorneys,integer,467
 accountancy.accounts.products,integer,7
 accountancy.accounts.capital_gains,integer,120
 accountancy.accounts.capital_losses,integer,129

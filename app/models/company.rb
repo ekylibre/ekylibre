@@ -136,7 +136,7 @@ class Company < ActiveRecord::Base
   has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id} AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')} OR number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_various\').value.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')} OR number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_attorneys\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, name, first_name'
@@ -634,8 +634,15 @@ class Company < ActiveRecord::Base
       
       # loading of all the templates
       company.load_prints
+
+      for journal in [:sales, :purchases, :bank, :various, :cash]
+        company.set_parameter("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
+      end
       
-      company.sale_payment_modes.create!(:name=>tc('default.check'), :company_id=>company.id)
+      cash = company.cashes.create!(:name=>tc('default.cash.name'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
+      baac = company.cashes.create!(:name=>tc('default.cash.name'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_embankment=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser"))
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id)
       delays = []
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
@@ -643,10 +650,6 @@ class Company < ActiveRecord::Base
       company.financialyears.create!(:started_on=>Date.today)
       company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
-
-      for journal in [:sales, :purchases, :bank, :various]
-        company.set_parameter("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
-      end
 
       company.load_sequences
       

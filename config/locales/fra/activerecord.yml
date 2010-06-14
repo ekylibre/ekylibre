@@ -19,6 +19,7 @@ fra:
         less_than: '{{attribute}} doit être inférieur à {{count}}'
         less_than_or_equal_to: '{{attribute}} doit être inférieur ou égal à {{count}}'
         not_a_number: '{{attribute}} n''est pas un nombre'
+        nothing_to_pay: 'Il n''y a rien à payer. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
         odd: '{{attribute}} doit être pair'
         posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
         record_has_been_already_validated: 'La pièce a été validée et ne peut plus être modifiée'
@@ -60,8 +61,6 @@ fra:
           closed_journal: 'Le journal est clôturé au {{on}} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
           out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
           unbalanced: 'La pièce n''est pas équilibrée'
-        payment_part:
-          nothing_to_pay: 'Il n''y a rien à payer. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
         price:
           already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
           range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
@@ -97,7 +96,7 @@ fra:
       account_balance: 'Balance de compte'
       area: 'Zone postale'
       bank_statement: 'Relevé de compte bancaire'
-      cash: 'Compte de trésorerie'
+      cash: 'Trésorerie'
       company: 'Société'
       complement: 'Champ complémentaire'
       complement_choice: 'Choix de champ complémentaire'
@@ -368,7 +367,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
 
-      # Compte de trésorerie
+      # Trésorerie
       cash:
         account: 'Compte comptable référencé'
         account_id: 'Compte comptable référencé'
@@ -419,7 +418,7 @@ fra:
         banks_accounts: 'Comptes comptables de banque'
         born_on: 'Créée le'
         cash_journals: 'Journaux de caisse'
-        cashes: 'Comptes de trésorerie'
+        cashes: 'Trésoreries'
         cashes_accounts: 'Comptes de caisse'
         charges_accounts: 'Comptes de charge'
         choice_complements: 'Chmaps complémentaires "liste de choix"'
@@ -645,7 +644,7 @@ fra:
       currency:
         active: 'Actif'
         by_default: 'Par défaut'
-        cashes: 'Comptes de trésorerie'
+        cashes: 'Trésoreries'
         code: 'Code'
         comment: 'Commentaire'
         company: 'Société'
@@ -895,6 +894,8 @@ fra:
       entity:
         active: 'Actif'
         activity_code: 'Code d''activité'
+        attorney: Mandataire
+        attorney_account_id: Compte mandataire associé
         authorized_payments_count: 'Nombre de règlements autorisés'
         born_on: 'Date de naissance'
         cashes: 'Comptes bancaires'
@@ -1150,6 +1151,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         lines: 'Lignes d''inventaire'
         lock_version: 'Version'
         number: 'Numéro'
@@ -1208,6 +1210,7 @@ fra:
         downpayment_amount: 'Montant de l''acompte'
         has_downpayment: 'A un acompte'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         lines: 'Lignes de facture'
         lock_version: 'Version'
         lost: 'En perte'
@@ -1344,9 +1347,13 @@ fra:
         number: 'Numéro'
         position: 'Position'
         printed_on: 'Datée du'
+        purchase_payment_parts: 'Parties de règlement d''achat'
+        purchase_payments: 'Règlements d''achat'
         resource: 'Origine'
         resource_id: 'Origine'
         resource_type: 'Origine'
+        sale_payment_parts: 'Parties de règlement'
+        sale_payments: 'Règlements'
         updated_at: 'Mis à jour le'
         updater: 'Modificateur'
         updater_id: 'Modificateur'
@@ -1858,14 +1865,13 @@ fra:
 
       # Mode de règlement d'achat
       purchase_payment_mode:
-        cash: 'Compte de trésorerie'
-        cash_id: 'Compte de trésorerie'
+        cash: 'Trésorerie'
+        cash_id: 'Trésorerie'
         company: 'Société'
         company_id: 'Société'
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        draft_mode: 'Mode brouillard' #?
         id: 'ID'
         lock_version: 'Version'
         name: 'Nom'
@@ -1877,6 +1883,7 @@ fra:
 
       # Partie de règlement d'achat
       purchase_payment_part:
+        accounted_at: Comptabilisé(e) le
         amount: 'Montant'
         company: 'Société'
         company_id: 'Société'
@@ -1887,6 +1894,8 @@ fra:
         expense: 'Dépense'
         expense_id: 'Dépense'
         id: 'ID'
+        journal_record: 'Pièces comptables'
+        journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         payment: 'Règlement'
         payment_id: 'Règlement'
@@ -1949,6 +1958,7 @@ fra:
         invoice_contact_id: 'Adresse pour la facture'
         invoiced: 'Facturée'
         invoices: 'Factures'
+        journal_record_id: 'Pièce comptable'
         letter_format: 'Devis au format lettre'
         lines: 'Lignes de vente'
         lock_version: 'Version'
@@ -2090,10 +2100,10 @@ fra:
 
       # Mode de règlement
       sale_payment_mode:
-        account: 'Compte d''attente pour les règlements à encaisser'
-        account_id: 'Compte d''attente pour les règlements à encaisser'
-        cash: 'Compte de trésorerie utilisé'
-        cash_id: 'Compte de trésorerie utilisé'
+        embankables_account: 'Compte d''attente pour les règlements à encaisser' #?
+        embankables_account_id: 'Compte d''attente pour les règlements à encaisser' #?
+        cash: 'Trésorerie utilisé'
+        cash_id: 'Trésorerie utilisé'
         commission_account: 'Compte à utiliser pour la commission'
         commission_account_id: 'Compte à utiliser pour la commission'
         commission_amount: 'Montant fixe de la commission'
@@ -2103,7 +2113,6 @@ fra:
         created_at: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        draft_mode: 'Mode brouillard' #?
         embankable_payments: 'Règlements encaissables'
         entities: 'Personnes'
         id: 'ID'
@@ -2120,6 +2129,7 @@ fra:
 
       # Partie de règlement
       sale_payment_part:
+        accounted_at: Comptabilisé(e) le
         amount: 'Montant attribué à la vente'
         company: 'Société'
         company_id: 'Société'
@@ -2131,6 +2141,8 @@ fra:
         expense_id: 'Dépense'
         expense_type: 'Type de dépense'
         id: 'ID'
+        journal_record: 'Pièces comptables'
+        journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         payment: 'Règlement'
         payment_id: 'Règlement'
@@ -2393,6 +2405,7 @@ fra:
 
       # Déclaration de taxes
       tax_declaration:
+        accounted_at: Comptabilisé(e) le
         acquisition_amount: 'Montant des acquisition'
         address: 'Adresse du service destinataire'
         amount: 'TVA totale'
@@ -2409,6 +2422,7 @@ fra:
         financialyear: 'Période considérée'
         financialyear_id: 'Période considérée'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         lock_version: 'Version'
         nature: 'Régime de la déclaration'
         paid_amount: 'TVA déductible'
@@ -2498,6 +2512,7 @@ fra:
         creator: 'Créateur'
         creator_id: 'Créateur'
         id: 'ID'
+        journal_record_id: 'Pièce comptable'
         label: 'Libellé'
         lock_version: 'Version'
         parts_amount: 'Montant payé'
