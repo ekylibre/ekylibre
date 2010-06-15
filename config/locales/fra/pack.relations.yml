@@ -239,7 +239,8 @@ fra:
       _entity_form:
         account_client_to_create: '-- Créer automatiquement un compte client --'
         account_supplier_to_create: '-- Créer automatiquement un compte fournisseur --'
-        account_third_to_create: '-- Créer automatiquement un compte divers --'
+        account_attorney_to_create: '-- Créer automatiquement un compte mandataire --'
+        attorney: 'Informations mandataire'
         client: 'Informations client'
         complements: 'Champs personnalisés' #!
         details: 'Informations complémentaires'

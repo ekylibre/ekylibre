@@ -6,9 +6,11 @@
   -f.field :entity, :language, :choices=>languages
   -f.field :entity, :last_name
   -f.field :entity, :first_name
-  -f.field :entity, :active
+  -f.field :entity, :active, :onchange=>"displayFields()"
+  -f.field :entity, :prospect
   -f.field :entity, :client, :onchange=>"displayFields()"
   -f.field :entity, :supplier, :onchange=>"displayFields()"
+  -f.field :entity, :attorney, :onchange=>"displayFields()"
   -f.field :entity, :transporter
   -f.title :details
   -f.field :entity, :country,:choices=>countries
@@ -17,6 +19,7 @@
   -f.field :entity, :excise
   -f.field :entity, :code
   -f.field :entity, :born_on
+  -f.field :entity, :dead_on, :html_options=>{:id=>"dead_on_form"}
   -f.field :entity, :website
   -f.field :entity, :photo
   -f.field :entity, :comment, :field=>:textarea
@@ -26,7 +29,6 @@
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client
-  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create})
   -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:action=>:entity_category_create}
   -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on
@@ -38,11 +40,15 @@
   -f.field :entity, :reduction_rate
   -f.field :entity, :authorized_payments_count
   -f.field :entity, :deliveries_conditions, :field=>:textarea
+  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_clients").value})
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier
-  -#f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create}
-  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>[[tc(:account_supplier_to_create), "supplier"], [tc(:account_third_to_create), "various"]]}, :new=>{:controller=>:accountancy, :action=>:account_create}
+  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_suppliers").value}
+
+=formalize(:id=>:attorney_form) do |f|
+  -f.title :attorney
+  -f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_attorneys").value}
 
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}
 
@@ -50,6 +56,8 @@
   window.displayFields = function(){
     toggleElement('client_form', $('entity_client').checked);
     toggleElement('supplier_form', $('entity_supplier').checked);
+    toggleElement('attorney_form', $('entity_attorney').checked);
+    toggleElement('dead_on_form', !$('entity_active').checked);
   }
   displayFields();
   

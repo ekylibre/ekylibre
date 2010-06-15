@@ -454,7 +454,8 @@ class RelationsController < ApplicationController
       ActiveRecord::Base.transaction do
         if saved = @entity.save
           @entity.account(:client) if @entity.client?
-          @entity.account(params[:entity][:supplier_account_id].to_sym) if @entity.supplier? and params[:entity][:supplier_account_id].match(/^(supplier|various)$/)
+          @entity.account(:supplier) if @entity.supplier?
+          @entity.account(:attorney) if @entity.attorney?
           
           for datum in @complement_data
             datum.entity_id = @entity.id
@@ -509,7 +510,8 @@ class RelationsController < ApplicationController
         saved = @entity.update_attributes(params[:entity])
         if saved
           @entity.account(:client) if @entity.client?
-          @entity.account(params[:entity][:supplier_account_id].to_sym) if @entity.supplier? and params[:entity][:supplier_account_id].match(/^(supplier|various)$/)
+          @entity.account(:supplier) if @entity.supplier?
+          @entity.account(:attorney) if @entity.attorney?
           
           for datum in @complement_data
             datum.entity_id = @entity.id

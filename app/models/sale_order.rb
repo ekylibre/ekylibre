@@ -148,7 +148,6 @@ class SaleOrder < ActiveRecord::Base
   def refresh
     self.save
   end
-
   
   # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.

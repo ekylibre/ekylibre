@@ -45,10 +45,10 @@ class PurchasePayment < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :responsible, :class_name=>User.name
-  belongs_to :payee, :class_name=>Entity.name
-  belongs_to :mode, :class_name=>PurchasePaymentMode.name
   belongs_to :journal_record
+  belongs_to :mode, :class_name=>PurchasePaymentMode.name  
+  belongs_to :payee, :class_name=>Entity.name
+  belongs_to :responsible, :class_name=>User.name
   has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
   has_many :purchase_orders, :through=>:parts
 
@@ -84,6 +84,13 @@ class PurchasePayment < ActiveRecord::Base
     self.amount-self.parts_amount
   end
 
+  def attorney_amount
+    total = 0
+    for part in self.parts
+      total += part.amount if part.expense.supplier_id != part.payment.payee_id
+    end    
+    return total
+  end
 
   # Use the minimum amount to pay the expense
   # If the payment is a downpayment, we look at the total unpaid amount
@@ -104,13 +111,14 @@ class PurchasePayment < ActiveRecord::Base
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
-  # The options :old permits to cancel the old existing record by adding counter-entries
   def to_accountancy(action=:create, options={})
+    attorney_amount = self.attorney_amount
+    supplier_amount = self.amount - attorney_amount
     accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}) do |record|
-      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, self.amount)
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
+      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
     end
   end
-
 
 end

@@ -77,6 +77,7 @@
 
 class Entity < ActiveRecord::Base
   attr_readonly :company_id
+  belongs_to :attorney_account, :class_name=>Account.to_s
   belongs_to :client_account, :class_name=>Account.to_s
   belongs_to :category, :class_name=>EntityCategory.to_s
   belongs_to :company
@@ -202,7 +203,7 @@ class Entity < ActiveRecord::Base
   # This method creates automatically an account for the entity
   # 
   def account(nature, suffix=nil)
-    natures = {:client=>:client_account, :supplier=>:supplier_account, :various=>:supplier_account}
+    natures = {:client=>:client_account, :supplier=>:supplier_account, :attorney=>:attorney_account}
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature])
     if valid_account.nil?

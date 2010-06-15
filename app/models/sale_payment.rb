@@ -100,9 +100,16 @@ class SalePayment < ActiveRecord::Base
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number)
   end
 
-
   def unused_amount
-    (self.amount||0)-(self.parts_amount||0)
+    self.amount-self.parts_amount
+  end
+
+  def attorney_amount
+    total = 0
+    for part in self.parts
+      total += part.amount if part.expense.client_id != part.payment.payer_id
+    end    
+    return total
   end
 
   # Use the minimum amount to pay the expense
@@ -124,11 +131,13 @@ class SalePayment < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
+    attorney_amount = self.attorney_amount
+    client_amount   = self.amount - attorney_amount
     accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}, :unless=>!self.mode.with_accounting?) do |record|
       record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), (self.mode.with_embankment? ? self.mode.embankables_account_id : self.mode.cash.account_id), self.amount)
-      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id, self.amount)
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
+      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payer.full_name), self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
   end
-  
   
 end

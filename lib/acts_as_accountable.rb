@@ -34,14 +34,14 @@ module ActiveRecord
           attributes[:draft_mode] ||= self.company.draft_mode?
           attributes[:printed_on] ||= self.created_on if self.respond_to? :created_on
           attributes[:journal] = self.company.journals.find_by_id(attributes.delete(:journal_id)) if attributes[:journal_id]
-          raise ArgumentError.new("Missing attribute :journal") unless attributes[:journal].is_a? Journal
+          raise ArgumentError.new("Missing attribute :journal (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
           ActiveRecord::Base.transaction do
             # Cancel the existing journal_record
             if self.journal_record
               if self.journal_record.draft? and (attributes[:journal] == self.journal_record.journal)
                 self.journal_record.entries.destroy_all
-                self.journal_record.update_attributes = attributes
-                self.journal_record.save!
+                self.journal_record.reload
+                self.journal_record.update_attributes!(attributes)
               else
                 self.journal_record.cancel
                 self.journal_record = nil
@@ -55,7 +55,7 @@ module ActiveRecord
             end
             
             # Set accounted columns
-            self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record.id}, {:id=>self.id})
+            self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record_id}, {:id=>self.id})
           end
         end
 

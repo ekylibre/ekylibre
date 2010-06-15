@@ -54,6 +54,13 @@ class Transfer < ActiveRecord::Base
     self.parts_amount = self.payment_parts.sum(:amount)||0
   end
 
+  def client_id
+    self.supplier_id
+  end
+  def client_id=(value)
+    self.supplier_id=value
+  end
+
   def unpaid_amount(options=nil)
     self.amount - self.parts_amount
   end
