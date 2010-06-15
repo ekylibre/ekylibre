@@ -141,7 +141,7 @@ function openDialog(url) {
         /* Insert code creation here */
         var overlay = $('overlay');
         if (overlay == null) {
-          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
+          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px;'});
           /*  opacity: 0.5 */
           body.appendChild(overlay);
         }

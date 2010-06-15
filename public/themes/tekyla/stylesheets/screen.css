@@ -18,7 +18,7 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 
 #loading { padding: 2px; text-align: center; }
 
-#overlay { background: black; }
+#overlay { background: transparent; }
 #overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
 
 .dialog {  background: #C9D7F1; }
@@ -148,9 +148,11 @@ table.invex, table.flex { width: 100% }
 
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px;}
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
-.evalue .label { width:176px; text-align:right; color: #777; }
-.evalue .value { width:164px; }
 .evalue .code { font-family: monospace; }
+.evalue .label { color: #777; }
+.evalue.verti td { width: 340px }
+.evalue.hori .label { width:176px; text-align:right; }
+.evalue.hori .value { width:164px; }
 
 
 div.tr { display: table-row; }
@@ -253,8 +255,8 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .toolbar { background: #F2E4DD; padding: 0 2px; margin: 0 0 8px; border: 1px solid #E5D9DD;}
 .toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .toolbar ul {padding: 1px;}
-.toolbar ul > li {padding: 2px 0; list-style-type: none; height:16px; margin:2px 0;}
-.toolbar ul > li > a {padding: 2px 2px 2px 20px; height:16px; background: url(../images/round-blue.png) no-repeat 5px center;}
+.toolbar ul > li {padding: 2px 0; list-style-type: none; margin:2px 0;}
+.toolbar ul > li > a {padding: 2px 2px 2px 20px; background: url(../images/round-blue.png) no-repeat 5px center;}
 .toolbar ul > li > a.backup    {background: url(../images/buttons/right.png) no-repeat center left;}
 .toolbar ul > li > a.cancel    {background: url(../images/buttons/cancel.png) no-repeat center left;}
 .toolbar ul > li > a.configure {background: url(../images/buttons/configure.png) no-repeat center left;}

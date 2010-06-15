@@ -281,9 +281,16 @@ module ApplicationHelper
       value = tg(:duration, :hours=>hours, :minutes=>minutes, :seconds=>seconds)
     end
     value = link_to(value.to_s, options[:url]) if options[:url]
-    code  = content_tag(:td, label.to_s, :class=>:label)
-    code += content_tag(:td, value.to_s, :class=>value_class)
-    content_tag(:table, content_tag(:tr, code), :class=>:evalue)
+
+    if options[:orient] == :vertical
+      code  = content_tag(:tr, content_tag(:td, label.to_s, :class=>:label))
+      code += content_tag(:tr, content_tag(:td, value.to_s, :class=>value_class))
+      return content_tag(:table, code, :class=>"evalue verti")
+    else
+      code  = content_tag(:td, label.to_s, :class=>:label)
+      code += content_tag(:td, value.to_s, :class=>value_class)
+      return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
+    end
   end
 
 

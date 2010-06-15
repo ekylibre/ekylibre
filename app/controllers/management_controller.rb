@@ -1242,7 +1242,7 @@ class ManagementController < ApplicationController
 
 
   # dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}, :children=>:reductions) do |t|
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}, :order=>:id) do |t|
+  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}, :order=>:id, :export=>false) do |t|
     #t.column :name, :through=>:product
     t.column :label
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
@@ -1346,7 +1346,6 @@ class ManagementController < ApplicationController
     return unless @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
     session[:current_product] = @product.id
     return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location])
-    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+params[:sale_order_line_location_id].inspect+session[:current_location].inspect+@location.inspect
     session[:current_location] = @location.id
     @sale_order_line = SaleOrderLine.new
   end

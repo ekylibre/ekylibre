@@ -8,45 +8,46 @@
       - t.link :sale_order_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
   -t.print :sale_order, :id=>@sale_order.id
 
-%h2=tc :general
-= toolbar do |t|
-  - if @sale_order.estimate?
-    - t.link(:sale_order_update, {:id=>@sale_order.id})
 %table.flex
   %tr
-    %td
-      =evalue @sale_order, :client, :label=>:label
-      =evalue @sale_order, :responsible, :label=>:full_name
-      =evalue @sale_order, :nature
-      =evalue @sale_order, :currency
-      =evalue @sale_order, :comment
-    %td
-      =evalue @sale_order, :contact, :label=>:address
-      =evalue @sale_order, :delivery_contact, :label=>:address
-      =evalue @sale_order, :invoice_contact, :label=>:address
-    -if @sale_order.letter_format?
-      %td
-        =evalue @sale_order, :subject
-        =evalue @sale_order, :function_title
-        =evalue @sale_order, :introduction, :field=>:textarea
-        =evalue @sale_order, :conclusion, :field=>:textarea
-
-%h2=tc :lines
-= toolbar do |t|
-  - if @sale_order.estimate?
-    - t.link(:sale_order_line_create)
-=render :partial=>"sale_order_line_row_form" if @sale_order.estimate?
-=dyta :sale_order_lines
-
-%table.dyta
-  %tr.total
-    %th=tc :amount
-    %td=@sale_order.amount
-  %tr.important.total
-    %th=tc :amount_with_taxes
-    %td=@sale_order.amount_with_taxes
-
--if @sale_order.subscriptions.size>0
-  %h2=tc :subscriptions
-  =dyta :sale_order_subscriptions
-
+    %td{:valign=>:top}
+      %h2=tc :general
+      -if @sale_order.estimate?
+        =toolbar do |t|
+          -t.link(:sale_order_update, {:id=>@sale_order.id})
+      =evalue @sale_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}, :orient=>:vertical
+      =evalue @sale_order, :responsible, :label=>:full_name, :orient=>:vertical
+      =evalue @sale_order, :nature, :orient=>:vertical
+      =evalue @sale_order, :currency, :orient=>:vertical
+      =evalue @sale_order, :comment, :orient=>:vertical
+      -#%td
+      =evalue @sale_order, :contact, :label=>:address, :orient=>:vertical
+      =evalue @sale_order, :delivery_contact, :label=>:address, :orient=>:vertical
+      =evalue @sale_order, :invoice_contact, :label=>:address, :orient=>:vertical
+      -if @sale_order.letter_format?
+        =evalue @sale_order, :subject, :orient=>:vertical
+        =evalue @sale_order, :function_title, :orient=>:vertical
+        =evalue @sale_order, :introduction, :field=>:textarea, :orient=>:vertical
+        =evalue @sale_order, :conclusion, :field=>:textarea, :orient=>:vertical
+    %td{:valign=>:top}
+      %h2=tc :lines
+      -if @sale_order.estimate?
+        =toolbar do |t|
+          -#t.link(:sale_order_line_create) 
+          -t.javascript(:sale_order_line_create, "openDialog('#{url_for(:action=>:sale_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sale_order_lines, :url=>{:action=>:sale_order_lines_dyta}))))}')") 
+        -#render :partial=>"sale_order_line_row_form"
+      =dyta :sale_order_lines
+      
+      %table.dyta
+        %tr.total
+          %th=tc :amount
+          %td=@sale_order.amount
+        %tr.important.total
+          %th=tc :amount_with_taxes
+          %td=@sale_order.amount_with_taxes
+      
+      -if @sale_order.subscriptions.size>0
+        %h2=tc :subscriptions
+        =dyta :sale_order_subscriptions
+      
+      
