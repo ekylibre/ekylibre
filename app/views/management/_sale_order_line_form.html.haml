@@ -1,32 +1,11 @@
 =sale_steps unless request.xhr?
 
--price_id, location_id = nil, nil
+-price_id = nil
 =formalize do |f|
   -f.error :sale_order_line
   -f.error :subscription
   -f.title :infos
   -price_id    = f.field :sale_order_line, :price_id, :choices=>:available_prices, :new=>{:action=>:price_create, :mode=>:sales}
-  -location_id = f.field :sale_order_line, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create} if @locations.size > 1
-  -f.field :sale_order_line, :quantity
-  -f.field :sale_order_line, :annotation, :field=>:textarea
+#detail=render :partial=>"sale_order_line_detail_form"
 
-#stocks=#render :partial=>"sale_order_line_stocks"
-#tracking=render :partial=>"sale_order_line_tracking"
-#subscription=render :partial=>"subscription_coordinates_form"
-
--if @current_user.can?(:change_prices_on_sale)
-  =formalize do |f|
-    -f.title :change_price
-    -f.field :sale_order_line, :price_amount
-    -f.field :sale_order_line, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
-
--if @current_user.can?(:give_discounts_on_sale)
-  =formalize do |f|
-    -f.title :give_discount
-    -f.field :sale_order_line, :reduction_percent, :size=>5
-
--#=observe_field(price_id, :url=>{:action => :subscription_find}, :frequency => 0.25, :with=>"sale_order_line_price_id")
-=observe_field(price_id, :url=>{:action=>:subscription_coordinates, :entity_id=>@sale_order.client_id}, :frequency=>0.25, :with=>"price_id", :update=>:subscription, :loading=>"onLoading()", :loaded=>"onLoaded()")
-=observe_field(price_id, :update=>:tracking, :url=>{:action=>:sale_order_line_tracking}, :frequency => 0.25, :with=>"sale_order_line_price_id")
--if @current_company.locations.size > 1
-  =observe_field(location_id, :url=>{:action => :sale_order_line_tracking}, :frequency => 0.25, :with=>"sale_order_line_location_id")
+=observe_field(price_id, :url=>{:action=>:sale_order_line_detail, :order_id=>@sale_order.id}, :frequency=>0.25, :with=>"id", :update=>:detail, :loading=>"onLoading()", :loaded=>"onLoaded()")

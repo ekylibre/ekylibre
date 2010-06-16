@@ -398,6 +398,7 @@ manage_estimates:
   - sale_order_duplicate
   - sale_order_line_create
   - sale_order_line_delete
+  - sale_order_line_detail
   - sale_order_line_informations
   - sale_order_line_stocks
   - sale_order_line_tracking

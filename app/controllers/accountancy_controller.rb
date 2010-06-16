@@ -651,7 +651,7 @@ class AccountancyController < ApplicationController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:journal_entries, :conditions=>journal_records_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+  dyta(:journal_entries, :conditions=>journal_records_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"record_id DESC, position") do |t|
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :printed_on, :through=>:record, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}

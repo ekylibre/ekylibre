@@ -78,7 +78,7 @@ table.dyta tr.details td.comment { padding: 10px; font-size:15px; }
 .total table.dyta  th  { text-align:right; }
 */
 table.dyta tr.total th {text-align: right;}
-table.dyta tr.total td {font-size: 18px; font-weight:bold; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #BACFE6; }  
+table.dyta tr.total td {font-size: 18px; font-weight:bold; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #BACFE6; width: 12em;}  
 table.dyta tr.total td.important {font-size: 20px; } 
 
 table.dyta tr.empty td { text-align:center; background: #EEF; color: #779; padding: 20px; font-style: italic;}

@@ -15,7 +15,7 @@ accountancy.accounts.products,integer,7
 accountancy.accounts.capital_gains,integer,120
 accountancy.accounts.capital_losses,integer,129
 accountancy.accounts.taxes_acquisition,integer,4452
-accountancy.accounts.taxes_collected,integer,44571
+accountancy.accounts.taxes_collected,integer,4457
 accountancy.accounts.taxes_paid,integer,4456
 accountancy.accounts.taxes_balance,integer,44567
 accountancy.accounts.taxes_assimilated,integer,447

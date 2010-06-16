@@ -48,10 +48,11 @@ class Tax < ActiveRecord::Base
   validates_presence_of :account_collected_id
   validates_presence_of :account_paid_id
   validates_uniqueness_of :name, :scope=>:company_id
+  validates_numericality_of :amount, :in=>1..100, :if=>Proc.new{|x| x.percent?}
 
 
   def validate
-    errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>1.to_s) if (self.amount < 0 or self.amount > 1) and self.percent?
+    # errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>100.to_s) if (self.amount < 0 or self.amount > 100) and self.percent?
   end
 
   def destroyable?

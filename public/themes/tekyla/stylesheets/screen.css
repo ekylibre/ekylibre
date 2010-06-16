@@ -150,7 +150,7 @@ table.invex, table.flex { width: 100% }
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
 .evalue .code { font-family: monospace; }
 .evalue .label { color: #777; }
-.evalue.verti td { width: 340px }
+.evalue.verti td { width: 250px }
 .evalue.hori .label { width:176px; text-align:right; }
 .evalue.hori .value { width:164px; }
 
@@ -407,6 +407,7 @@ tbody.lines td input { width: 95%; }
 
 table.dyta tr.total.invalid td { color: #D20; }  
 table.dyta tr.total.valid   td { color: #090; }  
+table.dyta tr.last-entry    td { border-bottom: 2px solid #F77; }  
 
 div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
 
@@ -429,4 +430,6 @@ table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ backgro
 .view span { padding:4px 8px; }
 .view a, .view strong { padding:4px 8px; margin: 0 2px; background: #DBE4F6;  -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px;}
 .view strong { background: #BACFE6; margin: 0 2px;}
+
+#detail-row { padding: 2px 4px; text-align:center; }
 

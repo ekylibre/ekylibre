@@ -42,13 +42,13 @@
 #
 
 class Stock < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :location
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
   
-  attr_readonly :company_id
   validates_presence_of :unit_id
   
   def before_validation
@@ -68,9 +68,9 @@ class Stock < ActiveRecord::Base
 
   def label
     if self.tracking
-      return tc(:label, :tracking=>self.tracking.name, :quantity=>self.virtual_quantity)
+      return tc("label.with_tracking", :tracking=>self.tracking.name, :quantity=>self.virtual_quantity, :location=>self.location.name, :unit=>self.unit.name)
     else
-      return tc(:no_tracking)
+      return tc("label.without_tracking", :quantity=>self.virtual_quantity, :location=>self.location.name, :unit=>self.unit.name)
     end
   end
   

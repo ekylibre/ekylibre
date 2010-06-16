@@ -451,7 +451,7 @@ module ApplicationHelper
     url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
     update = (options.delete(:update)||:help).to_s
-    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>"toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});", :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open"}.merge(options))
+    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>"toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});", :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
   end
 
   def help_tag(html_options={})

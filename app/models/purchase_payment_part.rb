@@ -69,7 +69,7 @@ class PurchasePaymentPart < ActiveRecord::Base
   end
 
   def to_accountancy(action=:create, options={})
-    accountize(action, {:journal=>self.payment.mode.cash.journal, :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.payee_id == self.payment.supplier_id)) do |record|
+    accountize(action, {:journal=>self.payment.mode.cash.journal, :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.supplier_id == self.payment.payee_id)) do |record|
       record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :detail=>self.expense.supplier.full_name), self.expense.supplier.account(:supplier).id, self.amount)
       record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :detail=>self.payment.payee.full_name), self.payment.payee.account(:attorney).id, self.amount)
     end

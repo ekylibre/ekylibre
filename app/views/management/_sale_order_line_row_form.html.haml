@@ -1,27 +1,10 @@
+-price_id = nil
 %fieldset.quick-add
   %legend=tc('title')
   -form_tag(:action=>:sale_order_line_create) do 
-    -# %nobr=tc('product')+" "+select(:sale_order_line, :price_id, @current_company.available_prices.collect{|x| [x.label, x.id]})
-    %nobr=tc('product')+" "+dyli(:sale_order_line, :price_id, :available_prices)
-    %nobr=tc('quantity')+" "+text_field(:sale_order_line, :quantity, :size=>5, :value=>1.0)
-    -if @current_user.can?(:give_discounts_on_sale)
-      %nobr=tc('discount')+" "+text_field(:sale_order_line, :reduction_percent, :size=>5)
+    =formalize do |f|
+      -price_id = f.field :sale_order_line, :price_id, :choices=>:available_prices
+    #detail-row=render :partial=>"sale_order_line_detail_row_form"
+    .actions=submit_tag(tg(:add))
 
-    -if @current_company.locations.size > 1
-      %nobr=tc('location')+" "+select(:sale_order_line, :location_id, @current_company.locations.collect{|x| [x.name, x.id]})
-    %nobr#price_amount{:style=>'display:none'}
-      =text_field(:sale_order_line, :price_amount, :value=>0.0)
-  
-    %nobr#subscription
-
-    %nobr#subscription_line{:style=>'display:none'}
-      %p{:id=>:sub_line}=""
-   
-    %nobr#stocks=#render :partial=>"sale_order_line_stocks"
-
-    %nobr#informations=render :partial=>"sale_order_line_informations"
-    =submit_tag(tc('valid'), :action=>:sale_order_line_create)
-
-=observe_field("sale_order_line_price_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_price_id", :loading=>"onLoading()", :loaded=>"onLoaded()")
--if @current_company.locations.size > 1
-  =observe_field("sale_order_line_location_id", :url=>{:action => :sale_order_line_informations}, :frequency => 0.25, :with=>"sale_order_line_location_id")
+=observe_field(price_id, :update=>"detail-row", :url=>{:action=>:sale_order_line_detail, :order_id=>@sale_order.id, :mode=>:row}, :frequency => 0.25, :with=>"id", :loading=>"onLoading()", :loaded=>"onLoaded()")

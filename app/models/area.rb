@@ -50,8 +50,8 @@ class Area < ActiveRecord::Base
     start = words[0].to_s.ascii.length<=3 ? 2 : 1
     self.postcode, self.city, self.city_name = '', '', ''
     if words and words.size>0
-      self.postcode = words[0..start-1].join(" ")
-      self.city = words[start..-1].join(" ").upper
+      self.postcode = (words[0..start-1]||[]).join(" ")
+      self.city = (words[start..-1]||[]).join(" ").upper
       self.city_name = self.city
       if self.city_name.match(/cedex/i)
         self.city_name = self.city_name.split(/\scedex/i)[0].strip 

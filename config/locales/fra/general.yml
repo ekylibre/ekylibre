@@ -434,6 +434,9 @@ fra:
       no_range: 'Pas d''intervalle'
       range: 'De {{min}} à {{max}}'
     product:
+      subscription_label:
+        period: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du {{start}} au {{finish}}'
+        quantity: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du n°{{start}} au n°{{finish}}'
       informations:
         with_components: '{{product}} ({{unit}}) (produit transformé)'
         without_components: '{{product}} ({{unit}}) (matière première)'
@@ -449,9 +452,9 @@ fra:
         produce: 'Production'
       to:
         produce: 'Production'
-        purchase: 'Achat'
+        purchases: 'Achat'
         rent: 'Location'
-        sale: 'Vente'
+        sales: 'Vente'
       unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
     product_component:
       of_product: 'du produit'
@@ -503,8 +506,9 @@ fra:
         number: '-- Aucune --'
         year: 'Année'
     stock:
-      label: 'Lot {{tracking}} quantité disponible {{quantity}}'
-      no_tracking: 'Aucun lot'
+      label: 
+        with_tracking: '{{location}} : Lot {{tracking}}, {{quantity}}{{unit}} disponible(s)'
+        without_tracking: '{{location}} : Non tracé, {{quantity}}{{unit}} disponible(s)'
     stock_transfer:
       natures:
         transfer: 'Transfert'

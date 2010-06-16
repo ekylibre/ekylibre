@@ -18,8 +18,8 @@
       =evalue @sale_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}, :orient=>:vertical
       =evalue @sale_order, :responsible, :label=>:full_name, :orient=>:vertical
       =evalue @sale_order, :nature, :orient=>:vertical
-      =evalue @sale_order, :currency, :orient=>:vertical
-      =evalue @sale_order, :comment, :orient=>:vertical
+      =evalue @sale_order, :currency, :orient=>:vertical unless @sale_order.currency == @current_company.default_currency
+      =evalue @sale_order, :comment, :orient=>:vertical unless @sale_order.comment.blank?
       -#%td
       =evalue @sale_order, :contact, :label=>:address, :orient=>:vertical
       =evalue @sale_order, :delivery_contact, :label=>:address, :orient=>:vertical
@@ -33,9 +33,9 @@
       %h2=tc :lines
       -if @sale_order.estimate?
         =toolbar do |t|
-          -#t.link(:sale_order_line_create) 
-          -t.javascript(:sale_order_line_create, "openDialog('#{url_for(:action=>:sale_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sale_order_lines, :url=>{:action=>:sale_order_lines_dyta}))))}')") 
-        -#render :partial=>"sale_order_line_row_form"
+          -t.link(:sale_order_line_create, :order_id=>@sale_order.id) 
+          -#t.javascript(:sale_order_line_create, "openDialog('#{url_for(:action=>:sale_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sale_order_lines, :url=>{:action=>:sale_order_lines_dyta}))))}')", :href=>url_for(:action=>:sale_order_line_create)) 
+        =render :partial=>"sale_order_line_row_form"
       =dyta :sale_order_lines
       
       %table.dyta

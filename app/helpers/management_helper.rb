@@ -69,4 +69,12 @@ module ManagementHelper
     code
   end
 
+
+  def product_stocks_options(product)
+    options = []
+    options += product.stocks.collect{|x| [x.label, x.id]}
+    options += @current_company.locations.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
+    return options
+  end
+
 end

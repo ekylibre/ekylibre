@@ -473,7 +473,7 @@ class ManagementController < ApplicationController
 #         redirect_to_back
 #       end
     else
-      @price = Price.new(:product_id=>params[:product_id], :category_id=>session[:category]||0)
+      @price = Price.new(:product_id=>params[:product_id], :category_id=>session[:current_entity_category_id]||0)
       @price.entity_id = params[:entity_id] if params[:entity_id]
     end
     render_form    
@@ -666,11 +666,13 @@ class ManagementController < ApplicationController
   end
 
   dyta(:products, :conditions=>products_conditions) do |t|
-    t.column :number
+    # t.column :number
     t.column :name, :through=>:shelf, :url=>{:action=>:shelf}
     t.column :name, :url=>{:action=>:product}
     t.column :code, :url=>{:action=>:product}
-    t.column :description
+    t.column :manage_stocks
+    t.column :nature_label
+    t.column :label, :through=>:unit
     t.action :product_update
     t.action :product_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
@@ -1267,19 +1269,32 @@ class ManagementController < ApplicationController
     t.action :subscription_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
+  def sale_order_line_detail
+    if request.xhr?
+      return unless price = find_and_check(:price)
+      @sale_order = @current_company.sale_orders.find_by_id(params[:order_id]) if params[:order_id]
+      @sale_order_line = @current_company.sale_order_lines.new(:product=>price.product, :price=>price, :price_amount=>0.0, :quantity=>1.0, :unit_id=>price.product.unit_id)
+      if @sale_order
+        @sale_order_line.order = @sale_order
+        @sale_order_line.reduction_percent = @sale_order.client.max_reduction_percent 
+      end
+      render :partial=>"sale_order_line_detail#{'_row' if params[:mode]=='row'}_form"
+    end
+  end
+
   def sale_order_lines
     return unless @sale_order = find_and_check(:sale_order)
     session[:current_sale_order_id] = @sale_order.id
-    session[:category] = @sale_order.client.category
-    @product = @current_company.available_prices.first.product if @current_company.available_prices.first
-    @locations = @current_company.locations
+    session[:current_entity_category_id] = @sale_order.client.category_id
+    # @product = @current_company.available_prices.first.product if @current_company.available_prices.first
+    # @locations = @current_company.locations
     # @subscription = Subscription.new(:product_id=>@product.id, :company_id=>@current_company.id).compute_period
     @entity = @sale_order.client
-    session[:current_product] = @product.id if @product
-    @location = @current_company.locations.first if @current_company.locations.size > 0
-    session[:current_location] = @location.id
+    session[:current_product_id] = @product.id if @product
+    # @location = @current_company.locations.first if @current_company.locations.size > 0
+    # session[:current_location_id] = @location.id
     @sale_order_line = @sale_order.lines.new
-    @title = {:client=>@entity.full_name, :sale_order=>@sale_order.number}
+    t3e :client=>@entity.full_name, :sale_order=>@sale_order.number
   end
 
   def sale_order_confirm
@@ -1343,10 +1358,10 @@ class ManagementController < ApplicationController
     if params[:sale_order_line_price_id]
       return unless price = find_and_check(:prices, params[:sale_order_line_price_id])
     end
-    return unless @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
-    session[:current_product] = @product.id
-    return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location])
-    session[:current_location] = @location.id
+    return unless @product = find_and_check(:products, price.nil? ? session[:current_product_id] : price.product_id)
+    session[:current_product_id] = @product.id
+    return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location_id])
+    session[:current_location_id] = @location.id
     @sale_order_line = SaleOrderLine.new
   end
 
@@ -1355,12 +1370,12 @@ class ManagementController < ApplicationController
     if params[:sale_order_line_price_id]
       return unless price = find_and_check(:prices, params[:sale_order_line_price_id]) 
     end
-    # puts session[:current_product].inspect+"!!!!!!!!"+price.inspect
-    return unless @product = find_and_check(:products, price.nil? ? session[:current_product] : price.product_id)
-    session[:current_product] = @product.id
-    return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location])
-    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+params[:sale_order_line_location_id].inspect+session[:current_location].inspect+@location.inspect
-    session[:current_location] = @location.id
+    # puts session[:current_product_id].inspect+"!!!!!!!!"+price.inspect
+    return unless @product = find_and_check(:products, price.nil? ? session[:current_product_id] : price.product_id)
+    session[:current_product_id] = @product.id
+    return unless @location = find_and_check(:locations, params[:sale_order_line_location_id]||session[:current_location_id])
+    #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+params[:sale_order_line_location_id].inspect+session[:current_location_id].inspect+@location.inspect
+    session[:current_location_id] = @location.id
     #puts "okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"
   end
 
@@ -1380,8 +1395,8 @@ class ManagementController < ApplicationController
       # @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
       @product = @current_company.available_prices.first.product
       @location = @locations.first
-      session[:current_product] = @product.id
-      session[:current_location] = @location.id
+      session[:current_product_id] = @product.id
+      session[:current_location_id] = @location.id
     else
       # @subscription = Subscription.new()
     end
@@ -1394,20 +1409,8 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
-      
-      # #raise Exception.new params.inspect
-      # @sale_order_line = @current_company.sale_order_lines.find(:first, :conditions=>{:price_id=>params[:sale_order_line][:price_id], :order_id=>session[:current_sale_order_id]})
-      # if @sale_order_line and params[:sale_order_line][:price_amount].to_d <= 0 and @sale_order_line.tracking_id.nil?
-      #   @sale_order_line.quantity += params[:sale_order_line][:quantity].to_d
-      # else
-      #   @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
-      #   @sale_order_line.location_id = @locations[0].id if @locations.size == 1
-      #   # @sale_order_line.company_id  = @current_company.id
-      #   # @sale_order_line.order_id    = session[:current_sale_order_id]
-      #   # @sale_order_line.product_id  = find_and_check(:prices,params[:sale_order_line][:price_id]).product_id
-      # end
-
-      @sale_order_line = @sale_order.lines.build(params[:sale_order_line])
+      @sale_order_line = @sale_order.lines.build(:company_id=>@current_company.id)
+      @sale_order_line.attributes = params[:sale_order_line]
       @sale_order_line.location_id = @locations[0].id if @locations.size == 1
 
       ActiveRecord::Base.transaction do

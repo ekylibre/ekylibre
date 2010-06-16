@@ -84,8 +84,9 @@ class Product < ActiveRecord::Base
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
-  validates_presence_of :subscription_period, :if=>Proc.new{|u| u.nature=="sub_date"}
-  validates_presence_of :subscription_numbers, :actual_number, :if=>Proc.new{|u| u.nature=="sub_numb"}
+  validates_presence_of :subscription_nature,   :if=>Proc.new{|u| u.nature.to_s=="subscrip"}
+  validates_presence_of :subscription_period,   :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and u.subscription_nature.period?}
+  validates_presence_of :subscription_quantity, :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and not u.subscription_nature.period?}
   validates_presence_of :sales_account, :if=>Proc.new{|p| p.for_sales}
   validates_presence_of  :purchases_account, :if=>Proc.new{|p| p.for_purchases}
   validates_uniqueness_of :code, :scope=>:company_id
@@ -126,7 +127,15 @@ class Product < ActiveRecord::Base
   end
 
   def self.natures
-    @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
+    @@natures.collect{|x| [self.nature_label(x), x] }
+  end
+
+  def self.nature_label(nature)
+    tc('natures.'+nature.to_s)
+  end
+
+  def nature_label
+    self.class.nature_label(self.nature)
   end
 
   def subscription?
@@ -179,6 +188,18 @@ class Product < ActiveRecord::Base
     period = self.subscription_period || '1 year'
     # self.subscription_nature.nature == "period" ? Date.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
     self.subscription_nature.nature == "period" ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
+  end
+
+  def default_subscription_label_for(entity)
+    return nil unless self.nature == "subscrip"
+    entity  = nil unless entity.is_a? Entity
+    address = entity.default_contact.address rescue nil
+    entity = entity.full_name rescue "???"
+    if self.subscription_nature.nature == "period"
+      return tc('subscription_label.period', :start=>::I18n.localize(Date.today), :finish=>::I18n.localize(Delay.compute(self.subscription_period.blank? ? '1 year, 1 day ago' : self.product.subscription_period)), :entity=>entity, :address=>address, :subscription_nature=>self.subscription_nature.name)
+    elsif self.subscription_nature.nature == "quantity"
+      return tc('subscription_label.quantity', :start=>self.subscription_nature.actual_number.to_i, :finish=>(self.subscription_nature.actual_number.to_i + ((self.subscription_quantity-1)||0)), :entity=>entity, :address=>address, :subscription_nature=>self.subscription_nature.name)
+    end
   end
 
   def shelf_name

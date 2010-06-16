@@ -1,0 +1,24 @@
+-if product = @sale_order_line.product
+  =formalize do |f|
+    -f.field :sale_order_line, :quantity
+    -f.field SaleOrderLine.human_attribute_name("unit_id"), @sale_order_line.product.unit.label
+    -f.field :sale_order_line, :annotation, :field=>:textarea
+  -if product.manage_stocks
+    =formalize do |f|
+      -#f.field :sale_order_line, :stock_id, :choices=>{:reflection=>:s}, :new=>{:action=>:location_create} 
+      -f.field SaleOrderLine.human_attribute_name("stock_id"), select(:sale_order_line, :stock_id, product_stocks_options(product))
+  -if product.nature == "subscrip"
+    -@subscription = @sale_order_line.new_subscription(params[:subscription])
+    =render :partial=>"subscription_coordinates_form"
+
+  -if @current_user.can?(:change_prices_on_sale)
+    =formalize do |f|
+      -f.title :change_price
+      -f.field :sale_order_line, :price_amount
+      -f.field :sale_order_line, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
+
+  -if @current_user.can?(:give_discounts_on_sale) and product.reduction_submissive?
+    =formalize do |f|
+      -f.title :give_discount
+      -f.field :sale_order_line, :reduction_percent, :size=>5
+

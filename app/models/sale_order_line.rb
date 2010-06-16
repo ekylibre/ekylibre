@@ -171,6 +171,21 @@ class SaleOrderLine < ActiveRecord::Base
     self.product ? self.product.name : tc(:no_product) 
   end
 
+  def stock_id
+    self.company.stocks.find_by_location_id_and_product_id_and_tracking_id(self.location_id, self.product_id, self.tracking_id).id rescue nil
+  end
+
+  def stock_id=(value)
+    value = value.to_i
+    if value > 0 and stock = (self.company||self.order.company).stocks.find_by_id(value)
+      self.location_id = stock.location_id
+      self.tracking_id = stock.tracking_id
+      self.product_id  = stock.product_id
+    elsif value < 0 and location = self.company.locations.find_by_id(value.abs)
+      self.location_id = value.abs
+    end
+  end
+
   def designation
     d  = self.label
     d += "\n"+self.annotation.to_s unless self.annotation.blank?
@@ -193,7 +208,7 @@ class SaleOrderLine < ActiveRecord::Base
         subscription.started_on ||= Date.today
         subscription.stopped_on ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_on)
       else
-        subscription.first_number ||= nature.actual_number
+        subscription.first_number ||= nature.actual_number.to_i
         subscription.last_number  ||= subscription.first_number+(product.subscription_quantity||1)-1
       end
     end

@@ -48,8 +48,9 @@ class PurchaseOrder < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
-  belongs_to :supplier, :class_name=>Entity.name
+  belongs_to :journal_record
   belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
+  belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
   has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>PurchasePaymentPart.name
 

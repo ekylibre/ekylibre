@@ -73,7 +73,7 @@ fra:
           error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
           location_can_not_transfer_product: 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}}.'
         stock:
-          product_cannot_be_in_location: 'Le produit ne peu pas être stocké dans le réservoir {{location}}'
+          product_cannot_be_in_location: 'Le produit ne peut pas être stocké dans le réservoir {{location}}'
         stock_transfer:
           location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
           location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
@@ -1686,6 +1686,7 @@ fra:
         manage_stocks: 'Gérer les stocks'
         name: 'Nom'
         nature: 'Nature'
+        nature_label: 'Nature'
         number: 'Numéro'
         price: 'Prix de revient'
         prices: 'Prix'

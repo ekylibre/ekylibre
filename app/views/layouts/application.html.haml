@@ -21,7 +21,8 @@
           .nav
             =help_link_tag
             =side_link_tag
-            %h1.title=action_title
+            -title = action_title
+            %h1.title{:title=>title}=title
           .yield{:flex=>1, :orient=>:vertical}
             =notifications_tag
             =yield
