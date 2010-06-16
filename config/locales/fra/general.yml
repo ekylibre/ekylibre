@@ -146,14 +146,9 @@ fra:
       default:
         admin: 'Administrateur'
         bank_journal_nature_name: 'Banque'
-        category: 'Par défaut'
         cash:
           name: 'Caisse'
-        sale_payment_modes:
-          check: 
-            name: 'Chèque'
-          cash:
-            name: 'Espèces'
+        category: 'Par défaut'
         delays:
           expression:
             expiration: '1 mois'
@@ -215,8 +210,8 @@ fra:
         establishment_name: 'Établissement principal'
         financialyear_code: '1A2'
         journals:
-          cash: 'Journal de caisse'
           bank: 'Journal de banque'
+          cash: 'Journal de caisse'
           purchases: 'Journal des achats'
           sales: 'Journal des ventes'
           various: 'Journal des opérations diverses'
@@ -228,6 +223,11 @@ fra:
             admin: 'Gérant'
             public: 'Public (sans droits)'
         sale_order_nature_name: 'Vente standard'
+        sale_payment_modes:
+          cash:
+            name: 'Espèces'
+          check:
+            name: 'Chèque'
         sample_product_name: 'Produit Exemple'
         sequences:
           management:
@@ -350,7 +350,7 @@ fra:
         transport: 'Transport'
       unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
     embankment:
-      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{payments_count}} règlements ({{mode}}) {{comment}}'
     entity:
       client: 'Client'
       supplier: 'Fournisseur'
@@ -371,7 +371,7 @@ fra:
       label:
         credit: 'Avoir N°{{number}}'
         normal: 'Facture N°{{number}}'
-      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{products}} pour {{client}} ({{sale_order}})'
     invoice_line:
       no_product: '[Pas de produit]'
     journal:
@@ -434,9 +434,6 @@ fra:
       no_range: 'Pas d''intervalle'
       range: 'De {{min}} à {{max}}'
     product:
-      subscription_label:
-        period: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du {{start}} au {{finish}}'
-        quantity: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du n°{{start}} au n°{{finish}}'
       informations:
         with_components: '{{product}} ({{unit}}) (produit transformé)'
         without_components: '{{product}} ({{unit}}) (matière première)'
@@ -447,6 +444,9 @@ fra:
         subscrip: 'Abonnement'
         transfer: 'Transfert'
       stock_move: '{{origin}} ({{code}})'
+      subscription_label:
+        period: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du {{start}} au {{finish}}'
+        quantity: 'Abonnement {{subscription_nature}} pour {{entity}} à l''adresse {{address}} du n°{{start}} au n°{{finish}}'
       supply_methods:
         buy: 'Achat'
         produce: 'Production'
@@ -461,16 +461,16 @@ fra:
     purchase_order:
       label: '{{supplier}} à {{address}}'
       purchase: 'Achat'
-      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{products}} de {{supplier}}'
     purchase_order_line:
       name: '{{product}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
       name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}) à {{amount}}{{currency}}/{{unit}}'
       tracking: 'N°Lot : {{serial}}'
     purchase_payment:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'
-      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} pour {{payee}} ({{expenses}})'
     purchase_payment_part:
-      to_accountancy: '[{{resource}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{mode}} reçu par {{attorney}} pour {{supplier}}'
     sale_order:
       label:
         estimate: 'Devis N°{{number}}'
@@ -496,9 +496,9 @@ fra:
       tracking: 'N°Lot : {{serial}}'
     sale_payment:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{payer}}'
-      to_accountancy: '[{{resource}} {{number}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} de {{payer}} ({{expenses}})'
     sale_payment_part:
-      to_accountancy: '[{{resource}}] {{detail}}'
+      to_accountancy: '[{{resource}} {{number}}] {{mode}} reçu de {{attorney}} pour {{client}}'
     sequence:
       periods:
         cweek: 'Semaine'
@@ -506,7 +506,7 @@ fra:
         number: '-- Aucune --'
         year: 'Année'
     stock:
-      label: 
+      label:
         with_tracking: '{{location}} : Lot {{tracking}}, {{quantity}}{{unit}} disponible(s)'
         without_tracking: '{{location}} : Non tracé, {{quantity}}{{unit}} disponible(s)'
     stock_transfer:

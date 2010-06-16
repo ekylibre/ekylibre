@@ -32,7 +32,7 @@ class AccountancyController < ApplicationController
   # this method displays the form to choose the journal and financialyear.
   def accountize
     params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
-    @natures = [:invoice, :sale_payment, :purchase_payment, :embankment, :purchase_order]
+    @natures = [:invoice, :sale_payment_part, :sale_payment, :embankment, :purchase_order, :purchase_payment_part, :purchase_payment]
 
     if request.get?
       notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.human_name}.to_sentence)
@@ -48,7 +48,7 @@ class AccountancyController < ApplicationController
       session[:finish_accountization_on] = params[:finish_accountization_on]
       @records = {}
       for nature in @natures
-        conditions = ["accounted_at IS NULL AND CAST(created_on AS DATE) <= ?", session[:finish_accountization_on]]
+        conditions = ["accounted_at IS NULL AND created_at <= ?", session[:finish_accountization_on].to_time]
         if nature == :purchase_order
           conditions[0] += " AND shipped = ? " 
           conditions << true
@@ -192,11 +192,19 @@ class AccountancyController < ApplicationController
   dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
+    t.column :printed_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("printed_on")
     t.column :name
     t.column :draft
     t.column :debit
     t.column :credit
+  end
+
+  dyta(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+    t.column :code, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :full_name, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :label, :through=>:client_account, :url=>{:action=>:account}
+    t.column :label, :through=>:supplier_account, :url=>{:action=>:account}
+    t.column :label, :through=>:attorney_account, :url=>{:action=>:account}
   end
 
 #   dyta(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?", ['@current_company.id'], ['session[:current_account_number]+"%"']], :order=>"number ASC") do |t|
@@ -804,7 +812,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}) do |t|
+  dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}, :order=>:position) do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
@@ -973,6 +981,8 @@ class AccountancyController < ApplicationController
     t.column :nature_label
     t.column :included
     t.column :reductible
+    t.column :label, :through=>:account_paid, :url=>{:action=>:account}
+    t.column :label, :through=>:account_collected, :url=>{:action=>:account}
     t.action :tax_update
     t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
   end

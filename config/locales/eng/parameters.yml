@@ -18,12 +18,13 @@ eng:
         #>taxes_collected: 'Compte des taxes collectées'
         #>taxes_paid: 'Compte des taxes déductibles'
         #>taxes_payback: 'Compte de taxes de remboursement'
-        #>third_attorneys: 'Débiteurs divers et créditeurs divers'
+        #>third_attorneys: 'Comptes mandataires'
         #>third_clients: 'Comptes clients'
         #>third_suppliers: 'Comptes fournisseurs'
       default_journals:
       journals:
         #>bank: 'Journal de banque par défaut'
+        #>cash: 'Journal de caisse par défaut'
         #>forward: 'Journal des reports à nouveau par défaut'
         #>purchases: 'Journal des achats par défaut'
         #>sales: 'Journal des ventes par défaut'

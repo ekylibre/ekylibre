@@ -46,6 +46,7 @@ class Sequence < ActiveRecord::Base
   belongs_to :company
   attr_readonly :company_id
   validates_inclusion_of :period, :in => @@periods  
+  validates_uniqueness_of :format, :scope=>:company_id
 
   def before_validation
     self.period ||= 'number'

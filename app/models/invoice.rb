@@ -61,6 +61,7 @@ class Invoice < ActiveRecord::Base
   has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.name
   has_many :credits, :class_name=>Invoice.name, :foreign_key=>:origin_id
+  has_many :products, :through=>:lines, :uniq=>true
 
   validates_presence_of :currency_id
 
@@ -195,11 +196,12 @@ class Invoice < ActiveRecord::Base
 
   #this method accountizes the invoice.
   def to_accountancy(action=:create, options={})
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :client=>self.client.full_name, :products=>(self.sale_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sale_order.comment), :sale_order=>self.sale_order.number)
     accountize(action, {:journal=>self.company.journal(:sales), :draft_mode=>options[:draft]}) do |record|
-      record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.client.full_name), self.client.account(:client).id, self.amount_with_taxes)
+      record.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
       for line in self.lines
-        record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.product.name), line.product.sales_account_id, line.amount) unless line.quantity.zero?
-        record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
+        record.add_credit(label, line.product.sales_account_id, line.amount) unless line.quantity.zero?
+        record.add_credit(label, line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
       end
     end
   end

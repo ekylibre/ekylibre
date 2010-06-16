@@ -960,6 +960,7 @@ class ManagementController < ApplicationController
   def purchase_order_summary
     return unless @purchase_order = find_and_check(:purchase_order)
     session[:current_purchase_order_id] = @purchase_order.id
+    t3e @purchase_order.attributes
   end
 
 
@@ -1705,7 +1706,7 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :with_accounting
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
@@ -1716,7 +1717,7 @@ class ManagementController < ApplicationController
     t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
-  dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :with_accounting
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
@@ -2077,7 +2078,7 @@ class ManagementController < ApplicationController
   end
 
   # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity_id]'], :active=>true, :company_id=>['@current_company.id']})
-  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:active=>true, :company_id=>['@current_company.id']})
+  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:deleted_at=>nil, :company_id=>['@current_company.id']})
   
   manage :subscriptions, :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 

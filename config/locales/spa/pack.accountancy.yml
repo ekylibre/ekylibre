@@ -23,6 +23,7 @@ spa:
       account:
         account:
           #>children: 'Sous-comptes'
+          #>entities: 'Personnes'
           #>journal_entries: 'Écritures'
         #>account_update: 'Modifier le compte'
         #>balance: 'Solde'
@@ -36,14 +37,13 @@ spa:
       account_update:
         #>title: 'Modifier le compte : {{number}} - {{name}}'
       accountize:
-        #>invoices_count: 'Nombre de factures de vente à comptabiliser'
+        #>counts_by_nature: 'Nombre de pièces à comptabiliser par type'
         nb_invoices:
         nb_payments:
         nb_purchases:
         nb_sales:
         nb_transfers:
-        #>purchase_payments_count: 'Nombre de règlement d''achat à comptabiliser'
-        #>sale_payments_count: 'Nombre de règlement de vente à comptabiliser'
+        #>parameters: 'Paramètres'
         #>save_in_draft: 'Sauvegarder dans le brouillard'
         #>select_date_generation: 'Date limite d''intégration'
         #>title: 'Bascule comptable'
@@ -80,19 +80,19 @@ spa:
         cash:
           #>bank_statements: 'Relevés de compte'
           #>embankments: 'Remises en banque'
-        #>cash_update: 'Modifier le compte de trésorerie'
+        #>cash_update: 'Modifier la trésorerie'
         #>title: '{{nature_label}} : {{name}}'
       _cash_accountancy_form:
         #>accountancy: 'Comptabilité'
       cash_create:
-        #>title: 'Créer un nouveau compte de trésorerie'
+        #>title: 'Enregistrer une nouvelle trésorerie'
       _cash_form:
         #>general: 'Description générale'
         #>iban: 'Numéro de compte bancaire internationale (IBAN)'
       cash_update:
-        #>title: 'Modifier le compte de trésorerie : {{name}}'
+        #>title: 'Modifier la trésorerie : {{name}}'
       cashes:
-        #>title: 'Trésorerie'
+        #>title: 'Trésoreries'
       _currencies_find:
         #>currency_code: 'Code de devise'
         #>currency_id: 'Numéro de devise'
@@ -214,12 +214,12 @@ spa:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
       print_balance_sheet:
         #>period: 'Période'
         #>title: 'Impression du bilan'
+      _print_balance_sheet:
+        #>balance_sheet: 'Sélectionnez l''exercice'
+        #>select_financialyear: 'Exercice'
       print_by_financial_year:
         #>financial_id: 'Exercice comptable'
         #>financial_year_select: 'Sélectionnez l'' exercice comptable'

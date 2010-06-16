@@ -83,9 +83,10 @@ class SalePaymentPart < ActiveRecord::Base
    
 
   def to_accountancy(action=:create, options={})
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
     accountize(action, {:journal=>self.payment.mode.cash.journal, :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.client_id == self.payment.payer_id)) do |record|
-      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :detail=>self.payment.payer.full_name), self.payment.payer.account(:attorney).id, self.amount)
-      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :detail=>self.expense.client.full_name), self.expense.client.account(:client).id, self.amount)
+      record.add_debit(label, self.payment.payer.account(:attorney).id, self.amount)
+      record.add_credit(label, self.expense.client.account(:client).id, self.amount)
     end
   end
 

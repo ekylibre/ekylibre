@@ -33,6 +33,7 @@ class ManagementControllerTest < ActionController::TestCase
                              :subscription_options, 
                              :subscriptions_period, 
                              :sale_order_line_informations,
+                             :sale_order_line_detail,
                              :sale_order_line_stocks,
                              :sale_order_line_tracking,
                              :sale_order_contacts, 

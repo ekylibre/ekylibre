@@ -236,9 +236,10 @@ jpn:
       entity_create:
         #>title: 'Création d''une nouvelle fiche client/fournisseur'
       _entity_form:
+        #>account_attorney_to_create: '-- Créer automatiquement un compte mandataire --'
         #>account_client_to_create: '-- Créer automatiquement un compte client --'
         #>account_supplier_to_create: '-- Créer automatiquement un compte fournisseur --'
-        #>account_third_to_create: '-- Créer automatiquement un compte divers --'
+        #>attorney: 'Informations mandataire'
         #>client: 'Informations client'
         #>complements: 'Champs personnalisés'
         #>details: 'Informations complémentaires'

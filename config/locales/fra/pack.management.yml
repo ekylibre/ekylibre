@@ -66,7 +66,7 @@ fra:
     management:
       purchase_steps:
         active: 'Création de l''achat'
-        summary: 'Règlements'
+        summary: 'Paiements'
       sale_steps:
         deliveries: 'Planification des livraisons'
         estimate: 'Création du devis'
@@ -248,9 +248,9 @@ fra:
         reservoirs_create: 'Ajouter un réservoir'
         title: 'Lieux de stockage'
       payment_modes:
-        purchase_payment_modes: 'Modes de règlement utilisés pour les achats'
-        sale_payment_modes: 'Modes de règlement utilisés pour les ventes'
-        title: 'Modes de règlement'
+        purchase_payment_modes: 'Modes de paiement (utilisés pour les achats)'
+        sale_payment_modes: 'Modes de règlement (utilisés pour les ventes)'
+        title: 'Modes de règlement et modes de paiement'
         #>sale_payment_mode_create: # Potentially missing translation
         #>purchase_payment_mode_create: # Potentially missing translation
       _price_amount_form:
@@ -325,10 +325,10 @@ fra:
       purchase_order:
         general_informations: 'Informations générales'
         lines: 'Lignes d''achat'
-        payment_parts: 'Règlements'
+        payment_parts: 'Paiements'
         purchase_order_lines: 'Modifier l''achat'
         purchase_order_print: 'Imprimer la commande fournisseur' #!
-        sale_payment_part_create: 'Ajouter un règlement à l''achat' #!
+        sale_payment_part_create: 'Ajouter un paiement à l''achat' #!
         title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
         #>purchase_payment_part_create: # Potentially missing translation
       purchase_order_create:
@@ -352,11 +352,11 @@ fra:
         title: 'Produits de la commande {{value}} chez {{name}}'
         validate: 'Valider la commande'
       purchase_order_summary:
-        payments: 'Règlements'
+        payments: 'Paiements'
         products: 'Produits de la commande'
-        sale_payment_part_create: 'Ajouter un règlement' #!
-        title: 'Règlements'
-        #>purchase_payment_part_create: # Potentially missing translation
+        purchase_payment_part_create: 'Payer l''achat'
+        sale_payment_part_create: 'Ajouter un paiement' #!
+        title: 'Paiements de l''achat N°{{number}}'
       purchase_orders:
         nb_purchases: 
           one: '1 achat'
@@ -364,27 +364,27 @@ fra:
           zero: 'Aucun achat'
         title: 'Achats'
       purchase_payment:
-        purchase_orders: 'Ventes payées grâce à ce règlement'
-        purchase_payment_update: 'Modifier le règlement'
-        title: 'Règlement d''achat n°{{number}} pour {{payee}}'
+        purchase_orders: 'Ventes payées avec ce paiement'
+        purchase_payment_update: 'Modifier le paiement'
+        title: 'Paiement n°{{number}} pour {{payee}}'
       purchase_payment_create:
-        title: 'Ajout d''un règlement d''achat'
+        title: 'Ajout d''un paiement'
       _purchase_payment_form:
         embankable: 'Complément d''information'
-        title: 'Renseignez les conditions du règlement'
+        title: 'Renseignez les conditions du paiement'
       purchase_payment_mode_create:
-        title: 'Ajouter un mode de règlement d''achat'
+        title: 'Ajouter un mode de paiement'
       _purchase_payment_mode_form:
         accountancy: 'Comptabilisation'
         general: 'Description générale'
       purchase_payment_mode_update:
-        title: 'Modifier un mode de règlement d''achat'
+        title: 'Modifier un mode de paiement'
       purchase_payment_part_create:
-        title: 'Régler l''achat avec un règlement'
+        title: 'Payer l''achat N°{{number}}'
       purchase_payment_update:
-        title: 'Modification du règlement d''achat : {{number}}'
+        title: 'Modification du paiement : {{number}}'
       purchase_payments:
-        title: 'Règlements d''achat'
+        title: 'Paiements'
       sale_order:
         deliveries: 'Livraisons'
         general_informations: 'Informations générales'
@@ -423,31 +423,43 @@ fra:
         letter: 'Lettre'
       sale_order_line_create:
         title: 'Ajout d''une ligne de produit'
-      _sale_order_line_form: &sale_order_line_form
+      _sale_order_line_detail_form:
         change_price: 'Changer le prix unitaire'
         give_discount: 'Octroyer une remise'
+        infos: 'Choisissez le produit et la quantité' #!
+      _sale_order_line_detail_row_form:
+        discount: 'Réduc. (%)'
+        from: 'Du numéro' #!
+        location: 'Lieu de stockage'
+        product: 'Produit' #!
+        quantity: 'Quantité'
+        title: 'Saisie rapide'
+        to: 'au' #!
+        unit: 'Unité'
+        valid: 'Valider' #!
+      _sale_order_line_form:
+        change_price: 'Changer le prix unitaire' #!
+        give_discount: 'Octroyer une remise' #!
         infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_detail_form: *sale_order_line_form
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
         #>from: # Potentially missing translation
         #>to: # Potentially missing translation
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
-      _sale_order_line_row_form: &sale_order_line_row_form
-        discount: 'Réduc. (%)'
+      _sale_order_line_row_form:
+        discount: 'Réduc. (%)' #!
         from: 'Du numéro' #!
-        location: 'Lieu de stockage'
-        product: 'Produit'
-        quantity: 'Quantité'
-        title: 'Saisie rapide' 
-        unit: Unité
+        location: 'Lieu de stockage' #!
+        product: 'Produit' #!
+        quantity: 'Quantité' #!
+        title: 'Saisie rapide'
         to: 'au' #!
-        valid: 'Valider'
-      _sale_order_line_detail_row_form: *sale_order_line_row_form
+        unit: 'Unité' #!
+        valid: 'Valider' #!
       _sale_order_line_stocks:
         line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
       _sale_order_line_tracking:
@@ -522,7 +534,7 @@ fra:
         unpaid: 'Impayées' #!
         unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
       sale_payment:
-        sale_orders: 'Ventes payées grâce à ce règlement'
+        sale_orders: 'Ventes réglées avec ce règlement'
         sale_payment_update: 'Modifier le règlement'
         title: 'Règlement n°{{number}} de {{entity}}'
       sale_payment_create:
@@ -531,7 +543,7 @@ fra:
         embankable: 'Complément d''information'
         title: 'Renseignez les conditions du règlement'
       sale_payment_mode_create:
-        title: 'Ajouter un nouveau mode de règlement de vente'
+        title: 'Ajouter un nouveau mode de règlement'
       _sale_payment_mode_form:
         accountancy: 'Comptabilisation'
         commission: 'Commission'
@@ -557,7 +569,7 @@ fra:
           other: '{{count}} règlements en attente' #!
           zero: 'Aucun règlement en attente' #!
  #!
-        title: 'Règlements de vente'
+        title: 'Règlements'
       _sale_payments_search:
         all: 'Tous' #!
         embanked: 'Encaissés' #!

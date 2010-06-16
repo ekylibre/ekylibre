@@ -114,10 +114,11 @@ class PurchasePayment < ActiveRecord::Base
   def to_accountancy(action=:create, options={})
     attorney_amount = self.attorney_amount
     supplier_amount = self.amount - attorney_amount
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}) do |record|
-      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
-      record.add_debit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.payee.full_name), self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
-      record.add_credit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.mode.name), self.mode.cash.account_id, self.amount)
+      record.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
+      record.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+      record.add_credit(label, self.mode.cash.account_id, self.amount)
     end
   end
 

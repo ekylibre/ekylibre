@@ -53,6 +53,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
   has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>PurchasePaymentPart.name
+  has_many :products, :through=>:lines, :uniq=>true
 
   validates_presence_of :planned_on, :created_on
 
@@ -163,12 +164,13 @@ class PurchaseOrder < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>self.lines.size.zero?) do |record|
       for line in self.lines
-        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.name), line.product.purchases_account_id, line.amount) unless line.quantity.zero?
-        record.add_debit(tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>line.price.tax.name), line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
+        record.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
+        record.add_debit(label, line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
       end
-      record.add_credit( tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :detail=>self.supplier.full_name), self.supplier.account(:supplier).id, self.amount_with_taxes)
+      record.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
     end
   end
 

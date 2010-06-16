@@ -548,6 +548,7 @@ EKYLIBRE_REFERENCES = {
     :nature_id => :subscription_nature,
     :product_id => :product,
     :sale_order_id => :sale_order,
+    :sale_order_line_id => :sale_order_line,
     :updater_id => :user
   },
   :subscription_nature => {

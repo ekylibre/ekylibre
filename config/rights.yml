@@ -192,6 +192,7 @@ manage_accounts:
   - account
   - account_create
   - account_delete
+  - account_entities_dyta
   - account_journal_entries_dyta
   - account_update
   - accounts

@@ -60,6 +60,7 @@
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer          
 #  weight                     :decimal(16, 3)   
+#  with_tracking              :boolean          not null
 #
 
 class Product < ActiveRecord::Base

@@ -8,9 +8,8 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', #{quoted_false}, #{quoted_false}, '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
     execute "INSERT INTO entities(company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND  en.name='Indéfini') LEFT JOIN entities e ON (e.code=companies.code), languages ln  WHERE ln.iso2='fr' AND e.id IS NULL"
 #    execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
-    for company in Company.all
-      company.entity_id = Entity.find_by_company_id_and_code(company.id, company.code).id
-      company.save(false)
+    for company in select_all("SELECT c.id AS \"cid\", e.id AS \"eid\" FROM entities AS e JOIN companies AS c ON (e.code=c.code and e.company_id=c.id)")
+      execute "UPDATE companies SET entity_id=#{company['eid']} WHERE id=#{company['cid']}"
     end
     entities = select_all("SELECT id, entity_id FROM companies")
     execute "UPDATE bank_accounts SET entity_id=CASE "+entities.collect{|x| "WHEN company_id=#{x['id']} THEN #{x['entity_id']}"}.join(" ")+" ELSE 0 END" if entities.size > 0

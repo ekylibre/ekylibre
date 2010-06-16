@@ -66,7 +66,7 @@ jpn:
     management:
       purchase_steps:
         #>active: 'Création de l''achat'
-        #>summary: 'Règlements'
+        #>summary: 'Paiements'
       sale_steps:
         #>deliveries: 'Planification des livraisons'
         #>estimate: 'Création du devis'
@@ -122,9 +122,9 @@ jpn:
         #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
         #>title: 'Modes de livraison'
+      _delivery_update:
       delivery_update:
         #>title: 'Modification de la livraison'
-      _delivery_update:
       embankment:
         #>amount: 'Montant total'
         #>check_number: 'Nombre de chèques'
@@ -252,9 +252,9 @@ jpn:
       _payment_mode_form:
       payment_mode_update:
       payment_modes:
-        #>purchase_payment_modes: 'Modes de règlement utilisés pour les achats'
-        #>sale_payment_modes: 'Modes de règlement utilisés pour les ventes'
-        #>title: 'Modes de règlement'
+        #>purchase_payment_modes: 'Modes de paiement (utilisés pour les achats)'
+        #>sale_payment_modes: 'Modes de règlement (utilisés pour les ventes)'
+        #>title: 'Modes de règlement et modes de paiement'
       payments:
       _payments_search:
       _price_amount_form:
@@ -333,10 +333,10 @@ jpn:
       purchase_order:
         #>general_informations: 'Informations générales'
         #>lines: 'Lignes d''achat'
-        #>payment_parts: 'Règlements'
+        #>payment_parts: 'Paiements'
         #>purchase_order_lines: 'Modifier l''achat'
         #>purchase_order_print: 'Imprimer la commande fournisseur'
-        #>sale_payment_part_create: 'Ajouter un règlement à l''achat'
+        #>sale_payment_part_create: 'Ajouter un paiement à l''achat'
         #>title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
       purchase_order_create:
         #>title: 'Nouvel achat'
@@ -359,10 +359,11 @@ jpn:
         #>title: 'Produits de la commande {{value}} chez {{name}}'
         #>validate: 'Valider la commande'
       purchase_order_summary:
-        #>payments: 'Règlements'
+        #>payments: 'Paiements'
         #>products: 'Produits de la commande'
-        #>sale_payment_part_create: 'Ajouter un règlement'
-        #>title: 'Règlements'
+        #>purchase_payment_part_create: 'Payer l''achat'
+        #>sale_payment_part_create: 'Ajouter un paiement'
+        #>title: 'Paiements de l''achat N°{{number}}'
       purchase_orders:
         nb_purchases:
           #>one: '1 achat'
@@ -370,27 +371,27 @@ jpn:
           #>zero: 'Aucun achat'
         #>title: 'Achats'
       purchase_payment:
-        #>purchase_orders: 'Ventes payées grâce à ce règlement'
-        #>purchase_payment_update: 'Modifier le règlement'
-        #>title: 'Règlement d''achat n°{{number}} pour {{payee}}'
+        #>purchase_orders: 'Ventes payées avec ce paiement'
+        #>purchase_payment_update: 'Modifier le paiement'
+        #>title: 'Paiement n°{{number}} pour {{payee}}'
       purchase_payment_create:
-        #>title: 'Ajout d''un règlement d''achat'
+        #>title: 'Ajout d''un paiement'
       _purchase_payment_form:
         #>embankable: 'Complément d''information'
-        #>title: 'Renseignez les conditions du règlement'
+        #>title: 'Renseignez les conditions du paiement'
       purchase_payment_mode_create:
-        #>title: 'Ajouter un mode de règlement d''achat'
+        #>title: 'Ajouter un mode de paiement'
       _purchase_payment_mode_form:
         #>accountancy: 'Comptabilisation'
         #>general: 'Description générale'
       purchase_payment_mode_update:
-        #>title: 'Modifier un mode de règlement d''achat'
+        #>title: 'Modifier un mode de paiement'
       purchase_payment_part_create:
-        #>title: 'Régler l''achat avec un règlement'
+        #>title: 'Payer l''achat N°{{number}}'
       purchase_payment_update:
-        #>title: 'Modification du règlement d''achat : {{number}}'
+        #>title: 'Modification du paiement : {{number}}'
       purchase_payments:
-        #>title: 'Règlements d''achat'
+        #>title: 'Paiements'
       sale_order:
         #>deliveries: 'Livraisons'
         #>general_informations: 'Informations générales'
@@ -429,9 +430,22 @@ jpn:
         #>letter: 'Lettre'
       sale_order_line_create:
         #>title: 'Ajout d''une ligne de produit'
+      _sale_order_line_detail_form:
+        #>change_price: 'Changer le prix unitaire'
+        #>give_discount: 'Octroyer une remise'
+        #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_detail_row_form:
+        #>discount: 'Réduc. (%)'
+        #>from: 'Du numéro'
+        #>location: 'Lieu de stockage'
+        #>product: 'Produit'
+        #>quantity: 'Quantité'
+        #>title: 'Saisie rapide'
+        #>to: 'au'
+        #>unit: 'Unité'
+        #>valid: 'Valider'
       _sale_order_line_form:
         #>change_price: 'Changer le prix unitaire'
-        #>discount: 'Remise (en %)'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
       sale_order_line_informations:
@@ -442,13 +456,14 @@ jpn:
         #>no_tracking: 'Aucun lot'
         #>tracking: 'Lot '
       _sale_order_line_row_form:
-        #>discount: 'Réduction (en %)'
+        #>discount: 'Réduc. (%)'
         #>from: 'Du numéro'
         #>location: 'Lieu de stockage'
         #>product: 'Produit'
         #>quantity: 'Quantité'
         #>title: 'Saisie rapide'
         #>to: 'au'
+        #>unit: 'Unité'
         #>valid: 'Valider'
       _sale_order_line_stocks:
         #>line_stock: 'Lieu de stockage: {{location}}, quantité disponible: {{virtual_q}}'
@@ -525,7 +540,7 @@ jpn:
         #>unpaid: 'Impayées'
         #>unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
       sale_payment:
-        #>sale_orders: 'Ventes payées grâce à ce règlement'
+        #>sale_orders: 'Ventes réglées avec ce règlement'
         #>sale_payment_update: 'Modifier le règlement'
         #>title: 'Règlement n°{{number}} de {{entity}}'
       sale_payment_create:
@@ -534,10 +549,11 @@ jpn:
         #>embankable: 'Complément d''information'
         #>title: 'Renseignez les conditions du règlement'
       sale_payment_mode_create:
-        #>title: 'Ajouter un nouveau mode de règlement de vente'
+        #>title: 'Ajouter un nouveau mode de règlement'
       _sale_payment_mode_form:
         #>accountancy: 'Comptabilisation'
         #>commission: 'Commission'
+        #>embankment: 'Remise en banque'
         #>general: 'Description générale'
       sale_payment_mode_update:
         #>title: 'Modifier le mode de règlement : {{name}}'
@@ -558,7 +574,7 @@ jpn:
           #>one: '1 règlement en attente'
           #>other: '{{count}} règlements en attente'
           #>zero: 'Aucun règlement en attente'
-        #>title: 'Règlements de vente'
+        #>title: 'Règlements'
       _sale_payments_search:
         #>all: 'Tous'
         #>embanked: 'Encaissés'
@@ -665,13 +681,13 @@ jpn:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

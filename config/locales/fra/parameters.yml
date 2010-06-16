@@ -22,8 +22,8 @@ fra:
         third_clients: 'Comptes clients'
         third_suppliers: 'Comptes fournisseurs'
       journals:
-        cash: 'Journal de caisse par défaut'
         bank: 'Journal de banque par défaut'
+        cash: 'Journal de caisse par défaut'
         forward: 'Journal des reports à nouveau par défaut'
         purchases: 'Journal des achats par défaut'
         sales: 'Journal des ventes par défaut'

@@ -216,6 +216,19 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     add_column :listings, :source, :text
 
+    change_column :products, :code, :string, :limit=>16
+    remove_column :products, :to_rent
+    rename_column :products, :to_produce, :for_productions
+    rename_column :products, :to_sale, :for_sales
+    rename_column :products, :to_purchase, :for_purchases
+    rename_column :products, :charge_account_id, :purchases_account_id
+    rename_column :products, :product_account_id, :sales_account_id
+    add_column :products, :for_immobilizations, :boolean, :null=>false, :default=>false
+    add_column :products, :immobilizations_account_id, :integer
+    add_column :products, :published, :boolean, :null=>false, :default=>false
+    add_column :products, :with_tracking, :boolean, :null=>false, :default=>false
+    execute "UPDATE products SET published=#{quoted_true}, with_tracking=manage_stocks"
+
     add_column :purchase_orders, :parts_amount, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
     add_column :purchase_orders, :journal_record_id, :integer
     ppps = select_all("SELECT expense_id, sum(amount) AS total FROM sale_payment_parts WHERE expense_type='PurchaseOrder' GROUP BY expense_id")
@@ -269,20 +282,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
     execute "DELETE FROM sale_payments WHERE #{purchase_cond}"
     reset_sequence! :purchase_payments, :id
 
-    change_column :products, :code, :string, :limit=>16
-    remove_column :products, :to_rent
-    rename_column :products, :to_produce, :for_productions
-    rename_column :products, :to_sale, :for_sales
-    rename_column :products, :to_purchase, :for_purchases
-    rename_column :products, :charge_account_id, :purchases_account_id
-    rename_column :products, :product_account_id, :sales_account_id
-    add_column :products, :for_immobilizations, :boolean, :null=>false, :default=>false
-    add_column :products, :immobilizations_account_id, :integer
-    add_column :products, :published, :boolean, :null=>false, :default=>false
-    execute "UPDATE products SET published=#{quoted_true}"    
-
     add_column :shelves, :published, :boolean, :null=>false, :default=>false
     execute "UPDATE shelves SET published=#{quoted_true}"
+
+    add_column :subscriptions, :sale_order_line_id, :integer
 
     add_column :tax_declarations, :accounted_at, :datetime
     add_column :tax_declarations, :journal_record_id, :integer
@@ -343,18 +346,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :tax_declarations, :journal_record_id
     remove_column :tax_declarations, :accounted_at
 
-    remove_column :shelves, :published
+    remove_column :subscriptions, :sale_order_line_id
 
-    remove_column :products, :published
-    remove_column :products, :immobilizations_account_id
-    remove_column :products, :for_immobilizations
-    rename_column :products, :sales_account_id, :product_account_id
-    rename_column :products, :purchases_account_id, :charge_account_id
-    rename_column :products, :for_purchases, :to_purchase
-    rename_column :products, :for_sales, :to_sale
-    rename_column :products, :for_productions, :to_produce
-    add_column :products, :to_rent, :boolean, :null=>false, :default=>false
-    # change_column :products, :code, :string, :limit=>16
+    remove_column :shelves, :published
 
     # Work only if last migration !!!!
     add_column :sale_payments, :old_id, :integer
@@ -400,6 +394,18 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     remove_column :purchase_orders, :journal_record_id
     remove_column :purchase_orders, :parts_amount
+
+    remove_column :products, :with_tracking
+    remove_column :products, :published
+    remove_column :products, :immobilizations_account_id
+    remove_column :products, :for_immobilizations
+    rename_column :products, :sales_account_id, :product_account_id
+    rename_column :products, :purchases_account_id, :charge_account_id
+    rename_column :products, :for_purchases, :to_purchase
+    rename_column :products, :for_sales, :to_sale
+    rename_column :products, :for_productions, :to_produce
+    add_column :products, :to_rent, :boolean, :null=>false, :default=>false
+    # change_column :products, :code, :string, :limit=>16
 
     remove_column :listings, :source
 

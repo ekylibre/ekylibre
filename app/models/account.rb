@@ -45,8 +45,6 @@ class Account < ActiveRecord::Base
   has_many :entries, :class_name=>JournalEntry.name
   has_many :journal_entries
   has_many :journals, :class_name=>Journal.name, :foreign_key=>:counterpart_id
-  has_many :payments
-  has_many :payment_modes
   has_many :products
   has_many :purchase_order_lines
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
