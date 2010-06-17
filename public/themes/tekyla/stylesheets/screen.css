@@ -375,7 +375,14 @@ fieldset.quick-add { color: #008; }
 .tabbox > .tabpanels {background: url(../images/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }
 .tabbox > .tabpanels > .tabpanel { display: none; min-height: 200px; }
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
-
+/*
+.tableft { clear:both;}
+.tableft > .tabs  { padding: 4px 0 0px; width: 10em; display:block; }
+.tableft > .tabs .tab { display:block; background: #DDE; padding: 4px 6px 3px; margin: 0 0 4px 0; border: 1px solid #AAA; border-right: none; -moz-border-radius-topleft: 4px; -moz-border-radius-bottomleft: 4px; color: #44D}
+.tableft > .tabpanels { width: 80%; position:relative; left: 10em; top: 0; border: 1px solid #95b0e4; padding:8px; }
+.tableft > .tabpanels > .tabpanel { position:static; display: none; min-height: 200px;  background: url(../images/columns.png) repeat-x scroll center top; }
+.tableft > .tabpanels > .tabpanel.current { display: block; }
+*/
 
 .branches { margin-left: 18px; border-left: 1px dotted #AAA; }
 .branch .shift { height: 14px; width:10px; border-bottom: 1px dotted #AAA; float:left;}

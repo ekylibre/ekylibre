@@ -136,7 +136,7 @@ eng:
         #>account_balances: 'Balances de compte'
         #>accounts: 'Comptes'
         #>areas: 'Zones postales'
-        #>attorney_accounts: '(((ATTORNEY_ACCOUNTS)))'
+        #>attorney_accounts: 'Comptes mandataires'
         #>available_prices: 'Prix disponibles'
         #>available_products: 'Produits disponibles'
         #>bank_journals: 'Journaux de banque'
@@ -1369,7 +1369,7 @@ eng:
         updater: 'Updater'
         updater_id: 'Updater'
         #>weight: 'Poids (kg)'
-        #>with_tracking: '(((WITH_TRACKING)))'
+        #>with_tracking: 'Avec tracabilité'
       product_component:
         #>active: 'Actif'
         comment: 'Comment'

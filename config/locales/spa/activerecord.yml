@@ -133,7 +133,7 @@ spa:
         #>account_balances: 'Balances de compte'
         #>accounts: 'Comptes'
         #>areas: 'Zones postales'
-        #>attorney_accounts: '(((ATTORNEY_ACCOUNTS)))'
+        #>attorney_accounts: 'Comptes mandataires'
         #>available_prices: 'Prix disponibles'
         #>available_products: 'Produits disponibles'
         #>bank_journals: 'Journaux de banque'
@@ -1362,7 +1362,7 @@ spa:
         #>updater: 'Modificateur'
         #>updater_id: 'Modificateur'
         #>weight: 'Poids (kg)'
-        #>with_tracking: '(((WITH_TRACKING)))'
+        #>with_tracking: 'Avec tracabilité'
       product_component:
         #>active: 'Actif'
         #>comment: 'Commentaire'

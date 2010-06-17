@@ -411,7 +411,7 @@ fra:
         account_balances: 'Balances de compte'
         accounts: 'Comptes'
         areas: 'Zones postales'
-        attorney_accounts: Comptes mandataires
+        attorney_accounts: 'Comptes mandataires'
         available_prices: 'Prix disponibles'
         available_products: 'Produits disponibles'
         bank_journals: 'Journaux de banque'
@@ -1724,7 +1724,7 @@ fra:
         updater: 'Modificateur'
         updater_id: 'Modificateur'
         weight: 'Poids (kg)'
-        with_tracking: Avec tracabilité
+        with_tracking: 'Avec tracabilité'
 
       # Composant de produit
       product_component:
@@ -1851,7 +1851,7 @@ fra:
         created_on: 'Créé le'
         creator: 'Créateur'
         creator_id: 'Créateur'
-        delivered: (((DELIVERED)))
+        delivered: '(((DELIVERED)))' #?
         id: 'ID'
         journal_record: 'Pièce comptable'
         journal_record_id: 'Pièce comptable'

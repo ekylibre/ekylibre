@@ -135,7 +135,7 @@ jpn:
         #>account_balances: 'Balances de compte'
         #>accounts: 'Comptes'
         #>areas: 'Zones postales'
-        #>attorney_accounts: '(((ATTORNEY_ACCOUNTS)))'
+        #>attorney_accounts: 'Comptes mandataires'
         #>available_prices: 'Prix disponibles'
         #>available_products: 'Produits disponibles'
         #>bank_journals: 'Journaux de banque'
@@ -1364,7 +1364,7 @@ jpn:
         updater: '修正の人'
         updater_id: '修正の人'
         #>weight: 'Poids (kg)'
-        #>with_tracking: '(((WITH_TRACKING)))'
+        #>with_tracking: 'Avec tracabilité'
       product_component:
         #>active: 'Actif'
         comment: 'メモ'

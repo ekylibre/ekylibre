@@ -313,7 +313,6 @@ class RelationsController < ApplicationController
     t.column :address, :through=>:contact
     t.column :quantity, :datatype=>:decimal
     t.column :suspended
-    t.column :code, :through=>:entity, :url=>{:action=>:entity}, :label=>tc(:entity_id)
     t.action :subscription_update, :controller=>:management
     t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
   end
@@ -375,8 +374,8 @@ class RelationsController < ApplicationController
   end
 
   dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
-    #t.column :id, :url=>{:controller=>:management, :action=>:payment}
-    t.column :number, :url=>{:controller=>:management, :action=>:payment}
+    #t.column :id, :url=>{:controller=>:management, :action=>:sale_payment}
+    t.column :number, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :paid_on
     t.column :label, :through=>:embanker
     t.column :name, :through=>:mode
@@ -384,10 +383,23 @@ class RelationsController < ApplicationController
     # t.column :account_number
     t.column :check_number
     t.column :parts_amount
-    t.column :amount, :url=>{:controller=>:management, :action=>:payment}
+    t.column :amount, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :number, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}
     t.action :sale_payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
     t.action :sale_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
+  end
+
+
+  dyta(:entity_purchase_payments, :model=>:purchase_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:purchase_payment}
+    t.column :paid_on
+    t.column :label, :through=>:responsible
+    t.column :name, :through=>:mode
+    t.column :check_number
+    t.column :parts_amount
+    t.column :amount, :url=>{:controller=>:management, :action=>:purchase_payment}
+    t.action :purchase_payment_update, :controller=>:management
+    t.action :purchase_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
 
@@ -416,20 +428,18 @@ class RelationsController < ApplicationController
   def entity
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
-    @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
-    @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
-    @key = ""
-    @invoices_count = @entity.invoices.size
-    @payments_count = @entity.sale_payments.size
-    # @meetings_count = @current_company.meetings.find(:all, :conditions=>{:entity_id=>@entity.id}).size
-    @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
     session[:my_entity] = params[:id]
-    @contact = Contact.new
-    @contacts_count = @entity.contacts.size
-    @cashes_count = @entity.cashes.size
-    @observations_count = @entity.observations.size
-    @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
-    @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity_1_id = ? OR entity_2_id = ?)",@entity.id, @entity.id]).size
+    @key = ""
+#     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
+#     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
+#     @invoices_count = @entity.invoices.size
+#     @payments_count = @entity.sale_payments.size
+#     @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
+#     @contacts_count = @entity.contacts.size
+#     @cashes_count = @entity.cashes.size
+#     @observations_count = @entity.observations.size
+#     @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
+#     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity_1_id = ? OR entity_2_id = ?)",@entity.id, @entity.id]).size
     t3e :value=>@entity.full_name
   end
 

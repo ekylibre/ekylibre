@@ -441,15 +441,15 @@ fra:
         change_price: 'Changer le prix unitaire' #!
         give_discount: 'Octroyer une remise' #!
         infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
         #>from: # Potentially missing translation
         #>to: # Potentially missing translation
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       _sale_order_line_row_form:
         discount: 'Réduc. (%)' #!
         from: 'Du numéro' #!
@@ -676,13 +676,13 @@ fra:
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation
+      transport_deliveries:
+        title: 'Livraisons du transport'
       _transport_deliveries:
         add: 'Ajouter la livraison au transport'
         add_delivery: 'Ajouter une livraison'
         back: 'Valider et revenir à la liste des transports'
         delivery: 'Livraison'
-      transport_deliveries:
-        title: 'Livraisons du transport'
       _transport_form:
         info: 'Renseignez les informations du transport'
       transport_update:

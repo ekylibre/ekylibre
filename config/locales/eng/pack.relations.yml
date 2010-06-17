@@ -197,20 +197,28 @@ eng:
           #>other: '{{count}} observations'
           #>zero: '0 observation'
         payments:
-          #>one: '1 réglement'
-          #>other: '{{count}} réglements'
-          #>zero: '0 réglement'
         #>purchase_order_create: 'Ajouter un nouvel achat'
-        purchase_orders_number:
+        purchase_orders:
           #>one: '1 achat'
           #>other: '{{count}} achats'
           #>zero: '0 achat'
+        purchase_orders_number:
+        #>purchase_payment_create: 'Ajouter un paiement'
+        purchase_payments:
+          #>one: '1 paiement'
+          #>other: '{{count}} paiements'
+          #>zero: '0 paiement'
         #>sale_order_create: 'Ajouter une nouvelle vente'
-        sale_orders_number:
-          #>one: '1 vente '
+        sale_orders:
+          #>one: '1 vente'
           #>other: '{{count}} ventes'
           #>zero: '0 vente'
+        sale_orders_number:
         #>sale_payment_create: 'Ajouter un règlement'
+        sale_payments:
+          #>one: '1 règlement'
+          #>other: '{{count}} règlements'
+          #>zero: '0 règlement'
         #>state: 'État'
         #>subscription_create: 'Ajouter un abonnement'
         subscriptions:

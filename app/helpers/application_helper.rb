@@ -649,7 +649,7 @@ module ApplicationHelper
   # TABBOX
 
 
-  def tabbox(id)
+  def tabbox(id, options={})
     tb = Tabbox.new(id)
     yield tb
     tablabels = tabpanels = js = ''
@@ -671,7 +671,7 @@ module ApplicationHelper
     js += "#{jsmethod}(#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:index]});"
     code  = content_tag(:div, tablabels, :class=>:tabs)+content_tag(:div, tabpanels, :class=>:tabpanels)
     code += javascript_tag(js)
-    content_tag(:div, code, :class=>:tabbox, :id=>tb.id)
+    content_tag(:div, code, :class=>options[:class]||"tabbox", :id=>tb.id)
   end
 
 

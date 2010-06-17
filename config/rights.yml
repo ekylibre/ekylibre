@@ -103,6 +103,7 @@ consult_entities:
   - entity_events_dyta
   - entity_invoices_dyta
   - entity_purchase_orders_dyta
+  - entity_purchase_payments_dyta
   - entity_sale_orders_dyta
   - entity_sale_payments_dyta
   - entity_subscriptions_dyta
