@@ -1486,6 +1486,7 @@ eng:
         #>created_on: 'Créé le'
         #>creator: 'Créateur'
         #>creator_id: 'Créateur'
+        #>delivered: '(((DELIVERED)))'
         #>id: 'ID'
         #>journal_record: 'Pièce comptable'
         #>journal_record_id: 'Pièce comptable'

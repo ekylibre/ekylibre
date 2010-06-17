@@ -104,6 +104,7 @@ class Journal < ActiveRecord::Base
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
+    self.class.update_all({:closed_on=>Date.civil(1900,12,31)}) if self.closed_on.nil?
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
   end

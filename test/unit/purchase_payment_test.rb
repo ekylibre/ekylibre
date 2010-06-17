@@ -27,6 +27,7 @@
 #  created_at        :datetime         not null
 #  created_on        :date             
 #  creator_id        :integer          
+#  delivered         :boolean          default(TRUE), not null
 #  id                :integer          not null, primary key
 #  journal_record_id :integer          
 #  lock_version      :integer          default(0), not null

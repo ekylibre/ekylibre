@@ -96,6 +96,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :accounted_at,      :datetime         
       t.column :amount,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :check_number,      :string
+      t.column :delivered,         :boolean, :null=>false, :default=>true
       t.column :created_on,        :date             
       t.column :journal_record_id, :integer
       t.column :responsible_id,    :integer, :null=>false
