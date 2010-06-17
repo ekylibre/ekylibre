@@ -36,22 +36,19 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :shapes, :number, :string
     add_column :shapes, :area_measure,   :decimal, :null=>false, :default=>0
     add_column :shapes, :area_unit_id,   :integer, :references=>:units
-    for company in Company.all
-      unit = company.units.find_by_base_and_coefficient_and_start('m2', 1, 0)
-      unless unit
-        company.load_units
-        unit = company.units.find_by_base_and_coefficient_and_start('m2', 1, 0)
-      end
-      execute "UPDATE shapes SET area_unit_id=#{unit.id} WHERE company_id=#{company.id}"
-    end
 
     add_column :purchase_order_lines, :annotation,      :text
     add_column :purchase_orders,      :currency_id,     :integer
-    for c in Company.all
-      PurchaseOrder.update_all({:currency_id=>c.currencies.first.id}, {:company_id=>c.id})
-    end
 
-    
+    companies = select_all "SELECT * FROM companies"
+    if companies.size > 0
+      execute "INSERT INTO units (name, base, coefficient, start, company_id, created_at, updated_at) SELECT 'm²', 'm2', 1, 0, id, created_at, updated_at FROM companies WHERE id NOT IN (SELECT company_id FROM units WHERE base='m2' AND start=0 AND coefficient=1)"
+      units = "SELECT * FROM units WHERE base='m2' AND start=0 AND coefficient=1"
+      execute "UPDATE shapes SET area_unit_id=CASE "+units.collect{|u| "WHEN company_id=#{u['company_id']} THEN #{u['id']}"}+" ELSE 0 END"
+      currencies = "SELECT * FROM currencies"
+      execute "UPDATE purchase_orders SET currency_id=CASE "+currencies.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}+" ELSE 0 END"
+    end
+        
     add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings

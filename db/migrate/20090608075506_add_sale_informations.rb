@@ -9,23 +9,9 @@ class AddSaleInformations < ActiveRecord::Migration
     add_column :invoices, :created_on, :date
     add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
     
-    EntityCategory.find(:all).each do |category|
-      if category.code.blank?
-        code = category.name.codeize      
-        code = code[0..7]
-        category.update_attributes!(:code=>code)
-      end
-    end
-    
-    Invoice.find(:all).each do |invoice|
-      if invoice.created_on.nil?
-        invoice.created_on = invoice.created_at.to_date
-        invoice.save
-      end
-    end
-    
-    execute "UPDATE payment_modes SET mode=CASE WHEN LOWER(name) LIKE '%ch%' THEN 'check' ELSE 'other' END"
-    
+    execute "UPDATE entity_categories SET code=SUBSTR(REPLACE(code, ' ', '_'), 1, 8) WHERE LENGTH(TRIM(COALESCE(code, ''))) <= 0"
+    execute "UPDATE invoices SET created_on = CAST(created_at AS DATE) WHERE created_on IS NULL"    
+    execute "UPDATE payment_modes SET mode=CASE WHEN LOWER(name) LIKE '%ch%' THEN 'check' ELSE 'other' END"    
   end
   
   def self.down

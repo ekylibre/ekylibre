@@ -18,34 +18,19 @@ class CreateEntityCategories < ActiveRecord::Migration
     
     execute "INSERT INTO entity_categories(company_id, name, created_at, updated_at) SELECT companies.id, 'Par défaut', current_timestamp, current_timestamp FROM companies"
 
-    #execute "UPDATE entities SET category_id = c.id FROM entity_categories c WHERE c.name = 'Par défaut' AND c.company_id = entities.company_id"
-    
-    Entity.find(:all).each do |entity|
-      ec = EntityCategory.find_by_company_id_and_name(entity.company_id, 'Par défaut')
-      entity.category_id = ec.id
-      entity.save(false)
-    end
-
     add_column :taxes,    :deleted, :boolean, :null=>false, :default=>false
-      
     remove_column :taxes, :group_name
 
     add_column :prices,  :category_id, :integer, :references=>:entity_categories, :on_update=>:restrict, :on_delete=>:restrict
 
-    Price.find(:all).each do |price|
-      ec = EntityCategory.find_by_company_id_and_name(price.company_id, 'Par défaut')
-      price.category_id = ec.id
-      price.save(false)
+    categories = select_all("SELECT * FROM entity_categories")
+    if categories.size > 0
+      categories = "CASE "+categories.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}.join(" ")+" ELSE 0 END"
+      execute "UPDATE entities SET category_id = "+categories 
+      execute "UPDATE prices SET category_id = "+categories 
     end
-    
-    #execute "UPDATE prices SET category_id = c.id FROM entity_categories c WHERE c.name = 'Par défaut' AND c.company_id = prices.company_id"
-    #execute "UPDATE prices SET category_id = c.id WHERE categories.id IN (SELECT  id FROM categories c WHERE company_id = prices.company_id AND name = 'Par défaut')"
-
   end  
-    
 
-
-  
   def self.down
     remove_column :prices, :category_id
     add_column :taxes, :group_name, :string
@@ -56,8 +41,7 @@ class CreateEntityCategories < ActiveRecord::Migration
     remove_column :users, :reduction_percent
     remove_column :payments, :entity_id
     remove_column :sale_order_lines, :tax_id
-    remove_column :sale_order_lines, :price_amount
-    
+    remove_column :sale_order_lines, :price_amount    
   end
 
 end

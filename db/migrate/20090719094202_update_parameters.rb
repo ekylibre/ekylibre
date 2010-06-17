@@ -5,20 +5,16 @@ class UpdateParameters < ActiveRecord::Migration
     add_column :parameters, :record_value_id, :integer
     add_column :parameters, :record_value_type, :string
     change_column :parameters, :nature, :string, :limit=>8
-    Parameter.update_all("record_value_id=element_id, record_value_type=element_type")
+    execute "UPDATE parameters SET record_value_id=element_id, record_value_type=element_type"
 
     for k, v in CONVERSIONS
-      Parameter.update_all("nature='#{v}'", "nature='#{k}'")
+      execute "UPDATE parameters SET nature='#{v}' WHERE nature='#{k}'"
     end
     
-    for company in Company.all
-      ['sales', 'purchases', 'bank'].each do |journal|
-        parameter = Parameter.new(:name=>"accountancy.default_journals.#{journal}", :nature=>'record', :record_value_type=>Journal.name, :record_value_id=>company.send("#{journal}_journal_id"), :company_id=>company.id)
-        parameter.send(:create_without_callbacks)
-      end
-      parameter = Parameter.new(:name=>"management.invoicing.numeration", :nature=>'record', :record_value_type=>Sequence.name, :record_value_id=>company.invoice_sequence_id, :company_id=>company.id)
-      parameter.send(:create_without_callbacks)
+    for journal in ['sales', 'purchases', 'bank']
+      execute "INSERT INTO parameters (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'accountancy.default_journals.#{journal}', 'record', 'Journal', #{journal}_journal_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
     end
+    execute "INSERT INTO parameters (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'management.invoicing.numeration', 'record', 'Sequence', invoice_sequence_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
 
     remove_column :parameters, :element_id
     remove_column :parameters, :element_type

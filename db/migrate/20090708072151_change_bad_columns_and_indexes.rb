@@ -7,11 +7,9 @@ class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
     add_index :users, [:name, :company_id], :unique=>true
 
     add_column :price_taxes, :company_id, :integer
-    for company in Company.all
-      if company.taxes.size>0
-        execute "UPDATE price_taxes SET company_id=#{company.id} WHERE tax_id IN (#{company.taxes.collect{|t| t.id}.join(',')})"
-      end
-    end
+    taxes = select_all("SELECT * FROM taxes")
+    execute "UPDATE price_taxes SET company_id=CASE"+taxes.collect{|t| "WHEN tax_id=#{t['id']} THEN #{t['company_id']}"}.join(" ")+" ELSE 0 END" if taxes.size > 0
+
     change_column_null :price_taxes, :company_id, false
 
     remove_index :complement_data, :columns=>[:complement_id, :entity_id], :name => "index_complement_data_on_entity_id_and_complement_id"

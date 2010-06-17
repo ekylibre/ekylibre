@@ -20,12 +20,9 @@ class CreateDeliveryModes < ActiveRecord::Migration
     execute "INSERT INTO delivery_modes(company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison sans assurance', 'cpt', '', current_timestamp, current_timestamp FROM companies"
 
     # execute "UPDATE deliveries SET mode_id = m.id FROM delivery_modes m WHERE m.code = deliveries.nature AND m.company_id = deliveries.company_id"
-    
-    Delivery.find(:all).each do |delivery|
-      dm = DeliveryMode.find_by_company_id_and_code(delivery.company_id, delivery.nature)
-      delivery.mode_id = dm.id
-      delivery.save(false)
-    end
+ 
+    modes = select_all("SELECT * FROM delivery_modes")
+    execute "UPDATE deliveries SET mode_id = CASE "+modes.collect{|m| "WHEN nature='#{m['code']}' AND company_id=#{m['company_id']} THEN #{m['id']}"}.join(" ")+" ELSE 0 END" if modes.size > 0
     
     remove_column :deliveries,  :nature
     
