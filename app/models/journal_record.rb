@@ -52,7 +52,8 @@ class JournalRecord < ActiveRecord::Base
   belongs_to :currency
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
-  has_many :entries, :foreign_key=>:record_id, :dependent=>:destroy, :class_name=>JournalEntry.name
+  has_many :entries, :foreign_key=>:record_id, :dependent=>:delete_all, :class_name=>JournalEntry.name
+  has_many :invoices, :dependent=>:nullify
   has_many :purchase_payments, :dependent=>:nullify
   has_many :purchase_payment_parts, :dependent=>:nullify
   has_many :sale_payments, :dependent=>:nullify
