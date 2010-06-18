@@ -203,22 +203,22 @@ eng:
           #>other: '{{count}} achats'
           #>zero: '0 achat'
         purchase_orders_number:
-        #>purchase_payment_create: 'Ajouter un paiement'
+        #>purchase_payment_create: 'Ajouter un décaissement'
         purchase_payments:
-          #>one: '1 paiement'
-          #>other: '{{count}} paiements'
-          #>zero: '0 paiement'
+          #>one: '1 décaissement'
+          #>other: '{{count}} décaissements'
+          #>zero: '0 décaissement'
         #>sale_order_create: 'Ajouter une nouvelle vente'
         sale_orders:
           #>one: '1 vente'
           #>other: '{{count}} ventes'
           #>zero: '0 vente'
         sale_orders_number:
-        #>sale_payment_create: 'Ajouter un règlement'
+        #>sale_payment_create: 'Ajouter un encaissement'
         sale_payments:
-          #>one: '1 règlement'
-          #>other: '{{count}} règlements'
-          #>zero: '0 règlement'
+          #>one: '1 encaissement'
+          #>other: '{{count}} encaissements'
+          #>zero: '0 encaissement'
         #>state: 'État'
         #>subscription_create: 'Ajouter un abonnement'
         subscriptions:

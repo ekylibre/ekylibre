@@ -544,14 +544,15 @@ manage_payment_modes:
   controller: management
   actions:
   - index
-  - payment_modes
   - purchase_payment_mode_create
   - purchase_payment_mode_delete
   - purchase_payment_mode_update
+  - purchase_payment_modes
   - purchase_payment_modes_dyta
   - sale_payment_mode_create
   - sale_payment_mode_delete
   - sale_payment_mode_update
+  - sale_payment_modes
   - sale_payment_modes_dyta
 # Gérer les prix
 manage_prices:

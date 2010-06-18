@@ -990,14 +990,38 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:purchase_payments, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :number
+  def self.purchase_payments_conditions(options={})
+    code = search_conditions(:purchase_payments, :purchase_payments=>[:amount, :parts_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code += "if session[:purchase_payment_state] == 'undelivered'\n"
+    code += "  c[0] += ' AND delivered=?'\n"
+    code += "  c << false\n"
+    code += "elsif session[:purchase_payment_state] == 'waiting'\n"
+    code += "  c[0] += ' AND to_bank_on > ?'\n"
+    code += "  c << Date.today\n"
+    code += "elsif session[:purchase_payment_state] == 'unparted'\n"
+    code += "  c[0] += ' AND parts_amount != amount'\n"
+    code += "end\n"
+    code += "c\n"
+    return code
+  end
+
+  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = purchase_payments.payee_id", :order=>"to_bank_on DESC") do |t|
+    t.column :number, :url=>{:action=>:purchase_payment}
     t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
+    t.column :paid_on
+    t.column :amount, :url=>{:action=>:purchase_payment}
+    t.column :parts_amount
     t.column :name, :through=>:mode
-    t.column :amount
+    t.column :check_number
+    t.column :to_bank_on
+    # t.column :label, :through=>:responsible
+    t.action :purchase_payment_update, :if=>"RECORD.updatable\?"
+    t.action :purchase_payment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def purchase_payments
+    session[:purchase_payment_state] = params[:state]||session[:purchase_payment_state]||"all"
+    session[:purchase_payment_key]   = params[:key]||session[:purchase_payment_key]||""    
   end
 
   manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
@@ -1156,24 +1180,6 @@ class ManagementController < ApplicationController
     @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
   end
   
-  dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :active
-    t.column :name, :through=>:expiration, :url=>{:action=>:delay}, :label=>"Délai d'expiration"
-    t.column :name, :through=>:payment_delay, :url=>{:action=>:delay}, :label=>"Délai de paiement"
-    t.column :downpayment
-    t.column :downpayment_minimum
-    t.column :downpayment_rate
-    t.column :comment
-    t.action :sale_order_nature_update
-    t.action :sale_order_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
-  end
-
-  def sale_order_natures
-  end
-
-  manage :sale_order_natures
-
 
   def sale_order_contacts
     return unless client = find_and_check(:entity)
@@ -1585,18 +1591,6 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:delivery_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
-    t.column :code
-    t.column :comment
-    t.action :delivery_mode_update
-    t.action :delivery_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
-  end
-
-  def delivery_modes
-  end
-  
-  manage :delivery_modes
 
   
   dyta(:embankments, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
@@ -1706,35 +1700,6 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name
-    t.column :with_accounting
-    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
-    t.column :with_embankment
-    t.column :label, :through=>:embankables_account, :url=>{:controller=>:accountancy, :action=>:account}
-    t.column :with_commission
-    t.action :sale_payment_mode_update
-    t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
-  end
-  
-  dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name
-    t.column :with_accounting
-    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
-    t.action :purchase_payment_mode_update
-    t.action :purchase_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
-  end
-  
-  dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
-
-  def payment_modes
-  end
-
-  # manage :received_payment_modes, :nature=>"'other'", :partial=>'payment_mode_form'
-  # manage :given_payment_modes, :nature=>"'other'", :partial=>'payment_mode_form'
-  manage :sale_payment_modes, :with_accounting=>"true"
-  manage :purchase_payment_modes, :with_accounting=>"true"
-
 
   dyta(:sale_order_payment_parts, :model=>:sale_payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:sale_payment}
@@ -1761,48 +1726,45 @@ class ManagementController < ApplicationController
     @title = {:number=>@sale_order.number}
   end
 
+
+
   def self.sale_payments_conditions(options={})
-    code = ""
     code = search_conditions(:sale_payments, :sale_payments=>[:amount, :parts_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
-    code += "unless session[:payment_state].blank? \n"
-    code += "  if session[:payment_state] == 'embanked' \n"
-    code += "    c[0] += \" AND embankment_id IS NOT NULL\" \n"
-    code += "  elsif session[:payment_state] == 'waiting' \n"
-    code += "    c[0] += \" AND to_bank_on > ?\"\n"
-    code += "    c << Date.today \n"
-    code += "  end\n "
-    code += "end\n "
-    code += "c \n"
-    code
+    code += "if session[:sale_payment_state] == 'unreceived'\n"
+    code += "  c[0] += ' AND received=?'\n"
+    code += "  c << false\n"
+    code += "elsif session[:sale_payment_state] == 'waiting'\n"
+    code += "  c[0] += ' AND to_bank_on > ?'\n"
+    code += "  c << Date.today\n"
+    code += "elsif session[:sale_payment_state] == 'unembanked'\n"
+    code += "  c[0] += ' AND embankment_id IS NULL'\n"
+    code += "elsif session[:sale_payment_state] == 'unparted'\n"
+    code += "  c[0] += ' AND parts_amount != amount'\n"
+    code += "end\n"
+    code += "c\n"
+    return code
   end
  
-  # dyta(:sale_payments, :conditions=>search_conditions(:payments, :payments=>[:amount], :e=>[:full_name, :code]), :joins=>"LEFT JOIN entities e ON e.id = payments.entity_id", :order=>"to_bank_on DESC") do |t|
   dyta(:sale_payments, :conditions=>sale_payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = sale_payments.payer_id", :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
     t.column :amount, :url=>{:action=>:sale_payment}
+    t.column :parts_amount
     t.column :name, :through=>:mode
     t.column :check_number
     t.column :to_bank_on
-    t.column :label, :through=>:embanker
+    # t.column :label, :through=>:embanker
     t.column :number, :through=>:embankment, :url=>{:action=>:embankment}
     t.action :sale_payment_update, :if=>"RECORD.embankment.nil\?"
     t.action :sale_payment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
   def sale_payments
-    # @payments_count = @current_company.payments.find(:all, :conditions=>{:received=>false}).size
-    #raise Exception.new params[:mode].inspect
-    session[:payment_mode] = params[:mode]||"sale_order"
-    @key = params[:key]||session[:payment]||""
-    session[:payment_state] ||= "all"
-    if request.post?
-      session[:payment_state] = params[:payment][:state]
-      session[:payment_key] = @key
-    end
+    session[:sale_payment_state] = params[:state]||session[:sale_payment_state]||"all"
+    session[:sale_payment_key]   = params[:key]||session[:sale_payment_key]||""
   end
-
+  manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :embanker_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
   dyta(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM sale_payment_parts WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
     t.column :number, :url=>{:action=>:sale_order}
@@ -1818,36 +1780,7 @@ class ManagementController < ApplicationController
     t3e :number=>@sale_payment.number, :entity=>@sale_payment.payer.full_name
   end
 
-  manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :embanker_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-#   def sale_payment_create
-#     if request.post?
-#       @payment = SalePayment.new(params[:sale_payment])
-#       @payment.company_id = @current_company.id
-#       @payment.entity_id = session[:current_entity_id]
-#       return if save_and_redirect(@payment)
-#     else
-#       @payment = SalePayment.new(:embanker_id=>@current_user.id)
-#     end
-#     render_form
-#   end
-
-#   def sale_payment_update
-#     return unless @payment = find_and_check(:sale_payment)
-#     if request.post?
-#       return if save_and_redirect(@payment, :attributes=>params[:sale_payment])
-#     end
-#     t3e @payment.attributes
-#     render_form 
-#   end
-
-#   def sale_payment_delete
-#     return unless @payment = find_and_check(:sale_payment)
-#     if request.post? or request.delete?
-#       @payment.destroy
-#     end
-#     redirect_to_current
-#   end
   
   
   def sale_payment_part_create
@@ -1911,6 +1844,66 @@ class ManagementController < ApplicationController
 
   manage :shelves
 
+
+
+
+  dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :active
+    t.column :name, :through=>:expiration, :url=>{:action=>:delay}, :label=>"Délai d'expiration"
+    t.column :name, :through=>:payment_delay, :url=>{:action=>:delay}, :label=>"Délai de paiement"
+    t.column :downpayment
+    t.column :downpayment_minimum
+    t.column :downpayment_rate
+    t.column :comment
+    t.action :sale_order_nature_update
+    t.action :sale_order_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+  end
+  def sale_order_natures
+  end
+  manage :sale_order_natures
+  
+
+  dyta(:delivery_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name
+    t.column :code
+    t.column :comment
+    t.action :delivery_mode_update
+    t.action :delivery_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+  end
+  def delivery_modes
+  end
+  manage :delivery_modes
+
+  dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
+
+  dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+    t.column :name
+    t.column :with_accounting
+    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
+    t.column :with_embankment
+    t.column :label, :through=>:embankables_account, :url=>{:controller=>:accountancy, :action=>:account}
+    t.column :with_commission
+    t.action :sale_payment_mode_update
+    t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+  end
+  def sale_payment_modes
+  end
+  manage :sale_payment_modes, :with_accounting=>"true"
+
+  dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+    t.column :name
+    t.column :with_accounting
+    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
+    t.action :purchase_payment_mode_update
+    t.action :purchase_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+  end
+  def purchase_payment_modes
+  end
+  manage :purchase_payment_modes, :with_accounting=>"true"
+
+
+
   dyta(:locations, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>{:action=>:location}
     t.column :name, :through=>:establishment
@@ -1920,7 +1913,6 @@ class ManagementController < ApplicationController
     t.action :location_update
     #t.action :location_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
-
 
   def locations
     unless @current_company.locations.size>0

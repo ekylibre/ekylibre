@@ -22,8 +22,8 @@ spa:
       #>inventory: 'Inventaire'
       #>invoice: 'Facture'
       #>invoice_number: 'Numéro de facture'
-      #>last_payment_amount: 'Montant du dernier règlement'
-      #>last_payment_date: 'Date du dernier règlement'
+      #>last_payment_amount: 'Montant du dernier encaissement'
+      #>last_payment_date: 'Date du dernier encaissement'
       locations:
         #>location_create: 'Ajouter un nouveau lieu de stockage'
       #>mobile: 'Portable'
@@ -32,7 +32,7 @@ spa:
       #>order: 'Commande'
       #>paid_on: 'Réglé le'
       #>parts_amount: 'Montant réglé'
-      #>payment_amount: 'Montant du règlement'
+      #>payment_amount: 'Montant de l''encaissement'
       #>phone: 'Tél.'
       #>price: 'Prix'
       #>price_amount_with_taxes: 'Prix TTC'
@@ -66,17 +66,17 @@ spa:
     management:
       purchase_steps:
         #>active: 'Création de l''achat'
-        #>summary: 'Paiements'
+        #>summary: 'Décaissements'
       sale_steps:
         #>deliveries: 'Planification des livraisons'
         #>estimate: 'Création du devis'
         #>general: 'Description'
         #>products: 'Produits'
-        #>summary: 'Facture et règlement(s)'
+        #>summary: 'Facture et encaissements'
       #>sales_step_1: 'Description'
       #>sales_step_2: 'Produits'
       #>sales_step_3: 'Livraisons'
-      #>sales_step_4: 'Règlements'
+      #>sales_step_4: 'Encaissements'
   views:
     management:
       _csv_statistics:
@@ -136,20 +136,17 @@ spa:
         #>title: 'Créer une remise : {{mode}}'
       _embankment_form:
         #>infos: 'Renseignez les informations suivantes'
-        #>payments: 'Règlements'
+        #>payments: 'Encaissements'
       embankment_payment_create:
       embankment_payment_update:
       embankment_update:
         #>title: 'Modification de la remise de chèque du {{date}}'
       embankments:
         embankment_create:
-          #>one: 'Ajouter une remise : {{mode}} (1 règlement)'
-          #>other: 'Ajouter une remise : {{mode}} ({{count}} règlements)'
-          #>zero: 'Ajouter une remise : {{mode}} (Pas de règlement)'
+          #>one: 'Ajouter une remise : {{mode}} (1 encaissement)'
+          #>other: 'Ajouter une remise : {{mode}} ({{count}} encaissements)'
+          #>zero: 'Ajouter une remise : {{mode}} (Pas d''encaissement)'
         nb_checks:
-          #>one: '1 chèque à encaisser'
-          #>other: '{{count}} chèques à encaisser'
-          #>zero: 'Aucun chèque à encaisser'
         #>title: 'Remises en banque'
       _graph_statistics:
         #>nb_years: 'Nombre d''années dans l''historique'
@@ -161,9 +158,9 @@ spa:
           #>other: '{{count}} remises en banque à valider'
           #>zero: 'Aucune remise de chèques à valider'
         nb_payments:
-          #>one: '1 chèque à encaisser depuis au moins 15 j.'
-          #>other: '{{count}} chèques à encaisser depuis au moins 15 j.'
-          #>zero: 'Aucun chèque à encaisser depuis au moins 15 j.'
+          #>one: '1 encaissement à encaisser depuis au moins 15 j.'
+          #>other: '{{count}} encaissement à encaisser depuis au moins 15 j.'
+          #>zero: 'Aucun encaissement à encaisser depuis au moins 15 j.'
         nb_purchases:
           #>one: '1 achat en attente de reception'
           #>other: '{{count}} achats en attente de reception'
@@ -252,9 +249,6 @@ spa:
       _payment_mode_form:
       payment_mode_update:
       payment_modes:
-        #>purchase_payment_modes: 'Modes de paiement (utilisés pour les achats)'
-        #>sale_payment_modes: 'Modes de règlement (utilisés pour les ventes)'
-        #>title: 'Modes de règlement et modes de paiement'
       payments:
       _payments_search:
       _price_amount_form:
@@ -333,10 +327,10 @@ spa:
       purchase_order:
         #>general_informations: 'Informations générales'
         #>lines: 'Lignes d''achat'
-        #>payment_parts: 'Paiements'
+        #>payment_parts: 'Décaissements'
         #>purchase_order_lines: 'Modifier l''achat'
         #>purchase_order_print: 'Imprimer la commande fournisseur'
-        #>sale_payment_part_create: 'Ajouter un paiement à l''achat'
+        #>sale_payment_part_create: 'Ajouter un décaissement à l''achat'
         #>title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
       purchase_order_create:
         #>title: 'Nouvel achat'
@@ -359,11 +353,11 @@ spa:
         #>title: 'Produits de la commande {{value}} chez {{name}}'
         #>validate: 'Valider la commande'
       purchase_order_summary:
-        #>payments: 'Paiements'
+        #>payments: 'Décaissements'
         #>products: 'Produits de la commande'
         #>purchase_payment_part_create: 'Payer l''achat'
-        #>sale_payment_part_create: 'Ajouter un paiement'
-        #>title: 'Paiements de l''achat N°{{number}}'
+        #>sale_payment_part_create: 'Ajouter un décaissement'
+        #>title: 'Décaissements de l''achat N°{{number}}'
       purchase_orders:
         nb_purchases:
           #>one: '1 achat'
@@ -371,36 +365,43 @@ spa:
           #>zero: 'Aucun achat'
         #>title: 'Achats'
       purchase_payment:
-        #>purchase_orders: 'Ventes payées avec ce paiement'
-        #>purchase_payment_update: 'Modifier le paiement'
-        #>title: 'Paiement n°{{number}} pour {{payee}}'
+        #>purchase_orders: 'Achats payés avec ce décaissement'
+        #>purchase_payment_update: 'Modifier le décaissement'
+        #>title: 'Décaissement n°{{number}} pour {{payee}}'
       purchase_payment_create:
-        #>title: 'Ajout d''un paiement'
+        #>title: 'Ajout d''un décaissement'
       _purchase_payment_form:
         #>embankable: 'Complément d''information'
-        #>title: 'Renseignez les conditions du paiement'
+        #>title: 'Renseignez les conditions du décaissement'
       purchase_payment_mode_create:
-        #>title: 'Ajouter un mode de paiement'
+        #>title: 'Ajouter un mode de décaissement'
       _purchase_payment_mode_form:
         #>accountancy: 'Comptabilisation'
         #>general: 'Description générale'
       purchase_payment_mode_update:
-        #>title: 'Modifier un mode de paiement'
+        #>title: 'Modifier un mode de décaissement'
+      purchase_payment_modes:
+        #>title: 'Modes de décaissement'
       purchase_payment_part_create:
         #>title: 'Payer l''achat N°{{number}}'
       purchase_payment_update:
-        #>title: 'Modification du paiement : {{number}}'
+        #>title: 'Modification du décaissement : {{number}}'
       purchase_payments:
-        #>title: 'Paiements'
+        #>all: 'Tous'
+        #>search: 'Rechercher des décaissements'
+        #>title: 'Décaissements'
+        #>undelivered: 'Non délivrés'
+        #>unparted: 'Non affectés'
+        #>waiting: 'À décaisser plus tard'
       sale_order:
         #>deliveries: 'Livraisons'
         #>general_informations: 'Informations générales'
         #>invoices: 'Factures'
         #>lines: 'Lignes de vente'
-        #>payments: 'Règlements'
+        #>payments: 'Encaissements'
         #>sale_order_lines: 'Modifier la vente'
         #>sale_order_print: 'Imprimer la vente'
-        #>sale_payment_part_create: 'Ajouter un règlement'
+        #>sale_payment_part_create: 'Ajouter un encaissement'
         #>subscriptions: 'Abonnements'
         #>title: 'Détails de la vente {{value}} au client {{name}}'
       sale_order_create:
@@ -494,7 +495,7 @@ spa:
       sale_order_nature_create:
         #>title: 'Ajout d''un type de vente'
       _sale_order_nature_form:
-        #>conditions: 'Conditions de règlement'
+        #>conditions: 'Conditions d''encaissement'
         #>delays: 'Délais'
         #>downpayment: 'Options pour l''acompte'
         #>general: 'Général'
@@ -505,7 +506,7 @@ spa:
         #>title: 'Types de ventes'
       sale_order_print:
       sale_order_summary:
-        #>add_payment: 'Ajouter un règlement'
+        #>add_payment: 'Ajouter un encaissement'
         #>client_balance: 'Solde du client'
         #>financial_state: 'État de la vente'
         #>invoice: 'Facture'
@@ -515,14 +516,14 @@ spa:
         #>order_amount_with_taxes: 'Montant de la commande'
         #>paid_amount: 'Montant réglé'
         #>paid_on: 'Règlé le'
-        #>payment_mode: 'Mode de règlement'
+        #>payment_mode: 'Mode d''encaissement'
         #>payment_on: 'Payé le'
-        #>payments: 'Règlements'
+        #>payments: 'Encaissements'
         #>payments_amount: 'Montant réglé'
-        #>payments_total: 'Total règlements'
+        #>payments_total: 'Total encaissements'
         #>rest_to_pay: 'Reste à payer'
-        #>sale_payment_part_create: 'Ajouter un nouveau règlement'
-        #>title: 'Facture et règlement(s) de la vente {{number}}'
+        #>sale_payment_part_create: 'Ajouter un nouvel encaissement'
+        #>title: 'Facture et encaissement(s) de la vente {{number}}'
         #>total_amount: 'Montant de la commande'
         #>uninvoiced_amount: 'Montant non facturé'
         #>unpaid_amount: 'Montant restant à payer'
@@ -540,46 +541,47 @@ spa:
         #>unpaid: 'Impayées'
         #>unpaid_sale_orders_export: 'Exporter la liste des ventes impayées au format csv'
       sale_payment:
-        #>sale_orders: 'Ventes réglées avec ce règlement'
-        #>sale_payment_update: 'Modifier le règlement'
-        #>title: 'Règlement n°{{number}} de {{entity}}'
+        #>sale_orders: 'Ventes réglées avec cet encaissement'
+        #>sale_payment_update: 'Modifier l''encaissement'
+        #>title: 'Encaissement n°{{number}} de {{entity}}'
       sale_payment_create:
-        #>title: 'Ajout d''un nouveau règlement'
+        #>title: 'Ajout d''un nouvel encaissement'
       _sale_payment_form:
         #>embankable: 'Complément d''information'
-        #>title: 'Renseignez les conditions du règlement'
+        #>title: 'Renseignez les conditions de l''encaissement'
       sale_payment_mode_create:
-        #>title: 'Ajouter un nouveau mode de règlement'
+        #>title: 'Ajouter un nouveau mode d''encaissement'
       _sale_payment_mode_form:
         #>accountancy: 'Comptabilisation'
         #>commission: 'Commission'
         #>embankment: 'Remise en banque'
         #>general: 'Description générale'
       sale_payment_mode_update:
-        #>title: 'Modifier le mode de règlement : {{name}}'
+        #>title: 'Modifier le mode d''encaissement : {{name}}'
+      sale_payment_modes:
+        #>title: 'Modes d''encaissement'
       sale_payment_part_create:
-        #>title: 'Ajouter un nouveau règlement : {{type}} N°{{number}}'
+        #>title: 'Ajouter un nouvel encaissement : {{type}} N°{{number}}'
       _sale_payment_part_form:
         #>downpayment: 'Acompte'
-        #>existing_part: 'Utiliser un règlement non affecté'
-        #>new: 'Créer un nouveau règlement'
-        #>new_payment: 'Enregistrer un nouveau règlement'
+        #>existing_part: 'Utiliser un encaissement non affecté'
+        #>new: 'Créer un nouvel encaissement'
+        #>new_payment: 'Enregistrer un nouvel encaissement'
         #>payment_label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{entity}}'
-        #>select_existing_payment: 'Sélectionner un règlement existant'
-        #>unused_payment: 'Règlement à utiliser'
+        #>select_existing_payment: 'Sélectionner un encaissement existant'
+        #>unused_payment: 'Encaissement à utiliser'
       sale_payment_update:
-        #>title: 'Modification du règlement n°{{number}}'
+        #>title: 'Modification de l''encaissement n°{{number}}'
       sale_payments:
-        nb_payments:
-          #>one: '1 règlement en attente'
-          #>other: '{{count}} règlements en attente'
-          #>zero: 'Aucun règlement en attente'
-        #>title: 'Règlements'
-      _sale_payments_search:
         #>all: 'Tous'
-        #>embanked: 'Encaissés'
-        #>search: 'Rechercher des règlements'
-        #>waiting: 'Échéances'
+        nb_payments:
+        #>search: 'Rechercher des encaissements'
+        #>title: 'Encaissements'
+        #>unembanked: 'Non remis en banque'
+        #>unparted: 'Non affectés'
+        #>unreceived: 'Non reçus'
+        #>waiting: 'À encaisser plus tard'
+      _sale_payments_search:
       sales_invoices:
       shelf:
         #>products: 'Produits de la catégorie'

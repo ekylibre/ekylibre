@@ -1,1 +1,17 @@
+.search
+  -form_tag({}, :method=>:get) do
+    %table
+      %tr
+        %td.crit
+          =tc(:search)
+          =text_field_tag :key, session[:purchase_payment_key]
+        %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
+      %tr
+        %td.crit
+          -for state in [:all, :unparted, :undelivered, :waiting]
+            =radio_button_tag("state", state, (state.to_s == session[:purchase_payment_state]))
+            %label{:for=>"state_#{state}"}=tc(state)
+
+=toolbar do |t|
+  -t.link :purchase_payment_create
 =dyta(:purchase_payments)

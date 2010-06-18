@@ -57,9 +57,10 @@ class Cash < ActiveRecord::Base
   belongs_to :currency
   belongs_to :entity
   belongs_to :journal
-  has_many :embankments
   has_many :bank_statements
-  has_many :payment_modes
+  has_many :embankments
+  has_many :purchase_payment_modes
+  has_many :sale_payment_modes
   validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id
 

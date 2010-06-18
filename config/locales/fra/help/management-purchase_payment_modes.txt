@@ -1,0 +1,12 @@
+====== Modes de décaissement ======
+
+Les moyens paiements effectués auprès des fournisseurs sont relativement simples car il n'y a pas de remise en banque et de commission à gérer.
+
+===== Comptabilité =====
+
+!!! La [[>company/configure|comptabilisation automatiquement]] doit être activée pour une comptabilisation en temps réel.
+
+En général, les comptes associés sont :
+  * Espèces : //53. Caisse//
+  * Virement, chèques et autres virement : //512. Banques//
+

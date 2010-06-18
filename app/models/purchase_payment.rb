@@ -77,6 +77,14 @@ class PurchasePayment < ActiveRecord::Base
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
 
+  def updatable?
+    return (self.journal_record ? !self.journal_record.closed? : true)
+  end
+
+  def destroyable?
+    updatable? and self.parts_amount.zero?
+  end
+
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payee=>self.payee.full_name, :number=>self.number)
   end
@@ -116,7 +124,7 @@ class PurchasePayment < ActiveRecord::Base
     attorney_amount = self.attorney_amount
     supplier_amount = self.amount - attorney_amount
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}) do |record|
+    accountize(action, {:journal=>self.mode.cash.journal, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |record|
       record.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
       record.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       record.add_credit(label, self.mode.cash.account_id, self.amount)

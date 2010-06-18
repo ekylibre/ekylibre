@@ -74,9 +74,9 @@ class Price < ActiveRecord::Base
       tax_amount = (self.tax ? self.tax.compute(self.amount_with_taxes, true) : 0)
       self.amount = self.amount_with_taxes - tax_amount.round(2)
     else  # if self.amount.to_f >= 0 
-      tax_amount = (self.tax ? self.tax.compute(self.amount) : 0)
-      self.amount_with_taxes = (self.amount+tax_amount).round(2)
-      self.amount = self.amount_with_taxes - tax_amount.round(2)
+      tax_amount = (self.tax ? self.tax.compute(self.amount) : 0).to_f
+      self.amount_with_taxes = (self.amount.to_f+tax_amount).round(2)
+      self.amount = self.amount_with_taxes.to_f - tax_amount.round(2)
     end
     self.started_at = Time.now
     self.quantity_min ||= 0

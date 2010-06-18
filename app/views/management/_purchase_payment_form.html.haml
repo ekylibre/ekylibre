@@ -4,6 +4,7 @@
   -f.field :purchase_payment, :payee_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create}
   -f.field :purchase_payment, :amount
   -f.field :purchase_payment, :to_bank_on
+  -f.field :purchase_payment, :delivered
   -f.field :purchase_payment, :mode_id, :choices=>{:reflection=>:purchase_payment_modes}, :new=>{:action=>:purchase_payment_mode_create}
   -f.title :embankable
   -f.field :purchase_payment, :responsible_id, :choices=>{:reflection=>:users}

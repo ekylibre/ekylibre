@@ -1,12 +1,14 @@
-====== Règlements  ======
+====== Encaissements  ======
 
-===== Suivi des règlements =====
-Il s'effectue aussi bien au niveau des achats que des ventes.
+===== Suivi des encaissements =====
+Vous avez la possibilité de **rechercher** vos encaissements par le **montant**, le **numéro de chèque**, le **numéro d'encaissement**, le **nom** et le **code du client**.
 
-Vous avez la possibilité de **rechercher** vos règlements par le **montant**, le **numéro de chèque**, le **numéro du règlement**, le **nom** et le **code du client**.
+===== Ajout/modification de encaissement =====
+Vous pouvez spécifier une date d'encaissement future. 
+Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu. 
 
+!!! Dans le cas d'un **futur règlement**, il est important de préciser que le règlement n'a **pas encore été reçu** pour que la comptabilité soit en ordre.
 
-===== Ajout/modification de règlement =====
-Vous pouvez spécifier une date d'encaissement future. Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu. Le responsable du règlement permet de savoir qui s'occupe du règlement et notamment de sa remise en banque.
+Le responsable de l'encaissement permet de savoir qui s'occupe de l'encaissement et notamment de sa remise en banque.
 
 [[management-index|Retour à l'aide sur la Gestion Commerciale]]

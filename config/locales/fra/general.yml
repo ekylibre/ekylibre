@@ -350,7 +350,7 @@ fra:
         transport: 'Transport'
       unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
     embankment:
-      to_accountancy: '[{{resource}} {{number}}] {{payments_count}} règlements ({{mode}}) {{comment}}'
+      to_accountancy: '[{{resource}} {{number}}] {{payments_count}} encaissement ({{mode}}) {{comment}}'
     entity:
       client: 'Client'
       supplier: 'Fournisseur'

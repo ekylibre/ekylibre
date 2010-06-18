@@ -15,6 +15,13 @@
       =evalue @purchase_payment, :to_bank_on
       =evalue @purchase_payment, :check_number
 
+-if false # @purchase_payment.unused_amount > 0
+  -form_tag() do
+    %fieldset
+      %legend=tc(:add_purchase_order)
+      =render :partial=>'purchase_payment_part_create'
+      .actions=submit_tag
+
 -if @purchase_payment.parts.size>0
   %h2=tc(:purchase_orders)
   =dyta :purchase_payment_purchase_orders

@@ -281,6 +281,9 @@ a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/button
 .search table { margin: 0px auto; }
 .search .label { padding: 1px 4px; }
 .search .submit { padding: 0px 4px; }
+.search table .crit { border-top: 1px dotted #580; padding: 1px 4px; vertical-align: middle; text-align:center;}
+.search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }
+.search table tr:first-child .crit { border-top: none; }
 
 
 
