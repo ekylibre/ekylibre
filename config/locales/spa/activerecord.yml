@@ -1008,6 +1008,7 @@ spa:
         #>entries: 'Écritures'
         #>financialyear: 'Exercices'
         #>id: 'ID'
+        #>invoices: 'Factures'
         #>journal: 'Journal'
         #>journal_id: 'Journal'
         #>lock_version: 'Version'

@@ -38,7 +38,7 @@ module ActiveRecord
           ActiveRecord::Base.transaction do
             # Cancel the existing journal_record
             if self.journal_record
-              if self.journal_record.draft? and (attributes[:journal] == self.journal_record.journal)
+              if not self.journal_record.closed? and (attributes[:journal] == self.journal_record.journal)
                 self.journal_record.entries.destroy_all
                 self.journal_record.reload
                 self.journal_record.update_attributes!(attributes)

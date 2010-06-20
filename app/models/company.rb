@@ -360,6 +360,74 @@ class Company < ActiveRecord::Base
   end
 
 
+  # Compute a balance with many options
+  #  - :started_on Use journal record printed on after started_on
+  #  - :stopped_on Use journal record printed on before stopped_on
+  #  - :draft      Use draft journal entries
+  #  - :confirmed  Use confirmed journal entries
+  #  - :closed     Use closed journal entries
+  #  - :accounts   Select ranges of accounts
+  def balance(options={})
+    conn = ActiveRecord::Base.connection
+    entries_states  = " AND (false"
+    entries_states += " OR (journal_entries.draft = #{conn.quoted_true})" if options[:draft] == "1"
+    entries_states += " OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})" if options[:confirmed] == "1"
+    entries_states += " OR (journal_entries.closed = #{conn.quoted_true})" if options[:closed] == "1"
+    entries_states += ")"
+    
+    accounts = " AND (false"
+    if options[:accounts]
+      expression = ""
+      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
+      for expr in options[:accounts].split(/[^0-9A-Z\-\*]+/)
+        if expr.match(/\-/)
+          start, finish = expr.split(/\-+/)[0..1]
+          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
+          max = [start.length, finish.length].max
+          accounts += " OR SUBSTR(accounts.number, 1, #{max}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
+          expression += " #{start}-#{finish}"
+        else
+          next unless expr.match(valid_expr)
+          accounts += " OR accounts.number LIKE #{conn.quote(expr+'%')}"
+          expression += " #{expr}"
+        end
+      end
+      options[:accounts] = expression.strip
+    end
+    accounts += ")"
+    
+    lines = []
+    query  = "SELECT '', -2, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
+    query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+    query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+    query += entries_states
+    query += accounts
+    lines += conn.select_rows(query)
+
+    for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
+      level = name.split(/\_/)[-1].to_i
+      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -1, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
+      query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+      query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+      query += entries_states
+      query += accounts
+      query += " AND LENGTH(accounts.number) >= #{level}"
+      query += " GROUP BY subtotal"
+      lines += conn.select_rows(query)
+    end
+    
+    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
+    query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+    query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+    query += entries_states
+    query += accounts
+    query += " GROUP BY accounts.id, accounts.number"
+    query += " ORDER BY accounts.number"
+    lines += conn.select_rows(query)
+    return lines.sort{|a,b| a[0]+a[1]<=>b[0]+b[1]}
+  end
+
+
   def backup(options={})
     creator, with_prints = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)

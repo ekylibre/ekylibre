@@ -90,7 +90,7 @@ configure_company:
 # Consulter les documents comptables
 consult_accounting_documents:
   controller: accountancy
-  actions: [document_print, index]
+  actions: [balance, document_print, index]
 # Consulter les fiches clients/fournisseurs
 consult_entities:
   controller: relations

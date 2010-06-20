@@ -83,8 +83,8 @@ module ApplicationHelper
              {:name=>:financialyear_close}
            ] },
          {:name=>:documents, :list=>
-           [ {:name=>:document_print}
-             # {:name=>:general_ledger}
+           [ {:name=>:document_print},
+             {:name=>:balance}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
@@ -178,6 +178,16 @@ module ApplicationHelper
   def menus
     MENUS
   end
+
+  def number_to_accountancy(value)
+    number = value.to_f
+    if number.zero?
+      return ''
+    else
+      number_to_currency(number, :precision=>2, :format=>'%n', :delimiter=>'&nbsp;', :separator=>',')
+    end
+  end
+
 
   def parameter(name)
     # name = self.controller.controller_name.to_s+name.to_s if name.to_s.match(/^\./)

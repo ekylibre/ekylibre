@@ -48,6 +48,20 @@ fra:
         account_name: 'Nom du compte '
         account_number: 'Numéro de compte '
         no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
+      balance:
+        account_name: 'Compte comptable'
+        account_number: 'N°Compte'
+        accounts: 'Comptes comptables utilisés'
+        balance: 'Solde'
+        closed: 'Verrouillées' #!
+        confirmed: 'Confirmées' #!
+        down_to_level: 'Détailler jusqu''au niveau'
+        draft: 'Brouillard' #!
+        journal_entries_states: 'États des écritures utilisées'
+        subtotal: 'Sous-total {{name}}'
+        subtotals_at_level: 'Sous-totaux aux niveaux'
+        title: 'Balance'
+        total: 'Total'
       bank_statement:
         bank_statement_point: 'Pointer le relevé'
         bank_statement_update: 'Modifier le relevé'
@@ -187,22 +201,22 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       _journals:
         draft_entries: 'Brouillard'
         journal_detail: 'Cloturé au {{closed_on}}' #!
         journal_name: '{{name}}' #!
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
         journal_name: 'Nom du journal'
       _journals_search:
         filter_entries_with: 'Filtrer les écritures avec' #!
-        interval: 'Intervalle'
+        interval: 'Intervalle personnalisé'
         manual_period: 'du {{start}} au {{finish}}'
-        period: 'Période'
+        period: 'Période prédéfinie'
       lettering:
         lettering_account_client: 'Lettrage des comptes clients'
         lettering_account_supplier: 'Lettrage des comptes fournisseurs'

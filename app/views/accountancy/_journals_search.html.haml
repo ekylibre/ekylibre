@@ -1,11 +1,24 @@
 %table
   %tr
-    %td
-      =radio_button_tag("period_mode", "automatic", (params[:period_mode] == "automatic"))
-      %label{:for=>"period_mode_automatic"}=tc(:period)
-      =select_tag("period", journal_periods_tag(params[:period]))
-    %td
-      =radio_button_tag("period_mode", "manual", (params[:period_mode].nil? ? true : params[:period_mode] == "manual"))
-      %label{:for=>"period_mode_manual"}=tc(:interval)
-      =tc(:manual_period, :start=>calendar_field_tag(:start, session[:journal_record_start], :size=>8), :finish=>calendar_field_tag(:finish, session[:journal_record_finish], :size=>8))
-    %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
+    %td.crit
+      =radio_button_tag("mode", "automatic", (params[:mode] == "automatic"), :onchange=>"toggleMode()")
+      %label{:for=>"mode_automatic"}=tc(:period)
+      =radio_button_tag("mode", "manual", (params[:mode].nil? ? true : params[:mode] == "manual"), :onchange=>"toggleMode()")
+      %label{:for=>"mode_manual"}=tc(:interval)
+    %td.submit{:rowspan=>3}=submit_tag tg(:search_go), :name=>nil
+  %tr
+    %td.crit
+      %span#period_mode_automatic=select_tag("period", journal_periods_tag(params[:period]))
+      %span#period_mode_manual=tc(:manual_period, :start=>calendar_field_tag(:start, params[:start], :size=>8), :finish=>calendar_field_tag(:finish, params[:finish], :size=>8))
+  -if action_name == "draft_entries"
+    %tr
+      %td.crit
+        -journals = @current_company.journals.find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entries WHERE company_id=? AND draft=?)", @current_company.id, true])
+        -no_journal = !journals.detect{|x| !params["journal_#{x.id}"].nil?}
+        -for journal in journals
+          -name="journal_#{journal.id}"
+          =check_box_tag(name, "1", (params[name] == "1" or no_journal))
+          %label{:for=>name}=journal.name
+:javascript
+  window.toggleMode = function() { toggleElement('period_mode_automatic', $('mode_automatic').checked, 'period_mode_manual') }
+  toggleMode();

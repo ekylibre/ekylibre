@@ -1,0 +1,81 @@
+-max = @current_company.accounts.calculate(:max, "LENGTH(COALESCE(number, ''))").to_i
+-form_tag({}, :method=>:get) do
+  .search
+    %table
+      %tr 
+        %td.crit
+          -fy = @current_company.current_financialyear
+          %label{:for=>:started_on}=tg(:from)
+          =calendar_field_tag("started_on", params[:started_on]||(fy ? fy.started_on : Date.today.beginning_of_month))
+          %label{:for=>:stopped_on}=tg(:to)
+          =calendar_field_tag("stopped_on", params[:stopped_on]||(fy ? fy.stopped_on : Date.today.end_of_month))
+        %td.submit{:rowspan=>5}=submit_tag tg(:validate), :name=>nil
+      %tr
+        %td.crit
+          %label=tc(:journal_entries_states)
+          -states = [:draft, :confirmed, :closed]
+          -no_state = !states.detect{|x| !params[x].nil?}
+          -for state in states
+            =check_box_tag(state, "1", (params[state]=="1" or no_state))
+            %label{:for=>state}=tc(state)
+      %tr
+        %td.crit
+          =tc(:accounts)
+          =text_field_tag("accounts", params[:accounts]||"1-9", :size=>30)
+      %tr
+        %td.crit
+          -params[:depth] ||= max
+          %label=tc(:down_to_level)
+          -for level in 1..max
+            -name="depth_#{level}"
+            =radio_button_tag("depth", level, params[:depth].to_i == level)
+            %label{:for=>name}=level
+      %tr
+        %td.crit
+          %label=tc(:subtotals_at_level)
+          -for level in 1..max-1
+            -name = "level_#{level}"
+            =check_box_tag(name, "1", params[name]=="1")
+            %label{:for=>name}=level
+          
+-if @balance
+  -total = @balance.delete_at(0)
+  %table.dyta
+    %tr
+      %th{:rowspan=>2}=tc(:account_number)
+      %th{:rowspan=>2}=tc(:account_name)
+      %th{:colspan=>2}=tc(:total)
+      %th{:colspan=>2}=tc(:balance)
+    %tr
+      %th=JournalRecord.human_attribute_name("debit")
+      %th=JournalRecord.human_attribute_name("credit")
+      %th=JournalRecord.human_attribute_name("debit")
+      %th=JournalRecord.human_attribute_name("credit")
+    -depth = (params[:depth].to_i > 0 ? params[:depth].to_i : max)
+    -for line in @balance
+      -d = line[0].size-1
+      -if line[1].to_i > 0
+        -account = @current_company.accounts.find(line[1])
+        -next if account.number.size > depth
+        %tr{:class=>cycle(:odd, :even)}
+          %td.code=link_to(account.number, :action=>:account, :id=>account.id)
+          %td=link_to(account.name, :action=>:account, :id=>account.id)
+          %td.decimal=number_to_accountancy(line[2])
+          %td.decimal=number_to_accountancy(line[3])
+          %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
+          %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
+      -elsif line[1].to_i < 0
+        %tr.subtotal
+          %th{:colspan=>2, :style=>"padding-left: #{d*8+4}px"}=tc(:subtotal, :name=>line[0])
+          %td.decimal=number_to_accountancy(line[2])
+          %td.decimal=number_to_accountancy(line[3])
+          %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
+          %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
+
+    %tr.total
+      %th{:colspan=>2}=tg(:total)
+      %td.decimal=number_to_accountancy(total[2])
+      %td.decimal=number_to_accountancy(total[3])
+      %td.decimal=number_to_accountancy(total[4]) if total[4].to_f > 0
+      %td.decimal=number_to_accountancy(-total[4].to_f) if total[4].to_f < 0
+.end

@@ -89,7 +89,7 @@ class JournalRecord < ActiveRecord::Base
   
   def validate_on_update
     old = self.class.find(self.id)
-    errors.add_to_base(:record_has_been_already_validated) unless old.draft?
+    errors.add_to_base(:record_has_been_already_validated) if old.closed?
   end
   
   #
@@ -122,7 +122,20 @@ class JournalRecord < ActiveRecord::Base
   end
 
   def destroyable?
-    self.printed_on > self.journal.closed_on and self.draft?
+    self.printed_on > self.journal.closed_on and not self.closed?
+  end
+
+  def updatable?
+    self.printed_on > self.journal.closed_on and not self.closed?
+  end
+
+  #determines if the record is balanced or not.
+  def balanced?
+    self.debit == self.credit and self.entries.count > 0
+  end
+  
+  def confirmed?
+    not self.draft and not self.closed?
   end
 
   
@@ -136,15 +149,6 @@ class JournalRecord < ActiveRecord::Base
     self.company.financialyears.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on', self.printed_on], :order=>"id")
   end
   
-  #determines if the record is balanced or not.
-  def balanced?
-    self.debit == self.credit and self.entries.count > 0
-  end
-
-  def updatable?
-    self.printed_on > self.journal.closed_on
-  end
-
   #determines the difference between the debit and the credit from the record.
   def balance
     self.debit - self.credit 

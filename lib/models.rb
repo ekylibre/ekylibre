@@ -54,7 +54,7 @@ EKYLIBRE_REFERENCES = {
     :updater_id => :user
   },
   :complement_datum => {
-    :choice_value_id => "choice_value_type",
+    :choice_value_id => :complement_choice,
     :company_id => :company,
     :complement_id => :complement,
     :creator_id => :user,

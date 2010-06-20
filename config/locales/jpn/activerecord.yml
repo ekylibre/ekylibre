@@ -1010,6 +1010,7 @@ jpn:
         #>entries: 'Écritures'
         #>financialyear: 'Exercices'
         id: '唯一の番号'
+        #>invoices: 'Factures'
         #>journal: 'Journal'
         #>journal_id: 'Journal'
         lock_version: '修正の番号'

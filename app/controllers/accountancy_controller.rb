@@ -26,7 +26,6 @@ class AccountancyController < ApplicationController
   
   # 
   def index
-    @entries = @current_company.journal_entries
   end
 
   # this method displays the form to choose the journal and financialyear.
@@ -305,8 +304,11 @@ class AccountancyController < ApplicationController
     @document_template ||= @document_templates[0]
   end
 
-#  def balance
-#  end
+  def balance
+    if params[:started_on] and params[:stopped_on]
+      @balance = @current_company.balance(params)
+    end
+  end
   
 
   # PRINTS=[[:balance, {:partial=>"balance"}],
@@ -641,19 +643,25 @@ class AccountancyController < ApplicationController
   def self.journal_records_conditions(options={})
     code = ""
     code += "c=['journal_records.company_id=? "
-    code += " AND journal_records.journal_id=? " unless options[:all_journals]
+    code += " AND journal_records.journal_id IN (?) " unless options[:all_journals]
     code += " AND journal_records.draft=? " if options[:draft]
     code += "', @current_company.id"
     code += ", session[:current_journal_id]" unless options[:all_journals]
     code += ", true" if options[:draft]
     code += "]\n"
-    code += "if (session[:journal_record_start].to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_records.created_on>=?'\n"
-    code += "  c<<session[:journal_record_start].to_date\n"
+    code += "start, finish = nil, nil\n"
+    code += "if session[:journal_record_mode]=='automatic'\n"
+    code += "  start, finish = session[:journal_record_period].split('_')[0..1]\n"
+    code += "else\n"
+    code += "  start, finish = session[:journal_record_start], session[:journal_record_finish]\n"
     code += "end\n"
-    code += "if (session[:journal_record_finish].to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_records.created_on<=?'\n"
-    code += "  c<<session[:journal_record_finish].to_date\n"
+    code += "if (start.to_date rescue nil)\n"
+    code += "  c[0]+=' AND journal_records.printed_on>=?'\n"
+    code += "  c<<start.to_date\n"
+    code += "end\n"
+    code += "if (finish.to_date rescue nil)\n"
+    code += "  c[0]+=' AND journal_records.printed_on<=?'\n"
+    code += "  c<<finish.to_date\n"
     code += "end\n"
     code += "c\n"
     return code.gsub(/\s*\n\s*/, ";")
@@ -676,7 +684,7 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'RECORD.draft? '
+    t.action :journal_record_update, :if=>'RECORD.updatable? '
     t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
   
@@ -687,7 +695,7 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'RECORD.draft? '
+    t.action :journal_record_update, :if=>'RECORD.updatable? '
     t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
 
@@ -705,19 +713,23 @@ class AccountancyController < ApplicationController
 
   def journal_filter()
     fy = @current_company.current_financialyear
-    if params[:period_mode] == "automatic"
-      dates = params[:period].split("_")
-      params[:start]  = dates[0].to_date
-      params[:finish] = dates[1].to_date
+    session[:journal_record_period] = params[:period] = params[:period]||fy.started_on.to_s+"_"+fy.stopped_on.to_s
+    session[:journal_record_mode]   = params[:mode]   = params[:mode]||"automatic"
+    session[:journal_record_start]  = params[:start]  = params[:start]||fy.started_on
+    session[:journal_record_finish] = params[:finish] = params[:finish]||fy.stopped_on
+    if action_name == "draft_entries"
+      journals = []
+      for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
+        journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
+      end
+      session[:current_journal_id] = journals.compact
     end
-    session[:journal_record_start]  =  params[:start]||fy.started_on
-    session[:journal_record_finish] = params[:finish]||fy.stopped_on    
   end
 
   def journal
     return unless @journal = find_and_check(:journal)
-    session[:current_journal_id] = @journal.id
     journal_filter
+    session[:current_journal_id] = @journal.id
     journal_view = @current_user.parameter("interface.journal.#{@journal.code}.view")
     journal_view.value = "entries" if journal_view.value.nil?
     if view = ["entries", "records", "mixed", "draft_entries"].detect{|x| params[:view] == x}
@@ -738,7 +750,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true, :all_journals=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+  dyta(:draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :printed_on, :through=>:record, :datatype=>:date
@@ -755,7 +767,7 @@ class AccountancyController < ApplicationController
     if request.post? and params[:validate]
       conditions = nil
       begin
-        conditions = eval(self.class.journal_records_conditions(:draft=>true, :all_journals=>true))
+        conditions = eval(self.class.journal_records_conditions(:draft=>true))
         journal_records = @current_company.journal_records.find(:all, :conditions=>conditions)
         undone = 0
         for record in journal_records
@@ -854,7 +866,7 @@ class AccountancyController < ApplicationController
 
   def journal_record_update
     return unless @journal_record = find_and_check(:journal_record)
-    unless @journal_record.draft?
+    unless @journal_record.updatable?
       notify(:journal_record_already_validated, :error)
       redirect_to_back
       return

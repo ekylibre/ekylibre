@@ -82,7 +82,8 @@ class JournalEntry < ActiveRecord::Base
   end
     
   def validate_on_update
-    errors.add_to_base(:record_has_been_already_validated) unless self.draft?
+    old = self.class.find(self.id)
+    errors.add_to_base(:record_has_been_already_validated) if old.closed?
   end
 
   #
@@ -110,7 +111,7 @@ class JournalEntry < ActiveRecord::Base
   end
 
   def destroyable?
-    self.draft?
+    !self.closed?
   end
 
   # updates the amounts to the debit and the credit 
