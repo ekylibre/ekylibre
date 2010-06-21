@@ -115,7 +115,7 @@
             <text value="Réf. Client : {{sale_order.client/code}}" top="4mm" align="left"/>
             <text value="Page 1 sur 1" top="8mm" align="left"/>
             <text value="{{sale_order/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
-            <text value="N° TVA Intracommunautaire : {{sale_order.company.entity/vat_number}} - SIREN : {{sale_order.company.entity/siren}} - Code APE : {{sale_order.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
+            <text value="N° TVA Intracommunautaire : {{sale_order.company.entity/vat_number}} - SIREN : {{sale_order.company.entity/siren}} - Code APE : {{sale_order.company.entity/activity_code}}" size="7" left="50%" align="center" top="6mm"/>
             <text value="Paraphe" size="10" right="20mm" align="right" bold="true"/>
             <rectangle width="18mm" height="8mm" right="18mm" border="0.5 solid #000"/>
           </set>
