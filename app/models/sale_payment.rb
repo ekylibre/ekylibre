@@ -94,6 +94,9 @@ class SalePayment < ActiveRecord::Base
     if !self.embankment_id.nil?
       self.embankment.refresh
     end
+    for part in self.parts
+      part.to_accountancy(:update)
+    end if self.company.accountizing?
   end
 
   def label

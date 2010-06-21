@@ -802,7 +802,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status') do |t|
+  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status', :order=>"number DESC") do |t|
     t.column :number ,:url=>{:action=>:purchase_order}
     t.column :created_on
     t.column :moved_on
@@ -954,7 +954,7 @@ class ManagementController < ApplicationController
     t.column :payment_way
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>tc('to_bank_on')
-    t.action :sale_payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
+    t.action :purchase_payment_part_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete#, :if=>'RECORD.expense.shipped == false'
   end
   
   def purchase_order_summary

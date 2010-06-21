@@ -77,6 +77,12 @@ class PurchasePayment < ActiveRecord::Base
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
 
+  def after_update
+    for part in self.parts
+      part.to_accountancy(:update)
+    end if self.company.accountizing?
+  end
+
   def updatable?
     return (self.journal_record ? !self.journal_record.closed? : true)
   end
