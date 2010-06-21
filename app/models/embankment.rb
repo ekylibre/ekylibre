@@ -48,7 +48,7 @@ class Embankment < ActiveRecord::Base
   belongs_to :embanker, :class_name=>User.name
   belongs_to :journal_record
   belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"created_at"
+  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"created_at", :order=>"number"
   has_many :journal_records, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :embanker, :number, :cash
@@ -90,7 +90,7 @@ class Embankment < ActiveRecord::Base
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
-      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payments_count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
+      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
       record.add_debit( label, self.cash.account_id, self.amount)
       record.add_credit(label, self.mode.embankables_account_id, self.amount)
     end

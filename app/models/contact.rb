@@ -49,6 +49,8 @@
 #
 
 class Contact < ActiveRecord::Base
+  attr_readonly :entity_id, :company_id
+  attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
   belongs_to :area
   belongs_to :company
   belongs_to :entity
@@ -59,15 +61,14 @@ class Contact < ActiveRecord::Base
   has_many :sale_orders
   has_many :subscriptions
 
-  # belongs_to :element, :polymorphic=> true
-  attr_readonly :entity_id, :company_id
-  attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
+  validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>Proc.new{|c| !c.email.blank?}
 
   def before_validation
     if self.entity
       self.by_default = true if self.entity.contacts.size <= 0
       self.company_id = self.entity.company_id
     end
+    self.email.strip! if self.email.is_a? String
     if self.line_6
       self.line_6 = self.line_6.gsub(/\s+/,' ').strip
       if self.line_6.blank?

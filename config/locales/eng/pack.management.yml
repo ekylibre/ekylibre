@@ -7,14 +7,13 @@ eng:
       #>are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
       #>category: 'Catégorie'
       #>changes_reflected: 'Changements répercutés'
-      #>choose_one_check_at_less: 'Sélectionnez au moins un chèque'
       #>client_code: 'Code cl.'
       #>client_phone: 'Téléphone'
       #>code: 'Code client'
       #>created_on: 'Créée le'
       #>credit: 'Avoir'
       #>email: 'Email: '
-      #>embankment: 'Remise de chèques'
+      #>embankment: 'Remise en banque'
       #>error_sale_order_already_paid: 'La vente a déjà été payée en totalité'
       #>estimate: 'Devis'
       #>fax: 'Fax'
@@ -25,7 +24,6 @@ eng:
       #>last_payment_amount: 'Montant du dernier encaissement'
       #>last_payment_date: 'Date du dernier encaissement'
       locations:
-        #>location_create: 'Ajouter un nouveau lieu de stockage'
       #>mobile: 'Portable'
       #>no_contacts: 'Aucune adresse définie pour {{name}}'
       #>number: 'Numéro vente'
@@ -37,19 +35,13 @@ eng:
       #>price: 'Prix'
       #>price_amount_with_taxes: 'Prix TTC'
       prices:
-        #>purchases_price_create: 'Enregistrer un nouveau prix d''achat'
-        #>sales_price_create: 'Enregistrer un nouveau prix de vente'
       #>product: 'Produit'
       product_prices:
-        #>purchases_price_create: 'Créer un nouveau prix d''achat'
-        #>sales_price_create: 'Créer un nouveau prix de vente'
       #>purchase_order: 'Achat'
       purchase_order_lines:
-        #>purchase_order_line_create: 'Ajouter un produit à la commande'
       #>reservoir: 'Réservoir'
       #>sale_order: 'Vente'
       sale_order_lines:
-        #>sale_order_line_create: 'Ajouter un produit au devis'
       #>sale_order_products: 'Produits commandés'
       #>scheduled: 'Échéance'
       #>shelf: 'Catégorie'
@@ -122,16 +114,17 @@ eng:
         #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
         #>title: 'Modes de livraison'
+      _delivery_update:
       delivery_update:
         #>title: 'Modification de la livraison'
-      _delivery_update:
       embankment:
         #>amount: 'Montant total'
-        #>check_number: 'Nombre de chèques'
-        #>embankment: 'Remise de chèques du'
+        #>embankment: 'Remise en banque du'
+        #>embankment_update: 'Modifier la remise en banque'
         #>on_account: 'À remettre sur le compte'
+        #>payments_count: 'Nombre de {{mode}}'
         #>print_on: 'Le'
-        #>title: 'Remise de chèques {{number}} du {{date}}'
+        #>title: 'Remise en banque {{number}} du {{created_on}}'
       embankment_create:
         #>title: 'Créer une remise : {{mode}}'
       _embankment_form:
@@ -140,12 +133,12 @@ eng:
       embankment_payment_create:
       embankment_payment_update:
       embankment_update:
-        #>title: 'Modification de la remise de chèque du {{date}}'
+        #>title: 'Modification de la remise en banque du {{created_on}}'
       embankments:
         embankment_create:
-          #>one: 'Ajouter une remise : {{mode}} (1 encaissement)'
-          #>other: 'Ajouter une remise : {{mode}} ({{count}} encaissements)'
-          #>zero: 'Ajouter une remise : {{mode}} (Pas d''encaissement)'
+          #>one: 'Effectuer une remise : {{mode}} (1 encaissement)'
+          #>other: 'Effectuer une remise : {{mode}} ({{count}} encaissements)'
+          #>zero: 'Effectuer une remise : {{mode}} (Pas d''encaissement)'
         nb_checks:
         #>title: 'Remises en banque'
       _graph_statistics:
@@ -154,9 +147,9 @@ eng:
       index:
         #>low_stocks: 'Stocks sous le seuil critique'
         nb_enbankments:
-          #>one: '1 remise de chèques à valider'
+          #>one: '1 remise en banque à valider'
           #>other: '{{count}} remises en banque à valider'
-          #>zero: 'Aucune remise de chèques à valider'
+          #>zero: 'Aucune remise en banque à valider'
         nb_payments:
           #>one: '1 encaissement à encaisser depuis au moins 15 j.'
           #>other: '{{count}} encaissement à encaisser depuis au moins 15 j.'
@@ -678,13 +671,13 @@ eng:
         #>title: 'Transport du {{value}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:
@@ -734,8 +727,8 @@ eng:
         #>cash: 'Compte bancaire'
         #>created_on: 'Créée le'
         #>management_index: 'Index de la gestion commerciale'
-        #>no_embankments: 'Aucune remise de chèque à valider'
-        #>payments_number: 'Nombre de chèques'
+        #>no_embankments: 'Aucune remise en banque à valider'
+        #>payments_number: 'Nombre de règlements'
         #>title: 'Remises en banque à valider'
         #>total_amount: 'Montant total'
         #>validate: 'Valider'

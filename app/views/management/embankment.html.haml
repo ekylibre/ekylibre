@@ -1,10 +1,16 @@
 =toolbar do |t|
+  -t.link :embankment_update, :id=>@embankment.id
   -t.print :embankment, :p0=>@embankment.id
 
+=evalue @embankment, :cash, :url=>{:controller=>:accountancy, :action=>:cash}
+=evalue @embankment, :comment
+
+%h2=Embankment.human_attribute_name("payments")
 =dyta :embankment_payments
+
 %table.dyta
   %tr.total
-    %th=tc(:check_number)
+    %th=tc(:payments_count, :mode=>@embankment.mode.name)
     %td=@embankment.payments_count 
   %tr.total.important
     %th=tc(:amount)

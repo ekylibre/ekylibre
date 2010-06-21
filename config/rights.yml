@@ -290,7 +290,7 @@ manage_document_templates:
   - document_templates_dyta
   - document_templates_load
   - index
-# Gérer les remises de chèques
+# Gérer les remises en banque
 manage_embankments:
   controller: management
   actions:

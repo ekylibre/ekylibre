@@ -30,7 +30,7 @@ spa:
     #>manage_delivery_modes: 'Gérer les types de livraison'
     #>manage_districts: 'Gérer les districts'
     #>manage_document_templates: 'Gérer les modèles de document'
-    #>manage_embankments: 'Gérer les remises de chèques'
+    #>manage_embankments: 'Gérer les remises en banque'
     #>manage_entities: 'Gérer les fiches clients/fournisseurs'
     #>manage_entities_natures: 'Gérer les types de fiche'
     #>manage_entity_categories: 'Gérer les catégories de fiche'

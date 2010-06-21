@@ -1607,7 +1607,8 @@ class ManagementController < ApplicationController
 
 #  dyli(:cash, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
-  dyta(:embankment_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000) do |t|
+  dyta(:embankment_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :embankment_id=>['session[:embankment_id]']}, :per_page=>1000, :order=>:number) do |t|
+    t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :bank
     t.column :account_number
@@ -1635,7 +1636,7 @@ class ManagementController < ApplicationController
   def embankment
     return unless @embankment = find_and_check(:embankment)
     session[:embankment_id] = @embankment.id
-    @title = {:date=>I18n.localize(@embankment.created_on), :number=>@embankment.number}
+    t3e @embankment.attributes
   end
  
   def embankment_create
@@ -1686,7 +1687,7 @@ class ManagementController < ApplicationController
         redirect_to :action=>:embankments 
       end
     end
-    @title = {:date=>@embankment.created_on}
+    t3e @embankment.attributes
     render_form
   end
   

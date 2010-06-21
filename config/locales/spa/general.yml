@@ -187,7 +187,7 @@ spa:
               #>filename: '[name] (Journal)'
           management:
             embankment:
-              #>filename: 'Remise de chèques du [created_on]'
+              #>filename: 'Remise en banque du [created_on]'
             inventory:
               #>filename: 'Inventaire du [created_on]'
             invoice:
@@ -206,7 +206,7 @@ spa:
               #>filename: 'Fiche de [full_name]'
         document_templates_filenames:
           #>balance_sheet: 'Bilan de l''exercice [code]'
-          #>embankment: 'Remise de chèques du [created_on]'
+          #>embankment: 'Remise en banque du [created_on]'
           #>entity: 'Fiche de [full_name]'
           #>income_statement: 'Compte de résultat de l''exercice [code]'
           #>inventory: 'Inventaire du [date]'
@@ -242,7 +242,7 @@ spa:
           management:
             embankments:
               #>format: 'B[year|4][number|4]'
-              #>name: 'Numérotation des remises de chèques'
+              #>name: 'Numérotation des remises en banque'
               #>period: 'year'
             invoices:
               #>format: 'F[year|4][number|6]'
@@ -343,7 +343,7 @@ spa:
       natures:
         #>balance: 'Balance'
         #>balance_sheet: 'Bilan comptable'
-        #>embankment: 'Remise de chèques'
+        #>embankment: 'Remise en banque'
         #>entity: 'Fiche personnes'
         #>financialyear: 'Documents de synthèse'
         #>general_journal: 'Journal général'
@@ -359,7 +359,10 @@ spa:
         #>transport: 'Transport'
       #>unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
     embankment:
-      #>to_accountancy: '[{{resource}} {{number}}] {{payments_count}} encaissement ({{mode}}) {{comment}}'
+      to_accountancy:
+        #>one: '[{{resource}} {{number}}] {{count}} encaissement ({{mode}}) {{comment}}'
+        #>other: '[{{resource}} {{number}}] {{count}} encaissements ({{mode}}) {{comment}}'
+        #>zero: '[{{resource}} {{number}}] Aucun encaissement ({{mode}}) {{comment}}'
     entity:
       #>client: 'Client'
       #>supplier: 'Fournisseur'
