@@ -165,7 +165,7 @@ class AccountancyController < ApplicationController
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
     t.action :account_update
-    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
   end
   
   # lists all the accounts with the credit, the debit and the balance for each of them.

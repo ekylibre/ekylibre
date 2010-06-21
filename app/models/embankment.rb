@@ -90,7 +90,7 @@ class Embankment < ActiveRecord::Base
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
-      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payments_count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label)
+      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payments_count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
       record.add_debit( label, self.cash.account_id, self.amount)
       record.add_credit(label, self.mode.embankables_account_id, self.amount)
     end
