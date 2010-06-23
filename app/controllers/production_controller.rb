@@ -45,7 +45,7 @@ class ProductionController < ApplicationController
   def tool
     return unless @tool = find_and_check(:tools)
     session[:current_tool] = @tool.id
-    @title = {:name=>@tool.name}
+    t3e @tool.attributes
   end
   
   manage :tools
@@ -82,7 +82,7 @@ class ProductionController < ApplicationController
   def shape
     return unless @shape = find_and_check(:shapes)
     session[:current_shape] = @shape.id
-    @title = {:name=>@shape.name}
+    t3e @shape.attributes
   end
 
   
@@ -119,7 +119,7 @@ class ProductionController < ApplicationController
   def operation
     return unless @operation = find_and_check(:operation)
     session[:current_operation_id] = @operation.id
-    @title = {:name=>@operation.name}
+    t3e @operation.attributes
   end
   
   def operation_create
@@ -158,7 +158,7 @@ class ProductionController < ApplicationController
 #         redirect_to_back
 #       end
     end
-    @title = {:name=>@operation.name}
+    t3e @operation.attributes
     render_form
   end
 

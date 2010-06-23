@@ -123,7 +123,7 @@ class CompanyController < ApplicationController
           options[:value] = param.value 
           options[:value] = options[:value].id if param.record? and options[:value]
         end
-        options[:value] ||= options[:default]
+        options[:value] = options[:default] if options[:value].nil?
       end
     end
     if request.post?

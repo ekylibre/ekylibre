@@ -270,7 +270,7 @@ module ApplicationHelper
       label = ::I18n.translate("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}".to_sym, :default=>default)
       if value.is_a? ActiveRecord::Base
         record = value
-        value = record.send(options[:label]||[:label, :name, :code, :inspect].detect{|x| record.respond_to?(x)})
+        value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
         options[:url][:id] ||= record.id if options[:url]
         # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
       else
@@ -337,20 +337,20 @@ module ApplicationHelper
   end
 
 
+  # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
+  # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
+  # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
+  # , 'calendar/border-radius'
   def calendar_link_tag(lang='fr')
-    # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
-    # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
-    # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
-    # , 'calendar/border-radius'
     javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
       stylesheet_link_tag('calendar')
   end
 
+  # <p><label for="issue_start_date">Début</label>
+  # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
+  # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
+  # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
   def calendar_field(object_name, method, options={})
-    # <p><label for="issue_start_date">Début</label>
-    # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
-    # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
-    # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
     name = object_name.to_s+'_'+method.to_s
     text_field(object_name, method, {:size=>10}.merge(options))+
       image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
@@ -748,8 +748,10 @@ module ApplicationHelper
           if args[1].is_a? Hash and args[1][:remote]
             args[1].delete(:remote)
             args[1][:url] ||= {}
-            args[1][:url][:action] ||= name
-            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:url][:controller]||controller_name}.#{name}.title".to_sym]) if name.is_a? Symbol
+            if name.is_a? Symbol
+              args[1][:url][:action] ||= name
+              args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:url][:controller]||controller_name}.#{name}.title".to_sym]) 
+            end
             if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
               code += content_tag(:li, link_to_remote(*args))
             end

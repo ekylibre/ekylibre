@@ -48,17 +48,12 @@ class Embankment < ActiveRecord::Base
   belongs_to :embanker, :class_name=>User.name
   belongs_to :journal_record
   belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"created_at", :order=>"number"
+  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"number"
   has_many :journal_records, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :embanker, :number, :cash
 
-  def before_validation_on_update
-    self.payments_count = self.payments.count
-    self.amount = self.payments.sum(:amount)
-  end
-
-  def before_validation
+  def before_validation_on_create
     specific_numeration = self.company.parameter("management.embankments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
@@ -66,6 +61,11 @@ class Embankment < ActiveRecord::Base
       last = self.company.embankments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
     end
+  end
+
+  def before_validation_on_update
+    self.payments_count = self.payments.count
+    self.amount = self.payments.sum(:amount)
   end
 
   def validate
@@ -92,10 +92,15 @@ class Embankment < ActiveRecord::Base
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
       record.add_debit( label, self.cash.account_id, self.amount)
-      record.add_credit(label, self.mode.embankables_account_id, self.amount)
+      if self.company.parameter("accountancy.accountize.detail_payments_in_embankments").value
+        for payment in self.payments
+          label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
+          record.add_credit(label, self.mode.embankables_account_id, payment.amount)
+        end
+      else
+        record.add_credit(label, self.mode.embankables_account_id, self.amount)
+      end
     end
   end
 
-
-  
 end

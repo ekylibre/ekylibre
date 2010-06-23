@@ -20,8 +20,9 @@ accountancy.accounts.taxes_paid,integer,4456
 accountancy.accounts.taxes_balance,integer,44567
 accountancy.accounts.taxes_assimilated,integer,447
 accountancy.accounts.taxes_payback,integer,44583
-accountancy.accountize.automatic,boolean,1
-accountancy.accountize.draft_mode,boolean,1
+accountancy.accountize.automatic,boolean,true
+accountancy.accountize.draft_mode,boolean,true
+accountancy.accountize.detail_payments_in_embankments,boolean,true
 management.invoices.numeration,record,sequence
 management.embankments.days_before_warning_undone,integer,15
 management.embankments.days_before_warning_unvalidated,integer,15

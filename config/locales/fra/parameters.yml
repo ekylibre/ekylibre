@@ -4,6 +4,7 @@ fra:
       accountize:
         automatic: 'Activer la bascule automatique des données comptables'
         draft_mode: 'Enregistrer les pièces dans le brouillard lors de la bascule automatique'
+        detail_payments_in_embankments: 'Détailler la liste des règlements lors de la comptabilisation d''une remise en banque'
       accounts:
         capital_gains: 'Résultat de l''exercice (bénéfice)'
         capital_losses: 'Résultat de l''exercice (perte)'

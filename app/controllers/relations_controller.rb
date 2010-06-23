@@ -198,7 +198,7 @@ class RelationsController < ApplicationController
       @complement.attributes = params[:complement]
       return if save_and_redirect(@complement)
     end
-    t3e :value=>@complement.name
+    t3e @complement.attributes
     render_form
   end
 
@@ -228,7 +228,6 @@ class RelationsController < ApplicationController
     else
       @complement_choice = ComplementChoice.new(:complement_id=>params[:complement_id])
     end
-    # @title = {:complement=>complement.name rescue } 
     render_form
   end
 
@@ -430,19 +429,8 @@ class RelationsController < ApplicationController
     session[:current_entity_id] = @entity.id
     session[:my_entity] = params[:id]
     @key = ""
-#     @sale_orders_number = SaleOrder.count(:conditions=>{:company_id=>@current_company.id, :client_id=>params[:id]})  
-#     @purchase_orders_number = PurchaseOrder.count(:conditions=>{:company_id=>@current_company.id, :supplier_id=>params[:id]}) 
-#     @invoices_count = @entity.invoices.size
-#     @payments_count = @entity.sale_payments.size
-#     @events_count = @current_company.events.find(:all, :conditions=>{:entity_id=>@entity.id}).size
-#     @contacts_count = @entity.contacts.size
-#     @cashes_count = @entity.cashes.size
-#     @observations_count = @entity.observations.size
-#     @mandates_count = @entity.mandates.count(:conditions=>{:company_id=>@current_company.id})
-#     @entity_links = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND (entity_1_id = ? OR entity_2_id = ?)",@entity.id, @entity.id]).size
-    t3e :value=>@entity.full_name
+    t3e @entity.attributes
   end
-
   
   #
   def entity_create
@@ -602,55 +590,12 @@ class RelationsController < ApplicationController
     return unless @entity_category = find_and_check(:entity_category)
     session[:category] = @entity_category.id
     @category_prices_count = @current_company.prices.find(:all, :conditions=>{:active=>true, :category_id=>@entity_category.id}).size
-    @title = {:value=>@entity_category.name}
+    t3e @entity_category.attributes
   end
   
   manage :entity_categories
 
-  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
-
-#   def contact_create
-#     return unless @entity = find_and_check(:entity, params[:id]||session[:current_entity_id])
-#     #raise Exception.new(@entity.id.to_s)
-#     if request.post?
-#       @contact = Contact.new(params[:contact])
-#       @contact.company_id = @current_company.id
-#       @contact.entity_id = @entity.id  
-#       return if save_and_redirect(@contact)
-#     else
-#       # this line has been added temporarly.
-#       @contact = Contact.new
-#       # @contact.name = (@entity.contacts.size>0 ? tc(:second_contact) : tc(:first_contact) )
-#       @entity ||= @current_company.entity 
-#       @contact.country = @entity.country
-#     end
-#     @title = {:value=>@entity.full_name}
-#     render_form
-#   end
-
-#   def contact_update
-#     return unless @contact = find_and_check(:contact)
-#     @entity = @contact.entity
-#     @id = @contact.entity_id
-#     if request.post? and @contact
-#       @contact.attributes = params[:contact]
-#       return if save_and_redirect(@contact)
-#     end
-#     @title = {:entity=>@entity.full_name}
-#     render_form
-#   end
-  
-#   def contact_delete
-#     return unless @contact = find_and_check(:contact)
-#     if request.post? or request.delete?
-#       if @contact
-#         @contact.active = false
-#         @contact.save
-#       end
-#       redirect_to_current
-#     end
-#   end
-  
+  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}  
 
   dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name

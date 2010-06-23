@@ -76,7 +76,7 @@ fra:
         general: 'Général'
         string_case: 'Options pour le texte'
       complement_update:
-        title: 'Modification du champ personnalisé : {{value}}'
+        title: 'Modification du champ personnalisé : {{name}}'
       complements:
         complement_create: 'Créer un nouveau champ personnalisé'
         title: 'Champs personnalisés'
@@ -223,7 +223,7 @@ fra:
           one: '1 abonnement'
           other: '{{count}} abonnements'
           zero: '0 abonnement'
-        title: 'Fiche : {{value}}'
+        title: 'Fiche : {{full_name}}'
       entity_categories:
         entity_category_create: 'Ajouter une catégorie de fiche'
         title: 'Catégories de fiche'
@@ -234,7 +234,7 @@ fra:
           one: '1 tarif rattaché à cette catégorie'
           other: '{{count}} tarifs rattachés à cette catégorie'
           zero: '0 tarif rattaché à cette catégorie'
-        title: 'Catégorie de fiche : {{value}}'
+        title: 'Catégorie de fiche : {{name}}'
       entity_category_create:
         title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_category_update:

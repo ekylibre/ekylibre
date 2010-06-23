@@ -188,7 +188,7 @@ class AccountancyController < ApplicationController
 
   manage :accounts, :number=>"params[:number]"
 
-  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"record_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:record, :url=>{:action=>:journal_record}
     t.column :printed_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("printed_on")
@@ -824,7 +824,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}, :order=>:position) do |t|
+  dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}, :order=>"record_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}

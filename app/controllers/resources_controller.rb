@@ -73,7 +73,7 @@ class ResourcesController < ApplicationController
   def employee
     return unless @user = find_and_check(:users)
     session[:current_employee] = @user.id
-    @title = {:label=>@user.label}
+    t3e @user.attributes
   end
 
   def employee_delete

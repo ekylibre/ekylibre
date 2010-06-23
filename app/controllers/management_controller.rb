@@ -1617,12 +1617,12 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:sale_payment}
   end
 
-  dyta(:embankable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :order=>"created_at DESC", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  dyta(:embankable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :full_name, :through=>:payer
     t.column :bank
     t.column :account_number
     t.column :check_number
-    t.column :paid_on
+    t.column :to_bank_on
     t.column :label, :through=>:embanker
     t.column :amount
     t.check :to_embank, :value=>'(RECORD.to_bank_on<=Date.today and (session[:embankment_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.embankment_id==session[:embankment_id])))', :label=>tc(:to_embank)
