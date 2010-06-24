@@ -925,8 +925,8 @@ class AccountancyController < ApplicationController
 
   
   dyta(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
-    t.column :name, :through=>:cash
     t.column :number, :url=>{:action=>:bank_statement}
+    t.column :name, :through=>:cash, :url=>{:action=>:cash}
     t.column :started_on
     t.column :stopped_on
     t.column :debit
@@ -967,7 +967,7 @@ class AccountancyController < ApplicationController
     t3e @bank_statement.attributes
   end
   
-  manage :bank_statements, :started_on=>"Date.today-1.month-2.days", :stopped_on=>"Date.today-2.days", :redirect_to=>'{:action => :bank_statement_point, :id =>"id"}'
+  manage :bank_statements, :cash_id=>"params[:cash_id]", :started_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to=>'{:action => :bank_statement_point, :id =>"id"}'
 
 
   # This method displays the list of entries recording to the bank account for the given statement.
@@ -976,8 +976,8 @@ class AccountancyController < ApplicationController
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry].inspect)
-      @bank_statement.entries.clear
-      @bank_statement.entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
+      @bank_statement.journal_entries.clear
+      @bank_statement.journal_entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action=>:bank_statements
         return

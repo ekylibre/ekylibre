@@ -4,6 +4,9 @@ module Ekylibre
 
       def tc(*args)
         args[0] = contextual_scope+'.'+args[0].to_s
+        for i in 1..args.size
+          args[i] = ::I18n.localize(args[i]) if arg[i].is_a? Date
+        end if args.size > 1
         ::I18n.translate(*args)
       end
 

@@ -41,8 +41,8 @@
         %td=link_to(@journal_entry.journal.name, {:action=>:journal, :id=>@journal_entry.journal_id}, :keep=>true)
         %td.code=link_to(@journal_entry.record.number, {:action=>:journal_record, :id=>@journal_entry.record_id}, :keep=>true)
         %td=@journal_entry.name
-        %td.decimal.debit=@journal_entry.debit
-        %td.decimal.credit=@journal_entry.credit
+        %td.decimal.debit=number_to_accountancy(@journal_entry.debit)
+        %td.decimal.credit=number_to_accountancy(@journal_entry.credit)
     %tr#total.total
       %th{:colspan=>5}=tg(:total)
       %td#total-debit=0

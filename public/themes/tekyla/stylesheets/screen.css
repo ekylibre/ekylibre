@@ -21,6 +21,8 @@ table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
 #overlay { background: transparent; }
 #overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
 
+.clickable { cursor: pointer; }
+
 .dialog {  background: #C9D7F1; }
 .dialog .columns { border: 8px solid #95b0e4; }
 .dialog .main { border-top: 1px solid #95b0e4; none; padding: 0 8px 8px 8px;}

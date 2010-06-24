@@ -119,6 +119,7 @@ spa:
         #>journal: 'Journal utilisé'
         #>journal_id: 'Journal utilisé'
         #>key: 'Clé RIB'
+        #>last_bank_statement: '(((LAST_BANK_STATEMENT)))'
         #>lock_version: 'Version'
         #>mode: 'Mode'
         name: 'Nombre'

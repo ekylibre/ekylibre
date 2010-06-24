@@ -121,6 +121,7 @@ jpn:
         #>journal: 'Journal utilisé'
         #>journal_id: 'Journal utilisé'
         #>key: 'Clé RIB'
+        #>last_bank_statement: '(((LAST_BANK_STATEMENT)))'
         lock_version: '修正の番号'
         #>mode: 'Mode'
         name: '名前'

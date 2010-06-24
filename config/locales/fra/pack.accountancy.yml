@@ -78,8 +78,11 @@ fra:
       bank_statement_create:
         title: 'Pointer un nouveau relevé de compte'
       bank_statement_point:
+        balance: 'Solde final'
         bank_statement_update: 'Modifier le relevé'
+        cumul: 'Cumul du total et du solde précédent N°{{number}}'
         entries_to_point: 'Écritures à pointer'
+        previous_bank_statement: 'Solde du relevé précédent N°{{number}}'
         title: 'Pointer le relevé N°{{number}} du {{cash}}'
       bank_statement_update:
         title: 'Modifier le relevé N°{{number}}'
@@ -93,6 +96,7 @@ fra:
  #!
         cash_update: 'Modifier la trésorerie'
         title: '{{nature_label}} : {{name}}'
+        #>bank_statement_create: # Potentially missing translation
       _cash_accountancy_form:
         accountancy: 'Comptabilité'
       cash_create:

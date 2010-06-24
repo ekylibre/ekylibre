@@ -56,6 +56,18 @@ class BankStatement < ActiveRecord::Base
     errors.add_to_base tc(:error_period_statement) if self.started_on >= self.stopped_on
   end
 
+  def balance_credit
+    return (self.debit > self.credit ? 0.0 : self.credit-self.debit)
+  end
+
+  def balance_debit
+    return (self.debit > self.credit ? self.debit-self.credit : 0.0)
+  end
+
+  def previous
+    self.class.find(:first, :conditions=>{:stopped_on=>self.started_on-1})
+  end
+
   def eligible_entries
     self.company.journal_entries.find(:all, 
                                       :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 

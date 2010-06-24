@@ -20,4 +20,8 @@
 
 =tabbox(:cash) do |tb|
   -tb.tab(:embankments,     :content=>dyta(:cash_embankments))
-  -tb.tab(:bank_statements, :content=>dyta(:cash_bank_statements)) if @cash.bank_account?
+  -if @cash.bank_account?
+    -tb.tab(:bank_statements) do |c|
+      -c << toolbar do
+        -link(:bank_statement_create, :cash_id=>@cash.id)
+      -c << dyta(:cash_bank_statements)

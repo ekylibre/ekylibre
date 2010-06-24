@@ -73,6 +73,13 @@ function onLoaded() {
   $('loading').setStyle({display: 'none'});
 }
 
+function toggleCheckBox(element) {
+  element = $(element);
+  element.checked = !element.checked;
+  element.onclick();
+  return element.checked;
+}
+
 function toggleElement(element, show, reverse_element) {
   element = $(element);
   if (show === null) { 
@@ -110,6 +117,38 @@ function toggleMenu(element) {
 }
 
 
+
+
+function format(valeur, decimal, separateur) {
+  // formate un chiffre avec 'decimal' chiffres après la virgule et un separateur
+  var deci=Math.round(Math.pow(10, decimal)*(Math.abs(valeur)-Math.floor(Math.abs(valeur))));
+  var val=Math.floor(Math.abs(valeur));
+  if ((decimal==0)||(deci==Math.pow(10,decimal))) {val=Math.floor(Math.abs(valeur)); deci=0;}
+  var val_format=val+"";
+  var nb=val_format.length;
+  for (var i=1;i<4;i++) {
+    if (val>=Math.pow(10,(3*i))) {
+      val_format=val_format.substring(0,nb-(3*i))+separateur+val_format.substring(nb-(3*i));
+    }
+  }
+  if (decimal>0) {
+    var decim="";
+    for (var j=0;j<(decimal-deci.toString().length);j++) {decim+="0";}
+    deci=decim+deci.toString();
+    val_format=val_format+"."+deci;
+  }
+  if (parseFloat(valeur)<0) {val_format="-"+val_format;}
+  return val_format;
+}
+
+
+/*
+  Display a number with money presentation
+*/
+function toCurrency(value) {
+  return format(value, 2, "");
+}
+
 /* 
    Sum all the value in corresponding elements and update a target with its ID 
    Returns target
@@ -117,13 +156,16 @@ function toggleMenu(element) {
 function sum_all(css_rule, target_id) {
   var target = $(target_id);
   var sum = 0;
+  var reg = new RegExp(",", "ig");
+  var reg2 = new RegExp("[^0-9\.]+", "ig");
   $$(css_rule).each(function(element, index) { 
       var val;
       if (element.tagName.toLowerCase() == "input") {val = element.value; } 
       else { val = element.innerHTML; }
+      val = val.replace(reg, ".").replace(reg2, "");
       if (!isNaN(val)) {sum += val*1;} 
     });
-  sum = Math.round(sum*100)/100;
+  sum = toCurrency(sum);
   if (target.tagName.toLowerCase() == "input") { target.value = sum; }
   else { target.innerHTML = sum; }
   return target;
