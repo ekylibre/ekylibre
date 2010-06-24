@@ -20,7 +20,7 @@ fra:
     exception_raised: 'Une erreur est survenue durant le traitement : {{message}}'
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : {{message}}'
-    import_succeeded: 'Vos données ont été correctement importées'
+    import_succeeded: 'Vos données ont été correctement importées'# NOT USED !!!
     importation_cancelled: 'Vos données n''ont été pas été importées. L''importation a été annulée'
     importation_finished: 'L''importation est terminée.'
     impossible_to_add_lines: 'Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande'

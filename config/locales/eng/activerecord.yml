@@ -592,7 +592,7 @@ eng:
         updater_id: 'Updater'
       entity:
         #>active: 'Actif'
-        #>activity_code: 'Code d''activité'
+        #>activity_code: 'Code APE/NAF'
         #>attorney: 'Mandataire'
         #>attorney_account: 'Compte mandataire associé'
         #>attorney_account_id: 'Compte mandataire associé'

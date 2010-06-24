@@ -133,7 +133,7 @@ spa:
         #>listing_mail: 'Envoyer un courriel'
         #>query: 'Requête: '
         #>subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
-        #>title: 'Modification de l''extraction {{value}}'
+        #>title: 'Modification de l''extraction : {{name}}'
       listings:
         #>listing_create: 'Créer une nouvelle extraction'
         #>title: 'Exportations et mailings'
@@ -150,7 +150,7 @@ spa:
       _role_form:
         #>role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
       role_update:
-        #>title: 'Modification du rôle {{value}}'
+        #>title: 'Modification du rôle : {{name}}'
       roles:
         #>role_create: 'Ajouter un rôle'
         #>title: 'Rôles'

@@ -67,6 +67,12 @@ class Account < ActiveRecord::Base
 
 
 
+  def letterable?
+    return [:client, :supplier, :attorney].detect do |mode|
+      self.number.match(/^#{self.company.parameter('accountancy.accounts.third_'+mode.to_s)}/)
+    end
+  end
+
   def letterable_entries(started_on, stopped_on)
     self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["journal_records.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_records.number DESC")
   end
@@ -82,7 +88,8 @@ class Account < ActiveRecord::Base
   end
 
   def unletter_entries(letter)
-    self.journal_entries.update_all({:letter=>""}, {:letter=>letter})
+    self.journal_entries.update_all({:letter=>nil}, {:letter=>letter})
+    self.update_attribute(:last_letter, self.journal_entries.maximum(:letter))
   end
 
 

@@ -7,8 +7,8 @@
         %td.label=tg(:to)
         %td.field=calendar_field_tag :stopped_on, params[:stopped_on]
         %td.submit=submit_tag(tg(:filter), :name=>nil)
-=evalue @account, :name
-=evalue @account, :number
+=evalue @account, :name, :url=>{:action=>:account, :id=>@account.id}
+=evalue @account, :number, :url=>{:action=>:account, :id=>@account.id}
 
 %h2=tc(:current_letter, :letter=>@letter)
 

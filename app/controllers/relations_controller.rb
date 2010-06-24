@@ -37,8 +37,6 @@ class RelationsController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
   end
 
-
-
   #
   def index
     @entities = @current_company.entities
@@ -534,7 +532,7 @@ class RelationsController < ApplicationController
         end
       end
     end
-    t3e :value=>@entity.full_name
+    t3e @entity.attributes
     render_form
   end
 
@@ -892,156 +890,5 @@ class RelationsController < ApplicationController
       end
     end
   end
-
-
-
-
-
-#   @@exchange_format = [ {:name=>:entity_code, :null=>false}, 
-#                         {:name=>:entity_nature_name, :null=>false},
-#                         {:name=>:entity_category_name, :null=>false},
-#                         {:name=>:entity_name, :null=>false},
-#                         {:name=>:entity_first_name, :null=>true},
-#                         {:name=>:contact_line_2, :null=>true},
-#                         {:name=>:contact_line_3, :null=>true},
-#                         {:name=>:contact_line_4, :null=>true},
-#                         {:name=>:contact_line_5, :null=>true},
-#                         {:name=>:contact_line_6_code, :null=>true},
-#                         {:name=>:contact_line_6_city, :null=>false},
-#                         {:name=>:contact_phone, :null=>true},
-#                         {:name=>:contact_mobile, :null=>true},
-#                         {:name=>:contact_fax, :null=>true}, 
-#                         {:name=>:contact_email, :null=>true},
-#                         {:name=>:contact_website, :null=>true},
-#                         {:name=>:entity_reduction_rate, :null=>true},
-#                         {:name=>:entity_comment, :null=>true} ]
-  
-#   @@exchange_format.each do |column|
-#     column[:label] = tc(column[:name])
-#   end
-
-
-
-#           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
-#           if @entity.nil?
-# #            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
-#             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
-#             @contact = Contact.new(:by_default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
-#           else
-#             #raise Exception.new "ok"+row[indices[:entity_code]].inspect
-#             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :by_default=>true, :deleted=>false})
-#           end
-          
-#           if i!=0 
-#             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
-#             #raise Exception.new row[indices[:entity_reduction_rate]].inspect
-#             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
-#             if !@contact.nil? 
-#               if !@contact.valid? or !@entity.valid?
-#                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
-#               else
-#                 @available_entities << [@entity, @contact]
-#               end
-#             elsif @entity.valid?
-#               @available_entities << [@entity, nil]
-#             end
-#           end 
-#           #puts i if i % 100 == 0
-#           i += 1
-#         end 
-#         # Fin boucle FasterCSV -- Début traitement données recueillies
-#         if @unavailable_entities.empty?        
-#           for entity_contact in @available_entities
-#             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
-#             #raise Exception.new entity_contact[0].code.inspect
-#             if entity.nil?
-#               en = Entity.create!(entity_contact[0].attributes)
-#               ct = Contact.new( entity_contact[1].attributes) 
-#               ct.entity_id = en.id
-#               ct.save
-#             else
-#               entity.update_attributes(entity_contact[0].attributes)
-#               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :by_default=>true, :deleted=>false}) 
-#               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
-#             end
-#             notify(:import_succeeded)
-#           end
-#         end
-#       end
-
-
-
-
-#   def tototo
-#     @model = @@exchange_format
-#     indices = {}
-
-#     @model.size.times do |index|
-#       indices[@model[index][:name]] = index
-#     end
-
-#     if request.post?
-#       if params[:csv_file].nil?
-#         notify(:you_must_select_a_file_to_import, :warning)
-#         redirect_to :action=>:entities_import
-#       else
-#         data = params[:csv_file][:path]
-#         file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
-#         File.open(file, "wb") { |f| f.write(data.read)}
-#         i = 0
-#         @available_entities = []
-#         @unavailable_entities = []
-#         language = @current_company.parameter('general.language')
-#         FasterCSV.foreach(file) do |row|
-#           @entity = Entity.find_by_company_id_and_code(@current_company.id, row[indices[:entity_code]])
-#           if @entity.nil?
-# #            raise Exception.new "nok"+row[indices[:entity_code]].inspect if i != 0 and  i!= 1
-#             @entity = Entity.new(:code=>row[indices[:entity_code]], :company_id=>@current_company.id, :language_id=>language.id, :nature_id=>@current_company.entity_natures[0])
-#             @contact = Contact.new(:by_default=>true, :company_id=>@current_company.id, :entity_id=>0, :country=>'fr')
-#           else
-#             #raise Exception.new "ok"+row[indices[:entity_code]].inspect
-#             @contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>@entity.id, :by_default=>true, :deleted=>false})
-#           end
-          
-#           if i!=0 
-#             @entity.attributes = {:nature_id=>@current_company.imported_entity_nature(row[indices[:entity_nature_name]]), :category_id=>@current_company.imported_entity_category(row[indices[:entity_category_name]]), :name=>row[indices[:entity_name]], :first_name=>row[indices[:entity_first_name]], :reduction_rate=>row[indices[:entity_reduction_rate]].to_s.gsub(/\,/,"."), :comment=>row[indices[:entity_comment]]}
-#             #raise Exception.new row[indices[:entity_reduction_rate]].inspect
-#             @contact.attributes = {:line_2=>row[indices[:contact_line_2]], :line_3=>row[indices[:contact_line_3]], :line_4=>row[indices[:contact_line_4]], :line_5=>row[indices[:contact_line_5]], :line_6=>row[indices[:contact_line_6_code]].to_s+' '+row[indices[:contact_line_6_city]].to_s, :phone=>row[indices[:contact_phone]], :mobile=>row[indices[:contact_mobile]], :fax=>row[indices[:contact_fax]] ,:email=>row[indices[:contact_email]], :website=>row[indices[:contact_website]] } if !@contact.nil?
-#             if !@contact.nil? 
-#               if !@contact.valid? or !@entity.valid?
-#                 @unavailable_entities << [i+1, @entity.errors.full_messages, @contact.errors.full_messages]
-#               else
-#                 @available_entities << [@entity, @contact]
-#               end
-#             elsif @entity.valid?
-#               @available_entities << [@entity, nil]
-#             end
-#           end 
-#           #puts i if i % 100 == 0
-#           i += 1
-#         end 
-#         # Fin boucle FasterCSV -- Début traitement données recueillies
-#         if @unavailable_entities.empty?        
-#           for entity_contact in @available_entities
-#             entity = Entity.find_by_company_id_and_code(@current_company.id, entity_contact[0].code)
-#             #raise Exception.new entity_contact[0].code.inspect
-#             if entity.nil?
-#               en = Entity.create!(entity_contact[0].attributes)
-#               ct = Contact.new( entity_contact[1].attributes) 
-#               ct.entity_id = en.id
-#               ct.save
-#             else
-#               entity.update_attributes(entity_contact[0].attributes)
-#               contact = @current_company.contacts.find(:first, :conditions=>{:entity_id=>entity_contact[0].id, :by_default=>true, :deleted=>false}) 
-#               contact.update_attributes(entity_contact[1].attributes) if !contact.nil?
-#             end
-#             notify(:import_succeeded)
-#           end
-#         end
-#       end
-      
-#     end
-    
-#   end
 
 end

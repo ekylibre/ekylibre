@@ -363,9 +363,10 @@ eng:
       #>unvalid_nature: 'Votre type de modèle est incorrect. Vous devriez supprimer ce modèle et le réinstaller.'
     embankment:
       to_accountancy:
-        #>one: '[{{resource}} {{number}}] {{count}} encaissement ({{mode}}) {{comment}}'
-        #>other: '[{{resource}} {{number}}] {{count}} encaissements ({{mode}}) {{comment}}'
-        #>zero: '[{{resource}} {{number}}] Aucun encaissement ({{mode}}) {{comment}}'
+        #>one: '[{{resource}} {{number}}] {{count}} encaissement {{mode}} {{comment}}'
+        #>other: '[{{resource}} {{number}}] {{count}} encaissements {{mode}} {{comment}}'
+        #>zero: '[{{resource}} {{number}}] Aucun encaissement {{mode}} {{comment}}'
+      #>to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} de {{payer}} ({{payment}})'
     entity:
       #>client: 'Client'
       #>supplier: 'Fournisseur'

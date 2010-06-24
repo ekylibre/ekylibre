@@ -25,6 +25,7 @@ fra:
         balance: 'Solde'
         title: 'Compte : {{number}} - {{name}}'
         totals: 'Totaux (pièces validées et brouillard)'
+        account_letter: Lettrer le compte
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
@@ -202,13 +203,13 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       _journals:
         draft_entries: 'Brouillard'
         journal_detail: 'Cloturé au {{closed_on}}' #!
         journal_name: '{{name}}' #!
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'

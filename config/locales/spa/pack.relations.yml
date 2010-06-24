@@ -5,26 +5,7 @@ spa:
       #>category_name: 'Catégorie'
       #>check_fields: 'Vous devez cocher au moins une case pour effectuer la modification'
       #>client: 'Compte client'
-      #>contact_email: 'Email'
-      #>contact_fax: 'Fax'
-      #>contact_line_2: 'Dest-Service'
-      #>contact_line_3: 'Bat.-Rés.-ZI'
-      #>contact_line_4: 'Numéro et voie'
-      #>contact_line_5: 'Lieu dit'
-      #>contact_line_6_city: 'Ville'
-      #>contact_line_6_code: 'Code Postal'
-      #>contact_mobile: 'Portable'
-      #>contact_phone: 'Téléphone'
-      #>contact_website: 'Site web'
       #>contains: 'Contient'
-      #>entity_category_name: 'Catégorie'
-      #>entity_code: 'Code'
-      #>entity_comment: 'Commentaire'
-      #>entity_first_name: 'Prénom'
-      #>entity_id: 'Fiche'
-      #>entity_name: 'Nom'
-      #>entity_nature_name: 'Type'
-      #>entity_reduction_rate: 'Taux de réduction'
       #>finishes: 'Termine par'
       #>first_contact: 'Adresse principale'
       #>is: 'Est'
@@ -76,7 +57,7 @@ spa:
         #>general: 'Général'
         #>string_case: 'Options pour le texte'
       complement_update:
-        #>title: 'Modification du champ personnalisé : {{value}}'
+        #>title: 'Modification du champ personnalisé : {{name}}'
       complements:
         #>complement_create: 'Créer un nouveau champ personnalisé'
         #>title: 'Champs personnalisés'
@@ -225,7 +206,7 @@ spa:
           #>one: '1 abonnement'
           #>other: '{{count}} abonnements'
           #>zero: '0 abonnement'
-        #>title: 'Fiche : {{value}}'
+        #>title: 'Fiche : {{full_name}}'
       entity_categories:
         #>entity_category_create: 'Ajouter une catégorie de fiche'
         #>title: 'Catégories de fiche'
@@ -236,7 +217,7 @@ spa:
           #>one: '1 tarif rattaché à cette catégorie'
           #>other: '{{count}} tarifs rattachés à cette catégorie'
           #>zero: '0 tarif rattaché à cette catégorie'
-        #>title: 'Catégorie de fiche : {{value}}'
+        #>title: 'Catégorie de fiche : {{name}}'
       entity_category_create:
         #>title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_category_update:
@@ -278,7 +259,7 @@ spa:
         #>entity_nature_create: 'Ajouter un nouveau type de fiche'
         #>title: 'Types de fiches'
       entity_update:
-        #>title: 'Modification de la fiche : {{value}}'
+        #>title: 'Modification de la fiche : {{full_name}}'
       event_create:
         #>title: 'Ajout d''un évènement'
       event_nature_create:

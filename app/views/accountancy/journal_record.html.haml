@@ -1,16 +1,16 @@
 =render :partial=>"journals"
 =toolbar do |t|
   -t.link(:journal_record_update, :id=>@journal_record.id) if @journal_record.draft?
-  -if @journal_record.resource
-    -t.link(tc(:resource, :resource=>@journal_record.resource.class.human_name, :number=>(@journal_record.resource.respond_to?(:number) ? @journal_record.resource.number : '')), {:controller=>:management, :action=>@journal_record.resource_type.underscore, :id=>@journal_record.resource_id})
 
 %table
   %tr
-    %td
+    %td{:valign=>:top}
       =evalue @journal_record, :number
-      =evalue @journal_record, :created_on
       =evalue @journal_record, :printed_on
-    %td
+      =evalue @journal_record, :created_on
+      -if @journal_record.resource
+        =evalue @journal_record, :resource, :url=>{:controller=>:management, :action=>@journal_record.resource_type.underscore}
+    %td{:valign=>:top}
       =evalue @journal_record, :journal, :url=>{:action=>:journal}
       =evalue @journal_record, :debit
       =evalue @journal_record, :credit

@@ -1,5 +1,7 @@
 =toolbar do |t|
   -t.link :account_update, :id=>@account.id
+  -if @account.letterable?
+    -t.link :account_letter, :id=>@account.id
 %table.flex
   %tr
     %td
@@ -14,12 +16,12 @@
           %th=JournalRecord.human_attribute_name("credit")
         %tr.total
           %th=tc(:totals)
-          %td.value=@totals[:debit]
-          %td.value=@totals[:credit]
+          %td.value=number_to_accountancy(@totals[:debit])
+          %td.value=number_to_accountancy(@totals[:credit])
         %tr.total
           %th=tc(:balance)
-          %td.value=@totals[:balance_debit]
-          %td.value=@totals[:balance_credit]
+          %td.value=number_to_accountancy(@totals[:balance_debit])
+          %td.value=number_to_accountancy(@totals[:balance_credit])
 
 
 

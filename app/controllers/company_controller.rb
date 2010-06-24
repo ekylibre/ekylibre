@@ -35,7 +35,7 @@ class CompanyController < ApplicationController
     @entities = @current_company.entities
     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
-    @title = {:user=>@current_user.label, :company=>@current_company.name}
+    t3e :user=>@current_user.label, :company=>@current_company.name
   end
 
 
@@ -145,7 +145,7 @@ class CompanyController < ApplicationController
       end
       redirect_to_back if saved
     end
-    @title = {:value=>@my_company.name}
+    t3e @my_company.attributes
   end
 
 
@@ -236,7 +236,7 @@ class CompanyController < ApplicationController
     else
       @rights = @role.rights_array
     end
-    @title = {:value=>@role.name}
+    t3e @role.attributes
     render_form
   end
 
@@ -553,8 +553,8 @@ class CompanyController < ApplicationController
       @listing.attributes = params[:listing]
       return if save_and_redirect(@listing, :url=>{:action=>:listing_update, :id=>"id"})
     end
-    t3e :value=>@listing.name
-    #render_form
+    t3e @listing.attributes
+    # render_form
   end
 
   def listing_duplicate

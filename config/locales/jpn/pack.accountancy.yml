@@ -192,6 +192,7 @@ jpn:
       journal_record:
         #>entries: 'Écritures'
         #>journal_record_update: 'Modifier la pièce'
+        #>resource: 'Consulter la pièce d''origine : {{resource}} {{number}}'
         #>title: 'Pièce comptable N°{{number}} du {{created_on}}'
       journal_record_create:
         #>title: 'Ajouter une pièce'
@@ -203,12 +204,12 @@ jpn:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals:
         #>draft_entries: 'Brouillard'
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'

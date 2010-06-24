@@ -189,7 +189,7 @@ fra:
         price_amount_with_taxes: 'Prix TTC'
         product: 'Produit'
         quantity_to_credit: 'Qté. à passer en avoir'
-        title: 'Passage en avoir de la facture {{value}}'
+        title: 'Passage en avoir de la facture {{number}}'
         total_quantity: 'Qté. totale'
         unit: 'Unité'
         validate: 'Valider'
@@ -214,7 +214,7 @@ fra:
         locations: 'Voir la liste des lieux de stockage' #!
         moves: 'Mouvements de stocks' #!
         stock_move_create: 'Ajouter un mouvement de stock' #!
-        title: 'Détail du lieu de stockage : {{value}}'
+        title: 'Détail du lieu de stockage : {{name}}'
       _location_choice:
         select_location: 'Choississez un lieu de stockage'
       location_create:
@@ -267,9 +267,9 @@ fra:
         sale_price_create: 'Créer un prix de vente' #!
         sales_price_create: 'Ajouter un prix de vente' #!
         stocks: 'État des stocks' #!
-        title: 'Fiche du produit : {{value}}'
+        title: 'Produit : {{name}}'
       product_component_create:
-        title: 'Ajouter un composant au produit {{value}} '
+        title: 'Ajouter un composant au produit {{product}} '
       product_component_update:
         title: 'Modification d''un composant du produit {{product}} '
       _product_components:
@@ -326,7 +326,7 @@ fra:
         purchase_order_print: 'Imprimer la commande d''achat' #!
         purchase_order_update: 'Modifier les informations de la commande'
         purchase_orders: 'Consulter la liste des achats' #!
-        title: 'Produits de la commande {{value}} chez {{name}}'
+        title: 'Produits de l''achat {{number}} au fournisseur {{supplier}}'
         validate: 'Valider la commande'
       purchase_order_summary:
         payments: 'Décaissements'
@@ -382,7 +382,7 @@ fra:
         sale_order_print: 'Imprimer la vente'
         sale_payment_part_create: 'Ajouter un encaissement' #!
         subscriptions: 'Abonnements'
-        title: 'Détails de la vente {{value}} au client {{name}}'
+        title: 'Détails de la vente {{number}} au client {{client}}'
         #>sale_payment_create: # Potentially missing translation
       sale_order_create:
         title: 'Nouvelle vente'
@@ -428,15 +428,15 @@ fra:
         change_price: 'Changer le prix unitaire' #!
         give_discount: 'Octroyer une remise' #!
         infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
         #>from: # Potentially missing translation
         #>to: # Potentially missing translation
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       _sale_order_line_row_form:
         discount: 'Réduc. (%)' #!
         from: 'Du numéro' #!
@@ -565,8 +565,7 @@ fra:
       shelf:
         products: 'Produits de la catégorie'
         shelf_update: 'Modifier la catégorie'
-        shelves: 'Voir la liste des catégories de produit' #!
-        title: 'Détail de la catégorie : {{value}}'
+        title: 'Détail de la catégorie : {{name}}'
       shelf_create:
         title: 'Ajout d''une nouvelle catégorie de produits'
       _shelf_form:
@@ -659,7 +658,7 @@ fra:
         title: 'Lot {{name}}'
       transport:
         deliveries: 'Livraisons'
-        title: 'Transport du {{value}}'
+        title: 'Transport du {{created_on}}'
       transport_create:
         title: 'Ajout d''un nouveau transport'
         #>info: # Potentially missing translation

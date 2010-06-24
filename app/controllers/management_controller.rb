@@ -379,7 +379,7 @@ class ManagementController < ApplicationController
         end
       end
     end
-    t3e :value=>@invoice.number
+    t3e @invoice.attributes
   end
    
 
@@ -404,7 +404,7 @@ class ManagementController < ApplicationController
   def invoice
     return unless @invoice = find_and_check(:invoice)
     session[:current_invoice] = @invoice.id
-    @title = {:nature=>@invoice.credit ? tc(:credit) : tc(:invoice), :number=>@invoice.number}
+    t3e :nature=>tc(@invoice.credit ? :credit : :invoice), :number=>@invoice.number
   end
 
   def self.prices_conditions(options={})
@@ -630,7 +630,7 @@ class ManagementController < ApplicationController
     else
       @product_component = ProductComponent.new(:quantity=>1.0)
     end
-    t3e :value=>@product.name
+    t3e :product=>@product.name
     render_form
   end
   
@@ -717,7 +717,7 @@ class ManagementController < ApplicationController
   def product
     return unless @product = find_and_check(:product)
     session[:product_id] = @product.id
-    @title = {:value=>@product.name}
+    t3e @product.attributes
   end
 
   def change_quantities
@@ -828,32 +828,10 @@ class ManagementController < ApplicationController
   def purchase_order
     return unless @purchase_order = find_and_check(:purchase_order)
     session[:current_purchase_order_id] = @purchase_order.id
-    @title = {:number=>@purchase_order.number, :supplier=>@purchase_order.supplier.full_name}
+    t3e @purchase_order.attributes, :supplier=>@purchase_order.supplier.full_name
   end
 
   manage :purchase_orders, :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
-
-#   def purchase_order_create
-#     if request.post?
-#       @purchase_order = PurchaseOrder.new(params[:purchase_order])
-#       @purchase_order.company_id = @current_company.id
-#       @purchase_order.save
-#       return if save_and_redirect(@purchase_order, :url=>{:action=>:purchase_order_lines, :id=>@purchase_order.id})
-#     else
-#       @purchase_order = PurchaseOrder.new(:planned_on=>Date.today)
-#       session[:current_entity_id] = @purchase_order.id
-#     end
-#     render_form
-#   end
-
-
-#   def purchase_order_delete
-#     return unless @purchase_order = find_and_check(:purchase_order)
-#     if request.post? or request.delete?
-#        @purchase_order.destroy
-#     end
-#     redirect_to :action=>:purchase_orders
-#   end
 
   dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
@@ -874,7 +852,7 @@ class ManagementController < ApplicationController
       @purchase_order.confirm
       redirect_to :action=>:purchase_order_summary, :id=>@purchase_order.id
     end
-    @title = {:value=>@purchase_order.number,:name=>@purchase_order.supplier.full_name}
+    t3e @purchase_order.attributes, :supplier=>@purchase_order.supplier.full_name
   end
 
   def price_find
@@ -1177,7 +1155,7 @@ class ManagementController < ApplicationController
   def sale_order
     return unless @sale_order = find_and_check(:sale_order)
     session[:current_sale_order_id] = @sale_order.id
-    @title = {:value=>@sale_order.number, :name=>@sale_order.client.full_name} 
+    t3e @sale_order.attributes, :client=>@sale_order.client.full_name
   end
   
 
@@ -1447,7 +1425,7 @@ class ManagementController < ApplicationController
       @sale_order_line.attributes = params[:sale_order_line]
       return if save_and_redirect(@sale_order_line)
     end
-    @title = {:value=>@sale_order_line.product.name}
+    t3e :product=>@sale_order_line.product.name
     render_form
   end
 
@@ -1458,18 +1436,6 @@ class ManagementController < ApplicationController
     end
     redirect_to_current
   end
-
-  
-#   dyta(:deliveries_to_invoice, :model=>:deliveries, :children=>:lines,   :conditions=>['company_id = ? AND order_id = ? AND invoice_id IS NULL', ['@current_company.id'], ['session[:current_sale_order_id]']]) do |t|
-#     t.column :address, :through=>:contact, :children=>:product_name
-#     t.column :planned_on, :children=>false
-#     t.column :moved_on, :children=>false
-#     t.column :quantity
-#     t.column :amount
-#     t.column :amount_with_taxes
-#     t.check :invoiceable, :value=>true
-#   end
-
 
  
   dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}) do |t|
@@ -1667,7 +1633,7 @@ class ManagementController < ApplicationController
     else
       @embankment = Embankment.new(:created_on=>Date.today, :mode_id=>mode.id, :embanker_id=>@current_user.id)
     end
-    @title = {:mode=>mode.name}
+    t3e :mode=>mode.name
     render_form
   end
 
@@ -1717,14 +1683,8 @@ class ManagementController < ApplicationController
   
   def sale_order_summary
     return unless @sale_order = find_and_check(:sale_orders, params[:id]||session[:current_sale_order_id])
-#     @payments = @sale_order.payment_parts
-#     @invoices = @sale_order.invoices
-#     @invoices_sum = 0
-#     @invoices.each {|i| @invoices_sum += i.amount_with_taxes}
-#     @payments_sum = 0 
-#     @payments.each {|p| @payments_sum += p.amount}
     session[:current_sale_order_id] = @sale_order.id
-    @title = {:number=>@sale_order.number}
+    t3e @sale_order.attributes
   end
 
 
@@ -1840,13 +1800,10 @@ class ManagementController < ApplicationController
   def shelf
     return unless @shelf = find_and_check(:shelf)
     session[:current_shelf_id] = @shelf.id
-    t3e :value=>@shelf.name
+    t3e @shelf.attributes
   end
 
   manage :shelves
-
-
-
 
   dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -1953,7 +1910,7 @@ class ManagementController < ApplicationController
   def location
     return unless @location = find_and_check(:location)
     session[:current_location_id] = @location.id
-    @title = {:value=>@location.name}
+    t3e @location.attributes
   end
 
   manage :locations, :reservoir=>"params[:reservoir]"
@@ -2276,7 +2233,7 @@ class ManagementController < ApplicationController
   def transport
     return unless @transport = find_and_check(:transports)
     session[:current_transport] = @transport.id
-    @title = {:value=>@transport.created_on}
+    t3e @transport.attributes
   end
   
   # manage :transports, :transport_on=>'Date.today', :responsible_id=>'@current_user.id', :redirect_to=>'{:action=>:transport_deliveries, :id=>"id"}'

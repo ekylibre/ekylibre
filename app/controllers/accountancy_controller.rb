@@ -196,6 +196,7 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
+    t.column :letter
   end
 
   dyta(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
@@ -243,8 +244,9 @@ class AccountancyController < ApplicationController
   # this method displays the array for make lettering.
   def account_letter
     return unless @account = find_and_check(:account)
-    params[:stopped_on] = (params[:stopped_on]||Date.today).to_date
-    params[:started_on] = (params[:started_on]||params[:stopped_on]-1.month+1.day).to_date
+    fy = @current_company.current_financialyear
+    params[:stopped_on] = (params[:stopped_on]||(fy ? fy.stopped_on : Date.today)).to_date
+    params[:started_on] = (params[:started_on]||(fy ? fy.started_on : params[:stopped_on]-1.month+1.day)).to_date
     if request.post?
       if params[:journal_entry]
         journal_entries = params[:journal_entry].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entries.find_by_id(k)) ? k.to_i : nil)}.compact
@@ -474,7 +476,7 @@ class AccountancyController < ApplicationController
       
   #   end
 
-  #   @title = {:value=>::I18n.t("views.#{self.controller_name}.document_prepare.#{@print[0]}")}
+  #   t3e :name=>::I18n.t("views.#{self.controller_name}.document_prepare.#{@print[0]}")
   # end
   
   # # this method displays the income statement and the balance sheet.
@@ -528,13 +530,8 @@ class AccountancyController < ApplicationController
   #     end
   #   end
 
-  #   @title={:value=>"la période du "+@printed[:from].to_s+" au "+@printed[:to].to_s}
+  #   t3e :from=>@printed[:from], :to=>@printed[:to]
   # end
-
-  # this method orders sale.
-  #def order_sale
-  # render(:xil=>"#{RAILS_ROOT}/app/views/prints/sale_order.xml",:key=>params[:id])
-  #end
   
   dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>{:action=>:financialyear}
@@ -1105,7 +1102,7 @@ class AccountancyController < ApplicationController
   #   # payback of vat credits.
   #   @vat_payback_amount = @current_company.filtering_entries(:debit, ['44583*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
-  #   @title = {:nature => tc(@tax_declaration.nature), :started_on => @tax_declaration.started_on, :stopped_on => @tax_declaration.stopped_on }
+  #   t3e :nature => tc(@tax_declaration.nature), :started_on => @tax_declaration.started_on, :stopped_on => @tax_declaration.stopped_on
   # end
   
 
