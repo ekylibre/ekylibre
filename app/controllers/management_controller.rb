@@ -802,7 +802,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status', :order=>"number DESC") do |t|
+  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number ,:url=>{:action=>:purchase_order}
     t.column :created_on
     t.column :moved_on

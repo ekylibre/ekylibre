@@ -76,6 +76,7 @@ class Sequence < ActiveRecord::Base
 
   def next_value
     self.reload
+    today = Date.today
     period = self.period
     if self.last_number.nil?
       self.last_number  = self.number_start
@@ -83,8 +84,9 @@ class Sequence < ActiveRecord::Base
       self.last_number += self.number_increment 
     end
     if period != 'number' and not self.send('last_'+period).nil?
-      self.last_number = self.number_start if self.send('last_'+period) != Date.today.send(period)
+      self.last_number = self.number_start if self.send('last_'+period) != today.send(period) or self.last_year != today.year
     end
+    self.last_year, self.last_month, self.last_cweek = today.year, today.month, today.cweek
     self.save!
     self.compute
   end

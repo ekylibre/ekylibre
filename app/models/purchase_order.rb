@@ -56,6 +56,7 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :products, :through=>:lines, :uniq=>true
 
   validates_presence_of :planned_on, :created_on
+  validates_uniqueness_of :number, :scope=>:company_id
 
   ## shipped used as received
 
