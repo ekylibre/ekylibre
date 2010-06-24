@@ -230,14 +230,25 @@ class AccountancyController < ApplicationController
   end
 
 
+  dyta(:unlettered_journal_entries, :model=>:journal_entries, :joins=>"JOIN accounts ON (account_id=accounts.id)", :conditions=>["journal_entries.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+    t.column :number, :through=>:account, :url=>{:action=>:account_letter}
+    t.column :name, :through=>:account, :url=>{:action=>:account_letter}
+    t.column :number, :through=>:record
+    t.column :name
+    t.column :debit
+    t.column :credit
+  end
+
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
-    @accounts_client=@current_company.client_accounts
-    @accounts_supplier=@current_company.supplier_accounts
-    if request.post?
-      @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
-      redirect_to :action => :account_letter, :id => @account.id
-    end
+    session[:current_lettering_mode] = params[:id] = params[:id] || session[:current_lettering_mode] || :clients
+    session[:current_account_prefix] = @current_company.parameter("accountancy.accounts.third_#{params[:id]}").value
+    #     @accounts_client=@current_company.client_accounts
+    #     @accounts_supplier=@current_company.supplier_accounts
+    #     if request.post?
+    #       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
+    #       redirect_to :action => :account_letter, :id => @account.id
+    #     end
   end
 
 

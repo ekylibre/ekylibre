@@ -44,7 +44,7 @@
 #
 
 class PurchaseOrder < ActiveRecord::Base
-  acts_as_accountable :callbacks=>false
+  acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
@@ -75,6 +75,11 @@ class PurchaseOrder < ActiveRecord::Base
 
     self.amount = self.lines.sum(:amount)
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
+  end
+  
+  def after_validation_on_create
+    specific_numeration = self.company.parameter("management.purchase_orders.numeration").value
+    self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
 
   def after_create
@@ -165,7 +170,7 @@ class PurchaseOrder < ActiveRecord::Base
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
-    accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>self.lines.size.zero?) do |record|
+    accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |record|
       for line in self.lines
         record.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
         record.add_debit(label, line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?

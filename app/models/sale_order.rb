@@ -61,7 +61,7 @@
 #
 
 class SaleOrder < ActiveRecord::Base
-  acts_as_accountable :callbacks=>false
+  acts_as_accountable 
   attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
@@ -71,6 +71,7 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :delivery_contact,:class_name=>Contact.to_s
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
+  # belongs_to :journal_record
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
@@ -79,6 +80,7 @@ class SaleOrder < ActiveRecord::Base
   has_many :invoices
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_parts, :as=>:expense, :class_name=>SalePaymentPart.name
+  has_many :payments, :through=>:payment_parts
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
@@ -383,10 +385,12 @@ class SaleOrder < ActiveRecord::Base
     ps = p.join(", ")
   end
 
-  #this method accountizes the sale.
+
+  # this method accountizes the sale order.
+  # In facts, it letters the invoices and the payments
   def to_accountancy(action=:create, options={})
+    self.class.update_all({:accounted_at=>Time.now}, {:id=>self.id})
     self.reload
-    self.update_attribute(:accounted_at, Time.now) #  unless self.amount.zero?
   end
 
 end

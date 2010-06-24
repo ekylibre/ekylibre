@@ -114,9 +114,9 @@ spa:
         #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
         #>title: 'Modes de livraison'
-      _delivery_update:
       delivery_update:
         #>title: 'Modification de la livraison'
+      _delivery_update:
       embankment:
         #>amount: 'Montant total'
         #>embankment: 'Remise en banque du'
@@ -442,13 +442,13 @@ spa:
         #>change_price: 'Changer le prix unitaire'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       _sale_order_line_row_form:
         #>discount: 'Réduc. (%)'
         #>from: 'Du numéro'

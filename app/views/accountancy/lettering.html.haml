@@ -1,14 +1,2 @@
-- form_tag do
-  %fieldset
-    %legend=tc(:lettering_account_client)
-    =formalize do |f|
-      - f.field tc(:select_account_client), select_tag("account_client_id", options_for_select(@accounts_client.collect{|a| [a.label.to_s, a.id.to_s]}) )
-    .actions=submit_tag tg('letter')
-- form_tag do
-  %fieldset
-    %legend=tc(:lettering_account_supplier)
-    =formalize do |f|
-      - f.field tc(:select_account_supplier), select_tag("account_supplier_id", options_for_select(@accounts_supplier.collect{|a| [a.label.to_s, a.id.to_s]}) )
-    .actions=submit_tag tg('letter')
-
-
+=lettering_modes_tag
+.tab-content=dyta(:unlettered_journal_entries)

@@ -84,7 +84,7 @@ class Account < ActiveRecord::Base
 
   def letter_entries(journal_entries_id, letter = nil)
     letter ||= self.new_letter
-    self.journal_entries.update_all({:letter=>letter}, {:id=>journal_entries_id})
+    self.journal_entries.update_all({:letter=>letter}, {:id=>journal_entries_id, :letter=>nil})
   end
 
   def unletter_entries(letter)

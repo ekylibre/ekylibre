@@ -8,11 +8,17 @@ fra:
     accountancy:
       all_accounts: 'Tous les comptes'
       all_periods: 'Tous les exercices'
+      journal_view:
+        draft_entries: 'Brouillard'
+        entries: 'Écritures'
+        mixed: 'Pièces et écritures'
+        records: 'Pièces'
+      lettering_modes:
+        attorneys: 'Mandataires'
+        clients: 'Clients'
+        suppliers: 'Fournisseurs'
+        title: 'Catégories de tiers'
       month_period: '{{code}} - {{month}} {{year}}'
-      view_draft_entries: 'Brouillard'
-      view_entries: 'Écritures'
-      view_mixed: 'Pièces et écritures'
-      view_records: 'Pièces'
   views:
     accountancy:
       account:
@@ -21,16 +27,17 @@ fra:
           entities: 'Personnes' #!
           journal_entries: 'Écritures' #!
  #!
+        account_letter: 'Lettrer le compte'
         account_update: 'Modifier le compte'
         balance: 'Solde'
         title: 'Compte : {{number}} - {{name}}'
         totals: 'Totaux (pièces validées et brouillard)'
-        account_letter: Lettrer le compte
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
         current_letter: 'Lettre en cours : {{letter}}'
         title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
+        #>lettering: # Potentially missing translation
       account_update:
         title: 'Modifier le compte : {{number}} - {{name}}'
       accountize:
@@ -191,7 +198,7 @@ fra:
       journal_record:
         entries: 'Écritures'
         journal_record_update: 'Modifier la pièce'
-        resource: 'Consulter la pièce d''origine : {{resource}} {{number}}'
+        resource: 'Consulter la pièce d''origine : {{resource}} {{number}}' #!
         title: 'Pièce comptable N°{{number}} du {{created_on}}'
       journal_record_create:
         title: 'Ajouter une pièce'
@@ -203,13 +210,13 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       _journals:
         draft_entries: 'Brouillard'
         journal_detail: 'Cloturé au {{closed_on}}' #!
         journal_name: '{{name}}' #!
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       # Unfound view ./app/views/accountancy/_journals_find
       _journals_find:
         journal_id: 'Numéro de journal'
@@ -220,10 +227,10 @@ fra:
         manual_period: 'du {{start}} au {{finish}}'
         period: 'Période prédéfinie'
       lettering:
-        lettering_account_client: 'Lettrage des comptes clients'
-        lettering_account_supplier: 'Lettrage des comptes fournisseurs'
-        select_account_client: 'Compte à lettrer'
-        select_account_supplier: 'Compte à lettrer'
+        lettering_account_client: 'Lettrage des comptes clients' #!
+        lettering_account_supplier: 'Lettrage des comptes fournisseurs' #!
+        select_account_client: 'Compte à lettrer' #!
+        select_account_supplier: 'Compte à lettrer' #!
         select_financialyear: 'Exercice' #!
         title: 'Lettrage de comptes'
       _print_balance:

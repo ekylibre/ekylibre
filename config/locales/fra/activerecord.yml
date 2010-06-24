@@ -1981,6 +1981,7 @@ fra:
         payment_delay: 'Délai d''encaissement'
         payment_delay_id: 'Délai d''encaissement'
         payment_parts: 'Parties d''encaissement'
+        payments: (((PAYMENTS)))
         responsible: 'Responsable'
         responsible_id: 'Responsable'
         state: 'État'

@@ -2,10 +2,12 @@
 
 Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour la période sélectionnée. Vous pouvez en permanence modifier la période.
 
+!!! Chaque compte possède sa propre séquence de lettrage, ce qui fait que pour chaque compte, la première lettre proposée sera toujours **AAA**.
+
 ===== Lettrer =====
 
 Pour lettrer, vous devez cocher toutes les écritures à lettrer puis valider. La lettre en cours sera appliquée à toutes les écritures sélectionnées. 
 Le somme des débits/crédits des écritures cochées est affichées en bas du tableau.
 
 ===== Délettrer =====
-Si vous vous êtes trompé et que vous souhaitez délettrer, il faut cliquer sur le bouton {{theme:buttons/unletter.png}} à coté de la lettre. Toutes les écritures correspondant à la lettre en question seront délettrées et à nouveau disponibles.
+Si vous souhaitez corriger une erreur et délettrer, cliquez sur le bouton {{theme:buttons/unletter.png}} à coté de la lettre. Toutes les écritures correspondant à la lettre en question seront délettrées et à nouveau //lettrables//.

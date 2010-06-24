@@ -387,6 +387,7 @@ manage_entries:
   - journals
   - journals_dyta
   - lettering
+  - unlettered_journal_entries_dyta
 # Créer, modifier des devis
 manage_estimates:
   controller: management

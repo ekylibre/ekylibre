@@ -13,11 +13,17 @@ spa:
     accountancy:
       #>all_accounts: 'Tous les comptes'
       #>all_periods: 'Tous les exercices'
+      journal_view:
+        #>draft_entries: 'Brouillard'
+        #>entries: 'Écritures'
+        #>mixed: 'Pièces et écritures'
+        #>records: 'Pièces'
+      lettering_modes:
+        #>attorneys: 'Mandataires'
+        #>clients: 'Clients'
+        #>suppliers: 'Fournisseurs'
+        #>title: 'Catégories de tiers'
       #>month_period: '{{code}} - {{month}} {{year}}'
-      #>view_draft_entries: 'Brouillard'
-      #>view_entries: 'Écritures'
-      #>view_mixed: 'Pièces et écritures'
-      #>view_records: 'Pièces'
   views:
     accountancy:
       account:
@@ -25,6 +31,7 @@ spa:
           #>children: 'Sous-comptes'
           #>entities: 'Personnes'
           #>journal_entries: 'Écritures'
+        #>account_letter: 'Lettrer le compte'
         #>account_update: 'Modifier le compte'
         #>balance: 'Solde'
         #>title: 'Compte : {{number}} - {{name}}'
@@ -204,12 +211,12 @@ spa:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals:
         #>draft_entries: 'Brouillard'
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals_find:
         #>journal_id: 'Numéro de journal'
         #>journal_name: 'Nom du journal'

@@ -130,7 +130,8 @@ class SalePayment < ActiveRecord::Base
     end
     return true
   end
-  
+
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})

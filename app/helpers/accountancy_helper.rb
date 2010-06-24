@@ -19,9 +19,6 @@
 
 module AccountancyHelper
 
-  
-
-
   def major_accounts_tag
     majors = []
     majors << if params[:prefix].blank?
@@ -72,7 +69,7 @@ module AccountancyHelper
     code = content_tag(:span, tg(:view))
     for mode in [:entries, :records, :mixed, :draft_entries]
       if @journal_view == mode
-        code += content_tag(:strong, tc("view_#{mode}"))
+        code += content_tag(:strong, tc("journal_view.#{mode}"))
       else
         url = {:action=>:journal, :id=>@journal.id, :view=>mode, :period_mode=>params[:period_mode]}
         if url[:period_mode] == "automatic"
@@ -81,7 +78,7 @@ module AccountancyHelper
           url[:start] = params[:start]
           url[:finish] = params[:finish]
         end
-        code += link_to tc("view_#{mode}"), url
+        code += link_to tc("journal_view.#{mode}"), url
       end
     end
     return content_tag(:div, code, :class=>:view)
@@ -102,6 +99,19 @@ module AccountancyHelper
       list += list2.reverse
     end
     options_for_select(list, value)
+  end
+
+
+  def lettering_modes_tag
+    code = content_tag(:span, tc("lettering_modes.title"))
+    for mode in [:clients, :suppliers, :attorneys]
+      if params[:id].to_s == mode.to_s
+        code += content_tag(:strong, tc("lettering_modes.#{mode}"))
+      else
+        code += link_to tc("lettering_modes.#{mode}"), {:action=>:lettering, :id=>mode}
+      end
+    end
+    return content_tag(:div, code, :class=>:view)
   end
 
 

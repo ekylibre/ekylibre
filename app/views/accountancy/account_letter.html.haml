@@ -7,6 +7,9 @@
         %td.label=tg(:to)
         %td.field=calendar_field_tag :stopped_on, params[:stopped_on]
         %td.submit=submit_tag(tg(:filter), :name=>nil)
+=toolbar do |t|
+  -t.link :lettering, {:id=>session[:current_lettering_mode]}
+
 =evalue @account, :name, :url=>{:action=>:account, :id=>@account.id}
 =evalue @account, :number, :url=>{:action=>:account, :id=>@account.id}
 
@@ -18,7 +21,7 @@
   %table.dyta
     %tr
       %th=JournalEntry.human_attribute_name("letter")
-      %th=JournalRecord.human_attribute_name("created_on")
+      %th=JournalRecord.human_attribute_name("printed_on")
       %th=Journal.human_name
       %th=JournalRecord.human_name
       %th=JournalEntry.human_name
@@ -34,7 +37,7 @@
           -else
             =@journal_entry.letter
             =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unletter, :id=>@account.id, :letter=>@journal_entry.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
-        %td.date=I18n.localize(@journal_entry.record.created_on)
+        %td.date=I18n.localize(@journal_entry.record.printed_on)
         %td=link_to(@journal_entry.journal.name, {:action=>:journal, :id=>@journal_entry.journal_id}, :keep=>true)
         %td.code=link_to(@journal_entry.record.number, {:action=>:journal_record, :id=>@journal_entry.record_id}, :keep=>true)
         %td=@journal_entry.name

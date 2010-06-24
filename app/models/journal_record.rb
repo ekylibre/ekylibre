@@ -101,9 +101,9 @@ class JournalRecord < ActiveRecord::Base
         return false
       end
     end
-    if self.printed_on
-      errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
-    end
+#     if self.printed_on
+#       errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
+#     end
     if self.financialyear
       errors.add(:printed_on, :out_of_financialyear, :from=>::I18n.localize(self.financialyear.started_on), :to=>::I18n.localize(self.financialyear.stopped_on)) if self.financialyear.closed?
 #       if self.printed_on < self.financialyear.started_on or self.printed_on > self.financialyear.stopped_on

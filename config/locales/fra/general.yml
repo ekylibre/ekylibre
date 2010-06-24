@@ -475,7 +475,7 @@ fra:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} pour {{payee}}'
       to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} pour {{payee}} ({{expenses}})'
     purchase_payment_part:
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} reçu par {{attorney}} pour {{supplier}}'
+      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) reçu par {{attorney}} pour {{supplier}} ({{expense_number}})'
     sale_order:
       label:
         estimate: 'Devis N°{{number}}'
@@ -503,7 +503,7 @@ fra:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) du {{date}} par {{mode}} de {{payer}}'
       to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} de {{payer}} ({{expenses}})'
     sale_payment_part:
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} reçu de {{attorney}} pour {{client}}'
+      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) reçu de {{attorney}} pour {{client}} ({{expense_number}})'
     sequence:
       periods:
         cweek: 'Semaine'
