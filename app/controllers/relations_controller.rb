@@ -124,7 +124,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:district
     t.column :country    
     t.action :area_update
-    t.action :area_delete, :confirm=>:are_you_sure, :method=>:delete
+    t.action :area_delete, :confirm=>:are_you_sure_to_delete, :method=>:delete
   end
 
 
@@ -145,7 +145,7 @@ class RelationsController < ApplicationController
     t.column :code
     t.action :area_create, :url=>{:district_id=>"(RECORD.id)", :id=>'nil'}
     t.action :district_update
-    t.action :district_delete, :confirm=>:are_you_sure, :method=>:delete
+    t.action :district_delete, :confirm=>:are_you_sure_to_delete, :method=>:delete
   end
 
   dyli(:districts, [:name, :code], :conditions=>{:company_id=>['@current_company.id']})
@@ -273,7 +273,7 @@ class RelationsController < ApplicationController
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:contact_update}
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :entity_update
-    t.action :entity_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
@@ -294,9 +294,9 @@ class RelationsController < ApplicationController
     t.column :email
     t.column :website
     t.column :by_default
-    t.column :code, :through=>:entity, :url=>{:action=>:entity}, :label=>tc(:entity_id)
+    t.column :code, :through=>:entity, :url=>{:action=>:entity}
     t.action :contact_update  
-    t.action :contact_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :contact_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
@@ -311,7 +311,7 @@ class RelationsController < ApplicationController
     t.column :quantity, :datatype=>:decimal
     t.column :suspended
     t.action :subscription_update, :controller=>:management
-    t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
+    t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
@@ -324,7 +324,7 @@ class RelationsController < ApplicationController
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
     t.action :sale_order_duplicate, :controller=>:management, :method=>:post
     t.action :sale_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
-    t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure
+    t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
@@ -335,7 +335,7 @@ class RelationsController < ApplicationController
     t.column :location
     t.column :started_at
     t.action :event_update
-    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
@@ -343,7 +343,7 @@ class RelationsController < ApplicationController
     t.column :number
     t.column :iban_label
     t.action :cash_update, :controller => :accountancy
-    t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure 
+    t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure_to_delete 
   end
   
   dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
@@ -367,7 +367,7 @@ class RelationsController < ApplicationController
     t.column :started_on, :datatype=>:date
     t.column :stopped_on, :datatype=>:date
     t.action :mandate_update, :image=>:update
-    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
@@ -383,7 +383,7 @@ class RelationsController < ApplicationController
     t.column :amount, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :number, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}
     t.action :sale_payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
-    t.action :sale_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :sale_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
 
@@ -396,7 +396,7 @@ class RelationsController < ApplicationController
     t.column :parts_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:purchase_payment}
     t.action :purchase_payment_update, :controller=>:management
-    t.action :purchase_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :purchase_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
 
@@ -404,7 +404,7 @@ class RelationsController < ApplicationController
     t.column :description
     t.column :text_importance
     t.action :observation_update
-    t.action :observation_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :observation_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
 
@@ -419,7 +419,7 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
-    t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def entity
@@ -570,7 +570,7 @@ class RelationsController < ApplicationController
     t.column :description
     t.column :by_default
     t.action :entity_category_update
-    t.action :entity_category_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :entity_category_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def entity_categories
@@ -581,7 +581,7 @@ class RelationsController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :name, :through=>:tax
-    t.action :price_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure
+    t.action :price_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
     
   def entity_category
@@ -602,7 +602,7 @@ class RelationsController < ApplicationController
     t.column :physical
     t.column :in_name
     t.action :entity_nature_update
-    t.action :entity_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def entity_natures
@@ -617,7 +617,7 @@ class RelationsController < ApplicationController
     t.column :propagate_contacts
     t.column :symmetric
     t.action :entity_link_nature_update
-    t.action :entity_link_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :entity_link_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def entity_link_natures
@@ -631,7 +631,7 @@ class RelationsController < ApplicationController
     t.column :description, :through=>:entity_2, :url=>{:action=>:entity}
     t.column :comment
     t.action :entity_link_update
-    t.action :entity_link_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :entity_link_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
 
@@ -664,7 +664,7 @@ class RelationsController < ApplicationController
     t.column :started_on
     t.column :stopped_on
     t.action :mandate_update, :image=>:update
-    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   #
@@ -714,7 +714,7 @@ class RelationsController < ApplicationController
     t.column :text_usage, :label=>tc(:usage)
     t.column :duration
     t.action :event_nature_update
-    t.action :event_nature_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :event_nature_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def event_natures
@@ -734,7 +734,7 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :event_update
-    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   def events

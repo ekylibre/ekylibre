@@ -82,7 +82,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.action :cash_update
-    t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   # lists all the cashes with the mainly characteristics. 
@@ -165,7 +165,7 @@ class AccountancyController < ApplicationController
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
     t.action :account_update
-    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
   # lists all the accounts with the credit, the debit and the balance for each of them.
@@ -211,7 +211,7 @@ class AccountancyController < ApplicationController
 #     t.column :number, :url=>{:action=>:account}
 #     t.column :name, :url=>{:action=>:account}
 #     t.action :account_update
-#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure
+#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
 #   end
 
   def account
@@ -551,7 +551,7 @@ class AccountancyController < ApplicationController
     t.column :stopped_on,:url=>{:action=>:financialyear}
     t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :financialyear_update, :if => '!RECORD.closed'  
-    t.action :financialyear_delete, :method=>:delete, :confirm=>:are_you_sure, :if => '!RECORD.closed'  
+    t.action :financialyear_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if => '!RECORD.closed'  
   end
 
   # lists all the cashes with the mainly characteristics. 
@@ -640,7 +640,7 @@ class AccountancyController < ApplicationController
     t.action :journal_close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
     t.action :journal_reopen, :if=>"RECORD.reopenable\?", :image=>:lock
     t.action :journal_update
-    t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
 
@@ -693,7 +693,7 @@ class AccountancyController < ApplicationController
     t.column :debit
     t.column :credit
     t.action :journal_record_update, :if=>'RECORD.updatable? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
   dyta(:journal_mixed, :model=>:journal_records, :conditions=>journal_records_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
@@ -704,7 +704,7 @@ class AccountancyController < ApplicationController
     t.column :debit
     t.column :credit
     t.action :journal_record_update, :if=>'RECORD.updatable? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   dyta(:journal_draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
@@ -933,7 +933,7 @@ class AccountancyController < ApplicationController
     t.column :credit
     t.action :bank_statement_point
     t.action :bank_statement_update
-    t.action :bank_statement_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :bank_statement_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   # lists all the statements in details for a precise account.
@@ -1004,7 +1004,7 @@ class AccountancyController < ApplicationController
     t.column :label, :through=>:account_paid, :url=>{:action=>:account}
     t.column :label, :through=>:account_collected, :url=>{:action=>:account}
     t.action :tax_update
-    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def taxes
@@ -1022,7 +1022,7 @@ class AccountancyController < ApplicationController
   #   t.column :amount
   #   t.action :tax_declaration, :image => :show
   #   t.action :tax_declaration_update, #, :if => '!RECORD.submitted?'  
-  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure #, :if => '!RECORD.submitted?'
+  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete #, :if => '!RECORD.submitted?'
     
   # end
   

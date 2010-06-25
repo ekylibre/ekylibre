@@ -64,7 +64,7 @@
       <table if="entity.events.size&gt;0" collection="entity.events">
 	<column label="Type" property="nature.name" width="25mm"/>
 	<column label="Motif" property="reason" width="70mm"/>
-	<column label="Employé" property="user.label" width="45mm"/>
+	<column label="Employé" property="responsible.label" width="45mm"/>
 	<column label="Durée" property="duration" width="15mm" numeric="money"/>
 	<column label="Lieu" property="location" width="30mm"/>
 	<column label="À débuté le" property="started_at.to_date" width="20mm"/>

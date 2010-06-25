@@ -137,14 +137,14 @@ class ManagementController < ApplicationController
 
 
       csv_data = FasterCSV.generate do |csv|
-        csv << [::I18n.t('activerecord.models.product'), ::I18n.t('activerecord.attributes.product.product_account_id')]+months
+        csv << [::I18n.t('activerecord.models.product'), ::I18n.t('activerecord.attributes.product.sales_account_id')]+months
         for product in @current_company.products.find(:all, :order=>"active DESC, name")
           valid = false
           data[product.id.to_s].collect do |k,v|
             valid = true unless v.nil? and  v != 0
           end
           if product.active or valid
-            row = [product.name, (product.product_account ? product.product_account.number : "?")]
+            row = [product.name, (product.sales_account ? product.sales_account.number : "?")]
             months.size.times {|i| row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
             csv << row
           end
@@ -831,7 +831,7 @@ class ManagementController < ApplicationController
     t3e @purchase_order.attributes, :supplier=>@purchase_order.supplier.full_name
   end
 
-  manage :purchase_orders, :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
+  manage :purchase_orders, :supplier_id=>"@current_company.entities.find(params[:supplier_id]).id rescue nil", :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
 
   dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
@@ -1045,7 +1045,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale_order}
-    t.action :sale_order_delete, :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>tc(:are_you_sure_to_delete)
+    t.action :sale_order_delete, :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure_to_delete
   end
   
   def sale_order_delete

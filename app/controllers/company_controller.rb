@@ -180,7 +180,7 @@ class CompanyController < ApplicationController
     t.column :siret
     t.column :comment
     t.action :establishment_update
-    t.action :establishment_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :establishment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def establishments
@@ -193,7 +193,7 @@ class CompanyController < ApplicationController
     t.column :name
     t.column :comment
     t.action :department_update
-    t.action :department_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :department_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def departments
@@ -206,7 +206,7 @@ class CompanyController < ApplicationController
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
     t.action :role_update
-    t.action :role_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :role_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def roles
@@ -297,7 +297,7 @@ class CompanyController < ApplicationController
     t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:user_unlock},"false"=>{:action=>:user_lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :user_update 
-    t.action :user_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.id!=@current_user.id'
+    t.action :user_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>'RECORD.id!=@current_user.id'
   end
 
   def user
@@ -379,7 +379,7 @@ class CompanyController < ApplicationController
     t.action :document_template_print
     t.action :document_template_duplicate, :method=>:post
     t.action :document_template_update
-    t.action :document_template_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :document_template_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def document_templates
@@ -425,7 +425,7 @@ class CompanyController < ApplicationController
     t.column :format, :class=>:code
     t.column :period_name
     t.action :sequence_update
-    t.action :sequence_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :sequence_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def sequences_load
@@ -447,7 +447,7 @@ class CompanyController < ApplicationController
     t.action :listing_mail, :if=>'RECORD.mail_columns.size > 0'
     t.action :listing_duplicate, :method=>:post
     t.action :listing_update
-    t.action :listing_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :listing_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 
   def listings
@@ -655,7 +655,7 @@ class CompanyController < ApplicationController
     t.column :base
     t.column :start
     t.action :unit_update
-    t.action :unit_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>"RECORD.destroyable\?"
+    t.action :unit_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   def units

@@ -442,7 +442,7 @@ module ApplicationHelper
 
   def action_title
     options = @title||{}
-    return I18n.t("views.#{controller.controller_name}.#{action_name}.#{options[:title]||:title}", options)
+    return I18n.t("views.#{controller.controller_name}.#{action_name}.title", options)
   end
 
   def title_tag

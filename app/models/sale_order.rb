@@ -390,7 +390,7 @@ class SaleOrder < ActiveRecord::Base
   # In facts, it letters the invoices and the payments
   def to_accountancy(action=:create, options={})
     self.class.update_all({:accounted_at=>Time.now}, {:id=>self.id})
-    self.reload
+    self.reload unless action == :destroy
   end
 
 end
