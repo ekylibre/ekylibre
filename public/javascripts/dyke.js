@@ -24,11 +24,14 @@ var resizeElementMethods = {
   
   getFlex: function(element) {
     element = $(element);
-    var f = element.getAttribute("flex");
-    if (isNaN(f) || f === null) {
-      return 0;
+    if (element.hasClassName('flex')) {
+      return 1;
     } else {
-      return parseFloat(f);
+      var reg = new RegExp("^flex-\\d+$", "ig")
+      var className = element.classNames.detect(function(n){return reg.match(n)})
+      if (className !== null) {
+        return parseFloat(className.substring(5))
+      }
     }
     return 0;
   },
@@ -36,7 +39,7 @@ var resizeElementMethods = {
   isHorizontal: function(element) {
     element = $(element);
     var h = true;
-    if (element.getAttribute('orient') === 'vertical') {
+    if (element.hasClassName('vbox')) {
       h = false;
     }
     return h;
@@ -147,7 +150,7 @@ function dyliChange(dyli, id) {
 var overlays = 0;
 
 function openDialog(url) {
-  var body   = document.getElementsByTagName("BODY")[0];
+  var body   = document.body || document.getElementsByTagName("BODY")[0];
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;

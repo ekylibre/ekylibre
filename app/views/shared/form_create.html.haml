@@ -1,20 +1,19 @@
 -form_id = @options[:id]||"f"+rand.to_s[2..-1]
 -if params[:dialog]
   -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
-  -#form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, 250=>"#{jsaction}; closeDialog('#{params[:dialog]}')", 200=>"$('#{params[:dialog]}').update(request.responseText).resize();", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none'}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
-  -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText).resize();} else { #{jsaction}; closeDialog('#{params[:dialog]}')}", :html=>{:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none', :class=>:lm_container}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
-    .lm_center.fields{:flex=>10}
+  -form_remote_tag(:url=>{:dialog=>params[:dialog], :formalize=>params[:formalize]}, :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText).resize();} else { #{jsaction}; closeDialog('#{params[:dialog]}')}", :html=>{:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
+    .fields.flex
       =render :partial=>@partial
       .end
-    .lm_bottom.actions
+    .actions
       =submit_tag(tg(@options[:submit]||:create))
       =link_to_function(tg(@options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
 -else
-  -form_tag(nil, {:id=>form_id, :flex=>1, :orient=>:vertical, :style=>'overflow:none', :class=>:lm_container}) do
-    .lm_center.fields{:flex=>10}
+  -form_tag(nil, {:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}) do
+    .fields.flex
       =render :partial=>@partial
       .end
-    .lm_bottom.actions
+    .actions
       =submit_tag(tg(@options[:submit]||:create))
       =link_to_back :label=>@options[:cancel]||:cancel
 

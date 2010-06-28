@@ -1,6 +1,6 @@
--form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :flex=>1, :orient=>:vertical) do
-  .fields{:flex=>10, :orient=>:horizontal, :style=>'overflow:none'}
-    .form-column{:flex=>2}
+-form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
+  .fields.vbox.flex{:style=>'overflow:none'}
+    .form-column{:style=>"float:left; width: 200px;"}
       -params[:columns] ||= {}
       -index = 0
       %p.hint=tc(:select_columns)
@@ -34,7 +34,7 @@
               =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
             
       .end
-    .form-column{:flex=>7}
+    .form-column
       =formalize do |f|
         -f.title :add_conditions
         -f.field tc('check'), {:choices=>[[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype=>:radio, :name=>:check, :value=>params[:check]||:and}

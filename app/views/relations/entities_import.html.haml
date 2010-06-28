@@ -1,5 +1,5 @@
--form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :flex=>1, :orient=>:vertical) do
-  .fields{:flex=>10}
+-form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
+  .fields.flex
     -if @step == :upload
       =formalize do |f|
         -f.title :upload

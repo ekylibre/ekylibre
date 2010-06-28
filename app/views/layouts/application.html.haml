@@ -10,8 +10,8 @@
     =calendar_link_tag
     =javascript_include_tag :defaults
     =#javascript_include_tag 'layout'
-    =#javascript_include_tag 'dyke'
-  %body{:xonload=>"resize();", :wwonload=>"layoutManager = new LayoutManager(); alert(layoutManager);", :xonresize=>"resize();"}
+    =javascript_include_tag 'dyke'
+  %body
     #body.vbox.flex
       #top=top_tag
       #wrap

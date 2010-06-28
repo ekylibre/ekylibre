@@ -124,7 +124,8 @@ module Ekylibre
               
               export = "content_tag(:span, ::I18n.t('#{options[:export]}.title'))"
               for format in [:csv, :xcsv]
-                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+                # export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'})"
               end
               footer += footer_var+"+=content_tag(:div, #{export}, :class=>'export')\n"
             end
@@ -153,11 +154,9 @@ module Ekylibre
 
             code += "def #{list_method_name}\n"
             code += "  if request.xhr?\n"
-            code += "    render(:inline=>'<%=#{tag_method_name}-%>')\n"
-            code += "  elsif request.get?\n"
-            code += "    render(:inline=>'<%=#{tag_method_name}-%>', :layout=>true)\n"
+            code += "    render(:inline=>'<%=#{tag_method_name}-%>')\n" # 
             if options[:export]
-              code += "  elsif request.post?\n"
+              code += "  elsif request.get? and params[:format]\n"
               code += order_definition.gsub(/^/,'  ')
               code += "    if params[:format] == 'xcsv'\n"
               code += "      ic = Iconv.new('cp1252', 'utf-8')\n"
@@ -183,6 +182,8 @@ module Ekylibre
               code += "    end\n"
               code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).gsub(/[^a-z0-9]/i,'_')}.csv')\n"
             end
+            code += "  elsif request.get?\n"
+            code += "    render(:inline=>'<%=#{tag_method_name}-%>', :layout=>true)\n"
             code += "  end\n"
             code += "end\n"
             
@@ -257,7 +258,7 @@ module Ekylibre
                 header_title = column.compile_header
                 if column.sortable?
                   url = ":action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
-                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{#{url}}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>url_for(#{url})}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               else
@@ -708,9 +709,19 @@ end
 
 
 
+
+
 if Ekylibre::Dyke::Dyta.will_paginate
+
+  ERB::Util::HTML_ESCAPE = { '&' => '&#38;', '>' => '&#60;', '<' => '&#62;', '"' => '&#34;' }
+
   module ActionController
     class RemoteLinkRenderer < WillPaginate::LinkRenderer
+      
+      def initialize
+        @gap_marker = '<span class="gap">&#8230;</span>'
+      end
+
       def prepare(collection, options, template)
         @remote = options.delete(:remote) || {}
         super
