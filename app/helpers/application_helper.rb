@@ -401,6 +401,18 @@ module ApplicationHelper
     #return '' if @current_user.blank?
     session[:last_page] ||= {}
     code = ''
+
+    # User Tag
+    tag = ''
+    if @current_user
+      tag += content_tag(:span, @current_user.label)+" "
+      tag += content_tag(:span, @current_company.name)+" "
+      tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+    end
+    # tag = content_tag(:nobr, tag)
+    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
+
+    code += content_tag(:div, "  ", :id=>:loading, :style=>'display:none;')
     # Modules Tag
     tag = ''
     for m in MENUS
@@ -411,33 +423,15 @@ module ApplicationHelper
       end
     end if @current_user
     
-    tag = content_tag(:nobr, tag)
+    # tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
+  
+    return code
     # Fix
-    tag = ''
-    tag += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
-    code += content_tag(:div, tag, :style=>'text-align:center;', :align=>:center, :flex=>1)
-    
-    # User Tag
-    tag = ''
-    if @current_user
-      tag += content_tag(:span, @current_user.label)+" "
-      tag += content_tag(:span, @current_company.name)+" "
-      tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
-    end
-    tag = content_tag(:nobr, tag)
-    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
-    
-    # Fix
-    code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
-    code
+    # code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
+    # code
   end
 
-
-  def side_tag(controller = self.controller.controller_name.to_sym)
-    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
-    render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
-  end
 
 
   def action_title
@@ -462,7 +456,7 @@ module ApplicationHelper
     url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
     update = (options.delete(:update)||:help).to_s
-    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>"toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});", :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
+    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
   end
 
   def help_tag(html_options={})
@@ -470,7 +464,8 @@ module ApplicationHelper
     if session[:help]
       code = render(:partial=>'help/search')
     end
-    return content_tag(:div, code, {:id=>"help", :class=>"help", :style=>"#{'display:none;' unless session[:help]}position: absolute; top: 0px;"}.merge(html_options))
+    # return content_tag(:div, code, {:id=>"help", :class=>"lm_right help", :style=>"#{'display:none;' unless session[:help]}; width: 240px;"}.merge(html_options))
+    return code
   end
 
   def side_link_tag
@@ -479,6 +474,11 @@ module ApplicationHelper
     code = content_tag(:div)
     operation = (session[:side] ? "close" : "open")
     link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
+  end
+
+  def side_tag(controller = self.controller.controller_name.to_sym)
+    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
+    render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
   end
 
   def notification_tag(mode)
@@ -515,17 +515,19 @@ module ApplicationHelper
     # content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
     #content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
 
-    content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
-    content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
-    content.gsub!(/\~/ , '&nbsp;' )
+    # content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
+    # content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
+    # content.gsub!(/\~/ , '&nbsp;')
 
-    content.gsub!(/^  \* (.*)$/ , '<ul><li>\1</li></ul>')
+    # AJAX fails with HTML entities en XHTML mode
+
+    content.gsub!(/^\ \ \*\s+(.*)\s*$/ , '<ul><li>\1</li></ul>')
     content.gsub!(/<\/ul>\n<ul>/ , '')
-    content.gsub!(/^  \- (.*)$/ , '<ol><li>\1</li></ol>')
+    content.gsub!(/^\ \ \-\s+(.*)\s*$/ , '<ol><li>\1</li></ol>')
     content.gsub!(/<\/ol>\n<ol>/ , '')
-    content.gsub!(/^>>> (.*)$/ , '<p class="notice">\1</p>')
+    content.gsub!(/^>>>\s+(.*)\s*$/ , '<p class="notice">\1</p>')
     content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
-    content.gsub!(/^!!! (.*)$/ , '<p class="warning">\1</p>')
+    content.gsub!(/^!!!\s+(.*)\s*$/ , '<p class="warning">\1</p>')
     content.gsub!(/<\/p>\n<p class="warning">/ , '<br/>')
 
     content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
@@ -565,14 +567,15 @@ module ApplicationHelper
 
     for x in 1..6
       n = 7-x
-      content.gsub!(/^\s*\={#{n}}([^\=]+)\={#{n}}/, "<h#{x}>\\1</h#{x}>")
+      content.gsub!(/^\s*\={#{n}}\s*([^\=]+)\s*\={#{n}}/, "<h#{x}>\\1</h#{x}>")
     end
 
-    content.gsub!(/^\ \ (.+)$/, '  <pre>\1</pre>')
+    content.gsub!(/^\ \ (.*\w+.*)$/, '  <pre>\1</pre>')
 
     content.gsub!(/([^\:])\/\/([^\s][^\/]+)\/\//, '\1<em>\2</em>')
     content.gsub!(/\'\'([^\s][^\']+)\'\'/, '<code>\1</code>')
     content.gsub!(/(^)([^\s\<][^\s].*)($)/, '<p>\2</p>')
+    content.gsub!(/^[^\s]*(\<a.*)\s*$/, '<p>\1</p>')
 
     content.gsub!(/\*\*([^\s\*]+)\*\*/, '<strong>\1</strong>')
     content.gsub!(/\*\*([^\s\*][^\*]*[^\s\*])\*\*/, '<strong>\1</strong>')

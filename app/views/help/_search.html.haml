@@ -1,15 +1,15 @@
--update, complete, resize = "help", "resize2()", nil
+-update, complete, resize = "help", "resize2(); return true", nil
 -if params[:dialog]
   -update, complete, resize = "#{params[:dialog]}-help", "$('#{params[:dialog]}').resize()", params[:dialog]
 -base_url = {:controller=>:help}
 -base_url[:dialog] = params[:dialog] if params[:dialog]
-%div{:orient=>:vertical, :flex=>1}
+.vbox.flex
   .nav
     =link_to_remote(tg(:close), {:url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-close help-link"})
     =link_to_remote(tg(:previous), {:url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-previous help-link"} ) if session[:help_history].size>1
     %h1.title=tc :title
   -cache(:action=>"help", :id=>@article) do
-    .content{:flex=>1, :style=>'overflow:auto;'}
+    .content.flex{:style=>'overflow:auto;'}
       - doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>"search"))
       - if doc.blank?
         %h1=tc("missing_help")

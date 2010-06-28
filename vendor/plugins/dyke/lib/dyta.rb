@@ -120,11 +120,11 @@ module Ekylibre
             footer = "#{footer_var}=''\n"
             # Export link
             if options[:export]
-              # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&apos;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
+              # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&#39;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
               
               export = "content_tag(:span, ::I18n.t('#{options[:export]}.title'))"
               for format in [:csv, :xcsv]
-                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&apos;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
               end
               footer += footer_var+"+=content_tag(:div, #{export}, :class=>'export')\n"
             end
@@ -277,7 +277,7 @@ module Ekylibre
                       datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
                     end
                     if column.datatype == :decimal
-                      datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&nbsp;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
+                      datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&#160;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
                     end
                     if column.options[:url].is_a?(Hash) and nature==:body
                       column.options[:url][:id] ||= column.record(record)+'.id'
@@ -300,7 +300,7 @@ module Ekylibre
                     elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                       datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
                     elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                      datum = "(#{datum}.blank? ? '' : '<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&nbsp;'+::I18n.translate('countries.'+#{datum})+'</nobr>')"
+                      datum = "(#{datum}.blank? ? '' : '<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})+'</nobr>')"
                     elsif column.datatype == :string
                       datum = "h("+datum+")"
                     end
@@ -310,7 +310,9 @@ module Ekylibre
                   else
                     datum = 'nil'
                   end
-                  code += "content_tag(:td, "+datum+", :class=>'"+column.datatype.to_s+css_class+"'"+column_sort
+                  css_class = column.datatype.to_s+css_class
+                  css_class = (css_class.strip.size>0 ? ", :class=>'"+css_class+"'" : '')
+                  code += "content_tag(:td, "+datum+css_class+column_sort
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?
                   code += ")"
                 when :check
@@ -333,7 +335,7 @@ module Ekylibre
                 when :action
                   code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
                 else 
-                  code += "content_tag(:td, '&nbsp;&empty;&nbsp;')"
+                  code += "content_tag(:td, '&#160;&#8709;&#160;')"
                 end
               end
             end
@@ -648,7 +650,7 @@ module Ekylibre
           image_title = @options[:title]||@name.to_s.humanize
           # image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
           # image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
-          image = "image_tag(theme_button('#{@options[:image]||verb}'), :border=>0, :alt=>'"+image_title+"')"
+          image = "image_tag(theme_button('#{@options[:image]||verb}'), :alt=>'"+image_title+"')"
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
@@ -660,16 +662,16 @@ module Ekylibre
             code  = "link_to_remote(#{image}"
             code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
-            code += ", {:alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
+            code += ", {:title=>::I18n.t('general.#{verb}')}"
             code += ")"
           elsif @options[:actions]
             raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
             cases = []
             for a in @options[:actions]
               v = a[1][:action].to_s.split('_')[-1]
-              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :border=>0, :alt=>'"+a[0].to_s+"')"+
+              cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
-                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{v}'), :title=>::I18n.t('general.#{v}')}"+
+                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('general.#{v}')}"+
                 ")\n"
             end
 
@@ -681,7 +683,7 @@ module Ekylibre
             url[:id] ||= "RECORD.id"
             url.delete_if{|k, v| v.nil?}
             url = "{"+url.collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")+format+"}"
-            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :alt=>::I18n.t('general.#{verb}'), :title=>::I18n.t('general.#{verb}')}"
+            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('general.#{verb}')}"
             code = "link_to("+image+", "+url+", "+code+")"
           end
           code = "if ("+@options[:if].gsub('RECORD', record)+")\n"+code+"\n end" if @options[:if]

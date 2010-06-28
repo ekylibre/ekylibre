@@ -67,9 +67,10 @@ class CompanyController < ApplicationController
   
 
   def side
-    @parameter = @current_user.parameter("interface.side.#{params[:id]}.opened", true, :boolean)
-    @parameter.set !@parameter.value
-    @parameter.save!
+    parameter = @current_user.parameter("interface.side.#{params[:id]}.opened", true, :boolean)
+    parameter.set !parameter.value
+    parameter.save!
+    render :text=>''
   end
 
 

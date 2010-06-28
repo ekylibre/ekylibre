@@ -1,6 +1,0 @@
-page.visual_effect(:toggle_blind, "side_#{params[:id]}_actions")
-if @parameter.value
-  page["side_#{params[:id]}_title"].removeClassName("closed")
-else
-  page["side_#{params[:id]}_title"].addClassName("closed")
-end

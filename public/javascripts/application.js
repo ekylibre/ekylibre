@@ -1,7 +1,46 @@
 /* -*- Mode: Java; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
 /*jslint browser: true */
 
+
+function toggleElement(element, show, reverse_element) {
+  element = $(element);
+  if (show === null) { 
+    show = (element.style.display == "none"); 
+  }
+  if (show) {
+    element.show();
+    if (reverse_element !== undefined) {
+      $(reverse_element).hide();
+    }
+  } else {
+    element.hide();
+    if (reverse_element !== undefined) {
+      $(reverse_element).show();
+    }
+  }
+  return false;
+}
+
+
+function toggleMenu(element) {
+  var actions = $(element+'_actions');
+  var title = $(element+'_title');
+  var state;
+  if (actions.style.display == "none") {
+    actions.blindDown();
+    title.removeClassName('closed');
+    state = "true";
+  } else {
+    actions.blindUp();
+    title.addClassName('closed');
+    state = "false";
+  }
+  return state;
+}
+
+
 function _resize() {
+  return 0;
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
@@ -80,50 +119,13 @@ function toggleCheckBox(element) {
   return element.checked;
 }
 
-function toggleElement(element, show, reverse_element) {
-  element = $(element);
-  if (show === null) { 
-    show = (element.style.display == "none"); 
-  }
-  if (show) {
-    element.show();
-    if (reverse_element !== undefined) {
-      $(reverse_element).hide();
-    }
-  } else {
-    element.hide();
-    if (reverse_element !== undefined) {
-      $(reverse_element).show();
-    }
-  }
-  return false;
-}
-
-
-function toggleMenu(element) {
-  var actions = $(element+'_actions');
-  var title = $(element+'_title');
-  var state;
-  if (actions.style.display == "none") {
-    actions.blindDown();
-    title.removeClassName('closed');
-    state = "true";
-  } else {
-    actions.blindUp();
-    title.addClassName('closed');
-    state = "false";
-  }
-  return state;
-}
-
-
 
 
 function format(valeur, decimal, separateur) {
   // formate un chiffre avec 'decimal' chiffres après la virgule et un separateur
   var deci=Math.round(Math.pow(10, decimal)*(Math.abs(valeur)-Math.floor(Math.abs(valeur))));
   var val=Math.floor(Math.abs(valeur));
-  if ((decimal==0)||(deci==Math.pow(10,decimal))) {val=Math.floor(Math.abs(valeur)); deci=0;}
+  if ((decimal===0)||(deci==Math.pow(10,decimal))) {val=Math.floor(Math.abs(valeur)); deci=0;}
   var val_format=val+"";
   var nb=val_format.length;
   for (var i=1;i<4;i++) {
@@ -157,7 +159,7 @@ function sum_all(css_rule, target_id) {
   var target = $(target_id);
   var sum = 0;
   var reg = new RegExp(",", "ig");
-  var reg2 = new RegExp("[^0-9\.]+", "ig");
+  var reg2 = new RegExp("[^0-9\\.]+", "ig");
   $$(css_rule).each(function(element, index) { 
       var val;
       if (element.tagName.toLowerCase() == "input") {val = element.value; } 

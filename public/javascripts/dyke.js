@@ -10,7 +10,7 @@ var resizeElementMethods = {
     if (value === null) {
       value = "0";
     }
-    return Math.floor(new Number(value.replace(reg, "")));
+    return Math.floor(parseFloat(value.replace(reg, "")));
   },
 
   getBorderDimensions: function(element) {
@@ -28,7 +28,7 @@ var resizeElementMethods = {
     if (isNaN(f) || f === null) {
       return 0;
     } else {
-      return new Number(f);
+      return parseFloat(f);
     }
     return 0;
   },
@@ -61,7 +61,7 @@ var resizeElementMethods = {
       var element_length = (horizontal ? width : height);
 
       // Preprocessing dimensions values
-      var child, index, border;
+      var child, index, dims;
       var flexsum = 0, fixedsum = 0;
       var lengths = [], flexes = [], borders = [];
       for (index=0;index<children_length;index++) {
@@ -81,7 +81,7 @@ var resizeElementMethods = {
       }
 
       // Redimensioning
-      var w, h, child_left=0, child_top=0, child_length=0, x=0, o;
+      var w, h, child_left=0, child_top=0, child_length=0, x=0;
       var flex_unit = (element_length-fixedsum)/flexsum;
       for (index=0;index<children_length;index++) {
         child = children[index];
@@ -124,6 +124,24 @@ var resizeElementMethods = {
 Element.addMethods(resizeElementMethods);
 
 
+function dyliChange(dyli, id) {
+  var dyli_hf =$(dyli);
+  var dyli_tf =$(dyli+'_tf');
+  
+  return new Ajax.Request(dyli_hf.getAttribute('href'), {
+      method: 'get',
+        parameters: {id: id},
+        onSuccess: function(response) {
+        var obj = response.responseJSON;
+        if (obj!== null) {
+          dyli_hf.value = obj.hf_value;
+          dyli_tf.value = obj.tf_value;
+        }
+      }
+  });
+}
+
+
 
 
 var overlays = 0;
@@ -134,13 +152,13 @@ function openDialog(url) {
   var height = dims.height; 
   var width  = dims.width;
   var dialog_id = 'dialog'+overlays;
-  new Ajax.Request(url, {
+  return new Ajax.Request(url, {
       method: 'get',
         parameters: {dialog: dialog_id},
         onSuccess: function(response) {
         /* Insert code creation here */
         var overlay = $('overlay');
-        if (overlay == null) {
+        if (overlay === null) {
           overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px;'});
           /*  opacity: 0.5 */
           body.appendChild(overlay);
@@ -155,15 +173,16 @@ function openDialog(url) {
       },
         onFailure: function(response) {
         alert("FAILURE (Error "+response.status+"): "+response.reponseText);
-      },
+      }
+      /*      ,
         onLoading: function(request) {
         onLoading();
       },
         onLoaded: function(request) {
         onLoaded();
       }
+      */
   });
-  return true;
 }
 
 
@@ -171,9 +190,9 @@ function closeDialog(dialog) {
   dialog = $(dialog);
   dialog.remove();
   overlays -= 1;
-  if (overlays == 0) {
+  if (overlays === 0) {
     var overlay = $('overlay');
-    if (overlay != null) {
+    if (overlay !== null) {
       overlay.remove();
     }
   }
@@ -199,22 +218,5 @@ function refreshList(select, request, source_url) {
 
 function refreshAutoList(dyli, request) {
   return dyliChange(dyli, request.responseJSON.id);
-}
-
-function dyliChange(dyli, id) {
-  var dyli_hf =$(dyli);
-  var dyli_tf =$(dyli+'_tf');
-  
-  return new Ajax.Request(dyli_hf.getAttribute('href'), {
-      method: 'get',
-        parameters: {id: id},
-        onSuccess: function(response) {
-        var obj = response.responseJSON;
-        if (obj!= null) {
-          dyli_hf.value = obj.hf_value;
-          dyli_tf.value = obj.tf_value;
-        }
-      }
-  });
 }
 
