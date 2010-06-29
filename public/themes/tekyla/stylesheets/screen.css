@@ -44,8 +44,8 @@ body { background: #C9D7F1; }
 #main.with-side { padding-left: 0px; }
 /*#legals { margin:0; padding:4px 8px; height: 0px; background: #C9D7F1; font-size:13px; color: #047; text-align: center; }*/
 
-.nav { height: 32px; }
-.nav .title { color: #750; font-size: 20px;  height: 24px; padding:4px 8px; font-weight: normal; overflow:hidden; margin:0; }
+.nav { min-height: 32px; }
+.nav .title { color: #750; font-size: 20px; height: 24px; overflow:hidden; padding:4px 8px; font-weight: normal; margin:0; }
 
 #about-us div { padding: 64px; }
 #about-us div a { text-align: center; display: block;}
@@ -65,7 +65,7 @@ a.help-close { background: url(../images/buttons/close.png) no-repeat scroll lef
 a.help-previous { background: url(../images/buttons/previous.png) no-repeat scroll left center; padding-left:20px; }
 
 .help { width: 260px; float:right; margin-left: 8px; border: 1px solid #BEBEBB; border-right: none; background: #fefef9 url(../images/help.png) repeat-x top;}
-.help.resized { margin-left: 0;}
+.help.resized { margin-left: 0; border-bottom: none;}
 .help .nav { background: #e9e9a8; padding: 0 2px; }
 .help .title { color: #750; text-align: left; }
 .content { padding: 8px; clear: both;}

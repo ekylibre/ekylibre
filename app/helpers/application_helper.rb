@@ -515,9 +515,9 @@ module ApplicationHelper
   def wikize(content, options={})
     # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
 
-    # content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
-    # content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
-    # content.gsub!(/\~/ , '&nbsp;')
+    content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
+    content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
+    content.gsub!(/\~/ , '&#160;')
 
     content.gsub!(/^\ \ \*\ +(.*)\ *$/ , '<ul><li>\1</li></ul>')
     content.gsub!(/<\/ul>\n<ul>/ , '')
