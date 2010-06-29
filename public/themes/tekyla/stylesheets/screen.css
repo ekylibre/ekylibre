@@ -12,6 +12,8 @@ a.current:link, a.current:visited, a.current:focus { color: #000; text-decoratio
 a.current:hover { color: #000; }
 input[type="submit"] { padding: 1px 4px; }
 
+/*a img { padding: 0; margin: 0; display:block; border: none;}*/
+
 table#master  { margin-top:30px; }
 table#master > tbody > tr > td { vertical-align: top;  }
 table#master > tbody > tr > td > .column { height: 300px; overflow: auto; }
@@ -27,13 +29,13 @@ body { background: #C9D7F1; }
 
 #loading { padding: 2px; text-align: center; }
 
-#overlay { background: transparent; }
+#overlay { background: #FFF; }
 #overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
 
 .clickable { cursor: pointer; }
 
 .dialog {  background: #C9D7F1; }
-.dialog .columns { border: 8px solid #95b0e4; }
+.dialog .wrap { border: 8px solid #95b0e4; }
 .dialog .main { border-top: 1px solid #95b0e4; none; padding: 0 8px 8px 8px;}
 .fields { background: url(../images/shadow-top.png) repeat-x bottom; overflow: auto; height: 480px;}
 
@@ -63,6 +65,7 @@ a.help-close { background: url(../images/buttons/close.png) no-repeat scroll lef
 a.help-previous { background: url(../images/buttons/previous.png) no-repeat scroll left center; padding-left:20px; }
 
 .help { width: 260px; float:right; margin-left: 8px; border: 1px solid #BEBEBB; border-right: none; background: #fefef9 url(../images/help.png) repeat-x top;}
+.help.resized { margin-left: 0;}
 .help .nav { background: #e9e9a8; padding: 0 2px; }
 .help .title { color: #750; text-align: left; }
 .content { padding: 8px; clear: both;}
@@ -134,9 +137,11 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 .yield .menu.indicator { background: #FD8; } /*#FA3;*/
 
 #top {height: 25px; background: white; padding: 0 8px;}
-#top .menu * { padding: 3px 4px;}
+#top .menu { white-space: nowrap;}
+#top .menu * { padding: 3px 4px; white-space: nowrap;}
 /*#top .menu strong { background: #E4EBF8;}*/
 #top .menu a.logout {padding: 2px 2px 2px 20px; height:16px; background: url(../images/buttons/logout.png) no-repeat center left;}
+#top .menu a.resize {padding: 2px 2px 2px 20px; height:16px; background: url(../images/buttons/resize.png) no-repeat center left;}
 #top #user { float:right; margin:4px 0; text-align:right;}
 #top #modules { float:left; margin-top:4px; }
 #top #loading { float:right; background: url(../images/ajax-loader-3.gif) no-repeat; margin: 4px 0 0; width: 16px; height:16px; }

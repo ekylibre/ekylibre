@@ -70,6 +70,7 @@ class ApplicationController < ActionController::Base
 
   def i18nize
     # headers["Content-Type"] = "text/xml"
+
     locale = params[:locale]
     if locale.is_a? String
       if locale.size == 3
@@ -289,6 +290,12 @@ class ApplicationController < ActionController::Base
       notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
       redirect_to_back unless @current_user.admin
     end
+
+    #     if params[:resized]
+    #       parameter = @current_user.parameter("interface.general.resized", true, :boolean)
+    #       parameter.value = (params[:resized] == "1" ? true : false)
+    #       parameter.save!
+    #     end
   end
 
   def help_search(article)

@@ -24,29 +24,24 @@ var resizeElementMethods = {
   
   getFlex: function(element) {
     element = $(element);
+    var reg = new RegExp("\\bflex-\\d+\\b", "i");
+    var klnames = element.className;
     if (element.hasClassName('flex')) {
       return 1;
-    } else {
-      var reg = new RegExp("^flex-\\d+$", "ig")
-      var className = element.classNames.detect(function(n){return reg.match(n)})
-      if (className !== null) {
-        return parseFloat(className.substring(5))
-      }
+    } else if (reg.test(klnames)) {
+      var klass = reg.exec(klnames)+"";
+      return parseFloat(klass.substring(5));
     }
     return 0;
   },
   
   isHorizontal: function(element) {
     element = $(element);
-    var h = true;
-    if (element.hasClassName('vbox')) {
-      h = false;
-    }
-    return h;
+    return element.hasClassName('hbox');
   },
 
   resize: function(element, width, height) {
-    var children = element.childElements();
+    var children = element.childElements().sortBy(function(s) {if (s.hasClassName("anchor-right")) {return 2} else if (s.hasClassName("anchor-left")) {return 1}; return 1;});
     var children_length = children.length;
     if (width === undefined) { 
       /*
@@ -58,7 +53,8 @@ var resizeElementMethods = {
       height = element.getHeight();
     }
 
-    if (children_length>0) {
+    if (children_length>0) { 
+      /*alert('OK 2 '+element);*/
       element.makePositioned();
       var horizontal = element.isHorizontal();
       var element_length = (horizontal ? width : height);
@@ -82,6 +78,7 @@ var resizeElementMethods = {
           }
         }
       }
+      /* alert('OK 3 '+element); */
 
       // Redimensioning
       var w, h, child_left=0, child_top=0, child_length=0, x=0;
@@ -119,6 +116,8 @@ var resizeElementMethods = {
       }
     }
     element.setStyle({height: height+'px', width: width+'px'});
+    element.removeClassName("unresized");
+    element.addClassName("resized");
     return element;
   }
 
@@ -162,7 +161,7 @@ function openDialog(url) {
         /* Insert code creation here */
         var overlay = $('overlay');
         if (overlay === null) {
-          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px;'});
+          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
           /*  opacity: 0.5 */
           body.appendChild(overlay);
         }

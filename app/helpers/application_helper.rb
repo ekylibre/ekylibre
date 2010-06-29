@@ -405,6 +405,8 @@ module ApplicationHelper
     # User Tag
     tag = ''
     if @current_user
+      # parameter = @current_user.parameter("interface.general.resized", true, :boolean)
+      # tag += link_to("", {:resized=>(parameter.value.is_a?(TrueClass) ? "0" : "1")}, {:class=>:resize})+" "
       tag += content_tag(:span, @current_user.label)+" "
       tag += content_tag(:span, @current_company.name)+" "
       tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
@@ -412,7 +414,8 @@ module ApplicationHelper
     # tag = content_tag(:nobr, tag)
     code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
 
-    code += content_tag(:div, "  ", :id=>:loading, :style=>'display:none;')
+    code += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
+
     # Modules Tag
     tag = ''
     for m in MENUS
@@ -446,6 +449,11 @@ module ApplicationHelper
               tc(:default_title, :controller=>t("controllers.#{controller.controller_name}.title"), :action=>action_title)
             end
     return content_tag(:title, title)
+  end
+
+  def title_header_tag
+    title = action_title
+    content_tag(:h1, title, :class=>"title", :title=>title)
   end
 
   def help_link_tag(options={})
@@ -505,29 +513,19 @@ module ApplicationHelper
 
 
   def wikize(content, options={})
-    #without_paragraph = options.delete(:without_paragraph)
-
-    # options = {:url => {:controller=>:help, :action=>"search"}, :update=>(options[:update]||:help), :complete=>'resize2();'}.merge(options)
-    # {{:buttons/update.png|Label}}
-    # {{buttons/update.png|Label}}
-    #url = url_for(:controller=>:images)
-    #content = content.gsub(/\{\{([^\}]+)\|([^}]+)\}\}/, '!'+url+'/\1(\2)!')
-    # content = content.gsub(/\{\{([^\}]+)((\|)([^}]+))\}\}/, '!'+url+'/\1(\4)!')
-    #content = content.gsub(/\{\{([^\}]+)\}\}/, '!'+url+'/\1!' )
+    # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
 
     # content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
     # content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
     # content.gsub!(/\~/ , '&nbsp;')
 
-    # AJAX fails with HTML entities en XHTML mode
-
-    content.gsub!(/^\ \ \*\s+(.*)\s*$/ , '<ul><li>\1</li></ul>')
+    content.gsub!(/^\ \ \*\ +(.*)\ *$/ , '<ul><li>\1</li></ul>')
     content.gsub!(/<\/ul>\n<ul>/ , '')
-    content.gsub!(/^\ \ \-\s+(.*)\s*$/ , '<ol><li>\1</li></ol>')
+    content.gsub!(/^\ \ \-\ +(.*)\ *$/ , '<ol><li>\1</li></ol>')
     content.gsub!(/<\/ol>\n<ol>/ , '')
-    content.gsub!(/^>>>\s+(.*)\s*$/ , '<p class="notice">\1</p>')
+    content.gsub!(/^>>>\ +(.*)\ *$/ , '<p class="notice">\1</p>')
     content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
-    content.gsub!(/^!!!\s+(.*)\s*$/ , '<p class="warning">\1</p>')
+    content.gsub!(/^!!!\ +(.*)\ *$/ , '<p class="warning">\1</p>')
     content.gsub!(/<\/p>\n<p class="warning">/ , '<br/>')
 
     content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
@@ -575,7 +573,7 @@ module ApplicationHelper
     content.gsub!(/([^\:])\/\/([^\s][^\/]+)\/\//, '\1<em>\2</em>')
     content.gsub!(/\'\'([^\s][^\']+)\'\'/, '<code>\1</code>')
     content.gsub!(/(^)([^\s\<][^\s].*)($)/, '<p>\2</p>')
-    content.gsub!(/^[^\s]*(\<a.*)\s*$/, '<p>\1</p>')
+    content.gsub!(/^\s*(\<a.*)\s*$/, '<p>\1</p>')
 
     content.gsub!(/\*\*([^\s\*]+)\*\*/, '<strong>\1</strong>')
     content.gsub!(/\*\*([^\s\*][^\*]*[^\s\*])\*\*/, '<strong>\1</strong>')

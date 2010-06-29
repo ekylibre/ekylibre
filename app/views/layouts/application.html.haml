@@ -2,7 +2,7 @@
 -#!!! strict-svg
 ="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN\" \"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd\">"
 
-%html{:xmlns=>'http://www.w3.org/1999/xhtml'}
+%html{:xmlns=>"http://www.w3.org/1999/xhtml"}
   %head
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
     =title_tag
@@ -10,21 +10,19 @@
     =calendar_link_tag
     =javascript_include_tag :defaults
     =#javascript_include_tag 'layout'
-    =javascript_include_tag 'dyke'
+    =javascript_include_tag "dyke"
   %body
-    #body.vbox.flex
+    #body.flex
       #top=top_tag
-      #wrap
-        #side.hbox{:style=>"overflwow: visible"+(session[:side] ? "" : "; display:none")}=side_tag
-        -#=help_tag(:flex=>3)
-        #help.help.flex-3{:style=>"#{'display:none;' unless session[:help]}; width: 240px;"}=help_tag
-        #main.vbox.main.flex-9{:class=>("with-side" if session[:side]), :xstyle=>"position: absolute; top: 0px; overflow: visible;"}
+      #wrap.wrap.hbox.flex
+        #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
+        #help.help.flex-3.anchor-right{:style=>("display:none;" unless session[:help])}=help_tag
+        #main.main.flex-9{:class=>("with-side" if session[:side])}
           .nav
             =help_link_tag
             =side_link_tag
-            -title = action_title
-            %h1.title{:title=>title}=title
-          .yield.flex.vbox
+            =title_header_tag
+          .yield.flex
             =notifications_tag
             =yield
 

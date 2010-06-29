@@ -2,7 +2,9 @@
 
 Vous avez un tableau répertoriant les différentes écritures relatives au compte choisi pour la période sélectionnée. Vous pouvez en permanence modifier la période.
 
-!!! Chaque compte possède sa propre séquence de lettrage, ce qui fait que pour chaque compte, la première lettre proposée sera toujours **AAA**.
+>>> Chaque compte possède sa propre séquence de lettrage, ce qui fait que pour chaque compte, la première lettre proposée sera toujours **AAA**.
+
+!!! Il n'est pas recommandé de lettrer des écritures générées dynamiquement à partir de pièces (factures, encaissments...) qui sont censées être mises à jour plus tard. Les mises à jour effaceront tous les lettrages.
 
 ===== Lettrer =====
 
