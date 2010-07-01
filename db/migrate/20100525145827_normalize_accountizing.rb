@@ -133,6 +133,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :accounts, :pointable
     remove_column :accounts, :transferable
     remove_column :accounts, :usable
+    execute "UPDATE accounts SET number=UPPER(number)"
 
     remove_column :bank_statements, :intermediate
     rename_column :bank_statements, :bank_account_id, :cash_id

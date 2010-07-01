@@ -84,7 +84,8 @@ module ApplicationHelper
            ] },
          {:name=>:documents, :list=>
            [ {:name=>:document_print},
-             {:name=>:balance}
+             {:name=>:balance},
+             {:name=>:general_ledger}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
@@ -516,13 +517,17 @@ module ApplicationHelper
     # AJAX fails with XHTML entities because there is no DOCTYPE in AJAX response
 
     content.gsub!(/(\w)(\?|\:)([\s$])/ , '\1~\2\3' )
-    content.gsub!(/[\s\~]+(\?|\:)/ , '~\1' )
+    content.gsub!(/(\w+)[\ \~]+(\?|\:)/ , '\1~\2' )
     content.gsub!(/\~/ , '&#160;')
 
     content.gsub!(/^\ \ \*\ +(.*)\ *$/ , '<ul><li>\1</li></ul>')
     content.gsub!(/<\/ul>\n<ul>/ , '')
     content.gsub!(/^\ \ \-\ +(.*)\ *$/ , '<ol><li>\1</li></ol>')
     content.gsub!(/<\/ol>\n<ol>/ , '')
+    content.gsub!(/^\ \ \?\ +(.*)\ *$/ , '<dl><dt>\1</dt></dl>')
+    content.gsub!(/^\ \ \!\ +(.*)\ *$/ , '<dl><dd>\1</dd></dl>')
+    content.gsub!(/<\/dl>\n<dl>/ , '')
+
     content.gsub!(/^>>>\ +(.*)\ *$/ , '<p class="notice">\1</p>')
     content.gsub!(/<\/p>\n<p class="notice">/ , '<br/>')
     content.gsub!(/^!!!\ +(.*)\ *$/ , '<p class="warning">\1</p>')

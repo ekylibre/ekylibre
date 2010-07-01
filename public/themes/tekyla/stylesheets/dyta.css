@@ -83,6 +83,7 @@ table.dyta tr.total td {font-size: 18px; font-weight:bold; background:#FFD !impo
 table.dyta tr.total td.important {font-size: 20px; } 
 table.dyta tr.subtotal td { font-weight:bold; background:#FFE !important; text-align: right; border:1px solid #BACFE6; max-width: 12em;}  
 table.dyta tr.subtotal th {  background:#FFE !important; border:1px solid #BACFE6;}  
+table.dyta tr.centralize td { font-weight:bold; }  
 
 table.dyta tr.empty td { text-align:center; background: #EEF; color: #779; padding: 20px; font-style: italic;}
 table.dyta tr.empty:hover td { background: #EEF; }

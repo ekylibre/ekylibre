@@ -367,6 +367,7 @@ class Company < ActiveRecord::Base
   #  - :confirmed  Use confirmed journal entries
   #  - :closed     Use closed journal entries
   #  - :accounts   Select ranges of accounts
+  #  - :centralize Select account's prefixe which permits to centralize
   def balance(options={})
     conn = ActiveRecord::Base.connection
     entries_states  = " AND (false"
@@ -374,11 +375,11 @@ class Company < ActiveRecord::Base
     entries_states += " OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})" if options[:confirmed] == "1"
     entries_states += " OR (journal_entries.closed = #{conn.quoted_true})" if options[:closed] == "1"
     entries_states += ")"
-    
+
+    valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/    
     accounts = " AND (false"
     if options[:accounts]
       expression = ""
-      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
       for expr in options[:accounts].split(/[^0-9A-Z\-\*]+/)
         if expr.match(/\-/)
           start, finish = expr.split(/\-+/)[0..1]
@@ -395,36 +396,57 @@ class Company < ActiveRecord::Base
       options[:accounts] = expression.strip
     end
     accounts += ")"
-    
+
+    # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
+    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
+    options[:centralize] = centralize.join(" ")
+    # centralized = "("+centralized.collect{|c| "SUBSTR(accounts.number, 1, #{c.length}) = #{conn.quote(c)}"}.join(" OR ")+")"
+    centralized = "("+centralize.collect{|c| "accounts.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")+")"
+
+    from_where  = " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+    from_where += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+    # Total
     lines = []
-    query  = "SELECT '', -2, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
-    query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
-    query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+    query  = "SELECT '', -1, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), '#{'Z'*16}' AS skey"
+    query += from_where
     query += entries_states
     query += accounts
     lines += conn.select_rows(query)
 
+    # Sub-totals
     for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
       level = name.split(/\_/)[-1].to_i
-      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -1, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
-      query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
-      query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), SUBSTR(accounts.number, 1, #{level})||'#{'Z'*(16-level)}' AS skey"
+      query += from_where
       query += entries_states
       query += accounts
       query += " AND LENGTH(accounts.number) >= #{level}"
       query += " GROUP BY subtotal"
       lines += conn.select_rows(query)
     end
-    
-    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
-    query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
-    query += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+
+    # NOT centralized accounts (default)
+    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), accounts.number AS skey"
+    query += from_where
     query += entries_states
     query += accounts
+    query += " AND NOT #{centralized}" unless centralize.empty?
     query += " GROUP BY accounts.id, accounts.number"
     query += " ORDER BY accounts.number"
     lines += conn.select_rows(query)
-    return lines.sort{|a,b| a[0]+a[1]<=>b[0]+b[1]}
+
+    # Centralized accounts
+    for prefix in centralize
+      query  = "SELECT SUBSTR(accounts.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query += from_where
+      query += entries_states
+      query += accounts
+      query += " AND accounts.number LIKE #{conn.quote(prefix+'%')}"
+      query += " GROUP BY centralize"
+      lines += conn.select_rows(query)
+    end
+
+    return lines.sort{|a,b| a[5]<=>b[5]}
   end
 
 

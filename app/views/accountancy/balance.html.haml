@@ -9,7 +9,7 @@
           =calendar_field_tag("started_on", params[:started_on]||(fy ? fy.started_on : Date.today.beginning_of_month))
           %label{:for=>:stopped_on}=tg(:to)
           =calendar_field_tag("stopped_on", params[:stopped_on]||(fy ? fy.stopped_on : Date.today.end_of_month))
-        %td.submit{:rowspan=>5}=submit_tag tg(:validate), :name=>nil
+        %td.submit{:rowspan=>5}=submit_tag tg(:display), :name=>nil
       %tr
         %td.crit
           %label=tc(:journal_entries_states)
@@ -24,12 +24,9 @@
           =text_field_tag("accounts", params[:accounts]||"1-9", :size=>30)
       %tr
         %td.crit
-          -params[:depth] ||= max
-          %label=tc(:down_to_level)
-          -for level in 1..max
-            -name="depth_#{level}"
-            =radio_button_tag("depth", level, params[:depth].to_i == level)
-            %label{:for=>name}=level
+          -centralized = @current_company.parameters.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "accountancy.accounts.third_%"]).collect{|p| p.value.to_s}.join(" ")
+          %label=tc(:centralize)
+          =text_field_tag("centralize", params[:centralize]||centralized, :size=>30)
       %tr
         %td.crit
           %label=tc(:subtotals_at_level)
@@ -39,7 +36,6 @@
             %label{:for=>name}=level
           
 -if @balance
-  -total = @balance.delete_at(0)
   %table.dyta
     %tr
       %th{:rowspan=>2}=tc(:account_number)
@@ -51,12 +47,10 @@
       %th=JournalRecord.human_attribute_name("credit")
       %th=JournalRecord.human_attribute_name("debit")
       %th=JournalRecord.human_attribute_name("credit")
-    -depth = (params[:depth].to_i > 0 ? params[:depth].to_i : max)
     -for line in @balance
       -d = line[0].size-1
       -if line[1].to_i > 0
         -account = @current_company.accounts.find(line[1])
-        -next if account.number.size > depth
         %tr{:class=>cycle(:odd, :even)}
           %td.code=link_to(account.number, :action=>:account, :id=>account.id)
           %td=link_to(account.name, :action=>:account, :id=>account.id)
@@ -64,18 +58,26 @@
           %td.decimal=number_to_accountancy(line[3])
           %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
           %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
-      -elsif line[1].to_i < 0
+      -elsif line[1].to_i == -1
+        %tr.total
+          %th{:colspan=>2}=tg(:total)
+          %td.decimal=number_to_accountancy(line[2])
+          %td.decimal=number_to_accountancy(line[3])
+          %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
+          %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
+      -elsif line[1].to_i == -2
         %tr.subtotal
           %th{:colspan=>2, :style=>"padding-left: #{d*8+4}px"}=tc(:subtotal, :name=>line[0])
           %td.decimal=number_to_accountancy(line[2])
           %td.decimal=number_to_accountancy(line[3])
           %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
           %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
-
-    %tr.total
-      %th{:colspan=>2}=tg(:total)
-      %td.decimal=number_to_accountancy(total[2])
-      %td.decimal=number_to_accountancy(total[3])
-      %td.decimal=number_to_accountancy(total[4]) if total[4].to_f > 0
-      %td.decimal=number_to_accountancy(-total[4].to_f) if total[4].to_f < 0
+      -elsif line[1].to_i == -3
+        %tr.centralize{:class=>cycle(:odd, :even)}
+          %td=line[0]
+          %td=tc(:centralized_account, :name=>line[0])
+          %td.decimal=number_to_accountancy(line[2])
+          %td.decimal=number_to_accountancy(line[3])
+          %td.decimal=number_to_accountancy(line[4]) if line[4].to_f > 0
+          %td.decimal=number_to_accountancy(-line[4].to_f) if line[4].to_f < 0
 .end

@@ -78,6 +78,9 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 .content ul li { list-style-type: square; }
 .content ol { padding: 4px 2em; }
 .content ol li { list-style-type: decimal; }
+.content dl { padding: 0 0.1em; margin-bottom: 0.2em; }
+.content dt { margin-top: .2em; font-weight: bold; color: #210 }
+.content dd { margin-bottom: .2em; margin-left: 1em; }
 .content a img { border: 1px solid #00C; padding: 1px;}
 .content p { margin: 8px 0px;}
 .content p.notice { border-left: 10px solid #7A4; background: #CE8; padding: 4px 8px;}

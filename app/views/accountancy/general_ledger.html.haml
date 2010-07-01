@@ -1,0 +1,35 @@
+-max = @current_company.accounts.calculate(:max, "LENGTH(COALESCE(number, ''))").to_i
+-form_tag({}, :method=>:get) do
+  .search
+    %table
+      %tr 
+        %td.crit
+          -fy = @current_company.current_financialyear
+          %label{:for=>:started_on}=tg(:from)
+          =calendar_field_tag("started_on", params[:started_on]||(fy ? fy.started_on : Date.today.beginning_of_month))
+          %label{:for=>:stopped_on}=tg(:to)
+          =calendar_field_tag("stopped_on", params[:stopped_on]||(fy ? fy.stopped_on : Date.today.end_of_month))
+        %td.submit{:rowspan=>5}=submit_tag tg(:display), :name=>nil
+      %tr
+        %td.crit
+          %label=tc(:journal_entries_states)
+          -states = [:draft, :confirmed, :closed]
+          -no_state = !states.detect{|x| !params[x].nil?}
+          -for state in states
+            =check_box_tag(state, "1", (params[state]=="1" or no_state))
+            %label{:for=>state}=tc(state)
+      %tr
+        %td.crit
+          =tc(:accounts)
+          =text_field_tag("accounts", params[:accounts]||"1-9", :size=>30)
+      %tr
+        %td.crit
+          -journals = @current_company.journals.find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entries WHERE company_id=? AND draft=?)", @current_company.id, true])
+          -no_journal = !journals.detect{|x| !params["journal_#{x.id}"].nil?}
+          -for journal in journals
+            -name="journal_#{journal.id}"
+            =check_box_tag(name, "1", (params[name] == "1" or no_journal))
+            %label{:for=>name}=journal.name
+
+-if session[:general_ledger] and session[:general_ledger][:accounts]
+  =dyta(:general_ledger)

@@ -59,16 +59,14 @@ jpn:
         #>title: 'Plan de comptes'
         #>used_accounts: 'Comptes utilisés seulement'
       _accounts_find:
-        #>account_create: 'Créer un nouveau compte comptable'
-        #>account_name: 'Nom du compte '
-        #>account_number: 'Numéro de compte '
-        #>no_accounts: 'Il n''existe pas de compte commençant par ce numéro.'
       accounts_letter_launch:
       balance:
         #>account_name: 'Compte comptable'
         #>account_number: 'N°Compte'
         #>accounts: 'Comptes comptables utilisés'
         #>balance: 'Solde'
+        #>centralize: 'Comptes comptables centralisateurs'
+        #>centralized_account: 'Compte centralisateur {{name}}'
         #>closed: 'Verrouillées'
         #>confirmed: 'Confirmées'
         #>down_to_level: 'Détailler jusqu''au niveau'
@@ -118,10 +116,6 @@ jpn:
       cashes:
         #>title: 'Trésoreries'
       _currencies_find:
-        #>currency_code: 'Code de devise'
-        #>currency_id: 'Numéro de devise'
-        #>currency_name: 'Nom de devise'
-        #>currency_rate: 'Taux de devise'
       document_configure:
       _document_options:
         #>period: 'Période'
@@ -141,24 +135,7 @@ jpn:
         #>title: 'Brouillard'
         #>validate_selected_entries: 'Valider les écritures sélectionnées'
       entries:
-        #>account_number: 'N°Compte'
-        #>all_financialyears: '--- Tous les exercices ---'
-        #>all_journals: '--- Tous les journaux ---'
-        #>entry_validate: 'OK'
-        #>journal_x: '{{name}} (clôturé le {{closed_on}})'
-        #>label: 'Libellé'
-        #>number_records: 'Nombre des dernières pièces à afficher'
-        #>record_created: 'Créée le'
-        #>record_credit: 'Crédit'
-        #>record_debit: 'Débit'
-        #>record_number: 'N°Pièce'
-        #>record_printed: 'Datée du'
-        #>select_financialyear: 'Exercice comptable'
-        #>select_journal: 'Journal'
-        #>subtitle: 'Enregistrement dans le journal "{{journal}}" pour l''exercice "{{financialyear}}"'
-        #>title: 'Consultation et saisie des écritures'
       entry_update:
-        #>title: 'Modification de l''écriture'
       financialyear:
         #>general_informations: 'Informations générales'
         #>title: 'Exercice comptable {{code}}'
@@ -176,6 +153,13 @@ jpn:
       financialyears:
         #>financialyear_create: 'Ouvrir un nouvel exercice comptable'
         #>title: 'Exercices comptables'
+      general_ledger:
+        #>accounts: 'Comptes comptables utilisés'
+        #>closed: 'Verrouillées'
+        #>confirmed: 'Confirmées'
+        #>draft: 'Brouillard'
+        #>journal_entries_states: 'États des écritures utilisées'
+        #>title: 'Grand livre'
       index:
         #>journals: 'Journaux'
         nb_entries:
@@ -221,8 +205,6 @@ jpn:
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
       _journals_find:
-        #>journal_id: 'Numéro de journal'
-        #>journal_name: 'Nom du journal'
       _journals_search:
         #>filter_entries_with: 'Filtrer les écritures avec'
         #>interval: 'Intervalle personnalisé'
@@ -239,28 +221,12 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      print_balance_sheet:
-        #>period: 'Période'
-        #>title: 'Impression du bilan'
       _print_balance_sheet:
-        #>balance_sheet: 'Sélectionnez l''exercice'
-        #>select_financialyear: 'Exercice'
+      print_balance_sheet:
       print_by_financial_year:
-        #>financial_id: 'Exercice comptable'
-        #>financial_year_select: 'Sélectionnez l'' exercice comptable'
       _print_journal:
-        #>dates: 'Saisissez les dates ainsi que le journal'
-        #>from: 'Période du'
-        #>journal: 'Journal'
-        #>to: 'Au'
       _print_journals:
-        #>dates: 'Saisissez les dates'
-        #>from: 'Période du'
-        #>to: 'Au'
       _print_ledger:
-        #>dates: 'Saisissez les dates de début et de fin de la période'
-        #>from: 'Période du'
-        #>to: 'Au'
       _print_synthesis:
         #>select_financialyear: 'Exercice'
         #>synthesis: 'Sélectionnez l''exercice'

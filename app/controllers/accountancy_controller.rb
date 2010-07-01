@@ -317,10 +317,85 @@ class AccountancyController < ApplicationController
     @document_template ||= @document_templates[0]
   end
 
+
+
+
   def balance
     if params[:started_on] and params[:stopped_on]
       @balance = @current_company.balance(params)
     end
+  end
+
+  def self.general_ledger_conditions(options={})
+    conn = ActiveRecord::Base.connection
+    code  = "session[:general_ledger] ||= {}\n"
+    code += "c=['journal_records.company_id=?', @current_company.id]\n"
+    # period
+    code += "c[0]+=' AND journal_records.printed_on BETWEEN ? AND ?'\n"
+    code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
+    # state
+    code += "c[0] += \" AND (false\"\n"
+    code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
+    code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
+    code += "c[0] += \" OR (journal_entries.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
+    code += "c[0] += \")\"\n"    
+    # accounts
+    code += "c[0] += ' AND ('+(session[:general_ledger][:accounts]||\"#{conn.quoted_false}\")+')'\n"
+    # journals
+    code += "c[0] += ' AND journal_entries.journal_id IN (?)'\n"    
+    code += "c<<session[:general_ledger][:journals]\n"    
+    code += "c\n"
+    return code # .gsub(/\s*\n\s*/, ";")
+  end
+
+  dyta(:general_ledger, :model=>:journal_entries, :conditions=>general_ledger_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id) JOIN accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_records.number, position") do |t|
+    t.column :number, :through=>:account, :url=>{:action=>:account}
+    t.column :name, :through=>:account, :url=>{:action=>:account}
+    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
+    t.column :printed_on, :through=>:record, :datatype=>:date
+    t.column :name
+    t.column :debit
+    t.column :credit
+  end
+
+  def general_ledger
+    session[:general_ledger] = {}
+    fy = @current_company.current_financialyear
+    params[:started_on] = params[:started_on].to_date rescue fy.started_on
+    params[:stopped_on] = params[:stopped_on].to_date rescue fy.stopped_on
+    params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
+
+    if params[:accounts]
+      conn = ActiveRecord::Base.connection
+      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
+      accounts = "false"
+      expression = ""
+      for expr in params[:accounts].split(/[^0-9A-Z\-\*]+/)
+        if expr.match(/\-/)
+          start, finish = expr.split(/\-+/)[0..1]
+          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
+          max = [start.length, finish.length].max
+          accounts += " OR SUBSTR(accounts.number, 1, #{max}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
+          expression += " #{start}-#{finish}"
+        else
+          next unless expr.match(valid_expr)
+          accounts += " OR accounts.number LIKE #{conn.quote(expr+'%')}"
+          expression += " #{expr}"
+        end
+      end
+      session[:general_ledger][:accounts] = accounts
+      params[:accounts] = expression.strip
+    end
+
+    for key in [:started_on, :stopped_on, :draft, :confirmed, :closed]
+      session[:general_ledger][key] = params[key]
+    end
+
+    journals = []
+    for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
+      journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
+    end
+    session[:general_ledger][:journals] = journals.compact
   end
   
 

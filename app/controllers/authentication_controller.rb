@@ -42,6 +42,9 @@ class AuthenticationController < ApplicationController
       else
         notify(:no_authenticated, :error, :now)
       end
+    else
+      session[:side] = false
+      session[:help] = false
     end
   end
   
