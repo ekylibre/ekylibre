@@ -726,7 +726,9 @@ class RelationsController < ApplicationController
     return unless @event_nature = find_and_check(:event_nature)
   end
   
-  dyta(:events, :conditions=>{:company_id =>['@current_company.id']}, :order=>"started_at DESC") do |t|
+
+
+  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN users ON (responsible_id=users.id) JOIN entities ON (entity_id=entities.id) JOIN event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
@@ -738,6 +740,7 @@ class RelationsController < ApplicationController
   end
   
   def events
+    session[:event_key] = params[:key]||session[:event_key]
   end
   
   manage :events, :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"

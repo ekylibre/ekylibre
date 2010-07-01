@@ -1,8 +1,14 @@
 ====== Evènements  ======
 
 ===== Qu'est ce qu'un évènement ? =====
-Les évènements équivalent à des mini-calendriers. Ils permettent de situer dans le temps et l'espace les contacts établis par telle personne avec tel employé.
+Ils permettent de situer dans le temps et l'espace les contacts établis avec les clients/fournisseurs.
 
-===== Gestion d'un évènement =====
-Il est possible de créer {{theme:buttons/create.png|créer}}, modifier {{theme:buttons/update.png|modifier}} ou même supprimer {theme:buttons/delete.png|supprimer}}.
+Certains évènements peuvent s'enregistrer automatiquement en fonction du [[>relations/event_natures|type d'évènement]]. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
+
+===== Gestion des évènements =====
+Il est possible de créer {{theme:buttons/create.png|créer}}, modifier {{theme:buttons/update.png|modifier}} ou même supprimer {{theme:buttons/delete.png|supprimer}}.
+
+Les évènements ne sont jamais //verrouillés// et peuvent être modifiés et/ou supprimés à tout moment.
+
+>>> Si vous enregistrez un rendez-vous à venir, il vous sera affiché sur la [[>relations/index|page d'accueil du module]].
 

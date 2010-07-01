@@ -271,6 +271,7 @@ fra:
         title: 'Modification d''un évènement'
       events:
         event_create: 'Ajouter un évènement'
+        search: 'Rechercher un évènement'
         title: 'Évènements'
       # Unfound view ./app/views/relations/_general_description_form
       _general_description_form:

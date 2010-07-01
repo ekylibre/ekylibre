@@ -17,6 +17,8 @@
       - else
         =doc
       %ul
+        -# cnt = @article.split("-")[0]
+        -# %li=link_to_remote(::I18n.t("controllers.#{cnt}.title"), :url=>base_url.merge(:action=>:search, :article=>cnt+"-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
         %li=link_to_remote(tc("home"), :url=>base_url.merge(:action=>:search, :article=>"company-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
         %li=link_to(tc("ekylibre"), "http://www.ekylibre.org")
       .end

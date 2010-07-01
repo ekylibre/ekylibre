@@ -273,6 +273,7 @@ spa:
         #>title: 'Modification d''un évènement'
       events:
         #>event_create: 'Ajouter un évènement'
+        #>search: 'Rechercher un évènement'
         #>title: 'Évènements'
       _general_description_form:
         #>title: 'Description générale'
