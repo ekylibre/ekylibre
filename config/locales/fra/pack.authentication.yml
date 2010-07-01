@@ -32,6 +32,7 @@ fra:
         my_self: 'Saisissez les informations vous concernant'
         title: 'Enregistrer sa société'
         #>company_name_example: # Potentially missing translation
+        #>company_name_example: # Potentially missing translation
         #>user_first_name_example: # Potentially missing translation
         #>user_name_example: # Potentially missing translation
         #>user_name_info: # Potentially missing translation

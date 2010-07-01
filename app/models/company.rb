@@ -715,7 +715,7 @@ class Company < ActiveRecord::Base
       company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
       company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
       company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
-      undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'-', :in_name=>false, :physical=>false)
+      undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
       category = company.entity_categories.create!(:name=>tc('default.category'))
       firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>company.name)
       company.reload
@@ -730,10 +730,16 @@ class Company < ActiveRecord::Base
         company.set_parameter("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
       end
       
-      cash = company.cashes.create!(:name=>tc('default.cash.name'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
-      baac = company.cashes.create!(:name=>tc('default.cash.name'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_embankment=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser"))
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id)
+      cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
+      baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_embankment=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser").id)
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+
+      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+
       delays = []
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)

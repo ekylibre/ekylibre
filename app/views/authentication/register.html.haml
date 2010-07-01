@@ -6,6 +6,7 @@
         - f.error 'user'
         - f.title :my_company
         - f.field :company, :name, {:example=>tc(:company_name_example)}
+        - f.field :company, :code, {:example=>tc(:company_name_example)}
         - f.title :my_self
         - f.field :user, :last_name
         - f.field :user, :first_name, :example=>tc(:user_first_name_example)
@@ -16,8 +17,8 @@
         %tr.field
           %td.label=tc(:load_demo_data)
           %td.input=check_box_tag(:demo, :load_data, :checked=>true)
-      .actions
-        -if defined?(Ekylibre::DONT_REGISTER)
-          =text_field_tag :register_password
-        =submit_tag(tg(:create))
-        =link_to(tg(:cancel), :action=>:login)
+    .actions
+      -if defined?(Ekylibre::DONT_REGISTER)
+        =text_field_tag :register_password
+      =submit_tag(tg(:create))
+      =link_to(tg(:cancel), :action=>:login)

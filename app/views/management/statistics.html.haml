@@ -1,10 +1,20 @@
-=tabbox(:entit) do |tb|
-  -if defined?(Gruff)
-    -tb.tab(tc(:graph_statistics)) do |c|
-      -c << render(:partial=>"graph_statistics")
-  -tb.tab(tc(:csv_statistics)) do |c|
-    -c << render(:partial=>"csv_statistics")
-   
-
-
-
+-form_tag({}, :method=>:put) do 
+  .search
+    %table
+      %tr
+        %td.crit
+          %label=tc("nb_years")
+          =text_field_tag(:nb_years, session[:nb_year].to_s, :size=>5)
+        %td.submit{:rowspan=>3}=submit_tag tg(:export)
+      %tr
+        %td.crit
+          %label=tc("data_to_export")
+          -for x in [:quantity, :amount, :amount_with_taxes]
+            =radio_button_tag "mode", x
+            %label{:for=>"mode_#{x}"}=tc(x)
+      %tr
+        %td.crit
+          %label=tc("source")
+          -for x in [:invoice, :sale_order]
+            =radio_button_tag "source", x
+            %label{:for=>"source_#{x}"}=tc(x)

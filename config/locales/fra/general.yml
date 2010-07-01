@@ -148,7 +148,9 @@ fra:
         admin: 'Administrateur'
         bank_journal_nature_name: 'Banque'
         cash:
-          name: 'Caisse'
+          name:
+            bank_account: 'Compte bancaire'
+            cash_box: 'Caisse'
         category: 'Par défaut'
         delays:
           expression:
@@ -219,6 +221,13 @@ fra:
         location: 'Réserve'
         paid_tax: 'TVA déductible'
         price_list_name: 'Tarif normal'
+        purchase_payment_modes:
+          cash:
+            name: 'Espèces'
+          check:
+            name: 'Chèque'
+          transfer:
+            name: 'Virement'
         role:
           name:
             admin: 'Gérant'
@@ -229,6 +238,8 @@ fra:
             name: 'Espèces'
           check:
             name: 'Chèque'
+          transfer:
+            name: 'Virement sur compte bancaire'
         sample_product_name: 'Produit Exemple'
         sequences:
           management:
