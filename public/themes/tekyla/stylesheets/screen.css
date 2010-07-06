@@ -157,7 +157,7 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 /* end backslash hack*/
 
 table.invex, table.invisible { border-collapse: collapse; }
-table.invex, table.flex { width: 100% }
+table.invex, table.full-width { width: 100% }
 
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px;}
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }

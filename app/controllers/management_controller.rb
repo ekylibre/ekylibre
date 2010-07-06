@@ -802,12 +802,13 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>{:company_id=>['@current_company.id']}, :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
+  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number], :entities=>[:code, :full_name]), :joins=>"JOIN entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number ,:url=>{:action=>:purchase_order}
-    t.column :created_on
+    t.column :planned_on
     t.column :moved_on
     t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}
-    t.column :address, :through=>:dest_contact
+    # t.column :address, :through=>:dest_contact
+    t.column :comment
     t.column :shipped
     # t.column :invoiced
     t.column :amount
@@ -818,11 +819,8 @@ class ManagementController < ApplicationController
   end
 
 
-  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
-  #dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true })
-  #dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
-
   def purchase_orders
+    session[:purchase_order_key] = params[:key] = params[:key] || session[:purchase_order_key] || ""
   end
 
   def purchase_order
@@ -830,6 +828,11 @@ class ManagementController < ApplicationController
     session[:current_purchase_order_id] = @purchase_order.id
     t3e @purchase_order.attributes, :supplier=>@purchase_order.supplier.full_name
   end
+
+  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
+  dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true}, :order=>"active DESC, last_name, first_name")
+  dyli(:purchase_products, [:code, :name],  :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true}, :order=>"name")
+  #dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
   manage :purchase_orders, :supplier_id=>"@current_company.entities.find(params[:supplier_id]).id rescue nil", :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
 
@@ -1093,14 +1096,6 @@ class ManagementController < ApplicationController
     end
   end
   
-#   dyta(:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']},:model=>:sale_order_lines) do |t|
-#     t.column :name, :through=>:product
-#     t.column :quantity
-#     t.column :label, :through=>:unit
-#     t.column :amount, :through=>:price, :label=>tc(:price)
-#     t.column :amount
-#     t.column :amount_with_taxes
-#   end
 
   dyta(:sale_order_deliveries, :model=>:deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
@@ -1117,14 +1112,6 @@ class ManagementController < ApplicationController
   end
 
 
-#   dyta(:sale_order_deliveries, :model=>:deliveries, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}, :children=>:lines) do |t|
-#     t.column :address, :through=>:contact, :children=>:product_name, :label=>"Livraison"
-#     t.column :planned_on, :children=>false
-#     t.column :moved_on, :children=>false
-#     t.column :amount
-#     t.column :amount_with_taxes
-#   end
-
   dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order_id]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation, :url=>{:action=>:invoice}
     # t.column :address, :through=>:contact, :children=>:product_name
@@ -1135,12 +1122,6 @@ class ManagementController < ApplicationController
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:invoice}
   end
     
-#   dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'],:sale_order_id=>['session[:current_sale_order_id]']}, :children=>:lines) do |t|
-#     t.column :number, :children=>:product_name, :url=>{:action=>:invoice}
-#     t.column :address, :through=>:contact, :children=>false
-#     t.column :amount
-#     t.column :amount_with_taxes
-#   end
   
   dyta(:sale_order_payments, :model=>:sale_payments, :conditions=>["sale_payments.company_id=? AND sale_payment_parts.expense_id=? AND sale_payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name], :joins=>"JOIN sale_payment_parts ON (sale_payments.id=payment_id)") do |t|
    # t.column :id, :url=>{:action=>:sale_payment}

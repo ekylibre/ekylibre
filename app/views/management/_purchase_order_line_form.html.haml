@@ -1,7 +1,7 @@
 -product_id = nil
 =formalize do |f|
   -f.error :purchase_order_line
-  -product_id = f.field :purchase_order_line, :product_id, :choices=>{:reflection=>:products, :include_blank=>""}, :new=>{:action=>:product_create}
+  -product_id = f.field :purchase_order_line, :product_id, :choices=>:purchase_products, :new=>{:action=>:product_create}
   -f.field :purchase_order_line, :quantity
   -#f.field :purchase_order_line, :unit_id, :choices=>[]
   -@price ||= @purchase_order_line.price

@@ -2,7 +2,7 @@
   -t.link :account_update, :id=>@account.id
   -if @account.letterable?
     -t.link :account_letter, :id=>@account.id
-%table.flex
+%table.full-width
   %tr
     %td
       =evalue @account, :number

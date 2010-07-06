@@ -606,6 +606,8 @@ manage_purchases:
   - purchase_payment_update
   - purchase_payments
   - purchase_payments_dyta
+  - purchase_products_dyli
+  - suppliers_dyli
 # Gérer les types de vente
 manage_sale_order_natures:
   controller: management

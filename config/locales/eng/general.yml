@@ -250,7 +250,7 @@ eng:
           check:
             #>name: 'Chèque'
           transfer:
-            #>name: 'Virement sur compte bancaire'
+            #>name: 'Virement'
         #>sample_product_name: 'Produit Exemple'
         sequences:
           management:

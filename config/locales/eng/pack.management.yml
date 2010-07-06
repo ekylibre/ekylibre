@@ -318,6 +318,7 @@ eng:
         #>payment_parts: 'Décaissements'
         #>purchase_order_lines: 'Modifier l''achat'
         #>purchase_order_print: 'Imprimer la commande fournisseur'
+        #>purchase_payment_part_create: 'Payer l''achat'
         #>sale_payment_part_create: 'Ajouter un décaissement à l''achat'
         #>title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
       purchase_order_create:
@@ -341,16 +342,20 @@ eng:
         #>title: 'Produits de l''achat {{number}} au fournisseur {{supplier}}'
         #>validate: 'Valider la commande'
       purchase_order_summary:
+        #>financial_state: 'État financier'
+        #>paid_amount: 'Montant réglé'
         #>payments: 'Décaissements'
         #>products: 'Produits de la commande'
         #>purchase_payment_part_create: 'Payer l''achat'
         #>sale_payment_part_create: 'Ajouter un décaissement'
         #>title: 'Décaissements de l''achat N°{{number}}'
+        #>total_amount: 'Montant de l''achat'
+        #>unpaid_amount: 'Montant restant à payer'
+      purchase_order_update:
+        #>title: 'Modifier l''achat : {{number}}'
       purchase_orders:
         nb_purchases:
-          #>one: '1 achat'
-          #>other: '{{count}} achats'
-          #>zero: 'Aucun achat'
+        #>search: 'Rechercher un achat'
         #>title: 'Achats'
       purchase_payment:
         #>purchase_orders: 'Achats payés avec ce décaissement'
@@ -437,13 +442,13 @@ eng:
         #>change_price: 'Changer le prix unitaire'
         #>give_discount: 'Octroyer une remise'
         #>infos: 'Choisissez le produit et la quantité'
+      _sale_order_line_informations:
+        #>no_tracking: 'Aucun lot'
+        #>tracking: 'Lot '
       sale_order_line_informations:
         #>contact: 'à l''adresse'
         #>from_date: 'Du '
         #>to_date: 'Au '
-      _sale_order_line_informations:
-        #>no_tracking: 'Aucun lot'
-        #>tracking: 'Lot '
       _sale_order_line_row_form:
         #>discount: 'Réduc. (%)'
         #>from: 'Du numéro'
@@ -678,13 +683,13 @@ eng:
         #>title: 'Transport du {{created_on}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

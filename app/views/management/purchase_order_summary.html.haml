@@ -8,3 +8,10 @@
 
 %h2=tc(:products)
 =dyta :purchase_order_lines
+
+%h2=tc :financial_state
+%table.dyta
+  -for k, v in @purchase_order.stats(:with_balance=>true)
+    %tr.total
+      %th=tc(k)
+      %td=number_to_accountancy(v)

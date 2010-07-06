@@ -8,7 +8,7 @@
       - t.link :sale_order_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
   -t.print :sale_order, :id=>@sale_order.id
 
-%table.flex
+%table.full-width
   %tr
     %td{:valign=>:top}
       %h2=tc :general
@@ -41,10 +41,10 @@
       %table.dyta
         %tr.total
           %th=tc :amount
-          %td=@sale_order.amount
+          %td=number_to_accountancy(@sale_order.amount)
         %tr.important.total
           %th=tc :amount_with_taxes
-          %td=@sale_order.amount_with_taxes
+          %td=number_to_accountancy(@sale_order.amount_with_taxes)
       
       -if @sale_order.subscriptions.size>0
         %h2=tc :subscriptions

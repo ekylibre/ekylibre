@@ -16,4 +16,4 @@
   -for k, v in @sale_order.stats(:with_balance=>true)
     %tr.total
       %th=tc(k)
-      %td=number_to_currency(v, :unit=>'', :separator=>',', :delimiter=>'&nbsp;')
+      %td=number_to_accountancy(v)

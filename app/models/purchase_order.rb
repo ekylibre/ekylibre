@@ -167,11 +167,23 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
 
+
+  # Produces some amounts about the purchase order.
+  def stats(options={})
+    array = []
+    array << [:total_amount, self.amount_with_taxes]
+    array << [:paid_amount, self.parts_amount]
+    array << [:unpaid_amount, self.unpaid_amount]
+    array 
+  end
+
+
+
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the parameter which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |record|
+      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         record.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
         record.add_debit(label, line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?

@@ -1,2 +1,9 @@
-.count=#tc(:nb_purchases, :count=>@current_company.purchase_orders.size)
+.search
+  - form_tag do
+    %table
+      %tr
+        %td.label=tc('search')
+        %td.field=text_field_tag :key, params[:key]
+        %td=submit_tag tg('search_go', :action=>:purchase_orders)
+
 =dyta :purchase_orders

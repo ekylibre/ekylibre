@@ -114,9 +114,9 @@ spa:
         #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
         #>title: 'Modes de livraison'
-      _delivery_update:
       delivery_update:
         #>title: 'Modification de la livraison'
+      _delivery_update:
       embankment:
         #>amount: 'Montant total'
         #>embankment: 'Remise en banque du'
@@ -323,6 +323,7 @@ spa:
         #>payment_parts: 'Décaissements'
         #>purchase_order_lines: 'Modifier l''achat'
         #>purchase_order_print: 'Imprimer la commande fournisseur'
+        #>purchase_payment_part_create: 'Payer l''achat'
         #>sale_payment_part_create: 'Ajouter un décaissement à l''achat'
         #>title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
       purchase_order_create:
@@ -346,16 +347,20 @@ spa:
         #>title: 'Produits de l''achat {{number}} au fournisseur {{supplier}}'
         #>validate: 'Valider la commande'
       purchase_order_summary:
+        #>financial_state: 'État financier'
+        #>paid_amount: 'Montant réglé'
         #>payments: 'Décaissements'
         #>products: 'Produits de la commande'
         #>purchase_payment_part_create: 'Payer l''achat'
         #>sale_payment_part_create: 'Ajouter un décaissement'
         #>title: 'Décaissements de l''achat N°{{number}}'
+        #>total_amount: 'Montant de l''achat'
+        #>unpaid_amount: 'Montant restant à payer'
+      purchase_order_update:
+        #>title: 'Modifier l''achat : {{number}}'
       purchase_orders:
         nb_purchases:
-          #>one: '1 achat'
-          #>other: '{{count}} achats'
-          #>zero: 'Aucun achat'
+        #>search: 'Rechercher un achat'
         #>title: 'Achats'
       purchase_payment:
         #>purchase_orders: 'Achats payés avec ce décaissement'

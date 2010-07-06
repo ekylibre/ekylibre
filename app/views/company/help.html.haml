@@ -5,7 +5,7 @@
         %td.label=tc(:search)
         %td.field=text_field_tag :key, @key
         %td.submit=submit_tag tg(:search_go)
-%table.flex
+%table.full-width
   %tr
     -if @results
       %td.results{:valign=>:top}

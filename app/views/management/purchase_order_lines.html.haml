@@ -4,10 +4,9 @@
   -if @purchase_order.lines.size > 0 
     -t.print :purchase_order, :p0=>@purchase_order.id 
 %h2=tc :general
-= toolbar do |t|
-  - if @purchase_order.updatable?
-    - t.link(:purchase_order_update, {:id=>@purchase_order.id})
-%table.flex
+=toolbar do |t|
+  -t.link(:purchase_order_update, {:id=>@purchase_order.id})
+%table
   %tr
     %td
       =evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
@@ -25,10 +24,10 @@
 %table.dyta
   %tr.total
     %th=tc :amount
-    %td=@purchase_order.amount
+    %td=number_to_accountancy(@purchase_order.amount)
   %tr.important.total
     %th=tc :amount_with_taxes
-    %td=@purchase_order.amount_with_taxes
+    %td=number_to_accountancy(@purchase_order.amount_with_taxes)
 
 .end
 

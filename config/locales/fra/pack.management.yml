@@ -66,17 +66,18 @@ fra:
       sales_step_4: 'Encaissements'
   views:
     management:
+      # Unfound view ./app/views/management/_csv_statistics
       _csv_statistics:
-        amount: 'Montants HT' #!
-        amount_with_taxes: 'Montants TTC' #!
-        csv_statistics: 'Statistiques à exporter au format CSV' #!
+        amount: 'Montants HT'
+        amount_with_taxes: 'Montants TTC'
+        csv_statistics: 'Statistiques à exporter au format CSV'
         data_to_export: 'Données à exporter'
-        invoice: 'Factures' #!
+        invoice: 'Factures'
         nb_years: 'Nb d''années dans l''historique'
-        product: 'Produit' #!
-        quantity: 'Quantités' #!
-        sale_order: 'Commandes' #!
-        sales: 'Exporter un tableau des ventes au format CSV' #!
+        product: 'Produit'
+        quantity: 'Quantités'
+        sale_order: 'Commandes'
+        sales: 'Exporter un tableau des ventes au format CSV'
         source: 'Source de données'
       delay:
         delay_update: 'Modifier le délai'
@@ -305,9 +306,9 @@ fra:
         payment_parts: 'Décaissements'
         purchase_order_lines: 'Modifier l''achat'
         purchase_order_print: 'Imprimer la commande fournisseur' #!
+        purchase_payment_part_create: 'Payer l''achat'
         sale_payment_part_create: 'Ajouter un décaissement à l''achat' #!
         title: 'Détails de l''achat {{number}} au fournisseur {{supplier}} '
-        #>purchase_payment_part_create: # Potentially missing translation
       purchase_order_create:
         title: 'Nouvel achat'
       _purchase_order_form:
@@ -329,16 +330,19 @@ fra:
         title: 'Produits de l''achat {{number}} au fournisseur {{supplier}}'
         validate: 'Valider la commande'
       purchase_order_summary:
+        financial_state: 'État financier'
+        paid_amount: 'Montant réglé' #!
         payments: 'Décaissements'
         products: 'Produits de la commande'
         purchase_payment_part_create: 'Payer l''achat'
         sale_payment_part_create: 'Ajouter un décaissement' #!
         title: 'Décaissements de l''achat N°{{number}}'
+        total_amount: 'Montant de l''achat' #!
+        unpaid_amount: 'Montant restant à payer' #!
+      purchase_order_update:
+        title: 'Modifier l''achat : {{number}}'
       purchase_orders:
-        nb_purchases: 
-          one: '1 achat'
-          other: '{{count}} achats'
-          zero: 'Aucun achat'
+        search: 'Rechercher un achat'
         title: 'Achats'
       purchase_payment:
         purchase_orders: 'Achats payés avec ce décaissement'
@@ -428,15 +432,15 @@ fra:
         change_price: 'Changer le prix unitaire' #!
         give_discount: 'Octroyer une remise' #!
         infos: 'Choisissez le produit et la quantité'
-      _sale_order_line_informations:
-        no_tracking: 'Aucun lot'
-        tracking: 'Lot '
       sale_order_line_informations:
         contact: 'à l''adresse'
         from_date: 'Du '
         to_date: 'Au '
         #>from: # Potentially missing translation
         #>to: # Potentially missing translation
+      _sale_order_line_informations:
+        no_tracking: 'Aucun lot'
+        tracking: 'Lot '
       _sale_order_line_row_form:
         discount: 'Réduc. (%)' #!
         from: 'Du numéro' #!
@@ -512,10 +516,11 @@ fra:
       sale_orders:
         all: 'Toutes' #!
         current: 'En cours' #!
-        nb_sales: 
-          one: '1 vente'
-          other: '{{count}} ventes'
-          zero: 'Aucune vente'
+        nb_sales:  #!
+          one: '1 vente' #!
+          other: '{{count}} ventes' #!
+          zero: 'Aucune vente' #!
+ #!
         search_sales: 'Rechercher des ventes'
         title: 'Devis et commandes'
         unpaid: 'Impayées' #!
