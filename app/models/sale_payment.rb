@@ -74,7 +74,7 @@ class SalePayment < ActiveRecord::Base
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
     else
-      last = self.company.payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
+      last = self.company.sale_payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
     end
     self.scheduled = (self.to_bank_on>Date.today ? true : false) # if self.scheduled.nil?

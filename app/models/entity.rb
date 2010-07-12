@@ -90,9 +90,9 @@ class Entity < ActiveRecord::Base
   has_many :cashes, :dependent=>:destroy
   has_many :complement_data
   has_many :contacts, :conditions=>{:deleted_at=>nil}
-  has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity1_id
+  has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
   has_many :events
-  has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity2_id
+  has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity_2_id
   has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
