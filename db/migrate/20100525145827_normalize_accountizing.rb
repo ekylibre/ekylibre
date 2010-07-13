@@ -148,7 +148,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     change_column :companies, :code, :string, :limit=>16
 
+    
     rename_column :contacts, :stopped_at, :deleted_at
+    execute "UPDATE contacts SET deleted_at = updated_at WHERE deleted_at IS NULL AND active = #{quoted_false}"
     remove_column :contacts, :started_at
     remove_column :contacts, :closed_on
     remove_column :contacts, :deleted
