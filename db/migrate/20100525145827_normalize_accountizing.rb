@@ -124,6 +124,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       rename_column table, :default, :by_default
     end
 
+
     # Add/remove columns
     remove_column :accounts, :alpha
     remove_column :accounts, :groupable
@@ -318,9 +319,19 @@ class NormalizeAccountizing < ActiveRecord::Migration
       execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
     end
     execute "INSERT INTO parameters (name, nature, boolean_value, company_id, created_at, updated_at) SELECT 'accountancy.accountize.draft_mode', 'boolean', #{quoted_true}, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
+
+
+    execute "UPDATE listing_nodes SET name=REPLACE(name, 'active', 'deleted_at'), attribute_name='deleted_at', condition_operator=CASE WHEN condition_operator = 'is_true' THEN 'vn' WHEN condition_operator = 'is_false' THEN 'nvn' END WHERE name LIKE 'contact%.active'"
+    execute "UPDATE listing_nodes SET name=REPLACE(name, 'default', 'by_default'), attribute_name='by_default' WHERE name LIKE '%.default'"
+    execute "DELETE FROM listing_nodes WHERE attribute_name = 'deleted'"
+    execute "UPDATE listings SET query = ''"
   end
 
   def self.down
+    execute "UPDATE listings SET query = ''"
+    execute "UPDATE listing_nodes SET name=REPLACE(name, 'by_default', 'default'), attribute_name='default' WHERE name LIKE '%.by_default'"
+    execute "UPDATE listing_nodes SET name=REPLACE(name, 'deleted_at', 'active'), attribute_name='active', condition_operator=CASE WHEN condition_operator = 'vn' THEN 'is_true' WHEN condition_operator = 'nvn' THEN 'is_false' END WHERE name LIKE 'contact%.active'"
+
     # Update some values in tables
     execute "DELETE FROM parameters WHERE name = 'accountancy.accountize.draft_mode'"
     for n, o in PARAMETERS.reverse

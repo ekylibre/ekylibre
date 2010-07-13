@@ -60,9 +60,9 @@ class ListingNode < ActiveRecord::Base
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
 
   @@comparators = {
-    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq"], 
+    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"], 
     :string=>["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"], 
-    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq"], 
+    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"], 
     :boolean=>["any", "is_true", "is_false"], 
     :unknown=>["--"]
   }
@@ -73,6 +73,8 @@ class ListingNode < ActiveRecord::Base
     :lt=> "{{COLUMN}} < {{VALUE}}", 
     :ge=> "{{COLUMN}} >= {{VALUE}}", 
     :le=> "{{COLUMN}} <= {{VALUE}}", 
+    :vn=> "{{COLUMN}} IS NULL", 
+    :nvn=> "{{COLUMN}} IS NOT NULL", 
     :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}", 
     :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}", 
     :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}", 

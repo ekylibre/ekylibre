@@ -457,6 +457,7 @@ class CompanyController < ApplicationController
 
   def listing_extract
     return unless @listing = find_and_check(:listing)
+    @listing.save if @listing.query.blank?
     query = @listing.query.to_s
     query += " AND "+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ") if params[:mode] == "no_mail"
     query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
@@ -473,7 +474,7 @@ class CompanyController < ApplicationController
       send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
     rescue Exception=>e
       notify(:fails_to_extract_listing, :error, :message=>e.message)
-      redirect_to_back
+      redirect_to_current
     end
   end
   

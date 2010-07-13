@@ -443,6 +443,8 @@ jpn:
         #>not_equal_cs: 'N''est pas égal à (sensible à la casse)'
         #>not_finishes: 'Ne se termine pas par'
         #>not_finishes_cs: 'Ne se termine pas par (sensible à la casse)'
+        #>nvn: 'N''est pas vide'
+        #>vn: 'Est vide'
       comparison:
         #>with_value: '{{comparator}} {{value}}'
         #>without_value: '{{comparator}}'
