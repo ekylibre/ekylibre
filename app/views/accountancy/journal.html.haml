@@ -28,9 +28,9 @@
     %th=JournalRecord.human_attribute_name("credit")
   %tr.important.total
     %th=tc :totals
-    %td=@totals[:debit]
-    %td=@totals[:credit]
+    %td=number_to_accountancy @totals[:debit]
+    %td=number_to_accountancy @totals[:credit]
   %tr.important.total
     %th=tc :balance
-    %td=@totals[:balance_debit]
-    %td=@totals[:balance_credit]
+    %td=number_to_accountancy @totals[:balance_debit]
+    %td=number_to_accountancy @totals[:balance_credit]

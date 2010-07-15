@@ -1356,7 +1356,8 @@ class ManagementController < ApplicationController
   def sale_order_line_create
     return unless @sale_order = find_and_check(:sale_order, params[:order_id]||session[:current_sale_order_id])
     @locations = @current_company.locations
-    @sale_order_line = @sale_order.lines.new(:price_amount=>0.0, :reduction_percent=>@sale_order.client.max_reduction_percent)
+    default_attributes = {:company_id=>@current_company.id, :price_amount=>0.0, :reduction_percent=>@sale_order.client.max_reduction_percent}
+    @sale_order_line = @sale_order.lines.new(default_attributes)
     if @current_company.available_prices.size > 0
       # @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
       @product = @current_company.available_prices.first.product
@@ -1375,7 +1376,7 @@ class ManagementController < ApplicationController
       redirect_to :action=>:sale_order_lines, :id=>@sale_order.id
       return
     elsif request.post? 
-      @sale_order_line = @sale_order.lines.build(:company_id=>@current_company.id)
+      @sale_order_line = @sale_order.lines.build(default_attributes)
       @sale_order_line.attributes = params[:sale_order_line]
       @sale_order_line.location_id = @locations[0].id if @locations.size == 1
 
