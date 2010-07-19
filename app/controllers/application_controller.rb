@@ -20,7 +20,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
+  # helper :all # include all helpers, all the time
   before_filter :i18nize, :except=>[:i18nize]
   before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
   attr_accessor :current_user
@@ -29,8 +29,8 @@ class ApplicationController < ActionController::Base
   
 
   include Userstamp
-  include ExceptionNotifiable
-  local_addresses.clear
+  # include ExceptionNotifiable
+  # local_addresses.clear
 
   for k, v in EKYLIBRE_REFERENCES
     for c, t in v
@@ -306,7 +306,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_login(url=nil)
     session[:help] = false
-    redirect_to :controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]
+    # redirect_to({:controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]})
+    redirect_to :action=>:index
   end
   
   def redirect_to_back(options={})

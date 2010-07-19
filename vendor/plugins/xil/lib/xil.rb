@@ -55,6 +55,6 @@ Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg
 # ActionView::Template.register_template_handler(:xodt, Xil::TemplateHandler)
 
 # Specify we don't want to use the layouts
-ActionController::Base.exempt_from_layout :xpdf
-ActionController::Base.exempt_from_layout :rpdf
-ActionController::Base.exempt_from_layout :prawn
+#ActionController::Base.exempt_from_layout :xpdf
+#ActionController::Base.exempt_from_layout :rpdf
+#ActionController::Base.exempt_from_layout :prawn
