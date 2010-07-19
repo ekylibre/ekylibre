@@ -361,8 +361,8 @@ class AccountancyController < ApplicationController
   def general_ledger
     session[:general_ledger] = {}
     fy = @current_company.current_financialyear
-    params[:started_on] = params[:started_on].to_date rescue fy.started_on
-    params[:stopped_on] = params[:stopped_on].to_date rescue fy.stopped_on
+    params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
+    params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
     params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
 
     if params[:accounts]
@@ -796,10 +796,10 @@ class AccountancyController < ApplicationController
 
   def journal_filter()
     fy = @current_company.current_financialyear
-    session[:journal_record_period] = params[:period] = params[:period]||fy.started_on.to_s+"_"+fy.stopped_on.to_s
+    session[:journal_record_period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
     session[:journal_record_mode]   = params[:mode]   = params[:mode]||"automatic"
-    session[:journal_record_start]  = params[:start]  = params[:start]||fy.started_on
-    session[:journal_record_finish] = params[:finish] = params[:finish]||fy.stopped_on
+    session[:journal_record_start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
+    session[:journal_record_finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
     if action_name == "draft_entries"
       journals = []
       for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
