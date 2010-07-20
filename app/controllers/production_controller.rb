@@ -85,6 +85,9 @@ class ProductionController < ApplicationController
     t3e @shape.attributes
   end
 
+  def shapes_map
+    @map = true
+  end
   
   dyta(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:operation}

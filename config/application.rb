@@ -18,6 +18,7 @@ module Ekylibre
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+    config.plugins = [ :will_paginate, :dyke, :all ]
 
     # Activate observers that should always be running
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
@@ -29,6 +30,9 @@ module Ekylibre
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}')]
+    config.i18n.default_locale = :fra
+
 
     # Configure generators values. Many other options are available, be sure to check the documentation.
     # config.generators do |g|

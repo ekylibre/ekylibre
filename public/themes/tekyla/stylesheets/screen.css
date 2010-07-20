@@ -456,3 +456,4 @@ table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ backgro
 
 #detail-row { padding: 2px 4px; text-align:center; }
 
+.map { border: 1px solid #999; background: white; }

@@ -30,6 +30,7 @@ __minimum__:
   - relations::entities_dyli
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
+  - production::shapes_map
 # Droit par défaut (inaccessible)
 __not_used__:
   actions:

@@ -16,9 +16,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
   before_filter :i18nize, :except=>[:i18nize]
@@ -28,10 +25,16 @@ class ApplicationController < ActionController::Base
   layout :xhr_or_not
   
 
-  include Userstamp
+  # include Userstamp
   # include ExceptionNotifiable
   # local_addresses.clear
 
+  EKYLIBRE_REFERENCES = {}
+
+  def self.dyta(*args)
+    
+  end
+  
   for k, v in EKYLIBRE_REFERENCES
     for c, t in v
       raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
@@ -39,15 +42,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  # protect_from_forgery # :secret => '232b3ccf31f8f5fefcbb9d2ac3a00415'
-  
-  # See ActionController::Base for details 
-  # Uncomment this to filter the contents of submitted sensitive data parameters
-  # from your application log (in this case, all fields with names like "password").  
-  # filter_parameter_logging :password
-
 
   def accessible?(url={})
     #puts url.inspect
@@ -215,7 +209,7 @@ class ApplicationController < ActionController::Base
   private
 
   def xhr_or_not()
-    (request.xhr? ? "dialog" : "application")
+    (request.xhr? ? "dialog" : "test") # "application")
   end
  
   def historize()

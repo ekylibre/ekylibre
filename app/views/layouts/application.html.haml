@@ -9,8 +9,8 @@
     =theme_link_tag(@current_theme)
     =calendar_link_tag
     =javascript_include_tag :defaults
-    =#javascript_include_tag 'layout'
     =javascript_include_tag "dyke"
+    =javascript_include_tag "raphael", "openlayers"
   %body
     #body.flex
       #top=top_tag
