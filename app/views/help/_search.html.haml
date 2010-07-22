@@ -5,8 +5,8 @@
 -base_url[:dialog] = params[:dialog] if params[:dialog]
 .vbox.flex
   .nav
-    =link_to_remote(tg(:close), {:url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-close help-link"})
-    =link_to_remote(tg(:previous), {:url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-previous help-link"} ) if session[:help_history].size>1
+    =link_to(tg(:close), {:remote=>true, :url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-close help-link"})
+    =link_to(tg(:previous), {:remote=>true, :url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"help-previous help-link"} ) if session[:help_history].size>1
     %h1.title=tc :title
   -cache(:action=>"help", :id=>@article) do
     .content.flex{:style=>'overflow:auto;'}
@@ -18,7 +18,7 @@
         =doc
       %ul
         -# cnt = @article.split("-")[0]
-        -# %li=link_to_remote(::I18n.t("controllers.#{cnt}.title"), :url=>base_url.merge(:action=>:search, :article=>cnt+"-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
-        %li=link_to_remote(tc("home"), :url=>base_url.merge(:action=>:search, :article=>"company-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
+        -# %li=link_to(::I18n.t("controllers.#{cnt}.title"), :remote=>true, :url=>base_url.merge(:action=>:search, :article=>cnt+"-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
+        %li=link_to(tc("home"), :remote=>true, :url=>base_url.merge(:action=>:search, :article=>"company-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
         %li=link_to(tc("ekylibre"), "http://www.ekylibre.org")
       .end
