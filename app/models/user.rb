@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
   attr_readonly :company_id
 
   # Needed to stamp all records
-  model_stamper
+  # model_stamper
 
   class << self
     def rights_file; "#{RAILS_ROOT}/config/rights.yml"; end

@@ -29,8 +29,10 @@ class CreateTrackingSupport < ActiveRecord::Migration
     change_column :units, :base, :string, :null=>true
     execute "UPDATE units SET coefficient=coefficient/1000, base='kg' WHERE base='g'"
     execute "UPDATE units SET base='' WHERE base='u'"
-    for unit in Unit.all
-      unit.save
+    if defined? Unit
+      for unit in Unit.all
+        unit.save
+      end
     end
 
     add_column :shapes, :number, :string

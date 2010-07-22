@@ -18,11 +18,11 @@
 
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
-  before_filter :i18nize, :except=>[:i18nize]
+  #before_filter :i18nize, :except=>[:i18nize]
   before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
   attr_accessor :current_user
   attr_accessor :current_company
-  layout :xhr_or_not
+  #layout :xhr_or_not
   
 
   # include Userstamp
@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
   def self.dyta(*args)
     
   end
-  
+
+
   for k, v in EKYLIBRE_REFERENCES
     for c, t in v
       raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
@@ -83,6 +84,12 @@ class ApplicationController < ActionController::Base
         redirect_to_current
       end
     end
+  end
+
+
+
+  def default_url_options(options={})
+    {:company => params[:company]}
   end
 
 
@@ -209,7 +216,7 @@ class ApplicationController < ActionController::Base
   private
 
   def xhr_or_not()
-    (request.xhr? ? "dialog" : "test") # "application")
+    (request.xhr? ? "dialog" : "application")
   end
  
   def historize()
@@ -300,8 +307,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_login(url=nil)
     session[:help] = false
-    # redirect_to({:controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]})
-    redirect_to :action=>:index
+    redirect_to({:controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]})
+    # redirect :action=>:index
   end
   
   def redirect_to_back(options={})

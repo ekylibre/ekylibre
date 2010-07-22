@@ -1,6 +1,5 @@
 !!! XML utf-8
--#!!! strict-svg
-="<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN\" \"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd\">"
+=doctype_tag
 
 %html{:xmlns=>"http://www.w3.org/1999/xhtml"}
   %head
@@ -10,7 +9,7 @@
     =calendar_link_tag
     =javascript_include_tag :defaults
     =javascript_include_tag "dyke"
-    =javascript_include_tag "raphael", "openlayers"
+    =#javascript_include_tag "raphael", "openlayers"
   %body
     #body.flex
       #top=top_tag

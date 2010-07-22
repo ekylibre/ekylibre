@@ -54,5 +54,28 @@ Ekylibre::Application.routes.draw do |map|
 
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
-  match ':controller(/:action(/:id(.:format)))'
+  match ':company-:controller(/:action(/:id(.:format)))'
+  match 'authentication(/:action)', :controller=>'authentication'
+
+
+
+#  map.connect 'authentication/:action', :controller=>'authentication', :action=>/(login|register)/
+#   map.connect ':company/:controller', :action=>"index"
+#   map.connect ':company/:controller/:action'
+#   map.connect ':company/:controller/:action/:id'
+#   map.connect ':company/:controller/:action/:id.:format'
+#   map.connect ':company/:controller/:action.:format'
+#   map.connect ':company', :controller=>"company"
+
+  #  match 'authentication(/:action)', :to=>'authentication'
+  # match ':company/:controller/:action/:id.:format'
+  # match ':company/:controller/:action/:id'
+  # match ':company/:controller/:action.:format'
+  # match ':company/:controller/:action/:id.:format'
+  #  match '(:company/):controller(/:action(/:id(.:format)))'
+  # match ':company', :to=>"company#index"
+  #   scope "(/:company)" do
+  #     match '/:controller(/:action(/:id(.:format)))'
+  #     match '/', :to=>"company#index"
+  #   end
 end

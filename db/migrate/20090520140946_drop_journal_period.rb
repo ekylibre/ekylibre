@@ -39,7 +39,7 @@ class DropJournalPeriod < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>:journal_periods_unique
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"journal_periods_unique"
     
     
     add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade 

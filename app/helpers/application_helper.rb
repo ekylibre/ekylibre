@@ -18,6 +18,8 @@
 #
 # ##### END LICENSE BLOCK #####
 
+
+
 module ApplicationHelper
   
   MENUS=
@@ -204,34 +206,34 @@ module ApplicationHelper
     return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'
   end
 
-  def link_to(*args, &block)
-    if block_given?
-      options      = args.first || {}
-      html_options = args.second
-      concat(link_to(capture(&block), options, html_options))
-    else
-      name         = args.first
-      options      = args.second || {}
-      html_options = args.third || {}
+#   def link_to(*args, &block)
+#     if block_given?
+#       options      = args.first || {}
+#       html_options = args.second
+#       concat(link_to(capture(&block), options, html_options))
+#     else
+#       name         = args.first
+#       options      = args.second || {}
+#       html_options = args.third || {}
 
-      if options.is_a? Hash
-        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
-      end
+#       if options.is_a? Hash
+#         return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
+#       end
 
-      url = url_for(options)
-      if html_options
-        html_options = html_options.stringify_keys
-        href = html_options['href']
-        convert_options_to_javascript!(html_options, url)
-        tag_options = tag_options(html_options)
-      else
-        tag_options = nil
-      end
+#       url = url_for(options)
+#       if html_options
+#         html_options = html_options.stringify_keys
+#         href = html_options['href']
+#         # convert_options_to_javascript!(html_options, url)
+#         tag_options = tag_options(html_options)
+#       else
+#         tag_options = nil
+#       end
       
-      href_attr = "href=\"#{url}\"" unless href
-      "<a #{href_attr}#{tag_options}>#{name || url}</a>"
-    end
-  end
+#       href_attr = "href=\"#{url}\"" unless href
+#       "<a #{href_attr}#{tag_options}>#{name || url}</a>"
+#     end
+#   end
 
   def li_link_to(*args)
     options      = args[1] || {}
@@ -315,6 +317,10 @@ module ApplicationHelper
   end
 
 
+  def doctype_tag
+    return "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.1 plus MathML 2.0 plus SVG 1.1//EN\" \"http://www.w3.org/2002/04/xhtml-math-svg/xhtml-math-svg.dtd\">".html_safe
+  end
+
 
 
   # Permits to use themes for Ekylibre
@@ -329,7 +335,7 @@ module ApplicationHelper
         code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
       end
     end
-    return code
+    return code.html_safe
   end
 
 
@@ -343,8 +349,8 @@ module ApplicationHelper
   # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
   # , 'calendar/border-radius'
   def calendar_link_tag(lang='fr')
-    javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
-      stylesheet_link_tag('calendar')
+    (javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
+      stylesheet_link_tag('calendar')).html_safe
   end
 
   # <p><label for="issue_start_date">Début</label>
@@ -398,8 +404,6 @@ module ApplicationHelper
 
 
   def top_tag
-    #return content_tag(:div, ' ', :style=>'display:none;') if @current_user.blank?
-    #return '' if @current_user.blank?
     session[:last_page] ||= {}
     code = ''
 
@@ -412,8 +416,7 @@ module ApplicationHelper
       tag += content_tag(:span, @current_company.name)+" "
       tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
     end
-    # tag = content_tag(:nobr, tag)
-    code += content_tag(:div, tag, :id=>:user, :class=>:menu, :align=>:right)
+    code += content_tag(:div, tag.html_safe, :id=>:user, :class=>:menu, :align=>:right)
 
     code += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
 
@@ -427,13 +430,9 @@ module ApplicationHelper
       end
     end if @current_user
     
-    # tag = content_tag(:nobr, tag)
-    code += content_tag(:div, tag, :id=>:modules, :class=>:menu)
+    code += content_tag(:div, tag.html_safe, :id=>:modules, :class=>:menu)
   
-    return code
-    # Fix
-    # code = content_tag(:div, code, :id=>:top, :orient=>:horizontal, :flexy=>true)
-    # code
+    return code.html_safe
   end
 
 
@@ -465,7 +464,7 @@ module ApplicationHelper
     url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
     update = (options.delete(:update)||:help).to_s
-    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
+    return link_to(tg(:display_help), {:remote=>true, :update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
   end
 
   def help_tag(html_options={})
@@ -474,7 +473,7 @@ module ApplicationHelper
       code = render(:partial=>'help/search')
     end
     # return content_tag(:div, code, {:id=>"help", :class=>"lm_right help", :style=>"#{'display:none;' unless session[:help]}; width: 240px;"}.merge(html_options))
-    return code
+    return code.html_safe
   end
 
   def side_link_tag
@@ -482,7 +481,7 @@ module ApplicationHelper
     return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
     code = content_tag(:div)
     operation = (session[:side] ? "close" : "open")
-    link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
+    link_to(code, {:remote=>true, :url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
   def side_tag(controller = self.controller.controller_name.to_sym)
@@ -498,7 +497,7 @@ module ApplicationHelper
         code += "<div class='flash #{mode}'><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div>"
       end
     end
-    code
+    code.html_safe
   end
 
   def notifications_tag
@@ -881,13 +880,14 @@ module ApplicationHelper
 
 
   def formalize(options={})
-    if block_given?
-      form = Formalize.new
-      yield form
-      formalize_lines(form, options)
-    else
-      '[EmptyFormalizeError]'
-    end
+    code = if block_given?
+             form = Formalize.new
+             yield form
+             formalize_lines(form, options)
+           else
+             '[EmptyFormalizeError]'
+           end
+    return code.html_safe
   end
 
 
@@ -926,11 +926,11 @@ module ApplicationHelper
       unless line_code.blank?
         html_options = line[:html_options]||{}
         html_options[:class] = css_class
-        code += content_tag(:tr, line_code, html_options)
+        code += content_tag(:tr, line_code.html_safe, html_options)
       end
       
     end
-    code = content_tag(:table, code, :class=>'formalize',:id=>form_options[:id])
+    code = content_tag(:table, code.html_safe, :class=>'formalize',:id=>form_options[:id])
     return code
   end
 

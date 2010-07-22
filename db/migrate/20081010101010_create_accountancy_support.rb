@@ -80,7 +80,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     end
     add_index :account_balances, :company_id
     add_index :account_balances, :financialyear_id
-    add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>:account_balannces_unique
+    add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"account_balannces_unique"
 
 #     # JournalNature : Type de journal
 #     create_table :journal_natures do |t|
@@ -125,7 +125,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>:journal_periods_unique
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"journal_periods_unique"
 
     # JournalRecord : Piece comptable
     create_table :journal_records do |t|

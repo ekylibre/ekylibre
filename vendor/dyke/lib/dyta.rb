@@ -713,7 +713,7 @@ end
 
 if Ekylibre::Dyke::Dyta.will_paginate
 
-  ERB::Util::HTML_ESCAPE = { '&' => '&#38;', '>' => '&#60;', '<' => '&#62;', '"' => '&#34;' }
+  ERB::Util::HTML_ESCAPE = { '&' => '&#38;', '>' => '&#62;', '<' => '&#60;', '"' => '&#34;' }
 
   module ActionController
     class RemoteLinkRenderer < WillPaginate::LinkRenderer
