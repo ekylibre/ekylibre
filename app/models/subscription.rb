@@ -60,8 +60,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
   validates_presence_of :nature_id, :entity_id
 
-
-  def before_validation
+  def clean
     self.sale_order_id ||= self.invoice.sale_order_id if self.invoice
     self.nature_id ||= self.product.subscription_nature_id if self.product
     unless self.entity
@@ -76,7 +75,6 @@ class Subscription < ActiveRecord::Base
       last = self.company.subscriptions.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
       self.number = last ? last.number.succ : '000000'
     end
-
   end
 
   def before_validation_on_create
@@ -102,7 +100,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def validate
+  def check
     if self.contact and self.entity
       errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.contact.entity_id!=self.entity_id
     end

@@ -40,13 +40,13 @@ class Transport < ActiveRecord::Base
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries
+  has_many :deliveries, :dependent=>:nullify
 
   def before_validation_on_create
     self.created_on ||= Date.today
   end
 
-  def before_validation
+  def clean
     self.weight = 0
     for delivery in self.deliveries
       self.weight += delivery.weight
@@ -55,12 +55,6 @@ class Transport < ActiveRecord::Base
 
   def refresh
     self.save
-  end
-
-  def before_destroy
-    for delivery in self.deliveries
-      delivery.update_attributes(:transport_id=>nil)
-    end
   end
 
   def address

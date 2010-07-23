@@ -43,10 +43,9 @@ class Inventory < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
 
-  def before_validation
+  def clean
     self.created_on ||= Date.today
   end
-
 
   def reflect_changes
     for line in self.lines
@@ -57,29 +56,6 @@ class Inventory < ActiveRecord::Base
     self.save
   end
 
-  # def reflect_changes
-  #   if self.quantity != self.theoric_quantity
-  #     rslt =  (self.quantity.to_f != self.theoric_quantity.to_f)
-  #     puts rslt
-  #     input = self.quantity < self.theoric_quantity ? false : true
-  #     #raise Exception.new self.theoric_quantity.to_s+" "+self.quantity.to_s+"   "+input.to_s
-  #     if input
-  #       StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.quantity - self.theoric_quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id, :generated=>true)
-  #       StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.quantity - self.theoric_quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-  #     else
-  #       StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.theoric_quantity - self.quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>true ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-  #       StockMove.create!(:name=>tc('inventory')+" "+Date.today.to_s, :quantity=>(self.theoric_quantity - self.quantity) , :location_id=>self.location_id, :product_id=>self.product_id, :planned_on=>Date.today, :moved_on=>Date.today, :company_id=>self.company_id, :virtual=>false ,:input=>input, :origin_type=>InventoryLine.to_s, :origin_id=>self.id ,:generated=>true)
-  #     end
-  #   end
-  # end
-
-
-  # def before_destroy
-  #   for line in self.lines
-  #     line.destroy
-  #   end
-  # end
-
   def set_lines(lines)
     # (Re)init lines
     self.lines.clear
@@ -89,6 +65,7 @@ class Inventory < ActiveRecord::Base
       l.stock_id = line[:stock_id].to_i if line[:stock_id]
       l.save!
     end
+  end
 
   # def to_inventory_line(quantity, inventory_id)
   #   result = (self.quantity.to_f == quantity.to_f)
@@ -96,7 +73,6 @@ class Inventory < ActiveRecord::Base
   #   InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
   # end
 
-  end
 
   def to_accountancy(action=:create, options={})
   end

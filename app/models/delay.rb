@@ -44,12 +44,12 @@ class Delay < ActiveRecord::Base
 
   DELAY_SEPARATOR = ', '
 
-  def before_validation
+  def clean
     self.expression = self.expression.squeeze(" ").lower
     self.expression.split(/\s*\,\s*/).collect{|x| x.strip}.join(DELAY_SEPARATOR)
   end
 
-  def validate
+  def check
     errors.add(:expression, :invalid) if self.compute(Date.today).nil?
   end
 

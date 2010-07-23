@@ -50,7 +50,7 @@ class PurchasePayment < ActiveRecord::Base
   belongs_to :mode, :class_name=>PurchasePaymentMode.name  
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
+  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
   has_many :purchase_orders, :through=>:parts
 
   validates_numericality_of :amount, :greater_than=>0
@@ -69,18 +69,12 @@ class PurchasePayment < ActiveRecord::Base
     true
   end
 
-  def before_validation
+  def clean
     self.parts_amount = self.parts.sum(:amount)
   end
 
-  def validate
+  def check
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
-  end
-
-  def after_update
-    for part in self.parts
-      part.to_accountancy(:update)
-    end if self.company.accountizing?
   end
 
   def updatable?

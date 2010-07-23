@@ -46,7 +46,7 @@ class Shape < ActiveRecord::Base
   has_many :shapes
   validates_presence_of :area_unit
 
-  def before_validation
+  def clean
     self.master = false if self.master.nil?
     self.polygon ||= "-"
   end

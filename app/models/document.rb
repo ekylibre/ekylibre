@@ -55,9 +55,9 @@ class Document < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  DIRECTORY = "#{RAILS_ROOT}/private"
+  DIRECTORY = "#{Rails.root.to_s}/private"
 
-  def before_validation
+  def clean
     self.nature_code = self.template.code if self.template
   end
 

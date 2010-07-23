@@ -42,15 +42,14 @@
 class DeliveryLine < ActiveRecord::Base
   attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
-  belongs_to :delivery
+  belongs_to :delivery, :autosave=>true
   belongs_to :price
   belongs_to :product
   belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :unit
   validates_presence_of :product_id, :unit_id
 
-
-  def before_validation
+  def clean
     if self.order_line
       self.product_id  = self.order_line.product_id
       self.price_id    = self.order_line.price.id
@@ -61,21 +60,17 @@ class DeliveryLine < ActiveRecord::Base
     self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
   end
   
-  def validate_on_create
+  def check_on_create
     if self.product
       maximum = self.undelivered_quantity
       errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
     end
   end
 
-  def validate_on_update
+  def check_on_update
     old_self = self.class.find(self.id)
     maximum = self.undelivered_quantity - old_self.quantity
     errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
-  end
-
-  def after_save
-    self.delivery.save
   end
 
   def undelivered_quantity

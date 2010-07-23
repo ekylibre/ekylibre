@@ -40,6 +40,10 @@
 #
 
 class OperationLine < ActiveRecord::Base
+  after_destroy :cancel_stock_reservation
+  after_save :add_stock_reservation
+  before_update :cancel_stock_reservation
+  
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company
   belongs_to :location, :class_name=>Location.name
@@ -53,7 +57,7 @@ class OperationLine < ActiveRecord::Base
   @@directions = ["in", "out"]
   validates_inclusion_of :direction, :in => @@directions
 
-  def before_validation
+  def clean
     self.direction = @@directions[0] unless @@directions.include? self.direction
     self.quantity = self.quantity.to_f
     self.unit_id ||= self.product.unit_id if self.product
@@ -84,22 +88,15 @@ class OperationLine < ActiveRecord::Base
     end
   end
 
-  # Cancel last stock_move
-  def before_update
-    old_self = self.class.find(self.id)
-    # self.product.add_stock_move(:virtual=>true, :incoming=>!self.out?, :origin=>old_self)
+  # Cancel old virtual stock reservation
+  def cancel_stock_reservation
+    old_self = self.class.find(self.id) rescue self
     self.product.reserve_stock(:incoming=>!self.out?, :origin=>old_self)
   end
 
   # Add virtual move
-  def after_save
-    # self.product.add_stock_move(:virtual=>true, :incoming=>self.out?, :origin=>self)
+  def add_stock_reservation
     self.product.reserve_stock(:incoming=>self.out?, :origin=>self)
-  end
-
-  def after_destroy
-    # self.product.add_stock_move(:virtual=>true, :incoming=>!self.out?, :origin=>self)
-    self.product.reserve_stock(:incoming=>!self.out?, :origin=>self)
   end
 
 

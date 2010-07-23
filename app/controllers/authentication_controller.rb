@@ -34,7 +34,7 @@ class AuthenticationController < ApplicationController
         init_session(user)
         unless session[:user_id].blank?
           # redirect_to (session[:last_url]||{:controller=>:company, :action=>:index}).merge(:company=>params[:company])
-          redirect_to params[:url]||({:controller=>:company, :action=>:index}.merge(:company=>user.company.code))
+          redirect_to params[:url]||{:controller=>:company, :action=>:index, :company=>user.company.code}
         end
       elsif User.count(:conditions=>{:name=>params[:name]}) > 1
         @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN companies ON (companies.id=company_id)",  :order=>"companies.name")

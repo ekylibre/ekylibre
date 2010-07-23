@@ -38,11 +38,11 @@ class ToolUse < ActiveRecord::Base
   belongs_to :tool
   validates_uniqueness_of :tool_id, :scope=>[:operation_id]
 
-  def before_validation
+  def clean
     self.company_id = self.operation.company_id if self.operation
   end
 
-  def validate
+  def check
     if self.operation and self.tool
       errors.add_to_base(:company_error) unless self.operation.company_id == self.tool.company_id
     end

@@ -43,7 +43,7 @@ class Shelf < ActiveRecord::Base
   has_many :shelves
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def before_validation
+  def clean
     self.catalog_name = self.name if self.catalog_name.blank?
   end
 

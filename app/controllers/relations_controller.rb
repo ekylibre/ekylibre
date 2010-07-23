@@ -846,7 +846,7 @@ class RelationsController < ApplicationController
       @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
       if request.post? and params[:upload]
         data = params[:upload]
-        file = "#{RAILS_ROOT}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
+        file = "#{Rails.root.to_s}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
         File.open(file, "wb") { |f| f.write(data.read)}
         session[:entities_import_file] = file
         redirect_to :action=>:entities_import, :id=>:columns

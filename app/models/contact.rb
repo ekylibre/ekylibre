@@ -63,7 +63,7 @@ class Contact < ActiveRecord::Base
 
   validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>Proc.new{|c| !c.email.blank?}
 
-  def before_validation
+  def clean
     if self.entity
       self.by_default = true if self.entity.contacts.size <= 0
       self.company_id = self.entity.company_id
@@ -85,26 +85,13 @@ class Contact < ActiveRecord::Base
 
   # Each contact have a distinct code for a precise company.  
   def before_validation_on_create    
-    unless self.code
+    if self.code.blank?
       self.code = 'AAAA'
       while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code]) > 0 do
         self.code.succ!
       end
-      # self.active = true
-      # self.started_at = Time.now
     end
   end
-
-#   # A contact can not be modified.
-#   # Therefore a contact is created for each update
-#   def before_update
-#     self.deleted_at = Time.now
-#     #if self.active
-#     Contact.create!(self.attributes.merge({:code=>self.code, :company_id=>self.company_id, :entity_id=>self.entity_id}))
-#     #end
-#     #self.active = false
-#     true
-#   end  
 
   def update_without_callbacks
     current_time = Time.now

@@ -49,7 +49,7 @@ class Transfer < ActiveRecord::Base
 
   validates_presence_of :created_on
 
-  def before_validation
+  def clean
     self.created_on ||= Date.today
     self.parts_amount = self.payment_parts.sum(:amount)||0
   end

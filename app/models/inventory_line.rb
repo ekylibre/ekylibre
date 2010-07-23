@@ -37,7 +37,7 @@
 #
 
 class InventoryLine < ActiveRecord::Base
-
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :inventory
   belongs_to :location
@@ -46,9 +46,7 @@ class InventoryLine < ActiveRecord::Base
   belongs_to :unit
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
-  attr_readonly :company_id
-
-  def before_validation
+  def clean
     self.company_id = self.inventory.company_id if self.inventory
   end
 
@@ -61,12 +59,6 @@ class InventoryLine < ActiveRecord::Base
       self.unit_id     = s.unit_id
     end
   end
-
-  # def after_save
-  #   if self.inventory.changes_reflected
-  #     self.reflect_changes
-  #   end
-  # end
 
   def tracking_name
     return self.tracking ? self.tracking.name : ""

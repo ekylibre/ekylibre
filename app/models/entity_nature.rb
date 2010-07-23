@@ -42,8 +42,7 @@ class EntityNature < ActiveRecord::Base
   has_many :entities, :foreign_key=>:nature_id 
   validates_uniqueness_of :name, :scope=>:company_id
 
-
-  def before_validation
+  def clean
     self.in_name = false if self.physical
     if self.physical
       self.format ||= '[title] [last_name] [first_name]'
@@ -55,6 +54,5 @@ class EntityNature < ActiveRecord::Base
   def destroyable?
     self.entities.size <= 0
   end
-
 
 end

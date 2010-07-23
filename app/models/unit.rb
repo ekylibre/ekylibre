@@ -36,6 +36,7 @@
 
 class Unit < ActiveRecord::Base
   attr_readonly :company_id
+  before_save {|record| record.base = record.class.normalize(record.base) }
   belongs_to :company
   has_many :products
   validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
@@ -59,14 +60,14 @@ class Unit < ActiveRecord::Base
     }
   end
 
-  def before_validation
+  def clean
     self.name.strip!
     self.coefficient ||= 1
     self.start ||= 0
-    true
+    return true
   end
 
-  def validate
+  def check
     self.base.to_s.split(/[\.\s]+/).each do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
@@ -77,9 +78,6 @@ class Unit < ActiveRecord::Base
     end
   end
 
-  def before_save
-    self.base = self.class.normalize(self.base)
-  end
 
   def self.normalize(expr)
     expression = expr.to_s.dup

@@ -45,6 +45,7 @@
 
 class PurchaseOrder < ActiveRecord::Base
   acts_as_accountable
+  after_create {|r| r.client.add_event(:purchase_order, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
@@ -60,7 +61,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   ## shipped used as received
 
-  def before_validation
+  def clean
     self.created_on ||= Date.today
     self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
@@ -83,10 +84,6 @@ class PurchaseOrder < ActiveRecord::Base
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
 
-  def after_create
-    self.supplier.add_event(:purchase_order, self.updater_id) if self.updater
-  end
-  
   def refresh
     self.save
   end

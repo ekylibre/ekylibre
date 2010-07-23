@@ -58,9 +58,8 @@ class JournalEntry < ActiveRecord::Base
   validates_presence_of :account_id
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
-
   #
-  def before_validation 
+  def clean
     # computes the values depending on currency rate
     # for debit and credit.
     self.currency_debit  ||= 0
@@ -81,13 +80,13 @@ class JournalEntry < ActiveRecord::Base
     end
   end
     
-  def validate_on_update
+  def check_on_update
     old = self.class.find(self.id)
     errors.add_to_base(:record_has_been_already_validated) if old.closed?
   end
 
   #
-  def validate
+  def check
     unless self.updatable?
       errors.add_to_base :closed_entry 
       return
@@ -97,10 +96,6 @@ class JournalEntry < ActiveRecord::Base
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
   end
   
-  def before_destroy
-    return false unless self.destroyable?
-  end
-
   # this method tests if the entry is locked or not.
   def close?
     return self.closed?

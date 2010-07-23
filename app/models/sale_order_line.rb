@@ -50,12 +50,13 @@
 
 class SaleOrderLine < ActiveRecord::Base
   acts_as_list :scope=>:order
+  after_save :set_reduction
   attr_readonly :company_id, :order_id
   belongs_to :account
   belongs_to :company
   belongs_to :entity
   belongs_to :location
-  belongs_to :order, :class_name=>SaleOrder.to_s
+  belongs_to :order, :class_name=>SaleOrder.to_s, :autosave=>true
   belongs_to :price
   belongs_to :product
   belongs_to :reduction_origin, :class_name=>SaleOrderLine.to_s
@@ -65,11 +66,11 @@ class SaleOrderLine < ActiveRecord::Base
   has_many :delivery_lines, :foreign_key=>:order_line_id
   has_many :invoice_lines
   has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
-  has_many :reductions, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
+  has_many :reductions, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   validates_presence_of :price_id
 
   
-  def before_validation
+  def clean
     # check_reservoir = true
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
@@ -132,7 +133,7 @@ class SaleOrderLine < ActiveRecord::Base
   end
 
 
-  def validate
+  def check
     if self.location
       errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
       if self.tracking
@@ -147,7 +148,7 @@ class SaleOrderLine < ActiveRecord::Base
   end
   
   
-  def after_save
+  def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
       reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
@@ -155,14 +156,8 @@ class SaleOrderLine < ActiveRecord::Base
     elsif self.reduction
       self.reduction.destroy
     end
-    self.order.reload.refresh if self.reduction_origin.nil?
   end
   
-  def after_destroy
-    self.reduction.delete if self.reduction
-    self.order.reload.refresh 
-  end
-
   def undelivered_quantity
     self.quantity - self.delivery_lines.sum(:quantity)
   end

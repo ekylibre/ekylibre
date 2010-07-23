@@ -152,18 +152,20 @@ class Company < ActiveRecord::Base
 
   attr_readonly :code
 
-  require "#{RAILS_ROOT}/lib/models" unless defined?(EKYLIBRE_MODELS)
+  require "#{Rails.root.to_s}/lib/models" unless defined?(EKYLIBRE_MODELS)
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
   @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
   #  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
-  def before_validation_on_create
-    self.code = self.name.to_s[0..7].simpleize if self.code.blank?
-    self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
-    self.code = self.code.simpleize.upper
-    while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
-      self.code.succ!
+  def clean
+    if self.code.blank?
+      self.code = self.name.to_s[0..7].simpleize 
+      self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
+      self.code = self.code.simpleize.upper
+      while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
+        self.code.succ!
+      end
     end
   end
 
@@ -454,7 +456,7 @@ class Company < ActiveRecord::Base
     creator, with_prints = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)
     filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.zip"
+    file = "#{Rails.root.to_s}/tmp/#{filename}.zip"
     doc = LibXML::XML::Document.new
     doc.root = backup = XML::Node.new('backup')
     {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
@@ -479,7 +481,7 @@ class Company < ActiveRecord::Base
 
     Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
       zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
-      prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
+      prints_dir = "#{Rails.root.to_s}/private/#{self.code}"
       if with_prints and File.exist?(prints_dir)
         Dir.chdir(prints_dir) do
           for document in Dir["*/*/*.pdf"]
@@ -502,10 +504,10 @@ class Company < ActiveRecord::Base
   def restore(file, options={})
     raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String
     verbose = options[:verbose]
-    prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
+    prints_dir = "#{Rails.root.to_s}/private/#{self.code}"
     # Décompression
     puts "R> Uncompressing backup..." if verbose
-    backup = "#{RAILS_ROOT}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
+    backup = "#{Rails.root.to_s}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
     stream = nil
     FileUtils.rm_rf(prints_dir+'.prints')
     Zip::ZipFile.open(file) do |zile|
@@ -588,7 +590,7 @@ class Company < ActiveRecord::Base
           code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"  if verbose
         end
       end
-      File.open("#{RAILS_ROOT}/tmp/restore-1.rb", "wb") {|f| f.write(code)}  if verbose
+      File.open("#{Rails.root.to_s}/tmp/restore-1.rb", "wb") {|f| f.write(code)}  if verbose
       eval(code)
       
       # raise Exception.new(data.inspect)
@@ -615,7 +617,7 @@ class Company < ActiveRecord::Base
         code += "end\n"
       end
 
-      File.open("#{RAILS_ROOT}/tmp/restore-2.rb", "wb") {|f| f.write(code)} if verbose
+      File.open("#{Rails.root.to_s}/tmp/restore-2.rb", "wb") {|f| f.write(code)} if verbose
       start = Time.now
       eval(code)
       puts "R> Total: #{(Time.now-start)}s" if verbose
@@ -771,7 +773,7 @@ class Company < ActiveRecord::Base
   # this method loads all the templates existing.
   def load_prints
     language = self.entity.language
-    prints_dir = "#{RAILS_ROOT}/config/locales/#{::I18n.locale}/prints"
+    prints_dir = "#{Rails.root.to_s}/config/locales/#{::I18n.locale}/prints"
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
         #begin

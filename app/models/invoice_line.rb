@@ -46,7 +46,7 @@
 class InvoiceLine < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
-  belongs_to :invoice
+  belongs_to :invoice, :autosave=>true
   belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :origin, :class_name=>InvoiceLine.name
   belongs_to :price
@@ -57,27 +57,17 @@ class InvoiceLine < ActiveRecord::Base
 
   attr_readonly :company_id, :invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id
   
-  def before_validation
+  def clean
     self.product = self.order_line.product
     self.price_id = self.order_line.price.id
     self.annotation = self.order_line.annotation
-    #line = InvoiceLine.find(:first, :conditions=>{:company_id=>self.company_id, :product_id=>self.order_line.product_id, :price_id=>self.price_id, :invoice_id=>self.invoice_id})
-    #raise Exception.new line.inspect
-    #line.update_attributes!(:quantity=>(line.quantity + self.quantity),:amount=>(line.amount + self.amount),:amount_with_taxes=>(line.amount_with_taxes + self.amount_with_taxes) ) if !line.nil? and line.id != self.id
-    #self.unit_id = self.order_line.unit.id
-    #rslt = line.nil? true : false 
-    #false if !line.nil? and line.id != self.id
-    #self.destroy if !line.nil?
-    #true if line.nil?
-
     unless self.origin_id.nil?
       self.amount = self.quantity * self.price.amount
       self.amount_with_taxes = self.quantity * self.price.amount_with_taxes
     end
-    
   end
   
-  def validate
+  def check
     unless self.origin_id.nil?
       if self.origin.quantity > 0
         errors.add(:quantity) if -self.quantity > self.origin.quantity
@@ -85,10 +75,6 @@ class InvoiceLine < ActiveRecord::Base
         errors.add(:quantity) if -self.quantity < self.origin.quantity
       end
     end
-  end
-
-  def after_save
-    self.invoice.save unless self.origin_id.nil?
   end
 
   def product_name

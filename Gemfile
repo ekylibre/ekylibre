@@ -2,16 +2,15 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.beta4'
 
+# Bundle edge Rails instead:
+# gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem "haml"
 gem "fastercsv"
 gem "libxml-ruby", :require=>'libxml'
 gem "rubyzip", :require=>"zip/zip"
-gem "thoughtbot-shoulda", :require => 'shoulda' # , :git => 'git://github.com/thoughtbot/shoulda.git'
-# gem "thoughtbot-shoulda", :require => "shoulda", :http => "http://github.com/thoughtbot/shoulda.git"
-
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+gem "thoughtbot-shoulda", :require => 'shoulda'
+gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'pg'

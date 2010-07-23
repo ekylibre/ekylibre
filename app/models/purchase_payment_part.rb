@@ -39,29 +39,19 @@ class PurchasePaymentPart < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :expense, :class_name=>PurchaseOrder.name
+  belongs_to :expense, :class_name=>PurchaseOrder.name, :autosave=>true
   belongs_to :journal_record
-  belongs_to :payment, :class_name=>PurchasePayment.name
+  belongs_to :payment, :class_name=>PurchasePayment.name, :autosave=>true
 
   validates_numericality_of :amount, :greater_than=>0
 
-  def before_validation
+  def clean
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
-  def validate
+  def check
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
-  end
-
-  def after_save
-    self.payment.save
-    self.expense.save 
-  end
-
-  def after_destroy
-    self.payment.save
-    self.expense.save
   end
 
   def payment_way

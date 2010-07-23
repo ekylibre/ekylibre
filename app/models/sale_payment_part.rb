@@ -40,9 +40,9 @@ class SalePaymentPart < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :expense, :polymorphic=>true
+  belongs_to :expense, :polymorphic=>true, :autosave=>true
   belongs_to :journal_record
-  belongs_to :payment, :class_name=>SalePayment.name
+  belongs_to :payment, :class_name=>SalePayment.name, :autosave=>true
 
   # belongs_to :invoice # TODEL
 
@@ -52,25 +52,15 @@ class SalePaymentPart < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type
 
-  def before_validation
+  def clean
     # self.expense_type ||= self.expense.class.name
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
-  def validate
+  def check
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
-  end
-
-  def after_save
-    self.payment.save
-    self.expense.save 
-  end
-
-  def after_destroy
-    self.payment.save
-    self.expense.save
   end
 
   def payment_way
@@ -81,7 +71,6 @@ class SalePaymentPart < ActiveRecord::Base
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
    
-
   def to_accountancy(action=:create, options={})
     label = tc(:to_accountancy, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
     accountize(action, {:journal=>self.company.journal(:various), :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.client_id == self.payment.payer_id)) do |record|

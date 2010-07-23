@@ -43,7 +43,7 @@ class Financialyear < ActiveRecord::Base
   validates_uniqueness_of :code, :scope=>:company_id
 
   #
-  def before_validation
+  def clean
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
     if self.started_on and self.stopped_on and code.blank?
@@ -58,7 +58,7 @@ class Financialyear < ActiveRecord::Base
   end
 
   #
-  def validate
+  def check
     unless self.stopped_on.blank? or self.started_on.blank?
       errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
       errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on

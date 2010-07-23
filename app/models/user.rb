@@ -78,17 +78,17 @@ class User < ActiveRecord::Base
   attr_readonly :company_id
 
   # Needed to stamp all records
-  # model_stamper
+  model_stamper
 
   class << self
-    def rights_file; "#{RAILS_ROOT}/config/rights.yml"; end
+    def rights_file; Rails.root.join("config", "rights.yml"); end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
     def useful_rights; @@useful_rights; end
   end
   
-  def before_validation
+  def clean
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
       self.language = self.company.parameter('general.language').value if self.language.blank?
@@ -182,13 +182,9 @@ class User < ActiveRecord::Base
     self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
   
-  def after_destroy
-    if User.count.zero?
-      raise "Impossible to destroy the last user"
-    end
+  def destroyable?
+    self.company.users.count > 1
   end
-
-
 
   def authenticated?(password)
     self.hashed_password == User.encrypted_password(password, self.salt)
@@ -257,32 +253,3 @@ class User < ActiveRecord::Base
   User.initialize_rights
 end
 
-
-# class Emmployee < ActiveRecord::Base
-#   belongs_to :company
-#   belongs_to :department
-#   belongs_to :establishment
-#   belongs_to :profession
-#   belongs_to :user
-#   has_many :clients, :class_name=>Entity.to_s
-#   has_many :events
-#   has_many :sale_orders, :foreign_key=>:responsible_id
-#   has_many :operations
-#   has_many :transports
-
-#   attr_readonly :company_id
-
-#   def before_validation
-#     self.last_name ||= self.user.last_name  
-#     self.first_name ||= self.user.first_name  
-#   end
-
-#   def full_name
-#     (self.last_name.to_s+" "+self.first_name.to_s).strip
-#   end
-
-#   def label
-#     (self.first_name.to_s+" "+self.last_name.to_s).strip
-#   end  
-
-# end

@@ -52,11 +52,11 @@ class SalePayment < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
-  belongs_to :embankment
+  belongs_to :embankment, :autosave=>true
   belongs_to :journal_record
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id
+  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
   # has_many :orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   # has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
@@ -82,23 +82,14 @@ class SalePayment < ActiveRecord::Base
     true
   end
 
-  def before_validation
+  def clean
     self.parts_amount = self.parts.sum(:amount)
   end
 
-  def validate
+  def check
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
   end
   
-  def after_update
-    if !self.embankment_id.nil?
-      self.embankment.refresh
-    end
-    for part in self.parts
-      part.to_accountancy(:update)
-    end if self.company.accountizing?
-  end
-
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number)
   end
@@ -145,4 +136,8 @@ class SalePayment < ActiveRecord::Base
     end
   end
   
+  def updatable?
+    self.embankment.nil? or not self.embankment.locked
+  end
+
 end

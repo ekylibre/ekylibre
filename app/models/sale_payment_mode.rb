@@ -52,7 +52,7 @@ class SalePaymentMode < ActiveRecord::Base
   validates_presence_of :embankables_account_id, :if=>Proc.new{|x| x.with_embankment? and x.with_accounting? }
   validates_presence_of :cash_id
 
-  def before_validation
+  def clean
     self.embankables_account = nil unless self.with_embankment?
     return true
   end

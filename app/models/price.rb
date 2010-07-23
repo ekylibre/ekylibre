@@ -44,6 +44,7 @@
 #
 
 class Price < ActiveRecord::Base
+  after_save :set_by_default
   attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
   belongs_to :category, :class_name=>EntityCategory.name
   belongs_to :company
@@ -61,9 +62,7 @@ class Price < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than_or_equal_to=>0
   validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
-
-
-  def before_validation
+  def clean
     self.company_id  ||= self.product.company_id if self.product
     if self.company
       self.currency_id ||= self.company.currencies.first.id 
@@ -83,7 +82,7 @@ class Price < ActiveRecord::Base
     self.quantity_max ||= 0
   end
 
-  def validate
+  def check
     #   if self.use_range
     #       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
     #       errors.add_to_base(:range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
@@ -92,7 +91,7 @@ class Price < ActiveRecord::Base
     #     end
   end
 
-  def after_save
+  def set_by_default
     Price.update_all({:by_default=>false}, ["product_id=? AND company_id=? AND id!=? AND entity_id=?", self.product_id, self.company_id, self.id||0, self.company.entity_id]) if self.by_default
   end
   

@@ -50,7 +50,7 @@ class Parameter < ActiveRecord::Base
   validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
 
 
-  def before_validation
+  def clean
     self.company_id = self.user.company_id if self.user
   end
 
@@ -111,7 +111,7 @@ class Parameter < ActiveRecord::Base
 
   def self.initialize_reference
     @@reference = {}
-    file = File.open("#{RAILS_ROOT}/config/parameters.csv", "r")
+    file = File.open("#{Rails.root.to_s}/config/parameters.csv", "r")
     file.each_line do |line|
       unless line.match(/\#/)
         line   = line.strip.split(",")

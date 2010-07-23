@@ -46,17 +46,17 @@ class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
   belongs_to :account
   belongs_to :company
-  belongs_to :order, :class_name=>PurchaseOrder.name
+  belongs_to :order, :class_name=>PurchaseOrder.name, :autosave=>true
   belongs_to :price
   belongs_to :product
   belongs_to :location, :class_name=>Location.name
-  belongs_to :tracking
+  belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
   validates_presence_of :amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
   
-  def before_validation
+  def clean
     self.company_id = self.order.company_id if self.order
     check_reservoir = true
     self.location_id = self.company.locations.first.id if self.company.locations.size == 1
@@ -95,7 +95,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     check_reservoir
   end  
 
-  def validate
+  def check
     # Validate that tracking serial is not used for a different product
     producer = self.order.supplier
     unless self.tracking_serial.blank?
@@ -103,16 +103,6 @@ class PurchaseOrderLine < ActiveRecord::Base
     end
   end
   
-  def after_save
-    self.order.refresh
-  end
-  
-  def after_destroy
-    #raise Exception.new "yyy"
-    self.tracking.destroy if self.tracking
-    self.order.refresh
-  end
-
   def name
     options = {:product=>self.product.name, :unit=>self.unit.name, :quantity=>quantity.to_s, :amount=>self.price.amount, :currency=>self.price.currency.name}
     if self.tracking

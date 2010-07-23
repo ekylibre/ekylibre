@@ -18,22 +18,17 @@
 
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
-  #before_filter :i18nize, :except=>[:i18nize]
+  before_filter :i18nize, :except=>[:i18nize]
   before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
   attr_accessor :current_user
   attr_accessor :current_company
   #layout :xhr_or_not
   
 
-  # include Userstamp
-  # include ExceptionNotifiable
-  # local_addresses.clear
+  include Userstamp
+  #include ExceptionNotifiable
+  #local_addresses.clear
 
-  EKYLIBRE_REFERENCES = {}
-
-  def self.dyta(*args)
-    
-  end
 
 
   for k, v in EKYLIBRE_REFERENCES

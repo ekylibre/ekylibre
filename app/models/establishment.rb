@@ -41,7 +41,7 @@ class Establishment < ActiveRecord::Base
   validates_uniqueness_of :name,  :scope=>:company_id
   validates_uniqueness_of :siret, :scope=>:company_id
 
-  def before_validation
+  def clean
     self.siret = self.company.siren.to_s+self.nic.to_s if self.company
   end
 end

@@ -42,13 +42,13 @@ class Sequence < ActiveRecord::Base
   @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
 
-  has_many :parameters, :as=>:record_value
-  belongs_to :company
   attr_readonly :company_id
+  belongs_to :company
+  has_many :parameters, :as=>:record_value
   validates_inclusion_of :period, :in => @@periods  
   validates_uniqueness_of :format, :scope=>:company_id
 
-  def before_validation
+  def clean
     self.period ||= 'number'
   end
 

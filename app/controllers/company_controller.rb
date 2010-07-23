@@ -24,7 +24,7 @@ class CompanyController < ApplicationController
   include ApplicationHelper
 
   @@helps = {}
-  for file in Dir["#{RAILS_ROOT}/config/locales/#{I18n.locale}/help/*.txt"].sort
+  for file in Dir["#{Rails.root.to_s}/config/locales/#{I18n.locale}/help/*.txt"].sort
     File.open(file, 'rb') do |f| 
       @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2]}
       raise Exception.new("No good title for #{file}") if @@helps[file][:title].blank?
@@ -76,7 +76,7 @@ class CompanyController < ApplicationController
 
 
   def about
-    File.open("#{RAILS_ROOT}/VERSION") {|f| @version = f.read.split(',')}
+    File.open("#{Rails.root.to_s}/VERSION") {|f| @version = f.read.split(',')}
     begin
       @properties = Rails::Info.properties.dup
     rescue
@@ -161,7 +161,7 @@ class CompanyController < ApplicationController
       elsif params['restore'] and params[:file] and params[:file][:path]
         # Récupération d'une sauvegarde
         backup = params[:file][:path]
-        file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+        file = "#{Rails.root.to_s}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
         File.open(file, "wb") { |f| f.write(backup.read)}
         start = Time.now
         if @current_company.restore(file)
@@ -511,7 +511,7 @@ class CompanyController < ApplicationController
         texts = [params[:mail_subject], params[:mail_body]]
         attachment = params[:attachment]
         if attachment
-          # file = "#{RAILS_ROOT}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
+          # file = "#{Rails.root.to_s}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
           # File.open(file, "wb") { |f| f.write(attachment.read)}
           attachment = {:filename=>attachment.original_filename, :content_type=>attachment.content_type, :body=>attachment.read.dup}
         end
@@ -645,7 +645,7 @@ class CompanyController < ApplicationController
       send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
     rescue Exception=>e
       notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message.to_s)
-      # (RAILS_ENV=="development" ? e.inspect+e.backtrace.join("\n") :
+      # (Rails.env=="development" ? e.inspect+e.backtrace.join("\n") :
       redirect_to_back
     end
   end
@@ -676,7 +676,7 @@ class CompanyController < ApplicationController
     @supported_files = [["EBP.EDI", :ebp_edi]]
     if request.post?
       data = params[:upload]
-      file = "#{RAILS_ROOT}/tmp/uploads/#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+      file = "#{Rails.root.to_s}/tmp/uploads/#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
       File.open(file, "wb") {|f| f.write(data.read)}
       if params[:nature] == "ebp_edi"
         File.open(file, "rb") do |f|

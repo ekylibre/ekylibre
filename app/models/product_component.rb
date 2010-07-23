@@ -43,9 +43,9 @@ class ProductComponent < ActiveRecord::Base
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s
   belongs_to :location
-  belongs_to :product
+  belongs_to :product, :autosave=>true
 
-  def before_validation
+  def clean
     if self.quantity >= 2
       self.name = self.quantity.to_s+" "+self.component.unit.label+"s "+tc('of_product')+" "+self.component.name.to_s
     else
@@ -58,17 +58,20 @@ class ProductComponent < ActiveRecord::Base
     self.started_at = Time.now
   end
 
-  def before_update
-    self.stopped_at = Time.now
-    ProductComponent.create!(self.attributes.merge({:started_at=>self.stopped_at, :stopped_at=>nil, :active=>true, :company_id=>self.company_id})) if self.active
-    self.active = false
-    true
+  def update_without_callbacks
+    current_time = Time.now
+    stamper_id = self.class.stamper_class.stamper.id rescue nil
+    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
+    self.class.update_all({:active=>false}, {:id=>self.id})
+    return nc
   end
 
-  def after_save
-    self.product.save
+  def destroy_without_callbacks
+    unless new_record?
+      self.class.update_all({:active=>false}, {:id=>self.id})
+    end
   end
-  
+
   def check_quantities(params, production_quantity)
     total = 0
     for p in params[self.id.to_s]

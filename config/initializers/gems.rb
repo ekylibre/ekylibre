@@ -1,7 +1,7 @@
 # gem install -r fastercsv
-require 'fastercsv'
+# require 'fastercsv'
 # gem install -r measure
-#require 'measure'
+# require 'measure'
 # "Built-in" gems
-require "#{RAILS_ROOT}/lib/init"
+require Rails.root.join("lib", "init")
 

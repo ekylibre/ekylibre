@@ -238,7 +238,7 @@ module ApplicationHelper
   def li_link_to(*args)
     options      = args[1] || {}
     if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
-      content_tag(:li, link_to(*args))
+      content_tag(:li, link_to(*args).html_safe)
     else
       ''
     end
@@ -331,7 +331,7 @@ module ApplicationHelper
     code = ""
     for sheet, media in ["screen", "print", "dyta", "dyta-colors"]
       media = (sheet == "print" ? :print : :screen)
-      if File.exists?("#{RAILS_ROOT}/public/themes/#{name}/stylesheets/#{sheet}.css")
+      if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
         code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
       end
     end
@@ -558,13 +558,13 @@ module ApplicationHelper
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
       options[:url][:article] = link[0]
-      link_to_remote(link[1], options)
+      link_to(link[1], options) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
       options[:url][:article] = link
-      link_to_remote(link, options)
+      link_to(link, options) # REMOTE
     end
 
     for x in 1..6
@@ -587,18 +587,18 @@ module ApplicationHelper
     content.strip!
 
     #raise Exception.new content
-    return content
+    return content.html_safe
   end
 
 
   def article(name, options={})
     name = name.to_s
     content = ''
-    file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name+".txt"
+    file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name+".txt"
     unless File.exists?(file_text)
-      file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name.gsub(/_[a-z0-9]+$/, '').pluralize+".txt" 
+      file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name.gsub(/_[a-z0-9]+$/, '').pluralize+".txt" 
       unless File.exists?(file_text)
-        file_text = RAILS_ROOT+"/config/locales/"+I18n.locale.to_s+"/help/"+name.pluralize+".txt" 
+        file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name.pluralize+".txt" 
       end
     end
     if File.exists?(file_text)
@@ -759,7 +759,7 @@ module ApplicationHelper
               args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:url][:controller]||controller_name}.#{name}.title".to_sym]) 
             end
             if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
-              code += content_tag(:li, link_to_remote(*args))
+              code += content_tag(:li, link_to_remote(*args).html_safe)
             end
           else
             args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:controller]||controller_name}.#{name}.title".to_sym]) if name.is_a? Symbol
@@ -801,14 +801,14 @@ module ApplicationHelper
         end
       end
       if code.strip.length>0
-        code = content_tag(:ul, code)
+        code = content_tag(:ul, code.html_safe)
         code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
-        code = content_tag(:div, code, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
+        code = content_tag(:div, code.html_safe, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
       end
     else
       raise Exception.new('No block given for toolbar')
     end
-    return code
+    return code.html_safe
   end
 
   class Toolbar

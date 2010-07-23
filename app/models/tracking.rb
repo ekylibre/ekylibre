@@ -36,6 +36,7 @@
 #
 
 class Tracking < ActiveRecord::Base
+  after_save :update_serials
   belongs_to :company
   belongs_to :producer, :class_name=>Entity.name
   belongs_to :product
@@ -52,14 +53,14 @@ class Tracking < ActiveRecord::Base
   validates_presence_of :name, :serial
   validates_uniqueness_of :serial, :scope=>:producer_id
 
-  def before_validation
+  def clean
     # the name is the serial number but it leave the possibility to put a name different from the serial
     self.serial ||= self.name
     self.name ||= self.serial
     self.serial = self.serial.strip.upper
   end
 
-  def after_update
+  def update_serials
     # Update tracking_serial columns through all the database
     OperationLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
     PurchaseOrderLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})

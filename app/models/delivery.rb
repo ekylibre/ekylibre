@@ -48,40 +48,27 @@ class Delivery < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :mode, :class_name=>DeliveryMode.name
   belongs_to :order, :class_name=>SaleOrder.name
-  belongs_to :transport
-  has_many :lines, :class_name=>DeliveryLine.name 
+  belongs_to :transport, :autosave=>true
+  has_many :lines, :class_name=>DeliveryLine.name, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
 
   attr_readonly :company_id, :order_id
   validates_presence_of :planned_on
 
-  def before_validation
+  def clean
     self.amount = 0
     self.amount_with_taxes = 0
     for line in self.lines
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
     end
-#     if !self.mode.nil?
-#       self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
-#     end
-  end
-
-  def before_destroy
-    for line in self.lines
-      line.destroy
-    end
-  end
-
-  def before_save
+    #     if !self.mode.nil?
+    #       self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
+    #     end
     self.weight = 0
     for line in self.lines
       self.weight += (line.product.weight||0)*line.quantity
     end
-  end
-
-  def after_save
-    self.transport.refresh if self.transport
   end
 
   def self.natures

@@ -60,7 +60,7 @@ class Operation < ActiveRecord::Base
     self.started_at = Time.now if self.started_at.nil?
   end
 
-  def before_validation
+  def clean
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 

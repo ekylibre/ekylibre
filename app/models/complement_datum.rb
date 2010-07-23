@@ -45,7 +45,7 @@ class ComplementDatum < ActiveRecord::Base
   belongs_to :entity
   validates_uniqueness_of :complement_id, :scope=>[:company_id, :entity_id]
 
-  def validate
+  def check
     if complement = self.complement
       self.company_id = self.complement.company_id
       errors.add_to_base(:required, :field=>complement.name) if complement.required and self.value.blank?

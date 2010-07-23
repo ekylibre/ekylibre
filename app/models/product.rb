@@ -96,7 +96,7 @@ class Product < ActiveRecord::Base
   #validates_presence_of :product_account_id
   #validates_presence_of :charge_account_id
 
-  def before_validation
+  def clean
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]
     if self.company_id
@@ -123,7 +123,7 @@ class Product < ActiveRecord::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-  def validate
+  def check
     #errors.add_to_base(:unknown_use_of_product) unless self.to_sale or self.to_purchase or self.to_rent
   end
 

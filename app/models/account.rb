@@ -49,23 +49,15 @@ class Account < ActiveRecord::Base
   has_many :purchase_order_lines
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
   validates_uniqueness_of :number, :scope=>:company_id
-  
 
   # This method allows to create the parent accounts if it is necessary.
-  def before_validation
+  def clean
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
-  end
-
-  # This method allows to delete the account only if it has any sub-accounts.
-  def before_destroy
-    return false unless self.destroyable?
   end
 
   def destroyable?
     self.journal_entries.size <= 0 and self.balances.size <= 0
   end
-
-
 
   def letterable?
     return [:client, :supplier, :attorney].detect do |mode|

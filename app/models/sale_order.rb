@@ -62,6 +62,7 @@
 
 class SaleOrder < ActiveRecord::Base
   acts_as_accountable 
+  after_create {|r| r.client.add_event(:sale_order, r.updater_id)}
   attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
@@ -88,7 +89,7 @@ class SaleOrder < ActiveRecord::Base
 
   @@natures = [:estimate, :order, :invoice]
   
-  def before_validation
+  def clean
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
     self.parts_amount = self.payment_parts.sum(:amount)||0
@@ -142,11 +143,6 @@ class SaleOrder < ActiveRecord::Base
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
   
-  def after_create
-    self.client.add_event(:sale_order, self.updater_id)
-    true
-  end
-
   def refresh
     self.save
   end

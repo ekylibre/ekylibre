@@ -52,7 +52,7 @@ class Journal < ActiveRecord::Base
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
   # this method is called before creation or validation method.
-  def before_validation
+  def clean
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on == Date.civil(1970,12,31) 
@@ -66,7 +66,7 @@ class Journal < ActiveRecord::Base
     self.code = self.code[0..3]
   end
 
-  def validate
+  def check
     valid = false
     for financialyear in self.company.financialyears
       valid = true if self.closed_on == financialyear.started_on-1
@@ -77,7 +77,7 @@ class Journal < ActiveRecord::Base
   end
 
   def destroyable?
-    @journal.records.size <= 0 and @journal.entries.size <= 0
+    self.records.size <= 0 and self.entries.size <= 0 and self.cashes.size <= 0
   end
 
   # Provides a translation for the nature of the journal

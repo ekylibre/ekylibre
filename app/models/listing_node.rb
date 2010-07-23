@@ -47,7 +47,7 @@
 
 class ListingNode < ActiveRecord::Base
   belongs_to :company
-  belongs_to :listing
+  belongs_to :listing, :autosave=>true
   belongs_to :item_listing, :class_name=>Listing.name
   belongs_to :item_listing_node, :class_name=>ListingNode.name
   has_many :items, :class_name=>ListingNodeItem.name
@@ -96,7 +96,7 @@ class ListingNode < ActiveRecord::Base
     :in=>"{{COLUMN}} IN {{LIST}}" 
   }
   
-  def before_validation
+  def clean
     self.listing_id = self.parent.listing_id if self.parent
     self.company_id = self.listing.company_id if self.listing
 
@@ -120,18 +120,6 @@ class ListingNode < ActiveRecord::Base
         end
       end
     end
-  end
-
-  def after_save
-    #if self.listing.created_at.to_date >= Date.civil(2009,12,01)
-    self.listing.generate
-    self.listing.reload
-    self.listing.save
-    #end
-  end
-
-  def after_destroy
-    self.listing.reload.save
   end
 
   def self.natures

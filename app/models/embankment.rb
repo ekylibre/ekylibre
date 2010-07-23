@@ -68,7 +68,7 @@ class Embankment < ActiveRecord::Base
     self.amount = self.payments.sum(:amount)
   end
 
-  def validate
+  def check
     if self.cash
       error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
     end

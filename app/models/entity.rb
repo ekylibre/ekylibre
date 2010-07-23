@@ -109,7 +109,7 @@ class Entity < ActiveRecord::Base
   validates_uniqueness_of :code, :scope=>:company_id
 
 
-  def before_validation
+  def clean
     self.webpass = User.give_password(8, :normal) if self.webpass.blank?
     self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
@@ -134,7 +134,7 @@ class Entity < ActiveRecord::Base
   end
 
   #
-  def validate
+  def check
     if self.nature 
       if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
         errors.add(:last_name, :missing_title, :title=>self.nature.title)
@@ -144,12 +144,12 @@ class Entity < ActiveRecord::Base
       end
     end
   end
-  
-  def before_destroy
-    raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
+    
+  def destroyable?
+    #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
     return false if self.id == self.company.entity.id
   end
-  
+
   def self.exportable_columns
     self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
   end
@@ -254,10 +254,6 @@ class Entity < ActiveRecord::Base
     c = self.default_contact
     desc += " ("+c.line_6.to_s+")" unless c.nil?
     desc
-  end
-
-  def destroyable?
-    self.id != self.company.entity_id
   end
 
 

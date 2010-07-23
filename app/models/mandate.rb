@@ -36,15 +36,10 @@
 #
 
 class Mandate < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :entity
   belongs_to :company
-  attr_readonly :company_id
 
   validates_presence_of :started_on, :stopped_on
 
-  # def before_validation_on_create
-#     self.started_on = Date.today
-#     self.stopped_on = self.started_on
-#   end
-  
 end

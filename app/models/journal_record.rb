@@ -47,6 +47,7 @@
 
 class JournalRecord < ActiveRecord::Base
   acts_as_list :scope=>:journal
+  after_save :set_draft
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
   belongs_to :currency
@@ -63,7 +64,7 @@ class JournalRecord < ActiveRecord::Base
   validates_numericality_of :currency_rate, :greater_than=>0
 
   #
-  def before_validation
+  def clean
     if self.journal
       self.company_id  = self.journal.company_id 
       self.currency_id = self.journal.currency_id
@@ -87,13 +88,13 @@ class JournalRecord < ActiveRecord::Base
     end
   end 
   
-  def validate_on_update
+  def check_on_update
     old = self.class.find(self.id)
     errors.add_to_base(:record_has_been_already_validated) if old.closed?
   end
   
   #
-  def validate
+  def check
     return unless self.created_on
     if self.journal
       if self.printed_on <= self.journal.closed_on
@@ -112,13 +113,8 @@ class JournalRecord < ActiveRecord::Base
     end
   end
   
-  def after_save
-    # self.entries.update_all({:draft=>self.draft}, ["draft != ? ", self.draft])
+  def set_draft
     JournalEntry.update_all({:draft=>self.draft}, ["record_id = ? AND draft != ? ", self.id, self.draft])
-  end
-
-  def before_destroy
-    return false unless self.destroyable?
   end
 
   def destroyable?

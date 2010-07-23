@@ -9,7 +9,7 @@ raise Exception.new("ActionView::Template is needed") unless defined? ActionView
 
 module Xil
   mattr_accessor :options
-  @@options={:features=>[], :documents_path=>"#{RAILS_ROOT}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company, :crypt=>:rijndael}
+  @@options={:features=>[], :documents_path=>"#{Rails.root.to_s}/private/documents", :subdir_size=>4096, :document_model_name=>:documents, :template_model_name=>:templates, :company_variable=>:current_company, :crypt=>:rijndael}
 end
 
 

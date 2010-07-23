@@ -43,6 +43,7 @@
 
 class DocumentTemplate < ActiveRecord::Base
   attr_readonly :company_id
+  after_save :set_by_default
   cattr_reader :families, :document_natures
   belongs_to :company
   has_many :documents, :foreign_key=>:template_id
@@ -77,13 +78,13 @@ class DocumentTemplate < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
 
-  def before_validation
+  def clean
     self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
     self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
   end
 
-  def validate
+  def check
     errors.add(:source, :invalid) if self.cache.blank?
     if self.nature != "other"
       syntax_errors = self.filename_errors
@@ -91,8 +92,8 @@ class DocumentTemplate < ActiveRecord::Base
     end
   end
 
-  def after_save
-    DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if self.by_default and self.nature != 'other'
+  def set_by_default(by_default=nil)
+    DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if by_default||self.by_default and self.nature != 'other'
   end
 
   def destroyable?

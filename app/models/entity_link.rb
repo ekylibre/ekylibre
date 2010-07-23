@@ -36,16 +36,14 @@
 #
 
 class EntityLink < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
-  belongs_to :entity_1, :class_name=>Entity.name
-  belongs_to :entity_2, :class_name=>Entity.name
+  belongs_to :entity_1, :class_name=>Entity.name, :dependent=>:destroy
+  belongs_to :entity_2, :class_name=>Entity.name, :dependent=>:destroy
   belongs_to :nature, :class_name=>EntityLinkNature.name
 
-  attr_readonly :company_id
-
-  def after_create
+  def clean
     self.started_on ||= Date.today
-    self.save
   end
 
 end

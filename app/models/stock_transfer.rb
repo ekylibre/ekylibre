@@ -40,7 +40,9 @@
 #
 
 class StockTransfer < ActiveRecord::Base
+  after_save :move_stocks
   attr_readonly :company_id, :nature
+  before_update {|r| r.stock_moves.clear}
   belongs_to :company
   belongs_to :product
   belongs_to :location
@@ -50,13 +52,13 @@ class StockTransfer < ActiveRecord::Base
   validates_presence_of :unit_id
   validates_presence_of :second_location_id, :if=>Proc.new{|x| x.transfer?}
 
-  def before_validation
+  def clean
     self.unit_id = self.product.unit_id if self.product
     self.moved_on =  Date.today if self.planned_on <= Date.today
     self.second_location_id = nil unless self.transfer? # if self.nature == "waste"
   end
 
-  def validate
+  def check
     if !self.second_location.nil?
       errors.add_to_base(:location_can_not_receive_product, :location=>self.second_location.name, :product=>self.product.name, :contained_product=>self.second_location.product.name) unless self.second_location.can_receive(self.product_id)
     end
@@ -68,11 +70,7 @@ class StockTransfer < ActiveRecord::Base
       
   end
   
-  def before_update
-    self.stock_moves.clear
-  end
-
-  def after_save
+  def move_stocks
     self.product.reserve_outgoing_stock(:origin=>self, :planned_on=>self.planned_on, :moved_on=>self.moved_on)
     self.product.move_outgoing_stock(:origin=>self, :planned_on=>self.planned_on, :moved_on=>self.moved_on) if self.moved_on
     if self.transfer?

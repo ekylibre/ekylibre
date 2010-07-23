@@ -37,11 +37,11 @@ class Role < ActiveRecord::Base
   has_many :users
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def before_validation
+  def clean
     self.rights_array=self.rights_array # Clean the rights
   end
 
-  def before_update
+  def after_validation_on_update
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id_and_company_id(self.id, self.company_id).rights.to_s.split(" ")

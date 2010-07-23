@@ -51,6 +51,7 @@
 
 class Invoice < ActiveRecord::Base
   acts_as_accountable :callbacks=>false
+  after_create {|r| r.client.add_event(:invoice, r.updater_id)}
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
@@ -65,9 +66,9 @@ class Invoice < ActiveRecord::Base
 
   validates_presence_of :currency_id
 
-  attr_readonly :company_id, :number, :sale_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
+  attr_readonly :company_id, :number, :created_on, :sale_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
 
-  def before_validation
+  def clean
     self.created_on = Date.today unless self.created_on.is_a? Date
     if self.number.blank?
       last = self.client.invoices.find(:first, :order=>"number desc")
@@ -108,11 +109,6 @@ class Invoice < ActiveRecord::Base
       self.number = specific_numeration.next_value
     end
   end
-
-  def after_create
-    self.client.add_event(:invoice, self.updater_id) if self.updater
-  end
-  
 
   def cancel(lines={})
     return false unless lines.keys.size > 0

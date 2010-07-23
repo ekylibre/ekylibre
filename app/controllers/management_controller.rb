@@ -83,7 +83,7 @@ class ManagementController < ApplicationController
         g.data('N'+(x>0 ? '-'+x.to_s : '').to_s, sales) # +d.year.to_s
       end
 
-      dir = "#{RAILS_ROOT}/public/images/gruff/#{@current_company.code}"
+      dir = "#{Rails.root.to_s}/public/images/gruff/#{@current_company.code}"
       @graph = "management-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
       
       File.makedirs dir unless File.exists? dir
@@ -540,8 +540,8 @@ class ManagementController < ApplicationController
         @available_prices = []
         @unavailable_prices = []
         i = 0
-        File.open("#{RAILS_ROOT}/#{name}", "w") { |f| f.write(file.read)}
-        FasterCSV.foreach("#{RAILS_ROOT}/#{name}") do |row|
+        File.open("#{Rails.root.to_s}/#{name}", "w") { |f| f.write(file.read)}
+        FasterCSV.foreach("#{Rails.root.to_s}/#{name}") do |row|
           if i == 0
             x = 2
             while !row[x].nil?

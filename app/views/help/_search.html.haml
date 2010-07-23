@@ -13,7 +13,7 @@
       - doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>"search"))
       - if doc.blank?
         %h1=tc("missing_help")
-        .help-error=tc(:error_no_file, :article=>@article)
+        .help-error=tc(:error_no_file, :article=>I18n.locale.to_s+":"+@article)
       - else
         =doc
       %ul
