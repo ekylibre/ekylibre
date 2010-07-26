@@ -137,10 +137,10 @@ class ApplicationController < ActionController::Base
     klass = model.classify.constantize
     record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     if record.nil?
-      notify(:unavailable_model, :error, :model=>klass.human_name, :id=>id)
+      notify(:unavailable_model, :error, :model=>klass.model_name.human, :id=>id)
       redirect_to_back
     end
-    record
+    return record
   end
 
   def save_and_redirect(record, options={})
@@ -307,13 +307,14 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_back(options={})
+    # redirect_to :controller=>:company
     if session[:history] and session[:history][1]
-      session[:history].delete_at(0)
-      redirect_to session[:history][0], options
-    elsif request.referer
+      # session[:history].delete_at(0)
+      redirect_to session[:history][1], options
+    elsif request.referer != request.url
       redirect_to request.referer, options
     else
-      redirect_to_login
+      redirect_to :controller=>:company
     end
   end
 

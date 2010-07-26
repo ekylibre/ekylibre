@@ -1,6 +1,6 @@
 -if @suppliers.size>0
   .search
-    -form_tag do
+    =form_tag do
       %label=tc "display"
       -for mode in @modes
         =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+"&nbsp;"+content_tag(:label, tc(mode), :for=>'price_mode_'+mode)

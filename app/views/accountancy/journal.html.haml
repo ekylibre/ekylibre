@@ -15,7 +15,7 @@
       =evalue @journal, :closed_on
 
 .search
-  -form_tag({}, :method=>:get) do
+  =form_tag({}, :method=>:get) do
     =render :partial=>"journals_search"
 
 =journal_view_tag

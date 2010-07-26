@@ -2,7 +2,7 @@
 -if @listing.mail_columns.size > 1 and session[:listing_mail_column].nil?
   =#puts @listing.mail_columns.size.inspect
   %h2=tc(:choose_mail_column)
-  -form_tag  do
+  =form_tag  do
     -for node in @listing.mail_columns
       =#puts node.name.inspect
       =radio_button(:node, :mail ,node.key, :checked=>true)+"&nbsp;"+content_tag(:label, node.label+" ("+node.name+")", :for=>'node_'+node.key)
@@ -15,7 +15,7 @@
   .count=tc(:mails, :count=>@mails.size)
   .count=tc(:available_columns, :columns=>@columns.collect{|x| link_to_function(x, "insert_into($('mail_body'), ' ', ' ', '{{#{x}}}');")}.to_sentence)
 
-  -form_tag({}, :multipart=>true) do
+  =form_tag({}, :multipart=>true) do
     =formalize do |f|
       -f.field tc(:from),    text_field_tag(:from, session[:mail][:from]||@current_user.email, :size=>40)
       -f.field tc(:subject), text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>@current_company.name), :size=>80)

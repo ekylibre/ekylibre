@@ -1,5 +1,5 @@
 -if @operations.size > 0
-  - form_tag do
+  =form_tag do
     =dyta :unvalidated_operations
     .actions
       =link_to tg(:previous), :action=>:index

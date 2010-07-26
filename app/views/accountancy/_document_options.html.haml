@@ -1,12 +1,12 @@
 -nature = (@document_template ? @document_template.nature.to_sym : :unknown)
 -if [:balance_sheet, :income_statement].include?(nature)
   =formalize do |f|
-    -f.title Financialyear.human_name 
-    -f.field Financialyear.human_name, select_tag("financialyear", options_for_select(@current_company.financialyears.collect{|x| [x.code, x.id.to_s]}, params[:financialyear]))
+    -f.title Financialyear.model_name.human 
+    -f.field Financialyear.model_name.human, select_tag("financialyear", options_for_select(@current_company.financialyears.collect{|x| [x.code, x.id.to_s]}, params[:financialyear]))
 -elsif nature == :journal
   =formalize do |f|
-    -f.title Journal.human_name
-    -f.field Journal.human_name, select_tag("journal", options_for_select(@current_company.journals.collect{|x| [x.name, x.id.to_s]}, params[:journal]))
+    -f.title Journal.model_name.human
+    -f.field Journal.model_name.human, select_tag("journal", options_for_select(@current_company.journals.collect{|x| [x.name, x.id.to_s]}, params[:journal]))
 -if [:journal, :general_journal, :general_ledger].include?(nature)
   =formalize do |f|
     -f.title :period

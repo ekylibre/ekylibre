@@ -1,5 +1,5 @@
 -if @deliveries.size > 0
-  - form_tag do
+  =form_tag do
     =dyta :undelivered_sales
     .actions
       =link_to tg(:previous), :action=>:index

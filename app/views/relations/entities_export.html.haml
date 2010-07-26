@@ -1,4 +1,4 @@
--form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
+=form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
   .fields.vbox.flex{:style=>'overflow:none'}
     .form-column{:style=>"float:left; width: 200px;"}
       -params[:columns] ||= {}
@@ -7,7 +7,7 @@
       %table.formalize
         -for klass in [Entity, Contact, Area, District]
           %tr.title
-            %th=klass.human_name
+            %th=klass.model_name.human
           -for c in klass.exportable_columns.sort{|a,b| a.name<=>b.name}
             -code = klass.name.underscore+'-'+c.name
             -params[:columns][code] ||= {}
@@ -20,7 +20,7 @@
                 =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id=>"columns_#{code}_check_f")
                 =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
         %tr.title
-          %th=Complement.human_name
+          %th=Complement.model_name.human
         -for c in @current_company.complements
           -code = Complement.name.underscore+'-id'+c.id.to_s
           -params[:columns][code] ||= {}

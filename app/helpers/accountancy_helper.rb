@@ -54,7 +54,7 @@ module AccountancyHelper
       end
     end
     if majors.size>1
-      return content_tag(:div, majors.join, :class=>'major-accounts')
+      return content_tag(:div, majors.join.html_safe, :class=>'major-accounts')
     end
     return ""
   end

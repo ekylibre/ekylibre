@@ -1,14 +1,14 @@
--form_tag({:controller=>:company, :action=>:print}) do
+=form_tag({:controller=>:company, :action=>:print}) do
   %fieldset
     %legend=tc(:print)
     =formalize do |f|
-      -f.title DocumentTemplate.human_name
-      -f.field DocumentTemplate.human_name, select_tag("id", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
+      -f.title DocumentTemplate.model_name.human
+      -f.field DocumentTemplate.model_name.human, select_tag("id", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
     #document_options=render(:partial=>'document_options')
     .actions=submit_tag tg(:print), :name=>nil
 =observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_print}, :with=>"code"
 
--form_tag do
+=form_tag do
   %fieldset
     %legend=tc(:export)
     =formalize do |f|

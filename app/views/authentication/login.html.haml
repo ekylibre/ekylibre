@@ -8,7 +8,7 @@
     %table
       -if @current_company or @users
         %tr
-          %td.label=Company.human_name
+          %td.label=Company.model_name.human
           %td.value
             -if @users
               =select_tag("company", options_for_select(@users.collect{|x| [x.company.name, x.company.code]}))

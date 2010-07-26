@@ -2,7 +2,7 @@
   -link(:listing_extract, :id=>@listing.id)
   -link(:listing_mail, :id=>@listing.id) if @listing.mail_columns.size > 0
 
--form_tag do
+=form_tag do
   =formalize do |f|
     -f.error :listing
     -f.title :subtitle

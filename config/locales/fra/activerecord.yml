@@ -14,6 +14,7 @@ fra:
         included_in: 'La valeur de {{attribute}} doit être comprise entre {{minimum}} et {{maximum}}'
         inclusion: '{{attribute}} n''est pas inclus dans la liste'
         invalid: '{{attribute}} est invalide'
+        record_invalid: '{{attribute}} est invalide'
         invalid_at: '{{attribute}} est invalide. Erreur près de {{error}}'
         invalid_token: '{{attribute}} est invalide. Symbole inconnu {{error}}. Les symboles acceptés sont {{accepted}}.'
         less_than: '{{attribute}} doit être inférieur à {{count}}'

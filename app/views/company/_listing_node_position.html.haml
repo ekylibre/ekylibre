@@ -1,5 +1,5 @@
 -listing_node = listing_node_position
--form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"position"}, :update=>"#{listing_node.key}_position", :loading=>"onLoading()", :loaded=>"onLoaded();") do
+=form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"position"}, :update=>"#{listing_node.key}_position", :loading=>"onLoading()", :loaded=>"onLoaded();") do
   =link_to_function(listing_node.position, "this.hide(); var tf = $('#{listing_node.key}_position_tf'); tf.show(); tf.select(); tf.focus();", :id=>"#{listing_node.key}_position_lb")
   =text_field_tag("position", listing_node.position, :size=>2, :id=>listing_node.key+"_position_tf", :style=>"display: none;", :onblur=>"$('#{listing_node.key}_position_lb').show(); this.hide();")
   %span{:style=>'display: none;', :id=>listing_node.key+"_validate_position"}=submit_tag(tg(:validate))

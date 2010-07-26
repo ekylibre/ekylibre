@@ -1,20 +1,20 @@
 
 -if @step == 1
-  - form_tag({}, :method=>:put) do
+  =form_tag({}, :method=>:put) do
     =formalize do |f|
       -f.field tc(:select_date_generation), (calendar_field_tag :finish_accountization_on, params[:finish_accountization_on]) 
     .actions=submit_tag(tg(:validate))
 
 
 -if @step == 2
-  -form_tag({}, :method=>:post) do
+  =form_tag({}, :method=>:post) do
     =formalize do |f|
       -f.title tc(:parameters)
       -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_accountization_on])
       -f.field tc(:save_in_draft), check_box_tag("save_in_draft", "1", @current_company.draft_mode?)
       -f.title tc(:counts_by_nature)
       -for nature in @natures
-        -f.field nature.to_s.classify.constantize.human_name, @records[nature].size
+        -f.field nature.to_s.classify.constantize.model_name.human, @records[nature].size
     .actions
       =submit_tag(tg(:save))
       =link_to tg(:back), :action=>:accountize, :finish_accountization_on=>params[:finish_accountization_on]

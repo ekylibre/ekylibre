@@ -1,5 +1,5 @@
 -if @stock_transfers.size > 0
-  - form_tag do
+  =form_tag do
     =dyta :unexecuted_transfers
     .actions
       =link_to tg(:previous), :action=>:index

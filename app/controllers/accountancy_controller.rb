@@ -34,7 +34,7 @@ class AccountancyController < ApplicationController
     @natures = [:invoice, :sale_payment_part, :sale_payment, :embankment, :purchase_order, :purchase_payment_part, :purchase_payment]
 
     if request.get?
-      notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.human_name}.to_sentence)
+      notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2

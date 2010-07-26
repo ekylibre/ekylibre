@@ -1,5 +1,5 @@
 .search
-  - form_tag({}, :method=>:get) do
+  =form_tag({}, :method=>:get) do
     %table
       %tr
         %td.label=tg(:from)
@@ -17,14 +17,14 @@
 
 =error_messages "account"
 
--form_tag() do
+=form_tag() do
   %table.dyta
     %tr
       %th=JournalEntry.human_attribute_name("letter")
       %th=JournalRecord.human_attribute_name("printed_on")
-      %th=Journal.human_name
-      %th=JournalRecord.human_name
-      %th=JournalEntry.human_name
+      %th=Journal.model_name.human
+      %th=JournalRecord.model_name.human
+      %th=JournalEntry.model_name.human
       %th=JournalEntry.human_attribute_name("debit")
       %th=JournalEntry.human_attribute_name("credit")
     -for @journal_entry in @journal_entries

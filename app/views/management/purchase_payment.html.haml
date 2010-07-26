@@ -17,7 +17,7 @@
       =evalue @purchase_payment, :journal_record, :url=>{:controller=>:accountancy, :action=>:journal_record}
 
 -if false # @purchase_payment.unused_amount > 0
-  -form_tag() do
+  =form_tag() do
     %fieldset
       %legend=tc(:add_purchase_order)
       =render :partial=>'purchase_payment_part_create'

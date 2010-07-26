@@ -1,5 +1,5 @@
 -if @purchase_orders.size > 0
-  - form_tag do
+  =form_tag do
     =dyta :unreceived_purchases
     .actions
       =link_to tg(:previous), :action=>:index

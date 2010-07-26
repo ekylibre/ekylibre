@@ -19,7 +19,7 @@
   =toolbar do |t|
     -t.link :delivery_create if !@sale_order.invoiced and @undelivered_amount > 0
   =dyta :sale_order_deliveries
-- form_tag() do
+=form_tag() do
   .actions
     =link_to tg(:previous), :action=>:sale_order_lines
     =#submit_tag(tc('invoice'), :action=>:sales_invoices)

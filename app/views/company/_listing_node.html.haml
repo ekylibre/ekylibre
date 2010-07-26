@@ -9,7 +9,7 @@
               =link_to_function(listing_node.label, "toggleElement('#{listing_node.key}')")
               %span.attribute="(#{listing_node.name})"
             %td
-              -form_remote_tag(:url=>{:action=>:listing_node_create, :parent_id=>listing_node.id}, :update=>listing_node.key, :loading=>"onLoading();", :loaded=>"onLoaded();", :class=>:content) do
+              =form_remote_tag(:url=>{:action=>:listing_node_create, :parent_id=>listing_node.id}, :update=>listing_node.key, :loading=>"onLoading();", :loaded=>"onLoaded();", :class=>:content) do
                 =select_tag(:nature, grouped_options_for_select(listing_node.available_nodes))
                 =submit_tag(tg(:add))
           -else
