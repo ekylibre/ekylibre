@@ -49,7 +49,7 @@ class Financialyear < ActiveRecord::Base
     if self.started_on and self.stopped_on and code.blank?
       self.code = self.default_code
     end
-    self.code.upper!
+    self.code = self.code.upper[0..11]
     if self.company
       while self.company.financialyears.count(:conditions=>["code=? AND id!=?",self.code, self.id||0]) > 0 do
         self.code.succ!

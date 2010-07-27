@@ -774,6 +774,7 @@ class Company < ActiveRecord::Base
     prints_dir = "#{RAILS_ROOT}/config/locales/#{::I18n.locale}/prints"
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
+        next unless File.exist?("#{prints_dir}/#{template}.xml")
         #begin
         File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
           attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)

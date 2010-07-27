@@ -97,7 +97,7 @@ eng:
     #>lock: 'Verrouiller'
     #>mail: 'Envoyer un courriel'
     #>n: 'Non'
-    #>new: 'Nouveau...'
+    new: 'New...'
     #>next: 'Suivant'
     #>no_records: 'Pas d''enregistrements'
     notifications:
@@ -105,7 +105,7 @@ eng:
       #>information: 'Information'
       #>success: 'Opération réalisée avec succès'
       #>warning: 'Attention!'
-    #>previous: 'Précédent'
+    previous: 'Previous'
     #>print: 'Imprimer'
     #>record_has_been_correctly_removed: 'L''enregistrement a été supprimé correctement.'
     #>record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
@@ -113,8 +113,8 @@ eng:
     #>refresh: 'Rafraîchir'
     #>reopen: 'Déclôturer'
     #>save: 'Enregistrer'
-    #>search: 'Rechercher'
-    #>search_go: 'Lancer la recherche'
+    search: 'Search'
+    search_go: 'Search!'
     #>submit: 'Envoyer'
     #>to: 'Au'
     #>total: 'Total'
@@ -162,13 +162,13 @@ eng:
         #>category: 'Par défaut'
         delays:
           expression:
-            #>expiration: '1 mois'
-            #>immediate: '0 jour'
-            #>standard: '30 jours, fin de mois'
+            expiration: '1 month'
+            immediate: '0 day'
+            standard: '30 days, end of month'
           name:
-            #>expiration: 'Expiration (1 M)'
-            #>immediate: 'Immédiat'
-            #>standard: 'Standard (30j FDM)'
+            expiration: 'Expiration (1 M)'
+            immediate: 'Immediatly'
+            standard: 'Standard (30d EOM)'
         #>department_name: 'Gestion/Production'
         document_natures:
           #>invoice: 'Facture'
@@ -221,21 +221,21 @@ eng:
         #>establishment_name: 'Établissement principal'
         #>financialyear_code: '1A2'
         journals:
-          #>bank: 'Journal de banque'
-          #>cash: 'Journal de caisse'
-          #>purchases: 'Journal des achats'
-          #>sales: 'Journal des ventes'
-          #>various: 'Journal des opérations diverses'
+          bank: 'Bank'
+          cash: 'Cash'
+          purchases: 'Purchases'
+          sales: 'Sales'
+          various: 'Various operations'
         #>location: 'Réserve'
         #>paid_tax: 'TVA déductible'
         #>price_list_name: 'Tarif normal'
         purchase_payment_modes:
           cash:
-            #>name: 'Espèces'
+            name: 'Cash'
           check:
-            #>name: 'Chèque'
+            name: 'Check'
           transfer:
-            #>name: 'Virement'
+            name: 'Transfer'
         role:
           name:
             #>admin: 'Gérant'
@@ -243,63 +243,63 @@ eng:
         #>sale_order_nature_name: 'Vente standard'
         sale_payment_modes:
           cash:
-            #>name: 'Espèces'
+            name: 'Cash'
           check:
-            #>name: 'Chèque'
+            name: 'Check'
           transfer:
-            #>name: 'Virement'
+            name: 'Transfer'
         #>sample_product_name: 'Produit Exemple'
         sequences:
           management:
             embankments:
-              #>format: 'B[year|4][number|4]'
-              #>name: 'Numérotation des remises en banque'
-              #>period: 'year'
+              format: 'B[year|4][number|4]'
+              name: 'Numeration of embankments'
+              period: 'year'
             invoices:
-              #>format: 'F[year|4][number|6]'
-              #>name: 'Numérotation des factures'
-              #>period: 'year'
+              format: 'F[year|4][number|6]'
+              name: 'Numeration of invoices'
+              period: 'year'
             payments:
-              #>format: 'R[year|4][number|6]'
-              #>name: 'Numérotation des réglements'
-              #>period: 'year'
+              format: 'R[year|4][number|6]'
+              name: 'Numeration of payments'
+              period: 'year'
             purchase_orders:
-              #>format: 'A[year|4][month|2][number|6]'
-              #>name: 'Numérotation des achats'
-              #>period: 'month'
+              format: 'A[year|4][month|2][number|6]'
+              name: 'Numeration of purchases'
+              period: 'month'
             sale_orders:
-              #>format: 'V[year|4][month|2][number|6]'
-              #>name: 'Numérotation des ventes'
-              #>period: 'month'
+              format: 'V[year|4][month|2][number|6]'
+              name: 'Numeration of sales'
+              period: 'month'
             subscriptions:
-              #>format: 'ABO[number|8]'
-              #>name: 'Numérotation des abonnements'
+              format: 'ABO[number|8]'
+              name: 'Numeration of subscriptions'
           relations:
             entities:
-              #>format: '[number|8]'
-              #>name: 'Numérotation des personnes'
+              format: '[number|8]'
+              name: 'Numeration of people'
         #>shelf_name: 'Sans catégorie'
         taxes:
-          tva0000:
-            #>amount: '0.0'
-            #>collected: '445710'
-            #>name: 'TVA 0,00%'
-            #>paid: '445660'
-          tva0210:
-            #>amount: '0.021'
-            #>collected: '445711'
-            #>name: 'TVA 2,10%'
-            #>paid: '445661'
-          tva0550:
-            #>amount: '0.055'
-            #>collected: '445712'
-            #>name: 'TVA 5,50%'
-            #>paid: '445662'
-          tva1960:
-            #>amount: '0.196'
-            #>collected: '445713'
-            #>name: 'TVA 19,60%'
-            #>paid: '445663'
+          vat0000:
+            amount: '0.0'
+            collected: '445710'
+            name: 'VAT 0,00%'
+            paid: '445660'
+          vat0210:
+            amount: '0.021'
+            collected: '445711'
+            name: 'VAT 2,10%'
+            paid: '445661'
+          vat0550:
+            amount: '0.055'
+            collected: '445712'
+            name: 'VAT 5,50%'
+            paid: '445662'
+          vat1960:
+            amount: '0.196'
+            collected: '445713'
+            name: 'VAT 19,60%'
+            paid: '445663'
         units:
           #>a: 'Are'
           #>ca: 'Centiare (m²)'
@@ -402,12 +402,12 @@ eng:
       #>no_product: '[Pas de produit]'
     journal:
       natures:
-        #>bank: 'Banque'
-        #>cash: 'Caisse'
-        #>forward: 'Report à nouveaux'
-        #>purchases: 'Achats'
-        #>sales: 'Ventes'
-        #>various: 'Opérations diverses'
+        bank: 'Bank'
+        cash: 'Cash'
+        forward: 'Carried-forward'
+        purchases: 'Purchases'
+        sales: 'Sales'
+        various: 'Various operations'
     journal_entry:
     journal_record:
       #>record_cancel: 'Contre-passation de la pièce {{number}} : {{name}}'
