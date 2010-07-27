@@ -599,7 +599,7 @@ eng:
       _menu:
         accountancy_tasks: 'Tasks'
         accountize: 'Accounting transfer'
-	bank_statements: 'Bank statements'
+        bank_statements: 'Bank statements'
         documents: 'Documents'
         informations: 'Informations'
         my_account: 'My account'
