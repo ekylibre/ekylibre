@@ -221,8 +221,8 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      _print_balance_sheet:
       print_balance_sheet:
+      _print_balance_sheet:
       print_by_financial_year:
       _print_journal:
       _print_journals:

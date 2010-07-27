@@ -280,22 +280,22 @@ eng:
               name: 'Numeration of people'
         #>shelf_name: 'Sans catégorie'
         taxes:
-          vat0000:
+          tva0000:
             amount: '0.0'
             collected: '445710'
             name: 'VAT 0,00%'
             paid: '445660'
-          vat0210:
+          tva0210:
             amount: '0.021'
             collected: '445711'
             name: 'VAT 2,10%'
             paid: '445661'
-          vat0550:
+          tva0550:
             amount: '0.055'
             collected: '445712'
             name: 'VAT 5,50%'
             paid: '445662'
-          vat1960:
+          tva1960:
             amount: '0.196'
             collected: '445713'
             name: 'VAT 19,60%'
@@ -449,6 +449,8 @@ eng:
         #>without_value: '{{comparator}}'
       #>reflections: 'Tables liées'
     listing_nodes:
+    obsertvaion:  #!
+ #!
     observation:
       importances:
         #>important: 'Importante'

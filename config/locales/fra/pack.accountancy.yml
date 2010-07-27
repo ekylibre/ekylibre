@@ -188,13 +188,13 @@ fra:
         title: 'Déclôture du {{name}}'
       journal_update:
         title: 'Modifier le journal : {{name}}'
-      journals:
-        title: 'Journaux'
-        #>journal_create: # Potentially missing translation
       _journals:
         draft_entries: 'Brouillard'
         journal_detail: 'Cloturé au {{closed_on}}' #!
         journal_name: '{{name}}' #!
+      journals:
+        title: 'Journaux'
+        #>journal_create: # Potentially missing translation
       _journals_search:
         filter_entries_with: 'Filtrer les écritures avec' #!
         interval: 'Intervalle personnalisé'

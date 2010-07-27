@@ -114,9 +114,9 @@ eng:
         #>title: 'Modification du mode de livraison : {{name}}'
       delivery_modes:
         #>title: 'Modes de livraison'
-      _delivery_update:
       delivery_update:
         #>title: 'Modification de la livraison'
+      _delivery_update:
       embankment:
         #>amount: 'Montant total'
         #>embankment: 'Remise en banque du'
@@ -683,13 +683,13 @@ eng:
         #>title: 'Transport du {{created_on}}'
       transport_create:
         #>title: 'Ajout d''un nouveau transport'
-      transport_deliveries:
-        #>title: 'Livraisons du transport'
       _transport_deliveries:
         #>add: 'Ajouter la livraison au transport'
         #>add_delivery: 'Ajouter une livraison'
         #>back: 'Valider et revenir à la liste des transports'
         #>delivery: 'Livraison'
+      transport_deliveries:
+        #>title: 'Livraisons du transport'
       _transport_form:
         #>info: 'Renseignez les informations du transport'
       transport_update:

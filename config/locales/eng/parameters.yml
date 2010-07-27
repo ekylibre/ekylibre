@@ -2,58 +2,52 @@ eng:
   parameters:
     accountancy:
       accountize:
-        #>automatic: 'Activer la bascule automatique des données comptables'
-        #>detail_payments_in_embankments: 'Détailler la liste des règlements lors de la comptabilisation d''une remise en banque'
-        #>draft_mode: 'Enregistrer les pièces dans le brouillard lors de la bascule automatique'
+        automatic: 'Activate the automatic accounting transfer'
+        detail_payments_in_embankments: 'Detail all the payments in embankments during accouting transfer'
+        draft_mode: 'Save the records in draft mode during accouting transfer'
       accounts:
-        #>capital_gains: 'Résultat de l''exercice (bénéfice)'
-        #>capital_losses: 'Résultat de l''exercice (perte)'
-        #>charges: 'Comptes de charges'
-        #>financial_banks: 'Comptes de banque'
-        #>financial_cashes: 'Comptes de caisse'
-        #>financial_payments_to_embank: 'Règlements à encaisser'
-        #>products: 'Comptes de produits'
-        #>taxes_acquisition: 'Compte des taxes d''acquisitions intracommunautaires'
-        #>taxes_assimilated: 'Compte des taxes assimilées'
-        #>taxes_balance: 'Compte de taxe net '
-        #>taxes_collected: 'Compte des taxes collectées'
-        #>taxes_paid: 'Compte des taxes déductibles'
-        #>taxes_payback: 'Compte de taxes de remboursement'
-        #>third_attorneys: 'Comptes mandataires'
-        #>third_clients: 'Comptes clients'
-        #>third_suppliers: 'Comptes fournisseurs'
-      default_journals:
+        capital_gains: 'Profit for the year (earnings)'
+        capital_losses: 'Profit for the year (loss)'
+        charges: 'Charges accounts'
+        financial_banks: 'Banks accounts'
+        financial_cashes: 'Cashes accounts'
+        financial_payments_to_embank: 'Payments to embank accounts'
+        products: 'Products accounts'
+        taxes_acquisition: 'Accounts of taxes for intra-Community acquisitions'
+        taxes_assimilated: 'Assimilated taxes accounts'
+        taxes_balance: 'Balance taxes accounts'
+        taxes_collected: 'Collected taxes accounts'
+        taxes_paid: 'Paid taxes account'
+        taxes_payback: 'Payback taxes accounts'
+        third_attorneys: 'Attorneys accounts'
+        third_clients: 'Clients accounts'
+        third_suppliers: 'Suppliers accounts'
       journals:
-        #>bank: 'Journal de banque par défaut'
-        #>cash: 'Journal de caisse par défaut'
-        #>forward: 'Journal des reports à nouveau par défaut'
-        #>purchases: 'Journal des achats par défaut'
-        #>sales: 'Journal des ventes par défaut'
-        #>various: 'Journal des opérations diverses par défaut'
-      major_accounts:
-      minor_accounts:
-      taxes_accounts:
-      third_accounts:
-      to_accountancy:
+        bank: 'Default bank journal'
+        cash: 'Default cash journal'
+        forward: 'Default carried-forward journal'
+        purchases: 'Default purchases journal'
+        sales: 'Default sales journal'
+        various: 'Default various operations journal'
     general:
       language: 'Default language'
     management:
       embankments:
-        #>days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
-        #>days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise en banque'
-        #>numeration: 'Numérotation des remises en banque'
+        days_before_warning_undone: 'Number of days before warning for receipts not made'
+        days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
+        numeration: 'Numeration of embankments'
       impressions:
       invoices:
-        #>numeration: 'Numérotation des factures'
+        numeration: 'Numeration of invoices'
       payments:
-        #>numeration: 'Numérotation des règlements'
+        numeration: 'Numeration of payments'
       purchase_orders:
-        #>numeration: 'Numérotation des achats'
+        numeration: 'Numeration of purchases'
       sale_orders:
-        #>numeration: 'Numérotation des ventes'
+        numeration: 'Numeration of sales'
       subscriptions:
-        #>numeration: 'Numérotation des abonnements'
+        numeration: 'Numeration of subscriptions'
     relations:
       entities:
-        #>numeration: 'Numérotation des fiches clients/fournisseurs'
+        numeration: 'Numeration of people'
       impressions:
