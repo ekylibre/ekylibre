@@ -11,24 +11,24 @@ eng:
       about:
         title: 'About Ekylibre'
       backups:
-        #>backup: 'Sauvegarder'
-        #>export: 'Export d''un fichier de sauvegarde'
-        #>import: 'Import de fichier de sauvegarde'
-        #>restore: 'Restaurer'
+        backup: 'Back up'
+        export: 'Export'
+        import: 'Import'
+        restore: 'Restore'
         title: 'Backups'
-        #>upload: 'Sélectionner le fichier de sauvegarde à télécharger'
-        #>with_prints: 'Inclure les impressions (factures, commandes...)'
+        upload: 'Select file to upload'
+        with_prints: 'Include printing archives (invoices, purchase orders...)'
       change_password:
-        #>insert_actual_password: 'Saisissez votre mot de passe actuel'
-        #>insert_password: 'Saisissez votre nouveau mot de passe'
-        #>title: 'Changer de mot de passe'
+        insert_actual_password: 'Enter your actual password'
+        insert_password: 'Enter your new password'
+        title: 'Change password'
       configure:
         accountancy: 'Accountancy'
-        #>general: 'Paramètres généraux'
-        #>management: 'Gestion commerciale'
-        #>relations: 'Relations clients/fournisseurs'
-        #>sequences_load: 'Charger les séquences manquantes'
-        #>title: 'Configuration'
+        general: 'General parameters'
+        management: 'Management'
+        relations: 'Relationships'
+        sequences_load: 'Load missing sequences'
+        title: 'Configure'
       department_create:
         title: 'Add a new department'
       _department_form:
@@ -49,26 +49,26 @@ eng:
       establishment_create:
         title: 'Add a new establishment'
       _establishment_form:
-        #>subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
+        subtitle: 'General parameters'
       establishment_update:
-        #>title: 'Modification de l''établissement : {{name}}'
+        title: 'Edit the establishment: {{name}}'
       establishments:
         #>establishment_create: 'Ajouter un nouvel établissement'
         title: 'Establishments'
       help:
-        #>other_results: 'Autres résultats...'
+        other_results: 'Other results...'
         results:
-          #>one: '1 résultat'
-          #>other: '{{count}} résultats'
-          #>zero: 'Aucun résultat'
-        #>search: 'Rechercher un article dans l''aide'
+          one: '1 result'
+          other: '{{count}} results'
+          zero: 'No results'
+        search: 'Search an article'
         title: 'Help'
       _help_result:
-        #>pertinence: '{{value}}%'
+        pertinence: '{{value}}%'
       import:
-        #>file_nature: 'Type de fichier'
-        #>file_to_import: 'Fichier à importer'
-        #>title: 'Importation'
+        file_nature: 'File type'
+        file_to_import: 'File to upload'
+        title: 'Import'
       index:
         #>accountancy: 'Comptabilité générale'
         #>backups: 'Sauvegardes'
@@ -100,7 +100,7 @@ eng:
         #>sequences: 'Séquences'
         title: 'Hello, {{user}}'
       listing_create:
-        #>title: 'Création d''une nouvelle extraction'
+        title: 'Add a new listing'
       _listing_form:
         #>subtitle: 'Renseignez les informations concernant l''extraction'
       listing_mail:
@@ -131,52 +131,48 @@ eng:
         #>subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
         #>title: 'Modification de l''extraction : {{name}}'
       listings:
-        #>listing_create: 'Créer une nouvelle extraction'
-        #>title: 'Exportations et mailings'
-      _menu:
+        title: 'Listings et mailings'
       _rights_form:
-        #>accountancy_rights: 'Droits module Comptabilité'
-        #>company_rights: 'Droits module Société'
-        #>management_rights: 'Droits module Commerce'
-        #>production_rights: 'Droits module Production'
-        #>relations_rights: 'Droits module Relations'
-        #>resources_rights: 'Droits module Ressources'
+        accountancy_rights: 'Accountancy'
+        company_rights: 'Company'
+        management_rights: 'Management'
+        production_rights: 'Production'
+        relations_rights: 'Relationship'
+        resources_rights: 'Ressources'
       role_create:
-        #>title: 'Ajouter un rôle'
+        title: 'Add a new role'
       _role_form:
-        #>role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
+        role_name: 'Fill the name and check all the needed rights'
       role_update:
-        #>title: 'Modification du rôle : {{name}}'
+        title: 'Edit the role: {{name}}'
       roles:
-        #>role_create: 'Ajouter un rôle'
-        #>title: 'Rôles'
+        title: 'Roles'
       sequence_create:
-        #>title: 'Création d''une nouvelle séquence'
+        title: 'Add a new sequence'
       _sequence_form:
-        #>subtitle: 'Caractéristiques de la séquence'
+        subtitle: 'General parameters'
       sequence_update:
-        #>title: 'Modification de la séquence : {{name}}'
+        title: 'Edit the sequence: {{name}}'
       sequences:
-        #>sequence_create: 'Ajouter une séquence'
-        #>sequences_load: 'Charger les séquences manquantes'
-        #>title: 'Séquences'
+        title: 'Sequences'
+      sequences_load: 
+        title: 'Load missing sequences'
       unit_create:
-        #>title: 'Ajout d''une nouvelle unité de mesure'
+        title: 'Add a new unit of measure'
       unit_update:
-        #>title: 'Modification de l''unité : {{label}}'
+        title: 'Edit the unit: {{label}}'
       units:
-        #>title: 'Unités de mesure'
-        #>unit_create: 'Ajouter une nouvelle unité de mesure'
-        #>units_load: 'Charger les unités de base manquantes'
+        title: 'Units of measure'
+      units_load: 
+        title: 'Load missing units'
       user:
-        #>title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
-        #>user_update: 'Modifier les informations de l''utilisateur'
+        title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
+        user_update: 'Modifier les informations de l''utilisateur'
       user_create:
-        #>title: 'Création d''un nouvel utilisateur'
+        title: 'Add a new user'
       _user_form:
         rights: 'Rights'
-        #>subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
-        #>title: 'Gestion des employés'
+        subtitle: 'General parameters'
       user_statistics:
         #>end: ' au '
         events:
@@ -195,7 +191,5 @@ eng:
         title: 'Update user'
       users:
         title: 'Users'
-        user_create: 'Add a new user'
-      _users_form:
       welcome:
         title: 'Welcome in Ekylibre, {{user}}'
