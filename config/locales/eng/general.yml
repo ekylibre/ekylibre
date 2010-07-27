@@ -17,48 +17,45 @@ eng:
   datetime:
     distance_in_words:
       about_x_hours:
-        #>many: 'about {{count}} hours'
-        #>one: 'about 1 hour'
+        many: 'about {{count}} hours'
+        one: 'about 1 hour'
       about_x_months:
-        #>many: 'about {{count}} months'
-        #>one: 'about 1 month'
+        many: 'about {{count}} months'
+        one: 'about 1 month'
       about_x_years:
-        #>many: 'about {{count}} years'
-        #>one: 'about 1 year'
-      #>half_a_minute: 'half a minute'
+        many: 'about {{count}} years'
+        one: 'about 1 year'
+      half_a_minute: 'half a minute'
       less_than_x_minutes:
-        #>many: 'less than {{count}} minutes'
-        #>one: 'less than a minute'
+        many: 'less than {{count}} minutes'
+        one: 'less than a minute'
       less_than_x_seconds:
-        #>many: 'moins de {{count}} secondes'
-        #>one: 'moins d''une seconde'
+        many: 'moins de {{count}} secondes'
+        one: 'moins d''une seconde'
       over_x_years:
-        #>many: 'over {{count}} years'
-        #>one: 'over 1 year'
+        many: 'over {{count}} years'
+        one: 'over 1 year'
       x_days:
-        #>many: '{{count}} days'
-        #>one: '1 day'
+        many: '{{count}} days'
+        one: '1 day'
       x_minutes:
-        #>many: '{{count}} minutes'
-        #>one: '1 minute'
+        many: '{{count}} minutes'
+        one: '1 minute'
       x_months:
-        #>many: '{{count}} months'
-        #>one: '1 month'
+        many: '{{count}} months'
+        one: '1 month'
       x_seconds:
-        #>many: '{{count}} secondes'
-        #>one: '1 seconde'
+        many: '{{count}} secondes'
+        one: '1 seconde'
   dyta:
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FAUX'
-      #>title: 'Export'
-      #>true_value: 'VRAI'
-      #>xcsv: 'CSV pour Excel'
-    #>no_records: 'Aucun enregistrement'
-  edit: 'Edit' #!
-  error: 'Error' #!
+      csv: 'CSV'
+      false_value: 'FALSE'
+      title: 'Export'
+      true_value: 'TRUE'
+      xcsv: 'Excel CSV'
+    no_records: 'No records'
   export:
-  false_value: 'FALSE' #!
   format_date:
   general:
     add: 'Add'
