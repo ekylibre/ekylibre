@@ -109,7 +109,7 @@ class CompanyTest < ActiveSupport::TestCase
 
     end
 
-    context "with inoiced sales" do
+    context "with invoiced sales" do
 
       setup do
         @sale_order = @company.sale_orders.new(:client=>@company.entities.third)

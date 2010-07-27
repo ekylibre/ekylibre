@@ -52,7 +52,6 @@ class Account < ActiveRecord::Base
 
   # This method allows to create the parent accounts if it is necessary.
   def clean
-    raise Exception.new "TET"
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
   end
 

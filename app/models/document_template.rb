@@ -250,7 +250,7 @@ class DocumentTemplate < ActiveRecord::Base
 
 
   def self.compile(source, mode=:normal)
-    xml = XML::Parser.io(StringIO.new(source.to_s)).parse
+    xml = LibXML::XML::Parser.io(StringIO.new(source.to_s)).parse
     template = xml.root
     code = ''
     i = 0

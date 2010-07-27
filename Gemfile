@@ -7,7 +7,7 @@ gem 'rails', '3.0.0.beta4'
 
 gem "haml"
 gem "fastercsv"
-gem "libxml-ruby", :require=>'libxml'
+gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "thoughtbot-shoulda", :require => 'shoulda'
 gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"

@@ -307,7 +307,6 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_back(options={})
-    # redirect_to :controller=>:company
     if session[:history] and session[:history][1]
       # session[:history].delete_at(0)
       redirect_to session[:history][1], options

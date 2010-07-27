@@ -22,7 +22,7 @@ module RelationsHelper
   def condition_label(condition)
     if condition.match(/^generic/)
       klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
-      return I18n.t("views.relations.entities_export.conditions.filter_on_attribute_of_class", :attribute=>klass.human_attribute_name(attribute), :class=>klass.human_name)
+      return I18n.t("views.relations.entities_export.conditions.filter_on_attribute_of_class", :attribute=>klass.human_attribute_name(attribute), :class=>klass.model_name.human)
     else
       return I18n.t("views.relations.entities_export.conditions.#{condition}")
     end

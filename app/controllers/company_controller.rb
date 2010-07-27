@@ -77,12 +77,13 @@ class CompanyController < ApplicationController
 
   def about
     File.open("#{Rails.root.to_s}/VERSION") {|f| @version = f.read.split(',')}
-    begin
-      @properties = Rails::Info.properties.dup
-    rescue
-      @properties = []
-    end
-    @properties.reverse!
+    @properties = []
+#     begin
+#       @properties = Rails::Info.properties.dup
+#     rescue
+#       @properties = []
+#     end
+#     @properties.reverse!
     @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
   end
 
@@ -491,8 +492,9 @@ class CompanyController < ApplicationController
         @listing.save 
         query = @listing.query
       end
+      query = query.to_s
       query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-      full_results = ActiveRecord::Base.connection.select_all(@listing.query)
+      full_results = ActiveRecord::Base.connection.select_all(query)
       listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
       #raise Exception.new listing_mail_column.inspect
       results = full_results.select{|c| !c[listing_mail_column.label].blank? }

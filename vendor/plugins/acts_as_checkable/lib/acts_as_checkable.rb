@@ -37,23 +37,27 @@ module ActiveRecord
           return if @acts_as_checkable_loaded || self.abstract_class? || (self!=base_class) || name.blank? || !table_exists?
           @acts_as_checkable_loaded = true
           code = ""
-          if self.respond_to?(:destroyable?)
+          if self.instance_methods.include?("destroyable?")
             code += "before_destroy {|record| return false unless self.destroyable? }\n"
           end
-          if self.respond_to?(:updatable?)
-            code += "before_update  {|record| return false unless self.updatable? }\n"
+          if self.instance_methods.include?("updatable?")
+            code += "before_update {|record| return false unless self.updatable? }\n"
           end
-          if self.respond_to?(:clean)
-            code += "before_validation  {|record| record.clean }\n"
+          if self.instance_methods.include?("clean")
+            code += "before_validation :clean\n"
           end
-          if self.respond_to?(:check)
-            code += "validate  {|record| record.check }\n"
+          if self.instance_methods.include?("check")
+            code += "validate :check\n"
           end
-          if self.respond_to?(:check_on_update)
-            code += "validate_on_update  {|record| record.check_on_update }\n"
+          if self.instance_methods.include?("check_on_update")
+            code += "validate(:on=>:update) do\n"
+            code += "  check_on_update\n"
+            code += "end\n"
           end
-          if self.respond_to?(:check_on_create)
-            code += "validate_on_create  {|record| record.check_on_create }\n"
+          if self.instance_methods.include?("check_on_create")
+            code += "validate(:on=>:create) do\n"
+            code += "  check_on_create\n"
+            code += "end\n"
           end
           class_eval code
         end

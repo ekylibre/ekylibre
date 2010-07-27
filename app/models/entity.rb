@@ -120,16 +120,14 @@ class Entity < ActiveRecord::Base
     end
     self.full_name.strip!
     
-    self.code = self.full_name.codeize if self.code.blank?
-    self.code = self.code[0..15]
-  end
-
-  def after_validation_on_create
-    if not self.company.parameter("relations.entities.numeration").nil?
+    if not self.company.parameter("relations.entities.numeration").nil? and self.code.blank?
       specific_numeration = self.company.parameter("relations.entities.numeration").value
       if not specific_numeration.nil?
         self.code = specific_numeration.next_value
       end
+    elsif self.code.blank?
+      self.code = self.full_name.codeize if self.code.blank?
+      self.code = self.code[0..15]
     end
   end
 

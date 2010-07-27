@@ -464,7 +464,7 @@ module ApplicationHelper
     url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
     update = (options.delete(:update)||:help).to_s
-    return link_to(tg(:display_help), {:remote=>true, :update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
+    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
   end
 
   def help_tag(html_options={})
@@ -481,7 +481,7 @@ module ApplicationHelper
     return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
     code = content_tag(:div)
     operation = (session[:side] ? "close" : "open")
-    link_to(code, {:remote=>true, :url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
+    link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
   def side_tag(controller = self.controller.controller_name.to_sym)
@@ -558,13 +558,13 @@ module ApplicationHelper
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
       options[:url][:article] = link[0]
-      link_to(link[1], options) # REMOTE
+      link_to_remote(link[1], options) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
       options[:url][:article] = link
-      link_to(link, options) # REMOTE
+      link_to_remote(link, options) # REMOTE
     end
 
     for x in 1..6

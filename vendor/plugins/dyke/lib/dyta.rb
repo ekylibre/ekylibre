@@ -264,7 +264,7 @@ module Ekylibre
                 header_title = column.compile_header
                 if column.sortable?
                   url = ":action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
-                  header_title = "link_to("+header_title+", {:remote=>true, :update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>url_for(#{url})}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
+                  header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>url_for(#{url})}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
                 end
                 code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
               else
@@ -666,8 +666,8 @@ module Ekylibre
             remote_options.delete :image
             remote_options = remote_options.inspect.to_s
             remote_options = remote_options[1..-2]
-            code  = "link_to(#{image}"
-            code += ", {:remote=>true, :url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
+            code  = "link_to_remote(#{image}"
+            code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
             code += ", {:title=>::I18n.t('general.#{verb}')}"
             code += ")"
@@ -736,7 +736,7 @@ if Ekylibre::Dyke::Dyta.will_paginate
       end  
       protected
       def page_link(page, text, attributes = {})
-        @template.link_to(text, {:remote=>true, :url => url_for(page), :method => :get}.merge(@remote), attributes)
+        @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
       end
     end  
   end

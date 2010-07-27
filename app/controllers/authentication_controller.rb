@@ -68,6 +68,11 @@ class AuthenticationController < ApplicationController
         redirect_to :controller=>:company, :action=>:welcome, :company=>@company.code
       end      
     else
+      reset_session
+      if params[:company]
+        redirect_to :company=>nil 
+        return
+      end
       @company = Company.new
       @user = User.new
     end

@@ -578,7 +578,10 @@ class Company < ActiveRecord::Base
         end
 
         code += "  tdb1 += Time.now-dstart\n" if timed
-        code += "  record.send(:create_without_callbacks)\n"
+        # code += "  record.send(:create_without_callbacks)\n"
+        # code += "  record.create_without_callbacks\n"
+        # code += "  record.save(:validate=>false, :callbacks=>false)\n"
+        code += "  record.send(:create_3_0_0_beta4)\n"
         code += "  tdb2p += Time.now-dstart\n" if timed
         code += "  ids['#{model.name}'][id] = record.id\n"
         # Load initial value of the keys to be renamed easily after.
@@ -633,7 +636,8 @@ class Company < ActiveRecord::Base
         v = ids[target.to_s.classify][self[key].to_s]
         self[key] = v unless v.nil?
       end
-      self.send(:update_without_callbacks)
+      # self.send(:update_without_callbacks)
+      self.send(:update_3_0_0_beta4)
       self.reload
       # raise Active::Record::Rollback
 
@@ -851,10 +855,11 @@ class Company < ActiveRecord::Base
     # charge_account  = self.accounts.find_by_number("60")
     product_account = self.accounts.find_by_number("7")
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
+    taxes = self.taxes
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit_id=>units.rand.id, :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit=>units[rand(units.size)], :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
-      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>self.taxes.rand.id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
+      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
     
     product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
@@ -876,7 +881,7 @@ class Company < ActiveRecord::Base
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})
     for shape in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
-      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit_id=>units.rand.id)
+      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)])
     end
     for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
       self.operation_natures.create!(:name=>nature, :target_type=>"Shape")
@@ -958,23 +963,23 @@ class Company < ActiveRecord::Base
     columns << [tc("import.generate_string_complement"), "special-generate_string_complement"]
     # columns << [tc("import.generate_choice_complement"), "special-generate_choice_complement"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
-    columns += cols.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
+    columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
     cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
-    columns += cols.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
-    columns += ["name", "abbreviation"].collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
-    columns += ["name"].collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
-    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    columns += cols.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
+    columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
+    columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
+    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.model_name.human+"/"+c.name, "complement-id"+c.id.to_s]}.sort
     return columns
   end
 
 
   def exportable_columns
     columns = []
-    columns += Entity.content_columns.collect{|c| [Entity.human_name+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
-    columns += Contact.content_columns.collect{|c| [Contact.human_name+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}.sort
-    columns += EntityNature.content_columns.collect{|c| [EntityNature.human_name+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
-    columns += EntityCategory.content_columns.collect{|c| [EntityCategory.human_name+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
-    columns += self.complements.collect{|c| [Complement.human_name+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
+    columns += Contact.content_columns.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}.sort
+    columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
+    columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
+    columns += self.complements.collect{|c| [Complement.model_name.human+"/"+c.name, "complement-id"+c.id.to_s]}.sort
     return columns
   end
 

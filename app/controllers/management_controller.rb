@@ -1889,7 +1889,7 @@ class ManagementController < ApplicationController
   end
   
 
-  def location
+  def locationz
     return unless @location = find_and_check(:location)
     session[:current_location_id] = @location.id
     t3e @location.attributes

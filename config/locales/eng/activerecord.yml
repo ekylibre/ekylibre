@@ -11,7 +11,6 @@ eng:
         created_at: 'Created at'
         creator: 'Creator'
         creator_id: 'Creator'
-        deleted: 'Deleted' #!
         #>entries: 'Écritures'
         id: 'ID'
         #>is_debit: 'Débit'
@@ -151,7 +150,7 @@ eng:
         #>charges_accounts: 'Comptes de charge'
         #>choice_complements: 'Chmaps complémentaires "liste de choix"'
         #>client_accounts: 'Comptes clients'
-        #>code: 'Code interne'
+        code: 'Code'
         #>complement_choices: 'Choix de champ complémentaire'
         #>complement_data: 'Données complémentaires de fiche'
         #>complements: 'Champs complémentaires'
@@ -163,7 +162,6 @@ eng:
         #>current_financialyear: 'Exercice comptable en cours'
         #>default_currency: 'Devise par défaut'
         #>delays: 'Délais'
-        deleted: 'Deleted' #!
         #>deliveries: 'Livraisons'
         #>delivery_lines: 'Lignes de livraison'
         #>delivery_modes: 'Modes de livraison'
@@ -332,7 +330,6 @@ eng:
         created_at: 'Created at'
         creator: 'Creator'
         creator_id: 'Creator'
-        deleted: 'Deleted' #!
         #>deleted_at: 'Supprimé le'
         #>deliveries: 'Livraisons'
         #>email: 'Adresse e-mail'
@@ -685,7 +682,6 @@ eng:
         created_at: 'Created at'
         creator: 'Creator'
         creator_id: 'Creator'
-        deleted: 'Deleted' #!
         #>description: 'Description'
         #>entities: 'Personnes'
         id: 'ID'
@@ -955,7 +951,6 @@ eng:
         creator_id: 'Creator'
         #>currency: 'Devise'
         #>currency_id: 'Devise'
-        deleted: 'Deleted' #!
         #>entries: 'Écritures'
         id: 'ID'
         lock_version: 'Version'
@@ -2002,7 +1997,6 @@ eng:
         created_at: 'Created at'
         creator: 'Creator'
         creator_id: 'Creator'
-        deleted: 'Deleted' #!
         #>description: 'Description'
         id: 'ID'
         #>included: 'Incluse'
@@ -2178,7 +2172,6 @@ eng:
         created_at: 'Created at'
         creator: 'Creator'
         creator_id: 'Creator'
-        deleted: 'Deleted' #!
         deleted_at: 'Deleted at' #!
         #>departed_on: 'Parti le'
         #>department: 'Département'
@@ -2189,22 +2182,22 @@ eng:
         #>establishment: 'Établissement'
         #>establishment_id: 'Établissement'
         #>events: 'Évènements'
-        #>first_name: 'Prénom'
+        first_name: First name
         #>full_name: 'Nom complet'
         #>future_events: 'Evènements futurs'
         #>hashed_password: 'Mot de passe crypté'
         id: 'ID'
         #>language: 'Langue'
-        #>last_name: 'Nom de famille'
+        last_name: 'Last name'
         lock_version: 'Version'
         #>locked: 'Compte verrouillé'
-        #>name: 'Nom d''utilisateur'
+        name: 'User name'
         #>office: 'Bureau/Atelier'
         #>old_password: 'Mot de passe actuel'
         #>operations: 'Travaux'
         #>parameters: 'Paramètres'
-        #>password: 'Mot de passe'
-        #>password_confirmation: 'Confirmation du mot de passe'
+        password: 'Password'
+        password_confirmation: 'Confirmation of password'
         #>profession: 'Profession'
         #>profession_id: 'Profession'
         #>reduction_percent: 'Taux de réduction autorisé (%)'

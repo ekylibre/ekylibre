@@ -90,7 +90,7 @@ class Invoice < ActiveRecord::Base
     self.currency_id ||= self.sale_order.currency_id if self.sale_order
   end
   
-  def before_validation_on_create
+  before_validation(:on=>:create) do
     self.payment_on ||= self.payment_delay.compute if self.payment_delay
     self.payment_on ||= Date.today
     if self.credit and self.origin
@@ -103,7 +103,7 @@ class Invoice < ActiveRecord::Base
     end
   end
   
-  def after_validation_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.parameter("management.invoices.numeration").value
     if not specific_numeration.nil?
       self.number = specific_numeration.next_value
@@ -192,7 +192,7 @@ class Invoice < ActiveRecord::Base
 
   #this method accountizes the invoice.
   def to_accountancy(action=:create, options={})
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :client=>self.client.full_name, :products=>(self.sale_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sale_order.comment), :sale_order=>self.sale_order.number)
+    label = tc(:to_accountancy, :resource=>self.class.model_name.human, :number=>self.number, :client=>self.client.full_name, :products=>(self.sale_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sale_order.comment), :sale_order=>self.sale_order.number)
     accountize(action, {:journal=>self.company.journal(:sales), :draft_mode=>options[:draft]}) do |record|
       record.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
       for line in self.lines
