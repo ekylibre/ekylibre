@@ -27,13 +27,14 @@ __minimum__:
   - management::product_trackings
   - management::product_units
   - management::subscription_contacts_dyli
+  - production::shapes_map
   - relations::entities_dyli
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
-  - production::shapes_map
 # Droit par défaut (inaccessible)
 __not_used__:
   actions:
+  - management::locationz
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
@@ -486,7 +487,6 @@ manage_locations:
   controller: management
   actions:
   - index
-  - location
   - location_create
   - location_delete
   - location_stock_moves_dyta

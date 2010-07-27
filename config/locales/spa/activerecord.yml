@@ -2221,84 +2221,85 @@ spa:
       #>updater_id: 'Modificateur'
     errors:
       messages:
-        #>accepted: '{{attribute}} doit être accepté'
-        #>blank: '{{attribute}} ne peut pas être vide'
-        #>confirmation: '{{attribute}} est différent du champ de confirmation'
-        #>empty: '{{attribute}} ne peut pas être vide'
-        #>equal_to: '{{attribute}} doit être égal à {{count}}'
-        #>even: '{{attribute}} doit être impair'
-        #>exclusion: '{{attribute}} est reservé'
-        #>greater_than: '{{attribute}} doit être plus grand que {{count}}'
-        #>greater_than_or_equal_to: '{{attribute}} doit être plus grand ou égal à {{count}}'
-        #>included_in: 'La valeur de {{attribute}} doit être comprise entre {{minimum}} et {{maximum}}'
-        #>inclusion: '{{attribute}} n''est pas inclus dans la liste'
-        #>invalid: '{{attribute}} est invalide'
-        #>invalid_at: '{{attribute}} est invalide. Erreur près de {{error}}'
-        #>invalid_token: '{{attribute}} est invalide. Symbole inconnu {{error}}. Les symboles acceptés sont {{accepted}}.'
-        #>less_than: '{{attribute}} doit être inférieur à {{count}}'
-        #>less_than_or_equal_to: '{{attribute}} doit être inférieur ou égal à {{count}}'
-        #>not_a_number: '{{attribute}} n''est pas un nombre'
+        #>accepted: '%{attribute} doit être accepté'
+        #>blank: '%{attribute} ne peut pas être vide'
+        #>confirmation: '%{attribute} est différent du champ de confirmation'
+        #>empty: '%{attribute} ne peut pas être vide'
+        #>equal_to: '%{attribute} doit être égal à %{count}'
+        #>even: '%{attribute} doit être impair'
+        #>exclusion: '%{attribute} est reservé'
+        #>greater_than: '%{attribute} doit être plus grand que %{count}'
+        #>greater_than_or_equal_to: '%{attribute} doit être plus grand ou égal à %{count}'
+        #>included_in: 'La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}'
+        #>inclusion: '%{attribute} n''est pas inclus dans la liste'
+        #>invalid: '%{attribute} est invalide'
+        #>invalid_at: '%{attribute} est invalide. Erreur près de %{error}'
+        #>invalid_token: '%{attribute} est invalide. Symbole inconnu %{error}. Les symboles acceptés sont %{accepted}.'
+        #>less_than: '%{attribute} doit être inférieur à %{count}'
+        #>less_than_or_equal_to: '%{attribute} doit être inférieur ou égal à %{count}'
+        #>not_a_number: '%{attribute} n''est pas un nombre'
         #>nothing_to_pay: 'Il n''y a rien à payer. Si vous voulez enregistrer un acompte, n''oubliez pas de le préciser.'
-        #>odd: '{{attribute}} doit être pair'
-        #>posterior: 'La date {{attribute}} doit être postérieure à {{to}}'
+        #>odd: '%{attribute} doit être pair'
+        #>posterior: 'La date %{attribute} doit être postérieure à %{to}'
         #>record_has_been_already_validated: 'La pièce a été validée et ne peut plus être modifiée'
-        #>taken: '{{attribute}} a déjà été pris'
-        #>too_long: '{{attribute}} est trop long ({{count}} caractères maximum)'
-        #>too_short: '{{attribute}} est trop court ({{count}} caractères minimum)'
-        #>wrong_length: '{{attribute}} n''est pas d''une bon longueur ({{count}} caractères)'
+        #>record_invalid: 'Validations échouées : %{errors}'
+        #>taken: '%{attribute} a déjà été pris'
+        #>too_long: '%{attribute} est trop long (%{count} caractères maximum)'
+        #>too_short: '%{attribute} est trop court (%{count} caractères minimum)'
+        #>wrong_length: '%{attribute} n''est pas d''une bon longueur (%{count} caractères)'
       models:
         bank_account:
         cash:
           #>unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'
         complement_datum:
-          #>greater_than: '{{field}} est trop grand ({{maximum}} maximum)'
-          #>less_than: '{{field}} est trop petit ({{minimum}} minimum)'
-          #>required: '{{field}} doit être renseigné'
-          #>too_long: '{{field}} est trop long ({{length}} caractères)'
+          #>greater_than: '%{field} est trop grand (%{maximum} maximum)'
+          #>less_than: '%{field} est trop petit (%{minimum} minimum)'
+          #>required: '%{field} doit être renseigné'
+          #>too_long: '%{field} est trop long (%{length} caractères)'
         delivery_line:
-          #>greater_than_undelivered_quantity: 'La quantité de produit {{product}} à livrer dépasse la quantité non livrée ({{maximum}}{{unit}})'
+          #>greater_than_undelivered_quantity: 'La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})'
         embankment:
-          #>must_be_a_bank_account: '{{field}} doit être un compte bancaire et non une caisse'
+          #>must_be_a_bank_account: '%{field} doit être un compte bancaire et non une caisse'
         entity:
-          #>missing_title: '{{attribute}} doit contenir la dénomination sociale "{{title}}"'
-          #>nature_do_not_allow_a_first_name: 'Le type "{{nature}}" sélectionné ne permet de renseigner un prénom'
+          #>missing_title: '%{attribute} doit contenir la dénomination sociale "%{title}"'
+          #>nature_do_not_allow_a_first_name: 'Le type "%{nature}" sélectionné ne permet de renseigner un prénom'
         financialyear:
           attributes:
             started_on:
               #>consecutive: 'L''exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent.'
             stopped_on:
-              #>end_of_month: '{{attribute}} doit être un date de fin de mois'
-          #>overlap: '{{attribute}} se trouve sur un exercice existant'
+              #>end_of_month: '%{attribute} doit être un date de fin de mois'
+          #>overlap: '%{attribute} se trouve sur un exercice existant'
         journal:
           attributes:
             closed_on:
-              #>end_of_month: '{{attribute}} doit correspondre à une date de fin de mois ({{closed_on}})'
+              #>end_of_month: '%{attribute} doit correspondre à une date de fin de mois (%{closed_on})'
         journal_entry:
           #>closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
           #>empty_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit.'
           #>unvalid_amounts: 'L''écriture doit être renseignée soit au débit, soit au crédit mais pas les deux en même temps.'
         journal_record:
-          #>closed_journal: 'Le journal est clôturé au {{on}} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
+          #>closed_journal: 'Le journal est clôturé au %{on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
           #>out_of_financialyear: 'La pièce doit être saisie durant l''exercice'
           #>unbalanced: 'La pièce n''est pas équilibrée'
         payment_part:
         price:
           #>already_defined: 'Un prix a déjà été défini pour cette liste de prix et ce produit'
-          #>range_overlap: 'L''intervalle de quantité en chevauche un autre (de {{min}} à {{max}})'
+          #>range_overlap: 'L''intervalle de quantité en chevauche un autre (de %{min} à %{max})'
         purchase_order_line:
-          #>location_can_not_receive_product: 'Le réservoir {{location}} ne peut pas recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}.'
-          #>serial_already_used_with_an_other_product: '{{attribute}} a déjà été utilisé pour un autre type de produit du même fournisseur'
+          #>location_can_not_receive_product: 'Le réservoir %{location} ne peut pas recevoir le produit %{product}, il contient déjà le produit %{contained_product}.'
+          #>serial_already_used_with_an_other_product: '%{attribute} a déjà été utilisé pour un autre type de produit du même fournisseur'
         sale_order_line:
-          #>can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot {{tracking}}, la quantité commandée est supérieure à la quantité disponible'
+          #>can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot %{tracking}, la quantité commandée est supérieure à la quantité disponible'
           #>currency_is_not_sale_order_currency: 'La devise du prix du produit ne correspond pas celle définie pour la vente'
           #>error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-          #>location_can_not_transfer_product: 'Le produit {{product}} ne peut être sorti du réservoir {{location}}, celui-ci contient {{contained_product}}.'
+          #>location_can_not_transfer_product: 'Le produit %{product} ne peut être sorti du réservoir %{location}, celui-ci contient %{contained_product}.'
         stock:
-          #>product_cannot_be_in_location: 'Le produit ne peut pas être stocké dans le réservoir {{location}}'
+          #>product_cannot_be_in_location: 'Le produit ne peut pas être stocké dans le réservoir %{location}'
         stock_transfer:
-          #>location_can_not_receive_product: 'Le lieu de stockage {{location}} ne peut recevoir le produit {{product}}, il contient déjà le produit {{contained_product}}'
-          #>location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
-          #>location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit {{product}} depuis le lieu de stockage {{location}}, celui-ci contient le produit {{contained_product}}'
+          #>location_can_not_receive_product: 'Le lieu de stockage %{location} ne peut recevoir le produit %{product}, il contient déjà le produit %{contained_product}'
+          #>location_can_not_transfer_product: 'Vous ne pouvez pas tranférer le produit %{product} depuis le lieu de stockage %{location}, celui-ci contient le produit %{contained_product}'
+          #>location_can_not_waste_product: 'Vous ne pouvez pas enregistrer de perte pour  le produit %{product} depuis le lieu de stockage %{location}, celui-ci contient le produit %{contained_product}'
           #>locations_can_not_be_identical: 'Les lieux de stockage (départ et arrivée) ne peuvent pas être identiques'
         subscription:
           #>entity_must_be_the_same_as_the_contact_entity: 'La personne de l''abonnement doit être la même que celle du contact'
@@ -2309,8 +2310,8 @@ spa:
       template:
         #>body: 'Il y a eu des problèmes avec les champs suivants :'
         header:
-          #>one: '1 erreur a empêché l''enregistrement ({{model}})'
-          #>other: '{{count}} erreurs ont empéché l''enregistrement ({{model}})'
+          #>one: '1 erreur a empêché l''enregistrement (%{model})'
+          #>other: '%{count} erreurs ont empéché l''enregistrement (%{model})'
     models:
       #>account: 'Compte'
       #>account_balance: 'Balance de compte'

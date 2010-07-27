@@ -30,11 +30,11 @@ eng:
       area_create:
         #>title: 'Ajouter une zone postale'
       area_update:
-        #>title: 'Modification de la zone postale : {{name}}'
+        #>title: 'Modification de la zone postale : %{name}'
       areas:
         #>all_areas: '--- Toutes les zones postales ---'
         #>area_create: 'Ajouter une zone postale'
-        #>area_x: '{{name}} ({{postcode}})'
+        #>area_x: '%{name} (%{postcode})'
         #>select_area: 'Zone postale'
         #>title: 'Zones postales'
       _areas_search:
@@ -43,13 +43,13 @@ eng:
         #>complement_choice_create: 'Ajouter un nouveau choix à la liste'
         #>complement_sort: 'Trier les choix par nom'
         #>complement_update: 'Modifier le champ personnalisé'
-        #>title: 'Champ personnalisé : {{name}}'
+        #>title: 'Champ personnalisé : %{name}'
       complement_choice_create:
         #>title: ' Création d''une option pour une liste de choix'
       _complement_choice_form:
         #>title: 'Renseignez les caractéristiques de l''option'
       complement_choice_update:
-        #>title: 'Modification de l''option : {{name}}'
+        #>title: 'Modification de l''option : %{name}'
       complement_create:
         #>title: 'Création d''un champ personnalisé'
       _complement_form:
@@ -57,7 +57,7 @@ eng:
         #>general: 'Général'
         #>string_case: 'Options pour le texte'
       complement_update:
-        #>title: 'Modification du champ personnalisé : {{name}}'
+        #>title: 'Modification du champ personnalisé : %{name}'
       complements:
         #>complement_create: 'Créer un nouveau champ personnalisé'
         #>title: 'Champs personnalisés'
@@ -69,19 +69,19 @@ eng:
         #>general: 'Général'
         #>title: 'Description générale'
       contact_update:
-        #>title: 'Modification de l''adresse de : {{entity}}'
+        #>title: 'Modification de l''adresse de : %{entity}'
       _coordinates_form:
         #>address: 'Adresse'
         #>canals: 'Coordonnées'
       district_create:
         #>title: 'Ajouter une zone'
       district_update:
-        #>title: 'Modification de la zone : {{name}}'
+        #>title: 'Modification de la zone : %{name}'
       districts:
         #>area_create: 'Ajouter une ville'
         #>city_name: 'Ville'
         #>district_create: 'Ajouter une zone administrative'
-        #>district_x: '{{name}} ({{code}})'
+        #>district_x: '%{name} (%{code})'
         #>title: 'Zones administratives'
       _districts_search:
         #>search: 'Rechercher une zone'
@@ -92,7 +92,7 @@ eng:
         #>entity_create: 'Créer une nouvelle fiche'
         nb_entities:
           #>one: '1 fiche enregistrée'
-          #>other: '{{count}} fiches enregistrées'
+          #>other: '%{count} fiches enregistrées'
           #>zero: 'Aucune fiche enregistrée'
         #>title: 'Fiches des personnes'
       entities_contact_delete:
@@ -102,18 +102,18 @@ eng:
         #>all_conditions: 'toutes les conditions'
         #>check: 'Vérifier'
         conditions:
-          #>filter_on_attribute_of_class: 'Filtre sur {{attribute}} ({{class}})'
+          #>filter_on_attribute_of_class: 'Filtre sur %{attribute} (%{class})'
           #>special-subscriber: 'Filtre Abonné'
         #>one_condition: 'au moins une condition'
         #>select_columns: 'Cochez les colonnes que vous voulez voir apparaitre dans le tableau.'
         #>title: 'Exportation de fiches'
       _entities_export_condition:
-        #>created_between: 'Enregistré entre le {{started_on}} et le {{stopped_on}}'
+        #>created_between: 'Enregistré entre le %{started_on} et le %{stopped_on}'
         moment:
         #>no_products: 'Sans produit'
         #>reverse: 'Appliquer la condition inverse'
-        #>subscriber_period: 'Abonné(e) le {{subscribed_on}}'
-        #>subscriber_quantity: 'Abonné(e) au numéro {{subscribed_on}}'
+        #>subscriber_period: 'Abonné(e) le %{subscribed_on}'
+        #>subscriber_quantity: 'Abonné(e) au numéro %{subscribed_on}'
         #>unknown_condition: 'Type de condition inconnue'
       entities_import:
         #>columns: 'Colonnes à importer'
@@ -121,7 +121,7 @@ eng:
         #>file_nature: 'Type de fichier'
         #>import: 'Importer'
         #>importation_explanation: 'Pour confirmer l''importation, vous devez confirmer en cliquant sur Importer.'
-        #>line: 'Ligne n°{{index}} :'
+        #>line: 'Ligne n°%{index} :'
         #>title: 'Importation de fiches'
         #>upload: 'Fichier à importer'
       entities_merge:
@@ -138,7 +138,7 @@ eng:
         #>cash_create: 'Ajouter un nouveau compte bancaire'
         cashes:
           #>one: '1 compte bancaire'
-          #>other: '{{count}} comptes bancaires'
+          #>other: '%{count} comptes bancaires'
           #>zero: '0 compte bancaire'
         #>client: 'Client'
         #>client_balance: 'Solde du client'
@@ -146,28 +146,28 @@ eng:
         #>contact_create: 'Ajouter un nouveau contact'
         contacts:
           #>one: '1 contact'
-          #>other: '{{count}} contacts'
+          #>other: '%{count} contacts'
           #>zero: '0 contact'
         #>entity_link_create: 'Ajouter un nouveau lien'
         entity_links:
           #>one: '1 lien'
-          #>other: '{{count}} liens'
+          #>other: '%{count} liens'
           #>zero: '0 lien'
         #>entity_print: 'Imprimer la fiche'
         #>entity_update: 'Modifier la fiche'
         #>event_create: 'Ajouter un évènement'
         events:
           #>one: '1 évènement'
-          #>other: '{{count}} évènements '
+          #>other: '%{count} évènements '
           #>zero: '0 évènement'
         invoices:
           #>one: '1 facture'
-          #>other: '{{count}} factures'
+          #>other: '%{count} factures'
           #>zero: '0 facture'
         #>mandate_create: 'Ajouter une responsabilité'
         mandates:
           #>one: '1 responsabilité'
-          #>other: '{{count}} responsabilités '
+          #>other: '%{count} responsabilités '
           #>zero: '0 responsabilité'
         #>nature: 'Nature'
         #>new_sale: 'Nouvelle vente'
@@ -175,38 +175,38 @@ eng:
         #>observation_create: 'Ajouter une observation'
         observations:
           #>one: '1 observation'
-          #>other: '{{count}} observations'
+          #>other: '%{count} observations'
           #>zero: '0 observation'
         payments:
         #>purchase_order_create: 'Ajouter un nouvel achat'
         purchase_orders:
           #>one: '1 achat'
-          #>other: '{{count}} achats'
+          #>other: '%{count} achats'
           #>zero: '0 achat'
         purchase_orders_number:
         #>purchase_payment_create: 'Ajouter un décaissement'
         purchase_payments:
           #>one: '1 décaissement'
-          #>other: '{{count}} décaissements'
+          #>other: '%{count} décaissements'
           #>zero: '0 décaissement'
         #>sale_order_create: 'Ajouter une nouvelle vente'
         sale_orders:
           #>one: '1 vente'
-          #>other: '{{count}} ventes'
+          #>other: '%{count} ventes'
           #>zero: '0 vente'
         sale_orders_number:
         #>sale_payment_create: 'Ajouter un encaissement'
         sale_payments:
           #>one: '1 encaissement'
-          #>other: '{{count}} encaissements'
+          #>other: '%{count} encaissements'
           #>zero: '0 encaissement'
         #>state: 'État'
         #>subscription_create: 'Ajouter un abonnement'
         subscriptions:
           #>one: '1 abonnement'
-          #>other: '{{count}} abonnements'
+          #>other: '%{count} abonnements'
           #>zero: '0 abonnement'
-        #>title: 'Fiche : {{full_name}}'
+        #>title: 'Fiche : %{full_name}'
       entity_categories:
         #>entity_category_create: 'Ajouter une catégorie de fiche'
         #>title: 'Catégories de fiche'
@@ -215,13 +215,13 @@ eng:
         #>price_create: 'Ajouter un tarif à cette catégorie'
         prices:
           #>one: '1 tarif rattaché à cette catégorie'
-          #>other: '{{count}} tarifs rattachés à cette catégorie'
+          #>other: '%{count} tarifs rattachés à cette catégorie'
           #>zero: '0 tarif rattaché à cette catégorie'
-        #>title: 'Catégorie de fiche : {{name}}'
+        #>title: 'Catégorie de fiche : %{name}'
       entity_category_create:
         #>title: 'Ajout d''une nouvelle catégorie de fiche'
       entity_category_update:
-        #>title: 'Modification de la catégorie de fiche : {{name}}'
+        #>title: 'Modification de la catégorie de fiche : %{name}'
       entity_create:
         #>title: 'Création d''une nouvelle fiche client/fournisseur'
       _entity_form:
@@ -245,7 +245,7 @@ eng:
       entity_link_nature_create:
         #>title: 'Ajout d''un nouveau type de lien'
       entity_link_nature_update:
-        #>title: 'Modification du type de lien : {{name}}'
+        #>title: 'Modification du type de lien : %{name}'
       entity_link_natures:
         #>entity_link_nature_create: 'Ajouter un nouveau type de lien'
         #>title: 'Types de lien'
@@ -254,18 +254,18 @@ eng:
       entity_nature_create:
         #>title: 'Ajouter un nouveau type de fiche'
       entity_nature_update:
-        #>title: 'Modifier le type de fiche : {{name}}'
+        #>title: 'Modifier le type de fiche : %{name}'
       entity_natures:
         #>entity_nature_create: 'Ajouter un nouveau type de fiche'
         #>title: 'Types de fiches'
       entity_update:
-        #>title: 'Modification de la fiche : {{full_name}}'
+        #>title: 'Modification de la fiche : %{full_name}'
       event_create:
         #>title: 'Ajout d''un évènement'
       event_nature_create:
         #>title: 'Ajouter un type d''évènement'
       event_nature_update:
-        #>title: 'Modification du type d''évènement : {{name}}'
+        #>title: 'Modification du type d''évènement : %{name}'
       event_natures:
         #>event_nature_create: 'Ajout d''un type d''évènement'
         #>title: 'Types d''évènements'
@@ -281,7 +281,7 @@ eng:
         #>future_events: 'Futurs événements'
         nb_entities:
           #>one: '1 fiche client/fournisseur'
-          #>other: '{{count}} fiches clients/fournisseurs'
+          #>other: '%{count} fiches clients/fournisseurs'
           #>zero: 'Aucune fiche clients/fournisseurs'
         #>recent_events: 'Derniers événements'
         #>title: 'Gestion des relations clients et fournisseurs'
@@ -294,7 +294,7 @@ eng:
         #>mandate_create: 'Créer une responsabilité'
         nb_mandates:
           #>one: '1 responsabilité enregistrée'
-          #>other: '{{count}} responsabilités enregistrées'
+          #>other: '%{count} responsabilités enregistrées'
           #>zero: 'Aucune responsabilité enregistrée'
         #>select_date: 'Date'
         #>select_organization: 'Organisation'
