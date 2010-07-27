@@ -1,21 +1,21 @@
 eng:
   controllers:
     company:
-      #>mailing: 'Mailing'
-      #>role: 'Rôle'
+      mailing: 'Mailing'
+      role: 'Rôle'
       title: 'Company'
   helpers:
     company:
   views:
     company:
       about:
-        #>title: 'À propos d''Ekylibre'
+        title: 'About Ekylibre'
       backups:
         #>backup: 'Sauvegarder'
         #>export: 'Export d''un fichier de sauvegarde'
         #>import: 'Import de fichier de sauvegarde'
         #>restore: 'Restaurer'
-        #>title: 'Sauvegardes'
+        title: 'Backups'
         #>upload: 'Sélectionner le fichier de sauvegarde à télécharger'
         #>with_prints: 'Inclure les impressions (factures, commandes...)'
       change_password:
@@ -23,52 +23,48 @@ eng:
         #>insert_password: 'Saisissez votre nouveau mot de passe'
         #>title: 'Changer de mot de passe'
       configure:
-        #>accountancy: 'Comptabilité'
+        accountancy: 'Accountancy'
         #>general: 'Paramètres généraux'
         #>management: 'Gestion commerciale'
         #>relations: 'Relations clients/fournisseurs'
         #>sequences_load: 'Charger les séquences manquantes'
         #>title: 'Configuration'
       department_create:
-        #>title: 'Ajout d''un nouveau service'
+        title: 'Add a new department'
       _department_form:
-        #>subtitle: 'Renseignez les différentes caractéristiques du service'
+        subtitle: 'General'
       department_update:
-        #>title: 'Modifier le service : %{name}'
+        title: 'Update the department : {{name}}'
       departments:
-        #>department_create: 'Ajouter un nouveau service'
-        #>title: 'Services'
-      document_nature_create:
-      document_nature_update:
-      document_natures:
+        title: 'Departments'
       document_template_create:
-        #>title: 'Création d''un modèle de document'
+        title: 'Add a new document template'
       document_template_update:
-        #>title: 'Modification du modèle de document : %{name}'
+        #>title: 'Modification du modèle de document : {{name}}'
       document_templates:
         #>document_template_create: 'Créer un modèle de document'
-        #>title: 'Modèles de document'
+        title: 'Document templates'
       document_templates_load:
         #>title: 'Charger les modèles de document par défaut'
       establishment_create:
-        #>title: 'Ajout d''un nouvel etablissement'
+        title: 'Add a new establishment'
       _establishment_form:
         #>subtitle: 'Renseignez les différentes caractéristiques de l''établissement'
       establishment_update:
-        #>title: 'Modification de l''établissement : %{name}'
+        #>title: 'Modification de l''établissement : {{name}}'
       establishments:
         #>establishment_create: 'Ajouter un nouvel établissement'
-        #>title: 'Établissements'
+        title: 'Establishments'
       help:
         #>other_results: 'Autres résultats...'
         results:
           #>one: '1 résultat'
-          #>other: '%{count} résultats'
+          #>other: '{{count}} résultats'
           #>zero: 'Aucun résultat'
         #>search: 'Rechercher un article dans l''aide'
-        #>title: 'Aide'
+        title: 'Help'
       _help_result:
-        #>pertinence: '%{value}%'
+        #>pertinence: '{{value}}%'
       import:
         #>file_nature: 'Type de fichier'
         #>file_to_import: 'Fichier à importer'
@@ -87,22 +83,22 @@ eng:
         #>modules: 'Modules'
         nb_entities:
           #>one: '1 fiche client/fournisseur'
-          #>other: '%{count} fiches clients/fournisseurs'
+          #>other: '{{count}} fiches clients/fournisseurs'
           #>zero: 'Aucune fiche clients/fournisseurs'
         nb_purchases:
           #>one: '1 achat en attente de reception'
-          #>other: '%{count} achats en attente de reception'
+          #>other: '{{count}} achats en attente de reception'
           #>zero: 'Aucun achat en attente de reception'
         nb_sales:
           #>one: '1 livraison en attente'
-          #>other: '%{count} livraisons en attente '
+          #>other: '{{count}} livraisons en attente '
           #>zero: 'Aucune livraison en attente'
         #>production: 'Gestion de la production'
         #>relations: 'Gestion des relations clients/fournisseurs'
         #>resources: 'Gestion des ressources humaines'
         #>roles: 'Rôles'
         #>sequences: 'Séquences'
-        #>title: 'Bonjour, %{user}'
+        title: 'Hello, {{user}}'
       listing_create:
         #>title: 'Création d''une nouvelle extraction'
       _listing_form:
@@ -110,21 +106,21 @@ eng:
       listing_mail:
         #>are_you_sure_to_send_mails: 'Êtes-vous sûr(e) de vouloir envoyer les mails ?'
         #>attachment: 'Pièce jointe'
-        #>available_columns: 'Champs disponibles : %{columns}'
+        #>available_columns: 'Champs disponibles : {{columns}}'
         #>body: 'Corps du message'
         #>choose_mail_column: 'Veuillez choisir la colonne à utiliser pour le mailing'
         #>click_to_mail: 'Écrire votre message avec votre propre messagerie électronique'
-        #>default_subject: '[%{company}]'
+        #>default_subject: '[{{company}}]'
         #>from: 'Expéditeur'
         mails:
           #>one: '1 courriel'
-          #>other: '%{count} courriels'
+          #>other: '{{count}} courriels'
           #>zero: 'Aucun courriels'
         #>personalized_mail: 'Envoyer un mail personnalisé'
         #>send: 'Envoyer le mail'
         #>send_test: 'Envoyer un mail de test'
         #>subject: 'Sujet'
-        #>title: 'Envoyer un mail pour "%{listing}"'
+        #>title: 'Envoyer un mail pour "{{listing}}"'
       listing_nodes:
         #>title: 'Choisissez les informations à extraire'
       listing_update:
@@ -133,7 +129,7 @@ eng:
         #>listing_mail: 'Envoyer un courriel'
         #>query: 'Requête: '
         #>subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
-        #>title: 'Modification de l''extraction : %{name}'
+        #>title: 'Modification de l''extraction : {{name}}'
       listings:
         #>listing_create: 'Créer une nouvelle extraction'
         #>title: 'Exportations et mailings'
@@ -150,7 +146,7 @@ eng:
       _role_form:
         #>role_name: 'Entrez le nom du rôle puis attribuez lui ses droits'
       role_update:
-        #>title: 'Modification du rôle : %{name}'
+        #>title: 'Modification du rôle : {{name}}'
       roles:
         #>role_create: 'Ajouter un rôle'
         #>title: 'Rôles'
@@ -159,7 +155,7 @@ eng:
       _sequence_form:
         #>subtitle: 'Caractéristiques de la séquence'
       sequence_update:
-        #>title: 'Modification de la séquence : %{name}'
+        #>title: 'Modification de la séquence : {{name}}'
       sequences:
         #>sequence_create: 'Ajouter une séquence'
         #>sequences_load: 'Charger les séquences manquantes'
@@ -167,39 +163,39 @@ eng:
       unit_create:
         #>title: 'Ajout d''une nouvelle unité de mesure'
       unit_update:
-        #>title: 'Modification de l''unité : %{label}'
+        #>title: 'Modification de l''unité : {{label}}'
       units:
         #>title: 'Unités de mesure'
         #>unit_create: 'Ajouter une nouvelle unité de mesure'
         #>units_load: 'Charger les unités de base manquantes'
       user:
-        #>title: 'Utilisateur : %{first_name} %{last_name} (%{name})'
+        #>title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
         #>user_update: 'Modifier les informations de l''utilisateur'
       user_create:
         #>title: 'Création d''un nouvel utilisateur'
       _user_form:
-        #>rights: 'Droits'
+        rights: 'Rights'
         #>subtitle: 'Renseignez les différentes caractéristiques de l''utilisateur'
         #>title: 'Gestion des employés'
       user_statistics:
         #>end: ' au '
         events:
-          #>one: ' 1 évènement de type %{nature} d''une durée de %{duration} minutes'
-          #>other: ' %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes'
-          #>zero: ' Aucun événement de type %{nature}'
+          #>one: ' 1 évènement de type {{nature}} d''une durée de {{duration}} minutes'
+          #>other: ' {{count}} évènements de type {{nature}} pour une durée totale de {{duration}} minutes'
+          #>zero: ' Aucun événement de type {{nature}}'
         nb_sales:
           #>one: '1 commande'
-          #>other: '%{count} commandes'
+          #>other: '{{count}} commandes'
           #>zero: 'Aucune commande'
         #>start: 'Du'
         #>title: 'Mes statistiques'
         #>total_amount: ' Total montant HT '
         #>total_invoiced_amount: 'Total montant facturé '
       user_update:
-        #>title: 'Modification de l''utilisateur'
+        title: 'Update user'
       users:
-        #>title: 'Utilisateurs'
-        #>user_create: 'Ajouter un nouvel utilisateur'
+        title: 'Users'
+        user_create: 'Add a new user'
       _users_form:
       welcome:
-        #>title: 'Bienvenue dans Ekylibre, %{user}'
+        title: 'Welcome in Ekylibre, {{user}}'

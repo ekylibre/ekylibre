@@ -8,8 +8,8 @@ eng:
     authentication:
       login:
         bad_browser:
-          #>explanation: 'Cette version de navigateur n''est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes.'
-          #>proposal: 'S''il vous plait, envisagez de vous mettre à jour avec l''un de ces navigateurs récents :'
+          explanation: 'This browser version is not supported by Ekylibre. Using this browser, pages are not displayed correctly and features are missing.'
+          proposal: 'Please plan to update you with one of these browsers:'
           title: 'Your web browser seems to be obsolete'
           wb:
             chrome: 'Chrome'
