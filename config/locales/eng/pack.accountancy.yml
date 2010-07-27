@@ -228,8 +228,8 @@ eng:
       _print_journals:
       _print_ledger:
       _print_synthesis:
-       select_financialyear: 'Period'
-        synthesis: 'Select Period'
+      select_financialyear: 'Period'
+      synthesis: 'Select Period'
       report:
       synthesis:
         account_accruals: 'Accurals Account'
