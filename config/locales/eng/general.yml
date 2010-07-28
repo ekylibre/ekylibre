@@ -4,13 +4,13 @@ eng:
     abbr_month_names: ['', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
     day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     formats:
-      #>db: '%d/%m/%Y'
-      #>dbx: '%Y-%m-%d'
+      #>db: 'Db' # '%d/%m/%Y'
+      #>dbx: 'Dbx' # '%Y-%m-%d'
       default: '%m/%d/%Y'
-      #>legal: '%d %B %Y'
-      #>long: '%B %d, %Y'
-      #>month_letter: '%d %B %Y'
-      #>short: '%b %d'
+      #>legal: 'Legal' # '%d %B %Y'
+      #>long: 'Long' # '%B %d, %Y'
+      #>month_letter: 'Month letter' # '%d %B %Y'
+      #>short: 'Short' # '%b %d'
     month_names: ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
     order: [:month, :day, :year]
   datetime:
@@ -77,7 +77,7 @@ eng:
     duration: '{{hours}}h {{minutes}}min'
     dyta:
     edit: 'Edit'
-    #>example: 'Exemple&nbsp;: {{value}}'
+    example: 'Example&nbsp;: {{value}}'
     export: 'Export'
     extract: 'Extract'
     filter: 'Filter'
@@ -85,14 +85,14 @@ eng:
     format_date:
       iso: '(YYYY-MM-DD)'
     from: 'From'
-    #>hint: 'Astuce&nbsp;: {{value}}'
+    #>hint: 'Hint' # 'Astuce&nbsp;: {{value}}'
     import: 'Import'
     indicator: 'Dashboard'
-    #>info: 'Information&nbsp;: {{value}}'
+    #>info: 'Info' # 'Information&nbsp;: {{value}}'
     letter: 'Letter'
-    #>letter_conclusion: ' Veuillez agréer, Chère Madame, Cher Monsieur, l''expression de mes salutations distinguées.'
-    #>letter_function_title: 'Chère Madame, Cher Monsieur'
-    #>letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
+    letter_conclusion: 'Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration.'
+    letter_function_title: 'Dear madam, dear sir'
+    letter_introduction: 'Following our conversation, I give you the elements of the estimate.'
     lock: 'Lock'
     mail: 'Send an email'
     n: 'Non'
@@ -118,10 +118,10 @@ eng:
     to: 'To'
     total: 'Total'
     unavailable:
-      #>entity: 'La fiche demandée est indisponible'
-      #>financialyear: 'L''exercice comptable est indisponible {{value}}'
-      #>journal: 'Le journal demandé est indisponible ({{value}})'
-      #>product: 'Le produit demandé est indisponible'
+      #>entity: 'Entity' # 'La fiche demandée est indisponible'
+      #>financialyear: 'Financialyear' # 'L''exercice comptable est indisponible {{value}}'
+      #>journal: 'Journal' # 'Le journal demandé est indisponible ({{value}})'
+      #>product: 'Product' # 'Le produit demandé est indisponible'
     unlock: 'Unlock'
     up: 'Up'
     update: 'Update'
@@ -132,16 +132,14 @@ eng:
   iso: '(YYYY-MM-DD)' #!
   models:
     account:
-      #>default_account_name: 'Compte comptable {{number}}'
-      #>error_delete: 'Le compte ne peut être effacé car il Contains des sous-comptes.'
+      #>default_account_name: 'Default account name' # 'Compte comptable {{number}}'
+      #>error_delete: 'Error delete' # 'Le compte ne peut être effacé car il contient des sous-comptes.'
       label: '{{number}} - {{name}}'
-    bank_account:
-    bank_account_statement:
     bank_statement:
-      #>error_account_children: 'Le compte comptable ne peut pas être supprimé car il Contains des sous-comptes'
-      #>error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
-      #>error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
-      #>error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
+      #>error_account_children: 'Error account children' # 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
+      #>error_journal_statement: 'Error journal statement' # 'Le relevé bancaire est spécifique à un journal.'
+      #>error_period_statement: 'Error period statement' # 'L''intervalle de temps est incorrect pour le relevé bancaire.'
+      #>error_print_statement: 'Error print statement' # 'Le relevé doit être imprimé après son dernier enregistrement.'
     cash:
       modes:
         bban: 'Basic Bank Account Number'
@@ -150,15 +148,15 @@ eng:
         bank_account: 'Bank account'
         cash_box: 'Caisse'
     company:
-      #>cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
+      #>cant_find_document_template: 'Cant find document template' # 'Impossible de trouver le modèle de document correspondant'
       default:
-        #>admin: 'Administrateur'
-        #>bank_journal_nature_name: 'Banque'
+        #>admin: 'Admin' # 'Administrateur'
+        #>bank_journal_nature_name: 'Bank journal nature name' # 'Banque'
         cash:
           name:
-            #>bank_account: 'Compte bancaire'
-            #>cash_box: 'Caisse'
-        #>category: 'Par défaut'
+            #>bank_account: 'Bank account' # 'Compte bancaire'
+            #>cash_box: 'Cash box' # 'Caisse'
+        #>category: 'Category' # 'Par défaut'
         delays:
           expression:
             expiration: '1 month'
@@ -169,51 +167,56 @@ eng:
             immediate: 'Immediatly'
             standard: 'Standard (30d EOM)'
         department_name: 'Default department'
+        document_natures:
+          #>invoice: 'Invoice' # 'Facture'
+          #>journal: 'Journal' # 'Journal'
+          #>journals: 'Journals' # 'Journaux'
+          #>sale_order: 'Sale order' # 'Vente'
         document_templates:
           accountancy:
             balance_sheet:
-              #>filename: 'Bilan de l''exercice [code]'
+              #>filename: 'Filename' # 'Bilan de l''exercice [code]'
             general_journal:
-              #>filename: 'Journal général'
+              #>filename: 'Filename' # 'Journal général'
             general_ledger:
-              #>filename: 'Grand livre'
+              #>filename: 'Filename' # 'Grand livre'
             income_statement:
-              #>filename: 'Compte de résultat de l''exercice [code]'
+              #>filename: 'Filename' # 'Compte de résultat de l''exercice [code]'
             journal:
-              #>filename: '[name] (Journal)'
+              #>filename: 'Filename' # '[name] (Journal)'
           management:
             embankment:
-              #>filename: 'Remise en banque du [created_on]'
+              #>filename: 'Filename' # 'Remise en banque du [created_on]'
             inventory:
-              #>filename: 'Inventaire du [created_on]'
+              #>filename: 'Filename' # 'Inventaire du [created_on]'
             invoice:
-              #>filename: 'Facture [number]'
-              #>to_archive: 'true'
+              #>filename: 'Filename' # 'Facture [number]'
+              #>to_archive: 'To archive' # 'true'
             purchase_order:
-              #>filename: 'Achat [number]'
+              #>filename: 'Filename' # 'Achat [number]'
             sale_order:
-              #>filename: 'Vente [number]'
+              #>filename: 'Filename' # 'Vente [number]'
             stocks:
-              #>filename: 'État des stocks'
+              #>filename: 'Filename' # 'État des stocks'
             transport:
-              #>filename: 'Transport du [created_on]'
+              #>filename: 'Filename' # 'Transport du [created_on]'
           relations:
             entity:
-              #>filename: 'Fiche de [full_name]'
+              #>filename: 'Filename' # 'Fiche de [full_name]'
         document_templates_filenames:
-          #>balance_sheet: 'Bilan de l''exercice [code]'
-          #>embankment: 'Remise en banque du [created_on]'
-          #>entity: 'Fiche de [full_name]'
-          #>income_statement: 'Compte de résultat de l''exercice [code]'
-          #>inventory: 'Inventaire du [date]'
-          #>invoice: 'Facture [number]'
-          #>order_preparation: 'Préparation de commande du [created_on]'
-          #>other: 'Fichier'
-          #>purchase_order: 'Achat [number]'
-          #>sale_order: 'Vente [number]'
-          #>transport: 'Transport du [created_on]'
-        #>establishment_name: 'Établissement principal'
-        #>financialyear_code: '1A2'
+          #>balance_sheet: 'Balance sheet' # 'Bilan de l''exercice [code]'
+          #>embankment: 'Embankment' # 'Remise en banque du [created_on]'
+          #>entity: 'Entity' # 'Fiche de [full_name]'
+          #>income_statement: 'Income statement' # 'Compte de résultat de l''exercice [code]'
+          #>inventory: 'Inventory' # 'Inventaire du [date]'
+          #>invoice: 'Invoice' # 'Facture [number]'
+          #>order_preparation: 'Order preparation' # 'Préparation de commande du [created_on]'
+          #>other: 'Other' # 'Fichier'
+          #>purchase_order: 'Purchase order' # 'Achat [number]'
+          #>sale_order: 'Sale order' # 'Vente [number]'
+          #>transport: 'Transport' # 'Transport du [created_on]'
+        #>establishment_name: 'Establishment name' # 'Établissement principal'
+        #>financialyear_code: 'Financialyear code' # '1A2'
         journals:
           bank: 'Bank'
           cash: 'Cash'
@@ -221,8 +224,8 @@ eng:
           sales: 'Sales'
           various: 'Various operations'
         location: 'Warehouse'
-        #>paid_tax: 'TVA déductible'
-        #>price_list_name: 'Tarif normal'
+        #>paid_tax: 'Paid tax' # 'TVA déductible'
+        #>price_list_name: 'Price list name' # 'Tarif normal'
         purchase_payment_modes:
           cash:
             name: 'Cash'
@@ -242,7 +245,7 @@ eng:
             name: 'Check'
           transfer:
             name: 'Transfer'
-        #>sample_product_name: 'Produit Exemple'
+        #>sample_product_name: 'Sample product name' # 'Produit Exemple'
         sequences:
           management:
             embankments:
@@ -309,6 +312,9 @@ eng:
       import:
         dont_use: '-- Do not use --'
         generate_string_complement: '-- Create a personalized field (text) --'
+      #>invoice_creation: 'Invoice creation' # 'Création d''une facture'
+      #>purchase_order_creation: 'Purchase order creation' # 'Création d''un achat'
+      #>sale_order_creation: 'Sale order creation' # 'Création d''un devis'
       sale_orders: 'Sale orders'
     complement:
       natures:
@@ -324,9 +330,13 @@ eng:
       error_unvalid_format_for_expression: 'Unvalid format for expression'
     delivery:
       label: '{{client}} at {{address}}'
-      sale: 'Sale #{{number}}'
+      natures:
+        #>cip: 'Cip' # 'Livraison avec assurance'
+        #>cpt: 'Cpt' # 'Livraison sans assurance'
+        #>exw: 'Exw' # 'Remise en main propre'
+      sale: 'Sale {{number}}'
     delivery_line:
-      sale: 'Sale #{{number}}'
+      sale: 'Sale {{number}}'
     document_template:
       error_attribute: 'The key word {{value}} is incorrect. The possibilities are: {{possibilities}}'
       families:
@@ -382,8 +392,8 @@ eng:
       inventory: 'Inventory'
     invoice:
       label:
-        credit: 'Credit #{{number}}'
-        normal: 'Invoice #{{number}}'
+        credit: 'Credit {{number}}'
+        normal: 'Invoice {{number}}'
       to_accountancy: '[{{resource}} {{number}}] {{products}} for {{client}} ({{sale_order}})'
     invoice_line:
       no_product: '[No product]'
@@ -396,7 +406,7 @@ eng:
         sales: 'Sales'
         various: 'Various operations'
     journal_record:
-      record_cancel: 'Cancel of record #{{number}}: {{name}}'
+      record_cancel: 'Cancel of record {{number}}: {{name}}'
     listing_node:
       add_filter: ' Add a filter'
       all_columns: '-- All columns --'
@@ -463,7 +473,7 @@ eng:
       stock_move: '{{origin}} ({{code}})'
       subscription_label:
         period: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
-        quantity: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from #{{start}} to #{{finish}}'
+        quantity: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
       supply_methods:
         buy: 'Buy'
         produce: 'Produce'
@@ -472,6 +482,7 @@ eng:
         purchases: 'Purchases'
         rent: 'Location'
         sales: 'Sales'
+      #>unknown_use_of_product: 'Unknown use of product' # 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
     product_component:
       of_product: 'of product'
     production:
@@ -490,8 +501,8 @@ eng:
       to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) received from {{attorney}} for {{supplier}} ({{expense_number}})'
     sale_order:
       label:
-        estimate: 'Estimate #{{number}}'
-        order: 'Order #{{number}}'
+        estimate: 'Estimate {{number}}'
+        order: 'Order {{number}}'
       natures:
         estimate: 'Estimate'
         invoice: 'Invoice'
@@ -507,6 +518,7 @@ eng:
     sale_order_line:
       can_not_use_this_tracking: 'You can not use the tracking {{name}}, the requested quantity is greater than the available quantity'
       currency_is_not_sale_order_currency: 'The currency of the price differs from the sale order currency'
+      #>error_no_found_price: 'Error no found price' # 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       location_can_not_transfer_product: 'The product {{product}} can not be used with {{location}}, because it contains only {{contained_product}} '
       reduction_on: 'Discount of {{percent}}%  on {{product}}'
       tracking: 'S/N: {{serial}}'
@@ -535,6 +547,7 @@ eng:
         period: 'Subscription by date'
         quantity: 'Subscription by number'
     tax:
+      #>amount_must_be_included_between_0_and_1: 'Amount must be included between 0 and 1' # 'doit être comprise entre 0 et 1'
       natures:
         amount: 'Amount'
         percent: 'Percent'
@@ -553,7 +566,7 @@ eng:
         towed: 'Towed'
         tractor: 'Tractor'
     user:
-      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: {{controller}}#{{action}}'
+      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: {{controller}}{{action}}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'You can not access to this page'
   notifications:
   number:
@@ -588,9 +601,9 @@ eng:
     am: 'am'
     formats:
       default: '%b. %d, %Y at %H:%M:%S'
-      #>default0: '%a, %d %b %Y %H:%M:%S %z'
-      #>long: '%B %d, %Y %H:%M'
-      #>short: '%d %b %H:%M'
+      #>default0: 'Default0' # '%a, %d %b %Y %H:%M:%S %z'
+      #>long: 'Long' # '%B %d, %Y %H:%M'
+      #>short: 'Short' # '%d %b %H:%M'
     pm: 'pm'
   views:
     shared:
@@ -611,4 +624,3 @@ eng:
         stock_transfers: 'Transfers and loss'
         stocks_tasks: 'Stocks'
         tools: 'Tools'
-

@@ -21,7 +21,7 @@ eng:
       change_password:
         insert_actual_password: 'Enter your actual password'
         insert_password: 'Enter your new password'
-        title: 'Change password'
+        title: 'Change my password'
       configure:
         accountancy: 'Accountancy'
         general: 'General parameters'
@@ -36,16 +36,17 @@ eng:
       department_update:
         title: 'Update the department : {{name}}'
       departments:
+        #>department_create: 'Department create' # 'Ajouter un nouveau service'
         title: 'Departments'
       document_template_create:
         title: 'Add a new document template'
       document_template_update:
-        #>title: 'Modification du modèle de document : {{name}}'
+        title: 'Edit the document template: {{name}}'
       document_templates:
-        #>document_template_create: 'Créer un modèle de document'
+        #>document_template_create: 'Document template create' # 'Créer un modèle de document'
         title: 'Document templates'
       document_templates_load:
-        #>title: 'Charger les modèles de document par défaut'
+        title: 'Load default document templates (overwrite the old templates)'
       establishment_create:
         title: 'Add a new establishment'
       _establishment_form:
@@ -53,7 +54,7 @@ eng:
       establishment_update:
         title: 'Edit the establishment: {{name}}'
       establishments:
-        #>establishment_create: 'Ajouter un nouvel établissement'
+        #>establishment_create: 'Establishment create' # 'Ajouter un nouvel établissement'
         title: 'Establishments'
       help:
         other_results: 'Other results...'
@@ -70,68 +71,69 @@ eng:
         file_to_import: 'File to upload'
         title: 'Import'
       index:
-        #>accountancy: 'Comptabilité générale'
-        #>backups: 'Sauvegardes'
-        #>departments: 'Services'
-        #>document_natures: 'Types de documents'
-        #>document_templates: 'Modèles de documents'
-        #>establishments: 'Établissements'
-        #>general: 'Autres paramètres'
-        #>help: 'Aide'
-        #>listings: 'Extractions de données'
-        #>management: 'Gestion commerciale (ventes, achats et stocks)'
-        #>modules: 'Modules'
+        accountancy: 'Accountancy'
+        #>backups: 'Backups' # 'Sauvegardes'
+        departments: 'Departments'
+        #>document_natures: 'Document natures' # 'Types de documents'
+        #>document_templates: 'Document templates' # 'Modèles de documents'
+        #>establishments: 'Establishments' # 'Établissements'
+        #>general: 'General' # 'Autres paramètres'
+        #>help: 'Help' # 'Aide'
+        #>listings: 'Listings' # 'Extractions de données'
+        management: 'Management (Sales, purchases and stocks)'
+        modules: 'Modules'
         nb_entities:
-          #>one: '1 fiche client/fournisseur'
-          #>other: '{{count}} fiches clients/fournisseurs'
-          #>zero: 'Aucune fiche clients/fournisseurs'
+          one: 'One person'
+          other: '{{count}} people'
+          zero: 'No people'
         nb_purchases:
-          #>one: '1 achat en attente de reception'
-          #>other: '{{count}} achats en attente de reception'
-          #>zero: 'Aucun achat en attente de reception'
+          #>one: 'One' # '1 achat en attente de reception'
+          #>other: 'Other' # '{{count}} achats en attente de reception'
+          #>zero: 'Zero' # 'Aucun achat en attente de reception'
         nb_sales:
-          #>one: '1 livraison en attente'
-          #>other: '{{count}} livraisons en attente '
-          #>zero: 'Aucune livraison en attente'
-        #>production: 'Gestion de la production'
-        #>relations: 'Gestion des relations clients/fournisseurs'
-        #>resources: 'Gestion des ressources humaines'
-        #>roles: 'Rôles'
-        #>sequences: 'Séquences'
+          one: 'One waiting delivery'
+          other: '{{count}} waiting deliveries'
+          zero: 'No waiting deliveries'
+        production: 'Production management'
+        relations: 'Clients/suppliers Relationships Management'
+        resources: 'Resources management'
+        #>roles: 'Roles' # 'Rôles'
+        #>sequences: 'Sequences' # 'Séquences'
         title: 'Hello, {{user}}'
       listing_create:
         title: 'Add a new listing'
       _listing_form:
-        #>subtitle: 'Renseignez les informations concernant l''extraction'
+        subtitle: 'General parameters'
       listing_mail:
-        #>are_you_sure_to_send_mails: 'Êtes-vous sûr(e) de vouloir envoyer les mails ?'
-        #>attachment: 'Pièce jointe'
-        #>available_columns: 'Champs disponibles : {{columns}}'
-        #>body: 'Corps du message'
-        #>choose_mail_column: 'Veuillez choisir la colonne à utiliser pour le mailing'
-        #>click_to_mail: 'Écrire votre message avec votre propre messagerie électronique'
-        #>default_subject: '[{{company}}]'
-        #>from: 'Expéditeur'
+        are_you_sure_to_send_mails: 'Are you sure you want to send emails?'
+        attachment: 'Attachment'
+        available_columns: 'Available columns: {{columns}}'
+        body: 'Body of the message'
+        choose_mail_column: 'Choose email column'
+        click_to_mail: 'Click to email with your own mail software'
+        default_subject: '[{{company}}]'
+        from: 'From'
         mails:
-          #>one: '1 courriel'
-          #>other: '{{count}} courriels'
-          #>zero: 'Aucun courriels'
-        #>personalized_mail: 'Envoyer un mail personnalisé'
-        #>send: 'Envoyer le mail'
-        #>send_test: 'Envoyer un mail de test'
-        #>subject: 'Sujet'
-        #>title: 'Envoyer un mail pour "{{listing}}"'
+          one: 'One email'
+          other: '{{count}} emails'
+          zero: 'No emails'
+        personalized_mail: 'Send a personalized mail'
+        send: 'Send the mail'
+        send_test: 'Send test'
+        subject: 'Subject'
+        title: 'Send an email to: {{listing}}'
       listing_nodes:
-        #>title: 'Choisissez les informations à extraire'
+        title: 'Choose informations to extract'
       listing_update:
-        #>data_to_extract: 'Données à extraire'
-        #>listing_extract: 'Éxécuter l''extraction'
-        #>listing_mail: 'Envoyer un courriel'
-        #>query: 'Requête: '
-        #>subtitle: 'Vous pouvez modifier les informations générales de l''extraction'
-        #>title: 'Modification de l''extraction : {{name}}'
+        data_to_extract: 'Data to extract'
+        listing_extract: 'Extract listing'
+        listing_mail: 'Email a listing'
+        query: 'Query: '
+        subtitle: 'Genral parameters'
+        title: 'Edit the listing: {{name}}'
       listings:
-        title: 'Listings et mailings'
+        #>listing_create: 'Listing create' # 'Créer une nouvelle extraction'
+        title: 'Listings and mailings'
       _rights_form:
         accountancy_rights: 'Accountancy'
         company_rights: 'Company'
@@ -146,6 +148,7 @@ eng:
       role_update:
         title: 'Edit the role: {{name}}'
       roles:
+        #>role_create: 'Role create' # 'Ajouter un rôle'
         title: 'Roles'
       sequence_create:
         title: 'Add a new sequence'
@@ -154,17 +157,17 @@ eng:
       sequence_update:
         title: 'Edit the sequence: {{name}}'
       sequences:
+        #>sequence_create: 'Sequence create' # 'Ajouter une séquence'
+        sequences_load: 'Load missing sequences'
         title: 'Sequences'
-      sequences_load: 
-        title: 'Load missing sequences'
       unit_create:
         title: 'Add a new unit of measure'
       unit_update:
         title: 'Edit the unit: {{label}}'
       units:
         title: 'Units of measure'
-      units_load: 
-        title: 'Load missing units'
+        #>unit_create: 'Unit create' # 'Ajouter une nouvelle unité de mesure'
+        units_load: 'Load missing units'
       user:
         title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
         user_update: 'Modifier les informations de l''utilisateur'
@@ -173,23 +176,25 @@ eng:
       _user_form:
         rights: 'Rights'
         subtitle: 'General parameters'
+        #>title: 'Title' # 'Gestion des employés'
       user_statistics:
-        #>end: ' au '
+        end: ' to '
         events:
-          #>one: ' 1 évènement de type {{nature}} d''une durée de {{duration}} minutes'
-          #>other: ' {{count}} évènements de type {{nature}} pour une durée totale de {{duration}} minutes'
-          #>zero: ' Aucun événement de type {{nature}}'
+          one: 'One event {{nature}} for a total duration of {{duration}} minutes'
+          other: '{{count}} events {{nature}} for a total duration of {{duration}} minutes'
+          zero: 'No events {{nature}}'
         nb_sales:
-          #>one: '1 commande'
-          #>other: '{{count}} commandes'
-          #>zero: 'Aucune commande'
-        #>start: 'Du'
-        #>title: 'Mes statistiques'
-        #>total_amount: ' Total montant HT '
-        #>total_invoiced_amount: 'Total montant facturé '
+          one: 'One sale order'
+          other: '{{count}} sale orders'
+          zero: 'No sale orders'
+        start: 'From'
+        title: 'My statistics'
+        total_amount: 'Total amount'
+        total_invoiced_amount: 'Total invoiced amount'
       user_update:
         title: 'Update user'
       users:
         title: 'Users'
+        #>user_create: 'User create' # 'Ajouter un nouvel utilisateur'
       welcome:
         title: 'Welcome in Ekylibre, {{user}}'

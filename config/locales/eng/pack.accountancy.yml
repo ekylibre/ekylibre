@@ -198,12 +198,12 @@ eng:
         title: 'Closing of {{name}}'
       journal_update:
         title: 'Update journal: {{name}}'
-      journals:
-        title: 'Journals'
       _journals:
         draft_entries: 'Draft entries'
         journal_detail: 'Closing on {{closed_on}}'
         journal_name: '{{name}}'
+      journals:
+        title: 'Journals'
       _journals_find:
       _journals_search:
         filter_entries_with: 'Filter entries with'
@@ -221,16 +221,17 @@ eng:
         dates: 'Select period start date and Period end date'
         from: 'Period from'
         to: 'to'
-      _print_balance_sheet:
       print_balance_sheet:
+      _print_balance_sheet:
       print_by_financial_year:
       _print_journal:
       _print_journals:
       _print_ledger:
       _print_synthesis:
-      select_financialyear: 'Period'
-      synthesis: 'Select Period'
+        #>select_financialyear: 'Select financialyear' # 'Exercice'
+        #>synthesis: 'Synthesis' # 'Sélectionnez l''exercice'
       report:
+      select_financialyear: 'Period' #!
       synthesis:
         account_accruals: 'Accurals Account'
         account_claims_assets: 'Claims'
