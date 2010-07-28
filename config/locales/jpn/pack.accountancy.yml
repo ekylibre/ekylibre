@@ -198,12 +198,12 @@ jpn:
         #>title: 'Déclôture du {{name}}'
       journal_update:
         #>title: 'Modifier le journal : {{name}}'
-      journals:
-        #>title: 'Journaux'
       _journals:
         #>draft_entries: 'Brouillard'
         #>journal_detail: 'Cloturé au {{closed_on}}'
         #>journal_name: '{{name}}'
+      journals:
+        #>title: 'Journaux'
       _journals_find:
       _journals_search:
         #>filter_entries_with: 'Filtrer les écritures avec'
@@ -221,8 +221,8 @@ jpn:
         #>dates: 'Saisissez les dates de début et de fin de la période'
         #>from: 'Période du'
         #>to: 'Au'
-      print_balance_sheet:
       _print_balance_sheet:
+      print_balance_sheet:
       print_by_financial_year:
       _print_journal:
       _print_journals:
