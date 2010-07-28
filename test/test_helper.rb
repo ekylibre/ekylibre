@@ -82,7 +82,7 @@ class ActionController::TestCase
         code += "    get #{action.inspect}, :company=>@user.company.code, :id=>2\n"
         # code += "    assert_not_nil flash[:notifications]\n"
         code += "    assert_response :redirect\n"
-      elsif action.to_s.match(/_update$/) or EKYLIBRE_REFERENCES.keys.include?(action) or options[action]==:update
+      elsif action.to_s.match(/_update$/) or Ekylibre.references.keys.include?(action) or options[action]==:update
         code += "    get #{action.inspect}, :company=>@user.company.code\n"
         code += "    assert_response :redirect\n"
         code += "    get #{action.inspect}, :company=>@user.company.code, :id=>1\n"

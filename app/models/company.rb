@@ -152,10 +152,10 @@ class Company < ActiveRecord::Base
 
   attr_readonly :code
 
-  require "#{Rails.root.to_s}/lib/models" unless defined?(EKYLIBRE_MODELS)
+  require "#{Rails.root.to_s}/lib/models" unless defined?(Ekylibre.models)
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
-  @@ehm = EKYLIBRE_MODELS.delete_if{|x| x==:company}
+  @@ehm = Ekylibre.models.delete_if{|x| x==:company}
   #  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
   def clean
@@ -464,7 +464,7 @@ class Company < ActiveRecord::Base
     self.attributes.each{|k,v| root[k] = v.to_s}
     n = 0
     start = Time.now.to_i
-    models = EKYLIBRE_MODELS.delete_if{|x| x==:company}
+    models = Ekylibre.models.delete_if{|x| x==:company}
     for model in models
       rows = model.to_s.classify.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
       rows_count = rows.size
@@ -536,7 +536,7 @@ class Company < ActiveRecord::Base
       # Suppression des données
       puts "R> Removing existing data..."  if verbose
       ids  = {}
-      models = EKYLIBRE_MODELS # .delete_if{|x| x==:company}
+      models = Ekylibre.models # .delete_if{|x| x==:company}
       for model in models
         other_class = model.to_s.classify.constantize
         other_class.delete_all(:company_id=>self.id) if other_class != self.class
@@ -556,13 +556,13 @@ class Company < ActiveRecord::Base
         model_name = nil
         if element[:attributes]['reflection']
           model_name = element[:attributes]['reflection'].singularize.to_sym
-        elsif EKYLIBRE_MODELS.include? element[:attributes]['model'].to_sym
+        elsif Ekylibre.models.include? element[:attributes]['model'].to_sym
           model_name = element[:attributes]['model'].to_sym
         else
           raise Exception.new("Unknown model #{element.inspect}")
         end
         model = model_name.to_s.classify.constantize
-        keys[model.name] = EKYLIBRE_REFERENCES[model_name].select{|k,v| v != :company}.to_a
+        keys[model.name] = Ekylibre.references[model_name].select{|k,v| v != :company}.to_a
         code += "puts('R> - #{model.name} (#{element[:attributes]['records-count']})')\n"  if verbose
         code += "start, tdb1, tdb2p = Time.now, 0, 0\n" if timed
         code += "data['#{model.name}'] = []\n"
@@ -594,6 +594,7 @@ class Company < ActiveRecord::Base
         end
       end
       File.open("#{Rails.root.to_s}/tmp/restore-1.rb", "wb") {|f| f.write(code)}  if verbose
+      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       eval(code)
       
       # raise Exception.new(data.inspect)
@@ -601,7 +602,7 @@ class Company < ActiveRecord::Base
       puts "R> Redifining primary keys..."  if verbose
       code  = ''
 
-      for model_name in EKYLIBRE_MODELS
+      for model_name in Ekylibre.models
         model = model_name.to_s.classify.constantize
 
         new_ids = "'"
@@ -632,7 +633,7 @@ class Company < ActiveRecord::Base
       attrs = root.attributes.each do |attr|
         self.send(attr.name+'=', attr.value) unless ['id', 'lock_version', 'code'].include? attr.name
       end
-      for key, target in EKYLIBRE_REFERENCES[self.class.name.underscore.to_sym]
+      for key, target in Ekylibre.references[self.class.name.underscore.to_sym]
         v = ids[target.to_s.classify][self[key].to_s]
         self[key] = v unless v.nil?
       end

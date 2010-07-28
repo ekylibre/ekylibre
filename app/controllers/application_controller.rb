@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
 
 
 
-  for k, v in EKYLIBRE_REFERENCES
+  for k, v in Ekylibre.references
     for c, t in v
       raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
       t.to_s.classify.constantize if t.is_a? Symbol
