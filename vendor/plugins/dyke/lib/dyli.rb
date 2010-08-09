@@ -89,16 +89,12 @@ module Ekylibre
             limit = ", :limit=>"+(options[:limit]||12).to_s
             partial = options[:partial]
             code += "    list = ''\n"
-            code += "    for item in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
-            code += "      content = "+attributes.collect{|key| "item.#{key[2]}.to_s"}.join('+", "+')+"\n"
-            if partial
-              display = "render(:partial=>#{partial.inspect}, :locals =>{:record=>item, :content=>content, :search=>search})"
-            else
-              display = "highlight(content, search)"
-            end
-            code += "      list += \"<li id=\\\"#{name_db}_\#\{item.id\}\\\">\"+#{display}+\"<input type=\\\"hidden\\\" value=\#\{content.inspect\} id=\\\"record_\#\{item.id\}\\\"/></li>\"\n"
+            code += "    for record in "+model.name.to_s+".find(:all, :select=>#{select}, :conditions=>conditions"+joins+order+limit+")\n"
+            code += "      content = "+attributes.collect{|key| "record.#{key[2]}.to_s"}.join('+", "+')+"\n"
+            display = (partial ? "render(:partial=>"+partial.inspect+", :locals =>{:record=>record, :content=>content, :search=>search})" : 'highlight(#{content.inspect}, #{search.inspect})')
+            code += "      list += \"<li id=\\\"#{name_db}_\#\{record.id\}\\\"><%=#{display}%><input type=\\\"hidden\\\" value=\#\{content.inspect\} id=\\\"record_\#\{record.id\}\\\"/></li>\"\n"
             code += "    end\n"
-            code += "    render :text=>'<ul>'+list+'</ul>'\n"
+            code += "    render :inline=>'<ul>'+list+'</ul>'\n"
             code += "  else\n"
             code += "    render :text=>'', :layout=>true\n"
             code += "  end\n"
@@ -201,7 +197,7 @@ module Ekylibre
           determine_completion_options(hf_id, tf_id, options, completion_options)
           tag_options[:size] = (tf_value.length > 64 ? 64 : tf_value.length) unless options[:no_resize] or tf_value.nil?
 
-          return <<-HTML
+          return <<-HTML.html_safe
           #{dyli_complete_stylesheet unless completion_options[:skip_style]}
           #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]), :text_field_id=>tf_id)}
           #{text_field_tag(tf_name, tf_value, tag_options)}

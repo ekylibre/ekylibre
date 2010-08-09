@@ -562,17 +562,17 @@ fra:
       format:
         delimiter: ','
         format: '%u%n'
-        precision: '2'
+        precision: 2
         separator: '.'
         unit: '$'
     format:
       delimiter: ' '
-      precision: '3'
+      precision: 3
       separator: ','
     human:
       format:
         delimiter: ''
-        precision: '1'
+        precision: 1
     percentage:
       format:
         delimiter: ''

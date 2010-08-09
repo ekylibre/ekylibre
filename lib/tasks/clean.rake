@@ -1,8 +1,10 @@
 def hash_to_yaml(hash, depth=0)
-  code = ''
-  for k, v in hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
+  code = "\n"
+  x = hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
+  x.each_index do |i|
+    k, v = x[i][0], x[i][1]
     # code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n") if v
-    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " "+yaml_value(v)+"\n") if v
+    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? hash_to_yaml(v, depth+1) : " "+yaml_value(v))+(i == x.size-1 ? '' : "\n") if v
   end
   code
 end
@@ -28,7 +30,9 @@ def yaml_value(value, depth=0)
   elsif value.is_a?(Symbol)
     ":"+value.to_s
   elsif value.is_a?(Hash)
-    "\n"+hash_to_yaml(value, depth+1)
+    hash_to_yaml(value, depth+1)
+  elsif value.is_a?(Numeric)
+    value.to_s
   else
     "'"+value.to_s.gsub("'", "''")+"'"
   end
@@ -265,10 +269,139 @@ namespace :clean do
   end
 
 
+  desc "Compact translations"
+  task :loc => :environment do
+
+
+    locale = ::I18n.locale = ::I18n.default_locale
+    locale_dir = Rails.root.join("config", "locales", locale.to_s)
+    locdir = Rails.root.join("locales", locale.to_s)
+    mh = HashWithIndifferentAccess.new
+    puts locale.inspect
+    for reference_path in Dir.glob("#{Rails.root.to_s}/config/locales/#{locale}/*.yml").sort
+      next if reference_path.match(/accounting/)
+      mh.deep_merge!(yaml_to_hash(reference_path))
+    end
+    controllers = [:authentication, :management, :accountancy, :relations, :production, :company, :help].sort{|a,b| a.to_s<=>b.to_s}
+    mh = mh[:fra]
+    # puts mh.keys.inspect
+    translation  = "#{locale}:\n"
+    translation += "  actions:\n"
+    for controller in controllers
+      translation += "    #{controller}:\n"
+      for action, attributes in mh[:views][controller].select{|a,b| !a.match(/^_/)}.sort
+        translation += "      #{action}: #{yaml_value(attributes[:title])}\n"
+      end
+    end
+    labels = []
+    for controller in controllers
+      for action, attributes in mh[:views][controller]
+        for attr, value in attributes.delete_if{|k,v| k.to_s == "title"}
+          labels << [attr, (value.is_a?(String) ? value.strip : value)]
+        end
+      end
+      for mode in [:controllers, :helpers]
+        for attr, value in mh[mode][controller]||{}
+          labels << [attr, (value.is_a?(String) ? value.strip : value)]
+        end
+      end
+    end
+    labels += mh[:general].to_a
+    labels << ["parameters-parameters", mh[:parameters]]
+    translation += "  labels:\n"
+    translation += labels.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v| "    #{k}: #{yaml_value(v, 2)}\n"}.join
+    puts ">> Labels: #{labels.uniq.size} couples, #{labels.collect{|x| x[0]}.uniq.size} uniq keys, #{labels.collect{|x| x[1]}.uniq.size} uniq values"
+
+    translation += "  notifications:"+hash_to_yaml(mh[:notifications], 2)
+    
+    File.open(locdir.join("action.yml"), "wb") do |file|
+      file.write translation
+    end
+
+
+    translation  = "#{locale}:\n"
+
+    translation += "  activerecord:\n"
+
+    translation += "    errors:"+hash_to_yaml(mh[:activerecord][:errors], 3)
+
+    translation += "\n    models:\n"
+    models = []
+    for model, trans in mh[:activerecord][:models]
+      models << [model, trans]
+    end
+    translation += models.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v| "      #{k}: #{yaml_value(v, 3)}\n"}.join
+
+    attributes = []
+    for model, attrs in mh[:activerecord][:attributes]
+      for attr, trans in attrs
+        attributes << [attr, trans, model]
+      end
+    end
+    stata = {}
+    for key, value, model in attributes
+      stata[key] ||= {}
+      stata[key][value] ||= 0
+      stata[key][value] += 1
+    end
+    override = {}
+    stata.select{|k, v| v.keys.size > 1}.each{|k,v| override[k] = v.sort{|a, b| a[1]<=>b[1]}[-1][0]}
+    # puts override.inspect
+    renew, todel = {}, []
+    for k, v, m in attributes
+      next if override[k].nil? or override[k] == v
+      renew[m] ||= {}
+      renew[m][k] = v
+      todel << [k, v]
+    end
+
+    for a, b in todel
+      attributes.delete_if{|k, v, m| k==a and v==b}
+    end
+
+    # puts renew.inspect
+    translation += "\n    attributes:\n"
+    for model, attrs in renew
+      translation += "      #{model}:\n"
+      for attr, trans in attrs
+        translation += "        #{attr}: #{yaml_value(trans, 5)}\n"
+      end
+    end
+
+    attributes = attributes.collect{|x| x[0..1]}
+
+    # All attributes
+    translation += "  attributes:\n"
+    translation += attributes.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v,m| "    #{k}: #{yaml_value(v, 3)}\n"}.join
+    puts ">> Attributes: #{attributes.uniq.size} couples, #{attributes.collect{|x| x[0]}.uniq.size} uniq keys, #{attributes.collect{|x| x[1]}.uniq.size} uniq values"
+
+    translation += "  models:"+hash_to_yaml(mh[:models], 2)
+
+    File.open(locdir.join("models.yml"), "wb") do |file|
+      file.write translation
+    end
+
+
+    translation  = "#{locale}:\n"
+
+    for support in [:date, :datetime, :dyta, :number, :support, :time]
+      translation += "  #{support}:"+hash_to_yaml(mh[support], 2)
+    end
+
+    File.open(locdir.join("support.yml"), "wb") do |file|
+      file.write translation
+    end
+
+    for file in [:countries, :languages, :rights] # , :accounting]
+      filename = "#{file}.yml"
+      FileUtils.copy_file locale_dir.join(filename), locdir.join(filename)
+    end
+  end
+
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    log = File.open("#{RAILS_ROOT}/config/locales/translations.log", "wb")
+    log = File.open("#{Rails.root.to_s}/config/locales/translations.log", "wb")
 
     # Load of actions
     all_actions = {}
@@ -284,22 +417,22 @@ namespace :clean do
     useful_actions.delete("help")
 
     locale = ::I18n.locale = ::I18n.default_locale
-    locale_dir = "#{RAILS_ROOT}/config/locales/#{locale}"
+    locale_dir = "#{Rails.root.to_s}/config/locales/#{locale}"
     File.makedirs(locale_dir) unless File.exist?(locale_dir)
     File.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
     log.write("Locale #{::I18n.locale_label}:\n")
 
     # General
-    general = yaml_to_hash("#{RAILS_ROOT}/config/locales/#{locale}/general.yml")
+    general = yaml_to_hash("#{Rails.root.to_s}/config/locales/#{locale}/general.yml")
     translation  = locale.to_s+":"
     translation += yaml_value(general[locale])
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/general.yml", "wb") do |file|
+    File.open("#{Rails.root.to_s}/config/locales/#{locale}/general.yml", "wb") do |file|
       file.write translation
     end
     log.write "  - General\n"   
 
     # Activerecord
-    models = Dir["#{RAILS_ROOT}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+    models = Dir["#{Rails.root.to_s}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     default_attributes = ::I18n.translate("activerecord.default_attributes")
     models_names, plurals_names, models_attributes = '', '', ''
     attrs_count, static_attrs_count = 0, 0
@@ -364,13 +497,13 @@ namespace :clean do
     translation += hash_to_yaml(default_attributes, 3)
     translation += "\n    attributes:\n"
     translation += models_attributes
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
+    File.open("#{Rails.root.to_s}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
       file.write translation
     end
     log.write "  - Models (#{models.size}, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models)\n"
 
     # Packs
-    controllers = Dir["#{RAILS_ROOT}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+    controllers = Dir["#{Rails.root.to_s}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
     log.write "  - Packs (#{controllers.size})\n"
     for controller in controllers
       controller_name = controller.split("_")[0..-2].join("_")
@@ -393,7 +526,7 @@ namespace :clean do
           unfound_actions += 1
         end
         # Search for a file
-        file = "#{RAILS_ROOT}/app/views/#{controller_name}/#{view}"
+        file = "#{Rails.root.to_s}/app/views/#{controller_name}/#{view}"
         file_found = false
         for builder in builders
           if File.exist?(file+builder)
@@ -433,12 +566,12 @@ namespace :clean do
         else
           # Test if due to render_form use
           operation = view.to_s.split("_")[-1]
-          if File.exist?("#{RAILS_ROOT}/app/views/shared/form_#{operation}.html.haml") and File.exist?(file.gsub(view.to_s, "_#{view.to_s.gsub(operation, 'form.html.haml')}"))
+          if File.exist?("#{Rails.root.to_s}/app/views/shared/form_#{operation}.html.haml") and File.exist?(file.gsub(view.to_s, "_#{view.to_s.gsub(operation, 'form.html.haml')}"))
             if items.keys.size > 1
               translation += "      # Possible error because only :title can be used\n"
             end
           else
-            translation += "      # Unfound view #{file.gsub(RAILS_ROOT, '.')}\n"
+            translation += "      # Unfound view #{file.gsub(Rails.root.to_s, '.')}\n"
             unfound_views += 1
           end
           translation += "      #{view}:\n"
@@ -446,7 +579,7 @@ namespace :clean do
         end
       end if views.is_a? Hash
       log.write "    - #{(controller_name+':').ljust(16,' ')} #{unused_translations.to_s.rjust(3)} unused translation(s), #{missing_translations.to_s.rjust(3)} missing translation(s), #{unfound_views.to_s.rjust(3)} unfound view(s), #{unfound_actions.to_s.rjust(3)} unfound action(s)\n"
-      File.open("#{RAILS_ROOT}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
+      File.open("#{Rails.root.to_s}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
         file.write translation.gsub(/\n\n/, "\n")
       end
       # raise Exception.new("Stop")
@@ -457,7 +590,7 @@ namespace :clean do
     translation  = locale.to_s+":\n"
     translation += "  parameters:\n"
     translation += hash_to_yaml(::I18n.translate("parameters"), 2)
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/parameters.yml", "wb") do |file|
+    File.open("#{Rails.root.to_s}/config/locales/#{locale}/parameters.yml", "wb") do |file|
       file.write(translation)
     end
     log.write "  - Parameters\n"
@@ -465,7 +598,7 @@ namespace :clean do
     # Notifications
     notifications = ::I18n.t("notifications")
     deleted_notifs = ::I18n.t("notifications").keys
-    for controller in Dir["#{RAILS_ROOT}/app/controllers/*.rb"]
+    for controller in Dir["#{Rails.root.to_s}/app/controllers/*.rb"]
       file = File.open(controller, "r")
       file.each_line do |line|
         if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
@@ -483,7 +616,7 @@ namespace :clean do
       line.gsub!(/$/, "# NOT USED !!!") if deleted_notifs.include?(key)
       translation += line+"\n"
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/notifications.yml", "wb") do |file|
+    File.open("#{Rails.root.to_s}/config/locales/#{locale}/notifications.yml", "wb") do |file|
       file.write translation
     end
     log.write "  - Notifications (#{notifications.size}, #{deleted_notifs.size} bad notifications)\n"
@@ -495,7 +628,7 @@ namespace :clean do
     for right in rights.keys.sort
       translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
     end
-    File.open("#{RAILS_ROOT}/config/locales/#{locale}/rights.yml", "wb") do |file|
+    File.open("#{Rails.root.to_s}/config/locales/#{locale}/rights.yml", "wb") do |file|
       file.write translation
     end
     log.write "  - Rights (#{rights.keys.size})\n"
@@ -503,8 +636,8 @@ namespace :clean do
     log.write "  - help: # Missing files\n"
     for controller, actions in useful_actions
       for action in actions
-        if File.exists?("#{RAILS_ROOT}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-          unless File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
+        if File.exists?("#{Rails.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+          unless File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
             log.write "    - ./config/locales/#{locale}/help/#{controller}-#{action}.txt\n" 
           end
         end
@@ -519,14 +652,14 @@ namespace :clean do
 
     for locale in ::I18n.available_locales.delete_if{|l| l==::I18n.default_locale or l.to_s.size!=3}.sort{|a,b| a.to_s<=>b.to_s}
       ::I18n.locale = locale
-      locale_dir = "#{RAILS_ROOT}/config/locales/#{locale}"
+      locale_dir = "#{Rails.root.to_s}/config/locales/#{locale}"
       File.makedirs(locale_dir) unless File.makedirs(locale_dir)
       File.makedirs(locale_dir+"/help") unless File.makedirs(locale_dir+"/help")
       log.write "Locale #{::I18n.locale_label}:\n"
       total, count = 0, 0
-      for reference_path in Dir.glob("#{RAILS_ROOT}/config/locales/#{::I18n.default_locale}/*.yml").sort
+      for reference_path in Dir.glob("#{Rails.root.to_s}/config/locales/#{::I18n.default_locale}/*.yml").sort
         file_name = reference_path.split(/[\/\\]+/)[-1]
-        target_path = "#{RAILS_ROOT}/config/locales/#{locale}/#{file_name}"
+        target_path = "#{Rails.root.to_s}/config/locales/#{locale}/#{file_name}"
         unless File.exist?(target_path)
           File.open(target_path, "wb") do |file|
             file.write("#{locale}:\n")
@@ -548,9 +681,9 @@ namespace :clean do
       log.write "  - help: # Missing files\n"
       for controller, actions in useful_actions
         for action in actions
-          if File.exists?("#{RAILS_ROOT}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{RAILS_ROOT}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-            help = "#{RAILS_ROOT}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
-            log.write "    - #{help.gsub(RAILS_ROOT,'.')}\n" unless File.exists?(help)
+          if File.exists?("#{Rails.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+            help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
+            log.write "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
           end
         end
       end
