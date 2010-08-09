@@ -272,45 +272,65 @@ namespace :clean do
   desc "Compact translations"
   task :loc => :environment do
 
-
     locale = ::I18n.locale = ::I18n.default_locale
     locale_dir = Rails.root.join("config", "locales", locale.to_s)
     locdir = Rails.root.join("locales", locale.to_s)
+    FileUtils.makedirs(locdir)
+
     mh = HashWithIndifferentAccess.new
     puts locale.inspect
     for reference_path in Dir.glob("#{Rails.root.to_s}/config/locales/#{locale}/*.yml").sort
       next if reference_path.match(/accounting/)
       mh.deep_merge!(yaml_to_hash(reference_path))
     end
-    controllers = [:authentication, :management, :accountancy, :relations, :production, :company, :help].sort{|a,b| a.to_s<=>b.to_s}
+    controllers = [:application, :authentication, :management, :accountancy, :relations, :production, :company, :help].sort{|a,b| a.to_s<=>b.to_s}
     mh = mh[:fra]
     # puts mh.keys.inspect
     translation  = "#{locale}:\n"
     translation += "  actions:\n"
     for controller in controllers
       translation += "    #{controller}:\n"
-      for action, attributes in mh[:views][controller].select{|a,b| !a.match(/^_/)}.sort
+      for action, attributes in (mh[:views][controller]||{}).select{|a,b| !a.match(/^_/)}.sort
         translation += "      #{action}: #{yaml_value(attributes[:title])}\n"
       end
     end
     labels = []
     for controller in controllers
-      for action, attributes in mh[:views][controller]
+      for action, attributes in mh[:views][controller]||{}
         for attr, value in attributes.delete_if{|k,v| k.to_s == "title"}
-          labels << [attr, (value.is_a?(String) ? value.strip : value)]
+          labels << [attr, (value.is_a?(String) ? value.strip : value), "view #{controller}##{action}"]
         end
       end
       for mode in [:controllers, :helpers]
         for attr, value in mh[mode][controller]||{}
-          labels << [attr, (value.is_a?(String) ? value.strip : value)]
+          labels << [attr, (value.is_a?(String) ? value.strip : value), "#{mode.to_s.singularize} #{controller}##{action}"] unless attr.to_s == "title"
         end
       end
     end
     labels += mh[:general].to_a
     labels << ["parameters-parameters", mh[:parameters]]
+    stata = {}
+    for key, value in labels
+      stata[key] ||= {}
+      stata[key][value] ||= 0
+      stata[key][value] += 1
+    end
     translation += "  labels:\n"
-    translation += labels.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v| "    #{k}: #{yaml_value(v, 2)}\n"}.join
-    puts ">> Labels: #{labels.uniq.size} couples, #{labels.collect{|x| x[0]}.uniq.size} uniq keys, #{labels.collect{|x| x[1]}.uniq.size} uniq values"
+    warnings = 0
+    translation += labels.uniq.sort{|a,b| a[0]<=>b[0]}.collect do |k,v,c| 
+      line = "    #{k}: #{yaml_value(v, 2)}\n"
+      if c.is_a?(String) and stata[k].keys.size>1
+        line = line.split(/\n/).collect{|l| l.ljust(80)+"# in #{c}\n"}.join 
+        warnings += 1
+      end
+      line
+    end.join
+    puts ">> Labels: #{labels.uniq.size} couples, #{labels.collect{|x| x[0]}.uniq.size} uniq keys, #{labels.collect{|x| x[1]}.uniq.size} uniq values, #{warnings} warnings"
+
+    translation += "  controllers:\n"
+    for controller in controllers
+      translation += "    #{controller}: #{yaml_value(mh[:controllers][controller][:title])}\n"
+    end
 
     translation += "  notifications:"+hash_to_yaml(mh[:notifications], 2)
     
@@ -318,19 +338,10 @@ namespace :clean do
       file.write translation
     end
 
-
+    ###########   M O D E L S   ############
     translation  = "#{locale}:\n"
 
-    translation += "  activerecord:\n"
-
-    translation += "    errors:"+hash_to_yaml(mh[:activerecord][:errors], 3)
-
-    translation += "\n    models:\n"
-    models = []
-    for model, trans in mh[:activerecord][:models]
-      models << [model, trans]
-    end
-    translation += models.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v| "      #{k}: #{yaml_value(v, 3)}\n"}.join
+    translation += "  activerecord:"
 
     attributes = []
     for model, attrs in mh[:activerecord][:attributes]
@@ -354,11 +365,9 @@ namespace :clean do
       renew[m][k] = v
       todel << [k, v]
     end
-
     for a, b in todel
       attributes.delete_if{|k, v, m| k==a and v==b}
     end
-
     # puts renew.inspect
     translation += "\n    attributes:\n"
     for model, attrs in renew
@@ -367,8 +376,16 @@ namespace :clean do
         translation += "        #{attr}: #{yaml_value(trans, 5)}\n"
       end
     end
-
     attributes = attributes.collect{|x| x[0..1]}
+
+    translation += "\n    errors:"+hash_to_yaml(mh[:activerecord][:errors], 3)
+
+    translation += "\n    models:\n"
+    models = []
+    for model, trans in mh[:activerecord][:models]
+      models << [model, trans]
+    end
+    translation += models.uniq.sort{|a,b| a[0]<=>b[0]}.collect{|k,v| "      #{k}: #{yaml_value(v, 3)}\n"}.join
 
     # All attributes
     translation += "  attributes:\n"
