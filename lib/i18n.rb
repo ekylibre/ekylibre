@@ -1,19 +1,57 @@
 module Ekylibre
   module I18n
-    module ContextualHelpers
 
-      def tc(*args)
-        args[0] = contextual_scope+'.'+args[0].to_s
-        for i in 1..args.size
-          args[i] = ::I18n.localize(args[i]) if args[i].is_a? Date
-        end if args.size > 1
+    module ContextualModelHelpers
+      
+      def tl(*args)
+        args[0] = 'models.'+self.name.underscore+'.'+args[0].to_s
         ::I18n.translate(*args)
       end
+      alias :tc :tl
 
       def tg(*args)
-        args[0] = 'general.'+args[0].to_s
+        args[0] = 'labels.'+args[0].to_s
         ::I18n.translate(*args)
       end
+
+    end
+
+    module ContextualModelInstanceHelpers
+      
+      def tl(*args)
+        args[0] = 'models.'+self.class.name.underscore+'.'+args[0].to_s
+        ::I18n.translate(*args)
+      end
+      alias :tc :tl
+
+      def tg(*args)
+        args[0] = 'labels.'+args[0].to_s
+        ::I18n.translate(*args)
+      end
+
+    end
+
+    module ContextualHelpers
+
+#       def tc(*args)
+#         args[0] = contextual_scope+'.'+args[0].to_s
+#         for i in 1..args.size
+#           args[i] = ::I18n.localize(args[i]) if args[i].is_a? Date
+#         end if args.size > 1
+#         ::I18n.translate(*args)
+#       end
+
+#       def tg(*args)
+#         args[0] = 'general.'+args[0].to_s
+#         ::I18n.translate(*args)
+#       end
+
+      def tl(*args)
+        args[0] = 'labels.'+args[0].to_s
+        ::I18n.translate(*args)
+      end
+      alias :tc :tl
+      alias :tg :tl
       
       private
 
@@ -31,8 +69,8 @@ end
 
 ActionController::Base.send :extend, Ekylibre::I18n::ContextualHelpers
 ActionController::Base.send :include, Ekylibre::I18n::ContextualHelpers
-ActiveRecord::Base.send :extend, Ekylibre::I18n::ContextualHelpers
-ActiveRecord::Base.send :include, Ekylibre::I18n::ContextualHelpers
+ActiveRecord::Base.send :extend, Ekylibre::I18n::ContextualModelHelpers
+ActiveRecord::Base.send :include, Ekylibre::I18n::ContextualModelInstanceHelpers
 ActionView::Base.send :include, Ekylibre::I18n::ContextualHelpers
 
 

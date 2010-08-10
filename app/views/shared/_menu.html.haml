@@ -11,11 +11,11 @@
       %div{:class=>"menu"+(list[:class].nil? ? "" : " "+list[:class].to_s)}
         -prefix = self.controller.controller_name.to_s+"_"+list[:name].to_s
         -parameter = @current_user.parameter("interface.side.#{prefix}.opened", true, :boolean)
-        %h2{:id=>"side_#{prefix}_title", :class=>(parameter.value ? "" : "closed"), :onclick=>h(remote_function(:method=>:post, :url=>url_for(:controller=>:company, :action=>:side, :id=>prefix), :loading=>"onLoading(); toggleMenu('side_#{prefix}');", :loaded=>"onLoaded();"))}=t("views.shared._menu.#{list[:name].to_s}")
+        %h2{:id=>"side_#{prefix}_title", :class=>(parameter.value ? "" : "closed"), :onclick=>h(remote_function(:method=>:post, :url=>url_for(:controller=>:company, :action=>:side, :id=>prefix), :loading=>"onLoading(); toggleMenu('side_#{prefix}');", :loaded=>"onLoaded();"))}=tl("menu.#{list[:name]}")
         %ul{:id=>"side_#{prefix}_actions", :style=>(parameter.value ? nil : "display: none") }
           -for action in list[:list]
             -action_name = action[:url] ? action[:url][:action] : nil
             -#=li_link_to t("views.shared._menu.#{action[:name]}", :default=>["views.#{self.controller.controller_name}.#{action_name||action[:name]}.title".to_sym]), action[:url]||{:action=>action[:name]}
-            =li_link_to t("views.#{self.controller.controller_name}.#{action_name||action[:name]}.title"), action[:url]||{:action=>action[:name]}
+            =li_link_to t("actions.#{self.controller.controller_name}.#{action_name||action[:name]}"), action[:url]||{:action=>action[:name]}
 .end
   

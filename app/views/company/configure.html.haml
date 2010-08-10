@@ -1,8 +1,8 @@
 =form_tag(nil, {:class=>"vbox flex", :style=>'overflow:none'}) do
   .fields.flex
     -if @my_company.parameters.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
-      =toolbar do
-        -link :sequences_load
+      =toolbar do |t|
+        -t.link :sequences_load
     =formalize do |f|
       -f.error 'my_company'
       -f.title tc(:general)

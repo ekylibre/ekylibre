@@ -137,7 +137,7 @@ module Ekylibre
             end
             # Pages link
             footer += if options[:pagination] == :will_paginate
-                        footer_var+"+=will_paginate(@"+name.to_s+", :renderer=>ActionController::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
+                        footer_var+"+=will_paginate(@"+name.to_s+", :previous_label => ::I18n.t('dyta.previous'), :next_label => ::I18n.t('dyta.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
                         # footer_var+"='"+content_tag(:tr, content_tag(:td, "'+"+footer_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+footer_var+".nil?\n"
                       else
                         ''
@@ -232,7 +232,7 @@ module Ekylibre
             if options[:empty]
               code += "    text = ''\n"
             else
-              code += "    text = content_tag(:thead, "+header+")+'<tr class=\"empty\"><td colspan=\"#{definition.columns.size}\">'+::I18n.translate('dyta.no_records')+'</td></tr>'\n"
+              code += "    text = content_tag(:thead, "+header+")+('<tr class=\"empty\"><td colspan=\"#{definition.columns.size}\">'+::I18n.translate('dyta.no_records')+'</td></tr>').html_safe\n"
             end
             code += "  end\n"
             code += footer;
@@ -547,9 +547,11 @@ module Ekylibre
                 reflection = @model.reflections[@options[:through]]
                 raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
                 if reflection.macro == :has_one
-                  "::I18n.t('activerecord.attributes.#{reflection.class_name.underscore}.#{@name}')"
+                  # "::I18n.t('activerecord.attributes.#{reflection.class_name.underscore}.#{@name}')"
+                  "#{reflection.class_name}.human_attribute_name('#{@name}')"
                 else
-                  "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@model.reflections[@options[:through]].primary_key_name.to_s}')"
+                  # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@model.reflections[@options[:through]].primary_key_name.to_s}')"
+                  "#{@model.name}.human_attribute_name(#{@options[:through].to_s.inspect})"
                 end
               elsif @options[:through] and @options[:through].is_a?(Array)
                 model = @model
@@ -561,14 +563,14 @@ module Ekylibre
                 # "#{model.name}.human_attribute_name('#{model.reflections[reflection].primary_key_name}')"
                 "::I18n.t('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].primary_key_name}')"
               else
-                # "#{@model.name}.human_attribute_name('#{@name}')"
-                "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
+                "#{@model.name}.human_attribute_name('#{@name}')"
+                # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
               end;
             when :action
               "'ƒ'"
             when :check, :textbox then
-              # @model.human_attribute_name(@name.to_s)
-              "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
+              "#{@model.name}.human_attribute_name('#{@name}')"
+              # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
             else 
               "'-'"
             end
@@ -723,7 +725,7 @@ if Ekylibre::Dyke::Dyta.will_paginate
 
   ERB::Util::HTML_ESCAPE.merge( '&' => '&#38;', '>' => '&#62;', '<' => '&#60;', '"' => '&#34;' )
 
-  module ActionController
+  module ActionView
     class RemoteLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
       
       def initialize
@@ -733,11 +735,33 @@ if Ekylibre::Dyke::Dyta.will_paginate
       def prepare(collection, options, template)
         @remote = options.delete(:remote) || {}
         super
-      end  
+      end
+
       protected
+
+      # WillPaginate 2
       def page_link(page, text, attributes = {})
         @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
       end
+
+      # WillPaginate 3
+      def link(text, target, attributes = {})
+        if target.is_a? Fixnum
+          attributes[:rel] = rel_value(target)
+          target = url(target)
+        end
+        attributes[:href] = target
+        @template.link_to_remote(text, {:url => target, :method => :get}.merge(@remote), attributes)
+      end
+
     end  
   end
+
+#   include WillPaginate::ViewHelpers 
+#   def will_paginate_with_i18n(collection, options = {}) 
+#     will_paginate_without_i18n(collection, options.merge(:previous_label => I18n.t("dyta.previous"), :next_label => I18n.t("dyta.next")))
+#   end 
+#   alias_method_chain :will_paginate, :i18n  
+
+
 end

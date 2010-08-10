@@ -385,7 +385,7 @@ fieldset.quick-add { color: #008; }
 .tabbox > .tabs > .tab { float: left; background: white; padding: 4px; margin: 0 4px 0 0;}
 */
 .tabbox > .tabs  { padding: 4px 0 0px; }
-.tabbox > .tabs > .tab { line-height: 24px; background: #DDE; padding: 4px 6px 3px; margin: 0 4px 0 0; border: 1px solid #AAA; border-bottom: none; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; color: #44D}
+.tabbox > .tabs > .tab { line-height: 24px; background: #DDE; padding: 4px 6px 3px; margin: 0 4px 0 0; border: 1px solid #AAA; border-bottom: none; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; color: #44D; white-space: nowrap; }
 .tabbox > .tabs > .tab:hover { background: #EEF; color: #00C }
 .tabbox > .tabs > .tab.current { color: #000; padding: 5px 6px; text-decoration: none; background: #F0F7FF; font-weight: bold;}
 .tabbox > .tabpanels {background: url(../images/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }

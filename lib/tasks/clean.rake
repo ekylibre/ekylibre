@@ -275,6 +275,8 @@ namespace :clean do
     locale = ::I18n.locale = ::I18n.default_locale
     locale_dir = Rails.root.join("config", "locales", locale.to_s)
     locdir = Rails.root.join("locales", locale.to_s)
+    #locale_dir = Rails.root.join("config", locale.to_s)
+    #locdir = Rails.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locdir)
 
     mh = HashWithIndifferentAccess.new
@@ -294,6 +296,12 @@ namespace :clean do
         translation += "      #{action}: #{yaml_value(attributes[:title])}\n"
       end
     end
+
+    translation += "  controllers:\n"
+    for controller in controllers
+      translation += "    #{controller}: #{yaml_value(mh[:controllers][controller][:title])}\n"
+    end
+
     labels = []
     for controller in controllers
       for action, attributes in mh[:views][controller]||{}
@@ -308,12 +316,16 @@ namespace :clean do
       end
     end
     labels += mh[:general].to_a
-    labels << ["parameters-parameters", mh[:parameters]]
+    # labels << ["parameters-parameters", mh[:parameters]]
+    labels << ["menu", mh[:views][:shared][:_menu]]
     stata = {}
     for key, value in labels
       stata[key] ||= {}
       stata[key][value] ||= 0
       stata[key][value] += 1
+    end
+    for a in labels
+      a[2] = nil if stata[a[0]].keys.size <= 1
     end
     translation += "  labels:\n"
     warnings = 0
@@ -327,12 +339,9 @@ namespace :clean do
     end.join
     puts ">> Labels: #{labels.uniq.size} couples, #{labels.collect{|x| x[0]}.uniq.size} uniq keys, #{labels.collect{|x| x[1]}.uniq.size} uniq values, #{warnings} warnings"
 
-    translation += "  controllers:\n"
-    for controller in controllers
-      translation += "    #{controller}: #{yaml_value(mh[:controllers][controller][:title])}\n"
-    end
+    translation += "  notifications:"+hash_to_yaml(mh[:notifications], 2)+"\n"
 
-    translation += "  notifications:"+hash_to_yaml(mh[:notifications], 2)
+    translation += "  parameters:"+hash_to_yaml(mh[:parameters], 2)+"\n"
     
     File.open(locdir.join("action.yml"), "wb") do |file|
       file.write translation
@@ -398,11 +407,11 @@ namespace :clean do
       file.write translation
     end
 
-
+    ##############   S U P P O R T   #################
     translation  = "#{locale}:\n"
 
     for support in [:date, :datetime, :dyta, :number, :support, :time]
-      translation += "  #{support}:"+hash_to_yaml(mh[support], 2)
+      translation += "  #{support}:"+hash_to_yaml(mh[support], 2)+"\n"
     end
 
     File.open(locdir.join("support.yml"), "wb") do |file|

@@ -1,0 +1,94 @@
+fra:
+  date:
+    abbr_day_names: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
+    abbr_month_names: ['', 'janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc']
+    day_names: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
+    formats:
+      db: '%d/%m/%Y'
+      dbx: '%Y-%m-%d'
+      default: '%d/%m/%Y'
+      legal: '%d %B %Y'
+      long: '%B %d, %Y'
+      month_letter: '%d %B %Y'
+      short: '%b %d'
+    month_names: ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
+    order: [:day, :month, :year]
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        many: 'about %{count} hours'
+        one: 'about 1 hour'
+      about_x_months:
+        many: 'about %{count} months'
+        one: 'about 1 month'
+      about_x_years:
+        many: 'about %{count} years'
+        one: 'about 1 year'
+      half_a_minute: 'half a minute'
+      less_than_x_minutes:
+        many: 'less than %{count} minutes'
+        one: 'less than a minute'
+      less_than_x_seconds:
+        many: 'moins de %{count} secondes'
+        one: 'moins d''une seconde'
+      over_x_years:
+        many: 'over %{count} years'
+        one: 'over 1 year'
+      x_days:
+        many: '%{count} days'
+        one: '1 day'
+      x_minutes:
+        many: '%{count} minutes'
+        one: '1 minute'
+      x_months:
+        many: '%{count} months'
+        one: '1 month'
+      x_seconds:
+        many: '%{count} secondes'
+        one: '1 seconde'
+  dyta:
+    export:
+      csv: 'CSV'
+      false_value: 'FAUX'
+      title: 'Export'
+      true_value: 'VRAI'
+      xcsv: 'CSV pour Excel'
+    next: 'Suivant'
+    no_records: 'Aucun enregistrement'
+    previous: 'Précédent'
+  number:
+    currency:
+      format:
+        delimiter: ','
+        format: '%u%n'
+        precision: 2
+        separator: '.'
+        unit: '$'
+    format:
+      delimiter: ' '
+      precision: 3
+      separator: ','
+    human:
+      format:
+        delimiter: ''
+        precision: 1
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ' et '
+      sentence_connector: 'et'
+      two_words_connector: ', '
+      words_connector: ', '
+  time:
+    am: 'am'
+    formats:
+      default: '%d %b. %Y à %H:%M:%S'
+      default0: '%a, %d %b %Y %H:%M:%S %z'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
+    pm: 'pm'

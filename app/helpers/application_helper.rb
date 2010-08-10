@@ -203,7 +203,7 @@ module ApplicationHelper
 
 
   def svg_test_tag
-    return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'
+    return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'.html_safe
   end
 
 #   def link_to(*args, &block)
@@ -270,6 +270,8 @@ module ApplicationHelper
       value = object.send(attribute)
       default = ["activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id".to_sym]
       default << "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
+      default << "attributes.#{attribute.to_s}".to_sym
+      default << "attributes.#{attribute.to_s}_id".to_sym
       label = ::I18n.translate("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}".to_sym, :default=>default)
       if value.is_a? ActiveRecord::Base
         record = value
@@ -424,7 +426,7 @@ module ApplicationHelper
     tag = ''
     for m in MENUS
       if controller.accessible?({:controller=>m[:name]})
-        tag += link_to_if(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name].to_s}.title"), last_page(m[:name].to_s)) do |name|
+        tag += link_to_if(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name]}"), last_page(m[:name].to_s)) do |name|
           link_to(name, {:controller=>m[:name], :action=>:index}, :class=>:current)
         end+" "
       end
@@ -439,14 +441,14 @@ module ApplicationHelper
 
   def action_title
     options = @title||{}
-    return I18n.t("views.#{controller.controller_name}.#{action_name}.title", options)
+    return I18n.t("actions.#{controller.controller_name}.#{action_name}", options)
   end
 
   def title_tag
     title = if @current_company
-              tc(:title, :company_code=>@current_company.code, :company_name=>@current_company.name, :controller=>t("controllers.#{controller.controller_name}.title"), :action=>action_title)
+              tc(:page_title, :company_code=>@current_company.code, :company_name=>@current_company.name, :controller=>t("controllers.#{controller.controller_name}"), :action=>action_title)
             else
-              tc(:default_title, :controller=>t("controllers.#{controller.controller_name}.title"), :action=>action_title)
+              tc(:page_title_by_default, :controller=>t("controllers.#{controller.controller_name}"), :action=>action_title)
             end
     return content_tag(:title, title)
   end
@@ -678,17 +680,17 @@ module ApplicationHelper
       tab = tabs[i]
       js += "$('#{tab[:id]}#{tp}').removeClassName('current');"
       js += "$('#{tab[:id]}#{tl}').removeClassName('current');"
-      tablabels += link_to_function((tab[:name].is_a?(Symbol) ? ::I18n.t("views.#{controller_name}.#{action_name}.#{tb.id}.#{tab[:name]}") : tab[:name]).gsub(/\s+/,'&nbsp;'), "#{jsmethod}(#{tab[:index]})", :class=>:tab, :id=>tab[:id]+tl)
-      tabpanels += content_tag(:div, tab[:content]||render(:partial=>tab[:partial]), :class=>:tabpanel, :id=>tab[:id]+tp)
+      tablabels += link_to_function((tab[:name].is_a?(Symbol) ? tl("#{tb.id}_tabbox.#{tab[:name]}") : tab[:name]), "#{jsmethod}(#{tab[:index]})", :class=>:tab, :id=>tab[:id]+tl)
+      tabpanels += content_tag(:div, (tab[:content]||render(:partial=>tab[:partial])).html_safe, :class=>:tabpanel, :id=>tab[:id]+tp)
     end
     js += "$('#{tb.prefix}'+index+'#{tp}').addClassName('current');"
     js += "$('#{tb.prefix}'+index+'#{tl}').addClassName('current');"
     js += "new Ajax.Request('#{url_for(:controller=>:company, :action=>:tabbox_index, :id=>tb.id)}?index='+index);"
     js += "return true;};"
     js += "#{jsmethod}(#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:index]});"
-    code  = content_tag(:div, tablabels, :class=>:tabs)+content_tag(:div, tabpanels, :class=>:tabpanels)
+    code  = content_tag(:div, tablabels.html_safe, :class=>:tabs)+content_tag(:div, tabpanels.html_safe, :class=>:tabpanels)
     code += javascript_tag(js)
-    content_tag(:div, code, :class=>options[:class]||"tabbox", :id=>tb.id)
+    content_tag(:div, code.html_safe, :class=>options[:class]||"tabbox", :id=>tb.id)
   end
 
 
@@ -756,13 +758,13 @@ module ApplicationHelper
             args[1][:url] ||= {}
             if name.is_a? Symbol
               args[1][:url][:action] ||= name
-              args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:url][:controller]||controller_name}.#{name}.title".to_sym]) 
+              args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
             end
             if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
               code += content_tag(:li, link_to_remote(*args).html_safe)
             end
           else
-            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["views.#{args[1][:controller]||controller_name}.#{name}.title".to_sym]) if name.is_a? Symbol
+            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
@@ -910,11 +912,11 @@ module ApplicationHelper
         line_code += content_tag(:td, error_messages(line[:params].to_s), :class=>"error", :colspan=>xcn)
       when :title
         if line[:value].is_a? Symbol
-          calls = caller
-          file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
+          #calls = caller
+          #file = calls[3].split(/\:\d+\:/)[0].split('/')[-1].split('.')[0]
           options = line.dup
           options.delete_if{|k,v| [:nature, :value].include?(k)}
-          line[:value] = t("views.#{controller.controller_name}.#{file}.#{line[:value]}", options) 
+          line[:value] = tl(line[:value], options)
         end
         line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
@@ -1033,7 +1035,7 @@ module ApplicationHelper
               when :dyli
                 dyli(record, method, options[:choices], options[:options], html_options)
               when :radio
-                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;"+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join(" ")
+                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;".html_safe+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join(" ").html_safe
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
@@ -1059,7 +1061,7 @@ module ApplicationHelper
         end
       end
       
-      label = t("activerecord.attributes.#{object.class.name.underscore}.#{method.to_s}")
+      label = object.class.human_attribute_name(method.to_s)
       label = " " if options[:options][:hide_label] 
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
@@ -1081,7 +1083,7 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :radio
-                  options[:choices].collect{ |x| radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+"&nbsp;"+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}") }.join(" ")
+                  options[:choices].collect{ |x| radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+"&nbsp;".html_safe+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}") }.join(" ").html_safe
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])
@@ -1129,8 +1131,6 @@ module ApplicationHelper
   
 
 end
-
-
 
 
 

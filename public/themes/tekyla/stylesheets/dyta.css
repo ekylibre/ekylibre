@@ -47,9 +47,10 @@ table.dyta tr      th.footer div.export a { padding: 0 2px 0 14px; margin: 0 2px
 table.dyta tr      th.footer div.pagination { padding: 2px; float:right;}
 table.dyta tr      th.footer div.pagination * { padding:2px 4px; }
 table.dyta tr      th.footer div.pagination span.current { font-weight:bold; color: black; }
+table.dyta tr      th.footer div.pagination em { font-weight:bold; color: black; font-style: normal; }
 table.dyta tr      th.footer div.pagination span.disabled { color: #88A; }
-table.dyta tr      th.footer div.pagination .prev_page { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2.png) no-repeat left;}
-table.dyta tr      th.footer div.pagination .prev_page.disabled { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2-dis.png) no-repeat left;}
+table.dyta tr      th.footer div.pagination .previous_page { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2.png) no-repeat left;}
+table.dyta tr      th.footer div.pagination .previous_page.disabled { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2-dis.png) no-repeat left;}
 table.dyta tr      th.footer div.pagination .next_page { padding:2px 10px 2px 4px; background: url(../images/buttons/next2.png) no-repeat right;}
 table.dyta tr      th.footer div.pagination .next_page.disabled { padding:2px 10px 2px 4px; background: url(../images/buttons/next2-dis.png) no-repeat right;}
 table.dyta tr      td.decimal { text-align: right; }
