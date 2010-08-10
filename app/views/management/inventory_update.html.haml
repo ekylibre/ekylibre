@@ -1,6 +1,6 @@
 =form_tag() do
   =formalize do |f|
-    - f.title :inventory
+    - f.title :general
     - f.field :inventory, :responsible_id, :choices=>{:reflection=>:users}
     - f.field :inventory, :comment, :field=>:textarea
   =dyta(:inventory_lines_update)

@@ -24,7 +24,7 @@
       %td
         =evalue @sale_order, :comment 
 
-%h2= tc 'lines'
+%h2=tc :sale_order_lines
 =dyta :sale_order_lines
 
 -if @sale_order.deliveries.count > 0
@@ -36,7 +36,7 @@
   =dyta :sale_order_invoices
 
 -if @sale_order.payment_parts.count > 0
-  %h2= tc 'payments'
+  %h2= tc 'sale_payments'
   =toolbar do |t|
     -t.link :sale_payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
   =dyta :sale_order_payments

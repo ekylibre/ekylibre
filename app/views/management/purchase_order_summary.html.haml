@@ -1,12 +1,12 @@
 =purchase_steps
 
 -if @purchase_order.amount_with_taxes > 0
-  %h2=tc :payments
+  %h2=tc :purchase_payments
   =toolbar do |t|
     -t.link :purchase_payment_part_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
   =dyta :purchase_order_payment_parts
 
-%h2=tc(:products)
+%h2=tc(:purchase_order_lines)
 =dyta :purchase_order_lines
 
 %h2=tc :financial_state

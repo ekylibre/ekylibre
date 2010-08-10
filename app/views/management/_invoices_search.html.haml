@@ -4,6 +4,8 @@
       %tr
         %td.label=tc(:search)
         %td.field=text_field_tag :key, session[:invoice_key]
-        -[:all, :credits, :cancelled].each do |state|
-          %td=radio_button(:invoice, :state, state, :checked=>(state.to_s == session[:invoice_state] ? true : false))+"&nbsp;"+content_tag(:label, tc(state), :for=>'invoice_'+state.to_s)
+        -for state in [:all, :credits, :cancelled]
+          %td
+            =radio_button(:invoice, :state, state, :checked=>(state.to_s == session[:invoice_state] ? true : false))
+            %label{:for=>'invoice_'+state.to_s}=tc("invoices_states.#{state}")
         %td.submit=submit_tag tg(:search_go)

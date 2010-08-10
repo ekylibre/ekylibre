@@ -5,10 +5,10 @@
       %th{:colspan=>2}=tc(:add_delivery)
     %tr.field
       %td.label=tc(:delivery)
-      %td.input=dyli_tag('delivery[id]', :deliveries, :resize=>true)
+      %td.input=dyli_tag("delivery[id]", :deliveries, :resize=>true)
   .actions
     =link_to(tc(:back), :action=>:transports)
-    =submit_tag(tc(:add), :action=>:transport_deliveries)
+    =submit_tag(tl(:add_delivery), :action=>:transport_deliveries)
    
 
 

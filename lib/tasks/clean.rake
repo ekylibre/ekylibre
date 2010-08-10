@@ -272,27 +272,30 @@ namespace :clean do
   desc "Compact translations"
   task :loc => :environment do
 
-    locale = ::I18n.locale = ::I18n.default_locale
-    locale_dir = Rails.root.join("config", "locales", locale.to_s)
+    locale = ::I18n.locale = :eng # ::I18n.default_locale
+    #locale_dir = Rails.root.join("config", "locales", locale.to_s)
+    locale_dir = Rails.root.join("lc", locale.to_s)
+    #locdir = Rails.root.join("locales", locale.to_s)
     locdir = Rails.root.join("locales", locale.to_s)
-    #locale_dir = Rails.root.join("config", locale.to_s)
     #locdir = Rails.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locdir)
 
     mh = HashWithIndifferentAccess.new
     puts locale.inspect
-    for reference_path in Dir.glob("#{Rails.root.to_s}/config/locales/#{locale}/*.yml").sort
+    for reference_path in Dir.glob(locale_dir.join("*.yml")).sort
       next if reference_path.match(/accounting/)
       mh.deep_merge!(yaml_to_hash(reference_path))
     end
     controllers = [:application, :authentication, :management, :accountancy, :relations, :production, :company, :help].sort{|a,b| a.to_s<=>b.to_s}
-    mh = mh[:fra]
+    mh = mh[locale]
     # puts mh.keys.inspect
     translation  = "#{locale}:\n"
     translation += "  actions:\n"
     for controller in controllers
       translation += "    #{controller}:\n"
-      for action, attributes in (mh[:views][controller]||{}).select{|a,b| !a.match(/^_/)}.sort
+      for action, attributes in (mh[:views][controller]||{}).select{|a,b| !a.match(/^_/) and b.is_a? Hash}.sort
+        # raise Exception.new([controller, action, attributes].inspect) unless attributes.is_a? Hash
+        next unless attributes.is_a? Hash
         translation += "      #{action}: #{yaml_value(attributes[:title])}\n"
       end
     end
@@ -304,13 +307,13 @@ namespace :clean do
 
     labels = []
     for controller in controllers
-      for action, attributes in mh[:views][controller]||{}
+      for action, attributes in (mh[:views][controller]||{}).select{|a,b| b.is_a? Hash}
         for attr, value in attributes.delete_if{|k,v| k.to_s == "title"}
           labels << [attr, (value.is_a?(String) ? value.strip : value), "view #{controller}##{action}"]
         end
       end
       for mode in [:controllers, :helpers]
-        for attr, value in mh[mode][controller]||{}
+        for attr, value in (mh[mode][controller]||{}).select{|a,b| b.is_a? Hash}
           labels << [attr, (value.is_a?(String) ? value.strip : value), "#{mode.to_s.singularize} #{controller}##{action}"] unless attr.to_s == "title"
         end
       end
@@ -318,12 +321,15 @@ namespace :clean do
     labels += mh[:general].to_a
     # labels << ["parameters-parameters", mh[:parameters]]
     labels << ["menu", mh[:views][:shared][:_menu]]
+    labels << ["page_title", mh[:helpers][:application][:title]]
+    labels << ["page_title_by_default", mh[:helpers][:application][:default_title]]
     stata = {}
     for key, value in labels
       stata[key] ||= {}
       stata[key][value] ||= 0
       stata[key][value] += 1
     end
+    #puts stata.inspect
     for a in labels
       a[2] = nil if stata[a[0]].keys.size <= 1
     end
@@ -334,6 +340,8 @@ namespace :clean do
       if c.is_a?(String) and stata[k].keys.size>1
         line = line.split(/\n/).collect{|l| l.ljust(80)+"# in #{c}\n"}.join 
         warnings += 1
+      elsif stata[k].keys.size == 1 and stata[k].to_a[0][1]>1
+        line = line.split(/\n/).collect{|l| l+" ##{stata[k].to_a[0][1]}\n"}.join
       end
       line
     end.join

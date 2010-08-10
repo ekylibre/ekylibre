@@ -22,5 +22,3 @@
 =form_tag() do
   .actions
     =link_to tg(:previous), :action=>:sale_order_lines
-    =#submit_tag(tc('invoice'), :action=>:sales_invoices)
-    =#link_to(tc('invoice'), {:action=>:sales_invoices, :id=>@sale_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_to_invoice)})

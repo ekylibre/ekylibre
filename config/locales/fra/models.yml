@@ -1,15 +1,22 @@
 fra:
   activerecord:
     attributes:
-      subscription_nature:
-        nature_label: 'Type'
-        nature: 'Type'
       sale_payment_mode:
         cash_id: 'Trésorerie utilisé'
         cash: 'Trésorerie utilisé'
+      subscription_nature:
+        nature_label: 'Type'
+        nature: 'Type'
       tax:
         amount: 'Valeur'
         nature_label: 'Type'
+      price:
+        quantity_min: 'Quantité minimale'
+        category: 'Catégorie de fiche associée'
+        entity: 'Fournisseur'
+        entity_id: 'Fournisseur'
+        category_id: 'Catégorie de fiche associée'
+        quantity_max: 'Quantité maximale'
       company:
         code: 'Code interne'
         stock_transfers: 'Transferts ou perte de stock'
@@ -19,18 +26,11 @@ fra:
         purchase_payment_modes: 'Modes de décaissements'
         siren: 'Numéro SIREN'
         locked: 'Verrouillée'
-      price:
-        category: 'Catégorie de fiche associée'
-        quantity_min: 'Quantité minimale'
-        entity_id: 'Fournisseur'
-        entity: 'Fournisseur'
-        category_id: 'Catégorie de fiche associée'
-        quantity_max: 'Quantité maximale'
       purchase_payment:
         accounted_at: 'Comptabilisé à'
         parts: 'Parts'
-        amount: 'Montant'
         delivered: 'Remis au bénéficiaire'
+        amount: 'Montant'
         paid_on: 'Payé le'
       operation_line:
         tracking_serial: 'N°Lot'
@@ -49,18 +49,18 @@ fra:
       journal_entry:
         closed: 'Cloturée'
       complement_datum:
-        entity_id: 'Fiche'
         entity: 'Fiche'
+        entity_id: 'Fiche'
         string_value: 'Valeur texte'
       sale_order:
         has_downpayment: 'Acompte à verser'
         created_on: 'Créée le'
         lines: 'Lignes de vente'
-        parts_amount: 'Montant payé'
         expired_on: 'Expiré le'
-        payments: '(((PAYMENTS)))'
+        parts_amount: 'Montant payé'
         contact_id: 'Adresse pour le devis'
         contact: 'Adresse pour le devis'
+        payments: '(((PAYMENTS)))'
         nature_id: 'Nature'
       stock_transfer:
         location: 'Lieu de stockage de départ'
@@ -99,8 +99,8 @@ fra:
         purchase_payment_parts: 'Parties de décaissement'
       bank_statement:
         cash_id: 'Compte bancaire utilisé'
-        stopped_on: 'Au'
         cash: 'Compte bancaire utilisé'
+        stopped_on: 'Au'
         started_on: 'Du'
       entity_link:
         nature: 'Lien'
@@ -125,8 +125,8 @@ fra:
         cash: 'Compte bancaire'
         embanker: 'Encaisseur'
       contact:
-        entity_id: 'Fiche'
         entity: 'Fiche'
+        entity_id: 'Fiche'
       stock:
         quantity: 'Stock réel'
       sale_order_nature:
@@ -141,17 +141,17 @@ fra:
         to_bank_on: 'À encaisser le'
       purchase_order_line:
         price: 'Prix unitaire'
-        order_id: 'Achat'
         tracking: 'Numéro de lot'
         tracking_id: 'Numéro de lot'
+        order_id: 'Achat'
         account_id: 'Compte de charge utilisé'
         account: 'Compte de charge utilisé'
         order: 'Achat'
         price_id: 'Prix unitaire'
-      purchase_payment_mode:
-        payments: 'Décaissements'
       complement_choice:
         data: 'Données complémentaires'
+      purchase_payment_mode:
+        payments: 'Décaissements'
       event:
         duration: 'Durée (en minutes)'
         responsible: 'Intervenant'
@@ -162,12 +162,12 @@ fra:
       stock_move:
         origin: 'Origine'
       product:
-        ean13: 'Code EAN13'
         duration: 'Nombre de numéros OU période d''abonnement'
         price: 'Prix de revient'
+        ean13: 'Code EAN13'
         unit_id: 'Unité de mesure'
-        catalog_description: 'Description pour le catalogue'
         weight: 'Poids (kg)'
+        catalog_description: 'Description pour le catalogue'
         unit: 'Unité de mesure'
         active: 'Utilisable'
       invoice_line:
@@ -182,26 +182,26 @@ fra:
         start: 'Valeur à l''origine'
       area:
         code: 'Code interne'
-      subscription:
-        entity_id: 'Abonné'
-        entity: 'Abonné'
-        contact_id: 'Adresse de l''abonné'
-        contact: 'Adresse de l''abonné'
-        stopped_on: 'Arrété le'
-        nature: 'Type'
       sale_order_line:
         label: 'Produit'
         price: 'Produit tarifé'
         price_id: 'Produit tarifé'
+      subscription:
+        entity: 'Abonné'
+        entity_id: 'Abonné'
+        contact_id: 'Adresse de l''abonné'
+        contact: 'Adresse de l''abonné'
+        stopped_on: 'Arrété le'
+        nature: 'Type'
       purchase_order:
         label: 'Commande'
-        moved_on: 'Reçu le'
         lines: 'Lignes d''achat'
+        moved_on: 'Reçu le'
         planned_on: 'Réception prévue le'
         payment_parts: 'Parties de décaissement'
       mandate:
-        entity_id: 'Fiche'
         entity: 'Fiche'
+        entity_id: 'Fiche'
         family: 'Famille'
         stopped_on: 'Fin'
         started_on: 'Début'
@@ -226,14 +226,14 @@ fra:
         period: 'Période'
         amount: 'TVA totale'
         financialyear: 'Période considérée'
+        paid_on: ''
         nature: 'Régime de la déclaration'
         started_on: 'Commencé le'
-        paid_on: ''
+      currency:
+        cashes: 'Trésoreries'
       complement:
         nature_label: 'Type de donnée'
         nature: 'Type de donnée'
-      currency:
-        cashes: 'Trésoreries'
       inventory:
         accounted_at: 'Comptabilisé le'
         created_on: 'Effectué le'
@@ -246,12 +246,12 @@ fra:
       department:
         sales_conditions: 'Conditions de vente'
       delivery:
-        moved_on: 'Faite le'
         lines: 'Lignes de livraison'
+        moved_on: 'Faite le'
         mode: 'Type'
-        planned_on: 'Prévue le'
         contact_id: 'Adresse du client'
         contact: 'Adresse du client'
+        planned_on: 'Prévue le'
         mode_id: 'Type'
       user:
         name: 'Nom d''utilisateur'

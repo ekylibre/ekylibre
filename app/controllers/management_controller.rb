@@ -431,14 +431,14 @@ class ManagementController < ApplicationController
   
   
   def prices
-    @modes = ['all', 'client', 'supplier']
+    @modes = ['all', 'clients', 'suppliers']
     @suppliers = @current_company.entities.find(:all,:conditions=>{:supplier=>true})
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
-      if mode == "supplier"
+      if mode == "suppliers"
         session[:entity_id] = params[:price][:supply].to_i
-      elsif mode == "client"
+      elsif mode == "clients"
         session[:entity_id] = @current_company.entity_id
       else
         session[:entity_id] = 0

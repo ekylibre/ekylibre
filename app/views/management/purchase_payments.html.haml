@@ -10,7 +10,7 @@
         %td.crit
           -for state in [:all, :unparted, :undelivered, :waiting]
             =radio_button_tag("state", state, (state.to_s == session[:purchase_payment_state]))
-            %label{:for=>"state_#{state}"}=tc(state)
+            %label{:for=>"state_#{state}"}=tc("purchase_payments_states.#{state}")
 
 =toolbar do |t|
   -t.link :purchase_payment_create

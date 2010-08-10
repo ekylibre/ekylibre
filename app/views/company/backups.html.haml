@@ -1,15 +1,15 @@
 =form_tag({}) do
   %fieldset
-    %legend=tc(:export)
+    %legend=tc(:export_backup)
     =formalize do |f|
       -f.field content_tag(:label, tc(:with_prints), :for=>:with_prints), check_box_tag(:with_prints)
     .actions=submit_tag tc(:backup), :name=>'backup'
 
 =form_tag({}, :multipart=>true) do
   %fieldset
-    %legend=tc(:import)
+    %legend=tc(:import_backup)
     =formalize do |f|
-      -f.field tc(:upload), file_field(:file, :path)
+      -f.field tc(:file_to_upload), file_field(:file, :path)
     .actions=submit_tag tc(:restore), :name=>'restore'
 
 

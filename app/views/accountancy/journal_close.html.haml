@@ -4,5 +4,5 @@
     - f.title :select_closure_date
     - f.field :journal, :closed_on, :choices => @journal.closures.collect{|d| [::I18n.l(d), d]}
   .actions
-    =submit_tag(tc('close'))
+    =submit_tag(tc(:close_journal))
     =link_to_back(:label=>:cancel)

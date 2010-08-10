@@ -6,8 +6,10 @@
       %tr
         %td.label=tc('search_sales')
         %td.field=text_field_tag :key, session[:sale_order_key]
-        - [:all, :current, :unpaid].each do |state|
-          %td=radio_button(:sale_order, :state , state, :checked=>( state.to_s == session[:sale_order_state] ? true : false))+"&nbsp;"+content_tag(:label, tc(state), :for=>'sale_order_'+state.to_s)
+        -for state in [:all, :current, :unpaid]
+          %td
+            =radio_button(:sale_order, :state , state, :checked=>( state.to_s == session[:sale_order_state] ? true : false))
+            %label{:for=>'sale_order_'+state.to_s}=tc("sale_orders_states.#{state}")
         %td=submit_tag tg('search_go', :action=>:sale_orders)
 
 =dyta :sale_orders

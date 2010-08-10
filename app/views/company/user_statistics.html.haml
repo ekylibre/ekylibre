@@ -14,4 +14,4 @@
       %li=tc(:total_amount)+@sale_orders_amount.to_s
       %li=tc(:total_invoiced_amount)+@invoiced_amount.to_s
     -for event_nature in @event_natures
-      %li=h tc(:events, :count=>event_nature['ecount'].to_i, :nature=>event_nature.name, :duration=>event_nature['esum'].to_i)
+      %li=h tc(:x_events_of_nature_y, :count=>event_nature['ecount'].to_i, :nature=>event_nature.name, :duration=>event_nature['esum'].to_i)

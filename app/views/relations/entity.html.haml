@@ -33,7 +33,7 @@
 
  
 =tabbox(:entity) do |tb|
-  -tb.tab(tc(:subscriptions, :count=>@entity.subscriptions.count)) do |c|
+  -tb.tab(tc(:x_subscriptions, :count=>@entity.subscriptions.count)) do |c|
     -c << toolbar do
       -link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)
     -c << dyta(:entity_subscriptions)
@@ -41,17 +41,16 @@
     -c << toolbar do
       -link(:contact_create, :entity_id=>@entity.id)
     -c << dyta(:entity_contacts)
-  -tb.tab(tc(:sale_orders, :count=>@entity.sale_orders.count)) do |c|
+  -tb.tab(tc(:x_sale_orders, :count=>@entity.sale_orders.count)) do |c|
     -c << toolbar do |t|
       -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
     -c << dyta(:entity_sale_orders)
-  -tb.tab(tc(:purchase_orders, :count=>@entity.purchase_orders.count)) do |c|
+  -tb.tab(tc(:x_purchase_orders, :count=>@entity.purchase_orders.count)) do |c|
     -c << toolbar do |t|
       -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
     -c << dyta(:entity_purchase_orders)
-  -if @entity.invoices.count>0
-    -tb.tab(tc(:invoices, :count=>@entity.invoices.count)) do |c|
-      -c << dyta(:entity_invoices)
+  -tb.tab(tc(:x_invoices, :count=>@entity.invoices.count)) do |c|
+    -c << dyta(:entity_invoices)
   -tb.tab(tc(:sale_payments, :count=>@entity.sale_payments.count)) do |c|
     -c << toolbar do
       -link :sale_payment_create,{:controller=>:management, :payer_id=>@entity.id}
@@ -60,7 +59,7 @@
     -c << toolbar do
       -link :purchase_payment_create,{:controller=>:management, :payee_id=>@entity.id}
     -c << dyta(:entity_purchase_payments)
-  -tb.tab(tc(:events, :count=>@entity.events.count)) do |c|
+  -tb.tab(tc(:x_events, :count=>@entity.events.count)) do |c|
     -c << toolbar do
       -link :event_create, :entity_id=>@entity.id
     -c << dyta(:entity_events)

@@ -15,7 +15,7 @@
     %td
       =evalue @purchase_order, :dest_contact, :label=>:address
 
-%h2=tc :lines 
+%h2=tc :purchase_order_lines 
 =toolbar do
   -link :purchase_order_line_create, :order_id=>@purchase_order.id if @purchase_order.updatable?
 =dyta :purchase_order_lines

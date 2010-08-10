@@ -30,7 +30,7 @@
         =evalue @sale_order, :introduction, :field=>:textarea, :orient=>:vertical
         =evalue @sale_order, :conclusion, :field=>:textarea, :orient=>:vertical
     %td{:valign=>:top}
-      %h2=tc :lines
+      %h2=tc :sale_order_lines
       -if @sale_order.estimate?
         =toolbar do |t|
           -t.link(:sale_order_line_create, :order_id=>@sale_order.id) 

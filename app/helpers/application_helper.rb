@@ -294,7 +294,7 @@ module ApplicationHelper
       hours = (duration/3600).floor.to_i
       minutes = (duration/60-60*hours).floor.to_i
       seconds = (duration - 60*minutes - 3600*hours).round.to_i
-      value = tg(:duration, :hours=>hours, :minutes=>minutes, :seconds=>seconds)
+      value = tg(:duration_in_hours_and_minutes, :hours=>hours, :minutes=>minutes, :seconds=>seconds)
     end
     value = link_to(value.to_s, options[:url]) if options[:url]
 
@@ -785,7 +785,7 @@ module ApplicationHelper
           args[2][:class] = "print"
           #          raise Exception.new "ok"+args.inspect
           for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
-            args[0] = tc(:print, :name=>dc.name)
+            args[0] = tc(:print_with_template, :name=>dc.name)
             args[1][:id] = dc.code
             #raise Exception.new "ok"
             code += li_link_to(*args)

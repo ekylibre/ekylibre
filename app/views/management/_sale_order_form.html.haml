@@ -8,7 +8,7 @@
 #contacts=render 'sale_order_contacts'
 
 =formalize do |f| 
-  -f.title :conditions
+  -f.title :sale_conditions
   -f.field :sale_order, :nature_id, :choices=>{:reflection=>:sale_order_natures}, :new=>{:action=>:sale_order_nature_create}
   -f.field :sale_order, :currency_id, :choices=>{:reflection=>:currencies}
   -f.field :sale_order, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
@@ -16,7 +16,7 @@
   -f.field :sale_order, :comment, :field=>:textarea
   -f.field :sale_order, :letter_format
 =formalize(:id=>:letter_format) do |f|
-  -f.title :letter
+  -f.title :letter_options
   -f.field :sale_order, :subject
   -f.field :sale_order, :function_title
   -f.field :sale_order, :introduction, :field=>:textarea

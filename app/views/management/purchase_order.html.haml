@@ -14,7 +14,7 @@
       =evalue @purchase_order, :dest_contact, :label=>:address
       =evalue @purchase_order, :shipped
 
-%h2=tc :lines
+%h2=tc :purchase_order_lines
 =dyta :purchase_order_lines
 
 -if @purchase_order.payment_parts.count > 0

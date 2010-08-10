@@ -29,7 +29,7 @@
     -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
 =formalize(:id=>:client_form) do |f|
-  -f.title :client
+  -f.title :client_informations
   -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:action=>:entity_category_create}
   -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin)
   -f.field :entity, :first_met_on
@@ -44,7 +44,7 @@
   -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_clients").value})
 
 =formalize(:id=>:supplier_form) do |f|
-  -f.title :supplier
+  -f.title :supplier_informations
   -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_suppliers").value}
 
 =formalize(:id=>:attorney_form) do |f|

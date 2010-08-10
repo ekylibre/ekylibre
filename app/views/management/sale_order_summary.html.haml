@@ -1,6 +1,6 @@
 =sale_steps
 
-%h2=tc :payments
+%h2=tc :sale_payments
 -unless @sale_order.complete?
   =toolbar do |t|
     -t.link :sale_payment_part_create, :expense_type=>:sale_order, :expense_id=>@sale_order.id

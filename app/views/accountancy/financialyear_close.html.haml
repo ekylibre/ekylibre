@@ -7,5 +7,5 @@
     -f.title :use_renew
     -f.field tc(:select_renew_journal), select_tag("journal_id", options_for_select([[tc("dont_use_journal"), ""], [tc("create_journal"), 0]]+@current_company.journals.collect{|j| [j.name, j.id]}, :selected=>params[:journal_id]))
   .actions
-    =submit_tag(tc(:close), :confirm=>tg(:are_you_sure))
+    =submit_tag(tc(:close_financialyear), :confirm=>tg(:are_you_sure))
     =link_to_back

@@ -17,9 +17,9 @@
 
   =form_tag({}, :multipart=>true) do
     =formalize do |f|
-      -f.field tc(:from),    text_field_tag(:from, session[:mail][:from]||@current_user.email, :size=>40)
-      -f.field tc(:subject), text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>@current_company.name), :size=>80)
-      -f.field tc(:body),    text_area_tag(:mail_body, session[:mail][:body], :cols=>80, :rows=>20)
+      -f.field tc(:expedier), text_field_tag(:from, session[:mail][:from]||@current_user.email, :size=>40)
+      -f.field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>@current_company.name), :size=>80)
+      -f.field tc(:body),     text_area_tag(:mail_body, session[:mail][:body], :cols=>80, :rows=>20)
       -f.field tc(:attachment), file_field_tag(:attachment)
     .actions
       =submit_tag tc(:send_test), :name=>:send_test

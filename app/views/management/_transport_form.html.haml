@@ -1,6 +1,6 @@
 =formalize do |f|
   -f.error :transport
-  -f.title :info
+  -f.title :general
   -f.field :transport, :transporter_id, :choices=>{:reflection=>:transporters}, :new=>{:controller=>:relations, :action=>:entity_create, :transporter=>1}
   -f.field :transport, :responsible_id, :choices=>{:reflection=>:employees, :include_blank=>"-- Aucun --"}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
   -f.field :transport, :transport_on

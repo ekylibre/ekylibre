@@ -3,7 +3,7 @@
   - f.field :sale_order_nature, :name
   - f.field :sale_order_nature, :active
   - f.field :sale_order_nature, :comment, :field=>:textarea
-  - f.title :conditions
+  - f.title :sale_payment_conditions
   - f.field :sale_order_nature, :payment_mode_id, :choices=>{:reflection=>:sale_payment_modes}, :new=>{:action=>:sale_payment_mode_create}
   - f.field :sale_order_nature, :payment_mode_complement
   - f.field :sale_order_nature, :expiration_id, :choices=>{:reflection=>:delays}, :new=>{:action=>:delay_create}
