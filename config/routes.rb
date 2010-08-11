@@ -9,6 +9,7 @@ Ekylibre::Application.routes.draw do |map|
   match ':company/:controller(/:action(/:id(.:format)))', :company=>/\w+/
   match ':company', :to=>"company#index", :company=>/\w+/
   match 'authentication(/:action)', :controller=>'authentication'
+  match 'application(/:action)', :controller=>'application'
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

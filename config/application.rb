@@ -32,7 +32,7 @@ module Ekylibre
     # config.i18n.default_locale = :de
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}')]
     config.i18n.locale = :fra
-    config.i18n.default_locale = :fra
+    config.i18n.default_locale = :eng
 
 
     # Configure generators values. Many other options are available, be sure to check the documentation.

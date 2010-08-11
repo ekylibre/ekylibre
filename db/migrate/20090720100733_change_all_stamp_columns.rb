@@ -1,5 +1,5 @@
 class ChangeAllStampColumns < ActiveRecord::Migration
-  MODEL_DIR = File.join(RAILS_ROOT, "app/models")
+  MODEL_DIR = Rails.root.join("app", "models")
   Dir.chdir(MODEL_DIR) do 
     @@models = Dir["**/*.rb"]
   end
