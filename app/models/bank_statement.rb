@@ -53,7 +53,7 @@ class BankStatement < ActiveRecord::Base
 
   # A bank account statement has to contain all the planned records.
   def check    
-    errors.add_to_base tc(:error_period_statement) if self.started_on >= self.stopped_on
+    errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
   end
 
   def balance_credit

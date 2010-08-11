@@ -51,10 +51,6 @@ class Tax < ActiveRecord::Base
   validates_numericality_of :amount, :in=>1..100, :if=>Proc.new{|x| x.percent?}
 
 
-  def check
-    # errors.add(:amount, :included_in, :minimum=>0.to_s, :maximum=>100.to_s) if (self.amount < 0 or self.amount > 100) and self.percent?
-  end
-
   def destroyable?
     self.prices.size <= 0 and self.sale_order_lines.size <= 0
   end

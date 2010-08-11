@@ -207,6 +207,7 @@ table.formalize { border-collapse: collapse; margin-left: auto; margin-right: au
 table.formalize tr.field td { border-bottom:  1px dotted #CCC; }
 table.formalize tr.field td label { color: #008;}
 table.formalize td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 0px dotted #CCC;  }
+html[dir="rtl"] table.formalize td.label { text-align:left !important; }
 table.formalize td.input { padding:2px 6px 2px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC;}
 table.formalize td .notnull { border: 1px solid #33F; background-color: #EEF }
@@ -336,6 +337,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto;}
 .login table tr td { padding: 2px 4px;}
 .login table tr td.label { text-align:right;}
+html[dir="rtl"] .login table tr td.label { text-align:left !important;}
 .login table tr td.input, .login table tr td.input input { text-align:left; width:128px;}
 .login table tr td.button {text-align:center; padding:6px 6px 16px;}
 .login table.browsers tr td { padding: 8px 16px;}

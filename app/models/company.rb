@@ -757,10 +757,10 @@ class Company < ActiveRecord::Base
 
       company.load_sequences
       
-      company.locations.create!(:name=>tc('default.location'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
-      company.event_natures.create!(:duration=>10, :usage=>"sale_order", :name=>tc(:sale_order_creation))
-      company.event_natures.create!(:duration=>10, :usage=>"invoice", :name=>tc(:invoice_creation))
-      company.event_natures.create!(:duration=>10, :usage=>"purchase_order", :name=>tc(:purchase_order_creation))
+      company.locations.create!(:name=>tc('default.location_name'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
+      for nature in [:sale_order, :invoice, :purchase_order]
+        company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
+      end
       
       # Add complementary data to test
       company.load_demo_data unless demo_language_code.blank?
@@ -778,11 +778,12 @@ class Company < ActiveRecord::Base
   # this method loads all the templates existing.
   def load_prints
     language = self.entity.language
-    prints_dir = "#{Rails.root.to_s}/config/locales/#{::I18n.locale}/prints"
+    prints_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
+        next unless File.exist? prints_dir.join("#{template}.xml")
         #begin
-        File.open("#{prints_dir}/#{template}.xml", 'rb') do |f|
+        File.open(prints_dir.join("#{template}.xml"), 'rb') do |f|
           attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
           attributes[:name] = attributes[:name].to_s
           attributes[:nature] ||= template.to_s

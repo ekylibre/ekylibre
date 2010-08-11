@@ -1,0 +1,96 @@
+spa:
+  about:
+    authors: 'Coralie Labouyrie'
+    dir: 'ltr'
+    iso2: 'es'
+    name: 'Español'
+  date:
+    abbr_day_names: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá']
+    abbr_month_names: ['', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
+    day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    formats:
+      default: '%d/%m/%Y'
+      #>legal: '%d %B %Y'
+      #>long: '%B %d, %Y'
+      #>month_letter: '%d %B %Y'
+      #>short: '%b %d'
+    month_names: ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+    order: [:day, :month, :year]
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        #>many: 'about %{count} hours'
+        #>one: 'about 1 hour'
+      about_x_months:
+        #>many: 'about %{count} months'
+        #>one: 'about 1 month'
+      about_x_years:
+        #>many: 'about %{count} years'
+        #>one: 'about 1 year'
+      #>half_a_minute: 'half a minute'
+      less_than_x_minutes:
+        #>many: 'less than %{count} minutes'
+        #>one: 'less than a minute'
+      less_than_x_seconds:
+        #>many: 'moins de %{count} secondes'
+        #>one: 'moins d''une seconde'
+      over_x_years:
+        #>many: 'over %{count} years'
+        #>one: 'over 1 year'
+      x_days:
+        #>many: '%{count} days'
+        #>one: '1 day'
+      x_minutes:
+        #>many: '%{count} minutes'
+        #>one: '1 minute'
+      x_months:
+        #>many: '%{count} months'
+        #>one: '1 month'
+      x_seconds:
+        #>many: '%{count} secondes'
+        #>one: '1 seconde'
+  dyta:
+    export:
+      #>csv: 'CSV'
+      #>false_value: 'FAUX'
+      #>title: 'Export'
+      #>true_value: 'VRAI'
+      #>xcsv: 'CSV pour Excel'
+    #>next: 'Suivant'
+    #>no_records: 'Aucun enregistrement'
+    #>previous: 'Précédent'
+  number:
+    currency:
+      format:
+        #>delimiter: ','
+        #>format: '%u%n'
+        #>precision: 2
+        #>separator: '.'
+        #>unit: '$'
+    format:
+      #>delimiter: ' '
+      #>precision: 3
+      #>separator: ','
+    human:
+      format:
+        #>delimiter: ''
+        #>precision: 1
+    percentage:
+      format:
+        #>delimiter: ''
+    precision:
+      format:
+        #>delimiter: ''
+  support:
+    array:
+      last_word_connector: ' y '
+      sentence_connector: 'y'
+      two_words_connector: ', '
+      words_connector: ', '
+  time:
+    am: 'am'
+    formats:
+      default: '%d %b. %Y - %H:%M:%S'
+      #>long: '%B %d, %Y %H:%M'
+      #>short: '%d %b %H:%M'
+    pm: 'pm'

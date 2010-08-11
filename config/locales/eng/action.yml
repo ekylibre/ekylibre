@@ -263,15 +263,11 @@ eng:
     production: 'Production'
     relations: 'Relationships'
   labels:
-    account: 
-      children: 'Children Account'
-      entities: 'Entities'
-      journal_entries: 'Entry Journal'
     account_accruals: 'Accurals Account'
     account_attorney_to_create: 'Account attorney to create'
     account_claims_assets: 'Claims'
     account_client_to_create: 'Account client to create'
-    account_create: 'Save new account'
+    account_create: 'Save new account' #!
     account_current_assets: 'Current Asset'
     account_debt: 'Debt'
     account_equity: 'Equity'
@@ -284,60 +280,47 @@ eng:
     account_others_assets: 'Others'
     account_provision: 'Provisions for risks and charges'
     account_supplier_to_create: 'Account supplier to create'
+    account_tabbox:
+      children: 'Children Account'
+      entities: 'Entities'
+      journal_entries: 'Entry Journal'
     account_tangible_fixed_assets: 'Tangible Fixed Assets'
     account_untangible_fixed_assets: 'Untangible Fixed Assets'
     account_update: 'Update account'
     account_value_current: 'Current Value'
     account_value_previous: 'Previous Value'
-    accountancy: 'Accountancy'                                                  # in view accountancy#_cash_accountancy_form
-    accountancy: 'Accountancy'                                                  # in view company#configure
-    accountancy: 'Accountancy'                                                  # in view management#_location_form
-    accountancy: 'Accounting'                                                   # in view management#_sale_payment_mode_form
-    accountancy: 'Accounting'                                                   # in view management#_purchase_payment_mode_form
-    accountancy: 'Accountancy'                                                  # in view company#index
-    accountancy: 'Accountancy'                                                  # in view management#_product_form
+    accountancy: 'Accountancy'
     accountancy_rights: 'Accountancy'
-    accounts: 'Used accounts'                                                   # in view accountancy#general_ledger
-    accounts: 'Comptes comptables utilisés'                                    # in view accountancy#balance
+    accounting_balance: 'Accounting balance'
+    accounts: 'Accounts'
     active: 'Active'
     active_balance_sheet: 'Active Bilance'
     active_current_sum: 'Total Financial Asset'
     active_fixed_sum: 'Total Fixed Asset'
     active_sum: 'Total Assets'
     add: 'Add'
-    add: 'Add delivery to transport'                                            # in view management#_transport_deliveries
     add_condition: 'Add condition'
     add_conditions: 'Add conditions'
     add_delivery: 'Add delivery'
     add_payment: 'Add payment'
-    address: 'Address' #3
-    all: 'All' #5
+    address: 'Address'
+    all_accounts: 'All accounts'
     all_areas: 'All postal areas'
     all_conditions: 'All conditions'
+    all_periods: 'All financial years'
     already_credited_quantity: 'Already credited quantity'
-    amount: 'Amount'                                                            # in view management#_delivery_form
-    amount: 'Amount'                                                            # in view management#sale_order_deliveries
-    amount: 'Amount'                                                            # in view management#embankment
-    amount: 'Amount'                                                            # in view management#undelivered_sales
-    amount: 'Amount'                                                            # in view management#sale_order_lines
-    amount: 'Total Tax to pay'                                                  # in view accountancy#tax_declaration
-    amount: 'Amount'                                                            # in view management#_csv_statistics
-    amount: 'Amount'                                                            # in view management#statistics
-    amount: 'Amount'                                                            # in view relations#entity
-    amount: 'Amount'                                                            # in view management#unreceived_purchases
-    amount: 'Amount'                                                            # in view management#purchase_order_lines
+    amount: 'Pre-tax amount'
     amount_to_add: 'Total to add'
     amount_to_reduce: 'Total to reduce'
-    amount_with_taxes: 'Amount with taxes' #9
+    amount_with_taxes: 'Amount with taxes'
     apply: 'Apply'
     are_you_sure: 'Are you sure you want to do this?'
     are_you_sure_to_confirm: 'Are you sure you want to order'
     are_you_sure_to_delete: 'Are you sure you want to delete this record?'
-    are_you_sure_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
-    are_you_sure_to_invoice: 'Are you sure you want to invoice'                 # in view management#sale_order_lines
-    are_you_sure_to_invoice: 'Are you sure you want to invoice?'                # in view management#sale_order_deliveries
+    are_you_sure_to_delete_delivery: 'Are you sure you want to remove the delivery of transport?'
+    are_you_sure_to_invoice: 'Are you sure you want to invoice?'
     are_you_sure_to_send_mails: 'Are you sure you want to send emails?'
-    area_create: 'Add a new postal area'
+    area_create: 'Add a new postal area' #!
     area_x: '{{name}} ({{postcode}})'
     assessable_operations: 'Assessable Operations (without tax)'
     assimilated_tax: 'Assimilated Taxes'
@@ -345,9 +328,9 @@ eng:
     attorney: 'Attorney'
     available_columns: 'Available columns: {{columns}}'
     back: 'Back to the previous page'
-    back: 'Validate and come back to transports'                                # in view management#_transport_deliveries
-    backup: 'Back up'
-    bad_browser: 
+    backup: 'Backup'
+    backups: 'Backups'
+    bad_browser:
       explanation: 'This browser version is not supported by Ekylibre. Using this browser, pages are not displayed correctly and features are missing.'
       proposal: 'Please plan to update you with one of these browsers:'
       title: 'Your web browser seems to be obsolete'
@@ -357,74 +340,73 @@ eng:
         ie: 'Internet Explorer'
         opera: 'Opera'
         safari: 'Safari'
-    balance: 'Tax Balance'                                                      # in view accountancy#tax_declaration
-    balance: 'Balance'                                                          # in view accountancy#journal
-    balance: 'Balance'                                                          # in view accountancy#balance
-    balance: 'Balance'                                                          # in view accountancy#account
-    balance: 'Final balance'                                                    # in view accountancy#bank_statement_point
-    balance: 'Balance'                                                          # in view accountancy#document_print
-    balance: 'Balance'                                                          # in view accountancy#document_prepare
-    bank_accounts: ''
-    bank_statement_point: 'Bank Statement Point'
-    bank_statement_update: 'Update bank Statement'                              # in view accountancy#bank_statement
-    bank_statement_update: 'Update Statement'                                   # in view accountancy#bank_statement_point
+    balance: 'Balance'
+    bank_statement_point: 'Point bank statement'
+    bank_statement_update: 'Update bank statement'
+    begins: 'Starts with'
     body: 'Body of the message'
-    canals: 'Canals' #2
+    canals: 'Canals'
     cancel: 'Cancel'
     cancelled: 'Cancelled'
-    cash:                                                                       # in view accountancy#cash
-      bank_statements: 'Bank Statement'                                         # in view accountancy#cash
-      embankments: 'Embankments'                                                # in view accountancy#cash
-    cash: 'Cash'                                                                # in view management#unvalidated_embankments
-    cash_update: 'Update Cash'
-    cashes: 
+    cash: 'Cash'
+    cash_create: 'Add a new cash' #!
+    cash_tabbox:
+      bank_statements: 'Bank statements'
+      embankments: 'Embankments'
+    cash_update: 'Update cash'
+    cashes:
       one: 'One'
       other: 'Other'
       zero: 'Zero'
     catalog: 'Catalog'
+    category: 'Category'
+    category_name: 'Category'
     centralize: 'Centralize account'
     centralized_account: 'Centralize account {{name}}'
-    change_price: 'Change price' #2
+    change_price: 'Change price'
+    changes_reflected: 'Reflected changes'
     check: 'Check'
+    check_fields: 'You have to check at least one box in order to update'
     choices: 'Choices'
     choose_mail_column: 'Choose email column'
     city_name: 'City name'
     click_to_mail: 'Click to email with your own mail software'
-    client: 'Client' #5
-    client_balance: 'Client balance' #2
+    client: 'Client'
+    client_balance: 'Client balance'
+    client_code: 'Code client'
+    client_informations: 'Client informations'
+    client_phone: 'Phone'
     close: 'Close'
-    close: 'Close period'                                                       # in view accountancy#financialyear_close
-    close: 'Close the journal'                                                  # in view accountancy#journal_close
-    closed: 'Locked'                                                            # in view accountancy#balance
-    closed: 'closed'                                                            # in view accountancy#general_ledger
-    code: 'Code'
+    close_financialyear: 'Close period'
+    close_journal: 'Close the journal'
+    closed: 'Closed'
     column: 'Column'
-    column_family: 'Damily'
+    column_family: 'Family'
     column_organization: 'Organization'
     column_title: 'Title'
     columns: 'Columns to import'
     commission: 'Commission'
     company_rights: 'Company'
-    complement_choice_create: 'Complement choice create'
+    complement_choice_create: 'Complement choice create' #!
+    complement_create: 'Add a new personalized field' #!
     complement_sort: 'Complement sort'
     complement_update: 'Complement update'
     complements: 'Complements'
     components: 'Components'
-    conditions: 'Conditions of payment'                                         # in view management#_sale_order_nature_form
-    conditions: 'Conditions'                                                    # in view management#_sale_order_form
-    conditions:                                                                 # in view relations#entities_export
-      filter_on_attribute_of_class: 'Filter on attribute of class'              # in view relations#entities_export
-      special-subscriber: 'Special-subscriber'                                  # in view relations#entities_export
-    confirmed: 'Confirmed' #2
+    conditions:
+      filter_on_attribute_of_class: 'Filter on attribute of class'
+      special-subscriber: 'Special-subscriber'
+    confirmed: 'Confirmed'
     confirmed_on: 'Confirmed on'
     connect: 'Login'
     consult: 'Consult'
-    contact: 'At' #2
-    contact_create: 'Contact create'
-    contacts: 
+    contact: 'At'
+    contact_create: 'Contact create' #!
+    contacts:
       one: 'One'
       other: 'Other'
       zero: 'Zero'
+    contains: 'Contains'
     coordinates: 'Coordinates'
     copy_of: 'Copy of {{source}}'
     cost_income_statement: 'Cost Income Statement'
@@ -435,65 +417,69 @@ eng:
     created_between: 'Created between {{started_on}} and {{stopped_on}}'
     created_on: 'Created on'
     credit: 'Credit'
-    credits: 'Credits' #2
-    critic_stock_min: 'Critic stock min' #2
-    csv_statistics: 'CSV statistics'                                            # in view management#_csv_statistics
-    csv_statistics: 'Csv statistics'                                            # in view management#statistics
+    credits: 'Credits'
+    critic_stock_min: 'Critic stock min'
+    csv_statistics: 'CSV statistics'
     cumul: 'Accumulation of tattle and previous balance N°{{number}}'
     current: 'Current'
     current_letter: 'Lettering in process: {{letter}}'
-    data_to_export: 'Data to export' #2
+    data_to_export: 'Data to export'
     data_to_extract: 'Data to extract'
     dates: 'Select period start date and Period end date'
     debit: 'Debit'
     decimal_case: 'Decimal case'
     default_subject: '[{{company}}]'
+    delay_create: 'Add a new delay' #!
     delay_update: 'Edit delay'
     delays: 'Delays'
     delete: 'Delete'
-    deliver: 'Deliver'                                                          # in view management#undelivered_sales
-    deliver: 'Delivered on'                                                     # in view management#sale_order_deliveries
-    deliveries: 'Deliveries' #4
-    delivery: 'Delivery' #2
-    delivery_create: 'Add a delivery'
+    deliver: 'Delivered on'
+    deliveries: 'Deliveries'
+    delivery: 'Delivery'
+    delivery_create: 'Add a delivery' #!
     delivery_natural_gas_and_electricity_assessable: 'Assessable delivery of natural gas and electricity'
     delivery_natural_gas_and_electricity_not_assessable: 'Not Assessable delivery of natural gas and electricity'
+    department_create: 'Add anew department' #!
     departments: 'Departments'
-    description: 'Description' #3
+    description: 'Description'
     details: 'Details'
-    discount: 'Discount'                                                        # in view management#_sale_order_line_row_form
-    discount: 'Discount (%)'                                                    # in view management#_sale_order_line_detail_row_form
-    display: 'display'
-    display: 'Display'                                                          # in view management#prices
+    discount: 'Discount (%)'
+    display: 'Display'
     display_help: 'Display help'
+    district_create: 'Add a new district' #!
     district_x: '{{name}} ({{code}})'
+    document_natures: 'Document natures'
+    document_template_create: 'Add a new document template' #!
+    document_templates: 'Document templates'
     dont_use_journal: '-- Do not use journal --'
     down: 'Down'
     down_to_level: 'Down to level'
     download_firefox: 'Download Mozilla Firefox...'
-    downpayment: 'Downpayment parameters'                                       # in view management#_sale_order_nature_form
-    downpayment: 'Downpayment'                                                  # in view management#_sale_payment_part_form
-    draft: 'draft' #2
+    downpayment: 'Downpayment'
+    draft: 'draft'
     draft_entries: 'Draft entries'
     duplicate: 'Duplicate'
-    duration: '{{hours}}h {{minutes}}min'
-    duration: 'Duration'                                                        # in view production#_operation_form
-    dyta: ''
+    duration: 'Duration'
+    duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
     edit: 'Edit'
     ekylibre: 'www.ekylibre.org'
-    embankable: 'More informations' #2
-    embankment: 'Embankment' #2
-    embankment_create: 
+    email: 'Email:'
+    embankable: 'More informations'
+    embankment: 'Embankment'
+    embankment_create:
       one: 'Make an embankment {{mode}}: 1 payment'
       other: 'Make an embankment {{mode}}: {{count}} payments'
       zero: 'Make an embankment {{mode}}: no payments'
     embankment_update: 'Embankment update'
     employee_name: 'Employee'
     end: 'to'
+    entities_export: 'Export as a CSV file'
+    entities_import: 'Import a CSV file'
     entities_merge: 'Entities merge'
+    entity_category_create: 'Add a new entity category' #!
     entity_category_update: 'Update category'
-    entity_link_create: 'Entity link create'
-    entity_links: 
+    entity_link_create: 'Entity link create' #!
+    entity_links:
       one: 'One'
       other: 'Other'
       zero: 'Zero'
@@ -504,140 +490,114 @@ eng:
     entries: 'Entries'
     entries_to_point: 'Entries pointing to'
     error_no_file: 'No help is available for this part of the application ({{article}}). Help has not yet been written. You can visit online website for more information.'
+    error_sale_order_already_paid: 'The sale order is already paid'
     errors_explanation: 'There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import.'
     establish_capital_goods: 'Established Capital Goods'
     establishment: 'Establishment'
+    establishments: 'Establissements'
+    estimate: 'Estimate'
     estimate_to_order: 'Estimate to order'
     europe_out_export: 'Export outside Country'
-    event_create: 'Event create'
-    events:                                                                     # in view relations#entity
-      one: 'One'                                                                # in view relations#entity
-      other: 'Other'                                                            # in view relations#entity
-      zero: 'Zero'                                                              # in view relations#entity
-    events:                                                                     # in view company#user_statistics
-      one: 'One event {{nature}} for a total duration of {{duration}} minutes'  # in view company#user_statistics
-      other: '{{count}} events {{nature}} for a total duration of {{duration}} minutes'# in view company#user_statistics
-      zero: 'No events {{nature}}'                                              # in view company#user_statistics
+    event_create: 'Event create' #!
     example: 'Example&nbsp;: {{value}}'
-    executed: 'Executed' #2
+    executed: 'Executed'
     existing_part: 'Existing part'
-    export: 'Export'                                                            # in view company#backups
-    export: 'Export'
-    export: 'Export documents'                                                  # in view accountancy#document_print
+    exit: 'Exit'
+    expedier: 'Expedier'
+    export: 'Export documents'
+    export_backup: 'Export backup'
+    exportation: 'Exportation'
     extract: 'Extract'
-    file_nature: 'File type' #2
+    fax: 'Fax'
+    file_nature: 'File type'
     file_to_download: 'File to upload'
     file_to_import: 'File to upload'
-    filter: 'Filter' #2
+    file_to_upload: 'File to upload'
+    filter: 'Filter'
     filter_entries_with: 'Filter entries with'
-    financial_state: 'Financial state' #2
-    financialyear_create: 'Open a New Period'
+    financial_state: 'Financial state'
+    financialyear_create: 'Open a New Period' #!
     finish: 'Finish'
     finished_income_statement: 'Income'
     finished_sum: 'Total Income'
-    format_date: 
+    finishes: 'Finishes with'
+    first_contact: 'Principal address'
+    format_date:
       iso: '(YYYY-MM-DD)'
     free_purchases: 'Free purchases'
     from: 'From'
-    from: 'From'                                                                # in view management#subscription_message
-    from: 'From'                                                                # in view management#_sale_order_line_detail_row_form
-    from: 'From'                                                                # in view management#_sale_order_line_row_form
-    from: 'Period from'                                                         # in view accountancy#_print_balance
-    from: 'From'                                                                # in view company#listing_mail
-    from_date: 'From date'                                                      # in view management#subscription_message
-    from_date: 'From'                                                           # in view management#sale_order_line_informations
+    full_name: 'Client'
     future_events: 'Future events'
-    general: 'General'                                                          # in view management#_shelf_form
-    general: 'General parameters'                                               # in view company#configure
-    general: 'General Description'                                              # in view accountancy#_cash_form
-    general: 'General'                                                          # in view relations#_complement_form
-    general: 'General'                                                          # in view management#_price_form
-    general: 'General'                                                          # in view management#purchase_order_lines
-    general: 'General'                                                          # in view management#_sale_payment_mode_form
-    general: 'General'                                                          # in view management#_sale_order_nature_form
-    general: 'General'                                                          # in view management#sale_order_lines
-    general: 'General'                                                          # in view management#_delay_form
-    general: 'General'                                                          # in view management#_purchase_payment_mode_form
-    general: 'General'                                                          # in view relations#_contact_form
-    general_informations: 'General Information'                                 # in view accountancy#financialyear
-    general_informations: 'General informations'                                # in view management#purchase_order
-    general_informations: 'General informations'                                # in view management#sale_order
+    general: 'General'
+    general_informations: 'General informations'
     general_ledger: 'General ledger'
-    give_discount: 'Give discount' #2
+    give_discount: 'Give discount'
     go: 'Go'
     graph_statistics: 'Graph statistics'
+    help: 'Aide'
+    hint: 'Hint&nbsp;: %{value}'
     home: 'Back to Help home'
-    hour_duration: 
+    hour_duration:
       one: 'Total used time: 1 hour'
       other: 'Total used time: 1 hour: {{count}} hours'
       zero: 'No Time used'
     iban: 'International Bank Account Number (IBAN)'
     identification: 'Identification'
-    import: 'Import' #3
+    import: 'Import'
+    import_backup: 'Import backup'
     importation_explanation: 'Importation explanation'
     in_line_create: 'Add a new incoming product'
     include_blank: 'Include blank'
     income_statement: 'Income Statement'
-    index: 'Back to Production'                                                 # in view production#unvalidated_operations
-    index: 'Index'                                                              # in view management#unexecuted_transfers
-    indicator: 'Dashboard'
-    indicator: 'Indicators'                                                     # in view production#index
+    indicator: 'Indicators'
     info: 'General parameters'
-    infos: 'Infos'                                                              # in view management#_sale_order_line_form
-    infos: 'Input Operation caracteristics'                                     # in view production#_operation_form
-    infos: 'General parameters'                                                 # in view management#_purchase_order_form
-    infos: 'Informations about the Shape'                                       # in view production#_shape_form
-    infos: 'Infos'                                                              # in view management#_delivery_form
-    infos: 'Informations'                                                       # in view management#_embankment_form
-    infos: 'Product and quantity'                                               # in view management#_sale_order_line_detail_form
+    infos: 'Product and quantity'
     insert_actual_password: 'Enter your actual password'
     insert_password: 'Enter your new password'
     international_normal_vat_collected: 'International Normal Tax collected'
     international_reduce_vat_collected: 'International Reduced Tax collected'
     international_vat_collected: 'International Tax Collected'
     interval: 'Personalized Interval'
-    inventory: 'Enter the real quantities'                                      # in view management#inventory_create
-    inventory: 'Inventory'                                                      # in view management#inventory_update
+    inventory: 'Inventory'
     inventory_print: 'Print inventory'
-    invoice: 'Invoice'                                                          # in view management#sale_order_summary
-    invoice: 'Invoices'                                                         # in view management#_csv_statistics
-    invoice: 'Invoice'                                                          # in view management#statistics
-    invoice: 'Invoicing'                                                        # in view management#sale_order_deliveries
+    invoice: 'Invoicing'
     invoice_cancel: 'Cancel invoice'
     invoice_lines: 'Invoice lines'
     invoice_number: 'Invoice'
     invoice_print: 'Print invoice'
     invoice_sale_order: 'Invoice sale order'
     invoiced_amount: 'Invoiced amount'
-    invoices: 'Invoices'                                                        # in view management#sale_order
-    invoices:                                                                   # in view relations#entity
-      one: 'One'                                                                # in view relations#entity
-      other: 'Other'                                                            # in view relations#entity
-      zero: 'Zero'                                                              # in view relations#entity
+    invoices: 'Invoices'
+    invoices_states:
+      all: 'All'
+      cancelled: 'Cancelled'
+      credits: 'Credits'
     invoices_total: 'Invoices total'
+    is: 'Is'
     journal: 'Journal'
     journal_detail: 'Closing on {{closed_on}}'
     journal_entries: 'Entries Journal'
-    journal_entries_states: 'Used Entries Statement'                            # in view accountancy#general_ledger
-    journal_entries_states: 'Status of used entries'                            # in view accountancy#balance
+    journal_entries_states: 'Status of used entries'
     journal_name: '{{name}}'
     journal_record_update: 'Update document'
     journal_update: 'Update Journal'
-    journal_view: 
+    journal_view:
       draft_entries: 'Draft entries'
       entries: 'Entries'
       mixed: 'Documents and entries'
       records: 'Documents'
-    journals: 'General Journals'                                                # in view accountancy#document_prepare
-    journals: 'Journals'                                                        # in view accountancy#index
+    journals: 'Journals'
+    last_payment_amount: 'Amount of the last payment'
+    last_payment_date: 'Date of the last payment'
     left_balance_amount: 'Left Balance Amount'
-    letter: 'Letter' #2
+    letter: 'Letter'
     letter_conclusion: 'Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration.'
     letter_function_title: 'Dear madam, dear sir'
     letter_introduction: 'Following our conversation, I give you the elements of the estimate.'
+    letter_options: 'Letter options'
     lettering_account_client: 'Lettering Customer accounts'
     lettering_account_supplier: 'Lettering Suppliers aacounts'
-    lettering_modes: 
+    lettering_modes:
       attorneys: 'Attorneys'
       clients: 'Customers'
       suppliers: 'Suppliers'
@@ -646,44 +606,41 @@ eng:
     line_amount: 'Unit price'
     line_amount_with_taxes: 'Unit price with taxes'
     line_stock: 'Warehouse: {{location}}, available quantity: {{virtual_q}}'
-    lines: 'Lines'                                                              # in view management#purchase_order
-    lines: 'Incoming and Outgoing'                                              # in view production#operation
-    lines: 'Lines'                                                              # in view management#sale_order
-    lines: 'Lines'                                                              # in view management#sale_order_lines
-    lines: 'Lines'                                                              # in view management#purchase_order_lines
+    lines: 'Lines' #!
     listing_extract: 'Extract listing'
     listing_mail: 'Email a listing'
+    listings: 'Listings'
     load_demo_data: 'Load demo data'
     locale: 'Language'
     localization: 'Localization'
-    location: 'Location'                                                        # in view management#_stock_indicator
-    location:                                                                   # in view management#location
-      stock_moves: 'Stock moves'                                                # in view management#location
-      stocks: 'Stocks'                                                          # in view management#location
-    location: 'Warehouse'                                                       # in view management#_sale_order_line_detail_row_form
-    location: 'Warehouse'                                                       # in view management#_sale_order_line_row_form
+    location: 'Warehouse'
     location_name: 'Location name'
+    location_tabbox:
+      stock_moves: 'Stocks moves'
+      stocks: 'Stocks'
     location_update: 'Location update'
     locations: 'Locations'
     lock: 'Lock'
     low_stocks: 'Stocks below critical threshold'
     mail: 'Send an email'
-    mails: 
+    mailing: 'Mailing'
+    mails:
       one: 'One email'
       other: '{{count}} emails'
       zero: 'No emails'
-    management: 'Management'                                                    # in view company#configure
-    management: 'Management (Sales, purchases and stocks)'                      # in view company#index
-    management_index: 'Management index' #3
+    management: 'Management (Sales, purchases and stocks)'
+    management_index: 'Management index'
     management_rights: 'Management'
-    mandate_create: 'Mandate create' #2
-    mandates: 
-      one: 'One'
-      other: 'Other'
-      zero: 'Zero'
+    mandates:
+      one: 'One mandate'
+      other: '{{count}} mandates'
+      zero: 'No mandates'
+    mandates_fields: 'You have to fill at least one field'
+    mandates_filters: 'You have to fill at least one filter'
+    mandates_new_fields: 'You have to fill at least one new field'
     manual_period: 'from {{start}} to {{finish}}'
     meeting: 'Meeting'
-    menu: 
+    menu:
       accountancy_tasks: 'Tasks'
       accountize: 'Accounting transfer'
       bank_statements: 'Bank statements'
@@ -700,101 +657,74 @@ eng:
       tools: 'Tools'
     merge: 'Merge'
     missing_help: 'Missing page'
+    mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
+    mobile: 'Mobile'
     modules: 'Modules'
-    moment: ''
+    month_period: '%{code} - %{month} %{year}'
     monthly: 'Monthly'
+    moved_on: 'Made on'
     moves: 'Moves'
     my_company: 'About your company'
     my_self: 'About you'
     n: 'Non'
-    name: 'Name' #3
+    name: 'Name'
     national_deliveries: 'National Deliveries'
     national_normal_vat_collected: 'National Normal Tax collected'
     national_reduce_vat_collected: 'National Reduced Tax collected'
     national_vat_collected: 'National Tax collected'
-    nature: 'Type'                                                              # in view relations#entity
-    nature: 'Nature'                                                            # in view management#unexecuted_transfers
-    nature: 'Nature'                                                            # in view management#_stock_move_form
-    nature: 'Type'                                                              # in view production#unvalidated_operations
-    nature: 'Nature'                                                            # in view management#_product_form
-    nb_checks: ''
-    nb_enbankments: 
+    nature: 'Nature'
+    nb_enbankments:
       one: '{{count}} embankment to validate'
       other: '{{count}} embankments to validate'
       zero: 'No embankments to validate'
-    nb_entities:                                                                # in view company#index
-      one: 'One person'                                                         # in view company#index
-      other: '{{count}} people'                                                 # in view company#index
-      zero: 'No people'                                                         # in view company#index
-    nb_entities:                                                                # in view relations#entities
-      one: 'One'                                                                # in view relations#entities
-      other: 'Other'                                                            # in view relations#entities
-      zero: 'Zero'                                                              # in view relations#entities
-    nb_entities:                                                                # in view relations#index
-      one: 'One'                                                                # in view relations#index
-      other: 'Other'                                                            # in view relations#index
-      zero: 'Zero'                                                              # in view relations#index
-    nb_entries: 
+    nb_entities:
+      one: 'One person'
+      other: '{{count}} people'
+      zero: 'No people'
+    nb_entries:
       one: '1 entries'
       other: '{{count}} entries '
       zero: 'Aucune entries'
-    nb_invoices:                                                                # in view management#invoices
-      one: 'One'                                                                # in view management#invoices
-      other: 'Other'                                                            # in view management#invoices
-      zero: 'Zero'                                                              # in view management#invoices
-    nb_invoices: ''                                                             # in view accountancy#accountize
-    nb_mandates: 
-      one: 'One'
-      other: 'Other'
-      zero: 'Zero'
-    nb_operations: 
+    nb_invoices:
+      one: '1 invoice'
+      other: '%{count} invoices'
+      zero: '0 invoices'
+    nb_mandates:
+      one: 'One mandate'
+      other: '{{count}} mandates'
+      zero: 'No mandates'
+    nb_operations:
       one: '1 Operation performed'
       other: '{{count}} Operation performed'
       zero: 'No Operation performed'
-    nb_payments: ''                                                             # in view accountancy#accountize
-    nb_payments:                                                                # in view management#index
-      one: '{{count}} payment to embank'                                        # in view management#index
-      other: '{{count}} payments to embank'                                     # in view management#index
-      zero: 'No payments to embank'                                             # in view management#index
-    nb_payments: ''                                                             # in view management#sale_payments
-    nb_products: 
-      one: 'One'
-      other: 'Other'
-      zero: 'Zero'
-    nb_purchases: ''                                                            # in view company#index
-    nb_purchases:                                                               # in view management#index
-      one: 'One'                                                                # in view management#index
-      other: 'Other'                                                            # in view management#index
-      zero: 'Zero'                                                              # in view management#index
-    nb_purchases: ''                                                            # in view accountancy#accountize
-    nb_purchases: ''                                                            # in view management#purchase_orders
-    nb_sales:                                                                   # in view management#sale_orders
-      one: 'One'                                                                # in view management#sale_orders
-      other: 'Other'                                                            # in view management#sale_orders
-      zero: 'Zero'                                                              # in view management#sale_orders
-    nb_sales: ''                                                                # in view accountancy#accountize
-    nb_sales:                                                                   # in view company#index
-      one: 'One waiting delivery'                                               # in view company#index
-      other: '{{count}} waiting deliveries'                                     # in view company#index
-      zero: 'No waiting deliveries'                                             # in view company#index
-    nb_sales:                                                                   # in view company#user_statistics
-      one: 'One sale order'                                                     # in view company#user_statistics
-      other: '{{count}} sale orders'                                            # in view company#user_statistics
-      zero: 'No sale orders'                                                    # in view company#user_statistics
-    nb_sales:                                                                   # in view management#index
-      one: 'One'                                                                # in view management#index
-      other: 'Other'                                                            # in view management#index
-      zero: 'Zero'                                                              # in view management#index
-    nb_transfers: ''                                                            # in view accountancy#accountize
-    nb_transfers:                                                               # in view management#index
-      one: 'One'                                                                # in view management#index
-      other: 'Other'                                                            # in view management#index
-      zero: 'Zero'                                                              # in view management#index
-    nb_years: 'Nb years'                                                        # in view management#_csv_statistics
-    nb_years: 'Nb years'                                                        # in view management#statistics
-    nb_years: 'Years'                                                           # in view management#_graph_statistics
+    nb_payments:
+      one: '1 sale payment to embank'
+      other: '%{count} sale payments to embank'
+      zero: 'No sale payments to embank'
+    nb_products:
+      one: 'One product'
+      other: '{{count}} products'
+      zero: 'No products'
+    nb_purchases:
+      one: '1 waiting purchase'
+      other: '%{count} waiting purchases'
+      zero: 'No waiting purchases'
+    nb_sales:
+      one: 'One sale'
+      other: '{{count}} sales'
+      zero: 'No sales'
+    nb_transfers:
+      one: 'One transfert to make'
+      other: '{{count}} transferts to make'
+      zero: 'No transferts to make'
+    nb_waiting_deliveries:
+      one: '1 waiting delivery'
+      other: '%{count} waiting deliveries'
+      zero: 'No waiting deliveries'
+    nb_years: 'Years'
+    need_entities_to_consult_mandates: 'You have to create some people before using mandates'
+    need_location_to_create_production: 'You have to register a warehouse before using production'
     net_vat_amount: 'Net VAT amount'
-    new: 'New'                                                                  # in view management#_sale_payment_part_form
     new: 'New...'
     new_family: 'New family'
     new_organization: 'New organization'
@@ -802,45 +732,45 @@ eng:
     new_sale: 'New sale'
     new_title: 'New title'
     new_value: 'New value'
-    next: 'Suivant'
+    next: 'Next'
     no_commercial: 'No commercial'
+    no_contacts: 'No address defined for %{name}'
     no_deliveries: 'No deliveries'
     no_deliveries_for_this_sale_order: 'No deliveries for this sale order'
     no_embankments: 'No embankments'
+    no_filters: '--- No filters ---'
     no_javascript: 'Your web browser don''t support javascript. You need to activate it in order to use Ekylibre.'
     no_origin: 'No origin'
     no_products: 'No products'
     no_proposer: 'No proposer'
     no_purchases: 'No purchases'
     no_records: 'No records'
-    no_tracking: 'No tracking' #2
+    no_tracking: 'No tracking'
     no_transfers: 'No transfers'
     normal: 'Normal'
     not_assessable_operations: 'Not Assessable Operations'
-    notifications: 
+    not_begins: 'Do not start with'
+    not_contains: 'Do not contains'
+    not_finishes: 'Do not finish with'
+    not_is: 'Is not'
+    notifications:
       error: 'Error'
       information: 'Information'
       success: 'Success'
       warning: 'Warning!'
-    number: 'Number' #2
-    observation_create: 'Observation create'
-    observations: 
+    number: 'Number'
+    observation_create: 'Observation create' #!
+    observations:
       one: 'One'
       other: 'Other'
       zero: 'Zero'
     on_account: 'On account'
     one_condition: 'One condition'
-    operation: ''
-    operation_create: 'Create a new Operation'                                  # in view production#operations
-    operation_create: 'Add an Operation'                                        # in view production#shape
-    operation_nature_create: 'Create a new type of Operation'
+    operation_lines: 'Incoming and outgoing products'
+    operation_nature_create: 'Create a new type of operation' #!
     operation_update: 'Update Operation'
-    operations:                                                                 # in view production#tool
-      one: '1 Operation'                                                        # in view production#tool
-      other: '{{count}} Operations'                                             # in view production#tool
-      zero: 'No Operations'                                                     # in view production#tool
-    operations: 'Operations'                                                    # in view management#tracking
-    operations: 'Operations'                                                    # in view production#shape
+    operations: 'Operations'
+    order: 'Order'
     order_amount_with_taxes: 'Order amount with taxes'
     order_print: 'Order print'
     other_results: 'Other results...'
@@ -853,9 +783,10 @@ eng:
     overflow: 'Overflow'
     page_title: '{{company_code}} - {{controller}} - {{action}}'
     page_title_by_default: 'Ekylibre - {{controller}} - {{action}}'
-    paid_amount: 'Paid amount' #2
+    paid_amount: 'Paid amount'
     paid_on: 'Paid on'
     parameters: 'Parameters'
+    parts_amount: 'Paid amount'
     passive_balance_sheet: 'Passive Bilance Sheet'
     passive_capital_sum: 'Total Passive Captial'
     passive_debt_sum: 'Total debts'
@@ -863,102 +794,76 @@ eng:
     passive_sum: 'Total Passives'
     password: 'Password'
     payback: 'Payback'
+    payment_amount: 'Sale payment amount'
     payment_label: 'Payment label'
     payment_mode: 'Payment mode'
     payment_on: 'Payment on'
     payment_parts: 'Payment parts'
-    payments: 'Payments'                                                        # in view management#sale_order_summary
-    payments: ''                                                                # in view relations#entity
-    payments: 'Payments'                                                        # in view management#purchase_order_summary
-    payments: 'Payments'                                                        # in view management#sale_order
-    payments: 'Payments'                                                        # in view management#_embankment_form
+    payments: 'Payments'
     payments_amount: 'Payments amount'
     payments_count: 'Payments count'
     payments_number: 'Payments number'
     payments_total: 'Payments total'
-    period: 'Period'                                                            # in view accountancy#_document_options
-    period: 'Predefined Period'                                                 # in view accountancy#_journals_search
-    period: 'Period'                                                            # in view accountancy#_tax_declaration_form
+    period: 'Period'
     permute: 'Permute'
     personalized_mail: 'Send a personalized mail'
     pertinence: '{{value}}%'
-    planned_on: 'Planned on' #4
+    phone: 'Pho.'
+    planned_on: 'Planned on'
     previous: 'Previous'
     previous_bank_statement: 'Previous account statement N°{{number}}'
+    price: 'Price'
     price_amount: 'Price amount'
     price_amount_with_taxes: 'Price amount with taxes'
-    prices:                                                                     # in view relations#entity_category
-      one: 'One'                                                                # in view relations#entity_category
-      other: 'Other'                                                            # in view relations#entity_category
-      zero: 'Zero'                                                              # in view relations#entity_category
-    prices: 'Prices'                                                            # in view management#product
-    prices_export: 'Export prices in CSV'                                       # in view management#prices
-    prices_export: 'Export your prices in CSV'                                  # in view management#prices_import
-    print: 'Print'
-    print: 'Print documents'                                                    # in view accountancy#document_print
+    prices: 'Prices' #!
+    prices_export: 'Export your prices in CSV'
+    prices_for_all: 'All the prices'
+    prices_for_client: 'Prices of sale'
+    prices_for_suppliers: 'Prices of purchase of supplier'
+    prices_import: 'Importer un fichier CSV'
+    print: 'Print documents'
     print_on: 'Print on'
-    product: 'Product'                                                          # in view management#_stock_move_form
-    product: 'Product'                                                          # in view management#invoice_cancel
-    product: 'Product'                                                          # in view management#_csv_statistics
-    product: 'Product'                                                          # in view management#_delivery_form
-    product: 'Product'                                                          # in view management#_sale_order_line_detail_row_form
-    product: 'Product'                                                          # in view management#_sale_order_line_row_form
-    product: 'Product'                                                          # in view management#inventory_create
-    product: 'Product'                                                          # in view management#_graph_statistics
-    product:                                                                    # in view management#product
-      components: 'Components'                                                  # in view management#product
-      prices: 'Prices'                                                          # in view management#product
-      stock_moves: 'Stock moves'                                                # in view management#product
-      stocks: 'Stocks'                                                          # in view management#product
-    product_component_create: 'Product component create'
+    print_with_template: 'Print %{name}'
+    product: 'Product'
+    product_component_create: 'Product component create' #!
     product_name: 'Product name'
+    product_tabbox:
+      components: 'Components'
+      prices: 'Prices'
+      stock_moves: 'Stock moves'
+      stocks: 'Stocks'
     product_update: 'Product update'
     production: 'Production management'
     production_rights: 'Production'
     productions: 'Productions'
-    products: 'Incoming and Outgoing Products'                                  # in view production#_operation_form
-    products: 'Products'                                                        # in view management#product
-    products: 'Products'                                                        # in view management#shelf
-    products: 'Products'                                                        # in view management#purchase_order_summary
+    products: 'Products'
     purchase: 'Purchase'
-    purchase_order_create: 'Purchase order create'
-    purchase_order_line_create: 'Add a new line'
+    purchase_order: 'Purchase order'
+    purchase_order_create: 'Purchase order create' #!
+    purchase_order_line_create: 'Add a new line' #!
     purchase_order_lines: 'Purchase order lines'
     purchase_order_price_create: 'Add a new purchase price'
-    purchase_order_print: 'Purchase order print' #2
+    purchase_order_print: 'Purchase order print' #!
     purchase_order_update: 'Purchase order update'
-    purchase_orders: 'Purchase orders'                                          # in view management#purchase_order_lines
-    purchase_orders:                                                            # in view relations#entity
-      one: 'One'                                                                # in view relations#entity
-      other: 'Other'                                                            # in view relations#entity
-      zero: 'Zero'                                                              # in view relations#entity
-    purchase_orders_number: ''
-    purchase_payment_create: 'Purchase payment create'
-    purchase_payment_part_create: 'Purchase payment part create' #2
+    purchase_orders: 'Purchase orders'
+    purchase_payment_part_create: 'Purchase payment part create'
     purchase_payment_update: 'Edit the payment'
-    purchase_payments: 
+    purchase_payments:
       one: 'One'
       other: 'Other'
       zero: 'Zero'
-    purchase_price_create: 'Add a new purchase price'                           # in view management#_product_prices
-    purchase_price_create: 'Purchase price create'                              # in view management#product
-    purchase_steps: 
+    purchase_payments_states:
+      all: 'All'
+      undelivered: 'Undelivered'
+      unparted: 'Unused'
+      waiting: 'To embank later'
+    purchase_price_create: 'Purchase price create'
+    purchase_steps:
       active: 'Purchase'
       summary: 'Payments'
     purchases: 'Purchases'
     purchases_price_create: 'Purchases price create'
-    quantity: 'Quantity'                                                        # in view management#_sale_order_line_row_form
-    quantity: 'Quantity'                                                        # in view management#undelivered_sales
-    quantity: 'Quantity'                                                        # in view management#unreceived_purchases
-    quantity: 'Quantities'                                                      # in view management#_csv_statistics
-    quantity: 'Quantity'                                                        # in view management#sale_order_deliveries
-    quantity: 'Quantity'                                                        # in view management#inventory_create
-    quantity: 'Quantity'                                                        # in view management#stocks
-    quantity: 'Quantity'                                                        # in view management#_delivery_form
-    quantity: 'Quantity'                                                        # in view management#statistics
-    quantity: 'Quantity'                                                        # in view management#_sale_order_line_detail_row_form
-    quantity: 'Quantity'                                                        # in view management#_stock_indicator
-    quantity: 'Quantity'                                                        # in view management#unexecuted_transfers
+    quantity: 'Quantity'
     quantity_rest: 'Remaining quantity'
     quantity_to_credit: 'Quantity to credit'
     quarterly: 'Quarterly'
@@ -970,11 +875,10 @@ eng:
     reflect: 'Reflect'
     refresh: 'Refresh'
     register: 'Register a new company'
-    relations: 'Relationships'                                                  # in view company#configure
-    relations: 'Clients/suppliers Relationships Management'                     # in view company#index
+    relations: 'Clients/suppliers Relationships Management'
     relations_rights: 'Relationship'
-    reopen: 'Re-open journal'                                                   # in view accountancy#journal_reopen
     reopen: 'Reopen'
+    reopen_journal: 'Reopen the journal'
     report: 'Report'
     reported_balance: 'Reported Balance'
     reservoir: 'Reservoir'
@@ -986,183 +890,166 @@ eng:
     rest_to_pay: 'Rest to pay'
     restore: 'Restore'
     result: 'Result'
-    results: 
+    results:
       one: '1 result'
       other: '{{count}} results'
       zero: 'No results'
     reverse: 'Reverse condition'
     rights: 'Rights'
+    role: 'Role'
     role_name: 'Fill the name and check all the needed rights'
+    roles: 'Roles'
     running_cost: 'Running Cost'
     running_finished: 'Running Finished'
-    sale_order: 'Sale orders'                                                   # in view management#_csv_statistics
-    sale_order: 'Sale order'                                                    # in view management#statistics
+    sale_conditions: 'Conditions'
+    sale_order: 'Sale order'
     sale_order_confirm: 'Confirm estimate and go to deliveries'
-    sale_order_create: 'Sale order create'
+    sale_order_create: 'Sale order create' #!
     sale_order_deliveries: 'Deliveries'
-    sale_order_invoice: 'Sale order invoice' #2
+    sale_order_invoice: 'Sale order invoice'
     sale_order_line_create: 'Add a product to estimate (Full mode)'
     sale_order_lines: 'Edit sale order'
     sale_order_price_create: 'Add a new sale price'
-    sale_order_print: 'Sale order print' #3
+    sale_order_print: 'Sale order print' #!
     sale_order_update: 'Update sale order'
-    sale_orders:                                                                # in view relations#entity
-      one: 'One'                                                                # in view relations#entity
-      other: 'Other'                                                            # in view relations#entity
-      zero: 'Zero'                                                              # in view relations#entity
-    sale_orders: 'Sale orders'                                                  # in view management#sale_payment
-    sale_orders_number: ''
-    sale_payment_create: 'Sale payment create'
-    sale_payment_part_create: 'Sale payment part create'                        # in view management#purchase_order
-    sale_payment_part_create: 'Sale payment part create'                        # in view management#sale_order_summary
-    sale_payment_part_create: 'Sale payment part create'                        # in view management#purchase_order_summary
-    sale_payment_part_create: 'Add a new sale payment'                          # in view management#sale_order
+    sale_orders: 'Sale orders'
+    sale_orders_states:
+      all: 'All'
+      current: 'Current'
+      unpaid: 'Unpaid'
+    sale_payment_conditions: 'Conditions of payment'
+    sale_payment_create: 'Sale payment create' #!
+    sale_payment_part_create: 'Add a new sale payment' #!
     sale_payment_update: 'Update sale payment'
-    sale_payments: 
-      one: 'One'
-      other: 'Other'
-      zero: 'Zero'
-    sale_price_create: 'Add a new sale price'                                   # in view management#_product_prices
-    sale_price_create: 'Sale price create'                                      # in view management#product
-    sale_steps: 
+    sale_payments:
+      one: 'One sale payment'
+      other: '{{count}} sale payments'
+      zero: 'No sale payments'
+    sale_payments_states:
+      all: 'All'
+      unembanked: 'Unembanked'
+      unparted: 'Unused'
+      unreceived: 'Unreceived'
+      waiting: 'To embank later'
+    sale_price_create: 'Sale price create'
+    sale_steps:
       deliveries: 'Deliveries'
       estimate: 'Estimate'
       general: 'General'
       products: 'Products'
       summary: 'Invoice and payments'
-    sales: 'Sales'                                                              # in view management#tracking
-    sales: 'Export sales in CSV'                                                # in view management#_csv_statistics
     sales_price_create: 'Sales price create'
     save: 'Save'
     save_in_draft: 'Save as draft'
-    search: 'Search'                                                            # in view management#_products_search
-    search: 'Search'                                                            # in view relations#_districts_search
+    scheduled: 'Scheduled'
     search: 'Search'
-    search: 'Search an invoice'                                                 # in view management#_invoices_search
-    search: 'Search'                                                            # in view relations#_entities_search
-    search: 'Search entries & docuemnts'                                        # in view accountancy#journal
-    search: 'Search'                                                            # in view relations#events
-    search: 'Search'                                                            # in view relations#_areas_search
-    search: 'Search'                                                            # in view management#sale_payments
-    search: 'Search an article'                                                 # in view company#help
-    search: 'Search'                                                            # in view management#purchase_payments
-    search: 'Search a purchase order'                                           # in view management#purchase_orders
     search_go: 'Search!'
     search_sales: 'Search sales'
+    second_contact: 'Second address'
     second_location_name: 'Second location name'
     select_account_client: 'Customer Account for lettering'
     select_account_supplier: 'Supplier Account for lettering'
     select_area: 'Select area'
-    select_closure_date: 'Select closing date'                                  # in view accountancy#journal_close
-    select_closure_date: 'Choose closing date'                                  # in view accountancy#journal_reopen
+    select_closure_date: 'Choose closing date'
     select_columns: 'Select columns'
-    select_date: 'Select date' #2
+    select_date: 'Select date'
     select_date_generation: 'Limit date for generation'
     select_existing_payment: 'Select existing payment'
+    select_file_to_upload: 'Select file to upload'
     select_financialyear: 'Period'
-    select_location: 'Select location' #3
+    select_location: 'Select location'
     select_number: 'Select number'
     select_number_or_date: 'Select number or date'
     select_organization: 'Select organization'
     select_renew_journal: 'Selected Journal to renew'
     send: 'Send the mail'
     send_test: 'Send test'
-    sequences_load: 'Load missing sequences' #2
-    shape_create: 'Create a new Shape'
+    sequences_load: 'Load missing sequences'
+    shape_create: 'Create a new Shape' #!
     shape_name: 'Shape Name'
     shape_update: 'Update Shape'
-    shapes: 'List of Shapes'                                                    # in view production#shape
-    shapes: 'Shapes'                                                            # in view production#shapes
-    shelf: 'Shelf' #2
+    shapes: 'Shapes'
+    shelf: 'Shelf'
     shelf_update: 'Shelf update'
     ship: 'Ship'
     simplified: 'Simplified Accounting'
-    source: 'Source' #2
+    source: 'Source'
     start: 'From'
     state: 'State'
-    stock_max: 'Stock max' #2
-    stock_min: 'Stock min' #2
-    stock_move_create: 'Stock move create'
-    stocks: 'Stocks' #3
+    stock_max: 'Stock max'
+    stock_min: 'Stock min'
+    stock_move_create: 'Stock move create' #!
+    stocks: 'Stocks'
+    stocks_parameters: 'Stock management'
     stop: 'Stop'
     string_case: 'String case'
     subject: 'Subject'
     submit: 'Submit'
     subscriber_period: 'Subscribed on {{subscribed_on}}'
     subscriber_quantity: 'Subscribed at the number {{subscribed_on}}'
-    subscription_create: 'Subscription create'
+    subscription_create: 'Subscription create' #!
     subscription_nature: 'Subscription nature'
-    subscriptions: 'Subscriptions'                                              # in view management#sale_order_lines
-    subscriptions: 'Subscriptions'                                              # in view management#sale_order
-    subscriptions:                                                              # in view relations#entity
-      one: 'One'                                                                # in view relations#entity
-      other: 'Other'                                                            # in view relations#entity
-      zero: 'Zero'                                                              # in view relations#entity
-    subtitle: 'General parameters'                                              # in view company#_user_form
-    subtitle: 'Genral parameters'                                               # in view company#listing_update
-    subtitle: 'General parameters'                                              # in view company#_sequence_form
-    subtitle: 'General parameters'                                              # in view company#_establishment_form
-    subtitle: 'General'                                                         # in view company#_department_form
-    subtitle: 'General parameters'                                              # in view company#_listing_form
+    subscription_natures_down: 'Decrement actual number (-1)'
+    subscription_natures_up: 'Increment actual number (+1)'
+    subscriptions: 'Abonnements'
+    subtitle: 'General parameters'
     subtotal: 'Sub-total {{name}}'
     subtotals_at_level: 'Sub-total at level'
-    supplier: 'Supplier'                                                        # in view relations#_entity_form
-    supplier: 'Purchase prices of the supplier'                                 # in view management#prices
+    supplier: 'Purchase prices of the supplier'
+    supplier_informations: 'Supplier informations '
     supply: 'Supply'
     synthesis: 'Synthesis Documents'
-    tax_create: 'Add a new tax'
+    tax_create: 'Add a new tax' #!
     tax_declaration_create: 'Add a new Declaration'
     theoric_quantity: 'Theoric quantity'
-    to: 'To'                                                                    # in view management#subscription_message
-    to: 'To'
-    to: 'To'                                                                    # in view management#undelivered_sales
-    to: 'To'                                                                    # in view management#_sale_order_line_row_form
-    to: 'to'                                                                    # in view accountancy#_print_balance
-    to: 'To'                                                                    # in view management#unreceived_purchases
-    to: 'to'                                                                    # in view management#_sale_order_line_detail_row_form
-    to_date: 'To'                                                               # in view management#sale_order_line_informations
-    to_date: 'To date'                                                          # in view management#subscription_message
+    to: 'to'
+    to_bank_on: 'To bank on'
+    to_date: 'To date'
     to_deliver: 'To deliver'
-    tool_create: 'Add a tool'
+    to_embank: 'To embank'
+    tool_create: 'Add a tool' #!
     tool_update: 'Update tool'
     tool_use_create: 'Add a tool'
     tools: 'Used tools'
-    total: 'Total' #4
-    total_amount: 'Total amount' #4
+    tools_list: 'Tools'
+    total: 'Total'
+    total_amount: 'Total amount'
     total_invoiced_amount: 'Total invoiced amount'
-    total_quantity: 'Total quantity' #2
-    totals: 'Totals (validated documents and draft)'                            # in view accountancy#journal
-    totals: 'Totals (Valided documents and draft)'                              # in view accountancy#account
-    tracking: 'Tracking' #2
+    total_quantity: 'Total quantity'
+    totals: 'Totals (Valided documents and draft)'
+    tracking: 'Tracking'
     transfer: 'Transfer'
+    transport: 'Transport'
     transport_deliveries: 'Deliveries'
-    unavailable: ''
-    undelivered: 'Undelivered' #2
+    unavailable: '' #!
+    undelivered: 'Undelivered'
     unembanked: 'Unembanked'
     uninvoiced_amount: 'Uninvoiced amount'
-    unit: 'Unit' #7
+    unit: 'Unit'
     units_load: 'Load missing units'
     unknown_condition: 'Unknown condition'
     unlock: 'Unlock'
     unpaid: 'Unpaid'
-    unpaid_amount: 'Unpaid amount' #2
+    unpaid_amount: 'Unpaid amount'
+    unpaid_days: 'Unpaid since (in days)'
+    unpaid_sale_orders: 'Unpaid sale order'
     unpaid_sale_orders_export: 'Export unpaid sale orders in CSV'
-    unparted: 'Unparted' #2
+    unparted: 'Unparted'
     unreceived: 'Unreceived'
     unused_payment: 'Unused payment'
+    unvalid_date: 'Invalid date'
     unvalidated_operations: 'Operations not validated'
     up: 'Up'
     update: 'Update'
     update_params: 'Update params'
-    upload: 'Upload'                                                            # in view relations#entities_import
-    upload: 'Select file to upload'                                             # in view company#backups
+    usage: 'Usage'
     use_renew: 'Select the journal to carry over'
     used_accounts: 'used accounts only'
     user_update: 'Modifier les informations de l''utilisateur'
     username: 'Username'
     uses: 'Tools'
-    valid: 'Valid' #2
-    validate: 'Validate' #9
+    valid: 'Valid'
+    validate: 'Validate'
     validate_selected_entries: 'Validate selected entries'
     vat: 'Tax to pay'
     vat_acquisitions: 'VAT Acquisitions'
@@ -1170,10 +1057,41 @@ eng:
     vat_collected: 'VAT Collected'
     vat_paid: 'VAT PAID'
     view: 'View'
-    virtual_quantity: 'Virtual quantity' #2
-    waiting: 'Waiting' #2
-    weight: 'Weight' #2
+    virtual_quantity: 'Virtual quantity'
+    weight: 'Weight'
     with_prints: 'Include printing archives (invoices, purchase orders...)'
+    x_events:
+      one: '1 event'
+      other: '%{count} events'
+      zero: '0 events'
+    x_events_of_nature_y:
+      one: 'One event {{nature}} for a total duration of {{duration}} minutes'
+      other: '{{count}} events {{nature}} for a total duration of {{duration}} minutes'
+      zero: 'No events {{nature}}'
+    x_invoices:
+      one: '1 invoice'
+      other: '%{count} invoices'
+      zero: '0 invoices'
+    x_operations:
+      one: '1 operation'
+      other: '%{count} operations'
+      zero: '0 operations'
+    x_prices:
+      one: '1 price'
+      other: '%{count} prices'
+      zero: '0 prices'
+    x_purchase_orders:
+      one: '1 purchase order'
+      other: '%{count} purchase orders'
+      zero: '0 purchase orders'
+    x_sale_orders:
+      one: '1 sale order'
+      other: '%{count} sale orders'
+      zero: '0 sale orders'
+    x_subscriptions:
+      one: '1 subscription'
+      other: '%{count} subscriptions'
+      zero: '0 subscriptions'
     y: 'Yes'
     yearly: 'Yearly'
   notifications:
@@ -1313,4 +1231,3 @@ eng:
     relations:
       entities:
         numeration: 'Numeration of people'
-

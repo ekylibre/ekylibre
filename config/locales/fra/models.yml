@@ -1,264 +1,137 @@
 fra:
   activerecord:
     attributes:
-      sale_payment_mode:
-        cash_id: 'Trésorerie utilisé'
-        cash: 'Trésorerie utilisé'
-      subscription_nature:
-        nature_label: 'Type'
-        nature: 'Type'
-      tax:
-        amount: 'Valeur'
-        nature_label: 'Type'
-      price:
-        quantity_min: 'Quantité minimale'
-        category: 'Catégorie de fiche associée'
-        entity: 'Fournisseur'
-        entity_id: 'Fournisseur'
-        category_id: 'Catégorie de fiche associée'
-        quantity_max: 'Quantité maximale'
+      cash:
+        number: 'Numéro de compte bancaire'
+        mode: 'Mode'
+        key: 'Clé RIB'
       company:
-        code: 'Code interne'
-        stock_transfers: 'Transferts ou perte de stock'
-        entity: 'Fiche personne'
-        entity_id: 'Fiche personne'
-        cashes: 'Trésoreries'
-        purchase_payment_modes: 'Modes de décaissements'
-        siren: 'Numéro SIREN'
         locked: 'Verrouillée'
-      purchase_payment:
-        accounted_at: 'Comptabilisé à'
-        parts: 'Parts'
-        delivered: 'Remis au bénéficiaire'
-        amount: 'Montant'
-        paid_on: 'Payé le'
-      operation_line:
-        tracking_serial: 'N°Lot'
-      event_nature:
-        duration: 'Durée par défaut (en min.)'
-        active: 'Active'
-      location:
-        product_id: 'Produit contenu'
-        account_id: 'Compte comptable'
-        account: 'Compte comptable'
-        product: 'Produit contenu'
-        children: 'Sous-lieux de stockage'
-      shelf:
-        published: 'Publiée'
-        children: 'Sous-catégories'
-      journal_entry:
-        closed: 'Cloturée'
-      complement_datum:
-        entity: 'Fiche'
-        entity_id: 'Fiche'
-        string_value: 'Valeur texte'
-      sale_order:
-        has_downpayment: 'Acompte à verser'
-        created_on: 'Créée le'
-        lines: 'Lignes de vente'
-        expired_on: 'Expiré le'
-        parts_amount: 'Montant payé'
-        contact_id: 'Adresse pour le devis'
-        contact: 'Adresse pour le devis'
-        payments: '(((PAYMENTS)))'
-        nature_id: 'Nature'
-      stock_transfer:
-        location: 'Lieu de stockage de départ'
-        location_id: 'Lieu de stockage de départ'
-        second_location_id: 'Lieu de stockage d''arrivée'
-        nature: 'Type'
-      invoice:
-        created_on: 'Créée le'
-        lines: 'Lignes de facture'
-        origin_id: 'Facture d''origine'
-        credit: 'Avoir'
-        origin: 'Facture d''origine'
-      entity:
-        created_on: 'Créée le'
-        subscriptions: 'Abonnements'
-        origin: 'Lieu de la première rencontre'
-        website: 'Site Web'
-        last_name: 'Nom'
-        nature: 'Type'
-        born_on: 'Date de naissance'
-      shape:
-        area_unit: 'Unité de superficie'
-        number: 'Numéro PAC ou numéro de parcelle'
-        area_unit_id: 'Unité de superficie'
-        children: 'Sous-îlots'
-      purchase_payment_part:
-        amount: 'Montant'
-      tracking:
-        active: 'Utilisé'
-      delay:
-        active: 'Utilisable'
-      journal_record:
-        created_on: 'Créée le'
-        closed: 'Fermé'
-        financialyear: 'Exercices'
-        purchase_payment_parts: 'Parties de décaissement'
-      bank_statement:
-        cash_id: 'Compte bancaire utilisé'
-        cash: 'Compte bancaire utilisé'
-        stopped_on: 'Au'
-        started_on: 'Du'
-      entity_link:
-        nature: 'Lien'
-        started_on: 'Débute le'
-        nature_id: 'Lien'
-      account:
-        label: 'Label'
-      transfer:
-        parts_amount: 'Montant payé'
-        amount: 'Montant'
-      tool:
-        text_nature: 'Nature'
-        uses: 'Utilisations d''outil'
-      embankment:
-        embanker_id: 'Encaisseur'
-        cash_id: 'Compte bancaire'
-        accounted_at: 'Comptabilisé le'
-        created_on: 'Créée le'
-        mode: 'Type d''encaissement'
-        amount: 'Montant'
-        mode_id: 'Type d''encaissement'
-        cash: 'Compte bancaire'
-        embanker: 'Encaisseur'
-      contact:
-        entity: 'Fiche'
-        entity_id: 'Fiche'
-      stock:
-        quantity: 'Stock réel'
-      sale_order_nature:
-        downpayment: 'Avec acompte'
-      inventory_line:
-        quantity: 'Quantité constatée'
+      delivery:
+        lines: 'Lignes de livraison'
       document:
         filename: 'Fichier'
-      sale_payment:
+      embankment:
         amount: 'Montant'
-        received: 'Reçu'
-        to_bank_on: 'À encaisser le'
-      purchase_order_line:
-        price: 'Prix unitaire'
-        tracking: 'Numéro de lot'
-        tracking_id: 'Numéro de lot'
-        order_id: 'Achat'
-        account_id: 'Compte de charge utilisé'
-        account: 'Compte de charge utilisé'
-        order: 'Achat'
-        price_id: 'Prix unitaire'
-      complement_choice:
-        data: 'Données complémentaires'
-      purchase_payment_mode:
-        payments: 'Décaissements'
+      entity:
+        active: 'Active'
+        origin: 'Lieu de la première rencontre'
       event:
         duration: 'Durée (en minutes)'
         responsible: 'Intervenant'
         location: 'Lieu'
-        started_at: 'Date et heure'
         responsible_id: 'Intervenant'
-        nature: 'Type'
-      stock_move:
-        origin: 'Origine'
+      event_nature:
+        duration: 'Durée par défaut (en min.)'
+      financialyear:
+        stopped_on: 'Date de clôture'
+      inventory_line:
+        quantity: 'Quantité constatée'
+      invoice:
+        lines: 'Lignes de facture'
+        origin_id: 'Facture d''origine'
+        credit: 'Avoir'
+        origin: 'Facture d''origine'
+      invoice_line:
+        origin_id: 'Ligne d''origine'
+      journal_entry:
+        closed: 'Cloturée'
+      journal_record:
+        purchase_payment_parts: 'Parties de décaissement'
+      location:
+        product_id: 'Produit contenu'
+        product: 'Produit contenu'
+        children: 'Sous-lieux de stockage'
+      mandate:
+        family: 'Famille'
+      operation:
+        lines: 'Intrants/sortants'
+        consumption: 'Consommation'
       product:
         duration: 'Nombre de numéros OU période d''abonnement'
         price: 'Prix de revient'
-        ean13: 'Code EAN13'
-        unit_id: 'Unité de mesure'
-        weight: 'Poids (kg)'
-        catalog_description: 'Description pour le catalogue'
-        unit: 'Unité de mesure'
-        active: 'Utilisable'
-      invoice_line:
-        price: 'Prix HT'
-        origin_id: 'Ligne d''origine'
-        tracking_id: 'Lot traçable'
-        price_id: 'Prix HT'
-      financialyear:
-        stopped_on: 'Date de clôture'
-        started_on: 'Commencé le'
-      unit:
-        start: 'Valeur à l''origine'
-      area:
-        code: 'Code interne'
-      sale_order_line:
-        label: 'Produit'
-        price: 'Produit tarifé'
-        price_id: 'Produit tarifé'
-      subscription:
-        entity: 'Abonné'
-        entity_id: 'Abonné'
-        contact_id: 'Adresse de l''abonné'
-        contact: 'Adresse de l''abonné'
-        stopped_on: 'Arrété le'
-        nature: 'Type'
+      profession:
+        employees: 'Employés'
+      price:
+        category: 'Catégorie de fiche associée'
+        entity: 'Fournisseur'
+        entity_id: 'Fournisseur'
+        category_id: 'Catégorie de fiche associée'
+      purchase_payment:
+        delivered: 'Remis au bénéficiaire'
+        amount: 'Montant'
+      purchase_payment_mode:
+        payments: 'Décaissements'
+      purchase_payment_part:
+        amount: 'Montant'
       purchase_order:
         label: 'Commande'
         lines: 'Lignes d''achat'
         moved_on: 'Reçu le'
         planned_on: 'Réception prévue le'
         payment_parts: 'Parties de décaissement'
-      mandate:
-        entity: 'Fiche'
-        entity_id: 'Fiche'
-        family: 'Famille'
-        stopped_on: 'Fin'
-        started_on: 'Début'
-      cash:
-        number: 'Numéro de compte bancaire'
-        currency_id: 'Devise utilisée'
-        mode: 'Mode'
-        journal: 'Journal utilisé'
-        account_id: 'Compte comptable référencé'
-        account: 'Compte comptable référencé'
-        journal_id: 'Journal utilisé'
-        currency: 'Devise utilisée'
-        key: 'Clé RIB'
+      purchase_order_line:
+        order_id: 'Achat'
+        order: 'Achat'
+      sale_payment:
+        amount: 'Montant'
+        received: 'Reçu'
+        to_bank_on: 'À encaisser le'
       sale_payment_part:
         payment_way: 'Mode d''encaissement'
         amount: 'Montant attribué à la vente'
         payment: 'Encaissement'
         payment_id: 'Encaissement'
+      sale_order_nature:
+        downpayment: 'Avec acompte'
+      sale_order:
+        has_downpayment: 'Acompte à verser'
+        lines: 'Lignes de vente'
+        parts_amount: 'Montant payé'
+        contact_id: 'Adresse pour le devis'
+        contact: 'Adresse pour le devis'
+        payments: 'Encaissements'
+      sale_order_line:
+        label: 'Produit'
+        price: 'Produit tarifé'
+        price_id: 'Produit tarifé'
+      shape:
+        number: 'Numéro PAC ou numéro de parcelle'
+        children: 'Sous-îlots'
+      shelf:
+        published: 'Publiée'
+        children: 'Sous-catégories'
+      stock:
+        quantity: 'Stock réel'
+      stock_transfer:
+        location: 'Lieu de stockage de départ'
+        location_id: 'Lieu de stockage de départ'
+        second_location_id: 'Lieu de stockage d''arrivée'
+      stock_move:
+        origin: 'Origine'
+      subscription:
+        entity: 'Abonné'
+        entity_id: 'Abonné'
       tax_declaration:
         address: 'Adresse du service destinataire'
-        financialyear_id: 'Période considérée'
         period: 'Période'
         amount: 'TVA totale'
-        financialyear: 'Période considérée'
-        paid_on: ''
         nature: 'Régime de la déclaration'
-        started_on: 'Commencé le'
-      currency:
-        cashes: 'Trésoreries'
-      complement:
-        nature_label: 'Type de donnée'
-        nature: 'Type de donnée'
-      inventory:
-        accounted_at: 'Comptabilisé le'
-        created_on: 'Effectué le'
-      operation:
-        lines: 'Intrants/sortants'
-        stopped_at: 'Au'
-        started_at: 'Du'
-        nature: 'Type'
-        consumption: 'Consommation'
-      department:
-        sales_conditions: 'Conditions de vente'
-      delivery:
-        lines: 'Lignes de livraison'
-        moved_on: 'Faite le'
-        mode: 'Type'
-        contact_id: 'Adresse du client'
-        contact: 'Adresse du client'
-        planned_on: 'Prévue le'
-        mode_id: 'Type'
+      tax:
+        amount: 'Valeur'
+      tool:
+        uses: 'Utilisations d''outil'
+      tracking:
+        active: 'Utilisé'
+      transfer:
+        parts_amount: 'Montant payé'
+        amount: 'Montant'
+      unit:
+        start: 'Valeur à l''origine'
       user:
         name: 'Nom d''utilisateur'
         reduction_percent: 'Taux de réduction autorisé (%)'
         locked: 'Compte verrouillé'
-      profession:
-        employees: 'Employés'
 
     errors:
       messages:
@@ -432,18 +305,18 @@ fra:
       unit: 'Unité'
       user: 'Utilisateur'
   attributes:
-    account: 'Compte'
+    account: 'Compte comptable'
     account_balances: 'Balances de compte'
     account_collected: 'TVA collectée'
     account_collected_id: 'TVA collectée'
-    account_id: 'Compte'
+    account_id: 'Compte comptable'
     account_number: 'Numéro de compte'
     account_paid: 'TVA déductible'
     account_paid_id: 'TVA déductible'
-    accounted_at: 'Comptabilisé(e) le'
+    accounted_at: 'Date comptabilisation'
     accounts: 'Comptes'
     acquisition_amount: 'Montant des acquisition'
-    active: 'Actif'
+    active: 'Utilisable'
     activity_code: 'Code APE/NAF'
     actual_number: 'Numéro en cours'
     address: 'Adresse'
@@ -482,15 +355,15 @@ fra:
     bban: 'RIB'
     bic: 'BIC'
     boolean_value: 'Valeur booléenne'
-    born_on: 'Créée le'
+    born_on: 'Date de naissance'
     by_default: 'Par défaut'
     cache: 'Cache'
     cash: 'Trésorerie'
     cash_id: 'Trésorerie'
     cash_journals: 'Journaux de caisse'
-    cashes: 'Comptes bancaires'
+    cashes: 'Trésoreries'
     cashes_accounts: 'Comptes de caisse'
-    catalog_description: 'Description'
+    catalog_description: 'Description pour le catalogue'
     catalog_name: 'Nom pour le catalogue'
     category: 'Catégorie'
     category_id: 'Catégorie'
@@ -547,8 +420,8 @@ fra:
     counterpart: 'Contre-partie'
     counterpart_id: 'Contre-partie'
     country: 'Pays'
-    created_at: 'Créé le'
-    created_on: 'Créé le'
+    created_at: 'Date et heure de création'
+    created_on: 'Date de création'
     creator: 'Créateur'
     creator_id: 'Créateur'
     credit: 'Crédit'
@@ -565,7 +438,7 @@ fra:
     currency_id: 'Devise'
     currency_rate: 'Taux de change'
     current_financialyear: 'Exercice comptable en cours'
-    data: 'Données complémentaires de fiche'
+    data: 'Données complémentaires'
     date_value: 'Valeur date'
     datetime_value: 'Valeur date/heure'
     dead_on: 'Date de décès'
@@ -616,7 +489,7 @@ fra:
     draft: 'Brouillard'
     draft_mode: 'Mode brouillard'
     duration: 'Durée'
-    ean13: 'Ean13'
+    ean13: 'Code EAN13'
     email: 'Adresse e-mail'
     embankable_payments: 'Encaissements encaissables'
     embankables_account: 'Compte d''attente pour les encaissements à encaisser'
@@ -631,10 +504,10 @@ fra:
     employment: 'Emploi/Rôle'
     entities: 'Personnes'
     entity: 'Personne'
-    entity_1: 'Fiche 1'
-    entity_1_id: 'Fiche 1'
-    entity_2: 'Fiche 2'
-    entity_2_id: 'Fiche 2'
+    entity_1: 'Personne 1'
+    entity_1_id: 'Personne 1'
+    entity_2: 'Personne 2'
+    entity_2_id: 'Personne 2'
     entity_categories: 'Catégories de personne'
     entity_id: 'Personne'
     entity_link_nature: 'Type de lien permettant d''étendre l''abonnement'
@@ -655,7 +528,7 @@ fra:
     expense_type: 'Type de dépense'
     expiration: 'Délai d''expiration du devis'
     expiration_id: 'Délai d''expiration du devis'
-    expired_on: 'Expire le'
+    expired_on: 'Date d''expiration'
     exportable: 'Exportable'
     expression: 'Expression'
     extension: 'Extension'
@@ -692,7 +565,7 @@ fra:
     id: 'ID'
     immobilizations_account_id: 'Compte d''immobilisation'
     importance: 'Importance'
-    in_name: 'Abréviation incluse dans le nom de la fiche'
+    in_name: 'Abréviation incluse dans le nom de la personne'
     included: 'Incluse'
     indirect_links: 'Liens indirects'
     integer_value: 'Valeur entière'
@@ -771,16 +644,16 @@ fra:
     max_reduction_rate: 'Taux de réduction'
     min_duration: 'Minute(s)'
     mobile: 'Portable'
-    mode: 'Mode d''encaissement'
-    mode_id: 'Mode d''encaissement'
+    mode: 'Mode'
+    mode_id: 'Mode'
     moved_on: 'Fait le'
     name: 'Nom'
-    name_1_to_2: 'Fiche 1 ⇒ Fiche 2'
-    name_2_to_1: 'Fiche 2 ⇒ Fiche 1'
-    nature: 'Nature'
+    name_1_to_2: 'Personne 1 ⇒ Personne 2'
+    name_2_to_1: 'Personne 2 ⇒ Personne 1'
+    nature: 'Type'
     nature_code: 'Code'
     nature_id: 'Type'
-    nature_label: 'Nature'
+    nature_label: 'Type'
     nic: 'NIC (Numéro Interne de Classement)'
     node: 'Noeud'
     node_id: 'Noeud'
@@ -814,7 +687,7 @@ fra:
     parameters: 'Paramètres'
     parent: 'Parent'
     parent_id: 'Parent'
-    parts: 'Parties d''encaissement'
+    parts: 'Affectations'
     parts_amount: 'Montant utilisé'
     password: 'Mot de passe'
     password_confirmation: 'Confirmation du mot de passe'
@@ -944,7 +817,7 @@ fra:
     shelves: 'Catégories de produit'
     shipped: 'Reçu'
     shipped_on: 'Envoyé le'
-    siren: 'Code SIREN'
+    siren: 'N° SIREN'
     siret: 'N° SIRET'
     soundex: 'Soundex'
     source: 'Source'
@@ -957,11 +830,11 @@ fra:
     stock: 'Stock de produit'
     stock_id: 'Stock de produit'
     stock_moves: 'Mouvements de stock'
-    stock_transfers: 'Transferts ou perte de Stock'
+    stock_transfers: 'Transferts ou pertes de stock'
     stockable_products: 'Produits stockables'
     stocks: 'Stocks de produit'
-    stopped_at: 'Fini à'
-    stopped_on: 'Fini le'
+    stopped_at: 'Arrêté à'
+    stopped_on: 'Arrêté le'
     story: 'Historique'
     string_value: 'Valeur textuelle'
     subdir: 'Sous-répertoire'
@@ -971,7 +844,7 @@ fra:
     subscription_natures: 'Types d''abonnement'
     subscription_period: 'Période'
     subscription_quantity: 'Quantité'
-    subscriptions: 'Abonnement'
+    subscriptions: 'Abonnements'
     sum_method: 'Méthode de calcul'
     supplier: 'Fournisseur'
     supplier_account: 'Compte fournisseur associé'
@@ -1043,7 +916,7 @@ fra:
     virtual_quantity: 'Stock virtuel'
     webpass: 'Mot de passe web'
     website: 'Site web'
-    weight: 'Poids'
+    weight: 'Poids (kg)'
     with_accounting: 'Comptabiliser les encaissements'
     with_commission: 'Inclure une commission'
     with_embankment: 'Utiliser les remises en banque'
@@ -1053,14 +926,7 @@ fra:
     z: 'Position Z'
   models:
     account:
-      default_account_name: 'Compte comptable %{number}'
-      error_delete: 'Le compte ne peut être effacé car il contient des sous-comptes.'
       label: '%{number} - %{name}'
-    bank_statement:
-      error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
-      error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
-      error_period_statement: 'L''intervalle de temps est incorrect pour le relevé bancaire.'
-      error_print_statement: 'Le relevé doit être imprimé après son dernier enregistrement.'
     cash:
       modes:
         bban: 'Relevé d''identité bancaire (RIB)'
@@ -1071,8 +937,6 @@ fra:
     company:
       cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       default:
-        admin: 'Administrateur'
-        bank_journal_nature_name: 'Banque'
         cash:
           name:
             bank_account: 'Compte bancaire'
@@ -1088,11 +952,6 @@ fra:
             immediate: 'Immédiat'
             standard: 'Standard (30j FDM)'
         department_name: 'Gestion/Production'
-        document_natures:
-          invoice: 'Facture'
-          journal: 'Journal'
-          journals: 'Journaux'
-          sale_order: 'Vente'
         document_templates:
           accountancy:
             balance_sheet:
@@ -1107,9 +966,9 @@ fra:
               filename: '[name] (Journal)'
           management:
             embankment:
-              filename: 'Remise en banque du [created_on]'
+              filename: 'Remise en banque [number]'
             inventory:
-              filename: 'Inventaire du [created_on]'
+              filename: 'Inventaire [number]'
             invoice:
               filename: 'Facture [number]'
               to_archive: 'true'
@@ -1124,29 +983,18 @@ fra:
           relations:
             entity:
               filename: 'Fiche de [full_name]'
-        document_templates_filenames:
-          balance_sheet: 'Bilan de l''exercice [code]'
-          embankment: 'Remise en banque du [created_on]'
-          entity: 'Fiche de [full_name]'
-          income_statement: 'Compte de résultat de l''exercice [code]'
-          inventory: 'Inventaire du [date]'
-          invoice: 'Facture [number]'
-          order_preparation: 'Préparation de commande du [created_on]'
-          other: 'Fichier'
-          purchase_order: 'Achat [number]'
-          sale_order: 'Vente [number]'
-          transport: 'Transport du [created_on]'
         establishment_name: 'Établissement principal'
-        financialyear_code: '1A2'
+        event_natures:
+          invoice: 'Création d''une facture'
+          purchase_order: 'Création d''un achat'
+          sale_order: 'Création d''un devis'
         journals:
           bank: 'Journal de banque'
           cash: 'Journal de caisse'
           purchases: 'Journal des achats'
           sales: 'Journal des ventes'
           various: 'Journal des opérations diverses'
-        location: 'Réserve'
-        paid_tax: 'TVA déductible'
-        price_list_name: 'Tarif normal'
+        location_name: 'Réserve'
         purchase_payment_modes:
           cash:
             name: 'Espèces'
@@ -1166,7 +1014,6 @@ fra:
             name: 'Chèque'
           transfer:
             name: 'Virement'
-        sample_product_name: 'Produit Exemple'
         sequences:
           management:
             embankments:
@@ -1233,9 +1080,6 @@ fra:
       import:
         dont_use: '-- Ne pas utiliser --'
         generate_string_complement: '-- Créer un champ personnalisé (texte) --'
-      invoice_creation: 'Création d''une facture'
-      purchase_order_creation: 'Création d''un achat'
-      sale_order_creation: 'Création d''un devis'
       sale_orders: 'Ventes'
     complement:
       natures:
@@ -1251,10 +1095,6 @@ fra:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     delivery:
       label: '%{client} à %{address}'
-      natures:
-        cip: 'Livraison avec assurance'
-        cpt: 'Livraison sans assurance'
-        exw: 'Remise en main propre'
       sale: 'Vente %{number}'
     delivery_line:
       sale: 'Vente %{number}'
@@ -1399,7 +1239,6 @@ fra:
         purchases: 'Achat'
         rent: 'Location'
         sales: 'Vente'
-      unknown_use_of_product: 'Il faut spécifier ce à quoi est destiné le produit (achat, vente ou location)'
     product_component:
       of_product: 'du produit'
     purchase_order:
@@ -1434,7 +1273,6 @@ fra:
     sale_order_line:
       can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible '
       currency_is_not_sale_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'
-      error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
       location_can_not_transfer_product: 'Le produit %{product} ne peut être sorti du réservoir %{location}, celui-ci contient %{contained_product} '
       reduction_on: 'Remise de %{percent}% sur : %{product}'
       tracking: 'N°Lot : %{serial}'
@@ -1462,7 +1300,6 @@ fra:
         period: 'Abonnement par date'
         quantity: 'Abonnement par numéros'
     tax:
-      amount_must_be_included_between_0_and_1: 'doit être comprise entre 0 et 1'
       natures:
         amount: 'Montant'
         percent: 'Pourcentage'

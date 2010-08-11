@@ -1,11 +1,14 @@
 fra:
+  about:
+    name: 'Français'
+    authors: 'Brice Texier, Thibaud Mérigon'
+    dir: 'ltr'
+    iso2: 'fr'
   date:
     abbr_day_names: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
     abbr_month_names: ['', 'janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc']
     day_names: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi']
     formats:
-      db: '%d/%m/%Y'
-      dbx: '%Y-%m-%d'
       default: '%d/%m/%Y'
       legal: '%d %B %Y'
       long: '%B %d, %Y'
@@ -88,7 +91,6 @@ fra:
     am: 'am'
     formats:
       default: '%d %b. %Y à %H:%M:%S'
-      default0: '%a, %d %b %Y %H:%M:%S %z'
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'

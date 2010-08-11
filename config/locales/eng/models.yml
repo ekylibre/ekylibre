@@ -1,16 +1,137 @@
 eng:
   activerecord:
     attributes:
+      cash:
+        key: 'BBAN key'
+        mode: 'Mode'
+        number: 'Bank account number'
       company:
-        cashes: 'Cashes'
+        locked: 'Locked'
+      delivery:
+        lines: 'Delivery lines'
+      document:
+        filename: 'Fichier'
+      embankment:
+        amount: 'Amount'
+      entity:
+        active: 'Active'
+        origin: 'First meeting location'
+      event:
+        duration: 'Duration (in minutes)'
+        location: 'Location'
+        responsible: 'Responsible'
+        responsible_id: 'Responsible'
+      event_nature:
+        duration: 'Duration by default (in min.)'
+      financialyear:
+        stopped_on: 'Date of closing'
+      inventory_line:
+        quantity: 'Found quantity'
+      invoice:
+        credit: 'Credit'
+        lines: 'Invoice lines'
+        origin: 'Original invoice'
+        origin_id: 'Original invoice'
+      invoice_line:
+        origin_id: 'Original line'
+      journal_entry:
+        closed: 'Closed'
+      journal_record:
+        purchase_payment_parts: 'Parts or purchase payments'
+      location:
+        children: 'Sub-warehouse'
+        product: 'Contained product'
+        product_id: 'Contained product'
+      mandate:
+        family: 'Family'
+      operation:
+        consumption: 'Consumption'
+        lines: 'Incoming and outgoing products'
+      price:
+        category: 'People category'
+        category_id: 'People category'
+        entity: 'Supplier'
+        entity_id: 'Supplier'
+      product:
+        duration: 'Quantity OR period'
+        price: 'Cost price'
+      profession:
+        employees: 'Employees'
+      purchase_order:
+        label: 'Purchase order'
+        lines: 'Purhase order lines'
+        moved_on: 'Recevied on'
+        payment_parts: 'Parts of purchase payments'
+        planned_on: 'Reception on'
+      purchase_order_line:
+        order: 'Purchase order'
+        order_id: 'Purchase order'
+      purchase_payment:
+        amount: 'Amount'
+        delivered: 'Given to recipient'
+      purchase_payment_mode:
+        payments: 'Purchase payments'
+      purchase_payment_part:
+        amount: 'Amount'
+      sale_order:
+        contact: 'Address for the estimate'
+        contact_id: 'Address for the estimate'
+        has_downpayment: 'Request a downpayment'
+        lines: 'Sale order lines'
+        parts_amount: 'Paid amount'
+        payments: 'Sale payments'
+      sale_order_line:
+        label: 'Product'
+        price: 'Product'
+        price_id: 'Product'
+      sale_order_nature:
+        downpayment: 'Request downpayment'
+      sale_payment:
+        amount: 'Amount'
+        received: 'Reçu'
+        to_bank_on: 'To bank on'
+      sale_payment_part:
+        amount: 'Amount'
+        payment: 'Sale payment'
+        payment_id: 'Sale payment'
+        payment_way: 'Mode of payment'
+      shape:
+        children: 'Sub-plots'
+        number: 'CAP Number or plot number'
+      shelf:
+        children: 'Sub-shelves'
+        published: 'Published'
+      stock:
+        quantity: 'Real quantity'
+      stock_move:
+        origin: 'Origine'
+      stock_transfer:
+        location: 'Departure warehouse'
+        location_id: 'Departure warehouse'
+        second_location_id: 'Arrival warehouse'
       subscription:
         entity: 'Subscriber'
         entity_id: 'Subscriber'
-      currency:
-        cashes: 'Cashes'
+      tax:
+        amount: 'Value'
+      tax_declaration:
+        address: 'Department address'
+        amount: 'Total VAT'
+        nature: 'Régime de la déclaration'
+        period: 'Périod'
+      tool:
+        uses: 'Tool uses'
+      tracking:
+        active: 'Used'
+      transfer:
+        amount: 'Amount'
+        parts_amount: 'Paid amount'
+      unit:
+        start: 'Value at the origin'
       user:
+        locked: 'Locked'
         name: 'User name'
-
+        reduction_percent: 'Authorized percentage of discount (%)'
     errors:
       messages:
         accepted: '{{attribute}} must be accepted'
@@ -34,6 +155,7 @@ eng:
         odd: '{{attribute}} must be odd'
         posterior: 'The date {{attribute}} must be posterior to {{to}}'
         record_has_been_already_validated: 'Record has been already validated'
+        record_invalid: 'Validations failed : %{errors}'
         taken: '{{attribute}} has already been taken'
         too_long: '{{attribute}} is too long (maximum is {{count}} characters)'
         too_short: '{{attribute}} is too short (minimum is {{count}} characters)'
@@ -812,9 +934,13 @@ eng:
         bank_account: 'Bank account'
         cash_box: 'Caisse'
     company:
+      cant_find_document_template: 'Can not find document template'
       default:
         cash:
-
+          name:
+            bank_account: 'Bank account'
+            cash_box: 'Cash'
+        category: 'By default'
         delays:
           expression:
             expiration: '1 month'
@@ -825,20 +951,50 @@ eng:
             immediate: 'Immediatly'
             standard: 'Standard (30d EOM)'
         department_name: 'Default department'
+        document_natures:
         document_templates:
           accountancy:
-
+            balance_sheet:
+              filename: 'Balance sheet [code]'
+            general_journal:
+              filename: 'General journal'
+            general_ledger:
+              filename: 'General ledger'
+            income_statement:
+              filename: 'Income statement [code]'
+            journal:
+              filename: '[name] (Journal)'
           management:
-
+            embankment:
+              filename: 'Embankment [number]'
+            inventory:
+              filename: 'Inventory [number]'
+            invoice:
+              filename: 'Invoice [number]'
+              to_archive: 'true'
+            purchase_order:
+              filename: 'Purchase order [number]'
+            sale_order:
+              filename: 'Sale order [number]'
+            stocks:
+              filename: 'Stocks'
+            transport:
+              filename: 'Transport [created_on]'
           relations:
-
+            entity:
+              filename: '[full_name]'
+        establishment_name: 'Default establishment'
+        event_natures:
+          invoice: 'Creation of an invoice'
+          purchase_order: 'Creation of a purchase order'
+          sale_order: 'Creation of a sale order'
         journals:
           bank: 'Bank'
           cash: 'Cash'
           purchases: 'Purchases'
           sales: 'Sales'
           various: 'Various operations'
-        location: 'Warehouse'
+        location_name: 'Warehouse'
         purchase_payment_modes:
           cash:
             name: 'Cash'

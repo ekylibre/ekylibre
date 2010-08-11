@@ -1,0 +1,96 @@
+jpn:
+  about:
+    authors: 'Brice Texier'
+    dir: 'ltr'
+    iso2: 'ja'
+    name: '日本語'
+  date:
+    abbr_day_names: ['日', '月', '火', '水', '木', '金', '土']
+    abbr_month_names: ['', '一', '二', '三', '四', '五', '六', '七', '八', '九', '十', '十一', '十二']
+    day_names: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日']
+    formats:
+      default: '%Y年%m月%d日'
+      #>legal: '%d %B %Y'
+      #>long: '%B %d, %Y'
+      #>month_letter: '%d %B %Y'
+      #>short: '%b %d'
+    month_names: ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+    #>order: [:day, :month, :year]
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        #>many: 'about %{count} hours'
+        #>one: 'about 1 hour'
+      about_x_months:
+        #>many: 'about %{count} months'
+        #>one: 'about 1 month'
+      about_x_years:
+        #>many: 'about %{count} years'
+        #>one: 'about 1 year'
+      #>half_a_minute: 'half a minute'
+      less_than_x_minutes:
+        #>many: 'less than %{count} minutes'
+        #>one: 'less than a minute'
+      less_than_x_seconds:
+        #>many: 'moins de %{count} secondes'
+        #>one: 'moins d''une seconde'
+      over_x_years:
+        #>many: 'over %{count} years'
+        #>one: 'over 1 year'
+      x_days:
+        #>many: '%{count} days'
+        #>one: '1 day'
+      x_minutes:
+        #>many: '%{count} minutes'
+        #>one: '1 minute'
+      x_months:
+        #>many: '%{count} months'
+        #>one: '1 month'
+      x_seconds:
+        #>many: '%{count} secondes'
+        #>one: '1 seconde'
+  dyta:
+    export:
+      #>csv: 'CSV'
+      #>false_value: 'FAUX'
+      #>title: 'Export'
+      #>true_value: 'VRAI'
+      #>xcsv: 'CSV pour Excel'
+    #>next: 'Suivant'
+    #>no_records: 'Aucun enregistrement'
+    #>previous: 'Précédent'
+  number:
+    currency:
+      format:
+        #>delimiter: ','
+        #>format: '%u%n'
+        #>precision: 2
+        #>separator: '.'
+        #>unit: '$'
+    format:
+      #>delimiter: ' '
+      #>precision: 3
+      #>separator: ','
+    human:
+      format:
+        #>delimiter: ''
+        #>precision: 1
+    percentage:
+      format:
+        #>delimiter: ''
+    precision:
+      format:
+        #>delimiter: ''
+  support:
+    array:
+      #>last_word_connector: ' et '
+      #>sentence_connector: 'et'
+      #>two_words_connector: ', '
+      #>words_connector: ', '
+  time:
+    am: 'am'
+    formats:
+      default: '%Y年%m月%d日 %H:%M:%S'
+      #>long: '%B %d, %Y %H:%M'
+      #>short: '%d %b %H:%M'
+    pm: 'pm'

@@ -144,7 +144,7 @@ class SaleOrderLine < ActiveRecord::Base
     if self.price
       errors.add_to_base(:currency_is_not_sale_order_currency) if self.price.currency_id != self.order.currency_id
     end
-    # TODO validates reponsible can make reduction and reduction rate is convenient
+    # TODO validates responsible can make reduction and reduction rate is convenient
   end
   
   

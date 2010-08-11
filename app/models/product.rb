@@ -123,10 +123,6 @@ class Product < ActiveRecord::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-  def check
-    #errors.add_to_base(:unknown_use_of_product) unless self.to_sale or self.to_purchase or self.to_rent
-  end
-
   def self.natures
     @@natures.collect{|x| [self.nature_label(x), x] }
   end
