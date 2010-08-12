@@ -16,7 +16,7 @@ gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branc
 gem 'pg'
 
 # Use unicorn as the web server
-gem 'unicorn'
+# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
@@ -27,7 +27,6 @@ gem 'unicorn'
 # Bundle the extra gems:
 # gem 'bj'
 # gem 'nokogiri', '1.4.1'
-# gem 'sqlite3-ruby', :require => 'sqlite3'
 # gem 'aws-s3', :require => 'aws/s3'
 
 # Bundle gems for certain environments:

@@ -338,7 +338,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .login table tr td { padding: 2px 4px;}
 .login table tr td.label { text-align:right;}
 html[dir="rtl"] .login table tr td.label { text-align:left !important;}
-.login table tr td.input, .login table tr td.input input { text-align:left; width:128px;}
+.login table tr td.input, .login table tr td.input input { width:128px;}
 .login table tr td.button {text-align:center; padding:6px 6px 16px;}
 .login table.browsers tr td { padding: 8px 16px;}
 /*div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px; margin-top: 64px;}*/
