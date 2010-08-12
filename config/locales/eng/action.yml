@@ -79,9 +79,11 @@ eng:
       sequence_create: 'Add a new sequence'
       sequence_update: 'Edit the sequence: {{name}}'
       sequences: 'Sequences'
+      sequences_load: 'Load missing sequences'
       unit_create: 'Add a new unit of measure'
       unit_update: 'Edit the unit: {{label}}'
       units: 'Units of measure'
+      units_load: 'Load default units of measure'
       user: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
       user_create: 'Add a new user'
       user_statistics: 'My statistics'
@@ -262,6 +264,12 @@ eng:
     management: 'Management'
     production: 'Production'
     relations: 'Relationships'
+  errors:
+    template:
+      header:
+        one:    "1 error prohibited this %{model} from being saved"
+        other:  "%{count} errors prohibited this %{model} from being saved"
+      body: "There were problems with the following fields:"
   labels:
     account_accruals: 'Accurals Account'
     account_attorney_to_create: 'Account attorney to create'

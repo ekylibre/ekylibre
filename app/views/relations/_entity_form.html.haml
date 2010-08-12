@@ -1,7 +1,7 @@
 =formalize do |f|
   -f.error :entity
   -f.error :datum
-  -f.title :title
+  -f.title :general_informations
   -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
   -f.field :entity, :language, :choices=>languages
   -f.field :entity, :last_name

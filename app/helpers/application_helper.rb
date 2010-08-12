@@ -799,6 +799,12 @@ module ApplicationHelper
           args[2] ||= {}
           args[2][:class] = :mail
           code += content_tag(:li, mail_to(*args).to_s)
+        elsif nature == :update
+          action = args.class.name.underscore+"_update"
+          url_options = {} unless url_options.is_a? Hash
+          url_options[:action] = action
+          url_options[:id] = args.id
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options))
         end
       end
       if code.strip.length>0
@@ -833,6 +839,10 @@ module ApplicationHelper
     
     def print(*args)
       @tools << [:print, args]
+    end
+
+    def update(record, url_options={})
+      @tools << [:update, record, url_options]
     end
   end
 

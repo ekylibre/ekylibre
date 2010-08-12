@@ -79,9 +79,11 @@ fra:
       sequence_create: 'Création d''une nouvelle séquence'
       sequence_update: 'Modification de la séquence : %{name}'
       sequences: 'Séquences'
+      sequences_load: 'Charger les séquences manquantes'
       unit_create: 'Ajout d''une nouvelle unité de mesure'
       unit_update: 'Modification de l''unité : %{label}'
       units: 'Unités de mesure'
+      units_load: 'Charger les unités de mesure par défaut'
       user: 'Utilisateur : %{first_name} %{last_name} (%{name})'
       user_create: 'Création d''un nouvel utilisateur'
       user_statistics: 'Mes statistiques'
@@ -221,7 +223,7 @@ fra:
       district_create: 'Ajouter une zone'
       district_update: 'Modification de la zone : %{name}'
       districts: 'Zones administratives'
-      entities: 'Fiches des personnes'
+      entities: 'Personnes'
       entities_export: 'Exportation de fiches'
       entities_import: 'Importation de fiches'
       entities_merge: 'Fusionner un doublon à sa fiche d''origine'
@@ -239,7 +241,7 @@ fra:
       entity_nature_create: 'Ajouter un nouveau type de fiche'
       entity_nature_update: 'Modifier le type de fiche : %{name}'
       entity_natures: 'Types de fiches'
-      entity_update: 'Modification de la fiche : %{full_name}'
+      entity_update: 'Modifier la fiche : %{full_name}'
       event_create: 'Ajout d''un évènement'
       event_nature_create: 'Ajouter un type d''évènement'
       event_nature_update: 'Modification du type d''évènement : %{name}'
@@ -262,6 +264,12 @@ fra:
     management: 'Commerce'
     production: 'Production'
     relations: 'Relations'
+  errors:
+    template:
+      header:
+        one: "%{count} erreur a empêché l'enregistrement (%{model})"
+        other: "%{count} erreurs ont empêché l'enregistrement (%{model})"
+      body: "Il y a eu des problèmes avec les champs suivants :"
   labels:
     account_tabbox: 
       children: 'Sous-comptes'
@@ -425,7 +433,7 @@ fra:
     contact: 'à l''adresse' #2
     # contact_create: 'Ajouter un nouveau contact'
     contacts: 
-      one: '1 contact'
+      one: '%{count} contact'
       other: '%{count} contacts'
       zero: '0 contact'
     contains: 'Contient'
@@ -489,7 +497,7 @@ fra:
     embankable: 'Complément d''information' #2
     embankment: 'Remise en banque'
     embankment_create: 
-      one: 'Effectuer une remise : %{mode} (1 encaissement)'
+      one: 'Effectuer une remise : %{mode} (%{count} encaissement)'
       other: 'Effectuer une remise : %{mode} (%{count} encaissements)'
       zero: 'Effectuer une remise : %{mode} (Pas d''encaissement)'
     embankment_update: 'Modifier la remise en banque'
@@ -504,7 +512,7 @@ fra:
     #entity_link_create: 'Ajouter un nouveau lien'
     #entity_link_nature_create: 'Ajouter un nouveau type de lien'
     entity_links: 
-      one: '1 lien'
+      one: '%{count} lien'
       other: '%{count} liens'
       zero: '0 lien'
     #entity_nature_create: 'Ajouter un nouveau type de fiche'
@@ -527,11 +535,11 @@ fra:
     #event_create: 'Ajouter un évènement' #2
     #event_nature_create: 'Ajout d''un type d''évènement'
     x_events:
-      one: '1 évènement'
+      one: '%{count} évènement'
       other: '%{count} évènements'
       zero: '0 évènement'
     x_events_of_nature_y:
-      one: ' 1 évènement de type %{nature} d''une durée de %{duration} minutes'
+      one: ' %{count} évènement de type %{nature} d''une durée de %{duration} minutes'
       other: ' %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes'
       zero: ' Aucun événement de type %{nature}'
     example: 'Exemple&nbsp;: %{value}'
@@ -572,7 +580,7 @@ fra:
     hint: 'Astuce&nbsp;: %{value}'
     home: 'Retour à l''accueil de l''aide'
     hour_duration: 
-      one: 'Temps d''utilisation total : 1 heure'
+      one: 'Temps d''utilisation total : %{count} heure'
       other: 'Temps d''utilisation total : %{count} heures'
       zero: ''
     iban: 'Numéro de compte bancaire internationale (IBAN)'
@@ -604,7 +612,7 @@ fra:
     invoiced_amount: 'Montant facturé'
     invoices: 'Factures'
     x_invoices:
-      one: '1 facture'
+      one: '%{count} facture'
       other: '%{count} factures'
       zero: '0 facture'
     invoices_total: 'Total factures'
@@ -661,14 +669,14 @@ fra:
     mail: 'Envoyer un courriel'
     mailing: 'Mailing'
     mails: 
-      one: '1 courriel'
+      one: '%{count} courriel'
       other: '%{count} courriels'
       zero: 'Aucun courriels'
     management: 'Gestion commerciale'
     management_index: 'Index de la gestion commerciale' #3
     management_rights: 'Droits module Commerce'
     mandates: 
-      one: '1 responsabilité'
+      one: '%{count} responsabilité'
       other: '%{count} responsabilités '
       zero: '0 responsabilité'
     mandates_fields: 'Vous devez saisir au moins une valeur dans l''un des champs'
@@ -710,51 +718,51 @@ fra:
     national_vat_collected: 'Opérations réalisées en France métropolitaine'
     nature: 'Type'
     nb_enbankments: 
-      one: '1 remise en banque à valider'
+      one: '%{count} remise en banque à valider'
       other: '%{count} remises en banque à valider'
       zero: 'Aucune remise en banque à valider'
     nb_entities:
-      one: '1 fiche client/fournisseur'
+      one: '%{count} fiche client/fournisseur'
       other: '%{count} fiches clients/fournisseurs'
       zero: 'Aucune fiche clients/fournisseurs'
     nb_entries: 
-      one: '1 écriture'
+      one: '%{count} écriture'
       other: '%{count} écritures'
       zero: 'Aucune écriture'
     nb_invoices: 
-      one: '1 facture enregistrée'
+      one: '%{count} facture enregistrée'
       other: '%{count} factures enregistrées'
       zero: 'Aucune facture enregistrée'
     nb_mandates: 
-      one: '1 responsabilité enregistrée'
+      one: '%{count} responsabilité enregistrée'
       other: '%{count} responsabilités enregistrées'
       zero: 'Aucune responsabilité enregistrée'
     nb_operations: 
-      one: '1 travail à réaliser'
+      one: '%{count} travail à réaliser'
       other: '%{count} travaux à réaliser'
       zero: 'Aucun travail à réaliser'
     nb_payments: 
-      one: '1 encaissement à encaisser depuis au moins 15 j.'
+      one: '%{count} encaissement à encaisser depuis au moins 15 j.'
       other: '%{count} encaissement à encaisser depuis au moins 15 j.'
       zero: 'Aucun encaissement à encaisser depuis au moins 15 j.'
     nb_products: 
-      one: '1 produit enregistré'
+      one: '%{count} produit enregistré'
       other: '%{count} produits enregistrés'
       zero: 'Aucun produit enregistré'
     nb_purchases:  #2
-      one: '1 achat en attente de reception' #2
+      one: '%{count} achat en attente de reception' #2
       other: '%{count} achats en attente de reception' #2
       zero: 'Aucun achat en attente de reception' #2
     nb_sales:
-      one: '1 commande'
+      one: '%{count} commande'
       other: '%{count} commandes'
       zero: 'Aucune commande'
     nb_waiting_deliveries:
-      one: '1 livraison en attente'
+      one: '%{count} livraison en attente'
       other: '%{count} livraisons en attente'
       zero: 'Aucune livraison en attente'
     nb_transfers: 
-      one: '1 transfert à effectuer'
+      one: '%{count} transfert à effectuer'
       other: '%{count} transferts à effectuer'
       zero: 'Aucun transfert à effectuer'
     nb_years: 'Nombre d''années dans l''historique'
@@ -797,7 +805,7 @@ fra:
     number: 'Numéro'
     # observation_create: 'Ajouter une observation'
     observations: 
-      one: '1 observation'
+      one: '%{count} observation'
       other: '%{count} observations'
       zero: '0 observation'
     on_account: 'À remettre sur le compte'
@@ -807,7 +815,7 @@ fra:
     operation_update: 'Modifier le travail'
     operations: 'Travaux'
     x_operations:
-      one: '1 travail'
+      one: '%{count} travail'
       other: '%{count} travaux'
       zero: 'Aucun travail'
     order: 'Commande'
@@ -858,7 +866,7 @@ fra:
     price_amount_with_taxes: 'Prix TTC' #2
     # price_create: 'Ajouter un tarif à cette catégorie'
     x_prices:
-      one: '1 prix'
+      one: '%{count} prix'
       other: '%{count} prix'
       zero: '0 prix'
     prices_export: 'Exporter vos tarifs au format CSV'
@@ -888,14 +896,14 @@ fra:
     purchase_order_price_create: 'Ajouter un prix d''achat'
     purchase_order_update: 'Modifier les informations de la commande'
     x_purchase_orders:
-      one: '1 achat'
+      one: '%{count} achat'
       other: '%{count} achats'
       zero: '0 achat'
     purchase_orders: 'Achats'
     purchase_payment_part_create: 'Payer l''achat' #2
     purchase_payment_update: 'Modifier le décaissement'
     purchase_payments: 
-      one: '1 décaissement'
+      one: '%{count} décaissement'
       other: '%{count} décaissements'
       zero: '0 décaissement'
     purchase_price_create: 'Créer un prix d''achat' #2
@@ -932,7 +940,7 @@ fra:
     restore: 'Restaurer'
     result: 'Résultat'
     results: 
-      one: '1 résultat'
+      one: '%{count} résultat'
       other: '%{count} résultats'
       zero: 'Aucun résultat'
     reverse: 'Appliquer la condition inverse'
@@ -957,7 +965,7 @@ fra:
     sale_order_update: 'Modifier les informations du devis'
     sale_orders: 'Ventes'
     x_sale_orders:
-      one: '1 vente'
+      one: '%{count} vente'
       other: '%{count} ventes'
       zero: '0 vente'
     sale_payment_conditions: 'Conditions d''encaissement'
@@ -965,7 +973,7 @@ fra:
     #sale_payment_part_create: 'Affecter un encaissement'
     sale_payment_update: 'Modifier l''encaissement'
     sale_payments: 
-      one: '1 encaissement'
+      one: '%{count} encaissement'
       other: '%{count} encaissements'
       zero: '0 encaissement'
     sale_price_create: 'Créer un prix de vente' #2
@@ -1033,7 +1041,7 @@ fra:
     subscription_natures_down: 'Décrémenter le numéro actuel (-1)'
     subscription_natures_up: 'Incrémenter le numéro actuel (+1)'
     x_subscriptions:
-      one: '1 abonnement'
+      one: '%{count} abonnement'
       other: '%{count} abonnements'
       zero: '0 abonnement'
     subscriptions: 'Abonnements'

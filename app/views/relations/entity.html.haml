@@ -1,7 +1,8 @@
 =render :partial=>"shared/entities_search"
-= toolbar do
-  - link :entity_update, :id=>@entity.id
-  - print :entity, :id=>@entity.id
+=toolbar do |t|
+  -t.link :entity_update, :id=>@entity.id
+  -t.update @entity
+  -t.print :entity, :id=>@entity.id
 
 %table
   %tr

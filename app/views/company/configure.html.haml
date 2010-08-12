@@ -7,8 +7,8 @@
       -f.error 'my_company'
       -f.title tc(:general)
       -f.field :my_company, :name
-      -f.field t("activerecord.attributes.company.code"), content_tag(:strong, @my_company.code)
-      -f.field t("activerecord.attributes.company.entity_id"), link_to(@my_company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@my_company.entity_id})
+      -f.field Company.human_attribute_name("code"), content_tag(:strong, @my_company.code)
+      -f.field Company.human_attribute_name("entity_id"), link_to(@my_company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@my_company.entity_id})
       -f.field :my_company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
       -for name, options in @tree
         -f.title tc(name)

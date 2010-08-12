@@ -1,7 +1,6 @@
 =form_tag do
   =formalize do |f|
     -f.error :financialyear
-    -f.title :title
     -f.field Financialyear.model_name.human, @financialyear.code
     -f.field :financialyear, :stopped_on, :choices => @financialyear.closures.collect{|d| [I18n.localize(d), d]} 
     -f.title :use_renew

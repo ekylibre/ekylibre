@@ -13,7 +13,7 @@
     =hidden_field_tag("conditions[#{id}][type]", condition)
     .param
       =check_box_tag("conditions[#{id}][use_timestamp]")
-      =tc("created_between", :started_on=>date_field_tag("conditions[#{id}][timestamp][started_on]", Date.today-6), :stopped_on=>date_field_tag("conditions[#{id}][timestamp][stopped_on]"))
+      =tc("created_between", :started_on=>date_field_tag("conditions[#{id}][timestamp][started_on]", Date.today-6), :stopped_on=>date_field_tag("conditions[#{id}][timestamp][stopped_on]")).html_safe
     -if condition == "special-subscriber"
       .param
         -for nature in @current_company.subscription_natures
@@ -24,7 +24,7 @@
         %div{:id=>"conditions_#{id}_nature_#{nature.id}_detail", :style=>'display:none'}
           .param
             =check_box_tag("conditions[#{id}][#{nature.id}][use_subscribed_on]", "1", true)
-            =tc("subscriber_#{nature.nature}", :subscribed_on=>(nature.period? ? calendar_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]") : text_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]", nature.actual_number, :size=>8)))
+            =tc("subscriber_#{nature.nature}", :subscribed_on=>(nature.period? ? calendar_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]") : text_field_tag("conditions[#{id}][#{nature.id}][subscribed_on]", nature.actual_number, :size=>8))).html_safe
           .param
             -for product in nature.products
               =check_box_tag("conditions[#{id}][#{nature.id}][products][#{product.id}]", "1", true, :id=>"conditions_#{id}_#{nature.id}_products_#{product.id}")

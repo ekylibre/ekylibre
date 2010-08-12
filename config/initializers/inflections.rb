@@ -12,3 +12,6 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'tax', 'taxes'
 end
+
+# Set pluralization active with the algorithms defined in [locale]/i18n.rb
+I18n::Backend::Simple.send(:include, I18n::Backend::Pluralization)

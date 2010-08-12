@@ -307,7 +307,7 @@ module Ekylibre
                     elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                       datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
                     elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                      datum = "(#{datum}.blank? ? '' : '<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})+'</nobr>')"
+                      datum = "(#{datum}.blank? ? '' : ('<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})+'</nobr>').html_safe)"
                     elsif column.datatype == :string
                       datum = "h("+datum+")"
                     end

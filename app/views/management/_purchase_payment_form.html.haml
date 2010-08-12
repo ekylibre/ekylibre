@@ -1,6 +1,6 @@
 =formalize do |f|
   -f.error 'purchase_payment'
-  -f.title :title
+  -f.title :general_informations
   -f.field :purchase_payment, :payee_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create}
   -f.field :purchase_payment, :amount
   -f.field :purchase_payment, :to_bank_on
