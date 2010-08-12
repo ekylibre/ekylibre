@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link :cash_update, :id=>@cash.id
+  -t.update @cash
 
 %table
   %tr
@@ -8,15 +8,18 @@
       =evalue @cash, :nature_label
       =evalue @cash, :journal, :url=>{:action=>:journal}
       =evalue @cash, :account, :url=>{:action=>:account}
-    -if @cash.bank_account?
-      %td
+    %td
+      =evalue @cash, :bank_name
+      =evalue @cash, :address
+      -if @cash.bank_account?
         =evalue @cash, :iban_label
         =evalue @cash, :bic
-        -if @cash.use_mode? :bban
-          =evalue @cash, :bank_code
-          =evalue @cash, :agency_code
-          =evalue @cash, :number
-          =evalue @cash, :key
+    -if @cash.bank_account? and @cash.use_mode? :bban
+      %td
+        =evalue @cash, :bank_code
+        =evalue @cash, :agency_code
+        =evalue @cash, :number
+        =evalue @cash, :key
 
 =tabbox(:cash) do |tb|
   -tb.tab(:embankments,     :content=>dyta(:cash_embankments))

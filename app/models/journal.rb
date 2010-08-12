@@ -52,7 +52,7 @@ class Journal < ActiveRecord::Base
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
   # this method is called before creation or validation method.
-  def clean
+  def prepare
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on == Date.civil(1970,12,31) 

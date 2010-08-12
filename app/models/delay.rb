@@ -44,7 +44,7 @@ class Delay < ActiveRecord::Base
 
   DELAY_SEPARATOR = ', '
 
-  def clean
+  def prepare
     self.expression = self.expression.squeeze(" ").lower
     self.expression.split(/\s*\,\s*/).collect{|x| x.strip}.join(DELAY_SEPARATOR)
   end

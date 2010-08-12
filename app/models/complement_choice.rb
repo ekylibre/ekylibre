@@ -39,7 +39,7 @@ class ComplementChoice < ActiveRecord::Base
   has_many :data, :class_name=>ComplementDatum.to_s
   acts_as_list :scope=>:complement_id
 
-  def clean
+  def prepare
     self.value = self.name.to_s.codeize if self.value.blank?
   end
 

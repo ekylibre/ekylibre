@@ -56,7 +56,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
   belongs_to :location
-  belongs_to :order, :class_name=>SaleOrder.to_s, :autosave=>true
+  belongs_to :order, :class_name=>SaleOrder.to_s
   belongs_to :price
   belongs_to :product
   belongs_to :reduction_origin, :class_name=>SaleOrderLine.to_s
@@ -67,10 +67,13 @@ class SaleOrderLine < ActiveRecord::Base
   has_many :invoice_lines
   has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :reductions, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
+
+  autosave :order
+
   validates_presence_of :price_id
 
   
-  def clean
+  def prepare
     # check_reservoir = true
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product

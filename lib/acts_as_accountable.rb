@@ -23,6 +23,25 @@ module ActiveRecord
           end if configuration[:callbacks].is_a? Array
           class_eval code
         end
+
+        def autosave(*reflections_list)
+          code  = "after_save do\n"
+          for reflection in reflections_list
+            ref = self.reflections[reflection]
+            raise ArgumentError.new("reflection unknown (#{self.reflections.keys.to_sentence} available)") unless ref
+            
+            if ref.macro == :belongs_to or ref.macro == :has_one
+              code += "  self.#{reflection}.save if self.#{reflection}\n"
+            else
+              code += "  for item in #{reflection}\n"
+              code += "    item.save\n"
+              code += "  end\n"            
+            end
+          end
+          code += "end\n"
+          class_eval code
+        end
+
       end
 
       module InstanceMethods
@@ -37,15 +56,13 @@ module ActiveRecord
           raise ArgumentError.new("Missing attribute :journal (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
           ActiveRecord::Base.transaction do
             # Cancel the existing journal_record
-            if self.journal_record
-              if not self.journal_record.closed? and (attributes[:journal] == self.journal_record.journal)
-                self.journal_record.entries.destroy_all
-                self.journal_record.reload
-                self.journal_record.update_attributes!(attributes)
-              else
-                self.journal_record.cancel
-                self.journal_record = nil
-              end
+            if self.journal_record and not self.journal_record.closed? and (attributes[:journal] == self.journal_record.journal)
+              self.journal_record.entries.destroy_all
+              self.journal_record.reload
+              self.journal_record.update_attributes!(attributes)
+            elsif self.journal_record
+              self.journal_record.cancel
+              self.journal_record = nil
             end
 
             # Add journal entries

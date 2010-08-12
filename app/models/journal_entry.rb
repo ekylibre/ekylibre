@@ -59,7 +59,7 @@ class JournalEntry < ActiveRecord::Base
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
   #
-  def clean
+  def prepare
     # computes the values depending on currency rate
     # for debit and credit.
     self.currency_debit  ||= 0

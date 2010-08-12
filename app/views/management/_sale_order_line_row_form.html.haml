@@ -1,6 +1,6 @@
 -price_id = nil
 %fieldset.quick-add
-  %legend=tc('title')
+  %legend=tc :add_quickly_a_line
   =form_tag(:action=>:sale_order_line_create) do 
     =formalize do |f|
       -price_id = f.field :sale_order_line, :price_id, :choices=>:available_prices

@@ -43,7 +43,7 @@ class Inventory < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
 
-  def clean
+  def prepare
     self.created_on ||= Date.today
   end
 

@@ -42,11 +42,11 @@ class Transport < ActiveRecord::Base
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries, :dependent=>:nullify
 
-  def before_validation_on_create
+  def prepare_on_create
     self.created_on ||= Date.today
   end
 
-  def clean
+  def prepare
     self.weight = 0
     for delivery in self.deliveries
       self.weight += delivery.weight

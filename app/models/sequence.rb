@@ -48,7 +48,7 @@ class Sequence < ActiveRecord::Base
   validates_inclusion_of :period, :in => @@periods  
   validates_uniqueness_of :format, :scope=>:company_id
 
-  def clean
+  def prepare
     self.period ||= 'number'
   end
 

@@ -61,7 +61,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   ## shipped used as received
 
-  def clean
+  def prepare
     self.created_on ||= Date.today
     self.parts_amount = self.payment_parts.sum(:amount)||0
     if self.number.blank?
@@ -79,7 +79,7 @@ class PurchaseOrder < ActiveRecord::Base
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
   end
   
-  def after_validation_on_create
+  def clean_on_create
     specific_numeration = self.company.parameter("management.purchase_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end

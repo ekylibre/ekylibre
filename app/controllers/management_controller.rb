@@ -1565,8 +1565,9 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:sale_payment}
   end
 
-  dyta(:embankable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :per_page=>100, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
-    t.column :full_name, :through=>:payer
+  dyta(:embankable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (embankment_id=? OR (mode_id=? AND embankment_id IS NULL))", ['@current_company.id'], ['session[:embankment_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+    t.column :number, :url=>{:action=>:sale_payment}
+    t.column :full_name, :through=>:payer, :url=>{:action=>:entity, :controller=>:relations}
     t.column :bank
     t.column :account_number
     t.column :check_number
@@ -1632,7 +1633,7 @@ class ManagementController < ApplicationController
           SalePayment.update_all({:embankment_id=>@embankment.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
         end
         @embankment.refresh
-        redirect_to :action=>:embankments 
+        redirect_to :action=>:embankment, :id=>@embankment.id
       end
     end
     t3e @embankment.attributes

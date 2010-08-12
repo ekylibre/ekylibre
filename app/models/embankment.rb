@@ -53,7 +53,7 @@ class Embankment < ActiveRecord::Base
 
   validates_presence_of :embanker, :number, :cash
 
-  def before_validation_on_create
+  def prepare_on_create
     specific_numeration = self.company.parameter("management.embankments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
@@ -63,7 +63,7 @@ class Embankment < ActiveRecord::Base
     end
   end
 
-  def before_validation_on_update
+  def prepare_on_update
     self.payments_count = self.payments.count
     self.amount = self.payments.sum(:amount)
   end
@@ -93,13 +93,14 @@ class Embankment < ActiveRecord::Base
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
       record.add_debit( label, self.cash.account_id, self.amount)
       if self.company.parameter("accountancy.accountize.detail_payments_in_embankments").value
-        for payment in self.payments
+        for payment in self.reload.payments
           label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
           record.add_credit(label, self.mode.embankables_account_id, payment.amount)
         end
       else
         record.add_credit(label, self.mode.embankables_account_id, self.amount)
       end
+
     end
   end
 

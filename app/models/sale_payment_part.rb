@@ -40,11 +40,11 @@ class SalePaymentPart < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :expense, :polymorphic=>true, :autosave=>true
+  belongs_to :expense, :polymorphic=>true
   belongs_to :journal_record
-  belongs_to :payment, :class_name=>SalePayment.name, :autosave=>true
+  belongs_to :payment, :class_name=>SalePayment.name
 
-  # belongs_to :invoice # TODEL
+  autosave :expense, :payment
 
   cattr_reader :expense_types
   @@expense_types = [SaleOrder.name, Transfer.name] # PurchaseOrder.name, 
@@ -52,7 +52,7 @@ class SalePaymentPart < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type
 
-  def clean
+  def prepare
     # self.expense_type ||= self.expense.class.name
     self.downpayment = false if self.downpayment.nil?
     return true

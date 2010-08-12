@@ -106,8 +106,10 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 #side .menus { /*background: #fefef9 url(../images/help.png) repeat-x top;*/ padding: 0 8px;}
 #side .nav { height: 64px; }
 #side .menu { background: #FFF; padding:0px; margin:0px 0px 8px; border: 2px solid #95b0e4; }
-#side .menu h2 { font-size : 13px; color: #012; padding: 2px 4px 2px 18px; background: #95b0e4 url(../images/buttons/down4.png) no-repeat left center; text-align: left; cursor: pointer; font-weight: bold;}
-#side .menu h2.closed { background: #95b0e4 url(../images/buttons/next4.png) no-repeat left center; }
+#side .menu h2 { font-size : 13px; color: #012; cursor: pointer; font-weight: bold; background: #95b0e4 url(../images/buttons/down4.png) no-repeat; }
+html[dir="ltr"] #side .menu h2 { background-position: left center;  padding: 2px 4px 2px 18px; }
+html[dir="rtl"] #side .menu h2 { background-position: right center; padding: 2px 18px 2px 4px; }
+html #side .menu h2.closed { background-image: url(../images/buttons/next4.png); }
 #side .menu ul { padding: 0 0px 0 0px; }
 #side .menu ul li:first-child { border-top: none; }
 #side .menu li { list-style-type: none; background: url(../images/round-blue.png) no-repeat 4px center; border-top: 1px dotted #95b0e4; }
@@ -132,7 +134,7 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 .yield h2 { margin: 16px 0px 4px; font-size:15px; color: #047; }
 .yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px;}
 .yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
-.yield .menu ul { padding: 4px 4px 4px 18px; }
+.yield .menu ul { padding: 4px 18px; }
 .yield .menu li { list-style-type: square; padding: 1px;}
 .yield .menu li { color:#047; }
 .yield .menu.special { background: #FE9; }
@@ -286,6 +288,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .toolbar ul > li > a.restore   {background: url(../images/buttons/left.png) no-repeat center left;}
 .toolbar ul > li > a.sort      {background: url(../images/buttons/sort.png) no-repeat center left;}
 .toolbar ul > li > a.update    {background: url(../images/buttons/update.png) no-repeat center left;}
+.toolbar ul > li > a.letter    {background: url(../images/buttons/letter.png) no-repeat center left;}
 
 
 a.more {padding: 2px 2px 2px 16px; height:16px; background: url(../images/buttons/down2.png) no-repeat center left;}

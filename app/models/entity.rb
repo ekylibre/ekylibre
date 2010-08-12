@@ -109,7 +109,7 @@ class Entity < ActiveRecord::Base
   validates_uniqueness_of :code, :scope=>:company_id
 
 
-  def clean
+  def prepare
     self.webpass = User.give_password(8, :normal) if self.webpass.blank?
     self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip

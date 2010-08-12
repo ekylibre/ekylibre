@@ -64,7 +64,7 @@ class JournalRecord < ActiveRecord::Base
   validates_numericality_of :currency_rate, :greater_than=>0
 
   #
-  def clean
+  def prepare
     if self.journal
       self.company_id  = self.journal.company_id 
       self.currency_id = self.journal.currency_id

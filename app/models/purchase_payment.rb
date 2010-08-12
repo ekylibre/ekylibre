@@ -50,14 +50,16 @@ class PurchasePayment < ActiveRecord::Base
   belongs_to :mode, :class_name=>PurchasePaymentMode.name  
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
+  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
   has_many :purchase_orders, :through=>:parts
+
+  autosave :parts
 
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on, :created_on
 
 
-  def before_validation_on_create
+  def prepare_on_create
     self.created_on ||= Date.today
     specific_numeration = self.company.parameter("management.purchase_payments.numeration")
     if specific_numeration and specific_numeration.value
@@ -69,7 +71,7 @@ class PurchasePayment < ActiveRecord::Base
     true
   end
 
-  def clean
+  def prepare
     self.parts_amount = self.parts.sum(:amount)
   end
 

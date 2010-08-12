@@ -43,9 +43,11 @@ class ProductComponent < ActiveRecord::Base
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s
   belongs_to :location
-  belongs_to :product, :autosave=>true
+  belongs_to :product
 
-  def clean
+  autosave :product
+
+  def prepare
     if self.quantity >= 2
       self.name = self.quantity.to_s+" "+self.component.unit.label+"s "+tc('of_product')+" "+self.component.name.to_s
     else
@@ -53,7 +55,7 @@ class ProductComponent < ActiveRecord::Base
     end
   end
   
-  def before_validation_on_create    
+  def prepare_on_create    
     self.active = true
     self.started_at = Time.now
   end

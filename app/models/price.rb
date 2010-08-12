@@ -62,7 +62,7 @@ class Price < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than_or_equal_to=>0
   validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
-  def clean
+  def prepare
     self.company_id  ||= self.product.company_id if self.product
     if self.company
       self.currency_id ||= self.company.currencies.first.id 

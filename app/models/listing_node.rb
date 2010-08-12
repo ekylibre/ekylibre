@@ -46,15 +46,17 @@
 #
 
 class ListingNode < ActiveRecord::Base
-  belongs_to :company
-  belongs_to :listing, :autosave=>true
-  belongs_to :item_listing, :class_name=>Listing.name
-  belongs_to :item_listing_node, :class_name=>ListingNode.name
-  has_many :items, :class_name=>ListingNodeItem.name
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :company_id, :listing_id, :nature
+  belongs_to :company
+  belongs_to :listing
+  belongs_to :item_listing, :class_name=>Listing.name
+  belongs_to :item_listing_node, :class_name=>ListingNode.name
+  has_many :items, :class_name=>ListingNodeItem.name
   validates_uniqueness_of :key
+
+  autosave :listing
 
 
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
@@ -96,7 +98,7 @@ class ListingNode < ActiveRecord::Base
     :in=>"{{COLUMN}} IN {{LIST}}" 
   }
   
-  def clean
+  def prepare
     self.listing_id = self.parent.listing_id if self.parent
     self.company_id = self.listing.company_id if self.listing
 
@@ -112,7 +114,7 @@ class ListingNode < ActiveRecord::Base
     end
   end 
 
-  def before_validation_on_create
+  def prepare_on_create
     if self.reflection?
       for node in listing.nodes
         if node = self.listing.nodes.find(:first, :conditions=>{:name=>self.name})

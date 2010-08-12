@@ -70,7 +70,7 @@ class Cash < ActiveRecord::Base
   COUNTRY_CODE_FR="FR"
 
   # before create a bank account, this computes automatically code iban.
-  def clean
+  def prepare
     self.mode.lower!
     self.mode = @@modes[0] if self.mode.blank?
     # raise Exception.new self.mode.inspect

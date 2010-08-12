@@ -88,7 +88,7 @@ class User < ActiveRecord::Base
     def useful_rights; @@useful_rights; end
   end
   
-  def clean
+  def prepare
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
       self.language = self.company.parameter('general.language').value if self.language.blank?

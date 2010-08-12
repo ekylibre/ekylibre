@@ -1,9 +1,9 @@
 =toolbar do |t|
-  -t.link :bank_statement_update, :id=>@bank_statement.id
-  -t.link :bank_statement_point, :id=>@bank_statement.id
+  -t.update @bank_statement
+  -t.point @bank_statement
 
 =evalue(@bank_statement, :number)
-=evalue(@bank_statement, :cash)
+=evalue(@bank_statement, :cash, :url=>{:action=>:cash})
 =evalue(@bank_statement, :credit)
 =evalue(@bank_statement, :debit)
 =evalue(@bank_statement, :started_on)

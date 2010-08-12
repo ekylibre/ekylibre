@@ -43,8 +43,18 @@ module ActiveRecord
           if self.instance_methods.include?("updatable?")
             code += "before_update {|record| return false unless self.updatable? }\n"
           end
-          if self.instance_methods.include?("clean")
-            code += "before_validation :clean\n"
+          if self.instance_methods.include?("prepare")
+            code += "before_validation :prepare\n"
+          end
+          if self.instance_methods.include?("prepare_on_create")
+            code += "before_validation(:on=>:create) do\n"
+            code += "  prepare_on_create\n"
+            code += "end\n"
+          end
+          if self.instance_methods.include?("prepare_on_update")
+            code += "before_validation(:on=>:update) do\n"
+            code += "  prepare_on_update\n"
+            code += "end\n"
           end
           if self.instance_methods.include?("check")
             code += "validate :check\n"
@@ -57,6 +67,19 @@ module ActiveRecord
           if self.instance_methods.include?("check_on_create")
             code += "validate(:on=>:create) do\n"
             code += "  check_on_create\n"
+            code += "end\n"
+          end
+          if self.instance_methods.include?("clean")
+            code += "after_validation :clean\n"
+          end
+          if self.instance_methods.include?("clean_on_create")
+            code += "after_validation(:on=>:create) do\n"
+            code += "  clean_on_create\n"
+            code += "end\n"
+          end
+          if self.instance_methods.include?("clean_on_update")
+            code += "after_validation(:on=>:update) do\n"
+            code += "  clean_on_update\n"
             code += "end\n"
           end
           class_eval code

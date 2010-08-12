@@ -43,7 +43,7 @@ class Area < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  def clean
+  def prepare
     return false unless self.company
     self.name = self.name.gsub(/\s+/,' ').strip.upper
     words = self.name.to_s.split(' ')

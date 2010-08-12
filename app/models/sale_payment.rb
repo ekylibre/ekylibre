@@ -52,15 +52,17 @@ class SalePayment < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
-  belongs_to :embankment, :autosave=>true
+  belongs_to :embankment
   belongs_to :journal_record
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
+  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id
   # has_many :orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   # has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
   has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>Transfer.name
+
+  autosave :embankment, :parts
 
   attr_readonly :company_id, :payer_id
   attr_protected :parts_amount
@@ -68,7 +70,7 @@ class SalePayment < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on, :payer, :created_on
   
-  def before_validation_on_create
+  def prepare_on_create
     self.created_on ||= Date.today
     specific_numeration = self.company.parameter("management.payments.numeration")
     if specific_numeration and specific_numeration.value
@@ -82,7 +84,7 @@ class SalePayment < ActiveRecord::Base
     true
   end
 
-  def clean
+  def prepare
     self.parts_amount = self.parts.sum(:amount)
   end
 

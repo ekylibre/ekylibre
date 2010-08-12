@@ -32,7 +32,7 @@ module Ekylibre
               :find_method=>'paginate',
               :find_params=>':page=>page, :per_page=>@@LENGTH@@'
             },
-            :default=>{
+            :none=>{
               :find_method=>'find',
               :find_params=>''
             }
@@ -55,7 +55,7 @@ module Ekylibre
             end
 
 
-            options = {:pagination=>:default, :empty=>false, :export=>'dyta.export'}
+            options = {:pagination=>:none, :empty=>false, :export=>'dyta.export'}
             options[:pagination] = :will_paginate if Ekylibre::Dyke::Dyta.will_paginate
             options.merge! new_options
 

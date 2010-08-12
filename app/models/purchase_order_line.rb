@@ -46,7 +46,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   attr_readonly :company_id, :order_id
   belongs_to :account
   belongs_to :company
-  belongs_to :order, :class_name=>PurchaseOrder.name, :autosave=>true
+  belongs_to :order, :class_name=>PurchaseOrder.name
   belongs_to :price
   belongs_to :product
   belongs_to :location, :class_name=>Location.name
@@ -55,8 +55,10 @@ class PurchaseOrderLine < ActiveRecord::Base
   validates_presence_of :amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
+
+  autosave :order
   
-  def clean
+  def prepare
     self.company_id = self.order.company_id if self.order
     check_reservoir = true
     self.location_id = self.company.locations.first.id if self.company.locations.size == 1

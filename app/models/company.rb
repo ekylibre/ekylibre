@@ -158,7 +158,7 @@ class Company < ActiveRecord::Base
   @@ehm = Ekylibre.models.delete_if{|x| x==:company}
   #  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
-  def clean
+  def prepare
     if self.code.blank?
       self.code = self.name.to_s[0..7].simpleize 
       self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
@@ -692,7 +692,7 @@ class Company < ActiveRecord::Base
       user.role_id = company.admin_role.id
       user.save!
       tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
-        raise Exception.new("Shiiiitt (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
+        raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
         if num.to_s.match(/^n_/)
           number = num.to_s[2..-1]
           if account = company.accounts.find_by_number(number)

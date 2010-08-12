@@ -38,7 +38,7 @@ class ToolUse < ActiveRecord::Base
   belongs_to :tool
   validates_uniqueness_of :tool_id, :scope=>[:operation_id]
 
-  def clean
+  def prepare
     self.company_id = self.operation.company_id if self.operation
   end
 

@@ -52,7 +52,7 @@ class StockTransfer < ActiveRecord::Base
   validates_presence_of :unit_id
   validates_presence_of :second_location_id, :if=>Proc.new{|x| x.transfer?}
 
-  def clean
+  def prepare
     self.unit_id = self.product.unit_id if self.product
     self.moved_on =  Date.today if self.planned_on <= Date.today
     self.second_location_id = nil unless self.transfer? # if self.nature == "waste"

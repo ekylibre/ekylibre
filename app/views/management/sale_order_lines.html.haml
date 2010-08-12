@@ -14,7 +14,7 @@
       %h2=tc :general
       -if @sale_order.estimate?
         =toolbar do |t|
-          -t.link(:sale_order_update, {:id=>@sale_order.id})
+          -t.update @sale_order
       =evalue @sale_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}, :orient=>:vertical
       =evalue @sale_order, :responsible, :label=>:full_name, :orient=>:vertical
       =evalue @sale_order, :nature, :orient=>:vertical

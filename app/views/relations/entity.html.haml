@@ -1,6 +1,5 @@
 =render :partial=>"shared/entities_search"
 =toolbar do |t|
-  -t.link :entity_update, :id=>@entity.id
   -t.update @entity
   -t.print :entity, :id=>@entity.id
 
@@ -52,7 +51,7 @@
     -c << dyta(:entity_purchase_orders)
   -tb.tab(tc(:x_invoices, :count=>@entity.invoices.count)) do |c|
     -c << dyta(:entity_invoices)
-  -tb.tab(tc(:sale_payments, :count=>@entity.sale_payments.count)) do |c|
+  -tb.tab(tc(:x_sale_payments, :count=>@entity.sale_payments.count)) do |c|
     -c << toolbar do
       -link :sale_payment_create,{:controller=>:management, :payer_id=>@entity.id}
     -c << dyta(:entity_sale_payments)

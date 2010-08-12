@@ -1,7 +1,7 @@
 =toolbar do |t|
-  -t.link :account_update, :id=>@account.id
+  -t.update @account
   -if @account.letterable?
-    -t.link :account_letter, :id=>@account.id
+    -t.letter @account
 %table.full-width
   %tr
     %td

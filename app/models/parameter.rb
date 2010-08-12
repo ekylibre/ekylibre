@@ -50,7 +50,7 @@ class Parameter < ActiveRecord::Base
   validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
 
 
-  def clean
+  def prepare
     self.company_id = self.user.company_id if self.user
   end
 

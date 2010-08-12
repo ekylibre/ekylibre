@@ -64,7 +64,7 @@ class Location < ActiveRecord::Base
   acts_as_tree
 
 
-  def before_validation_on_create
+  def prepare_on_create
     self.reservoir = true if !self.product_id.nil?
   end
   

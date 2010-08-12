@@ -1,8 +1,6 @@
 .nav
     
 .menus.flex{:style=>"overflow: auto"}
-  -#.menu
-  -#  %ul=li_link_to tg('indicator'), :controller=>self.controller.controller_name
   -for list in menu[:list]
     -display = false
     -list[:list].each do |action| 
@@ -15,7 +13,6 @@
         %ul{:id=>"side_#{prefix}_actions", :style=>(parameter.value ? nil : "display: none") }
           -for action in list[:list]
             -action_name = action[:url] ? action[:url][:action] : nil
-            -#=li_link_to t("views.shared._menu.#{action[:name]}", :default=>["views.#{self.controller.controller_name}.#{action_name||action[:name]}.title".to_sym]), action[:url]||{:action=>action[:name]}
             =li_link_to t("actions.#{self.controller.controller_name}.#{action_name||action[:name]}"), action[:url]||{:action=>action[:name]}
 .end
   

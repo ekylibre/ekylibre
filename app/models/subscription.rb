@@ -60,7 +60,7 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
   validates_presence_of :nature_id, :entity_id
 
-  def clean
+  def prepare
     self.sale_order_id ||= self.invoice.sale_order_id if self.invoice
     self.nature_id ||= self.product.subscription_nature_id if self.product
     unless self.entity
@@ -77,7 +77,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  def before_validation_on_create
+  def prepare_on_create
     if self.nature
       if self.nature.nature == "period"
         if self.product
@@ -123,9 +123,9 @@ class Subscription < ActiveRecord::Base
 
   # Initialize default parameters
   def compute_period
-    #self.before_validation
+    #self.clean
     self.nature_id ||= self.product.subscription_nature_id if self.product
-    self.before_validation_on_create if self.new_record?
+    self.clean_on_create if self.new_record?
     self
   end
 

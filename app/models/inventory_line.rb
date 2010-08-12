@@ -46,7 +46,7 @@ class InventoryLine < ActiveRecord::Base
   belongs_to :unit
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
-  def clean
+  def prepare
     self.company_id = self.inventory.company_id if self.inventory
   end
 

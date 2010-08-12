@@ -78,7 +78,7 @@ class DocumentTemplate < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
 
-  def clean
+  def prepare
     self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
     self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0

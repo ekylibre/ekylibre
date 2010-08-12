@@ -44,7 +44,7 @@ class SubscriptionNature < ActiveRecord::Base
 
   validates_numericality_of :reduction_rate, :greater_than_or_equal_to=>0, :less_than_or_equal_to=>1
 
-  def clean
+  def prepare
     self.reduction_rate ||= 0
   end
 

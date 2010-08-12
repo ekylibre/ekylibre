@@ -57,7 +57,7 @@ class Document < ActiveRecord::Base
 
   DIRECTORY = "#{Rails.root.to_s}/private"
 
-  def clean
+  def prepare
     self.nature_code = self.template.code if self.template
   end
 

@@ -46,18 +46,20 @@
 class InvoiceLine < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
-  belongs_to :invoice, :autosave=>true
+  belongs_to :invoice
   belongs_to :order_line, :class_name=>SaleOrderLine.name
   belongs_to :origin, :class_name=>InvoiceLine.name
   belongs_to :price
   belongs_to :product
   has_many :credit_lines, :class_name=>InvoiceLine.name, :foreign_key=>:origin_id
 
+  autosave :invoice
+
   validates_presence_of :order_line_id
 
   attr_readonly :company_id, :invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id
   
-  def clean
+  def prepare
     self.product = self.order_line.product
     self.price_id = self.order_line.price.id
     self.annotation = self.order_line.annotation

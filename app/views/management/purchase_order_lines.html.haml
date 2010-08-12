@@ -5,7 +5,7 @@
     -t.print :purchase_order, :p0=>@purchase_order.id 
 %h2=tc :general
 =toolbar do |t|
-  -t.link(:purchase_order_update, {:id=>@purchase_order.id})
+  -t.update @purchase_order
 %table
   %tr
     %td

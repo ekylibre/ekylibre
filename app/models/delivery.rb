@@ -48,14 +48,16 @@ class Delivery < ActiveRecord::Base
   belongs_to :invoice
   belongs_to :mode, :class_name=>DeliveryMode.name
   belongs_to :order, :class_name=>SaleOrder.name
-  belongs_to :transport, :autosave=>true
+  belongs_to :transport
   has_many :lines, :class_name=>DeliveryLine.name, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
+
+  autosave :transport
 
   attr_readonly :company_id, :order_id
   validates_presence_of :planned_on
 
-  def clean
+  def prepare
     self.amount = 0
     self.amount_with_taxes = 0
     for line in self.lines

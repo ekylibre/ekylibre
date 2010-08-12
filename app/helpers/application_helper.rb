@@ -559,13 +559,13 @@ module ApplicationHelper
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
       options[:url][:article] = link[0]
-      link_to_remote(link[1], options) # REMOTE
+      link_to_remote(link[1].html_safe, options) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
       options[:url][:article] = link
-      link_to_remote(link, options) # REMOTE
+      link_to_remote(link.html_safe, options) # REMOTE
     end
 
     for x in 1..6
@@ -744,7 +744,7 @@ module ApplicationHelper
       toolbar.link :back if options[:back]
       # To HTML
       code = ''
-      call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.')+'.'
+      # call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.')+'.'
       for tool in toolbar.tools
         nature, args = tool[0], tool[1]
         if nature == :link
@@ -757,13 +757,15 @@ module ApplicationHelper
             args[1][:url] ||= {}
             if name.is_a? Symbol
               args[1][:url][:action] ||= name
-              args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
+              # args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
+              args[0] = ::I18n.t("labels.#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
             end
             if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
               code += content_tag(:li, link_to_remote(*args).html_safe)
             end
           else
-            args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
+            # args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
+            args[0] = ::I18n.t("labels.#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
@@ -791,7 +793,8 @@ module ApplicationHelper
           end
         elsif nature == :javascript
           name = args[0]
-          args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
+          # args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
+          args[0] = tl(name) if name.is_a? Symbol
           args[2] ||= {}
           args[2][:class] ||= name.to_s.split('_')[-1]
           code += content_tag(:li, link_to_function(*args).to_s)
@@ -804,7 +807,14 @@ module ApplicationHelper
           url_options = {} unless url_options.is_a? Hash
           url_options[:action] = action
           url_options[:id] = args.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options))
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>:update})) if not record.respond_to?(:updatable?) or (record.respond_to?(:updatable?) and record.updatable?)
+        elsif nature == :missing
+          verb, record = tool[1], tool[2]
+          action = "#{record.class.name.underscore}_#{verb}"
+          url_options = {} unless url_options.is_a? Hash
+          url_options[:action] = action
+          url_options[:id] = record.id
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, {:class=>verb}))
         end
       end
       if code.strip.length>0
@@ -841,8 +851,14 @@ module ApplicationHelper
       @tools << [:print, args]
     end
 
-    def update(record, url_options={})
-      @tools << [:update, record, url_options]
+#     def update(record, url_options={})
+#       @tools << [:update, record, url_options]
+#     end
+
+    def method_missing(method_name, *args, &block)
+      raise ArgumentError.new("Block can not be accepted") if block_given?
+      raise ArgumentError.new("First argument must be an ActiveRecord::Base") unless args[0].class.ancestors.include? ActiveRecord::Base
+      @tools << [:missing, method_name, args[0], args[1..-1]]
     end
   end
 

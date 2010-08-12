@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link :sale_payment_update, :id=>@sale_payment.id
+  -t.update @sale_payment
 
 %table
   %tr
@@ -9,7 +9,7 @@
       =evalue @sale_payment, :parts_amount
       =evalue @sale_payment, :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
       =evalue @sale_payment, :embanker, :label=>:label
-      =evalue @sale_payment, :embankment, :label=>:created_on, :url=>{:action=>:embankment}
+      =evalue @sale_payment, :embankment, :url=>{:action=>:embankment}
     %td
       =evalue @sale_payment, :mode
       =evalue @sale_payment, :paid_on

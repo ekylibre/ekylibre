@@ -3,19 +3,19 @@ eng:
     accountancy:
       account: 'Account: {{number}} - {{name}}'
       account_create: 'Create new account'
-      account_letter: 'Lettering account N°{{number}} du {{started_on}} au {{stopped_on}}'
+      account_letter: 'Lettering account: {{number}} - %{name}'
       account_update: 'Update account: {{number}} - {{name}}'
       accountize: 'Flip book'
       accounts: 'Plan of accounts'
       balance: 'Balance'
       bank_statement: 'Account statement N°{{number}}'
       bank_statement_create: 'Create a new account statement'
-      bank_statement_point: 'Point statement N°{{number}} du {{cash}}'
-      bank_statement_update: 'Update Statement N°{{number}}'
+      bank_statement_point: 'Point bank statement {{number}}'
+      bank_statement_update: 'Update bank statement {{number}}'
       bank_statements: 'Statement of Bank Accounts'
       cash: '{{nature_label}}: {{name}}'
-      cash_create: 'Save New Cash'
-      cash_update: 'Update Cash: {{name}}'
+      cash_create: 'Add a new cash'
+      cash_update: 'Update cash: {{name}}'
       cashes: 'Cash'
       document_prepare: 'Choose the type of documents to print'
       document_print: 'print, exportation'
@@ -87,7 +87,7 @@ eng:
       user: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
       user_create: 'Add a new user'
       user_statistics: 'My statistics'
-      user_update: 'Update user'
+      user_update: 'Update user: {{first_name}} {{last_name}} ({{name}})'
       users: 'Users'
       welcome: 'Welcome in Ekylibre, {{user}}'
     help:
@@ -266,10 +266,10 @@ eng:
     relations: 'Relationships'
   errors:
     template:
+      body: 'There were problems with the following fields:'
       header:
-        one:    "1 error prohibited this %{model} from being saved"
-        other:  "%{count} errors prohibited this %{model} from being saved"
-      body: "There were problems with the following fields:"
+        one: '1 error prohibited this %{model} from being saved'
+        other: '%{count} errors prohibited this %{model} from being saved'
   labels:
     account_accruals: 'Accurals Account'
     account_attorney_to_create: 'Account attorney to create'
@@ -311,6 +311,7 @@ eng:
     add_conditions: 'Add conditions'
     add_delivery: 'Add delivery'
     add_payment: 'Add payment'
+    add_quickly_a_line: 'Add quickly a line of product'
     address: 'Address'
     all_accounts: 'All accounts'
     all_areas: 'All postal areas'
@@ -927,12 +928,9 @@ eng:
       unpaid: 'Unpaid'
     sale_payment_conditions: 'Conditions of payment'
     sale_payment_create: 'Sale payment create' #!
-    sale_payment_part_create: 'Add a new sale payment' #!
+    sale_payment_part_create: 'Add a new sale payment'
     sale_payment_update: 'Update sale payment'
-    sale_payments:
-      one: 'One sale payment'
-      other: '{{count}} sale payments'
-      zero: 'No sale payments'
+    sale_payments: 'Sale payments'
     sale_payments_states:
       all: 'All'
       unembanked: 'Unembanked'
@@ -1096,6 +1094,10 @@ eng:
       one: '1 sale order'
       other: '%{count} sale orders'
       zero: '0 sale orders'
+    x_sale_payments:
+      one: '{{count}} sale payment'
+      other: '{{count}} sale payments'
+      zero: 'No sale payments'
     x_subscriptions:
       one: '1 subscription'
       other: '%{count} subscriptions'

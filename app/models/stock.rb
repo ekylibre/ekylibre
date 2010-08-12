@@ -51,7 +51,7 @@ class Stock < ActiveRecord::Base
   
   validates_presence_of :unit_id
   
-  def clean
+  def prepare
     self.unit_id ||= self.product.unit_id
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
     self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?

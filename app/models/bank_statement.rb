@@ -45,7 +45,7 @@ class BankStatement < ActiveRecord::Base
   has_many :journal_entries, :dependent=>:nullify
 
 
-  def clean
+  def prepare
     self.company_id = self.cash.company_id if self.cash
     self.debit  = self.journal_entries.sum(:debit)
     self.credit = self.journal_entries.sum(:credit)

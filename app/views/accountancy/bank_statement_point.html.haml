@@ -1,5 +1,5 @@
 =toolbar do |t|
-  - t.link :bank_statement_update, :id=>@bank_statement.id
+  -t.update @bank_statement
 =evalue(@bank_statement, :started_on)
 =evalue(@bank_statement, :stopped_on)
 %h2=tc(:entries_to_point)

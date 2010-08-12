@@ -1,6 +1,6 @@
 =journals_tag
 =toolbar do |t|
-  -t.link :journal_update, :id=>@journal.id
+  -t.update @journal
   -t.link :journal_record_create, :journal_id=>@journal.id
 
 %table

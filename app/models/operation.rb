@@ -56,11 +56,11 @@ class Operation < ActiveRecord::Base
 
   attr_readonly :company_id
  
-  def before_validation_on_create
+  def prepare_on_create
     self.started_at = Time.now if self.started_at.nil?
   end
 
-  def clean
+  def prepare
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 

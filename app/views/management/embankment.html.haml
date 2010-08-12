@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link :embankment_update, :id=>@embankment.id
+  -t.update @embankment
   -t.print :embankment, :p0=>@embankment.id
 
 =evalue @embankment, :cash, :url=>{:controller=>:accountancy, :action=>:cash}

@@ -60,7 +60,7 @@ class Unit < ActiveRecord::Base
     }
   end
 
-  def clean
+  def prepare
     self.name.strip!
     self.coefficient ||= 1
     self.start ||= 0
