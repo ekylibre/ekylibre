@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="embankment" nature="embankment">Encaissement</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="client.label">
+    <page format="A4" margin="10mm">
+      <part height="85mm">
+        <set>
+          <image value="{{embankment.company.entity/photo}}" height="30mm">
+            <text value="{{embankment.company.entity/full_name}}" size="16"/>
+          </image>
+          <text value="{{embankment.cash/bank_name}}" bold="true" align="left" font="helvetica" top="42mm" left="100mm"/>
+          <text value="{{embankment.cash/address}}" align="left" font="helvetica" top="46mm" left="100mm"/>
+          <line path="195mm,85mm ; 210mm,85mm" border="0.5 solid #000"/>
+        </set>
+      </part>
+
+      <part height="15mm"> 
+        <set left="50%"> 
+          <text value="Remise en banque du {{embankment.created_on?format=classic}}" top="1mm" bold="true" size="12" align="center"/>
+          <text value="À remettre sur le compte {{embankment.cash/iban_label}}" top="6mm" align="center" if="embankment.cash.mode == 'iban'"/>
+          <text value="À remettre sur le compte {{embankment.cash/bank_code}}-{{embankment.cash/agency_code}}-{{embankment.cash/number}}-{{embankment.cash/key}}" top="6mm" align="center" if="embankment.cash.mode == 'bban'"/>
+        </set>
+      </part>
+
+      <table collection="embankment.payments" fixed="true">
+        <column label="Client" property="payer.full_name" width="75mm"/>
+        <column label="Banque" property="bank" width="35mm"/>
+        <column label="N. Compte" property="account_number" width="25mm" align="center"/>
+        <column label="N. Ch." property="check_number" width="15mm" align="center"/>
+        <column label="Date" property="paid_on" width="20mm" align="center"/>
+        <column label="Montant" property="amount" width="20mm" align="right" numeric="money"/>
+      </table>
+  
+      <part height="10mm">
+        <set left="50%" top="3mm">
+          <text value="{{embankment/payments_count}} règlements pour un montant total de {{embankment/amount?numeric}}€" size="12" bold="true" align="center"/>
+        </set>
+      </part>
+
+<!--
+      <part height="35mm">
+        <set left="100mm" top="3mm">
+          <rectangle width="80mm" height="30mm"/>
+          <text value="Cachet et/ou signature" top="2mm" left="2mm"/>
+        </set>
+      </part>
+-->
+
+      <part height="15mm" bottom="true">
+        <set>
+          <line path="0,1mm ; 100%,1mm" border="0.5 solid #000"/>
+          <set top="2.5mm"> 
+            <text value="Remise en banque n°{{embankment/number}}" size="10" align="left"/>
+            <text value="{{embankment/created_on?format=month_letter}}" size="10" right="0" align="right"/>
+            <text value="{{embankment.company.entity/full_name}} - SIREN {{embankment.company.entity/siren}}" size="8" left="50%" align="center" top="6mm"/>
+            <text value="{{embankment.company.entity.default_contact/address}}" size="8" left="50%" align="center" top="9.5mm"/>
+          </set>
+        </set>
+      </part>
+
+    </page>
+  </document>
+</template>

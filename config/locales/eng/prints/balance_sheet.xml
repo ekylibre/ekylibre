@@ -1,0 +1,551 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <infos>
+    <info name="authors">Thibaud Mérigon, Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="financialyear" nature="financialyear">Bilan</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="">
+    <page orientation="portrait" format="A4" margin="10mm">
+      <part height="20mm">
+	<set >
+	  <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}}" left="50%" size="14" align="center" bold="true" width="100%"/>
+	</set>
+	
+      </part>
+       <part height="15mm">
+	 <set left="4mm">
+	   <text value="ACTIF" align="center" left="40mm" top="6mm"/>
+	   <text value="Exercice N" left="117.5mm" align="center" top="3mm"/>
+	   <text value="Excercice N-1" left="167.5mm" align="center" top="3mm"/>
+	   <text value="Brut" left="92.5mm" align="center" top="11mm" size="8"/>
+	   <text value="Amort. prov." left="117.5mm" align="center" top="11mm" size="8"/>
+	   <text value="Net" left="142.5mm" align="center" top="11mm" size="8"/>
+	   <text value="Net" left="167.5mm" align="center" top="11mm" size="8"/>
+	   <rectangle width="181mm" height="15mm"  border="0.5 solid #000" size="8mm"/>
+	   <line path="0mm,15mm ; 0,207mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="81mm,0 ; 81mm,15mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="156mm,0 ; 156mm,15mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="81mm,9mm ; 181mm,9mm" width="0.5"  border="0.5 solid #000"/>
+	 </set>
+       </part>
+       <part>
+	 <set  left="5mm">
+	   <line path="80mm,0 ; 80mm,192mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="105mm,0 ; 105mm,192mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="130mm,0 ; 130mm,192mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="155mm,0 ; 155mm,192mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="180mm,0 ; 180mm,192mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="-1mm,192mm ; 180mm,192mm" width="0.5"  border="0.5 solid #000"/>
+           <text value="Capital souscrit non appelé" top="1mm" size="8"/>
+           <text value="{{financialyear.balance('109')}}" top="1mm" left="103mm" align="right" size="8" />
+	   <text value="{{financialyear.balance('109')}}"  top="1mm" left="153mm" align="right" size="8" />
+	   <text if="financialyear.previous" value="{{financialyear.previous.balance('109')}}" left="178mm"  top="1mm" align="right" size="8"/>
+	   <set top="5mm">
+	     <text value="ACTIF IMMOBILISÉ" size="8"/>
+             <set top="4mm">
+	       <text value="Immobilisations incorporelles" size="8"/>
+	       <set top="4mm">
+		 <text value="Frais d'établissement" left="5mm" size="8"/>
+		 <text value="{{financialyear.balance('201')}}" left="103mm" align="right" size="8"/>
+		 <text value="{{financialyear.balance('2801')}}" left="128mm" align="right" size="8"/>
+		 <text value="{{financialyear.balance('201,-2801')}}" left="153mm" align="right" size="8"/>
+		 <text if="financialyear.previous" value="{{financialyear.previous.balance('201,-2801')}}" left="178mm" align="right" size="8"/>
+		 <set top="4mm">
+		   <text value="Frais de recherche et de développement" left="5mm" size="8"/>
+		   <text value="{{financialyear.balance('203')}}" left="103mm" align="right" size="8"/>
+		   <text value="{{financialyear.balance('2803')}}" left="128mm" align="right" size="8"/>
+		   <text value="{{financialyear.balance('203,-2803')}}" left="153mm" align="right" size="8"/>
+		   <text if="financialyear.previous" value="{{financialyear.previous.balance('203,-2803')}}" left="178mm" align="right" size="8"/>
+		   <set top="4mm">
+		     <text value="Concessions, brevets, licences, marques procédés, logiciels, droits" left="5mm" size="8"/>
+		     <text value="et valeurs similaires" left="5mm" size="8" top="3mm"/>
+		     <text value="{{financialyear.balance('205')}}" left="103mm" align="right" size="8"/>
+		     <text value="{{financialyear.balance('2805, 2905')}}" left="128mm" align="right" size="8"/>
+		     <text value="{{financialyear.balance('205,-2805,-2905')}}" left="153mm" align="right" size="8"/>
+		     <text if="financialyear.previous" value="{{financialyear.previous.balance('205,-2805,-2905')}}" left="178mm" align="right" size="8"/>
+		     <set top="7mm">
+		       <text value="Fonds commercial (1)" left="5mm" size="8"/>
+		       <text value="{{financialyear.balance('206, 207')}}" left="103mm" align="right" size="8"/>
+		       <text value="{{financialyear.balance('2807, 2906, 2907')}}" left="128mm" align="right" size="8"/>
+		       <text value="{{financialyear.balance('206, 207,-2807,-2906,-2907')}}" left="153mm" align="right" size="8"/>
+		       <text if="financialyear.previous" value="{{financialyear.previous.balance('206,207,-2807,-2906,-2907')}}" left="178mm" align="right" size="8"/>
+		       <set top="4mm">
+			 <text value="Autres" left="5mm" size="8"/>
+			 <text value="{{financialyear.balance('208')}}" left="103mm" align="right" size="8"/>
+			 <text value="{{financialyear.balance('2808, 2908')}}" left="128mm" align="right" size="8"/>
+			 <text value="{{financialyear.balance('208,-2808,-2908')}}" left="153mm" align="right" size="8"/>
+			 <text if="financialyear.previous" value="{{financialyear.previous.balance('208,-2808,-2908')}}" left="178mm" align="right" size="8"/>
+		      	 <set top="4mm">
+			   <text value="Immobilisations incorporelles en cours" left="5mm" size="8"/>
+			   <text value="{{financialyear.balance('232')}}" left="103mm" align="right" size="8"/>
+			   <text value="{{financialyear.balance('2932')}}" left="128mm" align="right" size="8"/>
+			   <text value="{{financialyear.balance('232,-2932')}}" left="153mm" align="right" size="8"/>
+			   <text if="financialyear.previous" value="{{financialyear.previous.balance('232,-2932')}}" left="178mm" align="right" size="8"/>
+			   <set top="4mm">
+			     <text value="Avances et accomptes" left="5mm" size="8"/>
+			     <text value="{{financialyear.balance('237')}}" left="103mm" align="right" size="8"/>
+			     <text value="{{financialyear.balance('237')}}" left="153mm" align="right" size="8"/>
+			     <text if="financialyear.previous" value="{{financialyear.previous.balance('237')}}" left="178mm" align="right" size="8"/>
+			     <set top="4mm">
+			       <text value="Immobilisations corporelles" size="8"/>
+			       <set top="4mm">
+				 <text value="Terrains" left="5mm" size="8"/>
+				 <text value="{{financialyear.balance('211, 212')}}" left="103mm" align="right" size="8"/>
+				 <text value="{{financialyear.balance('2811,2812,2911')}}" left="128mm" align="right" size="8"/>
+				 <text value="{{financialyear.balance('211, 212,-2811,-2812,-2911')}}" left="153mm" align="right" size="8"/>
+				 <text if="financialyear.previous" value="{{financialyear.previous.balance('211,212,-2811,-2812,-2911')}}" left="178mm" align="right" size="8"/>
+				 <set top="4mm">
+				   <text value="Constructions" left="5mm" size="8"/>
+				   <text value="{{financialyear.balance('213, 214')}}" left="103mm" align="right" size="8"/>
+				   <text value="{{financialyear.balance('2813,2814')}}" left="128mm" align="right" size="8"/>
+				   <text value="{{financialyear.balance('213, 214,-2813,-2814')}}" left="153mm" align="right" size="8"/>
+				   <text if="financialyear.previous" value="{{financialyear.previous.balance('231,214,-2813,-2814')}}" left="178mm" align="right" size="8"/>
+				   <set top="4mm">
+				     <text value="Installations techniques, matériel et outillage industriels" left="5mm" size="8"/>
+				     <text value="{{financialyear.balance('215')}}" left="103mm" align="right" size="8"/>
+				     <text value="{{financialyear.balance('2815')}}" left="128mm" align="right" size="8"/>
+				     <text value="{{financialyear.balance('215,-2815')}}" left="153mm" align="right" size="8"/>
+				     <text if="financialyear.previous" value="{{financialyear.previous.balance('215,_2815')}}" left="178mm" align="right" size="8"/>
+				     <set top="4mm">
+				       <text value="Autres" left="5mm" size="8"/>
+				       <text value="{{financialyear.balance('218')}}" left="103mm" align="right" size="8"/>
+				       <text value="{{financialyear.balance('2818')}}" left="128mm" align="right" size="8"/>
+				       <text value="{{financialyear.balance('218,-2818')}}" left="153mm" align="right" size="8"/>
+				       <text if="financialyear.previous" value="{{financialyear.previous.balance('218,-2818')}}" left="178mm" align="right" size="8"/>
+				       <set top="4mm">
+					 <text value="Immobilisations corporelles en cours" left="5mm" size="8"/>
+					 <text value="{{financialyear.balance('231')}}" left="103mm" align="right" size="8"/>
+					 <text value="{{financialyear.balance('2931')}}" left="128mm" align="right" size="8"/>
+					 <text value="{{financialyear.balance('231,-2931')}}" left="153mm" align="right" size="8"/>
+					 <text if="financialyear.previous" value="{{financialyear.previous.balance('231,-2931')}}" left="178mm" align="right" size="8"/>
+				       	 <set top="4mm">
+					   <text value="Avances et accomptes" left="5mm" size="8"/>
+					   <text value="{{financialyear.balance('238')}}" left="103mm" align="right" size="8"/>
+					   <text value="{{financialyear.balance('238')}}" left="153mm" align="right" size="8"/>
+					   <text if="financialyear.previous" value="{{financialyear.previous.balance('238')}}" left="178mm" align="right" size="8"/>
+					   <set top="4mm">
+					     <text value="Immobilisations financières (2)" size="8"/>
+					     <set top="4mm">
+					       <text value="Participations" left="5mm" size="8"/>
+					       <text value="{{financialyear.balance('261,266')}}" left="103mm" align="right" size="8"/>
+					       <text value="{{financialyear.balance('2961,2966')}}" left="128mm" align="right" size="8"/>
+					       <text value="{{financialyear.balance('261,266,-2961,-2966')}}" left="153mm" align="right" size="8"/>
+					       <text if="financialyear.previous" value="{{financialyear.previous.balance('261,266,-2961,-2966')}}" left="178mm" align="right" size="8"/>
+					       <set top="4mm">
+						 <text value="Créances rattachées à des participations" left="5mm" size="8"/>
+						 <text value="{{financialyear.balance('267,268')}}" left="103mm" align="right" size="8"/>
+						 <text value="{{financialyear.balance('2967,2968')}}" left="128mm" align="right" size="8"/>
+						 <text value="{{financialyear.balance('267,268,-2967,-2968')}}" left="153mm" align="right" size="8"/>
+						 <text if="financialyear.previous" value="{{financialyear.previous.balance('267,268,-2967,-2968')}}" left="178mm" align="right" size="8"/>
+						 <set top="4mm">
+						   <text value="TIAP" left="5mm" size="8"/>
+						   <text value="{{financialyear.balance('273')}}" left="103mm" align="right" size="8"/>
+						   <text value="{{financialyear.balance('2973')}}" left="128mm" align="right" size="8"/>
+						   <text value="{{financialyear.balance('273,-2973')}}" left="153mm" align="right" size="8"/>
+						   <text if="financialyear.previous" value="{{financialyear.previous.balance('273,-2973')}}" left="178mm" align="right" size="8"/>
+						   <set top="4mm">
+						     <text value="Autres titres immobilisés" left="5mm" size="8"/>
+						     <text value="{{financialyear.balance('271, 272,27682')}}" left="103mm" align="right" size="8"/>
+						     <text value="{{financialyear.balance('2971,2972')}}" left="128mm" align="right" size="8"/>
+						     <text value="{{financialyear.balance('271, 272,27682,-2971,-2972')}}" left="153mm" align="right" size="8"/>
+						     <text if="financialyear.previous" value="{{financialyear.previous.balance('271,272,27682,-2971,-2972')}}" left="178mm" align="right" size="8"/>
+						     <set top="4mm">
+						       <text value="Prêts" left="5mm" size="8"/>
+						       <text value="{{financialyear.balance('274, 27684')}}" left="103mm" align="right" size="8"/>
+						       <text value="{{financialyear.balance('2974')}}" left="128mm" align="right" size="8"/>
+						       <text value="{{financialyear.balance('274, 27684,-2974')}}" left="153mm" align="right" size="8"/>
+						       <text if="financialyear.previous" value="{{financialyear.previous.balance('274,27684,-2974')}}" left="178mm" align="right" size="8"/>
+						       <set top="4mm">
+							 <text value="Autres" left="5mm" size="8"/>
+							 <text value="{{financialyear.balance('275, 2761,27685,27688')}}" left="103mm" align="right" size="8"/>
+							 <text value="{{financialyear.balance('2975,2976')}}" left="128mm" align="right" size="8"/>
+							 <text value="{{financialyear.balance('275, 2761,27685,27688,-2975,-2976')}}" left="153mm" align="right" size="8"/>
+							 <text if="financialyear.previous" value="{{financialyear.previous.balance('275, 2761,27685,27688,-2975,-2976')}}" left="178mm" align="right" size="8"/>
+							 <set top="4mm">
+							   <text value="Total I" bold="true" size="8"/>
+							   <line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+							   <text value="{{financialyear.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688')}}" left="103mm" align="right" size="8" bold="true"/>
+							   <text value="{{financialyear.balance('2801,2803,2805,2905,2807,2906,2907,2808,2908,2932,2811,2812,2911,2813,2814,2815,2818,2931,2961,2966,2967,2968,2973,2971,2972,2974,2975,2976')}}" left="128mm" align="right" size="8" bold="true"/>
+							   <text value="{{financialyear.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688,-2801,-2803,-2805,-2905,-2807,-2906,-2907,-2808,-2908,-2932,-2811,-2812,-2911,-2813,-2814,-2815,-2818,-2931,-2961,-2966,-2967,-2968,-2973,-2971,-2972,-2974,-2975,-2976')}}" left="153mm" align="right" size="8" bold="true"/>
+							   <text if="financialyear.previous" value="{{financialyear.previous.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688,-2801,-2803,-2805,-2905,-2807,-2906,-2907,-2808,-2908,-2932,-2811,-2812,-2911,-2813,-2814,-2815,-2818,-2931,-2961,-2966,-2967,-2968,-2973,-2971,-2972,-2974,-2975,-2976')}}" bold="true" left="178mm" align="right" size="8"/>
+							   <set top="4mm">
+							     <text value="ACTIF CIRCULANT" size="8"/>
+							     <set top="4mm">
+							       <text value="Stocks et en-cours" size="8"/>
+
+							       <set top="4mm">
+								 <text value="Matières premières et autres approvisionnements" left="5mm" size="8"/>
+								 <text value="{{financialyear.balance('31,32')}}" left="103mm" align="right" size="8"/>
+								 <text value="{{financialyear.balance('391,392')}}" left="128mm" align="right" size="8"/>
+								 <text value="{{financialyear.balance('31,32,-391,-392')}}" left="153mm" align="right" size="8"/>
+								 <text if="financialyear.previous" value="{{financialyear.previous.balance('31,32,-391,-392')}}" left="178mm" align="right" size="8"/>
+								 <set top="4mm">
+								   <text value="En-cours de production (biens et services)" left="5mm" size="8"/>
+								   <text value="{{financialyear.balance('33,34')}}" left="103mm" align="right" size="8"/>
+								   <text value="{{financialyear.balance('393,394')}}" left="128mm" align="right" size="8"/>
+								   <text value="{{financialyear.balance('33,34,-393,-394')}}" left="153mm" align="right" size="8"/>
+								   <text if="financialyear.previous" value="{{financialyear.previous.balance('33,34,-393,-394')}}" left="178mm" align="right" size="8"/>
+								   <set top="4mm">
+								     <text value="Produits intermédiaires et finis" left="5mm" size="8"/>
+								     <text value="{{financialyear.balance('35')}}" left="103mm" align="right" size="8"/>
+								     <text value="{{financialyear.balance('395')}}" left="128mm" align="right" size="8"/>
+								     <text value="{{financialyear.balance('35,-395')}}" left="153mm" align="right" size="8"/>
+								     <text if="financialyear.previous" value="{{financialyear.previous.balance('35,-395')}}" left="178mm" align="right" size="8"/>
+								     <set top="4mm">
+								       <text value="Marchandises" left="5mm" size="8"/>
+								       <text value="{{financialyear.balance('37')}}" left="103mm" align="right" size="8"/>
+								       <text value="{{financialyear.balance('397')}}" left="128mm" align="right" size="8"/>
+								       <text value="{{financialyear.balance('37,-397')}}" left="153mm" align="right" size="8"/>
+								       <text if="financialyear.previous" value="{{financialyear.previous.balance('37,-397')}}" left="178mm" align="right" size="8"/>
+								       <set top="4mm">
+									 <text value="Avances et acomptes versés sur commande"  size="8"/>
+									 <text value="{{financialyear.balance('4091')}}" left="103mm" align="right" size="8"/>
+									 <text value="{{financialyear.balance('4091')}}" left="153mm" align="right" size="8"/>
+									 <text if="financialyear.previous" value="{{financialyear.previous.balance('4091')}}" left="178mm" align="right" size="8"/>
+									 <set top="4mm">
+									   <text value="Créances (3)"  size="8"/>
+									   <set top="4mm">
+									     <text value="Créances Clients et comptes rattachés" left="5mm" size="8"/>
+									     <text value="{{financialyear.balance('411,413,416,418')}}" left="103mm" align="right" size="8"/>
+									     <text value="{{financialyear.balance('491')}}" left="128mm" align="right" size="8"/>
+									     <text value="{{financialyear.balance('411,413,416,418,-491')}}" left="153mm" align="right" size="8"/>
+									     <text if="financialyear.previous" value="{{financialyear.previous.balance('411,413,416,418,-491')}}" left="178mm" align="right" size="8"/>
+									     <set top="4mm">
+									       <text value="Autres" left="5mm" size="8"/>
+									       <text value="{{financialyear.balance('4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,^4562')}}" left="103mm" align="right" size="8"/>
+									       <text value="{{financialyear.balance('495, 496')}}" left="128mm" align="right" size="8"/>
+									       <text value="{{financialyear.balance('4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,^4562,-495,-496')}}" left="153mm" align="right" size="8"/>
+									       <text if="financialyear.previous" value="{{financialyear.previous.balance('4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,^4562,-495,-496')}}" left="178mm" align="right" size="8"/>
+									       <set top="4mm">
+										 <text value="Capital souscrit - appelé, non versé" left="5mm" size="8"/>
+										 <text value="{{financialyear.balance('4562')}}" left="103mm" align="right" size="8"/>
+										 <text value="{{financialyear.balance('4562')}}" left="153mm" align="right" size="8"/>
+										 <text if="financialyear.previous" value="{{financialyear.previous.balance('4562')}}" left="178mm" align="right" size="8"/>
+										 <set top="4mm">
+										   <text value="Valeurs mobilières de placement" size="8"/>
+										   <set top="4mm">
+										     <text value="Actions propres" left="5mm" size="8"/>
+										     <text value="{{financialyear.balance('502')}}" left="103mm" align="right" size="8"/>
+										     <text value="{{financialyear.balance('59')}}" left="128mm" align="right" size="8"/>
+										     <text value="{{financialyear.balance('502,-59')}}" left="153mm" align="right" size="8"/>
+										     <text if="financialyear.previous" value="{{financialyear.previous.balance('502,-59')}}" left="178mm" align="right" size="8"/>
+										     <set top="4mm">
+										       <text value="Autres titres" left="5mm" size="8"/>
+										       <text value="{{financialyear.balance('50,^502,^509')}}" left="103mm" align="right" size="8"/>
+										       <text value="{{financialyear.balance('59')}}" left="128mm" align="right" size="8"/>
+										       <text value="{{financialyear.balance('50,^502,^509,-59')}}" left="153mm" align="right" size="8"/>
+										       <text if="financialyear.previous" value="{{financialyear.previous.balance('50,^502,^509,-59')}}" left="178mm" align="right" size="8"/>
+										       <set top="4mm">
+											 <text value="Instruments de tresorerie" left="5mm" size="8"/>
+											 <text value="{{financialyear.balance('52D')}}" left="103mm" align="right" size="8"/>
+											 <text value="{{financialyear.balance('52D')}}" left="153mm" align="right" size="8"/>
+											 <text if="financialyear.previous" value="{{financialyear.previous.balance('52D')}}" left="178mm" align="right" size="8"/>
+											 <set top="4mm">
+											   <text value="Disponibilités" size="8"/>
+											   <text value="{{financialyear.balance('51D,5310,54,^5181,^519')}}" left="103mm" align="right" size="8"/>
+											   <text value="{{financialyear.balance('51D,53,54,^5181,^519')}}" left="153mm" align="right" size="8"/>
+											   <text if="financialyear.previous" value="{{financialyear.previous.balance('51D,53,54,^5181,^519')}}" left="178mm" align="right" size="8"/>
+											   <set top="4mm">
+											     <text value="Charges constatées d'avance" size="8"/>
+											     <text value="{{financialyear.balance('486')}}" left="103mm" align="right" size="8"/>
+											     <text value="{{financialyear.balance('486')}}" left="153mm" align="right" size="8"/>
+											     <text if="financialyear.previous" value="{{financialyear.previous.balance('486')}}" left="178mm" align="right" size="8"/>
+
+											     <set top="4mm">
+											       <text value="Total II" bold="true" size="8"/>
+											       <line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+											       <text value="{{financialyear.balance('31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476')}}" left="103mm" bold="true" align="right" size="8"/>
+											       <text value="{{financialyear.balance('391,392,393,394,395,397,491,495,496,59')}}" left="128mm" bold="true" align="right" size="8"/>
+											       <text value="{{financialyear.balance('31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476,-391,-392,-393,-394,-395,-397,-491,-495,-496,-59')}}" left="153mm" bold="true" align="right" size="8"/>
+											       <text if="financialyear.previous" value="{{financialyear.previous.balance('31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476,-391,-392,-393,-394,-395,-397,-491,-495,-496,-59')}}" left="178mm" bold="true" align="right" size="8"/>
+											       <set top="4mm">
+												 <text value="Charges à répartir sur plusieurs exercices (III)" size="8"/>
+												 <text value="{{financialyear.balance('481')}}" left="103mm" align="right" size="8"/>
+												 <text value="{{financialyear.balance('481')}}" left="153mm" align="right" size="8"/>
+												 <text if="financialyear.previous" value="{{financialyear.previous.balance('481')}}" left="178mm" align="right" size="8"/>
+												 <set top="4mm">
+												   <text value="Primes de remboursement des emprunts (IV)" size="8"/>
+												   <text value="{{financialyear.balance('169')}}" left="103mm" align="right" size="8"/>
+												   <text value="{{financialyear.balance('169')}}" left="153mm" align="right" size="8"/>
+												   <text if="financialyear.previous" value="{{financialyear.previous.balance('169')}}" left="178mm" align="right" size="8"/>
+												   <set top="4mm">
+												     <text value="Écarts de conversion Actif (V)" size="8"/>
+												     <text value="{{financialyear.balance('476')}}" left="103mm" align="right" size="8"/>
+												     <text value="{{financialyear.balance('476')}}" left="153mm" align="right" size="8"/>
+												     <text if="financialyear.previous" value="{{financialyear.previous.balance('476')}}" left="178mm" align="right" size="8"/>
+												     <set top="4mm">
+												       <text value="TOTAL GÉNÉRAL (I + II + III + IV + V)" bold="true" size="8"/>
+												       <text value="{{financialyear.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688,31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476,481,169,476')}}" left="103mm" align="right" bold="true" size="8"/>
+												       <text value="{{financialyear.balance('2801,2803,2805,2905,2807,2906,2907,2808,2908,2932,2811,2812,2911,2813,2814,2815,2818,2931,2961,2966,2967,2968,2973,2971,2972,2974,2975,2976,391,392,393,394,395,397,491,495,496,59')}}" left="128mm" bold="true" align="right" size="8"/>												       <text value="{{financialyear.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688,-2801,-2803,-2805,-2905,-2807,-2906,-2907,-2808,-2908,-2932,-2811,-2812,-2911,-2813,-2814,-2815,-2818,-2931,-2961,-2966,-2967,-2968,-2973,-2971,-2972,-2974,-2975,-2976,31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476,-391,-392,-393,-394,-395,-397,-491,-495,-496,-59, 481,169,476')}}" left="153mm" bold="true" align="right" size="8"/>
+												       <text if="financialyear.previous" value="{{financialyear.previous.balance('109,201,203,205,206,207,208,232,237,211,212,213,214,215,218,231,238,261,266,267,268,271,272,273,27682,274,275,27684,2761,27685,27688,-2801,-2803,-2805,-2905,-2807,-2906,-2907,-2808,-2908,-2932,-2811,-2812,-2911,-2813,-2814,-2815,-2818,-2931,-2961,-2966,-2967,-2968,-2973,-2971,-2972,-2974,-2975,-2976,31,32,33,34,35,37,4091,411,413,416,418,4096,4097,4098,425,4287,4387,441,443D,444D,4452,4456,44581,44582,44583,44586,4487,451D,455D,456D,458D,462,465,467,4687,478D,4562,502,^509,52D,51D,^5181,^519,53,54,486,481,169,476,-391,-392,-393,-394,-395,-397,-491,-495,-496,-59, 481,169,476')}}" left="178mm" bold="true" align="right" size="8"/>
+												       
+												       
+												     </set>
+												   </set>
+												 </set>
+											       </set>
+											     </set>
+											   </set>
+											 </set>
+										       </set>
+										     </set>
+										   </set>
+										 </set>
+									       </set>
+									     </set>
+									   </set>
+									 </set>
+								       </set>
+								     </set>
+								   </set>
+								 </set>
+							       </set>
+							     </set>
+							   </set>
+							 </set>
+						       </set>
+						     </set>
+						   </set>
+						 </set>
+					       </set>
+					     </set>
+					   </set>
+					 </set>
+				       </set>
+				     </set>
+				   </set>
+				 </set>
+			       </set>
+			     </set>
+			   </set>
+			 </set>
+		       </set>
+		     </set>
+		   </set>
+		 </set>
+	       </set>
+	     </set>
+           </set>
+	 </set>
+       </part>
+
+       <page_break/>
+       
+       <part height="20mm">
+	 <set >
+	   <text value="Bilan {{financialyear.company.name}} pour la période du {{financialyear/started_on?format=month_letter}} au {{financialyear/stopped_on?format=month_letter}} (suite)" left="50%" size="14" align="center" bold="true" width="100%"/>
+	 </set>
+	
+      </part>
+
+        <part height="10mm">
+	 <set left="4mm">
+	   <text value="PASSIF" align="center" left="60mm" top="4mm"/>
+	   <text value="Exercice N" left="135mm" align="center" top="4mm"/>
+	   <text value="Excercice N-1" left="165mm" align="center" top="4mm"/>
+	   <rectangle width="181mm" height="10mm"  border="0.5 solid #000" size="8mm"/>
+	   <line path="0mm,10mm ; 0,168mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="121mm,0 ; 121mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	   <line path="151mm,0 ; 151mm,10mm" width="0.5"  border="0.5 solid #000"/>
+	 </set>
+	</part>
+	<part>
+	  <set left="5mm">
+	    <line path="120mm,0 ; 120mm,158mm" width="0.5"  border="0.5 solid #000"/>
+	    <line path="150mm,0 ; 150mm,158mm" width="0.5"  border="0.5 solid #000"/>
+	    <line path="180mm,0 ; 180mm,158mm" width="0.5"  border="0.5 solid #000"/>
+	    <line path="-1mm,158mm ; 180mm,158mm" width="0.5"  border="0.5 solid #000"/>
+            <text value="CAPITAUX PROPRES" size="8" top="1mm"/>
+	    <set top="5mm">
+	      <text value="Capital (dont versé...)" size="8"/>
+	      <text value="{{financialyear.balance('101,108')}}" left="148mm" align="right" size="8"/>
+	      <set top="4mm">
+		<text value="Primes d'émission, de fusion, d'apport" size="8"/>
+		<text value="{{financialyear.balance('104')}}" left="148mm" align="right" size="8"/>
+		<text if="financialyear.previous" value="{{financialyear.previous.balance('104')}}" left="178mm" align="right" size="8"/>
+		<set top="4mm">
+		  <text value="Écarts de réévaluation" size="8"/>
+		  <text value="{{financialyear.balance('105')}}" left="148mm" align="right" size="8"/>
+		  <text if="financialyear.previous" value="{{financialyear.previous.balance('105')}}" left="178mm" align="right" size="8"/>
+		  <set top="4mm">
+		    <text value="Écart d'équivalence" size="8"/>
+		    <text value="{{financialyear.balance('107')}}" left="148mm" align="right" size="8"/>
+		    <text if="financialyear.previous" value="{{financialyear.previous.balance('107')}}" left="178mm" align="right" size="8"/>
+		    <set top="4mm">
+		      <text value="Réserves" size="8"/>
+		      <set top="4mm">
+			<text value="Réserve légale" size="8"  left="5mm"/>
+			<text value="{{financialyear.balance('1061')}}" left="148mm" align="right" size="8"/>
+			<text if="financialyear.previous" value="{{financialyear.previous.balance('1061')}}" left="178mm" align="right" size="8"/>
+			<set top="4mm">
+			  <text value="Réserves statutaires ou contractuelles" size="8"  left="5mm"/>
+			  <text value="{{financialyear.balance('1063')}}" left="148mm" align="right" size="8"/>
+			  <text if="financialyear.previous" value="{{financialyear.previous.balance('1063')}}" left="178mm" align="right" size="8"/>
+			  <set top="4mm">
+			    <text value="Réserves réglementées" size="8"  left="5mm"/>
+			    <text value="{{financialyear.balance('1062,1064')}}" left="148mm" align="right" size="8"/>
+			    <text if="financialyear.previous" value="{{financialyear.previous.balance('1062,1064')}}" left="178mm" align="right" size="8"/>
+			    <set top="4mm">
+			      <text value="Autres" size="8"  left="5mm"/>
+			      <text value="{{financialyear.balance('1068')}}" left="148mm" align="right" size="8"/>
+			      <text if="financialyear.previous" value="{{financialyear.previous.balance('1068')}}" left="178mm" align="right" size="8"/>
+			      <set top="4mm">
+				<text value="Report à nouveau" size="8"/>
+				<text value="({{financialyear.balance('11')}})" left="148mm" align="right" size="8"/>
+				<text if="financialyear.previous" value="{{financialyear.previous.balance('11')}}" left="178mm" align="right" size="8"/>
+				<set top="4mm">
+				  <text value="Résultat de l'exercice (bénéfice ou perte)" size="8"/>
+				  <text value="({{financialyear.balance('12')}})" left="148mm" align="right" size="8"/>
+				  <text if="financialyear.previous" value="{{financialyear.previous.balance('12')}}" left="178mm" align="right" size="8"/>
+				  <set top="4mm">
+				    <text value="Subventions d'investissement" size="8"/>
+				    <text value="{{financialyear.balance('13')}}" left="148mm" align="right" size="8"/>
+				    <text if="financialyear.previous" value="{{financialyear.previous.balance('13')}}" left="178mm" align="right" size="8"/>
+				    <set top="4mm">
+				      <text value="Provisions réglementées" size="8"/>
+				      <text value="{{financialyear.balance('14')}}" left="148mm" align="right" size="8"/>
+				      <text if="financialyear.previous" value="{{financialyear.previous.balance('14')}}" left="178mm" align="right" size="8"/>
+				      <set top="4mm">
+					<text value="Total I" bold="true" size="8"/>
+					<text value="{{financialyear.balance('101,108,104,105,107,1061,1063,1062,1064,1068,11,12,13,14')}}" bold="true" left="148mm" align="right" size="8"/>
+					<text if="financialyear.previous" bold="true" value="{{financialyear.previous.balance('101,108,104,105,107,1061,1063,1062,1064,1068,11,12,13,14')}}" left="178mm" align="right" size="8"/>
+					<line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+					<set top="4mm">
+					  <text value="AUTRES FONDS PROPRES" size="8"/>
+					  <set top="4mm">
+					    <text value="Produits des émissions de titres participatifs" size="8"/>
+					    <text value="{{financialyear.balance('1671')}}" left="148mm" align="right" size="8"/>
+					    <text if="financialyear.previous" value="{{financialyear.previous.balance('1671')}}" left="178mm" align="right" size="8"/>
+					    <set top="4mm">
+					      <text value="Avances conditionnées" size="8"/>
+					      <text value="{{financialyear.balance('1674')}}" left="148mm" align="right" size="8"/>
+					      <text if="financialyear.previous" value="{{financialyear.previous.balance('1674')}}" left="178mm" align="right" size="8"/>
+					      <set top="4mm">
+						<text value="Autres" size="8"/>
+						<text value="" left="148mm" align="right" size="8"/>
+						<text if="financialyear.previous" value="" left="178mm" align="right" size="8"/>
+						<set top="4mm">
+						  <text value="Total I bis" bold="true" size="8"/>
+						  <text value="{{financialyear.balance('1671,1674')}}" bold="true" left="148mm" align="right" size="8"/>
+						  <text if="financialyear.previous" value="{{financialyear.previous.balance('1671,1674')}}" left="178mm" bold="true" align="right" size="8"/>
+						  <line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+						  <set top="4mm">
+						    <text value="PROVISIONS POUR RISQUES ET CHARGES" size="8"/>
+						    <set top="4mm">
+						      <text value="Provisions pour risques" size="8"/>
+						      <text value="{{financialyear.balance('151')}}"  left="148mm" align="right" size="8"/>
+						      <text if="financialyear.previous" value="{{financialyear.previous.balance('151')}}" left="178mm" align="right" size="8"/>
+						      <set top="4mm">
+							<text value="Provisions pour charges" size="8"/>
+							<text value="{{financialyear.balance('15, ^151')}}"  left="148mm" align="right" size="8"/>
+							<text if="financialyear.previous" value="{{financialyear.previous.balance('15,^151')}}" left="178mm" align="right" size="8"/>
+							<set top="4mm">
+							  <text value="Total II" bold="true" size="8"/>
+							  <text value="{{financialyear.balance('15')}}" bold="true" left="148mm" align="right" size="8"/>
+							  <text if="financialyear.previous" value="{{financialyear.previous.balance('15')}}" bold="true" left="178mm" align="right" size="8"/>
+							  <line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+							  <set top="4mm">
+							    <text value="DETTES" size="8"/>
+							    <set top="4mm">
+							      <text value="Emprunts obligatoires convertibles" size="8"/>
+							      <text value="{{financialyear.balance('161,16881')}}"  left="148mm" align="right" size="8"/>
+							      <text if="financialyear.previous" value="{{financialyear.previous.balance('161,16881')}}" left="178mm" align="right" size="8"/>
+							      <set top="4mm">
+								<text value="Autres emprunts obligatoires" size="8"/>
+								<text value="{{financialyear.balance('163,16883')}}"  left="148mm" align="right" size="8"/>
+								<text if="financialyear.previous" value="{{financialyear.previous.balance('163,16883')}}" left="178mm" align="right" size="8"/>
+								<set top="4mm">
+								  <text value="Emprunts et dettes auprès des établissements de crédit" size="8"/>
+								  <text value="{{financialyear.balance('164,16884,512C,514C,517C,5181,519')}}"  left="148mm" align="right" size="8"/>
+								  <text if="financialyear.previous" value="{{financialyear.previous.balance('164,16884,512C,514C,517C,5181,519')}}" left="178mm" align="right" size="8"/>
+								  <set top="4mm">
+								    <text value="Emprunts et dettes financières divers" size="8"/>
+								    <text value="{{financialyear.balance('165,166,1675,168,^16881,^16883,^16884,17,426,45C,^457')}}"  left="148mm" align="right" size="8"/>
+								    <text if="financialyear.previous" value="{{financialyear.previous.balance('165,166,1675,168,^16881,^16883,^16884,17,426,45C,^457')}}" left="178mm" align="right" size="8"/>
+								    <set top="4mm">
+								      <text value="Avances et accomptes reçus sur commandes en cours" size="8"/>
+								      <text value="{{financialyear.balance('4191')}}"  left="148mm" align="right" size="8"/>
+								      <text if="financialyear.previous" value="{{financialyear.previous.balance('4191')}}" left="178mm" align="right" size="8"/>
+								      <set top="4mm">
+									<text value="Dettes fournisseurs et comptes rattachés" size="8"/>
+									<text value="{{financialyear.balance('401,403,4081,4088')}}"  left="148mm" align="right" size="8"/>
+									<text if="financialyear.previous" value="{{financialyear.previous.balance('401,403,4081,4088')}}" left="178mm" align="right" size="8"/>
+									<set top="4mm">
+									  <text value="Dettes fiscales et sociales" size="8"/>
+									  <text value="{{financialyear.balance('421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457')}}"  left="148mm" align="right" size="8"/>
+									  <text if="financialyear.previous" value="{{financialyear.previous.balance('421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457')}}" left="178mm" align="right" size="8"/>
+									  <set top="4mm">
+									    <text value="Dettes sur immobilisations et comptes rattachés" size="8"/>
+									    <text value="{{financialyear.balance('269,279,404,405,4084,4088')}}"  left="148mm" align="right" size="8"/>
+									    <text if="financialyear.previous" value="{{financialyear.previous.balance('269,279,404,405,4084,4088')}}" left="178mm" align="right" size="8"/>
+									    <set top="4mm">
+									      <text value="Autres dettes" size="8"/>
+									      <text value="{{financialyear.balance('4196,4197,4198,464,467C,4686,509,478C')}}"  left="148mm" align="right" size="8"/>
+									      <text if="financialyear.previous" value="{{financialyear.previous.balance('4196,4197,4198,464,467C,4686,509,478C')}}" left="178mm" align="right" size="8"/>
+									      <set top="4mm">
+										<text value="Instruments de trésorerie" size="8"/>
+										<text value="{{financialyear.balance('52C')}}"  left="148mm" align="right" size="8"/>
+										<text if="financialyear.previous" value="{{financialyear.previous.balance('52C')}}" left="178mm" align="right" size="8"/>
+										<set top="4mm">
+										  <text value="Produits constatés d'avance" size="8"/>
+										  <text value="{{financialyear.balance('487')}}"  left="148mm" align="right" size="8"/>
+										  <text if="financialyear.previous" value="{{financialyear.previous.balance('487')}}" left="178mm" align="right" size="8"/>
+										  <set top="4mm">
+										    <text value="Total III" bold="true" size="8"/>
+										    <text value="{{financialyear.balance('161,16881,163,16883,164,16884,512C,514C,517C,5181,519,165,166,1675,168,17,426,45C,4191,401,403,4081,4088,269,279,404,405,4084,4088,4196,4197,4198,464,467C,4686,478C,509,52C,487,477,421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457')}}" bold="true" left="148mm" align="right" size="8"/>
+										    <text if="financialyear.previous" value="{{financialyear.previous.balance('161,16881,163,16883,164,16884,512C,514C,517C,5181,519,165,166,1675,168,17,426,45C,4191,401,403,4081,4088,269,279,404,405,4084,4088,4196,4197,4198,464,467C,4686,478C,509,52C,487,477,421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457')}}" left="178mm" align="right" size="8"/>
+										    <line path="-1mm,3mm ; 180mm,3mm" width="0.3"  border="0.3 solid #000"/>
+										    <set top="4mm">
+										      <text value="Écarts de conversion Passif (IV)" size="8"/>
+										      <text value="{{financialyear.balance('477')}}"  left="148mm" align="right" size="8"/>
+										      <text if="financialyear.previous" value="{{financialyear.previous.balance('487')}}" left="178mm" align="right" size="8"/>
+										      <set top="4mm">
+											<text value="TOTAL GÉNÉRAL (I + I bis + II + III + IV)" bold="true" size="8"/>
+											<text value="{{financialyear.balance('161,16881,163,16883,164,16884,512C,514C,517C,5181,519,165,166,1675,168,17,426,45C,4191,401,403,4081,4088,269,279,404,405,4084,4088,4196,4197,4198,464,467C,4686,478C,509,52C,487,477,421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457,477,15,1671,1674,101,108,104,105,107,1061,1063,1062,1064,1068,11,12,13,14')}}" bold="true" left="148mm" align="right" size="8"/>
+											<text if="financialyear.previous" value="{{financialyear.previous.balance('161,16881,163,16883,164,16884,512C,514C,517C,5181,519,165,166,1675,168,17,426,45C,4191,401,403,4081,4088,269,279,404,405,4084,4088,4196,4197,4198,464,467C,4686,478C,509,52C,487,477,421,422,424,427,4282,4284,4286,43,^4387,442,443C,444C,4455,4457,44584,44587,446,447,4482,4486,457,477,15,1671,1674,101,108,104,105,107,1061,1063,1062,1064,1068,11,12,13,14')}}" left="178mm" bold="true" align="right" size="8"/>
+										      </set>
+										    </set>
+										  </set>
+										</set>
+									      </set>
+									    </set>
+									  </set>
+									</set>
+								      </set>
+								    </set>
+								  </set>
+								</set>
+							      </set>
+							    </set>
+							  </set>
+							</set>
+						      </set>
+						    </set>
+						  </set>
+						</set>
+					      </set>
+					    </set>
+					  </set>
+					</set>
+				      </set>
+				    </set>
+				  </set>
+				</set>
+			      </set>
+			    </set>
+			  </set>
+			</set>
+		      </set>
+		    </set>
+		  </set>
+		</set>
+              </set>
+            </set>
+	  </set>
+	</part>
+	
+    </page>
+  </document>
+</template>

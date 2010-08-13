@@ -691,7 +691,9 @@ class Company < ActiveRecord::Base
       user.company_id = company.id
       user.role_id = company.admin_role.id
       user.save!
-      tc('mini_accounting_system').to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
+
+      plan = tc('mini_accounting_system')
+      plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
         raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
         if num.to_s.match(/^n_/)
           number = num.to_s[2..-1]
@@ -701,7 +703,7 @@ class Company < ActiveRecord::Base
             company.accounts.create!(:number=>number, :name=>name)
           end
         end
-      end
+      end if plan.is_a? Hash
 
       company.set_parameter('general.language', language)
       company.departments.create!(:name=>tc('default.department_name'))

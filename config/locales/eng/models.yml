@@ -134,83 +134,83 @@ eng:
         reduction_percent: 'Authorized percentage of discount (%)'
     errors:
       messages:
-        accepted: '{{attribute}} must be accepted'
-        blank: '{{attribute}} can''t be blank'
-        confirmation: '{{attribute}} doesn''t match confirmation'
-        empty: '{{attribute}} can''t be empty'
-        equal_to: '{{attribute}} must be equal to {{count}}'
-        even: '{{attribute}} must be even'
-        exclusion: '{{attribute}} is reserved'
-        greater_than: '{{attribute}} must be greater than {{count}}'
-        greater_than_or_equal_to: '{{attribute}} must be greater than or equal to {{count}}'
-        included_in: 'The value of {{attribute}} must be included between {{minimum}} and {{maximum}}'
-        inclusion: '{{attribute}} is not included in the list'
-        invalid: '{{attribute}} is invalid'
-        invalid_at: '{{attribute}} is_invalid. Error near {{error}}'
-        invalid_token: '{{attribute}} is invalid. Invalid token {{error}}. Expected tokens are {{accepted}}.'
-        less_than: '{{attribute}} must be less than {{count}}'
-        less_than_or_equal_to: '{{attribute}} must be less than or equal to {{count}}'
-        not_a_number: '{{attribute}} is not a number'
+        accepted: '%{attribute} must be accepted'
+        blank: '%{attribute} can''t be blank'
+        confirmation: '%{attribute} doesn''t match confirmation'
+        empty: '%{attribute} can''t be empty'
+        equal_to: '%{attribute} must be equal to %{count}'
+        even: '%{attribute} must be even'
+        exclusion: '%{attribute} is reserved'
+        greater_than: '%{attribute} must be greater than %{count}'
+        greater_than_or_equal_to: '%{attribute} must be greater than or equal to %{count}'
+        included_in: 'The value of %{attribute} must be included between %{minimum} and %{maximum}'
+        inclusion: '%{attribute} is not included in the list'
+        invalid: '%{attribute} is invalid'
+        invalid_at: '%{attribute} is_invalid. Error near %{error}'
+        invalid_token: '%{attribute} is invalid. Invalid token %{error}. Expected tokens are %{accepted}.'
+        less_than: '%{attribute} must be less than %{count}'
+        less_than_or_equal_to: '%{attribute} must be less than or equal to %{count}'
+        not_a_number: '%{attribute} is not a number'
         nothing_to_pay: 'Nothing to pay. If you want to register a downpayment, do not forget to note that.'
-        odd: '{{attribute}} must be odd'
-        posterior: 'The date {{attribute}} must be posterior to {{to}}'
+        odd: '%{attribute} must be odd'
+        posterior: 'The date %{attribute} must be posterior to %{to}'
         record_has_been_already_validated: 'Record has been already validated'
         record_invalid: 'Validations failed : %{errors}'
-        taken: '{{attribute}} has already been taken'
-        too_long: '{{attribute}} is too long (maximum is {{count}} characters)'
-        too_short: '{{attribute}} is too short (minimum is {{count}} characters)'
-        wrong_length: '{{attribute}} is the wrong length (should be {{count}} characters)'
+        taken: '%{attribute} has already been taken'
+        too_long: '%{attribute} is too long (maximum is %{count} characters)'
+        too_short: '%{attribute} is too short (minimum is %{count} characters)'
+        wrong_length: '%{attribute} is the wrong length (should be %{count} characters)'
       models:
         cash:
           unvalid_bban: 'Unvalid BBAN. One or more elements are incorrect.'
         complement_datum:
-          greater_than: '{{field}} is greater than {{maximum}}'
-          less_than: '{{field}} is less than {{minimum}}'
-          required: '{{field}} is required'
-          too_long: '{{field}} is too long ({{length}} characters)'
+          greater_than: '%{field} is greater than %{maximum}'
+          less_than: '%{field} is less than %{minimum}'
+          required: '%{field} is required'
+          too_long: '%{field} is too long (%{length} characters)'
         delivery_line:
-          greater_than_undelivered_quantity: 'The quantity of {{product}} to deliver is greater than the available quantity ({{maximum}}{{unit}})'
+          greater_than_undelivered_quantity: 'The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})'
         embankment:
-          must_be_a_bank_account: '{{field}} must be a bank account and not a cash'
+          must_be_a_bank_account: '%{field} must be a bank account and not a cash'
         entity:
-          missing_title: '{{attribute}} must contains the title "{{title}}"'
-          nature_do_not_allow_a_first_name: 'The selectected type "{{nature}}" does not allow a first name'
+          missing_title: '%{attribute} must contains the title "%{title}"'
+          nature_do_not_allow_a_first_name: 'The selectected type "%{nature}" does not allow a first name'
         financialyear:
           attributes:
             started_on:
               consecutive: 'The financial years must be consecutives. It must start after the end of the previous.'
             stopped_on:
-              end_of_month: '{{attribute}} must be an en of month'
-          overlap: '{{attribute}} overlaps an existing financial year'
+              end_of_month: '%{attribute} must be an en of month'
+          overlap: '%{attribute} overlaps an existing financial year'
         journal:
           attributes:
             closed_on:
-              end_of_month: '{{attribute}} must be an end of month ({{closed_on}})'
+              end_of_month: '%{attribute} must be an end of month (%{closed_on})'
         journal_entry:
           closed_entry: 'The journal entry is locked. You can not update it.'
           empty_amounts: 'The journal entry must be filled either debit or credit'
           unvalid_amounts: 'The journal entry must be filled either debit or credit but not at the same time.'
         journal_record:
-          closed_journal: 'The journal is closed on {{on}}. No updates are possible until this date.'
+          closed_journal: 'The journal is closed on %{on}. No updates are possible until this date.'
           out_of_financialyear: 'The journal record must be recorded in the period of the financial year.'
           unbalanced: 'The journal record is unbalanced'
         price:
           already_defined: 'A price is already defined for this list and this product'
-          range_overlap: 'The range overlaps an other(from {{min}} to {{max}})'
+          range_overlap: 'The range overlaps an other(from %{min} to %{max})'
         purchase_order_line:
-          location_can_not_receive_product: 'The warehouse {{location}} can not receive {{product}}, it already contains {{contained_product}}.'
-          serial_already_used_with_an_other_product: '{{attribute}} has been already used for an other product of the same supplier'
+          location_can_not_receive_product: 'The warehouse %{location} can not receive %{product}, it already contains %{contained_product}.'
+          serial_already_used_with_an_other_product: '%{attribute} has been already used for an other product of the same supplier'
         sale_order_line:
-          can_not_use_this_tracking: 'You can not user the S/N {{tracking}}, the quantity is greater than the available quantity'
+          can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
           currency_is_not_sale_order_currency: 'Currency is not identical to the sale order currency'
           error_no_found_price: 'No found price'
-          location_can_not_transfer_product: '{{product}} can not be found in {{location}}, it only contains {{contained_product}}.'
+          location_can_not_transfer_product: '%{product} can not be found in %{location}, it only contains %{contained_product}.'
         stock:
-          product_cannot_be_in_location: 'Product can not be stored in {{location}}'
+          product_cannot_be_in_location: 'Product can not be stored in %{location}'
         stock_transfer:
-          location_can_not_receive_product: '{{location}} can not receive {{product}}, it already contains {{contained_product}}'
-          location_can_not_transfer_product: 'You can not transfer {{product}} in {{location}}, it already contains {{contained_product}}'
-          location_can_not_waste_product: 'You can not register a loss of {{product}} in {{location}}, it already contains {{contained_product}}'
+          location_can_not_receive_product: '%{location} can not receive %{product}, it already contains %{contained_product}'
+          location_can_not_transfer_product: 'You can not transfer %{product} in %{location}, it already contains %{contained_product}'
+          location_can_not_waste_product: 'You can not register a loss of %{product} in %{location}, it already contains %{contained_product}'
           locations_can_not_be_identical: 'Locations can not be identical'
         subscription:
           entity_must_be_the_same_as_the_contact_entity: 'Entity must be the same as the contact entity'
@@ -221,8 +221,8 @@ eng:
       template:
         body: 'There were problems with the following fields:'
         header:
-          one: '1 error prohibited this {{model}} from being saved'
-          other: '{{count}} errors prohibited this {{model}} from being saved'
+          one: '1 error prohibited this %{model} from being saved'
+          other: '%{count} errors prohibited this %{model} from being saved'
     models:
       account: 'Account'
       account_balance: 'Account balance'
@@ -925,7 +925,7 @@ eng:
     z: 'Z'
   models:
     account:
-      label: '{{number}} - {{name}}'
+      label: '%{number} - %{name}'
     cash:
       modes:
         bban: 'Basic Bank Account Number'
@@ -1094,12 +1094,12 @@ eng:
     delay:
       error_unvalid_format_for_expression: 'Unvalid format for expression'
     delivery:
-      label: '{{client}} at {{address}}'
-      sale: 'Sale {{number}}'
+      label: '%{client} at %{address}'
+      sale: 'Sale %{number}'
     delivery_line:
-      sale: 'Sale {{number}}'
+      sale: 'Sale %{number}'
     document_template:
-      error_attribute: 'The key word {{value}} is incorrect. The possibilities are: {{possibilities}}'
+      error_attribute: 'The key word %{value} is incorrect. The possibilities are: %{possibilities}'
       families:
         accountancy: 'Accountancy'
         company: 'Company'
@@ -1129,10 +1129,10 @@ eng:
       unvalid_nature: 'Unvalid type of document template.'
     embankment:
       to_accountancy:
-        one: '[{{resource}} {{number}}] {{count}} payment {{mode}} {{comment}}'
-        other: '[{{resource}} {{number}}] {{count}} payments {{mode}} {{comment}}'
-        zero: '[{{resource}} {{number}}] No payments {{mode}} {{comment}}'
-      to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} from {{payer}} ({{payment}})'
+        one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
+        other: '[%{resource} %{number}] %{count} payments %{mode} %{comment}'
+        zero: '[%{resource} %{number}] No payments %{mode} %{comment}'
+      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
     entity:
       client: 'Client'
       supplier: 'Supplier'
@@ -1145,15 +1145,15 @@ eng:
         sale_order: 'Creation of a product'
     financialyear:
       code:
-        double: 'FY{{first_year}}/{{second_year}}'
-        single: 'FY{{first_year}}'
+        double: 'FY%{first_year}/%{second_year}'
+        single: 'FY%{first_year}'
     inventory_line:
       inventory: 'Inventory'
     invoice:
       label:
-        credit: 'Credit {{number}}'
-        normal: 'Invoice {{number}}'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} for {{client}} ({{sale_order}})'
+        credit: 'Credit %{number}'
+        normal: 'Invoice %{number}'
+      to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sale_order})'
     invoice_line:
       no_product: '[No product]'
     journal:
@@ -1165,7 +1165,7 @@ eng:
         sales: 'Sales'
         various: 'Various operations'
     journal_record:
-      record_cancel: 'Cancel of record {{number}}: {{name}}'
+      record_cancel: 'Cancel of record %{number}: %{name}'
     listing_node:
       add_filter: ' Add a filter'
       all_columns: '-- All columns --'
@@ -1200,8 +1200,8 @@ eng:
         nvn: 'Is not empty'
         vn: 'Is empty'
       comparison:
-        with_value: '{{comparator}} {{value}}'
-        without_value: '{{comparator}}'
+        with_value: '%{comparator} %{value}'
+        without_value: '%{comparator}'
       reflections: 'Associated tables'
     observation:
       importances:
@@ -1209,28 +1209,28 @@ eng:
         normal: 'Normal'
         notice: 'Notice'
     operation_line:
-      density_label: '{{value}} {{product_unit}}/{{area_unit}}'
+      density_label: '%{value} %{product_unit}/%{area_unit}'
       direction_label:
         in: 'In'
         out: 'Out'
     price:
-      label: '{{product}} / {{amount}} {{currency}}'
+      label: '%{product} / %{amount} %{currency}'
       no_range: 'No range'
-      range: 'From {{min}} to {{max}}'
+      range: 'From %{min} to %{max}'
     product:
       informations:
-        with_components: '{{product}} ({{unit}}) (transformed material)'
-        without_components: '{{product}} ({{unit}}) (raw material)'
-      label: '{{product}} ({{unit}})'
+        with_components: '%{product} (%{unit}) (transformed material)'
+        without_components: '%{product} (%{unit}) (raw material)'
+      label: '%{product} (%{unit})'
       natures:
         product: 'Product'
         service: 'Service'
         subscrip: 'Subcription'
         transfer: 'Transfer'
-      stock_move: '{{origin}} ({{code}})'
+      stock_move: '%{origin} (%{code})'
       subscription_label:
-        period: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
-        quantity: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
+        period: 'Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}'
+        quantity: 'Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}'
       supply_methods:
         buy: 'Buy'
         produce: 'Produce'
@@ -1242,45 +1242,45 @@ eng:
     product_component:
       of_product: 'of product'
     purchase_order:
-      label: '{{supplier}} at {{address}}'
+      label: '%{supplier} at %{address}'
       purchase: 'Purchase'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} of {{supplier}}'
+      to_accountancy: '[%{resource} %{number}] %{products} of %{supplier}'
     purchase_order_line:
-      name: '{{product}} ({{quantity}}{{unit}}), {{amount}}{{currency}}/{{unit}}'
-      name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}), {{amount}}{{currency}}/{{unit}}'
-      tracking: 'S/N: {{serial}}'
+      name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
+      name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
+      tracking: 'S/N: %{serial}'
     purchase_payment:
-      label: '{{number}}. {{usable_amount}}/{{amount}} {{currency}}, {{mode}} for {{payee}} on {{date}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} for {{payee}} ({{expenses}})'
+      label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
     purchase_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) received from {{attorney}} for {{supplier}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
     sale_order:
       label:
-        estimate: 'Estimate {{number}}'
-        order: 'Order {{number}}'
+        estimate: 'Estimate %{number}'
+        order: 'Order %{number}'
       natures:
         estimate: 'Estimate'
         invoice: 'Invoice'
         order: 'Order'
-      sale: 'Sale {{number}}'
+      sale: 'Sale %{number}'
       sales_conditions:
-        downpayment: 'A downpayment of {{percent}}% (i.e. {{amount}}€) must be paid at the signature of this present estimate.'
-        validity: 'This estimate and its general conditions are available until the {{expiration}}.'
+        downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
+        validity: 'This estimate and its general conditions are available until the %{expiration}.'
       states:
         A: 'Active'
         C: 'Finished'
         E: 'Estimate'
     sale_order_line:
-      can_not_use_this_tracking: 'You can not use the tracking {{name}}, the requested quantity is greater than the available quantity'
+      can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       currency_is_not_sale_order_currency: 'The currency of the price differs from the sale order currency'
-      location_can_not_transfer_product: 'The product {{product}} can not be used with {{location}}, because it contains only {{contained_product}} '
-      reduction_on: 'Discount of {{percent}}%  on {{product}}'
-      tracking: 'S/N: {{serial}}'
+      location_can_not_transfer_product: 'The product %{product} can not be used with %{location}, because it contains only %{contained_product} '
+      reduction_on: 'Discount of %{percent}%  on %{product}'
+      tracking: 'S/N: %{serial}'
     sale_payment:
-      label: '{{number}}. {{usable_amount}}/{{amount}} {{currency}}, {{mode}} of {{payer}} on {{date}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} of {{payer}} ({{expenses}})'
+      label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
     sale_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) received from {{attorney}} for {{client}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     sequence:
       periods:
         cweek: 'Commercial week'
@@ -1289,8 +1289,8 @@ eng:
         year: 'Year'
     stock:
       label:
-        with_tracking: '{{location}}: S/N{{tracking}}, {{quantity}}{{unit}} available'
-        without_tracking: '{{location}}: No serial, {{quantity}}{{unit}} available'
+        with_tracking: '%{location}: S/N%{tracking}, %{quantity}%{unit} available'
+        without_tracking: '%{location}: No serial, %{quantity}%{unit} available'
     stock_transfer:
       natures:
         transfer: 'Transfer'
@@ -1318,5 +1318,5 @@ eng:
         towed: 'Towed'
         tractor: 'Tractor'
     user:
-      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: {{controller}}{{action}}'
+      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: %{controller}%{action}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'You can not access to this page'

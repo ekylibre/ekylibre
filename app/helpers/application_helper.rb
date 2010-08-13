@@ -197,7 +197,7 @@ module ApplicationHelper
   end
 
   def locale_selector
-    select_tag("locale", options_for_select(::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| [::I18n.translate(l, :locale=>:languages), l]}, :selected=>::I18n.locale), :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
+    select_tag("locale", options_for_select(::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| [::I18n.translate("i18n.name", :locale=>l), l]}, :selected=>::I18n.locale), :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
   end
 
 
@@ -248,7 +248,7 @@ module ApplicationHelper
   end
 
   def languages
-    I18n.valid_locales.collect{|x| [t("languages.#{x}"), x]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
+    I18n.valid_locales.collect{|l| [t("i18n.name", :locale=>l), l]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
   end
 
   def link_to_back(options={})

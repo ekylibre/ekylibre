@@ -1,1158 +1,239 @@
 spa:
   languages:
-    #>aae: 'Albanais'
-    aan: 'Anambé' #!
-    #>aao: 'Arabe (Sahara algérien)'
-    aap: 'Arára, pará' #!
-    aar: 'Afar'
-    #>aat: 'Albanais (Arvanitika)'
-    #>abe: 'Abénaquis ouest'
-    #>abh: 'Arabe (tadjik)'
-    abk: 'Abjaso'
-    abq: 'Abaza'
-    #>abs: 'Malais (ambonais)'
-    #>abv: 'Arabe (Baharna)'
-    #>ace: 'Aceh'
-    #>acf: 'Créole français de Sainte-Lucie'
-    #>ach: 'Acoli'
-    #>acm: 'Arabe (mésopotamien)'
-    #>acq: 'Arabe (parlé de Ta’izzi-Adeni)'
-    #>acw: 'Arabe (Hijazi)'
-    #>acx: 'Arabe (omanais)'
-    #>acy: 'Arabe (chypriote)'
-    #>ada: 'Adangme'
-    #>adf: 'Arabe (Dhofari)'
-    #>ads: 'Langue des signes adamorobe'
-    adw: 'Amundava' #!
-    #>adx: 'Tibétain (Amdo)'
-    ady: 'Adigué'
-    #>aeb: 'Arabe (tunisien parlé)'
-    #>aec: 'Arabe (séoudien parlé)'
-    #>aed: 'Langue des signes argentine'
-    #>aen: 'Langue des signes arménienne'
-    #>afb: 'Arabe (parlé du Golfe)'
-    #>afh: 'Afrihili'
+    #>ace: 'Achinese'
+    #>acm: 'Arabic (Mesopotamian)'
+    #>acq: 'Arabic, Ta''izzi-Adeni Spoken'
+    #>acw: 'Arabic (Hijazi)'
+    #>aeb: 'Arabic, Tunisian Spoken'
+    #>aec: 'Arabic, Saidi Spoken'
+    #>afb: 'Arabic, Gulf Spoken'
     afr: 'Afrikaans'
-    #>afs: 'Créole afro-séminole'
-    agu: 'Aguacateco' #!
-    agx: 'Aghul' #!
-    #>aib: 'Aïnou (Chine)'
-    #>aig: 'Créole anglais d’Antigua-et-Barbuda'
-    #>aii: 'Néo-araméen (assyrien)'
-    #>ain: 'Aïnou (Japon)'
-    ait: 'Arikem' #!
-    #>ajp: 'Arabe (lévantin du Sud)'
-    #>ajt: 'Arabe (judéo-tunisien)'
-    #>aju: 'Arabe (judéo-marocain)'
+    #>ajp: 'Arabic (South Levantine)'
     aka: 'Acano'
-    #>akb: 'Angkola batak'
-    akk: 'Acadio'
-    ako: 'Akurio' #!
-    akv: 'Akhvakh' #!
-    akz: 'Alabama' #!
-    #>ale: 'Aléoute'
-    #>aln: 'Albanais (Gheg)'
-    #>alq: 'Algonquin'
-    #>als: 'Albanais (Tosk)'
-    alt: 'Altay'
-    ama: 'Amanayé' #!
-    amc: 'Amahuaca' #!
+    #>aln: 'Albanian (Gheg)'
+    #>als: 'Albanian (Tosk)'
     amh: 'Amárico'
-    #>amm: 'Ama (Papouasie-Nouvelle-Guinée)'
-    #>amw: 'Néo-araméen (occidental)'
-    ana: 'Andaquí' #!
-    anb: 'Andoa' #!
-    #>ang: 'Anglo-saxon'
-    ani: 'Andí' #!
-    anm: 'Anal' #!
-    #>anp: 'Angika'
-    #>anq: 'Jarawa (Inde)'
-    aoc: 'Pemón' #!
-    #>apc: 'Arabe (lévantin du Nord)'
-    #>apd: 'Arabe (soudanais)'
-    api: 'Apiacá' #!
-    #>apj: 'Apache (Jicarilla)'
-    #>apk: 'Apache (Kiowa)'
-    #>apl: 'Apache (Lipan)'
-    #>apm: 'Apache (Mescalero-Chiricahua)'
-    #>apw: 'Apache (occidental)'
-    apy: 'Apalaí' #!
-    aqc: 'Archi' #!
-    #>aqn: 'Altaïque (du Nord)'
+    #>apc: 'Arabic (North Levantine)'
+    #>apd: 'Arabic (Sudanese)'
     ara: 'Árabe'
-    #>arb: 'Arabe (standard)'
-    arc: 'Arameo'
-    arg: 'Aragonés'
-    arh: 'Arhuaco' #!
-    arl: 'Arabela' #!
-    arn: 'Mapudungun'
-    arp: 'Arapaho'
-    #>arq: 'Arabe (algérien)'
-    #>ars: 'Arabe (Najdi)'
-    #>arw: 'Arawak'
-    arx: 'Aruá' #!
-    #>ary: 'Arabe (marocain)'
-    #>arz: 'Arabe (égyptien)'
-    asb: 'Assiniboine'
-    #>ase: 'Langue des signes américaine'
-    #>asf: 'Langue des signes australienne'
+    #>arb: 'Arabic (standard)'
+    #>arq: 'Arabic (Algerian)'
+    #>ars: 'Arabic (Najdi)'
+    #>ary: 'Arabic (Moroccan)'
+    #>arz: 'Arabic (Egyptian)'
     asm: 'Asamés'
-    asn: 'Asuriní xingú' #!
-    #>asp: 'Langue des signes algérienne'
-    #>asq: 'Langue des signes autrichienne'
-    ast: 'Asturiano'
-    asu: 'Asuriní' #!
-    atc: 'Atsawaka' #!
-    #>atj: 'Atikamekw'
-    atr: 'Atruahí' #!
-    #>atv: 'Altaï (du Nord)'
-    #>aut: 'Austral'
-    #>auz: 'Arabe (ouzbek)'
-    ava: 'Avaro'
-    #>ave: 'Avestique'
-    avk: 'Kotava'
-    #>avl: 'Arabe (Bédawi égyptien oriental)'
-    avs: 'Aushiri' #!
-    avv: 'Avá-canoeiro' #!
     awa: 'Awadhi'
-    awb: 'Awá' #!
-    awe: 'Awetí' #!
-    awt: 'Araweté' #!
-    #>axm: 'Arménien (moyen)'
-    #>ayh: 'Arabe (Hadrami)'
-    #>ayl: 'Arabe (lybien)'
-    aym: 'Aimara'
-    #>ayn: 'Arabe (Sanaani)'
-    #>ayp: 'Arabe (mésopotamien du Nord)'
-    #>azb: 'Azéri (du Sud)'
+    #>ayl: 'Arabic (Libyan)'
+    #>ayn: 'Arabic (Sanaani)'
+    #>ayp: 'Arabic (North Mesopotamian)'
+    #>azb: 'Azerbaijani, South'
     aze: 'Azerbayano'
-    #>azj: 'Azéri (du Nord)'
-    #>bac: 'Badui'
-    #>bae: 'Baré'
-    #>bah: 'Créole anglais bahaméen'
-    bak: 'Baskir'
-    #>bal: 'Baloutchi'
-    #>bam: 'Bambara'
+    #>azj: 'Azerbaijani (North)'
+    #>bal: 'Baluchi'
     ban: 'Balinés'
     bar: 'Bávaro'
-    #>bas: 'Basa'
-    #>bav: 'Vengo'
-    #>bax: 'Bamoun'
-    #>bbb: 'Baraï'
-    bbl: 'Bácico' #!
-    #>bbz: 'Créole arabe babalia'
-    #>bcd: 'Babar (du Nord)'
-    #>bci: 'Baoulé'
-    #>bcn: 'Bali (nigérian)'
-    #>bcp: 'Bali (République démocratique du Congo'
-    #>bdj: 'Baï'
-    bdk: 'Budukh'
-    #>bdu: 'Oroko'
-    #>bdz: 'Badeshî'
-    #>beb: 'Bébélé'
-    bej: 'Beja'
-    #>bek: 'Bébéli'
+    #>bcc: 'Balochi, Southern'
     bel: 'Bielorruso'
     bem: 'Bemba'
     ben: 'Bengalí'
-    #>bey: 'Béli (Papouasie-Nouvelle-Guinée)'
-    #>bez: 'Béna (Tanzanie)'
-    #>bfc: 'Baï (du Nord)'
-    #>bfi: 'Langue des signes britannique'
-    #>bfk: 'Langue des signes de Ban Khor'
-    #>bfs: 'Baï (du Sud)'
-    bgc: 'Haryanví' #!
-    #>bgn: 'Balotchî (occidental)'
-    #>bgp: 'Balotchî (oriental)'
-    #>bgx: 'Turc gagaouze des Balkans'
-    bhb: 'Bhili'
-    #>bhn: 'Néo-araméen de Bohtan'
+    #>bfy: 'Bagheli'
+    bgc: 'Haryanví'
     bho: 'Bhojpurí'
-    #>bhr: 'Malgache (de Bara)'
-    #>bhz: 'Bada (Indonésie)'
     bik: 'Bikol'
-    #>bil: 'Bilé'
-    #>bin: 'Bini'
-    #>bio: 'Naï'
-    bis: 'Bislama'
-    #>biv: 'Birifor (du Sud)'
-    #>biw: 'Kol (Cameroun)'
-    #>bix: 'Bijorî'
-    #>biz: 'Baloï'
-    #>bjc: 'Barijî'
-    #>bjf: 'Néo-araméen juif barzani'
-    bjj: 'Kanauji' #!
-    #>bjq: 'Malgache (betsimisaraka du Sud)'
-    #>bkc: 'Baka (Cameroun)'
-    #>bkm: 'Kom (Cameroun)'
-    #>bkp: 'Boko (République démocratique du Congo)'
-    bkq: 'Bacairí' #!
-    #>bku: 'Bouhide'
-    bla: 'Pies negros'
-    #>blk: 'Karène (Pa’o)'
-    bll: 'Biloxi' #!
-    #>bmm: 'Malgache (betsimisaraka du Nord)'
-    bmr: 'Muinane' #!
-    #>bmy: 'Bemba (République démocratique du Congo)'
-    #>bnd: 'Banda (Indonésie)'
-    bns: 'Bundeli' #!
-    boa: 'Bora' #!
-    bod: 'Tibetano'
-    #>bog: 'Langue des signes de Bamako'
-    bos: 'Bosnio'
-    #>boy: 'Bodo (centrafricain)'
-    bph: 'Botlikh' #!
-    #>bpw: 'Bô (Papouasie-Nouvelle-Guinée)'
-    #>bpy: 'Manipourî de Bishnupriya'
-    #>bqn: 'Langue des signes bulgare'
-    #>bqy: 'Langue des signe balinaise'
-    #>bra: 'Braj'
-    #>brc: 'Créole néerlandais de Berbice'
-    bre: 'Bretón'
-    brn: 'Boruca' #!
-    brx: 'Bodo'
-    #>bsb: 'Bissaya (de Brunéi)'
-    bsn: 'Barasana' #!
-    #>bsy: 'Bissaya (de Sabah)'
-    #>btj: 'Malais (bacanais)'
-    #>bua: 'Bouriate'
-    #>bug: 'Bugi'
+    bjj: 'Kanauji'
+    #>bjn: 'Banjar'
+    #>bug: 'Buginese'
     bul: 'Búlgaro'
-    #>bve: 'Malais (Berau)'
-    #>bvl: 'Langue des signes bolivienne'
-    #>bvt: 'Bati (Indonésie)'
-    #>bvu: 'Malais (Bukit)'
-    #>bwe: 'Karène (Bwé)'
-    #>bwq: 'Bobo madaré (du Sud)'
-    #>bxm: 'Bouriate (Mongolie)'
-    #>bxr: 'Bouriate (Russie)'
-    #>bxu: 'Bouriate (Chine)'
-    byf: 'Beté' #!
-    #>byj: 'Bina (Nigéria)'
-    #>byn: 'Bilen'
-    bzd: 'Bribri' #!
-    #>bzj: 'Créole anglais belizéen'
-    #>bzk: 'Créole anglais nicaraguais'
-    #>bzs: 'Langue des signes brésilienne'
-    #>bzt: 'Britonnique'
-    #>bzw: 'Bassa (Nigéria)'
-    caa: 'Chortí' #!
-    #>cab: 'Garifuna'
-    cad: 'Caddo'
-    cah: 'Cahuarano' #!
-    cak: 'Cakchiquel central' #!
-    #>cal: 'Carolinien'
-    #>car: 'Carib(e)'
     cat: 'Catalán'
-    cax: 'Chiquitano'
-    cay: 'Cayuga'
-    cbc: 'Karapaná' #!
-    cbd: 'Carijona' #!
-    cbg: 'Chimila' #!
-    cbi: 'Chachi' #!
-    cbr: 'Kashibo-kakataibo' #!
-    cbs: 'Cashinahua' #!
-    #>ccc: 'Chamicura'
-    ccr: 'Cacaopera' #!
-    cdz: 'Koda' #!
+    #>cdo: 'Min Dong Chinese'
     ceb: 'Cebuano'
     ces: 'Checo'
-    cha: 'Chamorro'
-    chb: 'Chibcha'
-    #>chc: 'Catawba'
-    che: 'Checheno'
-    chf: 'Chontal de Tabasco' #!
-    #>chg: 'Djaghataï'
-    chh: 'Chinook' #!
-    #>chk: 'Chuuk'
-    chl: 'Cahuilla' #!
-    chm: 'Mari'
-    chn: 'Jerga chinook'
-    cho: 'Choctaw'
-    #>chp: 'Chipewyan'
-    chr: 'Cheroqui'
-    chu: 'Eslavo eclesial'
-    chv: 'Chuvasio'
-    chy: 'Cheyén'
-    cic: 'Chickasaw' #!
-    cid: 'Chimariko' #!
-    #>cim: 'Cimbrien'
-    cin: 'Cinta larga' #!
-    cip: 'Chiapaneco' #!
-    #>ciw: 'Chippewa'
-    ciy: 'Chaima' #!
-    cji: 'Chamalal'
-    cjp: 'Cabécar' #!
-    cjs: 'Shor' #!
-    cku: 'Koasati' #!
-    #>ckv: 'Kavalan'
-    #>clc: 'Chilcotin'
-    cly: 'Chatino de la zona alta oriental' #!
-    cmn: 'Chino mandarín' #!
-    cod: 'Cocama-cocamilla' #!
-    cof: 'Colorado' #!
-    coj: 'Cochimí' #!
-    #>com: 'Comanche'
-    con: 'Cofán' #!
-    cop: 'Copto'
-    #>coq: 'Coquille'
-    cor: 'Córnico'
-    cos: 'Corso'
-    #>cov: 'Cao miao'
-    coz: 'Chocho' #!
-    cre: 'Cree'
-    crh: 'Tártaro de Crimea'
-    cro: 'Crow'
-    #>crx: 'Carrier'
-    csb: 'Casubio'
-    csi: 'Miwok costanoano' #!
-    csz: 'Coos' #!
-    cta: 'Chatino de Tataltepec' #!
-    #>ctm: 'Chitimacha'
-    ctp: 'Chatino de la zona alta occidental' #!
-    ctz: 'Chatino de Zacatepec' #!
-    cub: 'Cubeo' #!
-    cui: 'Cuiba' #!
-    cuo: 'Cumanagoto' #!
-    cup: 'Cupeño'
-    cya: 'Chatino de Nopala' #!
-    cym: 'Galés'
-    czn: 'Chatino de Zenzontepec' #!
-    dak: 'Dakota'
+    #>cjy: 'Jinyu Chinese'
+    #>ckb: 'Kurdish, Central'
+    cmn: 'Chino mandarín'
+    #>ctg: 'Chittagonian'
+    #>czh: 'Huizhou Chinese'
+    #>czo: 'Min Zhong Chinese'
     dan: 'Danés'
-    dar: 'Dargínico'
-    del: 'Delaware'
-    #>den: 'Esclave (athapascan)'
+    #>dcc: 'Deccan'
     deu: 'Alemán'
-    #>dgr: 'Dogrib'
-    dhv: 'Drehu' #!
-    dih: 'Kumiai' #!
-    #>din: 'Dinka'
-    div: 'Maldivo'
-    dlg: 'Dolgan' #!
-    dlm: 'Dalmático'
-    #>dng: 'Doungane'
-    #>doh: 'Dong'
+    #>dhd: 'Dhundari'
     doi: 'Dogri'
-    dsb: 'Bajo sorbio'
-    #>dua: 'Douala'
-    dum: 'Neerlandés medio'
-    #>dyu: 'Dioula'
-    dzo: 'Dzongkha'
-    #>efi: 'Efik'
-    egy: 'Egipcio'
-    #>eka: 'Ekajuk'
     ell: 'Griego (moderno)'
-    elx: 'Elamita'
-    eme: 'Emerillon' #!
-    eml: 'Emiliano-romañolo'
     eng: 'Inglés'
-    enm: 'Inglés medio'
-    epo: 'Esperanto'
-    esq: 'Esselen' #!
-    est: 'Estonio'
-    #>etc: 'Etchemin'
-    #>ett: 'Étrusque'
-    eus: 'Euskera; vasco'
     ewe: 'Efé'
-    ewo: 'Yaundé'
-    ext: 'Extremeño'
-    #>eya: 'Eyak'
-    fan: 'Fangüé'
-    fao: 'Feroés'
     fas: 'Persa'
-    #>fat: 'Fanti'
-    #>fcs: 'Langue des signes québecoise'
-    fij: 'Fi(d)jiano'
     fil: 'Filipino'
     fin: 'Fin(land)és'
-    #>fit: 'Finnois tornedalien'
-    #>fkv: 'Finnois (Kven)'
-    #>fon: 'Fon'
-    #>fpe: 'Créole anglais Fernando Po'
     fra: 'Francés'
-    #>frc: 'Français (cajun)'
-    frm: 'Francés medio'
-    fro: 'Francés antiguo'
-    frp: 'Franco-provenzal'
-    #>frr: 'Frison septentrional'
-    #>frs: 'Frison (oriental)'
-    #>fry: 'Frison (occidental)'
-    #>fse: 'Langue des signes finnoise'
-    #>fsl: 'Langue des signes française'
-    #>fss: 'Langue des signes finno-suédoise'
-    #>fud: 'Futuna (oriental)'
-    #>fuj: 'Ko'
-    #>ful: 'Peul'
-    fur: 'Friulo'
-    #>gaa: 'Ga'
-    gag: 'Gagauzo'
-    #>gay: 'Gayo'
-    #>gba: 'Gbaya'
-    #>gcf: 'Créole guadeloupéen'
-    gdm: 'Laal'
-    gdo: 'Ghodoberi'
-    #>gej: 'Gen'
-    gez: 'Ge''ez'
-    gil: 'Gilbertés'
-    gin: 'Hinukh'
-    gla: 'Gaélico escocés'
-    gle: 'Irlandés'
+    #>fuc: 'Pulaar'
+    #>ful: 'Fulah'
+    #>gan: 'Gan'
+    #>gax: 'Oromo, Borana-Arsi-Guji'
+    #>gaz: 'Oromo, West Central'
+    #>gdx: 'Godwari'
     glg: 'Gallego'
-    glv: 'Manés'
-    #>gmh: 'Moyen haut allemand'
-    gnw: 'Guaraní boliviano occidental' #!
-    #>goe: 'Gongdouk'
-    #>goh: 'Vieux haut allemand'
-    gon: 'Gondi'
-    #>gor: 'Gorontalo'
-    got: 'Gótico'
-    #>gpn: 'Taiap'
-    #>grb: 'Grebo'
-    grc: 'Griego antiguo'
+    #>glk: 'Gilaki'
+    #>gom: 'Konkani, Goan'
     grn: 'Guaraní'
-    #>gsw: 'Alémanique'
-    gub: 'Guajajára' #!
-    guc: 'Wayúu' #!
-    gug: 'Guaraní paraguayo' #!
-    gui: 'Guaraní boliviano oriental' #!
+    #>gsw: 'Swiss German'
+    gug: 'Guaraní paraguayo'
     guj: 'Guyaratí'
-    gum: 'Guambiano' #!
-    gun: 'Guaraní mbyá' #!
-    guo: 'Guayabero' #!
-    guq: 'Aché' #!
-    #>guw: 'Gun'
-    gvc: 'Guanano' #!
-    gvj: 'Guajá' #!
-    gvo: 'Gavião do Jiparaná' #!
-    #>gwi: 'Gwich´in'
-    gym: 'Ngäbere' #!
-    #>gyn: 'Créole guyanais'
-    gyr: 'Guarayú' #!
-    #>haa: 'Han'
-    hai: 'Haida'
-    #>hak: 'Hakka'
-    #>har: 'Harari'
+    #>hae: 'Oromo, Eastern'
+    #>hak: 'Hakka Chinese'
     hat: 'Criollo haitiano'
     hau: 'Hausa'
-    haw: 'Hawaiano'
     hbs: 'Serbocroata'
     heb: 'Hebreo'
-    her: 'Herero'
-    hid: 'Hidatsa'
     hil: 'Hiligainón'
     hin: 'Hindi'
-    #>hit: 'Hittite'
-    hix: 'Hixkaryána' #!
     #>hmn: 'Hmong'
-    #>hmo: 'Hiri motu'
-    hmr: 'Hmar' #!
-    hne: 'Chhattisgarhí' #!
-    #>hni: 'Hani'
-    hoc: 'Ho' #!
-    #>hop: 'Hopi'
-    #>hru: 'Hruso'
+    hne: 'Chhattisgarhí'
+    #>hoj: 'Harauti'
     hrv: 'Croata'
-    hsb: 'Alto sorbio'
-    hti: 'Hodï' #!
-    hto: 'Minica' #!
-    #>hts: 'Hadza'
-    #>huh: 'Huilliche'
+    #>hrx: 'Hunsrik'
+    #>hsn: 'Xiang Chinese'
     hun: 'Húngaro'
-    #>hup: 'Hupa'
-    huu: 'Murui' #!
-    hux: 'Nipode' #!
-    huz: 'Hunzib'
-    #>hwc: 'Créole hawaiien'
     hye: 'Armenio'
-    #>iba: 'Iban'
     ibo: 'Igbo'
-    ido: 'Ido'
-    #>iii: 'Yi de Sichuan'
-    iku: 'Inuktitut'
-    ile: 'Interlingue'
-    #>ilo: 'Ilocano'
-    ina: 'Interlingua'
+    #>ilo: 'Iloko'
     ind: 'Indonesio'
-    inh: 'Inguso'
-    iow: 'Iowa-oto' #!
-    ipk: 'Inupiaq'
-    iqu: 'Iquito' #!
-    isc: 'Isconahua' #!
-    isl: 'Islandés'
     ita: 'Italiano'
-    ite: 'Itene' #!
-    itk: 'Judeo-italiano' #!
-    ixc: 'Ixcateco' #!
-    izh: 'Ižoriano'
-    #>jac: 'Jacalteco'
+    #>jam: 'Jamaican Creole English'
     jav: 'Javanés'
-    #>jbo: 'Lojban'
-    jdt: 'Judeo-tat' #!
-    jor: 'Jorá' #!
     jpn: 'Japonés'
-    jpr: 'Judeo-persa'
-    jqr: 'Jaqaru'
-    jrb: 'Judeo-arabé'
-    jru: 'Japrería' #!
-    jua: 'Júma' #!
-    jun: 'Juang' #!
-    jup: 'Hupdë' #!
-    jur: 'Jurúna' #!
-    kaa: 'Karakalpako'
     kab: 'Cabilio'
-    #>kac: 'Kachin'
-    kal: 'Groenlandés'
-    #>kam: 'Kamba'
+    #>kam: 'Kamba (Kenya)'
     kan: 'Canarés'
-    kap: 'Bezhta'
     kas: 'Cachemir'
     kat: 'Georgiano'
     kau: 'Canurí'
-    kav: 'Katukína' #!
-    #>kaw: 'Kawi'
-    kay: 'Kamayurá' #!
     kaz: 'Kazaj(i)o'
-    kbb: 'Kaxuiâna' #!
-    kbd: 'Cabardiano'
-    kbh: 'Camsá' #!
-    #>kbr: 'Kafa'
-    kca: 'Janti'
-    kdr: 'Karaim'
-    #>kea: 'Créole du Cap-Vert'
-    kek: 'Kekchí'
-    keo: 'Kákwâ' #!
-    #>ket: 'Ket'
-    kff: 'Koya' #!
-    kfk: 'Kinnauri' #!
-    kfp: 'Korwa' #!
-    kfq: 'Korku' #!
-    kgk: 'Kaiwá' #!
-    kgm: 'Karipúna' #!
-    #>kgp: 'Kaingáng'
-    #>kgr: 'Abun'
-    kha: 'Jasí'
     khm: 'Jemer'
-    khn: 'Jandeshi' #!
-    #>kho: 'Khotanais'
-    khr: 'Jaria' #!
-    khv: 'Khvarshi'
-    kic: 'Kikapú' #!
-    #>kii: 'Kitsai'
     kik: 'Quicuyú'
-    kim: 'Tofa' #!
     kin: 'Ruandés'
-    kio: 'Kiowa'
-    kir: 'Kirguís'
-    kjh: 'Jakas' #!
-    kjj: 'Khinalugh'
-    #>kjz: 'Bumthang'
-    kla: 'Klamath-modoc' #!
-    klb: 'Kiliwa' #!
-    klj: 'Jalaj' #!
     #>kmb: 'Kimbundu'
-    kmz: 'Idioma turco de Jorasán' #!
-    knd: 'Konda' #!
-    #>knf: 'Mancagne (langue)'
-    knt: 'Katukína' #!
-    kog: 'Cogui' #!
+    #>kmr: 'Kurdish, northern'
+    #>knc: 'Kanuri, Central'
+    #>kng: 'Koongo'
+    #>knn: 'Konkani (specific)'
     kok: 'Konkani'
-    kom: 'Komi'
     kon: 'Kongo'
     kor: 'Coreano'
-    #>kos: 'Kosrae'
-    #>kpe: 'Kpellé'
-    kpj: 'Karajá' #!
-    kpn: 'Kepkiriwát' #!
-    kpt: 'Karata'
-    kpv: 'Ciriano' #!
-    #>kpy: 'Koriak'
-    krc: 'Karachay-balkar'
-    #>kri: 'Keriu'
-    #>krk: 'Kerek'
-    krl: 'Carelio'
-    kru: 'Curuj'
-    #>krx: 'Karone (langue)'
-    kry: 'Kryts' #!
-    #>ksh: 'Kölsch'
-    ksk: 'Kansa' #!
-    ktn: 'Karitiâna' #!
-    ktx: 'Kaxararí' #!
-    #>kua: 'Kuanyama'
-    kui: 'Kuikúro-kalapálo' #!
-    kum: 'Kumyko'
-    kuq: 'Karipuná' #!
+    #>ktu: 'Kituba (Democratic Republic of Congo)'
     kur: 'Kurdo'
-    #>kut: 'Kutenai'
-    kva: 'Bagvalal'
-    #>kwz: 'Kwadi'
-    kxo: 'Kanoé' #!
-    kxu: 'Kui' #!
-    kyh: 'Karok' #!
-    kyr: 'Kuruáya' #!
-    kyz: 'Kayabí' #!
-    #>lac: 'Lacandon'
-    lad: 'Judeo-español'
     lah: 'Lahnda'
-    #>lam: 'Lamba'
     lao: 'Laosiano'
-    lat: 'Latín'
-    lav: 'Letón'
-    lax: 'Tiwa' #!
-    #>lbc: 'Lakkia'
-    lbe: 'Laco'
-    lbj: 'Ladakhi'
-    lep: 'Lepcha' #!
-    lez: 'Lezguio'
-    lif: 'Limbu'
-    lij: 'Ligur'
-    #>lim: 'Limbourgeois'
-    lin: 'Lingala'
-    #>lis: 'Lisu'
     lit: 'Lituano'
-    liv: 'Livonio'
-    lkt: 'Lakota'
-    #>llb: 'Lolo'
-    lld: 'Ladino'
+    #>lmn: 'Lambadi'
     lmo: 'Lombardo'
-    #>lol: 'Mongo'
-    loz: 'Lozi'
-    lre: 'Laurentiano'
-    ltz: 'Luxemburgués'
-    #>lua: 'Luba-lulua'
-    #>lub: 'Luba-katanga'
-    #>lud: 'Ludien'
+    #>lua: 'Luba-Lulua'
     lug: 'Luganda'
-    lui: 'Luiseño'
-    #>lun: 'Lunda'
-    #>luo: 'Luo'
-    lus: 'Lusai'
-    lzz: 'Lazo'
-    #>mad: 'Madourais'
+    #>luo: 'Luo (Kenya and Tanzania)'
+    #>mad: 'Madurese'
     mag: 'Magahi'
-    #>mah: 'Marshall'
     mai: 'Maithili'
-    #>mak: 'Makassar'
     mal: 'Malayalam'
-    #>man: 'Mandingue'
+    #>man: 'Mandingo'
     mar: 'Maratí'
-    mas: 'Massaï'
-    mav: 'Sateré-mawé' #!
-    mbc: 'Macusí' #!
-    mbj: 'Nadëb' #!
-    mbp: 'Malayo' #!
-    mbw: 'Maring' #!
-    mcb: 'Machiguenga' #!
-    mcd: 'Sharanahua' #!
-    mcf: 'Matsés' #!
-    mcg: 'Mapoyo' #!
-    mch: 'Maquiritare' #!
-    #>mdf: 'Moksa'
-    #>mdr: 'Mandar'
-    mdz: 'Suruí do Pará' #!
-    #>men: 'Mendé'
-    mez: 'Menominee' #!
-    mfy: 'Mayo' #!
-    mga: 'Irlandés medio'
-    mhq: 'Mandan' #!
-    mic: 'Micmac'
-    mik: 'Mikasuki' #!
+    #>mey: 'Hassaniyya'
     #>min: 'Minangkabau'
-    miq: 'Miskito' #!
-    mkd: 'Macedonio'
     mlg: 'Mal(a)gache'
-    mlt: 'Maltés'
-    #>mnc: 'Mandchou'
-    mnd: 'Mondé' #!
-    mni: 'Manipurí'
-    mnr: 'Mono' #!
-    mns: 'Mansi' #!
-    mod: 'Mobilio' #!
-    moe: 'Montañés' #!
-    moh: 'Mohawk'
+    #>mnp: 'Min Bei Chinese'
     mon: 'Mongol'
-    #>mos: 'Moré'
-    mot: 'Barí' #!
-    mov: 'Mohave' #!
-    mpu: 'Makuráp' #!
-    mrc: 'Maricopa' #!
-    mri: 'Maorí'
+    #>mos: 'Mossi'
     msa: 'Malayo'
-    msp: 'Maritsauá' #!
-    mtn: 'Matagalpa' #!
-    mts: 'Yora' #!
-    mtz: 'Tacaneco' #!
-    #>mul: '(multiple)'
-    mus: 'Maskoki'
-    mvc: 'Mam central' #!
-    mwl: 'Mirandés'
+    #>mui: 'Musi'
+    #>mup: 'Malvi'
+    #>mvf: 'Mongolian, Peripheral'
     mwr: 'Marwari'
-    mxi: 'Mozárabe' #!
-    mxq: 'Mixe de Juquila' #!
     mya: 'Birmano'
-    myp: 'Pirahã' #!
-    myu: 'Mundurukú' #!
-    myv: 'Mordvino'
-    mzo: 'Matipuhy' #!
+    #>myi: 'Mina (India)'
+    #>mzn: 'Mazanderani'
+    #>nan: 'Min Nan Chinese'
     nap: 'Napolitano'
-    nau: 'Nauruano'
-    nav: 'Navajo'
-    #>nbf: 'Naxi'
-    #>nbl: 'Ndébélé du Sud'
-    ncb: 'Nicobarés central' #!
-    ncz: 'Natchez'
-    #>nde: 'Ndébélé du Nord'
-    #>ndf: 'Nadruvien'
-    #>ndo: 'Ndonga'
-    nds: 'Bajo sajón'
     nep: 'Nepalí'
-    #>new: 'Newari'
-    #>nfr: 'Nafaanra'
-    nhd: 'Chiripá' #!
-    #>nia: 'Nias'
-    #>nio: 'Nganassan'
-    #>niu: 'Niué'
-    #>njm: 'Angami naga'
-    #>njo: 'Ao naga'
     nld: 'Neerlandés'
-    #>nlx: 'Nahali'
-    #>nmf: 'Tangkhul naga'
-    nno: 'Noruego nynorsk'
-    #>nnt: 'Nanticoke'
-    nob: 'Noruego bokmål'
-    nog: 'Nogay'
-    non: 'Antiguo nórdico'
+    #>nod: 'Thai (Northern)'
     nor: 'Noruego'
-    #>npo: 'Pochuri naga'
-    nsk: 'Naskapi'
     nso: 'Sepedi'
-    ntp: 'Tepehuano septentrional' #!
-    ntw: 'Nottoway'
-    nuc: 'Nukuini'
-    #>nus: 'Nuer'
-    #>nwc: 'Newari classique'
     nya: 'Ñanya'
-    nym: 'Nyamwezi'
-    #>nyn: 'Nyankolé'
-    #>nyo: 'Nyoro'
-    #>nzi: 'Nzema'
-    #>nzm: 'Zeme naga'
-    oca: 'Ocaina' #!
-    oci: 'Occitano'
-    #>ofo: 'Ofo'
-    oji: 'Ojibwa'
-    oma: 'Omaha-ponca'
-    omg: 'Omagua' #!
-    omu: 'Omurano' #!
-    one: 'Oneida'
-    ono: 'Onondaga'
-    ood: 'Pápago'
-    opt: 'Ópata' #!
-    ore: 'Orejón' #!
     ori: 'Oriya'
     orm: 'Oromo'
-    orw: 'Oro win' #!
-    osa: 'Osage'
-    osc: 'Osco'
-    oss: 'Oseto'
-    ota: 'Turco-otomano'
-    #>otw: 'Ottawa'
-    oym: 'Wayampi' #!
-    paf: 'Paranawát' #!
-    #>pag: 'Pangasinan'
-    pah: 'Tenharim' #!
-    #>pal: 'Pahlavi'
-    #>pam: 'Pampangan'
     pan: 'Panyabí'
-    pao: 'Paiute septentrional' #!
-    pap: 'Papiamento'
-    pau: 'Palauano'
-    pav: 'Pakaásnovos' #!
-    paw: 'Pawnee'
-    pay: 'Pech' #!
-    pbc: 'Patamona' #!
-    pbh: 'Eñepa' #!
-    pcd: 'Picardo'
-    #>pdc: 'Allemand pennsylvanien'
-    peo: 'Persa antiguo'
-    pev: 'Pémono' #!
-    phn: 'Fenicio'
-    pia: 'Pima bajo'
-    pie: 'Piro' #!
-    pig: 'Pisabo' #!
-    #>pim: 'Powhatan'
-    pir: 'Piratapuyo' #!
-    pjt: 'Pityantyatyara' #!
-    #>pli: 'Pali'
-    plo: 'Popoluca de Oluta' #!
-    #>pmk: 'Pamlico'
+    #>pbu: 'Pashto, Northern'
+    #>pes: 'Western Farsi'
+    #>plt: 'Malagasy, Plateau'
     pms: 'Piamontés'
-    #>pmt: 'Tuamotuan'
-    pno: 'Panobo' #!
-    pnt: 'Póntico'
-    poc: 'Pokomam central' #!
-    pog: 'Potiguára' #!
-    pok: 'Pokangá' #!
+    #>pnb: 'Panjabi, Western'
     pol: 'Polaco'
-    pon: 'Pohnpei'
-    poq: 'Popoluca de Texistepec' #!
     por: 'Portugués'
-    pos: 'Popoluca de Sayula' #!
-    pot: 'Potawatomi'
-    #>pox: 'Polabe'
-    ppi: 'Paipai' #!
-    #>pqm: 'Malécite'
-    prg: 'Prusiano (antiguo)'
-    pro: 'Provenzal antiguo'
-    psm: 'Pauserna' #!
-    pta: 'Pai tavytera' #!
-    pto: 'Zo''é' #!
-    pui: 'Puinave' #!
-    pur: 'Puruborá' #!
+    #>prs: 'Persian (Dari)'
+    #>pst: 'Pashto, Central'
     pus: 'Pastú'
-    pyn: 'Poyanáwa'
-    qua: 'Quapaw'
-    #>qub: 'Quechua huallaga'
-    quc: 'Quiché central' #!
     que: 'Quechua'
-    #>quk: 'Quechua chachapoyas'
-    #>qvw: 'Quechua huaylla'
-    #>qwa: 'Quechua corongo'
-    #>qwh: 'Quechua huaylas'
-    #>qxa: 'Quechua chiquian'
-    #>qxh: 'Quechua panao'
-    #>qxw: 'Quechua jauja'
-    qya: 'Quenya' #!
-    #>rah: 'Rabha'
+    #>quh: 'Quechua, South Bolivian'
     raj: 'Rayastaní'
-    #>rap: 'Rapanui'
-    #>rar: 'Rarotonga'
-    #>rcf: 'Créole réunionnais'
-    rem: 'Remo' #!
-    #>rif: 'Rifain'
-    rma: 'Rama'
-    rmr: 'Caló' #!
-    roh: 'Retorrománico'
-    #>rom: 'Rromani {sic}'
+    #>rkt: 'Rangpuri'
+    #>rmt: 'Domari'
     ron: 'Rumano'
-    #>rue: 'Rhuthène'
     run: 'Rundí'
-    ruo: 'Istrorrumano'
-    rup: 'Aromùnico'
-    ruq: 'Meglenorrumano'
     rus: 'Ruso'
-    rut: 'Rutul'
-    #>sad: 'Sandawe'
-    sag: 'Sango'
-    sah: 'Yakuto'
-    #>sam: 'Araméen samaritain'
-    san: 'Sánscrito'
-    #>sas: 'Sasak'
+    #>rwr: 'Marwari (India)'
     sat: 'Santalí'
-    scl: 'Shina' #!
     scn: 'Siciliano'
-    sco: 'Escocés'
-    see: 'Seneca'
-    sei: 'Seri' #!
-    #>sek: 'Sekani'
-    sel: 'Selkup'
-    ser: 'Serrano' #!
-    sey: 'Secoya' #!
-    sga: 'Irlandés antiguo'
-    #>sgp: 'Jinghpo'
-    #>shi: 'Chleuh'
-    #>shk: 'Shiluk'
-    #>shn: 'Chan'
-    shp: 'Shipibo-conibo' #!
-    sht: 'Shasta' #!
-    #>shy: 'Chaoui'
-    #>sid: 'Sidamo'
-    sik: 'Sikiana' #!
+    #>sdh: 'Kurdish, Southern'
+    #>shi: 'Tachelhit'
+    #>shn: 'Shan'
     sin: 'Cingalés'
-    sjw: 'Shawnee'
-    skc: 'Sauk' #!
-    skf: 'Sakirabiá' #!
-    #>sli: 'Bas-silésien'
-    slj: 'Salumá' #!
+    #>skr: 'Seraiki'
     slk: 'Eslovaco'
-    slr: 'Salar' #!
-    slv: 'Esloveno'
-    #>sma: 'Sami du Sud'
-    #>sme: 'Sami du Nord'
-    #>smj: 'Sami de Lule'
-    #>smn: 'Sami d''Inari'
-    smo: 'Samoano'
-    #>smq: 'Samo'
-    #>sms: 'Sami skolt'
     sna: 'Sonés'
     snd: 'Sindí'
-    snh: 'Shinabo' #!
-    sni: 'Sensi' #!
-    #>snk: 'Soninké'
-    snn: 'Siona' #!
-    #>sog: 'Sogdien'
     som: 'Somalí'
     sot: 'Sesotho'
+    #>sou: 'Thai, Southern'
     spa: 'Español'
-    #>spi: 'Saponi'
     sqi: 'Albanés'
-    sqn: 'Conestog'
-    srd: 'Sardo'
-    #>srm: 'Saramaccan'
-    srn: 'Sranan'
     srp: 'Serbio'
-    srq: 'Sirionó' #!
-    #>srr: 'Sérère'
-    #>srs: 'Sarsi'
-    sru: 'Suruí' #!
-    ssw: 'Swati'
-    sto: 'Stoney'
     #>suk: 'Sukuma'
     sun: 'Sundanés'
-    #>sus: 'Soussou'
-    sut: 'Subtiaba' #!
-    #>suv: 'Sulung'
-    sux: 'Sumerio'
-    sva: 'Suano'
-    svr: 'Savara' #!
-    swa: 'Suahelí'
-    #>swb: 'Comorien'
     swe: 'Sueco'
-    #>swg: 'Souabe'
-    #>swi: 'Swi'
-    #>syr: 'Syriaque'
-    #>taa: 'Tanana'
-    tab: 'Tabassaran'
-    taf: 'Tapirapé' #!
-    tah: 'Tahitiano'
+    #>swv: 'Shekhawati'
+    #>syl: 'Sylheti'
     tam: 'Tamil'
-    tar: 'Tarahumara central' #!
     tat: 'Tártaro'
-    tav: 'Tatuyo' #!
-    tbu: 'Tubar' #!
-    #>tca: 'Ticuna'
-    #>tct: 'T''en'
-    tcy: 'Tulu' #!
-    teb: 'Tetete' #!
-    tee: 'Tepehua de Huehuetla' #!
-    teh: 'Tehuelche' #!
     tel: 'Telugú'
-    #>tem: 'Temne'
-    tep: 'Tepecano' #!
-    #>ter: 'Tereno'
-    #>tet: 'Tetum'
-    tew: 'Tewa' #!
     tgk: 'Tayiko'
     tgl: 'Tagalo(g)'
     tha: 'Tailandés'
-    tig: 'Tigré'
-    tin: 'Tindi'
     tir: 'Tigriña'
-    tit: 'Tinigua' #!
-    #>tiv: 'Tiv'
-    tiw: 'Tiwi' #!
-    tkf: 'Tukumanféd' #!
-    #>tkl: 'Tokelau(an)'
-    tkm: 'Takelma' #!
-    tkr: 'Tsakhur'
-    tlh: 'Klingon'
-    tli: 'Tlingit'
-    tly: 'Talish'
-    #>tmh: 'Tamacheq'
-    tmz: 'Tamanaku' #!
-    tnc: 'Tanimuca-retuarã' #!
-    #>tog: 'Tonga (Nyasa)'
-    #>tol: 'Tolowa'
-    ton: 'Tongano'
-    top: 'Totonaco de Papantla' #!
-    #>tpi: 'Tok pisin'
-    tpj: 'Tapieté' #!
-    tpk: 'Tupinikin' #!
-    tpn: 'Tupinambá' #!
-    tpp: 'Tepehua de Pisaflores' #!
-    tpr: 'Tuparí' #!
-    tpt: 'Tepehua de Tlachichilco' #!
-    tpw: 'Tupí'
-    tqb: 'Tembé' #!
-    trz: 'Toraz' #!
-    tsi: 'Tsimshian'
-    #>tsj: 'Tshangla'
     tsn: 'Setsuana'
     tso: 'Tsonga'
-    tta: 'Tutelo'
-    #>ttt: 'Tat'
-    tue: 'Tuyuka' #!
+    #>tts: 'Thai, Northeastern'
     tuk: 'Turcomano'
-    #>tum: 'Tumbuka'
-    #>tun: 'Tunica'
-    tuo: 'Tucano' #!
     tur: 'Turco'
-    tus: 'Tuscarora'
-    #>tuv: 'Turkana'
-    #>tux: 'Tuxináwa'
-    #>tvl: 'Tuvalu'
-    twi: 'Twi'
-    twt: 'Turiwára' #!
-    #>txb: 'Tokharien B'
-    txi: 'Ikpeng' #!
-    #>txu: 'Kayapó'
-    #>tyv: 'Touva'
-    tzz: 'Tzotzil zinacanteco' #!
-    uby: 'Ubijé'
-    udi: 'Udi'
-    udm: 'Udmurto'
-    uga: 'Ugarítico'
+    #>tzm: 'Tamazight, Central Atlas'
     uig: 'Uigur'
     ukr: 'Ucrani(an)o'
-    #>uli: 'Ulithian'
-    #>uln: 'Unserdeutsch'
     #>umb: 'Umbundu'
-    und: 'Indeterminada'
-    urb: 'Urubú-kaapor' #!
     urd: 'Urdu'
-    urz: 'Uru-eu-wau-wau' #!
-    #>ute: 'Ute'
     uzb: 'Uzbeco'
-    #>vai: 'Vaï'
-    vap: 'Vaiphei' #!
+    #>uzn: 'Uzbek, Northern'
+    #>vah: 'Varhadi-Nagpuri'
     vec: 'Veneciano'
-    ven: 'Venda'
-    vep: 'Vepsio'
     vie: 'Vietnamita'
     vls: 'Flamenco'
-    vol: 'Volapük'
-    vot: 'Votio'
-    #>wah: 'Watubela'
-    #>wal: 'Wolaitta'
-    #>war: 'Waray'
-    was: 'Washo'
-    #>waw: 'Waiwai'
-    #>way: 'Wayana'
-    wic: 'Wichita'
-    #>wir: 'Wiraféd'
-    wiy: 'Wiyot'
-    #>wln: 'Wallon'
-    #>wnk: 'Wanukaka'
+    #>vmf: 'Mainfränkisch'
+    #>vmw: 'Makhuwa'
     wol: 'Volofo'
-    wya: 'Wyandot'
-    wyr: 'Wayoró' #!
-    xal: 'Kalmyk'
-    #>xav: 'Xavánte'
-    xaw: 'Kawaiisu' #!
-    xbx: 'Xabixí' #!
-    #>xcb: 'Cambrien'
-    xcu: 'Curonio'
-    #>xeb: 'Éblaïte'
-    xet: 'Xetá' #!
-    xfa: 'Falisco' #!
-    xgf: 'Gabrieleño-fernandeño' #!
+    #>wry: 'Merwari'
+    #>wtm: 'Mewati'
+    #>wuu: 'Wu Chinese'
     xho: 'Xhosa'
-    xht: 'Hatti' #!
-    #>xib: 'Ibère'
-    xip: 'Xipináwa'
-    xiy: 'Xipaya' #!
-    #>xlb: 'Loup b'
-    #>xlo: 'Loup A'
-    xmf: 'Mingrelio'
-    xmo: 'Morerebi' #!
-    #>xmr: 'Méroïtique'
-    #>xpi: 'Picte'
-    xpo: 'Pochuteco' #!
-    xpu: 'Púnico'
-    xsr: 'Sherpa'
-    xsv: 'Sudoviano'
-    #>xto: 'Tokharien A'
-    xtr: 'Tripuri' #!
-    xum: 'Umbro'
-    xur: 'Urartiano' #!
-    #>xwc: 'Woccon'
-    xzm: 'Zemgaliano' #!
-    xzp: 'Zapoteco antiguo'
-    #>yao: 'Yao'
-    #>yap: 'Yapois'
-    #>yid: 'Yiddish'
     #>yor: 'Yoruba'
-    #>zaa: 'Zapotèque (Sierra de Juarez)'
-    #>zab: 'Zapotèque (San-Juan Guelavia)'
-    #>zac: 'Zapotèque (Ocotlan)'
-    #>zad: 'Zapotèque (Cajonos)'
-    #>zae: 'Zapotèque (Yareni)'
-    #>zaf: 'Zapotèque (Ayoquesco)'
-    #>zai: 'Zapotèque (de l’Isthme)'
-    #>zam: 'Zapotèque (Miahuatlan)'
-    #>zao: 'Zapotèque (ozolotépèque)'
-    #>zap: 'Zapotèque'
-    #>zaq: 'Zapotèque (Aloapam)'
-    #>zar: 'Zapotèque (Rincon)'
-    #>zas: 'Zapotèque (Santo-Domingo Albarradas)'
-    #>zat: 'Zapotèque (Tabaa)'
-    #>zav: 'Zapotèque (Yatzachi)'
-    #>zaw: 'Zapotèque (Mitla)'
-    #>zax: 'Zapotèque (Xadani)'
-    #>zbl: 'Symboles Bliss'
-    #>zca: 'Zapotèque (Coatecas Altas)'
-    #>zdj: 'Comorien (Ngazidja)'
-    #>zea: 'Zéeuws'
-    #>zen: 'Zenaga'
+    #>yue: 'Yue Chinese (Cantonese)'
     #>zha: 'Zhuang'
     zho: 'Chino'
-    #>zib: 'Langue des signes zimbabwéenne'
-    #>zma: 'Manda (Australie)'
-    #>zmi: 'Malais négéri-sembilan'
-    #>zmn: 'Mbangwé'
-    #>zmw: 'Mbo (République démocratique du Congo)'
-    #>zne: 'Zandé (spécifique)'
-    #>zoc: 'Zoque (Copainala)'
-    #>zoh: 'Zoque (Chimalapa)'
-    #>zoo: 'Zapotèque (mixtépèque d’Assuncion)'
-    #>zoq: 'Zoque (Tabasco)'
-    #>zor: 'Zoque (Raÿon)'
-    #>zos: 'Zoque (Francisco Leon)'
-    #>zpa: 'Zapotèque (Lachiguiri)'
-    #>zpb: 'Zapotèque (Yautépèque)'
-    #>zpc: 'Zapotèque (Choapan)'
-    #>zpd: 'Zapotèque (Ixtlan du Sud-Est)'
-    #>zpe: 'Zapotèque (Pétapa)'
-    #>zpf: 'Zapotèque (San-Pedro Quiatoni)'
-    #>zpg: 'Zapotèque (Guévéa de Humboldt)'
-    #>zph: 'Zapotèque (Totomachapan)'
-    #>zpi: 'Zapotèque (Santa-Maria Quiégolani)'
-    #>zpj: 'Zapotèque (Quiavicuzas)'
-    #>zpk: 'Zapotèque (Tlacolulita)'
-    #>zpl: 'Zapotèque (Lachixio)'
-    #>zpm: 'Zapotèque (mixtépèque)'
-    #>zpn: 'Zapotèque (Santa-Inès Yatzéchi)'
-    #>zpo: 'Zapotèque (Amatlan)'
-    #>zpp: 'Zapotèque (El Alto)'
-    #>zpq: 'Zapotèque (Zoogocho)'
-    #>zpr: 'Zapotèque (Santiago Xanica)'
-    #>zps: 'Zapotèque (Coatlan)'
-    #>zpt: 'Zapotèque (San-Vicente Coatlan)'
-    #>zpu: 'Zapotèque (Yalalag)'
-    #>zpv: 'Zapotèque (Chichicapan)'
-    #>zpw: 'Zapotèque (Zaniza)'
-    #>zpx: 'Zapotèque (San-Baltazar Loxicha)'
-    #>zpy: 'Zapotèque (mazaltépèque)'
-    #>zpz: 'Zapotèque (Texmélucan)'
-    #>zra: 'Kara (Corée)'
-    #>zrp: 'Zarphatique'
-    #>zsl: 'Langue des signes zambienne'
-    #>zsr: 'Zapotèque (Rincon du Sud)'
-    #>zte: 'Zapotèque (Élotépèque)'
-    #>ztg: 'Zapotèque (Xanaguia)'
-    #>ztl: 'Zapotèque (Santiago Lapaguia)'
-    #>ztm: 'Zapotèque (mixtépèque San-Agustin)'
-    #>ztn: 'Zapotèque (Santa-Catarina Albarradas)'
-    #>ztp: 'Zapotèque (Loxicha)'
-    #>ztq: 'Zapotèque (Quioquitani-Quiéri)'
-    #>zts: 'Zapotèque (Tilquiapan)'
-    #>ztt: 'Zapotèque (Téjalapan)'
-    #>ztu: 'Zapotèque (Güila)'
-    #>ztx: 'Zapotèque (Zaachila)'
-    #>zty: 'Zapotèque (Yatee)'
-    #>zul: 'Zoulou'
-    #>zun: 'Zuni'
-    #>zwa: 'Zay'
-    #>zxx: '(aucun)'
-    #>zyp: 'Zyphe'
-    #>zza: 'Zaza; dimili'
+    #>zlm: 'Malay (individual language)'
+    #>zul: 'Zulu'

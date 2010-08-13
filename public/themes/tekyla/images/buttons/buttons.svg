@@ -5276,8 +5276,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="93.988608"
-     inkscape:cy="-83.956189"
+     inkscape:cx="320.507"
+     inkscape:cy="-28.956189"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -5285,8 +5285,8 @@
      inkscape:showpageshadow="false"
      gridtolerance="0.4px"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1434"
-     inkscape:window-height="826"
+     inkscape:window-width="1439"
+     inkscape:window-height="825"
      inkscape:window-x="0"
      inkscape:window-y="25"
      inkscape:window-maximized="0">
@@ -7536,5 +7536,25 @@
        d="M 309.5,58 L 307.8125,59.8125 L 306.125,61.625 L 309.5,61.625 L 309.5,58 z M 302,61.625 L 300.21875,59.8125 L 298.4375,58 L 298.4375,61.625 L 302,61.625 z M 298.4375,53.9375 L 300.21875,52.21875 L 302,50.5 L 298.4375,50.5 L 298.4375,53.9375 z M 306.125,50.5 L 307.8125,52.21875 L 309.5,53.9375 L 309.5,50.5 L 306.125,50.5 z"
        id="path4177"
        sodipodi:nodetypes="cccccccccccccccccccc" />
+    <path
+       sodipodi:type="star"
+       style="opacity:1;fill:#001122;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:3.05606031;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.2442;stroke-opacity:0.53191457"
+       id="previous4"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(-0.1731665,-0.3191888,-0.1833398,0.3014794,363.81137,115.21556)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/next2.png"
+       inkscape:export-xdpi="90.044426"
+       inkscape:export-ydpi="90.044426"
+       inkscape:label="#path3393" />
   </g>
 </svg>

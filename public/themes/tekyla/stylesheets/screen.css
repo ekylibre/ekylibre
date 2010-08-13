@@ -107,9 +107,10 @@ a.help-previous { background: url(../images/buttons/previous.png) no-repeat scro
 #side .nav { height: 64px; }
 #side .menu { background: #FFF; padding:0px; margin:0px 0px 8px; border: 2px solid #95b0e4; }
 #side .menu h2 { font-size : 13px; color: #012; cursor: pointer; font-weight: bold; background: #95b0e4 url(../images/buttons/down4.png) no-repeat; }
-html[dir="ltr"] #side .menu h2 { background-position: left center;  padding: 2px 4px 2px 18px; }
+html[dir="ltr"] #side .menu h2 { background-position: left center; padding: 2px 4px 2px 18px; }
 html[dir="rtl"] #side .menu h2 { background-position: right center; padding: 2px 18px 2px 4px; }
-html #side .menu h2.closed { background-image: url(../images/buttons/next4.png); }
+html[dir="ltr"] #side .menu h2.closed { background-image: url(../images/buttons/next4.png); }
+html[dir="rtl"] #side .menu h2.closed { background-image: url(../images/buttons/previous4.png); }
 #side .menu ul { padding: 0 0px 0 0px; }
 #side .menu ul li:first-child { border-top: none; }
 #side .menu li { list-style-type: none; background: url(../images/round-blue.png) no-repeat 4px center; border-top: 1px dotted #95b0e4; }
