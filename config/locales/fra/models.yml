@@ -2,9 +2,9 @@ fra:
   activerecord:
     attributes:
       cash:
-        number: 'Numéro de compte bancaire'
-        mode: 'Mode'
         key: 'Clé RIB'
+        mode: 'Mode'
+        number: 'Numéro de compte bancaire'
       company:
         locked: 'Verrouillée'
       delivery:
@@ -18,8 +18,8 @@ fra:
         origin: 'Lieu de la première rencontre'
       event:
         duration: 'Durée (en minutes)'
-        responsible: 'Intervenant'
         location: 'Lieu'
+        responsible: 'Intervenant'
         responsible_id: 'Intervenant'
       event_nature:
         duration: 'Durée par défaut (en min.)'
@@ -28,10 +28,10 @@ fra:
       inventory_line:
         quantity: 'Quantité constatée'
       invoice:
-        lines: 'Lignes de facture'
-        origin_id: 'Facture d''origine'
         credit: 'Avoir'
+        lines: 'Lignes de facture'
         origin: 'Facture d''origine'
+        origin_id: 'Facture d''origine'
       invoice_line:
         origin_id: 'Ligne d''origine'
       journal_entry:
@@ -39,100 +39,99 @@ fra:
       journal_record:
         purchase_payment_parts: 'Parties de décaissement'
       location:
-        product_id: 'Produit contenu'
-        product: 'Produit contenu'
         children: 'Sous-lieux de stockage'
+        product: 'Produit contenu'
+        product_id: 'Produit contenu'
       mandate:
         family: 'Famille'
       operation:
-        lines: 'Intrants/sortants'
         consumption: 'Consommation'
+        lines: 'Intrants/sortants'
+      price:
+        category: 'Catégorie de fiche associée'
+        category_id: 'Catégorie de fiche associée'
+        entity: 'Fournisseur'
+        entity_id: 'Fournisseur'
       product:
         duration: 'Nombre de numéros OU période d''abonnement'
         price: 'Prix de revient'
       profession:
         employees: 'Employés'
-      price:
-        category: 'Catégorie de fiche associée'
-        entity: 'Fournisseur'
-        entity_id: 'Fournisseur'
-        category_id: 'Catégorie de fiche associée'
-      purchase_payment:
-        delivered: 'Remis au bénéficiaire'
-        amount: 'Montant'
-      purchase_payment_mode:
-        payments: 'Décaissements'
-      purchase_payment_part:
-        amount: 'Montant'
       purchase_order:
         label: 'Commande'
         lines: 'Lignes d''achat'
         moved_on: 'Reçu le'
-        planned_on: 'Réception prévue le'
         payment_parts: 'Parties de décaissement'
+        planned_on: 'Réception prévue le'
       purchase_order_line:
-        order_id: 'Achat'
         order: 'Achat'
-      sale_payment:
+        order_id: 'Achat'
+      purchase_payment:
         amount: 'Montant'
-        received: 'Reçu'
-        to_bank_on: 'À encaisser le'
-      sale_payment_part:
-        payment_way: 'Mode d''encaissement'
-        amount: 'Montant attribué à la vente'
-        payment: 'Encaissement'
-        payment_id: 'Encaissement'
-      sale_order_nature:
-        downpayment: 'Avec acompte'
+        delivered: 'Remis au bénéficiaire'
+      purchase_payment_mode:
+        payments: 'Décaissements'
+      purchase_payment_part:
+        amount: 'Montant'
       sale_order:
+        contact: 'Adresse pour le devis'
+        contact_id: 'Adresse pour le devis'
         has_downpayment: 'Acompte à verser'
         lines: 'Lignes de vente'
         parts_amount: 'Montant payé'
-        contact_id: 'Adresse pour le devis'
-        contact: 'Adresse pour le devis'
         payments: 'Encaissements'
       sale_order_line:
         label: 'Produit'
         price: 'Produit tarifé'
         price_id: 'Produit tarifé'
+      sale_order_nature:
+        downpayment: 'Avec acompte'
+      sale_payment:
+        amount: 'Montant'
+        received: 'Reçu'
+        to_bank_on: 'À encaisser le'
+      sale_payment_part:
+        amount: 'Montant attribué à la vente'
+        payment: 'Encaissement'
+        payment_id: 'Encaissement'
+        payment_way: 'Mode d''encaissement'
       shape:
-        number: 'Numéro PAC ou numéro de parcelle'
         children: 'Sous-îlots'
+        number: 'Numéro PAC ou numéro de parcelle'
       shelf:
-        published: 'Publiée'
         children: 'Sous-catégories'
+        published: 'Publiée'
       stock:
         quantity: 'Stock réel'
+      stock_move:
+        origin: 'Origine'
       stock_transfer:
         location: 'Lieu de stockage de départ'
         location_id: 'Lieu de stockage de départ'
         second_location_id: 'Lieu de stockage d''arrivée'
-      stock_move:
-        origin: 'Origine'
       subscription:
         entity: 'Abonné'
         entity_id: 'Abonné'
-      tax_declaration:
-        address: 'Adresse du service destinataire'
-        period: 'Période'
-        amount: 'TVA totale'
-        nature: 'Régime de la déclaration'
       tax:
         amount: 'Valeur'
+      tax_declaration:
+        address: 'Adresse du service destinataire'
+        amount: 'TVA totale'
+        nature: 'Régime de la déclaration'
+        period: 'Période'
       tool:
         uses: 'Utilisations d''outil'
       tracking:
         active: 'Utilisé'
       transfer:
-        parts_amount: 'Montant payé'
         amount: 'Montant'
+        parts_amount: 'Montant payé'
       unit:
         start: 'Valeur à l''origine'
       user:
+        locked: 'Compte verrouillé'
         name: 'Nom d''utilisateur'
         reduction_percent: 'Taux de réduction autorisé (%)'
-        locked: 'Compte verrouillé'
-
     errors:
       messages:
         accepted: '%{attribute} doit être accepté'
@@ -952,6 +951,7 @@ fra:
             immediate: 'Immédiat'
             standard: 'Standard (30j FDM)'
         department_name: 'Gestion/Production'
+        document_natures:
         document_templates:
           accountancy:
             balance_sheet:

@@ -1,7 +1,5 @@
 fra:
   rights:
-    __minimum__: 'Accéder au minimum vital'
-    __not_used__: 'Droit par défaut (inaccessible)'
     accountize: 'Basculer les opérations commerciales en comptabilité'
     backup_company: 'Effectuer/Recharger des sauvegardes'
     cancel_invoices: 'Faire des avoirs'
@@ -65,4 +63,6 @@ fra:
     manage_units: 'Gérer les unités de mesure'
     manage_users: 'Gérer les utilisateurs'
     merge_entities: 'Fusionner les fiches clients/fournisseurs'
+    __minimum__: 'Accéder au minimum vital'
+    __not_used__: 'Droit par défaut (inaccessible)'
     print: 'Imprimer'

@@ -1,9 +1,9 @@
 fra:
   about:
-    name: 'Français'
     authors: 'Brice Texier, Thibaud Mérigon'
     dir: 'ltr'
     iso2: 'fr'
+    name: 'Français'
   date:
     abbr_day_names: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam']
     abbr_month_names: ['', 'janv', 'févr', 'mars', 'avr', 'mai', 'juin', 'juil', 'août', 'sept', 'oct', 'nov', 'déc']

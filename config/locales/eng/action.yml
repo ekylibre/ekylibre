@@ -275,7 +275,6 @@ eng:
     account_attorney_to_create: 'Account attorney to create'
     account_claims_assets: 'Claims'
     account_client_to_create: 'Account client to create'
-    account_create: 'Save new account' #!
     account_current_assets: 'Current Asset'
     account_debt: 'Debt'
     account_equity: 'Equity'
@@ -329,7 +328,6 @@ eng:
     are_you_sure_to_delete_delivery: 'Are you sure you want to remove the delivery of transport?'
     are_you_sure_to_invoice: 'Are you sure you want to invoice?'
     are_you_sure_to_send_mails: 'Are you sure you want to send emails?'
-    area_create: 'Add a new postal area' #!
     area_x: '{{name}} ({{postcode}})'
     assessable_operations: 'Assessable Operations (without tax)'
     assimilated_tax: 'Assimilated Taxes'
@@ -358,7 +356,6 @@ eng:
     cancel: 'Cancel'
     cancelled: 'Cancelled'
     cash: 'Cash'
-    cash_create: 'Add a new cash' #!
     cash_tabbox:
       bank_statements: 'Bank statements'
       embankments: 'Embankments'
@@ -396,8 +393,6 @@ eng:
     columns: 'Columns to import'
     commission: 'Commission'
     company_rights: 'Company'
-    complement_choice_create: 'Complement choice create' #!
-    complement_create: 'Add a new personalized field' #!
     complement_sort: 'Complement sort'
     complement_update: 'Complement update'
     complements: 'Complements'
@@ -410,7 +405,6 @@ eng:
     connect: 'Login'
     consult: 'Consult'
     contact: 'At'
-    contact_create: 'Contact create' #!
     contacts:
       one: 'One'
       other: 'Other'
@@ -438,27 +432,22 @@ eng:
     debit: 'Debit'
     decimal_case: 'Decimal case'
     default_subject: '[{{company}}]'
-    delay_create: 'Add a new delay' #!
     delay_update: 'Edit delay'
     delays: 'Delays'
     delete: 'Delete'
     deliver: 'Delivered on'
     deliveries: 'Deliveries'
     delivery: 'Delivery'
-    delivery_create: 'Add a delivery' #!
     delivery_natural_gas_and_electricity_assessable: 'Assessable delivery of natural gas and electricity'
     delivery_natural_gas_and_electricity_not_assessable: 'Not Assessable delivery of natural gas and electricity'
-    department_create: 'Add anew department' #!
     departments: 'Departments'
     description: 'Description'
     details: 'Details'
     discount: 'Discount (%)'
     display: 'Display'
     display_help: 'Display help'
-    district_create: 'Add a new district' #!
     district_x: '{{name}} ({{code}})'
     document_natures: 'Document natures'
-    document_template_create: 'Add a new document template' #!
     document_templates: 'Document templates'
     dont_use_journal: '-- Do not use journal --'
     down: 'Down'
@@ -485,9 +474,7 @@ eng:
     entities_export: 'Export as a CSV file'
     entities_import: 'Import a CSV file'
     entities_merge: 'Entities merge'
-    entity_category_create: 'Add a new entity category' #!
     entity_category_update: 'Update category'
-    entity_link_create: 'Entity link create' #!
     entity_links:
       one: 'One'
       other: 'Other'
@@ -507,7 +494,6 @@ eng:
     estimate: 'Estimate'
     estimate_to_order: 'Estimate to order'
     europe_out_export: 'Export outside Country'
-    event_create: 'Event create' #!
     example: 'Example&nbsp;: {{value}}'
     executed: 'Executed'
     existing_part: 'Existing part'
@@ -525,7 +511,6 @@ eng:
     filter: 'Filter'
     filter_entries_with: 'Filter entries with'
     financial_state: 'Financial state'
-    financialyear_create: 'Open a New Period' #!
     finish: 'Finish'
     finished_income_statement: 'Income'
     finished_sum: 'Total Income'
@@ -615,7 +600,6 @@ eng:
     line_amount: 'Unit price'
     line_amount_with_taxes: 'Unit price with taxes'
     line_stock: 'Warehouse: {{location}}, available quantity: {{virtual_q}}'
-    lines: 'Lines' #!
     listing_extract: 'Extract listing'
     listing_mail: 'Email a listing'
     listings: 'Listings'
@@ -768,7 +752,6 @@ eng:
       success: 'Success'
       warning: 'Warning!'
     number: 'Number'
-    observation_create: 'Observation create' #!
     observations:
       one: 'One'
       other: 'Other'
@@ -776,7 +759,6 @@ eng:
     on_account: 'On account'
     one_condition: 'One condition'
     operation_lines: 'Incoming and outgoing products'
-    operation_nature_create: 'Create a new type of operation' #!
     operation_update: 'Update Operation'
     operations: 'Operations'
     order: 'Order'
@@ -824,7 +806,6 @@ eng:
     price: 'Price'
     price_amount: 'Price amount'
     price_amount_with_taxes: 'Price amount with taxes'
-    prices: 'Prices' #!
     prices_export: 'Export your prices in CSV'
     prices_for_all: 'All the prices'
     prices_for_client: 'Prices of sale'
@@ -834,7 +815,6 @@ eng:
     print_on: 'Print on'
     print_with_template: 'Print %{name}'
     product: 'Product'
-    product_component_create: 'Product component create' #!
     product_name: 'Product name'
     product_tabbox:
       components: 'Components'
@@ -848,11 +828,8 @@ eng:
     products: 'Products'
     purchase: 'Purchase'
     purchase_order: 'Purchase order'
-    purchase_order_create: 'Purchase order create' #!
-    purchase_order_line_create: 'Add a new line' #!
     purchase_order_lines: 'Purchase order lines'
     purchase_order_price_create: 'Add a new purchase price'
-    purchase_order_print: 'Purchase order print' #!
     purchase_order_update: 'Purchase order update'
     purchase_orders: 'Purchase orders'
     purchase_payment_part_create: 'Purchase payment part create'
@@ -913,13 +890,11 @@ eng:
     sale_conditions: 'Conditions'
     sale_order: 'Sale order'
     sale_order_confirm: 'Confirm estimate and go to deliveries'
-    sale_order_create: 'Sale order create' #!
     sale_order_deliveries: 'Deliveries'
     sale_order_invoice: 'Sale order invoice'
     sale_order_line_create: 'Add a product to estimate (Full mode)'
     sale_order_lines: 'Edit sale order'
     sale_order_price_create: 'Add a new sale price'
-    sale_order_print: 'Sale order print' #!
     sale_order_update: 'Update sale order'
     sale_orders: 'Sale orders'
     sale_orders_states:
@@ -927,7 +902,6 @@ eng:
       current: 'Current'
       unpaid: 'Unpaid'
     sale_payment_conditions: 'Conditions of payment'
-    sale_payment_create: 'Sale payment create' #!
     sale_payment_part_create: 'Add a new sale payment'
     sale_payment_update: 'Update sale payment'
     sale_payments: 'Sale payments'
@@ -971,7 +945,6 @@ eng:
     send: 'Send the mail'
     send_test: 'Send test'
     sequences_load: 'Load missing sequences'
-    shape_create: 'Create a new Shape' #!
     shape_name: 'Shape Name'
     shape_update: 'Update Shape'
     shapes: 'Shapes'
@@ -984,7 +957,6 @@ eng:
     state: 'State'
     stock_max: 'Stock max'
     stock_min: 'Stock min'
-    stock_move_create: 'Stock move create' #!
     stocks: 'Stocks'
     stocks_parameters: 'Stock management'
     stop: 'Stop'
@@ -993,7 +965,6 @@ eng:
     submit: 'Submit'
     subscriber_period: 'Subscribed on {{subscribed_on}}'
     subscriber_quantity: 'Subscribed at the number {{subscribed_on}}'
-    subscription_create: 'Subscription create' #!
     subscription_nature: 'Subscription nature'
     subscription_natures_down: 'Decrement actual number (-1)'
     subscription_natures_up: 'Increment actual number (+1)'
@@ -1005,7 +976,6 @@ eng:
     supplier_informations: 'Supplier informations '
     supply: 'Supply'
     synthesis: 'Synthesis Documents'
-    tax_create: 'Add a new tax' #!
     tax_declaration_create: 'Add a new Declaration'
     theoric_quantity: 'Theoric quantity'
     to: 'to'
@@ -1013,7 +983,6 @@ eng:
     to_date: 'To date'
     to_deliver: 'To deliver'
     to_embank: 'To embank'
-    tool_create: 'Add a tool' #!
     tool_update: 'Update tool'
     tool_use_create: 'Add a tool'
     tools: 'Used tools'
@@ -1027,7 +996,6 @@ eng:
     transfer: 'Transfer'
     transport: 'Transport'
     transport_deliveries: 'Deliveries'
-    unavailable: '' #!
     undelivered: 'Undelivered'
     unembanked: 'Unembanked'
     uninvoiced_amount: 'Uninvoiced amount'

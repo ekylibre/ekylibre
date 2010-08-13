@@ -76,7 +76,7 @@ namespace :clean do
   desc "Update models list file in lib/models.rb"
   task :models => :environment do
     
-    Dir.glob(Rails.root.to_s + '/app/models/*.rb').each { |file| require file }
+    Dir.glob(Ekylibre::Application.root.join("app", "models", "*.rb")).each { |file| require file }
     # models = Object.subclasses_of(ActiveRecord::Base).select{|x| not x.name.match('::')}.sort{|a,b| a.name <=> b.name}
     models = ActiveRecord::Base.subclasses.select{|x| not x.name.match('::')}.sort{|a,b| a.name <=> b.name}
     models_code = "  @@models = ["+models.collect{|m| ":"+m.name.underscore}.join(", ")+"]\n"
@@ -84,7 +84,7 @@ namespace :clean do
     symodels = models.collect{|x| x.name.underscore.to_sym}
 
     errors = 0
-    models_file = Rails.root.join("lib", "models.rb")
+    models_file = Ekylibre::Application.root.join("lib", "models.rb")
     require models_file
     refs = Ekylibre.references
     refs_code = ""
@@ -133,13 +133,13 @@ namespace :clean do
   task :views => :environment do
 
     views = []
-    for controller_file in Dir.glob("#{RAILS_ROOT}/app/controllers/*.rb").sort
+    for controller_file in Dir.glob(Ekylibre::Application.root.join("app", "controllers", "*.rb")).sort
       source = ""
       File.open(controller_file, "rb") do |f|
         source = f.read
       end
       controller = controller_file.split(/[\\\/]+/)[-1].gsub('_controller.rb', '')
-      for file in Dir.glob("#{RAILS_ROOT}/app/views/#{controller}/*.*").sort
+      for file in Dir.glob(Ekylibre::Application.root.join("app", "views", controller, "*.*")).sort
         action = file.split(/[\\\/]+/)[-1].split('.')[0]
         valid = false
         valid = true if not valid and source.match(/^\s*def\s+#{action}\s*$/)
@@ -148,7 +148,7 @@ namespace :clean do
           if source.match(/^[^\#]*(render|replace_html)[^\n]*partial[^\n]*#{action[1..-1]}/)
             valid = true 
           else
-            for view in Dir.glob("#{RAILS_ROOT}/app/views/#{controller}/*.*")
+            for view in Dir.glob(Ekylibre::Application.root.join("app", "views", controller, "*.*"))
               File.open(view, "rb") do |f|
                 view_source = f.read
                 if view_source.match(/(render|replace_html)[^\n]*partial[^\n]*#{action[1..-1]}/)
@@ -159,7 +159,7 @@ namespace :clean do
             end
           end
         end
-        views << file.gsub(RAILS_ROOT, '.') unless valid
+        views << file.gsub(Ekylibre::Application.root.to_s, '.') unless valid
       end
     end
     puts " - Views: #{views.size} potentially bad views"
@@ -176,7 +176,7 @@ namespace :clean do
 
     # Chargement des actions des controllers
     ref = {}
-    Dir.glob("#{RAILS_ROOT}/app/controllers/*_controller.rb") do |x|
+    Dir.glob(Ekylibre::Application.root.join("app", "controllers", "*_controller.rb")) do |x|
       controller_name = x.split("/")[-1].split("_controller")[0]
       actions = []
       file = File.open(x, "r")
@@ -273,11 +273,11 @@ namespace :clean do
   task :loc => :environment do
 
     locale = ::I18n.locale = :jpn # ::I18n.default_locale
-    #locale_dir = Rails.root.join("config", "locales", locale.to_s)
-    locale_dir = Rails.root.join("lc", locale.to_s)
-    #locdir = Rails.root.join("locales", locale.to_s)
-    locdir = Rails.root.join("locales", locale.to_s)
-    #locdir = Rails.root.join("config", "locales", locale.to_s)
+    #locale_dir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
+    locale_dir = Ekylibre::Application.root.join("lc", locale.to_s)
+    #locdir = Ekylibre::Application.root.join("locales", locale.to_s)
+    locdir = Ekylibre::Application.root.join("locales", locale.to_s)
+    #locdir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locdir)
 
     mh = HashWithIndifferentAccess.new
@@ -435,7 +435,7 @@ namespace :clean do
 
   desc "Update and sort translation files"
   task :locales => :environment do
-    log = File.open("#{Rails.root.to_s}/config/locales/translations.log", "wb")
+    log = File.open(Ekylibre::Application.root.join("log", "clean.locales.log"), "wb")
 
     # Load of actions
     all_actions = {}
@@ -451,22 +451,24 @@ namespace :clean do
     useful_actions.delete("help")
 
     locale = ::I18n.locale = ::I18n.default_locale
-    locale_dir = "#{Rails.root.to_s}/config/locales/#{locale}"
+    locale_dir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-    FileUtils.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
-    log.write("Locale #{::I18n.locale_label}:\n")
+    for directory in ["help", "prints", "profiles"]
+      FileUtils.makedirs(locale_dir.join(directory)) unless File.exist?(locale_dir.join(directory))
+    end
+    log.write("Locale #{::I18n.locale_name}:\n")
 
 #     # General
-#     general = yaml_to_hash("#{Rails.root.to_s}/config/locales/#{locale}/general.yml")
+#     general = yaml_to_hash("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/general.yml")
 #     translation  = locale.to_s+":"
 #     translation += yaml_value(general[locale])
-#     File.open("#{Rails.root.to_s}/config/locales/#{locale}/general.yml", "wb") do |file|
+#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/general.yml", "wb") do |file|
 #       file.write translation
 #     end
 #     log.write "  - General\n"   
 
 #     # Activerecord
-#     models = Dir["#{Rails.root.to_s}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+#     models = Dir["#{Ekylibre::Application.root.to_s}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
 #     default_attributes = ::I18n.translate("activerecord.default_attributes")
 #     models_names, plurals_names, models_attributes = '', '', ''
 #     attrs_count, static_attrs_count = 0, 0
@@ -531,13 +533,13 @@ namespace :clean do
 #     translation += hash_to_yaml(default_attributes, 3)
 #     translation += "\n    attributes:\n"
 #     translation += models_attributes
-#     File.open("#{Rails.root.to_s}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
+#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
 #       file.write translation
 #     end
 #     log.write "  - Models (#{models.size}, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models)\n"
 
 #     # Packs
-#     controllers = Dir["#{Rails.root.to_s}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+#     controllers = Dir["#{Ekylibre::Application.root.to_s}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
 #     log.write "  - Packs (#{controllers.size})\n"
 #     for controller in controllers
 #       controller_name = controller.split("_")[0..-2].join("_")
@@ -560,7 +562,7 @@ namespace :clean do
 #           unfound_actions += 1
 #         end
 #         # Search for a file
-#         file = "#{Rails.root.to_s}/app/views/#{controller_name}/#{view}"
+#         file = "#{Ekylibre::Application.root.to_s}/app/views/#{controller_name}/#{view}"
 #         file_found = false
 #         for builder in builders
 #           if File.exist?(file+builder)
@@ -600,12 +602,12 @@ namespace :clean do
 #         else
 #           # Test if due to render_form use
 #           operation = view.to_s.split("_")[-1]
-#           if File.exist?("#{Rails.root.to_s}/app/views/shared/form_#{operation}.html.haml") and File.exist?(file.gsub(view.to_s, "_#{view.to_s.gsub(operation, 'form.html.haml')}"))
+#           if File.exist?("#{Ekylibre::Application.root.to_s}/app/views/shared/form_#{operation}.html.haml") and File.exist?(file.gsub(view.to_s, "_#{view.to_s.gsub(operation, 'form.html.haml')}"))
 #             if items.keys.size > 1
 #               translation += "      # Possible error because only :title can be used\n"
 #             end
 #           else
-#             translation += "      # Unfound view #{file.gsub(Rails.root.to_s, '.')}\n"
+#             translation += "      # Unfound view #{file.gsub(Ekylibre::Application.root.to_s, '.')}\n"
 #             unfound_views += 1
 #           end
 #           translation += "      #{view}:\n"
@@ -613,7 +615,7 @@ namespace :clean do
 #         end
 #       end if views.is_a? Hash
 #       log.write "    - #{(controller_name+':').ljust(16,' ')} #{unused_translations.to_s.rjust(3)} unused translation(s), #{missing_translations.to_s.rjust(3)} missing translation(s), #{unfound_views.to_s.rjust(3)} unfound view(s), #{unfound_actions.to_s.rjust(3)} unfound action(s)\n"
-#       File.open("#{Rails.root.to_s}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
+#       File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
 #         file.write translation.gsub(/\n\n/, "\n")
 #       end
 #       # raise Exception.new("Stop")
@@ -624,7 +626,7 @@ namespace :clean do
 #     translation  = locale.to_s+":\n"
 #     translation += "  parameters:\n"
 #     translation += hash_to_yaml(::I18n.translate("parameters"), 2)
-#     File.open("#{Rails.root.to_s}/config/locales/#{locale}/parameters.yml", "wb") do |file|
+#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/parameters.yml", "wb") do |file|
 #       file.write(translation)
 #     end
 #     log.write "  - Parameters\n"
@@ -632,7 +634,7 @@ namespace :clean do
 #     # Notifications
 #     notifications = ::I18n.t("notifications")
 #     deleted_notifs = ::I18n.t("notifications").keys
-#     for controller in Dir["#{Rails.root.to_s}/app/controllers/*.rb"]
+#     for controller in Dir["#{Ekylibre::Application.root.to_s}/app/controllers/*.rb"]
 #       file = File.open(controller, "r")
 #       file.each_line do |line|
 #         if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
@@ -650,7 +652,7 @@ namespace :clean do
 #       line.gsub!(/$/, "# NOT USED !!!") if deleted_notifs.include?(key)
 #       translation += line+"\n"
 #     end
-#     File.open("#{Rails.root.to_s}/config/locales/#{locale}/notifications.yml", "wb") do |file|
+#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/notifications.yml", "wb") do |file|
 #       file.write translation
 #     end
 #     log.write "  - Notifications (#{notifications.size}, #{deleted_notifs.size} bad notifications)\n"
@@ -662,7 +664,7 @@ namespace :clean do
 #     for right in rights.keys.sort
 #       translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
 #     end
-#     File.open("#{Rails.root.to_s}/config/locales/#{locale}/rights.yml", "wb") do |file|
+#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/rights.yml", "wb") do |file|
 #       file.write translation
 #     end
 #     log.write "  - Rights (#{rights.keys.size})\n"
@@ -670,13 +672,47 @@ namespace :clean do
 #     log.write "  - help: # Missing files\n"
 #     for controller, actions in useful_actions
 #       for action in actions
-#         if File.exists?("#{Rails.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-#           unless File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
+#         if File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+#           unless File.exist?("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
 #             log.write "    - ./config/locales/#{locale}/help/#{controller}-#{action}.txt\n" 
 #           end
 #         end
 #       end
 #     end
+
+
+    # wkl = [:zho, :cmn, :spa, :eng, :arb, :ara, :hin, :ben, :por, :rus, :jpn, :deu, :jav, :lah, :wuu, :tel, :vie, :mar, :fra, :kor, :tam, :pnb, :ita, :urd, :yue, :arz, :tur, :nan, :guj, :cjy, :pol, :msa, :bho, :awa, :ukr, :hsn, :mal, :kan, :mai, :sun, :mya, :ori, :fas, :mwr, :hak, :pan, :hau, :fil, :pes, :tgl, :ron, :ind, :arq, :nld, :snd, :ary, :gan, :tha, :pus, :uzb, :raj, :yor, :aze, :aec, :uzn, :ibo, :amh, :hne, :orm, :apd, :asm, :hbs, :kur, :ceb, :sin, :acm, :rkt, :tts, :zha, :mlg, :apc, :som, :nep, :skr, :mad, :khm, :bar, :ell, :mag, :ctg, :bgc, :dcc, :azb, :hun, :ful, :cat, :sna, :mup, :syl, :mnp, :zlm, :zul, :que, :ars, :pbu, :ces, :bjj, :aeb, :kmr, :bul, :lmo, :cdo, :dhd, :gaz, :uig, :nya, :bel, :aka, :swe, :kaz, :pst, :bfy, :xho, :hat, :kok, :prs, :ayn, :plt, :azj, :kin, :kik, :acq, :vah, :srp, :nap, :bal, :ilo, :tuk, :hmn, :tat, :gsw, :hye, :ayp, :lua, :ajp, :sat, :vec, :vls, :acw, :kon, :lmn, :sot, :nod, :tir, :sqi, :hil, :mon, :dan, :rwr, :kas, :min, :hrv, :suk, :heb, :mos, :wtm, :kng, :fin, :slk, :afr, :run, :grn, :vmf, :gug, :scn, :bik, :hoj, :nor, :czh, :sou, :hae, :tgk, :tsn, :man, :luo, :kat, :ayl, :aln, :ktu, :lug, :nso, :rmt, :umb, :kau, :wol, :kam, :knn, :mui, :wry, :myi, :doi, :gax, :ckb, :tso, :fuc, :quh, :afb, :gom, :bem, :bjn, :bug, :ace, :bcc, :mvf, :shn, :mzn, :ban, :glk, :knc, :lao, :glg, :tzm, :jam, :lit, :mey, :pms, :czo, :kab, :ewe, :vmw, :kmb, :sdh, :shi, :hrx, :als, :swv, :gdx]
+    wkl = [:ace, :acm, :acq, :acw, :aeb, :aec, :afb, :afr, :ajp, :aka, :aln, :als, :amh, :apc, :apd, :ara, :arb, :arq, :ars, :ary, :arz, :asm, :awa, :ayl, :ayn, :ayp, :azb, :aze, :azj, :bal, :ban, :bar, :bcc, :bel, :bem, :ben, :bfy, :bgc, :bho, :bik, :bjj, :bjn, :bug, :bul, :cat, :cdo, :ceb, :ces, :cjy, :ckb, :cmn, :ctg, :czh, :czo, :dan, :dcc, :deu, :dhd, :doi, :ell, :eng, :ewe, :fas, :fil, :fin, :fra, :fuc, :ful, :gan, :gax, :gaz, :gdx, :glg, :glk, :gom, :grn, :gsw, :gug, :guj, :hae, :hak, :hat, :hau, :hbs, :heb, :hil, :hin, :hmn, :hne, :hoj, :hrv, :hrx, :hsn, :hun, :hye, :ibo, :ilo, :ind, :ita, :jam, :jav, :jpn, :kab, :kam, :kan, :kas, :kat, :kau, :kaz, :khm, :kik, :kin, :kmb, :kmr, :knc, :kng, :knn, :kok, :kon, :kor, :ktu, :kur, :lah, :lao, :lit, :lmn, :lmo, :lua, :lug, :luo, :mad, :mag, :mai, :mal, :man, :mar, :mey, :min, :mlg, :mnp, :mon, :mos, :msa, :mui, :mup, :mvf, :mwr, :mya, :myi, :mzn, :nan, :nap, :nep, :nld, :nod, :nor, :nso, :nya, :ori, :orm, :pan, :pbu, :pes, :plt, :pms, :pnb, :pol, :por, :prs, :pst, :pus, :que, :quh, :raj, :rkt, :rmt, :ron, :run, :rus, :rwr, :sat, :scn, :sdh, :shi, :shn, :sin, :skr, :slk, :sna, :snd, :som, :sot, :sou, :spa, :sqi, :srp, :suk, :sun, :swe, :swv, :syl, :tam, :tat, :tel, :tgk, :tgl, :tha, :tir, :tsn, :tso, :tts, :tuk, :tur, :tzm, :uig, :ukr, :umb, :urd, :uzb, :uzn, :vah, :vec, :vie, :vls, :vmf, :vmw, :wol, :wry, :wtm, :wuu, :xho, :yor, :yue, :zha, :zho, :zlm, :zul]
+    for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", "*", "languages.yml")).sort
+      lh = yaml_to_hash(reference_path)||{}
+      # puts lh.to_a[0][1][:languages].inspect
+      next if lh.to_a[0][1][:languages].nil?
+      lh.to_a[0][1][:languages].delete_if{|k,v| not wkl.include? k.to_s.to_sym}
+      translation = hash_to_yaml(lh)
+      File.open(reference_path.to_s+"-2", "wb") do |file|
+        file.write(translation.strip)
+      end
+    end
+
+
+
+    # ldir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
+    ldir = Ekylibre::Application.root.join("lcx", locale.to_s)
+    FileUtils.makedirs(ldir)
+    for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
+      file_name = reference_path.split(/[\/\\]+/)[-1]
+      target_path = ldir.join(file_name)
+      unless File.exist?(target_path)
+        File.open(target_path, "wb") do |file|
+          file.write("#{locale}:\n")
+        end
+      end
+      translation = hash_to_yaml(yaml_to_hash(target_path))
+      File.open(target_path, "wb") do |file|
+        file.write("#{locale}:\n")
+        file.write(translation)
+      end
+    end
 
     
     puts " - Locale: #{::I18n.locale_label} (Reference)"
@@ -686,15 +722,15 @@ namespace :clean do
 
     for locale in ::I18n.available_locales.delete_if{|l| l==::I18n.default_locale or l.to_s.size!=3}.sort{|a,b| a.to_s<=>b.to_s}
       ::I18n.locale = locale
-      locale_dir = "#{Rails.root.to_s}/config/locales/#{locale}"
+      locale_dir = "#{Ekylibre::Application.root.to_s}/config/locales/#{locale}"
       FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
       FileUtils.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
       log.write "Locale #{::I18n.locale_label}:\n"
       total, count = 0, 0
-      for reference_path in Dir.glob("#{Rails.root.to_s}/config/locales/#{::I18n.default_locale}/*.yml").sort
+      for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
         file_name = reference_path.split(/[\/\\]+/)[-1]
         next if file_name.match(/accounting/)
-        target_path = "#{Rails.root.to_s}/config/locales/#{locale}/#{file_name}"
+        target_path = Ekylibre::Application.root.join("config", "locales", locale.to_s, file_name)
         unless File.exist?(target_path)
           File.open(target_path, "wb") do |file|
             file.write("#{locale}:\n")
@@ -716,9 +752,9 @@ namespace :clean do
       log.write "  - help: # Missing files\n"
       for controller, actions in useful_actions
         for action in actions
-          if File.exists?("#{Rails.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-            help = "#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
-            # log.write "    - #{help.gsub(Rails.root.to_s,'.')}\n" unless File.exists?(help)
+          if File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
+            help = "#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt"
+            # log.write "    - #{help.gsub(Ekylibre::Application.root.to_s,'.')}\n" unless File.exists?(help)
           end
         end
       end

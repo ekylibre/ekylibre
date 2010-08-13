@@ -1,4 +1,4 @@
-# Accéder au minimum vital
+# Access to the minimum
 __minimum__:
   actions:
   - application::i18nize
@@ -31,7 +31,7 @@ __minimum__:
   - relations::entities_dyli
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
-# Droit par défaut (inaccessible)
+# Inaccessible
 __not_used__:
   actions:
   - management::locationz
@@ -48,26 +48,26 @@ __not_used__:
   - resources::profession_update
   - resources::professions
   - resources::professions_dyta
-# Basculer les opérations commerciales en comptabilité
+# Transfer commercial data in accountancy
 accountize:
   controller: accountancy
   actions: [accountize, index]
-# Effectuer/Recharger des sauvegardes
+# Make and reload backups
 backup_company:
   controller: company
   actions: [backups, index]
-# Faire des avoirs
+# Cancel invoices
 cancel_invoices:
   controller: management
   actions: [credit_lines_dyta, index, invoice_cancel, invoices]
-# Changer les prix au moment des ventes
+# Change prices on sales
 change_prices_on_sale:
   controller: management
-# Clôturer et déclôturer des journaux
+# Close and reopen journals
 close_journals:
   controller: accountancy
   actions: [index, journal_close, journal_reopen, journals]
-# Configurer les options de la société
+# Configure the options of the company
 configure_company:
   controller: company
   actions:
@@ -89,11 +89,11 @@ configure_company:
   - sequences
   - sequences_dyta
   - sequences_load
-# Consulter les documents comptables
+# Consult accounting documents
 consult_accounting_documents:
   controller: accountancy
   actions: [balance, document_print, general_ledger, general_ledger_dyta, index]
-# Consulter les fiches clients/fournisseurs
+# Consult the people
 consult_entities:
   controller: relations
   actions:
@@ -110,11 +110,11 @@ consult_entities:
   - entity_sale_payments_dyta
   - entity_subscriptions_dyta
   - index
-# Consulter les écritures
+# Consult the journal entries
 consult_entries:
   controller: accountancy
   actions: [index, journal, journals]
-# Consulter les factures
+# Consult the invoices
 consult_invoices:
   controller: management
   actions:
@@ -124,15 +124,15 @@ consult_invoices:
   - invoice_lines_dyta
   - invoices
   - invoices_dyta
-# Consulter les prix
+# Consult the prices
 consult_prices:
   controller: management
   actions: [index, prices]
-# Consulter les produits
+# Consult the products
 consult_products:
   controller: management
   actions: [index, product, products]
-# Consulter les achats
+# Consult the purchases
 consult_purchases:
   controller: management
   actions:
@@ -141,7 +141,7 @@ consult_purchases:
   - purchase_order_lines_dyta
   - purchase_orders
   - purchase_orders_dyta
-# Consulter les ventes
+# Consult the sales
 consult_sale_orders:
   controller: management
   actions:
@@ -155,11 +155,11 @@ consult_sale_orders:
   - sale_orders_dyta
   - statistics
   - unpaid_sale_orders_export
-# Consulter l'état des stocks
+# Consult the stocks
 consult_stocks:
   controller: management
   actions: [critic_stocks_dyta, index, stocks, stocks_dyta]
-# Consulter les informations de tracabilité
+# Consult the tracking informations
 consult_tracking:
   controller: management
   actions:
@@ -169,26 +169,26 @@ consult_tracking:
   - tracking_purchase_order_lines_dyta
   - tracking_sale_order_lines_dyta
   - tracking_stocks_dyta
-# Effectuer des extractions (sans pouvoir les concevoir)
+# Export listings
 extract_listings:
   controller: company
   actions: [index, listing_extract, listings]
-# Octroyer des réductions commerciales lors des ventes
+# Set reduction on sales
 give_discounts_on_sale:
   controller: management
-# Importer des données d'autres logiciels
+# Import data from other software
 import_data:
   controller: company
   actions: [import, index]
-# Importer, exporter des fiches clients/fournisseurs
+# Import, export people listings
 import_export_entities:
   controller: relations
   actions: [entities, entities_dyta, entities_export, entities_import, index]
-# Gérer l'envoi de courriels par les extractions
+# Send mail to lists
 mail_to_listings:
   controller: company
   actions: [index, listing_mail, listings]
-# Gérer les comptes comptables
+# Manage accounts
 manage_accounts:
   controller: accountancy
   actions:
@@ -201,11 +201,11 @@ manage_accounts:
   - accounts
   - accounts_dyta
   - index
-# Gérer les zones
+# Manage areas
 manage_areas:
   controller: relations
   actions: [area_create, area_delete, area_update, areas, areas_dyta, index]
-# Pointage des relevés de comptes
+# Point bank statements
 manage_bank_statements:
   controller: accountancy
   actions:
@@ -218,7 +218,7 @@ manage_bank_statements:
   - bank_statements
   - bank_statements_dyta
   - index
-# Gérer les comptes de trésorerie
+# Manage cashes
 manage_cashes:
   controller: accountancy
   actions:
@@ -231,7 +231,7 @@ manage_cashes:
   - cashes
   - cashes_dyta
   - index
-# Gérer les champs personnalisés
+# Manage personalized fields
 manage_complements:
   controller: relations
   actions:
@@ -247,7 +247,7 @@ manage_complements:
   - complements
   - complements_dyta
   - index
-# Gérer les délais
+# Manage delays
 manage_delays:
   controller: management
   actions:
@@ -258,7 +258,7 @@ manage_delays:
   - delays
   - delays_dyta
   - index
-# Gérer les types de livraison
+# Manage delivery modes
 manage_delivery_modes:
   controller: management
   actions:
@@ -268,7 +268,7 @@ manage_delivery_modes:
   - delivery_modes
   - delivery_modes_dyta
   - index
-# Gérer les districts
+# Manage districts
 manage_districts:
   controller: relations
   actions:
@@ -279,7 +279,7 @@ manage_districts:
   - districts_dyli
   - districts_dyta
   - index
-# Gérer les modèles de document
+# Manage document templates
 manage_document_templates:
   controller: company
   actions:
@@ -292,7 +292,7 @@ manage_document_templates:
   - document_templates_dyta
   - document_templates_load
   - index
-# Gérer les remises en banque
+# Manage embankments
 manage_embankments:
   controller: management
   actions:
@@ -307,7 +307,7 @@ manage_embankments:
   - index
   - unvalidated_embankments
   - unvalidated_embankments_dyta
-# Gérer les fiches clients/fournisseurs
+# Manage people
 manage_entities:
   controller: relations
   actions:
@@ -329,7 +329,7 @@ manage_entities:
   - entity_subscriptions_dyta
   - entity_update
   - index
-# Gérer les types de fiche
+# Manage people natures
 manage_entities_natures:
   controller: relations
   actions:
@@ -339,7 +339,7 @@ manage_entities_natures:
   - entity_natures
   - entity_natures_dyta
   - index
-# Gérer les catégories de fiche
+# Manage people categories
 manage_entity_categories:
   controller: relations
   actions:
@@ -351,7 +351,7 @@ manage_entity_categories:
   - entity_category_delete
   - entity_category_update
   - index
-# Gérer les liens entre fiches
+# Manage people links
 manage_entity_links:
   controller: relations
   actions:
@@ -365,7 +365,7 @@ manage_entity_links:
   - entity_link_update
   - entity_links_dyta
   - index
-# Gérer les écritures
+# Manage journal entries
 manage_entries:
   controller: accountancy
   actions:
@@ -390,7 +390,7 @@ manage_entries:
   - journals_dyta
   - lettering
   - unlettered_journal_entries_dyta
-# Créer, modifier des devis
+# Create and update estimates
 manage_estimates:
   controller: management
   actions:
@@ -413,7 +413,7 @@ manage_estimates:
   - sale_order_update
   - subscription_coordinates
   - sum_calculate
-# Gérer les évènements
+# Manage events
 manage_events:
   controller: relations
   actions:
@@ -430,7 +430,7 @@ manage_events:
   - events
   - events_dyta
   - index
-# Gérer, clôturer les exercices
+# Manage and close financial years
 manage_financialyears:
   controller: accountancy
   actions:
@@ -442,7 +442,7 @@ manage_financialyears:
   - financialyears
   - financialyears_dyta
   - index
-# Gérer les inventaires
+# Manage inventories
 manage_inventories:
   controller: management
   actions:
@@ -455,7 +455,7 @@ manage_inventories:
   - inventory_lines_update_dyta
   - inventory_reflect
   - inventory_update
-# Gérer, clôturer, déclôturer les journaux
+# Manage, close and reopen journals
 manage_journals:
   controller: accountancy
   actions:
@@ -468,7 +468,7 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
-# Gérer les extractions
+# Manage listings
 manage_listings:
   controller: company
   actions:
@@ -482,7 +482,7 @@ manage_listings:
   - listing_update
   - listings
   - listings_dyta
-# Gérer les lieux de stockage
+# Manage warehouse
 manage_locations:
   controller: management
   actions:
@@ -494,7 +494,7 @@ manage_locations:
   - location_update
   - locations
   - locations_dyta
-# Gérer les responsabilités
+# Manage mandates
 manage_mandates:
   controller: relations
   actions:
@@ -509,7 +509,7 @@ manage_mandates:
   - mandates
   - mandates_configure
   - mandates_dyta
-# Gérer les observations
+# Manage observations
 manage_observations:
   controller: relations
   actions:
@@ -518,7 +518,7 @@ manage_observations:
   - observation_delete
   - observation_update
   - observations_dyta
-# Gérer les travaux
+# Manage tasks
 manage_operations:
   controller: production
   actions:
@@ -541,7 +541,7 @@ manage_operations:
   - tool_use_create
   - unvalidated_operations
   - unvalidated_operations_dyta
-# Gérer les modes de paiments
+# Manage payment modes
 manage_payment_modes:
   controller: management
   actions:
@@ -556,7 +556,7 @@ manage_payment_modes:
   - sale_payment_mode_update
   - sale_payment_modes
   - sale_payment_modes_dyta
-# Gérer les prix
+# Manage prices
 manage_prices:
   controller: management
   actions:
@@ -566,7 +566,7 @@ manage_prices:
   - prices_dyta
   - prices_export
   - prices_import
-# Gérer les produits
+# Manage products
 manage_products:
   controller: management
   actions:
@@ -583,7 +583,7 @@ manage_products:
   - product_stocks_dyta
   - product_update
   - products_dyta
-# Gérer les achats
+# Manage purchase orders
 manage_purchases:
   controller: management
   actions:
@@ -609,7 +609,7 @@ manage_purchases:
   - purchase_payments_dyta
   - purchase_products_dyli
   - suppliers_dyli
-# Gérer les types de vente
+# Mange sale orders natures
 manage_sale_order_natures:
   controller: management
   actions:
@@ -619,7 +619,7 @@ manage_sale_order_natures:
   - sale_order_nature_update
   - sale_order_natures
   - sale_order_natures_dyta
-# Gérer les ventes (devis, commandes et livraisons)
+# Manages sale orders
 manage_sale_orders:
   controller: management
   actions:
@@ -636,7 +636,7 @@ manage_sale_orders:
   - undelivered_quantities_dyta
   - undelivered_sales
   - undelivered_sales_dyta
-# Gérer les règlements de vente
+# Manage sale payments
 manage_sale_payments:
   controller: management
   actions:
@@ -652,7 +652,7 @@ manage_sale_payments:
   - sale_payment_update
   - sale_payments
   - sale_payments_dyta
-# Gérer les îlots
+# Manage fields
 manage_shapes:
   controller: production
   actions:
@@ -664,7 +664,7 @@ manage_shapes:
   - shape_update
   - shapes
   - shapes_dyta
-# Gérer les catégories de produits
+# Manage shelves
 manage_shelves:
   controller: management
   actions:
@@ -676,7 +676,7 @@ manage_shelves:
   - shelf_update
   - shelves
   - shelves_dyta
-# Gérer les mouvements de stocks
+# Manage stock moves
 manage_stock_moves:
   controller: management
   actions:
@@ -691,7 +691,7 @@ manage_stock_moves:
   - stock_transfers_dyta
   - unexecuted_transfers
   - unexecuted_transfers_dyta
-# Gérer les abonnements
+# Manage subscriptions
 manage_subscriptions:
   controller: management
   actions:
@@ -711,7 +711,7 @@ manage_subscriptions:
   - subscription_update
   - subscriptions
   - subscriptions_dyta
-# Gérer les taxes
+# Manage taxes
 manage_taxes:
   controller: accountancy
   actions:
@@ -723,7 +723,7 @@ manage_taxes:
   - tax_update
   - taxes
   - taxes_dyta
-# Gérer les outils de production
+# Maange tools of production
 manage_tools:
   controller: production
   actions:
@@ -735,7 +735,7 @@ manage_tools:
   - tool_update
   - tools
   - tools_dyta
-# Gérer les transports
+# Manage transports
 manage_transports:
   controller: management
   actions:
@@ -750,7 +750,7 @@ manage_transports:
   - transport_update
   - transports
   - transports_dyta
-# Gérer les unités de mesure
+# Manage units of measure
 manage_units:
   controller: company
   actions:
@@ -761,7 +761,7 @@ manage_units:
   - units
   - units_dyta
   - units_load
-# Gérer les utilisateurs
+# Manage users
 manage_users:
   controller: company
   actions:
@@ -779,11 +779,11 @@ manage_users:
   - user_update
   - users
   - users_dyta
-# Fusionner les fiches clients/fournisseurs
+# Merge people
 merge_entities:
   controller: relations
   actions: [entities, entities_merge, index]
-# Imprimer
+# Print
 print:
   controller: company
   actions: [print]
