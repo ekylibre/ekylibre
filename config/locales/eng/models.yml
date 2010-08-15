@@ -243,7 +243,7 @@ eng:
       district: 'District'
       document: 'Document'
       document_template: 'Document template'
-      embankment: 'Embankment'
+      embankment: 'Transit Letter'
       entity: 'Entity'
       entity_category: 'Entity category'
       entity_link: 'Entity link'
@@ -351,7 +351,7 @@ eng:
     bank_statements: 'Bank statements'
     banks_accounts: 'Banks accounts'
     base: 'Base'
-    bban: 'Bban'
+    bban: 'Bban' #!
     bic: 'Bic'
     boolean_value: 'Boolean value'
     born_on: 'Born on'
@@ -421,7 +421,7 @@ eng:
     country: 'Country'
     created_at: 'Created at'
     created_on: 'Created on'
-    creator: 'Creator'
+    creator: 'Creator' #!
     creator_id: 'Creator'
     credit: 'Credit'
     credit_lines: 'Credit lines'
@@ -452,7 +452,7 @@ eng:
     delays: 'Delays'
     deleted_at: 'Deleted at'
     delivered: 'Delivered'
-    delivered_on: 'Delivered on'
+    delivered_on: 'Delivered on' #!
     deliveries: 'Deliveries'
     deliveries_conditions: 'Deliveries conditions'
     delivery: 'Delivery'
@@ -474,7 +474,7 @@ eng:
     direct_links: 'Direct links'
     direction: 'Direction'
     direction_label: 'Direction label'
-    discount: 'Discount'
+    discount: 'Discount' #!
     discount_rate: 'Discount rate'
     district: 'District'
     district_id: 'District'
@@ -495,9 +495,9 @@ eng:
     embankables_account_id: 'Embankables account'
     embanker: 'Embanker'
     embanker_id: 'Embanker'
-    embankment: 'Embankment'
-    embankment_id: 'Embankment'
-    embankments: 'Embankments'
+    embankment: 'Transit Letter'
+    embankment_id: 'Transit Letter'
+    embankments: 'Transit Letters'
     employed: 'Employed'
     employees: 'Employees'
     employment: 'Employment'
@@ -578,7 +578,7 @@ eng:
     invoice_contact_id: 'Invoice contact'
     invoice_id: 'Invoice'
     invoice_lines: 'Invoice lines'
-    invoiceable: 'Invoiceable'
+    invoiceable: 'Invoiceable' #!
     invoiced: 'Invoiced'
     invoices: 'Invoices'
     invoices_count: 'Invoices count'
@@ -640,7 +640,7 @@ eng:
     manage_stocks: 'Manage stocks'
     mandates: 'Mandates'
     master: 'Master'
-    max_reduction_rate: 'Max reduction rate'
+    max_reduction_rate: 'Max reduction rate' #!
     min_duration: 'Min duration'
     mobile: 'Mobile'
     mode: 'Mode'
@@ -701,7 +701,7 @@ eng:
     payment_mode: 'Payment mode'
     payment_mode_complement: 'Payment mode complement'
     payment_mode_id: 'Payment mode'
-    payment_modes: 'Payment modes'
+    payment_modes: 'Payment modes' #!
     payment_on: 'Payment on'
     payment_parts: 'Payment parts'
     payment_way: 'Payment way'
@@ -815,7 +815,7 @@ eng:
     shelf_id: 'Shelf'
     shelves: 'Shelves'
     shipped: 'Shipped'
-    shipped_on: 'Shipped on'
+    shipped_on: 'Shipped on' #!
     siren: 'Siren'
     siret: 'Siret'
     soundex: 'Soundex'
@@ -897,7 +897,7 @@ eng:
     units: 'Units'
     unquantifiable: 'Unquantifiable'
     updated_at: 'Updated at'
-    updater: 'Updater'
+    updater: 'Updater' #!
     updater_id: 'Updater'
     usable_purchase_payments: 'Usable purchase payments'
     usable_sale_payments: 'Usable sale payments'
@@ -918,7 +918,7 @@ eng:
     weight: 'Weight'
     with_accounting: 'With accounting'
     with_commission: 'With commission'
-    with_embankment: 'With embankment'
+    with_embankment: 'With transit letter'
     with_tracking: 'With tracking'
     x: 'X'
     y: 'Y'
@@ -951,7 +951,6 @@ eng:
             immediate: 'Immediatly'
             standard: 'Standard (30d EOM)'
         department_name: 'Default department'
-        document_natures:
         document_templates:
           accountancy:
             balance_sheet:
@@ -966,7 +965,7 @@ eng:
               filename: '[name] (Journal)'
           management:
             embankment:
-              filename: 'Embankment [number]'
+              filename: 'Transit Letter [number]'
             inventory:
               filename: 'Inventory [number]'
             invoice:
@@ -1018,7 +1017,7 @@ eng:
           management:
             embankments:
               format: 'B[year|4][number|4]'
-              name: 'Numeration of embankments'
+              name: 'Numeration of transit letters'
               period: 'year'
             invoices:
               format: 'F[year|4][number|6]'
@@ -1112,7 +1111,7 @@ eng:
       natures:
         balance: 'Balance'
         balance_sheet: 'Balance sheet'
-        embankment: 'Embankment'
+        embankment: 'Transit Letter'
         entity: 'Person'
         financialyear: 'Financial year document'
         general_journal: 'General journal'

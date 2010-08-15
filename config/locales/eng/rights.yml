@@ -1,5 +1,7 @@
 eng:
   rights:
+    __minimum__: 'Access to the minimum'
+    __not_used__: 'Inaccessible'
     accountize: 'Transfer commercial data in accountancy'
     backup_company: 'Make and reload backups'
     cancel_invoices: 'Cancel invoices'
@@ -63,6 +65,4 @@ eng:
     manage_units: 'Manage units of measure'
     manage_users: 'Manage users'
     merge_entities: 'Merge people'
-    __minimum__: 'Access to the minimum'
-    __not_used__: 'Inaccessible'
     print: 'Print'

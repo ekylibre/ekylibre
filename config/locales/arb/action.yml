@@ -49,6 +49,7 @@ arb:
     application:
     authentication:
       #>login: 'Login'
+      #>logout: 'Logout'
       #>register: 'Register a company'
     company:
       #>about: 'About Ekylibre'
@@ -101,10 +102,10 @@ arb:
       #>delivery_mode_update: 'Edit the delivery mode: %{name}'
       #>delivery_modes: 'Delivery modes'
       #>delivery_update: 'Edit the delivery'
-      #>embankment: 'Embankment %{number} on %{created_on}'
-      #>embankment_create: 'Add a new embankment: %{mode}'
-      #>embankment_update: 'Edit the embankment %{number}'
-      #>embankments: 'Embankments'
+      #>embankment: 'Transit Letter %{number} on %{created_on}'
+      #>embankment_create: 'Add a new transit letter: %{mode}'
+      #>embankment_update: 'Edit the transit letter %{number}'
+      #>embankments: 'Transit Letters'
       #>index: 'Management'
       #>inventories: 'Inventories'
       #>inventory_create: 'Add a new inventory'
@@ -145,7 +146,6 @@ arb:
       #>sale_order_create: 'New sale order'
       #>sale_order_deliveries: 'Deliveries'
       #>sale_order_line_create: 'Add a new line of product'
-      #>sale_order_line_informations: ''
       #>sale_order_line_update: 'Edit sale order line'
       #>sale_order_lines: 'Selection of the products for the estimate %{sale_order}'
       #>sale_order_nature_create: 'Add a new type of sale'
@@ -174,7 +174,6 @@ arb:
       #>stock_transfers: 'Transfers and loss'
       #>stocks: 'Stocks state'
       #>subscription_create: 'Add anew subscription'
-      #>subscription_message: ''
       #>subscription_nature_create: 'Add a new subscription nature'
       #>subscription_nature_update: 'Edit the subscription nature: %{name}'
       #>subscription_natures: 'Subscription natures'
@@ -189,7 +188,7 @@ arb:
       #>undelivered_sales: 'Waiting deliveries'
       #>unexecuted_transfers: 'Waiting stock transfers'
       #>unreceived_purchases: 'Waiting purchase orders'
-      #>unvalidated_embankments: 'Waiting embankments'
+      #>unvalidated_embankments: 'Waiting transit letters'
     production:
       #>index: 'Production Management'
       #>operation: 'Operation Details %{name}'
@@ -255,6 +254,7 @@ arb:
       #>mandates_configure: 'Configure mandates'
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Update the observation'
+    resources:
   controllers:
     #>accountancy: 'Accountancy'
     #>application: 'Application'
@@ -358,7 +358,7 @@ arb:
     #>cash: 'Cash'
     cash_tabbox:
       #>bank_statements: 'Bank statements'
-      #>embankments: 'Embankments'
+      #>embankments: 'Transit Letters'
     #>cash_update: 'Update cash'
     cashes:
       #>one: 'One'
@@ -463,12 +463,12 @@ arb:
     #>ekylibre: 'www.ekylibre.org'
     #>email: 'Email:'
     #>embankable: 'More informations'
-    #>embankment: 'Embankment'
+    #>embankment: 'Transit Letter'
     embankment_create:
-      #>one: 'Make an embankment %{mode}: 1 payment'
-      #>other: 'Make an embankment %{mode}: %{count} payments'
-      #>zero: 'Make an embankment %{mode}: no payments'
-    #>embankment_update: 'Embankment update'
+      #>one: 'Make a transit letter %{mode}: 1 payment'
+      #>other: 'Make a transit letter %{mode}: %{count} payments'
+      #>zero: 'Make a transit letter %{mode}: no payments'
+    #>embankment_update: 'Transit Letter update'
     #>employee_name: 'Employee'
     #>end: 'to'
     #>entities_export: 'Export as a CSV file'
@@ -497,7 +497,6 @@ arb:
     #>example: 'Example&nbsp;: %{value}'
     #>executed: 'Executed'
     #>existing_part: 'Existing part'
-    #>exit: 'Exit'
     #>expedier: 'Expedier'
     #>export: 'Export documents'
     #>export_backup: 'Export backup'
@@ -667,9 +666,9 @@ arb:
     #>national_vat_collected: 'National Tax collected'
     #>nature: 'Nature'
     nb_enbankments:
-      #>one: '%{count} embankment to validate'
-      #>other: '%{count} embankments to validate'
-      #>zero: 'No embankments to validate'
+      #>one: '%{count} transit letter to validate'
+      #>other: '%{count} transit letters to validate'
+      #>zero: 'No transit letters to validate'
     nb_entities:
       #>one: 'One person'
       #>other: '%{count} people'
@@ -730,7 +729,7 @@ arb:
     #>no_contacts: 'No address defined for %{name}'
     #>no_deliveries: 'No deliveries'
     #>no_deliveries_for_this_sale_order: 'No deliveries for this sale order'
-    #>no_embankments: 'No embankments'
+    #>no_embankments: 'No transit letters'
     #>no_filters: '--- No filters ---'
     #>no_javascript: 'Your web browser don''t support javascript. You need to activate it in order to use Ekylibre.'
     #>no_origin: 'No origin'
@@ -860,7 +859,6 @@ arb:
     #>record_has_not_been_removed: 'The record has not been removed'
     #>reflect: 'Reflect'
     #>refresh: 'Refresh'
-    #>register: 'Register a new company'
     #>relations: 'Clients/suppliers Relationships Management'
     #>relations_rights: 'Relationship'
     #>reopen: 'Reopen'
@@ -1112,7 +1110,7 @@ arb:
     #>need_location_to_create_purchase_order_line: 'You must create a warehouse to be able to create a purchase.'
     #>need_location_to_create_sale_order_line: 'You must create a warehouse to be able to create a sale'
     #>need_location_to_record_stock_moves: 'You must create a warehouse to be able to manage stocks.'
-    #>need_payment_mode_to_create_embankment: 'You must specify a mode of payment in order to make embankments'
+    #>need_payment_mode_to_create_embankment: 'You must specify a mode of payment in order to make transit letters'
     #>need_quantities_to_cancel_an_invoice: 'You must specify a quantity in order to cancel the invoice'
     #>need_stocks_location_to_create_products: 'You must create a warehouse to be able to create a product'
     #>need_stocks_to_create_inventories: 'You have to manage some stocks in order to manage inventories'
@@ -1163,7 +1161,7 @@ arb:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'
-        #>detail_payments_in_embankments: 'Detail all the payments in embankments during accouting transfer'
+        #>detail_payments_in_embankments: 'Detail all the payments in transit letters during accouting transfer'
         #>draft_mode: 'Save the records in draft mode during accouting transfer'
       accounts:
         #>capital_gains: 'Profit for the year (earnings)'
@@ -1195,7 +1193,7 @@ arb:
       embankments:
         #>days_before_warning_undone: 'Number of days before warning for receipts not made'
         #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
-        #>numeration: 'Numeration of embankments'
+        #>numeration: 'Numeration of transit letters'
       invoices:
         #>numeration: 'Numeration of invoices'
       payments:

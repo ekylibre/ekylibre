@@ -49,6 +49,7 @@ spa:
     application:
     authentication:
       login: 'Conexión'
+      #>logout: 'Logout'
       register: 'Registrar la sociedad'
     company:
       about: 'A propocito de Ekylibre'
@@ -145,7 +146,6 @@ spa:
       #>sale_order_create: 'New sale order'
       #>sale_order_deliveries: 'Deliveries'
       #>sale_order_line_create: 'Add a new line of product'
-      #>sale_order_line_informations: ''
       #>sale_order_line_update: 'Edit sale order line'
       #>sale_order_lines: 'Selection of the products for the estimate %{sale_order}'
       #>sale_order_nature_create: 'Add a new type of sale'
@@ -174,7 +174,6 @@ spa:
       #>stock_transfers: 'Transfers and loss'
       #>stocks: 'Stocks state'
       #>subscription_create: 'Add anew subscription'
-      #>subscription_message: ''
       #>subscription_nature_create: 'Add a new subscription nature'
       #>subscription_nature_update: 'Edit the subscription nature: %{name}'
       #>subscription_natures: 'Subscription natures'
@@ -189,7 +188,7 @@ spa:
       #>undelivered_sales: 'Waiting deliveries'
       #>unexecuted_transfers: 'Waiting stock transfers'
       #>unreceived_purchases: 'Waiting purchase orders'
-      #>unvalidated_embankments: 'Waiting embankments'
+      #>unvalidated_embankments: 'Waiting transit letters'
     production:
       #>index: 'Production Management'
       #>operation: 'Operation Details %{name}'
@@ -255,6 +254,7 @@ spa:
       #>mandates_configure: 'Configure mandates'
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Update the observation'
+    resources:
   controllers:
     accountancy: 'Contabilidad'
     application: 'Aplicación'
@@ -363,7 +363,7 @@ spa:
       embankments: 'Entregas en banca' #! String excepted (Hash:{:bank_statements=>"Leventar de cuento", :embankments=>"Entregas en banca"})
     cash_tabbox:
       #>bank_statements: 'Bank statements'
-      #>embankments: 'Embankments'
+      #>embankments: 'Transit Letters'
     cash_update: 'Modificar la tresoreria'
     cashes:
       #>one: 'One'
@@ -512,7 +512,6 @@ spa:
     #>example: 'Example&nbsp;: %{value}'
     #>executed: 'Executed'
     #>existing_part: 'Existing part'
-    #>exit: 'Exit'
     #>expedier: 'Expedier'
     export: 'Exportación de un fichero de salvaguardia'
     #>export_backup: 'Export backup'
@@ -624,9 +623,9 @@ spa:
     load_demo_data: 'Cargar datos de prueba'
     locale: 'Idioma'
     localization: 'Localisación geografica'
-    location:  #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
-      stock_moves: 'Movimientos de deposito' #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
-      stocks: 'Estado de los depositos' #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
+    location:  #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
+      stock_moves: 'Movimientos de deposito' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
+      stocks: 'Estado de los depositos' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
     location_create: 'A~nadir un lugar de deposito' #!
     #>location_name: 'Location name'
     location_tabbox:
@@ -753,7 +752,7 @@ spa:
     #>no_contacts: 'No address defined for %{name}'
     #>no_deliveries: 'No deliveries'
     #>no_deliveries_for_this_sale_order: 'No deliveries for this sale order'
-    #>no_embankments: 'No embankments'
+    #>no_embankments: 'No transit letters'
     #>no_filters: '--- No filters ---'
     no_javascript: 'Su navegante no soporta el javascript. se debe activarlo para utilizar el software. Gracias para su comprension.'
     #>no_origin: 'No origin'
@@ -885,7 +884,7 @@ spa:
     #>record_has_not_been_removed: 'The record has not been removed'
     #>reflect: 'Reflect'
     #>refresh: 'Refresh'
-    register: 'Crear una nueva compañía'
+    register: 'Crear una nueva compañía' #!
     relations: 'Relaciones clientos/abastecedores'
     relations_rights: 'Derechos modulo relaciones'
     reopen: 'Volver a abrir el periodico'
@@ -1198,7 +1197,7 @@ spa:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'
-        #>detail_payments_in_embankments: 'Detail all the payments in embankments during accouting transfer'
+        #>detail_payments_in_embankments: 'Detail all the payments in transit letters during accouting transfer'
         #>draft_mode: 'Save the records in draft mode during accouting transfer'
       accounts:
         #>capital_gains: 'Profit for the year (earnings)'
@@ -1230,7 +1229,7 @@ spa:
       embankments:
         #>days_before_warning_undone: 'Number of days before warning for receipts not made'
         #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
-        #>numeration: 'Numeration of embankments'
+        #>numeration: 'Numeration of transit letters'
       invoices:
         #>numeration: 'Numeration of invoices'
       payments:

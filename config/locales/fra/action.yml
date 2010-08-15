@@ -49,6 +49,7 @@ fra:
     application:
     authentication:
       login: 'Connexion'
+      logout: 'Se déconnecter'
       register: 'Enregistrer sa société'
     company:
       about: 'À propos d''Ekylibre'
@@ -145,7 +146,7 @@ fra:
       sale_order_create: 'Nouvelle vente'
       sale_order_deliveries: 'Livraisons'
       sale_order_line_create: 'Ajout d''une ligne de produit'
-      sale_order_line_informations: ''
+      sale_order_line_informations: '' #!
       sale_order_line_update: 'Modifier une ligne de produit'
       sale_order_lines: 'Sélection des produits pour le devis %{sale_order} de : %{client}'
       sale_order_nature_create: 'Ajout d''un type de vente'
@@ -174,7 +175,7 @@ fra:
       stock_transfers: 'Transferts et pertes de stocks'
       stocks: 'État des stocks'
       subscription_create: 'Création d''un abonnement'
-      subscription_message: ''
+      subscription_message: '' #!
       subscription_nature_create: 'Ajouter un type d''abonnement'
       subscription_nature_update: 'Modifier le type d''abonnement : %{name}'
       subscription_natures: 'Types d''abonnements'
@@ -255,6 +256,7 @@ fra:
       mandates_configure: 'Configuration des responsabilités'
       observation_create: 'Ajouter une observation'
       observation_update: 'Modifier une observation'
+    resources:
   controllers:
     accountancy: 'Comptabilité'
     application: 'Application'
@@ -497,7 +499,6 @@ fra:
     example: 'Exemple&nbsp;: %{value}'
     executed: 'Réalisé'
     existing_part: 'Utiliser un encaissement non affecté'
-    exit: 'Se déconnecter'
     expedier: 'Expéditeur'
     export: 'Exporter'
     export_backup: 'Export d''un fichier de sauvegarde'
@@ -860,7 +861,7 @@ fra:
     record_has_not_been_removed: 'L''enregistrement n''a pu être supprimé.'
     reflect: 'Refléter'
     refresh: 'Rafraîchir'
-    register: 'Créer une nouvelle société'
+    register: 'Créer une nouvelle société' #!
     relations: 'Gestion des relations clients/fournisseurs'
     relations_rights: 'Droits module Relations'
     reopen: 'Déclôturer'

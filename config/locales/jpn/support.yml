@@ -10,10 +10,10 @@ jpn:
     day_names: ['日曜日', '月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日']
     formats:
       default: '%Y年%m月%d日'
-      #>legal: '%d %B %Y'
-      #>long: '%B %d, %Y'
-      #>month_letter: '%d %B %Y'
-      #>short: '%b %d'
+      legal: '%d %B %Y'
+      long: '%B %d, %Y'
+      month_letter: '%d %B %Y'
+      short: '%b %d'
     month_names: ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
     #>order: [:month, :day, :year]
   datetime:
@@ -51,14 +51,14 @@ jpn:
         #>one: '1 seconde'
   dyta:
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
+      csv: 'CSV'
+      false_value: '偽'
+      title: '輸出'
+      true_value: '真'
+      xcsv: 'Excel CSV'
+    next: '次へ'
+    no_records: '空'
+    previous: '前へ'
   number:
     currency:
       format:
@@ -83,14 +83,14 @@ jpn:
         #>delimiter: ''
   support:
     array:
-      #>last_word_connector: ' and '
-      #>sentence_connector: 'and'
-      #>two_words_connector: ', '
-      #>words_connector: ', '
+      last_word_connector: 'と'
+      sentence_connector: 'と'
+      two_words_connector: 'と'
+      words_connector: 'と'
   time:
     am: 'am'
     formats:
       default: '%Y年%m月%d日 %H:%M:%S'
-      #>long: '%B %d, %Y %H:%M'
-      #>short: '%d %b %H:%M'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
     pm: 'pm'

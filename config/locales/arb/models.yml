@@ -258,7 +258,7 @@ arb:
       #>district: 'District'
       #>document: 'Document'
       #>document_template: 'Document template'
-      #>embankment: 'Embankment'
+      #>embankment: 'Transit Letter'
       #>entity: 'Entity'
       #>entity_category: 'Entity category'
       #>entity_link: 'Entity link'
@@ -510,9 +510,9 @@ arb:
     #>embankables_account_id: 'Embankables account'
     #>embanker: 'Embanker'
     #>embanker_id: 'Embanker'
-    #>embankment: 'Embankment'
-    #>embankment_id: 'Embankment'
-    #>embankments: 'Embankments'
+    #>embankment: 'Transit Letter'
+    #>embankment_id: 'Transit Letter'
+    #>embankments: 'Transit Letters'
     #>employed: 'Employed'
     #>employees: 'Employees'
     #>employment: 'Employment'
@@ -933,7 +933,7 @@ arb:
     #>weight: 'Weight'
     #>with_accounting: 'With accounting'
     #>with_commission: 'With commission'
-    #>with_embankment: 'With embankment'
+    #>with_embankment: 'With transit letter'
     #>with_tracking: 'With tracking'
     #>x: 'X'
     #>y: 'Y'
@@ -982,7 +982,7 @@ arb:
               #>filename: '[name] (Journal)'
           management:
             embankment:
-              #>filename: 'Embankment [number]'
+              #>filename: 'Transit Letter [number]'
             inventory:
               #>filename: 'Inventory [number]'
             invoice:
@@ -1035,7 +1035,7 @@ arb:
           management:
             embankments:
               #>format: 'B[year|4][number|4]'
-              #>name: 'Numeration of embankments'
+              #>name: 'Numeration of transit letters'
               #>period: 'year'
             invoices:
               #>format: 'F[year|4][number|6]'
@@ -1130,7 +1130,7 @@ arb:
       natures:
         #>balance: 'Balance'
         #>balance_sheet: 'Balance sheet'
-        #>embankment: 'Embankment'
+        #>embankment: 'Transit Letter'
         #>entity: 'Person'
         #>financialyear: 'Financial year document'
         #>general_journal: 'General journal'

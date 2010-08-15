@@ -692,7 +692,7 @@ class Company < ActiveRecord::Base
       user.role_id = company.admin_role.id
       user.save!
 
-      plan = tc('mini_accounting_system')
+      plan = ::I18n.translate("accounting_systems.mini_accounting_system")
       plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
         raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
         if num.to_s.match(/^n_/)

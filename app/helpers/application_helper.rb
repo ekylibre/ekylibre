@@ -415,7 +415,7 @@ module ApplicationHelper
       # tag += link_to("", {:resized=>(parameter.value.is_a?(TrueClass) ? "0" : "1")}, {:class=>:resize})+" "
       tag += content_tag(:span, @current_user.label)+" "
       tag += content_tag(:span, @current_company.name)+" "
-      tag += link_to(tc(:exit), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+      tag += link_to(t("actions.authentication.logout"), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
     end
     code += content_tag(:div, tag.html_safe, :id=>:user, :class=>:menu, :align=>:right)
 

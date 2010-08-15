@@ -1,24 +1,14 @@
 jpn:
   activerecord:
     attributes:
-      account:
-      area:
-      bank_statement:
       cash:
         #>key: 'BBAN key'
         #>mode: 'Mode'
         #>number: 'Bank account number'
       company:
         #>locked: 'Locked'
-      complement:
-      complement_choice:
-      complement_datum:
-      contact:
-      currency:
-      delay:
       delivery:
         #>lines: 'Delivery lines'
-      department:
       document:
         #>filename: 'Fichier'
       embankment:
@@ -26,7 +16,6 @@ jpn:
       entity:
         #>active: 'Active'
         #>origin: 'First meeting location'
-      entity_link:
       event:
         #>duration: 'Duration (in minutes)'
         #>location: 'Location'
@@ -36,7 +25,6 @@ jpn:
         #>duration: 'Duration by default (in min.)'
       financialyear:
         #>stopped_on: 'Date of closing'
-      inventory:
       inventory_line:
         #>quantity: 'Found quantity'
       invoice:
@@ -59,7 +47,6 @@ jpn:
       operation:
         #>consumption: 'Consumption'
         #>lines: 'Incoming and outgoing products'
-      operation_line:
       price:
         #>category: 'People category'
         #>category_id: 'People category'
@@ -103,7 +90,6 @@ jpn:
         #>amount: 'Amount'
         #>received: 'Reçu'
         #>to_bank_on: 'To bank on'
-      sale_payment_mode:
       sale_payment_part:
         #>amount: 'Amount'
         #>payment: 'Sale payment'
@@ -126,7 +112,6 @@ jpn:
       subscription:
         #>entity: 'Subscriber'
         #>entity_id: 'Subscriber'
-      subscription_nature:
       tax:
         #>amount: 'Value'
       tax_declaration:
@@ -258,7 +243,7 @@ jpn:
       #>district: 'District'
       #>document: 'Document'
       #>document_template: 'Document template'
-      #>embankment: 'Embankment'
+      #>embankment: 'Transit Letter'
       #>entity: 'Entity'
       #>entity_category: 'Entity category'
       #>entity_link: 'Entity link'
@@ -510,9 +495,9 @@ jpn:
     #>embankables_account_id: 'Embankables account'
     #>embanker: 'Embanker'
     #>embanker_id: 'Embanker'
-    #>embankment: 'Embankment'
-    #>embankment_id: 'Embankment'
-    #>embankments: 'Embankments'
+    #>embankment: 'Transit Letter'
+    #>embankment_id: 'Transit Letter'
+    #>embankments: 'Transit Letters'
     #>employed: 'Employed'
     #>employees: 'Employees'
     #>employment: 'Employment'
@@ -933,7 +918,7 @@ jpn:
     #>weight: 'Weight'
     #>with_accounting: 'With accounting'
     #>with_commission: 'With commission'
-    #>with_embankment: 'With embankment'
+    #>with_embankment: 'With transit letter'
     #>with_tracking: 'With tracking'
     #>x: 'X'
     #>y: 'Y'
@@ -982,7 +967,7 @@ jpn:
               #>filename: '[name] (Journal)'
           management:
             embankment:
-              #>filename: 'Embankment [number]'
+              #>filename: 'Transit Letter [number]'
             inventory:
               #>filename: 'Inventory [number]'
             invoice:
@@ -1035,7 +1020,7 @@ jpn:
           management:
             embankments:
               #>format: 'B[year|4][number|4]'
-              #>name: 'Numeration of embankments'
+              #>name: 'Numeration of transit letters'
               #>period: 'year'
             invoices:
               #>format: 'F[year|4][number|6]'
@@ -1130,7 +1115,7 @@ jpn:
       natures:
         #>balance: 'Balance'
         #>balance_sheet: 'Balance sheet'
-        #>embankment: 'Embankment'
+        #>embankment: 'Transit Letter'
         #>entity: 'Person'
         #>financialyear: 'Financial year document'
         #>general_journal: 'General journal'

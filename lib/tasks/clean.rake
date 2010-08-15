@@ -13,7 +13,24 @@ def yaml_to_hash(filename)
   hash = YAML::load(IO.read(filename).gsub(/^(\s*)no:(.*)$/, '\1__no_is_not__false__:\2'))
   return deep_symbolize_keys(hash)
 end
+
+def hash_count(hash)
+  count = 0
+  for k, v in hash
+    count += (v.is_a?(Hash) ? hash_count(v) : 1)
+  end
+  return count
+end
   
+def sort_yaml_file(filename, log=nil)
+  file = Ekylibre::Application.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
+  translation = hash_to_yaml(yaml_to_hash(file)).strip
+  File.open(file, "wb") do |file|
+    file.write translation
+  end
+  log.write "  - #{(filename.to_s+'.yml:').ljust(16)} 100% sorted\n" if log
+end
+
 def deep_symbolize_keys(hash)
   hash.inject({}) { |result, (key, value)|
     value = deep_symbolize_keys(value) if value.is_a? Hash
@@ -458,216 +475,197 @@ namespace :clean do
     end
     log.write("Locale #{::I18n.locale_name}:\n")
 
-#     # General
-#     general = yaml_to_hash("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/general.yml")
-#     translation  = locale.to_s+":"
-#     translation += yaml_value(general[locale])
-#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/general.yml", "wb") do |file|
-#       file.write translation
-#     end
-#     log.write "  - General\n"   
 
-#     # Activerecord
-#     models = Dir["#{Ekylibre::Application.root.to_s}/app/models/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
-#     default_attributes = ::I18n.translate("activerecord.default_attributes")
-#     models_names, plurals_names, models_attributes = '', '', ''
-#     attrs_count, static_attrs_count = 0, 0
-#     for model in models
-#       class_name = model.sub(/\.rb$/,'').camelize
-#       klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
-#       if klass < ActiveRecord::Base && !klass.abstract_class?
-#         models_names  += "      #{model}: "+::I18n.pretranslate("activerecord.models.#{model}")+"\n"
-#         plurals_names += "      #{model}: "+::I18n.pretranslate("activerecord.models_plurals.#{model}")+"\n"
-#         models_attributes += "\n      # #{::I18n.t("activerecord.models.#{model}")}\n"
-#         models_attributes += "      #{model}:\n"
-#         attributes = {}
-#         for k, v in ::I18n.translate("activerecord.attributes.#{model}")||{}
-#           attributes[k] = "'"+v.gsub("'","''")+"'" if v
-#         end
-#         static_attrs_count += klass.columns.size
-#         for column in klass.columns
-#           attribute = column.name.to_sym
-#           trans = default_attributes[attribute]
-#           pretrans = ::I18n.pretranslate("activerecord.attributes.#{model}.#{attribute}")
-#           if trans.nil? and pretrans.match(/^\(\(\(/)
-#             trans = attribute.to_s[0..-4].classify.constantize.human_name rescue nil
-#           end
-#           trans = trans.nil? ? pretrans : "'"+trans.gsub("'","''")+"'"
-#           attributes[attribute] = trans
-#         end
-#         # Add reflections in attributes
-#         #raise Exception.new klass.reflections.inspect
-#         for reflection, details in klass.reflections
-#           attribute = reflection.to_sym
-#           trans   = ::I18n.hardtranslate("activerecord.attributes.#{model}.#{attribute}")
-#           trans ||= ::I18n.hardtranslate("activerecord.attributes.#{model}.#{attribute}_id")
-#           trans ||= ::I18n.hardtranslate("activerecord.models_plurals.#{attribute.to_s.singularize}")
-#           trans ||= ::I18n.hardtranslate("activerecord.models_plurals.#{model}_#{attribute.to_s.singularize}")
-#           attributes[attribute] = (trans.nil? ? "(((#{attribute.to_s.upper})))" : "'"+trans.gsub("'","''")+"'")
-#         end
-#         for x in [:creator, :updater]
-#           attributes[x] ||= "'"+default_attributes[x].to_s.gsub("'","''")+"'"
-#         end
-
-#         # Sort attributes and build yaml
-#         methods = klass.instance_methods+klass.columns_hash.keys+["creator", "updater"]
-#         for attribute, trans in attributes.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
-#           models_attributes += "        #{attribute}: "+trans
-#           models_attributes += " #?" unless methods.include?(attribute.to_s)
-#           models_attributes += "\n"
-#         end
-#         attrs_count += attributes.size
-#       else
-#         # puts "Skipping #{class_name}"
-#       end
-#     end
-#     activerecord = ::I18n.translate('activerecord').delete_if{|k,v| k.to_s.match(/^models|attributes$/)}
-#     translation  = locale.to_s+":\n"
-#     translation += "  activerecord:\n"
-#     translation += hash_to_yaml(activerecord, 2)
-#     translation += "\n    models:\n"
-#     translation += models_names
-#     translation += "\n    models_plurals:\n"
-#     translation += plurals_names
-#     translation += "\n    default_attributes:\n"
-#     translation += hash_to_yaml(default_attributes, 3)
-#     translation += "\n    attributes:\n"
-#     translation += models_attributes
-#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/activerecord.yml", "wb") do |file|
-#       file.write translation
-#     end
-#     log.write "  - Models (#{models.size}, #{static_attrs_count} static attributes, #{attrs_count-static_attrs_count} virtual attributes, #{(attrs_count.to_f/models.size).round(1)} attributes/models)\n"
-
-#     # Packs
-#     controllers = Dir["#{Ekylibre::Application.root.to_s}/app/controllers/*.rb"].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
-#     log.write "  - Packs (#{controllers.size})\n"
-#     for controller in controllers
-#       controller_name = controller.split("_")[0..-2].join("_")
-#       translation  = locale.to_s+":\n"
-#       for part in [:controllers, :helpers]
-#         translation += "\n  #{part}:\n"
-#         translation += "    #{controller_name}:\n"
-#         translation += hash_to_yaml(::I18n.translate("#{part}.#{controller_name}"), 3)
-#       end
-#       # Views with checks
-#       views = ::I18n.translate("views.#{controller_name}")
-#       translation += "\n  views:\n"
-#       translation += "    #{controller_name}:\n"
-#       builders = [".html.haml", ".rjs"]
-#       unused_translations, missing_translations, unfound_views, unfound_actions = 0, 0, 0, 0
-#       for view, items in views.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
-#         # Test if there is an action for classic views
-#         if not view.to_s.match(/^_/) and not (all_actions[controller_name]||[]).include?(view.to_s)
-#           translation += "      # No defined action for this view !!!\n"
-#           unfound_actions += 1
-#         end
-#         # Search for a file
-#         file = "#{Ekylibre::Application.root.to_s}/app/views/#{controller_name}/#{view}"
-#         file_found = false
-#         for builder in builders
-#           if File.exist?(file+builder)
-#             file += builder
-#             file_found = true
-#             break
-#           end
-#         end
-#         # Test presence of view's file
-#         if file_found
-#           translation += "      #{view}:\n"
-#           source = ""
-#           File.open(file, "rb") do |f|
-#             source = f.read
-#           end
-#           for item, data in items.sort{|a,b| a[0].to_s<=>b[0].to_s}
-#             code = yaml_value(data, 4)
-#             regexp = /((\W|^)tc|(\.|\-\s*)link|\.title)\s*\(?\s*(\"#{item}\"|\'#{item}\'|\:#{item}(\W|$))/
-#             unless source.match(regexp) or [:title].include?(item)
-#               code.gsub!(/$/, " #!\n")
-#               unused_translations += 1
-#             end
-#             translation += "        #{item}: "+code+"\n"
-#           end
-#           # Add potentially missing translations
-#           regexp = /((\W|^)tc|(\.|\-\s*)link|\.title)\s*\(?\s*(\"\w+\"|\'\w+\'|\:\w+(\W|$))/
-#           source.gsub(regexp) do |m|
-#             w = m.match(regexp).to_a[-2]
-#             if w.is_a? String
-#               key = w[1..-2].to_sym
-#               unless items.keys.include? key
-#                 translation += "        #>#{key}: # Potentially missing translation\n"
-#                 missing_translations += 1
-#               end
-#             end
-#           end
-#         else
-#           # Test if due to render_form use
-#           operation = view.to_s.split("_")[-1]
-#           if File.exist?("#{Ekylibre::Application.root.to_s}/app/views/shared/form_#{operation}.html.haml") and File.exist?(file.gsub(view.to_s, "_#{view.to_s.gsub(operation, 'form.html.haml')}"))
-#             if items.keys.size > 1
-#               translation += "      # Possible error because only :title can be used\n"
-#             end
-#           else
-#             translation += "      # Unfound view #{file.gsub(Ekylibre::Application.root.to_s, '.')}\n"
-#             unfound_views += 1
-#           end
-#           translation += "      #{view}:\n"
-#           translation += yaml_value(items, 3)
-#         end
-#       end if views.is_a? Hash
-#       log.write "    - #{(controller_name+':').ljust(16,' ')} #{unused_translations.to_s.rjust(3)} unused translation(s), #{missing_translations.to_s.rjust(3)} missing translation(s), #{unfound_views.to_s.rjust(3)} unfound view(s), #{unfound_actions.to_s.rjust(3)} unfound action(s)\n"
-#       File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/pack.#{controller_name}.yml", "wb") do |file|
-#         file.write translation.gsub(/\n\n/, "\n")
-#       end
-#       # raise Exception.new("Stop")
-#     end
-
+    untranslated = 0
+    to_translate = 0
+    warnings = []
+    translation  = "#{locale}:\n"
     
-#     # Parameters
-#     translation  = locale.to_s+":\n"
-#     translation += "  parameters:\n"
-#     translation += hash_to_yaml(::I18n.translate("parameters"), 2)
-#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/parameters.yml", "wb") do |file|
-#       file.write(translation)
-#     end
-#     log.write "  - Parameters\n"
+    # Actions
+    translation += "  actions:\n"
+    for controller_file in Dir[Ekylibre::Application.root.join("app", "controllers", "*.rb")].sort
+      controller_name = controller_file.split("/")[-1].split("_controller")[0]
+      actions = []
+      file = File.open(controller_file, "rb")
+      file.each_line do |line|
+        line = line.gsub(/(^\s*|\s*$)/,'')
+        if line.match(/^\s*def\s+\w+\s*$/)
+          actions << line.split(/def\s/)[1].gsub(/\s/,'') 
+        elsif line.match(/^\s*manage[\s\(]+\:\w+/)
+          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+          actions << prefix+'_create'
+          actions << prefix+'_update'
+          actions << prefix+'_delete'
+        end
+      end
+      translation += "    #{controller_name}:\n"
+      existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
+      for action_name in (actions|existing_actions).sort
+        name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
+        if actions.include?(action_name)
+          to_translate += 1 
+          untranslated += 1 if name.blank?
+        end
+        translation += "      #{'#>' if name.blank?}#{action_name}: "+yaml_value(name.blank? ? action_name.humanize : name, 3)
+        translation += " #!" unless actions.include?(action_name)
+        translation += "\n"
+      end
+    end
+
+    # Controllers
+    translation += "  controllers:\n"
+    for controller_file in Dir[Ekylibre::Application.root.join("app", "controllers", "*.rb")].sort
+      controller_name = controller_file.split(/[\\\/]+/)[-1].gsub('_controller.rb', '')
+      name = ::I18n.hardtranslate("controllers.#{controller_name}")
+      untranslated += 1 if name.blank?
+      to_translate += 1
+      translation += "    #{'#>' if name.blank?}#{controller_name}: "+yaml_value(name.blank? ? controller_name.humanize : name, 2)+"\n"
+    end
     
-#     # Notifications
-#     notifications = ::I18n.t("notifications")
-#     deleted_notifs = ::I18n.t("notifications").keys
-#     for controller in Dir["#{Ekylibre::Application.root.to_s}/app/controllers/*.rb"]
-#       file = File.open(controller, "r")
-#       file.each_line do |line|
-#         if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
-#           key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
-#           deleted_notifs.delete(key.to_sym)
-#           notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
-#         end
-#       end
-#     end
+    # Errors
+    to_translate += hash_count(::I18n.translate("errors"))
+    translation += "  errors:"+hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
-#     translation = locale.to_s+":\n"
-#     translation += "  notifications:\n"
-#     for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
-#       line = "    #{key}: "+(trans.blank? ? '((('+key.to_s.upper+')))' : yaml_value(trans, 2))
-#       line.gsub!(/$/, "# NOT USED !!!") if deleted_notifs.include?(key)
-#       translation += line+"\n"
-#     end
-#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/notifications.yml", "wb") do |file|
-#       file.write translation
-#     end
-#     log.write "  - Notifications (#{notifications.size}, #{deleted_notifs.size} bad notifications)\n"
+    # Labels
+    # translation += "  labels:\n"
+    to_translate += hash_count(::I18n.translate("labels"))
+    translation += "  labels:"+hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
 
-#     # Rights
-#     rights = YAML.load_file(User.rights_file)
-#     translation  = locale.to_s+":\n"
-#     translation += "  rights:\n"
-#     for right in rights.keys.sort
-#       translation += "    #{right}: "+::I18n.pretranslate("rights.#{right}")+"\n"
-#     end
-#     File.open("#{Ekylibre::Application.root.to_s}/config/locales/#{locale}/rights.yml", "wb") do |file|
-#       file.write translation
-#     end
-#     log.write "  - Rights (#{rights.keys.size})\n"
+    # Notifications
+    translation += "  notifications:\n"
+    notifications = ::I18n.t("notifications")
+    deleted_notifs = ::I18n.t("notifications").keys
+    for controller in Dir[Ekylibre::Application.root.join("app", "controllers", "*.rb")]
+      file = File.open(controller, "r")
+      file.each_line do |line|
+        if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
+          key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
+          deleted_notifs.delete(key.to_sym)
+          notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
+        end
+      end
+    end
+    to_translate += notifications.keys.size
+    for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
+      line = "    "
+      if trans.blank?
+        untranslated += 1 
+        line += "#>"
+      end
+      line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+      line.gsub!(/$/, " #!") if deleted_notifs.include?(key)
+      translation += line+"\n"
+    end
+    warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
+
+    # Parameters
+    to_translate += hash_count(::I18n.translate("parameters"))
+    translation += "  parameters:"+hash_to_yaml(::I18n.translate("parameters"), 2)
+
+    File.open(locale_dir.join("action.yml"), "wb") do |file|
+      file.write(translation)
+    end
+    total = to_translate
+    log.write "  - #{'action.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+    
+
+    sort_yaml_file :countries, log
+
+    sort_yaml_file :languages, log
+
+    # Models
+    untranslated = 0
+    to_translate = 0
+    warnings = []
+    models = {}
+    attributes = {}
+    ::I18n.translate("attributes").collect{|k, v| attributes[k.to_s] = [v, :unused]}
+    ::I18n.translate("activerecord.models").collect{|k, v| models[k.to_s] = [v, :unused]}
+    ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
+    models_files = Dir[Ekylibre::Application.root.join("app", "models", "*.rb")].collect{|m| m.split(/[\\\/\.]+/)[-2]}.sort
+    for model_file in models_files
+      model_name = model_file.sub(/\.rb$/,'')
+      model = model_name.camelize.constantize
+      if model < ActiveRecord::Base && !model.abstract_class?
+        if models[model_name]
+          models[model_name][1] = :used
+        else
+          models[model_name] = [model_name.humanize, :undefined]
+        end
+        for column in model.columns.collect{|c| c.name.to_s}
+          if attributes[column]
+            attributes[column][1] = :used
+          else
+            attributes[column] = [column.name.to_s.humanize, :undefined]
+          end
+        end
+        for column in model.instance_methods
+          attributes[column][1] = :used if attributes[column]
+        end
+      end
+    end
+    for k, v in models
+      to_translate += 1 # if v[1]!=:unused
+      untranslated += 1 if v[1]==:undefined
+    end
+    for k, v in attributes
+      to_translate += 1 # if v[1]!=:unused
+      untranslated += 1 if v[1]==:undefined
+    end
+
+    translation  = locale.to_s+":\n"
+    translation += "  activerecord:\n"
+    to_translate += hash_count(::I18n.translate("activerecord.attributes"))
+    translation += "    attributes:"+hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
+    to_translate += hash_count(::I18n.translate("activerecord.errors"))
+    translation += "    errors:"+hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
+    translation += "    models:\n"
+    for model, definition in models.sort
+      translation += "      "
+      translation += "#>"  if definition[1] == :undefined
+      translation += "#{model}: "+yaml_value(definition[0])
+      translation += " #!" if definition[1] == :unused      
+      translation += "\n"
+    end
+    translation += "  attributes:\n"
+    for attribute, definition in attributes.sort
+      translation += "    "
+      translation += "#>"  if definition[1] == :undefined
+      translation += "#{attribute}: "+yaml_value(definition[0])
+      translation += " #!" if definition[1] == :unused
+      translation += "\n"
+    end
+    translation += "  models:\n"
+    for model, definition in models.sort
+      next unless definition[2]
+      to_translate += hash_count(definition[2])
+      translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #!\n" : "\n"))+"\n"
+    end
+
+    File.open(locale_dir.join("models.yml"), "wb") do |file|
+      file.write(translation)
+    end
+    total = to_translate
+    log.write "  - #{'models.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+
+
+    # Rights
+    rights = YAML.load_file(User.rights_file)
+    translation  = locale.to_s+":\n"
+    translation += "  rights:\n"
+    untranslated = 0
+    for right in rights.keys.sort
+      trans = ::I18n.pretranslate("rights.#{right}")
+      untranslated += 1 if trans.match(/^\(\(\(.*\)\)\)$/)
+      translation += "    #{right}: "+trans+"\n"
+    end
+    File.open(locale_dir.join("rights.yml"), "wb") do |file|
+      file.write translation
+    end
+    total = rights.keys.size
+    log.write "  - #{'rights.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+
+    sort_yaml_file :support, log
 
 #     log.write "  - help: # Missing files\n"
 #     for controller, actions in useful_actions
@@ -680,9 +678,10 @@ namespace :clean do
 #       end
 #     end
 
-
-#     # wkl = [:zho, :cmn, :spa, :eng, :arb, :ara, :hin, :ben, :por, :rus, :jpn, :deu, :jav, :lah, :wuu, :tel, :vie, :mar, :fra, :kor, :tam, :pnb, :ita, :urd, :yue, :arz, :tur, :nan, :guj, :cjy, :pol, :msa, :bho, :awa, :ukr, :hsn, :mal, :kan, :mai, :sun, :mya, :ori, :fas, :mwr, :hak, :pan, :hau, :fil, :pes, :tgl, :ron, :ind, :arq, :nld, :snd, :ary, :gan, :tha, :pus, :uzb, :raj, :yor, :aze, :aec, :uzn, :ibo, :amh, :hne, :orm, :apd, :asm, :hbs, :kur, :ceb, :sin, :acm, :rkt, :tts, :zha, :mlg, :apc, :som, :nep, :skr, :mad, :khm, :bar, :ell, :mag, :ctg, :bgc, :dcc, :azb, :hun, :ful, :cat, :sna, :mup, :syl, :mnp, :zlm, :zul, :que, :ars, :pbu, :ces, :bjj, :aeb, :kmr, :bul, :lmo, :cdo, :dhd, :gaz, :uig, :nya, :bel, :aka, :swe, :kaz, :pst, :bfy, :xho, :hat, :kok, :prs, :ayn, :plt, :azj, :kin, :kik, :acq, :vah, :srp, :nap, :bal, :ilo, :tuk, :hmn, :tat, :gsw, :hye, :ayp, :lua, :ajp, :sat, :vec, :vls, :acw, :kon, :lmn, :sot, :nod, :tir, :sqi, :hil, :mon, :dan, :rwr, :kas, :min, :hrv, :suk, :heb, :mos, :wtm, :kng, :fin, :slk, :afr, :run, :grn, :vmf, :gug, :scn, :bik, :hoj, :nor, :czh, :sou, :hae, :tgk, :tsn, :man, :luo, :kat, :ayl, :aln, :ktu, :lug, :nso, :rmt, :umb, :kau, :wol, :kam, :knn, :mui, :wry, :myi, :doi, :gax, :ckb, :tso, :fuc, :quh, :afb, :gom, :bem, :bjn, :bug, :ace, :bcc, :mvf, :shn, :mzn, :ban, :glk, :knc, :lao, :glg, :tzm, :jam, :lit, :mey, :pms, :czo, :kab, :ewe, :vmw, :kmb, :sdh, :shi, :hrx, :als, :swv, :gdx]
-#     wkl = [:ace, :acm, :acq, :acw, :aeb, :aec, :afb, :afr, :ajp, :aka, :aln, :als, :amh, :apc, :apd, :ara, :arb, :arq, :ars, :ary, :arz, :asm, :awa, :ayl, :ayn, :ayp, :azb, :aze, :azj, :bal, :ban, :bar, :bcc, :bel, :bem, :ben, :bfy, :bgc, :bho, :bik, :bjj, :bjn, :bug, :bul, :cat, :cdo, :ceb, :ces, :cjy, :ckb, :cmn, :ctg, :czh, :czo, :dan, :dcc, :deu, :dhd, :doi, :ell, :eng, :ewe, :fas, :fil, :fin, :fra, :fuc, :ful, :gan, :gax, :gaz, :gdx, :glg, :glk, :gom, :grn, :gsw, :gug, :guj, :hae, :hak, :hat, :hau, :hbs, :heb, :hil, :hin, :hmn, :hne, :hoj, :hrv, :hrx, :hsn, :hun, :hye, :ibo, :ilo, :ind, :ita, :jam, :jav, :jpn, :kab, :kam, :kan, :kas, :kat, :kau, :kaz, :khm, :kik, :kin, :kmb, :kmr, :knc, :kng, :knn, :kok, :kon, :kor, :ktu, :kur, :lah, :lao, :lit, :lmn, :lmo, :lua, :lug, :luo, :mad, :mag, :mai, :mal, :man, :mar, :mey, :min, :mlg, :mnp, :mon, :mos, :msa, :mui, :mup, :mvf, :mwr, :mya, :myi, :mzn, :nan, :nap, :nep, :nld, :nod, :nor, :nso, :nya, :ori, :orm, :pan, :pbu, :pes, :plt, :pms, :pnb, :pol, :por, :prs, :pst, :pus, :que, :quh, :raj, :rkt, :rmt, :ron, :run, :rus, :rwr, :sat, :scn, :sdh, :shi, :shn, :sin, :skr, :slk, :sna, :snd, :som, :sot, :sou, :spa, :sqi, :srp, :suk, :sun, :swe, :swv, :syl, :tam, :tat, :tel, :tgk, :tgl, :tha, :tir, :tsn, :tso, :tts, :tuk, :tur, :tzm, :uig, :ukr, :umb, :urd, :uzb, :uzn, :vah, :vec, :vie, :vls, :vmf, :vmw, :wol, :wry, :wtm, :wuu, :xho, :yor, :yue, :zha, :zho, :zlm, :zul]
+# #     # wkl = [:zho, :cmn, :spa, :eng, :arb, :ara, :hin, :ben, :por, :rus, :jpn, :deu, :jav, :lah, :wuu, :tel, :vie, :mar, :fra, :kor, :tam, :pnb, :ita, :urd, :yue, :arz, :tur, :nan, :guj, :cjy, :pol, :msa, :bho, :awa, :ukr, :hsn, :mal, :kan, :mai, :sun, :mya, :ori, :fas, :mwr, :hak, :pan, :hau, :fil, :pes, :tgl, :ron, :ind, :arq, :nld, :snd, :ary, :gan, :tha, :pus, :uzb, :raj, :yor, :aze, :aec, :uzn, :ibo, :amh, :hne, :orm, :apd, :asm, :hbs, :kur, :ceb, :sin, :acm, :rkt, :tts, :zha, :mlg, :apc, :som, :nep, :skr, :mad, :khm, :bar, :ell, :mag, :ctg, :bgc, :dcc, :azb, :hun, :ful, :cat, :sna, :mup, :syl, :mnp, :zlm, :zul, :que, :ars, :pbu, :ces, :bjj, :aeb, :kmr, :bul, :lmo, :cdo, :dhd, :gaz, :uig, :nya, :bel, :aka, :swe, :kaz, :pst, :bfy, :xho, :hat, :kok, :prs, :ayn, :plt, :azj, :kin, :kik, :acq, :vah, :srp, :nap, :bal, :ilo, :tuk, :hmn, :tat, :gsw, :hye, :ayp, :lua, :ajp, :sat, :vec, :vls, :acw, :kon, :lmn, :sot, :nod, :tir, :sqi, :hil, :mon, :dan, :rwr, :kas, :min, :hrv, :suk, :heb, :mos, :wtm, :kng, :fin, :slk, :afr, :run, :grn, :vmf, :gug, :scn, :bik, :hoj, :nor, :czh, :sou, :hae, :tgk, :tsn, :man, :luo, :kat, :ayl, :aln, :ktu, :lug, :nso, :rmt, :umb, :kau, :wol, :kam, :knn, :mui, :wry, :myi, :doi, :gax, :ckb, :tso, :fuc, :quh, :afb, :gom, :bem, :bjn, :bug, :ace, :bcc, :mvf, :shn, :mzn, :ban, :glk, :knc, :lao, :glg, :tzm, :jam, :lit, :mey, :pms, :czo, :kab, :ewe, :vmw, :kmb, :sdh, :shi, :hrx, :als, :swv, :gdx]
+# #     wkl = [:ace, :acm, :acq, :acw, :aeb, :aec, :afb, :afr, :ajp, :aka, :aln, :als, :amh, :apc, :apd, :ara, :arb, :arq, :ars, :ary, :arz, :asm, :awa, :ayl, :ayn, :ayp, :azb, :aze, :azj, :bal, :ban, :bar, :bcc, :bel, :bem, :ben, :bfy, :bgc, :bho, :bik, :bjj, :bjn, :bug, :bul, :cat, :cdo, :ceb, :ces, :cjy, :ckb, :cmn, :ctg, :czh, :czo, :dan, :dcc, :deu, :dhd, :doi, :ell, :eng, :ewe, :fas, :fil, :fin, :fra, :fuc, :ful, :gan, :gax, :gaz, :gdx, :glg, :glk, :gom, :grn, :gsw, :gug, :guj, :hae, :hak, :hat, :hau, :hbs, :heb, :hil, :hin, :hmn, :hne, :hoj, :hrv, :hrx, :hsn, :hun, :hye, :ibo, :ilo, :ind, :ita, :jam, :jav, :jpn, :kab, :kam, :kan, :kas, :kat, :kau, :kaz, :khm, :kik, :kin, :kmb, :kmr, :knc, :kng, :knn, :kok, :kon, :kor, :ktu, :kur, :lah, :lao, :lit, :lmn, :lmo, :lua, :lug, :luo, :mad, :mag, :mai, :mal, :man, :mar, :mey, :min, :mlg, :mnp, :mon, :mos, :msa, :mui, :mup, :mvf, :mwr, :mya, :myi, :mzn, :nan, :nap, :nep, :nld, :nod, :nor, :nso, :nya, :ori, :orm, :pan, :pbu, :pes, :plt, :pms, :pnb, :pol, :por, :prs, :pst, :pus, :que, :quh, :raj, :rkt, :rmt, :ron, :run, :rus, :rwr, :sat, :scn, :sdh, :shi, :shn, :sin, :skr, :slk, :sna, :snd, :som, :sot, :sou, :spa, :sqi, :srp, :suk, :sun, :swe, :swv, :syl, :tam, :tat, :tel, :tgk, :tgl, :tha, :tir, :tsn, :tso, :tts, :tuk, :tur, :tzm, :uig, :ukr, :umb, :urd, :uzb, :uzn, :vah, :vec, :vie, :vls, :vmf, :vmw, :wol, :wry, :wtm, :wuu, :xho, :yor, :yue, :zha, :zho, :zlm, :zul]
+#     # Official languages
+#     wkl = [:eng, :arb, :cmn, :spa, :fra, :rus, :sqi, :deu, :hye, :aym, :ben, :cat, :kor, :hrv, :dan, :fin, :ell, :hun, :ita, :jpn, :swa, :msa, :mon, :nld, :urd, :fas, :por, :que, :ron, :smo, :srp, :sot, :slk, :slv, :swe, :tam, :tur, :afr, :amh, :aze, :bis, :bel, :mya, :bul, :nya, :sin, :pov, :hat, :crs, :div, :dzo, :est, :fij, :fil, :kat, :gil, :grn, :heb, :urd, :hin, :hmo, :iba, :ind, :gle, :isl, :kaz, :khm, :kir, :run, :lao, :nzs, :lat, :lav, :lit, :ltz, :mkd, :mlg, :mlt, :mri, :rar, :mah, :srp, :nau, :nep, :nor, :uzb, :pus, :pau, :pol, :sag, :swb, :sna, :nde, :som, :tgk, :tzm, :ces, :tet, :tir, :tha, :tpi, :ton, :tuk, :tvl, :ukr, :vie]
 #     for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", "*", "languages.yml")).sort
 #       lh = yaml_to_hash(reference_path)||{}
 #       # puts lh.to_a[0][1][:languages].inspect
@@ -696,35 +695,30 @@ namespace :clean do
 
 
 
-    # ldir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
-    ldir = Ekylibre::Application.root.join("lcx", locale.to_s)
-    FileUtils.makedirs(ldir)
-    for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
-      file_name = reference_path.split(/[\/\\]+/)[-1]
-      target_path = ldir.join(file_name)
-      unless File.exist?(target_path)
-        File.open(target_path, "wb") do |file|
-          file.write("#{locale}:\n")
-        end
-      end
-      translation = hash_to_yaml(yaml_to_hash(target_path))
-      File.open(target_path, "wb") do |file|
-        file.write("#{locale}:\n")
-        file.write(translation)
-      end
-    end
+#     # ldir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
+#     ldir = Ekylibre::Application.root.join("lcx", locale.to_s)
+#     FileUtils.makedirs(ldir)
+#     for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
+#       file_name = reference_path.split(/[\/\\]+/)[-1]
+#       target_path = ldir.join(file_name)
+#       translation = hash_to_yaml(yaml_to_hash(reference_path))
+#       File.open(target_path, "wb") do |file|
+#         file.write(translation.strip)
+#       end
+#     end
 
     
-    puts " - Locale: #{::I18n.locale_label} (Reference)"
+    # puts " - Locale: #{::I18n.locale_label} (Reference)"
+    puts " - Locale: 100% of #{::I18n.locale_label} translated (Reference)"
 
 
 
 
     for locale in ::I18n.available_locales.delete_if{|l| l==::I18n.default_locale or l.to_s.size!=3}.sort{|a,b| a.to_s<=>b.to_s}
       ::I18n.locale = locale
-      locale_dir = "#{Ekylibre::Application.root.to_s}/config/locales/#{locale}"
+      locale_dir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
       FileUtils.makedirs(locale_dir) unless File.exist?(locale_dir)
-      FileUtils.makedirs(locale_dir+"/help") unless File.exist?(locale_dir+"/help")
+      FileUtils.makedirs(locale_dir.join("help")) unless File.exist?(locale_dir.join("help"))
       log.write "Locale #{::I18n.locale_label}:\n"
       total, count = 0, 0
       for reference_path in Dir.glob(Ekylibre::Application.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
@@ -741,13 +735,13 @@ namespace :clean do
         translation, scount, stotal = hash_diff(target[locale], reference[::I18n.default_locale], 1)
         count += scount
         total += stotal
-        log.write "  - #{file_name}: #{(100*(stotal-scount)/stotal).round}% (#{stotal-scount}/#{stotal})\n"
+        log.write "  - #{(file_name+':').ljust(16)} #{(100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
         File.open(target_path, "wb") do |file|
           file.write("#{locale}:\n")
           file.write(translation)
         end
       end
-      log.write "  - total: #{(100*(total-count)/total).round}% (#{total-count}/#{total}) done.\n"
+      log.write "  - Total:           #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n"
       # Missing help files
       log.write "  - help: # Missing files\n"
       for controller, actions in useful_actions
@@ -758,7 +752,7 @@ namespace :clean do
           end
         end
       end
-      puts " - Locale: #{::I18n.locale_label} #{(100*(total-count)/total).round}% translated"
+      puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
     end
 
     log.close
