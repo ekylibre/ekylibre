@@ -1,7 +1,7 @@
 { :arb=>{
     :i18n=>{
-      :dir=>:rtl,
-      :iso2=>:ar,
+      :dir=>'rtl',
+      :iso2=>'ar',
       :name=>'لعربية',
       :plural=>{
         :keys=> [:zero, :one, :two, :few, :many, :other],

@@ -1,7 +1,7 @@
 { :fra=>{
     :i18n=>{
-      :dir=>:ltr,
-      :iso2=>:fr,
+      :dir=>'ltr',
+      :iso2=>'fr',
       :name=>'Français',
       :plural=>{
         :keys=> [:one, :other],

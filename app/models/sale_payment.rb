@@ -56,13 +56,13 @@ class SalePayment < ActiveRecord::Base
   belongs_to :journal_record
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id
+  has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
   # has_many :orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   has_many :sale_orders, :through=>:parts, :source=>:expense, :source_type=>SaleOrder.name
   # has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
   has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>Transfer.name
 
-  autosave :embankment, :parts
+  autosave :embankment
 
   attr_readonly :company_id, :payer_id
   attr_protected :parts_amount

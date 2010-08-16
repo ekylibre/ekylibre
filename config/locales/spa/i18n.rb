@@ -1,7 +1,7 @@
 { :spa=>{
     :i18n=>{
-      :dir=>:ltr,
-      :iso2=>:es,
+      :dir=>'ltr',
+      :iso2=>'es',
       :name=>'Español',
       :plural=>{
         :keys=> [:one, :other],

@@ -50,10 +50,8 @@ class PurchasePayment < ActiveRecord::Base
   belongs_to :mode, :class_name=>PurchasePaymentMode.name  
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id
+  has_many :parts, :class_name=>PurchasePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
   has_many :purchase_orders, :through=>:parts
-
-  autosave :parts
 
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on, :created_on
