@@ -10,11 +10,14 @@ gem "fastercsv"
 gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "thoughtbot-shoulda", :require => 'shoulda'
-gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
+# gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
+gem "will_paginate", "~> 3.0.pre2"
+
 
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'pg'
 gem 'mysql'
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

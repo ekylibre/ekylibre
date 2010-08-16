@@ -2,8 +2,9 @@
 app=ekylibre
 p=`readlink -f $0`
 current_dir=`dirname $p`
+rails_root=${current_dir}/..
 
-line=`cat ${current_dir}/../VERSION`
+line=`cat ${rails_root}/VERSION`
 name=`echo ${line} | cut -d',' -f1`
 version=`echo ${line} | cut -d',' -f2`
 #latest=${version}-${name}
@@ -71,8 +72,14 @@ cd ${tmpdir}
 #echo " * Exporting data..."
 rm -fr ${app}
 mkdir ${app}
-ln -s ${current_dir}/../* $app/
-rm $app/installer
+for file in app config config.ru db Gemfile lib LICENSE public Rakefile script vendor VERSION ; do
+    ln -s ${rails_root}/$file $app/
+done
+for dir in log private tmp ; do
+    mkdir $app/$dir
+done
+# ln -s ${rails_root}/* $app/
+# rm $app/installer
 
 # Création du répertoire de base
 rm -fr release

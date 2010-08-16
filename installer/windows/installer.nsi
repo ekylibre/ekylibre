@@ -24,7 +24,7 @@ SetCompressor /SOLID /FINAL zlib
   VIAddVersionKey "CompanyName" "www.ekylibre.org"
   VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
   VIAddVersionKey "FileVersion" "${VERSION}"
-  VIProductVersion "${VERSION}.0"
+  VIProductVersion "0.3.0.0"
 
 
   ; Name and file
@@ -32,7 +32,8 @@ SetCompressor /SOLID /FINAL zlib
   OutFile "${RELEASE}.exe"
 
   ;Default installation folder
-  InstallDir "$PROGRAMFILES\${APP}"
+  ;InstallDir "$PROGRAMFILES\${APP}"
+  InstallDir "C:\${APP}"
   
   ;Get installation folder from registry if available
   InstallDirRegKey HKLM "Software\${APP}" "InstallDir"
@@ -71,7 +72,7 @@ SetCompressor /SOLID /FINAL zlib
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS_TEXT_ACCEPT "J'accepte les termes du contrat de licence"
   ; !define MUI_LICENSEPAGE_RADIOBUTTONS_TEXT_DECLINE "Je n'accepte pas les termes du contrat de licence"
-  !insertmacro MUI_PAGE_LICENSE "${RESOURCES}\apps\ekylibre\doc\license.txt"
+  !insertmacro MUI_PAGE_LICENSE "${RESOURCES}\apps\ekylibre\LICENSE"
 
   !define MUI_DIRECTORYPAGE_TEXT_DESTINATION "$INSTDIR"
   !define MUI_DIRECTORYPAGE_VERIFYONLEAVE
@@ -222,8 +223,6 @@ Section
   ; Mise en place des raccourcis
   RMDir /r $SMPROGRAMS\${APP}
   CreateDirectory "$SMPROGRAMS\${APP}"
-  CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique générale GNU 3.lnk" "$InstApp\apps\ekylibre\doc\license.txt"
-  CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
   ; File ${RESOURCES}\${APP}.url
   FileOpen $1 "$SMPROGRAMS\${APP}\${APP} ${VERSION}.url" "w"
   FileWrite $1 "[InternetShortcut]$\r$\n"
@@ -236,6 +235,9 @@ Section
   FileWrite $1 "[InternetShortcut]$\r$\n"
   FileWrite $1 "URL=http://www.ekylibre.org/$\r$\n"
   FileClose $1
+  ; Uninstall
+  CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
+  ;CreateShortCut  "$SMPROGRAMS\${APP}\Licence publique générale GNU 3.lnk" "$InstApp\apps\ekylibre\LICENSE"
 SectionEnd
 
 
