@@ -15,6 +15,7 @@ class AddCompaniesColumns < ActiveRecord::Migration
       execute "UPDATE products SET updated_at = CURRENT_TIMESTAMP#{', product_account_id='+pa_id.to_s if pa_id}#{', charge_account_id='+ca_id.to_s if ca_id}"
     end
     
+    remove_index :products, :column=>:account_id
     remove_column :products, :account_id
 
     add_column :companies, :sales_journal_id, :integer, :references=>:journals, :on_delete=>:cascade, :on_update=>:cascade

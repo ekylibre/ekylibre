@@ -43,7 +43,7 @@ class CompleteTrackingChain < ActiveRecord::Migration
     for stock in select_all("SELECT id, location_id AS lid, product_id AS pid, tracking_id AS tid, company_id AS cid FROM stocks")
       execute "UPDATE stock_moves SET stock_id=#{stock['id']} WHERE location_id#{sqlint(stock['lid'])} AND product_id#{sqlint(stock['pid'])} AND tracking_id#{sqlint(stock['pid'])} AND company_id#{sqlint(stock['cid'])}"
     end
-    execute "UPDATE stock_moves SET quantity = CASE WHEN input THEN quantity ELSE -quantity END"
+    execute "UPDATE stock_moves SET quantity = CASE WHEN input=#{quoted_true} THEN quantity ELSE -quantity END"
     remove_column :stock_moves,       :input
     rename_column :tool_uses,         :shape_operation_id,       :operation_id
 

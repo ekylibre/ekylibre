@@ -49,6 +49,7 @@ GEM
       mime-types
       treetop (>= 1.4.5)
     mime-types (1.16)
+    mysql (2.8.1)
     pg (0.9.0)
     polyglot (0.3.1)
     rack (1.2.1)
@@ -84,6 +85,7 @@ DEPENDENCIES
   fastercsv
   haml
   libxml-ruby
+  mysql
   pg
   rails (= 3.0.0.rc)
   rubyzip

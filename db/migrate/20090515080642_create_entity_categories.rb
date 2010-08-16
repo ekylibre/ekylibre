@@ -19,6 +19,7 @@ class CreateEntityCategories < ActiveRecord::Migration
     execute "INSERT INTO entity_categories(company_id, name, created_at, updated_at) SELECT companies.id, 'Par défaut', current_timestamp, current_timestamp FROM companies"
 
     add_column :taxes,    :deleted, :boolean, :null=>false, :default=>false
+    remove_index :taxes, :column=>[:group_name, :company_id]
     remove_column :taxes, :group_name
 
     add_column :prices,  :category_id, :integer, :references=>:entity_categories, :on_update=>:restrict, :on_delete=>:restrict

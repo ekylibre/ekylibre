@@ -5,9 +5,9 @@ class UpdateStocksData < ActiveRecord::Migration
     add_column :purchase_order_lines, :location_id, :integer, :references=>:stock_locations, :on_delete=>:cascade, :on_update=>:cascade
     add_column :stock_moves, :generated,      :boolean, :default=>false
     add_column :prices,      :default,        :boolean, :default=>true
-    execute "UPDATE deliveries SET planned_on = current_date"
-    execute "UPDATE purchase_orders SET planned_on = current_date"
-    execute "INSERT INTO stock_locations(company_id, account_id, name, created_at, updated_at) SELECT companies.id, a.id ,'Lieu de stockage par défaut', current_timestamp, current_timestamp FROM companies LEFT JOIN accounts a ON (a.company_id=companies.id AND a.number='3')"
+    execute "UPDATE deliveries SET planned_on = #{quote(Date.today)}"
+    execute "UPDATE purchase_orders SET planned_on = #{quote(Date.today)}"
+    execute "INSERT INTO stock_locations(company_id, account_id, name, created_at, updated_at) SELECT companies.id, a.id ,'Lieu de stockage par défaut', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies LEFT JOIN accounts a ON (a.company_id=companies.id AND a.number='3')"
     
     locations = select_all("SELECT * from stock_locations")
     if locations.size > 0

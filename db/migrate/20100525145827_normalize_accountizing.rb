@@ -47,6 +47,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     for table in TABLES_LANGUAGE
       add_column table, :language, :string, :limit=>3, :null=>false, :default=>"\?\?\?"
       execute "UPDATE #{table} SET language='fra'"
+      remove_index(table, :column=>:language_id) unless table == :entities
       remove_column table, :language_id
     end
     execute "UPDATE parameters SET string_value='fra', nature='string' WHERE name='general.language'"
@@ -130,6 +131,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :accounts, :groupable
     remove_column :accounts, :keep_entries
     remove_column :accounts, :letterable
+    remove_index :accounts, :column=>:parent_id
     remove_column :accounts, :parent_id
     remove_column :accounts, :pointable
     remove_column :accounts, :transferable
@@ -152,9 +154,11 @@ class NormalizeAccountizing < ActiveRecord::Migration
     
     rename_column :contacts, :stopped_at, :deleted_at
     execute "UPDATE contacts SET deleted_at = updated_at WHERE deleted_at IS NULL AND active = #{quoted_false}"
+    remove_index :contacts, :column=>:started_at
     remove_column :contacts, :started_at
     remove_column :contacts, :closed_on
     remove_column :contacts, :deleted
+    remove_index :contacts, :column=>:active
     remove_column :contacts, :active
 
     add_column :currencies, :by_default, :boolean, :null=>false, :default=>false
@@ -196,15 +200,17 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :invoices, :journal_record_id, :integer
     
     add_column :journal_entries, :closed, :boolean, :null=>false, :default=>false
-    execute "UPDATE journal_entries SET closed = NOT COALESCE(editable, #{quoted_true})"
+    execute "UPDATE journal_entries SET closed = (editable=#{quoted_false})"
     remove_column :journal_entries, :editable
     remove_column :journal_entries, :currency_rate
     remove_column :journal_entries, :currency_id
+    remove_index :journal_entries, :column=>:intermediate_id
     remove_column :journal_entries, :intermediate_id
     rename_column :journal_entries, :statement_id, :bank_statement_id
     
     # > Interface don't permit to add currencies therefore there is only EURO which is the default and unique currency...
     remove_column :journal_records, :financialyear_id
+    remove_index :journal_records, :columns=>[:status, :company_id], :name=>:index_journal_records_on_status_and_company_id
     remove_column :journal_records, :status
     change_column_null :journal_records, :position, true
     add_column :journal_records, :currency_debit,  :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
@@ -264,7 +270,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :sale_payment_modes, :nature
     remove_column :sale_payment_modes, :mode
     # execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, draft_mode, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), #{quoted_true}, company_id, created_at, updated_at FROM sale_payment_modes" 
-    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, (cash_id IS NOT NULL), company_id, created_at, updated_at FROM sale_payment_modes"
+    execute "INSERT INTO purchase_payment_modes (name, cash_id, with_accounting, company_id, created_at, updated_at) SELECT name, cash_id, #{quoted_false}, company_id, created_at, updated_at FROM sale_payment_modes"
 
     add_column :sale_payment_parts, :journal_record_id, :integer
     add_column :sale_payment_parts, :accounted_at,      :datetime
@@ -282,6 +288,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     modes=select_all("SELECT a.id AS o, b.id AS n FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
     modes=(modes.size>0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['o']} THEN #{l['n']}"}.join(" ")+" ELSE 0 END" : '0')
     purchase_cond = "id IN (SELECT payment_id FROM purchase_payment_parts)"
+    execute "SET IDENTITY_INSERT purchase_payments ON" if adapter_name == "sqlserver"
     execute "INSERT INTO purchase_payments(id, accounted_at, amount, check_number, created_on, responsible_id, mode_id, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, payee_id)"+
                                   " SELECT id, accounted_at, amount, check_number, created_on, embanker_id,   #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM sale_payments WHERE #{purchase_cond}"
     execute "DELETE FROM sale_payments WHERE #{purchase_cond}"
@@ -303,7 +310,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     # Update some values in tables
     # > Parameters, journals, percent
-    execute "UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')"
+    execute "UPDATE document_templates SET source=REPLACE(source, 'employee', 'responsible'), cache=REPLACE(cache, 'employee', 'responsible')" unless adapter_name == "sqlserver"
     execute "UPDATE document_templates SET nature='balance_sheet' WHERE nature='financialyear' AND code LIKE 'BILAN%'"
     execute "UPDATE document_templates SET nature='income_statement' WHERE nature='financialyear'"
     execute "UPDATE journals SET nature='sales' WHERE nature='sale'"
@@ -313,7 +320,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       for o, n in RIGHTS
         execute "UPDATE #{t} SET rights=REPLACE(rights, '#{o}', '#{n}')"
       end
-    end
+    end unless adapter_name == "sqlserver"
     execute "UPDATE taxes SET amount=amount*100 WHERE nature='percent'"
     for o, n in PARAMETERS
       execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
@@ -338,15 +345,17 @@ class NormalizeAccountizing < ActiveRecord::Migration
       execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
     end
     execute "UPDATE taxes SET amount=amount/100 WHERE nature='percent'"
-    for t in [:users, :roles]
-      for o, n in RIGHTS.reverse
-        execute "UPDATE #{t} SET rights=REPLACE(rights, '#{n}', '#{o}')"
-      end
+    unless adapter_name == "sqlserver"
+      for t in [:users, :roles]
+        for o, n in RIGHTS.reverse
+          execute "UPDATE #{t} SET rights=REPLACE(rights, '#{n}', '#{o}')"
+        end
+      end 
+      execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+      execute "UPDATE users SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
+      execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+      execute "UPDATE roles SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
     end
-    execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
-    execute "UPDATE users SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
-    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
-    execute "UPDATE roles SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
     execute "UPDATE journals SET nature='renew' WHERE nature='forward'"
     execute "UPDATE journals SET nature='purchase' WHERE nature='purchases'"
     execute "UPDATE journals SET nature='sale' WHERE nature='sales'"
@@ -433,6 +442,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :journal_records, :currency_debit
     # change_column_null :journal_records, :position
     add_column :journal_records, :status, :string, :null=>false, :default=>"A", :limit=>1
+    add_index :journal_records, [:status, :company_id]
     add_column :journal_records, :financialyear_id, :integer
     if (financialyears=select_all("SELECT * FROM financialyears")).size > 0
       execute "UPDATE journal_records SET financialyear_id=CASE "+financialyears.collect{|l| "WHEN company_id=#{l['company_id']} AND printed_on BETWEEN #{quote(l['started_on'].to_date)} AND #{quote(l['stopped_on'].to_date)} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
@@ -440,6 +450,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     
     rename_column :journal_entries, :bank_statement_id, :statement_id
     add_column :journal_entries, :intermediate_id, :integer
+    add_index :journal_entries, :intermediate_id
     add_column :journal_entries, :currency_id, :integer, :null=>false, :default=>0
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0
     add_column :journal_entries, :editable, :boolean, :null=>false, :default=>true
@@ -484,9 +495,11 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :currencies, :by_default
 
     add_column :contacts, :active, :boolean, :null=>false, :default=>false
+    add_index :contacts, :active
     add_column :contacts, :deleted, :boolean, :null=>false, :default=>false
     add_column :contacts, :closed_on, :date
     add_column :contacts, :started_at, :datetime
+    add_index :contacts, :started_at
     rename_column :contacts, :deleted_at, :stopped_at
     execute "UPDATE contacts SET started_at=created_at, active=(stopped_at IS NULL), deleted=(stopped_at IS NOT NULL)"
 
@@ -507,6 +520,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :accounts, :transferable, :boolean, :null=>false, :default=>false
     add_column :accounts, :pointable, :boolean, :null=>false, :default=>false
     add_column :accounts, :parent_id, :integer, :null=>false, :default=>0
+    add_index :accounts, :parent_id
     add_column :accounts, :letterable, :boolean, :null=>false, :default=>false
     add_column :accounts, :keep_entries, :boolean, :null=>false, :default=>false
     add_column :accounts, :groupable, :boolean, :null=>false, :default=>false
@@ -579,6 +593,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     for table in TABLES_LANGUAGE.reverse
       add_column table, :language_id, :integer, :null=>false, :default=>0
+      add_index(table, :language_id) unless table == :entities
       execute "UPDATE #{table} SET language_id=#{languages}" if languages
       remove_column table, :language
     end

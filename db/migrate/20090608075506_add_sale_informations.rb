@@ -9,7 +9,7 @@ class AddSaleInformations < ActiveRecord::Migration
     add_column :invoices, :created_on, :date
     add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
     
-    execute "UPDATE entity_categories SET code=SUBSTR(REPLACE(code, ' ', '_'), 1, 8) WHERE LENGTH(TRIM(COALESCE(code, ''))) <= 0"
+    execute "UPDATE entity_categories SET code="+substr("REPLACE(code, ' ', '_')", 1, 8)+" WHERE "+length(trim("COALESCE(code, '')"))+" <= 0"
     execute "UPDATE invoices SET created_on = CAST(created_at AS DATE) WHERE created_on IS NULL"    
     execute "UPDATE payment_modes SET mode=CASE WHEN LOWER(name) LIKE '%ch%' THEN 'check' ELSE 'other' END"    
   end

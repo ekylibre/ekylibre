@@ -7,7 +7,6 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     # entity is automatically created for all the companies.
     execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', #{quoted_false}, #{quoted_false}, '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
     execute "INSERT INTO entities(company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND  en.name='Indéfini') LEFT JOIN entities e ON (e.code=companies.code), languages ln  WHERE ln.iso2='fr' AND e.id IS NULL"
-#    execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
     for company in select_all("SELECT c.id AS \"cid\", e.id AS \"eid\" FROM entities AS e JOIN companies AS c ON (e.code=c.code and e.company_id=c.id)")
       execute "UPDATE companies SET entity_id=#{company['eid']} WHERE id=#{company['cid']}"
     end
@@ -36,11 +35,13 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     add_column    :deliveries,       :contact_id,     :integer, :references=>:contacts
     remove_column :delivery_lines,   :price_list_id
     remove_column :invoice_lines,    :price_list_id
+    remove_index :prices, :column=>:list_id
     remove_column :prices,           :list_id
     remove_column :purchase_orders,  :list_id
     remove_column :sale_order_lines, :price_list_id
     remove_column :prices,           :started_on
     remove_column :prices,           :stopped_on
+    remove_index :prices, :column=>:deleted
     remove_column :prices,           :deleted
     remove_column :prices,           :default
     drop_table :price_lists

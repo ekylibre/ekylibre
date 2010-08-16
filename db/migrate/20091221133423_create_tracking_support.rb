@@ -5,7 +5,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     for table in ACCOUNTED_TABLES
       add_column table, :accounted_at, :datetime
       add_index table, :accounted_at
-      execute "UPDATE #{table} SET accounted_at=updated_at WHERE accounted"
+      execute "UPDATE #{table} SET accounted_at=updated_at WHERE accounted=#{quoted_true}"
       remove_column table, :accounted
     end
 
@@ -14,7 +14,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :stock_trackings, :begun_at
 
     add_column :product_stocks,  :origin_id,   :integer
-    add_column :product_stocks,  :origin_type, :string   ## productions || purchase_orders || stock_transfers
+    add_column :product_stocks,  :origin_type, :string   ## productions OR purchase_orders OR stock_transfers
 
     add_column :productions, :shape_id, :integer, :references=>:shapes
     
@@ -97,8 +97,8 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :shapes, :area_measure
     remove_column :shapes, :number
 
-    execute "UPDATE units SET label=label||' (ERROR)' WHERE start != 0"
-    execute "UPDATE units SET base='u' WHERE LENGTH(TRIM(base))=0"
+    execute "UPDATE units SET label="+concatenate("label", "' (ERROR)'")+" WHERE start != 0"
+    execute "UPDATE units SET base='u' WHERE "+length(trim("base"))+"=0"
     rename_column :units, :coefficient, :quantity
     remove_column :units, :start
 

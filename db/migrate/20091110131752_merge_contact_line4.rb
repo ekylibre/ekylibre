@@ -2,7 +2,7 @@ class MergeContactLine4 < ActiveRecord::Migration
   def self.up
     add_column :contacts, :line_4, :string, :limit=>48
 
-    execute "UPDATE contacts SET line_4 = TRIM(COALESCE(line_4_number,'')||' '||COALESCE(line_4_street,''))"
+    execute "UPDATE contacts SET line_4 = "+trim(concatenate("COALESCE(line_4_number,'')", "' '", "COALESCE(line_4_street,'')"))
 
     remove_column :contacts, :line_4_number
     remove_column :contacts, :line_4_street
@@ -47,7 +47,7 @@ class MergeContactLine4 < ActiveRecord::Migration
     add_column :contacts, :line_4_number, :string, :limit=>38
     add_column :contacts, :line_4_street, :string, :limit=>38
 
-    execute "UPDATE contacts SET line_4_street = SUBSTR(line_4,1,38)"
+    execute "UPDATE contacts SET line_4_street = "+substr("line_4", 1, 38)
 
     remove_column :contacts, :line_4
   end

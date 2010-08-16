@@ -9,6 +9,8 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
       execute "UPDATE document_templates SET code='#{nature['code'].gsub('\'','\'\'')}', family='#{nature['family'].gsub('\'','\'\'')}', to_archive=#{to_archive} WHERE nature_id=#{nature['id']}"
     end
 
+    remove_index :document_templates, :column=>:nature_id
+    remove_index :document_templates, :column=>[:company_id, :nature_id]
     remove_column :document_templates, :nature_id
     drop_table :document_natures
   end
@@ -22,7 +24,10 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
     add_index :document_natures, :company_id
+
     add_column :document_templates, :nature_id, :integer
+    add_index :document_templates, [:company_id, :nature_id]
+    add_index :document_templates, :nature_id
     
     for nature in select_all("SELECT * FROM document_templates")
       to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
