@@ -44,6 +44,7 @@ class Transfer < ActiveRecord::Base
   attr_readonly :company_id, :comment
   belongs_to :company
   belongs_to :supplier, :class_name=>Entity.to_s
+  belongs_to :client, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
   has_many :payment_parts, :as=>:expense, :class_name=>SalePaymentPart.name
 
@@ -53,6 +54,8 @@ class Transfer < ActiveRecord::Base
     self.created_on ||= Date.today
     self.parts_amount = self.payment_parts.sum(:amount)||0
   end
+
+  
 
   def client_id
     self.supplier_id
