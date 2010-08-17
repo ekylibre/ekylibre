@@ -31,6 +31,9 @@ Ekylibre::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
 
+  # Configure exception notification
+  # config.middleware.use ExceptionNotifier, :email_prefix => "[Ekylibre] ", :sender_address => %{"notifier" <no-reply@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
+
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 

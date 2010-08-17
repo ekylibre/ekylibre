@@ -658,7 +658,7 @@ module Ekylibre
           verb = @name.to_s.split('_')[-1]
           image_title = @options[:title]||@name.to_s.humanize
           # image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
-          # image_file = "buttons/unknown.png" unless File.file? "#{RAILS_ROOT}/public/images/"+image_file
+          # image_file = "buttons/unknown.png" unless File.file? "#{Rails.root.to_s}/public/images/"+image_file
           image = "image_tag(theme_button('#{@options[:image]||verb}'), :alt=>'"+image_title+"')"
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 

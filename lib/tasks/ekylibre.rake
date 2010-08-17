@@ -142,7 +142,7 @@ task :dytacolor do
     end
   end
 
-  File.open("#{RAILS_ROOT}/public/templates/tekyla/stylesheets/dyta-colors.css", "wb") do |f|
+  File.open("#{Rails.root.to_s}/public/templates/tekyla/stylesheets/dyta-colors.css", "wb") do |f|
     f.write("/* Auto-generated from Ekylibre (rake dytacolor) */\n")
     f.write(code)
   end

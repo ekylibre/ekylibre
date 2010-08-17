@@ -1,7 +1,7 @@
 require "config/environment"
 
-MODEL_DIR   = File.join(RAILS_ROOT, "app/models")
-DB_SCHEMA_FILE = File.join(RAILS_ROOT, "db/schema.xml")
+MODEL_DIR   = File.join(Rails.root.to_s, "app/models")
+DB_SCHEMA_FILE = File.join(Rails.root.to_s, "db/schema.xml")
 
 module Xmlize
 

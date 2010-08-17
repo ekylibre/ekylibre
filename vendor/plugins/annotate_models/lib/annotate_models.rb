@@ -1,8 +1,8 @@
 require "config/environment"
 
-MODEL_DIR   = File.join(RAILS_ROOT, "app/models")
-FIXTURE_DIR = File.join(RAILS_ROOT, "test/fixtures")
-UNIT_DIR = File.join(RAILS_ROOT, "test/unit")
+MODEL_DIR   = File.join(Rails.root.to_s, "app/models")
+FIXTURE_DIR = File.join(Rails.root.to_s, "test/fixtures")
+UNIT_DIR = File.join(Rails.root.to_s, "test/unit")
 
 module AnnotateModels
 
