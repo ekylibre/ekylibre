@@ -10,10 +10,7 @@ gem "fastercsv"
 gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "thoughtbot-shoulda", :require => 'shoulda'
-# gem "will_paginate", :git => "git://github.com/mislav/will_paginate.git", :branch => "rails3"
 gem "will_paginate", "~> 3.0.pre2"
-# gem "exception_notification"
-#gem "exception_notifier", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
 gem "exception_notifier"
 
 

@@ -65,6 +65,10 @@ class Transfer < ActiveRecord::Base
     self.amount - self.parts_amount
   end
 
+  def number
+    self.id.to_s
+  end
+
   #this method saves the transfer in the accountancy module.
   def to_accountancy(action=:create, options={})
     #     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |record|
