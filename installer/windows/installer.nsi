@@ -123,6 +123,9 @@ Section
   ; Suppression des anciens services
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
+  SimpleSC::StopService   "EkyDatabase"
+  SimpleSC::RemoveService "EkyDatabase"
+  ; Retro compatility
   SimpleSC::StopService   "EkyMySQL"
   SimpleSC::RemoveService "EkyMySQL"
 
@@ -184,13 +187,13 @@ Section
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin"
 
   ; Lancement de la base de données
-  SimpleSC::InstallService "EkyMySQL" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyMySQL'  "" "" ""
+  SimpleSC::InstallService "EkyDatabase" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyDatabase'  "" "" ""
   Pop $0
   ${If} $0 <> 0
-    MessageBox MB_OK "Installation du service EkyMySQL impossible"
+    MessageBox MB_OK "Installation du service EkyDatabase impossible"
   ${EndIf}
-  SimpleSC::SetServiceDescription "EkyMySQL" "Service Base de Données d'Ekylibre"
-  SimpleSC::StartService "EkyMySQL" ""
+  SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
+  SimpleSC::StartService "EkyDatabase" ""
 
   ; (Ré-)Initialisation et migration
   ${If} $AppDir == ""
@@ -203,7 +206,12 @@ Section
   ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
 
   ; Ekylibre Service
-  SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\mongrel_service.exe" single -e production -p ${WSPORT} -a 0.0.0.0 -l "log\mongrel.log" -P "log\mongrel.pid" -c "$InstApp/apps/ekylibre" -t 0 -r "public" -n 1024' "EkyMySQL" "" ""
+  ;SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\mongrel_service.exe" single -e production -p ${WSPORT} -a 0.0.0.0 -l "log\mongrel.log" -P "log\mongrel.pid" -c "$InstApp/apps/ekylibre" -t 0 -r "public" -n 1024' "EkyDatabase" "" ""
+  SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\srvany.exe"' "EkyDatabase" "" ""
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "Application" '"$InstApp\ruby\bin\ruby.exe"'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppDirectory" '"$InstApp\apps\ekylibre"'
+
   Pop $0
   ${If} $0 <> 0
     MessageBox MB_OK "Installation du service EkyService impossible"
@@ -248,8 +256,8 @@ Section "Uninstall"
   ; Mise à jour de la base de registre
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
-  SimpleSC::StopService   "EkyMySQL"
-  SimpleSC::RemoveService "EkyMySQL"
+  SimpleSC::StopService   "EkyDatabase"
+  SimpleSC::RemoveService "EkyDatabase"
 
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}"
   DeleteRegKey HKLM "Software\${APP}"
