@@ -1,96 +1,96 @@
 arb:
   about:
-    authors: 'Jean-Jacques Vangramberen, Brice Texier'
+    authors: ['Alaa Alshoubaki'] #! String excepted (Array:["Alaa Alshoubaki"])
     dir: 'rtl'
     iso2: 'ar'
     name: 'لعربية'
   date:
-    #>abbr_day_names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    #>abbr_month_names: ['', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-    #>day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    abbr_day_names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+    abbr_month_names: ['', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
+    day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     formats:
       default: '%m/%d/%Y'
       legal: '%d %B %Y'
       long: '%B %d, %Y'
       month_letter: '%d %B %Y'
       short: '%b %d'
-    #>month_names: ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
-    #>order: [:month, :day, :year]
+    month_names: ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+    order: [:month, :day, :year]
   datetime:
     distance_in_words:
       about_x_hours:
-        #>many: 'about %{count} hours'
-        #>one: 'about 1 hour'
+        many: 'ساعة {{count}} حوالي'
+        one: 'حوالي ساعة واحدة'
       about_x_months:
-        #>many: 'about %{count} months'
-        #>one: 'about 1 month'
+        many: 'شهر {{count}} حوالي'
+        one: 'حوالي شهر واحد'
       about_x_years:
-        #>many: 'about %{count} years'
-        #>one: 'about 1 year'
-      #>half_a_minute: 'half a minute'
+        many: 'سنة {{count}} حوالي'
+        one: 'تقريبا سنة واحدة'
+      half_a_minute: 'نصف دقيقة'
       less_than_x_minutes:
-        #>many: 'less than %{count} minutes'
-        #>one: 'less than a minute'
+        many: ' دقيقة{{count}}اقل من'
+        one: 'اقل من دقيقة واحدة'
       less_than_x_seconds:
-        #>many: 'moins de %{count} secondes'
-        #>one: 'moins d''une seconde'
+        many: 'ثانية {{count}} اقل من'
+        one: 'اقل من ثانية واحدة'
       over_x_years:
-        #>many: 'over %{count} years'
-        #>one: 'over 1 year'
+        many: 'سنة {{count}} اكثر من'
+        one: 'اكثر من سنة'
       x_days:
-        #>many: '%{count} days'
-        #>one: '1 day'
+        many: '{{count}} ايام'
+        one: 'يوم واحد'
       x_minutes:
-        #>many: '%{count} minutes'
-        #>one: '1 minute'
+        many: '{{count}} دقائق'
+        one: 'دقيقة واحدة'
       x_months:
-        #>many: '%{count} months'
-        #>one: '1 month'
+        many: '{{count}} اشهر'
+        one: 'شهر واحد'
       x_seconds:
-        #>many: '%{count} secondes'
-        #>one: '1 seconde'
+        many: '{{count}} ثواني'
+        one: 'ثانية واحدة'
   dyta:
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
+      csv: 'CSV'
+      false_value: 'زائف'
+      title: 'تصدير'
+      true_value: 'صحيح'
+      xcsv: 'Excel CSV'
+    next: 'التالي'
+    no_records: 'ولا اية سجل'
+    previous: 'السابق'
   number:
     currency:
       format:
-        #>delimiter: ','
-        #>format: '%u%n'
-        #>precision: 2
-        #>separator: '.'
-        #>unit: '$'
+        delimiter: ','
+        format: '%u%n'
+        precision: 2
+        separator: '.'
+        unit: '$'
     format:
-      #>delimiter: ' '
-      #>precision: 3
-      #>separator: ','
+      delimiter: ' '
+      precision: 3
+      separator: ','
     human:
       format:
-        #>delimiter: ''
-        #>precision: 1
+        delimiter: ''
+        precision: 1
     percentage:
       format:
-        #>delimiter: ''
+        delimiter: ''
     precision:
       format:
-        #>delimiter: ''
+        delimiter: ''
   support:
     array:
-      #>last_word_connector: ' and '
-      #>sentence_connector: 'and'
-      #>two_words_connector: ' and '
-      #>words_connector: ', '
+      last_word_connector: ' و '
+      sentence_connector: 'و'
+      two_words_connector: ', '
+      words_connector: ', '
   time:
-    am: 'am'
+    am: 'صباحا'
     formats:
       default: '%b. %d, %Y at %H:%M:%S'
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
-    pm: 'pm'
+    pm: 'مساءا'

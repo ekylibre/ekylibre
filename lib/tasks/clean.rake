@@ -289,11 +289,11 @@ namespace :clean do
   desc "Compact translations"
   task :loc => :environment do
 
-    locale = ::I18n.locale = :jpn # ::I18n.default_locale
+    locale = ::I18n.locale = :arb # ::I18n.default_locale
     #locale_dir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
     locale_dir = Ekylibre::Application.root.join("lc", locale.to_s)
     #locdir = Ekylibre::Application.root.join("locales", locale.to_s)
-    locdir = Ekylibre::Application.root.join("locales", locale.to_s)
+    locdir = Ekylibre::Application.root.join("lcx", locale.to_s)
     #locdir = Ekylibre::Application.root.join("config", "locales", locale.to_s)
     FileUtils.makedirs(locdir)
 

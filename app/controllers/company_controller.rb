@@ -591,12 +591,12 @@ class CompanyController < ApplicationController
       if desc[1] == "all_columns"
         model = @listing_node.model
         for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
-          ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{column.name}"))
+          ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>@listing_node.model.human_attribute_name(column.name))
           ln.save!
         end
       end
     else
-      ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>::I18n.t("activerecord.attributes.#{@listing_node.model.to_s.underscore}.#{desc[1]}"))
+      ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
       ln.save!
     end
     

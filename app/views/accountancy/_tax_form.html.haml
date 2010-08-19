@@ -4,8 +4,8 @@
     -f.field :tax, :nature, :field=>:radio, :choices=>Tax.natures
     -f.field :tax, :amount
   -else
-    -f.field t('activerecord.attributes.tax.nature'), @tax.nature_label
-    -f.field t('activerecord.attributes.tax.amount'), @tax.amount.to_s
+    -f.field Tax.human_attribute_name('nature'), @tax.nature_label
+    -f.field Tax.human_attribute_name('amount'), @tax.amount.to_s
   -f.field :tax, :name
   -f.field :tax, :account_collected_id, :choices=>:account_collected, :resize=>true, :new=>{:action=>:account_create, :number=>parameter("accountancy.accounts.taxes_collected").value}
   -f.field :tax, :account_paid_id, :choices=>:account_paid, :resize=>true, :new=>{:action=>:account_create, :number=>parameter("accountancy.accounts.taxes_paid").value}

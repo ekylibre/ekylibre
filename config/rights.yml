@@ -513,11 +513,11 @@ manage_mandates:
 manage_observations:
   controller: relations
   actions:
+  - entity_observations_dyta
   - index
   - observation_create
   - observation_delete
   - observation_update
-  - observations_dyta
 # Manage tasks
 manage_operations:
   controller: production

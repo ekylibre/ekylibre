@@ -174,7 +174,7 @@ class DocumentTemplate < ActiveRecord::Base
       columns = klass.content_columns.collect{|x| x.name.to_s}.sort
       self.filename.gsub(/\[\w+\]/) do |word|
         unless columns.include?(word[1..-2])
-          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+I18n::t('activerecord.attributes.'+klass.name.underscore+'.'+column)+")" }.join(", "))
+          errors << tc(:error_attribute, :value=>word, :possibilities=>columns.collect { |column| column+" ("+klass.human_attribute_name(column)+")" }.join(", "))
         end
         "*"
       end

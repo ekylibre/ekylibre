@@ -400,7 +400,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
+  dyta(:entity_observations, :model=>:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
     t.action :observation_update
@@ -593,7 +593,7 @@ class RelationsController < ApplicationController
   
   manage :entity_categories
 
-  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}  
+  manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
 
   dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
@@ -726,7 +726,6 @@ class RelationsController < ApplicationController
     return unless @event_nature = find_and_check(:event_nature)
   end
   
-
 
   dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN users ON (responsible_id=users.id) JOIN entities ON (entity_id=entities.id) JOIN event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}

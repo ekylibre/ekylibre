@@ -74,14 +74,14 @@ spa:
       listing_nodes: 'Escoge las informaciones para extraer'
       listing_update: 'Modificacion de la extraccion : %{name}'
       listings: 'Exportacion y mailing'
-      role_create: 'A~nadir un papel'
+      role_create: 'Añadir un papel'
       role_update: 'Modificacion del papel : %{name}'
       roles: 'Papeles'
       sequence_create: 'Creacion de une nueva sequencia'
       sequence_update: 'Modificacion de la sequencia : %{name}'
       sequences: 'Sequencias'
       #>sequences_load: 'Load missing sequences'
-      unit_create: 'A~nadir una nueva unidad de medida'
+      unit_create: 'Añadir una nueva unidad de medida'
       unit_update: 'Modificacion de la unidad : %{label}'
       units: 'Unidad de medida'
       #>units_load: 'Load default units of measure'
@@ -94,11 +94,11 @@ spa:
     help:
     management:
       delay: 'plazo : %{name}'
-      delay_create: 'A~nadir un plazo'
+      delay_create: 'Añadir un plazo'
       delay_update: 'Modificacion del plazo : %{name}'
       delays: 'plazos'
-      delivery_create: 'A~nadir una entrega'
-      delivery_mode_create: 'A~nadir un nuevo modo de entrega'
+      delivery_create: 'Añadir una entrega'
+      delivery_mode_create: 'Añadir un nuevo modo de entrega'
       delivery_mode_update: 'Modificacion del modo de entrega : %{name}'
       delivery_modes: 'Modos de entrega'
       delivery_update: 'Modificacion de la entrega'
@@ -114,7 +114,7 @@ spa:
       invoice_cancel: 'Paso en activo de la factura %{number}'
       invoices: 'Facturas'
       location: 'Detaile del lugar de deposito : %{name}'
-      location_create: 'A~nadir un lugar de deposito'
+      location_create: 'Añadir un lugar de deposito'
       location_update: 'Modificacion de un lugar de deposito'
       locations: 'Lugar de deposito'
       #>price_create: 'Add a new price'
@@ -134,14 +134,14 @@ spa:
       #>purchase_order_summary: 'Payments of the purchase order %{number}'
       #>purchase_order_update: 'Edit the purchase order: %{number}'
       #>purchase_orders: 'Purchase orders'
-      #>purchase_payment: 'Purchase payment #%{number} for %{payee}'
-      #>purchase_payment_create: 'Add a new purchase payment'
-      #>purchase_payment_mode_create: 'Add a new purchase payment mode'
-      #>purchase_payment_mode_update: 'Edit the purchase payment mode'
-      #>purchase_payment_modes: 'Purchase payments modes'
+      #>purchase_payment: 'Disbursement #%{number} for %{payee}'
+      #>purchase_payment_create: 'Add a new disbursement'
+      #>purchase_payment_mode_create: 'Add a new disbursement mode'
+      #>purchase_payment_mode_update: 'Edit the disbursement mode'
+      #>purchase_payment_modes: 'Disbursements modes'
       #>purchase_payment_part_create: 'Pay the purchase order %{number}'
-      #>purchase_payment_update: 'Edit the purchase payment: %{number}'
-      #>purchase_payments: 'Purchase payments'
+      #>purchase_payment_update: 'Edit the disbursement: %{number}'
+      #>purchase_payments: 'Disbursements'
       #>sale_order: 'Sale order %{number}'
       #>sale_order_create: 'New sale order'
       #>sale_order_deliveries: 'Deliveries'
@@ -149,8 +149,8 @@ spa:
       #>sale_order_line_update: 'Edit sale order line'
       #>sale_order_lines: 'Selection of the products for the estimate %{sale_order}'
       #>sale_order_nature_create: 'Add a new type of sale'
-      #>sale_order_nature_update: 'Edit the sale order nature: %{name}'
-      #>sale_order_natures: 'Sale order natures'
+      #>sale_order_nature_update: 'Edit the sale order type: %{name}'
+      #>sale_order_natures: 'Sale order types'
       #>sale_order_summary: 'Invoice and payments of the sale order %{number}'
       #>sale_order_update: 'Edit the sale order %{number}'
       #>sale_orders: 'Estimates and orders'
@@ -173,10 +173,10 @@ spa:
       #>stock_transfer_update: 'Edit the stock transfer/loss'
       #>stock_transfers: 'Transfers and loss'
       #>stocks: 'Stocks state'
-      #>subscription_create: 'Add anew subscription'
-      #>subscription_nature_create: 'Add a new subscription nature'
-      #>subscription_nature_update: 'Edit the subscription nature: %{name}'
-      #>subscription_natures: 'Subscription natures'
+      #>subscription_create: 'Add a new subscription'
+      #>subscription_nature_create: 'Add a new subscription type'
+      #>subscription_nature_update: 'Edit the subscription type: %{name}'
+      #>subscription_natures: 'Subscription types'
       #>subscription_update: 'Update subscription: %{number} from %{start} to %{finish}'
       #>subscriptions: 'Subscriptions'
       #>tracking: 'Tracking: %{name}'
@@ -366,9 +366,8 @@ spa:
       #>embankments: 'Transit Letters'
     cash_update: 'Modificar la tresoreria'
     cashes:
-      #>one: 'One'
-      #>other: 'Other'
-      #>zero: 'Zero'
+      #>one: '%{count} cash'
+      #>other: '%{count} cashes'
     #>catalog: 'Catalog'
     #>category: 'Category'
     #>category_name: 'Category'
@@ -412,9 +411,8 @@ spa:
     #>consult: 'Consult'
     #>contact: 'At'
     contacts:
-      #>one: 'One'
-      #>other: 'Other'
-      #>zero: 'Zero'
+      #>one: '%{count} contact'
+      #>other: '%{count} contacts'
     #>contains: 'Contains'
     #>coordinates: 'Coordinates'
     #>copy_of: 'Copy of %{source}'
@@ -438,7 +436,7 @@ spa:
     debit: 'Flujo'
     #>decimal_case: 'Decimal case'
     default_subject: '[%{company}]'
-    delay_create: 'A~nadir un plazo' #!
+    delay_create: 'Añadir un plazo' #!
     delay_update: 'Modifiar el plazo'
     #>delays: 'Delays'
     #>delete: 'Delete'
@@ -483,16 +481,15 @@ spa:
     end: 'al'
     #>entities_export: 'Export as a CSV file'
     #>entities_import: 'Import a CSV file'
-    #>entities_merge: 'Entities merge'
+    #>entities_merge: 'People merge'
     #>entity_category_update: 'Update category'
     entity_links:
-      #>one: 'One'
-      #>other: 'Other'
-      #>zero: 'Zero'
-    #>entity_print: 'Entity print'
-    #>entity_to_delete: 'Entity to delete'
-    #>entity_to_update: 'Entity to update'
-    #>entity_update: 'Entity update'
+      #>one: '%{count} link'
+      #>other: '%{count} links'
+    #>entity_print: 'Person print'
+    #>entity_to_delete: 'Person to delete'
+    #>entity_to_update: 'Person to update'
+    #>entity_update: 'Person update'
     entries: 'Escrituras'
     entries_to_point: 'Escrituras a despuntar'
     error_no_file: 'Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones.'
@@ -626,7 +623,7 @@ spa:
     location:  #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
       stock_moves: 'Movimientos de deposito' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
       stocks: 'Estado de los depositos' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
-    location_create: 'A~nadir un lugar de deposito' #!
+    location_create: 'Añadir un lugar de deposito' #!
     #>location_name: 'Location name'
     location_tabbox:
       #>stock_moves: 'Stocks moves'
@@ -645,9 +642,8 @@ spa:
     #>management_index: 'Management index'
     management_rights: 'Derechos modulo comercio'
     mandates:
-      #>one: 'One mandate'
+      #>one: '%{count} mandate'
       #>other: '%{count} mandates'
-      #>zero: 'No mandates'
     #>mandates_fields: 'You have to fill at least one field'
     #>mandates_filters: 'You have to fill at least one filter'
     #>mandates_new_fields: 'You have to fill at least one new field'
@@ -686,7 +682,7 @@ spa:
     national_normal_vat_collected: 'Tasa normal a 19,6%'
     national_reduce_vat_collected: 'Tasa réducida a 5,5%'
     national_vat_collected: 'Opéraciones réalisadas en Francia métropolitaria'
-    #>nature: 'Nature'
+    #>nature: 'Type'
     nb_checks:
     nb_enbankments:
       one: '1 aposto en banco a validar'
@@ -736,7 +732,7 @@ spa:
       #>one: '1 waiting delivery'
       #>other: '%{count} waiting deliveries'
       #>zero: 'No waiting deliveries'
-    nb_years: 'Nombre de a~nos en el historico'
+    nb_years: 'Nombre de años en el historico'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_location_to_create_production: 'You have to register a warehouse before using production'
     net_vat_amount: 'TVA neta deuda'
@@ -775,9 +771,8 @@ spa:
       #>warning: 'Warning!'
     #>number: 'Number'
     observations:
-      #>one: 'One'
-      #>other: 'Other'
-      #>zero: 'Zero'
+      #>one: '%{count} observation'
+      #>other: '%{count} observations'
     on_account: 'Volver a poner sobre la cuenta'
     #>one_condition: 'One condition'
     operation:
@@ -856,12 +851,11 @@ spa:
     #>purchase_order_update: 'Purchase order update'
     #>purchase_orders: 'Purchase orders'
     purchase_orders_number:
-    #>purchase_payment_part_create: 'Purchase payment part create'
+    #>purchase_payment_part_create: 'Disbursement part create'
     #>purchase_payment_update: 'Edit the payment'
     purchase_payments:
-      #>one: 'One'
-      #>other: 'Other'
-      #>zero: 'Zero'
+      #>one: '%{count} disbursement'
+      #>other: '%{count} disbursements'
     purchase_payments_states:
       #>all: 'All'
       #>undelivered: 'Undelivered'
@@ -893,7 +887,7 @@ spa:
     reported_balance: 'Credito a rendir'
     reservoir: 'Deposito'
     reservoir_informations: 'Informaciones sobre el deposito'
-    reservoirs_create: 'A~nadir un deposito'
+    reservoirs_create: 'Añadir un deposito'
     resource: 'Consultar la pieza de origen : %{resource} %{number}'
     resources: 'Administración de los recursos humanos'
     resources_rights: 'Derechos modulo recursos'
@@ -907,7 +901,7 @@ spa:
     #>reverse: 'Reverse condition'
     rights: 'Derechos'
     #>role: 'Role'
-    role_create: 'A~nadir un papel' #!
+    role_create: 'Añadir un papel' #!
     role_name: 'Entrar el nombre del papel y atribuirle sus derechos'
     roles: 'Papeles'
     running_cost: 'Cargas de explotación'
@@ -971,7 +965,7 @@ spa:
     select_renew_journal: 'Periodico utilizado para los aplazamientos de nuevo'
     send: 'Enviar un correro electronico'
     send_test: 'Enviar un correo electronico de prueba'
-    sequence_create: 'A~nadir une sequencia' #!
+    sequence_create: 'Añadir une sequencia' #!
     sequences: 'Séquencias' #!
     sequences_load: 'Cargar las secuencias faltantes'
     #>shape_name: 'Shape Name'
@@ -986,7 +980,7 @@ spa:
     #>state: 'State'
     #>stock_max: 'Stock max'
     #>stock_min: 'Stock min'
-    stock_move_create: 'A~nadir un movimiento de deposito' #!
+    stock_move_create: 'Añadir un movimiento de deposito' #!
     #>stocks: 'Stocks'
     #>stocks_parameters: 'Stock management'
     #>stop: 'Stop'
@@ -995,7 +989,7 @@ spa:
     #>submit: 'Submit'
     #>subscriber_period: 'Subscribed on %{subscribed_on}'
     #>subscriber_quantity: 'Subscribed at the number %{subscribed_on}'
-    #>subscription_nature: 'Subscription nature'
+    #>subscription_nature: 'Subscription type'
     #>subscription_natures_down: 'Decrement actual number (-1)'
     #>subscription_natures_up: 'Increment actual number (+1)'
     #>subscriptions: 'Abonnements'
@@ -1031,7 +1025,7 @@ spa:
     #>unembanked: 'Unembanked'
     #>uninvoiced_amount: 'Uninvoiced amount'
     unit: 'Unidad'
-    unit_create: 'A~nadir una nueva unidad de medida' #!
+    unit_create: 'Añadir una nueva unidad de medida' #!
     units_load: 'Cargar las unidades de base que falten'
     #>unknown_condition: 'Unknown condition'
     #>unlock: 'Unlock'
@@ -1052,7 +1046,7 @@ spa:
     #>usage: 'Usage'
     use_renew: 'Seleccionar un periodico para los aplazamientos de nuevo'
     used_accounts: 'Cuentos utilozados unico'
-    user_create: 'A~nadir un nuevo utilizador' #!
+    user_create: 'Añadir un nuevo utilizador' #!
     user_update: 'Modificar las informaciones del utilizador'
     username: 'Nombre de usuario'
     #>uses: 'Tools'

@@ -651,7 +651,7 @@ module Ekylibre
 
         def operation(record='record')
           link_options = {}
-          link_options[:confirm] = ::I18n.translate('general.'+@options[:confirm].to_s) unless @options[:confirm].nil?
+          link_options[:confirm] = ::I18n.translate('labels.'+@options[:confirm].to_s) unless @options[:confirm].nil?
           link_options[:method]  = @options[:method]     unless @options[:method].nil?
           link_options = link_options.inspect.to_s
           link_options = link_options[1..-2]
@@ -663,7 +663,7 @@ module Ekylibre
           format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
           if @options[:remote] 
             remote_options = @options.dup
-            remote_options[:confirm] = ::I18n.translate('general.'+@options[:confirm].to_s) unless @options[:confirm].nil?
+            remote_options[:confirm] = ::I18n.translate('labels.'+@options[:confirm].to_s) unless @options[:confirm].nil?
             remote_options.delete :remote
             remote_options.delete :image
             remote_options = remote_options.inspect.to_s
@@ -671,7 +671,7 @@ module Ekylibre
             code  = "link_to_remote(#{image}"
             code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
-            code += ", {:title=>::I18n.t('general.#{verb}')}"
+            code += ", {:title=>::I18n.t('labels.#{verb}')}"
             code += ")"
           elsif @options[:actions]
             raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
@@ -680,7 +680,7 @@ module Ekylibre
               v = a[1][:action].to_s.split('_')[-1]
               cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
-                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('general.#{v}')}"+
+                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('labels.#{v}')}"+
                 ")\n"
             end
 
@@ -692,7 +692,7 @@ module Ekylibre
             url[:id] ||= "RECORD.id"
             url.delete_if{|k, v| v.nil?}
             url = "{"+url.collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")+format+"}"
-            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('general.#{verb}')}"
+            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('labels.#{verb}')}"
             code = "link_to("+image+", "+url+", "+code+")"
           end
           code = "if ("+@options[:if].gsub('RECORD', record)+")\n"+code+"\n end" if @options[:if]

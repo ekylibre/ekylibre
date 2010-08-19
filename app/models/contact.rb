@@ -93,7 +93,8 @@ class Contact < ActiveRecord::Base
     end
   end
 
-  def update_without_callbacks
+  def update # _without_callbacks
+    # raise Exception.new "UPDAAAAAAAAAAAATE"
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
     nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
@@ -101,7 +102,7 @@ class Contact < ActiveRecord::Base
     return nc
   end
 
-  def destroy_without_callbacks
+  def destroy # _without_callbacks
     unless new_record?
       self.class.update_all({:deleted_at=>Time.now}, {:id=>self.id})
     end

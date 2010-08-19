@@ -197,7 +197,8 @@ module ApplicationHelper
   end
 
   def locale_selector
-    select_tag("locale", options_for_select(::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| [::I18n.translate("i18n.name", :locale=>l), l]}, :selected=>::I18n.locale), :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
+    # , :selected=>::I18n.locale)
+    select_tag("locale", ::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(::I18n.locale == l ? {:selected=>true} : {}))}.join.html_safe, :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
   end
 
 
@@ -276,9 +277,6 @@ module ApplicationHelper
         record = value
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
         options[:url][:id] ||= record.id if options[:url]
-        # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id"
-      else
-        # label = t "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}"
       end
       value_class += ' code' if attribute.to_s == "code"
     end

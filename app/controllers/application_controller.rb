@@ -356,12 +356,12 @@ class ApplicationController < ActionController::Base
       # this action updates an existing record with a form.
       code += "def #{methods_prefix}_update\n"
       code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+      code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
       code += "  if request.post? or request.put?\n"
       raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
       code += "    @#{record_name}.attributes = params[:#{record_name}]\n"
       code += "    return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
       code += "  end\n"
-      code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
       code += "  render_form #{partial}\n"
       code += "end\n"
     end

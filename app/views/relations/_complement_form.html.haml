@@ -5,7 +5,7 @@
   -if @complement.new_record?
     -f.field :complement, :nature, :choices=>Complement.natures 
   -else
-    -f.field t('activerecord.attributes.complement.nature'), t('models.complement.natures.'+@complement.nature)
+    -f.field Complement.human_attribute_name('nature'), t('models.complement.natures.'+@complement.nature)
   -f.field :complement, :active
   -f.field :complement, :required
   -f.title :string_case

@@ -10,77 +10,77 @@ spa:
     day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
     formats:
       default: '%d/%m/%Y'
-      #>legal: '%d %B %Y'
-      #>long: '%B %d, %Y'
-      #>month_letter: '%d %B %Y'
-      #>short: '%b %d'
+      legal: '%d %B %Y'
+      long: '%B %d, %Y'
+      month_letter: '%d %B %Y'
+      short: '%b %d'
     month_names: ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
     order: [:day, :month, :year]
   datetime:
     distance_in_words:
       about_x_hours:
-        #>many: 'about %{count} hours'
-        #>one: 'about 1 hour'
+        many: 'alrededor de %{count} horas'
+        one: 'alrededor de 1 hora'
       about_x_months:
-        #>many: 'about %{count} months'
-        #>one: 'about 1 month'
+        many: 'alrededor de %{count} meses'
+        one: 'alrededor de 1 mes'
       about_x_years:
-        #>many: 'about %{count} years'
-        #>one: 'about 1 year'
-      #>half_a_minute: 'half a minute'
+        many: 'alrededor de %{count} años'
+        one: 'alrededor de 1 año'
+      half_a_minute: 'half a minuto'
       less_than_x_minutes:
-        #>many: 'less than %{count} minutes'
-        #>one: 'less than a minute'
+        many: 'menos de %{count} minutos'
+        one: 'menos de 1 minuto'
       less_than_x_seconds:
-        #>many: 'moins de %{count} secondes'
-        #>one: 'moins d''une seconde'
+        many: 'menos de %{count} segundos'
+        one: 'menos de 1 segundo'
       over_x_years:
-        #>many: 'over %{count} years'
-        #>one: 'over 1 year'
+        many: 'más de %{count} años'
+        one: 'más de 1 año'
       x_days:
-        #>many: '%{count} days'
-        #>one: '1 day'
+        many: '%{count} días'
+        one: '1 día'
       x_minutes:
-        #>many: '%{count} minutes'
-        #>one: '1 minute'
+        many: '%{count} minutos'
+        one: '1 minuto'
       x_months:
-        #>many: '%{count} months'
-        #>one: '1 month'
+        many: '%{count} meses'
+        one: '1 mes'
       x_seconds:
-        #>many: '%{count} secondes'
-        #>one: '1 seconde'
+        many: '%{count} segundos'
+        one: '1 segundo'
   dyta:
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
+      csv: 'CSV'
+      false_value: 'No'
+      title: 'Exportar'
+      true_value: 'Sí'
+      xcsv: 'CSV para Excel'
+    next: 'Siguiente'
+    no_records: 'Vacío'
+    previous: 'Anterior'
   number:
     currency:
       format:
-        #>delimiter: ','
-        #>format: '%u%n'
-        #>precision: 2
-        #>separator: '.'
-        #>unit: '$'
+        delimiter: ','
+        format: '%u%n'
+        precision: 2
+        separator: '.'
+        unit: '€'
     format:
-      #>delimiter: ' '
-      #>precision: 3
-      #>separator: ','
+      delimiter: ' '
+      precision: 3
+      separator: ','
     human:
       format:
-        #>delimiter: ''
-        #>precision: 1
+        delimiter: ''
+        precision: 1
     percentage:
       format:
-        #>delimiter: ''
+        delimiter: ''
     precision:
       format:
-        #>delimiter: ''
+        delimiter: ''
   support:
     array:
       last_word_connector: ' y '
@@ -91,6 +91,6 @@ spa:
     am: 'am'
     formats:
       default: '%d %b. %Y - %H:%M:%S'
-      #>long: '%B %d, %Y %H:%M'
-      #>short: '%d %b %H:%M'
+      long: '%B %d, %Y %H:%M'
+      short: '%d %b %H:%M'
     pm: 'pm'

@@ -242,9 +242,9 @@ class ListingNode < ActiveRecord::Base
     return nodes unless self.reflection?
     model = self.model
     # Columns
-    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']]+model.content_columns.collect{|x| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+x.name.to_s).to_s, "column-"+x.name]}.sort ]
+    nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']]+model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections
-    nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [I18n::t('activerecord.attributes.'+model.name.underscore+'.'+a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
+    nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes
   end
   

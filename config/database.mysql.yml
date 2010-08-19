@@ -19,7 +19,7 @@ development:
   encoding: utf8
   reconnect: false
   database: ekylibre_development
-  pool: 5
+  pool: 20
   username: __username__
   password: __password__
   host: localhost
@@ -33,7 +33,7 @@ test:
   encoding: utf8
   reconnect: false
   database: ekylibre_test
-  pool: 5
+  pool: 20
   username: __username__
   password: __password__
   host: localhost
@@ -44,7 +44,7 @@ production:
   encoding: utf8
   reconnect: false
   database: ekylibre_production
-  pool: 5
+  pool: 20
   username: __username__
   password: __password__
   host: localhost

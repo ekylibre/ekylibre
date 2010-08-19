@@ -206,11 +206,11 @@ Section
   ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
 
   ; Ekylibre Service
-  ;SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\mongrel_service.exe" single -e production -p ${WSPORT} -a 0.0.0.0 -l "log\mongrel.log" -P "log\mongrel.pid" -c "$InstApp/apps/ekylibre" -t 0 -r "public" -n 1024' "EkyDatabase" "" ""
+  ; SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\mongrel_service.exe" single -e production -p ${WSPORT} -a 0.0.0.0 -l "log\mongrel.log" -P "log\mongrel.pid" -c "$InstApp/apps/ekylibre" -t 0 -r "public" -n 1024' "EkyDatabase" "" ""
   SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\srvany.exe"' "EkyDatabase" "" ""
-  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "Application" '"$InstApp\ruby\bin\ruby.exe"'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "Application" '$InstApp\ruby\bin\ruby.exe'
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production'
-  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppDirectory" '"$InstApp\apps\ekylibre"'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppDirectory" '$InstApp\apps\ekylibre'
 
   Pop $0
   ${If} $0 <> 0

@@ -11,7 +11,7 @@ gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "thoughtbot-shoulda", :require => 'shoulda'
 gem "will_paginate", "~> 3.0.pre2"
-gem "exception_notifier"
+# gem "exception_notifier"
 
 
 

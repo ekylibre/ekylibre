@@ -68,11 +68,7 @@ class Listing < ActiveRecord::Base
   def selected_attr
     attrs = []
     for node in self.exportable_columns
-      #name = I18n::t('activerecord.attributes.'+node.name)
-      #attrs << "#{node.parent.key}.#{node.name} AS \"#{name}\" "
-      
       name = node.label
-      #name = I18n::t('activerecord.attributes.'+node.model.name.underscore+'.'+node.name) ## delete what is after "_" ex: company_0
       attrs << "#{node.name} AS \"#{name}\" "
     end
     attrs = attrs.join(", ")

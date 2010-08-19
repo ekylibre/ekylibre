@@ -29,10 +29,9 @@ Ekylibre::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
-
-  # Configure exception notification
-  # config.middleware.use ExceptionNotifier, :email_prefix => "[Ekylibre] ", :sender_address => %{"notifier" <no-reply@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
+  config.serve_static_assets = true
+  # It's necessary to activate this, because in production, We use mongrel, thin or webrick which need that
+  # config.serve_static_assets = false
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -48,6 +47,6 @@ Ekylibre::Application.configure do
   config.i18n.fallbacks = true
 
   # Report deprecation notices
-  config.active_support.deprecation = :log
+  config.active_support.deprecation = :notify
 
 end

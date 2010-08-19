@@ -33,7 +33,6 @@ GEM
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
-    exception_notifier (1.0.0)
     fastercsv (1.5.3)
     haml (3.0.15)
     i18n (0.4.1)
@@ -77,7 +76,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  exception_notifier
   fastercsv
   haml
   libxml-ruby

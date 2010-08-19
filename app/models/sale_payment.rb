@@ -72,6 +72,7 @@ class SalePayment < ActiveRecord::Base
   
   def prepare_on_create
     self.created_on ||= Date.today
+    self.to_bank_on ||= Date.today
     specific_numeration = self.company.parameter("management.payments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value

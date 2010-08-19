@@ -137,7 +137,7 @@ class ManagementController < ApplicationController
 
 
       csv_data = FasterCSV.generate do |csv|
-        csv << [::I18n.t('activerecord.models.product'), ::I18n.t('activerecord.attributes.product.sales_account_id')]+months
+        csv << [Product.model_name.human, Product.human_attribute_name('sales_account_id')]+months
         for product in @current_company.products.find(:all, :order=>"active DESC, name")
           valid = false
           data[product.id.to_s].collect do |k,v|
@@ -151,7 +151,7 @@ class ManagementController < ApplicationController
         end
       end
       
-      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>::I18n.translate("activerecord.models.#{source}")+'.csv'
+      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>source.classify.contantize.model_name.human+'.csv'
     end
 
 
@@ -307,7 +307,7 @@ class ManagementController < ApplicationController
 
   dyta(:credit_lines, :model=>:invoice_lines, :conditions=>{:invoice_id=>['session[:invoice_id]']}) do |t|
     t.column :name, :through=>:product
-    t.column :amount_with_taxes, :through=>:price, :label=>::I18n.t('activerecord.attributes.price.amount_with_taxes')
+    t.column :amount_with_taxes, :through=>:price, :label=>Price.human_attribute_name('amount_with_taxes')
     t.column :quantity
     t.column :credited_quantity, :datatype=>:decimal
     t.check  :validated, :value=>"true", :label=>'OK'
@@ -802,7 +802,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number], :entities=>[:code, :full_name]), :joins=>"JOIN entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
+  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number ,:url=>{:action=>:purchase_order}
     t.column :planned_on
     t.column :moved_on

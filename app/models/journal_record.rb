@@ -98,7 +98,7 @@ class JournalRecord < ActiveRecord::Base
     return unless self.created_on
     if self.journal
       if self.printed_on <= self.journal.closed_on
-        errors.add_to_base(:closed_journal, :on=>::I18n.localize(self.journal.closed_on))
+        errors.add_to_base(:closed_journal, :journal=>self.journal.name, :on=>::I18n.localize(self.journal.closed_on))
         return false
       end
     end

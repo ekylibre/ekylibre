@@ -1,4 +1,6 @@
 =formalize do |f|
+  -f.error 'entity_category'
+  -f.title :general_informations
   -f.field :entity_category, :name
   -f.field :entity_category, :by_default
   -f.field :entity_category, :description, :field=>:textarea
