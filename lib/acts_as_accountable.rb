@@ -31,11 +31,11 @@ module ActiveRecord
             raise ArgumentError.new("reflection unknown (#{self.reflections.keys.to_sentence} available)") unless ref
             
             if ref.macro == :belongs_to or ref.macro == :has_one
-              code += "  self.#{reflection}.save if self.#{reflection}\n"
+              code += "  self.#{reflection}.reload.save if self.#{reflection}\n"
             else
               code += "  for item in #{reflection}\n"
-              code += "    item.save\n"
-              code += "  end\n"            
+              code += "    item.reload.save\n"
+              code += "  end\n"
             end
           end
           code += "end\n"

@@ -1,5 +1,5 @@
 -listing_node = listing_node_comparison
-=link_to_function(listing_node.comparison, "this.hide(); $('#{listing_node.key}_comparator_form').show();")
+=link_to_function(listing_node.comparison, "this.hide(); $('#{listing_node.key}_comparator_form').show();", :class=>"icon im-filter")
 =form_remote_tag(:url=>{:action=>:listing_node_update, :id=>listing_node.id, :type=>"comparison"}, :update=>"#{listing_node.key}_comparator", :html=>{:id=>"#{listing_node.key}_comparator_form", :style=>"display: none;"}) do
   =select_tag("comparator", options_for_select(listing_node.comparators, listing_node.condition_operator))
   -if listing_node.sql_type.to_s == "date"

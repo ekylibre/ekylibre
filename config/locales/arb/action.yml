@@ -49,7 +49,7 @@ arb:
     application:
     authentication:
       login: 'الدخول'
-      #>logout: 'Logout'
+      logout: 'الخروج'
       register: 'تسجيل شركة'
     company:
       about: 'وحول ايكيليبغ'

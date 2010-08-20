@@ -16,7 +16,7 @@
       #wrap.wrap.hbox.flex
         #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
         #help.help.flex-3.anchor-right{:style=>("display:none;" unless session[:help])}=help_tag
-        #main.main.flex-9{:class=>("with-side" if session[:side])}
+        #main.main.flex-9{:class=>"#{'with-side' if session[:side]} #{'with-help' if session[:help]}"}
           .nav
             =help_link_tag
             =side_link_tag

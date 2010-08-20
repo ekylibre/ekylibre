@@ -35,7 +35,8 @@ module ManagementHelper
       if not @sale_order.new_record? and active.nil? and SALE_STEPS[index][:states].include?(SALE_ORDER_SATES[@sale_order.state])
         title = link_to(title, :action=>SALE_STEPS[index][:actions][0], :id=>@sale_order.id.to_s)
       end
-      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+      # code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+      code += content_tag(:td, '&nbsp;'.html_safe) if index>0
       code += content_tag(:td, title, :class=>'step'+active.to_s)
       last_active = active
     end
@@ -60,7 +61,8 @@ module ManagementHelper
       if not @purchase_order.new_record? and active.nil?
         title = link_to(title, :action=>PURCHASE_STEPS[index][:actions][0], :id=>@purchase_order.id.to_s)
       end
-      code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+      # code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+      code += content_tag(:td, '&nbsp;'.html_safe) if index>0
       code += content_tag(:td, title, :class=>'step'+active.to_s)
       last_active = active
     end

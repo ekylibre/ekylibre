@@ -50,6 +50,8 @@ module Ekylibre
 
     # Configure exception notification
     # config.middleware.use ExceptionNotifier, :email_prefix => "[Ekylibre] ", :sender_address => %{"notifier" <no-reply@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
+
+    config.middleware.use Sass::Plugin::Rack
   end
 end
 

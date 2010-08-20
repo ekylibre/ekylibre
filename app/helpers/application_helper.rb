@@ -407,15 +407,16 @@ module ApplicationHelper
     code = ''
 
     # User Tag
-    tag = ''
+    tag = []
     if @current_user
+      
       # parameter = @current_user.parameter("interface.general.resized", true, :boolean)
-      # tag += link_to("", {:resized=>(parameter.value.is_a?(TrueClass) ? "0" : "1")}, {:class=>:resize})+" "
-      tag += content_tag(:span, @current_user.label)+" "
-      tag += content_tag(:span, @current_company.name)+" "
-      tag += link_to(t("actions.authentication.logout"), {:controller=>:authentication, :action=>:logout}, :class=>:logout)+" "
+      # tag += link_to("", {:resized=>(parameter.value.is_a?(TrueClass) ? "0" : "1")}, {:class=>"icon im-resize"})+" "
+      tag << content_tag(:a, @current_user.label)
+      tag << content_tag(:a, @current_company.name)
+      tag << link_to(t("actions.authentication.logout"), {:controller=>:authentication, :action=>:logout}, :class=>"icon im-logout")
     end
-    code += content_tag(:div, tag.html_safe, :id=>:user, :class=>:menu, :align=>:right)
+    code += content_tag(:div, tag.join(" ").html_safe, :id=>:user, :class=>:menu)
 
     code += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
 
@@ -458,7 +459,7 @@ module ApplicationHelper
   def help_link_tag(options={})
     return '' if @current_user.blank?
     options[:class] ||= ""
-    options[:class] += " help-link help-open"
+    options[:class] += " icon im-help help-link"
     options[:style] = "display:none" if session[:help]
     url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
@@ -749,7 +750,7 @@ module ApplicationHelper
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          args[2][:class] ||= name.to_s.split('_')[-1]
+          args[2][:class] ||= "icon im-"+name.to_s.split('_')[-1]
           if args[1].is_a? Hash and args[1][:remote]
             args[1].delete(:remote)
             args[1][:url] ||= {}
@@ -767,7 +768,7 @@ module ApplicationHelper
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
-              args[2][:class] = args[1][:action].to_s.split('_')[-1] if args[1][:action]
+              args[2][:class] = "icon im-"+args[1][:action].to_s.split('_')[-1] if args[1][:action]
             end
             code += li_link_to(*args)
           end
@@ -781,7 +782,7 @@ module ApplicationHelper
           args[1][:p0] ||= args[1][:id]
           args[1][:id] = name
           args[1][:format] = "pdf"
-          args[2][:class] = "print"
+          args[2][:class] = "icon im-print"
           #          raise Exception.new "ok"+args.inspect
           for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
             args[0] = tc(:print_with_template, :name=>dc.name)
@@ -794,25 +795,25 @@ module ApplicationHelper
           # args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
           args[0] = tl(name) if name.is_a? Symbol
           args[2] ||= {}
-          args[2][:class] ||= name.to_s.split('_')[-1]
+          args[2][:class] ||= "icon im-"+name.to_s.split('_')[-1]
           code += content_tag(:li, link_to_function(*args).to_s)
         elsif nature == :mail
           args[2] ||= {}
-          args[2][:class] = :mail
+          args[2][:class] = "icon im-mail"
           code += content_tag(:li, mail_to(*args).to_s)
         elsif nature == :update
           action = args.class.name.underscore+"_update"
           url_options = {} unless url_options.is_a? Hash
           url_options[:action] = action
           url_options[:id] = args.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>:update})) if not record.respond_to?(:updatable?) or (record.respond_to?(:updatable?) and record.updatable?)
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-update"})) if not record.respond_to?(:updatable?) or (record.respond_to?(:updatable?) and record.updatable?)
         elsif nature == :missing
           verb, record = tool[1], tool[2]
           action = "#{record.class.name.underscore}_#{verb}"
           url_options = {} unless url_options.is_a? Hash
           url_options[:action] = action
           url_options[:id] = record.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, {:class=>verb}))
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, {:class=>"icon im-#{verb}"}))
         end
       end
       if code.strip.length>0

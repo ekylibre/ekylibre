@@ -2,40 +2,23 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.0.0.rc'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
 gem "haml"
+require 'sass/plugin/rack'
+
 gem "fastercsv"
 gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
-gem "thoughtbot-shoulda", :require => 'shoulda'
 gem "will_paginate", "~> 3.0.pre2"
-# gem "exception_notifier"
 
+group :production do
+  # gem "exception_notifier"
+end  
 
+group :test do
+  gem "thoughtbot-shoulda", :require => 'shoulda'
+end  
 
 # gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'pg'
 gem 'mysql'
 
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
-
-# To use debugger
-# gem 'ruby-debug'
-
-# Bundle the extra gems:
-# gem 'bj'
-# gem 'nokogiri', '1.4.1'
-# gem 'aws-s3', :require => 'aws/s3'
-
-# Bundle gems for certain environments:
-# gem 'rspec', :group => :test
-# group :test do
-#   gem 'webrat'
-# end

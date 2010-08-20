@@ -4,11 +4,11 @@
 -params[:conditions][id] ||= {}
 .condition{:id=>id}
   .title
-    .right-menu=link_to_function(tg(:delete), "$('#{id}').remove();", :class=>"help-close")
+    .right-menu=link_to_function(tg(:delete), "$('#{id}').remove();", :class=>"icon im-delete")
     .right-menu
       =check_box_tag("conditions[#{id}][reverse]", "1", params[:conditions][id][:reverse], :id=>"conditions_#{id}_reverse")
       %label{:for=>"conditions_#{id}_reverse"}=tc(:reverse)
-    %h3=condition_label(condition)
+    %h3.icon.im-filter=condition_label(condition)
   .parameters
     =hidden_field_tag("conditions[#{id}][type]", condition)
     .param

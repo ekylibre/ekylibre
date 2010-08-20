@@ -40,7 +40,7 @@ function toggleMenu(element) {
 
 
 function _resize() {
-  /* return 0;*/
+  /* return 0; */
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
@@ -70,6 +70,11 @@ function resize2() {
 
 function toggleHelp(help, show, resized) {
   toggleElement(help, show, help+'-open');
+  if ($('help').style.display=='none') {
+    $('main').removeClassName('with-help');
+  } else {
+    $('main').addClassName('with-help');
+  }
   if (resized === undefined) {
     return resize();
   } else {
@@ -80,6 +85,7 @@ function toggleHelp(help, show, resized) {
 function openHelp() {
   $('help-open').setStyle({display: 'none'});
   $('help').setStyle({display:'block'});
+  $('main').addClassName('with-help');
   return resize();
 }
 
@@ -87,6 +93,7 @@ function openHelp() {
 function closeHelp() {
   $('help-open').setStyle({display: 'block'});
   $('help').setStyle({display:'none'});
+  $('main').removeClassName('with-help');
   return resize();
 }
 

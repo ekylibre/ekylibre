@@ -28,8 +28,8 @@
         %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
   -if register or download_firefox
     .actions
-      =link_to(t("actions.authentication.register"), {:action=>:register}, :class=>"register") if register
-      =link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"firefox") if download_firefox
+      =link_to(t("actions.authentication.register"), {:action=>:register}, :class=>"icon im-register") if register
+      =link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"icon im-firefox") if download_firefox
 -if bad_browser
   #bad_browser.login
     .logoban
