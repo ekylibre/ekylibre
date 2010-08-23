@@ -244,6 +244,37 @@ module ApplicationHelper
 #     end
 #   end
 
+
+  def link_to(*args, &block)
+    if block_given?
+      options      = args.first || {}
+      html_options = args.second
+      link_to(capture(&block), options, html_options)
+    else
+      name         = args[0]
+      options      = args[1] || {}
+      html_options = args[2]
+
+      if options.is_a? Hash
+        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless controller.accessible?(options) 
+      end
+      
+      html_options = convert_options_to_data_attributes(options, html_options)
+      url = url_for(options)
+      
+      if html_options
+        html_options = html_options.stringify_keys
+        href = html_options['href']
+        tag_options = tag_options(html_options)
+      else
+        tag_options = nil
+      end
+      
+      href_attr = "href=\"#{html_escape(url)}\"" unless href
+      "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
+    end
+  end
+
   def li_link_to(*args)
     options      = args[1] || {}
     if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
