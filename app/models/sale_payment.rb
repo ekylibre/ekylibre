@@ -100,7 +100,7 @@ class SalePayment < ActiveRecord::Base
   end
 
   def label
-    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number, :currency=>self.currency.code)
+    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number, :currency=>self.company.default_currency.code)
   end
 
   def unused_amount
