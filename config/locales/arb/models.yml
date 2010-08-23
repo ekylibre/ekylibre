@@ -536,7 +536,7 @@ arb:
         odd: '{{attribute}} يجب ان يكون فردي'
         posterior: '{{attribute}}  يجب ان يكون التاريخ في وقت لاحق {{to}}'
         record_has_been_already_validated: 'اصبح السجل متوفرا ولا يمكن التعديل'
-        #>record_invalid: 'Validations failed : %{errors}'
+        record_invalid: 'Validations failed : %{errors}'
         taken: '{{attribute}} قد تم اتخاذه مسبقا'
         too_long: '{{attribute}} طويل جدا ({{count}}الحد الاقصى للاحرف)'
         too_short: '{{attribute}} قصير جدا ({{count}}الحد الادنى للاحرف)'

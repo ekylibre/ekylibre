@@ -17,7 +17,7 @@ fra:
       cash_create: 'Enregistrer une nouvelle trésorerie'
       cash_update: 'Modifier la trésorerie : %{name}'
       cashes: 'Trésoreries'
-      document_prepare: 'Choisissez le type de document à imprimer'
+      document_prepare: 'Choisissez le type de document à imprimer' #!
       document_print: 'Impression, exportation'
       draft_entries: 'Brouillard'
       financialyear: 'Exercice comptable %{code}'
@@ -71,7 +71,7 @@ fra:
       index: 'Bonjour, %{user}'
       listing_create: 'Création d''une nouvelle extraction'
       listing_mail: 'Envoyer un mail pour "%{listing}"'
-      listing_nodes: 'Choisissez les informations à extraire'
+      listing_nodes: 'Choisissez les informations à extraire' #!
       listing_update: 'Modifier l''extraction : %{name}'
       listings: 'Exportations et mailings'
       role_create: 'Ajouter un rôle'
@@ -984,6 +984,7 @@ fra:
     to_date: 'Au'
     to_deliver: 'Livrer'
     to_embank: 'À encaisser'
+    #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_update: 'Modifier le matériel'
     tool_use_create: 'Ajouter un matériel'
     tools: 'Matériel utilisé'

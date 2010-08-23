@@ -34,7 +34,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.3)
-    haml (3.0.15)
+    haml (3.0.16)
     i18n (0.4.1)
     libxml-ruby (1.1.4)
     mail (2.2.5)

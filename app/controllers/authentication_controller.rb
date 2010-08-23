@@ -43,6 +43,17 @@ class AuthenticationController < ApplicationController
         notify(:no_authenticated, :error, :now)
       end
     else
+      unless params[:locale]
+        if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
+          ::I18n.locale = params[:locale] = ::I18n.default_locale
+        else
+          codes = {}
+          for l in ::I18n.active_locales
+            codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
+          end
+          ::I18n.locale = params[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x]}]
+        end
+      end
       session[:side] = false
       session[:help] = false
     end

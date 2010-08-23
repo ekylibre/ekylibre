@@ -21,7 +21,6 @@ eng:
       #>cash_delete: 'Cash delete'
       cash_update: 'Update cash: %{name}'
       cashes: 'Cash'
-      document_prepare: 'Choose the type of documents to print' #!
       document_print: 'Prints, exportations'
       draft_entries: 'Draft'
       financialyear: 'Period %{code}'
@@ -93,7 +92,6 @@ eng:
       #>listing_node_create: 'Listing node create'
       #>listing_node_delete: 'Listing node delete'
       #>listing_node_update: 'Listing node update'
-      listing_nodes: 'Choose informations to extract' #!
       listing_update: 'Edit the listing: %{name}'
       listings: 'Listings and mailings'
       #>print: 'Print'
@@ -1099,6 +1097,7 @@ eng:
     to_date: 'To date'
     to_deliver: 'To deliver'
     to_embank: 'To embank'
+    toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_update: 'Update tool'
     tool_use_create: 'Add a tool'
     tools: 'Used tools'

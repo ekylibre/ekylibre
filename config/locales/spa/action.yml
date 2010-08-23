@@ -17,7 +17,7 @@ spa:
       cash_create: 'Registrar una nueva tresoreria'
       cash_update: 'Modificar la tresoreria : %{name}'
       cashes: 'Tresorerias'
-      document_prepare: 'Escoger el tipo de documento a imprimir'
+      document_prepare: 'Escoger el tipo de documento a imprimir' #!
       document_print: 'Impresion, exportacion'
       draft_entries: 'Niebla'
       financialyear: 'Exercicio contable %{code}'
@@ -71,7 +71,7 @@ spa:
       index: 'Hola, %{user}'
       listing_create: 'Créacion de nueva extraccion'
       listing_mail: 'Enviar un correo electronico para "%{listing}"'
-      listing_nodes: 'Escoge las informaciones para extraer'
+      listing_nodes: 'Escoge las informaciones para extraer' #!
       listing_update: 'Modificacion de la extraccion : %{name}'
       listings: 'Exportacion y mailing'
       role_create: 'Añadir un papel'
@@ -1008,6 +1008,7 @@ spa:
     #>to_date: 'To date'
     #>to_deliver: 'To deliver'
     #>to_embank: 'To embank'
+    #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
     #>tool_update: 'Update tool'
     #>tool_use_create: 'Add a tool'
     #>tools: 'Used tools'

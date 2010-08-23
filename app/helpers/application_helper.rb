@@ -198,7 +198,16 @@ module ApplicationHelper
 
   def locale_selector
     # , :selected=>::I18n.locale)
-    select_tag("locale", ::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}.collect{|l| content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(::I18n.locale == l ? {:selected=>true} : {}))}.join.html_safe, :onchange=>remote_function(:url=>{:controller=>:application, :action=>:i18nize}, :with=>"'locale='+this.value", :success=>"window.location.replace('#{request.url}')"))
+    locales = ::I18n.active_locales.sort{|a,b| a.to_s<=>b.to_s}
+    locale = nil # ::I18n.locale
+    if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
+      locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
+    end
+    locale ||= ::I18n.locale||::I18n.default_locale
+    options = locales.collect do |l|
+                 content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(locale == l ? {:selected=>true} : {}))
+               end.join.html_safe
+    select_tag("locale", options,  :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
   end
 
 
@@ -402,6 +411,10 @@ module ApplicationHelper
   end
 
 
+  def resizable?
+    return ((@current_user and @current_user.parameter("interface.general.resized", true, :boolean).value) or @current_user.nil?)
+  end
+
   def top_tag
     session[:last_page] ||= {}
     code = ''
@@ -409,9 +422,10 @@ module ApplicationHelper
     # User Tag
     tag = []
     if @current_user
-      
-      # parameter = @current_user.parameter("interface.general.resized", true, :boolean)
-      # tag += link_to("", {:resized=>(parameter.value.is_a?(TrueClass) ? "0" : "1")}, {:class=>"icon im-resize"})+" "
+      parameter = @current_user.parameter("interface.general.resized", true, :boolean)
+      resized = parameter.value
+      tag << link_to("", {:resized=>(resized ? "0" : "1")}, {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode)})+" "
+      # tag << content_tag(:a, @current_user.label)
       tag << content_tag(:a, @current_user.label)
       tag << content_tag(:a, @current_company.name)
       tag << link_to(t("actions.authentication.logout"), {:controller=>:authentication, :action=>:logout}, :class=>"icon im-logout")

@@ -11,7 +11,7 @@
     =javascript_include_tag "dyke"
     =#javascript_include_tag "raphael", "openlayers"
   %body
-    #body.flex
+    #body.flex{:class=>("resizable" if resizable?)}
       #top=top_tag
       #wrap.wrap.hbox.flex
         #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag

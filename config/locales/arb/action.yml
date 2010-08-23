@@ -17,7 +17,7 @@ arb:
       cash_create: 'التسجيل لخزينة جديدة'
       cash_update: 'تعديل الخزينة : {{name}}'
       cashes: 'الخزينة'
-      document_prepare: 'اختيار نوع الوثيقةوطبعها'
+      document_prepare: 'اختيار نوع الوثيقةوطبعها' #!
       document_print: 'طباعة وتصدير'
       draft_entries: 'المسودات'
       financialyear: 'ممارسة المحاسبة {{code}}'
@@ -71,7 +71,7 @@ arb:
       index: 'صباح الخير، {{user}}'
       listing_create: 'انشاء استخلاص جديد'
       listing_mail: 'ارسال الرسالة ل "{{listing}}"'
-      listing_nodes: 'اختر المعلومات المستخرجة'
+      listing_nodes: 'اختر المعلومات المستخرجة' #!
       listing_update: 'تعديل المستخرج : {{name}}'
       listings: 'الصادرات وارسال الرسائل'
       role_create: 'اضافة مهام'
@@ -794,10 +794,10 @@ arb:
     #>operation_lines: 'Incoming and outgoing products'
     operation_nature_create: 'انشاء نوع عمل جديد' #!
     operation_update: 'تعديل العمل'
-    operations:  #! String excepted (Hash:{:zero=>"ولا اي عم3104", :one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111"})
-      one: 'عمل واحد' #! String excepted (Hash:{:zero=>"ولا اي عم3104", :one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111"})
-      other: '{{count}} اعمال اخرى' #! String excepted (Hash:{:zero=>"ولا اي عم3104", :one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111"})
-      zero: 'ولا اي عمل' #! String excepted (Hash:{:zero=>"ولا اي عم3104", :one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111"})
+    operations:  #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
+      one: 'عمل واحد' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
+      other: '{{count}} اعمال اخرى' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
+      zero: 'ولا اي عمل' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
     #>order: 'Order'
     order_amount_with_taxes: 'قيمة الطلب مع الضرائب'
     order_print: 'طباعة الطلب'
@@ -956,10 +956,10 @@ arb:
     sale_payment_create: 'اضافة دفعة جديدة' #!
     sale_payment_part_create: 'اضافة دفعة للشراء'
     sale_payment_update: 'تعديل الدفعة'
-    sale_payments:  #! String excepted (Hash:{:zero=>"ولااية دفع3051", :one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111"})
-      one: 'دفعة واحدة' #! String excepted (Hash:{:zero=>"ولااية دفع3051", :one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111"})
-      other: '{{count}} دفعات اخرى' #! String excepted (Hash:{:zero=>"ولااية دفع3051", :one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111"})
-      zero: 'ولااية دفعة' #! String excepted (Hash:{:zero=>"ولااية دفع3051", :one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111"})
+    sale_payments:  #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
+      one: 'دفعة واحدة' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
+      other: '{{count}} دفعات اخرى' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
+      zero: 'ولااية دفعة' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
     sale_payments_states:
       #>all: 'All'
       #>unembanked: 'Unembanked'
@@ -1032,10 +1032,10 @@ arb:
     subscription_nature_create: 'اضافة نوع اشتراك جديد' #!
     subscription_natures_down: '(-1) انقاص العدد الحالي'
     subscription_natures_up: '(+1) زيادة العدد الحالي'
-    subscriptions:  #! String excepted (Hash:{:zero=>"ولا اية اشترا3103", :one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111"})
-      one: 'اشتراك واحد' #! String excepted (Hash:{:zero=>"ولا اية اشترا3103", :one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111"})
-      other: '{{count}} اشتراكات اخرى' #! String excepted (Hash:{:zero=>"ولا اية اشترا3103", :one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111"})
-      zero: 'ولا اية اشتراك' #! String excepted (Hash:{:zero=>"ولا اية اشترا3103", :one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111"})
+    subscriptions:  #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
+      one: 'اشتراك واحد' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
+      other: '{{count}} اشتراكات اخرى' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
+      zero: 'ولا اية اشتراك' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
     subtitle: 'معرفة المعلومات المتعلقة بالاستخلاص'
     subtotal: 'المجموع الاجمالي {{name}}'
     subtotals_at_level: 'المبلغ الاجمالي على مستوى'
@@ -1051,6 +1051,7 @@ arb:
     to_date: 'الى تاريخ'
     to_deliver: 'للتسليم'
     #>to_embank: 'To embank'
+    #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_create: 'اضافة مادة' #!
     tool_update: 'تعديل المادة'
     tool_use_create: 'اضافة مادة'

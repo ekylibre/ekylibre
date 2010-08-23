@@ -19,33 +19,34 @@ input[type="submit"] { padding: 1px 4px; }
 html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important;  background-position: center left; }
 html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }
 
-.icon.im-backup    { background-image: url(../images/buttons/right.png); }
-.icon.im-cancel    { background-image: url(../images/buttons/cancel.png); }
-.icon.im-close     { background-image: url(../images/buttons/close.png); }
-.icon.im-configure { background-image: url(../images/buttons/configure.png); }
-.icon.im-create    { background-image: url(../images/buttons/create.png); }
-.icon.im-delete    { background-image: url(../images/buttons/delete.png); }
-.icon.im-export    { background-image: url(../images/buttons/spreadsheet.png); }
-.icon.im-extract   { background-image: url(../images/buttons/complete.png); }
-.icon.im-filter    { background-image: url(../images/buttons/filter.png); }
-.icon.im-firefox   { background-image: url(../images/buttons/firefox.png); }
-.icon.im-help      { background-image: url(../images/buttons/help.png); }
-.icon.im-import    { background-image: url(../images/buttons/left.png); }
-.icon.im-load      { background-image: url(../images/buttons/load.png); }
-.icon.im-logout    { background-image: url(../images/buttons/logout.png); }
-.icon.im-mail      { background-image: url(../images/buttons/mail.png); }
-.icon.im-merge     { background-image: url(../images/buttons/merge.png); }
-.icon.im-more      { background-image: url(../images/buttons/down2.png); }
-.icon.im-point     { background-image: url(../images/buttons/point.png); }
-.icon.im-previous  { background-image: url(../images/buttons/previous.png); }
-.icon.im-print     { background-image: url(../images/buttons/print.png); }
-.icon.im-register  { background-image: url(../images/buttons/create.png); }
-.icon.im-resize    { background-image: url(../images/buttons/resize.png); }
-.icon.im-restore   { background-image: url(../images/buttons/left.png); }
-.icon.im-sort      { background-image: url(../images/buttons/sort.png); }
-.icon.im-update    { background-image: url(../images/buttons/update.png); }
-.icon.im-letter    { background-image: url(../images/buttons/letter.png); }
-
+.icon.im-backup      { background-image: url(../images/buttons/right.png); }
+.icon.im-cancel      { background-image: url(../images/buttons/cancel.png); }
+.icon.im-close       { background-image: url(../images/buttons/close.png); }
+.icon.im-configure   { background-image: url(../images/buttons/configure.png); }
+.icon.im-create      { background-image: url(../images/buttons/create.png); }
+.icon.im-delete      { background-image: url(../images/buttons/delete.png); }
+.icon.im-export      { background-image: url(../images/buttons/spreadsheet.png); }
+.icon.im-extract     { background-image: url(../images/buttons/complete.png); }
+.icon.im-filter      { background-image: url(../images/buttons/filter.png); }
+.icon.im-firefox     { background-image: url(../images/buttons/firefox.png); }
+.icon.im-help        { background-image: url(../images/buttons/help.png); }
+.icon.im-import      { background-image: url(../images/buttons/left.png); }
+.icon.im-load        { background-image: url(../images/buttons/load.png); }
+.icon.im-logout      { background-image: url(../images/buttons/logout.png); }
+.icon.im-mail        { background-image: url(../images/buttons/mail.png); }
+.icon.im-merge       { background-image: url(../images/buttons/merge.png); }
+.icon.im-more        { background-image: url(../images/buttons/down2.png); }
+.icon.im-point       { background-image: url(../images/buttons/point.png); }
+.icon.im-previous    { background-image: url(../images/buttons/previous.png); }
+.icon.im-print       { background-image: url(../images/buttons/print.png); }
+.icon.im-printable   { background-image: url(../images/buttons/printable.png); }
+.icon.im-register    { background-image: url(../images/buttons/create.png); }
+.icon.im-resize      { background-image: url(../images/buttons/resize.png); }
+.icon.im-restore     { background-image: url(../images/buttons/left.png); }
+.icon.im-sort        { background-image: url(../images/buttons/sort.png); }
+.icon.im-unprintable { background-image: url(../images/buttons/unprintable.png); }
+.icon.im-update      { background-image: url(../images/buttons/update.png); }
+.icon.im-letter      { background-image: url(../images/buttons/letter.png); }
 
 
 
@@ -199,6 +200,7 @@ html[dir="rtl"] #side .menu li { background-position: right center; }
 /*#top .menu a.logout {padding: 2px 2px 2px 20px; height:16px; background: url(../images/buttons/logout.png) no-repeat center left; }
 #top .menu a.resize {padding: 2px 2px 2px 20px; height:16px; background: url(../images/buttons/resize.png) no-repeat center left; }*/
 #top #user { margin:4px 0; }
+#top #user .im-printable, #top #user .im-unprintable { background-position: center; }
 #top #modules { margin-top:4px; }
 #top #loading { background: url(../images/ajax-loader-3.gif) no-repeat; margin: 4px 0 0; width: 16px; height:16px; }
 html[dir="ltr"] #top #user { float:right; text-align:right; }
@@ -464,6 +466,7 @@ fieldset.quick-add { color: #008; }
 
 .journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }
 .journals.tabbox .tabs { padding-left: 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
+.journals.tabbox .tabs .tab { background-image: url(../images/shadow-top.png); background-repeat: repeat-x; background-position: center bottom; }
 .journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
 .journals.tabbox .tabs .tab.special{ border-top: 3px solid #95b0e4;  }
 

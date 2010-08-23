@@ -40,7 +40,8 @@ function toggleMenu(element) {
 
 
 function _resize() {
-  /* return 0; */
+  var body = $('body');
+  if (!body.hasClassName('resizable')) { return 0; }
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
@@ -54,7 +55,7 @@ function _resize() {
       element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
       element.resize(w, h);
     });
-  $('body').resize(width, height);
+  body.resize(width, height);
 }
 
 function resize() {
