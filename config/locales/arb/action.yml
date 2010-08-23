@@ -273,10 +273,6 @@ arb:
         #>one: '1 error prohibited this %{model} from being saved'
         #>other: '%{count} errors prohibited this %{model} from being saved'
   labels:
-    account:  #!
-      children: 'الحسابات الفرعية' #!
-      entities: 'أشخاص' #!
-      journal_entries: 'ادخالات الدفاتر اليومية' #!
     account_accruals: 'حسابات الاستحقاق'
     account_attorney_to_create: '-- انشاء حساب للوكيل بشكل اوتوماتيكي --'
     account_claims_assets: 'الدين'
@@ -295,9 +291,9 @@ arb:
     account_provision: 'احتياطات لمواجهة المخاطر والتكاليف'
     account_supplier_to_create: '-- انشاء حساب للممول بشكل اوتوماتيكي --'
     account_tabbox:
-      #>children: 'Children Account'
-      #>entities: 'People'
-      #>journal_entries: 'Entry Journal'
+      children: 'الحسابات الفرعية'
+      entities: 'أشخاص'
+      journal_entries: 'ادخالات الدفاتر اليومية'
     account_tangible_fixed_assets: 'موجودات ثابتة وملموسة'
     account_untangible_fixed_assets: 'موجودات ثابتة وغير ملموسة'
     account_update: 'تعديل الحسابات'
@@ -707,7 +703,6 @@ arb:
     national_reduce_vat_collected: 'معدل ضريبة القيمة المضافة المحلية المخفضة  %5.5'
     national_vat_collected: 'الاجراءات التي حدثت في فرنسا'
     nature: 'الطبع'
-    nb_checks: '' #!
     nb_enbankments:
       one: 'التحقق من صحة البيان البنكي'
       other: '{{count}} التحقق من صحة البيانات البنكية الاخرى'
@@ -720,7 +715,10 @@ arb:
       one: 'سجل واحد'
       other: '{{count}} سجلات اخرى'
       zero: 'ولا اي سجل'
-    nb_invoices: '' #! Hash excepted (String:"")
+    nb_invoices:
+      #>one: '1 invoice'
+      #>other: '%{count} invoices'
+      #>zero: '0 invoices'
     nb_mandates:
       one: 'تفويض واحد مسجل'
       other: '{{count}} تفويضات اخرى'
@@ -729,17 +727,26 @@ arb:
       one: 'تم انجاز عمل واحد'
       other: '{{count}} تم انجاز اعمال اخرى'
       zero: 'لم يتم انجاز اي عمل'
-    nb_payments: '' #! Hash excepted (String:"")
+    nb_payments:
+      #>one: '1 sale payment to embank'
+      #>other: '%{count} sale payments to embank'
+      #>zero: 'No sale payments to embank'
     nb_products:
       one: 'تم تسجيل منتج واحد'
       other: '{{count}} تم تسجيل منتجات اخرى'
       zero: 'لم يتم تسجيل اي منتج'
-    nb_purchases: '' #! Hash excepted (String:"")
+    nb_purchases:
+      #>one: '1 waiting purchase'
+      #>other: '%{count} waiting purchases'
+      #>zero: 'No waiting purchases'
     nb_sales:
       one: 'طلب واحد'
       other: '{{count}} طلبات'
       zero: 'ولا طلب'
-    nb_transfers: '' #! Hash excepted (String:"")
+    nb_transfers:
+      #>one: 'One transfert to make'
+      #>other: '%{count} transferts to make'
+      #>zero: 'No transferts to make'
     nb_waiting_deliveries:
       #>one: '1 waiting delivery'
       #>other: '%{count} waiting deliveries'
@@ -794,10 +801,7 @@ arb:
     #>operation_lines: 'Incoming and outgoing products'
     operation_nature_create: 'انشاء نوع عمل جديد' #!
     operation_update: 'تعديل العمل'
-    operations:  #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
-      one: 'عمل واحد' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
-      other: '{{count}} اعمال اخرى' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
-      zero: 'ولا اي عمل' #! String excepted (Hash:{:one=>"عمل واح3057", :other=>"{{count}} اعمال اخر3111", :zero=>"ولا اي عم3104"})
+    #>operations: 'Operations'
     #>order: 'Order'
     order_amount_with_taxes: 'قيمة الطلب مع الضرائب'
     order_print: 'طباعة الطلب'
@@ -956,10 +960,7 @@ arb:
     sale_payment_create: 'اضافة دفعة جديدة' #!
     sale_payment_part_create: 'اضافة دفعة للشراء'
     sale_payment_update: 'تعديل الدفعة'
-    sale_payments:  #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
-      one: 'دفعة واحدة' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
-      other: '{{count}} دفعات اخرى' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
-      zero: 'ولااية دفعة' #! String excepted (Hash:{:one=>"دفعة واحد3051", :other=>"{{count}} دفعات اخر3111", :zero=>"ولااية دفع3051"})
+    #>sale_payments: 'Sale payments'
     sale_payments_states:
       #>all: 'All'
       #>unembanked: 'Unembanked'
@@ -1032,10 +1033,7 @@ arb:
     subscription_nature_create: 'اضافة نوع اشتراك جديد' #!
     subscription_natures_down: '(-1) انقاص العدد الحالي'
     subscription_natures_up: '(+1) زيادة العدد الحالي'
-    subscriptions:  #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
-      one: 'اشتراك واحد' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
-      other: '{{count}} اشتراكات اخرى' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
-      zero: 'ولا اية اشتراك' #! String excepted (Hash:{:one=>"اشتراك واح3057", :other=>"{{count}} اشتراكات اخر3111", :zero=>"ولا اية اشترا3103"})
+    #>subscriptions: 'Abonnements'
     subtitle: 'معرفة المعلومات المتعلقة بالاستخلاص'
     subtotal: 'المجموع الاجمالي {{name}}'
     subtotals_at_level: 'المبلغ الاجمالي على مستوى'
@@ -1127,9 +1125,9 @@ arb:
       #>other: '%{count} invoices'
       #>zero: '0 invoices'
     x_operations:
-      #>one: '1 operation'
-      #>other: '%{count} operations'
-      #>zero: '0 operations'
+      one: 'عمل واحد'
+      other: '{{count}} اعمال اخرى'
+      zero: 'ولا اي عمل'
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'
@@ -1143,13 +1141,13 @@ arb:
       #>other: '%{count} sale orders'
       #>zero: '0 sale orders'
     x_sale_payments:
-      #>one: '%{count} sale payment'
-      #>other: '%{count} sale payments'
-      #>zero: 'No sale payments'
+      one: 'دفعة واحدة'
+      other: '{{count}} دفعات اخرى'
+      zero: 'ولااية دفعة'
     x_subscriptions:
-      #>one: '1 subscription'
-      #>other: '%{count} subscriptions'
-      #>zero: '0 subscriptions'
+      one: 'اشتراك واحد'
+      other: '{{count}} اشتراكات اخرى'
+      zero: 'ولا اية اشتراك'
     y: 'نعم'
     yearly: 'Annuelle'
   notifications:

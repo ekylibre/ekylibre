@@ -620,9 +620,9 @@ spa:
     load_demo_data: 'Cargar datos de prueba'
     locale: 'Idioma'
     localization: 'Localisación geografica'
-    location:  #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
-      stock_moves: 'Movimientos de deposito' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
-      stocks: 'Estado de los depositos' #! String excepted (Hash:{:stock_moves=>"Movimientos de deposito", :stocks=>"Estado de los depositos"})
+    location:  #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
+      stock_moves: 'Movimientos de deposito' #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
+      stocks: 'Estado de los depositos' #! String excepted (Hash:{:stocks=>"Estado de los depositos", :stock_moves=>"Movimientos de deposito"})
     location_create: 'Añadir un lugar de deposito' #!
     #>location_name: 'Location name'
     location_tabbox:

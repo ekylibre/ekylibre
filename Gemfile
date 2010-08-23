@@ -10,6 +10,8 @@ gem "libxml-ruby", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "will_paginate", "~> 3.0.pre2"
 
+gem "exception_notification", :git=>"git://github.com/rails/exception_notification.git", :branch=>"master", :require=>"exception_notifier"
+
 group :production do
   # gem "exception_notifier"
 end  

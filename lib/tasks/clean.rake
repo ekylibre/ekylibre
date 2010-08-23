@@ -473,7 +473,7 @@ namespace :clean do
     for directory in ["help", "prints", "profiles"]
       FileUtils.makedirs(locale_dir.join(directory)) unless File.exist?(locale_dir.join(directory))
     end
-    log.write("Locale #{::I18n.locale_name}:\n")
+    log.write("Locale #{::I18n.locale_label}:\n")
 
 
     untranslated = 0

@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/rails/exception_notification.git
+  revision: 48cf433
+  branch: master
+  specs:
+    exception_notification (1.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -34,7 +41,7 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.3)
-    haml (3.0.16)
+    haml (3.0.17)
     i18n (0.4.1)
     libxml-ruby (1.1.4)
     mail (2.2.5)
@@ -46,7 +53,7 @@ GEM
     pg (0.9.0)
     polyglot (0.3.1)
     rack (1.2.1)
-    rack-mount (0.6.9)
+    rack-mount (0.6.12)
       rack (>= 1.0.0)
     rack-test (0.5.4)
       rack (>= 1.0)
@@ -69,13 +76,14 @@ GEM
     thoughtbot-shoulda (2.11.1)
     treetop (1.4.8)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.22)
+    tzinfo (0.3.23)
     will_paginate (3.0.pre2)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  exception_notification!
   fastercsv
   haml
   libxml-ruby

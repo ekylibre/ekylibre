@@ -984,7 +984,7 @@ fra:
     to_date: 'Au'
     to_deliver: 'Livrer'
     to_embank: 'À encaisser'
-    #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
+    toggle_print_mode: 'Activer/désactiver le mode "Imprimable"'
     tool_update: 'Modifier le matériel'
     tool_use_create: 'Ajouter un matériel'
     tools: 'Matériel utilisé'
