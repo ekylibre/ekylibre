@@ -197,13 +197,11 @@ module Ekylibre
           determine_completion_options(hf_id, tf_id, options, completion_options)
           tag_options[:size] = (tf_value.length > 64 ? 64 : tf_value.length) unless options[:no_resize] or tf_value.nil?
 
-          return <<-HTML.html_safe
-          #{dyli_complete_stylesheet unless completion_options[:skip_style]}
-          #{hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]), :text_field_id=>tf_id)}
-          #{text_field_tag(tf_name, tf_value, tag_options)}
-          #{content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")}
-          #{dyli_complete_field(tf_id, completion_options)}
-          HTML
+          return ((completion_options[:skip_style] ? '' : dyli_complete_stylesheet)+
+                  hidden_field_tag(hf_name, hf_value, :id => hf_id, :href=>url_for(completion_options[:url]), :text_field_id=>tf_id)+
+                  text_field_tag(tf_name, tf_value, tag_options)+
+                  content_tag("div", " ", :id => "#{tf_id}_dyli_complete", :class => "dyli_complete")+
+                  dyli_complete_field(tf_id, completion_options)).html_safe
         end
         
         #
@@ -301,9 +299,10 @@ module Ekylibre
             $("#{hf_id}").value = model_id;
             element.dyli_cache = element.value;
             #{resize}
-            (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
           }
           JS
+
+          #             (#{options[:after_update_element]})(element, value, $("#{hf_id}"), model_id);
           
           # :url has higher priority than :action and :controller.
           completion_options[:url] = options[:url] || url_for(:controller => options[:controller], :action => options[:action])

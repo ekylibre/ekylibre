@@ -842,6 +842,7 @@ arb:
     pertinence: '{{value}}%'
     #>phone: 'Pho.'
     planned_on: 'قرر يوم'
+    #>please_wait: 'Please wait...'
     previous: 'السابق'
     previous_bank_statement: 'رقم الكشف المصرفي السابق{{number}}'
     #>price: 'Price'

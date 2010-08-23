@@ -819,6 +819,7 @@ spa:
     pertinence: '%{value}%'
     #>phone: 'Pho.'
     #>planned_on: 'Planned on'
+    #>please_wait: 'Please wait...'
     #>previous: 'Previous'
     previous_bank_statement: 'Saldo del leventar precedente N°%{number}'
     #>price: 'Price'

@@ -47,7 +47,7 @@ class RelationsController < ApplicationController
     if params[:contact] and request.xhr?
       pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) })%>"
+      render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end
@@ -57,7 +57,7 @@ class RelationsController < ApplicationController
     if params[:entity] and request.xhr?
       pattern = '%'+params[:entity][:origin].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @entities = @current_company.entities.find(:all, :conditions=> [ 'LOWER(origin) LIKE ?', pattern ], :order=>"origin ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @entities.map { |entity| content_tag(:li, h(entity.origin)) })%>"
+      render :inline => "<%=content_tag(:ul, @entities.map { |entity| content_tag(:li, h(entity.origin)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end
@@ -67,7 +67,7 @@ class RelationsController < ApplicationController
     if params[:event] and request.xhr?
       pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) })%>"
+      render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end
@@ -78,7 +78,7 @@ class RelationsController < ApplicationController
       column = params[:column]||'family'
       pattern = '%'+params[:columns][column][:search].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @mandates = @current_company.mandates.find(:all, :conditions => [ "LOWER(#{column}) LIKE ? ", pattern], :order=>column, :select => "DISTINCT #{column}")
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) })-%>"
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) }.join.html_safe)-%>"
     else
       render :text=>'', :layout=>true
     end
@@ -88,7 +88,7 @@ class RelationsController < ApplicationController
     if params[:mandate] and request.xhr?
       pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(family) LIKE ? ', pattern], :order => "family ASC", :select => 'DISTINCT family')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) })%>"
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end
@@ -98,7 +98,7 @@ class RelationsController < ApplicationController
     if params[:mandate] and request.xhr?
       pattern = '%'+params[:mandate][:organization].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(organization) LIKE ? ', pattern], :order => "organization ASC", :select => 'DISTINCT organization')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) })%>"
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end
@@ -109,7 +109,7 @@ class RelationsController < ApplicationController
     if params[:mandate] and request.xhr?
       pattern = '%'+params[:mandate][:title].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
       @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(title) LIKE ? ', pattern], :order => "title ASC", :select => 'DISTINCT title')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) })%>"
+      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) }.join.html_safe)%>"
     else
       render :text=>'', :layout=>true
     end

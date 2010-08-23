@@ -917,6 +917,7 @@ eng:
     pertinence: '%{value}%'
     phone: 'Pho.'
     planned_on: 'Planned on'
+    please_wait: 'Please wait...'
     previous: 'Previous'
     previous_bank_statement: 'Previous account statement N°%{number}'
     price: 'Price'

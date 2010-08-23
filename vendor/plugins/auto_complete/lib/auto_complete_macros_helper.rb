@@ -61,7 +61,6 @@ module AutoCompleteMacrosHelper
     function << "'" + (options[:update] || "#{field_id}_auto_complete") + "', "
     function << "'#{url_for(options[:url])}'"
     
-    #raise Exception.new "!!!!!!!!!!!!" if params[:with]
     js_options = {}
     js_options[:tokens] = array_or_string_for_javascript(options[:tokens]) if options[:tokens]
     js_options[:callback]   = "function(element, value) { return #{options[:with]} }" if options[:with]
@@ -78,7 +77,7 @@ module AutoCompleteMacrosHelper
 
     function << (', ' + options_for_javascript(js_options) + ')')
 
-    javascript_tag(function)
+    return javascript_tag(function)
   end
   
   # Use this method in your view to generate a return for the AJAX autocomplete requests.
@@ -97,7 +96,7 @@ module AutoCompleteMacrosHelper
   def auto_complete_result(entries, field, phrase = nil)
     return unless entries
     items = entries.map { |entry| content_tag("li", phrase ? highlight(entry[field], phrase) : h(entry[field])) }
-    content_tag("ul", items.uniq)
+    content_tag("ul", items.uniq.join.html_safe)
   end
   
   # Wrapper for text_field with added AJAX autocompletion functionality.
@@ -106,38 +105,21 @@ module AutoCompleteMacrosHelper
   # auto_complete_for to respond the AJAX calls,
   # 
   def text_field_with_auto_complete(object, method, tag_options = {}, completion_options = {})
-    (completion_options[:skip_style] ? "" : auto_complete_stylesheet) +
-      text_field(object, method, tag_options.merge({:onSelect=>"event.keyCode = Event.KEY_RETURN;"})) +
-    content_tag("div", "", :id => "#{object}_#{method}_auto_complete", :class => "auto_complete") +
-    auto_complete_field("#{object}_#{method}", { :url => { :action => "auto_complete_for_#{object}_#{method}" } }.update(completion_options))
+    completion_options[:skip_style]  = true if completion_options[:skip_style].nil?
+    return ((completion_options[:skip_style] ? "" : auto_complete_stylesheet) +
+            text_field(object, method, tag_options.merge({:onSelect=>"event.keyCode = Event.KEY_RETURN;"})) +
+            content_tag("div", "", :id => "#{object}_#{method}_auto_complete", :class => "dyli_complete") +
+            auto_complete_field("#{object}_#{method}", { :url => { :action => "auto_complete_for_#{object}_#{method}" } }.update(completion_options))).html_safe
   end
 
   private
     def auto_complete_stylesheet
       content_tag('style', <<-EOT, :type => Mime::CSS)
-        div.auto_complete {
-          width: 350px;
-          background: #fff;
-        }
-        div.auto_complete ul {
-          border:1px solid #888;
-          margin:0;
-          padding:0;
-          width:100%;
-          list-style-type:none;
-        }
-        div.auto_complete ul li {
-          margin:0;
-          padding:3px;
-        }
-        div.auto_complete ul li.selected {
-          background-color: #ffb;
-        }
-        div.auto_complete ul strong.highlight {
-          color: #800; 
-          margin:0;
-          padding:0;
-        }
+        div.auto_complete { width: 350px; background: #fff; }
+        div.auto_complete ul { border:1px solid #888; margin:0; padding:0; width:100%; list-style-type:none; }
+        div.auto_complete ul li { margin:0; padding:3px; }
+        div.auto_complete ul li.selected { background-color: #ffb; }
+        div.auto_complete ul strong.highlight { color: #800; margin:0; padding:0; }
       EOT
     end
 

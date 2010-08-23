@@ -802,6 +802,7 @@ fra:
     pertinence: '%{value}%'
     phone: 'Tél.'
     planned_on: 'Date prévisionnelle'
+    please_wait: 'Merci de patienter...'
     previous: 'Précédent'
     previous_bank_statement: 'Solde du relevé précédent N°%{number}'
     price: 'Prix'
