@@ -563,6 +563,7 @@ manage_prices:
   - index
   - price_create
   - price_delete
+  - price_update
   - prices_dyta
   - prices_export
   - prices_import

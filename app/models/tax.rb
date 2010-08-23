@@ -48,7 +48,7 @@ class Tax < ActiveRecord::Base
   validates_presence_of :account_collected_id
   validates_presence_of :account_paid_id
   validates_uniqueness_of :name, :scope=>:company_id
-  validates_numericality_of :amount, :in=>1..100, :if=>Proc.new{|x| x.percent?}
+  validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
 
 
   def destroyable?
@@ -66,7 +66,7 @@ class Tax < ActiveRecord::Base
   end
 
   def percent?
-    return (self.nature == "percent")
+    return (self.nature.to_s == "percent")
   end
   
   def amount?

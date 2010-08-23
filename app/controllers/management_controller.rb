@@ -408,13 +408,13 @@ class ManagementController < ApplicationController
   end
 
   def self.prices_conditions(options={})
-    code = ""
-    code += " if session[:entity_id] == 0 \n " 
+    code = "conditions=[]\n"
+    code += "if session[:entity_id] == 0 \n " 
     code += " conditions = ['company_id = ? AND active = ?', @current_company.id, true] \n "
-    code += " else \n "
-    code += " conditions = ['company_id = ? AND entity_id = ?  AND active = ?', @current_company.id, session[:entity_id], true]"
-    code += " end \n "
-    code += " conditions \n "
+    code += "else \n "
+    code += " conditions = ['company_id = ? AND entity_id = ? AND active = ?', @current_company.id, session[:entity_id], true]"
+    code += "end \n "
+    code += "conditions \n "
     code
   end
   
@@ -426,13 +426,14 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :by_default
     # t.column :range
+    t.action :price_update
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
   
   
   def prices
     @modes = ['all', 'clients', 'suppliers']
-    @suppliers = @current_company.entities.find(:all,:conditions=>{:supplier=>true})
+    @suppliers = @current_company.entities.find(:all, :conditions=>{:supplier=>true})
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
@@ -448,35 +449,26 @@ class ManagementController < ApplicationController
   
   def price_create
     @mode = (params[:mode]||"sales").to_sym 
-    
-    #    @products = @current_company.products.find(:all, :order=>:name)
-    #     if @mode == :sale_orders
-    #       @products = Product.find(:all, :conditions=>{:to_sale=>true, :company_id=>@current_company.id}, :order=>:name)
-    #     else 
-    #       @products = Product.find(:all, :conditions=>{:to_purchase=>true, :company_id=>@current_company.id}, :order=>:name)
-    #     end
-
     if request.post? 
-      @price = Price.new(params[:price])
-      @price.company_id = @current_company.id
+      @price = @current_company.prices.new(params[:price])
       @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
       return if save_and_redirect(@price)
-#       if @price.save
-#         all_safe = true
-#         if params[:price_tax]
-#           for tax in params[:price_tax]
-#             return unless tax = find_and_check(:tax, tax[0])
-#             @price_tax = @price.taxes.create(:tax_id=>tax.id)
-#             all_safe = false unless @price_tax.save
-#           end
-#         end
-#         redirect_to_back
-#       end
     else
       @price = Price.new(:product_id=>params[:product_id], :category_id=>session[:current_entity_category_id]||0)
       @price.entity_id = params[:entity_id] if params[:entity_id]
     end
     render_form    
+  end
+
+  def price_update
+    return unless @price = find_and_check(:price)
+    @mode = "purchases" if @price.entity_id != @current_company.entity_id
+    if request.post?
+      @price.amount_with_taxes = 0
+      return if save_and_redirect(@price, :attributes=>params[:price])
+    end
+    t3e @price.attributes, :product=>@price.product.name
+    render_form
   end
   
   def price_delete
@@ -611,6 +603,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
     t.column :by_default
     # t.column :range
+    t.action :price_update
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
   end
 

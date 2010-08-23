@@ -810,7 +810,7 @@ fra:
     price_amount_with_taxes: 'Prix TTC'
     prices_export: 'Exporter vos tarifs au format CSV'
     prices_for_all: 'Tous les prix'
-    prices_for_client: 'Les prix de vente'
+    prices_for_clients: 'Les prix de vente'
     prices_for_suppliers: 'Les prix d''achat du fournisseur'
     prices_import: 'Importer un fichier CSV'
     print: 'Imprimer'

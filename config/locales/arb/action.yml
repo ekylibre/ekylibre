@@ -852,7 +852,7 @@ arb:
     prices: 'السار المنتجات' #!
     prices_export: 'CSV اسعار التصدير ضمن'
     #>prices_for_all: 'All the prices'
-    #>prices_for_client: 'Prices of sale'
+    #>prices_for_clients: 'Prices of sale'
     #>prices_for_suppliers: 'Prices of purchase of supplier'
     prices_import: 'CSV استيراد بيان الاسعار  ضمن'
     print: 'طباعة'

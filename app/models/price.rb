@@ -45,7 +45,7 @@
 
 class Price < ActiveRecord::Base
   after_save :set_by_default
-  attr_readonly :company_id, :started_at, :amount, :amount_with_taxes
+  attr_readonly :company_id # , :started_at, :amount, :amount_with_taxes
   belongs_to :category, :class_name=>EntityCategory.name
   belongs_to :company
   belongs_to :currency
@@ -89,6 +89,21 @@ class Price < ActiveRecord::Base
     #     else
     #       errors.add_to_base(:already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
     #     end
+  end
+
+  def update # _without_callbacks
+    current_time = Time.now
+    stamper_id = self.class.stamper_class.stamper.id rescue nil
+    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:started_at=>current_time, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
+    self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+    return nc
+  end
+
+  def destroy # _without_callbacks
+    unless new_record?
+      current_time = Time.now
+      self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+    end
   end
 
   def set_by_default

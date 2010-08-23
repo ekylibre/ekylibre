@@ -3,7 +3,7 @@
     =form_tag do
       %label=tc "display"
       -for mode in @modes
-        =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+"&nbsp;"+content_tag(:label, tc("prices_for_"+mode), :for=>'price_mode_'+mode)
+        =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+" "+content_tag(:label, tc("prices_for_"+mode), :for=>'price_mode_'+mode)
       =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
       =submit_tag tg('filter')
 =toolbar do

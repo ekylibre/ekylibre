@@ -801,7 +801,7 @@ jpn:
     #>price_amount_with_taxes: 'Price amount with taxes'
     #>prices_export: 'Export your prices in CSV'
     #>prices_for_all: 'All the prices'
-    #>prices_for_client: 'Prices of sale'
+    #>prices_for_clients: 'Prices of sale'
     #>prices_for_suppliers: 'Prices of purchase of supplier'
     #>prices_import: 'Importer un fichier CSV'
     #>print: 'Print documents'

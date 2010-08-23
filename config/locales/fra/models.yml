@@ -1051,17 +1051,17 @@ fra:
             name: 'TVA 0,00%'
             paid: '445660'
           tva0210:
-            amount: '0.021'
+            amount: '2.1'
             collected: '445711'
             name: 'TVA 2,10%'
             paid: '445661'
           tva0550:
-            amount: '0.055'
+            amount: '5.5'
             collected: '445712'
             name: 'TVA 5,50%'
             paid: '445662'
           tva1960:
-            amount: '0.196'
+            amount: '19.6'
             collected: '445713'
             name: 'TVA 19,60%'
             paid: '445663'
