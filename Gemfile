@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.0.rc'
 
 gem "haml"
-require 'sass/plugin/rack'
+# require 'sass/plugin/rack'
 
 gem "fastercsv"
 gem "libxml-ruby", :require=>'xml/libxml'
