@@ -26,7 +26,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-create      { background-image: url(../images/buttons/create.png); }
 .icon.im-delete      { background-image: url(../images/buttons/delete.png); }
 .icon.im-export      { background-image: url(../images/buttons/spreadsheet.png); }
-.icon.im-extract     { background-image: url(../images/buttons/complete.png); }
+.icon.im-extract     { background-image: url(../images/buttons/action.png); }
 .icon.im-filter      { background-image: url(../images/buttons/filter.png); }
 .icon.im-firefox     { background-image: url(../images/buttons/firefox.png); }
 .icon.im-help        { background-image: url(../images/buttons/help.png); }
@@ -460,7 +460,7 @@ fieldset.quick-add { color: #008; }
 /*.branch .item .comparator a {background: url(../images/buttons/filter.png) no-repeat center left; padding: 2px 2px 2px 20px; }*/
 
 .branch.reflection .item { color: #008; background: url(../images/buttons/table.png) no-repeat center left; }
-.branch.column     .item { background: url(../images/buttons/complete.png) no-repeat center left; }
+.branch.column     .item { background: url(../images/buttons/column.png) no-repeat center left; }
 .branch:hover { background-color: #DEF; }
 
 

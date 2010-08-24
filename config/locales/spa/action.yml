@@ -358,9 +358,9 @@ spa:
     #>canals: 'Canals'
     #>cancel: 'Cancel'
     cancelled: 'Pasar en activos'
-    cash:  #! String excepted (Hash:{:embankments=>"Entregas en banca", :bank_statements=>"Leventar de cuento"})
-      bank_statements: 'Leventar de cuento' #! String excepted (Hash:{:embankments=>"Entregas en banca", :bank_statements=>"Leventar de cuento"})
-      embankments: 'Entregas en banca' #! String excepted (Hash:{:embankments=>"Entregas en banca", :bank_statements=>"Leventar de cuento"})
+    cash:  #! String excepted (Hash:{:bank_statements=>"Leventar de cuento", :embankments=>"Entregas en banca"})
+      bank_statements: 'Leventar de cuento' #! String excepted (Hash:{:bank_statements=>"Leventar de cuento", :embankments=>"Entregas en banca"})
+      embankments: 'Entregas en banca' #! String excepted (Hash:{:bank_statements=>"Leventar de cuento", :embankments=>"Entregas en banca"})
     cash_tabbox:
       #>bank_statements: 'Bank statements'
       #>embankments: 'Transit Letters'

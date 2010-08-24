@@ -5267,6 +5267,45 @@
        y1="31.3125"
        x2="291.5"
        y2="22.375" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7969"
+       id="linearGradient4222"
+       x1="72.625"
+       y1="-10.833334"
+       x2="70.6875"
+       y2="-15.375"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1,0,0,0.75,0,-3.8749996)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3772"
+       id="linearGradient4261"
+       x1="67.625"
+       y1="-11.3125"
+       x2="76.4375"
+       y2="-2.6875"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3772"
+       id="linearGradient4271"
+       gradientUnits="userSpaceOnUse"
+       x1="67.625"
+       y1="-11.3125"
+       x2="76.4375"
+       y2="-2.6875"
+       gradientTransform="matrix(0.5333333,0,0,1,30.100006,0)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient7969"
+       id="linearGradient4273"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.5333333,0,0,0.75,30.100006,-3.8749996)"
+       x1="72.625"
+       y1="-10.833334"
+       x2="70.6875"
+       y2="-15.375" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5312,7 +5351,7 @@
        id="guide3168" />
     <sodipodi:guide
        orientation="vertical"
-       position="80"
+       position="80,36.0625"
        id="guide3170" />
     <sodipodi:guide
        orientation="vertical"
@@ -7590,6 +7629,67 @@
          id="path4245"
          d="M 309.44819,57.572635 L 307.58586,59.572917 L 305.72353,61.573198 L 309.44819,61.573198 L 309.44819,57.572635 z"
          style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:1.1036036px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3400"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="translate(0,-16)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/table.png">
+      <rect
+         y="-12.5"
+         x="64.5"
+         height="12"
+         width="15.000001"
+         id="rect3402"
+         style="opacity:1;fill:url(#linearGradient4261);fill-opacity:1;fill-rule:evenodd;stroke:#263b79;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         y="-15.5"
+         x="64.5"
+         height="3"
+         width="15"
+         id="rect3406"
+         style="opacity:1;fill:url(#linearGradient4222);fill-opacity:1;fill-rule:evenodd;stroke:#846315;stroke-width:1.00000011999999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         style="opacity:0.44954128;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 74,-15 L 74,-9.9375 L 70,-9.9375 L 70,-15 L 69,-15 L 69,-9.9375 L 65,-9.9375 L 65,-8.9375 L 69,-8.9375 L 69,-7 L 65,-7 L 65,-6 L 69,-6 L 69,-4 L 65,-4 L 65,-3 L 69,-3 L 69,-1 L 70,-1 L 70,-3 L 74,-3 L 74,-1 L 75,-1 L 75,-3 L 79,-3 L 79,-4 L 75,-4 L 75,-6 L 79,-6 L 79,-7 L 75,-7 L 75,-8.9375 L 79,-8.9375 L 79,-9.9375 L 75,-9.9375 L 75,-15 L 74,-15 z M 70,-8.9375 L 74,-8.9375 L 74,-7 L 70,-7 L 70,-8.9375 z M 70,-6 L 74,-6 L 74,-4 L 70,-4 L 70,-6 z"
+         id="path4224"
+         sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccc" />
+    </g>
+    <g
+       id="g4263"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="translate(5.9604649e-8,-32)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/table.png">
+      <rect
+         y="-12.5"
+         x="64.5"
+         height="12"
+         width="8"
+         id="rect4265"
+         style="opacity:1;fill:url(#linearGradient4271);fill-opacity:1;fill-rule:evenodd;stroke:#263b79;stroke-width:0.99999994;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/column.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <rect
+         y="-15.5"
+         x="64.5"
+         height="3"
+         width="8"
+         id="rect4267"
+         style="opacity:1;fill:url(#linearGradient4273);fill-opacity:1;fill-rule:evenodd;stroke:#846315;stroke-width:1.00000024;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/column.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
+      <path
+         style="opacity:0.44954128;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="M 65,-9.9375 L 65,-8.9375 L 72.5,-8.9375 L 72.5,-7 L 65,-7 L 65,-6 L 72.5,-6 L 72.5,-4 L 65,-4 L 65,-3 L 72.5,-3 L 72.5,-9.9375 L 65,-9.9375 z"
+         id="path4269"
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/column.png"
+         inkscape:export-xdpi="90"
+         inkscape:export-ydpi="90" />
     </g>
   </g>
 </svg>

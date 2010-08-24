@@ -124,28 +124,33 @@ class ListingNode < ActiveRecord::Base
     end
   end
 
+  def check
+    errors.add(:condition_operator, :inclusion) unless self.condition_operator.blank? or (@@corresponding_comparators.keys+[:any]).include?(self.condition_operator.to_sym)
+  end
+
   def self.natures
     hash = {}
     @@natures.each{|n| hash[n] = tc('natures.'+n.to_s) }
     hash
   end
 
-  def complete_query(sql_alias=nil)
+  def compute_joins(sql_alias=nil)
     conditions = ""
-    for child in self.joins
-      parent = sql_alias||child.parent.model.table_name
+    # for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
+    for child in self.children.where("(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id)
+      parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.primary_key_name} = #{parent}.id) "
+        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.primary_key_name} = #{parent}.id)"
       elsif child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.reflection.class_name.constantize.table_name} AS #{child.name} ON (#{parent}.#{child.reflection.primary_key_name} = #{child.name}.id) "
+        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{parent}.#{child.reflection.primary_key_name} = #{child.name}.id)"
       end
-      conditions += child.complete_query(child.name)
+      conditions += child.compute_joins
     end
     conditions
   end
 
   def joins
-    self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
+    self
   end
   
   def comparators
@@ -157,26 +162,6 @@ class ListingNode < ActiveRecord::Base
   def sql_format_comparator
     @@corresponding_comparators[self.condition_operator.to_sym]||" = "
   end
-
-#   def condition
-#     operator =  @@corresponding_comparators[self.condition_operator.to_sym]||@@corresponding_comparators[:equal]
-#     case_sensitive = self.condition_operator.to_s.match(/_cs$/)
-#     c = operator.gsub("{{COLUMN}}", self.name)
-#     c.gsub!("{{LIST}}", "("+self.condition_value.to_s.split("||").collect{|x| connection.quote(x)}.join(", ")+")")
-#     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
-#       n = m[2..-3].gsub("VALUE", self.condition_value.send(case_sensitive ? "lower" : "to_s"))
-#       if self.sql_type == "date"
-#         "'"+connection.quoted_date(self.condition_value.to_date)+"'"
-#       elsif self.sql_type == "boolean"
-#         self.condition_value == "true" ? connection.quoted_true : connection.quoted_false
-#       elsif self.sql_type == "numeric"
-#         n
-#       else
-#         "'"+connection.quote(n)+"'"
-#       end
-#     end
-#     return c
-#   end
 
   def condition
     return self.class.condition(self.name, self.condition_operator, self.condition_value, self.sql_type)
@@ -219,10 +204,8 @@ class ListingNode < ActiveRecord::Base
 
   def model
     if self.root?
-    #if not self.nature == "root"
       self.listing.root_model
     else
-      #self.parent.model.reflections[self.reflection_name.to_sym].class_name
       self.parent.model.reflections[self.attribute_name.to_sym].class_name
     end.classify.constantize
   end
@@ -232,7 +215,6 @@ class ListingNode < ActiveRecord::Base
     if self.root?
       return nil
     else
-      #return self.parent.model.reflections[self.reflection_name.to_sym]
       return self.parent.model.reflections[self.attribute_name.to_sym]
     end
   end

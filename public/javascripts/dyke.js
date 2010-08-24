@@ -1,4 +1,4 @@
-/* -*- Mode: Java; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
+/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
 
 
 var resizeElementMethods = {
@@ -57,10 +57,10 @@ var resizeElementMethods = {
     var children_length = children.length;
     if (width === undefined) { 
       /*
-      var parent = element.ancestors()[0].getDimensions();
-      width = parent.width; 
-      if (height === undefined) { height = parent.height; }
-      alert(width+"x"+height);*/
+        var parent = element.ancestors()[0].getDimensions();
+        width = parent.width; 
+        if (height === undefined) { height = parent.height; }
+        alert(width+"x"+height);*/
       width = element.getWidth();
       height = element.getHeight();
     }
@@ -89,7 +89,7 @@ var resizeElementMethods = {
             dims = child.getDimensions();
             lengths[index] = (horizontal ? dims.width : dims.height);
             fixedsum += lengths[index]
-          } else {
+              } else {
             lengths[index] = 0;
             flexsum += flexes[index];
           }
@@ -114,7 +114,6 @@ var resizeElementMethods = {
             child_length = lengths[index];
           }
           if (flexsum>0) {
-            /*if (child.getAttribute("id") == "side") { alert(child.getDimensions().width); }*/
             if (horizontal) {
               w = child_length; /*-borders[index].horizontal*1;*/
               h = height-borders[index].vertical*1;
@@ -126,15 +125,6 @@ var resizeElementMethods = {
               child_top  = x; 
               child_left = 0+child.getNumericalStyle('margin-left')*1+element.getNumericalStyle('padding-left');
             }
-            /*if (child.getAttribute("id") == "side") { alert( w ); }*/
-            /*w -= borders[index].horizontal*1;
-              h -= borders[index].vertical*1;*/
-            /* child_top  += element_border.top; /*element.getNumericalStyle('padding-top');*/
-            /* child_left += element_border.left; /*element.getNumericalStyle('padding-left');*/
-            /*
-            child_top  += child.getNumericalStyle('margin-top')*1+element.getNumericalStyle('padding-top');
-            child_left += child.getNumericalStyle('margin-left')*1+element.getNumericalStyle('padding-left');
-            */
             if (child.getStyle('overflow') === null) {
               child.setStyle({overflow: 'auto'});
             }
@@ -209,12 +199,12 @@ function openDialog(url) {
         alert("FAILURE (Error "+response.status+"): "+response.reponseText);
       }
       /*      ,
-        onLoading: function(request) {
-        onLoading();
-      },
-        onLoaded: function(request) {
-        onLoaded();
-      }
+              onLoading: function(request) {
+              onLoading();
+              },
+              onLoaded: function(request) {
+              onLoaded();
+              }
       */
   });
 }

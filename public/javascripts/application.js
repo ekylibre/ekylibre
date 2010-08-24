@@ -4,7 +4,7 @@
 
 function toggleElement(element, show, reverse_element) {
   element = $(element);
-  if (show === null) { 
+  if (show === null || show === undefined) { 
     show = (element.style.display == "none"); 
   }
   if (show) {

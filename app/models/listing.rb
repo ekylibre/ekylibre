@@ -40,7 +40,12 @@
 class Listing < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
+  has_many :columns, :class_name=>ListingNode.name, :conditions=>["nature = ?", "column"]
+  has_many :exportable_columns, :class_name=>ListingNode.name, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
+  has_many :filtered_columns, :class_name=>ListingNode.name, :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
+  has_many :mail_columns, :class_name=>ListingNode.name, :conditions=>["name LIKE ? AND nature = ? ", '%.email', "column"]
   has_many :nodes, :class_name=>ListingNode.name, :dependent=>:delete_all
+  has_many :reflections, :class_name=>ListingNode.name, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
 #  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
   validates_format_of :query, :conditions, :with=>/^[^\;]*$/
@@ -50,7 +55,8 @@ class Listing < ActiveRecord::Base
   end
 
   def root_model_name
-    ::I18n.t("activerecord.models."+self.root_model.underscore)
+    # ::I18n.t("activerecord.models."+self.root_model.underscore)
+    self.root_model.classify.constantize.model_name.human
   end
 
   def root
@@ -58,61 +64,52 @@ class Listing < ActiveRecord::Base
   end
 
   def generate
+    conn = self.class.connection
     root = self.root
-    query = "SELECT #{self.selected_attr} FROM #{root.model.table_name} AS #{root.name}"
-    query += root.complete_query(root.name)
-    query += self.query_conditions
+    query = "SELECT "+self.exportable_columns.collect{|n| "#{n.name} AS "+conn.quote_column_name(n.label)}.join(", ")
+    query += " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
+    query += " WHERE "+self.compute_where
+    query += " ORDER BY "+self.exportable_columns.collect{|n| n.name}.join(", ")
     return query
   end
 
-  def selected_attr
-    attrs = []
-    for node in self.exportable_columns
-      name = node.label
-      attrs << "#{node.name} AS \"#{name}\" "
-    end
-    attrs = attrs.join(", ")
-  end
   
-  def query_conditions
-    c = " WHERE "
+  def compute_where
+    conn = self.class.connection
+    c = ""
+    # Filter on company
     if self.reflections.size > 0
-      cs = []
-      for node in self.reflections
-        cs << "COALESCE(#{node.name}.#{node.name.match("company") ? '' : 'company_'}id, CURRENT_COMPANY) = CURRENT_COMPANY"
-      end
-      c += cs.join(" AND ")
-      #return c
+      c += self.reflections.collect do |node|
+        conn.quote_table_name(node.name)+"."+conn.quote_column_name("#{'company_' unless node.name.match("company")}id")+" = CURRENT_COMPANY"
+      end.join(" AND ")
+    else
+      #  No reflections => no columns => no conditions
+      return ""
     end
 
-    cs = []
-    for node in self.columns
-      if node.condition_operator and node.condition_operator != "any"
-        cs << node.condition
-      end
+    if self.filtered_columns.size > 0
+      c += " AND "+self.filtered_columns.collect{ |node| node.condition }.join(" AND ")
     end
-    c += " AND "+cs.join(" AND ") if self.reflections.size > 0 and cs.size > 0
     c += " AND ("+self.conditions+")" unless self.conditions.blank?
-    #raise Exception.new self.conditions.blank?
     return c
   end
 
-  def reflections
-    self.nodes.find(:all, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]])
-  end
+#   def reflections
+#     self.nodes.find(:all, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]])
+#   end
 
-  def columns
-    self.nodes.find_all_by_nature("column")
-  end
+#   def columns
+#     self.nodes.find_all_by_nature("column")
+#   end
 
-  def exportable_columns
-    #self.nodes.find_all_by_nature_and_exportable("column", true)
-    self.nodes.find(:all, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position")
-  end
+#   def exportable_columns
+#     #self.nodes.find_all_by_nature_and_exportable("column", true)
+#     self.nodes.find(:all, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position")
+#   end
 
-  def mail_columns
-    self.nodes.find(:all, :conditions=>["name LIKE ? ", '%.email'])
-  end
+#   def mail_columns
+#     self.nodes.find(:all, :conditions=>["name LIKE ? ", '%.email'])
+#   end
 
   def duplicate
     listing = self.class.create!(self.attributes.merge(:name=>tg(:copy_of, :source=>self.name)))
