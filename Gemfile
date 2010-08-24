@@ -6,7 +6,7 @@ gem "haml"
 # require 'sass/plugin/rack'
 
 gem "fastercsv"
-gem "libxml-ruby", :require=>'xml/libxml'
+gem "libxml-ruby", "1.1.3", :require=>'xml/libxml'
 gem "rubyzip", :require=>"zip/zip"
 gem "will_paginate", "~> 3.0.pre2"
 

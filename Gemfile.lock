@@ -43,7 +43,7 @@ GEM
     fastercsv (1.5.3)
     haml (3.0.17)
     i18n (0.4.1)
-    libxml-ruby (1.1.4)
+    libxml-ruby (1.1.3)
     mail (2.2.5)
       activesupport (>= 2.3.6)
       mime-types
@@ -86,7 +86,7 @@ DEPENDENCIES
   exception_notification!
   fastercsv
   haml
-  libxml-ruby
+  libxml-ruby (= 1.1.3)
   mysql
   pg
   rails (= 3.0.0.rc2)
