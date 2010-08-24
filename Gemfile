@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0.rc'
+gem 'rails', '3.0.0.rc2'
 
 gem "haml"
 # require 'sass/plugin/rack'
