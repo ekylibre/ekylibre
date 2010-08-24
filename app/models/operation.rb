@@ -67,41 +67,30 @@ class Operation < ActiveRecord::Base
 
   def save_with_uses_and_lines(uses=[], lines=[])
     ActiveRecord::Base.transaction do
-      saved = self.save
+      op_saved = self.save
+      saved = op_saved
       # Tools
       self.uses.clear
       uses.each_index do |index|
         uses[index] = self.uses.build(uses[index])
-        #if saved
+        if op_saved
           saved = false unless uses[index].save
-        #end
+        end
       end
       if saved
         self.reload
         self.update_attribute(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
       end
-      
+        
       # Lines
       self.lines.clear
       lines.each_index do |index|
         lines[index] = self.lines.build(lines[index])
-        #if saved
+        if op_saved
           saved = false unless lines[index].save
-        #end
+        end
       end
       self.reload if saved
-#       self.entries.clear
-#       entries.each_index do |index|
-#         entries[index] = self.entries.build(entries[index])
-#         if saved
-#           saved = false unless entries[index].save
-#         end
-#       end
-#       self.reload if saved
-#       if saved and not self.balanced?
-#         self.errors.add_to_base(:unbalanced) 
-#         saved = false
-#       end
       if saved
         return true
       else

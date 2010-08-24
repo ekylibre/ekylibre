@@ -195,7 +195,7 @@ jpn:
       #>operation_nature_update: 'update Type of Operation: %{name}'
       #>operation_natures: 'Types of Operation'
       #>operation_update: 'Update Operation %{name}'
-      #>operations: 'Opetations'
+      #>operations: 'Operations'
       #>shape: 'Shape %{name}'
       #>shape_create: 'Add a new shape'
       #>shape_update: 'Update Shape: %{name}'
