@@ -93,8 +93,8 @@ class ListingNode < ActiveRecord::Base
     :not_finishes_cs=>"{{COLUMN}} NOT LIKE {{%VALUE}}", 
     :not_contains_cs=>"{{COLUMN}} NOT LIKE {{%VALUE%}}", 
     :not_equal_cs=>   "{{COLUMN}} != {{VALUE}}", 
-    :is_true=> "{{COLUMN}} IS TRUE", 
-    :is_false=>"{{COLUMN}} IS FALSE", 
+    :is_true=> "{{COLUMN}} = {{VALUE}}", 
+    :is_false=>"{{COLUMN}} = {{VALUE}}", 
     :in=>"{{COLUMN}} IN {{LIST}}" 
   }
   
@@ -108,7 +108,7 @@ class ListingNode < ActiveRecord::Base
     elsif self.reflection?
       self.name = self.attribute_name.to_s+"_0"
     else
-      self.sql_type = self.convert_sql_type(self.parent.model.class_name.constantize.columns_hash[self.attribute_name].type.to_s)
+      self.sql_type = self.convert_sql_type(self.parent.model.columns_hash[self.attribute_name].type.to_s)
       #raise Exception.new self.attribute_name.inspect
       self.name = self.parent.name.underscore+"."+self.attribute_name
     end
@@ -190,10 +190,10 @@ class ListingNode < ActiveRecord::Base
     c.gsub!("{{LIST}}", "("+value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect{|x| connection.quote(x.gsub(/\t/, ','))}.join(", ")+")")
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
       n = m[2..-3].gsub("VALUE", value.send(case_sensitive ? "lower" : "to_s"))
-      if datatype == "date"
-        "'"+connection.quoted_date(value.to_date)+"'"
-      elsif datatype == "boolean"
-        value == "true" ? connection.quoted_true : connection.quoted_false
+#       if datatype == "date"
+#         "'"+connection.quoted_date(value.to_date)+"'"
+      if datatype == "boolean"
+        (operator.to_s == "is_true" ? connection.quoted_true : connection.quoted_false)
       elsif datatype == "numeric"
         n
       else

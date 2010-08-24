@@ -1186,7 +1186,7 @@ jpn:
         #>finishes_cs: 'Finishes with (case-sensitive)'
         #>ge: '≥'
         #>gt: '>'
-        #>in: 'Is equals to one o this folowwing elements'
+        #>in: 'Is equals to one of this following elements'
         #>is_false: 'Is false'
         #>is_true: 'Is true'
         #>le: '≤'

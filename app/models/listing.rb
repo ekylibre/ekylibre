@@ -87,7 +87,7 @@ class Listing < ActiveRecord::Base
 
     cs = []
     for node in self.columns
-      if node.condition_operator and node.condition_value and node.condition_operator != "any"
+      if node.condition_operator and node.condition_operator != "any"
         cs << node.condition
       end
     end
