@@ -8,7 +8,7 @@
     =link_to_remote(tg(:close), {:url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"icon im-close help-link"})
     =link_to_remote(tg(:previous), {:url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"icon im-previous help-link"} ) if session[:help_history].size>1
     %h1.title=t("controllers.help")
-  -cache(:action=>"help", :id=>@article) do
+  -cache(:action=>"help", :locale=>::I18n.locale, :id=>@article) do
     .content.flex{:style=>'overflow:auto;'}
       - doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>"search"))
       - if doc.blank?

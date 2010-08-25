@@ -253,7 +253,7 @@ module ApplicationHelper
     else
       name         = args[0]
       options      = args[1] || {}
-      html_options = args[2]
+      html_options = args[2] || {}
 
       if options.is_a? Hash
         return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless controller.accessible?(options) 
