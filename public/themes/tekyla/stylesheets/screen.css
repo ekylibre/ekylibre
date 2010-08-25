@@ -401,11 +401,13 @@ html[dir="rtl"] .login table tr td.label { text-align:left !important; }
 
 /*all the styles used by the plugin Dyli.*/
 div.dyli_complete {width: 350px; z-index: 1000; }
-div.dyli_complete ul {position: fixed; border:1px solid #888; margin:0; padding:0; width:30%; list-style-type:none; }
-div.dyli_complete ul li {background-color: #EEF; margin:0; padding:3px; } /*#C9D7F1*/
-div.dyli_complete ul li.selected {background-color: #B1D1F9; }
+div.dyli_complete ul {border:1px solid ButtonShadow; margin:0; padding:0; list-style-type:none; }
+div.dyli_complete ul li {background-color: Menu; margin:0; padding:3px; color: MenuText; cursor: pointer; } /*#C9D7F1*/
+div.dyli_complete ul li.selected {background-color: Highlight; color: HightlightText; }
 div.dyli_complete ul strong.highlight {color: #800; margin:0; padding:0; }
-input.dyli { background: #FFF url(../images/buttons/dyli.png) right center no-repeat; padding-right: 18px; }
+input.dyli { background: #FFF url(../images/buttons/dyli.png) no-repeat; }
+html[dir="ltr"] input.dyli { background-position: right center; padding-right: 18px; }
+html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18px; }
 
 /*
 fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px; }

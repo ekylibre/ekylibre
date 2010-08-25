@@ -289,7 +289,7 @@ module ApplicationHelper
   end
 
   def languages
-    I18n.valid_locales.collect{|l| [t("i18n.name", :locale=>l), l]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
+    I18n.valid_locales.collect{|l| [t("languages.#{l}"), l.to_s]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
   end
 
   def link_to_back(options={})
