@@ -22,6 +22,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-backup      { background-image: url(../images/buttons/right.png); }
 .icon.im-cancel      { background-image: url(../images/buttons/cancel.png); }
 .icon.im-close       { background-image: url(../images/buttons/close.png); }
+.icon.im-column      { background-image: url(../images/buttons/column.png); }
 .icon.im-configure   { background-image: url(../images/buttons/configure.png); }
 .icon.im-create      { background-image: url(../images/buttons/create.png); }
 .icon.im-delete      { background-image: url(../images/buttons/delete.png); }
@@ -31,6 +32,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-firefox     { background-image: url(../images/buttons/firefox.png); }
 .icon.im-help        { background-image: url(../images/buttons/help.png); }
 .icon.im-import      { background-image: url(../images/buttons/left.png); }
+.icon.im-letter      { background-image: url(../images/buttons/letter.png); }
 .icon.im-load        { background-image: url(../images/buttons/load.png); }
 .icon.im-logout      { background-image: url(../images/buttons/logout.png); }
 .icon.im-mail        { background-image: url(../images/buttons/mail.png); }
@@ -44,9 +46,9 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-resize      { background-image: url(../images/buttons/resize.png); }
 .icon.im-restore     { background-image: url(../images/buttons/left.png); }
 .icon.im-sort        { background-image: url(../images/buttons/sort.png); }
+.icon.im-table       { background-image: url(../images/buttons/table.png); }
 .icon.im-unprintable { background-image: url(../images/buttons/unprintable.png); }
 .icon.im-update      { background-image: url(../images/buttons/update.png); }
-.icon.im-letter      { background-image: url(../images/buttons/letter.png); }
 
 
 
@@ -446,28 +448,31 @@ fieldset.quick-add { color: #008; }
 .tableft > .tabpanels > .tabpanel.current { display: block; }
 */
 
-.branches { margin-left: 18px; border-left: 1px dotted #AAA; }
-.branch .shift { height: 14px; width:10px; border-bottom: 1px dotted #AAA; float:left; }
-.branch .tools { float:right; padding: 1px 4px; width: 20em; }
-.branch .item  { padding: 0 0 0 16px; background: url(../images/buttons/increment.png) no-repeat center left;  margin: 0 0 0 10px; }
+html[dir="ltr"] .branches { margin-left: 18px; border-left: 1px dotted #AAA; }
+html[dir="rtl"] .branches { margin-right: 18px; border-right: 1px dotted #AAA; }
+.branch .shift { height: 14px; width:10px; border-bottom: 1px dotted #AAA; }
+html[dir="ltr"] .branch .shift { float:left; }
+html[dir="rtl"] .branch .shift { float:right; }
+.branch .tools { padding: 1px 4px; width: 20em; }
+html[dir="ltr"] .branch .tools { float:right; }
+html[dir="rtl"] .branch .tools { float:left; }
+/*.branch .item  { padding: 0 0 0 16px; background: url(../images/buttons/increment.png) no-repeat center left; margin: 0 0 0 10px; }*/
+/*.branch .item  { padding: 0 0 0 16px; background: url(../images/buttons/increment.png) no-repeat center left; margin: 0 0 0 10px; }*/
+html[dir="ltr"] .branch .item  { padding: 0 0 0 16px; margin: 0 0 0 10px; }
+html[dir="rtl"] .branch .item  { padding: 0 16px 0 0; margin: 0 10px 0 0; }
 .branch .item .item-detail table { width: 100%; }
 .branch .item .item-detail { border-bottom:1px dotted #79F; padding: 2px 4px; }
 .branch .item .export { vertical-align: bottom; width: 1em; }
 .branch .item .attribute { color: #888; font-style: italic; }
-.branch .item td.delete {padding: 0 4px; width: 2em; text-align:right; }
-/*.branch .item td.delete a {background: url(../images/buttons/delete.png) no-repeat center left; padding: 2px 2px 2px 20px; }*/
+.branch .item td.delete {padding: 0 4px; width: 2em; }
 .branch .item td.position {width: 6ex; }
-/*.branch .item td.position a {background: url(../images/buttons/sort.png) no-repeat center left; padding: 2px 2px 2px 20px; }*/
-.branch .item .comparator {text-align: right}
-/*.branch .item .comparator a {background: url(../images/buttons/filter.png) no-repeat center left; padding: 2px 2px 2px 20px; }*/
-
-.branch.reflection .item { color: #008; background: url(../images/buttons/table.png) no-repeat center left; }
-.branch.column     .item { background: url(../images/buttons/column.png) no-repeat center left; }
+html[dir="ltr"] .branch .item .item-tool { text-align: right; }
+html[dir="rtl"] .branch .item .item-tool { text-align: left; }
 .branch:hover { background-color: #DEF; }
 
 
 .journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }
-.journals.tabbox .tabs { padding-left: 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
+.journals.tabbox .tabs { padding: 0 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
 .journals.tabbox .tabs .tab { background-image: url(../images/shadow-top.png); background-repeat: repeat-x; background-position: center bottom; }
 .journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
 .journals.tabbox .tabs .tab.special{ border-top: 3px solid #95b0e4;  }

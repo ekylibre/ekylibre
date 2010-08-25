@@ -80,7 +80,7 @@ class Listing < ActiveRecord::Base
     # Filter on company
     if self.reflections.size > 0
       c += self.reflections.collect do |node|
-        conn.quote_table_name(node.name)+"."+conn.quote_column_name("#{'company_' unless node.name.match("company")}id")+" = CURRENT_COMPANY"
+        "COALESCE("+conn.quote_table_name(node.name)+"."+conn.quote_column_name("#{'company_' unless node.name.match("company")}id")+", CURRENT_COMPANY) = CURRENT_COMPANY"
       end.join(" AND ")
     else
       #  No reflections => no columns => no conditions
@@ -93,23 +93,6 @@ class Listing < ActiveRecord::Base
     c += " AND ("+self.conditions+")" unless self.conditions.blank?
     return c
   end
-
-#   def reflections
-#     self.nodes.find(:all, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]])
-#   end
-
-#   def columns
-#     self.nodes.find_all_by_nature("column")
-#   end
-
-#   def exportable_columns
-#     #self.nodes.find_all_by_nature_and_exportable("column", true)
-#     self.nodes.find(:all, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position")
-#   end
-
-#   def mail_columns
-#     self.nodes.find(:all, :conditions=>["name LIKE ? ", '%.email'])
-#   end
 
   def duplicate
     listing = self.class.create!(self.attributes.merge(:name=>tg(:copy_of, :source=>self.name)))
