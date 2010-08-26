@@ -31,6 +31,7 @@ __minimum__:
   - relations::entities_dyli
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
+  - store::index
 # Inaccessible
 __not_used__:
   actions:

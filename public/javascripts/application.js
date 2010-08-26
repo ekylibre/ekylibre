@@ -63,6 +63,22 @@ function resize() {
   return _resize();
 }
 
+function makeResizable() {
+  var body = $('body');
+  resize();
+  body.removeClassName('unresizable');
+  body.addClassName('resizable');
+  return true;
+}
+
+function undoResizable() {
+  var body = $('body');
+  body.unresize();
+  body.removeClassName('resizable');
+  body.addClassName('unresizable');
+  return true;
+}
+
 function resize2() {
   window.setTimeout('_resize()',350);
   return _resize();

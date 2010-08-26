@@ -255,6 +255,8 @@ spa:
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Update the observation'
     resources:
+    store:
+      #>index: 'Welcome'
   controllers:
     accountancy: 'Contabilidad'
     application: 'Aplicación'
@@ -264,6 +266,7 @@ spa:
     management: 'Administración comercial'
     production: 'Producción'
     relations: 'Relaciónes'
+    #>store: 'Store'
   errors:
     template:
       #>body: 'There were problems with the following fields:'

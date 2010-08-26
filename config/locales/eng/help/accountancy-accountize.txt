@@ -4,4 +4,4 @@ If you have not enabled the //auto accounting// in the [[>company/configure|conf
 
 You choose the date by which you want to record transactions and once selected you confirm if everything is correct.
 
-!!! **The accounting manual switch does not take into account the changes that were made on parts already included **. The recording in automatic mode allows for it to update accouting data as you work in commerce.
+!!! **The accounting manual switch does not take into account the changes that were made on parts already included**. The recording in automatic mode allows for it to update accouting data as you work in commerce.

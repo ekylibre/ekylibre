@@ -170,11 +170,10 @@ class ListingNode < ActiveRecord::Base
 
   def self.condition(column, operator, value, datatype="string")
     operation =  @@corresponding_comparators[operator.to_sym]||@@corresponding_comparators[:equal]
-    case_sensitive = operator.to_s.match(/_cs$/)
     c = operation.gsub("{{COLUMN}}", column)
     c.gsub!("{{LIST}}", "("+value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect{|x| connection.quote(x.gsub(/\t/, ','))}.join(", ")+")")
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
-      n = m[2..-3].gsub("VALUE", value.send(case_sensitive ? "lower" : "to_s"))
+      n = m[2..-3].gsub("VALUE", value.send(operator.to_s.match(/_cs$/) ? "to_s" : "lower"))
 #       if datatype == "date"
 #         "'"+connection.quoted_date(value.to_date)+"'"
       if datatype == "boolean"

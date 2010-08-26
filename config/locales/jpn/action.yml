@@ -253,6 +253,8 @@ jpn:
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Update the observation'
     resources:
+    store:
+      #>index: 'Welcome'
   controllers:
     accountancy: '会計'
     application: '一般的な車掌'
@@ -262,6 +264,7 @@ jpn:
     management: '商業の管理'
     production: '生産'
     relations: '関係'
+    #>store: 'Store'
   errors:
     template:
       #>body: 'There were problems with the following fields:'

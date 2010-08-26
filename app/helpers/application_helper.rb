@@ -455,7 +455,7 @@ module ApplicationHelper
     if @current_user
       parameter = @current_user.parameter("interface.general.resized", true, :boolean)
       resized = parameter.value
-      tag << link_to("", {:resized=>(resized ? "0" : "1")}, {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode)})+" "
+      tag << link_to("", params.merge(:resized=>(resized ? "0" : "1")), {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode), :id=>:resizable})+" "
       # tag << content_tag(:a, @current_user.label)
       tag << content_tag(:a, @current_user.label)
       tag << content_tag(:a, @current_company.name)
@@ -639,13 +639,15 @@ module ApplicationHelper
   def article(name, options={})
     name = name.to_s
     content = ''
-    file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name+".txt"
-    unless File.exists?(file_text)
-      file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name.gsub(/_[a-z0-9]+$/, '').pluralize+".txt" 
-      unless File.exists?(file_text)
-        file_text = Rails.root.to_s+"/config/locales/"+I18n.locale.to_s+"/help/"+name.pluralize+".txt" 
+    file_name, locale = '', nil
+    for locale in [I18n.locale, I18n.default_locale]
+      help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
+      file_name = [name, name.gsub(/_[a-z0-9]+$/, '').pluralize, name.pluralize].detect do |pattern|
+        File.exists? help_dir.join(pattern+".txt")
       end
+      break unless file_name.blank?
     end
+    file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s+".txt")
     if File.exists?(file_text)
       File.open(file_text, 'r') do |file|
         content = file.read

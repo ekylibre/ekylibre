@@ -377,6 +377,8 @@ eng:
       #>profession_delete: 'Profession delete'
       #>profession_update: 'Profession update'
       #>professions: 'Professions'
+    store:
+      index: 'Welcome'
   controllers:
     accountancy: 'Accountancy'
     application: 'Application'
@@ -387,6 +389,7 @@ eng:
     production: 'Production'
     relations: 'Relationships'
     #>resources: 'Resources'
+    store: 'Store'
   errors:
     template:
       body: 'There were problems with the following fields:'

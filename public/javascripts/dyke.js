@@ -67,8 +67,7 @@ var resizeElementMethods = {
 
 
     if (children_length>0) { 
-      /*alert('OK 2 '+element);*/
-      element.makePositioned();
+      /* element.makePositioned();*/
       var horizontal = element.isHorizontal();
       var element_length = (horizontal ? width : height);
 
@@ -96,15 +95,11 @@ var resizeElementMethods = {
           fixedsum += (horizontal ? borders[index].width : borders[index].height);
         }
       }
-      /* alert('OK 3 '+element); */
-      /*if (element.getAttribute("id") == "side") { alert(width); }*/
 
       // Redimensioning
       var w, h, child_left=0, child_top=0, child_length=0, x=0;
       var flex_unit = (element_length-fixedsum)/flexsum;
       var element_border = element.getBorderDimensions();
-      /*(horizontal ? element.getNumericalStyle('padding-left') : element.getNumericalStyle('padding-top'))*/
-      /*alert(flex_unit);*/
       for (index=0;index<children_length;index++) {
         child = children[index];
         if (child.getStyle('display') !== 'none') {
@@ -134,12 +129,35 @@ var resizeElementMethods = {
           x += child_length+(horizontal ? borders[index].width : borders[index].height);
         }
       }
-      /*element.makePositioned();*/
-
     }
     element.setStyle({height: height+'px', width: width+'px'});
     element.removeClassName("unresized");
     element.addClassName("resized");
+    return element;
+  }, 
+
+  unresize: function(element) {
+    element = $(element);
+    var children = element.childElements();
+    var children_length = children.length;
+    
+    /*    $('side').innerHTML += ""+element.id+"/"+element.tagName+" ("+children_length+")<br/>"*/
+    if (children_length>0) { 
+      // Redimensioning
+      var index, child;
+      for (index=0;index<children_length;index++) {
+        child = children[index];
+        if (child.hasClassName('resized')) {
+          child.unresize();
+        }
+      }
+    }
+    element.setStyle({height: '', width: '', position: '', top: '', left: ''});
+    /*element.morph({height: 'auto', width: 'auto', position: 'static', top: 'auto', left: 'auto'});*/
+    /*element.setStyle({height: 'auto', width: 'auto', position: 'static', top: 'auto', left: 'auto'})*/
+    element.removeClassName("resized");
+    element.addClassName("unresized");
+
     return element;
   }
 
