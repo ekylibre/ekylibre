@@ -152,7 +152,7 @@ class Company < ActiveRecord::Base
 
   attr_readonly :code
 
-  require "#{Rails.root.to_s}/lib/models" unless defined?(Ekylibre.models)
+  require Rails.root.join("lib", "models") unless defined?(Ekylibre.models)
   
   @@rhm = Company.reflections.collect{|r,v| v.name.to_s.singularize.to_sym if v.macro==:has_many}.compact
   @@ehm = Ekylibre.models.delete_if{|x| x==:company}
