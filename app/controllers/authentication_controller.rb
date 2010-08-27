@@ -62,6 +62,9 @@ class AuthenticationController < ApplicationController
   
   def register
     if request.post?
+      @company = Company.new(params[:company])
+      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>'fra'))
+
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
         redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
@@ -70,8 +73,6 @@ class AuthenticationController < ApplicationController
       end
       
       # Test validity
-      @company = Company.new(params[:company])
-      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>'fra'))
       return unless @company.valid? and @user.valid?
 
       @company, @user = Company.create_with_data(params[:company], params[:user], params[:demo])
