@@ -31,7 +31,7 @@
 #  currency_id       :integer          
 #  dest_contact_id   :integer          
 #  id                :integer          not null, primary key
-#  journal_record_id :integer          
+#  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
 #  number            :string(64)       not null
@@ -49,7 +49,7 @@ class PurchaseOrder < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name
-  belongs_to :journal_record
+  belongs_to :journal_entry
   belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
@@ -80,7 +80,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
   
   def clean_on_create
-    specific_numeration = self.company.parameter("management.purchase_orders.numeration").value
+    specific_numeration = self.company.preference("management.purchase_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
 
@@ -177,7 +177,7 @@ class PurchaseOrder < ActiveRecord::Base
 
 
   # This method permits to add journal entries corresponding to the purchase order/invoice
-  # It depends on the parameter which permit to activate the "automatic accountizing"
+  # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |record|
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))

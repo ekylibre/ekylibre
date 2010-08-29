@@ -15,6 +15,7 @@ replace () {
 ./rename_action $controller "${old}_create" "${new}_create"
 ./rename_action $controller "${old}_update" "${new}_update"
 ./rename_action $controller "${old}_delete" "${new}_delete"
+./rename_action $controller "${old}_delete" "${new}_close"
 #./rename_action $controller "${old}_print" "${new}_print"
 #./rename_action $controller "${old}_up" "${new}_up"
 #./rename_action $controller "${old}_down" "${new}_down"
@@ -28,4 +29,6 @@ replace () {
 #./rename_action $controller "${old}_lock" "${new}_lock"
 #./rename_action $controller "${old}_unlock" "${new}_unlock"
 svn mv --force app/views/${controller}/_${old}_form.html.haml app/views/${controller}/_${new}_form.html.haml
-replace "config/locales/*/*.${controller}.yml" "_${old}_form:" "_${new}_form:"
+svn mv --force app/views/${controller}/${old}.html.haml app/views/${controller}/${new}.html.haml
+svn mv --force app/views/${controller}/${old}s.html.haml app/views/${controller}/${new}s.html.haml
+# replace "config/locales/*/*.${controller}.yml" "_${old}_form:" "_${new}_form:"

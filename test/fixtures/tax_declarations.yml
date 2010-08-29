@@ -32,9 +32,9 @@
 #  creator_id               :integer          
 #  declared_on              :date             
 #  deferred_payment         :boolean          
-#  financialyear_id         :integer          
+#  financial_year_id        :integer          
 #  id                       :integer          not null, primary key
-#  journal_record_id        :integer          
+#  journal_entry_id         :integer          
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
 #  paid_amount              :decimal(16, 2)   

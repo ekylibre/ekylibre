@@ -28,8 +28,8 @@
         =evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
         =#evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
     %td
-      -for datum in @entity.complement_data.find(:all, :joins=>"JOIN complements ON (complements.id=complement_id)", :order=>"position")
-        =evalue datum.complement.name, datum.value.to_s
+      -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
+        =evalue datum.custom_field.name, datum.value.to_s
 
  
 =tabbox(:entity) do |tb|

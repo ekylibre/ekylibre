@@ -51,22 +51,22 @@ class ProductionController < ApplicationController
   manage :tools
 
   
-  dyta(:shapes, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
-    t.column :name, :url=>{:action=>:shape}
+  dyta(:land_parcels, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+    t.column :name, :url=>{:action=>:land_parcel}
     t.column :number
     t.column :area_measure, :datatype=>:decimal
     t.column :name, :through=>:area_unit
     t.column :description
-    t.action :shape_update
-    t.action :shape_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :land_parcel_update
+    t.action :land_parcel_delete, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  def shapes
+  def land_parcels
   end
 
-  manage :shapes
+  manage :land_parcels
 
-  dyta(:shape_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>Shape.name, :target_id=>['session[:current_shape]']}, :order=>"planned_on ASC") do |t|
+  dyta(:land_parcel_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -79,13 +79,13 @@ class ProductionController < ApplicationController
   end
 
 
-  def shape
-    return unless @shape = find_and_check(:shapes)
-    session[:current_shape] = @shape.id
-    t3e @shape.attributes
+  def land_parcel
+    return unless @land_parcel = find_and_check(:land_parcels)
+    session[:current_land_parcel] = @land_parcel.id
+    t3e @land_parcel.attributes
   end
 
-  def shapes_map
+  def land_parcels_map
     @map = true
   end
   
@@ -107,7 +107,7 @@ class ProductionController < ApplicationController
 
   dyta(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
     t.column :direction_label
-    t.column :name, :through=>:location, :url=>{:controller=>:management, :action=>:location}
+    t.column :name, :through=>:warehouse, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :quantity
     t.column :label, :through=>:unit

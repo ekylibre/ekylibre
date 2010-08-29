@@ -40,7 +40,7 @@ class Tracking < ActiveRecord::Base
   belongs_to :company
   belongs_to :producer, :class_name=>Entity.name
   belongs_to :product
-  has_many :delivery_lines
+  has_many :sale_delivery_lines
   has_many :inventory_lines
   has_many :stocks
   has_many :purchase_order_lines

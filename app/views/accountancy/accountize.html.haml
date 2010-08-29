@@ -9,7 +9,7 @@
 -if @step == 2
   =form_tag({}, :method=>:post) do
     =formalize do |f|
-      -f.title tc(:parameters)
+      -f.title tc(:preferences)
       -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_accountization_on])
       -f.field tc(:save_in_draft), check_box_tag("save_in_draft", "1", @current_company.draft_mode?)
       -f.title tc(:counts_by_nature)

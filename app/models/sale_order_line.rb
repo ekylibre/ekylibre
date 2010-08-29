@@ -31,7 +31,6 @@
 #  id                  :integer          not null, primary key
 #  invoiced            :boolean          not null
 #  label               :text             
-#  location_id         :integer          
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
 #  position            :integer          
@@ -46,6 +45,7 @@
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
+#  warehouse_id        :integer          
 #
 
 class SaleOrderLine < ActiveRecord::Base
@@ -55,7 +55,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :account
   belongs_to :company
   belongs_to :entity
-  belongs_to :location
+  belongs_to :warehouse
   belongs_to :order, :class_name=>SaleOrder.to_s
   belongs_to :price
   belongs_to :product
@@ -63,7 +63,7 @@ class SaleOrderLine < ActiveRecord::Base
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :foreign_key=>:order_line_id
+  has_many :delivery_lines, :foreign_key=>:order_line_id, :class_name=>SaleDeliveryLine.name
   has_many :invoice_lines
   has_one :reduction, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :reductions, :class_name=>SaleOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
@@ -86,9 +86,9 @@ class SaleOrderLine < ActiveRecord::Base
       self.account_id = self.product.sales_account_id 
       self.unit_id = self.product.unit_id
       if self.product.manage_stocks
-        self.location_id ||= self.product.stocks.first.location_id if self.product.stocks.size > 0
+        self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.size > 0
       else
-        self.location_id = nil
+        self.warehouse_id = nil
       end
       self.label ||= self.product.catalog_name
     end
@@ -127,9 +127,9 @@ class SaleOrderLine < ActiveRecord::Base
     end
 
     
-    #     if self.location.reservoir && self.location.product_id != self.product_id
+    #     if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name, :account_id=>0, :unit_id=>self.unit_id) 
+    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name, :account_id=>0, :unit_id=>self.unit_id) 
     #     end
     #     check_reservoir
     return false if self.amount.zero? and self.amount_with_taxes.zero? and self.quantity.zero?
@@ -137,10 +137,10 @@ class SaleOrderLine < ActiveRecord::Base
 
 
   def check
-    if self.location
-      errors.add_to_base(:location_can_not_transfer_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) unless self.location.can_receive?(self.product_id)
+    if self.warehouse
+      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
       if self.tracking
-        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :tracking_id=>self.tracking_id})
+        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id})
         errors.add_to_base(:can_not_use_this_tracking, :tracking=>self.tracking.name) if stock and stock.virtual_quantity < self.quantity
       end
     end
@@ -154,7 +154,7 @@ class SaleOrderLine < ActiveRecord::Base
   def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :location_id=>self.location_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
+      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -170,17 +170,17 @@ class SaleOrderLine < ActiveRecord::Base
   end
 
   def stock_id
-    self.company.stocks.find_by_location_id_and_product_id_and_tracking_id(self.location_id, self.product_id, self.tracking_id).id rescue nil
+    self.company.stocks.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
   end
 
   def stock_id=(value)
     value = value.to_i
     if value > 0 and stock = (self.company||self.order.company).stocks.find_by_id(value)
-      self.location_id = stock.location_id
+      self.warehouse_id = stock.warehouse_id
       self.tracking_id = stock.tracking_id
       self.product_id  = stock.product_id
-    elsif value < 0 and location = self.company.locations.find_by_id(value.abs)
-      self.location_id = value.abs
+    elsif value < 0 and warehouse = self.company.warehouses.find_by_id(value.abs)
+      self.warehouse_id = value.abs
     end
   end
 

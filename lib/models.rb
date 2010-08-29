@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :company, :complement, :complement_choice, :complement_datum, :contact, :currency, :delay, :delivery, :delivery_line, :delivery_mode, :department, :district, :document, :document_template, :embankment, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financialyear, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_record, :listing, :listing_node, :listing_node_item, :location, :mandate, :observation, :operation, :operation_line, :operation_nature, :parameter, :price, :product, :product_component, :profession, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :shape, :shelf, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_use, :tracking, :transfer, :transport, :unit, :user]
+  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :company, :contact, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :preference, :price, :product, :product_category, :product_component, :profession, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_use, :tracking, :transfer, :transport, :unit, :user, :warehouse]
 
   # List of all references
   @@references = {
@@ -15,7 +15,7 @@ module Ekylibre
       :account_id => :account,
       :company_id => :company,
       :creator_id => :user,
-      :financialyear_id => :financialyear,
+      :financial_year_id => :financial_year,
       :updater_id => :user
     },
     :area => {
@@ -44,25 +44,6 @@ module Ekylibre
       :entity_id => :entity,
       :updater_id => :user
     },
-    :complement => {
-      :company_id => :company,
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :complement_choice => {
-      :company_id => :company,
-      :complement_id => :complement,
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :complement_datum => {
-      :choice_value_id => :complement_choice,
-      :company_id => :company,
-      :complement_id => :complement,
-      :creator_id => :user,
-      :entity_id => :entity,
-      :updater_id => :user
-    },
     :contact => {
       :area_id => :area,
       :company_id => :company,
@@ -75,36 +56,26 @@ module Ekylibre
       :creator_id => :user,
       :updater_id => :user
     },
+    :custom_field => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :custom_field_choice => {
+      :company_id => :company,
+      :creator_id => :user,
+      :custom_field_id => :custom_field,
+      :updater_id => :user
+    },
+    :custom_field_datum => {
+      :choice_value_id => :custom_field_choice,
+      :company_id => :company,
+      :creator_id => :user,
+      :custom_field_id => :custom_field,
+      :entity_id => :entity,
+      :updater_id => :user
+    },
     :delay => {
-      :company_id => :company,
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :delivery => {
-      :company_id => :company,
-      :contact_id => :contact,
-      :creator_id => :user,
-      :currency_id => :currency,
-      :invoice_id => :invoice,
-      :mode_id => :delivery_mode,
-      :order_id => :sale_order,
-      :transport_id => :transport,
-      :transporter_id => :entity,
-      :updater_id => :user
-    },
-    :delivery_line => {
-      :company_id => :company,
-      :creator_id => :user,
-      :delivery_id => :delivery,
-      :location_id => :location,
-      :order_line_id => :sale_order_line,
-      :price_id => :price,
-      :product_id => :product,
-      :tracking_id => :tracking,
-      :unit_id => :unit,
-      :updater_id => :user
-    },
-    :delivery_mode => {
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user
@@ -113,6 +84,15 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :parent_id => :department,
+      :updater_id => :user
+    },
+    :deposit => {
+      :cash_id => :cash,
+      :company_id => :company,
+      :creator_id => :user,
+      :embanker_id => :user,
+      :journal_entry_id => :journal_entry,
+      :mode_id => :sale_payment_mode,
       :updater_id => :user
     },
     :district => {
@@ -130,15 +110,6 @@ module Ekylibre
     :document_template => {
       :company_id => :company,
       :creator_id => :user,
-      :updater_id => :user
-    },
-    :embankment => {
-      :cash_id => :cash,
-      :company_id => :company,
-      :creator_id => :user,
-      :embanker_id => :entity,
-      :journal_record_id => :journal_record,
-      :mode_id => :sale_payment_mode,
       :updater_id => :user
     },
     :entity => {
@@ -196,7 +167,7 @@ module Ekylibre
       :creator_id => :user,
       :updater_id => :user
     },
-    :financialyear => {
+    :financial_year => {
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user
@@ -204,7 +175,7 @@ module Ekylibre
     :inventory => {
       :company_id => :company,
       :creator_id => :user,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :responsible_id => :user,
       :updater_id => :user
     },
@@ -212,11 +183,11 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :inventory_id => :inventory,
-      :location_id => :location,
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :invoice => {
       :client_id => :entity,
@@ -224,7 +195,7 @@ module Ekylibre
       :contact_id => :contact,
       :creator_id => :user,
       :currency_id => :currency,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :origin_id => :invoice,
       :payment_delay_id => :delay,
       :sale_order_id => :sale_order,
@@ -235,14 +206,14 @@ module Ekylibre
       :creator_id => :user,
       :entity_id => :entity,
       :invoice_id => :invoice,
-      :location_id => :location,
       :order_line_id => :sale_order_line,
       :origin_id => :invoice_line,
       :price_id => :price,
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :journal => {
       :company_id => :company,
@@ -252,20 +223,27 @@ module Ekylibre
       :updater_id => :user
     },
     :journal_entry => {
-      :account_id => :account,
-      :bank_statement_id => :bank_statement,
-      :company_id => :company,
-      :creator_id => :user,
-      :journal_id => :journal,
-      :record_id => :journal_record,
-      :updater_id => :user
-    },
-    :journal_record => {
       :company_id => :company,
       :creator_id => :user,
       :currency_id => :currency,
       :journal_id => :journal,
       :resource_id => "resource_type",
+      :updater_id => :user
+    },
+    :journal_entry_line => {
+      :account_id => :account,
+      :bank_statement_id => :bank_statement,
+      :company_id => :company,
+      :creator_id => :user,
+      :entry_id => :journal_entry,
+      :journal_id => :journal,
+      :updater_id => :user
+    },
+    :land_parcel => {
+      :area_unit_id => :unit,
+      :company_id => :company,
+      :creator_id => :user,
+      :parent_id => :land_parcel,
       :updater_id => :user
     },
     :listing => {
@@ -286,17 +264,6 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :node_id => :listing_node,
-      :updater_id => :user
-    },
-    :location => {
-      :account_id => :account,
-      :company_id => :company,
-      :contact_id => :contact,
-      :creator_id => :user,
-      :establishment_id => :establishment,
-      :parent_id => :location,
-      :product_id => :product,
-      :unit_id => :unit,
       :updater_id => :user
     },
     :mandate => {
@@ -323,19 +290,19 @@ module Ekylibre
       :area_unit_id => :unit,
       :company_id => :company,
       :creator_id => :user,
-      :location_id => :location,
       :operation_id => :operation,
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :operation_nature => {
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user
     },
-    :parameter => {
+    :preference => {
       :company_id => :company,
       :creator_id => :user,
       :record_value_id => "record_value_type",
@@ -353,23 +320,29 @@ module Ekylibre
       :updater_id => :user
     },
     :product => {
+      :category_id => :product_category,
       :company_id => :company,
       :creator_id => :user,
       :immobilizations_account_id => :account,
       :purchases_account_id => :account,
       :sales_account_id => :account,
-      :shelf_id => :shelf,
       :subscription_nature_id => :subscription_nature,
       :unit_id => :unit,
+      :updater_id => :user
+    },
+    :product_category => {
+      :company_id => :company,
+      :creator_id => :user,
+      :parent_id => :product_category,
       :updater_id => :user
     },
     :product_component => {
       :company_id => :company,
       :component_id => :product_component,
       :creator_id => :user,
-      :location_id => :location,
       :product_id => :product,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :profession => {
       :company_id => :company,
@@ -381,7 +354,7 @@ module Ekylibre
       :creator_id => :user,
       :currency_id => :currency,
       :dest_contact_id => :contact,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :supplier_id => :entity,
       :updater_id => :user
     },
@@ -389,18 +362,18 @@ module Ekylibre
       :account_id => :account,
       :company_id => :company,
       :creator_id => :user,
-      :location_id => :location,
       :order_id => :purchase_order,
       :price_id => :price,
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :purchase_payment => {
       :company_id => :company,
       :creator_id => :user,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :mode_id => :purchase_payment_mode,
       :payee_id => :entity,
       :responsible_id => :user,
@@ -416,11 +389,40 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :expense_id => :purchase_order,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :payment_id => :purchase_payment,
       :updater_id => :user
     },
     :role => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :sale_delivery => {
+      :company_id => :company,
+      :contact_id => :contact,
+      :creator_id => :user,
+      :currency_id => :currency,
+      :invoice_id => :invoice,
+      :mode_id => :sale_delivery_mode,
+      :order_id => :sale_order,
+      :transport_id => :transport,
+      :transporter_id => :entity,
+      :updater_id => :user
+    },
+    :sale_delivery_line => {
+      :company_id => :company,
+      :creator_id => :user,
+      :delivery_id => :sale_delivery,
+      :order_line_id => :sale_order_line,
+      :price_id => :price,
+      :product_id => :product,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :warehouse_id => :warehouse
+    },
+    :sale_delivery_mode => {
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user
@@ -434,7 +436,7 @@ module Ekylibre
       :delivery_contact_id => :contact,
       :expiration_id => :delay,
       :invoice_contact_id => :contact,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :nature_id => :sale_order_nature,
       :payment_delay_id => :delay,
       :responsible_id => :user,
@@ -446,7 +448,6 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :entity_id => :entity,
-      :location_id => :location,
       :order_id => :sale_order,
       :price_id => :price,
       :product_id => :product,
@@ -454,7 +455,8 @@ module Ekylibre
       :tax_id => :tax,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :sale_order_nature => {
       :company_id => :company,
@@ -467,9 +469,9 @@ module Ekylibre
     :sale_payment => {
       :company_id => :company,
       :creator_id => :user,
+      :deposit_id => :deposit,
       :embanker_id => :user,
-      :embankment_id => :embankment,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :mode_id => :sale_payment_mode,
       :payer_id => :entity,
       :updater_id => :user
@@ -486,7 +488,7 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :expense_id => "expense_type",
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :payment_id => :sale_payment,
       :updater_id => :user
     },
@@ -495,51 +497,38 @@ module Ekylibre
       :creator_id => :user,
       :updater_id => :user
     },
-    :shape => {
-      :area_unit_id => :unit,
-      :company_id => :company,
-      :creator_id => :user,
-      :parent_id => :shape,
-      :updater_id => :user
-    },
-    :shelf => {
-      :company_id => :company,
-      :creator_id => :user,
-      :parent_id => :shelf,
-      :updater_id => :user
-    },
     :stock => {
       :company_id => :company,
       :creator_id => :user,
-      :location_id => :location,
       :origin_id => "origin_type",
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :stock_move => {
       :company_id => :company,
       :creator_id => :user,
-      :location_id => :location,
       :origin_id => "origin_type",
       :product_id => :product,
-      :second_location_id => :location,
       :second_move_id => :stock_move,
+      :second_warehouse_id => :warehouse,
       :stock_id => :stock,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :stock_transfer => {
       :company_id => :company,
       :creator_id => :user,
-      :location_id => :location,
       :product_id => :product,
-      :second_location_id => :location,
+      :second_warehouse_id => :warehouse,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :user,
+      :warehouse_id => :warehouse
     },
     :subscription => {
       :company_id => :company,
@@ -569,8 +558,8 @@ module Ekylibre
     :tax_declaration => {
       :company_id => :company,
       :creator_id => :user,
-      :financialyear_id => :financialyear,
-      :journal_record_id => :journal_record,
+      :financial_year_id => :financial_year,
+      :journal_entry_id => :journal_entry,
       :updater_id => :user
     },
     :tool => {
@@ -595,7 +584,7 @@ module Ekylibre
     :transfer => {
       :company_id => :company,
       :creator_id => :user,
-      :journal_record_id => :journal_record,
+      :journal_entry_id => :journal_entry,
       :supplier_id => :entity,
       :updater_id => :user
     },
@@ -618,6 +607,17 @@ module Ekylibre
       :establishment_id => :establishment,
       :profession_id => :profession,
       :role_id => :role,
+      :updater_id => :user
+    },
+    :warehouse => {
+      :account_id => :account,
+      :company_id => :company,
+      :contact_id => :contact,
+      :creator_id => :user,
+      :establishment_id => :establishment,
+      :parent_id => :warehouse,
+      :product_id => :product,
+      :unit_id => :unit,
       :updater_id => :user
     }
   }

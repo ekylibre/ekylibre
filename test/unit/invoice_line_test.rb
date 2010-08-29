@@ -29,7 +29,6 @@
 #  entity_id         :integer          
 #  id                :integer          not null, primary key
 #  invoice_id        :integer          
-#  location_id       :integer          
 #  lock_version      :integer          default(0), not null
 #  order_line_id     :integer          
 #  origin_id         :integer          
@@ -41,6 +40,7 @@
 #  unit_id           :integer          
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
+#  warehouse_id      :integer          
 #
 
 require 'test_helper'

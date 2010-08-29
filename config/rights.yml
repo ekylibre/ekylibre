@@ -27,7 +27,7 @@ __minimum__:
   - management::product_trackings
   - management::product_units
   - management::subscription_contacts_dyli
-  - production::shapes_map
+  - production::land_parcels_map
   - relations::entities_dyli
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
@@ -35,12 +35,11 @@ __minimum__:
 # Inaccessible
 __not_used__:
   actions:
-  - management::locationz
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_dyta
+  - resources::employee_land_parcel_operations_dyta
   - resources::employee_sale_orders_dyta
-  - resources::employee_shape_operations_dyta
   - resources::employees
   - resources::employees_dyta
   - resources::index
@@ -197,7 +196,7 @@ manage_accounts:
   - account_create
   - account_delete
   - account_entities_dyta
-  - account_journal_entries_dyta
+  - account_journal_entry_lines_dyta
   - account_update
   - accounts
   - accounts_dyta
@@ -227,26 +226,26 @@ manage_cashes:
   - cash_bank_statements_dyta
   - cash_create
   - cash_delete
-  - cash_embankments_dyta
+  - cash_deposits_dyta
   - cash_update
   - cashes
   - cashes_dyta
   - index
-# Manage personalized fields
-manage_complements:
+# Manage custom fields
+manage_custom_fields:
   controller: relations
   actions:
-  - complement
-  - complement_choice_create
-  - complement_choice_down
-  - complement_choice_up
-  - complement_choice_update
-  - complement_choices_dyta
-  - complement_create
-  - complement_sort
-  - complement_update
-  - complements
-  - complements_dyta
+  - custom_field
+  - custom_field_choice_create
+  - custom_field_choice_down
+  - custom_field_choice_up
+  - custom_field_choice_update
+  - custom_field_choices_dyta
+  - custom_field_create
+  - custom_field_sort
+  - custom_field_update
+  - custom_fields
+  - custom_fields_dyta
   - index
 # Manage delays
 manage_delays:
@@ -259,16 +258,21 @@ manage_delays:
   - delays
   - delays_dyta
   - index
-# Manage delivery modes
-manage_delivery_modes:
+# Manage deposits
+manage_deposits:
   controller: management
   actions:
-  - delivery_mode_create
-  - delivery_mode_delete
-  - delivery_mode_update
-  - delivery_modes
-  - delivery_modes_dyta
+  - deposit
+  - deposit_create
+  - deposit_delete
+  - deposit_payments_dyta
+  - deposit_update
+  - deposits
+  - deposits_dyta
+  - embankable_payments_dyta
   - index
+  - unvalidated_deposits
+  - unvalidated_deposits_dyta
 # Manage districts
 manage_districts:
   controller: relations
@@ -293,21 +297,6 @@ manage_document_templates:
   - document_templates_dyta
   - document_templates_load
   - index
-# Manage embankments
-manage_embankments:
-  controller: management
-  actions:
-  - embankable_payments_dyta
-  - embankment
-  - embankment_create
-  - embankment_delete
-  - embankment_payments_dyta
-  - embankment_update
-  - embankments
-  - embankments_dyta
-  - index
-  - unvalidated_embankments
-  - unvalidated_embankments_dyta
 # Manage people
 manage_entities:
   controller: relations
@@ -366,31 +355,6 @@ manage_entity_links:
   - entity_link_update
   - entity_links_dyta
   - index
-# Manage journal entries
-manage_entries:
-  controller: accountancy
-  actions:
-  - account_dyli
-  - account_letter
-  - account_unletter
-  - draft_entries
-  - draft_entries_dyta
-  - index
-  - journal
-  - journal_draft_entries_dyta
-  - journal_entries_dyta
-  - journal_entry_create
-  - journal_mixed_dyta
-  - journal_record
-  - journal_record_create
-  - journal_record_delete
-  - journal_record_entries_dyta
-  - journal_record_update
-  - journal_records_dyta
-  - journals
-  - journals_dyta
-  - lettering
-  - unlettered_journal_entries_dyta
 # Create and update estimates
 manage_estimates:
   controller: management
@@ -432,16 +396,16 @@ manage_events:
   - events_dyta
   - index
 # Manage and close financial years
-manage_financialyears:
+manage_financial_years:
   controller: accountancy
   actions:
-  - financialyear
-  - financialyear_close
-  - financialyear_create
-  - financialyear_delete
-  - financialyear_update
-  - financialyears
-  - financialyears_dyta
+  - financial_year
+  - financial_year_close
+  - financial_year_create
+  - financial_year_delete
+  - financial_year_update
+  - financial_years
+  - financial_years_dyta
   - index
 # Manage inventories
 manage_inventories:
@@ -456,6 +420,31 @@ manage_inventories:
   - inventory_lines_update_dyta
   - inventory_reflect
   - inventory_update
+# Manaeg journal entries
+manage_journal_entries:
+  controller: accountancy
+  actions:
+  - account_dyli
+  - account_letter
+  - account_unletter
+  - draft_entry_lines
+  - draft_entry_lines_dyta
+  - index
+  - journal
+  - journal_draft_entry_lines_dyta
+  - journal_entries_dyta
+  - journal_entry
+  - journal_entry_create
+  - journal_entry_delete
+  - journal_entry_entries_dyta
+  - journal_entry_line_create
+  - journal_entry_lines_dyta
+  - journal_entry_update
+  - journal_mixed_dyta
+  - journals
+  - journals_dyta
+  - lettering
+  - unlettered_journal_entry_lines_dyta
 # Manage, close and reopen journals
 manage_journals:
   controller: accountancy
@@ -469,6 +458,18 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
+# Manage fields
+manage_land_parcels:
+  controller: production
+  actions:
+  - index
+  - land_parcel
+  - land_parcel_create
+  - land_parcel_delete
+  - land_parcel_operations_dyta
+  - land_parcel_update
+  - land_parcels
+  - land_parcels_dyta
 # Manage listings
 manage_listings:
   controller: company
@@ -483,18 +484,6 @@ manage_listings:
   - listing_update
   - listings
   - listings_dyta
-# Manage warehouse
-manage_locations:
-  controller: management
-  actions:
-  - index
-  - location_create
-  - location_delete
-  - location_stock_moves_dyta
-  - location_stocks_dyta
-  - location_update
-  - locations
-  - locations_dyta
 # Manage mandates
 manage_mandates:
   controller: relations
@@ -568,6 +557,18 @@ manage_prices:
   - prices_dyta
   - prices_export
   - prices_import
+# Manage product categories
+manage_product_categories:
+  controller: management
+  actions:
+  - index
+  - product_categories
+  - product_categories_dyta
+  - product_category
+  - product_category_create
+  - product_category_delete
+  - product_category_products_dyta
+  - product_category_update
 # Manage products
 manage_products:
   controller: management
@@ -611,6 +612,16 @@ manage_purchases:
   - purchase_payments_dyta
   - purchase_products_dyli
   - suppliers_dyli
+# Manage sale delivery modes
+manage_sale_delivery_modes:
+  controller: management
+  actions:
+  - index
+  - sale_delivery_mode_create
+  - sale_delivery_mode_delete
+  - sale_delivery_mode_update
+  - sale_delivery_modes
+  - sale_delivery_modes_dyta
 # Mange sale orders natures
 manage_sale_order_natures:
   controller: management
@@ -626,10 +637,10 @@ manage_sale_orders:
   controller: management
   actions:
   - delivery_contacts_dyli
-  - delivery_create
-  - delivery_delete
-  - delivery_update
   - index
+  - sale_delivery_create
+  - sale_delivery_delete
+  - sale_delivery_update
   - sale_order_confirm
   - sale_order_delete
   - sale_order_deliveries
@@ -654,30 +665,6 @@ manage_sale_payments:
   - sale_payment_update
   - sale_payments
   - sale_payments_dyta
-# Manage fields
-manage_shapes:
-  controller: production
-  actions:
-  - index
-  - shape
-  - shape_create
-  - shape_delete
-  - shape_operations_dyta
-  - shape_update
-  - shapes
-  - shapes_dyta
-# Manage shelves
-manage_shelves:
-  controller: management
-  actions:
-  - index
-  - shelf
-  - shelf_create
-  - shelf_delete
-  - shelf_products_dyta
-  - shelf_update
-  - shelves
-  - shelves_dyta
 # Manage stock moves
 manage_stock_moves:
   controller: management
@@ -725,7 +712,7 @@ manage_taxes:
   - tax_update
   - taxes
   - taxes_dyta
-# Maange tools of production
+# Manage tools of production
 manage_tools:
   controller: production
   actions:
@@ -741,8 +728,8 @@ manage_tools:
 manage_transports:
   controller: management
   actions:
-  - deliveries_dyli
   - index
+  - sale_deliveries_dyli
   - transport
   - transport_create
   - transport_delete
@@ -781,6 +768,19 @@ manage_users:
   - user_update
   - users
   - users_dyta
+# Manage warehouses
+manage_warehouses:
+  controller: management
+  actions:
+  - index
+  - warehouse
+  - warehouse_create
+  - warehouse_delete
+  - warehouse_stock_moves_dyta
+  - warehouse_stocks_dyta
+  - warehouse_update
+  - warehouses
+  - warehouses_dyta
 # Merge people
 merge_entities:
   controller: relations

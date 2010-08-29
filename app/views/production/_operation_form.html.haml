@@ -4,7 +4,7 @@
   - f.field :operation, :name
   - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
   - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
-  - f.field :operation, :target_id, :choices=>{:reflection=>:shapes, :include_blank=>""}, :new=>{:action=>:shape_create}
+  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>{:action=>:land_parcel_create}
   - f.field :operation, :planned_on
   - f.field :operation, :description, :field=>:textarea
   - f.title :duration
@@ -15,7 +15,7 @@
     %td{:valign=>:top}
       = formalize do |f|
         - f.title :operation_lines
-      =hidden_field_tag "operation[target_type]", Shape.name
+      =hidden_field_tag "operation[target_type]", LandParcel.name
       %table.dyta
         %thead
           %tr

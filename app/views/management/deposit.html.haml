@@ -1,0 +1,20 @@
+=toolbar do |t|
+  -t.update @deposit
+  -t.print :deposit, :p0=>@deposit.id
+
+=evalue @deposit, :cash, :url=>{:controller=>:accountancy, :action=>:cash}
+=evalue @deposit, :comment
+=evalue @deposit, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+
+%h2=Deposit.human_attribute_name("payments")
+=dyta :deposit_payments
+
+%table.dyta
+  %tr.total
+    %th=tc(:payments_count, :mode=>@deposit.mode.name)
+    %td=@deposit.payments_count 
+  %tr.total.important
+    %th=tc(:total)
+    %td=@deposit.amount.to_s+" "+@deposit.cash.currency.code
+
+

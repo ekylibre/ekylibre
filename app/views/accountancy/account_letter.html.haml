@@ -20,29 +20,29 @@
 =form_tag() do
   %table.dyta
     %tr
-      %th=JournalEntry.human_attribute_name("letter")
-      %th=JournalRecord.human_attribute_name("printed_on")
+      %th=JournalEntryLine.human_attribute_name("letter")
+      %th=JournalEntry.human_attribute_name("printed_on")
       %th=Journal.model_name.human
-      %th=JournalRecord.model_name.human
       %th=JournalEntry.model_name.human
-      %th=JournalEntry.human_attribute_name("debit")
-      %th=JournalEntry.human_attribute_name("credit")
-    -for @journal_entry in @journal_entries
-      -checked = (@journal_entry.letter == @letter)
-      -trid = "e#{@journal_entry.id}"
-      %tr{:id=>trid, :class=>(checked ? "notice " :  (@journal_entry.letter.blank? ? "" : ""))+cycle("even", "odd")}
+      %th=JournalEntryLine.model_name.human
+      %th=JournalEntryLine.human_attribute_name("debit")
+      %th=JournalEntryLine.human_attribute_name("credit")
+    -for @journal_entry_line in @journal_entry_lines
+      -checked = (@journal_entry_line.letter == @letter)
+      -trid = "e#{@journal_entry_line.id}"
+      %tr{:id=>trid, :class=>(checked ? "notice " :  (@journal_entry_line.letter.blank? ? "" : ""))+cycle("even", "odd")}
         %td.chk
-          -if @journal_entry.letter.blank? or checked
-            =check_box_tag("journal_entry[#{@journal_entry.id}][to_letter]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_#{@journal_entry.id}_to_letter" )
+          -if @journal_entry_line.letter.blank? or checked
+            =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][to_letter]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_line_#{@journal_entry_line.id}_to_letter" )
           -else
-            =@journal_entry.letter
-            =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unletter, :id=>@account.id, :letter=>@journal_entry.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
-        %td.date=I18n.localize(@journal_entry.record.printed_on)
-        %td=link_to(@journal_entry.journal.name, {:action=>:journal, :id=>@journal_entry.journal_id}, :keep=>true)
-        %td.code=link_to(@journal_entry.record.number, {:action=>:journal_record, :id=>@journal_entry.record_id}, :keep=>true)
-        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_to_letter')"}=@journal_entry.name
-        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_to_letter')"}=number_to_accountancy(@journal_entry.debit)
-        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_to_letter')"}=number_to_accountancy(@journal_entry.credit)
+            =@journal_entry_line.letter
+            =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unletter, :id=>@account.id, :letter=>@journal_entry_line.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
+        %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
+        %td=link_to(@journal_entry_line.journal.name, {:action=>:journal, :id=>@journal_entry_line.journal_id}, :keep=>true)
+        %td.code=link_to(@journal_entry_line.entry.number, {:action=>:journal_entry, :id=>@journal_entry_line.entry_id}, :keep=>true)
+        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_letter')"}=@journal_entry_line.name
+        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_letter')"}=number_to_accountancy(@journal_entry_line.debit)
+        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_letter')"}=number_to_accountancy(@journal_entry_line.credit)
     %tr#total.total
       %th{:colspan=>5}=tg(:total)
       %td#total-debit=0

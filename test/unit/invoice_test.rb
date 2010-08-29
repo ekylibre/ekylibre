@@ -35,7 +35,7 @@
 #  downpayment_amount :decimal(16, 2)   default(0.0), not null
 #  has_downpayment    :boolean          not null
 #  id                 :integer          not null, primary key
-#  journal_record_id  :integer          
+#  journal_entry_id   :integer          
 #  lock_version       :integer          default(0), not null
 #  lost               :boolean          not null
 #  nature             :string(1)        not null

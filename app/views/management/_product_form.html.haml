@@ -1,4 +1,4 @@
--location_id = nil
+-warehouse_id = nil
 =formalize do |f|
   -f.error :product
   -f.error :stock
@@ -10,7 +10,7 @@
   -f.field :product, :catalog_name
   -f.field :product, :comment, :field=>:textarea
   -f.title :nature
-  -f.field :product, :shelf_id, :choices=>{:reflection=>:shelves}, :new=>{:action=>:shelf_create}
+  -f.field :product, :category_id, :choices=>{:reflection=>:product_categories}, :new=>{:action=>:product_category_create}
   -f.field :product, :unit_id, :choices=>{:reflection=>:units}, :new=>{:controller=>:company, :action=>:unit_create}
   -f.field :product, :weight
   -f.field :product, :price
@@ -28,12 +28,12 @@
   -f.field :product, :for_productions
   -f.field :product, :manage_stocks
 =formalize(:id=>:product_form_stocks) do |f|
-  -f.title :stocks_parameters
+  -f.title :stocks_preferences
   -f.field :stock, :quantity_min
   -f.field :stock, :critic_quantity_min
   -f.field :stock, :quantity_max
-  -if @locations.size > 1
-    -location_id = f.field :stock, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create}
+  -if @warehouses.size > 1
+    -warehouse_id = f.field :stock, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>{:action=>:warehouse_create}
 -#price=render :partial=>'price_amount_form'
 
 =formalize do |f|
@@ -58,7 +58,7 @@
 
 =observe_field("product_nature_service", :frequency =>0.25, :function => "toggleService();")
 -if request.url.to_s.include? "update"
-  =observe_field(location_id, :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"location_id")
+  =observe_field(warehouse_id, :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"warehouse_id")
 =observe_field("product_manage_stocks", :frequency=>0.25, :function=> "toggleStocks();")
 =observe_field("product_nature_subscrip", :frequency=>0.25, :function=>"toggleSubscription();")
 =observe_field("product_for_purchases", :frequency=>0.25, :function=>"togglePurchasesAccount();")

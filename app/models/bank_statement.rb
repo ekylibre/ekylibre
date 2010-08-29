@@ -68,12 +68,11 @@ class BankStatement < ActiveRecord::Base
     self.class.find(:first, :conditions=>{:stopped_on=>self.started_on-1})
   end
 
-  def eligible_entries
-    self.company.journal_entries.find(:all, 
-                                      :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_records.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
-                                      # :conditions =>["account_id = ? AND draft=? AND (bank_statement_id IS NULL OR bank_statement_id = ? OR journal_records.created_on BETWEEN ? AND ?)", self.cash.account_id, false, self.id, self.started_on, self.stopped_on], 
-                                      :joins => "INNER JOIN journal_records ON journal_records.id = journal_entries.record_id", 
-                                      :order => "bank_statement_id DESC, journal_entries.created_at DESC")
+  def eligible_entry_lines
+    self.company.journal_entry_lines.find(:all, 
+                                          :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
+                                          :joins => "INNER JOIN journal_entries ON journal_entries.id = entry_id", 
+                                          :order => "bank_statement_id DESC, journal_entry_lines.created_at DESC")
   end
 
 end

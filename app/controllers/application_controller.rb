@@ -288,9 +288,9 @@ class ApplicationController < ActionController::Base
     end
     
     if params[:resized]
-      parameter = @current_user.parameter("interface.general.resized", true, :boolean)
-      parameter.value = (params[:resized] == "1" ? true : false)
-      parameter.save!
+      preference = @current_user.preference("interface.general.resized", true, :boolean)
+      preference.value = (params[:resized] == "1" ? true : false)
+      preference.save!
     end
   end
 

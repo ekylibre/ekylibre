@@ -5,7 +5,7 @@
     -f.field :sale_order_line, :annotation, :field=>:textarea
   -if product.manage_stocks
     =formalize do |f|
-      -#f.field :sale_order_line, :stock_id, :choices=>{:reflection=>:s}, :new=>{:action=>:location_create} 
+      -#f.field :sale_order_line, :stock_id, :choices=>{:reflection=>:s}, :new=>{:action=>:warehouse_create} 
       -f.field SaleOrderLine.human_attribute_name("stock_id"), select(:sale_order_line, :stock_id, product_stocks_options(product))
   -if product.nature == "subscrip"
     -@subscription = @sale_order_line.new_subscription(params[:subscription])

@@ -88,7 +88,7 @@ class Entity < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
   has_many :cashes, :dependent=>:destroy
-  has_many :complement_data
+  has_many :custom_field_data
   has_many :contacts, :conditions=>{:deleted_at=>nil}
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
   has_many :events
@@ -96,13 +96,13 @@ class Entity < ActiveRecord::Base
   has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
-  has_many :sale_payments, :foreign_key=>:payer_id
-  has_many :purchase_payments, :foreign_key=>:payee_id
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
+  has_many :purchase_payments, :foreign_key=>:payee_id
   has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
-  has_many :trackings, :foreign_key=>:producer_id
+  has_many :sale_payments, :foreign_key=>:payer_id
   has_many :subscriptions
+  has_many :trackings, :foreign_key=>:producer_id
   has_many :usable_sale_payments, :conditions=>["parts_amount < amount"], :class_name=>SalePayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
@@ -120,8 +120,8 @@ class Entity < ActiveRecord::Base
     end
     self.full_name.strip!
     
-    if not self.company.parameter("relations.entities.numeration").nil? and self.code.blank?
-      specific_numeration = self.company.parameter("relations.entities.numeration").value
+    if not self.company.preference("relations.entities.numeration").nil? and self.code.blank?
+      specific_numeration = self.company.preference("relations.entities.numeration").value
       if not specific_numeration.nil?
         self.code = specific_numeration.next_value
       end
@@ -205,7 +205,7 @@ class Entity < ActiveRecord::Base
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature])
     if valid_account.nil?
-      prefix = self.company.parameter("accountancy.accounts.third_#{nature.to_s.pluralize}").value
+      prefix = self.company.preference("accountancy.accounts.third_#{nature.to_s.pluralize}").value
       suffix ||= "1" # self.code
       suffix = suffix.upper_ascii[0..5].rjust(6,'0')
       account = 1

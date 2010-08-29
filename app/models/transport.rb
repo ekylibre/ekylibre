@@ -40,7 +40,7 @@ class Transport < ActiveRecord::Base
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :dependent=>:nullify
+  has_many :deliveries, :dependent=>:nullify, :class_name=>SaleDelivery.name
 
   def prepare_on_create
     self.created_on ||= Date.today

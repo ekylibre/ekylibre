@@ -28,7 +28,7 @@
 #  created_on        :date             not null
 #  creator_id        :integer          
 #  id                :integer          not null, primary key
-#  journal_record_id :integer          
+#  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
 #  number            :string(16)       
 #  responsible_id    :integer          

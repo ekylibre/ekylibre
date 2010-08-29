@@ -35,7 +35,7 @@ module ApplicationHelper
              {:name=>:listings},
              {:name=>:import}
            ] },
-         {:name=>:parameters, :list=>
+         {:name=>:preferences, :list=>
            [ {:name=>:configure},
              {:name=>:users},
              {:name=>:roles},
@@ -62,7 +62,7 @@ module ApplicationHelper
            [ {:name=>:entities_import},
              {:name=>:entities_export}
            ] },
-         {:name=>:parameters, :list=>
+         {:name=>:preferences, :list=>
            [ {:name=>:entity_categories},
              {:name=>:entity_natures},
              {:name=>:entity_link_natures},   
@@ -79,18 +79,17 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_statements},
              {:name=>:lettering},
-             # {:name=>:tax_declarations},
              {:name=>:accountize},
-             {:name=>:financialyear_close}
+             {:name=>:financial_year_close}
            ] },
          {:name=>:documents, :list=>
            [ {:name=>:document_print},
              {:name=>:balance},
              {:name=>:general_ledger}
            ] },
-         {:name=>:parameters, :list=>
+         {:name=>:preferences, :list=>
            [ {:name=>:accounts},
-             {:name=>:financialyears},
+             {:name=>:financial_years},
              {:name=>:cashes},
              {:name=>:taxes} ] }
        ] },
@@ -101,7 +100,7 @@ module ApplicationHelper
              {:name=>:sale_orders},
              {:name=>:invoices},
              {:name=>:sale_payments},
-             {:name=>:embankments},
+             {:name=>:deposits},
              {:name=>:transports},
              {:name=>:subscriptions},
              {:name=>:statistics}
@@ -113,11 +112,11 @@ module ApplicationHelper
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
-            {:name=>:locations},
+            {:name=>:warehouses},
             {:name=>:stock_transfers},
             {:name=>:inventories}  
            ] },
-         {:name=>:parameters, :list=>
+         {:name=>:preferences, :list=>
            [ {:name=>:products},
              {:name=>:prices},
              {:name=>:shelves},
@@ -135,9 +134,9 @@ module ApplicationHelper
      {:name=>:production, :list=>
        [ {:name=>:production, :list=>
            [ {:name=>:operations},
-             {:name=>:shapes}
+             {:name=>:land_parcels}
            ] },
-         {:name=>:parameters, :list=>
+         {:name=>:preferences, :list=>
            [ {:name=>:tools},
              {:name=>:operation_natures}
            ] }
@@ -147,7 +146,7 @@ module ApplicationHelper
      # {:name=>:resources, :list=>
      #   [ {:name=>:human, :list=>
      #       [ {:name=>:employees} ] },
-     #     {:name=>:parameters, :list=>
+     #     {:name=>:preferences, :list=>
      #       [ {:name=>:professions} ] }
      #   ] }
      
@@ -191,9 +190,9 @@ module ApplicationHelper
   end
 
 
-  def parameter(name)
+  def preference(name)
     # name = self.controller.controller_name.to_s+name.to_s if name.to_s.match(/^\./)
-    @current_company.parameter(name)
+    @current_company.preference(name)
   end
 
   def locale_selector
@@ -443,7 +442,7 @@ module ApplicationHelper
 
 
   def resizable?
-    return ((@current_user and @current_user.parameter("interface.general.resized", true, :boolean).value) or @current_user.nil?)
+    return ((@current_user and @current_user.preference("interface.general.resized", true, :boolean).value) or @current_user.nil?)
   end
 
   def top_tag
@@ -453,8 +452,8 @@ module ApplicationHelper
     # User Tag
     tag = []
     if @current_user
-      parameter = @current_user.parameter("interface.general.resized", true, :boolean)
-      resized = parameter.value
+      preference = @current_user.preference("interface.general.resized", true, :boolean)
+      resized = preference.value
       tag << link_to("", params.merge(:resized=>(resized ? "0" : "1")), {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode), :id=>:resizable})+" "
       # tag << content_tag(:a, @current_user.label)
       tag << content_tag(:a, @current_user.label)
@@ -864,7 +863,7 @@ module ApplicationHelper
         end
       end
       if code.strip.length>0
-        code = content_tag(:ul, code.html_safe)
+        code = content_tag(:ul, code.html_safe)+content_tag(:div)
         code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
         code = content_tag(:div, code.html_safe, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
       end

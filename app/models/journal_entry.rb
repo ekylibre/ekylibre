@@ -20,163 +20,247 @@
 # 
 # == Table: journal_entries
 #
-#  account_id        :integer          not null
-#  bank_statement_id :integer          
-#  closed            :boolean          not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  credit            :decimal(16, 2)   default(0.0), not null
-#  currency_credit   :decimal(16, 2)   default(0.0), not null
-#  currency_debit    :decimal(16, 2)   default(0.0), not null
-#  debit             :decimal(16, 2)   default(0.0), not null
-#  draft             :boolean          not null
-#  expired_on        :date             
-#  id                :integer          not null, primary key
-#  journal_id        :integer          
-#  letter            :string(8)        
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  position          :integer          
-#  record_id         :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  closed          :boolean          
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  created_on      :date             not null
+#  creator_id      :integer          
+#  credit          :decimal(16, 2)   default(0.0), not null
+#  currency_credit :decimal(16, 2)   default(0.0), not null
+#  currency_debit  :decimal(16, 2)   default(0.0), not null
+#  currency_id     :integer          default(0), not null
+#  currency_rate   :decimal(16, 6)   default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
+#  draft           :boolean          not null
+#  draft_mode      :boolean          not null
+#  id              :integer          not null, primary key
+#  journal_id      :integer          not null
+#  lock_version    :integer          default(0), not null
+#  number          :string(255)      not null
+#  position        :integer          
+#  printed_on      :date             not null
+#  resource_id     :integer          
+#  resource_type   :string(255)      
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 class JournalEntry < ActiveRecord::Base
-  acts_as_list :scope=>:record
-  after_create  :update_record
-  after_destroy :update_record
-  after_update  :update_record
-  attr_readonly :company_id, :record_id, :journal_id
-  belongs_to :account
+  acts_as_list :scope=>:journal
+  after_save :set_draft
+  attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
+  belongs_to :currency
   belongs_to :journal
-  belongs_to :record, :class_name=>JournalRecord.name
-  belongs_to :bank_statement
-  validates_presence_of :account_id
-  # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
-  
+  belongs_to :resource, :polymorphic=>true
+  has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>JournalEntryLine.name
+  has_many :invoices, :dependent=>:nullify
+  has_many :purchase_payments, :dependent=>:nullify
+  has_many :purchase_payment_parts, :dependent=>:nullify
+  has_many :sale_payments, :dependent=>:nullify
+  has_many :sale_payment_parts, :dependent=>:nullify
+  validates_presence_of :currency
+  validates_format_of :number, :with => /^[\dA-Z]+$/
+  validates_numericality_of :currency_rate, :greater_than=>0
+
   #
   def prepare
-    # computes the values depending on currency rate
-    # for debit and credit.
-    self.currency_debit  ||= 0
-    self.currency_credit ||= 0
-    currency_rate = nil
-    if self.record
-      self.draft = self.record.draft
-      self.closed = self.record.closed
-      self.company_id ||= self.record.company_id 
-      self.journal_id ||= self.record.journal_id
-      currency_rate = self.record.currency.rate
+    if self.journal
+      self.company_id  = self.journal.company_id 
+      self.currency_id = self.journal.currency_id
     end
-    unless currency_rate.nil?
-      unless self.closed
-        self.debit  = self.currency_debit * currency_rate 
-        self.credit = self.currency_credit * currency_rate
-      end
+    if self.currency
+      self.currency_rate = self.currency.rate if self.currency_rate.to_f <= 0
     end
-  end
-    
+    self.currency_debit  = self.lines.sum(:currency_debit)
+    self.currency_credit = self.lines.sum(:currency_credit)
+    self.debit  = self.lines.sum(:debit)
+    self.credit = self.lines.sum(:credit)
+    self.created_on = Date.today
+    # self.draft = (self.draft_mode or not self.balanced?)
+    if self.draft_mode
+      self.draft = true
+    else
+      self.draft = (self.balanced? ? false : true)
+    end
+    if self.journal and not self.number
+      self.number ||= self.journal.next_number 
+    end
+  end 
+  
   def check_on_update
     old = self.class.find(self.id)
-    errors.add_to_base(:record_has_been_already_validated) if old.closed?
-  end
-
-  #
-  def check
-    unless self.updatable?
-      errors.add_to_base :closed_entry 
-      return
-    end
-    errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
-    errors.add(:debit,  :greater_or_equal_than, :count=>0) if self.debit<0
-    errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
+    errors.add_to_base(:entry_has_been_already_validated) if old.closed?
   end
   
-  # this method tests if the entry is locked or not.
-  def close?
-    return self.closed?
+  #
+  def check
+    return unless self.created_on
+    if self.journal
+      if self.printed_on <= self.journal.closed_on
+        errors.add_to_base(:closed_journal, :journal=>self.journal.name, :on=>::I18n.localize(self.journal.closed_on))
+        return false
+      end
+    end
+#     if self.printed_on
+#       errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
+#     end
+    if self.financial_year
+      errors.add(:printed_on, :out_of_financial_year, :from=>::I18n.localize(self.financial_year.started_on), :to=>::I18n.localize(self.financial_year.stopped_on)) if self.financial_year.closed?
+#       if self.printed_on < self.financial_year.started_on or self.printed_on > self.financial_year.stopped_on
+#         errors.add(:printed_on, :out_of_financial_year, :from=>::I18n.localize(self.financial_year.started_on), :to=>::I18n.localize(self.financial_year.stopped_on)) 
+#       end
+    end
   end
-
-  def updatable?
-    not self.closed? and self.record.updatable?
+  
+  def set_draft
+    JournalEntryLine.update_all({:draft=>self.draft}, ["entry_id = ? AND draft != ? ", self.id, self.draft])
   end
 
   def destroyable?
-    !self.closed?
+    self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  # updates the amounts to the debit and the credit 
-  # for the matching record.
-  def update_record
-    self.record.refresh
+  def updatable?
+    self.printed_on > self.journal.closed_on and not self.closed?
+  end
+
+  #determines if the entry is balanced or not.
+  def balanced?
+    self.debit == self.credit and self.lines.count > 0
+  end
+  
+  def confirmed?
+    not self.draft and not self.closed?
   end
 
   
-  # this method allows to lock the entry. 
-  def close
-    self.update_attribute(:closed, true)
-  end
-  
-  def reopen
-    self.update_attribute(:closed, false)
-  end
-  
-  # this method allows to verify if the entry is lettered or not.
-  def letter?
-    return (not self.letter.blank?)
+  # this method computes the debit and the credit of the entry.
+  def refresh
+    self.reload
+    self.save!
   end
 
-  #
-  def balanced_letter?(letter=nil) 
-    letter ||= self.letter
-    return false if letter.blank?
-    self.account.balanced_letter?(letter)
-  end
-
-  #this method allows to fix a display color if the entry is in draft mode.
-  def mode
-    mode=""
-    mode+="warning" if self.draft
-    mode
+  def financial_year
+    self.company.financial_years.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on', self.printed_on], :order=>"id")
   end
   
-  #
-  def resource
-    if self.record
-      return self.record.resource_type
-    else
-      'rien'
-    end
+  #determines the difference between the debit and the credit from the entry.
+  def balance
+    self.debit - self.credit 
   end
 
-  #this method returns the name of journal which the records are saved.
-  def journal_name
-    if self.record
-      return self.record.journal.name
-    else
-      'rien'
-    end
-  end
-  
-  #this method allows to fix a display color if the record containing the entry is balanced or not.
-  def balanced_record 
-    return (self.record.balanced? ? "balanced" : "unbalanced")
-  end
 
-  # this method creates a next entry with an initialized value matching to the previous record. 
-  def next(balance)
-    entry = JournalEntry.new
-    if balance > 0
-      entry.currency_credit = balance.abs
-    elsif balance < 0
-      entry.currency_debit  = balance.abs
+  # Add a entry which cancel the entry
+  # Create counter-entry_lines
+  def cancel
+    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?)
+    ActiveEntry::Base.transaction do
+      entry.save!
+      for entry_line in self.lines
+        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>entry_line.name), entry_line.account, (entry_line.debit-entry_line.credit).abs, :credit=>(entry_line.debit>0))
+      end
     end
     return entry
   end
 
-end
+  # Cancel a journal entry and return a journal entry which can be used to 
+  # be refilled with entry_lines
+  def __reset(attributes={})
+    entry = nil
+    if self.draft?
+      self.lines.destroy_all
+      entry = self
+    else
+      self.cancel
+      entry = self.journal.entries.create!({:resource=>self.resource, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?}.merge(attributes))
+    end
+    return entry
+  end
 
+  # this method allows to lock the entry.
+  def close
+    self.update_attribute(:closed, true)
+    if self.lines.size > 0
+      for entry_line in self.lines
+        entry_line.close
+      end
+    end
+  end
+
+  def reopen
+    if self.lines.size > 0
+      for entry_line in self.lines
+        entry_line.reopen
+      end
+    end    
+    self.update_attribute(:closed, false)
+  end
+
+  def save_with_entry_lines(entry_lines)
+    ActiveEntry::Base.transaction do
+      saved = self.save
+      self.lines.clear
+      entry_lines.each_index do |index|
+        entry_lines[index] = self.lines.build(entry_lines[index])
+        if saved
+          saved = false unless entry_lines[index].save
+        end
+      end
+      self.reload if saved
+      if saved and not self.balanced?
+        self.errors.add_to_base(:unbalanced) 
+        saved = false
+      end
+      if saved
+        return true
+      else
+        raise ActiveEntry::Rollback
+      end
+    end
+    return false
+  end
+
+
+  
+  #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
+  def normalized
+    return (not self.lines.exists?(:draft=>true))
+  end
+
+  # Adds an entry_line with the minimum informations. It computes debit and credit with the "amount".
+  # If the amount is negative, the amount is put in the other column (debit or credit). Example: 
+  #   entry.add_debit("blabla", account, -65) # will put +65 in +credit+ column
+  def add_debit(name, account, amount, options={})
+    add!(name, account, amount, options)
+  end
+
+  #
+  def add_credit(name, account, amount, options={})
+    add!(name, account, amount, options.merge({:credit=>true}))
+  end
+
+
+  private
+
+  #
+  def add!(name, account, amount, options={})
+    # return if amount == 0
+    attributes = options.merge(:name=>name)
+    attributes[:account_id] = account.is_a?(Integer) ? account : account.id
+    # attributes[:currency_id] = self.journal.currency_id
+    credit = options.delete(:credit) ? true : false
+    credit = (not credit) if amount < 0
+    if credit
+      attributes[:currency_credit] = amount.abs
+      attributes[:currency_debit]  = 0.0
+    else
+      attributes[:currency_credit] = 0.0
+      attributes[:currency_debit]  = amount.abs
+    end
+    e = self.lines.create!(attributes)
+    return e
+  end
+
+  
+end

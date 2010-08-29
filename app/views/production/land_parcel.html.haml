@@ -1,0 +1,16 @@
+=toolbar do |t|
+  -t.update @land_parcel
+
+%table
+  %tr
+    %td
+      =evalue @land_parcel, :name
+      =evalue @land_parcel, :polygon
+    %td
+      =evalue @land_parcel, :description
+      =evalue @land_parcel, :master
+
+%h2=tc :operations
+=toolbar do |t|
+  -t.link :operation_create, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
+=dyta(:land_parcel_operations)

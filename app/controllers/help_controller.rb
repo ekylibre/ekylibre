@@ -22,13 +22,13 @@ class HelpController < ApplicationController
   def close   
     session[:help]=false
     session[:help_history] = []
-    @current_user.parameter("interface.help.opened", true, :boolean).set session[:help]
+    @current_user.preference("interface.help.opened", true, :boolean).set session[:help]
     render :text=>''
   end
   
   def search
     help_search(params[:article])
-    @current_user.parameter("interface.help.opened", true, :boolean).set session[:help]
+    @current_user.preference("interface.help.opened", true, :boolean).set session[:help]
     render :partial=>'search'
   end
 

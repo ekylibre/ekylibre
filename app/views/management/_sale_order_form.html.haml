@@ -24,7 +24,7 @@
 
 :javascript
   window.updateContacts = function(value) {
-    new Ajax.Request('#{url_for(:controller=>:management, :action => :sale_order_contacts)}', {asynchronous:true, evalScripts:true, parameters:'client_id=' + encodeURIComponent(value), onSuccess: function(response) {
+    new Ajax.Request('#{url_for(:controller=>:management, :action => :sale_order_contacts)}', {asynchronous:true, evalScripts:true, preferences:'client_id=' + encodeURIComponent(value), onSuccess: function(response) {
       $('sale_order_contact_id').update(response.responseText);
       $('sale_order_delivery_contact_id').update(response.responseText); 
       $('sale_order_invoice_contact_id').update(response.responseText);  

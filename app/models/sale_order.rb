@@ -44,7 +44,7 @@
 #  introduction        :text             
 #  invoice_contact_id  :integer          
 #  invoiced            :boolean          not null
-#  journal_record_id   :integer          
+#  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
@@ -72,12 +72,12 @@ class SaleOrder < ActiveRecord::Base
   belongs_to :delivery_contact,:class_name=>Contact.to_s
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
-  # belongs_to :journal_record
+  # belongs_to :journal_entry
   belongs_to :nature, :class_name=>SaleOrderNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :foreign_key=>:order_id
+  has_many :deliveries, :foreign_key=>:order_id, :class_name=>SaleDelivery.name
   has_many :invoices
   has_many :lines, :class_name=>SaleOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_parts, :as=>:expense, :class_name=>SalePaymentPart.name
@@ -139,7 +139,7 @@ class SaleOrder < ActiveRecord::Base
   end
 
   def clean_on_create
-    specific_numeration = self.company.parameter("management.sale_orders.numeration").value
+    specific_numeration = self.company.preference("management.sale_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
   
@@ -268,7 +268,7 @@ class SaleOrder < ActiveRecord::Base
   # - +column+ can be +:amount+ or +:amount_with_taxes+
   def undelivered(column)
     sum  = self.send(column)
-    sum -= DeliveryLine.sum(column, :joins=>"JOIN deliveries ON (delivery_id=deliveries.id)", :conditions=>["deliveries.order_id=?", self.id])
+    sum -= SaleDeliveryLine.sum(column, :joins=>"JOIN sale_deliveries ON (delivery_id=sale_deliveries.id)", :conditions=>["sale_deliveries.order_id=?", self.id])
     sum.round(2)
   end
 

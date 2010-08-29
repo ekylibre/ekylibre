@@ -1,6 +1,0 @@
-=toolbar do
-  -link :complement_choice_create, :complement_id=>@complement.id
-  -link :complement_sort, {:id=>@complement.id}, {:method=>:post} if @complement.nature == 'choice'
-  -link :complement_update, :id=>@complement.id
-
-=dyta :complement_choices

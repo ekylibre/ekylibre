@@ -1,0 +1,7 @@
+=formalize do |f|
+  -f.error :custom_field_choice
+  -f.title :general_informations
+  -f.field :custom_field_choice, :custom_field_id, :choices=>{:reflection=>:choice_custom_fields}
+  -f.field :custom_field_choice, :name
+  -f.field :custom_field_choice, :value
+   

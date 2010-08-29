@@ -44,7 +44,7 @@ class Sequence < ActiveRecord::Base
 
   attr_readonly :company_id
   belongs_to :company
-  has_many :parameters, :as=>:record_value
+  has_many :preferences, :as=>:record_value
   validates_inclusion_of :period, :in => @@periods  
   validates_uniqueness_of :format, :scope=>:company_id
 
@@ -53,7 +53,7 @@ class Sequence < ActiveRecord::Base
   end
 
   def destroyable?
-    self.parameters.size <= 0
+    self.preferences.size <= 0
   end
 
   def self.periods

@@ -11,10 +11,10 @@ module ActiveRecord
 
       module ClassMethods
         def acts_as_accountable(options = {})
-          configuration = { :column => "accounted_at", :reference=>"journal_record",  :callbacks=>ActiveRecord::Acts::Accountable::actions }
+          configuration = { :column => "accounted_at", :reference=>"journal_entry",  :callbacks=>ActiveRecord::Acts::Accountable::actions }
           configuration.update(options) if options.is_a?(Hash)
 
-          raise Exception.new("journal_record_id is needed for acts_as_accountable") unless columns_hash["journal_record_id"]
+          raise Exception.new("journal_entry_id is needed for acts_as_accountable") unless columns_hash["journal_entry_id"]
           raise Exception.new("accounted_at is needed for acts_as_accountable") unless columns_hash["accounted_at"]
 
           code = "include ActiveRecord::Acts::Accountable::InstanceMethods\n"
@@ -55,24 +55,24 @@ module ActiveRecord
           attributes[:journal] = self.company.journals.find_by_id(attributes.delete(:journal_id)) if attributes[:journal_id]
           raise ArgumentError.new("Missing attribute :journal (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
           ActiveRecord::Base.transaction do
-            # Cancel the existing journal_record
-            if self.journal_record and not self.journal_record.closed? and (attributes[:journal] == self.journal_record.journal)
-              self.journal_record.entries.destroy_all
-              self.journal_record.reload
-              self.journal_record.update_attributes!(attributes)
-            elsif self.journal_record
-              self.journal_record.cancel
-              self.journal_record = nil
+            # Cancel the existing journal_entry
+            if self.journal_entry and not self.journal_entry.closed? and (attributes[:journal] == self.journal_entry.journal)
+              self.journal_entry.entries.destroy_all
+              self.journal_entry.reload
+              self.journal_entry.update_attributes!(attributes)
+            elsif self.journal_entry
+              self.journal_entry.cancel
+              self.journal_entry = nil
             end
 
             # Add journal entries
             if block_given? and not options[:unless] and action != :destroy
-              self.journal_record ||= self.company.journal_records.create!(attributes)
-              yield(self.journal_record)
+              self.journal_entry ||= self.company.journal_entries.create!(attributes)
+              yield(self.journal_entry)
             end
             
             # Set accounted columns
-            self.class.update_all({:accounted_at=>Time.now, :journal_record_id=>self.journal_record_id}, {:id=>self.id})
+            self.class.update_all({:accounted_at=>Time.now, :journal_entry_id=>self.journal_entry_id}, {:id=>self.id})
           end
         end
 

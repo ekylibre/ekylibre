@@ -68,7 +68,7 @@ class Subscription < ActiveRecord::Base
       self.entity_id ||= self.invoice.client_id if self.invoice
       self.entity_id ||= self.sale_order.client_id if self.sale_order
     end 
-    specific_numeration = self.company.parameter("management.subscriptions.numeration")
+    specific_numeration = self.company.preference("management.subscriptions.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
     else
@@ -121,7 +121,7 @@ class Subscription < ActiveRecord::Base
     end
   end
 
-  # Initialize default parameters
+  # Initialize default preferences
   def compute_period
     #self.clean
     self.nature_id ||= self.product.subscription_nature_id if self.product

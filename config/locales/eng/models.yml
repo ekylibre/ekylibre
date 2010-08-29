@@ -7,12 +7,10 @@ eng:
         number: 'Bank account number'
       company:
         locked: 'Locked'
-      delivery:
-        lines: 'Delivery lines'
-      document:
-        filename: 'Fichier'
-      embankment:
+      deposit:
         amount: 'Amount'
+      document:
+        filename: 'File'
       entity:
         active: 'Active'
         origin: 'First meeting location'
@@ -23,7 +21,7 @@ eng:
         responsible_id: 'Responsible'
       event_nature:
         duration: 'Duration by default (in min.)'
-      financialyear:
+      financial_year:
         stopped_on: 'Date of closing'
       inventory_line:
         quantity: 'Found quantity'
@@ -35,13 +33,12 @@ eng:
       invoice_line:
         origin_id: 'Original line'
       journal_entry:
-        closed: 'Closed'
-      journal_record:
         purchase_payment_parts: 'Parts or disbursements'
-      location:
-        children: 'Sub-warehouse'
-        product: 'Contained product'
-        product_id: 'Contained product'
+      journal_entry_line:
+        closed: 'Closed'
+      land_parcel:
+        children: 'Sub-plots'
+        number: 'CAP Number or plot number'
       mandate:
         family: 'Family'
       operation:
@@ -55,6 +52,9 @@ eng:
       product:
         duration: 'Quantity OR period'
         price: 'Cost price'
+      product_category:
+        children: 'Sub-product_categories'
+        published: 'Published'
       profession:
         employees: 'Employees'
       purchase_order:
@@ -73,6 +73,8 @@ eng:
         payments: 'Disbursements'
       purchase_payment_part:
         amount: 'Amount'
+      sale_delivery:
+        lines: 'Delivery lines'
       sale_order:
         contact: 'Address for the estimate'
         contact_id: 'Address for the estimate'
@@ -95,20 +97,14 @@ eng:
         payment: 'Sale payment'
         payment_id: 'Sale payment'
         payment_way: 'Mode of payment'
-      shape:
-        children: 'Sub-plots'
-        number: 'CAP Number or plot number'
-      shelf:
-        children: 'Sub-shelves'
-        published: 'Published'
       stock:
         quantity: 'Real quantity'
       stock_move:
         origin: 'Origine'
       stock_transfer:
-        location: 'Departure warehouse'
-        location_id: 'Departure warehouse'
-        second_location_id: 'Arrival warehouse'
+        second_warehouse_id: 'Arrival warehouse'
+        warehouse: 'Departure warehouse'
+        warehouse_id: 'Departure warehouse'
       subscription:
         entity: 'Subscriber'
         entity_id: 'Subscriber'
@@ -132,6 +128,10 @@ eng:
         locked: 'Locked'
         name: 'User name'
         reduction_percent: 'Authorized percentage of discount (%)'
+      warehouse:
+        children: 'Sub-warehouse'
+        product: 'Contained product'
+        product_id: 'Contained product'
     errors:
       messages:
         accepted: '%{attribute} must be accepted'
@@ -163,19 +163,17 @@ eng:
       models:
         cash:
           unvalid_bban: 'Unvalid BBAN. One or more elements are incorrect.'
-        complement_datum:
+        custom_field_datum:
           greater_than: '%{field} is greater than %{maximum}'
           less_than: '%{field} is less than %{minimum}'
           required: '%{field} is required'
           too_long: '%{field} is too long (%{length} characters)'
-        delivery_line:
-          greater_than_undelivered_quantity: 'The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})'
-        embankment:
+        deposit:
           must_be_a_bank_account: '%{field} must be a bank account and not a cash'
         entity:
           missing_title: '%{attribute} must contains the title "%{title}"'
           nature_do_not_allow_a_first_name: 'The selectected type "%{nature}" does not allow a first name'
-        financialyear:
+        financial_year:
           attributes:
             started_on:
               consecutive: 'The financial years must be consecutives. It must start after the end of the previous.'
@@ -187,31 +185,33 @@ eng:
             closed_on:
               end_of_month: '%{attribute} must be an end of month (%{closed_on})'
         journal_entry:
+          closed_journal: 'The journal is closed on %{on}. No updates are possible until this date.'
+          out_of_financial_year: 'The journal record must be recorded in the period of the financial year.'
+          unbalanced: 'The journal record is unbalanced'
+        journal_entry_line:
           closed_entry: 'The journal entry is locked. You can not update it.'
           empty_amounts: 'The journal entry must be filled either debit or credit'
           unvalid_amounts: 'The journal entry must be filled either debit or credit but not at the same time.'
-        journal_record:
-          closed_journal: 'The journal is closed on %{on}. No updates are possible until this date.'
-          out_of_financialyear: 'The journal record must be recorded in the period of the financial year.'
-          unbalanced: 'The journal record is unbalanced'
         price:
           already_defined: 'A price is already defined for this list and this product'
           range_overlap: 'The range overlaps an other(from %{min} to %{max})'
         purchase_order_line:
-          location_can_not_receive_product: 'The warehouse %{location} can not receive %{product}, it already contains %{contained_product}.'
           serial_already_used_with_an_other_product: '%{attribute} has been already used for an other product of the same supplier'
+          warehouse_can_not_receive_product: 'The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}.'
+        sale_delivery_line:
+          greater_than_undelivered_quantity: 'The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})'
         sale_order_line:
           can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
           currency_is_not_sale_order_currency: 'Currency is not identical to the sale order currency'
           error_no_found_price: 'No found price'
-          location_can_not_transfer_product: '%{product} can not be found in %{location}, it only contains %{contained_product}.'
+          warehouse_can_not_transfer_product: '%{product} can not be found in %{warehouse}, it only contains %{contained_product}.'
         stock:
-          product_cannot_be_in_location: 'Product can not be stored in %{location}'
+          product_cannot_be_in_warehouse: 'Product can not be stored in %{warehouse}'
         stock_transfer:
-          location_can_not_receive_product: '%{location} can not receive %{product}, it already contains %{contained_product}'
-          location_can_not_transfer_product: 'You can not transfer %{product} in %{location}, it already contains %{contained_product}'
-          location_can_not_waste_product: 'You can not register a loss of %{product} in %{location}, it already contains %{contained_product}'
-          locations_can_not_be_identical: 'Locations can not be identical'
+          warehouse_can_not_receive_product: '%{warehouse} can not receive %{product}, it already contains %{contained_product}'
+          warehouse_can_not_transfer_product: 'You can not transfer %{product} in %{warehouse}, it already contains %{contained_product}'
+          warehouse_can_not_waste_product: 'You can not register a loss of %{product} in %{warehouse}, it already contains %{contained_product}'
+          warehouses_can_not_be_identical: 'Warehouses can not be identical'
         subscription:
           entity_must_be_the_same_as_the_contact_entity: 'Person must be the same as the contact person'
         tax_declaration:
@@ -230,20 +230,17 @@ eng:
       bank_statement: 'Bank statement'
       cash: 'Cash'
       company: 'Company'
-      complement: 'Complement field'
-      complement_choice: 'Complement field choice'
-      complement_datum: 'Complement datum'
       contact: 'Contact'
       currency: 'Currency'
+      custom_field: 'Complement field'
+      custom_field_choice: 'Complement field choice'
+      custom_field_datum: 'Complement datum'
       delay: 'Delay'
-      delivery: 'Delivery'
-      delivery_line: 'Delivery line'
-      delivery_mode: 'Delivery mode'
       department: 'Department'
+      deposit: 'Deposit'
       district: 'District'
       document: 'Document'
       document_template: 'Document template'
-      embankment: 'Transit Letter'
       entity: 'Person'
       entity_category: 'Person category'
       entity_link: 'Person link'
@@ -252,26 +249,27 @@ eng:
       establishment: 'Establishment'
       event: 'Event'
       event_nature: 'Event type'
-      financialyear: 'Financial year'
+      financial_year: 'Financial year'
       inventory: 'Inventory'
       inventory_line: 'Inventory line'
       invoice: 'Invoice'
       invoice_line: 'Invoice line'
       journal: 'Journal'
       journal_entry: 'Journal entry'
-      journal_record: 'Journal record'
+      journal_entry_line: 'Journal entry line'
+      land_parcel: 'Land parcel'
       listing: 'Listing'
       listing_node: 'Listing node'
       listing_node_item: 'Listing node item'
-      location: 'Location'
       mandate: 'Mandate'
       observation: 'Observation'
       operation: 'Operation'
       operation_line: 'Operation line'
       operation_nature: 'Operation type'
-      parameter: 'Parameter'
+      preference: 'Preference'
       price: 'Price'
       product: 'Product'
+      product_category: 'Product category'
       product_component: 'Product component'
       profession: 'Profession'
       purchase_order: 'Purchase order'
@@ -280,6 +278,9 @@ eng:
       purchase_payment_mode: 'Disbursement mode'
       purchase_payment_part: 'Disbursement part'
       role: 'Role'
+      sale_delivery: 'Delivery'
+      sale_delivery_line: 'Delivery line'
+      sale_delivery_mode: 'Delivery mode'
       sale_order: 'Sale order'
       sale_order_line: 'Sale order line'
       sale_order_nature: 'Sale order type'
@@ -287,8 +288,6 @@ eng:
       sale_payment_mode: 'Sale payment mode'
       sale_payment_part: 'Sale payment part'
       sequence: 'Sequence'
-      shape: 'Shape'
-      shelf: 'Shelf'
       stock: 'Stock'
       stock_move: 'Stock move'
       stock_transfer: 'Stock transfer'
@@ -303,6 +302,7 @@ eng:
       transport: 'Transport'
       unit: 'Unit'
       user: 'User'
+      warehouse: 'Warehouse'
   attributes:
     account: 'Account'
     account_balances: 'Account balances'
@@ -370,7 +370,7 @@ eng:
     charges_accounts: 'Charges accounts'
     check_number: 'Check number'
     children: 'Children'
-    choice_complements: 'Choice complements'
+    choice_complements: 'Choice complements' #!
     choice_value: 'Choice value'
     choice_value_id: 'Choice value'
     choices: 'Choices'
@@ -397,11 +397,6 @@ eng:
     commission_percent: 'Commission percent'
     company: 'Company'
     company_id: 'Company'
-    complement: 'Complement'
-    complement_choices: 'Complement choices'
-    complement_data: 'Complement data'
-    complement_id: 'Complement'
-    complements: 'Complements'
     component: 'Component'
     component_id: 'Component'
     components: 'Components'
@@ -436,7 +431,12 @@ eng:
     currency_debit: 'Currency debit'
     currency_id: 'Currency'
     currency_rate: 'Currency rate'
-    current_financialyear: 'Current financial year'
+    current_financial_year: 'Current financial year'
+    custom_field: 'Custom field'
+    custom_field_choices: 'Custom field choices'
+    custom_field_data: 'Custom field data'
+    custom_field_id: 'Custom field'
+    custom_fields: 'Custom fields'
     data: 'Data'
     date_value: 'Date value'
     datetime_value: 'Datetime value'
@@ -460,12 +460,15 @@ eng:
     delivery_contact_id: 'Delivery contact'
     delivery_id: 'Delivery'
     delivery_lines: 'Delivery lines'
-    delivery_modes: 'Delivery modes'
+    delivery_modes: 'Delivery modes' #!
     density_label: 'Density label'
     departed_on: 'Departed on'
     department: 'Department'
     department_id: 'Department'
     departments: 'Departments'
+    deposit: 'Deposit'
+    deposit_id: 'Deposit'
+    deposits: 'Deposits'
     description: 'Description'
     dest_contact: 'Dest contact'
     dest_contact_id: 'Dest contact'
@@ -495,9 +498,6 @@ eng:
     embankables_account_id: 'Embankables account'
     embanker: 'Embanker'
     embanker_id: 'Embanker'
-    embankment: 'Transit Letter'
-    embankment_id: 'Transit Letter'
-    embankments: 'Transit Letters'
     employed: 'Employed'
     employees: 'Employees'
     employment: 'Employment'
@@ -516,6 +516,8 @@ eng:
     entity_name: 'Person name'
     entity_natures: 'Person types'
     entries: 'Entries'
+    entry: 'Entry'
+    entry_id: 'Entry'
     establishment: 'Establishment'
     establishment_id: 'Establishment'
     establishments: 'Establishments'
@@ -536,9 +538,9 @@ eng:
     fax: 'Fax'
     filename: 'Filename'
     filesize: 'Filesize'
-    financialyear: 'Financial year'
-    financialyear_id: 'Financial year'
-    financialyears: 'Financial years'
+    financial_year: 'Financial year'
+    financial_year_id: 'Financial year'
+    financial_years: 'Financial years'
     finish: 'Finish'
     first_met_on: 'First met on'
     first_name: 'First name'
@@ -592,13 +594,14 @@ eng:
     items: 'Items'
     journal: 'Journal'
     journal_entries: 'Journal entries'
+    journal_entry: 'Journal entry'
+    journal_entry_id: 'Journal entry'
+    journal_entry_lines: 'Journal entry lines'
     journal_id: 'Journal'
-    journal_record: 'Journal record'
-    journal_record_id: 'Journal record'
-    journal_records: 'Journal records'
     journals: 'Journals'
     key: 'Key'
     label: 'Label'
+    land_parcels: 'Land parcels'
     language: 'Language'
     last_bank_statement: 'Last bank statement'
     last_cweek: 'Last cweek'
@@ -629,8 +632,6 @@ eng:
     local_credit: 'Local credit'
     local_debit: 'Local debit'
     location: 'Location'
-    location_id: 'Location'
-    locations: 'Locations'
     lock_version: 'Version'
     locked: 'Locked'
     longitude: 'Longitude'
@@ -683,7 +684,6 @@ eng:
     paid: 'Paid'
     paid_amount: 'Paid amount'
     paid_on: 'Paid on'
-    parameters: 'Parameters'
     parent: 'Parent'
     parent_id: 'Parent'
     parts: 'Parts'
@@ -718,6 +718,7 @@ eng:
     polygon: 'Polygon'
     position: 'Position'
     postcode: 'Postcode'
+    preferences: 'Preferences'
     price: 'Price'
     price_amount: 'Price amount'
     price_id: 'Price'
@@ -727,6 +728,9 @@ eng:
     producer: 'Producer'
     producer_id: 'Producer'
     product: 'Product'
+    product_categories: 'Product categories'
+    product_category: 'Product category' #!
+    product_category_id: 'Product category' #!
     product_components: 'Product components'
     product_id: 'Product'
     productable_products: 'Productable products'
@@ -756,8 +760,6 @@ eng:
     reason: 'Reason'
     receipt: 'Receipt'
     received: 'Received'
-    record: 'Record'
-    record_id: 'Record'
     record_value: 'Record value'
     record_value_id: 'Record value'
     record_value_type: 'Record value type'
@@ -800,9 +802,9 @@ eng:
     sales_conditions: 'Sales conditions'
     salt: 'Salt'
     scheduled: 'Scheduled'
-    second_location: 'Second location'
-    second_location_id: 'Second location'
     second_move_id: 'Second move'
+    second_warehouse: 'Second warehouse'
+    second_warehouse_id: 'Second warehouse'
     self_bank_accounts: 'Self bank accounts'
     self_cashes: 'Self cashes'
     self_contacts: 'Self contacts'
@@ -810,10 +812,6 @@ eng:
     serial: 'Serial'
     service_coeff: 'Service coeff'
     sha256: 'Sha256'
-    shapes: 'Shapes'
-    shelf: 'Shelf'
-    shelf_id: 'Shelf'
-    shelves: 'Shelves'
     shipped: 'Shipped'
     shipped_on: 'Shipped on' #!
     siren: 'Siren'
@@ -913,12 +911,13 @@ eng:
     vat_submissive: 'Vat submissive'
     virtual: 'Virtual'
     virtual_quantity: 'Virtual quantity'
+    warehouse_id: 'Warehouse'
     webpass: 'Webpass'
     website: 'Website'
     weight: 'Weight'
     with_accounting: 'With accounting'
     with_commission: 'With commission'
-    with_embankment: 'With transit letter'
+    with_deposit: 'With deposit'
     with_tracking: 'With tracking'
     x: 'X'
     y: 'Y'
@@ -964,8 +963,8 @@ eng:
             journal:
               filename: '[name] (Journal)'
           management:
-            embankment:
-              filename: 'Transit Letter [number]'
+            deposit:
+              filename: 'Deposit [number]'
             inventory:
               filename: 'Inventory [number]'
             invoice:
@@ -993,7 +992,7 @@ eng:
           purchases: 'Purchases'
           sales: 'Sales'
           various: 'Various operations'
-        location_name: 'Warehouse'
+        product_category_name: 'Default category'
         purchase_payment_modes:
           cash:
             name: 'Cash'
@@ -1015,9 +1014,9 @@ eng:
             name: 'Transfer'
         sequences:
           management:
-            embankments:
+            deposits:
               format: 'B[year|4][number|4]'
-              name: 'Numeration of transit letters'
+              name: 'Numeration of deposits'
               period: 'year'
             invoices:
               format: 'F[year|4][number|6]'
@@ -1042,7 +1041,6 @@ eng:
             entities:
               format: '[number|8]'
               name: 'Numeration of people'
-        shelf_name: 'Default category'
         taxes:
           tva0000:
             amount: '0.0'
@@ -1076,11 +1074,14 @@ eng:
           m3: 'Cubic metre'
           t: 'Tonne'
           u: 'Unit'
+        warehouse_name: 'Warehouse'
       import:
         dont_use: '-- Do not use --'
         generate_string_complement: '-- Create a personalized field (text) --'
       sale_orders: 'Sale orders'
-    complement:
+    contact:
+      error_modify_contact: 'The contact can not be updated.'
+    custom_field:
       natures:
         boolean: 'Check box'
         choice: 'Choice list'
@@ -1088,15 +1089,14 @@ eng:
         datetime: 'Date and time'
         decimal: 'Decimal'
         string: 'Text'
-    contact:
-      error_modify_contact: 'The contact can not be updated.'
     delay:
       error_unvalid_format_for_expression: 'Unvalid format for expression'
-    delivery:
-      label: '%{client} at %{address}'
-      sale: 'Sale %{number}'
-    delivery_line:
-      sale: 'Sale %{number}'
+    deposit:
+      to_accountancy:
+        one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
+        other: '[%{resource} %{number}] %{count} payments %{mode} %{comment}'
+        zero: '[%{resource} %{number}] No payments %{mode} %{comment}'
+      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
     document_template:
       error_attribute: 'The key word %{value} is incorrect. The possibilities are: %{possibilities}'
       families:
@@ -1111,9 +1111,9 @@ eng:
       natures:
         balance: 'Balance'
         balance_sheet: 'Balance sheet'
-        embankment: 'Transit Letter'
+        deposit: 'Deposit'
         entity: 'Person'
-        financialyear: 'Financial year document'
+        financial_year: 'Financial year document'
         general_journal: 'General journal'
         general_ledger: 'Grand ledger'
         income_statement: 'Income statement'
@@ -1126,12 +1126,6 @@ eng:
         stocks: 'Stocks'
         transport: 'Transport'
       unvalid_nature: 'Unvalid type of document template.'
-    embankment:
-      to_accountancy:
-        one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
-        other: '[%{resource} %{number}] %{count} payments %{mode} %{comment}'
-        zero: '[%{resource} %{number}] No payments %{mode} %{comment}'
-      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
     entity:
       client: 'Client'
       supplier: 'Supplier'
@@ -1142,7 +1136,7 @@ eng:
         manual: 'Manual'
         purchase_order: 'Creation of a purchase'
         sale_order: 'Creation of a product'
-    financialyear:
+    financial_year:
       code:
         double: 'FY%{first_year}/%{second_year}'
         single: 'FY%{first_year}'
@@ -1163,7 +1157,7 @@ eng:
         purchases: 'Purchases'
         sales: 'Sales'
         various: 'Various operations'
-    journal_record:
+    journal_entry:
       record_cancel: 'Cancel of record %{number}: %{name}'
     listing_node:
       add_filter: ' Add a filter'
@@ -1253,6 +1247,11 @@ eng:
       to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
     purchase_payment_part:
       to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
+    sale_delivery:
+      label: '%{client} at %{address}'
+      sale: 'Sale %{number}'
+    sale_delivery_line:
+      sale: 'Sale %{number}'
     sale_order:
       label:
         estimate: 'Estimate %{number}'
@@ -1272,9 +1271,9 @@ eng:
     sale_order_line:
       can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       currency_is_not_sale_order_currency: 'The currency of the price differs from the sale order currency'
-      location_can_not_transfer_product: 'The product %{product} can not be used with %{location}, because it contains only %{contained_product} '
       reduction_on: 'Discount of %{percent}%  on %{product}'
       tracking: 'S/N: %{serial}'
+      warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
     sale_payment:
       label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
       to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
@@ -1288,8 +1287,8 @@ eng:
         year: 'Year'
     stock:
       label:
-        with_tracking: '%{location}: S/N%{tracking}, %{quantity}%{unit} available'
-        without_tracking: '%{location}: No serial, %{quantity}%{unit} available'
+        with_tracking: '%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available'
+        without_tracking: '%{warehouse}: No serial, %{quantity}%{unit} available'
     stock_transfer:
       natures:
         transfer: 'Transfer'

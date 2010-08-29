@@ -54,12 +54,12 @@ class Contact < ActiveRecord::Base
   belongs_to :area
   belongs_to :company
   belongs_to :entity
-  has_many :deliveries
+  has_many :sale_deliveries
   has_many :invoices
   has_many :purchase_orders
-  has_many :locations
   has_many :sale_orders
   has_many :subscriptions
+  has_many :warehouses
 
   validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>Proc.new{|c| !c.email.blank?}
 

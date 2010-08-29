@@ -1,0 +1,19 @@
+=render :partial=>"journals"
+=toolbar do |t|
+  -t.update @journal_entry unless @journal_entry.closed?
+
+%table
+  %tr
+    %td{:valign=>:top}
+      =evalue @journal_entry, :number
+      =evalue @journal_entry, :printed_on
+      =evalue @journal_entry, :created_on
+      -if @journal_entry.resource
+        =evalue @journal_entry, :resource, :url=>{:controller=>:management, :action=>@journal_entry.resource_type.underscore}
+    %td{:valign=>:top}
+      =evalue @journal_entry, :journal, :url=>{:action=>:journal}
+      =evalue @journal_entry, :debit
+      =evalue @journal_entry, :credit
+
+%h2=tc(:entries)
+=dyta(:journal_entry_entries)

@@ -1,0 +1,18 @@
+= formalize do |f|
+  -f.title :infos
+  -f.error :land_parcel
+  -f.field :land_parcel, :name
+  -f.field :land_parcel, :number
+  -#f.field :land_parcel, :polygon
+  -f.field :land_parcel, :area_measure
+  -f.field :land_parcel, :area_unit_id, :choices=>{:reflection=>:surface_units}, :new=>{:controller=>:company, :action=>:unit_create, :base=>'m2'}
+  -#f.field :land_parcel, :master
+= formalize(:id=>:master_select) do |f|
+  -#f.field :land_parcel, :parent_id, :choices=>{:reflection=>:land_parcels}
+= formalize do |f|
+  - f.field :land_parcel, :description, :field=>:textarea
+
+:javascript
+  window.master = function() { toggleElement('master_select', $('land_parcel_master').checked); };
+  master();
+=observe_field("land_parcel_master", :frequency=>0.25, :function=> "master();")

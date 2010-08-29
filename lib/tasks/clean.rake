@@ -596,7 +596,7 @@ namespace :clean do
           if attributes[column]
             attributes[column][1] = :used
           else
-            attributes[column] = [column.name.to_s.humanize, :undefined]
+            attributes[column] = [column.humanize, :undefined]
           end
         end
         for column in model.instance_methods

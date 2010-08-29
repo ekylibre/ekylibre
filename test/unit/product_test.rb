@@ -23,6 +23,7 @@
 #  active                     :boolean          default(TRUE), not null
 #  catalog_description        :text             
 #  catalog_name               :string(255)      not null
+#  category_id                :integer          not null
 #  code                       :string(16)       
 #  code2                      :string(64)       
 #  comment                    :text             
@@ -51,7 +52,6 @@
 #  reduction_submissive       :boolean          not null
 #  sales_account_id           :integer          
 #  service_coeff              :decimal(16, 4)   
-#  shelf_id                   :integer          not null
 #  subscription_nature_id     :integer          
 #  subscription_period        :string(255)      
 #  subscription_quantity      :integer          

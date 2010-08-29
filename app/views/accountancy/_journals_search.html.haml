@@ -13,7 +13,7 @@
   -if action_name == "draft_entries"
     %tr
       %td.crit
-        -journals = @current_company.journals.find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entries WHERE company_id=? AND draft=?)", @current_company.id, true])
+        -journals = @current_company.journals.find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entry_lines WHERE company_id=? AND draft=?)", @current_company.id, true])
         -no_journal = !journals.detect{|x| !params["journal_#{x.id}"].nil?}
         -for journal in journals
           -name="journal_#{journal.id}"

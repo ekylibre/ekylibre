@@ -7,25 +7,25 @@
   %table.dyta
     %tr
       %th
-      %th=JournalRecord.human_attribute_name("number")
-      %th=JournalRecord.human_attribute_name("printed_on")
-      %th=JournalEntry.human_attribute_name("name")
-      %th=JournalEntry.human_attribute_name("debit")
-      %th=JournalEntry.human_attribute_name("credit")
-    - for @journal_entry in @journal_entries
-      -checked = (@journal_entry.bank_statement_id==@bank_statement.id)
-      -trid = "e#{@journal_entry.id}"
+      %th=JournalEntry.human_attribute_name("number")
+      %th=JournalEntry.human_attribute_name("printed_on")
+      %th=JournalEntryLine.human_attribute_name("name")
+      %th=JournalEntryLine.human_attribute_name("debit")
+      %th=JournalEntryLine.human_attribute_name("credit")
+    - for @journal_entry_line in @journal_entry_lines
+      -checked = (@journal_entry_line.bank_statement_id==@bank_statement.id)
+      -trid = "e#{@journal_entry_line.id}"
       %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
         %td.chk
-          -if @journal_entry.bank_statement_id.nil? or checked
-            =check_box_tag("journal_entry[#{@journal_entry.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();", :id=>"journal_entry_#{@journal_entry.id}_checked" ) 
+          -if @journal_entry_line.bank_statement_id.nil? or checked
+            =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();", :id=>"journal_entry_line_#{@journal_entry_line.id}_checked" ) 
           -else
-            =link_to(@journal_entry.bank_statement.number, :action=>:bank_statement, :id=>@journal_entry.bank_statement.id)
-        %td=link_to(@journal_entry.record.number, :action=>:journal_record, :id=>@journal_entry.record_id)
-        %td.date=I18n.localize(@journal_entry.record.printed_on)
-        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_checked')"}=@journal_entry.name
-        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_checked')"}=number_to_accountancy(@journal_entry.debit)
-        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_#{@journal_entry.id}_checked')"}=number_to_accountancy(@journal_entry.credit)
+            =link_to(@journal_entry_line.bank_statement.number, :action=>:bank_statement, :id=>@journal_entry_line.bank_statement.id)
+        %td=link_to(@journal_entry_line.entry.number, :action=>:journal_entry, :id=>@journal_entry_line.entry_id)
+        %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
+        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=@journal_entry_line.name
+        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.debit)
+        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.credit)
     %tr.total
       %th{:colspan=>4}=tg(:total)
       %td#total-debit=@bank_statement.debit || 0

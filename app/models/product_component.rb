@@ -27,7 +27,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
-#  location_id  :integer          not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  product_id   :integer          not null
@@ -36,13 +35,14 @@
 #  stopped_at   :datetime         
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
+#  warehouse_id :integer          not null
 #
 
 class ProductComponent < ActiveRecord::Base
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s
-  belongs_to :location
+  belongs_to :warehouse
   belongs_to :product
 
   autosave :product
@@ -85,7 +85,7 @@ class ProductComponent < ActiveRecord::Base
 #   def stocks_move_create(params, production_id)
 #     for p in params
 #       if p[1] > 0
-#         StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :location_id=>p[0], :product_id=>self.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>production_id)
+#         StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :warehouse_id=>p[0], :product_id=>self.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>production_id)
 #       end
 #     end
 

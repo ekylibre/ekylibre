@@ -43,8 +43,8 @@ class Journal < ActiveRecord::Base
   belongs_to :counterpart, :class_name=>Account.name  
   # cattr_accessor :natures
   has_many :cashes
+  has_many :entry_lines, :class_name=>JournalEntryLine.name
   has_many :entries, :class_name=>JournalEntry.name
-  has_many :records, :class_name=>JournalRecord.name
   validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id
@@ -56,7 +56,7 @@ class Journal < ActiveRecord::Base
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on == Date.civil(1970,12,31) 
-      if fy = self.company.financialyears.first
+      if fy = self.company.financial_years.first
         self.closed_on = fy.started_on-1 
       else
         self.closed_on = Date.civil(1970,12,31) 
@@ -68,8 +68,8 @@ class Journal < ActiveRecord::Base
 
   def check
     valid = false
-    for financialyear in self.company.financialyears
-      valid = true if self.closed_on == financialyear.started_on-1
+    for financial_year in self.company.financial_years
+      valid = true if self.closed_on == financial_year.started_on-1
     end
     unless valid
       errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on != self.closed_on.end_of_month
@@ -77,7 +77,7 @@ class Journal < ActiveRecord::Base
   end
 
   def destroyable?
-    self.records.size <= 0 and self.entries.size <= 0 and self.cashes.size <= 0
+    self.entries.size <= 0 and self.entry_lines.size <= 0 and self.cashes.size <= 0
   end
 
   # Provides a translation for the nature of the journal
@@ -86,15 +86,15 @@ class Journal < ActiveRecord::Base
   end
 
 
-  # tests if the record contains entries.
+  # tests if the entry contains entry_lines.
   def empty?
-     return self.records.size <= 0
+     return self.entries.size <= 0
   end
 
   #
   def balance?
-    self.records.each do |record|
-      unless record.balanced and record.normalized
+    self.entries.each do |entry|
+      unless entry.balanced and entry.normalized
         return false 
       end
     end
@@ -122,11 +122,11 @@ class Journal < ActiveRecord::Base
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add_to_base(:draft_entries) if self.entries.find(:all, :joins=>"JOIN journal_records ON (record_id=journal_records.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
+    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN journal_entries ON (entry_id=journal_entries.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
     return false unless errors.empty?
-    ActiveRecord::Base.transaction do
-      for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
-        record.close
+    ActiveEntry::Base.transaction do
+      for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
+        entry.close
       end
       self.update_attribute(:closed_on, closed_on)
     end
@@ -140,7 +140,7 @@ class Journal < ActiveRecord::Base
   end
 
   def reopenings
-    year = self.company.current_financialyear
+    year = self.company.current_financial_year
     return [] if year.nil?
     array, date = [], year.started_on-1
     while date < self.closed_on
@@ -151,9 +151,9 @@ class Journal < ActiveRecord::Base
   end
 
   def reopen(closed_on)
-    ActiveRecord::Base.transaction do
-      for record in self.records.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
-        record.reopen
+    ActiveEntry::Base.transaction do
+      for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
+        entry.reopen
       end
       self.update_attribute(:closed_on, closed_on)
     end
@@ -161,17 +161,17 @@ class Journal < ActiveRecord::Base
   end
 
   def next_number
-    record = self.records.find(:first, :conditions=>["created_on>=?", self.closed_on], :order=>"number DESC")
-    code = record ? record.number : self.code.to_s+"000000"
+    entry = self.entries.find(:first, :conditions=>["created_on>=?", self.closed_on], :order=>"number DESC")
+    code = entry ? entry.number : self.code.to_s+"000000"
     code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
     return code.succ
   end
 
 
 
-  # this method searches the last records according to a number.  
-  def last_records(period, number_record=:all)
-    period.records.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_record)
+  # this method searches the last entries according to a number.  
+  def last_entries(period, number_entry=:all)
+    period.entries.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_entry)
   end
 
   # this method returns an array .
@@ -179,13 +179,13 @@ class Journal < ActiveRecord::Base
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
-  def entries_between(started_on, stopped_on)
-    self.entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_records.id, journal_entries.id")
+  def entry_lines_between(started_on, stopped_on)
+    self.entry_lines.find(:all, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
   end
 
-  def entries_calculate(column, started_on, stopped_on, operation=:sum)
+  def entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
-    self.entries.calculate(operation, column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.entry_lines.calculate(operation, column, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 end

@@ -1,7 +1,7 @@
 =journals_tag
 =toolbar do |t|
   -t.update @journal
-  -t.link :journal_record_create, :journal_id=>@journal.id
+  -t.link :journal_entry_create, :journal_id=>@journal.id
 
 %table
   %tr
@@ -24,8 +24,8 @@
 %table.dyta
   %tr.total
     %th
-    %th=JournalRecord.human_attribute_name("debit")
-    %th=JournalRecord.human_attribute_name("credit")
+    %th=JournalEntry.human_attribute_name("debit")
+    %th=JournalEntry.human_attribute_name("credit")
   %tr.important.total
     %th=tc :totals
     %td=number_to_accountancy @totals[:debit]

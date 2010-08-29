@@ -35,7 +35,7 @@
 #  downpayment_amount :decimal(16, 2)   default(0.0), not null
 #  has_downpayment    :boolean          not null
 #  id                 :integer          not null, primary key
-#  journal_record_id  :integer          
+#  journal_entry_id   :integer          
 #  lock_version       :integer          default(0), not null
 #  lost               :boolean          not null
 #  nature             :string(1)        not null
@@ -55,11 +55,10 @@ class Invoice < ActiveRecord::Base
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
-  belongs_to :journal_record
+  belongs_to :journal_entry
   belongs_to :origin, :class_name=>Invoice.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :sale_order
-  has_many :deliveries
   has_many :lines, :class_name=>InvoiceLine.name
   has_many :credits, :class_name=>Invoice.name, :foreign_key=>:origin_id
   has_many :products, :through=>:lines, :uniq=>true
@@ -104,7 +103,7 @@ class Invoice < ActiveRecord::Base
   end
   
   def clean_on_create
-    specific_numeration = self.company.parameter("management.invoices.numeration").value
+    specific_numeration = self.company.preference("management.invoices.numeration").value
     if not specific_numeration.nil?
       self.number = specific_numeration.next_value
     end
@@ -131,8 +130,8 @@ class Invoice < ActiveRecord::Base
         end
       end
       if saved
-        if self.company.parameter('accountancy.accountize.automatic')
-          invoice.to_accountancy if self.company.parameter('accountancy.accountize.automatic').value == true
+        if self.company.preference('accountancy.accountize.automatic')
+          invoice.to_accountancy if self.company.preference('accountancy.accountize.automatic').value == true
         end
       else
         raise ActiveRecord::Rollback

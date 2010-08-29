@@ -164,102 +164,102 @@ class RelationsController < ApplicationController
   manage :districts
 
 
-  dyta(:complements, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  dyta(:custom_fields, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :nature_label
     t.column :required
     t.column :active
     t.column :choices_count, :datatype=>:integer
-    t.action :complement_update
-    t.action :complement, :image=>:menulist, :if=>'RECORD.nature == "choice"'
+    t.action :custom_field_update
+    t.action :custom_field, :image=>:menulist, :if=>'RECORD.nature == "choice"'
   end
 
 
-  def complements
+  def custom_fields
   end
 
-  def complement_create
+  def custom_field_create
     if request.post?
-      @complement = Complement.new(params[:complement])
-      @complement.company_id = @current_company.id
-      @complement.save # Permits to get ID if saved
-      return if save_and_redirect(@complement, :url=>(@complement.nature=='choice' ? {:action=>:complement , :id=>@complement.id} : :back))
+      @custom_field = CustomField.new(params[:custom_field])
+      @custom_field.company_id = @current_company.id
+      @custom_field.save # Permits to get ID if saved
+      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:custom_field , :id=>@custom_field.id} : :back))
     else
-      @complement = Complement.new
+      @custom_field = CustomField.new
     end
     render_form
   end
   
-  def complement_update
-    return unless @complement = find_and_check(:complement)
+  def custom_field_update
+    return unless @custom_field = find_and_check(:custom_field)
     if request.post?
-      @complement.attributes = params[:complement]
-      return if save_and_redirect(@complement)
+      @custom_field.attributes = params[:custom_field]
+      return if save_and_redirect(@custom_field)
     end
-    t3e @complement.attributes
+    t3e @custom_field.attributes
     render_form
   end
 
 
-  dyta(:complement_choices, :conditions=>{:company_id=>['@current_company.id'], :complement_id=>['session[:current_complement_id]']}, :order=>'position') do |t| 
+  dyta(:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t| 
     t.column :name 
     t.column :value
-    t.action :complement_choice_up, :if=>"not RECORD.first\?", :method=>:post
-    t.action :complement_choice_down, :if=>"not RECORD.last\?", :method=>:post
-    t.action :complement_choice_update
+    t.action :custom_field_choice_up, :if=>"not RECORD.first\?", :method=>:post
+    t.action :custom_field_choice_down, :if=>"not RECORD.last\?", :method=>:post
+    t.action :custom_field_choice_update
   end
   
 
-  def complement
-    return unless @complement = find_and_check(:complement)
-    session[:current_complement_id] = @complement.id
-    t3e @complement.attributes
+  def custom_field
+    return unless @custom_field = find_and_check(:custom_field)
+    session[:current_custom_field_id] = @custom_field.id
+    t3e @custom_field.attributes
   end
 
-  def complement_choice_create
-    complement  = @current_company.complements.find_by_id(params[:id])
+  def custom_field_choice_create
+    custom_field  = @current_company.custom_fields.find_by_id(params[:id])
     if request.post?
-      @complement_choice = ComplementChoice.new(params[:complement_choice])
-      @complement_choice.company_id = @current_company.id
-      # @complement_choice.complement_id = @complement.id
-      return if save_and_redirect(@complement_choice)
+      @custom_field_choice = CustomFieldChoice.new(params[:custom_field_choice])
+      @custom_field_choice.company_id = @current_company.id
+      # @custom_field_choice.custom_field_id = @custom_field.id
+      return if save_and_redirect(@custom_field_choice)
     else
-      @complement_choice = ComplementChoice.new(:complement_id=>params[:complement_id])
+      @custom_field_choice = CustomFieldChoice.new(:custom_field_id=>params[:custom_field_id])
     end
     render_form
   end
 
-  def complement_choice_update
-    return unless @complement_choice = find_and_check(:complement_choice)
-    if request.post? and @complement_choice
-      @complement_choice.attributes = params[:complement_choice]
-      return if save_and_redirect(@complement_choice)
+  def custom_field_choice_update
+    return unless @custom_field_choice = find_and_check(:custom_field_choice)
+    if request.post? and @custom_field_choice
+      @custom_field_choice.attributes = params[:custom_field_choice]
+      return if save_and_redirect(@custom_field_choice)
     end
-    @complement = @complement_choice.complement
-    t3e @complement_choice.attributes
+    @custom_field = @custom_field_choice.custom_field
+    t3e @custom_field_choice.attributes
     render_form
   end
   
-  def complement_sort
-    return unless @complement = find_and_check(:complement)
-    if request.post? and @complement
-      @complement.sort_choices
+  def custom_field_sort
+    return unless @custom_field = find_and_check(:custom_field)
+    if request.post? and @custom_field
+      @custom_field.sort_choices
     end
     redirect_to_current
   end
   
-  def complement_choice_up
-    return unless @complement_choice = find_and_check(:complement_choice)
-    if request.post? and @complement_choice
-      @complement_choice.move_higher
+  def custom_field_choice_up
+    return unless @custom_field_choice = find_and_check(:custom_field_choice)
+    if request.post? and @custom_field_choice
+      @custom_field_choice.move_higher
     end
     redirect_to_current
   end
   
-  def complement_choice_down
-    return unless @complement_choice = find_and_check(:complement_choice)
-    if request.post? and @complement_choice
-      @complement_choice.move_lower
+  def custom_field_choice_down
+    return unless @custom_field_choice = find_and_check(:custom_field_choice)
+    if request.post? and @custom_field_choice
+      @custom_field_choice.move_lower
     end
     redirect_to_current
   end
@@ -381,8 +381,8 @@ class RelationsController < ApplicationController
     t.column :check_number
     t.column :parts_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:sale_payment}
-    t.column :number, :through=>:embankment, :url=>{:controller=>:management, :action=>:embankment}
-    t.action :sale_payment_update, :controller=>:management, :if=>"RECORD.embankment.nil\?"
+    t.column :number, :through=>:deposit, :url=>{:controller=>:management, :action=>:deposit}
+    t.action :sale_payment_update, :controller=>:management, :if=>"RECORD.deposit.nil\?"
     t.action :sale_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
   end
 
@@ -432,19 +432,19 @@ class RelationsController < ApplicationController
   
   #
   def entity_create
-    @complements = @current_company.complements.find(:all,:order=>:position)
-    @complement_data = []
+    @custom_fields = @current_company.custom_fields.find(:all,:order=>:position)
+    @custom_field_data = []
     
     if request.post?
       @entity = Entity.new(params[:entity])
       @entity.company_id = @current_company.id
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
-      for complement in @complements
-        attributes = params[:complement_datum][complement.id.to_s]||{}
-        attributes[:complement_id] = complement.id
+      for custom_field in @custom_fields
+        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
+        attributes[:custom_field_id] = custom_field.id
         attributes[:company_id] = @current_company.id
-        @complement_data << ComplementDatum.new(attributes)
+        @custom_field_data << CustomFieldDatum.new(attributes)
       end
 
       ActiveRecord::Base.transaction do
@@ -453,7 +453,7 @@ class RelationsController < ApplicationController
           @entity.account(:supplier) if @entity.supplier?
           @entity.account(:attorney) if @entity.attorney?
           
-          for datum in @complement_data
+          for datum in @custom_field_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
             @entity.errors.add_from_record(datum)
@@ -471,8 +471,8 @@ class RelationsController < ApplicationController
     else
       @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
       @entity = @current_company.entities.new(:country=>@current_company.entity.country)
-      for complement in @complements
-        @complement_data << @current_company.complement_data.new(:entity_id=>@entity.id, :complement_id=>complement.id)
+      for custom_field in @custom_fields
+        @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
       end
     end
     render_form
@@ -483,22 +483,22 @@ class RelationsController < ApplicationController
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
        
-    @complements = @current_company.complements.find(:all,:order=>:position)
-    @complement_data = []
+    @custom_fields = @current_company.custom_fields.find(:all,:order=>:position)
+    @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
     if request.post? and @entity
       
-      for complement in @complements
-        attributes = params[:complement_datum][complement.id.to_s]||{}
-        attributes[:complement_id] = complement.id
+      for custom_field in @custom_fields
+        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
+        attributes[:custom_field_id] = custom_field.id
         attributes[:company_id] = @current_company.id
-        datum = ComplementDatum.find_by_entity_id_and_complement_id(@entity.id, complement.id)
+        datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
         if datum
           datum.attributes = attributes 
-          @complement_data << datum
+          @custom_field_data << datum
         else
-          @complement_data << ComplementDatum.new(attributes)
+          @custom_field_data << CustomFieldDatum.new(attributes)
         end
       end
      
@@ -509,7 +509,7 @@ class RelationsController < ApplicationController
           @entity.account(:supplier) if @entity.supplier?
           @entity.account(:attorney) if @entity.attorney?
           
-          for datum in @complement_data
+          for datum in @custom_field_data
             datum.entity_id = @entity.id
             saved = false unless datum.save
             @entity.errors.add_from_record(datum)
@@ -523,12 +523,12 @@ class RelationsController < ApplicationController
       end
       
     else
-      for complement in @complements
-        datum  = ComplementDatum.find_by_complement_id_and_entity_id(complement.id, @entity.id)
+      for custom_field in @custom_fields
+        datum  = CustomFieldDatum.find_by_custom_field_id_and_entity_id(custom_field.id, @entity.id)
         if datum
-          @complement_data << datum
+          @custom_field_data << datum
         else
-          @complement_data << ComplementDatum.new(:complement_id=>complement.id)
+          @custom_field_data << CustomFieldDatum.new(:custom_field_id=>custom_field.id)
         end
       end
     end
@@ -763,19 +763,19 @@ class RelationsController < ApplicationController
         where = " WHERE entity.active AND entity.company_id=#{@current_company.id}"
         select_array = []
         for k, v in params[:columns].select{|k,v| v[:check].to_i == 1}.sort{|a,b| a[1][:order].to_i<=>b[1][:order].to_i}
-          if k.match(/^complement\-/)
+          if k.match(/^custom_field\-/)
             id = k.split('-')[1][2..-1].to_i
-            if complement = @current_company.complements.find_by_id(id)
-              from += " LEFT JOIN complement_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
-              #from += ", complement_data AS _c#{id}"
-              #where += " AND (_c#{id}.entity_id=entity.id AND _c#{id}.complement_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
-              if complement.nature == "choice"
-              select_array << [ "_cc#{id}.value AS complement_#{id}", v[:label]]
-                # select += ", _cc#{id}.value AS complement_#{id}"
-                from += " LEFT JOIN complement_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+            if custom_field = @current_company.custom_fields.find_by_id(id)
+              from += " LEFT JOIN custom_field_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+              #from += ", custom_field_data AS _c#{id}"
+              #where += " AND (_c#{id}.entity_id=entity.id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+              if custom_field.nature == "choice"
+              select_array << [ "_cc#{id}.value AS custom_field_#{id}", v[:label]]
+                # select += ", _cc#{id}.value AS custom_field_#{id}"
+                from += " LEFT JOIN custom_field_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
               else
-                select_array << [ "_c#{id}.#{complement.nature}_value AS complement_#{id}", v[:label]]
-                # select += ", _c#{id}.#{complement.nature}_value AS complement_#{id}"
+                select_array << [ "_c#{id}.#{custom_field.nature}_value AS custom_field_#{id}", v[:label]]
+                # select += ", _c#{id}.#{custom_field.nature}_value AS custom_field_#{id}"
               end
             end
           else
@@ -783,11 +783,11 @@ class RelationsController < ApplicationController
           end
         end
         if params[:conditions]
-          code = params[:conditions].collect do |id, parameters|
-            condition = parameters[:type]
+          code = params[:conditions].collect do |id, preferences|
+            condition = preferences[:type]
             expr = if condition == "special-subscriber"
-                     if nature = @current_company.subscription_natures.find_by_id(parameters[:nature])
-                       subn = parameters[parameters[:nature]]
+                     if nature = @current_company.subscription_natures.find_by_id(preferences[:nature])
+                       subn = preferences[preferences[:nature]]
                        products = (subn[:products]||{}).select{|k,v| v.to_i==1 }.collect{|k,v| k}
                        products = "product_id IN (#{products.join(', ')})" if products.size > 0
                        products = "#{products+' OR ' if products.is_a? String}#{'product_id IS NULL' if subn[:no_products]}"
@@ -815,9 +815,9 @@ class RelationsController < ApplicationController
                    elsif condition.match(/^generic/)
                      klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
                      column = klass.columns_hash[attribute]
-                     ListingNode.condition(condition.split(/\-/)[1..2].join("."), parameters[:comparator], parameters[:comparated], column.sql_type)
+                     ListingNode.condition(condition.split(/\-/)[1..2].join("."), preferences[:comparator], preferences[:comparated], column.sql_type)
                    end
-            "\n"+(parameters[:reverse].to_i==1 ? "NOT " : "")+"(#{expr})"
+            "\n"+(preferences[:reverse].to_i==1 ? "NOT " : "")+"(#{expr})"
           end.join(params[:check] == "and" ? " AND " : " OR ")
           where += " AND (#{code})"
         end

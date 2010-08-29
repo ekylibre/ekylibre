@@ -20,45 +20,47 @@
 # 
 # == Table: journal_entries
 #
-#  account_id        :integer          not null
-#  bank_statement_id :integer          
-#  closed            :boolean          not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  credit            :decimal(16, 2)   default(0.0), not null
-#  currency_credit   :decimal(16, 2)   default(0.0), not null
-#  currency_debit    :decimal(16, 2)   default(0.0), not null
-#  debit             :decimal(16, 2)   default(0.0), not null
-#  draft             :boolean          not null
-#  expired_on        :date             
-#  id                :integer          not null, primary key
-#  journal_id        :integer          
-#  letter            :string(8)        
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  position          :integer          
-#  record_id         :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  closed          :boolean          
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  created_on      :date             not null
+#  creator_id      :integer          
+#  credit          :decimal(16, 2)   default(0.0), not null
+#  currency_credit :decimal(16, 2)   default(0.0), not null
+#  currency_debit  :decimal(16, 2)   default(0.0), not null
+#  currency_id     :integer          default(0), not null
+#  currency_rate   :decimal(16, 6)   default(0.0), not null
+#  debit           :decimal(16, 2)   default(0.0), not null
+#  draft           :boolean          not null
+#  draft_mode      :boolean          not null
+#  id              :integer          not null, primary key
+#  journal_id      :integer          not null
+#  lock_version    :integer          default(0), not null
+#  number          :string(255)      not null
+#  position        :integer          
+#  printed_on      :date             not null
+#  resource_id     :integer          
+#  resource_type   :string(255)      
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
 #
 
 require 'test_helper'
 
 class JournalEntryTest < ActiveSupport::TestCase
 
-  fixtures :journal_entries
+  context "A journal" do
 
-  test "the validity of entries" do
-    journal_entry = journal_entries(:journal_entries_001)
-    assert journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
-    journal_entry.currency_debit = 5
-    assert journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
-    journal_entry.currency_credit = 17
-    assert !journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
-    journal_entry.currency_debit = 0
-    assert journal_entry.valid?, journal_entry.inspect+"\n"+journal_entry.errors.full_messages.to_sentence
+    should "forbids to write records before its closure date" do
+      @journal = journals(:journals_001)
+      assert_raise ActiveRecord::RecordInvalid do
+        record = @journal.entries.create!(:printed_on=>@journal.closed_on-10)
+      end
+      assert_nothing_raised do
+        record = @journal.entries.create!(:printed_on=>@journal.closed_on+1)
+      end
+    end
+    
   end
 
 end

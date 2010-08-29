@@ -4,9 +4,9 @@
     - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
   - f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>{:action=>:product_create}
   - f.field :stock_transfer, :quantity
-  - f.field :stock_transfer, :location_id, :choices=>{:reflection=>:locations}, :new=>{:action=>:location_create}
+  - f.field :stock_transfer, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>{:action=>:warehouse_create}
   -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"
-    - f.field :stock_transfer, :second_location_id, :choices=>{:reflection=>:locations}, :html_options=>{:id=>:transfer}, :new=>{:action=>:location_create}
+    - f.field :stock_transfer, :second_warehouse_id, :choices=>{:reflection=>:warehouses}, :html_options=>{:id=>:transfer}, :new=>{:action=>:warehouse_create}
   - f.field :stock_transfer, :planned_on
   - f.field :stock_transfer, :comment, :field=>:textarea
 

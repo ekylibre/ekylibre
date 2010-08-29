@@ -26,7 +26,6 @@
 #  creator_id      :integer          
 #  direction       :string(4)        default("in"), not null
 #  id              :integer          not null, primary key
-#  location_id     :integer          
 #  lock_version    :integer          default(0), not null
 #  operation_id    :integer          not null
 #  product_id      :integer          
@@ -37,6 +36,7 @@
 #  unit_quantity   :decimal(16, 4)   default(0.0), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
+#  warehouse_id    :integer          
 #
 
 class OperationLine < ActiveRecord::Base
@@ -46,7 +46,7 @@ class OperationLine < ActiveRecord::Base
   
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company
-  belongs_to :location, :class_name=>Location.name
+  belongs_to :warehouse
   belongs_to :operation
   belongs_to :product
   belongs_to :tracking
@@ -66,7 +66,7 @@ class OperationLine < ActiveRecord::Base
       self.company_id = self.operation.company_id
       target = self.operation.target.target
       # raise Exception.new(target.inspect)
-      if target.is_a? Shape
+      if target.is_a? LandParcel
         self.area_unit_id  = target.area_unit_id
         self.unit_quantity = self.quantity/target.area_measure
       end

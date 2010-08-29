@@ -67,7 +67,7 @@ var resizeElementMethods = {
 
 
     if (children_length>0) { 
-      /* element.makePositioned();*/
+      element.makePositioned();
       var horizontal = element.isHorizontal();
       var element_length = (horizontal ? width : height);
 
@@ -143,6 +143,8 @@ var resizeElementMethods = {
     
     /*    $('side').innerHTML += ""+element.id+"/"+element.tagName+" ("+children_length+")<br/>"*/
     if (children_length>0) { 
+      /* element.undoPositioned();*/
+
       // Redimensioning
       var index, child;
       for (index=0;index<children_length;index++) {

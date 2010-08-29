@@ -8,8 +8,8 @@
   -if @price
     -f.field :price, :amount 
     -f.field :price, :tax_id ,:choices=>{:reflection=>:taxes}
-  -if @current_company.locations.size > 1
-    -f.field :purchase_order_line, :location_id, :choices=>{:reflection=>:locations}
+  -if @current_company.warehouses.size > 1
+    -f.field :purchase_order_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :purchase_order_line, :tracking_serial
 
 =hidden_field_tag :order_id, params[:order_id]

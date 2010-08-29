@@ -86,7 +86,7 @@ module AccountancyHelper
 
   def journal_periods_tag(value=nil)
     list = []
-    for year in @current_company.financialyears
+    for year in @current_company.financial_years
       list << [tc(:all_periods), year.started_on.to_s+"_"+Date.today.to_s] if list.empty?
       list << [year.code, year.started_on.to_s+"_"+year.stopped_on.to_s]
       list2 = []

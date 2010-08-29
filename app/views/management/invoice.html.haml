@@ -10,7 +10,7 @@
       = evalue @invoice, :client, :label=>:full_name
       = evalue @invoice, :contact, :label=>:address
       = evalue @invoice, :payment_on
-      = evalue @invoice, :journal_record, :url=>{:action=>:journal_record, :controller=>:accountancy}
+      = evalue @invoice, :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
     %td
       = evalue @invoice, :amount
       = evalue @invoice, :amount_with_taxes

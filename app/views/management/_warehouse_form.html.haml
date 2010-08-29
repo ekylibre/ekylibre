@@ -1,0 +1,30 @@
+=formalize do |f|
+  -f.error :warehouse
+  -f.title :description
+  -f.field :warehouse, :name
+  -warehouses = @current_company.warehouses.find(:all, :conditions=>["id!=COALESCE(?,0)", @warehouse.id], :order=>:name)
+  -if warehouses.size>0
+    -f.field :warehouse, :parent_id, :choices=>warehouses.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
+  -f.field :warehouse, :comment, :field=>:textarea
+  -if @warehouse.new_record?
+    -f.field :warehouse, :reservoir, :onchange=>"displayReservoir();"
+-if (@warehouse.reservoir? and not @warehouse.new_record?) or @warehouse.new_record?
+  =formalize(:id=>:reservoir) do |f|
+    -f.title :reservoir_informations
+    -f.field :warehouse, :product_id, :choices=>{:reflection=>:available_products}, :new=>{:action=>:product_create}
+    -f.field :warehouse, :quantity_max  
+    -f.field :warehouse, :number
+=formalize do |f|
+  -f.title :localization
+  -f.field :warehouse, :establishment_id, :choices=>{:reflection=>:establishments}, :new=>{:controller=>:company, :action=>:establishment_create}
+  -f.field :warehouse, :x
+  -f.field :warehouse, :y
+  -f.field :warehouse, :z
+  -f.title :accountancy
+  -f.field :warehouse, :account_id, :choices=>:account
+-if @warehouse.new_record?
+  :javascript
+    window.displayReservoir = function() {
+      toggleElement('reservoir', $('warehouse_reservoir').checked);
+    }
+    displayReservoir();

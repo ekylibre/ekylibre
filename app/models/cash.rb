@@ -58,7 +58,7 @@ class Cash < ActiveRecord::Base
   belongs_to :entity
   belongs_to :journal
   has_many :bank_statements
-  has_many :embankments
+  has_many :deposits
   has_many :purchase_payment_modes
   has_many :sale_payment_modes
   has_one :last_bank_statement, :class_name=>BankStatement.name, :order=>"stopped_on DESC"
@@ -94,7 +94,7 @@ class Cash < ActiveRecord::Base
   end
 
   def destroyable?
-    self.embankments.size <= 0 and self.bank_statements.size <= 0
+    self.deposits.size <= 0 and self.bank_statements.size <= 0
   end
 
 

@@ -46,7 +46,7 @@
 
 require 'test_helper'
 
-class ShapeOperationTest < ActiveSupport::TestCase
+class OperationTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

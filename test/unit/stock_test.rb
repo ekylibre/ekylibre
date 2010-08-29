@@ -25,7 +25,6 @@
 #  creator_id          :integer          
 #  critic_quantity_min :decimal(16, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
-#  location_id         :integer          not null
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      
 #  origin_id           :integer          
@@ -39,5 +38,6 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #  virtual_quantity    :decimal(16, 4)   default(0.0), not null
+#  warehouse_id        :integer          not null
 #
 

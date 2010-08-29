@@ -57,10 +57,10 @@ class DocumentTemplate < ActiveRecord::Base
 
   # id is forbidden names for parameters
   @@document_natures = {
-    :balance_sheet =>    [ [:financialyear, Financialyear] ],
+    :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ], 
-    :embankment =>       [ [:embankment, Embankment] ],
-    :income_statement => [ [:financialyear, Financialyear] ],
+    :deposit =>          [ [:deposit, Deposit] ],
+    :income_statement => [ [:financial_year, FinancialYear] ],
     :inventory =>        [ [:inventory, Inventory] ], 
     :invoice =>          [ [:invoice, Invoice] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
@@ -69,11 +69,11 @@ class DocumentTemplate < ActiveRecord::Base
     :purchase_order =>   [ [:purchase_order, PurchaseOrder] ], 
     :sale_order =>       [ [:sale_order, SaleOrder] ],
     :stocks =>           [ [:established_on, Date] ],
-    # :synthesis =>        [ [:financialyear, Financialyear] ],
+    # :synthesis =>        [ [:financial_year, FinancialYear] ],
     :transport =>        [ [:transport, Transport] ]
   }
 
-    #[:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :embankment, :entity, :journal, :ledger, :other] 
+    #[:balance, :invoice, :sale_order, :purchase_order, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
 
   include ActionView::Helpers::NumberHelper
 

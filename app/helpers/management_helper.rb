@@ -21,7 +21,7 @@ module ManagementHelper
 
   SALE_STEPS = [
                 {:name=>:estimate,   :actions=>[:sale_order_lines, :sale_order_create, :sale_order_update, :sale_order_line_create, :sale_order_line_update], :states=>[:estimate, :active, :complete]},
-                {:name=>:deliveries, :actions=>[:sale_order_deliveries, :delivery_create, :delivery_update], :states=>[:active, :complete]},
+                {:name=>:deliveries, :actions=>[:sale_order_deliveries, :sale_delivery_create, :sale_delivery_update], :states=>[:active, :complete]},
                 {:name=>:summary,    :actions=>[:sale_order_summary], :states=>[:estimate, :active, :complete]}
                ]
   SALE_ORDER_SATES = {'A'=>:active, 'C'=>:complete, 'E'=>:estimate}
@@ -75,7 +75,7 @@ module ManagementHelper
   def product_stocks_options(product)
     options = []
     options += product.stocks.collect{|x| [x.label, x.id]}
-    options += @current_company.locations.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
+    options += @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
     return options
   end
 

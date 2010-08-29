@@ -1,0 +1,14 @@
+- if @deposits.size > 0
+  =form_tag do
+    =dyta :unvalidated_deposits
+    .actions
+      =link_to tg(:previous), :action=>:index
+      =submit_tag(tc('validate'), :action=>:unvalidated_deposits)
+
+
+
+- else
+  %p{:style=>'text-align:center'}= tc('no_deposits')
+  .actions
+    =link_to tc(:management_index), :action=>:index
+

@@ -52,7 +52,7 @@ class Price < ActiveRecord::Base
   belongs_to :entity
   belongs_to :product
   belongs_to :tax
-  has_many :delivery_lines
+  has_many :sale_delivery_lines
   has_many :invoice_lines
   has_many :taxes
   has_many :purchase_order_lines

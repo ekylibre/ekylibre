@@ -31,7 +31,6 @@
 #  id                  :integer          not null, primary key
 #  invoiced            :boolean          not null
 #  label               :text             
-#  location_id         :integer          
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
 #  position            :integer          
@@ -46,6 +45,7 @@
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
+#  warehouse_id        :integer          
 #
 #
 # == Fixture: sale_order_lines

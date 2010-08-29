@@ -31,7 +31,7 @@
 #  currency_id       :integer          
 #  dest_contact_id   :integer          
 #  id                :integer          not null, primary key
-#  journal_record_id :integer          
+#  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
 #  number            :string(64)       not null

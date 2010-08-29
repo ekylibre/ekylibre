@@ -3,9 +3,9 @@ require 'test_helper'
 class ManagementControllerTest < ActionController::TestCase
   fixtures :companies, :users
   test_all_actions(
-                   :delivery_create=>{:order_id=>3},
-                   :delivery_update=>{:id=>1},
-                   :embankment_create=>{:mode_id=>1}, 
+                   :sale_delivery_create=>{:order_id=>3},
+                   :sale_delivery_update=>{:id=>1},
+                   :deposit_create=>{:mode_id=>1}, 
                    :inventory_reflect=>:delete, 
                    :invoice_cancel=>:update, 
                    :product_component_create=>{:product_id=>1}, 

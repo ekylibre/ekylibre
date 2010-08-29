@@ -36,7 +36,7 @@
 #  updater_id             :integer          
 #  with_accounting        :boolean          not null
 #  with_commission        :boolean          not null
-#  with_embankment        :boolean          not null
+#  with_deposit           :boolean          not null
 #
 
 class SalePaymentMode < ActiveRecord::Base
@@ -45,15 +45,15 @@ class SalePaymentMode < ActiveRecord::Base
   belongs_to :company
   belongs_to :commission_account, :class_name=>Account.name
   belongs_to :embankables_account, :class_name=>Account.name
-  has_many :embankable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:embankment_id=>nil}
+  has_many :embankable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name
 
-  validates_presence_of :embankables_account_id, :if=>Proc.new{|x| x.with_embankment? and x.with_accounting? }
+  validates_presence_of :embankables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash_id
 
   def prepare
-    self.embankables_account = nil unless self.with_embankment?
+    self.embankables_account = nil unless self.with_deposit?
     return true
   end
 

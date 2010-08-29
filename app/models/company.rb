@@ -40,20 +40,17 @@ class Company < ActiveRecord::Base
   has_many :areas
   has_many :cashes
   has_many :bank_statements
-  has_many :complements
-  has_many :complement_choices
-  has_many :complement_data
   has_many :contacts
   has_many :currencies
+  has_many :custom_fields
+  has_many :custom_field_choices
+  has_many :custom_field_data
   has_many :delays
-  has_many :deliveries
-  has_many :delivery_lines
-  has_many :delivery_modes
   has_many :departments
+  has_many :deposits
   has_many :districts
   has_many :documents
   has_many :document_templates
-  has_many :embankments
   has_many :entities
   has_many :entity_categories
   has_many :entity_link_natures
@@ -62,26 +59,26 @@ class Company < ActiveRecord::Base
   has_many :establishments
   has_many :event_natures
   has_many :events
-  has_many :financialyears, :order=>"started_on DESC"
+  has_many :financial_years, :order=>"started_on DESC"
   has_many :inventories
   has_many :inventory_lines
   has_many :invoices
   has_many :invoice_lines
   has_many :journals, :order=>:name
   has_many :journal_entries
-  has_many :journal_records
+  has_many :journal_entry_lines
   has_many :listings
   has_many :listing_nodes
   has_many :listing_node_items
-  has_many :locations
   has_many :mandates
   has_many :observations
   has_many :operation_natures
   has_many :operations
   has_many :operation_lines
-  has_many :parameters
+  has_many :preferences
   has_many :prices
   has_many :products, :order=>'active DESC, name'
+  has_many :product_categories, :order=>:name
   has_many :product_components
   has_many :professions
   has_many :purchase_orders
@@ -90,6 +87,9 @@ class Company < ActiveRecord::Base
   has_many :purchase_payment_modes, :order=>:name
   has_many :purchase_payment_parts
   has_many :roles
+  has_many :sale_deliveries
+  has_many :sale_delivery_lines
+  has_many :sale_delivery_modes
   has_many :sale_orders
   has_many :sale_order_lines
   has_many :sale_order_natures
@@ -97,9 +97,8 @@ class Company < ActiveRecord::Base
   has_many :sale_payment_modes, :order=>:name
   has_many :sale_payment_parts
   has_many :sequences
-  has_many :shapes, :order=>:name
-  has_many :shelves, :order=>:name
-  has_many :stocks, :order=>"location_id, product_id, tracking_id"
+  has_many :land_parcels, :order=>:name
+  has_many :stocks, :order=>"warehouse_id, product_id, tracking_id"
   has_many :stock_moves
   has_many :stock_transfers
   has_many :subscription_natures, :order=>:name
@@ -112,39 +111,40 @@ class Company < ActiveRecord::Base
   has_many :transfers
   has_many :units, :order=>'base, coefficient, name'
   has_many :users, :order=>'last_name, first_name'
+  has_many :warehouses
   belongs_to :entity
 
 
   # Specifics
-  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_attorneys\').value.to_s+\'%\')}'
+  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_attorneys\').value.to_s+\'%\')}'
   has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
-  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
   has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
-  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_cashes\').value.to_s+\'%\')}'
-  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.charges\').value.to_s+\'%\')}'
-  has_many :choice_complements, :class_name=>Complement.name, :conditions=>{:nature=>"choice"}, :order=>"name"
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
+  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_cashes\').value.to_s+\'%\')}'
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.charges\').value.to_s+\'%\')}'
+  has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :embankable_payments, :class_name=>SalePayment.name, :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment)'
+  has_many :embankable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit)'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_embank, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'embankment_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_embankment) AND to_bank_on >= CURRENT_DATE-14'
-  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.financial_payments_to_embank\').value.to_s+\'%\')}'
+  has_many :payments_to_embank, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit) AND to_bank_on >= CURRENT_DATE-14'
+  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
-  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.products\').value.to_s+\'%\')}'
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
   has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id} AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(parameter(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
   has_many :usable_purchase_payments, :class_name=>PurchasePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
   has_many :usable_sale_payments, :class_name=>SalePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
 
-  has_one :current_financialyear, :class_name=>Financialyear.name, :conditions=>{:closed=>false}
+  has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
 
 
@@ -182,15 +182,15 @@ class Company < ActiveRecord::Base
   end
 
   def accountizing?
-    if parameter = self.parameter('accountancy.accountize.automatic')
-      return true if parameter.value == true
+    if preference = self.preference('accountancy.accountize.automatic')
+      return true if preference.value == true
     end
     return false
   end
 
   def draft_mode?
-    if parameter = self.parameter('accountancy.accountize.draft_mode')
-      return true if parameter.value == true
+    if preference = self.preference('accountancy.accountize.draft_mode')
+      return true if preference.value == true
     end
     return false
   end
@@ -204,22 +204,22 @@ class Company < ActiveRecord::Base
   end
 
 
-  def parameter(name)
-    parameter = self.parameters.find_by_name(name)
-    if parameter.nil? and Parameter.reference.keys.include? name
-      parameter = self.parameters.new(:name=>name)
-      parameter.value = Parameter.reference[name][:default]
-      parameter.save!
+  def preference(name)
+    preference = self.preferences.find_by_name(name)
+    if preference.nil? and Preference.reference.keys.include? name
+      preference = self.preferences.new(:name=>name)
+      preference.value = Preference.reference[name][:default]
+      preference.save!
     end
-    parameter
+    preference
   end
 
 
-  def set_parameter(name, value)
-    parameter = self.parameters.find_by_name(name)
-    parameter = self.parameters.build(:name=>name) if parameter.nil?
-    parameter.value = value
-    parameter.save
+  def set_preference(name, value)
+    preference = self.preferences.find_by_name(name)
+    preference = self.preferences.build(:name=>name) if preference.nil?
+    preference.value = value
+    preference.save
   end
 
   def admin_role
@@ -268,12 +268,12 @@ class Company < ActiveRecord::Base
     Invoice.generate(self.id,records)
   end
 
-  def closable_financialyear
-    return self.financialyears.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
+  def closable_financial_year
+    return self.financial_years.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
   end
 
-  def current_financialyear
-    self.financialyears.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
+  def current_financial_year
+    self.financial_years.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
   end
 
   #   def productable_products
@@ -333,25 +333,25 @@ class Company < ActiveRecord::Base
   end
 
 
-  def embankments_to_lock
-    embankments = []
-    for embankment in self.embankments
-      embankments << embankment if ( embankment.locked == false and embankment.created_on <= Date.today-(15) )
+  def deposits_to_lock
+    deposits = []
+    for deposit in self.deposits
+      deposits << deposit if ( deposit.locked == false and deposit.created_on <= Date.today-(15) )
     end
-    embankments
+    deposits
   end
 
   def default_contact
     self.entity.default_contact
   end
 
-  # Returns the default journal from parameters
+  # Returns the default journal from preferences
   # Creates the journal if not exists
   def journal(name)
     name = name.to_s
     param_name  = "accountancy.journals.#{name}"
-    raise Exception.new("Unvalid journal name : #{name.inspect}") unless Parameter.reference.keys.include? param_name
-    param = self.parameter(param_name)
+    raise Exception.new("Unvalid journal name : #{name.inspect}") unless Preference.reference.keys.include? param_name
+    param = self.preference(param_name)
     if (journal = param.value).nil?
       journal = self.journals.find_by_nature(name)
       journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency_id=>self.default_currency.id) unless journal
@@ -365,18 +365,18 @@ class Company < ActiveRecord::Base
   # Compute a balance with many options
   #  - :started_on Use journal record printed on after started_on
   #  - :stopped_on Use journal record printed on before stopped_on
-  #  - :draft      Use draft journal entries
-  #  - :confirmed  Use confirmed journal entries
-  #  - :closed     Use closed journal entries
+  #  - :draft      Use draft journal entry_lines
+  #  - :confirmed  Use confirmed journal entry_lines
+  #  - :closed     Use closed journal entry_lines
   #  - :accounts   Select ranges of accounts
   #  - :centralize Select account's prefixe which permits to centralize
   def balance(options={})
     conn = ActiveRecord::Base.connection
-    entries_states  = " AND (false"
-    entries_states += " OR (journal_entries.draft = #{conn.quoted_true})" if options[:draft] == "1"
-    entries_states += " OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})" if options[:confirmed] == "1"
-    entries_states += " OR (journal_entries.closed = #{conn.quoted_true})" if options[:closed] == "1"
-    entries_states += ")"
+    entry_lines_states  = " AND (false"
+    entry_lines_states += " OR (journal_entry_lines.draft = #{conn.quoted_true})" if options[:draft] == "1"
+    entry_lines_states += " OR (journal_entry_lines.draft = #{conn.quoted_false} AND journal_entry_lines.closed = #{conn.quoted_false})" if options[:confirmed] == "1"
+    entry_lines_states += " OR (journal_entry_lines.closed = #{conn.quoted_true})" if options[:closed] == "1"
+    entry_lines_states += ")"
 
     valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/    
     accounts = " AND (false"
@@ -405,22 +405,22 @@ class Company < ActiveRecord::Base
     # centralized = "("+centralized.collect{|c| "SUBSTR(accounts.number, 1, #{c.length}) = #{conn.quote(c)}"}.join(" OR ")+")"
     centralized = "("+centralize.collect{|c| "accounts.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")+")"
 
-    from_where  = " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+    from_where  = " FROM journal_entry_lines JOIN accounts ON (account_id=accounts.id) JOIN journal_entries ON (entry_id=journal_entries.id)"
     from_where += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
     # Total
     lines = []
-    query  = "SELECT '', -1, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), '#{'Z'*16}' AS skey"
+    query  = "SELECT '', -1, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), '#{'Z'*16}' AS skey"
     query += from_where
-    query += entries_states
+    query += entry_lines_states
     query += accounts
     lines += conn.select_rows(query)
 
     # Sub-totals
     for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
       level = name.split(/\_/)[-1].to_i
-      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), SUBSTR(accounts.number, 1, #{level})||'#{'Z'*(16-level)}' AS skey"
+      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), SUBSTR(accounts.number, 1, #{level})||'#{'Z'*(16-level)}' AS skey"
       query += from_where
-      query += entries_states
+      query += entry_lines_states
       query += accounts
       query += " AND LENGTH(accounts.number) >= #{level}"
       query += " GROUP BY subtotal"
@@ -428,9 +428,9 @@ class Company < ActiveRecord::Base
     end
 
     # NOT centralized accounts (default)
-    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), accounts.number AS skey"
+    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), accounts.number AS skey"
     query += from_where
-    query += entries_states
+    query += entry_lines_states
     query += accounts
     query += " AND NOT #{centralized}" unless centralize.empty?
     query += " GROUP BY accounts.id, accounts.number"
@@ -439,9 +439,9 @@ class Company < ActiveRecord::Base
 
     # Centralized accounts
     for prefix in centralize
-      query  = "SELECT SUBSTR(accounts.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query  = "SELECT SUBSTR(accounts.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), #{conn.quote(prefix)} AS skey"
       query += from_where
-      query += entries_states
+      query += entry_lines_states
       query += accounts
       query += " AND accounts.number LIKE #{conn.quote(prefix+'%')}"
       query += " GROUP BY centralize"
@@ -655,7 +655,7 @@ class Company < ActiveRecord::Base
   end
 
 
-  # Search a document template and use it to compile document using parameters
+  # Search a document template and use it to compile document using preferences
   # options[:id] permits to identify the template 
   def print(options={})
     id = options.delete(:id)
@@ -705,11 +705,11 @@ class Company < ActiveRecord::Base
         end
       end if plan.is_a? Hash
 
-      company.set_parameter('general.language', language)
+      company.set_preference('general.language', language)
       company.departments.create!(:name=>tc('default.department_name'))
       establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
       currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
-      company.shelves.create(:name=>tc('default.shelf_name'))
+      company.product_categories.create(:name=>tc('default.product_category_name'))
       company.load_units
       company.load_sequences
 
@@ -736,13 +736,13 @@ class Company < ActiveRecord::Base
       company.load_prints
 
       for journal in [:sales, :purchases, :bank, :various, :cash]
-        company.set_parameter("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
+        company.set_preference("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
       end
       
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
       baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_embankment=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser").id)
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser").id)
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
 
       company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
@@ -753,18 +753,18 @@ class Company < ActiveRecord::Base
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
       end
-      company.financialyears.create!(:started_on=>Date.today)
+      company.financial_years.create!(:started_on=>Date.today)
       company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
 
       company.load_sequences
       
-      company.locations.create!(:name=>tc('default.location_name'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
+      company.warehouses.create!(:name=>tc('default.warehouse_name'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
       for nature in [:sale_order, :invoice, :purchase_order]
         company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
       end
       
-      # Add complementary data to test
+      # Add custom_fieldary data to test
       company.load_demo_data unless demo_language_code.blank?
     end
     return company, user
@@ -815,9 +815,9 @@ class Company < ActiveRecord::Base
   def load_sequences
     for part, sequences in tc('default.sequences')
       for sequence, attributes in sequences
-        if self.parameter("#{part}.#{sequence}.numeration").value.nil?
+        if self.preference("#{part}.#{sequence}.numeration").value.nil?
           seq = self.sequences.create(attributes)
-          self.set_parameter("#{part}.#{sequence}.numeration", seq) if seq
+          self.set_preference("#{part}.#{sequence}.numeration", seq) if seq
         end
       end
     end
@@ -837,7 +837,7 @@ class Company < ActiveRecord::Base
     entity_natures = self.entity_natures.collect{|x| x.id.to_s}
     indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language=>self.entity.language}
     products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
-    shelf_id = self.shelves.first.id
+    product_category_id = self.product_categories.first.id
     category_id = self.entity_categories.first.id
     
     for x in 0..60
@@ -861,34 +861,34 @@ class Company < ActiveRecord::Base
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     taxes = self.taxes
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit=>units[rand(units.size)], :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
     
     product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity=>6, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity=>6, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
 
     product = self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl")
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity=>0.75, :location_id=>self.locations.first.id)
-    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :location_id=>self.locations.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouchon liège").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Étiquette").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity=>0.75, :warehouse_id=>self.warehouses.first.id)
+    self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
     
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
     
     product = self.products.find_by_name("Vin Quillet-Bont 2005")
-    self.locations.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>self.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
+    self.warehouses.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>self.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
 
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})
-    for shape in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
-      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)])
+    for land_parcel in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
+      self.land_parcels.create!(:name=>land_parcel, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)])
     end
     for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
-      self.operation_natures.create!(:name=>nature, :target_type=>"Shape")
+      self.operation_natures.create!(:name=>nature, :target_type=>"LandParcel")
     end
     for nature in ["Fabrication", "Transformation", "Ouillage"]
       self.operation_natures.create!(:name=>nature, :target_type=>"Stock")
@@ -909,18 +909,18 @@ class Company < ActiveRecord::Base
 
 
 
-  def journal_entries_between(started_on, stopped_on)
-    self.journal_entries.find(:all, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_records.id, journal_entries.id")
+  def journal_entry_lines_between(started_on, stopped_on)
+    self.journal_entry_lines.find(:all, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
   end
 
-  def journal_entries_calculate(column, started_on, stopped_on, operation=:sum)
+  def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
-    self.journal_entries.calculate(operation, column, :joins=>"JOIN journal_records ON (journal_records.id=record_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
-  # this method allows to make operations (such as sum of credits) in the entries, according to a list of accounts.
-  def filtering_entries(field, list_accounts=[], period=[])
+  # this method allows to make operations (such as sum of credits) in the entry_lines, according to a list of accounts.
+  def filtering_entry_lines(field, list_accounts=[], period=[])
     #list_accounts.match(//) 
     # if not period.empty?
     #      period.each do |p|
@@ -939,11 +939,11 @@ class Company < ActiveRecord::Base
     conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
     
     if [:credit, :debit].include? field
-      result =  self.journal_entries.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entries.account_id inner join journal_records r on r.id=journal_entries.record_id")
+      result =  self.journal_entry_lines.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entry_lines.account_id inner join journal_entries r on r.id=journal_entry_lines.entry_id")
     end
 
     if [:all, :first].include? field
-      result =  self.journal_entries.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entries.account_id inner join journal_records r on r.id=journal_entries.record_id", :order=>"r.created_on ASC")
+      result =  self.journal_entry_lines.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entry_lines.account_id inner join journal_entries r on r.id=journal_entry_lines.entry_id", :order=>"r.created_on ASC")
     end
 
     return result
@@ -957,22 +957,22 @@ class Company < ActiveRecord::Base
       conditions[0] += " and r.journal_id = ?"
       conditions << id.to_s
     end
-    return self.journal_entries.find(:all, :conditions=>conditions, :joins=>"inner join journal_records r on r.id=journal_entries.record_id", :order=>"r.number ASC")
+    return self.journal_entry_lines.find(:all, :conditions=>conditions, :joins=>"inner join journal_entries r on r.id=journal_entry_lines.entry_id", :order=>"r.number ASC")
   end
 
 
   def importable_columns
     columns = []
     columns << [tc("import.dont_use"), "special-dont_use"]
-    columns << [tc("import.generate_string_complement"), "special-generate_string_complement"]
-    # columns << [tc("import.generate_choice_complement"), "special-generate_choice_complement"]
+    columns << [tc("import.generate_string_custom_field"), "special-generate_string_custom_field"]
+    # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
     cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
     columns += cols.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
-    columns += self.complements.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [Complement.model_name.human+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    columns += self.custom_fields.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
   end
 
@@ -983,7 +983,7 @@ class Company < ActiveRecord::Base
     columns += Contact.content_columns.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}.sort
     columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
     columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
-    columns += self.complements.collect{|c| [Complement.model_name.human+"/"+c.name, "complement-id"+c.id.to_s]}.sort
+    columns += self.custom_fields.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
   end
 
@@ -1002,8 +1002,8 @@ class Company < ActiveRecord::Base
       code += "  category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
       code += "  category = self.entity_categories.create!(:name=>'-', :by_default=>false) unless category\n"
     end
-    for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_complement}
-      code += "  complement_#{k} = self.complements.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
+    for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
+      code += "  custom_field_#{k} = self.custom_fields.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
     end
     code += "  while line = sheet.shift\n"
     code += "    line_index += 1\n"
@@ -1038,22 +1038,22 @@ class Company < ActiveRecord::Base
       code += "        problems[line_index.to_s] += contact.errors.full_messages\n"
       code += "      end\n" 
     end
-    for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_complement}
-      code += "      datum = entity.complement_data.build(:company_id=>#{self.id}, :complement_id=>complement_#{k}.id, :string_value=>line[#{k}])\n"
+    for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
+      code += "      datum = entity.custom_field_data.build(:company_id=>#{self.id}, :custom_field_id=>custom_field_#{k}.id, :string_value=>line[#{k}])\n"
       code += "      unless datum.save\n" 
       code += "        problems[line_index.to_s] ||= []\n"
       code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
       code += "      end\n" 
     end
-    for k, v in cols[:complement]||{}
-      if complement = self.complements.find_by_id(k.to_s[2..-1].to_i)
-        if complement.nature == 'string'
-          code += "      datum = entity.complement_data.build(:complement_id=>#{complement.id}, :string_value=>line[#{k}])\n"
+    for k, v in cols[:custom_field]||{}
+      if custom_field = self.custom_fields.find_by_id(k.to_s[2..-1].to_i)
+        if custom_field.nature == 'string'
+          code += "      datum = entity.custom_field_data.build(:custom_field_id=>#{custom_field.id}, :string_value=>line[#{k}])\n"
           code += "      unless datum.save\n" 
           code += "        problems[line_index.to_s] ||= []\n"
           code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
           code += "      end\n" 
-          # elsif complement.nature == 'choice'
+          # elsif custom_field.nature == 'choice'
           #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
         end
       end

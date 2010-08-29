@@ -17,7 +17,7 @@
     =dyta :undelivered_quantities
   %h2=tc :deliveries
   =toolbar do |t|
-    -t.link :delivery_create if !@sale_order.invoiced and @undelivered_amount > 0
+    -t.link :sale_delivery_create if !@sale_order.invoiced and @undelivered_amount > 0
   =dyta :sale_order_deliveries
 =form_tag() do
   .actions

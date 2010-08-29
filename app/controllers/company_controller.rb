@@ -67,9 +67,9 @@ class CompanyController < ApplicationController
   
 
   def side
-    parameter = @current_user.parameter("interface.side.#{params[:id]}.opened", true, :boolean)
-    parameter.set !parameter.value
-    parameter.save!
+    preference = @current_user.preference("interface.side.#{params[:id]}.opened", true, :boolean)
+    preference.set !preference.value
+    preference.save!
     render :text=>''
   end
 
@@ -117,10 +117,10 @@ class CompanyController < ApplicationController
   def configure
     @my_company = @current_company
     # Default treatment
-    @tree = Parameter.tree_reference.sort
+    @tree = Preference.tree_reference.sort
     for k, v in @tree
       for name, options in v
-        param = @my_company.parameter(name)
+        param = @my_company.preference(name)
         if param
           options[:value] = param.value 
           options[:value] = options[:value].id if param.record? and options[:value]
@@ -133,13 +133,13 @@ class CompanyController < ApplicationController
       ActiveRecord::Base.transaction do
         saved = @my_company.update_attributes(params[:my_company])
         if saved
-          for key, data in params[:parameter]
-            parameter = @my_company.parameters.find_by_name(key)
-            parameter = @my_company.parameters.build(:name=>key) if parameter.nil?
-            parameter.value = data[:value]
-            unless parameter.save
+          for key, data in params[:preference]
+            preference = @my_company.preferences.find_by_name(key)
+            preference = @my_company.preferences.build(:name=>key) if preference.nil?
+            preference.value = data[:value]
+            unless preference.save
               saved = false
-              @my_company.errors.add_from_record(parameter)
+              @my_company.errors.add_from_record(preference)
               raise ActiveRecord::Rollback
             end
           end
@@ -701,8 +701,8 @@ class CompanyController < ApplicationController
                 rescue
                   break
                 end
-                unless @current_company.financialyears.find_by_started_on_and_stopped_on(started_on, stopped_on)
-                  @current_company.financialyears.create!(:started_on=>started_on, :stopped_on=>stopped_on)
+                unless @current_company.financial_years.find_by_started_on_and_stopped_on(started_on, stopped_on)
+                  @current_company.financial_years.create!(:started_on=>started_on, :stopped_on=>stopped_on)
                 end
                 line = ic.iconv(line).split(/\;/)
                 if line[0] == "C"

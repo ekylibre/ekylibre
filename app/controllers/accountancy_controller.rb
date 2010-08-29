@@ -28,10 +28,10 @@ class AccountancyController < ApplicationController
   def index
   end
 
-  # this method displays the form to choose the journal and financialyear.
+  # this method displays the form to choose the journal and financial_year.
   def accountize
     params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
-    @natures = [:invoice, :sale_payment_part, :sale_payment, :embankment, :purchase_order, :purchase_payment_part, :purchase_payment]
+    @natures = [:invoice, :sale_payment_part, :sale_payment, :deposit, :purchase_order, :purchase_payment_part, :purchase_payment]
 
     if request.get?
       notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
@@ -63,7 +63,7 @@ class AccountancyController < ApplicationController
           end
         end
         notify(:accountizing_is_finished, :success)
-        redirect_to :action=>(draft ? :draft_entries : :accountize)
+        redirect_to :action=>(draft ? :draft_entry_lines : :accountize)
       end
     end
     
@@ -89,8 +89,8 @@ class AccountancyController < ApplicationController
   def cashes
   end
 
-  dyta(:cash_embankments, :model=>:embankments, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:embankment}
+  dyta(:cash_deposits, :model=>:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:deposit}
     t.column :created_on
     t.column :payments_count
     t.column :amount
@@ -154,7 +154,7 @@ class AccountancyController < ApplicationController
   def self.accounts_conditions
     code  = "c=['company_id = ? AND number LIKE ?', @current_company.id, session[:account_prefix]]\n"
     code += "if (session[:used_accounts])\n"
-    code += "  c[0]+=' AND id IN (SELECT account_id FROM journal_entries JOIN journal_records ON (record_id=journal_records.id) WHERE created_on BETWEEN ? AND ? AND journal_entries.company_id = ?)'\n"
+    code += "  c[0]+=' AND id IN (SELECT account_id FROM journal_entry_lines JOIN journal_entries ON (entry_id=journal_entries.id) WHERE created_on BETWEEN ? AND ? AND journal_entry_lines.company_id = ?)'\n"
     code += "  c+=[(params[:started_on].to_date rescue Date.civil(1901,1,1)), (params[:stopped_on].to_date rescue Date.civil(1901,1,1)), @current_company.id]\n"
     code += "end\n"
     code += "c"
@@ -188,10 +188,10 @@ class AccountancyController < ApplicationController
 
   manage :accounts, :number=>"params[:number]"
 
-  dyta(:account_journal_entries, :model=>:journal_entries, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"record_id DESC, position") do |t|
+  dyta(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("printed_on")
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>JournalEntry.human_attribute_name("printed_on")
     t.column :name
     t.column :draft
     t.column :debit
@@ -219,8 +219,8 @@ class AccountancyController < ApplicationController
     session[:current_account_id] = @account.id
 
     @totals = {}
-    @totals[:debit]  = @account.journal_entries.sum(:debit)
-    @totals[:credit] = @account.journal_entries.sum(:credit)
+    @totals[:debit]  = @account.journal_entry_lines.sum(:debit)
+    @totals[:credit] = @account.journal_entry_lines.sum(:credit)
     @totals[:balance_debit] = 0.0
     @totals[:balance_credit] = 0.0
     @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
@@ -230,10 +230,10 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:unlettered_journal_entries, :model=>:journal_entries, :joins=>"JOIN accounts ON (account_id=accounts.id)", :conditions=>["journal_entries.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+  dyta(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN accounts ON (account_id=accounts.id)", :conditions=>["journal_entry_lines.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_letter}
     t.column :name, :through=>:account, :url=>{:action=>:account_letter}
-    t.column :number, :through=>:record
+    t.column :number, :through=>:entry
     t.column :name
     t.column :debit
     t.column :credit
@@ -242,7 +242,7 @@ class AccountancyController < ApplicationController
   # This method allows to make lettering for the client and supplier accounts.
   def lettering
     session[:current_lettering_mode] = params[:id] = params[:id] || session[:current_lettering_mode] || :clients
-    session[:current_account_prefix] = @current_company.parameter("accountancy.accounts.third_#{params[:id]}").value
+    session[:current_account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:id]}").value
     #     @accounts_client=@current_company.client_accounts
     #     @accounts_supplier=@current_company.supplier_accounts
     #     if request.post?
@@ -255,18 +255,18 @@ class AccountancyController < ApplicationController
   # this method displays the array for make lettering.
   def account_letter
     return unless @account = find_and_check(:account)
-    fy = @current_company.current_financialyear
+    fy = @current_company.current_financial_year
     params[:stopped_on] = (params[:stopped_on]||(fy ? fy.stopped_on : Date.today)).to_date
     params[:started_on] = (params[:started_on]||(fy ? fy.started_on : params[:stopped_on]-1.month+1.day)).to_date
     if request.post?
-      if params[:journal_entry]
-        journal_entries = params[:journal_entry].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entries.find_by_id(k)) ? k.to_i : nil)}.compact
-        @account.letter_entries(journal_entries)
+      if params[:journal_entry_line]
+        journal_entry_lines = params[:journal_entry_line].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entry_lines.find_by_id(k)) ? k.to_i : nil)}.compact
+        @account.letter_entries(journal_entry_lines)
       else
         notify(:select_entries_to_letter_together, :warning, :now)
       end
     end
-    @journal_entries = @account.letterable_entries(params[:started_on], params[:stopped_on])
+    @journal_entry_lines = @account.letterable_entry_lines(params[:started_on], params[:stopped_on])
     @letter = @account.new_letter
     t3e @account.attributes, :started_on=>params[:started_on], :stopped_on=>params[:stopped_on]
   end
@@ -292,8 +292,8 @@ class AccountancyController < ApplicationController
     end
     if request.post?
       if params[:export]
-        query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entries.debit, 0)), sum(COALESCE(journal_entries.credit, 0)), sum(COALESCE(journal_entries.debit, 0)) - sum(COALESCE(journal_entries.credit, 0))"
-        query += " FROM journal_entries JOIN accounts ON (account_id=accounts.id) JOIN journal_records ON (record_id=journal_records.id)"
+        query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
+        query += " FROM journal_entry_lines JOIN accounts ON (account_id=accounts.id) JOIN journal_entries ON (entry_id=journal_entries.id)"
         query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
         query += " GROUP BY accounts.name, accounts.number"
         query += " ORDER BY accounts.number"
@@ -329,30 +329,30 @@ class AccountancyController < ApplicationController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code  = "session[:general_ledger] ||= {}\n"
-    code += "c=['journal_records.company_id=?', @current_company.id]\n"
+    code += "c=['journal_entries.company_id=?', @current_company.id]\n"
     # period
-    code += "c[0]+=' AND journal_records.printed_on BETWEEN ? AND ?'\n"
+    code += "c[0]+=' AND journal_entries.printed_on BETWEEN ? AND ?'\n"
     code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
     # state
     code += "c[0] += \" AND (false\"\n"
-    code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
-    code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
-    code += "c[0] += \" OR (journal_entries.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
+    code += "c[0] += \" OR (journal_entry_lines.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
+    code += "c[0] += \" OR (journal_entry_lines.draft = #{conn.quoted_false} AND journal_entry_lines.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
+    code += "c[0] += \" OR (journal_entry_lines.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
     code += "c[0] += \")\"\n"    
     # accounts
     code += "c[0] += ' AND ('+(session[:general_ledger][:accounts]||\"#{conn.quoted_false}\")+')'\n"
     # journals
-    code += "c[0] += ' AND journal_entries.journal_id IN (?)'\n"    
+    code += "c[0] += ' AND journal_entry_lines.journal_id IN (?)'\n"    
     code += "c<<session[:general_ledger][:journals]\n"    
     code += "c\n"
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:general_ledger, :model=>:journal_entries, :conditions=>general_ledger_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id) JOIN accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_records.number, position") do |t|
+  dyta(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id) JOIN accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, position") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :datatype=>:date
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :name
     t.column :debit
     t.column :credit
@@ -360,7 +360,7 @@ class AccountancyController < ApplicationController
 
   def general_ledger
     session[:general_ledger] = {}
-    fy = @current_company.current_financialyear
+    fy = @current_company.current_financial_year
     params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
     params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
     params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
@@ -419,9 +419,9 @@ class AccountancyController < ApplicationController
   #   for print in PRINTS
   #     @print = print if print[0].to_s == session[:mode]
   #   end
-  #   @financialyears =  @current_company.financialyears.find(:all, :order => :stopped_on)
-  #   if @financialyears.nil?
-  #     notify(:no_financialyear, :error)
+  #   @financial_years =  @current_company.financial_years.find(:all, :order => :stopped_on)
+  #   if @financial_years.nil?
+  #     notify(:no_financial_year, :error)
   #     redirect_to :action => :document_prepare
   #     return      
   #   end
@@ -465,7 +465,7 @@ class AccountancyController < ApplicationController
   #     if session[:mode] == "journal"
   #       journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
   #       id = @current_company.journals.find(:first, :conditions => {:name => journal.name }).id
-  #       entries = @current_company.records(params[:printed][:from], params[:printed][:to], id)
+  #       entries = @current_company.entrys(params[:printed][:from], params[:printed][:to], id)
         
   #       if entries.size > 0
   #         entries.each do |entry|
@@ -511,11 +511,11 @@ class AccountancyController < ApplicationController
   #     end
 
   #     if session[:mode] == "synthesis"
-  #       @financialyear = Financialyear.find_by_id_and_company_id(params[:printed][:financialyear], @current_company.id)
-  #       params[:printed][:name] = @financialyear.code
-  #       params[:printed][:from] = @financialyear.started_on
-  #       params[:printed][:to] = @financialyear.stopped_on
-  #       @balance = Account.balance(@current_company.id, @financialyear.started_on, @financialyear.stopped_on)
+  #       @financial_year = FinancialYear.find_by_id_and_company_id(params[:printed][:financial_year], @current_company.id)
+  #       params[:printed][:name] = @financial_year.code
+  #       params[:printed][:from] = @financial_year.started_on
+  #       params[:printed][:to] = @financial_year.stopped_on
+  #       @balance = Account.balance(@current_company.id, @financial_year.started_on, @financial_year.stopped_on)
         
   #       @balance.each do |account| 
   #         sum[:credit] += account[:credit] 
@@ -523,18 +523,18 @@ class AccountancyController < ApplicationController
   #       end
   #       sum[:balance] = sum[:debit] - sum[:credit]     
         
-  #       @last_financialyear = @financialyear.previous(@current_company.id)
+  #       @last_financial_year = @financial_year.previous(@current_company.id)
         
-  #       if not @last_financialyear.nil?
+  #       if not @last_financial_year.nil?
   #         index = 0
-  #         @previous_balance = Account.balance(@current_company.id, @last_financialyear.started_on, @last_financialyear.stopped_on)
+  #         @previous_balance = Account.balance(@current_company.id, @last_financial_year.started_on, @last_financial_year.stopped_on)
   #         @previous_balance.each do |balance|
   #           @balance[index][:previous_debit]   = balance[:debit]
   #           @balance[index][:previous_credit]  = balance[:credit]
   #           @balance[index][:previous_balance] = balance[:balance]
   #           index+=1
   #         end
-  #         session[:previous_financialyear] = true
+  #         session[:previous_financial_year] = true
   #       end
         
   #       #raise Exception.new lines.inspect
@@ -572,7 +572,7 @@ class AccountancyController < ApplicationController
   #   @balance = session[:balance]
   #   @result = 0
   #   @solde = 0
-  #   if session[:previous_financialyear] == true
+  #   if session[:previous_financial_year] == true
   #     @previous_solde = 0
   #     @previous_result = 0
   #   end
@@ -603,7 +603,7 @@ class AccountancyController < ApplicationController
   #     @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/ and account[:balance] < 0
   #     @cost_sum += account[:balance] if account[:number].to_s.match /^6/
   #     @finished_sum += account[:balance] if account[:number].to_s.match /^7/
-  #     if session[:previous_financialyear] == true
+  #     if session[:previous_financial_year] == true
   #       @previous_solde += account[:previous_balance] 
   #       @previous_result = account[:previous_balance] if account[:number].to_s.match /^12/
   #       @previous_active_fixed_sum += account[:previous_balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
@@ -619,84 +619,84 @@ class AccountancyController < ApplicationController
   #   t3e :from=>@printed[:from], :to=>@printed[:to]
   # end
   
-  dyta(:financialyears, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
-    t.column :code, :url=>{:action=>:financialyear}
+  dyta(:financial_years, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
+    t.column :code, :url=>{:action=>:financial_year}
     t.column :closed
-    t.column :started_on,:url=>{:action=>:financialyear}
-    t.column :stopped_on,:url=>{:action=>:financialyear}
-    t.action :financialyear_close, :if => '!RECORD.closed and RECORD.closable?'
-    t.action :financialyear_update, :if => '!RECORD.closed'  
-    t.action :financialyear_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if => '!RECORD.closed'  
+    t.column :started_on,:url=>{:action=>:financial_year}
+    t.column :stopped_on,:url=>{:action=>:financial_year}
+    t.action :financial_year_close, :if => '!RECORD.closed and RECORD.closable?'
+    t.action :financial_year_update, :if => '!RECORD.closed'  
+    t.action :financial_year_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if => '!RECORD.closed'  
   end
 
   # lists all the cashes with the mainly characteristics. 
-  def financialyears
+  def financial_years
   end
 
-  def financialyear
-    return unless @financialyear = find_and_check(:financialyears)
-    @financialyear.compute_balances # TODELETE !!!
-    t3e @financialyear.attributes
+  def financial_year
+    return unless @financial_year = find_and_check(:financial_years)
+    @financial_year.compute_balances # TODELETE !!!
+    t3e @financial_year.attributes
   end
   
-  # this action creates a financialyear with a form.
-  def financialyear_create
+  # this action creates a financial_year with a form.
+  def financial_year_create
     if request.post? 
-      @financialyear = Financialyear.new(params[:financialyear])
-      @financialyear.company_id = @current_company.id
-      return if save_and_redirect(@financialyear)
+      @financial_year = FinancialYear.new(params[:financial_year])
+      @financial_year.company_id = @current_company.id
+      return if save_and_redirect(@financial_year)
     else
-      @financialyear = Financialyear.new
-      f = @current_company.financialyears.find(:first, :order=>"stopped_on DESC")
-      @financialyear.started_on = f.stopped_on+1.day unless f.nil?
-      @financialyear.started_on ||= Date.today
-      @financialyear.stopped_on = (@financialyear.started_on+1.year-1.day).end_of_month
-      @financialyear.code = @financialyear.default_code
+      @financial_year = FinancialYear.new
+      f = @current_company.financial_years.find(:first, :order=>"stopped_on DESC")
+      @financial_year.started_on = f.stopped_on+1.day unless f.nil?
+      @financial_year.started_on ||= Date.today
+      @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
+      @financial_year.code = @financial_year.default_code
     end
     
     render_form
   end
   
   
-  # this action updates a financialyear with a form.
-  def financialyear_update
-    return unless @financialyear = find_and_check(:financialyears)
+  # this action updates a financial_year with a form.
+  def financial_year_update
+    return unless @financial_year = find_and_check(:financial_years)
     if request.post? or request.put?
-      @financialyear.attributes = params[:financialyear]
-      return if save_and_redirect(@financialyear)
+      @financial_year.attributes = params[:financial_year]
+      return if save_and_redirect(@financial_year)
     end
-    t3e @financialyear.attributes
+    t3e @financial_year.attributes
     render_form
   end
   
-  # this action deletes a financialyear.
-  def financialyear_delete
-    return unless @financialyear = find_and_check(:financialyears)
+  # this action deletes a financial_year.
+  def financial_year_delete
+    return unless @financial_year = find_and_check(:financial_years)
     if request.post? or request.delete?
-      Financialyear.destroy @financialyear unless @financialyear.records.size > 0 
+      FinancialYear.destroy @financial_year unless @financial_year.entrys.size > 0 
     end
-    redirect_to :action => :financialyears
+    redirect_to :action => :financial_years
   end
   
   
-  # This method allows to close the financialyear.
-  def financialyear_close
+  # This method allows to close the financial_year.
+  def financial_year_close
     if params[:id].nil?
       # We need an ID to close some financial year
-      if financialyear = @current_company.closable_financialyear
-        redirect_to :action=>:financialyear_close, :id=>financialyear.id
+      if financial_year = @current_company.closable_financial_year
+        redirect_to :action=>:financial_year_close, :id=>financial_year.id
       else
-        notify(:no_closable_financialyear, :information)
-        redirect_to :action=>:financialyears
+        notify(:no_closable_financial_year, :information)
+        redirect_to :action=>:financial_years
       end
     else
       # Launch close process
-      return unless @financialyear = find_and_check(:financialyear)
+      return unless @financial_year = find_and_check(:financial_year)
       if request.post?
         params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
-        if @financialyear.close(params[:financialyear][:stopped_on].to_date, :renew_id=>params[:journal_id])
-          notify(:closed_financialyears, :success)
-          redirect_to(:action=>:financialyears)
+        if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
+          notify(:closed_financial_years, :success)
+          redirect_to(:action=>:financial_years)
         end
       else
         journal = @current_company.journals.find(:first, :conditions => {:nature => "forward"})
@@ -723,36 +723,36 @@ class AccountancyController < ApplicationController
   def journals
   end
 
-  def self.journal_records_conditions(options={})
+  def self.journal_entries_conditions(options={})
     code = ""
-    code += "c=['journal_records.company_id=? "
-    code += " AND journal_records.journal_id IN (?) " unless options[:all_journals]
-    code += " AND journal_records.draft=? " if options[:draft]
+    code += "c=['journal_entries.company_id=? "
+    code += " AND journal_entries.journal_id IN (?) " unless options[:all_journals]
+    code += " AND journal_entries.draft=? " if options[:draft]
     code += "', @current_company.id"
     code += ", session[:current_journal_id]" unless options[:all_journals]
     code += ", true" if options[:draft]
     code += "]\n"
     code += "start, finish = nil, nil\n"
-    code += "if session[:journal_record_mode]=='automatic'\n"
-    code += "  start, finish = session[:journal_record_period].split('_')[0..1]\n"
+    code += "if session[:journal_entry_mode]=='automatic'\n"
+    code += "  start, finish = session[:journal_entry_period].split('_')[0..1]\n"
     code += "else\n"
-    code += "  start, finish = session[:journal_record_start], session[:journal_record_finish]\n"
+    code += "  start, finish = session[:journal_entry_start], session[:journal_entry_finish]\n"
     code += "end\n"
     code += "if (start.to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_records.printed_on>=?'\n"
+    code += "  c[0]+=' AND journal_entries.printed_on>=?'\n"
     code += "  c<<start.to_date\n"
     code += "end\n"
     code += "if (finish.to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_records.printed_on<=?'\n"
+    code += "  c[0]+=' AND journal_entries.printed_on<=?'\n"
     code += "  c<<finish.to_date\n"
     code += "end\n"
     code += "c\n"
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:journal_entries, :conditions=>journal_records_conditions, :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"record_id DESC, position") do |t|
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :datatype=>:date
+  dyta(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, position") do |t|
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
@@ -761,30 +761,30 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
   
-  dyta(:journal_records, :conditions=>journal_records_conditions, :order=>"created_at DESC") do |t|
-    t.column :number, :url=>{:action=>:journal_record}
+  dyta(:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
+    t.column :number, :url=>{:action=>:journal_entry}
     t.column :printed_on
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'RECORD.updatable? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :journal_entry_update, :if=>'RECORD.updatable? '
+    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
-  dyta(:journal_mixed, :model=>:journal_records, :conditions=>journal_records_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
-    t.column :number, :url=>{:action=>:journal_record}, :children=>:name
+  dyta(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
+    t.column :number, :url=>{:action=>:journal_entry}, :children=>:name
     t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_record_update, :if=>'RECORD.updatable? '
-    t.action :journal_record_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :journal_entry_update, :if=>'RECORD.updatable? '
+    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
 
-  dyta(:journal_draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :datatype=>:date
+  dyta(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :order=>"entry_id DESC, position") do |t|
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
@@ -795,12 +795,12 @@ class AccountancyController < ApplicationController
 
 
   def journal_filter()
-    fy = @current_company.current_financialyear
-    session[:journal_record_period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
-    session[:journal_record_mode]   = params[:mode]   = params[:mode]||"automatic"
-    session[:journal_record_start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
-    session[:journal_record_finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
-    if action_name == "draft_entries"
+    fy = @current_company.current_financial_year
+    session[:journal_entry_period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
+    session[:journal_entry_mode]   = params[:mode]   = params[:mode]||"automatic"
+    session[:journal_entry_start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
+    session[:journal_entry_finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
+    if action_name == "draft_entry_lines"
       journals = []
       for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
         journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
@@ -813,17 +813,17 @@ class AccountancyController < ApplicationController
     return unless @journal = find_and_check(:journal)
     journal_filter
     session[:current_journal_id] = @journal.id
-    journal_view = @current_user.parameter("interface.journal.#{@journal.code}.view")
+    journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = "entries" if journal_view.value.nil?
     if view = ["entries", "records", "mixed", "draft_entries"].detect{|x| params[:view] == x}
       journal_view.value = view
       journal_view.save
     end
 
-    conditions = eval(self.class.journal_records_conditions)
+    conditions = eval(self.class.journal_entries_conditions)
     @totals = {}
-    @totals[:debit]  = JournalRecord.sum(:debit, :conditions=>conditions)
-    @totals[:credit] = JournalRecord.sum(:credit, :conditions=>conditions)
+    @totals[:debit]  = JournalEntry.sum(:debit, :conditions=>conditions)
+    @totals[:credit] = JournalEntry.sum(:credit, :conditions=>conditions)
     @totals[:balance_debit] = 0.0
     @totals[:balance_credit] = 0.0
     @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
@@ -833,10 +833,10 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:draft_entries, :model=>:journal_entries, :conditions=>journal_records_conditions(:draft=>true), :joins=>"JOIN journal_records ON (record_id = journal_records.id)", :order=>"record_id DESC, position") do |t|
+  dyta(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :printed_on, :through=>:record, :datatype=>:date
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
@@ -845,20 +845,20 @@ class AccountancyController < ApplicationController
   end
   
   # this method lists all the entries generated in draft mode.
-  def draft_entries
+  def draft_entry_lines
     journal_filter
     if request.post? and params[:validate]
       conditions = nil
       begin
-        conditions = eval(self.class.journal_records_conditions(:draft=>true))
-        journal_records = @current_company.journal_records.find(:all, :conditions=>conditions)
+        conditions = eval(self.class.journal_entries_conditions(:draft=>true))
+        journal_entries = @current_company.journal_entries.find(:all, :conditions=>conditions)
         undone = 0
-        for record in journal_records
-          record.draft_mode = false
-          record.save
-          undone += 1 if record.draft?
+        for entry in journal_entries
+          entry.draft_mode = false
+          entry.save
+          undone += 1 if entry.draft?
         end
-        notify(:draft_entries_are_validated, :success, :now, :count=>journal_records.size-undone)
+        notify(:draft_entry_lines_are_validated, :success, :now, :count=>journal_entries.size-undone)
       rescue Exception=>e
         notify(:exception_raised, :error, :now, :message=>e.message)
       end
@@ -907,7 +907,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:journal_record_entries, :model=>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :record_id=>['session[:current_journal_record_id]']}, :order=>"record_id DESC, position") do |t|
+  dyta(:journal_entry_entries, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
@@ -918,75 +918,75 @@ class AccountancyController < ApplicationController
   end
 
 
-  def journal_record
-    return unless @journal_record = find_and_check(:journal_record)
-    session[:current_journal_record_id] = @journal_record.id
-    t3e @journal_record.attributes
+  def journal_entry
+    return unless @journal_entry = find_and_check(:journal_entry)
+    session[:current_journal_entry_id] = @journal_entry.id
+    t3e @journal_entry.attributes
   end
 
 
 
   # Permits to write records and entries in journal
-  def journal_record_create
+  def journal_entry_create
     return unless @journal = find_and_check(:journal, params[:journal_id])  
     session[:current_journal_id] = @journal.id
-    @journal_record = @journal.records.build(params[:journal_record])
+    @journal_entry = @journal.entries.build(params[:journal_entry])
     if request.post?
-      @journal_entries = (params[:entries]||{}).values
-      if @journal_record.save_with_entries(@journal_entries)
-        notify(:journal_record_has_been_saved, :success, :number=>@journal_record.number)
-        redirect_to :action=>:journal_record_create, :journal_id=>@journal.id, :draft_mode=>(1 if @journal_record.draft_mode)
+      @journal_entry_lines = (params[:entries]||{}).values
+      if @journal_entry.save_with_entries(@journal_entry_lines)
+        notify(:journal_entry_has_been_saved, :success, :number=>@journal_entry.number)
+        redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id, :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
-      @journal_record.printed_on = @journal_record.created_on = Date.today
-      @journal_record.number = @journal.next_number
-      @journal_record.draft_mode = true if params[:draft_mode].to_i == 1
-      @journal_entries = []
+      @journal_entry.printed_on = @journal_entry.created_on = Date.today
+      @journal_entry.number = @journal.next_number
+      @journal_entry.draft_mode = true if params[:draft_mode].to_i == 1
+      @journal_entry_lines = []
     end
     t3e @journal.attributes
     render_form
   end
 
-  def journal_record_update
-    return unless @journal_record = find_and_check(:journal_record)
-    unless @journal_record.updatable?
-      notify(:journal_record_already_validated, :error)
+  def journal_entry_update
+    return unless @journal_entry = find_and_check(:journal_entry)
+    unless @journal_entry.updatable?
+      notify(:journal_entry_already_validated, :error)
       redirect_to_back
       return
     end
-    @journal = @journal_record.journal
+    @journal = @journal_entry.journal
     if request.post?
-      @journal_record.attributes = params[:journal_record]
-      @journal_entries = (params[:entries]||{}).values
-      if @journal_record.save_with_entries(@journal_entries)
+      @journal_entry.attributes = params[:journal_entry]
+      @journal_entry_lines = (params[:entries]||{}).values
+      if @journal_entry.save_with_entries(@journal_entry_lines)
         redirect_to_back
       end
     else
-      @journal_entries = @journal_record.entries
+      @journal_entry_lines = @journal_entry.lines
     end
-    t3e @journal_record.attributes
+    t3e @journal_entry.attributes
     render_form
   end
 
-  def journal_record_delete
-    return unless @journal_record = find_and_check(:journal_record)
-    unless @journal_record.destroyable?
-      notify(:journal_record_already_validated, :error)
+  def journal_entry_delete
+    return unless @journal_entry = find_and_check(:journal_entry)
+    unless @journal_entry.destroyable?
+      notify(:journal_entry_already_validated, :error)
       redirect_to_back
       return
     end
     if request.delete?
-      @journal_record.destroy
+      @journal_entry.destroy
       notify(:record_has_been_correctly_removed, :success)
     end
     redirect_to_current
   end
 
 
-  def journal_entry_create
-    @journal_entry = JournalEntry.new
+  def journal_entry_line_create
+    @journal_entry_line = JournalEntryLine.new
     if request.xhr?
-      render :partial=>"journal_entry_row_form", :object=>@journal_entry
+      render :partial=>"journal_entry_line_row_form", :object=>@journal_entry_line
     else
       redirect_to_back
     end
@@ -1019,16 +1019,16 @@ class AccountancyController < ApplicationController
       redirect_to :action=>:cash_create
       return
     end
-    notify(:x_unpointed_journal_entries, :now, :count=>@current_company.journal_entries.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
+    notify(:x_unpointed_journal_entry_lines, :now, :count=>@current_company.journal_entry_lines.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
   end
 
 
 
 
-  dyta(:bank_statement_entries, :model =>:journal_entries, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"record_id") do |t|
+  dyta(:bank_statement_entries, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
-    t.column :number, :through=>:record, :url=>{:action=>:journal_record}
-    t.column :created_on, :through=>:record, :datatype=>:date, :label=>JournalRecord.human_attribute_name("created_on")
+    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
+    t.column :created_on, :through=>:entry, :datatype=>:date, :label=>JournalEntry.human_attribute_name("created_on")
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :debit
@@ -1050,16 +1050,16 @@ class AccountancyController < ApplicationController
     session[:statement] = params[:id]  if request.get? 
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
-      # raise Exception.new(params[:journal_entry].inspect)
-      @bank_statement.journal_entries.clear
-      @bank_statement.journal_entry_ids = params[:journal_entry].select{|k, v| v[:checked]=="1" and @current_company.journal_entries.find_by_id(k)}.collect{|k, v| k.to_i}
+      # raise Exception.new(params[:journal_entry_line].inspect)
+      @bank_statement.journal_entry_lines.clear
+      @bank_statement.journal_entry_line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action=>:bank_statements
         return
       end
     end
-    @journal_entries = @bank_statement.eligible_entries
-    unless @journal_entries.size > 0
+    @journal_entry_lines = @bank_statement.eligible_entry_lines
+    unless @journal_entry_lines.size > 0
       notify(:need_entries_to_point, :warning)
       redirect_to :action=>:bank_statements
     end    
@@ -1196,10 +1196,10 @@ class AccountancyController < ApplicationController
   # # this method creates a tax declaration.
   # def tax_declaration_create
     
-  #   @financialyears = @current_company.financialyears.find(:all, :conditions => ["closed = 't'"])
+  #   @financial_years = @current_company.financial_years.find(:all, :conditions => ["closed = 't'"])
     
-  #   unless @financialyears.size > 0
-  #     notify(:need_closed_financialyear_to_declaration)
+  #   unless @financial_years.size > 0
+  #     notify(:need_closed_financial_year_to_declaration)
   #     redirect_to :action=>:tax_declarations
   #     return
   #   end
@@ -1233,9 +1233,9 @@ class AccountancyController < ApplicationController
   #       last_declaration = @current_company.tax_declarations.find(:last, :select=>"DISTINCT id, started_on, stopped_on, nature")
   #       if last_declaration.nil?
   #         @tax_declaration.nature = "normal"
-  #         last_financialyear = @current_company.financialyears.find(:last, :conditions=>{:closed => true})
-  #         @tax_declaration.started_on = last_financialyear.started_on
-  #         @tax_declaration.stopped_on = last_financialyear.started_on.end_of_month
+  #         last_financial_year = @current_company.financial_years.find(:last, :conditions=>{:closed => true})
+  #         @tax_declaration.started_on = last_financial_year.started_on
+  #         @tax_declaration.stopped_on = last_financial_year.started_on.end_of_month
   #       else
   #         @tax_declaration.nature = last_declaration.nature
   #         @tax_declaration.started_on = last_declaration.stopped_on+1

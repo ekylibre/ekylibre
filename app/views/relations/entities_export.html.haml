@@ -20,9 +20,9 @@
                 =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id=>"columns_#{code}_check_f")
                 =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
         %tr.title
-          %th=Complement.model_name.human
-        -for c in @current_company.complements
-          -code = Complement.name.underscore+'-id'+c.id.to_s
+          %th=CustomField.model_name.human
+        -for c in @current_company.custom_fields
+          -code = CustomField.name.underscore+'-id'+c.id.to_s
           -params[:columns][code] ||= {}
           %tr.field
             %td

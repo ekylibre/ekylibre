@@ -4,7 +4,7 @@
     %table
       %tr 
         %td.crit
-          -fy = @current_company.current_financialyear
+          -fy = @current_company.current_financial_year
           %label{:for=>:started_on}=tg(:from)
           =calendar_field_tag("started_on", params[:started_on]||(fy ? fy.started_on : Date.today.beginning_of_month))
           %label{:for=>:stopped_on}=tg(:to)
@@ -12,7 +12,7 @@
         %td.submit{:rowspan=>5}=submit_tag tg(:display), :name=>nil
       %tr
         %td.crit
-          %label=tc(:journal_entries_states)
+          %label=tc(:journal_entry_lines_states)
           -states = [:draft, :confirmed, :closed]
           -no_state = !states.detect{|x| !params[x].nil?}
           -for state in states
@@ -24,7 +24,7 @@
           =text_field_tag("accounts", params[:accounts]||"1-9", :size=>30)
       %tr
         %td.crit
-          -centralized = @current_company.parameters.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "accountancy.accounts.third_%"]).collect{|p| p.value.to_s}.join(" ")
+          -centralized = @current_company.preferences.find(:all, :order=>"id", :conditions=>["name LIKE ? ", "accountancy.accounts.third_%"]).collect{|p| p.value.to_s}.join(" ")
           %label=tc(:centralize)
           =text_field_tag("centralize", params[:centralize]||centralized, :size=>30)
       %tr
@@ -43,10 +43,10 @@
       %th{:colspan=>2}=tc(:total)
       %th{:colspan=>2}=tc(:balance)
     %tr
-      %th=JournalRecord.human_attribute_name("debit")
-      %th=JournalRecord.human_attribute_name("credit")
-      %th=JournalRecord.human_attribute_name("debit")
-      %th=JournalRecord.human_attribute_name("credit")
+      %th=JournalEntry.human_attribute_name("debit")
+      %th=JournalEntry.human_attribute_name("credit")
+      %th=JournalEntry.human_attribute_name("debit")
+      %th=JournalEntry.human_attribute_name("credit")
     -for line in @balance
       -d = line[0].size-1
       -if line[1].to_i > 0

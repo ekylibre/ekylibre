@@ -20,31 +20,31 @@
 # 
 # == Table: sale_payments
 #
-#  account_number    :string(255)      
-#  accounted_at      :datetime         
-#  amount            :decimal(16, 2)   not null
-#  bank              :string(255)      
-#  check_number      :string(255)      
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  created_on        :date             
-#  creator_id        :integer          
-#  embanker_id       :integer          
-#  embankment_id     :integer          
-#  id                :integer          not null, primary key
-#  journal_record_id :integer          
-#  lock_version      :integer          default(0), not null
-#  mode_id           :integer          not null
-#  number            :string(255)      
-#  paid_on           :date             
-#  parts_amount      :decimal(16, 2)   not null
-#  payer_id          :integer          
-#  receipt           :text             
-#  received          :boolean          default(TRUE), not null
-#  scheduled         :boolean          not null
-#  to_bank_on        :date             default(CURRENT_DATE), not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  account_number   :string(255)      
+#  accounted_at     :datetime         
+#  amount           :decimal(16, 2)   not null
+#  bank             :string(255)      
+#  check_number     :string(255)      
+#  company_id       :integer          not null
+#  created_at       :datetime         not null
+#  created_on       :date             
+#  creator_id       :integer          
+#  deposit_id       :integer          
+#  embanker_id      :integer          
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer          
+#  lock_version     :integer          default(0), not null
+#  mode_id          :integer          not null
+#  number           :string(255)      
+#  paid_on          :date             
+#  parts_amount     :decimal(16, 2)   not null
+#  payer_id         :integer          
+#  receipt          :text             
+#  received         :boolean          default(TRUE), not null
+#  scheduled        :boolean          not null
+#  to_bank_on       :date             default(CURRENT_DATE), not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
 #
 
 class SalePayment < ActiveRecord::Base
@@ -52,8 +52,8 @@ class SalePayment < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :embanker, :class_name=>User.name
-  belongs_to :embankment
-  belongs_to :journal_record
+  belongs_to :deposit
+  belongs_to :journal_entry
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>SalePaymentMode.name
   has_many :parts, :class_name=>SalePaymentPart.name, :foreign_key=>:payment_id, :autosave=>true
@@ -62,7 +62,7 @@ class SalePayment < ActiveRecord::Base
   # has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
   has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>Transfer.name
 
-  autosave :embankment
+  autosave :deposit
 
   attr_readonly :company_id, :payer_id
   attr_protected :parts_amount
@@ -73,7 +73,7 @@ class SalePayment < ActiveRecord::Base
   def prepare_on_create
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
-    specific_numeration = self.company.parameter("management.payments.numeration")
+    specific_numeration = self.company.preference("management.payments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
     else
@@ -127,20 +127,20 @@ class SalePayment < ActiveRecord::Base
 
 
   # This method permits to add journal entries corresponding to the payment
-  # It depends on the parameter which permit to activate the "automatic accountizing"
+  # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     attorney_amount = self.attorney_amount
     client_amount   = self.amount - attorney_amount
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.received)) do |record|
-      record.add_debit(label, (self.mode.with_embankment? ? self.mode.embankables_account_id : self.mode.cash.account_id), self.amount)
+      record.add_debit(label, (self.mode.with_deposit? ? self.mode.embankables_account_id : self.mode.cash.account_id), self.amount)
       record.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
       record.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
   end
   
   def updatable?
-    self.embankment.nil? or not self.embankment.locked
+    self.deposit.nil? or not self.deposit.locked
   end
 
 end

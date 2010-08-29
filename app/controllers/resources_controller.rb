@@ -59,7 +59,7 @@ class ResourcesController < ApplicationController
     t.action :sale_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
   end
 
-   dyta(:employee_shape_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
+   dyta(:employee_land_parcel_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
     t.column :name, :url=>{:action=>:operation, :controller=>:production}
     t.column :name, :through=>:nature
     t.column :planned_on

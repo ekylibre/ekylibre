@@ -13,8 +13,8 @@
     %legend=tc(:exportation)
     =formalize do |f|
       -f.title tc(:accounting_balance)
-      -f.field tg(:from), date_field_tag("started_on", @current_company.current_financialyear.started_on)
-      -f.field tg(:to),   date_field_tag("stopped_on", @current_company.current_financialyear.stopped_on)
+      -f.field tg(:from), date_field_tag("started_on", @current_company.current_financial_year.started_on)
+      -f.field tg(:to),   date_field_tag("stopped_on", @current_company.current_financial_year.stopped_on)
     .actions=submit_tag tg(:export), :name=>:export
 =observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_print}, :with=>"code"
 

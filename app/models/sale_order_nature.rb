@@ -46,5 +46,4 @@ class SaleOrderNature < ActiveRecord::Base
   belongs_to :payment_mode, :class_name=>SalePaymentMode.name
   belongs_to :expiration, :class_name=>Delay.to_s
   has_many :sale_orders
-
 end

@@ -20,29 +20,29 @@
 # 
 # == Table: stock_moves
 #
-#  comment            :text             
-#  company_id         :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer          
-#  generated          :boolean          
-#  id                 :integer          not null, primary key
-#  location_id        :integer          not null
-#  lock_version       :integer          default(0), not null
-#  moved_on           :date             
-#  name               :string(255)      not null
-#  origin_id          :integer          
-#  origin_type        :string(255)      
-#  planned_on         :date             not null
-#  product_id         :integer          not null
-#  quantity           :decimal(16, 4)   not null
-#  second_location_id :integer          
-#  second_move_id     :integer          
-#  stock_id           :integer          
-#  tracking_id        :integer          
-#  unit_id            :integer          not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer          
-#  virtual            :boolean          
+#  comment             :text             
+#  company_id          :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  generated           :boolean          
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  moved_on            :date             
+#  name                :string(255)      not null
+#  origin_id           :integer          
+#  origin_type         :string(255)      
+#  planned_on          :date             not null
+#  product_id          :integer          not null
+#  quantity            :decimal(16, 4)   not null
+#  second_move_id      :integer          
+#  second_warehouse_id :integer          
+#  stock_id            :integer          
+#  tracking_id         :integer          
+#  unit_id             :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
+#  virtual             :boolean          
+#  warehouse_id        :integer          not null
 #
 
 class StockMove < ActiveRecord::Base
@@ -50,7 +50,7 @@ class StockMove < ActiveRecord::Base
   after_save :move
   before_update :cancel
   belongs_to :company
-  belongs_to :location
+  belongs_to :warehouse
   belongs_to :origin, :polymorphic=>true
   belongs_to :product
   belongs_to :stock
@@ -59,12 +59,12 @@ class StockMove < ActiveRecord::Base
 
   attr_readonly :company_id, :virtual
   
-  validates_presence_of :generated, :stock_id, :company_id, :product_id, :location_id, :stock_id, :quantity, :unit_id
+  validates_presence_of :generated, :stock_id, :company_id, :product_id, :warehouse_id, :stock_id, :quantity, :unit_id
 
   def prepare
     self.generated = false if self.generated.nil?
-    self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
-    self.stock = Stock.create!(:product_id=>self.product_id, :location_id=>self.location_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
+    self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
+    self.stock = Stock.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
     self.unit_id ||= self.product.unit_id if self.product
     # Add validation on unit correspondance
   end

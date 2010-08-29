@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
   has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id, :dependent=>:nullify
   has_many :events, :foreign_key=>:responsible_id
   has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
-  has_many :parameters, :dependent=>:destroy
+  has_many :preferences, :dependent=>:destroy
   has_many :sale_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
   def prepare
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
-      self.language = self.company.parameter('general.language').value if self.language.blank?
+      self.language = self.company.preference('general.language').value if self.language.blank?
     end
     self.admin = true if self.rights.nil?
     self.rights_array=self.rights_array # Clean the rights
@@ -107,10 +107,10 @@ class User < ActiveRecord::Base
   alias :full_name :label
   
 
-  def parameter(name, value=nil, nature=:string)
-    p = self.parameters.find(:first, :order=>:id, :conditions=>{:name=>name})
+  def preference(name, value=nil, nature=:string)
+    p = self.preferences.find(:first, :order=>:id, :conditions=>{:name=>name})
     if p.nil?
-      p = self.parameters.new(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s)
+      p = self.preferences.new(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s)
       p.value = value
       p.save!
     end

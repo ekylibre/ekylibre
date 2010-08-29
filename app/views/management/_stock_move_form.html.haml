@@ -5,7 +5,7 @@
   -f.field :stock_move, :comment, :field=>:textarea
   -f.field :stock_move, :virtual
   -#f.field :stock_move, :input
-  -f.field :stock_move, :location_id, :choices=>{:reflection=>:locations}
+  -f.field :stock_move, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :stock_move, :planned_on
   -f.field :stock_move, :moved_on
   -f.field :stock_move, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create}

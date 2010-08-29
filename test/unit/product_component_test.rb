@@ -27,7 +27,6 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
-#  location_id  :integer          not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  product_id   :integer          not null
@@ -36,6 +35,7 @@
 #  stopped_at   :datetime         
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
+#  warehouse_id :integer          not null
 #
 
 require 'test_helper'

@@ -14,7 +14,7 @@
       =evalue @purchase_payment, :paid_on
       =evalue @purchase_payment, :to_bank_on
       =evalue @purchase_payment, :check_number
-      =evalue @purchase_payment, :journal_record, :url=>{:controller=>:accountancy, :action=>:journal_record}
+      =evalue @purchase_payment, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 -if false # @purchase_payment.unused_amount > 0
   =form_tag() do

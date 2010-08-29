@@ -20,20 +20,20 @@
 # 
 # == Table: sale_payment_parts
 #
-#  accounted_at      :datetime         
-#  amount            :decimal(16, 2)   
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  downpayment       :boolean          not null
-#  expense_id        :integer          default(0), not null
-#  expense_type      :string(255)      default("UnknownModel"), not null
-#  id                :integer          not null, primary key
-#  journal_record_id :integer          
-#  lock_version      :integer          default(0), not null
-#  payment_id        :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  accounted_at     :datetime         
+#  amount           :decimal(16, 2)   
+#  company_id       :integer          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  downpayment      :boolean          not null
+#  expense_id       :integer          default(0), not null
+#  expense_type     :string(255)      default("UnknownModel"), not null
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer          
+#  lock_version     :integer          default(0), not null
+#  payment_id       :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
 #
 
 class SalePaymentPart < ActiveRecord::Base
@@ -41,7 +41,7 @@ class SalePaymentPart < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :expense, :polymorphic=>true
-  belongs_to :journal_record
+  belongs_to :journal_entry
   belongs_to :payment, :class_name=>SalePayment.name
 
   autosave :expense, :payment
@@ -73,7 +73,7 @@ class SalePaymentPart < ActiveRecord::Base
    
   def to_accountancy(action=:create, options={})
     label = tc(:to_accountancy, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
-    accountize(action, {:journal=>self.company.journal(:various), :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_record.nil? and self.expense.client_id == self.payment.payer_id)) do |record|
+    accountize(action, {:journal=>self.company.journal(:various), :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_entry.nil? and self.expense.client_id == self.payment.payer_id)) do |record|
       record.add_debit(label, self.payment.payer.account(:attorney).id, self.amount)
       record.add_credit(label, self.expense.client.account(:client).id, self.amount)
     end

@@ -28,7 +28,6 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  id                :integer          not null, primary key
-#  location_id       :integer          
 #  lock_version      :integer          default(0), not null
 #  order_id          :integer          not null
 #  position          :integer          
@@ -40,6 +39,7 @@
 #  unit_id           :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
+#  warehouse_id      :integer          
 #
 
 class PurchaseOrderLine < ActiveRecord::Base
@@ -49,7 +49,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :order, :class_name=>PurchaseOrder.name
   belongs_to :price
   belongs_to :product
-  belongs_to :location, :class_name=>Location.name
+  belongs_to :warehouse
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
   validates_presence_of :amount, :price_id
@@ -61,13 +61,13 @@ class PurchaseOrderLine < ActiveRecord::Base
   def prepare
     self.company_id = self.order.company_id if self.order
     check_reservoir = true
-    self.location_id = self.company.locations.first.id if self.company.locations.size == 1
+    self.warehouse_id = self.company.warehouses.first.id if self.company.warehouses.size == 1
     if self.price
       product = self.price.product
       if product.purchases_account.nil?
-        account_number = self.company.parameter("accountancy.accounts.charges").value
+        account_number = self.company.preference("accountancy.accounts.charges").value
         product.purchases_account = self.company.accounts.find_by_number(account_number.to_s)
-        product.purchases_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('parameters.accountancy.major_accounts.charges')) if product.purchases_account.nil?
+        product.purchases_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('preferences.accountancy.major_accounts.charges')) if product.purchases_account.nil?
         product.save!
       end
       self.account_id = product.purchases_account_id
@@ -76,10 +76,10 @@ class PurchaseOrderLine < ActiveRecord::Base
       self.amount = (self.price.amount*self.quantity).round(2)
       self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
     end
-    if self.location
-      if self.location.reservoir && self.location.product_id != self.product_id
+    if self.warehouse
+      if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(:location_can_not_receive_product, :location=>self.location.name, :product=>self.product.name, :contained_product=>self.location.product.name) 
+        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) 
       end
     end
 

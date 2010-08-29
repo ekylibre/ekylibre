@@ -16,7 +16,7 @@
       </part>
       
       <table collection="company.stocks" fixed="true">
-	<column label="Lieu de stockage" property="location/name" width="50mm"/>
+	<column label="Lieu de stockage" property="warehouse/name" width="50mm"/>
 	<column label="Produit" property="product/name" width="60mm"/>
 	<column label="N°Lot" property="tracking_name" width="50mm"/>
 	<column label="Quantité" property="quantity" numeric="money" width="23mm"/>

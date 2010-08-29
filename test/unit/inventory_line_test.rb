@@ -25,7 +25,6 @@
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
 #  inventory_id     :integer          not null
-#  location_id      :integer          not null
 #  lock_version     :integer          default(0), not null
 #  product_id       :integer          not null
 #  quantity         :decimal(16, 4)   not null
@@ -34,6 +33,7 @@
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  warehouse_id     :integer          not null
 #
 
 require 'test_helper'

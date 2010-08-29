@@ -25,7 +25,6 @@
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
 #  inventory_id     :integer          not null
-#  location_id      :integer          not null
 #  lock_version     :integer          default(0), not null
 #  product_id       :integer          not null
 #  quantity         :decimal(16, 4)   not null
@@ -34,13 +33,14 @@
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  warehouse_id     :integer          not null
 #
 
 class InventoryLine < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :inventory
-  belongs_to :location
+  belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
@@ -53,7 +53,7 @@ class InventoryLine < ActiveRecord::Base
   def stock_id=(id)
     if s = Stock.find_by_id_and_company_id(id, self.company_id)
       self.product_id  = s.product_id
-      self.location_id = s.location_id
+      self.warehouse_id = s.warehouse_id
       self.tracking_id = s.tracking_id
       self.theoric_quantity = s.quantity||0
       self.unit_id     = s.unit_id

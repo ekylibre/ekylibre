@@ -31,18 +31,18 @@
 	    <text value="{{account/number}} : {{account/name}}" width="150mm" bold="true"/>
 	  </set>
 	</part>
-	<table collection="account.journal_entries_between(started_on, stopped_on)" fixed="true" if="account.journal_entries_between(started_on, stopped_on).size &gt; 0">
-	  <column label="Date" property="record/printed_on" width="20mm"/>
-	  <column label="Créée le" property="record/created_on" width="20mm"/>
-	  <column label="Numéro" property="record/number" width="15mm" align="left"/>
-	  <column label="Journal" property="record/journal/code" width="15mm" align="center" font="courrier"/>
+	<table collection="account.journal_entry_lines_between(started_on, stopped_on)" fixed="true" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
+	  <column label="Date" property="entry/printed_on" width="20mm"/>
+	  <column label="Créée le" property="entry/created_on" width="20mm"/>
+	  <column label="Numéro" property="entry/number" width="15mm" align="left"/>
+	  <column label="Journal" property="entry/journal/code" width="15mm" align="center" font="courrier"/>
 	  <column label="Libellé de l'écriture" property="name" width="80mm"/>
 	  <column label="Débit" property="debit" width="20mm" numeric="money"/>
 	  <column label="Crédit" property="credit" width="20mm" numeric="money"/>
 	</table>
       
 	<!-- Sum -->
-	<part height="10mm" if="account.journal_entries_between(started_on, stopped_on).size &gt; 0">
+	<part height="10mm" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
           <set left="130mm">
             <text value="Totaux" top="0.5mm" left="19mm" align="right" bold="true"/>
             <text value="{{account.journal_entries_calculate(:debit, started_on, stopped_on)?numeric}}" top="0.5mm" left="39.5mm" align="right" bold="true"/>

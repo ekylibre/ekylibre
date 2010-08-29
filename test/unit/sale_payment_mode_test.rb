@@ -36,7 +36,7 @@
 #  updater_id             :integer          
 #  with_accounting        :boolean          not null
 #  with_commission        :boolean          not null
-#  with_embankment        :boolean          not null
+#  with_deposit           :boolean          not null
 #
 
 require 'test_helper'

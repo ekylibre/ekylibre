@@ -93,9 +93,9 @@ class CompanyTest < ActiveSupport::TestCase
       should "invoice its sales" do
         assert !@sale_order.invoice
 
-        line = @sale_order.lines.new(:quantity=>12, :product=>@company.products.first, :location=>@company.locations.first)
+        line = @sale_order.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
         assert line.save
-        line = @sale_order.lines.new(:quantity=>25, :product=>@company.products.second, :location=>@company.locations.first)
+        line = @sale_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         assert line.save
         
         assert @sale_order.invoice
@@ -115,11 +115,11 @@ class CompanyTest < ActiveSupport::TestCase
         @sale_order = @company.sale_orders.new(:client=>@company.entities.third)
         assert @sale_order.save, @sale_order.errors.inspect
         for y in 0..10
-          line = @sale_order.lines.new(:quantity=>rand*50, :product=>@company.products.first, :location=>@company.locations.first)
+          line = @sale_order.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
           assert line.save, line.errors.inspect
         end
         assert @sale_order.invoice
-        # line = @sale_order.lines.new(:quantity=>25, :product=>@company.products.second, :location=>@company.locations.first)
+        # line = @sale_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         # assert line.save, line.errors.inspect
         @invoice = @sale_order.invoices.first
         assert_equal @invoice.class, Invoice

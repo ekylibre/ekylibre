@@ -25,8 +25,8 @@
   -f.field :entity, :photo
   -f.field :entity, :comment, :field=>:textarea
   -f.field :entity, :ean13
-  -for datum in @complement_data
-    -f.field datum.complement.name, {:datatype=>datum.complement.nature.to_sym, :id=>"complement_datum_#{datum.complement_id}_value", :name=>"complement_datum[#{datum.complement_id}][value]", :value=>datum.value, :size=>datum.complement.length_max, :options=>{:include_blank=>(datum.complement.required ? nil : '')}, :choices=>datum.complement.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
+  -for datum in @custom_field_data
+    -f.field datum.custom_field.name, {:datatype=>datum.custom_field.nature.to_sym, :id=>"custom_field_datum_#{datum.custom_field_id}_value", :name=>"custom_field_datum[#{datum.custom_field_id}][value]", :value=>datum.value, :size=>datum.custom_field.length_max, :options=>{:include_blank=>(datum.custom_field.required ? nil : '')}, :choices=>datum.custom_field.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client_informations
@@ -41,15 +41,15 @@
   -f.field :entity, :reduction_rate
   -f.field :entity, :authorized_payments_count
   -f.field :entity, :deliveries_conditions, :field=>:textarea
-  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_clients").value})
+  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.third_clients").value})
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier_informations
-  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_suppliers").value}
+  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.third_suppliers").value}
 
 =formalize(:id=>:attorney_form) do |f|
   -f.title :attorney
-  -f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>parameter("accountancy.accounts.third_attorneys").value}
+  -f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.third_attorneys").value}
 
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}
 

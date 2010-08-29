@@ -28,7 +28,6 @@
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  id                :integer          not null, primary key
-#  location_id       :integer          
 #  lock_version      :integer          default(0), not null
 #  order_id          :integer          not null
 #  position          :integer          
@@ -40,6 +39,7 @@
 #  unit_id           :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
+#  warehouse_id      :integer          
 #
 
 require 'test_helper'

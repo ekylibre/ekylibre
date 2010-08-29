@@ -23,6 +23,7 @@
 #  active                     :boolean          default(TRUE), not null
 #  catalog_description        :text             
 #  catalog_name               :string(255)      not null
+#  category_id                :integer          not null
 #  code                       :string(16)       
 #  code2                      :string(64)       
 #  comment                    :text             
@@ -51,7 +52,6 @@
 #  reduction_submissive       :boolean          not null
 #  sales_account_id           :integer          
 #  service_coeff              :decimal(16, 4)   
-#  shelf_id                   :integer          not null
 #  subscription_nature_id     :integer          
 #  subscription_period        :string(255)      
 #  subscription_quantity      :integer          
@@ -70,15 +70,15 @@ class Product < ActiveRecord::Base
   belongs_to :company
   belongs_to :sales_account, :class_name=>Account.to_s
   belongs_to :subscription_nature
-  belongs_to :shelf
+  belongs_to :category, :class_name=>ProductCategory.name
   belongs_to :unit
   has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
-  has_many :delivery_lines
+  has_many :sale_delivery_lines
   has_many :invoice_lines
   has_many :prices
   has_many :purchase_order_lines
-  # TODO rename locations to reservoirs
-  has_many :locations, :conditions=>{:reservoir=>true}
+  # TODO rename warehouses to reservoirs
+  has_many :warehouses, :conditions=>{:reservoir=>true}
   has_many :sale_order_lines
   has_many :stock_moves
   has_many :stock_transfers
@@ -242,14 +242,14 @@ class Product < ActiveRecord::Base
     if origin.is_a? ActiveRecord::Base
       code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
       attributes[:name] = tc('stock_move', :origin=>(origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code=>(origin ? origin.send(code) : "*"))
-      for attribute in [:quantity, :unit_id, :tracking_id, :location_id, :product_id]
+      for attribute in [:quantity, :unit_id, :tracking_id, :warehouse_id, :product_id]
         unless attributes.keys.include? attribute
           attributes[attribute] ||= origin.send(attribute) rescue nil
         end
       end
     end
     attributes[:quantity] = -attributes[:quantity] unless incoming
-    attributes[:location_id] ||= self.stocks.first.location_id if self.stocks.size > 0
+    attributes[:warehouse_id] ||= self.stocks.first.warehouse_id if self.stocks.size > 0
     attributes[:planned_on] ||= Date.today
     attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
     self.stock_moves.create!(attributes)

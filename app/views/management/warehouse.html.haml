@@ -1,0 +1,22 @@
+= toolbar do
+  - link :warehouse_update, :id=>@warehouse.id
+
+%table
+  %tr
+    %td
+      =evalue @warehouse, :name
+      =evalue @warehouse, :comment
+    %td
+      =evalue @warehouse, :establishment
+      =evalue @warehouse, :x
+      =evalue @warehouse, :y
+      =evalue @warehouse, :z
+    -if @warehouse.reservoir
+      %td
+        =evalue @warehouse, :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
+        =evalue @warehouse, :number
+        =evalue @warehouse, :quantity_max
+
+=tabbox(:warehouse) do |tb|
+  -tb.tab :stocks, :content=>dyta(:warehouse_stocks)
+  -tb.tab :stock_moves, :content=>dyta(:warehouse_stock_moves)

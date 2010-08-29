@@ -22,7 +22,7 @@
         =evalue @cash, :key
 
 =tabbox(:cash) do |tb|
-  -tb.tab(:embankments,     :content=>dyta(:cash_embankments))
+  -tb.tab(:deposits,     :content=>dyta(:cash_deposits))
   -if @cash.bank_account?
     -tb.tab(:bank_statements) do |c|
       -c << toolbar do

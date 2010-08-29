@@ -12,7 +12,7 @@ arb:
       account_balance:  #!
         account_id: 'الحساب' #!
         company: 'شركة' #!
-        financialyear: 'مهنة' #!
+        financial_year: 'مهنة' #!
         lock_version: 'الاصدار المحلي' #!
       area:  #!
         code: 'الرمز الداخلي' #!
@@ -27,7 +27,7 @@ arb:
         account_id: 'كاتب الحسابات المشار اليه' #!
         currency: 'العملة المستخدمة' #!
         currency_id: 'العملة المستخدمة' #!
-        embankments: 'الاقتطاعات المصرفية' #!
+        deposits: 'الاقتطاعات المصرفية' #!
         entity: 'الشخص' #!
         entity_id: 'الشخص' #!
         journal: 'الدفتر اليومي المستخدم' #!
@@ -42,55 +42,55 @@ arb:
         born_on: 'انشأ في' #!
         cashes: 'الخزينة' #!
         code: 'الرمز الداخلي' #!
-        complement_data: 'بيانات اضافية للملف' #!
         created_at: 'تم انشاءه في' #!
+        custom_field_data: 'بيانات اضافية للملف' #!
         delivery_lines: 'طرق التسليم ' #!
         entity: 'ملف الفرد' #!
         entity_id: 'ملف الفرد' #!
         invoice_lines: 'اساليب الفاتورة' #!
         journal_records: 'قسائم حسابية' #!
+        land_parcels: 'أژlots' #!
         lock_version: 'اصدار' #!
         locked: 'تم اقفاله'
         sale_payment_modes: 'اساليب الدفعات' #!
-        shapes: 'أژlots' #!
         stock_transfers: 'تحويلات الاسهم او ضياعها' #!
         stocks: 'اسهم المنتج' #!
         tool_uses: 'استخدام الادوات' #!
         trackings: 'حصص يمكن عزوها' #!
         updater_id: 'تحديث' #!
-      complement:  #!
-        data: 'بيانات اضافية للملف' #!
-        nature: 'نوع البيان' #!
-        nature_label: 'نوع البيانات' #!
-      complement_datum:  #!
-        complement: 'الحقل الاضافي' #!
-        complement_id: 'الحقل الاضافي' #!
-        created_at: 'انشأ في' #!
-        entity: 'الملف' #!
-        entity_id: 'ملف' #!
-        string_value: 'قيمة النص' #!
-        updater_id: 'تحديث' #!
       contact:  #!
         created_at: 'انشأ في' #!
         entity: 'الملف' #!
         entity_id: 'ملف' #!
-        locations: 'مواقع للتخزين' #!
+        warehouses: 'مواقع للتخزين' #!
         website: 'موقع على الانترنت' #!
       currency:  #!
         cashes: 'الخزينة' #!
         comment: 'تعليق' #!
+      custom_field:  #!
+        data: 'بيانات اضافية للملف' #!
+        nature: 'نوع البيان' #!
+        nature_label: 'نوع البيانات' #!
+      custom_field_datum:  #!
+        created_at: 'انشأ في' #!
+        custom_field: 'الحقل الاضافي' #!
+        custom_field_id: 'الحقل الاضافي' #!
+        entity: 'الملف' #!
+        entity_id: 'ملف' #!
+        string_value: 'قيمة النص' #!
+        updater_id: 'تحديث' #!
       delay:  #!
         active: 'صالحة للاستخدام' #!
         invoices: 'فواتير' #!
         sale_order_natures: 'نوع البيع' #!
-      delivery:
+      delivery:  #!
         contact: 'عنوان العميل' #!
         contact_id: 'عنوان العميل' #!
         created_at: 'أنشا في' #!
         currency_id: 'العملة' #!
         invoice: 'فاتورة' #!
         label: 'Label' #!
-        lines: 'خطوط التسليم'
+        lines: 'خطوط التسليم' #!
         mode: 'النوع' #!
         mode_id: 'نوع' #!
         moved_on: 'استمر' #!
@@ -99,11 +99,11 @@ arb:
         transporter_id: 'الناقلة' #!
       delivery_line:  #!
         amount: 'القيمة من غير الضرائب' #!
-        location_id: 'موقع للتخزين' #!
         price: 'الاسعار' #!
         price_id: 'الاسعار' #!
         product: 'المنتج' #!
         updater_id: 'تحديث' #!
+        warehouse_id: 'موقع للتخزين' #!
       delivery_mode:  #!
         updater_id: 'تحديث' #!
       department:  #!
@@ -111,18 +111,7 @@ arb:
         parent_id: 'النسب' #!
         sales_conditions: 'شروط البيع' #!
         updater_id: 'تحديث' #!
-      district:  #!
-        areas: 'المناطق البريدية' #!
-        created_at: 'انشأت في ' #!
-      document:
-        #>filename: 'Fichier'
-        updater_id: 'تحديث' #!
-      document_template:  #!
-        created_at: 'انشأ في' #!
-        filename: 'اسم الملف' #!
-        nature: 'طبيعية' #!
-        nature_label: 'طبيعة' #!
-      embankment:
+      deposit:
         accounted_at: 'تمت محاسنته في' #!
         amount: 'المبلغ'
         cash: 'حساب مصرفي' #!
@@ -132,6 +121,17 @@ arb:
         created_on: 'انشاء يوم' #!
         mode: 'نوع الدفعة' #!
         mode_id: 'نوع الدفعة' #!
+      district:  #!
+        areas: 'المناطق البريدية' #!
+        created_at: 'انشأت في ' #!
+      document:
+        #>filename: 'File'
+        updater_id: 'تحديث' #!
+      document_template:  #!
+        created_at: 'انشأ في' #!
+        filename: 'اسم الملف' #!
+        nature: 'طبيعية' #!
+        nature_label: 'طبيعة' #!
       entity:
         #>active: 'Active'
         contacts: 'الاشخاص المراد الاتصال بهم' #!
@@ -174,7 +174,7 @@ arb:
       event_nature:
         duration: '(المدة الافتراضية (بالدقائق'
         updated_at: 'تم تحديثها في' #!
-      financialyear:
+      financial_year:
         account_balances: 'رصائد الحسابات' #!
         journal_records: 'السجلات المحاسبية' #!
         started_on: 'بدأ ب' #!
@@ -218,38 +218,28 @@ arb:
         nature_label: 'طبيعة' #!
         updated_at: 'تم تحديثها في' #!
       journal_entry:
-        account: 'حساب' #!
-        #>closed: 'Closed'
-        comment: 'تعليق' #!
-        created_at: 'انشأت ففي' #!
-        currency_credit: 'ائتمان' #!
-      journal_record:
         company: 'شركة' #!
         created_at: 'انشأـ في' #!
         created_on: 'انشأت يوم' #!
         purchase_payment_parts: 'اجزاء الدفعات'
         purchase_payments: 'دفعات' #!
         sale_payments: 'دفعات' #!
+      journal_entry_line:
+        account: 'حساب' #!
+        #>closed: 'Closed'
+        comment: 'تعليق' #!
+        created_at: 'انشأت ففي' #!
+        currency_credit: 'ائتمان' #!
+      land_parcel:
+        children: 'شبه كتل'
+        number: 'رقم المساحة او رقم الحزمة'
+        updated_at: 'تم تحديثه' #!
       listing:  #!
         created_at: 'أنشأت في' #!
       listing_node:  #!
         children: 'عقد فرعية' #!
         created_at: 'تم انشائه في' #!
         nature: 'الطبيعي' #!
-      location:
-        account: 'حساب المحاسب' #!
-        account_id: 'حساب المحاسب' #!
-        #>children: 'Sub-warehouse'
-        comment: 'تعليق' #!
-        created_at: 'انشأ في' #!
-        establishment: 'مؤسسة' #!
-        parent_id: 'النسب' #!
-        product: 'محتوى العبوة'
-        product_id: 'محتوى العبوة'
-        stock_moves: 'حركات السهم' #!
-        unit_id: 'الوحدة' #!
-        updated_at: 'تم تحديثها في' #!
-        updater: 'التحدبث' #!
       mandate:
         company_id: 'الشركة' #!
         created_at: 'تم انشائه في' #!
@@ -291,20 +281,26 @@ arb:
         comment: 'تعليق' #!
         duration: 'عدد ارقام او مدة الاشتراك'
         ean13: 'EAN13 الرمز' #!
-        locations: 'اماكن التخزين' #!
         #>price: 'Cost price'
         published: 'نشر' #!
         stock_moves: 'حركات السهم' #!
         stocks: 'اسهم المنتجات' #!
         unit: 'وحدة القياس' #!
         unit_id: 'وحدة قياس' #!
+        warehouses: 'اماكن التخزين' #!
         weight: '(الوزن(كغ' #!
+      product_category:
+        catalog_description: 'الوصف' #!
+        children: 'دلائل فرعية'
+        creator_id: 'المننتج' #!
+        published: 'تم نشرها'
+        shelves: 'فئات الانتاج' #!
       product_component:  #!
         comment: 'تعليق' #!
-        location: 'مكان التخزين' #!
-        location_id: 'مكان التخزين' #!
         product_id: 'الانتاج' #!
         updater: 'التحدبث' #!
+        warehouse: 'مكان التخزين' #!
+        warehouse_id: 'مكان التخزين' #!
       profession:
         #>employees: 'Employees'
       purchase_order:
@@ -357,6 +353,8 @@ arb:
         updater_id: 'التعديل' #!
       role:  #!
         created_at: 'انشأ في' #!
+      sale_delivery:
+        #>lines: 'Delivery lines'
       sale_order:
         accounted_at: 'تمت محاسبته في' #!
         amount: 'القيمة من دون تاضرائب' #!
@@ -416,16 +414,6 @@ arb:
       sequence:  #!
         company_id: 'الشركة' #!
         period: 'تواتري' #!
-      shape:
-        children: 'شبه كتل'
-        number: 'رقم المساحة او رقم الحزمة'
-        updated_at: 'تم تحديثه' #!
-      shelf:
-        catalog_description: 'الوصف' #!
-        children: 'دلائل فرعية'
-        creator_id: 'المننتج' #!
-        published: 'تم نشرها'
-        shelves: 'فئات الانتاج' #!
       stock:
         critic_quantity_min: 'الكمية المنتقدة كحد ادنى' #!
         product: 'المنتج' #!
@@ -436,16 +424,16 @@ arb:
         #>origin: 'Origine'
         origin_id: 'منشأ' #!
         product: 'المنتج' #!
-        second_location_id: 'موقع تخزين الحركة الثانية' #!
+        second_warehouse_id: 'موقع تخزين الحركة الثانية' #!
         tracking_id: 'حصة' #!
       stock_transfer:
         created_at: 'انشأ في' #!
         creator_id: 'منتج' #!
-        location: 'موقع تخزين المغادرة'
-        location_id: 'موقع تخزين المغادرة'
         nature: 'النوع' #!
         product: 'المنتج' #!
-        #>second_location_id: 'Arrival warehouse'
+        #>second_warehouse_id: 'Arrival warehouse'
+        warehouse: 'موقع تخزين المغادرة'
+        warehouse_id: 'موقع تخزين المغادرة'
       subscription:
         company_id: 'الشركة' #!
         contact: 'عنوان المشترك' #!
@@ -467,8 +455,8 @@ arb:
         accounted_at: 'تمت محاسبتها يوم' #!
         address: 'عنوان خدمة المستلم'
         amount: 'مجموع قيمة الضريبة الاضافية'
-        financialyear: 'المدة المقدرة' #!
-        financialyear_id: 'المدة المقدرة' #!
+        financial_year: 'المدة المقدرة' #!
+        financial_year_id: 'المدة المقدرة' #!
         nature: 'نظام التصريح'
         #>period: 'Périod'
         updated_at: 'تم تحديثها في' #!
@@ -513,6 +501,10 @@ arb:
         locked: 'حساب مغلق'
         name: 'اسم المستخدم'
         #>reduction_percent: 'Authorized percentage of discount (%)'
+      warehouse:
+        #>children: 'Sub-warehouse'
+        #>product: 'Contained product'
+        #>product_id: 'Contained product'
     errors:
       messages:
         accepted: '{{attribute}} يجب أن تكون مقبولة'
@@ -544,19 +536,17 @@ arb:
       models:
         cash:
           unvalid_bban: '.مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح'
-        complement_datum:
+        custom_field_datum:
           greater_than: '{{field}} اكبر من ({{maximum}} كحد اقصى)'
           less_than: '{{field}} اقل من ({{minimum}} كحد ادنى)'
           required: '{{field}} يجب ان يكون معرف'
           too_long: '{{field}} طويل جدا ({{length}} الاحرف)'
-        delivery_line:
-          greater_than_undelivered_quantity: '{{product}} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة ({{maximum}}{{unit}})'
-        embankment:
+        deposit:
           must_be_a_bank_account: '{{field}} يجب ان يكون حساب مصرفي وليس بصندوق نقدي'
         entity:
           missing_title: '{{attribute}} يجب ان يحتوي على اسم "{{title}}"'
           nature_do_not_allow_a_first_name: '"{{nature}}" لا يسمح النوع المختار بمعرفة الاسم الاول'
-        financialyear:
+        financial_year:
           attributes:
             started_on:
               consecutive: 'يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق'
@@ -568,31 +558,33 @@ arb:
             closed_on:
               end_of_month: '{{attribute}} يجب ان تطابق تاريخ نهاية الشهر ({{closed_on}})'
         journal_entry:
+          closed_journal: '.مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ {{on}} تم اغلاق الدفتر اليومي في'
+          out_of_financial_year: 'يجب اغتنام السجل خلال السنة المالية'
+          unbalanced: 'ان السجل غير متعادل'
+        journal_entry_line:
           closed_entry: '.تم اغلاق المدخلات، ولا يمكن التعديل عليها'
           empty_amounts: 'يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان'
           unvalid_amounts: 'يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا'
-        journal_record:
-          closed_journal: '.مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ {{on}} تم اغلاق الدفتر اليومي في'
-          out_of_financialyear: 'يجب اغتنام السجل خلال السنة المالية'
-          unbalanced: 'ان السجل غير متعادل'
         price:
           already_defined: 'قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا'
           range_overlap: 'تداخل فاصل زمني اخر للكمية (  {{min}} الى  {{max}})'
         purchase_order_line:
-          location_can_not_receive_product: 'لا يمكن للخزينة {{location}} استقبال النتج {{product}}, لاحتوائها منتج سابق {{contained_product}}.'
           serial_already_used_with_an_other_product: '{{attribute}} تم استخدامها لنوع اخر من المنتج من نفس الممون'
+          warehouse_can_not_receive_product: 'لا يمكن للخزينة {{warehouse}} استقبال النتج {{product}}, لاحتوائها منتج سابق {{contained_product}}.'
+        sale_delivery_line:
+          greater_than_undelivered_quantity: '{{product}} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة ({{maximum}}{{unit}})'
         sale_order_line:
           can_not_use_this_tracking: 'لا يمكنك الاستفادة من الحصة {{tracking}}, لان الكمية المطلوبة اكبر من الكمية المتاحة'
           currency_is_not_sale_order_currency: 'لا يطابق سعر عملة المنتج مجموعة البيع'
           error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار'
-          location_can_not_transfer_product: 'لا يمكن تحويل المنتج {{product}} من خزينة {{location}}, لاحتوائه على {{contained_product}}.'
+          warehouse_can_not_transfer_product: 'لا يمكن تحويل المنتج {{product}} من خزينة {{warehouse}}, لاحتوائه على {{contained_product}}.'
         stock:
-          product_cannot_be_in_location: '{{location}} لا يمكن تخزين المنتج في خزينة'
+          product_cannot_be_in_warehouse: '{{warehouse}} لا يمكن تخزين المنتج في خزينة'
         stock_transfer:
-          location_can_not_receive_product: 'لا يمكن لموقع التخزين{{location}} استقبال المنتج {{product}}, لاحتوائه مسبقا على منتج {{contained_product}}'
-          location_can_not_transfer_product: 'لا يمكنك تحويل المنتج {{product}} من موقع التخزين {{location}}, لاحتوائه على منتج {{contained_product}}'
-          location_can_not_waste_product: 'لا يمكنك تسجيل الخسارة للمنتج {{product}} من موقع التخزين {{location}}, هذا ويحتوي المنتج {{contained_product}}'
-          locations_can_not_be_identical: 'مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة'
+          warehouse_can_not_receive_product: 'لا يمكن لموقع التخزين{{warehouse}} استقبال المنتج {{product}}, لاحتوائه مسبقا على منتج {{contained_product}}'
+          warehouse_can_not_transfer_product: 'لا يمكنك تحويل المنتج {{product}} من موقع التخزين {{warehouse}}, لاحتوائه على منتج {{contained_product}}'
+          warehouse_can_not_waste_product: 'لا يمكنك تسجيل الخسارة للمنتج {{product}} من موقع التخزين {{warehouse}}, هذا ويحتوي المنتج {{contained_product}}'
+          warehouses_can_not_be_identical: 'مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة'
         subscription:
           entity_must_be_the_same_as_the_contact_entity: 'يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به'
         tax_declaration:
@@ -611,20 +603,20 @@ arb:
       bank_statement: 'بيان الحساب المصرفي'
       cash: 'الخزينة'
       company: 'الشركة'
-      complement: 'الحقول التكميلية'
-      complement_choice: 'اختيار الحقل التكميلي'
-      complement_datum: 'بيانات الملف التكميلية'
       contact: 'الاتصالات'
       currency: 'العملة'
+      custom_field: 'الحقول التكميلية'
+      custom_field_choice: 'اختيار الحقل التكميلي'
+      custom_field_datum: 'بيانات الملف التكميلية'
       delay: 'التأجيل'
-      delivery: 'التسليم'
-      delivery_line: 'خط التسليم'
-      delivery_mode: 'نمط التسليم'
+      delivery: 'التسليم' #!
+      delivery_line: 'خط التسليم' #!
+      delivery_mode: 'نمط التسليم' #!
       department: 'الخجمة'
+      deposit: 'الاقتطاع المصرفي'
       district: 'مقاطعة'
       document: 'الوثيقة'
       document_template: 'نموذج الوثيقة'
-      embankment: 'الاقتطاع المصرفي'
       entity: 'الفرد'
       entity_category: 'فئة الفرد'
       entity_link: 'رابط الفرد'
@@ -633,26 +625,29 @@ arb:
       establishment: 'المؤسسة'
       event: 'الحدث'
       event_nature: 'نوع الحدث'
-      financialyear: 'السنة المالية'
+      financial_year: 'السنة المالية'
       inventory: 'عملية الجرد'
       inventory_line: 'طريقة عملية الجرد'
       invoice: 'الفاتورة'
       invoice_line: 'طريقة تسديد الفاتورة'
       journal: 'الدفتر اليومي'
       journal_entry: 'المدخلات'
-      journal_record: 'سجل المحاسبة'
+      #>journal_entry_line: 'Journal entry line'
+      journal_record: 'سجل المحاسبة' #!
+      land_parcel: 'الكتلة'
       listing: 'الاستخراج'
       listing_node: 'عقدة الاستخراج'
       listing_node_item: 'عنصر غقدة الاستخراج'
-      location: 'موقع التخزين'
       mandate: 'التفويض'
       observation: 'ملاحظة'
       operation: 'العمل'
       operation_line: 'الواردات/الصادرات'
       operation_nature: 'نوع العمل'
-      parameter: 'الاعدادات'
+      parameter: 'الاعدادات' #!
+      #>preference: 'Preference'
       price: 'الاسعار'
       product: 'الانتاج'
+      product_category: 'فئة الانتاج'
       product_component: 'عنصر الانتاج'
       profession: 'المهنة'
       purchase_order: 'الشراء'
@@ -661,6 +656,9 @@ arb:
       purchase_payment_mode: 'نوع الدفعة'
       purchase_payment_part: 'تأثير الدفعة'
       role: 'الدور'
+      #>sale_delivery: 'Delivery'
+      #>sale_delivery_line: 'Delivery line'
+      #>sale_delivery_mode: 'Delivery mode'
       sale_order: 'البيع'
       sale_order_line: 'طريقة طلب البيع'
       sale_order_nature: 'نوع طلب البيع'
@@ -668,8 +666,6 @@ arb:
       sale_payment_mode: 'نوع الدفعة'
       sale_payment_part: 'تأثير الدفعة'
       sequence: 'التسلسل'
-      shape: 'الكتلة'
-      shelf: 'فئة الانتاج'
       stock: 'سهم الانتاج'
       stock_move: 'حركة السهم'
       stock_transfer: 'تحول او ضياع السهم'
@@ -684,6 +680,7 @@ arb:
       transport: 'وسيلة النقل'
       unit: 'الوحدة'
       user: 'المستخدم'
+      warehouse: 'موقع التخزين'
   attributes:
     account: 'الحساب'
     account_balances: 'ارصدة الحسابات'
@@ -778,11 +775,6 @@ arb:
     commission_percent: 'نسبة العمولة'
     company: 'الشركة'
     company_id: 'شركة'
-    complement: 'حقول اضافية'
-    complement_choices: 'اختيارات الحقول الاضافية'
-    complement_data: 'تكملة بيانات الملف'
-    complement_id: 'حقول اضافية'
-    complements: 'الحقول الاضافية'
     component: 'محتوى العبوة'
     component_id: 'محتوى العبوة'
     components: 'مكونات المنتج'
@@ -817,7 +809,12 @@ arb:
     currency_debit: 'الدين المطلوب'
     currency_id: 'عملة'
     currency_rate: 'سعر الصرف'
-    current_financialyear: 'الفترة المحاسبية الحالية'
+    current_financial_year: 'الفترة المحاسبية الحالية'
+    custom_field: 'حقول اضافية'
+    custom_field_choices: 'اختيارات الحقول الاضافية'
+    custom_field_data: 'تكملة بيانات الملف'
+    custom_field_id: 'حقول اضافية'
+    custom_fields: 'الحقول الاضافية'
     data: 'بيانات اضافية'
     date_value: 'قيمة التاريخ'
     datetime_value: 'قيمة التاريخ/الساعة'
@@ -847,6 +844,9 @@ arb:
     department: 'المبنى'
     department_id: 'مبنى'
     departments: 'الخدمات'
+    deposit: 'الاقتطاع المصرفي'
+    deposit_id: 'اقتطاع مرفي'
+    deposits: 'اقتطاعات البنك'
     description: 'الوصف'
     dest_contact: 'عنوان التسليم'
     dest_contact_id: 'عنوان التسليم'
@@ -876,9 +876,6 @@ arb:
     embankables_account_id: 'الحساب المعلق اادفعات النقدية'
     embanker: 'الجابي'
     embanker_id: 'الجابي'
-    embankment: 'الاقتطاع المصرفي'
-    embankment_id: 'اقتطاع مرفي'
-    embankments: 'اقتطاعات البنك'
     employed: 'وظف من قبل الشركة'
     employees: 'الموظفين'
     employment: 'الوظيفة'
@@ -896,7 +893,9 @@ arb:
     entity_links: 'روابط الفرد'
     entity_name: 'اسم المشترك'
     entity_natures: 'انماط الفرد'
-    entries: 'المدخلات'
+    entries: 'السجلات المحاسبية'
+    entry: 'سجل المحاسبة'
+    entry_id: 'سجا المحاسبة'
     establishment: 'المؤسسة'
     establishment_id: 'مؤسسة'
     establishments: 'المؤسسات'
@@ -917,9 +916,9 @@ arb:
     fax: 'فاكس'
     filename: 'الملف'
     filesize: 'حجم الملف'
-    financialyear: 'السنوات المالية'
-    financialyear_id: 'مهنة'
-    financialyears: 'المهن'
+    financial_year: 'السنوات المالية'
+    financial_year_id: 'مهنة'
+    financial_years: 'المهن'
     finish: 'النهاية'
     first_met_on: 'تاريخ اول مقابلة'
     first_name: 'الاسم الاول'
@@ -973,13 +972,17 @@ arb:
     items: 'بنود عقد الاستخراج'
     journal: 'الدفتر اليومي'
     journal_entries: 'المدخلات'
+    #>journal_entry: 'Journal entry'
+    #>journal_entry_id: 'Journal entry'
+    #>journal_entry_lines: 'Journal entry lines'
     journal_id: 'الدفتر اليومي'
-    journal_record: 'سجل المحاسبة'
-    journal_record_id: 'سجل المحاسبة'
-    journal_records: 'سجلات المحاسبة'
+    journal_record: 'سجل المحاسبة' #!
+    journal_record_id: 'سجل المحاسبة' #!
+    journal_records: 'سجلات المحاسبة' #!
     journals: 'الدفاتر اليومية'
     key: 'المفتاح'
     label: 'الملصق'
+    land_parcels: 'الكتل'
     language: 'اللغة'
     last_bank_statement: '(((LAST_BANK_STATEMENT)))'
     last_cweek: 'الاسبوع السابق'
@@ -1009,9 +1012,7 @@ arb:
     local_count: 'عدد السكان المحليين'
     local_credit: 'الائتمان'
     local_debit: 'الدين المحلي'
-    location: 'موقع التخزين'
-    location_id: 'موقع التخزين'
-    locations: 'مواقع التخزين'
+    #>location: 'Location'
     lock_version: 'الاصدار'
     locked: 'مقفل'
     longitude: 'خطوط الطول'
@@ -1064,7 +1065,6 @@ arb:
     paid: 'سددت'
     paid_amount: 'خصمة من قيمة الضريبة الاضافية'
     paid_on: 'سددت يوم'
-    parameters: 'الاعدادات'
     parent: 'النسب'
     parent_id: 'نسب'
     parts: 'الاجزاء'
@@ -1099,6 +1099,7 @@ arb:
     polygon: 'متناسقين'
     position: 'الوضع'
     postcode: 'الرمز البريدي'
+    preferences: 'الاعدادات'
     price: 'سعر الكلفة'
     price_amount: 'القيمة دون الضرائب'
     price_id: 'سعر الوحدة'
@@ -1108,6 +1109,9 @@ arb:
     producer: 'المنتج'
     producer_id: 'المنتج'
     product: 'الانتاج'
+    product_categories: 'فئات المنتج'
+    product_category: 'الفئة'
+    product_category_id: 'فئة'
     product_components: 'مكونات المنتج'
     product_id: 'المنتج'
     productable_products: 'المنتجات الممكن انتاجها'
@@ -1137,12 +1141,10 @@ arb:
     reason: 'الدافع'
     receipt: 'استلام الكتروني'
     received: 'مستلم'
-    record: 'سجل المحاسبة'
-    record_id: 'سجا المحاسبة'
     record_value: 'التسجيل'
     record_value_id: 'تسجيل'
     record_value_type: 'نوع التسجيل'
-    records: 'السجلات المحاسبية'
+    #>records: 'Records'
     reductible: 'ناقص'
     reduction: 'طريقة الخصم'
     reduction_origin: 'طرق قابلة للخصم'
@@ -1181,9 +1183,9 @@ arb:
     sales_conditions: 'الشروط العامة للبيع'
     salt: 'الملح'
     scheduled: 'الدفعة المبرمجة'
-    second_location: 'موقع تخزين الوصول'
-    second_location_id: 'موقع تخزين الوصول'
     second_move_id: 'الحركة الثانية'
+    second_warehouse: 'موقع تخزين الوصول'
+    second_warehouse_id: 'موقع تخزين الوصول'
     self_bank_accounts: 'الحسابات المصرفية الخاصة'
     self_cashes: 'الصناديق النقدية الخاصة'
     self_contacts: 'الاتصالات الخاصة'
@@ -1191,10 +1193,6 @@ arb:
     serial: 'عدد الحصص'
     service_coeff: 'معامل كمية الخدمة'
     sha256: 'SHA256'
-    shapes: 'الكتل'
-    shelf: 'الفئة'
-    shelf_id: 'فئة'
-    shelves: 'فئات المنتج'
     shipped: 'المستلم'
     shipped_on: 'شحنها يوم'
     siren: 'رقم صفارة الانذار'
@@ -1294,12 +1292,15 @@ arb:
     vat_submissive: 'القيمة الضريبية المضافة التابعة'
     virtual: 'عملي'
     virtual_quantity: 'الاسهم العملية'
+    warehouse: 'موقع التخزين' #!
+    warehouse_id: 'موقع التخزين'
+    warehouses: 'مواقع التخزين' #!
     webpass: 'كلمة مرور الموقع الااكتروني'
     website: 'الموقع الالكتروني'
     weight: 'الوزن'
     with_accounting: 'سجل الدفعات'
     with_commission: 'تشمل عمولة'
-    with_embankment: 'استخدام الاقتطاعات المصرفية'
+    with_deposit: 'استخدام الاقتطاعات المصرفية'
     with_tracking: 'مع التتبع'
     x: 'X الوضع'
     y: 'Y الوضع'
@@ -1359,7 +1360,7 @@ arb:
             journal:
               filename: '[name] (الدفتر اليومي)'
           management:
-            embankment:
+            deposit:
               filename: '[created_on] اقتطاع البنك من'
             inventory:
               filename: '[created_on] جرد ل'
@@ -1379,7 +1380,7 @@ arb:
               filename: ' [full_name] ملف ال'
         document_templates_filenames:  #!
           balance_sheet: '[code]الميزانية العمومية' #!
-          embankment: '[created_on] الاقتطاع البنكي ل' #!
+          deposit: '[created_on] الاقتطاع البنكي ل' #!
           entity: '[full_name] ملف' #!
           income_statement: '[code] بيان حسابات الدخل' #!
           inventory: '[date] عملية الجرد' #!
@@ -1394,17 +1395,16 @@ arb:
           #>invoice: 'Creation of an invoice'
           #>purchase_order: 'Creation of a purchase order'
           #>sale_order: 'Creation of a sale order'
-        financialyear_code: '1A2' #!
+        financial_year_code: '1A2' #!
         journals:
           bank: 'الدفتر اليومي للبنك'
           cash: 'الدفتر اليومي للصندوق النقدي'
           purchases: 'دفاتر الشراء اليومية'
           sales: 'دفاتر البيع اليومية'
           various: 'دفاتر يومية لعمليات متنوعة'
-        location: 'المخزون' #!
-        #>location_name: 'Warehouse'
         paid_tax: 'TVA خصم' #!
         price_list_name: 'التسعيرة سوية' #!
+        product_category_name: 'من غير فئة'
         purchase_payment_modes:
           cash:
             name: 'عملة نقدية'
@@ -1427,7 +1427,7 @@ arb:
         sample_product_name: 'عينة المنتج' #!
         sequences:
           management:
-            embankments:
+            deposits:
               format: 'B[year|4][number|4]'
               name: 'عدد الاقتطاعات البنكية'
               period: 'السنة'
@@ -1454,7 +1454,6 @@ arb:
             entities:
               format: '[number|8]'
               name: 'عدد الاشخاص'
-        shelf_name: 'من غير فئة'
         taxes:
           tva0000:
             amount: '0.0'
@@ -1488,6 +1487,7 @@ arb:
           m3: 'متر مكعب'
           t: 'طن'
           u: 'وحدة قياس'
+        warehouse_name: 'المخزون'
       import:
         dont_use: '-- لعدم الاسعمال--'
         generate_string_complement: '--(انشاء حقل مخصص (للنص--'
@@ -1495,7 +1495,9 @@ arb:
       purchase_order_creation: 'انشاء طلب شراء' #!
       sale_order_creation: 'انشاء طلب تحديد الاسعار' #!
       sale_orders: 'المبيعات'
-    complement:
+    contact:
+      error_modify_contact: 'من المستحيل تعديل الاسماء'
+    custom_field:
       natures:
         boolean: 'صندوق للتحقق'
         choice: 'قائمة الخيارات'
@@ -1503,19 +1505,14 @@ arb:
         datetime: 'التاريخ والوقت'
         decimal: 'عشري'
         string: 'نص'
-    contact:
-      error_modify_contact: 'من المستحيل تعديل الاسماء'
     delay:
       error_unvalid_format_for_expression: 'الاسلوب ليس بالشكل الصحيح'
-    delivery:
-      label: '{{client}} الى {{address}}'
-      natures:  #!
-        cip: 'الشحن مع التأمين' #!
-        cpt: 'الشحن من غير تأمين' #!
-        exw: 'التسليم باليد' #!
-      sale: '{{number}} المبيعات'
-    delivery_line:
-      sale: '{{number}} المبيعات'
+    deposit:
+      to_accountancy:
+        one: '[{{resource}} {{number}}] {{count}} دفعة {{mode}} {{comment}}'
+        other: '[{{resource}} {{number}}] {{count}} دفعات اخرى {{mode}} {{comment}}'
+        zero: '[{{resource}} {{number}}] ولا اية دفعة {{mode}} {{comment}}'
+      to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} من {{payer}} ({{payment}})'
     document_template:
       error_attribute: 'الحقل {{value}} غير صحيح.الاحتمالات هم{{possibilities}}'
       families:
@@ -1530,9 +1527,9 @@ arb:
       natures:
         balance: 'الرصيد'
         balance_sheet: 'الميزانة العمومية'
-        embankment: 'الاقتطاع البنكي'
+        deposit: 'الاقتطاع البنكي'
         entity: 'ملفات الاشخاص'
-        financialyear: 'وثائق لمناقشة'
+        financial_year: 'وثائق لمناقشة'
         general_journal: 'دفتر يوم عام'
         general_ledger: 'دفتر الحسابات'
         income_statement: 'حسابات الدخل'
@@ -1545,12 +1542,6 @@ arb:
         stocks: 'حالة الاسهم'
         transport: 'وسائل النقل'
       unvalid_nature: 'نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته.'
-    embankment:
-      to_accountancy:
-        one: '[{{resource}} {{number}}] {{count}} دفعة {{mode}} {{comment}}'
-        other: '[{{resource}} {{number}}] {{count}} دفعات اخرى {{mode}} {{comment}}'
-        zero: '[{{resource}} {{number}}] ولا اية دفعة {{mode}} {{comment}}'
-      to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} من {{payer}} ({{payment}})'
     entity:
       client: 'العميل'
       supplier: 'الممول'
@@ -1561,7 +1552,7 @@ arb:
         manual: 'كتيب'
         purchase_order: 'انشاء طلب شراء'
         sale_order: 'انشاء طلب بيع'
-    financialyear:
+    financial_year:
       code:
         double: 'EX{{first_year}}/{{second_year}}'
         single: 'EX{{first_year}}'
@@ -1582,7 +1573,7 @@ arb:
         purchases: 'المشتريات'
         sales: 'المبيعات'
         various: 'عمليات متنوعة'
-    journal_record:
+    journal_entry:
       record_cancel: 'الانعكاس السلبي للقطعة {{number}} : {{name}}'
     listing_node:
       add_filter: ' اضافة تصفية'
@@ -1673,6 +1664,15 @@ arb:
       to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} ل {{payee}} ({{expenses}})'
     purchase_payment_part:
       to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) وردت من {{attorney}} ل {{supplier}} ({{expense_number}})'
+    sale_delivery:
+      label: '{{client}} الى {{address}}'
+      natures:  #!
+        cip: 'الشحن مع التأمين' #!
+        cpt: 'الشحن من غير تأمين' #!
+        exw: 'التسليم باليد' #!
+      sale: '{{number}} المبيعات'
+    sale_delivery_line:
+      sale: '{{number}} المبيعات'
     sale_order:
       label:
         estimate: 'رقم التقدير{{number}}'
@@ -1693,9 +1693,9 @@ arb:
       can_not_use_this_tracking: 'لا يمكنك استخدام حصة {{name}}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
       currency_is_not_sale_order_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
       error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية' #!
-      location_can_not_transfer_product: 'المنتج {{product}} لا يأخذ خارج الخزينة {{location}}, هذا ويحتوي {{contained_product}} '
       reduction_on: 'تخفيض بنسبة {{percent}}% على : {{product}}'
       tracking: 'رقم الحصة : {{serial}}'
+      warehouse_can_not_transfer_product: 'المنتج {{product}} لا يأخذ خارج الخزينة {{warehouse}}, هذا ويحتوي {{contained_product}} '
     sale_payment:
       label: '{{number}}. {{amount}} ({{usable_amount}} restants) من {{date}} بواسطة {{mode}} ل {{payer}}'
       to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} ل {{payer}} ({{expenses}})'
@@ -1709,8 +1709,8 @@ arb:
         year: 'السنة'
     stock:
       label:
-        with_tracking: '{{location}} : الحصة {{tracking}}, {{quantity}}{{unit}} المتوفرة'
-        without_tracking: '{{location}} : غير متتبع, {{quantity}}{{unit}} متاح'
+        with_tracking: '{{warehouse}} : الحصة {{tracking}}, {{quantity}}{{unit}} المتوفرة'
+        without_tracking: '{{warehouse}} : غير متتبع, {{quantity}}{{unit}} متاح'
     stock_transfer:
       natures:
         transfer: 'التحويل'
