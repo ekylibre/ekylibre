@@ -1,0 +1,19 @@
+%h2=tl :sale_order_lines
+-if @sale_order.estimate?
+  =toolbar do |t|
+    -t.link(:sale_order_line_create, :order_id=>@sale_order.id) 
+    -#t.javascript(:sale_order_line_create, "openDialog('#{url_for(:action=>:sale_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sale_order_lines, :url=>{:action=>:sale_order_lines_dyta}))))}')", :href=>url_for(:action=>:sale_order_line_create)) 
+  =render :partial=>"sale_order_line_row_form"
+=dyta :sale_order_lines
+
+%table.dyta
+  %tr.total
+    %th=tl :amount
+    %td=number_to_accountancy(@sale_order.amount)
+  %tr.important.total
+    %th=tl :amount_with_taxes
+    %td=number_to_accountancy(@sale_order.amount_with_taxes)
+
+-if @sale_order.subscriptions.size>0
+  %h2=tl :subscriptions
+  =dyta :sale_order_subscriptions

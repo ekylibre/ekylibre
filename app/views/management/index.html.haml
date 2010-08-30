@@ -4,7 +4,7 @@
     =li_link_to tc('nb_waiting_deliveries', :count=>@deliveries.size), :action=>:undelivered_sales
     =#li_link_to tc('nb_purchases', :count=>@purchases.size), :action=>:unreceived_purchases
     =li_link_to tc('nb_transfers', :count=>@stock_transfers.size), :action=>:unexecuted_transfers
-    =li_link_to tc('nb_payments', :count=>@payments_to_embank.size), :action=>:deposits
+    =li_link_to tc('nb_payments', :count=>@payments_to_deposit.size), :action=>:deposits
     =li_link_to tc('nb_enbankments', :count=>@deposits_to_lock.size), :action=>:unvalidated_deposits
 - if @stocks.size > 0
   %h2= tc('low_stocks')

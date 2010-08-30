@@ -267,9 +267,9 @@ manage_deposits:
   - deposit_delete
   - deposit_payments_dyta
   - deposit_update
+  - depositable_payments_dyta
   - deposits
   - deposits_dyta
-  - embankable_payments_dyta
   - index
   - unvalidated_deposits
   - unvalidated_deposits_dyta

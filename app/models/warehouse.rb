@@ -44,25 +44,20 @@
 #
 
 class Warehouse < ActiveRecord::Base
-  attr_readonly :company_id, :reservor
+  acts_as_tree
+  attr_readonly :company_id, :reservoir
   belongs_to :account
   belongs_to :company
   belongs_to :contact
   belongs_to :establishment
   belongs_to :product
-  has_many :stocks
   has_many :purchase_order_lines
   has_many :sale_order_lines
-  has_many :warehouses
+  has_many :stocks
   has_many :stock_moves
   has_many :stock_transfers
-
-  attr_readonly :company_id
-
-  validates_presence_of :account_id
-
-  acts_as_tree
-
+  has_many :warehouses
+  validates_presence_of :account
 
   def prepare_on_create
     self.reservoir = true if !self.product_id.nil?

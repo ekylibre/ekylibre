@@ -14,7 +14,7 @@
   #deposit
     =formalize do |f|
       -f.title :deposit
-      -f.field :sale_payment_mode, :embankables_account_id, :choices=>{:reflection=>:payments_to_embank_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.financial_payments_to_deposit").value}, :resize=>true
+      -f.field :sale_payment_mode, :depositables_account_id, :choices=>{:reflection=>:payments_to_deposit_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.financial_payments_to_deposit").value}, :resize=>true
 
   #commission
     =formalize do |f|

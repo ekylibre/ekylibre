@@ -75,7 +75,7 @@ class Company < ActiveRecord::Base
   has_many :operation_natures
   has_many :operations
   has_many :operation_lines
-  has_many :preferences
+  has_many :preferences, :conditions=>{:user_id=>nil}
   has_many :prices
   has_many :products, :order=>'active DESC, name'
   has_many :product_categories, :order=>:name
@@ -127,10 +127,10 @@ class Company < ActiveRecord::Base
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
   has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :embankable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit)'
+  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit)'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_embank, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit) AND to_bank_on >= CURRENT_DATE-14'
-  has_many :payments_to_embank_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
+  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit) AND to_bank_on >= CURRENT_DATE-14'
+  has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
@@ -742,7 +742,7 @@ class Company < ActiveRecord::Base
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
       baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :embankables_account_id=>company.account("5112", "Chèques à encaisser").id)
+      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id)
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
 
       company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)

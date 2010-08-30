@@ -31,6 +31,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-filter      { background-image: url(../images/buttons/filter.png); }
 .icon.im-firefox     { background-image: url(../images/buttons/firefox.png); }
 .icon.im-help        { background-image: url(../images/buttons/help.png); }
+.icon.im-horizontal  { background-image: url(../images/buttons/horizontal.png); }
 .icon.im-import      { background-image: url(../images/buttons/left.png); }
 .icon.im-letter      { background-image: url(../images/buttons/letter.png); }
 .icon.im-load        { background-image: url(../images/buttons/load.png); }
@@ -49,6 +50,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-table       { background-image: url(../images/buttons/table.png); }
 .icon.im-unprintable { background-image: url(../images/buttons/unprintable.png); }
 .icon.im-update      { background-image: url(../images/buttons/update.png); }
+.icon.im-vertical    { background-image: url(../images/buttons/vertical.png); }
 
 
 
@@ -220,7 +222,9 @@ html[dir="rtl"] #top #loading { float:left; }
 /* end backslash hack*/
 
 table.invex, table.invisible { border-collapse: collapse; }
-table.invex, table.full-width { width: 100% }
+table.invex { width: 100% }
+table.invex tr td { vertical-align: top;  }
+table.invex tr td.space{ width: 8px }
 
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px; }
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
@@ -329,8 +333,9 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .toolbar:hover { background: #e3c4b5; } /*E5D9DD*/
 .toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .toolbar ul {padding: 0;}
-.toolbar ul li {padding: 4px; float: left;  list-style-type: none; }
-.toolbar ul li:hover { background-color: #F8F0EC; padding:3px; border: 1px solid white}
+.toolbar ul li {padding: 2px 4px; float: left;  list-style-type: none; }
+.toolbar ul li:hover { background-color: #F8F0EC; padding:1px 3px; border: 1px solid white}
+.toolbar ul li a { display: block; }
 .toolbar div { clear: both; }
 
 /*.toolbar ul li a {padding: 14px; }*/
@@ -368,6 +373,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .stepper td { height: 32px; }
 .stepper td.step { text-align:center; background: url(../images/stepper_default.png) bottom; }
 .stepper td.step.active { background: url(../images/stepper_active.png) bottom; }
+.stepper td.transition { width: 8px; }
 .stepper td.transit { background: url(../images/stepper_transit.png) bottom; width:14px; }
 .stepper td.transit.left { background: url(../images/stepper_left.png) bottom; }
 .stepper td.transit.right { background: url(../images/stepper_right.png) bottom; }
@@ -515,3 +521,9 @@ html[dir="rtl"] .major-accounts a, html[dir="rtl"] .major-accounts strong { -moz
 #detail-row { padding: 2px 4px; text-align:center; }
 
 .map { border: 1px solid #999; background: white; }
+
+
+html[dir="ltr"] .toggle { float:right }
+html[dir="rtl"] .toggle { float:right }
+.toggle a.icon { background-position: center center;  height: 18px; }
+.toggle a.icon.current { opacity: 0.5; -ms-filter: "alpha(opacity=50)"; filter : alpha(opacity=50); }

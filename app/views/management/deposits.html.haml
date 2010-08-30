@@ -1,6 +1,6 @@
 =toolbar do |t|
   -for mode in @current_company.sale_payment_modes.find(:all, :order=>:name, :conditions=>{:with_deposit=>true})
-    -count=mode.embankable_payments.size
+    -count=mode.depositable_payments.size
     -if count > 0
       -t.link(tc(:deposit_create, :count=>count, :mode=>mode.name), {:action=>:deposit_create, :mode_id=>mode.id})
 =dyta :deposits

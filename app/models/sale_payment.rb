@@ -30,7 +30,6 @@
 #  created_on       :date             
 #  creator_id       :integer          
 #  deposit_id       :integer          
-#  embanker_id      :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
@@ -41,6 +40,7 @@
 #  payer_id         :integer          
 #  receipt          :text             
 #  received         :boolean          default(TRUE), not null
+#  responsible_id   :integer          
 #  scheduled        :boolean          not null
 #  to_bank_on       :date             default(CURRENT_DATE), not null
 #  updated_at       :datetime         not null
@@ -51,7 +51,7 @@ class SalePayment < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :embanker, :class_name=>User.name
+  belongs_to :responsible, :class_name=>User.name
   belongs_to :deposit
   belongs_to :journal_entry
   belongs_to :payer, :class_name=>Entity.name
@@ -133,7 +133,7 @@ class SalePayment < ActiveRecord::Base
     client_amount   = self.amount - attorney_amount
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.received)) do |record|
-      record.add_debit(label, (self.mode.with_deposit? ? self.mode.embankables_account_id : self.mode.cash.account_id), self.amount)
+      record.add_debit(label, (self.mode.with_deposit? ? self.mode.depositables_account_id : self.mode.cash.account_id), self.amount)
       record.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
       record.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end

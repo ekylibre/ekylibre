@@ -1,38 +1,19 @@
 =purchase_steps
 
-=toolbar do |t|
-  -if @purchase_order.lines.size > 0 
-    -t.print :purchase_order, :p0=>@purchase_order.id 
-%h2=tc :general
-=toolbar do |t|
-  -t.update @purchase_order
-%table
-  %tr
-    %td
-      =evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
-      =evalue @purchase_order, :planned_on
-      =evalue @purchase_order, :comment
-    %td
-      =evalue @purchase_order, :dest_contact, :label=>:address
+=toggle_tag
 
-%h2=tc :purchase_order_lines 
-=toolbar do
-  -link :purchase_order_line_create, :order_id=>@purchase_order.id if @purchase_order.updatable?
-=dyta :purchase_order_lines
+-if @current_user.preference("interface.toggle.orientation", "vertical").value == "vertical"
+  %table.invex
+    %tr
+      %td=render :partial=>"purchase_order"
+      %td.space
+      %td=render :partial=>"purchase_order_lines"
+-else 
+  =render :partial=>"purchase_order"
+  =render :partial=>"purchase_order_lines"
 
-
-%table.dyta
-  %tr.total
-    %th=tc :amount
-    %td=number_to_accountancy(@purchase_order.amount)
-  %tr.important.total
-    %th=tc :amount_with_taxes
-    %td=number_to_accountancy(@purchase_order.amount_with_taxes)
-
-.end
-
-=form_tag do
-  .actions
-    =link_to tg(:previous), :action=>:purchase_orders
-    - unless @purchase_order.shipped
-      =submit_tag(tc('validate'), :action=>:purchase_order_lines, :confirm=>tg(:are_you_sure)) if @purchase_order.lines.size>0
+-if !@purchase_order.shipped and @purchase_order.lines.size>0
+  .end
+  =form_tag do
+    .actions
+      =submit_tag(tc('validate'), :action=>:purchase_order_lines, :confirm=>tg(:are_you_sure))

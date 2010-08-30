@@ -6,8 +6,8 @@
   -f.field :sale_payment, :to_bank_on
   -f.field :sale_payment, :received
   -f.field :sale_payment, :mode_id, :choices=>{:reflection=>:sale_payment_modes}, :new=>{:action=>:sale_payment_mode_create}
-  -f.title :embankable
-  -f.field :sale_payment, :embanker_id, :choices=>{:reflection=>:users}
+  -f.title :depositable
+  -f.field :sale_payment, :responsible_id, :choices=>{:reflection=>:users}
   -f.field :sale_payment, :paid_on
   -f.field :sale_payment, :check_number
   -f.field :sale_payment, :account_number

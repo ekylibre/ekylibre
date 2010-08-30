@@ -1,53 +1,14 @@
 =sale_steps
 
-= toolbar do |t|
-  - if @sale_order.lines.size>0
-    - if (@sale_order.estimate? and @sale_order.deliveries.size <= 0)
-      - t.link :sale_order_confirm, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_confirm)
-    - if (@sale_order.amount_with_taxes > @sale_order.invoiced_amount and @sale_order.deliveries.size <= 0)
-      - t.link :sale_order_invoice, {:id=>@sale_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_to_invoice)
-  -t.print :sale_order, :id=>@sale_order.id
+=toggle_tag
 
-%table.full-width
-  %tr
-    %td{:valign=>:top}
-      %h2=tc :general
-      -if @sale_order.estimate?
-        =toolbar do |t|
-          -t.update @sale_order
-      =evalue @sale_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}, :orient=>:vertical
-      =evalue @sale_order, :responsible, :label=>:full_name, :orient=>:vertical
-      =evalue @sale_order, :nature, :orient=>:vertical
-      =evalue @sale_order, :currency, :orient=>:vertical unless @sale_order.currency == @current_company.default_currency
-      =evalue @sale_order, :comment, :orient=>:vertical unless @sale_order.comment.blank?
-      -#%td
-      =evalue @sale_order, :contact, :label=>:address, :orient=>:vertical
-      =evalue @sale_order, :delivery_contact, :label=>:address, :orient=>:vertical
-      =evalue @sale_order, :invoice_contact, :label=>:address, :orient=>:vertical
-      -if @sale_order.letter_format?
-        =evalue @sale_order, :subject, :orient=>:vertical
-        =evalue @sale_order, :function_title, :orient=>:vertical
-        =evalue @sale_order, :introduction, :field=>:textarea, :orient=>:vertical
-        =evalue @sale_order, :conclusion, :field=>:textarea, :orient=>:vertical
-    %td{:valign=>:top}
-      %h2=tc :sale_order_lines
-      -if @sale_order.estimate?
-        =toolbar do |t|
-          -t.link(:sale_order_line_create, :order_id=>@sale_order.id) 
-          -#t.javascript(:sale_order_line_create, "openDialog('#{url_for(:action=>:sale_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sale_order_lines, :url=>{:action=>:sale_order_lines_dyta}))))}')", :href=>url_for(:action=>:sale_order_line_create)) 
-        =render :partial=>"sale_order_line_row_form"
-      =dyta :sale_order_lines
-      
-      %table.dyta
-        %tr.total
-          %th=tc :amount
-          %td=number_to_accountancy(@sale_order.amount)
-        %tr.important.total
-          %th=tc :amount_with_taxes
-          %td=number_to_accountancy(@sale_order.amount_with_taxes)
-      
-      -if @sale_order.subscriptions.size>0
-        %h2=tc :subscriptions
-        =dyta :sale_order_subscriptions
-      
+-if @current_user.preference("interface.toggle.orientation", "vertical").value == "vertical"
+  %table.invex
+    %tr
+      %td=render :partial=>"sale_order"
+      %td.space
+      %td=render :partial=>"sale_order_lines"
+-else
+  =render :partial=>"sale_order", :locals=>{:columns=>3, :orient=>:horizontal}
+  =render :partial=>"sale_order_lines"
       

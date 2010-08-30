@@ -45,7 +45,7 @@
 
 class PurchaseOrder < ActiveRecord::Base
   acts_as_accountable
-  after_create {|r| r.client.add_event(:purchase_order, r.updater_id)}
+  after_create {|r| r.supplier.add_event(:purchase_order, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
   belongs_to :dest_contact, :class_name=>Contact.name

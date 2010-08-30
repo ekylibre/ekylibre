@@ -35,7 +35,7 @@ module ApplicationHelper
              {:name=>:listings},
              {:name=>:import}
            ] },
-         {:name=>:preferences, :list=>
+         {:name=>:parameters, :list=>
            [ {:name=>:configure},
              {:name=>:users},
              {:name=>:roles},
@@ -62,7 +62,7 @@ module ApplicationHelper
            [ {:name=>:entities_import},
              {:name=>:entities_export}
            ] },
-         {:name=>:preferences, :list=>
+         {:name=>:parameters, :list=>
            [ {:name=>:entity_categories},
              {:name=>:entity_natures},
              {:name=>:entity_link_natures},   
@@ -87,7 +87,7 @@ module ApplicationHelper
              {:name=>:balance},
              {:name=>:general_ledger}
            ] },
-         {:name=>:preferences, :list=>
+         {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:financial_years},
              {:name=>:cashes},
@@ -116,7 +116,7 @@ module ApplicationHelper
             {:name=>:stock_transfers},
             {:name=>:inventories}  
            ] },
-         {:name=>:preferences, :list=>
+         {:name=>:parameters, :list=>
            [ {:name=>:products},
              {:name=>:prices},
              {:name=>:shelves},
@@ -136,7 +136,7 @@ module ApplicationHelper
            [ {:name=>:operations},
              {:name=>:land_parcels}
            ] },
-         {:name=>:preferences, :list=>
+         {:name=>:parameters, :list=>
            [ {:name=>:tools},
              {:name=>:operation_natures}
            ] }
@@ -146,7 +146,7 @@ module ApplicationHelper
      # {:name=>:resources, :list=>
      #   [ {:name=>:human, :list=>
      #       [ {:name=>:employees} ] },
-     #     {:name=>:preferences, :list=>
+     #     {:name=>:parameters, :list=>
      #       [ {:name=>:professions} ] }
      #   ] }
      
@@ -344,6 +344,42 @@ module ApplicationHelper
       return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
     end
   end
+
+
+  def list_evalue(columns=1, &block)
+    le = ListEvalue.new
+    yield le if block_given?
+    code = ""
+    size = le.evalues.size
+    if size > 0
+      column_size = (size.to_f/columns.to_f).ceil
+      for c in 1..columns
+        column = ""
+        for i in 1.. column_size
+          args = le.evalues.shift
+          column += evalue(*args[1]) if args.is_a? Array
+        end
+        code += content_tag(:td, column.html_safe)
+      end
+      code = content_tag(:tr, code.html_safe)
+      code = content_tag(:table, code.html_safe, :class=>"list-evalue")
+    end
+    return code.html_safe
+  end
+
+  class ListEvalue
+    attr_reader :evalues
+    def initialize()
+      @evalues = []
+    end
+
+    def evalue(*args)
+      @evalues << [:evalue, args]
+    end
+
+  end    
+
+
 
 
   #   def sessany

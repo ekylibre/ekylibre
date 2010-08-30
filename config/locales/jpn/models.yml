@@ -185,7 +185,7 @@ jpn:
             closed_on:
               #>end_of_month: '%{attribute} must be an end of month (%{closed_on})'
         journal_entry:
-          #>closed_journal: 'The journal is closed on %{on}. No updates are possible until this date.'
+          #>closed_journal: 'The journal is closed on %{closed_on}. No updates are possible until this date.'
           #>out_of_financial_year: 'The journal record must be recorded in the period of the financial year.'
           #>unbalanced: 'The journal record is unbalanced'
         journal_entry_line:
@@ -468,6 +468,11 @@ jpn:
     #>departments: 'Departments'
     #>deposit: 'Deposit'
     #>deposit_id: 'Deposit'
+    #>depositable_payments: 'Embankable payments'
+    #>depositables_account: 'Embankables account'
+    #>depositables_account_id: 'Embankables account'
+    #>depositer: 'Embanker'
+    #>depositer_id: 'Embanker'
     #>deposits: 'Deposits'
     #>description: 'Description'
     #>dest_contact: 'Dest contact'
@@ -493,11 +498,6 @@ jpn:
     #>duration: 'Duration'
     #>ean13: 'Ean13'
     #>email: 'Email'
-    #>embankable_payments: 'Embankable payments'
-    #>embankables_account: 'Embankables account'
-    #>embankables_account_id: 'Embankables account'
-    #>embanker: 'Embanker'
-    #>embanker_id: 'Embanker'
     #>employed: 'Employed'
     #>employees: 'Employees'
     #>employment: 'Employment'
@@ -707,8 +707,8 @@ jpn:
     #>payment_way: 'Payment way'
     #>payments: 'Payments'
     #>payments_count: 'Payments count'
-    #>payments_to_embank: 'Payments to embank'
-    #>payments_to_embank_accounts: 'Payments to embank accounts'
+    #>payments_to_deposit: 'Payments to deposit'
+    #>payments_to_deposit_accounts: 'Payments to deposit accounts'
     #>period: 'Period'
     #>period_name: 'Period name'
     #>phone: 'Phone'
@@ -1017,11 +1017,11 @@ jpn:
             #>name: 'Transfer'
         sequences:
           management:
+            depositments:
             deposits:
               #>format: 'B[year|4][number|4]'
               #>name: 'Numeration of deposits'
               #>period: 'year'
-            embankments:
             invoices:
               #>format: 'F[year|4][number|6]'
               #>name: 'Numeration of invoices'

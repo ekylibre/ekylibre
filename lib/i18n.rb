@@ -189,15 +189,34 @@ end
 module ActiveModel
   class Errors
 
-    # allow a proc as a user defined message
+#     # allow a proc as a user defined message
+#     def add(attribute, message = nil, options = {})
+#       message ||= :invalid
+#       raise options.inspect if options.frozen?
+      
+#       message = generate_message(attribute, message, options) # if message.is_a?(Symbol)
+#       self[attribute] ||= []
+#       self[attribute] << message
+#     end
+    
+
     def add(attribute, message = nil, options = {})
       message ||= :invalid
-      raise ArgumentError.new("Symbol expected, #{message.inspect} received.") unless options[:forced] or message.is_a?(Symbol)
-      message = generate_message(attribute, message, options) # if message.is_a?(Symbol)
-      self[attribute] ||= []
+      
+      if message.is_a?(Symbol)
+        message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
+      elsif message.is_a?(Proc)
+        message = message.call
+      elsif !options.delete(:forced)
+        raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
+      end
+      
       self[attribute] << message
     end
-    
+
+
+
+
     def add_to_base(message, options = {})
       add(:id, message, options)
     end

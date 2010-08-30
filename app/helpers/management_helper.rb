@@ -36,7 +36,7 @@ module ManagementHelper
         title = link_to(title, :action=>SALE_STEPS[index][:actions][0], :id=>@sale_order.id.to_s)
       end
       # code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
-      code += content_tag(:td, '&nbsp;'.html_safe) if index>0
+      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') if index>0
       code += content_tag(:td, title, :class=>'step'+active.to_s)
       last_active = active
     end
@@ -62,12 +62,12 @@ module ManagementHelper
         title = link_to(title, :action=>PURCHASE_STEPS[index][:actions][0], :id=>@purchase_order.id.to_s)
       end
       # code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
-      code += content_tag(:td, '&nbsp;'.html_safe) if index>0
+      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') if index>0
       code += content_tag(:td, title, :class=>'step'+active.to_s)
       last_active = active
     end
-    code = content_tag(:tr, code)
-    code = content_tag(:table, code, :class=>:stepper)
+    code = content_tag(:tr, code.html_safe)
+    code = content_tag(:table, code.html_safe, :class=>:stepper)
     code.html_safe
   end
 
@@ -78,5 +78,21 @@ module ManagementHelper
     options += @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
     return options
   end
+
+  def toggle_tag(name=:orientation, modes = [:vertical, :horizontal])
+    raise ArgumentError.new("Invalid name") unless name.to_s.match(/^[a-z\_]+$/)
+    pref = @current_user.preference("interface.toggle.#{name}", modes[0].to_s)
+    code = ""
+    for mode in modes
+      # code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}#{' current' if mode.to_s==pref.value}")
+      if mode.to_s==pref.value
+        code += content_tag(:a, nil, :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode} current")
+      else
+        code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}")
+      end
+    end
+    content_tag(:div, code.html_safe, :class=>"toggle tg-#{name}")
+  end
+
 
 end

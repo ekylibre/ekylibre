@@ -32,7 +32,7 @@ class ManagementController < ApplicationController
       @stocks << stock if stock.state == "critic"
     end
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
-    @payments_to_embank = @current_company.payments_to_embank
+    @payments_to_deposit = @current_company.payments_to_deposit
     @deposits_to_lock = @current_company.deposits_to_lock
   end
   
@@ -843,6 +843,11 @@ class ManagementController < ApplicationController
 
   def purchase_order_lines
     return unless @purchase_order = find_and_check(:purchase_order)
+    if params[:orientation]
+      preference = @current_user.preference("interface.toggle.orientation", "vertical")
+      preference.set params[:orientation]
+      preference.save!
+    end
     session[:current_purchase_order_id] = @purchase_order.id
     if request.post?
       @purchase_order.confirm
@@ -1245,13 +1250,13 @@ class ManagementController < ApplicationController
     return unless @sale_order = find_and_check(:sale_order)
     session[:current_sale_order_id] = @sale_order.id
     session[:current_entity_category_id] = @sale_order.client.category_id
-    # @product = @current_company.available_prices.first.product if @current_company.available_prices.first
-    # @warehouses = @current_company.warehouses
-    # @subscription = Subscription.new(:product_id=>@product.id, :company_id=>@current_company.id).compute_period
+    if params[:orientation]
+      preference = @current_user.preference("interface.toggle.orientation", "vertical")
+      preference.set params[:orientation]
+      preference.save!
+    end
     @entity = @sale_order.client
     session[:current_product_id] = @product.id if @product
-    # @warehouse = @current_company.warehouses.first if @current_company.warehouses.size > 0
-    # session[:current_warehouse_id] = @warehouse.id
     @sale_order_line = @sale_order.lines.new
     t3e :client=>@entity.full_name, :sale_order=>@sale_order.number
   end
@@ -1539,7 +1544,7 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:deposit}
     t.column :payments_count
     t.column :name, :through=>:cash, :url=>{:action=>:cash, :controller=>:accountancy}
-    t.column :label, :through=>:embanker
+    t.column :label, :through=>:responsible
     t.column :created_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:deposit}
     t.action :deposit_update, :if=>'RECORD.locked == false'
@@ -1558,21 +1563,21 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:sale_payment}
   end
 
-  dyta(:embankable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  dyta(:depositable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:action=>:entity, :controller=>:relations}
     t.column :bank
     t.column :account_number
     t.column :check_number
     t.column :to_bank_on
-    t.column :label, :through=>:embanker
+    t.column :label, :through=>:responsible
     t.column :amount
-    t.check :to_embank, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.embanker.nil? or RECORD.embanker_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_embank)
+    t.check :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
   end
 
 
   def deposits
-    notify(:no_embankable_payments, :now) if @current_company.embankable_payments.size <= 0
+    notify(:no_depositable_payments, :now) if @current_company.depositable_payments.size <= 0
   end
 
   def deposit
@@ -1588,8 +1593,8 @@ class ManagementController < ApplicationController
       redirect_to :action=>:deposits
       return
     end
-    if mode.embankable_payments.size <= 0
-      notify(:no_payment_to_embank, :warning)
+    if mode.depositable_payments.size <= 0
+      notify(:no_payment_to_deposit, :warning)
       redirect_to :action=>:deposits
       return
     end
@@ -1601,13 +1606,13 @@ class ManagementController < ApplicationController
       @deposit.mode_id = mode.id 
       @deposit.company_id = @current_company.id 
       if saved = @deposit.save
-        payments = params[:embankable_payments].collect{|id, attrs| (attrs[:to_embank].to_i==1 ? id.to_i : nil)}.compact
+        payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
         SalePayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
         @deposit.refresh
       end
       return if save_and_redirect(@deposit, :saved=>saved)
     else
-      @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :embanker_id=>@current_user.id)
+      @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
     end
     t3e :mode=>mode.name
     render_form
@@ -1621,7 +1626,7 @@ class ManagementController < ApplicationController
     if request.post?
       if @deposit.update_attributes(params[:deposit])
         ActiveRecord::Base.transaction do
-          payments = params[:embankable_payments].collect{|id, attrs| (attrs[:to_embank].to_i==1 ? id.to_i : nil)}.compact
+          payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
           SalePayment.update_all({:deposit_id=>nil}, ["company_id=? AND deposit_id=?", @current_company.id, @deposit.id])
           SalePayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
         end
@@ -1673,7 +1678,7 @@ class ManagementController < ApplicationController
     code += "elsif session[:sale_payment_state] == 'waiting'\n"
     code += "  c[0] += ' AND to_bank_on > ?'\n"
     code += "  c << Date.today\n"
-    code += "elsif session[:sale_payment_state] == 'unembanked'\n"
+    code += "elsif session[:sale_payment_state] == 'undeposited'\n"
     code += "  c[0] += ' AND deposit_id IS NULL'\n"
     code += "elsif session[:sale_payment_state] == 'unparted'\n"
     code += "  c[0] += ' AND parts_amount != amount'\n"
@@ -1691,7 +1696,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:mode
     t.column :check_number
     t.column :to_bank_on
-    # t.column :label, :through=>:embanker
+    # t.column :label, :through=>:responsible
     t.column :number, :through=>:deposit, :url=>{:action=>:deposit}
     t.action :sale_payment_update, :if=>"RECORD.deposit.nil\?"
     t.action :sale_payment_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
@@ -1701,7 +1706,7 @@ class ManagementController < ApplicationController
     session[:sale_payment_state] = params[:state]||session[:sale_payment_state]||"all"
     session[:sale_payment_key]   = params[:key]||session[:sale_payment_key]||""
   end
-  manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :embanker_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
+  manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
   dyta(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM sale_payment_parts WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
     t.column :number, :url=>{:action=>:sale_order}
@@ -1816,7 +1821,7 @@ class ManagementController < ApplicationController
     t.column :with_accounting
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
     t.column :with_deposit
-    t.column :label, :through=>:embankables_account, :url=>{:controller=>:accountancy, :action=>:account}
+    t.column :label, :through=>:depositables_account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :with_commission
     t.action :sale_payment_mode_update
     t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"

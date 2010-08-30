@@ -90,9 +90,9 @@ module Ekylibre
       :cash_id => :cash,
       :company_id => :company,
       :creator_id => :user,
-      :embanker_id => :user,
       :journal_entry_id => :journal_entry,
       :mode_id => :sale_payment_mode,
+      :responsible_id => :user,
       :updater_id => :user
     },
     :district => {
@@ -470,10 +470,10 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :deposit_id => :deposit,
-      :embanker_id => :user,
       :journal_entry_id => :journal_entry,
       :mode_id => :sale_payment_mode,
       :payer_id => :entity,
+      :responsible_id => :user,
       :updater_id => :user
     },
     :sale_payment_mode => {
@@ -481,7 +481,7 @@ module Ekylibre
       :commission_account_id => :account,
       :company_id => :company,
       :creator_id => :user,
-      :embankables_account_id => :account,
+      :depositables_account_id => :account,
       :updater_id => :user
     },
     :sale_payment_part => {

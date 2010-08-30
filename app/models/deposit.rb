@@ -28,7 +28,6 @@
 #  created_at       :datetime         not null
 #  created_on       :date             not null
 #  creator_id       :integer          
-#  embanker_id      :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
@@ -36,6 +35,7 @@
 #  mode_id          :integer          not null
 #  number           :string(255)      
 #  payments_count   :integer          default(0), not null
+#  responsible_id   :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
@@ -45,13 +45,13 @@ class Deposit < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  belongs_to :embanker, :class_name=>User.name
+  belongs_to :responsible, :class_name=>User.name
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>SalePaymentMode.name
   has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"number"
   has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
-  validates_presence_of :embanker, :number, :cash
+  validates_presence_of :responsible, :number, :cash
 
   def prepare_on_create
     specific_numeration = self.company.preference("management.deposits.numeration")
@@ -90,15 +90,15 @@ class Deposit < ActiveRecord::Base
   # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
-      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :embanker=>self.embanker.label, :comment=>self.comment)
+      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
       record.add_debit( label, self.cash.account_id, self.amount)
       if self.company.preference("accountancy.accountize.detail_payments_in_deposits").value
         for payment in self.reload.payments
           label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
-          record.add_credit(label, self.mode.embankables_account_id, payment.amount)
+          record.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else
-        record.add_credit(label, self.mode.embankables_account_id, self.amount)
+        record.add_credit(label, self.mode.depositables_account_id, self.amount)
       end
 
     end

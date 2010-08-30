@@ -62,49 +62,6 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
-  create_table "adherents", :primary_key => "id_adh", :force => true do |t|
-    t.integer "id_statut",                        :default => 4,            :null => false
-    t.string  "nom_adh",           :limit => 20,  :default => "",           :null => false
-    t.string  "prenom_adh",        :limit => 20
-    t.string  "pseudo_adh",        :limit => 20
-    t.integer "titre_adh",         :limit => 2,                             :null => false
-    t.date    "ddn_adh",                          :default => '1901-01-01'
-    t.string  "adresse_adh",       :limit => 150, :default => "",           :null => false
-    t.string  "adresse2_adh",      :limit => 150
-    t.string  "cp_adh",            :limit => 10,  :default => "",           :null => false
-    t.string  "ville_adh",         :limit => 50,  :default => "",           :null => false
-    t.string  "pays_adh",          :limit => 50
-    t.string  "tel_adh",           :limit => 20
-    t.string  "gsm_adh",           :limit => 20
-    t.string  "email_adh",         :limit => 150
-    t.string  "url_adh",           :limit => 200
-    t.string  "icq_adh",           :limit => 20
-    t.string  "msn_adh",           :limit => 150
-    t.string  "jabber_adh",        :limit => 150
-    t.text    "info_adh"
-    t.text    "info_public_adh"
-    t.string  "prof_adh",          :limit => 150
-    t.string  "login_adh",         :limit => 20,  :default => "",           :null => false
-    t.string  "mdp_adh",           :limit => 40,  :default => "",           :null => false
-    t.date    "date_crea_adh",                    :default => '1970-01-01', :null => false
-    t.string  "activite_adh",      :limit => nil, :default => "0",          :null => false
-    t.boolean "bool_admin_adh"
-    t.boolean "bool_exempt_adh"
-    t.boolean "bool_display_info"
-    t.date    "date_echeance"
-    t.string  "pref_lang",         :limit => 20,  :default => "french"
-    t.text    "lieu_naissance"
-    t.string  "gpgid",             :limit => 8
-    t.string  "fingerprint",       :limit => 50
-    t.integer "id"
-    t.string  "cp_ville",          :limit => nil
-    t.integer "titre_id"
-    t.string  "full_name",         :limit => nil
-    t.string  "country",           :limit => 2
-  end
-
-  add_index "adherents", ["login_adh"], :name => "adherents_login_adh_key", :unique => true
-
   create_table "areas", :force => true do |t|
     t.string   "postcode",                                    :null => false
     t.string   "name",                                        :null => false
@@ -245,18 +202,6 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
   add_index "contacts", ["entity_id"], :name => "index_contacts_on_entity_id"
   add_index "contacts", ["updated_at"], :name => "index_contacts_on_updated_at"
   add_index "contacts", ["updater_id"], :name => "index_contacts_on_updater_id"
-
-  create_table "cotisations", :primary_key => "id_cotis", :force => true do |t|
-    t.integer "id_adh",           :default => 0,            :null => false
-    t.integer "id_type_cotis",    :default => 0,            :null => false
-    t.float   "montant_cotis"
-    t.text    "info_cotis"
-    t.date    "date_enreg",       :default => '1970-01-01', :null => false
-    t.date    "date_debut_cotis", :default => '1970-01-01', :null => false
-    t.date    "date_fin_cotis",   :default => '1970-01-01', :null => false
-    t.integer "trans_id"
-    t.integer "id"
-  end
 
   create_table "currencies", :force => true do |t|
     t.string   "name",                                                                         :null => false
@@ -409,7 +354,7 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                    :default => 0,     :null => false
     t.boolean  "locked",                                          :default => false, :null => false
-    t.integer  "embanker_id"
+    t.integer  "responsible_id"
     t.string   "number"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
@@ -479,10 +424,10 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir"
-    t.string   "extension"
-    t.integer  "owner_id"
-    t.string   "owner_type"
+    t.string   "subdir",                       :null => false
+    t.string   "extension",                    :null => false
+    t.integer  "owner_id",                     :null => false
+    t.string   "owner_type",                   :null => false
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -1425,6 +1370,7 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.datetime "accounted_at"
     t.decimal  "amount",           :precision => 16, :scale => 2, :default => 0.0,  :null => false
     t.string   "check_number"
+    t.boolean  "delivered",                                       :default => true, :null => false
     t.date     "created_on"
     t.integer  "journal_entry_id"
     t.integer  "responsible_id",                                                    :null => false
@@ -1440,7 +1386,6 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                    :default => 0,    :null => false
-    t.boolean  "delivered",                                       :default => true, :null => false
   end
 
   add_index "purchase_payments", ["created_at"], :name => "index_purchase_payments_on_created_at"
@@ -1645,21 +1590,21 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
   add_index "sale_orders", ["updater_id"], :name => "index_sale_orders_on_updater_id"
 
   create_table "sale_payment_modes", :force => true do |t|
-    t.string   "name",                   :limit => 50,                                                   :null => false
-    t.integer  "embankables_account_id"
-    t.integer  "company_id",                                                                             :null => false
-    t.datetime "created_at",                                                                             :null => false
-    t.datetime "updated_at",                                                                             :null => false
+    t.string   "name",                    :limit => 50,                                                   :null => false
+    t.integer  "depositables_account_id"
+    t.integer  "company_id",                                                                              :null => false
+    t.datetime "created_at",                                                                              :null => false
+    t.datetime "updated_at",                                                                              :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                        :default => 0,     :null => false
+    t.integer  "lock_version",                                                         :default => 0,     :null => false
     t.integer  "cash_id"
-    t.boolean  "published",                                                           :default => false
-    t.boolean  "with_accounting",                                                     :default => false, :null => false
-    t.boolean  "with_deposit",                                                        :default => false, :null => false
-    t.boolean  "with_commission",                                                     :default => false, :null => false
-    t.decimal  "commission_percent",                   :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "commission_amount",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.boolean  "published",                                                            :default => false
+    t.boolean  "with_accounting",                                                      :default => false, :null => false
+    t.boolean  "with_deposit",                                                         :default => false, :null => false
+    t.boolean  "with_commission",                                                      :default => false, :null => false
+    t.decimal  "commission_percent",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "commission_amount",                     :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "commission_account_id"
   end
 
@@ -1707,9 +1652,9 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2010-04-02', :null => false
+    t.date     "to_bank_on",                                      :default => '2009-07-31', :null => false
     t.integer  "deposit_id"
-    t.integer  "embanker_id"
+    t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false
     t.boolean  "received",                                        :default => true,         :null => false
     t.decimal  "parts_amount",     :precision => 16, :scale => 2,                           :null => false
@@ -1759,12 +1704,6 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "statuts", :primary_key => "id_statut", :force => true do |t|
-    t.string  "libelle_statut",  :limit => 20, :default => "", :null => false
-    t.integer "priorite_statut", :limit => 2,                  :null => false
-    t.integer "id"
-  end
 
   create_table "stock_moves", :force => true do |t|
     t.string   "name",                                                                  :null => false
@@ -2056,12 +1995,6 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
   add_index "transports", ["creator_id"], :name => "index_transports_on_creator_id"
   add_index "transports", ["updated_at"], :name => "index_transports_on_updated_at"
   add_index "transports", ["updater_id"], :name => "index_transports_on_updater_id"
-
-  create_table "types_cotisation", :primary_key => "id_type_cotis", :force => true do |t|
-    t.string  "libelle_type_cotis", :limit => 30, :default => "", :null => false
-    t.boolean "cotis_extension"
-    t.integer "id"
-  end
 
   create_table "units", :force => true do |t|
     t.string   "name",         :limit => 8,                                                 :null => false

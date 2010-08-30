@@ -8,7 +8,7 @@
       =evalue @sale_payment, :amount
       =evalue @sale_payment, :parts_amount
       =evalue @sale_payment, :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
-      =evalue @sale_payment, :embanker, :label=>:label
+      =evalue @sale_payment, :responsible, :label=>:label
       =evalue @sale_payment, :deposit, :url=>{:action=>:deposit}
     %td
       =evalue @sale_payment, :mode

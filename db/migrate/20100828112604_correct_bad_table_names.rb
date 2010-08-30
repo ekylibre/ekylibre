@@ -35,52 +35,37 @@ class CorrectBadTableNames < ActiveRecord::Migration
       rename_table old, new
     end
 
-    #rename_table :delivery_modes, :sale_delivery_modes
-    #rename_table :delivery_lines, :sale_delivery_lines
-    #rename_table :deliveries, :sale_deliveries
-    
-    #rename_table :complements, :custom_fields
-    #rename_table :complement_choices, :custom_field_choices
-    #rename_table :complement_data, :custom_field_data
     rename_column :custom_field_choices, :complement_id, :custom_field_id
     rename_column :custom_field_data, :complement_id, :custom_field_id
     
-    #rename_table :embankments, :deposits
     rename_column :sale_payments, :embankment_id, :deposit_id
+    rename_column :sale_payments, :embanker_id, :responsible_id
     rename_column :sale_payment_modes, :with_embankment, :with_deposit
+    rename_column :sale_payment_modes, :embankables_account_id, :depositables_account_id
+    rename_column :deposits, :embanker_id, :responsible_id
+    
 
     # http://en.wikipedia.org/wiki/Legal_entity
     # No changes on entity
 
-    #rename_table :financialyears, :financial_years
     for table in YEAR_REFS
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :financialyear_id, :financial_year_id)
     end
 
-    #rename_table :journal_entries, :journal_entry_lines
-    #rename_table :journal_records, :journal_entries
     rename_column :journal_entry_lines, :record_id, :entry_id
     for table in RECORD_REFS
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :journal_record_id, :journal_entry_id)
     end
     
-    #rename_table :locations, :warehouses
     for table in WAREHOUSE_REFS
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :location_id, :warehouse_id)
       rename_column(table, :second_location_id, :second_warehouse_id) if columns.include?(:second_location_id)
     end
     
-    #rename_table :parameters, :preferences
-
-    #rename_table :shapes, :land_parcels
-
-
-    #rename_table :shelves, :product_categories
     rename_column :products, :shelf_id, :category_id
-
 
     # UPDATE RIGHTS
     for old, new in RIGHTS_UPDATES
@@ -132,48 +117,34 @@ class CorrectBadTableNames < ActiveRecord::Migration
 
 
     rename_column :products, :category_id, :shelf_id
-    #rename_table  :product_categories, :shelves
-
-    #rename_table :land_parcels, :shapes
-
-    #rename_table :preferences, :parameters
 
     for table in WAREHOUSE_REFS.reverse
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :second_warehouse_id, :second_location_id) if columns.include?(:second_warehouse_id)
       rename_column(table, :warehouse_id, :location_id)
     end
-    #rename_table :warehouses, :locations
 
     for table in RECORD_REFS.reverse
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :journal_entry_id, :journal_record_id)
     end
     rename_column :journal_entry_lines, :entry_id, :record_id
-    #rename_table :journal_entries, :journal_records
-    #rename_table :journal_entry_lines, :journal_entries
   
     for table in YEAR_REFS.reverse
       columns = columns(table).collect{|c| c.name.to_sym}
       rename_column(table, :financial_year_id, :financialyear_id)
     end
-    #rename_table :financial_years, :financialyears
     
     # http://en.wikipedia.org/wiki/Legal_entity
     # No changes on entity
+    rename_column :deposits, :responsible_id, :embanker_id
+    rename_column :sale_payment_modes, :depositables_account_id, :embankables_account_id
     rename_column :sale_payment_modes, :with_deposit, :with_embankment
+    rename_column :sale_payments, :responsible_id, :embanker_id
     rename_column :sale_payments, :deposit_id, :embankment_id
-    #rename_table :deposits, :embankments
     
     rename_column :custom_field_data, :custom_field_id, :complement_id
     rename_column :custom_field_choices, :custom_field_id, :complement_id
-    #rename_table :custom_field_data, :complement_data
-    #rename_table :custom_field_choices, :complement_choices
-    #rename_table :custom_fields, :complements
-
-    #rename_table :sale_deliveries, :deliveries
-    #rename_table :sale_delivery_lines, :delivery_lines
-    #rename_table :sale_delivery_modes, :delivery_modes
 
     for new, old in TABLES_UPDATES.reverse
       rename_table old, new

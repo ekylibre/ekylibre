@@ -23,6 +23,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4242">
+      <stop
+         style="stop-color:#001b8f;stop-opacity:1;"
+         offset="0"
+         id="stop4244" />
+      <stop
+         style="stop-color:#1893ff;stop-opacity:1;"
+         offset="1"
+         id="stop4246" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient4661">
       <stop
          style="stop-color:#3c052a;stop-opacity:1;"
@@ -5306,6 +5317,24 @@
        y1="-10.833334"
        x2="70.6875"
        y2="-15.375" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3713"
+       id="linearGradient4226"
+       gradientUnits="userSpaceOnUse"
+       x1="298"
+       y1="56"
+       x2="302"
+       y2="56" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4242"
+       id="linearGradient4248"
+       gradientUnits="userSpaceOnUse"
+       x1="303"
+       y1="56"
+       x2="310"
+       y2="56" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -5315,8 +5344,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="344.67066"
-     inkscape:cy="-41.557799"
+     inkscape:cx="310.60372"
+     inkscape:cy="-78.273352"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -5327,7 +5356,7 @@
      inkscape:window-width="1439"
      inkscape:window-height="825"
      inkscape:window-x="0"
-     inkscape:window-y="25"
+     inkscape:window-y="0"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="vertical"
@@ -5435,7 +5464,7 @@
        id="guide3558" />
     <sodipodi:guide
        orientation="vertical"
-       position="296.1875,-6.9375"
+       position="296,-80.25"
        id="guide7977" />
     <sodipodi:guide
        orientation="vertical"
@@ -7691,5 +7720,54 @@
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
     </g>
+    <g
+       id="g3412"
+       transform="translate(0,32.000001)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/vertical.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/vertical.png"
+         y="48.5"
+         x="296.5"
+         height="14.999999"
+         width="15"
+         id="rect3414"
+         style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#868686;stroke-width:1;stroke-linecap:square;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         rx="2"
+         ry="2" />
+      <rect
+         style="opacity:1;fill:url(#linearGradient4226);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect3420"
+         width="4"
+         height="12"
+         x="298"
+         y="50" />
+      <rect
+         style="opacity:1;fill:url(#linearGradient4248);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect3422"
+         width="7"
+         height="12"
+         x="303"
+         y="50" />
+    </g>
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3412"
+       id="use4216"
+       transform="matrix(0,1,-1,0,408,-216)"
+       width="352"
+       height="16"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/horizontal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3412"
+       id="use4250" />
   </g>
 </svg>

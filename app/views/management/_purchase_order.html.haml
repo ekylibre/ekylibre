@@ -1,0 +1,10 @@
+%h2=tl :general_informations
+=toolbar do |t|
+  -t.update @purchase_order
+  -if @purchase_order.lines.size > 0 
+    -t.print :purchase_order, :p0=>@purchase_order.id 
+
+=evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+=evalue @purchase_order, :planned_on
+=evalue @purchase_order, :comment
+=evalue @purchase_order, :dest_contact, :label=>:address

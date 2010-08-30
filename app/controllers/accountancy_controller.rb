@@ -771,7 +771,7 @@ class AccountancyController < ApplicationController
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
   end
   
-  dyta(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:entries, :order=>"created_at DESC", :per_page=>10) do |t|
+  dyta(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
     t.column :number, :url=>{:action=>:journal_entry}, :children=>:name
     t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
@@ -815,7 +815,7 @@ class AccountancyController < ApplicationController
     session[:current_journal_id] = @journal.id
     journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = "entries" if journal_view.value.nil?
-    if view = ["entries", "records", "mixed", "draft_entries"].detect{|x| params[:view] == x}
+    if view = ["entry_lines", "entries", "mixed", "draft_entry_lines"].detect{|x| params[:view] == x}
       journal_view.value = view
       journal_view.save
     end
@@ -933,7 +933,7 @@ class AccountancyController < ApplicationController
     @journal_entry = @journal.entries.build(params[:journal_entry])
     if request.post?
       @journal_entry_lines = (params[:entries]||{}).values
-      if @journal_entry.save_with_entries(@journal_entry_lines)
+      if @journal_entry.save_with_lines(@journal_entry_lines)
         notify(:journal_entry_has_been_saved, :success, :number=>@journal_entry.number)
         redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id, :draft_mode=>(1 if @journal_entry.draft_mode)
       end
@@ -958,7 +958,7 @@ class AccountancyController < ApplicationController
     if request.post?
       @journal_entry.attributes = params[:journal_entry]
       @journal_entry_lines = (params[:entries]||{}).values
-      if @journal_entry.save_with_entries(@journal_entry_lines)
+      if @journal_entry.save_with_lines(@journal_entry_lines)
         redirect_to_back
       end
     else

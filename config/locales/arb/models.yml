@@ -392,8 +392,8 @@ arb:
         accounted_at: 'تمت محاسبته في' #!
         amount: 'القيمة'
         created_on: 'انشأت يوم' #!
-        embanker: 'المسؤول' #!
-        embanker_id: 'المسؤول' #!
+        depositer: 'المسؤول' #!
+        depositer_id: 'المسؤول' #!
         mode_id: 'نمط دفعة' #!
         paid_on: 'سدد يوم' #!
         parts: 'اجزاء الدفعة' #!
@@ -402,7 +402,7 @@ arb:
       sale_payment_mode:  #!
         cash: 'الخزينة المستخدمة' #!
         cash_id: 'الخزينة المستخدمة' #!
-        embankable_payments: 'دفعات تصرف نقدا' #!
+        depositable_payments: 'دفعات تصرف نقدا' #!
       sale_payment_part:
         accounted_at: 'تمت محاسبته في' #!
         amount: 'قيمة المخصصة للبيع'
@@ -507,58 +507,58 @@ arb:
         #>product_id: 'Contained product'
     errors:
       messages:
-        accepted: '{{attribute}} يجب أن تكون مقبولة'
-        blank: '{{attribute}} لا يمكن أن تكون فارغة'
-        confirmation: '{{attribute}} لا تطابق التثبيت'
-        empty: '{{attribute}} لا يمكن أن تكون فارغة'
-        equal_to: '{{attribute}} يجب أن يكون مساو ل {{count}}'
-        even: '{{attribute}} يجب ان يكون متساو'
-        exclusion: '{{attribute}} محجوز'
-        greater_than: '{{attribute}} يجب ان يكون اكبر من {{count}}'
-        greater_than_or_equal_to: '{{attribute}} يجب ان يكون اكبر او مساو {{count}}'
-        included_in: 'يجب ان تشمل القيمة {{attribute}} بين {{minimum}} و {{maximum}}'
-        inclusion: '{{attribute}} ليست مدرجة بالقائمة'
-        invalid: '{{attribute}} غير متوفر'
-        invalid_at: '{{attribute}} غير_متوفر. {{error}} على مقربة من الخطأ'
-        invalid_token: '{{attribute}} غير متوفر.{{error}} النموذج غير معروف.{{accepted}} النماذج المقبولة هي'
-        less_than: '{{attribute}} يجب ان يكون اقل من {{count}}'
-        less_than_or_equal_to: '{{attribute}} يجب ان يكون اقل او يساو {{count}}'
-        not_a_number: '{{attribute}} ليس برقم'
+        accepted: '%{attribute} يجب أن تكون مقبولة'
+        blank: '%{attribute} لا يمكن أن تكون فارغة'
+        confirmation: '%{attribute} لا تطابق التثبيت'
+        empty: '%{attribute} لا يمكن أن تكون فارغة'
+        equal_to: '%{attribute} يجب أن يكون مساو ل %{count}'
+        even: '%{attribute} يجب ان يكون متساو'
+        exclusion: '%{attribute} محجوز'
+        greater_than: '%{attribute} يجب ان يكون اكبر من %{count}'
+        greater_than_or_equal_to: '%{attribute} يجب ان يكون اكبر او مساو %{count}'
+        included_in: 'يجب ان تشمل القيمة %{attribute} بين %{minimum} و %{maximum}'
+        inclusion: '%{attribute} ليست مدرجة بالقائمة'
+        invalid: '%{attribute} غير متوفر'
+        invalid_at: '%{attribute} غير_متوفر. %{error} على مقربة من الخطأ'
+        invalid_token: '%{attribute} غير متوفر.%{error} النموذج غير معروف.%{accepted} النماذج المقبولة هي'
+        less_than: '%{attribute} يجب ان يكون اقل من %{count}'
+        less_than_or_equal_to: '%{attribute} يجب ان يكون اقل او يساو %{count}'
+        not_a_number: '%{attribute} ليس برقم'
         nothing_to_pay: '.ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك'
-        odd: '{{attribute}} يجب ان يكون فردي'
-        posterior: '{{attribute}}  يجب ان يكون التاريخ في وقت لاحق {{to}}'
+        odd: '%{attribute} يجب ان يكون فردي'
+        posterior: '%{attribute}  يجب ان يكون التاريخ في وقت لاحق %{to}'
         record_has_been_already_validated: 'اصبح السجل متوفرا ولا يمكن التعديل'
         record_invalid: 'Validations failed : %{errors}'
-        taken: '{{attribute}} قد تم اتخاذه مسبقا'
-        too_long: '{{attribute}} طويل جدا ({{count}}الحد الاقصى للاحرف)'
-        too_short: '{{attribute}} قصير جدا ({{count}}الحد الادنى للاحرف)'
-        wrong_length: '{{attribute}} الطول الخاطئ  ( {{count}} يجب ان يكون عدد الاحرف)'
+        taken: '%{attribute} قد تم اتخاذه مسبقا'
+        too_long: '%{attribute} طويل جدا (%{count}الحد الاقصى للاحرف)'
+        too_short: '%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)'
+        wrong_length: '%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)'
       models:
         cash:
           unvalid_bban: '.مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح'
         custom_field_datum:
-          greater_than: '{{field}} اكبر من ({{maximum}} كحد اقصى)'
-          less_than: '{{field}} اقل من ({{minimum}} كحد ادنى)'
-          required: '{{field}} يجب ان يكون معرف'
-          too_long: '{{field}} طويل جدا ({{length}} الاحرف)'
+          greater_than: '%{field} اكبر من (%{maximum} كحد اقصى)'
+          less_than: '%{field} اقل من (%{minimum} كحد ادنى)'
+          required: '%{field} يجب ان يكون معرف'
+          too_long: '%{field} طويل جدا (%{length} الاحرف)'
         deposit:
-          must_be_a_bank_account: '{{field}} يجب ان يكون حساب مصرفي وليس بصندوق نقدي'
+          must_be_a_bank_account: '%{field} يجب ان يكون حساب مصرفي وليس بصندوق نقدي'
         entity:
-          missing_title: '{{attribute}} يجب ان يحتوي على اسم "{{title}}"'
-          nature_do_not_allow_a_first_name: '"{{nature}}" لا يسمح النوع المختار بمعرفة الاسم الاول'
+          missing_title: '%{attribute} يجب ان يحتوي على اسم "%{title}"'
+          nature_do_not_allow_a_first_name: '"%{nature}" لا يسمح النوع المختار بمعرفة الاسم الاول'
         financial_year:
           attributes:
             started_on:
               consecutive: 'يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق'
             stopped_on:
-              end_of_month: '{{attribute}} يجب ان يكون التاريخ في نهاية الشهر'
-          overlap: '{{attribute}} متواجد على قائمة السنة المالية الحالية'
+              end_of_month: '%{attribute} يجب ان يكون التاريخ في نهاية الشهر'
+          overlap: '%{attribute} متواجد على قائمة السنة المالية الحالية'
         journal:
           attributes:
             closed_on:
-              end_of_month: '{{attribute}} يجب ان تطابق تاريخ نهاية الشهر ({{closed_on}})'
+              end_of_month: '%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_on})'
         journal_entry:
-          closed_journal: '.مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ {{on}} تم اغلاق الدفتر اليومي في'
+          closed_journal: '.مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_on} تم اغلاق الدفتر اليومي في'
           out_of_financial_year: 'يجب اغتنام السجل خلال السنة المالية'
           unbalanced: 'ان السجل غير متعادل'
         journal_entry_line:
@@ -567,23 +567,23 @@ arb:
           unvalid_amounts: 'يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا'
         price:
           already_defined: 'قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا'
-          range_overlap: 'تداخل فاصل زمني اخر للكمية (  {{min}} الى  {{max}})'
+          range_overlap: 'تداخل فاصل زمني اخر للكمية (  %{min} الى  %{max})'
         purchase_order_line:
-          serial_already_used_with_an_other_product: '{{attribute}} تم استخدامها لنوع اخر من المنتج من نفس الممون'
-          warehouse_can_not_receive_product: 'لا يمكن للخزينة {{warehouse}} استقبال النتج {{product}}, لاحتوائها منتج سابق {{contained_product}}.'
+          serial_already_used_with_an_other_product: '%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون'
+          warehouse_can_not_receive_product: 'لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}.'
         sale_delivery_line:
-          greater_than_undelivered_quantity: '{{product}} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة ({{maximum}}{{unit}})'
+          greater_than_undelivered_quantity: '%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})'
         sale_order_line:
-          can_not_use_this_tracking: 'لا يمكنك الاستفادة من الحصة {{tracking}}, لان الكمية المطلوبة اكبر من الكمية المتاحة'
+          can_not_use_this_tracking: 'لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة'
           currency_is_not_sale_order_currency: 'لا يطابق سعر عملة المنتج مجموعة البيع'
           error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار'
-          warehouse_can_not_transfer_product: 'لا يمكن تحويل المنتج {{product}} من خزينة {{warehouse}}, لاحتوائه على {{contained_product}}.'
+          warehouse_can_not_transfer_product: 'لا يمكن تحويل المنتج %{product} من خزينة %{warehouse}, لاحتوائه على %{contained_product}.'
         stock:
-          product_cannot_be_in_warehouse: '{{warehouse}} لا يمكن تخزين المنتج في خزينة'
+          product_cannot_be_in_warehouse: '%{warehouse} لا يمكن تخزين المنتج في خزينة'
         stock_transfer:
-          warehouse_can_not_receive_product: 'لا يمكن لموقع التخزين{{warehouse}} استقبال المنتج {{product}}, لاحتوائه مسبقا على منتج {{contained_product}}'
-          warehouse_can_not_transfer_product: 'لا يمكنك تحويل المنتج {{product}} من موقع التخزين {{warehouse}}, لاحتوائه على منتج {{contained_product}}'
-          warehouse_can_not_waste_product: 'لا يمكنك تسجيل الخسارة للمنتج {{product}} من موقع التخزين {{warehouse}}, هذا ويحتوي المنتج {{contained_product}}'
+          warehouse_can_not_receive_product: 'لا يمكن لموقع التخزين%{warehouse} استقبال المنتج %{product}, لاحتوائه مسبقا على منتج %{contained_product}'
+          warehouse_can_not_transfer_product: 'لا يمكنك تحويل المنتج %{product} من موقع التخزين %{warehouse}, لاحتوائه على منتج %{contained_product}'
+          warehouse_can_not_waste_product: 'لا يمكنك تسجيل الخسارة للمنتج %{product} من موقع التخزين %{warehouse}, هذا ويحتوي المنتج %{contained_product}'
           warehouses_can_not_be_identical: 'مواقع التخزين (المغادرة والواصلة) قد لا تكون متطابقة'
         subscription:
           entity_must_be_the_same_as_the_contact_entity: 'يجب على الشخص المشترك ان يكون نفس الشخص المراد الاتصال به'
@@ -594,8 +594,8 @@ arb:
       template:
         body: ':كان هنالك مشاكل مع الحقوا التالية '
         header:
-          one: ' من عملية الحفظ{{model}} يمنع الخطأ هذا'
-          other: '{{count}} تمنع الاخطاء تلك  {{model}} من عملية الحفظ'
+          one: ' من عملية الحفظ%{model} يمنع الخطأ هذا'
+          other: '%{count} تمنع الاخطاء تلك  %{model} من عملية الحفظ'
     models:
       account: 'الحساب'
       account_balance: 'رصيد الحساب'
@@ -846,6 +846,11 @@ arb:
     departments: 'الخدمات'
     deposit: 'الاقتطاع المصرفي'
     deposit_id: 'اقتطاع مرفي'
+    depositable_payments: 'تسديد الدفعات نقدا'
+    depositables_account: 'حساب معلق للدفعات النقدية'
+    depositables_account_id: 'الحساب المعلق اادفعات النقدية'
+    depositer: 'الجابي'
+    depositer_id: 'الجابي'
     deposits: 'اقتطاعات البنك'
     description: 'الوصف'
     dest_contact: 'عنوان التسليم'
@@ -871,11 +876,6 @@ arb:
     duration: 'المدة'
     ean13: 'Ean13'
     email: 'عنوان البريد الالكتروني'
-    embankable_payments: 'تسديد الدفعات نقدا'
-    embankables_account: 'حساب معلق للدفعات النقدية'
-    embankables_account_id: 'الحساب المعلق اادفعات النقدية'
-    embanker: 'الجابي'
-    embanker_id: 'الجابي'
     employed: 'وظف من قبل الشركة'
     employees: 'الموظفين'
     employment: 'الوظيفة'
@@ -1088,8 +1088,8 @@ arb:
     payment_way: 'نمط الدفعة'
     payments: 'الدفعات'
     payments_count: 'عدد الدفعات'
-    payments_to_embank: 'دفعات الصندوق النقدي'
-    payments_to_embank_accounts: 'حساب دفعات الصندوق النقدي'
+    payments_to_deposit: 'دفعات الصندوق النقدي'
+    payments_to_deposit_accounts: 'حساب دفعات الصندوق النقدي'
     period: 'الفترة'
     period_name: 'تواتري'
     phone: 'هاتف'
@@ -1307,9 +1307,9 @@ arb:
     z: 'Z الوضع'
   models:
     account:
-      default_account_name: 'دفتر الحسابات {{number}}' #!
+      default_account_name: 'دفتر الحسابات %{number}' #!
       error_delete: 'لا يمكن حذف حساب لاحتوائه على حسابات فرعية' #!
-      label: '{{number}} - {{name}}'
+      label: '%{number} - %{name}'
     bank_statement:  #!
       error_account_children: '.لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية' #!
       error_journal_statement: 'بيان بنكي محدد لدى الدفتر اليومي' #!
@@ -1509,12 +1509,12 @@ arb:
       error_unvalid_format_for_expression: 'الاسلوب ليس بالشكل الصحيح'
     deposit:
       to_accountancy:
-        one: '[{{resource}} {{number}}] {{count}} دفعة {{mode}} {{comment}}'
-        other: '[{{resource}} {{number}}] {{count}} دفعات اخرى {{mode}} {{comment}}'
-        zero: '[{{resource}} {{number}}] ولا اية دفعة {{mode}} {{comment}}'
-      to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} من {{payer}} ({{payment}})'
+        one: '[%{resource} %{number}] %{count} دفعة %{mode} %{comment}'
+        other: '[%{resource} %{number}] %{count} دفعات اخرى %{mode} %{comment}'
+        zero: '[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}'
+      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})'
     document_template:
-      error_attribute: 'الحقل {{value}} غير صحيح.الاحتمالات هم{{possibilities}}'
+      error_attribute: 'الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}'
       families:
         accountancy: 'المحاسبة'
         company: 'الشركة'
@@ -1554,15 +1554,15 @@ arb:
         sale_order: 'انشاء طلب بيع'
     financial_year:
       code:
-        double: 'EX{{first_year}}/{{second_year}}'
-        single: 'EX{{first_year}}'
+        double: 'EX%{first_year}/%{second_year}'
+        single: 'EX%{first_year}'
     inventory_line:
       inventory: 'عملية الجرد'
     invoice:
       label:
-        credit: 'مدخرات رقم{{number}}'
-        normal: 'فاتورة رقم{{number}}'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} لاجل {{client}} ({{sale_order}})'
+        credit: 'مدخرات رقم%{number}'
+        normal: 'فاتورة رقم%{number}'
+      to_accountancy: '[%{resource} %{number}] %{products} لاجل %{client} (%{sale_order})'
     invoice_line:
       no_product: '[لا لاي منتج]'
     journal:
@@ -1574,7 +1574,7 @@ arb:
         sales: 'المبيعات'
         various: 'عمليات متنوعة'
     journal_entry:
-      record_cancel: 'الانعكاس السلبي للقطعة {{number}} : {{name}}'
+      record_cancel: 'الانعكاس السلبي للقطعة %{number} : %{name}'
     listing_node:
       add_filter: ' اضافة تصفية'
       all_columns: '-- جميع الاعمدة --'
@@ -1609,8 +1609,8 @@ arb:
         nvn: 'غير فارغ'
         vn: 'فارغ'
       comparison:
-        with_value: '{{comparator}} {{value}}'
-        without_value: '{{comparator}}'
+        with_value: '%{comparator} %{value}'
+        without_value: '%{comparator}'
       reflections: 'الجداول المرتبطة'
     observation:
       importances:
@@ -1618,28 +1618,28 @@ arb:
         normal: 'طبيعي'
         notice: 'ضئيل'
     operation_line:
-      density_label: '{{value}} {{product_unit}}/{{area_unit}}'
+      density_label: '%{value} %{product_unit}/%{area_unit}'
       direction_label:
         in: 'الواردة'
         out: 'الصادرة'
     price:
-      label: '{{product}} / {{amount}} {{currency}}'
+      label: '%{product} / %{amount} %{currency}'
       no_range: 'ليس هناك من فترة استراحة'
-      range: 'من {{min}} الى {{max}}'
+      range: 'من %{min} الى %{max}'
     product:
       informations:
-        with_components: '{{product}} ({{unit}}) (ليس هناك من فترة استراحة)'
-        without_components: '{{product}} ({{unit}}) (مادة خام)'
-      label: '{{product}} ({{unit}})'
+        with_components: '%{product} (%{unit}) (ليس هناك من فترة استراحة)'
+        without_components: '%{product} (%{unit}) (مادة خام)'
+      label: '%{product} (%{unit})'
       natures:
         product: 'المنتج'
         service: 'الخدمة'
         subscrip: 'الاشتراك'
         transfer: 'تحويل'
-      stock_move: '{{origin}} ({{code}})'
+      stock_move: '%{origin} (%{code})'
       subscription_label:
-        period: 'اشتراك {{subscription_nature}} ل {{entity}} للعنوان {{address}} من {{start}} الى {{finish}}'
-        quantity: 'الاشتراك {{subscription_nature}} ل {{entity}} للعنوان {{address}} من رقم{{start}} الى رقم{{finish}}'
+        period: 'اشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من %{start} الى %{finish}'
+        quantity: 'الاشتراك %{subscription_nature} ل %{entity} للعنوان %{address} من رقم%{start} الى رقم%{finish}'
       supply_methods:
         buy: 'المشتريات'
         produce: 'الانتاج'
@@ -1652,55 +1652,55 @@ arb:
     product_component:
       of_product: 'نتاج'
     purchase_order:
-      label: '{{supplier}} الى {{address}}'
+      label: '%{supplier} الى %{address}'
       purchase: 'Achat'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} لل {{supplier}}'
+      to_accountancy: '[%{resource} %{number}] %{products} لل %{supplier}'
     purchase_order_line:
-      name: '{{product}} ({{quantity}}{{unit}}) ل {{amount}}{{currency}}/{{unit}}'
-      name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}) لل {{amount}}{{currency}}/{{unit}}'
-      tracking: 'رقم الحصة : {{serial}}'
+      name: '%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}'
+      name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}'
+      tracking: 'رقم الحصة : %{serial}'
     purchase_payment:
-      label: '{{number}}. {{amount}} ({{usable_amount}} restants) من {{date}} بواسطة {{mode}} ل {{payee}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} ل {{payee}} ({{expenses}})'
+      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})'
     purchase_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) وردت من {{attorney}} ل {{supplier}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})'
     sale_delivery:
-      label: '{{client}} الى {{address}}'
+      label: '%{client} الى %{address}'
       natures:  #!
         cip: 'الشحن مع التأمين' #!
         cpt: 'الشحن من غير تأمين' #!
         exw: 'التسليم باليد' #!
-      sale: '{{number}} المبيعات'
+      sale: '%{number} المبيعات'
     sale_delivery_line:
-      sale: '{{number}} المبيعات'
+      sale: '%{number} المبيعات'
     sale_order:
       label:
-        estimate: 'رقم التقدير{{number}}'
-        order: 'رقم الطلب{{number}}'
+        estimate: 'رقم التقدير%{number}'
+        order: 'رقم الطلب%{number}'
       natures:
         estimate: 'التقدير'
         invoice: 'فاتورة'
         order: 'طلب'
-      sale: 'البيع {{number}}'
+      sale: 'البيع %{number}'
       sales_conditions:
-        downpayment: 'دفعة مقدمة {{percent}}% (soit {{amount}}€) يجب ادخال لبدفعة على توقيع التقدير الحالي'
-        validity: 'هذا التقدير وشروطه العامة سارية المفعول لغاية {{expiration}}.'
+        downpayment: 'دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي'
+        validity: 'هذا التقدير وشروطه العامة سارية المفعول لغاية %{expiration}.'
       states:
         A: 'الجاري'
         C: 'منتهي'
         E: 'مقدر'
     sale_order_line:
-      can_not_use_this_tracking: 'لا يمكنك استخدام حصة {{name}}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
+      can_not_use_this_tracking: 'لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
       currency_is_not_sale_order_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
       error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية' #!
-      reduction_on: 'تخفيض بنسبة {{percent}}% على : {{product}}'
-      tracking: 'رقم الحصة : {{serial}}'
-      warehouse_can_not_transfer_product: 'المنتج {{product}} لا يأخذ خارج الخزينة {{warehouse}}, هذا ويحتوي {{contained_product}} '
+      reduction_on: 'تخفيض بنسبة %{percent}% على : %{product}'
+      tracking: 'رقم الحصة : %{serial}'
+      warehouse_can_not_transfer_product: 'المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} '
     sale_payment:
-      label: '{{number}}. {{amount}} ({{usable_amount}} restants) من {{date}} بواسطة {{mode}} ل {{payer}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} ل {{payer}} ({{expenses}})'
+      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})'
     sale_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) وردت من {{attorney}} ل {{client}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})'
     sequence:
       periods:
         cweek: 'اسبوع'
@@ -1709,8 +1709,8 @@ arb:
         year: 'السنة'
     stock:
       label:
-        with_tracking: '{{warehouse}} : الحصة {{tracking}}, {{quantity}}{{unit}} المتوفرة'
-        without_tracking: '{{warehouse}} : غير متتبع, {{quantity}}{{unit}} متاح'
+        with_tracking: '%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة'
+        without_tracking: '%{warehouse} : غير متتبع, %{quantity}%{unit} متاح'
     stock_transfer:
       natures:
         transfer: 'التحويل'
@@ -1739,5 +1739,5 @@ arb:
         towed: 'اقتران'
         tractor: 'تراكتور'
     user:
-      no_right_defined_for_this_part_of_the_application: 'ليس هنالك من حقوق محددة لهذا الجزء من الطلب : {{controller}}/{{action}}'
+      no_right_defined_for_this_part_of_the_application: 'ليس هنالك من حقوق محددة لهذا الجزء من الطلب : %{controller}/%{action}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'ليس هنالك من حقوق محددة لهذا الجزء من الطلب ولهذا المستخدم'

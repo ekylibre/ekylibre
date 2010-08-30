@@ -374,7 +374,7 @@ class RelationsController < ApplicationController
     #t.column :id, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :number, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :paid_on
-    t.column :label, :through=>:embanker
+    t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
     t.column :bank
     # t.column :account_number
@@ -647,7 +647,7 @@ class RelationsController < ApplicationController
     code += "    conditions << session[:mandates][:organization] \n"
     code += "  end \n"
     code += "  unless session[:mandates][:date].blank? \n"
-    code += "    conditions[0] += 'AND (? BETWEEN started_on AND stopped_on)'\n"
+    code += "    conditions[0] += ' AND (? BETWEEN started_on AND stopped_on)'\n"
     code += "    conditions << session[:mandates][:date].to_s \n"
     code += "  end \n"
     code += "end \n"

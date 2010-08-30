@@ -30,7 +30,6 @@
 #  created_on       :date             
 #  creator_id       :integer          
 #  deposit_id       :integer          
-#  embanker_id      :integer          
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
@@ -41,6 +40,7 @@
 #  payer_id         :integer          
 #  receipt          :text             
 #  received         :boolean          default(TRUE), not null
+#  responsible_id   :integer          
 #  scheduled        :boolean          not null
 #  to_bank_on       :date             default(CURRENT_DATE), not null
 #  updated_at       :datetime         not null

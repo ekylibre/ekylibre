@@ -98,7 +98,7 @@ class JournalEntry < ActiveRecord::Base
     return unless self.created_on
     if self.journal
       if self.printed_on <= self.journal.closed_on
-        errors.add_to_base(:closed_journal, :journal=>self.journal.name, :on=>::I18n.localize(self.journal.closed_on))
+        errors.add_to_base(:closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on))
         return false
       end
     end
@@ -155,7 +155,7 @@ class JournalEntry < ActiveRecord::Base
   # Create counter-entry_lines
   def cancel
     entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?)
-    ActiveEntry::Base.transaction do
+    ActiveRecord::Base.transaction do
       entry.save!
       for entry_line in self.lines
         entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>entry_line.name), entry_line.account, (entry_line.debit-entry_line.credit).abs, :credit=>(entry_line.debit>0))
@@ -197,8 +197,8 @@ class JournalEntry < ActiveRecord::Base
     self.update_attribute(:closed, false)
   end
 
-  def save_with_entry_lines(entry_lines)
-    ActiveEntry::Base.transaction do
+  def save_with_lines(entry_lines)
+    ActiveRecord::Base.transaction do
       saved = self.save
       self.lines.clear
       entry_lines.each_index do |index|
@@ -215,7 +215,7 @@ class JournalEntry < ActiveRecord::Base
       if saved
         return true
       else
-        raise ActiveEntry::Rollback
+        raise ActiveRecord::Rollback
       end
     end
     return false

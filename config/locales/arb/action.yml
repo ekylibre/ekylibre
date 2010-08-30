@@ -31,6 +31,7 @@ arb:
       journal_close: 'اغلاق {{name}}'
       journal_create: 'انشاء دفتر يومي جديد'
       journal_entry_create: 'اضافة سجل'
+      #>journal_entry_line_create: 'Add a new entry line'
       journal_record: 'رقم سجل المحاسبة{{number}} من {{created_on}}'
       journal_record_create: 'اضافة سجل'
       journal_record_update: 'تعديل السجل رقم {{number}} من {{created_on}}'
@@ -296,7 +297,7 @@ arb:
     account_tabbox:
       children: 'الحسابات الفرعية'
       entities: 'أشخاص'
-      journal_entries: 'ادخالات الدفاتر اليومية'
+      journal_entry_lines: 'ادخالات الدفاتر اليومية'
     account_tangible_fixed_assets: 'موجودات ثابتة وملموسة'
     account_untangible_fixed_assets: 'موجودات ثابتة وغير ملموسة'
     account_update: 'تعديل الحسابات'
@@ -393,7 +394,7 @@ arb:
     #>client_informations: 'Client informations'
     #>client_phone: 'Phone'
     close: 'اغلاق الدفتر اليومي'
-    #>close_financial_year: 'Close period'
+    #>close_financial_year: 'Close financial year'
     #>close_journal: 'Close the journal'
     closed: 'مغلق'
     code: 'الرمز' #!
@@ -463,6 +464,7 @@ arb:
       other: 'يقدم بيانا : {{mode}} ({{count}}دفعات اخرى)'
       zero: 'يقدم بيانا : {{mode}} (ولا دفعة)'
     deposit_update: 'تعديل اقتطاعات البنك'
+    depositable: 'تكملة المعلومات'
     description: 'الوصف'
     details: 'معلومات اضافية'
     discount: 'الخصم (%)'
@@ -487,7 +489,6 @@ arb:
     edit: 'تعديل'
     ekylibre: 'www.ekylibre.org'
     #>email: 'Email:'
-    embankable: 'تكملة المعلومات'
     employee_name: 'الموظف'
     end: 'لغاية'
     entities_export: 'CSV جميع الصادرات ضمن'
@@ -611,9 +612,9 @@ arb:
     journal_update: 'تعديل الفاتر اليومية'
     journal_view:
       draft_entry_lines: 'المسودات'
-      entries: 'الادخالات'
+      entries: 'العينات'
+      entry_lines: 'الادخالات'
       mixed: 'دمج السجلات'
-      records: 'العينات'
     journals: 'الدفاتر اليومية'
     land_parcel_create: 'انشاء نظام جديد' #!
     land_parcel_name: 'نظام'
@@ -726,9 +727,9 @@ arb:
       other: '{{count}} تم انجاز اعمال اخرى'
       zero: 'لم يتم انجاز اي عمل'
     nb_payments:
-      #>one: '1 sale payment to embank'
-      #>other: '%{count} sale payments to embank'
-      #>zero: 'No sale payments to embank'
+      #>one: '1 sale payment to deposit'
+      #>other: '%{count} sale payments to deposit'
+      #>zero: 'No sale payments to deposit'
     nb_products:
       one: 'تم تسجيل منتج واحد'
       other: '{{count}} تم تسجيل منتجات اخرى'
@@ -894,7 +895,7 @@ arb:
       #>all: 'All'
       #>undelivered: 'Undelivered'
       #>unparted: 'Unused'
-      #>waiting: 'To embank later'
+      #>waiting: 'To deposit later'
     purchase_price_create: 'انشاء سعر الشراء'
     purchase_steps:
       active: 'انشاء الصفقة'
@@ -967,10 +968,10 @@ arb:
     #>sale_payments: 'Sale payments'
     sale_payments_states:
       #>all: 'All'
-      #>unembanked: 'Unembanked'
+      #>undeposited: 'Undeposited'
       #>unparted: 'Unused'
       #>unreceived: 'Unreceived'
-      #>waiting: 'To embank later'
+      #>waiting: 'To deposit later'
     sale_price_create: 'انشاء سعر البيع'
     sale_steps:
       deliveries: 'جدولة عمليات التسليم'
@@ -1045,7 +1046,7 @@ arb:
     #>to_bank_on: 'To bank on'
     to_date: 'الى تاريخ'
     to_deliver: 'للتسليم'
-    #>to_embank: 'To embank'
+    #>to_deposit: 'To deposit'
     #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_create: 'اضافة مادة' #!
     tool_update: 'تعديل المادة'
@@ -1068,7 +1069,7 @@ arb:
       journal: 'الدفتر اليومي المطلوب غير متوفر ({{value}})' #!
       product: 'المنتج المطلوب غير متوفر' #!
     undelivered: 'لم يتم التسليم'
-    unembanked: 'لم يتم اي اقتطاع بنكي'
+    undeposited: 'لم يتم اي اقتطاع بنكي'
     uninvoiced_amount: 'قيمة غير مفوترة'
     unit: 'الوحدة'
     unit_create: 'اضافة وحدة قياس جديدة' #!
@@ -1205,11 +1206,11 @@ arb:
     no_balance_template: 'ليس هناك من نموذج لوثيقة الرصيد'
     no_closable_financial_year: 'ليس لديك اي سنة مالية قابلة للاغلاق '
     no_closable_journal: 'ليس باستطاعتك اغلاق هذا الدفتر اليومي'
-    no_embankable_payments: 'لا يوجد دفعات لتقديمها للبنك'
+    no_depositable_payments: 'لا يوجد دفعات لتقديمها للبنك'
     no_existing_mandates: 'ليس هنالك من تفويض مسجل في الوقت الحاضر'
     no_financial_year: 'لم يتم تسجيل اي سنة مالية'
     no_lines_found: 'لم يتم اضافة اي منتج الى الطلب'
-    no_payment_to_embank: 'ليس هنالك من دفعات للحصر'
+    no_payment_to_deposit: 'ليس هنالك من دفعات للحصر'
     no_reopenable_journal: 'ليس بامكانك اعادة فتح الدفاتر اليومية'
     no_stocks: 'ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار "ادارة الاسهم" في خصائص منتجاتك'
     no_template_journal: 'ليس هنالك من نموذج للدفتر اليومي'
@@ -1254,7 +1255,7 @@ arb:
         charges: 'حسابات الحمولة'
         financial_banks: 'الحسابات المصرفية'
         financial_cashes: 'حسابات الصندوق النقدي'
-        financial_payments_to_embank: 'قواعد الدفعات النقدية'
+        financial_payments_to_deposit: 'قواعد الدفعات النقدية'
         products: 'حسابات المنتج'
         taxes_acquisition: 'حساب الضرائب المكتسبة داخليا'
         taxes_assimilated: 'حسابات الضرائب المماثلة'
