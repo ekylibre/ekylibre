@@ -1,7 +1,5 @@
-GIT
-  remote: git://github.com/rails/exception_notification.git
-  revision: 48cf433
-  branch: master
+PATH
+  remote: vendor/gems/exception_notification
   specs:
     exception_notification (1.0.0)
 
