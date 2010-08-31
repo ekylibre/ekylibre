@@ -558,9 +558,9 @@ namespace :clean do
     end
     warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
 
-    # Parameters
-    to_translate += hash_count(::I18n.translate("parameters"))
-    translation += "  parameters:"+hash_to_yaml(::I18n.translate("parameters"), 2)
+    # Preferences
+    to_translate += hash_count(::I18n.translate("preferences"))
+    translation += "  preferences:"+hash_to_yaml(::I18n.translate("preferences"), 2)
 
     File.open(locale_dir.join("action.yml"), "wb") do |file|
       file.write(translation)

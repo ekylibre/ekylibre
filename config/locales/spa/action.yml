@@ -1199,7 +1199,7 @@ spa:
     you_must_have_an_email_column: 'Se debe terner una columna Correos Electronicos en su extracción'
     you_must_select_a_file_to_import: 'Se debe seleccionar un fichero para importar'
     you_will_lose_all_your_current_data: 'Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?'
-  parameters:
+  preferences:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'

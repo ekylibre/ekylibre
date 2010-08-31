@@ -1243,7 +1243,7 @@ arb:
     you_must_have_an_email_column: 'يجب ان يكون لديك عمود خاص بالبريد الالكتروني'
     you_must_select_a_file_to_import: 'يجب عليك اختيار ملف للاستيراد'
     you_will_lose_all_your_current_data: 'اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟'
-  parameters:
+  preferences:
     accountancy:
       accountize:
         automatic: 'تنشيط موازين بيانات المحاسبة تلقائيا'

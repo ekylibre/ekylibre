@@ -418,7 +418,7 @@ class DocumentTemplate < ActiveRecord::Base
       end
 
       # Encapsulation si condition
-      code = "if #{element.attributes['if'].gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if'] and mode != :debug
+      code = "if #{element.attributes['if'].to_s.gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if'] and mode != :debug
       code += "\n"
       code.gsub(/^/, '  ')
     end

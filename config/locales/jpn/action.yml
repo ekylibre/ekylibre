@@ -1158,7 +1158,7 @@ jpn:
     #>you_must_have_an_email_column: 'You must have an email address in your extraction'
     #>you_must_select_a_file_to_import: 'You must select a file to import'
     #>you_will_lose_all_your_current_data: 'If you continue, you will lose all your data being entered. Would you continue?'
-  parameters:
+  preferences:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'
@@ -1191,7 +1191,6 @@ jpn:
     general:
       #>language: 'Default language'
     management:
-      depositments:
       deposits:
         #>days_before_warning_undone: 'Number of days before warning for receipts not made'
         #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
