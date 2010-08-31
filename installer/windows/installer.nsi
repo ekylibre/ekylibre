@@ -11,6 +11,7 @@ SetCompressor /SOLID /FINAL zlib
    !include "EnvVarUpdate.nsh"
    !include "StrRep.nsh"
    !include "ReplaceInFile.nsh"
+   !include "InstallOptions.nsh"
 
 ;--------------------------------
 ;General
@@ -101,6 +102,7 @@ SetCompressor /SOLID /FINAL zlib
   !insertmacro MUI_LANGUAGE "French"
 
 ;--------------------------------
+
 
 ;Sections
 Var password
@@ -274,4 +276,16 @@ Section "Uninstall"
 
   DetailPrint "Les fichiers ont été conservés dans $InstApp"
 SectionEnd
+
+
+Function selectDatabase
+  !insertmacro INSTALLOPTIONS_DISPLAY "select_database.ini"
+FunctionEnd
+
+
+Function .onInit
+  !insertmacro INSTALLOPTIONS_EXTRACT "select_database.ini"
+FunctionEnd
+
+
  

@@ -424,10 +424,10 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir",                       :null => false
-    t.string   "extension",                    :null => false
-    t.integer  "owner_id",                     :null => false
-    t.string   "owner_type",                   :null => false
+    t.string   "subdir"
+    t.string   "extension"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -815,6 +815,7 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
   end
 
   add_index "journal_entries", ["company_id"], :name => "index_journal_records_on_company_id"
+  add_index "journal_entries", ["company_id"], :name => "index_journal_records_on_status_and_company_id"
   add_index "journal_entries", ["created_at"], :name => "index_journal_records_on_created_at"
   add_index "journal_entries", ["created_on", "company_id"], :name => "index_journal_records_on_created_on_and_company_id"
   add_index "journal_entries", ["creator_id"], :name => "index_journal_records_on_creator_id"
@@ -1652,7 +1653,7 @@ ActiveRecord::Schema.define(:version => 20100828112604) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2009-07-31', :null => false
+    t.date     "to_bank_on",                                      :default => '2010-08-16', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false

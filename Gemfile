@@ -20,3 +20,5 @@ end
 gem 'pg'
 gem 'mysql'
 
+# gem 'ruby-odbc'
+# gem 'activerecord-sqlserver-adapter'
