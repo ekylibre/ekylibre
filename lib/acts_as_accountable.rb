@@ -14,7 +14,8 @@ module ActiveRecord
           configuration = { :column => "accounted_at", :reference=>"journal_entry",  :callbacks=>ActiveRecord::Acts::Accountable::actions }
           configuration.update(options) if options.is_a?(Hash)
 
-          if ActiveRecord::Base.connection.adapter_name != "sqlserver"
+          
+          unless ActiveRecord::Base.connection.adapter_name.lower == "sqlserver"
             raise Exception.new("journal_entry_id is needed for #{self.name}.acts_as_accountable") unless columns_hash["journal_entry_id"]
             raise Exception.new("accounted_at is needed for #{self.name}.acts_as_accountable") unless columns_hash["accounted_at"]
           end

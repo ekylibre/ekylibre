@@ -10,7 +10,11 @@ class AddSaleInformations < ActiveRecord::Migration
     add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
     
     execute "UPDATE entity_categories SET code="+substr("REPLACE(code, ' ', '_')", 1, 8)+" WHERE "+length(trim("COALESCE(code, '')"))+" <= 0"
-    execute "UPDATE invoices SET created_on = CAST(created_at AS DATE) WHERE created_on IS NULL"    
+    if connection.adapter_name.lower == "sqlserver"
+      execute "UPDATE invoices SET created_on = created_at WHERE created_on IS NULL" 
+    else
+      execute "UPDATE invoices SET created_on = CAST(created_at AS DATE) WHERE created_on IS NULL" 
+    end
     execute "UPDATE payment_modes SET mode=CASE WHEN LOWER(name) LIKE '%ch%' THEN 'check' ELSE 'other' END"    
   end
   

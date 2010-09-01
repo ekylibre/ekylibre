@@ -200,7 +200,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :invoices, :journal_record_id, :integer
     
     add_column :journal_entries, :closed, :boolean, :null=>false, :default=>false
-    execute "UPDATE journal_entries SET closed = (editable=#{quoted_false})"
+    execute "UPDATE journal_entries SET closed = "+not_boolean("editable")
     remove_column :journal_entries, :editable
     remove_column :journal_entries, :currency_rate
     remove_column :journal_entries, :currency_id
@@ -455,7 +455,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0
     add_column :journal_entries, :editable, :boolean, :null=>false, :default=>true
     if (currencies=select_all("SELECT * FROM currencies WHERE by_default")).size>0
-      execute "UPDATE journal_entries SET editable = NOT closed, currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END, currency_rate=1"
+      execute "UPDATE journal_entries SET editable = "+not_boolean("closed")+", currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END, currency_rate=1"
     end
     remove_column :journal_entries, :closed
   

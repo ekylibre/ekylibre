@@ -31,7 +31,7 @@ class ChangeAndUpdateSaleTables < ActiveRecord::Migration
     rename_column :embankments, :payments_number, :payments_count
     rename_column :entities, :payments_number, :authorized_payments_count
 
-    execute "UPDATE payment_parts SET downpayment=#{quoted_true} WHERE payment_id IN (SELECT id FROM payments WHERE downpayment)=#{quoted_true}"
+    execute "UPDATE payment_parts SET downpayment=#{quoted_true} WHERE payment_id IN (SELECT id FROM payments WHERE downpayment=#{quoted_true})"
 
     remove_column :payments, :downpayment
     remove_column :products, :amount

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -14,7 +13,7 @@
    height="200"
    id="svg2548"
    sodipodi:version="0.32"
-   inkscape:version="0.47pre4 r22446"
+   inkscape:version="0.46"
    version="1.0"
    sodipodi:docname="ekylibre.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
@@ -2093,6 +2092,26 @@
        id="linearGradient6494"
        xlink:href="#linearGradient6406-0"
        inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6069"
+       id="linearGradient2887"
+       gradientUnits="userSpaceOnUse"
+       x1="1126.9286"
+       y1="931.29071"
+       x2="1194.1786"
+       y2="931.29071"
+       gradientTransform="translate(-2341.4836,104.1875)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6135"
+       id="linearGradient2889"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.0000008,0,0,1,1496.0541,411.66573)"
+       x1="220.74901"
+       y1="603.625"
+       x2="317.75"
+       y2="603.625" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2120,7 +2139,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2743,5 +2762,47 @@
        height="86"
        x="1205.9286"
        y="761.29071" />
+    <rect
+       style="fill:url(#linearGradient2887);fill-opacity:1;stroke:none"
+       id="rect2875"
+       width="150.00012"
+       height="57"
+       x="-1239.5541"
+       y="978.47821"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/installer/windows/images/header_rtl.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       transform="scale(-1,1)" />
+    <g
+       transform="matrix(0.5937505,0,0,0.59375,541.81469,573.4423)"
+       id="g2877">
+      <rect
+         inkscape:export-ydpi="45"
+         inkscape:export-xdpi="45"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/installer/install.png"
+         y="682.16577"
+         x="926.71802"
+         height="96"
+         width="92.210526"
+         id="rect2879"
+         style="fill:#ffffff;fill-opacity:1;stroke:none" />
+      <path
+         inkscape:export-ydpi="30"
+         inkscape:export-xdpi="30"
+         inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/installer/install_32x32.png"
+         sodipodi:nodetypes="cccccccccccccccccccccccccccc"
+         id="path2881"
+         d="M 922.92853,682.16579 L 922.92853,778.16571 L 1018.9285,778.16571 L 1018.9285,682.16579 L 922.92853,682.16579 z M 928.92853,688.16579 L 1012.9285,688.16579 L 1012.9285,772.16571 L 928.92853,772.16571 L 928.92853,688.16579 z M 940.92855,700.16594 L 940.92855,712.16567 L 940.92855,724.16567 L 940.92855,736.16571 L 940.92855,748.16571 L 940.92855,760.16571 L 1000.9285,760.16571 L 1000.9285,748.16571 L 952.92849,748.16571 L 952.92849,736.16571 L 1000.9285,736.16571 L 1000.9285,724.16567 L 952.92849,724.16567 L 952.92849,712.16567 L 1000.9285,712.16567 L 1000.9285,700.16594 L 952.92849,700.16594 L 940.92855,700.16594 z"
+         style="fill:#79a7e2;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    </g>
+    <path
+       style="fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter6193)"
+       d="M 1116.5541,1004.4157 L 1190.3041,999.91573 L 1141.0541,1088.6657 C 1141.0541,1088.6657 1094.0541,1076.9157 1094.3041,1075.9157 C 1094.5541,1074.9157 1116.0541,1005.1657 1116.5541,1004.4157 z"
+       id="path2883"
+       transform="matrix(-1.0000008,0,0,1,2369.1089,-29)" />
+    <path
+       style="fill:url(#linearGradient2889);fill-opacity:1;stroke:none"
+       d="M 1252.554,975.4157 L 1178.8039,970.91573 L 1228.0539,1059.6657 C 1228.0539,1059.6657 1275.0539,1047.9157 1274.8039,1046.9157 C 1274.554,1045.9157 1253.0539,976.1657 1252.554,975.4157 z"
+       id="path2885" />
   </g>
 </svg>

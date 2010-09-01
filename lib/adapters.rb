@@ -17,6 +17,10 @@ module ActiveRecord
       def concatenate(*strings)
         return strings.join("||")
       end
+
+      def not_boolean(string)
+        "NOT (#{string})"
+      end
     end
 
 
@@ -35,6 +39,10 @@ module ActiveRecord
 
       def concatenate(*strings)
         return strings.join("+")
+      end
+
+      def not_boolean(string)
+        "CASE WHEN (#{string})=#{quoted_true} THEN #{quoted_false} ELSE #{quoted_true} END"
       end
     end
 
