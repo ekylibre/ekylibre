@@ -49,7 +49,7 @@ class FinancialYear < ActiveRecord::Base
     end
     self.code.upper!
     if self.company
-      while self.company.financial_years.count(:conditions=>["code=? AND id!=?",self.code, self.id||0]) > 0 do
+      while self.company.financial_years.count(:conditions=>["code=? AND id!=?", self.code, self.id||0]) > 0 do
         self.code.succ!
       end
     end

@@ -55,6 +55,7 @@
 require "digest/sha2"
 
 class User < ActiveRecord::Base
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :department
   belongs_to :establishment
@@ -75,13 +76,12 @@ class User < ActiveRecord::Base
   # cattr_accessor :current_user
   attr_accessor :password_confirmation, :old_password
   attr_protected :hashed_password, :salt, :locked, :rights
-  attr_readonly :company_id
 
   # Needed to stamp all records
   model_stamper
 
   class << self
-    def rights_file; Rails.root.join("config", "rights.yml"); end
+    def rights_file; Ekylibre::Application.root.join("config", "rights.yml"); end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end
@@ -93,6 +93,7 @@ class User < ActiveRecord::Base
     if self.company
       self.language = self.company.preference('general.language').value if self.language.blank?
     end
+    self.reduction_percent ||= 0
     self.admin = true if self.rights.nil?
     self.rights_array=self.rights_array # Clean the rights
   end
@@ -202,7 +203,7 @@ class User < ActiveRecord::Base
     Digest::SHA256.hexdigest(string_to_hash)
   end
 
-  def self.generate_password(password_length=8, mode=:complex)
+  def self.generate_password(password_length=8, mode=:normal)
     return '' if password_length.blank? or password_length<1
     case mode
       when :dummy  : letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)

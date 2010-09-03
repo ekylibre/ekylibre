@@ -76,13 +76,15 @@ body { background: #C9D7F1; }
 
 #wrap { border-top: 1px solid #95b0e4; background: #C9D7F1; }
 
+#legals { text-align: center; color: #047; font-size: 11px; padding: 4px; }
+
 .dialog {  background: #C9D7F1; }
 .dialog .wrap { border: 8px solid #95b0e4; }
 .dialog .main { border-top: 1px solid #95b0e4; padding: 0 8px 8px 8px; }
 .fields { background: url(../images/shadow-top.png) repeat-x bottom; overflow: auto; }
 
 .end { height: 8px; }
-.main { padding: 0 8px 8px 8px; } /*  overflow: visible; */
+.main { padding: 0 8px; } /*  overflow: visible; */
 html[dir="ltr"] #main.with-side { padding-left: 0px; }
 html[dir="rtl"] #main.with-side { padding-right: 0px; }
 html[dir="ltr"] #main.with-help { padding-right: 0px; }
@@ -386,7 +388,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 
 
 .login { width:512px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000; }
-.login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px; }
+.login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
 .login p { margin:8px; }
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto; }

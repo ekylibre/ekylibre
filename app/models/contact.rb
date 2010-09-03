@@ -74,7 +74,7 @@ class Contact < ActiveRecord::Base
       if self.line_6.blank?
         self.area_id = nil
       else
-        self.area = self.company.areas.find(:first, :conditions=>["LOWER(TRIM(name)) LIKE ?", self.line_6.lower])
+        self.area = self.company.areas.find(:first, :conditions=>["LOWER("+self.class.connection.trim("name")+") LIKE ?", self.line_6.lower])
         self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
       end
     end

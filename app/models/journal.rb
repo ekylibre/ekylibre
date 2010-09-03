@@ -55,11 +55,11 @@ class Journal < ActiveRecord::Base
   def prepare
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
-    if self.closed_on == Date.civil(1970,12,31) 
+    if self.closed_on.blank?
       if fy = self.company.financial_years.first
         self.closed_on = fy.started_on-1 
       else
-        self.closed_on = Date.civil(1970,12,31) 
+        self.closed_on = Date.civil(1970, 12, 31)
       end
     end
     self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
@@ -72,7 +72,7 @@ class Journal < ActiveRecord::Base
       valid = true if self.closed_on == financial_year.started_on-1
     end
     unless valid
-      errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on != self.closed_on.end_of_month
+      errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
   end
 

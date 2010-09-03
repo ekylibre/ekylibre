@@ -75,7 +75,6 @@ class CompanyController < ApplicationController
 
 
   def about
-    File.open("#{Rails.root.to_s}/VERSION") {|f| @version = f.read.split(',')}
     @properties = []
 #     begin
 #       @properties = Rails::Info.properties.dup
@@ -83,7 +82,7 @@ class CompanyController < ApplicationController
 #       @properties = []
 #     end
 #     @properties.reverse!
-    @properties.insert(0, ["Ekylibre version", @version.reverse.join(' / ')])
+    @properties.insert(0, ["Ekylibre version", Ekylibre.version])
   end
 
   def help

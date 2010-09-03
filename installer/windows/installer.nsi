@@ -104,12 +104,13 @@ Var Backup
 Var DataDir
 
 InstType "Typical"
+InstType "PostgreSQL Configuration (Expert)"
 InstType "SQL Server Configuration (Expert)"
 InstType "Only Ekylibre (Expert)"
 InstType /NOCUSTOM
 
 Section "Ekylibre" sec_ekylibre
-  SectionIn 1 2 3
+  ; SectionIn 1 2 3 4
   Call initEnv
   
   ; Suppression des anciens services
@@ -137,7 +138,7 @@ Section "Ekylibre" sec_ekylibre
   ${EndIf}
 
   ; Set Ekylibre Service
-  SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\srvany.exe"' "EkyDatabase" "" ""
+  SimpleSC::InstallService "EkyService" "${APP} WS" "16" "2"  '"$InstApp\ruby\bin\srvany.exe"' "" "" ""
   Pop $0
   ${If} $0 <> 0
     MessageBox MB_OK "Installation du service EkyService impossible"
@@ -208,6 +209,7 @@ Section "MySQL Installation" sec_mysql
     MessageBox MB_OK "Installation du service EkyDatabase impossible"
   ${EndIf}
   SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
   SimpleSC::StartService "EkyDatabase" ""
 
   ; (Ré-)Initialisation
@@ -225,8 +227,21 @@ Section "MySQL Installation" sec_mysql
 SectionEnd
 
 
-Section "SQL Server Configuration" sec_sqlserver
+Section "PostgreSQL Configuration" sec_sqlserver
   SectionIn 2
+  Call initEnv
+    
+  Delete $InstApp\apps\ekylibre\config\database.yml
+  Rename $InstApp\apps\ekylibre\config\database.postgresql.yml $InstApp\apps\ekylibre\config\database.yml
+
+  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
+  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
+  
+  DetailPrint "Configure database.yml before launch migration"
+SectionEnd
+
+Section "SQL Server Configuration" sec_sqlserver
+  SectionIn 3
   Call initEnv
 
   FileOpen $1 "$InstApp\apps\ekylibre\Gemfile" "a"
@@ -250,7 +265,7 @@ SectionGroupEnd
 
 
 Section "-Finish installation" sec_finish
-  SectionIn 1 2 3
+  ; SectionIn 1 2 3
   Call initEnv
   
   ; Write the installation path and uninstall keys into the registry
@@ -283,7 +298,7 @@ Section "-Finish installation" sec_finish
 SectionEnd
 
 Section "Add Expert Shortcuts" sec_shorcuts
-  SectionIn 2 3
+  SectionIn 2 3 4
   Call initEnv  
   CreateDirectory "$SMPROGRAMS\${APP}\Expert"
   CreateShortCut "$SMPROGRAMS\${APP}\Expert\Launch migration.lnk" "$InstApp\migrate.cmd"

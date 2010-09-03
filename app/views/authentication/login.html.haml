@@ -3,7 +3,7 @@
 -if request.env["HTTP_USER_AGENT"].to_s.match(/MSIE (\d+\.\d+);/)
   -bad_browser = ($1.to_f <= 6)
 #login.login{:style=>"display:none"}
-  .logoban
+  .logoban{:title=>Ekylibre.version}
   =form_tag({:company=>params[:company], :url=>params[:url]}) do
     %table
       -if @current_company or @users
