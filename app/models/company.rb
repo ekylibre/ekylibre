@@ -127,9 +127,9 @@ class Company < ActiveRecord::Base
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
   has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit)'
+  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit) AND to_bank_on >= CURRENT_DATE-14'
+  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= CURRENT_DATE-14'
   has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
@@ -904,11 +904,6 @@ class Company < ActiveRecord::Base
     end
   end
 
-
-
-
-
-
   def journal_entry_lines_between(started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
   end
@@ -916,48 +911,6 @@ class Company < ActiveRecord::Base
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
     self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
-  end
-
-
-  # this method allows to make operations (such as sum of credits) in the entry_lines, according to a list of accounts.
-  def filtering_entry_lines(field, list_accounts=[], period=[])
-    #list_accounts.match(//) 
-    # if not period.empty?
-    #      period.each do |p|
-    #        raise Exception.new("Invalid date "+p.to_s) unless p.class.eql? String
-    #      end
-    #    end
-    
-    conditions = "draft=false "
-    if not list_accounts.empty?
-      conditions += "AND "
-      conditions += list_accounts.collect do |account|
-        "a.number LIKE '"+account.gsub('*', '%').gsub('?', '_').to_s+"'"
-      end.join(" OR ")
-    end  
-    
-    conditions += " AND CAST(r.created_on AS DATE) BETWEEN '"+period[0].to_s+"' AND '"+period[1].to_s+"'" if not period.empty?
-    
-    if [:credit, :debit].include? field
-      result =  self.journal_entry_lines.sum(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entry_lines.account_id inner join journal_entries r on r.id=journal_entry_lines.entry_id")
-    end
-
-    if [:all, :first].include? field
-      result =  self.journal_entry_lines.find(field, :conditions=>conditions, :joins=>"inner join accounts a on a.id=journal_entry_lines.account_id inner join journal_entries r on r.id=journal_entry_lines.entry_id", :order=>"r.created_on ASC")
-    end
-
-    return result
-    
-  end
-
-  # this method displays all the records matching to a given period.
-  def records(from, to, id=nil)
-    conditions = ["r.created_on between ? and ?", from, to]
-    if id
-      conditions[0] += " and r.journal_id = ?"
-      conditions << id.to_s
-    end
-    return self.journal_entry_lines.find(:all, :conditions=>conditions, :joins=>"inner join journal_entries r on r.id=journal_entry_lines.entry_id", :order=>"r.number ASC")
   end
 
 

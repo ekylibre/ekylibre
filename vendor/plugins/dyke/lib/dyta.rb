@@ -256,7 +256,7 @@ module Ekylibre
             for column in columns
               column_sort = ''
               if column.sortable?
-                column_sort = "+(sort=='"+column.name.to_s+"' ? ' sorted' : '')"
+                column_sort = "+(sort=='#{column.name}' ? ' sorted' : '').to_s"
               end
               if nature==:header
                 code += "+\n      " unless code.blank?
@@ -278,7 +278,9 @@ module Ekylibre
                   if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
                     datum = column.data(record, nature==:children)
                     if column.datatype == :boolean
-                      datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+"||false).to_s)"
+                      datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+" ? 'true' : 'false'))"
+                      # datum = "content_tag(:div, '', :class=>\"checkbox-\#\{#{datum} ? 'true' : 'false'\}\")"
+                      # datum = "content_tag(:div, '', :class=>'checkbox-true')"
                     end
                     if [:date, :datetime, :timestamp].include? column.datatype
                       datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
@@ -320,6 +322,7 @@ module Ekylibre
                   css_class = column.datatype.to_s+css_class
                   css_class = (css_class.strip.size>0 ? ", :class=>'"+css_class+"'" : '')
                   code += "content_tag(:td, "+datum+css_class+column_sort
+                  # code += "content_tag(:td, "+datum+column_sort
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?
                   code += ")"
                 when :check

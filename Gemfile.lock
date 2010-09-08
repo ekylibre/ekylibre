@@ -29,6 +29,8 @@ GEM
       activesupport (= 3.0.0)
       arel (~> 1.0.0)
       tzinfo (~> 0.3.23)
+    activerecord-sqlserver-adapter (3.0.0)
+      activerecord (~> 3.0)
     activeresource (3.0.0)
       activemodel (= 3.0.0)
       activesupport (= 3.0.0)
@@ -69,6 +71,7 @@ GEM
       rake (>= 0.8.4)
       thor (~> 0.14.0)
     rake (0.8.7)
+    ruby-odbc (0.99991)
     rubyzip (0.9.4)
     thor (0.14.0)
     thoughtbot-shoulda (2.11.1)
@@ -81,6 +84,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-sqlserver-adapter
   exception_notification!
   fastercsv
   haml (= 3.0.18)
@@ -88,6 +92,7 @@ DEPENDENCIES
   mysql
   pg
   rails (= 3.0.0)
+  ruby-odbc
   rubyzip
   thoughtbot-shoulda
   will_paginate (~> 3.0.pre2)

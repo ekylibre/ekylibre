@@ -110,14 +110,14 @@ InstType "Only Ekylibre (Expert)"
 InstType /NOCUSTOM
 
 Section "Ekylibre" sec_ekylibre
-  ; SectionIn 1 2 3 4
+  SectionIn 1 2 3 4
   Call initEnv
   
   ; Suppression des anciens services
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
 
-  ; Copie de sauvegarde de la base de donnÃ©es si le fichier existe
+  ; Copie de sauvegarde de la base de données si le fichier existe
   ${If} $AppDir != ""
     RMDir /r $Backup
     Rename $AppDir $Backup
@@ -128,7 +128,7 @@ Section "Ekylibre" sec_ekylibre
   SetOutPath $InstApp
   File /r ${RESOURCES}/ruby
   File /r /x .svn ${RESOURCES}/apps
-  ; Mise Ã  jour de la variable PATH
+  ; Mise à jour de la variable PATH
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin"
 
   ; Mise en place de la copie de sauvegarde des documents
@@ -163,9 +163,9 @@ Section "Ekylibre" sec_ekylibre
 SectionEnd
 
 
-SectionGroup /e "Database configuration"
+SectionGroup /e "Database"
 
-Section "MySQL Installation" sec_mysql
+Section "MySQL Installation and Configuration" sec_mysql
   SectionIn 1
   Call initEnv
 
@@ -189,7 +189,7 @@ Section "MySQL Installation" sec_mysql
   !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__DATADIR__" "$DataDir"
   !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "3306" "${DBMSPORT}"
 
-  ; Mise en place de la copie de sauvegarde de la base de donnÃ©es
+  ; Mise en place de la copie de sauvegarde de la base de données
   Delete $InstApp\apps\ekylibre\config\database.yml
   Rename $InstApp\apps\ekylibre\config\database.mysql.yml $InstApp\apps\ekylibre\config\database.yml
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "$username"
@@ -202,17 +202,17 @@ Section "MySQL Installation" sec_mysql
     Rename $Backup\data $DataDir
   ${EndIf}
 
-  ; Lancement de la base de donnÃ©es
+  ; Lancement de la base de données
   SimpleSC::InstallService "EkyDatabase" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyDatabase'  "" "" ""
   Pop $0
   ${If} $0 <> 0
     MessageBox MB_OK "Installation du service EkyDatabase impossible"
   ${EndIf}
-  SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de DonnÃ©es d'Ekylibre"
+  SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
   SimpleSC::StartService "EkyDatabase" ""
 
-  ; (RÃ©-)Initialisation
+  ; (Ré-)Initialisation
   ${If} $AppDir == ""
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
@@ -227,7 +227,7 @@ Section "MySQL Installation" sec_mysql
 SectionEnd
 
 
-Section "PostgreSQL Configuration" sec_sqlserver
+Section "PostgreSQL Configuration" sec_postgresql
   SectionIn 2
   Call initEnv
     
@@ -265,7 +265,7 @@ SectionGroupEnd
 
 
 Section "-Finish installation" sec_finish
-  ; SectionIn 1 2 3
+  SectionIn 1 2 3 4
   Call initEnv
   
   ; Write the installation path and uninstall keys into the registry
@@ -292,7 +292,7 @@ Section "-Finish installation" sec_finish
   FileWrite $1 "URL=http://www.ekylibre.org/$\r$\n"
   FileClose $1
   ; Uninstall
-  CreateShortCut  "$SMPROGRAMS\${APP}\DÃ©sinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
+  CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
   
   RMDir /r $Backup
 SectionEnd
@@ -311,7 +311,7 @@ Section "Uninstall"
   ReadRegStr $InstApp HKLM Software\${APP} "AppDir"
   SetShellVarContext all
 
-  ; Mise Ã  jour de la base de registre
+  ; Mise à jour de la base de registre
   SimpleSC::StopService   "EkyService"
   SimpleSC::RemoveService "EkyService"
   SimpleSC::StopService   "EkyDatabase"
@@ -320,7 +320,7 @@ Section "Uninstall"
   DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP}"
   DeleteRegKey HKLM "Software\${APP}"
 
-  ; Mise Ã  jour de la variable PATH
+  ; Mise à jour de la variable PATH
   ${un.EnvVarUpdate} $0 "PATH" "R" "HKLM" "$InstApp\ruby\bin"
 
   ; Suppression des programmes
@@ -332,7 +332,7 @@ Section "Uninstall"
   Delete $InstApp\ekylibre-stop.cmd
   Delete $InstApp\uninstall.exe
 
-  DetailPrint "Les fichiers ont Ã©tÃ© conservÃ©s dans $InstApp"
+  DetailPrint "Les fichiers ont été conservés dans $InstApp"
 SectionEnd
 
 Function initEnv

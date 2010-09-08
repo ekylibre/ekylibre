@@ -143,9 +143,9 @@ class Account < ActiveRecord::Base
     res_credit = 0
     res_balance = 0
     
-    accounts.each do |account| 
-      debit = account.journal_entry_lines.sum(:debit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_entries r ON r.id=journal_entry_lines.entry_id").to_f
-      credit = account.journal_entry_lines.sum(:credit, :conditions =>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN journal_entries r ON r.id=journal_entry_lines.entry_id").to_f
+    for account in accounts
+      debit  = account.journal_entry_lines.sum(:debit,  :conditions =>["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN journal_entries AS r ON r.id=journal_entry_lines.entry_id").to_f
+      credit = account.journal_entry_lines.sum(:credit, :conditions =>["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN journal_entries AS r ON r.id=journal_entry_lines.entry_id").to_f
       
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -211,7 +211,7 @@ class Account < ActiveRecord::Base
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
       
-      journal_entry_lines = account.journal_entry_lines.find(:all, :conditions=>["CAST(r.created_on AS DATE) BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_entries r ON r.id=journal_entry_lines.entry_id", :order=>"r.number ASC")
+      journal_entry_lines = account.journal_entry_lines.find(:all, :conditions=>["r.created_on BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN journal_entries r ON r.id=journal_entry_lines.entry_id", :order=>"r.number ASC")
       
       if journal_entry_lines.size > 0
         entrys = []
