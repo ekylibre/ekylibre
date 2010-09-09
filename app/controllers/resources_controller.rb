@@ -51,7 +51,7 @@ class ResourcesController < ApplicationController
     t.column :number, :url=>{:controller=>:management, :action=>:sale_order_lines}
     t.column :created_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
-    t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>tc('client_code')
+    t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>"client_code"
     t.column :text_state
     t.column :amount
     t.column :amount_with_taxes

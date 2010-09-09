@@ -35,11 +35,11 @@ class ProductionController < ApplicationController
   end
 
   dyta(:tool_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
-    t.column :name,       :through=>:operation, :url=>{:action=>:operation}, :label=>tc(:name)
-    t.column :planned_on, :through=>:operation, :label=>tc(:planned_on), :datatype=>:date
-    t.column :moved_on,   :through=>:operation, :label=>tc(:moved_on)
-    t.column :tools_list, :through=>:operation, :label=>tc(:tools_list)
-    t.column :duration,   :through=>:operation, :label=>tc(:duration)
+    t.column :name,       :through=>:operation, :label=>:column, :url=>{:action=>:operation}
+    t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
+    t.column :moved_on,   :through=>:operation, :label=>:column
+    t.column :tools_list, :through=>:operation, :label=>:column
+    t.column :duration,   :through=>:operation, :label=>:column
   end
   
   def tool

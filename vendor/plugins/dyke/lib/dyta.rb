@@ -126,18 +126,18 @@ module Ekylibre
             footer = "#{footer_var}=''\n"
             # Export link
             if options[:export]
-              # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.t(options[:export]).gsub(/\'/,'&#39;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
+              # footer += footer_var+"+='"+content_tag(:div, "'+link_to('"+::I18n.translate(options[:export]).gsub(/\'/,'&#39;')+"', {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'csv'}, {:method=>:post})+'", :class=>'export')+"'\n"
               
-              export = "content_tag(:span, ::I18n.t('#{options[:export]}.title'))"
+              export = "content_tag(:span, ::I18n.translate('#{options[:export]}.title'))"
               for format in [:csv, :xcsv]
-                # export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
-                export += "+' '+link_to(::I18n.t('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'})"
+                # export += "+' '+link_to(::I18n.translate('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'}, {:method=>:post})"
+                export += "+' '+link_to(::I18n.translate('#{options[:export]}.#{format}').gsub(/\'/,'&#39;'), {:action=>:#{list_method_name}, '#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], :format=>'#{format}'})"
               end
               footer += footer_var+"+=content_tag(:div, #{export}, :class=>'export')\n"
             end
             # Pages link
             footer += if options[:pagination] == :will_paginate
-                        footer_var+"+=will_paginate(@"+name.to_s+", :previous_label => ::I18n.t('dyta.previous'), :next_label => ::I18n.t('dyta.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
+                        footer_var+"+=will_paginate(@"+name.to_s+", :previous_label => ::I18n.translate('dyta.previous'), :next_label => ::I18n.translate('dyta.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'"+name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{name}_sort'=>params['#{name}_sort'], '#{name}_dir'=>params['#{name}_dir'], '#{name}_per_page'=>params['#{name}_per_page'], :action=>:#{list_method_name}}).to_s\n"
                         # footer_var+"='"+content_tag(:tr, content_tag(:td, "'+"+footer_var+"+'", :class=>:paginate, :colspan=>definition.columns.size))+"' unless "+footer_var+".nil?\n"
                       else
                         ''
@@ -186,7 +186,7 @@ module Ekylibre
               code += "        end\n"
               code += "      end\n"
               code += "    end\n"
-              code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>'#{::I18n.translate('activerecord.models.'+model.name.underscore.to_s).gsub(/[^a-z0-9]/i,'_')}.csv')\n"
+              code += "    send_data(data, :type=>Mime::CSV, :disposition=>'inline', :filename=>#{model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')+'.csv')\n"
             end
             code += "  elsif request.get?\n"
             code += "    render(:inline=>'<%=#{tag_method_name}-%>', :layout=>true)\n"
@@ -241,7 +241,7 @@ module Ekylibre
             code += "  text = content_tag(:div, text.html_safe, :class=>:dyta, :id=>'"+name.to_s+"') unless request.xhr?\n"
             code += "  return text\n"
             code += "end\n"
-
+            
             # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
             
             ActionView::Base.send :class_eval, code
@@ -256,17 +256,16 @@ module Ekylibre
             for column in columns
               column_sort = ''
               if column.sortable?
-                column_sort = "+(sort=='#{column.name}' ? ' sorted' : '').to_s"
+                column_sort = "\#\{' sorted' if sort=='#{column.name}'\}"
               end
               if nature==:header
                 code += "+\n      " unless code.blank?
-                # header_title = "'"+h(column.header).gsub('\'','\\\\\'')+"'"
                 header_title = column.compile_header
                 if column.sortable?
                   url = ":action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
                   header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>url_for(#{url})}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
                 end
-                code += "content_tag(:th, "+header_title+", :class=>'"+(column.action? ? 'act' : 'col')+"'"+column_sort+")"
+                code += "content_tag(:th, "+header_title+", :class=>\""+(column.action? ? 'act' : 'col')+column_sort+"\")"
               else
                 code   += "+\n        " unless code.blank?
                 case column.nature
@@ -279,8 +278,6 @@ module Ekylibre
                     datum = column.data(record, nature==:children)
                     if column.datatype == :boolean
                       datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+" ? 'true' : 'false'))"
-                      # datum = "content_tag(:div, '', :class=>\"checkbox-\#\{#{datum} ? 'true' : 'false'\}\")"
-                      # datum = "content_tag(:div, '', :class=>'checkbox-true')"
                     end
                     if [:date, :datetime, :timestamp].include? column.datatype
                       datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
@@ -320,9 +317,8 @@ module Ekylibre
                     datum = 'nil'
                   end
                   css_class = column.datatype.to_s+css_class
-                  css_class = (css_class.strip.size>0 ? ", :class=>'"+css_class+"'" : '')
-                  code += "content_tag(:td, "+datum+css_class+column_sort
-                  # code += "content_tag(:td, "+datum+column_sort
+                  css_class = ", :class=>\""+css_class+column_sort+"\"" if css_class.strip.size > 0 or column_sort.strip.size > 0
+                  code += "content_tag(:td, "+datum+css_class
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?
                   code += ")"
                 when :check
@@ -377,6 +373,9 @@ module Ekylibre
                   end
                   if column.name==:country and  column.datatype == :string and column.limit == 2
                     datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
+                  end
+                  if column.name==:language and  column.datatype == :string and column.limit <= 8
+                    datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
                   end
                 end
                 array << (options[:iconv] ? "#{options[:iconv]}.iconv("+datum+".to_s)" : datum)
@@ -505,80 +504,74 @@ module Ekylibre
           not self.action? and not self.options[:through] and not @column.nil?
         end
 
-        def header
-          if @options[:label].blank?
-            case @nature
-            when :column
-              if @options[:through] and @options[:through].is_a?(Symbol)
-                reflection = @model.reflections[@options[:through]]
-                raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
-                # # @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
-                if reflection.macro == :has_one
-                  ::I18n.t("activerecord.attributes.#{reflection.class_name.underscore}.#{@name}")
-                else
-                  ::I18n.t("activerecord.attributes.#{@model.to_s.tableize.singularize}.#{@model.reflections[@options[:through]].primary_key_name.to_s}")
-                end
-              elsif @options[:through] and @options[:through].is_a?(Array)
-                model = @model
-                (@options[:through].size-1).times do |x|
-                  model = model.reflections[@options[:through][x]].options[:class_name].constantize
-                end
-                reflection = @options[:through][@options[:through].size-1].to_sym
-                model.columns_hash[model.reflections[reflection].primary_key_name].human_name
-              else
-                @model.human_attribute_name(@name.to_s)
-              end;
-            when :action
-              'ƒ'
-            when :check, :textbox then
-              @model.human_attribute_name(@name.to_s)
-            else 
-              '-'
-            end
-          else
-            @options[:label].to_s
-          end
-        end
+#         def header
+#           if @options[:label].blank?
+#             case @nature
+#             when :column
+#               if @options[:through] and @options[:through].is_a?(Symbol)
+#                 reflection = @model.reflections[@options[:through]]
+#                 raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
+#                 # # @model.columns_hash[@model.reflections[@options[:through]].primary_key_name].human_name
+#                 if reflection.macro == :has_one
+#                   ::I18n.translate("activerecord.attributes.#{reflection.class_name.underscore}.#{@name}")
+#                 else
+#                   ::I18n.translate("activerecord.attributes.#{@model.to_s.tableize.singularize}.#{@model.reflections[@options[:through]].primary_key_name.to_s}")
+#                 end
+#               elsif @options[:through] and @options[:through].is_a?(Array)
+#                 model = @model
+#                 (@options[:through].size-1).times do |x|
+#                   model = model.reflections[@options[:through][x]].options[:class_name].constantize
+#                 end
+#                 reflection = @options[:through][@options[:through].size-1].to_sym
+#                 model.columns_hash[model.reflections[reflection].primary_key_name].human_name
+#               else
+#                 @model.human_attribute_name(@name.to_s)
+#               end;
+#             when :action
+#               'ƒ'
+#             when :check, :textbox then
+#               @model.human_attribute_name(@name.to_s)
+#             else 
+#               '-'
+#             end
+#           else
+#             @options[:label].to_s
+#           end
+#         end
 
 
 
         def compile_header
-          if @options[:label].blank?
-            case @nature
-            when :column
-              if @options[:through] and @options[:through].is_a?(Symbol)
-                reflection = @model.reflections[@options[:through]]
-                raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
-                if reflection.macro == :has_one
-                  # "::I18n.t('activerecord.attributes.#{reflection.class_name.underscore}.#{@name}')"
-                  "#{reflection.class_name}.human_attribute_name('#{@name}')"
-                else
-                  # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@model.reflections[@options[:through]].primary_key_name.to_s}')"
-                  "#{@model.name}.human_attribute_name(#{@options[:through].to_s.inspect})"
-                end
-              elsif @options[:through] and @options[:through].is_a?(Array)
-                model = @model
-                (@options[:through].size-1).times do |x|
-                  model = model.reflections[@options[:through][x]].options[:class_name].constantize
-                end
-                reflection = @options[:through][@options[:through].size-1].to_sym
-                # model.columns_hash[model.reflections[reflection].primary_key_name].human_name
-                # "#{model.name}.human_attribute_name('#{model.reflections[reflection].primary_key_name}')"
-                "::I18n.t('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].primary_key_name}')"
+          case @nature
+          when :column
+            if @options[:through] and @options[:through].is_a?(Symbol)
+              reflection = @model.reflections[@options[:through]]
+              raise Exception.new("Unknown reflection :#{@options[:through].to_s} for the ActiveRecord: "+@model.to_s) if reflection.nil?
+              if @options[:label].is_a? String
+                "::I18n.translate('labels.#{@options[:label].strip}')"
+              elsif reflection.macro == :has_one or @options[:label] == :column
+                "#{reflection.class_name}.human_attribute_name('#{@name}')"
               else
-                "#{@model.name}.human_attribute_name('#{@name}')"
-                # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
-              end;
-            when :action
-              "'ƒ'"
-            when :check, :textbox then
+                "#{@model.name}.human_attribute_name(#{@options[:through].to_s.inspect})"
+              end
+            elsif @options[:through] and @options[:through].is_a?(Array)
+              model = @model
+              (@options[:through].size-1).times do |x|
+                model = model.reflections[@options[:through][x]].options[:class_name].constantize
+              end
+              reflection = @options[:through][@options[:through].size-1].to_sym
+              # model.columns_hash[model.reflections[reflection].primary_key_name].human_name
+              # "#{model.name}.human_attribute_name('#{model.reflections[reflection].primary_key_name}')"
+              "::I18n.translate('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].primary_key_name}')"
+            else
               "#{@model.name}.human_attribute_name('#{@name}')"
-              # "::I18n.t('activerecord.attributes.#{@model.name.underscore}.#{@name}')"
-            else 
-              "'-'"
-            end
-          else
-            "'"+h(@options[:label].to_s.gsub("'","''"))+"'"
+            end;
+          when :action
+            "'ƒ'"
+          when :check, :textbox then
+            "#{@model.name}.human_attribute_name('#{@name}')"
+          else 
+            "'-'"
           end
         end
 
@@ -593,36 +586,7 @@ module Ekylibre
         end
 
         def datatype
-          @options[:datatype]||begin
-                                 case @column.sql_type
-                                 when /^(boolean|tinyint\(1\))$/i 
-                                   :boolean
-                                 when /int/i
-                                   :integer
-                                 when /float|double/i
-                                   :float
-                                 when /^(numeric|decimal|number)\((\d+)\)/i
-                                   :integer
-                                 when /^(numeric|decimal|number)\((\d+)(,(\d+))\)/i
-                                   :decimal
-                                 when /datetime/i
-                                   :datetime
-                                 when /timestamp/i
-                                   :timestamp
-                                 when /time/i
-                                   :time
-                                 when /date/i
-                                   :date
-                                 when /clob/i, /text/i
-                                   :text
-                                 when /blob/i, /binary/i
-                                   :binary
-                                 when /char/i, /string/i
-                                   :string
-                                 end
-                               rescue
-                                 nil
-                               end
+          @options[:datatype] || (@column ? @column.type : nil)
         end
 
         def data(record='record', child = false)
@@ -653,11 +617,9 @@ module Ekylibre
         end
 
         def operation(record='record')
-          link_options = {}
-          link_options[:confirm] = ::I18n.translate('labels.'+@options[:confirm].to_s) unless @options[:confirm].nil?
-          link_options[:method]  = @options[:method]     unless @options[:method].nil?
-          link_options = link_options.inspect.to_s
-          link_options = link_options[1..-2]
+          link_options = ""
+          link_options += ", :confirm=>::I18n.translate('labels.#{@options[:confirm]}')" unless @options[:confirm].nil?
+          link_options += ", :method=>#{@options[:method].inspect}" if @options[:method].is_a? Symbol
           verb = @name.to_s.split('_')[-1]
           image_title = @options[:title]||@name.to_s.humanize
           # image_file = "buttons/"+(@options[:image]||verb).to_s+".png"
@@ -674,7 +636,7 @@ module Ekylibre
             code  = "link_to_remote(#{image}"
             code += ", {:url=>{:action=>:"+@name.to_s+", :id=>"+record+".id"+format+"}"
             code += ", "+remote_options+"}"
-            code += ", {:title=>::I18n.t('labels.#{verb}')}"
+            code += ", {:title=>::I18n.translate('labels.#{verb}')}"
             code += ")"
           elsif @options[:actions]
             raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
@@ -683,7 +645,7 @@ module Ekylibre
               v = a[1][:action].to_s.split('_')[-1]
               cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :alt=>'"+a[0].to_s+"')"+
                 ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
-                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('labels.#{v}')}"+
+                ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+link_options+", :title=>::I18n.translate('labels.#{v}')}"+
                 ")\n"
             end
 
@@ -695,7 +657,7 @@ module Ekylibre
             url[:id] ||= "RECORD.id"
             url.delete_if{|k, v| v.nil?}
             url = "{"+url.collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")+format+"}"
-            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+(link_options.blank? ? '' : ", "+link_options)+", :title=>::I18n.t('labels.#{verb}')}"
+            code = "{:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+link_options+", :title=>::I18n.translate('labels.#{verb}')}"
             code = "link_to("+image+", "+url+", "+code+")"
           end
           code = "if ("+@options[:if].gsub('RECORD', record)+")\n"+code+"\n end" if @options[:if]
@@ -762,7 +724,7 @@ if Ekylibre::Dyke::Dyta.will_paginate
 
 #   include WillPaginate::ViewHelpers 
 #   def will_paginate_with_i18n(collection, options = {}) 
-#     will_paginate_without_i18n(collection, options.merge(:previous_label => I18n.t("dyta.previous"), :next_label => I18n.t("dyta.next")))
+#     will_paginate_without_i18n(collection, options.merge(:previous_label => ::I18n.t("dyta.previous"), :next_label => ::I18n.t("dyta.next")))
 #   end 
 #   alias_method_chain :will_paginate, :i18n  
 

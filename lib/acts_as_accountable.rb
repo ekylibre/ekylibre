@@ -60,7 +60,7 @@ module ActiveRecord
           ActiveRecord::Base.transaction do
             # Cancel the existing journal_entry
             if self.journal_entry and not self.journal_entry.closed? and (attributes[:journal] == self.journal_entry.journal)
-              self.journal_entry.entries.destroy_all
+              self.journal_entry.lines.destroy_all
               self.journal_entry.reload
               self.journal_entry.update_attributes!(attributes)
             elsif self.journal_entry
@@ -68,7 +68,7 @@ module ActiveRecord
               self.journal_entry = nil
             end
 
-            # Add journal entries
+            # Add journal lines
             if block_given? and not options[:unless] and action != :destroy
               self.journal_entry ||= self.company.journal_entries.create!(attributes)
               yield(self.journal_entry)

@@ -89,16 +89,16 @@ class Deposit < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
-    accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |record|
+    accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |entry|
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
-      record.add_debit( label, self.cash.account_id, self.amount)
+      entry.add_debit( label, self.cash.account_id, self.amount)
       if self.company.preference("accountancy.accountize.detail_payments_in_deposits").value
         for payment in self.reload.payments
           label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
-          record.add_credit(label, self.mode.depositables_account_id, payment.amount)
+          entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else
-        record.add_credit(label, self.mode.depositables_account_id, self.amount)
+        entry.add_credit(label, self.mode.depositables_account_id, self.amount)
       end
 
     end

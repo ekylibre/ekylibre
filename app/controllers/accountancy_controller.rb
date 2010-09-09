@@ -82,7 +82,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.action :cash_update
-    t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+    t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   # lists all the cashes with the mainly characteristics. 
@@ -165,7 +165,7 @@ class AccountancyController < ApplicationController
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
     t.action :account_update
-    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   
   # lists all the accounts with the credit, the debit and the balance for each of them.
@@ -191,7 +191,7 @@ class AccountancyController < ApplicationController
   dyta(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
-    t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>JournalEntry.human_attribute_name("printed_on")
+    t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
     t.column :draft
     t.column :debit
@@ -211,7 +211,7 @@ class AccountancyController < ApplicationController
 #     t.column :number, :url=>{:action=>:account}
 #     t.column :name, :url=>{:action=>:account}
 #     t.action :account_update
-#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
 #   end
 
   def account
@@ -626,7 +626,7 @@ class AccountancyController < ApplicationController
     t.column :stopped_on,:url=>{:action=>:financial_year}
     t.action :financial_year_close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :financial_year_update, :if => '!RECORD.closed'  
-    t.action :financial_year_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if => '!RECORD.closed'  
+    t.action :financial_year_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if => '!RECORD.closed'  
   end
 
   # lists all the cashes with the mainly characteristics. 
@@ -715,7 +715,7 @@ class AccountancyController < ApplicationController
     t.action :journal_close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
     t.action :journal_reopen, :if=>"RECORD.reopenable\?", :image=>:lock
     t.action :journal_update
-    t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+    t.action :journal_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
   
 
@@ -768,7 +768,7 @@ class AccountancyController < ApplicationController
     t.column :debit
     t.column :credit
     t.action :journal_entry_update, :if=>'RECORD.updatable? '
-    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   
   dyta(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
@@ -779,7 +779,7 @@ class AccountancyController < ApplicationController
     t.column :debit
     t.column :credit
     t.action :journal_entry_update, :if=>'RECORD.updatable? '
-    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
   dyta(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :order=>"entry_id DESC, position") do |t|
@@ -1008,7 +1008,7 @@ class AccountancyController < ApplicationController
     t.column :credit
     t.action :bank_statement_point
     t.action :bank_statement_update
-    t.action :bank_statement_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+    t.action :bank_statement_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   # lists all the statements in details for a precise account.
@@ -1028,7 +1028,7 @@ class AccountancyController < ApplicationController
   dyta(:bank_statement_entries, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
-    t.column :created_on, :through=>:entry, :datatype=>:date, :label=>JournalEntry.human_attribute_name("created_on")
+    t.column :created_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :debit
@@ -1079,7 +1079,7 @@ class AccountancyController < ApplicationController
     t.column :label, :through=>:account_paid, :url=>{:action=>:account}
     t.column :label, :through=>:account_collected, :url=>{:action=>:account}
     t.action :tax_update
-    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete
+    t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def taxes
@@ -1090,14 +1090,14 @@ class AccountancyController < ApplicationController
 
   # #
   # dyta(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
-  #   t.column :nature, :label=>"Régime"
+  #   t.column :nature
   #   t.column :address
   #   t.column :declared_on, :datatype=>:date
   #   t.column :paid_on, :datatype=>:date
   #   t.column :amount
   #   t.action :tax_declaration, :image => :show
   #   t.action :tax_declaration_update, #, :if => '!RECORD.submitted?'  
-  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure_to_delete #, :if => '!RECORD.submitted?'
+  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete #, :if => '!RECORD.submitted?'
     
   # end
   

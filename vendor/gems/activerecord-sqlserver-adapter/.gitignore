@@ -1,0 +1,9 @@
+nbproject/
+debug.log
+.DS_Store
+pkg/
+doc/
+*.gem
+.bundle
+Gemfile.lock
+test/profile/output/*

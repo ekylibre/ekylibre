@@ -132,10 +132,10 @@ class SalePayment < ActiveRecord::Base
     attorney_amount = self.attorney_amount
     client_amount   = self.amount - attorney_amount
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.received)) do |record|
-      record.add_debit(label, (self.mode.with_deposit? ? self.mode.depositables_account_id : self.mode.cash.account_id), self.amount)
-      record.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
-      record.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+    accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.received)) do |entry|
+      entry.add_debit(label, (self.mode.with_deposit? ? self.mode.depositables_account_id : self.mode.cash.account_id), self.amount)
+      entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
+      entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
   end
   

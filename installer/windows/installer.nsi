@@ -248,7 +248,7 @@ Section "SQL Server Configuration" sec_sqlserver
   FileSeek $1 0 END
   FileWrite $1 '$\r$\n'
   FileWrite $1 'gem "ruby-odbc"$\r$\n'
-  FileWrite $1 'gem "activerecord-sqlserver-adapter"$\r$\n'
+  ; FileWrite $1 'gem "activerecord-sqlserver-adapter"$\r$\n'
   FileClose $1
   
   Delete $InstApp\apps\ekylibre\config\database.yml
