@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :company, :contact, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :preference, :price, :product, :product_category, :product_component, :profession, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_use, :tracking, :transfer, :transport, :unit, :user, :warehouse]
+  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :cash_transfer, :company, :contact, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :preference, :price, :product, :product_category, :product_component, :profession, :purchase_delivery, :purchase_delivery_line, :purchase_delivery_mode, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_use, :tracking, :transfer, :transport, :unit, :user, :warehouse]
 
   # List of all references
   @@references = {
@@ -37,6 +37,15 @@ module Ekylibre
       :currency_id => :currency,
       :entity_id => :entity,
       :journal_id => :journal,
+      :updater_id => :user
+    },
+    :cash_transfer => {
+      :company_id => :company,
+      :creator_id => :user,
+      :currency_id => :currency,
+      :emitter_cash_id => :cash,
+      :journal_entry_id => :journal_entry,
+      :receiver_cash_id => :cash,
       :updater_id => :user
     },
     :company => {
@@ -93,6 +102,12 @@ module Ekylibre
       :journal_entry_id => :journal_entry,
       :mode_id => :sale_payment_mode,
       :responsible_id => :user,
+      :updater_id => :user
+    },
+    :deposit_line => {
+      :company_id => :company,
+      :creator_id => :user,
+      :deposit_id => :deposit,
       :updater_id => :user
     },
     :district => {
@@ -345,6 +360,31 @@ module Ekylibre
       :warehouse_id => :warehouse
     },
     :profession => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :purchase_delivery => {
+      :company_id => :company,
+      :contact_id => :contact,
+      :creator_id => :user,
+      :currency_id => :currency,
+      :order_id => :purchase_order,
+      :updater_id => :user
+    },
+    :purchase_delivery_line => {
+      :company_id => :company,
+      :creator_id => :user,
+      :delivery_id => :purchase_delivery,
+      :order_line_id => :purchase_order_line,
+      :price_id => :price,
+      :product_id => :product,
+      :tracking_id => :tracking,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :warehouse_id => :warehouse
+    },
+    :purchase_delivery_mode => {
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user

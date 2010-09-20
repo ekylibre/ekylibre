@@ -29,7 +29,7 @@
 #  category_id               :integer          
 #  client                    :boolean          not null
 #  client_account_id         :integer          
-#  code                      :string(16)       
+#  code                      :string(64)       
 #  comment                   :text             
 #  company_id                :integer          not null
 #  country                   :string(2)        

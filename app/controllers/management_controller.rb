@@ -796,7 +796,8 @@ class ManagementController < ApplicationController
   end
 
   dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
-    t.column :number ,:url=>{:action=>:purchase_order}
+    t.column :number, :url=>{:action=>:purchase_order}
+    t.column :reference_number, :url=>{:action=>:purchase_order}
     t.column :planned_on
     t.column :moved_on
     t.column :full_name, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}

@@ -18,28 +18,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: transports
+# == Table: purchase_deliveries
 #
-#  comment          :text             
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  created_on       :date             
-#  creator_id       :integer          
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      
-#  reference_number :string(255)      
-#  responsible_id   :integer          
-#  transport_on     :date             
-#  transporter_id   :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
-#  weight           :decimal(16, 4)   
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  contact_id        :integer          
+#  created_at        :datetime         not null
+#  creator_id        :integer          
+#  currency_id       :integer          
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  moved_on          :date             
+#  order_id          :integer          not null
+#  planned_on        :date             
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
+#  weight            :decimal(16, 4)   
 #
 
 require 'test_helper'
 
-class TransportTest < ActiveSupport::TestCase
+class PurchaseDeliveryTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

@@ -32,9 +32,6 @@ class CompanyController < ApplicationController
   end
 
   def index
-#     @entities = @current_company.entities
-#     @deliveries = @current_company.deliveries.find(:all,:conditions=>{:moved_on=>nil})
-#     @purchases = @current_company.purchase_orders.find(:all, :conditions=>{:moved_on=>nil})
     t3e :user=>@current_user.label, :company=>@current_company.name
   end
 

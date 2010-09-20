@@ -4,6 +4,7 @@ class ChangeAllStampColumns < ActiveRecord::Migration
     @@models = Dir["**/*.rb"]
   end
   @@models = @@models.collect{|m| m.sub(/\.rb$/,'')}.sort
+  EXISTING_TABLES = [:schema_migrations, :sessions, :companies, :languages, :users, :templates, :roles, :parameters, :documents, :establishments, :departments, :entity_natures, :address_norms, :address_norm_items, :complements, :complement_data, :currencies, :complement_choices, :accounts, :financialyears, :account_balances, :journals, :bank_account_statements, :entries, :journal_records, :units, :shelves, :products, :taxes, :price_taxes, :stock_trackings, :stock_moves, :stock_locations, :delays, :sale_order_natures, :sale_orders, :sale_order_lines, :delivery_lines, :purchase_orders, :purchase_order_lines, :payment_modes, :payment_parts, :prices, :professions, :employees, :contacts, :bank_accounts, :product_stocks, :entities, :shapes, :product_components, :productions, :shape_operations, :payments, :shape_operation_natures, :meeting_locations, :meeting_modes, :meetings, :stock_transfers, :inventories, :inventory_lines, :delivery_modes, :deliveries, :entity_categories, :invoice_lines, :invoices, :embankments, :districts, :cities, :areas, :subscription_natures, :subscriptions, :sequences]
   def self.up
     for table in tables.delete_if{|t| [:schema_migrations, :sessions].include? t.to_sym}
       columns = columns(table).collect{|c| c.name.to_sym}

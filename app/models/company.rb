@@ -363,13 +363,13 @@ class Company < ActiveRecord::Base
 
 
   # Compute a balance with many options
-  #  - :started_on Use journal record printed on after started_on
-  #  - :stopped_on Use journal record printed on before stopped_on
-  #  - :draft      Use draft journal entry_lines
-  #  - :confirmed  Use confirmed journal entry_lines
-  #  - :closed     Use closed journal entry_lines
-  #  - :accounts   Select ranges of accounts
-  #  - :centralize Select account's prefixe which permits to centralize
+  # * :started_on Use journal record printed on after started_on
+  # * :stopped_on Use journal record printed on before stopped_on
+  # * :draft      Use draft journal entry_lines
+  # * :confirmed  Use confirmed journal entry_lines
+  # * :closed     Use closed journal entry_lines
+  # * :accounts   Select ranges of accounts
+  # * :centralize Select account's prefixe which permits to centralize
   def balance(options={})
     conn = ActiveRecord::Base.connection
     entry_lines_states  = " AND (false"

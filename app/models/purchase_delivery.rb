@@ -18,72 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: purchase_orders
+# == Table: purchase_deliveries
 #
-#  accounted_at      :datetime         
 #  amount            :decimal(16, 2)   default(0.0), not null
 #  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
+#  contact_id        :integer          
 #  created_at        :datetime         not null
-#  created_on        :date             
 #  creator_id        :integer          
 #  currency_id       :integer          
-#  dest_contact_id   :integer          
 #  id                :integer          not null, primary key
-#  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
-#  number            :string(64)       not null
-#  parts_amount      :decimal(16, 2)   default(0.0), not null
+#  order_id          :integer          not null
 #  planned_on        :date             
-#  reference_number  :string(255)      
-#  shipped           :boolean          not null
-#  supplier_id       :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
-#
-#
-# == Fixture: purchase_orders
-#
-# purchase_orders_001:
-#   amount: 0
-#   amount_with_taxes: 0
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   number: "Lorem ipsum"
-#   parts_amount: 0
-#   shipped: true
-#   supplier_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
+#  weight            :decimal(16, 4)   
 #
 
-purchase_orders_001:
-  amount: 0
-  amount_with_taxes: 0
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  number: "P000001"
-  shipped: false
-  supplier_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
-purchase_orders_002:
-  amount: 0
-  amount_with_taxes: 0
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  number: "P000001"
-  shipped: false
-  supplier_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+class PurchaseDelivery < ActiveRecord::Base
+end

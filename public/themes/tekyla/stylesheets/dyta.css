@@ -54,8 +54,8 @@ table.dyta tr      td.boolean { text-align: center; }
 table.dyta tr      td.boolean div { margin: 0 auto; }
 table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
-table.dyta tr      td.code { font-family: monospace; }
-table.dyta tr      td.code a { font-family: monospace; }
+table.dyta tr      td.code { font-family: LiberationMono, monospace; }
+table.dyta tr      td.code a { font-family: LiberationMono, monospace; }
 table.dyta tr      td.rights * { font-size: 11px; }
 table.dyta tr      td.rights.more * { color: #080; }
 table.dyta tr      td.rights.less * { color: #F00; }

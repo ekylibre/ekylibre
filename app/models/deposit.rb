@@ -29,6 +29,7 @@
 #  created_on       :date             not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
+#  in_cash          :boolean          not null
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null

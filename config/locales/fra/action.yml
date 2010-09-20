@@ -100,7 +100,7 @@ fra:
       delays: 'Délais'
       deposit: 'Remise en banque %{number} du %{created_on}'
       deposit_create: 'Créer une remise : %{mode}'
-      deposit_update: 'Modifier la remise en banque du %{created_on}'
+      deposit_update: 'Modifier la remise en banque n°%{number} du %{created_on}'
       deposits: 'Remises en banque'
       index: 'Gestion commerciale'
       inventories: 'Inventaires'

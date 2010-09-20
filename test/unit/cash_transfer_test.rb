@@ -18,32 +18,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: deposits
+# == Table: cash_transfers
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(16, 4)   default(0.0), not null
-#  cash_id          :integer          not null
+#  amount           :decimal(16, 2)   default(0.0), not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
-#  created_on       :date             not null
 #  creator_id       :integer          
+#  currency_amount  :decimal(16, 2)   default(0.0), not null
+#  currency_id      :integer          not null
+#  currency_rate    :decimal(16, 6)   default(1.0), not null
+#  emitter_cash_id  :integer          not null
 #  id               :integer          not null, primary key
-#  in_cash          :boolean          not null
 #  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
-#  locked           :boolean          not null
-#  mode_id          :integer          not null
-#  number           :string(255)      
-#  payments_count   :integer          default(0), not null
-#  responsible_id   :integer          
+#  number           :string(255)      not null
+#  receiver_cash_id :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
 
 require 'test_helper'
 
-class DepositTest < ActiveSupport::TestCase
+class CashTransferTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
