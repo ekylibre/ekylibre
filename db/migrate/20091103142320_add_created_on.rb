@@ -7,9 +7,9 @@ class AddCreatedOn < ActiveRecord::Migration
 
     for table in [:purchase_orders, :transfers, :payments]
       if connection.adapter_name.lower == "sqlserver"
-        execute "UPDATE #{table} SET created_on = created_at WHERE created_on IS NULL"
+        execute "UPDATE #{quote_table_name(table)} SET created_on = created_at WHERE created_on IS NULL"
       else
-        execute "UPDATE transfers SET created_on = CAST(created_at AS date) WHERE created_on IS NULL"
+        execute "UPDATE #{quote_table_name(table)} SET created_on = CAST(created_at AS date) WHERE created_on IS NULL"
       end
     end
 

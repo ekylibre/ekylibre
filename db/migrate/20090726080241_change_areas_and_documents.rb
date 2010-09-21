@@ -19,14 +19,14 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
     add_index :areas, :district_id
     change_column :areas, :city_id, :integer, :null=>true
 
-    execute "UPDATE contacts SET line_6="+concatenate(trim("line_6_code"), "' '", trim("line_6_city"))
-    execute "INSERT INTO areas(name, postcode, city, city_name, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(line_6,''), COALESCE(line_6_code,''), line_6_city, "+trim("REPLACE(UPPER(line_6_city), 'CEDEX', '')")+", contacts.company_id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM contacts LEFT JOIN areas ON (contacts.line_6=areas.name) WHERE areas.id IS NULL"
-    execute "UPDATE areas SET country='fr'"
-    for result in select_all("SELECT id, name, company_id FROM areas")
-      execute "UPDATE contacts SET area_id=#{result['id']} WHERE company_id=#{result['company_id']} AND line_6='"+result['name'].gsub("'","''")+"'"
+    execute "UPDATE #{quote_table_name(:contacts)} SET line_6="+connection.concatenate(connection.trim("line_6_code"), "' '", connection.trim("line_6_city"))
+    execute "INSERT INTO #{quote_table_name(:areas)} (name, postcode, city, city_name, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(line_6,''), COALESCE(line_6_code,''), line_6_city, "+connection.trim("REPLACE(UPPER(line_6_city), 'CEDEX', '')")+", contacts.company_id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quote_table_name(:contacts)} AS contacts LEFT JOIN #{quote_table_name(:areas)} AS areas ON (contacts.line_6=areas.name) WHERE areas.id IS NULL"
+    execute "UPDATE #{quote_table_name(:areas)} SET country='fr'"
+    for result in connection.select_all("SELECT id, name, company_id FROM #{quote_table_name(:areas)}")
+      execute "UPDATE #{quote_table_name(:contacts)} SET area_id=#{result['id']} WHERE company_id=#{result['company_id']} AND line_6='"+result['name'].gsub("'","''")+"'"
     end
-    for result in select_all("SELECT id, name, district_id FROM cities")
-      execute "UPDATE areas SET city='"+result['name'].gsub("'","''")+"', district_id=#{result['district_id']||'NULL'} WHERE city_id=#{result['id']}"
+    for result in connection.select_all("SELECT id, name, district_id FROM #{quote_table_name(:cities)}")
+      execute "UPDATE #{quote_table_name(:areas)} SET city='"+result['name'].gsub("'","''")+"', district_id=#{result['district_id']||'NULL'} WHERE city_id=#{result['id']}"
     end
 
     remove_column :areas, :city_id
@@ -78,12 +78,12 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
     add_column :areas, :city_id, :integer
 
 
-    execute("INSERT INTO cities(name, district_id, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(city,''), district_id, company_id, current_timestamp, current_timestamp FROM areas")
-    for result in select_all("SELECT id, name, company_id FROM cities")
-      execute "UPDATE areas SET city_id=#{result['id']} WHERE company_id=#{result['company_id']} AND city='"+result['name'].gsub("'","''")+"'"
+    execute("INSERT INTO #{quote_table_name(:cities)} (name, district_id, company_id, created_at, updated_at) SELECT DISTINCT COALESCE(city,''), district_id, company_id, current_timestamp, current_timestamp FROM #{quote_table_name(:areas)} AS areas")
+    for result in connection.select_all("SELECT id, name, company_id FROM #{quote_table_name(:cities)}")
+      execute "UPDATE #{quote_table_name(:areas)} SET city_id=#{result['id']} WHERE company_id=#{result['company_id']} AND city='"+result['name'].gsub("'","''")+"'"
     end
-    for result in select_all("SELECT id, postcode, city FROM areas")
-      execute "UPDATE contacts SET line_6_code='"+result['postcode'].to_s.gsub("'","''")+"', line_6_city='"+result['city'].to_s.gsub("'","''")+"' WHERE area_id=#{result['id']} "
+    for result in connection.select_all("SELECT id, postcode, city FROM #{quote_table_name(:areas)}")
+      execute "UPDATE #{quote_table_name(:contacts)} SET line_6_code='"+result['postcode'].to_s.gsub("'","''")+"', line_6_city='"+result['city'].to_s.gsub("'","''")+"' WHERE area_id=#{result['id']} "
     end
 
     remove_column :districts, :code

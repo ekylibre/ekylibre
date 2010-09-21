@@ -3,7 +3,7 @@ class AddPaymentNumber < ActiveRecord::Migration
 
     add_column :payments, :number, :string
     
-    execute "UPDATE payments SET number = id WHERE number IS NULL"
+    execute "UPDATE #{quote_table_name(:payments)} SET number = id WHERE number IS NULL"
 
   end
 

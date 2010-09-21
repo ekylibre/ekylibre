@@ -2,7 +2,7 @@ class AddBankAccountsDefault < ActiveRecord::Migration
   def self.up
     add_column :bank_accounts, :default, :boolean, :null=>false, :default=>false
 
-    execute "UPDATE bank_accounts SET #{quote_column_name('default')}=#{quoted_true}"
+    execute "UPDATE #{quote_table_name(:bank_accounts)} SET #{connection.quote_column_name('default')}=#{quoted_true}"
 
 #     for entity in Entity.find_all_by_id(select_all("SELECT * FROM bank_accounts").collect{|b| b['entity_id'].to_i})
 #       bank_account = entity.bank_accounts.find(:first, :order=>:id)

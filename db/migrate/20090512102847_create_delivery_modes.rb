@@ -13,16 +13,14 @@ class CreateDeliveryModes < ActiveRecord::Migration
     
     add_column :deliveries,   :mode_id,  :integer,  :references=>:delivery_modes, :on_delete=>:restrict, :on_update=>:restrict
     
-    execute "INSERT INTO delivery_modes(company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Remise en main propre', 'exw', '',current_timestamp, current_timestamp FROM companies"
+    execute "INSERT INTO #{quote_table_name(:delivery_modes)} (company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Remise en main propre', 'exw', '',current_timestamp, current_timestamp FROM #{quote_table_name(:companies)} AS companies"
 
-    execute "INSERT INTO delivery_modes(company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison avec assurance', 'cip', '',current_timestamp, current_timestamp FROM companies"
+    execute "INSERT INTO #{quote_table_name(:delivery_modes)} (company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison avec assurance', 'cip', '',current_timestamp, current_timestamp FROM #{quote_table_name(:companies)} AS companies"
 
-    execute "INSERT INTO delivery_modes(company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison sans assurance', 'cpt', '', current_timestamp, current_timestamp FROM companies"
-
-    # execute "UPDATE deliveries SET mode_id = m.id FROM delivery_modes m WHERE m.code = deliveries.nature AND m.company_id = deliveries.company_id"
+    execute "INSERT INTO #{quote_table_name(:delivery_modes)} (company_id, name, code, comment, created_at, updated_at) SELECT companies.id , 'Livraison sans assurance', 'cpt', '', current_timestamp, current_timestamp FROM #{quote_table_name(:companies)} AS companies"
  
-    modes = select_all("SELECT * FROM delivery_modes")
-    execute "UPDATE deliveries SET mode_id = CASE "+modes.collect{|m| "WHEN nature='#{m['code']}' AND company_id=#{m['company_id']} THEN #{m['id']}"}.join(" ")+" ELSE 0 END" if modes.size > 0
+    modes = connection.select_all("SELECT * FROM #{quote_table_name(:delivery_modes)}")
+    execute "UPDATE #{quote_table_name(:deliveries)} SET mode_id = CASE "+modes.collect{|m| "WHEN nature='#{m['code']}' AND company_id=#{m['company_id']} THEN #{m['id']}"}.join(" ")+" ELSE 0 END" if modes.size > 0
     
     remove_column :deliveries,  :nature
     
@@ -31,7 +29,7 @@ class CreateDeliveryModes < ActiveRecord::Migration
   def self.down
     add_column :deliveries, :nature, :string, :limit=>3 
 
-    execute "UPDATE deliveries SET nature = m.code FROM delivery_modes m WHERE deliveries.company_id = m.company_id AND deliveries.mode_id = m.id"
+    execute "UPDATE #{quote_table_name(:deliveries)} SET nature = m.code FROM delivery_modes m WHERE deliveries.company_id = m.company_id AND deliveries.mode_id = m.id"
 
     remove_column :deliveries, :mode_id
     drop_table :delivery_modes

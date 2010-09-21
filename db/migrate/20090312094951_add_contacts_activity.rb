@@ -5,7 +5,7 @@ class AddContactsActivity < ActiveRecord::Migration
     add_column :contacts, :started_at, :datetime
     add_column :contacts, :stopped_at, :datetime
 
-    execute "UPDATE contacts SET code=id"
+    execute "UPDATE #{quote_table_name(:contacts)} SET code=id"
 
     add_index  :contacts, :code
     add_index  :contacts, :active

@@ -11,7 +11,7 @@ module ActiveRecord
       end
 
       def length(string)
-        return "LENGTH(#{string})"
+        return "LENGTH("+string+")"
       end
 
       def concatenate(*strings)

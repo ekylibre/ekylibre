@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20100917102657) do
     t.integer  "lock_version",                                     :default => 0,   :null => false
   end
 
-  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balannces_unique", :unique => true
+  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "\"account_balances\"_unique", :unique => true
   add_index "account_balances", ["company_id"], :name => "index_account_balances_on_company_id"
   add_index "account_balances", ["created_at"], :name => "index_account_balances_on_created_at"
   add_index "account_balances", ["creator_id"], :name => "index_account_balances_on_creator_id"
@@ -292,11 +292,12 @@ ActiveRecord::Schema.define(:version => 20100917102657) do
   end
 
   add_index "custom_field_data", ["choice_value_id"], :name => "index_complement_data_on_choice_value_id"
-  add_index "custom_field_data", ["company_id", "custom_field_id", "entity_id"], :name => "index_complement_data_on_entity_id_and_complement_id", :unique => true
+  add_index "custom_field_data", ["company_id", "custom_field_id", "entity_id"], :name => "index_\"complement_data\"_on_entity_id_and_complement_id", :unique => true
   add_index "custom_field_data", ["company_id"], :name => "index_complement_data_on_company_id"
   add_index "custom_field_data", ["created_at"], :name => "index_complement_data_on_created_at"
   add_index "custom_field_data", ["creator_id"], :name => "index_complement_data_on_creator_id"
   add_index "custom_field_data", ["custom_field_id"], :name => "index_complement_data_on_complement_id"
+  add_index "custom_field_data", ["entity_id", "custom_field_id"], :name => "index_complement_data_on_entity_id_and_complement_id", :unique => true
   add_index "custom_field_data", ["entity_id"], :name => "index_complement_data_on_entity_id"
   add_index "custom_field_data", ["updated_at"], :name => "index_complement_data_on_updated_at"
   add_index "custom_field_data", ["updater_id"], :name => "index_complement_data_on_updater_id"
@@ -469,10 +470,10 @@ ActiveRecord::Schema.define(:version => 20100917102657) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir",                       :null => false
-    t.string   "extension",                    :null => false
-    t.integer  "owner_id",                     :null => false
-    t.string   "owner_type",                   :null => false
+    t.string   "subdir"
+    t.string   "extension"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -1770,7 +1771,7 @@ ActiveRecord::Schema.define(:version => 20100917102657) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2009-07-31', :null => false
+    t.date     "to_bank_on",                                      :default => '2010-09-21', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false

@@ -4,9 +4,9 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
     add_column :document_templates, :family, :string, :limit=>32
     add_column :document_templates, :to_archive, :boolean
 
-    for nature in select_all("SELECT * FROM document_natures")
+    for nature in connection.select_all("SELECT * FROM #{quote_table_name(:document_natures)}")
       to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
-      execute "UPDATE document_templates SET code='#{nature['code'].gsub('\'','\'\'')}', family='#{nature['family'].gsub('\'','\'\'')}', to_archive=#{to_archive} WHERE nature_id=#{nature['id']}"
+      execute "UPDATE #{quote_table_name(:document_templates)} SET code='#{nature['code'].gsub('\'','\'\'')}', family='#{nature['family'].gsub('\'','\'\'')}', to_archive=#{to_archive} WHERE nature_id=#{nature['id']}"
     end
 
     remove_index :document_templates, :column=>:nature_id
@@ -29,10 +29,10 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
     add_index :document_templates, [:company_id, :nature_id]
     add_index :document_templates, :nature_id
     
-    for nature in select_all("SELECT * FROM document_templates")
+    for nature in connection.select_all("SELECT * FROM #{quote_table_name(:document_templates)}")
       to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
-      id = insert "INSERT INTO document_natures (created_at, updated_at, company_id, name, code, family, to_archive) SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{nature['company_id']}, '#{nature['name'].gsub('\'','\'\'')}', '#{nature['code'].gsub('\'','\'\'')}', '#{nature['family'].gsub('\'','\'\'')}', #{to_archive}"
-      execute "UPDATE document_templates SET nature_id=#{id} WHERE id=#{nature['id']}"
+      id = connection.insert "INSERT INTO #{quote_table_name(:document_natures)} (created_at, updated_at, company_id, name, code, family, to_archive) SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{nature['company_id']}, '#{nature['name'].gsub('\'','\'\'')}', '#{nature['code'].gsub('\'','\'\'')}', '#{nature['family'].gsub('\'','\'\'')}', #{to_archive}"
+      execute "UPDATE #{quote_table_name(:document_templates)} SET nature_id=#{id} WHERE id=#{nature['id']}"
     end
 
     remove_column :document_templates, :code

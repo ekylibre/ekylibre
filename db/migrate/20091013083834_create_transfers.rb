@@ -15,7 +15,7 @@ class CreateTransfers < ActiveRecord::Migration
     
     add_column :payment_parts, :expense_type, :string,  :null=>false, :default=>'UnknownModel'
     add_column :payment_parts, :expense_id,   :integer, :null=>false, :default=>0
-    execute "UPDATE payment_parts SET expense_type='SaleOrder', expense_id=order_id"
+    execute "UPDATE #{quote_table_name(:payment_parts)} SET expense_type='SaleOrder', expense_id=order_id"
     remove_column :payment_parts, :order_id
     add_index :payment_parts, :expense_type
     add_index :payment_parts, :expense_id
@@ -23,8 +23,8 @@ class CreateTransfers < ActiveRecord::Migration
 
   def self.down
     add_column :payment_parts, :order_id, :integer
-    execute "UPDATE payment_parts SET order_id = expense_id"
-    execute "DELETE FROM payment_parts WHERE expense_type != 'SaleOrder'"
+    execute "UPDATE #{quote_table_name(:payment_parts)} SET order_id = expense_id"
+    execute "DELETE FROM #{quote_table_name(:payment_parts)} WHERE expense_type != 'SaleOrder'"
     remove_column :payment_parts, :expense_type
     remove_column :payment_parts, :expense_id
 

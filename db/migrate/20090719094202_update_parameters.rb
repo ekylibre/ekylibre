@@ -5,16 +5,16 @@ class UpdateParameters < ActiveRecord::Migration
     add_column :parameters, :record_value_id, :integer
     add_column :parameters, :record_value_type, :string
     change_column :parameters, :nature, :string, :limit=>8
-    execute "UPDATE parameters SET record_value_id=element_id, record_value_type=element_type"
+    execute "UPDATE #{quote_table_name(:parameters)} SET record_value_id=element_id, record_value_type=element_type"
 
     for k, v in CONVERSIONS
-      execute "UPDATE parameters SET nature='#{v}' WHERE nature='#{k}'"
+      execute "UPDATE #{quote_table_name(:parameters)} SET nature='#{v}' WHERE nature='#{k}'"
     end
     
     for journal in ['sales', 'purchases', 'bank']
-      execute "INSERT INTO parameters (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'accountancy.default_journals.#{journal}', 'record', 'Journal', #{journal}_journal_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
+      execute "INSERT INTO #{quote_table_name(:parameters)} (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'accountancy.default_journals.#{journal}', 'record', 'Journal', #{journal}_journal_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quote_table_name(:companies)} AS companies"
     end
-    execute "INSERT INTO parameters (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'management.invoicing.numeration', 'record', 'Sequence', invoice_sequence_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
+    execute "INSERT INTO #{quote_table_name(:parameters)} (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'management.invoicing.numeration', 'record', 'Sequence', invoice_sequence_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quote_table_name(:companies)} AS companies"
 
     remove_index :parameters, :column=>:element_id
     remove_column :parameters, :element_id

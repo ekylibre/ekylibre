@@ -15,11 +15,11 @@ class ChangeSequences < ActiveRecord::Migration
     add_column    :companies, :invoice_sequence_id, :integer
     add_column    :entities,  :siren, :string, :limit=>9
     
-    companies = select_all("SELECT * FROM companies")
+    companies = connection.select_all("SELECT * FROM #{quote_table_name(:companies)}")
     if companies.size > 0
-      execute "UPDATE entities SET siren=CASE "+companies.collect{|c| "WHEN company_id=#{c['id']} THEN '#{c['siren']}'"}.join(" ")+" ELSE 0 END"
-      execute "INSERT INTO sequences(name, format, period, company_id, created_at, updated_at) SELECT 'Numéros de facture', 'F[year][month|2][number|6]', 'month', id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
-      execute "UPDATE companies SET invoice_sequence_id=CASE "+select_all("SELECT * FROM sequences").collect{|s| "WHEN id=#{s['company_id']} THEN #{s['id']}"}.join(" ")+" ELSE 0 END"
+      execute "UPDATE #{quote_table_name(:entities)} SET siren=CASE "+companies.collect{|c| "WHEN company_id=#{c['id']} THEN '#{c['siren']}'"}.join(" ")+" ELSE 0 END"
+      execute "INSERT INTO #{quote_table_name(:sequences)} (name, format, period, company_id, created_at, updated_at) SELECT 'Numéros de facture', 'F[year][month|2][number|6]', 'month', id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quote_table_name(:companies)}"
+      execute "UPDATE #{quote_table_name(:companies)} SET invoice_sequence_id=CASE "+select_all("SELECT * FROM sequences").collect{|s| "WHEN id=#{s['company_id']} THEN #{s['id']}"}.join(" ")+" ELSE 0 END"
     end
 
     remove_column :companies, :siren    
@@ -32,7 +32,7 @@ class ChangeSequences < ActiveRecord::Migration
       Company.update_all({:siren=>company.entity.siren}, {:id=>company.entity_id}) if company.entity and company.entity.siren
     end
 
-    execute "DELETE FROM sequences WHERE format='F[year][month|2][number|6]'"
+    execute "DELETE FROM #{quote_table_name(:sequences)} WHERE format='F[year][month|2][number|6]'"
 
     remove_column :entities,  :siren
     remove_column :companies, :invoice_sequence_id

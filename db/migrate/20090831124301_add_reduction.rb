@@ -10,8 +10,8 @@ class AddReduction < ActiveRecord::Migration
     add_index :sale_order_lines, :reduction_origin_id
 
     add_column :documents, :nature_code, :string    
-    for template in select_all("SELECT n.code AS code, t.id AS id  FROM document_templates AS t JOIN document_natures AS n ON (n.id=t.nature_id)")
-      execute "UPDATE documents SET nature_code = '#{template['code'].gsub(/\'/,"''")}' WHERE template_id=#{template['id']}"
+    for template in connection.select_all("SELECT n.code AS code, t.id AS id FROM #{quote_table_name(:document_templates)} AS t JOIN #{quote_table_name(:document_natures)} AS n ON (n.id=t.nature_id)")
+      execute "UPDATE #{quote_table_name(:documents)} SET nature_code = '#{template['code'].gsub(/\'/,"''")}' WHERE template_id=#{template['id']}"
     end
   end
 

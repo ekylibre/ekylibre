@@ -3,11 +3,11 @@ class AddEmbankmentNumber < ActiveRecord::Migration
 
     add_column :embankments, :number, :string
     
-    execute "UPDATE embankments SET number = id WHERE number IS NULL"
+    execute "UPDATE #{quote_table_name(:embankments)} SET number = id WHERE number IS NULL"
 
     add_column :subscriptions, :number, :string
 
-    execute "UPDATE subscriptions SET number = id WHERE number IS NULL"
+    execute "UPDATE #{quote_table_name(:subscriptions)} SET number = id WHERE number IS NULL"
 
   end
   
