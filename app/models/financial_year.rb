@@ -170,7 +170,7 @@ class FinancialYear < ActiveRecord::Base
           accounts_to_substract.each do |a|
             in_query << "accounts.number LIKE '#{a.upcase}%'"
           end
-          balance_to_substract = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM account_balances LEFT JOIN accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} AND account_balances.company_id = #{self.company_id}")
+          balance_to_substract = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} AND account_balances.company_id = #{self.company_id}")
         end
         
         in_query.clear
@@ -183,10 +183,10 @@ class FinancialYear < ActiveRecord::Base
           end
         end
         not_in_query = not_in_query.empty? ? "" : "AND "+not_in_query.join(" OR ")
-        balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM account_balances LEFT JOIN accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} #{not_in_query} AND account_balances.company_id = #{self.company_id}")
+        balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} #{not_in_query} AND account_balances.company_id = #{self.company_id}")
         #raise Exception.new balance.inspect if accounts_number == "707,708,7097"
       else
-        balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit, sum(account_balances.local_debit) as sum_debit FROM account_balances LEFT JOIN accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE accounts.number LIKE '#{accounts_number.strip.upcase}%' AND account_balances.company_id = #{self.company_id}")
+        balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit, sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE accounts.number LIKE '#{accounts_number.strip.upcase}%' AND account_balances.company_id = #{self.company_id}")
       end
     end
     #puts accounts_number.include?("-").inspect+balance[0].inspect+"!!!!!!!!!!!!!"+balance_to_substract.inspect
@@ -200,7 +200,7 @@ class FinancialYear < ActiveRecord::Base
 
   def compute_balances
     ## journal_entry_lines.all group_by account_id =>refresh account_balance corresponding
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM journal_entry_lines JOIN journal_entries as jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.draft is false GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.draft is false GROUP BY account_id")
     results.each do |result|
       if account_balance = self.company.account_balances.find_by_financial_year_id_and_account_id(self.id, result["account_id"].to_i)
         account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)

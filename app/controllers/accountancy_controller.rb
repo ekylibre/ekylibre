@@ -19,7 +19,7 @@
 
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
-
+  
   dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
   dyli(:account_collected, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   dyli(:account_paid, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
@@ -154,7 +154,7 @@ class AccountancyController < ApplicationController
   def self.accounts_conditions
     code  = "c=['company_id = ? AND number LIKE ?', @current_company.id, session[:account_prefix]]\n"
     code += "if (session[:used_accounts])\n"
-    code += "  c[0]+=' AND id IN (SELECT account_id FROM journal_entry_lines JOIN journal_entries ON (entry_id=journal_entries.id) WHERE created_on BETWEEN ? AND ? AND journal_entry_lines.company_id = ?)'\n"
+    code += "  c[0]+=' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) WHERE created_on BETWEEN ? AND ? AND journal_entry_lines.company_id = ?)'\n"
     code += "  c+=[(params[:started_on].to_date rescue Date.civil(1901,1,1)), (params[:stopped_on].to_date rescue Date.civil(1901,1,1)), @current_company.id]\n"
     code += "end\n"
     code += "c"
@@ -230,7 +230,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN accounts ON (account_id=accounts.id)", :conditions=>["journal_entry_lines.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+  dyta(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_letter}
     t.column :name, :through=>:account, :url=>{:action=>:account_letter}
     t.column :number, :through=>:entry
@@ -243,12 +243,6 @@ class AccountancyController < ApplicationController
   def lettering
     session[:current_lettering_mode] = params[:id] = params[:id] || session[:current_lettering_mode] || :clients
     session[:current_account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:id]}").value
-    #     @accounts_client=@current_company.client_accounts
-    #     @accounts_supplier=@current_company.supplier_accounts
-    #     if request.post?
-    #       @account = @current_company.accounts.find(params[:account_client_id], params[:account_supplier_id])
-    #       redirect_to :action => :account_letter, :id => @account.id
-    #     end
   end
 
 
@@ -293,7 +287,7 @@ class AccountancyController < ApplicationController
     if request.post?
       if params[:export]
         query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
-        query += " FROM journal_entry_lines JOIN accounts ON (account_id=accounts.id) JOIN journal_entries ON (entry_id=journal_entries.id)"
+        query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
         query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
         query += " GROUP BY accounts.name, accounts.number"
         query += " ORDER BY accounts.number"
@@ -335,20 +329,20 @@ class AccountancyController < ApplicationController
     code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
     # state
     code += "c[0] += \" AND (false\"\n"
-    code += "c[0] += \" OR (journal_entry_lines.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
-    code += "c[0] += \" OR (journal_entry_lines.draft = #{conn.quoted_false} AND journal_entry_lines.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
-    code += "c[0] += \" OR (journal_entry_lines.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.draft = #{conn.quoted_false} AND #{JournalEntryLine.table_name}.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
     code += "c[0] += \")\"\n"    
     # accounts
     code += "c[0] += ' AND ('+(session[:general_ledger][:accounts]||\"#{conn.quoted_false}\")+')'\n"
     # journals
-    code += "c[0] += ' AND journal_entry_lines.journal_id IN (?)'\n"    
+    code += "c[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"    
     code += "c<<session[:general_ledger][:journals]\n"    
     code += "c\n"
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id) JOIN accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, position") do |t|
+  dyta(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id = journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, position") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
@@ -725,9 +719,9 @@ class AccountancyController < ApplicationController
 
   def self.journal_entries_conditions(options={})
     code = ""
-    code += "c=['journal_entries.company_id=? "
-    code += " AND journal_entries.journal_id IN (?) " unless options[:all_journals]
-    code += " AND journal_entries.draft=? " if options[:draft]
+    code += "c=['#{JournalEntry.table_name}.company_id=? "
+    code += " AND #{JournalEntry.table_name}.journal_id IN (?) " unless options[:all_journals]
+    code += " AND #{JournalEntry.table_name}.draft=? " if options[:draft]
     code += "', @current_company.id"
     code += ", session[:current_journal_id]" unless options[:all_journals]
     code += ", true" if options[:draft]
@@ -739,18 +733,18 @@ class AccountancyController < ApplicationController
     code += "  start, finish = session[:journal_entry_start], session[:journal_entry_finish]\n"
     code += "end\n"
     code += "if (start.to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_entries.printed_on>=?'\n"
+    code += "  c[0]+=' AND #{JournalEntry.table_name}.printed_on>=?'\n"
     code += "  c<<start.to_date\n"
     code += "end\n"
     code += "if (finish.to_date rescue nil)\n"
-    code += "  c[0]+=' AND journal_entries.printed_on<=?'\n"
+    code += "  c[0]+=' AND #{JournalEntry.table_name}.printed_on<=?'\n"
     code += "  c<<finish.to_date\n"
     code += "end\n"
     code += "c\n"
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, position") do |t|
+  dyta(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -782,7 +776,7 @@ class AccountancyController < ApplicationController
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
-  dyta(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :order=>"entry_id DESC, position") do |t|
+  dyta(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -833,7 +827,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN journal_entries ON (entry_id = journal_entries.id)", :order=>"entry_id DESC, position") do |t|
+  dyta(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date

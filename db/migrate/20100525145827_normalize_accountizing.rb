@@ -334,30 +334,30 @@ class NormalizeAccountizing < ActiveRecord::Migration
   end
 
   def self.down
-    execute "UPDATE listings SET query = ''"
-    execute "UPDATE listing_nodes SET name=REPLACE(name, 'by_default', 'default'), attribute_name='default' WHERE name LIKE '%.by_default'"
-    execute "UPDATE listing_nodes SET name=REPLACE(name, 'deleted_at', 'active'), attribute_name='active', condition_operator=CASE WHEN condition_operator = 'vn' THEN 'is_true' WHEN condition_operator = 'nvn' THEN 'is_false' END WHERE name LIKE 'contact%.active'"
+    execute "UPDATE #{quote_table_name(:listings)} SET query = ''"
+    execute "UPDATE #{quote_table_name(:listing_nodes)} SET name=REPLACE(name, 'by_default', 'default'), attribute_name='default' WHERE name LIKE '%.by_default'"
+    execute "UPDATE #{quote_table_name(:listing_nodes)} SET name=REPLACE(name, 'deleted_at', 'active'), attribute_name='active', condition_operator=CASE WHEN condition_operator = 'vn' THEN 'is_true' WHEN condition_operator = 'nvn' THEN 'is_false' END WHERE name LIKE 'contact%.active'"
 
     # Update some values in tables
-    execute "DELETE FROM parameters WHERE name = 'accountancy.accountize.draft_mode'"
+    execute "DELETE FROM #{quote_table_name(:parameters)} WHERE name = 'accountancy.accountize.draft_mode'"
     for n, o in PARAMETERS.reverse
-      execute "UPDATE parameters SET name='#{n}' WHERE name='#{o}'"
+      execute "UPDATE #{quote_table_name(:parameters)} SET name='#{n}' WHERE name='#{o}'"
     end
-    execute "UPDATE taxes SET amount=amount/100 WHERE nature='percent'"
+    execute "UPDATE #{quote_table_name(:taxes)} SET amount=amount/100 WHERE nature='percent'"
     unless adapter_name == "sqlserver"
       for t in [:users, :roles]
         for o, n in RIGHTS.reverse
-          execute "UPDATE #{t} SET rights=REPLACE(rights, '#{n}', '#{o}')"
+          execute "UPDATE #{quote_table_name(t)} SET rights=REPLACE(rights, '#{n}', '#{o}')"
         end
       end 
-      execute "UPDATE users SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
-      execute "UPDATE users SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
-      execute "UPDATE roles SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
-      execute "UPDATE roles SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
+      execute "UPDATE #{quote_table_name(:users)} SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+      execute "UPDATE #{quote_table_name(:users)} SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
+      execute "UPDATE #{quote_table_name(:roles)} SET rights=REPLACE(rights, 'manage_bank_statements', 'manage_statements')"
+      execute "UPDATE #{quote_table_name(:roles)} SET rights=REPLACE(rights, 'manage_cashes', 'manage_bank_accounts')"
     end
-    execute "UPDATE journals SET nature='renew' WHERE nature='forward'"
-    execute "UPDATE journals SET nature='purchase' WHERE nature='purchases'"
-    execute "UPDATE journals SET nature='sale' WHERE nature='sales'"
+    execute "UPDATE #{quote_table_name(:journals)} SET nature='renew' WHERE nature='forward'"
+    execute "UPDATE #{quote_table_name(:journals)} SET nature='purchase' WHERE nature='purchases'"
+    execute "UPDATE #{quote_table_name(:journals)} SET nature='sale' WHERE nature='sales'"
 
     # Add/remove columns
     add_column :users, :credits, :boolean, :null=>false, :default=>false
@@ -375,12 +375,12 @@ class NormalizeAccountizing < ActiveRecord::Migration
 
     # Work only if last migration !!!!
     add_column :sale_payments, :old_id, :integer
-    suppliers=connection.select_all("SELECT id, entity_id from companies")
+    suppliers=connection.select_all("SELECT id, entity_id from #{quote_table_name(:companies)}")
     suppliers=(suppliers.size > 0 ? "CASE "+suppliers.collect{|l| "WHEN company_id=#{l['id']} THEN #{l['entity_id']}"}.join(" ")+" ELSE 0 END" : '0')
-    modes=connection.select_all("SELECT a.id AS n, b.id AS o FROM sale_payment_modes AS a JOIN purchase_payment_modes AS b ON (a.name=b.name AND a.company_id=b.company_id)")
+    modes=connection.select_all("SELECT a.id AS n, b.id AS o FROM #{quote_table_name(:sale_payment_modes)} AS a JOIN #{quote_table_name(:purchase_payment_modes)} AS b ON (a.name=b.name AND a.company_id=b.company_id)")
     modes=(modes.size > 0 ? "CASE "+modes.collect{|l| "WHEN mode_id=#{l['n']} THEN #{l['o']}"}.join(" ")+" ELSE 0 END" : '0')
-    execute "INSERT INTO sale_payments(old_id, accounted_at, amount, check_number, created_on, embanker_id,     mode_id, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, payer_id)"+
-                              " SELECT     id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM purchase_payments"
+    execute "INSERT INTO #{quote_table_name(:sale_payments)} (old_id, accounted_at, amount, check_number, created_on, embanker_id,     mode_id, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, payer_id)"+
+      " SELECT     id, accounted_at, amount, check_number, created_on, responsible_id, #{modes}, number, paid_on, parts_amount, to_bank_on, company_id, created_at, updated_at, #{suppliers} FROM #{quote_table_name(:purchase_payments)}"
     remove_column :sale_payments, :journal_record_id
     remove_column :sale_payments, :receipt
     # change_column_null :sale_payments, :parts_amount, false, 0.0
@@ -388,8 +388,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :sale_payments, :account_id, :integer
 
     add_column :sale_payment_parts, :invoice_id, :integer
-    execute "INSERT INTO sale_payment_parts(amount,   downpayment,    expense_type, expense_id, payment_id,   company_id,   created_at,   updated_at)"+
-                                    "SELECT p.amount, downpayment, 'PurchaseOrder', expense_id,      sp.id, p.company_id, p.created_at, p.updated_at FROM purchase_payment_parts AS p JOIN sale_payments AS sp ON (old_id=payment_id)"
+    execute "INSERT INTO #{quote_table_name(:sale_payment_parts)} (amount,   downpayment,    expense_type, expense_id, payment_id,   company_id,   created_at,   updated_at)"+
+      "SELECT p.amount, downpayment, 'PurchaseOrder', expense_id,      sp.id, p.company_id, p.created_at, p.updated_at FROM #{quote_table_name(:purchase_payment_parts)} AS p JOIN #{quote_table_name(:sale_payments)} AS sp ON (old_id=payment_id)"
     remove_column :sale_payment_parts, :accounted_at
     remove_column :sale_payment_parts, :journal_record_id
     remove_column :sale_payments, :old_id
@@ -443,8 +443,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :journal_records, :status, :string, :null=>false, :default=>"A", :limit=>1
     add_index :journal_records, [:status, :company_id]
     add_column :journal_records, :financialyear_id, :integer
-    if (financialyears=connection.select_all("SELECT * FROM financialyears")).size > 0
-      execute "UPDATE journal_records SET financialyear_id=CASE "+financialyears.collect{|l| "WHEN company_id=#{l['company_id']} AND printed_on BETWEEN #{quote(l['started_on'].to_date)} AND #{quote(l['stopped_on'].to_date)} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
+    if (financialyears=connection.select_all("SELECT * FROM #{quote_table_name(:financialyears)}")).size > 0
+      execute "UPDATE #{quote_table_name(:journal_records)} SET financialyear_id=CASE "+financialyears.collect{|l| "WHEN company_id=#{l['company_id']} AND printed_on BETWEEN #{connection.quote(l['started_on'].to_date)} AND #{connection.quote(l['stopped_on'].to_date)} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
     
     rename_column :journal_entries, :bank_statement_id, :statement_id
@@ -453,8 +453,8 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :journal_entries, :currency_id, :integer, :null=>false, :default=>0
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0
     add_column :journal_entries, :editable, :boolean, :null=>false, :default=>true
-    if (currencies=connection.select_all("SELECT * FROM currencies WHERE by_default")).size>0
-      execute "UPDATE journal_entries SET editable = "+not_boolean("closed")+", currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END, currency_rate=1"
+    if (currencies=connection.select_all("SELECT * FROM #{quote_table_name(:currencies)} WHERE by_default")).size>0
+      execute "UPDATE #{quote_table_name(:journal_entries)} SET editable = "+connection.not_boolean("closed")+", currency_id=CASE "+currencies.collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END, currency_rate=1"
     end
     remove_column :journal_entries, :closed
   
@@ -473,7 +473,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :entity_natures, :format
     rename_column :entity_natures, :title, :abbreviation
     add_column :entity_natures, :title, :string
-    execute "UPDATE entity_natures SET title=abbreviation WHERE physical=#{quoted_true}"
+    execute "UPDATE #{quote_table_name(:entity_natures)} SET title=abbreviation WHERE physical=#{quoted_true}"
 
     remove_column :entities, :locked
     remove_column :entities, :hashed_password
@@ -500,7 +500,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_column :contacts, :started_at, :datetime
     add_index :contacts, :started_at
     rename_column :contacts, :deleted_at, :stopped_at
-    execute "UPDATE contacts SET started_at=created_at, active=(stopped_at IS NULL), deleted=(stopped_at IS NOT NULL)"
+    execute "UPDATE #{quote_table_name(:contacts)} SET started_at=created_at, active=(stopped_at IS NULL), deleted=(stopped_at IS NOT NULL)"
 
     # change_column :companies, :code, :string, :limit=>16
 
@@ -583,11 +583,11 @@ class NormalizeAccountizing < ActiveRecord::Migration
     add_index :languages, :iso3
 
     languages = nil
-    if connection.select_all("SELECT * FROM companies").size > 0
-      execute "INSERT INTO languages(name, native_name, iso2, iso3, company_id, created_at, updated_at) SELECT 'French', 'Français', 'fr', 'fra', id, created_at, created_at FROM companies"
-      execute "DELETE FROM parameters WHERE name='general.language'"
-      execute "INSERT INTO parameters(company_id, name, nature, record_value_id, record_value_type, created_at, updated_at) SELECT company_id, 'general.language', 'record', id, 'Language', created_at, updated_at FROM languages"
-      languages = "CASE "+connection.select_all("SELECT * FROM languages").collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
+    if connection.select_all("SELECT * FROM #{quote_table_name(:companies)}").size > 0
+      execute "INSERT INTO #{quote_table_name(:languages)} (name, native_name, iso2, iso3, company_id, created_at, updated_at) SELECT 'French', 'Français', 'fr', 'fra', id, created_at, created_at FROM #{quote_table_name(:companies)}"
+      execute "DELETE FROM #{quote_table_name(:parameters)} WHERE name='general.language'"
+      execute "INSERT INTO #{quote_table_name(:parameters)} (company_id, name, nature, record_value_id, record_value_type, created_at, updated_at) SELECT company_id, 'general.language', 'record', id, 'Language', created_at, updated_at FROM #{quote_table_name(:languages)}"
+      languages = "CASE "+connection.select_all("SELECT * FROM #{quote_table_name(:languages)}").collect{|l| "WHEN company_id=#{l['company_id']} THEN #{l['id']}"}.join(" ")+" ELSE 0 END"
     end
 
     for table in TABLES_LANGUAGE.reverse

@@ -29,7 +29,7 @@ class CreateDeliveryModes < ActiveRecord::Migration
   def self.down
     add_column :deliveries, :nature, :string, :limit=>3 
 
-    execute "UPDATE #{quote_table_name(:deliveries)} SET nature = m.code FROM delivery_modes m WHERE deliveries.company_id = m.company_id AND deliveries.mode_id = m.id"
+    execute "UPDATE #{quote_table_name(:deliveries)} SET nature = m.code FROM #{quote_table_name(:delivery_modes)} m WHERE #{quote_table_name(:deliveries)}.company_id = m.company_id AND #{quote_table_name(:deliveries)}.mode_id = m.id"
 
     remove_column :deliveries, :mode_id
     drop_table :delivery_modes

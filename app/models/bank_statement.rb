@@ -71,8 +71,8 @@ class BankStatement < ActiveRecord::Base
   def eligible_entry_lines
     self.company.journal_entry_lines.find(:all, 
                                           :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
-                                          :joins => "INNER JOIN journal_entries ON journal_entries.id = entry_id", 
-                                          :order => "bank_statement_id DESC, journal_entry_lines.created_at DESC")
+                                          :joins => "INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id", 
+                                          :order => "bank_statement_id DESC, #{JournalEntryLine.table_name}.created_at DESC")
   end
 
 end

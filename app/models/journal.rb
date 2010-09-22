@@ -122,7 +122,7 @@ class Journal < ActiveRecord::Base
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN journal_entries ON (entry_id=journal_entries.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
+    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
     return false unless errors.empty?
     ActiveEntry::Base.transaction do
       for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
@@ -180,12 +180,12 @@ class Journal < ActiveRecord::Base
   end
 
   def entry_lines_between(started_on, stopped_on)
-    self.entry_lines.find(:all, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
+    self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
   end
 
   def entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
-    self.entry_lines.calculate(operation, column, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 end

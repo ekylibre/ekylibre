@@ -1771,7 +1771,7 @@ ActiveRecord::Schema.define(:version => 20100917102657) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2010-09-21', :null => false
+    t.date     "to_bank_on",                                      :default => '2010-09-22', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false

@@ -117,7 +117,7 @@ class Company < ActiveRecord::Base
 
   # Specifics
   has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_attorneys\').value.to_s+\'%\')}'
-  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM products WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
+  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
   has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
@@ -127,9 +127,9 @@ class Company < ActiveRecord::Base
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
   has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
+  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{SalePaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM sale_payment_modes WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
+  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{SalePaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
   has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
@@ -240,18 +240,6 @@ class Company < ActiveRecord::Base
     array
   end
 
-#   def available_products(options={})
-#     options[:conditions] ||= {}
-#     options[:conditions].merge!(:active=>true)
-#     options[:order] ||= 'name'
-#     self.products.find(:all, options)
-#   end
-
-#   def available_prices(category_id=nil)
-#     conditions = {"prices.entity_id"=>self.entity_id, "products.active"=>true, "prices.active"=>true}
-#     conditions[:category_id] = category_id if category_id
-#     self.prices.find(:all, :joins=>"JOIN products ON (products.id=product_id)", :conditions=>conditions, :order=>"products.name, prices.amount")
-#   end
 
   def available_taxes(options={})
     #    options[:conditions]={:deleted=>false}
@@ -275,11 +263,6 @@ class Company < ActiveRecord::Base
   def current_financial_year
     self.financial_years.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
   end
-
-  #   def productable_products
-  #     #Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (supply_method = 'produce' OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-  #     Product.find_by_sql ["SELECT * FROM products WHERE company_id = ? AND (to_produce OR id IN (SELECT product_id FROM product_components WHERE company_id = ?))", self.id, self.id ]
-  #   end
 
   def imported_entity_nature(row)
     if row.blank?
@@ -405,7 +388,7 @@ class Company < ActiveRecord::Base
     # centralized = "("+centralized.collect{|c| "SUBSTR(accounts.number, 1, #{c.length}) = #{conn.quote(c)}"}.join(" OR ")+")"
     centralized = "("+centralize.collect{|c| "accounts.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")+")"
 
-    from_where  = " FROM journal_entry_lines JOIN accounts ON (account_id=accounts.id) JOIN journal_entries ON (entry_id=journal_entries.id)"
+    from_where  = " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.Table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
     from_where += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
     # Total
     lines = []
@@ -905,12 +888,12 @@ class Company < ActiveRecord::Base
   end
 
   def journal_entry_lines_between(started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
+    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
   end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
-    self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 

@@ -124,18 +124,6 @@ class Price < ActiveRecord::Base
     price
   end
 
-#   def all_taxes(company, options={})
-#     if self.new_record?
-#       options[:select] = "taxes.*, #{connection.quoted_false} AS used"      
-#     else
-#       options[:select] = "taxes.*, (pt.id IS NOT NULL) AS used"
-#       options[:joins]  = " LEFT JOIN price_taxes AS pt ON (taxes.id=tax_id)"
-#       options[:conditions]  = {:price_id=>self.id}
-#     end
-#     company.taxes.find(:all, options)
-#   end
-
-
   def range
     if self.use_range
       tc(:range, :min=>self.quantity_min, :max=>self.quantity_max)

@@ -76,7 +76,7 @@ class ManagementController < ApplicationController
         sales=[]
         
         12.times do |m|
-          sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN sale_orders as s ON s.id=sale_order_lines.order_id").to_f
+          sales << @current_company.sale_order_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN #{SaleOrder.table_name} AS s ON s.id=#{SaleOrderLine.table_name}.order_id").to_f
           d += 1.month
           g.labels[m] = d.month.to_s # t('date.abbr_month_names')[d.month].to_s
         end
@@ -94,10 +94,10 @@ class ManagementController < ApplicationController
       mode = (params[:mode]||:quantity).to_s.to_sym
       source = (params[:source]||:invoice).to_s.to_sym
       query = if source == :invoice
-        "SELECT product_id, sum(sol.#{mode}) AS total FROM invoice_lines AS sol JOIN invoices AS so ON (sol.invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
-      else
-        "SELECT product_id, sum(sol.#{mode}) AS total FROM sale_order_lines AS sol JOIN sale_orders AS so ON (sol.order_id=so.id) WHERE state != 'E' AND created_on BETWEEN ? AND ? GROUP BY product_id"
-      end
+                "SELECT product_id, sum(sol.#{mode}) AS total FROM #{InvoiceLine.table_name} AS sol JOIN #{Invoice.table_name} AS so ON (sol.invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
+              else
+                "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleOrderLine.table_name} AS sol JOIN #{SaleOrder.table_name} AS so ON (sol.order_id=so.id) WHERE state != 'E' AND created_on BETWEEN ? AND ? GROUP BY product_id"
+              end
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
       date = start
@@ -265,14 +265,14 @@ class ManagementController < ApplicationController
     code += "  if session[:invoice_state] == 'credits' \n"
     code += "    c[0] += \" AND credit = true \"\n"
     code += "  elsif session[:invoice_state] == 'cancelled' \n"
-    code += "    c[0] += \" AND invoices.id IN (SELECT origin_id FROM invoices WHERE credit = true)\" \n"
+    code += "    c[0] += \" AND invoices.id IN (SELECT origin_id FROM #{Invoice.table_name} WHERE credit = true AND company_id=\#\{@current_company.id\})\" \n"
     code += "  end\n "
     code += "end\n "
     code += "c \n"
     code
   end
   
-  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN entities e ON e.id = invoices.client_id LEFT JOIN sale_orders s ON s.id = invoices.sale_order_id", :order=>"invoices.created_on DESC, invoices.number DESC") do |t|
+  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN #{Entity.table_name} e ON e.id = #{Invoice.table_name}.client_id LEFT JOIN #{SaleOrder.table_name} AS s ON s.id = #{Invoice.table_name}.sale_order_id", :order=>"#{Invoice.table_name}.created_on DESC, #{Invoice.table_name}.number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
@@ -795,7 +795,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
+  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :reference_number, :url=>{:action=>:purchase_order}
     t.column :planned_on
@@ -985,7 +985,7 @@ class ManagementController < ApplicationController
     return code
   end
 
-  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = purchase_payments.payee_id", :order=>"to_bank_on DESC") do |t|
+  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:purchase_payment}
     t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
     t.column :paid_on
@@ -1007,7 +1007,7 @@ class ManagementController < ApplicationController
   manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
 
-  dyta(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM purchase_payment_parts WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
+  dyta(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM #{PurchasePaymentPart.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -1037,7 +1037,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN entities ON entities.id = sale_orders.client_id", :order=>'created_on desc', :line_class=>'RECORD.status' ) do |t|
+  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN #{Entity.table_name} AS entities ON entities.id = #{SaleOrder.table_name}.client_id", :order=>'created_on desc', :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sale_order_lines}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_nature}
     t.column :created_on
@@ -1122,7 +1122,7 @@ class ManagementController < ApplicationController
   end
     
   
-  dyta(:sale_order_payments, :model=>:sale_payments, :conditions=>["sale_payments.company_id=? AND sale_payment_parts.expense_id=? AND sale_payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name], :joins=>"JOIN sale_payment_parts ON (sale_payments.id=payment_id)") do |t|
+  dyta(:sale_order_payments, :model=>:sale_payments, :conditions=>["#{SalePayment.table_name}.company_id=? AND sale_payment_parts.expense_id=? AND sale_payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name], :joins=>"JOIN #{SalePaymentPart.table_name} AS sale_payment_parts ON (#{SalePayment.table_name}.id=payment_id)") do |t|
    # t.column :id, :url=>{:action=>:sale_payment}
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
@@ -1349,7 +1349,7 @@ class ManagementController < ApplicationController
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
-  dyli(:available_prices, ["products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+  dyli(:available_prices, ["products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
   
   def sale_order_line_create
     return unless @sale_order = find_and_check(:sale_order, params[:order_id]||session[:current_sale_order_id])
@@ -1461,7 +1461,7 @@ class ManagementController < ApplicationController
     @sale_delivery.amount_with_taxes = @sale_delivery.amount_with_taxes.round(2)
   end
   
-  dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true},:joins=>"JOIN entities ON (entity_id=entities.id)", :model=>:contacts)
+  dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true},:joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :model=>:contacts)
   
   
   def sale_delivery_create
@@ -1687,7 +1687,7 @@ class ManagementController < ApplicationController
     return code
   end
  
-  dyta(:sale_payments, :conditions=>sale_payments_conditions, :joins=>"LEFT JOIN entities ON entities.id = sale_payments.payer_id", :order=>"to_bank_on DESC") do |t|
+  dyta(:sale_payments, :conditions=>sale_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = #{SalePayment.table_name}.payer_id", :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
@@ -1708,7 +1708,7 @@ class ManagementController < ApplicationController
   end
   manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  dyta(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM sale_payment_parts WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
+  dyta(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["#{SaleOrder.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{SalePaymentPart.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
     t.column :number, :url=>{:action=>:sale_order}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -1940,7 +1940,7 @@ class ManagementController < ApplicationController
 
   def self.subscriptions_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id, 0) NOT IN (SELECT id from sale_orders WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
+    code += "conditions = [ \" company_id = ? AND COALESCE(sale_order_id, 0) NOT IN (SELECT id FROM #{SaleOrder.table_name} WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
     code += "if session[:subscriptions].is_a? Hash\n"
     code += "  if session[:subscriptions][:nature].is_a? Hash\n"
     code += "    conditions[0] += \" AND nature_id = ?\" \n "
@@ -2009,7 +2009,7 @@ class ManagementController < ApplicationController
   end
 
   # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity_id]'], :active=>true, :company_id=>['@current_company.id']})
-  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN entities ON (entity_id=entities.id)", :conditions=>{:deleted_at=>nil, :company_id=>['@current_company.id']})
+  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :conditions=>{:deleted_at=>nil, :company_id=>['@current_company.id']})
   
   manage :subscriptions, :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 
@@ -2249,7 +2249,7 @@ class ManagementController < ApplicationController
     redirect_to :action=>:transports
   end
 
-  dyli(:sale_deliveries, [:planned_on, "contacts.address"], :conditions=>["deliveries.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>"INNER JOIN contacts ON contacts.id = deliveries.contact_id ")
+  dyli(:sale_deliveries, [:planned_on, "contacts.address"], :conditions=>["deliveries.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>"INNER JOIN #{Contact.table_name} AS contacts ON contacts.id = deliveries.contact_id ")
   
   def transport_deliveries
     return unless @transport = find_and_check(:transports, params[:id]||session[:current_transport])

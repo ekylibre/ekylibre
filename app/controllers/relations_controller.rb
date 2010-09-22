@@ -264,7 +264,7 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
    
-  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN contacts c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
+  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS  c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
     t.column :active, :datatype=>:boolean
     t.column :code, :url=>{:action=>:entity}
     t.column :title, :through=>:nature
@@ -284,9 +284,9 @@ class RelationsController < ApplicationController
   end
 
 
-  # dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_links.company_id = entity_link_natures.company_id WHERE entity_links.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND entity_link_natures.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'] ]) do |t|
+  # dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'] ]) do |t|
   # dyta(:entity_contacts, :model=>:contacts, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
-  dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM entity_links  INNER JOIN entity_link_natures ON (entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN  ( SELECT entity_2_id FROM entity_links  INNER JOIN entity_link_natures ON entity_link_natures.propagate_contacts = ? AND entity_links.nature_id = entity_link_natures.id  AND stopped_on IS NULL WHERE  (entity_1_id = ? OR entity_2_id = ?) ) )', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
+  dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
     t.column :address, :url=>{:action=>:contact_update}
     t.column :phone
     t.column :fax
@@ -726,7 +726,7 @@ class RelationsController < ApplicationController
   end
   
 
-  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN users ON (responsible_id=users.id) JOIN entities ON (entity_id=entities.id) JOIN event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
@@ -765,16 +765,12 @@ class RelationsController < ApplicationController
           if k.match(/^custom_field\-/)
             id = k.split('-')[1][2..-1].to_i
             if custom_field = @current_company.custom_fields.find_by_id(id)
-              from += " LEFT JOIN custom_field_data AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
-              #from += ", custom_field_data AS _c#{id}"
-              #where += " AND (_c#{id}.entity_id=entity.id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+              from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
               if custom_field.nature == "choice"
               select_array << [ "_cc#{id}.value AS custom_field_#{id}", v[:label]]
-                # select += ", _cc#{id}.value AS custom_field_#{id}"
-                from += " LEFT JOIN custom_field_choices AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+                from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
               else
                 select_array << [ "_c#{id}.#{custom_field.nature}_value AS custom_field_#{id}", v[:label]]
-                # select += ", _c#{id}.#{custom_field.nature}_value AS custom_field_#{id}"
               end
             end
           else
@@ -807,7 +803,7 @@ class RelationsController < ApplicationController
                          y = condition[:timestamp][:stopped_on].to_date rescue Date.today
                          timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
                        end
-                       "entity.id IN (SELECT entity_id FROM subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id}"+products+subscribed_on+timestamp+")"
+                       "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id}"+products+subscribed_on+timestamp+")"
                      else
                        "true"
                      end

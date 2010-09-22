@@ -268,7 +268,7 @@ class SaleOrder < ActiveRecord::Base
   # - +column+ can be +:amount+ or +:amount_with_taxes+
   def undelivered(column)
     sum  = self.send(column)
-    sum -= SaleDeliveryLine.sum(column, :joins=>"JOIN sale_deliveries ON (delivery_id=sale_deliveries.id)", :conditions=>["sale_deliveries.order_id=?", self.id])
+    sum -= SaleDeliveryLine.sum(column, :joins=>"JOIN #{SaleDelivery.table_name} AS sale_deliveries ON (delivery_id=sale_deliveries.id)", :conditions=>["sale_deliveries.order_id=?", self.id])
     sum.round(2)
   end
 

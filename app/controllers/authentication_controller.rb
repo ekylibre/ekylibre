@@ -37,7 +37,7 @@ class AuthenticationController < ApplicationController
           redirect_to params[:url]||{:controller=>:company, :action=>:index, :company=>user.company.code}
         end
       elsif User.count(:conditions=>{:name=>params[:name]}) > 1
-        @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN companies ON (companies.id=company_id)",  :order=>"companies.name")
+        @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN #{Company.table_name} AS companies ON (companies.id=company_id)",  :order=>"companies.name")
         notify(:need_company_code_to_login, :warning, :now)
       else
         notify(:no_authenticated, :error, :now)

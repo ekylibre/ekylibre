@@ -46,7 +46,7 @@ class DropJournalPeriod < ActiveRecord::Migration
     
     add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade 
 
-    execute "insert into journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+concantenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from journal_records"
+    execute "INSERT INTO #{quote_table_name(:journal_periods)} (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from #{quote_table_name(:journal_records)}"
 
     if defined? JournalPeriod
       JournalPeriod.find(:all).each do |period| 

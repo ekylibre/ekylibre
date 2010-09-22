@@ -101,7 +101,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
     remove_column :documents, :owner_id
     remove_column :documents, :owner_type
 
-    FileUtils.rm_rf(Document::DIRECTORY)
-    Document.delete_all
+    FileUtils.rm_rf(Rails.root.join("private"))
+    execute "DELETE FROM #{quote_table_name(:documents)}"
   end
 end

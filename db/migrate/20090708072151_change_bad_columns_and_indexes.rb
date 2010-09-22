@@ -30,13 +30,13 @@ class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
   def self.down
 
     ref = {}
-    for iso in Language.find_by_sql("SELECT DISTINCT iso2 FROM #{quote_table_name(:languages)}").collect{|x| x.iso2}
-      ref[iso] = Language.find_by_iso2(iso)
+    for iso in connection.select_values("SELECT DISTINCT iso2 FROM #{quote_table_name(:languages)}")
+      ref[iso] = connection.select_value("SELECT id FROM #{quote_table_name(:languages)} WHERE iso2='#{iso}' LIMIT 1")
     end
-    for company in Company.all
-      for language in Language.find(:all, :conditions=>{:company_id=>company.id})
-        Entity.update_all({:language_id=>ref[language.iso2].id}, {:language_id=>language.id})
-        Language.delete(language) if language.id!=ref[language.iso2].id
+    for company in connection.select_all("SELECT * FROM #{quote_table_name(:companies)}")
+      for language in connection.select_all("SELECT * FROM #{quote_table_name(:languages)} WHERE company_id=#{company['id']}")
+        execute "UPDATE #{quote_table_name(:entities)} SET language_id=#{ref[language['iso2']]} WHERE language_id=#{language['id']}"
+        execute "DELETE FROM #{quote_table_name(:languages)} WHERE id=#{language['id']}" if language['id']!=ref[language['iso2']]
       end
     end
     remove_column :languages, :company_id
