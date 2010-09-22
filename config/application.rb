@@ -24,7 +24,7 @@ module Ekylibre
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
     # Add a prefix to all tables
-    config.active_record.table_name_prefix = "eky_"
+    # config.active_record.table_name_prefix = "eky_"
     # config.active_record.table_name_suffix = "_eky"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
