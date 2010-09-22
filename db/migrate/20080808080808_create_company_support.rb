@@ -128,7 +128,7 @@ class CreateCompanySupport < ActiveRecord::Migration
     add_index :departments, [:name, :company_id], :unique=>true
     add_index :departments, :parent_id
 
-    execute "INSERT INTO #{quote_table_name(:languages)} (name, native_name, iso2, iso3) VALUES ('French', 'Français', 'fr', 'fra')"
+    execute "INSERT INTO #{quoted_table_name(:languages)} (name, native_name, iso2, iso3) VALUES ('French', 'Français', 'fr', 'fra')"
   end
 
   def self.down

@@ -119,17 +119,23 @@ class Entity < ActiveRecord::Base
       self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
     end
     self.full_name.strip!
-    
-    if not self.company.preference("relations.entities.numeration").nil? and self.code.blank?
-      specific_numeration = self.company.preference("relations.entities.numeration").value
-      if not specific_numeration.nil?
-        self.code = specific_numeration.next_value
-      end
-    elsif self.code.blank?
-      self.code = self.full_name.codeize if self.code.blank?
-      self.code = self.code[0..15]
+
+    if self.code.blank?
+      last = self.company.entities.find(:first, :order=>"code desc")
+      self.code = last ? last.code.succ! : '00000001'
     end
+    #     if not self.company.preference("relations.entities.numeration").nil? and self.code.blank?
+    #       specific_numeration = self.company.preference("relations.entities.numeration").value
+    #       if not specific_numeration.nil?
+    #         self.code = specific_numeration.next_value
+    #       end
+    #     elsif self.code.blank?
+    #       self.code = self.full_name.codeize if self.code.blank?
+    #       self.code = self.code[0..15]
+    #     end
   end
+
+  
 
   #
   def check
@@ -143,6 +149,12 @@ class Entity < ActiveRecord::Base
     end
   end
     
+  def clean_on_create
+    specific_numeration = self.company.preference("relations.entities.numeration").value
+    self.code = specific_numeration.next_value unless specific_numeration.nil?
+    # raise Exception.new [specific_numeration, code].inspect
+  end
+
   def destroyable?
     #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
     return false if self.id == self.company.entity.id

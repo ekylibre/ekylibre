@@ -5,7 +5,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     for table in ACCOUNTED_TABLES
       add_column table, :accounted_at, :datetime
       add_index table, :accounted_at
-      execute "UPDATE #{quote_table_name(table)} SET accounted_at=updated_at WHERE accounted=#{quoted_true}"
+      execute "UPDATE #{quoted_table_name(table)} SET accounted_at=updated_at WHERE accounted=#{quoted_true}"
       remove_column table, :accounted
     end
 
@@ -19,16 +19,16 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :productions, :shape_id, :integer, :references=>:shapes
     
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
-    execute "UPDATE #{quote_table_name(:products)} SET to_purchase=#{quoted_true} WHERE supply_method='buy'"
-    execute "UPDATE #{quote_table_name(:products)} SET to_produce=#{quoted_true} WHERE supply_method='produce'"
+    execute "UPDATE #{quoted_table_name(:products)} SET to_purchase=#{quoted_true} WHERE supply_method='buy'"
+    execute "UPDATE #{quoted_table_name(:products)} SET to_produce=#{quoted_true} WHERE supply_method='produce'"
     remove_column :products, :supply_method
 
     add_column :units, :start, :decimal, :null=>false, :default=>0.0
     rename_column :units, :quantity, :coefficient
     change_column :units, :coefficient, :decimal, :null=>false, :default=>1
     change_column :units, :base, :string, :null=>true
-    execute "UPDATE #{quote_table_name(:units)} SET coefficient=coefficient/1000, base='kg' WHERE base='g'"
-    execute "UPDATE #{quote_table_name(:units)} SET base='' WHERE base='u'"
+    execute "UPDATE #{quoted_table_name(:units)} SET coefficient=coefficient/1000, base='kg' WHERE base='g'"
+    execute "UPDATE #{quoted_table_name(:units)} SET base='' WHERE base='u'"
     if defined? Unit
       for unit in Unit.all
         unit.save
@@ -42,13 +42,13 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :purchase_order_lines, :annotation,      :text
     add_column :purchase_orders,      :currency_id,     :integer
 
-    companies = connection.select_all "SELECT * FROM #{quote_table_name(:companies)}"
+    companies = connection.select_all "SELECT * FROM #{quoted_table_name(:companies)}"
     if companies.size > 0
-      execute "INSERT INTO #{quote_table_name(:units)} (name, base, coefficient, start, company_id, created_at, updated_at) SELECT 'm²', 'm2', 1, 0, id, created_at, updated_at FROM #{quote_table_name(:companies)} WHERE id NOT IN (SELECT company_id FROM #{quote_table_name(:units)} WHERE base='m2' AND start=0 AND coefficient=1)"
-      units = "SELECT * FROM #{quote_table_name(:units)} WHERE base='m2' AND start=0 AND coefficient=1"
-      execute "UPDATE #{quote_table_name(:shapes)} SET area_unit_id=CASE "+units.collect{|u| "WHEN company_id=#{u['company_id']} THEN #{u['id']}"}+" ELSE 0 END"
-      currencies = "SELECT * FROM #{quote_table_name(:currencies)}"
-      execute "UPDATE #{quote_table_name(:purchase_orders)} SET currency_id=CASE "+currencies.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}+" ELSE 0 END"
+      execute "INSERT INTO #{quoted_table_name(:units)} (name, base, coefficient, start, company_id, created_at, updated_at) SELECT 'm²', 'm2', 1, 0, id, created_at, updated_at FROM #{quoted_table_name(:companies)} WHERE id NOT IN (SELECT company_id FROM #{quoted_table_name(:units)} WHERE base='m2' AND start=0 AND coefficient=1)"
+      units = "SELECT * FROM #{quoted_table_name(:units)} WHERE base='m2' AND start=0 AND coefficient=1"
+      execute "UPDATE #{quoted_table_name(:shapes)} SET area_unit_id=CASE "+units.collect{|u| "WHEN company_id=#{u['company_id']} THEN #{u['id']}"}+" ELSE 0 END"
+      currencies = "SELECT * FROM #{quoted_table_name(:currencies)}"
+      execute "UPDATE #{quoted_table_name(:purchase_orders)} SET currency_id=CASE "+currencies.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}+" ELSE 0 END"
     end
         
     add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings
@@ -97,13 +97,13 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :shapes, :area_measure
     remove_column :shapes, :number
 
-    execute "UPDATE #{quote_table_name(:units)} SET label="+connection.concatenate("label", "' (ERROR)'")+" WHERE start != 0"
-    execute "UPDATE #{quote_table_name(:units)} SET base='u' WHERE "+connection.length(connection.trim("base"))+"=0"
+    execute "UPDATE #{quoted_table_name(:units)} SET label="+connection.concatenate("label", "' (ERROR)'")+" WHERE start != 0"
+    execute "UPDATE #{quoted_table_name(:units)} SET base='u' WHERE "+connection.length(connection.trim("base"))+"=0"
     rename_column :units, :coefficient, :quantity
     remove_column :units, :start
 
     add_column :products, :supply_method, :string, :null=>false, :default=>'buy'
-    execute "UPDATE #{quote_table_name(:products)} SET supply_method='produce' WHERE to_produce"
+    execute "UPDATE #{quoted_table_name(:products)} SET supply_method='produce' WHERE to_produce"
     remove_column :products, :to_produce
 
     remove_column :productions, :shape_id
@@ -119,7 +119,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     for table in ACCOUNTED_TABLES.reverse
       add_column table, :accounted, :boolean, :null=>false, :default=>false
       add_index table, :accounted
-      execute "UPDATE #{quote_table_name(table)} SET accounted=#{quoted_true} WHERE accounted_at IS NOT NULL"
+      execute "UPDATE #{quoted_table_name(table)} SET accounted=#{quoted_true} WHERE accounted_at IS NOT NULL"
       remove_column table, :accounted_at
     end
   end

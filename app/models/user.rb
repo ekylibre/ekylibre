@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   model_stamper
 
   class << self
-    def rights_file; Ekylibre::Application.root.join("config", "rights.yml"); end
+    def rights_file; Rails.root.join("config", "rights.yml"); end
     def minimum_right; :__minimum__; end
     def rights; @@rights; end
     def rights_list; @@rights_list; end

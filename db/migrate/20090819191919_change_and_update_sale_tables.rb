@@ -31,7 +31,7 @@ class ChangeAndUpdateSaleTables < ActiveRecord::Migration
     rename_column :embankments, :payments_number, :payments_count
     rename_column :entities, :payments_number, :authorized_payments_count
 
-    execute "UPDATE #{quote_table_name(:payment_parts)} SET downpayment=#{quoted_true} WHERE payment_id IN (SELECT id FROM #{quote_table_name(:payments)} WHERE downpayment=#{quoted_true})"
+    execute "UPDATE #{quoted_table_name(:payment_parts)} SET downpayment=#{quoted_true} WHERE payment_id IN (SELECT id FROM #{quoted_table_name(:payments)} WHERE downpayment=#{quoted_true})"
 
     remove_column :payments, :downpayment
     remove_column :products, :amount
@@ -41,7 +41,7 @@ class ChangeAndUpdateSaleTables < ActiveRecord::Migration
     add_column :products, :amount, :decimal
     add_column :payments, :downpayment, :boolean, :null=>false, :default=>false
 
-    execute "UPDATE #{quote_table_name(:payments)} SET downpayment=#{quoted_true} WHERE id IN (SELECT payment_id FROM #{quote_table_name(:payment_parts)} WHERE downpayment=#{quoted_true})"
+    execute "UPDATE #{quoted_table_name(:payments)} SET downpayment=#{quoted_true} WHERE id IN (SELECT payment_id FROM #{quoted_table_name(:payment_parts)} WHERE downpayment=#{quoted_true})"
 
     rename_column :entities, :authorized_payments_count, :payments_number
     rename_column :embankments, :payments_count, :payments_number

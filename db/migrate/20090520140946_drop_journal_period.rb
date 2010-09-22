@@ -41,12 +41,12 @@ class DropJournalPeriod < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quote_table_name(:journal_periods)}_unique"
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:journal_periods)}_unique"
     
     
     add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade 
 
-    execute "INSERT INTO #{quote_table_name(:journal_periods)} (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from #{quote_table_name(:journal_records)}"
+    execute "INSERT INTO #{quoted_table_name(:journal_periods)} (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+connection.concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from #{quoted_table_name(:journal_records)}"
 
     if defined? JournalPeriod
       JournalPeriod.find(:all).each do |period| 

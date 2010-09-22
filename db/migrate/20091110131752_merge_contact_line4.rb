@@ -2,7 +2,7 @@ class MergeContactLine4 < ActiveRecord::Migration
   def self.up
     add_column :contacts, :line_4, :string, :limit=>48
 
-    execute "UPDATE #{quote_table_name(:contacts)} SET line_4 = "+connection.trim(connection.concatenate("COALESCE(line_4_number,'')", "' '", "COALESCE(line_4_street,'')"))
+    execute "UPDATE #{quoted_table_name(:contacts)} SET line_4 = "+connection.trim(connection.concatenate("COALESCE(line_4_number,'')", "' '", "COALESCE(line_4_street,'')"))
 
     remove_column :contacts, :line_4_number
     remove_column :contacts, :line_4_street
@@ -40,14 +40,14 @@ class MergeContactLine4 < ActiveRecord::Migration
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :address_norm_items, :company_id
-    add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true, :name=>"#{quote_table_name(:address_norm)}_items_nature"
-    add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true, :name=>"#{quote_table_name(:address_norm)}_items_name"
+    add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_nature"
+    add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_name"
 
     add_column :contacts, :norm_id, :integer
     add_column :contacts, :line_4_number, :string, :limit=>38
     add_column :contacts, :line_4_street, :string, :limit=>38
 
-    execute "UPDATE #{quote_table_name(:contacts)} SET line_4_street = "+connection.substr("line_4", 1, 38)
+    execute "UPDATE #{quoted_table_name(:contacts)} SET line_4_street = "+connection.substr("line_4", 1, 38)
 
     remove_column :contacts, :line_4
   end

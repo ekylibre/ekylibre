@@ -16,7 +16,7 @@ class CreateEntityCategories < ActiveRecord::Migration
 
     add_column :entities, :category_id, :integer, :references=>:entities, :on_update=>:restrict, :on_delete=>:restrict
     
-    execute "INSERT INTO #{quote_table_name(:entity_categories)} (company_id, name, created_at, updated_at) SELECT companies.id, 'Par défaut', current_timestamp, current_timestamp FROM #{quote_table_name(:companies)} AS companies"
+    execute "INSERT INTO #{quoted_table_name(:entity_categories)} (company_id, name, created_at, updated_at) SELECT companies.id, 'Par défaut', current_timestamp, current_timestamp FROM #{quoted_table_name(:companies)} AS companies"
 
     add_column :taxes,    :deleted, :boolean, :null=>false, :default=>false
     remove_index :taxes, :column=>[:group_name, :company_id]
@@ -24,11 +24,11 @@ class CreateEntityCategories < ActiveRecord::Migration
 
     add_column :prices,  :category_id, :integer, :references=>:entity_categories, :on_update=>:restrict, :on_delete=>:restrict
 
-    categories = connection.select_all("SELECT * FROM #{quote_table_name(:entity_categories)}")
+    categories = connection.select_all("SELECT * FROM #{quoted_table_name(:entity_categories)}")
     if categories.size > 0
       categories = "CASE "+categories.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}.join(" ")+" ELSE 0 END"
-      execute "UPDATE #{quote_table_name(:entities)} SET category_id = "+categories 
-      execute "UPDATE #{quote_table_name(:prices)} SET category_id = "+categories 
+      execute "UPDATE #{quoted_table_name(:entities)} SET category_id = "+categories 
+      execute "UPDATE #{quoted_table_name(:prices)} SET category_id = "+categories 
     end
   end  
 

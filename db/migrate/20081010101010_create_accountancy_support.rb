@@ -81,7 +81,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_index :account_balances, :company_id
     add_index :account_balances, :financialyear_id
     # add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"account_balannces_unique"
-    add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quote_table_name(:account_balances)}_unique"
+    add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:account_balances)}_unique"
 
 
 #     # JournalNature : Type de journal
@@ -127,7 +127,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quote_table_name(:journal_periods)}_unique"
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:journal_periods)}_unique"
 
     # JournalRecord : Piece comptable
     create_table :journal_records do |t|

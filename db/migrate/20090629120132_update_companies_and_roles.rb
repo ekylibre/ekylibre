@@ -44,7 +44,7 @@ class UpdateCompaniesAndRoles < ActiveRecord::Migration
     remove_column :roles, :actions
     add_column :roles,    :rights,  :text
 
-    execute "UPDATE #{quote_table_name(:roles)} SET rights='administrate' WHERE LOWER(name) LIKE 'admin%'"
+    execute "UPDATE #{quoted_table_name(:roles)} SET rights='administrate' WHERE LOWER(name) LIKE 'admin%'"
     
   end
     

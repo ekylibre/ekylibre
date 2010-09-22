@@ -1,8 +1,8 @@
 class CreateShapeOperations < ActiveRecord::Migration
   def self.up
     add_column :sale_orders, :confirmed_on, :date
-    execute "UPDATE #{quote_table_name(:sale_orders)} SET confirmed_on = #{connection.quote(Date.today)}"
-    execute "UPDATE #{quote_table_name(:sale_orders)} SET state = 'F'"
+    execute "UPDATE #{quoted_table_name(:sale_orders)} SET confirmed_on = #{connection.quote(Date.today)}"
+    execute "UPDATE #{quoted_table_name(:sale_orders)} SET state = 'F'"
 
     create_table :shapes do |t|
       t.column :name,         :string,   :null=>false

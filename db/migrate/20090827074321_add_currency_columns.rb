@@ -9,10 +9,10 @@ class AddCurrencyColumns < ActiveRecord::Migration
     add_column :invoices,    :currency_id,  :integer,  :references=>:invoices, :on_delete=>:cascade, :on_update=>:cascade
     add_column :deliveries,  :currency_id,  :integer,  :references=>:deliveries, :on_delete=>:cascade, :on_update=>:cascade
     
-    for result in connection.select_all("SELECT id, company_id FROM #{quote_table_name(:currencies)} WHERE code = 'EUR'")
-      execute "UPDATE #{quote_table_name(:sale_orders)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
-      execute "UPDATE #{quote_table_name(:invoices)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
-      execute "UPDATE #{quote_table_name(:deliveries)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
+    for result in connection.select_all("SELECT id, company_id FROM #{quoted_table_name(:currencies)} WHERE code = 'EUR'")
+      execute "UPDATE #{quoted_table_name(:sale_orders)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
+      execute "UPDATE #{quoted_table_name(:invoices)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
+      execute "UPDATE #{quoted_table_name(:deliveries)} SET currency_id = #{result['id']} WHERE company_id = #{result['company_id']}"
     end
 
   end

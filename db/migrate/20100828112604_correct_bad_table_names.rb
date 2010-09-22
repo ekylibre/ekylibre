@@ -32,7 +32,7 @@ class CorrectBadTableNames < ActiveRecord::Migration
 
   def self.up
     for old, new in TABLES_UPDATES
-      rename_table old, quote_table_name(new)
+      rename_table old, quoted_table_name(new)
     end
 
     rename_column :custom_field_choices, :complement_id, :custom_field_id
@@ -69,50 +69,50 @@ class CorrectBadTableNames < ActiveRecord::Migration
 
     # UPDATE RIGHTS
     for old, new in RIGHTS_UPDATES
-      execute "UPDATE #{quote_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
-      execute "UPDATE #{quote_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
     end
 
     # UPDATE DOCUMENT_TEMPLATES
-    execute "UPDATE #{quote_table_name(:document_templates)} SET nature='deposit' WHERE nature='embankment'"
+    execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='deposit' WHERE nature='embankment'"
 
     # UPDATE LISTINGS
     for old, new in TABLES_UPDATES
-      execute "UPDATE #{quote_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
-      execute "UPDATE #{quote_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
     end
 
     # UPDATE PREFERENCES
-    execute "UPDATE #{quote_table_name(:preferences)} SET name = REPLACE(name, 'embankments', 'deposits')"
-    execute "UPDATE #{quote_table_name(:preferences)} SET name = REPLACE(name, 'to_embank', 'to_deposit')"
+    execute "UPDATE #{quoted_table_name(:preferences)} SET name = REPLACE(name, 'embankments', 'deposits')"
+    execute "UPDATE #{quoted_table_name(:preferences)} SET name = REPLACE(name, 'to_embank', 'to_deposit')"
 
     # UPDATE POLYMORHIC REFERENCES
-    execute "UPDATE #{quote_table_name(:operations)} SET target_type='LandParcel' WHERE target_type='Shape'"
+    execute "UPDATE #{quoted_table_name(:operations)} SET target_type='LandParcel' WHERE target_type='Shape'"
   end
 
   # UPDATE LOCALES
 
   def self.down
     # UPDATE POLYMORHIC REFERENCES
-    execute "UPDATE #{quote_table_name(:operations)} SET target_type='Shape' WHERE target_type='LandParcel'"
+    execute "UPDATE #{quoted_table_name(:operations)} SET target_type='Shape' WHERE target_type='LandParcel'"
 
     # UPDATE PREFERENCES
-    execute "UPDATE #{quote_table_name(:preferences)} SET name = REPLACE(name, 'to_deposit', 'to_embank')"
-    execute "UPDATE #{quote_table_name(:preferences)} SET name = REPLACE(name, 'deposits', 'embankments')"
+    execute "UPDATE #{quoted_table_name(:preferences)} SET name = REPLACE(name, 'to_deposit', 'to_embank')"
+    execute "UPDATE #{quoted_table_name(:preferences)} SET name = REPLACE(name, 'deposits', 'embankments')"
 
     # UPDATE LISTINGS
     for new, old in TABLES_UPDATES.reverse
-      execute "UPDATE #{quote_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
-      execute "UPDATE #{quote_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
     end
 
     # UPDATE DOCUMENT_TEMPLATES
-    execute "UPDATE #{quote_table_name(:document_templates)} SET nature='deposit' WHERE nature='embankment'"
+    execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='deposit' WHERE nature='embankment'"
 
     # UPDATE RIGHTS
     for new, old in RIGHTS_UPDATES.reverse
-      execute "UPDATE #{quote_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
-      execute "UPDATE #{quote_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
     end
 
 
@@ -147,7 +147,7 @@ class CorrectBadTableNames < ActiveRecord::Migration
     rename_column :custom_field_choices, :custom_field_id, :complement_id
 
     for new, old in TABLES_UPDATES.reverse
-      rename_table old, quote_table_name(new)
+      rename_table old, quoted_table_name(new)
     end
   end
 end
