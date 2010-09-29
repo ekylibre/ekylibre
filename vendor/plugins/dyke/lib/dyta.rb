@@ -302,7 +302,7 @@ module Ekylibre
                       css_class += ' web'
                     elsif column.name==:color
                       css_class += ' color'
-                      style += "background: #'+"+column.data(record)+"+'; color:#'+viewable("+column.data(record)+")+';"
+                      style += "background: #'+"+column.data(record)+"+';" # +"+'; color:#'+viewable("+column.data(record)+")+';"
                     elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                       datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
                     elsif column.name==:country and  column.datatype == :string and column.limit <= 8

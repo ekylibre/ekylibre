@@ -75,6 +75,7 @@ class Company < ActiveRecord::Base
   has_many :operation_natures
   has_many :operations
   has_many :operation_lines
+  has_many :operation_uses
   has_many :preferences, :conditions=>{:user_id=>nil}
   has_many :prices
   has_many :products, :order=>'active DESC, name'
@@ -98,6 +99,8 @@ class Company < ActiveRecord::Base
   has_many :sale_payment_parts
   has_many :sequences
   has_many :land_parcels, :order=>:name
+  has_many :land_parcel_groups, :order=>:name
+  has_many :land_parcel_kinships
   has_many :stocks, :order=>"warehouse_id, product_id, tracking_id"
   has_many :stock_moves
   has_many :stock_transfers
@@ -105,7 +108,6 @@ class Company < ActiveRecord::Base
   has_many :subscriptions
   has_many :taxes, :order=>'amount'
   has_many :tax_declarations
-  has_many :tool_uses
   has_many :tools, :order=>:name
   has_many :trackings
   has_many :transfers
@@ -441,9 +443,9 @@ class Company < ActiveRecord::Base
     filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
     file = "#{Rails.root.to_s}/tmp/#{filename}.zip"
     doc = LibXML::XML::Document.new
-    doc.root = backup = XML::Node.new('backup')
+    doc.root = backup = LibXML::XML::Node.new('backup')
     {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
-    backup << root = XML::Node.new('company')
+    backup << root = LibXML::XML::Node.new('company')
     self.attributes.each{|k,v| root[k] = v.to_s}
     n = 0
     start = Time.now.to_i
@@ -452,10 +454,10 @@ class Company < ActiveRecord::Base
       rows = model.to_s.classify.constantize.find(:all, :conditions=>{:company_id=>self.id}, :order=>:id)
       rows_count = rows.size
       n += rows_count
-      root << table = XML::Node.new('rows')
+      root << table = LibXML::XML::Node.new('rows')
       {'model'=>model.to_s, 'records-count'=>rows_count.to_s}.each{|k,v| table[k]=v}
       rows_count.times do |i|
-        table << row = XML::Node.new('row')
+        table << row = LibXML::XML::Node.new('row')
         rows[i].attributes.each{|k,v| row[k] = v.to_s}
       end
     end
@@ -867,8 +869,9 @@ class Company < ActiveRecord::Base
 
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})
+    group = self.land_parcel_groups.create!(:name=>"General")
     for land_parcel in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
-      self.land_parcels.create!(:name=>land_parcel, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)])
+      self.land_parcels.create!(:name=>land_parcel, :area_measure=>rand(1000)+10, :area_unit=>units[rand(units.size)], :group_id=>group.id)
     end
     for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
       self.operation_natures.create!(:name=>nature, :target_type=>"LandParcel")

@@ -40,6 +40,7 @@ spa:
     #>manage_inventories: 'Manage inventories'
     #>manage_journal_entries: 'Manaeg journal entries'
     #>manage_journals: 'Manage, close and reopen journals'
+    #>manage_land_parcel_groups: '(((MANAGE_LAND_PARCEL_GROUPS)))'
     #>manage_land_parcels: 'Manage fields'
     #>manage_listings: 'Manage listings'
     #>manage_mandates: 'Manage mandates'

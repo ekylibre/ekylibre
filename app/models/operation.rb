@@ -49,10 +49,10 @@ class Operation < ActiveRecord::Base
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name
   belongs_to :target, :polymorphic=>true
-  has_many :tool_uses, :dependent=>:destroy
-  has_many :uses,  :class_name=>ToolUse.name, :dependent=>:destroy
+  has_many :operation_uses, :dependent=>:destroy
+  has_many :uses,  :class_name=>OperationUse.name, :dependent=>:destroy
   has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
-  has_many :tools, :through=>:tool_uses
+  has_many :tools, :through=>:operation_uses
 
   attr_readonly :company_id
  
@@ -102,11 +102,11 @@ class Operation < ActiveRecord::Base
 
   def set_tools(tools)
     # Reinit tool uses
-    self.tool_uses.clear
+    self.operation_uses.clear
     # Add new tools
     unless tools.nil?
       tools.each do |tool|
-        self.company.tool_uses.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
+        self.company.operation_uses.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
       end
     end
     self.reload

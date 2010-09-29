@@ -28,13 +28,13 @@ class ProductionController < ApplicationController
     t.column :text_nature
     t.column :consumption
     t.action :tool_update
-    t.action :tool_delete, :method=>:delete, :confirm=>:are_you_sure, :if=>'RECORD.uses.size == 0'
+    t.action :tool_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.uses.size == 0'
   end
 
   def tools
   end
 
-  dyta(:tool_operations, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
+  dyta(:tool_operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :label=>:column, :url=>{:action=>:operation}
     t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
     t.column :moved_on,   :through=>:operation, :label=>:column
@@ -51,20 +51,37 @@ class ProductionController < ApplicationController
   manage :tools
 
   
-  dyta(:land_parcels, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  dyta(:land_parcels, :conditions=>{:company_id=>['@current_company.id'], :stopped_on=>nil}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:land_parcel}
     t.column :number
     t.column :area_measure, :datatype=>:decimal
     t.column :name, :through=>:area_unit
     t.column :description
+    t.action :land_parcel_divide
     t.action :land_parcel_update
-    t.action :land_parcel_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :land_parcel_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def land_parcels
   end
 
   manage :land_parcels
+
+  def land_parcel_divide
+    return unless @land_parcel = find_and_check(:land_parcel)
+    if request.xhr?
+      render :partial=>"land_parcel_subdivision_form"
+      return
+    end
+
+    if request.post?
+      if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
+        redirect_to :action=>:land_parcels
+      end
+    end
+    @land_parcel.stopped_on ||= Date.today
+  end
+
 
   dyta(:land_parcel_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:operation}
@@ -74,8 +91,8 @@ class ProductionController < ApplicationController
     t.column :moved_on
     t.column :tools_list
     t.column :duration
-    t.action :operation_update, :image=>:update
-    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_update
+    t.action :operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
 
@@ -88,6 +105,21 @@ class ProductionController < ApplicationController
   def land_parcels_map
     @map = true
   end
+
+
+  dyta(:land_parcel_groups, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+    t.column :name
+    t.column :color
+    t.column :comment
+    t.action :land_parcel_group_update
+    t.action :land_parcel_group_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+  
+  def land_parcel_groups
+  end
+
+  manage :land_parcel_groups
+
   
   dyta(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:operation}
@@ -99,7 +131,7 @@ class ProductionController < ApplicationController
     t.column :name, :through=>:target
     t.column :duration
     t.action :operation_update, :image=>:update
-    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure
+    t.action :operation_delete, :method=>:delete, :image=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def operations
@@ -115,7 +147,7 @@ class ProductionController < ApplicationController
     t.column :density_label
   end
 
-  dyta(:operation_uses, :model=>:tool_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
+  dyta(:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
     t.column :name, :through=>:tool, :url=>{:action=>:tool}
   end
 
@@ -183,9 +215,9 @@ class ProductionController < ApplicationController
   end
 
 
-  def tool_use_create
+  def operation_use_create
     if request.xhr?
-      render :partial=>'tool_use_row_form'
+      render :partial=>'operation_use_row_form'
     else
       redirect_to :action=>:index
     end
@@ -196,7 +228,7 @@ class ProductionController < ApplicationController
     t.column :name
     t.column :description
     t.action :operation_nature_update
-    t.action :operation_nature_delete, :method=>:delete, :confirm=>:are_you_sure
+    t.action :operation_nature_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def operation_natures

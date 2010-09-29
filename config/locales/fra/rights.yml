@@ -40,6 +40,7 @@ fra:
     manage_inventories: 'Gérer les inventaires'
     manage_journal_entries: 'Gérer les écritures'
     manage_journals: 'Gérer, clôturer, déclôturer les journaux'
+    #>manage_land_parcel_groups: '(((MANAGE_LAND_PARCEL_GROUPS)))'
     manage_land_parcels: 'Gérer les îlots'
     manage_listings: 'Gérer les extractions'
     manage_mandates: 'Gérer les responsabilités'

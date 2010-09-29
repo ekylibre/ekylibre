@@ -138,6 +138,7 @@ module ApplicationHelper
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:tools},
+             {:name=>:land_parcel_groups},
              {:name=>:operation_natures}
            ] }
        ] }

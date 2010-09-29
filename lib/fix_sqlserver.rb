@@ -2,6 +2,7 @@
 if ActiveRecord::Base.connection.adapter_name.lower == 'sqlserver'
   BankStatement.coerce_sqlserver_date :started_on, :stopped_on
   Company.coerce_sqlserver_date :born_on
+  Cultivation.coerce_sqlserver_date :started_on, :stopped_on
   CustomFieldDatum.coerce_sqlserver_date :date_value
   Deposit.coerce_sqlserver_date :created_on
   Entity.coerce_sqlserver_date :born_on, :dead_on, :first_met_on
@@ -12,6 +13,7 @@ if ActiveRecord::Base.connection.adapter_name.lower == 'sqlserver'
   Journal.coerce_sqlserver_date :closed_on
   JournalEntry.coerce_sqlserver_date :created_on, :printed_on
   JournalEntryLine.coerce_sqlserver_date :expired_on
+  LandParcel.coerce_sqlserver_date :started_on, :stopped_on
   Mandate.coerce_sqlserver_date :started_on, :stopped_on
   Operation.coerce_sqlserver_date :moved_on, :planned_on
   PurchaseDelivery.coerce_sqlserver_date :moved_on, :planned_on

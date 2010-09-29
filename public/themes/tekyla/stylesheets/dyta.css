@@ -56,6 +56,7 @@ table.dyta tr      td.date { text-align: center; }
 table.dyta tr      td.web { text-align: center; }
 table.dyta tr      td.code { font-family: LiberationMono, monospace; }
 table.dyta tr      td.code a { font-family: LiberationMono, monospace; }
+table.dyta tr      td.color { color:white; text-shadow: black 0 0 2px; width: 6em; text-align: center; }
 table.dyta tr      td.rights * { font-size: 11px; }
 table.dyta tr      td.rights.more * { color: #080; }
 table.dyta tr      td.rights.less * { color: #F00; }

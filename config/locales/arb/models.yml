@@ -52,10 +52,10 @@ arb:
         land_parcels: 'أژlots' #!
         lock_version: 'اصدار' #!
         locked: 'تم اقفاله'
+        operation_uses: 'استخدام الادوات' #!
         sale_payment_modes: 'اساليب الدفعات' #!
         stock_transfers: 'تحويلات الاسهم او ضياعها' #!
         stocks: 'اسهم المنتج' #!
-        tool_uses: 'استخدام الادوات' #!
         trackings: 'حصص يمكن عزوها' #!
         updater_id: 'تحديث' #!
       contact:  #!
@@ -265,6 +265,10 @@ arb:
         area_unit_id: 'منطقة الوحدة' #!
         company_id: 'الشركة' #!
         product_id: 'انتاج' #!
+      operation_use:  #!
+        company_id: 'الشركة' #!
+        created_at: 'انشأ في' #!
+        updated_at: 'تم تحديثها في' #!
       parameter:  #!
         updated_at: 'تم تحديثها في' #!
       price:
@@ -464,10 +468,6 @@ arb:
         consumption: '(الاستهلاك (لتر / ساعة ' #!
         text_nature: 'طبيغة النص' #!
         uses: 'استخدامات الادوات'
-      tool_use:  #!
-        company_id: 'الشركة' #!
-        created_at: 'انشأ في' #!
-        updated_at: 'تم تحديثها في' #!
       tracking:
         active: 'مستخدم'
         company_id: 'الشركة' #!
@@ -645,6 +645,7 @@ arb:
       operation: 'العمل'
       operation_line: 'الواردات/الصادرات'
       operation_nature: 'نوع العمل'
+      operation_use: 'الاداة المستخدمة'
       parameter: 'الاعدادات' #!
       #>preference: 'Preference'
       price: 'الاسعار'
@@ -679,7 +680,6 @@ arb:
       tax: 'الضريبة'
       tax_declaration: 'تصريح الضرائب'
       tool: 'الاداة'
-      tool_use: 'الاداة المستخدمة'
       tracking: 'حصة ممكن عزوها'
       transfer: 'التحويل'
       transport: 'وسيلة النقل'
@@ -772,6 +772,7 @@ arb:
     code2: 'الرمز الثاني'
     coefficient: 'الدرجة'
     collected_amount: 'قيمة الضريبة الاضافية الاجمالية'
+    #>color: 'Color'
     comment: 'التعليق'
     commercial: 'نشاط تجاري'
     commission_account: 'حساب مستخدم للعمولة'
@@ -1057,6 +1058,7 @@ arb:
     operation_id: 'عمل'
     operation_lines: 'الواردات/الصادرات'
     operation_natures: 'انواع العمل'
+    operation_uses: 'استخدامات الاداة'
     operations: 'الاعمال'
     order: 'طلب البيع'
     order_id: 'طلب شراء'
@@ -1262,7 +1264,6 @@ arb:
     to_bank_on: 'يسدد يوم'
     tool: 'الاداة'
     tool_id: 'اداة'
-    tool_uses: 'استخدامات الاداة'
     tools: 'الادوات'
     tools_list: 'معدات'
     tracking: 'الحصة'

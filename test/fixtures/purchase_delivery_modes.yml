@@ -45,7 +45,6 @@
 #   updater_id: 1
 #
 
-
 purchase_delivery_modes_001:
   code: "LOREX"
   company_id: 1

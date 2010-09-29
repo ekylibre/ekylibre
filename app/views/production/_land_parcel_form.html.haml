@@ -1,12 +1,13 @@
 = formalize do |f|
-  -f.title :infos
+  -f.title :general_informations
   -f.error :land_parcel
   -f.field :land_parcel, :name
   -f.field :land_parcel, :number
-  -#f.field :land_parcel, :polygon
+  -f.field :land_parcel, :group_id, :choices=>{:reflection=>:land_parcel_groups}, :new=>{:action=>:land_parcel_group_create}
+  -# f.field :land_parcel, :polygon
   -f.field :land_parcel, :area_measure
   -f.field :land_parcel, :area_unit_id, :choices=>{:reflection=>:surface_units}, :new=>{:controller=>:company, :action=>:unit_create, :base=>'m2'}
-  -#f.field :land_parcel, :master
+  -# f.field :land_parcel, :master
 = formalize(:id=>:master_select) do |f|
   -#f.field :land_parcel, :parent_id, :choices=>{:reflection=>:land_parcels}
 = formalize do |f|

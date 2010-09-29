@@ -32,9 +32,9 @@ arb:
       journal_create: 'انشاء دفتر يومي جديد'
       journal_entry_create: 'اضافة سجل'
       #>journal_entry_line_create: 'Add a new entry line'
-      journal_record: 'رقم سجل المحاسبة{{number}} من {{created_on}}'
-      journal_record_create: 'اضافة سجل'
-      journal_record_update: 'تعديل السجل رقم {{number}} من {{created_on}}'
+      journal_record: 'رقم سجل المحاسبة{{number}} من {{created_on}}' #!
+      journal_record_create: 'اضافة سجل' #!
+      journal_record_update: 'تعديل السجل رقم {{number}} من {{created_on}}' #!
       journal_reopen: 'فتح {{name}}'
       journal_update: 'تعديل الدفتر اليومي : {{name}}'
       journals: 'الدفاتر اليومية'
@@ -196,6 +196,9 @@ arb:
       index: 'ادارة الانتاج'
       land_parcel: 'نظام {{name}}'
       land_parcel_create: 'اضافة نظام جديد'
+      #>land_parcel_group_create: 'Add a new group of land parcels'
+      #>land_parcel_group_update: 'Update group of land parcels: %{name}'
+      #>land_parcel_groups: 'Groups of land parcels'
       land_parcel_update: 'تعديل النظام : {{name}}'
       land_parcels: 'انظمة'
       operation: 'تفاصيل العمل {{name}}'
@@ -214,14 +217,17 @@ arb:
       area_create: 'اضافة عنوان بريدي'
       area_update: 'تعديل العنوان البريدي : {{name}}'
       areas: 'العناوين البريد'
-      complement: 'الحقل المخصص : {{name}}'
-      complements: 'الحقول المخصصة'
+      complement: 'الحقل المخصص : {{name}}' #!
+      complements: 'الحقول المخصصة' #!
       contact_create: 'اضافة متصل جديد'
       contact_update: 'تعديل عنوان : {{entity}}'
+      #>custom_field: 'Custom field: %{name}'
       custom_field_choice_create: ' انشاء خيار واحد للحصول على قائمة الخيارات'
       custom_field_choice_update: 'تعديل الخيار : {{name}}'
       custom_field_create: 'انشاء حقل مخصص'
+      #>custom_field_sort: 'Sort custom field choices'
       custom_field_update: 'تعديل الحقل المخصص : {{name}}'
+      #>custom_fields: 'Custom fields'
       district_create: 'اضافة عنوان بريدي'
       district_update: 'تعديل عنوان بريدي : {{name}}'
       districts: 'المناطق الادارية'
@@ -800,6 +806,7 @@ arb:
     #>operation_lines: 'Incoming and outgoing products'
     operation_nature_create: 'انشاء نوع عمل جديد' #!
     operation_update: 'تعديل العمل'
+    operation_use_create: 'اضافة مادة'
     #>operations: 'Operations'
     #>order: 'Order'
     order_amount_with_taxes: 'قيمة الطلب مع الضرائب'
@@ -1050,7 +1057,6 @@ arb:
     #>toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_create: 'اضافة مادة' #!
     tool_update: 'تعديل المادة'
-    tool_use_create: 'اضافة مادة'
     tools: 'مادة مستخدمة'
     #>tools_list: 'Tools'
     total: 'المجموع'

@@ -35,7 +35,7 @@
 class Tool < ActiveRecord::Base
 
   belongs_to :company
-  has_many :uses, :class_name=>ToolUse.name
+  has_many :uses, :class_name=>OperationUse.name
 
   attr_readonly :company_id
 
@@ -58,11 +58,11 @@ class Tool < ActiveRecord::Base
   end
 
   def usage_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{ToolUse.table_name} WHERE tool_id=?)", self.id])
+    return Operation.sum(:duration, :conditions=>["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
   end
 
   def remaining_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NULL AND id IN (SELECT operation_id FROM #{ToolUse.table_name} WHERE tool_id=?)", self.id])
+    return Operation.sum(:duration, :conditions=>["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
   end
 
     

@@ -60,8 +60,7 @@ class ManagementController < ApplicationController
   #this method allows to create a graphism
   def statistics
     session[:nb_year] = params[:nb_year]||2
-    if request.post?
-      return unless defined?(Gruff)
+    if params[:display]
       return unless product = find_and_check(:product, params[:product_id])
       session[:product_id] = product.id
 
@@ -89,11 +88,11 @@ class ManagementController < ApplicationController
       File.makedirs dir unless File.exists? dir
       g.write(dir+"/"+@graph)
 
-    elsif request.put?
+    elsif params[:export]
       data = {}
       mode = (params[:mode]||:quantity).to_s.to_sym
-      source = (params[:source]||:invoice).to_s.to_sym
-      query = if source == :invoice
+      source = (params[:source]||:invoices).to_s.to_sym
+      query = if source == :invoices
                 "SELECT product_id, sum(sol.#{mode}) AS total FROM #{InvoiceLine.table_name} AS sol JOIN #{Invoice.table_name} AS so ON (sol.invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
               else
                 "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleOrderLine.table_name} AS sol JOIN #{SaleOrder.table_name} AS so ON (sol.order_id=so.id) WHERE state != 'E' AND created_on BETWEEN ? AND ? GROUP BY product_id"
@@ -116,26 +115,6 @@ class ManagementController < ApplicationController
         date += 1.month
       end
 
-#       # Remove unused lines
-#       for product in @current_company.products.find(:all, :conditions=>{:active=>false})
-#         valid = false
-#         data[product.id.to_s].collect do |k,v|
-#           valid = true unless v.nil? and  v != 0
-#         end
-#         data.delete(product.id.to_s) unless product.active or valid
-#       end
-
-#       csv_data = FasterCSV.generate do |csv|
-#         csv << months
-#         for k in data.keys.sort
-#           row = [k]
-#           months.size.times {|i| row << number_to_currency(data[k][months[i+1]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
-#           csv << row
-#         end
-#       end
-
-
-
       csv_data = FasterCSV.generate do |csv|
         csv << [Product.model_name.human, Product.human_attribute_name('sales_account_id')]+months
         for product in @current_company.products.find(:all, :order=>"active DESC, name")
@@ -151,10 +130,8 @@ class ManagementController < ApplicationController
         end
       end
       
-      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>source.classify.contantize.model_name.human+'.csv'
+      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
     end
-
-
 
   end
     
@@ -671,14 +648,14 @@ class ManagementController < ApplicationController
   end
     
   def products
-    @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    session[:product_active] = true if session[:product_active].nil?
-    if @warehouses.size < 1
-      notify(:need_stocks_warehouse_to_create_products, :warning)
-      redirect_to :action=>:warehouse_create
-    end
+    #     @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
+    #     if @warehouses.size < 1
+    #       notify(:need_stocks_warehouse_to_create_products, :warning)
+    #       redirect_to :action=>:warehouse_create
+    #     end
     @key = params[:key]||session[:product_key]||""
     session[:product_key] = @key
+    session[:product_active] = true if session[:product_active].nil?
     if request.post?
       session[:product_active] = params[:product_active].nil? ? false : true
       session[:product_category_id] = params[:product].nil? ? 0 : params[:product][:category_id].to_i

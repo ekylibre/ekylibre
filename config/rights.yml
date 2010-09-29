@@ -458,6 +458,16 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
+# translation missing: eng, rights, manage_land_parcel_groups
+manage_land_parcel_groups:
+  controller: production
+  actions:
+  - index
+  - land_parcel_group_create
+  - land_parcel_group_delete
+  - land_parcel_group_update
+  - land_parcel_groups
+  - land_parcel_groups_dyta
 # Manage fields
 manage_land_parcels:
   controller: production
@@ -466,6 +476,7 @@ manage_land_parcels:
   - land_parcel
   - land_parcel_create
   - land_parcel_delete
+  - land_parcel_divide
   - land_parcel_operations_dyta
   - land_parcel_update
   - land_parcels
@@ -525,10 +536,10 @@ manage_operations:
   - operation_natures_dyta
   - operation_products_dyli
   - operation_update
+  - operation_use_create
   - operation_uses_dyta
   - operations
   - operations_dyta
-  - tool_use_create
   - unvalidated_operations
   - unvalidated_operations_dyta
 # Manage payment modes

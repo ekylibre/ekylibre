@@ -41,6 +41,7 @@ arb:
     manage_inventories: 'ادارة عمبيات الجرد'
     manage_journal_entries: 'ادارة المدخلات'
     manage_journals: 'ادارة وفتح واغلاق الدفاتر اليومية'
+    #>manage_land_parcel_groups: '(((MANAGE_LAND_PARCEL_GROUPS)))'
     manage_land_parcels: 'ادارة الهيئة'
     manage_listings: 'ادارة المستخرج'
     manage_mandates: 'ادارة التفويضات'

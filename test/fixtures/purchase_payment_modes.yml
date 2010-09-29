@@ -27,6 +27,7 @@
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  name            :string(50)       not null
+#  position        :integer          default(0), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #  with_accounting :boolean          not null
@@ -40,6 +41,7 @@
 #   creator_id: 1
 #   id: 1
 #   name: "Lorem ipsum"
+#   position: 0
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #   with_accounting: true

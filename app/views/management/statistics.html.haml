@@ -1,3 +1,5 @@
+=javascript_include_tag "raphael", "g.raphael", "g.line"
+
 =form_tag({}, :method=>:put) do 
   .search
     %table
@@ -5,7 +7,9 @@
         %td.crit
           %label=tc("nb_years")
           =text_field_tag(:nb_years, session[:nb_year].to_s, :size=>5)
-        %td.submit{:rowspan=>3}=submit_tag tg(:export)
+        %td.submit{:rowspan=>3}
+          -for b in [:export] # , :display]
+            =submit_tag tg(b), :name=>b
       %tr
         %td.crit
           %label=tc("data_to_export")
@@ -15,6 +19,22 @@
       %tr
         %td.crit
           %label=tc("source")
-          -for x in [:invoice, :sale_order]
+          -for x in [:invoices, :sale_orders]
             =radio_button_tag "source", x
             %label{:for=>"source_#{x}"}=tc(x)
+
+
+-if @graph
+  #graph{:style=>"width:640px; height:480px"}
+  :javascript
+    var r = Raphael("graph");
+    r.g.txtattr.font = "12px 'LiberationSans', sans-serif";
+    var lines = r.g.linechart(0, 0, 600, 420, [[1, 2, 3, 4, 5, 6, 7],[3.5, 4.5, 5.5, 6.5, 7, 8]], [[12, 32, 23, 15, 17, 27, 22], [10, 20, 30, 25, 15, 28]], {nostroke: false, axis: "0 0 1 1", symbol: "o", smooth: true}).hoverColumn(function () {
+    this.tags = r.set();
+      for (var i = 0, ii = this.y.length; i < ii; i++) {
+        this.tags.push(r.g.tag(this.x, this.y[i], this.values[i], 160, 10).insertBefore(this).attr([{fill: "#fff"}, {fill: this.symbols[i].attr("fill")}]));
+      }
+    }, function () {
+      this.tags && this.tags.remove();
+    });
+    lines.symbols.attr({r: 3});

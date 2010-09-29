@@ -1,0 +1,32 @@
+=form_tag({}, :class=>"flex") do
+  .fields.flex
+    =formalize do |f|
+      -f.error :land_parcel
+      -f.field :land_parcel, :stopped_on
+    %h2=tl :land_parcels
+    %table.dyta
+      %thead
+        %tr
+          %th=LandParcel.human_attribute_name("name")
+          %th=LandParcel.human_attribute_name("area_measure")
+          %th.act
+          %th.act
+      %tfoot
+        %tr.total#total_line
+          %th=tl(:total)
+          %td
+            %span#total_area
+            %span="/"
+            %span=@land_parcel.area_measure
+          %th
+          %th
+      %tbody#subdivisions
+        =render :partial=>"land_parcel_subdivision_form"
+  .actions
+    =submit_tag(tl(:divide))
+:javascript
+  window.t5 = function() {
+    var total = sum_all(".area", "total_area");
+    set_state("total_line", (total.innerHTML*1 === #{@land_parcel.area_measure}));
+  }
+  t5();

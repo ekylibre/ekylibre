@@ -18,22 +18,25 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: tool_uses
+# == Table: cultivations
 #
+#  color        :string(6)        default("FFFFFF"), not null
+#  comment      :text             
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  operation_id :integer          not null
-#  tool_id      :integer          not null
+#  name         :string(255)      not null
+#  started_on   :date             not null
+#  stopped_on   :date             
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
 
 require 'test_helper'
 
-class ToolUseTest < ActiveSupport::TestCase
+class CultivationTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

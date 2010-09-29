@@ -23,6 +23,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4207">
+      <stop
+         style="stop-color:#12681b;stop-opacity:1;"
+         offset="0"
+         id="stop4209" />
+      <stop
+         style="stop-color:#6cc875;stop-opacity:1;"
+         offset="1"
+         id="stop4211" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient4242">
       <stop
          style="stop-color:#001b8f;stop-opacity:1;"
@@ -5335,6 +5346,28 @@
        y1="56"
        x2="310"
        y2="56" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4207"
+       id="linearGradient4213"
+       x1="224"
+       y1="68.000003"
+       x2="240"
+       y2="68.000003"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9333333,0,0,0.9333333,15.466677,4.5958329)" />
+    <filter
+       inkscape:collect="always"
+       id="filter4309"
+       x="-0.13234799"
+       width="1.264696"
+       y="-0.13766554"
+       height="1.2753311">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="0.80304901"
+         id="feGaussianBlur4311" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -7769,5 +7802,20 @@
        y="0"
        xlink:href="#g3412"
        id="use4250" />
+    <path
+       style="fill:url(#linearGradient4213);fill-opacity:1;fill-rule:evenodd;stroke:#234b21;stroke-width:2;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:0.50937500000000002"
+       d="M 225,67.265752 L 229.39823,71.02185 L 230.1416,75.0625 L 239,70.509654 L 236.39823,62.314532 L 231.50443,61.0625 L 225,67.265752 z"
+       id="path3423"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/divide.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#580707;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter4309)"
+       d="M 238.65625,60.5625 L 224.78125,73.8125 L 225.46875,74.5625 L 239.34375,61.3125 L 238.65625,60.5625 z"
+       id="path4239" />
+    <path
+       style="fill:#ec2525;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 238.65625,60.4375 L 224.78125,73.6875 L 225.46875,74.4375 L 239.34375,61.1875 L 238.65625,60.4375 z"
+       id="path4231" />
   </g>
 </svg>

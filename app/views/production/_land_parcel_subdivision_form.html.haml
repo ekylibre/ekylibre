@@ -1,0 +1,9 @@
+-id="k"+rand.to_s
+-measure = @land_parcel.area_measure-params[:used].to_f
+-measure = 0 if measure < 0 or params[:mode] != "new-line"
+%tr.odd{:id=>id}
+  %td=text_field_tag("subdivisions[#{id}][name]", @land_parcel.name.succ)
+  %td=text_field_tag("subdivisions[#{id}][area_measure]", measure, :class=>"area", :onkeyup=>"t5()")+@land_parcel.area_unit.name
+  %td.act=link_to_remote(tl(:add), {:url=>{:action=>:land_parcel_divide, :mode=>"new-line", :id=>@land_parcel.id}, :with=>"'used='+$('total_area').innerHTML", :update=>:subdivisions, :position=>:bottom, :complete=>"t5()"}, :class=>"icon im-create")
+  %td.act=link_to_function(tl(:delete), "$('#{id}').remove();", :class=>"icon im-delete") if params[:mode] == "new-line"
+

@@ -2,10 +2,10 @@
   =form_tag(:action=>:products) do
     %table
       %tr
-        %td.label=tc(:search)
+        %td.label=tl(:search)
         %td.field=text_field_tag :key, @key
-        %td.label=tc(:active)
+        %td.label=tl(:active)
         %td=check_box_tag(:product_active, "1", session[:product_active].nil? ? true : session[:product_active])
-        %td.label=tc(:shelf)
-        %td=select(:product, :shelf_id, @current_company.product_categories.collect{|s| [s.name, s.id]}, :include_blank=>"-- Toutes --", :selected=>session[:product_category_id])
+        %td.label=tl(:category)
+        %td=select(:product, :category_id, @current_company.product_categories.collect{|s| [s.name, s.id]}, :include_blank=>"-- Toutes --", :selected=>session[:product_category_id])
         %td.submit=submit_tag tg(:search_go)

@@ -20,21 +20,25 @@
 # 
 # == Table: land_parcels
 #
-#  area_measure :decimal(16, 4)   default(0.0), not null
-#  area_unit_id :integer          
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  description  :text             
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  master       :boolean          default(TRUE), not null
-#  name         :string(255)      not null
-#  number       :string(255)      
-#  parent_id    :integer          
-#  polygon      :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  area_measure   :decimal(16, 4)   default(0.0), not null
+#  area_unit_id   :integer          
+#  company_id     :integer          not null
+#  created_at     :datetime         not null
+#  creator_id     :integer          
+#  cultivation_id :integer          
+#  description    :text             
+#  group_id       :integer          not null
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  master         :boolean          default(TRUE), not null
+#  name           :string(255)      not null
+#  number         :string(255)      
+#  parent_id      :integer          
+#  polygon        :string(255)      not null
+#  started_on     :date             
+#  stopped_on     :date             
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
 #
 
 require 'test_helper'

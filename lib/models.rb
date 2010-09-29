@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :cash_transfer, :company, :contact, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :preference, :price, :product, :product_category, :product_component, :profession, :purchase_delivery, :purchase_delivery_line, :purchase_delivery_mode, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_use, :tracking, :transfer, :transport, :unit, :user, :warehouse]
+  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_operation, :production_chain_operation_line, :production_chain_operation_use, :profession, :purchase_delivery, :purchase_delivery_line, :purchase_delivery_mode, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
 
   # List of all references
   @@references = {
@@ -58,6 +58,11 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :entity_id => :entity,
+      :updater_id => :user
+    },
+    :cultivation => {
+      :company_id => :company,
+      :creator_id => :user,
       :updater_id => :user
     },
     :currency => {
@@ -258,7 +263,21 @@ module Ekylibre
       :area_unit_id => :unit,
       :company_id => :company,
       :creator_id => :user,
+      :cultivation_id => :cultivation,
+      :group_id => :land_parcel_group,
       :parent_id => :land_parcel,
+      :updater_id => :user
+    },
+    :land_parcel_group => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :land_parcel_kinship => {
+      :child_land_parcel_id => :land_parcel,
+      :company_id => :company,
+      :creator_id => :user,
+      :parent_land_parcel_id => :land_parcel,
       :updater_id => :user
     },
     :listing => {
@@ -317,6 +336,13 @@ module Ekylibre
       :creator_id => :user,
       :updater_id => :user
     },
+    :operation_use => {
+      :company_id => :company,
+      :creator_id => :user,
+      :operation_id => :operation,
+      :tool_id => :tool,
+      :updater_id => :user
+    },
     :preference => {
       :company_id => :company,
       :creator_id => :user,
@@ -358,6 +384,36 @@ module Ekylibre
       :product_id => :product,
       :updater_id => :user,
       :warehouse_id => :warehouse
+    },
+    :production_chain => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :production_chain_operation => {
+      :company_id => :company,
+      :creator_id => :user,
+      :operation_nature_id => :operation_nature,
+      :parent_id => :production_chain_operation,
+      :production_chain_id => :production_chain,
+      :updater_id => :user
+    },
+    :production_chain_operation_line => {
+      :company_id => :company,
+      :creator_id => :user,
+      :from_operation_line_id => :production_chain_operation_line,
+      :operation_id => :operation,
+      :product_id => :product,
+      :unit_id => :unit,
+      :updater_id => :user,
+      :warehouse_id => :warehouse
+    },
+    :production_chain_operation_use => {
+      :company_id => :company,
+      :creator_id => :user,
+      :operation_id => :operation,
+      :tool_id => :tool,
+      :updater_id => :user
     },
     :profession => {
       :company_id => :company,
@@ -607,18 +663,20 @@ module Ekylibre
       :creator_id => :user,
       :updater_id => :user
     },
-    :tool_use => {
-      :company_id => :company,
-      :creator_id => :user,
-      :operation_id => :operation,
-      :tool_id => :tool,
-      :updater_id => :user
-    },
     :tracking => {
       :company_id => :company,
       :creator_id => :user,
       :producer_id => :entity,
       :product_id => :product,
+      :updater_id => :user
+    },
+    :tracking_state => {
+      :company_id => :company,
+      :creator_id => :user,
+      :operation_id => :operation,
+      :production_chain_operation_id => :production_chain_operation,
+      :responsible_id => :user,
+      :tracking_id => :tracking,
       :updater_id => :user
     },
     :transfer => {

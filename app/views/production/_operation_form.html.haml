@@ -38,8 +38,8 @@
       %table.dyta
         %thead
           %tr
-            %th=ToolUse.human_attribute_name("tool_id")
+            %th=OperationUse.human_attribute_name("tool_id")
             %th.act
-        %tbody#uses=render :partial=>'tool_use_row_form', :collection=>(@operation_uses||@operation.uses)
+        %tbody#uses=render :partial=>"operation_use_row_form", :collection=>(@operation_uses||@operation.uses)
       =toolbar do |t|
-        -t.link :tool_use_create,  :remote=>true, :update=>:uses, :position=>:bottom # , :url=>{:action=>:tool_use_create}
+        -t.link :operation_use_create,  :remote=>true, :update=>:uses, :position=>:bottom # , :url=>{:action=>:operation_use_create}
