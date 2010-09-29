@@ -1,0 +1,8 @@
+-if @production_chain_operation.nature.to_s == 'input'
+  .input INPUT
+  .goto
+  .outputs OUTPUTS
+-else
+  .inputs INPUTS
+  .goto
+  .output OUTPUT

@@ -1,0 +1,6 @@
+=formalize do |f|
+  -f.error 'production_chain'
+  -f.title :general_informations
+  -f.field :production_chain, :name
+  -f.field :production_chain, :building_id, :choices=>{:reflection=>:buildings}
+  -f.field :production_chain, :comment, :field=>:textarea

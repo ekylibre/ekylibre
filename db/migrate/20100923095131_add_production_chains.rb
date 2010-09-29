@@ -52,6 +52,7 @@ class AddProductionChains < ActiveRecord::Migration
     create_table :production_chains do |t|
       t.column :name,             :string,   :null=>false
       t.column :comment,          :text
+      t.column :building_id,      :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chains, :company_id

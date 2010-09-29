@@ -1,0 +1,12 @@
+=toolbar do |t|
+  -t.update @production_chain
+
+=list_evalue(3) do |l|
+  -l.evalue @production_chain, :name
+  -l.evalue @production_chain, :comment
+  -l.evalue @production_chain, :building
+
+%h2=tl(:operations)
+=toolbar do |t|
+  -t.link :production_chain_operation_create, :production_chain_id=>@production_chain.id
+=dyta :production_chain_operations

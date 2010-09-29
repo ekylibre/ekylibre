@@ -68,5 +68,4 @@ class LandParcel < ActiveRecord::Base
     self.update_attribute(:stopped_on, divided_on)
   end
 
-
 end

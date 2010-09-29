@@ -458,6 +458,18 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
+manage_production_chains:
+  controller: production
+  actions:
+  - index
+  - production_chains
+  - production_chain
+  - production_chain_create
+  - production_chain_update
+  - production_chain_delete
+  - production_chain_operation_create
+  - production_chain_operation_update
+  - production_chain_operation_delete
 # translation missing: eng, rights, manage_land_parcel_groups
 manage_land_parcel_groups:
   controller: production

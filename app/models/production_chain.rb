@@ -34,6 +34,7 @@
 class ProductionChain < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
+  belongs_to :building, :class_name=>Warehouse.name
   has_many :operations, :class_name=>ProductionChainOperation.name
 
 end

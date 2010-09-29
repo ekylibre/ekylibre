@@ -1,0 +1,15 @@
+=formalize do |f|
+  -f.error 'production_chain_operation'
+  -f.title :general_informations
+  -f.field :production_chain_operation, :production_chain_id, :choices=>{:reflection=>:production_chains}
+  -f.field :production_chain_operation, :name
+  -f.field :production_chain_operation, :nature, :choices=>ProductionChainOperation.natures_list
+  -f.field :production_chain_operation, :operation_nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
+  -f.field :production_chain_operation, :comment, :field=>:textarea
+
+%table.invex
+  %tr
+    %td#ios=render :partial=>"production_chain_operation_lines"
+    %td.tools
+
+=#observe_field "production_chain_operation_nature", :url=>{}

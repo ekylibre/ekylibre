@@ -40,7 +40,14 @@
 class ProductionChainOperation < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
+  belongs_to :operation_nature
   has_many :lines, :class_name=>ProductionChainOperationLine.name, :foreign_key=>:operation_id
   has_many :uses,  :class_name=>ProductionChainOperationUse.name,  :foreign_key=>:operation_id
+
+  @@natures = [:input, :output]
+
+  def self.natures_list
+    @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
+  end
 
 end

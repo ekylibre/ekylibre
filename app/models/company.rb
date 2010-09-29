@@ -81,6 +81,10 @@ class Company < ActiveRecord::Base
   has_many :products, :order=>'active DESC, name'
   has_many :product_categories, :order=>:name
   has_many :product_components
+  has_many :production_chains
+  has_many :production_chain_operations
+  has_many :production_chain_operation_lines
+  has_many :production_chain_operation_uses
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
@@ -123,6 +127,7 @@ class Company < ActiveRecord::Base
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
   has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
   has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
+  has_many :buildings, :class_name=>Warehouse.name, :conditions=>{:reservoir=>false}, :order=>:name
   has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
   has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_cashes\').value.to_s+\'%\')}'
   has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.charges\').value.to_s+\'%\')}'

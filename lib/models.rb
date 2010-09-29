@@ -386,6 +386,7 @@ module Ekylibre
       :warehouse_id => :warehouse
     },
     :production_chain => {
+      :building_id => :warehouse,
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user

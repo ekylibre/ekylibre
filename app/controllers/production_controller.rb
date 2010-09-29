@@ -164,11 +164,6 @@ class ProductionController < ApplicationController
       @operation_lines = (params[:lines]||{}).values
       @operation_uses = (params[:uses]||{}).values
       redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-#       if @operation.save
-#         @operation.set_lines(params[:lines].values) if params[:lines]
-#         @operation.set_tools(params[:tools])
-#         redirect_to_back
-#       end
     else
       @operation = Operation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
     end
@@ -186,12 +181,6 @@ class ProductionController < ApplicationController
       @operation_lines = (params[:lines]||{}).values
       @operation_uses = (params[:uses]||{}).values
       redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-
-#       if @operation.update_attributes(params[:operation])
-#         @operation.set_lines(params[:lines].values) if params[:lines]
-#         @operation.set_tools(params[:tools])
-#         redirect_to_back
-#       end
     end
     t3e @operation.attributes
     render_form
@@ -261,5 +250,34 @@ class ProductionController < ApplicationController
     end
   end
 
+
+  dyta(:production_chains, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+    t.column :name, :url=>{:action=>:production_chain}
+    t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
+    t.column :comment
+    t.action :production_chain_update
+    t.action :production_chain_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+
+  def production_chains
+  end
+
+  manage :production_chains
+
+  dyta(:production_chain_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+    t.column :name, :url=>{:action=>:production_chain_operation}
+    t.column :name, :through=>:operation_nature
+    t.column :comment
+    t.action :production_chain_operation_update
+    t.action :production_chain_operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  def production_chain
+    return unless @production_chain = find_and_check(:production_chain)
+    t3e @production_chain.attributes, :builing=>@production_chain.building.name
+  end
+
+  manage :production_chain_operations, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
 
 end
