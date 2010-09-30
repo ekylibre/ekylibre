@@ -18,38 +18,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: production_chain_operations
+# == Table: production_chain_conveyors
 #
-#  check_states        :string(16)       
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
+#  flow                :decimal(16, 4)   
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  parent_id           :integer          
+#  product_id          :integer          not null
 #  production_chain_id :integer          not null
+#  source_id           :integer          
+#  source_type         :string(255)      
+#  target_id           :integer          
+#  target_type         :string(255)      
+#  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
 
-class ProductionChainOperation < ActiveRecord::Base
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :operation_nature
-  has_many :lines, :class_name=>ProductionChainOperationLine.name, :foreign_key=>:operation_id
-  has_many :uses,  :class_name=>ProductionChainOperationUse.name,  :foreign_key=>:operation_id
-  has_many :output_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:source
-  has_many :input_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:target
+require 'test_helper'
 
-  @@natures = [:input, :output]
-
-  def self.natures_list
-    @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
+class ProductionChainConveyorTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  test "the truth" do
+    assert true
   end
-
 end

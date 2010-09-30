@@ -3,6 +3,7 @@ arb:
     accountize: 'مبادلة الاجراءات التجارية للمحاسبة'
     administrate_accountancy: 'مدخل لوحدة المحاسبة' #!
     backup_company: 'تطبيق / تحديث النسخ الاحتياطية'
+    #>build_production_chains: '(((BUILD_PRODUCTION_CHAINS)))'
     cancel_invoices: 'الاحذ بالموجودات'
     change_prices_on_sale: 'تغيير اسعار البيع'
     close_journals: 'فتح واغلاق الدفاتر اليومية'
@@ -68,3 +69,4 @@ arb:
     __minimum__: 'بلوغ الفاعلية كحد ادنى'
     __not_used__: '(الحق الافتراضي (متعذر بلوغه'
     print: 'الطباعة'
+    #>use_production_chains: '(((USE_PRODUCTION_CHAINS)))'

@@ -51,21 +51,25 @@ class ProductionController < ApplicationController
   manage :tools
 
   
-  dyta(:land_parcels, :conditions=>{:company_id=>['@current_company.id'], :stopped_on=>nil}, :order=>"name") do |t|
+  dyta(:land_parcels, :conditions=>["company_id=? AND ? BETWEEN started_on AND COALESCE(stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>{:action=>:land_parcel}
     t.column :number
     t.column :area_measure, :datatype=>:decimal
     t.column :name, :through=>:area_unit
+    t.column :name, :through=>:group, :url=>{:action=>:land_parcel_group}
     t.column :description
+    t.column :started_on
+    t.column :stopped_on
     t.action :land_parcel_divide
     t.action :land_parcel_update
     t.action :land_parcel_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def land_parcels
+    session[:viewed_on] = (params[:viewed_on]||session[:viewed_on]).to_date rescue Date.today
   end
 
-  manage :land_parcels
+  manage :land_parcels, :started_on=>"Date.today"
 
   def land_parcel_divide
     return unless @land_parcel = find_and_check(:land_parcel)
@@ -79,7 +83,8 @@ class ProductionController < ApplicationController
         redirect_to :action=>:land_parcels
       end
     end
-    @land_parcel.stopped_on ||= Date.today
+    @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
+    t3e @land_parcel.attributes
   end
 
 
@@ -255,6 +260,7 @@ class ProductionController < ApplicationController
     t.column :name, :url=>{:action=>:production_chain}
     t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :comment
+    t.action :production_chain_play
     t.action :production_chain_update
     t.action :production_chain_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -268,9 +274,21 @@ class ProductionController < ApplicationController
   dyta(:production_chain_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name, :url=>{:action=>:production_chain_operation}
     t.column :name, :through=>:operation_nature
+    t.column :nature
     t.column :comment
     t.action :production_chain_operation_update
     t.action :production_chain_operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  dyta(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+    t.column :name, :url=>{:action=>:production_chain_conveyor}
+    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
+    t.column :flow
+    t.column :name, :through=>:unit
+    t.column :name, :through=>:source, :url=>{:action=>:production_chain_operation}
+    t.column :name, :through=>:target, :url=>{:action=>:production_chain_operation}
+    t.action :production_chain_conveyor_update
+    t.action :production_chain_conveyor_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def production_chain
@@ -279,5 +297,7 @@ class ProductionController < ApplicationController
   end
 
   manage :production_chain_operations, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
+
+  manage :production_chain_conveyors, :production_chain_id=>"params[:production_chain_id]"
 
 end

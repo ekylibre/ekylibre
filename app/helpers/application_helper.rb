@@ -133,13 +133,13 @@ module ApplicationHelper
      # ProductionController
      {:name=>:production, :list=>
        [ {:name=>:production, :list=>
-           [ {:name=>:operations},
-             {:name=>:land_parcels}
+           [ {:name=>:land_parcels},
+             {:name=>:production_chains},
+             {:name=>:operations}
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:tools},
              {:name=>:land_parcel_groups},
-             {:name=>:production_chains},
              {:name=>:operation_natures}
            ] }
        ] }

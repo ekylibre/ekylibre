@@ -38,6 +38,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-configure   { background-image: url(../images/buttons/configure.png); }
 .icon.im-create      { background-image: url(../images/buttons/create.png); }
 .icon.im-delete      { background-image: url(../images/buttons/delete.png); }
+.icon.im-divide      { background-image: url(../images/buttons/divide.png); }
 .icon.im-export      { background-image: url(../images/buttons/spreadsheet.png); }
 .icon.im-extract     { background-image: url(../images/buttons/action.png); }
 .icon.im-filter      { background-image: url(../images/buttons/filter.png); }
@@ -51,6 +52,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-mail        { background-image: url(../images/buttons/mail.png); }
 .icon.im-merge       { background-image: url(../images/buttons/merge.png); }
 .icon.im-more        { background-image: url(../images/buttons/down2.png); }
+.icon.im-play        { background-image: url(../images/buttons/play.png); }
 .icon.im-point       { background-image: url(../images/buttons/point.png); }
 .icon.im-previous    { background-image: url(../images/buttons/previous.png); }
 .icon.im-print       { background-image: url(../images/buttons/print.png); }
@@ -236,7 +238,7 @@ html[dir="rtl"] #top #loading { float:left; }
 
 table.invex, table.invisible { border-collapse: collapse; }
 table.invex { width: 100% }
-table.invex tr td { vertical-align: top;  }
+table.invex > tbody > tr > td { vertical-align: top;  }
 table.invex tr td.space{ width: 8px }
 
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px; }
@@ -540,3 +542,11 @@ html[dir="ltr"] .toggle { float:right }
 html[dir="rtl"] .toggle { float:right }
 .toggle a.icon { background-position: center center;  height: 18px; }
 .toggle a.icon.current { opacity: 0.5; -ms-filter: "alpha(opacity=50)"; filter : alpha(opacity=50); }
+
+.operation-graph { border-collapse: collapse; margin-bottom: 8px }
+.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px solid #95b0e4; }
+.operation-graph table.conveyor { border-collapse: collapse; margin: 2px 0; }
+.operation-graph .conveyor .information { background: #EEE; padding: 2px 4px; border: 2px solid #555; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+.operation-graph .conveyor .information * { text-align:center; font-size: 11px; }
+.operation-graph .conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; height: 4px;}
+.operation-graph .conveyor .arrow { width: 16px; background: url(../images/arrow.png) no-repeat center; height: 24px;}

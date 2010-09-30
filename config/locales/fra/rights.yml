@@ -2,6 +2,7 @@ fra:
   rights:
     accountize: 'Basculer les opérations commerciales en comptabilité'
     backup_company: 'Effectuer/Recharger des sauvegardes'
+    #>build_production_chains: '(((BUILD_PRODUCTION_CHAINS)))'
     cancel_invoices: 'Faire des avoirs'
     change_prices_on_sale: 'Changer les prix au moment des ventes'
     close_journals: 'Clôturer et déclôturer des journaux'
@@ -67,3 +68,4 @@ fra:
     __minimum__: 'Accéder au minimum vital'
     __not_used__: 'Droit par défaut (inaccessible)'
     print: 'Imprimer'
+    #>use_production_chains: '(((USE_PRODUCTION_CHAINS)))'

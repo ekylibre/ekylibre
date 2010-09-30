@@ -4,6 +4,7 @@ eng:
     __not_used__: 'Inaccessible'
     accountize: 'Transfer commercial data in accountancy'
     backup_company: 'Make and reload backups'
+    build_production_chains: (((BUILD_PRODUCTION_CHAINS)))
     cancel_invoices: 'Cancel invoices'
     change_prices_on_sale: 'Change prices on sales'
     close_journals: 'Close and reopen journals'
@@ -67,3 +68,4 @@ eng:
     manage_warehouses: 'Manage warehouses'
     merge_entities: 'Merge people'
     print: 'Print'
+    use_production_chains: (((USE_PRODUCTION_CHAINS)))

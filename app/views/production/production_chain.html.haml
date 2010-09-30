@@ -1,12 +1,27 @@
-=toolbar do |t|
-  -t.update @production_chain
 
-=list_evalue(3) do |l|
-  -l.evalue @production_chain, :name
-  -l.evalue @production_chain, :comment
-  -l.evalue @production_chain, :building
+-if @current_user.can? :build_production_chains
+  =toolbar do |t|
+    -t.update @production_chain
 
-%h2=tl(:operations)
-=toolbar do |t|
-  -t.link :production_chain_operation_create, :production_chain_id=>@production_chain.id
-=dyta :production_chain_operations
+  =list_evalue(3) do |l|
+    -l.evalue @production_chain, :name
+    -l.evalue @production_chain, :comment
+    -l.evalue @production_chain, :building
+
+  .toto{:style=>"text-align: center"}=render :partial=>"production_chain_operation", :collection=>@production_chain.operations
+  %table.invex
+    %tr
+      %td
+        %h2=tl(:operations)
+        =toolbar do |t|
+          -t.link :production_chain_operation_create, :production_chain_id=>@production_chain.id
+        =dyta :production_chain_operations
+      %td.space
+      %td
+        %h2=tl(:conveyors)
+        =toolbar do |t|
+          -t.link :production_chain_conveyor_create, :production_chain_id=>@production_chain.id
+        =dyta :production_chain_conveyors
+
+
+%h2=tl(:active_productions)

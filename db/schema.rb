@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "lock_version",                                     :default => 0,   :null => false
   end
 
-  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balances_unique", :unique => true
+  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balannces_unique", :unique => true
   add_index "account_balances", ["company_id"], :name => "index_account_balances_on_company_id"
   add_index "account_balances", ["created_at"], :name => "index_account_balances_on_created_at"
   add_index "account_balances", ["creator_id"], :name => "index_account_balances_on_creator_id"
@@ -489,10 +489,10 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir"
-    t.string   "extension"
-    t.integer  "owner_id"
-    t.string   "owner_type"
+    t.string   "subdir",                       :null => false
+    t.string   "extension",                    :null => false
+    t.integer  "owner_id",                     :null => false
+    t.string   "owner_type",                   :null => false
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -562,6 +562,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   end
 
   add_index "entities", ["code", "company_id"], :name => "index_entities_on_code_and_company_id", :unique => true
+  add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["company_id"], :name => "index_entities_on_company_id"
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
@@ -984,24 +985,20 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
   create_table "land_parcels", :force => true do |t|
-    t.string   "name",                                                            :null => false
-    t.string   "polygon",                                                         :null => false
-    t.boolean  "master",                                        :default => true, :null => false
+    t.string   "name",                                                         :null => false
     t.text     "description"
-    t.integer  "parent_id"
-    t.integer  "company_id",                                                      :null => false
-    t.datetime "created_at",                                                      :null => false
-    t.datetime "updated_at",                                                      :null => false
+    t.integer  "company_id",                                                   :null => false
+    t.datetime "created_at",                                                   :null => false
+    t.datetime "updated_at",                                                   :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  :default => 0,    :null => false
+    t.integer  "lock_version",                                :default => 0,   :null => false
     t.string   "number"
-    t.decimal  "area_measure",   :precision => 16, :scale => 4, :default => 0.0,  :null => false
+    t.decimal  "area_measure", :precision => 16, :scale => 4, :default => 0.0, :null => false
     t.integer  "area_unit_id"
-    t.date     "started_on"
+    t.date     "started_on",                                                   :null => false
     t.date     "stopped_on"
-    t.integer  "cultivation_id"
-    t.integer  "group_id",                                                        :null => false
+    t.integer  "group_id",                                                     :null => false
   end
 
   add_index "land_parcels", ["created_at"], :name => "index_shapes_on_created_at"
@@ -1320,6 +1317,31 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   add_index "product_components", ["creator_id"], :name => "index_product_components_on_creator_id"
   add_index "product_components", ["updated_at"], :name => "index_product_components_on_updated_at"
   add_index "product_components", ["updater_id"], :name => "index_product_components_on_updater_id"
+
+  create_table "production_chain_conveyors", :force => true do |t|
+    t.integer  "production_chain_id",                                               :null => false
+    t.string   "name",                                                              :null => false
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.integer  "product_id",                                                        :null => false
+    t.integer  "unit_id",                                                           :null => false
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.decimal  "flow",                :precision => 16, :scale => 4
+    t.text     "comment"
+    t.integer  "company_id",                                                        :null => false
+    t.datetime "created_at",                                                        :null => false
+    t.datetime "updated_at",                                                        :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                       :default => 0, :null => false
+  end
+
+  add_index "production_chain_conveyors", ["company_id"], :name => "index_production_chain_conveyors_on_company_id"
+  add_index "production_chain_conveyors", ["created_at"], :name => "index_production_chain_conveyors_on_created_at"
+  add_index "production_chain_conveyors", ["creator_id"], :name => "index_production_chain_conveyors_on_creator_id"
+  add_index "production_chain_conveyors", ["updated_at"], :name => "index_production_chain_conveyors_on_updated_at"
+  add_index "production_chain_conveyors", ["updater_id"], :name => "index_production_chain_conveyors_on_updater_id"
 
   create_table "production_chain_operation_lines", :force => true do |t|
     t.integer  "operation_id",                                                             :null => false
@@ -1928,7 +1950,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2010-09-28', :null => false
+    t.date     "to_bank_on",                                      :default => '2009-07-31', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false

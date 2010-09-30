@@ -1,3 +1,11 @@
+.search
+  =form_tag do
+    %table
+      %tr
+        %td.label=tl(:display)
+        %td.field=calendar_field_tag :viewed_on, session[:viewed_on]
+        %td.submit=submit_tag tg(:search_go)
+
 =toolbar do
   -link :land_parcel_create
 =dyta :land_parcels

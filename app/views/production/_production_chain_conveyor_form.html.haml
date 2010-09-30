@@ -1,0 +1,10 @@
+=formalize do |f|
+  -f.error 'production_chain_conveyor'
+  -f.title :general_informations
+  -f.field :production_chain_conveyor, :production_chain_id, :choices=>{:reflection=>:production_chains}
+  -f.field :production_chain_conveyor, :name
+  -f.field :production_chain_conveyor, :source_id, :choices=>{:reflection=>:production_chain_operations, :include_blank=>""}
+  -f.field :production_chain_conveyor, :target_id, :choices=>{:reflection=>:production_chain_operations, :include_blank=>""}
+  -f.field :production_chain_conveyor, :product_id, :choices=>{:reflection=>:products}, :new=>{:controller=>:management, :action=>:product_create}
+  -f.field :production_chain_conveyor, :flow
+  -f.field :production_chain_conveyor, :comment, :field=>:textarea

@@ -1,0 +1,34 @@
+-operation = production_chain_operation
+
+%table.operation-graph
+  %tr
+    %td.conveyors.input-conveyors
+      -for conveyor in operation.input_conveyors
+        %table.conveyor
+          %tr
+            -if conveyor.source
+              %td.operation=link_to(conveyor.source.name, :action=>:production_chain_operation, :id=>conveyor.source_id) 
+            %td.rail
+            %td
+              .information
+                %h3=link_to(conveyor.name, :action=>:production_chain_conveyor_update, :id=>conveyor.id)
+                .flow=tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.name, :product=>link_to(conveyor.product.name, :action=>:product, id=>conveyor.product_id, :controller=>:management).html_safe).html_safe
+                .comment=conveyor.comment
+            %td.rail
+            %td.arrow
+    %td.operation
+      %strong=operation.name
+    %td.conveyors.output-conveyors
+      -for conveyor in operation.output_conveyors
+        %table.conveyor
+          %tr
+            %td.rail
+            %td
+              .information
+                %h3=link_to(conveyor.name, :action=>:production_chain_conveyor_update, :id=>conveyor.id)
+                .flow=tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.name, :product=>link_to(conveyor.product.name, :action=>:product, id=>conveyor.product_id, :controller=>:management).html_safe).html_safe
+                .comment=conveyor.comment
+            %td.rail
+            %td.arrow
+            -if conveyor.target
+              %td.operation=link_to(conveyor.target.name, :action=>:production_chain_operation, :id=>conveyor.target_id) 

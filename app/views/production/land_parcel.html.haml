@@ -1,14 +1,20 @@
 =toolbar do |t|
   -t.update @land_parcel
+  -t.divide @land_parcel
 
-%table
+=list_evalue(3) do |l|
+  -l.evalue @land_parcel, :name
+  -l.evalue @land_parcel, :description
+  -l.evalue @land_parcel, :started_on
+  -l.evalue @land_parcel, :stopped_on
+  -l.evalue @land_parcel, :area_measure
+  -l.evalue @land_parcel, :area_unit
+
+%table.stepper
   %tr
-    %td
-      =evalue @land_parcel, :name
-      =evalue @land_parcel, :polygon
-    %td
-      =evalue @land_parcel, :description
-      =evalue @land_parcel, :master
+    %td.step=@land_parcel.parent_kinships.collect{|k| link_to(k.parent_land_parcel.name, :action=>:land_parcel, :id=>k.parent_land_parcel_id).html_safe}.to_sentence.html_safe
+    %td.step.active=@land_parcel.name
+    %td.step=@land_parcel.child_kinships.collect{|k| link_to(k.child_land_parcel.name, :action=>:land_parcel, :id=>k.child_land_parcel_id).html_safe}.to_sentence.html_safe
 
 %h2=tc :operations
 =toolbar do |t|

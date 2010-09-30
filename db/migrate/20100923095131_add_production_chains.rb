@@ -64,7 +64,7 @@ class AddProductionChains < ActiveRecord::Migration
       t.column :expected_duration, :decimal, :precision=>16, :scale=>4
       t.column :parent_id,        :integer
       t.column :name,             :string,   :null=>false
-      t.column :nature,           :string,   :null=>false
+      t.column :nature,           :string,   :null=>false # One in or One out
       t.column :check_states,     :string,   :limit=>16
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
@@ -72,6 +72,27 @@ class AddProductionChains < ActiveRecord::Migration
     add_index :production_chain_operations, :company_id
     add_index :production_chain_operations, [:production_chain_id, :company_id]
     add_index :production_chain_operations, [:operation_nature_id, :company_id]
+
+    create_table :production_chain_conveyors do |t|
+      t.column :production_chain_id, :integer, :null=>false
+      t.column :name,             :string,   :null=>false
+
+      t.column :source_id,        :integer
+      t.column :source_type,      :string
+
+      t.column :product_id,       :integer,  :null=>false
+      t.column :unit_id,          :integer,  :null=>false
+
+      t.column :target_id,        :integer
+      t.column :target_type,      :string
+
+      t.column :flow,             :decimal,  :precision=>16, :scale=>4
+      t.column :comment,          :text
+      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :production_chain_conveyors, :company_id
+    add_index :production_chain_conveyors, [:production_chain_id, :company_id]
+
 
     create_table :production_chain_operation_lines do |t|
       t.column :operation_id,     :integer,  :null=>false
@@ -102,7 +123,7 @@ class AddProductionChains < ActiveRecord::Migration
     add_column :land_parcels, :stopped_on, :date
 
     # Fill cultivation column
-    add_column :land_parcels, :cultivation_id, :integer
+    # add_column :land_parcels, :cultivation_id, :integer
 
     # Fill land_parcels.group_id column
     add_column :land_parcels, :group_id, :integer
@@ -111,6 +132,11 @@ class AddProductionChains < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:land_parcels)} SET group_id=CASE "+groups.collect{|g| "WHEN company_id=#{g['company_id']} THEN #{g['id']}"}.join(" ")+" END"
     end
     change_column_null :land_parcels, :group_id, false
+    execute "UPDATE #{quoted_table_name(:land_parcels)} SET started_on=#{connection.quote(Date.civil(1901,1,1))}"
+    change_column_null :land_parcels, :started_on, false
+    remove_column :land_parcels, :master
+    remove_column :land_parcels, :parent_id
+    remove_column :land_parcels, :polygon
 
     # Add a the list organization for payment modes
     add_column :sale_payment_modes, :position, :integer, :null=>false, :default=>0
@@ -118,20 +144,25 @@ class AddProductionChains < ActiveRecord::Migration
     add_column :purchase_payment_modes, :position, :integer, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:purchase_payment_modes)} SET position = id"
 
+
   end
 
   def self.down
     remove_column :purchase_payment_modes, :position
     remove_column :sale_payment_modes, :position
     
+    add_column :land_parcels, :polygon, :string
+    add_column :land_parcels, :parent_id, :integer
+    add_column :land_parcels, :master, :boolean, :null=>false, :default=>false
     remove_column :land_parcels, :group_id
-    remove_column :land_parcels, :cultivation_id
+    # remove_column :land_parcels, :cultivation_id
     remove_column :land_parcels, :stopped_on
     remove_column :land_parcels, :started_on
 
     rename_table :operation_uses, :tool_uses
     drop_table :production_chain_operation_uses
     drop_table :production_chain_operation_lines
+    drop_table :production_chain_conveyors
     drop_table :production_chain_operations
     drop_table :production_chains
     drop_table :tracking_states

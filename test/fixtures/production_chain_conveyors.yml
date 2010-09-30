@@ -18,38 +18,45 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: production_chain_operations
+# == Table: production_chain_conveyors
 #
-#  check_states        :string(16)       
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
+#  flow                :decimal(16, 4)   
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  parent_id           :integer          
+#  product_id          :integer          not null
 #  production_chain_id :integer          not null
+#  source_id           :integer          
+#  source_type         :string(255)      
+#  target_id           :integer          
+#  target_type         :string(255)      
+#  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
+#
+# == Fixture: production_chain_conveyors
+#
+# production_chain_conveyors_001:
+#   company_id: 1
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   id: 1
+#   name: "Lorem ipsum"
+#   product_id: 1
+#   production_chain_id: 1
+#   unit_id: 1
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+#
 
-class ProductionChainOperation < ActiveRecord::Base
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :operation_nature
-  has_many :lines, :class_name=>ProductionChainOperationLine.name, :foreign_key=>:operation_id
-  has_many :uses,  :class_name=>ProductionChainOperationUse.name,  :foreign_key=>:operation_id
-  has_many :output_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:source
-  has_many :input_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:target
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-  @@natures = [:input, :output]
-
-  def self.natures_list
-    @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
-  end
-
-end
+# This model initially had no columns defined.  If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#

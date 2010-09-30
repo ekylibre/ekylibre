@@ -56,6 +56,28 @@ accountize:
 backup_company:
   controller: company
   actions: [backups, index]
+# translation missing: eng, rights, build_production_chains
+build_production_chains:
+  controller: production
+  actions:
+  - index
+  - production_chain
+  - production_chain_conveyor_create
+  - production_chain_conveyor_delete
+  - production_chain_conveyor_update
+  - production_chain_conveyors # UNEXISTENT ACTION !!!
+  - production_chain_conveyors_dyta
+  - production_chain_create
+  - production_chain_delete
+  - production_chain_operation # UNEXISTENT ACTION !!!
+  - production_chain_operation_create
+  - production_chain_operation_delete
+  - production_chain_operation_update
+  - production_chain_operations # UNEXISTENT ACTION !!!
+  - production_chain_operations_dyta
+  - production_chain_update
+  - production_chains
+  - production_chains_dyta
 # Cancel invoices
 cancel_invoices:
   controller: management
@@ -458,19 +480,7 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
-manage_production_chains:
-  controller: production
-  actions:
-  - index
-  - production_chains
-  - production_chain
-  - production_chain_create
-  - production_chain_update
-  - production_chain_delete
-  - production_chain_operation_create
-  - production_chain_operation_update
-  - production_chain_operation_delete
-# translation missing: eng, rights, manage_land_parcel_groups
+# (((MANAGE_LAND_PARCEL_GROUPS)))
 manage_land_parcel_groups:
   controller: production
   actions:
@@ -812,3 +822,13 @@ merge_entities:
 print:
   controller: company
   actions: [print]
+# translation missing: eng, rights, use_production_chains
+use_production_chains:
+  controller: production
+  actions:
+  - index
+  - production_chain_next # UNEXISTENT ACTION !!!
+  - production_chain_pause # UNEXISTENT ACTION !!!
+  - production_chain_play # UNEXISTENT ACTION !!!
+  - production_chains
+  - production_chains_dyta

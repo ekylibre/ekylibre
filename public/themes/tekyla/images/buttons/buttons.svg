@@ -23,6 +23,17 @@
   <defs
      id="defs4">
     <linearGradient
+       id="linearGradient4220">
+      <stop
+         style="stop-color:#67ff1f;stop-opacity:1"
+         offset="0"
+         id="stop4222" />
+      <stop
+         style="stop-color:#009117;stop-opacity:1;"
+         offset="1"
+         id="stop4224" />
+    </linearGradient>
+    <linearGradient
        id="linearGradient4207">
       <stop
          style="stop-color:#12681b;stop-opacity:1;"
@@ -803,7 +814,7 @@
       <stop
          id="stop2426"
          offset="0"
-         style="stop-color:#27d000;stop-opacity:1;" />
+         style="stop-color:#9dff86;stop-opacity:1;" />
       <stop
          id="stop2430"
          offset="1"
@@ -5368,6 +5379,36 @@
          stdDeviation="0.80304901"
          id="feGaussianBlur4311" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4220"
+       id="linearGradient4218"
+       x1="200.34996"
+       y1="-8.9225016"
+       x2="185.64177"
+       y2="9.7244959"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient25438"
+       id="linearGradient4253"
+       x1="207.5"
+       y1="-8"
+       x2="224.5"
+       y2="-8"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9375,0,0,0.9375,13.5,-0.5)" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3876"
+       id="radialGradient4255"
+       cx="216"
+       cy="-8"
+       fx="216"
+       fy="-8"
+       r="8.5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.9375,0,0,0.9375,13.5,-0.5)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -7817,5 +7858,32 @@
        style="fill:#ec2525;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 238.65625,60.4375 L 224.78125,73.6875 L 225.46875,74.4375 L 239.34375,61.1875 L 238.65625,60.4375 z"
        id="path4231" />
+    <path
+       sodipodi:type="star"
+       style="opacity:0.9;fill:url(#linearGradient4218);fill-opacity:1;fill-rule:nonzero;stroke:#2b5b17;stroke-width:1.70000374;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:5.2442;stroke-opacity:1"
+       id="path3432"
+       sodipodi:sides="3"
+       sodipodi:cx="196.25"
+       sodipodi:cy="4.625"
+       sodipodi:r1="15.780353"
+       sodipodi:r2="7.8901763"
+       sodipodi:arg1="0.80500349"
+       sodipodi:arg2="-2.0742343"
+       inkscape:flatsided="true"
+       inkscape:rounded="0"
+       inkscape:randomized="0"
+       d="M 207.1875,16 L 180.93021,8.4096529 L 200.63229,-10.534653 L 207.1875,16 z"
+       transform="matrix(0.4329164,-0.398986,0.4583494,0.3768492,142.47155,36.51945)"
+       inkscape:label="#path2915"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/play.png" />
+    <path
+       style="fill:url(#linearGradient4253);fill-opacity:1;fill-rule:nonzero;stroke:url(#radialGradient4255);stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 215.17969,-15.5 L 214.91602,-14.298828 L 214.74023,-13.15625 L 213.53906,-12.6875 L 212.63086,-13.419922 L 211.63477,-14.152344 L 210.08203,-12.716797 L 210.78516,-11.691406 L 211.45898,-10.753906 L 210.93164,-9.5820312 L 209.75977,-9.4355469 L 208.5293,-9.2597656 L 208.5,-7.1796875 L 209.70117,-6.9160156 L 210.84375,-6.7402344 L 211.3125,-5.5390625 L 210.58008,-4.6308594 L 209.84766,-3.6347656 L 211.2832,-2.0820312 L 212.30859,-2.7851562 L 213.24609,-3.4589844 L 214.41797,-2.9316406 L 214.56445,-1.7597656 L 214.74023,-0.52929688 L 216.82031,-0.5 L 217.08398,-1.7011719 L 217.25977,-2.84375 L 218.46094,-3.3125 L 219.36914,-2.5800781 L 220.36523,-1.8476562 L 221.91797,-3.2832031 L 221.21484,-4.3085938 L 220.54102,-5.2460938 L 221.06836,-6.4179688 L 222.24023,-6.5644531 L 223.4707,-6.7402344 L 223.5,-8.8203125 L 222.29883,-9.0839844 L 221.15625,-9.2597656 L 220.6875,-10.460938 L 221.41992,-11.369141 L 222.15234,-12.365234 L 220.7168,-13.917969 L 219.69141,-13.214844 L 218.75391,-12.541016 L 217.58203,-13.068359 L 217.43555,-14.240234 L 217.25977,-15.470703 L 215.17969,-15.5 z M 215.9707,-10.8125 C 217.52308,-10.830445 218.79347,-9.5816911 218.8125,-8.0292969 C 218.83153,-6.4769027 217.58167,-5.2054453 216.0293,-5.1875 C 214.47692,-5.1695549 213.20653,-6.4183089 213.1875,-7.9707031 C 213.16847,-9.5230972 214.41833,-10.794554 215.9707,-10.8125 z"
+       id="path4226"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/action.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

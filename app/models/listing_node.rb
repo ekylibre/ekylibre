@@ -173,7 +173,7 @@ class ListingNode < ActiveRecord::Base
     c = operation.gsub("{{COLUMN}}", column)
     c.gsub!("{{LIST}}", "("+value.to_s.gsub(/\,\,/, "\t").split(/\s*\,\s*/).collect{|x| connection.quote(x.gsub(/\t/, ','))}.join(", ")+")")
     c.gsub!(/\{\{[^\}]*VALUE[^\}]*\}\}/) do |m|
-      n = m[2..-3].gsub("VALUE", value.send(operator.to_s.match(/_cs$/) ? "to_s" : "lower"))
+      n = m[2..-3].gsub("VALUE", value.to_s.send(operator.to_s.match(/_cs$/) ? "to_s" : "lower"))
 #       if datatype == "date"
 #         "'"+connection.quoted_date(value.to_date)+"'"
       if datatype == "boolean"

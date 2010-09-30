@@ -278,6 +278,7 @@ eng:
       product_category: 'Product category'
       product_component: 'Product component'
       production_chain: 'Production chain'
+      #>production_chain_conveyor: 'Production chain conveyor'
       production_chain_operation: 'Production chain operation'
       production_chain_operation_line: 'Production chain operation line'
       production_chain_operation_use: 'Production chain operation use'
@@ -317,7 +318,6 @@ eng:
       user: 'User'
       warehouse: 'Warehouse'
   attributes:
-    building: Building
     account: 'Account'
     account_balances: 'Account balances'
     account_collected: 'Account collected'
@@ -370,6 +370,8 @@ eng:
     bic: 'Bic'
     boolean_value: 'Boolean value'
     born_on: 'Born on'
+    building: 'Building'
+    #>building_id: 'Building'
     by_default: 'By default'
     cache: 'Cache'
     cash: 'Cash'
@@ -443,7 +445,7 @@ eng:
     critic_quantity_min: 'Critic quantity min'
     crypt_key: 'Crypt key'
     crypt_mode: 'Crypt mode'
-    cultivation_id: 'Cultivation'
+    cultivation_id: 'Cultivation' #!
     currencies: 'Currencies'
     currency: 'Currency'
     currency_amount: 'Currency amount'
@@ -566,6 +568,7 @@ eng:
     first_met_on: 'First met on'
     first_name: 'First name'
     first_number: 'First number'
+    #>flow: 'Flow'
     for_immobilizations: 'For immobilizations'
     for_productions: 'For productions'
     for_purchases: 'For purchases'
@@ -665,7 +668,7 @@ eng:
     major_accounts: 'Major accounts'
     manage_stocks: 'Manage stocks'
     mandates: 'Mandates'
-    master: 'Master'
+    master: 'Master' #!
     max_reduction_rate: 'Max reduction rate' #!
     min_duration: 'Min duration'
     mobile: 'Mobile'
@@ -744,7 +747,7 @@ eng:
     photo: 'Photo'
     physical: 'Physical'
     planned_on: 'Planned on'
-    polygon: 'Polygon'
+    polygon: 'Polygon' #!
     position: 'Position'
     postcode: 'Postcode'
     preferences: 'Preferences'
@@ -851,6 +854,8 @@ eng:
     siret: 'Siret'
     soundex: 'Soundex'
     source: 'Source'
+    #>source_id: 'Source'
+    #>source_type: 'Source type'
     sql_type: 'Sql type'
     start: 'Start'
     started_at: 'Started at'

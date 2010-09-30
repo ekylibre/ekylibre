@@ -82,7 +82,7 @@ class Company < ActiveRecord::Base
   has_many :product_categories, :order=>:name
   has_many :product_components
   has_many :production_chains
-  has_many :production_chain_operations
+  has_many :production_chain_operations, :order=>:name
   has_many :production_chain_operation_lines
   has_many :production_chain_operation_uses
   has_many :professions
