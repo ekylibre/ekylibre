@@ -61,12 +61,10 @@ class AddProductionChains < ActiveRecord::Migration
     create_table :production_chain_operations do |t|
       t.column :production_chain_id, :integer, :null=>false
       t.column :operation_nature_id, :integer, :null=>false
-      t.column :expected_duration, :decimal, :precision=>16, :scale=>4
-      t.column :parent_id,        :integer
       t.column :name,             :string,   :null=>false
       t.column :nature,           :string,   :null=>false # One in or One out
-      t.column :check_states,     :string,   :limit=>16
       t.column :comment,          :text
+      t.column :position,         :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chain_operations, :company_id
@@ -75,18 +73,15 @@ class AddProductionChains < ActiveRecord::Migration
 
     create_table :production_chain_conveyors do |t|
       t.column :production_chain_id, :integer, :null=>false
-      t.column :name,             :string,   :null=>false
-
-      t.column :source_id,        :integer
-      t.column :source_type,      :string
-
       t.column :product_id,       :integer,  :null=>false
       t.column :unit_id,          :integer,  :null=>false
-
-      t.column :target_id,        :integer
-      t.column :target_type,      :string
-
       t.column :flow,             :decimal,  :precision=>16, :scale=>4
+      t.column :check_on_input,   :boolean,  :null=>false, :default=>false
+      t.column :check_on_output,  :boolean,  :null=>false, :default=>false
+      t.column :source_id,        :integer
+      t.column :source_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
+      t.column :target_id,        :integer
+      t.column :target_quantity,   :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end

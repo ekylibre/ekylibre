@@ -56,7 +56,7 @@ accountize:
 backup_company:
   controller: company
   actions: [backups, index]
-# translation missing: eng, rights, build_production_chains
+# (((BUILD_PRODUCTION_CHAINS)))
 build_production_chains:
   controller: production
   actions:
@@ -65,15 +65,15 @@ build_production_chains:
   - production_chain_conveyor_create
   - production_chain_conveyor_delete
   - production_chain_conveyor_update
-  - production_chain_conveyors # UNEXISTENT ACTION !!!
   - production_chain_conveyors_dyta
   - production_chain_create
   - production_chain_delete
-  - production_chain_operation # UNEXISTENT ACTION !!!
+  - production_chain_operation
   - production_chain_operation_create
   - production_chain_operation_delete
+  - production_chain_operation_down # UNEXISTENT ACTION !!!
+  - production_chain_operation_up # UNEXISTENT ACTION !!!
   - production_chain_operation_update
-  - production_chain_operations # UNEXISTENT ACTION !!!
   - production_chain_operations_dyta
   - production_chain_update
   - production_chains
@@ -822,13 +822,13 @@ merge_entities:
 print:
   controller: company
   actions: [print]
-# translation missing: eng, rights, use_production_chains
+# (((USE_PRODUCTION_CHAINS)))
 use_production_chains:
   controller: production
   actions:
   - index
   - production_chain_next # UNEXISTENT ACTION !!!
   - production_chain_pause # UNEXISTENT ACTION !!!
-  - production_chain_play # UNEXISTENT ACTION !!!
+  - production_chain_play
   - production_chains
   - production_chains_dyta

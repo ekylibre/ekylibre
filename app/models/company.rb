@@ -72,7 +72,7 @@ class Company < ActiveRecord::Base
   has_many :listing_node_items
   has_many :mandates
   has_many :observations
-  has_many :operation_natures
+  has_many :operation_natures, :order=>:name
   has_many :operations
   has_many :operation_lines
   has_many :operation_uses

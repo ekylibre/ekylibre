@@ -1,0 +1,17 @@
+-conveyor = production_chain_conveyor
+%td.rail
+%td.information
+  %table
+    %tr
+      -if conveyor.check_on_input
+        %td.cell.check
+      -unless conveyor.source_quantity.zero?
+        %td.cell.quantity=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)
+      %td.cell=link_to(tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name, :product=>conveyor.product.name), :action=>:production_chain_conveyor_update, :id=>conveyor.id)
+      %td.cell.action=link_to image_tag(theme_button(:delete)), {:action=>:production_chain_conveyor_delete, :id=>conveyor.id}, :confirm=>tl(:are_you_sure_you_want_to_delete), :method=>:delete
+      -unless conveyor.target_quantity.zero?
+        %td.cell.quantity=tl(:x_unit, :quantity=>conveyor.target_quantity, :unit=>conveyor.unit.readable_name)
+      -if conveyor.check_on_output
+        %td.cell.check
+%td.rail
+%td.arrow

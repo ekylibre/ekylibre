@@ -20,6 +20,8 @@
 # 
 # == Table: production_chain_conveyors
 #
+#  check_on_input      :boolean          not null
+#  check_on_output     :boolean          not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -27,13 +29,12 @@
 #  flow                :decimal(16, 4)   
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
 #  product_id          :integer          not null
 #  production_chain_id :integer          not null
 #  source_id           :integer          
-#  source_type         :string(255)      
+#  source_quantity     :decimal(16, 4)   default(0.0), not null
 #  target_id           :integer          
-#  target_type         :string(255)      
+#  target_quantity     :decimal(16, 4)   default(0.0), not null
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
@@ -42,19 +43,20 @@
 # == Fixture: production_chain_conveyors
 #
 # production_chain_conveyors_001:
+#   check_on_input: true
+#   check_on_output: true
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
-#   name: "Lorem ipsum"
 #   product_id: 1
 #   production_chain_id: 1
+#   source_quantity: 0
+#   target_quantity: 0
 #   unit_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
-
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 # This model initially had no columns defined.  If you add columns to the
 # model remove the '{}' from the fixture names and add the columns immediately

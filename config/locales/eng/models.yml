@@ -386,7 +386,9 @@ eng:
     changes_reflected: 'Changes reflected'
     charges_accounts: 'Charges accounts'
     check_number: 'Check number'
-    check_states: 'Check states'
+    #>check_on_input: 'Check on input'
+    #>check_on_output: 'Check on output'
+    check_states: 'Check states' #!
     child_land_parcel_id: 'Child land parcel'
     children: 'Children'
     choice_complements: 'Choice complements' #!
@@ -546,7 +548,7 @@ eng:
     events: 'Events'
     examinated_at: 'Examinated at'
     excise: 'Excise'
-    expected_duration: 'Expected duration'
+    expected_duration: 'Expected duration' #!
     expense: 'Expense'
     expense_id: 'Expense'
     expense_type: 'Expense type'
@@ -855,7 +857,7 @@ eng:
     soundex: 'Soundex'
     source: 'Source'
     #>source_id: 'Source'
-    #>source_type: 'Source type'
+    #>source_quantity: 'Source quantity'
     sql_type: 'Sql type'
     start: 'Start'
     started_at: 'Started at'
@@ -893,6 +895,7 @@ eng:
     symmetric: 'Symmetric'
     target: 'Target'
     target_id: 'Target'
+    #>target_quantity: 'Target quantity'
     target_type: 'Target type'
     tax: 'Tax'
     tax_declarations: 'Tax declarations'

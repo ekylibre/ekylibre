@@ -1,0 +1,7 @@
+
+
+=form_tag do
+  .search
+    =select_tag("start_operation_id", options_for_select([[]]+@production_chain.operations.collect{|x| [x.name, x.id]}, params[:operation_id].to_i))
+  #inputs=render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
+=observe_field "start_operation_id", :url=>{:action=>:production_chain_play, :id=>@production_chain.id}, :with=>"operation_id", :update=>:inputs, :loading=>"onLoading();", :loaded=>"onLoaded();"

@@ -20,31 +20,30 @@
 # 
 # == Table: production_chain_operations
 #
-#  check_states        :string(16)       
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  nature              :string(255)      not null
 #  operation_nature_id :integer          not null
-#  parent_id           :integer          
+#  position            :integer          
 #  production_chain_id :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
 
 class ProductionChainOperation < ActiveRecord::Base
+  acts_as_list :scope=>:production_chain
   attr_readonly :company_id
   belongs_to :company
   belongs_to :operation_nature
   has_many :lines, :class_name=>ProductionChainOperationLine.name, :foreign_key=>:operation_id
   has_many :uses,  :class_name=>ProductionChainOperationUse.name,  :foreign_key=>:operation_id
-  has_many :output_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:source
-  has_many :input_conveyors, :class_name=>ProductionChainConveyor.name, :as=>:target
+  has_many :output_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:source_id # :as=>:source
+  has_many :input_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:target_id # :as=>:target
 
   @@natures = [:input, :output]
 

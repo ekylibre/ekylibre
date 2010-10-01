@@ -1,0 +1,15 @@
+-operation = production_chain_operation_inputs
+-if operation
+  %table.dyta
+    %thead
+      %tr
+        %th=OperationLine.human_attribute_name("product")
+        %th=OperationLine.human_attribute_name("quantity")
+        %th=OperationLine.human_attribute_name("unit")
+        %th=OperationLine.human_attribute_name("stock")
+    -for conveyor in operation.input_conveyors
+      %tr{:class=>cycle("odd", "even")}
+        %td=conveyor.product.name
+        %td=text_field_tag("inputs[#{conveyor.id}][quantity]")
+        %td=conveyor.unit.readable_name
+        %td=text_field_tag("inputs[#{conveyor.id}][stock_id]")

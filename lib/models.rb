@@ -403,7 +403,6 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :operation_nature_id => :operation_nature,
-      :parent_id => :production_chain_operation,
       :production_chain_id => :production_chain,
       :updater_id => :user
     },

@@ -105,6 +105,10 @@ class Unit < ActiveRecord::Base
     exps.sort.collect{|k,v| k+(v!=1 ? v.to_s : "") if v != 0}.compact.join(".")
   end
 
+  def readable_name
+    self.name.gsub('2', '²').gsub('3', '³')
+  end
+
 
   def destroyable?
     return false

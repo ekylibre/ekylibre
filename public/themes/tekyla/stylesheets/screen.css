@@ -39,6 +39,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-create      { background-image: url(../images/buttons/create.png); }
 .icon.im-delete      { background-image: url(../images/buttons/delete.png); }
 .icon.im-divide      { background-image: url(../images/buttons/divide.png); }
+.icon.im-down        { background-image: url(../images/buttons/down.png); }
 .icon.im-export      { background-image: url(../images/buttons/spreadsheet.png); }
 .icon.im-extract     { background-image: url(../images/buttons/action.png); }
 .icon.im-filter      { background-image: url(../images/buttons/filter.png); }
@@ -63,6 +64,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-sort        { background-image: url(../images/buttons/sort.png); }
 .icon.im-table       { background-image: url(../images/buttons/table.png); }
 .icon.im-unprintable { background-image: url(../images/buttons/unprintable.png); }
+.icon.im-up          { background-image: url(../images/buttons/up.png); }
 .icon.im-update      { background-image: url(../images/buttons/update.png); }
 .icon.im-vertical    { background-image: url(../images/buttons/vertical.png); }
 
@@ -202,7 +204,7 @@ html[dir="rtl"] #side .menu li { background-position: right center; }
 /*#yield { padding: 8px; overflow: auto; background: url(../images/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
 .yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
 .yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal; }
-.yield h2 { margin: 16px 0px 4px; font-size:15px; color: #047; }
+.yield h2 { margin: 8px 0px 4px; font-size:15px; color: #047; }
 .yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
 .yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
 .yield .menu ul { padding: 4px 18px; }
@@ -348,7 +350,9 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .toolbar:hover { background: #e3c4b5; } /*E5D9DD*/
 .toolbar h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
 .toolbar ul {padding: 0;}
-.toolbar ul li {padding: 2px 4px; float: left;  list-style-type: none; }
+.toolbar ul li {padding: 2px 4px; list-style-type: none; }
+html[dir="ltr"] .toolbar ul li { float: left; }
+html[dir="rtl"] .toolbar ul li { float: right; }
 .toolbar ul li:hover { background-color: #F8F0EC; padding:1px 3px; border: 1px solid white}
 .toolbar ul li a { display: block; }
 .toolbar div { clear: both; }
@@ -543,10 +547,26 @@ html[dir="rtl"] .toggle { float:right }
 .toggle a.icon { background-position: center center;  height: 18px; }
 .toggle a.icon.current { opacity: 0.5; -ms-filter: "alpha(opacity=50)"; filter : alpha(opacity=50); }
 
-.operation-graph { border-collapse: collapse; margin-bottom: 8px }
-.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px solid #95b0e4; }
-.operation-graph table.conveyor { border-collapse: collapse; margin: 2px 0; }
-.operation-graph .conveyor .information { background: #EEE; padding: 2px 4px; border: 2px solid #555; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
-.operation-graph .conveyor .information * { text-align:center; font-size: 11px; }
-.operation-graph .conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; height: 4px;}
-.operation-graph .conveyor .arrow { width: 16px; background: url(../images/arrow.png) no-repeat center; height: 24px;}
+#chains .chain { border-top: 1px dotted #CCC;  }
+#chains .chain:first-child { border-top: none;  }
+.chain { padding:8px 0; }
+html[dir="ltr"] .chain .delete { float:right; }
+html[dir="rtl"] .chain .delete { float:left; }
+.operation-graph { border-collapse: collapse; }
+.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px dotted #95b0e4; text-align:center; }
+.operation-graph .operation.master { border-style: solid; }
+table.conveyor { border-collapse: collapse; margin: 2px 0; }
+.conveyor .information table { border-collapse: collapse; padding: 0}
+.conveyor .cell { background: #DDD; font-size: 11px; border: 2px solid #555; text-align:center; padding: 2px 4px;}
+.conveyor .cell * { font-size: 11px; }
+.conveyor a img { border: none; display: block;}
+.conveyor .cell.action { padding: 1px; }
+.conveyor .cell.quantity { background: #FDD; }
+.conveyor .cell.check { width: 2px; padding: 0; background: yellow; }
+.conveyor .cell.new { background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+.conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; height: 4px;}
+.conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
+html[dir="ltr"] .conveyor .arrow { background-image: url(../images/arrow-right.png); }
+html[dir="rtl"] .conveyor .arrow { background-image: url(../images/arrow-left.png); }
+html[dir="ltr"] .operation-graph .input-conveyors .conveyor { margin-left: auto; }
+html[dir="rtl"] .operation-graph .input-conveyors .conveyor { margin-right: auto; }

@@ -20,6 +20,8 @@
 # 
 # == Table: production_chain_conveyors
 #
+#  check_on_input      :boolean          not null
+#  check_on_output     :boolean          not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -27,13 +29,12 @@
 #  flow                :decimal(16, 4)   
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
 #  product_id          :integer          not null
 #  production_chain_id :integer          not null
 #  source_id           :integer          
-#  source_type         :string(255)      
+#  source_quantity     :decimal(16, 4)   default(0.0), not null
 #  target_id           :integer          
-#  target_type         :string(255)      
+#  target_quantity     :decimal(16, 4)   default(0.0), not null
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
@@ -43,14 +44,19 @@ class ProductionChainConveyor < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :product
-  belongs_to :source, :polymorphic=>true
-  belongs_to :target, :polymorphic=>true
+  belongs_to :source, :class_name=>ProductionChainOperation.name
+  belongs_to :target, :class_name=>ProductionChainOperation.name
   belongs_to :unit
+
+  @@check_events = [:none, :input, :output, :both]
+  def self.check_events_list
+    @@check_events.collect{|x| [tc("check_events.#{x}"), x.to_s]}
+  end
 
   def prepare
     self.unit ||= self.product.unit if self.product
-    self.source_type ||= ProductionChainOperation.name
-    self.target_type ||= ProductionChainOperation.name
+    self.target_quantity = 0 unless self.target
+    self.source_quantity = 0 unless self.source
   end
   
 end

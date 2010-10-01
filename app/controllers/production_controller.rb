@@ -280,8 +280,7 @@ class ProductionController < ApplicationController
     t.action :production_chain_operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
-    t.column :name, :url=>{:action=>:production_chain_conveyor}
+  dyta(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id" ) do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :flow
     t.column :name, :through=>:unit
@@ -296,8 +295,42 @@ class ProductionController < ApplicationController
     t3e @production_chain.attributes, :builing=>@production_chain.building.name
   end
 
+
+  def production_chain_play
+    return unless @production_chain = find_and_check(:production_chain)
+    if params[:operation_id]
+      return unless @production_chain_operation = find_and_check(:production_chain_operation, params[:operation_id])
+    end
+    if request.xhr? and @production_chain_operation
+      render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
+    end
+    t3e @production_chain.attributes, :builing=>@production_chain.building.name
+  end
+
+
   manage :production_chain_operations, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
 
-  manage :production_chain_conveyors, :production_chain_id=>"params[:production_chain_id]"
+  def production_chain_operation
+    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+    t3e @production_chain_operation.attributes
+  end
+
+  def production_chain_operation_up
+    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+    if request.post?
+      @production_chain_operation.move_higher
+    end
+    redirect_to_current
+  end
+
+  def production_chain_operation_down
+    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+    if request.post?
+      @production_chain_operation.move_lower
+    end
+    redirect_to_current
+  end
+
+  manage :production_chain_conveyors, :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"
 
 end
