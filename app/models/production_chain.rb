@@ -20,7 +20,6 @@
 # 
 # == Table: production_chains
 #
-#  building_id  :integer          
 #  comment      :text             
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
@@ -35,7 +34,6 @@
 class ProductionChain < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :building, :class_name=>Warehouse.name
   has_many :operations, :class_name=>ProductionChainOperation.name, :order=>:position
   has_many :conveyors, :class_name=>ProductionChainConveyor.name
   has_many :unused_conveyors, :class_name=>ProductionChainConveyor.name, :conditions=>{:source_id=>nil, :target_id=>nil}

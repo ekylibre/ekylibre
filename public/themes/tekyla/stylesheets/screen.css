@@ -254,6 +254,8 @@ html[dir="ltr"] .evalue.hori .label { text-align: right; }
 html[dir="rtl"] .evalue.hori .label { text-align: left; }
 
 
+.desc { background: transparent; text-shadow: white 0 0 1.5px; color: black; opacity: 0.5 }
+
 div.tr { display: table-row; }
 div.td { display: table-cell; }
 
@@ -553,20 +555,42 @@ html[dir="rtl"] .toggle { float:right }
 html[dir="ltr"] .chain .delete { float:right; }
 html[dir="rtl"] .chain .delete { float:left; }
 .operation-graph { border-collapse: collapse; }
-.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px dotted #95b0e4; text-align:center; }
+.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px dotted #95b0e4; text-align:center; width: 10em;}
 .operation-graph .operation.master { border-style: solid; }
+.operation-graph .operation .action { margin: 2px;}
 table.conveyor { border-collapse: collapse; margin: 2px 0; }
 .conveyor .information table { border-collapse: collapse; padding: 0}
-.conveyor .cell { background: #DDD; font-size: 11px; border: 2px solid #555; text-align:center; padding: 2px 4px;}
+.conveyor .cell { background: #DDD; font-size: 11px; border: 2px solid #555; padding: 0;}
 .conveyor .cell * { font-size: 11px; }
+.conveyor .cell .bmenu { padding: 0; width: 12em;}
+.conveyor .cell .bmenu ul { width: 12em;}
+.conveyor .cell .bmenu a { display: block; padding: 2px 4px;}
 .conveyor a img { border: none; display: block;}
 .conveyor .cell.action { padding: 1px; }
-.conveyor .cell.quantity { background: #FDD; }
+.conveyor .cell.quantity { background: #FDD; padding: 2px 4px; }
 .conveyor .cell.check { width: 2px; padding: 0; background: yellow; }
-.conveyor .cell.new { background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
-.conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; height: 4px;}
+.conveyor .cell.new { padding: 2px 4px; background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+.conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; }
 .conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
 html[dir="ltr"] .conveyor .arrow { background-image: url(../images/arrow-right.png); }
 html[dir="rtl"] .conveyor .arrow { background-image: url(../images/arrow-left.png); }
 html[dir="ltr"] .operation-graph .input-conveyors .conveyor { margin-left: auto; }
 html[dir="rtl"] .operation-graph .input-conveyors .conveyor { margin-right: auto; }
+
+.bmenu { position: relative; }
+.bmenu ul { display: none; position:absolute; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
+.bmenu:hover ul { display: block;  }
+html[dir="ltr"] .bmenu ul { float:left }
+html[dir="rtl"] .bmenu ul { float:right }
+.bmenu ul li { list-style-type: none; padding: 2px 4px; }
+.bmenu ul li a { padding: 2px 2px 2px 20px; display: block;}
+.bmenu ul li:hover { background: Highlight; }
+.bmenu ul li:hover * { color: HighlightText; }
+
+
+.treemap { border-collapse: collapse; width: 100%; }
+.treemap .plot { padding: 4px; border: 2px solid #8a8; vertical-align: top; }
+.treemap .plot .name { padding: 2px; display:block; border-bottom: 1px dotted #8A8; }
+.treemap .plot.odd { background: #D7F1C9; }
+.treemap .plot.even { background: #C9F1D7; }
+.treemap .plot ul.operations { padding: 2px 2px 2px 20px; }

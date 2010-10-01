@@ -5,4 +5,6 @@
   -f.field :production_chain_operation, :name
   -f.field :production_chain_operation, :nature, :choices=>ProductionChainOperation.natures_list
   -f.field :production_chain_operation, :operation_nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
+  -f.field :production_chain_operation, :building_id, :choices=>{:reflection=>:buildings}, :new=>{:controller=>:management, :action=>:warehouse_create, :reservoir=>0}
   -f.field :production_chain_operation, :comment, :field=>:textarea
+

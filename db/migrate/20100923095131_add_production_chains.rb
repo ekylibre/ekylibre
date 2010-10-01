@@ -5,6 +5,7 @@ class AddProductionChains < ActiveRecord::Migration
       t.column :name,             :string, :null=>false
       t.column :comment,          :text
       t.column :color,            :string, :limit=>6, :null=>false, :default=>"000000"
+      # t.column :area_unit_id,     :integer, :null=>false
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end    
     add_index :land_parcel_groups, :company_id
@@ -52,7 +53,6 @@ class AddProductionChains < ActiveRecord::Migration
     create_table :production_chains do |t|
       t.column :name,             :string,   :null=>false
       t.column :comment,          :text
-      t.column :building_id,      :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chains, :company_id
@@ -63,6 +63,7 @@ class AddProductionChains < ActiveRecord::Migration
       t.column :operation_nature_id, :integer, :null=>false
       t.column :name,             :string,   :null=>false
       t.column :nature,           :string,   :null=>false # One in or One out
+      t.column :building_id,      :integer,  :null=>false
       t.column :comment,          :text
       t.column :position,         :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade

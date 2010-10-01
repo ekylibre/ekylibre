@@ -474,6 +474,7 @@ fra:
     display: 'Afficher'
     display_help: 'Afficher l''aide'
     district_x: '%{name} (%{code})'
+    #>divide: 'Divide'
     document_natures: 'Types de documents'
     document_templates: 'Modèles de documents'
     dont_use_journal: '-- Ne pas utiliser de journal --'
@@ -817,6 +818,7 @@ fra:
     pertinence: '%{value}%'
     phone: 'Tél.'
     planned_on: 'Date prévisionnelle'
+    #>play: 'Play'
     please_wait: 'Merci de patienter...'
     previous: 'Précédent'
     previous_bank_statement: 'Solde du relevé précédent N°%{number}'
@@ -1093,6 +1095,7 @@ fra:
       zero: '0 abonnement'
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
+    #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
     y: 'Oui'
     yearly: 'Annuelle'
   notifications:

@@ -1,11 +1,14 @@
 -line = operation_line_row_form||{}
 -direction = (params[:direction]||line[:direction]||"in").to_sym
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
--after_update = 'function(e, v, h, m) {'
+-after_update = "function(e, v, h, m) { alert('ok');"
 -after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:management, :action=>:product_units}, :with=>"'id='+h.value")+';'
 -if direction == :in
   -after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:management, :action=>:product_trackings}, :with=>"'id='+h.value")+';'
--after_update += '}'
+-after_update += "}"
+-after_update  = "var product_id = $('lines_#{id}_product_id').value;"
+-after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:management, :action=>:product_units}, :with=>"'id='+product_id")+";"
+-after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:management, :action=>:product_trackings}, :with=>"'id='+product_id")+";" if direction == :in
 -product = line[:product_id].blank? ?  nil : @current_company.products.find_by_id(line[:product_id])
 -if line.respond_to? :errors
   -if line.errors.size > 0
@@ -16,14 +19,15 @@
     %strong{:title=>h(line.inspect)}=::I18n.t("models.operation_line.direction_label."+direction.to_s)
     =hidden_field_tag("lines[#{id}][direction]", direction)
   %td=dyli_tag("lines[#{id}][product_id]", "operation_products", :value=>product, :after_update_element=>after_update, :no_resize=>true)
+  -#%td=html_escape(dyli_tag("lines[#{id}][product_id]", "operation_products", :value=>product, :after_update_element=>after_update, :no_resize=>true).inspect)
   %td
     %nobr
       =text_field_tag("lines[#{id}][quantity]", line[:quantity], :size=>8)
       =select_tag("lines[#{id}][unit_id]", (product ? options_for_select(product.units.collect{|x| [x.name, x.id]}, line[:unit_id].to_i) : nil), :id=>"lines_#{id}_unit_id")
   %td
     -if direction==:in
-      =select_tag("lines[#{id}][tracking_id]", (product ? options_for_select([[]]+product.trackings.collect{|x| [x.name, x.id]}, line[:location_id].to_i) : nil), :id=>"lines_#{id}_tracking_id")
+      =select_tag("lines[#{id}][tracking_id]", (product ? options_for_select([[]]+product.trackings.collect{|x| [x.name, x.id]}, line[:tracking_id].to_i) : nil), :id=>"lines_#{id}_tracking_id")
     -else
       =text_field_tag("lines[#{id}][tracking_serial]", line[:tracking_serial], :size=>12)
-  %td=select_tag("lines[#{id}][location_id]", options_for_select(@current_company.locations.collect{|x| [x.name, x.id]}, line[:location_id].to_i))
+  %td=select_tag("lines[#{id}][warehouse_id]", options_for_select(@current_company.warehouses.collect{|x| [x.name, x.id]}, line[:warehouse_id].to_i))
   %td.act=link_to_function(image_tag(theme_button("delete"), :border=>0), "$('#{id}').remove();$('#{id}-errors').remove();")

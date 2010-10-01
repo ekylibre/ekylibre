@@ -384,7 +384,6 @@ module Ekylibre
       :warehouse_id => :warehouse
     },
     :production_chain => {
-      :building_id => :warehouse,
       :company_id => :company,
       :creator_id => :user,
       :updater_id => :user
@@ -394,12 +393,13 @@ module Ekylibre
       :creator_id => :user,
       :product_id => :product,
       :production_chain_id => :production_chain,
-      :source_id => "source_type",
-      :target_id => "target_type",
+      :source_id => :land_parcel,
+      :target_id => :land_parcel,
       :unit_id => :unit,
       :updater_id => :user
     },
     :production_chain_operation => {
+      :building_id => :warehouse,
       :company_id => :company,
       :creator_id => :user,
       :operation_nature_id => :operation_nature,

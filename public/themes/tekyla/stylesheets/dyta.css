@@ -29,6 +29,7 @@ table.dyta tr      th.footer { clear:both; border:none; background: #EEEFFA; }
 table.dyta tr      th.footer div.export { padding: 2px; float:left;}
 html[dir="rtl"] table.dyta tr      th.footer div.export { float:right;}
 table.dyta tr      th.footer div.export a { padding: 0 2px 0 14px; margin: 0 2px; background: url(../images/buttons/spreadsheet.png) left center no-repeat;}
+html[dir="rtl"] table.dyta tr      th.footer div.export a { padding: 0 14px 0 2px; margin: 0 2px; background: url(../images/buttons/spreadsheet.png) right center no-repeat;}
 
 table.dyta tr      th.footer div.pagination { padding: 2px; float:right;}
 html[dir="rtl"] table.dyta tr      th.footer div.pagination { float:left;}

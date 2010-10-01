@@ -474,6 +474,7 @@ spa:
     #>display: 'Display'
     #>display_help: 'Display help'
     #>district_x: '%{name} (%{code})'
+    #>divide: 'Divide'
     document_natures: 'Tipos de documentos'
     document_template_create: 'Crear un modelo de documento' #!
     document_templates: 'Modelos de documentos'
@@ -826,6 +827,7 @@ spa:
     pertinence: '%{value}%'
     #>phone: 'Pho.'
     #>planned_on: 'Planned on'
+    #>play: 'Play'
     #>please_wait: 'Please wait...'
     #>previous: 'Previous'
     previous_bank_statement: 'Saldo del leventar precedente N°%{number}'
@@ -1114,6 +1116,7 @@ spa:
       #>zero: '0 subscriptions'
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
+    #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
     #>y: 'Yes'
     yearly: 'Anual'
   notifications:

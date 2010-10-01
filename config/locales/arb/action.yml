@@ -486,6 +486,7 @@ arb:
     display_help: 'عرض المساعدة'
     district_create: 'اضافة منطقة ادارية' #!
     district_x: '{{name}} ({{code}})'
+    #>divide: 'Divide'
     document_natures: 'نوع الوثيقة'
     document_template_create: 'انشاء نموذج للوثيقة' #!
     document_templates: 'نموذج الوثائق'
@@ -856,6 +857,7 @@ arb:
     pertinence: '{{value}}%'
     #>phone: 'Pho.'
     planned_on: 'قرر يوم'
+    #>play: 'Play'
     #>please_wait: 'Please wait...'
     previous: 'السابق'
     previous_bank_statement: 'رقم الكشف المصرفي السابق{{number}}'
@@ -1170,6 +1172,7 @@ arb:
       zero: 'ولا اية اشتراك'
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
+    #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
     y: 'نعم'
     yearly: 'Annuelle'
   notifications:

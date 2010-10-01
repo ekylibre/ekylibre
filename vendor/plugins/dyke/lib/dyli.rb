@@ -299,6 +299,7 @@ module Ekylibre
             $("#{hf_id}").value = model_id;
             element.dyli_cache = element.value;
             #{resize}
+            #{options[:after_update_element]}
           }
           JS
 

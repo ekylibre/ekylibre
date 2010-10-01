@@ -72,6 +72,7 @@ class Product < ActiveRecord::Base
   belongs_to :subscription_nature
   belongs_to :category, :class_name=>ProductCategory.name
   belongs_to :unit
+  has_many :available_stocks, :class_name=>Stock.name, :conditions=>["quantity > 0"]
   has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
   has_many :sale_delivery_lines
   has_many :invoice_lines
@@ -140,7 +141,8 @@ class Product < ActiveRecord::Base
   end
 
   def units
-    self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
+    # self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
+    self.company.units.where(:base=>self.unit.base).order("coefficient, label")
   end
 
   def has_components?

@@ -110,6 +110,21 @@ class Unit < ActiveRecord::Base
   end
 
 
+  def self.convert(measure, from, to=nil)
+    return measure if to and to.id == from.id
+    basic = (measure.to_d-from.base.to_d) / from.coefficient.to_d
+    return basic if to.nil?
+    return basic*to.coefficient.to_d+to.base.to_d
+  end
+
+  def convert_from(measure, unit)
+    self.class.convert(measure, unit, self)
+  end
+
+  def convert_to(measure, unit=nil)
+    self.class.convert(measure, self, unit)
+  end
+
   def destroyable?
     return false
   end

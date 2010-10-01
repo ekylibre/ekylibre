@@ -71,8 +71,8 @@ build_production_chains:
   - production_chain_operation
   - production_chain_operation_create
   - production_chain_operation_delete
-  - production_chain_operation_down # UNEXISTENT ACTION !!!
-  - production_chain_operation_up # UNEXISTENT ACTION !!!
+  - production_chain_operation_down
+  - production_chain_operation_up
   - production_chain_operation_update
   - production_chain_operations_dyta
   - production_chain_update

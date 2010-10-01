@@ -12,4 +12,4 @@
         %td=conveyor.product.name
         %td=text_field_tag("inputs[#{conveyor.id}][quantity]")
         %td=conveyor.unit.readable_name
-        %td=text_field_tag("inputs[#{conveyor.id}][stock_id]")
+        %td=select_tag("inputs[#{conveyor.id}][stock_id]", options_for_select(conveyor.product.available_stocks.collect{|s| [s.label, s.id]}))

@@ -35,6 +35,25 @@
 class LandParcelGroup < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
-  has_many :land_parcels, :foreign_key=>:group_id
+  has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
   validates_uniqueness_of :name, :scope=>:company_id
+
+  def check
+    if self.area_unit
+      errors.add(:area_unit_id, :invalid) unless self.area_unit.base == "m2"
+    end
+  end
+
+  def area(computed_on=Date.today)
+    sum = 0
+    for land_parcel in self.land_parcels_on(computed_on)
+      sum += land_parcel.area
+    end
+    return sum
+  end
+
+  def land_parcels_on(computed_on=Date.today)
+    self.land_parcels.where("? BETWEEN started_on AND COALESCE(stopped_on, ?)", computed_on, computed_on)
+  end
+
 end

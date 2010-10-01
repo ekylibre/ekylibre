@@ -463,6 +463,7 @@ jpn:
     #>display: 'Display'
     display_help: '手伝い'
     #>district_x: '%{name} (%{code})'
+    #>divide: 'Divide'
     #>document_natures: 'Document types'
     #>document_templates: 'Document templates'
     #>dont_use_journal: '-- Do not use journal --'
@@ -804,6 +805,7 @@ jpn:
     #>pertinence: '%{value}%'
     #>phone: 'Pho.'
     #>planned_on: 'Planned on'
+    #>play: 'Play'
     #>please_wait: 'Please wait...'
     previous: '前へ'
     #>previous_bank_statement: 'Previous account statement N°%{number}'
@@ -1078,6 +1080,7 @@ jpn:
       #>zero: '0 subscriptions'
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
+    #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
     #>y: 'Yes'
     #>yearly: 'Yearly'
   notifications:

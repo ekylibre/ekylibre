@@ -20,6 +20,7 @@
 # 
 # == Table: production_chain_operations
 #
+#  building_id         :integer          not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null

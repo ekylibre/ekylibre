@@ -170,7 +170,7 @@ class ProductionController < ApplicationController
       @operation_uses = (params[:uses]||{}).values
       redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
     else
-      @operation = Operation.new(:planned_on=>Date.today, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
+      @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
     end
     render_form
   end
@@ -258,7 +258,6 @@ class ProductionController < ApplicationController
 
   dyta(:production_chains, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name, :url=>{:action=>:production_chain}
-    t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :comment
     t.action :production_chain_play
     t.action :production_chain_update
@@ -275,6 +274,7 @@ class ProductionController < ApplicationController
     t.column :name, :url=>{:action=>:production_chain_operation}
     t.column :name, :through=>:operation_nature
     t.column :nature
+    t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :comment
     t.action :production_chain_operation_update
     t.action :production_chain_operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
@@ -292,7 +292,7 @@ class ProductionController < ApplicationController
 
   def production_chain
     return unless @production_chain = find_and_check(:production_chain)
-    t3e @production_chain.attributes, :builing=>@production_chain.building.name
+    t3e @production_chain.attributes
   end
 
 
@@ -304,7 +304,7 @@ class ProductionController < ApplicationController
     if request.xhr? and @production_chain_operation
       render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
     end
-    t3e @production_chain.attributes, :builing=>@production_chain.building.name
+    t3e @production_chain.attributes
   end
 
 

@@ -67,6 +67,13 @@ class LandParcel < ActiveRecord::Base
     self.update_attribute(:stopped_on, divided_on)
   end
 
-
+  def area(unit=nil)
+    return self.area_measure if unit.nil?
+    return Unit.convert(self.area_measure, self.area_unit, unit)
+  end
+  
+  def operations_on(viewed_on=Date.today)
+    self.operations.where("(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on)
+  end
 
 end
