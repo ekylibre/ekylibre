@@ -50,6 +50,7 @@ class Operation < ActiveRecord::Base
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name
   belongs_to :target, :polymorphic=>true
+  belongs_to :production_chain_token
   has_many :operation_uses, :dependent=>:destroy
   has_many :uses,  :class_name=>OperationUse.name, :dependent=>:destroy
   has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
@@ -58,6 +59,7 @@ class Operation < ActiveRecord::Base
   attr_readonly :company_id
  
   def prepare_on_create
+    self.company_id = self.production_chain_token.company_id if self.production_chain_token
     self.started_at = Time.now if self.started_at.nil?
   end
 
@@ -133,12 +135,12 @@ class Operation < ActiveRecord::Base
         # line.product.add_stock_move(:virtual=>false, :incoming=>line.out?, :origin=>line)
         line.product.move_stock(:incoming=>line.out?, :origin=>line)
       end
-      self.update_attributes!(:moved_on=>made_on) 
+      self.update_attributes!(:moved_on=>made_on)
     end
   end
 
   def updatable?
-    self.production_chain_token.nil? and moved_on.nil?
+    self.production_chain_token.nil?
   end
 
 end

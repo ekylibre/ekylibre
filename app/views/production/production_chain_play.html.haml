@@ -1,5 +1,10 @@
-=form_tag do
+=form_tag({}, :class=>"flex") do
   .search
-    =select_tag("start_operation_id", options_for_select([[]]+@production_chain.operations.collect{|x| [x.name, x.id]}, params[:operation_id].to_i))
-  #inputs=render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
-=observe_field "start_operation_id", :url=>{:action=>:production_chain_play, :id=>@production_chain.id}, :with=>"operation_id", :update=>:inputs, :loading=>"onLoading();", :loaded=>"onLoaded();"
+    =select_tag("operation_id", options_for_select([[]]+@production_chain.operations.collect{|x| [x.name, x.id]}, params[:operation_id].to_i))
+  .fields.flex
+    =formalize do |f|
+      -f.field :operation, :responsible_id, :choices=>{:reflection=>:users}, :new=>{:controller=>:company, :action=>:user_create}
+    #inputs=render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
+  .actions=submit_tag tl(:play)
+
+=observe_field "operation_id", :url=>{:action=>:production_chain_play, :id=>@production_chain.id}, :with=>"operation_id", :update=>:inputs, :loading=>"onLoading();", :loaded=>"onLoaded();"

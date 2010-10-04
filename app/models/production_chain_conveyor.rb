@@ -34,6 +34,7 @@
 #  source_quantity     :decimal(16, 4)   default(0.0), not null
 #  target_id           :integer          
 #  target_quantity     :decimal(16, 4)   default(0.0), not null
+#  unique_tracking     :boolean          not null
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
@@ -43,6 +44,7 @@ class ProductionChainConveyor < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   belongs_to :product
+  belongs_to :production_chain
   belongs_to :source, :class_name=>ProductionChainOperation.name
   belongs_to :target, :class_name=>ProductionChainOperation.name
   belongs_to :unit
@@ -53,6 +55,7 @@ class ProductionChainConveyor < ActiveRecord::Base
   end
 
   def prepare
+    self.company_id = self.production_chain.company_id if self.production_chain
     self.unit ||= self.product.unit if self.product
     self.target_quantity = 0 unless self.target
     self.source_quantity = 0 unless self.source

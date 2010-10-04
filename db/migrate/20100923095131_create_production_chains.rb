@@ -49,7 +49,6 @@ class CreateProductionChains < ActiveRecord::Migration
     add_index :tracking_states, [:tracking_id, :company_id]
     add_index :tracking_states, [:responsible_id, :company_id]
 
-    # add_column :operation_natures, :nature, :string, :null=>false, :default=>"simple"
     create_table :production_chains do |t|
       t.column :name,             :string,   :null=>false
       t.column :comment,          :text
@@ -66,6 +65,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :check_state,      :boolean,  :null=>false, :default=>false
       t.column :source_id,        :integer
       t.column :source_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
+      t.column :unique_tracking,  :boolean,  :null=>false, :default=>false
       t.column :target_id,        :integer
       t.column :target_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
       t.column :comment,          :text
@@ -77,7 +77,7 @@ class CreateProductionChains < ActiveRecord::Migration
 
     create_table :production_chain_tokens do |t|
       t.column :production_chain_id, :integer, :null=>false
-      t.column :tracking_code,    :string,   :null=>false
+      t.column :number,           :string,   :null=>false
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end

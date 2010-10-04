@@ -26,15 +26,23 @@
 #  creator_id          :integer          
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
+#  number              :string(255)      not null
 #  production_chain_id :integer          not null
-#  tracking_code       :string(255)      not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
 
 class ProductionChainToken < ActiveRecord::Base
-  attr_readonly :company_id
+  attr_readonly :company_id, :number
   belongs_to :company
   belongs_to :production_chain
-  has_many :operations
+  has_many :operations, :dependent=>:nullify
+
+  validates_uniqueness_of :number, :scope=>:company_id
+
+  def prepare_on_create
+    self.code = self.company.production_chain_token.max(:number)
+    self.code = (self.code.blank? ? "AAAAAA" : self.code.succ)
+  end
+
 end

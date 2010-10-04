@@ -132,6 +132,61 @@
 # 
 # == Table: tracking_states
 #
+#  atmospheric_pressure         :decimal(16, 2)   
+#  comment                      :text             
+#  company_id                   :integer          not null
+#  created_at                   :datetime         not null
+#  creator_id                   :integer          
+#  examinated_at                :datetime         not null
+#  id                           :integer          not null, primary key
+#  lock_version                 :integer          default(0), not null
+#  luminance                    :decimal(16, 2)   
+#  net_weight                   :decimal(16, 2)   
+#  production_chain_conveyor_id :integer          
+#  production_chain_token_id    :integer          
+#  relative_humidity            :decimal(16, 2)   
+#  responsible_id               :integer          not null
+#  temperature                  :decimal(16, 2)   
+#  total_weight                 :decimal(16, 2)   
+#  tracking_id                  :integer          not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer          
+#
+#
+# == Fixture: tracking_states
+#
+# tracking_states_001:
+#   company_id: 1
+#   created_at: 2009-07-19 19:13:59 +02:00
+#   creator_id: 1
+#   examinated_at: 2009-07-19 19:13:59 +02:00
+#   id: 1
+#   responsible_id: 1
+#   tracking_id: 1
+#   updated_at: 2009-07-19 19:13:59 +02:00
+#   updater_id: 1
+# = Informations
+# 
+# == License
+# 
+# Ekylibre - Simple ERP
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# 
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+# 
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+# 
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+# 
+# == Table: tracking_states
+#
 #  atmospheric_pressure          :decimal(16, 2)   
 #  comment                       :text             
 #  company_id                    :integer          not null

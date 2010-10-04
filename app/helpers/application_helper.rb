@@ -963,7 +963,7 @@ module ApplicationHelper
       @lines = []
     end
 
-    def title(value, options={})
+    def title(value=:general_informations, options={})
       @lines << options.merge({:nature=>:title, :value=>value})
     end
 

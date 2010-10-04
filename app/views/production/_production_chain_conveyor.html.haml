@@ -1,29 +1,20 @@
 -conveyor = production_chain_conveyor
 -unless conveyor.source_quantity.zero?
   %td
-    .cell.quantity=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)
+    .cell.source.quantity{:class=>("unique-tracking" if conveyor.unique_tracking)}=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)
 %td.rail
 %td.information
   %table
     %tr
-      -unless conveyor.source_quantity.zero?
-        -#%td.cell.quantity=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)
-      -#%td.cell=link_to(tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name, :product=>conveyor.product.name), :action=>:production_chain_conveyor_update, :id=>conveyor.id)
-      -#%td.cell=link_to(conveyor.product.name, :action=>:production_chain_conveyor_update, :id=>conveyor.id)
       %td.cell{:class=>("check-state" if conveyor.check_state)}
         .bmenu
           =link_to(conveyor.product.name, :action=>:production_chain_conveyor_update, :id=>conveyor.id)
           %ul 
-            -# %li=link_to(tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name, :product=>conveyor.product.name), {:action=>:production_chain_conveyor_update, :id=>conveyor.id}, :class=>"icon im-update")
-            -# %li=tl(:x_unit_of_product_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name, :product=>conveyor.product.name)
             %li=tl(:x_unit_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name)
             %li=link_to(tl(:update), {:action=>:production_chain_conveyor_update, :id=>conveyor.id}, :class=>"icon im-update")
             %li=link_to(tl(:delete), {:action=>:production_chain_conveyor_delete, :id=>conveyor.id}, :confirm=>tl(:are_you_sure_you_want_to_delete), :method=>:delete, :class=>"icon im-delete")
-      -#%td.cell.action=link_to image_tag(theme_button(:delete)), {:action=>:production_chain_conveyor_delete, :id=>conveyor.id}, :confirm=>tl(:are_you_sure_you_want_to_delete), :method=>:delete
-      -unless conveyor.target_quantity.zero?
-        -#%td.cell.quantity=tl(:x_unit, :quantity=>conveyor.target_quantity, :unit=>conveyor.unit.readable_name)
 %td.rail
 %td.arrow
 -unless conveyor.target_quantity.zero?
   %td
-    .cell.quantity=tl(:x_unit, :quantity=>conveyor.target_quantity, :unit=>conveyor.unit.readable_name)
+    .cell.target.quantity=tl(:x_unit, :quantity=>conveyor.target_quantity, :unit=>conveyor.unit.readable_name)

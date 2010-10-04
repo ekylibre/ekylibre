@@ -26,8 +26,8 @@
 #  creator_id          :integer          
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
+#  number              :string(255)      not null
 #  production_chain_id :integer          not null
-#  tracking_code       :string(255)      not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #

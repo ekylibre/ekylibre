@@ -39,9 +39,10 @@
 class ProductionChainOperation < ActiveRecord::Base
   acts_as_list :scope=>:production_chain
   attr_readonly :company_id
+  belongs_to :building, :class_name=>Warehouse.name
   belongs_to :company
   belongs_to :operation_nature
-  belongs_to :building, :class_name=>Warehouse.name
+  belongs_to :production_chain
   has_many :lines, :class_name=>ProductionChainOperationLine.name, :foreign_key=>:operation_id
   has_many :uses,  :class_name=>ProductionChainOperationUse.name,  :foreign_key=>:operation_id
   has_many :output_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:source_id # :as=>:source
@@ -51,6 +52,10 @@ class ProductionChainOperation < ActiveRecord::Base
 
   def self.natures_list
     @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
+  end
+
+  def prepare
+    self.company_id = self.production_chain.company_id
   end
 
 end

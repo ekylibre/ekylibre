@@ -34,6 +34,7 @@
 #  source_quantity     :decimal(16, 4)   default(0.0), not null
 #  target_id           :integer          
 #  target_quantity     :decimal(16, 4)   default(0.0), not null
+#  unique_tracking     :boolean          not null
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          

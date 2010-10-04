@@ -567,9 +567,11 @@ table.conveyor { border-collapse: collapse; margin: 2px 0; }
 .conveyor .cell .bmenu a { display: block; padding: 2px 4px;}
 .conveyor a img { border: none; display: block;}
 .conveyor .cell.action { padding: 1px; }
-.conveyor .cell.quantity { background: #FDD; padding: 2px 4px; }
-.conveyor .cell.check { width: 2px; padding: 0; background: yellow; }
+.conveyor .cell.quantity { background: #C9D7F1; padding: 2px 4px; border-color: #95b0e4;  }
+html[dir="ltr"] .conveyor .cell.target, html[dir="rtl"] .conveyor .cell.source { margin-right: -2px; border-right: none; }
+html[dir="rtl"] .conveyor .cell.target, html[dir="ltr"] .conveyor .cell.source { margin-left: -2px; border-left: none; }
 .conveyor .cell.check-state { background: #EF9; }
+.conveyor .cell.unique-tracking { background: #FE9; }
 .conveyor .cell.new { padding: 2px 4px; background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
 .conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; }
 .conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
