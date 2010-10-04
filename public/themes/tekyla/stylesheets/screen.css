@@ -438,7 +438,7 @@ div.dyli_complete {width: 350px; z-index: 1000; }
 div.dyli_complete ul {border:1px solid ButtonShadow; margin:0; padding:0; list-style-type:none; }
 div.dyli_complete ul li {background-color: Menu; margin:0; padding:3px; color: MenuText; cursor: pointer; } /*#C9D7F1*/
 div.dyli_complete ul li.selected {background-color: Highlight; color: HighlightText; }
-div.dyli_complete ul strong.highlight {color: HighlightText; margin:0; padding:0; }
+div.dyli_complete ul strong.highlight { margin:0; padding:0; }
 input.dyli { background: #FFF url(../images/buttons/dyli.png) no-repeat; }
 html[dir="ltr"] input.dyli { background-position: right center; padding-right: 18px; }
 html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18px; }
