@@ -18,30 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: production_chain_conveyors
+# == Table: production_chain_tokens
 #
-#  check_state         :boolean          not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  flow                :decimal(16, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
-#  product_id          :integer          not null
 #  production_chain_id :integer          not null
-#  source_id           :integer          
-#  source_quantity     :decimal(16, 4)   default(0.0), not null
-#  target_id           :integer          
-#  target_quantity     :decimal(16, 4)   default(0.0), not null
-#  unit_id             :integer          not null
+#  tracking_code       :string(255)      not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
 
 require 'test_helper'
 
-class ProductionChainConveyorTest < ActiveSupport::TestCase
+class ProductionChainTokenTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

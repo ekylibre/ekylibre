@@ -41,4 +41,8 @@ module Ekylibre
     File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[1]}
     return @@version
   end  
+
+  def self.private_directory
+    Ekylibre::Application.root.join("private")
+  end
 end

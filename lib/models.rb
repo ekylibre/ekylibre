@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_operation, :production_chain_operation_line, :production_chain_operation_use, :profession, :purchase_delivery, :purchase_delivery_line, :purchase_delivery_mode, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
+  @@models = [:account, :account_balance, :area, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :currency, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :inventory, :inventory_line, :invoice, :invoice_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_operation, :production_chain_operation_line, :production_chain_operation_use, :production_chain_token, :profession, :purchase_delivery, :purchase_delivery_line, :purchase_delivery_mode, :purchase_order, :purchase_order_line, :purchase_payment, :purchase_payment_mode, :purchase_payment_part, :role, :sale_delivery, :sale_delivery_line, :sale_delivery_mode, :sale_order, :sale_order_line, :sale_order_nature, :sale_payment, :sale_payment_mode, :sale_payment_part, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
 
   # List of all references
   @@references = {
@@ -314,6 +314,7 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :nature_id => :operation_nature,
+      :production_chain_token_id => :production_chain_token,
       :responsible_id => :user,
       :target_id => "target_type",
       :updater_id => :user
@@ -421,6 +422,12 @@ module Ekylibre
       :creator_id => :user,
       :operation_id => :operation,
       :tool_id => :tool,
+      :updater_id => :user
+    },
+    :production_chain_token => {
+      :company_id => :company,
+      :creator_id => :user,
+      :production_chain_id => :production_chain,
       :updater_id => :user
     },
     :profession => {
@@ -681,8 +688,8 @@ module Ekylibre
     :tracking_state => {
       :company_id => :company,
       :creator_id => :user,
-      :operation_id => :operation,
-      :production_chain_operation_id => :production_chain_operation,
+      :production_chain_conveyor_id => :production_chain_conveyor,
+      :production_chain_token_id => :production_chain_token,
       :responsible_id => :user,
       :tracking_id => :tracking,
       :updater_id => :user

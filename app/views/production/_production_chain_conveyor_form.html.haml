@@ -6,8 +6,7 @@
   -f.field :production_chain_conveyor, :comment, :field=>:textarea
   -f.title :product
   -f.field :production_chain_conveyor, :product_id, :choices=>{:reflection=>:products}, :new=>{:controller=>:management, :action=>:product_create}
-  -f.field :production_chain_conveyor, :check_on_input
-  -f.field :production_chain_conveyor, :check_on_output
+  -f.field :production_chain_conveyor, :check_state
   -f.field :production_chain_conveyor, :flow
   -f.title :source
   -f.field :production_chain_conveyor, :source_id, :choices=>{:reflection=>:production_chain_operations, :include_blank=>""}, :new=>{:action=>:production_chain_operation_create, :production_chain_id=>@production_chain_conveyor.production_chain_id}

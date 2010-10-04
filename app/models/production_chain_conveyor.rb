@@ -20,13 +20,12 @@
 # 
 # == Table: production_chain_conveyors
 #
-#  check_on_input      :boolean          not null
-#  check_on_output     :boolean          not null
+#  check_state         :boolean          not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  flow                :decimal(16, 4)   
+#  flow                :decimal(16, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  product_id          :integer          not null

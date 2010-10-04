@@ -767,6 +767,7 @@ fra:
     productable_products: 'Produits produisibles'
     #>production_chain_id: 'Production chain'
     #>production_chain_operation_id: 'Production chain operation'
+    #>production_chain_token_id: 'Production chain token'
     products: 'Produits'
     products_accounts: 'Comptes produits'
     profession: 'Profession'

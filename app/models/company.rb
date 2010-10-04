@@ -176,6 +176,13 @@ class Company < ActiveRecord::Base
     end
   end
 
+#   def clean_on_update
+#     old = self.class.find(self.id)
+#     if old.code != self.code
+      
+#     end
+#   end
+
   def self.models
     Object.subclasses_of(ActiveRecord::Base).collect{|x| x.name}
   end
@@ -439,6 +446,10 @@ class Company < ActiveRecord::Base
     end
 
     return lines.sort{|a,b| a[5]<=>b[5]}
+  end
+
+  def private_directory
+    Ekylibre.private_directory.join(self.code)
   end
 
 

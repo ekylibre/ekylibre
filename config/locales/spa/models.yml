@@ -765,6 +765,7 @@ spa:
     #>productable_products: 'Productable products'
     #>production_chain_id: 'Production chain'
     #>production_chain_operation_id: 'Production chain operation'
+    #>production_chain_token_id: 'Production chain token'
     #>products: 'Products'
     #>products_accounts: 'Products accounts'
     #>profession: 'Profession'

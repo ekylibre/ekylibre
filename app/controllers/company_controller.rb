@@ -80,6 +80,7 @@ class CompanyController < ApplicationController
 #     end
 #     @properties.reverse!
     @properties.insert(0, ["Ekylibre version", Ekylibre.version])
+    @properties << ["Database version", ActiveRecord::Migrator.current_version]
   end
 
   def help

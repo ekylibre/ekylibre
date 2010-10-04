@@ -569,6 +569,7 @@ table.conveyor { border-collapse: collapse; margin: 2px 0; }
 .conveyor .cell.action { padding: 1px; }
 .conveyor .cell.quantity { background: #FDD; padding: 2px 4px; }
 .conveyor .cell.check { width: 2px; padding: 0; background: yellow; }
+.conveyor .cell.check-state { background: #EF9; }
 .conveyor .cell.new { padding: 2px 4px; background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
 .conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; }
 .conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}

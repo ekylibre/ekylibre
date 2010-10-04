@@ -1,4 +1,4 @@
-class AddProductionChains < ActiveRecord::Migration
+class CreateProductionChains < ActiveRecord::Migration
   def self.up
 
     create_table :land_parcel_groups do |t|
@@ -33,16 +33,16 @@ class AddProductionChains < ActiveRecord::Migration
     create_table :tracking_states do |t|
       t.column :tracking_id,      :integer,  :null=>false
       t.column :responsible_id,   :integer,  :null=>false
+      t.column :production_chain_conveyor_id, :integer
+      t.column :production_chain_token_id, :integer
       t.column :temperature,      :decimal,  :precision=>16, :scale=>2
-      t.column :relative_humidity,    :decimal,  :precision=>16, :scale=>2
+      t.column :relative_humidity, :decimal,  :precision=>16, :scale=>2
       t.column :atmospheric_pressure, :decimal,  :precision=>16, :scale=>2
       t.column :luminance,        :decimal,  :precision=>16, :scale=>2
       t.column :total_weight,     :decimal,  :precision=>16, :scale=>2
       t.column :net_weight,       :decimal,  :precision=>16, :scale=>2
       t.column :examinated_at,    :datetime, :null=>false
       t.column :comment,          :text
-      t.column :production_chain_operation_id, :integer
-      t.column :operation_id,     :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :tracking_states, :company_id
@@ -58,6 +58,35 @@ class AddProductionChains < ActiveRecord::Migration
     add_index :production_chains, :company_id
 
 
+    create_table :production_chain_conveyors do |t|
+      t.column :production_chain_id, :integer, :null=>false
+      t.column :product_id,       :integer,  :null=>false
+      t.column :unit_id,          :integer,  :null=>false
+      t.column :flow,             :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
+      t.column :check_state,      :boolean,  :null=>false, :default=>false
+      t.column :source_id,        :integer
+      t.column :source_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
+      t.column :target_id,        :integer
+      t.column :target_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
+      t.column :comment,          :text
+      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :production_chain_conveyors, :company_id
+    add_index :production_chain_conveyors, [:production_chain_id, :company_id]
+
+
+    create_table :production_chain_tokens do |t|
+      t.column :production_chain_id, :integer, :null=>false
+      t.column :tracking_code,    :string,   :null=>false
+      t.column :comment,          :text
+      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+    end
+    add_index :production_chain_tokens, :company_id
+    add_index :production_chain_tokens, [:production_chain_id, :company_id]
+    
+    add_column :operations, :production_chain_token_id, :integer
+    
+
     create_table :production_chain_operations do |t|
       t.column :production_chain_id, :integer, :null=>false
       t.column :operation_nature_id, :integer, :null=>false
@@ -71,23 +100,6 @@ class AddProductionChains < ActiveRecord::Migration
     add_index :production_chain_operations, :company_id
     add_index :production_chain_operations, [:production_chain_id, :company_id]
     add_index :production_chain_operations, [:operation_nature_id, :company_id]
-
-    create_table :production_chain_conveyors do |t|
-      t.column :production_chain_id, :integer, :null=>false
-      t.column :product_id,       :integer,  :null=>false
-      t.column :unit_id,          :integer,  :null=>false
-      t.column :flow,             :decimal,  :precision=>16, :scale=>4
-      t.column :check_on_input,   :boolean,  :null=>false, :default=>false
-      t.column :check_on_output,  :boolean,  :null=>false, :default=>false
-      t.column :source_id,        :integer
-      t.column :source_quantity,  :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
-      t.column :target_id,        :integer
-      t.column :target_quantity,   :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0
-      t.column :comment,          :text
-      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :production_chain_conveyors, :company_id
-    add_index :production_chain_conveyors, [:production_chain_id, :company_id]
 
 
     create_table :production_chain_operation_lines do |t|
@@ -158,8 +170,10 @@ class AddProductionChains < ActiveRecord::Migration
     rename_table :operation_uses, :tool_uses
     drop_table :production_chain_operation_uses
     drop_table :production_chain_operation_lines
-    drop_table :production_chain_conveyors
     drop_table :production_chain_operations
+    remove_column :operations, :production_chain_token_id
+    drop_table :production_chain_tokens
+    drop_table :production_chain_conveyors
     drop_table :production_chains
     drop_table :tracking_states
     drop_table :cultivations

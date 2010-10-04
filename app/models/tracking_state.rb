@@ -20,25 +20,25 @@
 # 
 # == Table: tracking_states
 #
-#  atmospheric_pressure          :decimal(16, 2)   
-#  comment                       :text             
-#  company_id                    :integer          not null
-#  created_at                    :datetime         not null
-#  creator_id                    :integer          
-#  examinated_at                 :datetime         not null
-#  id                            :integer          not null, primary key
-#  lock_version                  :integer          default(0), not null
-#  luminance                     :decimal(16, 2)   
-#  net_weight                    :decimal(16, 2)   
-#  operation_id                  :integer          
-#  production_chain_operation_id :integer          
-#  relative_humidity             :decimal(16, 2)   
-#  responsible_id                :integer          not null
-#  temperature                   :decimal(16, 2)   
-#  total_weight                  :decimal(16, 2)   
-#  tracking_id                   :integer          not null
-#  updated_at                    :datetime         not null
-#  updater_id                    :integer          
+#  atmospheric_pressure         :decimal(16, 2)   
+#  comment                      :text             
+#  company_id                   :integer          not null
+#  created_at                   :datetime         not null
+#  creator_id                   :integer          
+#  examinated_at                :datetime         not null
+#  id                           :integer          not null, primary key
+#  lock_version                 :integer          default(0), not null
+#  luminance                    :decimal(16, 2)   
+#  net_weight                   :decimal(16, 2)   
+#  production_chain_conveyor_id :integer          
+#  production_chain_token_id    :integer          
+#  relative_humidity            :decimal(16, 2)   
+#  responsible_id               :integer          not null
+#  temperature                  :decimal(16, 2)   
+#  total_weight                 :decimal(16, 2)   
+#  tracking_id                  :integer          not null
+#  updated_at                   :datetime         not null
+#  updater_id                   :integer          
 #
 
 class TrackingState < ActiveRecord::Base

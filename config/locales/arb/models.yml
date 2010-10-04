@@ -1148,6 +1148,7 @@ arb:
     productable_products: 'المنتجات الممكن انتاجها'
     #>production_chain_id: 'Production chain'
     #>production_chain_operation_id: 'Production chain operation'
+    #>production_chain_token_id: 'Production chain token'
     products: 'المنتجات'
     products_accounts: 'حسابات المنتجات'
     profession: 'المهنة'
