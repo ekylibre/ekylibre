@@ -46,12 +46,12 @@
 -else
   #nojavascript.login
     .logoban
-    .message=tc('no_javascript')
+    %p.message=tc('no_javascript')
   :javascript
-    $('nojavascript').hide();
-    $('login').show();
+    window.$('nojavascript').hide();
+    window.$('login').show();
 
 :javascript
-  $('name').select();
-  $('name').focus(); 
+  window.$('name').select();
+  window.$('name').focus(); 
 

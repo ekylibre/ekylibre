@@ -19,7 +19,7 @@
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
   before_filter :i18nize, :except=>[:i18nize]
-  before_filter :authorize, :except=>[:login, :logout, :register, :i18nize]
+  before_filter :authorize, :except=>[:login, :logout, :register, :i18nize, :relogin]
   attr_accessor :current_user
   attr_accessor :current_company
   layout :xhr_or_not

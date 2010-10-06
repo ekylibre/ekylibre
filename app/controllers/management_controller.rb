@@ -772,7 +772,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
+  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :reference_number, :url=>{:action=>:purchase_order}
     t.column :planned_on

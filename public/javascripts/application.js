@@ -50,8 +50,11 @@ function _resize() {
     overlay.setStyle({'width': width+'px', 'height': height+'px'});
   }
   $$('.dialog').each(function(element, index) { 
-      var w = 0.9*width;
-      var h = 0.9*height;
+      var ratio;
+      try { ratio=parseFloat(element.getAttribute("ratio")); }
+      catch(error) { ratio=0.9; }
+      var w = ratio*width;
+      var h = ratio*height;
       element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
       element.resize(w, h);
     });
@@ -275,6 +278,29 @@ function insert_into(input, repdeb, repfin, middle) {
 }
 
 
+var expirationTimer;
+
+function reconnect() {
+  var body = $('body');
+  var href = body.getAttribute('timeout-href');
+  if (href !== null && href !== undefined) {
+    openDialog(href, 0.6);
+  }
+}
+
+function unexpire() {
+  var body = $('body');
+  try { window.clearTimeout(expirationTimer); }
+  catch (error) { };
+  if (!isNaN(body.getAttribute('timeout'))) {
+    var duration = parseFloat(body.getAttribute('timeout'))*1000;
+    expirationTimer = window.setTimeout(reconnect, duration);
+  }
+}
+
 
 Event.observe(window, "dom:loaded", resize);
 Event.observe(window, "resize", resize);
+
+Event.observe(window, "dom:loaded", unexpire);
+Event.observe(window, "ajax:complete", unexpire);

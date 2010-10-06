@@ -59,7 +59,16 @@ class AuthenticationController < ApplicationController
       session[:help] = false
     end
   end
-  
+
+  def relogin
+    if request.post?
+      if user = User.authenticate(params[:name], params[:password], @current_company)
+        session[:last_query] = Time.now.to_i
+        render :text=>""
+      end
+    end
+  end
+
   def register
     if request.post?
       @company = Company.new(params[:company])

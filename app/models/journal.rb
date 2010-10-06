@@ -39,7 +39,6 @@ class Journal < ActiveRecord::Base
   before_destroy :empty?
   belongs_to :company
   belongs_to :currency
-  belongs_to :counterpart, :class_name=>Account.name  
   # cattr_accessor :natures
   has_many :cashes
   has_many :entry_lines, :class_name=>JournalEntryLine.name

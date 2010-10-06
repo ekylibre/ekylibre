@@ -190,17 +190,18 @@ function dyliChange(dyli, id) {
 
 var overlays = 0;
 
-function openDialog(url) {
+function openDialog(url, ratio) {
   var body   = document.body || document.getElementsByTagName("BODY")[0];
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
   var dialog_id = 'dialog'+overlays;
+  if (isNaN(ratio)) {ratio = 0.9}
   return new Ajax.Request(url, {
       method: 'get',
-        parameters: {dialog: dialog_id},
-        onSuccess: function(response) {
-        /* Insert code creation here */
+      parameters: {dialog: dialog_id},
+      evalScripts: true,
+      onSuccess: function(response) {
         var overlay = $('overlay');
         if (overlay === null) {
           overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
@@ -208,9 +209,9 @@ function openDialog(url) {
           body.appendChild(overlay);
         }
         overlays += 1;
-        var w = 0.9*width;
-        var h = 0.9*height;
-        var dialog = new Element('div', {id: dialog_id, flex: 1, 'class': 'dialog', style: ' z-index:'+(2+overlays*1)+'; position:absolute; left:'+((width-w)/2)+'px; top:'+((height-h)/2)+'px; width:'+w+'px; height: '+h+'px; opacity: 1'});
+        var w = ratio*width;
+        var h = ratio*height;
+        var dialog = new Element('div', {id: dialog_id, ratio: ratio, flex: 1, 'class': 'dialog', style: ' z-index:'+(2+overlays*1)+'; position:absolute; left:'+((width-w)/2)+'px; top:'+((height-h)/2)+'px; width:'+w+'px; height: '+h+'px; opacity: 1'});
         body.appendChild(dialog);
         dialog.update(response.responseText);
         return dialog.resize(w, h);

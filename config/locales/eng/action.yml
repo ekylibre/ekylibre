@@ -61,6 +61,7 @@ eng:
       login: 'Login'
       logout: 'Logout'
       register: 'Register a company'
+      #>relogin: 'Relogin'
     company:
       about: 'About Ekylibre'
       backups: 'Backups'

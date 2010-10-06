@@ -11,6 +11,7 @@
   -if @current_company.warehouses.size > 1
     -f.field :purchase_order_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :purchase_order_line, :tracking_serial
+  -f.field :purchase_order_line, :annotation, :field=>:textarea
 
 =hidden_field_tag :order_id, params[:order_id]
 =observe_field product_id, :url=>{:action => :price_find, :entity_id=>@purchase_order_line.order.supplier_id}, :frequency => 0.25, :with=>"purchase_order_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"

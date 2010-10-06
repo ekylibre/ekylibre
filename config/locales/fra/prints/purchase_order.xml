@@ -20,9 +20,10 @@
       </part>
 
 
-      <part height="15mm">
+      <part height="22mm">
 	<set>
 	  <text value="Bon de commande N°{{purchase_order/number}}" bold="true" left="50%" align="center" top="7mm" size="12"/>
+	  <text value="Référence fournisseur {{purchase_order/reference_number}}" left="50%" align="center" top="12mm" size="10" if="purchase_order.reference_number"/>
 	  <text value="À {{purchase_order.company.default_contact.area/city_name?capitalize=true}}, le {{purchase_order/created_on?format=month_letter}}" left="100%" align="right"/>
 	</set>      
       </part>

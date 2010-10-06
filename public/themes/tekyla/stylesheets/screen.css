@@ -407,6 +407,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 
 
 .login { width:512px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000; }
+.dialog .login { margin: 32px auto; }
 .login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
 .login p { margin:8px; }

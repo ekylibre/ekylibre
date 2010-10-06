@@ -6,6 +6,7 @@ __minimum__:
   - authentication::login
   - authentication::logout
   - authentication::register
+  - authentication::relogin
   - company::about
   - company::change_password
   - company::formalize

@@ -43,9 +43,14 @@ class Transport < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries, :dependent=>:nullify, :class_name=>SaleDelivery.name
+  validates_presence_of :number
 
   def prepare_on_create
     self.created_on ||= Date.today
+    if self.number.blank?
+      last = self.company.sale_orders.find(:first, :order=>"number desc")
+      self.number = last ? last.number.succ! : '00000001'
+    end
   end
 
   def prepare
@@ -54,6 +59,12 @@ class Transport < ActiveRecord::Base
       self.weight += delivery.weight
     end
   end
+
+  def clean_on_create
+    specific_numeration = self.company.preference("management.transports.numeration").value
+    self.number = specific_numeration.next_value unless specific_numeration.nil?
+  end
+
 
   def refresh
     self.save

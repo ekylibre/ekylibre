@@ -431,7 +431,7 @@ eng:
     contact: 'Contact'
     contact_id: 'Contact'
     contacts: 'Contacts'
-    counterpart: 'Counterpart'
+    counterpart: 'Counterpart' #!
     counterpart_id: 'Counterpart' #!
     country: 'Country'
     created_at: 'Created at'
