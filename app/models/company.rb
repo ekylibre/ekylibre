@@ -693,18 +693,7 @@ class Company < ActiveRecord::Base
       user.role_id = company.admin_role.id
       user.save!
 
-      plan = ::I18n.translate("accounting_systems.mini_accounting_system")
-      plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.each do |num, name|
-        raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
-        if num.to_s.match(/^n_/)
-          number = num.to_s[2..-1]
-          if account = company.accounts.find_by_number(number)
-            account.update_attributes!(:name=>name)
-          else
-            company.accounts.create!(:number=>number, :name=>name)
-          end
-        end
-      end if plan.is_a? Hash
+      company.load_accounts(:accounting_system)
 
       company.set_preference('general.language', language)
       company.departments.create!(:name=>tc('default.department_name'))
@@ -719,7 +708,7 @@ class Company < ActiveRecord::Base
       user.save!
       
       for code, tax in tc("default.taxes")
-        company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :account_collected_id=>company.account(tax[:collected], tax[:name]).id, :account_paid_id=>company.account(tax[:paid], tax[:name]).id)
+        company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>company.account(tax[:collected], tax[:name]).id, :paid_account_id=>company.account(tax[:paid], tax[:name]).id)
       end
       
       company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
@@ -760,7 +749,7 @@ class Company < ActiveRecord::Base
 
       company.load_sequences
       
-      company.warehouses.create!(:name=>tc('default.warehouse_name'), :account_id=>company.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>establishment.id)
+      company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
       for nature in [:sale_order, :invoice, :purchase_order]
         company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
       end
@@ -823,6 +812,32 @@ class Company < ActiveRecord::Base
       end
     end
   end
+
+  def load_accounts(name, locale=nil)
+    if (plan = ::I18n.translate("accounting_systems.#{name}", :locale=>locale)).is_a? Hash
+      ActiveRecord::Base.transaction do
+        # Destroy unused existing accounts
+        self.accounts.destroy_all
+#         for account in self.accounts
+#           account.destroy if account.destroyable?
+#         end
+        
+        # Create new accounts
+        for num, name in plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+          # raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
+          number = num.to_s[2..-1]
+          if account = self.accounts.find_by_number(number)
+            account.update_attributes!(:name=>name)
+          else
+            raise number.inspect unless self.accounts.create(:number=>number, :name=>name)
+            # self.accounts.create!(:number=>number, :name=>name)
+          end
+        end
+
+      end
+    end
+  end
+
   
 
 #   def self.load_demo_data(locale="fr-FR", company=nil)
@@ -881,7 +896,7 @@ class Company < ActiveRecord::Base
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
     
     product = self.products.find_by_name("Vin Quillet-Bont 2005")
-    self.warehouses.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :account_id=>self.accounts.find(:first, :conditions=>["LOWER(number) LIKE ?", '3%' ], :order=>:number).id, :establishment_id=>self.establishments.first.id)
+    self.warehouses.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :establishment_id=>self.establishments.first.id)
 
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})

@@ -21,8 +21,8 @@ class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
   
   dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
-  dyli(:account_collected, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
-  dyli(:account_paid, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:collected_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:paid_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
   
   # 
   def index
@@ -184,6 +184,14 @@ class AccountancyController < ApplicationController
     params[:used_accounts] = session[:used_accounts]
     params[:started_on] = session[:started_on]
     params[:stopped_on] = session[:stopped_on]
+  end
+
+  def accounts_load
+    if request.post?
+      locale, name = params[:list].split(".")
+      @current_company.load_accounts(name, locale)
+      redirect_to :action=>:accounts
+    end
   end
 
   manage :accounts, :number=>"params[:number]"
@@ -1070,8 +1078,8 @@ class AccountancyController < ApplicationController
     t.column :nature_label
     t.column :included
     t.column :reductible
-    t.column :label, :through=>:account_paid, :url=>{:action=>:account}
-    t.column :label, :through=>:account_collected, :url=>{:action=>:account}
+    t.column :label, :through=>:paid_account, :url=>{:action=>:account}
+    t.column :label, :through=>:collected_account, :url=>{:action=>:account}
     t.action :tax_update
     t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

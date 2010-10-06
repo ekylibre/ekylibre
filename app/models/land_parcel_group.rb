@@ -38,12 +38,6 @@ class LandParcelGroup < ActiveRecord::Base
   has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def check
-    if self.area_unit
-      errors.add(:area_unit_id, :invalid) unless self.area_unit.base == "m2"
-    end
-  end
-
   def area(computed_on=Date.today)
     sum = 0
     for land_parcel in self.land_parcels_on(computed_on)

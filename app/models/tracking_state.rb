@@ -46,5 +46,10 @@ class TrackingState < ActiveRecord::Base
   belongs_to :company
   belongs_to :tracking
   
+  @@report_columns = [:total_weight, :net_weight, :temperature, :relative_humidity, :luminance, :atmospheric_pressure, :comment]
+  
+  def self.report_columns
+    @@report_columns.collect{|x| self.columns_hash[x.to_s]}
+  end
 
 end

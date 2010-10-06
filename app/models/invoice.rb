@@ -196,7 +196,7 @@ class Invoice < ActiveRecord::Base
       entry.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
       for line in self.lines
         entry.add_credit(label, line.product.sales_account_id, line.amount) unless line.quantity.zero?
-        entry.add_credit(label, line.price.tax.account_collected_id, line.taxes) unless line.taxes.zero?
+        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes) unless line.taxes.zero?
       end
     end
   end

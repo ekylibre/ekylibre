@@ -53,7 +53,7 @@ module AccountancyHelper
         link_to(account.label, :action=>:accounts, :prefix=>account.number)
       end
     end
-    if majors.size>1
+    if majors.size>0
       return content_tag(:div, majors.join.html_safe, :class=>'major-accounts')
     end
     return ""

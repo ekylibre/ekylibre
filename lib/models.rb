@@ -237,7 +237,6 @@ module Ekylibre
     },
     :journal => {
       :company_id => :company,
-      :counterpart_id => :account,
       :creator_id => :user,
       :currency_id => :currency,
       :updater_id => :user
@@ -428,7 +427,8 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :production_chain_id => :production_chain,
-      :updater_id => :user
+      :updater_id => :user,
+      :where_id => "where_type"
     },
     :profession => {
       :company_id => :company,
@@ -660,10 +660,10 @@ module Ekylibre
       :updater_id => :user
     },
     :tax => {
-      :account_collected_id => :account,
-      :account_paid_id => :account,
+      :collected_account_id => :account,
       :company_id => :company,
       :creator_id => :user,
+      :paid_account_id => :account,
       :updater_id => :user
     },
     :tax_declaration => {
@@ -723,7 +723,6 @@ module Ekylibre
       :updater_id => :user
     },
     :warehouse => {
-      :account_id => :account,
       :company_id => :company,
       :contact_id => :contact,
       :creator_id => :user,

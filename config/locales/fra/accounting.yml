@@ -118,7 +118,7 @@ fra:
       n_89: "Bilan*"
 
     accounting_system:
-      n_ame: "Système de base"
+      name: "Système de base"
       n_1: "COMPTES DE CAPITAUX"
       n_10: "Capital et réserves"
       n_101: "Capital"
@@ -587,6 +587,7 @@ fra:
       n_89: "Bilan*"
 
     maxi_accounting_system:
+      name: "Système développé"
       n_1: "COMPTES DE CAPITAUX"
       n_10: "Capital et réserves"
       n_101: "Capital"

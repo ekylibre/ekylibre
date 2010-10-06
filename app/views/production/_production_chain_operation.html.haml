@@ -16,7 +16,7 @@
               -if conveyor.source
                 %td.operation=link_to(conveyor.source.name, :action=>:production_chain, :id=>conveyor.production_chain_id, :anchor=>"operation#{conveyor.source_id}")
               =render :partial=>"production_chain_conveyor", :object=>conveyor
-        -if ic.size<=0 or (operation.nature != "input")
+        -if @current_user.can?(:build_production_chains) and (ic.size<=0 or (operation.nature != "input"))
           %table.conveyor
             %tr
               %td.rail
@@ -26,7 +26,8 @@
               %td.arrow
       %td.operation.master
         =link_to operation.name, :action=>:production_chain_operation_update, :id=>operation.id
-        .action=link_to tl(:play), {:action=>:production_chain_play, :id=>operation.production_chain_id, :operation_id=>operation.id}, :class=>"icon im-play"
+        -if @current_user.can? :use_production_chains
+          .action=link_to tl(:play), {:action=>:production_chain_operation_play, :id=>operation.id}, :class=>"icon im-play"
       %td.conveyors.output-conveyors
         -for conveyor in oc
           %table.conveyor
@@ -34,7 +35,7 @@
               =render :partial=>"production_chain_conveyor", :object=>conveyor
               -if conveyor.target
                 %td.operation=link_to(conveyor.target.name, :action=>:production_chain, :id=>conveyor.production_chain_id, :anchor=>"operation#{conveyor.target_id}")
-        -if oc.size<=0 or (operation.nature == "input")
+        -if @current_user.can?(:build_production_chains) and (oc.size<=0 or (operation.nature == "input"))
           %table.conveyor.new
             %tr
               %td.rail

@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "lock_version",                                     :default => 0,   :null => false
   end
 
-  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balances_unique", :unique => true
+  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balannces_unique", :unique => true
   add_index "account_balances", ["company_id"], :name => "index_account_balances_on_company_id"
   add_index "account_balances", ["created_at"], :name => "index_account_balances_on_created_at"
   add_index "account_balances", ["creator_id"], :name => "index_account_balances_on_creator_id"
@@ -489,10 +489,10 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir"
-    t.string   "extension"
-    t.integer  "owner_id"
-    t.string   "owner_type"
+    t.string   "subdir",                       :null => false
+    t.string   "extension",                    :null => false
+    t.integer  "owner_id",                     :null => false
+    t.string   "owner_type",                   :null => false
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -562,6 +562,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   end
 
   add_index "entities", ["code", "company_id"], :name => "index_entities_on_code_and_company_id", :unique => true
+  add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["company_id"], :name => "index_entities_on_company_id"
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
@@ -924,18 +925,17 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   add_index "journal_entry_lines", ["updater_id"], :name => "index_entries_on_updater_id"
 
   create_table "journals", :force => true do |t|
-    t.string   "nature",         :limit => 16,                           :null => false
-    t.string   "name",                                                   :null => false
-    t.string   "code",           :limit => 4,                            :null => false
-    t.integer  "currency_id",                                            :null => false
-    t.integer  "counterpart_id"
-    t.date     "closed_on",                    :default => '1970-12-31', :null => false
-    t.integer  "company_id",                                             :null => false
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.string   "nature",       :limit => 16,                           :null => false
+    t.string   "name",                                                 :null => false
+    t.string   "code",         :limit => 4,                            :null => false
+    t.integer  "currency_id",                                          :null => false
+    t.date     "closed_on",                  :default => '1970-12-31', :null => false
+    t.integer  "company_id",                                           :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                 :default => 0,            :null => false
+    t.integer  "lock_version",               :default => 0,            :null => false
   end
 
   add_index "journals", ["code", "company_id"], :name => "index_journals_on_code_and_company_id", :unique => true
@@ -1408,7 +1408,12 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
   create_table "production_chain_tokens", :force => true do |t|
     t.integer  "production_chain_id",                :null => false
     t.string   "number",                             :null => false
+    t.integer  "where_id",                           :null => false
+    t.string   "where_type",                         :null => false
+    t.datetime "started_at",                         :null => false
+    t.datetime "stopped_at"
     t.text     "comment"
+    t.text     "story"
     t.integer  "company_id",                         :null => false
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
@@ -1967,7 +1972,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2010-09-30', :null => false
+    t.date     "to_bank_on",                                      :default => '2009-07-31', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                       :default => false,        :null => false
@@ -2190,8 +2195,8 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.string   "nature",               :limit => 8,                                                   :null => false
     t.decimal  "amount",                            :precision => 16, :scale => 4, :default => 0.0,   :null => false
     t.text     "description"
-    t.integer  "account_collected_id"
-    t.integer  "account_paid_id"
+    t.integer  "collected_account_id"
+    t.integer  "paid_account_id"
     t.integer  "company_id",                                                                          :null => false
     t.datetime "created_at",                                                                          :null => false
     t.datetime "updated_at",                                                                          :null => false
@@ -2200,13 +2205,13 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "lock_version",                                                     :default => 0,     :null => false
   end
 
-  add_index "taxes", ["account_collected_id"], :name => "index_taxes_on_account_collected_id"
-  add_index "taxes", ["account_paid_id"], :name => "index_taxes_on_account_paid_id"
+  add_index "taxes", ["collected_account_id"], :name => "index_taxes_on_account_collected_id"
   add_index "taxes", ["company_id"], :name => "index_taxes_on_company_id"
   add_index "taxes", ["created_at"], :name => "index_taxes_on_created_at"
   add_index "taxes", ["creator_id"], :name => "index_taxes_on_creator_id"
   add_index "taxes", ["name", "company_id"], :name => "index_taxes_on_name_and_company_id", :unique => true
   add_index "taxes", ["nature", "company_id"], :name => "index_taxes_on_nature_and_company_id"
+  add_index "taxes", ["paid_account_id"], :name => "index_taxes_on_account_paid_id"
   add_index "taxes", ["updated_at"], :name => "index_taxes_on_updated_at"
   add_index "taxes", ["updater_id"], :name => "index_taxes_on_updater_id"
 
@@ -2395,7 +2400,6 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.string   "z"
     t.text     "comment"
     t.integer  "parent_id"
-    t.integer  "account_id",                                                         :null => false
     t.integer  "establishment_id"
     t.integer  "contact_id"
     t.integer  "company_id",                                                         :null => false

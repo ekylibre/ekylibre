@@ -52,366 +52,44 @@
 #   updater_id: 1
 #
 
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  building_id         :integer          not null
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  position            :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   building_id: 1
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  building_id         :integer          not null
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  position            :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   building_id: 1
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  building_id         :integer          not null
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  position            :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   building_id: 1
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  position            :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  check_states        :string(16)       
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  parent_id           :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  check_states        :string(16)       
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  parent_id           :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-# = Informations
-# 
-# == License
-# 
-# Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-# 
-# You should have received a copy of the GNU General Public License
-# along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: production_chain_operations
-#
-#  check_states        :string(16)       
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  expected_duration   :decimal(16, 4)   
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nature              :string(255)      not null
-#  operation_nature_id :integer          not null
-#  parent_id           :integer          
-#  production_chain_id :integer          not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
-#
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
+production_chain_operations_001:
+  building_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 1
+  name: "Lorem ipsum"
+  nature: "input"
+  operation_nature_id: 1
+  production_chain_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+production_chain_operations_002:
+  building_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 2
+  name: "Lorem ipsum 2"
+  nature: "input"
+  operation_nature_id: 1
+  production_chain_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+production_chain_operations_003:
+  building_id: 1
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 3
+  name: "Lorem ipsum 3"
+  nature: "output"
+  operation_nature_id: 1
+  production_chain_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

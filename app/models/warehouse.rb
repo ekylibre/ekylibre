@@ -20,7 +20,6 @@
 # 
 # == Table: warehouses
 #
-#  account_id       :integer          not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  contact_id       :integer          
@@ -46,7 +45,6 @@
 class Warehouse < ActiveRecord::Base
   acts_as_tree
   attr_readonly :company_id, :reservoir
-  belongs_to :account
   belongs_to :company
   belongs_to :contact
   belongs_to :establishment
@@ -57,7 +55,6 @@ class Warehouse < ActiveRecord::Base
   has_many :stock_moves
   has_many :stock_transfers
   has_many :warehouses
-  validates_presence_of :account
 
   def prepare_on_create
     self.reservoir = true if !self.product_id.nil?

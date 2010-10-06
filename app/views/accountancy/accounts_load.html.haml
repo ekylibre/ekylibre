@@ -1,0 +1,5 @@
+=form_tag({}, :class=>"flex") do
+  .fields.flex
+    =formalize do |f|
+      -f.field tl(:accounts_to_load), select_tag("list", options_for_select(Account.lists.collect{|k,v| [v, k]}.sort))
+  .actions=submit_tag tl(:load)

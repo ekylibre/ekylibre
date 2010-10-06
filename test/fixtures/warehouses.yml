@@ -20,7 +20,6 @@
 # 
 # == Table: warehouses
 #
-#  account_id       :integer          not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  contact_id       :integer          
@@ -46,7 +45,6 @@
 # == Fixture: warehouses
 #
 # warehouses_001:
-#   account_id: 1
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
@@ -57,7 +55,6 @@
 #
 
 warehouses_001:
-  account_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -67,7 +64,6 @@ warehouses_001:
   updater_id: 1
 
 warehouses_002:
-  account_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1

@@ -354,22 +354,6 @@ class ProductionController < ApplicationController
   end
 
 
-  def production_chain_play
-    return unless @production_chain = find_and_check(:production_chain)
-    if params[:operation_id]
-      return unless @production_chain_operation = find_and_check(:production_chain_operation, params[:operation_id])
-    end
-    if request.xhr? and @production_chain_operation
-      render :partial=>"production_chain_operation_inputs", :object=>@production_chain_operation
-      return
-    end
-    if request.post?
-      @production_chain.play(params[:operation_id], params[:operation][:responsible_id], params[:inputs])
-    end
-    @operation = Operation.new({:responsible_id=>@current_user.id}.merge(params[:operation]))
-    t3e @production_chain.attributes
-  end
-
 
   manage :production_chain_operations, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
 
@@ -392,6 +376,16 @@ class ProductionController < ApplicationController
       @production_chain_operation.move_lower
     end
     redirect_to_current
+  end
+
+  def production_chain_operation_play
+    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+    @operation = Operation.new({:responsible_id=>@current_user.id}.merge(params[:operation]||{}))
+    if request.post?
+      @production_chain_operation.play(params[:operation][:responsible_id], params[:inputs])
+    end
+      
+    t3e @production_chain_operation.attributes
   end
 
   manage :production_chain_conveyors, :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"

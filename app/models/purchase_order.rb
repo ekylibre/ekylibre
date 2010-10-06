@@ -184,7 +184,7 @@ class PurchaseOrder < ActiveRecord::Base
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         record.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
-        record.add_debit(label, line.price.tax.account_paid_id, line.taxes) unless line.taxes.zero?
+        record.add_debit(label, line.price.tax.paid_account_id, line.taxes) unless line.taxes.zero?
       end
       record.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
     end

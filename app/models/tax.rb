@@ -20,9 +20,8 @@
 # 
 # == Table: taxes
 #
-#  account_collected_id :integer          
-#  account_paid_id      :integer          
 #  amount               :decimal(16, 4)   default(0.0), not null
+#  collected_account_id :integer          
 #  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
@@ -32,6 +31,7 @@
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  nature               :string(8)        not null
+#  paid_account_id      :integer          
 #  reductible           :boolean          default(TRUE), not null
 #  updated_at           :datetime         not null
 #  updater_id           :integer          
@@ -40,13 +40,13 @@
 class Tax < ActiveRecord::Base
   attr_readonly :nature, :company_id #, :amount
   belongs_to :company
-  belongs_to :account_collected, :class_name=>Account.name
-  belongs_to :account_paid, :class_name=>Account.name
+  belongs_to :collected_account, :class_name=>Account.name
+  belongs_to :paid_account, :class_name=>Account.name
   has_many :prices
   has_many :sale_order_lines
   validates_inclusion_of :nature, :in=>%w( amount percent )
-  validates_presence_of :account_collected_id
-  validates_presence_of :account_paid_id
+  validates_presence_of :collected_account_id
+  validates_presence_of :paid_account_id
   validates_uniqueness_of :name, :scope=>:company_id
   validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
 

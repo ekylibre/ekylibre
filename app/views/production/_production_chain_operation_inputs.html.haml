@@ -1,6 +1,6 @@
 -operation = production_chain_operation_inputs
 -if operation
-  %table.dyta
+  %table.dyta.formalize
     %thead
       %tr
         %th=OperationLine.human_attribute_name("product")
@@ -8,8 +8,16 @@
         %th=OperationLine.human_attribute_name("unit")
         %th=OperationLine.human_attribute_name("stock")
     -for conveyor in operation.input_conveyors
-      %tr{:class=>cycle("odd", "even")}
+      -style_class = cycle("odd", "even")
+      %tr{:class=>style_class}
         %td=conveyor.product.name
-        %td=text_field_tag("inputs[#{conveyor.id}][quantity]")
+        %td=text_field_tag("inputs[#{conveyor.id}][quantity]", 0.0)
         %td=conveyor.unit.readable_name
         %td=select_tag("inputs[#{conveyor.id}][stock_id]", options_for_select(conveyor.product.available_stocks.collect{|s| [s.label, s.id]}))
+      -if conveyor.check_state
+        -for column in TrackingState.report_columns
+          %tr.child.field{:class=>style_class}
+            %td.label=TrackingState.human_attribute_name(column.name)
+            %td.input{:colspan=>3}=send("#{column.type==:text ? 'text_area' : 'text_field'}_tag", "states[#{conveyor.id}][#{column.name}]")
+            
+              

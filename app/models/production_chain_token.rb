@@ -28,8 +28,13 @@
 #  lock_version        :integer          default(0), not null
 #  number              :string(255)      not null
 #  production_chain_id :integer          not null
+#  started_at          :datetime         not null
+#  stopped_at          :datetime         
+#  story               :text             
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
+#  where_id            :integer          not null
+#  where_type          :string(255)      not null
 #
 
 class ProductionChainToken < ActiveRecord::Base

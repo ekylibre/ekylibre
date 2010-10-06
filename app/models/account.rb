@@ -40,15 +40,25 @@ class Account < ActiveRecord::Base
   attr_readonly :company_id, :number
   belongs_to :company
   has_many :account_balances
+  has_many :attorneys, :class_name=>Entity.name, :foreign_key=>:attorney_account_id
   has_many :balances, :class_name=>AccountBalance.name
   has_many :cashes
-  has_many :entry_lines, :class_name=>JournalEntryLine.name
+  has_many :clients, :class_name=>Entity.name, :foreign_key=>:client_account_id
+  has_many :collected_taxes, :class_name=>Tax.name, :foreign_key=>:collected_account_id
+  has_many :commissioned_sale_payment_modes, :class_name=>SalePaymentMode.name, :foreign_key=>:commission_account_id
+  has_many :depositables_sale_payment_modes, :class_name=>SalePaymentMode.name, :foreign_key=>:depositables_account_id
+  has_many :immobilizations_products, :class_name=>Product.name, :foreign_key=>:immobilizations_account_id
   has_many :journal_entry_lines
-  has_many :journals, :class_name=>Journal.name, :foreign_key=>:counterpart_id
-  has_many :products
+  has_many :paid_taxes, :class_name=>Tax.name, :foreign_key=>:paid_account_id
+  has_many :purchases_products, :class_name=>Product.name, :foreign_key=>:purchases_account_id
   has_many :purchase_order_lines
+  has_many :sale_order_lines
+  has_many :sales_products, :class_name=>Product.name, :foreign_key=>:sales_account_id
+  has_many :suppliers, :class_name=>Entity.name, :foreign_key=>:supplier_account_id
+  # has_many :entry_lines, :class_name=>JournalEntryLine.name
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
   validates_uniqueness_of :number, :scope=>:company_id
+
 
   # This method allows to create the parent accounts if it is necessary.
   def prepare
@@ -56,13 +66,28 @@ class Account < ActiveRecord::Base
   end
 
   def destroyable?
-    self.journal_entry_lines.size <= 0 and self.balances.size <= 0
+    dependencies = 0
+    for k, v in Account.reflections.select{|k, v| v.macro == :has_many}
+      dependencies += self.send(k).size
+    end
+    return dependencies <= 0
   end
 
   def letterable?
     return [:client, :supplier, :attorney].detect do |mode|
       self.number.match(/^#{self.company.preference('accountancy.accounts.third_'+mode.to_s)}/)
     end
+  end
+
+
+  def self.lists
+    lists = {}
+    for locale in ::I18n.active_locales
+      for k, v in ::I18n.translate("accounting_systems", :locale=>locale)
+        lists["#{locale}.#{k}"] = v[:name] unless v.nil? or v[:name].nil?
+      end
+    end
+    return lists
   end
 
   def letterable_entry_lines(started_on, stopped_on)

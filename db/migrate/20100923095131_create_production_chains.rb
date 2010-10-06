@@ -78,13 +78,18 @@ class CreateProductionChains < ActiveRecord::Migration
     create_table :production_chain_tokens do |t|
       t.column :production_chain_id, :integer, :null=>false
       t.column :number,           :string,   :null=>false
+      t.column :where_id,         :integer,  :null=>false
+      t.column :where_type,       :string,   :null=>false
+      t.column :started_at,       :datetime, :null=>false
+      t.column :stopped_at,       :datetime
       t.column :comment,          :text
+      t.column :story,            :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chain_tokens, :company_id
     add_index :production_chain_tokens, [:production_chain_id, :company_id]
+    add_index :production_chain_tokens, [:where_id, :where_type, :company_id]
     
-    add_column :operations, :production_chain_token_id, :integer
     
 
     create_table :production_chain_operations do |t|
@@ -127,6 +132,9 @@ class CreateProductionChains < ActiveRecord::Migration
 
     rename_table :tool_uses, :operation_uses
 
+    add_column :operations, :production_chain_token_id, :integer
+
+
     add_column :land_parcels, :started_on, :date
     add_column :land_parcels, :stopped_on, :date
 
@@ -152,10 +160,19 @@ class CreateProductionChains < ActiveRecord::Migration
     add_column :purchase_payment_modes, :position, :integer, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:purchase_payment_modes)} SET position = id"
 
-
+    # Some accountancy stuff
+    remove_column :journals,   :counterpart_id
+    remove_column :warehouses, :account_id
+    rename_column :taxes, :account_collected_id, :collected_account_id
+    rename_column :taxes, :account_paid_id, :paid_account_id
   end
 
   def self.down
+    rename_column :taxes, :paid_account_id, :account_paid_id
+    rename_column :taxes, :collected_account_id, :account_collected_id
+    add_column :warehouses, :account_id, :integer
+    add_column :journals,   :counterpart_id, :integer
+    
     remove_column :purchase_payment_modes, :position
     remove_column :sale_payment_modes, :position
     
@@ -167,11 +184,12 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :land_parcels, :stopped_on
     remove_column :land_parcels, :started_on
 
+    remove_column :operations, :production_chain_token_id
+
     rename_table :operation_uses, :tool_uses
     drop_table :production_chain_operation_uses
     drop_table :production_chain_operation_lines
     drop_table :production_chain_operations
-    remove_column :operations, :production_chain_token_id
     drop_table :production_chain_tokens
     drop_table :production_chain_conveyors
     drop_table :production_chains

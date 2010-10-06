@@ -222,6 +222,7 @@ manage_accounts:
   - account_update
   - accounts
   - accounts_dyta
+  - accounts_load
   - index
 # Manage areas
 manage_areas:
@@ -737,9 +738,9 @@ manage_subscriptions:
 manage_taxes:
   controller: accountancy
   actions:
-  - account_collected_dyli
-  - account_paid_dyli
+  - collected_account_dyli
   - index
+  - paid_account_dyli
   - tax_create
   - tax_delete
   - tax_update
@@ -827,8 +828,6 @@ use_production_chains:
   controller: production
   actions:
   - index
-  - production_chain_next # UNEXISTENT ACTION !!!
-  - production_chain_pause # UNEXISTENT ACTION !!!
-  - production_chain_play
+  - production_chain_operation_play
   - production_chains
   - production_chains_dyta

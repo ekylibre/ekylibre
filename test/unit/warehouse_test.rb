@@ -20,7 +20,6 @@
 # 
 # == Table: warehouses
 #
-#  account_id       :integer          not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  contact_id       :integer          
