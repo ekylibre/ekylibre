@@ -1200,7 +1200,8 @@ fra:
         sales: 'Ventes'
         various: 'Opérations diverses'
     journal_entry:
-      record_cancel: 'Contre-passation de la pièce %{number} : %{name}'
+      #>entry_cancel: 'Cancel of entry %{number}: %{name}'
+      record_cancel: 'Contre-passation de la pièce %{number} : %{name}' #!
     listing_node:
       add_filter: ' Ajouter un filtre '
       all_columns: '-- Toutes les colonnes --'

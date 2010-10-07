@@ -49,6 +49,7 @@ class SalePaymentMode < ActiveRecord::Base
   has_many :depositable_payments, :class_name=>SalePayment.name, :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name
+  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>SalePayment.name, :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE closed=#{connection.quoted_false} AND company_id=#{self.company_id})'
 
   validates_presence_of :depositables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash_id

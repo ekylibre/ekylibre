@@ -363,8 +363,8 @@ eng:
     bank_statements: 'Bank statements'
     banks_accounts: 'Banks accounts'
     base: 'Base'
-    bban: 'Bban' #!
-    bic: 'Bic'
+    bban: 'BBAN' #!
+    bic: 'BIC'
     boolean_value: 'Boolean value'
     born_on: 'Born on'
     building: 'Building'
@@ -588,8 +588,8 @@ eng:
     has_downpayment: 'Has downpayment'
     hashed_password: 'Hashed password'
     hour_duration: 'Hour duration'
-    iban: 'Iban'
-    iban_label: 'Iban label'
+    iban: 'IBAN'
+    iban_label: 'IBAN'
     id: 'ID'
     immobilizations_account_id: 'Immobilizations account'
     importance: 'Importance'
@@ -1208,7 +1208,7 @@ eng:
         sales: 'Sales'
         various: 'Various operations'
     journal_entry:
-      record_cancel: 'Cancel of record %{number}: %{name}'
+      entry_cancel: 'Cancel of entry %{number}: %{name}'
     listing_node:
       add_filter: ' Add a filter'
       all_columns: '-- All columns --'

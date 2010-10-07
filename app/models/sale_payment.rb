@@ -91,8 +91,8 @@ class SalePayment < ActiveRecord::Base
   end
 
   def prepare
-    self.commission_account = self.mode.commission_account
-    self.commission_amount = self.mode.commission_amount(self.amount)
+    self.commission_account ||= self.mode.commission_account
+    self.commission_amount ||= self.mode.commission_amount(self.amount)
     self.parts_amount = self.parts.sum(:amount)
   end
 

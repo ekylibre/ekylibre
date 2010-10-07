@@ -63,7 +63,7 @@ class Cash < ActiveRecord::Base
   has_many :sale_payment_modes
   has_one :last_bank_statement, :class_name=>BankStatement.name, :order=>"stopped_on DESC"
   validates_inclusion_of :mode, :in=>%w( iban bban )
-  validates_uniqueness_of :account_id, :entity_id
+  validates_uniqueness_of :account_id
 
   #validates_presence_of :bank_name
   

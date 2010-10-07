@@ -2,18 +2,15 @@
 =toolbar do |t|
   -t.update @journal_entry unless @journal_entry.closed?
 
-%table
-  %tr
-    %td{:valign=>:top}
-      =evalue @journal_entry, :number
-      =evalue @journal_entry, :printed_on
-      =evalue @journal_entry, :created_on
-      -if @journal_entry.resource
-        =evalue @journal_entry, :resource, :url=>{:controller=>:management, :action=>@journal_entry.resource_type.underscore}
-    %td{:valign=>:top}
-      =evalue @journal_entry, :journal, :url=>{:action=>:journal}
-      =evalue @journal_entry, :debit
-      =evalue @journal_entry, :credit
+=list_evalue do |l|
+  -l.evalue @journal_entry, :number
+  -l.evalue @journal_entry, :printed_on
+  -l.evalue @journal_entry, :created_on
+  -if @journal_entry.resource
+    -l.evalue @journal_entry, :resource, :url=>{:controller=>:management, :action=>@journal_entry.resource_type.underscore}
+  -l.evalue @journal_entry, :journal, :url=>{:action=>:journal}
+  -l.evalue @journal_entry, :debit
+  -l.evalue @journal_entry, :credit
 
-%h2=tc(:entries)
+%h2=JournalEntry.human_attribute_name("lines")
 =dyta(:journal_entry_entries)

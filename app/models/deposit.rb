@@ -50,7 +50,7 @@ class Deposit < ActiveRecord::Base
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>SalePaymentMode.name
   has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"number"
-  has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
+  # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :responsible, :number, :cash
 
@@ -90,9 +90,9 @@ class Deposit < ActiveRecord::Base
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
+    payments = self.reload.payments
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |entry|
-      payments = self.reload.payments
-      
+
       commissions, commissions_amount = {}, 0
       for payment in payments
         commissions[payment.commission_account_id.to_s] ||= 0
@@ -115,7 +115,7 @@ class Deposit < ActiveRecord::Base
       else
         entry.add_credit(label, self.mode.depositables_account_id, self.amount)
       end
-
+      true
     end
   end
 

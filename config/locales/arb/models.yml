@@ -1611,7 +1611,8 @@ arb:
         sales: 'المبيعات'
         various: 'عمليات متنوعة'
     journal_entry:
-      record_cancel: 'الانعكاس السلبي للقطعة %{number} : %{name}'
+      #>entry_cancel: 'Cancel of entry %{number}: %{name}'
+      record_cancel: 'الانعكاس السلبي للقطعة %{number} : %{name}' #!
     listing_node:
       add_filter: ' اضافة تصفية'
       all_columns: '-- جميع الاعمدة --'

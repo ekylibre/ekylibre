@@ -348,7 +348,7 @@ module ApplicationHelper
   end
 
 
-  def list_evalue(columns=1, &block)
+  def list_evalue(columns=3, &block)
     le = ListEvalue.new
     yield le if block_given?
     code = ""

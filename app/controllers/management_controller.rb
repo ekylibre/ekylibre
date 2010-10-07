@@ -1800,12 +1800,26 @@ class ManagementController < ApplicationController
     t.column :with_deposit
     t.column :label, :through=>:depositables_account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :with_commission
+    t.action :sale_payment_mode_reflect, :method=>:post, :confirm=>:are_you_sure
     t.action :sale_payment_mode_update
     t.action :sale_payment_mode_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   def sale_payment_modes
   end
   manage :sale_payment_modes, :with_accounting=>"true"
+
+  
+  def sale_payment_mode_reflect
+    return unless @sale_payment_mode = find_and_check(:sale_payment_mode)
+    if request.post?
+      for payment in  @sale_payment_mode.unlocked_payments
+        payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
+      end
+    end
+    redirect_to :action=>:sale_payment_modes
+  end
+
+
 
   dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name

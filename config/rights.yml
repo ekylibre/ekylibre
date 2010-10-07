@@ -578,6 +578,7 @@ manage_payment_modes:
   - purchase_payment_modes_dyta
   - sale_payment_mode_create
   - sale_payment_mode_delete
+  - sale_payment_mode_reflect
   - sale_payment_mode_update
   - sale_payment_modes
   - sale_payment_modes_dyta

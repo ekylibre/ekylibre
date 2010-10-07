@@ -58,6 +58,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-previous    { background-image: url(../images/buttons/previous.png); }
 .icon.im-print       { background-image: url(../images/buttons/print.png); }
 .icon.im-printable   { background-image: url(../images/buttons/printable.png); }
+.icon.im-reflect     { background-image: url(../images/buttons/action.png); }
 .icon.im-register    { background-image: url(../images/buttons/create.png); }
 .icon.im-resize      { background-image: url(../images/buttons/resize.png); }
 .icon.im-restore     { background-image: url(../images/buttons/left.png); }
