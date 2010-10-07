@@ -7,6 +7,7 @@ fra:
       account_update: 'Modifier le compte : %{number} - %{name}'
       accountize: 'Bascule comptable'
       accounts: 'Plan de comptes'
+      #>accounts_load: 'Load a plan of accounts'
       balance: 'Balance'
       bank_statement: 'Relevé de compte N°%{number}'
       bank_statement_create: 'Pointer un nouveau relevé de compte'
@@ -32,6 +33,7 @@ fra:
       journal_create: 'Créer un nouveau journal'
       journal_entry_create: 'Ajouter une écriture'
       journal_entry_line_create: 'Ajouter une nouvelle ligne d''écriture'
+      #>journal_entry_update: 'Update journal entry: %{number}'
       journal_record: 'Pièce comptable N°%{number} du %{created_on}' #!
       journal_record_create: 'Ajouter une pièce' #!
       journal_record_update: 'Modifier la pièce N°%{number} du %{created_on}' #!
@@ -52,6 +54,7 @@ fra:
       login: 'Connexion'
       logout: 'Se déconnecter'
       register: 'Enregistrer sa société'
+      #>relogin: 'Login'
     company:
       about: 'À propos d''Ekylibre'
       backups: 'Sauvegardes'
@@ -1211,6 +1214,8 @@ fra:
         third_attorneys: 'Comptes mandataires'
         third_clients: 'Comptes clients'
         third_suppliers: 'Comptes fournisseurs'
+      entities:
+        #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
         bank: 'Journal de banque par défaut'
         cash: 'Journal de caisse par défaut'

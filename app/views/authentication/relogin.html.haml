@@ -1,18 +1,19 @@
 #login.login
   .logoban{:title=>Ekylibre.version}
-  =form_remote_tag(:company=>params[:company], :url=>params[:url], :update=>:login) do
+  =form_remote_tag(:company=>params[:company], :url=>params[:url], :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText);} else { closeDialog('#{params[:dialog]}'); unexpire(); }") do
     %table
       %tr
         %td.label=Company.model_name.human
         %td.value=@current_company.name
       %tr
         %td.label=tc :username
-        %td.input
-          =params[:name]
-          =hidden_field_tag :name, params[:name], :tabindex=>1
+        %td.input=params[:name]
       %tr
         %td.label=tc :password
-        %td.input=password_field_tag :password, nil, :tabindex=>2
+        %td.input=password_field_tag :password, nil, :tabindex=>1, :class=>('invalid' if @no_authenticated)
       %tr
-        %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
-
+        %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>2, :disable_with=>tl(:please_wait))
+    =hidden_field_tag :name, params[:name]
+    =hidden_field_tag :dialog, params[:dialog]
+  :javascript
+    $('password').focus();

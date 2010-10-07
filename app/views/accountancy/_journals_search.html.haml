@@ -9,7 +9,7 @@
   %tr
     %td.crit
       %span#period_mode_automatic=select_tag("period", journal_periods_tag(params[:period]))
-      %span#period_mode_manual=tc(:manual_period, :start=>calendar_field_tag(:start, params[:start], :size=>8), :finish=>calendar_field_tag(:finish, params[:finish], :size=>8))
+      %span#period_mode_manual=tc(:manual_period, :start=>calendar_field_tag(:start, params[:start], :size=>8), :finish=>calendar_field_tag(:finish, params[:finish], :size=>8)).html_safe
   -if action_name == "draft_entries"
     %tr
       %td.crit

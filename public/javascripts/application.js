@@ -41,7 +41,6 @@ function toggleMenu(element) {
 
 function _resize() {
   var body = $('body');
-  if (!body.hasClassName('resizable')) { return 0; }
   var dims   = document.viewport.getDimensions();
   var height = dims.height; 
   var width  = dims.width;
@@ -53,16 +52,21 @@ function _resize() {
       var ratio;
       try { ratio=parseFloat(element.getAttribute("ratio")); }
       catch(error) { ratio=0.9; }
-      var w = ratio*width;
-      var h = ratio*height;
+      var w = element.getWidth();
+      var h = element.getHeight();
+      if (ratio > 0) {
+        w = ratio*width;
+        h = ratio*height;
+        element.resize(w, h);
+      }
       element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
-      element.resize(w, h);
     });
+  if (!body.hasClassName('resizable')) { return 0; }
   body.resize(width, height);
 }
 
 function resize() {
-  window.setTimeout('_resize()',300);
+  window.setTimeout('_resize()', 300);
   return _resize();
 }
 
@@ -284,7 +288,7 @@ function reconnect() {
   var body = $('body');
   var href = body.getAttribute('timeout-href');
   if (href !== null && href !== undefined) {
-    openDialog(href, 0.6);
+    openDialog(href, 0);
   }
 }
 

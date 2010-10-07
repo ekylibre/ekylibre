@@ -1922,7 +1922,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.boolean  "with_deposit",                                                         :default => false, :null => false
     t.boolean  "with_commission",                                                      :default => false, :null => false
     t.decimal  "commission_percent",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "commission_amount",                     :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "commission_base_amount",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "commission_account_id"
     t.integer  "position",                                                             :default => 0,     :null => false
   end
@@ -1959,29 +1959,31 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
 
   create_table "sale_payments", :force => true do |t|
     t.date     "paid_on"
-    t.decimal  "amount",           :precision => 16, :scale => 2,                           :null => false
-    t.integer  "mode_id",                                                                   :null => false
-    t.integer  "company_id",                                                                :null => false
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.decimal  "amount",                :precision => 16, :scale => 2,                           :null => false
+    t.integer  "mode_id",                                                                        :null => false
+    t.integer  "company_id",                                                                     :null => false
+    t.datetime "created_at",                                                                     :null => false
+    t.datetime "updated_at",                                                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,            :null => false
+    t.integer  "lock_version",                                         :default => 0,            :null => false
     t.string   "bank"
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                      :default => '2010-09-30', :null => false
+    t.date     "to_bank_on",                                           :default => '2010-10-07', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
-    t.boolean  "scheduled",                                       :default => false,        :null => false
-    t.boolean  "received",                                        :default => true,         :null => false
-    t.decimal  "parts_amount",     :precision => 16, :scale => 2,                           :null => false
+    t.boolean  "scheduled",                                            :default => false,        :null => false
+    t.boolean  "received",                                             :default => true,         :null => false
+    t.decimal  "parts_amount",          :precision => 16, :scale => 2,                           :null => false
     t.string   "number"
     t.date     "created_on"
     t.datetime "accounted_at"
     t.text     "receipt"
     t.integer  "journal_entry_id"
+    t.integer  "commission_account_id"
+    t.decimal  "commission_amount",     :precision => 16, :scale => 2, :default => 0.0,          :null => false
   end
 
   add_index "sale_payments", ["accounted_at"], :name => "index_payments_on_accounted_at"

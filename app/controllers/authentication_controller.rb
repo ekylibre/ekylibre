@@ -63,10 +63,15 @@ class AuthenticationController < ApplicationController
   def relogin
     if request.post?
       if user = User.authenticate(params[:name], params[:password], @current_company)
-        session[:last_query] = Time.now.to_i
-        render :text=>""
+        session[:last_query] = Time.now.to_i # Reactivate session
+        render :json=>{:dialog=>params[:dialog]}
+        return
+      else
+        @no_authenticated = true
+        notify(:no_authenticated, :error, :now)
       end
     end
+    render :action=>:relogin, :layout=>false
   end
 
   def register

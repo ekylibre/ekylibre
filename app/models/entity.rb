@@ -122,7 +122,7 @@ class Entity < ActiveRecord::Base
 
     if self.code.blank?
       last = self.company.entities.find(:first, :order=>"code desc")
-      self.code = last ? last.code.succ! : '00000001'
+      self.code = last ? last.code.succ! : '0000001'
     end
     #     if not self.company.preference("relations.entities.numeration").nil? and self.code.blank?
     #       specific_numeration = self.company.preference("relations.entities.numeration").value
@@ -211,25 +211,31 @@ class Entity < ActiveRecord::Base
 
 
   # This method creates automatically an account for the entity
-  # 
-  def account(nature, suffix=nil)
+  # , suffix=nil
+  def account(nature)
     natures = {:client=>:client_account, :supplier=>:supplier_account, :attorney=>:attorney_account}
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature])
     if valid_account.nil?
       prefix = self.company.preference("accountancy.accounts.third_#{nature.to_s.pluralize}").value
-      suffix ||= "1" # self.code
-      suffix = suffix.upper_ascii[0..5].rjust(6,'0')
-      account = 1
-      #x=Time.now
-      i = 0
-      while not account.nil? do
-        account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
-        suffix.succ! unless account.nil?
-        i=i+1
-      end    
-      #puts "Find entity (#{x-Time.now}s) :"+i.to_s
-      valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name)
+      if self.company.preference("accountancy.entities.use_code_for_account_numbers").value
+        number = prefix.to_s+self.code.to_s
+        valid_account = self.company.accounts.find_by_number(number)
+        valid_account = self.company.accounts.create(:number=>number, :name=>self.full_name) unless valid_account
+      else
+        suffix = "1"
+        suffix = suffix.upper_ascii[0..5].rjust(6, '0')
+        account = 1
+        #x=Time.now
+        i = 0
+        while not account.nil? do
+          account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
+          suffix.succ! unless account.nil?
+          i=i+1
+        end    
+        # puts "Find entity (#{x-Time.now}s) :"+i.to_s
+        valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name)
+      end
       self.update_attribute("#{natures[nature]}_id", valid_account.id)
     end
     return valid_account

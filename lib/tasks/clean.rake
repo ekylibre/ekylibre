@@ -743,7 +743,7 @@ namespace :clean do
       end
       log.write "  - Total:           #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n"
       # Missing help files
-      log.write "  - help: # Missing files\n"
+      # log.write "  - help: # Missing files\n"
       for controller, actions in useful_actions
         for action in actions
           if File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Ekylibre::Application.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))

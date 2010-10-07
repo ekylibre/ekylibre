@@ -2,9 +2,13 @@
   -t.update @deposit
   -t.print :deposit, :p0=>@deposit.id
 
-=evalue @deposit, :cash, :url=>{:controller=>:accountancy, :action=>:cash}
-=evalue @deposit, :comment
-=evalue @deposit, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+=list_evalue(3) do |l|
+  -l.evalue @deposit, :number
+  -l.evalue @deposit, :cash, :url=>{:controller=>:accountancy, :action=>:cash}
+  -l.evalue @deposit, :payments_count
+  -l.evalue @deposit, :responsible
+  -l.evalue @deposit, :comment
+  -l.evalue @deposit, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 %h2=Deposit.human_attribute_name("payments")
 =dyta :deposit_payments

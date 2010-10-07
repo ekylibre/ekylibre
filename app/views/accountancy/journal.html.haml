@@ -3,16 +3,13 @@
   -t.update @journal
   -t.link :journal_entry_create, :journal_id=>@journal.id
 
-%table
-  %tr
-    %td
-      =evalue @journal, :name
-      =evalue @journal, :code
-    %td
-      =evalue @journal, :nature_label
-      =evalue @journal, :currency
-    %td
-      =evalue @journal, :closed_on
+
+=list_evalue(3) do |l|
+  -l.evalue @journal, :name
+  -l.evalue @journal, :code
+  -l.evalue @journal, :nature_label
+  -l.evalue @journal, :currency
+  -l.evalue @journal, :closed_on
 
 .search
   =form_tag({}, :method=>:get) do

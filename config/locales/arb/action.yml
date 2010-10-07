@@ -7,6 +7,7 @@ arb:
       account_update: 'تعديل الحساب : {{number}} - {{name}}'
       accountize: 'نظام المحاسبة المتغير'
       accounts: 'مخطط الحساب'
+      #>accounts_load: 'Load a plan of accounts'
       balance: 'رصيد الحساب'
       bank_statement: 'رقم كشف الحساب{{number}}'
       bank_statement_create: 'الاشارة لكشف حساب جديد'
@@ -32,6 +33,7 @@ arb:
       journal_create: 'انشاء دفتر يومي جديد'
       journal_entry_create: 'اضافة سجل'
       #>journal_entry_line_create: 'Add a new entry line'
+      #>journal_entry_update: 'Update journal entry: %{number}'
       journal_record: 'رقم سجل المحاسبة{{number}} من {{created_on}}' #!
       journal_record_create: 'اضافة سجل' #!
       journal_record_update: 'تعديل السجل رقم {{number}} من {{created_on}}' #!
@@ -52,6 +54,7 @@ arb:
       login: 'الدخول'
       logout: 'الخروج'
       register: 'تسجيل شركة'
+      #>relogin: 'Login'
     company:
       about: 'وحول ايكيليبغ'
       backups: 'النسخ الاحتياطية'
@@ -1288,6 +1291,8 @@ arb:
         third_attorneys: 'حسابات الوكيل'
         third_clients: 'حسابات العملاء'
         third_suppliers: 'حسابات الممولين'
+      entities:
+        #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
         bank: 'الدفاتر المصرفية اليومية الافتراضيا'
         cash: 'دفاتر الصندوق النقدي اليومية افتراضيا '

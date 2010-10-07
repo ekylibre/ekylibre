@@ -60,7 +60,7 @@ class Deposit < ActiveRecord::Base
       self.number = specific_numeration.value.next_value
     else
       last = self.company.deposits.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
-      self.number = last ? last.number.succ : '000000'
+      self.number = last ? last.number.succ : '000001'
     end
   end
 
@@ -91,10 +91,24 @@ class Deposit < ActiveRecord::Base
   # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |entry|
+      payments = self.reload.payments
+      
+      commissions, commissions_amount = {}, 0
+      for payment in payments
+        commissions[payment.commission_account_id.to_s] ||= 0
+        commissions[payment.commission_account_id.to_s] += payment.commission_amount
+        commissions_amount += payment.commission_amount
+      end
+
       label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
-      entry.add_debit( label, self.cash.account_id, self.amount)
+      
+      entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
+      for commission_account_id, commission_amount in commissions
+        entry.add_debit( label, commission_account_id.to_i, commission_amount)
+      end
+
       if self.company.preference("accountancy.accountize.detail_payments_in_deposits").value
-        for payment in self.reload.payments
+        for payment in payments
           label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
           entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end

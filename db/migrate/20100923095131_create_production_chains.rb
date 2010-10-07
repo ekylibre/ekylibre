@@ -5,7 +5,6 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :name,             :string, :null=>false
       t.column :comment,          :text
       t.column :color,            :string, :limit=>6, :null=>false, :default=>"000000"
-      # t.column :area_unit_id,     :integer, :null=>false
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end    
     add_index :land_parcel_groups, :company_id
@@ -165,9 +164,21 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :warehouses, :account_id
     rename_column :taxes, :account_collected_id, :collected_account_id
     rename_column :taxes, :account_paid_id, :paid_account_id
+
+    # Some management stuff
+    add_column :sale_payments, :commission_account_id, :integer
+    add_column :sale_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
+    rename_column :sale_payment_modes, :commission_amount, :commission_base_amount
+    for mode in connection.select_all("SELECT id, commission_account_id AS aid, commission_percent AS p, commission_base_amount AS ba FROM #{quoted_table_name(:sale_payment_modes)} WHERE with_commission = #{quoted_true}")
+      execute "UPDATE #{quoted_table_name(:sale_payments)} SET commission_account_id=#{mode['aid']}, commission_amount=(amount*#{mode['p']}/100+#{mode['ba']}) WHERE mode_id=#{mode['id']}"
+    end
   end
 
   def self.down
+    rename_column :sale_payment_modes, :commission_base_amount, :commission_amount
+    remove_column :sale_payments, :commission_amount
+    remove_column :sale_payments, :commission_account_id
+
     rename_column :taxes, :paid_account_id, :account_paid_id
     rename_column :taxes, :collected_account_id, :account_collected_id
     add_column :warehouses, :account_id, :integer

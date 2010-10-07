@@ -186,8 +186,8 @@ jpn:
               #>end_of_month: '%{attribute} must be an end of month (%{closed_on})'
         journal_entry:
           #>closed_journal: 'The journal is closed on %{closed_on}. No updates are possible until this date.'
-          #>out_of_financial_year: 'The journal record must be recorded in the period of the financial year.'
-          #>unbalanced: 'The journal record is unbalanced'
+          #>out_of_financial_year: 'The journal entry must be recorded in the period of the financial year.'
+          #>unbalanced: 'The journal entry is unbalanced'
         journal_entry_line:
           #>closed_entry: 'The journal entry is locked. You can not update it.'
           #>empty_amounts: 'The journal entry must be filled either debit or credit'

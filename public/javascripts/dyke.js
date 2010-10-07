@@ -204,16 +204,22 @@ function openDialog(url, ratio) {
       onSuccess: function(response) {
         var overlay = $('overlay');
         if (overlay === null) {
-          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:absolute; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
+          overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:fixed; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
           /*  opacity: 0.5 */
           body.appendChild(overlay);
         }
         overlays += 1;
-        var w = ratio*width;
-        var h = ratio*height;
-        var dialog = new Element('div', {id: dialog_id, ratio: ratio, flex: 1, 'class': 'dialog', style: ' z-index:'+(2+overlays*1)+'; position:absolute; left:'+((width-w)/2)+'px; top:'+((height-h)/2)+'px; width:'+w+'px; height: '+h+'px; opacity: 1'});
+        var dialog = new Element('div', {id: dialog_id, ratio: ratio, flex: 1, 'class': 'dialog', style: ' z-index:'+(2+overlays*1)+'; position:fixed; opacity: 1'});
         body.appendChild(dialog);
         dialog.update(response.responseText);
+        var w = ratio*width;
+        var h = ratio*height;
+        if (ratio <= 0) {
+          var dialogDims = dialog.getDimensions();
+          w = dialogDims.width;
+          h = dialogDims.height;
+        }
+        dialog.setStyle('left:'+((width-w)/2)+'px; top:'+((height-h)/2)+'px; width:'+w+'px; height: '+h+'px');
         return dialog.resize(w, h);
       },
         onFailure: function(response) {
@@ -244,11 +250,12 @@ function closeDialog(dialog) {
   return true;
 }
 
+/*
 function resizeDialog(dialog) {
   dialog = $(dialog);
   dialog.resize(dialog.getWidth(), dialog.getHeight());
 }
-
+*/
 
 function refreshList(select, request, source_url) {
   return new Ajax.Request(source_url, {

@@ -22,7 +22,7 @@
 #
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
-#  commission_amount       :decimal(16, 2)   default(0.0), not null
+#  commission_base_amount  :decimal(16, 2)   default(0.0), not null
 #  commission_percent      :decimal(16, 2)   default(0.0), not null
 #  company_id              :integer          not null
 #  created_at              :datetime         not null

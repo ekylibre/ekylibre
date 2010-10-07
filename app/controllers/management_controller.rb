@@ -1149,7 +1149,7 @@ class ManagementController < ApplicationController
       end
     else
       @sale_order = SaleOrder.new
-      if client = @current_company.entities.find_by_id(params[:entity_id]||session[:current_entity_id])
+      if client = @current_company.entities.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
         cid = client.default_contact.id
         @sale_order.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
       end
@@ -1546,7 +1546,7 @@ class ManagementController < ApplicationController
     t.column :bank
     t.column :account_number
     t.column :check_number
-    t.column :to_bank_on
+    t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :amount
     t.check :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
@@ -1986,7 +1986,7 @@ class ManagementController < ApplicationController
   end
 
   # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity_id]'], :active=>true, :company_id=>['@current_company.id']})
-  dyli(:subscription_contacts,  ['entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :conditions=>{:deleted_at=>nil, :company_id=>['@current_company.id']})
+  dyli(:subscription_contacts,  ['entities.code', 'entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :conditions=>["entities.company_id=? AND deleted_at IS NULL", ['@current_company.id']])
   
   manage :subscriptions, :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 

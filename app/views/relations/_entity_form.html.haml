@@ -7,6 +7,7 @@
   -f.field :entity, :last_name
   -f.field :entity, :first_name
   -f.field :entity, :active, :onchange=>"displayFields()"
+  -f.field :entity, :code
   -f.field :entity, :prospect
   -f.field :entity, :client, :onchange=>"displayFields()"
   -f.field :entity, :supplier, :onchange=>"displayFields()"
@@ -18,7 +19,6 @@
   -f.field :entity, :activity_code
   -f.field :entity, :vat_number
   -f.field :entity, :excise
-  -f.field :entity, :code
   -f.field :entity, :born_on
   -f.field :entity, :dead_on, :html_options=>{:id=>"dead_on_form"}
   -f.field :entity, :website

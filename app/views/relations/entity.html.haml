@@ -3,33 +3,44 @@
   -t.update @entity
   -t.print :entity, :id=>@entity.id
 
-%table
-  %tr
-    %td
-      =evalue @entity, :name
-      =evalue @entity, :first_name unless @entity.first_name.blank?
-      =evalue @entity, :code
-      =evalue @entity, :born_on unless @entity.born_on.blank?
-      =evalue @entity, :dead_on unless @entity.dead_on.blank?
-      =evalue @entity, :active
-      =evalue @entity, :website unless @entity.website.blank?
-      =evalue Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
-    -if @entity.client
-      %td
-        =evalue @entity, :category, :label=>:name, :url=>{:action=>:entity_category}
-        =evalue @entity, :first_met_on unless @entity.first_met_on.blank?
-        =evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
-        =evalue @entity, :vat_number unless @entity.vat_number.blank?
-        =evalue @entity, :vat_submissive
-        =evalue @entity, :reflation_submissive 
-        =#evalue @entity, :max_reduction_rate
-        =#evalue @entity, :discount_rate unless @entity.discount_rate.blank?
-        =evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
-        =evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
-        =#evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
-    %td
-      -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
-        =evalue datum.custom_field.name, datum.value.to_s
+
+=list_evalue(3) do |l|
+  -l.evalue @entity, :last_name
+  -l.evalue @entity, :first_name unless @entity.first_name.blank?
+  -l.evalue @entity, :nature if @entity.nature
+  -l.evalue @entity, :code
+  -l.evalue @entity, :active
+  -l.evalue @entity, :website unless @entity.website.blank?
+  -l.evalue Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
+  -l.evalue @entity, :siren unless @entity.siren.blank?
+  -l.evalue @entity, :activity_code unless @entity.activity_code.blank?
+  -l.evalue @entity, :vat_number unless @entity.vat_number.blank?
+  -l.evalue @entity, :excise unless @entity.vat_number.blank?
+  -l.evalue @entity, :born_on unless @entity.born_on.blank?
+  -l.evalue @entity, :dead_on unless @entity.dead_on.blank?
+  -l.evalue @entity, :website  unless @entity.website.blank?
+  -l.evalue @entity, :comment unless @entity.comment.blank?
+  -l.evalue @entity, :prospect
+  -l.evalue @entity, :client
+  -if @entity.client
+    -l.evalue @entity, :category, :label=>:name, :url=>{:action=>:entity_category}
+    -l.evalue @entity, :first_met_on unless @entity.first_met_on.blank?
+    -l.evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+    -l.evalue @entity, :vat_submissive
+    -l.evalue @entity, :reflation_submissive 
+    -l.evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
+    -l.evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
+    -l.evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
+    -l.evalue @entity, :client_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.evalue @entity, :supplier
+  -if @entity.supplier
+    -l.evalue @entity, :supplier_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.evalue @entity, :attorney
+  -if @entity.attorney
+    -l.evalue @entity, :attorney_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.evalue @entity, :transporter
+  -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
+    -l.evalue datum.custom_field.name, datum.value.to_s unless datum.value.to_s.blank?
 
  
 =tabbox(:entity) do |tb|

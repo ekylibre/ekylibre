@@ -409,7 +409,8 @@ fra:
     commercial: 'Activité commerciale'
     commission_account: 'Compte à utiliser pour la commission'
     commission_account_id: 'Compte à utiliser pour la commission'
-    commission_amount: 'Montant fixe de la commission'
+    commission_amount: 'Montant de la commission'
+    commission_base_amount: 'Montant fixe de la commission' #!
     commission_percent: 'Pourcentage de commission'
     company: 'Société'
     company_id: 'Société'

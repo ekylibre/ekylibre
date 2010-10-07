@@ -19,7 +19,7 @@
   #commission
     =formalize do |f|
       -f.title :commission
-      -f.field :sale_payment_mode, :commission_amount
+      -f.field :sale_payment_mode, :commission_base_amount
       -f.field :sale_payment_mode, :commission_percent
       -f.field :sale_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>preference("accountancy.accounts.charges").value}, :resize=>true
 

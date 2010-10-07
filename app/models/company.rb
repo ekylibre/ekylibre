@@ -141,7 +141,7 @@ class Company < ActiveRecord::Base
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
-  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id} AND nature=\'bank_account\''
+  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
   has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')}'
@@ -275,7 +275,7 @@ class Company < ActiveRecord::Base
   end
 
   def current_financial_year
-    self.financial_years.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
+    self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
   end
 
   def imported_entity_nature(row)

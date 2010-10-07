@@ -7,6 +7,7 @@ jpn:
       #>account_update: 'Update account: %{number} - %{name}'
       #>accountize: 'Flip book'
       #>accounts: 'Plan of accounts'
+      #>accounts_load: 'Load a plan of accounts'
       #>balance: 'Balance'
       #>bank_statement: 'Account statement N°%{number}'
       #>bank_statement_create: 'Create a new account statement'
@@ -29,8 +30,9 @@ jpn:
       #>journal: 'Journal: %{name} (%{code})'
       #>journal_close: 'Closing of %{name}'
       #>journal_create: 'Create new journal'
-      #>journal_entry_create: 'Add an Entry'
+      #>journal_entry_create: 'Add an entry'
       #>journal_entry_line_create: 'Add a new entry line'
+      #>journal_entry_update: 'Update journal entry: %{number}'
       #>journal_reopen: 'Closing of %{name}'
       #>journal_update: 'Update journal: %{name}'
       #>journals: 'Journals'
@@ -48,6 +50,7 @@ jpn:
       login: 'ログイン'
       logout: 'ログアウト'
       register: '会社を登録する'
+      #>relogin: 'Login'
     company:
       #>about: 'About Ekylibre'
       #>backups: 'Backups'
@@ -1076,7 +1079,7 @@ jpn:
     x_sale_payments:
       #>one: '%{count} sale payment'
       #>other: '%{count} sale payments'
-      #>zero: 'No sale payments'
+      #>zero: '0 sale payments'
     x_subscriptions:
       #>one: '1 subscription'
       #>other: '%{count} subscriptions'
@@ -1115,7 +1118,7 @@ jpn:
     #>invalid_file_nature: 'Invalid file type'
     #>journal_closed_on: 'The journal "%{journal}" was closed on %{closed_on}.'
     #>journal_entry_already_validated: 'The record has already been validated and can not be changed'
-    #>journal_entry_has_been_saved: 'The record #%{number} has been successfully saved'
+    #>journal_entry_has_been_saved: 'The record %{number} has been successfully saved'
     #>journal_reopened_on: 'The journal "%{journal}" has been re-opened on %{closed_on}.'
     #>mails_are_sent: 'The emails were sent'
     #>need_balanced_journal_to_tax_declaration: 'All your journals must be closed and balanced at that date.'
@@ -1179,8 +1182,8 @@ jpn:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'
-        #>detail_payments_in_deposits: 'Detail all the payments in deposits during accouting transfer'
-        #>draft_mode: 'Save the records in draft mode during accouting transfer'
+        #>detail_payments_in_deposits: 'Detail all the payments in deposits during accounting transfer'
+        #>draft_mode: 'Save the records in draft mode during accounting transfer'
       accounts:
         #>capital_gains: 'Profit for the year (earnings)'
         #>capital_losses: 'Profit for the year (loss)'
@@ -1198,6 +1201,8 @@ jpn:
         #>third_attorneys: 'Attorneys accounts'
         #>third_clients: 'Clients accounts'
         #>third_suppliers: 'Suppliers accounts'
+      entities:
+        #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
         #>bank: 'Default bank journal'
         #>cash: 'Default cash journal'

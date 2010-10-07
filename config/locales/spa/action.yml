@@ -7,6 +7,7 @@ spa:
       account_update: 'Modificar el cuento : %{number} - %{name}'
       accountize: 'Bascula contable'
       accounts: 'Plan de cuento'
+      #>accounts_load: 'Load a plan of accounts'
       balance: 'Equilibrio'
       bank_statement: 'Leventard de cuento N°%{number}'
       bank_statement_create: 'Despuntar un nuevo leventar de cuento'
@@ -32,6 +33,7 @@ spa:
       journal_create: 'Crear un nuevo periodico'
       journal_entry_create: 'Añadir nueva escritura'
       #>journal_entry_line_create: 'Add a new entry line'
+      #>journal_entry_update: 'Update journal entry: %{number}'
       journal_record: 'Pieza contable N°%{number} del %{fecha de creacion}' #!
       journal_record_create: 'Añadir una pieza' #!
       journal_record_update: 'Modificar la pieza N°%{numro} du %{fecha de creacion}' #!
@@ -52,6 +54,7 @@ spa:
       login: 'Conexión'
       #>logout: 'Logout'
       register: 'Registrar la sociedad'
+      #>relogin: 'Login'
     company:
       about: 'A propocito de Ekylibre'
       backups: 'Salvaguardia'
@@ -1112,7 +1115,7 @@ spa:
     x_sale_payments:
       #>one: '%{count} sale payment'
       #>other: '%{count} sale payments'
-      #>zero: 'No sale payments'
+      #>zero: '0 sale payments'
     x_subscriptions:
       #>one: '1 subscription'
       #>other: '%{count} subscriptions'
@@ -1154,7 +1157,7 @@ spa:
     invalid_file_nature: 'Tipo de fichero invalido'
     journal_closed_on: 'El %{periodico} ha sido cerrado al %{fecha de cerre} correctamente.'
     #>journal_entry_already_validated: 'The record has already been validated and can not be changed'
-    #>journal_entry_has_been_saved: 'The record #%{number} has been successfully saved'
+    #>journal_entry_has_been_saved: 'The record %{number} has been successfully saved'
     journal_record_already_validated: 'La pieza ya ha sido validada y ya no puede ser modificada' #!
     journal_record_has_been_saved: 'La pieza N°%{number} ha sido registrada correctamente' #!
     journal_reopened_on: 'El %{periodico} ha sido cerrado %{fecha de cerre} correctamente.'
@@ -1223,8 +1226,8 @@ spa:
     accountancy:
       accountize:
         #>automatic: 'Activate the automatic accounting transfer'
-        #>detail_payments_in_deposits: 'Detail all the payments in deposits during accouting transfer'
-        #>draft_mode: 'Save the records in draft mode during accouting transfer'
+        #>detail_payments_in_deposits: 'Detail all the payments in deposits during accounting transfer'
+        #>draft_mode: 'Save the records in draft mode during accounting transfer'
       accounts:
         #>capital_gains: 'Profit for the year (earnings)'
         #>capital_losses: 'Profit for the year (loss)'
@@ -1242,6 +1245,8 @@ spa:
         #>third_attorneys: 'Attorneys accounts'
         #>third_clients: 'Clients accounts'
         #>third_suppliers: 'Suppliers accounts'
+      entities:
+        #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
         #>bank: 'Default bank journal'
         #>cash: 'Default cash journal'

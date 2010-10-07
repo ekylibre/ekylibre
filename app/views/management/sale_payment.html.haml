@@ -1,26 +1,25 @@
 =toolbar do |t|
   -t.update @sale_payment
 
-%table
-  %tr
-    %td
-      =evalue @sale_payment, :number
-      =evalue @sale_payment, :amount
-      =evalue @sale_payment, :parts_amount
-      =evalue @sale_payment, :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
-      =evalue @sale_payment, :responsible, :label=>:label
-      =evalue @sale_payment, :deposit, :url=>{:action=>:deposit}
-    %td
-      =evalue @sale_payment, :mode
-      =evalue @sale_payment, :paid_on
-      =evalue @sale_payment, :to_bank_on
-      =evalue @sale_payment, :received
-      =evalue @sale_payment, :scheduled
-    %td
-      =evalue @sale_payment, :bank
-      =evalue @sale_payment, :account_number
-      =evalue @sale_payment, :check_number
-      =evalue @sale_payment, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+
+=list_evalue(3) do |l|
+  -l.evalue @sale_payment, :number
+  -l.evalue @sale_payment, :amount
+  -l.evalue @sale_payment, :parts_amount
+  -l.evalue @sale_payment, :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+  -l.evalue @sale_payment, :responsible, :label=>:label
+  -l.evalue @sale_payment, :deposit, :url=>{:action=>:deposit}
+  -l.evalue @sale_payment, :mode
+  -l.evalue @sale_payment, :commission_amount
+  -l.evalue @sale_payment, :commission_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.evalue @sale_payment, :paid_on
+  -l.evalue @sale_payment, :to_bank_on 
+  -l.evalue @sale_payment, :received
+  -l.evalue @sale_payment, :scheduled
+  -l.evalue @sale_payment, :bank
+  -l.evalue @sale_payment, :account_number
+  -l.evalue @sale_payment, :check_number
+  -l.evalue @sale_payment, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 -if @sale_payment.parts.size>0
   -if SaleOrder.find(:all, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM sale_payment_parts WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], SaleOrder.name]).size > 0

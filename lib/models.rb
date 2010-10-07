@@ -578,6 +578,7 @@ module Ekylibre
       :updater_id => :user
     },
     :sale_payment => {
+      :commission_account_id => :account,
       :company_id => :company,
       :creator_id => :user,
       :deposit_id => :deposit,

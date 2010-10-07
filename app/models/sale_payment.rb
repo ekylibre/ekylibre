@@ -20,36 +20,39 @@
 # 
 # == Table: sale_payments
 #
-#  account_number   :string(255)      
-#  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   not null
-#  bank             :string(255)      
-#  check_number     :string(255)      
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  created_on       :date             
-#  creator_id       :integer          
-#  deposit_id       :integer          
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer          
-#  lock_version     :integer          default(0), not null
-#  mode_id          :integer          not null
-#  number           :string(255)      
-#  paid_on          :date             
-#  parts_amount     :decimal(16, 2)   not null
-#  payer_id         :integer          
-#  receipt          :text             
-#  received         :boolean          default(TRUE), not null
-#  responsible_id   :integer          
-#  scheduled        :boolean          not null
-#  to_bank_on       :date             default(CURRENT_DATE), not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  account_number        :string(255)      
+#  accounted_at          :datetime         
+#  amount                :decimal(16, 2)   not null
+#  bank                  :string(255)      
+#  check_number          :string(255)      
+#  commission_account_id :integer          
+#  commission_amount     :decimal(16, 2)   default(0.0), not null
+#  company_id            :integer          not null
+#  created_at            :datetime         not null
+#  created_on            :date             
+#  creator_id            :integer          
+#  deposit_id            :integer          
+#  id                    :integer          not null, primary key
+#  journal_entry_id      :integer          
+#  lock_version          :integer          default(0), not null
+#  mode_id               :integer          not null
+#  number                :string(255)      
+#  paid_on               :date             
+#  parts_amount          :decimal(16, 2)   not null
+#  payer_id              :integer          
+#  receipt               :text             
+#  received              :boolean          default(TRUE), not null
+#  responsible_id        :integer          
+#  scheduled             :boolean          not null
+#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  updated_at            :datetime         not null
+#  updater_id            :integer          
 #
 
 class SalePayment < ActiveRecord::Base
   acts_as_accountable
   attr_readonly :company_id
+  belongs_to :commission_account, :class_name=>Account.name
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :deposit
@@ -68,7 +71,9 @@ class SalePayment < ActiveRecord::Base
   attr_protected :parts_amount
 
   validates_numericality_of :amount, :greater_than=>0
+  validates_numericality_of :parts_amount, :commission_amount, :greater_than_or_equal_to=>0
   validates_presence_of :to_bank_on, :payer, :created_on
+  validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
   
   def prepare_on_create
     self.created_on ||= Date.today
@@ -86,6 +91,8 @@ class SalePayment < ActiveRecord::Base
   end
 
   def prepare
+    self.commission_account = self.mode.commission_account
+    self.commission_amount = self.mode.commission_amount(self.amount)
     self.parts_amount = self.parts.sum(:amount)
   end
 
@@ -131,9 +138,15 @@ class SalePayment < ActiveRecord::Base
   def to_accountancy(action=:create, options={})
     attorney_amount = self.attorney_amount
     client_amount   = self.amount - attorney_amount
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.received)) do |entry|
-      entry.add_debit(label, (self.mode.with_deposit? ? self.mode.depositables_account_id : self.mode.cash.account_id), self.amount)
+    mode = self.mode
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    accountize(action, {:journal=>mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!mode.with_accounting? or !self.received)) do |entry|
+      if mode.with_deposit?
+        entry.add_debit(label, mode.depositables_account_id, self.amount)
+      else
+        entry.add_debit(label, mode.cash.account_id, self.amount-self.commission_amount)
+        entry.add_debit(label, self.commission_account_id, self.commission_amount) if self.commission_amount > 0
+      end
       entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
       entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end

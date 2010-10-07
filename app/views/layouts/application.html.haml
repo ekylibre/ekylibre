@@ -11,7 +11,7 @@
     =javascript_include_tag "dyke"
   %body
     -expiration = {}
-    -# expiration = {"timeout"=>session[:expiration], "timeout-href"=>url_for(:controller=>:authentication, :action=>:relogin, :name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
+    -expiration = {"timeout"=>session[:expiration], "timeout-href"=>url_for(:controller=>:authentication, :action=>:relogin, :name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
     #body.flex{expiration, :class=>("resizable" if resizable?)}
       #top=top_tag
       #wrap.wrap.hbox.flex
