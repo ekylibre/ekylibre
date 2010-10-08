@@ -4,8 +4,9 @@ accountancy.accountize.draft_mode,boolean,true
 accountancy.accountize.detail_payments_in_deposits,boolean,true
 accountancy.accounts.charges,integer,6
 accountancy.accounts.financial_banks,integer,51
-accountancy.accounts.financial_cashes,integer,53
 accountancy.accounts.financial_payments_to_deposit,integer,511
+accountancy.accounts.financial_cashes,integer,53
+accountancy.accounts.financial_internal_transfers,integer,58
 accountancy.accounts.third_clients,integer,411
 accountancy.accounts.third_suppliers,integer,401
 accountancy.accounts.third_attorneys,integer,467
@@ -18,6 +19,7 @@ accountancy.accounts.taxes_paid,integer,4456
 accountancy.accounts.taxes_balance,integer,44567
 accountancy.accounts.taxes_assimilated,integer,447
 accountancy.accounts.taxes_payback,integer,44583
+accountancy.cash_transfers.numeration,record,sequence
 accountancy.entities.use_code_for_account_numbers,boolean,false
 accountancy.journals.cash,record,journal
 accountancy.journals.bank,record,journal
@@ -29,7 +31,8 @@ management.deposits.days_before_warning_undone,integer,15
 management.deposits.days_before_warning_unvalidated,integer,15
 management.deposits.numeration,record,sequence
 management.subscriptions.numeration,record,sequence
-management.payments.numeration,record,sequence
-management.sale_orders.numeration,record,sequence
 management.purchase_orders.numeration,record,sequence
+management.purchase_payments.numeration,record,sequence
+management.sale_orders.numeration,record,sequence
+management.sale_payments.numeration,record,sequence
 relations.entities.numeration,record,sequence

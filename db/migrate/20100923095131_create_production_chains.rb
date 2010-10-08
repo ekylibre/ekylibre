@@ -1,4 +1,8 @@
 class CreateProductionChains < ActiveRecord::Migration
+  PREFERENCES = {
+    "management.payments.numeration" => "management.sale_payments.numeration"
+  }.to_a
+
   def self.up
 
     create_table :land_parcel_groups do |t|
@@ -33,7 +37,6 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :tracking_id,      :integer,  :null=>false
       t.column :responsible_id,   :integer,  :null=>false
       t.column :production_chain_conveyor_id, :integer
-      t.column :production_chain_token_id, :integer
       t.column :temperature,      :decimal,  :precision=>16, :scale=>2
       t.column :relative_humidity, :decimal,  :precision=>16, :scale=>2
       t.column :atmospheric_pressure, :decimal,  :precision=>16, :scale=>2
@@ -74,24 +77,24 @@ class CreateProductionChains < ActiveRecord::Migration
     add_index :production_chain_conveyors, [:production_chain_id, :company_id]
 
 
-    create_table :production_chain_tokens do |t|
-      t.column :production_chain_id, :integer, :null=>false
-      t.column :number,           :string,   :null=>false
-      t.column :where_id,         :integer,  :null=>false
-      t.column :where_type,       :string,   :null=>false
-      t.column :started_at,       :datetime, :null=>false
-      t.column :stopped_at,       :datetime
-      t.column :comment,          :text
-      t.column :story,            :text
-      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :production_chain_tokens, :company_id
-    add_index :production_chain_tokens, [:production_chain_id, :company_id]
-    add_index :production_chain_tokens, [:where_id, :where_type, :company_id]
+#     create_table :production_chain_tokens do |t|
+#       t.column :production_chain_id, :integer, :null=>false
+#       t.column :number,           :string,   :null=>false
+#       t.column :where_id,         :integer,  :null=>false
+#       t.column :where_type,       :string,   :null=>false
+#       t.column :started_at,       :datetime, :null=>false
+#       t.column :stopped_at,       :datetime
+#       t.column :comment,          :text
+#       t.column :story,            :text
+#       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+#     end
+#     add_index :production_chain_tokens, :company_id
+#     add_index :production_chain_tokens, [:production_chain_id, :company_id]
+#     add_index :production_chain_tokens, [:where_id, :where_type, :company_id]
     
     
 
-    create_table :production_chain_operations do |t|
+    create_table :production_chain_work_centers do |t|
       t.column :production_chain_id, :integer, :null=>false
       t.column :operation_nature_id, :integer, :null=>false
       t.column :name,             :string,   :null=>false
@@ -101,37 +104,37 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :position,         :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :production_chain_operations, :company_id
-    add_index :production_chain_operations, [:production_chain_id, :company_id]
-    add_index :production_chain_operations, [:operation_nature_id, :company_id]
+    add_index :production_chain_work_centers, :company_id
+    add_index :production_chain_work_centers, [:production_chain_id, :company_id]
+    add_index :production_chain_work_centers, [:operation_nature_id, :company_id]
 
 
-    create_table :production_chain_operation_lines do |t|
-      t.column :operation_id,     :integer,  :null=>false
-      t.column :from_operation_line_id, :integer, :null=>false
-      t.column :direction,        :string,   :null=>false, :default=>"out"
-      t.column :product_id,       :integer
-      t.column :quantity,         :decimal,  :precision=>16, :scale=>4, :default=>0.0
-      t.column :unit_id,          :integer
-      t.column :warehouse_id,     :integer
-      t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end
-    add_index :production_chain_operation_lines, :company_id
-    add_index :production_chain_operation_lines, [:operation_id, :company_id]
-    add_index :production_chain_operation_lines, [:operation_line_id, :company_id]
+#     create_table :production_chain_work_center_lines do |t|
+#       t.column :work_center_id,     :integer,  :null=>false
+#       t.column :from_work_center_line_id, :integer, :null=>false
+#       t.column :direction,        :string,   :null=>false, :default=>"out"
+#       t.column :product_id,       :integer
+#       t.column :quantity,         :decimal,  :precision=>16, :scale=>4, :default=>0.0
+#       t.column :unit_id,          :integer
+#       t.column :warehouse_id,     :integer
+#       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+#     end
+#     add_index :production_chain_work_center_lines, :company_id
+#     add_index :production_chain_work_center_lines, [:work_center_id, :company_id]
+#     add_index :production_chain_work_center_lines, [:work_center_line_id, :company_id]
 
-    create_table :production_chain_operation_uses do |t|
-      t.column :operation_id,     :integer,  :null=>false
+    create_table :production_chain_work_center_uses do |t|
+      t.column :work_center_id,     :integer,  :null=>false
       t.column :tool_id,          :integer,  :null=>false
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
-    add_index :production_chain_operation_uses, :company_id
-    add_index :production_chain_operation_uses, [:operation_id, :company_id]
+    add_index :production_chain_work_center_uses, :company_id
+    add_index :production_chain_work_center_uses, [:work_center_id, :company_id]
 
 
     rename_table :tool_uses, :operation_uses
 
-    add_column :operations, :production_chain_token_id, :integer
+    add_column :operations, :production_chain_work_center_id, :integer
 
 
     add_column :land_parcels, :started_on, :date
@@ -164,6 +167,17 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :warehouses, :account_id
     rename_column :taxes, :account_collected_id, :collected_account_id
     rename_column :taxes, :account_paid_id, :paid_account_id
+    rename_column :cash_transfers, :amount, :receiver_amount
+    rename_column :cash_transfers, :currency_amount, :emitter_amount
+    rename_column :cash_transfers, :currency_id, :emitter_currency_id
+    rename_column :cash_transfers, :currency_rate, :emitter_currency_rate
+    rename_column :cash_transfers, :journal_entry_id, :emitter_journal_entry_id
+    add_column :cash_transfers, :receiver_journal_entry_id, :integer
+    add_column :cash_transfers, :receiver_currency_id, :integer
+    add_column :cash_transfers, :receiver_currency_rate, :decimal, :precision=>16, :scale=>6
+    add_column :cash_transfers, :currency_id, :integer
+    add_column :cash_transfers, :created_on, :date
+
 
     # Some management stuff
     add_column :sale_payments, :commission_account_id, :integer
@@ -172,13 +186,32 @@ class CreateProductionChains < ActiveRecord::Migration
     for mode in connection.select_all("SELECT id, commission_account_id AS aid, commission_percent AS p, commission_base_amount AS ba FROM #{quoted_table_name(:sale_payment_modes)} WHERE with_commission = #{quoted_true}")
       execute "UPDATE #{quoted_table_name(:sale_payments)} SET commission_account_id=#{mode['aid']}, commission_amount=(amount*#{mode['p']}/100+#{mode['ba']}) WHERE mode_id=#{mode['id']}"
     end
+
+    for o, n in PREFERENCES
+      execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
+    end
   end
 
   def self.down
+    for n, o in PREFERENCES.reverse
+      execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
+    end
+
     rename_column :sale_payment_modes, :commission_base_amount, :commission_amount
     remove_column :sale_payments, :commission_amount
     remove_column :sale_payments, :commission_account_id
 
+    # Some accountancy stuff
+    remove_column :cash_transfers, :created_on
+    remove_column :cash_transfers, :currency_id
+    remove_column :cash_transfers, :receiver_currency_rate
+    remove_column :cash_transfers, :receiver_currency_id
+    remove_column :cash_transfers, :receiver_journal_entry_id
+    rename_column :cash_transfers, :emitter_journal_entry_id, :journal_entry_id
+    rename_column :cash_transfers, :emitter_currency_rate, :currency_rate
+    rename_column :cash_transfers, :emitter_currency_id, :currency_id
+    rename_column :cash_transfers, :emitter_amount, :currency_amount
+    rename_column :cash_transfers, :receiver_amount, :amount
     rename_column :taxes, :paid_account_id, :account_paid_id
     rename_column :taxes, :collected_account_id, :account_collected_id
     add_column :warehouses, :account_id, :integer
@@ -195,13 +228,13 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :land_parcels, :stopped_on
     remove_column :land_parcels, :started_on
 
-    remove_column :operations, :production_chain_token_id
+    remove_column :operations, :production_chain_work_center_id
 
     rename_table :operation_uses, :tool_uses
-    drop_table :production_chain_operation_uses
-    drop_table :production_chain_operation_lines
-    drop_table :production_chain_operations
-    drop_table :production_chain_tokens
+    drop_table :production_chain_work_center_uses
+    # drop_table :production_chain_work_center_lines
+    drop_table :production_chain_work_centers
+    # drop_table :production_chain_tokens
     drop_table :production_chain_conveyors
     drop_table :production_chains
     drop_table :tracking_states

@@ -46,4 +46,19 @@ class Currency < ActiveRecord::Base
 
   validates_uniqueness_of :code, :scope=>:company_id
 
+  # Update the rates for all currencies of the company
+  # if the reference (by_default) currency changes.
+  def clean_on_update
+    if (old = self.class.find_by_id(self.id))
+      # If user thinks he needs to change the rate to 1 when he sets the currency by default
+      # the conversions will be inefficients so to prevents this, it gets the old value
+      self.rate = old.rate if self.rate == 1.0
+      if old.by_default != self.by_default and self.by_default
+        self.class.update_all([" rate=rate/? ", self.rate], {:company_id=>self.company_id})
+      end
+      # Useless theorically, but eliminates risks of decimals
+      self.rate = 1.0
+    end
+  end
+
 end

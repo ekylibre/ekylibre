@@ -79,6 +79,7 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_statements},
              {:name=>:lettering},
+             {:name=>:cash_transfers},
              {:name=>:accountize},
              {:name=>:financial_year_close}
            ] },

@@ -149,6 +149,27 @@ class AccountancyController < ApplicationController
     redirect_to :action => :cashes
   end
 
+  dyta(:cash_transfers, :conditions=>["company_id = ? ", ['@current_company.id']]) do |t|
+    t.column :number, :url=>{:action=>:cash_transfer}
+    t.column :emitter_amount
+    t.column :name, :through=>:emitter_currency
+    t.column :name, :through=>:emitter_cash, :url=>{:action=>:cash}
+    t.column :receiver_amount
+    t.column :name, :through=>:receiver_currency
+    t.column :name, :through=>:receiver_cash, :url=>{:action=>:cash}
+    t.column :created_on
+  end
+
+  def cash_transfers
+  end
+
+  manage :cash_transfers
+
+  def cash_transfer
+    return unless @cash_transfer = find_and_check(:cash_transfer)
+    t3e @cash_transfer.attributes
+  end
+
 
 
   def self.accounts_conditions

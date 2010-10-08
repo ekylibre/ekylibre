@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: production_chain_operations
+# == Table: production_chain_work_centers
 #
 #  building_id         :integer          not null
 #  comment             :text             
@@ -35,61 +35,27 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
-#
-# == Fixture: production_chain_operations
-#
-# production_chain_operations_001:
-#   building_id: 1
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   nature: "Lorem ipsum"
-#   operation_nature_id: 1
-#   production_chain_id: 1
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
 
-production_chain_operations_001:
-  building_id: 1
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  name: "Lorem ipsum"
-  nature: "input"
-  operation_nature_id: 1
-  production_chain_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+class ProductionChainWorkCenter < ActiveRecord::Base
+  acts_as_list :scope=>:production_chain
+  attr_readonly :company_id
+  belongs_to :building, :class_name=>Warehouse.name
+  belongs_to :company
+  belongs_to :operation_nature
+  belongs_to :production_chain
+  has_many :uses,  :class_name=>ProductionChainWorkCenterUse.name,  :foreign_key=>:work_center_id
+  has_many :output_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:source_id # :as=>:source
+  has_many :input_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:target_id # :as=>:target
+  validates_uniqueness_of :name, :scope=>:company_id
 
+  @@natures = [:input, :output]
 
-production_chain_operations_002:
-  building_id: 1
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  name: "Lorem ipsum 2"
-  nature: "input"
-  operation_nature_id: 1
-  production_chain_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  def self.natures_list
+    @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
+  end
 
+  def prepare
+    self.company_id = self.production_chain.company_id
+  end
 
-production_chain_operations_003:
-  building_id: 1
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  name: "Lorem ipsum 3"
-  nature: "output"
-  operation_nature_id: 1
-  production_chain_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+end

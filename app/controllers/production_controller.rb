@@ -328,22 +328,22 @@ class ProductionController < ApplicationController
 
   manage :production_chains
 
-  dyta(:production_chain_operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
-    t.column :name, :url=>{:action=>:production_chain_operation}
+  dyta(:production_chain_work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+    t.column :name, :url=>{:action=>:production_chain_work_center}
     t.column :name, :through=>:operation_nature
     t.column :nature
     t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :comment
-    t.action :production_chain_operation_update
-    t.action :production_chain_operation_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :production_chain_work_center_update
+    t.action :production_chain_work_center_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   dyta(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id" ) do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :flow
     t.column :name, :through=>:unit
-    t.column :name, :through=>:source, :url=>{:action=>:production_chain_operation}
-    t.column :name, :through=>:target, :url=>{:action=>:production_chain_operation}
+    t.column :name, :through=>:source, :url=>{:action=>:production_chain_work_center}
+    t.column :name, :through=>:target, :url=>{:action=>:production_chain_work_center}
     t.action :production_chain_conveyor_update
     t.action :production_chain_conveyor_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -355,37 +355,37 @@ class ProductionController < ApplicationController
 
 
 
-  manage :production_chain_operations, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
+  manage :production_chain_work_centers, :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
 
-  def production_chain_operation
-    return unless @production_chain_operation = find_and_check(:production_chain_operation)
-    t3e @production_chain_operation.attributes
+  def production_chain_work_center
+    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
+    t3e @production_chain_work_center.attributes
   end
 
-  def production_chain_operation_up
-    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+  def production_chain_work_center_up
+    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
     if request.post?
-      @production_chain_operation.move_higher
+      @production_chain_work_center.move_higher
     end
     redirect_to_current
   end
 
-  def production_chain_operation_down
-    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+  def production_chain_work_center_down
+    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
     if request.post?
-      @production_chain_operation.move_lower
+      @production_chain_work_center.move_lower
     end
     redirect_to_current
   end
 
-  def production_chain_operation_play
-    return unless @production_chain_operation = find_and_check(:production_chain_operation)
+  def production_chain_work_center_play
+    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
     @operation = Operation.new({:responsible_id=>@current_user.id}.merge(params[:operation]||{}))
     if request.post?
-      @production_chain_operation.play(params[:operation][:responsible_id], params[:inputs])
+      @production_chain_work_center.play(params[:operation][:responsible_id], params[:inputs])
     end
       
-    t3e @production_chain_operation.attributes
+    t3e @production_chain_work_center.attributes
   end
 
   manage :production_chain_conveyors, :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"

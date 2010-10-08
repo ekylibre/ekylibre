@@ -16,7 +16,7 @@ module ActiveRecord
 
           
           unless ActiveRecord::Base.connection.adapter_name.lower == "sqlserver"
-            raise Exception.new("journal_entry_id is needed for #{self.name}.acts_as_accountable") unless columns_hash["journal_entry_id"]
+            # raise Exception.new("journal_entry_id is needed for #{self.name}.acts_as_accountable") unless columns_hash["journal_entry_id"]
             raise Exception.new("accounted_at is needed for #{self.name}.acts_as_accountable") unless columns_hash["accounted_at"]
           end
 
@@ -57,25 +57,29 @@ module ActiveRecord
           attributes[:printed_on] ||= self.created_on if self.respond_to? :created_on
           attributes[:journal] = self.company.journals.find_by_id(attributes.delete(:journal_id)) if attributes[:journal_id]
           raise ArgumentError.new("Missing attribute :journal (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
+
+          column = options[:column]||:journal_entry_id
           ActiveRecord::Base.transaction do
+            journal_entry = self.company.journal_entries.find_by_id(self.send(column)) rescue nil
+
             # Cancel the existing journal_entry
-            if self.journal_entry and not self.journal_entry.closed? and (attributes[:journal] == self.journal_entry.journal)
-              self.journal_entry.lines.destroy_all
-              self.journal_entry.reload
-              self.journal_entry.update_attributes!(attributes)
-            elsif self.journal_entry
-              self.journal_entry.cancel
-              self.journal_entry = nil
+            if journal_entry and not journal_entry.closed? and (attributes[:journal] == journal_entry.journal)
+              journal_entry.lines.destroy_all
+              journal_entry.reload
+              journal_entry.update_attributes!(attributes)
+            elsif journal_entry
+              journal_entry.cancel
+              journal_entry = nil
             end
 
             # Add journal lines
             if block_given? and not options[:unless] and action != :destroy
-              self.journal_entry ||= self.company.journal_entries.create!(attributes)
-              yield(self.journal_entry)
+              journal_entry ||= self.company.journal_entries.create!(attributes)
+              yield(journal_entry)
             end
             
             # Set accounted columns
-            self.class.update_all({:accounted_at=>Time.now, :journal_entry_id=>self.journal_entry_id}, {:id=>self.id})
+            self.class.update_all({:accounted_at=>Time.now, column=>journal_entry.id}, {:id=>self.id})
           end
         end
 

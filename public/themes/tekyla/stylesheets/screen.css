@@ -556,10 +556,10 @@ html[dir="rtl"] .toggle { float:right }
 .chain { padding:8px 0; }
 html[dir="ltr"] .chain .delete { float:right; }
 html[dir="rtl"] .chain .delete { float:left; }
-.operation-graph { border-collapse: collapse; }
-.operation-graph .operation { background: #C9D7F1; padding: 4px 8px; border: 2px dotted #95b0e4; text-align:center; width: 10em;}
-.operation-graph .operation.master { border-style: solid; }
-.operation-graph .operation .action { margin: 2px;}
+.work-center-graph { border-collapse: collapse; }
+.work-center-graph .work-center { background: #C9D7F1; padding: 4px 8px; border: 2px dotted #95b0e4; text-align:center; width: 10em;}
+.work-center-graph .work-center.master { border-style: solid; }
+.work-center-graph .work-center .action { margin: 2px;}
 table.conveyor { border-collapse: collapse; margin: 2px 0; }
 .conveyor .information table { border-collapse: collapse; padding: 0}
 .conveyor .cell { background: #DDD; font-size: 11px; border: 2px solid #555; padding: 0;}
@@ -579,8 +579,8 @@ html[dir="rtl"] .conveyor .cell.target, html[dir="ltr"] .conveyor .cell.source {
 .conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
 html[dir="ltr"] .conveyor .arrow { background-image: url(../images/arrow-right.png); }
 html[dir="rtl"] .conveyor .arrow { background-image: url(../images/arrow-left.png); }
-html[dir="ltr"] .operation-graph .input-conveyors .conveyor { margin-left: auto; }
-html[dir="rtl"] .operation-graph .input-conveyors .conveyor { margin-right: auto; }
+html[dir="ltr"] .work-center-graph .input-conveyors .conveyor { margin-left: auto; }
+html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: auto; }
 
 .bmenu { position: relative; }
 .bmenu ul { display: none; position:absolute; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}

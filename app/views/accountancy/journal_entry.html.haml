@@ -7,7 +7,7 @@
   -l.evalue @journal_entry, :printed_on
   -l.evalue @journal_entry, :created_on
   -if @journal_entry.resource
-    -l.evalue @journal_entry, :resource, :url=>{:controller=>:management, :action=>@journal_entry.resource_type.underscore}
+    -l.evalue @journal_entry, :resource, :url=>{:controller=>(@journal_entry.resource_type.match(/Cash/) ? :accountancy : :management), :action=>@journal_entry.resource_type.underscore}
   -l.evalue @journal_entry, :journal, :url=>{:action=>:journal}
   -l.evalue @journal_entry, :debit
   -l.evalue @journal_entry, :credit

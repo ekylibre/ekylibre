@@ -656,9 +656,9 @@ arb:
       product_category: 'فئة الانتاج'
       product_component: 'عنصر الانتاج'
       #>production_chain: 'Production chain'
-      #>production_chain_operation: 'Production chain operation'
-      #>production_chain_operation_line: 'Production chain operation line'
-      #>production_chain_operation_use: 'Production chain operation use'
+      #>production_chain_conveyor: 'Production chain conveyor'
+      #>production_chain_work_center: 'Production chain work center'
+      #>production_chain_work_center_use: 'Production chain work center use'
       profession: 'المهنة'
       #>purchase_delivery: 'Purchase delivery'
       #>purchase_delivery_line: 'Purchase delivery line'
@@ -744,6 +744,7 @@ arb:
     boolean_value: 'القيمة المنطقية'
     born_on: 'تاريخ الميلاد'
     #>building: 'Building'
+    #>building_id: 'Building'
     by_default: 'افتراضيا'
     cache: 'مخبأ'
     cash: 'الحسابات المصرفية المستخدمة'
@@ -758,10 +759,10 @@ arb:
     changes_reflected: 'انعكاس التغييرات'
     charges_accounts: 'حسابات الحمولة'
     check_number: 'رقم الشيك'
-    #>check_states: 'Check states'
+    #>check_state: 'Check state'
     #>child_land_parcel_id: 'Child land parcel'
     children: 'مواقع فرعية للتخزين'
-    choice_complements: '"قائمة الخيارات"'
+    choice_complements: '"قائمة الخيارات"' #!
     choice_value: 'اختيار القيمة'
     choice_value_id: 'اختيار القيمة'
     choices: 'خيارات الحقول الاضافية'
@@ -788,6 +789,7 @@ arb:
     commission_account: 'حساب مستخدم للعمولة'
     commission_account_id: 'الحساب المستخدم للعمولة'
     commission_amount: 'القيمة الثابتة للعمولة'
+    #>commission_base_amount: 'Base amount of the commission'
     commission_percent: 'نسبة العمولة'
     company: 'الشركة'
     company_id: 'شركة'
@@ -805,8 +807,8 @@ arb:
     contact: 'العنوان'
     contact_id: 'العنوان'
     contacts: 'الاتصالات'
-    counterpart: 'النسخة المطابقة'
-    counterpart_id: 'النسخة المطالقة'
+    counterpart: 'النسخة المطابقة' #!
+    counterpart_id: 'النسخة المطالقة' #!
     country: 'البلد'
     created_at: 'انشأت في'
     created_on: 'انشأ يوم'
@@ -819,10 +821,8 @@ arb:
     critic_quantity_min: 'الكمية المنتفدة كحد ادنى'
     crypt_key: 'مفتاح التشفير'
     crypt_mode: 'طؤيقة التشفير'
-    #>cultivation_id: 'Cultivation'
     currencies: 'العملات'
     currency: 'العملة'
-    #>currency_amount: 'Currency amount'
     currency_credit: 'الائتمان'
     currency_debit: 'الدين المطلوب'
     currency_id: 'عملة'
@@ -848,7 +848,7 @@ arb:
     delays: 'تأخير'
     deleted_at: 'الغيه في'
     delivered: 'تم التسليم'
-    delivered_on: 'تم التسليم في'
+    delivered_on: 'تم التسليم في' #!
     deliveries: 'التسليم'
     deliveries_conditions: 'شروط التسليم'
     delivery: 'التسليم'
@@ -894,7 +894,11 @@ arb:
     duration: 'المدة'
     ean13: 'Ean13'
     email: 'عنوان البريد الالكتروني'
-    #>emitter_cash_id: 'Emitter cash'
+    #>emitter_amount: 'Emitted amount'
+    #>emitter_cash_id: 'Emitting cash'
+    #>emitter_currency_id: 'Emitted currency'
+    #>emitter_currency_rate: 'Emitted currency rate'
+    #>emitter_journal_entry_id: 'Emitter journal entry'
     employed: 'وظف من قبل الشركة'
     employees: 'الموظفين'
     employment: 'الوظيفة'
@@ -922,7 +926,6 @@ arb:
     events: 'الاحداث'
     #>examinated_at: 'Examinated at'
     excise: 'عدد رسوم الدفع'
-    #>expected_duration: 'Expected duration'
     expense: 'التكلفة'
     expense_id: 'انفاق'
     expense_type: 'نوع التكلفة'
@@ -944,12 +947,12 @@ arb:
     first_met_on: 'تاريخ اول مقابلة'
     first_name: 'الاسم الاول'
     first_number: 'الرقم الاول'
+    #>flow: 'Flow'
     for_immobilizations: 'منتجات ساكنة'
     for_productions: 'المنتجات المصنعة او المقطوعة'
     for_purchases: 'منتجات الشراء'
     for_sales: 'منتجات البيع'
     format: 'التصميم'
-    #>from_operation_line_id: 'From operation line'
     full_name: 'الاسم بالكامل'
     function_title: 'الكياسة'
     future_events: 'احداث المستقبل'
@@ -982,7 +985,7 @@ arb:
     invoice_contact_id: 'العنوان للفاتورة'
     invoice_id: 'فاتورة'
     invoice_lines: 'طرق تسديد الفاتورة'
-    invoiceable: 'يفوتر'
+    invoiceable: 'يفوتر' #!
     invoiced: 'مفوتر'
     invoices: 'الفواتير'
     invoices_count: 'عدد الفواتير'
@@ -1046,8 +1049,8 @@ arb:
     major_accounts: 'الحسابات الئيسية'
     manage_stocks: 'ادارة الاسهم'
     mandates: 'تفويضات'
-    master: 'كتلة رئيسية'
-    max_reduction_rate: 'سعر التخفيض'
+    master: 'كتلة رئيسية' #!
+    max_reduction_rate: 'سعر التخفيض' #!
     min_duration: '(دقيقة (دقائق'
     mobile: 'الهاتف النقال'
     mode: 'نمط الدفعة'
@@ -1127,7 +1130,7 @@ arb:
     photo: 'صورة'
     physical: 'الفرد الطبيعي'
     planned_on: 'قرر يوم'
-    polygon: 'متناسقين'
+    polygon: 'متناسقين' #!
     position: 'الوضع'
     postcode: 'الرمز البريدي'
     preferences: 'الاعدادات'
@@ -1141,14 +1144,14 @@ arb:
     producer_id: 'المنتج'
     product: 'الانتاج'
     product_categories: 'فئات المنتج'
-    product_category: 'الفئة'
-    product_category_id: 'فئة'
+    product_category: 'الفئة' #!
+    product_category_id: 'فئة' #!
     product_components: 'مكونات المنتج'
     product_id: 'المنتج'
     productable_products: 'المنتجات الممكن انتاجها'
+    #>production_chain_conveyor_id: 'Production chain conveyor'
     #>production_chain_id: 'Production chain'
-    #>production_chain_operation_id: 'Production chain operation'
-    #>production_chain_token_id: 'Production chain token'
+    #>production_chain_work_center_id: 'Production chain work center'
     products: 'المنتجات'
     products_accounts: 'حسابات المنتجات'
     profession: 'المهنة'
@@ -1175,7 +1178,11 @@ arb:
     reason: 'الدافع'
     receipt: 'استلام الكتروني'
     received: 'مستلم'
-    #>receiver_cash_id: 'Receiver cash'
+    #>receiver_amount: 'Received amount'
+    #>receiver_cash_id: 'Receiving cash'
+    #>receiver_currency_id: 'Received currency'
+    #>receiver_currency_rate: 'Received currency rate'
+    #>receiver_journal_entry_id: 'Receiver journal entry'
     record_value: 'التسجيل'
     record_value_id: 'تسجيل'
     record_value_type: 'نوع التسجيل'
@@ -1235,6 +1242,8 @@ arb:
     siret: 'SIRET رقم'
     soundex: 'خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات'
     source: 'المصدر'
+    #>source_id: 'Source'
+    #>source_quantity: 'Source quantity'
     sql_type: 'SQL نوع'
     start: 'البداية'
     started_at: 'ابتدأ يوم'
@@ -1272,6 +1281,7 @@ arb:
     symmetric: 'متساو'
     target: 'الهدف'
     target_id: 'الهدف'
+    #>target_quantity: 'Target quantity'
     target_type: 'نوع الهدف'
     tax: 'الضريبة'
     tax_declarations: 'الاعلان عن الضرائب'
@@ -1307,6 +1317,7 @@ arb:
     transports: 'وسائل النقل'
     type: 'النوع'
     undelivered_quantity: 'يبقى للتسليم'
+    #>unique_tracking: 'Unique tracking'
     unit: 'الوحدة'
     unit_id: 'وحدة'
     unit_quantity: 'وحدة مساحة الكمية'
@@ -1339,6 +1350,7 @@ arb:
     with_commission: 'تشمل عمولة'
     with_deposit: 'استخدام الاقتطاعات المصرفية'
     with_tracking: 'مع التتبع'
+    #>work_center_id: 'Work center'
     x: 'X الوضع'
     y: 'Y الوضع'
     z: 'Z الوضع'
@@ -1359,6 +1371,8 @@ arb:
       natures:
         bank_account: 'حساب مصرفي'
         cash_box: 'صندوق النقدي'
+    cash_transfer:
+      #>to_accountancy: '[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}'
     company:
       cant_find_document_template: 'لا يمكن العثور على نموذج مطابق للوثيقة'
       default:
@@ -1463,6 +1477,11 @@ arb:
             name: 'التحويل'
         sample_product_name: 'عينة المنتج' #!
         sequences:
+          accountancy:
+            cash_transfers:
+              #>format: 'CT[year|4][number|4]'
+              #>name: 'Numeration of cash transfers'
+              #>period: 'year'
           management:
             deposits:
               format: 'B[year|4][number|4]'
@@ -1472,18 +1491,26 @@ arb:
               format: 'F[year|4][number|6]'
               name: 'عدد الفواتير'
               period: 'السنة'
-            payments:
-              format: 'R[year|4][number|6]'
-              name: 'عدد اللوائح'
-              period: 'السنة'
+            payments:  #!
+              format: 'R[year|4][number|6]' #!
+              name: 'عدد اللوائح' #!
+              period: 'السنة' #!
             purchase_orders:
               format: 'A[year|4][month|2][number|6]'
               name: 'عدد المشتريات'
               period: 'الشهر'
+            purchase_payments:
+              #>format: 'D[year|4][number|4]'
+              #>name: 'Numeration of payments'
+              #>period: 'year'
             sale_orders:
               format: 'V[year|4][month|2][number|6]'
               name: 'عدد المبيعات'
               period: 'الشهر'
+            sale_payments:
+              #>format: 'P[year|4][number|6]'
+              #>name: 'Numeration of payments'
+              #>period: 'year'
             subscriptions:
               format: 'ABO[number|8]'
               name: 'عدد الاشتراكات'
@@ -1689,7 +1716,7 @@ arb:
       unknown_use_of_product: '(يجب تحديد الغاية من المنتج (شراء او بيع او تأجير' #!
     product_component:
       of_product: 'نتاج'
-    production_chain_operation:
+    production_chain_work_center:
       natures:
         #>input: 'One in, many out'
         #>output: 'Many in, one out'

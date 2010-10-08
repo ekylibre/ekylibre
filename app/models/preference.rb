@@ -80,6 +80,10 @@ class Preference < ActiveRecord::Base
     self.save
   end
 
+  def label(locale=nil)
+    ::I18n.t("preferences."+self.name, :locale=>locale)
+  end
+
   def record?
     self.nature == 'record'
   end

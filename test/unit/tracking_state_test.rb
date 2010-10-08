@@ -31,7 +31,6 @@
 #  luminance                    :decimal(16, 2)   
 #  net_weight                   :decimal(16, 2)   
 #  production_chain_conveyor_id :integer          
-#  production_chain_token_id    :integer          
 #  relative_humidity            :decimal(16, 2)   
 #  responsible_id               :integer          not null
 #  temperature                  :decimal(16, 2)   

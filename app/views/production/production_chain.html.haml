@@ -2,15 +2,15 @@
 -if @current_user.can? :build_production_chains
   =toolbar do |t|
     -t.update @production_chain
-    -t.link :production_chain_operation_create, :production_chain_id=>@production_chain.id
-    -t.link :production_chain_operation_create, :production_chain_id=>@production_chain.id
+    -t.link :production_chain_work_center_create, :production_chain_id=>@production_chain.id
+    -t.link :production_chain_work_center_create, :production_chain_id=>@production_chain.id
 
   -#=list_evalue(3) do |l|
   -#  -l.evalue @production_chain, :name
   -#  -l.evalue @production_chain, :comment
   -#  -l.evalue @production_chain, :building
 
-  #chains=render :partial=>"production_chain_operation", :collection=>@production_chain.operations
+  #chains=render :partial=>"production_chain_work_center", :collection=>@production_chain.operations
   -if @production_chain.unused_conveyors.size > 0
     %h2=ProductionChain.human_attribute_name(:unused_conveyors)
     -for conveyor in @production_chain.unused_conveyors

@@ -16,6 +16,10 @@ arb:
       bank_statements: 'بيان الحساب المصرفي'
       cash: '{{nature_label}} : {{name}}'
       cash_create: 'التسجيل لخزينة جديدة'
+      #>cash_transfer: 'Cash transfer: %{number}'
+      #>cash_transfer_create: 'Add a new cash transfer'
+      #>cash_transfer_update: 'Update cash transfer: %{number}'
+      #>cash_transfers: 'Cash transfers'
       cash_update: 'تعديل الخزينة : {{name}}'
       cashes: 'الخزينة'
       document_prepare: 'اختيار نوع الوثيقةوطبعها' #!
@@ -114,6 +118,7 @@ arb:
       invoice_cancel: 'مسالك شمولية الفاتورة {{number}}'
       invoices: 'الفواتير'
       price_create: 'اضافة سعر جديد'
+      #>price_update: 'Update price %{amount}/%{amount_with_taxes} of %{product}'
       prices: 'الاسعار'
       prices_import: 'CSV استيراد بيان التعرفة ضمن'
       product: 'المنتجات : {{name}}'
@@ -217,10 +222,10 @@ arb:
       #>production_chain_conveyor_create: 'Add a new conveyor in the production chain'
       #>production_chain_conveyor_update: 'Update production chain conveyor (%{source_id}-%{target_id})'
       #>production_chain_create: 'Add a new production chain'
-      #>production_chain_operation_create: 'Add a new operation in the production chain'
-      #>production_chain_operation_update: 'Update the production chain operation: %{name}'
-      #>production_chain_play: 'Play production chain: %{name}'
       #>production_chain_update: 'Update production chain: %{name}'
+      #>production_chain_work_center: 'Work center: #{name}'
+      #>production_chain_work_center_create: 'Add a new work center in the production chain'
+      #>production_chain_work_center_update: 'Update the work center: %{name}'
       #>production_chains: 'Production chains'
       tool: 'المادة : {{name}}'
       tool_create: 'اضافة مادة'
@@ -1283,6 +1288,7 @@ arb:
         charges: 'حسابات الحمولة'
         financial_banks: 'الحسابات المصرفية'
         financial_cashes: 'حسابات الصندوق النقدي'
+        #>financial_internal_transfers: 'Internal transfers'
         financial_payments_to_deposit: 'قواعد الدفعات النقدية'
         products: 'حسابات المنتج'
         taxes_acquisition: 'حساب الضرائب المكتسبة داخليا'
@@ -1294,6 +1300,8 @@ arb:
         third_attorneys: 'حسابات الوكيل'
         third_clients: 'حسابات العملاء'
         third_suppliers: 'حسابات الممولين'
+      cash_transfers:
+        #>numeration: 'Numeration of cash transfers'
       entities:
         #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
@@ -1312,12 +1320,16 @@ arb:
         numeration: 'احصاء الاقتطاعات المصرفية'
       invoices:
         numeration: 'احصاء الفواتير'
-      payments:
-        numeration: 'احصاء الانظمة'
+      payments:  #!
+        numeration: 'احصاء الانظمة' #!
       purchase_orders:
         numeration: 'احصاء المشتريات'
+      purchase_payments:
+        #>numeration: 'Numeration of disbursements'
       sale_orders:
         numeration: 'احصاء المبيعات'
+      sale_payments:
+        #>numeration: 'Numeration of sale payments'
       subscriptions:
         numeration: 'احصاء الاشتراكات'
     relations:

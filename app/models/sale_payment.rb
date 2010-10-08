@@ -44,7 +44,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #
@@ -78,7 +78,7 @@ class SalePayment < ActiveRecord::Base
   def prepare_on_create
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
-    specific_numeration = self.company.preference("management.payments.numeration")
+    specific_numeration = self.company.preference("management.sale_payments.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
     else

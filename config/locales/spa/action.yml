@@ -16,6 +16,10 @@ spa:
       bank_statements: 'Levantar de cuntos bancarios'
       cash: '%{nature_label} : %{name}'
       cash_create: 'Registrar una nueva tresoreria'
+      #>cash_transfer: 'Cash transfer: %{number}'
+      #>cash_transfer_create: 'Add a new cash transfer'
+      #>cash_transfer_update: 'Update cash transfer: %{number}'
+      #>cash_transfers: 'Cash transfers'
       cash_update: 'Modificar la tresoreria : %{name}'
       cashes: 'Tresorerias'
       document_prepare: 'Escoger el tipo de documento a imprimir' #!
@@ -114,6 +118,7 @@ spa:
       invoice_cancel: 'Paso en activo de la factura %{number}'
       invoices: 'Facturas'
       #>price_create: 'Add a new price'
+      #>price_update: 'Update price %{amount}/%{amount_with_taxes} of %{product}'
       #>prices: 'Prices'
       #>prices_import: 'Import prices in CSV'
       #>product: 'Product: %{name}'
@@ -215,10 +220,10 @@ spa:
       #>production_chain_conveyor_create: 'Add a new conveyor in the production chain'
       #>production_chain_conveyor_update: 'Update production chain conveyor (%{source_id}-%{target_id})'
       #>production_chain_create: 'Add a new production chain'
-      #>production_chain_operation_create: 'Add a new operation in the production chain'
-      #>production_chain_operation_update: 'Update the production chain operation: %{name}'
-      #>production_chain_play: 'Play production chain: %{name}'
       #>production_chain_update: 'Update production chain: %{name}'
+      #>production_chain_work_center: 'Work center: #{name}'
+      #>production_chain_work_center_create: 'Add a new work center in the production chain'
+      #>production_chain_work_center_update: 'Update the work center: %{name}'
       #>production_chains: 'Production chains'
       #>tool: 'Tool: %{name}'
       #>tool_create: 'Add a tool'
@@ -1237,6 +1242,7 @@ spa:
         #>charges: 'Charges accounts'
         #>financial_banks: 'Banks accounts'
         #>financial_cashes: 'Cashes accounts'
+        #>financial_internal_transfers: 'Internal transfers'
         #>financial_payments_to_deposit: 'Payments to deposit accounts'
         #>products: 'Products accounts'
         #>taxes_acquisition: 'Accounts of taxes for intra-Community acquisitions'
@@ -1248,6 +1254,8 @@ spa:
         #>third_attorneys: 'Attorneys accounts'
         #>third_clients: 'Clients accounts'
         #>third_suppliers: 'Suppliers accounts'
+      cash_transfers:
+        #>numeration: 'Numeration of cash transfers'
       entities:
         #>use_code_for_account_numbers: 'Use code for creating account numbers'
       journals:
@@ -1267,11 +1275,14 @@ spa:
       invoices:
         #>numeration: 'Numeration of invoices'
       payments:
-        #>numeration: 'Numeration of payments'
       purchase_orders:
         #>numeration: 'Numeration of purchases'
+      purchase_payments:
+        #>numeration: 'Numeration of disbursements'
       sale_orders:
         #>numeration: 'Numeration of sales'
+      sale_payments:
+        #>numeration: 'Numeration of sale payments'
       subscriptions:
         #>numeration: 'Numeration of subscriptions'
     relations:

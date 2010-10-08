@@ -18,23 +18,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: production_chain_operation_uses
+# == Table: production_chain_work_center_uses
 #
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  operation_id :integer          not null
-#  tool_id      :integer          not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  company_id     :integer          not null
+#  created_at     :datetime         not null
+#  creator_id     :integer          
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  tool_id        :integer          not null
+#  updated_at     :datetime         not null
+#  updater_id     :integer          
+#  work_center_id :integer          not null
 #
 
-class ProductionChainOperationUse < ActiveRecord::Base
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :operation, :class_name=>ProductionChainOperation.name
-  belongs_to :tool
-  
+require 'test_helper'
+
+class ProductionChainWorkCenterUseTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  test "the truth" do
+    assert true
+  end
 end

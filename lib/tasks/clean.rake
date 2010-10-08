@@ -489,7 +489,7 @@ namespace :clean do
       file = File.open(controller_file, "rb")
       file.each_line do |line|
         line = line.gsub(/(^\s*|\s*$)/,'')
-        if line.match(/^\s*def\s+\w+\s*$/)
+        if line.match(/^\s*def\s+\w+[^\(]*$/)
           actions << line.split(/def\s/)[1].gsub(/\s/,'') 
         elsif line.match(/^\s*manage[\s\(]+\:\w+/)
           prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
@@ -500,7 +500,7 @@ namespace :clean do
       end
       translation += "    #{controller_name}:\n"
       existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
-      for action_name in (actions|existing_actions).sort
+      for action_name in (actions.delete_if{|a| a.to_s.match(/_delete$/)}|existing_actions).sort
         name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
         if actions.include?(action_name)
           to_translate += 1 

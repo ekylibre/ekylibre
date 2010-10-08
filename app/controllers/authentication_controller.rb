@@ -97,7 +97,7 @@ class AuthenticationController < ApplicationController
     else
       reset_session
       if params[:company]
-        redirect_to :company=>nil 
+        redirect_to :company=>nil, :locale=>params[:locale] 
         return
       end
       @company = Company.new

@@ -20,23 +20,28 @@
 # 
 # == Table: cash_transfers
 #
-#  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   default(0.0), not null
-#  comment          :text             
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  creator_id       :integer          
-#  currency_amount  :decimal(16, 2)   default(0.0), not null
-#  currency_id      :integer          not null
-#  currency_rate    :decimal(16, 6)   default(1.0), not null
-#  emitter_cash_id  :integer          not null
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer          
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
-#  receiver_cash_id :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  accounted_at              :datetime         
+#  comment                   :text             
+#  company_id                :integer          not null
+#  created_at                :datetime         not null
+#  created_on                :date             
+#  creator_id                :integer          
+#  currency_id               :integer          
+#  emitter_amount            :decimal(16, 2)   default(0.0), not null
+#  emitter_cash_id           :integer          not null
+#  emitter_currency_id       :integer          not null
+#  emitter_currency_rate     :decimal(16, 6)   default(1.0), not null
+#  emitter_journal_entry_id  :integer          
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  number                    :string(255)      not null
+#  receiver_amount           :decimal(16, 2)   default(0.0), not null
+#  receiver_cash_id          :integer          not null
+#  receiver_currency_id      :integer          
+#  receiver_currency_rate    :decimal(16, 6)   
+#  receiver_journal_entry_id :integer          
+#  updated_at                :datetime         not null
+#  updater_id                :integer          
 #
 
 require 'test_helper'

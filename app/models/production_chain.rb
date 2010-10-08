@@ -34,19 +34,20 @@
 class ProductionChain < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
-  has_many :operations, :class_name=>ProductionChainOperation.name, :order=>:position, :dependent=>:delete_all
+  has_many :operations, :class_name=>ProductionChainWorkCenter.name, :order=>:position, :dependent=>:delete_all
   has_many :conveyors, :class_name=>ProductionChainConveyor.name, :dependent=>:delete_all
-  has_many :tokens, :class_name=>ProductionChainToken.name, :dependent=>:delete_all
   has_many :unused_conveyors, :class_name=>ProductionChainConveyor.name, :conditions=>{:source_id=>nil, :target_id=>nil}
   has_many :input_conveyors, :class_name=>ProductionChainConveyor.name, :conditions=>{:source_id=>nil}
 
   validates_uniqueness_of :name, :scope=>:company_id
 
+
+  # Unused
   def play(from, responsible, inputs={})
     ActiveRecord::Base.transaction do
       token = self.tokens.create!
-      from = self.company.production_chain_operations.find_by_id(from.to_i) unless from.is_a? ProductionChainOperation 
-      raise ArgumentError.new("The first argument must be a ProductionChainOperation") unless from.is_a? ProductionChainOperation
+      from = self.company.production_chain_work_centers.find_by_id(from.to_i) unless from.is_a? ProductionChainWorkCenter 
+      raise ArgumentError.new("The first argument must be a ProductionChainWorkCenter") unless from.is_a? ProductionChainWorkCenter
       responsible = self.company.users.find_by_id(responsible.to_i) unless responsible.is_a? User
       raise ArgumentError.new("The second argument must be a User") unless responsible.is_a? User
       

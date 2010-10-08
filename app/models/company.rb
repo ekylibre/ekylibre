@@ -39,6 +39,7 @@ class Company < ActiveRecord::Base
   has_many :account_balances
   has_many :areas
   has_many :cashes
+  has_many :cash_transfers
   has_many :bank_statements
   has_many :contacts
   has_many :currencies
@@ -82,9 +83,9 @@ class Company < ActiveRecord::Base
   has_many :product_categories, :order=>:name
   has_many :product_components
   has_many :production_chains
-  has_many :production_chain_operations, :order=>:name
-  has_many :production_chain_operation_lines
-  has_many :production_chain_operation_uses
+  has_many :production_chain_work_centers, :order=>:name
+  has_many :production_chain_work_center_lines
+  has_many :production_chain_work_center_uses
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
@@ -729,8 +730,8 @@ class Company < ActiveRecord::Base
         company.set_preference("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
       end
       
-      cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash))
-      baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank), :iban=>"FR7611111222223333333333391", :mode=>"iban")
+      cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash).id)
+      baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank).id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id)
       company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)

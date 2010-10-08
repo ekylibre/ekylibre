@@ -20,24 +20,94 @@
 # 
 # == Table: cash_transfers
 #
-#  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   default(0.0), not null
-#  comment          :text             
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  creator_id       :integer          
-#  currency_amount  :decimal(16, 2)   default(0.0), not null
-#  currency_id      :integer          not null
-#  currency_rate    :decimal(16, 6)   default(1.0), not null
-#  emitter_cash_id  :integer          not null
-#  id               :integer          not null, primary key
-#  journal_entry_id :integer          
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      not null
-#  receiver_cash_id :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  accounted_at              :datetime         
+#  comment                   :text             
+#  company_id                :integer          not null
+#  created_at                :datetime         not null
+#  created_on                :date             
+#  creator_id                :integer          
+#  currency_id               :integer          
+#  emitter_amount            :decimal(16, 2)   default(0.0), not null
+#  emitter_cash_id           :integer          not null
+#  emitter_currency_id       :integer          not null
+#  emitter_currency_rate     :decimal(16, 6)   default(1.0), not null
+#  emitter_journal_entry_id  :integer          
+#  id                        :integer          not null, primary key
+#  lock_version              :integer          default(0), not null
+#  number                    :string(255)      not null
+#  receiver_amount           :decimal(16, 2)   default(0.0), not null
+#  receiver_cash_id          :integer          not null
+#  receiver_currency_id      :integer          
+#  receiver_currency_rate    :decimal(16, 6)   
+#  receiver_journal_entry_id :integer          
+#  updated_at                :datetime         not null
+#  updater_id                :integer          
 #
 
 class CashTransfer < ActiveRecord::Base
+  acts_as_accountable
+  attr_readonly :company_id, :number
+  belongs_to :company
+  belongs_to :currency
+  belongs_to :emitter_cash, :class_name=>Cash.name
+  belongs_to :emitter_currency, :class_name=>Currency.name
+  belongs_to :emitter_journal_entry, :class_name=>JournalEntry.name
+  belongs_to :receiver_cash, :class_name=>Cash.name
+  belongs_to :receiver_currency, :class_name=>Currency.name
+  belongs_to :receiver_journal_entry, :class_name=>JournalEntry.name
+
+  validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
+  validates_presence_of :receiver_amount, :emitter_amount, :created_on
+
+  def prepare
+    self.created_on ||= Date.today
+    self.currency ||= self.company.default_currency
+
+    if self.currency == self.company.default_currency
+      if self.emitter_cash
+        self.emitter_currency ||= self.emitter_cash.currency
+        self.emitter_currency_rate ||= self.emitter_currency.rate
+      end
+      if self.receiver_cash
+        self.receiver_currency ||= self.receiver_cash.currency
+        self.receiver_currency_rate ||= self.receiver_currency.rate
+      end
+    end
+
+    if self.receiver_amount.to_f <= 0 and self.emitter_amount.to_f > 0
+      self.receiver_amount = self.emitter_amount*self.emitter_currency_rate/self.receiver_currency_rate
+    elsif self.receiver_amount.to_f > 0 and self.emitter_amount.to_f <= 0
+      self.emitter_amount = self.receiver_amount*self.receiver_currency_rate/self.emitter_currency_rate
+    end
+
+    if self.number.blank?
+      last = self.company.cash_transfers.find(:first, :order=>"number desc")
+      self.number = last ? last.number.succ! : '00000001'
+    end
+
+  end
+
+  def validate
+    errors.add(:receiver_cash_id, :invalid) if self.receiver_cash_id == self.emitter_cash_id
+  end
+
+  def clean_on_create
+    specific_numeration = self.company.preference("accountancy.cash_transfers.numeration").value
+    self.number = specific_numeration.next_value unless specific_numeration.nil?
+  end
+  
+  def to_accountancy(action=:create, options={})
+    preference = self.company.preference("accountancy.accounts.financial_internal_transfers")
+    transfer_account = self.company.account(preference.value, preference.label)
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
+    accountize(action, {:journal=>self.emitter_cash.journal, :draft_mode=>options[:draft]}, :column=>:emitter_journal_entry_id) do |entry|
+      entry.add_debit( label, self.emitter_cash.account_id, self.emitter_amount)
+      entry.add_credit(label, transfer_account.id, self.emitter_amount)      
+    end
+    accountize(action, {:journal=>self.receiver_cash.journal, :draft_mode=>options[:draft]}, :column=>:receiver_journal_entry_id) do |entry|
+      entry.add_debit( label, transfer_account.id, self.receiver_amount)
+      entry.add_credit(label, self.receiver_cash.account_id, self.receiver_amount)
+    end
+  end
+
 end

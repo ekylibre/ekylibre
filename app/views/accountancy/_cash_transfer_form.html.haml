@@ -1,0 +1,7 @@
+=formalize do |f|
+  -f.error :cash_transfer
+  -f.title
+  -f.field :cash_transfer, :emitter_cash_id, :choices=>{:reflection=>:cashes}, :new=>{:action=>:cash_create}
+  -f.field :cash_transfer, :emitter_amount
+  -f.field :cash_transfer, :receiver_cash_id, :choices=>{:reflection=>:cashes}, :new=>{:action=>:cash_create}
+  -f.field :cash_transfer, :comment

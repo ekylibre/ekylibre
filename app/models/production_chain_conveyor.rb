@@ -45,8 +45,8 @@ class ProductionChainConveyor < ActiveRecord::Base
   belongs_to :company
   belongs_to :product
   belongs_to :production_chain
-  belongs_to :source, :class_name=>ProductionChainOperation.name
-  belongs_to :target, :class_name=>ProductionChainOperation.name
+  belongs_to :source, :class_name=>ProductionChainWorkCenter.name
+  belongs_to :target, :class_name=>ProductionChainWorkCenter.name
   belongs_to :unit
 
   @@check_events = [:none, :input, :output, :both]

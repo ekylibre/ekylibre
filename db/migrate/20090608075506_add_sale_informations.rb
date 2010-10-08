@@ -7,7 +7,7 @@ class AddSaleInformations < ActiveRecord::Migration
     add_column :invoice_lines, :origin_id, :integer, :references=>:invoice_lines, :on_update=>:restrict, :on_delete=>:restrict
     add_column :users,  :credits,  :boolean, :null=>false, :default=>true
     add_column :invoices, :created_on, :date
-    add_column :payments, :to_bank_on, :date, :null=>false, :default=>Date.today
+    add_column :payments, :to_bank_on, :date, :null=>false
     
     execute "UPDATE #{quoted_table_name(:entity_categories)} SET code="+connection.substr("REPLACE(code, ' ', '_')", 1, 8)+" WHERE "+connection.length(connection.trim("COALESCE(code, '')"))+" <= 0"
     if connection.adapter_name.lower == "sqlserver"

@@ -57,7 +57,7 @@ accountize:
 backup_company:
   controller: company
   actions: [backups, index]
-# (((BUILD_PRODUCTION_CHAINS)))
+# Build production chains
 build_production_chains:
   controller: production
   actions:
@@ -69,14 +69,14 @@ build_production_chains:
   - production_chain_conveyors_dyta
   - production_chain_create
   - production_chain_delete
-  - production_chain_operation
-  - production_chain_operation_create
-  - production_chain_operation_delete
-  - production_chain_operation_down
-  - production_chain_operation_up
-  - production_chain_operation_update
-  - production_chain_operations_dyta
   - production_chain_update
+  - production_chain_work_center
+  - production_chain_work_center_create
+  - production_chain_work_center_delete
+  - production_chain_work_center_down
+  - production_chain_work_center_up
+  - production_chain_work_center_update
+  - production_chain_work_centers_dyta
   - production_chains
   - production_chains_dyta
 # Cancel invoices
@@ -241,6 +241,17 @@ manage_bank_statements:
   - bank_statement_update
   - bank_statements
   - bank_statements_dyta
+  - index
+# Manage cash transfers
+manage_cash_transfers:
+  controller: accountancy
+  actions:
+  - cash_transfer
+  - cash_transfer_create
+  - cash_transfer_delete
+  - cash_transfer_update
+  - cash_transfers
+  - cash_transfers_dyta
   - index
 # Manage cashes
 manage_cashes:
@@ -482,7 +493,7 @@ manage_journals:
   - journal_update
   - journals
   - journals_dyta
-# (((MANAGE_LAND_PARCEL_GROUPS)))
+# Manage groups of land parcels
 manage_land_parcel_groups:
   controller: production
   actions:
@@ -825,11 +836,11 @@ merge_entities:
 print:
   controller: company
   actions: [print]
-# (((USE_PRODUCTION_CHAINS)))
+# Use production chains
 use_production_chains:
   controller: production
   actions:
   - index
-  - production_chain_operation_play
+  - production_chain_work_center_play
   - production_chains
   - production_chains_dyta
