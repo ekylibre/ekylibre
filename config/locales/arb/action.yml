@@ -633,7 +633,7 @@ arb:
     journal: 'دفتراليومية'
     journal_detail: 'اغلق في {{closed_on}}'
     journal_entries: 'المدخالات'
-    journal_entries_states: 'بيان المدخلات المستخدمة'
+    journal_entry_lines_states: 'بيان المدخلات المستخدمة'
     journal_name: '{{name}}'
     journal_record_update: 'تعديل العينات'
     journal_update: 'تعديل الفاتر اليومية'

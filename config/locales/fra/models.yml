@@ -229,7 +229,7 @@ fra:
       area: 'Zone postale'
       bank_statement: 'Relevé de compte bancaire'
       cash: 'Trésorerie'
-      cash_transfer: 'Virement de trésorerie'
+      cash_transfer: 'Virement interne'
       company: 'Société'
       contact: 'Contact'
       cultivation: 'Culture'

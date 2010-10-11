@@ -403,7 +403,7 @@ class Company < ActiveRecord::Base
     # centralized = "("+centralized.collect{|c| "SUBSTR(accounts.number, 1, #{c.length}) = #{conn.quote(c)}"}.join(" OR ")+")"
     centralized = "("+centralize.collect{|c| "accounts.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")+")"
 
-    from_where  = " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.Table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
+    from_where  = " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
     from_where += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
     # Total
     lines = []

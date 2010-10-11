@@ -158,6 +158,8 @@ class AccountancyController < ApplicationController
     t.column :name, :through=>:receiver_currency
     t.column :name, :through=>:receiver_cash, :url=>{:action=>:cash}
     t.column :created_on
+    t.action :cash_transfer_update
+    t.action :cash_transfer_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   def cash_transfers
@@ -211,8 +213,8 @@ class AccountancyController < ApplicationController
     if request.post?
       locale, name = params[:list].split(".")
       @current_company.load_accounts(name, locale)
-      redirect_to :action=>:accounts
     end
+    redirect_to :action=>:accounts
   end
 
   manage :accounts, :number=>"params[:number]"

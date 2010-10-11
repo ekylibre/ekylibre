@@ -596,7 +596,7 @@ fra:
     journal: 'Journal'
     journal_detail: 'Cloturé au %{closed_on}'
     journal_entries: 'Écritures'
-    journal_entries_states: 'États des écritures utilisées'
+    journal_entry_lines_states: 'États des écritures utilisées'
     journal_name: '%{name}'
     journal_record_update: 'Modifier la pièce'
     journal_update: 'Modifier le journal'

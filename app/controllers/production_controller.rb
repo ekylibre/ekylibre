@@ -259,7 +259,6 @@ class ProductionController < ApplicationController
   dyta(:production_chains, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name, :url=>{:action=>:production_chain}
     t.column :comment
-    t.action :production_chain_play
     t.action :production_chain_update
     t.action :production_chain_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -378,7 +377,7 @@ class ProductionController < ApplicationController
     redirect_to_current
   end
 
-  def production_chain_work_center_play
+  def production_chain_work_center_play()
     return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
     @operation = Operation.new({:responsible_id=>@current_user.id}.merge(params[:operation]||{}))
     if request.post?

@@ -20,6 +20,7 @@ class ManagementControllerTest < ActionController::TestCase
                    :sale_order_line_create=>{:order_id=>1},
                    :sale_order_lines=>:select, 
                    :sale_payment_part_create=>{:expense_type=>"sale_order", :expense_id=>1},
+                   :sale_payment_mode_reflect=>:delete,
                    :subscription_nature_increment=>:delete,
                    :subscription_nature_decrement=>:delete, 
                    :transport_deliveries=>:select, 

@@ -1,4 +1,5 @@
--max = @current_company.accounts.calculate(:max, "LENGTH(COALESCE(number, ''))").to_i
+-#max = @current_company.accounts.calculate(:max, Account.connection.length("COALESCE(number, '')")).to_i
+-max = @current_company.accounts.maximum(Account.connection.length("COALESCE(number, '')")).to_i
 =form_tag({}, :method=>:get) do
   .search
     %table

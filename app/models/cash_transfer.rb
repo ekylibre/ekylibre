@@ -74,9 +74,9 @@ class CashTransfer < ActiveRecord::Base
       end
     end
 
-    if self.receiver_amount.to_f <= 0 and self.emitter_amount.to_f > 0
+    if self.emitter_amount.to_f > 0
       self.receiver_amount = self.emitter_amount*self.emitter_currency_rate/self.receiver_currency_rate
-    elsif self.receiver_amount.to_f > 0 and self.emitter_amount.to_f <= 0
+    elsif self.receiver_amount.to_f > 0
       self.emitter_amount = self.receiver_amount*self.receiver_currency_rate/self.emitter_currency_rate
     end
 

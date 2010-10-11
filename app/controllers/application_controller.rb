@@ -215,7 +215,7 @@ class ApplicationController < ActionController::Base
   end
  
   def historize()
-    unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format]
+    unless (request.url.match(/_(print|dyta|extract)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format] or controller_name.to_s == "authentication"
       if request.url == session[:history][1]
         session[:history].delete_at(0)
       elsif request.url != session[:history][0]

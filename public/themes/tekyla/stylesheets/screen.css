@@ -593,6 +593,15 @@ html[dir="rtl"] .bmenu ul { float:right }
 .bmenu ul li:hover * { color: HighlightText; }
 
 
+.tmenu {  position: relative; }
+.tmenu ul { display: none; position:absolute; bottom: 16px; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
+.tmenu:hover ul { display: block;  }
+.tmenu ul li { list-style-type: none; padding: 2px 4px; }
+.tmenu ul li a { padding: 2px 2px 2px 20px; display: block;}
+.tmenu ul li:hover { background: Highlight; }
+.tmenu ul li:hover * { color: HighlightText; }
+
+
 .treemap { border-collapse: collapse; width: 100%; }
 .treemap .plot { padding: 4px; border: 2px solid #8a8; vertical-align: top; }
 .treemap .plot .name { padding: 2px; display:block; border-bottom: 1px dotted #8A8; }

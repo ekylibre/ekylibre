@@ -839,8 +839,4 @@ print:
 # Use production chains
 use_production_chains:
   controller: production
-  actions:
-  - index
-  - production_chain_work_center_play
-  - production_chains
-  - production_chains_dyta
+  actions: [index, production_chains, production_chains_dyta]

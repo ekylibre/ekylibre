@@ -497,7 +497,7 @@ spa:
     #>downpayment: 'Downpayment'
     draft: 'Niebla'
     draft_entries: 'niebla' #!
-    #>draft_entry_lines: 'Draft entries'
+    #>draft_entry_lines: 'Draft entry lines'
     #>duplicate: 'Duplicate'
     #>duration: 'Duration'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
@@ -608,7 +608,7 @@ spa:
     journal: 'Periodico'
     journal_detail: 'Cerrado al %{fecha de cerrado}'
     journal_entries: 'Escrituras'
-    journal_entries_states: 'Estado de las escrituras utilizadas'
+    journal_entry_lines_states: 'Estado de las escrituras utilizadas'
     journal_name: '%{name}'
     journal_record_update: 'Modificar la pieza'
     journal_update: 'Modificar el periodico'
