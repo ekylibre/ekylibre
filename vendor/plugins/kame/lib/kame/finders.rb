@@ -4,8 +4,8 @@ module Kame
   @@finders = {}
 
   def self.register_finder(name, finder)
-    raise ArgumentError.new("A finder must be Kame::Finder") unless finder.is_a? Kame::Finder
-    @finders[name] = finder.new
+    raise ArgumentError.new("A finder must be Kame::Finder") unless finder.ancestors.include? Kame::Finder
+    @@finders[name] = finder.new
   end
 
 
@@ -22,6 +22,9 @@ module Kame
       code = conditions_to_code(table.options[:conditions]) if table.options[:conditions]
     end
 
+    def paginate?
+      false
+    end
 
     # Generate the code from a conditions option
     def conditions_to_code(conditions)
@@ -78,7 +81,7 @@ module Kame
 
 end
 
-require "finders/simple_finder"
-require "finders/will_paginate"
+require "kame/finders/simple_finder"
+require "kame/finders/will_paginate_finder"
 
 

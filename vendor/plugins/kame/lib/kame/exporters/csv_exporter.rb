@@ -10,14 +10,16 @@ module Kame
       Mime::CSV
     end
 
-    def format_data_code(table, variable_name)
-      record = "record"
-      code  = "#{variable_name} = FasterCSV.generate do |csv|\n"
-      code += "  csv << [#{columns_to_array(definition, :header).join(', ')}]\n"
+    def send_data_code(table)
+      record = "r"
+      code  = Kame::SimpleFinder.new.select_data_code(table)
+      code += "data = FasterCSV.generate do |csv|\n"
+      code += "  csv << [#{columns_to_array(table, :header).join(', ')}]\n"
       code += "  for #{record} in #{table.records_variable_name}\n"  
-      code += "    csv << [#{columns_to_csv(definition, :body, :record=>record).join(', ')}]\n"
+      code += "    csv << [#{columns_to_array(table, :body, :record=>record).join(', ')}]\n"
       code += "  end\n"
       code += "end\n"
+      code += "send_data(data, :type=>#{self.mime_type}, :disposition=>'inline', :filename=>#{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')+'.#{self.file_extension}')\n"
       return code
     end
 
@@ -25,4 +27,4 @@ module Kame
 
 end
 
-Kame.register_exporter(:csv, CsvExporter)
+Kame.register_exporter(:csv, Kame::CsvExporter)

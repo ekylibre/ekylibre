@@ -2,43 +2,46 @@ module Kame
 
   class SimpleRenderer < Kame::Renderer
 
+    def remote_update_code(table)
+      return "render(:inline=>'<%=#{table.view_method_name}-%>')\n"
+    end
+
     def build_table_code(table)
       record = "r"
       child  = "c"
 
-      header = columns_to_td(table, :header, :id=>table.name)
-      body = columns_to_td(table, :body, :record=>record)
-      if table.options[:children].is_a? Symbol
-      end          
+      options = table.options
+      name = table.name
 
+
+      colgroup = colgroup_code(table)
+      header = columns_to_td(table, :header, :id=>table.name)
+      footer = footer_code(table)
+      body = columns_to_td(table, :body, :record=>record)
+
+      code  = table.finder.select_data_code(table)
+      code += "body = ''\n"
       code += "if #{table.records_variable_name}.size>0\n"
+      code += "  sort, dir = options['#{table.name}_sort'], options['#{table.name}_dir']\n"
       code += "  reset_cycle('kame')\n"
-      code += "  body = ''\n"
       code += "  for #{record} in #{table.records_variable_name}\n"
-      line_class = "#{'+\' \'+('+table.options[:line_class].to_s.gsub(/RECORD/, record)+').to_s' unless table.options[:line_class].nil?}+cycle(' odd', ' even', :name=>'kame')"
+      line_class = "#{'+\' \'+('+options[:line_class].to_s.gsub(/RECORD/, record)+').to_s' unless options[:line_class].nil?}+cycle(' odd', ' even', :name=>'kame')"
       code += "    body += content_tag(:tr, (#{body}).html_safe, :class=>'data'#{line_class})\n"
-      if table.options[:children].is_a? Symbol
+      if options[:children].is_a? Symbol
         children = options[:children].to_s
         child_body = columns_to_td(table, :children, :record=>child, :order=>options[:order])
-        code += "      for #{child} in #{record}.#{children}\n"
-        code += "        body += content_tag(:tr, (#{child_body}).html_safe, :class=>'data child '#{line_class})\n"
-        code += "      end\n"
-      end
-      code += "    end\n"
-      code += footer.gsub(/^/, '    ')
-      code += "    text = content_tag(:thead, #{header})+content_tag(:tfoot, #{footer_var}.html_safe)+content_tag(:tbody, body.html_safe)\n"
-      code += "  else\n"
-      if options[:empty]
-        code += "    text = ''\n"
-      else
-        code += "    text = content_tag(:thead, #{header})+('<tr class=\"empty\"><td colspan=\"#{table.columns.size}\">'+::I18n.translate('kame.no_records')+'</td></tr>').html_safe\n"
+        code += "    for #{child} in #{record}.#{children}\n"
+        code += "      body += content_tag(:tr, (#{child_body}).html_safe, :class=>'data child '#{line_class})\n"
+        code += "    end\n"
       end
       code += "  end\n"
-      code += footer;
-      # code += "  text = content_tag(:table, text, :class=>:kame, :id=>'"+name.to_s+"') unless request.xhr?\n"
-      code += "  text = content_tag(:table, text.html_safe, :class=>:kame)\n"
-      code += "  text = content_tag(:div, text.html_safe, :class=>:kame, :id=>'"+name.to_s+"') unless request.xhr?\n"
-      code += "  return text\n"
+      code += "else\n"
+      code += "  body = ('<tr class=\"empty\"><td colspan=\"#{table.columns.size}\">'+::I18n.translate('kame.no_records')+'</td></tr>')\n"
+      code += "end\n"
+      code += "text = content_tag(:thead, #{header})+content_tag(:tfoot, #{footer})+content_tag(:tbody, body.html_safe)\n"
+      code += "text = content_tag(:table, text.html_safe, :class=>:kame)\n"
+      code += "text = content_tag(:div, text.html_safe, :class=>:kame, :id=>'"+name.to_s+"') unless request.xhr?\n"
+      code += "return text\n"
       return code
     end
 
@@ -47,7 +50,6 @@ module Kame
       columns = table.columns
       code = ''
       record = options[:record]||'RECORD'
-      list_method_name = table.controller_method_name
       for column in columns
         column_sort = ''
         if column.sortable?
@@ -57,20 +59,20 @@ module Kame
           code += "+\n      " unless code.blank?
           header_title = column.header_code
           if column.sortable?
-            url = ":action=>:#{list_method_name}, '#{options[:id]}_sort'=>'"+column.name.to_s+"', '#{options[:id]}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
-            header_title = "link_to_remote("+header_title+", {:update=>'"+options[:id].to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>url_for(#{url})}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
+            url = ":action=>:#{table.controller_method_name}, '#{table.name}_sort'=>'"+column.name.to_s+"', '#{table.name}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
+            header_title = "link_to_remote("+header_title+", {:update=>'"+table.name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{#{url}}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
           end
-          code += "content_tag(:th, "+header_title+", :class=>\""+(column.action? ? 'act' : 'col')+column_sort+"\")"
+          code += "content_tag(:th, "+header_title+", :class=>\""+(column.is_a?(ActionColumn) ? 'act' : 'col')+column_sort+"\")"
         else
           code   += "+\n        " unless code.blank?
-          case column.nature
-          when :column
+          case column.class.name
+          when DataColumn.name
             style = column.options[:style]||''
             style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
             style += "'"
             css_class = column.options[:class] ? ' '+column.options[:class].to_s : ''
             if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
-              datum = column.data(record, nature==:children)
+              datum = column.datum_code(record, nature==:children)
               if column.datatype == :boolean
                 datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+" ? 'true' : 'false'))"
               end
@@ -133,16 +135,59 @@ module Kame
               code += "''"
             end
             code += ", :class=>'txt')"
-          when :action
+          when ActionColumn.name
             code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
           else 
-            code += "content_tag(:td, '&#160;&#8709;&#160;')"
+            code += "content_tag(:td, '&#160;&#8709;&#160;'.html_safe)"
           end
         end
       end
-      
+      return code
+    end
 
+
+    # Produce the code to create bottom menu and pagination
+    def footer_code(table)
+      menu = "<div class=\"menu\">"
+      menu += "<a class=\"icon im-action\">'+::I18n.translate('kame.menu').gsub(/\'/,'&#39;')+'</a>"
+      menu += "<ul>"
+      # Column selector
+      menu += "<li class=\"columns\">"
+      menu += "<a class=\"icon im-table \">'+::I18n.translate('kame.columns').gsub(/\'/,'&#39;')+'</a><ul>"
+      for column in table.data_columns
+        menu += "<li><a class=\"icon im-column\">'+#{column.header_code}+'</a></li>"
+      end
+      menu += "</a>"
+      menu += "</ul></li>"
+      # Separator
+      menu += "<li class=\"separator\"></li>"      
+      # Exports
+      for format, exporter in Kame.exporters
+        menu += "<li class=\"export #{exporter.name}\">'+link_to(::I18n.translate('kame.export_as', :format=>::I18n.translate('kame.export.#{format}')).gsub(/\'/,'&#39;'), {:action=>:#{table.controller_method_name}, '#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], :format=>'#{format}'}, :class=>\"icon im-export\")+'</li>"
+      end
+      menu += "</div>"
+
+      # Pages link
+      pagination = ''
+      pagination = "'+will_paginate(#{table.records_variable_name}, :previous_label => ::I18n.translate('kame.previous'), :next_label => ::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'#{table.name}', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], '#{table.name}_per_page'=>params['#{table.name}_per_page'], :action=>:#{table.controller_method_name}}).to_s+'" if table.finder.paginate?
+      
+      code = "('<tr class=\"footer\"><th colspan=\"#{table.columns.size}\">#{menu}#{pagination}</th></tr>').html_safe"
+      return code
+    end
+
+    def colgroup_code(table)
+      
+      code = table.columns.collect do |col|
+        "<col id=\"#{table}_#{col.id}\"></col>"
+      end.join
+      return code
     end
 
 
   end
+  
+
+end
+
+
+Kame.register_renderer(:simple_renderer, Kame::SimpleRenderer)

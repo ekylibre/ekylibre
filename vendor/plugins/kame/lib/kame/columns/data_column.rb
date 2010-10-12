@@ -1,48 +1,23 @@
-
-
 module Kame
 
   class Table
-    attr_reader :name, :model, :options
-    attr_reader :columns # , :procedures
-    
-    def initialize(name, model, options)
-      @name    = name
-      @model   = model
-      @options = options
-      @columns = []
-    end
 
+    # Retrieves all columns in database
     def table_columns
       cols = @model.columns.collect{|c| c.name}
-      @columns.select{|c| c.nature == :column and cols.include? c.name.to_s}
+      @columns.select{|c| c.is_a? DataColumn and cols.include? c.name.to_s}
     end
-    
-    
+
+    def data_columns
+      @columns.select{|c| c.is_a? DataColumn}
+    end
+
+    # Add a new method in Table which permit to define data columns
     def column(name, options={})
       @columns << DataColumn.new(self, name, options)
     end
 
   end
-
-  
-  class Column
-    attr_accessor :name, :options
-    attr_reader :nature
-    
-    def initialize(table, name, options={})
-      @table   = table
-      @name    = name
-      @options = options
-      @column  = @table.model.columns_hash[@name.to_s]
-    end
-
-    def header_code
-      raise NotImplementedError.new("#{self.class.name}#header_code is not implemented.")
-    end
-
-  end
-
 
   class DataColumn < Column
 
@@ -93,6 +68,21 @@ module Kame
     # Returns the size/length of the column if the column is in the database
     def limit
       @column.limit if @column
+    end
+
+    # Check if a column is sortable
+    def sortable?
+      #not self.action? and 
+      not self.options[:through] and not @column.nil?
+    end
+
+    # Generate code in order to get the (foreign) record of the column
+    def record(record='record')
+      if @options[:through]
+        return ([record]+[@options[:through]]).flatten.join(".")
+      else
+        return record
+      end
     end
 
   end

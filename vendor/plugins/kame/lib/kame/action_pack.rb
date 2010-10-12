@@ -14,18 +14,23 @@ module Kame
         model = (options[:model]||name).to_s.classify.constantize
         table = Kame::Table.new(name, model, options)
         yield table
-        class_eval(table.generate_controller_method_code)
-        ActionView::Base.send :class_eval, table.generate_view_method_code
+        class_eval(table.send(:generate_controller_method_code))
+        ActionView::Base.send(:class_eval, table.send(:generate_view_method_code))
       end
 
     end
 
   end
 
-  module ActionView
+  module ViewsHelper
     def kame(name)
       self.send(Kame.view_method_name(name))
     end
   end
 
 end
+
+ActionController::Base.send(:include, Kame::ActionController)
+ActionView::Base.send(:include, Kame::ViewsHelper)
+
+

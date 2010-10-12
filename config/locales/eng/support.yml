@@ -59,6 +59,19 @@ eng:
     next: 'Next'
     no_records: 'No records'
     previous: 'Previous'
+  kame:
+    export:
+      csv: 'CSV'
+      false_value: 'FALSE'
+      title: 'Export'
+      true_value: 'TRUE'
+      xcsv: 'Excel CSV'
+    export_as: 'Export as %{format}...'
+    menu: Menu
+    columns: Columns
+    next: 'Next'
+    no_records: 'No records'
+    previous: 'Previous'
   number:
     currency:
       format:

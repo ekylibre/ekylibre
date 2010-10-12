@@ -31,6 +31,7 @@ input[type="submit"] { padding: 1px 4px; }
 html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important;  background-position: center left; }
 html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }
 
+.icon.im-action      { background-image: url(../images/buttons/action.png); }
 .icon.im-backup      { background-image: url(../images/buttons/right.png); }
 .icon.im-cancel      { background-image: url(../images/buttons/cancel.png); }
 .icon.im-close       { background-image: url(../images/buttons/close.png); }
@@ -592,14 +593,6 @@ html[dir="rtl"] .bmenu ul { float:right }
 .bmenu ul li:hover { background: Highlight; }
 .bmenu ul li:hover * { color: HighlightText; }
 
-
-.tmenu {  position: relative; }
-.tmenu ul { display: none; position:absolute; bottom: 16px; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
-.tmenu:hover ul { display: block;  }
-.tmenu ul li { list-style-type: none; padding: 2px 4px; }
-.tmenu ul li a { padding: 2px 2px 2px 20px; display: block;}
-.tmenu ul li:hover { background: Highlight; }
-.tmenu ul li:hover * { color: HighlightText; }
 
 
 .treemap { border-collapse: collapse; width: 100%; }

@@ -31,6 +31,13 @@ class CompanyController < ApplicationController
     end
   end
 
+  create_kame(:entities) do |t|
+    t.column :code
+    t.column :last_name, :url=>{:controller=>:relation, :action=>:entity}
+    t.column :first_name
+    t.action :entity_update, :controller=>:relation
+  end
+  
   def index
     t3e :user=>@current_user.label, :company=>@current_company.name
   end

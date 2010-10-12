@@ -962,7 +962,7 @@ class ManagementController < ApplicationController
     return code
   end
 
-  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC") do |t|
+  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC", :line_class=>"(RECORD.parts_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
     t.column :number, :url=>{:action=>:purchase_payment}
     t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
     t.column :paid_on

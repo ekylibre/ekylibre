@@ -67,7 +67,7 @@ module ApplicationHelper
              {:name=>:entity_natures},
              {:name=>:entity_link_natures},   
              {:name=>:event_natures},
-             {:name=>:complements},
+             {:name=>:custom_fields},
              {:name=>:mandates_configure},
              {:name=>:areas},
              {:name=>:districts}
@@ -406,7 +406,7 @@ module ApplicationHelper
   def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
-    for sheet, media in ["screen", "print", "dyta", "dyta-colors"]
+    for sheet, media in ["screen", "print", "dyta", "dyta-colors", "kame", "kame-colors"]
       media = (sheet == "print" ? :print : :screen)
       if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
         code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)

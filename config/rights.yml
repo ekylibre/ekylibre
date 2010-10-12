@@ -33,6 +33,7 @@ __minimum__:
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
   - store::index
+  - company::entities_kame
 # Inaccessible
 __not_used__:
   actions:
