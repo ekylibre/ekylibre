@@ -7,9 +7,9 @@
 
 -if @current_user.future_events.size > 0
   %h2=tc(:future_events)
-  =dyta(:user_future_events)
+  =kame(:user_future_events)
 
 -if @current_company.events.size > 0
   %h2=tc(:recent_events)
-  =dyta(:recent_events)
+  =kame(:recent_events)
 

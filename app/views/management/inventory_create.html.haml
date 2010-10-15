@@ -3,7 +3,7 @@
     - f.title :general
     - f.field :inventory, :responsible_id, :choices=>{:reflection=>:users}
     - f.field :inventory, :comment, :field=>:textarea
-  =dyta :inventory_lines_create
+  =kame :inventory_lines_create
   .actions
     =link_to tg(:previous), :action=>:inventories
     =submit_tag(tc('validate'), :action=>:inventory_create)

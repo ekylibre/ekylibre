@@ -47,7 +47,7 @@ module Kame
       code += "    render(:inline=>'<%=#{Kame.view_method_name(self.name)}->', :layout=>true)\n"
       code += "  end\n"
       code += "end\n"
-      list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       return code
     end
 
@@ -56,18 +56,18 @@ module Kame
       code += self.session_initialization_code.gsub(/^/, '  ')
       code += self.renderer.build_table_code(self).gsub(/^/, '  ')
       code += "end\n"
-      list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       return code      
     end
 
 
     def session_initialization_code
-      code  = "options ||= {}\n"
+      code  = "options = {} unless options.is_a? Hash\n"
       code += "options = (params||{}).merge(options)\n"
       # Session values
       code += "session[:kame] = {} unless session[:kame].is_a? Hash\n"
+      code += "session[:kame][:#{self.name}] = {} unless session[:kame][:#{self.name}].is_a? Hash\n"
       code += "kame_params = session[:kame][:#{self.name}]\n"
-      code += "kame_params = {} unless kame_params.is_a? Hash\n"
       code += "kame_params[:hidden_columns] = [] unless kame_params[:hidden_columns].is_a? Array\n"
       # Order
       code += "order = nil\n"
@@ -80,6 +80,9 @@ module Kame
       code += "end\n"
       code += "kame_params[:sort] = options['#{self.name}_sort']\n"
       code += "kame_params[:dir]  = options['#{self.name}_dir']\n"
+      # Per page
+      code += "options['#{self.name}_per_page'] ||= options['per_page'] || kame_params[:per_page] || #{@options[:per_page]}\n"
+      code += "kame_params[:per_page] = options['#{self.name}_per_page'].to_i\n"
       return code
     end
 

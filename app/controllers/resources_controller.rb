@@ -23,7 +23,7 @@ class ResourcesController < ApplicationController
   end
 
   # search_conditions(:users, [:id, :title, :first_name, :last_name])
-  dyta(:employees, :model=>:users, :conditions=>{:employed=>true}, :order=>:last_name) do |t|
+  create_kame(:employees, :model=>:users, :conditions=>{:employed=>true}, :order=>:last_name) do |t|
     t.column :last_name , :url=>{:action=>:employee}
     t.column :first_name, :url=>{:action=>:employee}
     t.column :employment
@@ -37,7 +37,7 @@ class ResourcesController < ApplicationController
   def employees
   end
   
-  dyta(:employee_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :user_id=>['session[:current_employee]']}, :order=>'started_at desc') do |t|
+  create_kame(:employee_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :user_id=>['session[:current_employee]']}, :order=>'started_at desc') do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location
@@ -47,7 +47,7 @@ class ResourcesController < ApplicationController
     t.action :event_delete, :controller=>:relations, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  dyta(:employee_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'created_on desc') do |t|
+  create_kame(:employee_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'created_on desc') do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sale_order_lines}
     t.column :created_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
@@ -59,7 +59,7 @@ class ResourcesController < ApplicationController
     t.action :sale_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
   end
 
-   dyta(:employee_land_parcel_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
+   create_kame(:employee_land_parcel_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
     t.column :name, :url=>{:action=>:operation, :controller=>:production}
     t.column :name, :through=>:nature
     t.column :planned_on
@@ -90,7 +90,7 @@ class ResourcesController < ApplicationController
 
   # manage :employees
 
-  dyta(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name 
     t.column :code 
     t.column :rome 

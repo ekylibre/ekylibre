@@ -1,6 +1,6 @@
 - if @deposits.size > 0
   =form_tag do
-    =dyta :unvalidated_deposits
+    =kame :unvalidated_deposits
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('validate'), :action=>:unvalidated_deposits)

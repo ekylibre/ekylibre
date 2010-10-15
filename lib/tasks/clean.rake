@@ -204,6 +204,9 @@ namespace :clean do
         elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
           dyxx = line.split(/[\s\(\)\,\:]+/)
           actions << dyxx[1]+'_'+dyxx[0]
+        elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
+          dyxx = line.split(/[\s\(\)\,\:]+/)
+          actions << dyxx[1]+'_kame'
         elsif line.match(/^\s*manage[\s\(]+\:\w+/)
           prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
           actions << prefix+'_create'
@@ -435,7 +438,7 @@ namespace :clean do
     ##############   S U P P O R T   #################
     translation  = "#{locale}:\n"
 
-    for support in [:date, :datetime, :dyta, :number, :support, :time]
+    for support in [:date, :datetime, :dyta, :kame, :number, :support, :time]
       translation += "  #{support}:"+hash_to_yaml(mh[support], 2)+"\n"
     end
 
@@ -460,7 +463,7 @@ namespace :clean do
       for full_action in attributes['actions']
         controller, action = (full_action.match(/\:\:/) ? full_action.split(/\W+/)[0..1] : [attributes['controller'].to_s, full_action])
         all_actions[controller] ||= []
-        all_actions[controller] << action unless action.match /dy(li|ta)|delete/
+        all_actions[controller] << action unless action.match /dy(li|ta)|delete|kame/
       end if attributes['actions'].is_a? Array
     end
     useful_actions = all_actions.dup

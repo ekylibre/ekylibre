@@ -16,7 +16,7 @@
       = formalize do |f|
         - f.title :operation_lines
       =hidden_field_tag "operation[target_type]", LandParcel.name
-      %table.dyta
+      %table.kame
         %thead
           %tr
             %th=OperationLine.human_attribute_name("direction")
@@ -35,7 +35,7 @@
     %td{:valign=>:top}
       = formalize do |f|
         - f.title :tools
-      %table.dyta
+      %table.kame
         %thead
           %tr
             %th=OperationUse.human_attribute_name("tool_id")

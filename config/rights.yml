@@ -9,7 +9,7 @@ __minimum__:
   - authentication::relogin
   - company::about
   - company::change_password
-  - company::entities_kame # UNEXISTENT ACTION !!!
+  - company::entities_kame
   - company::formalize
   - company::help
   - company::index
@@ -31,25 +31,25 @@ __minimum__:
   - management::subscription_contacts_dyli
   - production::land_parcels_map
   - relations::entities_dyli
-  - relations::recent_events_dyta
-  - relations::user_future_events_dyta
+  - relations::recent_events_kame
+  - relations::user_future_events_kame
   - store::index
 # Inaccessible
 __not_used__:
   actions:
   - resources::employee
   - resources::employee_delete
-  - resources::employee_events_dyta
-  - resources::employee_land_parcel_operations_dyta
-  - resources::employee_sale_orders_dyta
+  - resources::employee_events_kame
+  - resources::employee_land_parcel_operations_kame
+  - resources::employee_sale_orders_kame
   - resources::employees
-  - resources::employees_dyta
+  - resources::employees_kame
   - resources::index
   - resources::profession_create
   - resources::profession_delete
   - resources::profession_update
   - resources::professions
-  - resources::professions_dyta
+  - resources::professions_kame
 # Transfer commercial data in accountancy
 accountize:
   controller: accountancy
@@ -67,7 +67,7 @@ build_production_chains:
   - production_chain_conveyor_create
   - production_chain_conveyor_delete
   - production_chain_conveyor_update
-  - production_chain_conveyors_dyta
+  - production_chain_conveyors_kame
   - production_chain_create
   - production_chain_delete
   - production_chain_update
@@ -77,13 +77,13 @@ build_production_chains:
   - production_chain_work_center_down
   - production_chain_work_center_up
   - production_chain_work_center_update
-  - production_chain_work_centers_dyta
+  - production_chain_work_centers_kame
   - production_chains
-  - production_chains_dyta
+  - production_chains_kame
 # Cancel invoices
 cancel_invoices:
   controller: management
-  actions: [credit_lines_dyta, index, invoice_cancel, invoices]
+  actions: [credit_lines_kame, index, invoice_cancel, invoices]
 # Change prices on sales
 change_prices_on_sale:
   controller: management
@@ -100,39 +100,39 @@ configure_company:
   - department_delete
   - department_update
   - departments
-  - departments_dyta
+  - departments_kame
   - establishment_create
   - establishment_delete
   - establishment_update
   - establishments
-  - establishments_dyta
+  - establishments_kame
   - index
   - sequence_create
   - sequence_delete
   - sequence_update
   - sequences
-  - sequences_dyta
+  - sequences_kame
   - sequences_load
 # Consult accounting documents
 consult_accounting_documents:
   controller: accountancy
-  actions: [balance, document_print, general_ledger, general_ledger_dyta, index]
+  actions: [balance, document_print, general_ledger, general_ledger_kame, index]
 # Consult the people
 consult_entities:
   controller: relations
   actions:
   - entities
-  - entities_dyta
+  - entities_kame
   - entity
-  - entity_cashes_dyta
-  - entity_contacts_dyta
-  - entity_events_dyta
-  - entity_invoices_dyta
-  - entity_purchase_orders_dyta
-  - entity_purchase_payments_dyta
-  - entity_sale_orders_dyta
-  - entity_sale_payments_dyta
-  - entity_subscriptions_dyta
+  - entity_cashes_kame
+  - entity_contacts_kame
+  - entity_events_kame
+  - entity_invoices_kame
+  - entity_purchase_orders_kame
+  - entity_purchase_payments_kame
+  - entity_sale_orders_kame
+  - entity_sale_payments_kame
+  - entity_subscriptions_kame
   - index
 # Consult the journal entries
 consult_entries:
@@ -144,10 +144,10 @@ consult_invoices:
   actions:
   - index
   - invoice
-  - invoice_credits_dyta
-  - invoice_lines_dyta
+  - invoice_credits_kame
+  - invoice_lines_kame
   - invoices
-  - invoices_dyta
+  - invoices_kame
 # Consult the prices
 consult_prices:
   controller: management
@@ -162,37 +162,37 @@ consult_purchases:
   actions:
   - index
   - purchase_order
-  - purchase_order_lines_dyta
+  - purchase_order_lines_kame
   - purchase_orders
-  - purchase_orders_dyta
+  - purchase_orders_kame
 # Consult the sales
 consult_sale_orders:
   controller: management
   actions:
   - index
   - sale_order
-  - sale_order_deliveries_dyta
-  - sale_order_invoices_dyta
-  - sale_order_lines_dyta
-  - sale_order_payments_dyta
+  - sale_order_deliveries_kame
+  - sale_order_invoices_kame
+  - sale_order_lines_kame
+  - sale_order_payments_kame
   - sale_orders
-  - sale_orders_dyta
+  - sale_orders_kame
   - statistics
   - unpaid_sale_orders_export
 # Consult the stocks
 consult_stocks:
   controller: management
-  actions: [critic_stocks_dyta, index, stocks, stocks_dyta]
+  actions: [critic_stocks_kame, index, stocks, stocks_kame]
 # Consult the tracking informations
 consult_tracking:
   controller: management
   actions:
   - index
   - tracking
-  - tracking_operation_lines_dyta
-  - tracking_purchase_order_lines_dyta
-  - tracking_sale_order_lines_dyta
-  - tracking_stocks_dyta
+  - tracking_operation_lines_kame
+  - tracking_purchase_order_lines_kame
+  - tracking_sale_order_lines_kame
+  - tracking_stocks_kame
 # Export listings
 extract_listings:
   controller: company
@@ -207,7 +207,7 @@ import_data:
 # Import, export people listings
 import_export_entities:
   controller: relations
-  actions: [entities, entities_dyta, entities_export, entities_import, index]
+  actions: [entities, entities_export, entities_import, entities_kame, index]
 # Send mail to lists
 mail_to_listings:
   controller: company
@@ -219,17 +219,17 @@ manage_accounts:
   - account
   - account_create
   - account_delete
-  - account_entities_dyta
-  - account_journal_entry_lines_dyta
+  - account_entities_kame
+  - account_journal_entry_lines_kame
   - account_update
   - accounts
-  - accounts_dyta
+  - accounts_kame
   - accounts_load
   - index
 # Manage areas
 manage_areas:
   controller: relations
-  actions: [area_create, area_delete, area_update, areas, areas_dyta, index]
+  actions: [area_create, area_delete, area_update, areas, areas_kame, index]
 # Point bank statements
 manage_bank_statements:
   controller: accountancy
@@ -237,11 +237,11 @@ manage_bank_statements:
   - bank_statement
   - bank_statement_create
   - bank_statement_delete
-  - bank_statement_entries_dyta
+  - bank_statement_entries_kame
   - bank_statement_point
   - bank_statement_update
   - bank_statements
-  - bank_statements_dyta
+  - bank_statements_kame
   - index
 # Manage cash transfers
 manage_cash_transfers:
@@ -252,20 +252,20 @@ manage_cash_transfers:
   - cash_transfer_delete
   - cash_transfer_update
   - cash_transfers
-  - cash_transfers_dyta
+  - cash_transfers_kame
   - index
 # Manage cashes
 manage_cashes:
   controller: accountancy
   actions:
   - cash
-  - cash_bank_statements_dyta
+  - cash_bank_statements_kame
   - cash_create
   - cash_delete
-  - cash_deposits_dyta
+  - cash_deposits_kame
   - cash_update
   - cashes
-  - cashes_dyta
+  - cashes_kame
   - index
 # Manage custom fields
 manage_custom_fields:
@@ -276,12 +276,12 @@ manage_custom_fields:
   - custom_field_choice_down
   - custom_field_choice_up
   - custom_field_choice_update
-  - custom_field_choices_dyta
+  - custom_field_choices_kame
   - custom_field_create
   - custom_field_sort
   - custom_field_update
   - custom_fields
-  - custom_fields_dyta
+  - custom_fields_kame
   - index
 # Manage delays
 manage_delays:
@@ -292,7 +292,7 @@ manage_delays:
   - delay_delete
   - delay_update
   - delays
-  - delays_dyta
+  - delays_kame
   - index
 # Manage deposits
 manage_deposits:
@@ -301,14 +301,14 @@ manage_deposits:
   - deposit
   - deposit_create
   - deposit_delete
-  - deposit_payments_dyta
+  - deposit_payments_kame
   - deposit_update
-  - depositable_payments_dyta
+  - depositable_payments_kame
   - deposits
-  - deposits_dyta
+  - deposits_kame
   - index
   - unvalidated_deposits
-  - unvalidated_deposits_dyta
+  - unvalidated_deposits_kame
 # Manage districts
 manage_districts:
   controller: relations
@@ -318,7 +318,7 @@ manage_districts:
   - district_update
   - districts
   - districts_dyli
-  - districts_dyta
+  - districts_kame
   - index
 # Manage document templates
 manage_document_templates:
@@ -330,7 +330,7 @@ manage_document_templates:
   - document_template_print
   - document_template_update
   - document_templates
-  - document_templates_dyta
+  - document_templates_kame
   - document_templates_load
   - index
 # Manage people
@@ -342,17 +342,17 @@ manage_entities:
   - contact_create
   - contact_delete
   - contact_update
-  - entity_cashes_dyta
-  - entity_contacts_dyta
+  - entity_cashes_kame
+  - entity_contacts_kame
   - entity_create
   - entity_delete
-  - entity_events_dyta
-  - entity_invoices_dyta
-  - entity_mandates_dyta
-  - entity_purchase_orders_dyta
-  - entity_sale_orders_dyta
-  - entity_sale_payments_dyta
-  - entity_subscriptions_dyta
+  - entity_events_kame
+  - entity_invoices_kame
+  - entity_mandates_kame
+  - entity_purchase_orders_kame
+  - entity_sale_orders_kame
+  - entity_sale_payments_kame
+  - entity_subscriptions_kame
   - entity_update
   - index
 # Manage people natures
@@ -363,15 +363,15 @@ manage_entities_natures:
   - entity_nature_delete
   - entity_nature_update
   - entity_natures
-  - entity_natures_dyta
+  - entity_natures_kame
   - index
 # Manage people categories
 manage_entity_categories:
   controller: relations
   actions:
-  - category_prices_dyta
+  - category_prices_kame
   - entity_categories
-  - entity_categories_dyta
+  - entity_categories_kame
   - entity_category
   - entity_category_create
   - entity_category_delete
@@ -387,9 +387,9 @@ manage_entity_links:
   - entity_link_nature_delete
   - entity_link_nature_update
   - entity_link_natures
-  - entity_link_natures_dyta
+  - entity_link_natures_kame
   - entity_link_update
-  - entity_links_dyta
+  - entity_links_kame
   - index
 # Create and update estimates
 manage_estimates:
@@ -410,7 +410,7 @@ manage_estimates:
   - sale_order_line_tracking
   - sale_order_line_update
   - sale_order_lines
-  - sale_order_subscriptions_dyta
+  - sale_order_subscriptions_kame
   - sale_order_update
   - subscription_coordinates
   - sum_calculate
@@ -426,10 +426,10 @@ manage_events:
   - event_nature_delete
   - event_nature_update
   - event_natures
-  - event_natures_dyta
+  - event_natures_kame
   - event_update
   - events
-  - events_dyta
+  - events_kame
   - index
 # Manage and close financial years
 manage_financial_years:
@@ -441,7 +441,7 @@ manage_financial_years:
   - financial_year_delete
   - financial_year_update
   - financial_years
-  - financial_years_dyta
+  - financial_years_kame
   - index
 # Manage inventories
 manage_inventories:
@@ -449,11 +449,11 @@ manage_inventories:
   actions:
   - index
   - inventories
-  - inventories_dyta
+  - inventories_kame
   - inventory_create
   - inventory_delete
-  - inventory_lines_create_dyta
-  - inventory_lines_update_dyta
+  - inventory_lines_create_kame
+  - inventory_lines_update_kame
   - inventory_reflect
   - inventory_update
 # Manaeg journal entries
@@ -464,23 +464,23 @@ manage_journal_entries:
   - account_letter
   - account_unletter
   - draft_entry_lines
-  - draft_entry_lines_dyta
+  - draft_entry_lines_kame
   - index
   - journal
-  - journal_draft_entry_lines_dyta
-  - journal_entries_dyta
+  - journal_draft_entry_lines_kame
+  - journal_entries_kame
   - journal_entry
   - journal_entry_create
   - journal_entry_delete
-  - journal_entry_entries_dyta
+  - journal_entry_entries_kame
   - journal_entry_line_create
-  - journal_entry_lines_dyta
+  - journal_entry_lines_kame
   - journal_entry_update
-  - journal_mixed_dyta
+  - journal_mixed_kame
   - journals
-  - journals_dyta
+  - journals_kame
   - lettering
-  - unlettered_journal_entry_lines_dyta
+  - unlettered_journal_entry_lines_kame
 # Manage, close and reopen journals
 manage_journals:
   controller: accountancy
@@ -493,7 +493,7 @@ manage_journals:
   - journal_reopen
   - journal_update
   - journals
-  - journals_dyta
+  - journals_kame
 # Manage groups of land parcels
 manage_land_parcel_groups:
   controller: production
@@ -503,7 +503,7 @@ manage_land_parcel_groups:
   - land_parcel_group_delete
   - land_parcel_group_update
   - land_parcel_groups
-  - land_parcel_groups_dyta
+  - land_parcel_groups_kame
 # Manage fields
 manage_land_parcels:
   controller: production
@@ -513,10 +513,10 @@ manage_land_parcels:
   - land_parcel_create
   - land_parcel_delete
   - land_parcel_divide
-  - land_parcel_operations_dyta
+  - land_parcel_operations_kame
   - land_parcel_update
   - land_parcels
-  - land_parcels_dyta
+  - land_parcels_kame
 # Manage listings
 manage_listings:
   controller: company
@@ -530,7 +530,7 @@ manage_listings:
   - listing_node_update
   - listing_update
   - listings
-  - listings_dyta
+  - listings_kame
 # Manage mandates
 manage_mandates:
   controller: relations
@@ -545,12 +545,12 @@ manage_mandates:
   - mandate_update
   - mandates
   - mandates_configure
-  - mandates_dyta
+  - mandates_kame
 # Manage observations
 manage_observations:
   controller: relations
   actions:
-  - entity_observations_dyta
+  - entity_observations_kame
   - index
   - observation_create
   - observation_delete
@@ -564,20 +564,20 @@ manage_operations:
   - operation_create
   - operation_delete
   - operation_line_create
-  - operation_lines_dyta
+  - operation_lines_kame
   - operation_nature_create
   - operation_nature_delete
   - operation_nature_update
   - operation_natures
-  - operation_natures_dyta
+  - operation_natures_kame
   - operation_products_dyli
   - operation_update
   - operation_use_create
-  - operation_uses_dyta
+  - operation_uses_kame
   - operations
-  - operations_dyta
+  - operations_kame
   - unvalidated_operations
-  - unvalidated_operations_dyta
+  - unvalidated_operations_kame
 # Manage payment modes
 manage_payment_modes:
   controller: management
@@ -587,13 +587,13 @@ manage_payment_modes:
   - purchase_payment_mode_delete
   - purchase_payment_mode_update
   - purchase_payment_modes
-  - purchase_payment_modes_dyta
+  - purchase_payment_modes_kame
   - sale_payment_mode_create
   - sale_payment_mode_delete
   - sale_payment_mode_reflect
   - sale_payment_mode_update
   - sale_payment_modes
-  - sale_payment_modes_dyta
+  - sale_payment_modes_kame
 # Manage prices
 manage_prices:
   controller: management
@@ -602,20 +602,20 @@ manage_prices:
   - price_create
   - price_delete
   - price_update
-  - prices_dyta
   - prices_export
   - prices_import
+  - prices_kame
 # Manage product categories
 manage_product_categories:
   controller: management
   actions:
   - index
   - product_categories
-  - product_categories_dyta
+  - product_categories_kame
   - product_category
   - product_category_create
   - product_category_delete
-  - product_category_products_dyta
+  - product_category_products_kame
   - product_category_update
 # Manage products
 manage_products:
@@ -626,14 +626,14 @@ manage_products:
   - product_component_create
   - product_component_delete
   - product_component_update
-  - product_components_dyta
+  - product_components_kame
   - product_create
   - product_delete
-  - product_prices_dyta
-  - product_stock_moves_dyta
-  - product_stocks_dyta
+  - product_prices_kame
+  - product_stock_moves_kame
+  - product_stocks_kame
   - product_update
-  - products_dyta
+  - products_kame
 # Manage purchase orders
 manage_purchases:
   controller: management
@@ -645,7 +645,7 @@ manage_purchases:
   - purchase_order_line_delete
   - purchase_order_line_update
   - purchase_order_lines
-  - purchase_order_payment_parts_dyta
+  - purchase_order_payment_parts_kame
   - purchase_order_summary
   - purchase_order_update
   - purchase_orders
@@ -654,10 +654,10 @@ manage_purchases:
   - purchase_payment_delete
   - purchase_payment_part_create
   - purchase_payment_part_delete
-  - purchase_payment_purchase_orders_dyta
+  - purchase_payment_purchase_orders_kame
   - purchase_payment_update
   - purchase_payments
-  - purchase_payments_dyta
+  - purchase_payments_kame
   - purchase_products_dyli
   - suppliers_dyli
 # Manage sale delivery modes
@@ -669,7 +669,7 @@ manage_sale_delivery_modes:
   - sale_delivery_mode_delete
   - sale_delivery_mode_update
   - sale_delivery_modes
-  - sale_delivery_modes_dyta
+  - sale_delivery_modes_kame
 # Mange sale orders natures
 manage_sale_order_natures:
   controller: management
@@ -679,7 +679,7 @@ manage_sale_order_natures:
   - sale_order_nature_delete
   - sale_order_nature_update
   - sale_order_natures
-  - sale_order_natures_dyta
+  - sale_order_natures_kame
 # Manages sale orders
 manage_sale_orders:
   controller: management
@@ -692,27 +692,27 @@ manage_sale_orders:
   - sale_order_confirm
   - sale_order_delete
   - sale_order_deliveries
-  - sale_order_deliveries_dyta
+  - sale_order_deliveries_kame
   - sale_order_invoice
-  - undelivered_quantities_dyta
+  - undelivered_quantities_kame
   - undelivered_sales
-  - undelivered_sales_dyta
+  - undelivered_sales_kame
 # Manage sale payments
 manage_sale_payments:
   controller: management
   actions:
   - index
-  - sale_order_payment_parts_dyta
+  - sale_order_payment_parts_kame
   - sale_order_summary
   - sale_payment
   - sale_payment_create
   - sale_payment_delete
   - sale_payment_part_create
   - sale_payment_part_delete
-  - sale_payment_sale_orders_dyta
+  - sale_payment_sale_orders_kame
   - sale_payment_update
   - sale_payments
-  - sale_payments_dyta
+  - sale_payments_kame
 # Manage stock moves
 manage_stock_moves:
   controller: management
@@ -725,9 +725,9 @@ manage_stock_moves:
   - stock_transfer_delete
   - stock_transfer_update
   - stock_transfers
-  - stock_transfers_dyta
+  - stock_transfers_kame
   - unexecuted_transfers
-  - unexecuted_transfers_dyta
+  - unexecuted_transfers_kame
 # Manage subscriptions
 manage_subscriptions:
   controller: management
@@ -744,10 +744,10 @@ manage_subscriptions:
   - subscription_nature_increment
   - subscription_nature_update
   - subscription_natures
-  - subscription_natures_dyta
+  - subscription_natures_kame
   - subscription_update
   - subscriptions
-  - subscriptions_dyta
+  - subscriptions_kame
 # Manage taxes
 manage_taxes:
   controller: accountancy
@@ -759,7 +759,7 @@ manage_taxes:
   - tax_delete
   - tax_update
   - taxes
-  - taxes_dyta
+  - taxes_kame
 # Manage tools of production
 manage_tools:
   controller: production
@@ -768,10 +768,10 @@ manage_tools:
   - tool
   - tool_create
   - tool_delete
-  - tool_operations_dyta
+  - tool_operations_kame
   - tool_update
   - tools
-  - tools_dyta
+  - tools_kame
 # Manage transports
 manage_transports:
   controller: management
@@ -782,11 +782,11 @@ manage_transports:
   - transport_create
   - transport_delete
   - transport_deliveries
-  - transport_deliveries_dyta
+  - transport_deliveries_kame
   - transport_delivery_delete
   - transport_update
   - transports
-  - transports_dyta
+  - transports_kame
 # Manage units of measure
 manage_units:
   controller: company
@@ -796,7 +796,7 @@ manage_units:
   - unit_delete
   - unit_update
   - units
-  - units_dyta
+  - units_kame
   - units_load
 # Manage users
 manage_users:
@@ -807,7 +807,7 @@ manage_users:
   - role_delete
   - role_update
   - roles
-  - roles_dyta
+  - roles_kame
   - user
   - user_create
   - user_delete
@@ -815,7 +815,7 @@ manage_users:
   - user_unlock
   - user_update
   - users
-  - users_dyta
+  - users_kame
 # Manage warehouses
 manage_warehouses:
   controller: management
@@ -824,11 +824,11 @@ manage_warehouses:
   - warehouse
   - warehouse_create
   - warehouse_delete
-  - warehouse_stock_moves_dyta
-  - warehouse_stocks_dyta
+  - warehouse_stock_moves_kame
+  - warehouse_stocks_kame
   - warehouse_update
   - warehouses
-  - warehouses_dyta
+  - warehouses_kame
 # Merge people
 merge_entities:
   controller: relations
@@ -840,4 +840,4 @@ print:
 # Use production chains
 use_production_chains:
   controller: production
-  actions: [index, production_chains, production_chains_dyta]
+  actions: [index, production_chains, production_chains_kame]

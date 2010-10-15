@@ -12,7 +12,7 @@
 - cost_accounts = @balance.select {|account| account[:number].to_s.match /^(6)/}
 - finished_accounts = @balance.select {|account| account[:number].to_s.match /^7/}
 
-%table.dyta
+%table.kame
   %tr{:align=>'center'}
     %th{:colspan=>3}=tc :active_balance_sheet 
     %th=tc(:account_value_current) 
@@ -188,7 +188,7 @@
 
 
 = "COMPTE DE RESULTAT"
-%table.dyta
+%table.kame
   %tr
     %th{:rowspan =>cost_accounts.size+1}=tc :running_cost
     %td=cost_accounts.first[:name]

@@ -19,7 +19,7 @@
 class RelationsController < ApplicationController
 
 
-  dyta(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
+  create_kame(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
@@ -28,7 +28,7 @@ class RelationsController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
   end 
 
-  dyta(:recent_events, :model=>:events, :conditions=>['company_id = ? AND started_at < CURRENT_TIMESTAMP',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
+  create_kame(:recent_events, :model=>:events, :conditions=>['company_id = ? AND started_at < CURRENT_TIMESTAMP',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
@@ -116,7 +116,7 @@ class RelationsController < ApplicationController
   end
   
   #
-  dyta(:areas, :conditions=>search_conditions(:areas, :areas=>[:postcode, :name]), :order=>:name) do |t| 
+  create_kame(:areas, :conditions=>search_conditions(:areas, :areas=>[:postcode, :name]), :order=>:name) do |t| 
     t.column :name
     t.column :postcode
     t.column :city
@@ -140,7 +140,7 @@ class RelationsController < ApplicationController
 
   manage :areas, :district_id=>"@current_company.districts.find(params[:district_id]).id rescue 0", :country=>"@current_company.entity.country"
 
-  dyta(:districts, :children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t| 
+  create_kame(:districts, :children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t| 
     t.column :name
     t.column :code
     t.action :area_create, :url=>{:district_id=>"(RECORD.id)", :id=>'nil'}
@@ -164,7 +164,7 @@ class RelationsController < ApplicationController
   manage :districts
 
 
-  dyta(:custom_fields, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:custom_fields, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :nature_label
     t.column :required
@@ -201,7 +201,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t| 
+  create_kame(:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t| 
     t.column :name 
     t.column :value
     t.action :custom_field_choice_up, :if=>"not RECORD.first\?", :method=>:post
@@ -264,7 +264,7 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
    
-  dyta(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS  c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
+  create_kame(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS  c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
     t.column :active, :datatype=>:boolean
     t.column :code, :url=>{:action=>:entity}
     t.column :title, :through=>:nature
@@ -284,9 +284,9 @@ class RelationsController < ApplicationController
   end
 
 
-  # dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'] ]) do |t|
-  # dyta(:entity_contacts, :model=>:contacts, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
-  dyta(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
+  # create_kame(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND active = true AND (entity_id = ?  OR  entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) OR entity_id IN  ( SELECT entity_2_id FROM #{EntityLink.table_name}  INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLink.table_name}.company_id = #{EntityLinkNature.table_name}.company_id WHERE #{EntityLink.table_name}.company_id = ? AND entity_1_id = ? OR entity_2_id = ?   AND #{EntityLinkNature.table_name}.propagate_contacts = true) )', ['@current_company.id'], ['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'], ['@current_company.id'] ,['session[:current_entity_id]'],['session[:current_entity_id]'] ]) do |t|
+  # create_kame(:entity_contacts, :model=>:contacts, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
+  create_kame(:entity_contacts, :model=>:contacts, :conditions=>['company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
     t.column :address, :url=>{:action=>:contact_update}
     t.column :phone
     t.column :fax
@@ -299,7 +299,7 @@ class RelationsController < ApplicationController
     t.action :contact_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+  create_kame(:entity_subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :model=>:subscriptions, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :number
     t.column :name, :through=>:nature
     t.column :start
@@ -313,7 +313,7 @@ class RelationsController < ApplicationController
     t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
+  create_kame(:entity_sale_orders, :model=>:sale_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sale_order}, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
@@ -326,7 +326,7 @@ class RelationsController < ApplicationController
     t.action :sale_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
   
-  dyta(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
+  create_kame(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -337,7 +337,7 @@ class RelationsController < ApplicationController
     t.action :event_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
+  create_kame(:entity_cashes, :model => :cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :name
     t.column :number
     t.column :iban_label
@@ -345,7 +345,7 @@ class RelationsController < ApplicationController
     t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure_you_want_to_delete 
   end
   
-  dyta(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
+  create_kame(:entity_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:invoice}, :children=>:label
     t.column :number, :through=>:sale_order, :url=>{:controller=>:management, :action=>:sale_order}, :children=>false
     # t.column :full_name, :through=>:client
@@ -359,7 +359,7 @@ class RelationsController < ApplicationController
     # t.action :controller=>:management, :invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
   end
   
-  dyta(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
+  create_kame(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :title
     t.column :organization, :url=>{:action=>:mandates}
     t.column :family
@@ -369,7 +369,7 @@ class RelationsController < ApplicationController
     t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  create_kame(:entity_sale_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     #t.column :id, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :number, :url=>{:controller=>:management, :action=>:sale_payment}
     t.column :paid_on
@@ -386,7 +386,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_purchase_payments, :model=>:purchase_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  create_kame(:entity_purchase_payments, :model=>:purchase_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:purchase_payment}
     t.column :paid_on
     t.column :label, :through=>:responsible
@@ -399,7 +399,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_observations, :model=>:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
+  create_kame(:entity_observations, :model=>:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']},:line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
     t.action :observation_update
@@ -407,7 +407,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:entity_purchase_orders, :model=>:purchase_order,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
+  create_kame(:entity_purchase_orders, :model=>:purchase_order,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
     t.column :number ,:url=>{:controller=>:management, :action=>:purchase_order}
     t.column :created_on
     t.column :moved_on
@@ -563,7 +563,7 @@ class RelationsController < ApplicationController
     end
   end
   
-  dyta(:entity_categories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:entity_categories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :code
     t.column :name
     t.column :description
@@ -575,7 +575,7 @@ class RelationsController < ApplicationController
   def entity_categories
   end
 
-  dyta(:category_prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:category]']}) do |t|
+  create_kame(:category_prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:category]']}) do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :amount
     t.column :amount_with_taxes
@@ -594,7 +594,7 @@ class RelationsController < ApplicationController
 
   manage :contacts, :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
 
-  dyta(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:entity_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :title
     t.column :active
@@ -609,7 +609,7 @@ class RelationsController < ApplicationController
 
   manage :entity_natures
   
-  dyta(:entity_link_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:entity_link_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :name_1_to_2
     t.column :name_2_to_1
@@ -624,7 +624,7 @@ class RelationsController < ApplicationController
 
   manage :entity_link_natures
 
-  dyta(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity_1_id = ? OR entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity_id]'],['session[:current_entity_id]']], :per_page=>5) do |t|
+  create_kame(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity_1_id = ? OR entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity_id]'],['session[:current_entity_id]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity_1, :url=>{:action=>:entity}
     t.column :name_1_to_2, :through=>:nature
     t.column :description, :through=>:entity_2, :url=>{:action=>:entity}
@@ -655,7 +655,7 @@ class RelationsController < ApplicationController
   end
 
 
-  dyta(:mandates, :conditions=>mandates_conditions) do |t|
+  create_kame(:mandates, :conditions=>mandates_conditions) do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :title
     t.column :organization
@@ -708,7 +708,7 @@ class RelationsController < ApplicationController
   manage :observations, :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
  
 
-  dyta(:event_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:event_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :text_usage
     t.column :duration
@@ -726,7 +726,7 @@ class RelationsController < ApplicationController
   end
   
 
-  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location

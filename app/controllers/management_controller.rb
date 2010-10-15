@@ -37,7 +37,7 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:delays, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>{:action=>:delay}
     t.column :active
     t.column :expression
@@ -150,7 +150,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:inventories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :created_on
     t.column :changes_reflected
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -161,21 +161,21 @@ class ManagementController < ApplicationController
     t.action :inventory_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.changes_reflected == false'
   end
 
-  dyta(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
+  create_kame(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity, :precision=>3
     t.column :label, :through=>:unit
-    t.textbox :quantity
+    t.text_field :quantity
   end
 
-  dyta(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>'warehouse_id') do |t|
+  create_kame(:inventory_lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000,:order=>'warehouse_id') do |t|
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :theoric_quantity, :precision=>3
-    t.textbox :quantity
+    t.text_field :quantity
   end
 
   def inventories
@@ -249,7 +249,7 @@ class ManagementController < ApplicationController
     code
   end
   
-  dyta(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN #{Entity.table_name} e ON e.id = #{Invoice.table_name}.client_id LEFT JOIN #{SaleOrder.table_name} AS s ON s.id = #{Invoice.table_name}.sale_order_id", :order=>"#{Invoice.table_name}.created_on DESC, #{Invoice.table_name}.number DESC") do |t|
+  create_kame(:invoices, :conditions=>invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN #{Entity.table_name} e ON e.id = #{Invoice.table_name}.client_id LEFT JOIN #{SaleOrder.table_name} AS s ON s.id = #{Invoice.table_name}.sale_order_id", :order=>"#{Invoice.table_name}.created_on DESC, #{Invoice.table_name}.number DESC") do |t|
     t.column :number, :url=>{:action=>:invoice}
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sale_order, :url=>{:action=>:sale_order}
@@ -282,13 +282,13 @@ class ManagementController < ApplicationController
 #   end
 
 
-  dyta(:credit_lines, :model=>:invoice_lines, :conditions=>{:invoice_id=>['session[:invoice_id]']}) do |t|
+  create_kame(:credit_lines, :model=>:invoice_lines, :conditions=>{:invoice_id=>['session[:invoice_id]']}) do |t|
     t.column :name, :through=>:product
     t.column :amount_with_taxes, :through=>:price, :label=>:column
     t.column :quantity
     t.column :credited_quantity, :datatype=>:decimal
-    t.check  :validated, :value=>"true", :label=>'OK'
-    t.textbox :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+    t.check_box  :validated, :value=>"true", :label=>'OK'
+    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
   end
 
   def invoice_cancel
@@ -360,7 +360,7 @@ class ManagementController < ApplicationController
   end
    
 
-  dyta(:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
+  create_kame(:invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :invoice_id=>['session[:current_invoice]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :amount, :through=>:price
     t.column :amount_with_taxes, :through=>:price, :label=>:column
@@ -369,7 +369,7 @@ class ManagementController < ApplicationController
     t.column :amount_with_taxes
   end
 
-  dyta(:invoice_credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }, :children=>:lines) do |t|
+  create_kame(:invoice_credits, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_invoice]'] }, :children=>:lines) do |t|
     t.column :number, :url=>{:action=>:invoice}, :children=>:designation
     t.column :full_name, :through=>:client, :children=>false
     t.column :created_on, :children=>false
@@ -395,7 +395,7 @@ class ManagementController < ApplicationController
     code
   end
   
-  dyta(:prices, :conditions=>prices_conditions) do |t|
+  create_kame(:prices, :conditions=>prices_conditions) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
@@ -573,7 +573,7 @@ class ManagementController < ApplicationController
     
   end
   
-  dyta(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
+  create_kame(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
     t.column :amount
@@ -584,7 +584,7 @@ class ManagementController < ApplicationController
     t.action :price_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
+  create_kame(:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name
     t.action :product_component_update
     t.action :product_component_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
@@ -635,7 +635,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:products, :conditions=>products_conditions) do |t|
+  create_kame(:products, :conditions=>products_conditions) do |t|
     # t.column :number
     t.column :name, :through=>:category, :url=>{:action=>:product_category}
     t.column :name, :url=>{:action=>:product}
@@ -663,8 +663,8 @@ class ManagementController < ApplicationController
   end
 
 
-  # dyta(:stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
-  dyta(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  # create_kame(:stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
+  create_kame(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     #t.column :quantity_max
@@ -674,7 +674,7 @@ class ManagementController < ApplicationController
     t.column :quantity
   end
   
-  dyta(:product_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  create_kame(:product_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name
     # t.column :name, :through=>:origin
     t.column :quantity
@@ -772,7 +772,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
+  create_kame(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.status', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :reference_number, :url=>{:action=>:purchase_order}
     t.column :planned_on
@@ -807,7 +807,7 @@ class ManagementController < ApplicationController
 
   manage :purchase_orders, :supplier_id=>"@current_company.entities.find(params[:supplier_id]).id rescue nil", :planned_on=>"Date.today", :redirect_to=>'{:action=>:purchase_order_lines, :id=>"id"}'
 
-  dyta(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
+  create_kame(:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :tracking_serial
     t.column :quantity
@@ -904,7 +904,7 @@ class ManagementController < ApplicationController
   end
 
 
-  dyta(:purchase_order_payment_parts, :model=>:purchase_payment_parts, :conditions=>{:company_id=>['@current_company.id'], :expense_id=>['session[:current_purchase_order_id]']}) do |t|
+  create_kame(:purchase_order_payment_parts, :model=>:purchase_payment_parts, :conditions=>{:company_id=>['@current_company.id'], :expense_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:purchase_payment}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:purchase_payment}
     t.column :amount
@@ -962,7 +962,7 @@ class ManagementController < ApplicationController
     return code
   end
 
-  dyta(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC", :line_class=>"(RECORD.parts_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
+  create_kame(:purchase_payments, :conditions=>purchase_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC", :line_class=>"(RECORD.parts_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
     t.column :number, :url=>{:action=>:purchase_payment}
     t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
     t.column :paid_on
@@ -984,7 +984,7 @@ class ManagementController < ApplicationController
   manage :purchase_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
 
-  dyta(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM #{PurchasePaymentPart.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
+  create_kame(:purchase_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM #{PurchasePaymentPart.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_purchase_payment_id]']]) do |t|
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -1014,7 +1014,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN #{Entity.table_name} AS entities ON entities.id = #{SaleOrder.table_name}.client_id", :order=>'created_on desc', :line_class=>'RECORD.status' ) do |t|
+  create_kame(:sale_orders, :conditions=>sale_orders_conditions, :joins=>"JOIN #{Entity.table_name} AS entities ON entities.id = #{SaleOrder.table_name}.client_id", :order=>'created_on desc', :line_class=>'RECORD.status' ) do |t|
     t.column :number, :url=>{:action=>:sale_order_lines}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_order_nature}
     t.column :created_on
@@ -1073,7 +1073,7 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:sale_order_deliveries, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}) do |t|
+  create_kame(:sale_order_deliveries, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -1088,7 +1088,7 @@ class ManagementController < ApplicationController
   end
 
 
-  dyta(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order_id]']}, :children=>:lines) do |t|
+  create_kame(:sale_order_invoices, :model=>:invoices, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order_id]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation, :url=>{:action=>:invoice}
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
@@ -1099,7 +1099,7 @@ class ManagementController < ApplicationController
   end
     
   
-  dyta(:sale_order_payments, :model=>:sale_payments, :conditions=>["#{SalePayment.table_name}.company_id=? AND sale_payment_parts.expense_id=? AND sale_payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name], :joins=>"JOIN #{SalePaymentPart.table_name} AS sale_payment_parts ON (#{SalePayment.table_name}.id=payment_id)") do |t|
+  create_kame(:sale_order_payments, :model=>:sale_payments, :conditions=>["#{SalePayment.table_name}.company_id=? AND sale_payment_parts.expense_id=? AND sale_payment_parts.expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name], :joins=>"JOIN #{SalePaymentPart.table_name} AS sale_payment_parts ON (#{SalePayment.table_name}.id=payment_id)") do |t|
    # t.column :id, :url=>{:action=>:sale_payment}
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
@@ -1184,8 +1184,8 @@ class ManagementController < ApplicationController
 
 
 
-  # dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}, :children=>:reductions) do |t|
-  dyta(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}, :order=>:id, :export=>false) do |t|
+  # create_kame(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}, :children=>:reductions) do |t|
+  create_kame(:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]']}, :order=>:id, :export=>false) do |t|
     #t.column :name, :through=>:product
     t.column :label
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
@@ -1198,7 +1198,7 @@ class ManagementController < ApplicationController
     t.action :sale_order_line_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.order.estimate? and RECORD.reduction_origin_id.nil? '
   end
 
-  dyta(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order_id]']}, :model=>:subscriptions) do |t|
+  create_kame(:sale_order_subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_order_id=>['session[:current_sale_order_id]']}, :model=>:subscriptions) do |t|
     t.column :number
     t.column :name, :through=>:nature
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
@@ -1395,7 +1395,7 @@ class ManagementController < ApplicationController
   end
 
  
-  dyta(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}) do |t|
+  create_kame(:undelivered_quantities, :model=>:sale_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sale_order_id]'], :reduction_origin_id=>nil}) do |t|
     t.column :name, :through=>:product
     t.column :amount, :through=>:price
     t.column :quantity
@@ -1516,7 +1516,7 @@ class ManagementController < ApplicationController
 
 
   
-  dyta(:deposits, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
+  create_kame(:deposits, :conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
     t.column :number, :url=>{:action=>:deposit}
     t.column :amount, :url=>{:action=>:deposit}
     t.column :payments_count
@@ -1530,7 +1530,7 @@ class ManagementController < ApplicationController
 
 #  dyli(:cash, :attributes => [:name], :conditions => {:company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
 
-  dyta(:deposit_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :per_page=>1000, :order=>:number) do |t|
+  create_kame(:deposit_payments, :model=>:sale_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :per_page=>1000, :order=>:number) do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :bank
@@ -1540,7 +1540,7 @@ class ManagementController < ApplicationController
     t.column :amount, :url=>{:action=>:sale_payment}
   end
 
-  dyta(:depositable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  create_kame(:depositable_payments, :model=>:sale_payments, :conditions=>["company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:action=>:entity, :controller=>:relations}
     t.column :bank
@@ -1549,7 +1549,7 @@ class ManagementController < ApplicationController
     t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :amount
-    t.check :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
+    t.check_box :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
   end
 
 
@@ -1626,7 +1626,7 @@ class ManagementController < ApplicationController
   
 
 
-  dyta(:sale_order_payment_parts, :model=>:sale_payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name]) do |t|
+  create_kame(:sale_order_payment_parts, :model=>:sale_payment_parts, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_order_id]'], SaleOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:sale_payment}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:sale_payment}
     t.column :amount
@@ -1664,7 +1664,7 @@ class ManagementController < ApplicationController
     return code
   end
  
-  dyta(:sale_payments, :conditions=>sale_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = #{SalePayment.table_name}.payer_id", :order=>"to_bank_on DESC") do |t|
+  create_kame(:sale_payments, :conditions=>sale_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = #{SalePayment.table_name}.payer_id", :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:sale_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
@@ -1685,7 +1685,7 @@ class ManagementController < ApplicationController
   end
   manage :sale_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  dyta(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["#{SaleOrder.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{SalePaymentPart.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
+  create_kame(:sale_payment_sale_orders, :model=>:sale_orders, :conditions=>["#{SaleOrder.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{SalePaymentPart.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SaleOrder.name]) do |t|
     t.column :number, :url=>{:action=>:sale_order}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -1731,7 +1731,7 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:product_categories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:product_categories, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :comment
     t.column :catalog_name
@@ -1745,7 +1745,7 @@ class ManagementController < ApplicationController
    # shelves_list params
   end
 
-  dyta(:product_category_products, :model=>:products, :conditions=>{:company_id=>['@current_company.id'], :category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
+  create_kame(:product_category_products, :model=>:products, :conditions=>{:company_id=>['@current_company.id'], :category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
     t.column :number
     t.column :name, :url=>{:action=>:product}
     t.column :code, :url=>{:action=>:product}
@@ -1763,7 +1763,7 @@ class ManagementController < ApplicationController
 
   manage :product_categories
 
-  dyta(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:sale_order_natures, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :active
     t.column :name, :through=>:expiration, :url=>{:action=>:delay}
@@ -1780,7 +1780,7 @@ class ManagementController < ApplicationController
   manage :sale_order_natures
   
 
-  dyta(:sale_delivery_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:sale_delivery_modes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :code
     t.column :comment
@@ -1793,7 +1793,7 @@ class ManagementController < ApplicationController
 
   dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
 
-  dyta(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:sale_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :with_accounting
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
@@ -1821,7 +1821,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:purchase_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name
     t.column :with_accounting
     t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
@@ -1834,7 +1834,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:warehouses, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:warehouses, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>{:action=>:warehouse}
     t.column :name, :through=>:establishment
     t.column :name, :through=>:parent
@@ -1854,7 +1854,7 @@ class ManagementController < ApplicationController
 
 
 
-  dyta(:warehouse_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}) do |t|
+  create_kame(:warehouse_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
@@ -1867,7 +1867,7 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:warehouse_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|
+  create_kame(:warehouse_stocks, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :weight, :through=>:product, :label=>:column
@@ -1889,7 +1889,7 @@ class ManagementController < ApplicationController
 
   manage :stock_moves, :planned_on=>'Date.today'
 
-  dyta(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}, :children=>:products) do |t|
+  create_kame(:subscription_natures, :conditions=>{:company_id=>['@current_company.id']}, :children=>:products) do |t|
     t.column :name, :url=>{:id=>'nil', :action=>:subscriptions, :nature_id=>"RECORD.id"}
     t.column :nature_label, :children=>false
     t.column :actual_number, :children=>false
@@ -1948,7 +1948,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:subscriptions, :conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
+  create_kame(:subscriptions, :conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity, :controller=>:relations}
     t.column :line_2, :through=>:contact, :label=>:column
     t.column :line_3, :through=>:contact, :label=>:column
@@ -2030,13 +2030,13 @@ class ManagementController < ApplicationController
   end
   
   
-  dyta :undelivered_sales, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|
+  create_kame :undelivered_sales, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|
     t.column :label, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :quantity, :datatype=>:decimal
     t.column :amount
     t.column :amount_with_taxes
-    t.check :delivered, :value=>'RECORD.planned_on<=Date.today'
+    t.check_box :delivered, :value=>'RECORD.planned_on<=Date.today'
   end
 
 
@@ -2053,14 +2053,14 @@ class ManagementController < ApplicationController
   end
   
 
-  dyta(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
+  create_kame(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
     t.column :text_nature
     t.column :name, :through=>:product
     t.column :quantity, :datatype=>:decimal
     t.column :name, :through=>:warehouse
     t.column :name, :through=>:second_warehouse
     t.column :planned_on, :children=>false
-    t.check :executed, :value=>'RECORD.planned_on<=Date.today'
+    t.check_box :executed, :value=>'RECORD.planned_on<=Date.today'
   end
   
   def unexecuted_transfers
@@ -2074,13 +2074,13 @@ class ManagementController < ApplicationController
     end
   end
   
-#   dyta(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
+#   create_kame(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
 #     t.column :label, :children=>:product_name
 #     t.column :planned_on, :children=>false
 #     t.column :quantity, :datatype=>:decimal
 #     t.column :amount
 #     t.column :amount_with_taxes
-#     t.check :received, :value=>'RECORD.planned_on<=Date.today'
+#     t.check_box :received, :value=>'RECORD.planned_on<=Date.today'
 #    # t.action :validate_purchase
 #   end
 
@@ -2095,12 +2095,12 @@ class ManagementController < ApplicationController
 #     end
 #   end
 
- dyta(:unvalidated_deposits, :model=>:deposits, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
+ create_kame(:unvalidated_deposits, :model=>:deposits, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
     t.column :created_on
     t.column :amount
     t.column :payments_count
     t.column :name, :through=>:cash
-    t.check :validated, :value=>'RECORD.created_on<=Date.today-(15)'
+    t.check_box :validated, :value=>'RECORD.created_on<=Date.today-(15)'
   end
 
   def unvalidated_deposits
@@ -2123,7 +2123,7 @@ class ManagementController < ApplicationController
     code
   end
 
-  dyta(:stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
+  create_kame(:stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :weight, :through=>:product, :label=>:column
@@ -2135,7 +2135,7 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:unit
   end
 
-  dyta(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
+  create_kame(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     # t.column :name, :through=>:warehouse
     t.column :quantity_max
@@ -2159,7 +2159,7 @@ class ManagementController < ApplicationController
     notify(:no_stocks, :now) if @current_company.stocks.size <= 0
   end
 
-  dyta(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :text_nature
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :quantity
@@ -2177,7 +2177,7 @@ class ManagementController < ApplicationController
 
   manage :stock_transfers, :nature=>"'transfer'", :planned_on=>"Date.today"
 
-  dyta(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :created_on, :children=>:planned_on, :url=>{:action=>:transport}
     t.column :transport_on, :children=>false, :url=>{:action=>:transport}
     t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>{:controller=>:relations, :action=>:entity}
@@ -2187,7 +2187,7 @@ class ManagementController < ApplicationController
     t.action :transport_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:transport_deliveries, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
+  create_kame(:transport_deliveries, :model=>:sale_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -2262,7 +2262,7 @@ class ManagementController < ApplicationController
   end
 
 
-  dyta(:tracking_stocks, :model=>:stocks, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :line_class=>'RECORD.state') do |t|
+  create_kame(:tracking_stocks, :model=>:stocks, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :line_class=>'RECORD.state') do |t|
     t.column :weight, :through=>:product, :label=>:column
     t.column :quantity_max
     t.column :quantity_min
@@ -2273,14 +2273,14 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
   end
 
-  dyta(:tracking_purchase_order_lines, :model=>:purchase_order_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'order_id') do |t|
+  create_kame(:tracking_purchase_order_lines, :model=>:purchase_order_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'order_id') do |t|
     t.column :number, :through=>:order, :url=>{:action=>:purchase_order}    
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
   end
 
-  dyta(:tracking_operation_lines, :model=>:operation_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
+  create_kame(:tracking_operation_lines, :model=>:operation_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
     t.column :name, :through=>:operation, :url=>{:action=>:operation, :controller=>:production}
     t.column :direction_label
     t.column :quantity
@@ -2288,7 +2288,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
   end
 
-  dyta(:tracking_sale_order_lines, :model=>:sale_order_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'order_id') do |t|
+  create_kame(:tracking_sale_order_lines, :model=>:sale_order_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'order_id') do |t|
     t.column :number, :through=>:order, :url=>{:action=>:sale_order}    
     t.column :quantity
     t.column :label, :through=>:unit

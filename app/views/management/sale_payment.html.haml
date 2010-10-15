@@ -24,4 +24,4 @@
 -if @sale_payment.parts.size>0
   -if SaleOrder.find(:all, :conditions=>["sale_orders.company_id=? AND id IN (SELECT expense_id FROM sale_payment_parts WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], SaleOrder.name]).size > 0
     %h2=tc(:sale_orders)
-    =dyta :sale_payment_sale_orders
+    =kame :sale_payment_sale_orders

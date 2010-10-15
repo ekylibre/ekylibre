@@ -512,7 +512,6 @@ arb:
     duplicate: 'تكرار'
     duration: '{{hours}}ساعة {{minutes}}دقيقة'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
-    dyta: '' #!
     edit: 'تعديل'
     ekylibre: 'www.ekylibre.org'
     #>email: 'Email:'
@@ -643,6 +642,7 @@ arb:
       entry_lines: 'الادخالات'
       mixed: 'دمج السجلات'
     journals: 'الدفاتر اليومية'
+    kame: '' #!
     land_parcel_create: 'انشاء نظام جديد' #!
     land_parcel_name: 'نظام'
     land_parcel_update: 'تعديل النظام'

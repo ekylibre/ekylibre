@@ -49,29 +49,30 @@ fra:
       x_seconds:
         many: '%{count} secondes'
         one: '1 seconde'
-  dyta:
+  dyta:  #!
+    export: #!
+      csv: 'CSV' #!
+      false_value: 'FAUX' #!
+      title: 'Export' #!
+      true_value: 'VRAI' #!
+      xcsv: 'CSV pour Excel' #!
+    next: 'Suivant' #!
+    no_records: 'Aucun enregistrement' #!
+    previous: 'Précédent' #!
+  kame:
+    columns: 'Colonnes'
     export:
       csv: 'CSV'
       false_value: 'FAUX'
-      title: 'Export'
+      title: 'Exporter'
       true_value: 'VRAI'
-      xcsv: 'CSV pour Excel'
+      xcsv: 'CSV Excel'
+    export_as: 'Exporter en %{format}...'
+    menu: 'Menu'
     next: 'Suivant'
     no_records: 'Aucun enregistrement'
     previous: 'Précédent'
-  kame:
-    #>columns: 'Columns'
-    export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>export_as: 'Export as %{format}...'
-    #>menu: 'Menu'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
+    x_per_page: '%{count} par page'
   number:
     currency:
       format:

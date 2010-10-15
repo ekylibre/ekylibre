@@ -50,7 +50,7 @@ class Operation < ActiveRecord::Base
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name
   belongs_to :target, :polymorphic=>true
-  belongs_to :production_chain_token
+  belongs_to :production_chain_work_center
   has_many :operation_uses, :dependent=>:destroy
   has_many :uses,  :class_name=>OperationUse.name, :dependent=>:destroy
   has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
@@ -59,7 +59,7 @@ class Operation < ActiveRecord::Base
   attr_readonly :company_id
  
   def prepare_on_create
-    self.company_id = self.production_chain_token.company_id if self.production_chain_token
+    self.company_id = self.production_chain_work_center.company_id if self.production_chain_work_center
     self.started_at = Time.now if self.started_at.nil?
   end
 
@@ -140,7 +140,7 @@ class Operation < ActiveRecord::Base
   end
 
   def updatable?
-    self.production_chain_token.nil?
+    self.production_chain_work_center.nil?
   end
 
 end

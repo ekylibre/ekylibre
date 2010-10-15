@@ -16,13 +16,13 @@ module Kame
       default_order = (table.options[:order] ? '||'+table.options[:order].inspect : '')
 
       # Search for an existing used page
-      code  = "page = (options[:page]||session[:dyta][:#{table.name}][:page]||1).to_i\n"
-      code += "session[:dyta][:#{table.name}][:page] = page\n"
+      code  = "page = (options[:page]||kame_params[:page]||1).to_i\n"
+      code += "kame_params[:page] = page\n"
       # Find data
       code += "#{table.records_variable_name} = #{table.model.name}.paginate(:all"
       code += ", :select=>'DISTINCT #{table.model.table_name}.*'" if table.options[:distinct]
       code += ", :conditions=>"+conditions_to_code(table.options[:conditions]) unless table.options[:conditions].blank?
-      code += ", :page=>page, :per_page=>options['#{table.name}_per_page']||"+(table.options[:per_page]||25).to_s
+      code += ", :page=>page, :per_page=>kame_params[:per_page]"
       code += ", :joins=>#{table.options[:joins].inspect}" unless table.options[:joins].blank?
       code += ", :order=>order#{default_order})||{}\n"
       code += "return #{table.view_method_name}(options.merge(:page=>1)) if page>1 and #{table.records_variable_name}.out_of_bounds?\n"

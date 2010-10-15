@@ -19,9 +19,9 @@
       = evalue @invoice, :origin, :label=>:number, :url=>{:action=>:invoice} if !@invoice.origin.nil?
 
 %h2= tc(:invoice_lines) 
-=dyta :invoice_lines
+=kame :invoice_lines
 
 
 -if !@invoice.credit and @invoice.credits.size > 0
   %h2= tc(:credits)
-  =dyta :invoice_credits
+  =kame :invoice_credits

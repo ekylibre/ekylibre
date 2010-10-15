@@ -47,47 +47,47 @@
   -tb.tab(tc(:x_subscriptions, :count=>@entity.subscriptions.count)) do |c|
     -c << toolbar do
       -link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)
-    -c << dyta(:entity_subscriptions)
+    -c << kame(:entity_subscriptions)
   -tb.tab(tc(:contacts, :count=>@entity.contacts.count)) do |c|
     -c << toolbar do
       -link(:contact_create, :entity_id=>@entity.id)
-    -c << dyta(:entity_contacts)
+    -c << kame(:entity_contacts)
   -tb.tab(tc(:x_sale_orders, :count=>@entity.sale_orders.count)) do |c|
     -c << toolbar do |t|
       -t.link(:sale_order_create, :controller=>:management, :client_id=>@entity.id)
-    -c << dyta(:entity_sale_orders)
+    -c << kame(:entity_sale_orders)
   -tb.tab(tc(:x_purchase_orders, :count=>@entity.purchase_orders.count)) do |c|
     -c << toolbar do |t|
       -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
-    -c << dyta(:entity_purchase_orders)
+    -c << kame(:entity_purchase_orders)
   -tb.tab(tc(:x_invoices, :count=>@entity.invoices.count)) do |c|
-    -c << dyta(:entity_invoices)
+    -c << kame(:entity_invoices)
   -tb.tab(tc(:x_sale_payments, :count=>@entity.sale_payments.count)) do |c|
     -c << toolbar do
       -link :sale_payment_create,{:controller=>:management, :payer_id=>@entity.id}
-    -c << dyta(:entity_sale_payments)
+    -c << kame(:entity_sale_payments)
   -tb.tab(tc(:purchase_payments, :count=>@entity.purchase_payments.size)) do |c|
     -c << toolbar do
       -link :purchase_payment_create,{:controller=>:management, :payee_id=>@entity.id}
-    -c << dyta(:entity_purchase_payments)
+    -c << kame(:entity_purchase_payments)
   -tb.tab(tc(:x_events, :count=>@entity.events.count)) do |c|
     -c << toolbar do
       -link :event_create, :entity_id=>@entity.id
-    -c << dyta(:entity_events)
+    -c << kame(:entity_events)
   -el_count = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", @entity.id]).size
   -tb.tab(tc(:entity_links, :count=>el_count)) do |c|
     -c << toolbar do
       -link :entity_link_create, {:entity_id=>@entity.id}
-    -c << dyta(:entity_links)
+    -c << kame(:entity_links)
   -tb.tab(tc(:observations, :count=>@entity.observations.count)) do |c|
     -c << toolbar do
       -link :observation_create, {:entity_id=>@entity.id}
-    -c << dyta(:entity_observations)
+    -c << kame(:entity_observations)
   -tb.tab(tc(:mandates, :count=>@entity.mandates.count)) do |c|
     -c << toolbar do
       -link :mandate_create, {:entity_id=>@entity.id}
-    -c << dyta(:entity_mandates)
+    -c << kame(:entity_mandates)
   -tb.tab(tc(:cashes, :count=>@entity.cashes.count)) do |c|
     -c << toolbar do
       -link :cash_create, {:controller =>:accountancy, :entity_id=>@entity.id}
-    -c << dyta(:entity_cashes)
+    -c << kame(:entity_cashes)

@@ -4,15 +4,15 @@
 -unless @sale_order.complete?
   =toolbar do |t|
     -t.link :sale_payment_part_create, :expense_type=>:sale_order, :expense_id=>@sale_order.id
-=dyta :sale_order_payment_parts
+=kame :sale_order_payment_parts
 
 -if @sale_order.invoices.size>0
   %h2=tc :invoice
-  =dyta :sale_order_invoices
+  =kame :sale_order_invoices
 
 %h2=tc :financial_state
 
-%table.dyta
+%table.kame
   -for k, v in @sale_order.stats(:with_balance=>true)
     %tr.total
       %th=tc(k)

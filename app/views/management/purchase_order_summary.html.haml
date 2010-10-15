@@ -4,13 +4,13 @@
   %h2=tc :purchase_payments
   =toolbar do |t|
     -t.link :purchase_payment_part_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
-  =dyta :purchase_order_payment_parts
+  =kame :purchase_order_payment_parts
 
 %h2=tc(:purchase_order_lines)
-=dyta :purchase_order_lines
+=kame :purchase_order_lines
 
 %h2=tc :financial_state
-%table.dyta
+%table.kame
   -for k, v in @purchase_order.stats(:with_balance=>true)
     %tr.total
       %th=tc(k)

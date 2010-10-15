@@ -108,7 +108,7 @@ class PurchaseOrder < ActiveRecord::Base
     tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
   end
 
-  # Need for use in dyta
+  # Need for use in kame
   def quantity 
     ''
   end

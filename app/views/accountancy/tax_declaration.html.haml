@@ -3,7 +3,7 @@
 ="DECLARATION TVA "
 - balance = @tax_declaration.collected_amount - @tax_declaration.paid_amount
 
-%table.dyta
+%table.kame
   - if ["normal"].include? @tax_declaration.nature
     %tr{:align=>'center'}
       %th{:colspan=>3}=tc :assessable_operations

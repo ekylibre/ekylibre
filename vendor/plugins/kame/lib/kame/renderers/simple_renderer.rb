@@ -115,11 +115,11 @@ module Kame
               elsif column.options[:mode]||column.name == :website
                 datum = "(#{datum}.blank? ? '' : link_to("+datum+", "+datum+"))"
               elsif column.name==:color
-                style += "background: #'+"+column.data(record)+"+';"
+                style += "background: #'+"+column.datum_code(record)+"+';"
               elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                 datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
               elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})).html_safe)"
+                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png')+' '+::I18n.translate('countries.'+#{datum})).html_safe)"
               elsif column.datatype == :string
                 datum = "h("+datum+")"
               end
@@ -159,8 +159,8 @@ module Kame
 
     # Produce the code to create bottom menu and pagination
     def footer_code(table)
-      menu = "<div class=\"menu\">"
-      menu += "<a class=\"icon im-action\">'+::I18n.translate('kame.menu').gsub(/\'/,'&#39;')+'</a>"
+      menu = "<div class=\"widget menu\">"
+      menu += "<a class=\"start icon im-action\">'+::I18n.translate('kame.menu').gsub(/\'/,'&#39;')+'</a>"
       menu += "<ul>"
       # Column selector
       menu += "<li class=\"columns\">"
@@ -168,7 +168,6 @@ module Kame
       for column in table.data_columns
         menu += "<li>'+link_to(#{column.header_code}, '#', 'toggle-column'=>'#{column.unique_id}', :class=>'icon '+(kame_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
       end
-      menu += "</a>"
       menu += "</ul></li>"
       # Separator
       menu += "<li class=\"separator\"></li>"      
@@ -176,19 +175,27 @@ module Kame
       for format, exporter in Kame.exporters
         menu += "<li class=\"export #{exporter.name}\">'+link_to(::I18n.translate('kame.export_as', :format=>::I18n.translate('kame.export.#{format}')).gsub(/\'/,'&#39;'), {:action=>:#{table.controller_method_name}, '#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], :format=>'#{format}'}, :class=>\"icon im-export\")+'</li>"
       end
-      menu += "</div>"
-
-      # Pages link
-      pagination = ''
-      pagination = "'+will_paginate(#{table.records_variable_name}, :previous_label => ::I18n.translate('kame.previous'), :next_label => ::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'#{table.name}', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], '#{table.name}_per_page'=>params['#{table.name}_per_page'], :action=>:#{table.controller_method_name}}).to_s+'" if table.finder.paginate?
+      menu += "</ul></div>"
       
-      code = "('<tfoot><tr class=\"footer\"><th colspan=\"#{table.columns.size}\">#{menu}#{pagination}</th></tr></tfoot>').html_safe"
+      pagination = ''
+      per_page = ''
+      if table.finder.paginate?
+        # Per page
+        list = [5, 10, 25, 50, 100]
+        list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
+        list = list.uniq.sort
+        per_page = "<div class=\"widget\"><select data-update=\"#{table.name}\" per-page=\"'+url_for(:action=>:#{table.controller_method_name}, '#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'])+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(kame_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('kame.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
+        # Pages link
+        pagination = "'+will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label => ::I18n.translate('kame.previous'), :next_label => ::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'#{table.name}', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], '#{table.name}_per_page'=>params['#{table.name}_per_page'], :action=>:#{table.controller_method_name}}).to_s+'" if table.finder.paginate?
+      end
+
+      code = "('<tfoot><tr class=\"footer\"><th colspan=\"#{table.columns.size}\">#{menu}#{per_page}#{pagination}</th></tr></tfoot>').html_safe"
       return code
     end
 
     def columns_definition_code(table)
       code = table.columns.collect do |column|
-        "<col id=\\\"#{column.unique_id}\\\" class=\\\"#{column_classes(column)}\\\" cells-class=\\\"#{column.simple_id}\\\" href=\\\"\#\{url_for(:action=>:#{table.controller_method_name}, :column=>#{column.id.to_s.inspect})\}\\\"></col>"
+        "<col id=\\\"#{column.unique_id}\\\" class=\\\"#{column_classes(column)}\\\" cells-class=\\\"#{column.simple_id}\\\" href=\\\"\#\{url_for(:action=>:#{table.controller_method_name}, :column=>#{column.id.to_s.inspect})\}\\\" />"
       end.join
       return "\"#{code}\"" # "\"<colgroup>#{code}</colgroup>\""
     end
@@ -206,7 +213,7 @@ module Kame
         classes << :col
         classes << DATATYPE_ABBREVIATION[column.datatype]
         classes << :url if column.options[:url].is_a?(Hash)
-        classes << column.name if [:code, :color].include? column.name.to_sym
+        classes << column.name if [:code, :color, :country].include? column.name.to_sym
         if column.options[:mode] == :download
           classes << :dld
         elsif column.options[:mode]||column.name == :email

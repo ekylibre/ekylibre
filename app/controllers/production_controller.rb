@@ -23,7 +23,7 @@ class ProductionController < ApplicationController
   end
 
  
-  dyta(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  create_kame(:tools,  :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>{:action=>:tool}
     t.column :text_nature
     t.column :consumption
@@ -34,7 +34,7 @@ class ProductionController < ApplicationController
   def tools
   end
 
-  dyta(:tool_operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
+  create_kame(:tool_operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :label=>:column, :url=>{:action=>:operation}
     t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
     t.column :moved_on,   :through=>:operation, :label=>:column
@@ -51,7 +51,7 @@ class ProductionController < ApplicationController
   manage :tools
 
   
-  dyta(:land_parcels, :conditions=>["company_id=? AND ? BETWEEN started_on AND COALESCE(stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
+  create_kame(:land_parcels, :conditions=>["company_id=? AND ? BETWEEN started_on AND COALESCE(stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>{:action=>:land_parcel}
     t.column :number
     t.column :area_measure, :datatype=>:decimal
@@ -88,7 +88,7 @@ class ProductionController < ApplicationController
   end
 
 
-  dyta(:land_parcel_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
+  create_kame(:land_parcel_operations, :model=>:operations,  :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -112,7 +112,7 @@ class ProductionController < ApplicationController
   end
 
 
-  dyta(:land_parcel_groups, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  create_kame(:land_parcel_groups, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name
     t.column :color
     t.column :comment
@@ -126,7 +126,7 @@ class ProductionController < ApplicationController
   manage :land_parcel_groups
 
   
-  dyta(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
+  create_kame(:operations, :conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>{:action=>:operation}
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
@@ -142,7 +142,7 @@ class ProductionController < ApplicationController
   def operations
   end
 
-  dyta(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
+  create_kame(:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
     t.column :direction_label
     t.column :name, :through=>:warehouse, :url=>{:controller=>:management, :action=>:warehouse}
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
@@ -152,7 +152,7 @@ class ProductionController < ApplicationController
     t.column :density_label
   end
 
-  dyta(:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
+  create_kame(:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
     t.column :name, :through=>:tool, :url=>{:action=>:tool}
   end
 
@@ -218,7 +218,7 @@ class ProductionController < ApplicationController
   end
 
 
-  dyta(:operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+  create_kame(:operation_natures, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name
     t.column :description
     t.action :operation_nature_update
@@ -232,14 +232,14 @@ class ProductionController < ApplicationController
 
 
 
-  dyta(:unvalidated_operations, :model=>:operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
+  create_kame(:unvalidated_operations, :model=>:operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
     t.column :name 
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
     t.column :name, :through=>:target
     t.column :planned_on
-    t.textbox :moved_on, :value=>'Date.today', :size=>10
-    t.check :validated, :value=>'RECORD.planned_on<=Date.today'
+    t.text_field :moved_on, :value=>'Date.today', :size=>10
+    t.check_box :validated, :value=>'RECORD.planned_on<=Date.today'
   end
 
   def unvalidated_operations
@@ -256,7 +256,7 @@ class ProductionController < ApplicationController
   end
 
 
-  dyta(:production_chains, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+  create_kame(:production_chains, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name, :url=>{:action=>:production_chain}
     t.column :comment
     t.action :production_chain_update
@@ -327,7 +327,7 @@ class ProductionController < ApplicationController
 
   manage :production_chains
 
-  dyta(:production_chain_work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
+  create_kame(:production_chain_work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name" ) do |t|
     t.column :name, :url=>{:action=>:production_chain_work_center}
     t.column :name, :through=>:operation_nature
     t.column :nature
@@ -337,7 +337,7 @@ class ProductionController < ApplicationController
     t.action :production_chain_work_center_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  dyta(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id" ) do |t|
+  create_kame(:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id" ) do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
     t.column :flow
     t.column :name, :through=>:unit

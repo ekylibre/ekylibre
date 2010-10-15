@@ -11,6 +11,7 @@ module Kame
       @options = options
       @options[:finder]   ||= :will_paginate_finder
       @options[:renderer] ||= :simple_renderer
+      @options[:per_page] = 25 if @options[:per_page].to_i <= 0
       @columns = []
       @current_id = 0
       @id = @@current_id.to_s(36).to_sym

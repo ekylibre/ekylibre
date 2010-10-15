@@ -18,8 +18,8 @@
 =toolbar do |t|
   -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id)if @purchase_order.updatable?
   
-=dyta :purchase_order_lines
+=kame :purchase_order_lines
 
 -if @purchase_order.payment_parts.count > 0
   %h2=tc :payment_parts
-  =dyta :purchase_order_payment_parts
+  =kame :purchase_order_payment_parts

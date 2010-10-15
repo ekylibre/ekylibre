@@ -185,7 +185,7 @@ class CompanyController < ApplicationController
   end
 
 
-  dyta(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :order=>:nic) do |t|
+  create_kame(:establishments, :conditions=>{:company_id=>['@current_company.id']}, :order=>:nic) do |t|
     t.column :name
     t.column :nic
     t.column :siret
@@ -200,7 +200,7 @@ class CompanyController < ApplicationController
   manage :establishments
 
 
-  dyta(:departments, :conditions=>{:company_id=>['@current_company.id']},:order=>:name) do |t| 
+  create_kame(:departments, :conditions=>{:company_id=>['@current_company.id']},:order=>:name) do |t| 
     t.column :name
     t.column :comment
     t.action :department_update
@@ -212,7 +212,7 @@ class CompanyController < ApplicationController
 
   manage :departments
 
-  dyta(:roles, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :children=>:users) do |t| 
+  create_kame(:roles, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :children=>:users) do |t| 
     t.column :name, :children=>:label
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
@@ -297,7 +297,7 @@ class CompanyController < ApplicationController
   def users
   end
 
-  dyta(:users, :conditions=>{:company_id=>['@current_company.id']}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
+  create_kame(:users, :conditions=>{:company_id=>['@current_company.id']}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t| 
     t.column :name, :url=>{:action=>:user}
     t.column :first_name, :url=>{:action=>:user}
     t.column :last_name, :url=>{:action=>:user}
@@ -377,7 +377,7 @@ class CompanyController < ApplicationController
     redirect_to_current
   end
 
-  dyta(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :order=>"nature, name") do |t|
+  create_kame(:document_templates, :conditions=>{:company_id=>['@current_company.id']}, :order=>"nature, name") do |t|
     t.column :active
     t.column :name
     t.column :code
@@ -430,7 +430,7 @@ class CompanyController < ApplicationController
 
 
 
-  dyta(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
+  create_kame(:sequences, :conditions=>{:company_id=>['@current_company.id']}) do |t| 
     t.column :name
     t.column :compute
     t.column :format, :class=>:code
@@ -449,7 +449,7 @@ class CompanyController < ApplicationController
 
   manage :sequences, :format=>"'[number|8]'", :last_number=>"0"
 
-  dyta(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:listings, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name, :url=>{:action=>:listing_update}
     t.column :root_model_name
     t.column :comment
@@ -662,7 +662,7 @@ class CompanyController < ApplicationController
   end
   
 
-  dyta(:units, :conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
+  create_kame(:units, :conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
     t.column :label
     t.column :name
     t.column :coefficient

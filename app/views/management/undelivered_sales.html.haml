@@ -1,6 +1,6 @@
 -if @deliveries.size > 0
   =form_tag do
-    =dyta :undelivered_sales
+    =kame :undelivered_sales
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('deliver'), :action=>:undelivered_sales)

@@ -25,22 +25,22 @@
         =evalue @sale_order, :comment 
 
 %h2=tc :sale_order_lines
-=dyta :sale_order_lines
+=kame :sale_order_lines
 
 -if @sale_order.deliveries.count > 0
   %h2= tc 'deliveries'
-  =dyta :sale_order_deliveries
+  =kame :sale_order_deliveries
 
 -if @sale_order.invoices.count > 0
   %h2= tc 'invoices' 
-  =dyta :sale_order_invoices
+  =kame :sale_order_invoices
 
 -if @sale_order.payment_parts.count > 0
   %h2= tc 'sale_payments'
   =toolbar do |t|
     -t.link :sale_payment_create if @sale_order.state == 'R' and @sale_order.unpaid_amount>0
-  =dyta :sale_order_payments
+  =kame :sale_order_payments
 
 -if @sale_order.subscriptions.count>0
   %h2= tc :subscriptions
-  =dyta :sale_order_subscriptions
+  =kame :sale_order_subscriptions

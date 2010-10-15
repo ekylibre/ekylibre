@@ -9,7 +9,7 @@
       =evalue @account, :name
       =evalue @account, :comment
     %td
-      %table.dyta
+      %table.kame
         %tr.total
           %th
           %th=JournalEntry.human_attribute_name("debit")
@@ -26,6 +26,6 @@
 
 
 =tabbox(:account) do |tb|
-  -tb.tab(:journal_entry_lines, :content=>dyta(:account_journal_entry_lines))
-  -tb.tab(:entities, :content=>dyta(:account_entities))
-  -#tb.tab(:children, :content=>dyta(:account_children))
+  -tb.tab(:journal_entry_lines, :content=>kame(:account_journal_entry_lines))
+  -tb.tab(:entities, :content=>kame(:account_entities))
+  -#tb.tab(:children, :content=>kame(:account_children))

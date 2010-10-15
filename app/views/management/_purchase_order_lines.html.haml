@@ -1,9 +1,9 @@
 %h2=tl :purchase_order_lines 
 =toolbar do
   -link :purchase_order_line_create, :order_id=>@purchase_order.id if @purchase_order.updatable?
-=dyta :purchase_order_lines
+=kame :purchase_order_lines
 
-%table.dyta
+%table.kame
   %tr.total
     %th=tc :amount
     %td=number_to_accountancy(@purchase_order.amount)

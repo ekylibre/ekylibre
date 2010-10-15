@@ -16,9 +16,9 @@
     =render :partial=>"journals_search"
 
 =journal_view_tag
-.tab-content=dyta("journal_#{@journal_view}")
+.tab-content=kame("journal_#{@journal_view}")
 
-%table.dyta
+%table.kame
   %tr.total
     %th
     %th=JournalEntry.human_attribute_name("debit")

@@ -75,7 +75,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:cashes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  create_kame(:cashes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name, :url=>{:action=>:cash}
     t.column :nature_label
     t.column :name, :through=>:currency
@@ -89,7 +89,7 @@ class AccountancyController < ApplicationController
   def cashes
   end
 
-  dyta(:cash_deposits, :model=>:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
+  create_kame(:cash_deposits, :model=>:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:deposit}
     t.column :created_on
     t.column :payments_count
@@ -98,7 +98,7 @@ class AccountancyController < ApplicationController
     t.column :comment
   end
 
-  dyta(:cash_bank_statements, :model=>:bank_statements, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
+  create_kame(:cash_bank_statements, :model=>:bank_statements, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
     t.column :number, :url=>{:action=>:bank_statement}
     t.column :started_on
     t.column :stopped_on
@@ -149,7 +149,7 @@ class AccountancyController < ApplicationController
     redirect_to :action => :cashes
   end
 
-  dyta(:cash_transfers, :conditions=>["company_id = ? ", ['@current_company.id']]) do |t|
+  create_kame(:cash_transfers, :conditions=>["company_id = ? ", ['@current_company.id']]) do |t|
     t.column :number, :url=>{:action=>:cash_transfer}
     t.column :emitter_amount
     t.column :name, :through=>:emitter_currency
@@ -184,7 +184,7 @@ class AccountancyController < ApplicationController
     return code
   end
 
-  dyta(:accounts, :conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
+  create_kame(:accounts, :conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
     t.action :account_update
@@ -219,7 +219,7 @@ class AccountancyController < ApplicationController
 
   manage :accounts, :number=>"params[:number]"
 
-  dyta(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, position") do |t|
+  create_kame(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
@@ -230,7 +230,7 @@ class AccountancyController < ApplicationController
     t.column :letter
   end
 
-  dyta(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+  create_kame(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
     t.column :code, :url=>{:action=>:entity, :controller=>:relations}
     t.column :full_name, :url=>{:action=>:entity, :controller=>:relations}
     t.column :label, :through=>:client_account, :url=>{:action=>:account}
@@ -238,7 +238,7 @@ class AccountancyController < ApplicationController
     t.column :label, :through=>:attorney_account, :url=>{:action=>:account}
   end
 
-#   dyta(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?", ['@current_company.id'], ['session[:current_account_number]+"%"']], :order=>"number ASC") do |t|
+#   create_kame(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?", ['@current_company.id'], ['session[:current_account_number]+"%"']], :order=>"number ASC") do |t|
 #     t.column :number, :url=>{:action=>:account}
 #     t.column :name, :url=>{:action=>:account}
 #     t.action :account_update
@@ -261,7 +261,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+  create_kame(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_letter}
     t.column :name, :through=>:account, :url=>{:action=>:account_letter}
     t.column :number, :through=>:entry
@@ -373,7 +373,7 @@ class AccountancyController < ApplicationController
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id = journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, position") do |t|
+  create_kame(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id = journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, position") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
@@ -644,7 +644,7 @@ class AccountancyController < ApplicationController
   #   t3e :from=>@printed[:from], :to=>@printed[:to]
   # end
   
-  dyta(:financial_years, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
+  create_kame(:financial_years, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>{:action=>:financial_year}
     t.column :closed
     t.column :started_on,:url=>{:action=>:financial_year}
@@ -730,7 +730,7 @@ class AccountancyController < ApplicationController
     end
   end
 
-  dyta(:journals, :conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
+  create_kame(:journals, :conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
     t.column :name, :url=>{:action=>:journal}
     t.column :code, :url=>{:action=>:journal}
     t.column :nature_label
@@ -775,7 +775,7 @@ class AccountancyController < ApplicationController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  dyta(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, position") do |t|
+  create_kame(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -786,7 +786,7 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
   
-  dyta(:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
+  create_kame(:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
     t.column :number, :url=>{:action=>:journal_entry}
     t.column :printed_on
     t.column :draft
@@ -796,7 +796,7 @@ class AccountancyController < ApplicationController
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   
-  dyta(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
+  create_kame(:journal_mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
     t.column :number, :url=>{:action=>:journal_entry}, :children=>:name
     t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
@@ -807,7 +807,7 @@ class AccountancyController < ApplicationController
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
-  dyta(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
+  create_kame(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -858,7 +858,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  dyta(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
+  create_kame(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
@@ -932,7 +932,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:journal_entry_entries, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
+  create_kame(:journal_entry_entries, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
@@ -1024,7 +1024,7 @@ class AccountancyController < ApplicationController
 
 
   
-  dyta(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
+  create_kame(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
     t.column :number, :url=>{:action=>:bank_statement}
     t.column :name, :through=>:cash, :url=>{:action=>:cash}
     t.column :started_on
@@ -1050,7 +1050,7 @@ class AccountancyController < ApplicationController
 
 
 
-  dyta(:bank_statement_entries, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
+  create_kame(:bank_statement_entries, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :created_on, :through=>:entry, :datatype=>:date, :label=>:column
@@ -1095,7 +1095,7 @@ class AccountancyController < ApplicationController
 
 
   
-  dyta(:taxes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
+  create_kame(:taxes, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :amount, :precision=>3
     t.column :nature_label
@@ -1114,7 +1114,7 @@ class AccountancyController < ApplicationController
 
 
   # #
-  # dyta(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
+  # create_kame(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
   #   t.column :nature
   #   t.column :address
   #   t.column :declared_on, :datatype=>:date

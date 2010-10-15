@@ -1,6 +1,6 @@
 -if @operations.size > 0
   =form_tag do
-    =dyta :unvalidated_operations
+    =kame :unvalidated_operations
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('validate'), :action=>:unvalidated_operations)

@@ -49,29 +49,30 @@ arb:
       x_seconds:
         many: '{{count}} ثواني'
         one: 'ثانية واحدة'
-  dyta:
+  dyta:  #!
+    export: #!
+      csv: 'CSV' #!
+      false_value: 'زائف' #!
+      title: 'تصدير' #!
+      true_value: 'صحيح' #!
+      xcsv: 'Excel CSV' #!
+    next: 'التالي' #!
+    no_records: 'ولا اية سجل' #!
+    previous: 'السابق' #!
+  kame:
+    #>columns: 'Columns'
     export:
       csv: 'CSV'
       false_value: 'زائف'
       title: 'تصدير'
       true_value: 'صحيح'
       xcsv: 'Excel CSV'
+    #>export_as: 'Export as %{format}...'
+    #>menu: 'Menu'
     next: 'التالي'
     no_records: 'ولا اية سجل'
     previous: 'السابق'
-  kame:
-    #>columns: 'Columns'
-    export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>export_as: 'Export as %{format}...'
-    #>menu: 'Menu'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
+    #>x_per_page: '%{count} per page'
   number:
     currency:
       format:

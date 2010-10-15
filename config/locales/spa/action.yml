@@ -501,7 +501,6 @@ spa:
     #>duplicate: 'Duplicate'
     #>duration: 'Duration'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
-    dyta:
     #>edit: 'Edit'
     ekylibre: 'www.ekylibre.org'
     #>email: 'Email:'
@@ -620,6 +619,7 @@ spa:
       mixed: 'Piezas y Escrituras'
       records: 'Piezas' #!
     journals: 'Periodico general'
+    kame:
     #>land_parcel_name: 'Land parcel name'
     #>land_parcel_update: 'Update land parcel'
     #>land_parcels: 'Land parcels'

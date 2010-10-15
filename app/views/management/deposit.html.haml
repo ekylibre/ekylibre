@@ -11,9 +11,9 @@
   -l.evalue @deposit, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 %h2=Deposit.human_attribute_name("payments")
-=dyta :deposit_payments
+=kame :deposit_payments
 
-%table.dyta
+%table.kame
   %tr.total
     %th=tc(:payments_count, :mode=>@deposit.mode.name)
     %td=@deposit.payments_count 

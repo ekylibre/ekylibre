@@ -103,7 +103,7 @@ class SaleDelivery < ActiveRecord::Base
     tc('label', :client=>self.order.client.full_name.to_s, :address=>self.contact.address.to_s)
   end
 
-  # Used with dyta for the moment
+  # Used with kame for the moment
   def quantity
     ''
   end

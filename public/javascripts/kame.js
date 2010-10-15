@@ -29,5 +29,20 @@
       }
       event.stop();
     });
+
+  document.on("change", "*[per-page]", function(event, element) {
+      var url = element.readAttribute('per-page');
+      if (url !== null) {
+        var update = element.readAttribute('data-update');
+        if (update !== null) {
+          new Ajax.Updater(update, url, { method: "get", parameters: {per_page: element.value} });
+        } else {
+          new Ajax.Request(url, { method: "get", parameters: {per_page: element.value} });          
+        }
+      }
+      event.stop();
+    });
+
+  
   
 })();

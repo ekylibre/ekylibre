@@ -9,16 +9,16 @@
 
 -if @tracking.stocks.size > 0
   %h2=tc(:stocks)
-  =dyta :tracking_stocks
+  =kame :tracking_stocks
 
 -if @tracking.purchase_order_lines.size > 0
   %h2=tc(:purchases)
-  =dyta :tracking_purchase_order_lines
+  =kame :tracking_purchase_order_lines
 
 -if @tracking.operation_lines.size > 0
   %h2=tc(:operations)
-  =dyta :tracking_operation_lines
+  =kame :tracking_operation_lines
 
 -if @tracking.sale_order_lines.size > 0
   %h2=tc(:sale_orders)
-  =dyta :tracking_sale_order_lines
+  =kame :tracking_sale_order_lines
