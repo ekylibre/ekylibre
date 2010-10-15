@@ -34,6 +34,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-action      { background-image: url(../images/buttons/action.png); }
 .icon.im-backup      { background-image: url(../images/buttons/right.png); }
 .icon.im-cancel      { background-image: url(../images/buttons/cancel.png); }
+.icon.im-checked     { background-image: url(../images/buttons/checkbox_true.png); }
 .icon.im-close       { background-image: url(../images/buttons/close.png); }
 .icon.im-column      { background-image: url(../images/buttons/column.png); }
 .icon.im-configure   { background-image: url(../images/buttons/configure.png); }
@@ -65,6 +66,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-restore     { background-image: url(../images/buttons/left.png); }
 .icon.im-sort        { background-image: url(../images/buttons/sort.png); }
 .icon.im-table       { background-image: url(../images/buttons/table.png); }
+.icon.im-unchecked   { background-image: url(../images/buttons/checkbox_false.png); }
 .icon.im-unprintable { background-image: url(../images/buttons/unprintable.png); }
 .icon.im-up          { background-image: url(../images/buttons/up.png); }
 .icon.im-update      { background-image: url(../images/buttons/update.png); }
@@ -256,7 +258,7 @@ html[dir="ltr"] .evalue.hori .label { text-align: right; }
 html[dir="rtl"] .evalue.hori .label { text-align: left; }
 
 
-.desc { background: transparent; text-shadow: white 0 0 1.5px; color: black; opacity: 0.5 }
+.desc { background: transparent; text-shadow: white 0 0 1.5px; color: black; }
 
 div.tr { display: table-row; }
 div.td { display: table-cell; }

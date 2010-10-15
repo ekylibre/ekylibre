@@ -2,8 +2,30 @@ module Kame
 
   class SimpleRenderer < Kame::Renderer
 
+    DATATYPE_ABBREVIATION = {
+      :binary => :bin,
+      :boolean => :bln,
+      :date => :dat,
+      :datetime => :dtt,
+      :decimal => :dec,
+      :float =>:flt,
+      :integer =>:int,
+      :string =>:str,
+      :text => :txt,
+      :time => :tim,
+      :timestamp => :dtt
+    }
+
     def remote_update_code(table)
-      return "render(:inline=>'<%=#{table.view_method_name}-%>')\n"
+      code  = "if params[:column]\n"
+      code += "  column = params[:column].to_s\n"
+      code += "  kame_params[:hidden_columns].delete(column) if params[:visibility] == 'shown'\n"
+      code += "  kame_params[:hidden_columns] << column if params[:visibility] == 'hidden'\n"
+      code += "  render(:nothing=>true)\n"
+      code += "else\n"
+      code += "  render(:inline=>'<%=#{table.view_method_name}-%>')\n" 
+      code += "end\n"
+      return code
     end
 
     def build_table_code(table)
@@ -14,8 +36,8 @@ module Kame
       name = table.name
 
 
-      colgroup = colgroup_code(table)
-      header = columns_to_td(table, :header, :id=>table.name)
+      colgroup = columns_definition_code(table)
+      header = "'<thead><tr>'+"+columns_to_td(table, :header, :id=>table.name)+"+'</tr></thead>'"
       footer = footer_code(table)
       body = columns_to_td(table, :body, :record=>record)
 
@@ -38,7 +60,7 @@ module Kame
       code += "else\n"
       code += "  body = ('<tr class=\"empty\"><td colspan=\"#{table.columns.size}\">'+::I18n.translate('kame.no_records')+'</td></tr>')\n"
       code += "end\n"
-      code += "text = content_tag(:thead, #{header})+content_tag(:tfoot, #{footer})+content_tag(:tbody, body.html_safe)\n"
+      code += "text = #{colgroup}+#{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       code += "text = content_tag(:table, text.html_safe, :class=>:kame)\n"
       code += "text = content_tag(:div, text.html_safe, :class=>:kame, :id=>'"+name.to_s+"') unless request.xhr?\n"
       code += "return text\n"
@@ -59,10 +81,10 @@ module Kame
           code += "+\n      " unless code.blank?
           header_title = column.header_code
           if column.sortable?
-            url = ":action=>:#{table.controller_method_name}, '#{table.name}_sort'=>'"+column.name.to_s+"', '#{table.name}_dir'=>(sort=='"+column.name.to_s+"' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
-            header_title = "link_to_remote("+header_title+", {:update=>'"+table.name.to_s+"', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{#{url}}}, {:class=>'sort '+(sort=='"+column.name.to_s+"' ? dir : 'unsorted'), :href=>url_for(#{url})})"
+            url = ":action=>:#{table.controller_method_name}, '#{table.name}_sort'=>'#{column.name}', '#{table.name}_dir'=>(sort=='#{column.name}' and dir=='asc' ? 'desc' : 'asc'), :page=>page"
+            header_title = "link_to_remote("+header_title+", {:update=>'#{table.name}', :loading=>'onLoading();', :loaded=>'onLoaded();', :url=>{#{url}}}, {:class=>'sor '+(sort=='#{column.name}' ? dir : 'nsr'), :href=>url_for(#{url})})"
           end
-          code += "content_tag(:th, "+header_title+", :class=>\""+(column.is_a?(ActionColumn) ? 'act' : 'col')+column_sort+"\")"
+          code += "content_tag(:th, "+header_title+", :class=>\"#{column_classes(column, true)}\")"
         else
           code   += "+\n        " unless code.blank?
           case column.class.name
@@ -70,7 +92,6 @@ module Kame
             style = column.options[:style]||''
             style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
             style += "'"
-            css_class = column.options[:class] ? ' '+column.options[:class].to_s : ''
             if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
               datum = column.datum_code(record, nature==:children)
               if column.datatype == :boolean
@@ -85,40 +106,30 @@ module Kame
               if column.options[:url].is_a?(Hash) and nature==:body
                 column.options[:url][:id] ||= column.record(record)+'.id'
                 url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
-                datum = "("+datum+".blank? ? '' : link_to("+datum+', url_for('+url+')))'
-                css_class += ' url'
+                datum = "(#{datum}.blank? ? '' : link_to(#{datum}, url_for(#{url})))"
               elsif column.options[:mode] == :download# and !datum.nil?
-                datum = "("+datum+".blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"
-                css_class += ' download'
+                datum = "(#{datum}.blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"
               elsif column.options[:mode]||column.name == :email
                 # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
-                datum = "("+datum+".blank? ? '' : link_to("+datum+", \"mailto:\#\{"+datum+"\}\"))"
-                css_class += ' web'
+                datum = "(#{datum}.blank? ? '' : mail_to(#{datum}))"
               elsif column.options[:mode]||column.name == :website
-                datum = "("+datum+".blank? ? '' : link_to("+datum+", "+datum+"))"
-                css_class += ' web'
+                datum = "(#{datum}.blank? ? '' : link_to("+datum+", "+datum+"))"
               elsif column.name==:color
-                css_class += ' color'
-                style += "background: #'+"+column.data(record)+"+';" # +"+'; color:#'+viewable("+column.data(record)+")+';"
+                style += "background: #'+"+column.data(record)+"+';"
               elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                 datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
               elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' : ('<nobr>'+image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})+'</nobr>').html_safe)"
+                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png')+'&#160;'+::I18n.translate('countries.'+#{datum})).html_safe)"
               elsif column.datatype == :string
                 datum = "h("+datum+")"
-              end
-              if column.name==:code
-                css_class += ' code'
               end
             else
               datum = 'nil'
             end
-            css_class = column.datatype.to_s+css_class
-            css_class = ", :class=>\""+css_class+column_sort+"\"" if css_class.strip.size > 0 or column_sort.strip.size > 0
-            code += "content_tag(:td, "+datum+css_class
+            code += "content_tag(:td, #{datum}, :class=>\"#{column_classes(column, true)}\""
             code += ", :style=>"+style+"'" unless style[1..-1].blank?
             code += ")"
-          when :check
+          when CheckBoxColumn.name
             code += "content_tag(:td,"
             if nature==:body 
               code += "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
@@ -127,7 +138,7 @@ module Kame
               code += "''"
             end
             code += ", :class=>'chk')"
-          when :textbox
+          when TextFieldColumn.name
             code += "content_tag(:td,"
             if nature==:body 
               code += "text_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size=>'+column.options[:size].to_s : ''})"
@@ -136,7 +147,7 @@ module Kame
             end
             code += ", :class=>'txt')"
           when ActionColumn.name
-            code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>'act')"
+            code += "content_tag(:td, "+(nature==:body ? column.operation(record) : "''")+", :class=>\"#{column_classes(column, true)}\")"
           else 
             code += "content_tag(:td, '&#160;&#8709;&#160;'.html_safe)"
           end
@@ -155,7 +166,7 @@ module Kame
       menu += "<li class=\"columns\">"
       menu += "<a class=\"icon im-table \">'+::I18n.translate('kame.columns').gsub(/\'/,'&#39;')+'</a><ul>"
       for column in table.data_columns
-        menu += "<li><a class=\"icon im-column\">'+#{column.header_code}+'</a></li>"
+        menu += "<li>'+link_to(#{column.header_code}, '#', 'toggle-column'=>'#{column.unique_id}', :class=>'icon '+(kame_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
       end
       menu += "</a>"
       menu += "</ul></li>"
@@ -171,16 +182,40 @@ module Kame
       pagination = ''
       pagination = "'+will_paginate(#{table.records_variable_name}, :previous_label => ::I18n.translate('kame.previous'), :next_label => ::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{:update=>'#{table.name}', :loading=>'onLoading();', :loaded=>'onLoaded();'}, :params=>{'#{table.name}_sort'=>params['#{table.name}_sort'], '#{table.name}_dir'=>params['#{table.name}_dir'], '#{table.name}_per_page'=>params['#{table.name}_per_page'], :action=>:#{table.controller_method_name}}).to_s+'" if table.finder.paginate?
       
-      code = "('<tr class=\"footer\"><th colspan=\"#{table.columns.size}\">#{menu}#{pagination}</th></tr>').html_safe"
+      code = "('<tfoot><tr class=\"footer\"><th colspan=\"#{table.columns.size}\">#{menu}#{pagination}</th></tr></tfoot>').html_safe"
       return code
     end
 
-    def colgroup_code(table)
-      
-      code = table.columns.collect do |col|
-        "<col id=\"#{table}_#{col.id}\"></col>"
+    def columns_definition_code(table)
+      code = table.columns.collect do |column|
+        "<col id=\\\"#{column.unique_id}\\\" class=\\\"#{column_classes(column)}\\\" cells-class=\\\"#{column.simple_id}\\\" href=\\\"\#\{url_for(:action=>:#{table.controller_method_name}, :column=>#{column.id.to_s.inspect})\}\\\"></col>"
       end.join
-      return code
+      return "\"#{code}\"" # "\"<colgroup>#{code}</colgroup>\""
+    end
+
+    def column_classes(column, with_id=false)
+      column_sort = ''
+      column_sort = "\#\{' sor' if sort=='#{column.name}'\}" if column.sortable?
+      column_sort += "\#\{' hidden' if kame_params[:hidden_columns].include?('#{column.id}')\}" if column.is_a? DataColumn
+      classes = []
+      classes << column.options[:class].to_s.strip unless column.options[:class].blank?
+      classes <<  column.simple_id if with_id
+      if column.is_a? ActionColumn
+        classes << :act
+      elsif column.is_a? DataColumn
+        classes << :col
+        classes << DATATYPE_ABBREVIATION[column.datatype]
+        classes << :url if column.options[:url].is_a?(Hash)
+        classes << column.name if [:code, :color].include? column.name.to_sym
+        if column.options[:mode] == :download
+          classes << :dld
+        elsif column.options[:mode]||column.name == :email
+          classes << :eml
+        elsif column.options[:mode]||column.name == :website
+          classes << :web
+        end
+      end
+      return "#{classes.join(" ")}#{column_sort}"
     end
 
 

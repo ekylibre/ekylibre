@@ -19,7 +19,7 @@ module Kame
       code += "    csv << [#{columns_to_array(table, :body, :record=>record).join(', ')}]\n"
       code += "  end\n"
       code += "end\n"
-      code += "send_data(data, :type=>#{self.mime_type}, :disposition=>'inline', :filename=>#{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')+'.#{self.file_extension}')\n"
+      code += "send_data(data, :type=>#{self.mime_type.to_s.inspect}, :disposition=>'inline', :filename=>#{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')+'.#{self.file_extension}')\n"
       return code
     end
 

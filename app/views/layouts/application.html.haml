@@ -8,7 +8,7 @@
     =theme_link_tag(@current_theme)
     =calendar_link_tag
     =javascript_include_tag :defaults
-    =javascript_include_tag "dyke"
+    =javascript_include_tag "dyke", "kame"
   %body
     -expiration = {}
     -expiration = {"timeout"=>session[:expiration], "timeout-href"=>url_for(:controller=>:authentication, :action=>:relogin, :name=>@current_user.name)} if @current_user and session[:expiration].to_i>0

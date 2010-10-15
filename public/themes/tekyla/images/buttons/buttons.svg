@@ -5417,9 +5417,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="16"
-     inkscape:cx="310.60372"
-     inkscape:cy="-78.273352"
+     inkscape:zoom="8"
+     inkscape:cx="269.65067"
+     inkscape:cy="-22.075402"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -5427,8 +5427,8 @@
      inkscape:showpageshadow="false"
      gridtolerance="0.4px"
      inkscape:guide-bbox="true"
-     inkscape:window-width="1439"
-     inkscape:window-height="825"
+     inkscape:window-width="1679"
+     inkscape:window-height="1003"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="0">
@@ -6717,24 +6717,27 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/configure.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
-    <rect
-       y="-39.5"
-       x="320.5"
-       height="11.000001"
-       width="11"
-       id="rect3087"
-       style="fill:url(#radialGradient3885);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient3093);stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/true.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <path
-       sodipodi:nodetypes="ccccccc"
-       style="fill:#1fbf06;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.59999999999999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       id="path3089"
-       d="M 322,-36 L 325,-33 L 330.00006,-38 L 330.00006,-35 L 325,-30 L 322,-33 L 322,-36 z"
-       inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/true.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+    <g
+       id="g3440">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/true.png"
+         style="fill:url(#radialGradient3885);fill-opacity:1;fill-rule:nonzero;stroke:url(#linearGradient3093);stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+         id="rect3087"
+         width="11"
+         height="11.000001"
+         x="320.5"
+         y="-39.5" />
+      <path
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/public/images/buttons/true.png"
+         d="M 322,-36 L 325,-33 L 330.00006,-38 L 330.00006,-35 L 325,-30 L 322,-33 L 322,-36 z"
+         id="path3089"
+         style="fill:#1fbf06;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:0.59999999999999998;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccc" />
+    </g>
     <use
        x="0"
        y="0"
@@ -7885,5 +7888,22 @@
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/action.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3440"
+       id="checkbox_true"
+       transform="translate(-126,74)"
+       width="352"
+       height="16"
+       inkscape:label="#use3444" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3091"
+       id="use3446"
+       transform="translate(-138.00005,90)"
+       width="352"
+       height="16" />
   </g>
 </svg>

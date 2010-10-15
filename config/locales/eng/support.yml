@@ -60,6 +60,7 @@ eng:
     no_records: 'No records'
     previous: 'Previous'
   kame:
+    columns: 'Columns'
     export:
       csv: 'CSV'
       false_value: 'FALSE'
@@ -67,8 +68,7 @@ eng:
       true_value: 'TRUE'
       xcsv: 'Excel CSV'
     export_as: 'Export as %{format}...'
-    menu: Menu
-    columns: Columns
+    menu: 'Menu'
     next: 'Next'
     no_records: 'No records'
     previous: 'Previous'

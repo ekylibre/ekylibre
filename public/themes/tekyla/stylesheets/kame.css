@@ -1,37 +1,53 @@
 div.kame { margin: 0; padding: 0; width:100%-30px; }
 table.kame { border-collapse: collapse; width:100%;  padding:0; margin: 0; }
-table.kame tbody { border-bottom: 1px solid #BACFE6;}
-table.kame th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:1px 3px; color: #000; font-weight: normal; }
+table.kame tbody, table.kame thead th { border: 1px solid #95b0e4;} /* BACFE6 */
+/*table.kame th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:3px; color: #000; font-weight: normal; }*/
+/*table.kame thead th { border: 1px solid #BACFE6; }*/
+table.kame thead th { background: #e0e7f9 url(../images/shadow-top.png) repeat-x bottom; padding:3px; color: #000; font-weight: normal; }
+table.kame thead th.act { background-color: #F1D7C9; }
 html[dir="ltr"] table.kame th { text-align: left; }
 html[dir="rtl"] table.kame th { text-align: right; }
-table.kame th:hover { background: #e9f3fe url(../images/table_head_hover.png) repeat-x bottom; }
-table.kame th.sorted { background: #C9D3E2 url(../images/table_head_sorted.png) repeat-x bottom; padding:2px 3px; color: #000; font-weight: normal; }
-table.kame th a.sort { display:block; text-decoration:none; padding: 1px 14px 1px 1px; color: #336; background-position: right center; background-repeat: no-repeat; }
-table.kame th a.sort:active { padding:2px 13px 0px 2px;}
-html[dir="rtl"] table.kame th a.sort { padding: 1px 1px 1px 14px; background-position: left center;}
-html[dir="rtl"] table.kame th a.sort:active { padding:2px 2px 0px 13px;}
-table.kame th a.sort.unsorted { background-image: url(../images/buttons/center.png); }
-table.kame th a.sort.desc { background-image: url(../images/buttons/down3.png); }
-table.kame th a.sort.asc { background-image: url(../images/buttons/up3.png); }
-table.kame tr.root td {font-weight: bold; }
-table.kame tr      td {padding: 0px 2px;color: #007; height:22px;}
+/*table.kame th:hover { background: #e9f3fe url(../images/table_head_hover.png) repeat-x bottom; }*/
+table.kame thead th:hover { background-color: #E6EBFB; }
+table.kame thead th.sor { background-color: #C9D7F1; color: #000; font-weight: normal; }
+table.kame th a.sor { display:block; text-decoration:none; padding: 1px 14px 1px 1px; color: #000; background-position: right center; background-repeat: no-repeat; }
+table.kame th a.sor:active { padding:2px 13px 0px 2px;}
+html[dir="rtl"] table.kame th a.sor { padding: 1px 1px 1px 14px; background-position: left center;}
+html[dir="rtl"] table.kame th a.sor:active { padding:2px 2px 0px 13px;}
+table.kame th a.sor.nsr  { background-image: url(../images/buttons/center.png); }
+table.kame th a.sor.desc { background-image: url(../images/buttons/down3.png); }
+table.kame th a.sor.asc  { background-image: url(../images/buttons/up3.png); }
+table.kame tr.data td {border-top: 1px solid #E2E2EE;}
+table.kame tr.data:first-child td {border-top: none;}
+/*table.kame tr.data:hover td { border: 1px solid #CCC; border-left: none; border-right: none; }*/
+table.kame tr      td {padding: 0px 4px;color: #000; height:22px;}
 table.kame tr      td.chk { text-align:center}
 table.kame tr      td.act { padding: 0 1px; width:18px; }
 table.kame tr      td.act a {padding: 1px; margin: 0; display:block; text-align: center;}
 table.kame tr      td.act a img {padding: 0; margin: 0; display:block; border: none;}
 table.kame tr.child td { color: #77A; }
-table.kame tr.child td:first-child { padding-left:20px; }
+table.kame tr.child td:first-child { padding:0 20px; }
 table.kame td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
 table.kame th, table.kame td.empty, table.kame td.procedures { border-top: 1px solid #BACFE6; }
-table.kame th, table.kame td { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }
+/*table.kame th, table.kame tbody { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }*/
 
-table.kame tfoot tr th { clear:both; border:none; background: #EEEFFA !important; }
+table.kame tfoot tr th { clear:both; border:none; background: #EEEFFA !important; font-weight: normal;}
 table.kame tfoot tr th div.menu { padding: 2px; float:left;}
 html[dir="rtl"] table.kame tfoot tr th div.menu { float:right;}
-/*
-table.kame tfoot tr th div.export a { padding: 0 2px 0 14px; margin: 0 2px; background: url(../images/buttons/spreadsheet.png) left center no-repeat;}
-html[dir="rtl"] table.kame tfoot tr th div.export a { padding: 0 14px 0 2px; margin: 0 2px; background: url(../images/buttons/spreadsheet.png) right center no-repeat;}
-*/
+table.kame tfoot .menu {  position: relative; background: none; border:none; padding: 0; margin: 0}
+table.kame tfoot .menu ul { display: none; padding: 1px; position:absolute; bottom: 16px; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000; box-shadow: 0px 0px 4px #999; -moz-box-shadow: 0px 0px 4px #999; -webkit-box-shadow: 0px 0px 4px #999;}
+table.kame tfoot .menu:hover > ul { display: block; }
+table.kame tfoot .menu ul li { list-style-type: none; padding: 2px 4px; width: 15em; position: relative; color: MenuText;}
+table.kame tfoot .menu ul li * { color: MenuText;}
+table.kame tfoot .menu ul li.separator { height: 0; padding:0; margin:0; border-top: 1px solid ButtonHighlight; border-top: 1px solid ButtonShadow; margin: 3px 0 3px;}
+table.kame tfoot .menu ul li.separator:hover { background: transparent;}
+table.kame tfoot .menu ul li a { padding: 2px 2px 2px 20px; display: block;}
+table.kame tfoot .menu ul li ul { display: none; position: absolute; left: 15em; bottom: -1px; }
+table.kame tfoot .menu ul li:hover { background: Highlight; color: HighlightText; }
+table.kame tfoot .menu ul li:hover * { color: HighlightText; }
+table.kame tfoot .menu ul li:hover ul { display:block; }
+table.kame tfoot .menu ul li ul:hover { display:block; }
+
 table.kame tfoot tr th div.pagination { padding: 2px; float:right;}
 html[dir="rtl"] table.kame tfoot tr th div.pagination { float:left;}
 table.kame tfoot tr th div.pagination * { padding:2px 4px; }
@@ -48,16 +64,18 @@ html[dir="rtl"] table.kame tfoot tr th div.pagination .next_page { padding:2px 4
 html[dir="rtl"] table.kame tfoot tr th div.pagination .next_page.disabled { padding:2px 4px 2px 10px; background: url(../images/buttons/previous2-dis.png) no-repeat left;}
 
 
-table.kame tr      td.decimal { text-align: right; }
-table.kame tr      td.float   { text-align: right; }
-table.kame tr      td.integer { text-align: right; }
-table.kame tr      td.download { text-align: center; }
-table.kame tr      td.boolean { text-align: center; }
-table.kame tr      td.boolean div { margin: 0 auto; }
-table.kame tr      td.date { text-align: center; }
+table.kame th.hidden, table.kame td.hidden { display: none; }
+
+table.kame tr      td.dec { text-align: right; }
+table.kame tr      td.flt { text-align: right; }
+table.kame tr      td.int { text-align: right; }
+table.kame tr      td.dld { text-align: center; }
+table.kame tr      td.bln { text-align: center; }
+table.kame tr      td.bln div { margin: 0 auto; }
+table.kame tr      td.dat { text-align: center; }
 table.kame tr      td.web { text-align: center; }
-table.kame tr      td.code { font-family: LiberationMono, monospace; }
-table.kame tr      td.code a { font-family: LiberationMono, monospace; }
+table.kame tr      th.code { font-family: LiberationMono, monospace; }
+table.kame tr      td.code * { font-family: LiberationMono, monospace; }
 table.kame tr      td.color { color:white; text-shadow: black 0 0 2px; width: 6em; text-align: center; }
 table.kame tr      td.rights * { font-size: 11px; }
 table.kame tr      td.rights.more * { color: #080; }
@@ -66,16 +84,8 @@ table.kame tr      td.rights.less * { color: #F00; }
 table.kame tr.details td { padding: 8px; text-align:center;}
 table.kame tr.details td.comment { padding: 10px; font-size:15px; }
 
-.balance { text-align:center;margin-left:600px; margin-right:700px; margin-top:20px; padding:20px;border: 1px solid #BACFE6;}
-/*
-.total { text-align: right; }
-.total table { border-collapse: collapse; width: 100%; }
-.total table.kame td { font-weight: bold; border: 1px solid #BACFE6; padding: 4px 8px; font-size: 16px; background:#FFF0E0;}
-.total table.kame tr.important td { font-weight: bold; padding: 4px 8px; font-size: 20px !important; }
-.total table.kame tr.separated * { border-top: 1px solid red !important;}
-.total table.kame  th  { text-align:right; }
-*/
 table.kame tr.total th {text-align: right;}
+html[dir="rtl"] table.kame tr.total th {text-align: left;}
 table.kame tr.total td {font-size: 18px; font-weight:bold; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #BACFE6; max-width: 12em;}  
 table.kame tr.total td.important {font-size: 20px; } 
 table.kame tr.subtotal td { font-weight:bold; background:#FFE !important; text-align: right; border:1px solid #BACFE6; max-width: 12em;}  
@@ -84,19 +94,3 @@ table.kame tr.centralize td { font-weight:bold; }
 
 table.kame tr.empty td { text-align:center; background: #EEF; color: #779; padding: 20px; font-style: italic;}
 table.kame tr.empty:hover td { background: #EEF; }
-
-
-
-table.kame tfoot .menu {  position: relative; background: none; border:none; padding: 0; margin: 0}
-table.kame tfoot .menu ul { display: none; padding: 0; position:absolute; bottom: 16px; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000; box-shadow: 0px 0px 4px #555; -moz-box-shadow: 0px 0px 4px #555; -webkit-box-shadow: 0px 0px 4px #555;}
-table.kame tfoot .menu:hover > ul { display: block; }
-table.kame tfoot .menu ul li { list-style-type: none; padding: 2px 4px; width: 15em; position: relative; }
-table.kame tfoot .menu ul li.separator { height: 0; padding:0; margin:0; border-top: 1px solid ButtonHighlight; border-top: 1px solid ButtonShadow; margin: 3px 0 3px;}
-table.kame tfoot .menu ul li.separator:hover { background: transparent;}
-table.kame tfoot .menu ul li a { padding: 2px 2px 2px 20px; display: block;}
-table.kame tfoot .menu ul li ul { display: none; position: absolute; left: 15em; bottom: -1px; }
-table.kame tfoot .menu ul li:hover { background: Highlight; }
-table.kame tfoot .menu ul li:hover * { color: HighlightText; }
-table.kame tfoot .menu ul li:hover ul { display:block; }
-table.kame tfoot .menu ul li ul:hover { display:block; }
-

@@ -9,6 +9,7 @@ __minimum__:
   - authentication::relogin
   - company::about
   - company::change_password
+  - company::entities_kame # UNEXISTENT ACTION !!!
   - company::formalize
   - company::help
   - company::index
@@ -33,7 +34,6 @@ __minimum__:
   - relations::recent_events_dyta
   - relations::user_future_events_dyta
   - store::index
-  - company::entities_kame
 # Inaccessible
 __not_used__:
   actions:
