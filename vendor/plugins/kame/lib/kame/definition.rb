@@ -1,7 +1,7 @@
 module Kame
 
   class Table
-    attr_reader :name, :model, :options, :id, :columns
+    attr_reader :name, :model, :options, :id, :columns, :parameters
     
     @@current_id = 0
 
@@ -9,19 +9,26 @@ module Kame
       @name    = name
       @model   = model
       @options = options
-      @options[:finder]   ||= :will_paginate_finder
+      @options[:finder] = (@options[:pagination]==:none ? :simple_finder  : :will_paginate_finder)
       @options[:renderer] ||= :simple_renderer
       @options[:per_page] = 25 if @options[:per_page].to_i <= 0
+      @options[:page] = 1 if @options[:page].to_i <= 0
       @columns = []
       @current_id = 0
       @id = @@current_id.to_s(36).to_sym
       @@current_id += 1
+      @parameters = {:sort=>:to_s, :dir=>:to_s}
+      @parameters.merge!(:page=>:to_i, :per_page=>:to_i) if self.finder.paginate?
     end
 
     def new_id
       id = @current_id.to_s(36).to_sym
       @current_id += 1
       return id
+    end
+
+    def sortable_columns
+      @columns.select{|c| c.sortable?}
     end
 
   end

@@ -68,7 +68,6 @@ class LandParcel < ActiveRecord::Base
   end
 
   def area(unit=nil)
-    return self.area_measure if unit.nil?
     return Unit.convert(self.area_measure, self.area_unit, unit)
   end
   

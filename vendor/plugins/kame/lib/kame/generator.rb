@@ -44,7 +44,7 @@ module Kame
       end
       # Minimum priority action
       code += "  else\n"
-      code += "    render(:inline=>'<%=#{Kame.view_method_name(self.name)}->', :layout=>true)\n"
+      code += "    render(:inline=>'<%=#{self.view_method_name}-%>', :layout=>true)\n" 
       code += "  end\n"
       code += "end\n"
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -69,22 +69,23 @@ module Kame
       code += "session[:kame][:#{self.name}] = {} unless session[:kame][:#{self.name}].is_a? Hash\n"
       code += "kame_params = session[:kame][:#{self.name}]\n"
       code += "kame_params[:hidden_columns] = [] unless kame_params[:hidden_columns].is_a? Array\n"
+      for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
+        expr = "options['#{self.name}_#{parameter}'] || options['#{parameter}'] || kame_params[:#{parameter}]"
+        expr += " || #{@options[parameter]}" unless @options[parameter].blank?
+        code += "kame_params[:#{parameter}] = (#{expr}).#{convertor}\n"
+      end
       # Order
-      code += "order = nil\n"
-      code += "options['#{self.name}_sort'] ||= kame_params[:sort]\n"
-      code += "options['#{self.name}_dir']  ||= kame_params[:dir]\n"
-      code += "unless options['#{self.name}_sort'].blank?\n"
-      code += "  options['#{self.name}_dir'] ||= 'asc'\n"
-      code += "  order  = ActiveRecord::Base.connection.quote_column_name(options['#{self.name}_sort'])\n"
-      code += "  order += options['#{self.name}_dir']=='desc' ? ' DESC' : ' ASC'\n"
+      code += "order = #{self.options[:order] ? self.options[:order].inspect : 'nil'}\n"
+      code += "if (col = {"+self.sortable_columns.collect{|c| "'#{c.id}'=>'#{c.name}'"}.join(', ')+"}[kame_params[:sort]])\n"
+      code += "  kame_params[:dir] ||= 'asc'\n"
+      code += "  if kame_params[:dir] == 'asc' or kame_params[:dir] == 'desc'\n"
+      code += "    order = ActiveRecord::Base.connection.quote_column_name(col)+' '+kame_params[:dir]\n"
+      code += "  end\n"
       code += "end\n"
-      code += "kame_params[:sort] = options['#{self.name}_sort']\n"
-      code += "kame_params[:dir]  = options['#{self.name}_dir']\n"
-      # Per page
-      code += "options['#{self.name}_per_page'] ||= options['per_page'] || kame_params[:per_page] || #{@options[:per_page]}\n"
-      code += "kame_params[:per_page] = options['#{self.name}_per_page'].to_i\n"
+
       return code
     end
+
 
   end
 end

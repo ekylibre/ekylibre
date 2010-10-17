@@ -112,9 +112,10 @@ class Unit < ActiveRecord::Base
 
   def self.convert(measure, from, to=nil)
     return measure if to and to.id == from.id
-    basic = (measure.to_d-from.base.to_d) / from.coefficient.to_d
+    # basic = (measure.to_f-from.base.to_f) / from.coefficient.to_f
+    basic = measure.to_f*from.coefficient.to_f+from.base.to_f
     return basic if to.nil?
-    return basic*to.coefficient.to_d+to.base.to_d
+    return (basic-to.base.to_f)*to.coefficient.to_f
   end
 
   def convert_from(measure, unit)

@@ -107,11 +107,6 @@ class ProductionController < ApplicationController
     t3e @land_parcel.attributes
   end
 
-  def land_parcels_map
-    @map = true
-  end
-
-
   create_kame(:land_parcel_groups, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name
     t.column :color

@@ -13,19 +13,14 @@ module Kame
         end
       end
 
-      default_order = (table.options[:order] ? '||'+table.options[:order].inspect : '')
-
-      # Search for an existing used page
-      code  = "page = (options[:page]||kame_params[:page]||1).to_i\n"
-      code += "kame_params[:page] = page\n"
       # Find data
-      code += "#{table.records_variable_name} = #{table.model.name}.paginate(:all"
+      code  = "#{table.records_variable_name} = #{table.model.name}.paginate(:all"
       code += ", :select=>'DISTINCT #{table.model.table_name}.*'" if table.options[:distinct]
       code += ", :conditions=>"+conditions_to_code(table.options[:conditions]) unless table.options[:conditions].blank?
-      code += ", :page=>page, :per_page=>kame_params[:per_page]"
+      code += ", :page=>kame_params[:page], :per_page=>kame_params[:per_page]"
       code += ", :joins=>#{table.options[:joins].inspect}" unless table.options[:joins].blank?
-      code += ", :order=>order#{default_order})||{}\n"
-      code += "return #{table.view_method_name}(options.merge(:page=>1)) if page>1 and #{table.records_variable_name}.out_of_bounds?\n"
+      code += ", :order=>order)||{}\n"
+      code += "return #{table.view_method_name}(options.merge(:page=>1)) if kame_params[:page]>1 and #{table.records_variable_name}.out_of_bounds?\n"
 
       return code
     end
@@ -63,6 +58,7 @@ if defined? WillPaginate
       def page_link(page, text, attributes = {})
         @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
       end
+      
 
       # WillPaginate 3
       def link(text, target, attributes = {})
@@ -70,8 +66,9 @@ if defined? WillPaginate
           attributes[:rel] = rel_value(target)
           target = url(target)
         end
-        attributes[:href] = target
-        @template.link_to_remote(text, {:url => target, :method => :get}.merge(@remote), attributes)
+        @template.link_to(text, target, attributes.merge(@remote))
+        # attributes[:href] = target
+        # @template.link_to_remote(text, {:url => target, :method => :get}.merge(@remote), attributes)
       end
 
     end  

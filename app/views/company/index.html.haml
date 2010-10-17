@@ -12,5 +12,3 @@
   %ul
     -for controller in menus[1..-1].collect{|x| x[:name]}
       =li_link_to t("actions.#{controller}.index"), :controller=>controller, :action=>:index
-
-=kame(:entities)

@@ -31,18 +31,6 @@ class CompanyController < ApplicationController
     end
   end
 
-  create_kame(:entities) do |t|
-    t.check_box :active
-    t.column :code
-    t.column :title, :through=>:nature
-    t.column :last_name, :url=>{:controller=>:relation, :action=>:entity}
-    t.text_field :first_name
-    t.column :line_6, :through=>:default_contact, :url=>{:action=>:contact_update}
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
-    t.action :entity_update, :controller=>:relation
-    t.action :entity_delete, :controller=>:relation
-  end
-  
   def index
     t3e :user=>@current_user.label, :company=>@current_company.name
   end

@@ -9,7 +9,6 @@ __minimum__:
   - authentication::relogin
   - company::about
   - company::change_password
-  - company::entities_kame
   - company::formalize
   - company::help
   - company::index
@@ -29,7 +28,6 @@ __minimum__:
   - management::product_trackings
   - management::product_units
   - management::subscription_contacts_dyli
-  - production::land_parcels_map
   - relations::entities_dyli
   - relations::recent_events_kame
   - relations::user_future_events_kame

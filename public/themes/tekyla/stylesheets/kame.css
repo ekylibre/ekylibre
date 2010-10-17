@@ -1,22 +1,23 @@
-div.kame { margin: 0; padding: 0; width:100%-30px; }
+/*div.kame { margin: 0; padding: 0; width:100%-30px; }*/
 table.kame { border-collapse: collapse; width:100%;  padding:0; margin: 0; }
 table.kame tbody, table.kame thead th { border: 1px solid #95b0e4;} /* BACFE6 */
+
 /*table.kame th { background: #e9f3fe url(../images/table_head.png) repeat-x bottom; padding:3px; color: #000; font-weight: normal; }*/
 /*table.kame thead th { border: 1px solid #BACFE6; }*/
-table.kame thead th { background: #e0e7f9 url(../images/shadow-top.png) repeat-x bottom; padding:3px; color: #000; font-weight: normal; }
+table.kame thead th { background: #e0e7f9 url(../images/shadow-top.png) repeat-x bottom; padding: 2px; color: #000; font-weight: normal; }
 table.kame thead th.act { background-color: #F1D7C9; }
 html[dir="ltr"] table.kame th { text-align: left; }
 html[dir="rtl"] table.kame th { text-align: right; }
+table.kame thead th a { display: block; text-decoration:none; color: #000; padding: 1px; background-position: right center; background-repeat: no-repeat; }
 /*table.kame th:hover { background: #e9f3fe url(../images/table_head_hover.png) repeat-x bottom; }*/
 table.kame thead th:hover { background-color: #E6EBFB; }
 table.kame thead th.sor { background-color: #C9D7F1; color: #000; font-weight: normal; }
-table.kame th a.sor { display:block; text-decoration:none; padding: 1px 14px 1px 1px; color: #000; background-position: right center; background-repeat: no-repeat; }
-table.kame th a.sor:active { padding:2px 13px 0px 2px;}
-html[dir="rtl"] table.kame th a.sor { padding: 1px 1px 1px 14px; background-position: left center;}
-html[dir="rtl"] table.kame th a.sor:active { padding:2px 2px 0px 13px;}
-table.kame th a.sor.nsr  { background-image: url(../images/buttons/center.png); }
-table.kame th a.sor.desc { background-image: url(../images/buttons/down3.png); }
-table.kame th a.sor.asc  { background-image: url(../images/buttons/up3.png); }
+table.kame thead th a.sortable { background-position: right center; background-repeat: no-repeat; padding-right: 12px; }
+html[dir="rtl"] table.kame thead th a.sortable {  background-position: left center; padding-left: 12px; }
+table.kame thead th a.sortable.nsr  { background-image: url(../images/buttons/center.png); }
+table.kame thead th a.sortable.desc { background-image: url(../images/buttons/down3.png); }
+table.kame thead th a.sortable.asc  { background-image: url(../images/buttons/up3.png); }
+
 table.kame tr.data td {border-top: 1px solid #E2E2EE;}
 table.kame tr.data:first-child td {border-top: none;}
 /*table.kame tr.data:hover td { border: 1px solid #CCC; border-left: none; border-right: none; }*/

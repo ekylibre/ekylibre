@@ -249,7 +249,6 @@ eng:
       land_parcel_groups: 'Groups of land parcels'
       land_parcel_update: 'Update land parcel: %{name}'
       land_parcels: 'Land parcels'
-      #>land_parcels_map: 'Land parcels map'
       operation: 'Operation Details %{name}'
       operation_create: 'Create a new operation'
       #>operation_line_create: 'Operation line create'

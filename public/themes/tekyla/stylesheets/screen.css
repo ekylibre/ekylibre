@@ -101,7 +101,7 @@ body { background: #C9D7F1; }
 .dialog {  background: #C9D7F1; box-shadow: 0px 0px 12px #555; -moz-box-shadow: 0px 0px 12px #555; -webkit-box-shadow: 0px 0px 12px #555;}
 .dialog .wrap { border: 4px solid #95b0e4; }
 .dialog .main { border-top: 1px solid #95b0e4; padding: 0 8px 8px 8px; }
-.fields { background: url(../images/shadow-top.png) repeat-x bottom; overflow: auto; }
+.fields { background: url(../images/shadow-top.png) repeat-x bottom; padding: 0 1px; overflow: auto; }
 
 .end { height: 8px; }
 .main { padding: 0 8px; } /*  overflow: visible; */
