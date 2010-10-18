@@ -1,0 +1,5 @@
+=formalize do |f|
+  -f.error 'outgoing_payment_use'
+  -f.field :outgoing_payment_use, :downpayment
+  -f.field :outgoing_payment_use, :payment_id, :choices=>{:reflection=>:usable_outgoing_payments}, :new=>{:action=>:outgoing_payment_create, :payee_id=>@outgoing_payment_use.expense.supplier_id, :amount=>@outgoing_payment_use.expense.unpaid_amount}
+=hidden_field_tag("expense_id", params[:expense_id])

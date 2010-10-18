@@ -20,21 +20,24 @@
 # 
 # == Table: transports
 #
-#  comment          :text             
-#  company_id       :integer          not null
-#  created_at       :datetime         not null
-#  created_on       :date             
-#  creator_id       :integer          
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  number           :string(255)      
-#  reference_number :string(255)      
-#  responsible_id   :integer          
-#  transport_on     :date             
-#  transporter_id   :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
-#  weight           :decimal(16, 4)   
+#  amount            :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
+#  comment           :text             
+#  company_id        :integer          not null
+#  created_at        :datetime         not null
+#  created_on        :date             
+#  creator_id        :integer          
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  number            :string(255)      
+#  purchase_order_id :integer          
+#  reference_number  :string(255)      
+#  responsible_id    :integer          
+#  transport_on      :date             
+#  transporter_id    :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer          
+#  weight            :decimal(16, 4)   
 #
 
 class Transport < ActiveRecord::Base
@@ -42,13 +45,13 @@ class Transport < ActiveRecord::Base
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :dependent=>:nullify, :class_name=>SaleDelivery.name
+  has_many :deliveries, :dependent=>:nullify, :class_name=>OutgoingDelivery.name
   validates_presence_of :number
 
   def prepare_on_create
     self.created_on ||= Date.today
     if self.number.blank?
-      last = self.company.sale_orders.find(:first, :order=>"number desc")
+      last = self.company.sales_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
     end
   end

@@ -1,27 +1,22 @@
 =toolbar do
   -link :product_update, :id=>@product.id
 
-%table
-  %tr
-    %td
-      =evalue @product, :name
-      =evalue @product, :price
-      =evalue @product, :code
-      =evalue @product, :code2
-      =evalue @product, :ean13
-    %td
-      =evalue @product, :category, :url=>{:action=>:product_category}
-      =evalue @product, :unit, :label=>:label
-      =evalue @product, :weight
-      =evalue @product, :active
-    %td
-      =evalue @product, :to
-      =#evalue @product, :catalog_name
-      =#evalue @product, :catalog_description
-      =evalue @product, :description
-      =evalue @product, :comment
-    %td
-      =evalue @product, :manage_stocks
+=list_evalue do |l|
+  -l.evalue @product, :name
+  -l.evalue @product, :price
+  -l.evalue @product, :code
+  -l.evalue @product, :code2
+  -l.evalue @product, :ean13
+  -l.evalue @product, :category, :url=>{:action=>:product_category}
+  -l.evalue @product, :unit, :label=>:label
+  -l.evalue @product, :weight
+  -l.evalue @product, :active
+  -l.evalue @product, :to
+  -l.evalue @product, :catalog_name
+  -l.evalue @product, :catalog_description
+  -l.evalue @product, :description
+  -l.evalue @product, :comment
+  -l.evalue @product, :manage_stocks
 
 =tabbox(:product) do |tb|
   -tb.tab :prices

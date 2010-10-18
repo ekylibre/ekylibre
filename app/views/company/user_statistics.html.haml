@@ -9,9 +9,9 @@
         %td=submit_tag tg(:search_go)
 .menu
   %ul
-    %li=tc(:nb_sales, :count=>@sale_orders_count)
-    -if @sale_orders_count > 0
-      %li=tc(:total_amount)+@sale_orders_amount.to_s
+    %li=tc(:nb_sales, :count=>@sales_orders_count)
+    -if @sales_orders_count > 0
+      %li=tc(:total_amount)+@sales_orders_amount.to_s
       %li=tc(:total_invoiced_amount)+@invoiced_amount.to_s
     -for event_nature in @event_natures
       %li=h tc(:x_events_of_nature_y, :count=>event_nature['ecount'].to_i, :nature=>event_nature.name, :duration=>event_nature['esum'].to_i)

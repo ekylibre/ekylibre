@@ -1,8 +1,0 @@
-=formalize do |f|
-  -f.error 'sale_payment_part'
-  -f.field :sale_payment_part, :downpayment
-  -payment = @sale_payment_part.expense.payer.last_sale_payment || SalePayment.new
-  -f.field :sale_payment_part, :payment_id, :choices=>{:reflection=>:usable_sale_payments}, :new=>{:action=>:sale_payment_create, :payer_id=>@sale_payment_part.expense.payer.id, :amount=>@sale_payment_part.expense.unpaid_amount, :bank=>payment.bank, :account_number=>payment.account_number}
-=hidden_field_tag("expense_id", params[:expense_id])
-=hidden_field_tag("expense_type", params[:expense_type])
-

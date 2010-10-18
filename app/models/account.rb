@@ -45,14 +45,14 @@ class Account < ActiveRecord::Base
   has_many :cashes
   has_many :clients, :class_name=>Entity.name, :foreign_key=>:client_account_id
   has_many :collected_taxes, :class_name=>Tax.name, :foreign_key=>:collected_account_id
-  has_many :commissioned_sale_payment_modes, :class_name=>SalePaymentMode.name, :foreign_key=>:commission_account_id
-  has_many :depositables_sale_payment_modes, :class_name=>SalePaymentMode.name, :foreign_key=>:depositables_account_id
+  has_many :commissioned_incoming_payment_modes, :class_name=>IncomingPaymentMode.name, :foreign_key=>:commission_account_id
+  has_many :depositables_incoming_payment_modes, :class_name=>IncomingPaymentMode.name, :foreign_key=>:depositables_account_id
   has_many :immobilizations_products, :class_name=>Product.name, :foreign_key=>:immobilizations_account_id
   has_many :journal_entry_lines
   has_many :paid_taxes, :class_name=>Tax.name, :foreign_key=>:paid_account_id
   has_many :purchases_products, :class_name=>Product.name, :foreign_key=>:purchases_account_id
   has_many :purchase_order_lines
-  has_many :sale_order_lines
+  has_many :sales_order_lines
   has_many :sales_products, :class_name=>Product.name, :foreign_key=>:sales_account_id
   has_many :suppliers, :class_name=>Entity.name, :foreign_key=>:supplier_account_id
   # has_many :entry_lines, :class_name=>JournalEntryLine.name
@@ -67,7 +67,7 @@ class Account < ActiveRecord::Base
 
   def destroyable?
     dependencies = 0
-    for k, v in Account.reflections.select{|k, v| v.macro == :has_many}
+    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).size
     end
     return dependencies <= 0

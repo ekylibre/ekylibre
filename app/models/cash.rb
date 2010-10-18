@@ -59,8 +59,8 @@ class Cash < ActiveRecord::Base
   belongs_to :journal
   has_many :bank_statements
   has_many :deposits
-  has_many :purchase_payment_modes
-  has_many :sale_payment_modes
+  has_many :outgoing_payment_modes
+  has_many :incoming_payment_modes
   has_one :last_bank_statement, :class_name=>BankStatement.name, :order=>"stopped_on DESC"
   validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id

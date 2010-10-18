@@ -1,0 +1,46 @@
+=toolbar do |t|
+  -t.link :sales_order_lines, :id=>@sales_order.id
+  -#t.link :sales_order_print, :id=>@sales_order.id
+  -t.print :sales_order, :id=>@sales_order.id
+
+%h2= tc 'general_informations'
+%table
+  %tr
+    %td
+      =evalue @sales_order, :client, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+      =evalue @sales_order, :nature
+      =evalue @sales_order, :contact, :label=>:address
+      -if (@sales_order.contact_id != @sales_order.delivery_contact_id)
+        =evalue @sales_order, :delivery_contact, :label=>:address
+      -if (@sales_order.contact_id != @sales_order.invoice_contact_id)
+        =evalue @sales_order, :invoice_contact, :label=>:address
+      =evalue @sales_order, :created_on
+    %td
+      =evalue @sales_order, :amount
+      =evalue @sales_order, :amount_with_taxes
+      =evalue @sales_order, :payment_delay, :label=>:name
+      =evalue @sales_order, :confirmed_on
+    -unless @sales_order.comment.blank?
+      %td
+        =evalue @sales_order, :comment 
+
+%h2=tc :sales_order_lines
+=kame :sales_order_lines
+
+-if @sales_order.deliveries.count > 0
+  %h2= tc 'deliveries'
+  =kame :sales_order_deliveries
+
+-if @sales_order.sales_invoices.count > 0
+  %h2= tc 'sales_invoices' 
+  =kame :sales_order_sales_invoices
+
+-if @sales_order.payment_parts.count > 0
+  %h2= tc 'incoming_payments'
+  =toolbar do |t|
+    -t.link :incoming_payment_create if @sales_order.state == 'R' and @sales_order.unpaid_amount>0
+  =kame :sales_order_payments
+
+-if @sales_order.subscriptions.count>0
+  %h2= tc :subscriptions
+  =kame :sales_order_subscriptions

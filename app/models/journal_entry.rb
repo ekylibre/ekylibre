@@ -54,11 +54,11 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
   has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>JournalEntryLine.name
-  has_many :invoices, :dependent=>:nullify
-  has_many :purchase_payments, :dependent=>:nullify
-  has_many :purchase_payment_parts, :dependent=>:nullify
-  has_many :sale_payments, :dependent=>:nullify
-  has_many :sale_payment_parts, :dependent=>:nullify
+  has_many :sales_invoices, :dependent=>:nullify
+  has_many :outgoing_payments, :dependent=>:nullify
+  has_many :outgoing_payment_uses, :dependent=>:nullify
+  has_many :incoming_payments, :dependent=>:nullify
+  has_many :incoming_payment_uses, :dependent=>:nullify
   validates_presence_of :currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :currency_rate, :greater_than=>0

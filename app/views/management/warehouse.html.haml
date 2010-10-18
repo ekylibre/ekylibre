@@ -1,21 +1,17 @@
-= toolbar do
-  - link :warehouse_update, :id=>@warehouse.id
+=toolbar do |t|
+  -t.update @warehouse
 
-%table
-  %tr
-    %td
-      =evalue @warehouse, :name
-      =evalue @warehouse, :comment
-    %td
-      =evalue @warehouse, :establishment
-      =evalue @warehouse, :x
-      =evalue @warehouse, :y
-      =evalue @warehouse, :z
-    -if @warehouse.reservoir
-      %td
-        =evalue @warehouse, :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
-        =evalue @warehouse, :number
-        =evalue @warehouse, :quantity_max
+=list_evalue do |l|
+  -l.evalue @warehouse, :name
+  -l.evalue @warehouse, :comment
+  -l.evalue @warehouse, :establishment
+  -l.evalue @warehouse, :x
+  -l.evalue @warehouse, :y
+  -l.evalue @warehouse, :z
+  -if @warehouse.reservoir
+    -l.evalue @warehouse, :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
+    -l.evalue @warehouse, :number
+    -l.evalue @warehouse, :quantity_max
 
 =tabbox(:warehouse) do |tb|
   -tb.tab :stocks, :content=>kame(:warehouse_stocks)

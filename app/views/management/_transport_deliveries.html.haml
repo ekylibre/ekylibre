@@ -2,13 +2,13 @@
 =form_tag(:action=>:transport_deliveries) do 
   %table.formalize
     %tr.title
-      %th{:colspan=>2}=tc(:add_sale_delivery)
+      %th{:colspan=>2}=tc(:add_outgoing_delivery)
     %tr.field
-      %td.label=tc(:sale_delivery)
-      %td.input=dyli_tag("sale_delivery[id]", :deliveries, :resize=>true)
+      %td.label=tc(:outgoing_delivery)
+      %td.input=dyli_tag("outgoing_delivery[id]", :deliveries, :resize=>true)
   .actions
     =link_to(tc(:back), :action=>:transports)
-    =submit_tag(tl(:add_sale_delivery), :action=>:transport_deliveries)
+    =submit_tag(tl(:add_outgoing_delivery), :action=>:transport_deliveries)
    
 
 

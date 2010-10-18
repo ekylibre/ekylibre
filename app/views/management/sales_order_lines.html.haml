@@ -1,0 +1,14 @@
+=sale_steps
+
+=toggle_tag
+
+-if @current_user.preference("interface.toggle.orientation", "vertical").value == "vertical"
+  %table.invex
+    %tr
+      %td=render :partial=>"sales_order"
+      %td.space
+      %td=render :partial=>"sales_order_lines"
+-else
+  =render :partial=>"sales_order", :locals=>{:columns=>3, :orient=>:horizontal}
+  =render :partial=>"sales_order_lines"
+      

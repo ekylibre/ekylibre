@@ -4,7 +4,7 @@
     <info name="authors">Thibaud Mérigon, Brice Texier</info>
   </infos>
   <parameters>
-    <parameter name="purchase_order" nature="purchase_order">Commande fournisseur</parameter>
+    <parameter name="purchase_order" nature="purchase_order">Purchase order</parameter>
   </parameters>
   <document unit="mm" size="10" title="supplier.label">
     <page orientation="portrait" format="A4" margin="10mm">
@@ -15,7 +15,7 @@
             <text value="{{purchase_order.company.entity/full_name}}" size="16"/>
 	    <text value="{{purchase_order/client_address}}" top="5mm"/>
           </image>
-          <text value="{{purchase_order/supplieraddress}}" align="left" font="helvetica" top="42mm" left="100mm"/>
+          <text value="{{purchase_order/supplier_address}}" align="left" font="helvetica" top="42mm" left="100mm"/>
         </set>
       </part>
 

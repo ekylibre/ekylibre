@@ -1,9 +1,82 @@
 class CreateProductionChains < ActiveRecord::Migration
+  RIGHTS_UPDATES = {
+    "manage_sale_payments"       => "manage_incoming_payments",
+    "manage_sale_delivery_modes" => "manage_outgoing_deliveries",
+    "manage_sale_order_natures"  => "manage_sales_order_natures",
+    "manage_sale_orders"         => "manage_sales_orders",
+    "consult_purchases"          => "consult_purchase_orders",
+    "consult_invoices"           => "consult_sales_invoices",
+    "consult_entries"            => "consult_journal_entries",
+    "consult_sale_orders"        => "consult_sales_orders",
+    "consult_tracking"           => "consult_trackings",
+    "manage_purchases"           => "manage_purchase_orders",
+    "give_discounts_on_sale"     => "give_discounts_on_sales_orders",
+    "change_prices_on_sale"      => "change_prices_on_sales_orders"
+  }.to_a.sort
+  TABLES_UPDATES = {
+    :sale_payments           => :incoming_payments,
+    :sale_payment_modes      => :incoming_payment_modes,
+    :sale_payment_parts      => :incoming_payment_uses,
+    :purchase_payments       => :outgoing_payments,
+    :purchase_payment_modes  => :outgoing_payment_modes,
+    :purchase_payment_parts  => :outgoing_payment_uses,
+    :sale_deliveries         => :outgoing_deliveries,
+    :sale_delivery_lines     => :outgoing_delivery_lines,
+    :sale_delivery_modes     => :outgoing_delivery_modes,
+    :purchase_deliveries     => :incoming_deliveries,
+    :purchase_delivery_lines => :incoming_delivery_lines,
+    :purchase_delivery_modes => :incoming_delivery_modes,
+    :sale_orders             => :sales_orders,
+    :sale_order_lines        => :sales_order_lines,
+    :sale_order_natures      => :sales_order_natures,
+    :invoices                => :sales_invoices,
+    :invoice_lines           => :sales_invoice_lines
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  POLYMORPHIC_COLUMNS = {
+    :documents =>             "owner_type",
+    :journal_entries =>       "resource_type",
+    :operations =>            "target_type",
+    :preferences =>           "record_value_type",
+    :incoming_payment_uses => "expense_type",
+    :stocks =>                "origin_type",
+    :stock_moves =>           "origin_type"
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   PREFERENCES = {
-    "management.payments.numeration" => "management.sale_payments.numeration"
+    "management.payments.numeration" => "management.incoming_payments.numeration",
+    "management.purchase_payments.numeration" => "management.outgoing_payments.numeration",
+    "management.invoices.numeration" => "management.sales_invoices.numeration",
+    "management.sale_orders.numeration" => "management.sales_orders.numeration"
   }.to_a
 
   def self.up
+    for old, new in TABLES_UPDATES
+      rename_table old, quoted_table_name(new)
+    end
+    for old, new in TABLES_UPDATES
+      for table, column in POLYMORPHIC_COLUMNS
+        execute "UPDATE #{quoted_table_name(table)} SET #{column}='#{new.to_s.classify}' WHERE #{column}='#{old.to_s.classify}'"
+      end
+      # Document Templates
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"
+      # Listings
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
+    end
+    rename_column :sales_invoices, :sale_order_id, :sales_order_id
+    rename_column :sales_invoice_lines, :invoice_id, :sales_invoice_id
+    rename_column :incoming_deliveries, :order_id, :purchase_order_id
+    change_column_null :incoming_deliveries, :purchase_order_id, true
+    add_column :incoming_deliveries, :mode_id, :integer, :null=>false # No deliveries can be in the table
+    rename_column :outgoing_deliveries, :invoice_id, :sales_invoice_id
+    rename_column :outgoing_deliveries, :order_id, :sales_order_id
+    add_column :outgoing_delivery_modes, :with_transport, :boolean, :null=>false, :default=>false
+    execute "UPDATE #{quoted_table_name(:outgoing_delivery_modes)} SET with_transport=#{quoted_true}"
+    rename_column :subscriptions, :invoice_id, :sales_invoice_id
+    rename_column :subscriptions, :sale_order_id, :sales_order_id
+    rename_column :subscriptions, :sale_order_line_id, :sales_order_line_id
+    add_column :transports, :purchase_order_id, :integer
+    add_column :transports, :amount, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
+    add_column :transports, :amount_with_taxes, :decimal, :precision=>16, :scale=>2, :default=>0.0, :null=>false
 
     create_table :land_parcel_groups do |t|
       t.column :name,             :string, :null=>false
@@ -157,10 +230,10 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :land_parcels, :polygon
 
     # Add a the list organization for payment modes
-    add_column :sale_payment_modes, :position, :integer, :null=>false, :default=>0
-    execute "UPDATE #{quoted_table_name(:sale_payment_modes)} SET position = id"
-    add_column :purchase_payment_modes, :position, :integer, :null=>false, :default=>0
-    execute "UPDATE #{quoted_table_name(:purchase_payment_modes)} SET position = id"
+    add_column :incoming_payment_modes, :position, :integer, :null=>false, :default=>0
+    execute "UPDATE #{quoted_table_name(:incoming_payment_modes)} SET position = id"
+    add_column :outgoing_payment_modes, :position, :integer, :null=>false, :default=>0
+    execute "UPDATE #{quoted_table_name(:outgoing_payment_modes)} SET position = id"
 
     # Some accountancy stuff
     remove_column :journals,   :counterpart_id
@@ -180,11 +253,17 @@ class CreateProductionChains < ActiveRecord::Migration
 
 
     # Some management stuff
-    add_column :sale_payments, :commission_account_id, :integer
-    add_column :sale_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
-    rename_column :sale_payment_modes, :commission_amount, :commission_base_amount
-    for mode in connection.select_all("SELECT id, commission_account_id AS aid, commission_percent AS p, commission_base_amount AS ba FROM #{quoted_table_name(:sale_payment_modes)} WHERE with_commission = #{quoted_true}")
-      execute "UPDATE #{quoted_table_name(:sale_payments)} SET commission_account_id=#{mode['aid']}, commission_amount=(amount*#{mode['p']}/100+#{mode['ba']}) WHERE mode_id=#{mode['id']}"
+    add_column :incoming_payments, :commission_account_id, :integer
+    add_column :incoming_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
+    rename_column :incoming_payment_modes, :commission_amount, :commission_base_amount
+    for mode in connection.select_all("SELECT id, commission_account_id AS aid, commission_percent AS p, commission_base_amount AS ba FROM #{quoted_table_name(:incoming_payment_modes)} WHERE with_commission = #{quoted_true}")
+      execute "UPDATE #{quoted_table_name(:incoming_payments)} SET commission_account_id=#{mode['aid']}, commission_amount=(amount*#{mode['p']}/100+#{mode['ba']}) WHERE mode_id=#{mode['id']}"
+    end
+
+    # UPDATE RIGHTS
+    for old, new in RIGHTS_UPDATES
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
     end
 
     for o, n in PREFERENCES
@@ -197,9 +276,15 @@ class CreateProductionChains < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
     end
 
-    rename_column :sale_payment_modes, :commission_base_amount, :commission_amount
-    remove_column :sale_payments, :commission_amount
-    remove_column :sale_payments, :commission_account_id
+    # UPDATE RIGHTS
+    for old, new in RIGHTS_UPDATES.reverse
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
+    end
+
+    rename_column :incoming_payment_modes, :commission_base_amount, :commission_amount
+    remove_column :incoming_payments, :commission_amount
+    remove_column :incoming_payments, :commission_account_id
 
     # Some accountancy stuff
     remove_column :cash_transfers, :created_on
@@ -217,8 +302,8 @@ class CreateProductionChains < ActiveRecord::Migration
     add_column :warehouses, :account_id, :integer
     add_column :journals,   :counterpart_id, :integer
     
-    remove_column :purchase_payment_modes, :position
-    remove_column :sale_payment_modes, :position
+    remove_column :outgoing_payment_modes, :position
+    remove_column :incoming_payment_modes, :position
     
     add_column :land_parcels, :polygon, :string
     add_column :land_parcels, :parent_id, :integer
@@ -241,5 +326,36 @@ class CreateProductionChains < ActiveRecord::Migration
     drop_table :cultivations
     drop_table :land_parcel_kinships
     drop_table :land_parcel_groups
+
+
+    remove_column :transports, :amount_with_taxes
+    remove_column :transports, :amount
+    remove_column :transports, :purchase_order_id
+    rename_column :subscriptions, :sales_order_line_id, :sale_order_line_id
+    rename_column :subscriptions, :sales_order_id, :sale_order_id
+    rename_column :subscriptions, :sales_invoice_id, :invoice_id
+    remove_column :outgoing_delivery_modes, :with_transport
+    rename_column :outgoing_deliveries, :sales_order_id, :order_id
+    rename_column :outgoing_deliveries, :sales_invoice_id, :invoice_id
+    remove_column :incoming_deliveries, :mode_id
+    # change_column_null :incoming_deliveries, :purchase_order_id, true
+    rename_column :incoming_deliveries, :purchase_order_id, :order_id
+    rename_column :sales_invoice_lines, :sales_invoice_id, :invoice_id
+    rename_column :sales_invoices, :sales_order_id, :sale_order_id
+
+
+    for new, old in TABLES_UPDATES.reverse
+      # Listings
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
+      execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
+      # Document Templates
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"
+      for table, column in POLYMORPHIC_COLUMNS.reverse
+        execute "UPDATE #{quoted_table_name(table)} SET #{column}='#{new.to_s.classify}' WHERE #{column}='#{old.to_s.classify}'"
+      end
+    end
+    for new, old in TABLES_UPDATES.reverse
+      rename_table old, quoted_table_name(new)
+    end
   end
 end

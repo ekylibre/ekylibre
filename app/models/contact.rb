@@ -54,10 +54,10 @@ class Contact < ActiveRecord::Base
   belongs_to :area
   belongs_to :company
   belongs_to :entity
-  has_many :sale_deliveries
-  has_many :invoices
+  has_many :outgoing_deliveries
+  has_many :sales_invoices
   has_many :purchase_orders
-  has_many :sale_orders
+  has_many :sales_orders
   has_many :subscriptions
   has_many :warehouses
 

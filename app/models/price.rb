@@ -52,11 +52,11 @@ class Price < ActiveRecord::Base
   belongs_to :entity
   belongs_to :product
   belongs_to :tax
-  has_many :sale_delivery_lines
-  has_many :invoice_lines
+  has_many :outgoing_delivery_lines
+  has_many :sales_invoice_lines
   has_many :taxes
   has_many :purchase_order_lines
-  has_many :sale_order_lines
+  has_many :sales_order_lines
   validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
   validates_presence_of :currency_id, :product_id, :entity_id
   validates_numericality_of :amount, :greater_than_or_equal_to=>0

@@ -23,17 +23,19 @@ jpn:
         #>duration: 'Duration by default (in min.)'
       financial_year:
         #>stopped_on: 'Date of closing'
+      incoming_payment:
+        #>amount: 'Amount'
+        #>received: 'Reçu'
+        #>to_bank_on: 'To bank on'
+      incoming_payment_use:
+        #>amount: 'Used amount'
+        #>payment: 'Sale payment'
+        #>payment_id: 'Sale payment'
+        #>payment_way: 'Mode of payment'
       inventory_line:
         #>quantity: 'Found quantity'
-      invoice:
-        #>credit: 'Credit'
-        #>lines: 'Invoice lines'
-        #>origin: 'Original invoice'
-        #>origin_id: 'Original invoice'
-      invoice_line:
-        #>origin_id: 'Original line'
       journal_entry:
-        #>purchase_payment_parts: 'Parts or disbursements'
+        #>outgoing_payment_uses: 'Parts or disbursements'
       journal_entry_line:
         #>closed: 'Closed'
       land_parcel:
@@ -44,6 +46,15 @@ jpn:
       operation:
         #>consumption: 'Consumption'
         #>lines: 'Incoming and outgoing products'
+      outgoing_delivery:
+        #>lines: 'Delivery lines'
+      outgoing_payment:
+        #>amount: 'Amount'
+        #>delivered: 'Given to recipient'
+      outgoing_payment_mode:
+        #>payments: 'Disbursements'
+      outgoing_payment_use:
+        #>amount: 'Used amount'
       price:
         #>category: 'People category'
         #>category_id: 'People category'
@@ -66,37 +77,26 @@ jpn:
       purchase_order_line:
         #>order: 'Purchase order'
         #>order_id: 'Purchase order'
-      purchase_payment:
-        #>amount: 'Amount'
-        #>delivered: 'Given to recipient'
-      purchase_payment_mode:
-        #>payments: 'Disbursements'
-      purchase_payment_part:
-        #>amount: 'Amount'
-      sale_delivery:
-        #>lines: 'Delivery lines'
-      sale_order:
+      sales_invoice:
+        #>credit: 'Credit'
+        #>lines: 'SalesInvoice lines'
+        #>origin: 'Original sales_invoice'
+        #>origin_id: 'Original sales_invoice'
+      sales_invoice_line:
+        #>origin_id: 'Original line'
+      sales_order:
         #>contact: 'Address for the estimate'
         #>contact_id: 'Address for the estimate'
         #>has_downpayment: 'Request a downpayment'
         #>lines: 'Sale order lines'
         #>parts_amount: 'Paid amount'
         #>payments: 'Sale payments'
-      sale_order_line:
+      sales_order_line:
         #>label: 'Product'
         #>price: 'Product'
         #>price_id: 'Product'
-      sale_order_nature:
+      sales_order_nature:
         #>downpayment: 'Request downpayment'
-      sale_payment:
-        #>amount: 'Amount'
-        #>received: 'Reçu'
-        #>to_bank_on: 'To bank on'
-      sale_payment_part:
-        #>amount: 'Amount'
-        #>payment: 'Sale payment'
-        #>payment_id: 'Sale payment'
-        #>payment_way: 'Mode of payment'
       stock:
         #>quantity: 'Real quantity'
       stock_move:
@@ -192,17 +192,17 @@ jpn:
           #>closed_entry: 'The journal entry is locked. You can not update it.'
           #>empty_amounts: 'The journal entry must be filled either debit or credit'
           #>unvalid_amounts: 'The journal entry must be filled either debit or credit but not at the same time.'
+        outgoing_delivery_line:
+          #>greater_than_undelivered_quantity: 'The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})'
         price:
           #>already_defined: 'A price is already defined for this list and this product'
           #>range_overlap: 'The range overlaps an other(from %{min} to %{max})'
         purchase_order_line:
           #>serial_already_used_with_an_other_product: '%{attribute} has been already used for an other product of the same supplier'
           #>warehouse_can_not_receive_product: 'The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}.'
-        sale_delivery_line:
-          #>greater_than_undelivered_quantity: 'The quantity of %{product} to deliver is greater than the available quantity (%{maximum}%{unit})'
-        sale_order_line:
+        sales_order_line:
           #>can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
-          #>currency_is_not_sale_order_currency: 'Currency is not identical to the sale order currency'
+          #>currency_is_not_sales_order_currency: 'Currency is not identical to the sale order currency'
           #>error_no_found_price: 'No found price'
           #>warehouse_can_not_transfer_product: '%{product} can not be found in %{warehouse}, it only contains %{contained_product}.'
         stock:
@@ -253,10 +253,14 @@ jpn:
       #>event: 'Event'
       #>event_nature: 'Event type'
       #>financial_year: 'Financial year'
+      #>incoming_delivery: 'Purchase delivery'
+      #>incoming_delivery_line: 'Purchase delivery line'
+      #>incoming_delivery_mode: 'Purchase delivery mode'
+      #>incoming_payment: 'Sale payment'
+      #>incoming_payment_mode: 'Sale payment mode'
+      #>incoming_payment_use: 'Sale payment part'
       #>inventory: 'Inventory'
       #>inventory_line: 'Inventory line'
-      #>invoice: 'Invoice'
-      #>invoice_line: 'Invoice line'
       #>journal: 'Journal'
       #>journal_entry: 'Journal entry'
       #>journal_entry_line: 'Journal entry line'
@@ -272,6 +276,12 @@ jpn:
       #>operation_line: 'Operation line'
       #>operation_nature: 'Operation type'
       #>operation_use: 'Tool use'
+      #>outgoing_delivery: 'Delivery'
+      #>outgoing_delivery_line: 'Delivery line'
+      #>outgoing_delivery_mode: 'Delivery mode'
+      #>outgoing_payment: 'Disbursement'
+      #>outgoing_payment_mode: 'Disbursement mode'
+      #>outgoing_payment_use: 'Disbursement part'
       #>preference: 'Preference'
       #>price: 'Price'
       #>product: 'Product'
@@ -282,24 +292,14 @@ jpn:
       #>production_chain_work_center: 'Production chain work center'
       #>production_chain_work_center_use: 'Production chain work center use'
       #>profession: 'Profession'
-      #>purchase_delivery: 'Purchase delivery'
-      #>purchase_delivery_line: 'Purchase delivery line'
-      #>purchase_delivery_mode: 'Purchase delivery mode'
       #>purchase_order: 'Purchase order'
       #>purchase_order_line: 'Purchase order line'
-      #>purchase_payment: 'Disbursement'
-      #>purchase_payment_mode: 'Disbursement mode'
-      #>purchase_payment_part: 'Disbursement part'
       #>role: 'Role'
-      #>sale_delivery: 'Delivery'
-      #>sale_delivery_line: 'Delivery line'
-      #>sale_delivery_mode: 'Delivery mode'
-      #>sale_order: 'Sale order'
-      #>sale_order_line: 'Sale order line'
-      #>sale_order_nature: 'Sale order type'
-      #>sale_payment: 'Sale payment'
-      #>sale_payment_mode: 'Sale payment mode'
-      #>sale_payment_part: 'Sale payment part'
+      #>sales_invoice: 'SalesInvoice'
+      #>sales_invoice_line: 'SalesInvoice line'
+      #>sales_order: 'Sale order'
+      #>sales_order_line: 'Sale order line'
+      #>sales_order_nature: 'Sale order type'
       #>sequence: 'Sequence'
       #>stock: 'Stock'
       #>stock_move: 'Stock move'
@@ -589,6 +589,9 @@ jpn:
     #>in_cash: 'In cash'
     #>in_name: 'In name'
     #>included: 'Included'
+    #>incoming_payment_modes: 'Sale payment modes'
+    #>incoming_payment_uses: 'Sale payment parts'
+    #>incoming_payments: 'Sale payments'
     #>indirect_links: 'Indirect links'
     #>integer_value: 'Integer value'
     #>introduction: 'Introduction'
@@ -596,14 +599,9 @@ jpn:
     #>inventory: 'Inventory'
     #>inventory_id: 'Inventory'
     #>inventory_lines: 'Inventory lines'
-    #>invoice: 'Invoice'
-    #>invoice_contact: 'Invoice contact'
-    #>invoice_contact_id: 'Invoice contact'
-    #>invoice_id: 'Invoice'
-    #>invoice_lines: 'Invoice lines'
-    #>invoiced: 'Invoiced'
-    #>invoices: 'Invoices'
-    #>invoices_count: 'Invoices count'
+    #>invoice_contact: 'SalesInvoice contact'
+    #>invoice_contact_id: 'SalesInvoice contact'
+    #>invoiced: 'SalesInvoiced'
     #>is_debit: 'Is debit'
     #>item_listing: 'Item listing'
     #>item_listing_id: 'Item listing'
@@ -673,7 +671,7 @@ jpn:
     #>nature_code: 'Type code'
     #>nature_id: 'Type'
     #>nature_label: 'Type label'
-    #>net_weight: 'Net weight'
+    #>net_weight: 'Net weight (kg)'
     #>nic: 'Nic'
     #>node: 'Node'
     #>node_id: 'Node'
@@ -700,6 +698,9 @@ jpn:
     #>origin_id: 'Origin'
     #>origin_type: 'Origin type'
     #>original_name: 'Original name'
+    #>outgoing_payment_modes: 'Disbursement modes'
+    #>outgoing_payment_uses: 'Disbursement parts'
+    #>outgoing_payments: 'Disbursements'
     #>owner: 'Owner'
     #>owner_id: 'Owner'
     #>owner_type: 'Owner type'
@@ -712,7 +713,7 @@ jpn:
     parent_id: '親戚'
     #>parent_land_parcel_id: 'Parent land parcel'
     #>parts: 'Parts'
-    #>parts_amount: 'Parts amount'
+    #>parts_amount: 'Used amount'
     #>password: 'Password'
     #>password_confirmation: 'Confirmation of password'
     #>payee: 'Payee'
@@ -769,11 +770,9 @@ jpn:
     #>proposer_id: 'Proposer'
     #>prospect: 'Prospect'
     #>published: 'Published'
+    #>purchase_order_id: 'Purchase order'
     #>purchase_order_lines: 'Purchase order lines'
     #>purchase_orders: 'Purchase orders'
-    #>purchase_payment_modes: 'Disbursement modes'
-    #>purchase_payment_parts: 'Disbursement parts'
-    #>purchase_payments: 'Disbursements'
     #>purchases_account: 'Purchases account'
     #>purchases_account_id: 'Purchases account'
     #>quantity: 'Quantity'
@@ -819,18 +818,20 @@ jpn:
     #>rome: 'Rome'
     #>root_model: 'Root model'
     #>root_model_name: 'Root model name'
-    #>sale_order: 'Sale order'
-    #>sale_order_id: 'Sale order'
-    #>sale_order_line_id: 'Sale order line'
-    #>sale_order_lines: 'Sale order lines'
-    #>sale_order_natures: 'Sale order types'
-    #>sale_orders: 'Sale orders'
-    #>sale_payment_modes: 'Sale payment modes'
-    #>sale_payment_parts: 'Sale payment parts'
-    #>sale_payments: 'Sale payments'
     #>sales_account: 'Sales account'
     #>sales_account_id: 'Sales account'
     #>sales_conditions: 'Sales conditions'
+    #>sales_invoice: 'SalesInvoice'
+    #>sales_invoice_id: 'SalesInvoice'
+    #>sales_invoice_lines: 'SalesInvoice lines'
+    #>sales_invoices: 'SalesInvoices'
+    #>sales_invoices_count: 'SalesInvoices count'
+    #>sales_order: 'Sale order'
+    #>sales_order_id: 'Sale order'
+    #>sales_order_line_id: 'Sale order line'
+    #>sales_order_lines: 'Sale order lines'
+    #>sales_order_natures: 'Sale order types'
+    #>sales_orders: 'Sale orders'
     #>salt: 'Salt'
     #>scheduled: 'Scheduled'
     #>second_move_id: 'Second move'
@@ -909,7 +910,7 @@ jpn:
     #>tool_id: 'Tool'
     #>tools: 'Tools'
     #>tools_list: 'Tools list'
-    #>total_weight: 'Total weight'
+    #>total_weight: 'Total weight (kg)'
     #>tracking: 'Tracking'
     #>tracking_id: 'Tracking'
     #>tracking_serial: 'Tracking serial'
@@ -933,8 +934,8 @@ jpn:
     #>updated_at: 'Updated at'
     updater: '修正の人'
     updater_id: '修正の人'
-    #>usable_purchase_payments: 'Usable disbursements'
-    #>usable_sale_payments: 'Usable sale payments'
+    #>usable_incoming_payments: 'Usable sale payments'
+    #>usable_outgoing_payments: 'Usable disbursements'
     #>usage: 'Usage'
     #>usage_duration: 'Usage duration'
     #>use_range: 'Use range'
@@ -952,7 +953,7 @@ jpn:
     #>warehouses: 'Warehouses'
     #>webpass: 'Webpass'
     #>website: 'Website'
-    #>weight: 'Weight'
+    #>weight: 'Weight (kg)'
     #>with_accounting: 'With accounting'
     #>with_commission: 'With commission'
     #>with_deposit: 'With deposit'
@@ -1010,12 +1011,12 @@ jpn:
               #>filename: 'Deposit [number]'
             inventory:
               #>filename: 'Inventory [number]'
-            invoice:
-              #>filename: 'Invoice [number]'
-              #>to_archive: 'true'
             purchase_order:
               #>filename: 'Purchase order [number]'
-            sale_order:
+            sales_invoice:
+              #>filename: 'SalesInvoice [number]'
+              #>to_archive: 'true'
+            sales_order:
               #>filename: 'Sale order [number]'
             stocks:
               #>filename: 'Stocks'
@@ -1027,35 +1028,35 @@ jpn:
         document_templates_filenames:
         #>establishment_name: 'Default establishment'
         event_natures:
-          #>invoice: 'Creation of an invoice'
           #>purchase_order: 'Creation of a purchase order'
-          #>sale_order: 'Creation of a sale order'
+          #>sales_invoice: 'Creation of an sales_invoice'
+          #>sales_order: 'Creation of a sale order'
+        incoming_payment_modes:
+          cash:
+            #>name: 'Cash'
+          check:
+            #>name: 'Check'
+          transfer:
+            #>name: 'Transfer'
         journals:
           #>bank: 'Bank'
           #>cash: 'Cash'
           #>purchases: 'Purchases'
           #>sales: 'Sales'
           #>various: 'Various operations'
-        #>product_category_name: 'Default category'
-        purchase_payment_modes:
+        outgoing_payment_modes:
           cash:
             #>name: 'Cash'
           check:
             #>name: 'Check'
           transfer:
             #>name: 'Transfer'
+        #>product_category_name: 'Default category'
         role:
           name:
             #>admin: 'Manager'
             #>public: 'Public (no rights)'
-        #>sale_order_nature_name: 'Standard'
-        sale_payment_modes:
-          cash:
-            #>name: 'Cash'
-          check:
-            #>name: 'Check'
-          transfer:
-            #>name: 'Transfer'
+        #>sales_order_nature_name: 'Standard'
         sequences:
           accountancy:
             cash_transfers:
@@ -1068,27 +1069,27 @@ jpn:
               #>format: 'B[year|4][number|4]'
               #>name: 'Numeration of deposits'
               #>period: 'year'
-            invoices:
-              #>format: 'F[year|4][number|6]'
-              #>name: 'Numeration of invoices'
+            incoming_payments:
+              #>format: 'P[year|4][number|6]'
+              #>name: 'Numeration of payments'
+              #>period: 'year'
+            outgoing_payments:
+              #>format: 'D[year|4][number|4]'
+              #>name: 'Numeration of payments'
               #>period: 'year'
             payments:
             purchase_orders:
               #>format: 'PO[year|4][month|2][number|4]'
               #>name: 'Numeration of purchases'
               #>period: 'month'
-            purchase_payments:
-              #>format: 'D[year|4][number|4]'
-              #>name: 'Numeration of payments'
+            sales_invoices:
+              #>format: 'F[year|4][number|6]'
+              #>name: 'Numeration of sales_invoices'
               #>period: 'year'
-            sale_orders:
+            sales_orders:
               #>format: 'SO[year|4][month|2][number|6]'
               #>name: 'Numeration of sales'
               #>period: 'month'
-            sale_payments:
-              #>format: 'P[year|4][number|6]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
             subscriptions:
               #>format: 'SUB[number|8]'
               #>name: 'Numeration of subscriptions'
@@ -1133,7 +1134,7 @@ jpn:
       import:
         #>dont_use: '-- Do not use --'
         #>generate_string_complement: '-- Create a personalized field (text) --'
-      #>sale_orders: 'Sale orders'
+      #>sales_orders: 'Sale orders'
     complement:
     contact:
       #>error_modify_contact: 'The contact can not be updated.'
@@ -1176,11 +1177,11 @@ jpn:
         #>general_ledger: 'Grand ledger'
         #>income_statement: 'Income statement'
         #>inventory: 'Inventory'
-        #>invoice: 'Invoice'
         #>journal: 'Journal'
         #>other: 'Other'
         #>purchase_order: 'Purchase order'
-        #>sale_order: 'Sale order'
+        #>sales_invoice: 'SalesInvoice'
+        #>sales_order: 'Sale order'
         #>stocks: 'Stocks'
         #>transport: 'Transport'
       #>unvalid_nature: 'Unvalid type of document template.'
@@ -1189,24 +1190,22 @@ jpn:
       #>supplier: 'Supplier'
     event_nature:
       usages:
-        #>invoice: 'Creation of an invoice'
         #>mailing: 'Mailing'
         #>manual: 'Manual'
         #>purchase_order: 'Creation of a purchase'
-        #>sale_order: 'Creation of a product'
+        #>sales_invoice: 'Creation of an sales_invoice'
+        #>sales_order: 'Creation of a product'
     financial_year:
       code:
         #>double: 'FY%{first_year}/%{second_year}'
         #>single: 'FY%{first_year}'
+    incoming_payment:
+      #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
+      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
+    incoming_payment_use:
+      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     inventory_line:
       #>inventory: 'Inventory'
-    invoice:
-      label:
-        #>credit: 'Credit %{number}'
-        #>normal: 'Invoice %{number}'
-      #>to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sale_order})'
-    invoice_line:
-      #>no_product: '[No product]'
     journal:
       natures:
         #>bank: 'Bank'
@@ -1265,6 +1264,16 @@ jpn:
       direction_label:
         #>in: 'In'
         #>out: 'Out'
+    outgoing_delivery:
+      #>label: '%{client} at %{address}'
+      #>sale: 'Sale %{number}'
+    outgoing_delivery_line:
+      #>sale: 'Sale %{number}'
+    outgoing_payment:
+      #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
+      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
+    outgoing_payment_use:
+      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
     price:
       #>label: '%{product} / %{amount} %{currency}'
       #>no_range: 'No range'
@@ -1305,24 +1314,21 @@ jpn:
       #>name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>tracking: 'S/N: %{serial}'
-    purchase_payment:
-      #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
-      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
-    purchase_payment_part:
-      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
-    sale_delivery:
-      #>label: '%{client} at %{address}'
-      #>sale: 'Sale %{number}'
-    sale_delivery_line:
-      #>sale: 'Sale %{number}'
-    sale_order:
+    sales_invoice:
+      label:
+        #>credit: 'Credit %{number}'
+        #>normal: 'SalesInvoice %{number}'
+      #>to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
+    sales_invoice_line:
+      #>no_product: '[No product]'
+    sales_order:
       label:
         #>estimate: 'Estimate %{number}'
         #>order: 'Order %{number}'
       natures:
         #>estimate: 'Estimate'
-        #>invoice: 'Invoice'
         #>order: 'Order'
+        #>sales_invoice: 'SalesInvoice'
       #>sale: 'Sale %{number}'
       sales_conditions:
         #>downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
@@ -1331,17 +1337,12 @@ jpn:
         #>A: 'Active'
         #>C: 'Finished'
         #>E: 'Estimate'
-    sale_order_line:
+    sales_order_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
-      #>currency_is_not_sale_order_currency: 'The currency of the price differs from the sale order currency'
+      #>currency_is_not_sales_order_currency: 'The currency of the price differs from the sale order currency'
       #>reduction_on: 'Discount of %{percent}%  on %{product}'
       #>tracking: 'S/N: %{serial}'
       #>warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
-    sale_payment:
-      #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
-      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
-    sale_payment_part:
-      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     sequence:
       periods:
         #>cweek: 'Commercial week'

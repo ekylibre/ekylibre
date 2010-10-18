@@ -83,7 +83,7 @@ class Entity < ActiveRecord::Base
   belongs_to :company
   belongs_to :nature, :class_name=>EntityNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :payment_mode, :class_name=>SalePaymentMode.name
+  belongs_to :payment_mode, :class_name=>IncomingPaymentMode.name
   belongs_to :proposer, :class_name=>Entity.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
@@ -93,17 +93,17 @@ class Entity < ActiveRecord::Base
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
   has_many :events
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity_2_id
-  has_many :invoices, :foreign_key=>:client_id, :order=>"created_on desc"
+  has_many :sales_invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
   has_many :prices
   has_many :purchase_orders, :foreign_key=>:supplier_id
-  has_many :purchase_payments, :foreign_key=>:payee_id
-  has_many :sale_orders, :foreign_key=>:client_id, :order=>"created_on desc"
-  has_many :sale_payments, :foreign_key=>:payer_id
+  has_many :outgoing_payments, :foreign_key=>:payee_id
+  has_many :sales_orders, :foreign_key=>:client_id, :order=>"created_on desc"
+  has_many :incoming_payments, :foreign_key=>:payer_id
   has_many :subscriptions
   has_many :trackings, :foreign_key=>:producer_id
-  has_many :usable_sale_payments, :conditions=>["parts_amount < amount"], :class_name=>SalePayment.name, :foreign_key=>:payer_id
+  has_many :usable_incoming_payments, :conditions=>["parts_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
   validates_uniqueness_of :code, :scope=>:company_id
@@ -175,22 +175,22 @@ class Entity < ActiveRecord::Base
   end
 
   #
-  def last_invoice
-    self.invoices.find(:first, :order=>"created_at DESC")
+  def last_sales_invoice
+    self.sales_invoices.find(:first, :order=>"created_at DESC")
   end
   
-  def last_sale_payment
-    self.sale_payments.find(:first, :order=>"updated_at DESC")
+  def last_incoming_payment
+    self.incoming_payments.find(:first, :order=>"updated_at DESC")
   end
   
   #
   def balance
-    #payments = SalePayment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
-    payments = SalePayment.sum(:amount, :conditions=>{:company_id=>self.company_id, :payer_id=>self.id})
-    invoices = Invoice.sum(:amount_with_taxes, :conditions=>{:company_id=>self.company_id, :client_id=>self.id})
-    #invoices = Invoice.find_all_by_client_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
+    #payments = IncomingPayment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
+    payments = IncomingPayment.sum(:amount, :conditions=>{:company_id=>self.company_id, :payer_id=>self.id})
+    sales_invoices = SalesInvoice.sum(:amount_with_taxes, :conditions=>{:company_id=>self.company_id, :client_id=>self.id})
+    #sales_invoices = SalesInvoice.find_all_by_client_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
     #raise Exception.new.to_i.inspect
-    payments - invoices
+    payments - sales_invoices
   end
 
   def reverse_balance
@@ -261,7 +261,7 @@ class Entity < ActiveRecord::Base
   end
 
   def max_reduction_percent(computed_on=Date.today)
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_order_id, 0) NOT IN (SELECT id FROM #{SaleOrder.table_name} WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sales_order_id, 0) NOT IN (SELECT id FROM #{SalesOrder.table_name} WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
   end
   
   def description

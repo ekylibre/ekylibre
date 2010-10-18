@@ -20,39 +20,39 @@
 # 
 # == Table: subscriptions
 #
-#  comment            :text             
-#  company_id         :integer          not null
-#  contact_id         :integer          
-#  created_at         :datetime         not null
-#  creator_id         :integer          
-#  entity_id          :integer          
-#  first_number       :integer          
-#  id                 :integer          not null, primary key
-#  invoice_id         :integer          
-#  last_number        :integer          
-#  lock_version       :integer          default(0), not null
-#  nature_id          :integer          
-#  number             :string(255)      
-#  product_id         :integer          
-#  quantity           :decimal(16, 4)   
-#  sale_order_id      :integer          
-#  sale_order_line_id :integer          
-#  started_on         :date             
-#  stopped_on         :date             
-#  suspended          :boolean          not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer          
+#  comment             :text             
+#  company_id          :integer          not null
+#  contact_id          :integer          
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  entity_id           :integer          
+#  first_number        :integer          
+#  id                  :integer          not null, primary key
+#  last_number         :integer          
+#  lock_version        :integer          default(0), not null
+#  nature_id           :integer          
+#  number              :string(255)      
+#  product_id          :integer          
+#  quantity            :decimal(16, 4)   
+#  sales_invoice_id    :integer          
+#  sales_order_id      :integer          
+#  sales_order_line_id :integer          
+#  started_on          :date             
+#  stopped_on          :date             
+#  suspended           :boolean          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
 #
 
 class Subscription < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :entity
-  belongs_to :invoice
+  belongs_to :sales_invoice
   belongs_to :nature, :class_name=>SubscriptionNature.name
   belongs_to :product
-  belongs_to :sale_order
-  #belongs_to :sale_order_line 
+  belongs_to :sales_order
+  #belongs_to :sales_order_line 
 
   attr_readonly :company_id
 
@@ -61,12 +61,12 @@ class Subscription < ActiveRecord::Base
   validates_presence_of :nature_id, :entity_id
 
   def prepare
-    self.sale_order_id ||= self.invoice.sale_order_id if self.invoice
+    self.sales_order_id ||= self.sales_invoice.sales_order_id if self.sales_invoice
     self.nature_id ||= self.product.subscription_nature_id if self.product
     unless self.entity
       self.entity_id ||= self.contact.entity_id if self.contact
-      self.entity_id ||= self.invoice.client_id if self.invoice
-      self.entity_id ||= self.sale_order.client_id if self.sale_order
+      self.entity_id ||= self.sales_invoice.client_id if self.sales_invoice
+      self.entity_id ||= self.sales_order.client_id if self.sales_order
     end 
     specific_numeration = self.company.preference("management.subscriptions.numeration")
     if specific_numeration and specific_numeration.value

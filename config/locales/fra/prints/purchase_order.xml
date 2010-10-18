@@ -15,7 +15,7 @@
             <text value="{{purchase_order.company.entity/full_name}}" size="16"/>
 	    <text value="{{purchase_order/client_address}}" top="5mm"/>
           </image>
-          <text value="{{purchase_order/supplieraddress}}" align="left" font="helvetica" top="42mm" left="100mm"/>
+          <text value="{{purchase_order/supplier_address}}" align="left" font="helvetica" top="42mm" left="100mm"/>
         </set>
       </part>
 

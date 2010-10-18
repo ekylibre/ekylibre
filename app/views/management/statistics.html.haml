@@ -19,7 +19,7 @@
       %tr
         %td.crit
           %label=tc("source")
-          -for x in [:invoices, :sale_orders]
+          -for x in [:sales_invoices, :sales_orders]
             =radio_button_tag "source", x
             %label{:for=>"source_#{x}"}=tc(x)
 

@@ -50,14 +50,13 @@ class Warehouse < ActiveRecord::Base
   belongs_to :establishment
   belongs_to :product
   has_many :purchase_order_lines
-  has_many :sale_order_lines
+  has_many :sales_order_lines
   has_many :stocks
   has_many :stock_moves
   has_many :stock_transfers
-  has_many :warehouses
 
   def prepare_on_create
-    self.reservoir = true if !self.product_id.nil?
+    # self.reservoir = true if !self.product_id.nil?
   end
   
   def can_receive?(product_id)
@@ -84,5 +83,14 @@ class Warehouse < ActiveRecord::Base
   def can_receive(product_id)
     self.can_receive?(product_id)
   end
+
+  def destroyable?
+    dependencies = 0
+    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
+      dependencies += self.send(k).size
+    end
+    return dependencies <= 0
+  end
+
 
 end

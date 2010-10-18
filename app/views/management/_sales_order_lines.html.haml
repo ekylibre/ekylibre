@@ -1,0 +1,19 @@
+%h2=tl :sales_order_lines
+-if @sales_order.estimate?
+  =toolbar do |t|
+    -t.link(:sales_order_line_create, :order_id=>@sales_order.id) 
+    -#t.javascript(:sales_order_line_create, "openDialog('#{url_for(:action=>:sales_order_line_create, :formalize=>ActiveSupport::Base64.encode64(Marshal.dump(remote_function(:update=>:sales_order_lines, :url=>{:action=>:sales_order_lines_kame}))))}')", :href=>url_for(:action=>:sales_order_line_create)) 
+  =render :partial=>"sales_order_line_row_form"
+=kame :sales_order_lines
+
+%table.kame
+  %tr.total
+    %th=tl :amount
+    %td=number_to_accountancy(@sales_order.amount)
+  %tr.important.total
+    %th=tl :amount_with_taxes
+    %td=number_to_accountancy(@sales_order.amount_with_taxes)
+
+-if @sales_order.subscriptions.size>0
+  %h2=tl :subscriptions
+  =kame :sales_order_subscriptions

@@ -586,10 +586,10 @@ html[dir="ltr"] .work-center-graph .input-conveyors .conveyor { margin-left: aut
 html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: auto; }
 
 .bmenu { position: relative; }
-.bmenu ul { display: none; position:absolute; left: -1px; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
+.bmenu ul { display: none; position:absolute; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
 .bmenu:hover ul { display: block;  }
-html[dir="ltr"] .bmenu ul { float:left }
-html[dir="rtl"] .bmenu ul { float:right }
+html[dir="ltr"] .bmenu ul { left: -1px; }
+html[dir="rtl"] .bmenu ul { right: -1px; }
 .bmenu ul li { list-style-type: none; padding: 2px 4px; }
 .bmenu ul li a { padding: 2px 2px 2px 20px; display: block;}
 .bmenu ul li:hover { background: Highlight; }

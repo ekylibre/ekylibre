@@ -1,0 +1,24 @@
+=sale_steps
+
+=toolbar do |t|
+  -t.print :sales_order, :id=>@sales_order.id
+  -#t.link(:sales_order_sales_invoice, {:id=>@sales_order.id}, {:method=>:post, :confirm=>tc(:are_you_sure_you_want_to_sales_invoice)}) if @sales_order.amount_with_taxes > @sales_order.invoiced_amount
+  -t.link(:sales_order_sales_invoice, {:id=>@sales_order.id, :has_deliveries=>true}, {:method=>:post, :confirm=>tc(:are_you_sure_you_want_to_sales_invoice)}) if not @sales_order.invoiced
+
+
+-#if @undelivered
+  %h2=#tc :undelivered
+  =#kame :undelivered_quantities
+-if @sales_order.invoiced and @sales_order.deliveries.size == 0
+  %h2=tc(:no_deliveries_for_this_sales_order)
+-else
+  -if @undelivered_amount > 0 and not @sales_order.invoiced
+    %h2=tc :undelivered
+    =kame :undelivered_quantities
+  %h2=tc :deliveries
+  =toolbar do |t|
+    -t.link :outgoing_delivery_create if !@sales_order.invoiced and @undelivered_amount > 0
+  =kame :sales_order_deliveries
+=form_tag() do
+  .actions
+    =link_to tg(:previous), :action=>:sales_order_lines

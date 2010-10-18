@@ -1,0 +1,25 @@
+=toolbar do |t|
+  -t.update @outgoing_payment
+
+=list_evalue do |l|
+  -l.evalue @outgoing_payment, :number
+  -l.evalue @outgoing_payment, :amount
+  -l.evalue @outgoing_payment, :parts_amount
+  -l.evalue @outgoing_payment, :payee, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+  -l.evalue @outgoing_payment, :responsible, :label=>:label
+  -l.evalue @outgoing_payment, :mode
+  -l.evalue @outgoing_payment, :paid_on
+  -l.evalue @outgoing_payment, :to_bank_on
+  -l.evalue @outgoing_payment, :check_number
+  -l.evalue @outgoing_payment, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+
+-if false # @outgoing_payment.unused_amount > 0
+  =form_tag(:action=>:outgoing_payment_use_create) do
+    %fieldset
+      %legend=tc(:add_purchase_order)
+      =render :partial=>'outgoing_payment_use_create'
+      .actions=submit_tag
+
+-if @outgoing_payment.parts.size>0
+  %h2=tc(:purchase_orders)
+  =kame :outgoing_payment_purchase_orders

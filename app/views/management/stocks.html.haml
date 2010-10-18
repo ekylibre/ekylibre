@@ -1,5 +1,9 @@
 -if @current_company.stocks.size > 0
-  =render :partial=>"location_choice"
+  .search
+    =form_tag({}, {:method=>:get}) do
+      =tc('select_warehouse')
+      =select_tag(:warehouse_id, options_for_select([[]]+@warehouses.collect{|x| [x.name, x.id]}, session[:warehouse_id]))
+      =submit_tag(tg('filter'))
   =toolbar do |t|
     -t.print :stocks, :p0=>Date.today.to_s
 =kame :stocks

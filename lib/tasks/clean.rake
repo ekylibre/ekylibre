@@ -199,7 +199,7 @@ namespace :clean do
       file = File.open(x, "r")
       file.each_line do |line|
         line = line.gsub(/(^\s*|\s*$)/,'')
-        if line.match(/^\s*def\s+\w+\s*$/)
+        if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
           actions << line.split(/def\s/)[1].gsub(/\s/,'') 
         elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
           dyxx = line.split(/[\s\(\)\,\:]+/)

@@ -1,0 +1,21 @@
+-if product = @sales_order_line.product
+  %table.full-width
+    %tr
+      %td=tc('quantity')
+      -#%td=tc('unit')
+      -if @current_user.can?(:give_discounts_on_sales_orders) and product.reduction_submissive?
+        %td=tc('discount') 
+      -if product.manage_stocks
+        %td=tc('location')
+    %tr
+      %td
+        =text_field(:sales_order_line, :quantity, :size=>5)
+        =product.unit.label
+      -#%td=select(:sales_order_line, :unit_id, product.units.collect{|x| [x.label, x.id]})
+      -if @current_user.can?(:give_discounts_on_sales_orders) and product.reduction_submissive?
+        %td=text_field(:sales_order_line, :reduction_percent, :size=>5)
+      -if product.manage_stocks
+        -#%td=select(:sales_order_line, :location_id, @current_company.locations.collect{|x| [x.name, x.id]})
+        %td=select(:sales_order_line, :stock_id, product_stocks_options(product))
+  -if product.nature == "subscrip"
+    .count=product.default_subscription_label_for(@sales_order.client)

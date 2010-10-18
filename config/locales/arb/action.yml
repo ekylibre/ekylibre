@@ -18,7 +18,7 @@ arb:
       cash_create: 'التسجيل لخزينة جديدة'
       #>cash_transfer: 'Cash transfer: %{number}'
       #>cash_transfer_create: 'Add a new cash transfer'
-      #>cash_transfer_update: 'Update cash transfer: %{number}'
+      #>cash_transfer_update: 'Edit cash transfer: %{number}'
       #>cash_transfers: 'Cash transfers'
       cash_update: 'تعديل الخزينة : {{name}}'
       cashes: 'الخزينة'
@@ -38,7 +38,7 @@ arb:
       #>journal_entry: 'Journal entry: %{number}'
       journal_entry_create: 'اضافة سجل'
       #>journal_entry_line_create: 'Add a new entry line'
-      #>journal_entry_update: 'Update journal entry: %{number}'
+      #>journal_entry_update: 'Edit journal entry: %{number}'
       journal_record: 'رقم سجل المحاسبة{{number}} من {{created_on}}' #!
       journal_record_create: 'اضافة سجل' #!
       journal_record_update: 'تعديل السجل رقم {{number}} من {{created_on}}' #!
@@ -110,15 +110,33 @@ arb:
       deposit_create: 'انشاء اقتطاع : {{mode}}'
       deposit_update: 'تعديل اقتطاعات البنك من {{created_on}}'
       deposits: 'اقتطاعات البنك'
+      incoming_payment: 'دفعة رقم{{number}} من {{entity}}'
+      incoming_payment_create: 'اضافة دفعة جديدة'
+      incoming_payment_mode_create: 'اضافة طريقة جديدة لتسديد الفعة'
+      incoming_payment_mode_update: 'تعديل طريقة الدفعة: {{name}}'
+      incoming_payment_modes: 'طرق تسديد الدفعات'
+      incoming_payment_update: 'تعديل دفعة رقم{{number}}'
+      incoming_payment_use_create: 'اضافة دفعة جديدة  : {{type}} رقم {{number}}'
+      incoming_payments: 'الدفعات'
       index: 'ادارة الاعمال'
       inventories: 'الجرد'
       inventory_create: 'الجرد'
       inventory_update: 'تعديل الجرد'
-      invoice: '{{nature}} {{number}}'
-      invoice_cancel: 'مسالك شمولية الفاتورة {{number}}'
-      invoices: 'الفواتير'
+      outgoing_delivery_create: 'اضافة تسليم'
+      outgoing_delivery_mode_create: 'اضافة وسيلة جديدة للتسليم'
+      outgoing_delivery_mode_update: 'تعديل وسيلة التسليم : {{name}}'
+      outgoing_delivery_modes: 'وسائل التسليم'
+      outgoing_delivery_update: 'تعديل التسليم'
+      outgoing_payment: 'رقم الدفعة{{number}} من اجل {{payee}}'
+      outgoing_payment_create: 'اضافة دفعة'
+      outgoing_payment_mode_create: 'اضافة طريقة تسديد الدفعة'
+      outgoing_payment_mode_update: 'تعديل طريقة تسديد الفعة'
+      outgoing_payment_modes: 'طرق تسديد الدفعات'
+      outgoing_payment_update: 'تعديل دفعة : {{number}}'
+      outgoing_payment_use_create: 'تسديد الشراء رقم{{number}}'
+      outgoing_payments: 'دفعات'
       price_create: 'اضافة سعر جديد'
-      #>price_update: 'Update price %{amount}/%{amount_with_taxes} of %{product}'
+      #>price_update: 'Edit price %{amount}/%{amount_with_taxes} of %{product}'
       prices: 'الاسعار'
       prices_import: 'CSV استيراد بيان التعرفة ضمن'
       product: 'المنتجات : {{name}}'
@@ -139,40 +157,22 @@ arb:
       purchase_order_summary: 'رقم دفعة الشراء{{number}}'
       purchase_order_update: 'تعديل الشراء : {{number}}'
       purchase_orders: 'المستريات'
-      purchase_payment: 'رقم الدفعة{{number}} من اجل {{payee}}'
-      purchase_payment_create: 'اضافة دفعة'
-      purchase_payment_mode_create: 'اضافة طريقة تسديد الدفعة'
-      purchase_payment_mode_update: 'تعديل طريقة تسديد الفعة'
-      purchase_payment_modes: 'طرق تسديد الدفعات'
-      purchase_payment_part_create: 'تسديد الشراء رقم{{number}}'
-      purchase_payment_update: 'تعديل دفعة : {{number}}'
-      purchase_payments: 'دفعات'
-      sale_delivery_create: 'اضافة تسليم'
-      sale_delivery_mode_create: 'اضافة وسيلة جديدة للتسليم'
-      sale_delivery_mode_update: 'تعديل وسيلة التسليم : {{name}}'
-      sale_delivery_modes: 'وسائل التسليم'
-      sale_delivery_update: 'تعديل التسليم'
-      sale_order: 'تفاصيل البيع {{number}} للعميل {{client}}'
-      sale_order_create: 'بيع جديد'
-      sale_order_deliveries: 'التسليم'
-      sale_order_line_create: 'اضافة تصميم خطوط المنتج'
-      sale_order_line_informations: '' #!
-      sale_order_line_update: 'تعديل مسار طلب المنتج'
-      sale_order_lines: 'اختيار المنتجات للطلب {{sale_order}} من : {{client}}'
-      sale_order_nature_create: 'اضافة نوع البيع'
-      sale_order_nature_update: 'تعديل نوع البيع : {{name}}'
-      sale_order_natures: 'انواع طلبات البيع'
-      sale_order_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}'
-      sale_order_update: 'تعديل طلب البيع رقم{{number}}'
-      sale_orders: 'الطلبات وتحديد الاسعار'
-      sale_payment: 'دفعة رقم{{number}} من {{entity}}'
-      sale_payment_create: 'اضافة دفعة جديدة'
-      sale_payment_mode_create: 'اضافة طريقة جديدة لتسديد الفعة'
-      sale_payment_mode_update: 'تعديل طريقة الدفعة: {{name}}'
-      sale_payment_modes: 'طرق تسديد الدفعات'
-      sale_payment_part_create: 'اضافة دفعة جديدة  : {{type}} رقم {{number}}'
-      sale_payment_update: 'تعديل دفعة رقم{{number}}'
-      sale_payments: 'الدفعات'
+      sales_invoice: '{{nature}} {{number}}'
+      sales_invoice_cancel: 'مسالك شمولية الفاتورة {{number}}'
+      sales_invoices: 'الفواتير'
+      sales_order: 'تفاصيل البيع {{number}} للعميل {{client}}'
+      sales_order_create: 'بيع جديد'
+      sales_order_deliveries: 'التسليم'
+      sales_order_line_create: 'اضافة تصميم خطوط المنتج'
+      sales_order_line_informations: '' #!
+      sales_order_line_update: 'تعديل مسار طلب المنتج'
+      sales_order_lines: 'اختيار المنتجات للطلب {{sales_order}} من : {{client}}'
+      sales_order_nature_create: 'اضافة نوع البيع'
+      sales_order_nature_update: 'تعديل نوع البيع : {{name}}'
+      sales_order_natures: 'انواع طلبات البيع'
+      sales_order_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}'
+      sales_order_update: 'تعديل طلب البيع رقم{{number}}'
+      sales_orders: 'الطلبات وتحديد الاسعار'
       statistics: 'الاحصائيات'
       stock_move_create: 'التسجيل لحركة السهم'
       stock_move_update: 'تعديل حركة سهم : {{name}}'
@@ -186,7 +186,7 @@ arb:
       subscription_nature_update: 'تعديل نوع الاشتراك: {{name}}'
       subscription_natures: 'انواع الاشتراك'
       subscription_update: 'تعديل الاشتراك:  {{number}} من {{start}} الى {{finish}}'
-      subscriptions: 'Abonnements'
+      #>subscriptions: 'Subscriptions'
       tracking: 'الحصة {{name}}'
       transport: 'نقلت من {{created_on}}'
       transport_create: 'اضافة وسيلة نقل جديدة'
@@ -207,7 +207,7 @@ arb:
       land_parcel_create: 'اضافة نظام جديد'
       #>land_parcel_divide: 'Divide land parcel: %{name}'
       #>land_parcel_group_create: 'Add a new group of land parcels'
-      #>land_parcel_group_update: 'Update group of land parcels: %{name}'
+      #>land_parcel_group_update: 'Edit group of land parcels: %{name}'
       #>land_parcel_groups: 'Groups of land parcels'
       land_parcel_update: 'تعديل النظام : {{name}}'
       land_parcels: 'انظمة'
@@ -220,12 +220,12 @@ arb:
       operations: 'اعمال'
       #>production_chain: 'Production chain: %{name}'
       #>production_chain_conveyor_create: 'Add a new conveyor in the production chain'
-      #>production_chain_conveyor_update: 'Update production chain conveyor (%{source_id}-%{target_id})'
+      #>production_chain_conveyor_update: 'Edit production chain conveyor (%{source_id}-%{target_id})'
       #>production_chain_create: 'Add a new production chain'
-      #>production_chain_update: 'Update production chain: %{name}'
+      #>production_chain_update: 'Edit production chain: %{name}'
       #>production_chain_work_center: 'Work center: #{name}'
       #>production_chain_work_center_create: 'Add a new work center in the production chain'
-      #>production_chain_work_center_update: 'Update the work center: %{name}'
+      #>production_chain_work_center_update: 'Edit the work center: %{name}'
       #>production_chains: 'Production chains'
       tool: 'المادة : {{name}}'
       tool_create: 'اضافة مادة'
@@ -360,7 +360,7 @@ arb:
     are_you_sure_you_want_to_confirm: 'هل انت متأكد من رغبتك بالمضي بطلب الشراء؟'
     are_you_sure_you_want_to_delete: 'هل انت متاكد من رغبتك بالقيام به؟'
     are_you_sure_you_want_to_delete_delivery: 'هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟'
-    are_you_sure_you_want_to_invoice: 'هل انت متأكد من رغبتك باعداد فاتورة البيع؟'
+    are_you_sure_you_want_to_sales_invoice: 'هل انت متأكد من رغبتك باعداد فاتورة البيع؟'
     are_you_sure_you_want_to_send_mails: 'هل انت متأكد من رغبتك بارسال الرسالة'
     area_create: 'اضافة عنوان بريدي' #!
     area_x: '{{name}} ({{postcode}})'
@@ -537,7 +537,7 @@ arb:
     entries: 'السجلات'
     entries_to_point: 'اعداد المدخلات'
     error_no_file: 'عدم توفر المساعدة في هذا الجزء من الطلب ({{article}}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار.'
-    #>error_sale_order_already_paid: 'The sale order is already paid'
+    #>error_sales_order_already_paid: 'The sale order is already paid'
     errors_explanation: 'هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد'
     establish_capital_goods: 'تشكل الممتلكات رأس المال'
     establishment: 'المؤسسة'
@@ -602,6 +602,17 @@ arb:
     in_line_create: 'اضافة منتج وارد'
     include_blank: '--- ولا اية منظمة ---'
     income_statement: 'حسابات الناتج'
+    #>incoming_payment_conditions: 'Conditions of payment'
+    incoming_payment_create: 'اضافة دفعة جديدة' #!
+    incoming_payment_update: 'تعديل الدفعة'
+    incoming_payment_use_create: 'اضافة دفعة للشراء'
+    #>incoming_payments: 'Sale payments'
+    incoming_payments_states:
+      #>all: 'All'
+      #>undeposited: 'Undeposited'
+      #>unparted: 'Unused'
+      #>unreceived: 'Unreceived'
+      #>waiting: 'To deposit later'
     index: 'العودة الى دليل ادارة الاعمال' #!
     indicator: 'لوحة التحكم'
     info: 'معرفة المعلومات عن وسائل النقل'
@@ -615,19 +626,7 @@ arb:
     inventory: 'عدل الجرد'
     inventory_create: 'تأدية عملية جرد جديدة' #!
     inventory_print: 'طباعة الجرد'
-    invoice: 'الفوترة'
-    invoice_cancel: 'الغاء الفاتورة'
-    invoice_lines: 'تصميم الفاتورة'
-    invoice_number: 'فاتورة رقم'
-    invoice_print: 'طباعة الفاتورة'
-    invoice_sale_order: 'فوترة طلب البيع'
     invoiced_amount: 'قيمة الفاتورة'
-    invoices: 'الفواتير'
-    invoices_states:
-      #>all: 'All'
-      #>cancelled: 'Cancelled'
-      #>credits: 'Credits'
-    invoices_total: 'مجموع قيمة الفاتورة'
     #>is: 'Is'
     journal: 'دفتراليومية'
     journal_detail: 'اغلق في {{closed_on}}'
@@ -742,10 +741,6 @@ arb:
       one: 'سجل واحد'
       other: '{{count}} سجلات اخرى'
       zero: 'ولا اي سجل'
-    nb_invoices:
-      #>one: '1 invoice'
-      #>other: '%{count} invoices'
-      #>zero: '0 invoices'
     nb_mandates:
       one: 'تفويض واحد مسجل'
       other: '{{count}} تفويضات اخرى'
@@ -770,6 +765,10 @@ arb:
       one: 'طلب واحد'
       other: '{{count}} طلبات'
       zero: 'ولا طلب'
+    nb_sales_invoices:
+      #>one: '1 sales_invoice'
+      #>other: '%{count} sales_invoices'
+      #>zero: '0 sales_invoices'
     nb_transfers:
       #>one: 'One transfert to make'
       #>other: '%{count} transferts to make'
@@ -793,7 +792,7 @@ arb:
     no_commercial: '-- دون تداول --'
     #>no_contacts: 'No address defined for %{name}'
     no_deliveries: 'ليس هناك من تسليم بالانتظار'
-    no_deliveries_for_this_sale_order: 'لم يتم التسليم لهذا الطلب من البيع'
+    no_deliveries_for_this_sales_order: 'لم يتم التسليم لهذا الطلب من البيع'
     no_deposits: 'التأكد من عدم اقتطاعات البنك'
     #>no_filters: '--- No filters ---'
     no_javascript: 'ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ.'
@@ -840,6 +839,20 @@ arb:
     others_services: 'احتياجات وخدمات اخرى'
     out_line_create: 'اضافة منتج صادر'
     out_vat_amount: 'مبلغ الضريبة على القيمة المضافة'
+    outgoing_delivery: 'التسليم' #!
+    outgoing_delivery_create: 'اضافة تسليم' #!
+    outgoing_payment_create: 'اضافة نفقة' #!
+    outgoing_payment_update: 'تعديل دفعة الشراء'
+    outgoing_payment_use_create: 'تسديد سعر الشراء'
+    outgoing_payments:
+      one: 'نفقة واحدة'
+      other: '{{count}} نفقات اخرى'
+      zero: 'ولااية نفقة' #!
+    outgoing_payments_states:
+      #>all: 'All'
+      #>undelivered: 'Undelivered'
+      #>unparted: 'Unused'
+      #>waiting: 'To deposit later'
     overflow: 'فائض رصيد الدائن'
     page_title: '{{company_code}} - {{controller}} - {{action}}'
     page_title_by_default: 'Ekylibre - {{controller}} - {{action}}'
@@ -854,7 +867,7 @@ arb:
     passive_sum: 'مجموع المطلوبات'
     password: 'كلمة المرور'
     payback: 'طلب الاستحقاق'
-    #>payment_amount: 'Sale payment amount'
+    #>payment_amount: 'Amount of payment'
     payment_label: '{{number}}. {{amount}} ({{usable_amount}} المتبقي)  {{date}} بواسطة {{mode}} لاجل {{entity}}'
     payment_mode: 'طريقة تسديد الدفعة'
     payment_on: 'سدد في'
@@ -914,18 +927,6 @@ arb:
     purchase_order_update: 'تعديل معلومات الطلب'
     purchase_orders: 'دفعات الشراء المسددة'
     purchase_orders_number: '' #!
-    purchase_payment_create: 'اضافة نفقة' #!
-    purchase_payment_part_create: 'تسديد سعر الشراء'
-    purchase_payment_update: 'تعديل دفعة الشراء'
-    purchase_payments:
-      one: 'نفقة واحدة'
-      other: '{{count}} نفقات اخرى'
-      zero: 'ولااية نفقة' #!
-    purchase_payments_states:
-      #>all: 'All'
-      #>undelivered: 'Undelivered'
-      #>unparted: 'Unused'
-      #>waiting: 'To deposit later'
     purchase_price_create: 'انشاء سعر الشراء'
     purchase_steps:
       active: 'انشاء الصفقة'
@@ -971,37 +972,7 @@ arb:
     roles: 'مهام / ادوار'
     running_cost: 'تكاليف الاستثمار'
     running_finished: 'منتجات الاستثمار'
-    #>sale_conditions: 'Conditions'
-    sale_delivery: 'التسليم' #!
-    sale_delivery_create: 'اضافة تسليم' #!
-    sale_order: 'الطلبات'
-    sale_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
-    sale_order_create: 'اضافة بيعة جديدة' #!
-    sale_order_deliveries: 'تسليم الطلبات'
-    sale_order_invoice: 'فوترة طلب البيع'
-    sale_order_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
-    sale_order_lines: 'تعديل تصميم طلب البيع'
-    sale_order_nature_create: 'انشاء نوع بيع جديد' #!
-    sale_order_price_create: 'اضافة سعر البيع'
-    sale_order_print: 'طباعة طلب البيع' #!
-    sale_order_update: 'تعديل معلومات الطلب'
-    sale_orders: 'تم تسديد دفعات طلب البيع'
-    sale_orders_number: '' #!
-    sale_orders_states:
-      #>all: 'All'
-      #>current: 'Current'
-      #>unpaid: 'Unpaid'
-    #>sale_payment_conditions: 'Conditions of payment'
-    sale_payment_create: 'اضافة دفعة جديدة' #!
-    sale_payment_part_create: 'اضافة دفعة للشراء'
-    sale_payment_update: 'تعديل الدفعة'
-    #>sale_payments: 'Sale payments'
-    sale_payments_states:
-      #>all: 'All'
-      #>undeposited: 'Undeposited'
-      #>unparted: 'Unused'
-      #>unreceived: 'Unreceived'
-      #>waiting: 'To deposit later'
+    #>sale_conditions: 'Conditions of sales'
     sale_price_create: 'انشاء سعر البيع'
     sale_steps:
       deliveries: 'جدولة عمليات التسليم'
@@ -1010,6 +981,35 @@ arb:
       products: 'المنتجات'
       summary: 'فواتير وايصالات'
     sales: 'المبيعات' #!
+    sales_invoice: 'الفوترة'
+    sales_invoice_cancel: 'الغاء الفاتورة'
+    sales_invoice_lines: 'تصميم الفاتورة'
+    sales_invoice_number: 'فاتورة رقم'
+    sales_invoice_print: 'طباعة الفاتورة'
+    sales_invoice_sales_order: 'فوترة طلب البيع'
+    sales_invoices: 'الفواتير'
+    sales_invoices_states:
+      #>all: 'All'
+      #>cancelled: 'Cancelled'
+      #>credits: 'Credits'
+    sales_invoices_total: 'مجموع قيمة الفاتورة'
+    sales_order: 'الطلبات'
+    sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
+    sales_order_create: 'اضافة بيعة جديدة' #!
+    sales_order_deliveries: 'تسليم الطلبات'
+    sales_order_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
+    sales_order_lines: 'تعديل تصميم طلب البيع'
+    sales_order_nature_create: 'انشاء نوع بيع جديد' #!
+    sales_order_price_create: 'اضافة سعر البيع'
+    sales_order_print: 'طباعة طلب البيع' #!
+    sales_order_sales_invoice: 'فوترة طلب البيع'
+    sales_order_update: 'تعديل معلومات الطلب'
+    sales_orders: 'تم تسديد دفعات طلب البيع'
+    sales_orders_number: '' #!
+    sales_orders_states:
+      #>all: 'All'
+      #>current: 'Current'
+      #>unpaid: 'Unpaid'
     sales_price_create: 'اضافة سعر البيع'
     save: 'حفظ'
     save_in_draft: 'حفظ في المسودات'
@@ -1109,8 +1109,8 @@ arb:
     unpaid: 'غير مسدد'
     unpaid_amount: 'القيمة المتبقية'
     #>unpaid_days: 'Unpaid since (in days)'
-    #>unpaid_sale_orders: 'Unpaid sale order'
-    unpaid_sale_orders_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
+    #>unpaid_sales_orders: 'Unpaid sale order'
+    unpaid_sales_orders_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
     unparted: 'غير متضرر'
     unreceived: 'غير مقبوضة'
     unused_payment: 'دفعات غير مستخدمة'
@@ -1144,7 +1144,7 @@ arb:
     warehouse_tabbox:
       #>stock_moves: 'Stocks moves'
       #>stocks: 'Stocks'
-    warehouse_update: 'تعديل موقع التخزين'
+    warehouse_update: 'تعديل موقع التخزين' #!
     warehouses: 'النظر بقائمة مواقع التخزين'
     weight: 'الوزن'
     with_prints: '(وتشمل الطباعة (الفواتير والاوامر'
@@ -1156,10 +1156,10 @@ arb:
       #>one: 'One event %{nature} for a total duration of %{duration} minutes'
       #>other: '%{count} events %{nature} for a total duration of %{duration} minutes'
       #>zero: 'No events %{nature}'
-    x_invoices:
-      #>one: '1 invoice'
-      #>other: '%{count} invoices'
-      #>zero: '0 invoices'
+    x_incoming_payments:
+      one: 'دفعة واحدة'
+      other: '{{count}} دفعات اخرى'
+      zero: 'ولااية دفعة'
     x_operations:
       one: 'عمل واحد'
       other: '{{count}} اعمال اخرى'
@@ -1172,14 +1172,14 @@ arb:
       #>one: '1 purchase order'
       #>other: '%{count} purchase orders'
       #>zero: '0 purchase orders'
-    x_sale_orders:
+    x_sales_invoices:
+      #>one: '1 sales_invoice'
+      #>other: '%{count} sales_invoices'
+      #>zero: '0 sales_invoices'
+    x_sales_orders:
       #>one: '1 sale order'
       #>other: '%{count} sale orders'
       #>zero: '0 sale orders'
-    x_sale_payments:
-      one: 'دفعة واحدة'
-      other: '{{count}} دفعات اخرى'
-      zero: 'ولااية دفعة'
     x_subscriptions:
       one: 'اشتراك واحد'
       other: '{{count}} اشتراكات اخرى'
@@ -1227,12 +1227,12 @@ arb:
     need_entries_to_point: 'لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي'
     need_journal_to_record_tax_declaration: 'يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب'
     need_payment_mode_to_create_deposit: 'يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي'
-    need_quantities_to_cancel_an_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة'
+    need_quantities_to_cancel_an_sales_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة'
     need_stocks_to_create_inventories: 'يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد'
     need_stocks_warehouse_to_create_products: 'يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج'
     need_to_create_subscription_nature: 'يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك'
     need_warehouse_to_create_purchase_order_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء'
-    need_warehouse_to_create_sale_order_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع'
+    need_warehouse_to_create_sales_order_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع'
     need_warehouse_to_record_stock_moves: 'يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك'
     new_actual_number: 'الرقم الجديد الحالي هو {{actual_number}}'
     no_authenticated: 'ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة'
@@ -1257,9 +1257,9 @@ arb:
     record_has_been_correctly_removed: 'تم حذف السجل بشكل صحيح'
     record_has_not_been_removed: 'لم يتم حذف السجل بشكل صحيح'
     restoration_finished: 'انتهاء استعادة النسخ الاحتياطية  ( بالثواني{{value}}). رمزك بالشركة هو {{code}}'
-    sale_order_already_invoiced: 'قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم'
-    sale_order_cannot_be_updated: 'الطلب غير قابل للتعديل'
-    sale_order_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
+    sales_order_already_invoiced: 'قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم'
+    sales_order_cannot_be_updated: 'الطلب غير قابل للتعديل'
+    sales_order_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
     select_entries_to_letter_together: 'اختر الادخالات للكتابة معا '
     specify_filter: 'اختر تطبيق تصفية واحدة كحد ادنى للبحث'
     specify_updates: 'يجب عليك تحديد حقل واحد كحد ادنى للتعديل'
@@ -1318,18 +1318,18 @@ arb:
         days_before_warning_undone: 'عدد الايام قبل منع الضرائب الفير تامة'
         days_before_warning_unvalidated: 'عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية '
         numeration: 'احصاء الاقتطاعات المصرفية'
-      invoices:
-        numeration: 'احصاء الفواتير'
+      incoming_payments:
+        #>numeration: 'Numeration of sale payments'
+      outgoing_payments:
+        #>numeration: 'Numeration of disbursements'
       payments:  #!
         numeration: 'احصاء الانظمة' #!
       purchase_orders:
         numeration: 'احصاء المشتريات'
-      purchase_payments:
-        #>numeration: 'Numeration of disbursements'
-      sale_orders:
+      sales_invoices:
+        numeration: 'احصاء الفواتير'
+      sales_orders:
         numeration: 'احصاء المبيعات'
-      sale_payments:
-        #>numeration: 'Numeration of sale payments'
       subscriptions:
         numeration: 'احصاء الاشتراكات'
     relations:

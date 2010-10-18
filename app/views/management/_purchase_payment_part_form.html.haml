@@ -1,5 +1,0 @@
-=formalize do |f|
-  -f.error 'purchase_payment_part'
-  -f.field :purchase_payment_part, :downpayment
-  -f.field :purchase_payment_part, :payment_id, :choices=>{:reflection=>:usable_purchase_payments}, :new=>{:action=>:purchase_payment_create, :payee_id=>@purchase_payment_part.expense.supplier_id, :amount=>@purchase_payment_part.expense.unpaid_amount}
-=hidden_field_tag("expense_id", params[:expense_id])

@@ -43,7 +43,7 @@ class Tax < ActiveRecord::Base
   belongs_to :collected_account, :class_name=>Account.name
   belongs_to :paid_account, :class_name=>Account.name
   has_many :prices
-  has_many :sale_order_lines
+  has_many :sales_order_lines
   validates_inclusion_of :nature, :in=>%w( amount percent )
   validates_presence_of :collected_account_id
   validates_presence_of :paid_account_id
@@ -52,7 +52,7 @@ class Tax < ActiveRecord::Base
 
 
   def destroyable?
-    self.prices.size <= 0 and self.sale_order_lines.size <= 0
+    self.prices.size <= 0 and self.sales_order_lines.size <= 0
   end
   
   def compute(amount, with_taxes=false)

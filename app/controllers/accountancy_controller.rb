@@ -31,7 +31,7 @@ class AccountancyController < ApplicationController
   # this method displays the form to choose the journal and financial_year.
   def accountize
     params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
-    @natures = [:invoice, :sale_payment_part, :sale_payment, :deposit, :purchase_order, :purchase_payment_part, :purchase_payment]
+    @natures = [:sales_invoice, :incoming_payment_use, :incoming_payment, :deposit, :purchase_order, :outgoing_payment_use, :outgoing_payment]
 
     if request.get?
       notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)

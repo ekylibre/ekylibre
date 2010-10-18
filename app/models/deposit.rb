@@ -48,8 +48,8 @@ class Deposit < ActiveRecord::Base
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :journal_entry
-  belongs_to :mode, :class_name=>SalePaymentMode.name
-  has_many :payments, :class_name=>SalePayment.name, :dependent=>:nullify, :order=>"number"
+  belongs_to :mode, :class_name=>IncomingPaymentMode.name
+  has_many :payments, :class_name=>IncomingPayment.name, :dependent=>:nullify, :order=>"number"
   # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :responsible, :number, :cash
@@ -81,7 +81,7 @@ class Deposit < ActiveRecord::Base
 
   # this method valids the deposit and accountizes the matching payments.
   # def confirm
-  #     payments = SalePayment.find_all_by_company_id_and_deposit_id(self.company_id, self.id)
+  #     payments = IncomingPayment.find_all_by_company_id_and_deposit_id(self.company_id, self.id)
   #     payments.each do |payment|
   #       payment.to_accountancy
   #     end

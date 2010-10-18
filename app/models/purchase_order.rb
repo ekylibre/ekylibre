@@ -49,15 +49,16 @@ class PurchaseOrder < ActiveRecord::Base
   after_create {|r| r.supplier.add_event(:purchase_order, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
+  belongs_to :currency
   belongs_to :dest_contact, :class_name=>Contact.name
   belongs_to :journal_entry
   belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
-  has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>PurchasePaymentPart.name
+  has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy # , :autosave=>true
   has_many :products, :through=>:lines, :uniq=>true
 
-  validates_presence_of :planned_on, :created_on
+  validates_presence_of :planned_on, :created_on, :currency
   validates_uniqueness_of :number, :scope=>:company_id
 
   ## shipped used as received
@@ -74,15 +75,17 @@ class PurchaseOrder < ActiveRecord::Base
                       '00000001'
                     end
     end
-
+    self.currency ||= self.company.default_currency
 
     self.amount = self.lines.sum(:amount)
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
+    return true
   end
   
   def clean_on_create
     specific_numeration = self.company.preference("management.purchase_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
+    return true
   end
 
   def refresh
@@ -118,11 +121,8 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def updatable?
-    if self.amount_with_taxes == 0 
-      return true
-    else
-      return (self.parts_amount < self.amount_with_taxes and not self.shipped)
-    end
+    return false if self.unpaid_amount.zero? and self.shipped
+    return true
   end
 
   def last_payment
@@ -177,7 +177,7 @@ class PurchaseOrder < ActiveRecord::Base
 
 
 
-  # This method permits to add journal entries corresponding to the purchase order/invoice
+  # This method permits to add journal entries corresponding to the purchase order/sales_invoice
   # It depends on the preference which permit to activate the "automatic accountizing"
   def to_accountancy(action=:create, options={})
     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|

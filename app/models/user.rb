@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   has_many :events, :foreign_key=>:responsible_id
   has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
   has_many :preferences, :dependent=>:destroy
-  has_many :sale_orders, :foreign_key=>:responsible_id
+  has_many :sales_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
   validates_presence_of :company_id, :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
@@ -99,7 +99,7 @@ class User < ActiveRecord::Base
   end
 
   def destroyable?
-    self.events.size <= 0 and self.sale_orders.size <= 0 and self.operations.size <= 0 and self.transports.size <= 0
+    self.events.size <= 0 and self.sales_orders.size <= 0 and self.operations.size <= 0 and self.transports.size <= 0
   end
 
   def label

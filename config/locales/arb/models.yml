@@ -35,7 +35,7 @@ arb:
         key: 'RIB مفتاح'
         mode: 'الاسلوب'
         number: 'رقم الحساب المصرفي'
-        purchase_payment_modes: 'طرق الصرف' #!
+        outgoing_payment_modes: 'طرق الصرف' #!
         updated_at: 'تم تحديثها في' #!
       company:
         account_balances: 'ارصدة الحساب' #!
@@ -47,13 +47,13 @@ arb:
         delivery_lines: 'طرق التسليم ' #!
         entity: 'ملف الفرد' #!
         entity_id: 'ملف الفرد' #!
-        invoice_lines: 'اساليب الفاتورة' #!
+        incoming_payment_modes: 'اساليب الدفعات' #!
         journal_records: 'قسائم حسابية' #!
         land_parcels: 'أژlots' #!
         lock_version: 'اصدار' #!
         locked: 'تم اقفاله'
         operation_uses: 'استخدام الادوات' #!
-        sale_payment_modes: 'اساليب الدفعات' #!
+        sales_invoice_lines: 'اساليب الفاتورة' #!
         stock_transfers: 'تحويلات الاسهم او ضياعها' #!
         stocks: 'اسهم المنتج' #!
         trackings: 'حصص يمكن عزوها' #!
@@ -81,14 +81,13 @@ arb:
         updater_id: 'تحديث' #!
       delay:  #!
         active: 'صالحة للاستخدام' #!
-        invoices: 'فواتير' #!
-        sale_order_natures: 'نوع البيع' #!
+        sales_invoices: 'فواتير' #!
+        sales_order_natures: 'نوع البيع' #!
       delivery:  #!
         contact: 'عنوان العميل' #!
         contact_id: 'عنوان العميل' #!
         created_at: 'أنشا في' #!
         currency_id: 'العملة' #!
-        invoice: 'فاتورة' #!
         label: 'Label' #!
         lines: 'خطوط التسليم' #!
         mode: 'النوع' #!
@@ -96,6 +95,7 @@ arb:
         moved_on: 'استمر' #!
         order_id: 'طلب البيع' #!
         planned_on: 'مقرر ليوم' #!
+        sales_invoice: 'فاتورة' #!
         transporter_id: 'الناقلة' #!
       delivery_line:  #!
         amount: 'القيمة من غير الضرائب' #!
@@ -139,14 +139,14 @@ arb:
         last_name: 'الاسم' #!
         nature: 'النوع' #!
         origin: 'موقع اول مقابلة'
+        outgoing_payments: 'دفعات المشتريات' #!
         payment_mode_id: 'اسلوب تسديد دفعة' #!
-        purchase_payments: 'دفعات المشتريات' #!
         reduction_rate: 'سعر التخفيض' #!
         salt: 'Sel' #!
         siren: 'رمز صفارات الانذا' #!
         subscriptions: 'الاشتراكات' #!
         updated_at: 'تم تحديثها في' #!
-        usable_sale_payments: 'الدفعات المستخدمة' #!
+        usable_incoming_payments: 'الدفعات المستخدمة' #!
       entity_category:  #!
         description: 'مواصفات' #!
       entity_link:  #!
@@ -179,6 +179,29 @@ arb:
         journal_records: 'السجلات المحاسبية' #!
         started_on: 'بدأ ب' #!
         stopped_on: 'تاريخ الاغلاق'
+      incoming_payment:
+        accounted_at: 'تمت محاسبته في' #!
+        amount: 'القيمة'
+        created_on: 'انشأت يوم' #!
+        depositer: 'المسؤول' #!
+        depositer_id: 'المسؤول' #!
+        mode_id: 'نمط دفعة' #!
+        paid_on: 'سدد يوم' #!
+        parts: 'اجزاء الدفعة' #!
+        #>received: 'Reçu'
+        to_bank_on: 'تسديد الدفعة يوم'
+      incoming_payment_mode:  #!
+        cash: 'الخزينة المستخدمة' #!
+        cash_id: 'الخزينة المستخدمة' #!
+        depositable_payments: 'دفعات تصرف نقدا' #!
+      incoming_payment_use:
+        accounted_at: 'تمت محاسبته في' #!
+        amount: 'قيمة المخصصة للبيع'
+        expense_id: 'تكلفة' #!
+        #>payment: 'Sale payment'
+        #>payment_id: 'Sale payment'
+        #>payment_way: 'Mode of payment'
+        updated_at: 'تم تحديثها في' #!
       inventory:  #!
         comment: 'تعليق' #!
         created_on: 'اكتمل يوم' #!
@@ -189,30 +212,6 @@ arb:
         quantity: 'الكمية المتوفرة'
         stock_moves: 'حركات السهم' #!
         tracking_id: 'حصة' #!
-      invoice:
-        accounted_at: 'تمت محاسبتها يوم' #!
-        #>credit: 'Credit'
-        currency_id: 'العملة' #!
-        downpayment_amount: 'قيمة العربون' #!
-        #>lines: 'Invoice lines'
-        nature: 'طبيعي' #!
-        origin: 'الفاتورة الاصلية'
-        origin_id: 'الفاتورة الاصلية'
-        payment_delay: 'تأجيل تسديد الدفعة' #!
-        payment_delay_id: 'تأجيل تسديد الدفعة ' #!
-        sale_order_id: 'بيع' #!
-        updated_at: 'نم تحديثه في' #!
-      invoice_line:
-        created_at: 'انشأُت في' #!
-        order_line: 'اساليب طلب البيع' #!
-        order_line_id: 'اسوب طلب البيع' #!
-        origin: 'الاساليب الاصلية ' #!
-        origin_id: 'الاسلوب الاصلي'
-        position: 'موقف' #!
-        price: 'السعر من دون الضرائب' #!
-        price_id: 'العر من دون الضرائب' #!
-        product_id: 'انتاج' #!
-        unit_id: 'الوحدة' #!
       journal:  #!
         nature: 'طبيعي' #!
         nature_label: 'طبيعة' #!
@@ -221,9 +220,9 @@ arb:
         company: 'شركة' #!
         created_at: 'انشأـ في' #!
         created_on: 'انشأت يوم' #!
-        purchase_payment_parts: 'اجزاء الدفعات'
-        purchase_payments: 'دفعات' #!
-        sale_payments: 'دفعات' #!
+        incoming_payments: 'دفعات' #!
+        outgoing_payment_uses: 'اجزاء الدفعات'
+        outgoing_payments: 'دفعات' #!
       journal_entry_line:
         account: 'حساب' #!
         #>closed: 'Closed'
@@ -269,6 +268,33 @@ arb:
         company_id: 'الشركة' #!
         created_at: 'انشأ في' #!
         updated_at: 'تم تحديثها في' #!
+      outgoing_delivery:
+        #>lines: 'Delivery lines'
+      outgoing_payment:
+        amount: 'القيمة'
+        created_at: 'انشأ في' #!
+        delivered: 'قدمت للمستفيد'
+        mode: 'طريقة تسديد الدفعة' #!
+        number: 'رقم' #!
+        updated_at: 'تحديثه في' #!
+        updater: 'التعديل' #!
+        updater_id: 'تعديل' #!
+      outgoing_payment_mode:
+        cash: 'الخزينة' #!
+        cash_id: 'خزينة' #!
+        created_at: 'انشأ يوم' #!
+        #>payments: 'Disbursements'
+        updated_at: 'تحديه في' #!
+        updater: 'التعديل' #!
+        updater_id: 'التعديل' #!
+      outgoing_payment_use:
+        amount: 'القيمة'
+        company_id: 'الشركة' #!
+        expense: 'الانفاق' #!
+        payment_way: 'طريق تسديد الدفعة' #!
+        updated_at: 'تم تحدثه في' #!
+        updater: 'التعديل' #!
+        updater_id: 'التعديل' #!
       parameter:  #!
         updated_at: 'تم تحديثها في' #!
       price:
@@ -277,8 +303,8 @@ arb:
         company_id: 'الشركة' #!
         entity: 'الممول'
         entity_id: 'الممول'
-        invoice_lines: 'طرق تسدسد الفاتورة' #!
         product_id: 'الانتاج' #!
+        sales_invoice_lines: 'طرق تسدسد الفاتورة' #!
         started_at: 'ابتدأ يوم ' #!
       product:
         active: 'قبل للاستخدام' #!
@@ -330,36 +356,33 @@ arb:
         tracking: 'رقم الحصة' #!
         tracking_id: 'رقم الحصة' #!
         unit_id: 'الوحدة' #!
-      purchase_payment:
-        amount: 'القيمة'
-        created_at: 'انشأ في' #!
-        delivered: 'قدمت للمستفيد'
-        mode: 'طريقة تسديد الدفعة' #!
-        number: 'رقم' #!
-        updated_at: 'تحديثه في' #!
-        updater: 'التعديل' #!
-        updater_id: 'تعديل' #!
-      purchase_payment_mode:
-        cash: 'الخزينة' #!
-        cash_id: 'خزينة' #!
-        created_at: 'انشأ يوم' #!
-        #>payments: 'Disbursements'
-        updated_at: 'تحديه في' #!
-        updater: 'التعديل' #!
-        updater_id: 'التعديل' #!
-      purchase_payment_part:
-        amount: 'القيمة'
-        company_id: 'الشركة' #!
-        expense: 'الانفاق' #!
-        payment_way: 'طريق تسديد الدفعة' #!
-        updated_at: 'تم تحدثه في' #!
-        updater: 'التعديل' #!
-        updater_id: 'التعديل' #!
       role:  #!
         created_at: 'انشأ في' #!
-      sale_delivery:
-        #>lines: 'Delivery lines'
-      sale_order:
+      sales_invoice:
+        accounted_at: 'تمت محاسبتها يوم' #!
+        #>credit: 'Credit'
+        currency_id: 'العملة' #!
+        downpayment_amount: 'قيمة العربون' #!
+        #>lines: 'SalesInvoice lines'
+        nature: 'طبيعي' #!
+        origin: 'الفاتورة الاصلية'
+        origin_id: 'الفاتورة الاصلية'
+        payment_delay: 'تأجيل تسديد الدفعة' #!
+        payment_delay_id: 'تأجيل تسديد الدفعة ' #!
+        sales_order_id: 'بيع' #!
+        updated_at: 'نم تحديثه في' #!
+      sales_invoice_line:
+        created_at: 'انشأُت في' #!
+        order_line: 'اساليب طلب البيع' #!
+        order_line_id: 'اسوب طلب البيع' #!
+        origin: 'الاساليب الاصلية ' #!
+        origin_id: 'الاسلوب الاصلي'
+        position: 'موقف' #!
+        price: 'السعر من دون الضرائب' #!
+        price_id: 'العر من دون الضرائب' #!
+        product_id: 'انتاج' #!
+        unit_id: 'الوحدة' #!
+      sales_order:
         accounted_at: 'تمت محاسبته في' #!
         amount: 'القيمة من دون تاضرائب' #!
         client_id: 'عميل' #!
@@ -376,7 +399,7 @@ arb:
         stock_moves: 'حركات السهم' #!
         transporter_id: 'ناقلة' #!
         updated_at: 'تم تحديثها في' #!
-      sale_order_line:
+      sales_order_line:
         annotation: 'الملاحظة' #!
         created_at: 'انشأ في' #!
         label: 'الانتاج'
@@ -388,33 +411,10 @@ arb:
         reduction_percent: 'الخصم بالنسبة المئوية' #!
         tax_id: 'ضريبة' #!
         tracking_id: 'حصة' #!
-      sale_order_nature:
+      sales_order_nature:
         created_at: 'انشأ في' #!
         downpayment: 'مع القسط'
         payment_mode: 'نمط الدفعة' #!
-      sale_payment:
-        accounted_at: 'تمت محاسبته في' #!
-        amount: 'القيمة'
-        created_on: 'انشأت يوم' #!
-        depositer: 'المسؤول' #!
-        depositer_id: 'المسؤول' #!
-        mode_id: 'نمط دفعة' #!
-        paid_on: 'سدد يوم' #!
-        parts: 'اجزاء الدفعة' #!
-        #>received: 'Reçu'
-        to_bank_on: 'تسديد الدفعة يوم'
-      sale_payment_mode:  #!
-        cash: 'الخزينة المستخدمة' #!
-        cash_id: 'الخزينة المستخدمة' #!
-        depositable_payments: 'دفعات تصرف نقدا' #!
-      sale_payment_part:
-        accounted_at: 'تمت محاسبته في' #!
-        amount: 'قيمة المخصصة للبيع'
-        expense_id: 'تكلفة' #!
-        #>payment: 'Sale payment'
-        #>payment_id: 'Sale payment'
-        #>payment_way: 'Mode of payment'
-        updated_at: 'تم تحديثها في' #!
       sequence:  #!
         company_id: 'الشركة' #!
         period: 'تواتري' #!
@@ -565,17 +565,17 @@ arb:
           closed_entry: '.تم اغلاق المدخلات، ولا يمكن التعديل عليها'
           empty_amounts: 'يجب أن تكون المدخلات معرفة اما بالدين او بالائتمان'
           unvalid_amounts: 'يجب ان تكون المدخلات معرفة اما بالدين او بالائتمان، وليس الاثنان معا'
+        outgoing_delivery_line:
+          greater_than_undelivered_quantity: '%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})'
         price:
           already_defined: 'قد تم تحديد السعر لهذا المنتج وقائمة الاسعار سابقا'
           range_overlap: 'تداخل فاصل زمني اخر للكمية (  %{min} الى  %{max})'
         purchase_order_line:
           serial_already_used_with_an_other_product: '%{attribute} تم استخدامها لنوع اخر من المنتج من نفس الممون'
           warehouse_can_not_receive_product: 'لا يمكن للخزينة %{warehouse} استقبال النتج %{product}, لاحتوائها منتج سابق %{contained_product}.'
-        sale_delivery_line:
-          greater_than_undelivered_quantity: '%{product} كمية الانتاج المسلمة تفوق الكمية الغير مسلمة (%{maximum}%{unit})'
-        sale_order_line:
+        sales_order_line:
           can_not_use_this_tracking: 'لا يمكنك الاستفادة من الحصة %{tracking}, لان الكمية المطلوبة اكبر من الكمية المتاحة'
-          currency_is_not_sale_order_currency: 'لا يطابق سعر عملة المنتج مجموعة البيع'
+          currency_is_not_sales_order_currency: 'لا يطابق سعر عملة المنتج مجموعة البيع'
           error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج وقائمة الاسعار'
           warehouse_can_not_transfer_product: 'لا يمكن تحويل المنتج %{product} من خزينة %{warehouse}, لاحتوائه على %{contained_product}.'
         stock:
@@ -629,10 +629,14 @@ arb:
       event: 'الحدث'
       event_nature: 'نوع الحدث'
       financial_year: 'السنة المالية'
+      #>incoming_delivery: 'Purchase delivery'
+      #>incoming_delivery_line: 'Purchase delivery line'
+      #>incoming_delivery_mode: 'Purchase delivery mode'
+      incoming_payment: 'الدفعة'
+      incoming_payment_mode: 'نوع الدفعة'
+      incoming_payment_use: 'تأثير الدفعة'
       inventory: 'عملية الجرد'
       inventory_line: 'طريقة عملية الجرد'
-      invoice: 'الفاتورة'
-      invoice_line: 'طريقة تسديد الفاتورة'
       journal: 'الدفتر اليومي'
       journal_entry: 'المدخلات'
       #>journal_entry_line: 'Journal entry line'
@@ -649,6 +653,12 @@ arb:
       operation_line: 'الواردات/الصادرات'
       operation_nature: 'نوع العمل'
       operation_use: 'الاداة المستخدمة'
+      #>outgoing_delivery: 'Delivery'
+      #>outgoing_delivery_line: 'Delivery line'
+      #>outgoing_delivery_mode: 'Delivery mode'
+      outgoing_payment: 'الدفعة'
+      outgoing_payment_mode: 'نوع الدفعة'
+      outgoing_payment_use: 'تأثير الدفعة'
       parameter: 'الاعدادات' #!
       #>preference: 'Preference'
       price: 'الاسعار'
@@ -660,24 +670,14 @@ arb:
       #>production_chain_work_center: 'Production chain work center'
       #>production_chain_work_center_use: 'Production chain work center use'
       profession: 'المهنة'
-      #>purchase_delivery: 'Purchase delivery'
-      #>purchase_delivery_line: 'Purchase delivery line'
-      #>purchase_delivery_mode: 'Purchase delivery mode'
       purchase_order: 'الشراء'
       purchase_order_line: 'طريقة طلب الشراء'
-      purchase_payment: 'الدفعة'
-      purchase_payment_mode: 'نوع الدفعة'
-      purchase_payment_part: 'تأثير الدفعة'
       role: 'الدور'
-      #>sale_delivery: 'Delivery'
-      #>sale_delivery_line: 'Delivery line'
-      #>sale_delivery_mode: 'Delivery mode'
-      sale_order: 'البيع'
-      sale_order_line: 'طريقة طلب البيع'
-      sale_order_nature: 'نوع طلب البيع'
-      sale_payment: 'الدفعة'
-      sale_payment_mode: 'نوع الدفعة'
-      sale_payment_part: 'تأثير الدفعة'
+      sales_invoice: 'الفاتورة'
+      sales_invoice_line: 'طريقة تسديد الفاتورة'
+      sales_order: 'البيع'
+      sales_order_line: 'طريقة طلب البيع'
+      sales_order_nature: 'نوع طلب البيع'
       sequence: 'التسلسل'
       stock: 'سهم الانتاج'
       stock_move: 'حركة السهم'
@@ -973,6 +973,9 @@ arb:
     #>in_cash: 'In cash'
     in_name: 'الاختصارات تشمل اسم الملف'
     included: 'تضمنت'
+    incoming_payment_modes: 'طرق تسديد الدفعات'
+    incoming_payment_uses: 'اجزاء الدفعات'
+    incoming_payments: 'الدفعات'
     indirect_links: 'روابط مباشرة'
     integer_value: 'قيمة العدد الصحيح'
     introduction: 'المقدمة'
@@ -980,15 +983,9 @@ arb:
     inventory: 'عملية الجرد'
     inventory_id: 'عملية جرد'
     inventory_lines: 'طرق الجرد'
-    invoice: 'الفاتورة'
     invoice_contact: 'العنوان للفاتورة'
     invoice_contact_id: 'العنوان للفاتورة'
-    invoice_id: 'فاتورة'
-    invoice_lines: 'طرق تسديد الفاتورة'
-    invoiceable: 'يفوتر' #!
     invoiced: 'مفوتر'
-    invoices: 'الفواتير'
-    invoices_count: 'عدد الفواتير'
     is_debit: 'مدين'
     item_listing: 'عقد الاستخراج'
     item_listing_id: 'عقد استخراج'
@@ -1063,7 +1060,7 @@ arb:
     nature_code: 'الرمز'
     nature_id: 'نوع'
     nature_label: 'طبيعة الملصق'
-    #>net_weight: 'Net weight'
+    #>net_weight: 'Net weight (kg)'
     nic: 'واجهة بطاقة الشبكة'
     node: 'العقدة'
     node_id: 'عقدة'
@@ -1090,6 +1087,9 @@ arb:
     origin_id: 'المنشأ'
     origin_type: 'نوع المنشأ'
     original_name: 'الاسم الاصلي'
+    outgoing_payment_modes: 'اساليب المصروفات'
+    outgoing_payment_uses: 'ازاء المصروفات'
+    outgoing_payments: 'المصروفات'
     owner: 'المالك'
     owner_id: 'مالك'
     owner_type: 'طبيعة المالك'
@@ -1162,11 +1162,9 @@ arb:
     proposer_id: 'الكفيل'
     prospect: 'الراعي'
     published: 'تم نشره'
+    #>purchase_order_id: 'Purchase order'
     purchase_order_lines: 'طرق طلب الشراء'
     purchase_orders: 'المشتريات'
-    purchase_payment_modes: 'اساليب المصروفات'
-    purchase_payment_parts: 'ازاء المصروفات'
-    purchase_payments: 'المصروفات'
     purchases_account: 'رسوم المحاسبة'
     purchases_account_id: 'رسوم المحاسبة'
     quantity: 'الكمية'
@@ -1212,18 +1210,21 @@ arb:
     rome: 'رمز الروم'
     root_model: 'الجذر'
     root_model_name: 'جذر'
-    sale_order: 'طلب البيع'
-    sale_order_id: 'طلب بيع'
-    sale_order_line_id: 'طرق طلب البيع'
-    sale_order_lines: 'طرق طلب البيع'
-    sale_order_natures: 'انواع البيع'
-    sale_orders: 'المبيعات'
-    sale_payment_modes: 'طرق تسديد الدفعات'
-    sale_payment_parts: 'اجزاء الدفعات'
-    sale_payments: 'الدفعات'
     sales_account: 'حساب المنتجات'
     sales_account_id: 'حساب المنتجات'
     sales_conditions: 'الشروط العامة للبيع'
+    sales_invoice: 'الفاتورة'
+    sales_invoice_id: 'فاتورة'
+    sales_invoice_lines: 'طرق تسديد الفاتورة'
+    sales_invoiceable: 'يفوتر' #!
+    sales_invoices: 'الفواتير'
+    sales_invoices_count: 'عدد الفواتير'
+    sales_order: 'طلب البيع'
+    sales_order_id: 'طلب بيع'
+    sales_order_line_id: 'طرق طلب البيع'
+    sales_order_lines: 'طرق طلب البيع'
+    sales_order_natures: 'انواع البيع'
+    sales_orders: 'المبيعات'
     salt: 'الملح'
     scheduled: 'الدفعة المبرمجة'
     second_move_id: 'الحركة الثانية'
@@ -1302,7 +1303,7 @@ arb:
     tool_id: 'اداة'
     tools: 'الادوات'
     tools_list: 'معدات'
-    #>total_weight: 'Total weight'
+    #>total_weight: 'Total weight (kg)'
     tracking: 'الحصة'
     tracking_id: 'الحصة'
     tracking_serial: 'رقم الحصة'
@@ -1326,8 +1327,8 @@ arb:
     updated_at: 'تم تحديثه في'
     updater: 'التحديث'
     updater_id: 'التحديث'
-    usable_purchase_payments: 'مصروفات ممكن استخدامها'
-    usable_sale_payments: 'دفعات ممكن استخدامها'
+    usable_incoming_payments: 'دفعات ممكن استخدامها'
+    usable_outgoing_payments: 'مصروفات ممكن استخدامها'
     usage: 'الاستخدام'
     usage_duration: '(مدة الاستخدام (ساعات'
     use_range: 'استخدام الكمية الفاصلة'
@@ -1394,10 +1395,10 @@ arb:
             standard: '(FDM ثلاثون يوم) '
         department_name: 'الادارة / الانتاج'
         document_natures:  #!
-          invoice: 'فاتورة' #!
           journal: 'الدفتر اليومي' #!
           journals: 'ادفاتر اليومية' #!
-          sale_order: 'البيع' #!
+          sales_invoice: 'فاتورة' #!
+          sales_order: 'البيع' #!
         document_templates:
           accountancy:
             balance_sheet:
@@ -1415,12 +1416,12 @@ arb:
               filename: '[created_on] اقتطاع البنك من'
             inventory:
               filename: '[created_on] جرد ل'
-            invoice:
-              filename: '[number] فاتورة'
-              to_archive: 'صحيح'
             purchase_order:
               filename: '[number]شراء'
-            sale_order:
+            sales_invoice:
+              filename: '[number] فاتورة'
+              to_archive: 'صحيح'
+            sales_order:
               filename: '[number]بيع'
             stocks:
               filename: 'حالة الاسهم'
@@ -1435,46 +1436,46 @@ arb:
           entity: '[full_name] ملف' #!
           income_statement: '[code] بيان حسابات الدخل' #!
           inventory: '[date] عملية الجرد' #!
-          invoice: '[number] فاتورة' #!
           order_preparation: '[created_on] تجهيز الطلب من' #!
           other: 'Fichier' #!
           purchase_order: '[number] شراء' #!
-          sale_order: '[number] بيع' #!
+          sales_invoice: '[number] فاتورة' #!
+          sales_order: '[number] بيع' #!
           transport: '[created_on] توصيل ل' #!
         establishment_name: 'المؤسسة الرئيسية'
         event_natures:
-          #>invoice: 'Creation of an invoice'
           #>purchase_order: 'Creation of a purchase order'
-          #>sale_order: 'Creation of a sale order'
+          #>sales_invoice: 'Creation of an sales_invoice'
+          #>sales_order: 'Creation of a sale order'
         financial_year_code: '1A2' #!
+        incoming_payment_modes:
+          cash:
+            name: 'عملة نقدية'
+          check:
+            name: 'شيك'
+          transfer:
+            name: 'التحويل'
         journals:
           bank: 'الدفتر اليومي للبنك'
           cash: 'الدفتر اليومي للصندوق النقدي'
           purchases: 'دفاتر الشراء اليومية'
           sales: 'دفاتر البيع اليومية'
           various: 'دفاتر يومية لعمليات متنوعة'
-        paid_tax: 'TVA خصم' #!
-        price_list_name: 'التسعيرة سوية' #!
-        product_category_name: 'من غير فئة'
-        purchase_payment_modes:
+        outgoing_payment_modes:
           cash:
             name: 'عملة نقدية'
           check:
             name: 'شيك'
           transfer:
             name: 'التحويل'
+        paid_tax: 'TVA خصم' #!
+        price_list_name: 'التسعيرة سوية' #!
+        product_category_name: 'من غير فئة'
         role:
           name:
             admin: 'المدير'
             public: '(الشعب (من دون حقوق'
-        sale_order_nature_name: 'مقياس البيع'
-        sale_payment_modes:
-          cash:
-            name: 'عملة نقدية'
-          check:
-            name: 'شيك'
-          transfer:
-            name: 'التحويل'
+        sales_order_nature_name: 'مقياس البيع'
         sample_product_name: 'عينة المنتج' #!
         sequences:
           accountancy:
@@ -1487,10 +1488,14 @@ arb:
               format: 'B[year|4][number|4]'
               name: 'عدد الاقتطاعات البنكية'
               period: 'السنة'
-            invoices:
-              format: 'F[year|4][number|6]'
-              name: 'عدد الفواتير'
-              period: 'السنة'
+            incoming_payments:
+              #>format: 'P[year|4][number|6]'
+              #>name: 'Numeration of payments'
+              #>period: 'year'
+            outgoing_payments:
+              #>format: 'D[year|4][number|4]'
+              #>name: 'Numeration of payments'
+              #>period: 'year'
             payments:  #!
               format: 'R[year|4][number|6]' #!
               name: 'عدد اللوائح' #!
@@ -1499,18 +1504,14 @@ arb:
               format: 'A[year|4][month|2][number|6]'
               name: 'عدد المشتريات'
               period: 'الشهر'
-            purchase_payments:
-              #>format: 'D[year|4][number|4]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
-            sale_orders:
+            sales_invoices:
+              format: 'F[year|4][number|6]'
+              name: 'عدد الفواتير'
+              period: 'السنة'
+            sales_orders:
               format: 'V[year|4][month|2][number|6]'
               name: 'عدد المبيعات'
               period: 'الشهر'
-            sale_payments:
-              #>format: 'P[year|4][number|6]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
             subscriptions:
               format: 'ABO[number|8]'
               name: 'عدد الاشتراكات'
@@ -1555,10 +1556,10 @@ arb:
       import:
         dont_use: '-- لعدم الاسعمال--'
         generate_string_complement: '--(انشاء حقل مخصص (للنص--'
-      invoice_creation: 'انشاء فاتورة' #!
       purchase_order_creation: 'انشاء طلب شراء' #!
-      sale_order_creation: 'انشاء طلب تحديد الاسعار' #!
-      sale_orders: 'المبيعات'
+      sales_invoice_creation: 'انشاء فاتورة' #!
+      sales_order_creation: 'انشاء طلب تحديد الاسعار' #!
+      sales_orders: 'المبيعات'
     contact:
       error_modify_contact: 'من المستحيل تعديل الاسماء'
     custom_field:
@@ -1598,11 +1599,11 @@ arb:
         general_ledger: 'دفتر الحسابات'
         income_statement: 'حسابات الدخل'
         inventory: 'عملية الجرد'
-        invoice: 'فاتورة العميل'
         journal: 'الدفتر اليومي'
         other: 'اخرى'
         purchase_order: 'طلب الممول'
-        sale_order: 'طلب / اقتباس'
+        sales_invoice: 'فاتورة العميل'
+        sales_order: 'طلب / اقتباس'
         stocks: 'حالة الاسهم'
         transport: 'وسائل النقل'
       unvalid_nature: 'نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته.'
@@ -1611,24 +1612,22 @@ arb:
       supplier: 'الممول'
     event_nature:
       usages:
-        invoice: 'انشاء فاتورة'
         mailing: 'البريدي'
         manual: 'كتيب'
         purchase_order: 'انشاء طلب شراء'
-        sale_order: 'انشاء طلب بيع'
+        sales_invoice: 'انشاء فاتورة'
+        sales_order: 'انشاء طلب بيع'
     financial_year:
       code:
         double: 'EX%{first_year}/%{second_year}'
         single: 'EX%{first_year}'
+    incoming_payment:
+      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})'
+    incoming_payment_use:
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})'
     inventory_line:
       inventory: 'عملية الجرد'
-    invoice:
-      label:
-        credit: 'مدخرات رقم%{number}'
-        normal: 'فاتورة رقم%{number}'
-      to_accountancy: '[%{resource} %{number}] %{products} لاجل %{client} (%{sale_order})'
-    invoice_line:
-      no_product: '[لا لاي منتج]'
     journal:
       natures:
         bank: 'البنك'
@@ -1687,6 +1686,20 @@ arb:
       direction_label:
         in: 'الواردة'
         out: 'الصادرة'
+    outgoing_delivery:
+      label: '%{client} الى %{address}'
+      natures:  #!
+        cip: 'الشحن مع التأمين' #!
+        cpt: 'الشحن من غير تأمين' #!
+        exw: 'التسليم باليد' #!
+      sale: '%{number} المبيعات'
+    outgoing_delivery_line:
+      sale: '%{number} المبيعات'
+    outgoing_payment:
+      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})'
+    outgoing_payment_use:
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})'
     price:
       label: '%{product} / %{amount} %{currency}'
       no_range: 'ليس هناك من فترة استراحة'
@@ -1728,28 +1741,21 @@ arb:
       name: '%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}'
       tracking: 'رقم الحصة : %{serial}'
-    purchase_payment:
-      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})'
-    purchase_payment_part:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})'
-    sale_delivery:
-      label: '%{client} الى %{address}'
-      natures:  #!
-        cip: 'الشحن مع التأمين' #!
-        cpt: 'الشحن من غير تأمين' #!
-        exw: 'التسليم باليد' #!
-      sale: '%{number} المبيعات'
-    sale_delivery_line:
-      sale: '%{number} المبيعات'
-    sale_order:
+    sales_invoice:
+      label:
+        credit: 'مدخرات رقم%{number}'
+        normal: 'فاتورة رقم%{number}'
+      to_accountancy: '[%{resource} %{number}] %{products} لاجل %{client} (%{sales_order})'
+    sales_invoice_line:
+      no_product: '[لا لاي منتج]'
+    sales_order:
       label:
         estimate: 'رقم التقدير%{number}'
         order: 'رقم الطلب%{number}'
       natures:
         estimate: 'التقدير'
-        invoice: 'فاتورة'
         order: 'طلب'
+        sales_invoice: 'فاتورة'
       sale: 'البيع %{number}'
       sales_conditions:
         downpayment: 'دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي'
@@ -1758,18 +1764,13 @@ arb:
         A: 'الجاري'
         C: 'منتهي'
         E: 'مقدر'
-    sale_order_line:
+    sales_order_line:
       can_not_use_this_tracking: 'لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
-      currency_is_not_sale_order_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
+      currency_is_not_sales_order_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
       error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية' #!
       reduction_on: 'تخفيض بنسبة %{percent}% على : %{product}'
       tracking: 'رقم الحصة : %{serial}'
       warehouse_can_not_transfer_product: 'المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} '
-    sale_payment:
-      label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})'
-    sale_payment_part:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})'
     sequence:
       periods:
         cweek: 'اسبوع'

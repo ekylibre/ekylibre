@@ -20,28 +20,28 @@
 # 
 # == Table: subscriptions
 #
-#  comment            :text             
-#  company_id         :integer          not null
-#  contact_id         :integer          
-#  created_at         :datetime         not null
-#  creator_id         :integer          
-#  entity_id          :integer          
-#  first_number       :integer          
-#  id                 :integer          not null, primary key
-#  invoice_id         :integer          
-#  last_number        :integer          
-#  lock_version       :integer          default(0), not null
-#  nature_id          :integer          
-#  number             :string(255)      
-#  product_id         :integer          
-#  quantity           :decimal(16, 4)   
-#  sale_order_id      :integer          
-#  sale_order_line_id :integer          
-#  started_on         :date             
-#  stopped_on         :date             
-#  suspended          :boolean          not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer          
+#  comment             :text             
+#  company_id          :integer          not null
+#  contact_id          :integer          
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  entity_id           :integer          
+#  first_number        :integer          
+#  id                  :integer          not null, primary key
+#  last_number         :integer          
+#  lock_version        :integer          default(0), not null
+#  nature_id           :integer          
+#  number              :string(255)      
+#  product_id          :integer          
+#  quantity            :decimal(16, 4)   
+#  sales_invoice_id    :integer          
+#  sales_order_id      :integer          
+#  sales_order_line_id :integer          
+#  started_on          :date             
+#  stopped_on          :date             
+#  suspended           :boolean          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
 #
 
 require 'test_helper'

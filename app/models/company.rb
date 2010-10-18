@@ -63,8 +63,8 @@ class Company < ActiveRecord::Base
   has_many :financial_years, :order=>"started_on DESC"
   has_many :inventories
   has_many :inventory_lines
-  has_many :invoices
-  has_many :invoice_lines
+  has_many :sales_invoices
+  has_many :sales_invoice_lines
   has_many :journals, :order=>:name
   has_many :journal_entries
   has_many :journal_entry_lines
@@ -89,19 +89,19 @@ class Company < ActiveRecord::Base
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
-  has_many :purchase_payments
-  has_many :purchase_payment_modes, :order=>:name
-  has_many :purchase_payment_parts
+  has_many :outgoing_payments
+  has_many :outgoing_payment_modes, :order=>:name
+  has_many :outgoing_payment_uses
   has_many :roles
-  has_many :sale_deliveries
-  has_many :sale_delivery_lines
-  has_many :sale_delivery_modes
-  has_many :sale_orders
-  has_many :sale_order_lines
-  has_many :sale_order_natures
-  has_many :sale_payments
-  has_many :sale_payment_modes, :order=>:name
-  has_many :sale_payment_parts
+  has_many :outgoing_deliveries
+  has_many :outgoing_delivery_lines
+  has_many :outgoing_delivery_modes
+  has_many :sales_orders
+  has_many :sales_order_lines
+  has_many :sales_order_natures
+  has_many :incoming_payments
+  has_many :incoming_payment_modes, :order=>:name
+  has_many :incoming_payment_uses
   has_many :sequences
   has_many :land_parcels, :order=>:name
   has_many :land_parcel_groups, :order=>:name
@@ -135,9 +135,9 @@ class Company < ActiveRecord::Base
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
   has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :depositable_payments, :class_name=>SalePayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{SalePaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
+  has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_deposit, :class_name=>SalePayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{SalePaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
+  has_many :payments_to_deposit, :class_name=>IncomingPayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
   has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
   has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
@@ -149,8 +149,8 @@ class Company < ActiveRecord::Base
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :usable_purchase_payments, :class_name=>PurchasePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
-  has_many :usable_sale_payments, :class_name=>SalePayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
+  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
+  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
 
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
@@ -266,9 +266,9 @@ class Company < ActiveRecord::Base
     self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
   end
 
-  def invoice(records)
+  def sales_invoice(records)
     puts records.inspect+"                          ddddddddddddddddddddddddd "
-    Invoice.generate(self.id,records)
+    SalesInvoice.generate(self.id,records)
   end
 
   def closable_financial_year
@@ -732,26 +732,26 @@ class Company < ActiveRecord::Base
       
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash).id)
       baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank).id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id)
-      company.sale_payment_modes.create!(:name=>tc('default.sale_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id)
+      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
 
-      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
-      company.purchase_payment_modes.create!(:name=>tc('default.purchase_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
 
       delays = []
       ['expiration', 'standard', 'immediate'].each do |d|
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
       end
       company.financial_years.create!(:started_on=>Date.today)
-      company.sale_order_natures.create!(:name=>tc('default.sale_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+      company.sales_order_natures.create!(:name=>tc('default.sales_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
 
       company.load_sequences
       
       company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
-      for nature in [:sale_order, :invoice, :purchase_order]
+      for nature in [:sales_order, :sales_invoice, :purchase_order]
         company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
       end
       

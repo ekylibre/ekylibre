@@ -1,0 +1,12 @@
+=formalize do |f|
+  -f.error 'outgoing_payment'
+  -f.title :general_informations
+  -f.field :outgoing_payment, :payee_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create}
+  -f.field :outgoing_payment, :amount
+  -f.field :outgoing_payment, :to_bank_on
+  -f.field :outgoing_payment, :delivered
+  -f.field :outgoing_payment, :mode_id, :choices=>{:reflection=>:outgoing_payment_modes}, :new=>{:action=>:outgoing_payment_mode_create}
+  -f.title :depositable
+  -f.field :outgoing_payment, :responsible_id, :choices=>{:reflection=>:users}
+  -f.field :outgoing_payment, :paid_on
+  -f.field :outgoing_payment, :check_number

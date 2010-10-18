@@ -1,6 +1,6 @@
 =toolbar do |t|
   -t.link :purchase_order_lines, :id=>@purchase_order.id
-  -t.link :purchase_payment_part_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
+  -t.link :outgoing_payment_use_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
   -t.print :purchase_order, :id=>@purchase_order.id
 
 %h2= tc 'general_informations'
@@ -23,3 +23,11 @@
 -if @purchase_order.payment_parts.count > 0
   %h2=tc :payment_parts
   =kame :purchase_order_payment_parts
+
+%h2=tc :financial_state
+%table.kame
+  -for k, v in @purchase_order.stats(:with_balance=>true)
+    %tr.total
+      %th=tc(k)
+      %td=number_to_accountancy(v)
+

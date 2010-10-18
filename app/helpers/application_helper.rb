@@ -97,10 +97,10 @@ module ApplicationHelper
      # ManagementController
      {:name=>:management, :list=>
        [ {:name=>:sales, :list=>
-           [ {:name=>:sale_order_create},
-             {:name=>:sale_orders},
-             {:name=>:invoices},
-             {:name=>:sale_payments},
+           [ {:name=>:sales_order_create},
+             {:name=>:sales_orders},
+             {:name=>:sales_invoices},
+             {:name=>:incoming_payments},
              {:name=>:deposits},
              {:name=>:transports},
              {:name=>:subscriptions},
@@ -109,7 +109,7 @@ module ApplicationHelper
          {:name=>:purchases, :list=>
            [ {:name=>:purchase_order_create},
              {:name=>:purchase_orders},
-             {:name=>:purchase_payments}
+             {:name=>:outgoing_payments}
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
@@ -122,10 +122,10 @@ module ApplicationHelper
              {:name=>:prices},
              {:name=>:shelves},
              {:name=>:delays},
-             {:name=>:sale_payment_modes},
-             {:name=>:purchase_payment_modes},
+             {:name=>:incoming_payment_modes},
+             {:name=>:outgoing_payment_modes},
              {:name=>:delivery_modes},
-             {:name=>:sale_order_natures},
+             {:name=>:sales_order_natures},
              {:name=>:subscription_natures}
            ] }
        ] },

@@ -1,0 +1,10 @@
+-price_id = nil
+%fieldset.quick-add
+  %legend=tc :add_quickly_a_line
+  =form_tag(:action=>:sales_order_line_create) do 
+    =formalize do |f|
+      -price_id = f.field :sales_order_line, :price_id, :choices=>:available_prices
+    #detail-row=render :partial=>"sales_order_line_detail_row_form"
+    .actions=submit_tag(tg(:add))
+
+=observe_field(price_id, :update=>"detail-row", :url=>{:action=>:sales_order_line_detail, :order_id=>@sales_order.id, :mode=>:row}, :frequency => 0.25, :with=>"id", :loading=>"onLoading()", :loaded=>"onLoaded()")

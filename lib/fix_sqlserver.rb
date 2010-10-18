@@ -9,20 +9,20 @@ if ActiveRecord::Base.connection.adapter_name.lower == 'sqlserver'
   Entity.coerce_sqlserver_date :born_on, :dead_on, :first_met_on
   EntityLink.coerce_sqlserver_date :started_on, :stopped_on
   FinancialYear.coerce_sqlserver_date :started_on, :stopped_on
+  IncomingDelivery.coerce_sqlserver_date :moved_on, :planned_on
+  IncomingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
   Inventory.coerce_sqlserver_date :created_on
-  Invoice.coerce_sqlserver_date :created_on, :payment_on
   Journal.coerce_sqlserver_date :closed_on
   JournalEntry.coerce_sqlserver_date :created_on, :printed_on
   JournalEntryLine.coerce_sqlserver_date :expired_on
   LandParcel.coerce_sqlserver_date :started_on, :stopped_on
   Mandate.coerce_sqlserver_date :started_on, :stopped_on
   Operation.coerce_sqlserver_date :moved_on, :planned_on
-  PurchaseDelivery.coerce_sqlserver_date :moved_on, :planned_on
+  OutgoingDelivery.coerce_sqlserver_date :moved_on, :planned_on
+  OutgoingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
   PurchaseOrder.coerce_sqlserver_date :created_on, :moved_on, :planned_on
-  PurchasePayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
-  SaleDelivery.coerce_sqlserver_date :moved_on, :planned_on
-  SaleOrder.coerce_sqlserver_date :confirmed_on, :created_on, :expired_on
-  SalePayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
+  SalesInvoice.coerce_sqlserver_date :created_on, :payment_on
+  SalesOrder.coerce_sqlserver_date :confirmed_on, :created_on, :expired_on
   StockMove.coerce_sqlserver_date :moved_on, :planned_on
   StockTransfer.coerce_sqlserver_date :moved_on, :planned_on
   Subscription.coerce_sqlserver_date :started_on, :stopped_on

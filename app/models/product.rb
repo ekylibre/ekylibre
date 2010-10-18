@@ -74,13 +74,13 @@ class Product < ActiveRecord::Base
   belongs_to :unit
   has_many :available_stocks, :class_name=>Stock.name, :conditions=>["quantity > 0"]
   has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
-  has_many :sale_delivery_lines
-  has_many :invoice_lines
+  has_many :outgoing_delivery_lines
+  has_many :sales_invoice_lines
   has_many :prices
   has_many :purchase_order_lines
   # TODO rename warehouses to reservoirs
   has_many :warehouses, :conditions=>{:reservoir=>true}
-  has_many :sale_order_lines
+  has_many :sales_order_lines
   has_many :stock_moves
   has_many :stock_transfers
   has_many :stocks
