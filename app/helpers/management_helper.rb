@@ -19,58 +19,76 @@
 
 module ManagementHelper
 
-  SALE_STEPS = [
-                {:name=>:estimate,   :actions=>[:sales_order_lines, :sales_order_create, :sales_order_update, :sales_order_line_create, :sales_order_line_update], :states=>[:estimate, :active, :complete]},
-                {:name=>:deliveries, :actions=>[:sales_order_deliveries, :outgoing_delivery_create, :outgoing_delivery_update], :states=>[:active, :complete]},
-                {:name=>:summary,    :actions=>[:sales_order_summary], :states=>[:estimate, :active, :complete]}
-               ]
-  SALE_ORDER_SATES = {'A'=>:active, 'C'=>:complete, 'E'=>:estimate}
-
-  def sale_steps
+  def steps_tag(record, steps, options={})
+    name = options[:name] || record.class.name.underscore
+    state_method = options[:state_method] || :state
     code = ''
-    last_active = false
-    SALE_STEPS.each_index do |index|
-      title = tc('sale_steps.'+SALE_STEPS[index][:name].to_s)
-      active = (SALE_STEPS[index][:actions].include?(action_name.to_sym) ? ' active' : nil)
-      if not @sales_order.new_record? and active.nil? and SALE_STEPS[index][:states].include?(SALE_ORDER_SATES[@sales_order.state])
-        title = link_to(title, :action=>SALE_STEPS[index][:actions][0], :id=>@sales_order.id.to_s)
+    for step in steps
+      title = tc("#{name}_steps.#{step[:name]}")
+      active = step[:actions].detect do |url|
+        # url = {:action=>url.to_s} unless url.is_a? Hash
+        not url.detect{|k, v| params[k].to_s != v.to_s}
       end
-      # code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
-      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') if index>0
-      code += content_tag(:td, title, :class=>'step'+active.to_s)
-      last_active = active
+      if not active and step[:states].include?(record.send(state_method))
+        title = link_to(title, step[:actions][0], :id=>record.id)
+      end
+      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') unless code.blank?
+      code += content_tag(:td, title, :class=>"step#{' active' if active}")
     end
     code = content_tag(:tr, code.html_safe)
     code = content_tag(:table, code.html_safe, :class=>:stepper)
     code.html_safe
   end
-  
+
+  SALES_STEPS = [
+                 {:name=>:products,   :actions=>[{:action=>:sales_order, :step=>:products}, :sales_order_create, :sales_order_update, :sales_order_line_create, :sales_order_line_update], :states=>['E', 'A', 'C']},
+                 {:name=>:deliveries, :actions=>[{:action=>:sales_order, :step=>:deliveries}, :outgoing_delivery_create, :outgoing_delivery_update], :states=>['A', 'C']},
+                 {:name=>:summary,    :actions=>[{:action=>:sales_order, :step=>:summary}], :states=>['C']}
+                ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
+
+  def sales_steps
+    steps_tag(@sales_order, SALES_STEPS, :name=>:sales)
+  end
+
   PURCHASE_STEPS = [
-                    {:name=>:active, :actions=>[:purchase_order_lines, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>[:active, :complete]},
-                   # {:name=>:deliveries, :actions=>[:purchase_order_deliveries, :incoming_delivery_create, :incoming_delivery_update], :states=>[:active, :complete]},
-                    {:name=>:summary, :actions=>[:purchase_order_summary], :states=>[:active, :complete]}
-                   ]
+                    {:name=>:products,   :actions=>[{:action=>:purchase_order, :step=>:products}, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>['E', 'A', 'C']},
+                    {:name=>:deliveries, :actions=>[{:action=>:purchase_order, :step=>:deliveries}, :incoming_delivery_create, :incoming_delivery_update], :states=>['A', 'C']},
+                    {:name=>:summary,    :actions=>[{:action=>:purchase_order, :step=>:summary}], :states=>['C']}
+                   ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
 
-  PURCHASE_ORDER_SATES = {'A'=>:active, 'C'=>:complete}
-  
   def purchase_steps
-    code = ''
-    last_active = false
-    PURCHASE_STEPS.each_index do |index|
-      title = tc('purchase_steps.'+PURCHASE_STEPS[index][:name].to_s)
-      active = (PURCHASE_STEPS[index][:actions].include?(action_name.to_sym) ? ' active' : nil)
-      if not @purchase_order.new_record? and active.nil?
-        title = link_to(title, :action=>PURCHASE_STEPS[index][:actions][0], :id=>@purchase_order.id.to_s)
-      end
-      # code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
-      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') if index>0
-      code += content_tag(:td, title, :class=>'step'+active.to_s)
-      last_active = active
-    end
-    code = content_tag(:tr, code.html_safe)
-    code = content_tag(:table, code.html_safe, :class=>:stepper)
-    code.html_safe
+    steps_tag(@purchase_order, PURCHASE_STEPS, :name=>:purchase)
   end
+  
+#   PURCHASE_STEPS = [
+#                     {:name=>:active, :actions=>[:purchase_order_lines, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>[:active, :complete]},
+#                    # {:name=>:deliveries, :actions=>[:purchase_order_deliveries, :incoming_delivery_create, :incoming_delivery_update], :states=>[:active, :complete]},
+#                     {:name=>:summary, :actions=>[:purchase_order_summary], :states=>[:active, :complete]}
+#                    ]
+
+#   PURCHASE_ORDER_SATES = {'A'=>:active, 'C'=>:complete}
+  
+#   def purchase_steps
+#     code = ''
+#     last_active = false
+#     PURCHASE_STEPS.each_index do |index|
+#       title = tc('purchase_steps.'+PURCHASE_STEPS[index][:name].to_s)
+#       active = (PURCHASE_STEPS[index][:actions].include?(action_name.to_sym) ? ' active' : nil)
+#       if not @purchase_order.new_record? and active.nil?
+#         title = link_to(title, :action=>PURCHASE_STEPS[index][:actions][0], :id=>@purchase_order.id.to_s)
+#       end
+#       # code += content_tag(:td, '&nbsp;', :class=>'transit'+(active ? ' left' : (last_active ? ' right' : nil)).to_s) if index>0
+#       code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') if index>0
+#       code += content_tag(:td, title, :class=>'step'+active.to_s)
+#       last_active = active
+#     end
+#     code = content_tag(:tr, code.html_safe)
+#     code = content_tag(:table, code.html_safe, :class=>:stepper)
+#     code.html_safe
+#   end
+
+
+
 
 
   def product_stocks_options(product)

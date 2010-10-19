@@ -353,7 +353,7 @@ fra:
     are_you_sure_you_want_to_confirm: 'Êtes-vous sûr(e) de vouloir passer la vente en commande ?'
     are_you_sure_you_want_to_delete: 'Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?'
     are_you_sure_you_want_to_delete_delivery: 'Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?'
-    are_you_sure_you_want_to_sales_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
+    are_you_sure_you_want_to_invoice: 'Êtes-vous sûr(e) de vouloir facturer la vente ?'
     are_you_sure_you_want_to_send_mails: 'Êtes-vous sûr(e) de vouloir envoyer les mails ?'
     area_x: '%{name} (%{postcode})'
     assessable_operations: 'Opérations imposables (H.T)'
@@ -387,10 +387,6 @@ fra:
       bank_statements: 'Relevés de compte'
       deposits: 'Remises en banque'
     cash_update: 'Modifier la trésorerie'
-    cashes:
-      one: '1 compte bancaire'
-      other: '%{count} comptes bancaires'
-      zero: '0 compte bancaire' #!
     catalog: 'Description pour catalogue'
     category: 'Catégorie'
     category_name: 'Catégorie'
@@ -431,10 +427,6 @@ fra:
     connect: 'Entrer'
     consult: 'Consulter'
     contact: 'à l''adresse'
-    contacts:
-      one: '%{count} contact'
-      other: '%{count} contacts'
-      zero: '0 contact' #!
     contains: 'Contient'
     coordinates: 'Coordonnées de l''abonnement'
     copy_of: 'Copie de %{source}'
@@ -503,10 +495,6 @@ fra:
     entities_import: 'Importer un fichier CSV'
     entities_merge: 'Fusionner des fiches'
     entity_category_update: 'Modifier la catégorie de fiche'
-    entity_links:
-      one: '%{count} lien'
-      other: '%{count} liens'
-      zero: '0 lien' #!
     entity_print: 'Imprimer la fiche'
     entity_to_delete: 'Doublon à fusionner (et faire disparaitre)'
     entity_to_update: 'Fiche à mettre à jour avec les éléments du doublon'
@@ -646,10 +634,6 @@ fra:
     management: 'Gestion commerciale'
     management_index: 'Index de la gestion commerciale'
     management_rights: 'Droits module Commerce'
-    mandates:
-      one: '%{count} responsabilité'
-      other: '%{count} responsabilités '
-      zero: '0 responsabilité' #!
     mandates_fields: 'Vous devez saisir au moins une valeur dans l''un des champs'
     mandates_filters: 'Vous devez saisir au moins une valeur de recherche pour un des champs'
     mandates_new_fields: 'Vous devez saisir au moins une valeur dans l''un des champs de modification'
@@ -774,10 +758,6 @@ fra:
       success: 'Opération réalisée avec succès'
       warning: 'Attention!'
     number: 'Numéro'
-    observations:
-      one: '%{count} observation'
-      other: '%{count} observations'
-      zero: '0 observation' #!
     on_account: 'À remettre sur le compte'
     one_condition: 'au moins une condition'
     operation_lines: 'Intrants et sortants'
@@ -796,10 +776,6 @@ fra:
     out_vat_amount: 'Base hors taxe'
     outgoing_payment_update: 'Modifier le décaissement'
     outgoing_payment_use_create: 'Payer l''achat'
-    outgoing_payments:
-      one: '%{count} décaissement'
-      other: '%{count} décaissements'
-      zero: '0 décaissement' #!
     outgoing_payments_states:
       all: 'Tous'
       undelivered: 'Non délivrés'
@@ -823,7 +799,7 @@ fra:
     payment_label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{entity}'
     payment_mode: 'Mode d''encaissement'
     payment_on: 'Payé le'
-    payment_parts: 'Décaissements'
+    payment_uses: 'Décaissements'
     payments: 'Encaissements'
     payments_amount: 'Montant réglé'
     payments_count: 'Nombre de %{mode}'
@@ -872,7 +848,8 @@ fra:
     purchase_orders: 'Achats'
     purchase_price_create: 'Créer un prix d''achat'
     purchase_steps:
-      active: 'Création de l''achat'
+      #>deliveries: 'Incoming deliveries'
+      products: 'Création de l''achat'
       summary: 'Décaissements'
     purchases: 'Achats'
     purchases_price_create: 'Ajouter un prix d''achat'
@@ -914,14 +891,7 @@ fra:
     roles: 'Rôles'
     running_cost: 'Charges d''exploitation'
     running_finished: 'Produits d''exploitation'
-    sale_conditions: 'Conditions de vente'
-    sale_price_create: 'Créer un prix de vente'
-    sale_steps:
-      deliveries: 'Planification des livraisons'
-      estimate: 'Création du devis'
-      general: 'Description'
-      products: 'Produits'
-      summary: 'Facture et encaissements'
+    sales_conditions: 'Conditions de vente'
     sales_invoice: 'Facture'
     sales_invoice_cancel: 'Faire un avoir sur la facture'
     sales_invoice_lines: 'Lignes de la facture'
@@ -946,6 +916,12 @@ fra:
       current: 'En cours'
       unpaid: 'Impayées'
     sales_price_create: 'Ajouter un prix de vente'
+    sales_steps:
+      deliveries: 'Planification des livraisons'
+      estimate: 'Création du devis'
+      general: 'Description'
+      products: 'Produits'
+      summary: 'Facture et encaissements'
     save: 'Enregistrer'
     save_in_draft: 'Sauvegarder dans le brouillard'
     scheduled: 'Échéance'
@@ -1064,6 +1040,18 @@ fra:
     warehouses: 'Voir la liste des lieux de stockage'
     weight: 'Poids'
     with_prints: 'Inclure les impressions (factures, commandes...)'
+    x_cashes:
+      one: '1 compte bancaire'
+      other: '%{count} comptes bancaires'
+      zero: '0 compte bancaire' #!
+    x_contacts:
+      one: '%{count} contact'
+      other: '%{count} contacts'
+      zero: '0 contact' #!
+    x_entity_links:
+      one: '%{count} lien'
+      other: '%{count} liens'
+      zero: '0 lien' #!
     x_events:
       one: '%{count} évènement'
       other: '%{count} évènements'
@@ -1076,10 +1064,22 @@ fra:
       one: '%{count} encaissement'
       other: '%{count} encaissements'
       zero: '0 encaissement'
+    x_mandates:
+      one: '%{count} responsabilité'
+      other: '%{count} responsabilités '
+      zero: '0 responsabilité' #!
+    x_observations:
+      one: '%{count} observation'
+      other: '%{count} observations'
+      zero: '0 observation' #!
     x_operations:
       one: '%{count} travail'
       other: '%{count} travaux'
       zero: 'Aucun travail'
+    x_outgoing_payments:
+      one: '%{count} décaissement'
+      other: '%{count} décaissements'
+      zero: '0 décaissement' #!
     x_prices:
       one: '%{count} prix'
       other: '%{count} prix'

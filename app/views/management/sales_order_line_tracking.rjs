@@ -1,1 +1,0 @@
-page.replace_html 'tracking', :partial => 'sale_order_line_tracking'

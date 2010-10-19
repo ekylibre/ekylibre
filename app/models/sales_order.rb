@@ -79,8 +79,8 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries, :class_name=>OutgoingDelivery.name
   has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
-  has_many :payment_parts, :as=>:expense, :class_name=>IncomingPaymentUse.name
-  has_many :payments, :through=>:payment_parts
+  has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
+  has_many :payments, :through=>:payment_uses
   has_many :sales_invoices
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
@@ -92,7 +92,7 @@ class SalesOrder < ActiveRecord::Base
   def prepare
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
-    self.parts_amount = self.payment_parts.sum(:amount)||0
+    self.parts_amount = self.payment_uses.sum(:amount)||0
     if self.number.blank?
       last = self.company.sales_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
@@ -249,7 +249,7 @@ class SalesOrder < ActiveRecord::Base
       array << [:uninvoiced_amount, self.amount_with_taxes - invoiced]
       array << [:invoiced_amount, invoiced]
     end
-    array << [:paid_amount, paid = self.payment_parts.sum(:amount)]
+    array << [:paid_amount, paid = self.payment_uses.sum(:amount)]
     array << [:unpaid_amount, invoiced - paid]
     array 
   end
@@ -259,10 +259,16 @@ class SalesOrder < ActiveRecord::Base
     @@natures.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
+
+  # Obsolete
   def text_state
+    tc('states.'+self.state.to_s)+" DEPRECATION WARNING: Please use state_label in place of text_state"
+  end
+  
+  # Prints human name of current state
+  def state_label
     tc('states.'+self.state.to_s)
   end
-
 
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:amount_with_taxes+
@@ -274,9 +280,15 @@ class SalesOrder < ActiveRecord::Base
   end
 
 
+  # Returns true if there is some products to deliver
+  def deliverable?
+    self.undelivered(:amount_with_taxes) > 0 and not self.invoiced
+  end
+
+
   # Computes unpaid amounts.
   def unpaid_amount(only_sales_invoices=true, only_received_payments=false)
-    (only_sales_invoices ? self.invoiced_amount : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_parts.sum(:amount, :conditions=>{:received=>true}) : self.payment_parts.sum(:amount)).to_f
+    (only_sales_invoices ? self.invoiced_amount : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_uses.sum(:amount, :conditions=>{:received=>true}) : self.payment_uses.sum(:amount)).to_f
   end
 
   def invoiced_amount
@@ -286,12 +298,12 @@ class SalesOrder < ActiveRecord::Base
 
   def payments
     sales_orders = self.client.sales_orders
-    payment_parts = [] 
+    payment_uses = [] 
     for sales_order in sales_orders
-      payment_parts += sales_order.payment_parts
+      payment_uses += sales_order.payment_uses
     end
     payments = []
-    for part in payment_parts
+    for part in payment_uses
       found = false
       pay = self.company.payments.find(:all, :conditions=>["id = ? AND amount != part_amount", part.payment_id])
       if !pay.empty? 
@@ -316,7 +328,6 @@ class SalesOrder < ActiveRecord::Base
   def label
     tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>self.number)
   end
-
   
   def estimate?
     self.state == 'E'

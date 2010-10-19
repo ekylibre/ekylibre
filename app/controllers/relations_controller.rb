@@ -317,7 +317,7 @@ class RelationsController < ApplicationController
     t.column :number, :url=>{:controller=>:management, :action=>:sales_order}, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
-    t.column :text_state, :children=>false
+    t.column :state_label, :children=>false
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}

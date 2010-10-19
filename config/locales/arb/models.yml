@@ -342,7 +342,7 @@ arb:
         lines: 'طرق الشراء'
         moved_on: 'وردت يوم'
         number: 'رقم' #!
-        #>payment_parts: 'Parts of disbursements'
+        #>payment_uses: 'Parts of disbursements'
         planned_on: 'مقرر الاستقبال يوم'
         received: 'المستلم' #!
       purchase_order_line:
@@ -394,7 +394,7 @@ arb:
         lines: 'طرق طلب البيع'
         nature_id: 'طبيعة' #!
         parts_amount: 'القيمة المسددة'
-        payment_parts: 'جوانب الدفعة' #!
+        payment_uses: 'جوانب الدفعة' #!
         payments: '(((PAYMENTS)))'
         stock_moves: 'حركات السهم' #!
         transporter_id: 'ناقلة' #!
@@ -479,7 +479,7 @@ arb:
         amount: 'القيمة'
         created_at: 'انشأ في' #!
         parts_amount: 'القيمة المسددة'
-        payment_parts: 'اجزاء الدفعة' #!
+        payment_uses: 'اجزاء الدفعة' #!
         started_on: 'ايتدأ يوم' #!
         updated_at: 'تم تحديثه' #!
         updater_id: 'تحديث' #!
@@ -1118,7 +1118,7 @@ arb:
     payment_mode_id: 'نمط دفعة'
     payment_modes: 'طريقة تسديد الدفعة'
     payment_on: 'تسدد في مدة لا تتجاوز'
-    payment_parts: 'اجزاء الدفعات'
+    payment_uses: 'اجزاء الدفعات'
     payment_way: 'نمط الدفعة'
     payments: 'الدفعات'
     payments_count: 'عدد الدفعات'
@@ -1251,6 +1251,7 @@ arb:
     started_on: 'ابتدأ يوم'
     started_sec: '(التاريخ والوقت (بالثواني'
     state: 'الحالة'
+    state_label: 'حالة النص'
     stock: 'انتاج السهم'
     stock_id: 'انتاج سهم'
     stock_moves: 'حركات الاسهم'
@@ -1293,7 +1294,6 @@ arb:
     template_id: 'نموذج'
     text_importance: 'ذو شأن'
     text_nature: 'النوع'
-    text_state: 'حالة النص'
     theoric_quantity: 'الكمية النظرية'
     title: 'اللقب'
     to: 'ل'

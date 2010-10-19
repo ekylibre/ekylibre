@@ -247,13 +247,16 @@ table.invex { width: 100% }
 table.invex > tbody > tr > td { vertical-align: top;  }
 table.invex tr td.space{ width: 8px }
 
+table.quick { margin: 0 8px 8px 8px; border-collapse: collapse; }
+table.quick td { padding: 0px 4px; }
+
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px; }
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
 .evalue .code { font-family: LiberationMono, monospace; }
 .evalue .label { color: #777; }
 .evalue.verti td { width: 250px }
 .evalue.hori .label { width:176px;  }
-.evalue.hori .value { width:164px; }
+/*.evalue.hori .value { width:164px; }*/
 html[dir="ltr"] .evalue.hori .label { text-align: right; }
 html[dir="rtl"] .evalue.hori .label { text-align: left; }
 
@@ -395,17 +398,12 @@ html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-posi
 h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
 .stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
-.stepper td { height: 32px; }
-.stepper td.step { text-align:center; background: url(../images/stepper_default.png) bottom; }
-.stepper td.step.active { background: url(../images/stepper_active.png) bottom; }
+.stepper td { height: 36px; }
+.stepper td.step { text-align:center; background: url(../images/stepper-default.png) no-repeat; }
+.stepper td.step.active { background: url(../images/stepper-active.png) no-repeat; }
+html[dir="ltr"] .stepper td.step { background-position: right center; }
+html[dir="rtl"] .stepper td.step { background-position: left center; }
 .stepper td.transition { width: 8px; }
-.stepper td.transit { background: url(../images/stepper_transit.png) bottom; width:14px; }
-.stepper td.transit.left { background: url(../images/stepper_left.png) bottom; }
-.stepper td.transit.right { background: url(../images/stepper_right.png) bottom; }
-.stepper td.side { text-align:center; background: url(../images/stepper_default.png) bottom; width:32px; }
-.stepper td.side.first { -moz-border-radius-topleft: 16px; -moz-border-radius-bottomleft: 16px; }
-.stepper td.side.last { -moz-border-radius-topright: 16px; -moz-border-radius-bottomright: 16px; }
-
 
 
 
@@ -448,20 +446,6 @@ input.dyli { background: #FFF url(../images/buttons/dyli.png) no-repeat; }
 html[dir="ltr"] input.dyli { background-position: right center; padding-right: 18px; }
 html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18px; }
 
-/*
-fieldset.itemize { border: 1px solid #777; -moz-border-radius: 8px; float: left; margin:8px; }
-fieldset.itemize legend { color: blue; margin: 0 8px; padding:2px; }
-*/
-/*
-.center { text-align: center; }
-.center-line { text-align: center; color:#000088; padding: 0 0 5px 0; } 
-.quick-add { text-align: center;  padding: 0 0 5px 0; color:#004477; font-size:13px; font-weight:bold; }
-*/
-/*
-fieldset.quick-add { margin: 4px 0; border: 1px solid #95b0e4; -moz-border-radius: 4px; padding:4px; text-align: center; color: #008; }
-fieldset.quick-add legend { margin: 0 4px; padding: 0 2px; color: #002}
-*/
-fieldset.quick-add { color: #008; }
 
 
 
@@ -544,7 +528,6 @@ html[dir="rtl"] .major-accounts a, html[dir="rtl"] .major-accounts strong { -moz
 .view a, .view strong { padding:4px 8px; margin: 0 2px; background: #DBE4F6;  -moz-border-radius-topleft: 8px; -moz-border-radius-topright: 8px; }
 .view strong { background: #BACFE6; margin: 0 2px; }
 
-#detail-row { padding: 2px 4px; text-align:center; }
 
 .map { border: 1px solid #999; background: white; }
 

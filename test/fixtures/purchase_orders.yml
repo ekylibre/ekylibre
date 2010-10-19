@@ -39,6 +39,7 @@
 #  planned_on        :date             
 #  reference_number  :string(255)      
 #  shipped           :boolean          not null
+#  state             :string(1)        
 #  supplier_id       :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          

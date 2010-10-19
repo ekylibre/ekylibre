@@ -75,7 +75,7 @@ class ActionController::TestCase
         code += "    get #{action.inspect}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
         code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
         code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"        
-      elsif action.to_s.match(/_(delete|duplicate)$/) or options[action]==:delete
+      elsif action.to_s.match(/_(delete|duplicate|up|down)$/) or options[action]==:delete
         code += "    get #{action.inspect}, :company=>@user.company.code\n"
         code += "    assert_not_nil flash[:notifications]\n"
         code += "    assert_response :redirect\n"

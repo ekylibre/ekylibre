@@ -160,7 +160,7 @@ spa:
       sales_invoice: '%{nature} %{number}'
       sales_invoice_cancel: 'Paso en activo de la factura %{number}'
       sales_invoices: 'Facturas'
-      #>sales_order: 'Sales order %{number}'
+      #>sales_order: 'Sales order %{number} - %{state}'
       #>sales_order_confirm: 'Confirm estimate and go to deliveries'
       #>sales_order_create: 'New sales order'
       #>sales_order_deliveries: 'Deliveries'
@@ -358,7 +358,7 @@ spa:
     #>are_you_sure_you_want_to_confirm: 'Are you sure you want to order'
     #>are_you_sure_you_want_to_delete: 'Are you sure you want to delete this record?'
     #>are_you_sure_you_want_to_delete_delivery: 'Are you sure you want to remove the delivery of transport?'
-    #>are_you_sure_you_want_to_sales_invoice: 'Are you sure you want to sales invoice?'
+    #>are_you_sure_you_want_to_invoice: 'Are you sure you want to invoice?'
     are_you_sure_you_want_to_send_mails: 'Esta seguro querer enviar este correo electronico?'''
     #>area_x: '%{name} (%{postcode})'
     assessable_operations: 'Operaciones imponibles (H.T)'
@@ -393,9 +393,6 @@ spa:
       bank_statements: 'Leventar de cuento'
       deposits: 'Entregas en banca'
     cash_update: 'Modificar la tresoreria'
-    cashes:
-      #>one: '%{count} cash'
-      #>other: '%{count} cashes'
     #>catalog: 'Catalog'
     #>category: 'Category'
     #>category_name: 'Category'
@@ -437,9 +434,6 @@ spa:
     connect: 'Entrar'
     #>consult: 'Consult'
     #>contact: 'At'
-    contacts:
-      #>one: '%{count} contact'
-      #>other: '%{count} contacts'
     #>contains: 'Contains'
     #>coordinates: 'Coordinates'
     #>copy_of: 'Copy of %{source}'
@@ -512,9 +506,6 @@ spa:
     #>entities_import: 'Import a CSV file'
     #>entities_merge: 'People merge'
     #>entity_category_update: 'Update category'
-    entity_links:
-      #>one: '%{count} link'
-      #>other: '%{count} links'
     #>entity_print: 'Person print'
     #>entity_to_delete: 'Person to delete'
     #>entity_to_update: 'Person to update'
@@ -661,9 +652,6 @@ spa:
     management: 'Administración comercial'
     #>management_index: 'Management index'
     management_rights: 'Derechos modulo comercio'
-    mandates:
-      #>one: '%{count} mandate'
-      #>other: '%{count} mandates'
     #>mandates_fields: 'You have to fill at least one field'
     #>mandates_filters: 'You have to fill at least one filter'
     #>mandates_new_fields: 'You have to fill at least one new field'
@@ -790,9 +778,6 @@ spa:
       #>success: 'Success'
       #>warning: 'Warning!'
     #>number: 'Number'
-    observations:
-      #>one: '%{count} observation'
-      #>other: '%{count} observations'
     on_account: 'Volver a poner sobre la cuenta'
     #>one_condition: 'One condition'
     operation:
@@ -812,9 +797,6 @@ spa:
     out_vat_amount: 'Basa fuera de tarifa'
     #>outgoing_payment_update: 'Edit the payment'
     #>outgoing_payment_use_create: 'Pay purchase with a disbursement'
-    outgoing_payments:
-      #>one: '%{count} disbursement'
-      #>other: '%{count} disbursements'
     outgoing_payments_states:
       #>all: 'All'
       #>undelivered: 'Undelivered'
@@ -838,7 +820,7 @@ spa:
     #>payment_label: 'Payment label'
     #>payment_mode: 'Payment mode'
     #>payment_on: 'Payment on'
-    #>payment_parts: 'Payment parts'
+    #>payment_uses: 'Payment parts'
     payments: 'Encajonamientos'
     #>payments_amount: 'Payments amount'
     payments_count: 'Nombre de %{mode}'
@@ -888,7 +870,8 @@ spa:
     purchase_orders_number:
     #>purchase_price_create: 'Purchase price create'
     purchase_steps:
-      active: 'Creación de la compra'
+      #>deliveries: 'Incoming deliveries'
+      products: 'Creación de la compra'
       summary: 'Desembolsos'
     #>purchases: 'Purchases'
     #>purchases_price_create: 'Purchases price create'
@@ -931,15 +914,8 @@ spa:
     roles: 'Papeles'
     running_cost: 'Cargas de explotación'
     running_finished: 'Productos de explotación'
-    #>sale_conditions: 'Conditions of sales'
-    #>sale_price_create: 'Sale price create'
-    sale_steps:
-      deliveries: 'Planificación de las entregas'
-      estimate: 'Creación del presupuesto'
-      general: 'Descripción'
-      products: 'Productos'
-      summary: 'Factura y encajonamientos'
     sales: 'Exportar un cuadro de ventas al formato CSV' #!
+    #>sales_conditions: 'Conditions of sales'
     sales_invoice: 'Facturas'
     sales_invoice_cancel: 'Hacer un activo sobre une factura'
     sales_invoice_lines: 'Lineas de factura'
@@ -965,6 +941,12 @@ spa:
       #>current: 'Current'
       #>unpaid: 'Unpaid'
     #>sales_price_create: 'Sales price create'
+    sales_steps:
+      deliveries: 'Planificación de las entregas'
+      estimate: 'Creación del presupuesto'
+      general: 'Descripción'
+      products: 'Productos'
+      summary: 'Factura y encajonamientos'
     #>save: 'Save'
     save_in_draft: 'Salvar en la niebla'
     #>scheduled: 'Scheduled'
@@ -1092,6 +1074,15 @@ spa:
     warehouses: 'Ver la lista de los lugares de deposito'
     #>weight: 'Weight'
     with_prints: 'Incluir las impresiones (facturas, encargos...)'
+    x_cashes:
+      #>one: '%{count} cash'
+      #>other: '%{count} cashes'
+    x_contacts:
+      #>one: '%{count} contact'
+      #>other: '%{count} contacts'
+    x_entity_links:
+      #>one: '%{count} link'
+      #>other: '%{count} links'
     x_events:
       #>one: '1 event'
       #>other: '%{count} events'
@@ -1104,10 +1095,19 @@ spa:
       #>one: '%{count} incoming payment'
       #>other: '%{count} incoming payments'
       #>zero: '0 incoming payments'
+    x_mandates:
+      #>one: '%{count} mandate'
+      #>other: '%{count} mandates'
+    x_observations:
+      #>one: '%{count} observation'
+      #>other: '%{count} observations'
     x_operations:
       #>one: '1 operation'
       #>other: '%{count} operations'
       #>zero: '0 operations'
+    x_outgoing_payments:
+      #>one: '%{count} disbursement'
+      #>other: '%{count} disbursements'
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'

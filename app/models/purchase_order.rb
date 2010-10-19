@@ -39,6 +39,7 @@
 #  planned_on        :date             
 #  reference_number  :string(255)      
 #  shipped           :boolean          not null
+#  state             :string(1)        
 #  supplier_id       :integer          not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
@@ -55,17 +56,18 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
   belongs_to :supplier, :class_name=>Entity.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
-  has_many :payment_parts, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy # , :autosave=>true
+  has_many :deliveries, :class_name=>IncomingDelivery.name
+  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy # , :autosave=>true
   has_many :products, :through=>:lines, :uniq=>true
 
-  validates_presence_of :planned_on, :created_on, :currency
+  validates_presence_of :planned_on, :created_on, :currency, :state
   validates_uniqueness_of :number, :scope=>:company_id
 
   ## shipped used as received
 
   def prepare
     self.created_on ||= Date.today
-    self.parts_amount = self.payment_parts.sum(:amount)||0
+    self.parts_amount = self.payment_uses.sum(:amount)||0
     if self.number.blank?
       #last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
       last = self.company.purchase_orders.find(:first, :order=>"number desc")
@@ -79,6 +81,15 @@ class PurchaseOrder < ActiveRecord::Base
 
     self.amount = self.lines.sum(:amount)
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
+    # Set state to 'Complete' if all is paid
+    if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes # and self.sales_invoices.sum(:amount_with_taxes) == self.amount_with_taxes
+      self.state = 'C'
+    elsif self.deliveries.size>0 # or not self.confirmed_on.blank? or  #  or self.parts_amount>0
+      self.state = 'A'
+    else
+      self.state = 'E'
+    end
+
     return true
   end
   
@@ -127,6 +138,23 @@ class PurchaseOrder < ActiveRecord::Base
 
   def last_payment
     self.company.payments.find(:first, :conditions=>{:entity_id=>self.company.entity_id}, :order=>"paid_on desc")
+  end
+
+  # Prints human name of current state
+  def state_label
+    tc('states.'+self.state.to_s)
+  end
+
+  def estimate?
+    self.state == 'E'
+  end
+
+  def active?
+    self.state == 'A'
+  end
+
+  def complete?
+    self.state == 'C'
   end
 
 

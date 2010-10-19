@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link(:sale_price_create, {:action=>:price_create, :mode=>:sales, :product_id=>session[:product_id]}) if @product.for_sales
+  -t.link(:sales_price_create, {:action=>:price_create, :mode=>:sales, :product_id=>session[:product_id]}) if @product.for_sales
   -t.link(:purchase_price_create, {:action=>:price_create, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.for_purchases
 
 =kame :product_prices

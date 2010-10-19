@@ -237,9 +237,9 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :land_parcels, :polygon
 
     # Add a the list organization for payment modes
-    add_column :incoming_payment_modes, :position, :integer, :null=>false, :default=>0
+    add_column :incoming_payment_modes, :position, :integer
     execute "UPDATE #{quoted_table_name(:incoming_payment_modes)} SET position = id"
-    add_column :outgoing_payment_modes, :position, :integer, :null=>false, :default=>0
+    add_column :outgoing_payment_modes, :position, :integer
     execute "UPDATE #{quoted_table_name(:outgoing_payment_modes)} SET position = id"
 
     # Some accountancy stuff
@@ -260,6 +260,9 @@ class CreateProductionChains < ActiveRecord::Migration
 
 
     # Some management stuff
+    add_column :purchase_orders, :state, :string, :limit=>1
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='A'"
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='C' WHERE parts_amount = amount_with_taxes"
     add_column :incoming_payments, :commission_account_id, :integer
     add_column :incoming_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
     rename_column :incoming_payment_modes, :commission_amount, :commission_base_amount
@@ -289,9 +292,11 @@ class CreateProductionChains < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{old}', '#{new}')"
     end
 
+    # Some management stuff
     rename_column :incoming_payment_modes, :commission_base_amount, :commission_amount
     remove_column :incoming_payments, :commission_amount
     remove_column :incoming_payments, :commission_account_id
+    remove_column :purchase_orders, :state
 
     # Some accountancy stuff
     remove_column :cash_transfers, :created_on

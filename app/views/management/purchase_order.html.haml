@@ -1,11 +1,11 @@
+=purchase_steps if params[:step]
+
 =toolbar do |t|
   -t.link :purchase_order_lines, :id=>@purchase_order.id
   -t.link :outgoing_payment_use_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
   -t.print :purchase_order, :id=>@purchase_order.id
 
-%h2= tc 'general_informations'
-
-=list_evalue(3) do |l|
+=list_evalue do |l|
   -l.evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
   -l.evalue @purchase_order, :planned_on
   -l.evalue @purchase_order, :number
@@ -14,20 +14,41 @@
   -l.evalue @purchase_order, :dest_contact, :label=>:address
   -l.evalue @purchase_order, :shipped
 
-%h2=tc :purchase_order_lines
-=toolbar do |t|
-  -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id)if @purchase_order.updatable?
-  
-=kame :purchase_order_lines
-
--if @purchase_order.payment_parts.count > 0
-  %h2=tc :payment_parts
-  =kame :purchase_order_payment_parts
-
-%h2=tc :financial_state
-%table.kame
-  -for k, v in @purchase_order.stats(:with_balance=>true)
+-if ["products", "summary", ""].include? params[:step].to_s
+  %h2=PurchaseOrder.human_attribute_name("lines")
+  =toolbar do |t|
+    -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id) if @purchase_order.estimate?
+  =kame :purchase_order_lines
+  %table.kame
     %tr.total
-      %th=tc(k)
-      %td=number_to_accountancy(v)
+      %th=PurchaseOrder.human_attribute_name("amount")
+      %td=number_to_accountancy(@purchase_order.amount)
+    %tr.important.total
+      %th=PurchaseOrder.human_attribute_name("amount_with_taxes")
+      %td=number_to_accountancy(@purchase_order.amount_with_taxes)
+
+-if ["products", "summary", ""].include? params[:step].to_s
+  %h2=PurchaseOrder.human_attribute_name("payment_uses")
+  =toolbar do |t|
+    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase_order, :expense_id=>@purchase_order.id) unless @purchase_order.complete?
+  =kame :purchase_order_payment_uses
+
+
+-if ["deliveries", ""].include? params[:step].to_s and @purchase_order.active?
+  -if @purchase_order.deliverable?
+    %h2=tc :undelivered
+    =kame :undelivered_quantities
+  %h2=PurchaseOrder.human_attribute_name("deliveries")
+  =toolbar do |t|
+    -t.link :incoming_delivery_create, :purchase_order=>@purchase_order.id if @purchase_order.deliverable?
+  =kame :purchase_order_deliveries
+
+
+-if ["products", "summary", ""].include? params[:step].to_s
+  %h2=tc :financial_state
+  %table.kame
+    -for k, v in @purchase_order.stats(:with_balance=>true)
+      %tr.total
+        %th=tc(k)
+        %td=number_to_accountancy(v)
 

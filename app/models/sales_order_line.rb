@@ -67,6 +67,7 @@ class SalesOrderLine < ActiveRecord::Base
   has_many :sales_invoice_lines
   has_one :reduction, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
+  has_many :subscriptions, :dependent=>:destroy
 
   autosave :order
 

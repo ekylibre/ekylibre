@@ -18,8 +18,8 @@ table.kame thead th a.sortable.nsr  { background-image: url(../images/buttons/ce
 table.kame thead th a.sortable.desc { background-image: url(../images/buttons/down3.png); }
 table.kame thead th a.sortable.asc  { background-image: url(../images/buttons/up3.png); }
 
-table.kame tr.data td {border-top: 1px solid #E2E2EE;}
-table.kame tr.data:first-child td {border-top: none;}
+table.kame tr td {border-top: 1px solid #E2E2EE;}
+table.kame tr:first-child td {border-top: none;}
 table.kame tr      td {padding: 0px 4px;color: #000; height:22px;}
 table.kame tr      td.chk { text-align:center }
 table.kame tr      td.act { padding: 0 1px; width:18px; }
@@ -27,11 +27,9 @@ table.kame tr      td.act a {padding: 1px; margin: 0; display:block; text-align:
 table.kame tr      td.act a img {padding: 0; margin: 0; display:block; border: none;}
 table.kame tr.child td { color: #77A; }
 table.kame tr.child td:first-child { padding:0 20px; }
-table.kame td.empty { text-align:center; color: #777; padding:4px; background: #EEF; }
-table.kame th, table.kame td.empty, table.kame td.procedures { border-top: 1px solid #BACFE6; }
-/*table.kame th, table.kame tbody { border-left: 1px solid #BACFE6; border-right: 1px solid #BACFE6; }*/
+table.kame tr.empty td { text-align:center;  color: #77A; padding: 20px; }
 
-table.kame tfoot tr th { clear:both; border:none; background: #EEEFFA !important; font-weight: normal;  }
+table.kame tfoot tr th { clear:both; border:none; background: #EEEFFA url(../images/shadow-bottom.png) repeat-x top center !important; font-weight: normal;  }
 table.kame tfoot .widget { display: block; padding: 2px; }
 html[dir="ltr"] table.kame tfoot .widget { float: left; margin: 0 8px 0 0; }
 html[dir="rtl"] table.kame tfoot .widget { float: right; margin: 0 0 0 8px; }
@@ -100,5 +98,3 @@ table.kame tr.subtotal td { font-weight:bold; background:#FFE !important; text-a
 table.kame tr.subtotal th {  background:#FFE !important; border:1px solid #BACFE6;}  
 table.kame tr.centralize td { font-weight:bold; }  
 
-table.kame tr.empty td { text-align:center; background: #EEF; color: #779; padding: 20px; font-style: italic;}
-table.kame tr.empty:hover td { background: #EEF; }

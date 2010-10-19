@@ -1,14 +1,14 @@
-=sale_steps
+=sales_steps
 -sales_order_client_id = nil
 =formalize do |f| 
   -f.error 'sales_order'
   -f.title :client
   -sales_order_client_id = f.field :sales_order, :client_id, :choices=>:clients, :new=>{:controller=>:relations, :action=>:entity_create}
 
-#contacts=render 'sales_order_contacts'
+#contacts=render "sales_order_contacts_form"
 
 =formalize do |f| 
-  -f.title :sale_conditions
+  -f.title :sales_conditions
   -f.field :sales_order, :nature_id, :choices=>{:reflection=>:sales_order_natures}, :new=>{:action=>:sales_order_nature_create}
   -f.field :sales_order, :currency_id, :choices=>{:reflection=>:currencies}
   -f.field :sales_order, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}

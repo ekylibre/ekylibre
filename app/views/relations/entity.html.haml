@@ -48,7 +48,7 @@
     -c << toolbar do
       -link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)
     -c << kame(:entity_subscriptions)
-  -tb.tab(tc(:contacts, :count=>@entity.contacts.count)) do |c|
+  -tb.tab(tc(:x_contacts, :count=>@entity.contacts.count)) do |c|
     -c << toolbar do
       -link(:contact_create, :entity_id=>@entity.id)
     -c << kame(:entity_contacts)
@@ -66,7 +66,7 @@
     -c << toolbar do
       -link :incoming_payment_create,{:controller=>:management, :payer_id=>@entity.id}
     -c << kame(:entity_incoming_payments)
-  -tb.tab(tc(:outgoing_payments, :count=>@entity.outgoing_payments.size)) do |c|
+  -tb.tab(tc(:x_outgoing_payments, :count=>@entity.outgoing_payments.size)) do |c|
     -c << toolbar do
       -link :outgoing_payment_create,{:controller=>:management, :payee_id=>@entity.id}
     -c << kame(:entity_outgoing_payments)
@@ -75,19 +75,19 @@
       -link :event_create, :entity_id=>@entity.id
     -c << kame(:entity_events)
   -el_count = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", @entity.id]).size
-  -tb.tab(tc(:entity_links, :count=>el_count)) do |c|
+  -tb.tab(tc(:x_entity_links, :count=>el_count)) do |c|
     -c << toolbar do
       -link :entity_link_create, {:entity_id=>@entity.id}
     -c << kame(:entity_links)
-  -tb.tab(tc(:observations, :count=>@entity.observations.count)) do |c|
+  -tb.tab(tc(:x_observations, :count=>@entity.observations.count)) do |c|
     -c << toolbar do
       -link :observation_create, {:entity_id=>@entity.id}
     -c << kame(:entity_observations)
-  -tb.tab(tc(:mandates, :count=>@entity.mandates.count)) do |c|
+  -tb.tab(tc(:x_mandates, :count=>@entity.mandates.count)) do |c|
     -c << toolbar do
       -link :mandate_create, {:entity_id=>@entity.id}
     -c << kame(:entity_mandates)
-  -tb.tab(tc(:cashes, :count=>@entity.cashes.count)) do |c|
+  -tb.tab(tc(:x_cashes, :count=>@entity.cashes.count)) do |c|
     -c << toolbar do
       -link :cash_create, {:controller =>:accountancy, :entity_id=>@entity.id}
     -c << kame(:entity_cashes)

@@ -398,17 +398,14 @@ manage_estimates:
   - clients_dyli
   - index
   - price_find
+  - sales_order
   - sales_order_contacts
   - sales_order_create
   - sales_order_duplicate
   - sales_order_line_create
   - sales_order_line_delete
   - sales_order_line_detail
-  - sales_order_line_informations
-  - sales_order_line_stocks
-  - sales_order_line_tracking
   - sales_order_line_update
-  - sales_order_lines
   - sales_order_subscriptions_kame
   - sales_order_update
   - subscription_coordinates
@@ -456,8 +453,8 @@ manage_incoming_payments:
   - incoming_payments
   - incoming_payments_kame
   - index
-  - sales_order_payment_parts_kame
-  - sales_order_summary
+  - sales_order
+  - sales_order_payment_uses_kame
 # Manage inventories
 manage_inventories:
   controller: management
@@ -609,13 +606,17 @@ manage_payment_modes:
   actions:
   - incoming_payment_mode_create
   - incoming_payment_mode_delete
+  - incoming_payment_mode_down
   - incoming_payment_mode_reflect
+  - incoming_payment_mode_up
   - incoming_payment_mode_update
   - incoming_payment_modes
   - incoming_payment_modes_kame
   - index
   - outgoing_payment_mode_create
   - outgoing_payment_mode_delete
+  - outgoing_payment_mode_down
+  - outgoing_payment_mode_up
   - outgoing_payment_mode_update
   - outgoing_payment_modes
   - outgoing_payment_modes_kame
@@ -679,7 +680,7 @@ manage_purchase_orders:
   - purchase_order_line_delete
   - purchase_order_line_update
   - purchase_order_lines
-  - purchase_order_payment_parts_kame
+  - purchase_order_payment_uses_kame
   - purchase_order_summary
   - purchase_order_update
   - purchase_orders
@@ -704,9 +705,9 @@ manage_sales_orders:
   - outgoing_delivery_create
   - outgoing_delivery_delete
   - outgoing_delivery_update
+  - sales_order
   - sales_order_confirm
   - sales_order_delete
-  - sales_order_deliveries
   - sales_order_deliveries_kame
   - sales_order_invoice
   - undelivered_quantities_kame

@@ -124,7 +124,7 @@ module ApplicationHelper
              {:name=>:delays},
              {:name=>:incoming_payment_modes},
              {:name=>:outgoing_payment_modes},
-             {:name=>:delivery_modes},
+             {:name=>:outgoing_delivery_modes},
              {:name=>:sales_order_natures},
              {:name=>:subscription_natures}
            ] }
@@ -401,12 +401,12 @@ module ApplicationHelper
 
 
   # Permits to use themes for Ekylibre
-  #  stylesheet_link_tag 'application', 'dyta', 'dyta-colors'
+  #  stylesheet_link_tag 'application', 'kame', 'kame-colors'
   #  stylesheet_link_tag 'print', :media=>'print'
   def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
-    for sheet, media in ["screen", "print", "dyta", "dyta-colors", "kame", "kame-colors"]
+    for sheet, media in ["screen", "print", "kame", "kame-colors"]
       media = (sheet == "print" ? :print : :screen)
       if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
         code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)

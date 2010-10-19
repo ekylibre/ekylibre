@@ -178,7 +178,7 @@ class SalesInvoice < ActiveRecord::Base
   end
 
   def unpaid_amount
-    self.sales_order.sales_invoices.sum(:amount_with_taxes)-self.sales_order.payment_parts.sum(:amount)
+    self.sales_order.sales_invoices.sum(:amount_with_taxes)-self.sales_order.payment_uses.sum(:amount)
   end
 
   def credited_amount

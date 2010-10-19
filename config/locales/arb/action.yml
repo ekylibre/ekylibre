@@ -362,7 +362,7 @@ arb:
     are_you_sure_you_want_to_confirm: 'هل انت متأكد من رغبتك بالمضي بطلب الشراء؟'
     are_you_sure_you_want_to_delete: 'هل انت متاكد من رغبتك بالقيام به؟'
     are_you_sure_you_want_to_delete_delivery: 'هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟'
-    are_you_sure_you_want_to_sales_invoice: 'هل انت متأكد من رغبتك باعداد فاتورة البيع؟'
+    are_you_sure_you_want_to_invoice: 'هل انت متأكد من رغبتك باعداد فاتورة البيع؟'
     are_you_sure_you_want_to_send_mails: 'هل انت متأكد من رغبتك بارسال الرسالة'
     area_create: 'اضافة عنوان بريدي' #!
     area_x: '{{name}} ({{postcode}})'
@@ -399,10 +399,6 @@ arb:
       #>bank_statements: 'Bank statements'
       #>deposits: 'Deposits'
     cash_update: 'تعديل الخزينة'
-    cashes:
-      one: 'حساب بنكي واحد'
-      other: '{{count}} حسابات بنكية اخرى'
-      zero: 'ولا اي حساب' #!
     catalog: 'مواصفات للفهرس'
     #>category: 'Category'
     #>category_name: 'Category'
@@ -445,10 +441,6 @@ arb:
     consult: 'استشارة'
     contact: 'العنوان'
     contact_create: 'اضافة مشترك جديد' #!
-    contacts:
-      one: 'مشترك واحد'
-      other: '{{count}} مشتركين اخرين'
-      zero: 'ولا مشترك' #!
     #>contains: 'Contains'
     coordinates: 'تنسيق'
     copy_of: 'نسخ من {{source}}'
@@ -527,10 +519,6 @@ arb:
     entity_create: 'انشاء سجل جديد' #!
     entity_link_create: 'اضافة رابط جديد' #!
     entity_link_nature_create: 'اضافة نوع رابط جديد' #!
-    entity_links:
-      one: 'رابط واحد'
-      other: '{{count}} روابط اخرى'
-      zero: 'ولا رابط' #!
     entity_nature_create: 'اضافة نوع ملف جديد' #!
     entity_print: 'طباعة الملف'
     entity_to_delete: '( دمج التكرار (وجعله يختفي'
@@ -688,10 +676,6 @@ arb:
     management_index: 'دليل ادارة الاعمال'
     management_rights: 'حقوق التجارة'
     mandate_create: 'انشاء تفويض' #!
-    mandates:
-      one: 'تفويض واحد'
-      other: '{{count}} تفويض اخر'
-      zero: 'ولا اية تفويض' #!
     #>mandates_fields: 'You have to fill at least one field'
     #>mandates_filters: 'You have to fill at least one filter'
     #>mandates_new_fields: 'You have to fill at least one new field'
@@ -818,10 +802,6 @@ arb:
       warning: '!تحذير'
     number: 'رقم'
     observation_create: 'اضافة ملاحظة' #!
-    observations:
-      one: 'ملاحظة واحدة'
-      other: '{{count}} ملاحظات اخرى'
-      zero: 'ولا اية ملاحظة' #!
     on_account: 'أ€ يضع على الحساب'
     one_condition: 'ما لا يقل عن شرط واحد'
     operation: '' #!
@@ -846,10 +826,6 @@ arb:
     outgoing_payment_create: 'اضافة نفقة' #!
     outgoing_payment_update: 'تعديل دفعة الشراء'
     outgoing_payment_use_create: 'تسديد سعر الشراء'
-    outgoing_payments:
-      one: 'نفقة واحدة'
-      other: '{{count}} نفقات اخرى'
-      zero: 'ولااية نفقة' #!
     outgoing_payments_states:
       #>all: 'All'
       #>undelivered: 'Undelivered'
@@ -873,7 +849,7 @@ arb:
     payment_label: '{{number}}. {{amount}} ({{usable_amount}} المتبقي)  {{date}} بواسطة {{mode}} لاجل {{entity}}'
     payment_mode: 'طريقة تسديد الدفعة'
     payment_on: 'سدد في'
-    payment_parts: 'الدفعات'
+    payment_uses: 'الدفعات'
     payments: 'الدفعات'
     payments_amount: 'تم تسديد القيمة'
     payments_count: 'عدد {{mode}}'
@@ -931,7 +907,8 @@ arb:
     purchase_orders_number: '' #!
     purchase_price_create: 'انشاء سعر الشراء'
     purchase_steps:
-      active: 'انشاء الصفقة'
+      #>deliveries: 'Incoming deliveries'
+      products: 'انشاء الصفقة'
       summary: 'النفقات'
     purchases: 'المشتريات'
     purchases_price_create: 'اضافة سعر الشراء'
@@ -974,15 +951,8 @@ arb:
     roles: 'مهام / ادوار'
     running_cost: 'تكاليف الاستثمار'
     running_finished: 'منتجات الاستثمار'
-    #>sale_conditions: 'Conditions of sales'
-    sale_price_create: 'انشاء سعر البيع'
-    sale_steps:
-      deliveries: 'جدولة عمليات التسليم'
-      estimate: 'انشاء تقييم'
-      general: 'الوصف'
-      products: 'المنتجات'
-      summary: 'فواتير وايصالات'
     sales: 'المبيعات' #!
+    #>sales_conditions: 'Conditions of sales'
     sales_invoice: 'الفوترة'
     sales_invoice_cancel: 'الغاء الفاتورة'
     sales_invoice_lines: 'تصميم الفاتورة'
@@ -1011,6 +981,12 @@ arb:
       #>current: 'Current'
       #>unpaid: 'Unpaid'
     sales_price_create: 'اضافة سعر البيع'
+    sales_steps:
+      deliveries: 'جدولة عمليات التسليم'
+      estimate: 'انشاء تقييم'
+      general: 'الوصف'
+      products: 'المنتجات'
+      summary: 'فواتير وايصالات'
     save: 'حفظ'
     save_in_draft: 'حفظ في المسودات'
     #>scheduled: 'Scheduled'
@@ -1148,6 +1124,18 @@ arb:
     warehouses: 'النظر بقائمة مواقع التخزين'
     weight: 'الوزن'
     with_prints: '(وتشمل الطباعة (الفواتير والاوامر'
+    x_cashes:
+      one: 'حساب بنكي واحد'
+      other: '{{count}} حسابات بنكية اخرى'
+      zero: 'ولا اي حساب' #!
+    x_contacts:
+      one: 'مشترك واحد'
+      other: '{{count}} مشتركين اخرين'
+      zero: 'ولا مشترك' #!
+    x_entity_links:
+      one: 'رابط واحد'
+      other: '{{count}} روابط اخرى'
+      zero: 'ولا رابط' #!
     x_events:
       #>one: '1 event'
       #>other: '%{count} events'
@@ -1160,10 +1148,22 @@ arb:
       one: 'دفعة واحدة'
       other: '{{count}} دفعات اخرى'
       zero: 'ولااية دفعة'
+    x_mandates:
+      one: 'تفويض واحد'
+      other: '{{count}} تفويض اخر'
+      zero: 'ولا اية تفويض' #!
+    x_observations:
+      one: 'ملاحظة واحدة'
+      other: '{{count}} ملاحظات اخرى'
+      zero: 'ولا اية ملاحظة' #!
     x_operations:
       one: 'عمل واحد'
       other: '{{count}} اعمال اخرى'
       zero: 'ولا اي عمل'
+    x_outgoing_payments:
+      one: 'نفقة واحدة'
+      other: '{{count}} نفقات اخرى'
+      zero: 'ولااية نفقة' #!
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'

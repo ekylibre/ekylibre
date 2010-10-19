@@ -31,7 +31,7 @@
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  name                    :string(50)       not null
-#  position                :integer          default(0), not null
+#  position                :integer          
 #  published               :boolean          
 #  updated_at              :datetime         not null
 #  updater_id              :integer          
@@ -41,6 +41,7 @@
 #
 
 class IncomingPaymentMode < ActiveRecord::Base
+  acts_as_list
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company

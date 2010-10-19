@@ -842,7 +842,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.decimal  "commission_percent",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "commission_base_amount",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "commission_account_id"
-    t.integer  "position",                                                             :default => 0,     :null => false
+    t.integer  "position"
   end
 
   add_index "incoming_payment_modes", ["company_id"], :name => "index_payment_modes_on_company_id"
@@ -1393,7 +1393,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                  :default => 0,     :null => false
-    t.integer  "position",                      :default => 0,     :null => false
+    t.integer  "position"
   end
 
   add_index "outgoing_payment_modes", ["created_at"], :name => "index_purchase_payment_modes_on_created_at"
@@ -1755,6 +1755,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.decimal  "parts_amount",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "journal_entry_id"
     t.string   "reference_number"
+    t.string   "state",             :limit => 1
   end
 
   add_index "purchase_orders", ["accounted_at"], :name => "index_purchase_orders_on_accounted_at"

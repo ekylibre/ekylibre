@@ -207,6 +207,10 @@ namespace :clean do
         elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
           dyxx = line.split(/[\s\(\)\,\:]+/)
           actions << dyxx[1]+'_kame'
+        elsif line.match(/^\s*manage_list[\s\(]+\:\w+/)
+          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+          actions << prefix+'_up'
+          actions << prefix+'_down'
         elsif line.match(/^\s*manage[\s\(]+\:\w+/)
           prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
           actions << prefix+'_create'

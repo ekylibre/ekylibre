@@ -1,46 +1,82 @@
+=sales_steps if params[:step]
+
 =toolbar do |t|
-  -t.link :sales_order_lines, :id=>@sales_order.id
-  -#t.link :sales_order_print, :id=>@sales_order.id
+  -if @sales_order.estimate?
+    -t.update @sales_order
+  -if @sales_order.lines.size>0
+    -if (@sales_order.estimate? and @sales_order.deliveries.size <= 0)
+      -t.confirm @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+    -if not @sales_order.invoiced # amount_with_taxes > @sales_order.invoiced_amount and @sales_order.deliveries.size <= 0)
+      -t.invoice @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
   -t.print :sales_order, :id=>@sales_order.id
 
-%h2= tc 'general_informations'
-%table
-  %tr
-    %td
-      =evalue @sales_order, :client, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
-      =evalue @sales_order, :nature
-      =evalue @sales_order, :contact, :label=>:address
-      -if (@sales_order.contact_id != @sales_order.delivery_contact_id)
-        =evalue @sales_order, :delivery_contact, :label=>:address
-      -if (@sales_order.contact_id != @sales_order.invoice_contact_id)
-        =evalue @sales_order, :invoice_contact, :label=>:address
-      =evalue @sales_order, :created_on
-    %td
-      =evalue @sales_order, :amount
-      =evalue @sales_order, :amount_with_taxes
-      =evalue @sales_order, :payment_delay, :label=>:name
-      =evalue @sales_order, :confirmed_on
-    -unless @sales_order.comment.blank?
-      %td
-        =evalue @sales_order, :comment 
+=list_evalue do |l|
+  -l.evalue @sales_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.evalue @sales_order, :responsible, :label=>:full_name
+  -l.evalue @sales_order, :created_on
+  -l.evalue @sales_order, :confirmed_on
+  -l.evalue @sales_order, :payment_delay, :label=>:name
+  -l.evalue @sales_order, :nature
+  -l.evalue @sales_order, :currency unless @sales_order.currency == @current_company.default_currency
+  -l.evalue @sales_order, :comment unless @sales_order.comment.blank?
+  -l.evalue @sales_order, :contact, :label=>:address
+  -l.evalue @sales_order, :delivery_contact, :label=>:address
+  -l.evalue @sales_order, :invoice_contact, :label=>:address
+  -if @sales_order.letter_format?
+    -l.evalue @sales_order, :subject
+    -l.evalue @sales_order, :function_title
+    -l.evalue @sales_order, :introduction, :field=>:textarea
+    -l.evalue @sales_order, :conclusion, :field=>:textarea
 
-%h2=tc :sales_order_lines
-=kame :sales_order_lines
 
--if @sales_order.deliveries.count > 0
-  %h2= tc 'deliveries'
+-if ["products", ""].include? params[:step].to_s
+  %h2=SalesOrder.human_attribute_name("lines")
+  -#@sales_order_line = @sales_order.lines.new
+  -if @sales_order.estimate?
+    =toolbar do |t|
+      -t.link(:sales_order_line_create, :order_id=>@sales_order.id) 
+    =render :partial=>"sales_order_line_row_form"
+  =kame :sales_order_lines
+  %table.kame
+    %tr.total
+      %th=tl :amount
+      %td=number_to_accountancy(@sales_order.amount)
+    %tr.important.total
+      %th=tl :amount_with_taxes
+      %td=number_to_accountancy(@sales_order.amount_with_taxes)
+  -if @sales_order.subscriptions.size>0
+    %h2=tl :subscriptions
+    =kame :sales_order_subscriptions
+
+
+-if ["products", "summary", ""].include? params[:step].to_s
+  %h2=tc :incoming_payments
+  =toolbar do |t|
+    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id) unless @sales_order.complete?
+  =kame :sales_order_payment_uses
+
+      
+-if ["deliveries", ""].include? params[:step].to_s and @sales_order.active?
+  -if @sales_order.deliverable?
+    %h2=tc :undelivered
+    =kame :undelivered_quantities
+  %h2=SalesOrder.human_attribute_name("deliveries")
+  =toolbar do |t|
+    -t.link :outgoing_delivery_create, :sales_order=>@sales_order.id if @sales_order.deliverable?
   =kame :sales_order_deliveries
 
--if @sales_order.sales_invoices.count > 0
-  %h2= tc 'sales_invoices' 
-  =kame :sales_order_sales_invoices
 
--if @sales_order.payment_parts.count > 0
-  %h2= tc 'incoming_payments'
-  =toolbar do |t|
-    -t.link :incoming_payment_create if @sales_order.state == 'R' and @sales_order.unpaid_amount>0
-  =kame :sales_order_payments
+-if ["summary", ""].include? params[:step].to_s
+  -if @sales_order.sales_invoices.size>0
+    %h2=SalesOrder.human_attribute_name(:sales_invoices)
+    =kame :sales_order_invoices
 
--if @sales_order.subscriptions.count>0
-  %h2= tc :subscriptions
-  =kame :sales_order_subscriptions
+
+-if ["products", "summary", ""].include? params[:step].to_s
+  %h2=tc :financial_state
+  %table.kame
+    -for k, v in @sales_order.stats(:with_balance=>true)
+      %tr.total
+        %th=tc(k)
+        %td=number_to_accountancy(v)
+  

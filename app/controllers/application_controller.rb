@@ -392,8 +392,51 @@ class ApplicationController < ActionController::Base
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     
     class_eval(code)
+  end
+
+
+
+  # Build standard actions to manage records of a model
+  def self.manage_list(name, defaults={})
+    operations = [:up, :down]
+
+    t3e = defaults.delete(:t3e)
+    url = defaults.delete(:redirect_to)
+    partial = defaults.delete(:partial)
+    partial =  ":partial=>'#{partial}'" if partial
+    record_name = name.to_s.singularize
+    model = name.to_s.singularize.classify.constantize
+    code = ''
+    methods_prefix = record_name
+    
+    if operations.include? :up
+      # this action deletes or hides an existing record.
+      code += "def #{methods_prefix}_up\n"
+      code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+      code += "  if request.post?\n"
+      code += "    #{record_name}.move_higher\n"
+      code += "  end\n"
+      code += "  redirect_to_current\n"
+      code += "end\n"
+    end
+
+    if operations.include? :down
+      # this action deletes or hides an existing record.
+      code += "def #{methods_prefix}_down\n"
+      code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+      code += "  if request.post?\n"
+      code += "    #{record_name}.move_lower\n"
+      code += "  end\n"
+      code += "  redirect_to_current\n"
+      code += "end\n"
+    end
+
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    
+    class_eval(code)
     
   end
+
 
 
 
