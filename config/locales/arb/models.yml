@@ -198,8 +198,8 @@ arb:
         accounted_at: 'تمت محاسبته في' #!
         amount: 'قيمة المخصصة للبيع'
         expense_id: 'تكلفة' #!
-        #>payment: 'Sale payment'
-        #>payment_id: 'Sale payment'
+        #>payment: 'Incoming payment'
+        #>payment_id: 'Incoming payment'
         #>payment_way: 'Mode of payment'
         updated_at: 'تم تحديثها في' #!
       inventory:  #!
@@ -363,7 +363,7 @@ arb:
         #>credit: 'Credit'
         currency_id: 'العملة' #!
         downpayment_amount: 'قيمة العربون' #!
-        #>lines: 'SalesInvoice lines'
+        #>lines: 'Sales invoice lines'
         nature: 'طبيعي' #!
         origin: 'الفاتورة الاصلية'
         origin_id: 'الفاتورة الاصلية'
@@ -1445,8 +1445,8 @@ arb:
         establishment_name: 'المؤسسة الرئيسية'
         event_natures:
           #>purchase_order: 'Creation of a purchase order'
-          #>sales_invoice: 'Creation of an sales_invoice'
-          #>sales_order: 'Creation of a sale order'
+          #>sales_invoice: 'Creation of an sales invoice'
+          #>sales_order: 'Creation of a sales order'
         financial_year_code: '1A2' #!
         incoming_payment_modes:
           cash:

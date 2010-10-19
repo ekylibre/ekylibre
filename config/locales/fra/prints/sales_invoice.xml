@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<template title="Example" lang="fr" version="2.0">
+  <parameters>
+    <parameter name="sales_invoice" nature="sales_invoice">Sales invoice</parameter>
+  </parameters>
+  <document unit="mm" size="10" title="client.label">
+    <page orientation="portrait" format="A4" margin="10mm">
+      <part height="65mm">
+        <set>
+          <image value="{{sales_invoice.company.entity/photo}}" height="30mm">
+            <text value="{{sales_invoice.company/name}}" size="7mm"/>
+          </image>
+        </set>
+        <set left="100mm" top="40mm">
+         <text value="{{sales_invoice/address}}" font="helvetica"/>
+        </set>
+      </part>
+      <part height="40mm">
+        <set>
+          <text value="À {{sales_invoice.company.default_contact.area/city_name?capitalize=true}}, le {{sales_invoice/created_on?format=month_letter}}" left="100%" align="right"/>
+        </set>
+        <set if="!sales_invoice.credit">
+          <text value="Facture n°{{sales_invoice/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
+        </set>
+        <set if="sales_invoice.credit">
+          <text value="Avoir n°{{sales_invoice/number}} de la facture {{sales_invoice.origin/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
+        </set>
+      </part>
+      
+      <!-- Tableau -->
+      <table collection="sales_invoice.lines" fixed="true">
+        <column label="Code" property="product/code" width="20mm" align="center"/>
+        <column label="Désignation" property="designation" width="80mm"/>
+        <column label="Qté." property="quantity" width="13mm" numeric="money"/>
+        <column label="Prix unitaire HT" property="price/amount" width="22mm" numeric="money"/>
+        <column label="Montant Hors Taxes" property="amount" width="20mm" numeric="money"/>
+        <column label="Montant T.V.A." property="taxes" width="20mm" numeric="money"/>
+        <column label="Taux T.V.A." property="price.tax/amount" width="15mm" align="center"/>
+      </table>
+      
+      <!-- Totaux -->
+      <part height="14mm">
+        <set left="100mm" top="1mm">
+          <text value="Totaux ({{sales_invoice.lines[0].price.currency.code}})" top="0.5mm" left="33mm" align="right" bold="true"/>
+          <text value="Net à payer ({{sales_invoice.lines[0].price.currency.code}})" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+          <text value="{{sales_invoice.amount_with_taxes?numeric}}" top="6mm" left="55mm" align="center" bold="true" size="12"/>
+          <text value="{{sales_invoice.amount?numeric}}" top="0.5mm" left="54.5mm" align="right"/>
+          <text value="{{sales_invoice.taxes?numeric}}" top="0.5mm" left="74.5mm" align="right"/>
+          <rectangle width="75mm" height="4mm"  border="0.5 solid #000"/>
+          <rectangle width="75mm" height="7mm" top="4mm" border="0.5 solid #000"/>
+          <line path="35mm,0 ; 35mm,11mm" width="0.5"  border="0.5 solid #000"/>
+          <line path="55mm,0 ; 55mm,4mm"  width="0.5" border="0.5 solid #000"/>
+        </set>
+      </part>
+
+      <part if="sales_invoice/unpaid_amount&gt;0" height="15mm">
+        <set top="8mm">
+          <text value="La facture est à régler au plus tard le {{sales_invoice/payment_on?format=month_letter}}" left="50%" align="center" bold="true"/>
+        </set>
+      </part>
+     <!-- 
+      <part if="sales_invoice/unpaid_amount&lt;=0" height="15mm">
+        <set top="8mm">
+          <text value="Facture acquittée" left="50%" align="center" bold="true"/>
+        </set>
+      </part>
+-->
+
+      <part if="sales_invoice.sales_order.payment_parts.sum(:amount)&gt;0" height="14mm">
+        <set top="10mm">
+          <text value="Règlements effectués"  bold="true"/>
+        </set>
+        <set if="sales_invoice/unpaid_amount&lt;=0" top="10mm">
+          <text value=": facture acquitée" left="33mm" bold="true" />
+        </set>
+      </part>
+
+      <table if="sales_invoice.sales_order.payment_parts.sum(:amount)&gt;0" collection="sales_invoice.sales_order.payment_parts" fixed="true">
+        <column label="Payé le" property="payment/paid_on" width="30mm"/>
+        <column label="Banque" property="payment/bank" width="50mm"/>
+        <column label="Numéro de compte" property="payment/account_number" width="40mm"/>
+        <column label="Numéro de chèque" property="payment/check_number" width="40mm"/>
+        <column label="Montant" property="amount" width="30mm" numeric="money"/>
+      </table>
+      
+      
+      
+      <part if="sales_invoice/unpaid_amount&gt;0" height="35mm" bottom="true">
+        <set>
+          <line path="0,1mm ; 100%,1mm" width="0.5"/>
+          <set top="2.5mm"> 
+            <set if="!sales_invoice.credit">
+              <text  value="Facture n°{{sales_invoice/number}}" size="10" align="left"/>
+            </set>
+            <set if="sales_invoice.credit">
+              <text if="sales_invoice.credit" value="Avoir n°{{sales_invoice/number}}" size="10" align="left"/>
+            </set>
+            <text value="Réf. Client : {{sales_invoice.client/code}}" top="4mm" align="left"/>
+            <text value="{{sales_invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="N° TVA Intracommunautaire : {{sales_invoice.company.entity/vat_number}} - SIREN : {{sales_invoice.company.entity/siren}} - Code APE : {{sales_invoice.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
+            <text value="Page 1 sur 1"  left="100%" align="right"/>
+          </set>
+        </set>
+        
+        <set if="!sales_invoice.credit" top="20mm">
+          <line path="-50%,1mm ; 150%,1mm" border="0.5 dashed #000"/>
+          <line path="70mm,1mm ; 70mm,70mm" border="0.5 dashed #000"/>
+          <text value="À découper et à joindre à votre règlement" top="3mm" bold="true" />
+          <text value="Reste à payer ({{sales_invoice.lines[0].price.currency/code}}) : {{sales_invoice/unpaid_amount}}" top="8mm"/>
+          <text value="N°Facture : {{sales_invoice/number}}" top="12mm"/>
+          <text value="Client : {{sales_invoice.client/code}}" top="16mm" align="left" />
+        </set>
+      </part>
+
+      <part if="sales_invoice/unpaid_amount&lt;=0" height="20mm" bottom="true">
+        <set>
+          <line path="0,1mm ; 100%,1mm" width="0.5"/>
+          <set top="2.5mm"> 
+            <set if="!sales_invoice.credit">
+              <text  value="Facture n°{{sales_invoice/number}}" size="10" align="left"/>
+            </set>
+            <set if="sales_invoice.credit">
+              <text if="sales_invoice.credit" value="Avoir n°{{sales_invoice/number}}" size="10" align="left"/>
+            </set>
+            <text value="Réf. Client : {{sales_invoice.client/code}}" top="4mm" align="left"/>
+            <text value="{{sales_invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="N°TVA Intracommunautaire : {{sales_invoice.company.entity/vat_number}} - SIREN : {{sales_invoice.company.entity/siren}} - Code APE : {{sales_invoice.company.entity/activity_code}}" size="7" left="50%" align="center" top="6mm"/>
+            <text value="Page 1 sur 1"  left="100%" align="right"/>
+          </set>
+        </set>
+      </part>
+      
+    </page>
+    
+  </document>
+</template>

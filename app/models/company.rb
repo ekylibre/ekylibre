@@ -319,6 +319,7 @@ class Company < ActiveRecord::Base
     elsif model.columns_hash.keys.include?(options[:label].to_s)
       find_options[:order] = options[:label]
     end
+    find_options[:conditions] = options[:conditions] if options[:conditions]
     list = (self.send(reflection.name).find(:all, find_options)||[]).collect do |record|
       [record.send(label), record.id]
     end

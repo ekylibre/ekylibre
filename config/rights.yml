@@ -154,22 +154,8 @@ consult_purchase_orders:
   - purchase_order_lines_kame
   - purchase_orders
   - purchase_orders_kame
-# Consult the sales
-consult_sales_orders:
-  controller: management
-  actions:
-  - index
-  - sales_order
-  - sales_order_deliveries_kame
-  - sales_order_lines_kame
-  - sales_order_payments_kame
-  - sales_order_sales_invoices_kame
-  - sales_orders
-  - sales_orders_kame
-  - statistics
-  - unpaid_sales_orders_export
 # Consult the sales_invoices
-consult_sales_sales_invoices:
+consult_sales_invoices:
   controller: management
   actions:
   - index
@@ -178,6 +164,20 @@ consult_sales_sales_invoices:
   - sales_invoice_lines_kame
   - sales_invoices
   - sales_invoices_kame
+# Consult the sales
+consult_sales_orders:
+  controller: management
+  actions:
+  - index
+  - sales_order
+  - sales_order_deliveries_kame
+  - sales_order_invoices_kame
+  - sales_order_lines_kame
+  - sales_order_payments_kame
+  - sales_orders
+  - sales_orders_kame
+  - statistics
+  - unpaid_sales_orders_export
 # Consult the stocks
 consult_stocks:
   controller: management
@@ -708,7 +708,7 @@ manage_sales_orders:
   - sales_order_delete
   - sales_order_deliveries
   - sales_order_deliveries_kame
-  - sales_order_sales_invoice
+  - sales_order_invoice
   - undelivered_quantities_kame
   - undelivered_sales
   - undelivered_sales_kame

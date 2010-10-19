@@ -103,7 +103,7 @@ class SalesInvoice < ActiveRecord::Base
   end
   
   def clean_on_create
-    specific_numeration = self.company.preference("management.sales_sales_invoices.numeration").value
+    specific_numeration = self.company.preference("management.sales_invoices.numeration").value
     if not specific_numeration.nil?
       self.number = specific_numeration.next_value
     end

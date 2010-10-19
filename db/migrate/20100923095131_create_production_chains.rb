@@ -52,16 +52,23 @@ class CreateProductionChains < ActiveRecord::Migration
     for old, new in TABLES_UPDATES
       rename_table old, quoted_table_name(new)
     end
+    change_column :event_natures, :usage, :string, :limit=>64
+    change_column :document_templates, :nature, :string, :limit=>64
     for old, new in TABLES_UPDATES
       for table, column in POLYMORPHIC_COLUMNS
         execute "UPDATE #{quoted_table_name(table)} SET #{column}='#{new.to_s.classify}' WHERE #{column}='#{old.to_s.classify}'"
       end
       # Document Templates
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='#{new.to_s.singularize}' WHERE nature='#{old.to_s.singularize}'"
+      # Event natures
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{new.to_s.singularize}' WHERE usage='#{old.to_s.singularize}'"
       # Listings
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
     end
+
+
     rename_column :sales_invoices, :sale_order_id, :sales_order_id
     rename_column :sales_invoice_lines, :invoice_id, :sales_invoice_id
     rename_column :incoming_deliveries, :order_id, :purchase_order_id
@@ -348,12 +355,17 @@ class CreateProductionChains < ActiveRecord::Migration
       # Listings
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
+      # Event natures
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{new.to_s.singularize}' WHERE usage='#{old.to_s.singularize}'"
       # Document Templates
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='#{new.to_s.singularize}' WHERE nature='#{old.to_s.singularize}'"
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"
       for table, column in POLYMORPHIC_COLUMNS.reverse
         execute "UPDATE #{quoted_table_name(table)} SET #{column}='#{new.to_s.classify}' WHERE #{column}='#{old.to_s.classify}'"
       end
     end
+    # change_column :document_templates, :nature, :string, :limit=>64
+    # change_column :event_natures, :usage, :string, :limit=>64
     for new, old in TABLES_UPDATES.reverse
       rename_table old, quoted_table_name(new)
     end

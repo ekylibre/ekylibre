@@ -161,8 +161,10 @@ arb:
       sales_invoice_cancel: 'مسالك شمولية الفاتورة {{number}}'
       sales_invoices: 'الفواتير'
       sales_order: 'تفاصيل البيع {{number}} للعميل {{client}}'
+      sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
       sales_order_create: 'بيع جديد'
       sales_order_deliveries: 'التسليم'
+      sales_order_invoice: 'فوترة طلب البيع'
       sales_order_line_create: 'اضافة تصميم خطوط المنتج'
       sales_order_line_informations: '' #!
       sales_order_line_update: 'تعديل مسار طلب المنتج'
@@ -537,7 +539,7 @@ arb:
     entries: 'السجلات'
     entries_to_point: 'اعداد المدخلات'
     error_no_file: 'عدم توفر المساعدة في هذا الجزء من الطلب ({{article}}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار.'
-    #>error_sales_order_already_paid: 'The sale order is already paid'
+    #>error_sales_order_already_paid: 'The sales order is already paid'
     errors_explanation: 'هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد'
     establish_capital_goods: 'تشكل الممتلكات رأس المال'
     establishment: 'المؤسسة'
@@ -606,7 +608,7 @@ arb:
     incoming_payment_create: 'اضافة دفعة جديدة' #!
     incoming_payment_update: 'تعديل الدفعة'
     incoming_payment_use_create: 'اضافة دفعة للشراء'
-    #>incoming_payments: 'Sale payments'
+    #>incoming_payments: 'Incoming payments'
     incoming_payments_states:
       #>all: 'All'
       #>undeposited: 'Undeposited'
@@ -750,9 +752,9 @@ arb:
       other: '{{count}} تم انجاز اعمال اخرى'
       zero: 'لم يتم انجاز اي عمل'
     nb_payments:
-      #>one: '1 sale payment to deposit'
-      #>other: '%{count} sale payments to deposit'
-      #>zero: 'No sale payments to deposit'
+      #>one: '1 incoming payment to deposit'
+      #>other: '%{count} incoming payments to deposit'
+      #>zero: 'No incoming payments to deposit'
     nb_products:
       one: 'تم تسجيل منتج واحد'
       other: '{{count}} تم تسجيل منتجات اخرى'
@@ -766,9 +768,9 @@ arb:
       other: '{{count}} طلبات'
       zero: 'ولا طلب'
     nb_sales_invoices:
-      #>one: '1 sales_invoice'
-      #>other: '%{count} sales_invoices'
-      #>zero: '0 sales_invoices'
+      #>one: '1 sales invoice'
+      #>other: '%{count} sales invoices'
+      #>zero: '0 sales invoices'
     nb_transfers:
       #>one: 'One transfert to make'
       #>other: '%{count} transferts to make'
@@ -994,7 +996,6 @@ arb:
       #>credits: 'Credits'
     sales_invoices_total: 'مجموع قيمة الفاتورة'
     sales_order: 'الطلبات'
-    sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
     sales_order_create: 'اضافة بيعة جديدة' #!
     sales_order_deliveries: 'تسليم الطلبات'
     sales_order_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
@@ -1002,7 +1003,6 @@ arb:
     sales_order_nature_create: 'انشاء نوع بيع جديد' #!
     sales_order_price_create: 'اضافة سعر البيع'
     sales_order_print: 'طباعة طلب البيع' #!
-    sales_order_sales_invoice: 'فوترة طلب البيع'
     sales_order_update: 'تعديل معلومات الطلب'
     sales_orders: 'تم تسديد دفعات طلب البيع'
     sales_orders_number: '' #!
@@ -1109,7 +1109,7 @@ arb:
     unpaid: 'غير مسدد'
     unpaid_amount: 'القيمة المتبقية'
     #>unpaid_days: 'Unpaid since (in days)'
-    #>unpaid_sales_orders: 'Unpaid sale order'
+    #>unpaid_sales_orders: 'Unpaid sales order'
     unpaid_sales_orders_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
     unparted: 'غير متضرر'
     unreceived: 'غير مقبوضة'
@@ -1173,13 +1173,13 @@ arb:
       #>other: '%{count} purchase orders'
       #>zero: '0 purchase orders'
     x_sales_invoices:
-      #>one: '1 sales_invoice'
-      #>other: '%{count} sales_invoices'
-      #>zero: '0 sales_invoices'
+      #>one: '1 sales invoice'
+      #>other: '%{count} sales invoices'
+      #>zero: '0 sales invoices'
     x_sales_orders:
-      #>one: '1 sale order'
-      #>other: '%{count} sale orders'
-      #>zero: '0 sale orders'
+      #>one: '1 sales order'
+      #>other: '%{count} sales orders'
+      #>zero: '0 sales orders'
     x_subscriptions:
       one: 'اشتراك واحد'
       other: '{{count}} اشتراكات اخرى'
@@ -1319,7 +1319,7 @@ arb:
         days_before_warning_unvalidated: 'عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية '
         numeration: 'احصاء الاقتطاعات المصرفية'
       incoming_payments:
-        #>numeration: 'Numeration of sale payments'
+        #>numeration: 'Numeration of incoming payments'
       outgoing_payments:
         #>numeration: 'Numeration of disbursements'
       payments:  #!

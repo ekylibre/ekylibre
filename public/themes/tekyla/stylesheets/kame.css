@@ -20,7 +20,7 @@ table.kame thead th a.sortable.asc  { background-image: url(../images/buttons/up
 
 table.kame tr.data td {border-top: 1px solid #E2E2EE;}
 table.kame tr.data:first-child td {border-top: none;}
-table.kame tr.data td {padding: 0px 4px;color: #000; height:22px;}
+table.kame tr      td {padding: 0px 4px;color: #000; height:22px;}
 table.kame tr      td.chk { text-align:center }
 table.kame tr      td.act { padding: 0 1px; width:18px; }
 table.kame tr      td.act a {padding: 1px; margin: 0; display:block; text-align: center;}

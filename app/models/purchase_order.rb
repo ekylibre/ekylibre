@@ -121,7 +121,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def updatable?
-    return false if self.unpaid_amount.zero? and self.shipped
+    # return false if self.unpaid_amount.zero? and self.shipped
     return true
   end
 

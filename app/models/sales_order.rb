@@ -69,7 +69,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :currency
-  belongs_to :delivery_contact,:class_name=>Contact.to_s
+  belongs_to :delivery_contact, :class_name=>Contact.to_s
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
   # belongs_to :journal_entry
@@ -77,17 +77,17 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :foreign_key=>:order_id, :class_name=>OutgoingDelivery.name
-  has_many :sales_invoices
+  has_many :deliveries, :class_name=>OutgoingDelivery.name
   has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_parts, :as=>:expense, :class_name=>IncomingPaymentUse.name
   has_many :payments, :through=>:payment_parts
+  has_many :sales_invoices
   has_many :stock_moves, :as=>:origin
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
 
 
-  @@natures = [:estimate, :order, :sales_invoice]
+  @@natures = [:estimate, :order, :invoice]
   
   def prepare
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
@@ -181,13 +181,13 @@ class SalesOrder < ActiveRecord::Base
   end
 
 
-  # SalesInvoice all the products creating the delivery if necessary. 
-  def sales_invoice
+  # Invoice all the products creating the delivery if necessary. 
+  def invoice
     return false if self.lines.count <= 0
     ActiveRecord::Base.transaction do
       self.confirm
       self.reload
-      # Create sales_invoice
+      # Create sales invoice
       sales_invoice = self.sales_invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
       for line in self.lines
         sales_invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
@@ -196,7 +196,7 @@ class SalesOrder < ActiveRecord::Base
       for line in self.lines
         line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
       end
-      # Accountize the sales_invoice
+      # Accountize the sales invoice
       sales_invoice.to_accountancy if self.company.accountizing?
       # Update sales_order state
       self.invoiced = true
@@ -208,8 +208,8 @@ class SalesOrder < ActiveRecord::Base
 
 
   # Delivers all undelivered products and sales_invoice the order after. This operation cleans the order.
-  def deliver_and_sales_invoice
-    self.deliver.sales_invoice
+  def deliver_and_invoice
+    self.deliver.invoice
   end
 
   # Duplicates a +sales_order+ in 'E' mode with its lines and its active subscriptions
@@ -268,7 +268,8 @@ class SalesOrder < ActiveRecord::Base
   # - +column+ can be +:amount+ or +:amount_with_taxes+
   def undelivered(column)
     sum  = self.send(column)
-    sum -= OutgoingDeliveryLine.sum(column, :joins=>"JOIN #{OutgoingDelivery.table_name} AS outgoing_deliveries ON (delivery_id=outgoing_deliveries.id)", :conditions=>["outgoing_deliveries.order_id=?", self.id])
+    # sum -= OutgoingDeliveryLine.sum(column, :joins=>"JOIN #{OutgoingDelivery.table_name} AS outgoing_deliveries ON (delivery_id=outgoing_deliveries.id)", :conditions=>["outgoing_deliveries.order_id=?", self.id])
+    sum -= self.company.outgoing_deliveries.sum(column)
     sum.round(2)
   end
 

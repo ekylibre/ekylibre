@@ -4,9 +4,9 @@
     -t.update @sales_order
   -if @sales_order.lines.size>0
     -if (@sales_order.estimate? and @sales_order.deliveries.size <= 0)
-      -t.link :sales_order_confirm, {:id=>@sales_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+      -t.confirm @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
     -if (@sales_order.amount_with_taxes > @sales_order.invoiced_amount and @sales_order.deliveries.size <= 0)
-      -t.link :sales_order_sales_invoice, {:id=>@sales_order.id}, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_sales_invoice)
+      -t.invoice @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_sales_invoice)
   -t.print :sales_order, :id=>@sales_order.id
 
 -columns ||= 1

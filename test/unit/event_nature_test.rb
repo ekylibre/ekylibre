@@ -30,6 +30,6 @@
 #  name         :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
-#  usage        :string(16)       
+#  usage        :string(64)       
 #
 

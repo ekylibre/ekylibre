@@ -467,7 +467,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.string   "family",       :limit => 32
     t.boolean  "to_archive"
     t.boolean  "by_default",                 :default => true,  :null => false
-    t.string   "nature",       :limit => 20
+    t.string   "nature",       :limit => 64
     t.string   "filename"
     t.string   "language",     :limit => 3,  :default => "???", :null => false
   end
@@ -695,7 +695,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",               :default => 0,    :null => false
-    t.string   "usage",        :limit => 16
+    t.string   "usage",        :limit => 64
     t.boolean  "active",                     :default => true, :null => false
   end
 

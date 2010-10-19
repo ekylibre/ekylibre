@@ -34,7 +34,7 @@
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(20)       
+#  nature       :string(64)       
 #  source       :text             
 #  to_archive   :boolean          
 #  updated_at   :datetime         not null

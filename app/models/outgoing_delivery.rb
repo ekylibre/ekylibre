@@ -43,21 +43,22 @@
 #
 
 class OutgoingDelivery < ActiveRecord::Base
+  attr_readonly :company_id, :sales_order_id
   belongs_to :company 
   belongs_to :contact
   belongs_to :sales_invoice
   belongs_to :mode, :class_name=>OutgoingDeliveryMode.name
-  belongs_to :order, :class_name=>SalesOrder.name
+  belongs_to :sales_order
   belongs_to :transport
   has_many :lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
 
   autosave :transport
 
-  attr_readonly :company_id, :order_id
   validates_presence_of :planned_on
 
   def prepare
+    self.company_id = self.sales_order.company_id if self.sales_order
     self.amount = 0
     self.amount_with_taxes = 0
     for line in self.lines
@@ -100,7 +101,7 @@ class OutgoingDelivery < ActiveRecord::Base
   end
 
   def label
-    tc('label', :client=>self.order.client.full_name.to_s, :address=>self.contact.address.to_s)
+    tc('label', :client=>self.sales_order.client.full_name.to_s, :address=>self.contact.address.to_s)
   end
 
   # Used with kame for the moment
@@ -117,8 +118,8 @@ class OutgoingDelivery < ActiveRecord::Base
   end
 
   def address
-    a = self.order.client.full_name+"\n"
-    a += (self.contact ? self.contact.address : self.order.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    a = self.sales_order.client.full_name+"\n"
+    a += (self.contact ? self.contact.address : self.sales_order.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
     a
   end
 

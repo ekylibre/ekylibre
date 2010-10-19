@@ -34,7 +34,7 @@
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(20)       
+#  nature       :string(64)       
 #  source       :text             
 #  to_archive   :boolean          
 #  updated_at   :datetime         not null
@@ -62,12 +62,12 @@ class DocumentTemplate < ActiveRecord::Base
     :deposit =>          [ [:deposit, Deposit] ],
     :income_statement => [ [:financial_year, FinancialYear] ],
     :inventory =>        [ [:inventory, Inventory] ], 
-    :sales_invoice =>          [ [:sales_invoice, SalesInvoice] ],
+    :sales_invoice =>    [ [:sales_invoice, SalesInvoice] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
     :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
     :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
     :purchase_order =>   [ [:purchase_order, PurchaseOrder] ], 
-    :sales_order =>       [ [:sales_order, SalesOrder] ],
+    :sales_order =>      [ [:sales_order, SalesOrder] ],
     :stocks =>           [ [:established_on, Date] ],
     # :synthesis =>        [ [:financial_year, FinancialYear] ],
     :transport =>        [ [:transport, Transport] ]

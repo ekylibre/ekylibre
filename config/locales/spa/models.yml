@@ -29,8 +29,8 @@ spa:
         #>to_bank_on: 'To bank on'
       incoming_payment_use:
         #>amount: 'Used amount'
-        #>payment: 'Sale payment'
-        #>payment_id: 'Sale payment'
+        #>payment: 'Incoming payment'
+        #>payment_id: 'Incoming payment'
         #>payment_way: 'Mode of payment'
       inventory_line:
         #>quantity: 'Found quantity'
@@ -79,18 +79,18 @@ spa:
         #>order_id: 'Purchase order'
       sales_invoice:
         #>credit: 'Credit'
-        #>lines: 'SalesInvoice lines'
-        #>origin: 'Original sales_invoice'
-        #>origin_id: 'Original sales_invoice'
+        #>lines: 'Sales invoice lines'
+        #>origin: 'Original sales invoice'
+        #>origin_id: 'Original sales invoice'
       sales_invoice_line:
         #>origin_id: 'Original line'
       sales_order:
         #>contact: 'Address for the estimate'
         #>contact_id: 'Address for the estimate'
         #>has_downpayment: 'Request a downpayment'
-        #>lines: 'Sale order lines'
+        #>lines: 'Sales order lines'
         #>parts_amount: 'Paid amount'
-        #>payments: 'Sale payments'
+        #>payments: 'Incoming payments'
       sales_order_line:
         #>label: 'Product'
         #>price: 'Product'
@@ -202,7 +202,7 @@ spa:
           #>warehouse_can_not_receive_product: 'The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}.'
         sales_order_line:
           #>can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
-          #>currency_is_not_sales_order_currency: 'Currency is not identical to the sale order currency'
+          #>currency_is_not_sales_order_currency: 'Currency is not identical to the sales order currency'
           #>error_no_found_price: 'No found price'
           #>warehouse_can_not_transfer_product: '%{product} can not be found in %{warehouse}, it only contains %{contained_product}.'
         stock:
@@ -256,9 +256,9 @@ spa:
       #>incoming_delivery: 'Purchase delivery'
       #>incoming_delivery_line: 'Purchase delivery line'
       #>incoming_delivery_mode: 'Purchase delivery mode'
-      #>incoming_payment: 'Sale payment'
-      #>incoming_payment_mode: 'Sale payment mode'
-      #>incoming_payment_use: 'Sale payment part'
+      #>incoming_payment: 'Incoming payment'
+      #>incoming_payment_mode: 'Incoming payment mode'
+      #>incoming_payment_use: 'Incoming payment part'
       #>inventory: 'Inventory'
       #>inventory_line: 'Inventory line'
       #>journal: 'Journal'
@@ -295,11 +295,11 @@ spa:
       #>purchase_order: 'Purchase order'
       #>purchase_order_line: 'Purchase order line'
       #>role: 'Role'
-      #>sales_invoice: 'SalesInvoice'
-      #>sales_invoice_line: 'SalesInvoice line'
-      #>sales_order: 'Sale order'
-      #>sales_order_line: 'Sale order line'
-      #>sales_order_nature: 'Sale order type'
+      #>sales_invoice: 'Sales invoice'
+      #>sales_invoice_line: 'Sales invoice line'
+      #>sales_order: 'Sales order'
+      #>sales_order_line: 'Sales order line'
+      #>sales_order_nature: 'Sales order type'
       #>sequence: 'Sequence'
       #>stock: 'Stock'
       #>stock_move: 'Stock move'
@@ -589,9 +589,9 @@ spa:
     #>in_cash: 'In cash'
     #>in_name: 'In name'
     #>included: 'Included'
-    #>incoming_payment_modes: 'Sale payment modes'
-    #>incoming_payment_uses: 'Sale payment parts'
-    #>incoming_payments: 'Sale payments'
+    #>incoming_payment_modes: 'Incoming payment modes'
+    #>incoming_payment_uses: 'Incoming payment parts'
+    #>incoming_payments: 'Incoming payments'
     #>indirect_links: 'Indirect links'
     #>integer_value: 'Integer value'
     #>introduction: 'Introduction'
@@ -599,9 +599,9 @@ spa:
     #>inventory: 'Inventory'
     #>inventory_id: 'Inventory'
     #>inventory_lines: 'Inventory lines'
-    #>invoice_contact: 'SalesInvoice contact'
-    #>invoice_contact_id: 'SalesInvoice contact'
-    #>invoiced: 'SalesInvoiced'
+    #>invoice_contact: 'Sales invoice contact'
+    #>invoice_contact_id: 'Sales invoice contact'
+    #>invoiced: 'Invoiced'
     #>is_debit: 'Is debit'
     #>item_listing: 'Item listing'
     #>item_listing_id: 'Item listing'
@@ -821,17 +821,17 @@ spa:
     #>sales_account: 'Sales account'
     #>sales_account_id: 'Sales account'
     #>sales_conditions: 'Sales conditions'
-    #>sales_invoice: 'SalesInvoice'
-    #>sales_invoice_id: 'SalesInvoice'
-    #>sales_invoice_lines: 'SalesInvoice lines'
-    #>sales_invoices: 'SalesInvoices'
-    #>sales_invoices_count: 'SalesInvoices count'
-    #>sales_order: 'Sale order'
-    #>sales_order_id: 'Sale order'
-    #>sales_order_line_id: 'Sale order line'
-    #>sales_order_lines: 'Sale order lines'
-    #>sales_order_natures: 'Sale order types'
-    #>sales_orders: 'Sale orders'
+    #>sales_invoice: 'Sales invoice'
+    #>sales_invoice_id: 'Sales invoice'
+    #>sales_invoice_lines: 'Sales invoice lines'
+    #>sales_invoices: 'Sales invoices'
+    #>sales_invoices_count: 'Sales invoices count'
+    #>sales_order: 'Sales order'
+    #>sales_order_id: 'Sales order'
+    #>sales_order_line_id: 'Sales order line'
+    #>sales_order_lines: 'Sales order lines'
+    #>sales_order_natures: 'Sales order types'
+    #>sales_orders: 'Sales orders'
     #>salt: 'Salt'
     #>scheduled: 'Scheduled'
     #>second_move_id: 'Second move'
@@ -934,7 +934,7 @@ spa:
     #>updated_at: 'Updated at'
     #>updater: 'Updater'
     #>updater_id: 'Updater'
-    #>usable_incoming_payments: 'Usable sale payments'
+    #>usable_incoming_payments: 'Usable incoming payments'
     #>usable_outgoing_payments: 'Usable disbursements'
     #>usage: 'Usage'
     #>usage_duration: 'Usage duration'
@@ -1014,10 +1014,10 @@ spa:
             purchase_order:
               #>filename: 'Purchase order [number]'
             sales_invoice:
-              #>filename: 'SalesInvoice [number]'
+              #>filename: 'Sales invoice [number]'
               #>to_archive: 'true'
             sales_order:
-              #>filename: 'Sale order [number]'
+              #>filename: 'Sales order [number]'
             stocks:
               #>filename: 'Stocks'
             transport:
@@ -1029,8 +1029,8 @@ spa:
         #>establishment_name: 'Default establishment'
         event_natures:
           #>purchase_order: 'Creation of a purchase order'
-          #>sales_invoice: 'Creation of an sales_invoice'
-          #>sales_order: 'Creation of a sale order'
+          #>sales_invoice: 'Creation of an sales invoice'
+          #>sales_order: 'Creation of a sales order'
         incoming_payment_modes:
           cash:
             #>name: 'Cash'
@@ -1084,7 +1084,7 @@ spa:
               #>period: 'month'
             sales_invoices:
               #>format: 'F[year|4][number|6]'
-              #>name: 'Numeration of sales_invoices'
+              #>name: 'Numeration of sales invoices'
               #>period: 'year'
             sales_orders:
               #>format: 'SO[year|4][month|2][number|6]'
@@ -1134,7 +1134,7 @@ spa:
       import:
         #>dont_use: '-- Do not use --'
         #>generate_string_complement: '-- Create a personalized field (text) --'
-      #>sales_orders: 'Sale orders'
+      #>sales_orders: 'Sales orders'
     complement:
     contact:
       #>error_modify_contact: 'The contact can not be updated.'
@@ -1180,8 +1180,8 @@ spa:
         #>journal: 'Journal'
         #>other: 'Other'
         #>purchase_order: 'Purchase order'
-        #>sales_invoice: 'SalesInvoice'
-        #>sales_order: 'Sale order'
+        #>sales_invoice: 'Sales invoice'
+        #>sales_order: 'Sales order'
         #>stocks: 'Stocks'
         #>transport: 'Transport'
       #>unvalid_nature: 'Unvalid type of document template.'
@@ -1193,8 +1193,8 @@ spa:
         #>mailing: 'Mailing'
         #>manual: 'Manual'
         #>purchase_order: 'Creation of a purchase'
-        #>sales_invoice: 'Creation of an sales_invoice'
-        #>sales_order: 'Creation of a product'
+        #>sales_invoice: 'Creation of a sales invoice'
+        #>sales_order: 'Creation of a sales order'
     financial_year:
       code:
         #>double: 'FY%{first_year}/%{second_year}'
@@ -1317,7 +1317,7 @@ spa:
     sales_invoice:
       label:
         #>credit: 'Credit %{number}'
-        #>normal: 'SalesInvoice %{number}'
+        #>normal: 'Sales invoice %{number}'
       #>to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
     sales_invoice_line:
       #>no_product: '[No product]'
@@ -1328,7 +1328,7 @@ spa:
       natures:
         #>estimate: 'Estimate'
         #>order: 'Order'
-        #>sales_invoice: 'SalesInvoice'
+        #>sales_invoice: 'Sales invoice'
       #>sale: 'Sale %{number}'
       sales_conditions:
         #>downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
@@ -1339,7 +1339,7 @@ spa:
         #>E: 'Estimate'
     sales_order_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
-      #>currency_is_not_sales_order_currency: 'The currency of the price differs from the sale order currency'
+      #>currency_is_not_sales_order_currency: 'The currency of the price differs from the sales order currency'
       #>reduction_on: 'Discount of %{percent}%  on %{product}'
       #>tracking: 'S/N: %{serial}'
       #>warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '

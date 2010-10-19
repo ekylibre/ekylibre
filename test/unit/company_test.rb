@@ -90,15 +90,15 @@ class CompanyTest < ActiveSupport::TestCase
         @sales_order = @company.sales_orders.create!(:client=>@company.entities.third)
       end
 
-      should "sales_invoice its sales" do
-        assert !@sales_order.sales_invoice
+      should "invoice its sales" do
+        assert !@sales_order.invoice
 
         line = @sales_order.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
         assert line.save
         line = @sales_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         assert line.save
         
-        assert @sales_order.sales_invoice
+        assert @sales_order.invoice
       end
 
       should "print its sales" do
@@ -118,14 +118,14 @@ class CompanyTest < ActiveSupport::TestCase
           line = @sales_order.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
           assert line.save, line.errors.inspect
         end
-        assert @sales_order.sales_invoice
+        assert @sales_order.invoice
         # line = @sales_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         # assert line.save, line.errors.inspect
         @sales_invoice = @sales_order.sales_invoices.first
         assert_equal @sales_invoice.class, SalesInvoice
       end
 
-      should "print and archive its sales_invoices" do
+      should "print and archive its sales invoices" do
         data = []
         assert_nothing_raised do
           data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sales_invoice)[0])

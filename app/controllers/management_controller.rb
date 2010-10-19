@@ -785,7 +785,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
-    t.action :purchase_order_lines, :image=>:update
+    t.action :purchase_order_update
     t.action :purchase_order_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
@@ -1085,7 +1085,7 @@ class ManagementController < ApplicationController
   end
   
 
-  create_kame(:sales_order_deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sales_order_id]']}) do |t|
+  create_kame(:sales_order_deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -1093,14 +1093,14 @@ class ManagementController < ApplicationController
     t.column :quantity
     t.column :amount
     t.column :amount_with_taxes
-    #t.action :outgoing_delivery_update, :if=>'RECORD.sales_invoice_id.nil? and RECORD.moved_on.nil? '
-    t.action :outgoing_delivery_update, :if=>'!RECORD.order.invoiced'
-    #t.action :outgoing_delivery_delete, :if=>'RECORD.sales_invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-    t.action :outgoing_delivery_delete, :if=>'!RECORD.order.invoiced', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    # t.action :outgoing_delivery_update, :if=>'RECORD.sales_invoice_id.nil? and RECORD.moved_on.nil? '
+    t.action :outgoing_delivery_update, :if=>'!RECORD.sales_order.invoiced'
+    # t.action :outgoing_delivery_delete, :if=>'RECORD.sales_invoice_id.nil? and RECORD.moved_on.nil? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :outgoing_delivery_delete, :if=>'!RECORD.sales_order.invoiced', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
 
-  create_kame(:sales_order_sales_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}, :children=>:lines) do |t|
+  create_kame(:sales_order_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}, :children=>:lines) do |t|
     t.column :number, :children=>:designation, :url=>{:action=>:sales_invoice}
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
@@ -1149,7 +1149,7 @@ class ManagementController < ApplicationController
   end
 
   dyli(:clients, [:code, :full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
-  dyli(:client_contacts, [:address] ,:model=>:contacts, :conditions=>{:deleted_at=>nil, :entity_id=>['session[:current_entity_id]'], :company_id=>['@current_company.id']})
+  dyli(:client_contacts, [:address] ,:model=>:contacts, :conditions=>["company_id = ? AND entity_id = ? AND deleted_at IS NULL", ['@current_company.id'], ['session[:current_entity_id]']])
 
   def sales_order_create
     if request.post?
@@ -1200,6 +1200,7 @@ class ManagementController < ApplicationController
   create_kame(:sales_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sales_order_id]']}, :order=>:id, :export=>false) do |t|
     #t.column :name, :through=>:product
     t.column :label
+    t.column :annotation
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity
     t.column :label, :through=>:unit
@@ -1251,7 +1252,7 @@ class ManagementController < ApplicationController
   end
 
   def sales_order_confirm
-    return unless @sales_order = find_and_check(:sales_orders)
+    return unless @sales_order = find_and_check(:sales_order)
     if request.post?
       @sales_order.confirm
     end
@@ -1259,11 +1260,11 @@ class ManagementController < ApplicationController
   end
 
 
-  def sales_order_sales_invoice 
-    return unless @sales_order = find_and_check(:sales_orders)
+  def sales_order_invoice 
+    return unless @sales_order = find_and_check(:sales_order)
     if request.post?
       ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless @sales_order.sales_invoice
+        raise ActiveRecord::Rollback unless @sales_order.invoice
         redirect_to :action=>:sales_order_summary, :id=>@sales_order.id
         return
       end
@@ -1423,7 +1424,7 @@ class ManagementController < ApplicationController
     return unless @sales_order = find_and_check(:sales_order)
     session[:current_sales_order_id] = @sales_order.id
     if @sales_order.deliveries.size <= 0 and not @sales_order.invoiced
-      redirect_to :action=>:outgoing_delivery_create
+      redirect_to :action=>:outgoing_delivery_create, :sales_order_id=>@sales_order.id
     elsif @sales_order.deliveries.size <= 0 and @sales_order.invoiced
       notify(:sales_order_already_invoiced)
     elsif @sales_order.lines.size <= 0
@@ -1450,36 +1451,34 @@ class ManagementController < ApplicationController
     @outgoing_delivery.amount_with_taxes = @outgoing_delivery.amount_with_taxes.round(2)
   end
   
-  dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true},:joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :model=>:contacts)
+  dyli(:delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true}, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :model=>:contacts)
   
   
   def outgoing_delivery_create
-    return unless @sales_order = find_and_check(:sales_orders, params[:order_id]||session[:current_sales_order_id])
+    return unless @sales_order = find_and_check(:sales_orders, params[:sales_order_id]||params[:order_id]||session[:current_sales_order_id])
     @outgoing_delivery_form = "outgoing_delivery_form"
     if @sales_order.invoiced
       notify(:sales_order_already_invoiced, :warning)
       redirect_to_back
     end
-    @sales_order_lines = @sales_order.lines
-    if @sales_order_lines.empty?
+    sales_order_lines = @sales_order.lines
+    if sales_order_lines.empty?
       notify(:no_lines_found, :warning)
       redirect_to_back
     end
-    @outgoing_delivery_lines =  @sales_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| OutgoingDeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
+    @outgoing_delivery_lines =  sales_order_lines.find_all_by_reduction_origin_id(nil).collect{|x| OutgoingDeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @outgoing_delivery = OutgoingDelivery.new(:amount=>@sales_order.undelivered("amount"), :amount_with_taxes=>@sales_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sales_order.transporter_id, :contact_id=>@sales_order.delivery_contact_id||@sales_order.client.default_contact)
     session[:current_outgoing_delivery] = @outgoing_delivery.id
   
     if request.post?
-      @outgoing_delivery = OutgoingDelivery.new(params[:outgoing_delivery])
-      @outgoing_delivery.order_id = @sales_order.id
-      @outgoing_delivery.company_id = @current_company.id
+      @outgoing_delivery = @sales_order.deliveries.new(params[:outgoing_delivery])
       
       ActiveRecord::Base.transaction do
         saved = @outgoing_delivery.save
         if saved
-          for line in @sales_order_lines.find_all_by_reduction_origin_id(nil)
+          for line in sales_order_lines.find_all_by_reduction_origin_id(nil)
             if params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f > 0
-              outgoing_delivery_line = OutgoingDeliveryLine.new(:order_line_id=>line.id, :outgoing_delivery_id=>@outgoing_delivery.id, :quantity=>params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f, :company_id=>@current_company.id)
+              outgoing_delivery_line = @outgoing_delivery.lines.new(:order_line_id=>line.id, :quantity=>params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f)
               saved = false unless outgoing_delivery_line.save
               @outgoing_delivery.errors.add_from_record(outgoing_delivery_line)
             end
@@ -1496,9 +1495,9 @@ class ManagementController < ApplicationController
     return unless @outgoing_delivery = find_and_check(:outgoing_delivery)
     @outgoing_delivery_form = "outgoing_delivery_form"
     session[:current_outgoing_delivery] = @outgoing_delivery.id
-    @contacts = @outgoing_delivery.order.client.contacts
-    return unless @sales_order = find_and_check(:sales_orders, session[:current_sales_order_id])
-    @sales_order_lines = SalesOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sales_order_id]})
+    @sales_order = @outgoing_delivery.sales_order
+    # return unless @sales_order = find_and_check(:sales_orders, session[:current_sales_order_id])
+    # sales_order_lines = SalesOrderLine.find(:all,:conditions=>{:company_id=>@current_company.id, :order_id=>session[:current_sales_order_id]})
     # @outgoing_delivery_lines = OutgoingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :outgoing_delivery_id=>@outgoing_delivery.id})
     @outgoing_delivery_lines = @outgoing_delivery.lines
     if request.post?
@@ -1506,7 +1505,7 @@ class ManagementController < ApplicationController
         saved = @outgoing_delivery.update_attributes!(params[:outgoing_delivery])
         if saved
           for line in @outgoing_delivery.lines
-            saved = false unless line.update_attributes!(:quantity=>params[:outgoing_delivery_line][line.order_line.id.to_s][:quantity])
+            saved = false unless line.update_attributes(:quantity=>params[:outgoing_delivery_line][line.order_line.id.to_s][:quantity])
             @outgoing_delivery.errors.add_from_record(line)
           end
         end

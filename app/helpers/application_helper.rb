@@ -893,12 +893,15 @@ module ApplicationHelper
           url_options[:id] = args.id
           code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-update"})) if not record.respond_to?(:updatable?) or (record.respond_to?(:updatable?) and record.updatable?)
         elsif nature == :missing
-          verb, record = tool[1], tool[2]
+          verb, record, tag_options = tool[1], tool[2], tool[3]
           action = "#{record.class.name.underscore}_#{verb}"
+          tag_options = {} unless tag_options.is_a? Hash
+          tag_options[:class] = "icon im-#{verb}"
           url_options = {} unless url_options.is_a? Hash
+          url_options.merge(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
           url_options[:action] = action
           url_options[:id] = record.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, {:class=>"icon im-#{verb}"}))
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, tag_options))
         end
       end
       if code.strip.length>0
@@ -942,7 +945,7 @@ module ApplicationHelper
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
       raise ArgumentError.new("First argument must be an ActiveRecord::Base") unless args[0].class.ancestors.include? ActiveRecord::Base
-      @tools << [:missing, method_name, args[0], args[1..-1]]
+      @tools << [:missing, method_name, args[0], args[1]]
     end
   end
 
@@ -1160,11 +1163,13 @@ module ApplicationHelper
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif controller.accessible?(options[:new])
-          if options[:field] == :dyselect
-            data = "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}');"
-          else
-            data = "refreshAutoList('#{rlid}', request);"
-          end
+          data = if options[:remote]
+                   options[:remote]
+                 elsif options[:field] == :dyselect
+                   "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}');"
+                 else
+                   "refreshAutoList('#{rlid}', request);"
+                 end
           data = ActiveSupport::Base64.encode64(Marshal.dump(data))
           input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
         end

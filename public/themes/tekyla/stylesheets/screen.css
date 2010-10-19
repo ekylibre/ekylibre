@@ -27,7 +27,7 @@ input[type="submit"] { padding: 1px 4px; }
 /*a img { padding: 0; margin: 0; display:block; border: none;}*/
 
 
-.icon { background-image: url(../images/round-blue.png); background-repeat: no-repeat; }
+.icon { background-image: url(../images/buttons/action.png); background-repeat: no-repeat; }
 html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important;  background-position: center left; }
 html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }
 

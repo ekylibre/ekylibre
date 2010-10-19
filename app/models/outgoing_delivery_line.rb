@@ -52,6 +52,7 @@ class OutgoingDeliveryLine < ActiveRecord::Base
   autosave :delivery
 
   def prepare
+    self.company_id = self.delivery.company_id if self.delivery
     if self.order_line
       self.product_id  = self.order_line.product_id
       self.price_id    = self.order_line.price.id
@@ -71,7 +72,7 @@ class OutgoingDeliveryLine < ActiveRecord::Base
 
   def check_on_update
     old_self = self.class.find(self.id)
-    maximum = self.undelivered_quantity - old_self.quantity
+    maximum = self.undelivered_quantity + old_self.quantity
     errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
   end
 

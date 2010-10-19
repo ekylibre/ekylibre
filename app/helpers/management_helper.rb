@@ -47,7 +47,7 @@ module ManagementHelper
   
   PURCHASE_STEPS = [
                     {:name=>:active, :actions=>[:purchase_order_lines, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>[:active, :complete]},
-                    {:name=>:deliveries, :actions=>[:purchase_order_deliveries, :incoming_delivery_create, :incoming_delivery_update], :states=>[:active, :complete]},
+                   # {:name=>:deliveries, :actions=>[:purchase_order_deliveries, :incoming_delivery_create, :incoming_delivery_update], :states=>[:active, :complete]},
                     {:name=>:summary, :actions=>[:purchase_order_summary], :states=>[:active, :complete]}
                    ]
 
