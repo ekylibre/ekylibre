@@ -34,8 +34,6 @@ eng:
         payment_way: 'Mode of payment'
       inventory_line:
         quantity: 'Found quantity'
-      journal_entry:
-        outgoing_payment_uses: 'Parts or disbursements'
       journal_entry_line:
         closed: 'Closed'
       land_parcel:
@@ -89,7 +87,6 @@ eng:
         contact_id: 'Address for the estimate'
         has_downpayment: 'Request a downpayment'
         lines: 'Sales order lines'
-        parts_amount: 'Paid amount'
         payments: 'Incoming payments'
       sales_order_line:
         label: 'Product'
@@ -121,7 +118,6 @@ eng:
         active: 'Used'
       transfer:
         amount: 'Amount'
-        parts_amount: 'Paid amount'
       unit:
         start: 'Value at the origin'
       user:
@@ -713,8 +709,8 @@ eng:
     parent: 'Parent'
     parent_id: 'Parent'
     parent_land_parcel_id: 'Parent land parcel'
-    parts: 'Parts'
-    parts_amount: 'Used amount'
+    parts: 'Parts' #!
+    parts_amount: 'Used amount' #!
     password: 'Password'
     password_confirmation: 'Confirmation of password'
     payee: 'Payee'
@@ -859,7 +855,7 @@ eng:
     started_on: 'Started on'
     started_sec: 'Started sec'
     state: 'State'
-    state_label: 'Text state'
+    state_label: 'State'
     stock: 'Stock'
     stock_id: 'Stock'
     stock_moves: 'Stock moves'
@@ -940,6 +936,7 @@ eng:
     usage: 'Usage'
     usage_duration: 'Usage duration'
     use_range: 'Use range'
+    used_amount: 'Used amount'
     user: 'User'
     user_id: 'User'
     users: 'Users'
@@ -1302,6 +1299,14 @@ eng:
     purchase_order:
       label: '%{supplier} at %{address}'
       purchase: 'Purchase'
+      states:
+        aborted: 'Aborted'
+        draft: 'Draft'
+        finished: 'Finished'
+        invoiced: 'Invoiced'
+        processing: 'Waiting...'
+        ready: 'Ready purchase order'
+        refused: 'Refused purchase order'
       to_accountancy: '[%{resource} %{number}] %{products} of %{supplier}'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
@@ -1327,9 +1332,13 @@ eng:
         downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
         validity: 'This estimate and its general conditions are available until the %{expiration}.'
       states:
-        A: 'Active'
-        C: 'Finished'
-        E: 'Estimate'
+        aborted: 'Aborted'
+        draft: 'Draft'
+        finished: 'Finished'
+        invoiced: 'Invoiced'
+        processing: 'Processing...'
+        ready: 'Ready estimate'
+        refused: 'Refused estimate'
     sales_order_line:
       can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       currency_is_not_sales_order_currency: 'The currency of the price differs from the sales order currency'

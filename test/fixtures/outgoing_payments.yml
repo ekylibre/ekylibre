@@ -34,12 +34,12 @@
 #  mode_id          :integer          not null
 #  number           :string(255)      
 #  paid_on          :date             
-#  parts_amount     :decimal(16, 2)   default(0.0), not null
 #  payee_id         :integer          not null
 #  responsible_id   :integer          not null
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  used_amount      :decimal(16, 2)   default(0.0), not null
 #
 #
 # == Fixture: outgoing_payments
@@ -52,12 +52,12 @@
 #   delivered: true
 #   id: 1
 #   mode_id: 1
-#   parts_amount: 0
 #   payee_id: 1
 #   responsible_id: 1
 #   to_bank_on: 2009-07-19
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
+#   used_amount: 0
 #
 
 outgoing_payments_001:
@@ -67,7 +67,7 @@ outgoing_payments_001:
   creator_id: 1
   id: 1
   mode_id: 1
-  parts_amount: 0
+  used_amount: 0
   payee_id: 1
   responsible_id: 1
   to_bank_on: 2009-07-19
@@ -81,7 +81,7 @@ outgoing_payments_002:
   creator_id: 1
   id: 2
   mode_id: 1
-  parts_amount: 0
+  used_amount: 0
   payee_id: 1
   responsible_id: 1
   to_bank_on: 2009-07-19

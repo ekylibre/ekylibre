@@ -186,7 +186,7 @@ function toCurrency(value) {
    Sum all the value in corresponding elements and update a target with its ID 
    Returns target
 */
-function sum_all(css_rule, target_id) {
+function sumAll(css_rule, target_id) {
   var target = $(target_id);
   var sum = 0;
   var reg = new RegExp(",", "ig");
@@ -203,6 +203,49 @@ function sum_all(css_rule, target_id) {
   else { target.innerHTML = sum; }
   return target;
 }
+
+
+function sum_all(css_rule, target_id) {
+  return sumAll(css_rule, target_id);
+}
+
+function compute(element) {
+  element = $(element);
+  var total=0;
+  var sum_class = element.readAttribute('sum-of');
+  var mul_class = element.readAttribute('mul-of');
+  var computed = 1;
+  if (sum_class !== null) {
+    $$('.'+sum_class).each(function(item) { total = total*1+compute(item)*1; });
+  } else if (mul_class !== null) {
+    $$('.'+mul_class).each(function(item) { 
+        if (total == 0) { total = 1; }
+        total = total*compute(item); 
+      });
+  } else {
+    computed = 0;
+    if (element.tagName.toLowerCase() == "input" && !isNaN(element.value)) { 
+      total = parseFloat(element.value); 
+    } else if (!isNaN(element.innerHTML)) {
+      total = parseFloat(element.innerHTML);
+    }
+  }
+  if (isNaN(total)) {
+    total = 0;
+  }
+
+  if (computed == 1) {
+    if (element.tagName.toLowerCase() == "input") { 
+      element.value = toCurrency(total); 
+    } else { 
+      element.innerHTML = toCurrency(total); 
+    }
+  }
+  return total;
+}
+
+
+
 
 /*
   

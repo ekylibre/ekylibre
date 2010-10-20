@@ -34,12 +34,12 @@
 #  mode_id          :integer          not null
 #  number           :string(255)      
 #  paid_on          :date             
-#  parts_amount     :decimal(16, 2)   default(0.0), not null
 #  payee_id         :integer          not null
 #  responsible_id   :integer          not null
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  used_amount      :decimal(16, 2)   default(0.0), not null
 #
 
 require 'test_helper'

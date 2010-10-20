@@ -7,33 +7,46 @@
   -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>{:action=>:outgoing_delivery_mode_create}
   -f.field :outgoing_delivery, :planned_on
   -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:controller=>:relations, :action=>:entity_create, :transporter=>1}
+%h2=OutgoingDelivery.human_attribute_name("lines")
 %table.kame 
   %tr
     %th=OutgoingDeliveryLine.human_attribute_name(:product)
     %th=tc(:line_amount)
     %th=tc(:line_amount_with_taxes)
-    %th=tc(:unit)
     %th=tc(:total_quantity)
+    %th=OutgoingDeliveryLine.human_attribute_name(:unit)
     %th=tc(:quantity_rest)
     %th=tc(:quantity)
-  -for @line in @outgoing_delivery_lines
+    %th=OutgoingDeliveryLine.human_attribute_name(:amount)
+    %th=OutgoingDeliveryLine.human_attribute_name(:amount_with_taxes)
+  -for line in @outgoing_delivery_lines
     %tr{:class=>cycle('odd','even')}
-      %td=@line.order_line.label
-      %td=@line.order_line.price.amount
-      %td=@line.order_line.price.amount_with_taxes
-      %td=@line.order_line.unit.name
-      %td{:style=>'text-align:center'}=@line.order_line.quantity
-      %td{:style=>'text-align:center'}=@line.quantity
+      %td=line.order_line.label
+      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.amount
+      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount_with_taxes
+      %td.dec=line.order_line.quantity
+      %td=line.order_line.unit.label
+      %td.dec=line.order_line.undelivered_quantity
       %td{:style=>'text-align:center'}
-        =text_field_tag "outgoing_delivery_line[#{@line.order_line_id}][quantity]", @line.quantity, :id=>"outgoing_delivery_line_#{@line.order_line_id}_quantity"
-        =observe_field "outgoing_delivery_line_#{@line.order_line.id}_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@outgoing_delivery_form}')"
-
-%table.kame
+        =text_field_tag "outgoing_delivery_line[#{line.order_line_id}][quantity]", line.quantity, :id=>"outgoing_delivery_line_#{line.order_line_id}_quantity", :onkeyup=>"t6(this, #{line.order_line.undelivered_quantity});", :class=>"pta-#{line.order_line_id} awt-#{line.order_line_id}"
+        =#observe_field "outgoing_delivery_line_#{line.order_line_id}_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@outgoing_delivery_form}')"
+      %td.dec.pta{"mul-of"=>"pta-#{line.order_line_id}"}
+      %td.dec.awt{"mul-of"=>"awt-#{line.order_line_id}"}
   %tr.total
-    %th=tc :amount
-    %td#sum_total_ht=@outgoing_delivery.amount
-  %tr.important.total
-    %th=tc :amount_with_taxes
-    %td#sum_total=@outgoing_delivery.amount_with_taxes
-
+    %th{:colspan=>7}=tg :total
+    %td#total_amount{"sum-of"=>"pta"}=@outgoing_delivery.amount
+    %td#total_amount_with_taxes{"sum-of"=>"awt"}=@outgoing_delivery.amount_with_taxes
+  :javascript
+    window.t6 = function(element, max) {
+      compute("total_amount");
+      compute("total_amount_with_taxes");
+      if (element !== null) {
+        if (isNaN(element.value) || (!isNaN(element.value) && parseFloat(element.value)>max)) {
+          element.addClassName("invalid");
+        } else {
+          element.removeClassName("invalid");
+        }
+      }
+    }
+    t6();
 

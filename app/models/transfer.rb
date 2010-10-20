@@ -31,7 +31,7 @@
 #  journal_entry_id :integer          
 #  label            :string(255)      
 #  lock_version     :integer          default(0), not null
-#  parts_amount     :decimal(16, 2)   default(0.0), not null
+#  paid_amount      :decimal(16, 2)   default(0.0), not null
 #  started_on       :date             
 #  stopped_on       :date             
 #  supplier_id      :integer          
@@ -52,7 +52,7 @@ class Transfer < ActiveRecord::Base
 
   def prepare
     self.created_on ||= Date.today
-    self.parts_amount = self.payment_uses.sum(:amount)||0
+    self.paid_amount = self.payment_uses.sum(:amount)||0
   end
 
   
@@ -65,7 +65,7 @@ class Transfer < ActiveRecord::Base
   end
 
   def unpaid_amount(options=nil)
-    self.amount - self.parts_amount
+    self.amount - self.paid_amount
   end
 
   def number

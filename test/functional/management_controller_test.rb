@@ -7,7 +7,7 @@ class ManagementControllerTest < ActionController::TestCase
                    :incoming_payment_mode_reflect=>:delete,
                    :incoming_payment_use_create=>{:expense_type=>"sales_order", :expense_id=>1},
                    :inventory_reflect=>:delete, 
-                   :outgoing_delivery_create=>{:order_id=>3},
+                   :outgoing_delivery_create=>{:sales_order_id=>3},
                    :outgoing_delivery_update=>{:id=>1},
                    :outgoing_payment_use_create=>{:expense_id=>1},
                    :product_component_create=>{:product_id=>1}, 

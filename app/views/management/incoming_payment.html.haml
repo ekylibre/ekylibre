@@ -5,7 +5,7 @@
 =list_evalue(3) do |l|
   -l.evalue @incoming_payment, :number
   -l.evalue @incoming_payment, :amount
-  -l.evalue @incoming_payment, :parts_amount
+  -l.evalue @incoming_payment, :used_amount
   -l.evalue @incoming_payment, :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
   -l.evalue @incoming_payment, :responsible, :label=>:label
   -l.evalue @incoming_payment, :deposit, :url=>{:action=>:deposit}
@@ -21,7 +21,7 @@
   -l.evalue @incoming_payment, :check_number
   -l.evalue @incoming_payment, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
--if @incoming_payment.parts.size>0
+-if @incoming_payment.uses.size>0
   -if SalesOrder.find(:all, :conditions=>["sales_orders.company_id=? AND id IN (SELECT expense_id FROM incoming_payment_uses WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], SalesOrder.name]).size > 0
     %h2=tc(:sales_orders)
     =kame :incoming_payment_sales_orders

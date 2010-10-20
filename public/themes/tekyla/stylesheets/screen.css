@@ -31,13 +31,16 @@ input[type="submit"] { padding: 1px 4px; }
 html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important;  background-position: center left; }
 html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }
 
+.icon.im-abort       { background-image: url(../images/buttons/delete.png); }
 .icon.im-action      { background-image: url(../images/buttons/action.png); }
 .icon.im-backup      { background-image: url(../images/buttons/right.png); }
 .icon.im-cancel      { background-image: url(../images/buttons/cancel.png); }
 .icon.im-checked     { background-image: url(../images/buttons/checkbox_true.png); }
 .icon.im-close       { background-image: url(../images/buttons/close.png); }
 .icon.im-column      { background-image: url(../images/buttons/column.png); }
+.icon.im-confirm     { background-image: url(../images/buttons/finished.png); }
 .icon.im-configure   { background-image: url(../images/buttons/configure.png); }
+.icon.im-correct     { background-image: url(../images/buttons/update.png); }
 .icon.im-create      { background-image: url(../images/buttons/create.png); }
 .icon.im-delete      { background-image: url(../images/buttons/delete.png); }
 .icon.im-divide      { background-image: url(../images/buttons/divide.png); }
@@ -60,7 +63,9 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-previous    { background-image: url(../images/buttons/previous.png); }
 .icon.im-print       { background-image: url(../images/buttons/print.png); }
 .icon.im-printable   { background-image: url(../images/buttons/printable.png); }
+.icon.im-propose     { background-image: url(../images/buttons/page.png); }
 .icon.im-reflect     { background-image: url(../images/buttons/action.png); }
+.icon.im-refuse      { background-image: url(../images/buttons/delete.png); }
 .icon.im-register    { background-image: url(../images/buttons/create.png); }
 .icon.im-resize      { background-image: url(../images/buttons/resize.png); }
 .icon.im-restore     { background-image: url(../images/buttons/left.png); }
@@ -586,3 +591,6 @@ html[dir="rtl"] .bmenu ul { right: -1px; }
 .treemap .plot.odd { background: #D7F1C9; }
 .treemap .plot.even { background: #C9F1D7; }
 .treemap .plot ul.operations { padding: 2px 2px 2px 20px; }
+
+
+table.kame tr.aborted td, table.kame tr.refused td { text-decoration: line-through; }

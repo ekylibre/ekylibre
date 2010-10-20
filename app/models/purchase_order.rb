@@ -35,7 +35,7 @@
 #  lock_version      :integer          default(0), not null
 #  moved_on          :date             
 #  number            :string(64)       not null
-#  parts_amount      :decimal(16, 2)   default(0.0), not null
+#  paid_amount       :decimal(16, 2)   default(0.0), not null
 #  planned_on        :date             
 #  reference_number  :string(255)      
 #  shipped           :boolean          not null
@@ -63,33 +63,53 @@ class PurchaseOrder < ActiveRecord::Base
   validates_presence_of :planned_on, :created_on, :currency, :state
   validates_uniqueness_of :number, :scope=>:company_id
 
+  state_machine :state, :initial => :draft do
+    state :draft
+    state :ready
+    state :refused
+    state :processing
+    state :invoiced
+    state :finished
+    state :aborted
+    event :propose do
+      transition :draft => :ready, :if=>:has_content?
+    end
+    event :correct do
+      transition :ready => :draft
+      transition :refused => :draft
+    end
+    event :refuse do
+      transition :ready => :refused, :if=>:has_content?
+    end
+    event :confirm do
+      transition :ready => :processing, :if=>:has_content?
+    end
+    event :invoice do
+      transition :processing => :invoiced, :if=>:has_content?
+      transition :ready => :invoiced, :if=>:has_content?
+    end
+    event :finish do
+      transition :invoiced => :finished
+    end
+    event :abort do
+      transition [:draft, :ready] => :aborted # , :processing
+    end
+  end
+
   ## shipped used as received
 
   def prepare
     self.created_on ||= Date.today
-    self.parts_amount = self.payment_uses.sum(:amount)||0
+    self.paid_amount = self.payment_uses.sum(:amount)||0
     if self.number.blank?
       #last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
       last = self.company.purchase_orders.find(:first, :order=>"number desc")
-      self.number = if last
-                      last.number.succ!
-                    else
-                      '00000001'
-                    end
+      self.number = (last ? last.number.succ! : '00000001')
     end
     self.currency ||= self.company.default_currency
 
     self.amount = self.lines.sum(:amount)
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
-    # Set state to 'Complete' if all is paid
-    if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes # and self.sales_invoices.sum(:amount_with_taxes) == self.amount_with_taxes
-      self.state = 'C'
-    elsif self.deliveries.size>0 # or not self.confirmed_on.blank? or  #  or self.parts_amount>0
-      self.state = 'A'
-    else
-      self.state = 'E'
-    end
-
     return true
   end
   
@@ -102,6 +122,12 @@ class PurchaseOrder < ActiveRecord::Base
   def refresh
     self.save
   end
+
+  def has_content?
+    self.lines.size > 0
+  end
+  
+
 
 
   # Confirm the purchase by moving virtual and real stocks et closing
@@ -145,21 +171,8 @@ class PurchaseOrder < ActiveRecord::Base
     tc('states.'+self.state.to_s)
   end
 
-  def estimate?
-    self.state == 'E'
-  end
-
-  def active?
-    self.state == 'A'
-  end
-
-  def complete?
-    self.state == 'C'
-  end
-
-
   def unpaid_amount(all=true)
-    self.amount_with_taxes - self.parts_amount
+    self.amount_with_taxes - self.paid_amount
   end
 
   def payment_entity_id
@@ -167,12 +180,12 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def usable_payments
-    self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0)"], :order=>"amount")
+    self.company.payments.find(:all, :conditions=>["COALESCE(paid_amount,0)<COALESCE(amount,0)"], :order=>"amount")
   end
 
   def status
     status = ""
-    status = "critic" if self.parts_amount < self.amount_with_taxes
+    status = "critic" if self.paid_amount < self.amount_with_taxes
     status
   end
 
@@ -198,7 +211,7 @@ class PurchaseOrder < ActiveRecord::Base
   def stats(options={})
     array = []
     array << [:total_amount, self.amount_with_taxes]
-    array << [:paid_amount, self.parts_amount]
+    array << [:paid_amount, self.paid_amount]
     array << [:unpaid_amount, self.unpaid_amount]
     array 
   end

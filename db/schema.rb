@@ -894,7 +894,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                            :default => false, :null => false
     t.boolean  "received",                                             :default => true,  :null => false
-    t.decimal  "parts_amount",          :precision => 16, :scale => 2,                    :null => false
+    t.decimal  "used_amount",           :precision => 16, :scale => 2,                    :null => false
     t.string   "number"
     t.date     "created_on"
     t.datetime "accounted_at"
@@ -1433,7 +1433,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "mode_id",                                                           :null => false
     t.string   "number"
     t.date     "paid_on"
-    t.decimal  "parts_amount",     :precision => 16, :scale => 2, :default => 0.0,  :null => false
+    t.decimal  "used_amount",      :precision => 16, :scale => 2, :default => 0.0,  :null => false
     t.date     "to_bank_on",                                                        :null => false
     t.integer  "company_id",                                                        :null => false
     t.datetime "created_at",                                                        :null => false
@@ -1752,7 +1752,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.date     "created_on"
     t.datetime "accounted_at"
     t.integer  "currency_id"
-    t.decimal  "parts_amount",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "paid_amount",                     :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "journal_entry_id"
     t.string   "reference_number"
     t.string   "state",             :limit => 64
@@ -1915,7 +1915,6 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.date     "created_on",                                                                          :null => false
     t.string   "number",              :limit => 64,                                                   :null => false
     t.string   "sum_method",          :limit => 8,                                 :default => "wt",  :null => false
-    t.boolean  "invoiced",                                                         :default => false, :null => false
     t.decimal  "amount",                            :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "amount_with_taxes",                 :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.string   "state",               :limit => 64,                                :default => "O",   :null => false
@@ -1939,7 +1938,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                     :default => 0,     :null => false
     t.date     "confirmed_on"
-    t.decimal  "parts_amount",                      :precision => 16, :scale => 2
+    t.decimal  "paid_amount",                       :precision => 16, :scale => 2
     t.integer  "responsible_id"
     t.boolean  "letter_format",                                                    :default => true,  :null => false
     t.text     "annotation"
@@ -2247,7 +2246,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
 
   create_table "transfers", :force => true do |t|
     t.decimal  "amount",           :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "parts_amount",     :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "paid_amount",      :precision => 16, :scale => 2, :default => 0.0, :null => false
     t.integer  "supplier_id"
     t.string   "label"
     t.string   "comment"

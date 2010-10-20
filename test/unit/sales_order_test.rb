@@ -43,13 +43,12 @@
 #  id                  :integer          not null, primary key
 #  introduction        :text             
 #  invoice_contact_id  :integer          
-#  invoiced            :boolean          not null
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
 #  number              :string(64)       not null
-#  parts_amount        :decimal(16, 2)   
+#  paid_amount         :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null

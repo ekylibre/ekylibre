@@ -56,7 +56,7 @@ class ResourcesController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
-    t.action :sales_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
+    t.action :sales_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure
   end
 
    create_kame(:employee_land_parcel_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|

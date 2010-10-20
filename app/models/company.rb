@@ -149,8 +149,8 @@ class Company < ActiveRecord::Base
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
-  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'parts_amount < amount', :order=>'amount'
+  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
 
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"

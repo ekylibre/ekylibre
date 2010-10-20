@@ -1,13 +1,14 @@
 =sales_steps if params[:step]
 
 =toolbar do |t|
-  -if @sales_order.estimate?
-    -t.update @sales_order
-  -if @sales_order.lines.size>0
-    -if (@sales_order.estimate? and @sales_order.deliveries.size <= 0)
-      -t.confirm @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
-    -if not @sales_order.invoiced # amount_with_taxes > @sales_order.invoiced_amount and @sales_order.deliveries.size <= 0)
-      -t.invoice @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+  -t.update @sales_order if @sales_order.draft?
+  -if @sales_order.can_confirm?
+    -t.confirm @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+  -if @sales_order.can_invoice?
+    -t.invoice @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+  -for event in [:propose, :finish, :correct, :refuse]
+    -t.send(event, @sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.send("can_#{event}?")
+  -t.abort(@sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.can_abort?
   -t.print :sales_order, :id=>@sales_order.id
 
 =list_evalue do |l|
@@ -32,7 +33,7 @@
 -if ["products", ""].include? params[:step].to_s
   %h2=SalesOrder.human_attribute_name("lines")
   -@sales_order_line = @sales_order.lines.new
-  -if @sales_order.estimate?
+  -if @sales_order.draft?
     =toolbar do |t|
       -t.link(:sales_order_line_create, :order_id=>@sales_order.id) 
     =render :partial=>"sales_order_line_row_form"
@@ -52,11 +53,11 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
   =toolbar do |t|
-    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id) unless @sales_order.complete?
+    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id) unless @sales_order.finished?
   =kame :sales_order_payment_uses
 
       
--if ["deliveries", ""].include? params[:step].to_s and @sales_order.active?
+-if ["deliveries", ""].include? params[:step].to_s and @sales_order.processing?
   -if @sales_order.deliverable?
     %h2=tc :undelivered
     =kame :undelivered_quantities

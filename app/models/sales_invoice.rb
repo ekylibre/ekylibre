@@ -52,6 +52,7 @@
 class SalesInvoice < ActiveRecord::Base
   acts_as_accountable :callbacks=>false
   after_create {|r| r.client.add_event(:sales_invoice, r.updater_id)}
+  attr_readonly :company_id
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :company
   belongs_to :contact
@@ -71,12 +72,9 @@ class SalesInvoice < ActiveRecord::Base
     self.created_on = Date.today unless self.created_on.is_a? Date
     if self.number.blank?
       last = self.client.sales_invoices.find(:first, :order=>"number desc")
-      self.number = if last
-                      last.number.succ!
-                    else
-                      '00000001'
-                    end
+      self.number = (last ? last.number.succ! : '00000001')
     end
+    self.company_id = self.sales_order.company_id if self.sales_order
 
     if self.credit
       self.amount = 0

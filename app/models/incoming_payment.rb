@@ -38,7 +38,6 @@
 #  mode_id               :integer          not null
 #  number                :string(255)      
 #  paid_on               :date             
-#  parts_amount          :decimal(16, 2)   not null
 #  payer_id              :integer          
 #  receipt               :text             
 #  received              :boolean          default(TRUE), not null
@@ -47,6 +46,7 @@
 #  to_bank_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
+#  used_amount           :decimal(16, 2)   not null
 #
 
 class IncomingPayment < ActiveRecord::Base
@@ -59,19 +59,19 @@ class IncomingPayment < ActiveRecord::Base
   belongs_to :journal_entry
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>IncomingPaymentMode.name
-  has_many :parts, :class_name=>IncomingPaymentUse.name, :foreign_key=>:payment_id, :autosave=>true
-  # has_many :orders, :through=>:parts, :source=>:expense, :source_type=>SalesOrder.name
-  has_many :sales_orders, :through=>:parts, :source=>:expense, :source_type=>SalesOrder.name
-  # has_many :purchase_orders, :through=>:parts, :source=>:expense, :source_type=>PurchaseOrder.name
-  has_many :transfers, :through=>:parts, :source=>:expense, :source_type=>Transfer.name
+  has_many :uses, :class_name=>IncomingPaymentUse.name, :foreign_key=>:payment_id, :autosave=>true
+  # has_many :orders, :through=>:uses, :source=>:expense, :source_type=>SalesOrder.name
+  has_many :sales_orders, :through=>:uses, :source=>:expense, :source_type=>SalesOrder.name
+  # has_many :purchase_orders, :through=>:uses, :source=>:expense, :source_type=>PurchaseOrder.name
+  has_many :transfers, :through=>:uses, :source=>:expense, :source_type=>Transfer.name
 
   autosave :deposit
 
   attr_readonly :company_id, :payer_id
-  attr_protected :parts_amount
+  attr_protected :used_amount
 
   validates_numericality_of :amount, :greater_than=>0
-  validates_numericality_of :parts_amount, :commission_amount, :greater_than_or_equal_to=>0
+  validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
   validates_presence_of :to_bank_on, :payer, :created_on
   validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
   
@@ -93,11 +93,11 @@ class IncomingPayment < ActiveRecord::Base
   def prepare
     self.commission_account ||= self.mode.commission_account
     self.commission_amount ||= self.mode.commission_amount(self.amount)
-    self.parts_amount = self.parts.sum(:amount)
+    self.used_amount = self.uses.sum(:amount)
   end
 
   def check
-    errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
+    errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
   
   def label
@@ -105,13 +105,13 @@ class IncomingPayment < ActiveRecord::Base
   end
 
   def unused_amount
-    self.amount-self.parts_amount
+    self.amount-self.used_amount
   end
 
   def attorney_amount
     total = 0
-    for part in self.parts
-      total += part.amount if part.expense.client_id != part.payment.payer_id
+    for use in self.uses
+      total += use.amount if use.expense.client_id != use.payment.payer_id
     end    
     return total
   end
@@ -123,10 +123,10 @@ class IncomingPayment < ActiveRecord::Base
     downpayment = options[:downpayment]
     IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
     self.reload
-    part_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
-    part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
-    if part.errors.size > 0
-      errors.add_from_record(part)
+    use_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
+    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
+    if use.errors.size > 0
+      errors.add_from_record(use)
       return false
     end
     return true
@@ -139,7 +139,7 @@ class IncomingPayment < ActiveRecord::Base
     attorney_amount = self.attorney_amount
     client_amount   = self.amount - attorney_amount
     mode = self.mode
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     accountize(action, {:journal=>mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!mode.with_accounting? or !self.received)) do |entry|
       if mode.with_deposit?
         entry.add_debit(label, mode.depositables_account_id, self.amount)

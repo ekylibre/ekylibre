@@ -1,2 +1,0 @@
-page['sum_total'].innerHTML=@delivery.amount_with_taxes
-page['sum_total_ht'].innerHTML=@delivery.amount

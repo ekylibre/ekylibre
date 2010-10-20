@@ -261,9 +261,10 @@ class CreateProductionChains < ActiveRecord::Migration
 
     # Some management stuff
     change_column :sales_orders, :state, :string, :limit=>64
-    execute "UPDATE #{quoted_table_name(:sales_orders)} SET state=CASE WHEN state='C' THEN 'finished' WHEN state='A' THEN 'accepted' ELSE 'writing' END"
+    execute "UPDATE #{quoted_table_name(:sales_orders)} SET state=CASE WHEN state='C' THEN 'finished' WHEN invoiced = #{quoted_true} THEN 'invoiced' WHEN state='A' THEN 'processing' ELSE 'draft' END"
+    remove_column :sales_orders, :invoiced
     add_column :purchase_orders, :state, :string, :limit=>64
-    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='writing'"
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='draft'"
     execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='finished' WHERE parts_amount = amount_with_taxes"
     add_column :incoming_payments, :commission_account_id, :integer
     add_column :incoming_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
@@ -271,6 +272,12 @@ class CreateProductionChains < ActiveRecord::Migration
     for mode in connection.select_all("SELECT id, commission_account_id AS aid, commission_percent AS p, commission_base_amount AS ba FROM #{quoted_table_name(:incoming_payment_modes)} WHERE with_commission = #{quoted_true}")
       execute "UPDATE #{quoted_table_name(:incoming_payments)} SET commission_account_id=#{mode['aid']}, commission_amount=(amount*#{mode['p']}/100+#{mode['ba']}) WHERE mode_id=#{mode['id']}"
     end
+    rename_column :incoming_payments, :parts_amount, :used_amount
+    rename_column :outgoing_payments, :parts_amount, :used_amount
+    rename_column :sales_orders, :parts_amount, :paid_amount
+    rename_column :purchase_orders, :parts_amount, :paid_amount
+    rename_column :transfers, :parts_amount, :paid_amount
+
 
     # UPDATE RIGHTS
     for old, new in RIGHTS_UPDATES
@@ -295,11 +302,18 @@ class CreateProductionChains < ActiveRecord::Migration
     end
 
     # Some management stuff
+    rename_column :transfers, :paid_amount, :parts_amount
+    rename_column :purchase_orders, :paid_amount, :parts_amount
+    rename_column :sales_orders, :paid_amount, :parts_amount
+    rename_column :outgoing_payments, :used_amount, :parts_amount
+    rename_column :incoming_payments, :used_amount, :parts_amount
+
     rename_column :incoming_payment_modes, :commission_base_amount, :commission_amount
     remove_column :incoming_payments, :commission_amount
     remove_column :incoming_payments, :commission_account_id
     remove_column :purchase_orders, :state
-    execute "UPDATE #{quoted_table_name(:sales_orders)} SET state=CASE WHEN state='finished' THEN 'C' WHEN state='accepted' THEN 'A' ELSE 'E' END"
+    add_column :sales_orders, :invoiced, :boolean, :null=>false, :default=>false
+    execute "UPDATE #{quoted_table_name(:sales_orders)} SET invoiced=(state='invoiced' OR state='finished'), state=CASE WHEN state='finished' THEN 'C' WHEN state='processing' OR invoiced=#{quoted_true} THEN 'A' ELSE 'E' END"
     # change_column :sales_orders, :state, :string, :limit=>64
 
 

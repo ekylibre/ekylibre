@@ -1,15 +1,24 @@
 =purchase_steps if params[:step]
 
 =toolbar do |t|
-  -t.link :purchase_order_lines, :id=>@purchase_order.id
-  -t.link :outgoing_payment_use_create, :expense_id=>@purchase_order.id if @purchase_order.unpaid_amount > 0
+  -t.update @purchase_order if @purchase_order.draft?
+  -if @purchase_order.can_confirm?
+    -t.confirm @purchase_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+  -if @purchase_order.can_invoice?
+    -t.invoice @purchase_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+  -for event in [:propose, :finish, :correct, :refuse]
+    -t.send(event, @purchase_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase_order.send("can_#{event}?")
+  -t.abort(@purchase_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase_order.can_abort?
   -t.print :purchase_order, :id=>@purchase_order.id
 
 =list_evalue do |l|
   -l.evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+  -#l.evalue @purchase_order, :responsible, :label=>:full_name
+  -l.evalue @purchase_order, :created_on
   -l.evalue @purchase_order, :planned_on
   -l.evalue @purchase_order, :number
   -l.evalue @purchase_order, :reference_number
+  -l.evalue @purchase_order, :currency unless @purchase_order.currency == @current_company.default_currency
   -l.evalue @purchase_order, :comment
   -l.evalue @purchase_order, :dest_contact, :label=>:address
   -l.evalue @purchase_order, :shipped
@@ -17,7 +26,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("lines")
   =toolbar do |t|
-    -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id) if @purchase_order.estimate?
+    -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id) if @purchase_order.draft?
   =kame :purchase_order_lines
   %table.kame
     %tr.total
@@ -30,7 +39,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("payment_uses")
   =toolbar do |t|
-    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase_order, :expense_id=>@purchase_order.id) unless @purchase_order.complete?
+    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase_order, :expense_id=>@purchase_order.id) unless @purchase_order.finished?
   =kame :purchase_order_payment_uses
 
 

@@ -43,13 +43,12 @@
 #  id                  :integer          not null, primary key
 #  introduction        :text             
 #  invoice_contact_id  :integer          
-#  invoiced            :boolean          not null
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer          not null
 #  number              :string(64)       not null
-#  parts_amount        :decimal(16, 2)   
+#  paid_amount         :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
@@ -86,49 +85,46 @@ class SalesOrder < ActiveRecord::Base
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
 
-
-
-  state_machine :state, :initial => :writing do
-    event :confirm do
-      transition :writing => :ready
-    end
-    event :abc do
-      transition :writing => :accepted
+  state_machine :state, :initial => :draft do
+    state :draft
+    state :ready
+    state :refused
+    state :processing
+    state :invoiced
+    state :finished
+    state :aborted
+    event :propose do
+      transition :draft => :ready, :if=>:has_content?
     end
     event :correct do
-      transition :ready => :writing
-      transition :accepted => :writing
-      transition :refused => :writing
+      transition :ready => :draft
+      transition :refused => :draft
     end
     event :refuse do
-      transition :ready => :refused
+      transition :ready => :refused, :if=>:has_content?
     end
-    event :accept do
-      transition :ready => :accepted
+    event :confirm do
+      transition :ready => :processing, :if=>:has_content?
     end
     event :invoice do
-      transition :accepted => :invoiced
+      transition :processing => :invoiced, :if=>:has_content?
+      transition :ready => :invoiced, :if=>:has_content?
     end
     event :finish do
       transition :invoiced => :finished
     end
-    event :give_up do
-      transition all - [:given_up] => :given_up
+    event :abort do
+      transition [:draft, :ready] => :aborted # , :processing
     end
   end
 
-
-  def abc
-    puts "abc"
-    self.state = 'accepted'
-  end
 
   @@natures = [:estimate, :order, :invoice]
   
   def prepare
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
-    self.parts_amount = self.payment_uses.sum(:amount)||0
+    self.paid_amount = self.payment_uses.sum(:amount)||0
     if self.number.blank?
       last = self.company.sales_orders.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
@@ -158,15 +154,6 @@ class SalesOrder < ActiveRecord::Base
         self.amount_with_taxes += line.amount_with_taxes
       end
     end
-
-#     # Set state to 'Complete' if all is paid
-#     if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.sales_invoices.sum(:amount_with_taxes) == self.amount_with_taxes
-#       self.state = 'C'
-#     elsif not self.confirmed_on.blank? or self.sales_invoices.size>0 #  or self.parts_amount>0
-#       self.state = 'A'
-#     else
-#       self.state = 'E'
-#     end
     true
   end
   
@@ -182,15 +169,20 @@ class SalesOrder < ActiveRecord::Base
   def refresh
     self.save
   end
+
+  def has_content?
+    self.lines.size > 0
+  end
   
+
   # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.
   def confirm(validated_on=Date.today, *args)
+    return false unless super
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
       line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
     end
     self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
-    super
   end
   
 
@@ -218,6 +210,26 @@ class SalesOrder < ActiveRecord::Base
 
   # Invoice all the products creating the delivery if necessary. 
   def invoice(*args)
+    return false unless self.can_invoice? and self.lines.count > 0
+    ActiveRecord::Base.transaction do
+      # Create sales invoice
+      sales_invoice = self.sales_invoices.create!(:nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
+      for line in self.lines
+        sales_invoice.lines.create!(:order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
+      end
+      # Move real stocks
+      for line in self.lines
+        line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
+      end
+      # Accountize the sales invoice
+      sales_invoice.to_accountancy if self.company.accountizing?
+      return super
+    end
+    return false
+  end
+
+  # Invoice all the products creating the delivery if necessary. 
+  def invoice2
     return false if self.lines.count <= 0
     ActiveRecord::Base.transaction do
       self.confirm
@@ -276,16 +288,17 @@ class SalesOrder < ActiveRecord::Base
   # - +:multi_sales_invoices+ adds the uninvoiced amount and invoiced amount
   # - +:with_balance+ adds the balance of the client of the sale order
   def stats(options={})
-    invoiced = self.invoiced_amount
+    invoiced_amount = self.invoiced_amount
     array = []
     array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
     array << [:total_amount, self.amount_with_taxes]
     if options[:multi_sales_invoices]
-      array << [:uninvoiced_amount, self.amount_with_taxes - invoiced]
-      array << [:invoiced_amount, invoiced]
+      array << [:uninvoiced_amount, self.amount_with_taxes - invoiced_amount]
+      array << [:invoiced_amount, invoiced_amount]
     end
-    array << [:paid_amount, paid = self.payment_uses.sum(:amount)]
-    array << [:unpaid_amount, invoiced - paid]
+    paid_amount = self.payment_uses.sum(:amount)
+    array << [:paid_amount, paid_amount]
+    array << [:unpaid_amount, invoiced_amount - paid_amount]
     array 
   end
 
@@ -310,14 +323,14 @@ class SalesOrder < ActiveRecord::Base
   def undelivered(column)
     sum  = self.send(column)
     # sum -= OutgoingDeliveryLine.sum(column, :joins=>"JOIN #{OutgoingDelivery.table_name} AS outgoing_deliveries ON (delivery_id=outgoing_deliveries.id)", :conditions=>["outgoing_deliveries.order_id=?", self.id])
-    sum -= self.company.outgoing_deliveries.sum(column)
+    sum -= self.deliveries.sum(column)
     sum.round(2)
   end
 
 
   # Returns true if there is some products to deliver
   def deliverable?
-    self.undelivered(:amount_with_taxes) > 0 and not self.invoiced
+    self.undelivered(:amount_with_taxes) > 0 and not self.invoiced?
   end
 
 
@@ -338,9 +351,9 @@ class SalesOrder < ActiveRecord::Base
       payment_uses += sales_order.payment_uses
     end
     payments = []
-    for part in payment_uses
+    for use in payment_uses
       found = false
-      pay = self.company.payments.find(:all, :conditions=>["id = ? AND amount != part_amount", part.payment_id])
+      pay = self.company.payments.find(:all, :conditions=>["id = ? AND amount != used_amount", use.payment_id])
       if !pay.empty? 
         for payment in payments
           found = true if payment.id == pay[0].id 
@@ -353,38 +366,22 @@ class SalesOrder < ActiveRecord::Base
   end
 
 
-  def status
-    status = ""
-    status = "critic" if self.active? and self.parts_amount.to_f < self.amount_with_taxes
-    status
-  end
+#   def status
+#     status = ""
+#     status = "critic" if self.invoiced? and self.paid_amount.to_f < self.amount_with_taxes
+#     status
+#   end
 
 
   def label
-    tc('label.'+(self.estimate? ? 'estimate' : 'order'), :number=>self.number)
+    # tc('label.'+(self.processing? or self.invoiced ? 'estimat-e' : 'order'), :number=>self.number)
+    tc('label.'+self.state, :number=>self.number)
   end
-  
-  def estimate?
-    self.state == 'E'
-  end
-
-  def active?
-    self.state == 'A'
-  end
-
-  def complete?
-    self.state == 'C'
-  end
-
 
   def letter?
-    self.letter_format and self.estimate? 
+    self.letter_format # and (self.ready? or self.draft?)
   end
 
-  # Conserved (retro-compability with document templates)
-  #   def need_check?
-  #     self.letter? and self.nature.payment_type == "check"
-  #   end
 
   def address
     a = self.client.full_name+"\n"
@@ -401,8 +398,8 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def usable_payments
-    # self.company.payments.find(:all, :conditions=>["COALESCE(parts_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
-    self.company.incoming_payments.find(:all, :conditions=>["COALESCE(parts_amount, 0)<COALESCE(amount, 0)"], :order=>"amount")
+    # self.company.payments.find(:all, :conditions=>["COALESCE(paid_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
+    self.company.incoming_payments.find(:all, :conditions=>["COALESCE(paid_amount, 0)<COALESCE(amount, 0)"], :order=>"amount")
   end
 
   # Build general sales condition for the sale order

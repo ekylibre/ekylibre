@@ -98,7 +98,9 @@ class CompanyTest < ActiveSupport::TestCase
         line = @sales_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         assert line.save
         
-        assert @sales_order.invoice
+        assert @sales_order.reload.propose
+        assert_equal @sales_order.state, "ready"
+        assert @sales_order.reload.invoice
       end
 
       should "print its sales" do
@@ -118,7 +120,9 @@ class CompanyTest < ActiveSupport::TestCase
           line = @sales_order.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
           assert line.save, line.errors.inspect
         end
-        assert @sales_order.invoice
+        assert @sales_order.reload.propose
+        assert_equal @sales_order.state, "ready"
+        assert @sales_order.reload.invoice
         # line = @sales_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         # assert line.save, line.errors.inspect
         @sales_invoice = @sales_order.sales_invoices.first

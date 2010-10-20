@@ -34,8 +34,8 @@ fra:
         payment_way: 'Mode d''encaissement'
       inventory_line:
         quantity: 'Quantité constatée'
-      journal_entry:
-        outgoing_payment_uses: 'Parties de décaissement'
+      journal_entry:  #!
+        outgoing_payment_uses: 'Parties de décaissement' #!
       journal_entry_line:
         closed: 'Cloturée'
       land_parcel:
@@ -89,7 +89,7 @@ fra:
         contact_id: 'Adresse pour le devis'
         has_downpayment: 'Acompte à verser'
         lines: 'Lignes de vente'
-        parts_amount: 'Montant payé'
+        parts_amount: 'Montant payé' #!
         payments: 'Encaissements'
       sales_order_line:
         label: 'Produit'
@@ -121,7 +121,7 @@ fra:
         active: 'Utilisé'
       transfer:
         amount: 'Montant'
-        parts_amount: 'Montant payé'
+        parts_amount: 'Montant payé' #!
       unit:
         start: 'Valeur à l''origine'
       user:
@@ -941,6 +941,7 @@ fra:
     usage: 'Utilisation'
     usage_duration: 'Durée d''utilisation (heures)'
     use_range: 'Utiliser un intervalle de quantité'
+    #>used_amount: 'Used amount'
     user: 'Utilisateur'
     user_id: 'Utilisateur'
     users: 'Utilisateurs'
@@ -1303,6 +1304,14 @@ fra:
     purchase_order:
       label: '%{supplier} à %{address}'
       purchase: 'Achat'
+      states:
+        #>aborted: 'Aborted'
+        #>draft: 'Draft'
+        #>finished: 'Finished'
+        #>invoiced: 'Invoiced'
+        #>processing: 'Waiting...'
+        #>ready: 'Ready purchase order'
+        #>refused: 'Refused purchase order'
       to_accountancy: '[%{resource} %{number}] %{products} de %{supplier}'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
@@ -1328,9 +1337,16 @@ fra:
         downpayment: 'Un acompte de %{percent}% (soit %{amount}€) devra être versé à la signature du présent devis.'
         validity: 'Ce devis et ses conditions générales sont valables jusqu''au %{expiration}.'
       states:
-        A: 'En cours'
-        C: 'Terminée'
-        E: 'Devis'
+        A: 'En cours' #!
+        C: 'Terminée' #!
+        E: 'Devis' #!
+        #>aborted: 'Aborted'
+        #>draft: 'Draft'
+        #>finished: 'Finished'
+        #>invoiced: 'Invoiced'
+        #>processing: 'Processing...'
+        #>ready: 'Ready estimate'
+        #>refused: 'Refused estimate'
     sales_order_line:
       can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible '
       currency_is_not_sales_order_currency: 'Le prix du produit ne correspond pas à la monnaie définie pour la vente'

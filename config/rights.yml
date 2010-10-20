@@ -35,7 +35,6 @@ __minimum__:
 # Inaccessible
 __not_used__:
   actions:
-  - management::purchase_order_deliveries
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_kame
@@ -152,6 +151,7 @@ consult_purchase_orders:
   - index
   - purchase_order
   - purchase_order_lines_kame
+  - purchase_order_payment_uses_kame
   - purchase_orders
   - purchase_orders_kame
 # Consult the sales_invoices
@@ -173,7 +173,7 @@ consult_sales_orders:
   - sales_order_deliveries_kame
   - sales_order_invoices_kame
   - sales_order_lines_kame
-  - sales_order_payments_kame
+  - sales_order_payment_uses_kame
   - sales_orders
   - sales_orders_kame
   - statistics
@@ -399,17 +399,21 @@ manage_estimates:
   - index
   - price_find
   - sales_order
+  - sales_order_abort
+  - sales_order_confirm
   - sales_order_contacts
+  - sales_order_correct
   - sales_order_create
   - sales_order_duplicate
   - sales_order_line_create
   - sales_order_line_delete
   - sales_order_line_detail
   - sales_order_line_update
+  - sales_order_propose
+  - sales_order_refuse
   - sales_order_subscriptions_kame
   - sales_order_update
   - subscription_coordinates
-  - sum_calculate
 # Manage events
 manage_events:
   controller: relations
@@ -674,14 +678,19 @@ manage_purchase_orders:
   - outgoing_payment_use_delete
   - outgoing_payments
   - outgoing_payments_kame
+  - purchase_order_abort
+  - purchase_order_confirm
+  - purchase_order_correct
   - purchase_order_create
   - purchase_order_delete
+  - purchase_order_finish
+  - purchase_order_invoice
   - purchase_order_line_create
   - purchase_order_line_delete
   - purchase_order_line_update
-  - purchase_order_lines
   - purchase_order_payment_uses_kame
-  - purchase_order_summary
+  - purchase_order_propose
+  - purchase_order_refuse
   - purchase_order_update
   - purchase_orders
   - purchase_products_dyli
@@ -706,10 +715,15 @@ manage_sales_orders:
   - outgoing_delivery_delete
   - outgoing_delivery_update
   - sales_order
+  - sales_order_abort
   - sales_order_confirm
+  - sales_order_correct
   - sales_order_delete
   - sales_order_deliveries_kame
+  - sales_order_finish
   - sales_order_invoice
+  - sales_order_propose
+  - sales_order_refuse
   - undelivered_quantities_kame
   - undelivered_sales
   - undelivered_sales_kame

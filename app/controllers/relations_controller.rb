@@ -322,8 +322,8 @@ class RelationsController < ApplicationController
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
     t.action :sales_order_duplicate, :controller=>:management, :method=>:post
-    t.action :sales_order_lines, :image=>:update, :controller=>:management, :if=>"not RECORD.complete\?"
-    t.action :sales_order_delete, :controller=>:management, :if=>"RECORD.estimate\?", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :sales_order_update, :controller=>:management, :if=>"RECORD.draft? "
+    t.action :sales_order_delete, :controller=>:management, :if=>"RECORD.aborted? ", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
   
   create_kame(:entity_events, :model=>:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
@@ -369,7 +369,7 @@ class RelationsController < ApplicationController
     t.action :mandate_delete, :image=>:delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  create_kame(:entity_incoming_payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  create_kame(:entity_incoming_payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     #t.column :id, :url=>{:controller=>:management, :action=>:incoming_payment}
     t.column :number, :url=>{:controller=>:management, :action=>:incoming_payment}
     t.column :paid_on
@@ -378,24 +378,24 @@ class RelationsController < ApplicationController
     t.column :bank
     # t.column :account_number
     t.column :check_number
-    t.column :parts_amount
+    t.column :used_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:incoming_payment}
     t.column :number, :through=>:deposit, :url=>{:controller=>:management, :action=>:deposit}
     t.action :incoming_payment_update, :controller=>:management, :if=>"RECORD.deposit.nil\?"
-    t.action :incoming_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :incoming_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
 
-  create_kame(:entity_outgoing_payments, :model=>:outgoing_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.parts_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  create_kame(:entity_outgoing_payments, :model=>:outgoing_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:outgoing_payment}
     t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
     t.column :check_number
-    t.column :parts_amount
+    t.column :used_amount
     t.column :amount, :url=>{:controller=>:management, :action=>:outgoing_payment}
     t.action :outgoing_payment_update, :controller=>:management
-    t.action :outgoing_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.parts_amount.to_f<=0"
+    t.action :outgoing_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
 

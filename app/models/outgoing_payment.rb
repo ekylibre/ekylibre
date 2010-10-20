@@ -34,12 +34,12 @@
 #  mode_id          :integer          not null
 #  number           :string(255)      
 #  paid_on          :date             
-#  parts_amount     :decimal(16, 2)   default(0.0), not null
 #  payee_id         :integer          not null
 #  responsible_id   :integer          not null
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  used_amount      :decimal(16, 2)   default(0.0), not null
 #
 
 class OutgoingPayment < ActiveRecord::Base
@@ -50,11 +50,11 @@ class OutgoingPayment < ActiveRecord::Base
   belongs_to :mode, :class_name=>OutgoingPaymentMode.name  
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :parts, :class_name=>OutgoingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy # , :autosave=>true
-  has_many :purchase_orders, :through=>:parts
-  has_many :expenses, :through=>:parts
+  has_many :uses, :class_name=>OutgoingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy # , :autosave=>true
+  has_many :purchase_orders, :through=>:uses
+  has_many :expenses, :through=>:uses
 
-  # autosave :parts
+  # autosave :uses
   
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on, :created_on
@@ -73,11 +73,11 @@ class OutgoingPayment < ActiveRecord::Base
   end
 
   def prepare
-    self.parts_amount = self.parts.sum(:amount)
+    self.used_amount = self.uses.sum(:amount)
   end
 
   def check
-    errors.add(:amount, :greater_than_or_equal_to, :count=>self.parts_amount) if self.amount < self.parts_amount
+    errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
 
   def updatable?
@@ -85,7 +85,7 @@ class OutgoingPayment < ActiveRecord::Base
   end
 
   def destroyable?
-    updatable? and self.parts_amount.zero?
+    updatable? and self.used_amount.zero?
   end
 
   def label
@@ -93,13 +93,13 @@ class OutgoingPayment < ActiveRecord::Base
   end
 
   def unused_amount
-    self.amount-self.parts_amount
+    self.amount-self.used_amount
   end
 
   def attorney_amount
     total = 0
-    for part in self.parts
-      total += part.amount if part.expense.supplier_id != part.payment.payee_id
+    for use in self.uses
+      total += use.amount if use.expense.supplier_id != use.payment.payee_id
     end    
     return total
   end
@@ -111,10 +111,10 @@ class OutgoingPayment < ActiveRecord::Base
     downpayment = options[:downpayment]
     OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
     self.reload
-    part_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
-    part = self.parts.create(:amount=>part_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
-    if part.errors.size > 0
-      errors.add_from_record(part)
+    use_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
+    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
+    if use.errors.size > 0
+      errors.add_from_record(use)
       return false
     end
     return true
@@ -126,7 +126,7 @@ class OutgoingPayment < ActiveRecord::Base
   def to_accountancy(action=:create, options={})
     attorney_amount = self.attorney_amount
     supplier_amount = self.amount - attorney_amount
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.parts.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |entry|
       entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
       entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?

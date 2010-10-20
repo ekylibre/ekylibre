@@ -103,7 +103,7 @@ class Entity < ActiveRecord::Base
   has_many :incoming_payments, :foreign_key=>:payer_id
   has_many :subscriptions
   has_many :trackings, :foreign_key=>:producer_id
-  has_many :usable_incoming_payments, :conditions=>["parts_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
+  has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category_id
   validates_uniqueness_of :code, :scope=>:company_id

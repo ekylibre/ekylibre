@@ -216,12 +216,12 @@ arb:
         nature: 'طبيعي' #!
         nature_label: 'طبيعة' #!
         updated_at: 'تم تحديثها في' #!
-      journal_entry:
+      journal_entry:  #!
         company: 'شركة' #!
         created_at: 'انشأـ في' #!
         created_on: 'انشأت يوم' #!
         incoming_payments: 'دفعات' #!
-        outgoing_payment_uses: 'اجزاء الدفعات'
+        outgoing_payment_uses: 'اجزاء الدفعات' #!
         outgoing_payments: 'دفعات' #!
       journal_entry_line:
         account: 'حساب' #!
@@ -393,7 +393,7 @@ arb:
         has_downpayment: 'صرف القسط'
         lines: 'طرق طلب البيع'
         nature_id: 'طبيعة' #!
-        parts_amount: 'القيمة المسددة'
+        parts_amount: 'القيمة المسددة' #!
         payment_uses: 'جوانب الدفعة' #!
         payments: '(((PAYMENTS)))'
         stock_moves: 'حركات السهم' #!
@@ -478,7 +478,7 @@ arb:
       transfer:
         amount: 'القيمة'
         created_at: 'انشأ في' #!
-        parts_amount: 'القيمة المسددة'
+        parts_amount: 'القيمة المسددة' #!
         payment_uses: 'اجزاء الدفعة' #!
         started_on: 'ايتدأ يوم' #!
         updated_at: 'تم تحديثه' #!
@@ -1332,6 +1332,7 @@ arb:
     usage: 'الاستخدام'
     usage_duration: '(مدة الاستخدام (ساعات'
     use_range: 'استخدام الكمية الفاصلة'
+    #>used_amount: 'Used amount'
     user: 'المستخدم'
     user_id: 'المستخدم'
     users: 'المستخدمين'
@@ -1736,6 +1737,14 @@ arb:
     purchase_order:
       label: '%{supplier} الى %{address}'
       purchase: 'Achat'
+      states:
+        #>aborted: 'Aborted'
+        #>draft: 'Draft'
+        #>finished: 'Finished'
+        #>invoiced: 'Invoiced'
+        #>processing: 'Waiting...'
+        #>ready: 'Ready purchase order'
+        #>refused: 'Refused purchase order'
       to_accountancy: '[%{resource} %{number}] %{products} لل %{supplier}'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}'
@@ -1761,9 +1770,16 @@ arb:
         downpayment: 'دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي'
         validity: 'هذا التقدير وشروطه العامة سارية المفعول لغاية %{expiration}.'
       states:
-        A: 'الجاري'
-        C: 'منتهي'
-        E: 'مقدر'
+        A: 'الجاري' #!
+        C: 'منتهي' #!
+        E: 'مقدر' #!
+        #>aborted: 'Aborted'
+        #>draft: 'Draft'
+        #>finished: 'Finished'
+        #>invoiced: 'Invoiced'
+        #>processing: 'Processing...'
+        #>ready: 'Ready estimate'
+        #>refused: 'Refused estimate'
     sales_order_line:
       can_not_use_this_tracking: 'لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
       currency_is_not_sales_order_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
