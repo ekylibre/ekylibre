@@ -1,0 +1,635 @@
+== state_machine
+
++state_machine+ adds support for creating state machines for attributes on any
+Ruby class.
+
+== Resources
+
+API
+
+* http://rdoc.info/projects/pluginaweek/state_machine
+
+Bugs
+
+* http://pluginaweek.lighthouseapp.com/projects/13288-state_machine
+
+Development
+
+* http://github.com/pluginaweek/state_machine
+
+Source
+
+* git://github.com/pluginaweek/state_machine.git
+
+== Description
+
+State machines make it dead-simple to manage the behavior of a class.  Too often,
+the state of an object is kept by creating multiple boolean attributes and
+deciding how to behave based on the values.  This can become cumbersome and
+difficult to maintain when the complexity of your class starts to increase.
+
++state_machine+ simplifies this design by introducing the various parts of a real
+state machine, including states, events, transitions, and callbacks.  However,
+the api is designed to be so simple you don't even need to know what a
+state machine is :)
+
+Some brief, high-level features include:
+* Defining state machines on any Ruby class
+* Multiple state machines on a single class
+* Namespaced state machines
+* before/after/around transition hooks with explicit transition requirements
+* Integration with ActiveModel, ActiveRecord, DataMapper, MongoMapper, and Sequel
+* State predicates
+* State-driven instance / class behavior
+* State values of any data type
+* Dynamically-generated state values
+* Event parallelization
+* Attribute-based event transitions
+* Inheritance
+* Internationalization
+* GraphViz visualization creator
+
+Examples of the usage patterns for some of the above features are shown below.
+You can find much more detailed documentation in the actual API.
+
+== Usage
+
+=== Example
+
+Below is an example of many of the features offered by this plugin, including:
+* Initial states
+* Namespaced states
+* Transition callbacks
+* Conditional transitions
+* State-driven instance behavior
+* Customized state values
+* Parallel events
+
+Class definition:
+
+  class Vehicle
+    attr_accessor :seatbelt_on, :time_used
+    
+    state_machine :state, :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      
+      after_transition :on => :crash, :do => :tow
+      after_transition :on => :repair, :do => :fix
+      after_transition any => :parked do |vehicle, transition|
+        vehicle.seatbelt_on = false
+      end
+      
+      around_transition do |vehicle, transition, block|
+        start = Time.now
+        block.call
+        vehicle.time_used += Time.now - start
+      end
+      
+      event :park do
+        transition [:idling, :first_gear] => :parked
+      end
+      
+      event :ignite do
+        transition :stalled => same, :parked => :idling
+      end
+      
+      event :idle do
+        transition :first_gear => :idling
+      end
+      
+      event :shift_up do
+        transition :idling => :first_gear, :first_gear => :second_gear, :second_gear => :third_gear
+      end
+      
+      event :shift_down do
+        transition :third_gear => :second_gear, :second_gear => :first_gear
+      end
+      
+      event :crash do
+        transition all - [:parked, :stalled] => :stalled, :unless => :auto_shop_busy?
+      end
+      
+      event :repair do
+        # The first transition that matches the state and passes its conditions
+        # will be used
+        transition :stalled => :parked, :if => :auto_shop_busy?
+        transition :stalled => same
+      end
+      
+      state :parked do
+        def speed
+          0
+        end
+      end
+      
+      state :idling, :first_gear do
+        def speed
+          10
+        end
+      end
+      
+      state :second_gear do
+        def speed
+          20
+        end
+      end
+    end
+    
+    state_machine :alarm_state, :initial => :active, :namespace => 'alarm' do
+      event :enable do
+        transition all => :active
+      end
+      
+      event :disable do
+        transition all => :off
+      end
+      
+      state :active, :value => 1
+      state :off, :value => 0
+    end
+    
+    def initialize
+      @seatbelt_on = false
+      @time_used = 0
+      super() # NOTE: This *must* be called, otherwise states won't get initialized
+    end
+    
+    def put_on_seatbelt
+      @seatbelt_on = true
+    end
+    
+    def auto_shop_busy?
+      false
+    end
+    
+    def tow
+      # tow the vehicle
+    end
+    
+    def fix
+      # get the vehicle fixed by a mechanic
+    end
+  end
+
+*Note* the comment made on the +initialize+ method in the class.  In order for
+state machine attributes to be properly initialized, <tt>super()</tt> must be called.
+See StateMachine::MacroMethods for more information about this.
+
+Using the above class as an example, you can interact with the state machine
+like so:
+
+  vehicle = Vehicle.new           # => #<Vehicle:0xb7cf4eac @state="parked", @seatbelt_on=false>
+  vehicle.state                   # => "parked"
+  vehicle.state_name              # => :parked
+  vehicle.human_state_name        # => "parked"
+  vehicle.parked?                 # => true
+  vehicle.can_ignite?             # => true
+  vehicle.ignite_transition       # => #<StateMachine::Transition attribute=:state event=:ignite from="parked" from_name=:parked to="idling" to_name=:idling>
+  vehicle.state_events            # => [:ignite]
+  vehicle.state_transitions       # => [#<StateMachine::Transition attribute=:state event=:ignite from="parked" from_name=:parked to="idling" to_name=:idling>]
+  vehicle.speed                   # => 0
+  
+  vehicle.ignite                  # => true
+  vehicle.parked?                 # => false
+  vehicle.idling?                 # => true
+  vehicle.speed                   # => 10
+  vehicle                         # => #<Vehicle:0xb7cf4eac @state="idling", @seatbelt_on=true>
+  
+  vehicle.shift_up                # => true
+  vehicle.speed                   # => 10
+  vehicle                         # => #<Vehicle:0xb7cf4eac @state="first_gear", @seatbelt_on=true>
+  
+  vehicle.shift_up                # => true
+  vehicle.speed                   # => 20
+  vehicle                         # => #<Vehicle:0xb7cf4eac @state="second_gear", @seatbelt_on=true>
+  
+  # The bang (!) operator can raise exceptions if the event fails
+  vehicle.park!                   # => StateMachine::InvalidTransition: Cannot transition state via :park from :second_gear
+  
+  # Generic state predicates can raise exceptions if the value does not exist
+  vehicle.state?(:parked)         # => false
+  vehicle.state?(:invalid)        # => IndexError: :invalid is an invalid name
+  
+  # Namespaced machines have uniquely-generated methods
+  vehicle.alarm_state             # => 1
+  vehicle.alarm_state_name        # => :active
+  
+  vehicle.can_disable_alarm?      # => true
+  vehicle.disable_alarm           # => true
+  vehicle.alarm_state             # => 0
+  vehicle.alarm_state_name        # => :off
+  vehicle.can_enable_alarm?       # => true
+  
+  vehicle.alarm_off?              # => true
+  vehicle.alarm_active?           # => false
+  
+  # Events can be fired in parallel
+  vehicle.fire_events(:shift_down, :enable_alarm) # => true
+  vehicle.state_name                              # => :first_gear
+  vehicle.alarm_state_name                        # => :active
+  
+  vehicle.fire_events!(:ignite, :enable_alarm)    # => StateMachine::InvalidTransition: Cannot run events in parallel: ignite, enable_alarm
+  
+  # Human-friendly names can be accessed for states/events
+  Vehicle.human_state_name(:first_gear)               # => "first gear"
+  Vehicle.human_alarm_state_name(:active)             # => "active"
+  
+  Vehicle.human_state_event_name(:shift_down)         # => "shift down"
+  Vehicle.human_alarm_state_event_name(:enable_alarm) # => "enable alarm"
+
+== Integrations
+
+In addition to being able to define state machines on all Ruby classes, a set of
+out-of-the-box integrations are available for some of the more popular Ruby
+libraries.  These integrations add library-specific behavior, allowing for state
+machines to work more tightly with the conventions defined by those libraries.
+
+The integrations currently available include:
+* ActiveModel classes
+* ActiveRecord models
+* DataMapper resources
+* MongoMapper models
+* Sequel models
+
+A brief overview of these integrations is described below.
+
+=== ActiveModel
+
+The ActiveModel integration is useful for both standalone usage and for providing
+the base implementation for ORMs which implement the ActiveModel API.  This
+integration adds support for validation errors, dirty attribute tracking, and
+observers.  For example,
+
+  class Vehicle
+    include ActiveModel::Dirty
+    include ActiveModel::Validations
+    include ActiveModel::Observing
+    
+    attr_accessor :state
+    define_attribute_methods [:state]
+    
+    state_machine :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      after_transition any => :parked do |vehicle, transition|
+        vehicle.seatbelt = 'off'
+      end
+      around_transition :benchmark
+      
+      event :ignite do
+        transition :parked => :idling
+      end
+      
+      state :first_gear, :second_gear do
+        validates_presence_of :seatbelt_on
+      end
+    end
+    
+    def put_on_seatbelt
+      ...
+    end
+    
+    def benchmark
+      ...
+      yield
+      ...
+    end
+  end
+  
+  class VehicleObserver < ActiveModel::Observer
+    # Callback for :ignite event *before* the transition is performed
+    def before_ignite(vehicle, transition)
+      # log message
+    end
+    
+    # Generic transition callback *after* the transition is performed
+    def after_transition(vehicle, transition)
+      Audit.log(vehicle, transition)
+    end
+  end
+
+For more information about the various behaviors added for ActiveModel state
+machines and how to build new integrations that use ActiveModel, see
+StateMachine::Integrations::ActiveModel.
+
+=== ActiveRecord
+
+The ActiveRecord integration adds support for database transactions, automatically
+saving the record, named scopes, validation errors, and observers.  For example,
+
+  class Vehicle < ActiveRecord::Base
+    state_machine :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      after_transition any => :parked do |vehicle, transition|
+        vehicle.seatbelt = 'off'
+      end
+      around_transition :benchmark
+      
+      event :ignite do
+        transition :parked => :idling
+      end
+      
+      state :first_gear, :second_gear do
+        validates_presence_of :seatbelt_on
+      end
+    end
+    
+    def put_on_seatbelt
+      ...
+    end
+    
+    def benchmark
+      ...
+      yield
+      ...
+    end
+  end
+  
+  class VehicleObserver < ActiveRecord::Observer
+    # Callback for :ignite event *before* the transition is performed
+    def before_ignite(vehicle, transition)
+      # log message
+    end
+    
+    # Generic transition callback *after* the transition is performed
+    def after_transition(vehicle, transition)
+      Audit.log(vehicle, transition)
+    end
+  end
+
+For more information about the various behaviors added for ActiveRecord state
+machines, see StateMachine::Integrations::ActiveRecord.
+
+=== DataMapper
+
+Like the ActiveRecord integration, the DataMapper integration adds support for
+database transactions, automatically saving the record, named scopes, Extlib-like
+callbacks, validation errors, and observers.  For example,
+
+  class Vehicle
+    include DataMapper::Resource
+    
+    property :id, Serial
+    property :state, String
+    
+    state_machine :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      after_transition any => :parked do |transition|
+        self.seatbelt = 'off' # self is the record
+      end
+      around_transition :benchmark
+      
+      event :ignite do
+        transition :parked => :idling
+      end
+      
+      state :first_gear, :second_gear do
+        validates_presence_of :seatbelt_on
+      end
+    end
+    
+    def put_on_seatbelt
+      ...
+    end
+    
+    def benchmark
+      ...
+      yield
+      ...
+    end
+  end
+  
+  class VehicleObserver
+    include DataMapper::Observer
+    
+    observe Vehicle
+    
+    # Callback for :ignite event *before* the transition is performed
+    before_transition :on => :ignite do |transition|
+      # log message (self is the record)
+    end
+    
+    # Generic transition callback *after* the transition is performed
+    after_transition do |transition|
+      Audit.log(self, transition) # self is the record
+    end
+    
+    around_transition do |transition, block|
+      # mark start time
+      block.call
+      # mark stop time
+    end
+  end
+
+*Note* that the DataMapper::Observer integration is optional and only available
+when the dm-observer library is installed.
+
+For more information about the various behaviors added for DataMapper state
+machines, see StateMachine::Integrations::DataMapper.
+
+=== MongoMapper
+
+The MongoMapper integration adds support for automatically saving the record,
+basic scopes, validation errors and callbacks.  For example,
+
+  class Vehicle
+    include MongoMapper::Document
+    
+    state_machine :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      after_transition any => :parked do |vehicle, transition|
+        vehicle.seatbelt = 'off' # self is the record
+      end
+      around_transition :benchmark
+      
+      event :ignite do
+        transition :parked => :idling
+      end
+      
+      state :first_gear, :second_gear do
+        validates_presence_of :seatbelt_on
+      end
+    end
+    
+    def put_on_seatbelt
+      ...
+    end
+    
+    def benchmark
+      ...
+      yield
+      ...
+    end
+  end
+
+For more information about the various behaviors added for MongoMapper state
+machines, see StateMachine::Integrations::MongoMapper.
+
+=== Sequel
+
+Like the ActiveRecord integration, the Sequel integration adds support for
+database transactions, automatically saving the record, named scopes, validation
+errors and callbacks.  For example,
+
+  class Vehicle < Sequel::Model
+    state_machine :initial => :parked do
+      before_transition :parked => any - :parked, :do => :put_on_seatbelt
+      after_transition any => :parked do |transition|
+        self.seatbelt = 'off' # self is the record
+      end
+      around_transition :benchmark
+      
+      event :ignite do
+        transition :parked => :idling
+      end
+      
+      state :first_gear, :second_gear do
+        validates_presence_of :seatbelt_on
+      end
+    end
+    
+    def put_on_seatbelt
+      ...
+    end
+    
+    def benchmark
+      ...
+      yield
+      ...
+    end
+  end
+
+For more information about the various behaviors added for Sequel state
+machines, see StateMachine::Integrations::Sequel.
+
+== Compatibility
+
+Although state_machine introduces a simplified syntax, it still remains
+backwards compatible with previous versions and other state-related libraries.
+For example, transitions and callbacks can continue to be defined like so:
+
+  class Vehicle
+    state_machine :initial => :parked do
+      before_transition :from => :parked, :except_to => :parked, :do => :put_on_seatbelt
+      after_transition :to => :parked do |transition|
+        self.seatbelt = 'off' # self is the record
+      end
+      
+      event :ignite do
+        transition :from => :parked, :to => :idling
+      end
+    end
+  end
+
+Although this verbose syntax will most likely always be supported, it is
+recommended that any state machines eventually migrate to the syntax introduced
+in version 0.6.0.
+
+== Tools
+
+=== Generating graphs
+
+This library comes with built-in support for generating di-graphs based on the
+events, states, and transitions defined for a state machine using GraphViz[http://www.graphviz.org].
+This requires that both the <tt>ruby-graphviz</tt> gem and graphviz library be
+installed on the system.
+
+==== Examples
+
+To generate a graph for a specific file / class:
+
+  rake state_machine:draw FILE=vehicle.rb CLASS=Vehicle
+
+To save files to a specific path:
+
+  rake state_machine:draw FILE=vehicle.rb CLASS=Vehicle TARGET=files
+
+To customize the image format / orientation:
+
+  rake state_machine:draw FILE=vehicle.rb CLASS=Vehicle FORMAT=jpg ORIENTATION=landscape
+
+To generate multiple state machine graphs:
+
+  rake state_machine:draw FILE=vehicle.rb,car.rb CLASS=Vehicle,Car
+
+*Note* that this will generate a different file for every state machine defined
+in the class.  The generated files will use an output filename of the format
+#{class_name}_#{machine_name}.#{format}.
+
+For examples of actual images generated using this task, see those under the
+examples folder.
+
+==== Ruby on Rails Integration
+
+There is a special integration Rake task for generating state machines for
+classes used in a Ruby on Rails application.  This task will load the application
+environment, meaning that it's unnecessary to specify the actual file to load.
+
+For example,
+
+  rake state_machine:draw CLASS=Vehicle
+
+If you are using this library as a gem in Rails 2.x, the following must be added
+to the end of your application's Rakefile in order for the above task to work:
+
+  require 'tasks/state_machine'
+
+If you are using Rails 3.0+, you must also add the following to your
+application's Gemfile:
+
+  gem 'ruby-graphviz', :require => 'graphviz'
+
+==== Merb Integration
+
+Like Ruby on Rails, there is a special integration Rake task for generating
+state machines for classes used in a Merb application.  This task will load the
+application environment, meaning that it's unnecessary to specify the actual
+files to load.
+
+For example,
+
+  rake state_machine:draw CLASS=Vehicle
+
+=== Interactive graphs
+
+Jean Bovet's {Visual Automata Simulator}[http://www.cs.usfca.edu/~jbovet/vas.html]
+is a great tool for "simulating, visualizing and transforming finite state
+automata and Turing Machines".  It can help in the creation of states and events
+for your models.  It is cross-platform, written in Java.
+
+== Testing
+
+To run the core test suite (does *not* test any of the integrations):
+
+  rake test
+
+Test specific versions of integrations like so:
+
+  rake test INTEGRATION=active_model VERSION=3.0.0
+  rake test INTEGRATION=active_record VERSION=2.0.0
+  rake test INTEGRATION=data_mapper VERSION=0.9.4
+  rake test INTEGRATION=mongo_mapper VERSION=0.5.5
+  rake test INTEGRATION=sequel VERSION=2.8.0
+
+== Caveats
+
+The following caveats should be noted when using state_machine:
+
+* DataMapper: Attribute-based event transitions are disabled when dm-validations 0.9.4 - 0.9.6 is in use
+* Overridden event methods won't get invoked when using attribute-based event transitions
+* around_transition callbacks in ORM integrations won't work on JRuby since it doesn't support continuations
+
+== Dependencies
+
+* Ruby 1.8.6 or later
+
+If using specific integrations:
+
+* ActiveModel[http://rubyonrails.org] integration: 3.0.0 or later
+* ActiveRecord[http://rubyonrails.org] integration: 2.0.0 or later
+* DataMapper[http://datamapper.org] integration: 0.9.4 or later
+* MongoMapper[http://mongomapper.com] integration: 0.5.5 or later
+* Sequel[http://sequel.rubyforge.org] integration: 2.8.0 or later
+
+If graphing state machine:
+
+* ruby-graphviz[http://github.com/glejeune/Ruby-Graphviz]: 0.9.0 or later

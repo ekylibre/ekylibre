@@ -1,0 +1,7 @@
+coverage
+pkg
+rdoc
+test/active_record.log
+test/data_mapper.log
+test/mongo_mapper.log
+test/sequel.log
