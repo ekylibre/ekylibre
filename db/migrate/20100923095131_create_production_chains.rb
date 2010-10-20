@@ -278,6 +278,13 @@ class CreateProductionChains < ActiveRecord::Migration
     rename_column :purchase_orders, :parts_amount, :paid_amount
     rename_column :transfers, :parts_amount, :paid_amount
 
+    add_column :sales_orders, :reference_number, :string
+    add_column :purchase_orders, :confirmed_on, :date
+    add_column :purchase_orders, :responsible_id, :integer
+    remove_column :purchase_orders, :shipped
+    rename_column :purchase_orders, :dest_contact_id, :delivery_contact_id
+    
+
 
     # UPDATE RIGHTS
     for old, new in RIGHTS_UPDATES
@@ -302,6 +309,13 @@ class CreateProductionChains < ActiveRecord::Migration
     end
 
     # Some management stuff
+    rename_column :purchase_orders, :delivery_contact_id, :dest_contact_id
+    add_column :purchase_orders, :shipped, :boolean, :null=>false, :default=>false
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET shipped=#{quoted_true} WHERE state='finished'"
+    remove_column :purchase_orders, :responsible_id
+    remove_column :purchase_orders, :confirmed_on
+    remove_column :sales_orders, :reference_number
+
     rename_column :transfers, :paid_amount, :parts_amount
     rename_column :purchase_orders, :paid_amount, :parts_amount
     rename_column :sales_orders, :paid_amount, :parts_amount

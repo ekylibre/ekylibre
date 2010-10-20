@@ -3,7 +3,7 @@
 =formalize do |f|
   -f.error :outgoing_delivery
   -f.title :infos
-  -f.field :outgoing_delivery, :contact_id, :choices=>:delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@sales_order.client_id} 
+  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@sales_order.client_id} 
   -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>{:action=>:outgoing_delivery_mode_create}
   -f.field :outgoing_delivery, :planned_on
   -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:controller=>:relations, :action=>:entity_create, :transporter=>1}

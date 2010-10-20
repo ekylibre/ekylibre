@@ -12,21 +12,24 @@
   -t.print :purchase_order, :id=>@purchase_order.id
 
 =list_evalue do |l|
-  -l.evalue @purchase_order, :supplier, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
-  -#l.evalue @purchase_order, :responsible, :label=>:full_name
+  -l.evalue @purchase_order, :supplier, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.evalue @purchase_order, :number
+  -l.evalue @purchase_order, :state_label
+  -l.evalue @purchase_order, :responsible, :label=>:full_name
   -l.evalue @purchase_order, :created_on
+  -l.evalue @purchase_order, :confirmed_on
   -l.evalue @purchase_order, :planned_on
   -l.evalue @purchase_order, :number
   -l.evalue @purchase_order, :reference_number
   -l.evalue @purchase_order, :currency unless @purchase_order.currency == @current_company.default_currency
   -l.evalue @purchase_order, :comment
-  -l.evalue @purchase_order, :dest_contact, :label=>:address
-  -l.evalue @purchase_order, :shipped
+  -l.evalue @purchase_order, :delivery_contact, :label=>:address
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("lines")
-  =toolbar do |t|
-    -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id) if @purchase_order.draft?
+  -if @purchase_order.draft?
+    =toolbar do |t|
+      -t.link(:purchase_order_line_create, :order_id=>@purchase_order.id)
   =kame :purchase_order_lines
   %table.kame
     %tr.total

@@ -157,6 +157,7 @@ class Company < ActiveRecord::Base
 
 
   validates_uniqueness_of :code
+  validates_length_of :code, :in=>4..16
 
   attr_readonly :code
 

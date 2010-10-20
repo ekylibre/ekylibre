@@ -1735,27 +1735,28 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
 
   create_table "purchase_orders", :force => true do |t|
     t.integer  "supplier_id",                                                                       :null => false
-    t.string   "number",            :limit => 64,                                                   :null => false
-    t.boolean  "shipped",                                                        :default => false, :null => false
-    t.decimal  "amount",                          :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "amount_with_taxes",               :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.integer  "dest_contact_id"
+    t.string   "number",              :limit => 64,                                                 :null => false
+    t.decimal  "amount",                            :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount_with_taxes",                 :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.integer  "delivery_contact_id"
     t.text     "comment"
     t.integer  "company_id",                                                                        :null => false
     t.datetime "created_at",                                                                        :null => false
     t.datetime "updated_at",                                                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                   :default => 0,     :null => false
+    t.integer  "lock_version",                                                     :default => 0,   :null => false
     t.date     "planned_on"
     t.date     "moved_on"
     t.date     "created_on"
     t.datetime "accounted_at"
     t.integer  "currency_id"
-    t.decimal  "paid_amount",                     :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "paid_amount",                       :precision => 16, :scale => 2, :default => 0.0, :null => false
     t.integer  "journal_entry_id"
     t.string   "reference_number"
-    t.string   "state",             :limit => 64
+    t.string   "state",               :limit => 64
+    t.date     "confirmed_on"
+    t.integer  "responsible_id"
   end
 
   add_index "purchase_orders", ["accounted_at"], :name => "index_purchase_orders_on_accounted_at"
@@ -1946,6 +1947,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "transporter_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
+    t.string   "reference_number"
   end
 
   add_index "sales_orders", ["accounted_at"], :name => "index_sale_orders_on_accounted_at"

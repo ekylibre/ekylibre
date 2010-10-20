@@ -66,7 +66,7 @@
       </part>
 -->
 
-      <part if="sales_invoice.sales_order.payment_parts.sum(:amount)&gt;0" height="14mm">
+      <part if="sales_invoice.sales_order.paid_amount&gt;0" height="14mm">
         <set top="10mm">
           <text value="Règlements effectués"  bold="true"/>
         </set>
@@ -75,7 +75,7 @@
         </set>
       </part>
 
-      <table if="sales_invoice.sales_order.payment_parts.sum(:amount)&gt;0" collection="sales_invoice.sales_order.payment_parts" fixed="true">
+      <table if="sales_invoice.sales_order.paid_amount&gt;0" collection="sales_invoice.sales_order.payment_uses" fixed="true">
         <column label="Payé le" property="payment/paid_on" width="30mm"/>
         <column label="Banque" property="payment/bank" width="50mm"/>
         <column label="Numéro de compte" property="payment/account_number" width="40mm"/>

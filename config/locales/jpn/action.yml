@@ -144,7 +144,7 @@ jpn:
       #>product_create: 'Add a new product'
       #>product_update: 'Edit the product: %{name}'
       #>products: 'Products'
-      #>purchase_order: 'Details of the purchase %{number} at %{supplier} '
+      #>purchase_order: 'Purchase %{number} - %{state}'
       #>purchase_order_abort: 'Abort'
       #>purchase_order_confirm: 'Confirm order and wait for deliveries'
       #>purchase_order_correct: 'Correct order'

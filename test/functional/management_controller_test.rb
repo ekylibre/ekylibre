@@ -9,6 +9,8 @@ class ManagementControllerTest < ActionController::TestCase
                    :inventory_reflect=>:delete, 
                    :outgoing_delivery_create=>{:sales_order_id=>3},
                    :outgoing_delivery_update=>{:id=>1},
+                   :incoming_delivery_create=>{:purchases_order_id=>3},
+                   :incoming_delivery_update=>{:id=>1},
                    :outgoing_payment_use_create=>{:expense_id=>1},
                    :product_component_create=>{:product_id=>1}, 
                    :purchase_order_summary=>:select, 

@@ -668,6 +668,10 @@ manage_products:
 manage_purchase_orders:
   controller: management
   actions:
+  - incoming_delivery_contacts_dyli
+  - incoming_delivery_create
+  - incoming_delivery_delete
+  - incoming_delivery_update
   - index
   - outgoing_payment
   - outgoing_payment_create
@@ -683,6 +687,7 @@ manage_purchase_orders:
   - purchase_order_correct
   - purchase_order_create
   - purchase_order_delete
+  - purchase_order_deliveries_kame
   - purchase_order_finish
   - purchase_order_invoice
   - purchase_order_line_create
@@ -709,8 +714,8 @@ manage_sales_order_natures:
 manage_sales_orders:
   controller: management
   actions:
-  - delivery_contacts_dyli
   - index
+  - outgoing_delivery_contacts_dyli
   - outgoing_delivery_create
   - outgoing_delivery_delete
   - outgoing_delivery_update

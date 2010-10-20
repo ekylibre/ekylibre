@@ -50,6 +50,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
+#  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
 #  subject             :string(255)      
@@ -145,7 +146,7 @@ sales_orders_003:
   nature_id: 1
   number: "SO123457"
   payment_delay_id: 1
-  state: "draft"
+  state: "processing"
   sum_method: "wt"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

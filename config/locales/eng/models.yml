@@ -483,8 +483,8 @@ eng:
     depositables_account_id: 'Embankables account'
     deposits: 'Deposits'
     description: 'Description'
-    dest_contact: 'Dest contact'
-    dest_contact_id: 'Dest contact'
+    dest_contact: 'Dest contact' #!
+    dest_contact_id: 'Dest contact' #!
     diff_less: 'Diff less'
     diff_more: 'Diff more'
     direct_links: 'Direct links'
@@ -841,7 +841,7 @@ eng:
     serial: 'Serial'
     service_coeff: 'Service coeff'
     sha256: 'Sha256'
-    shipped: 'Shipped'
+    shipped: 'Shipped' #!
     shipped_on: 'Shipped on' #!
     siren: 'Siren'
     siret: 'Siret'

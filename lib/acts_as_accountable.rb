@@ -87,7 +87,10 @@ module ActiveRecord
             end
 
             # Add journal lines
-            if block_given? and not options[:unless] and action != :destroy
+            condition = true
+            condition = condition and options[:if] if options.keys.include?(:if)
+            condition = condition and not options[:unless] if options.keys.include?(:unless)
+            if block_given? and condition and action != :destroy
               journal_entry ||= self.company.journal_entries.create!(attributes)
               yield(journal_entry)
             end

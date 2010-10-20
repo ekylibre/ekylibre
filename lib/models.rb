@@ -504,8 +504,9 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :currency_id => :currency,
-      :dest_contact_id => :contact,
+      :delivery_contact_id => :contact,
       :journal_entry_id => :journal_entry,
+      :responsible_id => :user,
       :supplier_id => :entity,
       :updater_id => :user
     },

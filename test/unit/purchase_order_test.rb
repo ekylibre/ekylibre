@@ -20,29 +20,30 @@
 # 
 # == Table: purchase_orders
 #
-#  accounted_at      :datetime         
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  created_on        :date             
-#  creator_id        :integer          
-#  currency_id       :integer          
-#  dest_contact_id   :integer          
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer          
-#  lock_version      :integer          default(0), not null
-#  moved_on          :date             
-#  number            :string(64)       not null
-#  paid_amount       :decimal(16, 2)   default(0.0), not null
-#  planned_on        :date             
-#  reference_number  :string(255)      
-#  shipped           :boolean          not null
-#  state             :string(64)       
-#  supplier_id       :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  accounted_at        :datetime         
+#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
+#  comment             :text             
+#  company_id          :integer          not null
+#  confirmed_on        :date             
+#  created_at          :datetime         not null
+#  created_on          :date             
+#  creator_id          :integer          
+#  currency_id         :integer          
+#  delivery_contact_id :integer          
+#  id                  :integer          not null, primary key
+#  journal_entry_id    :integer          
+#  lock_version        :integer          default(0), not null
+#  moved_on            :date             
+#  number              :string(64)       not null
+#  paid_amount         :decimal(16, 2)   default(0.0), not null
+#  planned_on          :date             
+#  reference_number    :string(255)      
+#  responsible_id      :integer          
+#  state               :string(64)       
+#  supplier_id         :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
 #
 
 require 'test_helper'

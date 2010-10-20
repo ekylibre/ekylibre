@@ -411,13 +411,14 @@ class RelationsController < ApplicationController
     t.column :number ,:url=>{:controller=>:management, :action=>:purchase_order}
     t.column :created_on
     t.column :moved_on
-    t.column :address, :through=>:dest_contact
-    t.column :shipped
+    t.column :address, :through=>:delivery_contact
+    #t.column :shipped
     #t.column :invoiced
-    t.column :amount
+    t.column :state_label
+    t.column :paid_amount
     t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
-    t.action :purchase_order_lines, :controller=>:management, :image=>:update#, :if=>'RECORD.editable'
+    t.action :purchase_order_update, :controller=>:management #, :if=>'RECORD.editable'
     t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
