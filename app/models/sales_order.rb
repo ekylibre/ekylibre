@@ -52,7 +52,7 @@
 #  parts_amount        :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
-#  state               :string(1)        default("O"), not null
+#  state               :string(64)       default("O"), not null
 #  subject             :string(255)      
 #  sum_method          :string(8)        default("wt"), not null
 #  transporter_id      :integer          
@@ -86,6 +86,42 @@ class SalesOrder < ActiveRecord::Base
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
 
+
+
+  state_machine :state, :initial => :writing do
+    event :confirm do
+      transition :writing => :ready
+    end
+    event :abc do
+      transition :writing => :accepted
+    end
+    event :correct do
+      transition :ready => :writing
+      transition :accepted => :writing
+      transition :refused => :writing
+    end
+    event :refuse do
+      transition :ready => :refused
+    end
+    event :accept do
+      transition :ready => :accepted
+    end
+    event :invoice do
+      transition :accepted => :invoiced
+    end
+    event :finish do
+      transition :invoiced => :finished
+    end
+    event :give_up do
+      transition all - [:given_up] => :given_up
+    end
+  end
+
+
+  def abc
+    puts "abc"
+    self.state = 'accepted'
+  end
 
   @@natures = [:estimate, :order, :invoice]
   
@@ -123,14 +159,14 @@ class SalesOrder < ActiveRecord::Base
       end
     end
 
-    # Set state to 'Complete' if all is paid
-    if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.sales_invoices.sum(:amount_with_taxes) == self.amount_with_taxes
-      self.state = 'C'
-    elsif not self.confirmed_on.blank? or self.sales_invoices.size>0 #  or self.parts_amount>0
-      self.state = 'A'
-    else
-      self.state = 'E'
-    end
+#     # Set state to 'Complete' if all is paid
+#     if self.amount_with_taxes>0 and self.parts_amount == self.amount_with_taxes and self.sales_invoices.sum(:amount_with_taxes) == self.amount_with_taxes
+#       self.state = 'C'
+#     elsif not self.confirmed_on.blank? or self.sales_invoices.size>0 #  or self.parts_amount>0
+#       self.state = 'A'
+#     else
+#       self.state = 'E'
+#     end
     true
   end
   
@@ -149,13 +185,12 @@ class SalesOrder < ActiveRecord::Base
   
   # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.
-  def confirm(validated_on=Date.today)
-    if self.estimate? and self.confirmed_on.nil?
-      for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
-      end
-      self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today, :state=>"A")
+  def confirm(validated_on=Date.today, *args)
+    for line in self.lines.find(:all, :conditions=>["quantity>0"])
+      line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
     end
+    self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+    super
   end
   
 
@@ -182,7 +217,7 @@ class SalesOrder < ActiveRecord::Base
 
 
   # Invoice all the products creating the delivery if necessary. 
-  def invoice
+  def invoice(*args)
     return false if self.lines.count <= 0
     ActiveRecord::Base.transaction do
       self.confirm

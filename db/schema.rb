@@ -1755,7 +1755,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.decimal  "parts_amount",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.integer  "journal_entry_id"
     t.string   "reference_number"
-    t.string   "state",             :limit => 1
+    t.string   "state",             :limit => 64
   end
 
   add_index "purchase_orders", ["accounted_at"], :name => "index_purchase_orders_on_accounted_at"
@@ -1918,7 +1918,7 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.boolean  "invoiced",                                                         :default => false, :null => false
     t.decimal  "amount",                            :precision => 16, :scale => 2, :default => 0.0,   :null => false
     t.decimal  "amount_with_taxes",                 :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.string   "state",               :limit => 1,                                 :default => "O",   :null => false
+    t.string   "state",               :limit => 64,                                :default => "O",   :null => false
     t.integer  "expiration_id",                                                                       :null => false
     t.date     "expired_on",                                                                          :null => false
     t.integer  "payment_delay_id",                                                                    :null => false

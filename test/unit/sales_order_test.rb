@@ -52,7 +52,7 @@
 #  parts_amount        :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
 #  responsible_id      :integer          
-#  state               :string(1)        default("O"), not null
+#  state               :string(64)       default("O"), not null
 #  subject             :string(255)      
 #  sum_method          :string(8)        default("wt"), not null
 #  transporter_id      :integer          

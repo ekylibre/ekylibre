@@ -31,7 +31,7 @@
 
 -if ["products", ""].include? params[:step].to_s
   %h2=SalesOrder.human_attribute_name("lines")
-  -#@sales_order_line = @sales_order.lines.new
+  -@sales_order_line = @sales_order.lines.new
   -if @sales_order.estimate?
     =toolbar do |t|
       -t.link(:sales_order_line_create, :order_id=>@sales_order.id) 

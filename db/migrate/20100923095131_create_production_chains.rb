@@ -46,7 +46,7 @@ class CreateProductionChains < ActiveRecord::Migration
     "management.purchase_payments.numeration" => "management.outgoing_payments.numeration",
     "management.invoices.numeration" => "management.sales_invoices.numeration",
     "management.sale_orders.numeration" => "management.sales_orders.numeration"
-  }.to_a
+  }.to_a.sort
 
   def self.up
     for old, new in TABLES_UPDATES
@@ -260,9 +260,11 @@ class CreateProductionChains < ActiveRecord::Migration
 
 
     # Some management stuff
-    add_column :purchase_orders, :state, :string, :limit=>1
-    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='A'"
-    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='C' WHERE parts_amount = amount_with_taxes"
+    change_column :sales_orders, :state, :string, :limit=>64
+    execute "UPDATE #{quoted_table_name(:sales_orders)} SET state=CASE WHEN state='C' THEN 'finished' WHEN state='A' THEN 'accepted' ELSE 'writing' END"
+    add_column :purchase_orders, :state, :string, :limit=>64
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='writing'"
+    execute "UPDATE #{quoted_table_name(:purchase_orders)} SET state='finished' WHERE parts_amount = amount_with_taxes"
     add_column :incoming_payments, :commission_account_id, :integer
     add_column :incoming_payments, :commission_amount, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0.0
     rename_column :incoming_payment_modes, :commission_amount, :commission_base_amount
@@ -297,6 +299,9 @@ class CreateProductionChains < ActiveRecord::Migration
     remove_column :incoming_payments, :commission_amount
     remove_column :incoming_payments, :commission_account_id
     remove_column :purchase_orders, :state
+    execute "UPDATE #{quoted_table_name(:sales_orders)} SET state=CASE WHEN state='finished' THEN 'C' WHEN state='accepted' THEN 'A' ELSE 'E' END"
+    # change_column :sales_orders, :state, :string, :limit=>64
+
 
     # Some accountancy stuff
     remove_column :cash_transfers, :created_on
