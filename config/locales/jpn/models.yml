@@ -1067,9 +1067,17 @@ jpn:
               #>format: 'B[year|4][number|4]'
               #>name: 'Numeration of deposits'
               #>period: 'year'
+            incoming_deliveries:
+              #>format: 'ID[year|4][number|4]'
+              #>name: 'Numeration of incoming deliveries'
+              #>period: 'year'
             incoming_payments:
               #>format: 'P[year|4][number|6]'
               #>name: 'Numeration of payments'
+              #>period: 'year'
+            outgoing_deliveries:
+              #>format: 'OD[year|4][number|6]'
+              #>name: 'Numeration of outgoing deliveries'
               #>period: 'year'
             outgoing_payments:
               #>format: 'D[year|4][number|4]'

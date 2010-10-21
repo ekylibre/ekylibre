@@ -61,52 +61,32 @@ module ActiveRecord
         end
 
 
-        def sums(*args)
+        # Sums columns and puts result in "Parent" table without validations or callbacks.
+        def sums(target, children, *args)
           options={}
           for arg in args
             if arg.is_a? Symbol or arg.is_a? String
               options[arg.to_sym] = arg.to_sym
             elsif arg.is_a? Hash
-              options.merge(arg)
+              options.merge!(arg)
             else
               raise ArgumentError.new("Unvalid type #{arg.inspect}:#{arg.class.name}")
             end
-          end
-          reflections = self.reflections.select{|k, v| v.macro == :belongs_to}
-          unless target = options[:in]
-            name_array = self.name.underscore.split("_")
-            for i in 0..name_array.size-2
-              ref = name_array[-2-i..-2].join("_").to_sym
-              if reflections.keys.include? ref
-                reflection = reflections[ref]
-                if reflection.class_name.classify.reflections.include? name_array[-1].pluralize.to_sym
-                  target = ref
-                  break
-                end
-              end
-            end
-          end
-          target = self.reflections[target]
-          raise ArgumentError.new("Unabled to determine which :belongs_to reflection to use") if target.nil?
-          unless children = options[:as]
-            name_array = self.name.underscore.pluralize.split("_")
-            for i in 0..name_array.size-1
-              ref = name_array[i..-1].join("_").to_sym
-              if target.reflections.keys.include? ref
-                children = ref 
-                break
-              end
-            end
-          end
-          children = target.reflections[children]
-          raise ArgumentError.new("Unabled to determine which :belongs_to reflection to use") if chidren.nil?
-
-          method_name = options[:method] || "sums_#{children}_in_#{target}"
+          end          
+          method_name = options.delete(:method) || "sums_#{children}_in_#{target}"
           code = ""
-          for callback in options[:callbacks]
+          for callback in (callbacks = options.delete(:callbacks) || [:after_save, :after_destroy])
             code  += "#{callback} :#{method_name}\n"
           end
           code += "def #{method_name}\n"
+          code += "  "+options.collect{|k, v| v}.join(" = ")+" = 0\n"
+          code += "  for #{children.to_s.singularize} in self.#{target}.#{children}\n"
+          for k, v in options
+            code += "    #{v} += "+(k.is_a?(Symbol) ? "#{children.to_s.singularize}.#{k}" : k)+"\n"
+          end
+          code += "  end\n"
+          code += "  "+Ekylibre.references[self.name.underscore.to_sym]["#{target}_id".to_sym].to_s.classify+".update_all({"+options.collect{|k, v| ":#{v}=>#{v}"}.join(", ")+"}, {:company_id=>self.company_id, :id=>self.#{target}_id})\n"
+          code += "  return true\n"
           code += "end\n"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
           class_eval code

@@ -59,7 +59,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
   has_many :deliveries, :class_name=>IncomingDelivery.name
-  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy # , :autosave=>true
+  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
   has_many :products, :through=>:lines, :uniq=>true
 
   validates_presence_of :planned_on, :created_on, :currency, :state

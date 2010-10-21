@@ -50,8 +50,7 @@ class IncomingDeliveryLine < ActiveRecord::Base
   belongs_to :unit
   validates_presence_of :product_id, :unit_id
 
-
-  autosave :delivery
+  sums :delivery, :lines, :amount, :amount_with_taxes, "(line.product.weight||0)*line.quantity"=>:weight
 
   def prepare
     self.company_id = self.delivery.company_id if self.delivery

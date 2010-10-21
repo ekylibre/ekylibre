@@ -30,10 +30,12 @@
 #  currency_id       :integer          
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  mode_id           :integer          not null
+#  mode_id           :integer          
 #  moved_on          :date             
+#  number            :string(255)      
 #  planned_on        :date             
 #  purchase_order_id :integer          
+#  reference_number  :string(255)      
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
 #  weight            :decimal(16, 4)   

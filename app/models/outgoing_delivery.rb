@@ -32,7 +32,9 @@
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          
 #  moved_on          :date             
+#  number            :string(255)      
 #  planned_on        :date             
+#  reference_number  :string(255)      
 #  sales_invoice_id  :integer          
 #  sales_order_id    :integer          not null
 #  transport_id      :integer          
@@ -63,12 +65,12 @@ class OutgoingDelivery < ActiveRecord::Base
       last = self.company.outgoing_deliveries.find(:first, :order=>"number desc")
       self.number = last ? last.number.succ! : '00000001'
     end
-    self.amount = self.amount_with_taxes = self.weight = 0
-    for line in self.lines
-      self.amount += line.amount
-      self.amount_with_taxes += line.amount_with_taxes
-      self.weight += (line.product.weight||0)*line.quantity
-    end
+#     self.amount = self.amount_with_taxes = self.weight = 0
+#     for line in self.lines
+#       self.amount += line.amount
+#       self.amount_with_taxes += line.amount_with_taxes
+#       self.weight += (line.product.weight||0)*line.quantity
+#     end
     return true
   end
 

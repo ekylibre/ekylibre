@@ -148,14 +148,14 @@ class SalesOrder < ActiveRecord::Base
     end
 
     self.sum_method = 'wt'
-    if 1 # wt
-      self.amount = 0
-      self.amount_with_taxes = 0
-      for line in self.lines
-        self.amount += line.amount
-        self.amount_with_taxes += line.amount_with_taxes
-      end
-    end
+#     if 1 # wt
+#       self.amount = 0
+#       self.amount_with_taxes = 0
+#       for line in self.lines
+#         self.amount += line.amount
+#         self.amount_with_taxes += line.amount_with_taxes
+#       end
+#     end
     true
   end
   

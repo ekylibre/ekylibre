@@ -32,7 +32,9 @@
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          
 #  moved_on          :date             
+#  number            :string(255)      
 #  planned_on        :date             
+#  reference_number  :string(255)      
 #  sales_invoice_id  :integer          
 #  sales_order_id    :integer          not null
 #  transport_id      :integer          

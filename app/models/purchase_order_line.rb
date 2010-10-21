@@ -58,7 +58,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
 
-  autosave :order
+  sums :order, :lines, :amount, :amount_with_taxes
   
   def prepare
     self.company_id = self.order.company_id if self.order

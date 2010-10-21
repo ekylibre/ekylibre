@@ -1149,7 +1149,7 @@ class ManagementController < ApplicationController
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :amount, :through=>:price
+    t.column :amount, :through=>:price, :label=>"unit_price_amount"
     t.column :amount
     t.column :amount_with_taxes
     t.action :sales_order_line_update, :if=>'RECORD.order.draft? and RECORD.reduction_origin_id.nil? '

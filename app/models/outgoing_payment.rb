@@ -50,12 +50,10 @@ class OutgoingPayment < ActiveRecord::Base
   belongs_to :mode, :class_name=>OutgoingPaymentMode.name  
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :uses, :class_name=>OutgoingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy # , :autosave=>true
+  has_many :uses, :class_name=>OutgoingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy
   has_many :purchase_orders, :through=>:uses
   has_many :expenses, :through=>:uses
 
-  # autosave :uses
-  
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :to_bank_on, :created_on
 

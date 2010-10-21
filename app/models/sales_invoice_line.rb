@@ -54,8 +54,7 @@ class SalesInvoiceLine < ActiveRecord::Base
   belongs_to :product
   has_many :credit_lines, :class_name=>SalesInvoiceLine.name, :foreign_key=>:origin_id
 
-  autosave :sales_invoice
-
+  sums :sales_invoice, :lines, :amount, :amount_with_taxes
   validates_presence_of :order_line_id
 
   attr_readonly :company_id, :sales_invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id

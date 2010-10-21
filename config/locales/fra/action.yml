@@ -630,8 +630,6 @@ fra:
       suppliers: 'Fournisseurs'
       title: 'Catégories de tiers'
     line: 'Ligne n°%{index} :'
-    line_amount: 'PU HT'
-    line_amount_with_taxes: 'PU TTC'
     line_stock: 'Lieu de stockage: %{warehouse}, quantité disponible: %{virtual_q}'
     listing_extract: 'Éxécuter l''extraction'
     listing_mail: 'Envoyer un courriel'
@@ -845,7 +843,7 @@ fra:
     print_with_template: 'Imprimer %{name}'
     product: 'Produit'
     product_category: 'Catégorie'
-    product_category_update: 'Modifier la catégorie'
+    product_category_update: 'Modifier la catégorie' #!
     product_name: 'Produit'
     product_tabbox:
       components: 'Composants'
@@ -1017,6 +1015,8 @@ fra:
     undeposited: 'Non remis en banque'
     uninvoiced_amount: 'Montant non facturé'
     unit: 'Unité'
+    unit_price_amount: 'PU HT'
+    unit_price_amount_with_taxes: 'PU TTC'
     units_load: 'Charger les unités de base manquantes'
     unknown_condition: 'Type de condition inconnue'
     unlock: 'Déverrouiller'

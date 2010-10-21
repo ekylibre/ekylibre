@@ -69,7 +69,7 @@ class SalesOrderLine < ActiveRecord::Base
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
-  autosave :order
+  sums :order, :lines, :amount, :amount_with_taxes
 
   validates_presence_of :price_id
 
