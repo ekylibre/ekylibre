@@ -22,18 +22,18 @@ module ManagementHelper
   def steps_tag(record, steps, options={})
     name = options[:name] || record.class.name.underscore
     state_method = options[:state_method] || :state
+    state = record.send(state_method).to_s
     code = ''
     for step in steps
       title = tc("#{name}_steps.#{step[:name]}")
-      active = step[:actions].detect do |url|
-        # url = {:action=>url.to_s} unless url.is_a? Hash
-        not url.detect{|k, v| params[k].to_s != v.to_s}
-      end
-      if not active and step[:states].include?(record.send(state_method))
-        title = link_to(title, step[:actions][0].merge(:id=>record.id))
+      classes  = "step"
+      classes += " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action=>url.to_s} unless url.is_a? Hash
+      if step[:states].include?(state)
+        classes += " usable"
+        title = link_to(title, step[:actions][0].merge(:id=>record.id)) 
       end
       code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') unless code.blank?
-      code += content_tag(:td, title, :class=>"step#{' active' if active}")
+      code += content_tag(:td, title, :class=>classes)
     end
     code = content_tag(:tr, code.html_safe)
     code = content_tag(:table, code.html_safe, :class=>:stepper)

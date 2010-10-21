@@ -77,8 +77,7 @@ class PurchaseOrder < ActiveRecord::Base
       transition :draft => :ready, :if=>:has_content?
     end
     event :correct do
-      transition :ready => :draft
-      transition :refused => :draft
+      transition [:ready, :refused, :processing] => :draft
     end
     event :refuse do
       transition :ready => :refused, :if=>:has_content?

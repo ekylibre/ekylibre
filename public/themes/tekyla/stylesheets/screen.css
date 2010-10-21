@@ -405,6 +405,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 .stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
 .stepper td { height: 36px; }
 .stepper td.step { text-align:center; background: url(../images/stepper-default.png) no-repeat; }
+.stepper td.step.usable { background: url(../images/stepper-usable.png) no-repeat; }
 .stepper td.step.active { background: url(../images/stepper-active.png) no-repeat; }
 html[dir="ltr"] .stepper td.step { background-position: right center; }
 html[dir="rtl"] .stepper td.step { background-position: left center; }

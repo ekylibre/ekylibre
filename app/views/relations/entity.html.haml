@@ -4,41 +4,41 @@
   -t.print :entity, :id=>@entity.id
 
 
-=list_evalue(3) do |l|
-  -l.evalue @entity, :last_name
-  -l.evalue @entity, :first_name unless @entity.first_name.blank?
-  -l.evalue @entity, :nature if @entity.nature
-  -l.evalue @entity, :code
-  -l.evalue @entity, :active
-  -l.evalue @entity, :website unless @entity.website.blank?
+=attributes_list(@entity) do |l|
+  -l.attribute :last_name
+  -l.attribute :first_name unless @entity.first_name.blank?
+  -l.attribute :nature if @entity.nature
+  -l.attribute :code
+  -l.attribute :active
+  -l.attribute :website unless @entity.website.blank?
   -l.evalue Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
-  -l.evalue @entity, :siren unless @entity.siren.blank?
-  -l.evalue @entity, :activity_code unless @entity.activity_code.blank?
-  -l.evalue @entity, :vat_number unless @entity.vat_number.blank?
-  -l.evalue @entity, :excise unless @entity.vat_number.blank?
-  -l.evalue @entity, :born_on unless @entity.born_on.blank?
-  -l.evalue @entity, :dead_on unless @entity.dead_on.blank?
-  -l.evalue @entity, :website  unless @entity.website.blank?
-  -l.evalue @entity, :comment unless @entity.comment.blank?
-  -l.evalue @entity, :prospect
-  -l.evalue @entity, :client
+  -l.attribute :siren unless @entity.siren.blank?
+  -l.attribute :activity_code unless @entity.activity_code.blank?
+  -l.attribute :vat_number unless @entity.vat_number.blank?
+  -l.attribute :excise unless @entity.vat_number.blank?
+  -l.attribute :born_on unless @entity.born_on.blank?
+  -l.attribute :dead_on unless @entity.dead_on.blank?
+  -l.attribute :website  unless @entity.website.blank?
+  -l.attribute :comment unless @entity.comment.blank?
+  -l.attribute :prospect
+  -l.attribute :client
   -if @entity.client
-    -l.evalue @entity, :category, :label=>:name, :url=>{:action=>:entity_category}
-    -l.evalue @entity, :first_met_on unless @entity.first_met_on.blank?
-    -l.evalue @entity, :proposer, :label=>:full_name unless @entity.proposer_id.blank?
-    -l.evalue @entity, :vat_submissive
-    -l.evalue @entity, :reflation_submissive 
-    -l.evalue @entity, :reduction_rate unless @entity.reduction_rate.blank?
-    -l.evalue @entity, :authorized_payments_count unless @entity.authorized_payments_count.blank?
-    -l.evalue @entity, :deliveries_conditions unless @entity.deliveries_conditions.blank?
-    -l.evalue @entity, :client_account, :url=>{:controller=>:accountancy, :action=>:account}
-  -l.evalue @entity, :supplier
+    -l.attribute :category, :label=>:name, :url=>{:action=>:entity_category}
+    -l.attribute :first_met_on unless @entity.first_met_on.blank?
+    -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+    -l.attribute :vat_submissive
+    -l.attribute :reflation_submissive 
+    -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
+    -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
+    -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
+    -l.attribute :client_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.attribute :supplier
   -if @entity.supplier
-    -l.evalue @entity, :supplier_account, :url=>{:controller=>:accountancy, :action=>:account}
-  -l.evalue @entity, :attorney
+    -l.attribute :supplier_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.attribute :attorney
   -if @entity.attorney
-    -l.evalue @entity, :attorney_account, :url=>{:controller=>:accountancy, :action=>:account}
-  -l.evalue @entity, :transporter
+    -l.attribute :attorney_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.attribute :transporter
   -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
     -l.evalue datum.custom_field.name, datum.value.to_s unless datum.value.to_s.blank?
 

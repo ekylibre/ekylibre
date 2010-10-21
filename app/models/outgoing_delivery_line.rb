@@ -42,14 +42,15 @@
 class OutgoingDeliveryLine < ActiveRecord::Base
   attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
-  belongs_to :delivery, :class_name=>OutgoingDelivery.name
+  belongs_to :delivery, :class_name=>OutgoingDelivery.name, :autosave=>true
   belongs_to :price
   belongs_to :product
   belongs_to :order_line, :class_name=>SalesOrderLine.name
   belongs_to :unit
   validates_presence_of :product_id, :unit_id
 
-  autosave :delivery
+  # autosave :delivery
+  sums :amount, :amount_with_taxes, "(line.product.weight||0)*line.quantity"=>:weight
 
   def prepare
     self.company_id = self.delivery.company_id if self.delivery

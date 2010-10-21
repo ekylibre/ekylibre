@@ -43,6 +43,7 @@
 #
 
 class PurchaseOrderLine < ActiveRecord::Base
+  acts_as_list :scope=>:order
   attr_readonly :company_id, :order_id
   belongs_to :account
   belongs_to :company
@@ -52,6 +53,7 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :warehouse
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
+  has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:order_line_id
   validates_presence_of :amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
@@ -130,5 +132,12 @@ class PurchaseOrderLine < ActiveRecord::Base
     d
   end
 
+  def undelivered_quantity
+    return self.quantity-self.delivery_lines.sum(:quantity)
+  end
+
+  def label
+    self.product.name
+  end
 
 end

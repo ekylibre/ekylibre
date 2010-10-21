@@ -61,13 +61,20 @@ class Company < ActiveRecord::Base
   has_many :event_natures
   has_many :events
   has_many :financial_years, :order=>"started_on DESC"
+  has_many :incoming_deliveries
+  has_many :incoming_delivery_lines
+  has_many :incoming_delivery_modes
+  has_many :incoming_payments
+  has_many :incoming_payment_modes, :order=>:name
+  has_many :incoming_payment_uses
   has_many :inventories
   has_many :inventory_lines
-  has_many :sales_invoices
-  has_many :sales_invoice_lines
   has_many :journals, :order=>:name
   has_many :journal_entries
   has_many :journal_entry_lines
+  has_many :land_parcels, :order=>:name
+  has_many :land_parcel_groups, :order=>:name
+  has_many :land_parcel_kinships
   has_many :listings
   has_many :listing_nodes
   has_many :listing_node_items
@@ -77,6 +84,12 @@ class Company < ActiveRecord::Base
   has_many :operations
   has_many :operation_lines
   has_many :operation_uses
+  has_many :outgoing_deliveries
+  has_many :outgoing_delivery_lines
+  has_many :outgoing_delivery_modes
+  has_many :outgoing_payments
+  has_many :outgoing_payment_modes, :order=>:name
+  has_many :outgoing_payment_uses
   has_many :preferences, :conditions=>{:user_id=>nil}
   has_many :prices
   has_many :products, :order=>'active DESC, name'
@@ -89,23 +102,13 @@ class Company < ActiveRecord::Base
   has_many :professions
   has_many :purchase_orders
   has_many :purchase_order_lines
-  has_many :outgoing_payments
-  has_many :outgoing_payment_modes, :order=>:name
-  has_many :outgoing_payment_uses
   has_many :roles
-  has_many :outgoing_deliveries
-  has_many :outgoing_delivery_lines
-  has_many :outgoing_delivery_modes
+  has_many :sales_invoices
+  has_many :sales_invoice_lines
   has_many :sales_orders
   has_many :sales_order_lines
   has_many :sales_order_natures
-  has_many :incoming_payments
-  has_many :incoming_payment_modes, :order=>:name
-  has_many :incoming_payment_uses
   has_many :sequences
-  has_many :land_parcels, :order=>:name
-  has_many :land_parcel_groups, :order=>:name
-  has_many :land_parcel_kinships
   has_many :stocks, :order=>"warehouse_id, product_id, tracking_id"
   has_many :stock_moves
   has_many :stock_transfers

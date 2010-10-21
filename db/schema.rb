@@ -768,7 +768,9 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                     :default => 0,   :null => false
-    t.integer  "mode_id",                                                           :null => false
+    t.integer  "mode_id"
+    t.string   "number"
+    t.string   "reference_number"
   end
 
   add_index "incoming_deliveries", ["company_id"], :name => "index_purchase_deliveries_on_company_id"
@@ -1332,6 +1334,8 @@ ActiveRecord::Schema.define(:version => 20100923095131) do
     t.decimal  "weight",            :precision => 16, :scale => 4
     t.integer  "transport_id"
     t.integer  "transporter_id"
+    t.string   "number"
+    t.string   "reference_number"
   end
 
   add_index "outgoing_deliveries", ["company_id"], :name => "index_deliveries_on_company_id"

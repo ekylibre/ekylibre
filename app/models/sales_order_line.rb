@@ -63,7 +63,7 @@ class SalesOrderLine < ActiveRecord::Base
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :foreign_key=>:order_line_id, :class_name=>OutgoingDeliveryLine.name
+  has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:order_line_id
   has_many :sales_invoice_lines
   has_one :reduction, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all

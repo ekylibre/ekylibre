@@ -5,11 +5,6 @@
     -t.link :production_chain_work_center_create, :production_chain_id=>@production_chain.id
     -t.link :production_chain_work_center_create, :production_chain_id=>@production_chain.id
 
-  -#=list_evalue(3) do |l|
-  -#  -l.evalue @production_chain, :name
-  -#  -l.evalue @production_chain, :comment
-  -#  -l.evalue @production_chain, :building
-
   #chains=render :partial=>"production_chain_work_center", :collection=>@production_chain.operations
   -if @production_chain.unused_conveyors.size > 0
     %h2=ProductionChain.human_attribute_name(:unused_conveyors)

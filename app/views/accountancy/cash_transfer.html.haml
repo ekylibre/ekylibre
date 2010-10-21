@@ -2,16 +2,16 @@
   -t.update @cash_transfer
 
 
-=list_evalue do |l|
-  -l.evalue @cash_transfer, :number
-  -l.evalue @cash_transfer, :comment
-  -l.evalue @cash_transfer, :accounted_at
-  -l.evalue @cash_transfer, :currency
-  -l.evalue @cash_transfer, :emitter_cash, :url=>{:action=>:cash}
-  -l.evalue @cash_transfer, :emitter_amount
-  -l.evalue @cash_transfer, :emitter_currency
-  -l.evalue @cash_transfer, :emitter_journal_entry, :url=>{:action=>:journal_entry}
-  -l.evalue @cash_transfer, :receiver_cash, :url=>{:action=>:cash}
-  -l.evalue @cash_transfer, :receiver_amount
-  -l.evalue @cash_transfer, :receiver_currency
-  -l.evalue @cash_transfer, :receiver_journal_entry, :url=>{:action=>:journal_entry}
+=attributes_list(@cash_transfer) do |l|
+  -l.attribute :number
+  -l.attribute :comment
+  -l.attribute :accounted_at
+  -l.attribute :currency
+  -l.attribute :emitter_cash, :url=>{:action=>:cash}
+  -l.attribute :emitter_amount
+  -l.attribute :emitter_currency
+  -l.attribute :emitter_journal_entry, :url=>{:action=>:journal_entry}
+  -l.attribute :receiver_cash, :url=>{:action=>:cash}
+  -l.attribute :receiver_amount
+  -l.attribute :receiver_currency
+  -l.attribute :receiver_journal_entry, :url=>{:action=>:journal_entry}

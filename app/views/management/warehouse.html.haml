@@ -1,17 +1,17 @@
 =toolbar do |t|
   -t.update @warehouse
 
-=list_evalue do |l|
-  -l.evalue @warehouse, :name
-  -l.evalue @warehouse, :comment
-  -l.evalue @warehouse, :establishment
-  -l.evalue @warehouse, :x
-  -l.evalue @warehouse, :y
-  -l.evalue @warehouse, :z
+=attributes_list(@warehouse) do |l|
+  -l.attribute :name
+  -l.attribute :comment
+  -l.attribute :establishment
+  -l.attribute :x
+  -l.attribute :y
+  -l.attribute :z
   -if @warehouse.reservoir
-    -l.evalue @warehouse, :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
-    -l.evalue @warehouse, :number
-    -l.evalue @warehouse, :quantity_max
+    -l.attribute :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
+    -l.attribute :number
+    -l.attribute :quantity_max
 
 =tabbox(:warehouse) do |tb|
   -tb.tab :stocks, :content=>kame(:warehouse_stocks)

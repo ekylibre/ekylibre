@@ -2,13 +2,13 @@
   -t.update @deposit
   -t.print :deposit, :p0=>@deposit.id
 
-=list_evalue(3) do |l|
-  -l.evalue @deposit, :number
-  -l.evalue @deposit, :cash, :url=>{:controller=>:accountancy, :action=>:cash}
-  -l.evalue @deposit, :payments_count
-  -l.evalue @deposit, :responsible
-  -l.evalue @deposit, :comment
-  -l.evalue @deposit, :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+=attributes_list(@deposit) do |l|
+  -l.attribute :number
+  -l.attribute :cash, :url=>{:controller=>:accountancy, :action=>:cash}
+  -l.attribute :payments_count
+  -l.attribute :responsible
+  -l.attribute :comment
+  -l.attribute :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 %h2=Deposit.human_attribute_name("payments")
 =kame :deposit_payments

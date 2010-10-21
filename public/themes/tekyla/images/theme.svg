@@ -1266,7 +1266,7 @@
        sodipodi:nodetypes="ccccccccccc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
-       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/stepper-default.png" />
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/stepper-usable.png" />
     <path
        style="fill:#f6d681;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
        d="M -1085.7143,7.933609 L -1085.7143,13.933609 L -85.714285,13.933609 L -85.714285,7.933609 L -71.714285,25.933609 L -85.714285,43.933609 L -85.714285,37.933609 L -1085.7143,37.933609 L -1085.7143,43.933609 L -1099.7143,25.933609 L -1085.7143,7.933609 z"
@@ -1275,5 +1275,13 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/stepper-active.png" />
+    <path
+       style="fill:#dddddd;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -1085.7143,-103.06639 L -1085.7143,-97.06639 L -85.71426,-97.06639 L -85.71426,-103.06639 L -71.71426,-85.066391 L -85.71426,-67.066391 L -85.71426,-73.066391 L -1085.7143,-73.066391 L -1085.7143,-67.066391 L -1099.7143,-85.066391 L -1085.7143,-103.06639 z"
+       id="path2583"
+       sodipodi:nodetypes="ccccccccccc"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/stepper-default.png" />
   </g>
 </svg>

@@ -39,6 +39,8 @@ fra:
     manage_estimates: 'Créer, modifier des devis'
     manage_events: 'Gérer les évènements'
     manage_financial_years: 'Gérer, clôturer les exercices'
+    #>manage_incoming_delivery_modes: '(((MANAGE_INCOMING_DELIVERY_MODES)))'
+    #>manage_incoming_payment_modes: '(((MANAGE_INCOMING_PAYMENT_MODES)))'
     manage_incoming_payments: 'Gérer les règlements de vente'
     manage_inventories: 'Gérer les inventaires'
     manage_journal_entries: 'Gérer les écritures'
@@ -49,8 +51,11 @@ fra:
     manage_mandates: 'Gérer les responsabilités'
     manage_observations: 'Gérer les observations'
     manage_operations: 'Gérer les travaux'
-    manage_outgoing_deliveries: 'Gérer les types de livraison'
-    manage_payment_modes: 'Gérer les modes de paiments'
+    manage_outgoing_deliveries: 'Gérer les types de livraison' #!
+    #>manage_outgoing_delivery_modes: '(((MANAGE_OUTGOING_DELIVERY_MODES)))'
+    #>manage_outgoing_payment_modes: '(((MANAGE_OUTGOING_PAYMENT_MODES)))'
+    #>manage_outgoing_payments: '(((MANAGE_OUTGOING_PAYMENTS)))'
+    manage_payment_modes: 'Gérer les modes de paiments' #!
     manage_prices: 'Gérer les prix'
     manage_product_categories: 'Gérer les catégories de produits'
     manage_products: 'Gérer les produits'

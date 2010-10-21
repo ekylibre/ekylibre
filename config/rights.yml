@@ -150,8 +150,10 @@ consult_purchase_orders:
   actions:
   - index
   - purchase_order
+  - purchase_order_deliveries_kame
   - purchase_order_lines_kame
   - purchase_order_payment_uses_kame
+  - purchase_order_undelivered_lines_kame
   - purchase_orders
   - purchase_orders_kame
 # Consult the sales_invoices
@@ -174,6 +176,7 @@ consult_sales_orders:
   - sales_order_invoices_kame
   - sales_order_lines_kame
   - sales_order_payment_uses_kame
+  - sales_order_undelivered_lines_kame
   - sales_orders
   - sales_orders_kame
   - statistics
@@ -443,6 +446,29 @@ manage_financial_years:
   - financial_years
   - financial_years_kame
   - index
+# (((MANAGE_INCOMING_DELIVERY_MODES)))
+manage_incoming_delivery_modes:
+  controller: management
+  actions:
+  - incoming_delivery_mode_create
+  - incoming_delivery_mode_delete
+  - incoming_delivery_mode_update
+  - incoming_delivery_modes
+  - incoming_delivery_modes_kame
+  - index
+# (((MANAGE_INCOMING_PAYMENT_MODES)))
+manage_incoming_payment_modes:
+  controller: management
+  actions:
+  - incoming_payment_mode_create
+  - incoming_payment_mode_delete
+  - incoming_payment_mode_down
+  - incoming_payment_mode_reflect
+  - incoming_payment_mode_up
+  - incoming_payment_mode_update
+  - incoming_payment_modes
+  - incoming_payment_modes_kame
+  - index
 # Manage sale payments
 manage_incoming_payments:
   controller: management
@@ -594,8 +620,8 @@ manage_operations:
   - operations_kame
   - unvalidated_operations
   - unvalidated_operations_kame
-# Manage sale delivery modes
-manage_outgoing_deliveries:
+# (((MANAGE_OUTGOING_DELIVERY_MODES)))
+manage_outgoing_delivery_modes:
   controller: management
   actions:
   - index
@@ -604,18 +630,10 @@ manage_outgoing_deliveries:
   - outgoing_delivery_mode_update
   - outgoing_delivery_modes
   - outgoing_delivery_modes_kame
-# Manage payment modes
-manage_payment_modes:
+# (((MANAGE_OUTGOING_PAYMENT_MODES)))
+manage_outgoing_payment_modes:
   controller: management
   actions:
-  - incoming_payment_mode_create
-  - incoming_payment_mode_delete
-  - incoming_payment_mode_down
-  - incoming_payment_mode_reflect
-  - incoming_payment_mode_up
-  - incoming_payment_mode_update
-  - incoming_payment_modes
-  - incoming_payment_modes_kame
   - index
   - outgoing_payment_mode_create
   - outgoing_payment_mode_delete
@@ -624,6 +642,23 @@ manage_payment_modes:
   - outgoing_payment_mode_update
   - outgoing_payment_modes
   - outgoing_payment_modes_kame
+# (((MANAGE_OUTGOING_PAYMENTS)))
+manage_outgoing_payments:
+  controller: management
+  actions:
+  - index
+  - outgoing_payment
+  - outgoing_payment_create
+  - outgoing_payment_delete
+  - outgoing_payment_purchase_orders_kame
+  - outgoing_payment_update
+  - outgoing_payment_use_create
+  - outgoing_payment_use_delete
+  - outgoing_payments
+  - outgoing_payments_kame
+  - purchase_order
+  - purchase_order_lines_kame
+  - purchase_order_payment_uses_kame
 # Manage prices
 manage_prices:
   controller: management
@@ -671,17 +706,14 @@ manage_purchase_orders:
   - incoming_delivery_contacts_dyli
   - incoming_delivery_create
   - incoming_delivery_delete
+  - incoming_delivery_mode_create
+  - incoming_delivery_mode_delete
+  - incoming_delivery_mode_update
+  - incoming_delivery_modes
+  - incoming_delivery_modes_kame
   - incoming_delivery_update
   - index
-  - outgoing_payment
-  - outgoing_payment_create
-  - outgoing_payment_delete
-  - outgoing_payment_purchase_orders_kame
-  - outgoing_payment_update
-  - outgoing_payment_use_create
-  - outgoing_payment_use_delete
-  - outgoing_payments
-  - outgoing_payments_kame
+  - purchase_order
   - purchase_order_abort
   - purchase_order_confirm
   - purchase_order_correct
@@ -693,11 +725,14 @@ manage_purchase_orders:
   - purchase_order_line_create
   - purchase_order_line_delete
   - purchase_order_line_update
+  - purchase_order_lines_kame
   - purchase_order_payment_uses_kame
   - purchase_order_propose
   - purchase_order_refuse
+  - purchase_order_undelivered_lines_kame
   - purchase_order_update
   - purchase_orders
+  - purchase_orders_kame
   - purchase_products_dyli
   - suppliers_dyli
 # Mange sale orders natures
@@ -729,7 +764,7 @@ manage_sales_orders:
   - sales_order_invoice
   - sales_order_propose
   - sales_order_refuse
-  - undelivered_quantities_kame
+  - sales_order_undelivered_lines_kame
   - undelivered_sales
   - undelivered_sales_kame
 # Manage stock moves

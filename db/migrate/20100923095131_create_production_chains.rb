@@ -1,7 +1,8 @@
 class CreateProductionChains < ActiveRecord::Migration
   RIGHTS_UPDATES = {
     "manage_sale_payments"       => "manage_incoming_payments",
-    "manage_sale_delivery_modes" => "manage_outgoing_deliveries",
+    "manage_payment_modes"       => "manage_incoming_payment_modes manage_outgoing_payment_modes",
+    "manage_sale_delivery_modes" => "manage_outgoing_delivery_modes",
     "manage_sale_order_natures"  => "manage_sales_order_natures",
     "manage_sale_orders"         => "manage_sales_orders",
     "consult_purchases"          => "consult_purchase_orders",
@@ -9,7 +10,7 @@ class CreateProductionChains < ActiveRecord::Migration
     "consult_entries"            => "consult_journal_entries",
     "consult_sale_orders"        => "consult_sales_orders",
     "consult_tracking"           => "consult_trackings",
-    "manage_purchases"           => "manage_purchase_orders",
+    "manage_purchases"           => "manage_purchase_orders manage_outgoing_payments",
     "give_discounts_on_sale"     => "give_discounts_on_sales_orders",
     "change_prices_on_sale"      => "change_prices_on_sales_orders"
   }.to_a.sort
@@ -73,7 +74,7 @@ class CreateProductionChains < ActiveRecord::Migration
     rename_column :sales_invoice_lines, :invoice_id, :sales_invoice_id
     rename_column :incoming_deliveries, :order_id, :purchase_order_id
     change_column_null :incoming_deliveries, :purchase_order_id, true
-    add_column :incoming_deliveries, :mode_id, :integer, :null=>false # No deliveries can be in the table
+    add_column :incoming_deliveries, :mode_id, :integer # No deliveries can be in the table
     rename_column :outgoing_deliveries, :invoice_id, :sales_invoice_id
     rename_column :outgoing_deliveries, :order_id, :sales_order_id
     add_column :outgoing_delivery_modes, :with_transport, :boolean, :null=>false, :default=>false
@@ -283,6 +284,13 @@ class CreateProductionChains < ActiveRecord::Migration
     add_column :purchase_orders, :responsible_id, :integer
     remove_column :purchase_orders, :shipped
     rename_column :purchase_orders, :dest_contact_id, :delivery_contact_id
+
+    add_column :incoming_deliveries, :number, :string
+    add_column :incoming_deliveries, :reference_number, :string
+    execute "UPDATE #{quoted_table_name(:incoming_deliveries)} SET number='00000000'"
+    add_column :outgoing_deliveries, :number, :string
+    add_column :outgoing_deliveries, :reference_number, :string
+    execute "UPDATE #{quoted_table_name(:outgoing_deliveries)} SET number='00000000'"
     
 
 
@@ -309,6 +317,11 @@ class CreateProductionChains < ActiveRecord::Migration
     end
 
     # Some management stuff
+    remove_column :outgoing_deliveries, :reference_number
+    remove_column :outgoing_deliveries, :number
+    remove_column :incoming_deliveries, :reference_number
+    remove_column :incoming_deliveries, :number
+
     rename_column :purchase_orders, :delivery_contact_id, :dest_contact_id
     add_column :purchase_orders, :shipped, :boolean, :null=>false, :default=>false
     execute "UPDATE #{quoted_table_name(:purchase_orders)} SET shipped=#{quoted_true} WHERE state='finished'"

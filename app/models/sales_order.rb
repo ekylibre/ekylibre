@@ -77,12 +77,12 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :class_name=>OutgoingDelivery.name
+  has_many :deliveries, :class_name=>OutgoingDelivery.name, :dependent=>:destroy
   has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   has_many :payments, :through=>:payment_uses
   has_many :sales_invoices
-  has_many :stock_moves, :as=>:origin
+  has_many :stock_moves, :as=>:origin, :dependent=>:destroy
   has_many :subscriptions, :class_name=>Subscription.to_s
   validates_presence_of :client_id, :currency_id
 
@@ -100,6 +100,7 @@ class SalesOrder < ActiveRecord::Base
     event :correct do
       transition :ready => :draft
       transition :refused => :draft
+      transition :processing => :draft, :if=>Proc.new{|so| so.paid_amount <= 0}
     end
     event :refuse do
       transition :ready => :refused, :if=>:has_content?
@@ -176,14 +177,28 @@ class SalesOrder < ActiveRecord::Base
   end
   
 
+  # Remove all bad dependencies and return at draft state with no stock moves, 
+  # no deliveries, no payments and of course no invoices
+  def correct(*args)
+    return false unless self.can_correct?
+#     for d in self.deliveries
+#       d.mark_for_destruction
+#       d.destroy
+#     end
+    self.deliveries.clear
+    self.stock_moves.clear
+    return super
+  end
+
   # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.
   def confirm(validated_on=Date.today, *args)
-    return false unless super
+    return false unless self.can_confirm
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
       line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
     end
     self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+    return super
   end
   
 
@@ -211,7 +226,7 @@ class SalesOrder < ActiveRecord::Base
 
   # Invoice all the products creating the delivery if necessary. 
   def invoice(*args)
-    return false unless self.can_invoice? and self.lines.count > 0
+    return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
       # Create sales invoice
       sales_invoice = self.sales_invoices.create!(:nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)

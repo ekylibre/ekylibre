@@ -2,13 +2,13 @@
   -t.update @land_parcel
   -t.divide @land_parcel
 
-=list_evalue(3) do |l|
-  -l.evalue @land_parcel, :name
-  -l.evalue @land_parcel, :description
-  -l.evalue @land_parcel, :started_on
-  -l.evalue @land_parcel, :stopped_on
-  -l.evalue @land_parcel, :area_measure
-  -l.evalue @land_parcel, :area_unit
+=attributes_list(@land_parcel) do |l|
+  -l.attribute :name
+  -l.attribute :description
+  -l.attribute :started_on
+  -l.attribute :stopped_on
+  -l.attribute :area_measure
+  -l.attribute :area_unit
 
 %table.stepper
   %tr

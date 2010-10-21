@@ -11,19 +11,18 @@
   -t.abort(@purchase_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase_order.can_abort?
   -t.print :purchase_order, :id=>@purchase_order.id
 
-=list_evalue do |l|
-  -l.evalue @purchase_order, :supplier, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
-  -l.evalue @purchase_order, :number
-  -l.evalue @purchase_order, :state_label
-  -l.evalue @purchase_order, :responsible, :label=>:full_name
-  -l.evalue @purchase_order, :created_on
-  -l.evalue @purchase_order, :confirmed_on
-  -l.evalue @purchase_order, :planned_on
-  -l.evalue @purchase_order, :number
-  -l.evalue @purchase_order, :reference_number
-  -l.evalue @purchase_order, :currency unless @purchase_order.currency == @current_company.default_currency
-  -l.evalue @purchase_order, :comment
-  -l.evalue @purchase_order, :delivery_contact, :label=>:address
+=attributes_list(@purchase_order) do |l|
+  -l.attribute :supplier, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :number
+  -l.attribute :reference_number
+  -l.attribute :state_label
+  -l.attribute :responsible, :label=>:full_name
+  -l.attribute :created_on
+  -l.attribute :confirmed_on
+  -l.attribute :planned_on
+  -l.attribute :currency unless @purchase_order.currency == @current_company.default_currency
+  -l.attribute :comment
+  -l.attribute :delivery_contact, :label=>:address
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("lines")
@@ -34,10 +33,10 @@
   %table.kame
     %tr.total
       %th=PurchaseOrder.human_attribute_name("amount")
-      %td=number_to_accountancy(@purchase_order.amount)
+      %td=number_to_management(@purchase_order.amount)
     %tr.important.total
       %th=PurchaseOrder.human_attribute_name("amount_with_taxes")
-      %td=number_to_accountancy(@purchase_order.amount_with_taxes)
+      %td=number_to_management(@purchase_order.amount_with_taxes)
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("payment_uses")
@@ -46,13 +45,13 @@
   =kame :purchase_order_payment_uses
 
 
--if ["deliveries", ""].include? params[:step].to_s and @purchase_order.active?
+-if ["deliveries", ""].include? params[:step].to_s
   -if @purchase_order.deliverable?
     %h2=tc :undelivered
-    =kame :undelivered_quantities
+    =toolbar do |t|
+      -t.link :incoming_delivery_create, :purchase_order=>@purchase_order.id
+    =kame :purchase_order_undelivered_lines
   %h2=PurchaseOrder.human_attribute_name("deliveries")
-  =toolbar do |t|
-    -t.link :incoming_delivery_create, :purchase_order=>@purchase_order.id if @purchase_order.deliverable?
   =kame :purchase_order_deliveries
 
 
@@ -62,5 +61,5 @@
     -for k, v in @purchase_order.stats(:with_balance=>true)
       %tr.total
         %th=tc(k)
-        %td=number_to_accountancy(v)
+        %td=number_to_management(v)
 

@@ -2,15 +2,15 @@
 =toolbar do |t|
   -t.update @journal_entry unless @journal_entry.closed?
 
-=list_evalue do |l|
-  -l.evalue @journal_entry, :number
-  -l.evalue @journal_entry, :printed_on
-  -l.evalue @journal_entry, :created_on
+=attributes_list(@journal_entry) do |l|
+  -l.attribute :number
+  -l.attribute :printed_on
+  -l.attribute :created_on
   -if @journal_entry.resource
-    -l.evalue @journal_entry, :resource, :url=>{:controller=>(@journal_entry.resource_type.match(/Cash/) ? :accountancy : :management), :action=>@journal_entry.resource_type.underscore}
-  -l.evalue @journal_entry, :journal, :url=>{:action=>:journal}
-  -l.evalue @journal_entry, :debit
-  -l.evalue @journal_entry, :credit
+    -l.attribute :resource, :url=>{:controller=>(@journal_entry.resource_type.match(/Cash/) ? :accountancy : :management), :action=>@journal_entry.resource_type.underscore}
+  -l.attribute :journal, :url=>{:action=>:journal}
+  -l.attribute :debit
+  -l.attribute :credit
 
 %h2=JournalEntry.human_attribute_name("lines")
 =kame(:journal_entry_entries)

@@ -43,7 +43,7 @@
 #
 
 class OutgoingDelivery < ActiveRecord::Base
-  attr_readonly :company_id, :sales_order_id
+  attr_readonly :company_id, :sales_order_id, :number
   belongs_to :company 
   belongs_to :contact
   belongs_to :sales_invoice
@@ -51,7 +51,7 @@ class OutgoingDelivery < ActiveRecord::Base
   belongs_to :sales_order
   belongs_to :transport
   has_many :lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
-  has_many :stock_moves, :as=>:origin
+  has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
   autosave :transport
 
@@ -59,25 +59,25 @@ class OutgoingDelivery < ActiveRecord::Base
 
   def prepare
     self.company_id = self.sales_order.company_id if self.sales_order
-    self.amount = 0
-    self.amount_with_taxes = 0
+    if self.number.blank?
+      last = self.company.outgoing_deliveries.find(:first, :order=>"number desc")
+      self.number = last ? last.number.succ! : '00000001'
+    end
+    self.amount = self.amount_with_taxes = self.weight = 0
     for line in self.lines
       self.amount += line.amount
       self.amount_with_taxes += line.amount_with_taxes
-    end
-    #     if !self.mode.nil?
-    #       self.moved_on = Date.today if self.planned_on == Date.today and self.mode.code == "exw"
-    #     end
-    self.weight = 0
-    for line in self.lines
       self.weight += (line.product.weight||0)*line.quantity
     end
+    return true
   end
 
-  def self.natures
-    [:exw, :cpt, :cip].collect{|x| [tc('natures.'+x.to_s), x] }
+  def clean_on_create
+    specific_numeration = self.company.preference("management.outgoing_deliveries.numeration").value
+    self.number = specific_numeration.next_value unless specific_numeration.nil?
   end
- 
+  
+
 
   # Ships the delivery and move the real stocks. This operation locks the delivery.
   # This permits to manage stocks.
@@ -107,10 +107,6 @@ class OutgoingDelivery < ActiveRecord::Base
   # Used with kame for the moment
   def quantity
     ''
-  end
-
-  def text_nature
-    tc('natures.'+self.nature.to_s)
   end
 
   def contact_address

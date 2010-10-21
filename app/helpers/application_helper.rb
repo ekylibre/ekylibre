@@ -109,6 +109,7 @@ module ApplicationHelper
          {:name=>:purchases, :list=>
            [ {:name=>:purchase_order_create},
              {:name=>:purchase_orders},
+             {:name=>:incoming_deliveries},
              {:name=>:outgoing_payments}
            ] },
          {:name=>:stocks_tasks, :list=>
@@ -120,10 +121,11 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:products},
              {:name=>:prices},
-             {:name=>:shelves},
+             {:name=>:product_categories},
              {:name=>:delays},
              {:name=>:incoming_payment_modes},
              {:name=>:outgoing_payment_modes},
+             {:name=>:incoming_delivery_modes},
              {:name=>:outgoing_delivery_modes},
              {:name=>:sales_order_natures},
              {:name=>:subscription_natures}
@@ -190,6 +192,11 @@ module ApplicationHelper
     else
       number_to_currency(number, :precision=>2, :format=>'%n', :delimiter=>'&nbsp;', :separator=>',')
     end
+  end
+
+  def number_to_management(value)
+    number = value.to_f
+    number_to_currency(number, :precision=>2, :format=>'%n', :delimiter=>'&nbsp;', :separator=>',')
   end
 
 
@@ -349,35 +356,52 @@ module ApplicationHelper
   end
 
 
-  def list_evalue(columns=3, &block)
-    le = ListEvalue.new
-    yield le if block_given?
+  def attributes_list(record, options={}, &block)
+    columns = options[:columns] || 3
+    attribute_list = AttributesList.new
+    yield attribute_list if block_given?
+    unless options[:without_stamp]
+      attribute_list.attribute :creator
+      attribute_list.attribute :created_at
+      attribute_list.attribute :updater
+      attribute_list.attribute :updated_at
+      # attribute_list.attribute :lock_version
+    end
     code = ""
-    size = le.evalues.size
+    size = attribute_list.items.size
     if size > 0
       column_size = (size.to_f/columns.to_f).ceil
       for c in 1..columns
         column = ""
-        for i in 1.. column_size
-          args = le.evalues.shift
-          column += evalue(*args[1]) if args.is_a? Array
+        for i in 1..column_size
+          args = attribute_list.items.shift
+          break if args.nil?
+          if args[0] == :evalue
+            column += evalue(*args[1]) if args.is_a? Array
+          elsif args[0] == :attribute
+            column += evalue(record, *args[1]) if args.is_a? Array
+          end
         end
         code += content_tag(:td, column.html_safe)
       end
       code = content_tag(:tr, code.html_safe)
-      code = content_tag(:table, code.html_safe, :class=>"list-evalue")
+      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
     end
     return code.html_safe
   end
 
-  class ListEvalue
-    attr_reader :evalues
+  class AttributesList
+    attr_reader :items
     def initialize()
-      @evalues = []
+      @items = []
+    end
+
+    def attribute(*args)
+      @items << [:attribute, args]
     end
 
     def evalue(*args)
-      @evalues << [:evalue, args]
+      @items << [:evalue, args]
     end
 
   end    
@@ -697,53 +721,6 @@ module ApplicationHelper
 
   
 
-  def itemize(name, options={})
-    code = '[EmptyItemizeError]'
-    if block_given?
-      list = Itemize.new(name)
-      yield list
-      code = itemize_to_html(list, options)
-    end
-    return code
-  end
-
-
-  def itemize_to_html(list, options={})
-    cols = options[:cols]
-    variable = instance_variable_get('@'+list.name.to_s)
-    code = ''
-    for item in list.items
-      if item[:nature] == :item
-        if item[:params].size==1
-          code += evalue(variable, item[:params][0])
-        end
-      end
-    end
-    code = content_tag(:legend, list.name)+code
-    code = content_tag(:fieldset, code, :class=>'itemize')
-    code
-  end
-
-  class Itemize
-    attr_reader :name, :items, :items_count, :stops_count
-
-    def initialize(name)
-      @name = name
-      @items = []
-      @items_count = 0
-      @stops_count = 0
-    end
-
-    def item(*args)
-      @items << {:nature=>:item, :params=>args}
-      @items_count += 1
-    end
-
-    def stop(*args)
-      @items << {:nature=>:stop, :params=>args}
-      @stops_count += 1
-    end
-  end
 
 
 

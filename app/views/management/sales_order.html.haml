@@ -11,26 +11,26 @@
   -t.abort(@sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.can_abort?
   -t.print :sales_order, :id=>@sales_order.id
 
-=list_evalue do |l|
-  -l.evalue @sales_order, :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
-  -l.evalue @sales_order, :number
-  -l.evalue @sales_order, :state_label
-  -l.evalue @sales_order, :responsible, :label=>:full_name
-  -l.evalue @sales_order, :created_on
-  -l.evalue @sales_order, :confirmed_on
-  -l.evalue @sales_order, :payment_delay, :label=>:name
-  -l.evalue @sales_order, :nature
-  -l.evalue @sales_order, :currency unless @sales_order.currency == @current_company.default_currency
-  -l.evalue @sales_order, :comment unless @sales_order.comment.blank?
-  -l.evalue @sales_order, :contact, :label=>:address
-  -l.evalue @sales_order, :delivery_contact, :label=>:address
-  -l.evalue @sales_order, :invoice_contact, :label=>:address
-  -l.evalue @sales_order, :letter_format
+=attributes_list(@sales_order) do |l|
+  -l.attribute :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :number
+  -l.attribute :state_label
+  -l.attribute :responsible, :label=>:full_name
+  -l.attribute :created_on
+  -l.attribute :confirmed_on
+  -l.attribute :payment_delay, :label=>:name
+  -l.attribute :nature
+  -l.attribute :currency unless @sales_order.currency == @current_company.default_currency
+  -l.attribute :comment unless @sales_order.comment.blank?
+  -l.attribute :contact, :label=>:address
+  -l.attribute :delivery_contact, :label=>:address
+  -l.attribute :invoice_contact, :label=>:address
+  -l.attribute :letter_format
   -if @sales_order.letter_format?
-    -l.evalue @sales_order, :subject
-    -l.evalue @sales_order, :function_title
-    -l.evalue @sales_order, :introduction, :field=>:textarea
-    -l.evalue @sales_order, :conclusion, :field=>:textarea
+    -l.attribute :subject
+    -l.attribute :function_title
+    -l.attribute :introduction, :field=>:textarea
+    -l.attribute :conclusion, :field=>:textarea
 
 
 -if ["products", ""].include? params[:step].to_s
@@ -44,10 +44,10 @@
   %table.kame
     %tr.total
       %th=tl :amount
-      %td=number_to_accountancy(@sales_order.amount)
+      %td=number_to_management(@sales_order.amount)
     %tr.important.total
       %th=tl :amount_with_taxes
-      %td=number_to_accountancy(@sales_order.amount_with_taxes)
+      %td=number_to_management(@sales_order.amount_with_taxes)
   -if @sales_order.subscriptions.size>0
     %h2=tl :subscriptions
     =kame :sales_order_subscriptions
@@ -60,20 +60,19 @@
   =kame :sales_order_payment_uses
 
       
--if ["deliveries", ""].include? params[:step].to_s and @sales_order.processing?
+-if ["deliveries", ""].include? params[:step].to_s
   -if @sales_order.deliverable?
     %h2=tc :undelivered
-    =kame :undelivered_quantities
+    =toolbar do |t|
+      -t.link :outgoing_delivery_create, :sales_order=>@sales_order.id
+    =kame :sales_order_undelivered_lines
   %h2=SalesOrder.human_attribute_name("deliveries")
-  =toolbar do |t|
-    -t.link :outgoing_delivery_create, :sales_order=>@sales_order.id if @sales_order.deliverable?
   =kame :sales_order_deliveries
 
 
 -if ["summary", ""].include? params[:step].to_s
-  -if @sales_order.sales_invoices.size>0
-    %h2=SalesOrder.human_attribute_name(:sales_invoices)
-    =kame :sales_order_invoices
+  %h2=SalesOrder.human_attribute_name(:sales_invoices)
+  =kame :sales_order_invoices
 
 
 -if ["products", "summary", ""].include? params[:step].to_s
@@ -82,5 +81,5 @@
     -for k, v in @sales_order.stats(:with_balance=>true)
       %tr.total
         %th=tc(k)
-        %td=number_to_accountancy(v)
+        %td=number_to_management(v)
   

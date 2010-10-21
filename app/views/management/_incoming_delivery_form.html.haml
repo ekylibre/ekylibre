@@ -1,9 +1,9 @@
-=sales_steps
+=purchase_steps
 
 =formalize do |f|
   -f.error :incoming_delivery
   -f.title :infos
-  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@sales_order.client_id} 
+  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@purchase_order.supplier_id} 
   -f.field :incoming_delivery, :mode_id, :choices=>{:reflection=>:incoming_delivery_modes}, :new=>{:action=>:incoming_delivery_mode_create}
   -f.field :incoming_delivery, :planned_on
 %h2=IncomingDelivery.human_attribute_name("lines")
