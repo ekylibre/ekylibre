@@ -1,0 +1,49 @@
+=sales_steps
+
+=formalize do |f|
+  -f.error :incoming_delivery
+  -f.title :infos
+  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@sales_order.client_id} 
+  -f.field :incoming_delivery, :mode_id, :choices=>{:reflection=>:incoming_delivery_modes}, :new=>{:action=>:incoming_delivery_mode_create}
+  -f.field :incoming_delivery, :planned_on
+%h2=IncomingDelivery.human_attribute_name("lines")
+%table.kame 
+  %tr
+    %th=IncomingDeliveryLine.human_attribute_name(:product)
+    %th=tc(:line_amount)
+    %th=tc(:line_amount_with_taxes)
+    %th=tc(:total_quantity)
+    %th=IncomingDeliveryLine.human_attribute_name(:unit)
+    %th=tc(:quantity_rest)
+    %th=tc(:quantity)
+    %th=IncomingDeliveryLine.human_attribute_name(:amount)
+    %th=IncomingDeliveryLine.human_attribute_name(:amount_with_taxes)
+  -for line in @incoming_delivery_lines
+    %tr{:class=>cycle('odd','even')}
+      %td=line.order_line.label
+      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.amount
+      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount_with_taxes
+      %td.dec=line.order_line.quantity
+      %td=line.order_line.unit.label
+      %td.dec=line.order_line.undelivered_quantity
+      %td=text_field_tag "incoming_delivery_line[#{line.order_line_id}][quantity]", line.quantity, :id=>"incoming_delivery_line_#{line.order_line_id}_quantity", :onkeyup=>"t6(this, #{line.order_line.undelivered_quantity});", :class=>"pta-#{line.order_line_id} awt-#{line.order_line_id}"
+      %td.dec.pta{"mul-of"=>"pta-#{line.order_line_id}"}
+      %td.dec.awt{"mul-of"=>"awt-#{line.order_line_id}"}
+  %tr.total
+    %th{:colspan=>7}=tg :total
+    %td#total_amount{"sum-of"=>"pta"}=@incoming_delivery.amount
+    %td#total_amount_with_taxes{"sum-of"=>"awt"}=@incoming_delivery.amount_with_taxes
+  :javascript
+    window.t6 = function(element, max) {
+      compute("total_amount");
+      compute("total_amount_with_taxes");
+      if (element !== null) {
+        if (isNaN(element.value) || (!isNaN(element.value) && parseFloat(element.value)>max)) {
+          element.addClassName("invalid");
+        } else {
+          element.removeClassName("invalid");
+        }
+      }
+    }
+    t6();
+
