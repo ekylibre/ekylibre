@@ -136,4 +136,20 @@ class Price < ActiveRecord::Base
     tc(:label, :product=>self.product.name, :amount=>self.amount, :currency=>self.currency.code)
   end
 
+  def compute(quantity=nil, amount=nil, amount_with_taxes=nil)
+    if quantity
+      amount = self.amount*quantity
+      amount_with_taxes = self.amount_with_taxes*quantity
+    elsif amount
+      quantity = amount/self.amount
+      amount_with_taxes = quantity*self.amount_with_taxes
+    elsif amount_with_taxes
+      quantity = amount_with_taxes/self.amount_with_taxes
+      amount = quantity*self.amount
+    elsif
+      raise ArgumentError.new("At least one argument must be given")
+    end
+    return quantity.round(4), amount.round(2), amount_with_taxes.round(2)
+  end
+
 end

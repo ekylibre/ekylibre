@@ -29,7 +29,9 @@ class CreateDeliveryModes < ActiveRecord::Migration
   def self.down
     add_column :deliveries, :nature, :string, :limit=>3 
 
-    execute "UPDATE #{quoted_table_name(:deliveries)} SET nature = m.code FROM #{quoted_table_name(:delivery_modes)} m WHERE #{quoted_table_name(:deliveries)}.company_id = m.company_id AND #{quoted_table_name(:deliveries)}.mode_id = m.id"
+
+    modes = connection.select_all("SELECT * FROM #{quoted_table_name(:delivery_modes)}").collect{|m| "WHEN mode_id=#{m['id']} THEN '#{m['code'].gsub(/\W/, '')}'"}.join
+    execute "UPDATE #{quoted_table_name(:deliveries)} SET nature = CASE #{modes} END" unless modes.blank?
 
     remove_column :deliveries, :mode_id
     drop_table :delivery_modes

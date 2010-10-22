@@ -1,16 +1,16 @@
 PATH
-  remote: vendor/gems/activerecord-sqlserver-adapter
+  remote: vendor/gems/activerecord-sqlserver-adapter-3.0.3
   specs:
-    activerecord-sqlserver-adapter (3.0.0)
+    activerecord-sqlserver-adapter (3.0.3)
       activerecord (~> 3.0)
 
 PATH
-  remote: vendor/gems/exception_notification
+  remote: vendor/gems/exception_notification-1.0.0
   specs:
     exception_notification (1.0.0)
 
 PATH
-  remote: vendor/gems/state_machine
+  remote: vendor/gems/state_machine-0.9.4
   specs:
     state_machine (0.9.4)
 

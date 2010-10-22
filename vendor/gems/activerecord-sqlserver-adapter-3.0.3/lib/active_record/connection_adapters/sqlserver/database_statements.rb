@@ -13,8 +13,8 @@ module ActiveRecord
         end
 
         def execute(sql, name = nil, skip_logging = false)
-          if table_name = query_requires_identity_insert?(sql)
-            with_identity_insert_enabled(table_name) { do_execute(sql,name) }
+          if id_insert_table_name = query_requires_identity_insert?(sql)
+            with_identity_insert_enabled(id_insert_table_name) { do_execute(sql,name) }
           else
             do_execute(sql,name)
           end
@@ -71,19 +71,27 @@ module ActiveRecord
         def execute_procedure(proc_name, *variables)
           vars = variables.map{ |v| quote(v) }.join(', ')
           sql = "EXEC #{proc_name} #{vars}".strip
+          name = 'Execute Procedure'
           results = []
-          log(sql,'Execute Procedure') do
-            raw_connection_run(sql) do |handle|
-              get_rows = lambda {
-                rows = handle_to_names_and_values handle, :fetch => :all
-                rows.each_with_index { |r,i| rows[i] = r.with_indifferent_access }
-                results << rows
-              }
-              get_rows.call
-              while handle_more_results?(handle)
+          case @connection_options[:mode]
+          when :dblib
+            results << select(sql, name).map { |r| r.with_indifferent_access }
+          when :odbc
+            log(sql, name) do
+              raw_connection_run(sql) do |handle|
+                get_rows = lambda {
+                  rows = handle_to_names_and_values handle, :fetch => :all
+                  rows.each_with_index { |r,i| rows[i] = r.with_indifferent_access }
+                  results << rows
+                }
                 get_rows.call
+                while handle_more_results?(handle)
+                  get_rows.call
+                end
               end
             end
+          when :adonet
+            results << select(sql, name).map { |r| r.with_indifferent_access }
           end
           results.many? ? results : results.first
         end
@@ -179,12 +187,24 @@ module ActiveRecord
         end
         
         def insert_sql(sql, name = nil, pk = nil, id_value = nil, sequence_name = nil)
-          super || select_value("SELECT SCOPE_IDENTITY() AS Ident")
+          @insert_sql = true
+          case @connection_options[:mode]
+          when :dblib
+            execute(sql, name) || id_value
+          else
+            super || select_value("SELECT CAST(SCOPE_IDENTITY() AS bigint) AS Ident")
+          end
         end
         
         def update_sql(sql, name = nil)
-          execute(sql, name)
-          select_value('SELECT @@ROWCOUNT AS AffectedRows')
+          @update_sql = true
+          case @connection_options[:mode]
+          when :dblib
+            execute(sql, name)
+          else
+            execute(sql, name)
+            select_value('SELECT @@ROWCOUNT AS AffectedRows')
+          end
         end
         
         # === SQLServer Specific ======================================== #
@@ -204,11 +224,16 @@ module ActiveRecord
         
         def raw_connection_do(sql)
           case @connection_options[:mode]
+          when :dblib
+            @insert_sql ? @connection.execute(sql).insert : @connection.execute(sql).do
           when :odbc
             @connection.do(sql)
           else :adonet
             @connection.create_command.tap{ |cmd| cmd.command_text = sql }.execute_non_query
           end
+        ensure
+          @insert_sql = false
+          @update_sql = false
         end
         
         # === SQLServer Specific (Selecting) ============================ #
@@ -227,6 +252,8 @@ module ActiveRecord
         def raw_connection_run(sql)
           with_auto_reconnect do
             case @connection_options[:mode]
+            when :dblib
+              @connection.execute(sql)
             when :odbc
               block_given? ? @connection.run_block(sql) { |handle| yield(handle) } : @connection.run(sql)
             else :adonet
@@ -237,6 +264,7 @@ module ActiveRecord
         
         def handle_more_results?(handle)
           case @connection_options[:mode]
+          when :dblib
           when :odbc
             handle.more_results
           when :adonet
@@ -246,13 +274,24 @@ module ActiveRecord
         
         def handle_to_names_and_values(handle, options={})
           case @connection_options[:mode]
+          when :dblib
+            handle_to_names_and_values_dblib(handle, options)
           when :odbc
             handle_to_names_and_values_odbc(handle, options)
           when :adonet
             handle_to_names_and_values_adonet(handle, options)
           end
         end
-
+        
+        def handle_to_names_and_values_dblib(handle, options={})
+          query_options = {}.tap do |qo|
+            qo[:timezone] = ActiveRecord::Base.default_timezone || :utc
+            qo[:first] = true if options[:fetch] == :one
+            qo[:as] = options[:fetch] == :rows ? :array : :hash
+          end
+          handle.each(query_options)
+        end
+        
         def handle_to_names_and_values_odbc(handle, options={})
           @connection.use_utc = ActiveRecord::Base.default_timezone == :utc if @connection_supports_native_types
           case options[:fetch]
@@ -302,36 +341,56 @@ module ActiveRecord
 
         def handle_to_names_and_values_adonet(handle, options={})
           if handle.has_rows
-            fields = []
+            names = []
             rows = []
-            fields_named = false
+            fields_named = options[:fetch] == :rows
+            one_row_only = options[:fetch] == :one
             while handle.read
               row = []
               handle.visible_field_count.times do |row_index|
                 value = handle.get_value(row_index)
-                value = if value.is_a? System::String
+                value = case value
+                        when System::String
                           value.to_s
-                        elsif value.is_a? System::DBNull
+                        when System::DBNull
                           nil
-                        elsif value.is_a? System::DateTime
-                          value.to_string("yyyy-MM-dd HH:MM:ss.fff").to_s
+                        when System::DateTime
+                          value.to_string("yyyy-MM-dd HH:mm:ss.fff").to_s
+                        when @@array_of_bytes ||= System::Array[System::Byte]
+                          String.new(value)
                         else
                           value
                         end
                 row << value
-                fields << handle.get_name(row_index).to_s unless fields_named
+                names << handle.get_name(row_index).to_s unless fields_named
+                break if one_row_only
               end
               rows << row
               fields_named = true
             end
           else
-            fields, rows = [], []
+            rows = []
           end
-          [fields,rows]
+          if options[:fetch] != :rows
+            names_and_values = []
+            rows.each do |row|
+              h = {}
+              i = 0
+              while i < row.size
+                h[names[i]] = row[i]
+                i += 1
+              end
+              names_and_values << h
+            end
+            names_and_values
+          else
+            rows
+          end
         end
         
         def finish_statement_handle(handle)
           case @connection_options[:mode]
+          when :dblib  
           when :odbc
             handle.drop if handle && handle.respond_to?(:drop) && !handle.finished?
           when :adonet

@@ -1,5 +1,20 @@
 
-MASTER
+* 3.0.3
+
+* Add TinyTDS/dblib connection mode. [Ken Collins]
+
+
+* 3.0.2
+
+* Fix DSN'less code. [Erik Bryn]
+
+
+* 3.0.1
+
+* Support DSN'less connections. Resolves ticket 38. 
+
+* Support upcoming ruby odbc 0.99992
+
 
 * 3.0.0
 

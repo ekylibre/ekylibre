@@ -168,7 +168,7 @@ fra:
       sales_invoice: '%{nature} %{number}'
       sales_invoice_cancel: 'Passage en avoir de la facture %{number}'
       sales_invoices: 'Factures'
-      sales_order: 'Détails de la vente %{number} au client %{client}'
+      sales_order: 'Vente %{number} pour %{client} - %{state}'
       #>sales_order_abort: 'Abort sale'
       sales_order_confirm: 'Passer le devis en commande et aller aux livraisons'
       #>sales_order_correct: 'Correct estimate'

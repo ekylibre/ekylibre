@@ -63,7 +63,7 @@ class CreateProductionChains < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"
       execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='#{new.to_s.singularize}' WHERE nature='#{old.to_s.singularize}'"
       # Event natures
-      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{new.to_s.singularize}' WHERE usage='#{old.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET #{connection.quote_column_name(:usage)}='#{new.to_s.singularize}' WHERE #{connection.quote_column_name(:usage)}='#{old.to_s.singularize}'"
       # Listings
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
@@ -407,7 +407,7 @@ class CreateProductionChains < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new}' WHERE attribute_name = '#{old}'"
       execute "UPDATE #{quoted_table_name(:listing_nodes)} SET attribute_name = '#{new.to_s.singularize}' WHERE attribute_name = '#{old.to_s.singularize}'"
       # Event natures
-      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{new.to_s.singularize}' WHERE usage='#{old.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET #{connection.quote_column_name(:usage)}='#{new.to_s.singularize}' WHERE #{connection.quote_column_name(:usage)}='#{old.to_s.singularize}'"
       # Document Templates
       execute "UPDATE #{quoted_table_name(:document_templates)} SET nature='#{new.to_s.singularize}' WHERE nature='#{old.to_s.singularize}'"
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{old}', '#{new}'), cache=REPLACE(cache, '#{old}', '#{new}')"

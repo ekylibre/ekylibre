@@ -103,7 +103,7 @@ Var InstApp
 Var Backup
 Var DataDir
 
-InstType "Typical"
+InstType "Typical (MySQL included)"
 InstType "PostgreSQL Configuration (Expert)"
 InstType "SQL Server Configuration (Expert)"
 InstType "Only Ekylibre (Expert)"
@@ -151,6 +151,11 @@ Section "Ekylibre" sec_ekylibre
   FileOpen $1 "$InstApp\migrate.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
   FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
+  FileClose $1
+
+  FileOpen $1 "$InstApp\rollback.cmd" "w"
+  FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
+  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:rollback RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\ekylibre-start.cmd" "w"
@@ -302,6 +307,7 @@ Section "Add Expert Shortcuts" sec_shorcuts
   Call initEnv  
   CreateDirectory "$SMPROGRAMS\${APP}\Expert"
   CreateShortCut "$SMPROGRAMS\${APP}\Expert\Launch migration.lnk" "$InstApp\migrate.cmd"
+  CreateShortCut "$SMPROGRAMS\${APP}\Expert\Cancel last migration.lnk" "$InstApp\rollback.cmd"
   CreateShortCut "$SMPROGRAMS\${APP}\Expert\Start Ekylibre Service.lnk" "$InstApp\ekylibre-start.cmd"
   CreateShortCut "$SMPROGRAMS\${APP}\Expert\Stop Ekylibre Service.lnk" "$InstApp\ekylibre-stop.cmd"
 SectionEnd
@@ -328,6 +334,7 @@ Section "Uninstall"
   RMDir /r $InstApp\mysql
   RMDir /r $InstApp\ruby
   Delete $InstApp\migrate.cmd
+  Delete $InstApp\rollback.cmd
   Delete $InstApp\ekylibre-start.cmd
   Delete $InstApp\ekylibre-stop.cmd
   Delete $InstApp\uninstall.exe
