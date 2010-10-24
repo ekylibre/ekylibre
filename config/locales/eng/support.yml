@@ -1,6 +1,6 @@
 eng:
   about:
-    authors: 'Brice Texier, Jean-Jacques Vangramberen'
+    authors: ['Brice Texier', 'Jean-Jacques Vangramberen']
     dir: 'ltr'
     iso2: 'en'
     name: 'English'
@@ -62,7 +62,9 @@ eng:
     next: 'Next'
     no_records: 'No records'
     previous: 'Previous'
-    x_per_page: '%{count} per page'
+    x_per_page:
+      one: '%{count} per page'
+      other: '%{count} per page'
   number:
     currency:
       format:

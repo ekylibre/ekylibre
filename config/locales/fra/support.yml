@@ -1,6 +1,6 @@
 fra:
   about:
-    authors: 'Brice Texier, Thibaud Mérigon'
+    authors: ['Brice Texier', 'Thibaud Mérigon']
     dir: 'ltr'
     iso2: 'fr'
     name: 'Français'
@@ -49,16 +49,6 @@ fra:
       x_seconds:
         many: '%{count} secondes'
         one: '1 seconde'
-  dyta:  #!
-    export: #!
-      csv: 'CSV' #!
-      false_value: 'FAUX' #!
-      title: 'Export' #!
-      true_value: 'VRAI' #!
-      xcsv: 'CSV pour Excel' #!
-    next: 'Suivant' #!
-    no_records: 'Aucun enregistrement' #!
-    previous: 'Précédent' #!
   kame:
     columns: 'Colonnes'
     export:
@@ -72,7 +62,9 @@ fra:
     next: 'Suivant'
     no_records: 'Aucun enregistrement'
     previous: 'Précédent'
-    x_per_page: '%{count} par page'
+    x_per_page:
+      one: '%{count} par page'
+      other: '%{count} par page'
   number:
     currency:
       format:

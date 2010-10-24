@@ -9,7 +9,7 @@
         %td=submit_tag tg(:search_go)
 .menu
   %ul
-    %li=tc(:nb_sales, :count=>@sales_orders_count)
+    %li=tc(:x_sales_orders, :count=>@sales_orders_count)
     -if @sales_orders_count > 0
       %li=tc(:total_amount)+@sales_orders_amount.to_s
       %li=tc(:total_invoiced_amount)+@invoiced_amount.to_s

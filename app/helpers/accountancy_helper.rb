@@ -67,7 +67,7 @@ module AccountancyHelper
 
   def journal_view_tag
     code = content_tag(:span, tg(:view))
-    for mode in [:entry_lines, :entries, :mixed, :draft_entry_lines]
+    for mode in controller.journal_views
       if @journal_view == mode
         code += content_tag(:strong, tc("journal_view.#{mode}"))
       else

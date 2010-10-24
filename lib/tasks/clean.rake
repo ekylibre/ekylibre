@@ -14,21 +14,41 @@ def yaml_to_hash(filename)
   return deep_symbolize_keys(hash)
 end
 
+def hash_sort_and_count(hash, depth=0)
+  hash ||= {}
+  code, count = "", 0
+  for key, value in hash.sort{|a, b| a[0].to_s <=> b[0].to_s}
+    if value.is_a? Hash
+      scode, scount = hash_sort_and_count(value, depth+1)
+      code += "  "*depth+key.to_s+":\n"+scode
+      count += scount
+    else
+      code += "  "*depth+key.to_s+": "+yaml_value(value, depth+1)+"\n"
+      count += 1
+    end
+  end
+  return code, count
+end
+
+
 def hash_count(hash)
   count = 0
-  for k, v in hash
-    count += (v.is_a?(Hash) ? hash_count(v) : 1)
+  for key, value in hash
+    count += (value.is_a?(Hash) ? hash_count(value) : 1)
   end
   return count
 end
   
 def sort_yaml_file(filename, log=nil)
-  file = Ekylibre::Application.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
-  translation = hash_to_yaml(yaml_to_hash(file)).strip
-  File.open(file, "wb") do |file|
-    file.write translation
+  yaml_file = Ekylibre::Application.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
+  # translation = hash_to_yaml(yaml_to_hash(file)).strip
+  translation, total = hash_sort_and_count(yaml_to_hash(yaml_file))
+  File.open(yaml_file, "wb") do |file|
+    file.write translation.strip
   end
-  log.write "  - #{(filename.to_s+'.yml:').ljust(16)} 100% sorted\n" if log
+  count = 0
+  log.write "  - #{(filename.to_s+'.yml:').ljust(16)} #{(100*(total-count)/total).round.to_s.rjust(3)}% (#{total-count}/#{total})\n" if log
+  return total
 end
 
 def deep_symbolize_keys(hash)
@@ -62,7 +82,7 @@ def hash_diff(hash, ref, depth=0)
   code, count, total = "", 0, 0
   for key in keys
     h, r = hash[key], ref[key]
-    total += 1 if r.is_a? String
+    # total += 1 unless r.is_a? Hash
     if r.is_a?(Hash) and (h.is_a?(Hash) or h.nil?)
       scode, scount, stotal = hash_diff(h, r, depth+1)
       code  += "  "*depth+key.to_s+":\n"+scode
@@ -71,18 +91,47 @@ def hash_diff(hash, ref, depth=0)
     elsif r and h.nil?
       code  += "  "*depth+"#>"+key.to_s+": "+yaml_value(r, depth+1)+"\n"
       count += 1
+      total += 1
     elsif r and h and r.class == h.class
       code  += "  "*depth+key.to_s+": "+yaml_value(h, depth+1)+"\n"
+      total += 1
     elsif r and h and r.class != h.class
-      # puts [h,r].inspect
       code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").gsub(/\n/, " #! #{r.class.name} excepted (#{h.class.name+':'+h.inspect})\n")
+      total += 1
     elsif h and r.nil?
       code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").to_s.gsub(/\n/, " #!\n")
     elsif r.nil?
-      code  += "  "*depth+key.to_s+":\n"
+      code  += "  "*depth+key.to_s+": #!\n"
     end
   end  
   return code, count, total
+end
+
+
+def actions_in_file(path)
+  actions = []
+  File.open(path, "rb").each_line do |line|
+    line = line.gsub(/(^\s*|\s*$)/,'')
+    if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
+      actions << line.split(/def\s/)[1].gsub(/\s/,'') 
+    elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
+      dyxx = line.split(/[\s\(\)\,\:]+/)
+      actions << dyxx[1]+'_'+dyxx[0]
+    elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
+      dyxx = line.split(/[\s\(\)\,\:]+/)
+      actions << dyxx[1]+'_kame'
+    elsif line.match(/^\s*manage_list[\s\(]+\:\w+/)
+      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+      actions << prefix+'_up'
+      actions << prefix+'_down'
+    elsif line.match(/^\s*manage[\s\(]+\:\w+/)
+      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+      actions << prefix+'_create'
+      actions << prefix+'_update'
+      actions << prefix+'_delete'
+    end
+  end
+  return actions
 end
 
 
@@ -195,30 +244,7 @@ namespace :clean do
     ref = {}
     Dir.glob(Ekylibre::Application.root.join("app", "controllers", "*_controller.rb")) do |x|
       controller_name = x.split("/")[-1].split("_controller")[0]
-      actions = []
-      file = File.open(x, "r")
-      file.each_line do |line|
-        line = line.gsub(/(^\s*|\s*$)/,'')
-        if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
-          actions << line.split(/def\s/)[1].gsub(/\s/,'') 
-        elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
-          dyxx = line.split(/[\s\(\)\,\:]+/)
-          actions << dyxx[1]+'_'+dyxx[0]
-        elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
-          dyxx = line.split(/[\s\(\)\,\:]+/)
-          actions << dyxx[1]+'_kame'
-        elsif line.match(/^\s*manage_list[\s\(]+\:\w+/)
-          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-          actions << prefix+'_up'
-          actions << prefix+'_down'
-        elsif line.match(/^\s*manage[\s\(]+\:\w+/)
-          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-          actions << prefix+'_create'
-          actions << prefix+'_update'
-          actions << prefix+'_delete'
-        end
-      end
-      ref[controller_name] = actions.sort
+      ref[controller_name] = actions_in_file(x).sort
     end
 
     # Lecture du fichier existant
@@ -483,34 +509,25 @@ namespace :clean do
     log.write("Locale #{::I18n.locale_label}:\n")
 
 
-    untranslated = 0
-    to_translate = 0
+    untranslated = to_translate = translated = 0
     warnings = []
+    acount = atotal = 0
+
     translation  = "#{locale}:\n"
     
     # Actions
     translation += "  actions:\n"
     for controller_file in Dir[Ekylibre::Application.root.join("app", "controllers", "*.rb")].sort
       controller_name = controller_file.split("/")[-1].split("_controller")[0]
-      actions = []
-      file = File.open(controller_file, "rb")
-      file.each_line do |line|
-        line = line.gsub(/(^\s*|\s*$)/,'')
-        if line.match(/^\s*def\s+\w+[^\(]*$/)
-          actions << line.split(/def\s/)[1].gsub(/\s/,'') 
-        elsif line.match(/^\s*manage[\s\(]+\:\w+/)
-          prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
-          actions << prefix+'_create'
-          actions << prefix+'_update'
-          actions << prefix+'_delete'
-        end
-      end
+      actions = actions_in_file(controller_file).sort
       translation += "    #{controller_name}:\n"
       existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
-      for action_name in (actions.delete_if{|a| a.to_s.match(/_delete$/)}|existing_actions).sort
+      # for action_name in (actions.delete_if{|a| a.to_s.match(/_delete$/)}|existing_actions).sort
+      for action_name in (actions|existing_actions).sort
         name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
+        to_translate += 1 
         if actions.include?(action_name)
-          to_translate += 1 
+          # to_translate += 1 
           untranslated += 1 if name.blank?
         end
         translation += "      #{'#>' if name.blank?}#{action_name}: "+yaml_value(name.blank? ? action_name.humanize : name, 3)
@@ -528,13 +545,12 @@ namespace :clean do
       to_translate += 1
       translation += "    #{'#>' if name.blank?}#{controller_name}: "+yaml_value(name.blank? ? controller_name.humanize : name, 2)+"\n"
     end
-    
+
     # Errors
     to_translate += hash_count(::I18n.translate("errors"))
     translation += "  errors:"+hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
     # Labels
-    # translation += "  labels:\n"
     to_translate += hash_count(::I18n.translate("labels"))
     translation += "  labels:"+hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
 
@@ -543,8 +559,7 @@ namespace :clean do
     notifications = ::I18n.t("notifications")
     deleted_notifs = ::I18n.t("notifications").keys
     for controller in Dir[Ekylibre::Application.root.join("app", "controllers", "*.rb")]
-      file = File.open(controller, "r")
-      file.each_line do |line|
+      File.open(controller, "rb").each_line do |line|
         if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
           key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
           deleted_notifs.delete(key.to_sym)
@@ -552,7 +567,7 @@ namespace :clean do
         end
       end
     end
-    to_translate += notifications.keys.size
+    to_translate += hash_count(notifications) # .keys.size
     for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
       line = "    "
       if trans.blank?
@@ -574,11 +589,17 @@ namespace :clean do
     end
     total = to_translate
     log.write "  - #{'action.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+    atotal += to_translate
+    acount += total-untranslated
     
 
-    sort_yaml_file :countries, log
+    count = sort_yaml_file :countries, log
+    atotal += count
+    acount += count
 
-    sort_yaml_file :languages, log
+    count = sort_yaml_file :languages, log
+    atotal += count
+    acount += count
 
     # Models
     untranslated = 0
@@ -654,6 +675,8 @@ namespace :clean do
     end
     total = to_translate
     log.write "  - #{'models.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
+    atotal += to_translate
+    acount += total-untranslated
 
 
     # Rights
@@ -671,8 +694,13 @@ namespace :clean do
     end
     total = rights.keys.size
     log.write "  - #{'rights.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+    atotal += total
+    acount += total-untranslated
 
-    sort_yaml_file :support, log
+    count = sort_yaml_file :support, log
+    atotal += count
+    acount += count
+
 
 #     log.write "  - help: # Missing files\n"
 #     for controller, actions in useful_actions
@@ -716,7 +744,9 @@ namespace :clean do
 
     
     # puts " - Locale: #{::I18n.locale_label} (Reference)"
-    puts " - Locale: 100% of #{::I18n.locale_label} translated (Reference)"
+    total, count = atotal, acount
+    log.write "  - Total:           #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
+    puts " - Locale: #{(100*count/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated (Reference)"
 
 
 
@@ -759,7 +789,7 @@ namespace :clean do
           end
         end
       end
-      puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated"
+      puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from reference"
     end
 
     log.close

@@ -834,13 +834,18 @@ class AccountancyController < ApplicationController
     end
   end
 
+
+  @@journal_views = ["entry_lines", "entries", "mixed", "draft_entry_lines"]
+  cattr_reader :journal_views
+
   def journal
     return unless @journal = find_and_check(:journal)
     journal_filter
+    @journal_views
     session[:current_journal_id] = @journal.id
     journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
-    journal_view.value = "entries" if journal_view.value.nil?
-    if view = ["entry_lines", "entries", "mixed", "draft_entry_lines"].detect{|x| params[:view] == x}
+    journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
+    if view = self.journal_views.detect{|x| params[:view] == x}
       journal_view.value = view
       journal_view.save
     end
@@ -853,7 +858,7 @@ class AccountancyController < ApplicationController
     @totals[:balance_credit] = 0.0
     @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
 
-    @journal_view = journal_view.value.to_sym
+    @journal_view = journal_view.value
     t3e @journal.attributes
   end
 
@@ -1131,7 +1136,7 @@ class AccountancyController < ApplicationController
   #   @journals  =  @current_company.journals.find(:all, :conditions => ["nature = ? OR nature = ?", :sale.to_s,  :purchase.to_s])
     
   #   if @journals.nil?
-  #     notify(:need_journal_to_record_tax_declaration, :now)
+  #     notify(:need_journal_to_manage_tax_declaration, :now)
   #     redirect_to :action=>:journal_create
   #     return
   #   else

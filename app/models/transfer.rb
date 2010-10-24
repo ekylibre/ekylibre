@@ -74,9 +74,9 @@ class Transfer < ActiveRecord::Base
 
   #this method saves the transfer in the accountancy module.
   def to_accountancy(action=:create, options={})
-    #     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |record|
-    #       record.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
-    #       record.add_credit(tc(:payable_bills), "Compte effets à payer", self.amount)      
+    #     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
+    #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
+    #       entry.add_credit(tc(:payable_bills), "Compte effets à payer", self.amount)      
     #     end
   end
 

@@ -713,17 +713,17 @@ class CompanyController < ApplicationController
                   end
                   number = line[4].blank? ? "000000" : line[4]
                   line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i)
-                  unless record = journal.records.find_by_number_and_printed_on(number, line[2])
-                    record = journal.records.create!(:number=>number, :printed_on=>line[2])
+                  unless entry = journal.entries.find_by_number_and_printed_on(number, line[2])
+                    entry = journal.entries.create!(:number=>number, :printed_on=>line[2])
                   end
                   unless account = @current_company.accounts.find_by_number(line[1])
                     account = @current_company.accounts.create!(:number=>line[1], :name=>line[1])
                   end
                   line[8] = line[8].strip.to_f
                   if line[7] == "D"
-                    record.add_debit(line[6], account, line[8], :letter=>line[10])
+                    entry.add_debit(line[6], account, line[8], :letter=>line[10])
                   else
-                    record.add_credit(line[6], account, line[8], :letter=>line[10])
+                    entry.add_credit(line[6], account, line[8], :letter=>line[10])
                   end
                 end
               end

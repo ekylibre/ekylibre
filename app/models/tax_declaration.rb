@@ -125,32 +125,6 @@ class TaxDeclaration < ActiveRecord::Base
 
   # this method allows to comptabilize the tax declaration after it creation. 
   def to_accountancy(action=:create, options={})
-
-    
-    #    @journal_od = self.company.journals.find(:last, :conditions => ["nature = ? AND closed_on < ?", :various.to_s, Date.today.to_s])
-    
-    #    @record = self.company.journal_records.create!({:financial_year_id=> self.financial_year_id, :created_on=> self.financial_year.created_on, :printed_on=>self.financial_year.stopped_on, :journal_id=> @journal_od.id})
-    
-    #    unless self.collected_amount.zero?
-    #      @entry = self.company.journal_entries.create!({:entry_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.preference('accountancy.accounts.taxes_collected').value.to_s, :name => '', :currency_debit => self.collected_amount})
-    #    end
-    
-    #    unless self.acquisition_amount.zero?
-    #      @entry = self.company.journal_entries.create!({:entry_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.preference('accountancy.accounts.taxes_acquisitions').value.to_s, :name => '', :currency_debit => self.acquisition_amount})
-    #    end
-    
-    #    unless self.assimilated_taxes_amount.zero?
-    #      @entry = self.company.journal_entries.create!({:entry_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.preference('accountancy.accounts.taxes_assimilated').value.to_s, :name => '', :currency_debit => self.assimilated_taxes_amount})
-    #    end
-    
-    #    unless self.paid_amount.zero?
-    #      @entry = self.company.journal_entries.create!({:entry_id => @record.id, :currency_id => @journal_od.currency_id, :account_id =>self.company.preference('accountancy.accounts.taxes_paid').value.to_s, :name => '', :currency_credit => self.paid_amount})
-    #    end
-    
-    #    unless self.balance_amount.zero?
-    #      @entry = self.company.journal_entries.create!({:entry_id => @record.id, :currency_id => @journal_od.currency_id, :account_id => self.company.preference('accountancy.accounts.taxes_balance').value.to_s, :name => '', :currency_credit => self.balance_amount})
-    #    end
-    
   end
 
 

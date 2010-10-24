@@ -54,7 +54,7 @@ spa:
       tax_declarations: 'Declaracion de TVA'
       tax_update: 'Modificar la tasa : %{name}'
       taxes: 'Tasas'
-    application:
+    application: #!
     authentication:
       login: 'Conexión'
       #>logout: 'Logout'
@@ -100,7 +100,7 @@ spa:
       user_update: 'Modificction del utilizador'
       users: 'Utilizador'
       welcome: 'Bienvenido sobre Ekylibre, %{user}'
-    help:
+    help: #!
     management:
       delay: 'plazo : %{name}'
       delay_create: 'Añadir un plazo'
@@ -163,10 +163,8 @@ spa:
       #>purchase_order_invoice: 'Receive invoice'
       #>purchase_order_line_create: 'Add a product to the purchase: %{number}'
       #>purchase_order_line_update: 'Edit the purhase order line'
-      #>purchase_order_lines: 'Products of the purchase %{number} to the supplier %{supplier}'
       #>purchase_order_propose: 'Propose order'
       #>purchase_order_refuse: 'Refused order'
-      #>purchase_order_summary: 'Payments of the purchase order %{number}'
       #>purchase_order_update: 'Edit the purchase order: %{number}'
       #>purchase_orders: 'Purchase orders'
       sales_invoice: '%{nature} %{number}'
@@ -177,18 +175,15 @@ spa:
       #>sales_order_confirm: 'Confirm estimate and go to deliveries'
       #>sales_order_correct: 'Correct estimate'
       #>sales_order_create: 'New sales order'
-      #>sales_order_deliveries: 'Deliveries'
       #>sales_order_finish: 'Finish sale'
       #>sales_order_invoice: 'Invoice sales order'
       #>sales_order_line_create: 'Add a new line of product'
       #>sales_order_line_update: 'Edit sales order line'
-      #>sales_order_lines: 'Selection of the products for the estimate %{sales_order}'
       #>sales_order_nature_create: 'Add a new type of sale'
       #>sales_order_nature_update: 'Edit the sales order type: %{name}'
       #>sales_order_natures: 'Sales order types'
       #>sales_order_propose: 'Propose estimate'
       #>sales_order_refuse: 'Estimate refused'
-      #>sales_order_summary: 'Sales invoice and incoming payments of the sales order %{number}'
       #>sales_order_update: 'Edit the sales order %{number}'
       #>sales_orders: 'Estimates and orders'
       #>statistics: 'Statistics'
@@ -297,7 +292,7 @@ spa:
       #>mandates_configure: 'Configure mandates'
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Edit the observation'
-    resources:
+    resources: #!
     store:
       #>index: 'Welcome'
   controllers:
@@ -397,7 +392,7 @@ spa:
         opera: 'Opéra'
         safari: 'Safari'
     balance: 'Saldo'
-    bank_accounts:
+    bank_accounts: #!
     bank_statement_point: 'Despuntar el levantar'
     bank_statement_update: 'Modificar el leventar'
     #>begins: 'Starts with'
@@ -627,7 +622,7 @@ spa:
       mixed: 'Piezas y Escrituras'
       records: 'Piezas' #!
     journals: 'Periodico general'
-    kame:
+    kame: #!
     #>land_parcel_name: 'Land parcel name'
     #>land_parcel_update: 'Update land parcel'
     #>land_parcels: 'Land parcels'
@@ -692,7 +687,7 @@ spa:
     #>mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     #>mobile: 'Mobile'
     modules: 'Modulos'
-    moment:
+    moment: #!
     #>month_period: '%{code} - %{month} %{year}'
     monthly: 'Mensual'
     #>moved_on: 'Made on'
@@ -706,55 +701,14 @@ spa:
     national_reduce_vat_collected: 'Tasa réducida a 5,5%'
     national_vat_collected: 'Opéraciones réalisadas en Francia métropolitaria'
     #>nature: 'Type'
-    nb_checks:
-    nb_enbankments:
-      one: '1 aposto en banco a validar'
-      other: '%{count} aposto en banco a validar'
-      zero: 'Ningun aposto en banco a validar'
-    nb_entities:
-      #>one: 'One person'
-      #>other: '%{count} people'
-      #>zero: 'No people'
-    nb_entries:
-      one: 'La escritura'
-      other: '%{cuento} escrituras'
-      zero: 'Ninguna escrituras'
-    nb_mandates:
-      #>one: 'One mandate'
-      #>other: '%{count} mandates'
-      #>zero: 'No mandates'
-    nb_operations:
-      #>one: '1 operation performed'
-      #>other: '%{count} operation performed'
-      #>zero: 'No operation performed'
-    nb_payments:
-      #>one: '1 incoming payment to deposit'
-      #>other: '%{count} incoming payments to deposit'
-      #>zero: 'No incoming payments to deposit'
-    nb_products:
-      #>one: 'One product'
-      #>other: '%{count} products'
-      #>zero: 'No products'
-    nb_purchases:
-      one: 'Una compra en espera de recepción'
-      other: '%{count} Compras en espera de recepción'
-      zero: 'Ningunas compras en espera de recepción'
-    nb_sales:
-      one: '1 encargo'
-      other: '%{count} encargos'
-      zero: 'Ningun encargo'
-    nb_sales_invoices:
-      #>one: '1 sales invoice'
-      #>other: '%{count} sales invoices'
-      #>zero: '0 sales invoices'
-    nb_transfers:
-      #>one: 'One transfert to make'
-      #>other: '%{count} transferts to make'
-      #>zero: 'No transferts to make'
-    nb_waiting_deliveries:
-      #>one: '1 waiting delivery'
-      #>other: '%{count} waiting deliveries'
-      #>zero: 'No waiting deliveries'
+    nb_checks: #!
+    nb_mandates: #!
+    nb_products: #!
+    nb_purchases:  #!
+      one: 'Una compra en espera de recepción' #!
+      other: '%{count} Compras en espera de recepción' #!
+      zero: 'Ningunas compras en espera de recepción' #!
+    nb_transfers: #!
     nb_years: 'Nombre de años en el historico'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_warehouse_to_create_production: 'You have to register a warehouse before using production'
@@ -795,7 +749,7 @@ spa:
     #>number: 'Number'
     on_account: 'Volver a poner sobre la cuenta'
     #>one_condition: 'One condition'
-    operation:
+    operation: #!
     #>operation_lines: 'Incoming and outgoing products'
     #>operation_update: 'Update operation'
     #>operation_use_create: 'Add a tool'
@@ -881,7 +835,7 @@ spa:
     #>purchase_order_price_create: 'Add a new purchase price'
     #>purchase_order_update: 'Purchase order update'
     #>purchase_orders: 'Purchase orders'
-    purchase_orders_number:
+    purchase_orders_number: #!
     #>purchase_price_create: 'Purchase price create'
     purchase_steps:
       #>deliveries: 'Incoming deliveries'
@@ -949,7 +903,7 @@ spa:
     #>sales_order_price_create: 'Add a new sale price'
     #>sales_order_update: 'Update sales order'
     #>sales_orders: 'Sales orders'
-    sales_orders_number:
+    sales_orders_number: #!
     sales_orders_states:
       #>all: 'All'
       #>current: 'Current'
@@ -1097,6 +1051,17 @@ spa:
     x_contacts:
       #>one: '%{count} contact'
       #>other: '%{count} contacts'
+    x_depositable_payments:
+      #>one: '1 incoming payment to deposit'
+      #>other: '%{count} incoming payments to deposit'
+      #>zero: 'No incoming payments to deposit'
+    x_deposits_to_validate:
+      one: '1 aposto en banco a validar'
+      other: '%{count} aposto en banco a validar'
+      zero: 'Ningun aposto en banco a validar'
+    x_entities:
+      #>other: '%{count} people'
+      #>zero: 'No people'
     x_entity_links:
       #>one: '%{count} link'
       #>other: '%{count} links'
@@ -1112,6 +1077,10 @@ spa:
       #>one: '%{count} incoming payment'
       #>other: '%{count} incoming payments'
       #>zero: '0 incoming payments'
+    x_journal_entries:
+      one: 'La escritura'
+      other: '%{cuento} escrituras'
+      zero: 'Ninguna escrituras' #!
     x_mandates:
       #>one: '%{count} mandate'
       #>other: '%{count} mandates'
@@ -1125,6 +1094,10 @@ spa:
     x_outgoing_payments:
       #>one: '%{count} disbursement'
       #>other: '%{count} disbursements'
+    x_performed_operations:
+      #>one: '1 operation performed'
+      #>other: '%{count} operation performed'
+      #>zero: 'No operation performed'
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'
@@ -1148,6 +1121,10 @@ spa:
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
+    x_waiting_outgoing_deliveries:
+      #>one: '1 waiting delivery'
+      #>other: '%{count} waiting deliveries'
+      #>zero: 'No waiting deliveries'
     #>y: 'Yes'
     yearly: 'Anual'
   notifications:
@@ -1192,7 +1169,7 @@ spa:
     need_closed_financial_year_to_declaration: 'Debe terner un ejercicio cerrado para crear una declaración de TVA.'
     need_company_code_to_login: 'Se debe selecciónar su sociedad para poder conectarse con su nombre de utilizador'
     need_entries_to_point: 'Ninguna escritura ha sido encontrada por el periodo de la lista bancaria.'
-    need_journal_to_record_tax_declaration: 'Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar dclaraciones de tasa.'
+    need_journal_to_manage_tax_declaration: 'Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar dclaraciones de tasa.'
     need_payment_mode_to_create_deposit: 'Se debe especifiar una forma de pago para hacer une entrega en banco'
     need_quantities_to_cancel_an_sales_invoice: 'Se debe especifiar una quantidad para hacer un haber'
     need_stocks_to_create_inventories: 'Se debe administrar los depositos a lo menos de un producto para hacer un inventario'
@@ -1289,11 +1266,15 @@ spa:
         #>days_before_warning_undone: 'Number of days before warning for receipts not made'
         #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
         #>numeration: 'Numeration of deposits'
+      incoming_deliveries:
+        #>numeration: 'Numeration of incoming deliveries'
       incoming_payments:
         #>numeration: 'Numeration of incoming payments'
+      outgoing_deliveries:
+        #>numeration: 'Numeration of outgoing deliveries'
       outgoing_payments:
         #>numeration: 'Numeration of disbursements'
-      payments:
+      payments: #!
       purchase_orders:
         #>numeration: 'Numeration of purchases'
       sales_invoices:

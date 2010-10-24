@@ -1,6 +1,6 @@
 jpn:
   about:
-    authors: 'Brice Texier'
+    authors: ['Brice Texier']
     dir: 'ltr'
     iso2: 'ja'
     name: '日本語'
@@ -15,7 +15,7 @@ jpn:
       month_letter: '%d %B %Y'
       short: '%b %d'
     month_names: ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
-    #>order: [:month, :day, :year]
+    order: [:month, :day, :year]
   datetime:
     distance_in_words:
       about_x_hours:
@@ -50,19 +50,21 @@ jpn:
         #>many: '%{count} secondes'
         #>one: '1 seconde'
   kame:
-    #>columns: 'Columns'
+    columns: '列'
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
+      csv: 'CSV'
+      false_value: '偽'
       #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
+      true_value: '真'
+      xcsv: 'ExcelのCSV'
     #>export_as: 'Export as %{format}...'
-    #>menu: 'Menu'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
-    #>x_per_page: '%{count} per page'
+    menu: 'メニュー'
+    next: '次へ'
+    no_records: '空'
+    previous: '前へ'
+    x_per_page:
+      #>one: '%{count} per page'
+      other: 'ページあたり%{count}行'
   number:
     currency:
       format:

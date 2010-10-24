@@ -40,8 +40,8 @@ arb:
     manage_estimates: 'انشاء وتعديل التقديرات'
     manage_events: 'ادارة الاحداث'
     manage_financial_years: 'ادارة وبدأ السنة المالية'
-    #>manage_incoming_delivery_modes: '(((MANAGE_INCOMING_DELIVERY_MODES)))'
-    #>manage_incoming_payment_modes: '(((MANAGE_INCOMING_PAYMENT_MODES)))'
+    #>manage_incoming_delivery_modes: 'Manage incoming delivery modes'
+    #>manage_incoming_payment_modes: 'Manage incoming payment modes'
     manage_incoming_payments: 'ادارة قواعد البيع'
     manage_inventories: 'ادارة عمبيات الجرد'
     manage_journal_entries: 'ادارة المدخلات'
@@ -53,9 +53,9 @@ arb:
     manage_observations: 'ادارة الملاحظات'
     manage_operations: 'ادارة الاجراءات'
     manage_outgoing_deliveries: 'ادارة انواع التسليم' #!
-    #>manage_outgoing_delivery_modes: '(((MANAGE_OUTGOING_DELIVERY_MODES)))'
-    #>manage_outgoing_payment_modes: '(((MANAGE_OUTGOING_PAYMENT_MODES)))'
-    #>manage_outgoing_payments: '(((MANAGE_OUTGOING_PAYMENTS)))'
+    #>manage_outgoing_delivery_modes: 'Manage outgoing delivery modes'
+    #>manage_outgoing_payment_modes: 'Manage disbursement modes'
+    #>manage_outgoing_payments: 'Manage disbursements'
     manage_payment_modes: 'ادارة طرق الدفع' #!
     manage_prices: 'ادارة الاموال'
     manage_product_categories: 'ادارة فئات المنتجات'

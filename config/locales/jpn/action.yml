@@ -50,7 +50,7 @@ jpn:
       #>tax_declarations: 'VAT Declaration'
       #>tax_update: 'Edit tax: %{name}'
       #>taxes: 'Taxes'
-    application:
+    application: #!
     authentication:
       login: 'ログイン'
       logout: 'ログアウト'
@@ -95,7 +95,7 @@ jpn:
       #>user_update: 'Edit user: %{first_name} %{last_name} (%{name})'
       #>users: 'Users'
       #>welcome: 'Welcome in Ekylibre, %{user}'
-    help:
+    help: #!
     management:
       #>delay: 'Delay: %{name}'
       #>delay_create: 'Add a new delay'
@@ -158,10 +158,8 @@ jpn:
       #>purchase_order_invoice: 'Receive invoice'
       #>purchase_order_line_create: 'Add a product to the purchase: %{number}'
       #>purchase_order_line_update: 'Edit the purhase order line'
-      #>purchase_order_lines: 'Products of the purchase %{number} to the supplier %{supplier}'
       #>purchase_order_propose: 'Propose order'
       #>purchase_order_refuse: 'Refused order'
-      #>purchase_order_summary: 'Payments of the purchase order %{number}'
       #>purchase_order_update: 'Edit the purchase order: %{number}'
       #>purchase_orders: 'Purchase orders'
       #>sales_invoice: '%{nature} %{number}'
@@ -172,18 +170,15 @@ jpn:
       #>sales_order_confirm: 'Confirm estimate and go to deliveries'
       #>sales_order_correct: 'Correct estimate'
       #>sales_order_create: 'New sales order'
-      #>sales_order_deliveries: 'Deliveries'
       #>sales_order_finish: 'Finish sale'
       #>sales_order_invoice: 'Invoice sales order'
       #>sales_order_line_create: 'Add a new line of product'
       #>sales_order_line_update: 'Edit sales order line'
-      #>sales_order_lines: 'Selection of the products for the estimate %{sales_order}'
       #>sales_order_nature_create: 'Add a new type of sale'
       #>sales_order_nature_update: 'Edit the sales order type: %{name}'
       #>sales_order_natures: 'Sales order types'
       #>sales_order_propose: 'Propose estimate'
       #>sales_order_refuse: 'Estimate refused'
-      #>sales_order_summary: 'Sales invoice and incoming payments of the sales order %{number}'
       #>sales_order_update: 'Edit the sales order %{number}'
       #>sales_orders: 'Estimates and orders'
       #>statistics: 'Statistics'
@@ -292,7 +287,7 @@ jpn:
       #>mandates_configure: 'Configure mandates'
       #>observation_create: 'Add a new observation'
       #>observation_update: 'Edit the observation'
-    resources:
+    resources: #!
     store:
       #>index: 'Welcome'
   controllers:
@@ -636,7 +631,7 @@ jpn:
     #>load_demo_data: 'Load demo data'
     locale: '言語'
     #>localization: 'Localization'
-    location_tabbox:
+    location_tabbox: #!
     #>lock: 'Lock'
     #>low_stocks: 'Stocks below critical threshold'
     #>mail: 'Send an email'
@@ -686,54 +681,10 @@ jpn:
     #>national_reduce_vat_collected: 'National Reduced Tax collected'
     #>national_vat_collected: 'National Tax collected'
     #>nature: 'Type'
-    nb_enbankments:
-      #>one: '%{count} deposit to validate'
-      #>other: '%{count} deposits to validate'
-      #>zero: 'No deposits to validate'
-    nb_entities:
-      #>one: 'One person'
-      #>other: '%{count} people'
-      #>zero: 'No people'
-    nb_entries:
-      #>one: '1 entries'
-      #>other: '%{count} entries '
-      #>zero: 'Aucune entries'
-    nb_mandates:
-      #>one: 'One mandate'
-      #>other: '%{count} mandates'
-      #>zero: 'No mandates'
-    nb_operations:
-      #>one: '1 operation performed'
-      #>other: '%{count} operation performed'
-      #>zero: 'No operation performed'
-    nb_payments:
-      #>one: '1 incoming payment to deposit'
-      #>other: '%{count} incoming payments to deposit'
-      #>zero: 'No incoming payments to deposit'
-    nb_products:
-      #>one: 'One product'
-      #>other: '%{count} products'
-      #>zero: 'No products'
-    nb_purchases:
-      #>one: '1 waiting purchase'
-      #>other: '%{count} waiting purchases'
-      #>zero: 'No waiting purchases'
-    nb_sales:
-      #>one: 'One sale'
-      #>other: '%{count} sales'
-      #>zero: 'No sales'
-    nb_sales_invoices:
-      #>one: '1 sales invoice'
-      #>other: '%{count} sales invoices'
-      #>zero: '0 sales invoices'
-    nb_transfers:
-      #>one: 'One transfert to make'
-      #>other: '%{count} transferts to make'
-      #>zero: 'No transferts to make'
-    nb_waiting_deliveries:
-      #>one: '1 waiting delivery'
-      #>other: '%{count} waiting deliveries'
-      #>zero: 'No waiting deliveries'
+    nb_mandates: #!
+    nb_products: #!
+    nb_purchases: #!
+    nb_transfers: #!
     #>nb_years: 'Years'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_warehouse_to_create_production: 'You have to register a warehouse before using production'
@@ -1060,6 +1011,17 @@ jpn:
     x_contacts:
       #>one: '%{count} contact'
       #>other: '%{count} contacts'
+    x_depositable_payments:
+      #>one: '1 incoming payment to deposit'
+      #>other: '%{count} incoming payments to deposit'
+      #>zero: 'No incoming payments to deposit'
+    x_deposits_to_validate:
+      #>one: '%{count} deposit to validate'
+      #>other: '%{count} deposits to validate'
+      #>zero: 'No deposits to validate'
+    x_entities:
+      #>other: '%{count} people'
+      #>zero: 'No people'
     x_entity_links:
       #>one: '%{count} link'
       #>other: '%{count} links'
@@ -1075,6 +1037,9 @@ jpn:
       #>one: '%{count} incoming payment'
       #>other: '%{count} incoming payments'
       #>zero: '0 incoming payments'
+    x_journal_entries:
+      #>one: '%{count} journal entries'
+      #>other: '%{count} journal entries '
     x_mandates:
       #>one: '%{count} mandate'
       #>other: '%{count} mandates'
@@ -1088,6 +1053,10 @@ jpn:
     x_outgoing_payments:
       #>one: '%{count} disbursement'
       #>other: '%{count} disbursements'
+    x_performed_operations:
+      #>one: '1 operation performed'
+      #>other: '%{count} operation performed'
+      #>zero: 'No operation performed'
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'
@@ -1111,6 +1080,10 @@ jpn:
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
+    x_waiting_outgoing_deliveries:
+      #>one: '1 waiting delivery'
+      #>other: '%{count} waiting deliveries'
+      #>zero: 'No waiting deliveries'
     #>y: 'Yes'
     #>yearly: 'Yearly'
   notifications:
@@ -1125,7 +1098,7 @@ jpn:
     #>changes_have_not_been_reflected: 'The changes have not been reflected in the stocks state'
     #>closed_financial_years: 'The financial year has been closed successfully'
     #>columns_are_already_uses: 'One or many columns are selected many times'
-    draft_entries_are_validated:
+    draft_entries_are_validated: #!
     draft_entry_lines_are_validated:
       #>one: 'One record has been validated'
       #>other: '%{count} records has been validated'
@@ -1150,7 +1123,7 @@ jpn:
     #>need_closed_financial_year_to_declaration: 'You must have a closed financial year to create a VAT return.'
     #>need_company_code_to_login: 'You must select your company in order to connect with that username.'
     #>need_entries_to_point: 'No entry was found for the period of the bank statement.'
-    #>need_journal_to_record_tax_declaration: 'You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns.'
+    #>need_journal_to_manage_tax_declaration: 'You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns.'
     #>need_payment_mode_to_create_deposit: 'You must specify a mode of payment in order to make deposits'
     #>need_quantities_to_cancel_an_sales_invoice: 'You must specify a quantity in order to cancel the sales invoice'
     #>need_stocks_to_create_inventories: 'You have to manage some stocks in order to manage inventories'
@@ -1194,7 +1167,7 @@ jpn:
     #>unvalid_version_for_restore: 'The version of the software used to perform the backup does not match the current version of the software'
     #>update_is_done: 'The update has been made'
     #>validates_old_inventories: 'It is advisable to clear or validate uncommitted inventories before making a new'
-    x_unpointed_journal_entries:
+    x_unpointed_journal_entries: #!
     x_unpointed_journal_entry_lines:
       #>one: 'There is one entry to point'
       #>other: 'There are %{count} entries to point'
@@ -1244,11 +1217,15 @@ jpn:
         #>days_before_warning_undone: 'Number of days before warning for receipts not made'
         #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
         #>numeration: 'Numeration of deposits'
+      incoming_deliveries:
+        #>numeration: 'Numeration of incoming deliveries'
       incoming_payments:
         #>numeration: 'Numeration of incoming payments'
+      outgoing_deliveries:
+        #>numeration: 'Numeration of outgoing deliveries'
       outgoing_payments:
         #>numeration: 'Numeration of disbursements'
-      payments:
+      payments: #!
       purchase_orders:
         #>numeration: 'Numeration of purchases'
       sales_invoices:

@@ -446,7 +446,7 @@ manage_financial_years:
   - financial_years
   - financial_years_kame
   - index
-# (((MANAGE_INCOMING_DELIVERY_MODES)))
+# Manage incoming delivery modes
 manage_incoming_delivery_modes:
   controller: management
   actions:
@@ -456,7 +456,7 @@ manage_incoming_delivery_modes:
   - incoming_delivery_modes
   - incoming_delivery_modes_kame
   - index
-# (((MANAGE_INCOMING_PAYMENT_MODES)))
+# Manage incoming payment modes
 manage_incoming_payment_modes:
   controller: management
   actions:
@@ -620,7 +620,7 @@ manage_operations:
   - operations_kame
   - unvalidated_operations
   - unvalidated_operations_kame
-# (((MANAGE_OUTGOING_DELIVERY_MODES)))
+# Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
   controller: management
   actions:
@@ -630,7 +630,7 @@ manage_outgoing_delivery_modes:
   - outgoing_delivery_mode_update
   - outgoing_delivery_modes
   - outgoing_delivery_modes_kame
-# (((MANAGE_OUTGOING_PAYMENT_MODES)))
+# Manage disbursement modes
 manage_outgoing_payment_modes:
   controller: management
   actions:
@@ -642,7 +642,7 @@ manage_outgoing_payment_modes:
   - outgoing_payment_mode_update
   - outgoing_payment_modes
   - outgoing_payment_modes_kame
-# (((MANAGE_OUTGOING_PAYMENTS)))
+# Manage disbursements
 manage_outgoing_payments:
   controller: management
   actions:

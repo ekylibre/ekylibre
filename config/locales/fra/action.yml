@@ -51,7 +51,7 @@ fra:
       tax_declarations: 'Déclaration de TVA'
       tax_update: 'Modifier la taxe : %{name}'
       taxes: 'Taxes'
-    application:
+    application: #!
     authentication:
       login: 'Connexion'
       logout: 'Se déconnecter'
@@ -96,7 +96,7 @@ fra:
       user_update: 'Modifier l''utilisateur : %{first_name} %{last_name} (%{name})'
       users: 'Utilisateurs'
       welcome: 'Bienvenue dans Ekylibre, %{user}'
-    help:
+    help: #!
     management:
       delay: 'Délai : %{name}'
       delay_create: 'Ajout d''un nouveau délai'
@@ -106,11 +106,11 @@ fra:
       deposit_create: 'Créer une remise : %{mode}'
       deposit_update: 'Modifier la remise en banque n°%{number} du %{created_on}'
       deposits: 'Remises en banque'
-      #>incoming_delivery_create: 'Add a new incoming delivery'
-      #>incoming_delivery_mode_create: 'Add a new incoming delivery mode'
-      #>incoming_delivery_mode_update: 'Edit the incoming delivery mode: %{name}'
-      #>incoming_delivery_modes: 'Incoming delivery modes'
-      #>incoming_delivery_update: 'Edit the incoming delivery'
+      incoming_delivery_create: 'Enregistrer un nouveau arrivage'
+      incoming_delivery_mode_create: 'Créer un mode de réception d''arrivage'
+      incoming_delivery_mode_update: 'Modifier le mode de réception d''arrivage: %{name}'
+      incoming_delivery_modes: 'Modes de réception d''arrivage'
+      incoming_delivery_update: 'Modifier l''arrivage: %{number}'
       incoming_payment: 'Encaissement n°%{number} de %{entity}'
       incoming_payment_create: 'Ajout d''un nouvel encaissement'
       incoming_payment_mode_create: 'Ajouter un nouveau mode d''encaissement'
@@ -151,40 +151,40 @@ fra:
       product_update: 'Modifier le produit : %{name}'
       products: 'Produits'
       purchase_order: 'Détails de l''achat %{number} au fournisseur %{supplier} '
-      #>purchase_order_abort: 'Abort'
-      #>purchase_order_confirm: 'Confirm order and wait for deliveries'
-      #>purchase_order_correct: 'Correct order'
+      purchase_order_abort: 'Annuler l''achat'
+      purchase_order_confirm: 'Confimer l''achat et attendre les arrivages'
+      purchase_order_correct: 'Corriger l''achat'
       purchase_order_create: 'Nouvel achat'
-      #>purchase_order_finish: 'Finish order'
-      #>purchase_order_invoice: 'Receive invoice'
+      purchase_order_finish: 'Finir l''achat'
+      purchase_order_invoice: 'Réception de la facture'
       purchase_order_line_create: 'Ajouter un produit à la commande : %{number}'
       purchase_order_line_update: 'Modifier une ligne de la commande'
-      purchase_order_lines: 'Produits de l''achat %{number} au fournisseur %{supplier}'
-      #>purchase_order_propose: 'Propose order'
-      #>purchase_order_refuse: 'Refused order'
-      purchase_order_summary: 'Décaissements de l''achat N°%{number}'
+      purchase_order_lines: 'Produits de l''achat %{number} au fournisseur %{supplier}' #!
+      purchase_order_propose: 'Commande soumise au fournisseur'
+      purchase_order_refuse: 'Commande refusée'
+      purchase_order_summary: 'Décaissements de l''achat N°%{number}' #!
       purchase_order_update: 'Modifier l''achat : %{number}'
       purchase_orders: 'Achats'
       sales_invoice: '%{nature} %{number}'
       sales_invoice_cancel: 'Passage en avoir de la facture %{number}'
       sales_invoices: 'Factures'
       sales_order: 'Vente %{number} pour %{client} - %{state}'
-      #>sales_order_abort: 'Abort sale'
+      sales_order_abort: 'Annuler la vente'
       sales_order_confirm: 'Passer le devis en commande et aller aux livraisons'
-      #>sales_order_correct: 'Correct estimate'
+      sales_order_correct: 'Corriger le devis'
       sales_order_create: 'Nouvelle vente'
-      sales_order_deliveries: 'Livraisons'
-      #>sales_order_finish: 'Finish sale'
+      sales_order_deliveries: 'Livraisons' #!
+      sales_order_finish: 'Finir la vente'
       sales_order_invoice: 'Facturer directement tout le devis'
       sales_order_line_create: 'Ajout d''une ligne de produit'
       sales_order_line_update: 'Modifier une ligne de produit'
-      sales_order_lines: 'Sélection des produits pour le devis %{sales_order} de : %{client}'
+      sales_order_lines: 'Sélection des produits pour le devis %{sales_order} de : %{client}' #!
       sales_order_nature_create: 'Ajout d''un type de vente'
       sales_order_nature_update: 'Modifier le type de vente : %{name}'
       sales_order_natures: 'Types de ventes'
-      #>sales_order_propose: 'Propose estimate'
-      #>sales_order_refuse: 'Estimate refused'
-      sales_order_summary: 'Facture et encaissement(s) de la vente %{number}'
+      sales_order_propose: 'Devis soumis au client'
+      sales_order_refuse: 'Devis refusé par le client'
+      sales_order_summary: 'Facture et encaissement(s) de la vente %{number}' #!
       sales_order_update: 'Modifier la vente N°%{number}'
       sales_orders: 'Devis et commandes'
       statistics: 'Statistiques'
@@ -294,7 +294,7 @@ fra:
       mandates_configure: 'Configuration des responsabilités'
       observation_create: 'Ajouter une observation'
       observation_update: 'Modifier une observation'
-    resources:
+    resources: #!
     store:
       index: 'Bienvenue'
   controllers:
@@ -687,54 +687,22 @@ fra:
     national_reduce_vat_collected: 'Taux réduit à 5,5%'
     national_vat_collected: 'Opérations réalisées en France métropolitaine'
     nature: 'Type'
-    nb_enbankments:
-      one: '%{count} remise en banque à valider'
-      other: '%{count} remises en banque à valider'
-      zero: 'Aucune remise en banque à valider'
-    nb_entities:
-      one: '%{count} fiche client/fournisseur'
-      other: '%{count} fiches clients/fournisseurs'
-      zero: 'Aucune fiche clients/fournisseurs'
-    nb_entries:
-      one: '%{count} écriture'
-      other: '%{count} écritures'
-      zero: 'Aucune écriture'
-    nb_mandates:
-      one: '%{count} responsabilité enregistrée'
-      other: '%{count} responsabilités enregistrées'
-      zero: 'Aucune responsabilité enregistrée'
-    nb_operations:
-      one: '%{count} travail à réaliser'
-      other: '%{count} travaux à réaliser'
-      zero: 'Aucun travail à réaliser'
-    nb_payments:
-      one: '%{count} encaissement à encaisser depuis au moins 15 j.'
-      other: '%{count} encaissement à encaisser depuis au moins 15 j.'
-      zero: 'Aucun encaissement à encaisser depuis au moins 15 j.'
-    nb_products:
-      one: '%{count} produit enregistré'
-      other: '%{count} produits enregistrés'
-      zero: 'Aucun produit enregistré'
-    nb_purchases:
-      one: '%{count} achat en attente de reception'
-      other: '%{count} achats en attente de reception'
-      zero: 'Aucun achat en attente de reception'
-    nb_sales:
-      one: '%{count} commande'
-      other: '%{count} commandes'
-      zero: 'Aucune commande'
-    nb_sales_invoices:
-      one: '%{count} facture enregistrée'
-      other: '%{count} factures enregistrées'
-      zero: 'Aucune facture enregistrée'
-    nb_transfers:
-      one: '%{count} transfert à effectuer'
-      other: '%{count} transferts à effectuer'
-      zero: 'Aucun transfert à effectuer'
-    nb_waiting_deliveries:
-      one: '%{count} livraison en attente'
-      other: '%{count} livraisons en attente'
-      zero: 'Aucune livraison en attente'
+    nb_mandates:  #!
+      one: '%{count} responsabilité enregistrée' #!
+      other: '%{count} responsabilités enregistrées' #!
+      zero: 'Aucune responsabilité enregistrée' #!
+    nb_products:  #!
+      one: '%{count} produit enregistré' #!
+      other: '%{count} produits enregistrés' #!
+      zero: 'Aucun produit enregistré' #!
+    nb_purchases:  #!
+      one: '%{count} achat en attente de reception' #!
+      other: '%{count} achats en attente de reception' #!
+      zero: 'Aucun achat en attente de reception' #!
+    nb_transfers:  #!
+      one: '%{count} transfert à effectuer' #!
+      other: '%{count} transferts à effectuer' #!
+      zero: 'Aucun transfert à effectuer' #!
     nb_years: 'Nombre d''années dans l''historique'
     need_entities_to_consult_mandates: 'Vous devez créer des fiches clients/fournisseurs avant'
     need_warehouse_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
@@ -863,7 +831,7 @@ fra:
     purchase_orders: 'Achats'
     purchase_price_create: 'Créer un prix d''achat'
     purchase_steps:
-      #>deliveries: 'Incoming deliveries'
+      deliveries: 'Livraisons'
       products: 'Création de l''achat'
       summary: 'Décaissements'
     purchases: 'Achats'
@@ -986,7 +954,7 @@ fra:
     subtotal: 'Sous-total %{name}'
     subtotals_at_level: 'Sous-totaux aux niveaux'
     supplier: 'Fournisseur'
-    #>supplier_code: 'Supplier code'
+    supplier_code: 'Code fournisseur'
     supplier_informations: 'Informations fournisseur'
     supply: 'Livraison'
     synthesis: 'Documents de synthèse'
@@ -1066,6 +1034,18 @@ fra:
       one: '%{count} contact'
       other: '%{count} contacts'
       zero: '0 contact' #!
+    x_depositable_payments:
+      one: '%{count} encaissement à encaisser depuis au moins 15 j.'
+      other: '%{count} encaissement à encaisser depuis au moins 15 j.'
+      zero: 'Aucun encaissement à encaisser depuis au moins 15 j.'
+    x_deposits_to_validate:
+      one: '%{count} remise en banque à valider'
+      other: '%{count} remises en banque à valider'
+      zero: 'Aucune remise en banque à valider'
+    x_entities:
+      one: '%{count} fiche client/fournisseur' #!
+      other: '%{count} fiches clients/fournisseurs'
+      zero: 'Aucune fiche clients/fournisseurs'
     x_entity_links:
       one: '%{count} lien'
       other: '%{count} liens'
@@ -1082,6 +1062,10 @@ fra:
       one: '%{count} encaissement'
       other: '%{count} encaissements'
       zero: '0 encaissement'
+    x_journal_entries:
+      one: '%{count} écriture'
+      other: '%{count} écritures'
+      zero: 'Aucune écriture' #!
     x_mandates:
       one: '%{count} responsabilité'
       other: '%{count} responsabilités '
@@ -1098,6 +1082,10 @@ fra:
       one: '%{count} décaissement'
       other: '%{count} décaissements'
       zero: '0 décaissement' #!
+    x_performed_operations:
+      one: '%{count} travail à réaliser'
+      other: '%{count} travaux à réaliser'
+      zero: 'Aucun travail à réaliser'
     x_prices:
       one: '%{count} prix'
       other: '%{count} prix'
@@ -1121,6 +1109,10 @@ fra:
     x_unit: '%{quantity}%{unit}'
     x_unit_of_product_per_second: '%{quantity}%{unit}/s de %{product}'
     x_unit_per_second: 'Débit: %{quantity}%{unit}/s'
+    x_waiting_outgoing_deliveries:
+      one: '%{count} livraison en attente'
+      other: '%{count} livraisons en attente'
+      zero: 'Aucune livraison en attente'
     y: 'Oui'
     yearly: 'Annuelle'
   notifications:
@@ -1159,7 +1151,7 @@ fra:
     need_closed_financial_year_to_declaration: 'Vous devez avoir un exercice clôturé pour créer une déclaration de TVA.'
     need_company_code_to_login: 'Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d''utilisateur'
     need_entries_to_point: 'Aucune écriture n''a été trouvé pour la période du relevé bancaire.'
-    need_journal_to_record_tax_declaration: 'Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d''achat pour pouvoir enregistrer des déclarations de taxes.'
+    need_journal_to_manage_tax_declaration: 'Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d''achat pour pouvoir enregistrer des déclarations de taxes.'
     need_payment_mode_to_create_deposit: 'Vous devez spécifier un mode de réglement pour effectuer une remise en banque'
     need_quantities_to_cancel_an_sales_invoice: 'Vous devez spécifier une quantité pour pouvoir faire un avoir'
     need_stocks_to_create_inventories: 'Vous devez gérer les stocks d''au moins un produit pour pouvoir faire un inventaire'
@@ -1252,8 +1244,12 @@ fra:
         days_before_warning_undone: 'Nombre de jours avant de prévenir pour les encaissements non effectués'
         days_before_warning_unvalidated: 'Nombre de jours nécessaire pour pour pouvoir valider une remise en banque'
         numeration: 'Numérotation des remises en banque'
+      incoming_deliveries:
+        numeration: 'Numérotation des livraisons entrantes'
       incoming_payments:
         numeration: 'Numérotation des encaissements'
+      outgoing_deliveries:
+        numeration: 'Numérotation des livraisons sortantes'
       outgoing_payments:
         numeration: 'Numérotation des décaissements'
       purchase_orders:

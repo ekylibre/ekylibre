@@ -1,6 +1,6 @@
 arb:
   about:
-    authors: ['Alaa Alshoubaki'] #! String excepted (Array:["Alaa Alshoubaki"])
+    authors: ['Alaa Alshoubaki']
     dir: 'rtl'
     iso2: 'ar'
     name: 'لعربية'
@@ -49,16 +49,6 @@ arb:
       x_seconds:
         many: '{{count}} ثواني'
         one: 'ثانية واحدة'
-  dyta:  #!
-    export: #!
-      csv: 'CSV' #!
-      false_value: 'زائف' #!
-      title: 'تصدير' #!
-      true_value: 'صحيح' #!
-      xcsv: 'Excel CSV' #!
-    next: 'التالي' #!
-    no_records: 'ولا اية سجل' #!
-    previous: 'السابق' #!
   kame:
     #>columns: 'Columns'
     export:
@@ -72,7 +62,9 @@ arb:
     next: 'التالي'
     no_records: 'ولا اية سجل'
     previous: 'السابق'
-    #>x_per_page: '%{count} per page'
+    x_per_page:
+      #>one: '%{count} per page'
+      #>other: '%{count} per page'
   number:
     currency:
       format:

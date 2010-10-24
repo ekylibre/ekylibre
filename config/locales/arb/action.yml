@@ -54,7 +54,7 @@ arb:
       tax_declarations: 'تصريح عن قيمة الضريبة الاضافية'
       tax_update: 'تعديل الضريبة : {{name}}'
       taxes: 'الضرائب'
-    application:
+    application: #!
     authentication:
       login: 'الدخول'
       logout: 'الخروج'
@@ -100,7 +100,7 @@ arb:
       user_update: 'تعديل المستخدم'
       users: 'المستخدمين'
       welcome: 'نرحب بايكيليبغ  {{user}}'
-    help:
+    help: #!
     management:
       delay: 'المهلة : {{name}}'
       delay_create: 'اضافة مهلة جديدة'
@@ -163,10 +163,10 @@ arb:
       #>purchase_order_invoice: 'Receive invoice'
       purchase_order_line_create: 'اضافة طلب للمنتج : {{number}}'
       purchase_order_line_update: 'تعديل تصميم الطلب'
-      purchase_order_lines: 'منتجات الشراء {{number}} للممول {{supplier}}'
+      purchase_order_lines: 'منتجات الشراء {{number}} للممول {{supplier}}' #!
       #>purchase_order_propose: 'Propose order'
       #>purchase_order_refuse: 'Refused order'
-      purchase_order_summary: 'رقم دفعة الشراء{{number}}'
+      purchase_order_summary: 'رقم دفعة الشراء{{number}}' #!
       purchase_order_update: 'تعديل الشراء : {{number}}'
       purchase_orders: 'المستريات'
       sales_invoice: '{{nature}} {{number}}'
@@ -177,19 +177,19 @@ arb:
       sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
       #>sales_order_correct: 'Correct estimate'
       sales_order_create: 'بيع جديد'
-      sales_order_deliveries: 'التسليم'
+      sales_order_deliveries: 'التسليم' #!
       #>sales_order_finish: 'Finish sale'
       sales_order_invoice: 'فوترة طلب البيع'
       sales_order_line_create: 'اضافة تصميم خطوط المنتج'
       sales_order_line_informations: '' #!
       sales_order_line_update: 'تعديل مسار طلب المنتج'
-      sales_order_lines: 'اختيار المنتجات للطلب {{sales_order}} من : {{client}}'
+      sales_order_lines: 'اختيار المنتجات للطلب {{sales_order}} من : {{client}}' #!
       sales_order_nature_create: 'اضافة نوع البيع'
       sales_order_nature_update: 'تعديل نوع البيع : {{name}}'
       sales_order_natures: 'انواع طلبات البيع'
       #>sales_order_propose: 'Propose estimate'
       #>sales_order_refuse: 'Estimate refused'
-      sales_order_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}'
+      sales_order_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}' #!
       sales_order_update: 'تعديل طلب البيع رقم{{number}}'
       sales_orders: 'الطلبات وتحديد الاسعار'
       statistics: 'الاحصائيات'
@@ -301,7 +301,7 @@ arb:
       mandates_configure: 'ترتيب التفويضات'
       observation_create: 'اضافة ملاحظة'
       observation_update: 'تعديل الملاحظة'
-    resources:
+    resources: #!
     store:
       #>index: 'Welcome'
   controllers:
@@ -730,54 +730,16 @@ arb:
     national_reduce_vat_collected: 'معدل ضريبة القيمة المضافة المحلية المخفضة  %5.5'
     national_vat_collected: 'الاجراءات التي حدثت في فرنسا'
     nature: 'الطبع'
-    nb_enbankments:
-      one: 'التحقق من صحة البيان البنكي'
-      other: '{{count}} التحقق من صحة البيانات البنكية الاخرى'
-      zero: 'عدم التحقق من اي بيان'
-    nb_entities:
-      one: 'تسجيل سجل واحد'
-      other: '{{count}} تسجيل سجلات اخرى'
-      zero: 'عدم تسجيل اية سجل'
-    nb_entries:
-      one: 'سجل واحد'
-      other: '{{count}} سجلات اخرى'
-      zero: 'ولا اي سجل'
-    nb_mandates:
-      one: 'تفويض واحد مسجل'
-      other: '{{count}} تفويضات اخرى'
-      zero: 'ولا اية تفويض'
-    nb_operations:
-      one: 'تم انجاز عمل واحد'
-      other: '{{count}} تم انجاز اعمال اخرى'
-      zero: 'لم يتم انجاز اي عمل'
-    nb_payments:
-      #>one: '1 incoming payment to deposit'
-      #>other: '%{count} incoming payments to deposit'
-      #>zero: 'No incoming payments to deposit'
-    nb_products:
-      one: 'تم تسجيل منتج واحد'
-      other: '{{count}} تم تسجيل منتجات اخرى'
-      zero: 'لم يتم تسجيل اي منتج'
-    nb_purchases:
-      #>one: '1 waiting purchase'
-      #>other: '%{count} waiting purchases'
-      #>zero: 'No waiting purchases'
-    nb_sales:
-      one: 'طلب واحد'
-      other: '{{count}} طلبات'
-      zero: 'ولا طلب'
-    nb_sales_invoices:
-      #>one: '1 sales invoice'
-      #>other: '%{count} sales invoices'
-      #>zero: '0 sales invoices'
-    nb_transfers:
-      #>one: 'One transfert to make'
-      #>other: '%{count} transferts to make'
-      #>zero: 'No transferts to make'
-    nb_waiting_deliveries:
-      #>one: '1 waiting delivery'
-      #>other: '%{count} waiting deliveries'
-      #>zero: 'No waiting deliveries'
+    nb_mandates:  #!
+      one: 'تفويض واحد مسجل' #!
+      other: '{{count}} تفويضات اخرى' #!
+      zero: 'ولا اية تفويض' #!
+    nb_products:  #!
+      one: 'تم تسجيل منتج واحد' #!
+      other: '{{count}} تم تسجيل منتجات اخرى' #!
+      zero: 'لم يتم تسجيل اي منتج' #!
+    nb_purchases: #!
+    nb_transfers: #!
     nb_years: 'عدد السنوات عامة'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_warehouse_to_create_production: 'You have to register a warehouse before using production'
@@ -1150,6 +1112,18 @@ arb:
       one: 'مشترك واحد'
       other: '{{count}} مشتركين اخرين'
       zero: 'ولا مشترك' #!
+    x_depositable_payments:
+      #>one: '1 incoming payment to deposit'
+      #>other: '%{count} incoming payments to deposit'
+      #>zero: 'No incoming payments to deposit'
+    x_deposits_to_validate:
+      one: 'التحقق من صحة البيان البنكي'
+      other: '{{count}} التحقق من صحة البيانات البنكية الاخرى'
+      zero: 'عدم التحقق من اي بيان'
+    x_entities:
+      one: 'تسجيل سجل واحد' #!
+      other: '{{count}} تسجيل سجلات اخرى'
+      zero: 'عدم تسجيل اية سجل'
     x_entity_links:
       one: 'رابط واحد'
       other: '{{count}} روابط اخرى'
@@ -1166,6 +1140,10 @@ arb:
       one: 'دفعة واحدة'
       other: '{{count}} دفعات اخرى'
       zero: 'ولااية دفعة'
+    x_journal_entries:
+      one: 'سجل واحد'
+      other: '{{count}} سجلات اخرى'
+      zero: 'ولا اي سجل' #!
     x_mandates:
       one: 'تفويض واحد'
       other: '{{count}} تفويض اخر'
@@ -1182,6 +1160,10 @@ arb:
       one: 'نفقة واحدة'
       other: '{{count}} نفقات اخرى'
       zero: 'ولااية نفقة' #!
+    x_performed_operations:
+      one: 'تم انجاز عمل واحد'
+      other: '{{count}} تم انجاز اعمال اخرى'
+      zero: 'لم يتم انجاز اي عمل'
     x_prices:
       #>one: '1 price'
       #>other: '%{count} prices'
@@ -1205,6 +1187,10 @@ arb:
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
+    x_waiting_outgoing_deliveries:
+      #>one: '1 waiting delivery'
+      #>other: '%{count} waiting deliveries'
+      #>zero: 'No waiting deliveries'
     y: 'نعم'
     yearly: 'Annuelle'
   notifications:
@@ -1243,7 +1229,7 @@ arb:
     need_closed_financial_year_to_declaration: 'يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة'
     need_company_code_to_login: 'يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم'
     need_entries_to_point: 'لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي'
-    need_journal_to_record_tax_declaration: 'يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب'
+    need_journal_to_manage_tax_declaration: 'يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب'
     need_payment_mode_to_create_deposit: 'يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي'
     need_quantities_to_cancel_an_sales_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة'
     need_stocks_to_create_inventories: 'يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد'
@@ -1336,8 +1322,12 @@ arb:
         days_before_warning_undone: 'عدد الايام قبل منع الضرائب الفير تامة'
         days_before_warning_unvalidated: 'عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية '
         numeration: 'احصاء الاقتطاعات المصرفية'
+      incoming_deliveries:
+        #>numeration: 'Numeration of incoming deliveries'
       incoming_payments:
         #>numeration: 'Numeration of incoming payments'
+      outgoing_deliveries:
+        #>numeration: 'Numeration of outgoing deliveries'
       outgoing_payments:
         #>numeration: 'Numeration of disbursements'
       payments:  #!

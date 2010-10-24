@@ -34,7 +34,7 @@ jpn:
         #>payment_way: 'Mode of payment'
       inventory_line:
         #>quantity: 'Found quantity'
-      journal_entry:
+      journal_entry: #!
       journal_entry_line:
         #>closed: 'Closed'
       land_parcel:
@@ -599,6 +599,7 @@ jpn:
     #>invoice_contact: 'Sales invoice contact'
     #>invoice_contact_id: 'Sales invoice contact'
     #>invoiced: 'Invoiced'
+    #>invoices_count: 'Invoices count'
     #>is_debit: 'Is debit'
     #>item_listing: 'Item listing'
     #>item_listing_id: 'Item listing'
@@ -956,6 +957,7 @@ jpn:
     #>with_commission: 'With commission'
     #>with_deposit: 'With deposit'
     #>with_tracking: 'With tracking'
+    #>with_transport: 'With transport'
     #>work_center_id: 'Work center'
     #>x: 'X'
     #>y: 'Y'
@@ -963,7 +965,7 @@ jpn:
   models:
     account:
       #>label: '%{number} - %{name}'
-    bank_statement:
+    bank_statement: #!
     cash:
       modes:
         #>bban: 'Basic Bank Account Number'
@@ -991,7 +993,7 @@ jpn:
             #>immediate: 'Immediatly'
             #>standard: 'Standard (30d EOM)'
         #>department_name: 'Default department'
-        document_natures:
+        document_natures: #!
         document_templates:
           accountancy:
             balance_sheet:
@@ -1023,7 +1025,7 @@ jpn:
           relations:
             entity:
               #>filename: '[full_name]'
-        document_templates_filenames:
+        document_templates_filenames: #!
         #>establishment_name: 'Default establishment'
         event_natures:
           #>purchase_order: 'Creation of a purchase order'
@@ -1062,7 +1064,7 @@ jpn:
               #>name: 'Numeration of cash transfers'
               #>period: 'year'
           management:
-            depositments:
+            depositments: #!
             deposits:
               #>format: 'B[year|4][number|4]'
               #>name: 'Numeration of deposits'
@@ -1083,7 +1085,7 @@ jpn:
               #>format: 'D[year|4][number|4]'
               #>name: 'Numeration of payments'
               #>period: 'year'
-            payments:
+            payments: #!
             purchase_orders:
               #>format: 'PO[year|4][month|2][number|4]'
               #>name: 'Numeration of purchases'
@@ -1141,7 +1143,7 @@ jpn:
         #>dont_use: '-- Do not use --'
         #>generate_string_complement: '-- Create a personalized field (text) --'
       #>sales_orders: 'Sales orders'
-    complement:
+    complement: #!
     contact:
       #>error_modify_contact: 'The contact can not be updated.'
     custom_field:
@@ -1154,8 +1156,8 @@ jpn:
         #>string: 'Text'
     delay:
       #>error_unvalid_format_for_expression: 'Unvalid format for expression'
-    delivery:
-    delivery_line:
+    delivery: #!
+    delivery_line: #!
     deposit:
       to_accountancy:
         #>one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
@@ -1222,7 +1224,7 @@ jpn:
         #>various: 'Various operations'
     journal_entry:
       #>entry_cancel: 'Cancel of entry %{number}: %{name}'
-    journal_record:
+    journal_record: #!
     listing_node:
       #>add_filter: ' Add a filter'
       #>all_columns: '-- All columns --'

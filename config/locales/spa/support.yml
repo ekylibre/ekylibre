@@ -1,6 +1,6 @@
 spa:
   about:
-    authors: 'Coralie Labouyrie'
+    authors: ['Coralie Labouyrie', 'Brice Texier']
     dir: 'ltr'
     iso2: 'es'
     name: 'Español'
@@ -50,19 +50,21 @@ spa:
         many: '%{count} segundos'
         one: '1 segundo'
   kame:
-    #>columns: 'Columns'
+    columns: 'Columnas'
     export:
-      #>csv: 'CSV'
-      #>false_value: 'FALSE'
-      #>title: 'Export'
-      #>true_value: 'TRUE'
-      #>xcsv: 'Excel CSV'
-    #>export_as: 'Export as %{format}...'
-    #>menu: 'Menu'
-    #>next: 'Next'
-    #>no_records: 'No records'
-    #>previous: 'Previous'
-    #>x_per_page: '%{count} per page'
+      csv: 'CSV'
+      false_value: 'FALSO'
+      title: 'Exportación'
+      true_value: 'VERDAD'
+      xcsv: 'CSV para Excel'
+    export_as: 'Exportar a %{format}...'
+    menu: 'Menú'
+    next: 'Siguiente'
+    no_records: 'Vacío'
+    previous: 'Anterior'
+    x_per_page:
+      one: '%{count} por página'
+      other: '%{count} por página'
   number:
     currency:
       format:

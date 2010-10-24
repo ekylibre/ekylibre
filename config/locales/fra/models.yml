@@ -34,8 +34,6 @@ fra:
         payment_way: 'Mode d''encaissement'
       inventory_line:
         quantity: 'Quantité constatée'
-      journal_entry:  #!
-        outgoing_payment_uses: 'Parties de décaissement' #!
       journal_entry_line:
         closed: 'Cloturée'
       land_parcel:
@@ -603,6 +601,7 @@ fra:
     invoice_contact: 'Adresse pour la facture'
     invoice_contact_id: 'Adresse pour la facture'
     invoiced: 'Facturée'
+    invoices_count: 'Nombre de factures'
     is_debit: 'Débit'
     item_listing: 'Noeud de l''extraction'
     item_listing_id: 'Noeud de l''extraction'
@@ -941,7 +940,7 @@ fra:
     usage: 'Utilisation'
     usage_duration: 'Durée d''utilisation (heures)'
     use_range: 'Utiliser un intervalle de quantité'
-    #>used_amount: 'Used amount'
+    used_amount: 'Montant utilisé'
     user: 'Utilisateur'
     user_id: 'Utilisateur'
     users: 'Utilisateurs'
@@ -961,6 +960,7 @@ fra:
     with_commission: 'Inclure une commission'
     with_deposit: 'Utiliser les remises en banque'
     with_tracking: 'Avec tracabilité'
+    with_transport: 'Avec transport'
     work_center_id: 'Centre d''opération'
     x: 'Position X'
     y: 'Position Y'
@@ -995,7 +995,7 @@ fra:
             immediate: 'Immédiat'
             standard: 'Standard (30j FDM)'
         department_name: 'Gestion/Production'
-        document_natures:
+        document_natures: #!
         document_templates:
           accountancy:
             balance_sheet:
@@ -1070,17 +1070,17 @@ fra:
               name: 'Numérotation des remises en banque'
               period: 'year'
             incoming_deliveries:
-              #>format: 'ID[year|4][number|4]'
-              #>name: 'Numeration of incoming deliveries'
-              #>period: 'year'
+              format: 'BR[year|4][number|4]'
+              name: 'Numérotation des bons de réceptions'
+              period: 'year'
             incoming_payments:
               format: 'R[year|4][number|6]'
               name: 'Numérotation des encaissements'
               period: 'year'
             outgoing_deliveries:
-              #>format: 'OD[year|4][number|6]'
-              #>name: 'Numeration of outgoing deliveries'
-              #>period: 'year'
+              format: 'BL[year|4][number|6]'
+              name: 'Numérotation des bons de livraisons'
+              period: 'year'
             outgoing_payments:
               format: 'D[year|4][number|4]'
               name: 'Numérotation des décaissements'

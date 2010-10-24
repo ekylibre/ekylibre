@@ -164,7 +164,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def label 
-    tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.dest_contact.address.to_s)
+    self.number# tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.delivery_contact.address.to_s)
   end
 
   # Need for use in kame
@@ -216,7 +216,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def client_address
     a = self.company.entity.full_name+"\n"
-    a += (self.dest_contact.address).gsub(/\s*\,\s*/, "\n") if self.dest_contact
+    a += (self.delivery_contact.address).gsub(/\s*\,\s*/, "\n") if self.delivery_contact
     a
   end
 
