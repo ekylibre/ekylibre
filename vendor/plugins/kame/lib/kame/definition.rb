@@ -31,6 +31,10 @@ module Kame
       @columns.select{|c| c.sortable?}
     end
 
+    def exportable_columns
+      @columns.select{|c| c.exportable?}
+    end
+
   end
 
   
@@ -51,6 +55,10 @@ module Kame
     end
     
     def sortable?
+      false
+    end
+    
+    def exportable?
       false
     end
 

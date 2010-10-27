@@ -54,6 +54,7 @@ jpn:
     export:
       csv: 'CSV'
       false_value: '偽'
+      #>ods: 'Spreadsheet ODF'
       #>title: 'Export'
       true_value: '真'
       xcsv: 'ExcelのCSV'

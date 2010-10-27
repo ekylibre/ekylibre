@@ -44,7 +44,9 @@ module Kame
       end
     end
 
-    def datum_code(record='record', child = false)
+
+    # Code for rows
+    def datum_code(record='rekord', child = false)
       code = if child and @options[:children].is_a? Symbol
                "#{record}.#{@options[:children]}"
              elsif child and @options[:children].is_a? FalseClass
@@ -60,14 +62,41 @@ module Kame
       return code
     end
 
+    # Code for exportation
+    def exporting_datum_code(record='rekord')
+      datum = self.datum_code(record)
+      if self.datatype == :boolean
+        datum = "(#{datum} ? ::I18n.translate('kame.export.true_value') : ::I18n.translate('kame.export.false_value'))"
+      elsif self.datatype == :date
+        datum = "::I18n.localize(#{datum})"
+      elsif self.datatype == :decimal
+        datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{self.options[:precision]||2}))"
+      elsif @name==:country and  self.datatype == :string and self.limit == 2
+        datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
+      elsif @name==:language and  self.datatype == :string and self.limit <= 8
+        datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
+      end
+      return datum
+    end
+
     # Returns the data type of the column if the column is in the database
     def datatype
       @options[:datatype] || (@column ? @column.type : nil)
     end
 
+    def numeric?
+      [:decimal, :integer, :float, :numeric].include? self.datatype
+    end
+
     # Returns the size/length of the column if the column is in the database
     def limit
       @column.limit if @column
+    end
+
+
+    # Defines if column is exportable
+    def exportable?
+      true
     end
 
     # Check if a column is sortable

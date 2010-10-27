@@ -54,6 +54,7 @@ eng:
     export:
       csv: 'CSV'
       false_value: 'FALSE'
+      ods: 'Spreadsheet ODF'
       title: 'Export'
       true_value: 'TRUE'
       xcsv: 'Excel CSV'

@@ -54,6 +54,7 @@ arb:
     export:
       csv: 'CSV'
       false_value: 'زائف'
+      #>ods: 'Spreadsheet ODF'
       title: 'تصدير'
       true_value: 'صحيح'
       xcsv: 'Excel CSV'

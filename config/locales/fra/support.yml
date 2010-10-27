@@ -54,6 +54,7 @@ fra:
     export:
       csv: 'CSV'
       false_value: 'FAUX'
+      ods: 'Classeur ODF'
       title: 'Exporter'
       true_value: 'VRAI'
       xcsv: 'CSV Excel'

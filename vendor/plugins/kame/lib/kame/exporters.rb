@@ -30,33 +30,27 @@ module Kame
     def send_data_code(table)
       raise NotImplementedError.new("#{self.class.name}#format_data_code is not implemented.")
     end
+
+    def columns_headers(table, options={})
+      headers, columns = [], table.exportable_columns
+      for column in columns
+        datum = column.header_code
+        headers << (options[:iconv] ? "#{options[:iconv]}.iconv("+datum+".to_s)" : datum)
+      end
+      return headers
+    end
     
     def columns_to_array(table, nature, options={})
-      columns = table.data_columns
+      columns = table.exportable_columns
       
       array = []
-      record = options[:record]||'RECORD'
+      record = options[:record]||'rekord'
       for column in columns
         if column.is_a? Kame::Column
           if nature==:header
             datum = column.header_code
           else
-            datum = column.datum_code(record)
-            if column.datatype == :boolean
-              datum = "(#{datum} ? ::I18n.translate('kame.export.true_value') : ::I18n.translate('kame.export.false_value'))"
-            end
-            if column.datatype == :date
-              datum = "::I18n.localize(#{datum})"
-            end
-            if column.datatype == :decimal
-              datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{column.options[:precision]||2}))"
-            end
-            if column.name==:country and  column.datatype == :string and column.limit == 2
-              datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
-            end
-            if column.name==:language and  column.datatype == :string and column.limit <= 8
-              datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
-            end
+            datum = column.exporting_datum_code(record)
           end
           array << (options[:iconv] ? "#{options[:iconv]}.iconv("+datum+".to_s)" : datum)
         end
@@ -69,5 +63,6 @@ module Kame
 end
 
 
+require "kame/exporters/open_document_spreadsheet_exporter"
 require "kame/exporters/csv_exporter"
 require "kame/exporters/excel_csv_exporter"
