@@ -254,6 +254,7 @@ class ManagementController < ApplicationController
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order}
     t.column :created_on
+    t.column :state_label, :through=>:sales_order, :children=>false
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit

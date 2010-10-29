@@ -313,7 +313,7 @@ class RelationsController < ApplicationController
     t.action :subscription_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  create_kame(:entity_sales_orders, :model=>:sales_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']} ,  :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
+  create_kame(:entity_sales_orders, :model=>:sales_orders, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.state', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
     t.column :number, :url=>{:controller=>:management, :action=>:sales_order}, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
@@ -351,6 +351,7 @@ class RelationsController < ApplicationController
     # t.column :full_name, :through=>:client
     # t.column :address, :through=>:contact
     t.column :created_on, :children=>false
+    t.column :state_label, :through=>:sales_order, :children=>false
     t.column :amount
     t.column :amount_with_taxes
     # t.column :credit

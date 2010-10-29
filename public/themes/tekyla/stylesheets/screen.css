@@ -213,7 +213,7 @@ html[dir="rtl"] #side .menu li { background-position: right center; }
 /*#yield { padding: 8px; overflow: auto; background: url(../images/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
 .yield { padding: 8px; overflow: auto; background: #F7F7FF; border: 1px solid #95b0e4; }
 .yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: normal; }
-.yield h2 { margin: 8px 0px 4px; font-size:15px; color: #047; }
+.yield h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}
 .yield .menu { -moz-border-radius: 8px; background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
 .yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }
 .yield .menu ul { padding: 4px 18px; }

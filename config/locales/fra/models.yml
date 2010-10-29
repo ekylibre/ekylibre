@@ -639,7 +639,7 @@ fra:
     line_6: 'Code postal ET ville'
     line_6_city: 'Ville'
     line_6_code: 'Code postal'
-    lines: 'Lignes d''inventaire'
+    lines: 'Lignes'
     listing: 'Extraction'
     listing_id: 'Extraction'
     listing_node_items: 'Éléments de noeud d''extraction'
