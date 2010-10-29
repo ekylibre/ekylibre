@@ -60,6 +60,7 @@ class JournalEntryLine < ActiveRecord::Base
   
   #
   def prepare
+    self.name = self.name.to_s[0..254]
     # computes the values depending on currency rate
     # for debit and credit.
     self.currency_debit  ||= 0

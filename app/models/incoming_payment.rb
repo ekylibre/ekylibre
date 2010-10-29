@@ -89,8 +89,10 @@ class IncomingPayment < ActiveRecord::Base
   end
 
   def prepare
-    self.commission_account ||= self.mode.commission_account
-    self.commission_amount ||= self.mode.commission_amount(self.amount)
+    if self.mode
+      self.commission_account ||= self.mode.commission_account
+      self.commission_amount ||= self.mode.commission_amount(self.amount)
+    end
     self.used_amount = self.uses.sum(:amount)
   end
 
@@ -138,7 +140,7 @@ class IncomingPayment < ActiveRecord::Base
     client_amount   = self.amount - attorney_amount
     mode = self.mode
     label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!mode.with_accounting? or !self.received)) do |entry|
+    accountize(action, {:journal=>mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
       if mode.with_deposit?
         entry.add_debit(label, mode.depositables_account_id, self.amount)
       else
