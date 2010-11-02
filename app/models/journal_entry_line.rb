@@ -154,7 +154,7 @@ class JournalEntryLine < ActiveRecord::Base
     end
   end
 
-  #this method returns the name of journal which the entrys are saved.
+  # This method returns the name of journal which the entries are saved.
   def journal_name
     if self.entry
       return self.entry.journal.name

@@ -158,6 +158,10 @@ fra:
         too_long: '%{attribute} est trop long (%{count} caractères maximum)'
         too_short: '%{attribute} est trop court (%{count} caractères minimum)'
         wrong_length: '%{attribute} n''est pas d''une bon longueur (%{count} caractères)'
+        contains_blank_line: '%{attribute} contient une ligne vide'
+        contains_blank_page: '%{attribute} contient une page vide'
+        has_an_invalid_nature: '%{attribute} contient un modèle inconnu %{nature} (page %{page})'
+        has_an_invalid_partner: '%{attribute} contient un partenaire inconnu %{partner} (page %{page})'
       models:
         cash:
           unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'

@@ -239,7 +239,7 @@ class Account < ActiveRecord::Base
       journal_entry_lines = account.journal_entry_lines.find(:all, :conditions=>["r.created_on BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id", :order=>"r.number ASC")
       
       if journal_entry_lines.size > 0
-        entrys = []
+        entries = []
         compute << account.number.to_i
         compute << account.name.to_s
         journal_entry_lines.each do |e|
@@ -250,10 +250,10 @@ class Account < ActiveRecord::Base
           entry[:journal] = e.entry.journal.name.to_s
           entry[:credit] = e.credit
           entry[:debit] = e.debit
-          entrys << entry
+          entries << entry
           # compute[:journal_entry_lines] << entry
         end
-        compute << entrys
+        compute << entries
         ledger << compute
       end
       

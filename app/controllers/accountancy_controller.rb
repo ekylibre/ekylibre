@@ -490,7 +490,7 @@ class AccountancyController < ApplicationController
   #     if session[:mode] == "journal"
   #       journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
   #       id = @current_company.journals.find(:first, :conditions => {:name => journal.name }).id
-  #       entries = @current_company.entrys(params[:printed][:from], params[:printed][:to], id)
+  #       entries = @current_company.journal_entries(params[:printed][:from], params[:printed][:to], id)
         
   #       if entries.size > 0
   #         entries.each do |entry|
@@ -698,7 +698,7 @@ class AccountancyController < ApplicationController
   def financial_year_delete
     return unless @financial_year = find_and_check(:financial_years)
     if request.post? or request.delete?
-      FinancialYear.destroy @financial_year unless @financial_year.entrys.size > 0 
+      FinancialYear.destroy @financial_year unless @financial_year.journal_entries.size > 0
     end
     redirect_to :action => :financial_years
   end

@@ -56,7 +56,7 @@ class Listing < ActiveRecord::Base
 
   def root_model_name
     # ::I18n.t("activerecord.models."+self.root_model.underscore)
-    self.root_model.classify.constantize.model_name.human
+    self.root_model.classify.constantize.model_name.human rescue '???'
   end
 
   def root
