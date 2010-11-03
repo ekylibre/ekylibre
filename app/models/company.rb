@@ -455,15 +455,14 @@ class Company < ActiveRecord::Base
   end
 
   def private_directory
-    Ekylibre.private_directory.join(self.code)
+    File.join(Ekylibre.private_directory, self.code)
   end
 
 
   def backup(options={})
-    creator, with_prints = options[:creator], options[:with_prints]
+    creator, with_files = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)
-    filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{Rails.root.to_s}/tmp/#{filename}.zip"
+    file = Rails.root.join("tmp", "backup-#{self.code.lower}-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
     doc = LibXML::XML::Document.new
     doc.root = backup = LibXML::XML::Node.new('backup')
     {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
@@ -488,11 +487,11 @@ class Company < ActiveRecord::Base
 
     Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
       zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
-      prints_dir = "#{Rails.root.to_s}/private/#{self.code}"
-      if with_prints and File.exist?(prints_dir)
-        Dir.chdir(prints_dir) do
-          for document in Dir["*/*/*.pdf"]
-            zile.add("prints/"+document, prints_dir+'/'+document)
+      files_dir = self.private_directory
+      if with_files and File.exist?(files_dir)
+        Dir.chdir(files_dir) do
+          for document in Dir.glob(File.join("**", "*"))
+            zile.add("Files/#{document}", File.join(files_dir, document))
           end
         end
       end
@@ -509,31 +508,26 @@ class Company < ActiveRecord::Base
   #   - Update all records with new ID using a big hash containing all the new IDs
   #   - Put in place the archived documents if present in backup
   def restore(file, options={})
-    raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String
+    raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String or file.is_a? Pathname
     verbose = options[:verbose]
-    prints_dir = "#{Rails.root.to_s}/private/#{self.code}"
+    files_dir = self.private_directory
     # Décompression
-    puts "R> Uncompressing backup..." if verbose
-    backup = "#{Rails.root.to_s}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
+    puts "R> Uncompressing archive..." if verbose
+    archive = Rails.root.join("tmp", "uncompressed-backup-#{self.code}-#{Time.now.strftime('%Y%m%d-%H%M%S')}")
     stream = nil
-    FileUtils.rm_rf(prints_dir+'.prints')
+
+    # Extract all files in archive
     Zip::ZipFile.open(file) do |zile|
-      stream = zile.read("backup.xml")
-      # zile.extract("backup.xml", backup)
-      # File.open(file, 'wb') {|f| f.write(zile.read("backup.xml"))}
       zile.each do |entry|
-        if entry.name.match(/^prints[\\\/]/)
-          File.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
-          zile.extract(entry, "#{prints_dir}.#{entry.name}") 
-        end
+        File.makedirs(File.join(archive, entry.name.split(/[\\\/]+/)[0..-2]))
+        zile.extract(entry, File.join(archive, entry.name))
       end
     end
-    File.open(backup, 'wb') {|f| f.write(stream)}
     
     # Parsing
     version = (ActiveRecord::Migrator.current_version rescue 0)
     puts "R> Parsing backup.xml (#{version})..."  if verbose
-    doc = LibXML::XML::Document.file(backup)
+    doc = LibXML::XML::Document.file(File.join(archive, "backup.xml"))
     backup = doc.root
     attr_version = backup.attributes['version']
     return false if not attr_version or (attr_version != version.to_s)
@@ -649,15 +643,17 @@ class Company < ActiveRecord::Base
       self.reload
       # raise Active::Record::Rollback
 
-      if File.exist?(prints_dir+".prints")
-        puts "R> Replacing prints..." if verbose
-        File.move prints_dir, prints_dir+'.old'
-        File.move prints_dir+'.prints', prints_dir
-        FileUtils.rm_rf(prints_dir+'.old')
+      backup_files = File.join(archive, "Files")
+      if File.exist?(backup_files)
+        puts "R> Replacing files..." if verbose
+        File.move files_dir, files_dir+'.old'
+        File.move backup_files, files_dir
+        FileUtils.rm_rf(files_dir+'.old')
       end
     end
 
-
+    # Clean tmp directory  by removing backup data
+    FileUtils.rm_rf(archive)
     return true
   end
 
@@ -776,12 +772,12 @@ class Company < ActiveRecord::Base
   # this method loads all the templates existing.
   def load_prints
     language = self.entity.language
-    prints_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
+    files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
     for family, templates in ::I18n.translate('models.company.default.document_templates')
       for template, attributes in templates
-        next unless File.exist? prints_dir.join("#{template}.xml")
+        next unless File.exist? files_dir.join("#{template}.xml")
         #begin
-        File.open(prints_dir.join("#{template}.xml"), 'rb') do |f|
+        File.open(files_dir.join("#{template}.xml"), 'rb') do |f|
           attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
           attributes[:name] = attributes[:name].to_s
           attributes[:nature] ||= template.to_s

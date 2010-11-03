@@ -59,7 +59,8 @@ module Kame
       code += "  end\n"
       code += "  zile.puts('</table:table></office:spreadsheet></office:body></office:document-content>')\n"
       code += "end\n"
-      code += "send_file(file, :type=>#{self.mime_type.to_s.inspect}, :disposition=>'inline', :filename=>name+'.#{self.file_extension}')\n"
+      code += "send_file(file, :stream=>false, :type=>#{self.mime_type.to_s.inspect}, :disposition=>'inline', :filename=>name+'.#{self.file_extension}')\n"
+      code += "File.delete(file)\n" # Removes tmp files before they explode the disk
       return code
     end
 

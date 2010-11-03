@@ -135,12 +135,16 @@ fra:
         accepted: '%{attribute} doit être accepté'
         blank: '%{attribute} ne peut pas être vide'
         confirmation: '%{attribute} est différent du champ de confirmation'
+        contains_blank_line: '%{attribute} contient une ligne vide' #!
+        contains_blank_page: '%{attribute} contient une page vide' #!
         empty: '%{attribute} ne peut pas être vide'
         equal_to: '%{attribute} doit être égal à %{count}'
         even: '%{attribute} doit être impair'
         exclusion: '%{attribute} est reservé'
         greater_than: '%{attribute} doit être plus grand que %{count}'
         greater_than_or_equal_to: '%{attribute} doit être plus grand ou égal à %{count}'
+        has_an_invalid_nature: '%{attribute} contient un modèle inconnu %{nature} (page %{page})' #!
+        has_an_invalid_partner: '%{attribute} contient un partenaire inconnu %{partner} (page %{page})' #!
         included_in: 'La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}'
         inclusion: '%{attribute} n''est pas inclus dans la liste'
         invalid: '%{attribute} est invalide'
@@ -158,10 +162,6 @@ fra:
         too_long: '%{attribute} est trop long (%{count} caractères maximum)'
         too_short: '%{attribute} est trop court (%{count} caractères minimum)'
         wrong_length: '%{attribute} n''est pas d''une bon longueur (%{count} caractères)'
-        contains_blank_line: '%{attribute} contient une ligne vide'
-        contains_blank_page: '%{attribute} contient une page vide'
-        has_an_invalid_nature: '%{attribute} contient un modèle inconnu %{nature} (page %{page})'
-        has_an_invalid_partner: '%{attribute} contient un partenaire inconnu %{partner} (page %{page})'
       models:
         cash:
           unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'

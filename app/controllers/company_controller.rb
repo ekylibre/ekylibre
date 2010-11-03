@@ -154,11 +154,13 @@ class CompanyController < ApplicationController
     if request.post?
       if params['backup']
         # Création d'une sauvegarde
-        send_file(@current_company.backup(:creator=>@current_user.label, :with_prints=>params[:with_prints]))
+        backup = @current_company.backup(:creator=>@current_user.label, :with_prints=>params[:with_prints])
+        send_file(backup, :stream=>false)
+        File.delete(backup)
       elsif params['restore'] and params[:file] and params[:file][:path]
         # Récupération d'une sauvegarde
         backup = params[:file][:path]
-        file = "#{Rails.root.to_s}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
+        file = Rails.root.join("tmp", "uploads", backup.original_filename+"."+rand.to_s[2..-1].to_i.to_s(36))
         File.open(file, "wb") { |f| f.write(backup.read)}
         start = Time.now
         if @current_company.restore(file)
@@ -455,14 +457,14 @@ class CompanyController < ApplicationController
 
   def listing_extract
     return unless @listing = find_and_check(:listing)
-    @listing.save if @listing.query.blank?
-    query = @listing.query.to_s
-    # FIXME: This is dirty code to solve quickly no_mail mode
-    query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
-    query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-    first_line = []
-    @listing.exportable_columns.each {|line| first_line << line.label}
     begin
+      @listing.save if @listing.query.blank?
+      query = @listing.query.to_s
+      # FIXME: This is dirty code to solve quickly no_mail mode
+      query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
+      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+      first_line = []
+      @listing.exportable_columns.each {|line| first_line << line.label}
       result = ActiveRecord::Base.connection.select_rows(query)
       result.insert(0, first_line)
       csv_string = FasterCSV.generate do |csv|

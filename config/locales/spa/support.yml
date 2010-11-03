@@ -54,7 +54,7 @@ spa:
     export:
       csv: 'CSV'
       false_value: 'FALSO'
-      #>ods: 'Spreadsheet ODF'
+      ods: 'OpenDocument Spreadsheet'
       title: 'Exportación'
       true_value: 'VERDAD'
       xcsv: 'CSV para Excel'

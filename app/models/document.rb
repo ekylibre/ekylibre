@@ -55,8 +55,6 @@ class Document < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  DIRECTORY = "#{Rails.root.to_s}/private"
-
   def prepare
     self.nature_code = self.template.code if self.template
   end
@@ -77,7 +75,8 @@ class Document < ActiveRecord::Base
   def path(strict=true)
     code = self.nature_code
     code.gsub!(/\*/, '') unless strict
-    "#{DIRECTORY}/#{self.company.code}/#{code}/#{self.subdir}"
+    # File.join(self.company.private_directory, "documents", code, self.subdir)
+    File.join(self.company.private_directory, code, self.subdir)
   end
 
   def file_path(strict=true)
