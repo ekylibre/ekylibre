@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
   def self.up 
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade

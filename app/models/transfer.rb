@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -38,6 +38,7 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
+
 
 class Transfer < ActiveRecord::Base
   acts_as_accountable :callbacks=>false
@@ -76,7 +77,7 @@ class Transfer < ActiveRecord::Base
   def to_accountancy(action=:create, options={})
     #     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
     #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
-    #       entry.add_credit(tc(:payable_bills), "Compte effets à payer", self.amount)      
+    #       entry.add_credit(tc(:payable_bills), "???Compte effets a payer", self.amount)      
     #     end
   end
 

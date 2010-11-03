@@ -1,3 +1,4 @@
+# coding: utf-8
 # Dyta
 module Ekylibre
   module Dyke

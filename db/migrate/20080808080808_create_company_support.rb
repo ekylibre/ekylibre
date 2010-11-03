@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CreateCompanySupport < ActiveRecord::Migration
   def self.up
     # Session

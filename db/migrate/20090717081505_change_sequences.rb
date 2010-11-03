@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ChangeSequences < ActiveRecord::Migration
   def self.up
     remove_column :sequences, :increment

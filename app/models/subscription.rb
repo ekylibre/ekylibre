@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
+
 
 class Subscription < ActiveRecord::Base
   belongs_to :company
@@ -129,7 +130,7 @@ class Subscription < ActiveRecord::Base
     self
   end
 
-  # TODO: Changer le nom de la méthode
+  # TODO: Change method name
 #  def natura
 #    self.nature||(self.product ? self.product.subscription_nature : 'unknown_nature')
 #  end

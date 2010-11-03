@@ -1,9 +1,11 @@
+# -*- coding: utf-8 -*-
+
 # = Informations
 # 
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,6 +35,7 @@
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
+
 
 class Company < ActiveRecord::Base
   has_many :accounts, :order=>:number

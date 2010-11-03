@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple ERP
-# Copyright (C) 2009 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -454,7 +454,7 @@ module ApplicationHelper
       stylesheet_link_tag('calendar')).html_safe
   end
 
-  # <p><label for="issue_start_date">Début</label>
+  # <p><label for="issue_start_date">Start</label>
   # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
   # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
   # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>

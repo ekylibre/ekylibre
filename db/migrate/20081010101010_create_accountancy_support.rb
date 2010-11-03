@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CreateAccountancySupport < ActiveRecord::Migration
   def self.up
     # Currency

@@ -27,6 +27,7 @@ module AnnotateModels
   # each column. The line contains the column name,
   # the type (and length), and any optional attributes
   def self.get_schema_info(klass, header)
+    # info = "# #{PREFIX}\n"
     info = header.gsub(/^/, '# ') # "# #{header}\n#\n"
     info << "# == Table: #{klass.table_name}\n#\n"
     #    info << "# Table name: #{klass.table_name}\n#\n"
@@ -53,6 +54,7 @@ module AnnotateModels
       info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
     end
 
+    # info << "#coding: utf-8 \n"
     info << "#\n"
   end
 
@@ -103,12 +105,16 @@ module AnnotateModels
       # Remove old schema info
 
       # old_prefix = "== Schema Information"
-      content.gsub!(/^#\n\n#/, '#')
+      # content.gsub!(/^#\n\n#/, '#')
+
       # content.sub!(/^# #{old_prefix}.*?\n(#.*\n)*\n/, '')
-      content.sub!(/^# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
+      # content.sub!(/# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
+      # content.sub!(/# #{PREFIX}.*?\n(#.*\n)*\n+/, '')
+      content = "# #{PREFIX}\n"+content unless content.match(PREFIX)
 
       # Write it back
-      File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
+      # File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
+      File.open(file_name, "w") { |f| f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block) }
     end
   end
   
@@ -156,7 +162,7 @@ module AnnotateModels
     header = PREFIX.dup
 
     header << "\n\n== License\n\n"
-    header << "Ekylibre - Simple ERP\nCopyright (C) 2009-#{Date.today.year} Brice Texier, Thibaud Mérigon\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
+    header << "Ekylibre - Simple ERP\nCopyright (C) 2009-#{Date.today.year} Brice Texier, Thibaud Merigon\n\nThis program is free software: you can redistribute it and/or modify\nit under the terms of the GNU General Public License as published by\nthe Free Software Foundation, either version 3 of the License, or\nany later version.\n\nThis program is distributed in the hope that it will be useful,\nbut WITHOUT ANY WARRANTY; without even the implied warranty of\nMERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\nGNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License\nalong with this program.  If not, see http://www.gnu.org/licenses.\n\n"
 
     version = ActiveRecord::Migrator.current_version rescue 0
 #    if version > 0

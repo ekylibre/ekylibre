@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,6 +39,7 @@
 #  with_commission         :boolean          not null
 #  with_deposit            :boolean          not null
 #
+
 
 class IncomingPaymentMode < ActiveRecord::Base
   acts_as_list

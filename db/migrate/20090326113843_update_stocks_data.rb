@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UpdateStocksData < ActiveRecord::Migration
   def self.up
     add_column :purchase_orders, :planned_on, :date

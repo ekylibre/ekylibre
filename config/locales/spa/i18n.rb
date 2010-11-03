@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 { :spa=>{
     :i18n=>{
       :dir=>'ltr',

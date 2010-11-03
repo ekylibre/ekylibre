@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class CreateEntityCategories < ActiveRecord::Migration
   def self.up
     add_column :sale_order_lines, :price_amount, :decimal, :precision=>16, :scale=>2

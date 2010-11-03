@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 { :eng=>{
     :i18n=>{
       :dir=>'ltr',

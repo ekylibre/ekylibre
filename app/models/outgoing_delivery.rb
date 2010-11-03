@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,6 +43,7 @@
 #  updater_id        :integer          
 #  weight            :decimal(16, 4)   
 #
+
 
 class OutgoingDelivery < ActiveRecord::Base
   attr_readonly :company_id, :sales_order_id, :number

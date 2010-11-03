@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 { :arb=>{
     :i18n=>{
       :dir=>'rtl',

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 def annotate_one_file(file_name, info_block)
   puts "------------------------- "+ file_name.inspect
   unless File.exist?(file_name)
