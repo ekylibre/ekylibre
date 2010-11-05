@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ActsAsCheckableTest < ActiveSupport::TestCase
+class ActsAsProtectedTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

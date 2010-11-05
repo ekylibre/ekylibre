@@ -51,7 +51,7 @@ class Journal < ActiveRecord::Base
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
   # this method is called before creation or validation method.
-  def prepare
+  before_validation do
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
     if self.closed_on.blank?
@@ -65,7 +65,7 @@ class Journal < ActiveRecord::Base
     self.code = self.code[0..3]
   end
 
-  def check
+  validate do
     valid = false
     for financial_year in self.company.financial_years
       valid = true if self.closed_on == financial_year.started_on-1
@@ -75,7 +75,7 @@ class Journal < ActiveRecord::Base
     end
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.entries.size <= 0 and self.entry_lines.size <= 0 and self.cashes.size <= 0
   end
 

@@ -58,7 +58,7 @@ class OperationLine < ActiveRecord::Base
   @@directions = ["in", "out"]
   validates_inclusion_of :direction, :in => @@directions
 
-  def prepare
+  before_validation do
     self.direction = @@directions[0] unless @@directions.include? self.direction
     self.quantity = self.quantity.to_f
     self.unit_id ||= self.product.unit_id if self.product

@@ -62,7 +62,7 @@ class StockMove < ActiveRecord::Base
   
   validates_presence_of :generated, :stock_id, :company_id, :product_id, :warehouse_id, :stock_id, :quantity, :unit_id
 
-  def prepare
+  before_validation do
     self.generated = false if self.generated.nil?
     self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
     self.stock = Stock.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?

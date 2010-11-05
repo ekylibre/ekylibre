@@ -85,7 +85,7 @@ class ManagementController < ApplicationController
       dir = "#{Rails.root.to_s}/public/images/gruff/#{@current_company.code}"
       @graph = "management-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
       
-      File.makedirs dir unless File.exists? dir
+      FileUtils.mkdir_p dir unless File.exists? dir
       g.write(dir+"/"+@graph)
 
     elsif params[:export]
@@ -1050,7 +1050,7 @@ class ManagementController < ApplicationController
     t.column :check_number
     t.column :to_bank_on
     # t.column :label, :through=>:responsible
-    t.action :outgoing_payment_update, :if=>"RECORD.updatable\?"
+    t.action :outgoing_payment_update, :if=>"RECORD.updateable\?"
     t.action :outgoing_payment_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 

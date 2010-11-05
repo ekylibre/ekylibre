@@ -62,11 +62,11 @@ class Account < ActiveRecord::Base
 
 
   # This method allows to create the parent accounts if it is necessary.
-  def prepare
+  before_validation do
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
   end
 
-  def destroyable?
+  protect_on_destroy do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).size

@@ -49,7 +49,7 @@ class Currency < ActiveRecord::Base
 
   # Update the rates for all currencies of the company
   # if the reference (by_default) currency changes.
-  def clean_on_update
+  after_validation(:on=>:update) do
     if (old = self.class.find_by_id(self.id))
       # If user thinks he needs to change the rate to 1 when he sets the currency by default
       # the conversions will be inefficients so to prevents this, it gets the old value

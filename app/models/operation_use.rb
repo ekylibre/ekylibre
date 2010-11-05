@@ -39,11 +39,11 @@ class OperationUse < ActiveRecord::Base
   belongs_to :tool
   validates_uniqueness_of :tool_id, :scope=>[:operation_id]
 
-  def prepare
+  before_validation do
     self.company_id = self.operation.company_id if self.operation
   end
 
-  def check
+  validate do
     if self.operation and self.tool
       errors.add_to_base(:company_error) unless self.operation.company_id == self.tool.company_id
     end

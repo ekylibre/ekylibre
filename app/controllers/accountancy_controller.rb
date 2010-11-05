@@ -792,7 +792,7 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_entry_update, :if=>'RECORD.updatable? '
+    t.action :journal_entry_update, :if=>'RECORD.updateable? '
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   
@@ -803,7 +803,7 @@ class AccountancyController < ApplicationController
     t.column :draft
     t.column :debit
     t.column :credit
-    t.action :journal_entry_update, :if=>'RECORD.updatable? '
+    t.action :journal_entry_update, :if=>'RECORD.updateable? '
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
@@ -979,7 +979,7 @@ class AccountancyController < ApplicationController
 
   def journal_entry_update
     return unless @journal_entry = find_and_check(:journal_entry)
-    unless @journal_entry.updatable?
+    unless @journal_entry.updateable?
       notify(:journal_entry_already_validated, :error)
       redirect_to_back
       return

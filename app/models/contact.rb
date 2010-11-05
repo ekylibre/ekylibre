@@ -64,7 +64,7 @@ class Contact < ActiveRecord::Base
 
   validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>Proc.new{|c| !c.email.blank?}
 
-  def prepare
+  before_validation do
     if self.entity
       self.by_default = true if self.entity.contacts.size <= 0
       self.company_id = self.entity.company_id
@@ -85,7 +85,7 @@ class Contact < ActiveRecord::Base
   end
 
   # Each contact have a distinct code for a precise company.  
-  def prepare_on_create    
+  before_validation(:on=>:create) do    
     if self.code.blank?
       self.code = 'AAAA'
       while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code]) > 0 do

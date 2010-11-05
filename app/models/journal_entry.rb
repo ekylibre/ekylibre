@@ -65,7 +65,7 @@ class JournalEntry < ActiveRecord::Base
   validates_numericality_of :currency_rate, :greater_than=>0
 
   #
-  def prepare
+  before_validation do
     if self.journal
       self.company_id  = self.journal.company_id 
       self.currency_id = self.journal.currency_id
@@ -89,13 +89,13 @@ class JournalEntry < ActiveRecord::Base
     end
   end 
   
-  def check_on_update
+  validate(:on=>:update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
   end
   
   #
-  def check
+  validate do
     return unless self.created_on
     if self.journal
       if self.printed_on <= self.journal.closed_on
@@ -118,11 +118,11 @@ class JournalEntry < ActiveRecord::Base
     JournalEntryLine.update_all({:draft=>self.draft}, ["entry_id = ? AND draft != ? ", self.id, self.draft])
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  def updatable?
+  protect_on_update do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 

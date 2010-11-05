@@ -52,7 +52,7 @@ class Tax < ActiveRecord::Base
   validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
 
 
-  def destroyable?
+  protect_on_destroy do
     self.prices.size <= 0 and self.sales_order_lines.size <= 0
   end
   

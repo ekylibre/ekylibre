@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # = Informations
 # 
 # == License
@@ -61,14 +63,14 @@ class Unit < ActiveRecord::Base
     }
   end
 
-  def prepare
+  before_validation do
     self.name.strip!
     self.coefficient ||= 1
     self.start ||= 0
     return true
   end
 
-  def check
+  validate do
     self.base.to_s.split(/[\.\s]+/).each do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
@@ -127,7 +129,7 @@ class Unit < ActiveRecord::Base
     self.class.convert(measure, self, unit)
   end
 
-  def destroyable?
+  protect_on_destroy do
     return false
   end
 

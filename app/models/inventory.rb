@@ -44,7 +44,7 @@ class Inventory < ActiveRecord::Base
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
 
-  def prepare
+  before_validation do
     self.created_on ||= Date.today
   end
 

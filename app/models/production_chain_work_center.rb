@@ -55,7 +55,7 @@ class ProductionChainWorkCenter < ActiveRecord::Base
     @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
   end
 
-  def prepare
+  before_validation do
     self.company_id = self.production_chain.company_id
   end
 

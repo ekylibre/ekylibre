@@ -1,5 +1,3 @@
-require "config/environment"
-
 MODEL_DIR   = File.join(Rails.root.to_s, "app/models")
 FIXTURE_DIR = File.join(Rails.root.to_s, "test/fixtures")
 UNIT_DIR = File.join(Rails.root.to_s, "test/unit")
@@ -169,21 +167,34 @@ module AnnotateModels
 #      header << "\n# Schema version: #{version}"
 #    end
     
+    print " - Annotations: "
+    errors = []
     self.get_model_names.each do |m|
       class_name = m.sub(/\.rb$/,'').camelize
       begin
         klass = class_name.split('::').inject(Object){ |klass,part| klass.const_get(part) }
         if klass < ActiveRecord::Base && !klass.abstract_class?
-          puts "Annotating #{class_name}"
+          # puts "Annotating #{class_name}"
+          # print "."
           self.annotate(klass, header)
         else
-          puts "Skipping #{class_name}"
+          # print "S"
         end
       rescue Exception => e
-        puts "Unable to annotate #{class_name}: #{e.message}"
+        # print "F"
+        errors << "Unable to annotate #{class_name}: #{e.message}"
       end
-      
     end
-
+    print "#{errors.size} errors\n"
+    for error in errors
+      puts error.gsub(/^/, "     ")
+    end
   end
+
+
+end
+
+desc "Add schema information (as comments) to model files"
+task :annotations do
+   AnnotateModels.do_annotations
 end

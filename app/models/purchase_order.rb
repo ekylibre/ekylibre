@@ -100,7 +100,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   ## shipped used as received
 
-  def prepare
+  before_validation do
     self.created_on ||= Date.today
     self.paid_amount = self.payment_uses.sum(:amount)||0
     if self.number.blank?
@@ -115,7 +115,7 @@ class PurchaseOrder < ActiveRecord::Base
     return true
   end
   
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.purchase_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
     return true
@@ -173,11 +173,11 @@ class PurchaseOrder < ActiveRecord::Base
     ''
   end
 
-  def destroyable?
-    self.updatable?
+  protect_on_destroy do
+    self.updateable?
   end
 
-  def updatable?
+  protect_on_update do
     # return false if self.unpaid_amount.zero? and self.shipped
     return true
   end

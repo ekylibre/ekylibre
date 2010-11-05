@@ -41,7 +41,7 @@ class OutgoingPaymentMode < ActiveRecord::Base
   belongs_to :company
   has_many :payments, :class_name=>OutgoingPayment.name, :foreign_key=>:mode_id
 
-  def destroyable?
+  protect_on_destroy do
     self.payments.size.zero?
   end
 

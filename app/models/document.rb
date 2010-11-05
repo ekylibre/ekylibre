@@ -42,9 +42,6 @@
 #  updater_id    :integer          
 #
 
-
-require 'ftools'
-
 class Document < ActiveRecord::Base
   belongs_to :company
   belongs_to :owner, :polymorphic=>true
@@ -56,7 +53,7 @@ class Document < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  def prepare
+  before_validation do
     self.nature_code = self.template.code if self.template
   end
 

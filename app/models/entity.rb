@@ -110,7 +110,7 @@ class Entity < ActiveRecord::Base
   validates_uniqueness_of :code, :scope=>:company_id
 
 
-  def prepare
+  before_validation do
     self.webpass = User.give_password(8, :normal) if self.webpass.blank?
     self.soundex = self.last_name.soundex2 if !self.last_name.nil?
     self.first_name = self.first_name.to_s.strip
@@ -139,7 +139,7 @@ class Entity < ActiveRecord::Base
   
 
   #
-  def check
+  validate do
     if self.nature 
       if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
         errors.add(:last_name, :missing_title, :title=>self.nature.title)
@@ -150,13 +150,13 @@ class Entity < ActiveRecord::Base
     end
   end
     
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("relations.entities.numeration").value
     self.code = specific_numeration.next_value unless specific_numeration.nil?
     # raise Exception.new [specific_numeration, code].inspect
   end
 
-  def destroyable?
+  protect_on_destroy do
     #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
     return false if self.id == self.company.entity.id
   end

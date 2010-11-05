@@ -46,14 +46,14 @@ class BankStatement < ActiveRecord::Base
   has_many :journal_entries, :dependent=>:nullify
 
 
-  def prepare
+  before_validation do
     self.company_id = self.cash.company_id if self.cash
     self.debit  = self.journal_entries.sum(:debit)
     self.credit = self.journal_entries.sum(:credit)
   end
 
   # A bank account statement has to contain all the planned records.
-  def check    
+  validate do    
     errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
   end
 

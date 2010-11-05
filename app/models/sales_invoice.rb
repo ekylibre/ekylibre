@@ -69,7 +69,7 @@ class SalesInvoice < ActiveRecord::Base
 
   attr_readonly :company_id, :number, :created_on, :sales_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
 
-  def prepare
+  before_validation do
     self.created_on = Date.today unless self.created_on.is_a? Date
     if self.number.blank?
       last = self.client.sales_invoices.find(:first, :order=>"number desc")
@@ -88,7 +88,7 @@ class SalesInvoice < ActiveRecord::Base
     self.currency_id ||= self.sales_order.currency_id if self.sales_order
   end
   
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.payment_on ||= self.payment_delay.compute if self.payment_delay
     self.payment_on ||= Date.today
     if self.credit and self.origin
@@ -101,7 +101,7 @@ class SalesInvoice < ActiveRecord::Base
     end
   end
   
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.sales_invoices.numeration").value
     if not specific_numeration.nil?
       self.number = specific_numeration.next_value

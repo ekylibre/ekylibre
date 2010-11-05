@@ -59,12 +59,12 @@ class Operation < ActiveRecord::Base
 
   attr_readonly :company_id
  
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.company_id = self.production_chain_work_center.company_id if self.production_chain_work_center
     self.started_at = Time.now if self.started_at.nil?
   end
 
-  def prepare
+  before_validation do
     self.duration = (self.min_duration.to_i + (self.hour_duration.to_i)*60 )
   end
 
@@ -140,7 +140,7 @@ class Operation < ActiveRecord::Base
     end
   end
 
-  def updatable?
+  protect_on_update do
     self.production_chain_work_center.nil?
   end
 

@@ -23,6 +23,10 @@ class AuthenticationControllerTest < ActionController::TestCase
       assert_template "login"
       post :login, :name=>'wrong', :password=>'secret'
       assert_template "login"
+      post :login, :name=>'Mikmak', :password=>'secret'
+      assert_template "login"
+      post :login, :name=>'mikmak', :password=>'Secret'
+      assert_template "login"
     end
     
   end

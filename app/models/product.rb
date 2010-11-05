@@ -98,7 +98,7 @@ class Product < ActiveRecord::Base
   #validates_presence_of :product_account_id
   #validates_presence_of :charge_account_id
 
-  def prepare
+  before_validation do
     self.code = self.name.codeize.upper if self.code.blank?
     self.code = self.code[0..7]
     if self.company_id

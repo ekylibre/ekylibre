@@ -54,7 +54,7 @@ class IncomingDelivery < ActiveRecord::Base
 
   validates_presence_of :planned_on
 
-  def prepare
+  before_validation do
     self.company_id = self.purchase_order.company_id if self.purchase_order
     if self.number.blank?
       last = self.company.incoming_deliveries.find(:first, :order=>"number desc")
@@ -69,7 +69,7 @@ class IncomingDelivery < ActiveRecord::Base
     return true
   end
 
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.incoming_deliveries.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end

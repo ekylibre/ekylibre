@@ -43,7 +43,7 @@ class ProductCategory < ActiveRecord::Base
   has_many :products
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def prepare
+  before_validation do
     self.catalog_name = self.name if self.catalog_name.blank?
   end
 

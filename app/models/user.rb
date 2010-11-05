@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # = Informations
 # 
 # == License
@@ -89,7 +91,7 @@ class User < ActiveRecord::Base
     def useful_rights; @@useful_rights; end
   end
   
-  def prepare
+  before_validation do
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
       self.language = self.company.preference('general.language').value if self.language.blank?
@@ -99,7 +101,7 @@ class User < ActiveRecord::Base
     self.rights_array=self.rights_array # Clean the rights
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.events.size <= 0 and self.sales_orders.size <= 0 and self.operations.size <= 0 and self.transports.size <= 0
   end
 
@@ -184,7 +186,7 @@ class User < ActiveRecord::Base
     self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
   
-  def destroyable?
+  protect_on_destroy do
     self.company.users.count > 1
   end
 
@@ -207,10 +209,14 @@ class User < ActiveRecord::Base
   def self.generate_password(password_length=8, mode=:normal)
     return '' if password_length.blank? or password_length<1
     case mode
-      when :dummy  : letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-      when :simple : letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-      when :normal : letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-      else           letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < >)
+    when :dummy then 
+      letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
+    when :simple then 
+      letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
+    when :normal then 
+      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
+    else           
+      letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < >)
     end
     letters_length = letters.length
     password = ''

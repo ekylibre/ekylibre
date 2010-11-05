@@ -55,7 +55,7 @@ class ProductionChainConveyor < ActiveRecord::Base
     @@check_events.collect{|x| [tc("check_events.#{x}"), x.to_s]}
   end
 
-  def prepare
+  before_validation do
     self.company_id = self.production_chain.company_id if self.production_chain
     self.unit ||= self.product.unit if self.product
     self.target_quantity = 0 unless self.target

@@ -46,7 +46,7 @@ class CustomFieldDatum < ActiveRecord::Base
   belongs_to :entity
   validates_uniqueness_of :custom_field_id, :scope=>[:company_id, :entity_id]
 
-  def check
+  validate do
     if custom_field = self.custom_field
       self.company_id = self.custom_field.company_id
       errors.add_to_base(:required, :field=>custom_field.name) if custom_field.required and self.value.blank?

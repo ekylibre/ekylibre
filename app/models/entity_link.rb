@@ -43,7 +43,7 @@ class EntityLink < ActiveRecord::Base
   belongs_to :entity_2, :class_name=>Entity.name, :dependent=>:destroy
   belongs_to :nature, :class_name=>EntityLinkNature.name
 
-  def prepare
+  before_validation do
     self.started_on ||= Date.today
   end
 

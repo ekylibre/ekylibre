@@ -99,7 +99,7 @@ class ListingNode < ActiveRecord::Base
     :in=>"{{COLUMN}} IN {{LIST}}" 
   }
   
-  def prepare
+  before_validation do
     self.listing_id = self.parent.listing_id if self.parent
     self.company_id = self.listing.company_id if self.listing
 
@@ -115,7 +115,7 @@ class ListingNode < ActiveRecord::Base
     end
   end 
 
-  def prepare_on_create
+  before_validation(:on=>:create) do
     if self.reflection?
       for node in listing.nodes
         if node = self.listing.nodes.find(:first, :conditions=>{:name=>self.name})
@@ -125,7 +125,7 @@ class ListingNode < ActiveRecord::Base
     end
   end
 
-  def check
+  validate do
     errors.add(:condition_operator, :inclusion) unless self.condition_operator.blank? or (@@corresponding_comparators.keys+[:any]).include?(self.condition_operator.to_sym)
   end
 

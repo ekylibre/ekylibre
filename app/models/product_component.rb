@@ -48,7 +48,7 @@ class ProductComponent < ActiveRecord::Base
 
   autosave :product
 
-  def prepare
+  before_validation do
     if self.quantity >= 2
       self.name = self.quantity.to_s+" "+self.component.unit.label+"s "+tc('of_product')+" "+self.component.name.to_s
     else
@@ -56,7 +56,7 @@ class ProductComponent < ActiveRecord::Base
     end
   end
   
-  def prepare_on_create    
+  before_validation(:on=>:create) do    
     self.active = true
     self.started_at = Time.now
   end

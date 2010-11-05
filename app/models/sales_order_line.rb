@@ -75,7 +75,7 @@ class SalesOrderLine < ActiveRecord::Base
   validates_presence_of :price_id
 
   
-  def prepare
+  before_validation do
     # check_reservoir = true
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
@@ -138,7 +138,7 @@ class SalesOrderLine < ActiveRecord::Base
   end
 
 
-  def check
+  validate do
     if self.warehouse
       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
       if self.tracking

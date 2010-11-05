@@ -79,13 +79,13 @@ class DocumentTemplate < ActiveRecord::Base
   include ActionView::Helpers::NumberHelper
 
 
-  def prepare
+  before_validation do
     self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
     self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
   end
 
-  def check
+  validate do
     errors.add(:source, :invalid) if self.cache.blank?
     if self.nature != "other"
       syntax_errors = self.filename_errors
@@ -97,7 +97,7 @@ class DocumentTemplate < ActiveRecord::Base
     DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if by_default||self.by_default and self.nature != 'other'
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.documents.size <= 0
   end
 
@@ -211,7 +211,7 @@ class DocumentTemplate < ActiveRecord::Base
     document.sha256 = Digest::SHA256.hexdigest(data)
     document.crypt_mode = 'none'
     if document.save
-      File.makedirs(document.path)
+      FileUtils.mkdir_p(document.path)
       File.open(document.file_path, 'wb') {|f| f.write(data) }
     else
       raise Exception.new(document.errors.inspect)
@@ -272,7 +272,7 @@ class DocumentTemplate < ActiveRecord::Base
     code << "x = doc.generate\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     
-    return PREAMBLE+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+    return PREAMBLE+"# -*- coding: utf-8 -*-\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 
 
@@ -349,7 +349,8 @@ class DocumentTemplate < ActiveRecord::Base
       when :resize, :fixed, :bold, :italic then
         v.lower == "true" ? "true" : "false"
       when :value, :label
-        v = v.inspect.gsub(/\{\{[^\}]+\}\}/) do |m|
+        v = "'"+v.gsub(/\'/, '\\\\\'')+"'"
+        v = v.gsub(/\{\{[^\}]+\}\}/) do |m|
           data = m[2..-3].to_s.split('?')
           datum = data[0].gsub('/', '.')
           datum = case data[1].to_s.split('=')[0]
@@ -360,17 +361,17 @@ class DocumentTemplate < ActiveRecord::Base
                   else
                     datum
                   end
-          (mode==:debug ? "[VALUE]" : "\"+#{datum}.to_s+\"")
+          (mode==:debug ? "[VALUE]" : "'+#{datum}.to_s+'")
         end
-        v = v[3..-1] if v.match(/^\"\"\+/)
-        v = v[0..-4] if v.match(/\+\"\"$/)
+        v = v[3..-1] if v.match(/^\'\'\+/)
+        v = v[0..-4] if v.match(/\+\'\'$/)
         v
       when :path
         '['+v.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'}.join(', ')+']'
       when :variable
         v.to_s.strip
       else
-        v.inspect
+        "'"+v.gsub(/\'/, '\\\\\'')+"'"
       end
     end
 
@@ -418,7 +419,7 @@ class DocumentTemplate < ActiveRecord::Base
         code += "do |#{nvar}|\n"+children+"end" unless children.blank?
       end
 
-      # Encapsulation si condition
+      # Encapsulation if condition
       code = "if #{element.attributes['if'].to_s.gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if'] and mode != :debug
       code += "\n"
       code.gsub(/^/, '  ')

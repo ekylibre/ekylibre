@@ -60,7 +60,7 @@ class SalesInvoiceLine < ActiveRecord::Base
 
   attr_readonly :company_id, :sales_invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id
   
-  def prepare
+  before_validation do
     self.company_id = self.sales_invoice.company_id if self.sales_invoice
     self.product = self.order_line.product
     self.price_id = self.order_line.price.id
@@ -71,7 +71,7 @@ class SalesInvoiceLine < ActiveRecord::Base
     end
   end
   
-  def check
+  validate do
     unless self.origin_id.nil?
       if self.origin.quantity > 0
         errors.add(:quantity) if -self.quantity > self.origin.quantity

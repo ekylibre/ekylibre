@@ -39,7 +39,7 @@ class EventNature < ActiveRecord::Base
   belongs_to :company
   has_many :events, :foreign_key=>:nature_id
 
-  def destroyable?
+  protect_on_destroy do
     self.events.size <= 0 
   end
 

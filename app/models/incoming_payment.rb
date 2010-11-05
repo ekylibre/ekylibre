@@ -74,7 +74,7 @@ class IncomingPayment < ActiveRecord::Base
   validates_presence_of :to_bank_on, :payer, :created_on
   validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
   
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
     specific_numeration = self.company.preference("management.incoming_payments.numeration")
@@ -89,7 +89,7 @@ class IncomingPayment < ActiveRecord::Base
     true
   end
 
-  def prepare
+  before_validation do
     if self.mode
       self.commission_account ||= self.mode.commission_account
       self.commission_amount ||= self.mode.commission_amount(self.amount)
@@ -97,7 +97,7 @@ class IncomingPayment < ActiveRecord::Base
     self.used_amount = self.uses.sum(:amount)
   end
 
-  def check
+  validate do
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
   
@@ -153,7 +153,7 @@ class IncomingPayment < ActiveRecord::Base
     end
   end
   
-  def updatable?
+  protect_on_update do
     self.deposit.nil? or not self.deposit.locked
   end
 

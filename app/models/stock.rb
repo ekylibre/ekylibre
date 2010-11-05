@@ -52,7 +52,7 @@ class Stock < ActiveRecord::Base
   
   validates_presence_of :unit_id
   
-  def prepare
+  before_validation do
     self.unit_id ||= self.product.unit_id
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
     self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
@@ -61,7 +61,7 @@ class Stock < ActiveRecord::Base
     self.warehouse_id = warehouses[0].id if warehouses.size == 1
   end
 
-  def check 
+  validate do 
     if self.warehouse
       errors.add_to_base(:product_cannot_be_in_warehouse, :warehouse=>self.warehouse.name) unless self.warehouse.can_receive(self.product_id)
     end

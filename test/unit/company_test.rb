@@ -69,8 +69,12 @@ class CompanyTest < ActiveSupport::TestCase
             @company.print(:id=>template.code)
           end        
         end
-        assert_nothing_raised do
+        code = ""
+        assert_nothing_raised(template.source) do
           code = DocumentTemplate.compile(template.source, :debug)
+        end
+        # puts code
+        assert_nothing_raised(code) do
           eval(code)
         end
       end

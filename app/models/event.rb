@@ -47,7 +47,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :responsible_id, :nature_id, :entity
   attr_readonly :company_id
 
-  def prepare
+  before_validation do
     self.started_sec = self.started_at.to_i
   end
 

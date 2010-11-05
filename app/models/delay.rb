@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # = Informations
 # 
 # == License
@@ -45,12 +47,12 @@ class Delay < ActiveRecord::Base
 
   DELAY_SEPARATOR = ', '
 
-  def prepare
+  before_validation do
     self.expression = self.expression.squeeze(" ").lower
     self.expression.split(/\s*\,\s*/).collect{|x| x.strip}.join(DELAY_SEPARATOR)
   end
 
-  def check
+  validate do
     errors.add(:expression, :invalid) if self.compute(Date.today).nil?
   end
 

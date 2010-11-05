@@ -56,12 +56,12 @@ class IncomingPaymentMode < ActiveRecord::Base
   validates_presence_of :depositables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash_id
 
-  def prepare
+  before_validation do
     self.depositables_account = nil unless self.with_deposit?
     return true
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.payments.size <= 0
   end  
 

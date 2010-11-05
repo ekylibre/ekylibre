@@ -85,7 +85,7 @@ class TaxDeclaration < ActiveRecord::Base
   end
 
   # this method allows to verify the different characteristics of the tax declaration.
-  def check
+  validate do
     errors.add_to_base(:one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
     
     errors.add(:started_on, :overlapped_period_declaration) if self.company.tax_declarations.find(:first, :conditions=>["? BETWEEN started_on AND stopped_on", self.started_on]) 

@@ -41,13 +41,13 @@ class EntityCategory < ActiveRecord::Base
   has_many :prices, :foreign_key=>:category
   validates_uniqueness_of :code, :scope=>:company_id
 
-  def prepare
+  before_validation do
     EntityCategory.update_all({:by_default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.by_default
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.entities.size <= 0 and self.prices.size <= 0
   end
   

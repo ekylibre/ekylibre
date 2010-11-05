@@ -60,7 +60,7 @@ class JournalEntryLine < ActiveRecord::Base
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
   #
-  def prepare
+  before_validation do
     self.name = self.name.to_s[0..254]
     # computes the values depending on currency rate
     # for debit and credit.
@@ -82,14 +82,14 @@ class JournalEntryLine < ActiveRecord::Base
     end
   end
     
-  def check_on_update
+  validate(:on=>:update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
   end
 
   #
-  def check
-    unless self.updatable?
+  validate do
+    unless self.updateable?
       errors.add_to_base :closed_entry_line 
       return
     end
@@ -103,11 +103,11 @@ class JournalEntryLine < ActiveRecord::Base
     return self.closed?
   end
 
-  def updatable?
-    not self.closed? and self.entry.updatable?
+  protect_on_update do
+    not self.closed? and self.entry.updateable?
   end
 
-  def destroyable?
+  protect_on_destroy do
     !self.closed?
   end
 

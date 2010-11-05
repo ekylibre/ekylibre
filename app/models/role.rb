@@ -38,11 +38,11 @@ class Role < ActiveRecord::Base
   has_many :users
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def prepare
+  before_validation do
     self.rights_array=self.rights_array # Clean the rights
   end
 
-  def clean_on_update
+  after_validation(:on=>:update) do
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id_and_company_id(self.id, self.company_id).rights.to_s.split(" ")
@@ -87,7 +87,7 @@ class Role < ActiveRecord::Base
     self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.users.size <= 0
   end
 

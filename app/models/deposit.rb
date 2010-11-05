@@ -55,7 +55,7 @@ class Deposit < ActiveRecord::Base
 
   validates_presence_of :responsible, :number, :cash
 
-  def prepare_on_create
+  before_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.deposits.numeration")
     if specific_numeration and specific_numeration.value
       self.number = specific_numeration.value.next_value
@@ -65,12 +65,12 @@ class Deposit < ActiveRecord::Base
     end
   end
 
-  def prepare_on_update
+  before_validation(:on=>:update) do
     self.payments_count = self.payments.count
     self.amount = self.payments.sum(:amount)
   end
 
-  def check
+  validate do
     if self.cash
       error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
     end

@@ -48,7 +48,7 @@ class LandParcel < ActiveRecord::Base
   has_many :child_kinships, :class_name=>LandParcelKinship.name, :foreign_key=>:parent_land_parcel_id
   validates_presence_of :area_unit
 
-  def prepare
+  before_validation do
     #self.master = false if self.master.nil?
     #self.polygon ||= "-"
     self.started_on ||= Date.today

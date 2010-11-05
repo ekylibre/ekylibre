@@ -45,11 +45,11 @@ class SubscriptionNature < ActiveRecord::Base
 
   validates_numericality_of :reduction_rate, :greater_than_or_equal_to=>0, :less_than_or_equal_to=>1
 
-  def prepare
+  before_validation do
     self.reduction_rate ||= 0
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.subscriptions.size <= 0 and self.products.size <= 0
   end
 

@@ -59,7 +59,7 @@ class OutgoingPayment < ActiveRecord::Base
   validates_presence_of :to_bank_on, :created_on
 
 
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.created_on ||= Date.today
     specific_numeration = self.company.preference("management.outgoing_payments.numeration")
     if specific_numeration and specific_numeration.value
@@ -71,20 +71,20 @@ class OutgoingPayment < ActiveRecord::Base
     true
   end
 
-  def prepare
+  before_validation do
     self.used_amount = self.uses.sum(:amount)
   end
 
-  def check
+  validate do
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
 
-  def updatable?
+  protect_on_update do
     return (self.journal_entry ? !self.journal_entry.closed? : true)
   end
 
-  def destroyable?
-    updatable? and self.used_amount.zero?
+  protect_on_destroy do
+    updateable? and self.used_amount.zero?
   end
 
   def label

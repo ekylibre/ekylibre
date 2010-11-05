@@ -173,7 +173,7 @@ class Company < ActiveRecord::Base
   @@ehm = Ekylibre.models.delete_if{|x| x==:company}
   #  raise Exception.new("Models and has_many are not corresponding in Company !!!\nUnwanted: #{(@@rhm-@@ehm).inspect}\nMissing:  #{(@@ehm-@@rhm).inspect}\n") if @@rhm-@@ehm!=@@ehm-@@rhm
 
-  def prepare
+  before_validation do
     if self.code.blank?
       self.code = self.name.to_s[0..7].simpleize 
       self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
@@ -184,7 +184,7 @@ class Company < ActiveRecord::Base
     end
   end
 
-#   def clean_on_update
+#   after_validation(:on=>:update) do
 #     old = self.class.find(self.id)
 #     if old.code != self.code
       
@@ -315,10 +315,10 @@ class Company < ActiveRecord::Base
     reflection = self.class.reflections[options[:reflection].to_sym]
     raise ArgumentError.new("Unknown :reflection option with an existing reflection (#{options[:reflection].inspect})") unless reflection
     model = reflection.class_name.constantize
-    available_methods = model.instance_methods+model.columns_hash.keys
+    available_methods = (model.instance_methods+model.columns_hash.keys).collect{|x| x.to_s}
     unless label = options[:label]
-      label = [:label, :native_name, :name, :code, :inspect].detect{|x| available_methods.include?(x.to_s)}
-      raise ArgumentError.new(":label option is needed (#{options.inspect})") if label.nil?
+      label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
+      raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
     end
     find_options = {} # :conditions=>"true"}
     if options[:order]
@@ -522,7 +522,7 @@ class Company < ActiveRecord::Base
     # Extract all files in archive
     Zip::ZipFile.open(file) do |zile|
       zile.each do |entry|
-        File.makedirs(File.join(archive, entry.name.split(/[\\\/]+/)[0..-2]))
+        FileUtils.mkdir_p(File.join(archive, entry.name.split(/[\\\/]+/)[0..-2]))
         zile.extract(entry, File.join(archive, entry.name))
       end
     end
@@ -649,8 +649,8 @@ class Company < ActiveRecord::Base
       backup_files = File.join(archive, "Files")
       if File.exist?(backup_files)
         puts "R> Replacing files..." if verbose
-        File.move files_dir, files_dir+'.old'
-        File.move backup_files, files_dir
+        FileUtils.mv files_dir, files_dir+'.old'
+        FileUtils.mv backup_files, files_dir
         FileUtils.rm_rf(files_dir+'.old')
       end
     end

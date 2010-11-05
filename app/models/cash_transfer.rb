@@ -60,7 +60,7 @@ class CashTransfer < ActiveRecord::Base
   validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
   validates_presence_of :receiver_amount, :emitter_amount, :created_on
 
-  def prepare
+  before_validation do
     self.created_on ||= Date.today
     self.currency ||= self.company.default_currency
 
@@ -92,7 +92,7 @@ class CashTransfer < ActiveRecord::Base
     errors.add(:receiver_cash_id, :invalid) if self.receiver_cash_id == self.emitter_cash_id
   end
 
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("accountancy.cash_transfers.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end

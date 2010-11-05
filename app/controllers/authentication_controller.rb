@@ -28,6 +28,8 @@ class AuthenticationController < ApplicationController
   end
 
   def login
+    session[:side] = false
+    session[:help] = false
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     if request.post?
       if user = User.authenticate(params[:name], params[:password], @current_company)
@@ -55,8 +57,6 @@ class AuthenticationController < ApplicationController
         end
       end
       ::I18n.locale = params[:locale]
-      session[:side] = false
-      session[:help] = false
     end
   end
 

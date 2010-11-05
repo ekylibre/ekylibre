@@ -49,7 +49,7 @@ class Transport < ActiveRecord::Base
   has_many :deliveries, :dependent=>:nullify, :class_name=>OutgoingDelivery.name
   validates_presence_of :number
 
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.created_on ||= Date.today
     if self.number.blank?
       last = self.company.sales_orders.find(:first, :order=>"number desc")
@@ -57,14 +57,14 @@ class Transport < ActiveRecord::Base
     end
   end
 
-  def prepare
+  before_validation do
     self.weight = 0
     for delivery in self.deliveries
       self.weight += delivery.weight
     end
   end
 
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.transports.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end

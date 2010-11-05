@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 # == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon

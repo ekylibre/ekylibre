@@ -61,7 +61,7 @@ class PurchaseOrderLine < ActiveRecord::Base
 
   sums :order, :lines, :amount, :amount_with_taxes
   
-  def prepare
+  before_validation do
     self.company_id = self.order.company_id if self.order
     check_reservoir = true
     self.warehouse_id = self.company.warehouses.first.id if self.company.warehouses.size == 1
@@ -100,7 +100,7 @@ class PurchaseOrderLine < ActiveRecord::Base
     check_reservoir
   end  
 
-  def check
+  validate do
     # Validate that tracking serial is not used for a different product
     producer = self.order.supplier
     unless self.tracking_serial.blank?

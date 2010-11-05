@@ -49,11 +49,11 @@ class Sequence < ActiveRecord::Base
   validates_inclusion_of :period, :in => @@periods  
   validates_uniqueness_of :format, :scope=>:company_id
 
-  def prepare
+  before_validation do
     self.period ||= 'number'
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.preferences.size <= 0
   end
 

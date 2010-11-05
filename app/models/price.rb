@@ -63,7 +63,7 @@ class Price < ActiveRecord::Base
   validates_numericality_of :amount, :greater_than_or_equal_to=>0
   validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
 
-  def prepare
+  before_validation do
     self.company_id  ||= self.product.company_id if self.product
     if self.company
       self.currency_id ||= self.company.currencies.first.id 
@@ -83,7 +83,7 @@ class Price < ActiveRecord::Base
     self.quantity_max ||= 0
   end
 
-  def check
+  validate do
     #   if self.use_range
     #       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
     #       errors.add_to_base(:range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?

@@ -124,7 +124,7 @@ class SalesOrder < ActiveRecord::Base
 
   @@natures = [:estimate, :order, :invoice]
   
-  def prepare
+  before_validation do
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
     self.paid_amount = self.payment_uses.sum(:amount)||0
@@ -160,11 +160,11 @@ class SalesOrder < ActiveRecord::Base
     true
   end
   
-  def prepare_on_create
+  before_validation(:on=>:create) do
     self.created_on = Date.today
   end
 
-  def clean_on_create
+  after_validation(:on=>:create) do
     specific_numeration = self.company.preference("management.sales_orders.numeration").value
     self.number = specific_numeration.next_value unless specific_numeration.nil?
   end

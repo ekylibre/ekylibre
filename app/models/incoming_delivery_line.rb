@@ -53,7 +53,7 @@ class IncomingDeliveryLine < ActiveRecord::Base
 
   sums :delivery, :lines, :amount, :amount_with_taxes, "(line.product.weight||0)*line.quantity"=>:weight
 
-  def prepare
+  before_validation do
     self.company_id = self.delivery.company_id if self.delivery
     if self.order_line
       self.product_id  = self.order_line.product_id
@@ -65,14 +65,14 @@ class IncomingDeliveryLine < ActiveRecord::Base
     self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
   end
   
-  def check_on_create
+  validate(:on=>:create) do
     if self.product
       maximum = self.undelivered_quantity
       errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
     end
   end
 
-  def check_on_update
+  validate(:on=>:update) do
     old_self = self.class.find(self.id)
     maximum = self.undelivered_quantity + old_self.quantity
     errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)

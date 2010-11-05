@@ -868,7 +868,7 @@ module ApplicationHelper
           url_options = {} unless url_options.is_a? Hash
           url_options[:action] = action
           url_options[:id] = args.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-update"})) if not record.respond_to?(:updatable?) or (record.respond_to?(:updatable?) and record.updatable?)
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-update"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
           action = "#{record.class.name.underscore}_#{verb}"
@@ -927,11 +927,25 @@ module ApplicationHelper
   end
 
 
-  def error_messages(*params)
-    params << {} unless params[-1].is_a? Hash
-    params[-1][:class] = "flash error"
-    params[-1][:header_tag] = "h3"
-    error_messages_for(*params)
+  def error_messages(object)
+    object = instance_variable_get("@#{object}") unless object.respond_to?(:errors)
+    return unless object.respond_to?(:errors)
+    unless object.errors.size.zero?
+      I18n.with_options :scope => [:errors, :template] do |locale|
+        header_message = locale.t :header, :count => count, :model => object.class.model_name.human
+        introduction = locale.t(:body)
+        messages = object.errors.full_messages.map do |msg|
+          content_tag(:li, msg)
+        end.join.html_safe
+        contents = ''
+        contents << content_tag(:h3, header_message) unless header_message.blank?
+        contents << content_tag(:p, introduction) unless introduction.blank?
+        contents << content_tag(:ul, messages)
+        content_tag(:div, contents.html_safe, :class=>"flash error")
+      end
+    else
+      ''
+    end
   end
 
 
@@ -964,8 +978,9 @@ module ApplicationHelper
       return id
     end
 
-    def error(*params)
-      @lines << {:nature=>:error, :params=>params}
+    # def error(*params)
+    def error(object)
+      @lines << {:nature=>:error, :object=>object}
     end
   end
 
@@ -998,7 +1013,7 @@ module ApplicationHelper
       line_code = ''
       case line[:nature]
       when :error
-        line_code += content_tag(:td, error_messages(line[:params].to_s), :class=>"error", :colspan=>xcn)
+        line_code += content_tag(:td, error_messages(line[:object]), :class=>"error", :colspan=>xcn)
       when :title
         if line[:value].is_a? Symbol
           #calls = caller
@@ -1055,7 +1070,7 @@ module ApplicationHelper
       object = record.is_a?(Symbol) ? instance_variable_get('@'+record.to_s) : record
       raise Exception.new("Object #{record.inspect} is "+object.inspect) if object.nil?
       model = object.class
-      raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.methods.include? "create"
+      raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.ancestors.include? ActiveRecord::Base # methods.include? "create"
 
       #      record = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]

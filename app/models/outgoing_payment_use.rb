@@ -48,12 +48,12 @@ class OutgoingPaymentUse < ActiveRecord::Base
 
   validates_numericality_of :amount, :greater_than=>0
 
-  def prepare
+  before_validation do
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
-  def check
+  validate do
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 

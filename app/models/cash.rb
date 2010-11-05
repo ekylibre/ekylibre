@@ -71,7 +71,7 @@ class Cash < ActiveRecord::Base
   COUNTRY_CODE_FR="FR"
 
   # before create a bank account, this computes automatically code iban.
-  def prepare
+  before_validation do
     self.mode.lower!
     self.mode = @@modes[0] if self.mode.blank?
     # raise Exception.new self.mode.inspect
@@ -86,7 +86,7 @@ class Cash < ActiveRecord::Base
   end  
   
   # IBAN have to be checked before saved.
-  def check
+  validate do
     if self.bank_account?
       if self.use_mode?(:bban)
         errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(COUNTRY_CODE_FR, self.attributes)
@@ -95,7 +95,7 @@ class Cash < ActiveRecord::Base
     end
   end
 
-  def destroyable?
+  protect_on_destroy do
     self.deposits.size <= 0 and self.bank_statements.size <= 0
   end
 

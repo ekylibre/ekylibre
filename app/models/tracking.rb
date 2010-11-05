@@ -54,7 +54,7 @@ class Tracking < ActiveRecord::Base
   validates_presence_of :name, :serial
   validates_uniqueness_of :serial, :scope=>:producer_id
 
-  def prepare
+  before_validation do
     # the name is the serial number but it leave the possibility to put a name different from the serial
     self.serial ||= self.name
     self.name ||= self.serial

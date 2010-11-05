@@ -44,7 +44,7 @@ class Area < ActiveRecord::Base
 
   attr_readonly :company_id
 
-  def prepare
+  before_validation do
     return false unless self.company
     self.name = self.name.gsub(/\s+/,' ').strip
     words = self.name.to_s.split(' ')

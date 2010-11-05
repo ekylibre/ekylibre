@@ -51,7 +51,7 @@ class Listing < ActiveRecord::Base
 #  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
   validates_format_of :query, :conditions, :with=>/^[^\;]*$/
 
-  def prepare_on_update
+  before_validation(:on=>:update) do
     self.query = self.generate
   end
 

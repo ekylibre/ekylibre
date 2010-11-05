@@ -48,18 +48,18 @@ class IncomingPaymentUse < ActiveRecord::Base
   autosave :expense, :payment
 
   cattr_reader :expense_types
-  @@expense_types = [SalesOrder.name, Transfer.name] # PurchaseOrder.name, 
+  @@expense_types = [SalesOrder.name, Transfer.name]
 
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type
 
-  def prepare
+  before_validation do
     # self.expense_type ||= self.expense.class.name
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
-  def check
+  validate do
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end

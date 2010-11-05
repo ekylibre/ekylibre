@@ -1,4 +1,5 @@
 # coding: utf-8
+
 class ::String
   MAJUSCULES = ['Á','À','Â','Ä','Å','Ã','Æ','É','È','Ê','Ë','Ì','Ï','Î','Ò','Ô','Ö','Û','Ü','Ù','Ç']
   MINUSCULES = ['á','à','â','ä','å','ã','æ','é','è','ê','ë','ì','ï','î','ò','ô','ö','û','ü','ù','ç']
@@ -11,6 +12,7 @@ class ::String
   end
 
   def translate!(from, to)
+    self.force_encoding("UTF-8") if self.respond_to? :force_encoding
     from.length.times{|x| self.gsub!(from[x], to[x])}
     self
   end

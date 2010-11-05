@@ -56,7 +56,7 @@ class Warehouse < ActiveRecord::Base
   has_many :stock_moves
   has_many :stock_transfers
 
-  def prepare_on_create
+  before_validation(:on=>:create) do
     # self.reservoir = true if !self.product_id.nil?
   end
   
@@ -85,7 +85,7 @@ class Warehouse < ActiveRecord::Base
     self.can_receive?(product_id)
   end
 
-  def destroyable?
+  protect_on_destroy do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).size

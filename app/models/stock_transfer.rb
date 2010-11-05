@@ -53,13 +53,13 @@ class StockTransfer < ActiveRecord::Base
   validates_presence_of :unit_id
   validates_presence_of :second_warehouse_id, :if=>Proc.new{|x| x.transfer?}
 
-  def prepare
+  before_validation do
     self.unit_id = self.product.unit_id if self.product
     self.moved_on =  Date.today if self.planned_on <= Date.today
     self.second_warehouse_id = nil unless self.transfer? # if self.nature == "waste"
   end
 
-  def check
+  validate do
     if !self.second_warehouse.nil?
       errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.second_warehouse.name, :product=>self.product.name, :contained_product=>self.second_warehouse.product.name) unless self.second_warehouse.can_receive(self.product_id)
     end

@@ -41,7 +41,7 @@ class EntityLinkNature < ActiveRecord::Base
   belongs_to :company
   has_many   :entity_links, :foreign_key=>:nature_id
 
-  def destroyable?
+  protect_on_destroy do
     self.entity_links.size <= 0
   end
 

@@ -40,7 +40,7 @@ class CustomFieldChoice < ActiveRecord::Base
   has_many :data, :class_name=>CustomFieldDatum.to_s
   acts_as_list :scope=>:custom_field_id
 
-  def prepare
+  before_validation do
     self.value = self.name.to_s.codeize if self.value.blank?
   end
 
