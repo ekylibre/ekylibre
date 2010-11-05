@@ -23,6 +23,8 @@
   -l.attribute :currency unless @purchase_order.currency == @current_company.default_currency
   -l.attribute :comment
   -l.attribute :delivery_contact, :label=>:address
+  -l.attribute :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
+
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("lines")

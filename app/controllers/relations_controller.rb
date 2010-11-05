@@ -240,6 +240,7 @@ class RelationsController < ApplicationController
     render_form
   end
   
+  
   def custom_field_sort
     return unless @custom_field = find_and_check(:custom_field)
     if request.post? and @custom_field
@@ -247,7 +248,9 @@ class RelationsController < ApplicationController
     end
     redirect_to_current
   end
-  
+
+  # manage_list :custom_fields, :name
+
   def custom_field_choice_up
     return unless @custom_field_choice = find_and_check(:custom_field_choice)
     if request.post? and @custom_field_choice

@@ -12,3 +12,16 @@
   %ul
     -for controller in menus[1..-1].collect{|x| x[:name]}
       =li_link_to t("actions.#{controller}.index"), :controller=>controller, :action=>:index
+
+
+-# unagi(:class=>:menu) do |u|
+  -u.cell :indicator do
+    %ul
+      =li_link_to tc('x_entities',:count=>@current_company.entities.size), :controller=>:relations, :action=>:entities
+  -u.cell :modules do
+    %ul
+      -for controller in menus[1..-1].collect{|x| x[:name]}
+        =li_link_to t("actions.#{controller}.index"), :controller=>controller, :action=>:index
+  
+  
+  

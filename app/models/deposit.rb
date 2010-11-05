@@ -105,7 +105,7 @@ class Deposit < ActiveRecord::Base
       
       entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
       for commission_account_id, commission_amount in commissions
-        entry.add_debit( label, commission_account_id.to_i, commission_amount)
+        entry.add_debit( label, commission_account_id.to_i, commission_amount) if commission_amount > 0
       end
 
       if self.company.preference("accountancy.accountize.detail_payments_in_deposits").value

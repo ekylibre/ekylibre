@@ -1,30 +1,27 @@
 =toolbar do |t|
   -t.update @cash
 
-%table
-  %tr
-    %td
-      =evalue @cash, :name
-      =evalue @cash, :nature_label
-      =evalue @cash, :journal, :url=>{:action=>:journal}
-      =evalue @cash, :account, :url=>{:action=>:account}
-    %td
-      =evalue @cash, :bank_name
-      =evalue @cash, :address
-      -if @cash.bank_account?
-        =evalue @cash, :iban_label
-        =evalue @cash, :bic
-    -if @cash.bank_account? and @cash.use_mode? :bban
-      %td
-        =evalue @cash, :bank_code
-        =evalue @cash, :agency_code
-        =evalue @cash, :number
-        =evalue @cash, :key
+=attributes_list(@cash) do |l|
+  -l.attribute :name
+  -l.attribute :nature_label
+  -l.attribute :journal, :url=>{:action=>:journal}
+  -l.attribute :account, :url=>{:action=>:account}
+  -l.attribute :bank_name
+  -l.attribute :address
+  -if @cash.bank_account?
+    -l.attribute :iban_label
+    -l.attribute :bic
+    -if @cash.use_mode? :bban
+      -l.attribute :bank_code
+      -l.attribute :agency_code
+      -l.attribute :number
+      -l.attribute :key
 
 =tabbox(:cash) do |tb|
-  -tb.tab(:deposits,     :content=>kame(:cash_deposits))
+  -tb.tab(:deposits) do
+    =kame(:cash_deposits)
   -if @cash.bank_account?
-    -tb.tab(:bank_statements) do |c|
-      -c << toolbar do
-        -link(:bank_statement_create, :cash_id=>@cash.id)
-      -c << kame(:cash_bank_statements)
+    -tb.tab(:bank_statements) do
+      =toolbar do |t|
+        -t.link(:bank_statement_create, :cash_id=>@cash.id)
+      =kame(:cash_bank_statements)

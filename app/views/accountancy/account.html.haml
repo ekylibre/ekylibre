@@ -26,6 +26,7 @@
 
 
 =tabbox(:account) do |tb|
-  -tb.tab(:journal_entry_lines, :content=>kame(:account_journal_entry_lines))
-  -tb.tab(:entities, :content=>kame(:account_entities))
-  -#tb.tab(:children, :content=>kame(:account_children))
+  -tb.tab(:journal_entry_lines) do
+    =kame(:account_journal_entry_lines)
+  -tb.tab(:entities) do
+    =kame(:account_entities)

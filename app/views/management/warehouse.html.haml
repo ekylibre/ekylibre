@@ -14,5 +14,7 @@
     -l.attribute :quantity_max
 
 =tabbox(:warehouse) do |tb|
-  -tb.tab :stocks, :content=>kame(:warehouse_stocks)
-  -tb.tab :stock_moves, :content=>kame(:warehouse_stock_moves)
+  -tb.tab :stocks do
+    =kame(:warehouse_stocks)
+  -tb.tab :stock_moves do
+    =kame(:warehouse_stock_moves)

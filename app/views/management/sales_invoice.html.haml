@@ -3,20 +3,17 @@
   -t.print :sales_invoice, :id=>@sales_invoice.id
   -t.link :sales_invoice_cancel, :id=>@sales_invoice.id if @sales_invoice.creditable?
 
-%table
-  %tr
-    %td
-      = evalue @sales_invoice, :number
-      = evalue @sales_invoice, :client, :label=>:full_name
-      = evalue @sales_invoice, :contact, :label=>:address
-      = evalue @sales_invoice, :payment_on
-      = evalue @sales_invoice, :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
-    %td
-      = evalue @sales_invoice, :amount
-      = evalue @sales_invoice, :amount_with_taxes
-      = evalue @sales_invoice, :credit
-      = evalue @sales_invoice, :sales_order, :label=>:number, :url=>{:action=>:sales_order}
-      = evalue @sales_invoice, :origin, :label=>:number, :url=>{:action=>:sales_invoice} if !@sales_invoice.origin.nil?
+=attributes_list(@sales_invoice) do |l|
+  -l.attribute :number
+  -l.attribute :client, :label=>:full_name
+  -l.attribute :contact, :label=>:address
+  -l.attribute :payment_on
+  -l.attribute :amount
+  -l.attribute :amount_with_taxes
+  -l.attribute :credit
+  -l.attribute :sales_order, :label=>:number, :url=>{:action=>:sales_order}
+  -l.attribute :origin, :label=>:number, :url=>{:action=>:sales_invoice} if !@sales_invoice.origin.nil?
+  -l.attribute :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
 
 %h2= tc(:sales_invoice_lines) 
 =kame :sales_invoice_lines

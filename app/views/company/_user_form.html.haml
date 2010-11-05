@@ -12,7 +12,13 @@
   -f.field :user, :employed, :onchange=>"displayEmployee()"
 
 #employee{:style=>"display: #{@user.employed ? 'block' : 'none'}"}
-  =render :partial=>"resources/employee_form", :locals=>{:create_user=>true}
+  =formalize do |f| 
+    -f.title User.human_attribute_name("employed")
+    -f.field :user, :employment
+    -f.field :user, :commercial
+    -# f.field :user, :profession_id,  :choices=>{:reflection=>:professions}, :new=>{:action => :profession_create} 
+    -f.field :user, :department_id, :choices=>{:reflection=>:departments}, :new=>{:controller => :company, :action => :department_create} 
+    -f.field :user, :establishment_id, :choices=>{:reflection=>:establishments}, :new => {:controller => :company, :action => :establishment_create}
 
 -user_role_id = nil 
 #rights-conf

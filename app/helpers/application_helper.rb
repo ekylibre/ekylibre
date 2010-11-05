@@ -722,6 +722,41 @@ module ApplicationHelper
   
 
 
+  # Unagi 鰻 
+  def unagi(options={})
+    u = Unagi.new
+    yield u
+    tag = ""
+    for c in u.cells
+      code = content_tag(:h2, tl(c.title))+content_tag(:div, capture(&c.block).html_safe)
+      tag += content_tag(:div, code.html_safe, :class=>:menu)
+    end
+    return content_tag(:div, tag.html_safe, :class=>:unagi)
+  end
+
+  class Unagi
+    attr_reader :cells
+    def initialize
+      @cells = []
+    end
+    def cell(title, &block)
+      @cells << UnagiCell.new(title, &block)
+    end
+  end
+
+  class UnagiCell
+    attr_reader :title, :block
+    def initialize(title, &block)
+      @title = title.to_s
+      @block = block
+    end
+
+    def content
+      "aAAAAAAAAAAAAAAAAAA"+capture(@block).to_s
+    end
+  end
+
+
 
 
 
@@ -741,7 +776,7 @@ module ApplicationHelper
       js += "$('#{tab[:id]}#{tp}').removeClassName('current');"
       js += "$('#{tab[:id]}#{tl}').removeClassName('current');"
       tablabels += link_to_function((tab[:name].is_a?(Symbol) ? tl("#{tb.id}_tabbox.#{tab[:name]}") : tab[:name]), "#{jsmethod}(#{tab[:index]})", :class=>:tab, :id=>tab[:id]+tl)
-      tabpanels += content_tag(:div, (tab[:content]||render(:partial=>tab[:partial])).html_safe, :class=>:tabpanel, :id=>tab[:id]+tp)
+      tabpanels += content_tag(:div, capture(&tab[:block]).html_safe, :class=>:tabpanel, :id=>tab[:id]+tp)
     end
     js += "$('#{tb.prefix}'+index+'#{tp}').addClassName('current');"
     js += "$('#{tb.prefix}'+index+'#{tl}').addClassName('current');"
@@ -768,19 +803,10 @@ module ApplicationHelper
       @id+@separator
     end
 
-    def tab(name, options={})
+    def tab(name, options={}, &block)
+      raise ArgumentError.new("No given block") unless block_given?
       @sequence += 1
-      tabh = {:name=>name, :index=>@sequence, :id=>@id+@separator+@sequence.to_s}
-      if block_given?
-        array = []
-        yield array
-        tabh[:content] = array.join
-      elsif options[:content]
-        tabh[:content] = options[:content]
-      else
-        tabh[:partial] = options[:partial]||"#{@id}_#{name}"
-      end
-      @tabs << tabh
+      @tabs << {:name=>name, :index=>@sequence, :id=>@id+@separator+@sequence.to_s, :block=>block}
     end
 
   end

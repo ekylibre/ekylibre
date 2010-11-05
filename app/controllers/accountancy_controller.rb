@@ -423,226 +423,6 @@ class AccountancyController < ApplicationController
     session[:general_ledger][:journals] = journals.compact
   end
   
-
-  # PRINTS=[[:balance, {:partial=>"balance"}],
-  #         [:general_ledger, {:partial=>"ledger"}],
-  #         [:journal, {:partial=>"journal"}],
-  #         [:journals, {:partial=>"journals"}],
-  #         [:synthesis, {:partial=>"synthesis"}]]
-
-  # # this method prepares the print of document.
-  # def document_prepare
-  #   @prints = PRINTS.select{|x| @current_company.document_templates.find_by_nature(x[0])}
-  #   if request.post?
-  #     session[:mode] = params[:print][:mode]
-  #     redirect_to :action=>:document_print
-  #   end
-  # end
-  
-  # #  this method prints the document.
-  # def document_print
-  #   for print in PRINTS
-  #     @print = print if print[0].to_s == session[:mode]
-  #   end
-  #   @financial_years =  @current_company.financial_years.find(:all, :order => :stopped_on)
-  #   if @financial_years.nil?
-  #     notify(:no_financial_year, :error)
-  #     redirect_to :action => :document_prepare
-  #     return      
-  #   end
-    
-  #   @partial = 'print_'+@print[1][:partial]
-  #   started_on = Date.today.year.to_s+"-01-01"
-  #   stopped_on = Date.today.year.to_s+"-12-31"
-    
-  #   if request.post? 
-  #     lines = []
-  #     if @current_company.default_contact
-  #       lines =  @current_company.default_contact.address.split(",").collect{ |x| x.strip}
-  #       lines << @current_company.default_contact.phone if !@current_company.default_contact.phone.nil?
-  #       lines << @current_company.code
-  #     end
-      
-  #     sum = {:debit=> 0, :credit=> 0, :balance=> 0}
-      
-  #     if session[:mode] == "journals"
-  #       entries = @current_company.records(params[:printed][:from], params[:printed][:to])
-        
-  #       if entries.size > 0
-  #         entries.each do |entry|
-  #           sum[:debit] += entry.debit
-  #           sum[:credit] += entry.credit
-  #         end
-  #         sum[:balance] = sum[:debit] - sum[:credit]
-  #       end
-        
-  #       journal_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Journal général"})
-  #       if journal_template.nil?
-  #         notify(:no_template_journal, :error)
-  #         redirect_to :action=>:document_print
-  #         return
-  #       end
-        
-  #       pdf, filename = journal_template.print(@current_company, params[:printed][:from],  params[:printed][:to], entries, sum)
-  #       send_data pdf, :type=>Mime::PDF, :filename=>filename
-  #     end
-      
-  #     if session[:mode] == "journal"
-  #       journal = Journal.find_by_id_and_company_id(params[:printed][:name], @current_company.id)
-  #       id = @current_company.journals.find(:first, :conditions => {:name => journal.name }).id
-  #       entries = @current_company.journal_entries(params[:printed][:from], params[:printed][:to], id)
-        
-  #       if entries.size > 0
-  #         entries.each do |entry|
-  #           sum[:debit] += entry.debit
-  #           sum[:credit] += entry.credit
-  #         end
-  #         sum[:balance] = sum[:debit] - sum[:credit]
-  #       end
-        
-  #       journal_template = @current_company.document_templates.find(:first, :conditions=>["name like ?", '%Journal auxiliaire%'])
-  #       if journal_template.nil?
-  #         notify(:no_template_journal_by_id, :error)
-  #         redirect_to :action=>:document_print
-  #         return
-  #       end
-
-  #       pdf, filename = journal_template.print(journal, params[:printed][:from], params[:printed][:to], entries, sum)
-
-  #       send_data pdf, :type=>Mime::PDF, :filename=>filename
-  #     end
-      
-  #     if session[:mode] == "balance"
-  #       accounts_balance = Account.balance(@current_company.id, params[:printed][:from], params[:printed][:to])
-  #       accounts_balance.delete_if {|account| account[:credit].zero? and account[:debit].zero?}
-        
-  #       for account in accounts_balance
-  #         sum[:debit] += account[:debit]
-  #         sum[:credit] += account[:credit]
-  #       end
-  #       sum[:balance] = sum[:debit] - sum[:credit]
-        
-  #       balance_template = @current_company.document_templates.find(:first, :conditions =>{:name => "Balance"})
-  #       if balance_template.nil?
-  #         notify(:no_balance_template, :error)
-  #         redirect_to :action=>:document_prepare
-  #         return
-  #       end
-        
-  #       pdf, filename = balance_template.print(@current_company, accounts_balance,  params[:printed][:from],  params[:printed][:to], sum)
-        
-  #       send_data pdf, :type=>Mime::PDF, :filename=>filename
-        
-  #     end
-
-  #     if session[:mode] == "synthesis"
-  #       @financial_year = FinancialYear.find_by_id_and_company_id(params[:printed][:financial_year], @current_company.id)
-  #       params[:printed][:name] = @financial_year.code
-  #       params[:printed][:from] = @financial_year.started_on
-  #       params[:printed][:to] = @financial_year.stopped_on
-  #       @balance = Account.balance(@current_company.id, @financial_year.started_on, @financial_year.stopped_on)
-        
-  #       @balance.each do |account| 
-  #         sum[:credit] += account[:credit] 
-  #         sum[:debit] += account[:debit] 
-  #       end
-  #       sum[:balance] = sum[:debit] - sum[:credit]     
-        
-  #       @last_financial_year = @financial_year.previous(@current_company.id)
-        
-  #       if not @last_financial_year.nil?
-  #         index = 0
-  #         @previous_balance = Account.balance(@current_company.id, @last_financial_year.started_on, @last_financial_year.stopped_on)
-  #         @previous_balance.each do |balance|
-  #           @balance[index][:previous_debit]   = balance[:debit]
-  #           @balance[index][:previous_credit]  = balance[:credit]
-  #           @balance[index][:previous_balance] = balance[:balance]
-  #           index+=1
-  #         end
-  #         session[:previous_financial_year] = true
-  #       end
-        
-  #       #raise Exception.new lines.inspect
-        
-  #       session[:lines] = lines
-  #       session[:printed] = params[:printed]
-  #       session[:balance] = @balance
-        
-  #       redirect_to :action => :synthesis
-  #     end
-      
-  #     if session[:mode] == "general_ledger"
-  #       ledger = Account.ledger(@current_company.id, params[:printed][:from], params[:printed][:to])
-        
-  #       #raise Exception.new ledger.inspect
-        
-  #       ledger_template = @current_company.document_templates.find(:first, :conditions=>{:name=>"Grand livre"})
-
-        
-        
-  #       pdf, filename = ledger_template.print(@current_company, ledger,  params[:printed][:from],  params[:printed][:to])
-        
-  #       send_data pdf, :type=>Mime::PDF, :filename=>filename
-  #     end
-      
-  #   end
-
-  #   t3e :name=>::I18n.t("views.#{self.controller_name}.document_prepare.#{@print[0]}")
-  # end
-  
-  # # this method displays the income statement and the balance sheet.
-  # def synthesis
-  #   @lines = session[:lines]
-  #   @printed = session[:printed]
-  #   @balance = session[:balance]
-  #   @result = 0
-  #   @solde = 0
-  #   if session[:previous_financial_year] == true
-  #     @previous_solde = 0
-  #     @previous_result = 0
-  #   end
-  #   @active_fixed_sum = 0
-  #   @active_current_sum = 0
-  #   @passive_capital_sum = 0
-  #   @passive_stock_sum = 0
-  #   @passive_debt_sum = 0
-  #   @previous_active_fixed_sum = 0
-  #   @previous_active_current_sum = 0
-  #   @previous_passive_capital_sum = 0
-  #   @previous_passive_stock_sum = 0
-  #   @previous_passive_debt_sum = 0
-  #   @cost_sum = 0
-  #   @finished_sum =  0
-  #   @previous_active_sum = 0
-  #   @previous_passive_sum = 0
-  #   @previous_cost_sum = 0
-  #   @previous_finished_sum = 0
-    
-  #   @balance.each do |account|
-  #     @solde += account[:balance]
-  #     @result = account[:balance] if account[:number].to_s.match /^12/
-  #     @active_fixed_sum += account[:balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
-  #     @active_current_sum += account[:balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
-  #     @passive_capital_sum += account[:balance] if account[:number].to_s.match /^(1[^5])/
-  #     @passive_stock_sum += account[:balance] if account[:number].to_s.match /^15/ 
-  #     @passive_debt_sum += account[:balance] if account[:number].to_s.match /^4/ and account[:balance] < 0
-  #     @cost_sum += account[:balance] if account[:number].to_s.match /^6/
-  #     @finished_sum += account[:balance] if account[:number].to_s.match /^7/
-  #     if session[:previous_financial_year] == true
-  #       @previous_solde += account[:previous_balance] 
-  #       @previous_result = account[:previous_balance] if account[:number].to_s.match /^12/
-  #       @previous_active_fixed_sum += account[:previous_balance] if account[:number].to_s.match /^(20|21|22|23|26|27)/
-  #       @previous_active_current_sum += account[:previous_balance] if account[:number].to_s.match /^(3|4|5)/ and account[:balance] >= 0
-  #       @previous_passive_capital_sum += account[:previous_balance] if account[:number].to_s.match /^(1[^5])/
-  #       @previous_passive_stock_sum += account[:previous_balance] if account[:number].to_s.match /^15/ 
-  #       @previous_passive_debt_sum += account[:previous_balance] if account[:number].to_s.match /^4/ and account[:balance] < 0
-  #       @previous_cost_sum += account[:previous_balance] if account[:number].to_s.match /^6/
-  #       @previous_finished_sum += account[:previous_balance] if account[:number].to_s.match /^7/
-  #     end
-  #   end
-
-  #   t3e :from=>@printed[:from], :to=>@printed[:to]
-  # end
   
   create_kame(:financial_years, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>{:action=>:financial_year}
@@ -1118,198 +898,198 @@ class AccountancyController < ApplicationController
   manage :taxes, :nature=>":percent"
 
 
-  # #
-  # create_kame(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
-  #   t.column :nature
-  #   t.column :address
-  #   t.column :declared_on, :datatype=>:date
-  #   t.column :paid_on, :datatype=>:date
-  #   t.column :amount
-  #   t.action :tax_declaration, :image => :show
-  #   t.action :tax_declaration_update, #, :if => '!RECORD.submitted?'  
-  #   t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete #, :if => '!RECORD.submitted?'
-    
-  # end
+  #
+  create_kame(:tax_declarations, :conditions=>{:company_id=>['@current_company.id']}, :order=>:declared_on) do |t|
+    t.column :nature
+    t.column :address
+    t.column :declared_on, :datatype=>:date
+    t.column :paid_on, :datatype=>:date
+    t.column :amount
+    t.action :tax_declaration, :image => :show
+    t.action :tax_declaration_update #, :if => '!RECORD.submitted?'  
+    t.action :tax_declaration_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete #, :if => '!RECORD.submitted?'
+  end
   
-  # # this method lists all the tax declarations.
-  # def tax_declarations
-  #   @journals  =  @current_company.journals.find(:all, :conditions => ["nature = ? OR nature = ?", :sale.to_s,  :purchase.to_s])
+  # this method lists all the tax declarations.
+  def tax_declarations
+    @journals  =  @current_company.journals.find(:all, :conditions => ["nature = ? OR nature = ?", :sale.to_s,  :purchase.to_s])
     
-  #   if @journals.nil?
-  #     notify(:need_journal_to_manage_tax_declaration, :now)
-  #     redirect_to :action=>:journal_create
-  #     return
-  #   else
-  #     @journals.each do |journal|
-  #       unless journal.closable?(Date.today)
-  #         notify(:need_balanced_journal_to_tax_declaration)
-  #         # redirect_to :action=>:entries
-  #         return
-  #       end
-  #     end
+    if @journals.nil?
+      notify(:need_journal_to_manage_tax_declaration, :now)
+      redirect_to :action=>:journal_create
+      return
+    else
+      @journals.each do |journal|
+        unless journal.closable?(Date.today)
+          notify(:need_balanced_journal_to_tax_declaration)
+          # redirect_to :action=>:entries
+          return
+        end
+      end
 
-  #   end
+    end
 
-  # end
-
-
+  end
 
 
-  # # this method displays the tax declaration in details.
-  # def tax_declaration
-  #   @tax_declaration = @current_company.tax_declarations.find(params[:id])
+
+
+  # this method displays the tax declaration in details.
+  def tax_declaration
+    return unless find_and_check(:tax_declaration)
     
-  #   # last vat declaration for read the excedent VAT
-  #   # if ["simplified"].include? @tax_declaration.nature
-  #   #       started_on = @tax_declaration.started_on.years_ago 1
-  #   #     else
-  #   #       if ["monthly"].include? @tax_declaration.period
-  #   #         started_on = @tax_declaration.started_on.months_ago 1.beginning_of_month
-  #   #       else
-  #   #         started_on = @tax_declaration.started_on.months_ago 3.beginning_of_month
-  #   #       end
-  #   #     end
-  #   #     @last_tax_declaration = @current_company.tax_declarations.find(:last, :conditions=> ["started_on =  ? and stopped_on = ?", started_on, (@tax_declaration.started_on-1)])
+    # last vat declaration for read the excedent VAT
+    # if ["simplified"].include? @tax_declaration.nature
+    #       started_on = @tax_declaration.started_on.years_ago 1
+    #     else
+    #       if ["monthly"].include? @tax_declaration.period
+    #         started_on = @tax_declaration.started_on.months_ago 1.beginning_of_month
+    #       else
+    #         started_on = @tax_declaration.started_on.months_ago 3.beginning_of_month
+    #       end
+    #     end
+    #     @last_tax_declaration = @current_company.tax_declarations.find(:last, :conditions=> ["started_on =  ? and stopped_on = ?", started_on, (@tax_declaration.started_on-1)])
     
     
-  #   # datas for vat collected 
-  #   @normal_vat_collected_amount = {}
-  #   @normal_not_collected_amount = {}
-  #   @normal_vat_collected_amount[:national] = @current_company.filtering_entries(:credit, ['445713*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @normal_not_collected_amount[:national] = @current_company.filtering_entries(:credit, ['707003'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    # datas for vat collected 
+    @normal_vat_collected_amount = {}
+    @normal_not_collected_amount = {}
+    @normal_vat_collected_amount[:national] = @current_company.filtering_entries(:credit, ['445713*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @normal_not_collected_amount[:national] = @current_company.filtering_entries(:credit, ['707003'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
     
-  #   @normal_vat_collected_amount[:international] = @current_company.filtering_entries(:credit, ['445714*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @normal_not_collected_amount[:international] = @current_company.filtering_entries(:credit, ['707004'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @normal_vat_collected_amount[:international] = @current_company.filtering_entries(:credit, ['445714*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @normal_not_collected_amount[:international] = @current_company.filtering_entries(:credit, ['707004'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
-  #   @vat_paid_and_payback_amount = @current_company.filtering_entries(:credit, ['445660'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @vat_paid_and_payback_amount = @current_company.filtering_entries(:credit, ['445660'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
     
-  #   @reduce_vat_collected_amount = {}
-  #   @reduce_not_collected_amount = {}
-  #   @reduce_vat_collected_amount[:national] = @current_company.filtering_entries(:credit, ['445712*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @reduce_not_collected_amount[:national] = @current_company.filtering_entries(:credit, ['707002'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @reduce_vat_collected_amount = {}
+    @reduce_not_collected_amount = {}
+    @reduce_vat_collected_amount[:national] = @current_company.filtering_entries(:credit, ['445712*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @reduce_not_collected_amount[:national] = @current_company.filtering_entries(:credit, ['707002'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
-  #   @reduce_vat_collected_amount[:international] = @current_company.filtering_entries(:credit, ['445711*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @reduce_not_collected_amount[:international] = @current_company.filtering_entries(:credit, ['707001'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @reduce_vat_collected_amount[:international] = @current_company.filtering_entries(:credit, ['445711*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @reduce_not_collected_amount[:international] = @current_company.filtering_entries(:credit, ['707001'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
 
 
-  #   # assessable operations 
+    # assessable operations 
     
-  #   # @vat_acquisitions_amount = @current_company.filtering_entries(:credit, ['4452*'], [@tax_declaration.period_begin, @tax_declaration.period_end]) 
+    # @vat_acquisitions_amount = @current_company.filtering_entries(:credit, ['4452*'], [@tax_declaration.period_begin, @tax_declaration.period_end]) 
     
 
-  #   # datas for vat paid.
-  #   @vat_deductible_fixed_amount = @current_company.filtering_entries(:debit, ['445620*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @vat_deductible_services_amount = @current_company.filtering_entries(:debit, ['445660*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @vat_deductible_others_amount = @current_company.filtering_entries(:debit, ['44563*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
-  #   @vat_deductible_left_balance_amount = @current_company.filtering_entries(:debit, ['44567*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    # datas for vat paid.
+    @vat_deductible_fixed_amount = @current_company.filtering_entries(:debit, ['445620*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @vat_deductible_services_amount = @current_company.filtering_entries(:debit, ['445660*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @vat_deductible_others_amount = @current_company.filtering_entries(:debit, ['44563*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    @vat_deductible_left_balance_amount = @current_company.filtering_entries(:debit, ['44567*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
-  #   # downpayment amount
-  #   if ["simplified"].include? @tax_declaration.nature
-  #     @downpayment_amount = @current_company.filtering_entries(:debit, ['44581*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    # downpayment amount
+    if ["simplified"].include? @tax_declaration.nature
+      @downpayment_amount = @current_company.filtering_entries(:debit, ['44581*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
       
-  #     #  others operations for vat collected
-  #     # @sales_fixed_amount = @current_company.filtering_entries(:credit, ['775*'], [@tax_declaration.period_begin, @period_end])
-  #     # @vat_sales_fixed_amount = @current_company.filtering_entries(:debit, ['44551*'], [@tax_declaration.period_begin, @period_end])
+      #  others operations for vat collected
+      # @sales_fixed_amount = @current_company.filtering_entries(:credit, ['775*'], [@tax_declaration.period_begin, @period_end])
+      # @vat_sales_fixed_amount = @current_company.filtering_entries(:debit, ['44551*'], [@tax_declaration.period_begin, @period_end])
 
-  #     # @oneself_deliveries_amount = @current_company.filtering_entries(:credit, ['772000*'], [@tax_declaration.period_begin, @period_end])
-  #   end
+      # @oneself_deliveries_amount = @current_company.filtering_entries(:credit, ['772000*'], [@tax_declaration.period_begin, @period_end])
+    end
 
-  #   # payback of vat credits.
-  #   @vat_payback_amount = @current_company.filtering_entries(:debit, ['44583*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
+    # payback of vat credits.
+    @vat_payback_amount = @current_company.filtering_entries(:debit, ['44583*'], [@tax_declaration.started_on, @tax_declaration.stopped_on])
 
-  #   t3e :nature => tc(@tax_declaration.nature), :started_on => @tax_declaration.started_on, :stopped_on => @tax_declaration.stopped_on
-  # end
-  
-
-
-  # # this method creates a tax declaration.
-  # def tax_declaration_create
-    
-  #   @financial_years = @current_company.financial_years.find(:all, :conditions => ["closed = 't'"])
-    
-  #   unless @financial_years.size > 0
-  #     notify(:need_closed_financial_year_to_declaration)
-  #     redirect_to :action=>:tax_declarations
-  #     return
-  #   end
-    
-  #   if request.post?
-  #     started_on = params[:tax_declaration][:started_on]
-  #     stopped_on = params[:tax_declaration][:stopped_on]
-  #     params[:tax_declaration].delete(:period) 
-      
-  #     vat_acquisitions_amount = @current_company.filtering_entries(:credit, ['4452*'], [started_on, stopped_on]) 
-  #     vat_collected_amount = @current_company.filtering_entries(:credit, ['44571*'], [started_on, stopped_on]) 
-  #     vat_deductible_amount = @current_company.filtering_entries(:debit, ['4456*'], [started_on, stopped_on]) 
-  #     vat_balance_amount = @current_company.filtering_entries(:debit, ['44567*'], [started_on, stopped_on]) 
-  #     vat_assimilated_amount = @current_company.filtering_entries(:credit, ['447*'], [started_on, stopped_on]) 
-
-  #     journal_od = @current_company.journals.find(:last, :conditions=>["nature = ? and closed_on < ?", :various.to_s, Date.today.to_s])
-
-  #     #      raise Exception.new(params.inspect)
-  #     @current_company.journals.create!(:nature=>"various", :name=>tc(:various), :currency_id=>@current_company.currencies(:first), :code=>"OD", :closed_on=>Date.today) if journal_od.nil?
-      
-      
-      
-  #     @tax_declaration = TaxDeclaration.new(params[:tax_declaration].merge!({:collected_amount=>vat_collected_amount, :paid_amount=>vat_deductible_amount, :balance_amount=>vat_balance_amount, :assimilated_taxes_amount=>vat_assimilated_amount, :acquisition_amount=>vat_acquisitions_amount, :started_on=>started_on, :stopped_on=>stopped_on}))
-  #     @tax_declaration.company_id = @current_company.id
-  #     return if save_and_redirect(@tax_declaration)
-      
-  #   else
-  #     @tax_declaration = TaxDeclaration.new
-
-  #     if @tax_declaration.new_record?
-  #       last_declaration = @current_company.tax_declarations.find(:last, :select=>"DISTINCT id, started_on, stopped_on, nature")
-  #       if last_declaration.nil?
-  #         @tax_declaration.nature = "normal"
-  #         last_financial_year = @current_company.financial_years.find(:last, :conditions=>{:closed => true})
-  #         @tax_declaration.started_on = last_financial_year.started_on
-  #         @tax_declaration.stopped_on = last_financial_year.started_on.end_of_month
-  #       else
-  #         @tax_declaration.nature = last_declaration.nature
-  #         @tax_declaration.started_on = last_declaration.stopped_on+1
-  #         @tax_declaration.stopped_on = @tax_declaration.started_on+(last_declaration.stopped_on-last_declaration.started_on)-2          
-  #       end
-  #       @tax_declaration.stopped_on = params[:stopped_on].to_s if params.include? :stopped_on and params[:stopped_on].blank?
-  #     end
-      
-  #   end       
-    
-  #   render_form
-  # end
-
-
-  # # this method updates a tax declaration.
-  # def tax_declaration_update
-  #   render_form
-  # end
-
-
-  # # this method computes the end of tax declaration depending the period choosen.
-  # def tax_declaration_period_search
-  #   if request.xhr?
-  #     started_on =  params["started_on"].to_date
-      
-  #     @stopped_on=started_on.end_of_month if (["monthly"].include? params["period"])
-  #     @stopped_on=(started_on.months_since 2).end_of_month.to_s if (["quarterly"].include? params["period"])
-  #     @stopped_on=(started_on.months_since 11).end_of_month if (["yearly"].include? params["period"])
-  #     @stopped_on='' if (["other"].include? params["period"])
-      
-  #     render :action=>"tax_declaration_period_search.rjs"
-
-  #   end
-  # end
+    t3e :nature => tc(@tax_declaration.nature), :started_on => @tax_declaration.started_on, :stopped_on => @tax_declaration.stopped_on
+  end
   
 
-  # # this method deletes a tax declaration.
-  # def tax_declaration_delete
-  #   if request.post? or request.delete?
-  #     @tax_declaration = TaxDeclaration.find_by_id_and_company_id(params[:id], @current_company.id) 
-  #     TaxDeclaration.destroy @tax_declaration
-  #   end    
-  #   redirect_to :action => "tax_declarations"
-  # end
+
+  # this method creates a tax declaration.
+  def tax_declaration_create
+    
+    @financial_years = @current_company.financial_years.find(:all, :conditions => ["closed = 't'"])
+    
+    unless @financial_years.size > 0
+      notify(:need_closed_financial_year_to_declaration)
+      redirect_to :action=>:tax_declarations
+      return
+    end
+    
+    if request.post?
+      started_on = params[:tax_declaration][:started_on]
+      stopped_on = params[:tax_declaration][:stopped_on]
+      params[:tax_declaration].delete(:period) 
+      
+      vat_acquisitions_amount = @current_company.filtering_entries(:credit, ['4452*'], [started_on, stopped_on]) 
+      vat_collected_amount = @current_company.filtering_entries(:credit, ['44571*'], [started_on, stopped_on]) 
+      vat_deductible_amount = @current_company.filtering_entries(:debit, ['4456*'], [started_on, stopped_on]) 
+      vat_balance_amount = @current_company.filtering_entries(:debit, ['44567*'], [started_on, stopped_on]) 
+      vat_assimilated_amount = @current_company.filtering_entries(:credit, ['447*'], [started_on, stopped_on]) 
+
+      journal_od = @current_company.journals.find(:last, :conditions=>["nature = ? and closed_on < ?", :various.to_s, Date.today.to_s])
+
+      #      raise Exception.new(params.inspect)
+      @current_company.journals.create!(:nature=>"various", :name=>tc(:various), :currency_id=>@current_company.currencies(:first), :code=>"OD", :closed_on=>Date.today) if journal_od.nil?
+      
+      
+      
+      @tax_declaration = TaxDeclaration.new(params[:tax_declaration].merge!({:collected_amount=>vat_collected_amount, :paid_amount=>vat_deductible_amount, :balance_amount=>vat_balance_amount, :assimilated_taxes_amount=>vat_assimilated_amount, :acquisition_amount=>vat_acquisitions_amount, :started_on=>started_on, :stopped_on=>stopped_on}))
+      @tax_declaration.company_id = @current_company.id
+      return if save_and_redirect(@tax_declaration)
+      
+    else
+      @tax_declaration = TaxDeclaration.new
+
+      if @tax_declaration.new_record?
+        last_declaration = @current_company.tax_declarations.find(:last, :select=>"DISTINCT id, started_on, stopped_on, nature")
+        if last_declaration.nil?
+          @tax_declaration.nature = "normal"
+          last_financial_year = @current_company.financial_years.find(:last, :conditions=>{:closed => true})
+          @tax_declaration.started_on = last_financial_year.started_on
+          @tax_declaration.stopped_on = last_financial_year.started_on.end_of_month
+        else
+          @tax_declaration.nature = last_declaration.nature
+          @tax_declaration.started_on = last_declaration.stopped_on+1
+          @tax_declaration.stopped_on = @tax_declaration.started_on+(last_declaration.stopped_on-last_declaration.started_on)-2          
+        end
+        @tax_declaration.stopped_on = params[:stopped_on].to_s if params.include? :stopped_on and params[:stopped_on].blank?
+      end
+      
+    end       
+    
+    render_form
+  end
+
+
+  # this method updates a tax declaration.
+  def tax_declaration_update
+    return unless find_and_check(:tax_declaration)
+    render_form
+  end
+
+
+  # this method computes the end of tax declaration depending the period choosen.
+  def tax_declaration_period_search
+    if request.xhr?
+      started_on =  params["started_on"].to_date
+      
+      @stopped_on=started_on.end_of_month if (["monthly"].include? params["period"])
+      @stopped_on=(started_on.months_since 2).end_of_month.to_s if (["quarterly"].include? params["period"])
+      @stopped_on=(started_on.months_since 11).end_of_month if (["yearly"].include? params["period"])
+      @stopped_on='' if (["other"].include? params["period"])
+      
+      render :action=>"tax_declaration_period_search.rjs"
+
+    end
+  end
+  
+
+  # this method deletes a tax declaration.
+  def tax_declaration_delete
+    if request.post? or request.delete?
+      @tax_declaration = TaxDeclaration.find_by_id_and_company_id(params[:id], @current_company.id) 
+      TaxDeclaration.destroy @tax_declaration
+    end    
+    redirect_to :action => "tax_declarations"
+  end
 
 end
 

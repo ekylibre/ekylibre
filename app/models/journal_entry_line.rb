@@ -56,7 +56,7 @@ class JournalEntryLine < ActiveRecord::Base
   belongs_to :journal
   belongs_to :entry, :class_name=>JournalEntry.name
   belongs_to :bank_statement
-  validates_presence_of :account_id
+  validates_presence_of :account
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
   
   #

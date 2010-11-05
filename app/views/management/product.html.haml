@@ -19,7 +19,16 @@
   -l.attribute :manage_stocks
 
 =tabbox(:product) do |tb|
-  -tb.tab :prices
-  -tb.tab :components 
-  -tb.tab :stocks, :content=>kame(:product_stocks)
-  -tb.tab :stock_moves, :content=>kame(:product_stock_moves)
+  -tb.tab :prices do
+    =toolbar do |t|
+      -t.link(:sales_price_create, {:action=>:price_create, :mode=>:sales, :product_id=>session[:product_id]}) if @product.for_sales
+      -t.link(:purchase_price_create, {:action=>:price_create, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.for_purchases
+    =kame :product_prices
+  -tb.tab :components do
+    =toolbar do |t|
+      -t.link :product_component_create
+    =kame :product_components
+  -tb.tab :stocks do
+    =kame(:product_stocks)
+  -tb.tab :stock_moves do
+    =kame(:product_stock_moves)

@@ -35,6 +35,13 @@ __minimum__:
 # Inaccessible
 __not_used__:
   actions:
+  - accountancy::tax_declaration
+  - accountancy::tax_declaration_create
+  - accountancy::tax_declaration_delete
+  - accountancy::tax_declaration_period_search
+  - accountancy::tax_declaration_update
+  - accountancy::tax_declarations
+  - accountancy::tax_declarations_kame
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_kame

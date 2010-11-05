@@ -73,10 +73,13 @@ eng:
       #>paid_account_dyli: 'Paid account dyli'
       synthesis: 'Annual Documents for %{value}' #!
       tax_create: 'Add a new tax'
-      tax_declaration: '%{nature} for period from %{started_on} to %{stopped_on}' #!
-      tax_declaration_create: 'Create a Tax report' #!
-      tax_declaration_update: 'Create a Tax Declaration' #!
-      tax_declarations: 'VAT Declaration' #!
+      tax_declaration: '%{nature} for period from %{started_on} to %{stopped_on}'
+      tax_declaration_create: 'Create a Tax report'
+      #>tax_declaration_delete: 'Tax declaration delete'
+      #>tax_declaration_period_search: 'Tax declaration period search'
+      tax_declaration_update: 'Create a Tax Declaration'
+      tax_declarations: 'VAT Declaration'
+      #>tax_declarations_kame: 'Tax declarations kame'
       #>tax_delete: 'Tax delete'
       tax_update: 'Edit tax: %{name}'
       taxes: 'Taxes'
@@ -1404,18 +1407,18 @@ eng:
     need_warehouse_to_record_stock_moves: 'You must create a warehouse to be able to manage stocks.'
     new_actual_number: 'The new number is being %{actual_number}'
     no_authenticated: 'You could not be identified. The username or password must be incorrect.'
-    no_balance_template: 'No template for the balance'
+    no_balance_template: 'No template for the balance' #!
     no_closable_financial_year: 'No closable financial year.'
     no_closable_journal: 'No closable journal'
     no_depositable_payments: 'There are no payment to deposit'
     no_existing_mandates: 'There are no mandates'
-    no_financial_year: 'No financial year registered'
+    no_financial_year: 'No financial year registered' #!
     no_lines_found: 'No product has been added to the order'
     no_payment_to_deposit: 'There are no payment to deposit'
     no_reopenable_journal: 'You can not re-open this journal.'
     no_stocks: 'You have no stock. If you want to manage the stock of a product, please check the option "Manage stocks" in the characteristics of your product.'
-    no_template_journal: 'No template for the journal'
-    no_template_journal_by_id: 'No template for the journal'
+    no_template_journal: 'No template for the journal' #!
+    no_template_journal_by_id: 'No template for the journal' #!
     no_unvalidated_operations: 'No task to do'
     no_warehouse: 'No warehouse is defined. Please create one in order to manage your stocks'
     password_successfully_changed: 'Your password has been updated successfully'

@@ -397,23 +397,28 @@ class ApplicationController < ActionController::Base
 
 
   # Build standard actions to manage records of a model
-  def self.manage_list(name, defaults={})
+  def self.manage_list(name, order_by=:id)
     operations = [:up, :down]
 
-    t3e = defaults.delete(:t3e)
-    url = defaults.delete(:redirect_to)
-    partial = defaults.delete(:partial)
-    partial =  ":partial=>'#{partial}'" if partial
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
+
+    raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
     code = ''
     methods_prefix = record_name
+    
+    sort = ""
+#     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
+#     sort += "items.times do |x|\n"
+#     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
+#     sort += "end\n"
     
     if operations.include? :up
       # this action deletes or hides an existing record.
       code += "def #{methods_prefix}_up\n"
       code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code += "  if request.post?\n"
+      code += sort.gsub(/^/, "    ")
       code += "    #{record_name}.move_higher\n"
       code += "  end\n"
       code += "  redirect_to_current\n"
@@ -425,6 +430,7 @@ class ApplicationController < ActionController::Base
       code += "def #{methods_prefix}_down\n"
       code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
       code += "  if request.post?\n"
+      code += sort.gsub(/^/, "    ")
       code += "    #{record_name}.move_lower\n"
       code += "  end\n"
       code += "  redirect_to_current\n"

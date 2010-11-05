@@ -86,10 +86,6 @@ class ResourcesController < ApplicationController
   end
 
 
-
-
-  # manage :employees
-
   create_kame(:professions, :conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name 
     t.column :code 

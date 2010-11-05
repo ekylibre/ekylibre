@@ -1411,7 +1411,7 @@ class ManagementController < ApplicationController
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
-  dyli(:available_prices, ["products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+  dyli(:available_prices, ["products.code", "products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
   
   def sales_order_line_create
     return unless @sales_order = find_and_check(:sales_order, params[:order_id]||session[:current_sales_order_id])
@@ -1904,7 +1904,7 @@ class ManagementController < ApplicationController
   def incoming_payment_modes
   end
   manage :incoming_payment_modes, :with_accounting=>"true"
-  manage_list :incoming_payment_modes
+  manage_list :incoming_payment_modes, :name
 
   
   def incoming_payment_mode_reflect
@@ -1931,7 +1931,7 @@ class ManagementController < ApplicationController
   def outgoing_payment_modes
   end
   manage :outgoing_payment_modes, :with_accounting=>"true"
-  manage_list :outgoing_payment_modes
+  manage_list :outgoing_payment_modes, :name
 
 
 
@@ -2176,28 +2176,7 @@ class ManagementController < ApplicationController
     end
   end
   
-#   create_kame(:unreceived_purchases, :model=>:purchase_orders, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
-#     t.column :label, :children=>:product_name
-#     t.column :planned_on, :children=>false
-#     t.column :quantity, :datatype=>:decimal
-#     t.column :amount
-#     t.column :amount_with_taxes
-#     t.check_box :received, :value=>'RECORD.planned_on<=Date.today'
-#    # t.action :validate_purchase
-#   end
-
-#   def unreceived_purchases
-#     @purchase_orders = PurchaseOrder.find(:all, :conditions=>{:company_id=>@current_company.id, :moved_on=>nil}, :order=>"planned_on ASC")
-#     if request.post?
-#       for id, values in params[:unreceived_purchases]
-#         return unless purchase = find_and_check(:purchase_order, id)
-#         purchase.real_stocks_moves_create if purchase and values[:received].to_i == 1
-#       end
-#       redirect_to :action=>:unreceived_purchases
-#     end
-#   end
-
- create_kame(:unvalidated_deposits, :model=>:deposits, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
+  create_kame(:unvalidated_deposits, :model=>:deposits, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
     t.column :created_on
     t.column :amount
     t.column :payments_count
