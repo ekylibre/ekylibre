@@ -79,7 +79,7 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_statements},
              {:name=>:lettering},
-             {:name=>:cash_transfers},
+             # {:name=>:cash_transfers},
              {:name=>:accountize},
              {:name=>:financial_year_close}
            ] },
@@ -90,9 +90,26 @@ module ApplicationHelper
            ] },
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
-             {:name=>:financial_years},
-             {:name=>:cashes},
-             {:name=>:taxes} ] }
+             {:name=>:financial_years}
+             # {:name=>:cashes},
+             # {:name=>:taxes} 
+           ] }
+       ] },
+     # FinancesController
+     {:name=>:finances, :list=>
+       [ {:name=>:financial_operations, :list=>
+           [ {:name=>:incoming_payments},
+             {:name=>:deposits},
+             {:name=>:outgoing_payments},
+             # {:name=>:tax_declarations},
+             {:name=>:cash_transfers}
+           ] },
+         {:name=>:parameters, :list=>
+           [ {:name=>:cashes},
+             {:name=>:taxes},
+             {:name=>:incoming_payment_modes},
+             {:name=>:outgoing_payment_modes}
+           ] }
        ] },
      # ManagementController
      {:name=>:management, :list=>
@@ -123,8 +140,6 @@ module ApplicationHelper
              {:name=>:prices},
              {:name=>:product_categories},
              {:name=>:delays},
-             {:name=>:incoming_payment_modes},
-             {:name=>:outgoing_payment_modes},
              {:name=>:incoming_delivery_modes},
              {:name=>:outgoing_delivery_modes},
              {:name=>:sales_order_natures},

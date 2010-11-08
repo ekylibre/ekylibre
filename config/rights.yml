@@ -17,11 +17,11 @@ __minimum__:
   - company::unknown_action
   - company::user_statistics
   - company::welcome
+  - finances::account_dyli
   - help::close
   - help::previous
   - help::search
   - help::side
-  - management::account_dyli
   - management::all_contacts_dyli
   - management::client_contacts_dyli
   - management::entities_dyli
@@ -35,13 +35,13 @@ __minimum__:
 # Inaccessible
 __not_used__:
   actions:
-  - accountancy::tax_declaration
-  - accountancy::tax_declaration_create
-  - accountancy::tax_declaration_delete
-  - accountancy::tax_declaration_period_search
-  - accountancy::tax_declaration_update
-  - accountancy::tax_declarations
-  - accountancy::tax_declarations_kame
+  - finances::tax_declaration
+  - finances::tax_declaration_create
+  - finances::tax_declaration_delete
+  - finances::tax_declaration_period_search
+  - finances::tax_declaration_update
+  - finances::tax_declarations
+  - finances::tax_declarations_kame
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_kame
@@ -254,7 +254,7 @@ manage_bank_statements:
   - index
 # Manage cash transfers
 manage_cash_transfers:
-  controller: accountancy
+  controller: finances
   actions:
   - cash_transfer
   - cash_transfer_create
@@ -265,7 +265,7 @@ manage_cash_transfers:
   - index
 # Manage cashes
 manage_cashes:
-  controller: accountancy
+  controller: finances
   actions:
   - cash
   - cash_bank_statements_kame
@@ -305,7 +305,7 @@ manage_delays:
   - index
 # Manage deposits
 manage_deposits:
-  controller: management
+  controller: finances
   actions:
   - deposit
   - deposit_create
@@ -465,7 +465,7 @@ manage_incoming_delivery_modes:
   - index
 # Manage incoming payment modes
 manage_incoming_payment_modes:
-  controller: management
+  controller: finances
   actions:
   - incoming_payment_mode_create
   - incoming_payment_mode_delete
@@ -478,7 +478,7 @@ manage_incoming_payment_modes:
   - index
 # Manage sale payments
 manage_incoming_payments:
-  controller: management
+  controller: finances
   actions:
   - incoming_payment
   - incoming_payment_create
@@ -490,8 +490,8 @@ manage_incoming_payments:
   - incoming_payments
   - incoming_payments_kame
   - index
-  - sales_order
-  - sales_order_payment_uses_kame
+  - management::sales_order
+  - management::sales_order_payment_uses_kame
 # Manage inventories
 manage_inventories:
   controller: management
@@ -639,7 +639,7 @@ manage_outgoing_delivery_modes:
   - outgoing_delivery_modes_kame
 # Manage disbursement modes
 manage_outgoing_payment_modes:
-  controller: management
+  controller: finances
   actions:
   - index
   - outgoing_payment_mode_create
@@ -651,9 +651,12 @@ manage_outgoing_payment_modes:
   - outgoing_payment_modes_kame
 # Manage disbursements
 manage_outgoing_payments:
-  controller: management
+  controller: finances
   actions:
   - index
+  - management::purchase_order
+  - management::purchase_order_lines_kame
+  - management::purchase_order_payment_uses_kame
   - outgoing_payment
   - outgoing_payment_create
   - outgoing_payment_delete
@@ -663,9 +666,6 @@ manage_outgoing_payments:
   - outgoing_payment_use_delete
   - outgoing_payments
   - outgoing_payments_kame
-  - purchase_order
-  - purchase_order_lines_kame
-  - purchase_order_payment_uses_kame
 # Manage prices
 manage_prices:
   controller: management
@@ -811,7 +811,7 @@ manage_subscriptions:
   - subscriptions_kame
 # Manage taxes
 manage_taxes:
-  controller: accountancy
+  controller: finances
   actions:
   - collected_account_dyli
   - index
