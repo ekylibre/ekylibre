@@ -8,7 +8,7 @@
         %td.field=calendar_field_tag :stopped_on, params[:stopped_on]
         %td.submit=submit_tag(tg(:filter), :name=>nil)
 =toolbar do |t|
-  -t.link :lettering, {:id=>session[:current_lettering_mode]}
+  -t.link :unmarked_journal_entry_lines, {:id=>session[:current_lettering_mode]}
 
 =evalue @account, :name, :url=>{:action=>:account, :id=>@account.id}
 =evalue @account, :number, :url=>{:action=>:account, :id=>@account.id}
@@ -36,7 +36,7 @@
             =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][to_letter]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_line_#{@journal_entry_line.id}_to_letter" )
           -else
             =@journal_entry_line.letter
-            =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unletter, :id=>@account.id, :letter=>@journal_entry_line.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
+            =link_to(image_tag(theme_button(:unletter), :border=>0), {:action=>:account_unmark, :id=>@account.id, :letter=>@journal_entry_line.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
         %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
         %td=link_to(@journal_entry_line.journal.name, {:action=>:journal, :id=>@journal_entry_line.journal_id}, :keep=>true)
         %td.code=link_to(@journal_entry_line.entry.number, {:action=>:journal_entry, :id=>@journal_entry_line.entry_id}, :keep=>true)

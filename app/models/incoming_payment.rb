@@ -100,6 +100,10 @@ class IncomingPayment < ActiveRecord::Base
   validate do
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
+
+  protect_on_update do
+    self.deposit.nil? or not self.deposit.locked
+  end
   
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number, :currency=>self.company.default_currency.symbol)
@@ -153,8 +157,4 @@ class IncomingPayment < ActiveRecord::Base
     end
   end
   
-  protect_on_update do
-    self.deposit.nil? or not self.deposit.locked
-  end
-
 end

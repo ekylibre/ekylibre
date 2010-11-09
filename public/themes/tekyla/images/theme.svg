@@ -19,6 +19,28 @@
    inkscape:output_extension="org.inkscape.output.svg.inkscape">
   <defs
      id="defs2417">
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect3464"
+       prop_scale="1"
+       scale_y_rel="false" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect3462"
+       prop_scale="1" />
+    <inkscape:path-effect
+       effect="gears"
+       id="path-effect3460"
+       teeth="10" />
+    <inkscape:path-effect
+       effect="gears"
+       id="path-effect3455"
+       teeth="10" />
+    <inkscape:path-effect
+       effect="gears"
+       id="path-effect3451"
+       teeth="10"
+       phi="5.9" />
     <linearGradient
        id="linearGradient3376">
       <stop
@@ -745,19 +767,6 @@
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
     <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter3959-3"
-       x="-0.57800251"
-       width="2.1560051"
-       y="-0.80920357"
-       height="2.618407">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="16.858407"
-         id="feGaussianBlur3961-6" />
-    </filter>
-    <filter
        inkscape:collect="always"
        id="filter3401">
       <feGaussianBlur
@@ -783,17 +792,17 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="-687.50001"
-     inkscape:cy="210.50026"
+     inkscape:cx="63.205012"
+     inkscape:cy="-19.49974"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
      inkscape:window-width="1679"
-     inkscape:window-height="1003"
+     inkscape:window-height="954"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="24"
      inkscape:window-maximized="0">
     <sodipodi:guide
        orientation="0,1"
@@ -1227,14 +1236,6 @@
        x="193.28571"
        y="20.933609" />
     <rect
-       style="fill:#cceecc;fill-opacity:1;stroke:none;filter:url(#filter3959-3)"
-       id="rect3913-0"
-       width="70"
-       height="50"
-       x="187.78571"
-       y="595.47345"
-       transform="matrix(1.0601619,0,0,0.91658784,-41.903205,52.21519)" />
-    <rect
        style="opacity:0.18769231;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.50000000000000000;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;filter:url(#filter3401)"
        id="rect2575"
        width="188"
@@ -1283,5 +1284,17 @@
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/stepper-default.png" />
+    <path
+       style="fill:#c9d7f1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M 31.5 474.15625 C 14.112 474.15625 3.7007434e-17 488.26825 0 505.65625 C 0 523.04425 14.112 537.15622 31.5 537.15625 C 48.888 537.15625 63 523.04425 63 505.65625 C 63 488.26825 48.888 474.15625 31.5 474.15625 z M 31.5625 481.15625 C 45.114101 481.15624 56.09375 492.13225 56.09375 505.65625 C 56.093752 519.18024 45.1141 530.15625 31.5625 530.15625 C 18.010901 530.15624 7 519.18025 7 505.65625 C 7 492.13224 18.0109 481.15625 31.5625 481.15625 z M 31.5 488.15625 C 21.84 488.15625 14 495.99626 14 505.65625 C 14 515.31625 21.840001 523.15626 31.5 523.15625 C 41.16 523.15625 49 515.31626 49 505.65625 C 49 495.99625 41.16 488.15626 31.5 488.15625 z M 31.5 495.15625 C 37.296 495.15626 42 499.86025 42 505.65625 C 42 511.45226 37.296 516.15625 31.5 516.15625 C 25.704 516.15623 21 511.45225 21 505.65625 C 21 499.86026 25.704 495.15625 31.5 495.15625 z M 31.5 501.15625 C 29.016 501.15625 27.000001 503.17227 27 505.65625 C 27 508.14025 29.016001 510.15627 31.5 510.15625 C 33.984 510.15625 36.000001 508.14026 36 505.65625 C 36 503.17225 33.984001 501.15627 31.5 501.15625 z "
+       transform="translate(114.28571,83.790756)"
+       id="path2584" />
+    <path
+       style="fill:#c9d7f1;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dashoffset:0;stroke-opacity:1"
+       d="M -79.2143,445.934 L -79.2143,438.434 L -19.2143,438.434 L -19.2143,445.934 L -19.2143,445.934 L 9.78571,445.934 L 9.78571,460.934 L -19.2143,460.934 L -19.2143,468.434 L -19.2143,468.434 L -79.2143,468.434 L -79.2143,460.934 L -79.2143,460.934 L -108.214,460.934 L -108.214,460.934 L -108.214,445.934"
+       id="path3441"
+       sodipodi:nodetypes="ccccccccccccc"
+       inkscape:path-effect="#path-effect3462"
+       inkscape:original-d="M -79.21429,445.93361 L -79.21429,438.43361 L -19.21429,438.43361 L -19.21429,445.93361 L 9.78571,445.93361 L 9.78571,460.93361 L -19.21429,460.93361 L -19.21429,468.43361 L -79.21429,468.43361 L -79.21429,460.93361 L -108.21429,460.93361 L -108.21429,445.93361 L -79.21429,445.93361 z" />
   </g>
 </svg>

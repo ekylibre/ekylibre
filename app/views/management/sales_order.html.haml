@@ -56,7 +56,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
   =toolbar do |t|
-    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id) unless @sales_order.finished?
+    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id, :controller=>:finances) unless @sales_order.finished?
   =kame :sales_order_payment_uses
 
       

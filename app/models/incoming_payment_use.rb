@@ -74,7 +74,7 @@ class IncomingPaymentUse < ActiveRecord::Base
    
   def to_accountancy(action=:create, options={})
     label = tc(:to_accountancy, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
-    accountize(action, {:journal=>self.company.journal(:various), :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.journal_entry.nil? and self.expense.client_id == self.payment.payer_id)) do |entry|
+    accountize(action, {:journal=>self.company.journal(:various), :printed_on=>self.payment.created_on, :draft_mode=>options[:draft]}, :unless=>(self.expense.client_id == self.payment.payer_id)) do |entry|
       entry.add_debit(label, self.payment.payer.account(:attorney).id, self.amount)
       entry.add_credit(label, self.expense.client.account(:client).id, self.amount)
     end

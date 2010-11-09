@@ -42,14 +42,12 @@ class BankStatement < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  # has_many :entries, :class_name=>JournalEntry.name, :dependent=>:nullify
-  has_many :journal_entries, :dependent=>:nullify
-
+  has_many :lines, :dependent=>:nullify, :class_name=>JournalEntryLine.name
 
   before_validation do
     self.company_id = self.cash.company_id if self.cash
-    self.debit  = self.journal_entries.sum(:debit)
-    self.credit = self.journal_entries.sum(:credit)
+    self.debit  = self.lines.sum(:debit)
+    self.credit = self.lines.sum(:credit)
   end
 
   # A bank account statement has to contain all the planned records.
@@ -69,7 +67,11 @@ class BankStatement < ActiveRecord::Base
     self.class.find(:first, :conditions=>{:stopped_on=>self.started_on-1})
   end
 
-  def eligible_entry_lines
+  def next
+    self.class.find(:first, :conditions=>{:started_on=>self.stopped_on+1})
+  end
+
+  def eligible_lines
     self.company.journal_entry_lines.find(:all, 
                                           :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
                                           :joins => "INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id", 

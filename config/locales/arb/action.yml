@@ -3,7 +3,7 @@ arb:
     accountancy:
       account: 'الحساب : {{number}} - {{name}}'
       account_create: 'انشاء حساب جديد'
-      account_letter: 'تسجيل حساب رقم {{number}} من {{started_on}} الى {{stopped_on}}'
+      account_mark: 'تسجيل حساب رقم {{number}} من {{started_on}} الى {{stopped_on}}'
       account_update: 'تعديل الحساب : {{number}} - {{name}}'
       accountize: 'نظام المحاسبة المتغير'
       accounts: 'مخطط الحساب'
@@ -33,7 +33,7 @@ arb:
       journal_reopen: 'فتح {{name}}'
       journal_update: 'تعديل الدفتر اليومي : {{name}}'
       journals: 'الدفاتر اليومية'
-      lettering: 'كتابة حسابات'
+      unmarked_journal_entry_lines: 'كتابة حسابات'
     application: #!
     authentication:
       login: 'الدخول'
@@ -324,7 +324,7 @@ arb:
     account_financial_assets: 'الموجودات المالية'
     account_fixed_assets: 'الموجودات الثابتة'
     account_inventories_assets: 'أسهم'
-    account_letter: 'تسجيل الحسابات'
+    account_mark: 'تسجيل الحسابات'
     account_name: 'حسابات المحاسب'
     account_number: 'رقم الحساب'
     account_others_assets: 'موجودات اخرى'

@@ -43,7 +43,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("payment_uses")
   =toolbar do |t|
-    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase_order, :expense_id=>@purchase_order.id) unless @purchase_order.finished?
+    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase_order, :expense_id=>@purchase_order.id, :controller=>:finances) unless @purchase_order.finished? or @purchase_order.unpaid_amount.zero?
   =kame :purchase_order_payment_uses
 
 

@@ -32,8 +32,6 @@ class ManagementController < ApplicationController
       @stocks << stock if stock.state == "critic"
     end
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
-    @payments_to_deposit = @current_company.payments_to_deposit
-    @deposits_to_lock = @current_company.deposits_to_lock
   end
   
   
@@ -833,13 +831,13 @@ class ManagementController < ApplicationController
 
 
   create_kame(:purchase_order_payment_uses, :model=>:outgoing_payment_uses, :conditions=>["company_id=? AND expense_id=? ", ['@current_company.id'], ['session[:current_purchase_order_id]']]) do |t|
-    t.column :number, :through=>:payment, :url=>{:action=>:outgoing_payment}
-    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:outgoing_payment}
+    t.column :number, :through=>:payment, :url=>{:action=>:outgoing_payment, :controller=>:finances}
+    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:outgoing_payment, :controller=>:finances}
     t.column :amount
     t.column :payment_way
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>:column
-    t.action :outgoing_payment_use_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
+    t.action :outgoing_payment_use_delete, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
   end
   
 
@@ -1125,15 +1123,15 @@ class ManagementController < ApplicationController
   end
 
   create_kame(:sales_order_payment_uses, :model=>:incoming_payment_uses, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sales_order_id]'], SalesOrder.name]) do |t|
-    t.column :number, :through=>:payment, :url=>{:action=>:incoming_payment}
-    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:incoming_payment}
+    t.column :number, :through=>:payment, :url=>{:action=>:incoming_payment, :controller=>:finances}
+    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:incoming_payment, :controller=>:finances}
     t.column :amount
     t.column :payment_way
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>:column
     t.column :downpayment
     # t.column :paid_on, :through=>:payment, :label=>:column, :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.action :incoming_payment_use_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :incoming_payment_use_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :controller=>:finances
   end
 
     

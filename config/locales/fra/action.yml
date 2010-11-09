@@ -3,7 +3,7 @@ fra:
     accountancy:
       account: 'Compte : %{number} - %{name}'
       account_create: 'Créer un nouveau compte'
-      account_letter: 'Lettrage du compte : %{number} - %{name}'
+      account_mark: 'Lettrage du compte : %{number} - %{name}'
       account_update: 'Modifier le compte : %{number} - %{name}'
       accountize: 'Bascule comptable'
       accounts: 'Plan de comptes'
@@ -33,7 +33,7 @@ fra:
       journal_reopen: 'Déclôture du %{name}'
       journal_update: 'Modifier le journal : %{name}'
       journals: 'Journaux'
-      lettering: 'Lettrage de comptes'
+      unmarked_journal_entry_lines: 'Lettrage de comptes'
     application: #!
     authentication:
       login: 'Connexion'
@@ -319,7 +319,7 @@ fra:
     account_financial_assets: 'Immobilisations financières'
     account_fixed_assets: 'Actif immobilisé'
     account_inventories_assets: 'Stocks'
-    account_letter: 'Lettrer le compte'
+    account_mark: 'Lettrer le compte'
     account_name: 'Compte comptable'
     account_number: 'N°Compte'
     account_others_assets: 'Divers'

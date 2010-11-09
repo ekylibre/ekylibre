@@ -329,7 +329,7 @@ var expirationTimer;
 
 function reconnect() {
   var body = $('body');
-  var href = body.getAttribute('timeout-href');
+  var href = body.getAttribute('data-timeout-href');
   if (href !== null && href !== undefined) {
     openDialog(href, 0);
   }
@@ -339,8 +339,8 @@ function unexpire() {
   var body = $('body');
   try { window.clearTimeout(expirationTimer); }
   catch (error) { };
-  if (!isNaN(body.getAttribute('timeout'))) {
-    var duration = parseFloat(body.getAttribute('timeout'))*1000;
+  if (!isNaN(body.getAttribute('data-timeout'))) {
+    var duration = parseFloat(body.getAttribute('data-timeout'))*1000;
     expirationTimer = window.setTimeout(reconnect, duration);
   }
 }

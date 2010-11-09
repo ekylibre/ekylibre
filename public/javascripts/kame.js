@@ -3,10 +3,10 @@
 /* Kame Javascript Inobtrusive Support */
 
 (function() {
-  document.on("click", "a[toggle-column]", function(event, element) {
-      var columnId = element.readAttribute('toggle-column');
+  document.on("click", "a[data-toggle-column]", function(event, element) {
+      var columnId = element.readAttribute('data-toggle-column');
       var column = $(columnId);
-      var className = column.readAttribute("cells-class");
+      var className = column.readAttribute("data-cells-class");
       if (className === null) { className = columnId; }
       var search = '.'+className;
       var visibility = '';
@@ -30,8 +30,8 @@
       event.stop();
     });
 
-  document.on("change", "select[per-page]", function(event, element) {
-      var url = element.readAttribute('per-page');
+  document.on("change", "select[data-per-page]", function(event, element) {
+      var url = element.readAttribute('data-per-page');
       if (url !== null) {
         var update = element.readAttribute('data-update');
         if (update !== null) {

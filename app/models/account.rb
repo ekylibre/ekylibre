@@ -74,7 +74,7 @@ class Account < ActiveRecord::Base
     return dependencies <= 0
   end
 
-  def letterable?
+  def markable?
     return [:client, :supplier, :attorney].detect do |mode|
       self.number.match(/^#{self.company.preference('accountancy.accounts.third_'+mode.to_s)}/)
     end
@@ -91,21 +91,36 @@ class Account < ActiveRecord::Base
     return lists
   end
 
-  def letterable_entry_lines(started_on, stopped_on)
+  def markable_entry_lines(started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["journal_entries.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_entries.number DESC")
   end
 
   def new_letter
-    entry = self.journal_entry_lines.find(:first, :conditions=>["LENGTH(TRIM(letter)) > 0"], :order=>"letter DESC")
-    return (entry ? entry.letter.succ : "AAA")
+    line = self.journal_entry_lines.find(:first, :conditions=>[self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order=>"letter DESC")
+    return (line ? line.letter.succ : "AAA")
   end
 
-  def letter_entry_lines(journal_entry_lines_id, letter = nil)
+
+  # Finds entry_lines to mark, checks their "markability" and
+  # if all valids mark all with a new letter or the first defined before
+  def mark_entries(journal_entries=[])
+    lines, debit, credit = [], 0.0, 0.0
+    for line in self.journal_entry_lines.where(:entry_id=>journal_entries.collect{|j| j.id}, :letter=>nil)
+      lines << line.id
+      debit  += line.debit
+      credit += line.credit
+    end
+    return false unless debit == credit and lines.size > 0
+    self.mark_entry_lines(lines)
+    return true
+  end
+
+  def mark(journal_entry_lines_ids, letter = nil)
     letter ||= self.new_letter
     self.journal_entry_lines.update_all({:letter=>letter}, {:id=>journal_entry_lines_id, :letter=>nil})
   end
 
-  def unletter_entry_lines(letter)
+  def unmark(letter)
     self.journal_entry_lines.update_all({:letter=>nil}, {:letter=>letter})
     self.update_attribute(:last_letter, self.journal_entry_lines.maximum(:letter))
   end

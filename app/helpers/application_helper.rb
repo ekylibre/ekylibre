@@ -78,7 +78,7 @@ module ApplicationHelper
        [ {:name=>:accountancy_tasks, :list=>
            [ {:name=>:journals},
              {:name=>:bank_statements},
-             {:name=>:lettering},
+             {:name=>:unmarked_journal_entry_lines},
              # {:name=>:cash_transfers},
              {:name=>:accountize},
              {:name=>:financial_year_close}
@@ -99,8 +99,8 @@ module ApplicationHelper
      {:name=>:finances, :list=>
        [ {:name=>:financial_operations, :list=>
            [ {:name=>:incoming_payments},
-             {:name=>:deposits},
              {:name=>:outgoing_payments},
+             {:name=>:deposits},
              # {:name=>:tax_declarations},
              {:name=>:cash_transfers}
            ] },

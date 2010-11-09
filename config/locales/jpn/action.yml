@@ -3,7 +3,7 @@ jpn:
     accountancy:
       #>account: 'Account: %{number} - %{name}'
       #>account_create: 'Create new account'
-      #>account_letter: 'Lettering account: %{number} - %{name}'
+      #>account_mark: 'Lettering account: %{number} - %{name}'
       #>account_update: 'Edit account: %{number} - %{name}'
       #>accountize: 'Flip book'
       #>accounts: 'Plan of accounts'
@@ -33,7 +33,7 @@ jpn:
       #>journal_reopen: 'Closing of %{name}'
       #>journal_update: 'Edit journal: %{name}'
       #>journals: 'Journals'
-      #>lettering: 'Accounts lettering'
+      #>unmarked_journal_entry_lines: 'Accounts lettering'
     application: #!
     authentication:
       login: 'ログイン'
@@ -318,7 +318,7 @@ jpn:
     #>account_financial_assets: 'Financial Assets'
     #>account_fixed_assets: 'Fixed Assets'
     #>account_inventories_assets: 'Inventories Assets'
-    #>account_letter: 'Account lettering'
+    #>account_mark: 'Account lettering'
     #>account_name: 'Account name'
     #>account_number: 'Account number'
     #>account_others_assets: 'Others'

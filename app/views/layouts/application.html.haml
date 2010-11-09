@@ -12,7 +12,7 @@
   %body
     -expiration = {}
     -expiration = {"timeout"=>session[:expiration], "timeout-href"=>url_for(:controller=>:authentication, :action=>:relogin, :name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
-    #body.flex{expiration, :class=>("resizable" if resizable?)}
+    #body.flex{:data=>expiration, :class=>("resizable" if resizable?)}
       #top=top_tag
       #wrap.wrap.hbox.flex
         #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag

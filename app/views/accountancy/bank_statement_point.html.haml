@@ -1,7 +1,10 @@
 =toolbar do |t|
   -t.update @bank_statement
-=evalue(@bank_statement, :started_on)
-=evalue(@bank_statement, :stopped_on)
+=attributes_list(@bank_statement) do |l|
+  -l.attribute(:number)
+  -l.attribute(:started_on)
+  -l.attribute(:stopped_on)
+
 %h2=tc(:entries_to_point)
 =form_tag do
   %table.kame

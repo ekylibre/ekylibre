@@ -3,7 +3,7 @@ spa:
     accountancy:
       account: 'Compte : %{number} - %{name}'
       account_create: 'Créar un nuevo cuento'
-      account_letter: 'Marcar con lettra el cuento N°%{number} del %{empezo} al %{fin}'
+      account_mark: 'Marcar con lettra el cuento N°%{number} del %{empezo} al %{fin}'
       account_update: 'Modificar el cuento : %{number} - %{name}'
       accountize: 'Bascula contable'
       accounts: 'Plan de cuento'
@@ -33,7 +33,7 @@ spa:
       journal_reopen: 'Déclôture du %{name}'
       journal_update: 'Modicicar el periodico : %{name}'
       journals: 'Periodicos'
-      lettering: 'Marcar con letra los cuentos'
+      unmarked_journal_entry_lines: 'Marcar con letra los cuentos'
     application: #!
     authentication:
       login: 'Conexión'
@@ -320,7 +320,7 @@ spa:
     account_financial_assets: 'Inmobilisación financières'
     account_fixed_assets: 'Activo inmobilisado'
     account_inventories_assets: 'Stocks'
-    account_letter: 'Letra de cuento'
+    account_mark: 'Letra de cuento'
     account_name: 'Cuento contable'
     account_number: 'Numero de cuenta'
     account_others_assets: 'Autros'

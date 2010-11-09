@@ -1,7 +1,6 @@
 =toolbar do |t|
-  -t.update @account
-  -if @account.letterable?
-    -t.letter @account
+  -t.update(@account)
+  -t.mark(@account) if @account.markable?
 %table.full-width
   %tr
     %td

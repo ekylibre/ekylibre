@@ -49,6 +49,7 @@ class JournalEntryLine < ActiveRecord::Base
   acts_as_list :scope=>:entry
   after_create  :update_entry
   after_destroy :update_entry
+  after_destroy :unletter
   after_update  :update_entry
   attr_readonly :company_id, :entry_id, :journal_id
   belongs_to :account
@@ -117,6 +118,11 @@ class JournalEntryLine < ActiveRecord::Base
     self.entry.refresh
   end
 
+
+  # Unletter all the journal entry lines with the same letter in the same account
+  def unletter
+    self.account.unletter_entry_lines(self.letter) unless self.letter.blank?
+  end
   
   # this method allows to lock the entry_line. 
   def close

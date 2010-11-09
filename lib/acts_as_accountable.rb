@@ -126,10 +126,7 @@ module ActiveRecord
             end
 
             # Add journal lines
-            condition = true
-            condition = condition and options[:if] if options.keys.include?(:if)
-            condition = condition and not options[:unless] if options.keys.include?(:unless)
-            if block_given? and condition and action != :destroy
+            if block_given? and (options.keys.include?(:if) ? options[:if] : !options[:unless]) and action != :destroy
               journal_entry ||= self.company.journal_entries.create!(attributes)
               yield(journal_entry)
             end
@@ -144,7 +141,7 @@ module ActiveRecord
         end
 
         def accounted?
-          self.accounted_at
+          not self.accounted_at.nil?
         end
 
         def accountize_on_create

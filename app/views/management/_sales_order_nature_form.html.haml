@@ -4,7 +4,7 @@
   - f.field :sales_order_nature, :active
   - f.field :sales_order_nature, :comment, :field=>:textarea
   - f.title :incoming_payment_conditions
-  - f.field :sales_order_nature, :payment_mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>{:action=>:incoming_payment_mode_create}
+  - f.field :sales_order_nature, :payment_mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>{:action=>:incoming_payment_mode_create, :controller=>:finances}
   - f.field :sales_order_nature, :payment_mode_complement
   - f.field :sales_order_nature, :expiration_id, :choices=>{:reflection=>:delays}, :new=>{:action=>:delay_create}
   - f.field :sales_order_nature, :payment_delay_id, :choices=>{:reflection=>:delays}, :new=>{:action=>:delay_create}

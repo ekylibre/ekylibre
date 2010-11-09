@@ -246,7 +246,7 @@ manage_bank_statements:
   - bank_statement
   - bank_statement_create
   - bank_statement_delete
-  - bank_statement_entries_kame
+  - bank_statement_lines_kame
   - bank_statement_point
   - bank_statement_update
   - bank_statements
@@ -510,8 +510,8 @@ manage_journal_entries:
   controller: accountancy
   actions:
   - account_dyli
-  - account_letter
-  - account_unletter
+  - account_mark
+  - account_unmark
   - draft_entry_lines
   - draft_entry_lines_kame
   - index
@@ -528,8 +528,8 @@ manage_journal_entries:
   - journal_mixed_kame
   - journals
   - journals_kame
-  - lettering
-  - unlettered_journal_entry_lines_kame
+  - unmarked_journal_entry_lines
+  - unmarked_journal_entry_lines_kame
 # Manage, close and reopen journals
 manage_journals:
   controller: accountancy

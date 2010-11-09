@@ -74,7 +74,7 @@ module Kame
           code += "+\n      " unless code.blank?
           classes = 'hdr '+column_classes(column, true)
           classes = (column.sortable? ? "\"#{classes} sortable \"+(kame_params[:sort]!='#{column.id}' ? 'nsr' : kame_params[:dir])" : "\"#{classes}\"")
-          header = "link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(kame_params[:sort]!='#{column.id}' ? 'asc' : kame_params[:dir]=='asc' ? 'desc' : 'asc')), :id=>'#{column.unique_id}', 'cells-class'=>'#{column.simple_id}', :class=>#{classes}, 'data-remote-update'=>'#{table.name}')"
+          header = "link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(kame_params[:sort]!='#{column.id}' ? 'asc' : kame_params[:dir]=='asc' ? 'desc' : 'asc')), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, 'data-remote-update'=>'#{table.name}')"
           code += "content_tag(:th, #{header}, :class=>\"#{column_classes(column)}\")"
         else
           code   += "+\n        " unless code.blank?
@@ -157,7 +157,7 @@ module Kame
       menu += "<li class=\"columns\">"
       menu += "<a class=\"icon im-table \">'+::I18n.translate('kame.columns').gsub(/\'/,'&#39;')+'</a><ul>"
       for column in table.data_columns
-        menu += "<li>'+link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'toggle-column'=>'#{column.unique_id}', :class=>'icon '+(kame_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
+        menu += "<li>'+link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'data-toggle-column'=>'#{column.unique_id}', :class=>'icon '+(kame_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
       end
       menu += "</ul></li>"
       # Separator
@@ -174,7 +174,7 @@ module Kame
         list = [5, 10, 25, 50, 100]
         list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
         list = list.uniq.sort
-        pagination += "<div class=\"widget\"><select data-update=\"#{table.name}\" per-page=\"'+url_for(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir])+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(kame_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('kame.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
+        pagination += "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir])+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(kame_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('kame.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
         # Pages link
         pagination += "'+will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('kame.previous'), :next_label=>::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}, :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>kame_params[:#{k}]"}.join+"}).to_s+'"
       end
@@ -185,7 +185,7 @@ module Kame
 
     def columns_definition_code(table)
       code = table.columns.collect do |column|
-        "<col id=\\\"#{column.unique_id}\\\" class=\\\"#{column_classes(column, true)}\\\" cells-class=\\\"#{column.simple_id}\\\" href=\\\"\#\{url_for(:action=>:#{table.controller_method_name}, :column=>#{column.id.to_s.inspect})\}\\\" />"
+        "<col id=\\\"#{column.unique_id}\\\" class=\\\"#{column_classes(column, true)}\\\" data-cells-class=\\\"#{column.simple_id}\\\" href=\\\"\#\{url_for(:action=>:#{table.controller_method_name}, :column=>#{column.id.to_s.inspect})\}\\\" />"
       end.join
       return "\"#{code}\"" # "\"<colgroup>#{code}</colgroup>\""
     end

@@ -156,46 +156,46 @@ class AccountancyController < ApplicationController
   end
 
 
-  create_kame(:unlettered_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
-    t.column :number, :through=>:account, :url=>{:action=>:account_letter}
-    t.column :name, :through=>:account, :url=>{:action=>:account_letter}
+  create_kame(:unmarked_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+    t.column :number, :through=>:account, :url=>{:action=>:account_mark}
+    t.column :name, :through=>:account, :url=>{:action=>:account_mark}
     t.column :number, :through=>:entry
     t.column :name
     t.column :debit
     t.column :credit
   end
 
-  # This method allows to make lettering for the client and supplier accounts.
-  def lettering
-    session[:current_lettering_mode] = params[:id] = params[:id] || session[:current_lettering_mode] || :clients
+  # This method allows to make marking for the client and supplier accounts.
+  def unmarked_journal_entry_lines
+    session[:current_marking_mode] = params[:id] = params[:id] || session[:current_marking_mode] || :clients
     session[:current_account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:id]}").value
   end
 
 
-  # this method displays the array for make lettering.
-  def account_letter
+  # this method displays the array for make marking.
+  def account_mark
     return unless @account = find_and_check(:account)
     fy = @current_company.current_financial_year
     params[:stopped_on] = (params[:stopped_on]||(fy ? fy.stopped_on : Date.today)).to_date
     params[:started_on] = (params[:started_on]||(fy ? fy.started_on : params[:stopped_on]-1.month+1.day)).to_date
     if request.post?
       if params[:journal_entry_line]
-        journal_entry_lines = params[:journal_entry_line].collect{|k,v| ((v[:to_letter]=="1" and @current_company.journal_entry_lines.find_by_id(k)) ? k.to_i : nil)}.compact
-        @account.letter_entries(journal_entry_lines)
+        journal_entry_lines = params[:journal_entry_line].collect{|k,v| ((v[:to_mark]=="1" and @current_company.journal_entry_lines.find_by_id(k)) ? k.to_i : nil)}.compact
+        @account.mark(journal_entry_lines)
       else
-        notify(:select_entries_to_letter_together, :warning, :now)
+        notify(:select_entries_to_mark_together, :warning, :now)
       end
     end
-    @journal_entry_lines = @account.letterable_entry_lines(params[:started_on], params[:stopped_on])
+    @journal_entry_lines = @account.markable_entry_lines(params[:started_on], params[:stopped_on])
     @letter = @account.new_letter
     t3e @account.attributes, :started_on=>params[:started_on], :stopped_on=>params[:stopped_on]
   end
 
-  # this method displays the array for make lettering.
-  def account_unletter
+  # this method displays the array for make marking.
+  def account_unmark
     return unless @account = find_and_check(:account)
     if request.post? and params[:letter]
-      @account.unletter_entries(params[:letter])
+      @account.unmark(params[:letter])
     end
     redirect_to_current
   end
@@ -706,7 +706,7 @@ class AccountancyController < ApplicationController
   
   create_kame(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
     t.column :number, :url=>{:action=>:bank_statement}
-    t.column :name, :through=>:cash, :url=>{:action=>:cash}
+    t.column :name, :through=>:cash, :url=>{:action=>:cash, :controller=>:finances}
     t.column :started_on
     t.column :stopped_on
     t.column :debit
@@ -721,16 +721,14 @@ class AccountancyController < ApplicationController
     cashes = @current_company.cashes
     unless cashes.size>0
       notify(:need_cash_to_record_statements)
-      redirect_to :action=>:cash_create
+      redirect_to :action=>:cash_create, :controller=>:finances
       return
     end
     notify(:x_unpointed_journal_entry_lines, :now, :count=>@current_company.journal_entry_lines.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
   end
 
 
-
-
-  create_kame(:bank_statement_entries, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
+  create_kame(:bank_statement_lines, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :created_on, :through=>:entry, :datatype=>:date, :label=>:column
@@ -740,7 +738,7 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
 
-  # displays in details the statement choosen with its mainly characteristics.
+  # Displays in details the statement choosen with its mainly characteristics.
   def bank_statement
     return unless @bank_statement = find_and_check(:bank_statement)
     session[:current_bank_statement_id] = @bank_statement.id
@@ -750,25 +748,25 @@ class AccountancyController < ApplicationController
   manage :bank_statements, :cash_id=>"params[:cash_id]", :started_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to=>'{:action => :bank_statement_point, :id =>"id"}'
 
 
-  # This method displays the list of entries recording to the bank account for the given statement.
+  # This method displays the list of entry lines recording to the bank account for the given statement.
   def bank_statement_point
     session[:statement] = params[:id]  if request.get? 
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry_line].inspect)
-      @bank_statement.journal_entry_lines.clear
-      @bank_statement.journal_entry_line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}
+      @bank_statement.lines.clear
+      @bank_statement.line_ids = params[:journal_entry_line].select{|k, v| v[:checked]=="1" and @current_company.journal_entry_lines.find_by_id(k)}.collect{|k, v| k.to_i}
       if @bank_statement.save
         redirect_to :action=>:bank_statements
         return
       end
     end
-    @journal_entry_lines = @bank_statement.eligible_entry_lines
+    @journal_entry_lines = @bank_statement.eligible_lines
     unless @journal_entry_lines.size > 0
       notify(:need_entries_to_point, :warning)
       redirect_to :action=>:bank_statements
     end    
-    t3e :number => @bank_statement.number, :cash => @bank_statement.cash.name
+    t3e @bank_statement.attributes, :cash => @bank_statement.cash.name
   end
 
 
