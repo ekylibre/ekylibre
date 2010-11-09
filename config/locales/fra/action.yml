@@ -905,6 +905,7 @@ fra:
     save_in_draft: 'Sauvegarder dans le brouillard'
     scheduled: 'Échéance'
     search: 'Rechercher'
+    #>search_account: 'Search account'
     search_go: 'Lancer la recherche'
     search_sales: 'Rechercher des ventes'
     second_contact: 'Adresse secondaire'

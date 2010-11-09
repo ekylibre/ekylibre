@@ -67,6 +67,21 @@ class OutgoingPaymentUse < ActiveRecord::Base
       entry.add_debit(label, self.expense.supplier.account(:supplier).id, self.amount)
       entry.add_credit(label, self.payment.payee.account(:attorney).id, self.amount)
     end
+    self.link_in_accountancy
+  end
+
+  
+  # Lazy marking
+  def link_in_accountancy
+    # raise Exception.new [self.expense.amount_with_taxes, self.payment.amount, self.amount].inspect
+    if self.expense.amount_with_taxes == self.payment.amount and self.amount == self.payment.amount
+      if self.expense.supplier_id == self.payment.payee_id
+        self.expense.supplier.account(:supplier).mark_entries(self.payment.journal_entry, self.expense.journal_entry)
+      else
+        self.expense.supplier.account(:supplier).mark_entries(self.journal_entry, self.expense.journal_entry)
+        self.payment.payee.account(:attorney).mark_entries(self.journal_entry, self.expense.journal_entry)
+      end
+    end    
   end
 
 end

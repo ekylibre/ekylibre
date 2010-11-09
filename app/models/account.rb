@@ -37,7 +37,6 @@
 
 
 class Account < ActiveRecord::Base
-  attr_accessor :sum_debit, :sum_credit
   attr_readonly :company_id, :number
   belongs_to :company
   has_many :account_balances
@@ -56,10 +55,8 @@ class Account < ActiveRecord::Base
   has_many :sales_order_lines
   has_many :sales_products, :class_name=>Product.name, :foreign_key=>:sales_account_id
   has_many :suppliers, :class_name=>Entity.name, :foreign_key=>:supplier_account_id
-  # has_many :entry_lines, :class_name=>JournalEntryLine.name
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
   validates_uniqueness_of :number, :scope=>:company_id
-
 
   # This method allows to create the parent accounts if it is necessary.
   before_validation do
@@ -74,6 +71,8 @@ class Account < ActiveRecord::Base
     return dependencies <= 0
   end
 
+  # Check if the account is a third account and therefore if it is useful to be marked
+  # in order to check balances
   def markable?
     return [:client, :supplier, :attorney].detect do |mode|
       self.number.match(/^#{self.company.preference('accountancy.accounts.third_'+mode.to_s)}/)
@@ -81,6 +80,7 @@ class Account < ActiveRecord::Base
   end
 
 
+  # Find all available accounting systems in all languages
   def self.lists
     lists = {}
     for locale in ::I18n.active_locales
@@ -101,31 +101,32 @@ class Account < ActiveRecord::Base
   end
 
 
-  # Finds entry_lines to mark, checks their "markability" and
+  # Finds entry lines to mark, checks their "markability" and
   # if all valids mark all with a new letter or the first defined before
-  def mark_entries(journal_entries=[])
-    lines, debit, credit = [], 0.0, 0.0
-    for line in self.journal_entry_lines.where(:entry_id=>journal_entries.collect{|j| j.id}, :letter=>nil)
-      lines << line.id
-      debit  += line.debit
-      credit += line.credit
-    end
-    return false unless debit == credit and lines.size > 0
-    self.mark_entry_lines(lines)
+  def mark_entries(*journal_entries)
+    return self.mark(self.journal_entry_lines.where(:entry_id=>journal_entries.compact.collect{|e| e.id}, :letter=>nil).collect{|l| l.id})
+  end
+
+  # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
+  def mark(line_ids, letter = nil)
+    return false if line_ids.size <= 1 or not self.journal_entry_lines.where(:id=>line_ids).sum("debit-credit").to_f.zero? 
+    letter ||= self.new_letter
+    self.journal_entry_lines.update_all({:letter=>letter}, {:id=>line_ids, :letter=>nil})
     return true
   end
 
-  def mark(journal_entry_lines_ids, letter = nil)
-    letter ||= self.new_letter
-    self.journal_entry_lines.update_all({:letter=>letter}, {:id=>journal_entry_lines_id, :letter=>nil})
-  end
-
+  # Unmark all the entry lines concerned by the +letter+
   def unmark(letter)
     self.journal_entry_lines.update_all({:letter=>nil}, {:letter=>letter})
     self.update_attribute(:last_letter, self.journal_entry_lines.maximum(:letter))
   end
 
-
+  # Check if the balance of the entry lines of the given +letter+ is zero.
+  def balanced_letter?(letter)
+    lines = self.journal_entry_lines.where("letter = ?", letter.to_s)
+    return true if lines.size <= 0
+    return lines.sum("debit-credit").to_f.zero? 
+  end
 
   def journal_entry_lines_between(started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
@@ -168,7 +169,7 @@ class Account < ActiveRecord::Base
   #     balance unless balance.empty?
   #   end
 
-  # this method loads the balance for a given period.
+  # This method loads the balance for a given period.
   def self.balance(company, from, to, list_accounts=[])
     balance = []
     conditions = "company_id = "+company.to_s
@@ -278,22 +279,6 @@ class Account < ActiveRecord::Base
     ledger.compact
   end
 
-
-  # this method loads all the journal_entry_lines having the given letter for the account.
-  def balanced_letter?(letter) 
-    journal_entry_lines = self.company.journal_journal_entry_lines.find(:all, :conditions => ["letter = ?", letter.to_s], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id = #{JournalEntryLine.table_name}.entry_id INNER JOIN #{FinancialYear.table_name} AS f ON f.id = r.financial_year_id")
-    
-    if journal_entry_lines.size > 0
-      sum_debit = 0
-      sum_credit = 0
-      journal_entry_lines.each do |entry|
-        sum_debit += entry.debit
-        sum_credit += entry.credit
-      end
-      return true if sum_debit == sum_credit
-    end
-    return false
-  end
   
 end
 

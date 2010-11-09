@@ -70,7 +70,8 @@ class AccountancyController < ApplicationController
 
 
   def self.accounts_conditions
-    code  = "c=['company_id = ? AND number LIKE ?', @current_company.id, session[:account_prefix]]\n"
+    code  = search_conditions(:accounts, [:name, :number, :comment])+"[0] += ' AND number LIKE ?'\n"
+    code += "c << session[:account_prefix]\n"
     code += "if (session[:used_accounts])\n"
     code += "  c[0]+=' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) WHERE created_on BETWEEN ? AND ? AND journal_entry_lines.company_id = ?)'\n"
     code += "  c+=[(params[:started_on].to_date rescue Date.civil(1901,1,1)), (params[:stopped_on].to_date rescue Date.civil(1901,1,1)), @current_company.id]\n"
@@ -89,19 +90,10 @@ class AccountancyController < ApplicationController
   # lists all the accounts with the credit, the debit and the balance for each of them.
   def accounts
     session[:account_prefix] = params[:prefix].to_s+'%'
-    if request.post?
-      session[:used_accounts] = params[:used_accounts]
-      session[:started_on] = params[:started_on]
-      session[:stopped_on] = params[:stopped_on]
-    end
-    # if params[:clean]
-    #   for account in @current_company.accounts.find(:all, :order=>"number DESC")
-    #     account.save
-    #   end
-    # end
-    params[:used_accounts] = session[:used_accounts]
-    params[:started_on] = session[:started_on]
-    params[:stopped_on] = session[:stopped_on]
+    session[:used_accounts] = params[:used_accounts]
+    session[:started_on] = params[:started_on]
+    session[:stopped_on] = params[:stopped_on]
+    session[:account_key] = params[:key]
   end
 
   def accounts_load
@@ -143,20 +135,25 @@ class AccountancyController < ApplicationController
   def account
     return unless @account = find_and_check(:account)
     session[:current_account_id] = @account.id
-
     @totals = {}
     @totals[:debit]  = @account.journal_entry_lines.sum(:debit)
     @totals[:credit] = @account.journal_entry_lines.sum(:credit)
     @totals[:balance_debit] = 0.0
     @totals[:balance_credit] = 0.0
-    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
-
-    
+    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs    
     t3e @account.attributes
   end
 
 
-  create_kame(:unmarked_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>["#{JournalEntryLine.table_name}.company_id=? AND accounts.number LIKE ? AND LENGTH(TRIM(COALESCE(letter, ''))) = 0", ['@current_company.id'], ["session[:current_account_prefix].to_s+'%'"]], :order=>"letter DESC, accounts.number, credit") do |t|
+  def self.unmarked_journal_entry_lines_conditions
+    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.number LIKE ?'\n"
+    code += "c << session[:account_prefix]\n"
+    code += "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
+    code += "c"
+    return code
+  end
+  
+  create_kame(:unmarked_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>unmarked_journal_entry_lines_conditions, :order=>"letter DESC, accounts.number, credit") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_mark}
     t.column :name, :through=>:account, :url=>{:action=>:account_mark}
     t.column :number, :through=>:entry
@@ -167,8 +164,9 @@ class AccountancyController < ApplicationController
 
   # This method allows to make marking for the client and supplier accounts.
   def unmarked_journal_entry_lines
-    session[:current_marking_mode] = params[:id] = params[:id] || session[:current_marking_mode] || :clients
-    session[:current_account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:id]}").value
+    params[:mode] ||= :clients
+    session[:account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:mode]}").value.to_s+"%"
+    session[:account_key] = params[:key]
   end
 
 

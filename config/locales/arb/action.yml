@@ -961,6 +961,7 @@ arb:
     save_in_draft: 'حفظ في المسودات'
     #>scheduled: 'Scheduled'
     search: 'البحث عن الشراء'
+    #>search_account: 'Search account'
     search_go: 'بدء البحث'
     search_sales: 'البحث عن طلبات البيع'
     #>second_contact: 'Second address'

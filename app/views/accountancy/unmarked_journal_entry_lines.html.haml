@@ -1,2 +1,15 @@
-=lettering_modes_tag
-.tab-content=kame(:unmarked_journal_entry_lines)
+.search
+  =form_tag({}, :method=>:get) do
+    %table
+      %tr
+        %td.crit
+          %label=tc("search")
+          =text_field_tag :key, params[:key]||session[:account_key]
+        %td.submit{:rowspan=>2}=submit_tag tg("search_go"), :name=>nil
+      %tr
+        %td.crit
+          %label=tc("lettering_modes.title")
+          -for mode in [:clients, :suppliers, :attorneys]
+            =radio_button_tag("mode", mode, mode.to_s==params[:mode].to_s)
+            %label{:for=>"mode_#{mode}"}=tc("lettering_modes.#{mode}")
+=kame(:unmarked_journal_entry_lines)

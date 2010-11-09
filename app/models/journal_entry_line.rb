@@ -49,7 +49,7 @@ class JournalEntryLine < ActiveRecord::Base
   acts_as_list :scope=>:entry
   after_create  :update_entry
   after_destroy :update_entry
-  after_destroy :unletter
+  after_destroy :unmark
   after_update  :update_entry
   attr_readonly :company_id, :entry_id, :journal_id
   belongs_to :account
@@ -86,6 +86,8 @@ class JournalEntryLine < ActiveRecord::Base
   validate(:on=>:update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
+    # Forbids to change "manually" the letter. Use Account#mark/unmark.
+    errors.add(:letter, :invalid) if old.letter != self.letter and not (old.balanced_letter? and self.balanced_letter?)
   end
 
   #
@@ -119,9 +121,9 @@ class JournalEntryLine < ActiveRecord::Base
   end
 
 
-  # Unletter all the journal entry lines with the same letter in the same account
-  def unletter
-    self.account.unletter_entry_lines(self.letter) unless self.letter.blank?
+  # Unmark all the journal entry lines with the same mark in the same account
+  def unmark
+    self.account.unmark(self.letter) unless self.letter.blank?
   end
   
   # this method allows to lock the entry_line. 
@@ -132,16 +134,10 @@ class JournalEntryLine < ActiveRecord::Base
   def reopen
     self.update_attribute(:closed, false)
   end
-  
-  # this method allows to verify if the entry_line is lettered or not.
-  def letter?
-    return (not self.letter.blank?)
-  end
 
-  #
-  def balanced_letter?(letter=nil) 
-    letter ||= self.letter
-    return false if letter.blank?
+  # Check if the current letter is balanced with all entrty lines with the same letter
+  def balanced_letter?
+    return true if letter.blank?
     self.account.balanced_letter?(letter)
   end
 

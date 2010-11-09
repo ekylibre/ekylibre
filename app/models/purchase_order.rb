@@ -122,6 +122,15 @@ class PurchaseOrder < ActiveRecord::Base
     return true
   end
 
+  protect_on_destroy do
+    self.updateable?
+  end
+
+  protect_on_update do
+    # return false if self.unpaid_amount.zero? and self.shipped
+    return true
+  end
+
   def refresh
     self.save
   end
@@ -172,15 +181,6 @@ class PurchaseOrder < ActiveRecord::Base
   # Need for use in kame
   def quantity 
     ''
-  end
-
-  protect_on_destroy do
-    self.updateable?
-  end
-
-  protect_on_update do
-    # return false if self.unpaid_amount.zero? and self.shipped
-    return true
   end
 
   def last_payment
@@ -250,6 +250,9 @@ class PurchaseOrder < ActiveRecord::Base
         entry.add_debit(label, line.price.tax.paid_account_id, line.taxes) unless line.taxes.zero?
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
+    end
+    if use = self.payment_uses.first
+      use.link_in_accountancy
     end
   end
 

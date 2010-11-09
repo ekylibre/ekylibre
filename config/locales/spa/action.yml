@@ -917,6 +917,7 @@ spa:
     save_in_draft: 'Salvar en la niebla'
     #>scheduled: 'Scheduled'
     search: 'buscars piezas/escrituras'
+    #>search_account: 'Search account'
     #>search_go: 'Search!'
     #>search_sales: 'Search sales'
     #>second_contact: 'Second address'

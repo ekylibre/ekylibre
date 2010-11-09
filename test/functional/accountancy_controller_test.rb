@@ -2,8 +2,8 @@ require 'test_helper'
 
 class AccountancyControllerTest < ActionController::TestCase
   fixtures :companies, :users
-  test_all_actions(:account_letter=>:update, 
-                   :account_unletter=>:delete, 
+  test_all_actions(:account_mark=>:update, 
+                   :account_unmark=>:delete, 
                    :bank_statement_point=>:update, 
                    :journal_close=>:update, 
                    :journal_reopen=>:update, 

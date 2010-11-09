@@ -971,7 +971,7 @@ module ApplicationHelper
   def error_messages(object)
     object = instance_variable_get("@#{object}") unless object.respond_to?(:errors)
     return unless object.respond_to?(:errors)
-    unless object.errors.size.zero?
+    unless (count = object.errors.size).zero?
       I18n.with_options :scope => [:errors, :template] do |locale|
         header_message = locale.t :header, :count => count, :model => object.class.model_name.human
         introduction = locale.t(:body)
@@ -1275,7 +1275,8 @@ module ApplicationHelper
     end
     return t
   end
-  
+
+
 
 end
 

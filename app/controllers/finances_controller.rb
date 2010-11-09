@@ -21,6 +21,7 @@ class FinancesController < ApplicationController
 
   dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
   dyli(:collected_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
+  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
   dyli(:paid_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
 
 

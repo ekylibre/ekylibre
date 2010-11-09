@@ -1,27 +1,9 @@
-=toolbar do
-  -link :account_create
-  -link :accounts_load
+=render :partial=>"accounts_search"
 
-.search
-  =form_tag(:action=>:accounts, :prefix=>params[:prefix]) do
-    %table
-      %tr
-        %td
-          %nobr
-            %label{:for=>"used_accounts"}=tc(:used_accounts)
-            =check_box_tag("used_accounts", "1", params[:used_accounts], :onchange=>"toggleInterval();")
-        %td
-        %td#interval
-          %nobr
-            %label=tg(:from)
-            =calendar_field_tag(:started_on, (params[:started_on]||(Date.today-1.year+1.day)))
-          %nobr
-            %label=tg(:to)
-            =calendar_field_tag(:stopped_on, (params[:stopped_on]||Date.today))
-        %td.submit=submit_tag tg(:search_go)
-:javascript
-  window.toggleInterval=function() { toggleElement('interval', $('used_accounts').checked); }
-  toggleInterval();
+=toolbar do |t|
+  -t.link :account_create
+  -t.link :accounts_load
+
 %table.accounts.invex
   %tr
     %td.tabs{:valign=>:top}=major_accounts_tabs_tag

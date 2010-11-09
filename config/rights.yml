@@ -18,6 +18,7 @@ __minimum__:
   - company::user_statistics
   - company::welcome
   - finances::account_dyli
+  - finances::entities_dyli
   - help::close
   - help::previous
   - help::search
