@@ -73,8 +73,8 @@ class Document < ActiveRecord::Base
   def path(strict=true)
     code = self.nature_code
     code.gsub!(/\*/, '') unless strict
-    # File.join(self.company.private_directory, "documents", code, self.subdir)
-    File.join(self.company.private_directory, code, self.subdir)
+    # File.join(self.company.private_directory, code, self.subdir)
+    File.join(self.company.private_directory, "documents", code, self.subdir)
   end
 
   def file_path(strict=true)

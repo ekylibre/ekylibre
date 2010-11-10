@@ -89,6 +89,10 @@ class Preference < ActiveRecord::Base
     self.nature == 'record'
   end
 
+  def self.type_to_nature(klass)
+    
+  end
+
   def self.tree_reference
     ref = {}
     for k, v in @@reference.sort

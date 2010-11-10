@@ -26,6 +26,7 @@
 #  creator_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
+#  language         :string(255)      default("eng"), not null
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
 #  name             :string(255)      not null

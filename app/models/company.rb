@@ -28,6 +28,7 @@
 #  creator_id       :integer          
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
+#  language         :string(255)      default("eng"), not null
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
 #  name             :string(255)      not null
@@ -161,6 +162,45 @@ class Company < ActiveRecord::Base
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
 
+  # preference :language, String, :default=>:eng
+  preference :cash_transfers_sequence, Sequence
+  preference :deposits_sequence, Sequence
+  preference :incoming_payments_sequence, Sequence
+  preference :outgoing_payments_sequence, Sequence
+  preference :incoming_deliveries_sequence, Sequence
+  preference :outgoing_deliveries_sequence, Sequence
+  preference :purchase_orders_sequence, Sequence
+  preference :sales_invoices_sequence, Sequence
+  preference :sales_orders_sequence, Sequence
+  preference :subscriptions_sequence, Sequence
+  preference :entities_sequence, Sequence
+  preference :accountize_automatically, Boolean, :default=>true
+  preference :detail_payment_in_deposit_accountizing, Boolean, :default=>true
+  preference :accountize_in_draft, Boolean, :default=>true
+  preference :bank_journal, Journal
+  preference :cash_journal, Journal
+  preference :forward_journal, Journal
+  preference :purchases_journal, Journal
+  preference :sales_journal, Journal
+  preference :various_journal, Journal
+  preference :use_entity_codes_for_account_numbers, Boolean, :default=>true  
+  preference :capital_gains_accounts, Integer, :default=>120
+  preference :capital_losses_accounts, Integer, :default=>129
+  preference :charges_accounts, Integer, :default=>6
+  preference :financial_banks_accounts, Integer, :default=>51
+  preference :financial_cashes_accounts, Integer, :default=>53
+  preference :financial_internal_transfers_accounts, Integer, :default=>58
+  preference :financial_payments_to_deposit_accounts, Integer, :default=>511
+  preference :products_accounts, Integer, :default=>7
+  preference :taxes_acquisition_accounts, Integer, :default=>4452
+  preference :taxes_assimilated_accounts, Integer, :default=>447
+  preference :taxes_balance_accounts, Integer, :default=>44567
+  preference :taxes_collected_accounts, Integer, :default=>4457
+  preference :taxes_paid_accounts, Integer, :default=>4456
+  preference :taxes_payback_accounts, Integer, :default=>44583
+  preference :third_attorneys_accounts, Integer, :default=>467
+  preference :third_clients_accounts, Integer, :default=>411
+  preference :third_suppliers_accounts, Integer, :default=>401
 
   validates_uniqueness_of :code
   validates_length_of :code, :in=>4..16
