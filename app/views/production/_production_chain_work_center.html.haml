@@ -19,11 +19,10 @@
         -if @current_user.can?(:build_production_chains) and (ic.size<=0 or (work_center.nature != "input"))
           %table.conveyor
             %tr
-              %td.rail
+              %td.conveyor-input
               %td
                 .cell.new=link_to tl(:new), :action=>:production_chain_conveyor_create, :production_chain_id=>work_center.production_chain_id, :target_id=>work_center.id
-              %td.rail
-              %td.arrow
+              %td.conveyor-output
       %td.work-center.master
         =link_to work_center.name, :action=>:production_chain_work_center_update, :id=>work_center.id
         -if @current_user.can? :use_production_chains
@@ -38,9 +37,8 @@
         -if @current_user.can?(:build_production_chains) and (oc.size<=0 or (work_center.nature == "input"))
           %table.conveyor.new
             %tr
-              %td.rail
+              %td.conveyor-input
               %td
                 .cell.new=link_to tl(:new), :action=>:production_chain_conveyor_create, :production_chain_id=>work_center.production_chain_id, :source_id=>work_center.id
-              %td.rail
-              %td.arrow
+              %td.conveyor-output
   

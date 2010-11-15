@@ -1,15 +1,11 @@
 =toolbar do |t|
   -t.update @user
 
-%table
-  %tr
-    %td
-      =evalue @user, :last_name
-      =evalue @user, :first_name
-      =evalue @user, :name
-      =evalue @user, :commercial
-    %td
-      =evalue @user, :employment
-      =#evalue @user, :profession, :label=>:name
-      =evalue @user, :establishment, :label=>:name
-      =evalue @user, :department, :label=>:name
+=attributes_list(@user) do |l|
+  -l.attribute :last_name
+  -l.attribute :first_name
+  -l.attribute :name
+  -l.attribute :commercial
+  -l.attribute :employment
+  -l.attribute :establishment, :label=>:name
+  -l.attribute :department, :label=>:name

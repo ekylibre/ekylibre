@@ -568,7 +568,14 @@ html[dir="ltr"] .conveyor .cell.target, html[dir="rtl"] .conveyor .cell.source {
 html[dir="rtl"] .conveyor .cell.target, html[dir="ltr"] .conveyor .cell.source { margin-left: -2px; border-left: none; }
 .conveyor .cell.check-state { background: #EF9; }
 .conveyor .cell.unique-tracking { background: #FE9; }
-.conveyor .cell.new { padding: 2px 4px; background: #FFD; -webkit-border-radius: 8px; -moz-border-radius: 8px; border-radius: 8px; }
+.conveyor .cell.new { padding: 2px 4px; background: #FFD; -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; }
+
+.conveyor .conveyor-input { width: 24px; background: url(../images/conveyor.png) no-repeat -8px center; }
+.conveyor .conveyor-output { width: 32px; background: url(../images/conveyor.png) no-repeat -32px center; }
+html[dir="rtl"] .conveyor .conveyor-input { background-position: -32px center; }
+html[dir="rtl"] .conveyor .conveyor-output { background-position: 0px center; }
+
+
 .conveyor .rail { width: 20px; background: url(../images/rail.png) repeat-x center; }
 .conveyor .arrow { width: 16px; background-repeat: no-repeat; background-position:center; height: 24px;}
 html[dir="ltr"] .conveyor .arrow { background-image: url(../images/arrow-right.png); }

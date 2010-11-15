@@ -2,7 +2,7 @@
 -unless conveyor.source_quantity.zero?
   %td
     .cell.source.quantity{:class=>("unique-tracking" if conveyor.unique_tracking)}=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)
-%td.rail
+%td.conveyor-input
 %td.information
   %table
     %tr
@@ -13,8 +13,7 @@
             %li=tl(:x_unit_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name)
             =li_link_to(tl(:update), {:action=>:production_chain_conveyor_update, :id=>conveyor.id}, :class=>"icon im-update")
             =li_link_to(tl(:delete), {:action=>:production_chain_conveyor_delete, :id=>conveyor.id}, :confirm=>tl(:are_you_sure_you_want_to_delete), :method=>:delete, :class=>"icon im-delete")
-%td.rail
-%td.arrow
+%td.conveyor-output
 -unless conveyor.target_quantity.zero?
   %td
     .cell.target.quantity=tl(:x_unit, :quantity=>conveyor.target_quantity, :unit=>conveyor.unit.readable_name)
