@@ -27,8 +27,8 @@
         %td=link_to(@journal_entry_line.entry.number, :action=>:journal_entry, :id=>@journal_entry_line.entry_id)
         %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
         %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=@journal_entry_line.name
-        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.debit)
-        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.credit)
+        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_bookkeep(@journal_entry_line.debit)
+        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_bookkeep(@journal_entry_line.credit)
     %tr.total
       %th{:colspan=>4}=tg(:total)
       %td#total-debit=@bank_statement.debit || 0

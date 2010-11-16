@@ -7,10 +7,15 @@
       -f.error 'my_company'
       -f.title tc(:general)
       -f.field :my_company, :name
+      -f.field :my_company, :language, :choices=>languages
       -f.field Company.human_attribute_name("code"), content_tag(:strong, @my_company.code)
       -f.field Company.human_attribute_name("entity_id"), link_to(@my_company.entity.full_name, {:controller=>:relations, :action=>:entity_update, :id=>@my_company.entity_id})
       -f.field :my_company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
-      -for name, options in @tree
+      -f.title :preferences
+      -for name, preference in @my_company.preferences_list
+        -f.field t("preferences."+name), {:datatype=>preference.nature.to_sym, :model=>preference.model, :value=>preference.value, :name=>"preference[#{name}][value]"}
+
+      -#for name, options in @tree
         -f.title tc(name)
         -for key in options.keys.sort
           -f.field t("preferences."+key), {:datatype=>options[key][:nature].to_sym, :model=>options[key][:model], :value=>options[key][:value], :name=>"preference[#{key}][value]"}

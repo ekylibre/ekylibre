@@ -43,6 +43,7 @@
 
 
 class IncomingDelivery < ActiveRecord::Base
+  acts_as_numbered
   attr_readonly :company_id, :number
   belongs_to :contact
   belongs_to :company
@@ -56,10 +57,6 @@ class IncomingDelivery < ActiveRecord::Base
 
   before_validation do
     self.company_id = self.purchase_order.company_id if self.purchase_order
-    if self.number.blank?
-      last = self.company.incoming_deliveries.find(:first, :order=>"number desc")
-      self.number = last ? last.number.succ! : '00000001'
-    end
     self.amount = self.amount_with_taxes = self.weight = 0.0
     for line in self.lines
       self.amount += line.amount
@@ -68,12 +65,6 @@ class IncomingDelivery < ActiveRecord::Base
     end
     return true
   end
-
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.incoming_deliveries.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
-  end
-  
 
   # Only used for Kame usage
   def quantity

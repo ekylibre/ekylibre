@@ -13,7 +13,16 @@
 
 .search
   =form_tag({}, :method=>:get) do
-    =render :partial=>"journals_search"
+    %table
+      %tr
+        %td.crit
+          %label{:for=>"journal_entry_key"}=tc(:search)
+          =text_field_tag("journal_entry_key", params[:journal_entry_key])
+        %td.submit{:rowspan=>4}=submit_tag tg(:search_go), :name=>nil
+      %tr
+        %td.crit=journal_entries_states_crit
+      %tr
+        %td.crit=journal_period_crit
 
 =journal_view_tag
 .tab-content=kame("journal_#{@journal_view}")
@@ -25,9 +34,9 @@
     %th=JournalEntry.human_attribute_name("credit")
   %tr.important.total
     %th=tc :totals
-    %td=number_to_accountancy @totals[:debit]
-    %td=number_to_accountancy @totals[:credit]
+    %td=number_bookkeep @totals[:debit]
+    %td=number_bookkeep @totals[:credit]
   %tr.important.total
     %th=tc :balance
-    %td=number_to_accountancy @totals[:balance_debit]
-    %td=number_to_accountancy @totals[:balance_credit]
+    %td=number_bookkeep @totals[:balance_debit]
+    %td=number_bookkeep @totals[:balance_credit]

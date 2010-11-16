@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
     t.string   "name",         :limit => 208,                    :null => false
     t.string   "label",                                          :null => false
     t.boolean  "is_debit",                    :default => false, :null => false
+    t.string   "last_letter",  :limit => 8
     t.text     "comment"
     t.integer  "company_id",                                     :null => false
     t.datetime "created_at",                                     :null => false
@@ -51,7 +52,6 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                :default => 0,     :null => false
-    t.string   "last_letter"
   end
 
   add_index "accounts", ["company_id"], :name => "index_accounts_on_company_id"
@@ -959,26 +959,24 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
   create_table "journal_entries", :force => true do |t|
     t.integer  "resource_id"
     t.string   "resource_type"
-    t.date     "created_on",                                                        :null => false
-    t.date     "printed_on",                                                        :null => false
-    t.string   "number",                                                            :null => false
-    t.decimal  "debit",           :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "credit",          :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.integer  "position"
-    t.integer  "journal_id",                                                        :null => false
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.date     "created_on",                                                                        :null => false
+    t.date     "printed_on",                                                                        :null => false
+    t.string   "number",                                                                            :null => false
+    t.decimal  "debit",                         :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "credit",                        :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.integer  "journal_id",                                                                        :null => false
+    t.integer  "company_id",                                                                        :null => false
+    t.datetime "created_at",                                                                        :null => false
+    t.datetime "updated_at",                                                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   :default => 0,     :null => false
-    t.boolean  "closed",                                         :default => false
-    t.decimal  "currency_debit",  :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "currency_credit", :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "currency_rate",   :precision => 16, :scale => 6, :default => 0.0,   :null => false
-    t.integer  "currency_id",                                    :default => 0,     :null => false
-    t.boolean  "draft_mode",                                     :default => false, :null => false
-    t.boolean  "draft",                                          :default => false, :null => false
+    t.integer  "lock_version",                                                 :default => 0,       :null => false
+    t.decimal  "currency_debit",                :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "currency_credit",               :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "currency_rate",                 :precision => 16, :scale => 6, :default => 0.0,     :null => false
+    t.integer  "currency_id",                                                  :default => 0,       :null => false
+    t.string   "state",           :limit => 32,                                :default => "draft", :null => false
+    t.decimal  "balance",                       :precision => 16, :scale => 2, :default => 0.0,     :null => false
   end
 
   add_index "journal_entries", ["company_id"], :name => "index_journal_records_on_company_id"
@@ -991,27 +989,26 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
   add_index "journal_entries", ["updater_id"], :name => "index_journal_records_on_updater_id"
 
   create_table "journal_entry_lines", :force => true do |t|
-    t.integer  "entry_id",                                                                         :null => false
-    t.integer  "account_id",                                                                       :null => false
-    t.string   "name",                                                                             :null => false
-    t.decimal  "currency_debit",                 :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "currency_credit",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "debit",                          :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "credit",                         :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.integer  "entry_id",                                                                            :null => false
+    t.integer  "account_id",                                                                          :null => false
+    t.string   "name",                                                                                :null => false
+    t.decimal  "currency_debit",                  :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "currency_credit",                 :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "debit",                           :precision => 16, :scale => 2, :default => 0.0,     :null => false
+    t.decimal  "credit",                          :precision => 16, :scale => 2, :default => 0.0,     :null => false
     t.integer  "bank_statement_id"
     t.string   "letter",            :limit => 8
-    t.date     "expired_on"
     t.integer  "position"
     t.text     "comment"
-    t.integer  "company_id",                                                                       :null => false
-    t.datetime "created_at",                                                                       :null => false
-    t.datetime "updated_at",                                                                       :null => false
+    t.integer  "company_id",                                                                          :null => false
+    t.datetime "created_at",                                                                          :null => false
+    t.datetime "updated_at",                                                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  :default => 0,     :null => false
-    t.boolean  "draft",                                                         :default => false, :null => false
+    t.integer  "lock_version",                                                   :default => 0,       :null => false
     t.integer  "journal_id"
-    t.boolean  "closed",                                                        :default => false, :null => false
+    t.string   "state",             :limit => 32,                                :default => "draft", :null => false
+    t.decimal  "balance",                         :precision => 16, :scale => 2, :default => 0.0,     :null => false
   end
 
   add_index "journal_entry_lines", ["account_id"], :name => "index_entries_on_account_id"

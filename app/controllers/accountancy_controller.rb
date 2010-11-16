@@ -22,17 +22,77 @@ class AccountancyController < ApplicationController
   
   dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
   
+  
+  # Generates code to check state crit
+  def self.journal_entry_states_crit(name, conditions='c')
+    variable = "session[:#{name}]" unless name.is_a? String
+    code = ""
+    code += "#{conditions}[0] += \" AND (false\"\n"
+    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'draft')\" if #{variable}[:draft] == '1'\n"
+    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'confirmed')\" if #{variable}[:confirmed] == '1'\n"
+    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'closed')\" if #{variable}[:closed] == '1'\n"
+    code += "#{conditions}[0] += \")\"\n"    
+    return code
+  end
+
+
+  # Generates code to check period crit
+  def self.journal_period_crit(name, conditions='c')
+    variable = "session[:#{name}]" unless name.is_a? String
+    code = ""
+    code += "started_on = stopped_on = nil\n"
+    code += "if #{variable}[:period]=='interval'\n"
+    code += "  started_on, stopped_on = #{variable}[:started_on], #{variable}[:stopped_on]\n"
+    code += "else\n"
+    code += "  started_on, stopped_on = #{variable}[:period].split('_')[0..1]\n"
+    code += "end\n"
+    code += "if (started_on.to_date rescue nil)\n"
+    code += "  #{conditions}[0]+=' AND #{JournalEntry.table_name}.printed_on>=?'\n"
+    code += "  #{conditions} << started_on.to_date\n"
+    code += "end\n"
+    code += "if (stopped_on.to_date rescue nil)\n"
+    code += "  #{conditions}[0]+=' AND #{JournalEntry.table_name}.printed_on<=?'\n"
+    code += "  #{conditions} << stopped_on.to_date\n"
+    code += "end\n"
+    return code
+  end
+
+  # Generates code to check journals crit
+  def self.journals_crit(name, conditions='c')
+    variable = "session[:#{name}]" unless name.is_a? String
+    code = ""
+    code += "#{conditions}[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"
+    code += "if #{variable}[:journals].is_a?(Hash)\n"
+    code += "  #{variable}[:journals] = #{variable}[:journals].select{|k, v| k.to_s.match(/^\d+$/) and v.to_i == 1}.collect{|k, v| k.to_i}\n"
+    code += "end\n"
+    code += "#{conditions} << #{variable}[:journals]\n"
+    return code
+  end
+
+  # Generates code to check accounts ranges
+  def self.accounts_range_crit(name, conditions='c')
+    variable = "session[:#{name}]" unless name.is_a? String
+    code = ""
+    code += "unless #{variable}[:accounts].match(/\(/)\n"
+    code += "  ac, params[:accounts] = Account.range_condition(#{variable}[:accounts])\n"
+    code += "  #{variable}[:accounts] = ' AND ('+ac+')'\n"
+    code += "end\n"
+    code += "#{conditions}[0] += #{variable}[:accounts]\n"
+    return code
+  end
+
+
   # 
   def index
   end
 
   # this method displays the form to choose the journal and financial_year.
-  def accountize
-    params[:finish_accountization_on] = (params[:finish_accountization_on]||Date.today).to_date rescue Date.today
+  def bookkeep
+    params[:finish_bookkeeping_on] = (params[:finish_bookkeeping_on]||Date.today).to_date rescue Date.today
     @natures = [:sales_invoice, :incoming_payment_use, :incoming_payment, :deposit, :purchase_order, :outgoing_payment_use, :outgoing_payment]
 
     if request.get?
-      notify(:accountizing_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
+      notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2
@@ -42,10 +102,10 @@ class AccountancyController < ApplicationController
 
 
     if @step >= 2
-      session[:finish_accountization_on] = params[:finish_accountization_on]
+      session[:finish_bookkeeping_on] = params[:finish_bookkeeping_on]
       @records = {}
       for nature in @natures
-        conditions = ["accounted_at IS NULL AND created_at <= ?", session[:finish_accountization_on].to_time]
+        conditions = ["accounted_at IS NULL AND created_at <= ?", session[:finish_bookkeeping_on].to_time]
         if nature == :purchase_order
           conditions[0] += " AND shipped = ? " 
           conditions << true
@@ -54,14 +114,14 @@ class AccountancyController < ApplicationController
       end
 
       if @step == 3
-        draft = (params[:save_in_draft].to_i == 1 ? true : false)
+        state = (params[:save_in_draft].to_i == 1 ? :draft : :confirmed)
         for nature in @natures
           for record in @records[nature]
-            record.to_accountancy(:create, :draft=>draft)
+            record.bookkeep(:create, state)
           end
         end
-        notify(:accountizing_is_finished, :success)
-        redirect_to :action=>(draft ? :draft_entry_lines : :accountize)
+        notify(:bookkeeping_is_finished, :success)
+        redirect_to :action=>(state == :draft ? :draft : :bookkeep)
       end
     end
     
@@ -111,7 +171,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
-    t.column :draft
+    t.column :state_label
     t.column :debit
     t.column :credit
     t.column :letter
@@ -165,7 +225,7 @@ class AccountancyController < ApplicationController
   # This method allows to make marking for the client and supplier accounts.
   def unmarked_journal_entry_lines
     params[:mode] ||= :clients
-    session[:account_prefix] = @current_company.preference("accountancy.accounts.third_#{params[:mode]}").value.to_s+"%"
+    session[:account_prefix] = @current_company.preferred("third_#{params[:mode]}_accounts").to_s+"%"
     session[:account_key] = params[:key]
   end
 
@@ -236,8 +296,6 @@ class AccountancyController < ApplicationController
   end
 
 
-
-
   def balance
     if params[:started_on] and params[:stopped_on]
       @balance = @current_company.balance(params)
@@ -253,14 +311,14 @@ class AccountancyController < ApplicationController
     code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
     # state
     code += "c[0] += \" AND (false\"\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.draft = #{conn.quoted_false} AND #{JournalEntryLine.table_name}.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'draft')\" if session[:general_ledger][:draft] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'confirmed')\" if session[:general_ledger][:confirmed] == '1'\n"
+    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'closed')\" if session[:general_ledger][:closed] == '1'\n"
     code += "c[0] += \")\"\n"    
     # accounts
     code += "c[0] += ' AND ('+(session[:general_ledger][:accounts]||\"#{conn.quoted_false}\")+')'\n"
     # journals
-    code += "c[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"    
+    code += "c[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"
     code += "c<<session[:general_ledger][:journals]\n"    
     code += "c\n"
     return code # .gsub(/\s*\n\s*/, ";")
@@ -293,7 +351,7 @@ class AccountancyController < ApplicationController
           start, finish = expr.split(/\-+/)[0..1]
           next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
           max = [start.length, finish.length].max
-          accounts += " OR SUBSTR(accounts.number, 1, #{max}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
+          accounts += " OR #{conn.substr('accounts.number', 1, max)} BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
           expression += " #{start}-#{finish}"
         else
           next unless expr.match(valid_expr)
@@ -422,28 +480,11 @@ class AccountancyController < ApplicationController
   end
 
   def self.journal_entries_conditions(options={})
-    code = ""
-    code += "c=['#{JournalEntry.table_name}.company_id=? "
-    code += " AND #{JournalEntry.table_name}.journal_id IN (?) " unless options[:all_journals]
-    code += " AND #{JournalEntry.table_name}.draft=? " if options[:draft]
-    code += "', @current_company.id"
-    code += ", session[:current_journal_id]" unless options[:all_journals]
-    code += ", true" if options[:draft]
-    code += "]\n"
-    code += "start, finish = nil, nil\n"
-    code += "if session[:journal_entry_mode]=='automatic'\n"
-    code += "  start, finish = session[:journal_entry_period].split('_')[0..1]\n"
-    code += "else\n"
-    code += "  start, finish = session[:journal_entry_start], session[:journal_entry_finish]\n"
-    code += "end\n"
-    code += "if (start.to_date rescue nil)\n"
-    code += "  c[0]+=' AND #{JournalEntry.table_name}.printed_on>=?'\n"
-    code += "  c<<start.to_date\n"
-    code += "end\n"
-    code += "if (finish.to_date rescue nil)\n"
-    code += "  c[0]+=' AND #{JournalEntry.table_name}.printed_on<=?'\n"
-    code += "  c<<finish.to_date\n"
-    code += "end\n"
+    code = search_conditions(:journal_entry, JournalEntry.table_name=>[:number, :debit, :credit], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND #{JournalEntry.table_name}.journal_id=?'\n"
+    code += "c << session[:current_journal_id]\n"
+    code += "session[:journal] = {} unless session[:journal].is_a?(Hash)\n"
+    code += journal_entry_states_crit(:journal)
+    code += journal_period_crit(:journal)
     code += "c\n"
     return code.gsub(/\s*\n\s*/, ";")
   end
@@ -454,7 +495,7 @@ class AccountancyController < ApplicationController
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :name
-    t.column :draft
+    t.column :state_label
     t.column :debit
     t.column :credit
   end
@@ -462,7 +503,7 @@ class AccountancyController < ApplicationController
   create_kame(:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
     t.column :number, :url=>{:action=>:journal_entry}
     t.column :printed_on
-    t.column :draft
+    t.column :state_label
     t.column :debit
     t.column :credit
     t.action :journal_entry_update, :if=>'RECORD.updateable? '
@@ -473,32 +514,22 @@ class AccountancyController < ApplicationController
     t.column :number, :url=>{:action=>:journal_entry}, :children=>:name
     t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
-    t.column :draft
+    t.column :state_label
     t.column :debit
     t.column :credit
     t.action :journal_entry_update, :if=>'RECORD.updateable? '
     t.action :journal_entry_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
-  create_kame(:journal_draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
-    t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
-    t.column :printed_on, :through=>:entry, :datatype=>:date
-    t.column :number, :through=>:account, :url=>{:action=>:account}
-    t.column :name, :through=>:account, :url=>{:action=>:account}
-    t.column :name
-    t.column :draft
-    t.column :debit
-    t.column :credit
-  end  
-
 
   def journal_filter()
     fy = @current_company.current_financial_year
-    session[:journal_entry_period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
-    session[:journal_entry_mode]   = params[:mode]   = params[:mode]||"automatic"
-    session[:journal_entry_start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
-    session[:journal_entry_finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
-    if action_name == "draft_entry_lines"
+    session[:journal] = {} unless session[:journal].is_a? Hash
+    session[:journal][:period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
+    session[:journal][:start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
+    session[:journal][:finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
+    
+    if action_name == "draft"
       journals = []
       for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
         journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
@@ -508,14 +539,13 @@ class AccountancyController < ApplicationController
   end
 
 
-  @@journal_views = ["entry_lines", "entries", "mixed", "draft_entry_lines"]
+  @@journal_views = ["entry_lines", "entries", "mixed"]
   cattr_reader :journal_views
 
   def journal
     return unless @journal = find_and_check(:journal)
-    journal_filter
-    @journal_views
     session[:current_journal_id] = @journal.id
+    # session[:journal] = params
     journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
     if view = self.journal_views.detect{|x| params[:view] == x}
@@ -536,7 +566,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  create_kame(:draft_entry_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:draft=>true), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:state=>"draft"), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
@@ -548,17 +578,16 @@ class AccountancyController < ApplicationController
   end
   
   # this method lists all the entries generated in draft mode.
-  def draft_entry_lines
+  def draft
     journal_filter
     if request.post? and params[:validate]
       conditions = nil
       begin
-        conditions = eval(self.class.journal_entries_conditions(:draft=>true))
+        conditions = eval(self.class.journal_entries_conditions(:state=>"draft"))
         journal_entries = @current_company.journal_entries.find(:all, :conditions=>conditions)
         undone = 0
         for entry in journal_entries
-          entry.draft_mode = false
-          entry.save
+          entry.confirm if entry.can_confirm?
           undone += 1 if entry.draft?
         end
         notify(:draft_entry_lines_are_validated, :success, :now, :count=>journal_entries.size-undone)
@@ -635,15 +664,15 @@ class AccountancyController < ApplicationController
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
     if request.post?
-      @journal_entry_lines = (params[:entries]||{}).values
+      @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         notify(:journal_entry_has_been_saved, :success, :number=>@journal_entry.number)
-        redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id, :draft_mode=>(1 if @journal_entry.draft_mode)
+        redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
       @journal_entry.printed_on = @journal_entry.created_on = Date.today
       @journal_entry.number = @journal.next_number
-      @journal_entry.draft_mode = true if params[:draft_mode].to_i == 1
+      # @journal_entry.draft_mode = true if params[:draft_mode].to_i == 1
       @journal_entry_lines = []
     end
     t3e @journal.attributes

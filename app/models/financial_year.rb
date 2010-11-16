@@ -121,10 +121,10 @@ class FinancialYear < ActiveRecord::Base
       if balance_account.size > 0
         renew_entry = renew_journal.entries.create!(:financial_year_id => new_financial_year.id, :company_id => self.company.id, :created_on => new_financial_year.started_on, :printed_on => new_financial_year.started_on)
         result   = 0
-        gains    = self.company.account(self.company.preference("accountancy.accounts.capital_gains").value)
-        losses   = self.company.account(self.company.preference("accountancy.accounts.capital_losses").value)
-        charges  = self.company.account(self.company.preference("accountancy.accounts.charges").value)
-        products = self.company.account(self.company.preference("accountancy.accounts.products").value)
+        gains    = self.company.account(self.company.preferred_capital_gains_accounts)
+        losses   = self.company.account(self.company.preferred_capital_losses_accounts)
+        charges  = self.company.account(self.company.preferred_charges_accounts)
+        products = self.company.account(self.company.preferred_products_accounts)
         for account in balance_account
           if account[:number].to_s.match /^#{gains.number}/
             result += account[:balance]
@@ -201,7 +201,7 @@ class FinancialYear < ActiveRecord::Base
 
   def compute_balances
     ## journal_entry_lines.all group_by account_id =>refresh account_balance corresponding
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.draft is false GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.state = 'draft' GROUP BY account_id")
     results.each do |result|
       if account_balance = self.company.account_balances.find_by_financial_year_id_and_account_id(self.id, result["account_id"].to_i)
         account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)

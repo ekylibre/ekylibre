@@ -347,6 +347,7 @@ jpn:
     #>authorized_payments_count: 'Authorized payments count'
     #>available_prices: 'Available prices'
     #>available_products: 'Available products'
+    #>balance: 'Balance'
     #>balance_amount: 'Balance amount'
     #>balances: 'Balances'
     #>bank: 'Bank'
@@ -974,7 +975,7 @@ jpn:
         #>bank_account: 'Bank account'
         #>cash_box: 'Caisse'
     cash_transfer:
-      #>to_accountancy: '[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}'
+      #>bookkeep: '[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}'
     company:
       #>cant_find_document_template: 'Can not find document template'
       default:
@@ -1058,53 +1059,51 @@ jpn:
             #>public: 'Public (no rights)'
         #>sales_order_nature_name: 'Standard'
         sequences:
-          accountancy:
-            cash_transfers:
-              #>format: 'CT[year|4][number|4]'
-              #>name: 'Numeration of cash transfers'
-              #>period: 'year'
-          management:
-            depositments: #!
-            deposits:
-              #>format: 'B[year|4][number|4]'
-              #>name: 'Numeration of deposits'
-              #>period: 'year'
-            incoming_deliveries:
-              #>format: 'ID[year|4][number|4]'
-              #>name: 'Numeration of incoming deliveries'
-              #>period: 'year'
-            incoming_payments:
-              #>format: 'P[year|4][number|6]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
-            outgoing_deliveries:
-              #>format: 'OD[year|4][number|6]'
-              #>name: 'Numeration of outgoing deliveries'
-              #>period: 'year'
-            outgoing_payments:
-              #>format: 'D[year|4][number|4]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
-            payments: #!
-            purchase_orders:
-              #>format: 'PO[year|4][month|2][number|4]'
-              #>name: 'Numeration of purchases'
-              #>period: 'month'
-            sales_invoices:
-              #>format: 'F[year|4][number|6]'
-              #>name: 'Numeration of sales invoices'
-              #>period: 'year'
-            sales_orders:
-              #>format: 'SO[year|4][month|2][number|6]'
-              #>name: 'Numeration of sales'
-              #>period: 'month'
-            subscriptions:
-              #>format: 'SUB[number|8]'
-              #>name: 'Numeration of subscriptions'
-          relations:
-            entities:
-              #>format: '[number|8]'
-              #>name: 'Numeration of people'
+          accountancy: #!
+          cash_transfers:
+            #>format: 'CT[year|4][number|4]'
+            #>name: 'Numeration of cash transfers'
+            #>period: 'year'
+          deposits:
+            #>format: 'B[year|4][number|4]'
+            #>name: 'Numeration of deposits'
+            #>period: 'year'
+          entities:
+            #>format: '[number|8]'
+            #>name: 'Numeration of people'
+          incoming_deliveries:
+            #>format: 'ID[year|4][number|4]'
+            #>name: 'Numeration of incoming deliveries'
+            #>period: 'year'
+          incoming_payments:
+            #>format: 'P[year|4][number|6]'
+            #>name: 'Numeration of payments'
+            #>period: 'year'
+          management: #!
+          outgoing_deliveries:
+            #>format: 'OD[year|4][number|6]'
+            #>name: 'Numeration of outgoing deliveries'
+            #>period: 'year'
+          outgoing_payments:
+            #>format: 'D[year|4][number|4]'
+            #>name: 'Numeration of payments'
+            #>period: 'year'
+          purchase_orders:
+            #>format: 'PO[year|4][month|2][number|4]'
+            #>name: 'Numeration of purchases'
+            #>period: 'month'
+          relations: #!
+          sales_invoices:
+            #>format: 'F[year|4][number|6]'
+            #>name: 'Numeration of sales invoices'
+            #>period: 'year'
+          sales_orders:
+            #>format: 'SO[year|4][month|2][number|6]'
+            #>name: 'Numeration of sales'
+            #>period: 'month'
+          subscriptions:
+            #>format: 'SUB[number|8]'
+            #>name: 'Numeration of subscriptions'
         taxes:
           tva0000:
             #>amount: '0.0'
@@ -1159,11 +1158,11 @@ jpn:
     delivery: #!
     delivery_line: #!
     deposit:
-      to_accountancy:
+      bookkeep:
         #>one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
         #>other: '[%{resource} %{number}] %{count} payments %{mode} %{comment}'
         #>zero: '[%{resource} %{number}] No payments %{mode} %{comment}'
-      #>to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
+      #>bookkeep_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
     document_template:
       #>error_attribute: 'The key word %{value} is incorrect. The possibilities are: %{possibilities}'
       families:
@@ -1208,10 +1207,10 @@ jpn:
         #>double: 'FY%{first_year}/%{second_year}'
         #>single: 'FY%{first_year}'
     incoming_payment:
+      #>bookkeep: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
       #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
-      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
     incoming_payment_use:
-      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
+      #>bookkeep: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     inventory_line:
       #>inventory: 'Inventory'
     journal:
@@ -1224,6 +1223,15 @@ jpn:
         #>various: 'Various operations'
     journal_entry:
       #>entry_cancel: 'Cancel of entry %{number}: %{name}'
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
+    journal_entry_line:
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
     journal_record: #!
     listing_node:
       #>add_filter: ' Add a filter'
@@ -1278,10 +1286,10 @@ jpn:
     outgoing_delivery_line:
       #>sale: 'Sale %{number}'
     outgoing_payment:
+      #>bookkeep: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
       #>label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
-      #>to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
     outgoing_payment_use:
-      #>to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
+      #>bookkeep: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
     price:
       #>label: '%{product} / %{amount} %{currency}'
       #>no_range: 'No range'
@@ -1315,6 +1323,7 @@ jpn:
         #>input: 'One in, many out'
         #>output: 'Many in, one out'
     purchase_order:
+      #>bookkeep: '[%{resource} %{number}] %{products} of %{supplier}'
       #>label: '%{supplier} at %{address}'
       #>purchase: 'Purchase'
       states:
@@ -1325,16 +1334,15 @@ jpn:
         #>processing: 'Waiting...'
         #>ready: 'Ready purchase order'
         #>refused: 'Refused purchase order'
-      #>to_accountancy: '[%{resource} %{number}] %{products} of %{supplier}'
     purchase_order_line:
       #>name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>tracking: 'S/N: %{serial}'
     sales_invoice:
+      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
       label:
         #>credit: 'Credit %{number}'
         #>normal: 'Sales invoice %{number}'
-      #>to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
     sales_invoice_line:
       #>no_product: '[No product]'
     sales_order:

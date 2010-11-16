@@ -43,7 +43,7 @@
 
 
 class Deposit < ActiveRecord::Base
-  acts_as_accountable
+  acts_as_numbered
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
@@ -53,17 +53,7 @@ class Deposit < ActiveRecord::Base
   has_many :payments, :class_name=>IncomingPayment.name, :dependent=>:nullify, :order=>"number"
   # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
-  validates_presence_of :responsible, :number, :cash
-
-  before_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.deposits.numeration")
-    if specific_numeration and specific_numeration.value
-      self.number = specific_numeration.value.next_value
-    else
-      last = self.company.deposits.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
-      self.number = last ? last.number.succ : '000001'
-    end
-  end
+  validates_presence_of :responsible, :cash
 
   before_validation(:on=>:update) do
     self.payments_count = self.payments.count
@@ -76,23 +66,11 @@ class Deposit < ActiveRecord::Base
     end
   end
 
-  def refresh
-    self.save
-  end
-
-  # this method valids the deposit and accountizes the matching payments.
-  # def confirm
-  #     payments = IncomingPayment.find_all_by_company_id_and_deposit_id(self.company_id, self.id)
-  #     payments.each do |payment|
-  #       payment.to_accountancy
-  #     end
-  #   end
-
   # This method permits to add journal entries corresponding to the payment
-  # It depends on the preference which permit to activate the "automatic accountizing"
-  def to_accountancy(action=:create, options={})
+  # It depends on the preference which permit to activate the "automatic bookkeeping"
+  bookkeep do |b|
     payments = self.reload.payments
-    accountize(action, {:journal=>self.cash.journal, :draft_mode=>options[:draft]}) do |entry|
+    b.journal_entry(self.cash.journal) do |entry|
 
       commissions, commissions_amount = {}, 0
       for payment in payments
@@ -101,16 +79,16 @@ class Deposit < ActiveRecord::Base
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
+      label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
       
       entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
       for commission_account_id, commission_amount in commissions
         entry.add_debit( label, commission_account_id.to_i, commission_amount) if commission_amount > 0
       end
 
-      if self.company.preference("accountancy.accountize.detail_payments_in_deposits").value
+      if self.company.prefer_detail_payments_in_deposit_bookkeeping?
         for payment in payments
-          label = tc(:to_accountancy_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
+          label = tc(:bookkeep_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
           entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else
@@ -118,6 +96,11 @@ class Deposit < ActiveRecord::Base
       end
       true
     end
+  end
+
+
+  def refresh
+    self.save
   end
 
 end

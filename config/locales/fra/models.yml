@@ -352,6 +352,7 @@ fra:
     authorized_payments_count: 'Nombre d''encaissements autorisés'
     available_prices: 'Prix disponibles'
     available_products: 'Produits disponibles'
+    #>balance: 'Balance'
     balance_amount: 'Solde'
     balances: 'Balances de compte'
     bank: 'Banque'
@@ -980,7 +981,7 @@ fra:
         bank_account: 'Compte bancaire'
         cash_box: 'Caisse'
     cash_transfer:
-      to_accountancy: '[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}'
+      bookkeep: '[%{resource} %{number}] De %{emitter} à %{receiver} %{comment}'
     company:
       cant_find_document_template: 'Impossible de trouver le modèle de document correspondant'
       default:
@@ -1063,51 +1064,48 @@ fra:
             public: 'Public (sans droits)'
         sales_order_nature_name: 'Vente standard'
         sequences:
-          accountancy:
-            cash_transfers:
-              format: 'VI[year|4][number|4]'
-              name: 'Numérotation des virements internes'
-              period: 'year'
-          management:
-            deposits:
-              format: 'B[year|4][number|4]'
-              name: 'Numérotation des remises en banque'
-              period: 'year'
-            incoming_deliveries:
-              format: 'BR[year|4][number|4]'
-              name: 'Numérotation des bons de réceptions'
-              period: 'year'
-            incoming_payments:
-              format: 'R[year|4][number|6]'
-              name: 'Numérotation des encaissements'
-              period: 'year'
-            outgoing_deliveries:
-              format: 'BL[year|4][number|6]'
-              name: 'Numérotation des bons de livraisons'
-              period: 'year'
-            outgoing_payments:
-              format: 'D[year|4][number|4]'
-              name: 'Numérotation des décaissements'
-              period: 'year'
-            purchase_orders:
-              format: 'A[year|4][month|2][number|6]'
-              name: 'Numérotation des achats'
-              period: 'month'
-            sales_invoices:
-              format: 'F[year|4][number|6]'
-              name: 'Numérotation des factures'
-              period: 'year'
-            sales_orders:
-              format: 'V[year|4][month|2][number|6]'
-              name: 'Numérotation des ventes'
-              period: 'month'
-            subscriptions:
-              format: 'ABO[number|8]'
-              name: 'Numérotation des abonnements'
-          relations:
-            entities:
-              format: '[number|8]'
-              name: 'Numérotation des personnes'
+          cash_transfers:
+            format: 'VI[year|4][number|4]'
+            name: 'Numérotation des virements internes'
+            period: 'year'
+          deposits:
+            format: 'B[year|4][number|4]'
+            name: 'Numérotation des remises en banque'
+            period: 'year'
+          entities:
+            #>format: '[number|8]'
+            #>name: 'Numeration of people'
+          incoming_deliveries:
+            format: 'BR[year|4][number|4]'
+            name: 'Numérotation des bons de réceptions'
+            period: 'year'
+          incoming_payments:
+            format: 'R[year|4][number|6]'
+            name: 'Numérotation des encaissements'
+            period: 'year'
+          outgoing_deliveries:
+            format: 'BL[year|4][number|6]'
+            name: 'Numérotation des bons de livraisons'
+            period: 'year'
+          outgoing_payments:
+            format: 'D[year|4][number|4]'
+            name: 'Numérotation des décaissements'
+            period: 'year'
+          purchase_orders:
+            format: 'A[year|4][month|2][number|6]'
+            name: 'Numérotation des achats'
+            period: 'month'
+          sales_invoices:
+            format: 'F[year|4][number|6]'
+            name: 'Numérotation des factures'
+            period: 'year'
+          sales_orders:
+            format: 'V[year|4][month|2][number|6]'
+            name: 'Numérotation des ventes'
+            period: 'month'
+          subscriptions:
+            format: 'ABO[number|8]'
+            name: 'Numérotation des abonnements'
         taxes:
           tva0000:
             amount: '0.0'
@@ -1159,11 +1157,11 @@ fra:
     delay:
       error_unvalid_format_for_expression: 'L''expression n''est pas au bon format'
     deposit:
-      to_accountancy:
+      bookkeep:
         one: '[%{resource} %{number}] %{count} encaissement %{mode} %{comment}'
         other: '[%{resource} %{number}] %{count} encaissements %{mode} %{comment}'
         zero: '[%{resource} %{number}] Aucun encaissement %{mode} %{comment}'
-      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})'
+      bookkeep_with_payment: '[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{payment})'
     document_template:
       error_attribute: 'Le champ %{value} est incorrect. Les possibilités sont : %{possibilities}'
       families:
@@ -1208,10 +1206,10 @@ fra:
         double: 'EX%{first_year}/%{second_year}'
         single: 'EX%{first_year}'
     incoming_payment:
+      bookkeep: '[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})'
       label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{payer}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})'
     incoming_payment_use:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})'
+      bookkeep: '[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})'
     inventory_line:
       inventory: 'Inventaire '
     journal:
@@ -1224,6 +1222,15 @@ fra:
         various: 'Opérations diverses'
     journal_entry:
       entry_cancel: 'Contre-passation de l''écriture %{number}: %{name}'
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
+    journal_entry_line:
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
     listing_node:
       add_filter: ' Ajouter un filtre '
       all_columns: '-- Toutes les colonnes --'
@@ -1277,10 +1284,10 @@ fra:
     outgoing_delivery_line:
       sale: 'Vente %{number}'
     outgoing_payment:
+      bookkeep: '[%{resource} %{number}] %{mode} %{check_number} pour %{payee} (%{expenses})'
       label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} pour %{payee}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} pour %{payee} (%{expenses})'
     outgoing_payment_use:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) reçu par %{attorney} pour %{supplier} (%{expense_number})'
+      bookkeep: '[%{resource}] %{mode} (%{payment_number}) reçu par %{attorney} pour %{supplier} (%{expense_number})'
     price:
       label: '%{product} / %{amount} %{currency}'
       no_range: 'Pas d''intervalle'
@@ -1314,6 +1321,7 @@ fra:
         input: 'Une entrée, plusieurs sorties'
         output: 'Plusieurs entrées, une sortie'
     purchase_order:
+      bookkeep: '[%{resource} %{number}] %{products} de %{supplier}'
       label: '%{supplier} à %{address}'
       purchase: 'Achat'
       states:
@@ -1324,16 +1332,15 @@ fra:
         processing: 'En attente des livraisons...'
         ready: 'Prêt à transmettre'
         refused: 'Refusé'
-      to_accountancy: '[%{resource} %{number}] %{products} de %{supplier}'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
       tracking: 'N°Lot : %{serial}'
     sales_invoice:
+      bookkeep: '[%{resource} %{number}] %{products} pour %{client} (%{sales_order})'
       label:
         credit: 'Avoir N°%{number}'
         normal: 'Facture N°%{number}'
-      to_accountancy: '[%{resource} %{number}] %{products} pour %{client} (%{sales_order})'
     sales_invoice_line:
       no_product: '[Pas de produit]'
     sales_order:

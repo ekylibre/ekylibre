@@ -1,12 +1,12 @@
 -journals = @current_company.journals
 .tabbox.journals
   .tabs
-    -if @current_company.journal_entry_lines.find_by_draft(true)
-      -name=tc('draft_entries').gsub(/\s+/, '&nbsp;').html_safe
-      -if action_name=="draft_entries"
+    -if @current_company.journal_entry_lines.find_by_state("draft")
+      -name=tc("draft_entry_lines").gsub(/\s+/, '&nbsp;').html_safe
+      -if action_name=="draft_entry_lines"
         %strong.tab.current.special=name
       -else
-        =link_to(name, {:action=>:draft_entries, :controller=>:accountancy, :mode=>params[:mode], :period=>params[:period], :start=>params[:start], :finish=>params[:finish]}, :class=>"tab special")
+        =link_to(name, {:action=>:draft, :controller=>:accountancy, :mode=>params[:mode], :period=>params[:period], :start=>params[:start], :finish=>params[:finish]}, :class=>"tab special")
     -for journal in journals
       -name= journal.name.gsub(/\s+/, '&nbsp;').html_safe
       -klass = "tab"

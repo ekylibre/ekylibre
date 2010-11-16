@@ -37,7 +37,6 @@
 
 class Journal < ActiveRecord::Base
   attr_readonly :company_id
-  before_destroy :empty?
   belongs_to :company
   belongs_to :currency
   # cattr_accessor :natures
@@ -83,22 +82,6 @@ class Journal < ActiveRecord::Base
   def nature_label(nature=nil)
     tc('natures.'+(nature||self.nature).to_s)
   end
-
-
-  # tests if the entry contains entry_lines.
-  def empty?
-     return self.entries.size <= 0
-  end
-
-  #
-  def balance?
-    self.entries.each do |entry|
-      unless entry.balanced and entry.normalized
-        return false 
-      end
-    end
-    return true
-  end  
 
   #
   def closable?(closed_on=nil)

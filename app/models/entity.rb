@@ -77,6 +77,7 @@
 
 
 class Entity < ActiveRecord::Base
+  acts_as_numbered :code
   attr_readonly :company_id
   belongs_to :attorney_account, :class_name=>Account.to_s
   belongs_to :client_account, :class_name=>Account.to_s
@@ -120,23 +121,7 @@ class Entity < ActiveRecord::Base
       self.full_name = (self.nature.title+' '+self.full_name).strip unless self.nature.in_name # or self.nature.abbreviation == "-")
     end
     self.full_name.strip!
-
-    if self.code.blank?
-      last = self.company.entities.find(:first, :order=>"code desc")
-      self.code = last ? last.code.succ! : '0000001'
-    end
-    #     if not self.company.preference("relations.entities.numeration").nil? and self.code.blank?
-    #       specific_numeration = self.company.preference("relations.entities.numeration").value
-    #       if not specific_numeration.nil?
-    #         self.code = specific_numeration.next_value
-    #       end
-    #     elsif self.code.blank?
-    #       self.code = self.full_name.codeize if self.code.blank?
-    #       self.code = self.code[0..15]
-    #     end
   end
-
-  
 
   #
   validate do
@@ -150,12 +135,6 @@ class Entity < ActiveRecord::Base
     end
   end
     
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("relations.entities.numeration").value
-    self.code = specific_numeration.next_value unless specific_numeration.nil?
-    # raise Exception.new [specific_numeration, code].inspect
-  end
-
   protect_on_destroy do
     #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
     return false if self.id == self.company.entity.id
@@ -218,8 +197,8 @@ class Entity < ActiveRecord::Base
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature])
     if valid_account.nil?
-      prefix = self.company.preference("accountancy.accounts.third_#{nature.to_s.pluralize}").value
-      if self.company.preference("accountancy.entities.use_code_for_account_numbers").value
+      prefix = self.company.preferred("third_#{nature.to_s.pluralize}_accounts")
+      if self.company.prefer_use_entity_codes_for_account_numbers?
         number = prefix.to_s+self.code.to_s
         valid_account = self.company.accounts.find_by_number(number)
         valid_account = self.company.accounts.create(:number=>number, :name=>self.full_name) unless valid_account

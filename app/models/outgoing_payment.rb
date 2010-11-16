@@ -44,7 +44,7 @@
 
 
 class OutgoingPayment < ActiveRecord::Base
-  acts_as_accountable
+  acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
   belongs_to :journal_entry
@@ -61,13 +61,6 @@ class OutgoingPayment < ActiveRecord::Base
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today
-    specific_numeration = self.company.preference("management.outgoing_payments.numeration")
-    if specific_numeration and specific_numeration.value
-      self.number = specific_numeration.value.next_value
-    else
-      last = self.company.outgoing_payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
-      self.number = last ? last.number.succ : '000000'
-    end
     true
   end
 
@@ -86,6 +79,23 @@ class OutgoingPayment < ActiveRecord::Base
   protect_on_destroy do
     updateable? and self.used_amount.zero?
   end
+
+  # This method permits to add journal entries corresponding to the payment
+  # It depends on the preference which permit to activate the "automatic bookkeeping"
+  bookkeep do |b|
+    attorney_amount = self.attorney_amount
+    supplier_amount = self.amount - attorney_amount
+    label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    b.journal_entry(self.mode.cash.journal, {:printed_on=>self.to_bank_on}, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |entry|
+      entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
+      entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+      entry.add_credit(label, self.mode.cash.account_id, self.amount)
+    end
+#     if use = self.uses.first
+#       use.link_in_accountancy
+#     end
+  end
+
 
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payee=>self.payee.full_name, :number=>self.number, :currency=>self.company.default_currency.symbol)
@@ -117,23 +127,6 @@ class OutgoingPayment < ActiveRecord::Base
       return false
     end
     return true
-  end
-
-
-  # This method permits to add journal entries corresponding to the payment
-  # It depends on the preference which permit to activate the "automatic accountizing"
-  def to_accountancy(action=:create, options={})
-    attorney_amount = self.attorney_amount
-    supplier_amount = self.amount - attorney_amount
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>self.mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |entry|
-      entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
-      entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
-      entry.add_credit(label, self.mode.cash.account_id, self.amount)
-    end
-    if use = self.uses.first
-      use.link_in_accountancy
-    end
   end
 
 end

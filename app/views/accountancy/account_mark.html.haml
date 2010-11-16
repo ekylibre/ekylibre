@@ -42,8 +42,8 @@
         %td=link_to(@journal_entry_line.journal.name, {:action=>:journal, :id=>@journal_entry_line.journal_id}, :keep=>true)
         %td.code=link_to(@journal_entry_line.entry.number, {:action=>:journal_entry, :id=>@journal_entry_line.entry_id}, :keep=>true)
         %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=@journal_entry_line.name
-        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_to_accountancy(@journal_entry_line.debit)
-        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_to_accountancy(@journal_entry_line.credit)
+        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_bookkeep(@journal_entry_line.debit)
+        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_bookkeep(@journal_entry_line.credit)
     %tr#total.total
       %th{:colspan=>5}=tg(:total)
       %td#total-debit=0

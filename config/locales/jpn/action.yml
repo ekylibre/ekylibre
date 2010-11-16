@@ -5,7 +5,6 @@ jpn:
       #>account_create: 'Create new account'
       #>account_mark: 'Lettering account: %{number} - %{name}'
       #>account_update: 'Edit account: %{number} - %{name}'
-      #>accountize: 'Flip book'
       #>accounts: 'Plan of accounts'
       #>accounts_load: 'Load a plan of accounts'
       #>balance: 'Balance'
@@ -14,8 +13,9 @@ jpn:
       #>bank_statement_point: 'Point bank statement %{number}'
       #>bank_statement_update: 'Edit bank statement %{number}'
       #>bank_statements: 'Bank statements'
+      #>bookkeep: 'Flip book'
       #>document_print: 'Prints, exportations'
-      #>draft_entry_lines: 'Draft'
+      #>draft: 'Draft'
       #>financial_year: 'Financial year %{code}'
       #>financial_year_close: 'Close financial year'
       #>financial_year_create: 'Open a new financial year'
@@ -493,7 +493,7 @@ jpn:
     #>download_firefox: 'Download Mozilla Firefox...'
     #>downpayment: 'Downpayment'
     #>draft: 'Draft'
-    #>draft_entry_lines: 'Draft entry lines'
+    #>draft: 'Draft entry lines'
     #>duplicate: 'Duplicate'
     #>duration: 'Duration'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
@@ -600,7 +600,7 @@ jpn:
     #>journal_record_update: 'Update document'
     #>journal_update: 'Update Journal'
     journal_view:
-      #>draft_entry_lines: 'Draft entries'
+      #>draft: 'Draft entries'
       #>entries: 'Entries'
       #>entry_lines: 'Lines of entries'
       #>mixed: 'Entries and lines'
@@ -651,8 +651,8 @@ jpn:
     #>meeting: 'Meeting'
     menu:
       accountancy_tasks: '用事'
-      #>accountize: 'Accounting transfer'
       #>bank_statements: 'Bank statements'
+      #>bookkeep: 'Accounting transfer'
       #>documents: 'Documents'
       #>financial_operations: 'Financial operations'
       #>informations: 'Informations'
@@ -1091,9 +1091,9 @@ jpn:
     #>yearly: 'Yearly'
   notifications:
     #>access_denied: 'Access denied. %{reason} (%{url})'
-    #>accountizing_is_finished: 'The commercial data transfer is finished.'
-    #>accountizing_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
     #>bad_file: 'The file is incorrect.'
+    #>bookkeeping_is_finished: 'The commercial data transfer is finished.'
+    #>bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
     #>cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
     #>cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
     #>cannot_merge_entities: 'It''s impossible to merge these people.'
@@ -1154,6 +1154,7 @@ jpn:
     #>password_successfully_changed: 'Your password has been updated successfully'
     #>prices_import_succeeded: 'Your data have been successfully imported '
     #>print_failure: 'Print failure. Try to reload the templates to correct the problem. %{error} (%{class}).'
+    #>purchase_order_already_invoiced: 'Purchase order already invoiced'
     #>record_cannot_be_removed: 'The record can not be deleted'
     #>record_has_been_correctly_removed: 'The record has been removed successfully'
     #>record_has_not_been_removed: 'The record has not been removed'
@@ -1161,7 +1162,7 @@ jpn:
     #>sales_order_already_invoiced: 'The sale has already been invoiced: you can not define delivery '
     #>sales_order_cannot_be_updated: 'The estimate is no longer editable.'
     #>sales_order_cant_be_deleted: 'The sales order can not be deleted.'
-    #>select_entries_to_letter_together: 'Select entries in order to letter them together'
+    #>select_entries_to_mark_together: 'Select entries in order to letter them together'
     #>specify_filter: 'You must choose at least one search filter'
     #>specify_updates: 'You must specify at least one field to edit'
     #>unavailable_model: 'Inexistent %{model} (%{id})'
@@ -1179,64 +1180,46 @@ jpn:
     #>you_must_select_a_file_to_import: 'You must select a file to import'
     #>you_will_lose_all_your_current_data: 'If you continue, you will lose all your data being entered. Would you continue?'
   preferences:
-    accountancy:
-      accountize:
-        #>automatic: 'Activate the automatic accounting transfer'
-        #>detail_payments_in_deposits: 'Detail all the payments in deposits during accounting transfer'
-        #>draft_mode: 'Save the records in draft mode during accounting transfer'
-      accounts:
-        #>capital_gains: 'Profit for the year (earnings)'
-        #>capital_losses: 'Profit for the year (loss)'
-        #>charges: 'Charges accounts'
-        #>financial_banks: 'Banks accounts'
-        #>financial_cashes: 'Cashes accounts'
-        #>financial_internal_transfers: 'Internal transfers'
-        #>financial_payments_to_deposit: 'Payments to deposit accounts'
-        #>products: 'Products accounts'
-        #>taxes_acquisition: 'Accounts of taxes for intra-Community acquisitions'
-        #>taxes_assimilated: 'Assimilated taxes accounts'
-        #>taxes_balance: 'Balance taxes accounts'
-        #>taxes_collected: 'Collected taxes accounts'
-        #>taxes_paid: 'Paid taxes account'
-        #>taxes_payback: 'Payback taxes accounts'
-        #>third_attorneys: 'Attorneys accounts'
-        #>third_clients: 'Clients accounts'
-        #>third_suppliers: 'Suppliers accounts'
-      cash_transfers:
-        #>numeration: 'Numeration of cash transfers'
-      entities:
-        #>use_code_for_account_numbers: 'Use code for creating account numbers'
-      journals:
-        #>bank: 'Default bank journal'
-        #>cash: 'Default cash journal'
-        #>forward: 'Default carried-forward journal'
-        #>purchases: 'Default purchases journal'
-        #>sales: 'Default sales journal'
-        #>various: 'Default various operations journal'
-    general:
-      #>language: 'Default language'
-    management:
-      deposits:
-        #>days_before_warning_undone: 'Number of days before warning for receipts not made'
-        #>days_before_warning_unvalidated: 'Number of days before warning for receipts not validated'
-        #>numeration: 'Numeration of deposits'
-      incoming_deliveries:
-        #>numeration: 'Numeration of incoming deliveries'
-      incoming_payments:
-        #>numeration: 'Numeration of incoming payments'
-      outgoing_deliveries:
-        #>numeration: 'Numeration of outgoing deliveries'
-      outgoing_payments:
-        #>numeration: 'Numeration of disbursements'
-      payments: #!
-      purchase_orders:
-        #>numeration: 'Numeration of purchases'
-      sales_invoices:
-        #>numeration: 'Numeration of sales invoices'
-      sales_orders:
-        #>numeration: 'Numeration of sales'
-      subscriptions:
-        #>numeration: 'Numeration of subscriptions'
-    relations:
-      entities:
-        #>numeration: 'Numeration of people'
+    accountancy: #!
+    #>bank_journal: 'Default bank journal'
+    #>bookkeep_automatically: 'Activate the automatic accounting transfer'
+    #>bookkeep_in_draft: 'Save the records in draft mode during accounting transfer'
+    #>capital_gains_accounts: 'Profit for the year (earnings)'
+    #>capital_losses_accounts: 'Profit for the year (loss)'
+    #>cash_journal: 'Default cash journal'
+    #>cash_transfers_sequence: 'Numeration of cash transfers'
+    #>charges_accounts: 'Charges accounts'
+    #>deposits_sequence: 'Numeration of deposits'
+    #>detail_payments_in_deposit_bookkeeping: 'Detail all the payments in deposit bookkeeping'
+    #>entities_sequence: 'Numeration of people'
+    #>financial_banks_accounts: 'Banks accounts'
+    #>financial_cashes_accounts: 'Cashes accounts'
+    #>financial_internal_transfers_accounts: 'Internal transfers'
+    #>financial_payments_to_deposit_accounts: 'Payments to deposit accounts'
+    #>forward_journal: 'Default carried-forward journal'
+    general: #!
+    #>incoming_deliveries_sequence: 'Numeration of incoming deliveries'
+    #>incoming_payments_sequence: 'Numeration of incoming payments'
+    management: #!
+    #>outgoing_deliveries_sequence: 'Numeration of outgoing deliveries'
+    #>outgoing_payments_sequence: 'Numeration of disbursements'
+    #>products_accounts: 'Products accounts'
+    #>purchase_orders_sequence: 'Numeration of purchases'
+    #>purchases_journal: 'Default purchases journal'
+    relations: #!
+    #>sales_invoices_sequence: 'Numeration of sales invoices'
+    #>sales_journal: 'Default sales journal'
+    #>sales_orders_sequence: 'Numeration of sales'
+    #>subscriptions_sequence: 'Numeration of subscriptions'
+    #>taxes_acquisition_accounts: 'Accounts of taxes for intra-Community acquisitions'
+    #>taxes_assimilated_accounts: 'Assimilated taxes accounts'
+    #>taxes_balance_accounts: 'Balance taxes accounts'
+    #>taxes_collected_accounts: 'Collected taxes accounts'
+    #>taxes_paid_accounts: 'Paid taxes account'
+    #>taxes_payback_accounts: 'Payback taxes accounts'
+    #>third_attorneys_accounts: 'Attorneys accounts'
+    #>third_clients_accounts: 'Clients accounts'
+    #>third_suppliers_accounts: 'Suppliers accounts'
+    #>transports_sequence: 'Numeration of transports'
+    #>use_entity_codes_for_account_numbers: 'Use code for creating account numbers'
+    #>various_journal: 'Default various operations journal'

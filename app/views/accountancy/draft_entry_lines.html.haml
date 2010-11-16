@@ -1,8 +1,0 @@
-=form_tag(nil, {:class=>"vbox flex", :style=>'overflow:none'}) do
-  .fields.flex
-    =journals_tag
-    .search=render :partial=>"journals_search"
-    =kame(:draft_entry_lines)
-    .end
-  .actions
-    =submit_tag(tc(:validate_selected_entries), :confirm=>tg(:are_you_sure), :name=>:validate)

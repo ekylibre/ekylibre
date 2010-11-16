@@ -5,7 +5,6 @@ arb:
       account_create: 'انشاء حساب جديد'
       account_mark: 'تسجيل حساب رقم {{number}} من {{started_on}} الى {{stopped_on}}'
       account_update: 'تعديل الحساب : {{number}} - {{name}}'
-      accountize: 'نظام المحاسبة المتغير'
       accounts: 'مخطط الحساب'
       #>accounts_load: 'Load a plan of accounts'
       balance: 'رصيد الحساب'
@@ -14,8 +13,9 @@ arb:
       bank_statement_point: 'رقم اعداد البيان{{number}} من {{cash}}'
       bank_statement_update: 'تعديل الكشف المصرفي رقم{{number}}'
       bank_statements: 'بيان الحساب المصرفي'
+      bookkeep: 'نظام المحاسبة المتغير'
       document_print: 'طباعة وتصدير'
-      draft_entry_lines: 'المسودات'
+      draft: 'المسودات'
       financial_year: 'ممارسة المحاسبة {{code}}'
       financial_year_close: 'نهاية الممارسة'
       financial_year_create: 'انشاء مهنة جديدة'
@@ -511,7 +511,7 @@ arb:
     download_firefox: 'تحميل موزيلا فاير فوكس'
     downpayment: 'شروط العربون'
     draft: 'المسودات'
-    draft_entry_lines: 'المسودات'
+    draft: 'المسودات'
     duplicate: 'تكرار'
     duration: '{{hours}}ساعة {{minutes}}دقيقة'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
@@ -635,7 +635,7 @@ arb:
     journal_record_update: 'تعديل العينات'
     journal_update: 'تعديل الفاتر اليومية'
     journal_view:
-      draft_entry_lines: 'المسودات'
+      draft: 'المسودات'
       entries: 'العينات'
       entry_lines: 'الادخالات'
       mixed: 'دمج السجلات'
@@ -690,8 +690,8 @@ arb:
     meeting: 'المقابلة(X)مكان'
     menu:
       accountancy_tasks: 'أعمال المحاسبة'
-      accountize: 'ميزان المحاسبة'
       bank_statements: 'بيانات الحساب'
+      bookkeep: 'ميزان المحاسبة'
       documents: 'الوثائق'
       #>financial_operations: 'Financial operations'
       informations: 'المعلومات'
@@ -1189,9 +1189,9 @@ arb:
     yearly: 'Annuelle'
   notifications:
     access_denied: ' ليس لديك الصلاحية لبلوغ هذه الصفحة {{reason}} ({{url}})'
-    accountizing_is_finished: 'نهاية نطاق المحاسبة'
-    accountizing_works_only_with: 'يمكن جعل نطاق الماسبة الحالية ل : {{list}}.'
     bad_file: 'لا يبدو ان الملفات متطابقة'
+    bookkeeping_is_finished: 'نهاية نطاق المحاسبة'
+    bookkeeping_works_only_with: 'يمكن جعل نطاق الماسبة الحالية ل : {{list}}.'
     cannot_delete_entity: 'غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة'
     cannot_merge_an_entity_with_itself: 'غير ممكن دمج الملف مع نفسه'
     cannot_merge_entities: 'Une erreur est survenue. غير ممكن دمج هذه الملفات'
@@ -1251,6 +1251,7 @@ arb:
     password_successfully_changed: 'تم تغيير كلمة المرور الخاصة بك بنجاح'
     prices_import_succeeded: 'تم استيراد بياناتك بشكل صحيح'
     print_failure: ' غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة{{error}} ({{class}}).'
+    #>purchase_order_already_invoiced: 'Purchase order already invoiced'
     record_cannot_be_removed: 'لا يمكن حذف السجل'
     record_has_been_correctly_removed: 'تم حذف السجل بشكل صحيح'
     record_has_not_been_removed: 'لم يتم حذف السجل بشكل صحيح'
@@ -1258,7 +1259,8 @@ arb:
     sales_order_already_invoiced: 'قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم'
     sales_order_cannot_be_updated: 'الطلب غير قابل للتعديل'
     sales_order_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
-    select_entries_to_letter_together: 'اختر الادخالات للكتابة معا '
+    select_entries_to_letter_together: 'اختر الادخالات للكتابة معا ' #!
+    #>select_entries_to_mark_together: 'Select entries in order to letter them together'
     specify_filter: 'اختر تطبيق تصفية واحدة كحد ادنى للبحث'
     specify_updates: 'يجب عليك تحديد حقل واحد كحد ادنى للتعديل'
     unavailable_model: '{{model}} غير متوفر أو غير موجود ({{id}})'
@@ -1275,65 +1277,91 @@ arb:
     you_must_select_a_file_to_import: 'يجب عليك اختيار ملف للاستيراد'
     you_will_lose_all_your_current_data: 'اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟'
   preferences:
-    accountancy:
-      accountize:
-        automatic: 'تنشيط موازين بيانات المحاسبة تلقائيا'
-        detail_payments_in_deposits: 'توسيع قائمة الانظمة المحاسبية للاقتطاع المصرفي'
-        draft_mode: 'حفظ الملفات في قائمة المسودة تلقائيا'
-      accounts:
-        capital_gains: '(نتيجة العمل (الارباح'
-        capital_losses: '(نتيجة العمل (الخسارة'
-        charges: 'حسابات الحمولة'
-        financial_banks: 'الحسابات المصرفية'
-        financial_cashes: 'حسابات الصندوق النقدي'
-        #>financial_internal_transfers: 'Internal transfers'
-        financial_payments_to_deposit: 'قواعد الدفعات النقدية'
-        products: 'حسابات المنتج'
-        taxes_acquisition: 'حساب الضرائب المكتسبة داخليا'
-        taxes_assimilated: 'حسابات الضرائب المماثلة'
-        taxes_balance: 'حساب صافي الضريبة'
-        taxes_collected: 'حساب الضرائب التي تم جمعها'
-        taxes_paid: 'حساب الضرائب المقتطعة'
-        taxes_payback: 'حساب الضرائب المسددة'
-        third_attorneys: 'حسابات الوكيل'
-        third_clients: 'حسابات العملاء'
-        third_suppliers: 'حسابات الممولين'
-      cash_transfers:
-        #>numeration: 'Numeration of cash transfers'
-      entities:
-        #>use_code_for_account_numbers: 'Use code for creating account numbers'
-      journals:
-        bank: 'الدفاتر المصرفية اليومية الافتراضيا'
-        cash: 'دفاتر الصندوق النقدي اليومية افتراضيا '
-        forward: 'تقارير دورية افتراضية جديدة'
-        purchases: 'مشتريات دورية افتراضية'
-        sales: 'مبيعات دورية افتراضية'
-        various: 'الاجراءات اليومية المختلفة افتراضيا'
-    general:
-      language: 'اللغة المفترضة'
-    management:
-      deposits:
-        days_before_warning_undone: 'عدد الايام قبل منع الضرائب الفير تامة'
-        days_before_warning_unvalidated: 'عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية '
-        numeration: 'احصاء الاقتطاعات المصرفية'
-      incoming_deliveries:
-        #>numeration: 'Numeration of incoming deliveries'
-      incoming_payments:
-        #>numeration: 'Numeration of incoming payments'
-      outgoing_deliveries:
-        #>numeration: 'Numeration of outgoing deliveries'
-      outgoing_payments:
-        #>numeration: 'Numeration of disbursements'
-      payments:  #!
+    accountancy:  #!
+      accounts: #!
+        capital_gains: '(نتيجة العمل (الارباح' #!
+        capital_losses: '(نتيجة العمل (الخسارة' #!
+        charges: 'حسابات الحمولة' #!
+        financial_banks: 'الحسابات المصرفية' #!
+        financial_cashes: 'حسابات الصندوق النقدي' #!
+        financial_payments_to_deposit: 'قواعد الدفعات النقدية' #!
+        products: 'حسابات المنتج' #!
+        taxes_acquisition: 'حساب الضرائب المكتسبة داخليا' #!
+        taxes_assimilated: 'حسابات الضرائب المماثلة' #!
+        taxes_balance: 'حساب صافي الضريبة' #!
+        taxes_collected: 'حساب الضرائب التي تم جمعها' #!
+        taxes_paid: 'حساب الضرائب المقتطعة' #!
+        taxes_payback: 'حساب الضرائب المسددة' #!
+        third_attorneys: 'حسابات الوكيل' #!
+        third_clients: 'حسابات العملاء' #!
+        third_suppliers: 'حسابات الممولين' #!
+      bookkeep: #!
+        automatic: 'تنشيط موازين بيانات المحاسبة تلقائيا' #!
+        detail_payments_in_deposits: 'توسيع قائمة الانظمة المحاسبية للاقتطاع المصرفي' #!
+        draft_mode: 'حفظ الملفات في قائمة المسودة تلقائيا' #!
+      journals: #!
+        bank: 'الدفاتر المصرفية اليومية الافتراضيا' #!
+        cash: 'دفاتر الصندوق النقدي اليومية افتراضيا ' #!
+        forward: 'تقارير دورية افتراضية جديدة' #!
+        purchases: 'مشتريات دورية افتراضية' #!
+        sales: 'مبيعات دورية افتراضية' #!
+        various: 'الاجراءات اليومية المختلفة افتراضيا' #!
+    #>bank_journal: 'Default bank journal'
+    #>bookkeep_automatically: 'Activate the automatic accounting transfer'
+    #>bookkeep_in_draft: 'Save the records in draft mode during accounting transfer'
+    #>capital_gains_accounts: 'Profit for the year (earnings)'
+    #>capital_losses_accounts: 'Profit for the year (loss)'
+    #>cash_journal: 'Default cash journal'
+    #>cash_transfers_sequence: 'Numeration of cash transfers'
+    #>charges_accounts: 'Charges accounts'
+    #>deposits_sequence: 'Numeration of deposits'
+    #>detail_payments_in_deposit_bookkeeping: 'Detail all the payments in deposit bookkeeping'
+    #>entities_sequence: 'Numeration of people'
+    #>financial_banks_accounts: 'Banks accounts'
+    #>financial_cashes_accounts: 'Cashes accounts'
+    #>financial_internal_transfers_accounts: 'Internal transfers'
+    #>financial_payments_to_deposit_accounts: 'Payments to deposit accounts'
+    #>forward_journal: 'Default carried-forward journal'
+    general:  #!
+      language: 'اللغة المفترضة' #!
+    #>incoming_deliveries_sequence: 'Numeration of incoming deliveries'
+    #>incoming_payments_sequence: 'Numeration of incoming payments'
+    management:  #!
+      deposits: #!
+        days_before_warning_undone: 'عدد الايام قبل منع الضرائب الفير تامة' #!
+        days_before_warning_unvalidated: 'عدد الايام الضرورية للمصادقة على الاقنطاعات المصرفية ' #!
+        numeration: 'احصاء الاقتطاعات المصرفية' #!
+      payments: #!
         numeration: 'احصاء الانظمة' #!
-      purchase_orders:
-        numeration: 'احصاء المشتريات'
-      sales_invoices:
-        numeration: 'احصاء الفواتير'
-      sales_orders:
-        numeration: 'احصاء المبيعات'
-      subscriptions:
-        numeration: 'احصاء الاشتراكات'
-    relations:
-      entities:
-        numeration: 'احصاء ملفات العملاء / الممولين'
+      purchase_orders: #!
+        numeration: 'احصاء المشتريات' #!
+      sales_invoices: #!
+        numeration: 'احصاء الفواتير' #!
+      sales_orders: #!
+        numeration: 'احصاء المبيعات' #!
+      subscriptions: #!
+        numeration: 'احصاء الاشتراكات' #!
+    #>outgoing_deliveries_sequence: 'Numeration of outgoing deliveries'
+    #>outgoing_payments_sequence: 'Numeration of disbursements'
+    #>products_accounts: 'Products accounts'
+    #>purchase_orders_sequence: 'Numeration of purchases'
+    #>purchases_journal: 'Default purchases journal'
+    relations:  #!
+      entities: #!
+        numeration: 'احصاء ملفات العملاء / الممولين' #!
+    #>sales_invoices_sequence: 'Numeration of sales invoices'
+    #>sales_journal: 'Default sales journal'
+    #>sales_orders_sequence: 'Numeration of sales'
+    #>subscriptions_sequence: 'Numeration of subscriptions'
+    #>taxes_acquisition_accounts: 'Accounts of taxes for intra-Community acquisitions'
+    #>taxes_assimilated_accounts: 'Assimilated taxes accounts'
+    #>taxes_balance_accounts: 'Balance taxes accounts'
+    #>taxes_collected_accounts: 'Collected taxes accounts'
+    #>taxes_paid_accounts: 'Paid taxes account'
+    #>taxes_payback_accounts: 'Payback taxes accounts'
+    #>third_attorneys_accounts: 'Attorneys accounts'
+    #>third_clients_accounts: 'Clients accounts'
+    #>third_suppliers_accounts: 'Suppliers accounts'
+    #>transports_sequence: 'Numeration of transports'
+    #>use_entity_codes_for_account_numbers: 'Use code for creating account numbers'
+    #>various_journal: 'Default various operations journal'

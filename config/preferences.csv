@@ -1,7 +1,7 @@
 general.language,string,fra
-accountancy.accountize.automatic,boolean,true
-accountancy.accountize.draft_mode,boolean,true
-accountancy.accountize.detail_payments_in_deposits,boolean,true
+accountancy.bookkeep.automatic,boolean,true
+accountancy.bookkeep.draft_mode,boolean,true
+accountancy.bookkeep.detail_payments_in_deposits,boolean,true
 accountancy.accounts.charges,integer,6
 accountancy.accounts.financial_banks,integer,51
 accountancy.accounts.financial_payments_to_deposit,integer,511

@@ -56,14 +56,14 @@ __not_used__:
   - resources::profession_update
   - resources::professions
   - resources::professions_kame
-# Transfer commercial data in accountancy
-accountize:
-  controller: accountancy
-  actions: [accountize, index]
 # Make and reload backups
 backup_company:
   controller: company
   actions: [backups, index]
+# Transfer commercial data in accountancy
+bookkeep:
+  controller: accountancy
+  actions: [bookkeep, index]
 # Build production chains
 build_production_chains:
   controller: production
@@ -513,8 +513,8 @@ manage_journal_entries:
   - account_dyli
   - account_mark
   - account_unmark
-  - draft_entry_lines
-  - draft_entry_lines_kame
+  - draft
+  - draft_kame
   - index
   - journal
   - journal_draft_entry_lines_kame

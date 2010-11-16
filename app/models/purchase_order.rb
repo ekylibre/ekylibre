@@ -48,7 +48,7 @@
 
 
 class PurchaseOrder < ActiveRecord::Base
-  acts_as_accountable
+  acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase_order, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
@@ -104,24 +104,12 @@ class PurchaseOrder < ActiveRecord::Base
   before_validation do
     self.created_on ||= Date.today
     self.paid_amount = self.payment_uses.sum(:amount)||0
-    if self.number.blank?
-      #last = self.supplier.purchase_orders.find(:first, :order=>"number desc")
-      last = self.company.purchase_orders.find(:first, :order=>"number desc")
-      self.number = (last ? last.number.succ! : '00000001')
-    end
     self.currency ||= self.company.default_currency
-
     self.amount = self.lines.sum(:amount)
     self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
     return true
   end
   
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.purchase_orders.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
-    return true
-  end
-
   protect_on_destroy do
     self.updateable?
   end
@@ -129,6 +117,23 @@ class PurchaseOrder < ActiveRecord::Base
   protect_on_update do
     # return false if self.unpaid_amount.zero? and self.shipped
     return true
+  end
+
+  # This method permits to add journal entries corresponding to the purchase order/sales_invoice
+  # It depends on the preference which permit to activate the "automatic bookkeeping"
+  bookkeep do |b|
+    # bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|
+    b.journal_entry(self.company.journal(:purchases), :if=>(self.invoiced? or self.finished?)) do |entry|
+      label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
+      for line in self.lines
+        entry.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
+        entry.add_debit(label, line.price.tax.paid_account_id, line.taxes) unless line.taxes.zero?
+      end
+      entry.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
+    end
+#     if use = self.payment_uses.first
+#       use.link_in_accountancy
+#     end
   end
 
   def refresh
@@ -236,25 +241,5 @@ class PurchaseOrder < ActiveRecord::Base
     array << [:unpaid_amount, self.unpaid_amount]
     array 
   end
-
-
-
-  # This method permits to add journal entries corresponding to the purchase order/sales_invoice
-  # It depends on the preference which permit to activate the "automatic accountizing"
-  def to_accountancy(action=:create, options={})
-    # accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|
-    accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :if=>(self.invoiced? or self.finished?)) do |entry|
-      label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
-      for line in self.lines
-        entry.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
-        entry.add_debit(label, line.price.tax.paid_account_id, line.taxes) unless line.taxes.zero?
-      end
-      entry.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
-    end
-    if use = self.payment_uses.first
-      use.link_in_accountancy
-    end
-  end
-
   
 end

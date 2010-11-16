@@ -27,7 +27,7 @@
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(255)      
+#  last_letter  :string(8)        
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
@@ -71,14 +71,35 @@ class Account < ActiveRecord::Base
     return dependencies <= 0
   end
 
-  # Check if the account is a third account and therefore if it is useful to be marked
-  # in order to check balances
-  def markable?
-    return [:client, :supplier, :attorney].detect do |mode|
-      self.number.match(/^#{self.company.preference('accountancy.accounts.third_'+mode.to_s)}/)
-    end
-  end
 
+  # Build an SQL condition to restrein accounts to some ranges
+  # Example : 1-3 41 43  
+  def self.range_condition(range, table_name=nil)
+    valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
+    conn = Account.connection
+    table_name ||= Account.table_name
+    table = conn.quoted_table_name(table_name)
+    condition = "(false"
+    if range
+      expression = ""
+      for expr in range.split(/[^0-9A-Z\-\*]+/)
+        if expr.match(/\-/)
+          start, finish = expr.split(/\-+/)[0..1]
+          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
+          max = [start.length, finish.length].max
+          condition += " OR #{conn.substr('#{table}.number', 1, max)}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
+          expression += " #{start}-#{finish}"
+        else
+          next unless expr.match(valid_expr)
+          condition += " OR #{table}.number LIKE #{conn.quote(expr+'%')}"
+          expression += " #{expr}"
+        end
+      end
+      range = expression.strip
+    end
+    condition += ")"
+    return condition, range
+  end
 
   # Find all available accounting systems in all languages
   def self.lists
@@ -90,6 +111,16 @@ class Account < ActiveRecord::Base
     end
     return lists
   end
+
+
+  # Check if the account is a third account and therefore if it is useful to be marked
+  # in order to check balances
+  def markable?
+    return [:client, :supplier, :attorney].detect do |mode|
+      self.number.match(/^#{self.company.preferred('third_'+mode.to_s.pluralize+'_accounts')}/)
+    end
+  end
+  
 
   def markable_entry_lines(started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["journal_entries.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_entries.number DESC")

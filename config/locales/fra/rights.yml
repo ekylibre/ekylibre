@@ -1,7 +1,7 @@
 fra:
   rights:
-    accountize: 'Basculer les opérations commerciales en comptabilité'
     backup_company: 'Effectuer/Recharger des sauvegardes'
+    bookkeep: 'Basculer les opérations commerciales en comptabilité'
     build_production_chains: 'Construire des chaînes de production'
     cancel_sales_invoices: 'Faire des avoirs'
     change_prices_on_sales_orders: 'Changer les prix au moment des ventes'

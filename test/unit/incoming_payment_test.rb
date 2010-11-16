@@ -54,10 +54,10 @@ require 'test_helper'
 
 class IncomingPaymentTest < ActiveSupport::TestCase
   # Replace this with your real tests.
-  test "the accountizing of a payment" do
+  test "the bookkeeping of a payment" do
     payment = incoming_payments(:incoming_payments_001)
-#     assert payment.company.accountizing?
-#     payment.to_accountancy(:create)
+#     assert payment.company.prefer_bookkeep_automatically?
+#     payment.bookkeep(:create)
 #     assert_not_nil payment.journal_record
 #     assert_equal payment.amount, payment.journal_record.currency_debit
 #     assert_equal payment.amount, payment.journal_record.currency_credit

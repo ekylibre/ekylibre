@@ -62,7 +62,7 @@
 
 
 class SalesOrder < ActiveRecord::Base
-  acts_as_accountable 
+  acts_as_numbered
   after_create {|r| r.client.add_event(:sales_order, r.updater_id)}
   attr_readonly :company_id, :created_on, :number
   belongs_to :client, :class_name=>Entity.to_s
@@ -128,10 +128,6 @@ class SalesOrder < ActiveRecord::Base
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
     self.paid_amount = self.payment_uses.sum(:amount)||0
-    if self.number.blank?
-      last = self.company.sales_orders.find(:first, :order=>"number desc")
-      self.number = last ? last.number.succ! : '00000001'
-    end
     if self.contact.nil? and self.client
       dc = self.client.default_contact
       self.contact_id = dc.id if dc
@@ -164,11 +160,13 @@ class SalesOrder < ActiveRecord::Base
     self.created_on = Date.today
   end
 
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.sales_orders.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
+
+  # This method bookkeeps the sales order.
+  bookkeep do |b|
   end
-  
+
+
+
   def refresh
     self.save
   end
@@ -239,37 +237,11 @@ class SalesOrder < ActiveRecord::Base
         line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
       end
       # Accountize the sales invoice
-      sales_invoice.to_accountancy if self.company.accountizing?
+      sales_invoice.bookkeep if self.company.prefer_bookkeep_automatically?
       return super
     end
     return false
   end
-
-  # Invoice all the products creating the delivery if necessary. 
-  def invoice2
-    return false if self.lines.count <= 0
-    ActiveRecord::Base.transaction do
-      self.confirm
-      self.reload
-      # Create sales invoice
-      sales_invoice = self.sales_invoices.create!(:company_id=>self.company_id, :nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
-      for line in self.lines
-        sales_invoice.lines.create!(:company_id=>line.company_id, :order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
-      end
-      # Move real stocks
-      for line in self.lines
-        line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
-      end
-      # Accountize the sales invoice
-      sales_invoice.to_accountancy if self.company.accountizing?
-      # Update sales_order state
-      self.invoiced = true
-      self.save!
-      return true
-    end
-    return false
-  end
-
 
   # Delivers all undelivered products and sales_invoice the order after. This operation cleans the order.
   def deliver_and_invoice
@@ -442,13 +414,6 @@ class SalesOrder < ActiveRecord::Base
     ps = p.join(", ")
   end
 
-
-  # this method accountizes the sale order.
-  # In facts, it letters the sales_invoices and the payments
-  def to_accountancy(action=:create, options={})
-    self.class.update_all({:accounted_at=>Time.now}, {:id=>self.id})
-    self.reload unless action == :destroy
-  end
 
 end
 

@@ -129,61 +129,32 @@ class Company < ActiveRecord::Base
   belongs_to :entity
 
 
-  # Specifics
-  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_attorneys\').value.to_s+\'%\')}'
-  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
-  has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
-  has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
-  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_banks\').value.to_s+\'%\')}'
-  has_many :buildings, :class_name=>Warehouse.name, :conditions=>{:reservoir=>false}, :order=>:name
-  has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
-  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_cashes\').value.to_s+\'%\')}'
-  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.charges\').value.to_s+\'%\')}'
-  has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_clients\').value.to_s+\'%\')}'
-  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
-  has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_deposit, :class_name=>IncomingPayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
-  has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.financial_payments_to_deposit\').value.to_s+\'%\')}'
-  has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
-  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.products\').value.to_s+\'%\')}'
-  has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
-  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\''
-  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
-  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(preference(\'accountancy.accounts.third_suppliers\').value.to_s+\'%\')}'
-  has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
-  has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
-  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
-
-  has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
-  has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
-
-  # preference :language, String, :default=>:eng
+  # Sequences
   preference :cash_transfers_sequence, Sequence
   preference :deposits_sequence, Sequence
-  preference :incoming_payments_sequence, Sequence
-  preference :outgoing_payments_sequence, Sequence
+  preference :entities_sequence, Sequence
   preference :incoming_deliveries_sequence, Sequence
+  preference :incoming_payments_sequence, Sequence
   preference :outgoing_deliveries_sequence, Sequence
+  preference :outgoing_payments_sequence, Sequence
   preference :purchase_orders_sequence, Sequence
   preference :sales_invoices_sequence, Sequence
   preference :sales_orders_sequence, Sequence
   preference :subscriptions_sequence, Sequence
-  preference :entities_sequence, Sequence
-  preference :accountize_automatically, Boolean, :default=>true
-  preference :detail_payment_in_deposit_accountizing, Boolean, :default=>true
-  preference :accountize_in_draft, Boolean, :default=>true
+  preference :transports_sequence, Sequence
+  # Behaviours
+  preference :bookkeep_automatically, Boolean, :default=>true
+  preference :bookkeep_in_draft, Boolean, :default=>true
+  preference :detail_payments_in_deposit_bookkeeping, Boolean, :default=>true
+  preference :use_entity_codes_for_account_numbers, Boolean, :default=>true  
+  # Journals
   preference :bank_journal, Journal
   preference :cash_journal, Journal
   preference :forward_journal, Journal
   preference :purchases_journal, Journal
   preference :sales_journal, Journal
   preference :various_journal, Journal
-  preference :use_entity_codes_for_account_numbers, Boolean, :default=>true  
+  # Accounts
   preference :capital_gains_accounts, Integer, :default=>120
   preference :capital_losses_accounts, Integer, :default=>129
   preference :charges_accounts, Integer, :default=>6
@@ -201,6 +172,41 @@ class Company < ActiveRecord::Base
   preference :third_attorneys_accounts, Integer, :default=>467
   preference :third_clients_accounts, Integer, :default=>411
   preference :third_suppliers_accounts, Integer, :default=>401
+
+  # Specifics
+  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}'
+  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
+  has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
+  has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}'
+  has_many :buildings, :class_name=>Warehouse.name, :conditions=>{:reservoir=>false}, :order=>:name
+  has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
+  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_cashes_accounts.to_s+\'%\')}'
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}'
+  has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}'
+  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
+  has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
+  has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
+  has_many :payments_to_deposit, :class_name=>IncomingPayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
+  has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}'
+  has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}'
+  has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
+  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\''
+  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
+  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}'
+  has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
+  has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
+  has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
+  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+
+  has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
+  has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
+
+
 
   validates_uniqueness_of :code
   validates_length_of :code, :in=>4..16
@@ -243,22 +249,6 @@ class Company < ActiveRecord::Base
     self.id
   end
 
-  def accountizing?
-    if preference = self.preference('accountancy.accountize.automatic')
-      return true if preference.value == true
-    end
-    return false
-  end
-
-  def draft_mode?
-    if preference = self.preference('accountancy.accountize.draft_mode')
-      return true if preference.value == true
-    end
-    return false
-  end
-
-
-
   def account(number, name=nil)
     number = number.to_s
     a = self.accounts.find_by_number(number)
@@ -268,21 +258,14 @@ class Company < ActiveRecord::Base
 
   def preference(name)
     preference = self.preferences.find_by_name(name)
-    if preference.nil? and Preference.reference.keys.include? name
-      preference = self.preferences.new(:name=>name)
-      preference.value = Preference.reference[name][:default]
+    if preference.nil? and ref = self.class.preferences_reference[name.to_s]
+      preference = self.preferences.new(:name=>name, :nature=>ref[:nature], :record_value_type=>ref[:record_value_type])
+      preference.value = ref[:default]
       preference.save!
     end
     preference
   end
 
-
-  def set_preference(name, value)
-    preference = self.preferences.find_by_name(name)
-    preference = self.preferences.build(:name=>name) if preference.nil?
-    preference.value = value
-    preference.save
-  end
 
   def admin_role
     self.roles.find(:first)#, :conditions=>"actions LIKE '%all%'")
@@ -395,16 +378,14 @@ class Company < ActiveRecord::Base
   # Creates the journal if not exists
   def journal(name)
     name = name.to_s
-    param_name  = "accountancy.journals.#{name}"
-    raise Exception.new("Unvalid journal name : #{name.inspect}") unless Preference.reference.keys.include? param_name
-    param = self.preference(param_name)
-    if (journal = param.value).nil?
+    pref_name  = "#{name}_journal"
+    raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.has_key? pref_name
+    unless journal = self.preferred(pref_name)
       journal = self.journals.find_by_nature(name)
       journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency_id=>self.default_currency.id) unless journal
-      param.value = journal
-      param.save
+      self.prefer!(pref_name, journal)
     end
-    return param.value
+    return journal
   end
 
 
@@ -726,12 +707,12 @@ class Company < ActiveRecord::Base
 
 
   def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
-    company = Company.new(company_attr)
+    language = 'fra'
+    company = Company.new({:language=>language}.merge(company_attr))
     user = User.new(user_attr)
 
     ActiveRecord::Base.transaction do
       company.save!
-      language = 'fra'
       company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
       company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
       user.company_id = company.id
@@ -740,7 +721,6 @@ class Company < ActiveRecord::Base
 
       company.load_accounts(:accounting_system)
 
-      company.set_preference('general.language', language)
       company.departments.create!(:name=>tc('default.department_name'))
       establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
       currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
@@ -771,7 +751,7 @@ class Company < ActiveRecord::Base
       company.load_prints
 
       for journal in [:sales, :purchases, :bank, :various, :cash]
-        company.set_preference("accountancy.journals.#{journal}", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
+        company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
       end
       
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash).id)
@@ -847,13 +827,13 @@ class Company < ActiveRecord::Base
     end
   end
 
+
+  # Create unexistent sequences
   def load_sequences
-    for part, sequences in tc('default.sequences')
-      for sequence, attributes in sequences
-        if self.preference("#{part}.#{sequence}.numeration").value.nil?
-          seq = self.sequences.create(attributes)
-          self.set_preference("#{part}.#{sequence}.numeration", seq) if seq
-        end
+    for sequence, attributes in tc('default.sequences')
+      unless self.preferred("#{sequence}_sequence")
+        seq = self.sequences.create(attributes)
+        self.prefer!("#{sequence}_sequence", seq) if seq
       end
     end
   end

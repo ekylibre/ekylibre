@@ -46,7 +46,7 @@ class Preference < ActiveRecord::Base
   belongs_to :company
   belongs_to :user
   belongs_to :record_value, :polymorphic=>true
-  cattr_reader :reference
+  # cattr_reader :reference
   validates_inclusion_of :nature, :in => @@natures
   validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
 
@@ -55,15 +55,31 @@ class Preference < ActiveRecord::Base
     self.company_id = self.user.company_id if self.user
   end
 
+  def self.type_to_nature(klass)
+    if  [String, Symbol].include? klass
+      :string
+    elsif [Integer, Fixnum, Bignum].include? klass
+      :integer
+    elsif [TrueClass, FalseClass, Boolean].include? klass
+      :boolean
+    elsif [BigDecimal].include? klass
+      :decimal
+    else
+      :record
+    end
+  end
+
   def value
     self.send(self.nature+'_value')
   end
 
   def value=(object)
-    if @@reference[self.name]
-      self.nature = @@reference[self.name][:nature] 
-      self.record_value_type = @@reference[self.name][:model].name if @@reference[self.name][:model]
-    end
+#     if @@reference[self.name]
+#       self.nature = @@reference[self.name][:nature] 
+#       self.record_value_type = @@reference[self.name][:model].name if @@reference[self.name][:model]
+#     end
+    self.nature ||= self.class.type_to_nature(object.class)
+    raise ArgumentError.new("Object to define as preference is an unknown type #{object.class.name}:#{self.nature}") unless @@natures.include? self.nature
     if self.nature == 'record' and object.class.name != self.record_value_type
       begin
         self.send(self.nature.to_s+'_value=', self.record_value_type.constantize.find(object.to_i))
@@ -71,7 +87,6 @@ class Preference < ActiveRecord::Base
         self.record_value_id = nil
       end
     else
-      raise Exception.new([self, object.inspect]) unless @@natures.include? self.nature
       self.send(self[:nature].to_s+'_value=', object)
     end
   end
@@ -89,9 +104,10 @@ class Preference < ActiveRecord::Base
     self.nature == 'record'
   end
 
-  def self.type_to_nature(klass)
-    
+  def model
+    self.record? ? self.record_value_type.constantize : nil
   end
+
 
   def self.tree_reference
     ref = {}

@@ -38,7 +38,6 @@
 
 
 class Inventory < ActiveRecord::Base
-  acts_as_accountable :callbacks=>false
   attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
@@ -46,6 +45,9 @@ class Inventory < ActiveRecord::Base
 
   before_validation do
     self.created_on ||= Date.today
+  end
+
+  bookkeep :on=>:nothing do |b|
   end
 
   def reflect_changes
@@ -73,9 +75,5 @@ class Inventory < ActiveRecord::Base
   #   puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
   #   InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
   # end
-
-
-  def to_accountancy(action=:create, options={})
-  end
 
 end

@@ -728,6 +728,7 @@ arb:
     authorized_payments_count: 'عدد الدفعات المصرحة بها'
     available_prices: 'الاسعار المتوفرة'
     available_products: 'المنتجات المتوفرة'
+    #>balance: 'Balance'
     balance_amount: 'الرصيد'
     balances: 'ارصدة الحساب'
     bank: 'البنك'
@@ -1376,7 +1377,7 @@ arb:
         bank_account: 'حساب مصرفي'
         cash_box: 'صندوق النقدي'
     cash_transfer:
-      #>to_accountancy: '[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}'
+      #>bookkeep: '[%{resource} %{number}] From %{emitter} to %{receiver} %{comment}'
     company:
       cant_find_document_template: 'لا يمكن العثور على نموذج مطابق للوثيقة'
       default:
@@ -1481,55 +1482,77 @@ arb:
         sales_order_nature_name: 'مقياس البيع'
         sample_product_name: 'عينة المنتج' #!
         sequences:
-          accountancy:
-            cash_transfers:
-              #>format: 'CT[year|4][number|4]'
-              #>name: 'Numeration of cash transfers'
-              #>period: 'year'
-          management:
-            deposits:
-              format: 'B[year|4][number|4]'
-              name: 'عدد الاقتطاعات البنكية'
-              period: 'السنة'
-            incoming_deliveries:
-              #>format: 'ID[year|4][number|4]'
-              #>name: 'Numeration of incoming deliveries'
-              #>period: 'year'
-            incoming_payments:
-              #>format: 'P[year|4][number|6]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
-            outgoing_deliveries:
-              #>format: 'OD[year|4][number|6]'
-              #>name: 'Numeration of outgoing deliveries'
-              #>period: 'year'
-            outgoing_payments:
-              #>format: 'D[year|4][number|4]'
-              #>name: 'Numeration of payments'
-              #>period: 'year'
-            payments:  #!
+          accountancy: #!
+          cash_transfers:
+            #>format: 'CT[year|4][number|4]'
+            #>name: 'Numeration of cash transfers'
+            #>period: 'year'
+          deposits:
+            #>format: 'B[year|4][number|4]'
+            #>name: 'Numeration of deposits'
+            #>period: 'year'
+          entities:
+            #>format: '[number|8]'
+            #>name: 'Numeration of people'
+          incoming_deliveries:
+            #>format: 'ID[year|4][number|4]'
+            #>name: 'Numeration of incoming deliveries'
+            #>period: 'year'
+          incoming_payments:
+            #>format: 'P[year|4][number|6]'
+            #>name: 'Numeration of payments'
+            #>period: 'year'
+          management:  #!
+            deposits: #!
+              format: 'B[year|4][number|4]' #!
+              name: 'عدد الاقتطاعات البنكية' #!
+              period: 'السنة' #!
+            payments: #!
               format: 'R[year|4][number|6]' #!
               name: 'عدد اللوائح' #!
               period: 'السنة' #!
-            purchase_orders:
-              format: 'A[year|4][month|2][number|6]'
-              name: 'عدد المشتريات'
-              period: 'الشهر'
-            sales_invoices:
-              format: 'F[year|4][number|6]'
-              name: 'عدد الفواتير'
-              period: 'السنة'
-            sales_orders:
-              format: 'V[year|4][month|2][number|6]'
-              name: 'عدد المبيعات'
-              period: 'الشهر'
-            subscriptions:
-              format: 'ABO[number|8]'
-              name: 'عدد الاشتراكات'
-          relations:
-            entities:
-              format: '[number|8]'
-              name: 'عدد الاشخاص'
+            purchase_orders: #!
+              format: 'A[year|4][month|2][number|6]' #!
+              name: 'عدد المشتريات' #!
+              period: 'الشهر' #!
+            sales_invoices: #!
+              format: 'F[year|4][number|6]' #!
+              name: 'عدد الفواتير' #!
+              period: 'السنة' #!
+            sales_orders: #!
+              format: 'V[year|4][month|2][number|6]' #!
+              name: 'عدد المبيعات' #!
+              period: 'الشهر' #!
+            subscriptions: #!
+              format: 'ABO[number|8]' #!
+              name: 'عدد الاشتراكات' #!
+          outgoing_deliveries:
+            #>format: 'OD[year|4][number|6]'
+            #>name: 'Numeration of outgoing deliveries'
+            #>period: 'year'
+          outgoing_payments:
+            #>format: 'D[year|4][number|4]'
+            #>name: 'Numeration of payments'
+            #>period: 'year'
+          purchase_orders:
+            #>format: 'PO[year|4][month|2][number|4]'
+            #>name: 'Numeration of purchases'
+            #>period: 'month'
+          relations:  #!
+            entities: #!
+              format: '[number|8]' #!
+              name: 'عدد الاشخاص' #!
+          sales_invoices:
+            #>format: 'F[year|4][number|6]'
+            #>name: 'Numeration of sales invoices'
+            #>period: 'year'
+          sales_orders:
+            #>format: 'SO[year|4][month|2][number|6]'
+            #>name: 'Numeration of sales'
+            #>period: 'month'
+          subscriptions:
+            #>format: 'SUB[number|8]'
+            #>name: 'Numeration of subscriptions'
         taxes:
           tva0000:
             amount: '0.0'
@@ -1584,11 +1607,11 @@ arb:
     delay:
       error_unvalid_format_for_expression: 'الاسلوب ليس بالشكل الصحيح'
     deposit:
-      to_accountancy:
+      bookkeep:
         one: '[%{resource} %{number}] %{count} دفعة %{mode} %{comment}'
         other: '[%{resource} %{number}] %{count} دفعات اخرى %{mode} %{comment}'
         zero: '[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}'
-      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})'
+      bookkeep_with_payment: '[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})'
     document_template:
       error_attribute: 'الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}'
       families:
@@ -1633,10 +1656,10 @@ arb:
         double: 'EX%{first_year}/%{second_year}'
         single: 'EX%{first_year}'
     incoming_payment:
+      bookkeep: '[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})'
       label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})'
     incoming_payment_use:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})'
+      bookkeep: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})'
     inventory_line:
       inventory: 'عملية الجرد'
     journal:
@@ -1650,6 +1673,15 @@ arb:
     journal_entry:
       #>entry_cancel: 'Cancel of entry %{number}: %{name}'
       record_cancel: 'الانعكاس السلبي للقطعة %{number} : %{name}' #!
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
+    journal_entry_line:
+      state:
+        #>closed: 'Closed'
+        #>confirmed: 'Confirmed'
+        #>draft: 'Draft'
     listing_node:
       add_filter: ' اضافة تصفية'
       all_columns: '-- جميع الاعمدة --'
@@ -1707,10 +1739,10 @@ arb:
     outgoing_delivery_line:
       sale: '%{number} المبيعات'
     outgoing_payment:
+      bookkeep: '[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})'
       label: '%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}'
-      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})'
     outgoing_payment_use:
-      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})'
+      bookkeep: '[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})'
     price:
       label: '%{product} / %{amount} %{currency}'
       no_range: 'ليس هناك من فترة استراحة'
@@ -1745,6 +1777,7 @@ arb:
         #>input: 'One in, many out'
         #>output: 'Many in, one out'
     purchase_order:
+      bookkeep: '[%{resource} %{number}] %{products} لل %{supplier}'
       label: '%{supplier} الى %{address}'
       purchase: 'Achat'
       states:
@@ -1755,16 +1788,15 @@ arb:
         #>processing: 'Waiting...'
         #>ready: 'Ready purchase order'
         #>refused: 'Refused purchase order'
-      to_accountancy: '[%{resource} %{number}] %{products} لل %{supplier}'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}'
       tracking: 'رقم الحصة : %{serial}'
     sales_invoice:
+      bookkeep: '[%{resource} %{number}] %{products} لاجل %{client} (%{sales_order})'
       label:
         credit: 'مدخرات رقم%{number}'
         normal: 'فاتورة رقم%{number}'
-      to_accountancy: '[%{resource} %{number}] %{products} لاجل %{client} (%{sales_order})'
     sales_invoice_line:
       no_product: '[لا لاي منتج]'
     sales_order:

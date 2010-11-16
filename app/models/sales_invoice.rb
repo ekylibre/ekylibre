@@ -51,7 +51,7 @@
 
 
 class SalesInvoice < ActiveRecord::Base
-  acts_as_accountable :callbacks=>false
+  acts_as_numbered
   after_create {|r| r.client.add_event(:sales_invoice, r.updater_id)}
   attr_readonly :company_id
   belongs_to :client, :class_name=>Entity.to_s
@@ -71,10 +71,6 @@ class SalesInvoice < ActiveRecord::Base
 
   before_validation do
     self.created_on = Date.today unless self.created_on.is_a? Date
-    if self.number.blank?
-      last = self.client.sales_invoices.find(:first, :order=>"number desc")
-      self.number = (last ? last.number.succ! : '00000001')
-    end
     self.company_id = self.sales_order.company_id if self.sales_order
 
     if self.credit
@@ -100,14 +96,19 @@ class SalesInvoice < ActiveRecord::Base
       self.currency_id = self.origin.currency_id
     end
   end
-  
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.sales_invoices.numeration").value
-    if not specific_numeration.nil?
-      self.number = specific_numeration.next_value
+
+  # this method bookkeeps the sales invoice.
+  bookkeep(:on=>:nothing) do |b|
+    label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :client=>self.client.full_name, :products=>(self.sales_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sales_order.comment), :sales_order=>self.sales_order.number)
+    b.journal_entry(self.company.journal(:sales)) do |entry|
+      entry.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
+      for line in self.lines
+        entry.add_credit(label, line.product.sales_account_id, line.amount) unless line.quantity.zero?
+        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes) unless line.taxes.zero?
+      end
     end
   end
-
+    
   def cancel(lines={})
     return false unless lines.keys.size > 0
     credit = SalesInvoice.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id)
@@ -129,9 +130,7 @@ class SalesInvoice < ActiveRecord::Base
         end
       end
       if saved
-        if self.company.preference('accountancy.accountize.automatic')
-          sales_invoice.to_accountancy if self.company.preference('accountancy.accountize.automatic').value == true
-        end
+        sales_invoice.bookkeep if self.company.prefer_bookkeep_automatically?
       else
         raise ActiveRecord::Rollback
       end
@@ -187,18 +186,5 @@ class SalesInvoice < ActiveRecord::Base
   def creditable?
     not self.credit and self.amount_with_taxes + self.credited_amount > 0
   end
-
-  #this method accountizes the sales_invoice.
-  def to_accountancy(action=:create, options={})
-    label = tc(:to_accountancy, :resource=>self.class.model_name.human, :number=>self.number, :client=>self.client.full_name, :products=>(self.sales_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sales_order.comment), :sales_order=>self.sales_order.number)
-    accountize(action, {:journal=>self.company.journal(:sales), :draft_mode=>options[:draft]}) do |entry|
-      entry.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
-      for line in self.lines
-        entry.add_credit(label, line.product.sales_account_id, line.amount) unless line.quantity.zero?
-        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes) unless line.taxes.zero?
-      end
-    end
-  end
-  
 
 end

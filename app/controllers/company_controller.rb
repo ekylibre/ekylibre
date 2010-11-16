@@ -73,12 +73,12 @@ class CompanyController < ApplicationController
 
   def about
     @properties = []
-#     begin
-#       @properties = Rails::Info.properties.dup
-#     rescue
-#       @properties = []
-#     end
-#     @properties.reverse!
+    #     begin
+    #       @properties = Rails::Info.properties.dup
+    #     rescue
+    #       @properties = []
+    #     end
+    #     @properties.reverse!
     @properties.insert(0, ["Ekylibre version", Ekylibre.version])
     @properties << ["Database version", ActiveRecord::Migrator.current_version]
   end
@@ -113,32 +113,12 @@ class CompanyController < ApplicationController
 
   def configure
     @my_company = @current_company
-    # Default treatment
-    @tree = Preference.tree_reference.sort
-    for k, v in @tree
-      for name, options in v
-        param = @my_company.preference(name)
-        if param
-          options[:value] = param.value 
-          options[:value] = options[:value].id if param.record? and options[:value]
-        end
-        options[:value] = options[:default] if options[:value].nil?
-      end
-    end
     if request.post?
       saved = false
       ActiveRecord::Base.transaction do
-        saved = @my_company.update_attributes(params[:my_company])
-        if saved
+        if saved = @my_company.update_attributes(params[:my_company])
           for key, data in params[:preference]
-            preference = @my_company.preferences.find_by_name(key)
-            preference = @my_company.preferences.build(:name=>key) if preference.nil?
-            preference.value = data[:value]
-            unless preference.save
-              saved = false
-              @my_company.errors.add_from_record(preference)
-              raise ActiveRecord::Rollback
-            end
+            @my_company.prefer! key, data[:value]
           end
         end
       end
@@ -576,10 +556,10 @@ class CompanyController < ApplicationController
   end
 
 
-#   def listing_node
-#     return unless @listing_node = find_and_check(:listing_node)
-#     render :partial=>"listing_node"
-#   end
+  #   def listing_node
+  #     return unless @listing_node = find_and_check(:listing_node)
+  #     render :partial=>"listing_node"
+  #   end
 
 
   def listing_node_create

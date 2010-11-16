@@ -1,11 +1,11 @@
 =toolbar do |t|
-  -t.link :journal_entry_line_create, :remote=>true, :url=>{:controller=>:accountancy}, :update=>:entries, :position=>:bottom
+  -t.link :journal_entry_line_create, :remote=>true, :url=>{:controller=>:accountancy}, :update=>:lines, :position=>:bottom
 =formalize do |f|
   -f.error :journal_entry
   -f.field JournalEntry.human_attribute_name("journal"), link_to(@journal_entry.journal.name, :action=>:journal, :id=>@journal.id)
   -f.field :journal_entry, :number
   -f.field :journal_entry, :printed_on
-  -f.field :journal_entry, :draft_mode
+  -# f.field :journal_entry, :draft_mode
   -# f.field :journal_entry, :created_on
 =hidden_field_tag "journal_id", params[:journal_id]
 %table.kame{:style=>"margin-bottom: 8px;"}
@@ -21,7 +21,7 @@
       %th{:colspan=>2}=tg(:total)
       %td#total-debit.decimal=@journal_entry.debit
       %td#total-credit.decimal=@journal_entry.credit
-  %tbody#entries.lines
+  %tbody#lines.lines
     -lines = @journal_entry_lines || @journal_entry.lines
     =render :partial=>"journal_entry_line_row_form", :collection=>lines
     =render :partial=>"journal_entry_line_row_form", :object=>@journal_entry.lines.new if lines.empty?

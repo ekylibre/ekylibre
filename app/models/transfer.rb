@@ -41,7 +41,6 @@
 
 
 class Transfer < ActiveRecord::Base
-  acts_as_accountable :callbacks=>false
   attr_readonly :company_id, :comment
   belongs_to :company
   belongs_to :supplier, :class_name=>Entity.to_s
@@ -54,6 +53,14 @@ class Transfer < ActiveRecord::Base
   before_validation do
     self.created_on ||= Date.today
     self.paid_amount = self.payment_uses.sum(:amount)||0
+  end
+
+  #this method saves the transfer in the accountancy module.
+  bookkeep(:on=>:nothing) do |b|
+    #     bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
+    #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
+    #       entry.add_credit(tc(:payable_bills), "???Compte effets a payer", self.amount)      
+    #     end
   end
 
   
@@ -73,13 +80,6 @@ class Transfer < ActiveRecord::Base
     self.id.to_s
   end
 
-  #this method saves the transfer in the accountancy module.
-  def to_accountancy(action=:create, options={})
-    #     accountize(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
-    #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
-    #       entry.add_credit(tc(:payable_bills), "???Compte effets a payer", self.amount)      
-    #     end
-  end
 
 
 end

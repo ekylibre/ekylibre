@@ -21,8 +21,8 @@
 # == Table: journal_entry_lines
 #
 #  account_id        :integer          not null
+#  balance           :decimal(16, 2)   default(0.0), not null
 #  bank_statement_id :integer          
-#  closed            :boolean          not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -31,15 +31,14 @@
 #  currency_credit   :decimal(16, 2)   default(0.0), not null
 #  currency_debit    :decimal(16, 2)   default(0.0), not null
 #  debit             :decimal(16, 2)   default(0.0), not null
-#  draft             :boolean          not null
 #  entry_id          :integer          not null
-#  expired_on        :date             
 #  id                :integer          not null, primary key
 #  journal_id        :integer          
 #  letter            :string(8)        
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
 #  position          :integer          
+#  state             :string(32)       default("draft"), not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
 #
@@ -51,7 +50,7 @@ class JournalEntryLine < ActiveRecord::Base
   after_destroy :update_entry
   after_destroy :unmark
   after_update  :update_entry
-  attr_readonly :company_id, :entry_id, :journal_id
+  attr_readonly :company_id, :entry_id, :journal_id, :state
   belongs_to :account
   belongs_to :company
   belongs_to :journal
@@ -59,6 +58,14 @@ class JournalEntryLine < ActiveRecord::Base
   belongs_to :bank_statement
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
+
+
+  state_machine :state, :initial=>:draft do
+    state :draft
+    state :confirmed
+    state :closed
+  end
+
   
   #
   before_validation do
@@ -69,14 +76,14 @@ class JournalEntryLine < ActiveRecord::Base
     self.currency_credit ||= 0
     currency_rate = nil
     if self.entry
-      self.draft = self.entry.draft
-      self.closed = self.entry.closed
+      # self.draft = self.entry.draft
+      # self.closed = self.entry.closed
       self.company_id ||= self.entry.company_id 
       self.journal_id ||= self.entry.journal_id
       currency_rate = self.entry.currency.rate
     end
     unless currency_rate.nil?
-      unless self.closed
+      unless self.closed?
         self.debit  = self.currency_debit * currency_rate 
         self.credit = self.currency_credit * currency_rate
       end
@@ -101,17 +108,17 @@ class JournalEntryLine < ActiveRecord::Base
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
   end
   
-  # this method tests if the entry_line is locked or not.
-  def close?
-    return self.closed?
-  end
-
   protect_on_update do
     not self.closed? and self.entry.updateable?
   end
 
   protect_on_destroy do
     !self.closed?
+  end
+
+  # Prints human name of current state
+  def state_label
+    tc('states.'+self.state.to_s)
   end
 
   # updates the amounts to the debit and the credit 
@@ -126,14 +133,14 @@ class JournalEntryLine < ActiveRecord::Base
     self.account.unmark(self.letter) unless self.letter.blank?
   end
   
-  # this method allows to lock the entry_line. 
-  def close
-    self.update_attribute(:closed, true)
-  end
+#   # this method allows to lock the entry_line. 
+#   def close
+#     self.update_attribute(:closed, true)
+#   end
   
-  def reopen
-    self.update_attribute(:closed, false)
-  end
+#   def reopen
+#     self.update_attribute(:closed, false)
+#   end
 
   # Check if the current letter is balanced with all entrty lines with the same letter
   def balanced_letter?
@@ -144,7 +151,7 @@ class JournalEntryLine < ActiveRecord::Base
   #this method allows to fix a display color if the entry_line is in draft mode.
   def mode
     mode=""
-    mode+="warning" if self.draft
+    mode+="warning" if self.draft?
     mode
   end
   

@@ -20,7 +20,7 @@
 # 
 # == Table: journal_entries
 #
-#  closed          :boolean          
+#  balance         :decimal(16, 2)   default(0.0), not null
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  created_on      :date             not null
@@ -31,16 +31,14 @@
 #  currency_id     :integer          default(0), not null
 #  currency_rate   :decimal(16, 6)   default(0.0), not null
 #  debit           :decimal(16, 2)   default(0.0), not null
-#  draft           :boolean          not null
-#  draft_mode      :boolean          not null
 #  id              :integer          not null, primary key
 #  journal_id      :integer          not null
 #  lock_version    :integer          default(0), not null
 #  number          :string(255)      not null
-#  position        :integer          
 #  printed_on      :date             not null
 #  resource_id     :integer          
 #  resource_type   :string(255)      
+#  state           :string(32)       default("draft"), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #

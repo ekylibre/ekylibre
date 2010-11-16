@@ -94,7 +94,7 @@ class User < ActiveRecord::Base
   before_validation do
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if self.company
-      self.language = self.company.preference('general.language').value if self.language.blank?
+      self.language = self.company.language if self.language.blank?
     end
     self.reduction_percent ||= 0
     self.admin = true if self.rights.nil?

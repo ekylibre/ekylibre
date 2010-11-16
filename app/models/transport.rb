@@ -42,19 +42,15 @@
 
 
 class Transport < ActiveRecord::Base
+  acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
   has_many :deliveries, :dependent=>:nullify, :class_name=>OutgoingDelivery.name
-  validates_presence_of :number
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today
-    if self.number.blank?
-      last = self.company.sales_orders.find(:first, :order=>"number desc")
-      self.number = last ? last.number.succ! : '00000001'
-    end
   end
 
   before_validation do
@@ -63,12 +59,6 @@ class Transport < ActiveRecord::Base
       self.weight += delivery.weight
     end
   end
-
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.transports.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
-  end
-
 
   def refresh
     self.save

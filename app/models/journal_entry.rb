@@ -20,7 +20,7 @@
 # 
 # == Table: journal_entries
 #
-#  closed          :boolean          
+#  balance         :decimal(16, 2)   default(0.0), not null
 #  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  created_on      :date             not null
@@ -31,24 +31,20 @@
 #  currency_id     :integer          default(0), not null
 #  currency_rate   :decimal(16, 6)   default(0.0), not null
 #  debit           :decimal(16, 2)   default(0.0), not null
-#  draft           :boolean          not null
-#  draft_mode      :boolean          not null
 #  id              :integer          not null, primary key
 #  journal_id      :integer          not null
 #  lock_version    :integer          default(0), not null
 #  number          :string(255)      not null
-#  position        :integer          
 #  printed_on      :date             not null
 #  resource_id     :integer          
 #  resource_type   :string(255)      
+#  state           :string(32)       default("draft"), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #
 
 
 class JournalEntry < ActiveRecord::Base
-  acts_as_list :scope=>:journal
-  after_save :set_draft
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
   belongs_to :currency
@@ -64,6 +60,26 @@ class JournalEntry < ActiveRecord::Base
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :currency_rate, :greater_than=>0
 
+
+  state_machine :state, :initial=>:draft do
+    state :draft
+    state :confirmed
+    state :closed
+    event :confirm do
+      transition :draft=>:confirmed, :if=>:balanced?
+    end
+    event :close do
+      transition :confirmed=>:closed, :if=>:balanced?
+    end
+#     event :reopen do
+#       transition :closed=>:confirmed
+#     end
+  end
+
+  def self.states
+    self.state_machine.states.collect{|x| x.name}
+  end
+
   #
   before_validation do
     if self.journal
@@ -77,13 +93,14 @@ class JournalEntry < ActiveRecord::Base
     self.currency_credit = self.lines.sum(:currency_credit)
     self.debit  = self.lines.sum(:debit)
     self.credit = self.lines.sum(:credit)
+    self.balance = self.debit - self.credit
     self.created_on = Date.today
-    # self.draft = (self.draft_mode or not self.balanced?)
-    if self.draft_mode
-      self.draft = true
-    else
-      self.draft = (self.balanced? ? false : true)
-    end
+#     # self.draft = (self.draft_mode or not self.balanced?)
+#     if self.draft_mode
+#       self.draft = true
+#     else
+#       self.draft = (self.balanced? ? false : true)
+#     end
     if self.journal and not self.number
       self.number ||= self.journal.next_number 
     end
@@ -114,8 +131,8 @@ class JournalEntry < ActiveRecord::Base
     end
   end
   
-  def set_draft
-    JournalEntryLine.update_all({:draft=>self.draft}, ["entry_id = ? AND draft != ? ", self.id, self.draft])
+  after_save do
+    JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
   protect_on_destroy do
@@ -126,15 +143,19 @@ class JournalEntry < ActiveRecord::Base
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  #determines if the entry is balanced or not.
-  def balanced?
-    self.debit == self.credit and self.lines.count > 0
-  end
-  
-  def confirmed?
-    not self.draft and not self.closed?
+  def self.state_label(state)
+    tc('states.'+state.to_s)
   end
 
+  # Prints human name of current state
+  def state_label
+    self.class.state_label(self.state)
+  end
+
+  #determines if the entry is balanced or not.
+  def balanced?
+    self.balance.zero? # and self.lines.count > 0
+  end
   
   # this method computes the debit and the credit of the entry.
   def refresh
@@ -146,16 +167,10 @@ class JournalEntry < ActiveRecord::Base
     self.company.financial_years.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on', self.printed_on], :order=>"id")
   end
   
-  #determines the difference between the debit and the credit from the entry.
-  def balance
-    self.debit - self.credit 
-  end
-
-
   # Add a entry which cancel the entry
   # Create counter-entry_lines
   def cancel
-    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?)
+    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.prefer_bookkeep_in_draft?)
     ActiveRecord::Base.transaction do
       entry.save!
       for entry_line in self.lines
@@ -165,38 +180,24 @@ class JournalEntry < ActiveRecord::Base
     return entry
   end
 
-  # Cancel a journal entry and return a journal entry which can be used to 
-  # be refilled with entry_lines
-  def __reset(attributes={})
-    entry = nil
-    if self.draft?
-      self.lines.destroy_all
-      entry = self
-    else
-      self.cancel
-      entry = self.journal.entries.create!({:resource=>self.resource, :printed_on=>self.printed_on, :draft_mode=>self.draft_mode?}.merge(attributes))
-    end
-    return entry
-  end
+#   # this method allows to lock the entry.
+#   def close
+#     self.update_attribute(:closed, true)
+#     if self.lines.size > 0
+#       for entry_line in self.lines
+#         entry_line.close
+#       end
+#     end
+#   end
 
-  # this method allows to lock the entry.
-  def close
-    self.update_attribute(:closed, true)
-    if self.lines.size > 0
-      for entry_line in self.lines
-        entry_line.close
-      end
-    end
-  end
-
-  def reopen
-    if self.lines.size > 0
-      for entry_line in self.lines
-        entry_line.reopen
-      end
-    end    
-    self.update_attribute(:closed, false)
-  end
+#   def reopen
+#     if self.lines.size > 0
+#       for entry_line in self.lines
+#         entry_line.reopen
+#       end
+#     end    
+#     self.update_attribute(:closed, false)
+#   end
 
   def save_with_lines(entry_lines)
     ActiveRecord::Base.transaction do
@@ -209,7 +210,7 @@ class JournalEntry < ActiveRecord::Base
         end
       end
       self.reload if saved
-      if saved and not self.balanced?
+      if saved and (not self.balanced? or self.lines.zero?)
         self.errors.add_to_base(:unbalanced) 
         saved = false
       end
@@ -224,10 +225,10 @@ class JournalEntry < ActiveRecord::Base
 
 
   
-  #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
-  def normalized
-    return (not self.lines.exists?(:draft=>true))
-  end
+#   #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
+#   def normalized
+#     return (not self.lines.exists?(:draft=>true))
+#   end
 
   # Adds an entry_line with the minimum informations. It computes debit and credit with the "amount".
   # If the amount is negative, the amount is put in the other column (debit or credit). Example: 

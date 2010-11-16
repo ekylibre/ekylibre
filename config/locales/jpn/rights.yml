@@ -1,7 +1,7 @@
 jpn:
   rights:
-    #>accountize: 'Transfer commercial data in accountancy'
     #>backup_company: 'Make and reload backups'
+    #>bookkeep: 'Transfer commercial data in accountancy'
     #>build_production_chains: 'Build production chains'
     #>cancel_sales_invoices: 'Cancel sales_invoices'
     #>change_prices_on_sales_orders: 'Change prices on sales'

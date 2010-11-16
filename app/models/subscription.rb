@@ -46,6 +46,8 @@
 
 
 class Subscription < ActiveRecord::Base
+  acts_as_numbered
+  attr_readonly :company_id
   belongs_to :company
   belongs_to :contact
   belongs_to :entity
@@ -55,7 +57,6 @@ class Subscription < ActiveRecord::Base
   belongs_to :sales_order
   #belongs_to :sales_order_line 
 
-  attr_readonly :company_id
 
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
@@ -69,13 +70,6 @@ class Subscription < ActiveRecord::Base
       self.entity_id ||= self.sales_invoice.client_id if self.sales_invoice
       self.entity_id ||= self.sales_order.client_id if self.sales_order
     end 
-    specific_numeration = self.company.preference("management.subscriptions.numeration")
-    if specific_numeration and specific_numeration.value
-      self.number = specific_numeration.value.next_value
-    else
-      last = self.company.subscriptions.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
-      self.number = last ? last.number.succ : '000000'
-    end
   end
 
   before_validation(:on=>:create) do

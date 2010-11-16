@@ -51,7 +51,7 @@
 
 
 class IncomingPayment < ActiveRecord::Base
-  acts_as_accountable
+  acts_as_numbered
   attr_readonly :company_id
   belongs_to :commission_account, :class_name=>Account.name
   belongs_to :company
@@ -77,13 +77,6 @@ class IncomingPayment < ActiveRecord::Base
   before_validation(:on=>:create) do
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
-    specific_numeration = self.company.preference("management.incoming_payments.numeration")
-    if specific_numeration and specific_numeration.value
-      self.number = specific_numeration.value.next_value
-    else
-      last = self.company.incoming_payments.find(:first, :conditions=>["company_id=? AND number IS NOT NULL", self.company_id], :order=>"number desc")
-      self.number = last ? last.number.succ : '000000'
-    end
     self.scheduled = (self.to_bank_on>Date.today ? true : false) # if self.scheduled.nil?
     self.received = false if self.scheduled
     true
@@ -104,6 +97,26 @@ class IncomingPayment < ActiveRecord::Base
   protect_on_update do
     self.deposit.nil? or not self.deposit.locked
   end
+
+  # This method permits to add journal entries corresponding to the payment
+  # It depends on the preference which permit to activate the "automatic bookkeeping"
+  bookkeep do |b|
+    attorney_amount = self.attorney_amount
+    client_amount   = self.amount - attorney_amount
+    mode = self.mode
+    label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    b.journal_entry(mode.cash.journal, {:printed_on=>self.to_bank_on}, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+      if mode.with_deposit?
+        entry.add_debit(label, mode.depositables_account_id, self.amount)
+      else
+        entry.add_debit(label, mode.cash.account_id, self.amount-self.commission_amount)
+        entry.add_debit(label, self.commission_account_id, self.commission_amount) if self.commission_amount > 0
+      end
+      entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
+      entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+    end
+  end
+
   
   def label
     tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number, :currency=>self.company.default_currency.symbol)
@@ -137,24 +150,5 @@ class IncomingPayment < ActiveRecord::Base
     return true
   end
 
-
-  # This method permits to add journal entries corresponding to the payment
-  # It depends on the preference which permit to activate the "automatic accountizing"
-  def to_accountancy(action=:create, options={})
-    attorney_amount = self.attorney_amount
-    client_amount   = self.amount - attorney_amount
-    mode = self.mode
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    accountize(action, {:journal=>mode.cash.journal, :printed_on=>self.to_bank_on, :draft_mode=>options[:draft]}, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
-      if mode.with_deposit?
-        entry.add_debit(label, mode.depositables_account_id, self.amount)
-      else
-        entry.add_debit(label, mode.cash.account_id, self.amount-self.commission_amount)
-        entry.add_debit(label, self.commission_account_id, self.commission_amount) if self.commission_amount > 0
-      end
-      entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
-      entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
-    end
-  end
   
 end

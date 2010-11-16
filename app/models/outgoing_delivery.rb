@@ -46,6 +46,7 @@
 
 
 class OutgoingDelivery < ActiveRecord::Base
+  acts_as_numbered
   attr_readonly :company_id, :sales_order_id, :number
   belongs_to :company 
   belongs_to :contact
@@ -62,10 +63,6 @@ class OutgoingDelivery < ActiveRecord::Base
 
   before_validation do
     self.company_id = self.sales_order.company_id if self.sales_order
-    if self.number.blank?
-      last = self.company.outgoing_deliveries.find(:first, :order=>"number desc")
-      self.number = last ? last.number.succ! : '00000001'
-    end
 #     self.amount = self.amount_with_taxes = self.weight = 0
 #     for line in self.lines
 #       self.amount += line.amount
@@ -74,12 +71,6 @@ class OutgoingDelivery < ActiveRecord::Base
 #     end
     return true
   end
-
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("management.outgoing_deliveries.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
-  end
-  
 
 
   # Ships the delivery and move the real stocks. This operation locks the delivery.

@@ -256,7 +256,7 @@ class ManagementController < ApplicationController
     t.column :amount
     t.column :amount_with_taxes
     t.column :credit
-    #t.action :sales_invoice_to_accountancy
+    #t.action :sales_invoice_bookkeep
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
     
     t.action :sales_invoice_cancel, :if=>"RECORD.creditable\?"
@@ -274,9 +274,9 @@ class ManagementController < ApplicationController
 
   
   #
-  # def sales_invoice_to_accountancy
+  # def sales_invoice_bookkeep
 #     @sales_invoice = find_and_check(:sales_invoice)
-#     @sales_invoice.to_accountancy
+#     @sales_invoice.bookkeep
 #     redirect_to :action=>:sales_invoices
 #   end
 
@@ -340,10 +340,7 @@ class ManagementController < ApplicationController
 #           end
         end
         if saved
-          if @current_company.preference('accountancy.accountize.automatic')
-            @credit.to_accountancy if @current_company.preference('accountancy.accountize.automatic').value == true
-          end
-
+          @credit.bookkeep if @current_company.prefer_bookkeep_automatically?
           redirect_to :action=>:sales_invoice, :id=>@credit.id
         else
 #           session[:errors] = []

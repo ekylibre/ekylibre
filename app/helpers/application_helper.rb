@@ -80,7 +80,7 @@ module ApplicationHelper
              {:name=>:bank_statements},
              {:name=>:unmarked_journal_entry_lines},
              # {:name=>:cash_transfers},
-             {:name=>:accountize},
+             {:name=>:bookkeep},
              {:name=>:financial_year_close}
            ] },
          {:name=>:documents, :list=>
@@ -200,7 +200,7 @@ module ApplicationHelper
     MENUS
   end
 
-  def number_to_accountancy(value)
+  def number_bookkeep(value)
     number = value.to_f
     if number.zero?
       return ''

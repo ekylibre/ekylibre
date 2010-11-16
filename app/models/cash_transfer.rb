@@ -46,7 +46,7 @@
 
 
 class CashTransfer < ActiveRecord::Base
-  acts_as_accountable
+  acts_as_numbered
   attr_readonly :company_id, :number
   belongs_to :company
   belongs_to :currency
@@ -88,24 +88,19 @@ class CashTransfer < ActiveRecord::Base
 
   end
 
-  def validate
+  validate do
     errors.add(:receiver_cash_id, :invalid) if self.receiver_cash_id == self.emitter_cash_id
   end
 
-  after_validation(:on=>:create) do
-    specific_numeration = self.company.preference("accountancy.cash_transfers.numeration").value
-    self.number = specific_numeration.next_value unless specific_numeration.nil?
-  end
-  
-  def to_accountancy(action=:create, options={})
-    preference = self.company.preference("accountancy.accounts.financial_internal_transfers")
+  bookkeep do |b|
+    preference = self.company.preference("financial_internal_transfers_accounts")
     transfer_account = self.company.account(preference.value, preference.label)
-    label = tc(:to_accountancy, :resource=>self.class.human_name, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
-    accountize(action, {:journal=>self.emitter_cash.journal, :draft_mode=>options[:draft]}, :column=>:emitter_journal_entry_id) do |entry|
+    label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
+    b.journal_entry(self.emitter_cash.journal, :column=>:emitter_journal_entry_id) do |entry|
       entry.add_debit( label, self.emitter_cash.account_id, self.emitter_amount)
       entry.add_credit(label, transfer_account.id, self.emitter_amount)      
     end
-    accountize(action, {:journal=>self.receiver_cash.journal, :draft_mode=>options[:draft]}, :column=>:receiver_journal_entry_id) do |entry|
+    b.journal_entry(self.receiver_cash.journal, :column=>:receiver_journal_entry_id) do |entry|
       entry.add_debit( label, transfer_account.id, self.receiver_amount)
       entry.add_credit(label, self.receiver_cash.account_id, self.receiver_amount)
     end

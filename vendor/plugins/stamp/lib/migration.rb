@@ -34,23 +34,23 @@ module Stamp
     
     module ClassMethods
 
-      def self.extended(base)
-        class << base
-          attr_accessor :migrating
-          alias :migrating? :migrating
+#       def self.extended(base)
+#         class << base
+#           attr_accessor :migrating
+#           alias :migrating? :migrating
 
-          alias_method_chain :migrate, :migrating
-        end
-      end
+#           alias_method_chain :migrate, :migrating
+#         end
+#       end
 
-      def migrate_with_migrating(direction)
-        begin
-          self.migrating = true
-          migrate_without_migrating(direction)
-        ensure
-          self.migrating = false
-        end
-      end
+#       def migrate_with_migrating(direction)
+#         begin
+#           self.migrating = true
+#           migrate_without_migrating(direction)
+#         ensure
+#           self.migrating = false
+#         end
+#       end
 
 
 

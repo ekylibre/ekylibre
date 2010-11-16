@@ -21,8 +21,8 @@
 # == Table: journal_entry_lines
 #
 #  account_id        :integer          not null
+#  balance           :decimal(16, 2)   default(0.0), not null
 #  bank_statement_id :integer          
-#  closed            :boolean          not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -31,15 +31,14 @@
 #  currency_credit   :decimal(16, 2)   default(0.0), not null
 #  currency_debit    :decimal(16, 2)   default(0.0), not null
 #  debit             :decimal(16, 2)   default(0.0), not null
-#  draft             :boolean          not null
 #  entry_id          :integer          not null
-#  expired_on        :date             
 #  id                :integer          not null, primary key
 #  journal_id        :integer          
 #  letter            :string(8)        
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
 #  position          :integer          
+#  state             :string(32)       default("draft"), not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer          
 #
