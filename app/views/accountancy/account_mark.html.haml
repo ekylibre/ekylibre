@@ -2,54 +2,57 @@
   =form_tag({}, :method=>:get) do
     %table
       %tr
-        %td.label=tg(:from)
-        %td.field=calendar_field_tag :started_on, params[:started_on]
-        %td.label=tg(:to)
-        %td.field=calendar_field_tag :stopped_on, params[:stopped_on]
-        %td.submit=submit_tag(tg(:filter), :name=>nil)
+        %td.crit=journal_period_crit
+        %td.submit=submit_tag(tg(:display), :name=>nil)
+
 =toolbar do |t|
-  -t.link :unmarked_journal_entry_lines, {:mode=>session[:mode]}
-=attributes_list(@account) do |l|
+  -# t.link :unmarked_journal_entry_lines, {:mode=>session[:mode]}
+
+=attributes_list(@account, :without_stamp=>true) do |l|
   -l.attribute :name, :url=>{:action=>:account, :id=>@account.id}
   -l.attribute :number, :url=>{:action=>:account, :id=>@account.id}
   -l.attribute :comment
 
-%h2=tc(:current_letter, :letter=>@letter)
-
 =error_messages "account"
 
 =form_tag() do
-  %table.kame
-    %tr
-      %th=JournalEntryLine.human_attribute_name("letter")
-      %th=JournalEntry.human_attribute_name("printed_on")
-      %th=Journal.model_name.human
-      %th=JournalEntry.model_name.human
-      %th=JournalEntryLine.model_name.human
-      %th=JournalEntryLine.human_attribute_name("debit")
-      %th=JournalEntryLine.human_attribute_name("credit")
-    -for @journal_entry_line in @journal_entry_lines
-      -checked = (@journal_entry_line.letter == @letter)
-      -trid = "e#{@journal_entry_line.id}"
-      %tr{:id=>trid, :class=>(checked ? "notice " :  (@journal_entry_line.letter.blank? ? "" : ""))+cycle("even", "odd")}
-        %td.chk
-          -if @journal_entry_line.letter.blank? or checked
-            =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][to_mark]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_line_#{@journal_entry_line.id}_to_mark" )
-          -else
-            =@journal_entry_line.letter
-            =link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:account_unmark, :id=>@account.id, :letter=>@journal_entry_line.letter}, :method=>:post, :confirm=>tg(:are_you_sure))
-        %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
-        %td=link_to(@journal_entry_line.journal.name, {:action=>:journal, :id=>@journal_entry_line.journal_id}, :keep=>true)
-        %td.code=link_to(@journal_entry_line.entry.number, {:action=>:journal_entry, :id=>@journal_entry_line.entry_id}, :keep=>true)
-        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=@journal_entry_line.name
-        %td.decimal.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_bookkeep(@journal_entry_line.debit)
-        %td.decimal.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_to_mark')"}=number_bookkeep(@journal_entry_line.credit)
-    %tr#total.total
-      %th{:colspan=>5}=tg(:total)
-      %td#total-debit=0
-      %td#total-credit=0
+  .fields
+    -for x in [:period, :started_on, :stopped_on]
+      =hidden_field_tag(x, params[x])
+    %table.kame
+      %tr
+        %th=JournalEntryLine.human_attribute_name("letter")
+        %th.act
+        %th=JournalEntry.human_attribute_name("printed_on")
+        %th=Journal.model_name.human
+        %th=JournalEntry.model_name.human
+        %th=JournalEntryLine.human_attribute_name("name")
+        %th=JournalEntryLine.human_attribute_name("debit")
+        %th=JournalEntryLine.human_attribute_name("credit")
+      -for line in @account.markable_entry_lines(params[:period], params[:started_on], params[:stopped_on])
+        -checked = (line.letter.blank? and (params[:journal_entry_line]||{}).keys.include?(line.id.to_s))
+        -trid, conf = "e#{line.id}", {}
+        %tr{:id=>trid, :class=>(line.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
+          %td.chk
+            -if line.letter.blank? and not line.closed?
+              =check_box_tag("journal_entry_line[#{line.id}][to_mark]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_line_#{line.id}_to_mark" )
+              -conf = {:class=>"clickable", :onclick=>"toggleCheckBox('journal_entry_line_#{line.id}_to_mark')"}
+            -else
+              =line.letter
+          %td.act=link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:account_unmark, :id=>@account.id, :letter=>line.letter}, :method=>:post, :confirm=>tg(:are_you_sure)) unless line.letter.blank? or line.closed?
+          %td.dat{conf}=I18n.localize(line.entry.printed_on)
+          %td=link_to(line.journal.name, {:action=>:journal, :id=>line.journal_id}, :keep=>true)
+          %td.code=link_to(line.entry.number, {:action=>:journal_entry, :id=>line.entry_id}, :keep=>true)
+          %td{conf}=line.name
+          %td.dec.debit{conf}=number_to_accountancy(line.debit)
+          %td.dec.credit{conf}=number_to_accountancy(line.credit)
+      %tr#total.total
+        %th{:colspan=>6}=tg(:total)
+        %td#total-debit=0
+        %td#total-credit=0
+    .end
   .actions=submit_tag tg(:save)
-
+  
 :javascript
   window.t2 = function() {
     var sd = sum_all('tr.notice .debit',  'total-debit');

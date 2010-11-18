@@ -1673,15 +1673,12 @@ arb:
     journal_entry:
       #>entry_cancel: 'Cancel of entry %{number}: %{name}'
       record_cancel: 'الانعكاس السلبي للقطعة %{number} : %{name}' #!
-      state:
+      state: #!
+      states:
         #>closed: 'Closed'
         #>confirmed: 'Confirmed'
         #>draft: 'Draft'
-    journal_entry_line:
-      state:
-        #>closed: 'Closed'
-        #>confirmed: 'Confirmed'
-        #>draft: 'Draft'
+    journal_entry_line: #!
     listing_node:
       add_filter: ' اضافة تصفية'
       all_columns: '-- جميع الاعمدة --'

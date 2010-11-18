@@ -118,7 +118,7 @@ class JournalEntryLine < ActiveRecord::Base
 
   # Prints human name of current state
   def state_label
-    tc('states.'+self.state.to_s)
+    ::I18n.t('models.journal_entry.states.'+self.state.to_s)
   end
 
   # updates the amounts to the debit and the credit 

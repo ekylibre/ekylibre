@@ -352,7 +352,7 @@ fra:
     authorized_payments_count: 'Nombre d''encaissements autorisés'
     available_prices: 'Prix disponibles'
     available_products: 'Produits disponibles'
-    #>balance: 'Balance'
+    balance: 'Solde'
     balance_amount: 'Solde'
     balances: 'Balances de compte'
     bank: 'Banque'
@@ -1073,8 +1073,8 @@ fra:
             name: 'Numérotation des remises en banque'
             period: 'year'
           entities:
-            #>format: '[number|8]'
-            #>name: 'Numeration of people'
+            format: '[number|8]'
+            name: 'Numérotation des personnes'
           incoming_deliveries:
             format: 'BR[year|4][number|4]'
             name: 'Numérotation des bons de réceptions'
@@ -1222,15 +1222,10 @@ fra:
         various: 'Opérations diverses'
     journal_entry:
       entry_cancel: 'Contre-passation de l''écriture %{number}: %{name}'
-      state:
-        #>closed: 'Closed'
-        #>confirmed: 'Confirmed'
-        #>draft: 'Draft'
-    journal_entry_line:
-      state:
-        #>closed: 'Closed'
-        #>confirmed: 'Confirmed'
-        #>draft: 'Draft'
+      states:
+        closed: 'Verrouillée'
+        confirmed: 'Validée'
+        draft: 'Brouillard'
     listing_node:
       add_filter: ' Ajouter un filtre '
       all_columns: '-- Toutes les colonnes --'

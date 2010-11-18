@@ -2,13 +2,13 @@
 .tabbox.journals
   .tabs
     -if @current_company.journal_entry_lines.find_by_state("draft")
-      -name=tc("draft_entry_lines").gsub(/\s+/, '&nbsp;').html_safe
-      -if action_name=="draft_entry_lines"
+      -name=tc("draft").html_safe
+      -if action_name=="draft"
         %strong.tab.current.special=name
       -else
-        =link_to(name, {:action=>:draft, :controller=>:accountancy, :mode=>params[:mode], :period=>params[:period], :start=>params[:start], :finish=>params[:finish]}, :class=>"tab special")
+        =link_to(name, params.merge(:action=>:draft), :class=>"tab special")
     -for journal in journals
-      -name= journal.name.gsub(/\s+/, '&nbsp;').html_safe
+      -name=journal.name.html_safe
       -klass = "tab"
       -klass += " current" if (action_name=="journal" and journal.id==@journal.id) or (@journal_entry and @journal_entry.journal_id==journal.id)
-      =link_to(name, {:action=>:journal, :controller=>:accountancy, :id=>journal.id, :mode=>params[:mode], :period=>params[:period], :start=>params[:start], :finish=>params[:finish]}, :title=>journal.name, :class=>klass)
+      =link_to(name, params.merge(:action=>:journal, :id=>journal.id), :title=>journal.name, :class=>klass)

@@ -57,7 +57,7 @@ class Transfer < ActiveRecord::Base
 
   #this method saves the transfer in the accountancy module.
   bookkeep(:on=>:nothing) do |b|
-    #     bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
+    #     b.journal_entry(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
     #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
     #       entry.add_credit(tc(:payable_bills), "???Compte effets a payer", self.amount)      
     #     end

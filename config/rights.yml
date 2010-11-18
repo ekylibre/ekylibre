@@ -517,15 +517,14 @@ manage_journal_entries:
   - draft_kame
   - index
   - journal
-  - journal_draft_entry_lines_kame
   - journal_entries_kame
   - journal_entry
   - journal_entry_create
   - journal_entry_delete
-  - journal_entry_entries_kame
   - journal_entry_line_create
   - journal_entry_lines_kame
   - journal_entry_update
+  - journal_lines_kame
   - journal_mixed_kame
   - journals
   - journals_kame

@@ -76,6 +76,48 @@ class JournalEntry < ActiveRecord::Base
 #     end
   end
 
+  # Build an SQL condition based on options which should contains acceptable states
+  def self.state_condition(states={}, table_name=nil)
+    table = table_name || self.table_name
+    states = {} unless states.is_a? Hash
+    if states.empty?
+      return JournalEntry.connection.quoted_false
+    else
+      return "#{table}.state IN (#{states.collect{|s, v| JournalEntry.connection.quote(s)}.join(',')})"
+    end
+  end
+
+  # Build an SQL condition based on options which should contains acceptable states
+  def self.journal_condition(journals={}, table_name=nil)
+    table = table_name || self.table_name
+    journals = {} unless journals.is_a? Hash
+    if journals.empty?
+      return JournalEntry.connection.quoted_false
+    else
+      return "#{table}.journal_id IN (#{journals.collect{|s, v| JournalEntry.connection.quote(s.to_i)}.join(',')})"
+    end
+  end
+
+  # Build a condition for filter journal entries on period
+  def self.period_condition(period, started_on, stopped_on, table_name=nil)
+    table = table_name || self.table_name
+    if period == 'all'
+      return self.connection.quoted_true
+    else
+      conditions = []
+      started_on, stopped_on = period.to_s.split('_')[0..1] unless period == 'interval'
+      if (started_on = started_on.to_date rescue nil)
+        conditions << "#{table}.printed_on >= #{self.connection.quote(started_on)}"
+      end
+      if (stopped_on = stopped_on.to_date rescue nil)
+        conditions << "#{table}.printed_on <= #{self.connection.quote(stopped_on)}"
+      end
+      return self.connection.quoted_false if conditions.empty?
+      return '('+conditions.join(' AND ')+')'
+    end
+  end
+
+  # Returns states names
   def self.states
     self.state_machine.states.collect{|x| x.name}
   end

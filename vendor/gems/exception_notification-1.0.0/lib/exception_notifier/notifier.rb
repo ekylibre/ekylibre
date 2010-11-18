@@ -1,3 +1,4 @@
+# encoding: utf-8
 require 'action_mailer'
 require 'pp'
 
@@ -53,7 +54,7 @@ class ExceptionNotifier
       prefix   = "#{@options[:email_prefix]}#{@kontroller.controller_name}##{@kontroller.action_name}"
       subject  = "#{prefix} (#{@exception.class}) #{@exception.message.inspect}"
 
-      mail(:to => @options[:exception_recipients], :from => @options[:sender_address], :subject => subject) do |format|
+      mail(:to => @options[:exception_recipients], :from => @options[:sender_address], :subject => subject, :content_type=>"UTF-8") do |format|
         format.text { render "#{mailer_name}/exception_notification" }
       end
     end

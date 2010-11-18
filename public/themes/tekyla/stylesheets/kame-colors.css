@@ -80,6 +80,26 @@ table.kame tr.critic.odd:hover td.act {background:#F0CCBF}
 table.kame tr.critic.odd td.sor {background:#F2C7B8}
 table.kame tr.critic.odd:hover td.sor {background:#E7CDCE}
 
+/* Disabled */
+table.kame tr.disabled td {background:#EEEEEE}
+table.kame tr.disabled:hover td {background:#E4E7F3}
+table.kame tr.disabled td.act {background:#F0E0CE}
+table.kame tr.disabled:hover td.act {background:#E6DEDD}
+table.kame tr.disabled td.sor {background:#E1E2E8}
+table.kame tr.disabled:hover td.sor {background:#DCE0EF}
+table.kame tr.disabled.even td {background:#F5F5F5}
+table.kame tr.disabled.even:hover td {background:#EAECF8}
+table.kame tr.disabled.even td.act {background:#F6E6D4}
+table.kame tr.disabled.even:hover td.act {background:#EAE2E1}
+table.kame tr.disabled.even td.sor {background:#E8E9EF}
+table.kame tr.disabled.even:hover td.sor {background:#E1E4F4}
+table.kame tr.disabled.odd td {background:#F5F5F5}
+table.kame tr.disabled.odd:hover td {background:#EAECF8}
+table.kame tr.disabled.odd td.act {background:#F6E6D4}
+table.kame tr.disabled.odd:hover td.act {background:#EAE2E1}
+table.kame tr.disabled.odd td.sor {background:#E8E9EF}
+table.kame tr.disabled.odd:hover td.sor {background:#E1E4F4}
+
 /* Enough */
 table.kame tr.enough td {background:#D8FFA3}
 table.kame tr.enough:hover td {background:#D5F3BF}
@@ -300,6 +320,26 @@ table.kame tr.ready.odd:hover td.act {background:#E3E8C8}
 table.kame tr.ready.odd td.sor {background:#DDF2C7}
 table.kame tr.ready.odd:hover td.sor {background:#D9EBD9}
 
+/* Subtotal */
+table.kame tr.subtotal td {background:#FFFFDD}
+table.kame tr.subtotal:hover td {background:#F0F3E7}
+table.kame tr.subtotal td.act {background:#FFEEBF}
+table.kame tr.subtotal:hover td.act {background:#F0E8D3}
+table.kame tr.subtotal td.sor {background:#F2F2D8}
+table.kame tr.subtotal:hover td.sor {background:#E7EBE4}
+table.kame tr.subtotal.even td {background:#FFFFEB}
+table.kame tr.subtotal.even:hover td {background:#F0F3F1}
+table.kame tr.subtotal.even td.act {background:#FFEECC}
+table.kame tr.subtotal.even:hover td.act {background:#F0E8DC}
+table.kame tr.subtotal.even td.sor {background:#F2F2E6}
+table.kame tr.subtotal.even:hover td.sor {background:#E7EBEE}
+table.kame tr.subtotal.odd td {background:#FFFFEB}
+table.kame tr.subtotal.odd:hover td {background:#F0F3F1}
+table.kame tr.subtotal.odd td.act {background:#FFEECC}
+table.kame tr.subtotal.odd:hover td.act {background:#F0E8DC}
+table.kame tr.subtotal.odd td.sor {background:#F2F2E6}
+table.kame tr.subtotal.odd:hover td.sor {background:#E7EBEE}
+
 /* Unbalanced */
 table.kame tr.unbalanced td {background:#FFAD87}
 table.kame tr.unbalanced:hover td {background:#F0BBAC}
@@ -359,6 +399,26 @@ table.kame tr.unpointabled.odd td.act {background:#FFDFB8}
 table.kame tr.unpointabled.odd:hover td.act {background:#F0DDCE}
 table.kame tr.unpointabled.odd td.sor {background:#F2E2D0}
 table.kame tr.unpointabled.odd:hover td.sor {background:#E7DFDE}
+
+/* Validated */
+table.kame tr.validated td {background:#EAFAEF}
+table.kame tr.validated:hover td {background:#E2EFF4}
+table.kame tr.validated td.act {background:#ECEACF}
+table.kame tr.validated:hover td.act {background:#E4E5DE}
+table.kame tr.validated td.sor {background:#DEEEE9}
+table.kame tr.validated:hover td.sor {background:#D9E7F0}
+table.kame tr.validated.even td {background:#F3FCF6}
+table.kame tr.validated.even:hover td {background:#E8F1F8}
+table.kame tr.validated.even td.act {background:#F4ECD5}
+table.kame tr.validated.even:hover td.act {background:#E9E6E2}
+table.kame tr.validated.even td.sor {background:#E6F0F0}
+table.kame tr.validated.even:hover td.sor {background:#DFE9F4}
+table.kame tr.validated.odd td {background:#F3FCF6}
+table.kame tr.validated.odd:hover td {background:#E8F1F8}
+table.kame tr.validated.odd td.act {background:#F4ECD5}
+table.kame tr.validated.odd:hover td.act {background:#E9E6E2}
+table.kame tr.validated.odd td.sor {background:#E6F0F0}
+table.kame tr.validated.odd:hover td.sor {background:#DFE9F4}
 
 /* Verylate */
 table.kame tr.verylate td {background:#FFAD87}

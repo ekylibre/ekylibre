@@ -145,8 +145,10 @@ function onLoaded() {
 
 function toggleCheckBox(element) {
   element = $(element);
-  element.checked = !element.checked;
-  element.onclick();
+  if (element !== null) {
+    element.checked = !element.checked;
+    element.onclick();
+  }
   return element.checked;
 }
 

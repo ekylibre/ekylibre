@@ -1,19 +1,16 @@
 .search
-  =form_tag({:controller=>:accountancy, :action=>:accounts, :prefix=>params[:prefix]}, :method=>:get) do
+  =form_tag({:controller=>:accountancy, :action=>:accounts}, :method=>:get) do
+    =hidden_field_tag(:prefix, params[:prefix])
     %table
       %tr
         %td.crit
-          %label=tc("search_account")
-          =text_field_tag :key, params[:key]||session[:account_key]
-          %label{:for=>"used_accounts"}=tc(:used_accounts)
-          =check_box_tag("used_accounts", "1", params[:used_accounts], :onchange=>"toggleInterval();")
+          %label{:for=>:search_account}=tc("search_account")
+          =text_field_tag(:q, params[:q], :id=>:search_account)
+          %label{:for=>:used_accounts}=tc(:used_accounts)
+          =check_box_tag("used_accounts", "1", params[:used_accounts], :onchange=>"toggleUsedPeriod();")
         %td.submit{:rowspan=>2}=submit_tag tg("search_go"), :name=>nil
       %tr
-        %td.crit#interval
-          %label=tg(:from)
-          =calendar_field_tag(:started_on, (params[:started_on]||(Date.today-1.year+1.day)))
-          %label=tg(:to)
-          =calendar_field_tag(:stopped_on, (params[:stopped_on]||Date.today))
+        %td.crit#used-period=journal_period_crit
   :javascript
-    window.toggleInterval=function() { toggleElement('interval', $('used_accounts').checked); }
-    toggleInterval();
+    window.toggleUsedPeriod=function() { toggleElement('used-period', $('used_accounts').checked); }
+    toggleUsedPeriod();

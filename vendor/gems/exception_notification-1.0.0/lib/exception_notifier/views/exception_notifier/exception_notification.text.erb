@@ -1,3 +1,4 @@
+<%# encoding: utf-8 %>
 A <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @kontroller.action_name %>:
 
   <%= raw @exception.message %>
@@ -7,7 +8,12 @@ A <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @ko
       summary = render(section).strip
       unless summary.blank?
         title = render("title", :title => section).strip
-        "#{title}\n\n#{summary.gsub(/^/, "  ")}\n\n"
+	x = "#{title}\n\n#{summary.gsub(/^/, "  ")}\n\n"
+	x.force_encoding("UTF-8") if x.respond_to? :force_encoding
+        x
       end
-    end %>
-<%= raw sections.join %>
+    end 
+    sections = sections.join
+    sections.force_encoding("ASCII-8BIT") if sections.respond_to? :force_encoding
+%>
+<%= sections %>

@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
     t.string   "name",         :limit => 208,                    :null => false
     t.string   "label",                                          :null => false
     t.boolean  "is_debit",                    :default => false, :null => false
-    t.string   "last_letter",  :limit => 8
     t.text     "comment"
     t.integer  "company_id",                                     :null => false
     t.datetime "created_at",                                     :null => false
@@ -52,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20101110084912) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                :default => 0,     :null => false
+    t.string   "last_letter"
   end
 
   add_index "accounts", ["company_id"], :name => "index_accounts_on_company_id"

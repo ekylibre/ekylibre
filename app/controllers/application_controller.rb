@@ -130,6 +130,37 @@ class ApplicationController < ActionController::Base
     code
   end
 
+  def self.light_search_conditions(search={}, options={})
+    conditions = options[:conditions] || 'c'
+    options[:except] ||= []
+    options[:filters] ||= {}
+    variable ||= options[:variable] || "params[:q]"
+    tables = search.keys.select{|t| !options[:except].include? t}
+    code = "#{conditions} = ['"+tables.collect{|t| "#{t}.company_id=?"}.join(' AND ')+"'"+", @current_company.id"*tables.size+"]\n"
+    columns = search.collect{|t, cs| cs.collect{|c| "#{t}.#{c}"}}.flatten
+    code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+    code += "  kw = '%'+kw+'%'\n"
+    filters = columns.collect do |x| 
+      # This line is incompatible with MySQL...
+      if ActiveRecord::Base.connection.adapter_name == "MySQL"
+        'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
+      else
+        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
+      end
+    end
+    values = '['+(['kw']*columns.size).join(', ')+']'
+    for k, v in options[:filters]
+      filters << k
+      v = '['+v.join(', ')+']' if v.is_a? Array
+      values += "+"+v
+    end
+    code += "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+    code += "  #{conditions} += #{values}\n"
+    code += "end\n"
+    code += "#{conditions}"
+    return code
+  end
+
 
   def find_and_check(model, id=nil, options={})
     model = model.to_s

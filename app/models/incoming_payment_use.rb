@@ -65,7 +65,7 @@ class IncomingPaymentUse < ActiveRecord::Base
 
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
-    b.journal_entry(self.company.journal(:various), {:printed_on=>self.payment.created_on}, :unless=>(self.expense.client_id == self.payment.payer_id)) do |entry|
+    b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(self.expense.client_id == self.payment.payer_id)) do |entry|
       entry.add_debit(label, self.payment.payer.account(:attorney).id, self.amount)
       entry.add_credit(label, self.expense.client.account(:client).id, self.amount)
     end

@@ -27,7 +27,7 @@
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(8)        
+#  last_letter  :string(255)      
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
@@ -72,33 +72,47 @@ class Account < ActiveRecord::Base
   end
 
 
-  # Build an SQL condition to restrein accounts to some ranges
+  # Clean ranges of accounts
   # Example : 1-3 41 43  
-  def self.range_condition(range, table_name=nil)
-    valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-    conn = Account.connection
-    table_name ||= Account.table_name
-    table = conn.quoted_table_name(table_name)
-    condition = "(false"
-    if range
-      expression = ""
+  def self.clean_range_condition(range, table_name=nil)
+    expression = ""
+    unless range.blank?
+      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
       for expr in range.split(/[^0-9A-Z\-\*]+/)
         if expr.match(/\-/)
           start, finish = expr.split(/\-+/)[0..1]
           next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
-          max = [start.length, finish.length].max
-          condition += " OR #{conn.substr('#{table}.number', 1, max)}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
           expression += " #{start}-#{finish}"
-        else
-          next unless expr.match(valid_expr)
-          condition += " OR #{table}.number LIKE #{conn.quote(expr+'%')}"
+        elsif expr.match(valid_expr)
           expression += " #{expr}"
         end
       end
-      range = expression.strip
     end
-    condition += ")"
-    return condition, range
+    return expression.strip
+  end
+
+
+  # Build an SQL condition to restrein accounts to some ranges
+  # Example : 1-3 41 43  
+  def self.range_condition(range, table_name=nil)
+    conn = Account.connection
+    conditions = []
+    if range.blank?
+      return conn.quoted_true
+    else
+      range = Account.clean_range_condition(range)
+      table = table_name || Account.table_name
+      for expr in range.split(/\s+/)
+        if expr.match(/\-/)
+          start, finish = expr.split(/\-+/)[0..1]
+          max = [start.length, finish.length].max
+          conditions << "#{conn.substr(table+'.number', 1, max)} BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
+        else
+          conditions << "#{table}.number LIKE #{conn.quote(expr+'%')}"
+        end
+      end
+    end
+    return '('+conditions.join(' OR ')+')'
   end
 
   # Find all available accounting systems in all languages
@@ -122,13 +136,17 @@ class Account < ActiveRecord::Base
   end
   
 
-  def markable_entry_lines(started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["journal_entries.created_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"letter DESC, journal_entries.number DESC")
+  def markable_entry_lines(period, started_on, stopped_on)
+    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions=>JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order=>"letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
   end
 
   def new_letter
-    line = self.journal_entry_lines.find(:first, :conditions=>[self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order=>"letter DESC")
-    return (line ? line.letter.succ : "AAA")
+    letter = self.last_letter
+    letter = letter.blank? ? "AAA" : letter.succ
+    self.update_attribute(:last_letter, letter)
+    # line = self.journal_entry_lines.find(:first, :conditions=>[self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order=>"letter DESC")
+    # return (line ? line.letter.succ : "AAA")
+    return letter
   end
 
 
@@ -140,16 +158,17 @@ class Account < ActiveRecord::Base
 
   # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
   def mark(line_ids, letter = nil)
-    return false if line_ids.size <= 1 or not self.journal_entry_lines.where(:id=>line_ids).sum("debit-credit").to_f.zero? 
+    conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
+    lines = self.journal_entry_lines.where(conditions)
+    return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.sum("debit-credit").to_f.zero?
     letter ||= self.new_letter
-    self.journal_entry_lines.update_all({:letter=>letter}, {:id=>line_ids, :letter=>nil})
-    return true
+    self.journal_entry_lines.update_all({:letter=>letter}, conditions)
+    return letter
   end
 
   # Unmark all the entry lines concerned by the +letter+
   def unmark(letter)
     self.journal_entry_lines.update_all({:letter=>nil}, {:letter=>letter})
-    self.update_attribute(:last_letter, self.journal_entry_lines.maximum(:letter))
   end
 
   # Check if the balance of the entry lines of the given +letter+ is zero.

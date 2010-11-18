@@ -464,7 +464,7 @@ html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18p
 .tabbox > .tabs  { padding: 4px 0 0px; }
 .tabbox > .tabs > .tab { line-height: 24px; background: #DDE; padding: 4px 6px 3px; margin: 0 4px 0 0; border: 1px solid #AAA; border-bottom: none; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; color: #44D; white-space: nowrap; }
 .tabbox > .tabs > .tab:hover { background: #EEF; color: #00C }
-.tabbox > .tabs > .tab.current { color: #000; padding: 5px 6px; text-decoration: none; background: #F0F7FF; font-weight: bold; }
+.tabbox > .tabs > .tab.current { color: #000; padding: 4px 6px 5px; text-decoration: none; background: #F0F7FF; font-weight: bold; }
 .tabbox > .tabpanels {background: url(../images/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }
 .tabbox > .tabpanels > .tabpanel { display: none; min-height: 200px; }
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
@@ -504,14 +504,14 @@ html[dir="rtl"] .branch .item .item-tool { text-align: left; }
 .journals.tabbox .tabs { padding: 0 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
 .journals.tabbox .tabs .tab { background-image: url(../images/shadow-top.png); background-repeat: repeat-x; background-position: center bottom; }
 .journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
-.journals.tabbox .tabs .tab.special{ color: #710; } /*border-top: 3px solid #95b0e4;*/
+.journals.tabbox .tabs .tab.special{ color: #C00; } /*border-top: 3px solid #95b0e4;*/
 
 
 tbody.lines td input { width: 95%; }
 
 table.kame tr.total.invalid td { color: #D20; }  
 table.kame tr.total.valid   td { color: #090; }  
-table.kame tr.last-entry    td { border-bottom: 2px solid #F77; }  
+table.kame tr.last-line     td { border-bottom: 2px solid #F77; }  
 
 div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
 

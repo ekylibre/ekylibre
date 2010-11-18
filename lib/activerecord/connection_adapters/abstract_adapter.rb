@@ -3,7 +3,7 @@ module ActiveRecord
     class AbstractAdapter 
       # By default, the SQL is used
       def substr(string, from, count)
-        return "SUBSTR(#{string}, #{from.to_i}, #{from.to_i})"
+        return "SUBSTR(#{string}, #{from.to_i}, #{count.to_i})"
       end
 
       def trim(string)

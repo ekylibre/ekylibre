@@ -42,7 +42,7 @@ namespace :kame do
 #            ]
 
     dims = [
-            {:__default__=>"FFFFFFFF", :notice=>"D8FFA3FF", :warning=>"FFE0B3FF", :error=>"FFAD87FF"}, # tr
+            {:__default__=>"FFFFFFFF", :notice=>"D8FFA3FF", :warning=>"FFE0B3FF", :error=>"FFAD87FF", :subtotal=>"FFFFDDFF", :disabled=>"EEEEEEFF", :validated=>"EAFAEFFF"}, # tr
             {:__default__=>"FFFFFF00", :odd=>"FFFFFF70", :even=>"FFFFFF70"}, # tr
             {:__default__=>"FFFFFF00", :act=>"FF860022", :sor=>"0012840D"} # td
            ]

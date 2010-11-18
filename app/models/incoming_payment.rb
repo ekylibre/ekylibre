@@ -105,7 +105,7 @@ class IncomingPayment < ActiveRecord::Base
     client_amount   = self.amount - attorney_amount
     mode = self.mode
     label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    b.journal_entry(mode.cash.journal, {:printed_on=>self.to_bank_on}, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+    b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
       if mode.with_deposit?
         entry.add_debit(label, mode.depositables_account_id, self.amount)
       else

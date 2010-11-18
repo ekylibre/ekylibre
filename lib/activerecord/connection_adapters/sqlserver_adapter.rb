@@ -2,7 +2,7 @@ module ActiveRecord
   module ConnectionAdapters
     class SQLServerAdapter
       def substr(string, from, count)
-        return "SUBSTRING(#{string}, #{from.to_i}, #{from.to_i})"
+        return "SUBSTRING(#{string}, #{from.to_i}, #{count.to_i})"
       end
 
       def trim(string)

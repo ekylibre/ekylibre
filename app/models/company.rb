@@ -399,78 +399,57 @@ class Company < ActiveRecord::Base
   # * :centralize Select account's prefixe which permits to centralize
   def balance(options={})
     conn = ActiveRecord::Base.connection
-    entry_lines_states  = " AND (false"
-    entry_lines_states += " OR (journal_entry_lines.draft = #{conn.quoted_true})" if options[:draft] == "1"
-    entry_lines_states += " OR (journal_entry_lines.draft = #{conn.quoted_false} AND journal_entry_lines.closed = #{conn.quoted_false})" if options[:confirmed] == "1"
-    entry_lines_states += " OR (journal_entry_lines.closed = #{conn.quoted_true})" if options[:closed] == "1"
-    entry_lines_states += ")"
+    journal_entry_lines, journal_entries, accounts = "jel", "je", "a"
 
-    valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/    
-    accounts = " AND (false"
-    if options[:accounts]
-      expression = ""
-      for expr in options[:accounts].split(/[^0-9A-Z\-\*]+/)
-        if expr.match(/\-/)
-          start, finish = expr.split(/\-+/)[0..1]
-          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
-          max = [start.length, finish.length].max
-          accounts += " OR SUBSTR(accounts.number, 1, #{max}) BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
-          expression += " #{start}-#{finish}"
-        else
-          next unless expr.match(valid_expr)
-          accounts += " OR accounts.number LIKE #{conn.quote(expr+'%')}"
-          expression += " #{expr}"
-        end
-      end
-      options[:accounts] = expression.strip
-    end
-    accounts += ")"
+    journal_entries_states = ' AND '+JournalEntry.state_condition(options[:states], journal_entries)
+
+    account_range = ' AND '+Account.range_condition(options[:accounts], accounts)
 
     # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
     centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
     options[:centralize] = centralize.join(" ")
-    # centralized = "("+centralized.collect{|c| "SUBSTR(accounts.number, 1, #{c.length}) = #{conn.quote(c)}"}.join(" OR ")+")"
-    centralized = "("+centralize.collect{|c| "accounts.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")+")"
+    centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")
 
-    from_where  = " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
-    from_where += " WHERE printed_on BETWEEN #{conn.quote(options[:started_on].to_date)} AND #{conn.quote(options[:stopped_on].to_date)}"
+    from_where  = " FROM #{JournalEntryLine.table_name} AS #{journal_entry_lines} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+    from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
+
     # Total
     lines = []
-    query  = "SELECT '', -1, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), '#{'Z'*16}' AS skey"
+    query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), '#{'Z'*16}' AS skey"
     query += from_where
-    query += entry_lines_states
-    query += accounts
+    query += journal_entries_states
+    query += account_range
     lines += conn.select_rows(query)
 
     # Sub-totals
     for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
       level = name.split(/\_/)[-1].to_i
-      query  = "SELECT SUBSTR(accounts.number, 1, #{level}) AS subtotal, -2, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), SUBSTR(accounts.number, 1, #{level})||'#{'Z'*(16-level)}' AS skey"
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, level)} AS subtotal, -2, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.substr(accounts+'.number', 1, level)}||'#{'Z'*(16-level)}' AS skey"
       query += from_where
-      query += entry_lines_states
-      query += accounts
-      query += " AND LENGTH(accounts.number) >= #{level}"
+      query += journal_entries_states
+      query += account_range
+      query += " AND #{conn.length(accounts+'.number')} >= #{level}"
       query += " GROUP BY subtotal"
       lines += conn.select_rows(query)
     end
 
     # NOT centralized accounts (default)
-    query  = "SELECT accounts.number, accounts.id AS account_id, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), accounts.number AS skey"
+    query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{accounts}.number AS skey"
     query += from_where
-    query += entry_lines_states
-    query += accounts
-    query += " AND NOT #{centralized}" unless centralize.empty?
-    query += " GROUP BY accounts.id, accounts.number"
-    query += " ORDER BY accounts.number"
+    query += journal_entries_states
+    query += account_range
+    query += " AND #{conn.not_boolean(centralized)}" unless centralize.empty?
+    query += " GROUP BY #{accounts}.id, #{accounts}.number"
+    query += " ORDER BY #{accounts}.number"
     lines += conn.select_rows(query)
 
     # Centralized accounts
     for prefix in centralize
-      query  = "SELECT SUBSTR(accounts.number, 1, #{prefix.size}) AS centralize, -3, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, prefix.size)} AS centralize, -3, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.quote(prefix)} AS skey"
       query += from_where
-      query += entry_lines_states
-      query += accounts
-      query += " AND accounts.number LIKE #{conn.quote(prefix+'%')}"
+      query += journal_entries_states
+      query += account_range
+      query += " AND #{accounts}.number LIKE #{conn.quote(prefix+'%')}"
       query += " GROUP BY centralize"
       lines += conn.select_rows(query)
     end

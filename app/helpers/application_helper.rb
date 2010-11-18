@@ -200,7 +200,7 @@ module ApplicationHelper
     MENUS
   end
 
-  def number_bookkeep(value)
+  def number_to_accountancy(value)
     number = value.to_f
     if number.zero?
       return ''

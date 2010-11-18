@@ -94,7 +94,7 @@ table.kame tr.total th { text-align: right;}
 html[dir="rtl"] table.kame tr.total th {text-align: left;}
 table.kame tr.total td {font-size: 18px; font-weight:bold; width: 10em; white-space: nowrap; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #BACFE6; }  
 table.kame tr.total td.important {font-size: 20px; } 
-table.kame tr.subtotal td { font-weight:bold; background:#FFE !important; text-align: right; border:1px solid #BACFE6; max-width: 12em;}  
-table.kame tr.subtotal th {  background:#FFE !important; border:1px solid #BACFE6;}  
+table.kame tr.subtotal td { font-weight:bold; font-style: italic; max-width: 12em; color: #776; }  /*border:1px solid #BACFE6;*/
 table.kame tr.centralize td { font-weight:bold; }  
 
+table.kame tr.disabled td, table.kame tr.disabled td * {color: #888; }  

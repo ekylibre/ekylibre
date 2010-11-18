@@ -1223,15 +1223,12 @@ jpn:
         #>various: 'Various operations'
     journal_entry:
       #>entry_cancel: 'Cancel of entry %{number}: %{name}'
-      state:
+      state: #!
+      states:
         #>closed: 'Closed'
         #>confirmed: 'Confirmed'
         #>draft: 'Draft'
-    journal_entry_line:
-      state:
-        #>closed: 'Closed'
-        #>confirmed: 'Confirmed'
-        #>draft: 'Draft'
+    journal_entry_line: #!
     journal_record: #!
     listing_node:
       #>add_filter: ' Add a filter'

@@ -1,15 +1,13 @@
 =form_tag(nil, {:class=>"vbox flex", :style=>'overflow:none'}) do
   .fields.flex
     =journals_tag
-    .search=render :partial=>"journals_search"
+    .search
       %table
         %tr
           %td.crit
             %label{:for=>"search"}=tc(:search)
-          =text_field_tag("search", params[:search])
+            =text_field_tag("q", params[:q], :id=>:search)
           %td.submit{:rowspan=>4}=submit_tag tg(:search_go), :name=>nil
-        %tr
-          %td.crit=journal_entries_states_crit
         %tr
           %td.crit=journal_period_crit
         %tr

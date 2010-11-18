@@ -24,63 +24,47 @@ class AccountancyController < ApplicationController
   
   
   # Generates code to check state crit
-  def self.journal_entry_states_crit(name, conditions='c')
-    variable = "session[:#{name}]" unless name.is_a? String
+  def self.journal_entries_states_crit(variable, conditions='c')
+    variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "#{conditions}[0] += \" AND (false\"\n"
-    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'draft')\" if #{variable}[:draft] == '1'\n"
-    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'confirmed')\" if #{variable}[:confirmed] == '1'\n"
-    code += "#{conditions}[0] += \" OR (#{JournalEntryLine.table_name}.state = 'closed')\" if #{variable}[:closed] == '1'\n"
-    code += "#{conditions}[0] += \")\"\n"    
+    code += "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
     return code
   end
 
-
   # Generates code to check period crit
-  def self.journal_period_crit(name, conditions='c')
-    variable = "session[:#{name}]" unless name.is_a? String
+  def self.journal_period_crit(variable, conditions='c')
+    variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "started_on = stopped_on = nil\n"
-    code += "if #{variable}[:period]=='interval'\n"
-    code += "  started_on, stopped_on = #{variable}[:started_on], #{variable}[:stopped_on]\n"
-    code += "else\n"
-    code += "  started_on, stopped_on = #{variable}[:period].split('_')[0..1]\n"
-    code += "end\n"
-    code += "if (started_on.to_date rescue nil)\n"
-    code += "  #{conditions}[0]+=' AND #{JournalEntry.table_name}.printed_on>=?'\n"
-    code += "  #{conditions} << started_on.to_date\n"
-    code += "end\n"
-    code += "if (stopped_on.to_date rescue nil)\n"
-    code += "  #{conditions}[0]+=' AND #{JournalEntry.table_name}.printed_on<=?'\n"
-    code += "  #{conditions} << stopped_on.to_date\n"
-    code += "end\n"
+    code += "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
     return code
   end
 
   # Generates code to check journals crit
-  def self.journals_crit(name, conditions='c')
-    variable = "session[:#{name}]" unless name.is_a? String
+  def self.journals_crit(variable, conditions='c')
+    variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "#{conditions}[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"
-    code += "if #{variable}[:journals].is_a?(Hash)\n"
-    code += "  #{variable}[:journals] = #{variable}[:journals].select{|k, v| k.to_s.match(/^\d+$/) and v.to_i == 1}.collect{|k, v| k.to_i}\n"
-    code += "end\n"
-    code += "#{conditions} << #{variable}[:journals]\n"
+    code += "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
     return code
   end
 
   # Generates code to check accounts ranges
-  def self.accounts_range_crit(name, conditions='c')
-    variable = "session[:#{name}]" unless name.is_a? String
+  def self.accounts_range_crit(variable, conditions='c')
+    variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "unless #{variable}[:accounts].match(/\(/)\n"
-    code += "  ac, params[:accounts] = Account.range_condition(#{variable}[:accounts])\n"
-    code += "  #{variable}[:accounts] = ' AND ('+ac+')'\n"
-    code += "end\n"
-    code += "#{conditions}[0] += #{variable}[:accounts]\n"
+    # code += "ac, #{variable}[:accounts] = \n"
+    code += "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
     return code
   end
 
+  def self.crit_params(hash)
+    nh = {}
+    keys = JournalEntry.state_machine.states.collect{|s| s.name}
+    keys += [:period, :started_on, :stopped_on, :accounts, :centralize]
+    for k, v in hash
+      nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
+    end
+    return nh
+  end
 
   # 
   def index
@@ -130,30 +114,29 @@ class AccountancyController < ApplicationController
 
 
   def self.accounts_conditions
-    code  = search_conditions(:accounts, [:name, :number, :comment])+"[0] += ' AND number LIKE ?'\n"
-    code += "c << session[:account_prefix]\n"
-    code += "if (session[:used_accounts])\n"
-    code += "  c[0]+=' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) WHERE created_on BETWEEN ? AND ? AND journal_entry_lines.company_id = ?)'\n"
-    code += "  c+=[(params[:started_on].to_date rescue Date.civil(1901,1,1)), (params[:stopped_on].to_date rescue Date.civil(1901,1,1)), @current_company.id]\n"
+    code  = ""
+    code += light_search_conditions(Account.table_name=>[:name, :number, :comment])
+    code += "[0] += ' AND number LIKE ?'\n"
+    code += "c << params[:prefix].to_s+'%'\n"
+    code += "if params[:used_accounts].to_i == 1\n"
+    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+' AND je.company_id = ? AND jel.company_id = ?)'\n"
+    code += "  c += [@current_company.id, @current_company.id]\n"
     code += "end\n"
-    code += "c"
+    code += "c\n"
+    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code
   end
 
   create_kame(:accounts, :conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
+    t.column :comment
     t.action :account_update
     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
   
-  # lists all the accounts with the credit, the debit and the balance for each of them.
+  # Lists all the accounts
   def accounts
-    session[:account_prefix] = params[:prefix].to_s+'%'
-    session[:used_accounts] = params[:used_accounts]
-    session[:started_on] = params[:started_on]
-    session[:stopped_on] = params[:stopped_on]
-    session[:account_key] = params[:key]
   end
 
   def accounts_load
@@ -233,20 +216,19 @@ class AccountancyController < ApplicationController
   # this method displays the array for make marking.
   def account_mark
     return unless @account = find_and_check(:account)
-    fy = @current_company.current_financial_year
-    params[:stopped_on] = (params[:stopped_on]||(fy ? fy.stopped_on : Date.today)).to_date
-    params[:started_on] = (params[:started_on]||(fy ? fy.started_on : params[:stopped_on]-1.month+1.day)).to_date
     if request.post?
       if params[:journal_entry_line]
-        journal_entry_lines = params[:journal_entry_line].collect{|k,v| ((v[:to_mark]=="1" and @current_company.journal_entry_lines.find_by_id(k)) ? k.to_i : nil)}.compact
-        @account.mark(journal_entry_lines)
+        letter = @account.mark(params[:journal_entry_line].select{|k,v| v[:to_mark].to_i==1}.collect{|k,v| k.to_i})
+        if letter.nil?
+          notify(:can_not_mark_entry_lines, :error, :now)
+        else
+          notify(:journal_entry_lines_marked_with_letter, :success, :now, :letter=>letter)
+        end
       else
-        notify(:select_entries_to_mark_together, :warning, :now)
+        notify(:select_entry_lines_to_mark_together, :warning, :now)
       end
     end
-    @journal_entry_lines = @account.markable_entry_lines(params[:started_on], params[:stopped_on])
-    @letter = @account.new_letter
-    t3e @account.attributes, :started_on=>params[:started_on], :stopped_on=>params[:stopped_on]
+    t3e @account.attributes
   end
 
   # this method displays the array for make marking.
@@ -297,30 +279,19 @@ class AccountancyController < ApplicationController
 
 
   def balance
-    if params[:started_on] and params[:stopped_on]
-      @balance = @current_company.balance(params)
-    end
+    @balance = @current_company.balance(params) if params[:period]
   end
 
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
-    code  = "session[:general_ledger] ||= {}\n"
+    code = ""
     code += "c=['journal_entries.company_id=?', @current_company.id]\n"
-    # period
-    code += "c[0]+=' AND journal_entries.printed_on BETWEEN ? AND ?'\n"
-    code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
-    # state
-    code += "c[0] += \" AND (false\"\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'draft')\" if session[:general_ledger][:draft] == '1'\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'confirmed')\" if session[:general_ledger][:confirmed] == '1'\n"
-    code += "c[0] += \" OR (#{JournalEntryLine.table_name}.state = 'closed')\" if session[:general_ledger][:closed] == '1'\n"
-    code += "c[0] += \")\"\n"    
-    # accounts
-    code += "c[0] += ' AND ('+(session[:general_ledger][:accounts]||\"#{conn.quoted_false}\")+')'\n"
-    # journals
-    code += "c[0] += ' AND #{JournalEntryLine.table_name}.journal_id IN (?)'\n"
-    code += "c<<session[:general_ledger][:journals]\n"    
+    code += journal_period_crit("params")
+    code += journal_entries_states_crit("params")
+    code += accounts_range_crit("params")
+    code += journals_crit("params")
     code += "c\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
@@ -335,45 +306,7 @@ class AccountancyController < ApplicationController
   end
 
   def general_ledger
-    session[:general_ledger] = {}
-    fy = @current_company.current_financial_year
-    params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
-    params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
-    params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
-
-    if params[:accounts]
-      conn = ActiveRecord::Base.connection
-      valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-      accounts = "false"
-      expression = ""
-      for expr in params[:accounts].split(/[^0-9A-Z\-\*]+/)
-        if expr.match(/\-/)
-          start, finish = expr.split(/\-+/)[0..1]
-          next unless start < finish and start.match(valid_expr) and finish.match(valid_expr)
-          max = [start.length, finish.length].max
-          accounts += " OR #{conn.substr('accounts.number', 1, max)} BETWEEN #{conn.quote(start.ljust(max, '0'))} AND #{conn.quote(finish.ljust(max, 'Z'))}"
-          expression += " #{start}-#{finish}"
-        else
-          next unless expr.match(valid_expr)
-          accounts += " OR accounts.number LIKE #{conn.quote(expr+'%')}"
-          expression += " #{expr}"
-        end
-      end
-      session[:general_ledger][:accounts] = accounts
-      params[:accounts] = expression.strip
-    end
-
-    for key in [:started_on, :stopped_on, :draft, :confirmed, :closed]
-      session[:general_ledger][key] = params[key]
-    end
-
-    journals = []
-    for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
-      journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
-    end
-    session[:general_ledger][:journals] = journals.compact
-  end
-  
+  end  
   
   create_kame(:financial_years, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>{:action=>:financial_year}
@@ -480,16 +413,36 @@ class AccountancyController < ApplicationController
   end
 
   def self.journal_entries_conditions(options={})
-    code = search_conditions(:journal_entry, JournalEntry.table_name=>[:number, :debit, :credit], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND #{JournalEntry.table_name}.journal_id=?'\n"
-    code += "c << session[:current_journal_id]\n"
-    code += "session[:journal] = {} unless session[:journal].is_a?(Hash)\n"
-    code += journal_entry_states_crit(:journal)
-    code += journal_period_crit(:journal)
+    code = ""
+    search_options = {}
+    filter = {JournalEntryLine.table_name => [:name, :debit, :credit]}
+    unless options[:with_lines]
+      code += light_search_conditions(filter, :conditions=>"cjel")+"\n"
+      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryLine.table_name} WHERE '+cjel[0]+')"=>"cjel[1..-1]"}
+      filter.delete(JournalEntryLine.table_name)
+    end
+    filter[JournalEntry.table_name] = [:number, :debit, :credit]
+    code += light_search_conditions(filter, search_options)
+    if options[:with_journals] 
+      code += "\n"
+      code += journals_crit("params")
+    else
+      code += "[0] += ' AND (#{JournalEntry.table_name}.journal_id=?)'\n"
+      code += "c << params[:id]\n"
+    end
+    if options[:state]
+      code += "c[0] += ' AND (#{JournalEntry.table_name}.state=?)'\n"
+      code += "c << '#{options[:state]}'\n"
+    else
+      code += journal_entries_states_crit("params")
+    end
+    code += journal_period_crit("params")
     code += "c\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  create_kame(:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-entry' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -522,30 +475,11 @@ class AccountancyController < ApplicationController
   end
 
 
-  def journal_filter()
-    fy = @current_company.current_financial_year
-    session[:journal] = {} unless session[:journal].is_a? Hash
-    session[:journal][:period] = params[:period] = params[:period]||(fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : nil)
-    session[:journal][:start]  = params[:start]  = params[:start]||(fy ? fy.started_on : Date.today)
-    session[:journal][:finish] = params[:finish] = params[:finish]||(fy ? fy.stopped_on : Date.today)
-    
-    if action_name == "draft"
-      journals = []
-      for name, value in params.select{|k, v| k.to_s.match(/^journal_\d+$/) and v.to_i == 1}
-        journals << @current_company.journals.find(name.split(/\_/)[-1].to_i).id rescue nil
-      end
-      session[:current_journal_id] = journals.compact
-    end
-  end
-
-
-  @@journal_views = ["entry_lines", "entries", "mixed"]
+  @@journal_views = ["lines", "entries", "mixed"]
   cattr_reader :journal_views
 
   def journal
     return unless @journal = find_and_check(:journal)
-    session[:current_journal_id] = @journal.id
-    # session[:journal] = params
     journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
     if view = self.journal_views.detect{|x| params[:view] == x}
@@ -553,20 +487,12 @@ class AccountancyController < ApplicationController
       journal_view.save
     end
 
-    conditions = eval(self.class.journal_entries_conditions)
-    @totals = {}
-    @totals[:debit]  = JournalEntry.sum(:debit, :conditions=>conditions)
-    @totals[:credit] = JournalEntry.sum(:credit, :conditions=>conditions)
-    @totals[:balance_debit] = 0.0
-    @totals[:balance_credit] = 0.0
-    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs
-
     @journal_view = journal_view.value
     t3e @journal.attributes
   end
 
 
-  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:state=>"draft"), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
@@ -579,11 +505,10 @@ class AccountancyController < ApplicationController
   
   # this method lists all the entries generated in draft mode.
   def draft
-    journal_filter
     if request.post? and params[:validate]
       conditions = nil
       begin
-        conditions = eval(self.class.journal_entries_conditions(:state=>"draft"))
+        conditions = eval(self.class.journal_entries_conditions(:with_journals=>true, :state=>:draft))
         journal_entries = @current_company.journal_entries.find(:all, :conditions=>conditions)
         undone = 0
         for entry in journal_entries
@@ -639,7 +564,7 @@ class AccountancyController < ApplicationController
 
 
 
-  create_kame(:journal_entry_entries, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
+  create_kame(:journal_entry_lines, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}

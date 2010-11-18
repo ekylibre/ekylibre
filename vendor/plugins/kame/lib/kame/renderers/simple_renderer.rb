@@ -74,7 +74,7 @@ module Kame
           code += "+\n      " unless code.blank?
           classes = 'hdr '+column_classes(column, true)
           classes = (column.sortable? ? "\"#{classes} sortable \"+(kame_params[:sort]!='#{column.id}' ? 'nsr' : kame_params[:dir])" : "\"#{classes}\"")
-          header = "link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(kame_params[:sort]!='#{column.id}' ? 'asc' : kame_params[:dir]=='asc' ? 'desc' : 'asc')), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, 'data-remote-update'=>'#{table.name}')"
+          header = "link_to(#{column.header_code}, url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(kame_params[:sort]!='#{column.id}' ? 'asc' : kame_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, 'data-remote-update'=>'#{table.name}')"
           code += "content_tag(:th, #{header}, :class=>\"#{column_classes(column)}\")"
         else
           code   += "+\n        " unless code.blank?
@@ -174,7 +174,7 @@ module Kame
         list = [5, 10, 25, 50, 100]
         list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
         list = list.uniq.sort
-        pagination += "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir])+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(kame_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('kame.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
+        pagination += "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(kame_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('kame.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
         # Pages link
         pagination += "'+will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('kame.previous'), :next_label=>::I18n.translate('kame.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}, :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>kame_params[:#{k}]"}.join+"}).to_s+'"
       end

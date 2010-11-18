@@ -511,7 +511,6 @@ arb:
     download_firefox: 'تحميل موزيلا فاير فوكس'
     downpayment: 'شروط العربون'
     draft: 'المسودات'
-    draft: 'المسودات'
     duplicate: 'تكرار'
     duration: '{{hours}}ساعة {{minutes}}دقيقة'
     #>duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
@@ -630,14 +629,16 @@ arb:
     journal: 'دفتراليومية'
     journal_detail: 'اغلق في {{closed_on}}'
     journal_entries: 'المدخالات'
-    journal_entry_lines_states: 'بيان المدخلات المستخدمة'
+    #>journal_entries_states: 'States of entries'
+    journal_entry_lines_states: 'بيان المدخلات المستخدمة' #!
     journal_name: '{{name}}'
     journal_record_update: 'تعديل العينات'
     journal_update: 'تعديل الفاتر اليومية'
     journal_view:
-      draft: 'المسودات'
+      draft: 'المسودات' #!
       entries: 'العينات'
-      entry_lines: 'الادخالات'
+      entry_lines: 'الادخالات' #!
+      #>lines: 'Lines of entries'
       mixed: 'دمج السجلات'
     journals: 'الدفاتر اليومية'
     kame: '' #!
@@ -961,7 +962,7 @@ arb:
     save_in_draft: 'حفظ في المسودات'
     #>scheduled: 'Scheduled'
     search: 'البحث عن الشراء'
-    #>search_account: 'Search account'
+    #>search_account: 'Search for accounts'
     search_go: 'بدء البحث'
     search_sales: 'البحث عن طلبات البيع'
     #>second_contact: 'Second address'
@@ -1207,7 +1208,7 @@ arb:
     exception_raised: 'ظهور خطأ واحد اثناء المعالجة: {{message}}'
     expired_session: '.نهاية الدورة. الرجاء معاودة الاتصال'
     fails_to_extract_listing: 'لم يتمكن الاستخراج من اتمام التنفيذ : {{message}}'
-    import_succeeded: 'نم استيراد بياناتك بشكل صحيح'
+    import_succeeded: 'نم استيراد بياناتك بشكل صحيح' #!
     importation_cancelled: 'لم تم استيراد بياناتك، تم الغاء الاستيراد'
     importation_finished: 'انتهاء الاستيراد'
     impossible_to_add_lines: 'لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب'
@@ -1234,18 +1235,18 @@ arb:
     need_warehouse_to_record_stock_moves: 'يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك'
     new_actual_number: 'الرقم الجديد الحالي هو {{actual_number}}'
     no_authenticated: 'ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة'
-    no_balance_template: 'ليس هناك من نموذج لوثيقة الرصيد'
+    no_balance_template: 'ليس هناك من نموذج لوثيقة الرصيد' #!
     no_closable_financial_year: 'ليس لديك اي سنة مالية قابلة للاغلاق '
     no_closable_journal: 'ليس باستطاعتك اغلاق هذا الدفتر اليومي'
     no_depositable_payments: 'لا يوجد دفعات لتقديمها للبنك'
     no_existing_mandates: 'ليس هنالك من تفويض مسجل في الوقت الحاضر'
-    no_financial_year: 'لم يتم تسجيل اي سنة مالية'
+    no_financial_year: 'لم يتم تسجيل اي سنة مالية' #!
     no_lines_found: 'لم يتم اضافة اي منتج الى الطلب'
     no_payment_to_deposit: 'ليس هنالك من دفعات للحصر'
     no_reopenable_journal: 'ليس بامكانك اعادة فتح الدفاتر اليومية'
     no_stocks: 'ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار "ادارة الاسهم" في خصائص منتجاتك'
-    no_template_journal: 'ليس هنالك من نموذج للدفتر اليومي'
-    no_template_journal_by_id: 'ليس هنالك من نموذج للدفتر اليومي'
+    no_template_journal: 'ليس هنالك من نموذج للدفتر اليومي' #!
+    no_template_journal_by_id: 'ليس هنالك من نموذج للدفتر اليومي' #!
     no_unvalidated_operations: 'لم يتم تحقيق اية اجراء'
     no_warehouse: 'لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك'
     password_successfully_changed: 'تم تغيير كلمة المرور الخاصة بك بنجاح'
@@ -1307,8 +1308,8 @@ arb:
         sales: 'مبيعات دورية افتراضية' #!
         various: 'الاجراءات اليومية المختلفة افتراضيا' #!
     #>bank_journal: 'Default bank journal'
-    #>bookkeep_automatically: 'Activate the automatic accounting transfer'
-    #>bookkeep_in_draft: 'Save the records in draft mode during accounting transfer'
+    #>bookkeep_automatically: 'Activate the automatic bookkeeping'
+    #>bookkeep_in_draft: 'Save the records in draft mode during bookkeeping'
     #>capital_gains_accounts: 'Profit for the year (earnings)'
     #>capital_losses_accounts: 'Profit for the year (loss)'
     #>cash_journal: 'Default cash journal'
