@@ -63,28 +63,11 @@ class OutgoingPaymentUse < ActiveRecord::Base
       entry.add_credit(label, self.payment.payee.account(:attorney).id, self.amount)
     end
     # self.link_in_accountancy
+    # self.reconciliate
   end
 
   def payment_way
     self.payment.mode.name if self.payment.mode
-  end
-
-  def expenses_and_payments(expenses=[], payments=[], depth=0)
-    puts "#{depth.to_s.rjust(4)}: expenses: #{expenses.to_sentence}, payments: #{payments.to_sentence}"
-    raise Exception.new "Stop" if depth > 10
-    for use in self.expense.payment_uses
-      unless payments.include? use.payment_id
-        payments << use.payment_id 
-        use.expenses_and_payments(expenses, payments, depth+1)
-      end
-    end
-    for use in self.payment.uses
-      unless expenses.include? use.expense_id
-        expenses << use.expense_id 
-        use.expenses_and_payments(expenses, payments, depth+1)
-      end
-    end
-    return expenses, payments
   end
 
   # Find all the neighbours through the payments and expenses
@@ -92,7 +75,7 @@ class OutgoingPaymentUse < ActiveRecord::Base
     for use in self.expense.payment_uses+self.payment.uses
       unless uses.include? use
         uses << use
-        use.neighbours
+        use.neighbours(uses)
       end
     end
     return uses
@@ -101,39 +84,59 @@ class OutgoingPaymentUse < ActiveRecord::Base
   
   # Lazy marking
   def reconciliate
-    expenses, payments, amount = [], [], 0.0
+    suppliers, payees, amount = {}, {}, 0.0
     for use in uses = self.neighbours
-      unless expenses.include? use.expense
-        expenses << use.expense 
+      unless suppliers.values.flatten.include? use.expense
+        suppliers[expense.supplier.id.to_s] ||= []
+        suppliers[expense.supplier.id.to_s] << use.expense 
         amount += expense.amount_with_taxes
       end
-      unless payments.include? use.payment
-        payments << use.payment 
+      unless payees.values.flatten.include? use.payment
+        payees[payment.payee.id.to_s] ||= []
+        payees[payment.payee.id.to_s] << use.payment 
         amount -= payment.amount
       end
     end
+    # If balance is not null all the operations can not be marked
     return nil unless amount.zero?
-    for use in uses
-      if use.expense.supplier_id == use.payment.payee_id
-        use.expense.supplier.account(:supplier).mark_entries(use.payment.journal_entry, use.expense.journal_entry)
-      else
-        use.expense.supplier.account(:supplier).mark_entries(use.journal_entry, use.expense.journal_entry)
-        use.payment.payee.account(:attorney).mark_entries(use.journal_entry, use.expense.journal_entry)
-      end      
+    for supplier, expenses in suppliers
+      entries = []
+      for expense in expenses
+        entries << expense.journal_entry
+        for use in expense.payment_uses
+          if use.payment.payee_id == expense.supplier_id 
+            entries << use.payment.journal_entry
+          else use.journal_entry
+            entries << use.journal_entry
+          end
+        end
+      end
+      self.company.entities.find(supplier.to_i).account(:supplier).mark_entries(entries)
+    end
+    for payee, payments in payees
+      entries = []
+      for payment in payments
+        e = [payment.journal_entry]
+        for use in payments.uses
+          e << use.journal_entry if payment.payee_id != use.expense.supplier_id
+        end
+        entries += e if e.size > 1
+      end
+      self.company.entities.find(supplier.to_i).account(:attorney).mark_entries(entries) if entries.size > 0
     end
     return true
   end
 
-  def link_in_accountancy
-    # raise Exception.new [self.expense.amount_with_taxes, self.payment.amount, self.amount].inspect
-    if self.expense.amount_with_taxes == self.payment.amount and self.amount == self.payment.amount
-      if self.expense.supplier_id == self.payment.payee_id
-        self.expense.supplier.account(:supplier).mark_entries(self.payment.journal_entry, self.expense.journal_entry)
-      else
-        self.expense.supplier.account(:supplier).mark_entries(self.journal_entry, self.expense.journal_entry)
-        self.payment.payee.account(:attorney).mark_entries(self.journal_entry, self.expense.journal_entry)
-      end
-    end    
-  end
+#   def link_in_accountancy
+#     # raise Exception.new [self.expense.amount_with_taxes, self.payment.amount, self.amount].inspect
+#     if self.expense.amount_with_taxes == self.payment.amount and self.amount == self.payment.amount
+#       if self.expense.supplier_id == self.payment.payee_id
+#         self.expense.supplier.account(:supplier).mark_entries(self.payment.journal_entry, self.expense.journal_entry)
+#       else
+#         self.expense.supplier.account(:supplier).mark_entries(self.journal_entry, self.expense.journal_entry)
+#         self.payment.payee.account(:attorney).mark_entries(self.journal_entry, self.expense.journal_entry)
+#       end
+#     end    
+#   end
 
 end

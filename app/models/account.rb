@@ -27,7 +27,7 @@
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(255)      
+#  last_letter  :string(8)        
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
@@ -153,7 +153,7 @@ class Account < ActiveRecord::Base
   # Finds entry lines to mark, checks their "markability" and
   # if all valids mark all with a new letter or the first defined before
   def mark_entries(*journal_entries)
-    return self.mark(self.journal_entry_lines.where(:entry_id=>journal_entries.compact.collect{|e| e.id}, :letter=>nil).collect{|l| l.id})
+    return self.mark(self.journal_entry_lines.where(:entry_id=>journal_entries.flatten.compact.collect{|e| e.id}, :letter=>nil).collect{|l| l.id})
   end
 
   # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.

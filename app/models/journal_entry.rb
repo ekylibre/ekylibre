@@ -212,34 +212,21 @@ class JournalEntry < ActiveRecord::Base
   # Add a entry which cancel the entry
   # Create counter-entry_lines
   def cancel
-    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on, :draft_mode=>self.prefer_bookkeep_in_draft?)
+    markable_accounts = []
+    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
-      for entry_line in self.lines
-        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>entry_line.name), entry_line.account, (entry_line.debit-entry_line.credit).abs, :credit=>(entry_line.debit>0))
+      for line in self.lines
+        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0))
+        markable_accounts << line.account if line.account.markable? and not markable_accounts.include?(line.account)
       end
+    end
+    # Mark accounts
+    for account in markable_accounts
+      account.mark(self, entry)
     end
     return entry
   end
-
-#   # this method allows to lock the entry.
-#   def close
-#     self.update_attribute(:closed, true)
-#     if self.lines.size > 0
-#       for entry_line in self.lines
-#         entry_line.close
-#       end
-#     end
-#   end
-
-#   def reopen
-#     if self.lines.size > 0
-#       for entry_line in self.lines
-#         entry_line.reopen
-#       end
-#     end    
-#     self.update_attribute(:closed, false)
-#   end
 
   def save_with_lines(entry_lines)
     ActiveRecord::Base.transaction do
