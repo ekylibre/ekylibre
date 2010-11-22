@@ -321,8 +321,8 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :state_label, :children=>false
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
     t.action :sales_order_duplicate, :controller=>:management, :method=>:post
     t.action :sales_order_update, :controller=>:management, :if=>"RECORD.draft? "
@@ -355,8 +355,8 @@ class RelationsController < ApplicationController
     # t.column :address, :through=>:contact
     t.column :created_on, :children=>false
     t.column :state_label, :through=>:sales_order, :children=>false
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     # t.column :credit
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
     # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
@@ -420,7 +420,7 @@ class RelationsController < ApplicationController
     #t.column :invoiced
     t.column :state_label
     t.column :paid_amount
-    t.column :amount_with_taxes
+    t.column :amount
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_update, :controller=>:management #, :if=>'RECORD.editable'
     t.action :purchase_order_delete, :controller=>:management,:method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
@@ -582,8 +582,8 @@ class RelationsController < ApplicationController
 
   create_kame(:category_prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:category]']}) do |t|
     t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :name, :through=>:tax
     t.action :price_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

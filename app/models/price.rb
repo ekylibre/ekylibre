@@ -20,33 +20,33 @@
 # 
 # == Table: prices
 #
-#  active            :boolean          default(TRUE), not null
-#  amount            :decimal(16, 4)   not null
-#  amount_with_taxes :decimal(16, 4)   not null
-#  by_default        :boolean          default(TRUE)
-#  category_id       :integer          
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  currency_id       :integer          
-#  entity_id         :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  product_id        :integer          not null
-#  quantity_max      :decimal(16, 4)   default(0.0), not null
-#  quantity_min      :decimal(16, 4)   default(0.0), not null
-#  started_at        :datetime         
-#  stopped_at        :datetime         
-#  tax_id            :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  use_range         :boolean          not null
+#  active        :boolean          default(TRUE), not null
+#  amount        :decimal(16, 4)   not null
+#  by_default    :boolean          default(TRUE)
+#  category_id   :integer          
+#  company_id    :integer          not null
+#  created_at    :datetime         not null
+#  creator_id    :integer          
+#  currency_id   :integer          
+#  entity_id     :integer          
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  pretax_amount :decimal(16, 4)   not null
+#  product_id    :integer          not null
+#  quantity_max  :decimal(16, 4)   default(0.0), not null
+#  quantity_min  :decimal(16, 4)   default(0.0), not null
+#  started_at    :datetime         
+#  stopped_at    :datetime         
+#  tax_id        :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer          
+#  use_range     :boolean          not null
 #
 
 
 class Price < ActiveRecord::Base
   after_save :set_by_default
-  attr_readonly :company_id # , :started_at, :amount, :amount_with_taxes
+  attr_readonly :company_id
   belongs_to :category, :class_name=>EntityCategory.name
   belongs_to :company
   belongs_to :currency
@@ -60,8 +60,7 @@ class Price < ActiveRecord::Base
   has_many :sales_order_lines
   validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
   validates_presence_of :currency_id, :product_id, :entity_id
-  validates_numericality_of :amount, :greater_than_or_equal_to=>0
-  validates_numericality_of :amount_with_taxes, :greater_than_or_equal_to=>0
+  validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to=>0
 
   before_validation do
     self.company_id  ||= self.product.company_id if self.product
@@ -69,14 +68,14 @@ class Price < ActiveRecord::Base
       self.currency_id ||= self.company.currencies.first.id 
       self.entity_id ||=  self.company.entity_id
     end
-    if self.amount_with_taxes.to_f > 0
-      self.amount_with_taxes = self.amount_with_taxes.round(2)
-      tax_amount = (self.tax ? self.tax.compute(self.amount_with_taxes, true) : 0)
-      self.amount = self.amount_with_taxes - tax_amount.round(2)
+    if self.amount.to_f > 0
+      self.amount = self.amount.round(2)
+      tax_amount = (self.tax ? self.tax.compute(self.amount, true) : 0)
+      self.pretax_amount = self.amount - tax_amount.round(2)
     else  # if self.amount.to_f >= 0 
-      tax_amount = (self.tax ? self.tax.compute(self.amount) : 0).to_f
-      self.amount_with_taxes = (self.amount.to_f+tax_amount).round(2)
-      self.amount = self.amount_with_taxes.to_f - tax_amount.round(2)
+      tax_amount = (self.tax ? self.tax.compute(self.pretax_amount) : 0).to_f
+      self.amount = (self.pretax_amount.to_f+tax_amount).round(2)
+      self.pretax_amount = self.amount.to_f - tax_amount.round(2)
     end
     self.started_at = Time.now
     self.quantity_min ||= 0
@@ -137,20 +136,20 @@ class Price < ActiveRecord::Base
     tc(:label, :product=>self.product.name, :amount=>self.amount, :currency=>self.currency.code)
   end
 
-  def compute(quantity=nil, amount=nil, amount_with_taxes=nil)
+  def compute(quantity=nil, pretax_amount=nil, amount=nil)
     if quantity
+      pretax_amount = self.pretax_amount*quantity
       amount = self.amount*quantity
-      amount_with_taxes = self.amount_with_taxes*quantity
+    elsif pretax_amount
+      quantity = pretax_amount/self.pretax_amount
+      amount = quantity*self.amount
     elsif amount
       quantity = amount/self.amount
-      amount_with_taxes = quantity*self.amount_with_taxes
-    elsif amount_with_taxes
-      quantity = amount_with_taxes/self.amount_with_taxes
-      amount = quantity*self.amount
+      pretax_amount = quantity*self.amount
     elsif
       raise ArgumentError.new("At least one argument must be given")
     end
-    return quantity.round(4), amount.round(2), amount_with_taxes.round(2)
+    return quantity.round(4), pretax_amount.round(2), amount.round(2)
   end
 
 end

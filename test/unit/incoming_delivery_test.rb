@@ -21,7 +21,6 @@
 # == Table: incoming_deliveries
 #
 #  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  contact_id        :integer          
@@ -34,6 +33,7 @@
 #  moved_on          :date             
 #  number            :string(255)      
 #  planned_on        :date             
+#  pretax_amount     :decimal(16, 2)   default(0.0), not null
 #  purchase_order_id :integer          
 #  reference_number  :string(255)      
 #  updated_at        :datetime         not null

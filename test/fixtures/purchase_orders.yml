@@ -22,7 +22,6 @@
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  confirmed_on        :date             
@@ -38,6 +37,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   default(0.0), not null
 #  planned_on          :date             
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       
@@ -50,20 +50,20 @@
 #
 # purchase_orders_001:
 #   amount: 0
-#   amount_with_taxes: 0
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
 #   number: "Lorem ipsum"
 #   paid_amount: 0
+#   pretax_amount: 0
 #   supplier_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
 purchase_orders_001:
   amount: 0
-  amount_with_taxes: 0
+  pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -76,7 +76,7 @@ purchase_orders_001:
 
 purchase_orders_002:
   amount: 0
-  amount_with_taxes: 0
+  pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -89,7 +89,7 @@ purchase_orders_002:
 
 purchase_orders_003:
   amount: 0
-  amount_with_taxes: 0
+  pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1

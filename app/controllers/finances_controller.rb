@@ -315,8 +315,8 @@ class FinancesController < ApplicationController
     t.column :number, :url=>{:action=>:sales_order}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
   end
   
   def incoming_payment
@@ -489,8 +489,8 @@ class FinancesController < ApplicationController
     t.column :number, :url=>{:action=>:purchase_order}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
   end
   
   def outgoing_payment

@@ -1,32 +1,30 @@
 =render :partial=>"accounts_search"
+
 =toolbar do |t|
   -t.update(@account)
-  -t.mark(@account) if @account.markable?
-%table.full-width
-  %tr
-    %td
-      =evalue @account, :number
-      =evalue @account, :name
-      =evalue @account, :comment
-    %td
-      %table.kame
-        %tr.total
-          %th
-          %th=JournalEntry.human_attribute_name("debit")
-          %th=JournalEntry.human_attribute_name("credit")
-        %tr.total
-          %th=tc(:totals)
-          %td.value=number_to_accountancy(@totals[:debit])
-          %td.value=number_to_accountancy(@totals[:credit])
-        %tr.total
-          %th=tc(:balance)
-          %td.value=number_to_accountancy(@totals[:balance_debit])
-          %td.value=number_to_accountancy(@totals[:balance_credit])
+  -t.mark(@account) if @account.reconcilable?
 
-
+=attributes_list(@account) do |l|
+  -l.attribute :number
+  -l.attribute :name
+  -l.attribute :reconcilable
+  -l.attribute :comment
 
 =tabbox(:account) do |tb|
   -tb.tab(:journal_entry_lines) do
     =kame(:account_journal_entry_lines)
+    %table.kame
+      %tr.total
+        %th
+        %th=JournalEntry.human_attribute_name("debit")
+        %th=JournalEntry.human_attribute_name("credit")
+      %tr.total
+        %th=tc(:totals)
+        %td.value=number_to_accountancy(@totals[:debit])
+        %td.value=number_to_accountancy(@totals[:credit])
+      %tr.total
+        %th=tc(:balance)
+        %td.value=number_to_accountancy(@totals[:balance_debit])
+        %td.value=number_to_accountancy(@totals[:balance_credit])
   -tb.tab(:entities) do
     =kame(:account_entities)

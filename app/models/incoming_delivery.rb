@@ -21,7 +21,6 @@
 # == Table: incoming_deliveries
 #
 #  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  contact_id        :integer          
@@ -34,6 +33,7 @@
 #  moved_on          :date             
 #  number            :string(255)      
 #  planned_on        :date             
+#  pretax_amount     :decimal(16, 2)   default(0.0), not null
 #  purchase_order_id :integer          
 #  reference_number  :string(255)      
 #  updated_at        :datetime         not null
@@ -57,12 +57,12 @@ class IncomingDelivery < ActiveRecord::Base
 
   before_validation do
     self.company_id = self.purchase_order.company_id if self.purchase_order
-    self.amount = self.amount_with_taxes = self.weight = 0.0
-    for line in self.lines
-      self.amount += line.amount
-      self.amount_with_taxes += line.amount_with_taxes
-      self.weight += (line.product.weight||0)*line.quantity
-    end
+#     self.pretax_amount = self.amount = self.weight = 0.0
+#     for line in self.lines
+#       self.pretax_amount += line.pretax_amount
+#       self.amount += line.amount
+#       self.weight += (line.product.weight||0)*line.quantity
+#     end
     return true
   end
 

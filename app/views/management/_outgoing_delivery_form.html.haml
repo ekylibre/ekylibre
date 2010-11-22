@@ -11,19 +11,19 @@
 %table.kame 
   %tr
     %th=OutgoingDeliveryLine.human_attribute_name(:product)
+    %th=tc(:unit_price_pretax_amount)
     %th=tc(:unit_price_amount)
-    %th=tc(:unit_price_amount_with_taxes)
     %th=tc(:total_quantity)
     %th=OutgoingDeliveryLine.human_attribute_name(:unit)
     %th=tc(:quantity_rest)
     %th=tc(:quantity)
+    %th=OutgoingDeliveryLine.human_attribute_name(:pretax_amount)
     %th=OutgoingDeliveryLine.human_attribute_name(:amount)
-    %th=OutgoingDeliveryLine.human_attribute_name(:amount_with_taxes)
   -for line in @outgoing_delivery_lines
     %tr{:class=>cycle('odd','even')}
       %td=line.order_line.label
-      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.amount
-      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount_with_taxes
+      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.pretax_amount
+      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount
       %td.dec=line.order_line.quantity
       %td=line.order_line.unit.label
       %td.dec=line.order_line.undelivered_quantity
@@ -34,12 +34,12 @@
       %td.dec.awt{"mul-of"=>"awt-#{line.order_line_id}"}
   %tr.total
     %th{:colspan=>7}=tg :total
-    %td#total_amount{"sum-of"=>"pta"}=@outgoing_delivery.amount
-    %td#total_amount_with_taxes{"sum-of"=>"awt"}=@outgoing_delivery.amount_with_taxes
+    %td#total_pretax_amount{"sum-of"=>"pta"}=@outgoing_delivery.pretax_amount
+    %td#total_amount{"sum-of"=>"awt"}=@outgoing_delivery.amount
   :javascript
     window.t6 = function(element, max) {
+      compute("total_pretax_amount");
       compute("total_amount");
-      compute("total_amount_with_taxes");
       if (element !== null) {
         if (isNaN(element.value) || (!isNaN(element.value) && parseFloat(element.value)>max)) {
           element.addClassName("invalid");

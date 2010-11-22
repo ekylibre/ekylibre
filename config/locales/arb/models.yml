@@ -709,7 +709,7 @@ arb:
     admin: 'مسؤول النظام'
     agency_code: 'رمز الوكالة'
     amount: 'القيمة من دون الضرائب'
-    amount_with_taxes: 'القيمة مع كامل الضرائب'
+    amount_with_taxes: 'القيمة مع كامل الضرائب' #!
     annotation: 'ملاحظة'
     area: 'المنطقة البريدية'
     area_id: 'العنوان البريدي'
@@ -1118,7 +1118,7 @@ arb:
     payment_mode: 'اسلوب تسديد الدفعة'
     payment_mode_complement: 'معلومات اضافية عن نمط الدفعة'
     payment_mode_id: 'نمط دفعة'
-    payment_modes: 'طريقة تسديد الدفعة'
+    payment_modes: 'طريقة تسديد الدفعة' #!
     payment_on: 'تسدد في مدة لا تتجاوز'
     payment_uses: 'اجزاء الدفعات'
     payment_way: 'نمط الدفعة'
@@ -1136,6 +1136,7 @@ arb:
     position: 'الوضع'
     postcode: 'الرمز البريدي'
     preferences: 'الاعدادات'
+    #>pretax_amount: 'Pre-tax amount'
     price: 'سعر الكلفة'
     price_amount: 'القيمة دون الضرائب'
     price_id: 'سعر الوحدة'
@@ -1183,6 +1184,7 @@ arb:
     #>receiver_currency_id: 'Received currency'
     #>receiver_currency_rate: 'Received currency rate'
     #>receiver_journal_entry_id: 'Receiver journal entry'
+    #>reconcilable: 'Reconcilable'
     record_value: 'التسجيل'
     record_value_id: 'تسجيل'
     record_value_type: 'نوع التسجيل'

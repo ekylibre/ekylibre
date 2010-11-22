@@ -4,6 +4,7 @@ arb:
       account: 'الحساب : {{number}} - {{name}}'
       account_create: 'انشاء حساب جديد'
       account_mark: 'تسجيل حساب رقم {{number}} من {{started_on}} الى {{stopped_on}}'
+      account_reconciliation: 'كتابة حسابات'
       account_update: 'تعديل الحساب : {{number}} - {{name}}'
       accounts: 'مخطط الحساب'
       #>accounts_load: 'Load a plan of accounts'
@@ -33,7 +34,6 @@ arb:
       journal_reopen: 'فتح {{name}}'
       journal_update: 'تعديل الدفتر اليومي : {{name}}'
       journals: 'الدفاتر اليومية'
-      unmarked_journal_entry_lines: 'كتابة حسابات'
     application: #!
     authentication:
       login: 'الدخول'
@@ -139,7 +139,7 @@ arb:
       outgoing_delivery_modes: 'وسائل التسليم'
       outgoing_delivery_update: 'تعديل التسليم'
       price_create: 'اضافة سعر جديد'
-      #>price_update: 'Edit price %{amount}/%{amount_with_taxes} of %{product}'
+      #>price_update: 'Edit price %{pretax_amount}/%{amount} of %{product}'
       prices: 'الاسعار'
       prices_import: 'CSV استيراد بيان التعرفة ضمن'
       product: 'المنتجات : {{name}}'
@@ -324,7 +324,7 @@ arb:
     account_financial_assets: 'الموجودات المالية'
     account_fixed_assets: 'الموجودات الثابتة'
     account_inventories_assets: 'أسهم'
-    account_mark: 'تسجيل الحسابات'
+    account_mark: 'تسجيل الحسابات' #!
     account_name: 'حسابات المحاسب'
     account_number: 'رقم الحساب'
     account_others_assets: 'موجودات اخرى'
@@ -466,7 +466,7 @@ arb:
     csv_statistics: 'نموذج احصائيات القيمة النقدية'
     cumul: 'رقم الرصيد التراكمي الكلي والسابق{{number}}'
     current: 'الحالية'
-    current_letter: 'البيانات الحالية : {{letter}}'
+    current_letter: 'البيانات الحالية : {{letter}}' #!
     custom_field_choice_create: 'اضافة خيار جديد للقائمة' #!
     custom_field_create: 'انشاء حقل مخصص جديد' #!
     custom_field_update: 'تعديل الحقل المخصص'
@@ -654,8 +654,8 @@ arb:
     letter_function_title: 'سيداتي، سادتي الاعزاء'
     letter_introduction: '.وفق حديثنا التالي، سوف نصلكم بعناصر من التقدير'
     #>letter_options: 'Letter options'
-    lettering_account_client: 'كتابة حسابات الزبائن'
-    lettering_account_supplier: 'كتابة حسابات المموليين'
+    lettering_account_client: 'كتابة حسابات الزبائن' #!
+    lettering_account_supplier: 'كتابة حسابات المموليين' #!
     lettering_modes:
       attorneys: 'الوكيل'
       clients: 'العملاء'
@@ -987,6 +987,7 @@ arb:
     sequence_create: 'اضافة تسلسل' #!
     sequences: 'التسلسل' #!
     sequences_load: 'تحميل التسلسلات المفقودة'
+    #>set_reconcilable_new_but_existing_third_accounts: 'Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)'
     ship: 'بشريطة'
     simplified: 'نظام واقعي مبسط'
     source: 'مصدر البيانات'
@@ -1064,6 +1065,7 @@ arb:
     unpaid_sales_orders_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
     unparted: 'غير متضرر'
     unreceived: 'غير مقبوضة'
+    #>unset_reconcilable_old_third_accounts: 'Unset reconcilable old third accounts (clients, suppliers and attorneys)'
     unused_payment: 'دفعات غير مستخدمة'
     #>unvalid_date: 'Invalid date'
     unvalidated_operations: 'عمل غير صحيح'

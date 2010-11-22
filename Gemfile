@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.3'
+# gem 'rails', '2.3.10'
 gem 'haml', '~>3.0'
 gem 'fastercsv', :platforms=>[:ruby_18, :mri_18]
 gem 'libxml-ruby', '1.1.3', :require=>'libxml'
@@ -18,5 +19,5 @@ end
 # gem 'sqlite3-ruby', :require => 'sqlite3', :platforms=>[:ruby_19, :mri_19]
 gem 'pg'
 gem 'mysql'
-gem 'activerecord-sqlserver-adapter', :path => File.join(File.dirname(__FILE__), 'vendor', 'gems', 'activerecord-sqlserver-adapter-3.0.3')
+# gem 'activerecord-sqlserver-adapter', :path => File.join(File.dirname(__FILE__), 'vendor', 'gems', 'activerecord-sqlserver-adapter-3.0.3')
 # gem 'ruby-odbc'

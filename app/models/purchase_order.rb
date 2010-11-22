@@ -22,7 +22,6 @@
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  confirmed_on        :date             
@@ -38,6 +37,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   default(0.0), not null
 #  planned_on          :date             
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       
@@ -62,6 +62,7 @@ class PurchaseOrder < ActiveRecord::Base
   has_many :deliveries, :class_name=>IncomingDelivery.name
   has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
   has_many :products, :through=>:lines, :uniq=>true
+  has_many :uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
 
   validates_presence_of :planned_on, :created_on, :currency, :state
   validates_uniqueness_of :number, :scope=>:company_id
@@ -105,8 +106,8 @@ class PurchaseOrder < ActiveRecord::Base
     self.created_on ||= Date.today
     self.paid_amount = self.payment_uses.sum(:amount)||0
     self.currency ||= self.company.default_currency
+    self.pretax_amount = self.lines.sum(:pretax_amount)
     self.amount = self.lines.sum(:amount)
-    self.amount_with_taxes = self.lines.sum(:amount_with_taxes)
     return true
   end
   
@@ -126,14 +127,14 @@ class PurchaseOrder < ActiveRecord::Base
     b.journal_entry(self.company.journal(:purchases), :if=>(self.invoiced? or self.finished?)) do |entry|
       label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
-        entry.add_debit(label, line.product.purchases_account_id, line.amount) unless line.quantity.zero?
-        entry.add_debit(label, line.price.tax.paid_account_id, line.taxes) unless line.taxes.zero?
+        entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
+        entry.add_debit(label, line.price.tax.paid_account_id, line.taxes_amount) unless line.taxes_amount.zero?
       end
-      entry.add_credit(label, self.supplier.account(:supplier).id, self.amount_with_taxes)
+      entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
-#     if use = self.payment_uses.first
-#       use.link_in_accountancy
-#     end
+    if use = self.payment_uses.first
+      use.reconciliate
+    end
   end
 
   def refresh
@@ -145,7 +146,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
-  # - +column+ can be +:amount+ or +:amount_with_taxes+
+  # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
     sum  = self.send(column)
     sum -= self.deliveries.sum(column)
@@ -153,7 +154,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def deliverable?
-    self.undelivered(:amount_with_taxes) > 0 and not self.invoiced?
+    self.undelivered(:amount) > 0 and not self.invoiced?
   end
   
 
@@ -198,7 +199,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def unpaid_amount(all=true)
-    self.amount_with_taxes - self.paid_amount
+    self.amount - self.paid_amount
   end
 
   def payment_entity_id
@@ -211,7 +212,7 @@ class PurchaseOrder < ActiveRecord::Base
 
   def status
     status = ""
-    status = "critic" if self.paid_amount < self.amount_with_taxes
+    status = "critic" if self.paid_amount < self.amount
     status
   end
 
@@ -227,16 +228,14 @@ class PurchaseOrder < ActiveRecord::Base
     a
   end
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end
-
-
 
   # Produces some amounts about the purchase order.
   def stats(options={})
     array = []
-    array << [:total_amount, self.amount_with_taxes]
+    array << [:total_amount, self.amount]
     array << [:paid_amount, self.paid_amount]
     array << [:unpaid_amount, self.unpaid_amount]
     array 

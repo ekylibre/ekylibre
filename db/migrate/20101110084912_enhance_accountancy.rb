@@ -40,6 +40,16 @@ class EnhanceAccountancy < ActiveRecord::Migration
     'relations.entities.numeration'                      => 'entities_sequence'
   }.to_a.sort
 
+  AMOUNTS_TABLES = [:incoming_delivery_lines, :incoming_deliveries, :outgoing_delivery_lines, :outgoing_deliveries, :prices, :purchase_order_lines, :purchase_orders, :sales_invoice_lines, :sales_invoices, :sales_order_lines, :sales_orders, :transports]
+
+  TEMPLATES_REPLACES = [
+                        ['price/amount', 'price/pretax_amount'],
+                        ['property=\"taxes\"', 'property=\"taxes_amount\"'],
+                        ['.taxes?', '.taxes_amount?'],
+                        ['.amount?', '.pretax_amount?' ],
+                        ['.amount_with_taxes?' => '.amount?'],
+                        ['label="Montant Hors Taxes" property="amount"', 'label="Montant Hors Taxes" property="pretax_amount"']
+                       ]
 
   def self.up
     # Change preferences
@@ -48,6 +58,16 @@ class EnhanceAccountancy < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:companies)} SET language = CASE "+preferences.collect{|p| "WHEN id=#{p['company_id']} THEN '#{p['string_value']}'"}.join(" ")+" END" if preferences.size > 0
     execute "DELETE FROM #{quoted_table_name(:preferences)} WHERE name='general.language'"
 
+    for table in AMOUNTS_TABLES
+      rename_column table, :amount, :pretax_amount
+      rename_column table, :amount_with_taxes, :amount
+    end
+
+    for o, n in TEMPLATES_REPLACES
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET source = REPLACE(source, '#{o}', '#{n}')"
+    end
+
+    add_column :accounts, :reconcilable, :boolean, :null=>false, :default=>false
 
     add_column :journal_entries,     :state, :string, :limit=>32, :null=>false, :default=>"draft" 
     add_column :journal_entries,     :balance, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0
@@ -67,10 +87,12 @@ class EnhanceAccountancy < ActiveRecord::Migration
     remove_column :journal_entry_lines, :closed
     remove_column :journal_entry_lines, :expired_on
 
-    
-
     for o, n in PREFERENCES
       execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
+    end
+
+    for pref in connection.select_all("SELECT company_id AS cid, integer_value AS prefix FROM #{quoted_table_name(:preferences)} WHERE name LIKE 'third_%_accounts'")
+      execute "UPDATE #{quoted_table_name(:accounts)} SET reconcilable=#{quoted_true} WHERE company_id=#{pref['cid']} AND number LIKE '#{pref['prefix']}%'"
     end
 
     # Change private directory structure
@@ -110,6 +132,13 @@ class EnhanceAccountancy < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:journal_entries)} SET draft_mode = #{quoted_true} WHERE state='draft' AND debit = credit"
     remove_column :journal_entries,     :balance
     remove_column :journal_entries,     :state
+
+    remove_column :accounts, :reconcilable
+
+    for table in AMOUNTS_TABLES.reverse
+      rename_column table, :amount, :amount_with_taxes
+      rename_column table, :pretax_amount, :amount
+    end
 
     execute "INSERT INTO #{quoted_table_name(:preferences)}(string_value, company_id, created_at, updated_at, nature, name) SELECT language, id, created_at, updated_at, 'string', 'general.language' FROM #{quoted_table_name(:companies)}"
     remove_column :companies, :language

@@ -43,11 +43,11 @@
   =kame :sales_order_lines
   %table.kame
     %tr.total
-      %th=tl :amount
-      %td=number_to_management(@sales_order.amount)
+      %th=SalesOrder.human_attribute_name(:pretax_amount)
+      %td=number_to_management(@sales_order.pretax_amount)
     %tr.important.total
-      %th=tl :amount_with_taxes
-      %td=number_to_management(@sales_order.amount_with_taxes)
+      %th=SalesOrder.human_attribute_name(:amount)
+      %td=number_to_management(@sales_order.amount)
   -if @sales_order.subscriptions.size>0
     %h2=tl :subscriptions
     =kame :sales_order_subscriptions

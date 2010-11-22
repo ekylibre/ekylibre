@@ -6,7 +6,7 @@
         %td.submit=submit_tag(tg(:display), :name=>nil)
 
 =toolbar do |t|
-  -# t.link :unmarked_journal_entry_lines, {:mode=>session[:mode]}
+  -# t.link :account_reconciliation, {:mode=>session[:mode]}
 
 =attributes_list(@account, :without_stamp=>true) do |l|
   -l.attribute :name, :url=>{:action=>:account, :id=>@account.id}
@@ -29,7 +29,7 @@
         %th=JournalEntryLine.human_attribute_name("name")
         %th=JournalEntryLine.human_attribute_name("debit")
         %th=JournalEntryLine.human_attribute_name("credit")
-      -for line in @account.markable_entry_lines(params[:period], params[:started_on], params[:stopped_on])
+      -for line in @account.reconcilable_entry_lines(params[:period], params[:started_on], params[:stopped_on])
         -checked = (line.letter.blank? and (params[:journal_entry_line]||{}).keys.include?(line.id.to_s))
         -trid, conf = "e#{line.id}", {}
         %tr{:id=>trid, :class=>(line.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}

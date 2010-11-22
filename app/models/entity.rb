@@ -165,12 +165,12 @@ class Entity < ActiveRecord::Base
   
   #
   def balance
-    #payments = IncomingPayment.find_all_by_entity_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
-    payments = IncomingPayment.sum(:amount, :conditions=>{:company_id=>self.company_id, :payer_id=>self.id})
-    sales_invoices = SalesInvoice.sum(:amount_with_taxes, :conditions=>{:company_id=>self.company_id, :client_id=>self.id})
-    #sales_invoices = SalesInvoice.find_all_by_client_id_and_company_id(self.id, self.company_id).sum(:amount_with_taxes)
-    #raise Exception.new.to_i.inspect
-    payments - sales_invoices
+    amount = 0.0
+    amount += self.incoming_payments.sum(:amount)
+    amount -= self.sales_invoices.sum(:amount)
+    amount -= self.outgoing_payments.sum(:amount)
+    amount += self.purchase_orders.where(:state => [:invoiced, :finished]).sum(:amount)
+    return amount
   end
 
   def reverse_balance
@@ -201,7 +201,7 @@ class Entity < ActiveRecord::Base
       if self.company.prefer_use_entity_codes_for_account_numbers?
         number = prefix.to_s+self.code.to_s
         valid_account = self.company.accounts.find_by_number(number)
-        valid_account = self.company.accounts.create(:number=>number, :name=>self.full_name) unless valid_account
+        valid_account = self.company.accounts.create(:number=>number, :name=>self.full_name, :reconcilable=>true) unless valid_account
       else
         suffix = "1"
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
@@ -214,7 +214,7 @@ class Entity < ActiveRecord::Base
           i=i+1
         end    
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
-        valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name)
+        valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name, :reconcilable=>true)
       end
       self.update_attribute("#{natures[nature]}_id", valid_account.id)
     end

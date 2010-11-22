@@ -20,23 +20,23 @@
 # 
 # == Table: outgoing_delivery_lines
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  delivery_id       :integer          not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  order_line_id     :integer          not null
-#  price_id          :integer          not null
-#  product_id        :integer          not null
-#  quantity          :decimal(16, 4)   default(1.0), not null
-#  tracking_id       :integer          
-#  unit_id           :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  warehouse_id      :integer          
+#  amount        :decimal(16, 2)   default(0.0), not null
+#  company_id    :integer          not null
+#  created_at    :datetime         not null
+#  creator_id    :integer          
+#  delivery_id   :integer          not null
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  order_line_id :integer          not null
+#  pretax_amount :decimal(16, 2)   default(0.0), not null
+#  price_id      :integer          not null
+#  product_id    :integer          not null
+#  quantity      :decimal(16, 4)   default(1.0), not null
+#  tracking_id   :integer          
+#  unit_id       :integer          not null
+#  updated_at    :datetime         not null
+#  updater_id    :integer          
+#  warehouse_id  :integer          
 #
 
 
@@ -50,7 +50,7 @@ class OutgoingDeliveryLine < ActiveRecord::Base
   belongs_to :unit
   validates_presence_of :product_id, :unit_id
 
-  sums :delivery, :lines, :amount, :amount_with_taxes, "(line.product.weight||0)*line.quantity"=>:weight
+  sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight
 
   before_validation do
     self.company_id = self.delivery.company_id if self.delivery
@@ -60,8 +60,8 @@ class OutgoingDeliveryLine < ActiveRecord::Base
       self.unit_id     = self.order_line.unit_id
       self.warehouse_id = self.order_line.warehouse_id
     end
+    self.pretax_amount = self.order_line.price.pretax_amount*self.quantity
     self.amount = self.order_line.price.amount*self.quantity
-    self.amount_with_taxes = self.order_line.price.amount_with_taxes*self.quantity
   end
   
   validate(:on=>:create) do

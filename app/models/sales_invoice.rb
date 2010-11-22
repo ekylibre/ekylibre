@@ -22,7 +22,6 @@
 #
 #  accounted_at       :datetime         
 #  amount             :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes  :decimal(16, 2)   default(0.0), not null
 #  annotation         :text             
 #  client_id          :integer          not null
 #  company_id         :integer          not null
@@ -44,6 +43,7 @@
 #  paid               :boolean          not null
 #  payment_delay_id   :integer          not null
 #  payment_on         :date             not null
+#  pretax_amount      :decimal(16, 2)   default(0.0), not null
 #  sales_order_id     :integer          
 #  updated_at         :datetime         not null
 #  updater_id         :integer          
@@ -67,18 +67,17 @@ class SalesInvoice < ActiveRecord::Base
 
   validates_presence_of :currency_id
 
-  attr_readonly :company_id, :number, :created_on, :sales_order_id, :client_id, :contact_id, :currency_id, :annotation # , :amount, :amount_with_taxes
+  attr_readonly :company_id, :number, :created_on, :sales_order_id, :client_id, :contact_id, :currency_id, :annotation
 
   before_validation do
     self.created_on = Date.today unless self.created_on.is_a? Date
     self.company_id = self.sales_order.company_id if self.sales_order
 
     if self.credit
-      self.amount = 0
-      self.amount_with_taxes = 0
+      self.pretax_amount = self.amount = 0
       for line in self.lines
+        self.pretax_amount += line.pretax_amount
         self.amount += line.amount
-        self.amount_with_taxes += line.amount_with_taxes
       end
     end
     self.currency_id ||= self.sales_order.currency_id if self.sales_order
@@ -101,10 +100,10 @@ class SalesInvoice < ActiveRecord::Base
   bookkeep(:on=>:nothing) do |b|
     label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :client=>self.client.full_name, :products=>(self.sales_order.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.sales_order.comment), :sales_order=>self.sales_order.number)
     b.journal_entry(self.company.journal(:sales)) do |entry|
-      entry.add_debit(label, self.client.account(:client).id, self.amount_with_taxes)
+      entry.add_debit(label, self.client.account(:client).id, self.amount)
       for line in self.lines
         entry.add_credit(label, line.product.sales_account_id, line.amount) unless line.quantity.zero?
-        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes) unless line.taxes.zero?
+        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
       end
     end
   end
@@ -165,8 +164,8 @@ class SalesInvoice < ActiveRecord::Base
     self.product.name
   end
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end
 
   def address
@@ -176,15 +175,15 @@ class SalesInvoice < ActiveRecord::Base
   end
 
   def unpaid_amount
-    self.sales_order.sales_invoices.sum(:amount_with_taxes)-self.sales_order.payment_uses.sum(:amount)
+    self.sales_order.sales_invoices.sum(:amount)-self.sales_order.payment_uses.sum(:amount)
   end
 
   def credited_amount
-    self.credits.sum(:amount_with_taxes)
+    self.credits.sum(:amount)
   end
 
   def creditable?
-    not self.credit and self.amount_with_taxes + self.credited_amount > 0
+    not self.credit and self.amount + self.credited_amount > 0
   end
 
 end

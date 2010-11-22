@@ -16,4 +16,9 @@ A <%= @exception.class %> occurred in <%= @kontroller.controller_name %>#<%= @ko
     sections = sections.join
     sections.force_encoding("ASCII-8BIT") if sections.respond_to? :force_encoding
 %>
-<%= sections %>
+<%begin%>
+  <%= sections %>
+<%rescue%>
+<strong>Cant print properly the message</strong>
+<%= sections.ascii%>
+<%end%>

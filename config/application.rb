@@ -53,7 +53,7 @@ module Ekylibre
     config.filter_parameters += [:password]
 
     # Configure exception notification
-    config.middleware.use ExceptionNotifier, :email_prefix => "[ERROR] ", :sender_address => %{"notifier" <notifier@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
+    # config.middleware.use ExceptionNotifier, :email_prefix => "[ERROR] ", :sender_address => %{"notifier" <notifier@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
     
     # Configure the use of plugin Sass
     # config.middleware.use Sass::Plugin::Rack

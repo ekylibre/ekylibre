@@ -20,28 +20,28 @@
 # 
 # == Table: outgoing_deliveries
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  contact_id        :integer          
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  currency_id       :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  mode_id           :integer          
-#  moved_on          :date             
-#  number            :string(255)      
-#  planned_on        :date             
-#  reference_number  :string(255)      
-#  sales_invoice_id  :integer          
-#  sales_order_id    :integer          not null
-#  transport_id      :integer          
-#  transporter_id    :integer          
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  weight            :decimal(16, 4)   
+#  amount           :decimal(16, 2)   default(0.0), not null
+#  comment          :text             
+#  company_id       :integer          not null
+#  contact_id       :integer          
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  currency_id      :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  mode_id          :integer          
+#  moved_on         :date             
+#  number           :string(255)      
+#  planned_on       :date             
+#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  reference_number :string(255)      
+#  sales_invoice_id :integer          
+#  sales_order_id   :integer          not null
+#  transport_id     :integer          
+#  transporter_id   :integer          
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
+#  weight           :decimal(16, 4)   
 #
 
 
@@ -63,10 +63,10 @@ class OutgoingDelivery < ActiveRecord::Base
 
   before_validation do
     self.company_id = self.sales_order.company_id if self.sales_order
-#     self.amount = self.amount_with_taxes = self.weight = 0
+#     self.pretax_amount = self.amount = self.weight = 0
 #     for line in self.lines
+#       self.pretax_amount += line.pretax_amount
 #       self.amount += line.amount
-#       self.amount_with_taxes += line.amount_with_taxes
 #       self.weight += (line.product.weight||0)*line.quantity
 #     end
     return true

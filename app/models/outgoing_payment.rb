@@ -91,9 +91,9 @@ class OutgoingPayment < ActiveRecord::Base
       entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       entry.add_credit(label, self.mode.cash.account_id, self.amount)
     end
-#     if use = self.uses.first
-#       use.link_in_accountancy
-#     end
+    if use = self.uses.first
+      use.reconciliate
+    end
   end
 
 

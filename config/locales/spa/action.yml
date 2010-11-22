@@ -4,6 +4,7 @@ spa:
       account: 'Compte : %{number} - %{name}'
       account_create: 'Créar un nuevo cuento'
       account_mark: 'Marcar con lettra el cuento N°%{number} del %{empezo} al %{fin}'
+      account_reconciliation: 'Marcar con letra los cuentos'
       account_update: 'Modificar el cuento : %{number} - %{name}'
       accounts: 'Plan de cuento'
       #>accounts_load: 'Load a plan of accounts'
@@ -33,7 +34,6 @@ spa:
       journal_reopen: 'Déclôture du %{name}'
       journal_update: 'Modicicar el periodico : %{name}'
       journals: 'Periodicos'
-      unmarked_journal_entry_lines: 'Marcar con letra los cuentos'
     application: #!
     authentication:
       login: 'Conexión'
@@ -139,7 +139,7 @@ spa:
       outgoing_delivery_modes: 'Modos de entrega'
       outgoing_delivery_update: 'Modificacion de la entrega'
       #>price_create: 'Add a new price'
-      #>price_update: 'Edit price %{amount}/%{amount_with_taxes} of %{product}'
+      #>price_update: 'Edit price %{pretax_amount}/%{amount} of %{product}'
       #>prices: 'Prices'
       #>prices_import: 'Import prices in CSV'
       #>product: 'Product: %{name}'
@@ -320,7 +320,7 @@ spa:
     account_financial_assets: 'Inmobilisación financières'
     account_fixed_assets: 'Activo inmobilisado'
     account_inventories_assets: 'Stocks'
-    account_mark: 'Letra de cuento'
+    account_mark: 'Letra de cuento' #!
     account_name: 'Cuento contable'
     account_number: 'Numero de cuenta'
     account_others_assets: 'Autros'
@@ -459,7 +459,7 @@ spa:
     csv_statistics: 'Statisticas a exportar al formato CSV'
     cumul: 'Cumul del total y del saldo precedente N°%{number}'
     #>current: 'Current'
-    current_letter: 'Carta en curso : %{carta}'
+    current_letter: 'Carta en curso : %{carta}' #!
     #>custom_field_update: 'Custom field update'
     data_to_export: 'Datos a exportar'
     data_to_extract: 'Datos para extraer'
@@ -630,8 +630,8 @@ spa:
     #>letter_function_title: 'Dear madam, dear sir'
     #>letter_introduction: 'Following our conversation, I give you the elements of the estimate.'
     #>letter_options: 'Letter options'
-    lettering_account_client: 'marcar con lettras los cuentos clientos'
-    lettering_account_supplier: 'marcar con lettra los cuentos abastecedores'
+    lettering_account_client: 'marcar con lettras los cuentos clientos' #!
+    lettering_account_supplier: 'marcar con lettra los cuentos abastecedores' #!
     lettering_modes:
       attorneys: 'Mandatarios'
       clients: 'Clientes'
@@ -941,6 +941,7 @@ spa:
     sequence_create: 'Añadir une sequencia' #!
     sequences: 'Séquencias' #!
     sequences_load: 'Cargar las secuencias faltantes'
+    #>set_reconcilable_new_but_existing_third_accounts: 'Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)'
     shelf: 'Categoria' #!
     #>ship: 'Ship'
     simplified: 'Regimen del real simplificado'
@@ -1009,6 +1010,7 @@ spa:
     #>unpaid_sales_orders_export: 'Export unpaid sales orders in CSV'
     #>unparted: 'Unparted'
     #>unreceived: 'Unreceived'
+    #>unset_reconcilable_old_third_accounts: 'Unset reconcilable old third accounts (clients, suppliers and attorneys)'
     #>unused_payment: 'Unused payment'
     #>unvalid_date: 'Invalid date'
     #>unvalidated_operations: 'Operations not validated'

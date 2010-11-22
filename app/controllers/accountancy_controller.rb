@@ -123,13 +123,14 @@ class AccountancyController < ApplicationController
     code += "  c += [@current_company.id, @current_company.id]\n"
     code += "end\n"
     code += "c\n"
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code
   end
 
   create_kame(:accounts, :conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
     t.column :number, :url=>{:action=>:account}
     t.column :name, :url=>{:action=>:account}
+    t.column :reconcilable
     t.column :comment
     t.action :account_update
     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
@@ -142,7 +143,21 @@ class AccountancyController < ApplicationController
   def accounts_load
     if request.post?
       locale, name = params[:list].split(".")
-      @current_company.load_accounts(name, locale)
+      
+      ActiveRecord::Base.transaction do
+        # Unset reconcilable old third accounts
+        if params[:unset_reconcilable_old_third_accounts]
+          @current_company.accounts.update_all({:reconcilable=>false}, @current_company.reconcilable_prefixes.collect{|p| "number LIKE '#{p}%'"}.join(" OR "))
+        end
+        
+        # Updates prefix
+        for key, data in params[:preference]
+          @current_company.prefer! key, data[:value]
+        end
+        
+        # Load accounts
+        @current_company.load_accounts(name, :locale=>locale, :reconcilable=>(params[:set_reconcilable_new_but_existing_third_accounts].to_i>0))
+      end
       redirect_to :action=>:accounts
     end
   end
@@ -155,9 +170,9 @@ class AccountancyController < ApplicationController
     t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
     t.column :state_label
+    t.column :letter
     t.column :debit
     t.column :credit
-    t.column :letter
   end
 
   create_kame(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
@@ -167,13 +182,6 @@ class AccountancyController < ApplicationController
     t.column :label, :through=>:supplier_account, :url=>{:action=>:account}
     t.column :label, :through=>:attorney_account, :url=>{:action=>:account}
   end
-
-#   create_kame(:account_children, :model=>:accounts, :conditions=>["company_id = ? AND number LIKE ?", ['@current_company.id'], ['session[:current_account_number]+"%"']], :order=>"number ASC") do |t|
-#     t.column :number, :url=>{:action=>:account}
-#     t.column :name, :url=>{:action=>:account}
-#     t.action :account_update
-#     t.action :account_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-#   end
 
   def account
     return unless @account = find_and_check(:account)
@@ -188,15 +196,15 @@ class AccountancyController < ApplicationController
   end
 
 
-  def self.unmarked_journal_entry_lines_conditions
-    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.number LIKE ?'\n"
-    code += "c << session[:account_prefix]\n"
+  def self.account_reconciliation_conditions
+    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code += "c << true\n"
     code += "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
     code += "c"
     return code
   end
   
-  create_kame(:unmarked_journal_entry_lines, :model=>:journal_entry_lines, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>unmarked_journal_entry_lines_conditions, :order=>"letter DESC, accounts.number, credit") do |t|
+  create_kame(:account_reconciliation, :model=>:journal_entry_lines, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_mark}
     t.column :name, :through=>:account, :url=>{:action=>:account_mark}
     t.column :number, :through=>:entry
@@ -206,9 +214,9 @@ class AccountancyController < ApplicationController
   end
 
   # This method allows to make marking for the client and supplier accounts.
-  def unmarked_journal_entry_lines
+  def account_reconciliation
     params[:mode] ||= :clients
-    session[:account_prefix] = @current_company.preferred("third_#{params[:mode]}_accounts").to_s+"%"
+    # session[:account_prefix] = @current_company.preferred("third_#{params[:mode]}_accounts").to_s+"%"
     session[:account_key] = params[:key]
   end
 
@@ -568,7 +576,6 @@ class AccountancyController < ApplicationController
     t.column :name
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
-    t.column :letter
     t.column :number, :through=>:bank_statement
     t.column :currency_debit
     t.column :currency_credit

@@ -4,6 +4,7 @@ fra:
       account: 'Compte : %{number} - %{name}'
       account_create: 'Créer un nouveau compte'
       account_mark: 'Lettrage du compte : %{number} - %{name}'
+      account_reconciliation: 'Lettrage de comptes'
       account_update: 'Modifier le compte : %{number} - %{name}'
       accounts: 'Plan de comptes'
       accounts_load: 'Charger un plan de compte'
@@ -33,7 +34,6 @@ fra:
       journal_reopen: 'Déclôture du %{name}'
       journal_update: 'Modifier le journal : %{name}'
       journals: 'Journaux'
-      unmarked_journal_entry_lines: 'Lettrage de comptes'
     application: #!
     authentication:
       login: 'Connexion'
@@ -138,7 +138,7 @@ fra:
       outgoing_delivery_modes: 'Modes de livraison'
       outgoing_delivery_update: 'Modifier la livraison'
       price_create: 'Ajout d''un nouveau prix'
-      price_update: 'Modifie le prix %{amount}/%{amount_with_taxes} sur %{product}'
+      price_update: 'Modifie le prix %{pretax_amount}/%{amount} sur %{product}'
       prices: 'Prix'
       prices_import: 'Importer un fichier CSV de tarifs'
       product: 'Produit : %{name}'
@@ -319,7 +319,7 @@ fra:
     account_financial_assets: 'Immobilisations financières'
     account_fixed_assets: 'Actif immobilisé'
     account_inventories_assets: 'Stocks'
-    account_mark: 'Lettrer le compte'
+    account_mark: 'Lettrer le compte' #!
     account_name: 'Compte comptable'
     account_number: 'N°Compte'
     account_others_assets: 'Divers'
@@ -455,7 +455,7 @@ fra:
     csv_statistics: 'Statistiques à exporter au format CSV'
     cumul: 'Cumul du total et du solde précédent N°%{number}'
     current: 'En cours'
-    current_letter: 'Lettre en cours : %{letter}'
+    current_letter: 'Lettre en cours : %{letter}' #!
     custom_field_update: 'Modifier le champ personnalisé'
     data_to_export: 'Données à exporter'
     data_to_extract: 'Données à extraire'
@@ -615,8 +615,8 @@ fra:
     letter_function_title: 'Chère Madame, Cher Monsieur'
     letter_introduction: 'Suite à notre conversation, je vous communique les éléments du devis.'
     letter_options: 'Lettre'
-    lettering_account_client: 'Lettrage des comptes clients'
-    lettering_account_supplier: 'Lettrage des comptes fournisseurs'
+    lettering_account_client: 'Lettrage des comptes clients' #!
+    lettering_account_supplier: 'Lettrage des comptes fournisseurs' #!
     lettering_modes:
       attorneys: 'Mandataires'
       clients: 'Clients'
@@ -926,6 +926,7 @@ fra:
     send: 'Envoyer le mail'
     send_test: 'Envoyer un mail de test'
     sequences_load: 'Charger les séquences manquantes'
+    set_reconcilable_new_but_existing_third_accounts: 'Rendre lettrables les nouveaux comptes tiers déjà existants'
     ship: 'Prévue le'
     simplified: 'Régime du réel simplifié'
     source: 'Source de données'
@@ -990,6 +991,7 @@ fra:
     unpaid_sales_orders_export: 'Exporter la liste des ventes impayées au format csv'
     unparted: 'Non affectés'
     unreceived: 'Non reçus'
+    unset_reconcilable_old_third_accounts: 'Rendre non-lettrables les anciens comptes tiers'
     unused_payment: 'Encaissement à utiliser'
     unvalid_date: 'Date incorrecte'
     unvalidated_operations: 'Travaux non validés'

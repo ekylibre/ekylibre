@@ -94,7 +94,7 @@ class Company < ActiveRecord::Base
   has_many :outgoing_payments
   has_many :outgoing_payment_modes, :order=>:name
   has_many :outgoing_payment_uses
-  has_many :preferences, :conditions=>{:user_id=>nil}
+  has_many :preferences, :conditions=>{:user_id=>nil}, :order=>:name
   has_many :prices
   has_many :products, :order=>'active DESC, name'
   has_many :product_categories, :order=>:name
@@ -296,17 +296,20 @@ class Company < ActiveRecord::Base
     self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
   end
 
-  def sales_invoice(records)
-    puts records.inspect+"                          ddddddddddddddddddddddddd "
-    SalesInvoice.generate(self.id,records)
-  end
-
   def closable_financial_year
     return self.financial_years.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
   end
 
   def current_financial_year
     self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
+  end
+
+  def reconcilable_prefixes
+    return [:client, :supplier, :attorney].collect{|mode| self.preferred('third_'+mode.to_s.pluralize+'_accounts')}
+  end
+
+  def reconcilable_regexp
+    return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
   end
 
   def imported_entity_nature(row)
@@ -817,24 +820,27 @@ class Company < ActiveRecord::Base
     end
   end
 
-  def load_accounts(name, locale=nil)
+  def load_accounts(name, options={})
+    locale = options[:locale]
     if (plan = ::I18n.translate("accounting_systems.#{name}", :locale=>locale)).is_a? Hash
       ActiveRecord::Base.transaction do
         # Destroy unused existing accounts
         self.accounts.destroy_all
-#         for account in self.accounts
-#           account.destroy if account.destroyable?
-#         end
+
+        regexp = self.reconcilable_regexp
         
+        # Existing accounts
+        for account in self.reload.accounts
+          account.update_attribute(:reconcilable, true) if account.number.match(regexp)
+        end if options[:reconcilable]
+
         # Create new accounts
         for num, name in plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
-          # raise Exception.new("Error (#{[num, name].inspect})") unless num.to_s.match(/^n_/) or num.to_s == "name"
           number = num.to_s[2..-1]
           if account = self.accounts.find_by_number(number)
-            account.update_attributes!(:name=>name)
+            account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
           else
-            raise number.inspect unless self.accounts.create(:number=>number, :name=>name)
-            # self.accounts.create!(:number=>number, :name=>name)
+            raise number.inspect unless self.accounts.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
           end
         end
 

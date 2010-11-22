@@ -8,8 +8,8 @@
   -l.attribute :client, :label=>:full_name
   -l.attribute :contact, :label=>:address
   -l.attribute :payment_on
+  -l.attribute :pretax_amount
   -l.attribute :amount
-  -l.attribute :amount_with_taxes
   -l.attribute :credit
   -l.attribute :sales_order, :label=>:number, :url=>{:action=>:sales_order}
   -l.attribute :origin, :label=>:number, :url=>{:action=>:sales_invoice} if !@sales_invoice.origin.nil?

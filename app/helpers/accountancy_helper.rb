@@ -160,7 +160,7 @@ module AccountancyHelper
       if params[:id].to_s == mode.to_s
         code += content_tag(:strong, tc("lettering_modes.#{mode}"))
       else
-        code += link_to tc("lettering_modes.#{mode}"), {:action=>:unmarked_journal_entry_lines, :id=>mode}
+        code += link_to tc("lettering_modes.#{mode}"), {:action=>:account_reconciliation, :id=>mode}
       end
     end
     return content_tag(:div, code, :class=>:view)

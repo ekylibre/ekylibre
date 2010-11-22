@@ -158,7 +158,7 @@ class User < ActiveRecord::Base
   def self.authenticate(name, password, company=nil)
     user = nil
     if company.nil?
-      users = self.find_all_by_name(name.to_s.downcase)
+      users = self.find_all_by_name(name)
       user = users[0] if users.size == 1
     else
       user = self.find_by_name_and_company_id(name.to_s.downcase, company.id)

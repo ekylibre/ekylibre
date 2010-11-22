@@ -20,32 +20,32 @@
 # 
 # == Table: sales_invoice_lines
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
-#  annotation        :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  entity_id         :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  order_line_id     :integer          
-#  origin_id         :integer          
-#  position          :integer          
-#  price_id          :integer          not null
-#  product_id        :integer          not null
-#  quantity          :decimal(16, 4)   default(1.0), not null
-#  sales_invoice_id  :integer          
-#  tracking_id       :integer          
-#  unit_id           :integer          
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  warehouse_id      :integer          
+#  amount           :decimal(16, 2)   default(0.0), not null
+#  annotation       :text             
+#  company_id       :integer          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  entity_id        :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  order_line_id    :integer          
+#  origin_id        :integer          
+#  position         :integer          
+#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  price_id         :integer          not null
+#  product_id       :integer          not null
+#  quantity         :decimal(16, 4)   default(1.0), not null
+#  sales_invoice_id :integer          
+#  tracking_id      :integer          
+#  unit_id          :integer          
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
+#  warehouse_id     :integer          
 #
 
 
 class SalesInvoiceLine < ActiveRecord::Base
-  attr_readonly :company_id
+  attr_readonly :company_id, :sales_invoice_id, :order_line_id, :quantity, :pretax_amount, :amount, :annotation, :price_id, :product_id
   belongs_to :company
   belongs_to :entity
   belongs_to :sales_invoice
@@ -55,10 +55,8 @@ class SalesInvoiceLine < ActiveRecord::Base
   belongs_to :product
   has_many :credit_lines, :class_name=>SalesInvoiceLine.name, :foreign_key=>:origin_id
 
-  sums :sales_invoice, :lines, :amount, :amount_with_taxes
+  sums :sales_invoice, :lines, :pretax_amount, :amount
   validates_presence_of :order_line_id
-
-  attr_readonly :company_id, :sales_invoice_id, :order_line_id, :quantity, :amount, :amount_with_taxes, :annotation, :price_id, :product_id
   
   before_validation do
     self.company_id = self.sales_invoice.company_id if self.sales_invoice
@@ -66,8 +64,8 @@ class SalesInvoiceLine < ActiveRecord::Base
     self.price_id = self.order_line.price.id
     self.annotation = self.order_line.annotation
     unless self.origin_id.nil?
+      self.pretax_amount = self.quantity * self.price.pretax_amount
       self.amount = self.quantity * self.price.amount
-      self.amount_with_taxes = self.quantity * self.price.amount_with_taxes
     end
   end
   
@@ -90,8 +88,8 @@ class SalesInvoiceLine < ActiveRecord::Base
   end
   
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end  
   
   def designation

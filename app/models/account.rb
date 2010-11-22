@@ -27,10 +27,11 @@
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(8)        
+#  last_letter  :string(255)      
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
+#  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
 #
@@ -60,6 +61,7 @@ class Account < ActiveRecord::Base
 
   # This method allows to create the parent accounts if it is necessary.
   before_validation do
+    self.reconcilable = self.reconcilableable? if self.reconcilable.nil?
     self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
   end
 
@@ -127,16 +129,13 @@ class Account < ActiveRecord::Base
   end
 
 
-  # Check if the account is a third account and therefore if it is useful to be marked
-  # in order to check balances
-  def markable?
-    return [:client, :supplier, :attorney].detect do |mode|
-      self.number.match(/^#{self.company.preferred('third_'+mode.to_s.pluralize+'_accounts')}/)
-    end
+  # Check if the account is a third account and therefore returns if it should be reconcilable
+  def reconcilableable?
+    return (self.number.to_s.match(self.company.reconcilable_regexp) ? true : false)
   end
   
 
-  def markable_entry_lines(period, started_on, stopped_on)
+  def reconcilable_entry_lines(period, started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions=>JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order=>"letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
   end
 
@@ -153,10 +152,12 @@ class Account < ActiveRecord::Base
   # Finds entry lines to mark, checks their "markability" and
   # if all valids mark all with a new letter or the first defined before
   def mark_entries(*journal_entries)
-    return self.mark(self.journal_entry_lines.where(:entry_id=>journal_entries.flatten.compact.collect{|e| e.id}, :letter=>nil).collect{|l| l.id})
+    ids = journal_entries.flatten.compact.collect{|e| e.id}
+    return self.mark(self.journal_entry_lines.where(:entry_id=>ids).collect{|l| l.id})
   end
 
   # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
+  # Don't mark unless all the marked lines will be balanced together
   def mark(line_ids, letter = nil)
     conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
     lines = self.journal_entry_lines.where(conditions)

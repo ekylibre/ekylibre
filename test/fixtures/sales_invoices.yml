@@ -22,7 +22,6 @@
 #
 #  accounted_at       :datetime         
 #  amount             :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes  :decimal(16, 2)   default(0.0), not null
 #  annotation         :text             
 #  client_id          :integer          not null
 #  company_id         :integer          not null
@@ -44,6 +43,7 @@
 #  paid               :boolean          not null
 #  payment_delay_id   :integer          not null
 #  payment_on         :date             not null
+#  pretax_amount      :decimal(16, 2)   default(0.0), not null
 #  sales_order_id     :integer          
 #  updated_at         :datetime         not null
 #  updater_id         :integer          
@@ -53,7 +53,6 @@
 #
 # sales_invoices_001:
 #   amount: 0
-#   amount_with_taxes: 0
 #   client_id: 1
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
@@ -68,12 +67,13 @@
 #   paid: true
 #   payment_delay_id: 1
 #   payment_on: 2009-07-19
+#   pretax_amount: 0
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
 sales_invoices_001:
   amount: 0
-  amount_with_taxes: 0
+  pretax_amount: 0
   client_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
@@ -93,7 +93,7 @@ sales_invoices_001:
 
 sales_invoices_002:
   amount: 0
-  amount_with_taxes: 0
+  pretax_amount: 0
   client_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00

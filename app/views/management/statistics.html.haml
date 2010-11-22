@@ -13,9 +13,9 @@
       %tr
         %td.crit
           %label=tc("data_to_export")
-          -for x in [:quantity, :amount, :amount_with_taxes]
+          -for x in [:quantity, :pretax_amount, :amount]
             =radio_button_tag "mode", x
-            %label{:for=>"mode_#{x}"}=tc(x)
+            %label{:for=>"mode_#{x}"}=SalesInvoice.human_attribute_name(x)
       %tr
         %td.crit
           %label=tc("source")

@@ -78,7 +78,7 @@ module ApplicationHelper
        [ {:name=>:accountancy_tasks, :list=>
            [ {:name=>:journals},
              {:name=>:bank_statements},
-             {:name=>:unmarked_journal_entry_lines},
+             {:name=>:account_reconciliation},
              # {:name=>:cash_transfers},
              {:name=>:bookkeep},
              {:name=>:financial_year_close}

@@ -6,23 +6,24 @@
   -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@purchase_order.supplier_id} 
   -f.field :incoming_delivery, :mode_id, :choices=>{:reflection=>:incoming_delivery_modes}, :new=>{:action=>:incoming_delivery_mode_create}
   -f.field :incoming_delivery, :planned_on
+
 %h2=IncomingDelivery.human_attribute_name("lines")
 %table.kame 
   %tr
     %th=IncomingDeliveryLine.human_attribute_name(:product)
+    %th=tc(:unit_price_pretax_amount)
     %th=tc(:unit_price_amount)
-    %th=tc(:unit_price_amount_with_taxes)
     %th=tc(:total_quantity)
     %th=IncomingDeliveryLine.human_attribute_name(:unit)
     %th=tc(:quantity_rest)
     %th=tc(:quantity)
+    %th=IncomingDeliveryLine.human_attribute_name(:pretax_amount)
     %th=IncomingDeliveryLine.human_attribute_name(:amount)
-    %th=IncomingDeliveryLine.human_attribute_name(:amount_with_taxes)
   -for line in @incoming_delivery_lines
     %tr{:class=>cycle('odd','even')}
       %td=line.order_line.label
-      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.amount
-      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount_with_taxes
+      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.pretax_amount
+      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount
       %td.dec=line.order_line.quantity
       %td=line.order_line.unit.label
       %td.dec=line.order_line.undelivered_quantity
@@ -31,12 +32,12 @@
       %td.dec.awt{"mul-of"=>"awt-#{line.order_line_id}"}
   %tr.total
     %th{:colspan=>7}=tg :total
-    %td#total_amount{"sum-of"=>"pta"}=@incoming_delivery.amount
-    %td#total_amount_with_taxes{"sum-of"=>"awt"}=@incoming_delivery.amount_with_taxes
+    %td#total_pretax_amount{"sum-of"=>"pta"}=@incoming_delivery.pretax_amount
+    %td#total_amount{"sum-of"=>"awt"}=@incoming_delivery.amount
   :javascript
     window.t6 = function(element, max) {
+      compute("total_pretax_amount");
       compute("total_amount");
-      compute("total_amount_with_taxes");
       if (element !== null) {
         if (isNaN(element.value) || (!isNaN(element.value) && parseFloat(element.value)>max)) {
           element.addClassName("invalid");

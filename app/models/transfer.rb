@@ -47,6 +47,7 @@ class Transfer < ActiveRecord::Base
   belongs_to :client, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
+  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
 
   validates_presence_of :created_on
 

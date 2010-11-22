@@ -21,7 +21,6 @@
 # == Table: transports
 #
 #  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
 #  comment           :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
@@ -30,6 +29,7 @@
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  number            :string(255)      
+#  pretax_amount     :decimal(16, 2)   default(0.0), not null
 #  purchase_order_id :integer          
 #  reference_number  :string(255)      
 #  responsible_id    :integer          

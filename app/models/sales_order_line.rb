@@ -22,7 +22,6 @@
 #
 #  account_id          :integer          not null
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -34,6 +33,7 @@
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
 #  position            :integer          
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  price_amount        :decimal(16, 2)   
 #  price_id            :integer          not null
 #  product_id          :integer          not null
@@ -70,7 +70,7 @@ class SalesOrderLine < ActiveRecord::Base
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
-  sums :order, :lines, :amount, :amount_with_taxes
+  sums :order, :lines, :pretax_amount, :amount
 
   validates_presence_of :price_id
 
@@ -99,32 +99,32 @@ class SalesOrderLine < ActiveRecord::Base
 
 
     if self.price_amount > 0
-      price = Price.create!(:amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
+      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
       self.price = price
     end
     
     if self.price
       if self.reduction_origin_id.nil?
         if self.quantity
-          self.amount = (self.price.amount*self.quantity).round(2)
-          self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
-        elsif self.amount
-          q = self.amount/self.price.amount
-          self.quantity = q.round(2)
-          self.amount_with_taxes = (q*self.price.amount_with_taxes).round(2)
-        elsif self.amount_with_taxes
-          #raise Exception.new "okkk"+self.inspect if @test
-          q = self.amount_with_taxes/self.price.amount_with_taxes
+          self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
+          self.amount = (self.price.amount*self.quantity).round(2) 
+        elsif self.pretax_amount
+          q = self.pretax_amount/self.price.pretax_amount
           self.quantity = q.round(2)
           self.amount = (q*self.price.amount).round(2)
+        elsif self.amount
+          #raise Exception.new "okkk"+self.inspect if @test
+          q = self.amount/self.price.amount
+          self.quantity = q.round(2)
+          self.pretax_amount = (q*self.price.pretax_amount).round(2)
         end
       else
         # reduction_rate = self.order.client.max_reduction_rate
         # self.quantity = -reduction_rate*self.reduction_origin.quantity
         # self.amount   = -reduction_rate*self.reduction_origin.amount       
         # self.amount_with_taxes = -reduction_rate*self.reduction_origin.amount_with_taxes
-        self.amount = (self.price.amount*self.quantity).round(2)
-        self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2) 
+        self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
+        self.amount = (self.price.amount*self.quantity).round(2) 
       end
     end
 
@@ -134,7 +134,7 @@ class SalesOrderLine < ActiveRecord::Base
     #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name, :account_id=>0, :unit_id=>self.unit_id) 
     #     end
     #     check_reservoir
-    return false if self.amount.zero? and self.amount_with_taxes.zero? and self.quantity.zero?
+    return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
   end
 
 
@@ -219,8 +219,8 @@ class SalesOrderLine < ActiveRecord::Base
   end
 
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end
 
 end

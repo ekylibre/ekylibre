@@ -53,8 +53,8 @@ class ResourcesController < ApplicationController
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>"client_code"
     t.column :state_label
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
     t.action :sales_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure
   end

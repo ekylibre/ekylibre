@@ -22,7 +22,6 @@
 #
 #  accounted_at       :datetime         
 #  amount             :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes  :decimal(16, 2)   default(0.0), not null
 #  annotation         :text             
 #  client_id          :integer          not null
 #  company_id         :integer          not null
@@ -44,6 +43,7 @@
 #  paid               :boolean          not null
 #  payment_delay_id   :integer          not null
 #  payment_on         :date             not null
+#  pretax_amount      :decimal(16, 2)   default(0.0), not null
 #  sales_order_id     :integer          
 #  updated_at         :datetime         not null
 #  updater_id         :integer          

@@ -22,7 +22,6 @@
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  confirmed_on        :date             
@@ -38,6 +37,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   default(0.0), not null
 #  planned_on          :date             
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       

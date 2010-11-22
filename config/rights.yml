@@ -512,6 +512,8 @@ manage_journal_entries:
   actions:
   - account_dyli
   - account_mark
+  - account_reconciliation
+  - account_reconciliation_kame
   - account_unmark
   - draft
   - draft_kame
@@ -528,8 +530,6 @@ manage_journal_entries:
   - journal_mixed_kame
   - journals
   - journals_kame
-  - unmarked_journal_entry_lines
-  - unmarked_journal_entry_lines_kame
 # Manage, close and reopen journals
 manage_journals:
   controller: accountancy

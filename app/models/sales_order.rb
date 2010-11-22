@@ -22,7 +22,6 @@
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -50,6 +49,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
@@ -85,6 +85,7 @@ class SalesOrder < ActiveRecord::Base
   has_many :sales_invoices
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
   has_many :subscriptions, :class_name=>Subscription.to_s
+  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   validates_presence_of :client_id, :currency_id
 
   state_machine :state, :initial => :draft do
@@ -141,18 +142,10 @@ class SalesOrder < ActiveRecord::Base
       self.expired_on ||= self.expiration.compute(self.created_on)
       self.payment_delay_id ||= self.nature.payment_delay_id 
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
-      self.downpayment_amount ||= self.amount_with_taxes*self.nature.downpayment_rate if self.amount_with_taxes>=self.nature.downpayment_minimum
+      self.downpayment_amount ||= self.amount*self.nature.downpayment_rate if self.amount>=self.nature.downpayment_minimum
     end
 
     self.sum_method = 'wt'
-#     if 1 # wt
-#       self.amount = 0
-#       self.amount_with_taxes = 0
-#       for line in self.lines
-#         self.amount += line.amount
-#         self.amount_with_taxes += line.amount_with_taxes
-#       end
-#     end
     true
   end
   
@@ -213,7 +206,7 @@ class SalesOrder < ActiveRecord::Base
       end
     end
     if lines.size>0
-      delivery = self.deliveries.create!(:amount=>0, :amount_with_taxes=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
+      delivery = self.deliveries.create!(:pretax_amount=>0, :amount=>0, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :contact_id=>self.delivery_contact_id)
       for line in lines
         delivery.lines.create! line
       end
@@ -228,9 +221,9 @@ class SalesOrder < ActiveRecord::Base
     return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
       # Create sales invoice
-      sales_invoice = self.sales_invoices.create!(:nature=>"S", :amount=>self.amount, :amount_with_taxes=>self.amount_with_taxes, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
+      sales_invoice = self.sales_invoices.create!(:nature=>"S", :pretax_amount=>self.pretax_amount, :amount=>self.amount, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
       for line in self.lines
-        sales_invoice.lines.create!(:order_line_id=>line.id, :amount=>line.amount, :amount_with_taxes=>line.amount_with_taxes, :quantity=>line.quantity)
+        sales_invoice.lines.create!(:order_line_id=>line.id, :pretax_amount=>line.pretax_amount, :amount=>line.amount, :quantity=>line.quantity)
       end
       # Move real stocks
       for line in self.lines
@@ -280,9 +273,9 @@ class SalesOrder < ActiveRecord::Base
     invoiced_amount = self.invoiced_amount
     array = []
     array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
-    array << [:total_amount, self.amount_with_taxes]
+    array << [:total_amount, self.amount]
     if options[:multi_sales_invoices]
-      array << [:uninvoiced_amount, self.amount_with_taxes - invoiced_amount]
+      array << [:uninvoiced_amount, self.amount - invoiced_amount]
       array << [:invoiced_amount, invoiced_amount]
     end
     paid_amount = self.payment_uses.sum(:amount)
@@ -308,10 +301,9 @@ class SalesOrder < ActiveRecord::Base
   end
 
   # Computes an amount (with or without taxes) of the undelivered products
-  # - +column+ can be +:amount+ or +:amount_with_taxes+
+  # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
     sum  = self.send(column)
-    # sum -= OutgoingDeliveryLine.sum(column, :joins=>"JOIN #{OutgoingDelivery.table_name} AS outgoing_deliveries ON (delivery_id=outgoing_deliveries.id)", :conditions=>["outgoing_deliveries.order_id=?", self.id])
     sum -= self.deliveries.sum(column)
     sum.round(2)
   end
@@ -319,17 +311,17 @@ class SalesOrder < ActiveRecord::Base
 
   # Returns true if there is some products to deliver
   def deliverable?
-    self.undelivered(:amount_with_taxes) > 0 and not self.invoiced?
+    self.undelivered(:amount) > 0 and not self.invoiced?
   end
 
 
   # Computes unpaid amounts.
   def unpaid_amount(only_sales_invoices=true, only_received_payments=false)
-    (only_sales_invoices ? self.invoiced_amount : self.amount_with_taxes).to_f - (only_received_payments ? self.payment_uses.sum(:amount, :conditions=>{:received=>true}) : self.payment_uses.sum(:amount)).to_f
+    (only_sales_invoices ? self.invoiced_amount : self.amount).to_f - (only_received_payments ? self.payment_uses.sum(:amount, :conditions=>{:received=>true}) : self.payment_uses.sum(:amount)).to_f
   end
 
   def invoiced_amount
-    self.sales_invoices.sum(:amount_with_taxes)
+    self.sales_invoices.sum(:amount)
   end
   
 
@@ -355,13 +347,6 @@ class SalesOrder < ActiveRecord::Base
   end
 
 
-#   def status
-#     status = ""
-#     status = "critic" if self.invoiced? and self.paid_amount.to_f < self.amount_with_taxes
-#     status
-#   end
-
-
   def label
     # tc('label.'+(self.processing? or self.invoiced ? 'estimat-e' : 'order'), :number=>self.number)
     tc('label.'+self.state, :number=>self.number)
@@ -382,19 +367,18 @@ class SalesOrder < ActiveRecord::Base
     tc("number_label."+(self.estimate? ? 'proposal' : 'command'), :number=>self.number)
   end
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end
 
   def usable_payments
-    # self.company.payments.find(:all, :conditions=>["COALESCE(paid_amount,0)<COALESCE(amount,0) AND entity_id = ?" , self.payment_entity_id], :order=>"created_at desc")
     self.company.incoming_payments.find(:all, :conditions=>["COALESCE(paid_amount, 0)<COALESCE(amount, 0)"], :order=>"amount")
   end
 
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
-    c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount_with_taxes).round(2)) if self.amount_with_taxes>self.nature.downpayment_minimum
+    c << tc('sales_conditions.downpayment', :percent=>100*self.nature.downpayment_rate, :amount=>(self.nature.downpayment_rate*self.amount).round(2)) if self.amount>self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration=>::I18n.localize(self.expired_on, :format=>:legal))
     c += self.company.sales_conditions.to_s.split(/\s*\n\s*/)
     c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.department
@@ -402,7 +386,6 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def unpaid_days
-    #(self.sales_invoices.first.created_on - self.last_payment.paid_on) if self.last_payment and self.sales_invoices.first
     (Date.today - self.sales_invoices.first.created_on) if self.sales_invoices.first
   end
 

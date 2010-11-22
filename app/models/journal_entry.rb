@@ -212,17 +212,17 @@ class JournalEntry < ActiveRecord::Base
   # Add a entry which cancel the entry
   # Create counter-entry_lines
   def cancel
-    markable_accounts = []
+    reconcilable_accounts = []
     entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
       for line in self.lines
         entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0))
-        markable_accounts << line.account if line.account.markable? and not markable_accounts.include?(line.account)
+        reconcilable_accounts << line.account if line.account.reconcilable? and not reconcilable_accounts.include?(line.account)
       end
     end
     # Mark accounts
-    for account in markable_accounts
+    for account in reconcilable_accounts
       account.mark(self, entry)
     end
     return entry

@@ -20,26 +20,26 @@
 # 
 # == Table: purchase_order_lines
 #
-#  account_id        :integer          not null
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes :decimal(16, 2)   default(0.0), not null
-#  annotation        :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  order_id          :integer          not null
-#  position          :integer          
-#  price_id          :integer          not null
-#  product_id        :integer          not null
-#  quantity          :decimal(16, 4)   default(1.0), not null
-#  tracking_id       :integer          
-#  tracking_serial   :string(255)      
-#  unit_id           :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  warehouse_id      :integer          
+#  account_id      :integer          not null
+#  amount          :decimal(16, 2)   default(0.0), not null
+#  annotation      :text             
+#  company_id      :integer          not null
+#  created_at      :datetime         not null
+#  creator_id      :integer          
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  order_id        :integer          not null
+#  position        :integer          
+#  pretax_amount   :decimal(16, 2)   default(0.0), not null
+#  price_id        :integer          not null
+#  product_id      :integer          not null
+#  quantity        :decimal(16, 4)   default(1.0), not null
+#  tracking_id     :integer          
+#  tracking_serial :string(255)      
+#  unit_id         :integer          not null
+#  updated_at      :datetime         not null
+#  updater_id      :integer          
+#  warehouse_id    :integer          
 #
 
 
@@ -55,11 +55,11 @@ class PurchaseOrderLine < ActiveRecord::Base
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
   has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:order_line_id
-  validates_presence_of :amount, :price_id
+  validates_presence_of :pretax_amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
 
-  sums :order, :lines, :amount, :amount_with_taxes
+  sums :order, :lines, :pretax_amount, :amount
   
   before_validation do
     self.company_id = self.order.company_id if self.order
@@ -76,8 +76,8 @@ class PurchaseOrderLine < ActiveRecord::Base
       self.account_id = product.purchases_account_id
       self.unit_id ||= self.price.product.unit_id
       self.product_id = self.price.product_id
+      self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)
-      self.amount_with_taxes = (self.price.amount_with_taxes*self.quantity).round(2)
     end
     if self.warehouse
       if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
@@ -122,8 +122,8 @@ class PurchaseOrderLine < ActiveRecord::Base
     self.product.name
   end
 
-  def taxes
-    self.amount_with_taxes - self.amount
+  def taxes_amount
+    self.amount - self.pretax_amount
   end
   
   def designation

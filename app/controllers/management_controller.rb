@@ -235,7 +235,7 @@ class ManagementController < ApplicationController
   
   def self.sales_invoices_conditions
     code = ""
-    code = search_conditions(:sales_invoices, :sales_invoices=>[:number, :amount, :amount_with_taxes], :e=>[:full_name, :code], :s=>[:number])+"||=[]\n"
+    code = search_conditions(:sales_invoices, :sales_invoices=>[:number, :pretax_amount, :amount], :e=>[:full_name, :code], :s=>[:number])+"||=[]\n"
     code += "unless session[:sales_invoice_state].blank? \n"
     code += "  if session[:sales_invoice_state] == 'credits' \n"
     code += "    c[0] += \" AND credit = true \"\n"
@@ -253,8 +253,8 @@ class ManagementController < ApplicationController
     t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order}
     t.column :created_on
     t.column :state_label, :through=>:sales_order, :children=>false
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :credit
     #t.action :sales_invoice_bookkeep
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
@@ -283,7 +283,7 @@ class ManagementController < ApplicationController
 
   create_kame(:credit_lines, :model=>:sales_invoice_lines, :conditions=>{:sales_invoice_id=>['session[:sales_invoice_id]']}) do |t|
     t.column :name, :through=>:product
-    t.column :amount_with_taxes, :through=>:price, :label=>:column
+    t.column :amount, :through=>:price, :label=>:column
     t.column :quantity
     t.column :credited_quantity, :datatype=>:decimal
     t.check_box  :validated, :value=>"true", :label=>'OK'
@@ -327,7 +327,7 @@ class ManagementController < ApplicationController
             end
           end
           
-          if @credit.reload.amount_with_taxes == 0
+          if @credit.reload.amount == 0
             puts @credit.inspect
             notify(:need_quantities_to_cancel_an_sales_invoice, :error)
             raise ActiveRecord::Rollback 
@@ -358,19 +358,19 @@ class ManagementController < ApplicationController
 
   create_kame(:sales_invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :sales_invoice_id=>['session[:current_sales_invoice]']}) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :amount, :through=>:price
-    t.column :amount_with_taxes, :through=>:price, :label=>:column
+    t.column :pretax_amount, :through=>:price
+    t.column :amount, :through=>:price, :label=>:column
     t.column :quantity
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
   end
 
   create_kame(:sales_invoice_credits, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sales_invoice]'] }, :children=>:lines) do |t|
     t.column :number, :url=>{:action=>:sales_invoice}, :children=>:designation
     t.column :full_name, :through=>:client, :children=>false
     t.column :created_on, :children=>false
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
   end
 
 
@@ -395,8 +395,8 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :by_default
     # t.column :range
     t.action :price_update
@@ -437,7 +437,7 @@ class ManagementController < ApplicationController
     return unless @price = find_and_check(:price)
     @mode = "purchases" if @price.entity_id != @current_company.entity_id
     if request.post?
-      @price.amount_with_taxes = 0
+      @price.amount = 0
       return if save_and_redirect(@price, :attributes=>params[:price])
     end
     t3e @price.attributes, :product=>@price.product.name
@@ -478,7 +478,7 @@ class ManagementController < ApplicationController
           if price.nil?
             line << ["","",""]
           else
-            line << [price.amount.to_s.gsub(/\./,","), price.amount_with_taxes.to_s.gsub(/\./,","), price.tax.amount]
+            line << [price.pretax_amount.to_s.gsub(/\./,","), price.amount.to_s.gsub(/\./,","), price.tax.amount]
           end
         end
         csv << line.flatten
@@ -528,12 +528,12 @@ class ManagementController < ApplicationController
               @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company.id, :category_id=>category.id, :active=>true} )
               #raise Exception.new row.inspect+@price.inspect+@product.id.inspect+@current_company.id.inspect+category.id.inspect if i==5
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount_with_taxes=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id,:currency_id=>@current_company.currencies[0].id)
+                @price = Price.new(:pretax_amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id,:currency_id=>@current_company.currencies[0].id)
                 blank = false
               elsif !@price.nil?
                 blank = false
-                @price.amount = row[x].to_s.gsub(/\,/,".").to_f
-                @price.amount_with_taxes = row[x+1].to_s.gsub(/\,/,".").to_f
+                @price.pretax_amount = row[x].to_s.gsub(/\,/,".").to_f
+                @price.amount = row[x+1].to_s.gsub(/\,/,".").to_f
                 @price.tax_id = tax_id
               end
               if blank == false
@@ -572,8 +572,8 @@ class ManagementController < ApplicationController
   create_kame(:product_prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}, :model=>:prices) do |t|
     t.column :name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :by_default
     # t.column :range
     t.action :price_update
@@ -768,7 +768,7 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  create_kame(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :amount, :amount_with_taxes, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
+  create_kame(:purchase_orders, :conditions=>search_conditions(:purchase_order, :purchase_orders=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:purchase_order, :step=>:default}
     t.column :reference_number, :url=>{:action=>:purchase_order, :step=>:products}
     t.column :created_on
@@ -780,7 +780,7 @@ class ManagementController < ApplicationController
     # t.column :shipped
     t.column :state_label
     t.column :paid_amount
-    t.column :amount_with_taxes
+    t.column :amount
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:purchase_order}
     t.action :purchase_order_update
     t.action :purchase_order_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
@@ -798,20 +798,20 @@ class ManagementController < ApplicationController
     t.column :tracking_serial
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :amount, :through=>:price
+    t.column :pretax_amount, :through=>:price
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :purchase_order_line_update, :if=>'RECORD.order.draft? '
     t.action :purchase_order_line_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.order.draft? '
   end
 
   create_kame(:purchase_order_undelivered_lines, :model=>:purchase_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_purchase_order_id]']}) do |t|
     t.column :name, :through=>:product
-    t.column :amount, :through=>:price
+    t.column :pretax_amount, :through=>:price
     t.column :quantity
     t.column :label, :through=>:unit
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
@@ -820,8 +820,8 @@ class ManagementController < ApplicationController
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :quantity, :datatype=>:decimal
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :incoming_delivery_update, :if=>'RECORD.purchase_order.processing? '
     t.action :incoming_delivery_delete, :if=>'RECORD.purchase_order.processing? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -954,14 +954,14 @@ class ManagementController < ApplicationController
     end
     if request.post?
       return unless product = find_and_check(:product, params[:purchase_order_line][:product_id].to_i)
-      price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
-      price = product.prices.create!(:entity_id=>@purchase_order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
+      price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order.supplier_id, :pretax_amount=>params[:price][:pretax_amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
+      price = product.prices.create!(:entity_id=>@purchase_order.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_order_line][:price_id] = price.id
       @purchase_order_line = @purchase_order.lines.new(params[:purchase_order_line])
       return if save_and_redirect(@purchase_order_line, :url=>{:action=>:purchase_order, :step=>:products, :id=>@purchase_order.id})
     else
       @purchase_order_line = @purchase_order.lines.new
-      @price = Price.new(:amount=>0.0)
+      @price = Price.new(:pretax_amount=>0.0)
     end
     t3e @purchase_order.attributes
     render_form
@@ -971,8 +971,8 @@ class ManagementController < ApplicationController
     return unless @purchase_order_line = find_and_check(:purchase_order_line)
     if request.post?
       return unless product = find_and_check(:product, params[:purchase_order_line][:product_id].to_i)
-      price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order_line.order.supplier_id, :amount=>params[:price][:amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
-      price = product.prices.create!(:entity_id=>@purchase_order_line.order.supplier_id, :amount=>params[:price][:amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
+      price = @current_company.prices.find(:first, :conditions=>{:product_id=>product.id, :entity_id=>@purchase_order_line.order.supplier_id, :pretax_amount=>params[:price][:pretax_amount].to_f, :tax_id=>params[:price][:tax_id].to_i})
+      price = product.prices.create!(:entity_id=>@purchase_order_line.order.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_order_line][:price_id] = price.id
       if @purchase_order_line.update_attributes(params[:purchase_order_line])  
         redirect_to :action=>:purchase_order, :step=>:products, :id=>@purchase_order_line.order_id  
@@ -995,9 +995,9 @@ class ManagementController < ApplicationController
 
 
   def unpaid_sales_orders_export
-    sales_orders = @current_company.sales_orders.find(:all, :conditions=>["state NOT IN('C','E') AND paid_amount < amount_with_taxes"], :order=>"created_on desc")
+    sales_orders = @current_company.sales_orders.find(:all, :conditions=>["state NOT IN('C','E') AND paid_amount < amount"], :order=>"created_on desc")
     csv_string = FasterCSV.generate do |csv|
-      csv << [tc(:sales_invoice_number), tc(:unpaid_days),  tc(:unpaid_amount), tc(:code), tc(:full_name),tc(:address), tc(:client_phone), tc(:mobile), tc(:email), tc(:number), tc(:created_on), tc(:amount), tc(:amount_with_taxes), tc(:paid_amount), tc(:last_payment_date), tc(:last_payment_amount) , tc(:sales_order_products)]
+      csv << [tc(:sales_invoice_number), tc(:unpaid_days),  tc(:unpaid_amount), tc(:code), tc(:full_name),tc(:address), tc(:client_phone), tc(:mobile), tc(:email), tc(:number), tc(:created_on), tc(:pretax_amount), tc(:amount), tc(:paid_amount), tc(:last_payment_date), tc(:last_payment_amount) , tc(:sales_order_products)]
 
       sales_orders.each do |sales_order|
         contact = sales_order.client.default_contact
@@ -1008,7 +1008,7 @@ class ManagementController < ApplicationController
         else
           line << ["","","",""]
         end
-        line << [sales_order.number, sales_order.created_on, sales_order.amount, sales_order.amount_with_taxes, sales_order.paid_amount, sales_order.last_payment ? sales_order.last_payment.created_on : "", sales_order.last_payment ? sales_order.last_payment.amount : "", sales_order.products]
+        line << [sales_order.number, sales_order.created_on, sales_order.pretax_amount, sales_order.amount, sales_order.paid_amount, sales_order.last_payment ? sales_order.last_payment.created_on : "", sales_order.last_payment ? sales_order.last_payment.amount : "", sales_order.products]
         csv << line.flatten
       end
       
@@ -1019,12 +1019,12 @@ class ManagementController < ApplicationController
 
   def self.sales_orders_conditions
     code = ""
-    code = search_conditions(:sales_order, :sales_orders=>[:amount, :amount_with_taxes, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:sales_order, :sales_orders=>[:pretax_amount, :amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
     code += "unless session[:sales_order_state].blank? \n "
     code += "  if session[:sales_order_state] == 'current' \n "
     code += "    c[0] += \" AND state IN ('ready', 'processing', 'invoiced') \" \n " 
     code += "  elsif session[:sales_order_state] == 'unpaid' \n "
-    code += "    c[0] += \"AND state IN ('processing','invoiced') AND paid_amount < amount_with_taxes\" \n "
+    code += "    c[0] += \"AND state IN ('processing','invoiced') AND paid_amount < amount\" \n "
     code += "  end\n "
     code += "end\n "
     code += "c\n "
@@ -1041,7 +1041,7 @@ class ManagementController < ApplicationController
     t.column :comment
     t.column :state_label
     t.column :paid_amount
-    t.column :amount_with_taxes
+    t.column :amount
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
     t.action :sales_order_update
     t.action :sales_order_delete, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
@@ -1067,9 +1067,9 @@ class ManagementController < ApplicationController
     t.column :serial, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :amount, :through=>:price, :label=>"unit_price_amount"
+    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount"
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :sales_order_line_update, :if=>'RECORD.order.draft? and RECORD.reduction_origin_id.nil? '
     t.action :sales_order_line_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.order.draft? and RECORD.reduction_origin_id.nil? '
   end
@@ -1088,11 +1088,11 @@ class ManagementController < ApplicationController
 
   create_kame(:sales_order_undelivered_lines, :model=>:sales_order_lines, :conditions=>{:company_id=>['@current_company.id'], :order_id=>['session[:current_sales_order_id]'], :reduction_origin_id=>nil}) do |t|
     t.column :name, :through=>:product
-    t.column :amount, :through=>:price
+    t.column :pretax_amount, :through=>:price
     t.column :quantity
     t.column :label, :through=>:unit
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
@@ -1102,8 +1102,8 @@ class ManagementController < ApplicationController
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :quantity, :datatype=>:decimal
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :outgoing_delivery_update, :if=>'RECORD.sales_order.processing? '
     t.action :outgoing_delivery_delete, :if=>'RECORD.sales_order.processing? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -1114,8 +1114,8 @@ class ManagementController < ApplicationController
     # t.column :address, :through=>:contact, :children=>:product_name
     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
     t.column :created_on, :children=>false
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
   end
 
@@ -1328,7 +1328,7 @@ class ManagementController < ApplicationController
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})
-  dyli(:available_prices, ["products.code", "products.name", "prices.amount", "prices.amount_with_taxes"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+  dyli(:available_prices, ["products.code", "products.name", "prices.pretax_amount", "prices.amount"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
   
   def sales_order_line_create
     return unless @sales_order = find_and_check(:sales_order, params[:order_id]||session[:current_sales_order_id])
@@ -1426,7 +1426,7 @@ class ManagementController < ApplicationController
         redirect_to :action=>:purchase_order, :step=>:deliveries, :id=>@purchase_order.id
       end
     else
-      @incoming_delivery = IncomingDelivery.new(:amount=>@purchase_order.undelivered("amount"), :amount_with_taxes=>@purchase_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :contact_id=>@purchase_order.delivery_contact_id)      
+      @incoming_delivery = IncomingDelivery.new(:pretax_amount=>@purchase_order.undelivered("pretax_amount"), :amount=>@purchase_order.undelivered("amount"), :planned_on=>Date.today, :contact_id=>@purchase_order.delivery_contact_id)      
     end
     @incoming_delivery_lines = purchase_order_lines.collect{|x| IncomingDeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     render_form
@@ -1478,7 +1478,7 @@ class ManagementController < ApplicationController
     notify(:no_lines_found, :warning) if sales_order_lines.empty?
 
     @outgoing_delivery_lines = sales_order_lines.collect{|x| OutgoingDeliveryLine.new(:order_line_id=>x.id, :quantity=>x.undelivered_quantity)}
-    @outgoing_delivery = OutgoingDelivery.new(:amount=>@sales_order.undelivered("amount"), :amount_with_taxes=>@sales_order.undelivered("amount_with_taxes"), :planned_on=>Date.today, :transporter_id=>@sales_order.transporter_id, :contact_id=>@sales_order.delivery_contact_id||@sales_order.client.default_contact)
+    @outgoing_delivery = OutgoingDelivery.new(:pretax_amount=>@sales_order.undelivered("pretax_amount"), :amount=>@sales_order.undelivered("amount"), :planned_on=>Date.today, :transporter_id=>@sales_order.transporter_id, :contact_id=>@sales_order.delivery_contact_id||@sales_order.client.default_contact)
     # session[:current_outgoing_delivery] = @outgoing_delivery.id
   
     if request.post?
@@ -1811,8 +1811,8 @@ class ManagementController < ApplicationController
     t.column :label, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :quantity, :datatype=>:decimal
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.check_box :delivered, :value=>'RECORD.planned_on<=Date.today'
   end
 
@@ -1928,8 +1928,8 @@ class ManagementController < ApplicationController
     t.column :moved_on, :children=>false
     t.column :number, :through=>:sales_invoice, :url=>{:action=>:sales_invoice}, :children=>false
     t.column :quantity
+    t.column :pretax_amount
     t.column :amount
-    t.column :amount_with_taxes
     t.column :weight, :children=>false
     t.action :transport_outgoing_delivery_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete_outgoing_delivery
   end

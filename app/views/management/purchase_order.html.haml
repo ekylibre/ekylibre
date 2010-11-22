@@ -34,11 +34,11 @@
   =kame :purchase_order_lines
   %table.kame
     %tr.total
+      %th=PurchaseOrder.human_attribute_name("pretax_amount")
+      %td=number_to_management(@purchase_order.pretax_amount)
+    %tr.important.total
       %th=PurchaseOrder.human_attribute_name("amount")
       %td=number_to_management(@purchase_order.amount)
-    %tr.important.total
-      %th=PurchaseOrder.human_attribute_name("amount_with_taxes")
-      %td=number_to_management(@purchase_order.amount_with_taxes)
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=PurchaseOrder.human_attribute_name("payment_uses")

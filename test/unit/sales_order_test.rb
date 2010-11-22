@@ -22,7 +22,6 @@
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  amount_with_taxes   :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -50,6 +49,7 @@
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   
 #  payment_delay_id    :integer          not null
+#  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
