@@ -6,7 +6,7 @@
   -#f.field :purchase_order_line, :unit_id, :choices=>[]
   -@price ||= @purchase_order_line.price
   -if @price
-    -f.field :price, :amount 
+    -f.field :price, :pretax_amount 
     -f.field :price, :tax_id ,:choices=>{:reflection=>:taxes}
   -if @current_company.warehouses.size > 1
     -f.field :purchase_order_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
