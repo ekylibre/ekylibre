@@ -19,6 +19,7 @@
 
 class AccountancyController < ApplicationController
   include ActionView::Helpers::FormOptionsHelper
+  include ActionView::Helpers::NumberHelper
   
   dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
   

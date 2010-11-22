@@ -80,8 +80,8 @@ table.kame tr      td.bln div { margin: 0 auto; }
 table.kame tr      td.dat { text-align: center; }
 table.kame tr      td.web { text-align: center; }
 table.kame tr      td.country { white-space: nowrap; }
-table.kame tr      td.code { font-family: LiberationMono, monospace; }
-table.kame tr      td.code * { font-family: LiberationMono, monospace; }
+table.kame tr      td.code { font-family: "Liberation Mono", monospace; }
+table.kame tr      td.code * { font-family: "Liberation Mono", monospace; }
 table.kame tr      td.color { color:white; text-shadow: black 0 0 2px; width: 6em; text-align: center; }
 table.kame tr      td.rights * { font-size: 11px; }
 table.kame tr      td.rights.more * { color: #080; }

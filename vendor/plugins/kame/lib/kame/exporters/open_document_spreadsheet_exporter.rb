@@ -21,7 +21,7 @@ module Kame
     end
 
     def send_data_code(table)
-
+      xml_escape = "to_s.gsub('&', '&amp;').gsub('\\'', '&apos').gsub('<', '&lt;').gsub('>', '&gt;')"
       record = "r"
       code  = Kame::SimpleFinder.new.select_data_code(table)
       code += "name = #{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')\n"
@@ -42,19 +42,19 @@ module Kame
         "</office:automatic-styles>')\n"
 
       # Tables
-      code += "  zile.puts('<office:body><office:spreadsheet><table:table table:name=\"'+#{table.model.name}.model_name.human+'\">')\n"
-      code += "  zile.puts('<table:table-row>"+columns_headers(table).collect{|h| "<table:table-cell table:style-name=\"header\" office:value-type=\"string\"><text:p>'+#{h}+'</text:p></table:table-cell>"}.join+"</table:table-row>')\n"
+      code += "  zile.puts('<office:body><office:spreadsheet><table:table table:name=\"'+#{table.model.name}.model_name.human.#{xml_escape}+'\">')\n"
+      code += "  zile.puts('<table:table-row>"+columns_headers(table).collect{|h| "<table:table-cell table:style-name=\"header\" office:value-type=\"string\"><text:p>'+(#{h}).#{xml_escape}+'</text:p></table:table-cell>"}.join+"</table:table-row>')\n"
       code += "  for #{record} in #{table.records_variable_name}\n"  
       code += "    zile.puts('<table:table-row>"+table.exportable_columns.collect do |column|
         "<table:table-cell"+(if column.numeric?
-                               " office:value-type=\"float\" office:value=\"'+#{column.datum_code(record)}.to_s+'\""
+                               " office:value-type=\"float\" office:value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
                              elsif column.datatype==:boolean
-                               " office:value-type=\"boolean\" office:boolean-value=\"'+#{column.datum_code(record)}.to_s+'\""
+                               " office:value-type=\"boolean\" office:boolean-value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
                              elsif column.datatype==:date
-                               " office:value-type=\"date\" table:style-name=\"ce1\" office:date-value=\"'+#{column.datum_code(record)}.to_s+'\""
+                               " office:value-type=\"date\" table:style-name=\"ce1\" office:date-value=\"'+(#{column.datum_code(record)}).#{xml_escape}+'\""
                              else 
                                " office:value-type=\"string\""
-                             end)+"><text:p>'+"+column.exporting_datum_code(record)+".to_s+'</text:p></table:table-cell>"
+                             end)+"><text:p>'+("+column.exporting_datum_code(record)+").#{xml_escape}+'</text:p></table:table-cell>"
       end.join+"</table:table-row>')\n"
       code += "  end\n"
       code += "  zile.puts('</table:table></office:spreadsheet></office:body></office:document-content>')\n"
