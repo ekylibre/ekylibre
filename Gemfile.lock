@@ -1,4 +1,10 @@
 PATH
+  remote: vendor/gems/activerecord-sqlserver-adapter-3.0.3
+  specs:
+    activerecord-sqlserver-adapter (3.0.3)
+      activerecord (~> 3.0)
+
+PATH
   remote: vendor/gems/exception_notification-1.0.0
   specs:
     exception_notification (1.0.0)
@@ -86,6 +92,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-sqlserver-adapter!
   exception_notification!
   fastercsv
   haml (~> 3.0)
