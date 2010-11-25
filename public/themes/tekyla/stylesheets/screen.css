@@ -165,6 +165,10 @@ html[dir="rtl"] .help { float:left; margin-right: 8px; }
 .content .md.md-right  { display:block; margin: 2px; float: right; }
 
 
+dl { padding: 0 0.1em; margin-bottom: 0.2em; }
+dt { margin-top: .2em; font-weight: bold; color: #210 }
+dd { margin-bottom: .2em; margin-left: 1em; }
+
 
 .side-link { display:block; }
 .side-link div { width: 22px; height:32px; background: url(../images/buttons/open3.png) left center no-repeat; }

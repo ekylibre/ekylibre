@@ -743,7 +743,7 @@ module ApplicationHelper
     yield u
     tag = ""
     for c in u.cells
-      code = content_tag(:h2, tl(c.title))+content_tag(:div, capture(&c.block).html_safe)
+      code = content_tag(:h2, tl(c.title, c.options))+content_tag(:div, capture(&c.block).html_safe)
       tag += content_tag(:div, code.html_safe, :class=>:menu)
     end
     return content_tag(:div, tag.html_safe, :class=>:unagi)
@@ -754,15 +754,16 @@ module ApplicationHelper
     def initialize
       @cells = []
     end
-    def cell(title, &block)
-      @cells << UnagiCell.new(title, &block)
+    def cell(title, options={}, &block)
+      @cells << UnagiCell.new(title, options, &block)
     end
   end
 
   class UnagiCell
-    attr_reader :title, :block
-    def initialize(title, &block)
+    attr_reader :title, :options, :block
+    def initialize(title, options={}, &block)
       @title = title.to_s
+      @options = options
       @block = block
     end
 

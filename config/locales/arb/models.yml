@@ -1782,10 +1782,9 @@ arb:
       states:
         #>aborted: 'Aborted'
         #>draft: 'Draft'
-        #>finished: 'Finished'
-        #>invoiced: 'Invoiced'
-        #>processing: 'Waiting...'
-        #>ready: 'Ready purchase order'
+        #>estimate: 'Estimate'
+        #>invoice: 'Invoice'
+        #>order: 'Order'
         #>refused: 'Refused purchase order'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) ل %{amount}%{currency}/%{unit}'
@@ -1816,10 +1815,9 @@ arb:
         E: 'مقدر' #!
         #>aborted: 'Aborted'
         #>draft: 'Draft'
-        #>finished: 'Finished'
-        #>invoiced: 'Invoiced'
-        #>processing: 'Processing...'
-        #>ready: 'Ready estimate'
+        #>estimate: 'Estimate'
+        #>invoice: 'Invoice'
+        #>order: 'Order'
         #>refused: 'Refused estimate'
     sales_order_line:
       can_not_use_this_tracking: 'لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '

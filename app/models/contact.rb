@@ -56,7 +56,6 @@ class Contact < ActiveRecord::Base
   belongs_to :company
   belongs_to :entity
   has_many :outgoing_deliveries
-  has_many :sales_invoices
   has_many :purchase_orders
   has_many :sales_orders
   has_many :subscriptions

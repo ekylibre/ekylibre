@@ -90,11 +90,9 @@ class ManagementController < ApplicationController
       data = {}
       mode = (params[:mode]||:quantity).to_s.to_sym
       source = (params[:source]||:sales_invoices).to_s.to_sym
-      query = if source == :sales_invoices
-                "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SalesInvoiceLine.table_name} AS sol JOIN #{SalesInvoice.table_name} AS so ON (sol.sales_invoice_id=so.id) WHERE created_on BETWEEN ? AND ? GROUP BY product_id"
-              else
-                "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SalesOrderLine.table_name} AS sol JOIN #{SalesOrder.table_name} AS so ON (sol.order_id=so.id) WHERE state != 'E' AND created_on BETWEEN ? AND ? GROUP BY product_id"
-              end
+      states = [:invoice]
+      states << :order if source == :sales_orders
+      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SalesOrderLine.table_name} AS sol JOIN #{SalesOrder.table_name} AS so ON (sol.order_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
       date = start
@@ -233,44 +231,44 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
   
-  def self.sales_invoices_conditions
-    code = ""
-    code = search_conditions(:sales_invoices, :sales_invoices=>[:number, :pretax_amount, :amount], :e=>[:full_name, :code], :s=>[:number])+"||=[]\n"
-    code += "unless session[:sales_invoice_state].blank? \n"
-    code += "  if session[:sales_invoice_state] == 'credits' \n"
-    code += "    c[0] += \" AND credit = true \"\n"
-    code += "  elsif session[:sales_invoice_state] == 'cancelled' \n"
-    code += "    c[0] += \" AND sales_invoices.id IN (SELECT origin_id FROM #{SalesInvoice.table_name} WHERE credit = true AND company_id=\#\{@current_company.id\})\" \n"
-    code += "  end\n "
-    code += "end\n "
-    code += "c \n"
-    code
-  end
+#   def self.sales_invoices_conditions
+#     code = ""
+#     code = search_conditions(:sales_invoices, :sales_invoices=>[:number, :pretax_amount, :amount], :e=>[:full_name, :code], :s=>[:number])+"||=[]\n"
+#     code += "unless session[:sales_invoice_state].blank? \n"
+#     code += "  if session[:sales_invoice_state] == 'credits' \n"
+#     code += "    c[0] += \" AND credit = true \"\n"
+#     code += "  elsif session[:sales_invoice_state] == 'cancelled' \n"
+#     code += "    c[0] += \" AND sales_invoices.id IN (SELECT origin_id FROM #{SalesInvoice.table_name} WHERE credit = true AND company_id=\#\{@current_company.id\})\" \n"
+#     code += "  end\n "
+#     code += "end\n "
+#     code += "c \n"
+#     code
+#   end
   
-  create_kame(:sales_invoices, :conditions=>sales_invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN #{Entity.table_name} e ON e.id = #{SalesInvoice.table_name}.client_id LEFT JOIN #{SalesOrder.table_name} AS s ON s.id = #{SalesInvoice.table_name}.sales_order_id", :order=>"#{SalesInvoice.table_name}.created_on DESC, #{SalesInvoice.table_name}.number DESC") do |t|
-    t.column :number, :url=>{:action=>:sales_invoice}
-    t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
-    t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order}
-    t.column :created_on
-    t.column :state_label, :through=>:sales_order, :children=>false
-    t.column :pretax_amount
-    t.column :amount
-    t.column :credit
-    #t.action :sales_invoice_bookkeep
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
+#   create_kame(:sales_invoices, :conditions=>sales_invoices_conditions, :line_class=>'RECORD.status', :joins=>"LEFT JOIN #{Entity.table_name} e ON e.id = #{SalesInvoice.table_name}.client_id LEFT JOIN #{SalesOrder.table_name} AS s ON s.id = #{SalesInvoice.table_name}.sales_order_id", :order=>"#{SalesInvoice.table_name}.created_on DESC, #{SalesInvoice.table_name}.number DESC") do |t|
+#     t.column :number, :url=>{:action=>:sales_invoice}
+#     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
+#     t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order}
+#     t.column :created_on
+#     t.column :state_label, :through=>:sales_order, :children=>false
+#     t.column :pretax_amount
+#     t.column :amount
+#     t.column :credit
+#     #t.action :sales_invoice_bookkeep
+#     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
     
-    t.action :sales_invoice_cancel, :if=>"RECORD.creditable\?"
-  end
+#     t.action :sales_invoice_cancel, :if=>"RECORD.creditable\?"
+#   end
 
 
-  def sales_invoices
-    @key = params[:key]||session[:sales_invoice]||""
-    session[:sales_invoice_state] ||= "all"
-    if request.post?
-      session[:sales_invoice_state] = params[:sales_invoice][:state]
-      session[:sales_invoice_key] = @key
-    end
-  end
+#   def sales_invoices
+#     @key = params[:key]||session[:sales_invoice]||""
+#     session[:sales_invoice_state] ||= "all"
+#     if request.post?
+#       session[:sales_invoice_state] = params[:sales_invoice][:state]
+#       session[:sales_invoice_key] = @key
+#     end
+#   end
 
   
   #
@@ -281,104 +279,104 @@ class ManagementController < ApplicationController
 #   end
 
 
-  create_kame(:credit_lines, :model=>:sales_invoice_lines, :conditions=>{:sales_invoice_id=>['session[:sales_invoice_id]']}) do |t|
-    t.column :name, :through=>:product
-    t.column :amount, :through=>:price, :label=>:column
-    t.column :quantity
-    t.column :credited_quantity, :datatype=>:decimal
-    t.check_box  :validated, :value=>"true", :label=>'OK'
-    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
-  end
+#   create_kame(:credit_lines, :model=>:sales_invoice_lines, :conditions=>{:sales_invoice_id=>['session[:sales_invoice_id]']}) do |t|
+#     t.column :name, :through=>:product
+#     t.column :amount, :through=>:price, :label=>:column
+#     t.column :quantity
+#     t.column :credited_quantity, :datatype=>:decimal
+#     t.check_box  :validated, :value=>"true", :label=>'OK'
+#     t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+#   end
 
-  def sales_invoice_cancel
-    return unless @sales_invoice = find_and_check(:sales_invoices)
-    session[:sales_invoice_id] = @sales_invoice.id
-#    @sales_invoice_cancel = SalesInvoice.find_by_origin_id_and_company_id(@sales_invoice.id, @current_company.id)
-#     if @sales_invoice_cancel.nil?
-#       @sales_invoice_cancel = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-#       @sales_invoice_cancel_lines = @sales_invoice.lines.collect{|x| SalesInvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
-#     else
-#       @sales_invoice_cancel_lines = @sales_invoice_cancel.lines
-#     end
-    if request.post?
-      ActiveRecord::Base.transaction do
-        # session[:errors] = []
-        params[:credit_lines] ||= {}
-        @credit = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-        saved = @credit.save
-        if saved
-          for line in @sales_invoice.lines
-            if params[:credit_lines][line.id.to_s]
-              if params[:credit_lines][line.id.to_s][:validated].to_i == 1
-                # raise Exception.new [params[:credit_lines], 0-params[:credit_lines][line.id.to_s][:quantity].to_f].inspect
-                quantity = 0-params[:credit_lines][line.id.to_s][:quantity].to_f
-                puts ">>>>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
-                if quantity != 0.0
-                  puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
-                  credit_line = @credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id, :order_line_id=>line.order_line_id)
-                  unless credit_line.save
-                    saved = false
-                    # session[:errors] << credit_line.errors.full_messages
-                    @credit.errors.add_from_record(credit_line)
-                  end
-                  puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+@credit.inspect
-                end
-              end
-            end
-          end
+#   def sales_invoice_cancel
+#     return unless @sales_invoice = find_and_check(:sales_invoices)
+#     session[:sales_invoice_id] = @sales_invoice.id
+# #    @sales_invoice_cancel = SalesInvoice.find_by_origin_id_and_company_id(@sales_invoice.id, @current_company.id)
+# #     if @sales_invoice_cancel.nil?
+# #       @sales_invoice_cancel = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
+# #       @sales_invoice_cancel_lines = @sales_invoice.lines.collect{|x| SalesInvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
+# #     else
+# #       @sales_invoice_cancel_lines = @sales_invoice_cancel.lines
+# #     end
+#     if request.post?
+#       ActiveRecord::Base.transaction do
+#         # session[:errors] = []
+#         params[:credit_lines] ||= {}
+#         @credit = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
+#         saved = @credit.save
+#         if saved
+#           for line in @sales_invoice.lines
+#             if params[:credit_lines][line.id.to_s]
+#               if params[:credit_lines][line.id.to_s][:validated].to_i == 1
+#                 # raise Exception.new [params[:credit_lines], 0-params[:credit_lines][line.id.to_s][:quantity].to_f].inspect
+#                 quantity = 0-params[:credit_lines][line.id.to_s][:quantity].to_f
+#                 puts ">>>>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
+#                 if quantity != 0.0
+#                   puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
+#                   credit_line = @credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id, :order_line_id=>line.order_line_id)
+#                   unless credit_line.save
+#                     saved = false
+#                     # session[:errors] << credit_line.errors.full_messages
+#                     @credit.errors.add_from_record(credit_line)
+#                   end
+#                   puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+@credit.inspect
+#                 end
+#               end
+#             end
+#           end
           
-          if @credit.reload.amount == 0
-            puts @credit.inspect
-            notify(:need_quantities_to_cancel_an_sales_invoice, :error)
-            raise ActiveRecord::Rollback 
-          end
+#           if @credit.reload.amount == 0
+#             puts @credit.inspect
+#             notify(:need_quantities_to_cancel_an_sales_invoice, :error)
+#             raise ActiveRecord::Rollback 
+#           end
 
-#           for cancel_line in @sales_invoice_cancel_lines
-#             cancel_line.quantity -= (params[:sales_invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
-#             cancel_line.sales_invoice_id = @sales_invoice_cancel.id
-#             saved = false unless cancel_line.save
-#           end
-        end
-        if saved
-          @credit.bookkeep if @current_company.prefer_bookkeep_automatically?
-          redirect_to :action=>:sales_invoice, :id=>@credit.id
-        else
-#           session[:errors] = []
-#           for line in @sales_invoice_cancel_lines
-#             session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
-#           end
-          # redirect_to :action=>:sales_invoice_cancel, :id=>@sales_invoice.id
-          raise ActiveRecord::Rollback
-        end
-      end
-    end
-    t3e @sales_invoice.attributes
-  end
+# #           for cancel_line in @sales_invoice_cancel_lines
+# #             cancel_line.quantity -= (params[:sales_invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
+# #             cancel_line.sales_invoice_id = @sales_invoice_cancel.id
+# #             saved = false unless cancel_line.save
+# #           end
+#         end
+#         if saved
+#           @credit.bookkeep if @current_company.prefer_bookkeep_automatically?
+#           redirect_to :action=>:sales_invoice, :id=>@credit.id
+#         else
+# #           session[:errors] = []
+# #           for line in @sales_invoice_cancel_lines
+# #             session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
+# #           end
+#           # redirect_to :action=>:sales_invoice_cancel, :id=>@sales_invoice.id
+#           raise ActiveRecord::Rollback
+#         end
+#       end
+#     end
+#     t3e @sales_invoice.attributes
+#   end
    
 
-  create_kame(:sales_invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :sales_invoice_id=>['session[:current_sales_invoice]']}) do |t|
-    t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :pretax_amount, :through=>:price
-    t.column :amount, :through=>:price, :label=>:column
-    t.column :quantity
-    t.column :pretax_amount
-    t.column :amount
-  end
+#   create_kame(:sales_invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :sales_invoice_id=>['session[:current_sales_invoice]']}) do |t|
+#     t.column :name, :through=>:product, :url=>{:action=>:product}
+#     t.column :pretax_amount, :through=>:price
+#     t.column :amount, :through=>:price, :label=>:column
+#     t.column :quantity
+#     t.column :pretax_amount
+#     t.column :amount
+#   end
 
-  create_kame(:sales_invoice_credits, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sales_invoice]'] }, :children=>:lines) do |t|
-    t.column :number, :url=>{:action=>:sales_invoice}, :children=>:designation
-    t.column :full_name, :through=>:client, :children=>false
-    t.column :created_on, :children=>false
-    t.column :pretax_amount
-    t.column :amount
-  end
+#   create_kame(:sales_invoice_credits, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sales_invoice]'] }, :children=>:lines) do |t|
+#     t.column :number, :url=>{:action=>:sales_invoice}, :children=>:designation
+#     t.column :full_name, :through=>:client, :children=>false
+#     t.column :created_on, :children=>false
+#     t.column :pretax_amount
+#     t.column :amount
+#   end
 
 
-  def sales_invoice
-    return unless @sales_invoice = find_and_check(:sales_invoice)
-    session[:current_sales_invoice] = @sales_invoice.id
-    t3e :nature=>tc(@sales_invoice.credit ? :credit : :sales_invoice), :number=>@sales_invoice.number
-  end
+#   def sales_invoice
+#     return unless @sales_invoice = find_and_check(:sales_invoice)
+#     session[:current_sales_invoice] = @sales_invoice.id
+#     t3e :nature=>tc(@sales_invoice.credit ? :credit : :sales_invoice), :number=>@sales_invoice.number
+#   end
 
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
@@ -822,8 +820,8 @@ class ManagementController < ApplicationController
     t.column :quantity, :datatype=>:decimal
     t.column :pretax_amount
     t.column :amount
-    t.action :incoming_delivery_update, :if=>'RECORD.purchase_order.processing? '
-    t.action :incoming_delivery_delete, :if=>'RECORD.purchase_order.processing? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :incoming_delivery_update, :if=>'RECORD.purchase_order.order? '
+    t.action :incoming_delivery_delete, :if=>'RECORD.purchase_order.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
 
@@ -847,9 +845,9 @@ class ManagementController < ApplicationController
       return
     end
     if params[:step] == "deliveries"
-      if @purchase_order.deliveries.size <= 0 and @purchase_order.processing? and @sales_order.has_content?
+      if @purchase_order.deliveries.size <= 0 and @purchase_order.order? and @sales_order.has_content?
         redirect_to :action=>:incoming_delivery_create, :purchase_order_id=>@purchase_order.id
-      elsif @purchase_order.deliveries.size <= 0 and @purchase_order.invoiced?
+      elsif @purchase_order.deliveries.size <= 0 and @purchase_order.invoice?
         notify(:purchase_order_already_invoiced)
       elsif @purchase_order.lines.size <= 0
         notify(:no_lines_found, :warning)
@@ -1002,7 +1000,7 @@ class ManagementController < ApplicationController
       sales_orders.each do |sales_order|
         contact = sales_order.client.default_contact
         line = []
-        line << [sales_order.sales_invoices.first ? "'"+sales_order.sales_invoices.first.number : "", sales_order.unpaid_days,sales_order.unpaid_amount(false,false), sales_order.client.code, sales_order.client.full_name]
+        line << [sales_order.sales_invoices.first ? "'"+sales_order.sales_invoices.first.number : "", sales_order.unpaid_days, sales_order.unpaid_amount, sales_order.client.code, sales_order.client.full_name]
         if contact
           line << [contact.address, "'"+contact.phone, "'"+contact.mobile, contact.email]
         else
@@ -1104,20 +1102,20 @@ class ManagementController < ApplicationController
     t.column :quantity, :datatype=>:decimal
     t.column :pretax_amount
     t.column :amount
-    t.action :outgoing_delivery_update, :if=>'RECORD.sales_order.processing? '
-    t.action :outgoing_delivery_delete, :if=>'RECORD.sales_order.processing? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :outgoing_delivery_update, :if=>'RECORD.sales_order.order? '
+    t.action :outgoing_delivery_delete, :if=>'RECORD.sales_order.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
 
-  create_kame(:sales_order_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}, :children=>:lines) do |t|
-    t.column :number, :children=>:designation, :url=>{:action=>:sales_invoice}
-    # t.column :address, :through=>:contact, :children=>:product_name
-    t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
-    t.column :created_on, :children=>false
-    t.column :pretax_amount
-    t.column :amount
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
-  end
+#   create_kame(:sales_order_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}, :children=>:lines) do |t|
+#     t.column :number, :children=>:designation, :url=>{:action=>:sales_invoice}
+#     # t.column :address, :through=>:contact, :children=>:product_name
+#     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
+#     t.column :created_on, :children=>false
+#     t.column :pretax_amount
+#     t.column :amount
+#     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
+#   end
 
   create_kame(:sales_order_payment_uses, :model=>:incoming_payment_uses, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sales_order_id]'], SalesOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:incoming_payment, :controller=>:finances}
@@ -1140,9 +1138,9 @@ class ManagementController < ApplicationController
       params[:step] = (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products).to_s
     end
     if params[:step] == "deliveries"
-      if @sales_order.deliveries.size <= 0 and @sales_order.processing? and @sales_order.has_content?
+      if @sales_order.deliveries.size <= 0 and @sales_order.order? and @sales_order.has_content?
         redirect_to :action=>:outgoing_delivery_create, :sales_order_id=>@sales_order.id
-      elsif @sales_order.deliveries.size <= 0 and @sales_order.invoiced?
+      elsif @sales_order.deliveries.size <= 0 and @sales_order.invoice?
         notify(:sales_order_already_invoiced)
       elsif @sales_order.lines.size <= 0
         notify(:no_lines_found, :warning)
@@ -1403,7 +1401,7 @@ class ManagementController < ApplicationController
 
   def incoming_delivery_create
     return unless @purchase_order = find_and_check(:purchase_order, params[:purchase_order_id]||params[:order_id]||session[:current_purchase_order_id])
-    unless @purchase_order.processing?
+    unless @purchase_order.order?
       notify(:purchase_order_already_invoiced, :warning)
       redirect_to_back
     end
@@ -1470,7 +1468,7 @@ class ManagementController < ApplicationController
   
   def outgoing_delivery_create
     return unless @sales_order = find_and_check(:sales_orders, params[:sales_order_id]||params[:order_id]||session[:current_sales_order_id])
-    unless @sales_order.processing?
+    unless @sales_order.order?
       notify(:sales_order_already_invoiced, :warning)
       redirect_to_back
     end
@@ -1926,7 +1924,7 @@ class ManagementController < ApplicationController
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:sales_invoice, :url=>{:action=>:sales_invoice}, :children=>false
+    t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order}, :children=>false
     t.column :quantity
     t.column :pretax_amount
     t.column :amount

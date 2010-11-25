@@ -32,23 +32,29 @@
 #  created_at          :datetime         not null
 #  created_on          :date             not null
 #  creator_id          :integer          
+#  credit              :boolean          not null
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
 #  downpayment_amount  :decimal(16, 2)   default(0.0), not null
-#  expiration_id       :integer          not null
-#  expired_on          :date             not null
+#  expiration_id       :integer          
+#  expired_on          :date             
 #  function_title      :string(255)      
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
+#  initial_number      :string(64)       
 #  introduction        :text             
 #  invoice_contact_id  :integer          
+#  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  nature_id           :integer          not null
+#  lost                :boolean          not null
+#  nature_id           :integer          
 #  number              :string(64)       not null
-#  paid_amount         :decimal(16, 2)   
+#  origin_id           :integer          
+#  paid_amount         :decimal(16, 2)   not null
 #  payment_delay_id    :integer          not null
+#  payment_on          :date             
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
@@ -73,7 +79,7 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :delivery_contact, :class_name=>Contact.to_s
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
-  # belongs_to :journal_entry
+  belongs_to :journal_entry
   belongs_to :nature, :class_name=>SalesOrderNature.to_s
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
@@ -82,43 +88,41 @@ class SalesOrder < ActiveRecord::Base
   has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   has_many :payments, :through=>:payment_uses
-  has_many :sales_invoices
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
   has_many :subscriptions, :class_name=>Subscription.to_s
   has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   validates_presence_of :client_id, :currency_id
+  validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 
   state_machine :state, :initial => :draft do
     state :draft
-    state :ready
+    state :estimate
     state :refused
-    state :processing
-    state :invoiced
-    state :finished
+    state :order
+    state :invoice
     state :aborted
+
     event :propose do
-      transition :draft => :ready, :if=>:has_content?
+      transition :draft => :estimate, :if=>:has_content?
     end
     event :correct do
-      transition :ready => :draft
+      transition :estimate => :draft
       transition :refused => :draft
-      transition :processing => :draft, :if=>Proc.new{|so| so.paid_amount <= 0}
+      transition :order => :draft, :if=>Proc.new{|so| so.paid_amount <= 0}
     end
     event :refuse do
-      transition :ready => :refused, :if=>:has_content?
+      transition :estimate => :refused, :if=>:has_content?
     end
     event :confirm do
-      transition :ready => :processing, :if=>:has_content?
+      transition :estimate => :order, :if=>:has_content?
     end
     event :invoice do
-      transition :processing => :invoiced, :if=>:has_content?
-      transition :ready => :invoiced, :if=>:has_content?
-    end
-    event :finish do
-      transition :invoiced => :finished
+      transition :order => :invoice, :if=>:has_content?
+      transition :estimate => :invoice, :if=>:has_content?
     end
     event :abort do
-      transition [:draft, :ready] => :aborted # , :processing
+      # transition [:draft, :estimate] => :aborted # , :order
+      transition :draft => :aborted # , :order
     end
   end
 
@@ -156,8 +160,20 @@ class SalesOrder < ActiveRecord::Base
 
   # This method bookkeeps the sales order.
   bookkeep do |b|
+    label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sales_order=>self.initial_number)
+    b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|
+      entry.add_debit(label, self.client.account(:client).id, self.amount)
+      for line in self.lines
+        entry.add_credit(label, (line.account||line.product.sales_account).id, line.amount) unless line.quantity.zero?
+        entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
+      end
+    end
   end
 
+  protect_on_update do
+    old = self.class.find(self.id)
+    not old.invoice?
+  end
 
 
   def refresh
@@ -216,27 +232,28 @@ class SalesOrder < ActiveRecord::Base
   end
 
 
-  # Invoice all the products creating the delivery if necessary. 
+  # Invoices all the products creating the delivery if necessary. 
+  # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(*args)
     return false unless self.can_invoice?
     ActiveRecord::Base.transaction do
-      # Create sales invoice
-      sales_invoice = self.sales_invoices.create!(:nature=>"S", :pretax_amount=>self.pretax_amount, :amount=>self.amount, :client_id=>self.client_id, :payment_delay_id=>self.payment_delay_id, :created_on=>Date.today, :contact_id=>self.invoice_contact_id)
-      for line in self.lines
-        sales_invoice.lines.create!(:order_line_id=>line.id, :pretax_amount=>line.pretax_amount, :amount=>line.amount, :quantity=>line.quantity)
-      end
       # Move real stocks
       for line in self.lines
         line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
       end
-      # Accountize the sales invoice
-      sales_invoice.bookkeep if self.company.prefer_bookkeep_automatically?
+      self.invoiced_on = Date.today
+      self.payment_on ||= self.payment_delay.compute if self.payment_delay      
+      self.initial_number = self.number
+      if sequence = self.company.preferred_sales_invoices_sequence
+        self.number = sequence.next_value
+      end
+      self.save
       return super
     end
     return false
   end
 
-  # Delivers all undelivered products and sales_invoice the order after. This operation cleans the order.
+  # Delivers all undelivered products and sales invoice the order after. This operation cleans the order.
   def deliver_and_invoice
     self.deliver.invoice
   end
@@ -270,17 +287,11 @@ class SalesOrder < ActiveRecord::Base
   # - +:multi_sales_invoices+ adds the uninvoiced amount and invoiced amount
   # - +:with_balance+ adds the balance of the client of the sale order
   def stats(options={})
-    invoiced_amount = self.invoiced_amount
     array = []
-    array << [:client_balance, self.client.balance.to_s] if options[:with_balance]
+    array << [:client_balance, self.client.balance] if options[:with_balance]
     array << [:total_amount, self.amount]
-    if options[:multi_sales_invoices]
-      array << [:uninvoiced_amount, self.amount - invoiced_amount]
-      array << [:invoiced_amount, invoiced_amount]
-    end
-    paid_amount = self.payment_uses.sum(:amount)
-    array << [:paid_amount, paid_amount]
-    array << [:unpaid_amount, invoiced_amount - paid_amount]
+    array << [:paid_amount, self.paid_amount]
+    array << [:unpaid_amount, self.unpaid_amount]
     array 
   end
 
@@ -292,7 +303,8 @@ class SalesOrder < ActiveRecord::Base
 
   # Obsolete
   def text_state
-    tc('states.'+self.state.to_s)+" DEPRECATION WARNING: Please use state_label in place of text_state"
+    puts "DEPRECATION WARNING: Please use state_label in place of text_state"
+    state_label
   end
   
   # Prints human name of current state
@@ -311,49 +323,22 @@ class SalesOrder < ActiveRecord::Base
 
   # Returns true if there is some products to deliver
   def deliverable?
-    self.undelivered(:amount) > 0 and not self.invoiced?
+    self.undelivered(:amount) > 0 and not self.invoice?
   end
 
-
-  # Computes unpaid amounts.
-  def unpaid_amount(only_sales_invoices=true, only_received_payments=false)
-    (only_sales_invoices ? self.invoiced_amount : self.amount).to_f - (only_received_payments ? self.payment_uses.sum(:amount, :conditions=>{:received=>true}) : self.payment_uses.sum(:amount)).to_f
+  # Calculate unpaid amount
+  def unpaid_amount
+    self.amount - self.paid_amount
   end
 
-  def invoiced_amount
-    self.sales_invoices.sum(:amount)
-  end
-  
-
-  def payments
-    sales_orders = self.client.sales_orders
-    payment_uses = [] 
-    for sales_order in sales_orders
-      payment_uses += sales_order.payment_uses
-    end
-    payments = []
-    for use in payment_uses
-      found = false
-      pay = self.company.payments.find(:all, :conditions=>["id = ? AND amount != used_amount", use.payment_id])
-      if !pay.empty? 
-        for payment in payments
-          found = true if payment.id == pay[0].id 
-        end
-        payments += pay if (!pay.nil? and !found)
-        puts payments.inspect
-      end
-    end
-    payments
-  end
-
-
+  # Label of the sales order depending on the state and the number
   def label
-    # tc('label.'+(self.processing? or self.invoiced ? 'estimat-e' : 'order'), :number=>self.number)
     tc('label.'+self.state, :number=>self.number)
   end
 
+  # Alias for letter_format? method
   def letter?
-    self.letter_format # and (self.ready? or self.draft?)
+    self.letter_format?
   end
 
 
@@ -386,7 +371,7 @@ class SalesOrder < ActiveRecord::Base
   end
 
   def unpaid_days
-    (Date.today - self.sales_invoices.first.created_on) if self.sales_invoices.first
+    (Date.today - self.invoiced_on) if self.invoice?
   end
 
   def products

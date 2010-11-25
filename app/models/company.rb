@@ -107,8 +107,6 @@ class Company < ActiveRecord::Base
   has_many :purchase_orders
   has_many :purchase_order_lines
   has_many :roles
-  has_many :sales_invoices
-  has_many :sales_invoice_lines
   has_many :sales_orders
   has_many :sales_order_lines
   has_many :sales_order_natures

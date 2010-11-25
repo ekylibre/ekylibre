@@ -1326,10 +1326,9 @@ spa:
       states:
         #>aborted: 'Aborted'
         #>draft: 'Draft'
-        #>finished: 'Finished'
-        #>invoiced: 'Invoiced'
-        #>processing: 'Waiting...'
-        #>ready: 'Ready purchase order'
+        #>estimate: 'Estimate'
+        #>invoice: 'Invoice'
+        #>order: 'Order'
         #>refused: 'Refused purchase order'
     purchase_order_line:
       #>name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
@@ -1357,10 +1356,9 @@ spa:
       states:
         #>aborted: 'Aborted'
         #>draft: 'Draft'
-        #>finished: 'Finished'
-        #>invoiced: 'Invoiced'
-        #>processing: 'Processing...'
-        #>ready: 'Ready estimate'
+        #>estimate: 'Estimate'
+        #>invoice: 'Invoice'
+        #>order: 'Order'
         #>refused: 'Refused estimate'
     sales_order_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'

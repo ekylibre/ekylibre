@@ -20,7 +20,7 @@
 # 
 # == Table: sales_order_lines
 #
-#  account_id          :integer          not null
+#  account_id          :integer          
 #  amount              :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
@@ -28,10 +28,10 @@
 #  creator_id          :integer          
 #  entity_id           :integer          
 #  id                  :integer          not null, primary key
-#  invoiced            :boolean          not null
 #  label               :text             
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
+#  origin_id           :integer          
 #  position            :integer          
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  price_amount        :decimal(16, 2)   
@@ -42,7 +42,7 @@
 #  reduction_percent   :decimal(16, 2)   default(0.0), not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
-#  unit_id             :integer          not null
+#  unit_id             :integer          
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #  warehouse_id        :integer          
@@ -65,14 +65,13 @@ class SalesOrderLine < ActiveRecord::Base
   belongs_to :tracking
   belongs_to :unit
   has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:order_line_id
-  has_many :sales_invoice_lines
   has_one :reduction, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
   sums :order, :lines, :pretax_amount, :amount
 
-  validates_presence_of :price_id
+  validates_presence_of :price
 
   
   before_validation do
@@ -80,8 +79,7 @@ class SalesOrderLine < ActiveRecord::Base
     self.company_id = self.order.company_id if self.order
     if not self.price and self.order and self.product
       self.price = self.product.default_price(order.client.category_id)
-      #raise Exception.new self.inspect 
-      @test = true
+      # puts [order.client.category_id, order].inspect unless self.price
     end
     self.product = self.price.product if self.price
     if self.product
@@ -94,9 +92,7 @@ class SalesOrderLine < ActiveRecord::Base
       end
       self.label ||= self.product.catalog_name
     end
-    self.account_id ||= 0
     self.price_amount ||= 0
-
 
     if self.price_amount > 0
       price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
@@ -113,7 +109,6 @@ class SalesOrderLine < ActiveRecord::Base
           self.quantity = q.round(2)
           self.amount = (q*self.price.amount).round(2)
         elsif self.amount
-          #raise Exception.new "okkk"+self.inspect if @test
           q = self.amount/self.price.amount
           self.quantity = q.round(2)
           self.pretax_amount = (q*self.price.pretax_amount).round(2)
@@ -152,6 +147,9 @@ class SalesOrderLine < ActiveRecord::Base
     # TODO validates responsible can make reduction and reduction rate is convenient
   end
   
+  protect_on_update do
+    return self.order.updateable?
+  end
   
   def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?

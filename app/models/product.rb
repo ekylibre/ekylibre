@@ -76,7 +76,6 @@ class Product < ActiveRecord::Base
   has_many :available_stocks, :class_name=>Stock.name, :conditions=>["quantity > 0"]
   has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
   has_many :outgoing_delivery_lines
-  has_many :sales_invoice_lines
   has_many :prices
   has_many :purchase_order_lines
   # TODO rename warehouses to reservoirs

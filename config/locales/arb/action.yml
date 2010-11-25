@@ -866,6 +866,7 @@ arb:
     production_rights: 'حق الانتاج'
     productions: 'المنتجات'
     products: 'فئة المنتج'
+    #>profitability: 'Profitability'
     purchase: 'الطلب'
     #>purchase_order: 'Purchase order'
     purchase_order_create: 'اضافة شراء جديد' #!
@@ -1036,7 +1037,9 @@ arb:
     total: 'المجموع'
     total_amount: 'صافي اجمالي الكمية'
     total_invoiced_amount: 'فواتير المبلغ الاجمالي'
+    #>total_paid_amount: 'Total paid amount'
     total_quantity: 'مجموع الكمية'
+    #>total_unpaid_amount: 'Total unpaid amount'
     totals: '(المجموع (صلاحية العينات والمسودات'
     tracking: 'المسار'
     transfer: 'اجراء النقل'

@@ -34,7 +34,6 @@
 #  number              :string(255)      
 #  product_id          :integer          
 #  quantity            :decimal(16, 4)   
-#  sales_invoice_id    :integer          
 #  sales_order_id      :integer          
 #  sales_order_line_id :integer          
 #  started_on          :date             
@@ -51,25 +50,20 @@ class Subscription < ActiveRecord::Base
   belongs_to :company
   belongs_to :contact
   belongs_to :entity
-  belongs_to :sales_invoice
   belongs_to :nature, :class_name=>SubscriptionNature.name
   belongs_to :product
   belongs_to :sales_order
-  #belongs_to :sales_order_line 
-
+  belongs_to :sales_order_line 
 
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
   validates_presence_of :nature_id, :entity_id
 
   before_validation do
-    self.sales_order_id ||= self.sales_invoice.sales_order_id if self.sales_invoice
+    self.contact   ||= self.sales_order.delivery_contact if self.sales_order
+    self.entity_id = self.contact.entity_id if self.contact
     self.nature_id ||= self.product.subscription_nature_id if self.product
-    unless self.entity
-      self.entity_id ||= self.contact.entity_id if self.contact
-      self.entity_id ||= self.sales_invoice.client_id if self.sales_invoice
-      self.entity_id ||= self.sales_order.client_id if self.sales_order
-    end 
+    return true
   end
 
   before_validation(:on=>:create) do

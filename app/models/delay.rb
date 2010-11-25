@@ -40,7 +40,6 @@ class Delay < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   has_many :entities
-  has_many :sales_invoices
   has_many :sales_orders
   has_many :sales_order_natures
   validates_uniqueness_of :name, :scope=>:company_id

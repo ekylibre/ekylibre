@@ -34,7 +34,6 @@
 #  number              :string(255)      
 #  product_id          :integer          
 #  quantity            :decimal(16, 4)   
-#  sales_invoice_id    :integer          
 #  sales_order_id      :integer          
 #  sales_order_line_id :integer          
 #  started_on          :date             

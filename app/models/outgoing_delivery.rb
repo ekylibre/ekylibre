@@ -35,7 +35,6 @@
 #  planned_on       :date             
 #  pretax_amount    :decimal(16, 2)   default(0.0), not null
 #  reference_number :string(255)      
-#  sales_invoice_id :integer          
 #  sales_order_id   :integer          not null
 #  transport_id     :integer          
 #  transporter_id   :integer          
@@ -50,7 +49,6 @@ class OutgoingDelivery < ActiveRecord::Base
   attr_readonly :company_id, :sales_order_id, :number
   belongs_to :company 
   belongs_to :contact
-  belongs_to :sales_invoice
   belongs_to :mode, :class_name=>OutgoingDeliveryMode.name
   belongs_to :sales_order
   belongs_to :transport

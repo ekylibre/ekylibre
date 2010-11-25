@@ -20,7 +20,7 @@
 # 
 # == Table: sales_order_lines
 #
-#  account_id          :integer          not null
+#  account_id          :integer          
 #  amount              :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
@@ -28,10 +28,10 @@
 #  creator_id          :integer          
 #  entity_id           :integer          
 #  id                  :integer          not null, primary key
-#  invoiced            :boolean          not null
 #  label               :text             
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
+#  origin_id           :integer          
 #  position            :integer          
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  price_amount        :decimal(16, 2)   
@@ -42,7 +42,7 @@
 #  reduction_percent   :decimal(16, 2)   default(0.0), not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
-#  unit_id             :integer          not null
+#  unit_id             :integer          
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #  warehouse_id        :integer          
@@ -51,32 +51,27 @@
 # == Fixture: sales_order_lines
 #
 # sales_order_lines_001:
-#   account_id: 1
 #   amount: 0
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
-#   invoiced: true
 #   order_id: 1
 #   pretax_amount: 0
 #   price_id: 1
 #   product_id: 1
 #   quantity: 0
 #   reduction_percent: 0
-#   unit_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
 sales_order_lines_001:
-  account_id: 1
   amount: 0
   pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
-  invoiced: true
   order_id: 1
   price_id: 1
   product_id: 1
@@ -86,14 +81,12 @@ sales_order_lines_001:
   updater_id: 1
 
 sales_order_lines_002:
-  account_id: 1
   amount: 0
   pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
-  invoiced: false
   order_id: 1
   price_id: 1
   product_id: 1
@@ -103,14 +96,12 @@ sales_order_lines_002:
   updater_id: 1
 
 sales_order_lines_003:
-  account_id: 1
   amount: 0
   pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
-  invoiced: false
   order_id: 2
   price_id: 1
   product_id: 1
@@ -120,14 +111,12 @@ sales_order_lines_003:
   updater_id: 1
 
 sales_order_lines_004:
-  account_id: 1
   amount: 0
   pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 4
-  invoiced: false
   order_id: 3
   price_id: 1
   product_id: 1

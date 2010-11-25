@@ -113,15 +113,13 @@ class OutgoingPayment < ActiveRecord::Base
     return total
   end
 
-  # Use the minimum amount to pay the expense
-  # If the payment is a downpayment, we look at the total unpaid amount
+  # Use the maximum available amount to pay the expense
   def pay(expense, options={})
     raise Exception.new("Expense must be PurchaseOrder (not #{expense.class.name})") unless expense.class.name == PurchaseOrder.name
-    downpayment = options[:downpayment]
     OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
     self.reload
-    use_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
-    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
+    use_amount = [expense.unpaid_amount, self.unused_amount].min
+    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
     if use.errors.size > 0
       errors.add_from_record(use)
       return false

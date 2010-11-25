@@ -95,19 +95,20 @@ class Entity < ActiveRecord::Base
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
   has_many :events
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity_2_id
-  has_many :sales_invoices, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :mandates
   has_many :observations
   has_many :prices
+  has_many :purchase_invoices, :class_name=>"PurchaseOrder", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
   has_many :purchase_orders, :foreign_key=>:supplier_id
   has_many :outgoing_payments, :foreign_key=>:payee_id
+  has_many :sales_invoices, :class_name=>"SalesOrder", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
   has_many :sales_orders, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :incoming_payments, :foreign_key=>:payer_id
   has_many :subscriptions
   has_many :trackings, :foreign_key=>:producer_id
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
-  validates_presence_of :category_id
+  validates_presence_of :category
   validates_uniqueness_of :code, :scope=>:company_id
 
 
@@ -154,10 +155,6 @@ class Entity < ActiveRecord::Base
     self.created_at.to_date
   end
 
-  #
-  def last_sales_invoice
-    self.sales_invoices.find(:first, :order=>"created_at DESC")
-  end
   
   def last_incoming_payment
     self.incoming_payments.find(:first, :order=>"updated_at DESC")
@@ -169,29 +166,16 @@ class Entity < ActiveRecord::Base
     amount += self.incoming_payments.sum(:amount)
     amount -= self.sales_invoices.sum(:amount)
     amount -= self.outgoing_payments.sum(:amount)
-    amount += self.purchase_orders.where(:state => [:invoiced, :finished]).sum(:amount)
+    amount += self.purchase_invoices.sum(:amount)
     return amount
   end
-
-  def reverse_balance
-    self.balance*-1
-  end
-
-#   def default_contact
-#     if self.contacts.size>0
-#       self.contacts.find_by_default(true)
-#     else
-#       nil
-#     end
-#   end
 
   def has_another_tracking?(serial, product_id)
     self.trackings.find(:all, :conditions=>["serial=? AND product_id!=? ", serial, product_id]).size > 0
   end
 
 
-  # This method creates automatically an account for the entity
-  # , suffix=nil
+  # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
     natures = {:client=>:client_account, :supplier=>:supplier_account, :attorney=>:attorney_account}
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature

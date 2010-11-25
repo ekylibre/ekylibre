@@ -20,7 +20,7 @@
 # 
 # == Table: sales_order_lines
 #
-#  account_id          :integer          not null
+#  account_id          :integer          
 #  amount              :decimal(16, 2)   default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
@@ -28,10 +28,10 @@
 #  creator_id          :integer          
 #  entity_id           :integer          
 #  id                  :integer          not null, primary key
-#  invoiced            :boolean          not null
 #  label               :text             
 #  lock_version        :integer          default(0), not null
 #  order_id            :integer          not null
+#  origin_id           :integer          
 #  position            :integer          
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  price_amount        :decimal(16, 2)   
@@ -42,7 +42,7 @@
 #  reduction_percent   :decimal(16, 2)   default(0.0), not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
-#  unit_id             :integer          not null
+#  unit_id             :integer          
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #  warehouse_id        :integer          

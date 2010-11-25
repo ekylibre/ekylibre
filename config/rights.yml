@@ -89,7 +89,11 @@ build_production_chains:
 # Cancel sales_invoices
 cancel_sales_invoices:
   controller: management
-  actions: [credit_lines_kame, index, sales_invoice_cancel, sales_invoices]
+  actions:
+  - credit_lines_kame # UNEXISTENT ACTION !!!
+  - index
+  - sales_invoice_cancel # UNEXISTENT ACTION !!!
+  - sales_invoices # UNEXISTENT ACTION !!!
 # Change prices on sales
 change_prices_on_sales_orders:
   controller: management
@@ -136,7 +140,7 @@ consult_entities:
   - entity_incoming_payments_kame
   - entity_outgoing_payments_kame
   - entity_purchase_orders_kame
-  - entity_sales_invoices_kame
+  - entity_sales_invoices_kame # UNEXISTENT ACTION !!!
   - entity_sales_orders_kame
   - entity_subscriptions_kame
   - index
@@ -169,11 +173,11 @@ consult_sales_invoices:
   controller: management
   actions:
   - index
-  - sales_invoice
-  - sales_invoice_credits_kame
-  - sales_invoice_lines_kame
-  - sales_invoices
-  - sales_invoices_kame
+  - sales_invoice # UNEXISTENT ACTION !!!
+  - sales_invoice_credits_kame # UNEXISTENT ACTION !!!
+  - sales_invoice_lines_kame # UNEXISTENT ACTION !!!
+  - sales_invoices # UNEXISTENT ACTION !!!
+  - sales_invoices_kame # UNEXISTENT ACTION !!!
 # Consult the sales
 consult_sales_orders:
   controller: management
@@ -181,7 +185,7 @@ consult_sales_orders:
   - index
   - sales_order
   - sales_order_deliveries_kame
-  - sales_order_invoices_kame
+  - sales_order_invoices_kame # UNEXISTENT ACTION !!!
   - sales_order_lines_kame
   - sales_order_payment_uses_kame
   - sales_order_undelivered_lines_kame
@@ -360,7 +364,7 @@ manage_entities:
   - entity_incoming_payments_kame
   - entity_mandates_kame
   - entity_purchase_orders_kame
-  - entity_sales_invoices_kame
+  - entity_sales_invoices_kame # UNEXISTENT ACTION !!!
   - entity_sales_orders_kame
   - entity_subscriptions_kame
   - entity_update

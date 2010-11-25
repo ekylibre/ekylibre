@@ -69,34 +69,29 @@ class PurchaseOrder < ActiveRecord::Base
 
   state_machine :state, :initial => :draft do
     state :draft
-    state :ready
+    state :estimate
     state :refused
-    state :processing
-    state :invoiced
-    state :finished
+    state :order
+    state :invoice
     state :aborted
     event :propose do
-      transition :draft => :ready, :if=>:has_content?
+      transition :draft => :estimate, :if=>:has_content?
     end
     event :correct do
-      transition [:ready, :refused, :processing] => :draft
-      transition :finished => :invoiced
+      transition [:estimate, :refused, :order] => :draft
     end
     event :refuse do
-      transition :ready => :refused, :if=>:has_content?
+      transition :estimate => :refused, :if=>:has_content?
     end
     event :confirm do
-      transition :ready => :processing, :if=>:has_content?
+      transition :estimate => :order, :if=>:has_content?
     end
     event :invoice do
-      transition :processing => :invoiced, :if=>:has_content?
-      transition :ready => :invoiced, :if=>:has_content?
-    end
-    event :finish do
-      transition :invoiced => :finished
+      transition :order => :invoice, :if=>:has_content?
+      transition :estimate => :invoice, :if=>:has_content?
     end
     event :abort do
-      transition [:draft, :ready] => :aborted # , :processing
+      transition [:draft, :estimate] => :aborted # , :order
     end
   end
 
@@ -120,11 +115,11 @@ class PurchaseOrder < ActiveRecord::Base
     return true
   end
 
-  # This method permits to add journal entries corresponding to the purchase order/sales_invoice
+  # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     # bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|
-    b.journal_entry(self.company.journal(:purchases), :if=>(self.invoiced? or self.finished?)) do |entry|
+    b.journal_entry(self.company.journal(:purchases), :if=>self.invoice?) do |entry|
       label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
@@ -154,7 +149,7 @@ class PurchaseOrder < ActiveRecord::Base
   end
 
   def deliverable?
-    self.undelivered(:amount) > 0 and not self.invoiced?
+    self.undelivered(:amount) > 0 and not self.invoice?
   end
   
 
@@ -198,7 +193,7 @@ class PurchaseOrder < ActiveRecord::Base
     tc('states.'+self.state.to_s)
   end
 
-  def unpaid_amount(all=true)
+  def unpaid_amount
     self.amount - self.paid_amount
   end
 

@@ -38,6 +38,7 @@
 
 
 class IncomingPaymentUse < ActiveRecord::Base
+  acts_as_reconcilable :client, :payer
   attr_readonly :company_id
   belongs_to :company
   belongs_to :expense, :polymorphic=>true
@@ -78,5 +79,7 @@ class IncomingPaymentUse < ActiveRecord::Base
   def real?
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
+
+
 
 end

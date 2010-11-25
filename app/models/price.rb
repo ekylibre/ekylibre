@@ -54,7 +54,6 @@ class Price < ActiveRecord::Base
   belongs_to :product
   belongs_to :tax
   has_many :outgoing_delivery_lines
-  has_many :sales_invoice_lines
   has_many :taxes
   has_many :purchase_order_lines
   has_many :sales_order_lines

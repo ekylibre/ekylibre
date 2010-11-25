@@ -2,16 +2,34 @@
   =form_tag do
     %table
       %tr
-        %td.label=tc(:start)
-        %td=calendar_field_tag(:start, session[:statistics_start], :size=>8)
-        %td.label=tc(:end)
-        %td=calendar_field_tag(:end, session[:statistics_end], :size=>8)
+        %td.crit
+          %span=tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe
         %td=submit_tag tg(:search_go)
-.menu
-  %ul
-    %li=tc(:x_sales_orders, :count=>@sales_orders_count)
-    -if @sales_orders_count > 0
-      %li=tc(:total_amount)+@sales_orders_amount.to_s
-      %li=tc(:total_invoiced_amount)+@invoiced_amount.to_s
-    -for event_nature in @event_natures
-      %li=h tc(:x_events_of_nature_y, :count=>event_nature['ecount'].to_i, :nature=>event_nature.name, :duration=>event_nature['esum'].to_i)
+
+
+-conditions = Proc.new{|x| ["#{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
+=unagi do |u|
+  -u.cell :x_sales_orders, :count=>@current_user.sales_orders.count(:id, :conditions=>conditions[:created_on]) do
+    %table.kame
+      %tr.total
+        %th=tc(:total_amount)
+        %td=number_to_management @current_user.sales_orders.sum(:amount, :conditions=>conditions[:created_on])
+      %tr.total
+        %th=tc(:total_invoiced_amount)
+        %td=number_to_management(invoiced_amount = @current_user.sales_invoices.sum(:amount, :conditions=>conditions[:invoiced_on]))
+      %tr.total
+        %th=tc(:total_paid_amount)
+        %td=number_to_management(paid_amount = @current_user.sales_orders.sum(:paid_amount, :conditions=>conditions[:created_on]))
+      %tr.total
+        %th=tc(:total_unpaid_amount)
+        %td=number_to_management (invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
+      %tr.total
+        %th=tc(:profitability)
+        %td=number_to_percentage 100*(paid_amount/invoiced_amount)
+  -started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
+  -cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
+  -u.cell :x_events, :count=>@current_user.events.count(:id, :conditions=>cond) do
+    %ul
+      -for event_nature in @current_company.event_natures
+        -cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
+        %li=h tc(:x_events_of_nature_y, :count=>@current_user.events.count(:id, :conditions=>cond).to_i, :nature=>event_nature.name, :duration=>@current_user.events.sum(:duration, :conditions=>cond).to_i)

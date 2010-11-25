@@ -32,23 +32,29 @@
 #  created_at          :datetime         not null
 #  created_on          :date             not null
 #  creator_id          :integer          
+#  credit              :boolean          not null
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
 #  downpayment_amount  :decimal(16, 2)   default(0.0), not null
-#  expiration_id       :integer          not null
-#  expired_on          :date             not null
+#  expiration_id       :integer          
+#  expired_on          :date             
 #  function_title      :string(255)      
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
+#  initial_number      :string(64)       
 #  introduction        :text             
 #  invoice_contact_id  :integer          
+#  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  nature_id           :integer          not null
+#  lost                :boolean          not null
+#  nature_id           :integer          
 #  number              :string(64)       not null
-#  paid_amount         :decimal(16, 2)   
+#  origin_id           :integer          
+#  paid_amount         :decimal(16, 2)   not null
 #  payment_delay_id    :integer          not null
+#  payment_on          :date             
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          

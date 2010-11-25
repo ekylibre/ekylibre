@@ -74,7 +74,7 @@ class AccountancyController < ApplicationController
   # this method displays the form to choose the journal and financial_year.
   def bookkeep
     params[:finish_bookkeeping_on] = (params[:finish_bookkeeping_on]||Date.today).to_date rescue Date.today
-    @natures = [:sales_invoice, :incoming_payment_use, :incoming_payment, :deposit, :purchase_order, :outgoing_payment_use, :outgoing_payment]
+    @natures = [:sales_order, :incoming_payment_use, :incoming_payment, :deposit, :purchase_order, :outgoing_payment_use, :outgoing_payment]
 
     if request.get?
       notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)

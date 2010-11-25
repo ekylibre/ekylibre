@@ -1322,10 +1322,13 @@ fra:
       states:
         aborted: 'Annulé'
         draft: 'Brouillon'
-        finished: 'Terminé'
-        invoiced: 'Facture reçue'
-        processing: 'En attente des livraisons...'
-        ready: 'Prêt à transmettre'
+        #>estimate: 'Estimate'
+        finished: 'Terminé' #!
+        #>invoice: 'Invoice'
+        invoiced: 'Facture reçue' #!
+        #>order: 'Order'
+        processing: 'En attente des livraisons...' #!
+        ready: 'Prêt à transmettre' #!
         refused: 'Refusé'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
@@ -1353,10 +1356,13 @@ fra:
       states:
         aborted: 'Annulée'
         draft: 'Brouillon'
-        finished: 'Terminée'
-        invoiced: 'Facturée'
-        processing: 'En cours...'
-        ready: 'Devis prêt'
+        #>estimate: 'Estimate'
+        finished: 'Terminée' #!
+        #>invoice: 'Invoice'
+        invoiced: 'Facturée' #!
+        #>order: 'Order'
+        processing: 'En cours...' #!
+        ready: 'Devis prêt' #!
         refused: 'Devis refusé'
     sales_order_line:
       can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible '

@@ -307,7 +307,6 @@ class RelationsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :start
     t.column :finish
-    t.column :number, :through=>:sales_invoice, :url=>{:action=>:sales_invoice, :controller=>:management}
     t.column :number, :through=>:sales_order, :url=>{:action=>:sales_order, :controller=>:management}
     t.column :address, :through=>:contact
     t.column :quantity, :datatype=>:decimal
@@ -321,7 +320,7 @@ class RelationsController < ApplicationController
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :state_label, :children=>false
-    t.column :pretax_amount
+    t.column :paid_amount, :children=>false
     t.column :amount
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
     t.action :sales_order_duplicate, :controller=>:management, :method=>:post
@@ -348,20 +347,20 @@ class RelationsController < ApplicationController
     t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure_you_want_to_delete 
   end
   
-  create_kame(:entity_sales_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:sales_invoice}, :children=>:label
-    t.column :number, :through=>:sales_order, :url=>{:controller=>:management, :action=>:sales_order}, :children=>false
-    # t.column :full_name, :through=>:client
-    # t.column :address, :through=>:contact
-    t.column :created_on, :children=>false
-    t.column :state_label, :through=>:sales_order, :children=>false
-    t.column :pretax_amount
-    t.column :amount
-    # t.column :credit
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
-    # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
-    # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
-  end
+#   create_kame(:entity_sales_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
+#     t.column :number, :url=>{:controller=>:management, :action=>:sales_invoice}, :children=>:label
+#     t.column :number, :through=>:sales_order, :url=>{:controller=>:management, :action=>:sales_order}, :children=>false
+#     # t.column :full_name, :through=>:client
+#     # t.column :address, :through=>:contact
+#     t.column :created_on, :children=>false
+#     t.column :state_label, :through=>:sales_order, :children=>false
+#     t.column :pretax_amount
+#     t.column :amount
+#     # t.column :credit
+#     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
+#     # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+#     # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+#   end
   
   create_kame(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :title

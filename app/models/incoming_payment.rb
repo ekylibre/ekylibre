@@ -43,7 +43,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             not null
+#  to_bank_on            :date             default(CURRENT_DATE), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #  used_amount           :decimal(16, 2)   not null
@@ -134,15 +134,13 @@ class IncomingPayment < ActiveRecord::Base
     return total
   end
 
-  # Use the minimum amount to pay the expense
-  # If the payment is a downpayment, we look at the total unpaid amount
+  # Use the maximum available amount to pay the expense between unpaid and unused amounts
   def pay(expense, options={})
     raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-    downpayment = options[:downpayment]
-    IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
+    self.uses.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id)
     self.reload
-    use_amount = [expense.unpaid_amount(!downpayment), self.unused_amount].min
-    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>downpayment)
+    use_amount = [expense.unpaid_amount, self.unused_amount].min
+    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
     if use.errors.size > 0
       errors.add_from_record(use)
       return false

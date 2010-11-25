@@ -63,7 +63,7 @@ class DocumentTemplate < ActiveRecord::Base
     :deposit =>          [ [:deposit, Deposit] ],
     :income_statement => [ [:financial_year, FinancialYear] ],
     :inventory =>        [ [:inventory, Inventory] ], 
-    :sales_invoice =>    [ [:sales_invoice, SalesInvoice] ],
+    :sales_invoice =>    [ [:sales_invoice, SalesOrder] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
     :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
     :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
@@ -149,7 +149,12 @@ class DocumentTemplate < ActiveRecord::Base
     
     company = self.company
     # Build the PDF data
-    pdf = eval(self.cache)
+    begin
+      pdf = eval(self.cache)
+    rescue
+      puts self.cache
+      raise
+    end
 
     # Archive the document if necessary
     document = self.archive(owner, pdf, :extension=>'pdf') if self.to_archive

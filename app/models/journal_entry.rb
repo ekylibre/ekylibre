@@ -51,11 +51,12 @@ class JournalEntry < ActiveRecord::Base
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
   has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>JournalEntryLine.name
-  has_many :sales_invoices, :dependent=>:nullify
   has_many :outgoing_payments, :dependent=>:nullify
   has_many :outgoing_payment_uses, :dependent=>:nullify
   has_many :incoming_payments, :dependent=>:nullify
   has_many :incoming_payment_uses, :dependent=>:nullify
+  has_many :purchases_orders, :dependent=>:nullify
+  has_many :sales_orders, :dependent=>:nullify
   validates_presence_of :currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :currency_rate, :greater_than=>0
@@ -277,6 +278,10 @@ class JournalEntry < ActiveRecord::Base
   #
   def add!(name, account, amount, options={})
     # return if amount == 0
+    if name.size > 255
+      omission = (options.delete(:omission)||"...").to_s
+      name = name[0..254-omission.size]+omission
+    end
     attributes = options.merge(:name=>name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
     # attributes[:currency_id] = self.journal.currency_id

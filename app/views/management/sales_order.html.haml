@@ -6,7 +6,7 @@
     -t.confirm @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
   -if @sales_order.can_invoice?
     -t.invoice @sales_order, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
-  -for event in [:propose, :finish, :correct, :refuse]
+  -for event in [:propose, :correct, :refuse]
     -t.send(event, @sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.send("can_#{event}?")
   -t.abort(@sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.can_abort?
   -t.print :sales_order, :id=>@sales_order.id

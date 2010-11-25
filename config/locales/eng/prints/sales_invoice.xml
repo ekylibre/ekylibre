@@ -17,7 +17,7 @@
       </part>
       <part height="40mm">
         <set>
-          <text value="À {{sales_invoice.company.default_contact.area/city_name?capitalize=true}}, le {{sales_invoice/created_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="À {{sales_invoice.company.default_contact.area/city_name?capitalize=true}}, le {{sales_invoice/invoiced_on?format=month_letter}}" left="100%" align="right"/>
         </set>
         <set if="!sales_invoice.credit">
           <text value="Facture n°{{sales_invoice/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>
@@ -66,7 +66,7 @@
       </part>
 -->
 
-      <part if="sales_invoice.sales_order.paid_amount&gt;0" height="14mm">
+      <part if="sales_invoice.paid_amount&gt;0" height="14mm">
         <set top="10mm">
           <text value="Règlements effectués"  bold="true"/>
         </set>
@@ -75,7 +75,7 @@
         </set>
       </part>
 
-      <table if="sales_invoice.sales_order.paid_amount&gt;0" collection="sales_invoice.sales_order.payment_uses" fixed="true">
+      <table if="sales_invoice.paid_amount&gt;0" collection="sales_invoice.payment_uses" fixed="true">
         <column label="Payé le" property="payment/paid_on" width="30mm"/>
         <column label="Banque" property="payment/bank" width="50mm"/>
         <column label="Numéro de compte" property="payment/account_number" width="40mm"/>
@@ -96,7 +96,7 @@
               <text if="sales_invoice.credit" value="Avoir n°{{sales_invoice/number}}" size="10" align="left"/>
             </set>
             <text value="Réf. Client : {{sales_invoice.client/code}}" top="4mm" align="left"/>
-            <text value="{{sales_invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="{{sales_invoice/invoiced_on?format=month_letter}}" size="10" left="50%" align="center"/>
             <text value="N° TVA Intracommunautaire : {{sales_invoice.company.entity/vat_number}} - SIREN : {{sales_invoice.company.entity/siren}} - Code APE : {{sales_invoice.company.entity/ean13}}" size="7" left="50%" align="center" top="6mm"/>
             <text value="Page 1 sur 1"  left="100%" align="right"/>
           </set>
@@ -123,7 +123,7 @@
               <text if="sales_invoice.credit" value="Avoir n°{{sales_invoice/number}}" size="10" align="left"/>
             </set>
             <text value="Réf. Client : {{sales_invoice.client/code}}" top="4mm" align="left"/>
-            <text value="{{sales_invoice/created_on?format=month_letter}}" size="10" left="50%" align="center"/>
+            <text value="{{sales_invoice/invoiced_on?format=month_letter}}" size="10" left="50%" align="center"/>
             <text value="N°TVA Intracommunautaire : {{sales_invoice.company.entity/vat_number}} - SIREN : {{sales_invoice.company.entity/siren}} - Code APE : {{sales_invoice.company.entity/activity_code}}" size="7" left="50%" align="center" top="6mm"/>
             <text value="Page 1 sur 1"  left="100%" align="right"/>
           </set>

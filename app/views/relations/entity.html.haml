@@ -56,16 +56,14 @@
     =toolbar do |t|
       -t.link(:sales_order_create, :controller=>:management, :client_id=>@entity.id)
     =kame(:entity_sales_orders)
-  -tb.tab(tl(:x_purchase_orders, :count=>@entity.purchase_orders.count)) do
-    =toolbar do |t|
-      -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
-    =kame(:entity_purchase_orders)
-  -tb.tab(tl(:x_sales_invoices, :count=>@entity.sales_invoices.count)) do
-    =kame(:entity_sales_invoices)
   -tb.tab(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
     =toolbar do |t|
       -t.link :incoming_payment_create,{:controller=>:management, :payer_id=>@entity.id}
     =kame(:entity_incoming_payments)
+  -tb.tab(tl(:x_purchase_orders, :count=>@entity.purchase_orders.count)) do
+    =toolbar do |t|
+      -t.link(:purchase_order_create, :controller=>:management, :supplier_id=>@entity.id)
+    =kame(:entity_purchase_orders)
   -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.size)) do
     =toolbar do |t|
       -t.link :outgoing_payment_create,{:controller=>:management, :payee_id=>@entity.id}

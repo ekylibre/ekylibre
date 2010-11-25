@@ -9,7 +9,6 @@ gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0.pre2'
 gem 'state_machine', :path => 'vendor/gems/state_machine-0.9.4'
 # gem 'ruby-graphviz', '>= 0.9.0'
-
 gem 'exception_notification', :path => 'vendor/gems/exception_notification-1.0.0', :require=>'exception_notifier'
 
 group :test do

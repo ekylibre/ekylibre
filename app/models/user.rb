@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
   has_many :events, :foreign_key=>:responsible_id
   has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
   has_many :preferences, :dependent=>:destroy
+  has_many :sales_invoices, :foreign_key=>:responsible_id, :class_name=>"SalesOrder", :conditions=>{:state=>:invoice}
   has_many :sales_orders, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id

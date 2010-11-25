@@ -291,8 +291,8 @@ eng:
       purchase_order: 'Purchase order'
       purchase_order_line: 'Purchase order line'
       role: 'Role'
-      sales_invoice: 'Sales invoice'
-      sales_invoice_line: 'Sales invoice line'
+      sales_invoice: 'Sales invoice' #!
+      sales_invoice_line: 'Sales invoice line' #!
       sales_order: 'Sales order'
       sales_order_line: 'Sales order line'
       sales_order_nature: 'Sales order type'
@@ -430,9 +430,9 @@ eng:
     creator: 'Creator' #!
     creator_id: 'Creator'
     credit: 'Credit'
-    credit_lines: 'Credit lines'
-    credited_quantity: 'Credited quantity'
-    credits: 'Credits'
+    credit_lines: 'Credit lines' #!
+    credited_quantity: 'Credited quantity' #!
+    credits: 'Credits' #!
     critic_quantity_min: 'Critic quantity min'
     crypt_key: 'Crypt key'
     crypt_mode: 'Crypt mode'
@@ -589,6 +589,7 @@ eng:
     incoming_payment_uses: 'Incoming payment parts'
     incoming_payments: 'Incoming payments'
     indirect_links: 'Indirect links'
+    #>initial_number: 'Initial number'
     integer_value: 'Integer value'
     introduction: 'Introduction'
     inventories: 'Inventories'
@@ -597,7 +598,8 @@ eng:
     inventory_lines: 'Inventory lines'
     invoice_contact: 'Sales invoice contact'
     invoice_contact_id: 'Sales invoice contact'
-    invoiced: 'Invoiced'
+    invoiced: 'Invoiced' #!
+    #>invoiced_on: 'Invoiced on'
     invoices_count: 'Invoices count'
     is_debit: 'Is debit'
     item_listing: 'Item listing'
@@ -701,7 +703,7 @@ eng:
     owner: 'Owner'
     owner_id: 'Owner'
     owner_type: 'Owner type'
-    paid: 'Paid'
+    paid: 'Paid' #!
     paid_account: 'Account paid'
     paid_account_id: 'Account paid'
     paid_amount: 'Paid amount'
@@ -819,9 +821,9 @@ eng:
     sales_account: 'Sales account'
     sales_account_id: 'Sales account'
     sales_conditions: 'Sales conditions'
-    sales_invoice: 'Sales invoice'
-    sales_invoice_id: 'Sales invoice'
-    sales_invoice_lines: 'Sales invoice lines'
+    sales_invoice: 'Sales invoice' #!
+    sales_invoice_id: 'Sales invoice' #!
+    sales_invoice_lines: 'Sales invoice lines' #!
     sales_invoices: 'Sales invoices'
     sales_invoices_count: 'Sales invoices count' #!
     sales_order: 'Sales order'
@@ -1313,21 +1315,20 @@ eng:
       states:
         aborted: 'Aborted'
         draft: 'Draft'
-        finished: 'Finished'
-        invoiced: 'Invoiced'
-        processing: 'Waiting...'
-        ready: 'Ready purchase order'
+        estimate: 'Estimate'
+        invoice: 'Invoice'
+        order: 'Order'
         refused: 'Refused purchase order'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       tracking: 'S/N: %{serial}'
-    sales_invoice:
-      bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
-      label:
-        credit: 'Credit %{number}'
+    sales_invoice: #!
+      bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})' #!
+      label: #!
+        credit: 'Credit %{number}' #!
         normal: 'Sales invoice %{number}'
-    sales_invoice_line:
+    sales_invoice_line: #!
       no_product: '[No product]'
     sales_order:
       label:
@@ -1344,10 +1345,9 @@ eng:
       states:
         aborted: 'Aborted'
         draft: 'Draft'
-        finished: 'Finished'
-        invoiced: 'Invoiced'
-        processing: 'Processing...'
-        ready: 'Ready estimate'
+        estimate: 'Estimate'
+        invoice: 'Invoice'
+        order: 'Order'
         refused: 'Refused estimate'
     sales_order_line:
       can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'

@@ -21,8 +21,7 @@ if ActiveRecord::Base.connection.adapter_name.lower == 'sqlserver'
   OutgoingDelivery.coerce_sqlserver_date :moved_on, :planned_on
   OutgoingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
   PurchaseOrder.coerce_sqlserver_date :confirmed_on, :created_on, :moved_on, :planned_on
-  SalesInvoice.coerce_sqlserver_date :created_on, :payment_on
-  SalesOrder.coerce_sqlserver_date :confirmed_on, :created_on, :expired_on
+  SalesOrder.coerce_sqlserver_date :confirmed_on, :created_on, :expired_on, :invoiced_on, :payment_on
   StockMove.coerce_sqlserver_date :moved_on, :planned_on
   StockTransfer.coerce_sqlserver_date :moved_on, :planned_on
   Subscription.coerce_sqlserver_date :started_on, :stopped_on

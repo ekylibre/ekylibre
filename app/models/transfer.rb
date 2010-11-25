@@ -73,7 +73,7 @@ class Transfer < ActiveRecord::Base
     self.supplier_id=value
   end
 
-  def unpaid_amount(options=nil)
+  def unpaid_amount
     self.amount - self.paid_amount
   end
 
