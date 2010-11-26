@@ -75,13 +75,13 @@ fra:
       purchase_order_line:
         order: 'Achat'
         order_id: 'Achat'
-      sales_invoice:
-        credit: 'Avoir'
-        lines: 'Lignes de facture'
-        origin: 'Facture d''origine'
-        origin_id: 'Facture d''origine'
-      sales_invoice_line:
-        origin_id: 'Ligne d''origine'
+      sales_invoice:  #!
+        credit: 'Avoir' #!
+        lines: 'Lignes de facture' #!
+        origin: 'Facture d''origine' #!
+        origin_id: 'Facture d''origine' #!
+      sales_invoice_line:  #!
+        origin_id: 'Ligne d''origine' #!
       sales_order:
         contact: 'Adresse pour le devis'
         contact_id: 'Adresse pour le devis'
@@ -508,8 +508,8 @@ fra:
     downpayment_amount: 'Montant de l''acompte'
     downpayment_minimum: 'Somme minimale'
     downpayment_rate: 'Taux acompte'
-    draft: 'Brouillard'
-    draft_mode: 'Mode brouillard'
+    draft: 'Brouillard' #!
+    draft_mode: 'Mode brouillard' #!
     duration: 'Durée'
     ean13: 'Code EAN13'
     email: 'Courriel (e-mail)'
@@ -596,6 +596,7 @@ fra:
     incoming_payment_uses: 'Parties d''encaissement'
     incoming_payments: 'Encaissements'
     indirect_links: 'Liens indirects'
+    initial_number: 'Numér initial'
     integer_value: 'Valeur entière'
     introduction: 'Introduction'
     inventories: 'Inventaires'
@@ -604,7 +605,8 @@ fra:
     inventory_lines: 'Lignes d''inventaire'
     invoice_contact: 'Adresse pour la facture'
     invoice_contact_id: 'Adresse pour la facture'
-    invoiced: 'Facturée'
+    invoiced: 'Facturée' #!
+    invoiced_on: 'Facturée le'
     invoices_count: 'Nombre de factures'
     is_debit: 'Débit'
     item_listing: 'Noeud de l''extraction'
@@ -716,8 +718,8 @@ fra:
     parent: 'Parent'
     parent_id: 'Parent'
     parent_land_parcel_id: 'Sur-îlot'
-    parts: 'Affectations'
-    parts_amount: 'Montant utilisé'
+    parts: 'Affectations' #!
+    parts_amount: 'Montant utilisé' #!
     password: 'Mot de passe'
     password_confirmation: 'Confirmation du mot de passe'
     payee: 'Bénéficiaire'
@@ -827,11 +829,11 @@ fra:
     sales_account: 'Compte comptable de produits'
     sales_account_id: 'Compte comptable de produits'
     sales_conditions: 'Conditions Générales de Vente'
-    sales_invoice: 'Facture'
-    sales_invoice_id: 'Facture'
-    sales_invoice_lines: 'Lignes de facture'
+    sales_invoice: 'Facture' #!
+    sales_invoice_id: 'Facture' #!
+    sales_invoice_lines: 'Lignes de facture' #!
     sales_invoices: 'Factures'
-    sales_invoices_count: 'Nombre de factures'
+    sales_invoices_count: 'Nombre de factures' #!
     sales_order: 'Vente'
     sales_order_id: 'Vente'
     sales_order_line_id: 'Ligne de vente'
@@ -1322,29 +1324,29 @@ fra:
       states:
         aborted: 'Annulé'
         draft: 'Brouillon'
-        #>estimate: 'Estimate'
-        finished: 'Terminé' #!
-        #>invoice: 'Invoice'
-        invoiced: 'Facture reçue' #!
-        #>order: 'Order'
-        processing: 'En attente des livraisons...' #!
-        ready: 'Prêt à transmettre' #!
+        estimate: 'Devis'
+        invoice: 'Facture'
+        order: 'Commande'
         refused: 'Refusé'
     purchase_order_line:
       name: '%{product} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) à %{amount}%{currency}/%{unit}'
       tracking: 'N°Lot : %{serial}'
     sales_invoice:
-      bookkeep: '[%{resource} %{number}] %{products} pour %{client} (%{sales_order})'
       label:
         credit: 'Avoir N°%{number}'
         normal: 'Facture N°%{number}'
     sales_invoice_line:
       no_product: '[Pas de produit]'
     sales_order:
+      bookkeep: '[%{resource} %{number}] %{products} pour %{client} (%{sales_order})'
       label:
-        estimate: 'Devis N°%{number}'
-        order: 'Commande N°%{number}'
+        aborted: 'Vente annulée %{number}'
+        draft: 'Brouillon %{number}'
+        estimate: 'Devis %{number}'
+        invoice: 'Facture %{number}'
+        order: 'Commande %{number}'
+        refused: 'Devis refusé %{number}'
       natures:
         estimate: 'Devis'
         order: 'Commande'
@@ -1356,13 +1358,9 @@ fra:
       states:
         aborted: 'Annulée'
         draft: 'Brouillon'
-        #>estimate: 'Estimate'
-        finished: 'Terminée' #!
-        #>invoice: 'Invoice'
-        invoiced: 'Facturée' #!
-        #>order: 'Order'
-        processing: 'En cours...' #!
-        ready: 'Devis prêt' #!
+        estimate: 'Devis'
+        invoice: 'Facture'
+        order: 'Commande'
         refused: 'Devis refusé'
     sales_order_line:
       can_not_use_this_tracking: 'Vous ne  pouvez pas utiliser le lot %{name}, la quantité commandée est supérieure à la quantité disponible '

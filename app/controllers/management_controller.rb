@@ -257,7 +257,7 @@ class ManagementController < ApplicationController
 #     #t.action :sales_invoice_bookkeep
 #     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
     
-#     t.action :sales_invoice_cancel, :if=>"RECORD.creditable\?"
+#     t.action :sales_order_cancel, :if=>"RECORD.creditable\?"
 #   end
 
 
@@ -279,79 +279,6 @@ class ManagementController < ApplicationController
 #   end
 
 
-#   create_kame(:credit_lines, :model=>:sales_invoice_lines, :conditions=>{:sales_invoice_id=>['session[:sales_invoice_id]']}) do |t|
-#     t.column :name, :through=>:product
-#     t.column :amount, :through=>:price, :label=>:column
-#     t.column :quantity
-#     t.column :credited_quantity, :datatype=>:decimal
-#     t.check_box  :validated, :value=>"true", :label=>'OK'
-#     t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
-#   end
-
-#   def sales_invoice_cancel
-#     return unless @sales_invoice = find_and_check(:sales_invoices)
-#     session[:sales_invoice_id] = @sales_invoice.id
-# #    @sales_invoice_cancel = SalesInvoice.find_by_origin_id_and_company_id(@sales_invoice.id, @current_company.id)
-# #     if @sales_invoice_cancel.nil?
-# #       @sales_invoice_cancel = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-# #       @sales_invoice_cancel_lines = @sales_invoice.lines.collect{|x| SalesInvoiceLine.new(:origin_id=>x.id, :product_id=>x.product_id, :price_id=>x.price_id, :quantity=>0, :company_id=>@current_company.id, :order_line_id=>x.order_line_id)}
-# #     else
-# #       @sales_invoice_cancel_lines = @sales_invoice_cancel.lines
-# #     end
-#     if request.post?
-#       ActiveRecord::Base.transaction do
-#         # session[:errors] = []
-#         params[:credit_lines] ||= {}
-#         @credit = SalesInvoice.new(:origin_id=>@sales_invoice.id, :client_id=>@sales_invoice.client_id, :credit=>true, :company_id=>@current_company.id)
-#         saved = @credit.save
-#         if saved
-#           for line in @sales_invoice.lines
-#             if params[:credit_lines][line.id.to_s]
-#               if params[:credit_lines][line.id.to_s][:validated].to_i == 1
-#                 # raise Exception.new [params[:credit_lines], 0-params[:credit_lines][line.id.to_s][:quantity].to_f].inspect
-#                 quantity = 0-params[:credit_lines][line.id.to_s][:quantity].to_f
-#                 puts ">>>>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
-#                 if quantity != 0.0
-#                   puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+quantity.to_s
-#                   credit_line = @credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id, :order_line_id=>line.order_line_id)
-#                   unless credit_line.save
-#                     saved = false
-#                     # session[:errors] << credit_line.errors.full_messages
-#                     @credit.errors.add_from_record(credit_line)
-#                   end
-#                   puts ">>>>>>>>>>>>>>>>><>>>>>>>>>>>>>>>>>>>>>> "+@credit.inspect
-#                 end
-#               end
-#             end
-#           end
-          
-#           if @credit.reload.amount == 0
-#             puts @credit.inspect
-#             notify(:need_quantities_to_cancel_an_sales_invoice, :error)
-#             raise ActiveRecord::Rollback 
-#           end
-
-# #           for cancel_line in @sales_invoice_cancel_lines
-# #             cancel_line.quantity -= (params[:sales_invoice_cancel_line][cancel_line.origin_id.to_s][:quantity].to_f)
-# #             cancel_line.sales_invoice_id = @sales_invoice_cancel.id
-# #             saved = false unless cancel_line.save
-# #           end
-#         end
-#         if saved
-#           @credit.bookkeep if @current_company.prefer_bookkeep_automatically?
-#           redirect_to :action=>:sales_invoice, :id=>@credit.id
-#         else
-# #           session[:errors] = []
-# #           for line in @sales_invoice_cancel_lines
-# #             session[:errors] << line.errors.full_messages if !line.errors.full_messages.empty?
-# #           end
-#           # redirect_to :action=>:sales_invoice_cancel, :id=>@sales_invoice.id
-#           raise ActiveRecord::Rollback
-#         end
-#       end
-#     end
-#     t3e @sales_invoice.attributes
-#   end
    
 
 #   create_kame(:sales_invoice_lines, :conditions=>{:company_id=>['@current_company.id'], :sales_invoice_id=>['session[:current_sales_invoice]']}) do |t|
@@ -359,14 +286,6 @@ class ManagementController < ApplicationController
 #     t.column :pretax_amount, :through=>:price
 #     t.column :amount, :through=>:price, :label=>:column
 #     t.column :quantity
-#     t.column :pretax_amount
-#     t.column :amount
-#   end
-
-#   create_kame(:sales_invoice_credits, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sales_invoice]'] }, :children=>:lines) do |t|
-#     t.column :number, :url=>{:action=>:sales_invoice}, :children=>:designation
-#     t.column :full_name, :through=>:client, :children=>false
-#     t.column :created_on, :children=>false
 #     t.column :pretax_amount
 #     t.column :amount
 #   end
@@ -1040,8 +959,9 @@ class ManagementController < ApplicationController
     t.column :state_label
     t.column :paid_amount
     t.column :amount
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
-    t.action :sales_order_update
+    t.action :sales_order, :url=>{:format=>:pdf}, :image=>:print
+    t.action :sales_order_update, :if=>'RECORD.draft? '
+    t.action :sales_order_cancel, :if=>'RECORD.cancelable? '
     t.action :sales_order_delete, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
   end
 
@@ -1106,17 +1026,6 @@ class ManagementController < ApplicationController
     t.action :outgoing_delivery_delete, :if=>'RECORD.sales_order.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-
-#   create_kame(:sales_order_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :sales_order_id=>['session[:current_sales_order_id]']}, :children=>:lines) do |t|
-#     t.column :number, :children=>:designation, :url=>{:action=>:sales_invoice}
-#     # t.column :address, :through=>:contact, :children=>:product_name
-#     t.column :full_name, :through=>:client, :children=>false, :url=>{:controller=>:relations, :action=>:entity}
-#     t.column :created_on, :children=>false
-#     t.column :pretax_amount
-#     t.column :amount
-#     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
-#   end
-
   create_kame(:sales_order_payment_uses, :model=>:incoming_payment_uses, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sales_order_id]'], SalesOrder.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:incoming_payment, :controller=>:finances}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:incoming_payment, :controller=>:finances}
@@ -1129,26 +1038,51 @@ class ManagementController < ApplicationController
     t.action :incoming_payment_use_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :controller=>:finances
   end
 
+  create_kame(:sales_order_credits, :model=>:sales_orders, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sales_order_id]'] }, :children=>:lines) do |t|
+    t.column :number, :url=>{:action=>:sales_order}, :children=>:designation
+    t.column :full_name, :through=>:client, :children=>false
+    t.column :created_on, :children=>false
+    t.column :pretax_amount
+    t.column :amount
+  end
+
     
   def sales_order
     return unless @sales_order = find_and_check(:sales_order)
-    session[:current_sales_order_id] = @sales_order.id
-    if params[:step] and not ["products", "deliveries", "summary"].include? params[:step]
-      state  = @sales_order.state
-      params[:step] = (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products).to_s
-    end
-    if params[:step] == "deliveries"
-      if @sales_order.deliveries.size <= 0 and @sales_order.order? and @sales_order.has_content?
-        redirect_to :action=>:outgoing_delivery_create, :sales_order_id=>@sales_order.id
-      elsif @sales_order.deliveries.size <= 0 and @sales_order.invoice?
-        notify(:sales_order_already_invoiced)
-      elsif @sales_order.lines.size <= 0
-        notify(:no_lines_found, :warning)
-        redirect_to :action=>:sales_order, :step=>:products, :id=>@sales_order.id
+    respond_to do |format|
+      format.html do
+        session[:current_sales_order_id] = @sales_order.id
+        if params[:step] and not ["products", "deliveries", "summary"].include? params[:step]
+          state  = @sales_order.state
+          params[:step] = (@sales_order.invoice? ? :summary : @sales_order.order? ? :deliveries : :products).to_s
+        end
+        if params[:step] == "deliveries"
+          if @sales_order.deliveries.size <= 0 and @sales_order.order? and @sales_order.has_content?
+            redirect_to :action=>:outgoing_delivery_create, :sales_order_id=>@sales_order.id
+          elsif @sales_order.deliveries.size <= 0 and @sales_order.invoice?
+            notify(:sales_order_already_invoiced)
+          elsif @sales_order.lines.size <= 0
+            notify(:no_lines_found, :warning)
+            redirect_to :action=>:sales_order, :step=>:products, :id=>@sales_order.id
+          end
+        end
+        t3e @sales_order.attributes, :client=>@sales_order.client.full_name, :state=>@sales_order.state_label, :label=>@sales_order.label
+      end
+      format.xml { render :xml => @sales_order.to_xml }
+      format.pdf do
+        headers["Cache-Control"] = 'maxage=3600'  
+        headers["Pragma"] = 'public'  
+        begin
+          p = HashWithIndifferentAccess.new(:id=>(@sales_order.invoice? ? :sales_invoice : :sales_order), :p0=>@sales_order.id)
+          data, filename = @current_company.print(p)
+          send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
+        rescue Exception=>e
+          notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message.to_s)
+          redirect_to_current
+        end
       end
     end
 
-    t3e @sales_order.attributes, :client=>@sales_order.client.full_name, :state=>@sales_order.state_label
   end
   
 
@@ -1218,6 +1152,35 @@ class ManagementController < ApplicationController
     render_form
   end
 
+  create_kame(:sales_order_creditable_lines, :model=>:sales_order_lines, :conditions=>{:order_id=>['session[:sales_order_id]']}) do |t|
+    t.column :label
+    t.column :annotation
+    t.column :name, :through=>:product
+    t.column :amount, :through=>:price, :label=>:column
+    t.column :quantity
+    t.column :credited_quantity, :datatype=>:decimal
+    t.check_box  :validated, :value=>"true", :label=>'OK'
+    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+  end
+
+  def sales_order_cancel
+    return unless @sales_order = find_and_check(:sales_order)
+    session[:sales_order_id] = @sales_order.id
+    if request.post?
+      lines = {}
+      params[:sales_order_creditable_lines].select{|k,v| v[:validated].to_i == 1}.collect{|k, v| lines[k] = v[:quantity].to_f }
+      if lines.empty?
+        notify(:need_quantities_to_cancel_an_sales_order, :error, :now)
+        return
+      end
+      if credit = @sales_order.cancel(lines)
+        redirect_to :action=>:sales_order, :id=>credit.id
+      end
+    end
+    t3e @sales_order.attributes
+  end
+
+
   def sales_order_delete
     return unless @sales_order = find_and_check(:sales_order)
     if request.post? or request.delete?
@@ -1231,20 +1194,6 @@ class ManagementController < ApplicationController
   end
   
 
-
-
-  def sales_order_line_detail
-    if request.xhr?
-      return unless price = find_and_check(:price)
-      @sales_order = @current_company.sales_orders.find_by_id(params[:order_id]) if params[:order_id]
-      @sales_order_line = @current_company.sales_order_lines.new(:product=>price.product, :price=>price, :price_amount=>0.0, :quantity=>1.0, :unit_id=>price.product.unit_id)
-      if @sales_order
-        @sales_order_line.order = @sales_order
-        @sales_order_line.reduction_percent = @sales_order.client.max_reduction_percent 
-      end
-      render :partial=>"sales_order_line_detail#{'_row' if params[:mode]=='row'}_form"
-    end
-  end
 
 
   def sales_order_abort
@@ -1300,14 +1249,6 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sales_order, :step=>:products, :id=>@sales_order.id
   end
 
-  def sales_order_finish
-    return unless @sales_order = find_and_check(:sales_order)
-    if request.post?
-      @sales_order.finish
-    end
-    redirect_to :action=>:sales_order, :step=>:summary, :id=>@sales_order.id
-  end
-
   def sales_order_duplicate
     return unless sales_order = find_and_check(:sales_order)
     if request.post?
@@ -1323,6 +1264,19 @@ class ManagementController < ApplicationController
   def subscription_message
     return unless price = find_and_check(:prices, params[:sales_order_line_price_id])
     @product = price.product
+  end
+
+  def sales_order_line_detail
+    if request.xhr?
+      return unless price = find_and_check(:price)
+      @sales_order = @current_company.sales_orders.find_by_id(params[:order_id]) if params[:order_id]
+      @sales_order_line = @current_company.sales_order_lines.new(:product=>price.product, :price=>price, :price_amount=>0.0, :quantity=>1.0, :unit_id=>price.product.unit_id)
+      if @sales_order
+        @sales_order_line.order = @sales_order
+        @sales_order_line.reduction_percent = @sales_order.client.max_reduction_percent 
+      end
+      render :partial=>"sales_order_line_detail#{'_row' if params[:mode]=='row'}_form"
+    end
   end
 
   dyli(:all_contacts, [:address], :model=>:contacts, :conditions => {:company_id=>['@current_company.id'], :active=>true})

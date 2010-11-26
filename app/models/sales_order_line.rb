@@ -58,6 +58,7 @@ class SalesOrderLine < ActiveRecord::Base
   belongs_to :entity
   belongs_to :warehouse
   belongs_to :order, :class_name=>SalesOrder.to_s
+  belongs_to :origin, :class_name=>SalesOrderLine.name
   belongs_to :price
   belongs_to :product
   belongs_to :reduction_origin, :class_name=>SalesOrderLine.to_s
@@ -66,6 +67,7 @@ class SalesOrderLine < ActiveRecord::Base
   belongs_to :unit
   has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:order_line_id
   has_one :reduction, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id
+  has_many :credits, :class_name=>SalesOrderLine.to_s, :foreign_key=>:origin_id
   has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
@@ -219,6 +221,14 @@ class SalesOrderLine < ActiveRecord::Base
 
   def taxes_amount
     self.amount - self.pretax_amount
+  end
+
+  def credited_quantity
+    self.credits.sum(:quantity)
+  end
+
+  def uncredited_quantity
+    self.quantity + self.credited_quantity
   end
 
 end

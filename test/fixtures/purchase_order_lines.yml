@@ -108,3 +108,36 @@ purchase_order_lines_003:
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
+
+purchase_order_lines_004:
+  account_id: 1
+  amount: 10
+  pretax_amount: 10
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 4
+  order_id: 3
+  price_id: 1
+  product_id: 1
+  quantity: 7
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+
+purchase_order_lines_005:
+  account_id: 1
+  amount: 17
+  pretax_amount: 26
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 5
+  order_id: 3
+  price_id: 1
+  product_id: 1
+  quantity: 9
+  unit_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1

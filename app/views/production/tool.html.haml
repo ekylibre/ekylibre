@@ -1,14 +1,11 @@
 =toolbar do |t|
   -t.update @tool
-%table
-  %tr
-    %td
-      =evalue @tool, :text_nature
-    %td
-      -#=evalue @tool, :consumption
-      =evalue @tool, :usage_duration, :duration=>:minutes
-      =evalue @tool, :remaining_duration, :duration=>:minutes
-      
+
+=attributes_list(@tool) do |l|
+  -l.attribute :text_nature
+  -# l.attribute :consumption
+  -l.attribute :usage_duration, :duration=>:minutes
+  -l.attribute :remaining_duration, :duration=>:minutes
 
 %h2=tc(:x_operations, :count=>@tool.uses.count)
 =kame(:tool_operations)

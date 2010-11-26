@@ -358,8 +358,8 @@ class RelationsController < ApplicationController
 #     t.column :amount
 #     # t.column :credit
 #     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_invoice}
-#     # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
-#     # t.action :controller=>:management, :sales_invoice_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+#     # t.action :controller=>:management, :sales_order_cancel, :if=>'RECORD.credit != true and @current_user.credits'
+#     # t.action :controller=>:management, :sales_order_cancel, :if=>'RECORD.credit != true and @current_user.credits'
 #   end
   
   create_kame(:entity_mandates, :model=>:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|

@@ -1,7 +1,8 @@
-=toolbar do
-  - link :delay_update, :id=>@delay.id
+=toolbar do |t|
+  -t.update @delay
 
-=evalue @delay, :name
-=evalue @delay, :active
-=evalue @delay, :expression
-=evalue @delay, :comment
+=attributes_list(@delay) do |l|
+  -l.attribute :name
+  -l.attribute :active
+  -l.attribute :expression
+  -l.attribute :comment

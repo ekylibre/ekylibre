@@ -116,9 +116,6 @@ module ApplicationHelper
        [ {:name=>:sales, :list=>
            [ {:name=>:sales_order_create},
              {:name=>:sales_orders},
-             {:name=>:sales_invoices},
-             {:name=>:incoming_payments},
-             {:name=>:deposits},
              {:name=>:transports},
              {:name=>:subscriptions},
              {:name=>:statistics}
@@ -127,7 +124,6 @@ module ApplicationHelper
            [ {:name=>:purchase_order_create},
              {:name=>:purchase_orders},
              {:name=>:incoming_deliveries},
-             {:name=>:outgoing_payments}
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
@@ -322,8 +318,8 @@ module ApplicationHelper
   end
   #
 
-  #
-  def evalue(object, attribute, options={})
+
+  def attribute_item(object, attribute, options={})
     value_class = 'value'
     if object.is_a? String
       label = object
@@ -348,6 +344,7 @@ module ApplicationHelper
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
     elsif value.is_a? Date
       value = ::I18n.localize(value)
+      value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
       duration = value
       duration = duration*60 if options[:duration]==:minutes
@@ -356,16 +353,28 @@ module ApplicationHelper
       minutes = (duration/60-60*hours).floor.to_i
       seconds = (duration - 60*minutes - 3600*hours).round.to_i
       value = tg(:duration_in_hours_and_minutes, :hours=>hours, :minutes=>minutes, :seconds=>seconds)
+      value = link_to(value.to_s, options[:url]) if options[:url]
+    elsif value.is_a? String
+      classes = []
+      classes << "code" if attribute.to_s == "code"
+      classes << value.class.name.underscore
+      value = link_to(value.to_s, options[:url]) if options[:url]
+      value = content_tag(:div, value.html_safe, :class=>classes.join(" "))
     end
-    value = link_to(value.to_s, options[:url]) if options[:url]
+    return label, value
+  end
 
+
+  #
+  def evalue(object, attribute, options={})
+    label, value = attribute_item(object, attribute, options={})
     if options[:orient] == :vertical
       code  = content_tag(:tr, content_tag(:td, label.to_s, :class=>:label))
-      code += content_tag(:tr, content_tag(:td, value.to_s, :class=>value_class))
+      code += content_tag(:tr, content_tag(:td, value.to_s, :class=>:value))
       return content_tag(:table, code, :class=>"evalue verti")
     else
       code  = content_tag(:td, label.to_s, :class=>:label)
-      code += content_tag(:td, value.to_s, :class=>value_class)
+      code += content_tag(:td, value.to_s, :class=>:value)
       return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
     end
   end
@@ -374,6 +383,7 @@ module ApplicationHelper
   def attributes_list(record, options={}, &block)
     columns = options[:columns] || 3
     attribute_list = AttributesList.new
+    raise ArgumentError.new("One parameter needed") unless block.arity == 1
     yield attribute_list if block_given?
     unless options[:without_stamp]
       attribute_list.attribute :creator
@@ -385,22 +395,39 @@ module ApplicationHelper
     code = ""
     size = attribute_list.items.size
     if size > 0
-      column_size = (size.to_f/columns.to_f).ceil
-      for c in 1..columns
-        column = ""
-        for i in 1..column_size
-          args = attribute_list.items.shift
-          break if args.nil?
-          if args[0] == :evalue
-            column += evalue(*args[1]) if args.is_a? Array
-          elsif args[0] == :attribute
-            column += evalue(record, *args[1]) if args.is_a? Array
-          end
+      column_height = (size.to_f/columns.to_f).ceil
+
+      column_height.times do |c|
+        line = ""
+        columns.times do |i|
+          args = attribute_list.items[i*column_height+c] # [c*columns+i]
+          next if args.nil?
+          label, value = if args[0] == :custom
+                           attribute_item(*args[1])
+                         elsif args[0] == :attribute
+                           attribute_item(record, *args[1])
+                         end
+          line += content_tag(:td, label, :class=>:label)+content_tag(:td, value, :class=>:value)
         end
-        code += content_tag(:td, column.html_safe)
+        code += content_tag(:tr, line.html_safe)
       end
-      code = content_tag(:tr, code.html_safe)
       code = content_tag(:table, code.html_safe, :class=>"attributes-list")
+
+#       for c in 1..columns
+#         column = ""
+#         for i in 1..column_height
+#           args = attribute_list.items.shift
+#           break if args.nil?
+#           if args[0] == :evalue
+#             column += evalue(*args[1]) if args.is_a? Array
+#           elsif args[0] == :attribute
+#             column += evalue(record, *args[1]) if args.is_a? Array
+#           end
+#         end
+#         code += content_tag(:td, column.html_safe)
+#       end
+#       code = content_tag(:tr, code.html_safe)
+#      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
     end
     return code.html_safe
   end
@@ -415,8 +442,8 @@ module ApplicationHelper
       @items << [:attribute, args]
     end
 
-    def evalue(*args)
-      @items << [:evalue, args]
+    def custom(*args)
+      @items << [:custom, args]
     end
 
   end    

@@ -165,15 +165,14 @@ arb:
       #>purchase_order_refuse: 'Refused order'
       purchase_order_update: 'تعديل الشراء : {{number}}'
       purchase_orders: 'المستريات'
-      sales_invoice: '{{nature}} {{number}}'
-      sales_invoice_cancel: 'مسالك شمولية الفاتورة {{number}}'
-      sales_invoices: 'الفواتير'
+      sales_invoice: '{{nature}} {{number}}' #!
+      sales_invoices: 'الفواتير' #!
       sales_order: 'تفاصيل البيع {{number}} للعميل {{client}}'
       #>sales_order_abort: 'Abort sale'
+      sales_order_cancel: 'مسالك شمولية الفاتورة {{number}}'
       sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
       #>sales_order_correct: 'Correct estimate'
       sales_order_create: 'بيع جديد'
-      #>sales_order_finish: 'Finish sale'
       sales_order_invoice: 'فوترة طلب البيع'
       sales_order_line_create: 'اضافة تصميم خطوط المنتج'
       sales_order_line_update: 'تعديل مسار طلب المنتج'
@@ -926,7 +925,6 @@ arb:
     sales: 'المبيعات' #!
     #>sales_conditions: 'Conditions of sales'
     sales_invoice: 'الفوترة'
-    sales_invoice_cancel: 'الغاء الفاتورة'
     sales_invoice_lines: 'تصميم الفاتورة'
     sales_invoice_number: 'فاتورة رقم'
     sales_invoice_print: 'طباعة الفاتورة'
@@ -938,6 +936,7 @@ arb:
       #>credits: 'Credits'
     sales_invoices_total: 'مجموع قيمة الفاتورة'
     sales_order: 'الطلبات'
+    sales_order_cancel: 'الغاء الفاتورة'
     sales_order_create: 'اضافة بيعة جديدة' #!
     sales_order_deliveries: 'تسليم الطلبات'
     sales_order_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
@@ -1222,6 +1221,7 @@ arb:
     journal_closed_on: '  ال{{journal}} تم اغلاقه في {{closed_on}} بشكل صحيح.'
     journal_entry_already_validated: 'قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه'
     journal_entry_has_been_saved: 'رقم السجل{{number}} تم تسجيله بشكل صحيح'
+    #>journal_entry_lines_marked_with_letter: 'Journal entry lines have been marked with letter %{letter}'
     journal_reopened_on: '{{journal}} تم اعادة فتحه في {{closed_on}} بشكل صحيح.'
     mails_are_sent: 'تم ارسال رسائل البريد الالكتروني'
     need_balanced_journal_to_tax_declaration: 'يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ'
@@ -1231,7 +1231,8 @@ arb:
     need_entries_to_point: 'لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي'
     need_journal_to_manage_tax_declaration: 'يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب'
     need_payment_mode_to_create_deposit: 'يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي'
-    need_quantities_to_cancel_an_sales_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة'
+    need_quantities_to_cancel_an_sales_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة' #!
+    #>need_quantities_to_cancel_an_sales_order: 'You must specify a quantity in order to cancel the sales invoice'
     need_stocks_to_create_inventories: 'يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد'
     need_stocks_warehouse_to_create_products: 'يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج'
     need_to_create_subscription_nature: 'يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك'
@@ -1266,7 +1267,7 @@ arb:
     sales_order_cannot_be_updated: 'الطلب غير قابل للتعديل'
     sales_order_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
     select_entries_to_letter_together: 'اختر الادخالات للكتابة معا ' #!
-    #>select_entries_to_mark_together: 'Select entries in order to letter them together'
+    #>select_entry_lines_to_mark_together: 'Select entry lines to mark together'
     specify_filter: 'اختر تطبيق تصفية واحدة كحد ادنى للبحث'
     specify_updates: 'يجب عليك تحديد حقل واحد كحد ادنى للتعديل'
     unavailable_model: '{{model}} غير متوفر أو غير موجود ({{id}})'

@@ -9,15 +9,22 @@
   -for event in [:propose, :correct, :refuse]
     -t.send(event, @sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.send("can_#{event}?")
   -t.abort(@sales_order, :method=>:post, :confirm=>tc(:are_you_sure)) if @sales_order.can_abort?
-  -t.print :sales_order, :id=>@sales_order.id
+  -if @sales_order.invoice?
+    -t.print :sales_invoice, :id=>@sales_order.id
+    -t.cancel @sales_order
+  -else
+    -t.print :sales_order, :id=>@sales_order.id
 
 =attributes_list(@sales_order) do |l|
   -l.attribute :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
   -l.attribute :number
+  -l.attribute :initial_number if @sales_order.invoice?
   -l.attribute :state_label
   -l.attribute :responsible, :label=>:full_name
   -l.attribute :created_on
   -l.attribute :confirmed_on
+  -l.attribute :invoiced_on
+  -l.attribute :origin, :url=>{:action=>:sales_order} if @sales_order.invoice? and @sales_order.origin
   -l.attribute :payment_delay, :label=>:name
   -l.attribute :nature
   -l.attribute :currency unless @sales_order.currency == @current_company.default_currency
@@ -26,6 +33,7 @@
   -l.attribute :delivery_contact, :label=>:address
   -l.attribute :invoice_contact, :label=>:address
   -l.attribute :letter_format
+  -l.attribute :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
   -if @sales_order.letter_format?
     -l.attribute :subject
     -l.attribute :function_title
@@ -56,7 +64,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
   =toolbar do |t|
-    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id, :controller=>:finances) unless @sales_order.finished?
+    -t.link(:incoming_payment_use_create, :expense_type=>:sales_order, :expense_id=>@sales_order.id, :controller=>:finances) unless @sales_order.unpaid_amount.zero?
   =kame :sales_order_payment_uses
 
       
@@ -69,11 +77,9 @@
   %h2=SalesOrder.human_attribute_name("deliveries")
   =kame :sales_order_deliveries
 
-
--if ["summary", ""].include? params[:step].to_s
-  %h2=SalesOrder.human_attribute_name(:sales_invoices)
-  =kame :sales_order_invoices
-
+-if ["products", "summary", ""].include? params[:step].to_s and @sales_order.credits.size > 0
+  %h2=tc :credits
+  =kame :sales_order_credits
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :financial_state

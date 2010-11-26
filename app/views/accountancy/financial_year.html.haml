@@ -3,10 +3,8 @@
   -t.print :income_statement, :id=>@financial_year.id
 
 %h2= tc 'general_informations'
-%table
-  %tr
-    %td
-      =evalue @financial_year, :started_on
-      =evalue @financial_year, :stopped_on
-    %td
-      =evalue @financial_year, :closed
+=attributes_list(@financial_year) do |l|
+  -l.attribute :started_on
+  -l.attribute :stopped_on
+  -l.attribute :closed
+  -l.attribute :code

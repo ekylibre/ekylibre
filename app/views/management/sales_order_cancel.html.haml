@@ -7,10 +7,10 @@
         -for error in session[:errors]
           %li=error.to_s
 
-=error_messages('sales_invoice', :object=>@credit) if @credit
+=error_messages('sales_order', :object=>@credit) if @credit
 
 =form_tag() do
-  =kame :credit_lines
+  =kame :sales_order_creditable_lines
   .actions
-    =submit_tag(tc('validate'), :action=>:sales_invoice_cancel)
+    =submit_tag(tc('validate'))
  

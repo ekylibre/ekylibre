@@ -76,13 +76,8 @@ spa:
       purchase_order_line:
         #>order: 'Purchase order'
         #>order_id: 'Purchase order'
-      sales_invoice:
-        #>credit: 'Credit'
-        #>lines: 'Sales invoice lines'
-        #>origin: 'Original sales invoice'
-        #>origin_id: 'Original sales invoice'
-      sales_invoice_line:
-        #>origin_id: 'Original line'
+      sales_invoice: #!
+      sales_invoice_line: #!
       sales_order:
         #>contact: 'Address for the estimate'
         #>contact_id: 'Address for the estimate'
@@ -292,8 +287,8 @@ spa:
       #>purchase_order: 'Purchase order'
       #>purchase_order_line: 'Purchase order line'
       #>role: 'Role'
-      #>sales_invoice: 'Sales invoice'
-      #>sales_invoice_line: 'Sales invoice line'
+      #>sales_invoice: ''
+      #>sales_invoice_line: ''
       #>sales_order: 'Sales order'
       #>sales_order_line: 'Sales order line'
       #>sales_order_nature: 'Sales order type'
@@ -502,8 +497,6 @@ spa:
     #>downpayment_amount: 'Downpayment amount'
     #>downpayment_minimum: 'Downpayment minimum'
     #>downpayment_rate: 'Downpayment rate'
-    #>draft: 'Draft'
-    #>draft_mode: 'Draft mode'
     #>duration: 'Duration'
     #>ean13: 'Ean13'
     #>email: 'Email'
@@ -590,6 +583,7 @@ spa:
     #>incoming_payment_uses: 'Incoming payment parts'
     #>incoming_payments: 'Incoming payments'
     #>indirect_links: 'Indirect links'
+    #>initial_number: 'Initial number'
     #>integer_value: 'Integer value'
     #>introduction: 'Introduction'
     #>inventories: 'Inventories'
@@ -598,7 +592,7 @@ spa:
     #>inventory_lines: 'Inventory lines'
     #>invoice_contact: 'Sales invoice contact'
     #>invoice_contact_id: 'Sales invoice contact'
-    #>invoiced: 'Invoiced'
+    #>invoiced_on: 'Invoiced on'
     #>invoices_count: 'Invoices count'
     #>is_debit: 'Is debit'
     #>item_listing: 'Item listing'
@@ -710,8 +704,6 @@ spa:
     #>parent: 'Parent'
     #>parent_id: 'Parent'
     #>parent_land_parcel_id: 'Parent land parcel'
-    #>parts: 'Parts'
-    #>parts_amount: 'Used amount'
     #>password: 'Password'
     #>password_confirmation: 'Confirmation of password'
     #>payee: 'Payee'
@@ -820,11 +812,7 @@ spa:
     #>sales_account: 'Sales account'
     #>sales_account_id: 'Sales account'
     #>sales_conditions: 'Sales conditions'
-    #>sales_invoice: 'Sales invoice'
-    #>sales_invoice_id: 'Sales invoice'
-    #>sales_invoice_lines: 'Sales invoice lines'
     #>sales_invoices: 'Sales invoices'
-    #>sales_invoices_count: 'Sales invoices count'
     #>sales_order: 'Sales order'
     #>sales_order_id: 'Sales order'
     #>sales_order_line_id: 'Sales order line'
@@ -1335,16 +1323,20 @@ spa:
       #>name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>tracking: 'S/N: %{serial}'
     sales_invoice:
-      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
       label:
         #>credit: 'Credit %{number}'
         #>normal: 'Sales invoice %{number}'
     sales_invoice_line:
       #>no_product: '[No product]'
     sales_order:
+      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
       label:
+        #>aborted: 'Aborted sale %{number}'
+        #>draft: 'Draft %{number}'
         #>estimate: 'Estimate %{number}'
-        #>order: 'Order %{number}'
+        #>invoice: 'Sales invoice %{number}'
+        #>order: 'Sales order %{number}'
+        #>refused: 'Refused estimate %{number}'
       natures:
         #>estimate: 'Estimate'
         #>order: 'Order'

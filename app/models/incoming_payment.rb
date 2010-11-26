@@ -43,7 +43,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #  used_amount           :decimal(16, 2)   not null
@@ -137,7 +137,7 @@ class IncomingPayment < ActiveRecord::Base
   # Use the maximum available amount to pay the expense between unpaid and unused amounts
   def pay(expense, options={})
     raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-    self.uses.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id)
+    IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
     self.reload
     use_amount = [expense.unpaid_amount, self.unused_amount].min
     use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])

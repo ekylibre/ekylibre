@@ -358,25 +358,23 @@ arb:
         unit_id: 'الوحدة' #!
       role:  #!
         created_at: 'انشأ في' #!
-      sales_invoice:
+      sales_invoice:  #!
         accounted_at: 'تمت محاسبتها يوم' #!
-        #>credit: 'Credit'
         currency_id: 'العملة' #!
         downpayment_amount: 'قيمة العربون' #!
-        #>lines: 'Sales invoice lines'
         nature: 'طبيعي' #!
-        origin: 'الفاتورة الاصلية'
-        origin_id: 'الفاتورة الاصلية'
+        origin: 'الفاتورة الاصلية' #!
+        origin_id: 'الفاتورة الاصلية' #!
         payment_delay: 'تأجيل تسديد الدفعة' #!
         payment_delay_id: 'تأجيل تسديد الدفعة ' #!
         sales_order_id: 'بيع' #!
         updated_at: 'نم تحديثه في' #!
-      sales_invoice_line:
+      sales_invoice_line:  #!
         created_at: 'انشأُت في' #!
         order_line: 'اساليب طلب البيع' #!
         order_line_id: 'اسوب طلب البيع' #!
         origin: 'الاساليب الاصلية ' #!
-        origin_id: 'الاسلوب الاصلي'
+        origin_id: 'الاسلوب الاصلي' #!
         position: 'موقف' #!
         price: 'السعر من دون الضرائب' #!
         price_id: 'العر من دون الضرائب' #!
@@ -890,8 +888,8 @@ arb:
     downpayment_amount: 'قيمة القسط'
     downpayment_minimum: 'الحد الادنى للمجموع'
     downpayment_rate: 'معدل القسط'
-    draft: 'المسودة'
-    draft_mode: 'نمط المسودة'
+    draft: 'المسودة' #!
+    draft_mode: 'نمط المسودة' #!
     duration: 'المدة'
     ean13: 'Ean13'
     email: 'عنوان البريد الالكتروني'
@@ -978,6 +976,7 @@ arb:
     incoming_payment_uses: 'اجزاء الدفعات'
     incoming_payments: 'الدفعات'
     indirect_links: 'روابط مباشرة'
+    #>initial_number: 'Initial number'
     integer_value: 'قيمة العدد الصحيح'
     introduction: 'المقدمة'
     inventories: 'عمليات الجرد'
@@ -986,7 +985,8 @@ arb:
     inventory_lines: 'طرق الجرد'
     invoice_contact: 'العنوان للفاتورة'
     invoice_contact_id: 'العنوان للفاتورة'
-    invoiced: 'مفوتر'
+    invoiced: 'مفوتر' #!
+    #>invoiced_on: 'Invoiced on'
     #>invoices_count: 'Invoices count'
     is_debit: 'مدين'
     item_listing: 'عقد الاستخراج'
@@ -1103,8 +1103,8 @@ arb:
     parent: 'النسب'
     parent_id: 'نسب'
     #>parent_land_parcel_id: 'Parent land parcel'
-    parts: 'الاجزاء'
-    parts_amount: 'القيمة المستخدمة'
+    parts: 'الاجزاء' #!
+    parts_amount: 'القيمة المستخدمة' #!
     password: 'كلمة المرور'
     password_confirmation: 'تأكيد كلمة السر'
     payee: 'المستفيد'
@@ -1217,12 +1217,12 @@ arb:
     sales_account: 'حساب المنتجات'
     sales_account_id: 'حساب المنتجات'
     sales_conditions: 'الشروط العامة للبيع'
-    sales_invoice: 'الفاتورة'
-    sales_invoice_id: 'فاتورة'
-    sales_invoice_lines: 'طرق تسديد الفاتورة'
+    sales_invoice: 'الفاتورة' #!
+    sales_invoice_id: 'فاتورة' #!
+    sales_invoice_lines: 'طرق تسديد الفاتورة' #!
     sales_invoiceable: 'يفوتر' #!
     sales_invoices: 'الفواتير'
-    sales_invoices_count: 'عدد الفواتير'
+    sales_invoices_count: 'عدد الفواتير' #!
     sales_order: 'طلب البيع'
     sales_order_id: 'طلب بيع'
     sales_order_line_id: 'طرق طلب البيع'
@@ -1791,16 +1791,21 @@ arb:
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}'
       tracking: 'رقم الحصة : %{serial}'
     sales_invoice:
-      bookkeep: '[%{resource} %{number}] %{products} لاجل %{client} (%{sales_order})'
+      bookkeep: '[%{resource} %{number}] %{products} لاجل %{client} (%{sales_order})' #!
       label:
         credit: 'مدخرات رقم%{number}'
         normal: 'فاتورة رقم%{number}'
     sales_invoice_line:
       no_product: '[لا لاي منتج]'
     sales_order:
+      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
       label:
+        #>aborted: 'Aborted sale %{number}'
+        #>draft: 'Draft %{number}'
         estimate: 'رقم التقدير%{number}'
+        #>invoice: 'Sales invoice %{number}'
         order: 'رقم الطلب%{number}'
+        #>refused: 'Refused estimate %{number}'
       natures:
         estimate: 'التقدير'
         order: 'طلب'

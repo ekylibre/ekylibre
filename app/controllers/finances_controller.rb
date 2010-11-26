@@ -44,7 +44,7 @@ class FinancesController < ApplicationController
   end
 
   create_kame(:cash_deposits, :model=>:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:deposit}
+    t.column :number, :url=>{:action=>:deposit}
     t.column :created_on
     t.column :payments_count
     t.column :amount
@@ -334,7 +334,7 @@ class FinancesController < ApplicationController
       return
     end
     return unless expense = find_and_check(expense_type, params[:expense_id]||session[:expense_id])
-    @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense)
+    @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense, :downpayment=>!expense.invoice?)
     if request.post?
       unless incoming_payment = @current_company.incoming_payments.find_by_id(params[:incoming_payment_use][:payment_id])
         @incoming_payment_use.errors.add(:payment_id, :required)

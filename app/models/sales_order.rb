@@ -68,9 +68,9 @@
 
 
 class SalesOrder < ActiveRecord::Base
-  acts_as_numbered
+  acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sales_order, r.updater_id)}
-  attr_readonly :company_id, :created_on, :number
+  attr_readonly :company_id, :created_on
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
   belongs_to :company
@@ -81,9 +81,11 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :invoice_contact, :class_name=>Contact.to_s
   belongs_to :journal_entry
   belongs_to :nature, :class_name=>SalesOrderNature.to_s
+  belongs_to :origin, :class_name=>SalesOrder.name
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
+  has_many :credits, :class_name=>SalesOrder.name, :foreign_key=>:origin_id
   has_many :deliveries, :class_name=>OutgoingDelivery.name, :dependent=>:destroy
   has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
@@ -201,7 +203,7 @@ class SalesOrder < ActiveRecord::Base
   # Confirm the sale order. This permits to reserve stocks before ship.
   # This method don't verify the stock moves.
   def confirm(validated_on=Date.today, *args)
-    return false unless self.can_confirm
+    return false unless self.can_confirm?
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
       line.product.reserve_outgoing_stock(:origin=>line, :planned_on=>self.created_on)
     end
@@ -236,6 +238,7 @@ class SalesOrder < ActiveRecord::Base
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(*args)
     return false unless self.can_invoice?
+    self.confirm
     ActiveRecord::Base.transaction do
       # Move real stocks
       for line in self.lines
@@ -248,6 +251,7 @@ class SalesOrder < ActiveRecord::Base
         self.number = sequence.next_value
       end
       self.save
+      self.client.add_event(:sales_invoice, self.updater_id)
       return super
     end
     return false
@@ -382,6 +386,37 @@ class SalesOrder < ActiveRecord::Base
     ps = p.join(", ")
   end
 
+  # Returns true if sale is cancelable as an invoice
+  def cancelable?
+    self.invoice? and self.amount + self.credits.sum(:amount) > 0
+  end
+
+  # Create a credit for the selected invoice? guarding the reference
+  def cancel(lines={})
+    lines = lines.delete_if{|k,v| v.zero?}
+    return false if !self.cancelable? or lines.size.zero?
+    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id)
+    ActiveRecord::Base.transaction do
+      if saved = credit.save
+        for line in self.lines.where(:id=>lines.keys)
+          quantity = -lines[line.id.to_s].abs
+          credit_line = credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id)
+          unless credit_line.save
+            saved = false
+            credit.errors.add_from_record(credit_line)
+          end
+        end
+      end
+      if saved
+        credit.reload
+        credit.propose!
+        credit.invoice!
+      else
+        raise ActiveRecord::Rollback
+      end
+    end
+    return credit
+  end
 
 end
 

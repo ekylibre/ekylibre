@@ -1,18 +1,14 @@
 =toolbar do |t|
   -t.update @operation
 
-%table
-  %tr
-    %td
-      =evalue @operation, :name
-      =evalue @operation, :nature, :label=>:name
-      =evalue @operation, :responsible, :label=>:label
-      =evalue @operation, :target, :label=>:name
-    %td
-      =evalue @operation, :planned_on
-      =evalue @operation, :moved_on
-      =evalue @operation, :tools_list
-
+=attributes_list(@operation) do |l|
+  -l.attribute :name
+  -l.attribute :nature, :label=>:name
+  -l.attribute :responsible, :label=>:label
+  -l.attribute :target, :label=>:name
+  -l.attribute :planned_on
+  -l.attribute :moved_on
+  -l.attribute :tools_list
 
 %h2=tc(:operation_lines)
 =kame(:operation_lines)

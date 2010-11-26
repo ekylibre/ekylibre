@@ -43,7 +43,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_on            :date             not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #  used_amount           :decimal(16, 2)   not null

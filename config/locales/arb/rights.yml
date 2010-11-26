@@ -14,7 +14,7 @@ arb:
     consult_prices: 'مراجعة الاسعار'
     consult_products: 'مراجعة المنتجات'
     consult_purchase_orders: 'مراجعة المشتريات'
-    consult_sales_invoices: 'مراجعة الفواتير'
+    consult_sales_invoices: 'مراجعة الفواتير' #!
     consult_sales_orders: 'مراجعة المبيعات'
     consult_stocks: 'مراجعة حالة الاسهم'
     consult_trackings: 'مراجعة المعلومات التتابعية'

@@ -261,6 +261,17 @@ table.invex tr td.space{ width: 8px }
 table.quick { margin: 0 8px 8px 8px; border-collapse: collapse; }
 table.quick td { padding: 0px 4px; }
 
+
+.attributes-list {  border-collapse: collapse; width: 100%; }
+.attributes-list tr td { border-bottom: 1px dotted #CCC; }
+.attributes-list .label, .attributes-list .value { padding:1px 4px;  vertical-align: middle; }
+.attributes-list .code { font-family: "Liberation Mono", monospace; }
+.attributes-list .label { color: #777; }
+.attributes-list .value .string { max-height: 3em; overflow-y: auto;}
+html[dir="ltr"] .attributes-list .label { text-align: right; }
+html[dir="rtl"] .attributes-list .label { text-align: left; }
+
+
 .evalue { border-collapse: collapse; border-bottom: 1px dotted #CCC; margin: 0px 4px; }
 .evalue .label, .evalue .value { padding:1px 4px;  vertical-align: middle; }
 .evalue .code { font-family: "Liberation Mono", monospace; }

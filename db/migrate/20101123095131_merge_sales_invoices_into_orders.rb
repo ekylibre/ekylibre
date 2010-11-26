@@ -5,6 +5,10 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
   ORDER_LINES = {:outgoing_delivery_lines=>:order_line_id, :sales_order_lines=>:reduction_origin_id, :subscriptions=>:sales_order_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   MERGES = [:subscriptions, :outgoing_deliveries]
   POLYMORPHICS= {:documents=>:owner, :incoming_payment_uses=>:expense, :journal_entries=>:resource, :operations=>:target, :preferences=>:record_value, :stocks=>:origin, :stock_moves=>:origin}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  TEMPLATES = {
+    'sales_invoice/created_on' => 'sales_invoice/invoiced_on',
+    'sales_invoice.sales_order' => 'sales_invoice'
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
 
   # Minimum columns
   SI = [:accounted_at, :amount, :annotation, :client_id, :company_id, :contact_id, :created_at, :creator_id, :credit, :currency_id, :downpayment_amount, :has_downpayment, :journal_entry_id, :lock_version, :lost, :number, :origin_id, :payment_delay_id, :payment_on, :pretax_amount, :sales_order_id, :updated_at, :updater_id]
@@ -160,11 +164,15 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     drop_table :sales_invoices
     drop_table :sales_invoice_lines
 
-    execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, 'sales_invoice/created_on', 'sales_invoice/invoiced_on')"
-    execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, 'sales_invoice.sales_order', 'sales_invoice')"
+    for o, n in TEMPLATES
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
+    end
   end
 
   def self.down
+    for n, o in TEMPLATES.reverse
+      execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
+    end
     
     create_table :sales_invoice_lines do |t|
       t.integer  "order_line_id"

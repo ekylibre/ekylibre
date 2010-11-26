@@ -45,11 +45,6 @@ rename() {
 	move "config/locales/${locale}/help/$controller-${old}s.txt" "config/locales/${locale}/help/$controller-${new}s.txt"
     done
     
-#     move "config/locales/arb/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
-#     move "config/locales/eng/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
-#     move "config/locales/fra/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
-#     move "config/locales/jpn/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
-#     move "config/locales/spa/help/$controller-$old.txt" "config/locales/fra/help/$controller-$new.txt"
 }
 
 rename $controller $old $new

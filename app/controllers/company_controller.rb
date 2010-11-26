@@ -627,7 +627,7 @@ class CompanyController < ApplicationController
     rescue Exception=>e
       notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message.to_s)
       # (Rails.env=="development" ? e.inspect+e.backtrace.join("\n") :
-      redirect_to_back
+      redirect_to_current
     end
   end
   

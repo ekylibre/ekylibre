@@ -1,11 +1,12 @@
-= toolbar do
-  - link :product_category_update, :id=>@product_category.id
+=toolbar do |t|
+  -t.update @product_category
 
-=evalue @product_category, :name
-=evalue @product_category, :parent, :url=>{:action=>:product_category}
-=evalue @product_category, :comment
-=evalue @product_category, :catalog_name
-=evalue @product_category, :catalog_description
+=attributes_list(@product_category) do |l|
+  -l.attribute :name
+  -l.attribute :parent, :url=>{:action=>:product_category}
+  -l.attribute :comment
+  -l.attribute :catalog_name
+  -l.attribute :catalog_description
 
 %h2=tc(:products)
 =kame :product_category_products

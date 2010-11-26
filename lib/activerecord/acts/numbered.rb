@@ -17,7 +17,7 @@ module ActiveRecord
           sequence = options[:sequence] || "#{self.name.underscore.pluralize}_sequence"
           code = ""
 
-          code += "attr_readonly :#{column}\n"
+          code += "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
 
           code += "validates_presence_of :#{column}\n"
 

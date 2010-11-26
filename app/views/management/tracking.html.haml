@@ -1,11 +1,8 @@
-%table
-  %tr
-    %td
-      =evalue @tracking, :name
-      =evalue @tracking, :serial
-    %td
-      =evalue @tracking, :producer, :url=>{:action=>:entity, :controller=>:relations}
-      =evalue @tracking, :product, :url=>{:action=>:product}
+=attributes_list(@tracking) do |l|
+  -l.attribute :name
+  -l.attribute :serial
+  -l.attribute :producer, :url=>{:action=>:entity, :controller=>:relations}
+  -l.attribute :product, :url=>{:action=>:product}
 
 -if @tracking.stocks.size > 0
   %h2=tc(:stocks)

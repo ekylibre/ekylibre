@@ -165,15 +165,14 @@ spa:
       #>purchase_order_refuse: 'Refused order'
       #>purchase_order_update: 'Edit the purchase order: %{number}'
       #>purchase_orders: 'Purchase orders'
-      sales_invoice: '%{nature} %{number}'
-      sales_invoice_cancel: 'Paso en activo de la factura %{number}'
-      sales_invoices: 'Facturas'
-      #>sales_order: 'Sales order %{number} - %{state}'
+      sales_invoice: '%{nature} %{number}' #!
+      sales_invoices: 'Facturas' #!
+      #>sales_order: '%{label} for %{client}'
       #>sales_order_abort: 'Abort sale'
+      sales_order_cancel: 'Paso en activo de la factura %{number}'
       #>sales_order_confirm: 'Confirm estimate and go to deliveries'
       #>sales_order_correct: 'Correct estimate'
       #>sales_order_create: 'New sales order'
-      #>sales_order_finish: 'Finish sale'
       #>sales_order_invoice: 'Invoice sales order'
       #>sales_order_line_create: 'Add a new line of product'
       #>sales_order_line_update: 'Edit sales order line'
@@ -883,7 +882,6 @@ spa:
     sales: 'Exportar un cuadro de ventas al formato CSV' #!
     #>sales_conditions: 'Conditions of sales'
     sales_invoice: 'Facturas'
-    sales_invoice_cancel: 'Hacer un activo sobre une factura'
     sales_invoice_lines: 'Lineas de factura'
     #>sales_invoice_number: 'Sales invoice'
     sales_invoice_print: 'Imprimir la factura'
@@ -895,6 +893,7 @@ spa:
       #>credits: 'Credits'
     #>sales_invoices_total: 'Sales invoices total'
     sales_order: 'Encargos'
+    sales_order_cancel: 'Hacer un activo sobre une factura'
     #>sales_order_deliveries: 'Deliveries'
     #>sales_order_line_create: 'Add a product to estimate (Full mode)'
     #>sales_order_lines: 'Edit sales order'
@@ -1163,6 +1162,7 @@ spa:
     journal_closed_on: 'El %{periodico} ha sido cerrado al %{fecha de cerre} correctamente.'
     #>journal_entry_already_validated: 'The record has already been validated and can not be changed'
     #>journal_entry_has_been_saved: 'The record %{number} has been successfully saved'
+    #>journal_entry_lines_marked_with_letter: 'Journal entry lines have been marked with letter %{letter}'
     journal_record_already_validated: 'La pieza ya ha sido validada y ya no puede ser modificada' #!
     journal_record_has_been_saved: 'La pieza N°%{number} ha sido registrada correctamente' #!
     journal_reopened_on: 'El %{periodico} ha sido cerrado %{fecha de cerre} correctamente.'
@@ -1174,7 +1174,8 @@ spa:
     need_entries_to_point: 'Ninguna escritura ha sido encontrada por el periodo de la lista bancaria.'
     need_journal_to_manage_tax_declaration: 'Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar dclaraciones de tasa.'
     need_payment_mode_to_create_deposit: 'Se debe especifiar una forma de pago para hacer une entrega en banco'
-    need_quantities_to_cancel_an_sales_invoice: 'Se debe especifiar una quantidad para hacer un haber'
+    need_quantities_to_cancel_an_sales_invoice: 'Se debe especifiar una quantidad para hacer un haber' #!
+    #>need_quantities_to_cancel_an_sales_order: 'You must specify a quantity in order to cancel the sales invoice'
     need_stocks_to_create_inventories: 'Se debe administrar los depositos a lo menos de un producto para hacer un inventario'
     need_stocks_warehouse_to_create_products: 'Se debe crear un lugar de almacenamiento para crear un producto'
     need_to_create_subscription_nature: 'se debe crear un tipo de abono para administrar los abonos'
@@ -1209,7 +1210,7 @@ spa:
     sales_order_cannot_be_updated: 'El presupuesto ya no esta modificable.'
     sales_order_cant_be_deleted: 'La venta no puede ser suprimida'
     select_entries_to_letter_together: 'Escroge escroturas para latrarlas juntas' #!
-    #>select_entries_to_mark_together: 'Select entries in order to letter them together'
+    #>select_entry_lines_to_mark_together: 'Select entry lines to mark together'
     specify_filter: 'Se debe escoger aplicar a lo menos un filtro de busqueda'
     specify_updates: 'Se debe especifiar a la menos un campo a modifiar'
     unavailable_model: '%{model} indisponible o inexistente (%{id})'
