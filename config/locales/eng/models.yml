@@ -284,8 +284,8 @@ eng:
       purchase_order: 'Purchase order'
       purchase_order_line: 'Purchase order line'
       role: 'Role'
-      sales_invoice: ''
-      sales_invoice_line: ''
+      sales_invoice: '' #!
+      sales_invoice_line: '' #!
       sales_order: 'Sales order'
       sales_order_line: 'Sales order line'
       sales_order_nature: 'Sales order type'
@@ -1307,11 +1307,11 @@ eng:
       name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       tracking: 'S/N: %{serial}'
-    sales_invoice:
-      label:
-        credit: 'Credit %{number}'
+    sales_invoice: #!
+      label: #!
+        credit: 'Credit %{number}' #!
         normal: 'Sales invoice %{number}'
-    sales_invoice_line:
+    sales_invoice_line: #!
       no_product: '[No product]'
     sales_order:
       bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'

@@ -616,6 +616,8 @@ html[dir="rtl"] .bmenu ul { right: -1px; }
 .treemap .plot.odd { background: #D7F1C9; }
 .treemap .plot.even { background: #C9F1D7; }
 .treemap .plot ul.operations { padding: 2px 2px 2px 20px; }
+.treemap .plot.selected {background: Highlight; color: HighlightText; }
+.treemap .plot.selected * { color: HighlightText; }
 
 
 table.kame tr.aborted td, table.kame tr.refused td { text-decoration: line-through; }

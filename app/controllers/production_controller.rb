@@ -69,6 +69,11 @@ class ProductionController < ApplicationController
 
   def land_parcels
     session[:viewed_on] = (params[:viewed_on]||session[:viewed_on]).to_date rescue Date.today
+    if request.post?
+      land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
+      child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
+      redirect_to(:action=>:land_parcel, :id=>child.id) if child
+    end
   end
 
   manage :land_parcels, :started_on=>"Date.today"

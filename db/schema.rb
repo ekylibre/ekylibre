@@ -44,7 +44,6 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.string   "name",         :limit => 208,                    :null => false
     t.string   "label",                                          :null => false
     t.boolean  "is_debit",                    :default => false, :null => false
-    t.string   "last_letter",  :limit => 8
     t.text     "comment"
     t.integer  "company_id",                                     :null => false
     t.datetime "created_at",                                     :null => false
@@ -52,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                :default => 0,     :null => false
+    t.string   "last_letter"
     t.boolean  "reconcilable",                :default => false, :null => false
   end
 
@@ -1797,7 +1797,6 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.decimal  "pretax_amount",       :precision => 16, :scale => 2, :default => 0.0, :null => false
     t.decimal  "amount",              :precision => 16, :scale => 2, :default => 0.0, :null => false
     t.integer  "position"
-    t.integer  "account_id"
     t.integer  "company_id",                                                          :null => false
     t.datetime "created_at",                                                          :null => false
     t.datetime "updated_at",                                                          :null => false
@@ -1813,6 +1812,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.text     "label"
     t.integer  "tracking_id"
     t.decimal  "reduction_percent",   :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.integer  "account_id"
     t.integer  "origin_id"
   end
 

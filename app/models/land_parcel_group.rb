@@ -41,8 +41,9 @@ class LandParcelGroup < ActiveRecord::Base
 
   def area(computed_on=Date.today)
     sum = 0
-    for land_parcel in self.land_parcels_on(computed_on)
-      sum += land_parcel.area
+    parcels = self.land_parcels_on(computed_on)
+    for land_parcel in parcels
+      sum += land_parcel.area(parcels[0].area_unit)
     end
     return sum
   end
