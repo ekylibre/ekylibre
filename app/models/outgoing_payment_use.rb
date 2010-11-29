@@ -40,7 +40,7 @@ class OutgoingPaymentUse < ActiveRecord::Base
   acts_as_reconcilable :supplier, :payee
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :expense, :class_name=>PurchaseOrder.name
+  belongs_to :expense, :class_name=>Purchase.name
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>OutgoingPayment.name
 

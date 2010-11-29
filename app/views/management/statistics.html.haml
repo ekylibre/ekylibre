@@ -15,11 +15,11 @@
           %label=tc("data_to_export")
           -for x in [:quantity, :pretax_amount, :amount]
             =radio_button_tag "mode", x
-            %label{:for=>"mode_#{x}"}=SalesOrderLine.human_attribute_name(x)
+            %label{:for=>"mode_#{x}"}=SaleLine.human_attribute_name(x)
       %tr
         %td.crit
           %label=tc("source")
-          -for x in [:sales_invoices, :sales_orders]
+          -for x in [:sales_invoices, :sales]
             =radio_button_tag "source", x
             %label{:for=>"source_#{x}"}=tc(x)
 

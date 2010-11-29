@@ -9,6 +9,13 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     'sales_invoice/created_on' => 'sales_invoice/invoiced_on',
     'sales_invoice.sales_order' => 'sales_invoice'
   }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  RENAMED_TABLES = {
+    :sales_orders=>:sales, 
+    :sales_order_lines=>:sale_lines,
+    :sales_order_natures=>:sale_natures,
+    :purchase_orders=>:purchases,
+    :purchase_order_lines=>:purchase_lines
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
 
   # Minimum columns
   SI = [:accounted_at, :amount, :annotation, :client_id, :company_id, :contact_id, :created_at, :creator_id, :credit, :currency_id, :downpayment_amount, :has_downpayment, :journal_entry_id, :lock_version, :lost, :number, :origin_id, :payment_delay_id, :payment_on, :pretax_amount, :sales_order_id, :updated_at, :updater_id]
@@ -164,6 +171,22 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     drop_table :sales_invoices
     drop_table :sales_invoice_lines
 
+    for o, n in RENAMED_TABLES
+      rename_table o, n
+      for table, column in POLYMORPHICS
+        execute "UPDATE #{quoted_table_name(table)} SET #{column}_type='#{n.to_s.classify}' WHERE #{column}_type = '#{o.to_s.classify}'"
+      end
+    end
+    rename_column :incoming_deliveries, :purchase_order_id, :purchase_id
+    rename_column :incoming_delivery_lines, :order_line_id, :purchase_line_id
+    rename_column :outgoing_deliveries, :sales_order_id, :sale_id
+    rename_column :outgoing_delivery_lines, :order_line_id, :sale_line_id
+    rename_column :purchase_lines, :order_id, :purchase_id
+    rename_column :sale_lines, :order_id, :sale_id
+    rename_column :subscriptions, :sales_order_id, :sale_id
+    rename_column :subscriptions, :sales_order_line_id, :sale_line_id
+    rename_column :transports, :purchase_order_id, :purchase_id
+
     for o, n in TEMPLATES
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
     end
@@ -172,6 +195,23 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
   def self.down
     for n, o in TEMPLATES.reverse
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
+    end
+
+    rename_column :transports, :purchase_id, :purchase_order_id
+    rename_column :subscriptions, :sale_line_id, :sales_order_line_id
+    rename_column :subscriptions, :sale_id, :sales_order_id
+    rename_column :sale_lines, :sale_id, :order_id
+    rename_column :purchase_lines, :purchase_id, :order_id
+    rename_column :outgoing_delivery_lines, :sale_line_id, :order_line_id
+    rename_column :outgoing_deliveries, :sale_id, :sales_order_id
+    rename_column :incoming_delivery_lines, :purchase_line_id, :order_line_id
+    rename_column :incoming_deliveries, :purchase_id, :purchase_order_id
+
+    for n, o in RENAMED_TABLES.reverse
+      for table, column in POLYMORPHICS.reverse
+        execute "UPDATE #{quoted_table_name(table)} SET #{column}_type='#{n.to_s.classify}' WHERE #{column}_type = '#{o.to_s.classify}'"
+      end
+      rename_table o, n
     end
     
     create_table :sales_invoice_lines do |t|

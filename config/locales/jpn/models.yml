@@ -67,29 +67,29 @@ jpn:
         #>published: 'Published'
       profession:
         #>employees: 'Employees'
-      purchase_order:
+      purchase:
         #>label: 'Purchase order'
         #>lines: 'Purhase order lines'
         #>moved_on: 'Recevied on'
         #>payment_uses: 'Parts of disbursements'
         #>planned_on: 'Reception on'
-      purchase_order_line:
+      purchase_line:
         #>order: 'Purchase order'
         #>order_id: 'Purchase order'
-      sales_invoice: #!
-      sales_invoice_line: #!
-      sales_order:
+      sale:
         #>contact: 'Address for the estimate'
         #>contact_id: 'Address for the estimate'
         #>has_downpayment: 'Request a downpayment'
         #>lines: 'Sales order lines'
         #>payments: 'Incoming payments'
-      sales_order_line:
+      sale_line:
         #>label: 'Product'
         #>price: 'Product'
         #>price_id: 'Product'
-      sales_order_nature:
+      sale_nature:
         #>downpayment: 'Request downpayment'
+      sales_invoice: #!
+      sales_invoice_line: #!
       stock:
         #>quantity: 'Real quantity'
       stock_move:
@@ -189,12 +189,12 @@ jpn:
         price:
           #>already_defined: 'A price is already defined for this list and this product'
           #>range_overlap: 'The range overlaps an other(from %{min} to %{max})'
-        purchase_order_line:
+        purchase_line:
           #>serial_already_used_with_an_other_product: '%{attribute} has been already used for an other product of the same supplier'
           #>warehouse_can_not_receive_product: 'The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}.'
-        sales_order_line:
+        sale_line:
           #>can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
-          #>currency_is_not_sales_order_currency: 'Currency is not identical to the sales order currency'
+          #>currency_is_not_sale_currency: 'Currency is not identical to the sales order currency'
           #>error_no_found_price: 'No found price'
           #>warehouse_can_not_transfer_product: '%{product} can not be found in %{warehouse}, it only contains %{contained_product}.'
         stock:
@@ -284,14 +284,14 @@ jpn:
       #>production_chain_work_center: 'Production chain work center'
       #>production_chain_work_center_use: 'Production chain work center use'
       #>profession: 'Profession'
-      #>purchase_order: 'Purchase order'
-      #>purchase_order_line: 'Purchase order line'
+      #>purchase: 'Purchase order'
+      #>purchase_line: 'Purchase order line'
       #>role: 'Role'
+      #>sale: 'Sales order'
+      #>sale_line: 'Sales order line'
+      #>sale_nature: 'Sales order type'
       #>sales_invoice: ''
       #>sales_invoice_line: ''
-      #>sales_order: 'Sales order'
-      #>sales_order_line: 'Sales order line'
-      #>sales_order_nature: 'Sales order type'
       #>sequence: 'Sequence'
       #>stock: 'Stock'
       #>stock_move: 'Stock move'
@@ -760,9 +760,9 @@ jpn:
     #>proposer_id: 'Proposer'
     #>prospect: 'Prospect'
     #>published: 'Published'
-    #>purchase_order_id: 'Purchase order'
-    #>purchase_order_lines: 'Purchase order lines'
-    #>purchase_orders: 'Purchase orders'
+    #>purchase_id: 'Purchase order'
+    #>purchase_lines: 'Purchase order lines'
+    #>purchases: 'Purchase orders'
     #>purchases_account: 'Purchases account'
     #>purchases_account_id: 'Purchases account'
     #>quantity: 'Quantity'
@@ -809,16 +809,16 @@ jpn:
     #>rome: 'Rome'
     #>root_model: 'Root model'
     #>root_model_name: 'Root model name'
+    #>sale: 'Sales order'
+    #>sale_id: 'Sales order'
+    #>sale_line_id: 'Sales order line'
+    #>sale_lines: 'Sales order lines'
+    #>sale_natures: 'Sales order types'
+    #>sales: 'Sales orders'
     #>sales_account: 'Sales account'
     #>sales_account_id: 'Sales account'
     #>sales_conditions: 'Sales conditions'
     #>sales_invoices: 'Sales invoices'
-    #>sales_order: 'Sales order'
-    #>sales_order_id: 'Sales order'
-    #>sales_order_line_id: 'Sales order line'
-    #>sales_order_lines: 'Sales order lines'
-    #>sales_order_natures: 'Sales order types'
-    #>sales_orders: 'Sales orders'
     #>salt: 'Salt'
     #>scheduled: 'Scheduled'
     #>second_move_id: 'Second move'
@@ -1000,13 +1000,13 @@ jpn:
               #>filename: 'Deposit [number]'
             inventory:
               #>filename: 'Inventory [number]'
-            purchase_order:
+            purchase:
               #>filename: 'Purchase order [number]'
+            sale:
+              #>filename: 'Sales order [number]'
             sales_invoice:
               #>filename: 'Sales invoice [number]'
               #>to_archive: 'true'
-            sales_order:
-              #>filename: 'Sales order [number]'
             stocks:
               #>filename: 'Stocks'
             transport:
@@ -1017,9 +1017,9 @@ jpn:
         document_templates_filenames: #!
         #>establishment_name: 'Default establishment'
         event_natures:
-          #>purchase_order: 'Creation of a purchase order'
+          #>purchase: 'Creation of a purchase order'
+          #>sale: 'Creation of a sales order'
           #>sales_invoice: 'Creation of an sales invoice'
-          #>sales_order: 'Creation of a sales order'
         incoming_payment_modes:
           cash:
             #>name: 'Cash'
@@ -1045,7 +1045,7 @@ jpn:
           name:
             #>admin: 'Manager'
             #>public: 'Public (no rights)'
-        #>sales_order_nature_name: 'Standard'
+        #>sale_nature_name: 'Standard'
         sequences:
           accountancy: #!
           cash_transfers:
@@ -1076,19 +1076,19 @@ jpn:
             #>format: 'D[year|4][number|4]'
             #>name: 'Numeration of payments'
             #>period: 'year'
-          purchase_orders:
+          purchases:
             #>format: 'PO[year|4][month|2][number|4]'
             #>name: 'Numeration of purchases'
             #>period: 'month'
           relations: #!
+          sales:
+            #>format: 'SO[year|4][month|2][number|6]'
+            #>name: 'Numeration of sales'
+            #>period: 'month'
           sales_invoices:
             #>format: 'F[year|4][number|6]'
             #>name: 'Numeration of sales invoices'
             #>period: 'year'
-          sales_orders:
-            #>format: 'SO[year|4][month|2][number|6]'
-            #>name: 'Numeration of sales'
-            #>period: 'month'
           subscriptions:
             #>format: 'SUB[number|8]'
             #>name: 'Numeration of subscriptions'
@@ -1129,7 +1129,7 @@ jpn:
       import:
         #>dont_use: '-- Do not use --'
         #>generate_string_complement: '-- Create a personalized field (text) --'
-      #>sales_orders: 'Sales orders'
+      #>sales: 'Sales orders'
     complement: #!
     contact:
       #>error_modify_contact: 'The contact can not be updated.'
@@ -1174,9 +1174,9 @@ jpn:
         #>inventory: 'Inventory'
         #>journal: 'Journal'
         #>other: 'Other'
-        #>purchase_order: 'Purchase order'
+        #>purchase: 'Purchase order'
+        #>sale: 'Sales order'
         #>sales_invoice: 'Sales invoice'
-        #>sales_order: 'Sales order'
         #>stocks: 'Stocks'
         #>transport: 'Transport'
       #>unvalid_nature: 'Unvalid type of document template.'
@@ -1187,9 +1187,9 @@ jpn:
       usages:
         #>mailing: 'Mailing'
         #>manual: 'Manual'
-        #>purchase_order: 'Creation of a purchase'
+        #>purchase: 'Creation of a purchase'
+        #>sale: 'Creation of a sales order'
         #>sales_invoice: 'Creation of a sales invoice'
-        #>sales_order: 'Creation of a sales order'
     financial_year:
       code:
         #>double: 'FY%{first_year}/%{second_year}'
@@ -1307,7 +1307,7 @@ jpn:
       natures:
         #>input: 'One in, many out'
         #>output: 'Many in, one out'
-    purchase_order:
+    purchase:
       #>bookkeep: '[%{resource} %{number}] %{products} of %{supplier}'
       #>label: '%{supplier} at %{address}'
       #>purchase: 'Purchase'
@@ -1318,18 +1318,12 @@ jpn:
         #>invoice: 'Invoice'
         #>order: 'Order'
         #>refused: 'Refused purchase order'
-    purchase_order_line:
+    purchase_line:
       #>name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
       #>tracking: 'S/N: %{serial}'
-    sales_invoice:
-      label:
-        #>credit: 'Credit %{number}'
-        #>normal: 'Sales invoice %{number}'
-    sales_invoice_line:
-      #>no_product: '[No product]'
-    sales_order:
-      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sales_order})'
+    sale:
+      #>bookkeep: '[%{resource} %{number}] %{products} for %{client} (%{sale})'
       label:
         #>aborted: 'Aborted sale %{number}'
         #>draft: 'Draft %{number}'
@@ -1352,12 +1346,18 @@ jpn:
         #>invoice: 'Invoice'
         #>order: 'Order'
         #>refused: 'Refused estimate'
-    sales_order_line:
+    sale_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
-      #>currency_is_not_sales_order_currency: 'The currency of the price differs from the sales order currency'
+      #>currency_is_not_sale_currency: 'The currency of the price differs from the sales order currency'
       #>reduction_on: 'Discount of %{percent}%  on %{product}'
       #>tracking: 'S/N: %{serial}'
       #>warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
+    sales_invoice:
+      label:
+        #>credit: 'Credit %{number}'
+        #>normal: 'Sales invoice %{number}'
+    sales_invoice_line:
+      #>no_product: '[No product]'
     sequence:
       periods:
         #>cweek: 'Commercial week'

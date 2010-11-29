@@ -1,0 +1,12 @@
+%fieldset.quick-add
+  %legend=tc :add_quickly_a_line
+  =form_tag(:action=>:sale_line_create) do 
+    %table.quick
+      %tr
+        %td=SaleLine.human_attribute_name("product")
+        %td#detail-row{:rowspan=>2}=render :partial=>"sale_line_detail_row_form"
+        %td{:rowspan=>2}=submit_tag(tg(:add))
+      %tr
+        %td=dyli_tag("sale_line[price_id]", :available_prices)
+
+=observe_field("sale_line_price_id", :update=>"detail-row", :url=>{:action=>:sale_line_detail, :sale_id=>@sale.id, :mode=>:row}, :frequency => 0.25, :with=>"id", :loading=>"onLoading()", :loaded=>"onLoaded()")

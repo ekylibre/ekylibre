@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: purchase_order_lines
+# == Table: purchase_lines
 #
 #  account_id      :integer          not null
 #  amount          :decimal(16, 2)   default(0.0), not null
@@ -28,11 +28,11 @@
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  order_id        :integer          not null
 #  position        :integer          
 #  pretax_amount   :decimal(16, 2)   default(0.0), not null
 #  price_id        :integer          not null
 #  product_id      :integer          not null
+#  purchase_id     :integer          not null
 #  quantity        :decimal(16, 4)   default(1.0), not null
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      
@@ -45,7 +45,7 @@
 
 require 'test_helper'
 
-class PurchaseOrderLineTest < ActiveSupport::TestCase
+class PurchaseLineTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   def test_truth
     assert true

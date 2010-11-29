@@ -47,16 +47,16 @@ class ResourcesController < ApplicationController
     t.action :event_delete, :controller=>:relations, :method=>:delete, :confirm=>:are_you_sure
   end
 
-  create_kame(:employee_sales_orders, :model=>:sales_orders, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'created_on desc') do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:sales_order_lines}
+  create_kame(:employee_sales, :model=>:sales, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'created_on desc') do |t|
+    t.column :number, :url=>{:controller=>:management, :action=>:sale_lines}
     t.column :created_on
     t.column :full_name, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}
     t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>"client_code"
     t.column :state_label
     t.column :pretax_amount
     t.column :amount
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sales_order}
-    t.action :sales_order_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure
+    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale}
+    t.action :sale_delete ,:controller=>:management,  :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure
   end
 
    create_kame(:employee_land_parcel_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|

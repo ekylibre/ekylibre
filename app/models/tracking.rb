@@ -44,8 +44,8 @@ class Tracking < ActiveRecord::Base
   has_many :outgoing_delivery_lines
   has_many :inventory_lines
   has_many :stocks
-  has_many :purchase_order_lines
-  has_many :sales_order_lines
+  has_many :purchase_lines
+  has_many :sale_lines
   has_many :operation_lines
   has_many :stock_moves
   has_many :stock_transfers
@@ -64,7 +64,7 @@ class Tracking < ActiveRecord::Base
   def update_serials
     # Update tracking_serial columns through all the database
     OperationLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
-    PurchaseOrderLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
+    PurchaseLine.update_all({:tracking_serial=>self.serial}, {:tracking_id=>self.id})
   end
 
 end

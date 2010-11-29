@@ -9,17 +9,17 @@
 
 -conditions = Proc.new{|x| ["#{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
 =unagi do |u|
-  -u.cell :x_sales_orders, :count=>@current_user.sales_orders.count(:id, :conditions=>conditions[:created_on]) do
+  -u.cell :x_sales, :count=>@current_user.sales.count(:id, :conditions=>conditions[:created_on]) do
     %table.kame
       %tr.total
         %th=tc(:total_amount)
-        %td=number_to_management @current_user.sales_orders.sum(:amount, :conditions=>conditions[:created_on])
+        %td=number_to_management @current_user.sales.sum(:amount, :conditions=>conditions[:created_on])
       %tr.total
         %th=tc(:total_invoiced_amount)
         %td=number_to_management(invoiced_amount = @current_user.sales_invoices.sum(:amount, :conditions=>conditions[:invoiced_on]))
       %tr.total
         %th=tc(:total_paid_amount)
-        %td=number_to_management(paid_amount = @current_user.sales_orders.sum(:paid_amount, :conditions=>conditions[:created_on]))
+        %td=number_to_management(paid_amount = @current_user.sales.sum(:paid_amount, :conditions=>conditions[:created_on]))
       %tr.total
         %th=tc(:total_unpaid_amount)
         %td=number_to_management (invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))

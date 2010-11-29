@@ -32,9 +32,9 @@ management.deposits.days_before_warning_unvalidated,integer,15
 management.deposits.numeration,record,sequence
 management.incoming_deliveries.numeration,record,sequence
 management.incoming_payments.numeration,record,sequence
-management.purchase_orders.numeration,record,sequence
+management.purchases.numeration,record,sequence
 management.outgoing_deliveries.numeration,record,sequence
 management.outgoing_payments.numeration,record,sequence
-management.sales_orders.numeration,record,sequence
+management.sales.numeration,record,sequence
 management.subscriptions.numeration,record,sequence
 relations.entities.numeration,record,sequence

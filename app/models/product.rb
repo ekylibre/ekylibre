@@ -77,10 +77,10 @@ class Product < ActiveRecord::Base
   has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
   has_many :outgoing_delivery_lines
   has_many :prices
-  has_many :purchase_order_lines
+  has_many :purchase_lines
   # TODO rename warehouses to reservoirs
   has_many :warehouses, :conditions=>{:reservoir=>true}
-  has_many :sales_order_lines
+  has_many :sale_lines
   has_many :stock_moves
   has_many :stock_transfers
   has_many :stocks

@@ -20,25 +20,25 @@
 # 
 # == Table: incoming_deliveries
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  contact_id        :integer          
-#  created_at        :datetime         not null
-#  creator_id        :integer          
-#  currency_id       :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  mode_id           :integer          
-#  moved_on          :date             
-#  number            :string(255)      
-#  planned_on        :date             
-#  pretax_amount     :decimal(16, 2)   default(0.0), not null
-#  purchase_order_id :integer          
-#  reference_number  :string(255)      
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  weight            :decimal(16, 4)   
+#  amount           :decimal(16, 2)   default(0.0), not null
+#  comment          :text             
+#  company_id       :integer          not null
+#  contact_id       :integer          
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  currency_id      :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  mode_id          :integer          
+#  moved_on         :date             
+#  number           :string(255)      
+#  planned_on       :date             
+#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  purchase_id      :integer          
+#  reference_number :string(255)      
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
+#  weight           :decimal(16, 4)   
 #
 
 
@@ -49,14 +49,14 @@ class IncomingDelivery < ActiveRecord::Base
   belongs_to :company
   belongs_to :currency
   belongs_to :mode, :class_name=>IncomingDeliveryMode.name
-  belongs_to :purchase_order
+  belongs_to :purchase
   has_many :lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
 
   validates_presence_of :planned_on
 
   before_validation do
-    self.company_id = self.purchase_order.company_id if self.purchase_order
+    self.company_id = self.purchase.company_id if self.purchase
 #     self.pretax_amount = self.amount = self.weight = 0.0
 #     for line in self.lines
 #       self.pretax_amount += line.pretax_amount

@@ -63,18 +63,18 @@ class DocumentTemplate < ActiveRecord::Base
     :deposit =>          [ [:deposit, Deposit] ],
     :income_statement => [ [:financial_year, FinancialYear] ],
     :inventory =>        [ [:inventory, Inventory] ], 
-    :sales_invoice =>    [ [:sales_invoice, SalesOrder] ],
+    :sales_invoice =>    [ [:sales_invoice, Sale] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
     :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
     :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
-    :purchase_order =>   [ [:purchase_order, PurchaseOrder] ], 
-    :sales_order =>      [ [:sales_order, SalesOrder] ],
+    :purchase =>         [ [:purchase, Purchase] ], 
+    :sales_order =>      [ [:sales_order, Sale] ],
     :stocks =>           [ [:established_on, Date] ],
     # :synthesis =>        [ [:financial_year, FinancialYear] ],
     :transport =>        [ [:transport, Transport] ]
   }
 
-    #[:balance, :sales_invoice, :sales_order, :purchase_order, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
+    #[:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
 
   include ActionView::Helpers::NumberHelper
 

@@ -152,39 +152,39 @@ arb:
       product_create: 'اضافة منتج جديد'
       product_update: 'تعديل المنتج : {{name}}'
       products: 'المنتجات'
-      purchase_order: 'تفاصيل الشراء {{number}} الى الممول {{supplier}} '
-      #>purchase_order_abort: 'Abort'
-      #>purchase_order_confirm: 'Confirm order and wait for deliveries'
-      #>purchase_order_correct: 'Correct order'
-      purchase_order_create: 'شراء جديد'
-      #>purchase_order_finish: 'Finish order'
-      #>purchase_order_invoice: 'Receive invoice'
-      purchase_order_line_create: 'اضافة طلب للمنتج : {{number}}'
-      purchase_order_line_update: 'تعديل تصميم الطلب'
-      #>purchase_order_propose: 'Propose order'
-      #>purchase_order_refuse: 'Refused order'
-      purchase_order_update: 'تعديل الشراء : {{number}}'
-      purchase_orders: 'المستريات'
+      purchase: 'تفاصيل الشراء {{number}} الى الممول {{supplier}} '
+      #>purchase_abort: 'Abort'
+      #>purchase_confirm: 'Confirm order and wait for deliveries'
+      #>purchase_correct: 'Correct order'
+      purchase_create: 'شراء جديد'
+      #>purchase_finish: 'Finish order'
+      #>purchase_invoice: 'Receive invoice'
+      purchase_line_create: 'اضافة طلب للمنتج : {{number}}'
+      purchase_line_update: 'تعديل تصميم الطلب'
+      #>purchase_propose: 'Propose order'
+      #>purchase_refuse: 'Refused order'
+      purchase_update: 'تعديل الشراء : {{number}}'
+      purchases: 'المستريات'
+      sale: 'تفاصيل البيع {{number}} للعميل {{client}}'
+      #>sale_abort: 'Abort sale'
+      sale_cancel: 'مسالك شمولية الفاتورة {{number}}'
+      sale_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
+      #>sale_correct: 'Correct estimate'
+      sale_create: 'بيع جديد'
+      sale_invoice: 'فوترة طلب البيع'
+      sale_line_create: 'اضافة تصميم خطوط المنتج'
+      sale_line_update: 'تعديل مسار طلب المنتج'
+      sale_lines: 'اختيار المنتجات للطلب {{sale}} من : {{client}}' #!
+      sale_nature_create: 'اضافة نوع البيع'
+      sale_nature_update: 'تعديل نوع البيع : {{name}}'
+      sale_natures: 'انواع طلبات البيع'
+      #>sale_propose: 'Propose estimate'
+      #>sale_refuse: 'Estimate refused'
+      sale_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}' #!
+      sale_update: 'تعديل طلب البيع رقم{{number}}'
+      sales: 'الطلبات وتحديد الاسعار'
       sales_invoice: '{{nature}} {{number}}' #!
       sales_invoices: 'الفواتير' #!
-      sales_order: 'تفاصيل البيع {{number}} للعميل {{client}}'
-      #>sales_order_abort: 'Abort sale'
-      sales_order_cancel: 'مسالك شمولية الفاتورة {{number}}'
-      sales_order_confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
-      #>sales_order_correct: 'Correct estimate'
-      sales_order_create: 'بيع جديد'
-      sales_order_invoice: 'فوترة طلب البيع'
-      sales_order_line_create: 'اضافة تصميم خطوط المنتج'
-      sales_order_line_update: 'تعديل مسار طلب المنتج'
-      sales_order_lines: 'اختيار المنتجات للطلب {{sales_order}} من : {{client}}' #!
-      sales_order_nature_create: 'اضافة نوع البيع'
-      sales_order_nature_update: 'تعديل نوع البيع : {{name}}'
-      sales_order_natures: 'انواع طلبات البيع'
-      #>sales_order_propose: 'Propose estimate'
-      #>sales_order_refuse: 'Estimate refused'
-      sales_order_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}' #!
-      sales_order_update: 'تعديل طلب البيع رقم{{number}}'
-      sales_orders: 'الطلبات وتحديد الاسعار'
       statistics: 'الاحصائيات'
       stock_move_create: 'التسجيل لحركة السهم'
       stock_move_update: 'تعديل حركة سهم : {{name}}'
@@ -534,7 +534,7 @@ arb:
     entries: 'السجلات'
     entries_to_point: 'اعداد المدخلات'
     error_no_file: 'عدم توفر المساعدة في هذا الجزء من الطلب ({{article}}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار.'
-    #>error_sales_order_already_paid: 'The sales order is already paid'
+    #>error_sale_already_paid: 'The sales order is already paid'
     errors_explanation: 'هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد'
     establish_capital_goods: 'تشكل الممتلكات رأس المال'
     establishment: 'المؤسسة'
@@ -748,7 +748,7 @@ arb:
     no_commercial: '-- دون تداول --'
     #>no_contacts: 'No address defined for %{name}'
     no_deliveries: 'ليس هناك من تسليم بالانتظار'
-    no_deliveries_for_this_sales_order: 'لم يتم التسليم لهذا الطلب من البيع'
+    no_deliveries_for_this_sale: 'لم يتم التسليم لهذا الطلب من البيع'
     no_deposits: 'التأكد من عدم اقتطاعات البنك'
     #>no_filters: '--- No filters ---'
     no_javascript: 'ان متصفح الويب الخاص بك لا يدعم نسخة الجافا، لذا تحتاج الى تفعيله من اجل استخدام ايكيليبغ.'
@@ -867,21 +867,18 @@ arb:
     products: 'فئة المنتج'
     #>profitability: 'Profitability'
     purchase: 'الطلب'
-    #>purchase_order: 'Purchase order'
-    purchase_order_create: 'اضافة شراء جديد' #!
-    purchase_order_line_create: 'اضافة طلب للمنتج' #!
-    purchase_order_lines: 'تعديل تصميم الشراء'
-    purchase_order_price_create: 'اضافة سعر الشراء'
-    purchase_order_print: 'طباعة الطلب للممول' #!
-    purchase_order_update: 'تعديل معلومات الطلب'
-    purchase_orders: 'دفعات الشراء المسددة'
-    purchase_orders_number: '' #!
+    purchase_create: 'اضافة شراء جديد' #!
+    purchase_line_create: 'اضافة طلب للمنتج' #!
+    purchase_lines: 'تعديل تصميم الشراء'
     purchase_price_create: 'انشاء سعر الشراء'
+    purchase_print: 'طباعة الطلب للممول' #!
     purchase_steps:
       #>deliveries: 'Incoming deliveries'
       products: 'انشاء الصفقة'
       summary: 'النفقات'
+    purchase_update: 'تعديل معلومات الطلب'
     purchases: 'المشتريات'
+    purchases_number: '' #!
     purchases_price_create: 'اضافة سعر الشراء'
     quantity: 'الكمية'
     quantity_rest: 'الكمية المتبقية'
@@ -922,36 +919,35 @@ arb:
     roles: 'مهام / ادوار'
     running_cost: 'تكاليف الاستثمار'
     running_finished: 'منتجات الاستثمار'
-    sales: 'المبيعات' #!
+    sale: 'الطلبات'
+    sale_cancel: 'الغاء الفاتورة'
+    sale_create: 'اضافة بيعة جديدة' #!
+    sale_deliveries: 'تسليم الطلبات'
+    sale_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
+    sale_lines: 'تعديل تصميم طلب البيع'
+    sale_nature_create: 'انشاء نوع بيع جديد' #!
+    sale_price_create: 'اضافة سعر البيع'
+    sale_print: 'طباعة طلب البيع' #!
+    sale_update: 'تعديل معلومات الطلب'
+    sales: 'تم تسديد دفعات طلب البيع'
     #>sales_conditions: 'Conditions of sales'
     sales_invoice: 'الفوترة'
     sales_invoice_lines: 'تصميم الفاتورة'
     sales_invoice_number: 'فاتورة رقم'
     sales_invoice_print: 'طباعة الفاتورة'
-    sales_invoice_sales_order: 'فوترة طلب البيع'
+    sales_invoice_sale: 'فوترة طلب البيع'
     sales_invoices: 'الفواتير'
     sales_invoices_states:
       #>all: 'All'
       #>cancelled: 'Cancelled'
       #>credits: 'Credits'
     sales_invoices_total: 'مجموع قيمة الفاتورة'
-    sales_order: 'الطلبات'
-    sales_order_cancel: 'الغاء الفاتورة'
-    sales_order_create: 'اضافة بيعة جديدة' #!
-    sales_order_deliveries: 'تسليم الطلبات'
-    sales_order_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
-    sales_order_lines: 'تعديل تصميم طلب البيع'
-    sales_order_nature_create: 'انشاء نوع بيع جديد' #!
-    sales_order_price_create: 'اضافة سعر البيع'
-    sales_order_print: 'طباعة طلب البيع' #!
-    sales_order_update: 'تعديل معلومات الطلب'
-    sales_orders: 'تم تسديد دفعات طلب البيع'
-    sales_orders_number: '' #!
-    sales_orders_states:
+    sales_number: '' #!
+    sales_price_create: 'اضافة سعر البيع'
+    sales_states:
       #>all: 'All'
       #>current: 'Current'
       #>unpaid: 'Unpaid'
-    sales_price_create: 'اضافة سعر البيع'
     sales_steps:
       deliveries: 'جدولة عمليات التسليم'
       estimate: 'انشاء تقييم'
@@ -1063,8 +1059,8 @@ arb:
     unpaid: 'غير مسدد'
     unpaid_amount: 'القيمة المتبقية'
     #>unpaid_days: 'Unpaid since (in days)'
-    #>unpaid_sales_orders: 'Unpaid sales order'
-    unpaid_sales_orders_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
+    #>unpaid_sales: 'Unpaid sales order'
+    unpaid_sales_export: 'csv لم يتم تسديد قائمة البيع الصادرة ضمن'
     unparted: 'غير متضرر'
     unreceived: 'غير مقبوضة'
     #>unset_reconcilable_old_third_accounts: 'Unset reconcilable old third accounts (clients, suppliers and attorneys)'
@@ -1167,18 +1163,18 @@ arb:
       #>one: '1 price'
       #>other: '%{count} prices'
       #>zero: '0 prices'
-    x_purchase_orders:
+    x_purchases:
       #>one: '1 purchase order'
       #>other: '%{count} purchase orders'
       #>zero: '0 purchase orders'
+    x_sales:
+      #>one: '1 sales order'
+      #>other: '%{count} sales orders'
+      #>zero: '0 sales orders'
     x_sales_invoices:
       #>one: '1 sales invoice'
       #>other: '%{count} sales invoices'
       #>zero: '0 sales invoices'
-    x_sales_orders:
-      #>one: '1 sales order'
-      #>other: '%{count} sales orders'
-      #>zero: '0 sales orders'
     x_subscriptions:
       one: 'اشتراك واحد'
       other: '{{count}} اشتراكات اخرى'
@@ -1231,13 +1227,13 @@ arb:
     need_entries_to_point: 'لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي'
     need_journal_to_manage_tax_declaration: 'يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب'
     need_payment_mode_to_create_deposit: 'يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي'
+    #>need_quantities_to_cancel_an_sale: 'You must specify a quantity in order to cancel the sales invoice'
     need_quantities_to_cancel_an_sales_invoice: 'يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة' #!
-    #>need_quantities_to_cancel_an_sales_order: 'You must specify a quantity in order to cancel the sales invoice'
     need_stocks_to_create_inventories: 'يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد'
     need_stocks_warehouse_to_create_products: 'يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج'
     need_to_create_subscription_nature: 'يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك'
-    need_warehouse_to_create_purchase_order_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء'
-    need_warehouse_to_create_sales_order_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع'
+    need_warehouse_to_create_purchase_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء'
+    need_warehouse_to_create_sale_line: 'يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع'
     need_warehouse_to_record_stock_moves: 'يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك'
     new_actual_number: 'الرقم الجديد الحالي هو {{actual_number}}'
     no_authenticated: 'ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة'
@@ -1258,14 +1254,14 @@ arb:
     password_successfully_changed: 'تم تغيير كلمة المرور الخاصة بك بنجاح'
     prices_import_succeeded: 'تم استيراد بياناتك بشكل صحيح'
     print_failure: ' غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة{{error}} ({{class}}).'
-    #>purchase_order_already_invoiced: 'Purchase order already invoiced'
+    #>purchase_already_invoiced: 'Purchase order already invoiced'
     record_cannot_be_removed: 'لا يمكن حذف السجل'
     record_has_been_correctly_removed: 'تم حذف السجل بشكل صحيح'
     record_has_not_been_removed: 'لم يتم حذف السجل بشكل صحيح'
     restoration_finished: 'انتهاء استعادة النسخ الاحتياطية  ( بالثواني{{value}}). رمزك بالشركة هو {{code}}'
-    sales_order_already_invoiced: 'قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم'
-    sales_order_cannot_be_updated: 'الطلب غير قابل للتعديل'
-    sales_order_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
+    sale_already_invoiced: 'قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم'
+    sale_cannot_be_updated: 'الطلب غير قابل للتعديل'
+    sale_cant_be_deleted: 'ليس بامكانك الغاء طلب البيع'
     select_entries_to_letter_together: 'اختر الادخالات للكتابة معا ' #!
     #>select_entry_lines_to_mark_together: 'Select entry lines to mark together'
     specify_filter: 'اختر تطبيق تصفية واحدة كحد ادنى للبحث'
@@ -1340,25 +1336,25 @@ arb:
         numeration: 'احصاء الاقتطاعات المصرفية' #!
       payments: #!
         numeration: 'احصاء الانظمة' #!
-      purchase_orders: #!
+      purchases: #!
         numeration: 'احصاء المشتريات' #!
+      sales: #!
+        numeration: 'احصاء المبيعات' #!
       sales_invoices: #!
         numeration: 'احصاء الفواتير' #!
-      sales_orders: #!
-        numeration: 'احصاء المبيعات' #!
       subscriptions: #!
         numeration: 'احصاء الاشتراكات' #!
     #>outgoing_deliveries_sequence: 'Numeration of outgoing deliveries'
     #>outgoing_payments_sequence: 'Numeration of disbursements'
     #>products_accounts: 'Products accounts'
-    #>purchase_orders_sequence: 'Numeration of purchases'
     #>purchases_journal: 'Default purchases journal'
+    #>purchases_sequence: 'Numeration of purchases'
     relations:  #!
       entities: #!
         numeration: 'احصاء ملفات العملاء / الممولين' #!
     #>sales_invoices_sequence: 'Numeration of sales invoices'
     #>sales_journal: 'Default sales journal'
-    #>sales_orders_sequence: 'Numeration of sales'
+    #>sales_sequence: 'Numeration of sales'
     #>subscriptions_sequence: 'Numeration of subscriptions'
     #>taxes_acquisition_accounts: 'Accounts of taxes for intra-Community acquisitions'
     #>taxes_assimilated_accounts: 'Assimilated taxes accounts'

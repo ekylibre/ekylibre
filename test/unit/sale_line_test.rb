@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: sales_order_lines
+# == Table: sale_lines
 #
 #  account_id          :integer          
 #  amount              :decimal(16, 2)   default(0.0), not null
@@ -30,7 +30,6 @@
 #  id                  :integer          not null, primary key
 #  label               :text             
 #  lock_version        :integer          default(0), not null
-#  order_id            :integer          not null
 #  origin_id           :integer          
 #  position            :integer          
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
@@ -40,6 +39,7 @@
 #  quantity            :decimal(16, 4)   default(1.0), not null
 #  reduction_origin_id :integer          
 #  reduction_percent   :decimal(16, 2)   default(0.0), not null
+#  sale_id             :integer          not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
 #  unit_id             :integer          
@@ -47,81 +47,13 @@
 #  updater_id          :integer          
 #  warehouse_id        :integer          
 #
-#
-# == Fixture: sales_order_lines
-#
-# sales_order_lines_001:
-#   amount: 0
-#   company_id: 1
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   order_id: 1
-#   pretax_amount: 0
-#   price_id: 1
-#   product_id: 1
-#   quantity: 0
-#   reduction_percent: 0
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
-sales_order_lines_001:
-  amount: 0
-  pretax_amount: 0
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  order_id: 1
-  price_id: 1
-  product_id: 1
-  quantity: 0
-  unit_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
 
-sales_order_lines_002:
-  amount: 0
-  pretax_amount: 0
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  order_id: 1
-  price_id: 1
-  product_id: 1
-  quantity: 0
-  unit_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
 
-sales_order_lines_003:
-  amount: 0
-  pretax_amount: 0
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  order_id: 2
-  price_id: 1
-  product_id: 1
-  quantity: 0
-  unit_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+require 'test_helper'
 
-sales_order_lines_004:
-  amount: 10
-  pretax_amount: 10
-  company_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 4
-  order_id: 3
-  price_id: 1
-  product_id: 1
-  quantity: 5
-  unit_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+class SaleLineTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  def test_truth
+    assert true
+  end
+end

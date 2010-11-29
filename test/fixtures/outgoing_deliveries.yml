@@ -35,7 +35,7 @@
 #  planned_on       :date             
 #  pretax_amount    :decimal(16, 2)   default(0.0), not null
 #  reference_number :string(255)      
-#  sales_order_id   :integer          not null
+#  sale_id          :integer          not null
 #  transport_id     :integer          
 #  transporter_id   :integer          
 #  updated_at       :datetime         not null
@@ -52,7 +52,7 @@
 #   creator_id: 1
 #   id: 1
 #   pretax_amount: 0
-#   sales_order_id: 1
+#   sale_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
@@ -65,7 +65,7 @@ outgoing_deliveries_001:
   contact_id: 1
   planned_on: <%=Date.today-7%>
   id: 1
-  sales_order_id: 3
+  sale_id: 3
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -78,7 +78,7 @@ outgoing_deliveries_002:
   contact_id: 1
   planned_on: <%=Date.today%>
   id: 2
-  sales_order_id: 3
+  sale_id: 3
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -91,7 +91,7 @@ outgoing_deliveries_003:
   contact_id: 1
   planned_on: <%=Date.today+7%>
   id: 3
-  sales_order_id: 3
+  sale_id: 3
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 

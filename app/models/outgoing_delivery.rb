@@ -35,7 +35,7 @@
 #  planned_on       :date             
 #  pretax_amount    :decimal(16, 2)   default(0.0), not null
 #  reference_number :string(255)      
-#  sales_order_id   :integer          not null
+#  sale_id          :integer          not null
 #  transport_id     :integer          
 #  transporter_id   :integer          
 #  updated_at       :datetime         not null
@@ -46,11 +46,11 @@
 
 class OutgoingDelivery < ActiveRecord::Base
   acts_as_numbered
-  attr_readonly :company_id, :sales_order_id, :number
+  attr_readonly :company_id, :sale_id, :number
   belongs_to :company 
   belongs_to :contact
   belongs_to :mode, :class_name=>OutgoingDeliveryMode.name
-  belongs_to :sales_order
+  belongs_to :sale
   belongs_to :transport
   has_many :lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
@@ -60,7 +60,7 @@ class OutgoingDelivery < ActiveRecord::Base
   validates_presence_of :planned_on
 
   before_validation do
-    self.company_id = self.sales_order.company_id if self.sales_order
+    self.company_id = self.sale.company_id if self.sale
 #     self.pretax_amount = self.amount = self.weight = 0
 #     for line in self.lines
 #       self.pretax_amount += line.pretax_amount
@@ -75,8 +75,8 @@ class OutgoingDelivery < ActiveRecord::Base
   # This permits to manage stocks.
   def ship(shipped_on=Date.today)
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :location_id=>line.order_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
-      line.product.move_outgoing_stock(:origin=>line, :location_id=>line.order_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
+      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :location_id=>line.sale_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
+      line.product.move_outgoing_stock(:origin=>line, :location_id=>line.sale_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?
     self.save
@@ -93,7 +93,7 @@ class OutgoingDelivery < ActiveRecord::Base
   end
 
   def label
-    tc('label', :client=>self.sales_order.client.full_name.to_s, :address=>self.contact.address.to_s)
+    tc('label', :client=>self.sale.client.full_name.to_s, :address=>self.contact.address.to_s)
   end
 
   # Used with kame for the moment
@@ -106,8 +106,8 @@ class OutgoingDelivery < ActiveRecord::Base
   end
 
   def address
-    a = self.sales_order.client.full_name+"\n"
-    a += (self.contact ? self.contact.address : self.sales_order.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    a = self.sale.client.full_name+"\n"
+    a += (self.contact ? self.contact.address : self.sale.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
     a
   end
 

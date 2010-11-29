@@ -52,7 +52,7 @@ class OutgoingPayment < ActiveRecord::Base
   belongs_to :payee, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
   has_many :uses, :class_name=>OutgoingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy
-  has_many :purchase_orders, :through=>:uses
+  has_many :purchases, :through=>:uses
   has_many :expenses, :through=>:uses
 
   validates_numericality_of :amount, :greater_than=>0
@@ -115,7 +115,7 @@ class OutgoingPayment < ActiveRecord::Base
 
   # Use the maximum available amount to pay the expense
   def pay(expense, options={})
-    raise Exception.new("Expense must be PurchaseOrder (not #{expense.class.name})") unless expense.class.name == PurchaseOrder.name
+    raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
     OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
     self.reload
     use_amount = [expense.unpaid_amount, self.unused_amount].min

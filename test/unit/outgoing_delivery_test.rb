@@ -35,7 +35,7 @@
 #  planned_on       :date             
 #  pretax_amount    :decimal(16, 2)   default(0.0), not null
 #  reference_number :string(255)      
-#  sales_order_id   :integer          not null
+#  sale_id          :integer          not null
 #  transport_id     :integer          
 #  transporter_id   :integer          
 #  updated_at       :datetime         not null

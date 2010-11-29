@@ -41,23 +41,23 @@ module ManagementHelper
   end
 
   SALES_STEPS = [
-                 {:name=>:products,   :actions=>[{:action=>:sales_order, :step=>:products}, :sales_order_create, :sales_order_update, :sales_order_line_create, :sales_order_line_update], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
-                 {:name=>:deliveries, :actions=>[{:action=>:sales_order, :step=>:deliveries}, :outgoing_delivery_create, :outgoing_delivery_update], :states=>['order', 'invoice']},
-                 {:name=>:summary,    :actions=>[{:action=>:sales_order, :step=>:summary}], :states=>['invoice']}
+                 {:name=>:products,   :actions=>[{:action=>:sale, :step=>:products}, :sale_create, :sale_update, :sale_line_create, :sale_line_update], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                 {:name=>:deliveries, :actions=>[{:action=>:sale, :step=>:deliveries}, :outgoing_delivery_create, :outgoing_delivery_update], :states=>['order', 'invoice']},
+                 {:name=>:summary,    :actions=>[{:action=>:sale, :step=>:summary}], :states=>['invoice']}
                 ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
 
   def sales_steps
-    steps_tag(@sales_order, SALES_STEPS, :name=>:sales)
+    steps_tag(@sale, SALES_STEPS, :name=>:sales)
   end
 
   PURCHASE_STEPS = [
-                    {:name=>:products,   :actions=>[{:action=>:purchase_order, :step=>:products}, :purchase_order_create, :purchase_order_update, :purchase_order_line_create, :purchase_order_line_update, :purchase_order_line_delete], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
-                    {:name=>:deliveries, :actions=>[{:action=>:purchase_order, :step=>:deliveries}, :incoming_delivery_create, :incoming_delivery_update], :states=>['order', 'invoice']},
-                    {:name=>:summary,    :actions=>[{:action=>:purchase_order, :step=>:summary}], :states=>['invoice']}
+                    {:name=>:products,   :actions=>[{:action=>:purchase, :step=>:products}, :purchase_create, :purchase_update, :purchase_line_create, :purchase_line_update, :purchase_line_delete], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                    {:name=>:deliveries, :actions=>[{:action=>:purchase, :step=>:deliveries}, :incoming_delivery_create, :incoming_delivery_update], :states=>['order', 'invoice']},
+                    {:name=>:summary,    :actions=>[{:action=>:purchase, :step=>:summary}], :states=>['invoice']}
                    ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
 
   def purchase_steps
-    steps_tag(@purchase_order, PURCHASE_STEPS, :name=>:purchase)
+    steps_tag(@purchase, PURCHASE_STEPS, :name=>:purchase)
   end
 
 

@@ -27,11 +27,11 @@
 #  delivery_id   :integer          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  order_line_id :integer          not null
 #  pretax_amount :decimal(16, 2)   default(0.0), not null
 #  price_id      :integer          not null
 #  product_id    :integer          not null
 #  quantity      :decimal(16, 4)   default(1.0), not null
+#  sale_line_id  :integer          not null
 #  tracking_id   :integer          
 #  unit_id       :integer          not null
 #  updated_at    :datetime         not null
@@ -48,11 +48,11 @@
 #   creator_id: 1
 #   delivery_id: 1
 #   id: 1
-#   order_line_id: 1
 #   pretax_amount: 0
 #   price_id: 1
 #   product_id: 1
 #   quantity: 0
+#   sale_line_id: 1
 #   unit_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1

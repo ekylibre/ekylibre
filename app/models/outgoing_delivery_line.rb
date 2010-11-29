@@ -27,11 +27,11 @@
 #  delivery_id   :integer          not null
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  order_line_id :integer          not null
 #  pretax_amount :decimal(16, 2)   default(0.0), not null
 #  price_id      :integer          not null
 #  product_id    :integer          not null
 #  quantity      :decimal(16, 4)   default(1.0), not null
+#  sale_line_id  :integer          not null
 #  tracking_id   :integer          
 #  unit_id       :integer          not null
 #  updated_at    :datetime         not null
@@ -41,12 +41,12 @@
 
 
 class OutgoingDeliveryLine < ActiveRecord::Base
-  attr_readonly :company_id, :order_line_id, :product_id, :price_id, :unit_id
+  attr_readonly :company_id, :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
   belongs_to :delivery, :class_name=>OutgoingDelivery.name
   belongs_to :price
   belongs_to :product
-  belongs_to :order_line, :class_name=>SalesOrderLine.name
+  belongs_to :sale_line, :class_name=>SaleLine.name
   belongs_to :unit
   validates_presence_of :product_id, :unit_id
 
@@ -54,14 +54,14 @@ class OutgoingDeliveryLine < ActiveRecord::Base
 
   before_validation do
     self.company_id = self.delivery.company_id if self.delivery
-    if self.order_line
-      self.product_id  = self.order_line.product_id
-      self.price_id    = self.order_line.price.id
-      self.unit_id     = self.order_line.unit_id
-      self.warehouse_id = self.order_line.warehouse_id
+    if self.sale_line
+      self.product_id  = self.sale_line.product_id
+      self.price_id    = self.sale_line.price.id
+      self.unit_id     = self.sale_line.unit_id
+      self.warehouse_id = self.sale_line.warehouse_id
     end
-    self.pretax_amount = self.order_line.price.pretax_amount*self.quantity
-    self.amount = self.order_line.price.amount*self.quantity
+    self.pretax_amount = self.sale_line.price.pretax_amount*self.quantity
+    self.amount = self.sale_line.price.amount*self.quantity
   end
   
   validate(:on=>:create) do
@@ -78,7 +78,7 @@ class OutgoingDeliveryLine < ActiveRecord::Base
   end
 
   def undelivered_quantity
-    self.order_line.undelivered_quantity
+    self.sale_line.undelivered_quantity
   end
 
   def product_name

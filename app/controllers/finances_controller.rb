@@ -311,8 +311,8 @@ class FinancesController < ApplicationController
   end
   manage :incoming_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  create_kame(:incoming_payment_sales_orders, :model=>:sales_orders, :conditions=>["#{SalesOrder.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], SalesOrder.name]) do |t|
-    t.column :number, :url=>{:action=>:sales_order}
+  create_kame(:incoming_payment_sales, :model=>:sales, :conditions=>["#{Sale.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], Sale.name]) do |t|
+    t.column :number, :url=>{:action=>:sale}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
     t.column :pretax_amount
@@ -349,10 +349,10 @@ class FinancesController < ApplicationController
   end
 
   def incoming_payment_use_delete
-    # return unless @sales_order   = find_and_check(:sales_order, session[:current_sales_order_id])
+    # return unless @sale   = find_and_check(:sale, session[:current_sale_id])
     return unless @incoming_payment_use = find_and_check(:incoming_payment_use)
     if request.post? or request.delete?
-      redirect_to_current if @incoming_payment_use.destroy #:action=>:sales_order, :step=>:summary, :id=>@sales_order.id
+      redirect_to_current if @incoming_payment_use.destroy #:action=>:sale, :step=>:summary, :id=>@sale.id
     end
   end
 
@@ -422,10 +422,10 @@ class FinancesController < ApplicationController
 
 
 
-  # manage :outgoing_payment_uses, :expense_id=>"(@current_company.purchase_orders.find(params[:expense_id]).id rescue 0)"
+  # manage :outgoing_payment_uses, :expense_id=>"(@current_company.purchases.find(params[:expense_id]).id rescue 0)"
 
   def outgoing_payment_use_create
-    return unless expense = find_and_check(:purchase_order, params[:expense_id])
+    return unless expense = find_and_check(:purchase, params[:expense_id])
     @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
     if request.post?
       unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])
@@ -443,7 +443,7 @@ class FinancesController < ApplicationController
   def outgoing_payment_use_delete
     return unless @outgoing_payment_use = find_and_check(:outgoing_payment_use)
     if request.post? or request.delete?
-      redirect_to_current if @outgoing_payment_use.destroy #:action=>:purchase_order_summary, :id=>@purchase_order.id
+      redirect_to_current if @outgoing_payment_use.destroy #:action=>:purchase_summary, :id=>@purchase.id
     end
   end
   
@@ -485,8 +485,8 @@ class FinancesController < ApplicationController
   manage :outgoing_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
 
-  create_kame(:outgoing_payment_purchase_orders, :model=>:purchase_orders, :conditions=>["purchase_orders.company_id=? AND id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
-    t.column :number, :url=>{:action=>:purchase_order}
+  create_kame(:outgoing_payment_purchases, :model=>:purchases, :conditions=>["purchases.company_id=? AND id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
+    t.column :number, :url=>{:action=>:purchase}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
     t.column :pretax_amount

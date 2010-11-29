@@ -98,11 +98,11 @@ class Entity < ActiveRecord::Base
   has_many :mandates
   has_many :observations
   has_many :prices
-  has_many :purchase_invoices, :class_name=>"PurchaseOrder", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
-  has_many :purchase_orders, :foreign_key=>:supplier_id
+  has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
+  has_many :purchases, :foreign_key=>:supplier_id
   has_many :outgoing_payments, :foreign_key=>:payee_id
-  has_many :sales_invoices, :class_name=>"SalesOrder", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
-  has_many :sales_orders, :foreign_key=>:client_id, :order=>"created_on desc"
+  has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
+  has_many :sales, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :incoming_payments, :foreign_key=>:payer_id
   has_many :subscriptions
   has_many :trackings, :foreign_key=>:producer_id
@@ -225,7 +225,7 @@ class Entity < ActiveRecord::Base
   end
 
   def max_reduction_percent(computed_on=Date.today)
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sales_order_id, 0) NOT IN (SELECT id FROM #{SalesOrder.table_name} WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
   end
   
   def description

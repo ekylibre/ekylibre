@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: sales_order_natures
+# == Table: sale_natures
 #
 #  active                  :boolean          default(TRUE), not null
 #  comment                 :text             
@@ -40,11 +40,11 @@
 #
 
 
-class SalesOrderNature < ActiveRecord::Base
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :payment_mode, :class_name=>IncomingPaymentMode.name
-  belongs_to :expiration, :class_name=>Delay.to_s
-  has_many :sales_orders
+require 'test_helper'
+
+class SaleNatureTest < ActiveSupport::TestCase
+  # Replace this with your real tests.
+  def test_truth
+    assert true
+  end
 end

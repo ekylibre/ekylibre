@@ -104,12 +104,12 @@ class Company < ActiveRecord::Base
   has_many :production_chain_work_center_lines
   has_many :production_chain_work_center_uses
   has_many :professions
-  has_many :purchase_orders
-  has_many :purchase_order_lines
+  has_many :purchases
+  has_many :purchase_lines
   has_many :roles
-  has_many :sales_orders
-  has_many :sales_order_lines
-  has_many :sales_order_natures
+  has_many :sales
+  has_many :sale_lines
+  has_many :sale_natures
   has_many :sequences
   has_many :stocks, :order=>"warehouse_id, product_id, tracking_id"
   has_many :stock_moves
@@ -135,7 +135,7 @@ class Company < ActiveRecord::Base
   preference :incoming_payments_sequence, Sequence
   preference :outgoing_deliveries_sequence, Sequence
   preference :outgoing_payments_sequence, Sequence
-  preference :purchase_orders_sequence, Sequence
+  preference :purchases_sequence, Sequence
   preference :sales_invoices_sequence, Sequence
   preference :sales_orders_sequence, Sequence
   preference :subscriptions_sequence, Sequence
@@ -749,13 +749,13 @@ class Company < ActiveRecord::Base
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
       end
       company.financial_years.create!(:started_on=>Date.today)
-      company.sales_order_natures.create!(:name=>tc('default.sales_order_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+      company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
       
 
       company.load_sequences
       
       company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
-      for nature in [:sales_order, :sales_invoice, :purchase_order]
+      for nature in [:sale, :sales_invoice, :purchase]
         company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
       end
       

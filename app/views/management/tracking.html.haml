@@ -8,14 +8,14 @@
   %h2=tc(:stocks)
   =kame :tracking_stocks
 
--if @tracking.purchase_order_lines.size > 0
+-if @tracking.purchase_lines.size > 0
   %h2=tc(:purchases)
-  =kame :tracking_purchase_order_lines
+  =kame :tracking_purchase_lines
 
 -if @tracking.operation_lines.size > 0
   %h2=tc(:operations)
   =kame :tracking_operation_lines
 
--if @tracking.sales_order_lines.size > 0
-  %h2=tc(:sales_orders)
-  =kame :tracking_sales_order_lines
+-if @tracking.sale_lines.size > 0
+  %h2=tc(:sales)
+  =kame :tracking_sale_lines

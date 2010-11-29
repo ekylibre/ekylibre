@@ -3,7 +3,7 @@
 =formalize do |f|
   -f.error :incoming_delivery
   -f.title :infos
-  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@purchase_order.supplier_id} 
+  -f.field :incoming_delivery, :contact_id, :choices=>:incoming_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@purchase.supplier_id} 
   -f.field :incoming_delivery, :mode_id, :choices=>{:reflection=>:incoming_delivery_modes}, :new=>{:action=>:incoming_delivery_mode_create}
   -f.field :incoming_delivery, :planned_on
 
@@ -21,15 +21,15 @@
     %th=IncomingDeliveryLine.human_attribute_name(:amount)
   -for line in @incoming_delivery_lines
     %tr{:class=>cycle('odd','even')}
-      %td=line.order_line.label
-      %td.dec{:class=>"pta-#{line.order_line_id}"}=line.order_line.price.pretax_amount
-      %td.dec{:class=>"awt-#{line.order_line_id}"}=line.order_line.price.amount
-      %td.dec=line.order_line.quantity
-      %td=line.order_line.unit.label
-      %td.dec=line.order_line.undelivered_quantity
-      %td=text_field_tag "incoming_delivery_line[#{line.order_line_id}][quantity]", line.quantity, :id=>"incoming_delivery_line_#{line.order_line_id}_quantity", :onkeyup=>"t6(this, #{line.order_line.undelivered_quantity});", :class=>"pta-#{line.order_line_id} awt-#{line.order_line_id}"
-      %td.dec.pta{"mul-of"=>"pta-#{line.order_line_id}"}
-      %td.dec.awt{"mul-of"=>"awt-#{line.order_line_id}"}
+      %td=line.purchase_line.label
+      %td.dec{:class=>"pta-#{line.purchase_line_id}"}=line.purchase_line.price.pretax_amount
+      %td.dec{:class=>"awt-#{line.purchase_line_id}"}=line.purchase_line.price.amount
+      %td.dec=line.purchase_line.quantity
+      %td=line.purchase_line.unit.label
+      %td.dec=line.purchase_line.undelivered_quantity
+      %td=text_field_tag "incoming_delivery_line[#{line.purchase_line_id}][quantity]", line.quantity, :id=>"incoming_delivery_line_#{line.purchase_line_id}_quantity", :onkeyup=>"t6(this, #{line.purchase_line.undelivered_quantity});", :class=>"pta-#{line.purchase_line_id} awt-#{line.purchase_line_id}"
+      %td.dec.pta{"mul-of"=>"pta-#{line.purchase_line_id}"}
+      %td.dec.awt{"mul-of"=>"awt-#{line.purchase_line_id}"}
   %tr.total
     %th{:colspan=>7}=tg :total
     %td#total_pretax_amount{"sum-of"=>"pta"}=@incoming_delivery.pretax_amount

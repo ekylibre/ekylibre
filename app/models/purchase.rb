@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: purchase_orders
+# == Table: purchases
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
@@ -47,9 +47,9 @@
 #
 
 
-class PurchaseOrder < ActiveRecord::Base
+class Purchase < ActiveRecord::Base
   acts_as_numbered
-  after_create {|r| r.supplier.add_event(:purchase_order, r.updater_id)}
+  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
   belongs_to :currency
@@ -58,7 +58,7 @@ class PurchaseOrder < ActiveRecord::Base
   belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
   belongs_to :supplier, :class_name=>Entity.name
   belongs_to :responsible, :class_name=>User.name
-  has_many :lines, :class_name=>PurchaseOrderLine.name, :foreign_key=>:order_id
+  has_many :lines, :class_name=>PurchaseLine.name, :foreign_key=>:purchase_id
   has_many :deliveries, :class_name=>IncomingDelivery.name
   has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
   has_many :products, :through=>:lines, :uniq=>true

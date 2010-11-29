@@ -1,0 +1,30 @@
+=sales_steps
+-sale_client_id = nil
+=formalize do |f| 
+  -f.error 'sale'
+  -f.title :client
+  -sale_client_id = f.field :sale, :client_id, :choices=>:clients, :new=>{:controller=>:relations, :action=>:entity_create}
+
+#contacts=render "sale_contacts_form"
+
+=formalize do |f| 
+  -f.title :sales_conditions
+  -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>{:action=>:sale_nature_create}
+  -f.field :sale, :currency_id, :choices=>{:reflection=>:currencies}
+  -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
+  -f.field :sale, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}
+  -f.field :sale, :comment, :field=>:textarea
+  -f.field :sale, :letter_format
+=formalize(:id=>:letter_format) do |f|
+  -f.title :letter_options
+  -f.field :sale, :subject
+  -f.field :sale, :function_title
+  -f.field :sale, :introduction, :field=>:textarea
+  -f.field :sale, :conclusion, :field=>:textarea
+
+:javascript
+  window.letterInformations = function(){ toggleElement('letter_format', $('sale_letter_format').checked); }
+  letterInformations();
+
+=observe_field sale_client_id, :frequency=>0.25,  :update=>"contacts", :url=>{:action=>:sale_contacts, :sale_id=>@sale.id}, :with=>:id
+=observe_field("sale_letter_format", :frequency=>0.25, :function=>"letterInformations()")

@@ -27,7 +27,7 @@
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(255)      
+#  last_letter  :string(8)        
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
@@ -52,8 +52,8 @@ class Account < ActiveRecord::Base
   has_many :journal_entry_lines
   has_many :paid_taxes, :class_name=>Tax.name, :foreign_key=>:paid_account_id
   has_many :purchases_products, :class_name=>Product.name, :foreign_key=>:purchases_account_id
-  has_many :purchase_order_lines
-  has_many :sales_order_lines
+  has_many :purchase_lines
+  has_many :sale_lines
   has_many :sales_products, :class_name=>Product.name, :foreign_key=>:sales_account_id
   has_many :suppliers, :class_name=>Entity.name, :foreign_key=>:supplier_account_id
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/

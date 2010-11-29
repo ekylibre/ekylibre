@@ -114,15 +114,15 @@ module ApplicationHelper
      # ManagementController
      {:name=>:management, :list=>
        [ {:name=>:sales, :list=>
-           [ {:name=>:sales_order_create},
-             {:name=>:sales_orders},
+           [ {:name=>:sale_create},
+             {:name=>:sales},
              {:name=>:transports},
              {:name=>:subscriptions},
              {:name=>:statistics}
            ] },
          {:name=>:purchases, :list=>
-           [ {:name=>:purchase_order_create},
-             {:name=>:purchase_orders},
+           [ {:name=>:purchase_create},
+             {:name=>:purchases},
              {:name=>:incoming_deliveries},
            ] },
          {:name=>:stocks_tasks, :list=>
@@ -138,7 +138,7 @@ module ApplicationHelper
              {:name=>:delays},
              {:name=>:incoming_delivery_modes},
              {:name=>:outgoing_delivery_modes},
-             {:name=>:sales_order_natures},
+             {:name=>:sale_natures},
              {:name=>:subscription_natures}
            ] }
        ] },

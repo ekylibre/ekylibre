@@ -40,8 +40,8 @@ class Delay < ActiveRecord::Base
   attr_readonly :company_id
   belongs_to :company
   has_many :entities
-  has_many :sales_orders
-  has_many :sales_order_natures
+  has_many :sales
+  has_many :sale_natures
   validates_uniqueness_of :name, :scope=>:company_id
 
   DELAY_SEPARATOR = ', '

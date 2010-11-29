@@ -47,7 +47,7 @@ __not_used__:
   - resources::employee_delete
   - resources::employee_events_kame
   - resources::employee_land_parcel_operations_kame
-  - resources::employee_sales_orders_kame
+  - resources::employee_sales_kame
   - resources::employees
   - resources::employees_kame
   - resources::index
@@ -91,12 +91,12 @@ cancel_sales_invoices:
   controller: management
   actions:
   - index
-  - sales_order_cancel
-  - sales_order_creditable_lines_kame
-  - sales_order_credits_kame
-  - sales_orders
+  - sale_cancel
+  - sale_creditable_lines_kame
+  - sale_credits_kame
+  - sales
 # Change prices on sales
-change_prices_on_sales_orders:
+change_prices_on_sales:
   controller: management
 # Close and reopen journals
 close_journals:
@@ -140,8 +140,8 @@ consult_entities:
   - entity_events_kame
   - entity_incoming_payments_kame
   - entity_outgoing_payments_kame
-  - entity_purchase_orders_kame
-  - entity_sales_orders_kame
+  - entity_purchases_kame
+  - entity_sales_kame
   - entity_subscriptions_kame
   - index
 # Consult the journal entries
@@ -157,31 +157,31 @@ consult_products:
   controller: management
   actions: [index, product, products]
 # Consult the purchases
-consult_purchase_orders:
+consult_purchases:
   controller: management
   actions:
   - index
-  - purchase_order
-  - purchase_order_deliveries_kame
-  - purchase_order_lines_kame
-  - purchase_order_payment_uses_kame
-  - purchase_order_undelivered_lines_kame
-  - purchase_orders
-  - purchase_orders_kame
+  - purchase
+  - purchase_deliveries_kame
+  - purchase_lines_kame
+  - purchase_payment_uses_kame
+  - purchase_undelivered_lines_kame
+  - purchases
+  - purchases_kame
 # Consult the sales
-consult_sales_orders:
+consult_sales:
   controller: management
   actions:
   - index
-  - sales_order
-  - sales_order_deliveries_kame
-  - sales_order_lines_kame
-  - sales_order_payment_uses_kame
-  - sales_order_undelivered_lines_kame
-  - sales_orders
-  - sales_orders_kame
+  - sale
+  - sale_deliveries_kame
+  - sale_lines_kame
+  - sale_payment_uses_kame
+  - sale_undelivered_lines_kame
+  - sales
+  - sales_kame
   - statistics
-  - unpaid_sales_orders_export
+  - unpaid_sales_export
 # Consult the stocks
 consult_stocks:
   controller: management
@@ -193,15 +193,15 @@ consult_trackings:
   - index
   - tracking
   - tracking_operation_lines_kame
-  - tracking_purchase_order_lines_kame
-  - tracking_sales_order_lines_kame
+  - tracking_purchase_lines_kame
+  - tracking_sale_lines_kame
   - tracking_stocks_kame
 # Export listings
 extract_listings:
   controller: company
   actions: [index, listing_extract, listings]
 # Set reduction on sales
-give_discounts_on_sales_orders:
+give_discounts_on_sales:
   controller: management
 # Import data from other software
 import_data:
@@ -352,8 +352,8 @@ manage_entities:
   - entity_events_kame
   - entity_incoming_payments_kame
   - entity_mandates_kame
-  - entity_purchase_orders_kame
-  - entity_sales_orders_kame
+  - entity_purchases_kame
+  - entity_sales_kame
   - entity_subscriptions_kame
   - entity_update
   - index
@@ -401,21 +401,21 @@ manage_estimates:
   - clients_dyli
   - index
   - price_find
-  - sales_order
-  - sales_order_abort
-  - sales_order_confirm
-  - sales_order_contacts
-  - sales_order_correct
-  - sales_order_create
-  - sales_order_duplicate
-  - sales_order_line_create
-  - sales_order_line_delete
-  - sales_order_line_detail
-  - sales_order_line_update
-  - sales_order_propose
-  - sales_order_refuse
-  - sales_order_subscriptions_kame
-  - sales_order_update
+  - sale
+  - sale_abort
+  - sale_confirm
+  - sale_contacts
+  - sale_correct
+  - sale_create
+  - sale_duplicate
+  - sale_line_create
+  - sale_line_delete
+  - sale_line_detail
+  - sale_line_update
+  - sale_propose
+  - sale_refuse
+  - sale_subscriptions_kame
+  - sale_update
   - subscription_coordinates
 # Manage events
 manage_events:
@@ -476,15 +476,15 @@ manage_incoming_payments:
   - incoming_payment
   - incoming_payment_create
   - incoming_payment_delete
-  - incoming_payment_sales_orders_kame
+  - incoming_payment_sales_kame
   - incoming_payment_update
   - incoming_payment_use_create
   - incoming_payment_use_delete
   - incoming_payments
   - incoming_payments_kame
   - index
-  - management::sales_order
-  - management::sales_order_payment_uses_kame
+  - management::sale
+  - management::sale_payment_uses_kame
 # Manage inventories
 manage_inventories:
   controller: management
@@ -646,13 +646,13 @@ manage_outgoing_payments:
   controller: finances
   actions:
   - index
-  - management::purchase_order
-  - management::purchase_order_lines_kame
-  - management::purchase_order_payment_uses_kame
+  - management::purchase
+  - management::purchase_lines_kame
+  - management::purchase_payment_uses_kame
   - outgoing_payment
   - outgoing_payment_create
   - outgoing_payment_delete
-  - outgoing_payment_purchase_orders_kame
+  - outgoing_payment_purchases_kame
   - outgoing_payment_update
   - outgoing_payment_use_create
   - outgoing_payment_use_delete
@@ -699,7 +699,7 @@ manage_products:
   - product_update
   - products_kame
 # Manage purchase orders
-manage_purchase_orders:
+manage_purchases:
   controller: management
   actions:
   - incoming_delivery_contacts_dyli
@@ -712,40 +712,40 @@ manage_purchase_orders:
   - incoming_delivery_modes_kame
   - incoming_delivery_update
   - index
-  - purchase_order
-  - purchase_order_abort
-  - purchase_order_confirm
-  - purchase_order_correct
-  - purchase_order_create
-  - purchase_order_delete
-  - purchase_order_deliveries_kame
-  - purchase_order_finish
-  - purchase_order_invoice
-  - purchase_order_line_create
-  - purchase_order_line_delete
-  - purchase_order_line_update
-  - purchase_order_lines_kame
-  - purchase_order_payment_uses_kame
-  - purchase_order_propose
-  - purchase_order_refuse
-  - purchase_order_undelivered_lines_kame
-  - purchase_order_update
-  - purchase_orders
-  - purchase_orders_kame
+  - purchase
+  - purchase_abort
+  - purchase_confirm
+  - purchase_correct
+  - purchase_create
+  - purchase_delete
+  - purchase_deliveries_kame
+  - purchase_finish
+  - purchase_invoice
+  - purchase_line_create
+  - purchase_line_delete
+  - purchase_line_update
+  - purchase_lines_kame
+  - purchase_payment_uses_kame
   - purchase_products_dyli
+  - purchase_propose
+  - purchase_refuse
+  - purchase_undelivered_lines_kame
+  - purchase_update
+  - purchases
+  - purchases_kame
   - suppliers_dyli
 # Mange sale orders natures
-manage_sales_order_natures:
+manage_sale_natures:
   controller: management
   actions:
   - index
-  - sales_order_nature_create
-  - sales_order_nature_delete
-  - sales_order_nature_update
-  - sales_order_natures
-  - sales_order_natures_kame
+  - sale_nature_create
+  - sale_nature_delete
+  - sale_nature_update
+  - sale_natures
+  - sale_natures_kame
 # Manages sale orders
-manage_sales_orders:
+manage_sales:
   controller: management
   actions:
   - index
@@ -753,16 +753,16 @@ manage_sales_orders:
   - outgoing_delivery_create
   - outgoing_delivery_delete
   - outgoing_delivery_update
-  - sales_order
-  - sales_order_abort
-  - sales_order_confirm
-  - sales_order_correct
-  - sales_order_delete
-  - sales_order_deliveries_kame
-  - sales_order_invoice
-  - sales_order_propose
-  - sales_order_refuse
-  - sales_order_undelivered_lines_kame
+  - sale
+  - sale_abort
+  - sale_confirm
+  - sale_correct
+  - sale_delete
+  - sale_deliveries_kame
+  - sale_invoice
+  - sale_propose
+  - sale_refuse
+  - sale_undelivered_lines_kame
   - undelivered_sales
   - undelivered_sales_kame
 # Manage stock moves

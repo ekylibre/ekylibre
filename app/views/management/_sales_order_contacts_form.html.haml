@@ -1,6 +1,0 @@
--client ||= @sales_order.client
--if client
-  =formalize do |f| 
-    -f.field :sales_order, :contact_id,          :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:sales_order_contacts, :sales_order_id=>@sales_order.id, :id=>client.id}, :update=>:contacts)
-    -f.field :sales_order, :delivery_contact_id, :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:sales_order_contacts, :sales_order_id=>@sales_order.id, :id=>client.id}, :update=>:contacts)
-    -f.field :sales_order, :invoice_contact_id,  :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:sales_order_contacts, :sales_order_id=>@sales_order.id, :id=>client.id}, :update=>:contacts)

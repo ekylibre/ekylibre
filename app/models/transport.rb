@@ -20,24 +20,24 @@
 # 
 # == Table: transports
 #
-#  amount            :decimal(16, 2)   default(0.0), not null
-#  comment           :text             
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  created_on        :date             
-#  creator_id        :integer          
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  number            :string(255)      
-#  pretax_amount     :decimal(16, 2)   default(0.0), not null
-#  purchase_order_id :integer          
-#  reference_number  :string(255)      
-#  responsible_id    :integer          
-#  transport_on      :date             
-#  transporter_id    :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
-#  weight            :decimal(16, 4)   
+#  amount           :decimal(16, 2)   default(0.0), not null
+#  comment          :text             
+#  company_id       :integer          not null
+#  created_at       :datetime         not null
+#  created_on       :date             
+#  creator_id       :integer          
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  number           :string(255)      
+#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  purchase_id      :integer          
+#  reference_number :string(255)      
+#  responsible_id   :integer          
+#  transport_on     :date             
+#  transporter_id   :integer          not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
+#  weight           :decimal(16, 4)   
 #
 
 

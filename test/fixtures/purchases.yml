@@ -18,144 +18,85 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: sales_orders
+# == Table: purchases
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
-#  annotation          :text             
-#  client_id           :integer          not null
 #  comment             :text             
 #  company_id          :integer          not null
-#  conclusion          :text             
 #  confirmed_on        :date             
-#  contact_id          :integer          
 #  created_at          :datetime         not null
-#  created_on          :date             not null
+#  created_on          :date             
 #  creator_id          :integer          
-#  credit              :boolean          not null
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
-#  downpayment_amount  :decimal(16, 2)   default(0.0), not null
-#  expiration_id       :integer          
-#  expired_on          :date             
-#  function_title      :string(255)      
-#  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
-#  initial_number      :string(64)       
-#  introduction        :text             
-#  invoice_contact_id  :integer          
-#  invoiced_on         :date             
 #  journal_entry_id    :integer          
-#  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
-#  lost                :boolean          not null
-#  nature_id           :integer          
+#  moved_on            :date             
 #  number              :string(64)       not null
-#  origin_id           :integer          
-#  paid_amount         :decimal(16, 2)   not null
-#  payment_delay_id    :integer          not null
-#  payment_on          :date             
+#  paid_amount         :decimal(16, 2)   default(0.0), not null
+#  planned_on          :date             
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
-#  state               :string(64)       default("O"), not null
-#  subject             :string(255)      
-#  sum_method          :string(8)        default("wt"), not null
-#  transporter_id      :integer          
+#  state               :string(64)       
+#  supplier_id         :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer          
 #
 #
-# == Fixture: sales_orders
+# == Fixture: purchases
 #
-# sales_orders_001:
+# purchases_001:
 #   amount: 0
-#   client_id: 1
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
-#   created_on: 2009-07-19
 #   creator_id: 1
-#   credit: true
-#   downpayment_amount: 0
-#   has_downpayment: true
 #   id: 1
-#   letter_format: true
-#   lost: true
 #   number: "Lorem ipsum"
 #   paid_amount: 0
-#   payment_delay_id: 1
 #   pretax_amount: 0
-#   state: "Lorem ipsum"
-#   sum_method: "Lorem ipsum"
+#   supplier_id: 1
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
-sales_orders_001:
+purchases_001:
   amount: 0
   pretax_amount: 0
-  client_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
-  created_on: 2009-07-19
   creator_id: 1
-  downpayment_amount: 0
-  expiration_id: 1
-  expired_on: 2009-07-19
-  has_downpayment: true
   id: 1
-  letter_format: true
-  nature_id: 1
-  number: "SO123456"
-  paid_amount: 0.0
-  payment_delay_id: 1
+  number: "P000001"
   state: "draft"
-  sum_method: "wt"
+  supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-sales_orders_002:
+purchases_002:
   amount: 0
   pretax_amount: 0
-  client_id: 1
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
-  created_on: 2009-07-19
   creator_id: 1
-  downpayment_amount: 0
-  expiration_id: 1
-  expired_on: 2009-07-19
-  has_downpayment: true
   id: 2
-  letter_format: true
-  nature_id: 1
-  number: "SO123457"
-  paid_amount: 0.0
-  payment_delay_id: 1
+  number: "P000001"
   state: "draft"
-  sum_method: "wt"
+  supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-sales_orders_003:
-  amount: 10
-  pretax_amount: 10
-  client_id: 1
+purchases_003:
+  amount: 0
+  pretax_amount: 0
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
-  created_on: 2009-07-19
   creator_id: 1
-  downpayment_amount: 0
-  expiration_id: 1
-  expired_on: 2009-07-19
-  has_downpayment: true
   id: 3
-  letter_format: true
-  nature_id: 1
-  number: "SO123457"
-  paid_amount: 0.0
-  payment_delay_id: 1
+  number: "P000001"
   state: "order"
-  sum_method: "wt"
+  supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 

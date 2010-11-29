@@ -48,7 +48,7 @@ class IncomingPaymentUse < ActiveRecord::Base
   autosave :expense, :payment
 
   cattr_reader :expense_types
-  @@expense_types = [SalesOrder.name, Transfer.name]
+  @@expense_types = [Sale.name, Transfer.name]
 
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense_id, :expense_type

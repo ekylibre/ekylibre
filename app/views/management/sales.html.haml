@@ -1,0 +1,16 @@
+=toolbar do 
+  -link :unpaid_sales_export
+.search
+  =form_tag do
+    %table
+      %tr
+        %td.label=tc('search_sales')
+        %td.field=text_field_tag :key, session[:sale_key]
+        -for state in [:all, :current, :unpaid]
+          %td
+            =radio_button(:sale, :state , state, :checked=>( state.to_s == session[:sale_state] ? true : false))
+            %label{:for=>'sale_'+state.to_s}=tc("sales_states.#{state}")
+        %td=submit_tag tg('search_go', :action=>:sales)
+
+=kame :sales
+

@@ -50,8 +50,8 @@ class Warehouse < ActiveRecord::Base
   belongs_to :contact
   belongs_to :establishment
   belongs_to :product
-  has_many :purchase_order_lines
-  has_many :sales_order_lines
+  has_many :purchase_lines
+  has_many :sale_lines
   has_many :stocks
   has_many :stock_moves
   has_many :stock_transfers

@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: sales_orders
+# == Table: sales
 #
 #  accounted_at        :datetime         
 #  amount              :decimal(16, 2)   default(0.0), not null
@@ -67,9 +67,9 @@
 #
 
 
-class SalesOrder < ActiveRecord::Base
+class Sale < ActiveRecord::Base
   acts_as_numbered :number, :readonly=>false
-  after_create {|r| r.client.add_event(:sales_order, r.updater_id)}
+  after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :company_id, :created_on
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
@@ -80,14 +80,14 @@ class SalesOrder < ActiveRecord::Base
   belongs_to :expiration, :class_name=>Delay.to_s
   belongs_to :invoice_contact, :class_name=>Contact.to_s
   belongs_to :journal_entry
-  belongs_to :nature, :class_name=>SalesOrderNature.to_s
-  belongs_to :origin, :class_name=>SalesOrder.name
+  belongs_to :nature, :class_name=>SaleNature.to_s
+  belongs_to :origin, :class_name=>Sale.name
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :responsible, :class_name=>User.name
   belongs_to :transporter, :class_name=>Entity.name
-  has_many :credits, :class_name=>SalesOrder.name, :foreign_key=>:origin_id
+  has_many :credits, :class_name=>Sale.name, :foreign_key=>:origin_id
   has_many :deliveries, :class_name=>OutgoingDelivery.name, :dependent=>:destroy
-  has_many :lines, :class_name=>SalesOrderLine.to_s, :foreign_key=>:order_id
+  has_many :lines, :class_name=>SaleLine.to_s, :foreign_key=>:sale_id
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   has_many :payments, :through=>:payment_uses
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
@@ -142,7 +142,7 @@ class SalesOrder < ActiveRecord::Base
     self.delivery_contact_id ||= self.contact_id
     self.invoice_contact_id  ||= self.delivery_contact_id
     self.created_on ||= Date.today
-    self.nature ||= self.company.sales_order_natures.first if self.nature.nil? and self.company.sales_order_natures.count == 1
+    self.nature ||= self.company.sale_natures.first if self.nature.nil? and self.company.sale_natures.count == 1
     if self.nature
       self.expiration_id ||= self.nature.expiration_id 
       self.expired_on ||= self.expiration.compute(self.created_on)
@@ -162,7 +162,7 @@ class SalesOrder < ActiveRecord::Base
 
   # This method bookkeeps the sales order.
   bookkeep do |b|
-    label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sales_order=>self.initial_number)
+    label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
     b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|
       entry.add_debit(label, self.client.account(:client).id, self.amount)
       for line in self.lines
@@ -220,7 +220,7 @@ class SalesOrder < ActiveRecord::Base
     for line in self.lines.find_all_by_reduction_origin_id(nil)
       if quantity = line.undelivered_quantity > 0
         #raise Exception.new quantity.inspect+line.inspect
-        lines << {:order_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id}
+        lines << {:sale_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id}
       end
     end
     if lines.size>0
@@ -262,21 +262,21 @@ class SalesOrder < ActiveRecord::Base
     self.deliver.invoice
   end
 
-  # Duplicates a +sales_order+ in 'E' mode with its lines and its active subscriptions
+  # Duplicates a +sale+ in 'E' mode with its lines and its active subscriptions
   def duplicate(attributes={})
     fields = [:client_id, :nature_id, :currency_id, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
     hash = {}
     fields.each{|c| hash[c] = self.send(c)}
-    copy = self.company.sales_orders.build(attributes.merge(hash))
+    copy = self.company.sales.build(attributes.merge(hash))
     copy.save!
     if copy.save
       # Lines
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        copy.lines.create! :order_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
+        copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
       end
       # Subscriptions
       for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
-        copy.subscriptions.create!(:sales_order_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
+        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
       end
     else
       raise Exception.new(copy.errors.inspect)

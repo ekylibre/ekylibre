@@ -44,7 +44,7 @@ class EventNature < ActiveRecord::Base
   end
 
   def self.usages
-    [:manual, :sales_order, :purchase_order, :sales_invoice].collect{|x| [tc('usages.'+x.to_s), x] }
+    [:manual, :sale, :purchase, :sales_invoice].collect{|x| [tc('usages.'+x.to_s), x] }
   end
   
   def text_usage

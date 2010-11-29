@@ -61,7 +61,7 @@ class IncomingPayment < ActiveRecord::Base
   belongs_to :payer, :class_name=>Entity.name
   belongs_to :mode, :class_name=>IncomingPaymentMode.name
   has_many :uses, :class_name=>IncomingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy
-  has_many :sales_orders, :through=>:uses, :source=>:expense, :source_type=>SalesOrder.name
+  has_many :sales, :through=>:uses, :source=>:expense, :source_type=>Sale.name
   has_many :transfers, :through=>:uses, :source=>:expense, :source_type=>Transfer.name
 
   autosave :deposit

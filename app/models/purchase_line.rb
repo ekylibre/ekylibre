@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: purchase_order_lines
+# == Table: purchase_lines
 #
 #  account_id      :integer          not null
 #  amount          :decimal(16, 2)   default(0.0), not null
@@ -28,11 +28,11 @@
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  order_id        :integer          not null
 #  position        :integer          
 #  pretax_amount   :decimal(16, 2)   default(0.0), not null
 #  price_id        :integer          not null
 #  product_id      :integer          not null
+#  purchase_id     :integer          not null
 #  quantity        :decimal(16, 4)   default(1.0), not null
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      
@@ -43,26 +43,26 @@
 #
 
 
-class PurchaseOrderLine < ActiveRecord::Base
-  acts_as_list :scope=>:order
-  attr_readonly :company_id, :order_id
+class PurchaseLine < ActiveRecord::Base
+  acts_as_list :scope=>:purchase
+  attr_readonly :company_id, :purchase_id
   belongs_to :account
   belongs_to :company
-  belongs_to :order, :class_name=>PurchaseOrder.name
+  belongs_to :purchase, :class_name=>Purchase.name
   belongs_to :price
   belongs_to :product
   belongs_to :warehouse
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:order_line_id
+  has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:purchase_line_id
   validates_presence_of :pretax_amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id
 
-  sums :order, :lines, :pretax_amount, :amount
+  sums :purchase, :lines, :pretax_amount, :amount
   
   before_validation do
-    self.company_id = self.order.company_id if self.order
+    self.company_id = self.purchase.company_id if self.purchase
     check_reservoir = true
     self.warehouse_id = self.company.warehouses.first.id if self.company.warehouses.size == 1
     if self.price
@@ -88,7 +88,7 @@ class PurchaseOrderLine < ActiveRecord::Base
 
     self.tracking_serial = self.tracking_serial.strip
     unless self.tracking_serial.blank?
-      producer = self.order.supplier
+      producer = self.purchase.supplier
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
         tracking = self.company.trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
         tracking = self.company.trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
@@ -102,7 +102,7 @@ class PurchaseOrderLine < ActiveRecord::Base
 
   validate do
     # Validate that tracking serial is not used for a different product
-    producer = self.order.supplier
+    producer = self.purchase.supplier
     unless self.tracking_serial.blank?
       errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
     end

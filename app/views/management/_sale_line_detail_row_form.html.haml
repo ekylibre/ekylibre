@@ -1,0 +1,18 @@
+-if product = @sale_line.product
+  %table
+    %tr
+      %td=SaleLine.human_attribute_name("quantity")
+      -if @current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
+        %td=SaleLine.human_attribute_name("reduction_percent") 
+      -if product.manage_stocks
+        %td=SaleLine.human_attribute_name("stock")
+    %tr
+      %td
+        =text_field(:sale_line, :quantity, :size=>5)
+        =product.unit.label
+      -if @current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
+        %td=text_field(:sale_line, :reduction_percent, :size=>5)
+      -if product.manage_stocks
+        %td=select(:sale_line, :stock_id, product_stocks_options(product))
+  -if product.nature == "subscrip"
+    .count=product.default_subscription_label_for(@sale.client)

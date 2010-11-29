@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: sales_order_lines
+# == Table: sale_lines
 #
 #  account_id          :integer          
 #  amount              :decimal(16, 2)   default(0.0), not null
@@ -30,7 +30,6 @@
 #  id                  :integer          not null, primary key
 #  label               :text             
 #  lock_version        :integer          default(0), not null
-#  order_id            :integer          not null
 #  origin_id           :integer          
 #  position            :integer          
 #  pretax_amount       :decimal(16, 2)   default(0.0), not null
@@ -40,6 +39,7 @@
 #  quantity            :decimal(16, 4)   default(1.0), not null
 #  reduction_origin_id :integer          
 #  reduction_percent   :decimal(16, 2)   default(0.0), not null
+#  sale_id             :integer          not null
 #  tax_id              :integer          
 #  tracking_id         :integer          
 #  unit_id             :integer          
@@ -49,39 +49,39 @@
 #
 
 
-class SalesOrderLine < ActiveRecord::Base
-  acts_as_list :scope=>:order
+class SaleLine < ActiveRecord::Base
+  acts_as_list :scope=>:sale
   after_save :set_reduction
-  attr_readonly :company_id, :order_id
+  attr_readonly :company_id, :sale_id
   belongs_to :account
   belongs_to :company
   belongs_to :entity
   belongs_to :warehouse
-  belongs_to :order, :class_name=>SalesOrder.to_s
-  belongs_to :origin, :class_name=>SalesOrderLine.name
+  belongs_to :sale, :class_name=>Sale.to_s
+  belongs_to :origin, :class_name=>SaleLine.name
   belongs_to :price
   belongs_to :product
-  belongs_to :reduction_origin, :class_name=>SalesOrderLine.to_s
+  belongs_to :reduction_origin, :class_name=>SaleLine.to_s
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:order_line_id
-  has_one :reduction, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id
-  has_many :credits, :class_name=>SalesOrderLine.to_s, :foreign_key=>:origin_id
-  has_many :reductions, :class_name=>SalesOrderLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
+  has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:sale_line_id
+  has_one :reduction, :class_name=>SaleLine.to_s, :foreign_key=>:reduction_origin_id
+  has_many :credits, :class_name=>SaleLine.to_s, :foreign_key=>:origin_id
+  has_many :reductions, :class_name=>SaleLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
-  sums :order, :lines, :pretax_amount, :amount
+  sums :sale, :lines, :pretax_amount, :amount
 
   validates_presence_of :price
 
   
   before_validation do
     # check_reservoir = true
-    self.company_id = self.order.company_id if self.order
-    if not self.price and self.order and self.product
-      self.price = self.product.default_price(order.client.category_id)
-      # puts [order.client.category_id, order].inspect unless self.price
+    self.company_id = self.sale.company_id if self.sale
+    if not self.price and self.sale and self.product
+      self.price = self.product.default_price(self.sale.client.category_id)
+      # puts [sale.client.category_id, sale].inspect unless self.price
     end
     self.product = self.price.product if self.price
     if self.product
@@ -97,7 +97,7 @@ class SalesOrderLine < ActiveRecord::Base
     self.price_amount ||= 0
 
     if self.price_amount > 0
-      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.order.client.category_id)
+      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
       self.price = price
     end
     
@@ -116,7 +116,7 @@ class SalesOrderLine < ActiveRecord::Base
           self.pretax_amount = (q*self.price.pretax_amount).round(2)
         end
       else
-        # reduction_rate = self.order.client.max_reduction_rate
+        # reduction_rate = self.sale.client.max_reduction_rate
         # self.quantity = -reduction_rate*self.reduction_origin.quantity
         # self.amount   = -reduction_rate*self.reduction_origin.amount       
         # self.amount_with_taxes = -reduction_rate*self.reduction_origin.amount_with_taxes
@@ -144,19 +144,19 @@ class SalesOrderLine < ActiveRecord::Base
       end
     end
     if self.price
-      errors.add_to_base(:currency_is_not_sales_order_currency) if self.price.currency_id != self.order.currency_id
+      errors.add_to_base(:currency_is_not_sale_currency) if self.price.currency_id != self.sale.currency_id
     end
     # TODO validates responsible can make reduction and reduction rate is convenient
   end
   
   protect_on_update do
-    return self.order.updateable?
+    return self.sale.updateable?
   end
   
   def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :order_id=>self.order_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
+      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :sale_id=>self.sale_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -177,7 +177,7 @@ class SalesOrderLine < ActiveRecord::Base
 
   def stock_id=(value)
     value = value.to_i
-    if value > 0 and stock = (self.company||self.order.company).stocks.find_by_id(value)
+    if value > 0 and stock = (self.company||self.sale.company).stocks.find_by_id(value)
       self.warehouse_id = stock.warehouse_id
       self.tracking_id = stock.tracking_id
       self.product_id  = stock.product_id
@@ -199,7 +199,7 @@ class SalesOrderLine < ActiveRecord::Base
 
   def new_subscription(attributes={})
     #raise Exception.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sales_order_id=>self.order.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id))
+    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature
@@ -213,7 +213,7 @@ class SalesOrderLine < ActiveRecord::Base
       end
     end
     subscription.quantity   ||= 1
-    subscription.contact_id ||= self.order.contact_id
+    subscription.contact_id ||= self.sale.contact_id
     subscription.entity_id  ||= subscription.contact.entity_id if subscription.contact
     subscription
   end

@@ -93,28 +93,28 @@ class CompanyTest < ActiveSupport::TestCase
     context "with sales" do
 
       setup do
-        @sales_order = @company.sales_orders.create!(:client=>@company.entities.third)
+        @sale = @company.sales.create!(:client=>@company.entities.third)
       end
 
       should "invoice its sales" do
-        assert !@sales_order.invoice
+        assert !@sale.invoice
 
-        line = @sales_order.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
+        line = @sale.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
         assert line.save
-        line = @sales_order.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
+        line = @sale.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
         assert line.save
-        @sales_order.reload
-        assert_equal "draft", @sales_order.state
-        assert @sales_order.propose
-        assert_equal "estimate", @sales_order.state
-        assert @sales_order.can_invoice?
-        assert @sales_order.invoice
-        assert_equal "invoice", @sales_order.state
+        @sale.reload
+        assert_equal "draft", @sale.state
+        assert @sale.propose
+        assert_equal "estimate", @sale.state
+        assert @sale.can_invoice?
+        assert @sale.invoice
+        assert_equal "invoice", @sale.state
       end
 
       should "print its sales" do
         assert_nothing_raised do
-          @company.print(:id=>:sales_order, :sales_order=>@sales_order)
+          @company.print(:id=>:sale, :sale=>@sale)
         end
       end
 
@@ -123,38 +123,38 @@ class CompanyTest < ActiveSupport::TestCase
     context "with invoiced sales" do
 
       setup do
-        @sales_order = @company.sales_orders.new(:client=>@company.entities.third)
-        assert @sales_order.save, @sales_order.errors.inspect
-        assert_equal Date.today, @sales_order.created_on
+        @sale = @company.sales.new(:client=>@company.entities.third)
+        assert @sale.save, @sale.errors.inspect
+        assert_equal Date.today, @sale.created_on
         for y in 0..10
-          line = @sales_order.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
+          line = @sale.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
           # assert line.valid?, [product.prices, line.price].inspect
           assert line.save, line.errors.inspect
         end
-        @sales_order.reload
-        assert_equal "draft", @sales_order.state
-        assert @sales_order.propose
-        assert_equal "estimate", @sales_order.state
-        assert @sales_order.can_invoice?
-        assert @sales_order.invoice
-        assert_equal "invoice", @sales_order.state
-        assert_equal Date.today, @sales_order.invoiced_on
-        amount = @sales_order.amount
-        @sales_order.update_attribute(:amount, 2*(amount.to_i+5))
-        @sales_order.reload
-        assert_equal amount, @sales_order.amount
+        @sale.reload
+        assert_equal "draft", @sale.state
+        assert @sale.propose
+        assert_equal "estimate", @sale.state
+        assert @sale.can_invoice?
+        assert @sale.invoice
+        assert_equal "invoice", @sale.state
+        assert_equal Date.today, @sale.invoiced_on
+        amount = @sale.amount
+        @sale.update_attribute(:amount, 2*(amount.to_i+5))
+        @sale.reload
+        assert_equal amount, @sale.amount
       end
 
       should "print and archive its sales invoices" do
         data = []
         assert_nothing_raised do
-          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sales_order)[0])
+          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sale)[0])
         end
         assert_nothing_raised do
-          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sales_order)[0])
+          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sale)[0])
         end
         assert_nothing_raised do
-          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sales_order.id)[0])
+          data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sale.id)[0])
         end
         assert_equal data[0], data[1], "The template doesn't seem to be archived"        
         assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
