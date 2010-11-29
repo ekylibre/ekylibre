@@ -204,7 +204,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     remove_column :journal_entries, :editable
     remove_column :journal_entries, :currency_rate
     remove_column :journal_entries, :currency_id
-    remove_index :journal_entries, :column=>:intermediate_id
+    remove_index :journal_entries, :name=> "index_#{quoted_table_name(:entries)}_on_intermediate_id"
     remove_column :journal_entries, :intermediate_id
     rename_column :journal_entries, :statement_id, :bank_statement_id
     
@@ -449,7 +449,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
     
     rename_column :journal_entries, :bank_statement_id, :statement_id
     add_column :journal_entries, :intermediate_id, :integer
-    add_index :journal_entries, :intermediate_id
+    add_index :journal_entries, :intermediate_id, :name=> "index_#{quoted_table_name(:entries)}_on_intermediate_id"
     add_column :journal_entries, :currency_id, :integer, :null=>false, :default=>0
     add_column :journal_entries, :currency_rate, :decimal, :null=>false, :precision=>16, :scale=>6, :default=>0.0
     add_column :journal_entries, :editable, :boolean, :null=>false, :default=>true

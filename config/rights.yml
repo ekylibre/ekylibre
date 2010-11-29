@@ -181,7 +181,6 @@ consult_sales:
   - sales
   - sales_kame
   - statistics
-  - unpaid_sales_export
 # Consult the stocks
 consult_stocks:
   controller: management

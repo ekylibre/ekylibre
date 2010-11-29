@@ -153,12 +153,27 @@ class Purchase < ActiveRecord::Base
   end
   
 
-  def confirm(confirmed_on=Date.today, *args)
-    return false unless self.can_confirm?
-    self.confirmed_on = confirmed_on
-    self.save
-    return super
-  end
+#   def confirm(validated_on=Date.today, *args)
+#     return false unless self.can_confirm?
+#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
+#       line.product.reserve_incoming_stock(:origin=>line, :planned_on=>self.planned_on)
+#     end
+#     self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+#     return super
+#   end
+
+
+#   # Move
+#   def invoice(moved_on=Date.today, *args)
+#     return false unless self.can_invoice?
+#     # Move real unless there is at least one delivery
+#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
+#       line.product.move_incoming_stock(:origin=>line, :moved_on=>moved_on)
+#     end if self.deliveries.size.zero?
+#     # Set values
+#     self.reload.update_attributes!(:moved_on=>moved_on)
+#     return super
+#   end
 
 
 

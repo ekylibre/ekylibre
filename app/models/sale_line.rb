@@ -150,7 +150,7 @@ class SaleLine < ActiveRecord::Base
   end
   
   protect_on_update do
-    return self.sale.updateable?
+    return self.sale.draft?
   end
   
   def set_reduction

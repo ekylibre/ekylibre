@@ -48,9 +48,9 @@ namespace :kame do
            ]
     # hover = color_to_array("00447730")
     hover = color_to_array("D1DAFF50")
-    dims[0][:ready]      = dims[0][:notice]
-    dims[0][:processing] = dims[0][:warning]
-    dims[0][:invoiced]   = dims[0][:error]
+    dims[0][:estimate]      = dims[0][:notice]
+    dims[0][:order]         = dims[0][:warning]
+    dims[0][:unpaid]        = dims[0][:error]
 
     dims[0][:advance]     = dims[0][:notice]
     dims[0][:late]        = dims[0][:warning]

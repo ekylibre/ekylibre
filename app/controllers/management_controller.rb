@@ -308,7 +308,7 @@ class ManagementController < ApplicationController
     code
   end
   
-  create_kame(:prices, :conditions=>prices_conditions) do |t|
+  create_kame(:prices, :conditions=>prices_conditions, :order=>:product_id) do |t|
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :full_name, :through=>:entity, :url=>{:controller=>:relations, :action=>:entity}
     t.column :name, :through=>:category, :url=>{:controller=>:relations, :action=>:entity_category}
@@ -911,7 +911,7 @@ class ManagementController < ApplicationController
 
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number], :entities=>[:code, :full_name])+"||=[]\n"
     code += "unless session[:sale_state].blank? \n "
     code += "  if session[:sale_state] == 'current' \n "
     code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice') \" \n " 
@@ -1148,7 +1148,7 @@ class ManagementController < ApplicationController
         notify(:need_quantities_to_cancel_an_sale, :error, :now)
         return
       end
-      if credit = @sale.cancel(lines)
+      if credit = @sale.cancel(lines, @current_user)
         redirect_to :action=>:sale, :id=>credit.id
       end
     end

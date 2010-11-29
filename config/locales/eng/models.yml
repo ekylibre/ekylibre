@@ -287,8 +287,6 @@ eng:
       sale: 'Sales order'
       sale_line: 'Sales order line'
       sale_nature: 'Sales order type'
-      sales_invoice: '' #!
-      sales_invoice_line: '' #!
       sequence: 'Sequence'
       stock: 'Stock'
       stock_move: 'Stock move'
@@ -758,7 +756,8 @@ eng:
     prospect: 'Prospect'
     published: 'Published'
     purchase_id: 'Purchase order'
-    #>purchase_line_id: 'Purchase line'
+    purchase_line: 'Purchase line'
+    purchase_line_id: 'Purchase line'
     purchase_lines: 'Purchase order lines'
     purchases: 'Purchase orders'
     purchases_account: 'Purchases account'
@@ -998,11 +997,11 @@ eng:
               filename: 'Inventory [number]'
             purchase:
               filename: 'Purchase order [number]'
-            sales_order:
-              filename: 'Sales order [number]'
             sales_invoice:
               filename: 'Sales invoice [number]'
               to_archive: 'true'
+            sales_order:
+              filename: 'Sales order [number]'
             stocks:
               filename: 'Stocks'
             transport:
@@ -1012,9 +1011,9 @@ eng:
               filename: '[full_name]'
         establishment_name: 'Default establishment'
         event_natures:
-          purchase_order: 'Creation of a purchase order'
-          sales_order: 'Creation of a sales order'
-          sales_invoice: 'Creation of an sales invoice'
+          purchase: 'Creation of a purchase'
+          sale: 'Creation of a sale'
+          sales_invoice: 'Creation of a sales invoice'
         incoming_payment_modes:
           cash:
             name: 'Cash'
@@ -1069,11 +1068,11 @@ eng:
             format: 'D[year|4][number|4]'
             name: 'Numeration of payments'
             period: 'year'
-          purchase_order:
+          purchases:
             format: 'PO[year|4][month|2][number|4]'
             name: 'Numeration of purchases'
             period: 'month'
-          sales_orders:
+          sales:
             format: 'SO[year|4][month|2][number|6]'
             name: 'Numeration of sales'
             period: 'month'
@@ -1325,6 +1324,10 @@ eng:
       sales_conditions:
         downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
         validity: 'This estimate and its general conditions are available until the %{expiration}.'
+      sales_invoice:
+        label:
+          credit: 'Credit %{number}'
+          normal: 'Sales invoice %{number}'
       states:
         aborted: 'Aborted'
         draft: 'Draft'
@@ -1335,15 +1338,10 @@ eng:
     sale_line:
       can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       currency_is_not_sale_currency: 'The currency of the price differs from the sales order currency'
+      no_product: '[No product]'
       reduction_on: 'Discount of %{percent}%  on %{product}'
       tracking: 'S/N: %{serial}'
       warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
-    sales_invoice: #!
-      label: #!
-        credit: 'Credit %{number}' #!
-        normal: 'Sales invoice %{number}'
-    sales_invoice_line: #!
-      no_product: '[No product]'
     sequence:
       periods:
         cweek: 'Commercial week'

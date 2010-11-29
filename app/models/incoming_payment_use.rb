@@ -70,6 +70,7 @@ class IncomingPaymentUse < ActiveRecord::Base
       entry.add_debit(label, self.payment.payer.account(:attorney).id, self.amount)
       entry.add_credit(label, self.expense.client.account(:client).id, self.amount)
     end
+    self.reconciliate
   end
 
   def payment_way

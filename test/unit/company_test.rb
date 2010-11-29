@@ -114,7 +114,7 @@ class CompanyTest < ActiveSupport::TestCase
 
       should "print its sales" do
         assert_nothing_raised do
-          @company.print(:id=>:sale, :sale=>@sale)
+          @company.print(:id=>:sales_order, :sales_order=>@sale)
         end
       end
 

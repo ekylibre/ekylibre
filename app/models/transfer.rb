@@ -64,8 +64,6 @@ class Transfer < ActiveRecord::Base
     #     end
   end
 
-  
-
   def client_id
     self.supplier_id
   end

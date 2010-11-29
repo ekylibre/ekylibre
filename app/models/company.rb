@@ -137,7 +137,7 @@ class Company < ActiveRecord::Base
   preference :outgoing_payments_sequence, Sequence
   preference :purchases_sequence, Sequence
   preference :sales_invoices_sequence, Sequence
-  preference :sales_orders_sequence, Sequence
+  preference :sales_sequence, Sequence
   preference :subscriptions_sequence, Sequence
   preference :transports_sequence, Sequence
   # Behaviours
@@ -860,7 +860,7 @@ class Company < ActiveRecord::Base
     cities = ["33000 Bordeaux", "33170 Gradignan", "40600 Biscarosse", "33400 Talence", "75001 Paris", "13000 Marseille", "33600 Pessac", "47000 Agen", "33710 Pugnac", "33700 Mérignac", "40000 Mont de Marsan"]
     entity_natures = self.entity_natures.collect{|x| x.id.to_s}
     indifferent_attributes = {:category_id=>self.entity_categories.first.id, :language=>self.entity.language}
-    products = ["Salades","Bouteille en verre 75 cl","Bouchon liège","Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "patates", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
+    products = ["Salades", "Bouteille en verre 75 cl", "Bouchon liège", "Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "Pommes de terre", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     product_category_id = self.product_categories.first.id
     category_id = self.entity_categories.first.id
     

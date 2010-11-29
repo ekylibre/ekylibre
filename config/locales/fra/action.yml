@@ -164,7 +164,7 @@ fra:
       purchase_refuse: 'Commande refusée'
       purchase_update: 'Modifier l''achat : %{number}'
       purchases: 'Achats'
-      sale: 'Vente %{number} pour %{client} - %{state}'
+      sale: 'Vente : %{number} pour %{client} - %{state}'
       sale_abort: 'Annuler la vente'
       sale_cancel: 'Passage en avoir de la facture %{number}'
       sale_confirm: 'Passer le devis en commande et aller aux livraisons'
@@ -180,7 +180,7 @@ fra:
       sale_propose: 'Devis soumis au client'
       sale_refuse: 'Devis refusé par le client'
       sale_update: 'Modifier la vente N°%{number}'
-      sales: 'Devis et commandes'
+      sales: 'Ventes'
       sales_invoice: '%{nature} %{number}' #!
       sales_invoices: 'Factures' #!
       statistics: 'Statistiques'
@@ -790,6 +790,7 @@ fra:
     planned_on: 'Date prévisionnelle'
     play: 'Éxécuter'
     please_wait: 'Merci de patienter...'
+    preferences: 'Préférences'
     previous: 'Précédent'
     previous_bank_statement: 'Solde du relevé précédent N°%{number}'
     price: 'Prix'

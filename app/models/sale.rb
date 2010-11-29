@@ -135,6 +135,7 @@ class Sale < ActiveRecord::Base
     self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
 
     self.paid_amount = self.payment_uses.sum(:amount)||0
+    self.paid_amount -= self.credits.sum(:amount)||0
     if self.contact.nil? and self.client
       dc = self.client.default_contact
       self.contact_id = dc.id if dc
@@ -159,6 +160,16 @@ class Sale < ActiveRecord::Base
     self.created_on = Date.today
   end
 
+  before_validation(:on=>:update) do
+    old = self.class.find(self.id)
+    if old.invoice?
+      for attr in self.class.columns_hash.keys - ["paid_amount"]
+        self.send(attr+"=", old.send(attr))
+      end
+    end
+  end
+
+
 
   # This method bookkeeps the sales order.
   bookkeep do |b|
@@ -166,15 +177,11 @@ class Sale < ActiveRecord::Base
     b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|
       entry.add_debit(label, self.client.account(:client).id, self.amount)
       for line in self.lines
-        entry.add_credit(label, (line.account||line.product.sales_account).id, line.amount) unless line.quantity.zero?
+        entry.add_credit(label, (line.account||line.product.sales_account).id, line.pretax_amount) unless line.pretax_amount.zero?
         entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
       end
     end
-  end
-
-  protect_on_update do
-    old = self.class.find(self.id)
-    not old.invoice?
+    self.uses.first.reconciliate if self.uses.first
   end
 
 
@@ -240,10 +247,11 @@ class Sale < ActiveRecord::Base
     return false unless self.can_invoice?
     self.confirm
     ActiveRecord::Base.transaction do
-      # Move real stocks
+      # Move real stocks if no deliveries defined: If no use of deliveries, it's necessary to move stock at this moment
       for line in self.lines
         line.product.move_outgoing_stock(:origin=>line, :quantity=>line.undelivered_quantity, :planned_on=>self.created_on)
-      end
+      end if self.deliveries.size.zero?
+      # Set values for invoice
       self.invoiced_on = Date.today
       self.payment_on ||= self.payment_delay.compute if self.payment_delay      
       self.initial_number = self.number
@@ -327,7 +335,7 @@ class Sale < ActiveRecord::Base
 
   # Returns true if there is some products to deliver
   def deliverable?
-    self.undelivered(:amount) > 0 and not self.invoice?
+    self.undelivered(:amount) > 0 # and not self.invoice?
   end
 
   # Calculate unpaid amount
@@ -348,7 +356,8 @@ class Sale < ActiveRecord::Base
 
   def address
     a = self.client.full_name+"\n"
-    a += (self.contact ? self.contact.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    c = (self.invoice? ? self.invoice_contact : self.contact)
+    a += (c ? c.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
     a
   end
 
@@ -388,14 +397,14 @@ class Sale < ActiveRecord::Base
 
   # Returns true if sale is cancelable as an invoice
   def cancelable?
-    self.invoice? and self.amount + self.credits.sum(:amount) > 0
+    not self.credit? and self.invoice? and self.amount + self.credits.sum(:amount) > 0
   end
 
   # Create a credit for the selected invoice? guarding the reference
-  def cancel(lines={})
+  def cancel(lines={}, options={})
     lines = lines.delete_if{|k,v| v.zero?}
     return false if !self.cancelable? or lines.size.zero?
-    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id)
+    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id, :responsible=>options[:responsible]||self.responsible)
     ActiveRecord::Base.transaction do
       if saved = credit.save
         for line in self.lines.where(:id=>lines.keys)
@@ -411,6 +420,7 @@ class Sale < ActiveRecord::Base
         credit.reload
         credit.propose!
         credit.invoice!
+        self.reload.save
       else
         raise ActiveRecord::Rollback
       end

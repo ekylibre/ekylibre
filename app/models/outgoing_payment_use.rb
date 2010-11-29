@@ -63,7 +63,6 @@ class OutgoingPaymentUse < ActiveRecord::Base
       entry.add_debit(label, self.expense.supplier.account(:supplier).id, self.amount)
       entry.add_credit(label, self.payment.payee.account(:attorney).id, self.amount)
     end
-    # self.link_in_accountancy
     self.reconciliate
   end
 

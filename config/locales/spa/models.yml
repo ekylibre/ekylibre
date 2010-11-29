@@ -290,8 +290,6 @@ spa:
       #>sale: 'Sales order'
       #>sale_line: 'Sales order line'
       #>sale_nature: 'Sales order type'
-      #>sales_invoice: ''
-      #>sales_invoice_line: ''
       #>sequence: 'Sequence'
       #>stock: 'Stock'
       #>stock_move: 'Stock move'
@@ -761,6 +759,8 @@ spa:
     #>prospect: 'Prospect'
     #>published: 'Published'
     #>purchase_id: 'Purchase order'
+    #>purchase_line: 'Purchase line'
+    #>purchase_line_id: 'Purchase line'
     #>purchase_lines: 'Purchase order lines'
     #>purchases: 'Purchase orders'
     #>purchases_account: 'Purchases account'
@@ -1002,11 +1002,12 @@ spa:
               #>filename: 'Inventory [number]'
             purchase:
               #>filename: 'Purchase order [number]'
-            sale:
-              #>filename: 'Sales order [number]'
+            sale: #!
             sales_invoice:
               #>filename: 'Sales invoice [number]'
               #>to_archive: 'true'
+            sales_order:
+              #>filename: 'Sales order [number]'
             stocks:
               #>filename: 'Stocks'
             transport:
@@ -1017,9 +1018,9 @@ spa:
         document_templates_filenames: #!
         #>establishment_name: 'Default establishment'
         event_natures:
-          #>purchase: 'Creation of a purchase order'
-          #>sale: 'Creation of a sales order'
-          #>sales_invoice: 'Creation of an sales invoice'
+          #>purchase: 'Creation of a purchase'
+          #>sale: 'Creation of a sale'
+          #>sales_invoice: 'Creation of a sales invoice'
         incoming_payment_modes:
           cash:
             #>name: 'Cash'
@@ -1076,6 +1077,7 @@ spa:
             #>format: 'D[year|4][number|4]'
             #>name: 'Numeration of payments'
             #>period: 'year'
+          purchase_order: #!
           purchases:
             #>format: 'PO[year|4][month|2][number|4]'
             #>name: 'Numeration of purchases'
@@ -1089,6 +1091,7 @@ spa:
             #>format: 'F[year|4][number|6]'
             #>name: 'Numeration of sales invoices'
             #>period: 'year'
+          sales_orders: #!
           subscriptions:
             #>format: 'SUB[number|8]'
             #>name: 'Numeration of subscriptions'
@@ -1339,6 +1342,10 @@ spa:
       sales_conditions:
         #>downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
         #>validity: 'This estimate and its general conditions are available until the %{expiration}.'
+      sales_invoice:
+        label:
+          #>credit: 'Credit %{number}'
+          #>normal: 'Sales invoice %{number}'
       states:
         #>aborted: 'Aborted'
         #>draft: 'Draft'
@@ -1349,15 +1356,12 @@ spa:
     sale_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       #>currency_is_not_sale_currency: 'The currency of the price differs from the sales order currency'
+      #>no_product: '[No product]'
       #>reduction_on: 'Discount of %{percent}%  on %{product}'
       #>tracking: 'S/N: %{serial}'
       #>warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
-    sales_invoice:
-      label:
-        #>credit: 'Credit %{number}'
-        #>normal: 'Sales invoice %{number}'
-    sales_invoice_line:
-      #>no_product: '[No product]'
+    sales_invoice: #!
+    sales_invoice_line: #!
     sequence:
       periods:
         #>cweek: 'Commercial week'

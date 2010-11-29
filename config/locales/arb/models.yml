@@ -674,8 +674,8 @@ arb:
       sale: 'البيع'
       sale_line: 'طريقة طلب البيع'
       sale_nature: 'نوع طلب البيع'
-      sales_invoice: 'الفاتورة'
-      sales_invoice_line: 'طريقة تسديد الفاتورة'
+      sales_invoice: 'الفاتورة' #!
+      sales_invoice_line: 'طريقة تسديد الفاتورة' #!
       sequence: 'التسلسل'
       stock: 'سهم الانتاج'
       stock_move: 'حركة السهم'
@@ -1166,6 +1166,8 @@ arb:
     prospect: 'الراعي'
     published: 'تم نشره'
     #>purchase_id: 'Purchase order'
+    #>purchase_line: 'Purchase line'
+    #>purchase_line_id: 'Purchase line'
     purchase_lines: 'طرق طلب الشراء'
     purchases: 'المشتريات'
     purchases_account: 'رسوم المحاسبة'
@@ -1424,11 +1426,13 @@ arb:
               filename: '[created_on] جرد ل'
             purchase:
               filename: '[number]شراء'
-            sale:
-              filename: '[number]بيع'
+            sale:  #!
+              filename: '[number]بيع' #!
             sales_invoice:
               filename: '[number] فاتورة'
               to_archive: 'صحيح'
+            sales_order:
+              #>filename: 'Sales order [number]'
             stocks:
               filename: 'حالة الاسهم'
             transport:
@@ -1450,9 +1454,9 @@ arb:
           transport: '[created_on] توصيل ل' #!
         establishment_name: 'المؤسسة الرئيسية'
         event_natures:
-          #>purchase: 'Creation of a purchase order'
-          #>sale: 'Creation of a sales order'
-          #>sales_invoice: 'Creation of an sales invoice'
+          #>purchase: 'Creation of a purchase'
+          #>sale: 'Creation of a sale'
+          #>sales_invoice: 'Creation of a sales invoice'
         financial_year_code: '1A2' #!
         incoming_payment_modes:
           cash:
@@ -1536,6 +1540,7 @@ arb:
             #>format: 'D[year|4][number|4]'
             #>name: 'Numeration of payments'
             #>period: 'year'
+          purchase_order: #!
           purchases:
             #>format: 'PO[year|4][month|2][number|4]'
             #>name: 'Numeration of purchases'
@@ -1552,6 +1557,7 @@ arb:
             #>format: 'F[year|4][number|6]'
             #>name: 'Numeration of sales invoices'
             #>period: 'year'
+          sales_orders: #!
           subscriptions:
             #>format: 'SUB[number|8]'
             #>name: 'Numeration of subscriptions'
@@ -1807,6 +1813,10 @@ arb:
       sales_conditions:
         downpayment: 'دفعة مقدمة %{percent}% (soit %{amount}€) يجب ادخال لبدفعة على توقيع التقدير الحالي'
         validity: 'هذا التقدير وشروطه العامة سارية المفعول لغاية %{expiration}.'
+      sales_invoice:
+        label:
+          #>credit: 'Credit %{number}'
+          #>normal: 'Sales invoice %{number}'
       states:
         A: 'الجاري' #!
         C: 'منتهي' #!
@@ -1821,16 +1831,17 @@ arb:
       can_not_use_this_tracking: 'لا يمكنك استخدام حصة %{name}, ان الكمية المطلوبة تتجاوز الكمية المتاحة '
       currency_is_not_sale_currency: 'لا يتطابق سعر المنتج مع العملة المحددة للبيع'
       error_no_found_price: 'لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية' #!
+      #>no_product: '[No product]'
       reduction_on: 'تخفيض بنسبة %{percent}% على : %{product}'
       tracking: 'رقم الحصة : %{serial}'
       warehouse_can_not_transfer_product: 'المنتج %{product} لا يأخذ خارج الخزينة %{warehouse}, هذا ويحتوي %{contained_product} '
-    sales_invoice:
+    sales_invoice:  #!
       bookkeep: '[%{resource} %{number}] %{products} لاجل %{client} (%{sale})' #!
-      label:
-        credit: 'مدخرات رقم%{number}'
-        normal: 'فاتورة رقم%{number}'
-    sales_invoice_line:
-      no_product: '[لا لاي منتج]'
+      label: #!
+        credit: 'مدخرات رقم%{number}' #!
+        normal: 'فاتورة رقم%{number}' #!
+    sales_invoice_line:  #!
+      no_product: '[لا لاي منتج]' #!
     sequence:
       periods:
         cweek: 'اسبوع'

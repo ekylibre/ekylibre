@@ -344,7 +344,7 @@ class FinancesController < ApplicationController
         redirect_to_back
       end
     end
-    t3e :type=>t("activerecord.models."+expense_type), :number=>expense.number
+    t3e :type=>t("activerecord.models."+expense_type), :number=>expense.number, :label=>expense.label
     render_form
   end
 

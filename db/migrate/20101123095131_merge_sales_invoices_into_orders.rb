@@ -33,6 +33,22 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     :processing=>:order,
     :invoiced=>:invoice,
   }
+  
+
+  PREFERENCES = {
+    :purchase_orders_sequence => :purchases_sequence,
+    :sales_orders_sequence => :sales_sequence
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+
+  RIGHTS = {
+    :change_prices_on_sales_order => :chnage_prices_on_sales,
+    :consult_purchase_orders => :consult_purchases,
+    :consult_sale_orders => :consult_sales,
+    :give_discounts_on_sales_orders => :give_discounts_on_sales,
+    :manage_purchase_orders => :manage_purchases,
+    :manage_sales_order_natures => :manage_sale_natures,
+    :manage_sales_orders => :manage_sales
+  }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
 
   def self.up
     # Change states
@@ -190,9 +206,36 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     for o, n in TEMPLATES
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
     end
+
+    for o, n in PREFERENCES
+      execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
+    end
+
+    for o, n in RIGHTS
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{o}', '#{n}')"
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{o}', '#{n}')"
+    end
+
+    for o, n in RENAMED_TABLES
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{n.to_s.singularize}' WHERE usage='#{o.to_s.singularize}'"
+    end
+    
   end
 
   def self.down
+    for n, o in RENAMED_TABLES.reverse
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{n.to_s.singularize}' WHERE usage='#{o.to_s.singularize}'"
+    end
+
+    for n, o in RIGHTS.reverse
+      execute "UPDATE #{quoted_table_name(:roles)} SET rights=REPLACE(rights, '#{o}', '#{n}')"
+      execute "UPDATE #{quoted_table_name(:users)} SET rights=REPLACE(rights, '#{o}', '#{n}')"
+    end
+
+    for n, o in PREFERENCES.reverse
+      execute "UPDATE #{quoted_table_name(:preferences)} SET name='#{n}' WHERE name='#{o}'"
+    end
+
     for n, o in TEMPLATES.reverse
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"
     end

@@ -74,8 +74,9 @@
     =toolbar do |t|
       -t.link :outgoing_delivery_create, :sale=>@sale.id
     =kame :sale_undelivered_lines
-  %h2=Sale.human_attribute_name("deliveries")
-  =kame :sale_deliveries
+  -if @sale.deliveries.count > 0
+    %h2=Sale.human_attribute_name("deliveries")
+    =kame :sale_deliveries
 
 -if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
   %h2=tc :credits

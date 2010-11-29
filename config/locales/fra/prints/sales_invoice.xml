@@ -71,7 +71,7 @@
           <text value="Règlements effectués"  bold="true"/>
         </set>
         <set if="sales_invoice/unpaid_amount&lt;=0" top="10mm">
-          <text value=": facture acquitée" left="33mm" bold="true" />
+          <text value=": facture acquittée" left="33mm" bold="true" />
         </set>
       </part>
 

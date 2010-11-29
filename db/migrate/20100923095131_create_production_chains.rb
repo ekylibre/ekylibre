@@ -101,8 +101,8 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end    
     add_index :land_parcel_kinships, :company_id
-    add_index :land_parcel_kinships, [:parent_land_parcel_id, :company_id]
-    add_index :land_parcel_kinships, [:child_land_parcel_id, :company_id]
+    add_index :land_parcel_kinships, [:parent_land_parcel_id, :company_id], :name=>"index_#{quoted_table_name(:land_parcel_kinships)}_parent"
+    add_index :land_parcel_kinships, [:child_land_parcel_id, :company_id], :name=>"index_#{quoted_table_name(:land_parcel_kinships)}_child"
 
     create_table :cultivations do |t|
       t.column :name,             :string,  :null=>false
@@ -155,7 +155,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chain_conveyors, :company_id
-    add_index :production_chain_conveyors, [:production_chain_id, :company_id]
+    add_index :production_chain_conveyors, [:production_chain_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_conveyors)}_chain"
 
 
 #     create_table :production_chain_tokens do |t|
@@ -186,8 +186,8 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chain_work_centers, :company_id
-    add_index :production_chain_work_centers, [:production_chain_id, :company_id]
-    add_index :production_chain_work_centers, [:operation_nature_id, :company_id]
+    add_index :production_chain_work_centers, [:production_chain_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_centers)}_chain"
+    add_index :production_chain_work_centers, [:operation_nature_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_centers)}_nature"
 
 
 #     create_table :production_chain_work_center_lines do |t|
@@ -210,7 +210,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :production_chain_work_center_uses, :company_id
-    add_index :production_chain_work_center_uses, [:work_center_id, :company_id]
+    add_index :production_chain_work_center_uses, [:work_center_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_center_uses)}_work_center"
 
 
     rename_table :tool_uses, :operation_uses

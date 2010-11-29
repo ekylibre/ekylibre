@@ -43,7 +43,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             not null
+#  to_bank_on            :date             default(CURRENT_DATE), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #  used_amount           :decimal(16, 2)   not null
@@ -115,6 +115,7 @@ class IncomingPayment < ActiveRecord::Base
       entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
       entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
+    self.uses.first.reconciliate if self.uses.first
   end
 
   

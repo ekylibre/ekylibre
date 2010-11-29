@@ -322,7 +322,8 @@ class RelationsController < ApplicationController
     t.column :state_label, :children=>false
     t.column :paid_amount, :children=>false
     t.column :amount
-    t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale}
+    t.action :sale, :url=>{:format=>:pdf}, :image=>:print
+    # t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale}
     t.action :sale_duplicate, :controller=>:management, :method=>:post
     t.action :sale_update, :controller=>:management, :if=>"RECORD.draft? "
     t.action :sale_delete, :controller=>:management, :if=>"RECORD.aborted? ", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete

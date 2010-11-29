@@ -14,4 +14,4 @@
   -f.field :purchase_line, :annotation, :field=>:textarea
 
 =hidden_field_tag :purchase_id, params[:purchase_id]
-=observe_field product_id, :url=>{:action => :price_find, :entity_id=>@purchase_line.order.supplier_id}, :frequency => 0.25, :with=>"purchase_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"
+=observe_field product_id, :url=>{:action => :price_find, :entity_id=>@purchase_line.purchase.supplier_id}, :frequency => 0.25, :with=>"purchase_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"
