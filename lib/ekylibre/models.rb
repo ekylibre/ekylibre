@@ -587,8 +587,6 @@ module Ekylibre
       :creator_id => :user,
       :origin_id => "origin_type",
       :product_id => :product,
-      :second_move_id => :stock_move,
-      :second_warehouse_id => :warehouse,
       :stock_id => :stock,
       :tracking_id => :tracking,
       :unit_id => :unit,

@@ -31,6 +31,7 @@
 #  created_at                 :datetime         not null
 #  creator_id                 :integer          
 #  critic_quantity_min        :decimal(16, 4)   default(1.0)
+#  deliverable                :boolean          not null
 #  description                :text             
 #  ean13                      :string(13)       
 #  for_immobilizations        :boolean          not null
@@ -40,7 +41,6 @@
 #  id                         :integer          not null, primary key
 #  immobilizations_account_id :integer          
 #  lock_version               :integer          default(0), not null
-#  manage_stocks              :boolean          not null
 #  name                       :string(255)      not null
 #  nature                     :string(8)        not null
 #  number                     :integer          not null
@@ -52,9 +52,11 @@
 #  reduction_submissive       :boolean          not null
 #  sales_account_id           :integer          
 #  service_coeff              :decimal(16, 4)   
+#  stockable                  :boolean          not null
 #  subscription_nature_id     :integer          
 #  subscription_period        :string(255)      
 #  subscription_quantity      :integer          
+#  trackable                  :boolean          not null
 #  unit_id                    :integer          not null
 #  unquantifiable             :boolean          not null
 #  updated_at                 :datetime         not null
@@ -237,7 +239,7 @@ class Product < CompanyRecord
 
   # Generic method to add stock move in product's stock
   def add_stock_move(options={})
-    return true unless self.manage_stocks
+    return true unless self.stockable
     incoming = options.delete(:incoming)
     attributes = options.merge(:generated=>true, :company_id=>self.company_id)
     origin = options[:origin]

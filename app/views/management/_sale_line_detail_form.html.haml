@@ -3,7 +3,7 @@
     -f.field :sale_line, :quantity
     -f.field SaleLine.human_attribute_name("unit_id"), @sale_line.product.unit.label
     -f.field :sale_line, :annotation, :field=>:textarea
-  -if product.manage_stocks
+  -if product.stockable
     =formalize do |f|
       -#f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>{:action=>:warehouse_create} 
       -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_line, :stock_id, product_stocks_options(product))

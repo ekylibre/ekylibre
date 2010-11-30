@@ -553,7 +553,7 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:category, :url=>{:action=>:product_category}
     t.column :name, :url=>{:action=>:product}
     t.column :code, :url=>{:action=>:product}
-    t.column :manage_stocks
+    t.column :stockable
     t.column :nature_label
     t.column :label, :through=>:unit
     t.action :product_update
@@ -620,7 +620,7 @@ class ManagementController < ApplicationController
       # @price = @current_company.prices.new(params[:price])
       ActiveRecord::Base.transaction do
         saved = @product.save
-        if @product.manage_stocks and saved
+        if @product.stockable and saved
           @stock.product_id = @product.id
           saved = false unless @stock.save
           @product.errors.add_from_record(@stock)
@@ -646,7 +646,7 @@ class ManagementController < ApplicationController
     return unless @product = find_and_check(:product)
     session[:product_id] = @product.id
     @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    if !@product.manage_stocks
+    if !@product.stockable
       @stock = Stock.new
     else
       @stock = Stock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||Stock.new 
@@ -655,7 +655,7 @@ class ManagementController < ApplicationController
       saved = false
       ActiveRecord::Base.transaction do
         if saved = @product.update_attributes(params[:product])
-          if @stock.id.nil? and params[:product][:manage_stocks] == "1"
+          if @stock.id.nil? and params[:product][:stockable] == "1"
             @stock = Stock.new(params[:stock])
             @stock.product_id = @product.id
             @stock.company_id = @current_company.id 

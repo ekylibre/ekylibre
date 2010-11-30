@@ -193,7 +193,7 @@ class Company < Ekylibre::Record::Base
   has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
   has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\''
   has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
-  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:manage_stocks=>true}
+  has_many :stockable_products, :class_name=>Product.name, :conditions=>{:stockable=>true}
   has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}'
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
@@ -885,7 +885,7 @@ class Company < Ekylibre::Record::Base
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     taxes = self.taxes
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :stockable=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end

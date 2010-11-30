@@ -64,12 +64,7 @@ class Transfer < CompanyRecord
     #     end
   end
 
-  def client_id
-    self.supplier_id
-  end
-  def client_id=(value)
-    self.supplier_id=value
-  end
+  alias_attribute :client_id, :supplier_id
 
   def unpaid_amount
     self.amount - self.paid_amount

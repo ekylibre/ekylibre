@@ -663,7 +663,7 @@ fra:
     luminance: 'Luminosité'
     mail: 'E-mail'
     major_accounts: 'Classes comptables'
-    manage_stocks: 'Gérer les stocks'
+    stockable: 'Gérer les stocks'
     mandates: 'Responsabilités'
     min_duration: 'Minute(s)'
     mobile: 'Portable'

@@ -87,7 +87,7 @@ class SaleLine < CompanyRecord
     if self.product
       self.account_id = self.product.sales_account_id 
       self.unit_id = self.product.unit_id
-      if self.product.manage_stocks
+      if self.product.stockable
         self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.size > 0
       else
         self.warehouse_id = nil

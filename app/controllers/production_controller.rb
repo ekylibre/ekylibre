@@ -301,7 +301,7 @@ class ProductionController < ApplicationController
           k = p[0] # .lower.to_sym
           ps[k] = @current_company.products.find_by_code(p[0])
           # ps[k].destroy; ps[k] = nil
-          ps[k] = @current_company.products.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :for_sales=>false, :category=>@current_company.product_categories.first, :nature=>"product", :manage_stocks=>true) unless ps[k]
+          ps[k] = @current_company.products.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :for_sales=>false, :category=>@current_company.product_categories.first, :nature=>"product", :stockable=>true) unless ps[k]
         end
 
         for co in [ ["TOMA", nil, 0.0,  :a,   1, true],

@@ -74,6 +74,14 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     change_column_null :sales_order_lines, :account_id, true
     remove_column :sales_order_lines, :invoiced
 
+    add_column :products, :deliverable, :boolean, :null=>false, :default=>false
+    rename_column :products, :manage_stocks, :stockable
+    add_column :products, :trackable, :boolean, :null=>false, :default=>false
+    execute "UPDATE #{quoted_table_name(:products)} SET deliverable = stockable WHERE stockable = #{quoted_true}"
+    remove_column :stock_moves, :second_move_id
+    remove_column :stock_moves, :second_warehouse_id
+    change_column_null :stock_moves, :generated, false, false
+
 
     for table, columns in TRACKINGS
       for column in columns
@@ -346,6 +354,13 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
         end
       end
     end
+
+    # change_column_null :stock_moves, :generated, false, false
+    add_column :stock_moves, :second_warehouse_id, :integer
+    add_column :stock_moves, :second_move_id, :integer
+    remove_column :products, :trackable
+    rename_column :products, :stockable, :manage_stocks
+    remove_column :products, :deliverable
 
     add_column :sales_order_lines, :invoiced, :boolean, :null=>false, :default=>false
     # change_column_null :sales_order_lines, :account_id, true

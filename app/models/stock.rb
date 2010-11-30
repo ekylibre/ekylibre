@@ -43,21 +43,19 @@
 
 
 class Stock < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
-  
-  validates_presence_of :unit_id
+  has_many :moves, :class_name=>"StockMove"
+  validates_presence_of :unit
   
   before_validation do
     self.unit_id ||= self.product.unit_id
     self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
     self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
     self.quantity_max = self.product.quantity_max if self.quantity_max.nil?
-    warehouses = Warehouse.find_all_by_company_id(self.company_id)
+    warehouses = self.company.warehouses
     self.warehouse_id = warehouses[0].id if warehouses.size == 1
   end
 

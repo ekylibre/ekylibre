@@ -26,7 +26,7 @@
   -f.field :product, :for_sales
   -f.field :product, :for_purchases
   -f.field :product, :for_productions
-  -f.field :product, :manage_stocks
+  -f.field :product, :stockable
 =formalize(:id=>:product_form_stocks) do |f|
   -f.title :stocks_preferences
   -f.field :stock, :quantity_min
@@ -46,7 +46,7 @@
   toggleService();
   window.toggleSubscription = function() { toggleElement('subscriptions', $('product_nature_subscrip').checked); }
   toggleSubscription();
-  window.toggleStocks = function() { toggleElement('product_form_stocks', $('product_manage_stocks').checked); }
+  window.toggleStocks = function() { toggleElement('product_form_stocks', $('product_stockable').checked); }
   toggleStocks();
   window.togglePurchasesAccount = function() { toggleElement('purchases_account', $('product_for_purchases').checked); }
   togglePurchasesAccount();
@@ -59,7 +59,7 @@
 =observe_field("product_nature_service", :frequency =>0.25, :function => "toggleService();")
 -if request.url.to_s.include? "update"
   =observe_field(warehouse_id, :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"warehouse_id")
-=observe_field("product_manage_stocks", :frequency=>0.25, :function=> "toggleStocks();")
+=observe_field("product_stockable", :frequency=>0.25, :function=> "toggleStocks();")
 =observe_field("product_nature_subscrip", :frequency=>0.25, :function=>"toggleSubscription();")
 =observe_field("product_for_purchases", :frequency=>0.25, :function=>"togglePurchasesAccount();")
 =observe_field("product_for_sales", :frequency=>0.25, :function=>"toggleSalesAccount();")

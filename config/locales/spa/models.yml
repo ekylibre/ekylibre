@@ -647,7 +647,7 @@ spa:
     #>luminance: 'Luminance'
     #>mail: 'Mail'
     #>major_accounts: 'Major accounts'
-    #>manage_stocks: 'Manage stocks'
+    #>stockable: 'Manage stocks'
     #>mandates: 'Mandates'
     #>min_duration: 'Min duration'
     #>mobile: 'Mobile'

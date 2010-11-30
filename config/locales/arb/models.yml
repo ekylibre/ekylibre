@@ -1046,7 +1046,7 @@ arb:
     #>luminance: 'Luminance'
     mail: 'البريد الالكتروني'
     major_accounts: 'الحسابات الئيسية'
-    manage_stocks: 'ادارة الاسهم'
+    stockable: 'ادارة الاسهم'
     mandates: 'تفويضات'
     master: 'كتلة رئيسية' #!
     max_reduction_rate: 'سعر التخفيض' #!
