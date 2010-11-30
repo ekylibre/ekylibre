@@ -42,7 +42,7 @@
 #
 
 
-class Stock < ActiveRecord::Base
+class Stock < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :warehouse

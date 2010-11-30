@@ -38,7 +38,7 @@
 #
 
 
-class Currency < ActiveRecord::Base
+class Currency < CompanyRecord
   attr_readonly :company
   belongs_to :company
   has_many :journals

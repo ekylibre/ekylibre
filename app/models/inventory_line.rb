@@ -37,7 +37,7 @@
 #
 
 
-class InventoryLine < ActiveRecord::Base
+class InventoryLine < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :inventory

@@ -1,10 +1,8 @@
 require File.join(File.dirname(__FILE__), 'safe_string')
 require File.join(File.dirname(__FILE__), 'i18n')
-require File.join(File.dirname(__FILE__), 'models')
 # require File.join(File.dirname(__FILE__), 'spreet')
 require File.join(File.dirname(__FILE__), 'activerecord')
-require File.join(File.dirname(__FILE__), 'fix_sqlserver')
-require File.join(File.dirname(__FILE__), 'preference')
+require File.join(File.dirname(__FILE__), 'ekylibre')
 
 module Ekylibre
   @@version = nil

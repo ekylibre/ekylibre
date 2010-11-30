@@ -37,7 +37,7 @@
 #
 
 
-class EntityNature < ActiveRecord::Base
+class EntityNature < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :entities, :foreign_key=>:nature_id 

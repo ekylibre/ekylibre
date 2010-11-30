@@ -43,7 +43,7 @@
 #
 
 
-class PurchaseLine < ActiveRecord::Base
+class PurchaseLine < CompanyRecord
   acts_as_list :scope=>:purchase
   attr_readonly :company_id, :purchase_id
   belongs_to :account

@@ -38,7 +38,7 @@
 #
 
 
-class LandParcel < ActiveRecord::Base
+class LandParcel < CompanyRecord
   attr_readonly :company_id
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company

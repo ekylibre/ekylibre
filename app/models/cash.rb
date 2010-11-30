@@ -47,7 +47,7 @@
 #
 
 
-class Cash < ActiveRecord::Base
+class Cash < CompanyRecord
   @@natures = ["bank_account", "cash_box"]
   @@modes = ["iban", "bban"]
   @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  

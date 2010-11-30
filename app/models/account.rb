@@ -37,7 +37,7 @@
 #
 
 
-class Account < ActiveRecord::Base
+class Account < CompanyRecord
   attr_readonly :company_id, :number
   belongs_to :company
   has_many :account_balances

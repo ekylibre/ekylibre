@@ -36,7 +36,7 @@
 #
 
 
-class EntityLinkNature < ActiveRecord::Base
+class EntityLinkNature < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many   :entity_links, :foreign_key=>:nature_id

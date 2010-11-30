@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Acts #:nodoc:
     module Numbered #:nodoc:
       
@@ -52,4 +52,4 @@ module ActiveRecord
     end
   end
 end
-ActiveRecord::Base.send(:include, ActiveRecord::Acts::Numbered)
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Numbered)

@@ -32,7 +32,7 @@
 #
 
 
-class Role < ActiveRecord::Base
+class Role < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :users

@@ -37,7 +37,7 @@
 #
 
 
-class ProductionChainWorkCenter < ActiveRecord::Base
+class ProductionChainWorkCenter < CompanyRecord
   acts_as_list :scope=>:production_chain
   attr_readonly :company_id
   belongs_to :building, :class_name=>Warehouse.name

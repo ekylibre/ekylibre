@@ -32,7 +32,7 @@
 #
 
 
-class ProductionChainWorkCenterUse < ActiveRecord::Base
+class ProductionChainWorkCenterUse < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :work_center, :class_name=>ProductionChainWorkCenter.name

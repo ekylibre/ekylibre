@@ -42,7 +42,7 @@
 #  updater_id    :integer          
 #
 
-class Document < ActiveRecord::Base
+class Document < CompanyRecord
   belongs_to :company
   belongs_to :owner, :polymorphic=>true
   belongs_to :template, :class_name=>DocumentTemplate.name

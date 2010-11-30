@@ -33,7 +33,7 @@
 #
 
 
-class IncomingDeliveryMode < ActiveRecord::Base
+class IncomingDeliveryMode < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :deliveries, :foreign_key=>:mode_id, :class_name=>IncomingDelivery.name

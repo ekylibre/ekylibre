@@ -43,7 +43,7 @@
 #
 
 
-class Warehouse < ActiveRecord::Base
+class Warehouse < CompanyRecord
   acts_as_tree
   attr_readonly :company_id, :reservoir
   belongs_to :company

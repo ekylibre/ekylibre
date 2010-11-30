@@ -38,7 +38,7 @@
 #
 
 
-class Tax < ActiveRecord::Base
+class Tax < CompanyRecord
   attr_readonly :nature, :company_id #, :amount
   belongs_to :company
   belongs_to :collected_account, :class_name=>Account.name

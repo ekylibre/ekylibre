@@ -39,7 +39,7 @@
 #
 
 
-class ProductComponent < ActiveRecord::Base
+class ProductComponent < CompanyRecord
   attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s

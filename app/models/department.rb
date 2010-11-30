@@ -34,7 +34,7 @@
 #
 
 
-class Department < ActiveRecord::Base
+class Department < CompanyRecord
   attr_readonly :company_id
   has_many :users
   validates_uniqueness_of :name, :scope=>:company_id

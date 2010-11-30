@@ -35,7 +35,7 @@
 #
 
 
-class Journal < ActiveRecord::Base
+class Journal < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :currency

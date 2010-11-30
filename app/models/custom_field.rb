@@ -38,7 +38,7 @@
 #
 
 
-class CustomField < ActiveRecord::Base
+class CustomField < CompanyRecord
   NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
   acts_as_list
   attr_readonly :company_id, :nature

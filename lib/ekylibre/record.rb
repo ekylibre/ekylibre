@@ -18,29 +18,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: mandates
-#
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  entity_id    :integer          not null
-#  family       :string(255)      not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  organization :string(255)      not null
-#  started_on   :date             
-#  stopped_on   :date             
-#  title        :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
-#
 
 
-class Mandate < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :entity
-  belongs_to :company
+module Ekylibre
+  module Record
+    VERSION = '0.0.1'
+  end  
+end 
 
-  validates_presence_of :started_on, :stopped_on
-
-end
+dir = File.join(File.dirname(__FILE__), 'record')
+require File.join(dir, 'base')
+require File.join(dir, 'bookkeep')
+require File.join(dir, 'autosave')
+require File.join(dir, 'sums')
+require File.join(dir, 'preference')
+require File.join(dir, 'acts', 'numbered')          
+require File.join(dir, 'acts', 'reconcilable')
+require File.join(dir, 'company_record')

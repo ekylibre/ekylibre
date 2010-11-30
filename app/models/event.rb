@@ -38,7 +38,7 @@
 #
 
 
-class Event < ActiveRecord::Base
+class Event < CompanyRecord
   belongs_to :company
   belongs_to :entity
   belongs_to :nature, :class_name=>EventNature.name

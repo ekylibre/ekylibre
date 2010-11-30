@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Sums #:nodoc:
     
     def self.included(base)
@@ -44,4 +44,4 @@ module ActiveRecord
   end
 end
 
-ActiveRecord::Base.send(:include, ActiveRecord::Sums)
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Sums)

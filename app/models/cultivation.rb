@@ -35,7 +35,7 @@
 #
 
 
-class Cultivation < ActiveRecord::Base
+class Cultivation < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
 end

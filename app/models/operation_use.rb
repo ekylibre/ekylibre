@@ -32,7 +32,7 @@
 #
 
 
-class OperationUse < ActiveRecord::Base
+class OperationUse < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :operation

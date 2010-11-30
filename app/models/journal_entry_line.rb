@@ -44,7 +44,7 @@
 #
 
 
-class JournalEntryLine < ActiveRecord::Base
+class JournalEntryLine < CompanyRecord
   acts_as_list :scope=>:entry
   after_create  :update_entry
   after_destroy :update_entry

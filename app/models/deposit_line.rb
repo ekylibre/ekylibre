@@ -33,5 +33,5 @@
 #
 
 
-class DepositLine < ActiveRecord::Base
+class DepositLine < CompanyRecord
 end

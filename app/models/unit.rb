@@ -37,7 +37,7 @@
 #
 
 
-class Unit < ActiveRecord::Base
+class Unit < CompanyRecord
   attr_readonly :company_id
   before_save {|record| record.base = record.class.normalize(record.base) }
   belongs_to :company

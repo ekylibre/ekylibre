@@ -41,7 +41,7 @@
 #
 
 
-class IncomingPaymentMode < ActiveRecord::Base
+class IncomingPaymentMode < CompanyRecord
   acts_as_list
   attr_readonly :company_id
   belongs_to :cash

@@ -41,7 +41,7 @@
 #
 
 
-class IncomingDeliveryLine < ActiveRecord::Base
+class IncomingDeliveryLine < CompanyRecord
   attr_readonly :company_id, :purchase_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
   belongs_to :delivery, :class_name=>IncomingDelivery.name

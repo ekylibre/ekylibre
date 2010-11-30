@@ -76,7 +76,7 @@
 #
 
 
-class Entity < ActiveRecord::Base
+class Entity < CompanyRecord
   acts_as_numbered :code
   attr_readonly :company_id
   belongs_to :attorney_account, :class_name=>Account.to_s

@@ -44,7 +44,7 @@
 #
 
 
-class Price < ActiveRecord::Base
+class Price < CompanyRecord
   after_save :set_by_default
   attr_readonly :company_id
   belongs_to :category, :class_name=>EntityCategory.name

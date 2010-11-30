@@ -36,7 +36,7 @@
 #
 
 
-class SubscriptionNature < ActiveRecord::Base
+class SubscriptionNature < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :entity_link_nature

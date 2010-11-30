@@ -120,7 +120,7 @@ class CompanyTest < ActiveSupport::TestCase
 
     end
 
-    context "with invoiced sales" do
+    context "already invoiced" do
 
       setup do
         @sale = @company.sales.new(:client=>@company.entities.third)
@@ -139,10 +139,13 @@ class CompanyTest < ActiveSupport::TestCase
         assert @sale.invoice
         assert_equal "invoice", @sale.state
         assert_equal Date.today, @sale.invoiced_on
+      end
+      
+      should "not be updateable" do
         amount = @sale.amount
-        @sale.update_attribute(:amount, 2*(amount.to_i+5))
+        @sale.update_attribute(:amount, amount.to_i+50)
         @sale.reload
-        assert_equal amount, @sale.amount
+        assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
       end
 
       should "print and archive its sales invoices" do

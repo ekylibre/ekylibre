@@ -49,7 +49,7 @@
 #
 
 
-class Contact < ActiveRecord::Base
+class Contact < CompanyRecord
   attr_readonly :entity_id, :company_id
   attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
   belongs_to :area

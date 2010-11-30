@@ -49,7 +49,7 @@
 #
 
 
-class SaleLine < ActiveRecord::Base
+class SaleLine < CompanyRecord
   acts_as_list :scope=>:sale
   after_save :set_reduction
   attr_readonly :company_id, :sale_id

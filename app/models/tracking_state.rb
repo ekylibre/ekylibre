@@ -41,7 +41,7 @@
 #
 
 
-class TrackingState < ActiveRecord::Base
+class TrackingState < CompanyRecord
   attr_readonly :company_id, :tracking_id
   belongs_to :company
   belongs_to :tracking

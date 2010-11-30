@@ -50,7 +50,7 @@
 #
 
 
-class IncomingPayment < ActiveRecord::Base
+class IncomingPayment < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :commission_account, :class_name=>Account.name

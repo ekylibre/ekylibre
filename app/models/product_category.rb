@@ -36,7 +36,7 @@
 #
 
 
-class ProductCategory < ActiveRecord::Base
+class ProductCategory < CompanyRecord
   acts_as_tree
   attr_readonly :company_id
   belongs_to :company

@@ -41,7 +41,7 @@
 #
 
 
-class Transport < ActiveRecord::Base
+class Transport < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company

@@ -40,7 +40,7 @@
 #
 
 
-class OperationLine < ActiveRecord::Base
+class OperationLine < CompanyRecord
   after_destroy :cancel_stock_reservation
   after_save :add_stock_reservation
   before_update :cancel_stock_reservation

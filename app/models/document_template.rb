@@ -42,7 +42,7 @@
 #
 
 
-class DocumentTemplate < ActiveRecord::Base
+class DocumentTemplate < CompanyRecord
   attr_readonly :company_id
   after_save :set_by_default
   cattr_reader :families, :document_natures

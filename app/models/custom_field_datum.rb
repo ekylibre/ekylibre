@@ -38,7 +38,7 @@
 #
 
 
-class CustomFieldDatum < ActiveRecord::Base
+class CustomFieldDatum < CompanyRecord
   attr_readonly :company_id, :custom_field_id, :entity_id
   belongs_to :choice_value, :class_name=>CustomFieldChoice.to_s
   belongs_to :company

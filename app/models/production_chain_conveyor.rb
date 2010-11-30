@@ -41,7 +41,7 @@
 #
 
 
-class ProductionChainConveyor < ActiveRecord::Base
+class ProductionChainConveyor < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :product

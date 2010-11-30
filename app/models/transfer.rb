@@ -40,7 +40,7 @@
 #
 
 
-class Transfer < ActiveRecord::Base
+class Transfer < CompanyRecord
   attr_readonly :company_id, :comment
   belongs_to :company
   belongs_to :supplier, :class_name=>Entity.to_s

@@ -37,7 +37,7 @@
 #
 
 
-class Inventory < ActiveRecord::Base
+class Inventory < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :responsible, :class_name=>User.name

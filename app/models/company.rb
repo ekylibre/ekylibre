@@ -38,7 +38,7 @@
 #
 
 
-class Company < ActiveRecord::Base
+class Company < Ekylibre::Record::Base
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas

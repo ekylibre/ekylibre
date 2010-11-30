@@ -64,7 +64,7 @@
 #
 
 
-class Product < ActiveRecord::Base
+class Product < CompanyRecord
   @@natures = [:product, :service, :subscrip, :transfer]
   attr_readonly :company_id
   belongs_to :purchases_account, :class_name=>Account.to_s

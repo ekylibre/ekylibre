@@ -36,7 +36,7 @@
 #
 
 
-class Delay < ActiveRecord::Base 
+class Delay < CompanyRecord 
   attr_readonly :company_id
   belongs_to :company
   has_many :entities

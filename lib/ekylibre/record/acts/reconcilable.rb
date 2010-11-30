@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Acts #:nodoc:
     module Reconcilable #:nodoc:
       
@@ -85,4 +85,4 @@ module ActiveRecord
     end
   end
 end
-ActiveRecord::Base.send(:include, ActiveRecord::Acts::Reconcilable)
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Reconcilable)

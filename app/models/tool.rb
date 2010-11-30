@@ -33,7 +33,7 @@
 #
 
 
-class Tool < ActiveRecord::Base
+class Tool < CompanyRecord
 
   belongs_to :company
   has_many :uses, :class_name=>OperationUse.name

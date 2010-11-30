@@ -46,7 +46,7 @@
 #
 
 
-class Operation < ActiveRecord::Base
+class Operation < CompanyRecord
   belongs_to :company
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name

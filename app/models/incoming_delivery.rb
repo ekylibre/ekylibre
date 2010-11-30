@@ -42,7 +42,7 @@
 #
 
 
-class IncomingDelivery < ActiveRecord::Base
+class IncomingDelivery < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id, :number
   belongs_to :contact

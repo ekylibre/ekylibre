@@ -39,7 +39,7 @@
 #
 
 
-class Preference < ActiveRecord::Base
+class Preference < CompanyRecord
   @@natures = Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
   attr_readonly :company_id, :user_id, :name, :nature

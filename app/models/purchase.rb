@@ -47,7 +47,7 @@
 #
 
 
-class Purchase < ActiveRecord::Base
+class Purchase < CompanyRecord
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :company_id
@@ -127,7 +127,7 @@ class Purchase < ActiveRecord::Base
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
-    if use = self.payment_uses.first
+    if use = self.uses.first
       use.reconciliate
     end
   end

@@ -40,7 +40,7 @@
 #
 
 
-class StockTransfer < ActiveRecord::Base
+class StockTransfer < CompanyRecord
   after_save :move_stocks
   attr_readonly :company_id, :nature
   before_update {|r| r.stock_moves.clear}

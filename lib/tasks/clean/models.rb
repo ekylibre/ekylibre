@@ -5,13 +5,13 @@ task :models => :environment do
   
   Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
   # models = Object.subclasses_of(ActiveRecord::Base).select{|x| not x.name.match('::')}.sort{|a,b| a.name <=> b.name}
-  models = ActiveRecord::Base.subclasses.select{|x| not x.name.match('::')}.sort{|a,b| a.name <=> b.name}
+  models = ActiveRecord::Base.subclasses.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
   models_code = "  @@models = ["+models.collect{|m| ":"+m.name.underscore}.join(", ")+"]\n"
   
   symodels = models.collect{|x| x.name.underscore.to_sym}
 
   errors = 0
-  models_file = Rails.root.join("lib", "models.rb")
+  models_file = Rails.root.join("lib", "ekylibre", "models.rb")
   require models_file
   refs = Ekylibre.references
   refs_code = ""

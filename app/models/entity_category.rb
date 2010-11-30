@@ -34,7 +34,7 @@
 #
 
 
-class EntityCategory < ActiveRecord::Base
+class EntityCategory < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :entities, :foreign_key=>:category

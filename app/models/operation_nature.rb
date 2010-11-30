@@ -33,7 +33,7 @@
 #
 
 
-class OperationNature < ActiveRecord::Base
+class OperationNature < CompanyRecord
   belongs_to :company
   has_many :operations
 

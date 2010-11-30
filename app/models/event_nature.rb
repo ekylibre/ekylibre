@@ -34,7 +34,7 @@
 #
 
 
-class EventNature < ActiveRecord::Base
+class EventNature < CompanyRecord
   attr_readonly :company_id, :name 
   belongs_to :company
   has_many :events, :foreign_key=>:nature_id

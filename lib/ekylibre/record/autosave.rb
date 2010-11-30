@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Autosave #:nodoc:
     
     def self.included(base)
@@ -46,4 +46,4 @@ module ActiveRecord
   end
 end
 
-ActiveRecord::Base.send(:include, ActiveRecord::Autosave)
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Autosave)

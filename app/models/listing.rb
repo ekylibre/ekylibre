@@ -38,7 +38,7 @@
 #
 
 
-class Listing < ActiveRecord::Base
+class Listing < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :columns, :class_name=>ListingNode.name, :conditions=>["nature = ?", "column"]

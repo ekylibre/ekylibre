@@ -46,7 +46,7 @@
 #
 
 
-class ListingNode < ActiveRecord::Base
+class ListingNode < CompanyRecord
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :company_id, :listing_id, :nature

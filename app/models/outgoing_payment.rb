@@ -43,7 +43,7 @@
 #
 
 
-class OutgoingPayment < ActiveRecord::Base
+class OutgoingPayment < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company

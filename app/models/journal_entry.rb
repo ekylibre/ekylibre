@@ -44,7 +44,7 @@
 #
 
 
-class JournalEntry < ActiveRecord::Base
+class JournalEntry < CompanyRecord
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
   belongs_to :currency

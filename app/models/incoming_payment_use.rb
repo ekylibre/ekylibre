@@ -37,7 +37,7 @@
 #
 
 
-class IncomingPaymentUse < ActiveRecord::Base
+class IncomingPaymentUse < CompanyRecord
   acts_as_reconcilable :client, :payer
   attr_readonly :company_id
   belongs_to :company

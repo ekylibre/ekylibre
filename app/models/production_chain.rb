@@ -32,7 +32,7 @@
 #
 
 
-class ProductionChain < ActiveRecord::Base
+class ProductionChain < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :operations, :class_name=>ProductionChainWorkCenter.name, :order=>:position, :dependent=>:delete_all

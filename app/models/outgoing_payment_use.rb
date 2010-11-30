@@ -36,7 +36,7 @@
 #
 
 
-class OutgoingPaymentUse < ActiveRecord::Base
+class OutgoingPaymentUse < CompanyRecord
   acts_as_reconcilable :supplier, :payee
   attr_readonly :company_id
   belongs_to :company

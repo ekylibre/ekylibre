@@ -57,7 +57,7 @@
 
 require "digest/sha2"
 
-class User < ActiveRecord::Base
+class User < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :department

@@ -45,7 +45,7 @@
 #
 
 
-class CashTransfer < ActiveRecord::Base
+class CashTransfer < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id, :number
   belongs_to :company

@@ -38,7 +38,7 @@
 #
 
 
-class BankStatement < ActiveRecord::Base
+class BankStatement < CompanyRecord
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company

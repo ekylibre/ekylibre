@@ -40,7 +40,7 @@
 #
 
 
-class AccountBalance < ActiveRecord::Base
+class AccountBalance < CompanyRecord
   belongs_to :account
   belongs_to :company
   belongs_to :financial_year

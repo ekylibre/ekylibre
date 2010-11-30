@@ -40,7 +40,7 @@
 #
 
 
-class OutgoingDeliveryLine < ActiveRecord::Base
+class OutgoingDeliveryLine < CompanyRecord
   attr_readonly :company_id, :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
   belongs_to :delivery, :class_name=>OutgoingDelivery.name

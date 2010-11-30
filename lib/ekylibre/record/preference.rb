@@ -2,7 +2,7 @@
 class ::Boolean
 end
 
-module ActiveRecord
+module Ekylibre::Record
   module Preference #:nodoc:
     
     def self.included(base)
@@ -92,4 +92,4 @@ module ActiveRecord
 
   end
 end
-ActiveRecord::Base.class_eval { include ActiveRecord::Preference }
+Ekylibre::Record::Base.class_eval { include Ekylibre::Record::Preference }

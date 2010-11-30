@@ -34,7 +34,7 @@
 #
 
 
-class FinancialYear < ActiveRecord::Base
+class FinancialYear < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financial_year_id

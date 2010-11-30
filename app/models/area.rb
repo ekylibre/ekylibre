@@ -37,7 +37,7 @@
 #
 
 
-class Area < ActiveRecord::Base
+class Area < CompanyRecord
   belongs_to :company
   belongs_to :district
   has_many :contacts

@@ -44,7 +44,7 @@
 #
 
 
-class OutgoingDelivery < ActiveRecord::Base
+class OutgoingDelivery < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id, :sale_id, :number
   belongs_to :company 

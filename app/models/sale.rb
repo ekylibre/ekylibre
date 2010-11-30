@@ -67,10 +67,11 @@
 #
 
 
-class Sale < ActiveRecord::Base
+class Sale < CompanyRecord
   acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :company_id, :created_on
+  attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name=>Entity.to_s
   belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
   belongs_to :company
@@ -160,7 +161,7 @@ class Sale < ActiveRecord::Base
     self.created_on = Date.today
   end
 
-  before_validation(:on=>:update) do
+  before_update do
     old = self.class.find(self.id)
     if old.invoice?
       for attr in self.class.columns_hash.keys - ["paid_amount"]
@@ -170,8 +171,7 @@ class Sale < ActiveRecord::Base
   end
 
 
-
-  # This method bookkeeps the sales order.
+  # This method bookkeeps the sale depending on its state
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
     b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|

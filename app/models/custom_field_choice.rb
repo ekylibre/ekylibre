@@ -34,7 +34,7 @@
 #
 
 
-class CustomFieldChoice < ActiveRecord::Base
+class CustomFieldChoice < CompanyRecord
   belongs_to :company
   belongs_to :custom_field
   has_many :data, :class_name=>CustomFieldDatum.to_s

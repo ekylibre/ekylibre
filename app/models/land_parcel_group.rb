@@ -33,7 +33,7 @@
 #
 
 
-class LandParcelGroup < ActiveRecord::Base
+class LandParcelGroup < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :land_parcels, :foreign_key=>:group_id, :order=>:name

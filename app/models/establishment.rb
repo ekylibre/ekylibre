@@ -34,7 +34,7 @@
 #
 
 
-class Establishment < ActiveRecord::Base
+class Establishment < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :warehouses

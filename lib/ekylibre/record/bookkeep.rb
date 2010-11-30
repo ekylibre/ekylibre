@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Acts #:nodoc:
     module Accountable #:nodoc:
       def self.actions
@@ -17,7 +17,7 @@ module ActiveRecord
         end
 
         def initialize(resource, action, draft)
-          raise ArgumentError.new("Unvalid action #{action.inspect} (#{ActiveRecord::Acts::Accountable::actions.to_sentence} are accepted)") unless ActiveRecord::Acts::Accountable::actions.include? action
+          raise ArgumentError.new("Unvalid action #{action.inspect} (#{Ekylibre::Record::Acts::Accountable::actions.to_sentence} are accepted)") unless Ekylibre::Record::Acts::Accountable::actions.include? action
           @resource = resource
           @action = action
           @draft = draft
@@ -36,7 +36,7 @@ module ActiveRecord
           attributes[:journal] = journal
           raise ArgumentError.new("Unknown journal: (#{attributes[:journal].inspect})") unless attributes[:journal].is_a? Journal
 
-          ActiveRecord::Base.transaction do
+          Ekylibre::Record::Base.transaction do
             journal_entry = @resource.company.journal_entries.find_by_id(@resource.send(column)) rescue nil
 
             # Cancel the existing journal_entry
@@ -73,28 +73,28 @@ module ActiveRecord
         def bookkeep(options = {}, &block)
           raise ArgumentError.new("No given block") unless block_given?
           raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-          configuration = { :on=>ActiveRecord::Acts::Accountable::actions, :column=>:accounted_at, :method_name=>:bookkeep }
+          configuration = { :on=>Ekylibre::Record::Acts::Accountable::actions, :column=>:accounted_at, :method_name=>:bookkeep }
           configuration.update(options) if options.is_a?(Hash)
           configuration[:column] = configuration[:column].to_s
           method_name = configuration[:method_name].to_s
-          core_method_name ||= "_#{method_name}_#{ActiveRecord::Acts::Accountable::Bookkeep.next_id}"
+          core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Acts::Accountable::Bookkeep.next_id}"
           
-          unless ActiveRecord::Base.connection.adapter_name.lower == "sqlserver"
+          unless Ekylibre::Record::Base.connection.adapter_name.lower == "sqlserver"
             # raise Exception.new("journal_entry_id is needed for #{self.name}.acts_as_accountable") unless columns_hash["journal_entry_id"]
             raise Exception.new("#{configuration[:column]} is needed for #{self.name}.acts_as_accountable") unless columns_hash[configuration[:column]]
           end
 
-          code = "include ActiveRecord::Acts::Accountable::InstanceMethods\n"
+          code = "include Ekylibre::Record::Acts::Accountable::InstanceMethods\n"
 
           # raise Exception.new("#{method_name} method already defined. Use :method_name option to choose a different name.") if self.instance_methods.include?(method_name.to_sym)
           code += "def #{method_name}(action=:create, draft=nil)\n"
           code += "  draft = self.company.prefer_bookkeep_in_draft? if draft.nil?\n"
-          code += "  self.#{core_method_name}(ActiveRecord::Acts::Accountable::Bookkeep.new(self, action, draft))\n"
+          code += "  self.#{core_method_name}(Ekylibre::Record::Acts::Accountable::Bookkeep.new(self, action, draft))\n"
           code += "  self.class.update_all({:#{configuration[:column]}=>Time.now}, {:id=>self.id})\n"
           code += "end\n"
 
           configuration[:on] = [configuration[:on]] if configuration[:on].is_a? Symbol and configuration[:on] != :nothing
-          for action in ActiveRecord::Acts::Accountable::actions
+          for action in Ekylibre::Record::Acts::Accountable::actions
             if configuration[:on].include? action
               code += "after_#{action} do \n" 
               code += "  self.#{method_name}(:#{action}, self.company.prefer_bookkeep_in_draft?) if self.company.prefer_bookkeep_automatically?\n"
@@ -121,4 +121,4 @@ module ActiveRecord
     end
   end
 end
-ActiveRecord::Base.send(:include, ActiveRecord::Acts::Accountable)
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Accountable)

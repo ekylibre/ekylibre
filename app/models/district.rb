@@ -32,7 +32,7 @@
 #
 
 
-class District < ActiveRecord::Base
+class District < CompanyRecord
   belongs_to :company
   has_many :areas
   attr_readonly :company_id

@@ -33,7 +33,7 @@
 #
 
 
-class ListingNodeItem < ActiveRecord::Base
+class ListingNodeItem < CompanyRecord
   belongs_to :company
   belongs_to :node, :class_name=>ListingNode.name
   attr_readonly :company_id, :node_id

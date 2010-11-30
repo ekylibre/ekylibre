@@ -33,7 +33,7 @@
 #
 
 
-class LandParcelKinship < ActiveRecord::Base
+class LandParcelKinship < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :parent_land_parcel, :class_name=>LandParcel.name

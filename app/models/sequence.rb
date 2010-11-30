@@ -39,7 +39,7 @@
 #
 
 
-class Sequence < ActiveRecord::Base
+class Sequence < CompanyRecord
   @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
 

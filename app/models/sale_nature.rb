@@ -40,7 +40,7 @@
 #
 
 
-class SaleNature < ActiveRecord::Base
+class SaleNature < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :payment_delay, :class_name=>Delay.to_s

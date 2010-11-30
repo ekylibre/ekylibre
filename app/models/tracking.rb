@@ -36,7 +36,7 @@
 #
 
 
-class Tracking < ActiveRecord::Base
+class Tracking < CompanyRecord
   after_save :update_serials
   belongs_to :company
   belongs_to :producer, :class_name=>Entity.name

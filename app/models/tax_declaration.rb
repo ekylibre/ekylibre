@@ -46,7 +46,7 @@
 #
 
 
-class TaxDeclaration < ActiveRecord::Base
+class TaxDeclaration < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :financial_year

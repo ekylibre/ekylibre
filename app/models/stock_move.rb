@@ -46,7 +46,7 @@
 #
 
 
-class StockMove < ActiveRecord::Base
+class StockMove < CompanyRecord
   after_destroy :cancel
   after_save :move
   before_update :cancel

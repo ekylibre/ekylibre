@@ -33,7 +33,7 @@
 #
 
 
-class Observation < ActiveRecord::Base
+class Observation < CompanyRecord
   belongs_to :company
   belongs_to :entity
 
