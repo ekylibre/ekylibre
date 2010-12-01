@@ -28,6 +28,7 @@
 #  lock_version     :integer          default(0), not null
 #  product_id       :integer          not null
 #  quantity         :decimal(16, 4)   not null
+#  stock_move_id    :integer          
 #  theoric_quantity :decimal(16, 4)   not null
 #  tracking_id      :integer          
 #  unit_id          :integer          
@@ -38,6 +39,7 @@
 
 
 class InventoryLine < CompanyRecord
+  # acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
   attr_readonly :company_id
   belongs_to :company
   belongs_to :inventory
@@ -45,7 +47,6 @@ class InventoryLine < CompanyRecord
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
-  has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
   before_validation do
     self.company_id = self.inventory.company_id if self.inventory

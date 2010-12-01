@@ -819,6 +819,7 @@ eng:
     salt: 'Salt'
     scheduled: 'Scheduled'
     second_move_id: 'Second move' #!
+    #>second_stock_move_id: 'Second stock move'
     second_warehouse: 'Second warehouse'
     second_warehouse_id: 'Second warehouse'
     self_bank_accounts: 'Self bank accounts'
@@ -845,7 +846,7 @@ eng:
     state_label: 'State'
     stock: 'Stock'
     stock_id: 'Stock'
-    stock_move_id: 'Stock move' #!
+    stock_move_id: 'Stock move'
     stock_moves: 'Stock moves'
     stock_transfers: 'Stock transfers'
     stockable: 'Manage stocks'

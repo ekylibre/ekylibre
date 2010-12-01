@@ -800,6 +800,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                    :default => 0,   :null => false
+    t.integer  "stock_move_id"
   end
 
   add_index "incoming_delivery_lines", ["company_id"], :name => "index_purchase_delivery_lines_on_company_id"
@@ -950,6 +951,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "lock_version",                                    :default => 0, :null => false
     t.integer  "tracking_id"
     t.integer  "unit_id"
+    t.integer  "stock_move_id"
   end
 
   add_index "inventory_lines", ["created_at"], :name => "index_inventory_lines_on_created_at"
@@ -1076,9 +1078,11 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "lock_version",                        :default => 0, :null => false
   end
 
+  add_index "land_parcel_kinships", ["child_land_parcel_id", "company_id"], :name => "index_land_parcel_kinships_child"
   add_index "land_parcel_kinships", ["company_id"], :name => "index_land_parcel_kinships_on_company_id"
   add_index "land_parcel_kinships", ["created_at"], :name => "index_land_parcel_kinships_on_created_at"
   add_index "land_parcel_kinships", ["creator_id"], :name => "index_land_parcel_kinships_on_creator_id"
+  add_index "land_parcel_kinships", ["parent_land_parcel_id", "company_id"], :name => "index_land_parcel_kinships_parent"
   add_index "land_parcel_kinships", ["updated_at"], :name => "index_land_parcel_kinships_on_updated_at"
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
@@ -1243,6 +1247,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "warehouse_id"
     t.string   "direction",       :limit => 4,                                :default => "in", :null => false
     t.string   "tracking_serial"
+    t.integer  "stock_move_id"
   end
 
   add_index "operation_lines", ["created_at"], :name => "index_shape_operation_lines_on_created_at"
@@ -1360,6 +1365,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "lock_version",                                 :default => 0,   :null => false
     t.integer  "tracking_id"
     t.integer  "warehouse_id"
+    t.integer  "stock_move_id"
   end
 
   add_index "outgoing_delivery_lines", ["company_id"], :name => "index_delivery_lines_on_company_id"
@@ -1578,6 +1584,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_conveyors", ["company_id"], :name => "index_production_chain_conveyors_on_company_id"
   add_index "production_chain_conveyors", ["created_at"], :name => "index_production_chain_conveyors_on_created_at"
   add_index "production_chain_conveyors", ["creator_id"], :name => "index_production_chain_conveyors_on_creator_id"
+  add_index "production_chain_conveyors", ["production_chain_id", "company_id"], :name => "index_production_chain_conveyors_chain"
   add_index "production_chain_conveyors", ["updated_at"], :name => "index_production_chain_conveyors_on_updated_at"
   add_index "production_chain_conveyors", ["updater_id"], :name => "index_production_chain_conveyors_on_updater_id"
 
@@ -1597,6 +1604,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_work_center_uses", ["creator_id"], :name => "index_production_chain_work_center_uses_on_creator_id"
   add_index "production_chain_work_center_uses", ["updated_at"], :name => "index_production_chain_work_center_uses_on_updated_at"
   add_index "production_chain_work_center_uses", ["updater_id"], :name => "index_production_chain_work_center_uses_on_updater_id"
+  add_index "production_chain_work_center_uses", ["work_center_id", "company_id"], :name => "index_production_chain_work_center_uses_work_center"
 
   create_table "production_chain_work_centers", :force => true do |t|
     t.integer  "production_chain_id",                :null => false
@@ -1617,6 +1625,8 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_work_centers", ["company_id"], :name => "index_production_chain_work_centers_on_company_id"
   add_index "production_chain_work_centers", ["created_at"], :name => "index_production_chain_work_centers_on_created_at"
   add_index "production_chain_work_centers", ["creator_id"], :name => "index_production_chain_work_centers_on_creator_id"
+  add_index "production_chain_work_centers", ["operation_nature_id", "company_id"], :name => "index_production_chain_work_centers_nature"
+  add_index "production_chain_work_centers", ["production_chain_id", "company_id"], :name => "index_production_chain_work_centers_chain"
   add_index "production_chain_work_centers", ["updated_at"], :name => "index_production_chain_work_centers_on_updated_at"
   add_index "production_chain_work_centers", ["updater_id"], :name => "index_production_chain_work_centers_on_updater_id"
 
@@ -1966,22 +1976,24 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "stock_moves", ["updater_id"], :name => "index_stock_moves_on_updater_id"
 
   create_table "stock_transfers", :force => true do |t|
-    t.string   "nature",              :limit => 8,                                               :null => false
-    t.integer  "product_id",                                                                     :null => false
-    t.decimal  "quantity",                         :precision => 16, :scale => 4,                :null => false
-    t.integer  "warehouse_id",                                                                   :null => false
+    t.string   "nature",               :limit => 8,                                               :null => false
+    t.integer  "product_id",                                                                      :null => false
+    t.decimal  "quantity",                          :precision => 16, :scale => 4,                :null => false
+    t.integer  "warehouse_id",                                                                    :null => false
     t.integer  "second_warehouse_id"
-    t.date     "planned_on",                                                                     :null => false
+    t.date     "planned_on",                                                                      :null => false
     t.date     "moved_on"
     t.text     "comment"
-    t.integer  "company_id",                                                                     :null => false
-    t.datetime "created_at",                                                                     :null => false
-    t.datetime "updated_at",                                                                     :null => false
+    t.integer  "company_id",                                                                      :null => false
+    t.datetime "created_at",                                                                      :null => false
+    t.datetime "updated_at",                                                                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                    :default => 0, :null => false
+    t.integer  "lock_version",                                                     :default => 0, :null => false
     t.integer  "tracking_id"
     t.integer  "unit_id"
+    t.integer  "stock_move_id"
+    t.integer  "second_stock_move_id"
   end
 
   add_index "stock_transfers", ["created_at"], :name => "index_stock_transfers_on_created_at"

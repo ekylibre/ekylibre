@@ -51,6 +51,7 @@ class Stock < CompanyRecord
   validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
   
   before_validation do
+    puts "#{self.class.name} 1"
     warehouses = self.company.warehouses
     self.warehouse = warehouses.first if warehouses.size == 1
     if self.product
@@ -60,13 +61,18 @@ class Stock < CompanyRecord
       self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
       self.name = tc(:default_name, :product=>self.product.name, :warehouse=>self.warehouse, :tracking=>(self.tracking ? self.tracking.name : "")) if self.name.blank? and self.warehouse
     end
+    puts "#{self.class.name} 2"
     return true
   end
 
   validate do 
+    puts "#{self.class.name} 3.1"
     if self.warehouse
+      puts "#{self.class.name} 3.2"
       errors.add_to_base(:product_cannot_be_in_warehouse, :warehouse=>self.warehouse.name) unless self.warehouse.can_receive(self.product_id)
     end
+    puts "#{self.class.name} 3.3"
+    return true
   end
 
   def label
@@ -102,6 +108,42 @@ class Stock < CompanyRecord
     end
   end
 
+  protected
+
+  def add_quantity(quantity, unit, virtual)
+    # Convert quantity in stock unit
+    quantity = self.unit.convert(quantity, unit)
+    self.quantity += quantity unless virtual
+    self.virtual_quantity += quantity
+    self.save
+  end
+
+  def remove_quantity(quantity, unit, virtual)
+    # Convert quantity in stock unit
+    quantity = self.unit.convert(quantity, unit)
+    self.quantity += quantity unless virtual
+    self.virtual_quantity += quantity
+    self.save
+  end
+
+
+
+  #   # Create a stock move
+  #   def move(origin, options={})
+  #     return true unless self.product.stockable?
+  #     attributes = {}
+  #     for attribute in [:quantity, :unit, :tracking, :warehouse, :product]
+  #       attributes[attribute] = (options.has_key?(attribute) ? options[attribute] : origin.send(attribute))
+  #     end
+  #     attributes.merge!(:generated=>true, :company_id=>self.company_id, :origin=>origin)
+  #     self.stock_moves.create!(attributes)
+  #     attributes[:quantity] = -attributes[:quantity] unless incoming
+  #     attributes[:warehouse_id] ||= self.stocks.first.warehouse_id if self.stocks.size > 0
+  #     attributes[:planned_on] ||= Date.today
+  #     attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
+  #     self.stock_moves.create!(attributes)
+  #   end
+
 
 
   #   def reflect_changes(quantity)
@@ -126,4 +168,4 @@ class Stock < CompanyRecord
   # end
   
 end
- 
+

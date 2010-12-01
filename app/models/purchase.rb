@@ -182,12 +182,7 @@ class Purchase < CompanyRecord
   def confirm2(finished_on=Date.today)
     self.shipped = true
     self.moved_on = finished_on
-    if self.save
-      for line in self.lines
-        line.product.reserve_incoming_stock(:origin=>line)
-        line.product.move_incoming_stock(:origin=>line)
-      end
-    end
+    self.save
   end
 
   def label 

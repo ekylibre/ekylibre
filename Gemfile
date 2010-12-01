@@ -11,6 +11,8 @@ gem 'state_machine', :path => 'vendor/gems/state_machine-0.9.4'
 # gem 'ruby-graphviz', '>= 0.9.0'
 gem 'exception_notification', :path => 'vendor/gems/exception_notification-1.0.0', :require=>'exception_notifier'
 
+gem 'ruby-debug'
+
 group :test do
   gem 'thoughtbot-shoulda', :require => 'shoulda'
 end  

@@ -84,10 +84,10 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     change_column_null :stock_moves, :generated, false, false
     remove_column :stocks, :origin_id
     remove_column :stocks, :origin_type
-#     for table in STOCKABLE_TABLES
-#       add_column table, :stock_move_id, :integer
-#     end
-#     add_column :stock_transfers, :second_stock_move_id, :integer
+    for table in STOCKABLE_TABLES
+      add_column table, :stock_move_id, :integer
+    end
+    add_column :stock_transfers, :second_stock_move_id, :integer
 
     # Merge existing virtual and real moves
     on = [:product_id, :origin_type, :origin_id, :unit_id, :warehouse_id, :tracking_id, :quantity]
@@ -368,10 +368,10 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     cols = columns(:stock_moves).collect{|c| c.name}.delete_if{|c| c.to_s == "id"}.join(', ')
     execute "INSERT INTO #{quoted_table_name(:stock_moves)} (#{cols}) SELECT #{cols} FROM #{quoted_table_name(:stock_moves)} WHERE virtual=#{quoted_false}"
 
-#     remove_column :stock_transfers, :second_stock_move_id
-#     for table in STOCKABLE_TABLES.reverse
-#       remove_column table, :stock_move_id
-#     end
+    remove_column :stock_transfers, :second_stock_move_id
+    for table in STOCKABLE_TABLES.reverse
+      remove_column table, :stock_move_id
+    end
     
     add_column :stocks, :origin_type, :string
     add_column :stocks, :origin_id, :integer

@@ -32,6 +32,7 @@
 #  product_id    :integer          not null
 #  quantity      :decimal(16, 4)   default(1.0), not null
 #  sale_line_id  :integer          not null
+#  stock_move_id :integer          
 #  tracking_id   :integer          
 #  unit_id       :integer          not null
 #  updated_at    :datetime         not null
@@ -41,6 +42,7 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
+  # acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name=>OutgoingDelivery.name
   belongs_to :price

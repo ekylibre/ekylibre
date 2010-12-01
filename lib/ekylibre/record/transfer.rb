@@ -23,12 +23,16 @@ module Ekylibre::Record  #:nodoc:
       end
 
       def move(options={})
-        unless use = options[:use]
+        unless use = options.delete(:use)
           use = @origin
         end
-          # Find stock
-        
-        return 
+        # Find stock
+        conditions = {:product_id=>use.product_id, :warehouse_id=>use.warehouse_id, :tracking_id=>use.tracking_id}
+        stock = use.company.stocks.where(conditions).first
+        stock = use.company.stocks.create!(conditions) if stock.nil?
+
+        # Move stock
+        stock.move(@origin, options.merge(:virtual=>@virtual))
       end
       
 
@@ -77,7 +81,6 @@ module Ekylibre::Record  #:nodoc:
     end
 
     module InstanceMethods
-
     end 
 
   end

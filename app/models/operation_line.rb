@@ -30,6 +30,7 @@
 #  operation_id    :integer          not null
 #  product_id      :integer          
 #  quantity        :decimal(16, 4)   default(0.0), not null
+#  stock_move_id   :integer          
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          
@@ -41,9 +42,11 @@
 
 
 class OperationLine < CompanyRecord
-  after_destroy :cancel_stock_reservation
-  after_save :add_stock_reservation
-  before_update :cancel_stock_reservation
+  # acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation
+
+  #   after_destroy :cancel_stock_reservation
+  #   after_save :add_stock_reservation
+  #   before_update :cancel_stock_reservation
   
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company

@@ -45,32 +45,50 @@
 
 
 class StockMove < CompanyRecord
-  after_destroy :cancel
-  after_save :move
-  before_update :cancel
+#   after_save :add_in_stock
+#   after_destroy :remove_from_stock
+#   before_update :remove_from_stock
+  #   after_destroy :cancel
+  #   after_save :move
+  #   before_update :cancel
   belongs_to :warehouse
   belongs_to :origin, :polymorphic=>true
   belongs_to :product
   belongs_to :stock
   belongs_to :tracking
   belongs_to :unit
-
-  attr_readonly :virtual
   
   validates_presence_of :stock, :product, :warehouse, :quantity, :unit
 
   before_validation do
+    # caller.each{|l| puts ">> "+l}
+    puts "#{self.class.name} 1"
+    if origin
+      code = [:name, :code, :number, :id].detect{|x| origin.respond_to? x}
+      self.name ||= tc('default_name', :origin=>(origin ? origin.class.model_name.human : "*"), :code=>(origin ? origin.send(code) : "*"))
+    end
+    unless self.stock
+      conditions = {:company_id=>self.company_id, :product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id}
+      self.stock = Stock.find_by_company_id_and_product_id_and_warehouse_id_and_tracking_id(self.company_id, self.product_id, self.warehouse_id, self.tracking_id) # self.company.stocks.where(conditions).first
+      self.stock = self.company.stocks.create!(conditions) if stock.nil?
+    end
+    self.product ||= self.stock.product
+    self.warehouse ||= self.stock.warehouse
+    self.tracking ||= self.stock.tracking
     self.generated = false if self.generated.nil?
-    self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
-    self.stock = Stock.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
     self.unit_id ||= self.stock.unit_id
+    puts "#{self.class.name} 2"
     # Add validation on unit correspondance
+    return true
+  end
+
+  before_validation(:on=>:create) do
+    puts "#{self.class.name} 3"
+    self.planned_on = Date.today
+    puts "#{self.class.name} 3.1"
+    return true
   end
   
-#   after_validation(:on=>:update) do
-#     old = self.class.find(self.id)    
-#   end
-
   def self.natures
     [:virtual, :real].collect{|x| [tc('natures.'+x.to_s), x] }
   end
@@ -83,27 +101,46 @@ class StockMove < CompanyRecord
     end
   end
 
+
+
+  # Adds in stock the quantity
+  def add_in_stock
+    puts "#{self.class.name} 4"
+    self.stock.add_quantity(self.quantity, self.unit, self.virtual)
+    puts "#{self.class.name} 5"
+    return true
+  end
+
+  # Removes from stock the old associated quantity
+  def remove_from_stock
+    puts "#{self.class.name} 6"
+    old = self.class.find(self.id)
+    old.stock.remove_quantity(old.quantity, old.unit, old.virtual)
+    puts "#{self.class.name} 7"
+    return true
+  end
+
   private
 
-  def move(quantity=nil, stock=nil, unit=nil)
-    quantity ||= self.quantity
-    stock ||= self.stock
-    unit ||= self.unit
-    # Convert to stock unit
-    stock[quantity_column] += quantity * unit.coefficient / stock.unit.coefficient
-    stock.save!
-  end
+  #   def move(quantity=nil, stock=nil, unit=nil)
+  #     quantity ||= self.quantity
+  #     stock ||= self.stock
+  #     unit ||= self.unit
+  #     # Convert to stock unit
+  #     stock[quantity_column] += quantity * unit.coefficient / stock.unit.coefficient
+  #     stock.save!
+  #   end
 
-  def cancel
-    old_self = self.class.find(self.id) rescue self
-    old_stock = Stock.find_by_id(old_self.stock_id)
-    move(-old_self.quantity, old_stock, old_self.unit)
-  end
+  #   def cancel
+  #     old_self = self.class.find(self.id) rescue self
+  #     old_stock = Stock.find_by_id(old_self.stock_id)
+  #     move(-old_self.quantity, old_stock, old_self.unit)
+  #   end
 
-  # Column to use in the product stock can be +:current_virtual_stock+ or +:current_real_stock+
-  def quantity_column
-    (self.virtual ? 'virtual_' : '')+"quantity"
-  end
+  #   # Column to use in the product stock can be +:current_virtual_stock+ or +:current_real_stock+
+  #   def quantity_column
+  #     (self.virtual ? 'virtual_' : '')+"quantity"
+  #   end
 
 end
 
