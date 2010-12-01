@@ -4,7 +4,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
   ORIGINS = {:sales_orders=>:sales_invoice_id, :sales_order_lines=>:sales_invoice_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   ORDER_LINES = {:outgoing_delivery_lines=>:order_line_id, :sales_order_lines=>:reduction_origin_id, :subscriptions=>:sales_order_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   MERGES = [:subscriptions, :outgoing_deliveries]
-  POLYMORPHICS= {:documents=>:owner, :incoming_payment_uses=>:expense, :journal_entries=>:resource, :operations=>:target, :preferences=>:record_value, :stocks=>:origin, :stock_moves=>:origin}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  POLYMORPHICS= {:documents=>:owner, :incoming_payment_uses=>:expense, :journal_entries=>:resource, :operations=>:target, :preferences=>:record_value, :stock_moves=>:origin}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s} # :stocks=>:origin, 
   TEMPLATES = {
     'sales_invoice/created_on' => 'sales_invoice/invoiced_on',
     'sales_invoice.sales_order' => 'sales_invoice'
@@ -16,6 +16,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     :purchase_orders=>:purchases,
     :purchase_order_lines=>:purchase_lines
   }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  STOCKABLE_TABLES = [:incoming_delivery_lines, :inventory_lines, :operation_lines, :outgoing_delivery_lines, :stock_transfers]
 
   # Minimum columns
   SI = [:accounted_at, :amount, :annotation, :client_id, :company_id, :contact_id, :created_at, :creator_id, :credit, :currency_id, :downpayment_amount, :has_downpayment, :journal_entry_id, :lock_version, :lost, :number, :origin_id, :payment_delay_id, :payment_on, :pretax_amount, :sales_order_id, :updated_at, :updater_id]
@@ -81,7 +82,16 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     remove_column :stock_moves, :second_move_id
     remove_column :stock_moves, :second_warehouse_id
     change_column_null :stock_moves, :generated, false, false
+    remove_column :stocks, :origin_id
+    remove_column :stocks, :origin_type
+#     for table in STOCKABLE_TABLES
+#       add_column table, :stock_move_id, :integer
+#     end
+#     add_column :stock_transfers, :second_stock_move_id, :integer
 
+    # Merge existing virtual and real moves
+    on = [:product_id, :origin_type, :origin_id, :unit_id, :warehouse_id, :tracking_id, :quantity]
+    execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT virt.id FROM #{quoted_table_name(:stock_moves)} AS virt JOIN #{quoted_table_name(:stock_moves)} AS real ON (virt.virtual = #{quoted_true} AND real.virtual=#{quoted_false} AND "+on.collect{|x| "virt.#{x}=real.#{x}"}.join(' AND ')+"))"
 
     for table, columns in TRACKINGS
       for column in columns
@@ -355,6 +365,16 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       end
     end
 
+    cols = columns(:stock_moves).collect{|c| c.name}.delete_if{|c| c.to_s == "id"}.join(', ')
+    execute "INSERT INTO #{quoted_table_name(:stock_moves)} (#{cols}) SELECT #{cols} FROM #{quoted_table_name(:stock_moves)} WHERE virtual=#{quoted_false}"
+
+#     remove_column :stock_transfers, :second_stock_move_id
+#     for table in STOCKABLE_TABLES.reverse
+#       remove_column table, :stock_move_id
+#     end
+    
+    add_column :stocks, :origin_type, :string
+    add_column :stocks, :origin_id, :integer
     # change_column_null :stock_moves, :generated, false, false
     add_column :stock_moves, :second_warehouse_id, :integer
     add_column :stock_moves, :second_move_id, :integer

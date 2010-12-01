@@ -68,8 +68,13 @@ class StockTransfer < CompanyRecord
       errors.add_to_base(:warehouse_can_not_waste_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) if self.nature=="waste"
     end
     errors.add_to_base(:warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id 
-      
   end
+
+  transfer do |t|
+    t.move(:quantity=>-self.quantity, :warehouse=>self.warehouse)
+    t.move(:quantity=>self.quantity, :warehouse=>self.second_warehouse) if self.transfer?
+  end
+
   
   def move_stocks
     self.product.reserve_outgoing_stock(:origin=>self, :planned_on=>self.planned_on, :moved_on=>self.moved_on)

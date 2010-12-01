@@ -1046,7 +1046,6 @@ arb:
     #>luminance: 'Luminance'
     mail: 'البريد الالكتروني'
     major_accounts: 'الحسابات الئيسية'
-    stockable: 'ادارة الاسهم'
     mandates: 'تفويضات'
     master: 'كتلة رئيسية' #!
     max_reduction_rate: 'سعر التخفيض' #!
@@ -1260,8 +1259,10 @@ arb:
     state_label: 'حالة النص'
     stock: 'انتاج السهم'
     stock_id: 'انتاج سهم'
+    #>stock_move_id: 'Stock move'
     stock_moves: 'حركات الاسهم'
     stock_transfers: 'تحويل او ضياع السهم'
+    stockable: 'ادارة الاسهم'
     stockable_products: 'منتجات للتخزين'
     stocks: 'اسهم الانتاج'
     stopped_at: 'انتهى يوم'
@@ -1849,6 +1850,7 @@ arb:
         number: '-- لا شيء --'
         year: 'السنة'
     stock:
+      #>default_name: '%{warehouse}/%{product}/%{tracking}'
       label:
         with_tracking: '%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة'
         without_tracking: '%{warehouse} : غير متتبع, %{quantity}%{unit} متاح'

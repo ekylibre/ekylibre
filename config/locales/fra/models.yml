@@ -663,7 +663,6 @@ fra:
     luminance: 'Luminosité'
     mail: 'E-mail'
     major_accounts: 'Classes comptables'
-    stockable: 'Gérer les stocks'
     mandates: 'Responsabilités'
     min_duration: 'Minute(s)'
     mobile: 'Portable'
@@ -871,8 +870,10 @@ fra:
     state_label: 'État'
     stock: 'Stock de produit'
     stock_id: 'Stock de produit'
+    #>stock_move_id: 'Stock move'
     stock_moves: 'Mouvements de stock'
     stock_transfers: 'Transferts ou pertes de stock'
+    stockable: 'Gérer les stocks'
     stockable_products: 'Produits stockables'
     stocks: 'Stocks de produit'
     stopped_at: 'Arrêté à'
@@ -1377,6 +1378,7 @@ fra:
         number: '-- Aucune --'
         year: 'Année'
     stock:
+      #>default_name: '%{warehouse}/%{product}/%{tracking}'
       label:
         with_tracking: '%{warehouse} : Lot %{tracking}, %{quantity}%{unit} disponible(s)'
         without_tracking: '%{warehouse} : Non tracé, %{quantity}%{unit} disponible(s)'

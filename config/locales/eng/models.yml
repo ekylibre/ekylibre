@@ -645,7 +645,6 @@ eng:
     luminance: 'Luminance'
     mail: 'Mail'
     major_accounts: 'Major accounts'
-    stockable: 'Manage stocks' #!
     mandates: 'Mandates'
     min_duration: 'Min duration'
     mobile: 'Mobile'
@@ -846,9 +845,10 @@ eng:
     state_label: 'State'
     stock: 'Stock'
     stock_id: 'Stock'
+    stock_move_id: 'Stock move' #!
     stock_moves: 'Stock moves'
     stock_transfers: 'Stock transfers'
-    #>stockable: 'Stockable'
+    stockable: 'Manage stocks'
     stockable_products: 'Stockable products'
     stocks: 'Stocks'
     stopped_at: 'Stopped at'
@@ -1352,6 +1352,7 @@ eng:
         number: 'No periodicity'
         year: 'Year'
     stock:
+      default_name: '%{warehouse}/%{product}/%{tracking}'
       label:
         with_tracking: '%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available'
         without_tracking: '%{warehouse}: No serial, %{quantity}%{unit} available'

@@ -575,7 +575,6 @@ module Ekylibre
     :stock => {
       :company_id => :company,
       :creator_id => :user,
-      :origin_id => "origin_type",
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,

@@ -61,14 +61,14 @@ class OutgoingDelivery < CompanyRecord
 
   before_validation do
     self.company_id = self.sale.company_id if self.sale
-#     self.pretax_amount = self.amount = self.weight = 0
-#     for line in self.lines
-#       self.pretax_amount += line.pretax_amount
-#       self.amount += line.amount
-#       self.weight += (line.product.weight||0)*line.quantity
-#     end
     return true
   end
+
+#   transfer do |t|
+#     for line in self.lines
+#       t.move(:use=>line)
+#     end
+#   end
 
 
   # Ships the delivery and move the real stocks. This operation locks the delivery.

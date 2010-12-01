@@ -63,10 +63,14 @@ class StockMove < CompanyRecord
     self.generated = false if self.generated.nil?
     self.stock = Stock.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id})
     self.stock = Stock.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :company_id=>self.company_id, :tracking_id=>self.tracking_id) if stock.nil?
-    self.unit_id ||= self.product.unit_id if self.product
+    self.unit_id ||= self.stock.unit_id
     # Add validation on unit correspondance
   end
   
+#   after_validation(:on=>:update) do
+#     old = self.class.find(self.id)    
+#   end
+
   def self.natures
     [:virtual, :real].collect{|x| [tc('natures.'+x.to_s), x] }
   end

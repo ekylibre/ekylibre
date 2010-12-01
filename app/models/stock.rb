@@ -27,8 +27,6 @@
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      
-#  origin_id           :integer          
-#  origin_type         :string(255)      
 #  product_id          :integer          not null
 #  quantity            :decimal(16, 4)   default(0.0), not null
 #  quantity_max        :decimal(16, 4)   default(0.0), not null
@@ -43,20 +41,26 @@
 
 
 class Stock < CompanyRecord
+  attr_readonly :unit_id, :product_id, :warehouse_id, :tracking_id
   belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
   has_many :moves, :class_name=>"StockMove"
-  validates_presence_of :unit
+  validates_presence_of :product, :warehouse, :unit, :quantity, :virtual_quantity
+  validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
   
   before_validation do
-    self.unit_id ||= self.product.unit_id
-    self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
-    self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
-    self.quantity_max = self.product.quantity_max if self.quantity_max.nil?
     warehouses = self.company.warehouses
-    self.warehouse_id = warehouses[0].id if warehouses.size == 1
+    self.warehouse = warehouses.first if warehouses.size == 1
+    if self.product
+      self.unit_id ||= self.product.unit_id
+      self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
+      self.quantity_max = self.product.quantity_max if self.quantity_max.nil?
+      self.critic_quantity_min = self.product.critic_quantity_min if self.critic_quantity_min.nil?
+      self.name = tc(:default_name, :product=>self.product.name, :warehouse=>self.warehouse, :tracking=>(self.tracking ? self.tracking.name : "")) if self.name.blank? and self.warehouse
+    end
+    return true
   end
 
   validate do 
@@ -97,6 +101,8 @@ class Stock < CompanyRecord
       stock.update_attributes(params)
     end
   end
+
+
 
   #   def reflect_changes(quantity)
   #     old_quantity = self.quantity 

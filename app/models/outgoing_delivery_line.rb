@@ -41,14 +41,13 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
-  attr_readonly :company_id, :sale_line_id, :product_id, :price_id, :unit_id
-  belongs_to :company
+  attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name=>OutgoingDelivery.name
   belongs_to :price
   belongs_to :product
-  belongs_to :sale_line, :class_name=>SaleLine.name
+  belongs_to :sale_line
   belongs_to :unit
-  validates_presence_of :product_id, :unit_id
+  validates_presence_of :product, :unit
 
   sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight
 
