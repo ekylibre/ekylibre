@@ -23,9 +23,10 @@
       %tr.total
         %th=tc(:total_unpaid_amount)
         %td=number_to_management (invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
-      %tr.total
-        %th=tc(:profitability)
-        %td=number_to_percentage 100*(paid_amount/invoiced_amount)
+      -if invoiced_amount > 0
+        %tr.total
+          %th=tc(:profitability)
+          %td=number_to_percentage 100*(paid_amount/invoiced_amount)
   -started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
   -cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
   -u.cell :x_events, :count=>@current_user.events.count(:id, :conditions=>cond) do

@@ -138,6 +138,7 @@ class Company < Ekylibre::Record::Base
   preference :purchases_sequence, Sequence
   preference :sales_invoices_sequence, Sequence
   preference :sales_sequence, Sequence
+  preference :stock_transfers_sequence, Sequence
   preference :subscriptions_sequence, Sequence
   preference :transports_sequence, Sequence
   # Behaviours

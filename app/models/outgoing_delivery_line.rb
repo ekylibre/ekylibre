@@ -42,7 +42,7 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
-  # acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
+  acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name=>OutgoingDelivery.name
   belongs_to :price

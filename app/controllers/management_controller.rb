@@ -590,11 +590,13 @@ class ManagementController < ApplicationController
   create_kame(:product_stock_moves, :model=>:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name
     # t.column :name, :through=>:origin
+    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :virtual
-    t.column :created_at
+    t.column :planned_on
+    t.column :moved_on
   end
   
   def product
@@ -1757,7 +1759,7 @@ class ManagementController < ApplicationController
   end
   
 
-  create_kame(:unexecuted_transfers, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
+  create_kame(:stock_transfers_confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
     t.column :text_nature
     t.column :name, :through=>:product
     t.column :quantity, :datatype=>:decimal
@@ -1767,14 +1769,19 @@ class ManagementController < ApplicationController
     t.check_box :executed, :value=>'RECORD.planned_on<=Date.today'
   end
   
-  def unexecuted_transfers
+  def stock_transfers_confirm
     @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}, :order=>"planned_on ASC")
+    
     if request.post?
-      for id, values in params[:unexecuted_transfers]
+      transfers = []
+      for id, values in params[:stock_transfers_confirm]
         return unless transfer = find_and_check(:stock_transfer, id)
-        transfer.execute_transfer if transfer and values[:executed].to_i == 1
+        transfers << transfer if values[:executed].to_i == 1
       end
-      redirect_to :action=>:unexecuted_transfers
+      for transfer in transfers
+        transfer.update_attributes(:moved_on=>Date.today)
+      end
+      redirect_to :action=>:stock_transfers_confirm
     end
   end
   
@@ -1791,7 +1798,6 @@ class ManagementController < ApplicationController
     t.column :name, :through=>:warehouse,:url=>{:action=>:warehouse}
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
-    t.column :weight, :through=>:product, :label=>:column
     t.column :quantity_max
     t.column :quantity_min
     t.column :critic_quantity_min

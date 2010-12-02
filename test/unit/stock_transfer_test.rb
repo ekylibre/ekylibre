@@ -28,6 +28,7 @@
 #  lock_version         :integer          default(0), not null
 #  moved_on             :date             
 #  nature               :string(8)        not null
+#  number               :string(64)       not null
 #  planned_on           :date             not null
 #  product_id           :integer          not null
 #  quantity             :decimal(16, 4)   not null

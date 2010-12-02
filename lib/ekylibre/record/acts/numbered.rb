@@ -14,7 +14,11 @@ module Ekylibre::Record
           raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_hash.has_key? column.to_s
           options = {:first_value=>'00000001'}.merge(options)
 
+
           sequence = options[:sequence] || "#{self.name.underscore.pluralize}_sequence"
+
+          last = "self.company.#{self.name.underscore.pluralize}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC')"
+
           code = ""
 
           code += "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
@@ -25,7 +29,7 @@ module Ekylibre::Record
 
           code += "before_validation(:on=>:create) do\n"
           code += "  if self.company\n"
-          code += "    last = self.company.#{self.name.underscore.pluralize}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>'#{column} DESC')\n"
+          code += "    last = #{last}\n"
           code += "    self.#{column} = (last ? last.#{column}.succ : #{options[:first_value].inspect})\n"
           code += "  else\n"
           max = self.columns_hash[column.to_s].limit||64
@@ -39,7 +43,7 @@ module Ekylibre::Record
           code += "  if sequence = self.company.preferred_#{sequence}\n"
           code += "    self.#{column} = sequence.next_value\n"
           code += "  else\n"
-          code += "    last = self.company.#{self.name.underscore.pluralize}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>'#{column} DESC')\n"
+          code += "    last = #{last}\n"
           code += "    self.#{column} = (last ? last.#{column}.succ : #{options[:first_value].inspect})\n"
           code += "  end\n"
           code += "  return true\n"

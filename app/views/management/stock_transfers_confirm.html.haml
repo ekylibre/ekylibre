@@ -1,6 +1,6 @@
 -if @stock_transfers.size > 0
   =form_tag do
-    =kame :unexecuted_transfers
+    =kame :stock_transfers_confirm
     .actions
       =link_to tg(:previous), :action=>:index
       =submit_tag(tc('transfer'), :action=>:undelivered_sales)

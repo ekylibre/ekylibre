@@ -28,6 +28,7 @@
 #  lock_version         :integer          default(0), not null
 #  moved_on             :date             
 #  nature               :string(8)        not null
+#  number               :string(64)       not null
 #  planned_on           :date             not null
 #  product_id           :integer          not null
 #  quantity             :decimal(16, 4)   not null
@@ -49,6 +50,7 @@
 #   creator_id: 1
 #   id: 1
 #   nature: "Lorem ipsum"
+#   number: "Lorem ipsum"
 #   planned_on: 2009-07-19
 #   product_id: 1
 #   quantity: 0
@@ -63,6 +65,7 @@ stock_transfers_001:
   id: 1
   warehouse_id: 1
   nature: "transfer"
+  number: "1"
   planned_on: 2009-07-19
   product_id: 1
   quantity: 0
@@ -75,7 +78,8 @@ stock_transfers_002:
   creator_id: 1
   id: 2
   warehouse_id: 1
-  nature: "transfer"
+  nature: "waste"
+  number: "2"
   planned_on: 2009-07-19
   product_id: 1
   quantity: 0

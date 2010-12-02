@@ -1382,6 +1382,8 @@ fra:
       label:
         with_tracking: '%{warehouse} : Lot %{tracking}, %{quantity}%{unit} disponible(s)'
         without_tracking: '%{warehouse} : Non tracé, %{quantity}%{unit} disponible(s)'
+    stock_move:
+      #>default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
         transfer: 'Transfert'

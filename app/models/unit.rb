@@ -118,7 +118,7 @@ class Unit < CompanyRecord
     # basic = (measure.to_f-from.base.to_f) / from.coefficient.to_f
     basic = measure.to_f*from.coefficient.to_f+from.base.to_f
     return basic if to.nil?
-    raise Exception.new("The dimensions of the units #{from.label} and #{to.label} are incompatible!") if from.base != to.base
+    raise Exception.new("The dimensions of the units #{from.label} and #{to.label} are incompatible!") unless from.convertible_to? to
     return (basic-to.base.to_f)*to.coefficient.to_f
   end
 
@@ -135,6 +135,10 @@ class Unit < CompanyRecord
   # Convert a measure from self to the associated unit
   def convert_to(measure, unit=nil)
     self.class.convert(measure, self, unit)
+  end
+
+  def convertible_to?(other_unit)
+    return (self.base == other_unit.base ? true : false)
   end
 
   protect_on_destroy do

@@ -776,9 +776,9 @@ manage_stock_moves:
   - stock_transfer_delete
   - stock_transfer_update
   - stock_transfers
+  - stock_transfers_confirm
+  - stock_transfers_confirm_kame
   - stock_transfers_kame
-  - unexecuted_transfers
-  - unexecuted_transfers_kame
 # Manage subscriptions
 manage_subscriptions:
   controller: management

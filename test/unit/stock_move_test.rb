@@ -39,7 +39,7 @@
 #  unit_id      :integer          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
-#  virtual      :boolean          
+#  virtual      :boolean          not null
 #  warehouse_id :integer          not null
 #
 

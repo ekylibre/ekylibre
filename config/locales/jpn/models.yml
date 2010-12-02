@@ -1374,6 +1374,8 @@ jpn:
       label:
         #>with_tracking: '%{warehouse}: S/N%{tracking}, %{quantity}%{unit} available'
         #>without_tracking: '%{warehouse}: No serial, %{quantity}%{unit} available'
+    stock_move:
+      #>default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
         #>transfer: 'Transfer'

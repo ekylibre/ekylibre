@@ -42,12 +42,7 @@
 
 
 class OperationLine < CompanyRecord
-  # acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation
-
-  #   after_destroy :cancel_stock_reservation
-  #   after_save :add_stock_reservation
-  #   before_update :cancel_stock_reservation
-  
+  acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation  
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company
   belongs_to :warehouse
@@ -91,20 +86,6 @@ class OperationLine < CompanyRecord
       self.tracking_serial = self.tracking.serial
     end
   end
-
-  # Cancel old virtual stock reservation
-  def cancel_stock_reservation
-    old_self = self.class.find(self.id) rescue self
-    self.product.reserve_stock(:incoming=>!self.out?, :origin=>old_self)
-  end
-
-  # Add virtual move
-  def add_stock_reservation
-    self.product.reserve_stock(:incoming=>self.out?, :origin=>self)
-  end
-
-
-  # Classic methods
 
   # Translate direction
   def direction_label

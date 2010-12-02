@@ -1854,6 +1854,8 @@ arb:
       label:
         with_tracking: '%{warehouse} : الحصة %{tracking}, %{quantity}%{unit} المتوفرة'
         without_tracking: '%{warehouse} : غير متتبع, %{quantity}%{unit} متاح'
+    stock_move:
+      #>default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
         transfer: 'التحويل'

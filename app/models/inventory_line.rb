@@ -39,7 +39,7 @@
 
 
 class InventoryLine < CompanyRecord
-  # acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
+  acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
   attr_readonly :company_id
   belongs_to :company
   belongs_to :inventory

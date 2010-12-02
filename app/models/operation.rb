@@ -121,7 +121,7 @@ class Operation < CompanyRecord
 
   # Set all the lines in one time 
   def set_lines(lines)
-    # Reinit stock if existing lines
+    # Reinit existing lines
     self.lines.clear
     # Reload (new) values
     for line in lines
@@ -132,11 +132,10 @@ class Operation < CompanyRecord
 
   def make(made_on)
     ActiveRecord::Base.transaction do
-      for line in lines
-        # line.product.add_stock_move(:virtual=>false, :incoming=>line.out?, :origin=>line)
-        line.product.move_stock(:incoming=>line.out?, :origin=>line)
-      end
       self.update_attributes!(:moved_on=>made_on)
+      for line in lines
+        line.confirm_stock_move
+      end
     end
   end
 

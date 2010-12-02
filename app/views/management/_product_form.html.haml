@@ -13,7 +13,7 @@
   -f.field :product, :category_id, :choices=>{:reflection=>:product_categories}, :new=>{:action=>:product_category_create}
   -f.field :product, :unit_id, :choices=>{:reflection=>:units}, :new=>{:controller=>:company, :action=>:unit_create}
   -f.field :product, :weight
-  -f.field :product, :price
+  -# f.field :product, :price
   -f.field :product, :nature, :field=>:radio, :choices=>Product.natures
   -f.field :product, :service_coeff, :html_options=>{:id=>:service_coeff}
 =formalize(:id=>:subscriptions) do |f|
@@ -26,6 +26,7 @@
   -f.field :product, :for_sales
   -f.field :product, :for_purchases
   -f.field :product, :for_productions
+  -f.field :product, :deliverable
   -f.field :product, :stockable
 =formalize(:id=>:product_form_stocks) do |f|
   -f.title :stocks_preferences

@@ -143,9 +143,12 @@ function onLoaded() {
   $('loading').setStyle({display: 'none'});
 }
 
-function toggleCheckBox(element) {
+function toggleCheckBox(element, checked) {
   element = $(element);
   if (element !== null) {
+    if (checked === null || checked === undefined) {
+      checked = !element.checked;
+    }
     element.checked = !element.checked;
     element.onclick();
   }

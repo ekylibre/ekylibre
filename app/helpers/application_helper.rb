@@ -79,7 +79,6 @@ module ApplicationHelper
            [ {:name=>:journals},
              {:name=>:bank_statements},
              {:name=>:account_reconciliation},
-             # {:name=>:cash_transfers},
              {:name=>:bookkeep},
              {:name=>:financial_year_close}
            ] },
@@ -91,8 +90,6 @@ module ApplicationHelper
          {:name=>:parameters, :list=>
            [ {:name=>:accounts},
              {:name=>:financial_years}
-             # {:name=>:cashes},
-             # {:name=>:taxes} 
            ] }
        ] },
      # FinancesController
@@ -127,6 +124,8 @@ module ApplicationHelper
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
+            {:name=>:incoming_deliveries},  
+            {:name=>:outgoing_deliveries},
             {:name=>:warehouses},
             {:name=>:stock_transfers},
             {:name=>:inventories}  
@@ -1208,7 +1207,7 @@ module ApplicationHelper
               when :dyli
                 dyli(record, method, options[:choices], options[:options], html_options)
               when :radio
-                options[:choices].collect{|x| radio_button(record, method, x[1])+"&nbsp;".html_safe+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s)}.join(" ").html_safe
+                options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1])+" "+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
@@ -1258,7 +1257,7 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :radio
-                  options[:choices].collect{ |x| radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+"&nbsp;".html_safe+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}") }.join(" ").html_safe
+                  options[:choices].collect{ |x| content_tag(:span, radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+" "+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}"), :class=>:rad) }.join(" ").html_safe
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])

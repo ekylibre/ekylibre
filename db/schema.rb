@@ -930,6 +930,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "number",            :limit => 16
+    t.date     "moved_on"
   end
 
   add_index "inventories", ["created_at"], :name => "index_inventories_on_created_at"
@@ -1962,7 +1963,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                :default => 0,     :null => false
-    t.boolean  "virtual"
+    t.boolean  "virtual",                                                        :null => false
     t.boolean  "generated",                                   :default => false, :null => false
     t.string   "origin_type"
     t.integer  "origin_id"
@@ -1976,24 +1977,25 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "stock_moves", ["updater_id"], :name => "index_stock_moves_on_updater_id"
 
   create_table "stock_transfers", :force => true do |t|
-    t.string   "nature",               :limit => 8,                                               :null => false
-    t.integer  "product_id",                                                                      :null => false
-    t.decimal  "quantity",                          :precision => 16, :scale => 4,                :null => false
-    t.integer  "warehouse_id",                                                                    :null => false
+    t.string   "nature",               :limit => 8,                                                :null => false
+    t.integer  "product_id",                                                                       :null => false
+    t.decimal  "quantity",                           :precision => 16, :scale => 4,                :null => false
+    t.integer  "warehouse_id",                                                                     :null => false
     t.integer  "second_warehouse_id"
-    t.date     "planned_on",                                                                      :null => false
+    t.date     "planned_on",                                                                       :null => false
     t.date     "moved_on"
     t.text     "comment"
-    t.integer  "company_id",                                                                      :null => false
-    t.datetime "created_at",                                                                      :null => false
-    t.datetime "updated_at",                                                                      :null => false
+    t.integer  "company_id",                                                                       :null => false
+    t.datetime "created_at",                                                                       :null => false
+    t.datetime "updated_at",                                                                       :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                     :default => 0, :null => false
+    t.integer  "lock_version",                                                      :default => 0, :null => false
     t.integer  "tracking_id"
     t.integer  "unit_id"
     t.integer  "stock_move_id"
     t.integer  "second_stock_move_id"
+    t.string   "number",               :limit => 64,                                               :null => false
   end
 
   add_index "stock_transfers", ["created_at"], :name => "index_stock_transfers_on_created_at"

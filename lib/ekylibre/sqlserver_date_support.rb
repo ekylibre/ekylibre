@@ -12,7 +12,7 @@ if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   FinancialYear.coerce_sqlserver_date :started_on, :stopped_on
   IncomingDelivery.coerce_sqlserver_date :moved_on, :planned_on
   IncomingPayment.coerce_sqlserver_date :created_on, :paid_on, :to_bank_on
-  Inventory.coerce_sqlserver_date :created_on
+  Inventory.coerce_sqlserver_date :created_on, :moved_on
   Journal.coerce_sqlserver_date :closed_on
   JournalEntry.coerce_sqlserver_date :created_on, :printed_on
   LandParcel.coerce_sqlserver_date :started_on, :stopped_on

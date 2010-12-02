@@ -57,6 +57,8 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(table)} SET state=CASE "+STATES.collect{|o, n| "WHEN state='#{o}' THEN '#{n}'"}.join(" ")+" WHEN state='finished' THEN 'invoice' ELSE state END"
     end
 
+    rename_column :purchase_orders, :moved_on, :invoiced_on
+
     add_column :sales_orders, :invoiced_on, :date
     add_column :sales_orders, :credit, :boolean, :null=>false, :default=>false
     add_column :sales_orders, :lost, :boolean, :null=>false, :default=>false
@@ -82,16 +84,23 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     remove_column :stock_moves, :second_move_id
     remove_column :stock_moves, :second_warehouse_id
     change_column_null :stock_moves, :generated, false, false
+    execute "UPDATE #{quoted_table_name(:stock_moves)} SET virtual = #{quoted_false} WHERE virtual IS NULL"
+    change_column_null :stock_moves, :virtual, false, false
     remove_column :stocks, :origin_id
     remove_column :stocks, :origin_type
     for table in STOCKABLE_TABLES
       add_column table, :stock_move_id, :integer
     end
     add_column :stock_transfers, :second_stock_move_id, :integer
-
+    add_column :stock_transfers, :number, :string, :limit=>64
+    execute "UPDATE #{quoted_table_name(:stock_transfers)} SET number = id"
+    change_column_null :stock_transfers, :number, false
     # Merge existing virtual and real moves
-    on = [:product_id, :origin_type, :origin_id, :unit_id, :warehouse_id, :tracking_id, :quantity]
-    execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT virt.id FROM #{quoted_table_name(:stock_moves)} AS virt JOIN #{quoted_table_name(:stock_moves)} AS real ON (virt.virtual = #{quoted_true} AND real.virtual=#{quoted_false} AND "+on.collect{|x| "virt.#{x}=real.#{x}"}.join(' AND ')+"))"
+    on = [:product_id, :origin_type, :origin_id, :unit_id, :warehouse_id, :quantity]
+    execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT virt.id FROM #{quoted_table_name(:stock_moves)} AS virt JOIN #{quoted_table_name(:stock_moves)} AS real ON (virt.virtual = #{quoted_true} AND real.virtual=#{quoted_false} AND "+on.collect{|x| "virt.#{x}=real.#{x}"}.join(' AND ')+" AND ((virt.tracking_id IS NULL AND real.tracking_id IS NULL) OR virt.tracking_id=real.tracking_id) ))"
+
+    add_column :inventories, :moved_on, :date
+
 
     for table, columns in TRACKINGS
       for column in columns
@@ -365,16 +374,18 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       end
     end
 
-    cols = columns(:stock_moves).collect{|c| c.name}.delete_if{|c| c.to_s == "id"}.join(', ')
-    execute "INSERT INTO #{quoted_table_name(:stock_moves)} (#{cols}) SELECT #{cols} FROM #{quoted_table_name(:stock_moves)} WHERE virtual=#{quoted_false}"
+    remove_column :inventories, :moved_on
 
+    cols = columns(:stock_moves).collect{|c| c.name}.delete_if{|c| ["id", "virtual"].include?(c.to_s)}.join(', ')
+    execute "INSERT INTO #{quoted_table_name(:stock_moves)} (#{cols}, virtual) SELECT #{cols}, #{quoted_true} FROM #{quoted_table_name(:stock_moves)} WHERE virtual=#{quoted_false}"
+    remove_column :stock_transfers, :number
     remove_column :stock_transfers, :second_stock_move_id
     for table in STOCKABLE_TABLES.reverse
       remove_column table, :stock_move_id
     end
-    
     add_column :stocks, :origin_type, :string
     add_column :stocks, :origin_id, :integer
+    # change_column_null :stock_moves, :virtual, false, false
     # change_column_null :stock_moves, :generated, false, false
     add_column :stock_moves, :second_warehouse_id, :integer
     add_column :stock_moves, :second_move_id, :integer
@@ -399,6 +410,8 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     remove_column :sales_orders, :lost
     remove_column :sales_orders, :credit
     remove_column :sales_orders, :invoiced_on
+
+    rename_column :purchase_orders, :invoiced_on, :moved_on
 
     # Change states
     for table in STATES_TABLE.reverse

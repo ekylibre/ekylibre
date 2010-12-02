@@ -43,7 +43,7 @@
 
 
 class IncomingDeliveryLine < CompanyRecord
-  # acts_as_stockable :origin=>:delivery
+  acts_as_stockable :origin=>:delivery
   attr_readonly :purchase_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name=>IncomingDelivery.name
   belongs_to :price

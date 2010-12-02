@@ -67,7 +67,7 @@
 
 
 class Product < CompanyRecord
-  @@natures = [:product, :service, :subscrip, :transfer]
+  @@natures = [:product, :service, :subscrip] # , :transfer]
   attr_readonly :company_id
   belongs_to :purchases_account, :class_name=>Account.to_s
   belongs_to :company
@@ -111,6 +111,8 @@ class Product < CompanyRecord
         self.code.succ!
       end
     end
+    self.stockable = true if self.trackable?
+    self.deliverable = true if self.stockable?
     self.for_productions = true if self.has_components?
     self.catalog_name = self.name if self.catalog_name.blank?
     self.subscription_nature_id = nil if self.nature != "subscrip"
@@ -239,7 +241,7 @@ class Product < CompanyRecord
 
   # Generic method to add stock move in product's stock
   def add_stock_move(options={})
-    return true unless self.stockable
+    return true unless self.stockable?
     incoming = options.delete(:incoming)
     attributes = options.merge(:generated=>true, :company_id=>self.company_id)
     origin = options[:origin]

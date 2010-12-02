@@ -30,6 +30,7 @@
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
+#  moved_on          :date             
 #  number            :string(16)       
 #  responsible_id    :integer          
 #  updated_at        :datetime         not null

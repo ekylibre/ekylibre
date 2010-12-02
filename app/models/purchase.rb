@@ -152,37 +152,28 @@ class Purchase < CompanyRecord
     self.undelivered(:amount) > 0 and not self.invoice?
   end
   
+  # Save the last date when the purchase was confirmed
+  def confirm(validated_on=Date.today, *args)
+    return false unless self.can_confirm?
+    self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+    return super
+  end
 
-#   def confirm(validated_on=Date.today, *args)
-#     return false unless self.can_confirm?
-#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-#       line.product.reserve_incoming_stock(:origin=>line, :planned_on=>self.planned_on)
-#     end
-#     self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
-#     return super
-#   end
+  # Save the last date when the invoice of purchase was received
+  def invoice(invoiced_on=Date.today, *args)
+    return false unless self.can_invoice?
+    self.reload.update_attributes!(:invoiced_on=>invoiced_on)
+    return super
+  end
 
-
-#   # Move
-#   def invoice(moved_on=Date.today, *args)
-#     return false unless self.can_invoice?
-#     # Move real unless there is at least one delivery
-#     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-#       line.product.move_incoming_stock(:origin=>line, :moved_on=>moved_on)
-#     end if self.deliveries.size.zero?
-#     # Set values
-#     self.reload.update_attributes!(:moved_on=>moved_on)
-#     return super
-#   end
-
-
-
-  # Confirm the purchase by moving virtual and real stocks et closing
-  # Move to accountancy if automatic
-  def confirm2(finished_on=Date.today)
-    self.shipped = true
-    self.moved_on = finished_on
-    self.save
+  # Confirms, delivers deliverable products and invoice the purchase in one-time
+  def deliver_and_invoice
+    Purchase.transaction do
+      unless self.order?
+        return false unless self.can_confirm?
+        self.confirm!
+      end
+    end
   end
 
   def label 

@@ -30,6 +30,7 @@
 #  id                :integer          not null, primary key
 #  journal_entry_id  :integer          
 #  lock_version      :integer          default(0), not null
+#  moved_on          :date             
 #  number            :string(16)       
 #  responsible_id    :integer          
 #  updated_at        :datetime         not null
@@ -38,8 +39,6 @@
 
 
 class Inventory < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :responsible, :class_name=>User.name
   has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
 
@@ -50,12 +49,12 @@ class Inventory < CompanyRecord
   bookkeep :on=>:nothing do |b|
   end
 
-  def reflect_changes
-    for line in self.lines
-      line.product.reserve_incoming_stock(:origin=>line, :quantity=>line.quantity-line.theoric_quantity)
-      line.product.move_incoming_stock(:origin=>line, :quantity=>line.quantity-line.theoric_quantity)
-    end
+  def reflect_changes(moved_on=Date.today)
+    self.moved_on = moved_on
     self.changes_reflected = true
+    for line in self.lines
+      line.confirm_stock_move(moved_on)
+    end
     self.save
   end
 

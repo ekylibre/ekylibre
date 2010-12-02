@@ -28,6 +28,7 @@
 #  lock_version         :integer          default(0), not null
 #  moved_on             :date             
 #  nature               :string(8)        not null
+#  number               :string(64)       not null
 #  planned_on           :date             not null
 #  product_id           :integer          not null
 #  quantity             :decimal(16, 4)   not null
@@ -43,40 +44,11 @@
 
 
 class StockTransfer < CompanyRecord
-  # acts_as_stockable :quantity=>'-self.quantity'
-  # acts_as_stockable :second_stock_move, :warehouse=>'self.second_warehouse', :if=>'self.transfer? '
+  acts_as_numbered
+  acts_as_stockable :quantity=>'-self.quantity'
+  acts_as_stockable :second_stock_move, :warehouse=>'self.second_warehouse', :if=>'self.transfer? '
 
-  before_validation do |stock_transfer|
-    puts "StockTransfer (#{self.id})"
-    puts "StockTransfer (#{self.id}) 2"
-    if stock_transfer.stock_move
-      puts "StockTransfer (#{self.id}) 2.1"
-      stock_transfer.stock_move.update_attributes!(:warehouse => stock_transfer.warehouse, :tracking => stock_transfer.tracking, :unit => stock_transfer.unit, :product => stock_transfer.product, :origin => (stock_transfer), :quantity => (-self.quantity))
-    else
-      puts "StockTransfer (#{self.id}) 2.2"
-      __stock_move__ = StockMove.new(:warehouse => stock_transfer.warehouse, :tracking => stock_transfer.tracking, :unit => stock_transfer.unit, :product => stock_transfer.product, :origin => (stock_transfer), :quantity => (-self.quantity), :company_id=>stock_transfer.company_id)
-      puts "StockTransfer (#{self.id}) 2.2.1"
-      puts __stock_move__.valid?.inspect
-      puts __stock_move__.errors.inspect
-      puts __stock_move__.inspect
-      puts __stock_move__.inspect unless __stock_move__.save(:validate=>true)
-      puts "StockTransfer (#{self.id}) 2.2.2"
-      stock_transfer.stock_move_id = __stock_move__.id
-      puts "StockTransfer (#{self.id}) 2.3"
-    end
-    puts "StockTransfer (#{self.id}) 3"
-  end
-
-  
-
-  #   transfer do |t|
-  #     t.move(:quantity=>-self.quantity, :warehouse=>self.warehouse)
-  #     t.move(:quantity=>self.quantity, :warehouse=>self.second_warehouse) if self.transfer?
-  #   end
-
-  # after_save :move_stocks
   attr_readonly :company_id, :nature
-  # before_update {|r| r.stock_moves.clear}
   belongs_to :company
   belongs_to :product
   belongs_to :warehouse
@@ -85,9 +57,9 @@ class StockTransfer < CompanyRecord
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit
-  # has_many :stock_moves, :as=>:origin, :dependent=>:destroy
-  validates_presence_of :unit_id
-  validates_presence_of :second_warehouse_id, :if=>Proc.new{|x| x.transfer?}
+  validates_presence_of :unit
+  validates_presence_of :second_warehouse, :if=>Proc.new{|x| x.transfer?}
+  validates_numericality_of :quantity, :greater_than=>0.0
 
   before_validation do
     self.unit_id = self.product.unit_id if self.product
@@ -98,6 +70,12 @@ class StockTransfer < CompanyRecord
   end
 
   validate do
+    if self.tracking
+      errors.add(:tracking_id, :invalid) if self.tracking.product_id != self.product_id
+    end
+    if self.unit
+      errors.add(:unit_id, :invalid) unless self.unit.convertible_to? self.product.unit
+    end
     if !self.second_warehouse.nil?
       errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.second_warehouse.name, :product=>self.product.name, :contained_product=>self.second_warehouse.product.name) unless self.second_warehouse.can_receive(self.product_id)
     end
@@ -106,17 +84,6 @@ class StockTransfer < CompanyRecord
       errors.add_to_base(:warehouse_can_not_waste_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) if self.nature=="waste"
     end
     errors.add_to_base(:warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id 
-  end
-
-
-  
-  def move_stocks
-    self.product.reserve_outgoing_stock(:origin=>self, :planned_on=>self.planned_on, :moved_on=>self.moved_on)
-    self.product.move_outgoing_stock(:origin=>self, :planned_on=>self.planned_on, :moved_on=>self.moved_on) if self.moved_on
-    if self.transfer?
-      self.product.reserve_incoming_stock(:origin=>self, :warehouse_id=>self.second_warehouse_id, :planned_on=>self.planned_on, :moved_on=>self.moved_on)
-      self.product.move_incoming_stock(:origin=>self, :warehouse_id=>self.second_warehouse_id, :planned_on=>self.planned_on, :moved_on=>self.moved_on)  if self.moved_on
-    end
   end
   
   def self.natures
@@ -133,11 +100,10 @@ class StockTransfer < CompanyRecord
   end
 
   
-  def execute_transfer
-    self.moved_on = Date.today
-    self.save
-    StockMove.create!(:name=>tc('natures.'+self.nature.to_s), :quantity=>self.quantity, :warehouse_id=>self.warehouse_id, :product_id=>self.product_id, :planned_on=>self.planned_on, :moved_on=>self.moved_on, :company_id=>self.company_id, :virtual=>false, :input=>false, :origin_type=>StockTransfer.to_s, :origin_id=>self.id, :generated=>true)
-    StockMove.create!(:name=>tc('natures.'+self.nature.to_s), :quantity=>self.quantity, :warehouse_id=>self.second_warehouse_id, :product_id=>self.product_id,:planned_on=>self.planned_on, :moved_on=>self.moved_on, :company_id=>self.company_id, :virtual=>false, :input=>true,:origin_type=>StockTransfer.to_s, :origin_id=>self.id, :generated=>true)  if self.nature == "transfer"
+  def execute(moved_on = Date.today)
+    StockTransfer.transaction do
+      self.update_attributes(:moved_on => moved_on)
+    end
   end
   
 end
