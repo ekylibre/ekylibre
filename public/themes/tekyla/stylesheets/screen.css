@@ -398,10 +398,18 @@ html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-posi
 .search { background: #CEA !important; color: #580;  -moz-border-radius: 8px; padding:4px 6px; margin: 0 0 8px; }
 .search table { margin: 0px auto; }
 .search .label { padding: 1px 4px; }
-.search .submit { padding: 0px 4px; }
+.search .submit { padding: 0px 4px;}
 .search table .crit { border-top: 1px dotted #580; padding: 1px 4px; vertical-align: middle; text-align:center; }
 .search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }
 .search table tr:first-child .crit { border-top: none; }
+
+.kujaku { background: #CEA !important; color: #580;  -moz-border-radius: 8px; padding:4px 6px; margin: 0 0 8px; }
+.kujaku table { margin: 0px auto; }
+.kujaku .label { padding: 1px 4px; }
+.kujaku .submit { padding: 0px 4px; width: 130px; text-align:center; }
+.kujaku table .crit { border-top: 1px dotted #580; padding: 1px 4px; vertical-align: middle; text-align:center; }
+.kujaku table .crit input[type="radio"], .kujaku table .crit input[type="checkbox"] { position: relative; top: 2px }
+.kujaku table tr:first-child .crit { border-top: none; }
 
 
 

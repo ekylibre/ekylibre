@@ -107,7 +107,8 @@ class CompanyTest < ActiveSupport::TestCase
         assert_equal "draft", @sale.state
         assert @sale.propose
         assert_equal "estimate", @sale.state
-        assert @sale.can_invoice?
+        assert !@sale.can_invoice?
+        assert @sale.confirm
         assert @sale.invoice
         assert_equal "invoice", @sale.state
       end
@@ -135,7 +136,8 @@ class CompanyTest < ActiveSupport::TestCase
         assert_equal "draft", @sale.state
         assert @sale.propose
         assert_equal "estimate", @sale.state
-        assert @sale.can_invoice?
+        assert !@sale.can_invoice?
+        assert @sale.confirm
         assert @sale.invoice
         assert_equal "invoice", @sale.state
         assert_equal Date.today, @sale.invoiced_on

@@ -846,6 +846,7 @@ arb:
     deferred_payment: 'ائتمان معلق'
     delays: 'تأخير'
     deleted_at: 'الغيه في'
+    #>deliverable: 'Deliverable'
     delivered: 'تم التسليم'
     delivered_on: 'تم التسليم في' #!
     deliveries: 'التسليم'
@@ -1233,6 +1234,7 @@ arb:
     salt: 'الملح'
     scheduled: 'الدفعة المبرمجة'
     second_move_id: 'الحركة الثانية'
+    #>second_stock_move_id: 'Second stock move'
     second_warehouse: 'موقع تخزين الوصول'
     second_warehouse_id: 'موقع تخزين الوصول'
     self_bank_accounts: 'الحسابات المصرفية الخاصة'
@@ -1311,6 +1313,7 @@ arb:
     tools: 'الادوات'
     tools_list: 'معدات'
     #>total_weight: 'Total weight (kg)'
+    #>trackable: 'Trackable'
     tracking: 'الحصة'
     tracking_id: 'الحصة'
     tracking_serial: 'رقم الحصة'
@@ -1433,7 +1436,7 @@ arb:
               filename: '[number] فاتورة'
               to_archive: 'صحيح'
             sales_order:
-              #>filename: 'Sales order [number]'
+              #>filename: 'sale [number]'
             stocks:
               filename: 'حالة الاسهم'
             transport:

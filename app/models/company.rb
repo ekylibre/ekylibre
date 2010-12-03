@@ -184,6 +184,7 @@ class Company < Ekylibre::Record::Base
   has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}'
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
   has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}'
+  has_many :critic_stocks, :class_name=>Stock.name, :conditions=>['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
   has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
@@ -199,8 +200,11 @@ class Company < Ekylibre::Record::Base
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
-  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+  has_many :unconfirmed_stock_transfers, :class_name=>StockTransfer.name, :conditions=>{:moved_on=>nil}
+  has_many :undelivered_incoming_deliveries, :class_name=>IncomingDelivery.name, :conditions=>{:moved_on=>nil}
+  has_many :undelivered_outgoing_deliveries, :class_name=>OutgoingDelivery.name, :conditions=>{:moved_on=>nil}
   has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
 
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"

@@ -120,7 +120,7 @@ class Sale < CompanyRecord
     end
     event :invoice do
       transition :order => :invoice, :if=>:has_content?
-      transition :estimate => :invoice, :if=>:has_content?
+      transition :estimate => :invoice, :if=>:has_content_not_deliverable?
     end
     event :abort do
       # transition [:draft, :estimate] => :aborted # , :order
@@ -192,6 +192,15 @@ class Sale < CompanyRecord
     self.lines.size > 0
   end
   
+  def has_content_not_deliverable?
+    return false unless self.has_content?
+    deliverable = false
+    for line in self.lines
+      deliverable = true if line.product.deliverable?
+    end
+    return !deliverable
+  end
+
 
   # Remove all bad dependencies and return at draft state with no deliveries
   def correct(*args)

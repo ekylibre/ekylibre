@@ -124,6 +124,7 @@ arb:
       delay_create: 'اضافة مهلة جديدة'
       delay_update: 'تعديل المهلة : {{name}}'
       delays: 'مهلة'
+      #>incoming_deliveries: 'Incoming deliveries'
       #>incoming_delivery_create: 'Add a new incoming delivery'
       #>incoming_delivery_mode_create: 'Add a new incoming delivery mode'
       #>incoming_delivery_mode_update: 'Edit the incoming delivery mode: %{name}'
@@ -133,6 +134,7 @@ arb:
       inventories: 'الجرد'
       inventory_create: 'الجرد'
       inventory_update: 'تعديل الجرد'
+      #>outgoing_deliveries: 'Outgoing deliveries'
       outgoing_delivery_create: 'اضافة تسليم'
       outgoing_delivery_mode_create: 'اضافة وسيلة جديدة للتسليم'
       outgoing_delivery_mode_update: 'تعديل وسيلة التسليم : {{name}}'
@@ -461,7 +463,12 @@ arb:
     created_on: 'انشأ في'
     credit: 'رصيد دائن'
     credits: 'الائتمانات'
+    criterion_modes:
+      #>all: 'All'
+      #>confirmed: 'Confirmed'
+      #>unconfirmed: 'Unconfirmed'
     critic_stock_min: 'الحد الادنى لانتقاد الاسهم'
+    critic_stocks: 'الاسهم على حافة الخطر'
     csv_statistics: 'نموذج احصائيات القيمة النقدية'
     cumul: 'رقم الرصيد التراكمي الكلي والسابق{{number}}'
     current: 'الحالية'
@@ -672,7 +679,6 @@ arb:
     locale: 'اللغة'
     localization: 'الموقع الجغرافي'
     lock: 'القفل'
-    low_stocks: 'الاسهم على حافة الخطر'
     mail: 'ارسال البريد الالكتروني'
     #>mailing: 'Mailing'
     mails:
@@ -708,6 +714,7 @@ arb:
     missing_help: 'صفحات مفقودة'
     #>mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     #>mobile: 'Mobile'
+    #>modes: 'Modes'
     modules: 'وحدات'
     moment: '' #!
     #>month_period: '%{code} - %{month} %{year}'
@@ -732,7 +739,6 @@ arb:
       other: '{{count}} تم تسجيل منتجات اخرى' #!
       zero: 'لم يتم تسجيل اي منتج' #!
     nb_purchases: #!
-    nb_transfers: #!
     nb_years: 'عدد السنوات عامة'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_warehouse_to_create_production: 'You have to register a warehouse before using production'
@@ -1176,6 +1182,9 @@ arb:
       #>one: '1 sales invoice'
       #>other: '%{count} sales invoices'
       #>zero: '0 sales invoices'
+    x_stock_transfers_to_confirm:
+      #>one: '%{count} stock transfer to confirm'
+      #>other: '%{count} stock transfers to confirm'
     x_subscriptions:
       one: 'اشتراك واحد'
       other: '{{count}} اشتراكات اخرى'
@@ -1183,10 +1192,12 @@ arb:
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
+    x_waiting_incoming_deliveries:
+      #>one: '%{count} waiting incoming delivery'
+      #>other: '%{count} waiting incoming deliveries'
     x_waiting_outgoing_deliveries:
-      #>one: '1 waiting delivery'
-      #>other: '%{count} waiting deliveries'
-      #>zero: 'No waiting deliveries'
+      #>one: '%{count} waiting outgoing delivery'
+      #>other: '%{count} waiting outgoing deliveries'
     y: 'نعم'
     yearly: 'Annuelle'
   notifications:

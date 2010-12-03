@@ -124,8 +124,8 @@ module ApplicationHelper
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
-            {:name=>:incoming_deliveries},  
             {:name=>:outgoing_deliveries},
+            {:name=>:incoming_deliveries},  
             {:name=>:warehouses},
             {:name=>:stock_transfers},
             {:name=>:inventories}  
@@ -764,6 +764,7 @@ module ApplicationHelper
 
 
   # Unagi 鰻 
+  # Flexible module management
   def unagi(options={})
     u = Unagi.new
     yield u
@@ -795,6 +796,47 @@ module ApplicationHelper
 
     def content
       "aAAAAAAAAAAAAAAAAAA"+capture(@block).to_s
+    end
+  end
+
+
+  # Kujaku 孔雀
+  # Search bar
+  def kujaku(options={})
+    k = Kujaku.new
+    yield k
+    tag = ""
+    first = true
+    for c in k.criteria
+      if c[0] == :mode
+        code = content_tag(:label, tg(:modes))
+        name = options[:name]||:mode
+        params[name] ||= c[1][0].to_s
+        for mode in c[1]
+          radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
+          radio += " "
+          radio += content_tag(:label, tl("criterion_modes.#{mode}"), :for=>"#{name}_#{mode}")
+          code += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
+        end
+      end
+      code = content_tag(:td, code.html_safe, :class=>:crit) 
+      if first
+        code += content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait)), :rowspan=>k.criteria.size, :class=>:submit)
+        first = false
+      end
+      tag += content_tag(:tr, code.html_safe)
+    end
+    tag = form_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
+    return content_tag(:div, tag.html_safe, :class=>:kujaku)
+  end
+
+  class Kujaku
+    attr_reader :criteria
+    def initialize
+      @criteria = []
+    end
+    def mode(modes, options={})
+      @criteria << [:mode, modes, options]
     end
   end
 

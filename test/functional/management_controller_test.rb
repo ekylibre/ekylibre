@@ -8,6 +8,8 @@ class ManagementControllerTest < ActionController::TestCase
                    :outgoing_delivery_update=>{:id=>1},
                    :incoming_delivery_create=>{:purchase_id=>3},
                    :incoming_delivery_update=>{:id=>1},
+                   :incoming_delivery_confirm=>:delete,
+                   :stock_transfer_confirm=>:delete,
                    :product_component_create=>{:product_id=>1}, 
                    :purchase_confirm=>:delete,
                    :purchase_invoice=>:delete,

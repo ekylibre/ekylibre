@@ -468,6 +468,7 @@ fra:
     deferred_payment: 'Crédit à reporter'
     delays: 'Délais'
     deleted_at: 'Supprimé le'
+    deliverable: 'Livrable'
     delivered: 'Livré'
     delivered_on: 'Reçu le' #!
     deliveries: 'Livraisons'
@@ -844,6 +845,7 @@ fra:
     salt: 'Sel'
     scheduled: 'Encaissement programmé'
     second_move_id: 'Second mouvement'
+    second_stock_move_id: 'Second mouvement de stock'
     second_warehouse: 'Lieu de stockage d''arrivée'
     second_warehouse_id: 'Lieu de stockage du second mouvement'
     self_bank_accounts: 'Comptes bancaires en propre'
@@ -870,7 +872,7 @@ fra:
     state_label: 'État'
     stock: 'Stock de produit'
     stock_id: 'Stock de produit'
-    #>stock_move_id: 'Stock move'
+    stock_move_id: 'Mouvement de stock'
     stock_moves: 'Mouvements de stock'
     stock_transfers: 'Transferts ou pertes de stock'
     stockable: 'Gérer les stocks'
@@ -922,6 +924,7 @@ fra:
     tools: 'Outils'
     tools_list: 'Matériel'
     total_weight: 'Masse totale'
+    trackable: 'Traçable'
     tracking: 'Lot'
     tracking_id: 'Lot'
     tracking_serial: 'Numéro de lot'
@@ -1378,12 +1381,12 @@ fra:
         number: '-- Aucune --'
         year: 'Année'
     stock:
-      #>default_name: '%{warehouse}/%{product}/%{tracking}'
+      default_name: '%{warehouse}/%{product}/%{tracking}'
       label:
         with_tracking: '%{warehouse} : Lot %{tracking}, %{quantity}%{unit} disponible(s)'
         without_tracking: '%{warehouse} : Non tracé, %{quantity}%{unit} disponible(s)'
     stock_move:
-      #>default_name: '%{origin} (%{code})'
+      default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
         transfer: 'Transfert'

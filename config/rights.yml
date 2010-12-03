@@ -701,6 +701,9 @@ manage_products:
 manage_purchases:
   controller: management
   actions:
+  - incoming_deliveries
+  - incoming_deliveries_kame
+  - incoming_delivery_confirm
   - incoming_delivery_contacts_dyli
   - incoming_delivery_create
   - incoming_delivery_delete
@@ -748,6 +751,8 @@ manage_sales:
   controller: management
   actions:
   - index
+  - outgoing_deliveries
+  - outgoing_deliveries_kame
   - outgoing_delivery_contacts_dyli
   - outgoing_delivery_create
   - outgoing_delivery_delete
@@ -762,8 +767,6 @@ manage_sales:
   - sale_propose
   - sale_refuse
   - sale_undelivered_lines_kame
-  - undelivered_sales
-  - undelivered_sales_kame
 # Manage stock moves
 manage_stock_moves:
   controller: management
@@ -772,6 +775,7 @@ manage_stock_moves:
   - stock_move_create
   - stock_move_delete
   - stock_move_update
+  - stock_transfer_confirm
   - stock_transfer_create
   - stock_transfer_delete
   - stock_transfer_update

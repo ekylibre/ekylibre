@@ -414,10 +414,8 @@ class RelationsController < ApplicationController
   create_kame(:entity_purchases, :model=>:purchase,:conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
     t.column :number ,:url=>{:controller=>:management, :action=>:purchase}
     t.column :created_on
-    t.column :moved_on
+    t.column :invoiced_on
     t.column :address, :through=>:delivery_contact
-    #t.column :shipped
-    #t.column :invoiced
     t.column :state_label
     t.column :paid_amount
     t.column :amount

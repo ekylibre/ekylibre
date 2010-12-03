@@ -31,9 +31,9 @@
 #  currency_id         :integer          
 #  delivery_contact_id :integer          
 #  id                  :integer          not null, primary key
+#  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  lock_version        :integer          default(0), not null
-#  moved_on            :date             
 #  number              :string(64)       not null
 #  paid_amount         :decimal(16, 2)   default(0.0), not null
 #  planned_on          :date             
@@ -88,7 +88,7 @@ class Purchase < CompanyRecord
     end
     event :invoice do
       transition :order => :invoice, :if=>:has_content?
-      transition :estimate => :invoice, :if=>:has_content?
+      transition :estimate => :invoice, :if=>:has_content_not_deliverable?
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order
@@ -140,6 +140,15 @@ class Purchase < CompanyRecord
     self.lines.size > 0
   end
 
+  def has_content_not_deliverable?
+    return false unless self.has_content?
+    deliverable = false
+    for line in self.lines
+      deliverable = true if line.product.deliverable?
+    end
+    return !deliverable
+  end
+
   # Computes an amount (with or without taxes) of the undelivered products
   # - +column+ can be +:amount+ or +:pretax_amount+
   def undelivered(column)
@@ -164,16 +173,6 @@ class Purchase < CompanyRecord
     return false unless self.can_invoice?
     self.reload.update_attributes!(:invoiced_on=>invoiced_on)
     return super
-  end
-
-  # Confirms, delivers deliverable products and invoice the purchase in one-time
-  def deliver_and_invoice
-    Purchase.transaction do
-      unless self.order?
-        return false unless self.can_confirm?
-        self.confirm!
-      end
-    end
   end
 
   def label 

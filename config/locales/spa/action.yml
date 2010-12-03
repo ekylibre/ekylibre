@@ -124,6 +124,7 @@ spa:
       delay_create: 'Añadir un plazo'
       delay_update: 'Modificacion del plazo : %{name}'
       delays: 'plazos'
+      #>incoming_deliveries: 'Incoming deliveries'
       #>incoming_delivery_create: 'Add a new incoming delivery'
       #>incoming_delivery_mode_create: 'Add a new incoming delivery mode'
       #>incoming_delivery_mode_update: 'Edit the incoming delivery mode: %{name}'
@@ -133,6 +134,7 @@ spa:
       inventories: 'Inventarios'
       inventory_create: 'Inventario'
       inventory_update: 'Modificacion del inventario'
+      #>outgoing_deliveries: 'Outgoing deliveries'
       outgoing_delivery_create: 'Añadir una entrega'
       outgoing_delivery_mode_create: 'Añadir un nuevo modo de entrega'
       outgoing_delivery_mode_update: 'Modificacion del modo de entrega : %{name}'
@@ -454,7 +456,12 @@ spa:
     #>created_on: 'Created on'
     credit: 'Credito'
     credits: 'Activos'
+    criterion_modes:
+      #>all: 'All'
+      #>confirmed: 'Confirmed'
+      #>unconfirmed: 'Unconfirmed'
     #>critic_stock_min: 'Critic stock min'
+    critic_stocks: 'Depósitos bajo el umbral crítico'
     csv_statistics: 'Statisticas a exportar al formato CSV'
     cumul: 'Cumul del total y del saldo precedente N°%{number}'
     #>current: 'Current'
@@ -647,7 +654,6 @@ spa:
     locale: 'Idioma'
     localization: 'Localisación geografica'
     #>lock: 'Lock'
-    low_stocks: 'Depósitos bajo el umbral crítico'
     #>mail: 'Send an email'
     #>mailing: 'Mailing'
     mails:
@@ -682,6 +688,7 @@ spa:
     missing_help: 'La página no existe'
     #>mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     #>mobile: 'Mobile'
+    #>modes: 'Modes'
     modules: 'Modulos'
     moment: #!
     #>month_period: '%{code} - %{month} %{year}'
@@ -704,7 +711,6 @@ spa:
       one: 'Una compra en espera de recepción' #!
       other: '%{count} Compras en espera de recepción' #!
       zero: 'Ningunas compras en espera de recepción' #!
-    nb_transfers: #!
     nb_years: 'Nombre de años en el historico'
     #>need_entities_to_consult_mandates: 'You have to create some people before using mandates'
     #>need_warehouse_to_create_production: 'You have to register a warehouse before using production'
@@ -1113,6 +1119,9 @@ spa:
       #>one: '1 sales invoice'
       #>other: '%{count} sales invoices'
       #>zero: '0 sales invoices'
+    x_stock_transfers_to_confirm:
+      #>one: '%{count} stock transfer to confirm'
+      #>other: '%{count} stock transfers to confirm'
     x_subscriptions:
       #>one: '1 subscription'
       #>other: '%{count} subscriptions'
@@ -1120,10 +1129,12 @@ spa:
     #>x_unit: '%{quantity}%{unit}'
     #>x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     #>x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
+    x_waiting_incoming_deliveries:
+      #>one: '%{count} waiting incoming delivery'
+      #>other: '%{count} waiting incoming deliveries'
     x_waiting_outgoing_deliveries:
-      #>one: '1 waiting delivery'
-      #>other: '%{count} waiting deliveries'
-      #>zero: 'No waiting deliveries'
+      #>one: '%{count} waiting outgoing delivery'
+      #>other: '%{count} waiting outgoing deliveries'
     #>y: 'Yes'
     yearly: 'Anual'
   notifications:

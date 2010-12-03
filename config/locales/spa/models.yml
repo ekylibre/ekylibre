@@ -80,7 +80,7 @@ spa:
         #>contact: 'Address for the estimate'
         #>contact_id: 'Address for the estimate'
         #>has_downpayment: 'Request a downpayment'
-        #>lines: 'Sales order lines'
+        #>lines: 'sale lines'
         #>payments: 'Incoming payments'
       sale_line:
         #>label: 'Product'
@@ -194,7 +194,7 @@ spa:
           #>warehouse_can_not_receive_product: 'The warehouse %{warehouse} can not receive %{product}, it already contains %{contained_product}.'
         sale_line:
           #>can_not_use_this_tracking: 'You can not user the S/N %{tracking}, the quantity is greater than the available quantity'
-          #>currency_is_not_sale_currency: 'Currency is not identical to the sales order currency'
+          #>currency_is_not_sale_currency: 'Currency is not identical to the sale currency'
           #>error_no_found_price: 'No found price'
           #>warehouse_can_not_transfer_product: '%{product} can not be found in %{warehouse}, it only contains %{contained_product}.'
         stock:
@@ -287,9 +287,9 @@ spa:
       #>purchase: 'Purchase order'
       #>purchase_line: 'Purchase order line'
       #>role: 'Role'
-      #>sale: 'Sales order'
-      #>sale_line: 'Sales order line'
-      #>sale_nature: 'Sales order type'
+      #>sale: 'sale'
+      #>sale_line: 'sale line'
+      #>sale_nature: 'sale type'
       #>sequence: 'Sequence'
       #>stock: 'Stock'
       #>stock_move: 'Stock move'
@@ -456,6 +456,7 @@ spa:
     #>deferred_payment: 'Deferred payment'
     #>delays: 'Delays'
     #>deleted_at: 'Deleted at'
+    #>deliverable: 'Deliverable'
     #>delivered: 'Delivered'
     #>deliveries: 'Deliveries'
     #>deliveries_conditions: 'Deliveries conditions'
@@ -808,12 +809,12 @@ spa:
     #>rome: 'Rome'
     #>root_model: 'Root model'
     #>root_model_name: 'Root model name'
-    #>sale: 'Sales order'
-    #>sale_id: 'Sales order'
-    #>sale_line_id: 'Sales order line'
-    #>sale_lines: 'Sales order lines'
-    #>sale_natures: 'Sales order types'
-    #>sales: 'Sales orders'
+    #>sale: 'sale'
+    #>sale_id: 'sale'
+    #>sale_line_id: 'sale line'
+    #>sale_lines: 'sale lines'
+    #>sale_natures: 'sale types'
+    #>sales: 'sales'
     #>sales_account: 'Sales account'
     #>sales_account_id: 'Sales account'
     #>sales_conditions: 'Sales conditions'
@@ -821,6 +822,7 @@ spa:
     #>salt: 'Salt'
     #>scheduled: 'Scheduled'
     #>second_move_id: 'Second move'
+    #>second_stock_move_id: 'Second stock move'
     #>second_warehouse: 'Second warehouse'
     #>second_warehouse_id: 'Second warehouse'
     #>self_bank_accounts: 'Self bank accounts'
@@ -899,6 +901,7 @@ spa:
     #>tools: 'Tools'
     #>tools_list: 'Tools list'
     #>total_weight: 'Total weight (kg)'
+    #>trackable: 'Trackable'
     #>tracking: 'Tracking'
     #>tracking_id: 'Tracking'
     #>tracking_serial: 'Tracking serial'
@@ -1008,7 +1011,7 @@ spa:
               #>filename: 'Sales invoice [number]'
               #>to_archive: 'true'
             sales_order:
-              #>filename: 'Sales order [number]'
+              #>filename: 'sale [number]'
             stocks:
               #>filename: 'Stocks'
             transport:
@@ -1133,7 +1136,7 @@ spa:
       import:
         #>dont_use: '-- Do not use --'
         #>generate_string_complement: '-- Create a personalized field (text) --'
-      #>sales: 'Sales orders'
+      #>sales: 'sales'
     complement: #!
     contact:
       #>error_modify_contact: 'The contact can not be updated.'
@@ -1179,7 +1182,7 @@ spa:
         #>journal: 'Journal'
         #>other: 'Other'
         #>purchase: 'Purchase order'
-        #>sale: 'Sales order'
+        #>sale: 'sale'
         #>sales_invoice: 'Sales invoice'
         #>stocks: 'Stocks'
         #>transport: 'Transport'
@@ -1192,7 +1195,7 @@ spa:
         #>mailing: 'Mailing'
         #>manual: 'Manual'
         #>purchase: 'Creation of a purchase'
-        #>sale: 'Creation of a sales order'
+        #>sale: 'Creation of a sale'
         #>sales_invoice: 'Creation of a sales invoice'
     financial_year:
       code:
@@ -1356,7 +1359,7 @@ spa:
         #>refused: 'Refused estimate'
     sale_line:
       #>can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
-      #>currency_is_not_sale_currency: 'The currency of the price differs from the sales order currency'
+      #>currency_is_not_sale_currency: 'The currency of the price differs from the sale currency'
       #>no_product: '[No product]'
       #>reduction_on: 'Discount of %{percent}%  on %{product}'
       #>tracking: 'S/N: %{serial}'

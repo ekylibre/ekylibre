@@ -123,6 +123,7 @@ fra:
       delay_create: 'Ajout d''un nouveau délai'
       delay_update: 'Modifier le délai : %{name}'
       delays: 'Délais'
+      incoming_deliveries: 'Livraisons entrantes'
       incoming_delivery_create: 'Enregistrer un nouveau arrivage'
       incoming_delivery_mode_create: 'Créer un mode de réception d''arrivage'
       incoming_delivery_mode_update: 'Modifier le mode de réception d''arrivage: %{name}'
@@ -132,6 +133,7 @@ fra:
       inventories: 'Inventaires'
       inventory_create: 'Inventaire'
       inventory_update: 'Modifier l''inventaire'
+      outgoing_deliveries: 'Livraisons sortantes'
       outgoing_delivery_create: 'Ajouter une livraison'
       outgoing_delivery_mode_create: 'Ajout d''un nouveau mode de livraison'
       outgoing_delivery_mode_update: 'Modifier le mode de livraison : %{name}'
@@ -451,7 +453,12 @@ fra:
     created_on: 'Créée le'
     credit: 'Crédit'
     credits: 'Avoirs'
+    criterion_modes:
+      all: 'Tout'
+      confirmed: 'Confirmés'
+      unconfirmed: 'Non-confirmés'
     critic_stock_min: 'Stock minimum critique'
+    critic_stocks: 'Stocks sous le seuil critique'
     csv_statistics: 'Statistiques à exporter au format CSV'
     cumul: 'Cumul du total et du solde précédent N°%{number}'
     current: 'En cours'
@@ -632,7 +639,6 @@ fra:
     locale: 'Langue'
     localization: 'Localisation géographique'
     lock: 'Verrouiller'
-    low_stocks: 'Stocks sous le seuil critique'
     mail: 'Envoyer un courriel'
     mailing: 'Mailing'
     mails:
@@ -667,6 +673,7 @@ fra:
     missing_help: 'Page inexistante'
     mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
     mobile: 'Portable'
+    modes: 'Modes'
     modules: 'Modules'
     month_period: '%{code} - %{month} %{year}'
     monthly: 'Mensuelle'
@@ -693,10 +700,6 @@ fra:
       one: '%{count} achat en attente de reception' #!
       other: '%{count} achats en attente de reception' #!
       zero: 'Aucun achat en attente de reception' #!
-    nb_transfers:  #!
-      one: '%{count} transfert à effectuer' #!
-      other: '%{count} transferts à effectuer' #!
-      zero: 'Aucun transfert à effectuer' #!
     nb_years: 'Nombre d''années dans l''historique'
     need_entities_to_consult_mandates: 'Vous devez créer des fiches clients/fournisseurs avant'
     need_warehouse_to_create_production: 'Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions'
@@ -1100,6 +1103,10 @@ fra:
       one: '%{count} facture'
       other: '%{count} factures'
       zero: '0 facture'
+    x_stock_transfers_to_confirm:
+      one: '%{count} transfert à effectuer'
+      other: '%{count} transferts à effectuer'
+      zero: 'Aucun transfert à effectuer' #!
     x_subscriptions:
       one: '%{count} abonnement'
       other: '%{count} abonnements'
@@ -1107,10 +1114,12 @@ fra:
     x_unit: '%{quantity}%{unit}'
     x_unit_of_product_per_second: '%{quantity}%{unit}/s de %{product}'
     x_unit_per_second: 'Débit: %{quantity}%{unit}/s'
+    x_waiting_incoming_deliveries:
+      one: '%{count} livraison entrante en attente'
+      other: '%{count} livraisons entrantes en attente'
     x_waiting_outgoing_deliveries:
-      one: '%{count} livraison en attente'
-      other: '%{count} livraisons en attente'
-      zero: 'Aucune livraison en attente'
+      one: '%{count} livraison sortante en attente'
+      other: '%{count} livraisons sortantes en attente'
     y: 'Oui'
     yearly: 'Annuelle'
   notifications:

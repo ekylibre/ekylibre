@@ -71,4 +71,10 @@ class IncomingDelivery < CompanyRecord
     nil
   end
 
+  def execute(moved_on = Date.today)
+    self.class.transaction do
+      self.update_attributes(:moved_on => moved_on)
+    end
+  end
+
 end

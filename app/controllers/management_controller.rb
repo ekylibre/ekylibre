@@ -23,15 +23,6 @@ class ManagementController < ApplicationController
   include ActionView::Helpers::NumberHelper
  
   def index
-    @deliveries = @current_company.outgoing_deliveries.find(:all,:conditions=>{:moved_on=>nil})
-    @purchases = @current_company.purchases.find(:all, :conditions=>{:moved_on=>nil})
-    all_stocks = @current_company.stocks
-    @warehouses = @current_company.warehouses
-    @stocks = []
-    for stock in all_stocks
-      @stocks << stock if stock.state == "critic"
-    end
-    @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}) 
   end
   
   
@@ -1325,7 +1316,49 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
- 
+
+
+  
+  def self.moved_conditions
+    code = ""
+    code += "c=['company_id=?', @current_company.id]\n"
+    code += "if params[:mode]=='unconfirmed'\n"
+    code += "  c[0] += ' AND moved_on IS NULL'\n"
+    code += "elsif params[:mode]=='confirmed'\n"
+    code += "  c[0] += ' AND moved_on IS NOT NULL'\n"
+    code += "end\n"
+    code += "c\n"
+    return code
+  end
+
+
+  create_kame(:incoming_deliveries, :conditions=>moved_conditions) do |t|
+    t.column :number
+    t.column :reference_number
+    t.column :comment
+    t.column :weight
+    t.column :planned_on
+    t.column :moved_on
+    t.column :name, :through=>:mode
+    t.column :number, :through=>:purchase, :url=>{:action=>:purchase}
+    t.column :amount
+    t.action :incoming_delivery_confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', :confirm=>:are_you_sure
+    t.action :incoming_delivery_update
+    t.action :incoming_delivery_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+
+  def incoming_deliveries
+  end
+
+  def incoming_delivery_confirm
+    return unless incoming_delivery = find_and_check(:incoming_delivery)
+    incoming_delivery.execute if request.post?
+    redirect_to :action=>:incoming_deliveries, :mode=>:unconfirmed
+  end
+
+
+
 
   dyli(:incoming_delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true}, :joins=>"JOIN #{Company.table_name} AS companies ON (companies.entity_id=#{Contact.table_name}.entity_id))", :model=>:contacts)
 
@@ -1394,9 +1427,29 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
   
+  
+
+
+
+  create_kame(:outgoing_deliveries, :conditions=>moved_conditions) do |t|
+    t.column :number
+    t.column :reference_number
+    t.column :comment
+    t.column :weight
+    t.column :planned_on
+    t.column :moved_on
+    t.column :name, :through=>:mode
+    t.column :number, :through=>:sale, :url=>{:action=>:sale}
+    t.column :amount
+    t.action :outgoing_delivery_update
+    t.action :outgoing_delivery_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  def outgoing_deliveries
+  end
+
   dyli(:outgoing_delivery_contacts, ['entities.full_name', :address], :conditions => { :company_id=>['@current_company.id'], :active=>true}, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :model=>:contacts)
-  
-  
+
   def outgoing_delivery_create
     return unless @sale = find_and_check(:sales, params[:sale_id]||params[:sale_id]||session[:current_sale_id])
     unless @sale.order?
@@ -1736,28 +1789,102 @@ class ManagementController < ApplicationController
   end
   
   
-  create_kame :undelivered_sales, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|
-    t.column :label, :children=>:product_name
-    t.column :planned_on, :children=>false
-    t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount
-    t.column :amount
-    t.check_box :delivered, :value=>'RECORD.planned_on<=Date.today'
-  end
+#   create_kame :undelivered_sales, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :line_class=>'RECORD.moment.to_s' do |t|
+#     t.column :label, :children=>:product_name
+#     t.column :planned_on, :children=>false
+#     t.column :quantity, :datatype=>:decimal
+#     t.column :pretax_amount
+#     t.column :amount
+#     t.check_box :delivered, :value=>'RECORD.planned_on<=Date.today'
+#   end
 
 
-  def undelivered_sales
-    @deliveries = OutgoingDelivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil},:order=>"planned_on ASC")  
-    if request.post?
-      for id, values in params[:undelivered_sales]
-        #raise Exception.new params.inspect+id.inspect+values.inspect
-        outgoing_delivery = @current_company.deliveries.find_by_id(id)
-        outgoing_delivery.ship if outgoing_delivery and values[:delivered].to_i == 1
-      end
-      redirect_to :action=>:undelivered_sales
-    end
-  end
+#   def undelivered_sales
+#     @deliveries = OutgoingDelivery.find(:all,:conditions=>{:company_id=>@current_company.id, :moved_on=>nil},:order=>"planned_on ASC")  
+#     if request.post?
+#       for id, values in params[:undelivered_sales]
+#         #raise Exception.new params.inspect+id.inspect+values.inspect
+#         outgoing_delivery = @current_company.deliveries.find_by_id(id)
+#         outgoing_delivery.ship if outgoing_delivery and values[:delivered].to_i == 1
+#       end
+#       redirect_to :action=>:undelivered_sales
+#     end
+#   end
   
+
+  def self.stocks_conditions(options={})
+    code = ""
+    code += "conditions = {} \n"
+    code += "conditions[:company_id] = @current_company.id\n"
+    code += "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id] and session[:warehouse_id].to_i > 0\n "
+    code += "conditions \n "
+    code
+  end
+
+  create_kame(:stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
+    t.column :name, :through=>:warehouse,:url=>{:action=>:warehouse}
+    t.column :name, :through=>:product,:url=>{:action=>:product}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :quantity_max
+    t.column :quantity_min
+    t.column :critic_quantity_min
+    t.column :virtual_quantity, :precision=>3
+    t.column :quantity, :precision=>3
+    t.column :label, :through=>:unit
+  end
+
+  create_kame(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)', ['@current_company.id']] , :line_class=>'RECORD.state', :order=>'virtual_quantity/(2*quantity_min+0.01)') do |t|
+    t.column :name, :through=>:product,:url=>{:action=>:product}
+    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
+    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :critic_quantity_min
+    t.column :quantity_min
+    t.column :quantity_max
+    t.column :virtual_quantity
+    t.column :quantity
+    t.column :name, :through=>:unit
+  end
+
+  def stocks
+    @warehouses = @current_company.warehouses
+    if @warehouses.size == 0
+      notify(:no_warehouse, :warning)
+      redirect_to :action=>:warehouse_create
+    else
+      session[:warehouse_id] = params[:warehouse_id]
+    end
+    notify(:no_stocks, :now) if @current_company.stocks.size <= 0
+  end
+
+
+
+  
+
+
+  create_kame(:stock_transfers, :conditions=>moved_conditions) do |t|
+    t.column :text_nature
+    t.column :name, :through=>:product, :url=>{:action=>:product}
+    t.column :quantity
+    t.column :label, :through=>:unit
+    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
+    t.column :name, :through=>:second_warehouse, :url=>{:action=>:warehouse}
+    t.column :planned_on
+    t.column :moved_on
+    t.action :stock_transfer_confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', :confirm=>:are_you_sure
+    t.action :stock_transfer_update
+    t.action :stock_transfer_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  def stock_transfers
+  end
+
+  manage :stock_transfers, :nature=>"'transfer'", :planned_on=>"Date.today"
+
+  def stock_transfer_confirm
+    return unless stock_transfer = find_and_check(:stock_transfer)
+    stock_transfer.execute if request.post?
+    redirect_to :action=>:stock_transfers, :mode=>:unconfirmed
+  end
 
   create_kame(:stock_transfers_confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t| 
     t.column :text_nature
@@ -1785,65 +1912,14 @@ class ManagementController < ApplicationController
     end
   end
   
-  def self.stocks_conditions(options={})
-    code = ""
-    code += "conditions = {} \n"
-    code += "conditions[:company_id] = @current_company.id\n"
-    code += "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id] and session[:warehouse_id].to_i > 0\n "
-    code += "conditions \n "
-    code
-  end
 
-  create_kame(:stocks, :conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:warehouse,:url=>{:action=>:warehouse}
-    t.column :name, :through=>:product,:url=>{:action=>:product}
-    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
-    t.column :quantity_max
-    t.column :quantity_min
-    t.column :critic_quantity_min
-    t.column :virtual_quantity, :precision=>3
-    t.column :quantity, :precision=>3
-    t.column :label, :through=>:unit
-  end
 
-  create_kame(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min', ['@current_company.id']] , :line_class=>'RECORD.state') do |t|
-    t.column :name, :through=>:product,:url=>{:action=>:product}
-    # t.column :name, :through=>:warehouse
-    t.column :quantity_max
-    t.column :quantity_min
-    t.column :critic_quantity_min
-    t.column :virtual_quantity
-    t.column :quantity
-  end
 
-  def stocks
-    @warehouses = @current_company.warehouses
-    if @warehouses.size == 0
-      notify(:no_warehouse, :warning)
-      redirect_to :action=>:warehouse_create
-    else
-      session[:warehouse_id] = params[:warehouse_id]
-    end
-    notify(:no_stocks, :now) if @current_company.stocks.size <= 0
-  end
 
-  create_kame(:stock_transfers, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :text_nature
-    t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :quantity
-    t.column :label, :through=>:unit
-    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
-    t.column :name, :through=>:second_warehouse, :url=>{:action=>:warehouse}
-    t.column :planned_on
-    t.column :moved_on
-    t.action :stock_transfer_update
-    t.action :stock_transfer_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
 
-  def stock_transfers
-  end
 
-  manage :stock_transfers, :nature=>"'transfer'", :planned_on=>"Date.today"
+
+
 
   create_kame(:transports, :children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :created_on, :children=>:planned_on, :url=>{:action=>:transport}
