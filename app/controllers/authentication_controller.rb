@@ -76,7 +76,7 @@ class AuthenticationController < ApplicationController
 
   def register
     if request.post?
-      @company = Company.new(params[:company])
+      @my_company = Company.new(params[:my_company])
       @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>'fra'))
 
       if defined?(Ekylibre::DONT_REGISTER)
@@ -87,20 +87,20 @@ class AuthenticationController < ApplicationController
       end
       
       # Test validity
-      return unless @company.valid? and @user.valid?
+      return unless @my_company.valid? and @user.valid?
 
-      @company, @user = Company.create_with_data(params[:company], params[:user], params[:demo])
-      if @company.id and @user.id
+      @my_company, @user = Company.create_with_data(params[:my_company], params[:user], params[:demo])
+      if @my_company.id and @user.id
         init_session(@user)
-        redirect_to :controller=>:company, :action=>:welcome, :company=>@company.code
+        redirect_to :controller=>:company, :action=>:welcome, :company=>@my_company.code
       end      
     else
       reset_session
-      if params[:company]
-        redirect_to :company=>nil, :locale=>params[:locale] 
+      if params[:my_company]
+        redirect_to :company=>nil, :locale=>params[:locale]
         return
       end
-      @company = Company.new
+      @my_company = Company.new
       @user = User.new
     end
   end

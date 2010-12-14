@@ -1098,7 +1098,6 @@ fra:
             format: 'D[year|4][number|4]'
             name: 'Numérotation des décaissements'
             period: 'year'
-          purchase_order: #!
           purchases:
             format: 'A[year|4][month|2][number|6]'
             name: 'Numérotation des achats'
@@ -1111,7 +1110,6 @@ fra:
             format: 'F[year|4][number|6]'
             name: 'Numérotation des factures'
             period: 'year'
-          sales_orders: #!
           subscriptions:
             format: 'ABO[number|8]'
             name: 'Numérotation des abonnements'

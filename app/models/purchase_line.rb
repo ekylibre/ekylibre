@@ -57,7 +57,7 @@ class PurchaseLine < CompanyRecord
   has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:purchase_line_id
   validates_presence_of :pretax_amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
-  validates_uniqueness_of :tracking_serial, :scope=>:price_id
+  validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true
 
   sums :purchase, :lines, :pretax_amount, :amount
   

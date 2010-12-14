@@ -97,7 +97,13 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     change_column_null :stock_transfers, :number, false
     # Merge existing virtual and real moves
     on = [:product_id, :origin_type, :origin_id, :unit_id, :warehouse_id, :quantity]
-    execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT virt.id FROM #{quoted_table_name(:stock_moves)} AS virt JOIN #{quoted_table_name(:stock_moves)} AS real ON (virt.virtual = #{quoted_true} AND real.virtual=#{quoted_false} AND "+on.collect{|x| "virt.#{x}=real.#{x}"}.join(' AND ')+" AND ((virt.tracking_id IS NULL AND real.tracking_id IS NULL) OR virt.tracking_id=real.tracking_id) ))"
+
+    create_table(:deletable_stock_moves, :force=>true, :id=>false, :stamp=>false) { |t| t.column(:id, :integer) }
+    execute "INSERT INTO #{quoted_table_name(:deletable_stock_moves)}(id) SELECT virt_moves.id FROM #{quoted_table_name(:stock_moves)} AS virt_moves JOIN #{quoted_table_name(:stock_moves)} AS real_moves ON (virt_moves.virtual = #{quoted_true} AND real_moves.virtual=#{quoted_false} AND "+on.collect{|x| "virt_moves.#{x}=real_moves.#{x}"}.join(' AND ')+" AND ((virt_moves.tracking_id IS NULL AND real_moves.tracking_id IS NULL) OR virt_moves.tracking_id=real_moves.tracking_id) )"
+    execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT id FROM #{quoted_table_name(:deletable_stock_moves)})"
+    drop_table :deletable_stock_moves
+
+    # execute "DELETE FROM #{quoted_table_name(:stock_moves)} WHERE id IN (SELECT virt_moves.id FROM #{quoted_table_name(:stock_moves)} AS virt_moves JOIN #{quoted_table_name(:stock_moves)} AS real_moves ON (virt_moves.virtual = #{quoted_true} AND real_moves.virtual=#{quoted_false} AND "+on.collect{|x| "virt_moves.#{x}=real_moves.#{x}"}.join(' AND ')+" AND ((virt_moves.tracking_id IS NULL AND real_moves.tracking_id IS NULL) OR virt_moves.tracking_id=real_moves.tracking_id) ))"
 
     add_column :inventories, :moved_on, :date
 
@@ -123,11 +129,20 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     sil = connection.columns(:sales_invoice_lines).collect{|c| c.name}.sort.collect{|c| c.to_sym}
     execute "INSERT INTO #{quoted_table_name(:sales_orders)} (sales_invoice_id, initial_number, invoiced_on, rebuilt_id, "+so.join(', ')+") SELECT si.id, so.number, si.created_on, so.id, "+so.collect{|c| (si.include?(c) ? "COALESCE(si.#{c}, so.#{c})" : "so.#{c}")}.join(', ')+" FROM #{quoted_table_name(:sales_invoices)} AS si JOIN #{quoted_table_name(:sales_orders)} AS so ON (si.sales_order_id=so.id)"
     execute "INSERT INTO #{quoted_table_name(:sales_order_lines)} (sales_invoice_line_id, order_id, rebuilt_id, "+sol.join(', ')+") SELECT sil.id, so.id, sol.id, "+sol.collect{|c| "COALESCE("+(sil.include?(c) ? "sil.#{c}, " : "")+"sol.#{c}#{', '+connection.quote(defaults[c]) unless defaults[c].nil?})"}.join(', ')+" FROM #{quoted_table_name(:sales_invoice_lines)} AS sil JOIN #{quoted_table_name(:sales_orders)} AS so ON (so.sales_invoice_id=sil.sales_invoice_id) LEFT JOIN #{quoted_table_name(:sales_order_lines)} AS sol ON (sil.order_line_id=sol.id)"
-    execute "DELETE FROM #{quoted_table_name(:sales_order_lines)} WHERE id IN (SELECT rebuilt_id FROM #{quoted_table_name(:sales_order_lines)} WHERE rebuilt_id IS NOT NULL)"
-    execute "DELETE FROM #{quoted_table_name(:sales_orders)} WHERE id IN (SELECT rebuilt_id FROM #{quoted_table_name(:sales_orders)} WHERE rebuilt_id IS NOT NULL)"
+    #
+    create_table(:deletable_sales_order_lines, :force=>true, :id=>false, :stamp=>false) { |t| t.column(:id, :integer) }
+    execute "INSERT INTO #{quoted_table_name(:deletable_sales_order_lines)}(id) SELECT rebuilt_id FROM #{quoted_table_name(:sales_order_lines)} WHERE rebuilt_id IS NOT NULL"
+    create_table(:deletable_sales_orders, :force=>true, :id=>false, :stamp=>false) { |t| t.column(:id, :integer) }
+    execute "INSERT INTO #{quoted_table_name(:deletable_sales_orders)}(id) SELECT rebuilt_id FROM #{quoted_table_name(:sales_orders)} WHERE rebuilt_id IS NOT NULL"
+    #
+    execute "DELETE FROM #{quoted_table_name(:sales_order_lines)} WHERE id IN (SELECT id FROM #{quoted_table_name(:deletable_sales_order_lines)})"
+    execute "DELETE FROM #{quoted_table_name(:sales_orders)} WHERE id IN (SELECT id FROM #{quoted_table_name(:deletable_sales_orders)})"
     execute "DELETE FROM #{quoted_table_name(:sales_invoice_lines)} WHERE sales_invoice_id IN (SELECT sales_invoice_id FROM #{quoted_table_name(:sales_orders)})"
     execute "DELETE FROM #{quoted_table_name(:sales_invoices)} WHERE id IN (SELECT sales_invoice_id FROM #{quoted_table_name(:sales_orders)})"
     # puts connection.select_one("SELECT count(*) FROM #{quoted_table_name(:sales_orders)}").inspect
+    drop_table :deletable_sales_orders
+    drop_table :deletable_sales_order_lines
+
 
 
     # Add uninvoiced sales orders

@@ -6,7 +6,7 @@ task :rights => :environment do
 
   # Chargement des actions des controllers
   ref = {}
-  Dir.glob(Ekylibre::Application.root.join("app", "controllers", "*_controller.rb")) do |x|
+  Dir.glob(Rails.root.join("app", "controllers", "*_controller.rb")) do |x|
     controller_name = x.split("/")[-1].split("_controller")[0]
     ref[controller_name] = actions_in_file(x).sort
   end

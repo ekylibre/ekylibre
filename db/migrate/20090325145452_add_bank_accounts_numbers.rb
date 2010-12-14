@@ -19,6 +19,6 @@ class AddBankAccountsNumbers < ActiveRecord::Migration
     remove_column :bank_accounts, :agency_code
     remove_column :bank_accounts, :bank_code
    
-    add_column :bank_accounts, :iban_label2, :string,  :null=>false, :limit=>48
+    add_column :bank_accounts, :iban_label2, :string,  :null=>false, :limit=>48, :default=>"XXYY0123456789"
   end
 end

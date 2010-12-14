@@ -18,7 +18,7 @@ group :test do
 end  
 
 # gem 'sqlite3-ruby', :require => 'sqlite3', :platforms=>[:ruby_19, :mri_19]
-gem 'pg'
+gem 'pg', '0.9.0'
 gem 'mysql'
 gem 'activerecord-sqlserver-adapter', :path => 'vendor/gems/activerecord-sqlserver-adapter-3.0.3'
 # gem 'ruby-odbc'
