@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009-2011 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -224,7 +224,7 @@ class JournalEntry < CompanyRecord
     end
     # Mark accounts
     for account in reconcilable_accounts
-      account.mark(self, entry)
+      account.mark_entries(self, entry)
     end
     return entry
   end

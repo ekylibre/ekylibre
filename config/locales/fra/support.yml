@@ -58,7 +58,7 @@ fra:
       title: 'Exporter'
       true_value: 'VRAI'
       xcsv: 'CSV Excel'
-    export_as: 'Exporter en %{format}...'
+    export_as: 'Exporter en %{exported}...'
     menu: 'Menu'
     next: 'Suivant'
     no_records: 'Aucun enregistrement'

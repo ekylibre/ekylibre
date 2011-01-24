@@ -30,7 +30,6 @@ module Ekylibre::Record
           code += "  end\n"
           code += "  return #{uses}\n"
           code += "end\n"
-
           code += "def reconciliate\n"
           code += "  #{expense_owners}, #{payment_owners}, amount = {}, {}, 0.0\n"
           code += "  for #{use} in self.#{neighbours}\n"
@@ -78,6 +77,9 @@ module Ekylibre::Record
           code += "  return true\n"
           code += "end\n"
           # puts code
+
+          list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+
           class_eval code
         end
       end

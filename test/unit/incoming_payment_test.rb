@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009-2011 Brice Texier, Thibaud Merigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,7 +43,7 @@
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer          
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             not null
+#  to_bank_on            :date             default(CURRENT_DATE), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #  used_amount           :decimal(16, 2)   not null

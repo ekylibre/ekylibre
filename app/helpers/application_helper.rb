@@ -113,19 +113,18 @@ module ApplicationHelper
        [ {:name=>:sales, :list=>
            [ {:name=>:sale_create},
              {:name=>:sales},
-             {:name=>:transports},
              {:name=>:subscriptions},
              {:name=>:statistics}
            ] },
          {:name=>:purchases, :list=>
            [ {:name=>:purchase_create},
              {:name=>:purchases},
-             {:name=>:incoming_deliveries},
            ] },
          {:name=>:stocks_tasks, :list=>
            [{:name=>:stocks},
             {:name=>:outgoing_deliveries},
             {:name=>:incoming_deliveries},  
+            {:name=>:transports},
             {:name=>:warehouses},
             {:name=>:stock_transfers},
             {:name=>:inventories}  

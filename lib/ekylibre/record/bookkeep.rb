@@ -52,7 +52,7 @@ module Ekylibre::Record  #:nodoc:
           if block_given? and condition and @action != :destroy
             journal_entry ||= @resource.company.journal_entries.create!(attributes)
             yield(journal_entry)
-            journal_entry.confirm unless @draft
+            journal_entry.reload.confirm unless @draft
           end
           
           # Set accounted columns

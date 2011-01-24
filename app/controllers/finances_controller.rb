@@ -33,8 +33,8 @@ class FinancesController < ApplicationController
     t.column :name, :url=>{:action=>:cash}
     t.column :nature_label
     t.column :name, :through=>:currency
-    t.column :number, :through=>:account, :url=>{:action=>:account}
-    t.column :name, :through=>:journal, :url=>{:action=>:journal}
+    t.column :number, :through=>:account, :url=>{:action=>:account, :controller=>:accountancy}
+    t.column :name, :through=>:journal, :url=>{:action=>:journal, :controller=>:accountancy}
     t.action :cash_update
     t.action :cash_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -53,7 +53,7 @@ class FinancesController < ApplicationController
   end
 
   create_kame(:cash_bank_statements, :model=>:bank_statements, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
-    t.column :number, :url=>{:action=>:bank_statement}
+    t.column :number, :url=>{:action=>:bank_statement, :controller=>:accountancy}
     t.column :started_on
     t.column :stopped_on
     t.column :credit
@@ -146,7 +146,7 @@ class FinancesController < ApplicationController
     t.column :number, :url=>{:action=>:deposit}
     t.column :amount, :url=>{:action=>:deposit}
     t.column :payments_count
-    t.column :name, :through=>:cash, :url=>{:action=>:cash, :controller=>:accountancy}
+    t.column :name, :through=>:cash, :url=>{:action=>:cash}
     t.column :label, :through=>:responsible
     t.column :created_on
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:deposit}
@@ -312,7 +312,7 @@ class FinancesController < ApplicationController
   manage :incoming_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
   create_kame(:incoming_payment_sales, :model=>:sales, :conditions=>["#{Sale.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], Sale.name]) do |t|
-    t.column :number, :url=>{:action=>:sale}
+    t.column :number, :url=>{:action=>:sale, :controller=>:management}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
     t.column :pretax_amount
@@ -372,7 +372,7 @@ class FinancesController < ApplicationController
   create_kame(:incoming_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
     t.column :name
     t.column :with_accounting
-    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
+    t.column :name, :through=>:cash, :url=>{:action=>:cash}
     t.column :with_deposit
     t.column :label, :through=>:depositables_account, :url=>{:controller=>:accountancy, :action=>:account}
     t.column :with_commission
@@ -403,7 +403,7 @@ class FinancesController < ApplicationController
   create_kame(:outgoing_payment_modes, :conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
     t.column :name
     t.column :with_accounting
-    t.column :name, :through=>:cash, :url=>{:controller=>:accountancy, :action=>:cash}
+    t.column :name, :through=>:cash, :url=>{:action=>:cash}
     t.action :outgoing_payment_mode_up, :method=>:post, :if=>"!RECORD.first\?"
     t.action :outgoing_payment_mode_down, :method=>:post, :if=>"!RECORD.last\?"
     t.action :outgoing_payment_mode_update
@@ -486,7 +486,7 @@ class FinancesController < ApplicationController
 
 
   create_kame(:outgoing_payment_purchases, :model=>:purchases, :conditions=>["purchases.company_id=? AND id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
-    t.column :number, :url=>{:action=>:purchase}
+    t.column :number, :url=>{:action=>:purchase, :controller=>:management}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
     t.column :pretax_amount
