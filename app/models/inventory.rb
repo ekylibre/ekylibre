@@ -72,7 +72,7 @@ class Inventory < CompanyRecord
   # def to_inventory_line(quantity, inventory_id)
   #   result = (self.quantity.to_f == quantity.to_f)
   #   puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
-  #   InventoryLine.create!(:product_id=>self.product_id, :location_id=>self.location_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
+  #   InventoryLine.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
   # end
 
 end

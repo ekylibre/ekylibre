@@ -72,7 +72,8 @@ class EnhanceAccountancy < ActiveRecord::Migration
     add_column :journal_entries,     :state, :string, :limit=>32, :null=>false, :default=>"draft" 
     add_column :journal_entries,     :balance, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:journal_entries)} SET balance = (debit - credit)"
-    execute "UPDATE #{quoted_table_name(:journal_entries)} SET state='confirmed' WHERE #{connection.not_boolean('draft')} AND #{connection.not_boolean('closed')}"
+    execute "UPDATE #{quoted_table_name(:journal_entries)} SET state='confirmed'"
+    execute "UPDATE #{quoted_table_name(:journal_entries)} SET state='draft'  WHERE  draft = #{quoted_true}"
     execute "UPDATE #{quoted_table_name(:journal_entries)} SET state='closed' WHERE closed = #{quoted_true}"
     remove_column :journal_entries, :draft_mode
     remove_column :journal_entries, :draft
@@ -81,7 +82,8 @@ class EnhanceAccountancy < ActiveRecord::Migration
     add_column :journal_entry_lines, :state, :string, :limit=>32, :null=>false, :default=>"draft"
     add_column :journal_entry_lines, :balance, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET balance = (debit - credit)"
-    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET state='confirmed' WHERE #{connection.not_boolean('draft')} AND #{connection.not_boolean('closed')}"
+    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET state='confirmed'"
+    execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET state='draft'  WHERE  draft = #{quoted_true}"
     execute "UPDATE #{quoted_table_name(:journal_entry_lines)} SET state='closed' WHERE closed = #{quoted_true}"
     remove_column :journal_entry_lines, :draft
     remove_column :journal_entry_lines, :closed

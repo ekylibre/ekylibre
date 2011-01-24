@@ -174,7 +174,7 @@ class Sale < CompanyRecord
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
     b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|
-      entry.add_debit(label, self.client.account(:client).id, self.amount)
+      entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for line in self.lines
         entry.add_credit(label, (line.account||line.product.sales_account).id, line.pretax_amount) unless line.pretax_amount.zero?
         entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
@@ -274,7 +274,7 @@ class Sale < CompanyRecord
     if copy.save
       # Lines
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :location_id=>line.location_id, :company_id=>self.company_id
+        copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :warehouse_id=>line.warehouse_id, :company_id=>self.company_id
       end
       # Subscriptions
       for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])

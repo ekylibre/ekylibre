@@ -1167,7 +1167,7 @@ eng:
         journal: 'Journal'
         other: 'Other'
         purchase: 'Purchase order'
-        sale: 'sale'
+        sales_order: 'Sales order'
         sales_invoice: 'Sales invoice'
         stocks: 'Stocks'
         transport: 'Transport'

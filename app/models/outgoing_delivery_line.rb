@@ -48,6 +48,7 @@ class OutgoingDeliveryLine < CompanyRecord
   belongs_to :price
   belongs_to :product
   belongs_to :sale_line
+  belongs_to :stock_move
   belongs_to :unit
   validates_presence_of :product, :unit
 

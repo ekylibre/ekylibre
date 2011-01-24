@@ -1041,7 +1041,7 @@ class ManagementController < ApplicationController
         headers["Cache-Control"] = 'maxage=3600'  
         headers["Pragma"] = 'public'  
         begin
-          p = HashWithIndifferentAccess.new(:id=>(@sale.invoice? ? :sales_invoice : :sale), :p0=>@sale.id)
+          p = HashWithIndifferentAccess.new(:id=>(@sale.invoice? ? :sales_invoice : :sales_order), :p0=>@sale.id)
           data, filename = @current_company.print(p)
           send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
         rescue Exception=>e

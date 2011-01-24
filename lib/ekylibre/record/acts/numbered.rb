@@ -11,7 +11,8 @@ module Ekylibre::Record
         # Use preference to select preferred sequence to attribute number
         # in column
         def acts_as_numbered(column=:number, options = {})
-          raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_hash.has_key? column.to_s
+          # Bugs with MSSQL
+          # raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_hash.has_key? column.to_s
           options = {:first_value=>'00000001'}.merge(options)
 
 

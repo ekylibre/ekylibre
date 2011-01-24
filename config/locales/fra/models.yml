@@ -1193,7 +1193,7 @@ fra:
         journal: 'Journal'
         other: 'Autres'
         purchase: 'Commande fournisseur'
-        sale: 'Devis/Commande'
+        sales_order: 'Devis/Commande'
         sales_invoice: 'Facture client'
         stocks: 'État des stocks'
         transport: 'Transport'

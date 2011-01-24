@@ -77,8 +77,8 @@ class OutgoingDelivery < CompanyRecord
     # self.confirm_transfer(shipped_on)
     # self.lines.each{|l| l.confirm_move}
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :location_id=>line.sale_line.location_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
-      line.product.move_outgoing_stock(:origin=>line, :location_id=>line.sale_line.location_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
+      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :warehouse_id=>line.sale_line.warehouse_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
+      line.product.move_outgoing_stock(:origin=>line, :warehouse_id=>line.sale_line.warehouse_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?
     self.save

@@ -23,7 +23,7 @@
             %th=OperationLine.human_attribute_name("product_id")
             %th=OperationLine.human_attribute_name("quantity")
             %th=OperationLine.human_attribute_name("tracking_id")
-            %th=OperationLine.human_attribute_name("location_id")
+            %th=OperationLine.human_attribute_name("warehouse_id")
             %th.act
         %tbody#lines=render :partial=>'operation_line_row_form', :collection=>(@operation_lines||@operation.lines)
       =toolbar do |t|
