@@ -82,6 +82,7 @@ module Kame
 end
 
 require "kame/finders/simple_finder"
-require "kame/finders/will_paginate_finder"
+require "kame/finders/will_paginate_finder" if defined? WillPaginate
+
 
 

@@ -24,11 +24,14 @@ Rails::Initializer.run do |config|
   config.gem "libxml-ruby", :lib=>'libxml'
   config.gem "rubyzip", :lib=>"zip/zip"
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
+  config.gem "will_paginate", :version=>'2.3.15'
+  config.gem "state_machine", :source => 'http://gemcutter.org' # , :version=>'0.9.4', :source => "http://gems.github.com" # , :require=>'state_machine/machine'
+  # config.gem "exception_notification", :gitsource # , :version=>'2.3.15'
   # config.gem "measure"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
-  config.plugins = [ :will_paginate, :dyke, :all ]
+  # config.plugins = [ :will_paginate, :dyke, :all ]
 
   # Skip frameworks you're not going to use. To use Rails without a database,
   # you must remove the Active Record framework.
@@ -62,6 +65,8 @@ if defined? WillPaginate
   WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
 end
 
-# ExceptionNotifier.exception_recipients = %w(dev@ekylibre.org dev@fdsea33.fr)
-ExceptionNotifier.exception_recipients = %w(dev@fdsea33.fr)
-ExceptionNotifier.sender_address =  %("Ekylibre Error" <notifier@ekylibre.org>)
+if defined? ExceptionNotifier
+  # ExceptionNotifier.exception_recipients = %w(dev@ekylibre.org dev@fdsea33.fr)
+  ExceptionNotifier.exception_recipients = %w(dev@fdsea33.fr)
+  ExceptionNotifier.sender_address =  %("Ekylibre Error" <notifier@ekylibre.org>)
+end

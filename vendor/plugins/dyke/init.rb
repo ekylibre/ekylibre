@@ -1,4 +1,4 @@
-require 'dyta'
+# require 'dyta'
 require 'dyli'
 # require 'manage'
 
@@ -10,8 +10,8 @@ require 'dyli'
 # ActionController::Base.send(:include, WillPaginate::ViewHelpers) if Ekylibre::Dyke::Dyta.will_paginate
 
 # Initialization of the feature Dyta.
-ActionController::Base.send(:include, Ekylibre::Dyke::Dyta::Controller)
-ActionView::Base.send(:include, Ekylibre::Dyke::Dyta::View)
+# ActionController::Base.send(:include, Ekylibre::Dyke::Dyta::Controller)
+# ActionView::Base.send(:include, Ekylibre::Dyke::Dyta::View)
 
 # Initialization of the feature Dyli.
 ActionController::Base.send(:include, Ekylibre::Dyke::Dyli::Controller)
