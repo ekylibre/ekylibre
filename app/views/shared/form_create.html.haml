@@ -9,7 +9,7 @@
       =submit_tag(tg(@options[:submit]||:create), :disable_with=>tl(:please_wait))
       =link_to_function(tg(@options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
 -else
-  =form_tag(nil, {:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}) do
+  =keishiki_tag(nil, {:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}) do
     .fields.flex
       =render :partial=>@partial
       .end

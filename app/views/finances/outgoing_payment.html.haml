@@ -14,7 +14,7 @@
   -l.attribute :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
 
 -if false # @outgoing_payment.unused_amount > 0
-  =form_tag(:action=>:outgoing_payment_use_create) do
+  =keishiki_tag(:action=>:outgoing_payment_use_create) do
     %fieldset
       %legend=tc(:add_purchase)
       =render :partial=>'outgoing_payment_use_create'

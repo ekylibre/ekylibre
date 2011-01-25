@@ -1,6 +1,6 @@
 %fieldset.quick-add
   %legend=tc :add_quickly_a_line
-  =form_tag(:action=>:sale_line_create) do 
+  =keishiki_tag(:action=>:sale_line_create) do 
     %table.quick
       %tr
         %td=SaleLine.human_attribute_name("product")

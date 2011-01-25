@@ -223,8 +223,8 @@ module ApplicationHelper
     end
     locale ||= ::I18n.locale||::I18n.default_locale
     options = locales.collect do |l|
-                 content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(locale == l ? {:selected=>true} : {}))
-               end.join.html_safe
+      content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(locale == l ? {:selected=>true} : {}))
+    end.join.html_safe
     select_tag("locale", options,  :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
   end
 
@@ -233,66 +233,80 @@ module ApplicationHelper
     return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'.html_safe
   end
 
-#   def link_to(*args, &block)
-#     if block_given?
-#       options      = args.first || {}
-#       html_options = args.second
-#       concat(link_to(capture(&block), options, html_options))
-#     else
-#       name         = args.first
-#       options      = args.second || {}
-#       html_options = args.third || {}
-
-#       if options.is_a? Hash
-#         return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
-#       end
-
-#       url = url_for(options)
-#       if html_options
-#         html_options = html_options.stringify_keys
-#         href = html_options['href']
-#         # convert_options_to_javascript!(html_options, url)
-#         tag_options = tag_options(html_options)
-#       else
-#         tag_options = nil
-#       end
-      
-#       href_attr = "href=\"#{url}\"" unless href
-#       "<a #{href_attr}#{tag_options}>#{name || url}</a>"
-#     end
-#   end
-
-
-  def link_to(*args, &block)
-    if block_given?
-      options      = args.first || {}
-      html_options = args.second
-      link_to(capture(&block), options, html_options)
-    else
-      name         = args[0]
-      options      = args[1] || {}
-      html_options = args[2] || {}
-
-      if options.is_a? Hash
-        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless controller.accessible?(options) 
-      end
-      
-      html_options = convert_options_to_data_attributes(options, html_options)
-      url = url_for(options)
-      
-      if html_options
-        html_options = html_options.stringify_keys
-        href = html_options['href']
-        tag_options = tag_options(html_options)
+  if Rails.version.match(/^2\.3/)
+    # Rails 2.3 helpers
+    def link_to(*args, &block)
+      if block_given?
+        options      = args.first || {}
+        html_options = args.second
+        concat(link_to(capture(&block), options, html_options))
       else
-        tag_options = nil
-      end
-      
-      href_attr = "href=\"#{html_escape(url)}\"" unless href
-      "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
-    end
-  end
+        name         = args.first
+        options      = args.second || {}
+        html_options = args.third || {}
 
+        if options.is_a? Hash
+          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
+        end
+
+        url = url_for(options)
+        if html_options
+          html_options = html_options.stringify_keys
+          href = html_options['href']
+          # convert_options_to_javascript!(html_options, url)
+          tag_options = tag_options(html_options)
+        else
+          tag_options = nil
+        end
+        
+        href_attr = "href=\"#{url}\"" unless href
+        "<a #{href_attr}#{tag_options}>#{name || url}</a>"
+      end
+    end
+
+    def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
+      form_tag(url_for_options, options, *parameters_for_url, &block)
+      return nil
+    end
+
+  else
+    # Rails 3 helpers
+    def link_to(*args, &block)
+      if block_given?
+        options      = args.first || {}
+        html_options = args.second
+        link_to(capture(&block), options, html_options)
+      else
+        name         = args[0]
+        options      = args[1] || {}
+        html_options = args[2] || {}
+
+        if options.is_a? Hash
+          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless controller.accessible?(options) 
+        end
+        
+        html_options = convert_options_to_data_attributes(options, html_options)
+        url = url_for(options)
+        
+        if html_options
+          html_options = html_options.stringify_keys
+          href = html_options['href']
+          tag_options = tag_options(html_options)
+        else
+          tag_options = nil
+        end
+        
+        href_attr = "href=\"#{html_escape(url)}\"" unless href
+        "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
+      end
+    end
+
+
+    def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
+      return form_tag(url_for_options, options, *parameters_for_url, &block)
+    end
+
+  end
   def li_link_to(*args)
     options      = args[1] || {}
     if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
@@ -411,21 +425,21 @@ module ApplicationHelper
       end
       code = content_tag(:table, code.html_safe, :class=>"attributes-list")
 
-#       for c in 1..columns
-#         column = ""
-#         for i in 1..column_height
-#           args = attribute_list.items.shift
-#           break if args.nil?
-#           if args[0] == :evalue
-#             column += evalue(*args[1]) if args.is_a? Array
-#           elsif args[0] == :attribute
-#             column += evalue(record, *args[1]) if args.is_a? Array
-#           end
-#         end
-#         code += content_tag(:td, column.html_safe)
-#       end
-#       code = content_tag(:tr, code.html_safe)
-#      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
+      #       for c in 1..columns
+      #         column = ""
+      #         for i in 1..column_height
+      #           args = attribute_list.items.shift
+      #           break if args.nil?
+      #           if args[0] == :evalue
+      #             column += evalue(*args[1]) if args.is_a? Array
+      #           elsif args[0] == :attribute
+      #             column += evalue(record, *args[1]) if args.is_a? Array
+      #           end
+      #         end
+      #         code += content_tag(:td, column.html_safe)
+      #       end
+      #       code = content_tag(:tr, code.html_safe)
+      #      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
     end
     return code.html_safe
   end
@@ -491,7 +505,7 @@ module ApplicationHelper
   # , 'calendar/border-radius'
   def calendar_link_tag(lang='fr')
     (javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
-      stylesheet_link_tag('calendar')).html_safe
+     stylesheet_link_tag('calendar')).html_safe
   end
 
   # <p><label for="issue_start_date">Start</label>
@@ -578,7 +592,7 @@ module ApplicationHelper
     end if @current_user
     
     code += content_tag(:div, tag.html_safe, :id=>:modules, :class=>:menu)
-  
+    
     return code.html_safe
   end
 
@@ -825,7 +839,9 @@ module ApplicationHelper
       end
       tag += content_tag(:tr, code.html_safe)
     end
-    tag = form_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
+    tag = capture do
+      keishiki_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
+    end
     return content_tag(:div, tag.html_safe, :class=>:kujaku)
   end
 
@@ -1024,9 +1040,9 @@ module ApplicationHelper
       @tools << [:print, args]
     end
 
-#     def update(record, url_options={})
-#       @tools << [:update, record, url_options]
-#     end
+    #     def update(record, url_options={})
+    #       @tools << [:update, record, url_options]
+    #     end
 
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?

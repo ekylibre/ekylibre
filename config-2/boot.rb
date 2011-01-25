@@ -106,31 +106,31 @@ module Rails
   end
 end
 
-# TODO: Workaround for #7013 to be removed for 1.2.0
-# Loads i18n 0.4.2 before Rails loads any more recent gem
-# 0.5.0 is not compatible with the old interpolation syntax
-# Plugins will have to migrate to the new syntax for 1.2.0
-require 'rubygems'
-begin
-  gem 'i18n', '0.4.2'
-rescue Gem::LoadError => load_error
-  $stderr.puts %(Missing the i18n 0.4.2 gem. Please `gem install -v=0.4.2 i18n`)
-  exit 1
+# # TODO: Workaround for #7013 to be removed for 1.2.0
+# # Loads i18n 0.4.2 before Rails loads any more recent gem
+# # 0.5.0 is not compatible with the old interpolation syntax
+# # Plugins will have to migrate to the new syntax for 1.2.0
+# require 'rubygems'
+# begin
+#   gem 'i18n', '0.4.2'
+# rescue Gem::LoadError => load_error
+#   $stderr.puts %(Missing the i18n 0.4.2 gem. Please `gem install -v=0.4.2 i18n`)
+#   exit 1
+# end
+
+class Rails::Boot
+  def run
+    load_initializer
+
+    Rails::Initializer.class_eval do
+      def load_gems
+        @bundler_loaded ||= Bundler.require :default, Rails.env
+      end
+    end
+
+    Rails::Initializer.run(:set_load_path)
+  end
 end
 
 # All that for this:
 Rails.boot!
-
-# class Rails::Boot
-#   def run
-#     load_initializer
-
-#     Rails::Initializer.class_eval do
-#       def load_gems
-#         @bundler_loaded ||= Bundler.require :default, Rails.env
-#       end
-#     end
-
-#     Rails::Initializer.run(:set_load_path)
-#   end
-# end

@@ -1,13 +1,13 @@
 
 -if @step == 1
-  =form_tag({}, :method=>:put) do
+  =keishiki_tag({}, :method=>:put) do
     =formalize do |f|
       -f.field tc(:select_date_generation), (calendar_field_tag :finish_bookkeeping_on, params[:finish_bookkeeping_on]) 
     .actions=submit_tag(tg(:validate))
 
 
 -if @step == 2
-  =form_tag({}, :method=>:post) do
+  =keishiki_tag({}, :method=>:post) do
     =formalize do |f|
       -f.title tc(:preferences)
       -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_bookkeeping_on])

@@ -1,4 +1,4 @@
-=form_tag({}, :class=>"flex") do
+=keishiki_tag({}, :class=>"flex") do
   .search
     =select_tag("operation_id", options_for_select([[]]+@production_chain.operations.collect{|x| [x.name, x.id]}, params[:operation_id].to_i))
   .fields.flex

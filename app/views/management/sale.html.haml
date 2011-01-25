@@ -14,6 +14,7 @@
     -t.cancel @sale
   -else
     -t.print :sale, :id=>@sale.id
+  -t.link :sale, :id=>@sale.id, :format=>:pdf
 
 =attributes_list(@sale) do |l|
   -l.attribute :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}

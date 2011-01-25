@@ -1,5 +1,5 @@
 .search
-  =form_tag(nil, :method=>:get) do
+  =keishiki_tag(nil, :method=>:get) do
     %table
       %tr
         %td.label=tl(:display)
@@ -9,7 +9,7 @@
 =toolbar do
   -link :land_parcel_create
 
-=form_tag do
+=keishiki_tag do
   -for group in @current_company.land_parcel_groups
     .group
       %h2=group.name

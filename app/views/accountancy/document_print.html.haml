@@ -1,4 +1,4 @@
-=form_tag({:controller=>:company, :action=>:print}) do
+=keishiki_tag({:controller=>:company, :action=>:print}) do
   %fieldset
     %legend=tc(:print)
     =formalize do |f|
@@ -8,7 +8,7 @@
     .actions=submit_tag tg(:print), :name=>nil
 =observe_field "template_code", :update=>:document_options, :url=>{:action=>:document_print}, :with=>"code"
 
-=form_tag do
+=keishiki_tag do
   %fieldset
     %legend=tc(:exportation)
     =formalize do |f|

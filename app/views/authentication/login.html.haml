@@ -4,7 +4,7 @@
   -bad_browser = ($1.to_f <= 6)
 #login.login{:style=>"display:none"}
   .logoban{:title=>Ekylibre.version}
-  =form_tag({:company=>params[:company], :url=>params[:url]}) do
+  =keishiki_tag({:company=>params[:company], :url=>params[:url]}) do
     %table
       -if @current_company or @users
         %tr

@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
     @current_company = Company.find_by_code(params[:company])
     unless @current_company
       notify(:unknown_company, :error) unless params[:company].blank?
-      return redirect_to_login(request.url)
+      return redirect_to_login
     end
 
     session[:last_page] ||= {}
@@ -334,7 +334,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_login(url=nil)
     session[:help] = false
     # url ||= request.url if defined? request and request.respond_to? "url"
-    redirect_to({:controller=>:authentication, :action=>:login, :url=>request.url, :company=>params[:company]})
+    redirect_to({:controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]})
     # redirect :action=>:index
   end
   
