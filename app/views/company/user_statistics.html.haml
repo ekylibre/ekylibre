@@ -22,7 +22,7 @@
         %td=number_to_management(paid_amount = @current_user.sales.sum(:paid_amount, :conditions=>conditions[:created_on]))
       %tr.total
         %th=tc(:total_unpaid_amount)
-        %td=number_to_management (invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
+        %td=number_to_management(invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
       -if invoiced_amount > 0
         %tr.total
           %th=tc(:profitability)

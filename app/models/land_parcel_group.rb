@@ -49,7 +49,7 @@ class LandParcelGroup < CompanyRecord
   end
 
   def land_parcels_on(computed_on=Date.today)
-    self.land_parcels.where("? BETWEEN started_on AND COALESCE(stopped_on, ?)", computed_on, computed_on)
+    self.land_parcels.find(:all, :conditions=>["? BETWEEN started_on AND COALESCE(stopped_on, ?)", computed_on, computed_on])
   end
 
 end

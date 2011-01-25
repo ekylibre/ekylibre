@@ -153,14 +153,14 @@ class Account < CompanyRecord
   # if all valids mark all with a new letter or the first defined before
   def mark_entries(*journal_entries)
     ids = journal_entries.flatten.compact.collect{|e| e.id}
-    return self.mark(self.journal_entry_lines.where(:entry_id=>ids).collect{|l| l.id})
+    return self.mark(self.journal_entry_lines.find(:all, :conditions=>{:entry_id=>ids}).collect{|l| l.id})
   end
 
   # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless all the marked lines will be balanced together
   def mark(line_ids, letter = nil)
     conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
-    lines = self.journal_entry_lines.where(conditions)
+    lines = self.journal_entry_lines.find(:all, :conditions=>conditions)
     return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.sum("debit-credit").to_f.zero?
     letter ||= self.new_letter
     self.journal_entry_lines.update_all({:letter=>letter}, conditions)
@@ -174,7 +174,7 @@ class Account < CompanyRecord
 
   # Check if the balance of the entry lines of the given +letter+ is zero.
   def balanced_letter?(letter)
-    lines = self.journal_entry_lines.where("letter = ?", letter.to_s)
+    lines = self.journal_entry_lines.find(:all, :conditions=>["letter = ?", letter.to_s])
     return true if lines.size <= 0
     return lines.sum("debit-credit").to_f.zero? 
   end

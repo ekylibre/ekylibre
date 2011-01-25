@@ -98,7 +98,7 @@ class LandParcel < CompanyRecord
   end
   
   def operations_on(viewed_on=Date.today)
-    self.operations.where("(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on)
+    self.operations.find(:all, :conditions=>["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
   end
   
 end

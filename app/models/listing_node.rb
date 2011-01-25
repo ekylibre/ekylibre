@@ -138,7 +138,7 @@ class ListingNode < CompanyRecord
   def compute_joins(sql_alias=nil)
     conditions = ""
     # for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
-    for child in self.children.where("(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id)
+    for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
       parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.primary_key_name} = #{parent}.id)"

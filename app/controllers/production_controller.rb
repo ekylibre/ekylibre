@@ -269,7 +269,7 @@ class ProductionController < ApplicationController
   def production_chains
     if params[:generate] == "sample"
       ActiveRecord::Base.transaction do
-        building = @current_company.warehouses.where(:reservoir=>false).first
+        building = @current_company.warehouses.find(:all, :conditions=>{:reservoir=>false}).first
         name = "Sample production chain (手本)"
         pc = @current_company.production_chains.find_by_name(name)
         pc.destroy if pc

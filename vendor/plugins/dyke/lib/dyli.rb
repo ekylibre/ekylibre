@@ -167,7 +167,7 @@ module Ekylibre
           options  = { :action => "#{name}_dyli"}.merge(options)
           options[:real_object] = real_object.send(foreign_key) unless real_object.new_record?
           options[:field_id] ||= "#{object}_#{foreign_key}"
-          tag_options[:class] = tag_options[:class].to_s+' invalid' if real_object.errors[association.to_s+"_id"].any?
+          tag_options[:class] = tag_options[:class].to_s+' invalid' unless real_object.errors[association.to_s+"_id"].nil?
 
           completion_options[:skip_style] = true;
           

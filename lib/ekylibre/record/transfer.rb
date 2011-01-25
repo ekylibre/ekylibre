@@ -28,7 +28,7 @@ module Ekylibre::Record  #:nodoc:
         end
         # Find stock
         conditions = {:product_id=>use.product_id, :warehouse_id=>use.warehouse_id, :tracking_id=>use.tracking_id}
-        stock = use.company.stocks.where(conditions).first
+        stock = use.company.stocks.find(:first, :conditions=>conditions)
         stock = use.company.stocks.create!(conditions) if stock.nil?
 
         # Move stock

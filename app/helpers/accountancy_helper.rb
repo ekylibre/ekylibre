@@ -66,7 +66,7 @@ module AccountancyHelper
     value = params[name]
     list = []
     list << [tc(:all_periods), "all"]
-    for year in @current_company.financial_years.order(:started_on)
+    for year in @current_company.financial_years.find(:all, :order=>:started_on)
       list << [year.code, year.started_on.to_s+"_"+year.stopped_on.to_s]
       list2 = []
       date = year.started_on

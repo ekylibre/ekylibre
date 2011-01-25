@@ -64,7 +64,7 @@ class StockMove < CompanyRecord
     end
     unless self.stock
       conditions = {:company_id=>self.company_id, :product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id}
-      self.stock = Stock.find_by_company_id_and_product_id_and_warehouse_id_and_tracking_id(self.company_id, self.product_id, self.warehouse_id, self.tracking_id) # self.company.stocks.where(conditions).first
+      self.stock = Stock.find_by_company_id_and_product_id_and_warehouse_id_and_tracking_id(self.company_id, self.product_id, self.warehouse_id, self.tracking_id) 
       self.stock = self.company.stocks.create!(conditions) if stock.nil?
     end
     self.product ||= self.stock.product

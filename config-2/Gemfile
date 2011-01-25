@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source :gemcutter # "http://rubygems.org"
 
 gem "rails", "2.3.10"
 gem "i18n", "0.4.2"
@@ -14,7 +14,7 @@ gem "state_machine", :path => "vendor/ogems/state_machine-0.9.4"
 # gem "ruby-debug"
 
 group :test do
-  gem "thoughtbot-shoulda", :require => "shoulda"
+  gem "shoulda" # , "2.10.3", :require => "shoulda"
 end  
 
 # gem "sqlite3-ruby", :require => "sqlite3", :platforms=>[:ruby_19, :mri_19]

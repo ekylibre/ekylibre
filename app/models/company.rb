@@ -591,7 +591,7 @@ class Company < Ekylibre::Record::Base
         # code += "  record.send(:create_without_callbacks)\n"
         # code += "  record.create_without_callbacks\n"
         # code += "  record.save(:validate=>false, :callbacks=>false)\n"
-        code += "  record.send(:create_3_0_0_beta4)\n"
+        code += "  record.send(:create_strictly)\n"
         code += "  tdb2p += Time.now-dstart\n" if timed
         code += "  ids['#{model.name}'][id] = record.id\n"
         # Load initial value of the keys to be renamed easily after.
@@ -648,7 +648,7 @@ class Company < Ekylibre::Record::Base
         self[key] = v unless v.nil?
       end
       # self.send(:update_without_callbacks)
-      self.send(:update_3_0_0_beta4)
+      self.send(:update_strictly)
       self.reload
       # raise Active::Record::Rollback
 

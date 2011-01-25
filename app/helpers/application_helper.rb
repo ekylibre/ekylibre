@@ -842,7 +842,7 @@ module ApplicationHelper
     tag = capture do
       keishiki_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
     end
-    return content_tag(:div, tag.html_safe, :class=>:kujaku)
+    return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
   end
 
   class Kujaku

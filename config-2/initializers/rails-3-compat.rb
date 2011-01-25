@@ -1,12 +1,11 @@
-# HTML_SAFE
-
+# html_safe methods directly pasted from Rails 3
 require 'erb'
 require 'active_support/core_ext/kernel/singleton_class'
 
 class ERB
   module Util
-    HTML_ESCAPE = { '&' => '&amp;',  '>' => '&gt;',   '<' => '&lt;', '"' => '&quot;' }
-    JSON_ESCAPE = { '&' => '\u0026', '>' => '\u003E', '<' => '\u003C' }
+    # HTML_ESCAPE = { '&' => '&amp;',  '>' => '&gt;',   '<' => '&lt;', '"' => '&quot;' }
+    # JSON_ESCAPE = { '&' => '\u0026', '>' => '\u003E', '<' => '\u003C' }
 
     # A utility method for escaping HTML tag characters.
     # This method is also aliased as <tt>h</tt>.
@@ -111,6 +110,7 @@ class String
 end
 
 
+
 # ModelName
 class ::ActiveSupport::ModelName
 
@@ -121,5 +121,44 @@ class ::ActiveSupport::ModelName
 end
 
 
+# Callbacks
+# Permits the use of callbacks like in Rails 3
+class ActiveRecord::Base
+  @@callbacks_counter = 0
 
+  class << self
+
+    code = ""
+    #  
+    for callback in %w( before_validation validate after_validation )
+      code += "def #{callback}_with_compat(*args, &block)\n"
+      code += "  options = args.extract_options!\n"
+      code += "  moment = \"#{callback}\#\{[:create, :update].include?(options[:on]) ? '_on_'+options[:on].to_s : '_without_compat'\}\".to_sym\n"
+      code += "  return self.send(moment, *args, &block) if not block_given? or (block_given? and block.arity > 0)\n"
+      code += "  method_name = \"\#\{moment\}_\#\{@@callbacks_counter+=1\}\".to_sym\n"
+      code += "  self.send(moment, method_name)\n"
+      code += "  self.send(:define_method, method_name, block)\n"
+      code += "end\n"
+      code += "alias_method_chain :#{callback}, :compat\n"
+    end
+
+    # before_validation_on_create after_validation_on_create before_validation_on_update after_validation_on_update
+    for callback in %w( after_find after_initialize before_save after_save before_create after_create before_update after_update before_destroy after_destroy )
+      moment = ":#{callback}_without_compat"
+      method_name = ":#{callback}_#{@@callbacks_counter+=1}"
+      code += "def #{callback}_with_compat(*args, &block)\n"
+      code += "  return self.send(#{moment}, *args, &block) if not block_given? or (block_given? and block.arity > 0)\n"
+      # code += "  return self.send(#{moment}, *args) unless block_given?\n"
+      code += "  self.send(#{moment}, #{method_name})\n"
+      code += "  self.send(:define_method, #{method_name}, block)\n"
+      code += "end\n"
+      code += "alias_method_chain :#{callback}, :compat\n"
+    end
+
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    eval(code)
+
+  end
+
+end
 

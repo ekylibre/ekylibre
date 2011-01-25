@@ -401,7 +401,7 @@ class Sale < CompanyRecord
     credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id, :responsible=>options[:responsible]||self.responsible)
     ActiveRecord::Base.transaction do
       if saved = credit.save
-        for line in self.lines.where(:id=>lines.keys)
+        for line in self.lines.find(:all, :conditions=>{:id=>lines.keys})
           quantity = -lines[line.id.to_s].abs
           credit_line = credit.lines.create(:quantity=>quantity, :origin_id=>line.id, :product_id=>line.product_id, :price_id=>line.price_id, :company_id=>line.company_id)
           unless credit_line.save

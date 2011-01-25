@@ -84,7 +84,8 @@ class ApplicationController < ActionController::Base
 
 
   def default_url_options(options={})
-    {:company => params[:company]}
+    # params[:company]
+    {:company => @company ? @company.name : nil}
   end
 
 
@@ -342,7 +343,7 @@ class ApplicationController < ActionController::Base
     if session[:history] and session[:history][1]
       # session[:history].delete_at(0)
       redirect_to session[:history][1], options
-    elsif request.referer != request.url
+    elsif request.referer and request.referer != request.url
       redirect_to request.referer, options
     else
       redirect_to :controller=>:company

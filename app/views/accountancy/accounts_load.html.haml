@@ -7,7 +7,7 @@
         -f.field tl(setting), check_box_tag(setting, "1", params[setting])
 
       -f.title :preferences
-      -for preference in @current_company.preferences.where("name LIKE ?", "%_accounts").order("name")
+      -for preference in @current_company.preferences.find(:all, :conditions=>["name LIKE ?", "%_accounts"], :order=>"name")
         -f.field t("preferences."+preference.name), {:datatype=>preference.nature.to_sym, :model=>preference.model, :value=>preference.value, :name=>"preference[#{preference.name}][value]"}
     .end
   .actions=submit_tag tl(:load)

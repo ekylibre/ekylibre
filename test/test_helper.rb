@@ -1,6 +1,10 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+if Rails.version.match(/^2\.3/)
+  require 'test_help'
+else
+  require 'rails/test_help'
+end
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
@@ -30,6 +34,13 @@ end
 
 
 class ActionController::TestCase
+  if Rails.version.match(/^2\.3/)
+    def response
+      @response
+    end
+  end
+  
+
 
   def self.get_actions(controller=nil)
     controller ||= self.controller_class.to_s[0..-11].underscore.to_sym

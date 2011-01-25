@@ -145,8 +145,7 @@ class Product < CompanyRecord
   end
 
   def units
-    # self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
-    self.company.units.where(:base=>self.unit.base).order("coefficient, label")
+    self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
   end
 
   def has_components?

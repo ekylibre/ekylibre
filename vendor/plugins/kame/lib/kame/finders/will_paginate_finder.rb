@@ -84,7 +84,8 @@ module ActionView
 
       # WillPaginate 2
       def page_link(page, text, attributes = {})
-        @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
+        # @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
+        @template.link_to(text, url_for(page), attributes.merge(@remote))
       end
     end  
 
