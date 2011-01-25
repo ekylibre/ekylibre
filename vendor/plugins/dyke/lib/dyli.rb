@@ -14,6 +14,23 @@ module Ekylibre
           include ERB::Util
           include ActionView::Helpers::TagHelper
           include ActionView::Helpers::UrlHelper
+
+          def sanitize_conditions(value)
+            if value.is_a? Array
+              if value.size==1 and value[0].is_a? String
+                value[0].to_s
+              else
+                value.inspect
+              end
+            elsif value.is_a? String
+              '"'+value.gsub('"','\"')+'"'
+            elsif [Date, DateTime].include? value.class
+              '"'+value.to_formatted_s(:db)+'"'
+            else
+              value.to_s
+            end
+          end
+        
           
           #
           def dyli(name_db, attributes=:name, options={})
@@ -106,22 +123,6 @@ module Ekylibre
             module_eval(code)
           end
         end 
-        
-        def sanitize_conditions(value)
-          if value.is_a? Array
-            if value.size==1 and value[0].is_a? String
-              value[0].to_s
-            else
-              value.inspect
-            end
-          elsif value.is_a? String
-            '"'+value.gsub('"','\"')+'"'
-          elsif [Date, DateTime].include? value.class
-            '"'+value.to_formatted_s(:db)+'"'
-          else
-            value.to_s
-          end
-        end
         
       end
       

@@ -63,7 +63,7 @@ class OutgoingPaymentUse < CompanyRecord
       entry.add_debit(label, self.expense.supplier.account(:supplier).id, self.amount)
       entry.add_credit(label, self.payment.payee.account(:attorney).id, self.amount)
     end
-    self.reconciliate
+    # self.reconciliate
   end
 
   def payment_way

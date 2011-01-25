@@ -127,9 +127,9 @@ class Purchase < CompanyRecord
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
-    if use = self.uses.first
-      use.reconciliate
-    end
+#     if use = self.uses.first
+#       use.reconciliate
+#     end
   end
 
   def refresh

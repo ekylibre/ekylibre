@@ -180,7 +180,7 @@ class Sale < CompanyRecord
         entry.add_credit(label, line.price.tax.collected_account_id, line.taxes_amount) unless line.taxes_amount.zero?
       end
     end
-    self.uses.first.reconciliate if self.uses.first
+    # self.uses.first.reconciliate if self.uses.first
   end
 
 

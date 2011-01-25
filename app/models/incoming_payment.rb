@@ -115,7 +115,7 @@ class IncomingPayment < CompanyRecord
       entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
       entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
-    self.uses.first.reconciliate if self.uses.first
+    # self.uses.first.reconciliate if self.uses.first
   end
 
   
@@ -139,13 +139,20 @@ class IncomingPayment < CompanyRecord
   def pay(expense, options={})
     raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
     IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
+    puts ">>>>>> PAY 1"
     self.reload
+    puts ">>>>>> PAY 2"
     use_amount = [expense.unpaid_amount, self.unused_amount].min
+    puts ">>>>>> PAY 3"
     use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
+    puts ">>>>>> PAY 4"
     if use.errors.size > 0
+      puts ">>>>>> PAY 5"
       errors.add_from_record(use)
+      puts ">>>>>> PAY 6"
       return false
     end
+    puts ">>>>>> PAY 7"
     return true
   end
 
