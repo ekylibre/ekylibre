@@ -1648,8 +1648,9 @@ arb:
         journal: 'الدفتر اليومي'
         other: 'اخرى'
         purchase: 'طلب الممول'
-        sale: 'طلب / اقتباس'
+        sale: 'طلب / اقتباس' #!
         sales_invoice: 'فاتورة العميل'
+        #>sales_order: 'Sales order'
         stocks: 'حالة الاسهم'
         transport: 'وسائل النقل'
       unvalid_nature: 'نوع نموذجكم غير صحيح، يجب عليكم حذف هذا النموذج واعادة تثبيته.'

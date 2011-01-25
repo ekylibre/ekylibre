@@ -4,10 +4,11 @@ class AuthenticationControllerTest < ActionController::TestCase
   fixtures :companies
   
   context "Authentication" do
-    should "redirect index to login" do
-      get :index
-      assert_redirected_to(:controller=>:authentication, :action=>:login)
-    end
+    # Useless
+#     should "redirect index to login" do
+#       get :index
+#       assert_redirected_to(:controller=>:authentication, :action=>:login)
+#     end
     
     should "accept valid user" do
       get :login

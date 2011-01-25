@@ -58,7 +58,7 @@
     =kame(:entity_sales)
   -tb.tab(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
     =toolbar do |t|
-      -t.link :incoming_payment_create,{:controller=>:management, :payer_id=>@entity.id}
+      -t.link :incoming_payment_create,{:controller=>:finances, :payer_id=>@entity.id}
     =kame(:entity_incoming_payments)
   -tb.tab(tl(:x_purchases, :count=>@entity.purchases.count)) do
     =toolbar do |t|
@@ -66,7 +66,7 @@
     =kame(:entity_purchases)
   -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.size)) do
     =toolbar do |t|
-      -t.link :outgoing_payment_create,{:controller=>:management, :payee_id=>@entity.id}
+      -t.link :outgoing_payment_create,{:controller=>:finances, :payee_id=>@entity.id}
     =kame(:entity_outgoing_payments)
   -tb.tab(tl(:x_events, :count=>@entity.events.count)) do
     =toolbar do |t|
@@ -87,5 +87,5 @@
     =kame(:entity_mandates)
   -tb.tab(tl(:x_cashes, :count=>@entity.cashes.count)) do
     =toolbar do |t|
-      -t.link :cash_create, {:controller =>:accountancy, :entity_id=>@entity.id}
+      -t.link :cash_create, {:controller =>:finances, :entity_id=>@entity.id}
     =kame(:entity_cashes)

@@ -52,13 +52,14 @@ jpn:
   kame:
     columns: '列'
     export:
-      csv: 'CSV'
       false_value: '偽'
-      #>ods: 'Spreadsheet ODF'
+      formats:
+        csv: 'CSV'
+        #>ods: 'Spreadsheet ODF'
+        xcsv: 'ExcelのCSV'
       #>title: 'Export'
       true_value: '真'
-      xcsv: 'ExcelのCSV'
-    #>export_as: 'Export as %{format}...'
+    #>export_as: 'Export as %{exported}...'
     menu: 'メニュー'
     next: '次へ'
     no_records: '空'

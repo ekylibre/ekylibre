@@ -344,8 +344,8 @@ class RelationsController < ApplicationController
     t.column :name
     t.column :number
     t.column :iban_label
-    t.action :cash_update, :controller => :accountancy
-    t.action :cash_delete, :controller => :accountancy, :method=>:delete, :confirm=> :are_you_sure_you_want_to_delete 
+    t.action :cash_update, :controller => :finances
+    t.action :cash_delete, :controller => :finances, :method=>:delete, :confirm=> :are_you_sure_you_want_to_delete 
   end
   
 #   create_kame(:entity_sales_invoices, :model=>:sales_invoices, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5, :children=>:lines, :order=>"created_on DESC") do |t|
@@ -375,7 +375,7 @@ class RelationsController < ApplicationController
 
   create_kame(:entity_incoming_payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     #t.column :id, :url=>{:controller=>:management, :action=>:incoming_payment}
-    t.column :number, :url=>{:controller=>:management, :action=>:incoming_payment}
+    t.column :number, :url=>{:controller=>:finances, :action=>:incoming_payment}
     t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
@@ -383,23 +383,23 @@ class RelationsController < ApplicationController
     # t.column :account_number
     t.column :check_number
     t.column :used_amount
-    t.column :amount, :url=>{:controller=>:management, :action=>:incoming_payment}
-    t.column :number, :through=>:deposit, :url=>{:controller=>:management, :action=>:deposit}
-    t.action :incoming_payment_update, :controller=>:management, :if=>"RECORD.deposit.nil\?"
-    t.action :incoming_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.column :amount, :url=>{:controller=>:finances, :action=>:incoming_payment}
+    t.column :number, :through=>:deposit, :url=>{:controller=>:finances, :action=>:deposit}
+    t.action :incoming_payment_update, :controller=>:finances, :if=>"RECORD.deposit.nil\?"
+    t.action :incoming_payment_delete, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
 
   create_kame(:entity_outgoing_payments, :model=>:outgoing_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
-    t.column :number, :url=>{:controller=>:management, :action=>:outgoing_payment}
+    t.column :number, :url=>{:controller=>:finances, :action=>:outgoing_payment}
     t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
     t.column :check_number
     t.column :used_amount
-    t.column :amount, :url=>{:controller=>:management, :action=>:outgoing_payment}
-    t.action :outgoing_payment_update, :controller=>:management
-    t.action :outgoing_payment_delete, :controller=>:management, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.column :amount, :url=>{:controller=>:finances, :action=>:outgoing_payment}
+    t.action :outgoing_payment_update, :controller=>:finances
+    t.action :outgoing_payment_delete, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
 

@@ -52,13 +52,14 @@ spa:
   kame:
     columns: 'Columnas'
     export:
-      csv: 'CSV'
       false_value: 'FALSO'
-      ods: 'OpenDocument Spreadsheet'
+      formats:
+        csv: 'CSV'
+        ods: 'OpenDocument Spreadsheet'
+        xcsv: 'CSV para Excel'
       title: 'Exportación'
       true_value: 'VERDAD'
-      xcsv: 'CSV para Excel'
-    export_as: 'Exportar a %{format}...'
+    export_as: 'Exportar a %{exported}...'
     menu: 'Menú'
     next: 'Siguiente'
     no_records: 'Vacío'

@@ -7,7 +7,7 @@
 #accountancy
   =formalize do |f|
     -f.title :accountancy
-    -f.field :incoming_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:accountancy, :action=>:cash_create}
+    -f.field :incoming_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:finances, :action=>:cash_create}
     -f.field :incoming_payment_mode, :with_deposit, :onchange=>"toggleDeposit();"
     -f.field :incoming_payment_mode, :with_commission, :onchange=>"toggleCommission();"
   

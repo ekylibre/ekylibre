@@ -52,13 +52,14 @@ eng:
   kame:
     columns: 'Columns'
     export:
-      csv: 'CSV'
       false_value: 'FALSE'
-      ods: 'Spreadsheet ODF'
+      formats:
+        csv: 'CSV'
+        ods: 'Spreadsheet ODF'
+        xcsv: 'Excel CSV'
       title: 'Export'
       true_value: 'TRUE'
-      xcsv: 'Excel CSV'
-    export_as: 'Export as %{format}...'
+    export_as: 'Export as %{exported}...'
     menu: 'Menu'
     next: 'Next'
     no_records: 'No records'

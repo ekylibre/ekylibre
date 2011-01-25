@@ -50,14 +50,14 @@ class UserTest < ActionController::IntegrationTest
     should "register a new company" do
       get "authentication/register"
       assert_response :success
-      post "authentication/register", :company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}
+      post "authentication/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}
       assert_redirected_to :controller=>:company, :action=>:welcome, :company=>"mcltd"
     end
 
     should "register a new company with data" do
       get "authentication/register"
       assert_response :success
-      post "authentication/register", :company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>true
+      post "authentication/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>true
       assert_response :redirect
     end
 

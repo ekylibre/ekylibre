@@ -50,6 +50,7 @@ class JournalEntry < CompanyRecord
   belongs_to :currency
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
+  has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>JournalEntryLine.name
   has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>JournalEntryLine.name
   has_many :outgoing_payments, :dependent=>:nullify
   has_many :outgoing_payment_uses, :dependent=>:nullify
@@ -217,8 +218,8 @@ class JournalEntry < CompanyRecord
     entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
-      for line in self.lines
-        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0))
+      for line in self.useful_lines
+        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0)) 
         reconcilable_accounts << line.account if line.account.reconcilable? and not reconcilable_accounts.include?(line.account)
       end
     end
@@ -240,7 +241,7 @@ class JournalEntry < CompanyRecord
         end
       end
       self.reload if saved
-      if saved and (not self.balanced? or self.lines.zero?)
+      if saved and (not self.balanced? or self.lines.size.zero?)
         self.errors.add_to_base(:unbalanced) 
         saved = false
       end

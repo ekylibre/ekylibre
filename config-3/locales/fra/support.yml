@@ -52,12 +52,13 @@ fra:
   kame:
     columns: 'Colonnes'
     export:
-      csv: 'CSV'
       false_value: 'FAUX'
-      ods: 'Classeur ODF'
+      formats:
+        csv: 'CSV'
+        ods: 'Classeur ODF'
+        xcsv: 'CSV Excel'
       title: 'Exporter'
       true_value: 'VRAI'
-      xcsv: 'CSV Excel'
     export_as: 'Exporter en %{exported}...'
     menu: 'Menu'
     next: 'Suivant'

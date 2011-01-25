@@ -52,13 +52,14 @@ arb:
   kame:
     #>columns: 'Columns'
     export:
-      csv: 'CSV'
       false_value: 'زائف'
-      #>ods: 'Spreadsheet ODF'
+      formats:
+        csv: 'CSV'
+        #>ods: 'Spreadsheet ODF'
+        xcsv: 'Excel CSV'
       title: 'تصدير'
       true_value: 'صحيح'
-      xcsv: 'Excel CSV'
-    #>export_as: 'Export as %{format}...'
+    #>export_as: 'Export as %{exported}...'
     #>menu: 'Menu'
     next: 'التالي'
     no_records: 'ولا اية سجل'

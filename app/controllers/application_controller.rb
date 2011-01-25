@@ -273,7 +273,7 @@ class ApplicationController < ActionController::Base
     @current_company = Company.find_by_code(params[:company])
     unless @current_company
       notify(:unknown_company, :error) unless params[:company].blank?
-      return redirect_to_login 
+      return redirect_to_login(request.url)
     end
 
     session[:last_page] ||= {}
@@ -284,7 +284,7 @@ class ApplicationController < ActionController::Base
     help_search(self.controller_name+'-'+self.action_name) if session[:help] and not [:authentication, :help, :search].include?(controller_name.to_sym)
 
     if !session[:last_query].is_a?(Integer)
-      redirect_to_login
+      redirect_to_login(request.url)
       return
     elsif session[:last_query].to_i<Time.now.to_i-session[:expiration]
       notify(:expired_session)
@@ -333,7 +333,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_login(url=nil)
     session[:help] = false
-    redirect_to({:controller=>:authentication, :action=>:login, :url=>url, :company=>params[:company]})
+    # url ||= request.url if defined? request and request.respond_to? "url"
+    redirect_to({:controller=>:authentication, :action=>:login, :url=>request.url, :company=>params[:company]})
     # redirect :action=>:index
   end
   

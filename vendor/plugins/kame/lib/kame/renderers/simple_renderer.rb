@@ -164,7 +164,7 @@ module Kame
       menu += "<li class=\"separator\"></li>"      
       # Exports
       for format, exporter in Kame.exporters
-        menu += "<li class=\"export #{exporter.name}\">'+link_to(::I18n.translate('kame.export_as', :exported=>::I18n.translate('kame.export.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\")+'</li>"
+        menu += "<li class=\"export #{exporter.name}\">'+link_to(::I18n.translate('kame.export_as', :exported=>::I18n.translate('kame.export.formats.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>kame_params[:sort], :dir=>kame_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\")+'</li>"
       end
       menu += "</ul></div>"
       
