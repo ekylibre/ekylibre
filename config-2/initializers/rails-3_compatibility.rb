@@ -120,20 +120,21 @@ class ::ActiveSupport::ModelName
 
 end
 
-
-# Callbacks
-# Permits the use of callbacks like in Rails 3
 class ActiveRecord::Base
   @@callbacks_counter = 0
 
   class << self
 
+
+    # Callbacks
+    # Permits the use of callbacks like in Rails 3
     compat = :compatibility_with_rails3
     code = ""
     #  
     for callback in %w( before_validation validate after_validation )
       code += "def #{callback}_with_#{compat}(*args, &block)\n"
-      code += "  options = args.extract_options!\n"
+      code += "  options = args[-1].is_a?(::Hash) ? args[-1] : {}\n"
+      code += "  raise ArgumentError.new(':on option in Callback must be one of these :save, :create or :update. '+options[:on].inspect+' got.') if options[:on] and not [:save, :create, :update].include?(options[:on])\n"
       code += "  moment = \"#{callback}\#\{[:create, :update].include?(options[:on]) ? '_on_'+options[:on].to_s : '_without_#{compat}'\}\".to_sym\n"
       code += "  return self.send(moment, *args, &block) if not block_given? or (block_given? and block.arity > 0)\n"
       code += "  method_name = \"\#\{moment\}_\#\{@@callbacks_counter+=1\}\".to_sym\n"
@@ -149,7 +150,6 @@ class ActiveRecord::Base
       method_name = ":#{callback}_#{@@callbacks_counter+=1}"
       code += "def #{callback}_with_#{compat}(*args, &block)\n"
       code += "  return self.send(#{moment}, *args, &block) if not block_given? or (block_given? and block.arity > 0)\n"
-      # code += "  return self.send(#{moment}, *args) unless block_given?\n"
       code += "  self.send(#{moment}, #{method_name})\n"
       code += "  self.send(:define_method, #{method_name}, &block)\n"
       code += "end\n"
@@ -159,7 +159,28 @@ class ActiveRecord::Base
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     eval(code)
 
+
+    # Human attribute name
+    # Rails 3 style but not totally
+    def human_attribute_name(attribute, options = {})
+      #       defaults = lookup_ancestors.map do |klass|
+      #         "#{self.i18n_scope}.attributes.#{klass.model_name.i18n_key}.#{attribute}".to_sym
+      #       end
+      
+      defaults = ["activerecord.attributes.#{self.model_name.singular}.#{attribute}".to_sym]
+      defaults << "attributes.#{attribute}".to_sym
+      defaults << options.delete(:default) if options[:default]
+      defaults << attribute.to_s.humanize
+      
+      options.reverse_merge! :count => 1, :default => defaults
+      I18n.translate(defaults.shift, options)
+    end
+
+
   end
+
+
+
 
 end
 

@@ -805,8 +805,8 @@ class Company < Ekylibre::Record::Base
 
   def load_units
     for name, desc in Unit.default_units
-      unit = self.units.find_by_base_and_coefficient_and_start(desc[:base], desc[:coefficient], desc[:start])
-      unless unit
+      # unit = self.units.find_by_base_and_coefficient_and_start(desc[:base], desc[:coefficient], desc[:start])
+      unless self.units.find_by_name(name.to_s)
         self.units.create!(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
       end
     end

@@ -3,6 +3,6 @@
   -f.field :incoming_payment_use, :downpayment
   -payment = @incoming_payment_use.expense.payer.last_incoming_payment || IncomingPayment.new
   -f.field :incoming_payment_use, :payment_id, :choices=>{:reflection=>:usable_incoming_payments}, :new=>{:action=>:incoming_payment_create, :payer_id=>@incoming_payment_use.expense.payer.id, :amount=>@incoming_payment_use.expense.unpaid_amount, :bank=>payment.bank, :account_number=>payment.account_number}
-=hidden_field_tag("expense_id", params[:expense_id])
-=hidden_field_tag("expense_type", params[:expense_type])
+=hidden_field(:incoming_payment_use, :expense_id)
+=hidden_field(:incoming_payment_use, :expense_type)
 

@@ -51,19 +51,45 @@ class IncomingPaymentUse < CompanyRecord
   @@expense_types = [Sale.name, Transfer.name]
 
   validates_numericality_of :amount, :greater_than=>0
-  validates_presence_of :expense_id, :expense_type
+  validates_presence_of :expense, :payment
+
+  before_validation(:on=>:create) do
+    self.company_id = self.payment.company_id if self.payment
+  end
 
   before_validation do
-    # self.expense_type ||= self.expense.class.name
+    if self.expense and self.payment and self.amount.to_f.zero?
+      self.amount = self.reconcilable_amount
+    end
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
+  validate(:on=>:create) do
+    if self.expense and self.payment
+      errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount
+    end
+  end
+
+  validate(:on=>:update) do
+    old = self.class.find(self.id)
+    if self.expense and self.payment
+      errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount+old.amount
+    end
+  end
+
   validate do
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
+    if self.expense
+      errors.add(:expense_id, :invalid) unless self.expense.company_id = self.company_id
+    end
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
+  before_save do
+    self.class.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
+  end
+  
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
     b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(self.expense.client_id == self.payment.payer_id)) do |entry|
@@ -73,6 +99,14 @@ class IncomingPaymentUse < CompanyRecord
     # self.reconciliate
   end
 
+#   after_save :calculate_reconciliated_amounts
+#   after_destroy :calculate_reconciliated_amounts
+
+#   def calculate_reconciliated_amounts
+#     self.payment.class.update_all({:used_amount=>self.payment.uses.sum(:amount)}, {:id=>self.payment_id})
+#     self.expense.class.update_all({:paid_amount=>self.expense.uses.sum(:amount)}, {:id=>self.expense_id})
+#   end
+
   def payment_way
     self.payment.mode.name if self.payment.mode
   end
@@ -81,6 +115,9 @@ class IncomingPaymentUse < CompanyRecord
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
 
+  def reconcilable_amount
+    return (self.expense.unpaid_amount > self.payment.unused_amount ? self.payment.unused_amount : self.expense.unpaid_amount)
+  end
 
 
 end

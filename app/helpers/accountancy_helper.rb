@@ -52,7 +52,7 @@ module AccountancyHelper
       if @journal_view == mode
         code += content_tag(:strong, tc("journal_view.#{mode}"))
       else
-        code += link_to tc("journal_view.#{mode}"), params.merge(:view=>mode)
+        code += link_to(tc("journal_view.#{mode}"), params.merge(:view=>mode)).html_safe
       end
     end
     return content_tag(:div, code, :class=>:view)

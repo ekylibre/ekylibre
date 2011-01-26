@@ -67,6 +67,7 @@ class IncomingPayment < CompanyRecord
   autosave :deposit
 
   attr_readonly :company_id, :payer_id
+  attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
   attr_protected :used_amount
 
   validates_numericality_of :amount, :greater_than=>0
@@ -135,26 +136,19 @@ class IncomingPayment < CompanyRecord
     return total
   end
 
-  # Use the maximum available amount to pay the expense between unpaid and unused amounts
-  def pay(expense, options={})
-    raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
-    IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
-    puts ">>>>>> PAY 1"
-    self.reload
-    puts ">>>>>> PAY 2"
-    use_amount = [expense.unpaid_amount, self.unused_amount].min
-    puts ">>>>>> PAY 3"
-    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
-    puts ">>>>>> PAY 4"
-    if use.errors.size > 0
-      puts ">>>>>> PAY 5"
-      errors.add_from_record(use)
-      puts ">>>>>> PAY 6"
-      return false
-    end
-    puts ">>>>>> PAY 7"
-    return true
-  end
+#   # Use the maximum available amount to pay the expense between unpaid and unused amounts
+#   def pay(expense, options={})
+#     raise Exception.new("Expense must be "+ IncomingPaymentUse.expense_types.collect{|x| "a "+x}.join(" or ")) unless IncomingPaymentUse.expense_types.include? expense.class.name
+#     IncomingPaymentUse.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
+#     self.reload
+#     use_amount = [expense.unpaid_amount, self.unused_amount].min
+#     use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
+#     if use.errors.size > 0
+#       errors.add_from_record(use)
+#       return false
+#     end
+#     return true
+#   end
 
   
 end

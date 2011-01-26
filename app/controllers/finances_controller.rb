@@ -329,22 +329,25 @@ class FinancesController < ApplicationController
   
   
   def incoming_payment_use_create
-    unless expense_type = (params[:expense_type]||session[:expense_type])
-      redirect_to_back
-      return
-    end
-    return unless expense = find_and_check(expense_type, params[:expense_id]||session[:expense_id])
-    @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense, :downpayment=>!expense.invoice?)
+    expense = nil
     if request.post?
-      unless incoming_payment = @current_company.incoming_payments.find_by_id(params[:incoming_payment_use][:payment_id])
-        @incoming_payment_use.errors.add(:payment_id, :required)
-        return
-      end
-      if incoming_payment.pay(expense, :downpayment=>params[:incoming_payment_use][:downpayment])
+      @incoming_payment_use = IncomingPaymentUse.new(params[:incoming_payment_use])
+      if @incoming_payment_use.save
         redirect_to_back
       end
+      expense = @incoming_payment_use.expense
+#       unless incoming_payment = @current_company.incoming_payments.find_by_id(params[:incoming_payment_use][:payment_id])
+#         @incoming_payment_use.errors.add(:payment_id, :required)
+#         return
+#       end
+#       if incoming_payment.pay(expense, :downpayment=>params[:incoming_payment_use][:downpayment])
+#         redirect_to_back
+#       end
+    else
+      return unless expense = find_and_check(params[:expense_type], params[:expense_id])
+      @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense, :downpayment=>!expense.invoice?)
     end
-    t3e :type=>t("activerecord.models."+expense_type), :number=>expense.number, :label=>expense.label
+    t3e :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
     render_form
   end
 

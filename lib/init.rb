@@ -15,6 +15,6 @@ module Ekylibre
 
   # Must return a File/Dir and not a string
   def self.private_directory
-    Ekylibre::Application.root.join("private")
+    Rails.root.join("private")
   end
 end

@@ -84,8 +84,7 @@ class ApplicationController < ActionController::Base
 
 
   def default_url_options(options={})
-    # params[:company]
-    {:company => @company ? @company.name : nil}
+    options.merge(:company =>(params ? params[:company] : @company ? @company.name : nil))
   end
 
 
@@ -166,7 +165,13 @@ class ApplicationController < ActionController::Base
   def find_and_check(model, id=nil, options={})
     model = model.to_s
     id ||= params[:id]
-    klass = model.classify.constantize
+    begin
+      klass = model.classify.constantize
+    rescue
+      notify(:unavailable_model, :error, :model=>model.inspect, :id=>id)
+      redirect_to_back
+      return false
+    end
     record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     if record.nil?
       notify(:unavailable_model, :error, :model=>klass.model_name.human, :id=>id)

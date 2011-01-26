@@ -85,6 +85,9 @@ module Ekylibre::Record  #:nodoc:
 
         code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
 
+        # code += "before_update  {|record| return false if record.#{}.closed? }"
+        # code += "before_destroy {|record| return false unless record.destroyable? }"
+
         # raise Exception.new("#{method_name} method already defined. Use :method_name option to choose a different name.") if self.instance_methods.include?(method_name.to_sym)
         code += "def #{method_name}(action=:create, draft=nil)\n"
         code += "  draft = self.company.prefer_bookkeep_in_draft? if draft.nil?\n"

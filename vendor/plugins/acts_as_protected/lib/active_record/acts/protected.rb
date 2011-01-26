@@ -9,14 +9,19 @@ module ActiveRecord
 
         def protect_on_update(&block)
           define_method :updateable?, &block
-          class_eval "before_update do |record|\nreturn false unless self.updateable?\nend"
+          class_eval "before_update {|record| record.updateable? }"
+#           if Rails.version.match(/^2\.3/)
+#             class_eval "before_update {|record| return false unless record.updateable? }"
+#           else
+#             class_eval "before_update { return false unless self.updateable? }"
+#           end
         end
 
 
 
         def protect_on_destroy(&block)
           define_method :destroyable?, &block
-          class_eval "before_destroy do |record|\nreturn false unless self.destroyable?\nend"
+          class_eval "before_destroy { |record| record.destroyable? }"
         end
 
 

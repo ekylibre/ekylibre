@@ -176,7 +176,6 @@ class JournalEntry < CompanyRecord
   end
   
   after_save do
-    raise "Stop"
     JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
