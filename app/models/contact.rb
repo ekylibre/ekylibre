@@ -61,7 +61,7 @@ class Contact < CompanyRecord
   has_many :subscriptions
   has_many :warehouses
 
-  validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>Proc.new{|c| !c.email.blank?}
+  validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>lambda{|c| !c.email.blank?}
 
   before_validation do
     if self.entity
