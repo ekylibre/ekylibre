@@ -1,11 +1,11 @@
-=keishiki_tag({}) do
+=form_tag({}) do
   %fieldset
     %legend=tc(:export_backup)
     =formalize do |f|
       -f.field content_tag(:label, tc(:with_prints), :for=>:with_prints), check_box_tag(:with_prints)
     .actions=submit_tag tc(:backup), :name=>'backup'
 
-=keishiki_tag({}, :multipart=>true) do
+=form_tag({}, :multipart=>true) do
   %fieldset
     %legend=tc(:import_backup)
     =formalize do |f|

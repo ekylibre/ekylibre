@@ -39,7 +39,6 @@
 
 class Unit < CompanyRecord
   attr_readonly :company_id
-  before_save {|record| record.base = record.class.normalize(record.base) }
   belongs_to :company
   has_many :products
   validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
@@ -81,6 +80,9 @@ class Unit < CompanyRecord
     end
   end
 
+  before_save do
+    self.base = self.class.normalize(self.base) 
+  end
 
   def self.normalize(expr)
     expression = expr.to_s.dup

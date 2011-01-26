@@ -1,5 +1,5 @@
 .search
-  =keishiki_tag({:controller=>:accountancy, :action=>:accounts}, :method=>:get) do
+  =form_tag({:controller=>:accountancy, :action=>:accounts}, :method=>:get) do
     =hidden_field_tag(:prefix, params[:prefix])
     %table
       %tr

@@ -1,4 +1,4 @@
-=keishiki_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
+=form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
   .fields.flex
     -if @step == :upload
       =formalize do |f|

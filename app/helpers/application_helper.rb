@@ -264,10 +264,27 @@ module ApplicationHelper
       end
     end
 
-    def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
-      form_tag(url_for_options, options, *parameters_for_url, &block)
-      return nil
+    module ::ActionView::Helpers::FormTagHelper
+      def form_tag_in_block_with_compat(html_options, &block)
+        content = capture(&block)
+        return form_tag_html(html_options).html_safe+content.html_safe+"</form>".html_safe
+      end
+      alias_method_chain :form_tag_in_block, :compat
+
+      def form_tag_with_compat(url_for_options = {}, options = {}, *parameters_for_url, &block)
+        html_options = html_options_for_form(url_for_options, options, *parameters_for_url)
+        if block_given?
+          form_tag_in_block(html_options, &block)
+        else
+          form_tag_html(html_options)
+        end
+      end
+      alias_method_chain :form_tag, :compat
     end
+
+#     def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
+#       return form_tag(url_for_options, options, *parameters_for_url, &block)
+#     end
 
   else
     # Rails 3 helpers
@@ -302,9 +319,9 @@ module ApplicationHelper
     end
 
 
-    def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
-      return form_tag(url_for_options, options, *parameters_for_url, &block)
-    end
+#     def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
+#       return form_tag(url_for_options, options, *parameters_for_url, &block)
+#     end
 
   end
   def li_link_to(*args)
@@ -839,9 +856,7 @@ module ApplicationHelper
       end
       tag += content_tag(:tr, code.html_safe)
     end
-    tag = capture do
-      keishiki_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
-    end
+    tag = form_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
     return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
   end
 

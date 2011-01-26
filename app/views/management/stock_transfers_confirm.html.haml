@@ -1,5 +1,5 @@
 -if @stock_transfers.size > 0
-  =keishiki_tag do
+  =form_tag do
     =kame :stock_transfers_confirm
     .actions
       =link_to tg(:previous), :action=>:index

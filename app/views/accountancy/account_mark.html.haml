@@ -1,5 +1,5 @@
 .search
-  =keishiki_tag({}, :method=>:get) do
+  =form_tag({}, :method=>:get) do
     %table
       %tr
         %td.crit=journal_period_crit
@@ -15,7 +15,7 @@
 
 =error_messages "account"
 
-=keishiki_tag() do
+=form_tag() do
   .fields
     -for x in [:period, :started_on, :stopped_on]
       =hidden_field_tag(x, params[x])

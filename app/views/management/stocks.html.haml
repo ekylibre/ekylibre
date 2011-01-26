@@ -1,6 +1,6 @@
 -if @current_company.stocks.size > 0
   .search
-    =keishiki_tag({}, {:method=>:get}) do
+    =form_tag({}, {:method=>:get}) do
       %table
         %tr
           %td.crit
