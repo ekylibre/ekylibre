@@ -10,8 +10,8 @@
   -l.attribute :emitter_cash, :url=>{:action=>:cash}
   -l.attribute :emitter_amount
   -l.attribute :emitter_currency
-  -l.attribute :emitter_journal_entry, :url=>{:action=>:journal_entry}
+  -l.attribute :emitter_journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
   -l.attribute :receiver_cash, :url=>{:action=>:cash}
   -l.attribute :receiver_amount
   -l.attribute :receiver_currency
-  -l.attribute :receiver_journal_entry, :url=>{:action=>:journal_entry}
+  -l.attribute :receiver_journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}

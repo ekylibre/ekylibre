@@ -117,6 +117,7 @@ class AuthenticationController < ApplicationController
   protected
   
   def init_session(user)
+    reset_session
     session[:expiration]   = 3600*5
     session[:help]         = user.preference("interface.help.opened", true, :boolean).value
     session[:help_history] = []

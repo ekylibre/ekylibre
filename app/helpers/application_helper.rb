@@ -228,18 +228,19 @@ module ApplicationHelper
     select_tag("locale", options,  :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
   end
 
-
   def svg_test_tag
     return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'.html_safe
   end
 
   if Rails.version.match(/^2\.3/)
+
     # Rails 2.3 helpers
     def link_to(*args, &block)
       if block_given?
         options      = args.first || {}
         html_options = args.second
-        concat(link_to(capture(&block), options, html_options))
+        # concat(link_to(capture(&block), options, html_options))
+        link_to(capture(&block), options, html_options)
       else
         name         = args.first
         options      = args.second || {}
@@ -249,7 +250,10 @@ module ApplicationHelper
           return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
         end
 
+        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = html_options.delete(x) if html_options[x] }
+        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = options[x] if options[x] }
         url = url_for(options)
+
         if html_options
           html_options = html_options.stringify_keys
           href = html_options['href']

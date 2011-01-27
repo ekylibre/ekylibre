@@ -89,10 +89,10 @@ class Sale < CompanyRecord
   has_many :credits, :class_name=>Sale.name, :foreign_key=>:origin_id
   has_many :deliveries, :class_name=>OutgoingDelivery.name, :dependent=>:destroy
   has_many :lines, :class_name=>SaleLine.to_s, :foreign_key=>:sale_id
-  has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
+  has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name, :dependent=>:destroy
   has_many :payments, :through=>:payment_uses
   has_many :subscriptions, :class_name=>Subscription.to_s
-  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
+  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name, :dependent=>:destroy
   validates_presence_of :client_id, :currency_id
   validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 
@@ -415,6 +415,7 @@ class Sale < CompanyRecord
         credit.propose!
         credit.invoice!
         self.reload.save
+        
       else
         raise ActiveRecord::Rollback
       end

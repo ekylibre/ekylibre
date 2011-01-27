@@ -44,16 +44,40 @@ class OutgoingPaymentUse < CompanyRecord
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>OutgoingPayment.name
 
-  autosave :expense, :payment
+  # autosave :expense, :payment
 
   validates_numericality_of :amount, :greater_than=>0
+  validates_presence_of :expense, :payment
+
+  before_validation(:on=>:create) do
+    self.company_id = self.payment.company_id if self.payment
+  end
 
   before_validation do
+    if self.expense and self.payment and self.amount.to_f.zero?
+      self.amount = self.reconcilable_amount
+    end
     self.downpayment = false if self.downpayment.nil?
     return true
   end
 
+  validate(:on=>:create) do
+    if self.expense and self.payment
+      errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount
+    end
+  end
+
+  validate(:on=>:update) do
+    old = self.class.find(self.id)
+    if self.expense and self.payment
+      errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount+old.amount
+    end
+  end
+
   validate do
+    if self.expense
+      errors.add(:expense_id, :invalid) unless self.expense.company_id = self.company_id
+    end
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
@@ -65,6 +89,18 @@ class OutgoingPaymentUse < CompanyRecord
       entry.add_credit(label, attorney.id, self.amount)
     end
     # self.reconciliate
+  end
+
+  after_save :calculate_reconciliated_amounts
+  after_destroy :calculate_reconciliated_amounts
+
+  def calculate_reconciliated_amounts
+    self.payment.class.update_all({:used_amount=>self.payment.uses.sum(:amount)}, {:id=>self.payment_id})
+    self.expense.class.update_all({:paid_amount=>self.expense.uses.sum(:amount)}, {:id=>self.expense_id})
+  end
+
+  def reconcilable_amount
+    return (self.expense.unpaid_amount > self.payment.unused_amount ? self.payment.unused_amount : self.expense.unpaid_amount)
   end
 
   def payment_way

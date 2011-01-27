@@ -356,8 +356,9 @@ class FinancesController < ApplicationController
     # return unless @sale   = find_and_check(:sale, session[:current_sale_id])
     return unless @incoming_payment_use = find_and_check(:incoming_payment_use)
     if request.post? or request.delete?
-      redirect_to_current if @incoming_payment_use.destroy #:action=>:sale, :step=>:summary, :id=>@sale.id
+      @incoming_payment_use.destroy #:action=>:sale, :step=>:summary, :id=>@sale.id
     end
+    redirect_to_back
   end
 
 
@@ -429,16 +430,23 @@ class FinancesController < ApplicationController
   # manage :outgoing_payment_uses, :expense_id=>"(@current_company.purchases.find(params[:expense_id]).id rescue 0)"
 
   def outgoing_payment_use_create
-    return unless expense = find_and_check(:purchase, params[:expense_id])
-    @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
+    expense = nil
     if request.post?
-      unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])
-        @outgoing_payment_use.errors.add(:payment_id, :required)
-        return
-      end
-      if outgoing_payment.pay(expense, :downpayment=>params[:outgoing_payment_use][:downpayment])
+      @outgoing_payment_use = OutgoingPaymentUse.new(params[:outgoing_payment_use])
+      if @outgoing_payment_use.save
         redirect_to_back
       end
+      expense = @outgoing_payment_use.expense
+#       unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])
+#         @outgoing_payment_use.errors.add(:payment_id, :required)
+#         return
+#       end
+#       if outgoing_payment.pay(expense, :downpayment=>params[:outgoing_payment_use][:downpayment])
+#         redirect_to_back
+#       end
+    else
+      return unless expense = find_and_check(:purchase, params[:expense_id])
+      @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
     end
     t3e :number=>expense.number
     render_form
@@ -447,8 +455,9 @@ class FinancesController < ApplicationController
   def outgoing_payment_use_delete
     return unless @outgoing_payment_use = find_and_check(:outgoing_payment_use)
     if request.post? or request.delete?
-      redirect_to_current if @outgoing_payment_use.destroy #:action=>:purchase_summary, :id=>@purchase.id
+      @outgoing_payment_use.destroy #:action=>:purchase_summary, :id=>@purchase.id
     end
+    redirect_to_back
   end
   
 

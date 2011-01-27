@@ -49,11 +49,11 @@ class Transfer < CompanyRecord
   has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
   has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
 
-  validates_presence_of :created_on
+  validates_presence_of :created_on, :supplier
 
   before_validation do
     self.created_on ||= Date.today
-    self.paid_amount = self.payment_uses.sum(:amount)||0
+    # self.paid_amount = self.payment_uses.sum(:amount)||0
   end
 
   #this method saves the transfer in the accountancy module.

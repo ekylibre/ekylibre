@@ -1,3 +1,7 @@
+#  Rails javascript
+ActionView::Helpers::AssetTagHelper::register_javascript_include_default "rails"
+
+
 # html_safe methods directly pasted from Rails 3
 require 'erb'
 require 'active_support/core_ext/kernel/singleton_class'

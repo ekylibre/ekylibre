@@ -97,12 +97,12 @@ class CashTransfer < CompanyRecord
     transfer_account = self.company.account(preference.value, preference.label)
     label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
     b.journal_entry(self.emitter_cash.journal, :column=>:emitter_journal_entry_id) do |entry|
-      entry.add_debit( label, self.emitter_cash.account_id, self.emitter_amount)
-      entry.add_credit(label, transfer_account.id, self.emitter_amount)      
+      entry.add_debit( label, transfer_account.id, self.emitter_amount)      
+      entry.add_credit(label, self.emitter_cash.account_id, self.emitter_amount)
     end
     b.journal_entry(self.receiver_cash.journal, :column=>:receiver_journal_entry_id) do |entry|
-      entry.add_debit( label, transfer_account.id, self.receiver_amount)
-      entry.add_credit(label, self.receiver_cash.account_id, self.receiver_amount)
+      entry.add_debit( label, self.receiver_cash.account_id, self.receiver_amount)
+      entry.add_credit(label, transfer_account.id, self.receiver_amount)
     end
   end
 

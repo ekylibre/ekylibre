@@ -45,7 +45,7 @@ class IncomingPaymentUse < CompanyRecord
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>IncomingPayment.name
 
-  autosave :expense, :payment
+  # autosave :expense, :payment
 
   cattr_reader :expense_types
   @@expense_types = [Sale.name, Transfer.name]
@@ -86,10 +86,6 @@ class IncomingPaymentUse < CompanyRecord
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
-  before_save do
-    self.class.destroy_all(:expense_type=>expense.class.name, :expense_id=>expense.id, :payment_id=>self.id)
-  end
-  
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
     attorney, client = self.payment.payer.account(:client), self.expense.client.account(:client)
@@ -100,13 +96,22 @@ class IncomingPaymentUse < CompanyRecord
     # self.reconciliate
   end
 
-#   after_save :calculate_reconciliated_amounts
-#   after_destroy :calculate_reconciliated_amounts
+  after_save :calculate_reconciliated_amounts
+  after_destroy :calculate_reconciliated_amounts
 
-#   def calculate_reconciliated_amounts
-#     self.payment.class.update_all({:used_amount=>self.payment.uses.sum(:amount)}, {:id=>self.payment_id})
-#     self.expense.class.update_all({:paid_amount=>self.expense.uses.sum(:amount)}, {:id=>self.expense_id})
-#   end
+  def calculate_reconciliated_amounts
+    self.payment.class.update_all({:used_amount=>self.payment.uses.sum(:amount)}, {:id=>self.payment_id})
+    expense = self.expense
+    if expense.is_a? Sale
+      expense.class.update_all({:paid_amount=>expense.uses.sum(:amount) - (expense.credits.sum(:amount)||0)}, {:id=>self.expense_id})
+    else
+      expense.class.update_all({:paid_amount=>expense.uses.sum(:amount)}, {:id=>self.expense_id})
+    end
+  end
+
+  def reconcilable_amount
+    return (self.expense.unpaid_amount > self.payment.unused_amount ? self.payment.unused_amount : self.expense.unpaid_amount)
+  end
 
   def payment_way
     self.payment.mode.name if self.payment.mode
@@ -116,9 +121,6 @@ class IncomingPaymentUse < CompanyRecord
     not self.payment.scheduled or (self.payment.scheduled and self.payment.validated)
   end
 
-  def reconcilable_amount
-    return (self.expense.unpaid_amount > self.payment.unused_amount ? self.payment.unused_amount : self.expense.unpaid_amount)
-  end
 
 
 end

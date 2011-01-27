@@ -56,8 +56,8 @@ class OutgoingPayment < CompanyRecord
   has_many :expenses, :through=>:uses
 
   validates_numericality_of :amount, :greater_than=>0
+  validates_numericality_of :used_amount, :greater_than_or_equal_to=>0
   validates_presence_of :to_bank_on, :created_on
-
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

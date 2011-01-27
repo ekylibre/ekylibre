@@ -292,7 +292,7 @@ class ApplicationController < ActionController::Base
     if !session[:last_query].is_a?(Integer)
       redirect_to_login(request.url)
       return
-    elsif session[:last_query].to_i<Time.now.to_i-session[:expiration]
+    elsif session[:last_query].to_i<Time.now.to_i-session[:expiration].to_i
       notify(:expired_session)
       if request.xhr?
         render :text=>"<script>window.location.replace('#{url_for(:controller=>:authentication, :action=>:login)}')</script>"
