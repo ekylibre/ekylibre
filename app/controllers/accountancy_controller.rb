@@ -259,7 +259,7 @@ class AccountancyController < ApplicationController
       return
     end
     if request.post?
-      if params[:export]
+      if params[:export] == "balance"
         query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
         query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
         query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
@@ -278,6 +278,8 @@ class AccountancyController < ApplicationController
         rescue Exception => e 
           notify(:exception_raised, :error, :now, :message=>e.message)
         end
+      elsif params[:export] == "isaquare"
+        send_data(Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date), :filename=>@current_company.code+".ecc")
       else
         redirect_to params.merge(:action=>:print, :controller=>:company)
       end
