@@ -59,9 +59,10 @@ class OutgoingPaymentUse < CompanyRecord
 
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payee.full_name, :supplier=>self.expense.supplier.full_name, :mode=>self.payment.mode.name)
-    b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(self.expense.supplier_id == self.payment.payee_id)) do |entry|
-      entry.add_debit(label, self.expense.supplier.account(:supplier).id, self.amount)
-      entry.add_credit(label, self.payment.payee.account(:attorney).id, self.amount)
+    supplier, attorney = self.expense.supplier.account(:supplier), self.payment.payee.account(:supplier)
+    b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(supplier.id == attorney.id)) do |entry|
+      entry.add_debit(label,  supplier.id, self.amount)
+      entry.add_credit(label, attorney.id, self.amount)
     end
     # self.reconciliate
   end

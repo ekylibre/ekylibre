@@ -112,6 +112,7 @@ class FinancesController < ApplicationController
     t.column :name, :through=>:receiver_currency
     t.column :name, :through=>:receiver_cash, :url=>{:action=>:cash}
     t.column :created_on
+    t.column :comment
     t.action :cash_transfer_update
     t.action :cash_transfer_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -511,8 +512,8 @@ class FinancesController < ApplicationController
     t.column :nature_label
     t.column :included
     t.column :reductible
-    t.column :label, :through=>:paid_account, :url=>{:action=>:account}
-    t.column :label, :through=>:collected_account, :url=>{:action=>:account}
+    t.column :label, :through=>:paid_account, :url=>{:controller=>:accountancy, :action=>:account}
+    t.column :label, :through=>:collected_account, :url=>{:controller=>:accountancy, :action=>:account}
     t.action :tax_update
     t.action :tax_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

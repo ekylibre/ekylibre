@@ -83,17 +83,15 @@ class OutgoingPayment < CompanyRecord
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    attorney_amount = self.attorney_amount
-    supplier_amount = self.amount - attorney_amount
+    # attorney_amount = self.attorney_amount
+    supplier_amount = self.amount #  - attorney_amount
     label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payee=>self.payee.full_name, :mode=>self.mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     b.journal_entry(self.mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!self.mode.with_accounting? or !self.delivered)) do |entry|
       entry.add_debit(label, self.payee.account(:supplier).id, supplier_amount) unless supplier_amount.zero?
-      entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+      # entry.add_debit(label, self.payee.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
       entry.add_credit(label, self.mode.cash.account_id, self.amount)
     end
-#     if use = self.uses.first
-#       use.reconciliate
-#     end
+    # self.uses.first.reconciliate if self.uses.first
   end
 
 
@@ -105,26 +103,26 @@ class OutgoingPayment < CompanyRecord
     self.amount-self.used_amount
   end
 
-  def attorney_amount
-    total = 0
-    for use in self.uses
-      total += use.amount if use.expense.supplier_id != use.payment.payee_id
-    end    
-    return total
-  end
+#   def attorney_amount
+#     total = 0
+#     for use in self.uses
+#       total += use.amount if use.expense.supplier_id != use.payment.payee_id
+#     end    
+#     return total
+#   end
 
-  # Use the maximum available amount to pay the expense
-  def pay(expense, options={})
-    raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
-    OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
-    self.reload
-    use_amount = [expense.unpaid_amount, self.unused_amount].min
-    use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
-    if use.errors.size > 0
-      errors.add_from_record(use)
-      return false
-    end
-    return true
-  end
+#   # Use the maximum available amount to pay the expense
+#   def pay(expense, options={})
+#     raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
+#     OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
+#     self.reload
+#     use_amount = [expense.unpaid_amount, self.unused_amount].min
+#     use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
+#     if use.errors.size > 0
+#       errors.add_from_record(use)
+#       return false
+#     end
+#     return true
+#   end
 
 end

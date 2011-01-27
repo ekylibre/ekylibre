@@ -102,8 +102,8 @@ class IncomingPayment < CompanyRecord
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    attorney_amount = self.attorney_amount
-    client_amount   = self.amount - attorney_amount
+    # attorney_amount = self.attorney_amount
+    client_amount   = self.amount # - attorney_amount
     mode = self.mode
     label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
@@ -114,7 +114,7 @@ class IncomingPayment < CompanyRecord
         entry.add_debit(label, self.commission_account_id, self.commission_amount) if self.commission_amount > 0
       end
       entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
-      entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+      # entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
     end
     # self.uses.first.reconciliate if self.uses.first
   end
@@ -128,13 +128,13 @@ class IncomingPayment < CompanyRecord
     self.amount-self.used_amount
   end
 
-  def attorney_amount
-    total = 0
-    for use in self.uses
-      total += use.amount if use.expense.client_id != use.payment.payer_id
-    end    
-    return total
-  end
+#   def attorney_amount
+#     total = 0
+#     for use in self.uses
+#       total += use.amount if use.expense.client_id != use.payment.payer_id
+#     end    
+#     return total
+#   end
 
 #   # Use the maximum available amount to pay the expense between unpaid and unused amounts
 #   def pay(expense, options={})

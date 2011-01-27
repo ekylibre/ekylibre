@@ -73,8 +73,10 @@ class AccountancyController < ApplicationController
 
   # this method displays the form to choose the journal and financial_year.
   def bookkeep
-    params[:finish_bookkeeping_on] = (params[:finish_bookkeeping_on]||Date.today).to_date rescue Date.today
-    @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment]
+    params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
+    params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
+    # @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
+    @natures = [:purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
 
     if request.get?
       notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
@@ -87,14 +89,11 @@ class AccountancyController < ApplicationController
 
 
     if @step >= 2
-      session[:finish_bookkeeping_on] = params[:finish_bookkeeping_on]
+      session[:stopped_on] = params[:stopped_on]
+      session[:started_on] = params[:started_on]
       @records = {}
       for nature in @natures
-        conditions = ["accounted_at IS NULL AND created_at <= ?", session[:finish_bookkeeping_on].to_time]
-        if nature == :purchase
-          conditions[0] += " AND shipped = ? " 
-          conditions << true
-        end
+        conditions = ["created_at BETWEEN ? AND ?", session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
         @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>conditions)
       end
 

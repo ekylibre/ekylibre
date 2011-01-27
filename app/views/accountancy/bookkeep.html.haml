@@ -2,7 +2,8 @@
 -if @step == 1
   =form_tag({}, :method=>:put) do
     =formalize do |f|
-      -f.field tc(:select_date_generation), (calendar_field_tag :finish_bookkeeping_on, params[:finish_bookkeeping_on]) 
+      -f.field tc(:from), calendar_field_tag(:started_on, params[:started_on]) 
+      -f.field tc(:to),   calendar_field_tag(:stopped_on, params[:stopped_on]) 
     .actions=submit_tag(tg(:validate))
 
 
@@ -10,7 +11,8 @@
   =form_tag({}, :method=>:post) do
     =formalize do |f|
       -f.title tc(:preferences)
-      -f.field tc(:select_date_generation), ::I18n.localize(params[:finish_bookkeeping_on])
+      -f.field tc(:from), ::I18n.localize(params[:started_on])
+      -f.field tc(:select_date_generation), ::I18n.localize(params[:stopped_on])
       -f.field tc(:save_in_draft), check_box_tag("save_in_draft", "1", @current_company.prefer_bookkeep_in_draft?)
       -f.title tc(:counts_by_nature)
       -for nature in @natures

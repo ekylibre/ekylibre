@@ -70,7 +70,7 @@ class Deposit < CompanyRecord
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     payments = self.reload.payments
-    b.journal_entry(self.cash.journal) do |entry|
+    b.journal_entry(self.cash.journal, :if=>!self.mode.depositables_account.nil?) do |entry|
 
       commissions, commissions_amount = {}, 0
       for payment in payments
