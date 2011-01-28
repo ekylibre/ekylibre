@@ -111,18 +111,18 @@ class OutgoingPayment < CompanyRecord
 #     return total
 #   end
 
-#   # Use the maximum available amount to pay the expense
-#   def pay(expense, options={})
-#     raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
-#     OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
-#     self.reload
-#     use_amount = [expense.unpaid_amount, self.unused_amount].min
-#     use = self.uses.create(:amount=>use_amount, :expense=>expense, :company_id=>self.company_id, :downpayment=>options[:downpayment])
-#     if use.errors.size > 0
-#       errors.add_from_record(use)
-#       return false
-#     end
-#     return true
-#   end
+  # Use the maximum available amount to pay the expense
+  def pay(expense, options={})
+    raise Exception.new("Expense must be Purchase (not #{expense.class.name})") unless expense.class.name == Purchase.name
+    # OutgoingPaymentUse.destroy_all(:expense_id=>expense.id, :payment_id=>self.id)
+    # self.reload
+    # use_amount = [expense.unpaid_amount, self.unused_amount].min
+    use = self.uses.create(:expense=>expense, :downpayment=>options[:downpayment])
+    if use.errors.size > 0
+      errors.add_from_record(use)
+      return false
+    end
+    return true
+  end
 
 end
