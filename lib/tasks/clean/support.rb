@@ -138,7 +138,7 @@ end
 def models_in_file
   Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
   list = if ActiveRecord::Base.respond_to? :subclasses
-           ActiveRecord::Base.subclasses
+           ActiveRecord::Base.send(:subclasses)
          else
            Object.subclasses_of(ActiveRecord::Base)
          end.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
