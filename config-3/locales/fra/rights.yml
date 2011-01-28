@@ -14,7 +14,6 @@ fra:
     consult_products: 'Consulter les produits'
     consult_purchases: 'Consulter les achats'
     consult_sales: 'Consulter les ventes'
-    consult_sales_invoices: 'Consulter les factures' #!
     consult_stocks: 'Consulter l''état des stocks'
     consult_trackings: 'Consulter les informations de tracabilité'
     extract_listings: 'Effectuer des extractions (sans pouvoir les concevoir)'

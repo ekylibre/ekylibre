@@ -23,6 +23,10 @@
 class CompanyRecord < Ekylibre::Record::Base
   self.abstract_class = true
 
+#   def abstract_class?
+#     true
+#   end
+
   attr_readonly :company_id
   belongs_to :company
   validates_presence_of :company_id

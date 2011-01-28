@@ -3,9 +3,7 @@ desc "Update models list file in lib/models.rb"
 task :models => :environment do
   print " - Models: "
   
-  Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
-  # models = Object.subclasses_of(ActiveRecord::Base).select{|x| not x.name.match('::')}.sort{|a,b| a.name <=> b.name}
-  models = ActiveRecord::Base.subclasses.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
+  models = models_in_file
   models_code = "  @@models = ["+models.collect{|m| ":"+m.name.underscore}.join(", ")+"]\n"
   
   symodels = models.collect{|x| x.name.underscore.to_sym}

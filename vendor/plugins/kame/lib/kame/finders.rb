@@ -26,6 +26,24 @@ module Kame
       false
     end
 
+
+    # Compute includes Hash
+    def includes(table)
+      hash = {}
+      for column in table.columns
+        if through = column.options[:through]
+          through = [through] unless through.is_a? Array
+          h = hash
+          for x in through
+            h[x] = {} unless h[x].is_a? Hash
+            h = h[x]
+          end         
+        end
+      end
+      return hash
+    end
+
+
     # Generate the code from a conditions option
     def conditions_to_code(conditions)
       code = ''

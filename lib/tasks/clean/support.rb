@@ -40,7 +40,7 @@ def hash_count(hash)
 end
   
 def sort_yaml_file(filename, log=nil)
-  yaml_file = Ekylibre::Application.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
+  yaml_file = Rails.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
   # translation = hash_to_yaml(yaml_to_hash(file)).strip
   translation, total = hash_sort_and_count(yaml_to_hash(yaml_file))
   File.open(yaml_file, "wb") do |file|
@@ -132,4 +132,15 @@ def actions_in_file(path)
     end
   end
   return actions
+end
+
+
+def models_in_file
+  Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
+  list = if ActiveRecord::Base.respond_to? :subsclasses
+           ActiveRecord::Base.subclasses
+         else
+           Object.subclasses_of(ActiveRecord::Base)
+         end.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
+  return list
 end
