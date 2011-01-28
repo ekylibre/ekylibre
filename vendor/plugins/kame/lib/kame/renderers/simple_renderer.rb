@@ -95,7 +95,7 @@ module Kame
                 datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&#160;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
               end
               if column.options[:url].is_a?(Hash) and nature==:body
-                column.options[:url][:id] ||= column.record(record)+'.id'
+                column.options[:url][:id] ||= column.record_expr(record)+'.id'
                 url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
                 datum = "(#{datum}.blank? ? '' : link_to(#{datum}, url_for(#{url})))"
               elsif column.options[:mode] == :download# and !datum.nil?

@@ -163,16 +163,16 @@ class ApplicationController < ActionController::Base
 
 
   def find_and_check(model, id=nil, options={})
-    model = model.to_s
+    model, record, klass = model.to_s, nil, nil
     id ||= params[:id]
     begin
-      klass = model.classify.constantize
+      klass = model.to_s.classify.constantize
+      record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     rescue
       notify(:unavailable_model, :error, :model=>model.inspect, :id=>id)
       redirect_to_back
       return false
     end
-    record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     if record.nil?
       notify(:unavailable_model, :error, :model=>klass.model_name.human, :id=>id)
       redirect_to_back

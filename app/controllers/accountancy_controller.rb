@@ -279,7 +279,7 @@ class AccountancyController < ApplicationController
           notify(:exception_raised, :error, :now, :message=>e.message)
         end
       elsif params[:export] == "isaquare"
-        send_data(Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date), :filename=>@current_company.code+".ecc")
+        send_data(Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date), :filename=>@current_company.code+".ECC")
       else
         redirect_to params.merge(:action=>:print, :controller=>:company)
       end
@@ -452,7 +452,7 @@ class AccountancyController < ApplicationController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -502,7 +502,7 @@ class AccountancyController < ApplicationController
   end
 
 
-  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.last\? ? 'last-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date

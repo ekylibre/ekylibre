@@ -741,7 +741,7 @@ class ManagementController < ApplicationController
     t.column :number, :through=>:payment, :url=>{:action=>:outgoing_payment, :controller=>:finances}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:outgoing_payment, :controller=>:finances}
     t.column :amount
-    t.column :payment_way
+    t.column :name, :through=>[:payment, :mode]
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>:column
     t.action :outgoing_payment_use_delete, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'

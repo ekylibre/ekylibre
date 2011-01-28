@@ -251,7 +251,7 @@ module ApplicationHelper
         end
 
         [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = html_options.delete(x) if html_options[x] }
-        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = options[x] if options[x] }
+        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = options[x] if options[x] } if options.is_a? Hash
         url = url_for(options)
 
         if html_options

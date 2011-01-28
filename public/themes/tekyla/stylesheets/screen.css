@@ -535,6 +535,7 @@ tbody.lines td input { width: 95%; }
 
 table.kame tr.total.invalid td { color: #D20; }  
 table.kame tr.total.valid   td { color: #090; }  
+table.kame tr.first-line    td { border-top: 2px solid #F77; }  
 table.kame tr.last-line     td { border-bottom: 2px solid #F77; }  
 
 div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
