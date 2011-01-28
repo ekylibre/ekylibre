@@ -137,7 +137,7 @@ end
 
 def models_in_file
   Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
-  list = if ActiveRecord::Base.respond_to? :subsclasses
+  list = if ActiveRecord::Base.respond_to? :subclasses
            ActiveRecord::Base.subclasses
          else
            Object.subclasses_of(ActiveRecord::Base)

@@ -1,1 +1,1 @@
-config/config.ru
+link config/config-rack.rb
