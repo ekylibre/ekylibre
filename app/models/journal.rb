@@ -72,6 +72,9 @@ class Journal < CompanyRecord
     unless valid
       errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
+    if self.company and self.code.to_s.size > 0
+      errors.add(:code, :taken) if self.company.find(:all, :conditions=>["id != ? AND code = ?", self.id||0, self.code.to_s[0..1]])
+    end
   end
 
   protect_on_destroy do

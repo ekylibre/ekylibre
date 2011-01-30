@@ -6,8 +6,8 @@ module Ekylibre
 
 
       @@format = [
-                  [3,  "j.code"], # Code journal
-                  [8,  "je.number[4..-1]"], # Numéro de pièce
+                  [3,  "j.code[0..1]"], # Code journal
+                  [8,  "je.number[0..1]+je.number[-6..-1]"], # Numéro de pièce
                   [8,  "fdt(je.printed_on)"], # Date.pièce
                   [30, "jel.name"], # Libllé de l'écriture
                   [3,  "je.currency.code"], # Devise
@@ -45,7 +45,7 @@ module Ekylibre
           if column[1].blank?
             code += "'"+(' '*column[0])+"'+"
           else
-            code += "(#{column[1]}).to_s.#{column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]+"
+            code += "(#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]+"
           end
         end
         code += '"\n"'+"\n"
