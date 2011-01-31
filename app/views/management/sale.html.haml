@@ -13,8 +13,7 @@
     -t.print :sales_invoice, :id=>@sale.id
     -t.cancel @sale
   -else
-    -t.print :sale, :id=>@sale.id
-  -t.link :sale, :id=>@sale.id, :format=>:pdf
+    -t.print :sales_order, :id=>@sale.id
 
 =attributes_list(@sale) do |l|
   -l.attribute :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
