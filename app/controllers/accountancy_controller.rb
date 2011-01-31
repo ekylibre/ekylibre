@@ -279,7 +279,8 @@ class AccountancyController < ApplicationController
           notify(:exception_raised, :error, :now, :message=>e.message)
         end
       elsif params[:export] == "isaquare"
-        send_data(Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date), :filename=>@current_company.code+".ECC")
+        path = Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date, @current_company.code+".ECC")
+        send_file(path, :filename=>path.basename, :type=>Mime::ZIP)
       else
         redirect_to params.merge(:action=>:print, :controller=>:company)
       end

@@ -6,17 +6,17 @@ module Ekylibre
 
 
       @@format = [
-                  [3,  "j.code[0..1]"], # Code journal
-                  [8,  "je.number[0..1]+je.number[-6..-1]"], # Numéro de pièce
-                  [8,  "fdt(je.printed_on)"], # Date.pièce
+                  [3,  "jel.journal.code[0..1]"], # Code journal
+                  [8,  "jel.entry.number[0..1]+jel.entry.number[-6..-1]"], # Numéro de pièce
+                  [8,  "fdt(jel.entry.printed_on)"], # Date.pièce
                   [30, "jel.name"], # Libllé de l'écriture
-                  [3,  "je.currency.code"], # Devise
-                  [10, "a.number"], # N° compte
+                  [3,  "jel.entry.currency.code"], # Devise
+                  [10, "jel.account.number"], # N° compte
                   [10, ""], # Compte centralisateur
-                  [30, "a.name"], # Libellé du compte
+                  [30, "jel.account.name"], # Libellé du compte
                   [30, "jel.name"], # Libellé du mouvement
-                  [13, "100*jel.debit", "r"], # Débit centimes
-                  [13, "100*jel.credit", "r"], # Crédit
+                  [13, "(100*jel.debit).to_i", "r"], # Débit centimes
+                  [13, "(100*jel.credit).to_i", "r"], # Crédit
                   [11, ""], # Qté 1
                   [11, ""], # Qté 2
                   [8,  "jel.position", "r"], # Numéro
@@ -33,27 +33,33 @@ module Ekylibre
                  ]
 
 
-      def self.generate(company, started_on, stopped_on)
+      def self.generate(company, started_on, stopped_on, filename=nil)
         carre = ""
         code = ""
-        code += "for j in company.journals\n"
-        code += "  for je in j.entries.find(:all, :conditions=>['printed_on BETWEEN ? AND ?', started_on, stopped_on], :order=>'journal_id, number')\n"
-        code += "    for jel in je.lines.find(:all, :order=>:position)\n"
-        code += "      a = jel.account\n"
-        code += "      carre += "
+        code += "for jel in company.journal_entry_lines.find(:all, :include=>[:journal, {:entry=>:currency}, :account, :bank_statement], :conditions=>['printed_on BETWEEN ? AND ?', started_on, stopped_on], :order=>'journals.name, journal_entries.number')\n"
+        code += "      f.puts("
         for column in @@format
           if column[1].blank?
             code += "'"+(' '*column[0])+"'+"
           else
-            code += "(#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]+"
+            x = "(ic.iconv((#{column[1]}).to_s) rescue (#{column[1]}).to_s.simpleize)"
+            code += "#{x}.#{column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]+"
+            # code += "(ic.iconv((#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]) rescue ((#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]).simpleize)+"
           end
         end
-        code += '"\n"'+"\n"
-        code += "    end\n"
-        code += "  end\n"
+        code += '"\n"'+")\n"
         code += "end\n"
-        eval(code)
-        return carre
+        ic = Iconv.new('cp1252', 'utf-8')
+        filename ||= "#{company.code}.ECC"
+        file = Rails.root.join("tmp", "#{filename}.zip")
+
+        Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
+          zile.get_output_stream(filename) do |f| 
+            eval(code)
+          end
+        end
+
+        return file
       end
 
       private
