@@ -49,6 +49,8 @@ class IncomingDeliveryLine < CompanyRecord
   belongs_to :price
   belongs_to :product
   belongs_to :purchase_line, :class_name=>PurchaseLine.name
+  belongs_to :stock_move
+  belongs_to :tracking
   belongs_to :unit
   belongs_to :warehouse
   validates_presence_of :product_id, :unit_id

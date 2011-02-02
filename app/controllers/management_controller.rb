@@ -1217,6 +1217,21 @@ class ManagementController < ApplicationController
     redirect_to :action=>:sale, :step=>:products, :id=>@sale.id
   end
 
+
+  def sale_propose_and_invoice 
+    return unless @sale = find_and_check(:sale)
+    if request.post?
+      ActiveRecord::Base.transaction do
+        raise ActiveRecord::Rollback unless @sale.propose
+        raise ActiveRecord::Rollback unless @sale.confirm
+        raise ActiveRecord::Rollback unless @sale.deliver
+        raise ActiveRecord::Rollback unless @sale.invoice
+      end
+    end
+    redirect_to :action=>:sale, :step=>:summary, :id=>@sale.id
+  end
+
+
   def sale_duplicate
     return unless sale = find_and_check(:sale)
     if request.post?

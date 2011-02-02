@@ -21,6 +21,7 @@ class ManagementControllerTest < ActionController::TestCase
                    :purchase_line_create=>{:purchase_id=>1},
                    :sale_cancel=>:update, 
                    :sale_confirm=>:delete,
+                   :sale_propose_and_invoice=>:delete,
                    :sale_invoice=>:delete,
                    :sale_abort=>:delete,
                    :sale_correct=>:delete,

@@ -179,6 +179,7 @@ jpn:
       #>sale_nature_update: 'Edit the sale type: %{name}'
       #>sale_natures: 'Sale types'
       #>sale_propose: 'Propose estimate'
+      #>sale_propose_and_invoice: 'Invoice quickly'
       #>sale_refuse: 'Estimate refused'
       #>sale_update: 'Edit the sale %{number}'
       #>sales: 'Sales'

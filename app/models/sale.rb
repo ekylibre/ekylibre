@@ -220,12 +220,12 @@ class Sale < CompanyRecord
   # Create the last delivery with undelivered products if necessary.
   # The sale order is confirmed if it hasn't be done.
   def deliver
-    self.confirm
+    return false unless self.order?
     lines = []
     for line in self.lines.find_all_by_reduction_origin_id(nil)
-      if quantity = line.undelivered_quantity > 0
-        #raise Exception.new quantity.inspect+line.inspect
-        lines << {:sale_line_id=>line.id, :quantity=>line.quantity, :company_id=>self.company_id}
+      quantity = line.undelivered_quantity
+      if quantity > 0 and line.product.deliverable?
+        lines << {:sale_line_id=>line.id, :quantity=>quantity, :company_id=>self.company_id}
       end
     end
     if lines.size>0

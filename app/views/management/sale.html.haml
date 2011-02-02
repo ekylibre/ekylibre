@@ -4,6 +4,8 @@
   -t.update @sale if @sale.draft?
   -if @sale.can_confirm?
     -t.confirm @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+  -if @sale.can_propose?
+    -t.propose_and_invoice @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
   -if @sale.can_invoice?
     -t.invoice @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
   -for event in [:propose, :correct, :refuse]
@@ -11,7 +13,8 @@
   -t.abort(@sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.can_abort?
   -if @sale.invoice?
     -t.print :sales_invoice, :id=>@sale.id
-    -t.cancel @sale
+    -if @sale.cancelable?
+      -t.cancel @sale
   -else
     -t.print :sales_order, :id=>@sale.id
 
@@ -41,7 +44,7 @@
     -l.attribute :conclusion, :field=>:textarea
 
 
--if ["products", ""].include? params[:step].to_s
+-if ["products", "summary", ""].include? params[:step].to_s
   %h2=Sale.human_attribute_name("lines")
   -@sale_line = @sale.lines.new
   -if @sale.draft?

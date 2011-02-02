@@ -180,6 +180,7 @@ fra:
       sale_nature_update: 'Modifier le type de vente : %{name}'
       sale_natures: 'Types de ventes'
       sale_propose: 'Devis soumis au client'
+      sale_propose_and_invoice: 'Facturer rapidement'
       sale_refuse: 'Devis refusé par le client'
       sale_update: 'Modifier la vente N°%{number}'
       sales: 'Ventes'

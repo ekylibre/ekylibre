@@ -56,7 +56,7 @@ class AuthenticationController < ApplicationController
           params[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
         end
       end
-      ::I18n.locale = params[:locale]
+      session[:locale] = ::I18n.locale = params[:locale]
     end
   end
 

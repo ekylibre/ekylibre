@@ -225,7 +225,7 @@ module ApplicationHelper
     options = locales.collect do |l|
       content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(locale == l ? {:selected=>true} : {}))
     end.join.html_safe
-    select_tag("locale", options,  :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
+    select_tag("locale", options, :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
   end
 
   def svg_test_tag

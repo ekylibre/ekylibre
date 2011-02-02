@@ -335,6 +335,7 @@ eng:
       #>sale_natures_kame: 'Sale natures kame'
       #>sale_payment_uses_kame: 'Sale payment uses kame'
       sale_propose: 'Propose estimate'
+      sale_propose_and_invoice: 'Invoice quickly'
       sale_refuse: 'Estimate refused'
       #>sale_subscriptions_kame: 'Sale subscriptions kame'
       #>sale_undelivered_lines_kame: 'Sale undelivered lines kame'

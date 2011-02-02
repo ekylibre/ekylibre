@@ -181,6 +181,7 @@ arb:
       sale_nature_update: 'تعديل نوع البيع : {{name}}'
       sale_natures: 'انواع طلبات البيع'
       #>sale_propose: 'Propose estimate'
+      #>sale_propose_and_invoice: 'Invoice quickly'
       #>sale_refuse: 'Estimate refused'
       sale_summary: 'فوترة دفعة  (دفعات) طلب الشراء {{number}}' #!
       sale_update: 'تعديل طلب البيع رقم{{number}}'

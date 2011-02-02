@@ -42,6 +42,7 @@
 
 class Stock < CompanyRecord
   attr_readonly :unit_id, :product_id, :warehouse_id, :tracking_id
+  belongs_to :company
   belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking

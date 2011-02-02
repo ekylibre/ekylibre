@@ -765,6 +765,7 @@ manage_sales:
   - sale_deliveries_kame
   - sale_invoice
   - sale_propose
+  - sale_propose_and_invoice
   - sale_refuse
   - sale_undelivered_lines_kame
 # Manage stock moves
