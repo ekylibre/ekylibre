@@ -50,6 +50,7 @@ class IncomingDeliveryLine < CompanyRecord
   belongs_to :product
   belongs_to :purchase_line, :class_name=>PurchaseLine.name
   belongs_to :unit
+  belongs_to :warehouse
   validates_presence_of :product_id, :unit_id
 
   sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight

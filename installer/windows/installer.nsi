@@ -144,7 +144,7 @@ Section "Ekylibre" sec_ekylibre
     MessageBox MB_OK "Installation du service EkyService impossible"
   ${EndIf}
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "Application" '$InstApp\ruby\bin\ruby.exe'
-  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production -A rails'
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppDirectory" '$InstApp\apps\ekylibre'
   SimpleSC::SetServiceDescription "EkyService" "Service Web d'Ekylibre"
   

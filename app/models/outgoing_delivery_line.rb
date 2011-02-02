@@ -50,6 +50,7 @@ class OutgoingDeliveryLine < CompanyRecord
   belongs_to :sale_line
   belongs_to :stock_move
   belongs_to :unit
+  belongs_to :warehouse
   validates_presence_of :product, :unit
 
   sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight

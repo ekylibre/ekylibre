@@ -398,7 +398,7 @@ class Sale < CompanyRecord
   def cancel(lines={}, options={})
     lines = lines.delete_if{|k,v| v.zero?}
     return false if !self.cancelable? or lines.size.zero?
-    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id, :responsible=>options[:responsible]||self.responsible)
+    credit = self.class.new(:origin_id=>self.id, :client_id=>self.client_id, :credit=>true, :company_id=>self.company_id, :responsible=>options[:responsible]||self.responsible, :nature_id=>self.nature_id)
     ActiveRecord::Base.transaction do
       if saved = credit.save
         for line in self.lines.find(:all, :conditions=>{:id=>lines.keys})
@@ -409,6 +409,8 @@ class Sale < CompanyRecord
             credit.errors.add_from_record(credit_line)
           end
         end
+      else
+        raise credit.errors.full_messages.inspect
       end
       if saved
         credit.reload

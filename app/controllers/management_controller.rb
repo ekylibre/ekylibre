@@ -1141,7 +1141,7 @@ class ManagementController < ApplicationController
         notify(:need_quantities_to_cancel_an_sale, :error, :now)
         return
       end
-      if credit = @sale.cancel(lines, @current_user)
+      if credit = @sale.cancel(lines, :responsible=>@current_user)
         redirect_to :action=>:sale, :id=>credit.id
       end
     end
