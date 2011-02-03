@@ -1326,7 +1326,7 @@ class ManagementController < ApplicationController
   def sale_line_delete
     return unless @sale_line = find_and_check(:sale_line)
     if request.post? or request.delete?
-       @sale_line.destroy
+      @sale_line.destroy
     end
     redirect_to_current
   end
