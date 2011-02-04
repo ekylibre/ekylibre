@@ -30,6 +30,7 @@ class AuthenticationController < ApplicationController
   def login
     session[:side] = false
     session[:help] = false
+
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     if request.post?
       if user = User.authenticate(params[:name], params[:password], @current_company)
@@ -44,20 +45,23 @@ class AuthenticationController < ApplicationController
       else
         notify(:no_authenticated, :error, :now)
       end
-    else
-      if params[:locale].blank?
-        if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
-          params[:locale] = ::I18n.default_locale
-        else
-          codes = {}
-          for l in ::I18n.active_locales
-            codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
-          end
-          params[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
-        end
-      end
-      session[:locale] = ::I18n.locale = params[:locale]
     end
+
+    if params[:locale] and ::I18n.active_locales.include? params[:locale].to_s.to_sym
+      params[:locale] = params[:locale].to_sym
+    else
+      if request.env["HTTP_ACCEPT_LANGUAGE"].blank?
+        params[:locale] = ::I18n.default_locale
+      else
+        codes = {}
+        for l in ::I18n.active_locales
+          codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
+        end
+        params[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
+      end
+    end
+    session[:locale] = ::I18n.locale = params[:locale]
+
   end
 
   def relogin

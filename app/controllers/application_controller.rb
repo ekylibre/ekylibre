@@ -64,9 +64,7 @@ class ApplicationController < ActionController::Base
     locale = params[:locale]
     if locale.is_a? String
       if locale.size == 3
-        if ::I18n.active_locales.include?(locale.to_sym)
-          session[:locale] = locale.to_sym
-        end
+        session[:locale] = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
       end
     end
     # Initialize locale
@@ -243,7 +241,11 @@ class ApplicationController < ActionController::Base
     return false
   end
 
+  protected
 
+#   def current_user
+#     @current_user || User.find_by_id(session[:user_id])
+#   end
 
   private
 
@@ -358,8 +360,6 @@ class ApplicationController < ActionController::Base
   def redirect_to_current()
     redirect_to session[:history][0]
   end
-
-
 
 
 

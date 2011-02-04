@@ -25,6 +25,10 @@ module Ekylibre::Record
   class Base < ActiveRecord::Base
     self.abstract_class = true
 
+    # Make all models stampables
+    self.stampable
+
+
     if Rails.version.match(/^2\.3/)
 
       def update_strictly(attribute_names = @attributes.keys)
