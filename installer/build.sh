@@ -16,6 +16,7 @@ datadir=$HOME/Public/${app}
 tmpdir=/tmp/${release}
 resdir=${current_dir}/windows/resources
 sources=1
+debian=1
 win32=1
 checksums=1
 
@@ -36,13 +37,14 @@ help_message() {
     echo "  -s                     Skip sources packaging"
     echo "  -t TMPDIR              where the files can be compiled"
     echo "                         Default: ${tmpdir}" 
+    echo "  -u                     Skip Debian packaging"
     echo "  -w                     Skip Win32 packaging (with NSIS)"
     echo ""
     echo "Report bugs at <dev@ekylibre.org>"
 }
 
 # Initialize
-while getopts cd:hr:st:w o
+while getopts cd:hr:st:uw o
 do 
     case "$o" in
         c)   checksums=0;;
@@ -52,6 +54,7 @@ do
         s)   sources=0;;
         r)   resdir="$OPTARG";;
         t)   tmpdir="$OPTARG";;
+        u)   debian=0;;
         w)   win32=0;;
         [?]) help_message
             exit 1;;
@@ -98,6 +101,17 @@ if [ $sources = 1 ]; then
     mv ${source}.* release/source/
 fi
 
+
+# Debian
+if [ $debian = 0 ]; then
+    echo " * Debian compilation..."
+    # rake -f ${current_dir}/debian/Rakefile build APP=${app} VERSION=${version}
+    cp -r ${current_dir}/debian/
+    mkdir -p debian/${app}-common/
+    cp -r ${app}
+    # mkdir release/debian
+fi
+
 # Win32
 if [ $win32 = 1 ]; then
     echo " * Win32 compilation..."
@@ -113,9 +127,6 @@ if [ $win32 = 1 ]; then
     mkdir -p release/win32
     mv ${current_dir}/windows/${release}.exe release/win32
 fi
-
-# Debian
-# mkdir release/debian
 
 # Mac OS
 # mkdir release/macos

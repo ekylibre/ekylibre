@@ -3,8 +3,8 @@
 all: build
 
 build:
-	cp -r ../../aquitan aquitan/usr/share
-	find aquitan/usr/share/aquitan -name .svn -print0 | xargs -0 rm -fr
-	dpkg --build aquitan
-	rm -fr aquitan/usr/share/aquitan
+	cp -r ../../ekylibre ekylibre/usr/share
+	find ekylibre/usr/share/ekylibre -name .svn -print0 | xargs -0 rm -fr
+	dpkg --build ekylibre
+	rm -fr ekylibre/usr/share/ekylibre
 
