@@ -3,7 +3,6 @@
   -t.update @entity
   -t.print :entity, :id=>@entity.id
 
-
 =attributes_list(@entity) do |l|
   -l.attribute :last_name
   -l.attribute :first_name unless @entity.first_name.blank?
@@ -89,3 +88,6 @@
     =toolbar do |t|
       -t.link :cash_create, {:controller =>:finances, :entity_id=>@entity.id}
     =kame(:entity_cashes)
+  -if File.exist?(Rails.root.join("app", "views", "relations", "_entity_extra.html.haml"))
+    -tb.tab("Extra") do
+      =render :partial=>"entity_extra"
