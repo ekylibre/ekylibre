@@ -1120,7 +1120,7 @@ class ManagementController < ApplicationController
     render_form
   end
 
-  create_kame(:sale_creditable_lines, :model=>:sale_lines, :conditions=>{:sale_id=>['session[:sale_id]']}) do |t|
+  create_kame(:sale_creditable_lines, :model=>:sale_lines, :conditions=>["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
     t.column :name, :through=>:product

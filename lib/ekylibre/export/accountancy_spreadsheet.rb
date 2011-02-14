@@ -47,7 +47,7 @@ module Ekylibre
             # code += "(ic.iconv((#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]) rescue ((#{column[1]}).to_s.#{'l'||column[2]||'l'}just(#{column[0]})[0..#{column[0]-1}]).simpleize)+"
           end
         end
-        code += '"\n"'+")\n"
+        code += '"\n"'+")\r\n"
         code += "end\n"
         ic = Iconv.new('cp1252', 'utf-8')
         filename ||= "#{company.code}.ECC"
