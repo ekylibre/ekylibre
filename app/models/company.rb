@@ -417,7 +417,7 @@ class Company < Ekylibre::Record::Base
     centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")
 
     from_where  = " FROM #{JournalEntryLine.table_name} AS #{journal_entry_lines} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
-    from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
+    from_where += " WHERE #{journal_entry_lines}.company_id=#{self.company_id} AND "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
 
     # Total
     lines = []

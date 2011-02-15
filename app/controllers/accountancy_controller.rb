@@ -290,7 +290,9 @@ class AccountancyController < ApplicationController
 
 
   def balance
-    @balance = @current_company.balance(params) if params[:period]
+    if params[:period]
+      @balance = @current_company.balance(params) 
+    end
   end
 
   def self.general_ledger_conditions(options={})
