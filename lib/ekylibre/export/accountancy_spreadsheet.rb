@@ -36,7 +36,7 @@ module Ekylibre
       def self.generate(company, started_on, stopped_on, filename=nil)
         carre = ""
         code = ""
-        code += "for jel in company.journal_entry_lines.find(:all, :include=>[:journal, {:entry=>:currency}, :account, :bank_statement], :conditions=>['NOT (debit = 0 AND credit = 0) AND printed_on BETWEEN ? AND ?', started_on, stopped_on], :order=>'journals.name, journal_entries.number')\n"
+        code += "for jel in company.journal_entry_lines.find(:all, :include=>[:journal, {:entry=>:currency}, :account, :bank_statement], :conditions=>['NOT (#{JournalEntryLine.table_name}.debit = 0 AND #{JournalEntryLine.table_name}.credit = 0) AND printed_on BETWEEN ? AND ?', started_on, stopped_on], :order=>'journals.name, journal_entries.number')\n"
         code += "      f.puts("
         for column in @@format
           if column[1].blank?
