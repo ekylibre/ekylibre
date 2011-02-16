@@ -75,8 +75,8 @@ class AccountancyController < ApplicationController
   def bookkeep
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
-    # @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
-    @natures = [:purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
+    @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
+    # @natures = [:purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
 
     if request.get?
       notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
@@ -626,7 +626,7 @@ class AccountancyController < ApplicationController
     @journal = @journal_entry.journal
     if request.post?
       @journal_entry.attributes = params[:journal_entry]
-      @journal_entry_lines = (params[:entries]||{}).values
+      @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         redirect_to_back
       end
