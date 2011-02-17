@@ -39,8 +39,8 @@
 class EntityLink < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :entity_1, :class_name=>Entity.name, :dependent=>:destroy
-  belongs_to :entity_2, :class_name=>Entity.name, :dependent=>:destroy
+  belongs_to :entity_1, :class_name=>Entity.name
+  belongs_to :entity_2, :class_name=>Entity.name
   belongs_to :nature, :class_name=>EntityLinkNature.name
 
   before_validation do
