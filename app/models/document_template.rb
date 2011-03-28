@@ -385,7 +385,7 @@ class DocumentTemplate < CompanyRecord
       name = element.name.to_sym
       attributes, parameters = {}, []
       element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-      attributes[:value] ||= element.content if name == :text
+      attributes[:value] ||= element.content.gsub(/\n/, '{{"\\n"}}') if name == :text
       (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), variable, mode)}
       attributes.delete(:if)
       attrs = attrs_to_s(attributes, variable, mode)

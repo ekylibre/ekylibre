@@ -90,22 +90,28 @@ class Entity < CompanyRecord
   belongs_to :responsible, :class_name=>User.name
   belongs_to :supplier_account, :class_name=>Account.to_s
   has_many :cashes, :dependent=>:destroy
-  has_many :custom_field_data
   has_many :contacts, :conditions=>{:deleted_at=>nil}
+  has_many :custom_field_data
   has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
   has_many :events
+  has_many :godchildren, :class_name=>"Entity", :foreign_key=>"proposer_id"
+  has_many :incoming_payments, :foreign_key=>:payer_id
   has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity_2_id
   has_many :mandates
   has_many :observations
   has_many :prices
   has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
   has_many :purchases, :foreign_key=>:supplier_id
+  has_many :outgoing_deliveries, :foreign_key=>:transporter_id
   has_many :outgoing_payments, :foreign_key=>:payee_id
   has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
   has_many :sales, :foreign_key=>:client_id, :order=>"created_on desc"
-  has_many :incoming_payments, :foreign_key=>:payer_id
+  has_many :sale_lines
   has_many :subscriptions
   has_many :trackings, :foreign_key=>:producer_id
+  has_many :transfers, :foreign_key=>:supplier_id
+  has_many :transports, :foreign_key=>:transporter_id
+  has_many :transporter_sales, :foreign_key=>:transporter_id, :order=>"created_on desc", :class_name=>"Sale"
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category
@@ -233,6 +239,33 @@ class Entity < CompanyRecord
     c = self.default_contact
     desc += " ("+c.line_6.to_s+")" unless c.nil?
     desc
+  end
+
+  def merge_with(entity)
+    raise Exception.new("Base entity is not mergeable") if entity.id == entity.company.entity_id
+    ActiveRecord::Base.transaction do
+      # Classics
+      for many in [:cashes, :direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
+        ref = self.class.reflections[many]
+        ref.class_name.constantize.update_all({ref.primary_key_name=>self.id}, {ref.primary_key_name=>entity.id})
+      end
+      # Contact
+      Contact.update_all(["code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false], {:entity_id => entity.id})
+      
+      # Add observation
+      observation = "Merged entity (ID=#{entity.id}) :\n"
+      for attr, value in entity.attributes.sort
+        observation += " - #{Entity.human_attribute_name(attr)} : #{entity.send(attr).to_s}\n"
+      end
+      for custom_field_datum in entity.custom_field_data
+        observation += " * #{custom_field_datum.custom_field.name} : #{custom_field_datum.value.to_s}\n"
+        custom_field_datum.destroy
+      end
+      self.observations.create!(:description=>observation, :importance=>"normal")
+
+      # Remove doublon
+      entity.destroy
+    end
   end
 
 

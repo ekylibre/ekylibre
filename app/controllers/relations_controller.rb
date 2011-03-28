@@ -267,7 +267,7 @@ class RelationsController < ApplicationController
     redirect_to_current
   end
    
-  create_kame(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS  c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
+  create_kame(:entities, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
     t.column :active, :datatype=>:boolean
     t.column :code, :url=>{:action=>:entity}
     t.column :title, :through=>:nature
@@ -278,6 +278,8 @@ class RelationsController < ApplicationController
     t.action :entity_update
     t.action :entity_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
+
+
 
   dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
 

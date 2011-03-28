@@ -45,6 +45,11 @@ class Observation < CompanyRecord
   end
 
 
+  before_validation do
+    self.company ||= self.entity.company if self.entity
+    self.importance ||= "notice"
+  end
+
   def text_importance
     tc('importances.'+self.importance.to_s)
   end

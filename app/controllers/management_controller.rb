@@ -904,7 +904,7 @@ class ManagementController < ApplicationController
 
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number, :comment], :entities=>[:code, :full_name])+"||=[]\n"
     code += "unless session[:sale_state].blank? \n "
     code += "  if session[:sale_state] == 'current' \n "
     code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice') \" \n " 
