@@ -71,7 +71,7 @@ echo "Build directory:     ${tmpdir}"
 echo "Resources directory: ${resdir}"
 
 mkdir -p ${tmpdir}
-# mkdir -p ${datadir}/releases
+mkdir -p ${datadir} # /releases
 
 cd ${tmpdir}
 
