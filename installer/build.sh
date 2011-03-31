@@ -12,10 +12,10 @@ latest=${version}
 # release=${app}-${latest}
 release=${app}-${version}
 
-datadir=$HOME/Public/${app}
+datadir=$HOME/Public/${app}/${version}
 tmpdir=/tmp/${release}
 resdir=${current_dir}/windows/resources
-log=${tmpdir}/build.log
+log=${current_dir}/build-${release}.log
 sources=1
 debian=1
 win32=1
@@ -71,7 +71,7 @@ echo "Build directory:     ${tmpdir}"
 echo "Resources directory: ${resdir}"
 
 mkdir -p ${tmpdir}
-mkdir -p ${datadir}/releases
+# mkdir -p ${datadir}/releases
 
 cd ${tmpdir}
 
@@ -80,7 +80,9 @@ cd ${tmpdir}
 rm -fr ${app}
 mkdir ${app}
 for file in app config config.ru db Gemfile lib LICENSE public Rakefile script vendor VERSION ; do
-    ln -s ${rails_root}/$file $app/
+    if [ -e ${rails_root}/$file ]; then
+	ln -s ${rails_root}/$file $app/
+    fi
 done
 for dir in log private tmp ; do
     mkdir $app/$dir
@@ -149,12 +151,12 @@ fi
 
 # Deploiement
 echo " * Deploying..."
-cd ${datadir}/releases
-rm -fr ${latest}
-mv ${tmpdir}/release ${latest}
-rm -f latest
-ln -s ${latest} latest
-# rm -fr ${tmpdir}
+cd ${datadir} # /releases
+rm -fr * # ${latest}
+mv ${tmpdir}/release/* . # ${latest}
+# rm -f latest
+# ln -s ${latest} latest
+rm -fr ${tmpdir}
 if [ `whoami` = root ]; then
     chown www-data.www-data -R ${datadir}
 fi
