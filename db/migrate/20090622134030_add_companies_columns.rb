@@ -1,27 +1,21 @@
 class AddCompaniesColumns < ActiveRecord::Migration
   def self.up
     add_column :bank_accounts, :bank_name, :string, :limit=>50
-    Price.find(:all).each do |price|
-      if price.currency_id.nil?
-        price.currency_id = Currency.find(:first, :conditions=>{:company_id=>price.company_id}).id
-        price.save
-      end
+
+    if (currencies = select_all("SELECT id, company_id FROM currencies")).size > 0
+      execute "UPDATE prices SET currency_id=COALESCE(currency_id, CASE "+currencies.collect{|x| "WHEN company_id=#{x['company_id']} THEN #{x['id']}"}.join+" ELSE 0 END)"
     end
-    puts "ok"
   
     add_column :products, :product_account_id, :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
     add_column :products, :charge_account_id,  :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
-    
-    Product.find(:all).each do |product|
-      product_account = Account.find(:first, :conditions=>['deleted=false AND number=?','7'])
-      charge_account = Account.find(:first, :conditions=>['deleted=false AND number=? ','6'])
-    
-      product.product_account_id = product_account.id if product.product_account_id.nil?
-      product.charge_account_id = charge_account.id if product.charge_account_id.nil?
-      product.save
-      # puts product_account.inspect
+
+    for company in select_all("SELECT companies.id AS cid, pa.id AS pa_id, ca.id AS ca_id FROM companies LEFT JOIN accounts AS pa ON (pa.company_id=companies.id AND pa.number='7') LEFT JOIN accounts AS ca ON (ca.company_id=companies.id AND ca.number='6')")
+      pa_id = company['pa_id']
+      ca_id = company['ca_id']
+      execute "UPDATE products SET updated_at = CURRENT_TIMESTAMP#{', product_account_id='+pa_id.to_s if pa_id}#{', charge_account_id='+ca_id.to_s if ca_id}"
     end
     
+    remove_index :products, :column=>:account_id
     remove_column :products, :account_id
 
     add_column :companies, :sales_journal_id, :integer, :references=>:journals, :on_delete=>:cascade, :on_update=>:cascade

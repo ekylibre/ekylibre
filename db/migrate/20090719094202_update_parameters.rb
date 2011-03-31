@@ -16,6 +16,7 @@ class UpdateParameters < ActiveRecord::Migration
     end
     execute "INSERT INTO parameters (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'management.invoicing.numeration', 'record', 'Sequence', invoice_sequence_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM companies"
 
+    remove_index :parameters, :column=>:element_id
     remove_column :parameters, :element_id
     remove_column :parameters, :element_type
     

@@ -14,6 +14,8 @@ class DropJournalPeriod < ActiveRecord::Migration
       end
     end
 
+    remove_index :journal_records, :column=>[:period_id]
+    remove_index :journal_records, :column=>[:period_id, :number]
     remove_column :journal_records, :period_id
     drop_table :journal_periods
     remove_column :financialyears, :written_on
@@ -39,12 +41,12 @@ class DropJournalPeriod < ActiveRecord::Migration
     add_index :journal_periods, :financialyear_id
     add_index :journal_periods, :started_on
     add_index :journal_periods, :stopped_on
-    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>:journal_periods_unique
+    add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"journal_periods_unique"
     
     
     add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade 
 
-    execute "insert into journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), cast(extract(year from created_on)||'-'||extract(month from created_on)||'-01' as date),  cast(extract(year from created_on)||'-'||extract(month from created_on)||'-28' as date), closed, company_id, current_timestamp, current_timestamp from journal_records"
+    execute "insert into journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+concantenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from journal_records"
 
     if defined? JournalPeriod
       JournalPeriod.find(:all).each do |period| 

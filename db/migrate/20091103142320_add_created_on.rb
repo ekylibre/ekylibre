@@ -4,10 +4,14 @@ class AddCreatedOn < ActiveRecord::Migration
     add_column :purchase_orders, :created_on, :date
     add_column :transfers, :created_on, :date
     add_column :payments, :created_on, :date
-    
-    execute "UPDATE purchase_orders SET created_on = CAST(created_at AS date) WHERE created_on IS NULL "
-    execute "UPDATE transfers SET created_on = CAST(created_at AS date) WHERE created_on IS NULL "
-    execute "UPDATE payments SET created_on = CAST(created_at AS date) WHERE created_on IS NULL "
+
+    for table in [:purchase_orders, :transfers, :payments]
+      if connection.adapter_name.lower == "sqlserver"
+        execute "UPDATE #{table} SET created_on = created_at WHERE created_on IS NULL"
+      else
+        execute "UPDATE transfers SET created_on = CAST(created_at AS date) WHERE created_on IS NULL"
+      end
+    end
 
     add_column :document_templates, :default, :boolean, :null=>false, :default=>true
     add_column :document_templates, :nature, :string, :limit=>20
