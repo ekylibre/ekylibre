@@ -15,6 +15,7 @@ release=${app}-${version}
 datadir=$HOME/Public/${app}
 tmpdir=/tmp/${release}
 resdir=${current_dir}/windows/resources
+log=${tmpdir}/build.log
 sources=1
 debian=1
 win32=1
@@ -37,6 +38,8 @@ help_message() {
     echo "  -s                     Skip sources packaging"
     echo "  -t TMPDIR              where the files can be compiled"
     echo "                         Default: ${tmpdir}" 
+    echo "  -l LOG_FILE            Log file location"
+    echo "                         Default: ${log}" 
     echo "  -u                     Skip Debian packaging"
     echo "  -w                     Skip Win32 packaging (with NSIS)"
     echo ""
@@ -44,13 +47,14 @@ help_message() {
 }
 
 # Initialize
-while getopts cd:hr:st:uw o
+while getopts cd:hl:r:st:uw o
 do 
     case "$o" in
         c)   checksums=0;;
         d)   datadir="$OPTARG";;
         h)   help_message
             exit 0;;
+        l)   log="$OPTARG";;
         s)   sources=0;;
         r)   resdir="$OPTARG";;
         t)   tmpdir="$OPTARG";;
@@ -87,17 +91,21 @@ done
 # Création du répertoire de base
 rm -fr release
 mkdir -p release
-log=${tmpdir}/log
-mkdir -p $log
+mkdir -p `dirname $log`
+echo "== Build.sh ======================================================================================" > $log
 
 # Sources
 if [ $sources = 1 ]; then
     echo " * Compressing sources..."
+    echo "-- Source Building -------------------------------------------------------------------------------" >> $log
     mkdir -p release/source
     source=${release}-source
-    zip -r    ${source}.zip ${app}   -x "*.svn*" > $log/zip.log
-    tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} > $log/tgz.log
-    tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} > $log/bz2.log
+    echo " * Zip source" >> $log
+    zip -r    ${source}.zip ${app}   -x "*.svn*" >> $log
+    echo " * Gzip source" >> $log
+    tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
+    echo " * Bzip source" >> $log
+    tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
     mv ${source}.* release/source/
 fi
 
@@ -120,10 +128,10 @@ if [ $win32 = 1 ]; then
     mkdir -p ${resources}/apps
     ln -s ${tmpdir}/${app} ${resources}/apps/${app}
     ln -s ${resdir}/* ${resources}/
-    echo "-- Win32 packaging with NSIS --------------------------------------------------------------------" > $log/win32.log
-    date >> $log/win32.log
-    makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log/win32.log
-    date >> $log/win32.log
+    echo "-- Win32 packaging with NSIS --------------------------------------------------------------------" >> $log
+    date >> $log
+    makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
+    date >> $log
     mkdir -p release/win32
     mv ${current_dir}/windows/${release}.exe release/win32
 fi
