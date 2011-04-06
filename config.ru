@@ -1,1 +1,1 @@
-config/config-rack.rb
+config/rack.rb

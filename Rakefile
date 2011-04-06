@@ -1,1 +1,1 @@
-config/rakefile
+config/rakefile.rb
