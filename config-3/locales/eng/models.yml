@@ -304,6 +304,7 @@ eng:
       user: 'User'
       warehouse: 'Warehouse'
   attributes:
+    #>_activation: ' activation'
     account: 'Account'
     account_balances: 'Account balances'
     account_id: 'Account'
@@ -418,7 +419,7 @@ eng:
     country: 'Country'
     created_at: 'Created at'
     created_on: 'Created on'
-    creator: 'Creator' #!
+    creator: 'Creator'
     creator_id: 'Creator'
     credit: 'Credit'
     credit_lines: 'Credit lines' #!
@@ -920,7 +921,7 @@ eng:
     units: 'Units'
     unquantifiable: 'Unquantifiable'
     updated_at: 'Updated at'
-    updater: 'Updater' #!
+    updater: 'Updater'
     updater_id: 'Updater'
     usable_incoming_payments: 'Usable incoming payments'
     usable_outgoing_payments: 'Usable disbursements'
