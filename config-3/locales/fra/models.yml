@@ -1149,7 +1149,7 @@ fra:
         warehouse_name: 'Réserve'
       import:
         dont_use: '-- Ne pas utiliser --'
-        generate_string_complement: '-- Créer un champ personnalisé (texte) --'
+        generate_string_custom_field: '-- Créer un champ personnalisé (texte) --'
       sales: 'Ventes'
     contact:
       error_modify_contact: 'Impossible de modifier un contact'

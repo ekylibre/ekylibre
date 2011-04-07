@@ -136,9 +136,9 @@ class Entity < CompanyRecord
       if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
         errors.add(:last_name, :missing_title, :title=>self.nature.title)
       end
-      if not self.nature.physical and not self.first_name.blank?
-        errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 
-      end
+      # if not self.nature.physical and not self.first_name.blank?
+      #   errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 
+      # end
     end
   end
     

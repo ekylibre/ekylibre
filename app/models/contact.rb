@@ -121,8 +121,7 @@ class Contact < CompanyRecord
   end
 
   def line_6_code=(value)
-    self.line_6 ||= ""
-    self.line_6 = (value+" "+self.line_6).strip
+    self.line_6 = (value.to_s+" "+self.line_6.to_s).strip
   end
 
   def line_6_city
@@ -130,8 +129,7 @@ class Contact < CompanyRecord
   end
 
   def line_6_city=(value)
-    self.line_6 ||= ""
-    self.line_6 = (self.line_6+" "+value).strip
+    self.line_6 = (self.line_6.to_s+" "+value.to_s).strip
   end
 
   def lines(sep=', ', with_city=true, with_country=true)

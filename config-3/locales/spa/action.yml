@@ -932,6 +932,7 @@ spa:
     #>select_columns: 'Select columns'
     #>select_date: 'Select date'
     select_date_generation: 'Fecha limita de integración'
+    #>select_document: 'Select document'
     #>select_existing_payment: 'Select existing payment'
     #>select_file_to_upload: 'Select file to upload'
     select_financial_year: 'Ejercicio'

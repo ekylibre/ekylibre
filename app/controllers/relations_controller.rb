@@ -18,6 +18,10 @@
 
 class RelationsController < ApplicationController
 
+  dyli :clients_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_clients_accounts.to_s+'%'"]]
+  dyli :suppliers_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_suppliers_accounts.to_s+'%'"]]
+  dyli :attorneys_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_attorneys_accounts.to_s+'%'"]]
+
 
   create_kame(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
     t.column :started_at
@@ -436,7 +440,7 @@ class RelationsController < ApplicationController
   
   #
   def entity_create
-    @custom_fields = @current_company.custom_fields.find(:all,:order=>:position)
+    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
     @custom_field_data = []
     
     if request.post?
@@ -487,7 +491,7 @@ class RelationsController < ApplicationController
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
        
-    @custom_fields = @current_company.custom_fields.find(:all,:order=>:position)
+    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
@@ -651,7 +655,9 @@ class RelationsController < ApplicationController
     code += "    conditions << session[:mandates][:organization] \n"
     code += "  end \n"
     code += "  unless session[:mandates][:date].blank? \n"
-    code += "    conditions[0] += ' AND (? BETWEEN started_on AND stopped_on)'\n"
+    code += "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
+    code += "    conditions << session[:mandates][:date].to_s \n"
+    code += "    conditions << session[:mandates][:date].to_s \n"
     code += "    conditions << session[:mandates][:date].to_s \n"
     code += "  end \n"
     code += "end \n"
@@ -746,7 +752,7 @@ class RelationsController < ApplicationController
     session[:event_key] = params[:key]||session[:event_key]
   end
   
-  manage :events, :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now"
+  manage :events, :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
 
 
   def entities_export
@@ -761,7 +767,7 @@ class RelationsController < ApplicationController
       @conditions += ["generic-district-name"]
       if request.post?
         from  = " FROM #{Entity.table_name} AS entity"
-        from += " LEFT JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.active AND contact.company_id=#{@current_company.id})"
+        from += " LEFT JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.by_default IS TRUE AND contact.deleted_at IS NULL AND contact.company_id=#{@current_company.id})"
         from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id AND area.company_id=#{@current_company.id})"
         from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id AND district.company_id=#{@current_company.id})"
         where = " WHERE entity.active AND entity.company_id=#{@current_company.id}"
@@ -790,7 +796,7 @@ class RelationsController < ApplicationController
                        subn = preferences[preferences[:nature]]
                        products = (subn[:products]||{}).select{|k,v| v.to_i==1 }.collect{|k,v| k}
                        products = "product_id IN (#{products.join(', ')})" if products.size > 0
-                       products = "#{products+' OR ' if products.is_a? String}#{'product_id IS NULL' if subn[:no_products]}"
+                       products = "#{products+' OR ' if products.is_a?(String) and subn[:no_products]}#{'product_id IS NULL' if subn[:no_products]}"
                        products = " AND (#{products})" unless products.blank?
                        subscribed_on = ""
                        if subn[:use_subscribed_on]

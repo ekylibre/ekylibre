@@ -19,15 +19,15 @@ jpn:
   datetime:
     distance_in_words:
       about_x_hours:
-        #>many: 'about %{count} hours'
-        #>one: 'about 1 hour'
+        many: '約%{count}時間'
+        one: '約%{count}時間'
       about_x_months:
-        #>many: 'about %{count} months'
-        #>one: 'about 1 month'
+        many: '約%{count}ヶ月'
+        one: '約%{count}ヶ月'
       about_x_years:
-        #>many: 'about %{count} years'
-        #>one: 'about 1 year'
-      #>half_a_minute: 'half a minute'
+        many: '約%{count}年'
+        one: '約%{count}年'
+      half_a_minute: '分半'
       less_than_x_minutes:
         #>many: 'less than %{count} minutes'
         #>one: 'less than a minute'
@@ -38,17 +38,17 @@ jpn:
         #>many: 'over %{count} years'
         #>one: 'over 1 year'
       x_days:
-        #>many: '%{count} days'
-        #>one: '1 day'
+        many: '%{count}日間'
+        one: '%{count}日間'
       x_minutes:
-        #>many: '%{count} minutes'
-        #>one: '1 minute'
+        many: '%{count}分間'
+        one: '%{count}分間'
       x_months:
-        #>many: '%{count} months'
-        #>one: '1 month'
+        many: '%{count}ヶ月間'
+        one: '%{count}ヶ月間'
       x_seconds:
-        #>many: '%{count} secondes'
-        #>one: '1 seconde'
+        many: '%{count}秒間'
+        one: '%{count}秒間'
   kame:
     columns: '列'
     export:
@@ -76,19 +76,19 @@ jpn:
         #>separator: '.'
         #>unit: '$'
     format:
-      #>delimiter: ' '
-      #>precision: 3
-      #>separator: ','
+      delimiter: ' '
+      precision: 3
+      separator: ','
     human:
       format:
-        #>delimiter: ''
-        #>precision: 1
+        delimiter: ''
+        precision: 1
     percentage:
       format:
-        #>delimiter: ''
+        delimiter: ''
     precision:
       format:
-        #>delimiter: ''
+        delimiter: ''
   support:
     array:
       last_word_connector: 'と'

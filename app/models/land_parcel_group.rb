@@ -39,11 +39,12 @@ class LandParcelGroup < CompanyRecord
   has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
   validates_uniqueness_of :name, :scope=>:company_id
 
-  def area(computed_on=Date.today)
+  def area(computed_on=Date.today, unit=nil)
     sum = 0
     parcels = self.land_parcels_on(computed_on)
+    unit ||= parcels[0].area_unit
     for land_parcel in parcels
-      sum += land_parcel.area(parcels[0].area_unit)
+      sum += land_parcel.area(unit)
     end
     return sum
   end

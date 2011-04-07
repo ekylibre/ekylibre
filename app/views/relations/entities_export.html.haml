@@ -30,7 +30,7 @@
               =hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
               =hidden_field_tag("columns[#{code}][order]", index+=1)
               =hidden_field_tag("columns[#{code}][check]", 0)
-              =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean"), :id=>"columns_#{code}_check_f")
+              =check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean" and c.active), :id=>"columns_#{code}_check_f")
               =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
             
       .end

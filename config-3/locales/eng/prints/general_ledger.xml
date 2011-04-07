@@ -33,12 +33,10 @@
 	</part>
 	<table collection="account.journal_entry_lines_between(started_on, stopped_on)" fixed="true" if="account.journal_entry_lines_between(started_on, stopped_on).size &gt; 0">
 	  <column label="Date" property="entry/printed_on" width="20mm"/>
-	  <column label="Créée le" property="entry/created_on" width="20mm"/>
-	  <column label="Numéro" property="entry/number" width="15mm" align="left"/>
-	  <column label="Journal" property="entry/journal/code" width="15mm" align="center" font="courrier"/>
-	  <column label="Libellé de l'écriture" property="name" width="80mm"/>
-	  <column label="Débit" property="debit" width="20mm" numeric="money"/>
-	  <column label="Crédit" property="credit" width="20mm" numeric="money"/>
+	  <column label="Number" property="entry/number" width="30mm" align="left"/>
+	  <column label="Label of journal entry" property="name" width="100mm"/>
+	  <column label="Debit" property="debit" width="20mm" numeric="money"/>
+	  <column label="Credit" property="credit" width="20mm" numeric="money"/>
 	</table>
       
 	<!-- Sum -->

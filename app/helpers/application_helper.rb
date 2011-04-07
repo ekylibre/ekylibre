@@ -146,7 +146,7 @@ module ApplicationHelper
      {:name=>:production, :list=>
        [ {:name=>:production, :list=>
            [ {:name=>:land_parcels},
-             {:name=>:production_chains},
+             # {:name=>:production_chains},
              {:name=>:operations}
            ] },
          {:name=>:parameters, :list=>
@@ -375,7 +375,7 @@ module ApplicationHelper
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
-    elsif value.is_a? Date
+    elsif ["Date", "Time", "DateTime"].include? value.class.name
       value = ::I18n.localize(value)
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif options[:duration]
@@ -720,9 +720,9 @@ module ApplicationHelper
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
       if src.match(/^theme:/)
-        src = compute_public_path(src.split(':')[1], "themes/#{@current_theme}/images") 
+        src = File.join(Rails.public_path, "themes", @current_theme, "images", src.split(':')[1])
       else
-        src = compute_public_path(src, "images") 
+        src = File.join(Rails.public_path, "images", src)
       end
       '<img class="md md-'+align+'" alt="'+title+'" title="'+title+'" src="'+src+'"/>'
     end

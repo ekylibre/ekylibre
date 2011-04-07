@@ -339,8 +339,10 @@ manage_document_templates:
 manage_entities:
   controller: relations
   actions:
+  - attorneys_accounts_dyli
   - auto_complete_for_contact_line_6
   - auto_complete_for_entity_origin
+  - clients_accounts_dyli
   - contact_create
   - contact_delete
   - contact_update
@@ -356,6 +358,7 @@ manage_entities:
   - entity_subscriptions_kame
   - entity_update
   - index
+  - suppliers_accounts_dyli
 # Manage people natures
 manage_entities_natures:
   controller: relations

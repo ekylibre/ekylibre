@@ -43,7 +43,7 @@ class CustomField < CompanyRecord
   acts_as_list
   attr_readonly :company_id, :nature
   belongs_to :company
-  has_many :choices, :class_name=>CustomFieldChoice.to_s
+  has_many :choices, :class_name=>CustomFieldChoice.to_s, :order=>:position
   has_many :data, :class_name=>CustomFieldDatum.to_s
   validates_inclusion_of :nature, :in=>NATURES
    

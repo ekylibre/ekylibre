@@ -304,7 +304,6 @@ eng:
       user: 'User'
       warehouse: 'Warehouse'
   attributes:
-    #>_activation: ' activation'
     account: 'Account'
     account_balances: 'Account balances'
     account_id: 'Account'
@@ -1124,7 +1123,7 @@ eng:
         warehouse_name: 'Warehouse'
       import:
         dont_use: '-- Do not use --'
-        generate_string_complement: '-- Create a personalized field (text) --'
+        generate_string_custom_field: '-- Create a personalized field (text) --'
       sales: 'sales'
     contact:
       error_modify_contact: 'The contact can not be updated.'

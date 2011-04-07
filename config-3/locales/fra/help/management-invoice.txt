@@ -1,6 +1,0 @@
-====== L'affichage d'une facture ======
-
-Vous avez accès au récapitulatif des **informations de la facture**. Ses **lignes** vous sont également présentées. Pour une facture, le **numéro de la vente** est un lien vous redirigeant vers le récapitulatif de la vente à l'origine de la facture. Dans le cas d'un avoir, le **numéro de la facture d'origine** est un lien vous redirigeant vers l'affichage de celle-ci.
-
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

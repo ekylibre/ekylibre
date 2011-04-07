@@ -978,6 +978,7 @@ arb:
     select_columns: 'ضع علامة على العمود الذي ترغب باظهاره في الجدول'
     select_date: 'ادخل تاريخ'
     select_date_generation: 'تاريخ نهاية الدمج'
+    #>select_document: 'Select document'
     select_existing_payment: 'ختيار الدفعة الموجودة'
     #>select_file_to_upload: 'Select file to upload'
     select_financial_year: 'ممارسة'

@@ -76,7 +76,6 @@ class AccountancyController < ApplicationController
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
     @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
-    # @natures = [:purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
 
     if request.get?
       notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
@@ -262,7 +261,7 @@ class AccountancyController < ApplicationController
       if params[:export] == "balance"
         query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
         query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
-        query += " WHERE journal_entry_lines=#{@current_company.id} AND printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
+        query += " WHERE journal_entry_lines.company_id=#{@current_company.id} AND printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
         query += " GROUP BY accounts.name, accounts.number"
         query += " ORDER BY accounts.number"
         begin
@@ -668,9 +667,9 @@ class AccountancyController < ApplicationController
 
 
   
-  create_kame(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on ASC") do |t|
-    t.column :number, :url=>{:action=>:bank_statement}
+  create_kame(:bank_statements, :conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :name, :through=>:cash, :url=>{:action=>:cash, :controller=>:finances}
+    t.column :number, :url=>{:action=>:bank_statement}
     t.column :started_on
     t.column :stopped_on
     t.column :debit

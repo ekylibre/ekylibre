@@ -792,10 +792,10 @@ class Company < Ekylibre::Record::Base
           attributes[:filename] ||= "File"
           attributes[:to_archive] = true if attributes[:to_archive] == "true"
           code = attributes[:name].to_s.codeize[0..7]
-          if doc = self.document_templates.find_by_code(code)
-            doc.destroy
-          end
-          self.document_templates.create!({:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes))
+          doc = self.document_templates.find_by_code(code)
+          doc ||= self.document_templates.new
+          doc.attributes = {:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes)
+          doc.save!()
         end
         #rescue
         #end
@@ -939,7 +939,7 @@ class Company < Ekylibre::Record::Base
   end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
+    column = (column == :balance ? "#{JournalEntryLine.table_name}.currency_debit - #{JournalEntryLine.table_name}.currency_credit" : "#{JournalEntryLine.table_name}.currency_#{column}")
     self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
@@ -978,8 +978,8 @@ class Company < Ekylibre::Record::Base
     line_index = 1
     code  = "ActiveRecord::Base.transaction do\n"
     unless cols[:entity_nature].is_a? Hash
-      code += "  nature = self.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
-      code += "  nature = self.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+      code += "  nature = self.entity_natures.find(:first, :conditions=>['title=? OR name=?', '-', '-'])\n"
+      code += "  nature = self.entity_natures.create!(:title=>'', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
     end
     unless cols[:entity_category].is_a? Hash
       code += "  category = self.entity_categories.find(:first, :conditions=>['name=? or code=?', '-', '-'])\n"
@@ -1010,9 +1010,9 @@ class Company < Ekylibre::Record::Base
       code += "    end unless category\n"
     end
 
-    code += "    puts [nature, category].inspect\n"
+    # code += "    puts [nature, category].inspect\n"
 
-    code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language=>#{self.entity.language}, :client=>true)\n"
+    code += "    entity = self.entities.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language=>#{self.entity.language.inspect}, :client=>true)\n"
     code += "    if entity.save\n"
     if cols[:contact].is_a? Hash
       code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" 

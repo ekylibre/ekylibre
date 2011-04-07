@@ -354,9 +354,10 @@ class DocumentTemplate < CompanyRecord
       when :resize, :fixed, :bold, :italic then
         v.lower == "true" ? "true" : "false"
       when :value, :label
+        # v = "'"+v.gsub(/\'/, '\\\\\'')+"'"
         v = "'"+v.gsub(/\'/, '\\\\\'')+"'"
         v = v.gsub(/\{\{[^\}]+\}\}/) do |m|
-          data = m[2..-3].to_s.split('?')
+          data = m[2..-3].to_s.gsub('\\\'', '\'').split('?')
           datum = data[0].gsub('/', '.')
           datum = case data[1].to_s.split('=')[0]
                   when 'format'

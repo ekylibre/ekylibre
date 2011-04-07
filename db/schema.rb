@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "lock_version",                                     :default => 0,   :null => false
   end
 
-  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balannces_unique", :unique => true
+  add_index "account_balances", ["account_id", "financial_year_id", "company_id"], :name => "account_balances_unique", :unique => true
   add_index "account_balances", ["company_id"], :name => "index_account_balances_on_company_id"
   add_index "account_balances", ["created_at"], :name => "index_account_balances_on_created_at"
   add_index "account_balances", ["creator_id"], :name => "index_account_balances_on_creator_id"
@@ -495,10 +495,10 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  :default => 0, :null => false
-    t.string   "subdir",                       :null => false
-    t.string   "extension",                    :null => false
-    t.integer  "owner_id",                     :null => false
-    t.string   "owner_type",                   :null => false
+    t.string   "subdir"
+    t.string   "extension"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.integer  "template_id"
     t.string   "nature_code"
   end
@@ -568,7 +568,6 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   end
 
   add_index "entities", ["code", "company_id"], :name => "index_entities_on_code_and_company_id", :unique => true
-  add_index "entities", ["code"], :name => "entities_codes"
   add_index "entities", ["company_id"], :name => "index_entities_on_company_id"
   add_index "entities", ["created_at"], :name => "index_entities_on_created_at"
   add_index "entities", ["creator_id"], :name => "index_entities_on_creator_id"
@@ -894,7 +893,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                           :default => '2009-07-31', :null => false
+    t.date     "to_bank_on",                                           :default => '0001-01-01', :null => false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
     t.boolean  "scheduled",                                            :default => false,        :null => false
@@ -1079,9 +1078,11 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.integer  "lock_version",                        :default => 0, :null => false
   end
 
+  add_index "land_parcel_kinships", ["child_land_parcel_id", "company_id"], :name => "index_land_parcel_kinships_child"
   add_index "land_parcel_kinships", ["company_id"], :name => "index_land_parcel_kinships_on_company_id"
   add_index "land_parcel_kinships", ["created_at"], :name => "index_land_parcel_kinships_on_created_at"
   add_index "land_parcel_kinships", ["creator_id"], :name => "index_land_parcel_kinships_on_creator_id"
+  add_index "land_parcel_kinships", ["parent_land_parcel_id", "company_id"], :name => "index_land_parcel_kinships_parent"
   add_index "land_parcel_kinships", ["updated_at"], :name => "index_land_parcel_kinships_on_updated_at"
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
@@ -1583,6 +1584,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_conveyors", ["company_id"], :name => "index_production_chain_conveyors_on_company_id"
   add_index "production_chain_conveyors", ["created_at"], :name => "index_production_chain_conveyors_on_created_at"
   add_index "production_chain_conveyors", ["creator_id"], :name => "index_production_chain_conveyors_on_creator_id"
+  add_index "production_chain_conveyors", ["production_chain_id", "company_id"], :name => "index_production_chain_conveyors_chain"
   add_index "production_chain_conveyors", ["updated_at"], :name => "index_production_chain_conveyors_on_updated_at"
   add_index "production_chain_conveyors", ["updater_id"], :name => "index_production_chain_conveyors_on_updater_id"
 
@@ -1602,6 +1604,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_work_center_uses", ["creator_id"], :name => "index_production_chain_work_center_uses_on_creator_id"
   add_index "production_chain_work_center_uses", ["updated_at"], :name => "index_production_chain_work_center_uses_on_updated_at"
   add_index "production_chain_work_center_uses", ["updater_id"], :name => "index_production_chain_work_center_uses_on_updater_id"
+  add_index "production_chain_work_center_uses", ["work_center_id", "company_id"], :name => "index_production_chain_work_center_uses_work_center"
 
   create_table "production_chain_work_centers", :force => true do |t|
     t.integer  "production_chain_id",                :null => false
@@ -1622,6 +1625,8 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "production_chain_work_centers", ["company_id"], :name => "index_production_chain_work_centers_on_company_id"
   add_index "production_chain_work_centers", ["created_at"], :name => "index_production_chain_work_centers_on_created_at"
   add_index "production_chain_work_centers", ["creator_id"], :name => "index_production_chain_work_centers_on_creator_id"
+  add_index "production_chain_work_centers", ["operation_nature_id", "company_id"], :name => "index_production_chain_work_centers_nature"
+  add_index "production_chain_work_centers", ["production_chain_id", "company_id"], :name => "index_production_chain_work_centers_chain"
   add_index "production_chain_work_centers", ["updated_at"], :name => "index_production_chain_work_centers_on_updated_at"
   add_index "production_chain_work_centers", ["updater_id"], :name => "index_production_chain_work_centers_on_updater_id"
 
@@ -2064,7 +2069,6 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
     t.text     "comment"
     t.string   "number"
     t.integer  "sale_line_id"
-    t.string   "_activation"
   end
 
   add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"
@@ -2130,11 +2134,6 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "taxes", ["paid_account_id"], :name => "index_taxes_on_account_paid_id"
   add_index "taxes", ["updated_at"], :name => "index_taxes_on_updated_at"
   add_index "taxes", ["updater_id"], :name => "index_taxes_on_updater_id"
-
-  create_table "test", :id => false, :force => true do |t|
-    t.integer "id",                    :null => false
-    t.string  "moncul", :limit => nil
-  end
 
   create_table "tools", :force => true do |t|
     t.string   "name",                                                                    :null => false

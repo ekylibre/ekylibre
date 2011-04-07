@@ -86,7 +86,7 @@ class CompanyController < ApplicationController
   def help
     @per_page = 10
     if request.xhr?
-      render :text=>article(params[:article], :url=>{:controller=>:company, :action=>:help, :article=>'\1'}, :update=>:helpage)
+      render :inline=>"<%=article(params[:article], :url=>{:controller=>:company, :action=>:help, :article=>'\1'}, :update=>:helpage)-%>"
     else
       @key = params[:key]||session[:help_key]
       session[:help_key] = @key

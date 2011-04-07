@@ -39,7 +39,7 @@
     -l.attribute :attorney_account, :url=>{:controller=>:accountancy, :action=>:account}
   -l.attribute :transporter
   -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
-    -l.custom datum.custom_field.name, datum.value.to_s unless datum.value.to_s.blank?
+    -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
 
  
 =tabbox(:entity) do |tb|

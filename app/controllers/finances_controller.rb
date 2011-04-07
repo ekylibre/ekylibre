@@ -165,7 +165,7 @@ class FinancesController < ApplicationController
     t.column :amount, :url=>{:action=>:incoming_payment}
   end
 
-  create_kame(:depositable_payments, :model=>:incoming_payments, :conditions=>["company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  create_kame(:depositable_payments, :model=>:incoming_payments, :conditions=>["#{IncomingPayment.table_name}.company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :number, :url=>{:action=>:incoming_payment}
     t.column :full_name, :through=>:payer, :url=>{:action=>:entity, :controller=>:relations}
     t.column :bank

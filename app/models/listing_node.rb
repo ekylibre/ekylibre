@@ -109,7 +109,9 @@ class ListingNode < CompanyRecord
     elsif self.reflection?
       self.name = self.attribute_name.to_s+"_0"
     else
-      self.sql_type = self.convert_sql_type(self.parent.model.columns_hash[self.attribute_name].type.to_s)
+      if self.parent.model
+        self.sql_type = self.convert_sql_type(self.parent.model.columns_hash[self.attribute_name].type.to_s)
+      end
       #raise Exception.new self.attribute_name.inspect
       self.name = self.parent.name.underscore+"."+self.attribute_name
     end
@@ -206,8 +208,8 @@ class ListingNode < CompanyRecord
     if self.root?
       self.listing.root_model
     else
-      self.parent.model.reflections[self.attribute_name.to_sym].class_name
-    end.classify.constantize
+      self.parent.model.reflections[self.attribute_name.to_sym].class_name 
+    end.classify.constantize l rescue nil
   end
 
   def reflection
@@ -221,8 +223,7 @@ class ListingNode < CompanyRecord
   
   def available_nodes
     nodes = []
-    return nodes unless self.reflection?
-    model = self.model
+    return nodes unless self.reflection? and model = self.model
     # Columns
     nodes << [tc(:columns), [[tc(:all_columns), 'special-all_columns']]+model.content_columns.collect{|x| [model.human_attribute_name(x.name.to_s).to_s, "column-"+x.name]}.sort ]
     # Reflections

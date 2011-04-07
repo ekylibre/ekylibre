@@ -1,8 +1,0 @@
-====== Commandes en attente de réception ======
-
-
-Vous avez la liste des achats récemment réalisés et pour lesquels la réception n'a pas été confirmée. Il vous suffit de **cocher les livraisons que vous avez reçues** et ensuite de valider.
-
-Ceci permet de mettre à jour vos achats et votre gestion des stocks.
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

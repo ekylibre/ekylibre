@@ -161,7 +161,7 @@ class Account < CompanyRecord
   def mark(line_ids, letter = nil)
     conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
     lines = self.journal_entry_lines.find(:all, :conditions=>conditions)
-    return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.sum("debit-credit").to_f.zero?
+    return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.collect{|l| l.debit-l.credit}.sum.to_f.zero?
     letter ||= self.new_letter
     self.journal_entry_lines.update_all({:letter=>letter}, conditions)
     return letter
@@ -180,11 +180,11 @@ class Account < CompanyRecord
   end
 
   def journal_entry_lines_between(started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, journal_entry_lines.id")
+    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, #{JournalEntryLine.table_name}.id")
   end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "currency_debit - currency_credit" : "currency_#{column}")
+    column = (column == :balance ? "#{JournalEntryLine.table_name}.currency_debit - #{JournalEntryLine.table_name}.currency_credit" : "#{JournalEntryLine.table_name}.currency_#{column}")
     self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 

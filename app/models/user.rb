@@ -135,13 +135,13 @@ class User < CompanyRecord
 
   def diff_more(right_markup = 'div', separator='')
     return '<div>&infin;</div>'.html_safe if self.admin?
-    (self.rights_array-self.role.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
+    (self.rights_array-self.role.rights_array).select{|x| User.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
   end
 
 
   def diff_less(right_markup = 'div', separator='')
     return '' if self.admin?
-    (self.role.rights_array-self.rights_array).collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
+    (self.role.rights_array-self.rights_array).select{|x| User.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
   end
 
   def password

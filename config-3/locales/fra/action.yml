@@ -918,6 +918,7 @@ fra:
     select_columns: 'Cochez les colonnes que vous voulez voir apparaitre dans le tableau.'
     select_date: 'Entrez une date'
     select_date_generation: 'Date limite d''intégration'
+    select_document: 'Sélectionnez un document'
     select_existing_payment: 'Sélectionner un encaissement existant'
     select_file_to_upload: 'Sélectionnez le fichier à importer'
     select_financial_year: 'Exercice'

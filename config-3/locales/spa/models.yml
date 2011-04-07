@@ -1135,7 +1135,7 @@ spa:
         #>warehouse_name: 'Warehouse'
       import:
         #>dont_use: '-- Do not use --'
-        #>generate_string_complement: '-- Create a personalized field (text) --'
+        #>generate_string_custom_field: '-- Create a personalized field (text) --'
       #>sales: 'sales'
     complement: #!
     contact:

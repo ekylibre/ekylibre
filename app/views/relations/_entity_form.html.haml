@@ -41,15 +41,18 @@
   -f.field :entity, :reduction_rate
   -f.field :entity, :authorized_payments_count
   -f.field :entity, :deliveries_conditions, :field=>:textarea
-  -f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_clients_accounts})
+  -f.field :entity, :client_account_id, :choices=>:clients_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_clients_accounts}
+  -#####-f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_clients_accounts})
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier_informations
-  -f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_suppliers_accounts}
+  -f.field :entity, :supplier_account_id, :choices=>:suppliers_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_suppliers_accounts}
+  -#####-f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_suppliers_accounts}
 
 =formalize(:id=>:attorney_form) do |f|
   -f.title :attorney
-  -f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_attorneys_accounts}
+  -f.field :entity, :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_attorneys_accounts}
+  -#####-f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_attorneys_accounts}
 
 =render :partial=>"coordinates_form", :locals => {:company => @current_company}
 

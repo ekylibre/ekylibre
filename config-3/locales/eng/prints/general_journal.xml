@@ -25,11 +25,9 @@
       
       <!-- Array of entries of the journal for the matching period -->
       <table collection="company.journal_entry_lines_between(started_on, stopped_on)" fixed="true">
-	<column label="Date" property="entry/printed_on" width="20mm"/>
-	<column label="Créée le" property="entry/created_on" width="20mm"/>
-	<column label="Numéro" property="entry/number" width="15mm" align="left"/>
-	<column label="Journal" property="entry/journal/code" width="15mm" align="center" font="courrier"/>
-	<column label="Libellé de l'écriture" property="name" width="60mm"/>
+	<column label="Date" property="entry/printed_on" width="19mm"/>
+	<column label="Number" property="entry/number" width="24mm" align="left"/>
+	<column label="Label of entry" property="name" width="87mm"/>
 	<column label="N°Compte" property="account/number" width="20mm"/>
 	<column label="Débit" property="debit" width="20mm" numeric="money"/>
 	<column label="Crédit" property="credit" width="20mm" numeric="money"/>

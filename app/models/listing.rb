@@ -65,12 +65,17 @@ class Listing < CompanyRecord
   end
 
   def generate
-    conn = self.class.connection
-    root = self.root
-    query = "SELECT "+self.exportable_columns.collect{|n| "#{n.name} AS "+conn.quote_column_name(n.label)}.join(", ")
-    query += " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
-    query += " WHERE "+self.compute_where
-    query += " ORDER BY "+self.exportable_columns.collect{|n| n.name}.join(", ")
+    query = ""
+    begin
+      conn = self.class.connection
+      root = self.root
+      query = "SELECT "+self.exportable_columns.collect{|n| "#{n.name} AS "+conn.quote_column_name(n.label)}.join(", ")
+      query += " FROM #{root.model.table_name} AS #{root.name}"+root.compute_joins
+      query += " WHERE "+self.compute_where
+      query += " ORDER BY "+self.exportable_columns.collect{|n| n.name}.join(", ")
+    rescue
+      query = ""
+    end
     return query
   end
 

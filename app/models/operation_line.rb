@@ -48,6 +48,7 @@ class OperationLine < CompanyRecord
   belongs_to :warehouse
   belongs_to :operation
   belongs_to :product
+  belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit
   validates_presence_of :product_id

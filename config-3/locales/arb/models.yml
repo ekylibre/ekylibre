@@ -1601,7 +1601,8 @@ arb:
         warehouse_name: 'المخزون'
       import:
         dont_use: '-- لعدم الاسعمال--'
-        generate_string_complement: '--(انشاء حقل مخصص (للنص--'
+        generate_string_complement: '--(انشاء حقل مخصص (للنص--' #!
+        #>generate_string_custom_field: '-- Create a personalized field (text) --'
       purchase_creation: 'انشاء طلب شراء' #!
       sale_creation: 'انشاء طلب تحديد الاسعار' #!
       sales: 'المبيعات'

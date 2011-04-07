@@ -27,7 +27,7 @@ fra:
       about_x_years:
         many: 'about %{count} years'
         one: 'about 1 year'
-      half_a_minute: 'half a minute'
+      half_a_minute: 'demi-minute'
       less_than_x_minutes:
         many: 'less than %{count} minutes'
         one: 'less than a minute'
