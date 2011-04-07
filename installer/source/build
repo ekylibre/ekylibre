@@ -4,12 +4,24 @@ version=$2
 log=$3
 
 source=${app}-${version}-source
-echo " * Zip source" >> $log
-zip -r    ${source}.zip ${app} -x "*.svn*" >> $log
-echo " * Gzip source" >> $log
-tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
-echo " * Bzip source" >> $log
-tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
+
+if [ -n "`which zip`" ]; then
+    echo "   * Zip source" >> $log
+    zip -r    ${source}.zip ${app} -x "*.svn*" >> $log
+else
+    echo "   * No zip command"
+    echo "   * No zip command" >> $log
+fi
+
+if [ -n "`which tar`" ]; then
+    echo "   * Gzip source" >> $log
+    tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
+    echo "   * Bzip source" >> $log
+    tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
+else
+    echo "   * No tar command"
+    echo "   * No tar command" >> $log
+fi
 
 mkdir packages
 mv ${source}.* packages

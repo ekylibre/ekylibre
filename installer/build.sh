@@ -104,6 +104,7 @@ do
 	echo "------------------------------------------------------------------------------------------" >> $log
 	echo "  Build ${build} packages" >> $log
 	echo "------------------------------------------------------------------------------------------" >> $log
+	rm -fr ${tmpdir}/${build}
 	mkdir -p ${tmpdir}/${build}
 	cd ${tmpdir}/${build}
 	ln -s ../${app}
@@ -112,7 +113,7 @@ do
 	# Move packages
 	packages="`pwd`/packages"
 	if [ -e ${packages} ]; then
-	    mv ${packages} ${datadir}/${build}
+	    cp -r ${packages} ${datadir}/${build}
 	else
 	    echo "ERROR: Unable to find the directory named '${packages}' which is theoretically produced by ${script}"
 	fi

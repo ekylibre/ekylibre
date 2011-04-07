@@ -5,14 +5,14 @@ log=$3
 
 release=${app}-${version}
 
-resources=${tmpdir}/win32
-rm -fr ${resources}		
-mkdir -p ${resources}/apps
-ln -s ${tmpdir}/${app} ${resources}/apps/${app}
-ln -s ${resdir}/* ${resources}/
-echo " * Start packaging with NSIS at `date`" >> $log
-makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
-echo " * Finish packaging with NSIS at `date`" >> $log
+# resources=${tmpdir}/win32
+# rm -fr ${resources}		
+# mkdir -p ${resources}/apps
+# ln -s ${tmpdir}/${app} ${resources}/apps/${app}
+# ln -s ${resdir}/* ${resources}/
+# echo " * Start packaging with NSIS at `date`" >> $log
+# makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
+# echo " * Finish packaging with NSIS at `date`" >> $log
 
 mkdir -p packages
-mv ${current_dir}/windows/${release}.exe packages/
+# mv ${current_dir}/windows/${release}.exe packages/
