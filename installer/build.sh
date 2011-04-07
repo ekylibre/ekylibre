@@ -33,7 +33,7 @@ help_message() {
     echo "  -d DATADIR             where the binary are stored"
     echo "                         Default: ${datadir}" 
     echo "  -h                     display help message"
-    echo "  -r RESDIR              where the resources files can be found (for Win32 installer)"
+    echo "  -r RESDIR              where the resources files can be found"
     echo "                         Default: ${resdir}"
     echo "  -s                     Skip sources packaging"
     echo "  -t TMPDIR              where the files can be compiled"
@@ -96,6 +96,33 @@ mkdir -p release
 mkdir -p `dirname $log`
 echo "== Build.sh ======================================================================================" > $log
 
+for build in source win32 debian
+do
+    script=${current_dir}/${build}/build
+    if [ -e ${script} ]; then
+	echo " * Building ${build} packages..."
+	echo "------------------------------------------------------------------------------------------" >> $log
+	echo "  Build ${build} packages" >> $log
+	echo "------------------------------------------------------------------------------------------" >> $log
+	mkdir -p ${tmpdir}/${build}
+	cd ${tmpdir}/${build}
+	ln -s ../${app}
+	# Build packages
+	${current_dir}/${build}/build ${app} ${version} ${log}
+	# Move packages
+	packages="`pwd`/packages"
+	if [ -e ${packages} ]; then
+	    mv ${packages} ${datadir}/${build}
+	else
+	    echo "ERROR: Unable to find the directory named '${packages}' which is theoretically produced by ${script}"
+	fi
+    else
+	echo " * Warning: Can not build ${build} packages. No build script found."
+    fi
+done
+
+exit 0
+
 # Sources
 if [ $sources = 1 ]; then
     echo " * Compressing sources..."
@@ -115,6 +142,7 @@ fi
 # Debian
 if [ $debian = 0 ]; then
     echo " * Debian compilation..."
+    
     # rake -f ${current_dir}/debian/Rakefile build APP=${app} VERSION=${version}
     cp -r ${current_dir}/debian/
     mkdir -p debian/${app}-common/

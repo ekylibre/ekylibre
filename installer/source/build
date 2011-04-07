@@ -1,0 +1,15 @@
+#!/bin/sh
+app=$1
+version=$2
+log=$3
+
+source=${app}-${version}-source
+echo " * Zip source" >> $log
+zip -r    ${source}.zip ${app} -x "*.svn*" >> $log
+echo " * Gzip source" >> $log
+tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
+echo " * Bzip source" >> $log
+tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
+
+mkdir packages
+mv ${source}.* packages
