@@ -81,13 +81,13 @@ module Kame
     end
 
     # Code for exportation
-    def exporting_datum_code(record='rekord')
+    def exporting_datum_code(record='rekord', noview=false)
       datum = self.datum_code(record)
       if self.datatype == :boolean
         datum = "(#{datum} ? ::I18n.translate('kame.export.true_value') : ::I18n.translate('kame.export.false_value'))"
       elsif self.datatype == :date
         datum = "::I18n.localize(#{datum})"
-      elsif self.datatype == :decimal
+      elsif self.datatype == :decimal and not noview
         datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{self.options[:precision]||2}))"
       elsif @name==:country and  self.datatype == :string and self.limit == 2
         datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
