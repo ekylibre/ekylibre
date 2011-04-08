@@ -5,9 +5,12 @@ log=$3
 
 source=${app}-${version}-source
 
+rm -fr packages
+mkdir packages
+
 if [ -n "`which zip`" ]; then
     echo " * Zip source" >> $log
-    zip -r    ${source}.zip ${app} -x "*.svn*" >> $log
+    zip -r packages/${source}.zip ${app} -x "*.svn*" >> $log
 else
     echo " * No zip command. Run 'apt-get install zip'"
     echo " * No zip command. Run 'apt-get install zip'" >> $log
@@ -15,13 +18,10 @@ fi
 
 if [ -n "`which tar`" ]; then
     echo " * Gzip source" >> $log
-    tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
+    tar cfvhz packages/${source}.tar.gz  --exclude=.svn ${app} >> $log
     echo " * Bzip source" >> $log
-    tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
+    tar cfvhj packages/${source}.tar.bz2 --exclude=.svn ${app} >> $log
 else
     echo " * No tar command. Run 'apt-get install tar'"
     echo " * No tar command. Run 'apt-get install tar'" >> $log
 fi
-
-mkdir packages
-mv ${source}.* packages

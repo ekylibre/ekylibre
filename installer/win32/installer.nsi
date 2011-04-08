@@ -20,17 +20,17 @@ SetCompressor /SOLID /FINAL zlib
   !define WSPORT 4064
   !define DBMSPORT 4032
 
-  ; VIAddVersionKey "ProductName" "${APP}"
-  ; VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
-  ; VIAddVersionKey "CompanyName" "www.ekylibre.org"
-  ; VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
-  ; VIAddVersionKey "FileVersion" "${VERSION}"
-  ; VIProductVersion "0.3.0.2"
+  VIAddVersionKey "ProductName" "${APP}"
+  VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
+  VIAddVersionKey "CompanyName" "www.ekylibre.org"
+  VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
+  VIAddVersionKey "FileVersion" "${VERSION}"
+  VIProductVersion "${VERSION}.0"
 
 
   ; Name and file
   Name "${APP}"
-  OutFile "${RELEASE}.exe"
+  OutFile "packages/${RELEASE}.exe"
 
   ;Default installation folder
   ;InstallDir "$PROGRAMFILES\${APP}"
@@ -96,12 +96,14 @@ SetCompressor /SOLID /FINAL zlib
 
 ;--------------------------------
 ;Sections
-Var password
-Var username
-Var AppDir
-Var InstApp
-Var Backup
-Var DataDir
+Var /GLOBAL password
+Var /GLOBAL username
+Var /GLOBAL PreviousInstApp
+Var /GLOBAL InstApp
+Var /GLOBAL DataDir
+Var /GLOBAL Backuping
+Var /GLOBAL Backup
+Var /GLOBAL Initialized
 
 InstType "Typical (MySQL included)"
 InstType "PostgreSQL Configuration (Expert)"
@@ -118,9 +120,21 @@ Section "Ekylibre" sec_ekylibre
   SimpleSC::RemoveService "EkyService"
 
   ; Copie de sauvegarde de la base de données si le fichier existe
-  ${If} $AppDir != ""
-    RMDir /r $Backup
-    Rename $AppDir $Backup
+  StrCpy $Backuping "false"
+  ${If} $PreviousInstApp != ""
+    MessageBox MB_YESNO|MB_ICONQUESTION "Une précédente installation a été trouvée. Voulez-vous récupérerez les données avant de la mettre à jour ?" /SD IDYES IDYES yes IDNO no
+    yes:
+      StrCpy $Backuping "true"
+      RMDir /r $Backup
+      CreateDirectory $Backup
+      CopyFiles /SILENT $PreviousInstApp\data $Backup\data
+      CopyFiles /SILENT $PreviousInstApp\apps\${APP}\private $Backup\private
+      RMDir /r /REBOOTOK $PreviousInstApp
+      ; MessageBox MB_OK "Données sauvegardées. Merci de procéder à la désinstallation de l'ancienne version."
+      Goto next
+    no:
+      StrCpy $Backuping "false"
+    next:
   ${EndIf}
 
   ; Mise en place du programme
@@ -129,12 +143,14 @@ Section "Ekylibre" sec_ekylibre
   File /r ${RESOURCES}/ruby
   File /r /x .svn ${RESOURCES}/apps
   ; Mise à jour de la variable PATH
+  ${EnvVarUpdate} $0 "PATH" "R" "HKLM" "$PreviousInstApp\ruby\bin"
   ${EnvVarUpdate} $0 "PATH" "A" "HKLM" "$InstApp\ruby\bin"
 
   ; Mise en place de la copie de sauvegarde des documents
-  ${If} $AppDir != ""
+  ${If} $Backuping == "true"
     RMDir /r $InstApp\apps\ekylibre\private
-    Rename $Backup\documents $InstApp\apps\ekylibre\private
+    CopyFiles $Backup\private $InstApp\apps\ekylibre\private
+    RMDir /r $Backup\private
   ${EndIf}
 
   ; Set Ekylibre Service
@@ -182,7 +198,7 @@ Section "MySQL Installation and Configuration" sec_mysql
   SimpleSC::RemoveService "EkyMySQL"
 
   ; Initialisation de quelques valeurs
-  ReadRegStr $AppDir HKLM Software\${APP} "AppDir"
+  ; ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
   StrCpy $username "ekylibre"
   pwgen::GeneratePassword 32
   Pop $password
@@ -201,10 +217,12 @@ Section "MySQL Installation and Configuration" sec_mysql
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "$password"
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "3306" "${DBMSPORT}"
   RMDir /r $DataDir
-  ${If} $AppDir == ""
-    Rename $InstApp\mysql\data $DataDir
+  CreateDirectory $DataDir
+  ${If} $Backuping == "true"
+    CopyFiles /SILENT $Backup\data\* $DataDir
+    RMDir /r $Backup\data
   ${Else}
-    Rename $Backup\data $DataDir
+    CopyFiles /SILENT $InstApp\mysql\data\* $DataDir
   ${EndIf}
 
   ; Lancement de la base de données
@@ -218,7 +236,7 @@ Section "MySQL Installation and Configuration" sec_mysql
   SimpleSC::StartService "EkyDatabase" ""
 
   ; (Ré-)Initialisation
-  ${If} $AppDir == ""
+  ${If} $PreviousInstApp == ""
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
     ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
   ${Else}
@@ -299,7 +317,9 @@ Section "-Finish installation" sec_finish
   ; Uninstall
   CreateShortCut  "$SMPROGRAMS\${APP}\Désinstaller ${APP}.lnk" "$InstApp\uninstall.exe"
   
-  RMDir /r $Backup
+  ${If} $Backuping == "true"
+    RMDir /r $Backup
+  ${EndIf}
 SectionEnd
 
 Section "Add Expert Shortcuts" sec_shorcuts
@@ -343,12 +363,19 @@ Section "Uninstall"
 SectionEnd
 
 Function initEnv
-  StrCpy $InstApp "$INSTDIR\${APP}-${VERSION}"
-  StrCpy $Backup  "$INSTDIR\backup-${VERSION}"
-  StrCpy $DataDir "$InstApp\data"
-  ReadRegStr $AppDir HKLM Software\${APP} "AppDir"
-  SetShellVarContext all
-  SetOutPath $INSTDIR
+  ${If} $Initialized != "true"
+    ; MessageBox MB_OK "$Backuping"
+    StrCpy $InstApp "$INSTDIR\${APP}-${VERSION}"
+    StrCpy $Backup  "$INSTDIR\backup"
+    StrCpy $DataDir "$InstApp\data"
+    StrCpy $Initialized "true"
+    ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
+    SetShellVarContext all
+    SetOutPath $INSTDIR
+    ; MessageBox MB_OK "Init :: InstApp: $InstApp, Backup: $Backup, Backuping: $Backuping, PreviousInstApp: $PreviousInstApp"
+  ${Else}
+    ; MessageBox MB_OK "AlreadyInit :: InstApp: $InstApp, Backup: $Backup, Backuping: $Backuping, PreviousInstApp: $PreviousInstApp"
+  ${EndIf}
 FunctionEnd
 
 

@@ -2,7 +2,7 @@
 app=ekylibre
 p=`readlink -f $0`
 current_dir=`dirname $p`
-rails_root=${current_dir}/..
+rails_root=`dirname ${current_dir}`
 
 line=`cat ${rails_root}/VERSION`
 name=`echo ${line} | cut -d',' -f1`
@@ -12,9 +12,9 @@ latest=${version}
 # release=${app}-${latest}
 release=${app}-${version}
 
-datadir=$HOME/Public/${app}/${version}
-tmpdir=/tmp/${release}
-resdir=${current_dir}/windows/resources
+#datadir=$HOME/Public/${app}/${version}
+datadir=${current_dir}/releases/${version}
+resdir=${current_dir}/resources
 log=${current_dir}/build-${release}.log
 sources=1
 debian=1
@@ -36,8 +36,6 @@ help_message() {
     echo "  -r RESDIR              where the resources files can be found"
     echo "                         Default: ${resdir}"
     echo "  -s                     Skip sources packaging"
-    echo "  -t TMPDIR              where the files can be compiled"
-    echo "                         Default: ${tmpdir}" 
     echo "  -l LOG_FILE            Log file location"
     echo "                         Default: ${log}" 
     echo "  -u                     Skip Debian packaging"
@@ -47,7 +45,7 @@ help_message() {
 }
 
 # Initialize
-while getopts cd:hl:r:st:uw o
+while getopts cd:hl:r:suw o
 do 
     case "$o" in
         c)   checksums=0;;
@@ -57,7 +55,6 @@ do
         l)   log="$OPTARG";;
         s)   sources=0;;
         r)   resdir="$OPTARG";;
-        t)   tmpdir="$OPTARG";;
         u)   debian=0;;
         w)   win32=0;;
         [?]) help_message
@@ -67,56 +64,61 @@ done
 shift `expr $OPTIND - 1`
 
 echo "Output directory:    ${datadir}"
-echo "Build directory:     ${tmpdir}"
 echo "Resources directory: ${resdir}"
 
-mkdir -p ${tmpdir}
-mkdir -p ${datadir} # /releases
+mkdir -p ${datadir}
 
-cd ${tmpdir}
-
-# Récupération des dernières sources
-#echo " * Exporting data..."
-rm -fr ${app}
-mkdir ${app}
-for file in app config config.ru db Gemfile lib LICENSE public Rakefile script vendor VERSION ; do
-    if [ -e ${rails_root}/$file ]; then
-	ln -s ${rails_root}/$file $app/
-    fi
-done
-for dir in log private tmp ; do
-    mkdir $app/$dir
-done
-# ln -s ${rails_root}/* $app/
-# rm $app/installer
-
-# Création du répertoire de base
-rm -fr release
-mkdir -p release
 mkdir -p `dirname $log`
-echo "== Build.sh ======================================================================================" > $log
+echo "== Build =========================================================================================" > $log
 
-for build in source win32 debian
+#for build in source debian win32
+for build in win32
 do
     script=${current_dir}/${build}/build
     if [ -e ${script} ]; then
 	echo " * Building ${build} packages..."
+	echo "" >> $log
 	echo "------------------------------------------------------------------------------------------" >> $log
-	echo "  Build ${build} packages" >> $log
+	echo "-- Build ${build} packages" >> $log
 	echo "------------------------------------------------------------------------------------------" >> $log
-	rm -fr ${tmpdir}/${build}
-	mkdir -p ${tmpdir}/${build}
-	cd ${tmpdir}/${build}
-	ln -s ../${app}
+	start=`date +%s.%N`
+
+	cd ${current_dir}/${build}
+
+	# Link project tree
+	echo " * Generates project tree..." >> $log
+	rm -fr ${app}
+	mkdir ${app}
+	ln -s ${rails_root}/* $app/
+	for dir in config-* installer log private tmp ; do
+	    rm -f $app/$dir
+	done
+	for dir in log private tmp ; do
+	    mkdir $app/$dir
+	done
+
 	# Build packages
-	${current_dir}/${build}/build ${app} ${version} ${log} ${resdir}
+	echo " * Packages..." >> $log
+	./build ${app} ${version} ${log} ${resdir}/win32
+
 	# Move packages
+	echo " * Finishes..." >> $log
 	packages="`pwd`/packages"
 	if [ -e ${packages} ]; then
-	    cp -r ${packages} ${datadir}/${build}
+	    rm -fr ${datadir}/${build}
+	    mv ${packages} ${datadir}/${build}
 	else
 	    echo "ERROR: Unable to find the directory named '${packages}' which is theoretically produced by ${script}"
 	fi
+	# rm -fr ${app}
+
+	
+	finish=`date +%s.%N`
+	total=`echo "${finish}-${start}" | bc`
+	echo "------------------------------------------------------------------------------------------" >> $log
+	echo "-- ${build} packages where built in ${total} seconds" >> $log
+
+	
     else
 	echo " * Warning: Can not build ${build} packages. No build script found."
     fi
@@ -124,68 +126,63 @@ done
 
 exit 0
 
-# Sources
-if [ $sources = 1 ]; then
-    echo " * Compressing sources..."
-    echo "-- Source Building -------------------------------------------------------------------------------" >> $log
-    mkdir -p release/source
-    source=${release}-source
-    echo " * Zip source" >> $log
-    zip -r    ${source}.zip ${app}   -x "*.svn*" >> $log
-    echo " * Gzip source" >> $log
-    tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
-    echo " * Bzip source" >> $log
-    tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
-    mv ${source}.* release/source/
-fi
+# # Sources
+# if [ $sources = 1 ]; then
+#     echo " * Compressing sources..."
+#     echo "-- Source Building -------------------------------------------------------------------------------" >> $log
+#     mkdir -p release/source
+#     source=${release}-source
+#     echo " * Zip source" >> $log
+#     zip -r    ${source}.zip ${app}   -x "*.svn*" >> $log
+#     echo " * Gzip source" >> $log
+#     tar cfvhz ${source}.tar.gz  --exclude=.svn ${app} >> $log
+#     echo " * Bzip source" >> $log
+#     tar cfvhj ${source}.tar.bz2 --exclude=.svn ${app} >> $log
+#     mv ${source}.* release/source/
+# fi
 
 
-# Debian
-if [ $debian = 0 ]; then
-    echo " * Debian compilation..."
+# # Debian
+# if [ $debian = 0 ]; then
+#     echo " * Debian compilation..."
     
-    # rake -f ${current_dir}/debian/Rakefile build APP=${app} VERSION=${version}
-    cp -r ${current_dir}/debian/
-    mkdir -p debian/${app}-common/
-    cp -r ${app}
-    # mkdir release/debian
-fi
+#     # rake -f ${current_dir}/debian/Rakefile build APP=${app} VERSION=${version}
+#     cp -r ${current_dir}/debian/
+#     mkdir -p debian/${app}-common/
+#     cp -r ${app}
+#     # mkdir release/debian
+# fi
 
-# Win32
-if [ $win32 = 1 ]; then
-    echo " * Win32 compilation..."
-    resources=${tmpdir}/win32
-    rm -fr ${resources}
-    mkdir -p ${resources}/apps
-    ln -s ${tmpdir}/${app} ${resources}/apps/${app}
-    ln -s ${resdir}/* ${resources}/
-    echo "-- Win32 packaging with NSIS --------------------------------------------------------------------" >> $log
-    date >> $log
-    makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
-    date >> $log
-    mkdir -p release/win32
-    mv ${current_dir}/windows/${release}.exe release/win32
-fi
+# # Win32
+# if [ $win32 = 1 ]; then
+#     echo " * Win32 compilation..."
+#     resources=${tmpdir}/win32
+#     rm -fr ${resources}
+#     mkdir -p ${resources}/apps
+#     ln -s ${tmpdir}/${app} ${resources}/apps/${app}
+#     ln -s ${resdir}/* ${resources}/
+#     echo "-- Win32 packaging with NSIS --------------------------------------------------------------------" >> $log
+#     date >> $log
+#     makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
+#     date >> $log
+#     mkdir -p release/win32
+#     mv ${current_dir}/windows/${release}.exe release/win32
+# fi
 
-# Mac OS
-# mkdir release/macos
+# # Mac OS
+# # mkdir release/macos
+
+cd ${datadir}
 
 # Checksums
 if [ $checksums = 1 ]; then
     echo " * Checksum computation..."
-    cd release
     sha1sum ./*/* > SHA1SUMS
     md5sum ./*/* > MD5SUMS
 fi
 
 # Deploiement
 echo " * Deploying..."
-cd ${datadir} # /releases
-rm -fr * # ${latest}
-mv ${tmpdir}/release/* . # ${latest}
-# rm -f latest
-# ln -s ${latest} latest
-rm -fr ${tmpdir}
 if [ `whoami` = root ]; then
     chown www-data.www-data -R ${datadir}
 fi
