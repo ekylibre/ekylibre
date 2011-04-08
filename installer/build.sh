@@ -109,7 +109,7 @@ do
 	cd ${tmpdir}/${build}
 	ln -s ../${app}
 	# Build packages
-	${current_dir}/${build}/build ${app} ${version} ${log}
+	${current_dir}/${build}/build ${app} ${version} ${log} ${resdir}
 	# Move packages
 	packages="`pwd`/packages"
 	if [ -e ${packages} ]; then

@@ -2,17 +2,23 @@
 app=$1
 version=$2
 log=$3
+resdir=$4
 
 release=${app}-${version}
 
-# resources=${tmpdir}/win32
-# rm -fr ${resources}		
-# mkdir -p ${resources}/apps
-# ln -s ${tmpdir}/${app} ${resources}/apps/${app}
-# ln -s ${resdir}/* ${resources}/
-# echo " * Start packaging with NSIS at `date`" >> $log
-# makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${resources} -DIMAGES=${current_dir}/windows/images ${current_dir}/windows/installer.nsi >> $log
-# echo " * Finish packaging with NSIS at `date`" >> $log
+if [ -n "`which makensis`" ]; then
+    files="files"
+    rm -fr ${files}
+    mkdir -p ${files}/apps
+    ln -s ${app} ${files}/apps/${app}
+    ln -s ${resdir}/* ${files}/
+    echo " * Start packaging with NSIS at `date`" >> $log
+    makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${files} -DIMAGES=images installer.nsi >> $log
+    echo " * Finish packaging with NSIS at `date`" >> $log
+else
+    echo " * No makensis command. Run 'apt-get install nsis'"
+    echo " * No makensis command. Run 'apt-get install nsis'" >> $log
+fi
 
 mkdir -p packages
 # mv ${current_dir}/windows/${release}.exe packages/
