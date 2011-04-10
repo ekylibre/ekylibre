@@ -66,6 +66,7 @@ shift `expr $OPTIND - 1`
 echo "Output directory:    ${datadir}"
 echo "Resources directory: ${resdir}"
 
+rm -fr ${datadir}
 mkdir -p ${datadir}
 
 log=${log_base}.log
@@ -73,7 +74,7 @@ log=${log_base}.log
 mkdir -p `dirname $log`
 echo "== Build =================================================================================" > $log
 
-for build in source win32
+for build in source debian win32
 do
     script=${current_dir}/${build}/build
     if [ -e ${script} ]; then
