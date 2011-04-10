@@ -461,17 +461,17 @@ class CompanyController < ApplicationController
   
   def listing_mail
     return unless @listing = find_and_check(:listing)
-    if @listing.mail_columns.size == 0
+    if (query = @listing.query).blank?
+      @listing.save 
+      query = @listing.query
+    end
+    query = query.to_s
+    if @listing.mail_columns.size == 0 or query.blank?
       notify(:you_must_have_an_email_column, :warning)
       redirect_to_back
       return
     end
     if session[:listing_mail_column] or @listing.mail_columns.size ==  1
-      if (query = @listing.query).blank?
-        @listing.save 
-        query = @listing.query
-      end
-      query = query.to_s
       query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
       full_results = ActiveRecord::Base.connection.select_all(query)
       listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])

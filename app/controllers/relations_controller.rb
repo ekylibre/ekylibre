@@ -737,7 +737,7 @@ class RelationsController < ApplicationController
   end
   
 
-  create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (#{Event.table_name}.responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location

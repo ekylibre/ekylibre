@@ -204,9 +204,9 @@ class FinancialYear < CompanyRecord
     results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.state = 'draft' GROUP BY account_id")
     results.each do |result|
       if account_balance = self.company.account_balances.find_by_financial_year_id_and_account_id(self.id, result["account_id"].to_i)
-        account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)
+        account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_f, :local_debit=>result["sum_debit"].to_f)
       else
-        self.company.account_balances.create!(:financial_year_id=>self.id, :account_id=>result["account_id"].to_i, :local_credit=>result["sum_credit"].to_d, :local_debit=>result["sum_debit"].to_d)
+        self.company.account_balances.create!(:financial_year_id=>self.id, :account_id=>result["account_id"].to_i, :local_credit=>result["sum_credit"].to_f, :local_debit=>result["sum_debit"].to_f)
       end
     end
   end

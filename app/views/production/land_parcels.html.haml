@@ -19,7 +19,7 @@
           -unit = land_parcels[0] ? land_parcels[0].area_unit : nil
           -total_area = group.area(session[:viewed_on], unit)
           -for land_parcel in land_parcels
-            %td.plot{:style=>"width: #{100*land_parcel.area(unit)/total_area}%;", :class=>cycle("odd", "even"), :onclick=>"toggleLandParcel(this, 'land_parcel_#{land_parcel.id}')"}
+            %td.plot{:style=>"width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class=>cycle("odd", "even"), :onclick=>"toggleLandParcel(this, 'land_parcel_#{land_parcel.id}')"}
               =hidden_field_tag("land_parcel[#{land_parcel.id}]", "0", :id=>"land_parcel_#{land_parcel.id}")
               .bmenu
                 =link_to(land_parcel.name, {:action=>:land_parcel, :id=>land_parcel.id}, :class=>:name)

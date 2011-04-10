@@ -33,6 +33,7 @@ GEM
     rake (0.8.7)
     rubyzip (0.9.4)
     shoulda (2.11.3)
+    sqlite3 (1.3.3)
     will_paginate (2.3.15)
 
 PLATFORMS
@@ -48,5 +49,6 @@ DEPENDENCIES
   rails (= 2.3.10)
   rubyzip
   shoulda
+  sqlite3
   state_machine!
   will_paginate (~> 2.3)

@@ -1,0 +1,92 @@
+#!/bin/sh
+app=$1
+version=$2
+log=$3
+resdir=$4
+
+release=${app}-${version}
+
+rm -fr packages
+mkdir -p packages
+
+
+#!/usr/bin/ruby
+
+require 'pathname'
+
+
+class DebianPackage
+  attr_accessor :name, :version, :control
+
+  def initialize(name, version, control={})
+    @name, @version = name, version
+    @control = {:package=>@name, :version=>@version, :architecture=>"all", :maintainer=>"Ruby generator", :description=>"Generated debian package", :priority=>"optional"}
+    @control.update(control)
+  end
+
+  def self.generate(name, version, control={}, &block)
+    dp = DebianPackage.new(name, version, control)
+    yield dp
+    
+    package = Pathname.new(`pwd`.strip).join("debian").join(name)
+    debian = package.join("DEBIAN")
+    FileUtils.mkdir_p(debian)
+
+    File.open(debian.join("control"), "wb") do |f|
+      for k, v in dp.control.sort{|a,b| a.to_s <=> b.to_s}
+        f.write "_#{k}".downcase.gsub(/[^a-z]+/, '-').gsub(/\-\w/){ |x| "-"+x[1..1].upcase}[1..-1]+": "+v.to_s+"\n"
+      end
+    end
+
+    
+    `dpkg --build #{package}`
+  end
+
+end
+
+
+
+
+desc "Build debian package"
+task :build do
+  application = ENV["APP"]
+  version = ENV['VERSION']||"0.0.0"
+
+  options = {:homepage=>"http://www.ekylibre.org", :maintainer=>"Brice Texier", :description=>"Simple ERP for little business", :section=>:web}
+
+
+  DebianPackage.generate(application, version, options.merge(:depends=>"ruby (>=1.8.7), rubygems (>=1.3.7), ruby-dev (>=1.8.7), apache2 (>=2.2.4), libapache2-mod-passenger",
+                                                             :recommends=>"postgresql (>=8.3)")) do |dp|
+
+    dp.copy("ekylibre", "@/usr/share/ekylibre")
+    dp.change("@/usr/share/ekylibre/config", "@/etc/ekylibre")
+    dp.move("@/usr/share/ekylibre/private", "@/var/lib/ekylibre")
+    dp.change("@/usr/share/ekylibre/log", "@/var/log/ekylibre")
+  end
+  
+  DebianPackage.generate("#{application}-pgsql", version, options.merge(:depends=>"ekylibre (=#{version}), postgresql (>=8.3)")) do |dp|
+    
+  end
+  
+
+#   puts app.inspect
+#   # Control file
+#   File.open(debian.join("control"), "wb") do |f|
+#     f.write "Package: #{app.basename}\n"
+#     f.write "Version: #{ENV['VERSION']}\n"
+#     f.write "Section: web\n"
+#     f.write "Priority: optional\n"
+#     f.write "Architecture: all\n"
+#     f.write "Depends: ruby (>=1.8.7), rubygems (>=1.3.7), ruby-dev (>=1.8.7), apache2 (>=2.2.4)\n"
+#     f.write "Recommends: postgresql (>=8.3)\n"
+#     f.write "Maintener: Brice Texier\n"
+#     f.write "Description: Simple ERP for little business\n"
+#     f.write "Homepage: http://www.ekylibre.org\n"
+#   end
+
+#   ark.join("usr", "share")
+
+  # `find #{app}/usr/share/#{app} -name .svn -print0 | xargs -0 rm -fr`
+  # `dpkg --build #{app}`
+
+end

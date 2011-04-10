@@ -9,7 +9,19 @@ release=${app}-${version}
 rm -fr packages
 mkdir -p packages
 
+
+
+
 if [ -n "`which makensis`" ]; then
+    nsis_share=/usr/share/nsis
+    if [ -e ${nsis_share}/Plugins/pwgen.dll ]; then
+	echo " * Plugins and includes seems to be installed in ${nsis_share}." >> $log	
+    else
+	echo " * Install plugins and includes in ${nsis_share}." >> $log	
+	sudo cp *.nsh ${nsis_share}/Include
+	sudo cp *.dll ${nsis_share}/Plugins
+    fi
+
     files="files"
     rm -fr ${files}
     mkdir -p ${files}/apps

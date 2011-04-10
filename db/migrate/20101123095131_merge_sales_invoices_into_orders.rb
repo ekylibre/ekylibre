@@ -259,14 +259,14 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     end
 
     for o, n in RENAMED_TABLES
-      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{n.to_s.singularize}' WHERE usage='#{o.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET #{quote_column_name(:usage)}='#{n.to_s.singularize}' WHERE #{quote_column_name(:usage)}='#{o.to_s.singularize}'"
     end
     
   end
 
   def self.down
     for n, o in RENAMED_TABLES.reverse
-      execute "UPDATE #{quoted_table_name(:event_natures)} SET usage='#{n.to_s.singularize}' WHERE usage='#{o.to_s.singularize}'"
+      execute "UPDATE #{quoted_table_name(:event_natures)} SET #{quote_column_name(:usage)}='#{n.to_s.singularize}' WHERE #{quote_column_name(:usage)}='#{o.to_s.singularize}'"
     end
 
     for n, o in RIGHTS.reverse

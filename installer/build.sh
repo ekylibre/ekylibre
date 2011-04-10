@@ -15,7 +15,7 @@ release=${app}-${version}
 #datadir=$HOME/Public/${app}/${version}
 datadir=${current_dir}/releases/${version}
 resdir=${current_dir}/resources
-log=${current_dir}/build-${release}.log
+log_base=${current_dir}/build-${release}
 sources=1
 debian=1
 win32=1
@@ -52,7 +52,7 @@ do
         d)   datadir="$OPTARG";;
         h)   help_message
             exit 0;;
-        l)   log="$OPTARG";;
+        l)   log_base="$OPTARG";;
         s)   sources=0;;
         r)   resdir="$OPTARG";;
         u)   debian=0;;
@@ -68,11 +68,12 @@ echo "Resources directory: ${resdir}"
 
 mkdir -p ${datadir}
 
-mkdir -p `dirname $log`
-echo "== Build =========================================================================================" > $log
+log=${log_base}.log
 
-#for build in source debian win32
-for build in win32
+mkdir -p `dirname $log`
+echo "== Build =================================================================================" > $log
+
+for build in source win32
 do
     script=${current_dir}/${build}/build
     if [ -e ${script} ]; then
@@ -99,7 +100,12 @@ do
 
 	# Build packages
 	echo " * Packages..." >> $log
-	./build ${app} ${version} ${log} ${resdir}/win32
+	blog="${log_base}.${build}.log"
+	echo "------------------------------------------------------------------------------------------" > $blog
+	echo "-- Build ${build} packages" >> $blog
+	echo "------------------------------------------------------------------------------------------" >> $blog
+	./build ${app} ${version} ${blog} ${resdir}/win32
+	echo " * See ${blog} for details." >> $log
 
 	# Move packages
 	echo " * Finishes..." >> $log
@@ -112,19 +118,18 @@ do
 	fi
 	# rm -fr ${app}
 
-	
 	finish=`date +%s.%N`
 	total=`echo "${finish}-${start}" | bc`
 	echo "------------------------------------------------------------------------------------------" >> $log
 	echo "-- ${build} packages where built in ${total} seconds" >> $log
-
-	
     else
 	echo " * Warning: Can not build ${build} packages. No build script found."
+	echo "" >> $log
+	echo "------------------------------------------------------------------------------------------" >> $log
+	echo "-- Can not build ${build} packages: No build script found" >> $log
+	echo "------------------------------------------------------------------------------------------" >> $log
     fi
 done
-
-exit 0
 
 # # Sources
 # if [ $sources = 1 ]; then

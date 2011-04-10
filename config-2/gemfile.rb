@@ -20,4 +20,4 @@ end
 # gem "sqlite3-ruby", :require => "sqlite3", :platforms=>[:ruby_19, :mri_19]
 gem "pg", "0.9.0"
 gem "mysql"
-# gem "sqlite3"
+gem "sqlite3"
