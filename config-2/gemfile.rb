@@ -1,8 +1,8 @@
 source :gemcutter # "http://rubygems.org"
 
 gem "rails", "2.3.10"
-gem "i18n", "0.4.2"
-gem "haml" # , "~2"
+gem "i18n", ">= 0.5"
+gem "haml"
 gem "fastercsv", :platforms=>[:ruby_18, :mri_18]
 gem "libxml-ruby", "1.1.3", :require=>"libxml"
 gem "rubyzip", :require=>"zip/zip"

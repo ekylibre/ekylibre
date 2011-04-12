@@ -44,13 +44,13 @@ GEM
       activemodel (= 3.0.3)
       activesupport (= 3.0.3)
     activesupport (3.0.3)
-    arel (2.0.7)
+    arel (2.0.9)
     builder (2.1.2)
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.4)
     haml (3.0.25)
-    i18n (0.4.2)
+    i18n (0.5.0)
     libxml-ruby (1.1.3)
     mail (2.2.15)
       activesupport (>= 2.3.6)
@@ -61,8 +61,8 @@ GEM
     mysql (2.8.1)
     pg (0.9.0)
     polyglot (0.3.1)
-    rack (1.2.1)
-    rack-mount (0.6.13)
+    rack (1.2.2)
+    rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)
       rack (>= 1.0)
@@ -85,7 +85,7 @@ GEM
     thoughtbot-shoulda (2.11.1)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.24)
+    tzinfo (0.3.26)
     will_paginate (3.0.pre2)
 
 PLATFORMS
@@ -95,8 +95,8 @@ DEPENDENCIES
   activerecord-sqlserver-adapter!
   exception_notification!
   fastercsv
-  haml (~> 3.0)
-  i18n (= 0.4.2)
+  haml
+  i18n (>= 0.5)
   libxml-ruby (= 1.1.3)
   mysql
   pg (= 0.9.0)

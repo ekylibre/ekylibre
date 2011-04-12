@@ -18,11 +18,11 @@ GEM
     activesupport (2.3.10)
     fastercsv (1.5.4)
     haml (3.0.25)
-    i18n (0.4.2)
+    i18n (0.5.0)
     libxml-ruby (1.1.3)
     mysql (2.8.1)
     pg (0.9.0)
-    rack (1.1.0)
+    rack (1.1.2)
     rails (2.3.10)
       actionmailer (= 2.3.10)
       actionpack (= 2.3.10)
@@ -42,7 +42,7 @@ PLATFORMS
 DEPENDENCIES
   fastercsv
   haml
-  i18n (= 0.4.2)
+  i18n (>= 0.5)
   libxml-ruby (= 1.1.3)
   mysql
   pg (= 0.9.0)
