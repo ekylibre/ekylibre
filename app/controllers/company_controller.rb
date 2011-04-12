@@ -24,7 +24,9 @@ class CompanyController < ApplicationController
   include ApplicationHelper
 
   @@helps = {}
-  for file in Dir["#{Rails.root.to_s}/config/locales/#{I18n.locale}/help/*.txt"].sort
+  # for file in Dir["#{Rails.root.to_s}/config/locales/#{I18n.locale}/help/*.txt"].sort
+  # TODO Cleans help search system
+  for file in Dir["#{Rails.root.to_s}/config/locales/*/help/*.txt"].sort
     File.open(file, 'rb') do |f| 
       @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2]}
       raise Exception.new("No good title for #{file}") if @@helps[file][:title].blank?
