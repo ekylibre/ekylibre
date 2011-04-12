@@ -1,0 +1,2 @@
+../copy/* /usr/share/ekylibre
+../apache.conf /etc/ekylibre
