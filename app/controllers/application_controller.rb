@@ -212,7 +212,7 @@ class ApplicationController < ActionController::Base
         @title[k.to_sym] = if [Date, DateTime, Time].include? v.class
                              ::I18n.localize(v)
                            else
-                             v
+                             v.to_s
                            end
       end
     end

@@ -620,8 +620,8 @@ module ApplicationHelper
 
 
   def action_title
-    options = @title||{}
-    return I18n.t("actions.#{controller.controller_name}.#{action_name}", options)
+    options = @title.is_a?(Hash) ? @title : {}
+    return ::I18n.translate("actions.#{controller.controller_name}.#{controller.action_name}", options)
   end
 
   def title_tag
@@ -634,8 +634,8 @@ module ApplicationHelper
   end
 
   def title_header_tag
-    title = action_title
-    content_tag(:h1, title, :class=>"title", :title=>title)
+    titles = action_title
+    content_tag(:h1, titles, :class=>"title", :title=>titles)
   end
 
   def help_link_tag(options={})
