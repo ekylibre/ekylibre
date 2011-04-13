@@ -129,6 +129,7 @@ Section "Ekylibre" sec_ekylibre
       CreateDirectory $Backup
       CopyFiles /SILENT $PreviousInstApp\data $Backup\data
       CopyFiles /SILENT $PreviousInstApp\apps\${APP}\private $Backup\private
+      CopyFiles /SILENT $PreviousInstApp\apps\${APP}\config\database.yml $Backup\database.yml
       RMDir /r /REBOOTOK $PreviousInstApp
       ; MessageBox MB_OK "Données sauvegardées. Merci de procéder à la désinstallation de l'ancienne version."
       Goto next
@@ -250,19 +251,25 @@ Section "MySQL Installation and Configuration" sec_mysql
 SectionEnd
 
 
+; PostgreSQL
 Section "PostgreSQL Configuration" sec_postgresql
   SectionIn 2
   Call initEnv
     
   Delete $InstApp\apps\ekylibre\config\database.yml
-  Rename $InstApp\apps\ekylibre\config\database.postgresql.yml $InstApp\apps\ekylibre\config\database.yml
+  IfFileExists $Backup\database.yml 0 +2
+    CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
+  IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
+    CopyFiles $InstApp\apps\ekylibre\config\database.postgresql.yml $InstApp\apps\ekylibre\config\database.yml
 
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
   
-  DetailPrint "Configure database.yml before launch migration"
+  ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
 SectionEnd
 
+
+; SQL Server
 Section "SQL Server Configuration" sec_sqlserver
   SectionIn 3
   Call initEnv
@@ -275,13 +282,16 @@ Section "SQL Server Configuration" sec_sqlserver
   FileClose $1
   
   Delete $InstApp\apps\ekylibre\config\database.yml
-  Rename $InstApp\apps\ekylibre\config\database.sqlserver.yml $InstApp\apps\ekylibre\config\database.yml
+  IfFileExists $Backup\database.yml 0 +2
+    CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
+  IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
+    CopyFiles $InstApp\apps\ekylibre\config\database.sqlserver.yml $InstApp\apps\ekylibre\config\database.yml
 
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
   !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__dsn__" "sql2005dsn"
   
-  DetailPrint "Configure database.yml before launch migration"
+  ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
 SectionEnd
 
 SectionGroupEnd
