@@ -1101,6 +1101,7 @@ jpn:
     #>bad_file: 'The file is incorrect.'
     #>bookkeeping_is_finished: 'The commercial data transfer is finished.'
     #>bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
+    #>can_not_mark_entry_lines: 'Can not mark these entry lines'
     #>cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
     #>cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
     #>cannot_merge_entities: 'It''s impossible to merge these people.'

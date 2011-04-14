@@ -1129,6 +1129,7 @@ fra:
     bad_file: 'Le fichier ne semble pas correspondre.'
     bookkeeping_is_finished: 'La bascule en comptabilité est finie.'
     bookkeeping_works_only_with: 'La bascule en comptabilité ne peut se faire actuellement que pour : %{list}.'
+    can_not_mark_entry_lines: 'Impossible de lettrer ces lignes d''écritures ensemble'
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable'
     cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
     cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'

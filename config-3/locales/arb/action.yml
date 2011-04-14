@@ -1207,6 +1207,7 @@ arb:
     bad_file: 'لا يبدو ان الملفات متطابقة'
     bookkeeping_is_finished: 'نهاية نطاق المحاسبة'
     bookkeeping_works_only_with: 'يمكن جعل نطاق الماسبة الحالية ل : {{list}}.'
+    #>can_not_mark_entry_lines: 'Can not mark these entry lines'
     cannot_delete_entity: 'غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة'
     cannot_merge_an_entity_with_itself: 'غير ممكن دمج الملف مع نفسه'
     cannot_merge_entities: 'Une erreur est survenue. غير ممكن دمج هذه الملفات'

@@ -45,7 +45,7 @@ find copy -name .svn* -print0 | xargs -0 rm -rf
 find copy -name .git* -print0 | xargs -0 rm -rf
 find copy -name "*~"  -print0 | xargs -0 rm -rf
 find copy -name "#*#" -print0 | xargs -0 rm -rf
-rm copy/config/database.yml
+rm -f copy/config/database.yml
 
 
 cd $root

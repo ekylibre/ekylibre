@@ -246,8 +246,6 @@ Section "MySQL Installation and Configuration" sec_mysql
   ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "GRANT ALL PRIVILEGES ON ekylibre_production.* TO $username@localhost"'
 
   ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
-  
-  SimpleSC::StartService "EkyService" ""
 SectionEnd
 
 
@@ -300,6 +298,8 @@ SectionGroupEnd
 Section "-Finish installation" sec_finish
   SectionIn 1 2 3 4
   Call initEnv
+
+  SimpleSC::StartService "EkyService" ""
   
   ; Write the installation path and uninstall keys into the registry
   WriteUninstaller "$InstApp\uninstall.exe"   ; build uninstall program
@@ -374,7 +374,6 @@ SectionEnd
 
 Function initEnv
   ${If} $Initialized != "true"
-    ; MessageBox MB_OK "$Backuping"
     StrCpy $InstApp "$INSTDIR\${APP}-${VERSION}"
     StrCpy $Backup  "$INSTDIR\backup"
     StrCpy $DataDir "$InstApp\data"
@@ -382,9 +381,6 @@ Function initEnv
     ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
     SetShellVarContext all
     SetOutPath $INSTDIR
-    ; MessageBox MB_OK "Init :: InstApp: $InstApp, Backup: $Backup, Backuping: $Backuping, PreviousInstApp: $PreviousInstApp"
-  ${Else}
-    ; MessageBox MB_OK "AlreadyInit :: InstApp: $InstApp, Backup: $Backup, Backuping: $Backuping, PreviousInstApp: $PreviousInstApp"
   ${EndIf}
 FunctionEnd
 
