@@ -209,7 +209,7 @@ class ListingNode < CompanyRecord
       self.listing.root_model
     else
       self.parent.model.reflections[self.attribute_name.to_sym].class_name 
-    end.classify.constantize l rescue nil
+    end.classify.constantize rescue nil
   end
 
   def reflection
