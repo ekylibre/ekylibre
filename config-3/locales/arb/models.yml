@@ -761,7 +761,7 @@ arb:
     #>check_state: 'Check state'
     #>child_land_parcel_id: 'Child land parcel'
     children: 'مواقع فرعية للتخزين'
-    choice_complements: '"قائمة الخيارات"' #!
+    choice_custom_fields: '"قائمة الخيارات"' #!
     choice_value: 'اختيار القيمة'
     choice_value_id: 'اختيار القيمة'
     choices: 'خيارات الحقول الاضافية'
@@ -998,14 +998,11 @@ arb:
     item_value: 'قيمة البند'
     items: 'بنود عقد الاستخراج'
     journal: 'الدفتر اليومي'
-    journal_entries: 'المدخلات'
-    #>journal_entry: 'Journal entry'
-    #>journal_entry_id: 'Journal entry'
-    #>journal_entry_lines: 'Journal entry lines'
+    journal_entries: 'سجلات المحاسبة'
+    journal_entry: 'سجل المحاسبة'
+    journal_entry_id: 'سجل المحاسبة'
+    journal_entry_lines: 'المدخلات'
     journal_id: 'الدفتر اليومي'
-    journal_record: 'سجل المحاسبة' #!
-    journal_record_id: 'سجل المحاسبة' #!
-    journal_records: 'سجلات المحاسبة' #!
     journals: 'الدفاتر اليومية'
     key: 'المفتاح'
     label: 'الملصق'
@@ -1601,8 +1598,7 @@ arb:
         warehouse_name: 'المخزون'
       import:
         dont_use: '-- لعدم الاسعمال--'
-        generate_string_complement: '--(انشاء حقل مخصص (للنص--' #!
-        #>generate_string_custom_field: '-- Create a personalized field (text) --'
+        generate_string_custom_field: '--(انشاء حقل مخصص (للنص--'
       purchase_creation: 'انشاء طلب شراء' #!
       sale_creation: 'انشاء طلب تحديد الاسعار' #!
       sales: 'المبيعات'

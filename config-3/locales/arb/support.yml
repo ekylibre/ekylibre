@@ -19,35 +19,35 @@ arb:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: 'ساعة {{count}} حوالي'
+        many: 'ساعة %{count} حوالي'
         one: 'حوالي ساعة واحدة'
       about_x_months:
-        many: 'شهر {{count}} حوالي'
+        many: 'شهر %{count} حوالي'
         one: 'حوالي شهر واحد'
       about_x_years:
-        many: 'سنة {{count}} حوالي'
+        many: 'سنة %{count} حوالي'
         one: 'تقريبا سنة واحدة'
       half_a_minute: 'نصف دقيقة'
       less_than_x_minutes:
-        many: ' دقيقة{{count}}اقل من'
+        many: ' دقيقة%{count}اقل من'
         one: 'اقل من دقيقة واحدة'
       less_than_x_seconds:
-        many: 'ثانية {{count}} اقل من'
+        many: 'ثانية %{count} اقل من'
         one: 'اقل من ثانية واحدة'
       over_x_years:
-        many: 'سنة {{count}} اكثر من'
+        many: 'سنة %{count} اكثر من'
         one: 'اكثر من سنة'
       x_days:
-        many: '{{count}} ايام'
+        many: '%{count} ايام'
         one: 'يوم واحد'
       x_minutes:
-        many: '{{count}} دقائق'
+        many: '%{count} دقائق'
         one: 'دقيقة واحدة'
       x_months:
-        many: '{{count}} اشهر'
+        many: '%{count} اشهر'
         one: 'شهر واحد'
       x_seconds:
-        many: '{{count}} ثواني'
+        many: '%{count} ثواني'
         one: 'ثانية واحدة'
   kame:
     #>columns: 'Columns'
