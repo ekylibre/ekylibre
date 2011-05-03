@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <template title="Example" lang="fr" version="2.0">
   <parameters>
-    <parameter name="sales_invoice" nature="sales_invoice"/>
+    <parameter name="sales_invoice" nature="sale"/>
   </parameters>
   <document unit="mm" size="10" title="client.label">
     <page orientation="portrait" format="A4" margin="10mm">

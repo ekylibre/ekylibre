@@ -26,32 +26,18 @@
       </table>
 
       <!-- Ventes -->
-      <part if="entity.sale_orders.size&gt;0" height="10mm">
+      <part if="entity.sales.size&gt;0" height="10mm">
 	<set top="5mm">
-	  <text value="{{entity.sale_orders.size.to_s}} vente(s)" bold="true" left="50%" align="center"/>
+	  <text value="{{entity.sales.size.to_s}} vente(s)" bold="true" left="50%" align="center"/>
 	</set>
       </part>
-      <iteration variable="sale_order" collection="entity.sale_orders">
-	<table collection="sale_order.lines">
-	  <column label="Vente {{sale_order.number}} du {{sale_order.created_on}} d'un montant de {{sale_order.amount_with_taxes}}" property="product.name" width="100mm"/>
+      <iteration variable="sale" collection="entity.sales">
+	<table collection="sale.lines">
+	  <column label="Vente {{sale.number}} créée le {{sale.created_on}} d'un montant de {{sale.amount}}" property="product.name" width="100mm"/>
 	  <column label="Qté." property="quantity" width="20mm" numeric="money"/>
-	  <column label="Prix" property="price/amount" width="20mm" numeric="money"/>
-	  <column label="HT" property="amount" width="20mm" numeric="money"/>
-	  <column label="TTC" property="amount_with_taxes" width="20mm" numeric="money"/>
-	</table>
-      </iteration>
-      
-      <!-- Factures-->
-      <part if="entity.invoices.size&gt;0" height="10mm">
-	<set top="5mm">
-	  <text value="{{entity.invoices.size.to_s}} facture(s)" bold="true" left="50%" align="center"/>
-	</set>
-      </part>
-      <iteration variable="invoice" collection="entity.invoices">
-	<table collection="invoice.lines">
-	  <column label="Facture {{invoice.number}} du {{invoice.created_on}} d'un montant de {{invoice.amount_with_taxes}}" property="product.name" width="100mm"/>
-	  <column label="Montant HT" property="amount" width="30mm" numeric="money"/>
-	  <column label="Montant TTC" property="amount_with_taxes" width="30mm" numeric="money"/>
+	  <column label="Prix" property="price/pretax_amount" width="20mm" numeric="money"/>
+	  <column label="HT" property="pretax_amount" width="20mm" numeric="money"/>
+	  <column label="TTC" property="amount" width="20mm" numeric="money"/>
 	</table>
       </iteration>
       
@@ -69,8 +55,6 @@
 	<column label="Lieu" property="location" width="30mm"/>
 	<column label="À débuté le" property="started_at.to_date" width="20mm"/>
       </table>
-
-
       
     </page>
   </document>

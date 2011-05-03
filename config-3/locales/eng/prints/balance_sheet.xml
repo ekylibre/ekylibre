@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<template title="Example" lang="fr" version="2.0">
+<template title="Balance Sheet" lang="en" version="2.0">
   <infos>
     <info name="authors">Thibaud Mérigon, Brice Texier</info>
   </infos>
   <parameters>
-    <parameter name="financial_year" nature="financial_year">Bilan</parameter>
+    <parameter name="financial_year" nature="financial_year">Balance sheet</parameter>
   </parameters>
   <document unit="mm" size="10" title="">
     <page orientation="portrait" format="A4" margin="10mm">

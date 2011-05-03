@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<template title="Example" lang="fr" version="2.0">
+<template title="Deposit" lang="en" version="2.0">
   <infos>
     <info name="authors">Thibaud Mérigon, Brice Texier</info>
   </infos>
   <parameters>
-    <parameter name="deposit" nature="deposit">Encaissement</parameter>
+    <parameter name="deposit" nature="deposit">Deposit</parameter>
   </parameters>
   <document unit="mm" size="10" title="client.label">
     <page format="A4" margin="10mm">
@@ -29,16 +29,16 @@
 
       <table collection="deposit.payments" fixed="true">
         <column label="Client" property="payer.full_name" width="75mm"/>
-        <column label="Banque" property="bank" width="35mm"/>
-        <column label="N. Compte" property="account_number" width="25mm" align="center"/>
-        <column label="N. Ch." property="check_number" width="15mm" align="center"/>
+        <column label="Bank" property="bank" width="35mm"/>
+        <column label="Compte Nb" property="account_number" width="25mm" align="center"/>
+        <column label="Check Nb" property="check_number" width="15mm" align="center"/>
         <column label="Date" property="paid_on" width="20mm" align="center"/>
-        <column label="Montant" property="amount" width="20mm" align="right" numeric="money"/>
+        <column label="Amount" property="amount" width="20mm" align="right" numeric="money"/>
       </table>
   
       <part height="10mm">
         <set left="50%" top="3mm">
-          <text value="{{deposit/payments_count}} règlements pour un montant total de {{deposit/amount?numeric}}€" size="12" bold="true" align="center"/>
+          <text value="{{deposit/payments_count}} payments: {{deposit/amount?numeric}}€" size="12" bold="true" align="center"/>
         </set>
       </part>
 
@@ -55,7 +55,7 @@
         <set>
           <line path="0,1mm ; 100%,1mm" border="0.5 solid #000"/>
           <set top="2.5mm"> 
-            <text value="Remise en banque n°{{deposit/number}}" size="10" align="left"/>
+            <text value="Deposit #{{deposit/number}}" size="10" align="left"/>
             <text value="{{deposit/created_on?format=month_letter}}" size="10" right="0" align="right"/>
             <text value="{{deposit.company.entity/full_name}} - SIREN {{deposit.company.entity/siren}}" size="8" left="50%" align="center" top="6mm"/>
             <text value="{{deposit.company.entity.default_contact/address}}" size="8" left="50%" align="center" top="9.5mm"/>
