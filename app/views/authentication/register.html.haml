@@ -1,5 +1,6 @@
 .formalize
   =form_tag do
+    =hidden_field_tag(:locale, params[:locale])
     .fields
       =formalize do |f|
         -f.error 'my_company'

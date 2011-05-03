@@ -31,7 +31,7 @@
       =link_to(t("actions.authentication.register"), {:action=>:register, :locale=>params[:locale]}, :class=>"icon im-register", :tabindex=>4) if register
       =link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"icon im-firefox") if download_firefox
 -if bad_browser
-  #bad_browser.login
+  #bad_browser.login{:style=>"margin: 64px;"}
     .logoban
     %h2=tc("bad_browser.title")
     %p=tc("bad_browser.explanation")
@@ -43,6 +43,7 @@
         %td=link_to(tc("bad_browser.wb.safari"), "http://www.apple.com/fr/safari/")
         %td=link_to(tc("bad_browser.wb.opera"), "http://www.opera.com/browser/")
         %td=link_to(tc("bad_browser.wb.ie"), "http://www.microsoft.com/france/windows/ie/")
+  .clearfix
 -else
   #nojavascript.login
     .logoban

@@ -415,9 +415,10 @@ class Sale < CompanyRecord
       if saved
         credit.reload
         credit.propose!
+        # TODO: Manage returning deliveries because of the partial/total cancel
+        credit.confirm!
         credit.invoice!
         self.reload.save
-        
       else
         raise ActiveRecord::Rollback
       end
