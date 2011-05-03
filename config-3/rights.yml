@@ -43,6 +43,23 @@ __not_used__:
   - finances::tax_declaration_update
   - finances::tax_declarations
   - finances::tax_declarations_kame
+  - production::production_chain
+  - production::production_chain_conveyor_create
+  - production::production_chain_conveyor_delete
+  - production::production_chain_conveyor_update
+  - production::production_chain_conveyors_kame
+  - production::production_chain_create
+  - production::production_chain_delete
+  - production::production_chain_update
+  - production::production_chain_work_center
+  - production::production_chain_work_center_create
+  - production::production_chain_work_center_delete
+  - production::production_chain_work_center_down
+  - production::production_chain_work_center_up
+  - production::production_chain_work_center_update
+  - production::production_chain_work_centers_kame
+  - production::production_chains
+  - production::production_chains_kame
   - resources::employee
   - resources::employee_delete
   - resources::employee_events_kame
@@ -64,28 +81,6 @@ backup_company:
 bookkeep:
   controller: accountancy
   actions: [bookkeep, index]
-# Build production chains
-build_production_chains:
-  controller: production
-  actions:
-  - index
-  - production_chain
-  - production_chain_conveyor_create
-  - production_chain_conveyor_delete
-  - production_chain_conveyor_update
-  - production_chain_conveyors_kame
-  - production_chain_create
-  - production_chain_delete
-  - production_chain_update
-  - production_chain_work_center
-  - production_chain_work_center_create
-  - production_chain_work_center_delete
-  - production_chain_work_center_down
-  - production_chain_work_center_up
-  - production_chain_work_center_update
-  - production_chain_work_centers_kame
-  - production_chains
-  - production_chains_kame
 # Cancel sales_invoices
 cancel_sales_invoices:
   controller: management
@@ -896,7 +891,3 @@ merge_entities:
 print:
   controller: company
   actions: [print]
-# Use production chains
-use_production_chains:
-  controller: production
-  actions: [index, production_chains, production_chains_kame]

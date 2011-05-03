@@ -2,7 +2,7 @@ fra:
   rights:
     backup_company: 'Effectuer/Recharger des sauvegardes'
     bookkeep: 'Basculer les opérations commerciales en comptabilité'
-    build_production_chains: 'Construire des chaînes de production'
+    build_production_chains: 'Construire des chaînes de production' #!
     cancel_sales_invoices: 'Faire des avoirs'
     change_prices_on_sales: 'Changer les prix au moment des ventes'
     close_journals: 'Clôturer et déclôturer des journaux'
@@ -71,4 +71,4 @@ fra:
     __minimum__: 'Accéder au minimum vital'
     __not_used__: 'Droit par défaut (inaccessible)'
     print: 'Imprimer'
-    use_production_chains: 'Utiliser les chaînes de production'
+    use_production_chains: 'Utiliser les chaînes de production' #!

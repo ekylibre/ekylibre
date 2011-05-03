@@ -2,7 +2,6 @@ spa:
   rights:
     #>backup_company: 'Make and reload backups'
     #>bookkeep: 'Transfer commercial data in accountancy'
-    #>build_production_chains: 'Build production chains'
     #>cancel_sales_invoices: 'Cancel sales_invoices'
     #>change_prices_on_sales: 'Change prices on sales'
     #>close_journals: 'Close and reopen journals'
@@ -71,4 +70,3 @@ spa:
     #>__minimum__: 'Access to the minimum'
     #>__not_used__: 'Inaccessible'
     #>print: 'Print'
-    #>use_production_chains: 'Use production chains'
