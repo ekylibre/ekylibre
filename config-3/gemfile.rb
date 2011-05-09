@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.0.7'
 gem "i18n", ">= 0.5"
 gem 'haml'
 gem 'fastercsv', :platforms=>[:ruby_18, :mri_18, :mingw_18, :mswin]
