@@ -477,8 +477,8 @@ class RelationsController < ApplicationController
       end
 
     else
-      @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
-      @entity = @current_company.entities.new(:country=>@current_company.entity.country)
+      @contact = @current_company.contacts.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
+      @entity = @current_company.entities.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
       for custom_field in @custom_fields
         @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
       end

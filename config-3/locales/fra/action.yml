@@ -1243,6 +1243,7 @@ fra:
     sales_invoices_sequence: 'Numérotation des factures'
     sales_journal: 'Journal des ventes par défaut'
     sales_sequence: 'Numérotation des ventes'
+    #>stock_transfer_sequence: 'Numeration of stock transfers'
     subscriptions_sequence: 'Numérotation des abonnements'
     taxes_acquisition_accounts: 'Compte des taxes d''acquisitions intracommunautaires'
     taxes_assimilated_accounts: 'Compte des taxes assimilées'

@@ -86,7 +86,8 @@ do
 
 	# Build packages
 	echo " * Packages..." >> $log
-	blog="${log_base}.${build}.log"
+	# blog="${log_base}.${build}.log"
+	blog="./build.log"
 	echo "------------------------------------------------------------------------------------------" > $blog
 	echo "-- Build ${build} packages" >> $blog
 	echo "------------------------------------------------------------------------------------------" >> $blog

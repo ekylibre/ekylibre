@@ -63,7 +63,12 @@ case "$1" in
 	fi
 
 	cd /usr/share/ekylibre
-	if [ "`gem list | grep bundler | wc -l`" = "0" ]; then
+        # Install rake
+	if [ "`gem list -i rake`" = "false" ]; then
+	    gem install rake --no-ri --no-rdoc
+	fi
+	# Install bundler
+	if [ "`gem list -i bundler`" = "false" ]; then
 	    gem install bundler --no-ri --no-rdoc
 	fi
 

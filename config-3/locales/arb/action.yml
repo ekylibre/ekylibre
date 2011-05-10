@@ -1372,6 +1372,7 @@ arb:
     #>sales_invoices_sequence: 'Numeration of sales invoices'
     #>sales_journal: 'Default sales journal'
     #>sales_sequence: 'Numeration of sales'
+    #>stock_transfer_sequence: 'Numeration of stock transfers'
     #>subscriptions_sequence: 'Numeration of subscriptions'
     #>taxes_acquisition_accounts: 'Accounts of taxes for intra-Community acquisitions'
     #>taxes_assimilated_accounts: 'Assimilated taxes accounts'
