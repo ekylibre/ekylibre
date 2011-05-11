@@ -63,10 +63,7 @@ case "$1" in
 	fi
 
 	cd /usr/share/ekylibre
-        # Install rake
-	if [ "`gem list -i rake`" = "false" ]; then
-	    gem install rake --no-ri --no-rdoc
-	fi
+
 	# Install bundler
 	if [ "`gem list -i bundler`" = "false" ]; then
 	    gem install bundler --no-ri --no-rdoc
@@ -77,7 +74,7 @@ case "$1" in
 	# Check gems
 	$gem_bin_dir/bundle install
 
-	$gem_bin_dir/rake db:migrate RAILS_ENV=production
+	rake db:migrate RAILS_ENV=production
 
 	# Install apache conf
 	if [ ! -e /etc/apache2/conf.d/ekylibre.conf -a -e /etc/ekylibre/apache.conf ]; then

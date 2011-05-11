@@ -27,10 +27,10 @@ help_message() {
     echo "  -d DATADIR             where the binary are stored"
     echo "                         Default: ${datadir}" 
     echo "  -h                     display help message"
+    echo "  -l LOG_FILE            Main log file location"
+    echo "                         Default: ${log_base}" 
     echo "  -r RESDIR              where the resources files can be found"
     echo "                         Default: ${resdir}"
-    echo "  -l LOG_FILE            Log file location"
-    echo "                         Default: ${log}" 
     echo ""
     echo "Report bugs at <dev@ekylibre.org>"
 }
@@ -86,8 +86,8 @@ do
 
 	# Build packages
 	echo " * Packages..." >> $log
-	# blog="${log_base}.${build}.log"
-	blog="./build.log"
+	blog="${log_base}.${build}.log"
+	# blog="./build.log"
 	echo "------------------------------------------------------------------------------------------" > $blog
 	echo "-- Build ${build} packages" >> $blog
 	echo "------------------------------------------------------------------------------------------" >> $blog
