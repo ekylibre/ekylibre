@@ -58,7 +58,7 @@ class ProductionController < ApplicationController
     t.column :number
     t.column :area_measure, :datatype=>:decimal
     t.column :name, :through=>:area_unit
-    t.column :name, :through=>:group, :url=>{:action=>:land_parcel_group}
+    t.column :name, :through=>:group
     t.column :description
     t.column :started_on
     t.column :stopped_on
