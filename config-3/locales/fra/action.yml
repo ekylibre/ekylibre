@@ -353,6 +353,7 @@ fra:
     add_payment: 'Ajouter un encaissement'
     add_quickly_a_line: 'Ajouter rapidement une ligne de produit'
     address: 'Adresse'
+    all: 'Tous'
     all_accounts: 'Tous les comptes'
     all_areas: '--- Toutes les zones postales ---'
     all_conditions: 'toutes les conditions'

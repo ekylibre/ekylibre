@@ -65,16 +65,16 @@ jpn:
     no_records: '空'
     previous: '前へ'
     x_per_page:
-      #>one: '%{count} per page'
+      one: 'ページあたり%{count}行'
       other: 'ページあたり%{count}行'
   number:
     currency:
       format:
-        #>delimiter: ','
-        #>format: '%u%n'
-        #>precision: 2
-        #>separator: '.'
-        #>unit: '$'
+        delimiter: ','
+        format: '%u%n'
+        precision: 2
+        separator: '.'
+        unit: '円'
     format:
       delimiter: ' '
       precision: 3

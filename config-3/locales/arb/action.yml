@@ -355,7 +355,7 @@ arb:
     add_payment: 'اضافة دفعة'
     #>add_quickly_a_line: 'Add quickly a line of product'
     address: 'العنوان'
-    all: 'جميع الاسعار' #!
+    all: 'جميع الاسعار'
     #>all_accounts: 'All accounts'
     all_areas: '--- جميع العناوين البريدية ---'
     all_conditions: 'جميع الشروط'

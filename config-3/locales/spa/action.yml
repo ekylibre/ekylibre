@@ -354,6 +354,7 @@ spa:
     #>add_payment: 'Add payment'
     #>add_quickly_a_line: 'Add quickly a line of product'
     #>address: 'Address'
+    #>all: 'All'
     #>all_accounts: 'All accounts'
     #>all_areas: 'All postal areas'
     #>all_conditions: 'All conditions'
