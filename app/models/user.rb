@@ -58,8 +58,6 @@
 require "digest/sha2"
 
 class User < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :department
   belongs_to :establishment
   belongs_to :profession

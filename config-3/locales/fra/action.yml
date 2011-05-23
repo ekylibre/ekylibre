@@ -942,7 +942,7 @@ fra:
     stock_max: 'Stock maximum'
     stock_min: 'Stock minimum'
     stocks: 'État des stocks'
-    stocks_parameters: 'Gestion des stocks'
+    stocks_preferences: 'Gestion des stocks'
     stop: 'Jusqu''au'
     string_case: 'Options pour le texte'
     subject: 'Sujet'

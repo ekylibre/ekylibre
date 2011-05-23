@@ -40,13 +40,13 @@
 
 class InventoryLine < CompanyRecord
   acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
-  attr_readonly :company_id
-  belongs_to :company
+  #belongs_to :company
   belongs_to :inventory
-  belongs_to :warehouse
   belongs_to :product
+  belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit
+  belongs_to :warehouse
 
   before_validation do
     self.company_id = self.inventory.company_id if self.inventory

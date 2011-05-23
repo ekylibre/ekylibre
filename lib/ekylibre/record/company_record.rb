@@ -19,15 +19,15 @@
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
 
-
 class CompanyRecord < Ekylibre::Record::Base
   self.abstract_class = true
 
-#   def abstract_class?
-#     true
-#   end
+  def self.inherited(child)
+    super
+    code  = "attr_readonly :company_id\n"
+    code += "belongs_to :company\n"
+    code += "validates_presence_of :company_id"
+    child.class_eval code
+  end
 
-  attr_readonly :company_id
-  belongs_to :company
-  validates_presence_of :company_id
 end 

@@ -960,7 +960,7 @@ spa:
     #>stock_min: 'Stock min'
     stock_move_create: 'Añadir un movimiento de deposito' #!
     #>stocks: 'Stocks'
-    #>stocks_parameters: 'Stock management'
+    #>stocks_preferences: 'Stock management'
     #>stop: 'Stop'
     #>string_case: 'String case'
     subject: 'Tema'

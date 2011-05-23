@@ -1200,7 +1200,7 @@ eng:
     stock_max: 'Stock max'
     stock_min: 'Stock min'
     stocks: 'Stocks'
-    stocks_parameters: 'Stock management'
+    stocks_preferences: 'Stock management'
     stop: 'Stop'
     string_case: 'String case'
     subject: 'Subject'

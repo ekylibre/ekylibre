@@ -1005,7 +1005,7 @@ arb:
     stock_move_create: 'اضافة حركة جديدة للاسهم' #!
     stock_transfer_create: 'اضافة عملية نقل ام خسارة الاسهم' #!
     stocks: 'ادارة الاسهم'
-    #>stocks_parameters: 'Stock management'
+    #>stocks_preferences: 'Stock management'
     stop: 'لغاية'
     string_case: 'خيارات للنص'
     subject: 'الموضوع'
