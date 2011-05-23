@@ -105,7 +105,7 @@ class StockMove < CompanyRecord
   # Removes from stock the old associated quantity
   def remove_from_stock
     old = self.class.find_by_id(self.id) rescue self
-    old.stock.remove_quantity(old.quantity, old.unit, old.virtual)
+    old.stock.remove_quantity(old.quantity, old.unit, old.virtual) if old and old.stock
     return true
   end
 

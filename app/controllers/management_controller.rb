@@ -144,8 +144,8 @@ class ManagementController < ApplicationController
     t.column :comment
     t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:inventory}
     t.action :inventory_reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", :confirm=>:are_you_sure
-    t.action :inventory_update,  :if=>'!RECORD.changes_reflected'
-    t.action :inventory_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.changes_reflected == false'
+    t.action :inventory_update,  :if=>'!RECORD.changes_reflected? '
+    t.action :inventory_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'!RECORD.changes_reflected? '
   end
 
   create_kame(:inventory_lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
@@ -180,6 +180,7 @@ class ManagementController < ApplicationController
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
+      params[:inventory_lines_create] ||= {}
       params[:inventory_lines_create].each{|k,v| v[:stock_id]=k}
       # raise Exception.new(params[:inventory_lines_create].inspect)
       @inventory.company_id = @current_company.id
@@ -206,7 +207,7 @@ class ManagementController < ApplicationController
     if request.post? and !@inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:inventory_lines_create].values)
-        for id, attributes in params[:inventory_lines_update]
+        for id, attributes in (params[:inventory_lines_update]||{})
           il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
         end
       end
@@ -216,7 +217,7 @@ class ManagementController < ApplicationController
 
   def inventory_delete
     return unless @inventory = find_and_check(:inventories)
-    if request.post? and !@inventory.changes_reflected
+    if request.delete? and !@inventory.changes_reflected?
       @inventory.destroy
     end
     redirect_to_current
