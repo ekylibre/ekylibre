@@ -117,9 +117,25 @@ def actions_in_file(path)
     elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << dyxx[1]+'_'+dyxx[0]
+    elsif line.match(/^\s*list\s*$)/)
+      actions << 'list'
+    elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
+      dyxx = line.split(/[\s\(\)\,\:]+/)
+      actions << 'list_'+dyxx[1]
     elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << dyxx[1]+'_kame'
+    elsif line.match(/^\s*manage_restfully_list[\s\(]+\:\w+/)
+      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+      actions << 'up'
+      actions << 'down'
+    elsif line.match(/^\s*manage_restfully[\s\(]+\:\w+/)
+      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+      actions << 'new'
+      actions << 'create'
+      actions << 'edit'
+      actions << 'update'
+      actions << 'destroy'
     elsif line.match(/^\s*manage_list[\s\(]+\:\w+/)
       prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
       actions << prefix+'_up'
