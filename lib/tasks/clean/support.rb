@@ -108,7 +108,7 @@ def hash_diff(hash, ref, depth=0)
 end
 
 
-def actions_in_file(path)
+def actions_in_file(path, controller)
   actions = []
   File.open(path, "rb").each_line do |line|
     line = line.gsub(/(^\s*|\s*$)/,'')
@@ -117,20 +117,18 @@ def actions_in_file(path)
     elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << dyxx[1]+'_'+dyxx[0]
-    elsif line.match(/^\s*list\s*$)/)
-      actions << 'list'
     elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << 'list_'+dyxx[1]
+    elsif line.match(/^\s*list\s*/)
+      actions << "list_#{controller}"
     elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << dyxx[1]+'_kame'
-    elsif line.match(/^\s*manage_restfully_list[\s\(]+\:\w+/)
-      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+    elsif line.match(/^\s*manage_restfully_list/)
       actions << 'up'
       actions << 'down'
-    elsif line.match(/^\s*manage_restfully[\s\(]+\:\w+/)
-      prefix = line.split(/[\s\(\)\,\:]+/)[1].singularize
+    elsif line.match(/^\s*manage_restfully/)
       actions << 'new'
       actions << 'create'
       actions << 'edit'

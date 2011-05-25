@@ -61,10 +61,10 @@ end
 
 #Xil.options[:features] += [:template,:document]
 #Xil.options[:subdir_size] = 4
-if defined? WillPaginate
-  WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
-  WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
-end
+# if defined? WillPaginate
+#   WillPaginate::ViewHelpers.pagination_options[:previous_label] = I18n.t('general.previous')
+#   WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
+# end
 
 if defined? ExceptionNotifier
   # ExceptionNotifier.exception_recipients = %w(dev@ekylibre.org dev@fdsea33.fr)

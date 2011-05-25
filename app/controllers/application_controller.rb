@@ -89,10 +89,10 @@ class ApplicationController < ActionController::Base
   
   protected  
 
-#   # 1 Session by company
-#   def sessany
-#     return (@current_company ? session[@current_company.code] ||= {} : session)
-#   end
+  #   # 1 Session by company
+  #   def sessany
+  #     return (@current_company ? session[@current_company.code] ||= {} : session)
+  #   end
 
   def render_form(options={})
     a = action_name.split '_'
@@ -105,6 +105,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def render_restfully_form(options={})
+    @_operation = action_name.to_sym
+    @_operation = (@_operation==:create ? :new : @_operation==:update ? :edit : @_operation)
+    @partial    = options[:partial]||'form'
+    @options    = options
+    begin
+      render :template=>options[:template]||'shared/form_'+@_operation.to_s
+    rescue ActionController::DoubleRenderError
+    end
+  end
 
   def self.search_conditions(model_name, columns)
     model = model_name.to_s.classify.constantize
@@ -228,7 +239,7 @@ class ApplicationController < ActionController::Base
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
     notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)
   end
- 
+  
   def has_notifications?(nature=nil)
     return false unless flash[:notifications].is_a? Hash
     if nature.nil?
@@ -243,16 +254,16 @@ class ApplicationController < ActionController::Base
 
   protected
 
-#   def current_user
-#     @current_user || User.find_by_id(session[:user_id])
-#   end
+  #   def current_user
+  #     @current_user || User.find_by_id(session[:user_id])
+  #   end
 
   private
 
   def xhr_or_not()
     (request.xhr? ? "dialog" : "application")
   end
- 
+  
   def historize()
     unless (request.url.match(/_(print|create_kame|extract)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format] or controller_name.to_s == "authentication"
       if request.url == session[:history][1]
@@ -432,8 +443,6 @@ class ApplicationController < ActionController::Base
     class_eval(code)
   end
 
-
-
   # Build standard actions to manage records of a model
   def self.manage_list(name, order_by=:id)
     operations = [:up, :down]
@@ -446,10 +455,10 @@ class ApplicationController < ActionController::Base
     methods_prefix = record_name
     
     sort = ""
-#     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
-#     sort += "items.times do |x|\n"
-#     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
-#     sort += "end\n"
+    #     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
+    #     sort += "items.times do |x|\n"
+    #     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
+    #     sort += "end\n"
     
     if operations.include? :up
       # this action deletes or hides an existing record.
@@ -484,5 +493,110 @@ class ApplicationController < ActionController::Base
 
 
 
+
+
+
+
+
+
+
+
+
+
+  # Build standard RESTful actions to manage records of a model
+  def self.manage_restfully(defaults={})
+    name = controller_name
+    t3e = defaults.delete(:t3e)
+    url = defaults.delete(:redirect_to)
+    partial = defaults.delete(:partial)
+    partial =  ":partial=>'#{partial}'" if partial
+    record_name = name.to_s.singularize
+    model = name.to_s.singularize.classify.constantize
+    code = ''
+    
+    code += "def new\n"
+    values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
+    code += "  @#{record_name} = #{model.name}.new(#{values})\n"
+    code += "  render_restfully_form #{partial}\n"
+    code += "end\n"
+
+    code += "def create\n"
+    code += "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
+    code += "  @#{record_name}.company_id = @current_company.id\n"
+    code += "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
+    code += "  render_restfully_form #{partial}\n"
+    code += "end\n"
+
+    # this action updates an existing record with a form.
+    code += "def edit\n"
+    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    code += "  render_restfully_form #{partial}\n"
+    code += "end\n"
+
+    code += "def update\n"
+    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
+    code += "  @#{record_name}.attributes = params[:#{record_name}]\n"
+    code += "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
+    code += "  render_restfully_form #{partial}\n"
+    code += "end\n"
+
+    # this action deletes or hides an existing record.
+    code += "def destroy\n"
+    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    if model.instance_methods.include?("destroyable?")
+      code += "  if @#{record_name}.destroyable?\n"
+      code += "    #{model.name}.destroy(@#{record_name}.id)\n"
+      code += "    notify(:record_has_been_correctly_removed, :success)\n"
+      code += "  else\n"
+      code += "    notify(:record_cannot_be_removed, :error)\n"
+      code += "  end\n"
+    else
+      code += "  #{model.name}.destroy(@#{record_name}.id)\n"
+      code += "  notify(:record_has_been_correctly_removed, :success)\n"        
+    end
+    code += "  redirect_to_current\n"
+    code += "end\n"
+
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}    
+    class_eval(code)
+  end
+
+
+  # Build standard actions to manage records of a model
+  def self.manage_restfully_list(order_by=:id)
+    name = controller_name
+    record_name = name.to_s.singularize
+    model = name.to_s.singularize.classify.constantize
+
+    raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
+    code = ''
+    
+    sort = ""
+    #     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
+    #     sort += "items.times do |x|\n"
+    #     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
+    #     sort += "end\n"
+    
+    code += "def up\n"
+    code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code += sort.gsub(/^/, "  ")
+    code += "  #{record_name}.move_higher\n"
+    code += "  redirect_to_current\n"
+    code += "end\n"
+    
+    code += "def down\n"
+    code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code += sort.gsub(/^/, "  ")
+    code += "  #{record_name}.move_lower\n"
+    code += "  redirect_to_current\n"
+    code += "end\n"
+
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    
+    class_eval(code)
+  end
 
 end

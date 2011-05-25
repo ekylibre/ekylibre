@@ -1,0 +1,29 @@
+Kame
+====
+
+Kame is a plugin which permits to manage ajax table. The table structure is defined in controller. 
+It generates an action +[....]_kame+ in controller and an helper for views.
+
+It refers to the japanese turtle 亀. 
+
+Example
+=======
+
+  TurtleController < ApplicationController
+    kame :turtles do |t|
+      t.column :name
+      t.column :weight
+      t.column :name, :though=>:country
+      t.action :update
+      t.action :delete 
+    end
+
+    def index
+    end
+
+    # Manage action create, update...
+
+  end
+
+
+Copyright (c) 2010 Brice Texier, released under the MIT license

@@ -8,7 +8,7 @@ task :rights => :environment do
   ref = {}
   Dir.glob(Rails.root.join("app", "controllers", "*_controller.rb")) do |x|
     controller_name = x.split("/")[-1].split("_controller")[0]
-    ref[controller_name] = actions_in_file(x).sort
+    ref[controller_name] = actions_in_file(x, controller_name).sort
   end
 
   # Lecture du fichier existant
