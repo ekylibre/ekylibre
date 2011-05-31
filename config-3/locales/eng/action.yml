@@ -90,7 +90,6 @@ eng:
       help: 'Help'
       import: 'Import'
       index: 'Hello, %{user}'
-      #>list_company: 'List company'
       listing_create: 'Add a new listing'
       #>listing_delete: 'Listing delete'
       #>listing_duplicate: 'Listing duplicate'

@@ -120,8 +120,8 @@ def actions_in_file(path, controller)
     elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << 'list_'+dyxx[1]
-    elsif line.match(/^\s*list\s*/)
-      actions << "list_#{controller}"
+    elsif line.match(/^\s*list([\s\(]+|\s*$)/)
+      actions << "list" # _#{controller}"
     elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
       dyxx = line.split(/[\s\(\)\,\:]+/)
       actions << dyxx[1]+'_kame'

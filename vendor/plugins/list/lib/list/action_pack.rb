@@ -14,11 +14,11 @@ module List
         name, options = nil, {}
         name = args[0] if args[0].is_a? Symbol
         options = args[-1] if args[-1].is_a? Hash
-        name ||= self.controller_name
+        name ||= self.controller_name.to_sym
         model = (options[:model]||name).to_s.classify.constantize
-        options[:controller_method_name] = "list_#{name}"
+        options[:controller_method_name] = "list#{'_'+name.to_s if name != self.controller_name.to_sym}"
         options[:view_method_name]       = "#{self.controller_name}_list_#{name}_tag"
-        options[:records_variable_name]   = "@#{name}"
+        options[:records_variable_name]  = "@#{name}"
         table = List::Table.new(name, model, options)
         yield table
         class_eval(table.send(:generate_controller_method_code))

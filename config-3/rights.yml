@@ -36,7 +36,6 @@ __minimum__:
 # Inaccessible
 __not_used__:
   actions:
-  - company::list_company
   - finances::tax_declaration
   - finances::tax_declaration_create
   - finances::tax_declaration_delete
