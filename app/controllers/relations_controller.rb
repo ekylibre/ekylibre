@@ -23,7 +23,7 @@ class RelationsController < ApplicationController
   dyli :attorneys_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_attorneys_accounts.to_s+'%'"]]
 
 
-  create_kame(:user_future_events, :model=>:events, :conditions=>['company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
+  create_kame(:user_future_events, :model=>:events, :conditions=>['#{Event.table_name}.company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
@@ -32,7 +32,7 @@ class RelationsController < ApplicationController
     t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
   end 
 
-  create_kame(:recent_events, :model=>:events, :conditions=>['company_id = ? AND started_at < CURRENT_TIMESTAMP',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
+  create_kame(:recent_events, :model=>:events, :conditions=>['#{Event.table_name}.company_id = ? AND started_at < CURRENT_TIMESTAMP',['@current_company.id']], :order=>"started_at DESC", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :name, :through=>:nature
@@ -633,7 +633,7 @@ class RelationsController < ApplicationController
 
   manage :entity_link_natures
 
-  create_kame(:entity_links, :conditions=>['stopped_on IS NULL AND company_id = ? AND (entity_1_id = ? OR entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity_id]'],['session[:current_entity_id]']], :per_page=>5) do |t|
+  create_kame(:entity_links, :conditions=>['#{EntityLink.table_name}.stopped_on IS NULL AND #{EntityLink.table_name}.company_id = ? AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)' , ['@current_company.id'],['session[:current_entity_id]'],['session[:current_entity_id]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity_1, :url=>{:action=>:entity}
     t.column :name_1_to_2, :through=>:nature
     t.column :description, :through=>:entity_2, :url=>{:action=>:entity}
@@ -737,7 +737,8 @@ class RelationsController < ApplicationController
   end
   
 
-  create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (#{Event.table_name}.responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  # create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN #{User.table_name} AS users ON (#{Event.table_name}.responsible_id=users.id) JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id) JOIN #{EventNature.table_name} AS event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  create_kame(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>{:responsible=>{}, :entity=>[:nature]}, :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location

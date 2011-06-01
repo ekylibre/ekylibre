@@ -84,7 +84,7 @@ module Ekylibre
             columns = columns_hash
             reflect_on_all_associations(:belongs_to).each do |association|
               return if association.active_record.name=="ActiveRecord::Base"
-              column = columns[Rails.version.match(/^3\./) ? association.foreign_key.to_s : association.primary_key_name.to_s]
+              column = columns[Rails.version.match(/^3\.1/) ? association.foreign_key.to_s : association.primary_key_name.to_s]
               raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'\n#{association.inspect}\n#{columns.collect{|k,v| k}.inspect}") if column.nil?
               next unless validates?(column)
 

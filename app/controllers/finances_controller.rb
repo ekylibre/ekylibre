@@ -103,7 +103,7 @@ class FinancesController < ApplicationController
     redirect_to :action => :cashes
   end
 
-  create_kame(:cash_transfers, :conditions=>["company_id = ? ", ['@current_company.id']]) do |t|
+  create_kame(:cash_transfers, :conditions=>["#{CashTransfer.table_name}.company_id = ? ", ['@current_company.id']]) do |t|
     t.column :number, :url=>{:action=>:cash_transfer}
     t.column :emitter_amount
     t.column :name, :through=>:emitter_currency
@@ -291,7 +291,8 @@ class FinancesController < ApplicationController
     return code
   end
  
-  create_kame(:incoming_payments, :conditions=>incoming_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = #{IncomingPayment.table_name}.payer_id", :order=>"to_bank_on DESC") do |t|
+  # create_kame(:incoming_payments, :conditions=>incoming_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = #{IncomingPayment.table_name}.payer_id", :order=>"to_bank_on DESC") do |t|
+  create_kame(:incoming_payments, :conditions=>incoming_payments_conditions, :joins=>:payer, :order=>"to_bank_on DESC") do |t|
     t.column :number, :url=>{:action=>:incoming_payment}
     t.column :full_name, :through=>:payer, :url=>{:controller=>:relations, :action=>:entity}
     t.column :paid_on
@@ -312,7 +313,7 @@ class FinancesController < ApplicationController
   end
   manage :incoming_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  create_kame(:incoming_payment_sales, :model=>:sales, :conditions=>["#{Sale.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], Sale.name]) do |t|
+  create_kame(:incoming_payment_sales, :model=>:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], Sale.name]) do |t|
     t.column :number, :url=>{:action=>:sale, :controller=>:management}
     t.column :description, :through=>:client, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on
@@ -476,7 +477,8 @@ class FinancesController < ApplicationController
     return code
   end
 
-  create_kame(:outgoing_payments, :conditions=>outgoing_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC", :line_class=>"(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
+  # create_kame(:outgoing_payments, :conditions=>outgoing_payments_conditions, :joins=>"LEFT JOIN #{Entity.table_name} AS entities ON entities.id = payee_id", :order=>"to_bank_on DESC", :line_class=>"(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
+  create_kame(:outgoing_payments, :conditions=>outgoing_payments_conditions, :joins=>:payee, :order=>"to_bank_on DESC", :line_class=>"(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
     t.column :number, :url=>{:action=>:outgoing_payment}
     t.column :full_name, :through=>:payee, :url=>{:action=>:entity, :controller=>:relations}
     t.column :paid_on
@@ -498,7 +500,7 @@ class FinancesController < ApplicationController
   manage :outgoing_payments, :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
 
-  create_kame(:outgoing_payment_purchases, :model=>:purchases, :conditions=>["purchases.company_id=? AND id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
+  create_kame(:outgoing_payment_purchases, :model=>:purchases, :conditions=>["#{Purchase.table_name}.company_id=? AND #{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
     t.column :number, :url=>{:action=>:purchase, :controller=>:management}
     t.column :description, :through=>:supplier, :url=>{:action=>:entity, :controller=>:relations}
     t.column :created_on

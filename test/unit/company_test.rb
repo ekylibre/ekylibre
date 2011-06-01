@@ -99,10 +99,10 @@ class CompanyTest < ActiveSupport::TestCase
       should "invoice its sales" do
         assert !@sale.invoice
 
-        line = @sale.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
-        assert line.save
-        line = @sale.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first)
-        assert line.save
+        line = @sale.lines.new(:quantity=>12, :product=>@company.products.first, :warehouse=>@company.warehouses.first, :price_amount=>46, :tax_id=>@company.taxes.first.id)
+        assert line.save, line.errors.inspect
+        line = @sale.lines.new(:quantity=>25, :product=>@company.products.second, :warehouse=>@company.warehouses.first, :price_amount=>14.5, :tax_id=>@company.taxes.first.id)
+        assert line.save, line.errors.inspect
         @sale.reload
         assert_equal "draft", @sale.state
         assert @sale.propose
@@ -127,8 +127,8 @@ class CompanyTest < ActiveSupport::TestCase
         @sale = @company.sales.new(:client=>@company.entities.third)
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_on
-        for y in 0..10
-          line = @sale.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first)
+        for y in 1..10
+          line = @sale.lines.new(:quantity=>rand*50, :product=>@company.products.first, :warehouse=>@company.warehouses.first, :price_amount=>5*y, :tax_id=>@company.taxes.first.id)
           # assert line.valid?, [product.prices, line.price].inspect
           assert line.save, line.errors.inspect
         end

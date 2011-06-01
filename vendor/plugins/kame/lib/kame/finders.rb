@@ -33,10 +33,12 @@ module Kame
       for column in table.columns
         if through = column.options[:through]
           through = [through] unless through.is_a? Array
-          h = hash
+          h, model, joins = hash, table.model, table.joins
           for x in through
+            # raise [table.name, x, model.name, model.reflections.keys].inspect if model.reflections[x].nil?
+            break if model.reflections[x].options[:polymorphic].is_a?(TrueClass) or joins[x]
             h[x] = {} unless h[x].is_a? Hash
-            h = h[x]
+            h, model, joins = h[x], model.reflections[x].class_name.constantize, joins[x]||{}
           end         
         end
       end

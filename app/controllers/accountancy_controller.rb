@@ -163,7 +163,7 @@ class AccountancyController < ApplicationController
 
   manage :accounts, :number=>"params[:number]"
 
-  create_kame(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["company_id = ? AND account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:account_journal_entry_lines, :model=>:journal_entry_lines, :conditions=>["#{JournalEntryLine.table_name}.company_id = ? AND #{JournalEntryLine.table_name}.account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
@@ -174,7 +174,7 @@ class AccountancyController < ApplicationController
     t.column :credit
   end
 
-  create_kame(:account_entities, :model=>:entities, :conditions=>["company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+  create_kame(:account_entities, :model=>:entities, :conditions=>["#{Entity.table_name}.company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
     t.column :code, :url=>{:action=>:entity, :controller=>:relations}
     t.column :full_name, :url=>{:action=>:entity, :controller=>:relations}
     t.column :label, :through=>:client_account, :url=>{:action=>:account}
@@ -203,7 +203,8 @@ class AccountancyController < ApplicationController
     return code
   end
   
-  create_kame(:account_reconciliation, :model=>:journal_entry_lines, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
+  # create_kame(:account_reconciliation, :model=>:journal_entry_lines, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id)", :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
+  create_kame(:account_reconciliation, :model=>:journal_entry_lines, :joins=>[:entry, :account], :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account_mark}
     t.column :name, :through=>:account, :url=>{:action=>:account_mark}
     t.column :number, :through=>:entry
@@ -307,7 +308,8 @@ class AccountancyController < ApplicationController
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
-  create_kame(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id = journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
+  # create_kame(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id = journal_entries.id) JOIN #{Account.table_name} AS accounts ON (account_id = accounts.id)", :order=>"accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>[:entry, :account], :order=>"accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:account}
     t.column :name, :through=>:account, :url=>{:action=>:account}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
@@ -454,7 +456,8 @@ class AccountancyController < ApplicationController
     return code.gsub(/\s*\n\s*/, ";")
   end
 
-  create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  # create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:journal_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :number, :through=>:account, :url=>{:action=>:account}
@@ -504,7 +507,8 @@ class AccountancyController < ApplicationController
   end
 
 
-  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  # create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>{:action=>:journal}
     t.column :number, :through=>:entry, :url=>{:action=>:journal_entry}
     t.column :printed_on, :through=>:entry, :datatype=>:date

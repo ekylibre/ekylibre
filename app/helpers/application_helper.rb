@@ -516,7 +516,7 @@ module ApplicationHelper
 
 
   def theme_button(name, theme='tekyla')
-    Rails.root.join("public", "themes", theme, "images", "buttons", "#{name}.png").to_s
+    image_path("/themes/#{theme}/images/buttons/#{name}.png").to_s
   end
 
 
@@ -525,8 +525,10 @@ module ApplicationHelper
   # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
   # , 'calendar/border-radius'
   def calendar_link_tag(lang='fr')
-    (javascript_include_tag('calendar/calendar', 'calendar/lang/calendar-'+lang, 'calendar/calendar-setup')+
-     stylesheet_link_tag('calendar')).html_safe
+    return (javascript_include_tag('calendar/calendar')+
+            javascript_include_tag('calendar/lang/calendar-'+lang)+
+            javascript_include_tag('calendar/calendar-setup')+
+            stylesheet_link_tag('calendar')).html_safe
   end
 
   # <p><label for="issue_start_date">Start</label>

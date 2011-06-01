@@ -154,7 +154,7 @@ module Ekylibre
           association = association.to_s[0..-4].to_sym if association.to_s.match(/_id$/)
           reflection  = real_object.class.reflect_on_association(association)
           raise Exception.new("Unknown reflection #{association} for #{real_object.class}") if reflection.nil?
-          foreign_key = (Rails.version.match(/^3\./) ? reflection.foreign_key : reflection.primary_key_name)
+          foreign_key = (Rails.version.match(/^3\.1/) ? reflection.foreign_key : reflection.primary_key_name)
           
           name = name_db || association.to_s
           

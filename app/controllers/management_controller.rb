@@ -292,9 +292,9 @@ class ManagementController < ApplicationController
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
     code += "if session[:entity_id] == 0 \n " 
-    code += " conditions = ['company_id = ? AND active = ?', @current_company.id, true] \n "
+    code += " conditions = ['#{Price.table_name}.company_id = ? AND #{Price.table_name}.active = ?', @current_company.id, true] \n "
     code += "else \n "
-    code += " conditions = ['company_id = ? AND entity_id = ? AND active = ?', @current_company.id, session[:entity_id], true]"
+    code += " conditions = ['#{Price.table_name}.company_id = ? AND #{Price.table_name}.entity_id = ? AND #{Price.table_name}.active = ?', @current_company.id, session[:entity_id], true]"
     code += "end \n "
     code += "conditions \n "
     code
@@ -531,10 +531,10 @@ class ManagementController < ApplicationController
 
   def self.products_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND (LOWER(code) LIKE ?  OR LOWER(name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].to_s.lower+'%', '%'+session[:product_key].to_s.lower+'%', session[:product_active]] \n"
+    code += "conditions = [ \" #{Product.table_name}.company_id = ? AND (LOWER(#{Product.table_name}.code) LIKE ? OR LOWER(#{Product.table_name}.name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].to_s.lower+'%', '%'+session[:product_key].to_s.lower+'%', session[:product_active]] \n"
     code += "if session[:product_category_id].to_i != 0 \n"
-    code += "conditions[0] += \" AND category_id = ?\" \n" 
-    code += "conditions << session[:product_category_id].to_i \n"
+    code += "  conditions[0] += \" AND #{Product.table_name}.category_id = ?\" \n" 
+    code += "  conditions << session[:product_category_id].to_i \n"
     code += "end \n"
     code += "conditions \n"
     code
@@ -569,7 +569,7 @@ class ManagementController < ApplicationController
 
 
   # create_kame(:stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= critic_quantity_min  AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state') do |t|
-  create_kame(:product_stocks, :model=>:stocks, :conditions=>['company_id = ? AND product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  create_kame(:product_stocks, :model=>:stocks, :conditions=>['#{Stock.table_name}.company_id = ? AND #{Stock.table_name}.product_id = ?', ['@current_company.id'], ['session[:product_id]']] , :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
     #t.column :quantity_max
@@ -679,7 +679,8 @@ class ManagementController < ApplicationController
     redirect_to_current
   end
 
-  create_kame(:purchases, :conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
+  # create_kame(:purchases, :conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>"JOIN #{Entity.table_name} AS entities ON (entities.id=supplier_id)", :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
+  create_kame(:purchases, :conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:purchase, :step=>:default}
     t.column :reference_number, :url=>{:action=>:purchase, :step=>:products}
     t.column :created_on
@@ -738,7 +739,7 @@ class ManagementController < ApplicationController
   end
 
 
-  create_kame(:purchase_payment_uses, :model=>:outgoing_payment_uses, :conditions=>["company_id=? AND expense_id=? ", ['@current_company.id'], ['session[:current_purchase_id]']]) do |t|
+  create_kame(:purchase_payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.company_id=? AND #{OutgoingPaymentUse.table_name}.expense_id=? ", ['@current_company.id'], ['session[:current_purchase_id]']]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:outgoing_payment, :controller=>:finances}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:outgoing_payment, :controller=>:finances}
     t.column :amount
@@ -917,7 +918,8 @@ class ManagementController < ApplicationController
     code
   end
 
-  create_kame(:sales, :conditions=>sales_conditions, :joins=>"JOIN #{Entity.table_name} AS entities ON entities.id = #{Sale.table_name}.client_id", :order=>'created_on desc, number desc', :line_class=>'RECORD.state' ) do |t|
+  # create_kame(:sales, :conditions=>sales_conditions, :joins=>"JOIN #{Entity.table_name} AS entities ON entities.id = #{Sale.table_name}.client_id", :order=>'created_on desc, number desc', :line_class=>'RECORD.state' ) do |t|
+  create_kame(:sales, :conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state' ) do |t|
     t.column :number, :url=>{:action=>:sale, :step=>:default}
     #t.column :name, :through=>:nature#, :url=>{:action=>:sale_nature}
     t.column :created_on
@@ -995,7 +997,7 @@ class ManagementController < ApplicationController
     t.action :outgoing_delivery_delete, :if=>'RECORD.sale.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  create_kame(:sale_payment_uses, :model=>:incoming_payment_uses, :conditions=>["company_id=? AND expense_id=? AND expense_type=?", ['@current_company.id'], ['session[:current_sale_id]'], Sale.name]) do |t|
+  create_kame(:sale_payment_uses, :model=>:incoming_payment_uses, :conditions=>["#{IncomingPaymentUse.table_name}.company_id=? AND #{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['@current_company.id'], ['session[:current_sale_id]'], Sale.name]) do |t|
     t.column :number, :through=>:payment, :url=>{:action=>:incoming_payment, :controller=>:finances}
     t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>{:action=>:incoming_payment, :controller=>:finances}
     t.column :amount
@@ -1335,9 +1337,9 @@ class ManagementController < ApplicationController
 
 
   
-  def self.moved_conditions
+  def self.moved_conditions(model)
     code = ""
-    code += "c=['company_id=?', @current_company.id]\n"
+    code += "c=['#{model.table_name}.company_id=?', @current_company.id]\n"
     code += "if params[:mode]=='unconfirmed'\n"
     code += "  c[0] += ' AND moved_on IS NULL'\n"
     code += "elsif params[:mode]=='confirmed'\n"
@@ -1348,7 +1350,7 @@ class ManagementController < ApplicationController
   end
 
 
-  create_kame(:incoming_deliveries, :conditions=>moved_conditions) do |t|
+  create_kame(:incoming_deliveries, :conditions=>moved_conditions(IncomingDelivery)) do |t|
     t.column :number
     t.column :reference_number
     t.column :comment
@@ -1447,7 +1449,7 @@ class ManagementController < ApplicationController
 
 
 
-  create_kame(:outgoing_deliveries, :conditions=>moved_conditions) do |t|
+  create_kame(:outgoing_deliveries, :conditions=>moved_conditions(OutgoingDelivery)) do |t|
     t.column :number
     t.column :reference_number
     t.column :comment
@@ -1706,16 +1708,16 @@ class ManagementController < ApplicationController
 
   def self.subscriptions_conditions(options={})
     code = ""
-    code += "conditions = [ \" company_id = ? AND COALESCE(sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
+    code += "conditions = [ \" #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
     code += "if session[:subscriptions].is_a? Hash\n"
     code += "  if session[:subscriptions][:nature].is_a? Hash\n"
-    code += "    conditions[0] += \" AND nature_id = ?\" \n "
+    code += "    conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\" \n "
     code += "    conditions << session[:subscriptions][:nature]['id'].to_i\n"
     code += "  end\n"
     code += "  if session[:subscriptions][:nature]['nature'] == 'quantity'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN first_number AND last_number\"\n"
+    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
     code += "  elsif session[:subscriptions][:nature]['nature'] == 'period'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN started_on AND stopped_on\"\n"
+    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
     code += "  end\n"
     code += "  conditions << session[:subscriptions][:instant]\n"
     code += "end\n"
@@ -1849,7 +1851,7 @@ class ManagementController < ApplicationController
     t.column :label, :through=>:unit
   end
 
-  create_kame(:critic_stocks, :model=>:stocks, :conditions=>['company_id = ? AND virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)', ['@current_company.id']] , :line_class=>'RECORD.state', :order=>'virtual_quantity/(2*quantity_min+0.01)') do |t|
+  create_kame(:critic_stocks, :model=>:stocks, :conditions=>['#{Stock.table_name}.company_id = ? AND #{Stock.table_name}.virtual_quantity <= #{Stock.table_name}.quantity_min AND NOT (#{Stock.table_name}.virtual_quantity=0 AND #{Stock.table_name}.quantity=0 AND #{Stock.table_name}.tracking_id IS NOT NULL)', ['@current_company.id']] , :line_class=>'RECORD.state', :order=>'virtual_quantity/(2*quantity_min+0.01)') do |t|
     t.column :name, :through=>:product,:url=>{:action=>:product}
     t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
     t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
@@ -1877,7 +1879,7 @@ class ManagementController < ApplicationController
   
 
 
-  create_kame(:stock_transfers, :conditions=>moved_conditions) do |t|
+  create_kame(:stock_transfers, :conditions=>moved_conditions(StockTransfer)) do |t|
     t.column :text_nature
     t.column :name, :through=>:product, :url=>{:action=>:product}
     t.column :quantity

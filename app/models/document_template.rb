@@ -151,9 +151,9 @@ class DocumentTemplate < CompanyRecord
     # Build the PDF data
     begin
       pdf = eval(self.cache)
-    rescue
-      puts self.cache
-      raise
+    rescue Exception => e
+      puts e.message+"\nCache:\n"+self.cache
+      raise e
     end
 
     # Archive the document if necessary

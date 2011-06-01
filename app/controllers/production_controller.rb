@@ -53,7 +53,7 @@ class ProductionController < ApplicationController
   manage :tools
 
   
-  create_kame(:land_parcels, :conditions=>["company_id=? AND ? BETWEEN started_on AND COALESCE(stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
+  create_kame(:land_parcels, :conditions=>["#{LandParcel.table_name}.company_id=? AND ? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>{:action=>:land_parcel}
     t.column :number
     t.column :area_measure, :datatype=>:decimal

@@ -35,6 +35,31 @@ module Kame
       @columns.select{|c| c.exportable?}
     end
 
+    def joins(j=nil)
+      j ||= @options[:joins]
+      h = {}
+      if j.is_a? Symbol
+        h[j] = {}
+      elsif j.is_a? Array
+        for x in j
+          if x.is_a?(Symbol)
+            h[x] = {}
+          elsif x.is_a? Hash
+            h.merge(self.joins(x))
+          else
+            raise ArgumentError.new("j must be a Symbol or a Hash in an Array (#{j.class}:#{j.inspect})")
+          end
+        end
+      elsif j.is_a? Hash
+        for k, v in j
+          h[k] = self.joins(v)
+        end
+      elsif not j.nil? and not j.is_a?(String)
+        raise ArgumentError.new("j must be a Symbol, an Array or a Hash (#{j.class}:#{j.inspect})")
+      end
+      return h
+    end
+
   end
 
   

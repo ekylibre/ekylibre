@@ -172,39 +172,48 @@ class Company < Ekylibre::Record::Base
   preference :third_clients_accounts, Integer, :default=>411
   preference :third_suppliers_accounts, Integer, :default=>401
 
+
+  def self.conditions_proc(string)
+    if Rails.version.match(/^3\./)
+      eval('proc{"'+string.gsub('"', '\\"')+'"}')
+    else
+      string
+    end
+  end
+
   # Specifics
-  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}'
-  has_many :available_prices, :class_name=>Price.name, :conditions=>'prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})', :order=>"prices.amount"
+  has_many :attorney_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_attorneys_accounts.to_s+\'%\')}')
+  has_many :available_prices, :class_name=>Price.name, :conditions=>conditions_proc('prices.entity_id=#{self.entity_id} AND prices.active=#{connection.quoted_true} AND product_id IN (SELECT id FROM #{Product.table_name} WHERE company_id=#{id} AND active=#{connection.quoted_true})'), :order=>"prices.amount"
   has_many :available_products, :class_name=>Product.name, :conditions=>{:active=>true}, :order=>:name
-  has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'bank\''
-  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}'
+  has_many :bank_journals, :class_name=>Journal.name, :order=>:code, :conditions=>conditions_proc('nature LIKE \'bank\'')
+  has_many :banks_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_banks_accounts.to_s+\'%\')}')
   has_many :buildings, :class_name=>Warehouse.name, :conditions=>{:reservoir=>false}, :order=>:name
-  has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>'nature LIKE \'cash\''
-  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_cashes_accounts.to_s+\'%\')}'
-  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}'
+  has_many :cash_journals, :class_name=>Journal.name, :order=>:code, :conditions=>conditions_proc('nature LIKE \'cash\'')
+  has_many :cashes_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_cashes_accounts.to_s+\'%\')}')
+  has_many :charges_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_charges_accounts.to_s+\'%\')}')
   has_many :choice_custom_fields, :class_name=>CustomField.name, :conditions=>{:nature=>"choice"}, :order=>"name"
-  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}'
+  has_many :client_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}')
   has_many :critic_stocks, :class_name=>Stock.name, :conditions=>['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
   has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}, :order=>'last_name, first_name'
-  has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})'
+  has_many :depositable_payments, :class_name=>IncomingPayment.name, :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})')
   has_many :major_accounts, :class_name=>Account.name, :conditions=>["number LIKE '_'"], :order=>"number"
-  has_many :payments_to_deposit, :class_name=>IncomingPayment.name, :order=>"created_on", :conditions=>'deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}'
-  has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}'
+  has_many :payments_to_deposit, :class_name=>IncomingPayment.name, :order=>"created_on", :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}')
+  has_many :payments_to_deposit_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_financial_payments_to_deposit_accounts.to_s+\'%\')}')
   has_many :productable_products, :class_name=>Product.name, :conditions=>{:to_produce=>true}
-  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}'
-  has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>'entity_id=#{self.entity_id}'
-  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>'(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\''
-  has_many :self_contacts, :class_name=>Contact.name, :conditions=>'deleted_at IS NULL AND entity_id = #{self.entity_id}', :order=>'address'
+  has_many :products_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_products_accounts.to_s+\'%\')}')
+  has_many :self_cashes, :class_name=>Cash.name, :order=>:name, :conditions=>conditions_proc('entity_id=#{self.entity_id}')
+  has_many :self_bank_accounts, :class_name=>Cash.name, :order=>:name, :conditions=>conditions_proc('(entity_id IS NULL OR entity_id=#{self.entity_id}) AND nature=\'bank_account\'')
+  has_many :self_contacts, :class_name=>Contact.name, :conditions=>conditions_proc('deleted_at IS NULL AND entity_id = #{self.entity_id}'), :order=>'address'
   has_many :stockable_products, :class_name=>Product.name, :conditions=>{:stockable=>true}
-  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>'number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}'
+  has_many :supplier_accounts, :class_name=>Account.name, :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_suppliers_accounts.to_s+\'%\')}')
   has_many :suppliers, :class_name=>Entity.name, :conditions=>{:supplier=>true}, :order=>'active DESC, last_name, first_name'
   has_many :surface_units, :class_name=>Unit.name, :conditions=>{:base=>"m2"}, :order=>'coefficient, name'
   has_many :transporters, :class_name=>Entity.name, :conditions=>{:transporter=>true}, :order=>'active DESC, last_name, first_name'
   has_many :unconfirmed_stock_transfers, :class_name=>StockTransfer.name, :conditions=>{:moved_on=>nil}
   has_many :undelivered_incoming_deliveries, :class_name=>IncomingDelivery.name, :conditions=>{:moved_on=>nil}
   has_many :undelivered_outgoing_deliveries, :class_name=>OutgoingDelivery.name, :conditions=>{:moved_on=>nil}
-  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
-  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>'used_amount < amount', :order=>'amount'
+  has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
+  has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
 
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"

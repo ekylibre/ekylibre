@@ -97,7 +97,7 @@ class SaleLine < CompanyRecord
     self.price_amount ||= 0
 
     if self.price_amount > 0
-      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax.id, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
+      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax_id||0, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
       self.price = price
     end
     

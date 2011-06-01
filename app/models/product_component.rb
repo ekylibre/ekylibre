@@ -64,7 +64,7 @@ class ProductComponent < CompanyRecord
   def update #_without_callbacks
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
+    nc = self.class.create!(self.attributes.delete_if{|k,v| k.to_s.match(/^company(\_id)?$/)}.merge(:company_id=>self.company_id, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
     self.class.update_all({:active=>false}, {:id=>self.id})
     return nc
   end

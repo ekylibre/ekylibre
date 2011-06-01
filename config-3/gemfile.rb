@@ -1,16 +1,16 @@
 source 'http://rubygems.org'
 
 gem 'rake', '0.8.7'
-gem 'rails', '3.1.0.rc1'
+gem 'rails', '3.0.8.rc4'
 # gem "i18n", ">= 0.5"
-gem 'haml'
-# Needed to use RJS
-gem 'prototype-rails', :git => 'git://github.com/rails/prototype-rails.git'
+gem 'haml', "3.0.25"
+# Needed to use RJS with Rails ~> 3.1
+# gem 'prototype-rails', :git => 'git://github.com/rails/prototype-rails.git'
 gem 'fastercsv', :platforms=>[:ruby_18, :mri_18, :mingw_18, :mswin]
 gem 'libxml-ruby', '1.1.3', :require=>'libxml'
 gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0.pre2'
-gem 'state_machine', :path => 'vendor/ogems/state_machine-0.9.4'
+gem 'state_machine' # , :path => 'vendor/ogems/state_machine-0.9.4'
 # gem 'ruby-graphviz', '>= 0.9.0'
 gem 'exception_notification', :path => 'vendor/ogems/exception_notification-1.0.0', :require=>'exception_notifier'
 
