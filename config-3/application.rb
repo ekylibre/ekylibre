@@ -12,39 +12,30 @@ module Ekylibre
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
 
-    # Add additional load paths for your own custom dirs
-    # config.load_paths += %W( #{config.root}/extras )
+    # Custom directories with classes and modules you want to be autoloadable.
+    # config.autoload_paths += %W(#{config.root}/extras)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
-    # config.plugins = [ :will_paginate, :dyke, :all ]
-
+    
     # Activate observers that should always be running
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
-
-    # Add a prefix to all tables
-    # config.active_record.table_name_prefix = "eky_"
-    # config.active_record.table_name_suffix = "_eky"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}')]
-    config.i18n.locale = :eng
     config.i18n.default_locale = :eng
-    # config.i18n.fallbacks[:cat, :spa, :eng]
-
-    # Configure generators values. Many other options are available, be sure to check the documentation.
-    # config.generators do |g|
-    #   g.orm             :active_record
-    #   g.template_engine :erb
-    #   g.test_framework  :test_unit, :fixture => true
-    # end
+    config.i18n.locale = :eng
+    # Please note that JavaScript expansions are *ignored altogether* if the asset
+    # pipeline is enabled (see config.assets.enabled below). Put your defaults in
+    # app/assets/javascripts/application.js in that case.
+    #
+    # JavaScript files you want as :defaults (application.js is always included).
+    # config.action_view.javascript_expansions[:defaults] = %w(prototype prototype_ujs)
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -52,10 +43,10 @@ module Ekylibre
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
 
+    # Enable the asset pipeline
+    config.assets.enabled = true
+
     # Configure exception notification
     # config.middleware.use ExceptionNotifier, :email_prefix => "[ERROR] ", :sender_address => %{"notifier" <notifier@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
-    
-    # Configure the use of plugin Sass
-    # config.middleware.use Sass::Plugin::Rack
   end
 end

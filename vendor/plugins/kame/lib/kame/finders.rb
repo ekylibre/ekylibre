@@ -100,7 +100,10 @@ module Kame
 end
 
 require "kame/finders/simple_finder"
-require "kame/finders/will_paginate_finder" if defined? WillPaginate
+if defined? WillPaginate::ViewsHelper
+  # raise "WillPaginate::ViewsHelper" unless WillPaginate::ViewsHelper
+  require "kame/finders/will_paginate_finder" 
+end
 
 
 

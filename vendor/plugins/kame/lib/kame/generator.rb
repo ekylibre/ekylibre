@@ -18,14 +18,13 @@ module Kame
       Kame.records_variable_name(self.name)
     end
 
-    def finder
-      Kame.finders[@options[:finder]]
-    end
-
     def renderer
       Kame.renderers[@options[:renderer]]
     end
 
+    def finder
+      Kame.finders[@options[:finder]]
+    end
 
     protected
 

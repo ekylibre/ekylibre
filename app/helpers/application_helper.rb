@@ -516,7 +516,7 @@ module ApplicationHelper
 
 
   def theme_button(name, theme='tekyla')
-    compute_public_path("#{name}.png", "themes/#{theme}/images/buttons")
+    Rails.root.join("public", "themes", theme, "images", "buttons", "#{name}.png").to_s
   end
 
 

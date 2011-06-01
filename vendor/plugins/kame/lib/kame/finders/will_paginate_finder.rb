@@ -43,7 +43,10 @@ Kame.register_finder(:will_paginate_finder, Kame::WillPaginateFinder)
 ERB::Util::HTML_ESCAPE.merge( '&' => '&#38;', '>' => '&#62;', '<' => '&#60;', '"' => '&#34;' )
 
 module ActionView
-  if defined? WillPaginate::ViewHelpers::LinkRenderer
+
+
+  if Rails.version.match(/^3\./) #  defined? WillPaginate::ViewHelpers::LinkRenderer
+
     class RemoteLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
       
       def initialize

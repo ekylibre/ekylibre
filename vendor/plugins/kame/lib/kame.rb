@@ -18,8 +18,8 @@ module Kame #:nodoc:
   end
 end
 
-require "kame/definition"
 require "kame/generator"
+require "kame/definition"
 # Integration in Rails
 require "kame/action_pack" if defined? Rails
 

@@ -9,7 +9,7 @@ module Kame
       @name    = name
       @model   = model
       @options = options
-      @options[:finder] = (@options[:pagination]==:none ? :simple_finder  : :will_paginate_finder)
+      @options[:finder] = ((@options[:pagination]==:none or !defined?(WillPaginateFinder)) ? :simple_finder : :will_paginate_finder)
       @options[:renderer] ||= :simple_renderer
       @options[:per_page] = 25 if @options[:per_page].to_i <= 0
       @options[:page] = 1 if @options[:page].to_i <= 0
