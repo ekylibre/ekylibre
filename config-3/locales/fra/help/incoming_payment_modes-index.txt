@@ -13,4 +13,3 @@ En général, les comptes associés sont différents pour chaque mode :
   * Chèques : //5112. Chèques à encaisser//
   * Carte bancaire : //5115. Cartes bancaires à encaisser//
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

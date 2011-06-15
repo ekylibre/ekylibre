@@ -4,4 +4,3 @@ Si vous **décochez** "Enregistrer un nouveau règlement", vous aurez accès à 
 
 Les informations relatives aux chèques ne sont pas obligatoires mais peuvent vous permettre de suivre vos règlements.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

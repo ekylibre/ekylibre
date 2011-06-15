@@ -8,4 +8,3 @@ Afin de rendre **cohérente votre gestion de stocks**, vous pouvez décider de *
 
 Vous pouvez mettre à jour votre inventaire tant qu'il n'a pas été validé.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

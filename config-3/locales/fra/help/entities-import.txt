@@ -17,6 +17,4 @@ Une fois la correspondance effectuée, l'intégralité du fichier est testé ava
 
 !!! Cette opération peut être longue si votre fichier est important. Attendez avant de rafraichir la page trop vite.
 
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]
  

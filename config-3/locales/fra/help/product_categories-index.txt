@@ -4,5 +4,3 @@ Ces catégories permettent de "ranger" les produits pour les retrouver plus faci
 
 Les catégories peuvent être hierarchisées, c'est à dire que vous pouvez créer des sous-catégories et des sur-catégories.
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

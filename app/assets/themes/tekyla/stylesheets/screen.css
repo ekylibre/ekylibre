@@ -120,7 +120,7 @@ html[dir="rtl"] .help { float:left; margin-right: 8px; }
 .help .nav { background: #e9e9a8; padding: 0 2px; }
 .help .title { color: #750; }
 */
-.content { padding: 8px; clear: both; }
+.content { clear: both; }
 .content * { color: #000 }
 .content h1 { font-size: 12px; margin: 0px 0 8px; color: #23579A; font-weight:bold; text-transform: uppercase; }
 .content h2 { font-size: 13px; margin: 8px 0 4px; border-bottom: 1px dotted #AAA; color: #23579A; font-weight:bold; }
@@ -162,8 +162,9 @@ html[dir="rtl"] div#side { float: right; }
 #side .module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }
 
 #side .module.help #help { background: #FFD; } /* #fefef9 url(../images/help.png) repeat-x top */
+#side .module.help .content { padding: 8px; }
 
-#side .module.menu ul { padding: 0; margin-bottom: 8px; }
+#side .module.menu ul { padding: 8px 0 0 0; margin-bottom: 8px; }
 #side .module.menu ul li { display: block; }
 #side .module.menu ul li a { display: block; padding: 4px 12px; text-decoration: none; color: black;}
 #side .module.menu ul li a:hover {background: #C9D7F1;}
@@ -231,6 +232,7 @@ html[dir="rtl"] #top #loading { float:left; }
 
 #legals { background: #F1F1F1; border-top: 1px solid #999;}
 
+#helpage { padding-left: 8px; }
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/

@@ -38,19 +38,20 @@ task :locales => :environment do
   for controller_file in Dir[Rails.root.join("app", "controllers", "*.rb")].sort
     controller_name = controller_file.split("/")[-1].split("_controller")[0]
     actions = actions_in_file(controller_file, controller_name).sort
-    translation += "    #{controller_name}:\n"
     existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
-    # for action_name in (actions.delete_if{|a| a.to_s.match(/_delete$/)}|existing_actions).sort
-    for action_name in (actions|existing_actions).sort
-      name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
-      to_translate += 1 
-      if actions.include?(action_name)
-        # to_translate += 1 
-        untranslated += 1 if name.blank?
+    translateable_actions = (actions.delete_if{|a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^list(\_|$)/)}|existing_actions).sort
+    if not translateable_actions.empty? and not [:interfacers].include?(controller_name.to_sym)
+      translation += "    #{controller_name}:\n"
+      for action_name in translateable_actions
+        name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
+        to_translate += 1 
+        if actions.include?(action_name)
+          untranslated += 1 if name.blank?
+        end
+        translation += "      #{missing_prompt if name.blank?}#{action_name}: "+yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
+        translation += " #!" unless actions.include?(action_name)
+        translation += "\n"
       end
-      translation += "      #{missing_prompt if name.blank?}#{action_name}: "+yaml_value(name.blank? ? action_name.humanize : name, 3)
-      translation += " #!" unless actions.include?(action_name)
-      translation += "\n"
     end
   end
 

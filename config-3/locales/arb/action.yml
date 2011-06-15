@@ -15,6 +15,7 @@ arb:
       new: 'انشاء حساب جديد'
       reconciliation: 'كتابة حسابات'
       show: 'الحساب : %{number} - %{name}'
+      #>unmark: 'Unmark account'
     application: #!
     areas:
       edit: 'تعديل العنوان البريدي : %{name}'
@@ -67,13 +68,12 @@ arb:
       show: 'الحقل المخصص : %{name}'
       #>sort: 'Sort custom field choices'
     dashboards:
-      #>accountancy: 'Accountancy'
-      #>finances: 'Finances'
-      #>general: 'General'
-      #>index: 'Main dashboard'
-      #>production: 'Production'
-      #>relations: 'Relations'
-      #>trade: 'Trade'
+      #>accountancy: 'Accountancy dashboard'
+      #>finances: 'Finances dashboard'
+      #>general: 'General dashboard'
+      #>production: 'Production dashboard'
+      #>relations: 'Relations dashboard'
+      #>trade: 'Trade dashboard'
       #>welcome: 'Welcome on Ekylibre'
     delays:
       edit: 'تعديل المهلة : %{name}'
@@ -90,6 +90,7 @@ arb:
       index: 'اقتطاعات البنك'
       new: 'انشاء اقتطاع : %{mode}'
       show: 'اقتطاع البنك %{number} من %{created_on}'
+      #>unvalidateds: 'Unvalidated deposits'
     districts:
       edit: 'تعديل عنوان بريدي : %{name}'
       index: 'المناطق الادارية'
@@ -99,6 +100,7 @@ arb:
       index: 'نماذج الوثيقة'
       load: 'تحميل نموذج الوثيقة افتراضيا'
       new: 'انشاء نموذج للوثيقة'
+      #>print: 'Print document template'
     documents:
       print: 'طباعة وتصدير'
     entities:
@@ -145,8 +147,11 @@ arb:
       index: 'ممارسة المحاسبة'
       new: 'انشاء مهنة جديدة'
       show: 'ممارسة المحاسبة %{code}'
-    help: #!
+    help:
+      #>index: 'Help'
+      #>show: 'Help: %{title}'
     incoming_deliveries:
+      #>confirm: 'Confirm incoming delivery'
       #>edit: 'Edit the incoming delivery'
       #>index: 'Incoming deliveries'
       #>new: 'Add a new incoming delivery'
@@ -180,6 +185,7 @@ arb:
       #>new: 'Add a new entry line'
     journals:
       close: 'اغلاق %{name}'
+      #>draft: 'Draft'
       edit: 'تعديل الدفتر اليومي : %{name}'
       index: 'الدفاتر اليومية'
       new: 'انشاء دفتر يومي جديد'
@@ -197,9 +203,12 @@ arb:
       new: 'اضافة نظام جديد'
       show: 'نظام %{name}'
     listing_node_items: #!
-    listing_nodes: #!
+    listing_nodes:
+      #>edit: 'Edit listing node'
+      #>new: 'New listing node'
     listings:
       edit: 'تعديل المستخرج : %{name}'
+      #>extract: 'Extract listing: %{name}'
       index: 'الصادرات وارسال الرسائل'
       mail: 'ارسال الرسالة ل "%{listing}"'
       new: 'انشاء استخلاص جديد'
@@ -216,21 +225,26 @@ arb:
       edit: 'تعديل التفويض'
       index: 'تفويضات'
       new: 'انشاء تفويض'
-    myselves: #!
+    myselves:
+      #>change_password: 'Change my password'
+      #>statistics: 'My statistics'
     observations:
       edit: 'تعديل الملاحظة'
       new: 'اضافة ملاحظة'
-    operation_lines: #!
+    operation_lines:
+      #>new: 'New operation''s product'
     operation_natures:
       edit: 'تعديل نوع العمل : %{name}'
       index: 'اواع العمل'
       new: 'انشاء نوع جديد من العمل'
-    operation_uses: #!
+    operation_uses:
+      #>new: 'New tool''s use'
     operations:
       edit: 'تعدل العمل %{name}'
       index: 'اعمال'
       new: 'انشاء عمل جديد'
       show: 'تفاصيل العمل %{name}'
+      #>unvalidateds: 'Unvalidated operations'
     outgoing_deliveries:
       edit: 'تعديل التسليم'
       #>index: 'Outgoing deliveries'
@@ -254,6 +268,8 @@ arb:
     preferences: #!
     prices:
       #>edit: 'Edit price %{pretax_amount}/%{amount} of %{product}'
+      #>export: 'Export prices'
+      #>find: 'Find price'
       import: 'CSV استيراد بيان التعرفة ضمن'
       index: 'الاسعار'
       new: 'اضافة سعر جديد'
@@ -286,7 +302,10 @@ arb:
       index: 'المنتجات'
       new: 'اضافة منتج جديد'
       show: 'المنتجات : %{name}'
-    professions: #!
+    professions:
+      #>edit: 'Edit profession'
+      #>index: 'Professions'
+      #>new: 'Add a new profession'
     purchase_lines:
       edit: 'تعديل تصميم الطلب'
       new: 'اضافة طلب للمنتج : %{number}'
@@ -309,6 +328,7 @@ arb:
       index: 'مهام'
       new: 'اضافة مهام'
     sale_lines:
+      #>detail: 'Detail sale line'
       edit: 'تعديل مسار طلب المنتج'
       new: 'اضافة تصميم خطوط المنتج'
     sale_natures:
@@ -319,6 +339,7 @@ arb:
       #>abort: 'Abort sale'
       cancel: 'مسالك شمولية الفاتورة %{number}'
       confirm: 'المضي بطلب تحديد السعر والاتجاه الى التسليم'
+      #>contacts: 'Contacts of sale'
       #>correct: 'Correct estimate'
       edit: 'تعديل طلب البيع رقم%{number}'
       index: 'الطلبات وتحديد الاسعار'
@@ -328,6 +349,7 @@ arb:
       #>propose_and_invoice: 'Invoice quickly'
       #>refuse: 'Estimate refused'
       show: 'تفاصيل البيع %{number} للعميل %{client}'
+      #>statistics: 'Sales statistics'
     sequences:
       edit: 'تعديل التسلسل : %{name}'
       index: 'التسلسلات'
@@ -336,12 +358,14 @@ arb:
     sessions:
       #>destroy: 'Log out'
       #>new: 'New session'
+      #>renew: 'Renew session'
     settings: #!
     stock_moves:
       edit: 'تعديل حركة سهم : %{name}'
       new: 'التسجيل لحركة السهم'
     stock_transfers:
       confirm: 'اتمام عملية نقل'
+      #>confirm_all: 'Confirm all stock transfer'
       edit: 'تعديل عملية نقل الاسهم'
       index: 'عمليات نقل وخسارة الاسهم'
       new: 'اضافة عملية نقل او خسارة الاسهم'
@@ -351,6 +375,7 @@ arb:
       edit: 'تعديل نوع الاشتراك: %{name}'
       index: 'انواع الاشتراك'
       new: 'اضافة نوع الاشتراك'
+      #>show: 'Subscription type: %{name}'
     subscriptions:
       edit: 'تعديل الاشتراك:  %{number} من %{start} الى %{finish}'
       #>index: 'Subscriptions'
@@ -375,6 +400,7 @@ arb:
     transfers: #!
     transports:
       deliveries: 'تسليم وسيلة النقل'
+      #>delivery_delete: 'Remove delivery from transport'
       edit: 'تعديل وسيلة النقل'
       index: 'وسائل النقل'
       new: 'اضافة وسيلة نقل جديدة'
@@ -387,15 +413,18 @@ arb:
     users:
       edit: 'تعديل المستخدم'
       index: 'المستخدمين'
+      #>lock: 'Lock user'
       new: 'انشاء مستخدم جديد'
       show: 'المستخدم : %{first_name} %{last_name} (%{name})'
-      statistics: 'احصائياتي'
+      statistics: 'احصائياتي' #!
+      #>unlock: 'Unlock user'
     warehouses:
       edit: 'تعديل موقع التخزين'
       index: 'مواقع التخزين'
       new: 'اضافة موقع للتخزين'
       show: 'تفاصيل عن مواقع التخزين : %{name}'
   controllers:
+    #>account_balances: 'Account balances'
     accountancy: 'المحاسبة' #!
     accounts: 'مخطط الحساب'
     application: 'تطبيق'
@@ -404,17 +433,26 @@ arb:
     bank_statements: 'بيان الحساب المصرفي'
     #>cash_transfers: 'Cash transfers'
     cashes: 'الخزينة'
+    #>companies: 'Companies'
     company: 'شركة' #!
+    #>contacts: 'Contacts'
+    #>cultivations: 'Cultivations'
+    #>currencies: 'Currencies'
+    #>custom_field_choices: 'Custom field choices'
+    #>custom_field_data: 'Custom field data'
     custom_fields: 'الحقول المخصصة'
     #>dashboards: 'Dashboards'
     delays: 'مهلة'
     departments: 'الوظائف/المهام'
+    #>deposit_lines: 'Deposit lines'
     deposits: 'اقتطاعات البنك'
     districts: 'المناطق الادارية'
     document_templates: 'نماذج الوثيقة'
+    #>documents: 'Documents'
     entities: 'سجلات الاشخاص'
     entity_categories: 'انواع الملف'
     entity_link_natures: 'انواع الرابط'
+    #>entity_links: 'Entity links'
     entity_natures: 'انواع الملفات'
     establishments: 'مرافق'
     event_natures: 'انواع الاحداث'
@@ -422,33 +460,59 @@ arb:
     financial_years: 'ممارسة المحاسبة'
     help: 'المساعدة'
     #>incoming_deliveries: 'Incoming deliveries'
+    #>incoming_delivery_lines: 'Incoming delivery lines'
     #>incoming_delivery_modes: 'Incoming delivery modes'
     incoming_payment_modes: 'طرق تسديد الدفعات'
+    #>incoming_payment_uses: 'Incoming payment uses'
     incoming_payments: 'الدفعات'
+    #>interfacers: 'Interfacers'
     inventories: 'الجرد'
+    #>inventory_lines: 'Inventory lines'
+    #>journal_entries: 'Journal entries'
+    #>journal_entry_lines: 'Journal entry lines'
     journals: 'الدفاتر اليومية'
     #>land_parcel_groups: 'Groups of land parcels'
+    #>land_parcel_kinships: 'Land parcel kinships'
     land_parcels: 'انظمة'
+    #>listing_node_items: 'Listing node items'
+    #>listing_nodes: 'Listing nodes'
     listings: 'الصادرات وارسال الرسائل'
     management: 'الادارة' #!
     mandates: 'تفويضات'
+    #>myselves: 'Myself'
+    #>observations: 'Observations'
+    #>operation_lines: 'Operation lines'
     operation_natures: 'اواع العمل'
+    #>operation_uses: 'Operation uses of tools'
     operations: 'اعمال'
     #>outgoing_deliveries: 'Outgoing deliveries'
+    #>outgoing_delivery_lines: 'Outgoing delivery lines'
     outgoing_delivery_modes: 'وسائل التسليم'
     outgoing_payment_modes: 'طرق تسديد الدفعات'
+    #>outgoing_payment_uses: 'Outgoing payment uses'
     outgoing_payments: 'دفعات'
+    #>preferences: 'Preferences'
     prices: 'الاسعار'
     product_categories: 'فئات المنتج'
+    #>product_components: 'Product components'
     production: 'المنتج' #!
+    #>production_chain_conveyors: 'Production chain conveyors'
+    #>production_chain_work_center_uses: 'Production chain work center uses'
+    #>production_chain_work_centers: 'Production chain work centers'
     #>production_chains: 'Production chains'
     products: 'المنتجات'
+    #>professions: 'Professions'
+    #>purchase_lines: 'Purchase lines'
     purchases: 'المستريات'
     relations: 'العلاقات' #!
     roles: 'مهام'
+    #>sale_lines: 'Sale lines'
     sale_natures: 'انواع طلبات البيع'
     sales: 'الطلبات وتحديد الاسعار'
     sequences: 'التسلسلات'
+    #>sessions: 'Session'
+    #>settings: 'Settings'
+    #>stock_moves: 'Stock moves'
     stock_transfers: 'عمليات نقل وخسارة الاسهم'
     stocks: 'وضع الاسهم'
     subscription_natures: 'انواع الاشتراك'
@@ -456,6 +520,9 @@ arb:
     tax_declarations: 'تصريح عن قيمة الضريبة الاضافية'
     taxes: 'الضرائب'
     tools: 'مادة'
+    #>tracking_states: 'Tracking states'
+    #>trackings: 'Trackings'
+    #>transfers: 'Transfers'
     transports: 'وسائل النقل'
     units: 'وحدات القياس'
     users: 'المستخدمين'
@@ -603,6 +670,7 @@ arb:
     contact: 'العنوان'
     contact_create: 'اضافة مشترك جديد' #!
     #>contains: 'Contains'
+    #>contextual_help: 'Help on current page'
     coordinates: 'تنسيق'
     copy_of: 'نسخ من %{source}'
     cost_income_statement: 'التكاليف'
@@ -877,6 +945,7 @@ arb:
         #>events: 'Events'
         #>financial_years: 'Financial Years'
         #>incoming_payments: 'Incoming Payments'
+        #>informations: 'Informations'
         #>journals: 'Journals'
         #>land_parcels: 'Land Parcels'
         #>mandates: 'Mandates'
@@ -994,6 +1063,7 @@ arb:
     overflow: 'فائض رصيد الدائن'
     page_title: '%{company_code} - %{controller} - %{action}'
     page_title_by_default: 'Ekylibre - %{controller} - %{action}'
+    #>page_title_special: '%{company_code} - %{action}'
     paid_amount: 'القيمة المسدودة'
     paid_on: 'تم التسديد في'
     parameters: 'عامل متغير'

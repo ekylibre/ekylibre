@@ -2,6 +2,7 @@ jpn:
   rights:
     #>backup_company: 'Make and reload backups'
     #>bookkeep: 'Transfer commercial data in accountancy'
+    #>build_production_chains: 'Build production chains'
     #>cancel_sales_invoices: 'Cancel sales_invoices'
     #>change_prices_on_sales: 'Change prices on sales'
     #>close_journals: 'Close and reopen journals'
@@ -70,3 +71,4 @@ jpn:
     #>__minimum__: 'Access to the minimum'
     #>print: 'Print'
     #>__public__: 'Public access'
+    #>use_production_chains: 'Use production chains'

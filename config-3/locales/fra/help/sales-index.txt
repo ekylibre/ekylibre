@@ -25,5 +25,3 @@ Cocher ce champ vous permettra de **personnaliser votre devis** en ayant la poss
 Autant d'**informations qui s'ajouteront à votre devis lors de son impression**.
 
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -22,8 +22,6 @@
 #   - production_chains::new
 #   - production_chains::show
 #   - production_chains::update
-#   - products::trackings
-#   - products::units
 #   - professions::create
 #   - professions::destroy
 #   - professions::edit
@@ -44,17 +42,12 @@
 __minimum__:
   actions:
   - company::about # NONEXISTENT ACTION !!!
-  - company::help # NONEXISTENT ACTION !!!
   - company::unknown_action # NONEXISTENT ACTION !!!
-  - dashboards::index
-  - dashboards::list_critic_stocks
   - dashboards::list_my_future_events
   - dashboards::list_recent_events
   - dashboards::welcome
-  - help::close
-  - help::previous
-  - help::search
-  - help::side
+  - help::index
+  - help::show
   - interfacers::account_dyli
   - interfacers::account_dyli
   - interfacers::all_contacts_dyli
@@ -71,8 +64,8 @@ __minimum__:
   - interfacers::entities_dyli
   - interfacers::entities_dyli
   - interfacers::formalize
-  - interfacers::product_trackings # NONEXISTENT ACTION !!!
-  - interfacers::product_units # NONEXISTENT ACTION !!!
+  - interfacers::product_trackings
+  - interfacers::product_units
   - interfacers::purchase_products_dyli
   - interfacers::subscription_contacts_dyli
   - interfacers::suppliers_dyli
@@ -98,6 +91,9 @@ bookkeep:
   actions:
   - accountancy::bookkeep # NONEXISTENT ACTION !!!
   - dashboards::accountancy
+# Build production chains
+build_production_chains:
+  actions: []
 # Cancel sales_invoices
 cancel_sales_invoices:
   actions:
@@ -201,8 +197,8 @@ consult_sales:
 # Consult the stocks
 consult_stocks:
   actions:
+  - dashboards::list_critic_stocks
   - dashboards::trade
-  - management::critic_stocks_kame # NONEXISTENT ACTION !!!
   - stocks::index
   - stocks::list
 # Consult the tracking informations
@@ -1001,3 +997,6 @@ merge_entities:
 # Print
 print:
   actions: [documents::print]
+# Use production chains
+use_production_chains:
+  actions: []

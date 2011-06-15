@@ -15,6 +15,3 @@ Pour créer un nouveau lieu de stockage, il vous suffit de renseigner les diffé
 
 **Si vous créez un réservoir, vous devrez également sélectionnez le produit contenu** ansi que sa quantité maximum.
 
-
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

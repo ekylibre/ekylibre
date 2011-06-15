@@ -3,7 +3,6 @@
 #         - dashboards::accountancy
 #         - dashboards::finances
 #         - dashboards::general
-#         - dashboards::index
 #         - dashboards::list_critic_stocks
 #         - dashboards::list_my_future_events
 #         - dashboards::list_recent_events
@@ -11,10 +10,6 @@
 #         - dashboards::relations
 #         - dashboards::trade
 #         - dashboards::welcome
-#         - help::close
-#         - help::previous
-#         - help::search
-#         - help::side
 #         - interfacers::account_dyli
 #         - interfacers::all_contacts_dyli
 #         - interfacers::attorneys_accounts_dyli
@@ -38,6 +33,8 @@
 #         - interfacers::outgoing_deliveries_dyli
 #         - interfacers::outgoing_delivery_contacts_dyli
 #         - interfacers::paid_account_dyli
+#         - interfacers::product_trackings
+#         - interfacers::product_units
 #         - interfacers::purchase_products_dyli
 #         - interfacers::subscription_contacts_dyli
 #         - interfacers::suppliers_accounts_dyli
@@ -141,6 +138,9 @@ menus:
         - units::load
         - units::new
         - units::update
+    - informations:
+      - - help::index
+        - help::show
   - relations:
     - entities:
       - - entities::index
@@ -578,8 +578,6 @@ menus:
         - products::list_stock_moves
         - products::list_stocks
         - products::show
-        - products::trackings
-        - products::units
         - products::update
       - - products::new
         - products::create

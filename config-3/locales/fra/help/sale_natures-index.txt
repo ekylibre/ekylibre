@@ -7,5 +7,4 @@ Vous pouvez
   * le **modifier** :  [[management-sale_order_natures_update|{{theme:buttons/update.png|modifier}}]]  
   * le **supprimer** : {{theme:buttons/delete.png|supprimer}}
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
  

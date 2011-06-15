@@ -17,36 +17,44 @@
 #
 
 class HelpController < ApplicationController
-  include ActionView::Helpers::TagHelper
      
-  def close   
-    session[:help]=false
-    session[:help_history] = []
-    @current_user.preference("interface.help.opened", true, :boolean).set session[:help]
-    render :text=>''
-  end
-  
-  def search
-    help_search(params[:article])
-    @current_user.preference("interface.help.opened", true, :boolean).set session[:help]
-    render :partial=>'search'
-  end
-
-  def previous
-    s = session[:help_history].size
-    if s>1
-      @article = session[:help_history][s-2]
-      session[:help_history].delete_at(s-1)
+  def show
+    file = search_article(params[:id])
+    if request.xhr?
+      render :partial=>'search', :object=>file
+      return
     else
-      @article = session[:help_history][0]
-    end    
-    render :partial=>'search'
+      @help = file
+    end
+    t3e :title=>@@helps[file][:title]
   end
 
-  def side
-    session[:side] = false if session[:side].nil?
-    session[:side] = !session[:side] # (params[:operation]=='open')
-    render :text=>''
+  def index
+    @per_page = 10
+    if request.xhr?
+      render :inline=>"<%=article(params[:article], :url=>{:controller=>:help, :action=>:index, :id=>'\1'}, :update=>:helpage)-%>"
+    else
+      @key = params[:key]||session[:help_key]
+      session[:help_key] = @key
+      @key_words = @key.to_s.lower.split(" ").select{|x| x.strip.length>2}
+      reg = /(#{@key_words.join("|")})/i
+      if @key_words.size>0
+        @results = []
+        for file in @@helps.keys
+          File.open(file) do |f| 
+            data = f.read
+            if (match = data.scan(reg).size) > 0
+              @results << @@helps[file].merge(:count=>match) 
+            end
+          end
+        end
+        if @results.size>0
+          @results.sort!{|a,b| b[:count]<=>a[:count]}
+          max = @results[0][:count]
+          @results.each{|r| r[:pertinence] = (100*r[:count]/max).to_i}
+        end
+      end
+    end
   end
 
 end

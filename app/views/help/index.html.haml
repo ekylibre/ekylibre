@@ -1,10 +1,4 @@
-.search
-  =form_tag do
-    %table
-      %tr
-        %td.label=tc(:search)
-        %td.field=text_field_tag :key, @key
-        %td.submit=submit_tag tg(:search_go)
+=render :partial=>"search_form"
 %table.full-width
   %tr
     -if @results
@@ -13,10 +7,10 @@
         -if @results.size>0
           %ul
             -for r in @results[0..@per_page-1]
-              %li=render :partial=>'help_result', :locals=>{:result=>r}
+              %li=render :partial=>'result', :locals=>{:result=>r}
           -if @results.size>@per_page
             =link_to_function(tc(:other_results), "var list=$('other_results'); if (list.style.display=='none') {list.show();} else {list.hide();}", :class=>"icon im-more")
             %ul#other_results{:style=>'display:none'}
               -for r in @results[@per_page..-1]
-                %li=render :partial=>'help_result', :locals=>{:result=>r}
-    %td#helpage.content{:valign=>:top}
+                %li=render :partial=>'result', :locals=>{:result=>r}
+    %td#helpage{:valign=>:top}

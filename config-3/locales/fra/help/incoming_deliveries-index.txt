@@ -9,4 +9,4 @@ Une livraison permet de **définir quand, où** (sélection de l'adresse de livr
 
 La création d'une livraison entraîne la création d'un rappel automatique, les **livraisons en attente** auxquelles vous avez accès depuis le **tableau de bord** (Index de l'application et Index de la Gestion Commerciale) vous permettant ainsi de veiller à ce que celles-ci soient bien effectuées. Ceci vous permet de **mettre à jour la gestion des stocks de manière cohérente**.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
+

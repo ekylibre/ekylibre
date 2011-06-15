@@ -12,5 +12,3 @@ Ce tableau de bord vous permet également de **confirmer les remises de chèques
 
 Si une remise de chèque à été validée, vous ne pouvez plus ni la modifier, ni la supprimer, ses informations sont définitivement enregistrées.
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -4,4 +4,3 @@ Une catégorie de fiche est attribuée à une fiche (client ou fournisseur) et p
 
 À chaque catégorie de fiche est associée une grille de tarifs applicables uniquement à cette catégorie.
 
-[[relations-index|Revenir à l'aide de gestion des relations ]]

@@ -2,4 +2,3 @@
 
 Les types de travaux permettent de **rassembler les travaux en catégories**.
 
-[[production-index|Retour à l'aide sur la Gestion de la production]]

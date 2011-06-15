@@ -19,13 +19,6 @@
 
 class DashboardsController < ApplicationController
 
-  def index
-  end
-
-  def welcome
-    render :index
-  end
-
   # def show
   #   if params[:id].blank? or !ApplicationController.universes.include?(params[:id].to_s.to_sym)
   #     return dashboards_url
@@ -68,6 +61,10 @@ class DashboardsController < ApplicationController
     code += "  render :partial=>'dashboards/#{menu}', :layout=>true\n"
     code += "end\n"
     class_eval code
+  end
+
+  def welcome
+    render Ekylibre.menus.keys[0]
   end
 
 end

@@ -41,4 +41,4 @@
   displayRights();
   displayEmployee();
 
-=observe_field(user_role_id, :url=>new_user_url(:mode=>:rights), :update=>:rights, :frequency => 0.25 , :with=>"user_role_id")
+=observe_field(user_role_id, :url=>{:mode=>:rights}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id", :method=>:get)

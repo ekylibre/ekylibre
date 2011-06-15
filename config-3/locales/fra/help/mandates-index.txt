@@ -7,4 +7,4 @@ Dans le cas de la date, la recherche s'effectue sur l'ensemble des responsabilit
 ===== L'ajout d'une responsabilité =====
 Les champs //famille//, //organisation// et //titre// correspondent à des **listes de recherches** à partir desquelles vous sélectionnez votre donnée. Cependant, vous pouvez **saisir une valeur libre** et, dans ce cas, une nouvelle entrée automatiquement que vous pourre utliser pour d'autres responsilités.
 
-Pour  [[relations-entity|ajouter]] une responsabilité, vous devez passer par la fiche entité.
+Pour ajouter une responsabilité, vous devez passer par la fiche entité.

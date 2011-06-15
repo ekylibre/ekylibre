@@ -27,4 +27,3 @@ Le nom du produit doit être unique pour chaque produit.
 
 Les informations concernant la **gestion des stocks** sont facultatives. Dans le cas ou pour un produit vous ne désirez pas gérer ses stocks, il vous suffit de na pas cocher "Gérer les stocks" et les informations relatives à la gestion des stocks ne seront pas demandées. Dans le cas contraire, renseignez les quantités vous servant de base à votre gestion de stocks (minimum, minimum critique, maximum) et le **lieu de stockage** auxquelles sont rattachées ces valeurs si vous possédez plusieurs lieux de stockage.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

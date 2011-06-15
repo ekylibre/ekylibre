@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options(:path_prefix => '/:company') do |company|
     company.resource :myself, :as=>"me", :only=>[], :member=>{:statistics=>:get, :change_password=>[:get, :post]}
-    company.resources :dashboards, :only=>[:index], :collection=>{:help=>[:get, :post], :welcome=>:get}
+    company.resources :dashboards, :only=>[], :collection=>{:welcome=>:get}
     # Permits to use dynamic dashboards
     company.dashboard '/dashboards/:action', :controller=>"dashboards", :conditions=>{:method=>:get}
     company.toggle_side '/toggle/side', :controller=>"interfacers", :action=>"toggle_side"
@@ -13,7 +13,9 @@ ActionController::Routing::Routes.draw do |map|
     company.toggle_tab '/toggle/tab/:id', :controller=>"interfacers", :action=>"toggle_tab"
     # company.resources :interfacers, :only=>[], :collection=>{:collected_account_dyli=>:get, :account_dyli=>:get, :entities=>:get, :paid_account=>:get}
     company.interfacer '/intf/:action', :controller=>:interfacers, :conditions=>{:method=>:get}
-    company.search_help '/help/:article', :controller=>:help, :action=>:search
+    company.resources :help, :only=>[:index, :show]
+    # company.help '/help', :controller=>:help, :action=>:search
+    # company.search_help '/help/:article', :controller=>:help, :action=>:search
 
     company.resources :account_balances
     company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :mark=>[:get, :post]}, :member=>{:unmark=>[:get, :post]}

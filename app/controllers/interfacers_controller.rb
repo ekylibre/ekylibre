@@ -140,5 +140,18 @@ class InterfacersController < ApplicationController
     end
   end
 
+
+  def product_trackings
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
+  end
+
+  def product_units
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
+  end
+
+
+
   
 end

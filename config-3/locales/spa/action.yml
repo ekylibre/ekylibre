@@ -15,6 +15,7 @@ spa:
       new: 'Créar un nuevo cuento'
       reconciliation: 'Marcar con letra los cuentos'
       show: 'Compte : %{number} - %{name}'
+      #>unmark: 'Unmark account'
     application: #!
     areas:
       #>edit: 'Edit the postal area: %{name}'
@@ -66,13 +67,12 @@ spa:
       #>show: 'Custom field: %{name}'
       #>sort: 'Sort custom field choices'
     dashboards:
-      #>accountancy: 'Accountancy'
-      #>finances: 'Finances'
-      #>general: 'General'
-      #>index: 'Main dashboard'
-      #>production: 'Production'
-      #>relations: 'Relations'
-      #>trade: 'Trade'
+      #>accountancy: 'Accountancy dashboard'
+      #>finances: 'Finances dashboard'
+      #>general: 'General dashboard'
+      #>production: 'Production dashboard'
+      #>relations: 'Relations dashboard'
+      #>trade: 'Trade dashboard'
       #>welcome: 'Welcome on Ekylibre'
     delays:
       edit: 'Modificacion del plazo : %{name}'
@@ -89,6 +89,7 @@ spa:
       index: 'Aposto en banco'
       new: 'Crear un aposto : %{mode}'
       show: 'Aposto en banco %{number} del %{created_on}'
+      #>unvalidateds: 'Unvalidated deposits'
     districts:
       #>edit: 'Edit the district: %{name}'
       #>index: 'Districts'
@@ -98,6 +99,7 @@ spa:
       index: 'Modelos de documento'
       load: 'Cargar los modelos de documento por defecto'
       new: 'Créacion de un modelo de documento'
+      #>print: 'Print document template'
     documents:
       print: 'Impresion, exportacion'
     entities:
@@ -143,8 +145,11 @@ spa:
       index: 'Exercicios contables'
       new: 'Crear un nuevo ejercicio'
       show: 'Exercicio contable %{code}'
-    help: #!
+    help:
+      #>index: 'Help'
+      #>show: 'Help: %{title}'
     incoming_deliveries:
+      #>confirm: 'Confirm incoming delivery'
       #>edit: 'Edit the incoming delivery'
       #>index: 'Incoming deliveries'
       #>new: 'Add a new incoming delivery'
@@ -178,6 +183,7 @@ spa:
       #>new: 'Add a new entry line'
     journals:
       close: 'Cierre del %{name}'
+      #>draft: 'Draft'
       edit: 'Modicicar el periodico : %{name}'
       index: 'Periodicos'
       new: 'Crear un nuevo periodico'
@@ -195,9 +201,12 @@ spa:
       #>new: 'Add a new land parcel'
       #>show: 'Land parcel %{name}'
     listing_node_items: #!
-    listing_nodes: #!
+    listing_nodes:
+      #>edit: 'Edit listing node'
+      #>new: 'New listing node'
     listings:
       edit: 'Modificacion de la extraccion : %{name}'
+      #>extract: 'Extract listing: %{name}'
       index: 'Exportacion y mailing'
       mail: 'Enviar un correo electronico para "%{listing}"'
       new: 'Créacion de nueva extraccion'
@@ -210,21 +219,26 @@ spa:
       #>edit: 'Edit the mandate'
       #>index: 'Mandates'
       #>new: 'Add a mandate'
-    myselves: #!
+    myselves:
+      #>change_password: 'Change my password'
+      #>statistics: 'My statistics'
     observations:
       #>edit: 'Edit the observation'
       #>new: 'Add a new observation'
-    operation_lines: #!
+    operation_lines:
+      #>new: 'New operation''s product'
     operation_natures:
-      #>edit: 'update Type of operation: %{name}'
+      #>edit: 'Edit type of operation: %{name}'
       #>index: 'Types of operation'
       #>new: 'Create a new type of operation'
-    operation_uses: #!
+    operation_uses:
+      #>new: 'New tool''s use'
     operations:
       #>edit: 'Edit operation %{name}'
       #>index: 'Operations'
       #>new: 'Create a new operation'
       #>show: 'Operation Details %{name}'
+      #>unvalidateds: 'Unvalidated operations'
     outgoing_deliveries:
       edit: 'Modificacion de la entrega'
       #>index: 'Outgoing deliveries'
@@ -248,7 +262,9 @@ spa:
     preferences: #!
     prices:
       #>edit: 'Edit price %{pretax_amount}/%{amount} of %{product}'
-      #>import: 'Import prices in CSV'
+      #>export: 'Export prices'
+      #>find: 'Find price'
+      #>import: 'Import prices'
       #>index: 'Prices'
       #>new: 'Add a new price'
     product_categories:
@@ -277,7 +293,10 @@ spa:
       #>index: 'Products'
       #>new: 'Add a new product'
       #>show: 'Product: %{name}'
-    professions: #!
+    professions:
+      #>edit: 'Edit profession'
+      #>index: 'Professions'
+      #>new: 'Add a new profession'
     purchase_lines:
       #>edit: 'Edit the purhase order line'
       #>new: 'Add a product to the purchase: %{number}'
@@ -298,6 +317,7 @@ spa:
       index: 'Papeles'
       new: 'Añadir un papel'
     sale_lines:
+      #>detail: 'Detail sale line'
       #>edit: 'Edit sale line'
       #>new: 'Add a new line of product'
     sale_natures:
@@ -308,6 +328,7 @@ spa:
       #>abort: 'Abort sale'
       cancel: 'Paso en activo de la factura %{number}'
       #>confirm: 'Confirm estimate and go to deliveries'
+      #>contacts: 'Contacts of sale'
       #>correct: 'Correct estimate'
       #>edit: 'Edit the sale %{number}'
       #>index: 'Sales'
@@ -317,6 +338,7 @@ spa:
       #>propose_and_invoice: 'Invoice quickly'
       #>refuse: 'Estimate refused'
       #>show: 'Sale: %{label} for %{client}'
+      #>statistics: 'Sales statistics'
     sequences:
       edit: 'Modificacion de la sequencia : %{name}'
       index: 'Sequencias'
@@ -325,12 +347,14 @@ spa:
     sessions:
       #>destroy: 'Log out'
       #>new: 'New session'
+      #>renew: 'Renew session'
     settings: #!
     stock_moves:
       #>edit: 'Edit the stock move: %{name}'
       #>new: 'add a new stock move'
     stock_transfers:
       #>confirm: 'Waiting stock transfers'
+      #>confirm_all: 'Confirm all stock transfer'
       #>edit: 'Edit the stock transfer/loss'
       #>index: 'Transfers and loss'
       #>new: 'Add a new stock transfer or loss'
@@ -340,6 +364,7 @@ spa:
       #>edit: 'Edit the subscription type: %{name}'
       #>index: 'Subscription types'
       #>new: 'Add a new subscription type'
+      #>show: 'Subscription type: %{name}'
     subscriptions:
       #>edit: 'Edit subscription: %{number} from %{start} to %{finish}'
       #>index: 'Subscriptions'
@@ -364,6 +389,7 @@ spa:
     transfers: #!
     transports:
       #>deliveries: 'Deliveries of transport'
+      #>delivery_delete: 'Remove delivery from transport'
       #>edit: 'Edit the transport'
       #>index: 'Transports'
       #>new: 'Add a new transport'
@@ -376,15 +402,18 @@ spa:
     users:
       edit: 'Modificction del utilizador'
       index: 'Utilizador'
+      #>lock: 'Lock user'
       new: 'Creacion de nuevo utilizador'
       show: 'Utilizador : %{first_name} %{last_name} (%{name})'
-      statistics: 'Mis estadisticas'
+      statistics: 'Mis estadisticas' #!
+      #>unlock: 'Unlock user'
     warehouses:
       edit: 'Modificacion de un lugar de deposito'
       index: 'Lugar de deposito'
       new: 'Añadir un lugar de deposito'
       show: 'Detaile del lugar de deposito : %{name}'
   controllers:
+    #>account_balances: 'Account balances'
     accountancy: 'Contabilidad' #!
     accounts: 'Plan de cuento'
     application: 'Aplicación'
@@ -393,17 +422,26 @@ spa:
     bank_statements: 'Levantar de cuntos bancarios'
     #>cash_transfers: 'Cash transfers'
     cashes: 'Tresorerias'
+    #>companies: 'Companies'
     company: 'Compañía' #!
+    #>contacts: 'Contacts'
+    #>cultivations: 'Cultivations'
+    #>currencies: 'Currencies'
+    #>custom_field_choices: 'Custom field choices'
+    #>custom_field_data: 'Custom field data'
     #>custom_fields: 'Custom fields'
     #>dashboards: 'Dashboards'
     delays: 'plazos'
     departments: 'Servicios'
+    #>deposit_lines: 'Deposit lines'
     deposits: 'Aposto en banco'
     #>districts: 'Districts'
     document_templates: 'Modelos de documento'
+    #>documents: 'Documents'
     #>entities: 'People'
     #>entity_categories: 'Person categories'
     #>entity_link_natures: 'Link types'
+    #>entity_links: 'Entity links'
     #>entity_natures: 'Person types'
     establishments: 'Establecimientos'
     #>event_natures: 'Event types'
@@ -412,33 +450,59 @@ spa:
     financial_years: 'Exercicios contables'
     help: 'Ayuda'
     #>incoming_deliveries: 'Incoming deliveries'
+    #>incoming_delivery_lines: 'Incoming delivery lines'
     #>incoming_delivery_modes: 'Incoming delivery modes'
     #>incoming_payment_modes: 'Incoming payment modes'
+    #>incoming_payment_uses: 'Incoming payment uses'
     #>incoming_payments: 'Incoming payments'
+    #>interfacers: 'Interfacers'
     inventories: 'Inventarios'
+    #>inventory_lines: 'Inventory lines'
+    #>journal_entries: 'Journal entries'
+    #>journal_entry_lines: 'Journal entry lines'
     journals: 'Periodicos'
     #>land_parcel_groups: 'Groups of land parcels'
+    #>land_parcel_kinships: 'Land parcel kinships'
     #>land_parcels: 'Land parcels'
+    #>listing_node_items: 'Listing node items'
+    #>listing_nodes: 'Listing nodes'
     listings: 'Exportacion y mailing'
     management: 'Administración comercial' #!
     #>mandates: 'Mandates'
+    #>myselves: 'Myself'
+    #>observations: 'Observations'
+    #>operation_lines: 'Operation lines'
     #>operation_natures: 'Types of operation'
+    #>operation_uses: 'Operation uses of tools'
     #>operations: 'Operations'
     #>outgoing_deliveries: 'Outgoing deliveries'
+    #>outgoing_delivery_lines: 'Outgoing delivery lines'
     outgoing_delivery_modes: 'Modos de entrega'
     #>outgoing_payment_modes: 'Disbursement modes'
+    #>outgoing_payment_uses: 'Outgoing payment uses'
     #>outgoing_payments: 'Disbursements'
+    #>preferences: 'Preferences'
     #>prices: 'Prices'
     #>product_categories: 'Product categories'
+    #>product_components: 'Product components'
     production: 'Producción' #!
+    #>production_chain_conveyors: 'Production chain conveyors'
+    #>production_chain_work_center_uses: 'Production chain work center uses'
+    #>production_chain_work_centers: 'Production chain work centers'
     #>production_chains: 'Production chains'
     #>products: 'Products'
+    #>professions: 'Professions'
+    #>purchase_lines: 'Purchase lines'
     #>purchases: 'Purchases'
     relations: 'Relaciónes' #!
     roles: 'Papeles'
+    #>sale_lines: 'Sale lines'
     #>sale_natures: 'Sale types'
     #>sales: 'Sales'
     sequences: 'Sequencias'
+    #>sessions: 'Session'
+    #>settings: 'Settings'
+    #>stock_moves: 'Stock moves'
     #>stock_transfers: 'Transfers and loss'
     #>stocks: 'Stocks state'
     #>subscription_natures: 'Subscription types'
@@ -446,6 +510,9 @@ spa:
     tax_declarations: 'Declaracion de TVA'
     taxes: 'Tasas'
     #>tools: 'Tools'
+    #>tracking_states: 'Tracking states'
+    #>trackings: 'Trackings'
+    #>transfers: 'Transfers'
     #>transports: 'Transports'
     units: 'Unidad de medida'
     users: 'Utilizador'
@@ -590,6 +657,7 @@ spa:
     #>consult: 'Consult'
     #>contact: 'At'
     #>contains: 'Contains'
+    #>contextual_help: 'Help on current page'
     #>coordinates: 'Coordinates'
     #>copy_of: 'Copy of %{source}'
     cost_income_statement: 'Cargas'
@@ -842,6 +910,7 @@ spa:
         #>events: 'Events'
         #>financial_years: 'Financial Years'
         #>incoming_payments: 'Incoming Payments'
+        #>informations: 'Informations'
         #>journals: 'Journals'
         #>land_parcels: 'Land Parcels'
         #>mandates: 'Mandates'
@@ -947,6 +1016,7 @@ spa:
     overflow: 'CREDITO O ECCEDENTE'
     page_title: '%{company_code} - %{controller} - %{action}'
     page_title_by_default: 'Ekylibre - %{controller} - %{action}'
+    #>page_title_special: '%{company_code} - %{action}'
     #>paid_amount: 'Paid amount'
     #>paid_on: 'Paid on'
     parameters: 'Parametros'

@@ -5,4 +5,3 @@ Vous pouvez **ajouter** [[management-delivery_modes_create|{{theme:buttons/creat
 
   * Les **codes** correspondent à la **norme Incoterms 2000**.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

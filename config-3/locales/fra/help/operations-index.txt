@@ -2,4 +2,3 @@
 
 Vous avez accès au **détail des différents travaux effectués sur vos îlots**, avec l'employé concerné, la date...
 
-[[production-index|Retour à l'aide sur la Gestion de la production]]

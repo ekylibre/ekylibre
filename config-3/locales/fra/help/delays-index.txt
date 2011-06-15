@@ -12,6 +12,5 @@ Il est possible de faire suivre autant d'expressions que voulu. Exemples :
   * 10 jours, fin de mois
   * 10 jours, fin de mois, 45 jours
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
 
   

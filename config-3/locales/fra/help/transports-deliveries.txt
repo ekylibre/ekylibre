@@ -6,4 +6,3 @@ Vous pouvez **rechercher une livraison par sa date ainsi que par l'addresse de l
 
 Une fois la première livraison ajoutée à votre transport, vous serez redirigé vers le récapitulatif des informations du transport et de ces livraisons. 
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

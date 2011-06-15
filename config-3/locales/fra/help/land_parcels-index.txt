@@ -2,4 +2,3 @@
 
 Vous avez accès au récapitulatifs de tous les îlots, les parcelles que vous avez enregistrés.
 
-[[production-index|Retour à l'aide sur la Gestion de la production]]

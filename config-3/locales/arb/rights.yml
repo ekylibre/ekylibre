@@ -3,6 +3,7 @@ arb:
     administrate_accountancy: 'مدخل لوحدة المحاسبة' #!
     backup_company: 'تطبيق / تحديث النسخ الاحتياطية'
     bookkeep: 'مبادلة الاجراءات التجارية للمحاسبة'
+    #>build_production_chains: 'Build production chains'
     cancel_sales_invoices: 'الاحذ بالموجودات'
     change_prices_on_sales: 'تغيير اسعار البيع'
     close_journals: 'فتح واغلاق الدفاتر اليومية'
@@ -75,3 +76,4 @@ arb:
     __not_used__: '(الحق الافتراضي (متعذر بلوغه' #!
     print: 'الطباعة'
     #>__public__: 'Public access'
+    #>use_production_chains: 'Use production chains'

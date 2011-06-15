@@ -4,4 +4,3 @@ Vous avez le récapitulatif de tout **le matériel de production** que vous avez
 
 Vous avez la possibilité d'accéder au **détail** d'un matériel (temps d'utilisation, usages...) en cliquant sur son nom.
 
-[[production-index|Retour à l'aide sur la Gestion de la production]]

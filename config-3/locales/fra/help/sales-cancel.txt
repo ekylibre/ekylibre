@@ -4,4 +4,3 @@ Vous disposez du descriptif des différentes lignes de la facture. Choississez l
 
 Vous pouvez passer plusieurs fois une facture en avoir, à condition que le ou les précedents avoirs de cette facture soient partiels.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

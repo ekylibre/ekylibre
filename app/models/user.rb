@@ -175,7 +175,7 @@ class User < CompanyRecord
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
     elsif (rights = User.rights[controller_name.to_sym][action_name.to_sym]).nil?
       message = tc(:no_right_defined_for_this_part_of_the_application, :controller=>controller_name, :action=>action_name)
-    elsif not rights.include?(User.minimum_right) and (rights_list & rights).size <= 0 and not self.admin?
+    elsif (rights & [:__minimum__, :__public__]).empty? and (rights_list & rights).empty? and not self.admin?
       message = tc(:no_right_defined_for_this_part_of_the_application_and_this_user)
     end
     return message

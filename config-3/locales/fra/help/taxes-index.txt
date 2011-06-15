@@ -12,4 +12,3 @@ Les taxes sont **utilisées au moment de définir vos tarifs**.
   * **Incluse** permet de savoir si la taxe est incluse ou non dans le prix du produit.
   * **Réductible** permet de savoir si le montant de la taxe diminue proportionellement à une réduction du prix du produit.
 
-[[accountancy-index|Retour à l'aide sur la Comptabilité]]

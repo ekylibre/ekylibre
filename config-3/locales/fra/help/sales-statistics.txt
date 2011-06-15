@@ -4,4 +4,4 @@ Les taux de vente d'un produit pour un nombre d'année peuvent être représent�
 
 Pour obtenir le schéma souhaité, remplisser le formulaire de recherche. Dans le cas où le nombre d'années dans l'historique n'est pas précisé, **seule la courbe correspondant à l'année** en cours sera représentée. 
  
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
+

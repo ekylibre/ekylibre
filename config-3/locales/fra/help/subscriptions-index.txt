@@ -7,4 +7,3 @@ Vous pouvez ensuite choisir d'afficher uniquement un **type d'abonnement** et d'
 ===== Gestion des abonnements =====
 Suivant le type d'abonnement, vous pourrez renseignez les dates de début et fin ou les numéros de début et fin. 
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

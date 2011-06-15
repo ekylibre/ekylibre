@@ -7,5 +7,5 @@
         =li_link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url, :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
 
 .module.help.flex
-  %h2=t("controllers.help")
-  #help.flex=render :partial=>"help/search"
+  %h2=tl("contextual_help")
+  #help.flex=render :partial=>"help/search", :object=>@article

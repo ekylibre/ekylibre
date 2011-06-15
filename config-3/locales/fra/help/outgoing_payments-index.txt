@@ -11,4 +11,3 @@ Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu
 
 Le responsable du décaissement permet de savoir qui s'occupe du décaissement.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

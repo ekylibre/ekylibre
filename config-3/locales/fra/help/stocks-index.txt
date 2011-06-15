@@ -15,4 +15,3 @@ Les différents jeux de couleurs vous permettent en un seul coup d'oeil de conna
 
 Vous pouvez **définir les quantités** stock minimum, stock minimum critique et stock maximum dans le formulaire de création/modification d'un produit. Ces quantités peuvent être **renseignées spécifiquement pour chaque lieu de stockage**.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

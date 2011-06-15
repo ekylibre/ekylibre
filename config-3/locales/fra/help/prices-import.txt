@@ -15,4 +15,3 @@ Le fichier csv liste vos catégories de fiches ainsi que vos produits. **Vous po
 
 Il est **obligatoire de renseigner la taxe** pour ajouter un nouveau tarif. En revanche **un seul montant** ( HT ou TTC) **suffit**, le second étant déduit. Si vous renseignez à la fois le HT et le TTC, le **TTC sera recalculé à partir du HT**.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -19,5 +19,3 @@ Si **le poids de votre livraison est incorrect**, **vérifiez le poids des produ
 
 Vous pouvez **définir le poids de vos produits** directement sur la fiche de [[>management/products|vos produits]].
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

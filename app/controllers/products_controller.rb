@@ -149,16 +149,6 @@ class ProductsController < ApplicationController
     redirect_to_current
   end
 
-  def trackings
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
-  end
-
-  def units
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
-  end
-
   def edit
     return unless @product = find_and_check(:product)
     session[:product_id] = @product.id

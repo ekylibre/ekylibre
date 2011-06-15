@@ -36,6 +36,17 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO Cleans help search system
+  @@helps = {}
+  for file in Dir[Rails.root.join("config", "locales", "*", "help", "*.txt")].sort
+    File.open(file, 'rb') do |f| 
+      @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2], :locale=>file.split(/[\\\/\.]+/)[-4].to_sym}
+      raise Exception.new("No valid title for #{file}") if @@helps[file][:title].blank?
+    end
+  end
+
+
+
   def accessible?(url={})
     #puts url.inspect
     if url.is_a?(Hash)
@@ -96,23 +107,6 @@ class ApplicationController < ActionController::Base
 
   
   protected  
-
-  #   # 1 Session by company
-  #   def sessany
-  #     return (@current_company ? session[@current_company.code] ||= {} : session)
-  #   end
-
-  def render_form(options={})
-    a = action_name.split '_'
-    @_operation  = a[-1].to_sym
-    @partial = options[:partial]||a[0..-2].join('_')+'_form'
-    @options = options
-    begin
-      render :template=>options[:template]||'shared/form_'+@_operation.to_s
-    rescue ActionController::DoubleRenderError
-    end
-  end
-
 
   def render_restfully_form(options={})
     @_operation = action_name.to_sym
@@ -262,9 +256,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  #   def current_user
-  #     @current_user || User.find_by_id(session[:user_id])
-  #   end
+  # def current_user
+  #   @current_user = User.find_by_id(session[:user_id]) unless @current_user
+  #   return @current_user
+  # end
 
   private
 
@@ -305,7 +300,8 @@ class ApplicationController < ActionController::Base
     @current_company = Company.find_by_code(params[:company])
     if @current_user and @current_company and @current_company.id!=@current_user.company_id
       notify(:unknown_company, :error) unless params[:company].blank?
-      return redirect_to_login
+      redirect_to_login
+      return false
     end
 
     # Get action rights
@@ -318,13 +314,15 @@ class ApplicationController < ActionController::Base
     # Check current_user
     unless @current_user
       notify(:access_denied, :error, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
-      return redirect_to_login
+      redirect_to_login
+      return false 
     end
 
     # Check current_company
     if not @current_company or @current_company.id!=@current_user.company_id
       notify(:unknown_company, :error) unless params[:company].blank?
-      return redirect_to_login
+      redirect_to_login
+      return false
     end
 
     # Set session variables and check state
@@ -333,8 +331,7 @@ class ApplicationController < ActionController::Base
     if request.get? and not request.xhr? and not [:sessions, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url
     end
-    @article = "#{self.controller_name}-#{self.action_name}"
-    session[:help_history] << @article if session[:side] and @article != session[:help_history].last
+    @article = search_article
     # TODO: Dynamic theme choosing
     @current_theme = "tekyla"
     if params[:resized]
@@ -353,7 +350,7 @@ class ApplicationController < ActionController::Base
       else
         redirect_to_login(request.url)
       end
-      return
+      return false
     else
       session[:last_query] = Time.now.to_i
       historize if request.get? and not request.xhr?
@@ -365,20 +362,36 @@ class ApplicationController < ActionController::Base
     # Check rights before allowing access
     if message = @current_user.authorization(controller_name, action_name, session[:rights])
       notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
-      redirect_to_back unless @current_user.admin
+      unless @current_user.admin
+        redirect_to_back
+        return false
+      end
     end
+    
+    # Returns true if authorized
+    return true
   end
 
-  # def help_search(article)
-  #   @article = article
-  #   session[:help_history] << @article if @article != session[:help_history].last
-  #   session[:help]=true
-  # end
+  def search_article(article=nil)
+    article ||= "#{self.controller_name}-#{self.action_name}"
+    file = nil
+    for locale in [I18n.locale, I18n.default_locale]
+      for f, attrs in @@helps
+        next if attrs[:locale] != locale
+        file_name = [article, article.split("-")[0].to_s+"-index"].detect{|name| attrs[:name]==name}
+        file = f and break unless file_name.blank?
+      end
+    end
+    if file and session[:side] and article != session[:help_history].last
+      session[:help_history] << file
+    end
+    file ||= article.to_sym
+    return file
+  end
 
   def redirect_to_login(url=nil)
     reset_session
     @current_user = nil
-    session[:help] = false
     redirect_to(new_session_url(:url=>url, :company=>params[:company]))
   end
   
@@ -405,7 +418,6 @@ class ApplicationController < ActionController::Base
   def init_session(user)
     reset_session
     session[:expiration]   = 3600*5
-    session[:help]         = false # user.preference("interface.help.opened", true, :boolean).value
     session[:help_history] = []
     session[:history]      = []
     session[:last_page]    = {}
@@ -424,133 +436,6 @@ class ApplicationController < ActionController::Base
       session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?
     end
   end
-
-  # Build standard actions to manage records of a model
-  def self.manage(name, defaults={})
-    operations = [:create, :update, :delete]
-
-    t3e = defaults.delete(:t3e)
-    url = defaults.delete(:redirect_to)
-    partial = defaults.delete(:partial)
-    partial =  ":partial=>'#{partial}'" if partial
-    record_name = name.to_s.singularize
-    model = name.to_s.singularize.classify.constantize
-    code = ''
-    methods_prefix = record_name
-    
-    if operations.include? :create
-      code += "def #{methods_prefix}_create\n"
-      code += "  if request.post?\n"
-      code += "    @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
-      code += "    @#{record_name}.company_id = @current_company.id\n"
-      code += "    return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
-      code += "  else\n"
-      values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
-      code += "    @#{record_name} = #{model.name}.new(#{values})\n"
-      code += "  end\n"
-      code += "  render_form #{partial}\n"
-      code += "end\n"
-    end
-    
-    if operations.include? :update
-      # this action updates an existing record with a form.
-      code += "def #{methods_prefix}_update\n"
-      code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-      code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-      code += "  if request.post? or request.put?\n"
-      raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
-      code += "    @#{record_name}.attributes = params[:#{record_name}]\n"
-      code += "    return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
-      code += "  end\n"
-      code += "  render_form #{partial}\n"
-      code += "end\n"
-    end
-
-    if operations.include? :delete
-      # this action deletes or hides an existing record.
-      code += "def #{methods_prefix}_delete\n"
-      code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-      code += "  if request.delete? or request.post?\n"
-      if model.instance_methods.include?("destroyable?")
-        code += "    if @#{record_name}.destroyable?\n"
-        code += "      #{model.name}.destroy(@#{record_name}.id)\n"
-        code += "      notify(:record_has_been_correctly_removed, :success)\n"
-        code += "    else\n"
-        code += "      notify(:record_cannot_be_removed, :error)\n"
-        code += "    end\n"
-      else
-        code += "    #{model.name}.destroy(@#{record_name}.id)\n"
-        code += "    notify(:record_has_been_correctly_removed, :success)\n"        
-      end
-      code += "  else\n"
-      code += "    notify(:record_has_not_been_removed, :error)\n"
-      code += "  end\n"
-      code += "  redirect_to_current\n"
-      code += "end\n"
-    end
-
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    
-    class_eval(code)
-  end
-
-  # Build standard actions to manage records of a model
-  def self.manage_list(name, order_by=:id)
-    operations = [:up, :down]
-
-    record_name = name.to_s.singularize
-    model = name.to_s.singularize.classify.constantize
-
-    raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
-    code = ''
-    methods_prefix = record_name
-    
-    sort = ""
-    #     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
-    #     sort += "items.times do |x|\n"
-    #     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
-    #     sort += "end\n"
-    
-    if operations.include? :up
-      # this action deletes or hides an existing record.
-      code += "def #{methods_prefix}_up\n"
-      code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-      code += "  if request.post?\n"
-      code += sort.gsub(/^/, "    ")
-      code += "    #{record_name}.move_higher\n"
-      code += "  end\n"
-      code += "  redirect_to_current\n"
-      code += "end\n"
-    end
-
-    if operations.include? :down
-      # this action deletes or hides an existing record.
-      code += "def #{methods_prefix}_down\n"
-      code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-      code += "  if request.post?\n"
-      code += sort.gsub(/^/, "    ")
-      code += "    #{record_name}.move_lower\n"
-      code += "  end\n"
-      code += "  redirect_to_current\n"
-      code += "end\n"
-    end
-
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    
-    class_eval(code)
-    
-  end
-
-
-
-
-
-
-
-
-
-
-
 
 
 

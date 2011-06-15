@@ -10,5 +10,3 @@ La création d'un type de fiche est relative à toutes les fiches. Le nom intern
 ==== Abréviation incluse dans le nom de la fiche ====
 Le champ "Abréviation incluse dans le nom de la fiche" doit uniquement être coché dans le cas de la création d'un type qui n'est pas une personne physique. En effet, ce champ est uniquement un moyen de vérifier que lors de la création d'une nouvelle fiche de société, le nom de la société n'est pas uniquement renseigné avec la dénomination sociale de l'entreprise mais également avec son statut ( SA, SARL, ...)
 
-
-[[relations-index|Revenir à l'aide de gestion des relations ]]

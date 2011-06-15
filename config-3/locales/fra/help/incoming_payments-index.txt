@@ -11,4 +11,3 @@ Dans ce cas, vous aurait une alerte sur le tableau de bord une fois le jour venu
 
 Le responsable de l'encaissement permet de savoir qui s'occupe de l'encaissement et notamment de sa remise en banque.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

@@ -4,6 +4,7 @@ eng:
     __public__: 'Public access'
     backup_company: 'Make and reload backups'
     bookkeep: 'Transfer commercial data in accountancy'
+    build_production_chains: 'Build production chains'
     cancel_sales_invoices: 'Cancel sales_invoices'
     change_prices_on_sales: 'Change prices on sales'
     close_journals: 'Close and reopen journals'
@@ -70,3 +71,4 @@ eng:
     manage_warehouses: 'Manage warehouses'
     merge_entities: 'Merge people'
     print: 'Print'
+    use_production_chains: 'Use production chains'

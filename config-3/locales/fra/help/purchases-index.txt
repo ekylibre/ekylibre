@@ -18,4 +18,3 @@ Lorsque vous sélectionnez un prix, **le montant HT et la TVA se mettent à jour
 
 De plus pour les produits gérés en stock dans plusieurs lieux de stockage, il est possible de préciser le lieu ou sera prélevé le produit.
 
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

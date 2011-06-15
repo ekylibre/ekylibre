@@ -15,6 +15,7 @@ fra:
       new: 'Créer un nouveau compte'
       reconciliation: 'Lettrage de comptes'
       show: 'Compte : %{number} - %{name}'
+      #>unmark: 'Unmark account'
     application: #!
     areas:
       edit: 'Modifier la zone postale : %{name}'
@@ -45,12 +46,10 @@ fra:
     company:  #!
       about: 'À propos d''Ekylibre' #!
       backups: 'Sauvegardes' #!
-      change_password: 'Changer de mot de passe' #!
       configure: 'Configuration' #!
       help: 'Aide' #!
       import: 'Importation' #!
       index: 'Bonjour, %{user}' #!
-      welcome: 'Bienvenue dans Ekylibre, %{user}' #!
     contacts:
       edit: 'Modifier l''adresse de : %{entity}'
       new: 'Ajout d''un contact'
@@ -67,14 +66,13 @@ fra:
       show: 'Champ personnalisé : %{name}'
       sort: 'Trier les choix du champ personnalisé'
     dashboards:
-      #>accountancy: 'Accountancy'
-      #>finances: 'Finances'
-      #>general: 'General'
-      #>index: 'Main dashboard'
-      #>production: 'Production'
-      #>relations: 'Relations'
-      #>trade: 'Trade'
-      #>welcome: 'Welcome on Ekylibre'
+      accountancy: 'Tableau de bord comptable'
+      finances: 'Tableau de bord financier'
+      general: 'Tableau de bord général'
+      production: 'Tableau de bord de la production'
+      relations: 'Tableau de bord de la gestion des relations'
+      trade: 'Tableau de bord de la gestion commerciale'
+      welcome: 'Bienvenue dans Ekylibre'
     delays:
       edit: 'Modifier le délai : %{name}'
       index: 'Délais'
@@ -90,6 +88,7 @@ fra:
       index: 'Remises en banque'
       new: 'Créer une remise : %{mode}'
       show: 'Remise en banque %{number} du %{created_on}'
+      unvalidateds: 'Remises en banque non validées'
     districts:
       edit: 'Modifier la zone : %{name}'
       index: 'Zones administratives'
@@ -99,6 +98,7 @@ fra:
       index: 'Modèles de document'
       load: 'Charger les modèles de document par défaut'
       new: 'Création d''un modèle de document'
+      #>print: 'Print document template'
     documents:
       print: 'Impression, exportation'
     entities:
@@ -146,8 +146,11 @@ fra:
       index: 'Exercices comptables'
       new: 'Créer un nouvel exercice'
       show: 'Exercice comptable %{code}'
-    help: #!
+    help:
+      index: 'Aide'
+      show: 'Aide: %{title}'
     incoming_deliveries:
+      #>confirm: 'Confirm incoming delivery'
       edit: 'Modifier l''arrivage: %{number}'
       index: 'Livraisons entrantes'
       new: 'Enregistrer un nouveau arrivage'
@@ -181,6 +184,7 @@ fra:
       new: 'Ajouter une nouvelle ligne d''écriture'
     journals:
       close: 'Clôture du %{name}'
+      #>draft: 'Draft'
       edit: 'Modifier le journal : %{name}'
       index: 'Journaux'
       new: 'Créer un nouveau journal'
@@ -198,9 +202,12 @@ fra:
       new: 'Ajouter un nouvel îlot'
       show: 'Îlot %{name}'
     listing_node_items: #!
-    listing_nodes: #!
+    listing_nodes:
+      #>edit: 'Edit listing node'
+      #>new: 'New listing node'
     listings:
       edit: 'Modifier l''extraction : %{name}'
+      #>extract: 'Extract listing: %{name}'
       index: 'Exportations et mailings'
       mail: 'Envoyer un mail pour "%{listing}"'
       new: 'Création d''une nouvelle extraction'
@@ -216,21 +223,26 @@ fra:
       edit: 'Modifier la responsabilité'
       index: 'Responsabilités'
       new: 'Créer une responsabilité'
-    myselves: #!
+    myselves:
+      change_password: 'Changer de mot de passe'
+      statistics: 'Mes statistiques'
     observations:
       edit: 'Modifier une observation'
       new: 'Ajouter une observation'
-    operation_lines: #!
+    operation_lines:
+      #>new: 'New operation''s product'
     operation_natures:
       edit: 'Modifier le type de travail : %{name}'
       index: 'Types de travail'
       new: 'Créer un nouveau type de travail'
-    operation_uses: #!
+    operation_uses:
+      #>new: 'New tool''s use'
     operations:
       edit: 'Modifier le travail %{name}'
       index: 'Travaux'
       new: 'Créer un nouveau travail'
       show: 'Détails du travail %{name}'
+      unvalidateds: 'Travaux non validés'
     outgoing_deliveries:
       edit: 'Modifier la livraison'
       index: 'Livraisons sortantes'
@@ -254,6 +266,8 @@ fra:
     preferences: #!
     prices:
       edit: 'Modifie le prix %{pretax_amount}/%{amount} sur %{product}'
+      #>export: 'Export prices'
+      #>find: 'Find price'
       import: 'Importer un fichier CSV de tarifs'
       index: 'Prix'
       new: 'Ajout d''un nouveau prix'
@@ -287,7 +301,10 @@ fra:
       index: 'Produits'
       new: 'Ajouter un nouveau produit'
       show: 'Produit : %{name}'
-    professions: #!
+    professions:
+      #>edit: 'Edit profession'
+      #>index: 'Professions'
+      #>new: 'Add a new profession'
     purchase_lines:
       edit: 'Modifier une ligne de la commande'
       new: 'Ajouter un produit à la commande : %{number}'
@@ -310,6 +327,7 @@ fra:
       index: 'Rôles'
       new: 'Ajouter un rôle'
     sale_lines:
+      #>detail: 'Detail sale line'
       edit: 'Modifier une ligne de produit'
       new: 'Ajout d''une ligne de produit'
     sale_natures:
@@ -320,6 +338,7 @@ fra:
       abort: 'Annuler la vente'
       cancel: 'Passage en avoir de la facture %{number}'
       confirm: 'Passer le devis en commande et aller aux livraisons'
+      #>contacts: 'Contacts of sale'
       correct: 'Corriger le devis'
       edit: 'Modifier la vente N°%{number}'
       index: 'Ventes'
@@ -329,6 +348,7 @@ fra:
       propose_and_invoice: 'Facturer rapidement'
       refuse: 'Devis refusé par le client'
       show: 'Vente : %{number} pour %{client} - %{state}'
+      statistics: 'Statistiques  de ventes'
     sequences:
       edit: 'Modifier la séquence : %{name}'
       index: 'Séquences'
@@ -337,23 +357,24 @@ fra:
     sessions:
       destroy: 'Se déconnecter'
       new: 'Connexion'
+      renew: 'Renouveller la session'
     settings: #!
     stock_moves:
       edit: 'Modifier le mouvement de stock : %{name}'
       new: 'Enregistrement d''un mouvement de stock'
     stock_transfers:
       confirm: 'Transferts à réaliser'
+      confirm_all: 'Confirmer tous les transferts'
       edit: 'Modifier l''un transfert de stock'
       index: 'Transferts et pertes de stocks'
       new: 'Ajouter un transfert ou une perte de stocks'
     stocks:
       index: 'État des stocks'
-    store:  #!
-      index: 'Bienvenue' #!
     subscription_natures:
       edit: 'Modifier le type d''abonnement : %{name}'
       index: 'Types d''abonnements'
       new: 'Ajouter un type d''abonnement'
+      show: 'Type d''abonnement : %{name}'
     subscriptions:
       edit: 'Modifier l''abonnement : N°%{number} du %{start} au %{finish}'
       index: 'Abonnements'
@@ -378,6 +399,7 @@ fra:
     transfers: #!
     transports:
       deliveries: 'Livraisons du transport'
+      delivery_delete: 'Retirer la livraison du transport'
       edit: 'Modifier le transport'
       index: 'Transports'
       new: 'Ajout d''un nouveau transport'
@@ -390,15 +412,17 @@ fra:
     users:
       edit: 'Modifier l''utilisateur : %{first_name} %{last_name} (%{name})'
       index: 'Utilisateurs'
+      lock: 'Verrouiller l''utilisateur'
       new: 'Création d''un nouvel utilisateur'
       show: 'Utilisateur : %{first_name} %{last_name} (%{name})'
-      statistics: 'Mes statistiques'
+      unlock: 'Déverrouiller l''utilisateur'
     warehouses:
       edit: 'Modifier l''un lieu de stockage'
       index: 'Lieux de stockage'
       new: 'Ajout d''un lieu de stockage'
       show: 'Détail du lieu de stockage : %{name}'
   controllers:
+    #>account_balances: 'Account balances'
     accountancy: 'Comptabilité' #!
     accounts: 'Plan de comptes'
     application: 'Application'
@@ -407,17 +431,26 @@ fra:
     bank_statements: 'Relevés de compte bancaire'
     cash_transfers: 'Virements internes'
     cashes: 'Trésoreries'
+    companies: 'Société'
     company: 'Société' #!
+    contacts: 'Contacts'
+    #>cultivations: 'Cultivations'
+    #>currencies: 'Currencies'
+    #>custom_field_choices: 'Custom field choices'
+    #>custom_field_data: 'Custom field data'
     custom_fields: 'Champs personnalisés'
-    #>dashboards: 'Dashboards'
+    dashboards: 'Tableaux de bord'
     delays: 'Délais'
     departments: 'Services'
+    #>deposit_lines: 'Deposit lines'
     deposits: 'Remises en banque'
     districts: 'Zones administratives'
     document_templates: 'Modèles de document'
+    documents: 'Documents'
     entities: 'Personnes'
     entity_categories: 'Catégories de fiche'
     entity_link_natures: 'Types de lien'
+    entity_links: 'Liens entre personnes'
     entity_natures: 'Types de fiches'
     establishments: 'Établissements'
     event_natures: 'Types d''évènements'
@@ -426,33 +459,59 @@ fra:
     financial_years: 'Exercices comptables'
     help: 'Aide'
     incoming_deliveries: 'Livraisons entrantes'
+    #>incoming_delivery_lines: 'Incoming delivery lines'
     incoming_delivery_modes: 'Modes de réception d''arrivage'
     incoming_payment_modes: 'Modes d''encaissement'
+    #>incoming_payment_uses: 'Incoming payment uses'
     incoming_payments: 'Encaissements'
+    #>interfacers: 'Interfacers'
     inventories: 'Inventaires'
+    #>inventory_lines: 'Inventory lines'
+    #>journal_entries: 'Journal entries'
+    #>journal_entry_lines: 'Journal entry lines'
     journals: 'Journaux'
     land_parcel_groups: 'Groupes d''îlots'
+    #>land_parcel_kinships: 'Land parcel kinships'
     land_parcels: 'Îlots'
+    #>listing_node_items: 'Listing node items'
+    #>listing_nodes: 'Listing nodes'
     listings: 'Exportations et mailings'
     management: 'Commerce' #!
     mandates: 'Responsabilités'
+    #>myselves: 'Myself'
+    observations: 'Observations'
+    #>operation_lines: 'Operation lines'
     operation_natures: 'Types de travail'
+    #>operation_uses: 'Operation uses of tools'
     operations: 'Travaux'
     outgoing_deliveries: 'Livraisons sortantes'
+    #>outgoing_delivery_lines: 'Outgoing delivery lines'
     outgoing_delivery_modes: 'Modes de livraison'
     outgoing_payment_modes: 'Modes de décaissement'
+    #>outgoing_payment_uses: 'Outgoing payment uses'
     outgoing_payments: 'Décaissements'
+    #>preferences: 'Preferences'
     prices: 'Prix'
     product_categories: 'Catégories de produits'
+    #>product_components: 'Product components'
     production: 'Production' #!
+    #>production_chain_conveyors: 'Production chain conveyors'
+    #>production_chain_work_center_uses: 'Production chain work center uses'
+    #>production_chain_work_centers: 'Production chain work centers'
     production_chains: 'Chaînes de production'
     products: 'Produits'
+    #>professions: 'Professions'
+    #>purchase_lines: 'Purchase lines'
     purchases: 'Achats'
     relations: 'Relations' #!
     roles: 'Rôles'
+    #>sale_lines: 'Sale lines'
     sale_natures: 'Types de ventes'
     sales: 'Ventes'
     sequences: 'Séquences'
+    #>sessions: 'Session'
+    #>settings: 'Settings'
+    #>stock_moves: 'Stock moves'
     stock_transfers: 'Transferts et pertes de stocks'
     stocks: 'État des stocks'
     store: 'Boutique' #!
@@ -461,6 +520,9 @@ fra:
     tax_declarations: 'Déclaration de TVA'
     taxes: 'Taxes'
     tools: 'Matériel'
+    #>tracking_states: 'Tracking states'
+    #>trackings: 'Trackings'
+    #>transfers: 'Transfers'
     transports: 'Transports'
     units: 'Unités de mesure'
     users: 'Utilisateurs'
@@ -602,6 +664,7 @@ fra:
     consult: 'Consulter'
     contact: 'à l''adresse'
     contains: 'Contient'
+    contextual_help: 'Aide contextuelle'
     coordinates: 'Coordonnées de l''abonnement'
     copy_of: 'Copie de %{source}'
     cost_income_statement: 'Charges'
@@ -843,6 +906,7 @@ fra:
         events: 'Évènements'
         financial_years: 'Exercices'
         incoming_payments: 'Encaissements'
+        #>informations: 'Informations'
         journals: 'Journaux'
         land_parcels: 'Îlots et travaux'
         mandates: 'Responsabilités'
@@ -954,8 +1018,9 @@ fra:
       unparted: 'Non affectés'
       waiting: 'À décaisser plus tard'
     overflow: 'CREDIT OU EXCEDENT'
-    page_title: '%{company_code} - %{controller} - %{action}'
-    page_title_by_default: 'Ekylibre - %{controller} - %{action}'
+    page_title: '%{company_code} - %{menu} - %{action}'
+    page_title_by_default: 'Ekylibre - %{action}'
+    page_title_special: '%{company_code} - %{action}'
     paid_amount: 'Montant réglé'
     paid_on: 'Réglé le'
     parameters: 'Paramètres'

@@ -5,5 +5,3 @@ Les mouvements de stock retracent toutes les opérations effectuées sur les sto
 ===== Gestion des mouvements =====
 !!! La gestion des mouvements de stock se fait automatiquement. Aucune intervention externe n'est nécessité. Si vous souhaitez effectuer vous-même un mouvement, soyez sûr de ce que vous faites.
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

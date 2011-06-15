@@ -5,5 +5,3 @@ Sélectionnez le produit et la quantité qui compose votre produit, (une bouteil
 
 {{ help/product_components.png |Produit composé}}
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]

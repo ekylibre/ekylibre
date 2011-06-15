@@ -511,10 +511,15 @@ module ApplicationHelper
   end
 
   def title_tag
+    r = reverse_menus
     title = if @current_company
-              tc(:page_title, :company_code=>@current_company.code, :company_name=>@current_company.name, :controller=>t("controllers.#{controller.controller_name}"), :action=>action_title)
+              if r.empty?
+                tc(:page_special, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title)
+              else
+                tc(:page_title, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title, :menu=>tl("menus.#{r[0]}"))
+              end
             else
-              tc(:page_title_by_default, :controller=>t("controllers.#{controller.controller_name}"), :action=>action_title)
+              tc(:page_title_by_default, :action=>action_title)
             end
     return content_tag(:title, title)
   end
@@ -522,35 +527,6 @@ module ApplicationHelper
   def title_header_tag
     titles = action_title
     content_tag(:h1, titles, :class=>"title", :title=>titles)
-  end
-
-  def help_link_tag(options={})
-    return '' if @current_user.blank?
-    options[:class] ||= ""
-    options[:class] += " icon im-help help-link"
-    options[:style] = "display:none" if session[:help]
-    # url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
-    url = (options[:url]||{}).merge(:controller=>:dashboards, :action=>:help, :article=>controller.controller_name+'-'+action_name)
-    url[:dialog] = params[:dialog] if params[:dialog]
-    update = (options.delete(:update)||:help).to_s
-    return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
-  end
-
-  def help_tag(html_options={})
-    code = ''
-    return code
-    if session[:help]
-      code = render(:partial=>'help/search')
-    end
-    # return content_tag(:div, code, {:id=>"help", :class=>"lm_right help", :style=>"#{'display:none;' unless session[:help]}; width: 240px;"}.merge(html_options))
-    return code.html_safe
-  end
-
-  def side_link_tag
-    return '' unless @current_user
-    code = content_tag(:div)
-    operation = (session[:side] ? "close" : "open")
-    # link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
   
@@ -642,17 +618,17 @@ module ApplicationHelper
     end
 
     options[:url] ||= {}
-
+    options[:method] = :get
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
-      options[:url][:article] = link[0]
-      link_to_remote(link[1].html_safe, options) # REMOTE
+      options[:url][:id] = link[0]
+      link_to_remote(link[1].html_safe, options, {:href=>url_for(options[:url])}) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
-      options[:url][:article] = link
-      link_to_remote(link.html_safe, options) # REMOTE
+      options[:url][:id] = link
+      link_to_remote(link.html_safe, options, {:href=>url_for(options[:url])}) # REMOTE
     end
 
     for x in 1..6
@@ -679,26 +655,34 @@ module ApplicationHelper
   end
 
 
-  def article(name, options={})
-    name = name.to_s
-    content = ''
-    file_name, locale = '', nil
-    for locale in [I18n.locale, I18n.default_locale]
-      help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-      file_name = [name, name.split("-")[0]+"-index"].detect do |pattern|
-        File.exists? help_dir.join(pattern+".txt")
-      end
-      break unless file_name.blank?
-    end
-    file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s+".txt")
-    if File.exists?(file_text)
-      File.open(file_text, 'r') do |file|
-        content = file.read
-      end
-      content = wikize(content, options)
+  def article(file, options={})
+    content = nil
+    if File.exists?(file)
+      File.open(file, 'r'){|f| content = f.read}
+      content = content.split(/\n/)[1..-1].join("\n") if options.delete(:without_title)
+      content = wikize(content.to_s, options)
     end
     return content
   end
+  #   name = name.to_s
+  #   content = ''
+  #   file_name, locale = '', nil
+  #   for locale in [I18n.locale, I18n.default_locale]
+  #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
+  #     file_name = [name, name.split("-")[0].to_s+"-index"].detect do |pattern|
+  #       File.exists? help_dir.join(pattern+".txt")
+  #     end
+  #     break unless file_name.blank?
+  #   end
+  #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s+".txt")
+  #   if File.exists?(file_text)
+  #     File.open(file_text, 'r') do |file|
+  #       content = file.read
+  #     end
+  #     content = wikize(content, options)
+  #   end
+  #   return content
+  # end
 
   
 

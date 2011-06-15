@@ -9,6 +9,7 @@ jpn:
       #>new: 'Create new account'
       #>reconciliation: 'Account reconciliation'
       #>show: 'Account: %{number} - %{name}'
+      #>unmark: 'Unmark account'
     application: #!
     areas:
       #>edit: 'Edit the postal area: %{name}'
@@ -51,13 +52,12 @@ jpn:
       #>show: 'Custom field: %{name}'
       #>sort: 'Sort custom field choices'
     dashboards:
-      #>accountancy: 'Accountancy'
-      #>finances: 'Finances'
-      #>general: 'General'
-      #>index: 'Main dashboard'
-      #>production: 'Production'
-      #>relations: 'Relations'
-      #>trade: 'Trade'
+      #>accountancy: 'Accountancy dashboard'
+      #>finances: 'Finances dashboard'
+      #>general: 'General dashboard'
+      #>production: 'Production dashboard'
+      #>relations: 'Relations dashboard'
+      #>trade: 'Trade dashboard'
       #>welcome: 'Welcome on Ekylibre'
     delays:
       #>edit: 'Edit the delay: %{name}'
@@ -74,6 +74,7 @@ jpn:
       #>index: 'Deposits'
       #>new: 'Add a new deposit: %{mode}'
       #>show: 'Deposit %{number} on %{created_on}'
+      #>unvalidateds: 'Unvalidated deposits'
     districts:
       #>edit: 'Edit the district: %{name}'
       #>index: 'Districts'
@@ -83,6 +84,7 @@ jpn:
       #>index: 'Document templates'
       #>load: 'Load default document templates (overwrite the old templates)'
       #>new: 'Add a new document template'
+      #>print: 'Print document template'
     documents:
       #>print: 'Prints, exportations'
     entities:
@@ -127,8 +129,11 @@ jpn:
       #>index: 'Financial years'
       #>new: 'Open a new financial year'
       #>show: 'Financial year %{code}'
-    help: #!
+    help:
+      #>index: 'Help'
+      #>show: 'Help: %{title}'
     incoming_deliveries:
+      #>confirm: 'Confirm incoming delivery'
       #>edit: 'Edit the incoming delivery'
       #>index: 'Incoming deliveries'
       #>new: 'Add a new incoming delivery'
@@ -162,6 +167,7 @@ jpn:
       #>new: 'Add a new entry line'
     journals:
       #>close: 'Closing of %{name}'
+      #>draft: 'Draft'
       #>edit: 'Edit journal: %{name}'
       #>index: 'Journals'
       #>new: 'Create new journal'
@@ -179,9 +185,12 @@ jpn:
       #>new: 'Add a new land parcel'
       #>show: 'Land parcel %{name}'
     listing_node_items: #!
-    listing_nodes: #!
+    listing_nodes:
+      #>edit: 'Edit listing node'
+      #>new: 'New listing node'
     listings:
       #>edit: 'Edit the listing: %{name}'
+      #>extract: 'Extract listing: %{name}'
       #>index: 'Listings and mailings'
       #>mail: 'Send an email to: %{listing}'
       #>new: 'Add a new listing'
@@ -190,21 +199,26 @@ jpn:
       #>edit: 'Edit the mandate'
       #>index: 'Mandates'
       #>new: 'Add a mandate'
-    myselves: #!
+    myselves:
+      #>change_password: 'Change my password'
+      #>statistics: 'My statistics'
     observations:
       #>edit: 'Edit the observation'
       #>new: 'Add a new observation'
-    operation_lines: #!
+    operation_lines:
+      #>new: 'New operation''s product'
     operation_natures:
-      #>edit: 'update Type of operation: %{name}'
+      #>edit: 'Edit type of operation: %{name}'
       #>index: 'Types of operation'
       #>new: 'Create a new type of operation'
-    operation_uses: #!
+    operation_uses:
+      #>new: 'New tool''s use'
     operations:
       #>edit: 'Edit operation %{name}'
       #>index: 'Operations'
       #>new: 'Create a new operation'
       #>show: 'Operation Details %{name}'
+      #>unvalidateds: 'Unvalidated operations'
     outgoing_deliveries:
       #>edit: 'Edit the delivery'
       #>index: 'Outgoing deliveries'
@@ -228,7 +242,9 @@ jpn:
     preferences: #!
     prices:
       #>edit: 'Edit price %{pretax_amount}/%{amount} of %{product}'
-      #>import: 'Import prices in CSV'
+      #>export: 'Export prices'
+      #>find: 'Find price'
+      #>import: 'Import prices'
       #>index: 'Prices'
       #>new: 'Add a new price'
     product_categories:
@@ -257,7 +273,10 @@ jpn:
       #>index: 'Products'
       #>new: 'Add a new product'
       #>show: 'Product: %{name}'
-    professions: #!
+    professions:
+      #>edit: 'Edit profession'
+      #>index: 'Professions'
+      #>new: 'Add a new profession'
     purchase_lines:
       #>edit: 'Edit the purhase order line'
       #>new: 'Add a product to the purchase: %{number}'
@@ -278,6 +297,7 @@ jpn:
       #>index: 'Roles'
       #>new: 'Add a new role'
     sale_lines:
+      #>detail: 'Detail sale line'
       #>edit: 'Edit sale line'
       #>new: 'Add a new line of product'
     sale_natures:
@@ -288,6 +308,7 @@ jpn:
       #>abort: 'Abort sale'
       #>cancel: 'Cancel sales invoice %{number}'
       #>confirm: 'Confirm estimate and go to deliveries'
+      #>contacts: 'Contacts of sale'
       #>correct: 'Correct estimate'
       #>edit: 'Edit the sale %{number}'
       #>index: 'Sales'
@@ -297,6 +318,7 @@ jpn:
       #>propose_and_invoice: 'Invoice quickly'
       #>refuse: 'Estimate refused'
       #>show: 'Sale: %{label} for %{client}'
+      #>statistics: 'Sales statistics'
     sequences:
       #>edit: 'Edit the sequence: %{name}'
       #>index: 'Sequences'
@@ -305,12 +327,14 @@ jpn:
     sessions:
       #>destroy: 'Log out'
       #>new: 'New session'
+      #>renew: 'Renew session'
     settings: #!
     stock_moves:
       #>edit: 'Edit the stock move: %{name}'
       #>new: 'add a new stock move'
     stock_transfers:
       #>confirm: 'Waiting stock transfers'
+      #>confirm_all: 'Confirm all stock transfer'
       #>edit: 'Edit the stock transfer/loss'
       #>index: 'Transfers and loss'
       #>new: 'Add a new stock transfer or loss'
@@ -320,6 +344,7 @@ jpn:
       #>edit: 'Edit the subscription type: %{name}'
       #>index: 'Subscription types'
       #>new: 'Add a new subscription type'
+      #>show: 'Subscription type: %{name}'
     subscriptions:
       #>edit: 'Edit subscription: %{number} from %{start} to %{finish}'
       #>index: 'Subscriptions'
@@ -344,6 +369,7 @@ jpn:
     transfers: #!
     transports:
       #>deliveries: 'Deliveries of transport'
+      #>delivery_delete: 'Remove delivery from transport'
       #>edit: 'Edit the transport'
       #>index: 'Transports'
       #>new: 'Add a new transport'
@@ -356,15 +382,17 @@ jpn:
     users:
       #>edit: 'Edit user: %{first_name} %{last_name} (%{name})'
       #>index: 'Users'
+      #>lock: 'Lock user'
       #>new: 'Add a new user'
       #>show: 'User: %{first_name} %{last_name} (%{name})'
-      #>statistics: 'My statistics'
+      #>unlock: 'Unlock user'
     warehouses:
       #>edit: 'Edit the warehouse: %{name}'
       #>index: 'Warehouses'
       #>new: 'Add a new warehouse'
       #>show: 'Warehouse: %{name}'
   controllers:
+    #>account_balances: 'Account balances'
     accountancy: '会計' #!
     #>accounts: 'Plan of accounts'
     application: '一般的な車掌'
@@ -373,17 +401,26 @@ jpn:
     #>bank_statements: 'Bank statements'
     #>cash_transfers: 'Cash transfers'
     #>cashes: 'Cashes'
+    #>companies: 'Companies'
     company: '会社' #!
+    #>contacts: 'Contacts'
+    #>cultivations: 'Cultivations'
+    #>currencies: 'Currencies'
+    #>custom_field_choices: 'Custom field choices'
+    #>custom_field_data: 'Custom field data'
     #>custom_fields: 'Custom fields'
     #>dashboards: 'Dashboards'
     #>delays: 'Delays'
     #>departments: 'Departments'
+    #>deposit_lines: 'Deposit lines'
     #>deposits: 'Deposits'
     #>districts: 'Districts'
     #>document_templates: 'Document templates'
+    #>documents: 'Documents'
     #>entities: 'People'
     #>entity_categories: 'Person categories'
     #>entity_link_natures: 'Link types'
+    #>entity_links: 'Entity links'
     #>entity_natures: 'Person types'
     #>establishments: 'Establishments'
     #>event_natures: 'Event types'
@@ -391,33 +428,59 @@ jpn:
     #>financial_years: 'Financial years'
     help: '手伝い'
     #>incoming_deliveries: 'Incoming deliveries'
+    #>incoming_delivery_lines: 'Incoming delivery lines'
     #>incoming_delivery_modes: 'Incoming delivery modes'
     #>incoming_payment_modes: 'Incoming payment modes'
+    #>incoming_payment_uses: 'Incoming payment uses'
     #>incoming_payments: 'Incoming payments'
+    #>interfacers: 'Interfacers'
     #>inventories: 'Inventories'
+    #>inventory_lines: 'Inventory lines'
+    #>journal_entries: 'Journal entries'
+    #>journal_entry_lines: 'Journal entry lines'
     #>journals: 'Journals'
     #>land_parcel_groups: 'Groups of land parcels'
+    #>land_parcel_kinships: 'Land parcel kinships'
     #>land_parcels: 'Land parcels'
+    #>listing_node_items: 'Listing node items'
+    #>listing_nodes: 'Listing nodes'
     #>listings: 'Listings and mailings'
     management: '商業の管理' #!
     #>mandates: 'Mandates'
+    #>myselves: 'Myself'
+    #>observations: 'Observations'
+    #>operation_lines: 'Operation lines'
     #>operation_natures: 'Types of operation'
+    #>operation_uses: 'Operation uses of tools'
     #>operations: 'Operations'
     #>outgoing_deliveries: 'Outgoing deliveries'
+    #>outgoing_delivery_lines: 'Outgoing delivery lines'
     #>outgoing_delivery_modes: 'Outgoing delivery modes'
     #>outgoing_payment_modes: 'Disbursement modes'
+    #>outgoing_payment_uses: 'Outgoing payment uses'
     #>outgoing_payments: 'Disbursements'
+    #>preferences: 'Preferences'
     #>prices: 'Prices'
     #>product_categories: 'Product categories'
+    #>product_components: 'Product components'
     production: '生産' #!
+    #>production_chain_conveyors: 'Production chain conveyors'
+    #>production_chain_work_center_uses: 'Production chain work center uses'
+    #>production_chain_work_centers: 'Production chain work centers'
     #>production_chains: 'Production chains'
     #>products: 'Products'
+    #>professions: 'Professions'
+    #>purchase_lines: 'Purchase lines'
     #>purchases: 'Purchases'
     relations: '関係' #!
     #>roles: 'Roles'
+    #>sale_lines: 'Sale lines'
     #>sale_natures: 'Sale types'
     #>sales: 'Sales'
     #>sequences: 'Sequences'
+    #>sessions: 'Session'
+    #>settings: 'Settings'
+    #>stock_moves: 'Stock moves'
     #>stock_transfers: 'Transfers and loss'
     #>stocks: 'Stocks state'
     #>subscription_natures: 'Subscription types'
@@ -425,6 +488,9 @@ jpn:
     #>tax_declarations: 'VAT Declaration'
     #>taxes: 'Taxes'
     #>tools: 'Tools'
+    #>tracking_states: 'Tracking states'
+    #>trackings: 'Trackings'
+    #>transfers: 'Transfers'
     #>transports: 'Transports'
     #>units: 'Units of measure'
     #>users: 'Users'
@@ -565,6 +631,7 @@ jpn:
     #>consult: 'Consult'
     #>contact: 'At'
     #>contains: 'Contains'
+    #>contextual_help: 'Help on current page'
     #>coordinates: 'Coordinates'
     #>copy_of: 'Copy of %{source}'
     #>cost_income_statement: 'Cost Income Statement'
@@ -683,7 +750,7 @@ jpn:
     #>give_discount: 'Give discount'
     #>go: 'Go'
     #>graph_statistics: 'Graph statistics'
-    #>help: 'Aide'
+    #>help: 'Help'
     #>hint: 'Hint&nbsp;: %{value}'
     home: '持て成しの手伝いに帰り'
     hour_duration:
@@ -803,6 +870,7 @@ jpn:
         #>events: 'Events'
         #>financial_years: 'Financial Years'
         #>incoming_payments: 'Incoming Payments'
+        #>informations: 'Informations'
         #>journals: 'Journals'
         #>land_parcels: 'Land Parcels'
         #>mandates: 'Mandates'
@@ -904,6 +972,7 @@ jpn:
     #>overflow: 'Overflow'
     page_title: '%{company_code} - %{controller} - %{action}'
     page_title_by_default: 'Ekylibre - %{controller} - %{action}'
+    #>page_title_special: '%{company_code} - %{action}'
     #>paid_amount: 'Paid amount'
     #>paid_on: 'Paid on'
     #>parameters: 'Parameters'

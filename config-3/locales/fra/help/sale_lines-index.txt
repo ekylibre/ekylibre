@@ -27,5 +27,3 @@ Vous aurez accès à un sous formulaire vous permettant d'**appliquer le prix ai
   * Ce champ n'apparaît que dans le cas ou vous disposez de plusieurs lieux de stockage.
   * Sélectionner le lieu de stockage permet de savoir à quel lieu de stockage seront liés les mouvements de stocks liés à cette vente.
 
-
-[[management-index|Retour à l'aide sur la Gestion Commerciale]]
