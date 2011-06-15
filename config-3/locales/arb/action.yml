@@ -356,8 +356,8 @@ arb:
       #>load: 'Load missing sequences'
       new: 'انشاء تسلسل جديد'
     sessions:
-      #>destroy: 'Log out'
-      #>new: 'New session'
+      destroy: 'الخروج'
+      new: 'الدخول'
       #>renew: 'Renew session'
     settings: #!
     stock_moves:
@@ -1061,9 +1061,9 @@ arb:
       #>unparted: 'Unused'
       #>waiting: 'To deposit later'
     overflow: 'فائض رصيد الدائن'
-    page_title: '%{company_code} - %{controller} - %{action}'
-    page_title_by_default: 'Ekylibre - %{controller} - %{action}'
-    #>page_title_special: '%{company_code} - %{action}'
+    page_title: '%{company_code} - %{menu} - %{action}'
+    page_title_by_default: 'Ekylibre - %{action}'
+    page_title_special: '%{company_code} - %{action}'
     paid_amount: 'القيمة المسدودة'
     paid_on: 'تم التسديد في'
     parameters: 'عامل متغير'

@@ -176,7 +176,9 @@ html[dir="rtl"] div#side { float: right; }
 .yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
 /*.yield h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
 .yield h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
-.yield .menu.mn-index {float: left; margin-right: 8px; margin-bottom: 8px; width: 200px; }
+.yield .menu.mn-index { margin-bottom: 8px; width: 200px; }
+html[dir="ltr"] .yield .menu.mn-index {float: left; margin-right: 8px; }
+html[dir="rtl"] .yield .menu.mn-index {float: right; margin-left: 8px; }
 .yield .menu { border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; behavior: url(/pie.htc); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
 /*.yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
 .yield .menu h2 { margin: 2px 0px !important; }
@@ -204,7 +206,9 @@ html[dir="rtl"] #top #loading { float:left; }
 */
 
 #top { border-bottom: 1px solid #999; }
-#top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) 8px 7px no-repeat; font-size: 20px; font-weight: bold; height: 48px; line-height: 48px; vertical-align: middle; padding: 0 8px 0 170px; color: #95b0e4;}
+#top .logo-bar { font-size: 20px; font-weight: bold; height: 48px; line-height: 48px; vertical-align: middle; color: #95b0e4;}
+html[dir="ltr"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) left 7px no-repeat; padding: 0 8px 0 170px; }
+html[dir="rtl"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) right 7px no-repeat; padding: 0 170px 0 8px;}
 #top .user-bar { padding: 4px; height: 18px; }
 #top .user-bar a { padding: 0 4px;  line-height: 16px;}
 #top .user-bar .im-printable, .user-bar .im-unprintable { background-position: center; }
