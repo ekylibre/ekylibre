@@ -11,18 +11,19 @@ task :views => :environment do
     end
     controller = controller_file.split(/[\\\/]+/)[-1].gsub('_controller.rb', '')
     for file in Dir.glob(Rails.root.join("app", "views", controller, "*.*")).sort
-      action = file.split(/[\\\/]+/)[-1].split('.')[0]
+      view = file.split(/[\\\/]+/)[-1].split('.')[0]
       valid = false
-      valid = true if not valid and source.match(/^\s*def\s+#{action}\s*$/)
-      valid = true if not valid and action.match(/^_\w+_form$/) and (source.match(/^\s*def\s+#{action[1..-6]}_(upd|cre)ate\s*$/) or source.match(/^\s*manage\s*\:#{action[1..-6].pluralize}(\W|$)/))
-      if action.match(/^_/) and not valid
-        if source.match(/^[^\#]*(render|replace_html)[^\n]*partial[^\n]*#{action[1..-1]}/)
+      # Valid if it has an explicit action
+      valid = true if not valid and source.match(/^\s*def\s+#{view}\s*$/)
+      valid = true if not valid and view.match(/^_form$/) and (source.match(/^\s*def\s+(upd|cre)ate\s*$/) or source.match(/^\s*manage_restfully(\W|$)/))
+      if view.match(/^_/) and not valid
+        if source.match(/^[^\#]*(render|replace_html)[^\n]*partial[^\n]*#{view[1..-1]}/)
           valid = true 
         else
           for view in Dir.glob(Rails.root.join("app", "views", controller, "*.*"))
             File.open(view, "rb") do |f|
               view_source = f.read
-              if view_source.match(/(render|replace_html)[^\n]*partial[^\n]*#{action[1..-1]}/)
+              if view_source.match(/(render|replace_html)[^\n]*partial[^\n]*#{view[1..-1]}/)
                 valid = true
                 break
               end

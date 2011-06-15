@@ -1,0 +1,10 @@
+=form_tag(:action=>:create) do
+  =formalize do |f|
+    - f.title :general
+    - f.field :inventory, :responsible_id, :choices=>{:reflection=>:users}
+    - f.field :inventory, :comment, :field=>:textarea
+  =list(:lines_create)
+  .actions
+    =link_to tg(:previous), :action=>:index
+    =submit_tag(tc('validate'))
+ 

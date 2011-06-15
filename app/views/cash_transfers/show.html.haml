@@ -1,0 +1,18 @@
+-# Eclated automatically (2011-06-08)
+=toolbar do |t|
+  -t.update @cash_transfer
+
+
+=attributes_list(@cash_transfer) do |l|
+  -l.attribute :number
+  -l.attribute :comment
+  -l.attribute :accounted_at
+  -l.attribute :currency
+  -l.attribute :emitter_cash, :url=>{:action=>:cash}
+  -l.attribute :emitter_amount
+  -l.attribute :emitter_currency
+  -l.attribute :emitter_journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+  -l.attribute :receiver_cash, :url=>{:action=>:cash}
+  -l.attribute :receiver_amount
+  -l.attribute :receiver_currency
+  -l.attribute :receiver_journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}

@@ -1,8 +1,0 @@
-=formalize do |f|
-  -f.error :mandate
-  -f.field :mandate, :entity_id, :choices=>:entities, :new=>{:action=>:entity_create}
-  -f.field Mandate.human_attribute_name("family"), text_field_with_auto_complete(:mandate, :family)
-  -f.field Mandate.human_attribute_name("organization"), text_field_with_auto_complete(:mandate, :organization)
-  -f.field Mandate.human_attribute_name("title"), text_field_with_auto_complete(:mandate, :title)
-  -f.field :mandate, :started_on
-  -f.field :mandate, :stopped_on

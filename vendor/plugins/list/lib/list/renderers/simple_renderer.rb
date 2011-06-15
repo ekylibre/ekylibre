@@ -58,8 +58,8 @@ module List
       # code += "text = #{colgroup}+#{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       code += "text = #{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       # code += "text = content_tag(:table, text.html_safe, :class=>:list, :id=>'#{table.name}') unless request.xhr?\n"
-      code += "text = content_tag(:table, text.html_safe, :class=>:list)\n"
-      code += "text = content_tag(:div, text.html_safe, :class=>:list, :id=>'#{table.name}') unless request.xhr?\n"
+      code += "text = content_tag(:table, text.html_safe, :class=>:kame)\n"
+      code += "text = content_tag(:div, text.html_safe, :class=>:kame, :id=>'#{table.name}') unless request.xhr?\n"
       code += "return text\n"
       return code
     end
@@ -94,7 +94,9 @@ module List
               if column.datatype == :decimal
                 datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&#160;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
               end
-              if column.options[:url].is_a?(Hash) and nature==:body
+              if column.options[:url].is_a?(TrueClass) and nature==:body
+                datum = "(#{datum}.blank? ? '' : link_to(#{datum}, {:controller=>:#{column.class_name.underscore.pluralize}, :action=>:show, :id=>#{column.record_expr(record)+'.id'}}))"
+              elsif column.options[:url].is_a?(Hash) and nature==:body
                 column.options[:url][:id] ||= column.record_expr(record)+'.id'
                 url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
                 datum = "(#{datum}.blank? ? '' : link_to(#{datum}, url_for(#{url})))"

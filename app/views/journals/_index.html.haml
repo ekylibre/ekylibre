@@ -1,0 +1,14 @@
+-journals = @current_company.journals
+.tabbox.journals
+  .tabs
+    -if @current_company.journal_entry_lines.find_by_state("draft")
+      -name=tc("draft").html_safe
+      -if action_name=="draft"
+        %strong.tab.current.special=name
+      -else
+        =link_to(name, params.merge(:controller=>:journals, :action=>:draft), :class=>"tab special")
+    -for journal in journals
+      -name=journal.name.html_safe
+      -klass = "tab"
+      -klass += " current" if (controller_name="journals" and action_name=="show" and journal.id==@journal.id) or (@journal_entry and @journal_entry.journal_id==journal.id)
+      =link_to(name, params.merge(:controller=>:journals, :action=>:show, :id=>journal.id), :title=>journal.name, :class=>klass)

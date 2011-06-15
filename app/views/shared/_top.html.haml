@@ -1,0 +1,21 @@
+-if @current_user
+  .user-bar
+    -preference = @current_user.preference("interface.general.resized", true, :boolean)
+    -resized = preference.value
+    =link_to("", params.merge(:resized=>(resized ? "0" : "1")), {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode), :id=>:resizable})
+    %a=@current_user.label
+    =link_to(t("actions.sessions.destroy"), session_url, :method=>:delete, :class=>"icon im-logout")
+
+.logo-bar=@current_company.name if @current_company
+
+-if @current_user
+  -rm = reverse_menus
+  .menu-bar
+    -#=link_to(tl("menus.home"), {:controller=>:dashboards}, :class=>"home#{' current' if controller_name=='dashboards' and action_name=='index'}")
+    -for menu, submenus in menus
+      =link_to_if(rm[0] != menu, tl("menus.#{menu}"), last_page(menu), :class=>menu) do |name|
+        -link_to(name, dashboard_url(:action=>menu), :class=>"#{menu} current")
+  .submenu-bar
+    -for submenu, items in menus[rm[0]]||[]
+      =link_to_if(rm[1] != submenu, tl("menus.submenus.#{submenu}"), items[0]) do |name| # , :default=>["actions.#{submenu}.index".to_sym, "labels.menu.#{submenu}".to_sym]
+        -link_to(name, items[0], :class=>:current)

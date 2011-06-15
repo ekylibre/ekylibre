@@ -1,8 +1,0 @@
-=formalize do |f|
-  -f.error :transport
-  -f.title :general
-  -f.field :transport, :transporter_id, :choices=>{:reflection=>:transporters}, :new=>{:controller=>:relations, :action=>:entity_create, :transporter=>1}
-  -f.field :transport, :responsible_id, :choices=>{:reflection=>:employees, :include_blank=>""}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
-  -f.field :transport, :reference_number
-  -f.field :transport, :transport_on
-  -f.field :transport, :comment, :field=>:textarea

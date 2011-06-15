@@ -1,7 +1,7 @@
 eng:
   rights:
     __minimum__: 'Access to the minimum'
-    __not_used__: 'Inaccessible'
+    __public__: 'Public access'
     backup_company: 'Make and reload backups'
     bookkeep: 'Transfer commercial data in accountancy'
     cancel_sales_invoices: 'Cancel sales_invoices'

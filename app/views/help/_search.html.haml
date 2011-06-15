@@ -3,22 +3,11 @@
   -update, complete, resize = "#{params[:dialog]}-help", "$('#{params[:dialog]}').resize()", params[:dialog]
 -base_url = {:controller=>:help}
 -base_url[:dialog] = params[:dialog] if params[:dialog]
-.vbox.flex
-  .nav
-    =link_to_remote(tg(:close), {:url=>base_url.merge(:action=>:close), :loading=>"toggleHelp('#{update}', false#{', \''+resize.to_s+'\'' if resize}); onLoading();", :loaded=>"onLoaded();"}, {:class=>"icon im-close help-link"})
-    =link_to_remote(tg(:previous), {:url=>base_url.merge(:action=>:previous), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:class=>"icon im-previous help-link"} ) if session[:help_history].size>1
-    %h1.title=t("controllers.help")
-  -cache(:action=>"help", :locale=>::I18n.locale, :id=>@article) do
-    .content.flex{:style=>'overflow:auto;'}
-      - doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>"search"))
-      - if doc.blank?
-        %h1=tc("missing_help")
-        .help-error=tc(:error_no_file, :article=>I18n.locale.to_s+":"+@article)
-      - else
-        =doc
-      %ul
-        -# cnt = @article.split("-")[0]
-        -# %li=link_to_remote(::I18n.t("controllers.#{cnt}.title"), :url=>base_url.merge(:action=>:search, :article=>cnt+"-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
-        %li=link_to_remote(tc("home"), :url=>base_url.merge(:action=>:search, :article=>"company-index"), :update=>update, :complete=>complete, :loading=>"onLoading();", :loaded=>"onLoaded();")
-        %li=link_to(tc("ekylibre"), "http://www.ekylibre.org")
-      .end
+-cache(:action=>"help", :locale=>::I18n.locale, :id=>@article) do
+  .content.flex{:style=>'overflow:auto;'}
+    -doc=article(@article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>:search))
+    -if doc.blank?
+      %h1=tc("missing_help")
+      .help-error=tc(:error_no_file, :article=>I18n.locale.to_s+":"+@article)
+    -else
+      =doc

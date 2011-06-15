@@ -145,7 +145,22 @@ def actions_in_file(path, controller)
       actions << prefix+'_delete'
     end
   end
+  if controller.to_s == "dashboards"
+    for menu in Ekylibre.menus.keys
+      actions << menu.to_s
+    end
+  end
+
   return actions
+end
+
+def actions_hash
+  ref = {}
+  Dir.glob(Rails.root.join("app", "controllers", "*_controller.rb")) do |x|
+    controller_name = x.split("/")[-1].split("_controller")[0]
+    ref[controller_name] = actions_in_file(x, controller_name).sort
+  end
+  return ref
 end
 
 

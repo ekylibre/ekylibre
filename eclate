@@ -1,0 +1,572 @@
+#!/usr/bin/ruby
+# -*- coding: utf-8 -*-
+
+require 'yaml'
+
+licence = []
+licence << "# -*- coding: utf-8 -*-"
+licence << "# == License"
+licence << "# Ekylibre - Simple ERP"
+licence << "# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon"
+licence << "#"
+licence << "# This program is free software: you can redistribute it and/or modify"
+licence << "# it under the terms of the GNU General Public License as published by"
+licence << "# the Free Software Foundation, either version 3 of the License, or"
+licence << "# any later version."
+licence << "#"
+licence << "# This program is distributed in the hope that it will be useful,"
+licence << "# but WITHOUT ANY WARRANTY; without even the implied warranty of"
+licence << "# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the"
+licence << "# GNU General Public License for more details."
+licence << "#"
+licence << "# You should have received a copy of the GNU General Public License"
+licence << "# along with this program.  If not, see <http://www.gnu.org/licenses/>."
+licence << "#"
+licence << ""
+
+@locales = [:eng, :fra, :arb, :jpn, :spa]
+@conversions = {}
+@script = ""
+
+intro = "Eclated automatically (#{Date.today})"
+
+@manual_views = {
+  "app/views/company/about.html.haml" => "app/views/settings/about.html.haml",
+  "app/views/company/backups.html.haml" => "app/views/settings/backups.html.haml",
+  "app/views/company/change_password.html.haml" => "app/views/settings/change_password.html.haml",
+  "app/views/company/configure.html.haml" => "app/views/settings/_form.html.haml",
+  "app/views/company/help.html.haml" => "app/views/dashboards/help.html.haml",
+  "app/views/company/_help_result.html.haml" => "app/views/dashboards/_help_result.html.haml",
+  "app/views/company/import.html.haml" => "app/views/settings/import.html.haml",
+  "app/views/company/index.html.haml" => "app/views/dashboards/company.html.haml",
+  "app/views/company/_rights_form.html.haml" => "app/views/users/_rights_form.html.haml",
+
+  "app/views/relations/_coordinates_form.html.haml" => "app/views/contacts/_coordinates_form.html.haml",
+  "app/views/relations/change_minutes.rjs" => "app/views/events/change_minutes.rjs",
+  "app/views/relations/index.html.haml" => "app/views/dashboards/relations.html.haml",
+
+  "app/views/accountancy/balance.html.haml" => "app/views/journals/balance.html.haml",
+  "app/views/accountancy/bookkeep.html.haml" => "app/views/journals/bookkeep.html.haml",
+  "app/views/accountancy/draft.html.haml" => "app/views/journals/draft.html.haml",
+  "app/views/accountancy/general_ledger.html.haml" => "app/views/journals/general_ledger.html.haml",
+  "app/views/accountancy/index.html.haml" => "app/views/dashboards/accountancy.html.haml",
+  "app/views/accountancy/_journals.html.haml" => "app/views/journals/_index.html.haml",
+
+  "app/views/finances/index.html.haml" => "app/views/dashboards/finances.html.haml",
+  "app/views/finances/tax_declaration_period_search.rjs" => "app/views/tax_declarations/period_search.rjs",
+  "app/views/finances/unvalidated_deposits.html.haml" => "app/views/deposits/unvalidated.html.haml",
+  
+  "app/views/management/change_quantities.rjs" => "app/views/products/change_quantities.rjs",
+  "app/views/management/price_find.rjs" => "app/views/purchase_lines/price_find.rjs",
+  "app/views/management/index.html.haml" => "app/views/dashboards/management.html.haml",
+  "app/views/management/statistics.html.haml" => "app/views/sales/statistics.html.haml",
+  "app/views/management/subscription_message.rjs" => "app/views/sales/subscription_message.rjs",
+
+  "app/views/production/index.html.haml" => "app/views/dashboards/production.html.haml",
+  "app/views/production/unvalidated_operations.html.haml" => "app/views/operations/unvalidated.html.haml"
+
+}
+
+
+def pluralize(string)
+  if string.match(/[^aeiouy]y$/)
+    return string.gsub(/y$/, 'ies')
+  elsif string.match(/um$/)
+    return string.gsub(/um$/, 'a')
+  elsif string.match(/(x|h|ss)$/)
+    return string += 'es'
+  elsif not string.match(/s$/)
+    return string+'s'
+  end
+  return string
+end
+
+def singularize(string)
+  if string.match(/ies$/)
+    return string.gsub(/ies$/, 'y')
+  elsif string.match(/a$/)
+    return string.gsub(/a$/, 'um')
+  elsif string.match(/(h|x|ss)es$/)
+    return string = string[0..-3]
+  elsif string.match(/s$/)
+    return string.gsub(/s$/, '')
+  end
+  return string
+end
+
+def capitalize(string)
+  return string.to_s.split('_').collect{|s| s[0..0].upcase+s[1..-1]}.join
+end
+
+def humanize(string)
+  return string.gsub('_', ' ')
+end
+
+
+
+def yaml_to_hash(filename)
+  hash = YAML::load(IO.read(filename).gsub(/^(\s*)no:(.*)$/, '\1__no_is_not__false__:\2'))
+  return deep_symbolize_keys(hash)
+end
+
+def deep_symbolize_keys(hash)
+  hash.inject({}) { |result, (key, value)|
+    value = deep_symbolize_keys(value) if value.is_a? Hash
+    key = :no if key.to_s == "__no_is_not__false__"
+    result[(key.to_sym rescue key) || key] = value
+    result
+  }
+end
+
+def hash_to_yaml(hash, depth=0)
+  code = "\n"
+  x = hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}
+  x.each_index do |i|
+    k, v = x[i][0], x[i][1]
+    # code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? "\n"+hash_to_yaml(v,depth+1) : " '"+v.gsub("'", "''")+"'\n") if v
+    code += "  "*depth+k.to_s+":"+(v.is_a?(Hash) ? hash_to_yaml(v, depth+1) : " "+yaml_value(v))+(i == x.size-1 ? '' : "\n") if v
+  end
+  code
+end
+
+
+def yaml_value(value, depth=0)
+  if value.is_a?(Array)
+    "["+value.collect{|x| yaml_value(x)}.join(", ")+"]"
+  elsif value.is_a?(Symbol)
+    ":"+value.to_s
+  elsif value.is_a?(Hash)
+    hash_to_yaml(value, depth+1)
+  elsif value.is_a?(Numeric)
+    value.to_s
+  else
+    "'"+value.to_s.gsub("'", "''")+"'"
+  end
+end
+
+def rhash(hash, key, val=nil)
+  acc = key.split(".")
+  return nil if val.nil? and hash.keys.size.zero?
+  raise acc.inspect if acc[0].size.zero?
+  first_key = acc[0].to_sym
+  if acc.size == 1
+    hash[first_key] = val unless val.nil?
+    return hash[first_key]
+  elsif acc.size > 1
+    hash[first_key] = {} unless val.nil? or hash[first_key].is_a? Hash
+    return rhash(hash[first_key]||{}, acc[1..-1].join("."), val)
+  else
+    raise Exception.new("Bad access key: #{key.inspect}")
+  end
+end
+
+def rhash_delete(hash, key)
+  acc = key.split(".")
+  first_key = acc[0].to_sym
+  if acc.size == 1
+    hash.delete(first_key)
+  elsif acc.size > 1
+    return rhash_delete(hash[first_key]||{}, acc[1..-1].join("."))
+  else
+    raise Exception.new("Bad access key: #{key.inspect}")
+  end
+end
+
+
+
+
+def ps(string)
+  # @script += string+"\n"
+  puts string
+end
+
+# Escape char for BASH not for SH
+def echo_line(string)
+  return 'echo "'+string.to_s.gsub(/\\/, '\\\\\\\\').gsub(/\"/, '\\"').gsub(/\n/, '\\\\n').gsub(/\$/, '\\$')+'"'
+end
+
+def start_echo(*argv)
+  file  = argv[-1]
+  lines = argv[0..-2].flatten.collect
+  code  = echo_line(lines.delete_at(0))+" > #{file}\n"
+  code += echo(lines, file)
+  return code
+end
+
+def echo(*argv)
+  file = argv[-1]
+  code = argv[0..-2].flatten.collect do |line| # collect{|l| l.split(/\n/)}.flatten
+    echo_line(line)+" >> #{file}\n"
+  end.join("").to_s
+  return code
+end
+
+lists = {}
+for controller_file in Dir.glob("app/controllers/*.rb").sort
+  controller = controller_file.split(/[\.\/\\]+/)[-2].gsub('_controller', "")
+  next if controller == "application"
+  source = ""
+  File.open(controller_file, "rb"){ |f| source = f.read }
+  codes = source.split(/\n\ \ create_kame/)[1..-1]
+  for list_code in codes
+    list_name = list_code.gsub(/[\(\)]*/, '').split(/[\s\,]+/)[0].strip[1..-1]
+    next unless list_name.match(/^[a-z0-9_]+$/)
+    list = "#{controller}##{list_name}"
+    lists[list] = {} unless lists[list].is_a? Hash
+    lists[list][:args] = list_code.split(/\)?\sdo\s\|/)[0].split(/\s*\,\s*/)[1..-1].join(", ").strip
+    parameters = {}
+    lists[list][:args].split(/\s*\,\s*/).collect{|x| x.split(/\s*\=\>\s*/)}.each{|y| parameters[y[0].to_s.strip.gsub(/[^a-z0-9_]/, '')] = y[1]}
+    model = singularize(parameters["model"] ? parameters["model"][1..-1] : list_name)
+    lists[list][:lines] = ("  create_kame "+list_code.split(/^\ \ end/)[0]+"  end").split(/\n/)[1..-2].collect do |line|
+      if line.match(/\.action[\(\s]+\:#{model}_update(\W|$)/)
+        line.gsub!(":#{model}_update", ":edit")
+      elsif line.match(/\.action[\(\s]+\:#{model}_delete(\W|$)/)
+        line.gsub!(":#{model}_delete", ":destroy")
+      elsif line.match(/\.action[\(\s]+\:#{model}_[a-z_]+(\W|$)/)
+        line.gsub!(/\:#{model}_([a-z_]+)/, ':\1')
+      end
+      line
+    end      
+    # ...
+  end
+end
+
+
+actions = {}
+for controller_file in Dir.glob("app/controllers/*.rb").sort
+  controller = controller_file.split(/[\.\/\\]+/)[-2].gsub('_controller', "")
+  next if controller == "application"
+  source = ""
+  File.open(controller_file, "rb"){ |f| source = f.read }
+  codes = source.split(/^\ \ def\ /)
+  for action in codes
+    action_name = action.split(/\n/)[0].strip
+    if action_name.match(/^[a-z0-9_]+$/)
+      actions["#{controller}##{action_name}"] = ("  def "+action.split(/^\ \ end/)[0]+"  end").split(/\n/)[1..-2].collect do |line|
+        line.gsub!('render_form', 'render_restfully_form')
+        line
+      end
+    end
+  end
+end
+
+
+clactions = {}
+for controller_file in Dir.glob("app/controllers/*.rb").sort
+  controller = controller_file.split(/[\.\/\\]+/)[-2].gsub('_controller', "")
+  next if controller == "application"
+  source = ""
+  File.open(controller_file, "rb"){ |f| source = f.read }
+  codes = source.split(/^\ \ def\s+self\./)[1..-1]
+  for action in codes
+    action_name = action.split(/[\s\(]+/)[0].strip
+    clactions["#{controller} -> #{action_name}"] = ("  def self."+action.split(/^\ \ end/)[0]+"  end").split(/\n/)
+  end
+end
+
+# raise [clactions.keys.size, clactions.keys.sort.join(', ')].join("\n")
+
+
+manages = {}
+`cd app/controllers/ && grep -E '^\ \ manage\ ' *.rb`.split(/\s*\n\s*/).each do |line|
+  controller_name, x = line.split("_controller.rb:")
+  manages[x.strip.split(/[\ \,\:]+/)[1]] = {:controller=>controller_name, :options=>x.strip.split(/\s*\,\s*/)[1..-1].join(", ")}
+end
+
+manalis = {}
+`cd app/controllers/ && grep -E '^\ \ manage_list\ ' *.rb`.split(/\s*\n\s*/).each do |line|
+  controller_name, x = line.split("_controller.rb:")
+  manalis[x.strip.split(/[\ \,\:]+/)[1]] = {:controller=>controller_name, :options=>x.strip.split(/\s*\,\s*/)[1..-1].join(", ")}
+end
+
+plurals = Dir.glob("app/models/*.rb").collect{|f| pluralize(f.split(/[\.\/\\]+/)[-2]) }.sort
+
+moved_views = []
+
+ps "#!/bin/bash"
+ps "start=`date +%s.%N`"
+
+used_actions = []
+used_lists = []
+
+for model_file in Dir.glob("app/models/*.rb").sort.reverse
+  # break if lists_used >= 3
+
+  model = model_file.split(/[\.\/\\]+/)[-2]
+  plural = pluralize(model)
+
+  # Création de la resource (non nécessaire)
+  # ps "ruby script/generate resource #{model} --svn --skip-migration"
+
+  # Mise à jour des helpers
+  ps start_echo(licence, "app/helpers/#{plural}_helper.rb")
+  ps echo("module #{capitalize(plural)}Helper", 'end', "app/helpers/#{plural}_helper.rb")
+  ps "svn add app/helpers/#{plural}_helper.rb"
+
+  # Mise à jour des tests
+  ps start_echo(licence, "test/functional/#{plural}_controller_test.rb")
+  ps echo("require 'test_helper'", "test/functional/#{plural}_controller_test.rb")
+  ps echo("class #{capitalize(plural)}ControllerTest < ActionController::TestCase", '  test_restfully_all_actions', 'end', "test/functional/#{plural}_controller_test.rb")
+  ps "svn add test/functional/#{plural}_controller_test.rb"
+
+  # Mise à jour des test helpers
+  ps start_echo(licence, "test/unit/helpers/#{plural}_helper_test.rb")
+  ps echo("require 'test_helper'", "test/unit/helpers/#{plural}_helper_test.rb")
+  ps echo("class #{capitalize(plural)}HelperTest < ActionView::TestCase", 'end', "test/unit/helpers/#{plural}_helper_test.rb")
+  ps "svn add test/unit/helpers/#{plural}_helper_test.rb"
+
+  # Déplacement des actions
+  ps start_echo(licence, "app/controllers/#{plural}_controller.rb")
+  ps echo("class #{capitalize(plural)}Controller < ApplicationController", "app/controllers/#{plural}_controller.rb")
+
+  if manages.keys.include? plural
+    ps echo("  manage_restfully "+manages[plural][:options], "app/controllers/#{plural}_controller.rb")
+    @conversions["actions.#{manages[plural][:controller]}.#{model}_create"] ||= "actions.#{plural}.new"
+    @conversions["actions.#{manages[plural][:controller]}.#{model}_update"] ||= "actions.#{plural}.edit"
+    @conversions["actions.#{manages[plural][:controller]}.#{model}_delete"] ||= "actions.#{plural}.destroy"
+  end
+
+  if manalis.keys.include? plural
+    ps echo("  manage_restfully_list "+manalis[plural][:options], "app/controllers/#{plural}_controller.rb") 
+    @conversions["actions.#{manalis[plural][:controller]}.#{model}_up"]   ||= "actions.#{plural}.up"
+    @conversions["actions.#{manalis[plural][:controller]}.#{model}_down"] ||= "actions.#{plural}.down"
+  end
+
+  for list, parameters in lists.sort
+    controller_name, list_name = list.split('#')[0..1]
+    next if used_lists.include?(list)
+    if list_name == plural
+      ps echo('', "  list(#{parameters[:args]}) do |t|", parameters[:lines], '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{list_name}_kame"] ||= "actions.#{plural}.list"
+      used_lists << list
+    # elsif list_name.match(/^#{model}_(#{plurals.join('|')})/) and parameters[:args].match(/:(#{plurals.join('|')})\,\s/)
+    elsif list_name.match(/^#{model}_[a-z0-9_]+/)
+      short_name = list_name.gsub(/^#{model}_/, '')
+      # raise [", "+parameters[:args], /\,\s*\:model\s*\=\>\s*\:#{short_name}(\s|\,|$)/].inspect
+      args = (", "+parameters[:args]).gsub(/\,\s*\:model\s*\=\>\s*\:#{short_name}(\s|\,|$)/, '\1')
+      ps echo('', "  list(:#{short_name}#{args}) do |t|", parameters[:lines], '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{list_name}_kame"] ||= "actions.#{plural}.list_#{short_name}"
+      used_lists << list
+    end
+  end
+
+  for action, lines in actions.sort # .reverse
+    controller_name, action_name = action.split('#')[0..1]
+    next if used_actions.include?(action)
+    if action_name == plural
+      ps echo('', "  # Displays the main page with the list of #{humanize(plural)}", '  def index', lines, '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{action_name}"] ||= "actions.#{plural}.index"
+      used_actions << action
+
+    elsif action_name == model
+      ps echo('', "  # Displays details of one #{humanize(model)} selected with +params[:id]+", '  def show', lines, '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{action_name}"] ||= "actions.#{plural}.show"
+      used_actions << action
+
+    elsif action_name.match(/^#{plural}_/)
+      restful_action = action_name.gsub(plural+'_', '').to_sym
+      ps echo('', "  def #{restful_action}", lines, '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{action_name}"] ||= "actions.#{plural}."+(action_name.match(/^#{plural}_delete$/) ? 'destroy' : action_name.match(/^#{plural}_update$/) ? 'edit' : action_name.match(/^#{plural}_create$/) ? 'new' : action_name.gsub(/^#{plural}_/, ''))
+      used_actions << action
+
+    elsif action_name.match(/^#{model}_/)
+      restful_action = action_name.gsub(model+'_', '').to_sym
+      if restful_action == :create
+        ps echo('', "  def new", lines, '  end', "app/controllers/#{plural}_controller.rb")
+      elsif restful_action == :update
+        ps echo('', "  def edit", lines, '  end', "app/controllers/#{plural}_controller.rb")
+      elsif restful_action == :delete
+        restful_action = :destroy
+      end
+      ps echo('', "  def #{restful_action}", lines, '  end', "app/controllers/#{plural}_controller.rb")
+      @conversions["actions.#{controller_name}.#{action_name}"] ||= "actions.#{plural}."+(action_name=="#{model}_delete" ? 'destroy' : action_name=="#{model}_update" ? 'edit' : action_name=="#{model}_create" ? 'new' : action_name.gsub(/^#{model}_/, ''))
+      used_actions << action
+    end
+  end
+  ps echo('', "end", "app/controllers/#{plural}_controller.rb")
+
+  ps "svn add app/controllers/#{plural}_controller.rb"
+
+
+  # Déplacement des vues
+  ps "svn mkdir app/views/#{plural}"
+  for view_file in Dir.glob("app/views/*/*.haml").sort
+    unless moved_views.include? view_file
+      view = view_file.split(/[\.\/\\]+/)[-3]
+      if view == plural
+        ps "svn mv #{view_file} app/views/#{plural}/index.html.haml"
+        source = ""
+        File.open(view_file, "rb") {|f| source = f.read}
+        ps start_echo("-# #{intro}", "app/views/#{plural}/index.html.haml")
+        for line in source.split(/\n/)
+          line.gsub!(/link\s*\:#{model}\_create/, 'link :new')
+          line.gsub!(/link\s*\:#{model}\_(\w+)/,  'link :\1')
+          line.gsub!(/link\s*\:#{plural}\_(\w+)/, 'link :\1')
+          line.gsub!(/\:partial\s*\=\>\s*[\'\"]#{model}_(\w+)[\'\"]/, ':partial=>"\1"')
+          line.gsub!(/\:partial\s*\=\>\s*[\'\"]#{plural}_(\w+)[\'\"]/, ':partial=>"\1"')
+          line.gsub!(/kame\s*\(?\s*\:#{plural}(\W|$)/, 'list')
+          ps echo(line, "app/views/#{plural}/index.html.haml")
+        end
+        moved_views << view_file
+      elsif view == model
+        ps "svn mv #{view_file} app/views/#{plural}/show.html.haml"
+        source = ""
+        File.open(view_file, "rb") {|f| source = f.read}
+        ps start_echo("-# #{intro}", "app/views/#{plural}/show.html.haml")
+        for line in source.split(/\n/)
+          line.gsub!(/link\s*\:#{model}\_update/, 'link :edit')
+          line.gsub!(/link\s*\:#{model}\_delete/, 'link :destroy')
+          line.gsub!(/link\s*\:#{model}\_(\w+)/, 'link :\1')
+          line.gsub!(/\:partial\s*\=\>\s*[\'\"]#{model}_(\w+)[\'\"]/, ':partial=>"\1"')
+          line.gsub!(/\:partial\s*\=\>\s*[\'\"]#{plural}_(\w+)[\'\"]/, ':partial=>"\1"')
+          line.gsub!(/kame(\(?\s*)\:#{model}_(\w+)\s*(\)?\s*)?/, 'list\1:\2\3')
+          ps echo(line, "app/views/#{plural}/show.html.haml")
+        end
+        moved_views << view_file
+      elsif view.match(/^_?#{model}_/)
+        ps "svn mv #{view_file} app/views/#{plural}/#{view.gsub(model+'_', '').gsub('__', '_')}.html.haml"
+        moved_views << view_file
+      elsif view.match(/^_?#{plural}_/)
+        ps "svn mv #{view_file} app/views/#{plural}/#{view.gsub(plural+'_', '').gsub('__', '_')}.html.haml"
+        moved_views << view_file
+      end
+    end
+  end
+
+end
+
+# Ajout des nouveaux controllers génériques
+for controller in [:settings, :dashboards, :interfacers]
+  # Controller
+  ps start_echo(licence, "app/controllers/#{controller}_controller.rb")
+  ps echo("class #{capitalize(controller)}Controller < ApplicationController", 'end', "app/controllers/#{controller}_controller.rb")
+  ps "svn add app/controllers/#{controller}_controller.rb"
+  
+  # View
+  ps "svn mkdir app/views/#{controller}"
+
+  # Mise à jour des helpers
+  ps start_echo(licence, "app/helpers/#{controller}_helper.rb")
+  ps echo("module #{capitalize(controller)}Helper", 'end', "app/helpers/#{controller}_helper.rb")
+  ps "svn add app/helpers/#{controller}_helper.rb"
+
+  # Mise à jour des tests
+  ps start_echo(licence, "test/functional/#{controller}_controller_test.rb")
+  ps echo("require 'test_helper'", "test/functional/#{controller}_controller_test.rb")
+  ps echo("class #{capitalize(controller)}ControllerTest < ActionController::TestCase", '  test_restfully_all_actions', 'end', "test/functional/#{controller}_controller_test.rb")
+  ps "svn add test/functional/#{controller}_controller_test.rb"
+
+  # Mise à jour des test helpers
+  ps start_echo(licence, "test/unit/helpers/#{controller}_helper_test.rb")
+  ps echo("require 'test_helper'", "test/unit/helpers/#{controller}_helper_test.rb")
+  ps echo("class #{capitalize(controller)}HelperTest < ActionView::TestCase", 'end', "test/unit/helpers/#{controller}_helper_test.rb")
+  ps "svn add test/unit/helpers/#{controller}_helper_test.rb"
+end
+
+# A la mano
+for oldv, newv in @manual_views
+  ps "svn mv #{oldv} #{newv}"
+end
+
+for locale in @locales
+  ps start_echo("# #{intro}", "config/locales/#{locale}/action.yml")
+  # Load original YAML
+  translations = yaml_to_hash("config/locales/#{locale}/action.yml")
+  # Update YAML
+  for oldt, newt in @conversions.sort
+    val = rhash(translations, "#{locale}.#{oldt}")
+    # raise ["#{locale}.#{oldt}", "#{locale}.#{newt}", val].inspect
+    rhash(translations, "#{locale}.#{newt}", val)
+    rhash_delete(translations, "#{locale}.#{oldt}")
+    if File.exist?("config/locales/#{locale}/help/#{oldt.split('.')[1..2].join('-')}.txt")
+      ps "  svn mv config/locales/#{locale}/help/#{oldt.split('.')[1..2].join('-')}.txt config/locales/#{locale}/help/#{newt.split('.')[1..2].join('-')}.txt"
+    end
+  end
+
+  # Reuse of indexes for controllers's naming
+  for index in @conversions.values.select{|x| x.match(/\.index$/)}
+    val = rhash(translations, "#{locale}.#{index}")
+    rhash(translations, "#{locale}.controllers.#{index.split('.')[1]}", val)
+  end
+
+  # Write YAML
+  for line in hash_to_yaml(translations).split(/\n/)
+    ps echo(line, "config/locales/#{locale}/action.yml")
+  end
+end
+
+
+# Lecture du fichier existant
+rights = yaml_to_hash("config/rights.yml")
+
+# Expand actions
+for right, attributes in rights
+  attributes[:actions].each_index do |index|
+    unless attributes[:actions][index].match(/\:\:/)
+      attributes[:actions][index] = attributes[:controller].to_s+"::"+attributes[:actions][index] 
+      key = "actions.#{attributes[:actions][index].gsub('::', '.')}"
+      if @conversions.keys.include?(key)
+        attributes[:actions][index] = @conversions[key].split('.')[1..-1].join('::')
+        if attributes[:actions][index].match(/\:\:new$/)
+          attributes[:actions] << (@conversions[key].split('.')[1..-2]+["create"]).join('::')
+        elsif attributes[:actions][index].match(/\:\:edit$/)
+          attributes[:actions] << (@conversions[key].split('.')[1..-2]+["update"]).join('::')
+        end
+      end
+    end
+  end if attributes[:actions].is_a? Array
+end
+
+ps start_echo("# #{intro}", "config/rights.yml")
+for line in hash_to_yaml(rights).split(/\n/)
+  ps echo(line, "config/rights.yml")
+end
+
+
+# Finish
+ps "echo '#{used_lists.size}/#{lists.keys.size} lists converted'"
+
+# Mise à jour du controller principal
+source=""
+application_controller="app/controllers/application_controller.rb"
+File.open(application_controller, "rb"){|f| source = f.read}
+ps start_echo(source.to_s.split(/^end\s*$/)[0].split(/\n/), application_controller)
+for title, action in clactions.sort
+  ps echo('', "  # #{title}", action, application_controller)
+end
+ps echo('', 'end', application_controller)
+
+# Suppression des anciens controllers obsolete
+ps "rm -fr .backup"
+ps "mkdir .backup"
+helper = []
+for controller in [:accountancy, :company, :finances, :management, :production,  :relations, :resources, :store]
+  h = "app/helpers/#{controller}_helper.rb"
+  files = ["app/controllers/#{controller}_controller.rb", "app/views/#{controller}", h, "test/functional/#{controller}_controller_test.rb", "test/unit/helpers/#{controller}_helper_test.rb"].select{ |file| File.exist?(file) }
+  File.open(h, "rb") do |file|
+    helper << "  # Imported from #{h}"
+    for line in file.read.split(/\n/)
+      if line.match(/^\ \ /) or line.gsub(/\s*/,'').size.zero?
+        helper << line
+      end
+    end
+    helper << ""
+  end if File.exist?(h)
+
+  ps "cp  -r #{files.join(' ')} .backup/" 
+  ps "svn rm #{files.join(' ')}"
+end
+
+# Mise à jour du helper principal
+source=""
+application_helper="app/helpers/application_helper.rb"
+File.open(application_helper, "rb"){|f| source = f.read}
+ps start_echo(source.to_s.split(/^end\s*$/)[0].split(/\n/), application_helper)
+ps echo('', helper, '', 'end', application_helper)
+
+# Fin
+ps "finish=`date +%s.%N`"
+ps "total=`echo \"${finish}-${start}\" | bc`"
+ps "echo \"Total time: ${total} seconds\""
+
+

@@ -49,7 +49,7 @@ spa:
       x_seconds:
         many: '%{count} segundos'
         one: '1 segundo'
-  kame:
+  list:
     columns: 'Columnas'
     export:
       false_value: 'FALSO'

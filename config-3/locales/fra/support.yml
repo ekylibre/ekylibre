@@ -49,7 +49,7 @@ fra:
       x_seconds:
         many: '%{count} secondes'
         one: '1 seconde'
-  kame:
+  list:
     columns: 'Colonnes'
     export:
       false_value: 'FAUX'

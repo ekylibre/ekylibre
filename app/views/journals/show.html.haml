@@ -1,0 +1,50 @@
+=journals_tag
+=toolbar do |t|
+  -t.edit @journal
+  -t.link :new, :controller=>:journal_entries, :journal_id=>@journal.id
+
+
+=attributes_list(@journal) do |l|
+  -l.attribute :name
+  -l.attribute :code
+  -l.attribute :nature_label
+  -l.attribute :currency
+  -l.attribute :closed_on
+
+.search
+  =form_tag({}, :method=>:get) do
+    %table
+      %tr
+        %td.crit
+          %label{:for=>"search"}=tc(:search)
+          =text_field_tag("q", params[:q], :id=>:search)
+        %td.submit{:rowspan=>4}=submit_tag tg(:search_go), :name=>nil
+      %tr
+        %td.crit=journal_entries_states_crit
+      %tr
+        %td.crit=journal_period_crit
+
+=journal_view_tag
+.tab-content=list(@journal_view.to_sym)
+
+
+-conditions = eval(controller.class.journal_entries_conditions)
+-totals = {}
+-totals[:debit]  = JournalEntry.sum(:debit, :conditions=>conditions)
+-totals[:credit] = JournalEntry.sum(:credit, :conditions=>conditions)
+-totals[:balance_debit] = totals[:balance_credit] = 0.0
+-totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
+
+%table.kame
+  %tr.total
+    %th
+    %th=JournalEntry.human_attribute_name("debit")
+    %th=JournalEntry.human_attribute_name("credit")
+  %tr.important.total
+    %th=tc :totals
+    %td=number_to_accountancy totals[:debit]
+    %td=number_to_accountancy totals[:credit]
+  %tr.important.total
+    %th=tc :balance
+    %td=number_to_accountancy totals[:balance_debit]
+    %td=number_to_accountancy totals[:balance_credit]

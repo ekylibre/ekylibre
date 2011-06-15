@@ -18,7 +18,7 @@ function toggleElement(element, show, reverse_element) {
       $(reverse_element).show();
     }
   }
-  return false;
+  return show;
 }
 
 
@@ -356,3 +356,25 @@ Event.observe(window, "resize", resize);
 
 Event.observe(window, "dom:loaded", unexpire);
 Event.observe(window, "ajax:complete", unexpire);
+
+
+(function() {
+
+  document.on("click", "#side-splitter[data-toggle]", function(event, element) {
+      var splitted;
+      if (toggleElement("side")) {
+        splitted = 0;
+        element.removeClassName("closed");
+      } else {
+        splitted = 1;
+        element.addClassName("closed");
+      }
+      resize();
+      /* Put request with url in param*/
+      var url = element.readAttribute('data-toggle');
+      new Ajax.Request(url, { method: "post", parameters: {splitted: splitted} });
+      event.stop();
+    });
+
+
+})();

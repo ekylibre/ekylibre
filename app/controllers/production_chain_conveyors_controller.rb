@@ -1,0 +1,33 @@
+# -*- coding: utf-8 -*-
+# == License
+# Ekylibre - Simple ERP
+# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
+class ProductionChainConveyorsController < ApplicationController
+  manage_restfully :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"
+
+  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
+    t.column :name, :through=>:product, :url=>{:controller=>:management, :action=>:product}
+    t.column :flow
+    t.column :name, :through=>:unit
+    t.column :name, :through=>:source, :url=>{:action=>:production_chain_work_center}
+    t.column :name, :through=>:target, :url=>{:action=>:production_chain_work_center}
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+end

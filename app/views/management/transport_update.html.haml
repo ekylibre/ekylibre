@@ -1,9 +1,0 @@
-=form_tag do
-  =render :partial=>'transport_form'
-  .actions
-    =submit_tag(tg(:validate), :action=>:transport_update)
-
-%h2=tc(:transport_deliveries)
-=render :partial=>'transport_deliveries', :id=>@transport.id
-
-

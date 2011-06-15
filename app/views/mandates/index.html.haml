@@ -1,0 +1,12 @@
+-# Eclated automatically (2011-06-08)
+.search  
+  =form_tag do
+    %table
+      %tr
+        %td.label=tc(:select_organization)
+        %td.field=select_tag("organization", options_for_select([""]+@organizations.collect{|e| [e.organization.to_s, e.organization.to_s]}, session[:mandates][:organization].to_s))
+        %td.label=tc(:select_date)
+        %td.field=calendar_field_tag("date", session[:mandates][:date].to_s, :size=>8)
+        %td.submit=submit_tag tg("search_go")
+=list
+=#javascript_tag("$('date').value="+Date.today.to_s+";")

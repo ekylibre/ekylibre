@@ -1,0 +1,11 @@
+-if menu = menus[path[0]] and path[1] != :__hidden__
+  -prefix = "#{path[0]}_#{path[1]}"
+  -preference = @current_user.preference("interface.side.#{prefix}.opened", true, :boolean)
+  .module.menu
+    %ul{:id=>"side_#{prefix}_actions", :style=>(preference.value ? nil : "display: none") }
+      -for url in menu[path[1]]||[]
+        =li_link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url, :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
+
+.module.help.flex
+  %h2=t("controllers.help")
+  #help.flex=render :partial=>"help/search"

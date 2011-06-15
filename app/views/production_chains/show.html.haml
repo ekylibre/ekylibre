@@ -1,0 +1,15 @@
+-# Eclated automatically (2011-06-08)
+
+-if @current_user.can? :build_production_chains
+  =toolbar do |t|
+    -t.update @production_chain
+    -t.link :work_center_create, :production_chain_id=>@production_chain.id
+    -t.link :work_center_create, :production_chain_id=>@production_chain.id
+
+  #chains=render :partial=>"work_center", :collection=>@production_chain.operations
+  -if @production_chain.unused_conveyors.size > 0
+    %h2=ProductionChain.human_attribute_name(:unused_conveyors)
+    -for conveyor in @production_chain.unused_conveyors
+      %table.conveyor
+        %tr
+          =render :partial=>"conveyor", :object=>conveyor

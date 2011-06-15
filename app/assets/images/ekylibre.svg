@@ -2121,9 +2121,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.1"
+     inkscape:zoom="1"
      inkscape:cx="248.23418"
-     inkscape:cy="309.04286"
+     inkscape:cy="147.04286"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2140,7 +2140,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2152,9 +2152,9 @@
     <g
        transform="translate(1176.695,-244.34681)"
        id="logo"
-       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/images/ekylibre-mini.png"
-       inkscape:export-xdpi="23.4"
-       inkscape:export-ydpi="23.4"
+       inkscape:export-filename="/home/brice/dev/eclate/public/images/ekylibre-mini3.png"
+       inkscape:export-xdpi="18"
+       inkscape:export-ydpi="18"
        inkscape:label="Ekylibre">
       <title
          id="title5870">Logo d'ekylibre</title>

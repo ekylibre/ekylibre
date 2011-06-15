@@ -1,0 +1,6 @@
+-if @subscription
+  =formalize do |f|
+    -f.title :coordinates
+    -f.field :subscription, :contact_id, :choices=>:subscription_contacts
+    -f.field :subscription, :comment, :field=>:textarea
+  #subscription_duration=render :partial=>"duration_form"

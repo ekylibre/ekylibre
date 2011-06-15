@@ -261,6 +261,10 @@ class Company < Ekylibre::Record::Base
     self.id
   end
 
+  def to_param
+    self.code
+  end
+
   def account(number, name=nil)
     number = number.to_s
     a = self.accounts.find_by_number(number)

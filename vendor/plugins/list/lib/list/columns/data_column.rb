@@ -112,6 +112,18 @@ module List
     end
 
 
+    # Returns the class name of the used model
+    def class_name
+      klass = self.table.model
+      if through = @options[:through]
+        through = [through] unless through.is_a? Array
+        for ref in through
+          klass = klass.reflections[ref].class_name.constantize
+        end
+      end
+      return klass.name
+    end
+
     # Defines if column is exportable
     def exportable?
       true

@@ -1,0 +1,28 @@
+.branch{:class=>(node.reflection? ? " reflection" : " column")}
+  .shift
+  .item{:class=>"icon "+(node.reflection? ? "im-table" : "im-column")}
+    .item-detail
+      %table
+        %tr
+          -if node.reflection?
+            %td
+              =link_to_function(node.label, "toggleElement('#{node.key}')")
+              %span.attribute="(#{node.name})"
+            %td
+              =form_remote_tag(:url=>{:controller=>:listing_nodes, :action=>:create, :parent_id=>node.id}, :update=>node.key, :loading=>"onLoading();", :loaded=>"onLoaded();", :class=>:content) do
+                =select_tag(:nature, grouped_options_for_select(node.available_nodes))
+                =submit_tag(tg(:add))
+          -else
+            %td.export=check_box_tag(:listing_node, :exportable, node.exportable, :onclick=>remote_function(:url=>{:action=>:update, :controller=>:listing_nodes, :id=>node.id, :type=>node.exportable ? "hide" : "show"}) )
+            %td.link.label{:id=>"#{node.key}_label"}
+              =render(:partial=>"listing_nodes/column_label", :object=>node)
+              
+            %td.item-tool.comparator{:id=>"#{node.key}_comparator"}=render(:partial=>"listing_nodes/comparison", :object=>node)
+          -unless node.root?
+            -unless node.reflection?
+              %td.item-tool.position{:id=>"#{node.key}_position"}=render(:partial=>"listing_nodes/position", :object=>node)
+            %td.item-tool.delete
+              =link_to_remote(tg(:delete), {:url=>{:action=>:destroy, :controller=>:listing_nodes, :id=>node.id}, :update=>node.parent.key, :loading=>"onLoading();", :loaded=>"onLoaded();"}, :class=>"icon im-delete")
+
+-if node.reflection?
+  .branches{:id=>node.key}=render(:partial=>"listings/reflection", :object=>node)

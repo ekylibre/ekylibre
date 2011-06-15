@@ -237,7 +237,7 @@ class User < CompanyRecord
       end
     end
     definition.delete_if{|k, v| k == "__not_used__" }
-    @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k == User.minimum_right.to_s}
+    @@rights_list = definition.keys.sort.collect{|x| x.to_sym}.delete_if{|k, v| k.to_s.match(/^__.*__$/)}
     @@rights = {}
     @@useful_rights = {}
     for right, attributes in definition

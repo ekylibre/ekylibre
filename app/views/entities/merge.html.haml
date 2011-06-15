@@ -1,0 +1,6 @@
+=form_tag do
+  =formalize do |f|
+    -f.field tc(:entity_to_update), dyli_tag(:master, :entities, :controller=>:interfacers)
+    -f.field tc(:entity_to_delete), dyli_tag(:double, :entities, :controller=>:interfacers)
+  .actions
+    =submit_tag tc(:merge)

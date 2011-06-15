@@ -1,0 +1,10 @@
+-for menu, submenus in menus
+  .menu.mn-index
+    %h2=tl("menus.#{menu}")
+    -for submenu, menuitems in submenus
+      -if (menuitems= menuitems.select{|url| authorized?(url)}).size > 0
+        .menu.indicator
+          %h3=tl("menus.submenus.#{submenu}")
+          %ul
+            -for menuitem in menuitems
+              =li_link_to(t("actions.#{menuitem[:controller]}.#{menuitem[:action]}"), menuitem)

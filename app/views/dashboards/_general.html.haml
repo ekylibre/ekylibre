@@ -1,0 +1,18 @@
+=render :partial=>"entities/search"
+
+=unagi(:class=>:menu) do |u|
+  -u.cell :indicator do
+    %ul
+      =li_link_to tc('x_entities',:count=>@current_company.entities.size), :controller=>:entities
+  
+-for menu, submenus in menus
+  .menu.mn-index
+    %h2=tl("menus.#{menu}")
+    -for submenu, menuitems in submenus
+      .menu.indicator
+        %h3=tl("menus.submenus.#{submenu}")
+        %ul
+          -for menuitem in menuitems
+            =li_link_to(t("actions.#{menuitem[:controller]}.#{menuitem[:action]}"), menuitem)
+  
+  

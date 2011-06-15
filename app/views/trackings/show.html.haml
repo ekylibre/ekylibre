@@ -1,0 +1,22 @@
+-# Eclated automatically (2011-06-08)
+=attributes_list(@tracking) do |l|
+  -l.attribute :name
+  -l.attribute :serial
+  -l.attribute :producer, :url=>{:action=>:entity, :controller=>:relations}
+  -l.attribute :product, :url=>{:action=>:product}
+
+-if @tracking.stocks.size > 0
+  %h2=tc(:stocks)
+  =list :stocks
+
+-if @tracking.purchase_lines.size > 0
+  %h2=tc(:purchases)
+  =list :purchase_lines
+
+-if @tracking.operation_lines.size > 0
+  %h2=tc(:operations)
+  =list :operation_lines
+
+-if @tracking.sale_lines.size > 0
+  %h2=tc(:sales)
+  =list :sale_lines

@@ -1,893 +1,1003 @@
+# Unused actions in rights
+#   - production_chain_conveyors::create
+#   - production_chain_conveyors::destroy
+#   - production_chain_conveyors::edit
+#   - production_chain_conveyors::list
+#   - production_chain_conveyors::new
+#   - production_chain_conveyors::update
+#   - production_chain_work_centers::create
+#   - production_chain_work_centers::destroy
+#   - production_chain_work_centers::down
+#   - production_chain_work_centers::edit
+#   - production_chain_work_centers::list
+#   - production_chain_work_centers::new
+#   - production_chain_work_centers::show
+#   - production_chain_work_centers::up
+#   - production_chain_work_centers::update
+#   - production_chains::create
+#   - production_chains::destroy
+#   - production_chains::edit
+#   - production_chains::index
+#   - production_chains::list
+#   - production_chains::new
+#   - production_chains::show
+#   - production_chains::update
+#   - products::trackings
+#   - products::units
+#   - professions::create
+#   - professions::destroy
+#   - professions::edit
+#   - professions::index
+#   - professions::list
+#   - professions::new
+#   - professions::update
+#   - tax_declarations::create
+#   - tax_declarations::destroy
+#   - tax_declarations::edit
+#   - tax_declarations::index
+#   - tax_declarations::list
+#   - tax_declarations::new
+#   - tax_declarations::period_search
+#   - tax_declarations::show
+#   - tax_declarations::update
 # Access to the minimum
 __minimum__:
   actions:
-  - application::i18nize
-  - authentication::index
-  - authentication::login
-  - authentication::logout
-  - authentication::register
-  - authentication::relogin
-  - company::about
-  - company::change_password
-  - company::formalize
-  - company::help
-  - company::index
-  - company::side
-  - company::tabbox_index
-  - company::unknown_action
-  - company::user_statistics
-  - company::welcome
-  - finances::account_dyli
-  - finances::entities_dyli
+  - company::about # NONEXISTENT ACTION !!!
+  - company::help # NONEXISTENT ACTION !!!
+  - company::unknown_action # NONEXISTENT ACTION !!!
+  - dashboards::index
+  - dashboards::list_critic_stocks
+  - dashboards::list_my_future_events
+  - dashboards::list_recent_events
+  - dashboards::welcome
   - help::close
   - help::previous
   - help::search
   - help::side
-  - management::all_contacts_dyli
-  - management::client_contacts_dyli
-  - management::entities_dyli
-  - management::product_trackings
-  - management::product_units
-  - management::subscription_contacts_dyli
-  - relations::entities_dyli
-  - relations::recent_events_kame
-  - relations::user_future_events_kame
-  - store::index
-# Inaccessible
-__not_used__:
+  - interfacers::account_dyli
+  - interfacers::account_dyli
+  - interfacers::all_contacts_dyli
+  - interfacers::auto_complete_for_contact_line_6
+  - interfacers::auto_complete_for_entity_origin
+  - interfacers::auto_complete_for_event_location
+  - interfacers::auto_complete_for_mandate
+  - interfacers::auto_complete_for_mandate_family
+  - interfacers::auto_complete_for_mandate_organization
+  - interfacers::auto_complete_for_mandate_title
+  - interfacers::client_contacts_dyli
+  - interfacers::entities_dyli
+  - interfacers::entities_dyli
+  - interfacers::entities_dyli
+  - interfacers::entities_dyli
+  - interfacers::formalize
+  - interfacers::product_trackings # NONEXISTENT ACTION !!!
+  - interfacers::product_units # NONEXISTENT ACTION !!!
+  - interfacers::purchase_products_dyli
+  - interfacers::subscription_contacts_dyli
+  - interfacers::suppliers_dyli
+  - interfacers::toggle_side
+  - interfacers::toggle_tab
+  - myselves::change_password
+  - myselves::statistics
+# Public access
+__public__:
   actions:
-  - finances::tax_declaration
-  - finances::tax_declaration_create
-  - finances::tax_declaration_delete
-  - finances::tax_declaration_period_search
-  - finances::tax_declaration_update
-  - finances::tax_declarations
-  - finances::tax_declarations_kame
-  - production::production_chain
-  - production::production_chain_conveyor_create
-  - production::production_chain_conveyor_delete
-  - production::production_chain_conveyor_update
-  - production::production_chain_conveyors_kame
-  - production::production_chain_create
-  - production::production_chain_delete
-  - production::production_chain_update
-  - production::production_chain_work_center
-  - production::production_chain_work_center_create
-  - production::production_chain_work_center_delete
-  - production::production_chain_work_center_down
-  - production::production_chain_work_center_up
-  - production::production_chain_work_center_update
-  - production::production_chain_work_centers_kame
-  - production::production_chains
-  - production::production_chains_kame
-  - resources::employee
-  - resources::employee_delete
-  - resources::employee_events_kame
-  - resources::employee_land_parcel_operations_kame
-  - resources::employee_sales_kame
-  - resources::employees
-  - resources::employees_kame
-  - resources::index
-  - resources::profession_create
-  - resources::profession_delete
-  - resources::profession_update
-  - resources::professions
-  - resources::professions_kame
+  - companies::register
+  - sessions::create
+  - sessions::destroy
+  - sessions::new
+  - sessions::renew
 # Make and reload backups
 backup_company:
-  controller: company
-  actions: [backups, index]
+  actions:
+  - company::backups # NONEXISTENT ACTION !!!
+  - dashboards::general
 # Transfer commercial data in accountancy
 bookkeep:
-  controller: accountancy
-  actions: [bookkeep, index]
+  actions:
+  - accountancy::bookkeep # NONEXISTENT ACTION !!!
+  - dashboards::accountancy
 # Cancel sales_invoices
 cancel_sales_invoices:
-  controller: management
   actions:
-  - index
-  - sale_cancel
-  - sale_creditable_lines_kame
-  - sale_credits_kame
-  - sales
+  - dashboards::trade
+  - sales::cancel
+  - sales::index
+  - sales::list_creditable_lines
+  - sales::list_credits
 # Change prices on sales
 change_prices_on_sales:
-  controller: management
+  actions: []
 # Close and reopen journals
 close_journals:
-  controller: accountancy
-  actions: [index, journal_close, journal_reopen, journals]
+  actions:
+  - dashboards::accountancy
+  - journals::close
+  - journals::index
+  - journals::reopen
 # Configure the options of the company
 configure_company:
-  controller: company
   actions:
-  - configure
-  - department_create
-  - department_delete
-  - department_update
-  - departments
-  - departments_kame
-  - establishment_create
-  - establishment_delete
-  - establishment_update
-  - establishments
-  - establishments_kame
-  - index
-  - sequence_create
-  - sequence_delete
-  - sequence_update
-  - sequences
-  - sequences_kame
-  - sequences_load
+  - company::configure # NONEXISTENT ACTION !!!
+  - dashboards::general
+  - departments::create
+  - departments::destroy
+  - departments::edit
+  - departments::index
+  - departments::list
+  - departments::new
+  - departments::update
+  - establishments::create
+  - establishments::destroy
+  - establishments::edit
+  - establishments::index
+  - establishments::list
+  - establishments::new
+  - establishments::update
+  - sequences::create
+  - sequences::destroy
+  - sequences::edit
+  - sequences::index
+  - sequences::list
+  - sequences::load
+  - sequences::new
+  - sequences::update
 # Consult accounting documents
 consult_accounting_documents:
-  controller: accountancy
-  actions: [balance, document_print, general_ledger, general_ledger_kame, index]
+  actions:
+  - accountancy::balance # NONEXISTENT ACTION !!!
+  - accountancy::general_ledger # NONEXISTENT ACTION !!!
+  - accountancy::general_ledger_kame # NONEXISTENT ACTION !!!
+  - dashboards::accountancy
+  - documents::print
 # Consult the people
 consult_entities:
-  controller: relations
   actions:
-  - entities
-  - entities_kame
-  - entity
-  - entity_cashes_kame
-  - entity_contacts_kame
-  - entity_events_kame
-  - entity_incoming_payments_kame
-  - entity_outgoing_payments_kame
-  - entity_purchases_kame
-  - entity_sales_kame
-  - entity_subscriptions_kame
-  - index
+  - dashboards::relations
+  - entities::index
+  - entities::list
+  - entities::list_cashes
+  - entities::list_contacts
+  - entities::list_events
+  - entities::list_incoming_payments
+  - entities::list_outgoing_payments
+  - entities::list_purchases
+  - entities::list_sales
+  - entities::list_subscriptions
+  - entities::show
 # Consult the journal entries
 consult_journal_entries:
-  controller: accountancy
-  actions: [index, journal, journals]
+  actions: [dashboards::accountancy, journals::index, journals::show]
 # Consult the prices
 consult_prices:
-  controller: management
-  actions: [index, prices]
+  actions: [dashboards::trade, prices::index]
 # Consult the products
 consult_products:
-  controller: management
-  actions: [index, product, products]
+  actions: [dashboards::trade, products::index, products::show]
 # Consult the purchases
 consult_purchases:
-  controller: management
   actions:
-  - index
-  - purchase
-  - purchase_deliveries_kame
-  - purchase_lines_kame
-  - purchase_payment_uses_kame
-  - purchase_undelivered_lines_kame
-  - purchases
-  - purchases_kame
+  - dashboards::trade
+  - purchases::index
+  - purchases::list
+  - purchases::list_deliveries
+  - purchases::list_lines
+  - purchases::list_payment_uses
+  - purchases::list_undelivered_lines
+  - purchases::show
 # Consult the sales
 consult_sales:
-  controller: management
   actions:
-  - index
-  - sale
-  - sale_deliveries_kame
-  - sale_lines_kame
-  - sale_payment_uses_kame
-  - sale_undelivered_lines_kame
-  - sales
-  - sales_kame
-  - statistics
+  - dashboards::trade
+  - sales::index
+  - sales::list
+  - sales::list_deliveries
+  - sales::list_lines
+  - sales::list_payment_uses
+  - sales::list_undelivered_lines
+  - sales::show
+  - sales::statistics
 # Consult the stocks
 consult_stocks:
-  controller: management
-  actions: [critic_stocks_kame, index, stocks, stocks_kame]
+  actions:
+  - dashboards::trade
+  - management::critic_stocks_kame # NONEXISTENT ACTION !!!
+  - stocks::index
+  - stocks::list
 # Consult the tracking informations
 consult_trackings:
-  controller: management
   actions:
-  - index
-  - tracking
-  - tracking_operation_lines_kame
-  - tracking_purchase_lines_kame
-  - tracking_sale_lines_kame
-  - tracking_stocks_kame
+  - dashboards::trade
+  - trackings::list_operation_lines
+  - trackings::list_purchase_lines
+  - trackings::list_sale_lines
+  - trackings::list_stocks
+  - trackings::show
 # Export listings
 extract_listings:
-  controller: company
-  actions: [index, listing_extract, listings]
+  actions: [dashboards::general, listings::extract, listings::index]
 # Set reduction on sales
 give_discounts_on_sales:
-  controller: management
+  actions: []
 # Import data from other software
 import_data:
-  controller: company
-  actions: [import, index]
+  actions:
+  - company::import # NONEXISTENT ACTION !!!
+  - dashboards::general
 # Import, export people listings
 import_export_entities:
-  controller: relations
-  actions: [entities, entities_export, entities_import, entities_kame, index]
+  actions:
+  - dashboards::relations
+  - entities::export
+  - entities::import
+  - entities::index
+  - entities::list
 # Send mail to lists
 mail_to_listings:
-  controller: company
-  actions: [index, listing_mail, listings]
+  actions: [dashboards::general, listings::index, listings::mail]
 # Manage accounts
 manage_accounts:
-  controller: accountancy
   actions:
-  - account
-  - account_create
-  - account_delete
-  - account_entities_kame
-  - account_journal_entry_lines_kame
-  - account_update
-  - accounts
-  - accounts_kame
-  - accounts_load
-  - index
+  - accounts::create
+  - accounts::destroy
+  - accounts::edit
+  - accounts::index
+  - accounts::list
+  - accounts::list_entities
+  - accounts::list_journal_entry_lines
+  - accounts::load
+  - accounts::new
+  - accounts::show
+  - accounts::update
+  - dashboards::accountancy
 # Manage areas
 manage_areas:
-  controller: relations
-  actions: [area_create, area_delete, area_update, areas, areas_kame, index]
+  actions:
+  - areas::create
+  - areas::destroy
+  - areas::edit
+  - areas::index
+  - areas::list
+  - areas::new
+  - areas::update
+  - dashboards::relations
 # Point bank statements
 manage_bank_statements:
-  controller: accountancy
   actions:
-  - bank_statement
-  - bank_statement_create
-  - bank_statement_delete
-  - bank_statement_lines_kame
-  - bank_statement_point
-  - bank_statement_update
-  - bank_statements
-  - bank_statements_kame
-  - index
+  - bank_statements::create
+  - bank_statements::destroy
+  - bank_statements::edit
+  - bank_statements::index
+  - bank_statements::list
+  - bank_statements::list_lines
+  - bank_statements::new
+  - bank_statements::point
+  - bank_statements::show
+  - bank_statements::update
+  - dashboards::accountancy
 # Manage cash transfers
 manage_cash_transfers:
-  controller: finances
   actions:
-  - cash_transfer
-  - cash_transfer_create
-  - cash_transfer_delete
-  - cash_transfer_update
-  - cash_transfers
-  - cash_transfers_kame
-  - index
+  - cash_transfers::create
+  - cash_transfers::destroy
+  - cash_transfers::edit
+  - cash_transfers::index
+  - cash_transfers::list
+  - cash_transfers::new
+  - cash_transfers::show
+  - cash_transfers::update
+  - dashboards::finances
 # Manage cashes
 manage_cashes:
-  controller: finances
   actions:
-  - cash
-  - cash_bank_statements_kame
-  - cash_create
-  - cash_delete
-  - cash_deposits_kame
-  - cash_update
-  - cashes
-  - cashes_kame
-  - index
+  - cashes::create
+  - cashes::destroy
+  - cashes::edit
+  - cashes::index
+  - cashes::list
+  - cashes::list_bank_statements
+  - cashes::list_deposits
+  - cashes::new
+  - cashes::show
+  - cashes::update
+  - dashboards::finances
 # Manage custom fields
 manage_custom_fields:
-  controller: relations
   actions:
-  - custom_field
-  - custom_field_choice_create
-  - custom_field_choice_down
-  - custom_field_choice_up
-  - custom_field_choice_update
-  - custom_field_choices_kame
-  - custom_field_create
-  - custom_field_sort
-  - custom_field_update
-  - custom_fields
-  - custom_fields_kame
-  - index
+  - custom_field_choices::create
+  - custom_field_choices::down
+  - custom_field_choices::edit
+  - custom_field_choices::new
+  - custom_field_choices::up
+  - custom_field_choices::update
+  - custom_fields::create
+  - custom_fields::edit
+  - custom_fields::index
+  - custom_fields::list
+  - custom_fields::list_choices
+  - custom_fields::new
+  - custom_fields::show
+  - custom_fields::sort
+  - custom_fields::update
+  - dashboards::relations
 # Manage delays
 manage_delays:
-  controller: management
   actions:
-  - delay
-  - delay_create
-  - delay_delete
-  - delay_update
-  - delays
-  - delays_kame
-  - index
+  - dashboards::trade
+  - delays::create
+  - delays::destroy
+  - delays::edit
+  - delays::index
+  - delays::list
+  - delays::new
+  - delays::show
+  - delays::update
 # Manage deposits
 manage_deposits:
-  controller: finances
   actions:
-  - deposit
-  - deposit_create
-  - deposit_delete
-  - deposit_payments_kame
-  - deposit_update
-  - depositable_payments_kame
-  - deposits
-  - deposits_kame
-  - index
-  - unvalidated_deposits
-  - unvalidated_deposits_kame
+  - dashboards::finances
+  - deposits::create
+  - deposits::destroy
+  - deposits::edit
+  - deposits::index
+  - deposits::list
+  - deposits::list_depositable_payments
+  - deposits::list_payments
+  - deposits::list_unvalidateds
+  - deposits::new
+  - deposits::show
+  - deposits::unvalidateds
+  - deposits::update
 # Manage districts
 manage_districts:
-  controller: relations
   actions:
-  - district_create
-  - district_delete
-  - district_update
-  - districts
-  - districts_dyli
-  - districts_kame
-  - index
+  - dashboards::relations
+  - districts::create
+  - districts::destroy
+  - districts::edit
+  - districts::index
+  - districts::list
+  - districts::new
+  - districts::update
+  - interfacers::districts_dyli
 # Manage document templates
 manage_document_templates:
-  controller: company
   actions:
-  - document_template_create
-  - document_template_delete
-  - document_template_duplicate
-  - document_template_print
-  - document_template_update
-  - document_templates
-  - document_templates_kame
-  - document_templates_load
-  - index
+  - dashboards::general
+  - document_templates::create
+  - document_templates::destroy
+  - document_templates::duplicate
+  - document_templates::edit
+  - document_templates::index
+  - document_templates::list
+  - document_templates::load
+  - document_templates::new
+  - document_templates::print
+  - document_templates::update
 # Manage people
 manage_entities:
-  controller: relations
   actions:
-  - attorneys_accounts_dyli
-  - auto_complete_for_contact_line_6
-  - auto_complete_for_entity_origin
-  - clients_accounts_dyli
-  - contact_create
-  - contact_delete
-  - contact_update
-  - entity_cashes_kame
-  - entity_contacts_kame
-  - entity_create
-  - entity_delete
-  - entity_events_kame
-  - entity_incoming_payments_kame
-  - entity_mandates_kame
-  - entity_purchases_kame
-  - entity_sales_kame
-  - entity_subscriptions_kame
-  - entity_update
-  - index
-  - suppliers_accounts_dyli
+  - contacts::create
+  - contacts::destroy
+  - contacts::edit
+  - contacts::new
+  - contacts::update
+  - dashboards::relations
+  - entities::create
+  - entities::destroy
+  - entities::edit
+  - entities::list_cashes
+  - entities::list_contacts
+  - entities::list_events
+  - entities::list_incoming_payments
+  - entities::list_mandates
+  - entities::list_purchases
+  - entities::list_sales
+  - entities::list_subscriptions
+  - entities::new
+  - entities::update
+  - interfacers::attorneys_accounts_dyli
+  - interfacers::auto_complete_for_contact_line_6
+  - interfacers::auto_complete_for_entity_origin
+  - interfacers::clients_accounts_dyli
+  - interfacers::suppliers_accounts_dyli
 # Manage people natures
 manage_entities_natures:
-  controller: relations
   actions:
-  - entity_nature_create
-  - entity_nature_delete
-  - entity_nature_update
-  - entity_natures
-  - entity_natures_kame
-  - index
+  - dashboards::relations
+  - entity_natures::create
+  - entity_natures::destroy
+  - entity_natures::edit
+  - entity_natures::index
+  - entity_natures::list
+  - entity_natures::new
+  - entity_natures::update
 # Manage people categories
 manage_entity_categories:
-  controller: relations
   actions:
-  - category_prices_kame
-  - entity_categories
-  - entity_categories_kame
-  - entity_category
-  - entity_category_create
-  - entity_category_delete
-  - entity_category_update
-  - index
+  - dashboards::relations
+  - entity_categories::create
+  - entity_categories::destroy
+  - entity_categories::edit
+  - entity_categories::index
+  - entity_categories::list
+  - entity_categories::list_prices
+  - entity_categories::new
+  - entity_categories::show
+  - entity_categories::update
 # Manage people links
 manage_entity_links:
-  controller: relations
   actions:
-  - entity_link_create
-  - entity_link_delete
-  - entity_link_nature_create
-  - entity_link_nature_delete
-  - entity_link_nature_update
-  - entity_link_natures
-  - entity_link_natures_kame
-  - entity_link_update
-  - entity_links_kame
-  - index
+  - dashboards::relations
+  - entities::list_links
+  - entity_link_natures::create
+  - entity_link_natures::destroy
+  - entity_link_natures::edit
+  - entity_link_natures::index
+  - entity_link_natures::list
+  - entity_link_natures::new
+  - entity_link_natures::update
+  - entity_links::create
+  - entity_links::destroy
+  - entity_links::edit
+  - entity_links::new
+  - entity_links::update
 # Create and update estimates
 manage_estimates:
-  controller: management
   actions:
-  - available_prices_dyli
-  - clients_dyli
-  - index
-  - price_find
-  - sale
-  - sale_abort
-  - sale_confirm
-  - sale_contacts
-  - sale_correct
-  - sale_create
-  - sale_duplicate
-  - sale_line_create
-  - sale_line_delete
-  - sale_line_detail
-  - sale_line_update
-  - sale_propose
-  - sale_refuse
-  - sale_subscriptions_kame
-  - sale_update
-  - subscription_coordinates
+  - dashboards::trade
+  - interfacers::available_prices_dyli
+  - interfacers::clients_dyli
+  - prices::find
+  - sale_lines::create
+  - sale_lines::destroy
+  - sale_lines::detail
+  - sale_lines::edit
+  - sale_lines::new
+  - sale_lines::update
+  - sales::abort
+  - sales::confirm
+  - sales::contacts
+  - sales::correct
+  - sales::create
+  - sales::duplicate
+  - sales::edit
+  - sales::list_subscriptions
+  - sales::new
+  - sales::propose
+  - sales::refuse
+  - sales::show
+  - sales::update
+  - subscriptions::coordinates
 # Manage events
 manage_events:
-  controller: relations
   actions:
-  - auto_complete_for_event_location
-  - change_minutes
-  - event_create
-  - event_delete
-  - event_nature_create
-  - event_nature_delete
-  - event_nature_update
-  - event_natures
-  - event_natures_kame
-  - event_update
-  - events
-  - events_kame
-  - index
+  - dashboards::relations
+  - event_natures::create
+  - event_natures::destroy
+  - event_natures::edit
+  - event_natures::index
+  - event_natures::list
+  - event_natures::new
+  - event_natures::update
+  - events::change_minutes
+  - events::create
+  - events::destroy
+  - events::edit
+  - events::index
+  - events::list
+  - events::new
+  - events::update
+  - interfacers::auto_complete_for_event_location
 # Manage and close financial years
 manage_financial_years:
-  controller: accountancy
   actions:
-  - financial_year
-  - financial_year_close
-  - financial_year_create
-  - financial_year_delete
-  - financial_year_update
-  - financial_years
-  - financial_years_kame
-  - index
+  - dashboards::accountancy
+  - financial_years::close
+  - financial_years::create
+  - financial_years::destroy
+  - financial_years::edit
+  - financial_years::index
+  - financial_years::list
+  - financial_years::new
+  - financial_years::show
+  - financial_years::update
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
-  controller: management
   actions:
-  - incoming_delivery_mode_create
-  - incoming_delivery_mode_delete
-  - incoming_delivery_mode_update
-  - incoming_delivery_modes
-  - incoming_delivery_modes_kame
-  - index
+  - dashboards::trade
+  - incoming_delivery_modes::create
+  - incoming_delivery_modes::destroy
+  - incoming_delivery_modes::edit
+  - incoming_delivery_modes::index
+  - incoming_delivery_modes::list
+  - incoming_delivery_modes::new
+  - incoming_delivery_modes::update
 # Manage incoming payment modes
 manage_incoming_payment_modes:
-  controller: finances
   actions:
-  - incoming_payment_mode_create
-  - incoming_payment_mode_delete
-  - incoming_payment_mode_down
-  - incoming_payment_mode_reflect
-  - incoming_payment_mode_up
-  - incoming_payment_mode_update
-  - incoming_payment_modes
-  - incoming_payment_modes_kame
-  - index
+  - dashboards::finances
+  - incoming_payment_modes::create
+  - incoming_payment_modes::destroy
+  - incoming_payment_modes::down
+  - incoming_payment_modes::edit
+  - incoming_payment_modes::index
+  - incoming_payment_modes::list
+  - incoming_payment_modes::new
+  - incoming_payment_modes::reflect
+  - incoming_payment_modes::up
+  - incoming_payment_modes::update
 # Manage sale payments
 manage_incoming_payments:
-  controller: finances
   actions:
-  - incoming_payment
-  - incoming_payment_create
-  - incoming_payment_delete
-  - incoming_payment_sales_kame
-  - incoming_payment_update
-  - incoming_payment_use_create
-  - incoming_payment_use_delete
-  - incoming_payments
-  - incoming_payments_kame
-  - index
-  - management::sale
-  - management::sale_payment_uses_kame
+  - dashboards::finances
+  - incoming_payment_uses::create
+  - incoming_payment_uses::destroy
+  - incoming_payment_uses::new
+  - incoming_payments::create
+  - incoming_payments::destroy
+  - incoming_payments::edit
+  - incoming_payments::index
+  - incoming_payments::list
+  - incoming_payments::list_sales
+  - incoming_payments::new
+  - incoming_payments::show
+  - incoming_payments::update
+  - sales::list_payment_uses
+  - sales::show
 # Manage inventories
 manage_inventories:
-  controller: management
   actions:
-  - index
-  - inventories
-  - inventories_kame
-  - inventory_create
-  - inventory_delete
-  - inventory_lines_create_kame
-  - inventory_lines_update_kame
-  - inventory_reflect
-  - inventory_update
+  - dashboards::trade
+  - inventories::create
+  - inventories::destroy
+  - inventories::edit
+  - inventories::index
+  - inventories::list
+  - inventories::list_lines_create
+  - inventories::list_lines_update
+  - inventories::new
+  - inventories::reflect
+  - inventories::update
 # Manaeg journal entries
 manage_journal_entries:
-  controller: accountancy
   actions:
-  - account_dyli
-  - account_mark
-  - account_reconciliation
-  - account_reconciliation_kame
-  - account_unmark
-  - draft
-  - draft_kame
-  - index
-  - journal
-  - journal_entries_kame
-  - journal_entry
-  - journal_entry_create
-  - journal_entry_delete
-  - journal_entry_line_create
-  - journal_entry_lines_kame
-  - journal_entry_update
-  - journal_lines_kame
-  - journal_mixed_kame
-  - journals
-  - journals_kame
+  - accounts::list_reconciliation
+  - accounts::mark
+  - accounts::reconciliation
+  - accounts::unmark
+  - dashboards::accountancy
+  - interfacers::account_dyli
+  - journal_entries::create
+  - journal_entries::destroy
+  - journal_entries::edit
+  - journal_entries::list_lines
+  - journal_entries::new
+  - journal_entries::show
+  - journal_entries::update
+  - journal_entry_lines::create
+  - journal_entry_lines::new
+  - journals::draft
+  - journals::index
+  - journals::list
+  - journals::list_draft_lines
+  - journals::list_entries
+  - journals::list_lines
+  - journals::list_mixed
+  - journals::show
 # Manage, close and reopen journals
 manage_journals:
-  controller: accountancy
   actions:
-  - index
-  - journal
-  - journal_close
-  - journal_create
-  - journal_delete
-  - journal_reopen
-  - journal_update
-  - journals
-  - journals_kame
+  - dashboards::accountancy
+  - journals::close
+  - journals::create
+  - journals::destroy
+  - journals::edit
+  - journals::index
+  - journals::list
+  - journals::new
+  - journals::reopen
+  - journals::show
+  - journals::update
 # Manage groups of land parcels
 manage_land_parcel_groups:
-  controller: production
   actions:
-  - index
-  - land_parcel_group_create
-  - land_parcel_group_delete
-  - land_parcel_group_update
-  - land_parcel_groups
-  - land_parcel_groups_kame
+  - dashboards::production
+  - land_parcel_groups::create
+  - land_parcel_groups::destroy
+  - land_parcel_groups::edit
+  - land_parcel_groups::index
+  - land_parcel_groups::list
+  - land_parcel_groups::new
+  - land_parcel_groups::update
 # Manage fields
 manage_land_parcels:
-  controller: production
   actions:
-  - index
-  - land_parcel
-  - land_parcel_create
-  - land_parcel_delete
-  - land_parcel_divide
-  - land_parcel_operations_kame
-  - land_parcel_update
-  - land_parcels
-  - land_parcels_kame
+  - dashboards::production
+  - land_parcels::create
+  - land_parcels::destroy
+  - land_parcels::divide
+  - land_parcels::edit
+  - land_parcels::index
+  - land_parcels::list
+  - land_parcels::list_operations
+  - land_parcels::new
+  - land_parcels::show
+  - land_parcels::update
 # Manage listings
 manage_listings:
-  controller: company
   actions:
-  - index
-  - listing_create
-  - listing_delete
-  - listing_duplicate
-  - listing_node_create
-  - listing_node_delete
-  - listing_node_update
-  - listing_update
-  - listings
-  - listings_kame
+  - dashboards::general
+  - listing_nodes::create
+  - listing_nodes::destroy
+  - listing_nodes::edit
+  - listing_nodes::new
+  - listing_nodes::update
+  - listings::create
+  - listings::destroy
+  - listings::duplicate
+  - listings::edit
+  - listings::index
+  - listings::list
+  - listings::new
+  - listings::update
 # Manage mandates
 manage_mandates:
-  controller: relations
   actions:
-  - auto_complete_for_mandate
-  - auto_complete_for_mandate_family
-  - auto_complete_for_mandate_organization
-  - auto_complete_for_mandate_title
-  - index
-  - mandate_create
-  - mandate_delete
-  - mandate_update
-  - mandates
-  - mandates_configure
-  - mandates_kame
+  - dashboards::relations
+  - interfacers::auto_complete_for_mandate
+  - interfacers::auto_complete_for_mandate_family
+  - interfacers::auto_complete_for_mandate_organization
+  - interfacers::auto_complete_for_mandate_title
+  - mandates::configure
+  - mandates::create
+  - mandates::destroy
+  - mandates::edit
+  - mandates::index
+  - mandates::list
+  - mandates::new
+  - mandates::update
 # Manage observations
 manage_observations:
-  controller: relations
   actions:
-  - entity_observations_kame
-  - index
-  - observation_create
-  - observation_delete
-  - observation_update
+  - dashboards::relations
+  - entities::list_observations
+  - observations::create
+  - observations::destroy
+  - observations::edit
+  - observations::new
+  - observations::update
 # Manage operations
 manage_operations:
-  controller: production
   actions:
-  - index
-  - operation
-  - operation_create
-  - operation_delete
-  - operation_line_create
-  - operation_lines_kame
-  - operation_nature_create
-  - operation_nature_delete
-  - operation_nature_update
-  - operation_natures
-  - operation_natures_kame
-  - operation_products_dyli
-  - operation_update
-  - operation_use_create
-  - operation_uses_kame
-  - operations
-  - operations_kame
-  - unvalidated_operations
-  - unvalidated_operations_kame
+  - dashboards::production
+  - interfacers::operation_products_dyli
+  - operation_lines::create
+  - operation_lines::new
+  - operation_natures::create
+  - operation_natures::destroy
+  - operation_natures::edit
+  - operation_natures::index
+  - operation_natures::list
+  - operation_natures::new
+  - operation_natures::update
+  - operation_uses::create
+  - operation_uses::new
+  - operations::create
+  - operations::destroy
+  - operations::edit
+  - operations::index
+  - operations::list
+  - operations::list_lines
+  - operations::list_unvalidateds
+  - operations::list_uses
+  - operations::new
+  - operations::show
+  - operations::unvalidateds
+  - operations::update
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
-  controller: management
   actions:
-  - index
-  - outgoing_delivery_mode_create
-  - outgoing_delivery_mode_delete
-  - outgoing_delivery_mode_update
-  - outgoing_delivery_modes
-  - outgoing_delivery_modes_kame
+  - dashboards::trade
+  - outgoing_delivery_modes::create
+  - outgoing_delivery_modes::destroy
+  - outgoing_delivery_modes::edit
+  - outgoing_delivery_modes::index
+  - outgoing_delivery_modes::list
+  - outgoing_delivery_modes::new
+  - outgoing_delivery_modes::update
 # Manage disbursement modes
 manage_outgoing_payment_modes:
-  controller: finances
   actions:
-  - index
-  - outgoing_payment_mode_create
-  - outgoing_payment_mode_delete
-  - outgoing_payment_mode_down
-  - outgoing_payment_mode_up
-  - outgoing_payment_mode_update
-  - outgoing_payment_modes
-  - outgoing_payment_modes_kame
+  - dashboards::finances
+  - outgoing_payment_modes::create
+  - outgoing_payment_modes::destroy
+  - outgoing_payment_modes::down
+  - outgoing_payment_modes::edit
+  - outgoing_payment_modes::index
+  - outgoing_payment_modes::list
+  - outgoing_payment_modes::new
+  - outgoing_payment_modes::up
+  - outgoing_payment_modes::update
 # Manage disbursements
 manage_outgoing_payments:
-  controller: finances
   actions:
-  - index
-  - management::purchase
-  - management::purchase_lines_kame
-  - management::purchase_payment_uses_kame
-  - outgoing_payment
-  - outgoing_payment_create
-  - outgoing_payment_delete
-  - outgoing_payment_purchases_kame
-  - outgoing_payment_update
-  - outgoing_payment_use_create
-  - outgoing_payment_use_delete
-  - outgoing_payments
-  - outgoing_payments_kame
+  - dashboards::finances
+  - outgoing_payment_uses::create
+  - outgoing_payment_uses::destroy
+  - outgoing_payment_uses::new
+  - outgoing_payments::create
+  - outgoing_payments::destroy
+  - outgoing_payments::edit
+  - outgoing_payments::index
+  - outgoing_payments::list
+  - outgoing_payments::list_purchases
+  - outgoing_payments::new
+  - outgoing_payments::show
+  - outgoing_payments::update
+  - purchases::list_lines
+  - purchases::list_payment_uses
+  - purchases::show
 # Manage prices
 manage_prices:
-  controller: management
   actions:
-  - index
-  - price_create
-  - price_delete
-  - price_update
-  - prices_export
-  - prices_import
-  - prices_kame
+  - dashboards::trade
+  - prices::create
+  - prices::destroy
+  - prices::edit
+  - prices::export
+  - prices::import
+  - prices::list
+  - prices::new
+  - prices::update
 # Manage product categories
 manage_product_categories:
-  controller: management
   actions:
-  - index
-  - product_categories
-  - product_categories_kame
-  - product_category
-  - product_category_create
-  - product_category_delete
-  - product_category_products_kame
-  - product_category_update
+  - dashboards::trade
+  - product_categories::create
+  - product_categories::destroy
+  - product_categories::edit
+  - product_categories::index
+  - product_categories::list
+  - product_categories::list_products
+  - product_categories::new
+  - product_categories::show
+  - product_categories::update
 # Manage products
 manage_products:
-  controller: management
   actions:
-  - change_quantities
-  - index
-  - product_component_create
-  - product_component_delete
-  - product_component_update
-  - product_components_kame
-  - product_create
-  - product_delete
-  - product_prices_kame
-  - product_stock_moves_kame
-  - product_stocks_kame
-  - product_update
-  - products_kame
+  - dashboards::trade
+  - management::change_quantities # NONEXISTENT ACTION !!!
+  - product_components::create
+  - product_components::destroy
+  - product_components::edit
+  - product_components::new
+  - product_components::update
+  - products::create
+  - products::destroy
+  - products::edit
+  - products::list
+  - products::list_components
+  - products::list_prices
+  - products::list_stock_moves
+  - products::list_stocks
+  - products::new
+  - products::update
 # Manage purchase orders
 manage_purchases:
-  controller: management
   actions:
-  - incoming_deliveries
-  - incoming_deliveries_kame
-  - incoming_delivery_confirm
-  - incoming_delivery_contacts_dyli
-  - incoming_delivery_create
-  - incoming_delivery_delete
-  - incoming_delivery_mode_create
-  - incoming_delivery_mode_delete
-  - incoming_delivery_mode_update
-  - incoming_delivery_modes
-  - incoming_delivery_modes_kame
-  - incoming_delivery_update
-  - index
-  - purchase
-  - purchase_abort
-  - purchase_confirm
-  - purchase_correct
-  - purchase_create
-  - purchase_delete
-  - purchase_deliveries_kame
-  - purchase_finish
-  - purchase_invoice
-  - purchase_line_create
-  - purchase_line_delete
-  - purchase_line_update
-  - purchase_lines_kame
-  - purchase_payment_uses_kame
-  - purchase_products_dyli
-  - purchase_propose
-  - purchase_refuse
-  - purchase_undelivered_lines_kame
-  - purchase_update
-  - purchases
-  - purchases_kame
-  - suppliers_dyli
+  - dashboards::trade
+  - incoming_deliveries::confirm
+  - incoming_deliveries::create
+  - incoming_deliveries::destroy
+  - incoming_deliveries::edit
+  - incoming_deliveries::index
+  - incoming_deliveries::list
+  - incoming_deliveries::new
+  - incoming_deliveries::update
+  - incoming_delivery_modes::create
+  - incoming_delivery_modes::destroy
+  - incoming_delivery_modes::edit
+  - incoming_delivery_modes::index
+  - incoming_delivery_modes::list
+  - incoming_delivery_modes::new
+  - incoming_delivery_modes::update
+  - interfacers::incoming_delivery_contacts_dyli
+  - interfacers::purchase_products_dyli
+  - interfacers::suppliers_dyli
+  - purchase_lines::create
+  - purchase_lines::destroy
+  - purchase_lines::edit
+  - purchase_lines::new
+  - purchase_lines::update
+  - purchases::abort
+  - purchases::confirm
+  - purchases::correct
+  - purchases::create
+  - purchases::destroy
+  - purchases::edit
+  - purchases::finish
+  - purchases::index
+  - purchases::invoice
+  - purchases::list
+  - purchases::list_deliveries
+  - purchases::list_lines
+  - purchases::list_payment_uses
+  - purchases::list_undelivered_lines
+  - purchases::new
+  - purchases::propose
+  - purchases::refuse
+  - purchases::show
+  - purchases::update
 # Mange sale orders natures
 manage_sale_natures:
-  controller: management
   actions:
-  - index
-  - sale_nature_create
-  - sale_nature_delete
-  - sale_nature_update
-  - sale_natures
-  - sale_natures_kame
+  - dashboards::trade
+  - sale_natures::create
+  - sale_natures::destroy
+  - sale_natures::edit
+  - sale_natures::index
+  - sale_natures::list
+  - sale_natures::new
+  - sale_natures::update
 # Manages sale orders
 manage_sales:
-  controller: management
   actions:
-  - index
-  - outgoing_deliveries
-  - outgoing_deliveries_kame
-  - outgoing_delivery_contacts_dyli
-  - outgoing_delivery_create
-  - outgoing_delivery_delete
-  - outgoing_delivery_update
-  - sale
-  - sale_abort
-  - sale_confirm
-  - sale_correct
-  - sale_delete
-  - sale_deliveries_kame
-  - sale_invoice
-  - sale_propose
-  - sale_propose_and_invoice
-  - sale_refuse
-  - sale_undelivered_lines_kame
+  - dashboards::trade
+  - interfacers::outgoing_delivery_contacts_dyli
+  - outgoing_deliveries::create
+  - outgoing_deliveries::destroy
+  - outgoing_deliveries::edit
+  - outgoing_deliveries::index
+  - outgoing_deliveries::list
+  - outgoing_deliveries::new
+  - outgoing_deliveries::update
+  - sales::abort
+  - sales::confirm
+  - sales::correct
+  - sales::destroy
+  - sales::invoice
+  - sales::list_deliveries
+  - sales::list_undelivered_lines
+  - sales::propose
+  - sales::propose_and_invoice
+  - sales::refuse
+  - sales::show
 # Manage stock moves
 manage_stock_moves:
-  controller: management
   actions:
-  - index
-  - stock_move_create
-  - stock_move_delete
-  - stock_move_update
-  - stock_transfer_confirm
-  - stock_transfer_create
-  - stock_transfer_delete
-  - stock_transfer_update
-  - stock_transfers
-  - stock_transfers_confirm
-  - stock_transfers_confirm_kame
-  - stock_transfers_kame
+  - dashboards::trade
+  - stock_moves::create
+  - stock_moves::destroy
+  - stock_moves::edit
+  - stock_moves::new
+  - stock_moves::update
+  - stock_transfers::confirm
+  - stock_transfers::confirm_all
+  - stock_transfers::create
+  - stock_transfers::destroy
+  - stock_transfers::edit
+  - stock_transfers::index
+  - stock_transfers::list
+  - stock_transfers::list_confirm
+  - stock_transfers::new
+  - stock_transfers::update
 # Manage subscriptions
 manage_subscriptions:
-  controller: management
   actions:
-  - index
-  - subscription_coordinates
-  - subscription_create
-  - subscription_delete
-  - subscription_message
-  - subscription_nature
-  - subscription_nature_create
-  - subscription_nature_decrement
-  - subscription_nature_delete
-  - subscription_nature_increment
-  - subscription_nature_update
-  - subscription_natures
-  - subscription_natures_kame
-  - subscription_update
-  - subscriptions
-  - subscriptions_kame
+  - dashboards::trade
+  - subscription_natures::create
+  - subscription_natures::decrement
+  - subscription_natures::destroy
+  - subscription_natures::edit
+  - subscription_natures::increment
+  - subscription_natures::index
+  - subscription_natures::list
+  - subscription_natures::new
+  - subscription_natures::show
+  - subscription_natures::update
+  - subscriptions::coordinates
+  - subscriptions::create
+  - subscriptions::destroy
+  - subscriptions::edit
+  - subscriptions::index
+  - subscriptions::list
+  - subscriptions::message
+  - subscriptions::new
+  - subscriptions::update
 # Manage taxes
 manage_taxes:
-  controller: finances
   actions:
-  - collected_account_dyli
-  - index
-  - paid_account_dyli
-  - tax_create
-  - tax_delete
-  - tax_update
-  - taxes
-  - taxes_kame
+  - dashboards::finances
+  - interfacers::collected_account_dyli
+  - interfacers::paid_account_dyli
+  - taxes::create
+  - taxes::destroy
+  - taxes::edit
+  - taxes::index
+  - taxes::list
+  - taxes::new
+  - taxes::update
 # Manage tools of production
 manage_tools:
-  controller: production
   actions:
-  - index
-  - tool
-  - tool_create
-  - tool_delete
-  - tool_operations_kame
-  - tool_update
-  - tools
-  - tools_kame
+  - dashboards::production
+  - tools::create
+  - tools::destroy
+  - tools::edit
+  - tools::index
+  - tools::list
+  - tools::list_operations
+  - tools::new
+  - tools::show
+  - tools::update
 # Manage transports
 manage_transports:
-  controller: management
   actions:
-  - index
-  - outgoing_deliveries_dyli
-  - transport
-  - transport_create
-  - transport_delete
-  - transport_deliveries
-  - transport_deliveries_kame
-  - transport_delivery_delete
-  - transport_update
-  - transports
-  - transports_kame
+  - dashboards::trade
+  - interfacers::outgoing_deliveries_dyli
+  - transports::create
+  - transports::deliveries
+  - transports::delivery_delete
+  - transports::destroy
+  - transports::edit
+  - transports::index
+  - transports::list
+  - transports::list_deliveries
+  - transports::new
+  - transports::show
+  - transports::update
 # Manage units of measure
 manage_units:
-  controller: company
   actions:
-  - index
-  - unit_create
-  - unit_delete
-  - unit_update
-  - units
-  - units_kame
-  - units_load
+  - dashboards::general
+  - units::create
+  - units::destroy
+  - units::edit
+  - units::index
+  - units::list
+  - units::load
+  - units::new
+  - units::update
 # Manage users
 manage_users:
-  controller: company
   actions:
-  - index
-  - role_create
-  - role_delete
-  - role_update
-  - roles
-  - roles_kame
-  - user
-  - user_create
-  - user_delete
-  - user_lock
-  - user_unlock
-  - user_update
-  - users
-  - users_kame
+  - dashboards::general
+  - roles::create
+  - roles::destroy
+  - roles::edit
+  - roles::index
+  - roles::list
+  - roles::new
+  - roles::update
+  - users::create
+  - users::destroy
+  - users::edit
+  - users::index
+  - users::list
+  - users::lock
+  - users::new
+  - users::show
+  - users::unlock
+  - users::update
 # Manage warehouses
 manage_warehouses:
-  controller: management
   actions:
-  - index
-  - warehouse
-  - warehouse_create
-  - warehouse_delete
-  - warehouse_stock_moves_kame
-  - warehouse_stocks_kame
-  - warehouse_update
-  - warehouses
-  - warehouses_kame
+  - dashboards::trade
+  - warehouses::create
+  - warehouses::destroy
+  - warehouses::edit
+  - warehouses::index
+  - warehouses::list
+  - warehouses::list_stock_moves
+  - warehouses::list_stocks
+  - warehouses::new
+  - warehouses::show
+  - warehouses::update
 # Merge people
 merge_entities:
-  controller: relations
-  actions: [entities, entities_merge, index]
+  actions: [dashboards::relations, entities::index, entities::merge]
 # Print
 print:
-  controller: company
-  actions: [print]
+  actions: [documents::print]

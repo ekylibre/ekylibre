@@ -49,7 +49,7 @@ arb:
       x_seconds:
         many: '%{count} ثواني'
         one: 'ثانية واحدة'
-  kame:
+  list:
     #>columns: 'Columns'
     export:
       false_value: 'زائف'

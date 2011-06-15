@@ -3,6 +3,8 @@ desc "Update and sort translation files"
 task :locales => :environment do
   log = File.open(Rails.root.join("log", "clean.locales.log"), "wb")
 
+  missing_prompt = "# "
+
   # Load of actions
   all_actions = {}
   for right, attributes in YAML.load_file(User.rights_file)
@@ -46,7 +48,7 @@ task :locales => :environment do
         # to_translate += 1 
         untranslated += 1 if name.blank?
       end
-      translation += "      #{'#>' if name.blank?}#{action_name}: "+yaml_value(name.blank? ? action_name.humanize : name, 3)
+      translation += "      #{missing_prompt if name.blank?}#{action_name}: "+yaml_value(name.blank? ? action_name.humanize : name, 3)
       translation += " #!" unless actions.include?(action_name)
       translation += "\n"
     end
@@ -59,7 +61,7 @@ task :locales => :environment do
     name = ::I18n.hardtranslate("controllers.#{controller_name}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation += "    #{'#>' if name.blank?}#{controller_name}: "+yaml_value(name.blank? ? controller_name.humanize : name, 2)+"\n"
+    translation += "    #{missing_prompt if name.blank?}#{controller_name}: "+yaml_value(name.blank? ? controller_name.humanize : name, 2)+"\n"
   end
 
   # Errors
@@ -88,7 +90,7 @@ task :locales => :environment do
     line = "    "
     if trans.blank?
       untranslated += 1 
-      line += "#>"
+      line += missing_prompt
     end
     line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
     line.gsub!(/$/, " #!") if deleted_notifs.include?(key)
@@ -166,7 +168,7 @@ task :locales => :environment do
   translation += "    models:\n"
   for model, definition in models.sort
     translation += "      "
-    translation += "#>"  if definition[1] == :undefined
+    translation += missing_prompt if definition[1] == :undefined
     translation += "#{model}: "+yaml_value(definition[0])
     translation += " #!" if definition[1] == :unused      
     translation += "\n"
@@ -174,7 +176,7 @@ task :locales => :environment do
   translation += "  attributes:\n"
   for attribute, definition in attributes.sort
     translation += "    "
-    translation += "#>"  if definition[1] == :undefined
+    translation += missing_prompt if definition[1] == :undefined
     translation += "#{attribute}: "+yaml_value(definition[0])
     translation += " #!" if definition[1] == :unused
     translation += "\n"

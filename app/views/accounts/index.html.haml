@@ -1,0 +1,11 @@
+-# Eclated automatically (2011-06-08)
+=render :partial=>"search"
+
+=toolbar do |t|
+  -t.link :new
+  -t.link :load
+
+%table.accounts.invex
+  %tr
+    %td.tabs{:valign=>:top}=major_accounts_tabs_tag
+    %td.list{:valign=>:top}=list

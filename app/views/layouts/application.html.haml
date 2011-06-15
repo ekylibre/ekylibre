@@ -12,18 +12,30 @@
     =javascript_include_tag "kame"
   %body
     -expiration = {}
-    -expiration = {"timeout"=>session[:expiration], "timeout-href"=>url_for(:controller=>:authentication, :action=>:relogin, :name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
+    -expiration = {"timeout"=>session[:expiration], "timeout-href"=>renew_session_url(:name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
     #body.flex{:data=>expiration, :class=>("resizable" if resizable?)}
       #top=top_tag
-      #wrap.wrap.hbox.flex
-        #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
-        #help.help.flex-3.anchor-right{:style=>("display:none;" unless session[:help])}=help_tag
-        #main.main.flex-9{:class=>"#{'with-side' if session[:side]} #{'with-help' if session[:help]}"}
-          .nav
-            =help_link_tag
-            =side_link_tag
-            =title_header_tag
-          .yield.flex
-            =notifications_tag
-            =yield
-          #legals="Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION} - "+ActiveRecord::Base.connection.adapter_name+" - "+ActiveRecord::Migrator.current_version.to_s
+      -if resizable?
+        #wrap.wrap.hbox.flex
+          -if @current_user
+            #side.side.flex-1.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
+            #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
+          #main.main.flex-4{:class=>"#{'with-side' if session[:side]} #{'with-help' if session[:help]}"}
+            .yield.flex
+              =title_header_tag
+              =notifications_tag
+              =yield
+      -else
+        #wrap.wrap.hbox.flex
+          %table#wrap-table
+            %tr
+              -if @current_user
+                %td#side.side{:style=>("display:none;" unless session[:side])}=side_tag
+                %td#side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
+              %td#main.main.flex-9{:class=>"#{'with-side' if session[:side]} #{'with-help' if session[:help]}"}
+                .yield.flex
+                  =title_header_tag
+                  =notifications_tag
+                  =yield
+      -#help.help.flex-3.anchor-right{:style=>("display:none;" unless session[:help])}=help_tag
+      #legals=legals_sentence

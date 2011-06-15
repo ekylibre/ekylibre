@@ -1,6 +1,0 @@
-=toolbar do
-  -link :custom_field_choice_create, :custom_field_id=>@custom_field.id
-  -link :custom_field_sort, {:id=>@custom_field.id}, {:method=>:post} if @custom_field.nature == 'choice'
-  -link :custom_field_update, :id=>@custom_field.id
-
-=kame :custom_field_choices

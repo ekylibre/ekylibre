@@ -1,0 +1,21 @@
+-# Eclated automatically (2011-06-08)
+=toolbar do |t|
+  -t.update @warehouse
+
+=attributes_list(@warehouse) do |l|
+  -l.attribute :name
+  -l.attribute :comment
+  -l.attribute :establishment
+  -l.attribute :x
+  -l.attribute :y
+  -l.attribute :z
+  -if @warehouse.reservoir
+    -l.attribute :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
+    -l.attribute :number
+    -l.attribute :quantity_max
+
+=tabbox(:warehouse) do |tb|
+  -tb.tab :stocks do
+    =list(:stocks)
+  -tb.tab :stock_moves do
+    =list(:stock_moves)

@@ -1,0 +1,11 @@
+=sales_steps unless request.xhr?
+
+-price_id = nil
+=formalize do |f|
+  -f.error :sale_line
+  -f.error :subscription
+  -f.title :infos
+  -price_id    = f.field :sale_line, :price_id, :choices=>:available_prices, :new=>{:action=>:price_create, :mode=>:sales}
+#detail=render :partial=>"sale_lines/detail_form"
+
+=observe_field(price_id, :url=>detail_sale_lines_url(:sale_id=>@sale.id), :frequency=>0.25, :with=>"id", :update=>:detail, :loading=>"onLoading()", :loaded=>"onLoaded()")

@@ -20,157 +20,80 @@
 
 
 
+
+# module ActiveRecord
+#   class Base
+
+
+#     def merge(object, force=false)
+#       raise Exception.new("Unvalid object to merge: #{object.class}. #{self.class} expected.") if object.class != self.class
+#       reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
+#       if force
+#         for reflection in reflections
+#           klass = reflection.class_name.constantize 
+#           begin
+#             klass.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+#           rescue
+#             for item in object.send(reflection.name)
+#               begin
+#                 item.send(reflection.primary_key_name.to_s+'=', self.id)
+#                 item.send(:update_without_callbacks)
+#               rescue
+#                 # If the item can't be attached, the item can't be.
+#                 puts item.inspect
+#                 klass.delete(item)
+#               end
+#             end
+#           end
+#         end
+#         object.delete
+#       else
+#         ActiveRecord::Base.transaction do
+#           for reflection in reflections
+#             reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+#           end
+#           object.delete
+#         end
+#       end
+#       return self
+#     end
+
+#     def has_dependencies?
+      
+#     end
+
+
+#   end
+# end
+
+
+
+
+
 module ApplicationHelper
   
-  MENUS=
-    [ 
-     # CompanyController
-     {:name=>:company, :list=>
-       [ {:name=>:my_account, :list=>
-           [{:name=>:user_statistics}, 
-            {:name=>:change_password}
-           ] },
-         {:name=>:tools, :list=>
-           [ {:name=>:backups},
-             {:name=>:listings},
-             {:name=>:import}
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:configure},
-             {:name=>:users},
-             {:name=>:roles},
-             {:name=>:document_templates},
-             {:name=>:establishments},
-             {:name=>:departments},
-             {:name=>:sequences},
-             {:name=>:units}
-           ] },
-         {:name=>:informations, :list=>
-           [ {:name=>:help},
-             {:name=>:about}
-           ] }
-       ] },
+  def authorized?(url={})
+    if url.is_a?(String) and url.match(/\#/)
+      action = url.split("#")
+      url = {:controller=>action[0].to_sym, :action=>action[1].to_sym}
+    end
+    ApplicationController.authorized?(url)
+  end
 
-     # RelationsController
-     {:name=>:relations, :list=>
-       [ {:name=>:relations_tasks, :list=>
-           [ {:name=>:entities},
-             {:name=>:events},
-             {:name=>:mandates}
-           ] },
-         {:name=>:tools, :list=>
-           [ {:name=>:entities_import},
-             {:name=>:entities_export}
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:entity_categories},
-             {:name=>:entity_natures},
-             {:name=>:entity_link_natures},   
-             {:name=>:event_natures},
-             {:name=>:custom_fields},
-             {:name=>:mandates_configure},
-             {:name=>:areas},
-             {:name=>:districts}
-           ] }
-       ] },
-     # AccountancyController
-     {:name=>:accountancy, :list=>
-       [ {:name=>:accountancy_tasks, :list=>
-           [ {:name=>:journals},
-             {:name=>:bank_statements},
-             {:name=>:account_reconciliation},
-             {:name=>:bookkeep},
-             {:name=>:financial_year_close}
-           ] },
-         {:name=>:documents, :list=>
-           [ {:name=>:document_print},
-             {:name=>:balance},
-             {:name=>:general_ledger}
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:accounts},
-             {:name=>:financial_years}
-           ] }
-       ] },
-     # FinancesController
-     {:name=>:finances, :list=>
-       [ {:name=>:financial_operations, :list=>
-           [ {:name=>:incoming_payments},
-             {:name=>:outgoing_payments},
-             {:name=>:deposits},
-             # {:name=>:tax_declarations},
-             {:name=>:cash_transfers}
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:cashes},
-             {:name=>:taxes},
-             {:name=>:incoming_payment_modes},
-             {:name=>:outgoing_payment_modes}
-           ] }
-       ] },
-     # ManagementController
-     {:name=>:management, :list=>
-       [ {:name=>:sales, :list=>
-           [ {:name=>:sale_create},
-             {:name=>:sales},
-             {:name=>:subscriptions},
-             {:name=>:statistics}
-           ] },
-         {:name=>:purchases, :list=>
-           [ {:name=>:purchase_create},
-             {:name=>:purchases},
-           ] },
-         {:name=>:stocks_tasks, :list=>
-           [{:name=>:stocks},
-            {:name=>:outgoing_deliveries},
-            {:name=>:incoming_deliveries},  
-            {:name=>:transports},
-            {:name=>:warehouses},
-            {:name=>:stock_transfers},
-            {:name=>:inventories}  
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:products},
-             {:name=>:prices},
-             {:name=>:product_categories},
-             {:name=>:delays},
-             {:name=>:incoming_delivery_modes},
-             {:name=>:outgoing_delivery_modes},
-             {:name=>:sale_natures},
-             {:name=>:subscription_natures}
-           ] }
-       ] },
+  def menus
+    session[:menus]||Ekylibre.menus
+  end
 
+  # Return an array of menu and submenu concerned by the action (controller#action)
+  def reverse_menus(action=nil)
+    action ||= "#{self.controller.controller_name}::#{action_name}"
+    Ekylibre.reverse_menus[action]||[]
+  end
 
-     # ProductionController
-     {:name=>:production, :list=>
-       [ {:name=>:production, :list=>
-           [ {:name=>:land_parcels},
-             # {:name=>:production_chains},
-             {:name=>:operations}
-           ] },
-         {:name=>:parameters, :list=>
-           [ {:name=>:tools},
-             {:name=>:land_parcel_groups},
-             {:name=>:operation_natures}
-           ] }
-       ] }
-     #  ,
-     # # ResourcesController
-     # {:name=>:resources, :list=>
-     #   [ {:name=>:human, :list=>
-     #       [ {:name=>:employees} ] },
-     #     {:name=>:parameters, :list=>
-     #       [ {:name=>:professions} ] }
-     #   ] }
-     
-    ]
+  def legals_sentence
+    "Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION} - "+ActiveRecord::Base.connection.adapter_name+" - "+ActiveRecord::Migrator.current_version.to_s
+  end
 
-  #raise Exception.new MENUS[0].inspect
-  MENUS_ARRAY = MENUS.collect{|x| x[:name]  }
-  
-
-  
   def choices_yes_no
     [ [::I18n.translate('general.y'), true], [I18n.t('general.n'), false] ]
   end
@@ -188,10 +111,6 @@ module ApplicationHelper
       content_tag(:label, ::I18n.translate('general.y'), :for=>"#{object_name}_#{method}_#{checked_value}")+" "+
       radio_button_tag(object_name, method, FalseClass, :id=>"#{object_name}_#{method}_#{unchecked_value}")+" "+
       content_tag(:label, ::I18n.translate('general.n'), :for=>"#{object_name}_#{method}_#{unchecked_value}")
-  end
-
-  def menus
-    MENUS
   end
 
   def number_to_accountancy(value)
@@ -326,11 +245,12 @@ module ApplicationHelper
 #     def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
 #       return form_tag(url_for_options, options, *parameters_for_url, &block)
 #     end
-
   end
+
   def li_link_to(*args)
     options      = args[1] || {}
-    if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
+    # if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
+    if controller.accessible?({:controller=>controller_name, :action=>:index}.merge(options))
       content_tag(:li, link_to(*args).html_safe)
     else
       ''
@@ -482,14 +402,9 @@ module ApplicationHelper
   end    
 
 
-
-
-  #   def sessany
-  #     return (@current_company ? session[@current_company.code] ||= {} : session)
-  #   end
   
-  def last_page(controller)
-    session[:last_page][controller]||url_for(:controller=>controller, :action=>:index)
+  def last_page(menu)
+    session[:last_page][menu.to_s]||dashboard_url(:action=>menu.to_s)
   end
 
 
@@ -587,39 +502,8 @@ module ApplicationHelper
 
   def top_tag
     session[:last_page] ||= {}
-    code = ''
-
-    # User Tag
-    tag = []
-    if @current_user
-      preference = @current_user.preference("interface.general.resized", true, :boolean)
-      resized = preference.value
-      tag << link_to("", params.merge(:resized=>(resized ? "0" : "1")), {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode), :id=>:resizable})+" "
-      # tag << content_tag(:a, @current_user.label)
-      tag << content_tag(:a, @current_user.label)
-      tag << content_tag(:a, @current_company.name)
-      tag << link_to(t("actions.authentication.logout"), {:controller=>:authentication, :action=>:logout}, :class=>"icon im-logout")
-    end
-    code += content_tag(:div, tag.join(" ").html_safe, :id=>:user, :class=>:menu)
-
-    code += content_tag(:div, "", :id=>:loading, :style=>'display:none;')
-
-    # Modules Tag
-    tag = ''
-    for m in MENUS
-      if controller.accessible?({:controller=>m[:name]})
-        tag += link_to_if(self.controller.controller_name!=m[:name].to_s, t("controllers.#{m[:name]}"), last_page(m[:name].to_s)) do |name|
-          link_to(name, {:controller=>m[:name], :action=>:index}, :class=>:current)
-        end+" "
-      end
-    end if @current_user
-    
-    code += content_tag(:div, tag.html_safe, :id=>:modules, :class=>:menu)
-    
-    return code.html_safe
+    render :partial=>"shared/top"
   end
-
-
 
   def action_title
     options = @title.is_a?(Hash) ? @title : {}
@@ -645,7 +529,8 @@ module ApplicationHelper
     options[:class] ||= ""
     options[:class] += " icon im-help help-link"
     options[:style] = "display:none" if session[:help]
-    url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
+    # url = (options[:url]||{}).merge(:controller=>:help, :action=>:search, :article=>controller.controller_name+'-'+action_name)
+    url = (options[:url]||{}).merge(:controller=>:dashboards, :action=>:help, :article=>controller.controller_name+'-'+action_name)
     url[:dialog] = params[:dialog] if params[:dialog]
     update = (options.delete(:update)||:help).to_s
     return link_to_remote(tg(:display_help), {:update=>update, :url=>url, :complete=>h("toggleHelp('#{update}', true#{', \''+options[:resize].to_s+'\'' if options[:resize]});"), :loading=>"onLoading();", :loaded=>"onLoaded();"}, {:id=>"#{update}-open", :href=>url_for(url)}.merge(options))
@@ -653,6 +538,7 @@ module ApplicationHelper
 
   def help_tag(html_options={})
     code = ''
+    return code
     if session[:help]
       code = render(:partial=>'help/search')
     end
@@ -662,15 +548,17 @@ module ApplicationHelper
 
   def side_link_tag
     return '' unless @current_user
-    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
     code = content_tag(:div)
     operation = (session[:side] ? "close" : "open")
-    link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
+    # link_to_remote(code, {:url=>{:controller=>:help, :action=>:side}, :loading=>"onLoading(); openSide();", :loaded=>"onLoaded();"}, :id=>"side-"+operation, :class=>"side-link")
   end
 
-  def side_tag(controller = self.controller.controller_name.to_sym)
-    return '' if !MENUS_ARRAY.include?(self.controller.controller_name.to_sym)
-    render(:partial=>'shared/menu', :locals=>{:menu=>MENUS.detect{|m| m[:name]==controller}})
+  
+  def side_tag # (submenu = self.controller.controller_name.to_sym)
+    session[:side] = true
+    path = reverse_menus
+    return '' if path.nil?
+    render(:partial=>'shared/side', :locals=>{:path=>path})
   end
 
   def notification_tag(mode)
@@ -693,6 +581,22 @@ module ApplicationHelper
 
   def link_to_submit(form_name, label=:submit, options={})
     link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
+  end
+
+
+  def table_of(array, html_options={}, &block)
+    coln = html_options.delete(:columns)||3
+    html, line, size = "", "", 0
+    for item in array
+      line << content_tag(:td, capture(item, &block))
+      size += 1
+      if size >= coln
+        html += content_tag(:tr, line).html_safe
+        line, size = "", 0
+      end
+    end
+    html += content_tag(:tr, line).html_safe unless line.blank?
+    return content_tag(:table, html, html_options).html_safe
   end
 
 
@@ -722,9 +626,9 @@ module ApplicationHelper
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
       if src.match(/^theme:/)
-        src = File.join(Rails.public_path, "themes", @current_theme, "images", src.split(':')[1])
+        src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
       else
-        src = File.join(Rails.public_path, "images", src)
+        src = image_path(src)
       end
       '<img class="md md-'+align+'" alt="'+title+'" title="'+title+'" src="'+src+'"/>'
     end
@@ -781,7 +685,7 @@ module ApplicationHelper
     file_name, locale = '', nil
     for locale in [I18n.locale, I18n.default_locale]
       help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-      file_name = [name, name.gsub(/_[a-z0-9]+$/, '').pluralize, name.pluralize].detect do |pattern|
+      file_name = [name, name.split("-")[0]+"-index"].detect do |pattern|
         File.exists? help_dir.join(pattern+".txt")
       end
       break unless file_name.blank?
@@ -900,7 +804,7 @@ module ApplicationHelper
     end
     js += "$('#{tb.prefix}'+index+'#{tp}').addClassName('current');"
     js += "$('#{tb.prefix}'+index+'#{tl}').addClassName('current');"
-    js += "new Ajax.Request('#{url_for(:controller=>:company, :action=>:tabbox_index, :id=>tb.id)}?index='+index);"
+    js += "new Ajax.Request('#{url_for(:controller=>:interfacers, :action=>:toggle_tab, :id=>tb.id)}?index='+index);"
     js += "return true;};"
     js += "#{jsmethod}(#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:index]});"
     code  = content_tag(:div, tablabels.html_safe, :class=>:tabs)+content_tag(:div, tabpanels.html_safe, :class=>:tabpanels)
@@ -985,7 +889,7 @@ module ApplicationHelper
           name = args[0].to_s
           args[2] ||= {}
           args[1] ||= {}
-          args[1][:controller] = "company"
+          args[1][:controller] = "documents"
           args[1][:action] = "print"
           args[1][:p0] ||= args[1][:id]
           args[1][:id] = name
@@ -1009,12 +913,12 @@ module ApplicationHelper
           args[2] ||= {}
           args[2][:class] = "icon im-mail"
           code += content_tag(:li, mail_to(*args).to_s)
-        elsif nature == :update
-          action = args.class.name.underscore+"_update"
+        elsif nature == :update or nature == :edit
           url_options = {} unless url_options.is_a? Hash
-          url_options[:action] = action
+          url_options[:controller] ||= controller_name
+          url_options[:action] = :edit
           url_options[:id] = args.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-update"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
+          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]}.#{url_options[:action]}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
           action = "#{record.class.name.underscore}_#{verb}"
@@ -1058,7 +962,8 @@ module ApplicationHelper
     end
     
     def print(*args)
-      @tools << [:print, args]
+      # TODO reactive print
+      # @tools << [:print, args]
     end
 
     #     def update(record, url_options={})
@@ -1283,7 +1188,7 @@ module ApplicationHelper
               when :dyselect
                 select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options)
               when :dyli
-                dyli(record, method, options[:choices], options[:options], html_options)
+                dyli(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
               when :radio
                 options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1])+" "+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
@@ -1296,7 +1201,9 @@ module ApplicationHelper
                 text_field(record, method, html_options)
               end
 
+      options[:new]={:controller=>options[:new].to_s.pluralize.to_sym} if options[:new].is_a? Symbol
       if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
+        options[:new][:action] ||= :new
         label = tg(options[:new].delete(:label)||:new)
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
@@ -1304,7 +1211,7 @@ module ApplicationHelper
           data = if options[:remote]
                    options[:remote]
                  elsif options[:field] == :dyselect
-                   "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:company, :action=>:formalize))}');"
+                   "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:interfacers, :action=>:formalize))}');"
                  else
                    "refreshAutoList('#{rlid}', request);"
                  end
@@ -1381,72 +1288,255 @@ module ApplicationHelper
     return t
   end
 
-
-
-end
+  # Imported from app/helpers/accountancy_helper.rb
 
 
 
-module ActiveRecord
-  class Base
-
-
-    def merge(object, force=false)
-      raise Exception.new("Unvalid object to merge: #{object.class}. #{self.class} expected.") if object.class != self.class
-      reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
-      if force
-        for reflection in reflections
-          klass = reflection.class_name.constantize 
-          begin
-            klass.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
-          rescue
-            for item in object.send(reflection.name)
-              begin
-                item.send(reflection.primary_key_name.to_s+'=', self.id)
-                item.send(:update_without_callbacks)
-              rescue
-                # If the item can't be attached, the item can't be.
-                puts item.inspect
-                klass.delete(item)
+  def major_accounts_tabs_tag
+    majors = []
+    majors << if params[:prefix].blank?
+                content_tag(:strong, tc(:all_accounts))
+              else
+                link_to(tc(:all_accounts), :controller=>:accounts, :action=>:index, :prefix=>nil)
               end
-            end
-          end
-        end
-        object.delete
+    majors += @current_company.major_accounts.collect do |account| 
+      if params[:prefix] == account.number.to_s
+        content_tag(:strong, account.label)
       else
-        ActiveRecord::Base.transaction do
-          for reflection in reflections
-            reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
-          end
-          object.delete
-        end
+        link_to(account.label, params.merge(:controller=>:accounts, :action=>:index, :prefix=>account.number))
       end
-      return self
     end
-
-    def has_dependencies?
-      
+    if majors.size>0
+      return content_tag(:div, majors.join.html_safe, :class=>'major-accounts')
     end
-
-
+    return ""
   end
+
+
+  def journals_tag
+    render :partial=>"journals/index"
+  end
+
+
+  def journal_view_tag
+    code = content_tag(:span, tg(:view))
+    for mode in controller.journal_views
+      if @journal_view == mode
+        code += content_tag(:strong, tc("journal_view.#{mode}"))
+      else
+        code += link_to(tc("journal_view.#{mode}"), params.merge(:view=>mode)).html_safe
+      end
+    end
+    return content_tag(:div, code, :class=>:view)
+  end
+
+  # Create a widget with all the possible periods
+  def journal_period_crit(name=:period, value=nil, options={})
+    configuration = {:custom=>:interval}
+    configuration.update(options) if options.is_a?(Hash)
+    configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
+    value = params[name]
+    list = []
+    list << [tc(:all_periods), "all"]
+    for year in @current_company.financial_years.find(:all, :order=>:started_on)
+      list << [year.code, year.started_on.to_s+"_"+year.stopped_on.to_s]
+      list2 = []
+      date = year.started_on
+      while date<year.stopped_on and date < Date.today
+        date2 = date.end_of_month
+        list2 << [tc(:month_period, :year=>date.year, :month=>t("date.month_names")[date.month], :code=>year.code), date.to_s+"_"+date2.to_s]
+        date = date2+1
+      end
+      list += list2.reverse
+    end
+    code = ""
+    code += content_tag(:label, tc(:period), :for=>configuration[:id])+" "
+    fy = @current_company.current_financial_year
+    params[:period] = value = value || (fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : :all)
+    if configuration[:custom]
+      params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
+      params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
+      params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
+      list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
+      custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
+      toggle_method = "toggle#{custom_id.camelcase}"
+      code += select_tag(name, options_for_select(list, value), :id=>configuration[:id], :onchange=>"#{toggle_method}()", :onkeyup=>"#{toggle_method}()")
+      code += " "+content_tag(:span, tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
+      code += javascript_tag("window.#{toggle_method} = function() { toggleElement('#{custom_id}', ($('#{configuration[:id]}').value == '#{configuration[:custom]}')); }; #{toggle_method}();")
+    else
+      code += select_tag(name, options_for_select(list, value), :id=>configuration[:id])
+    end
+    return code.html_safe
+  end
+
+  # Create a widget to select states of entries (and entry lines)
+  def journal_entries_states_crit
+    code = ""
+    code += content_tag(:label, tc(:journal_entries_states))
+    states = JournalEntry.states
+    params[:states] = {} unless params[:states].is_a? Hash
+    no_state = !states.detect{|x| params[:states].has_key?(x)}
+    for state in states
+      key = state.to_s
+      name, id = "states[#{key}]", "states_#{key}"
+      if active = (params[:states][key]=="1" or no_state)
+        params[:states][key] = "1"
+      else
+        params[:states].delete(key)
+      end
+      code += " "+check_box_tag(name, "1", active, :id=>id)
+      code += " "+content_tag(:label, JournalEntry.state_label(state), :for=>id)
+    end
+    return code.html_safe
+  end
+
+  # Create a widget to select some journals
+  def journals_crit
+    code, field = "", :journals
+    code += content_tag(:label, Company.human_attribute_name("journals"))
+    journals = @current_company.journals # .find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entry_lines WHERE company_id=? AND state=?)", @current_company.id, "draft"])
+    params[field] = {} unless params[field].is_a? Hash
+    no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
+    for journal in journals
+      key = journal.id.to_s
+      name, id = "#{field}[#{key}]", "#{field}_#{key}"
+      if active = (params[field][key] == "1" or no_journal)
+        params[field][key] = "1"
+      else
+        params[field].delete(key)
+      end
+      code += " "+check_box_tag(name, "1", active, :id=>id)
+      code += " "+content_tag(:label, journal.name, :for=>id)
+    end
+    return code.html_safe
+  end
+
+
+  # Create a widget to select ranges of account
+  # See Account#range_condition
+  def accounts_range_crit
+    id = :accounts
+    params[id] = Account.clean_range_condition(params[id])
+    code = ""
+    code += content_tag(:label, tc(:accounts), :for=>id)
+    code += " "+text_field_tag(id, params[id], :size=>30)
+    return code.html_safe
+  end
+
+
+
+
+  def lettering_modes_tag
+    code = content_tag(:span, tc("lettering_modes.title"))
+    for mode in [:clients, :suppliers, :attorneys]
+      if params[:id].to_s == mode.to_s
+        code += content_tag(:strong, tc("lettering_modes.#{mode}"))
+      else
+        code += link_to tc("lettering_modes.#{mode}"), {:action=>:account_reconciliation, :id=>mode}
+      end
+    end
+    return content_tag(:div, code, :class=>:view)
+  end
+
+
+
+  # Imported from app/helpers/company_helper.rb
+
+
+  # Imported from app/helpers/finances_helper.rb
+
+  # Imported from app/helpers/management_helper.rb
+
+
+  def steps_tag(record, steps, options={})
+    name = options[:name] || record.class.name.underscore
+    state_method = options[:state_method] || :state
+    state = record.send(state_method).to_s
+    code = ''
+    for step in steps
+      title = tc("#{name}_steps.#{step[:name]}")
+      classes  = "step"
+      classes += " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action=>url.to_s} unless url.is_a? Hash
+      if step[:states].include?(state)
+        classes += " usable"
+        title = link_to(title, step[:actions][0].merge(:id=>record.id)) 
+      end
+      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') unless code.blank?
+      code += content_tag(:td, title, :class=>classes)
+    end
+    code = content_tag(:tr, code.html_safe)
+    code = content_tag(:table, code.html_safe, :class=>:stepper)
+    code.html_safe
+  end
+
+  SALES_STEPS = [
+                 {:name=>:products,   :actions=>[{:action=>:sale, :step=>:products}, :sale_create, :sale_update, :sale_line_create, :sale_line_update], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                 {:name=>:deliveries, :actions=>[{:action=>:sale, :step=>:deliveries}, :outgoing_delivery_create, :outgoing_delivery_update], :states=>['order', 'invoice']},
+                 {:name=>:summary,    :actions=>[{:action=>:sale, :step=>:summary}], :states=>['invoice']}
+                ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
+
+  def sales_steps
+    steps_tag(@sale, SALES_STEPS, :name=>:sales)
+  end
+
+  PURCHASE_STEPS = [
+                    {:name=>:products,   :actions=>[{:action=>:purchase, :step=>:products}, :purchase_create, :purchase_update, :purchase_line_create, :purchase_line_update, :purchase_line_delete], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                    {:name=>:deliveries, :actions=>[{:action=>:purchase, :step=>:deliveries}, :incoming_delivery_create, :incoming_delivery_update], :states=>['order', 'invoice']},
+                    {:name=>:summary,    :actions=>[{:action=>:purchase, :step=>:summary}], :states=>['invoice']}
+                   ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
+
+  def purchase_steps
+    steps_tag(@purchase, PURCHASE_STEPS, :name=>:purchase)
+  end
+
+
+
+  def product_stocks_options(product)
+    options = []
+    options += product.stocks.collect{|x| [x.label, x.id]}
+    options += @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
+    return options
+  end
+
+  def toggle_tag(name=:orientation, modes = [:vertical, :horizontal])
+    raise ArgumentError.new("Invalid name") unless name.to_s.match(/^[a-z\_]+$/)
+    pref = @current_user.preference("interface.toggle.#{name}", modes[0].to_s)
+    code = ""
+    for mode in modes
+      # code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}#{' current' if mode.to_s==pref.value}")
+      if mode.to_s==pref.value
+        code += content_tag(:a, nil, :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode} current")
+      else
+        code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}")
+      end
+    end
+    content_tag(:div, code.html_safe, :class=>"toggle tg-#{name}")
+  end
+
+
+
+  # Imported from app/helpers/production_helper.rb
+
+
+  # Imported from app/helpers/relations_helper.rb
+
+
+  def condition_label(condition)
+    if condition.match(/^generic/)
+      klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
+      return tl("conditions.filter_on_attribute_of_class", :attribute=>klass.human_attribute_name(attribute), :class=>klass.model_name.human)
+    else
+      return tl("conditions.#{condition}")
+    end
+  end
+
+
+  # Imported from app/helpers/resources_helper.rb
+
+
+  # Imported from app/helpers/store_helper.rb
+
+
+
+
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

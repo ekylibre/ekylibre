@@ -1,0 +1,17 @@
+-product_id = nil
+=formalize do |f|
+  -f.error :purchase_line
+  -product_id = f.field :purchase_line, :product_id, :choices=>:purchase_products, :new=>{:action=>:product_create}
+  -f.field :purchase_line, :quantity
+  -#f.field :purchase_line, :unit_id, :choices=>[]
+  -@price ||= @purchase_line.price
+  -if @price
+    -f.field :price, :pretax_amount 
+    -f.field :price, :tax_id ,:choices=>{:reflection=>:taxes}
+  -if @current_company.warehouses.size > 1
+    -f.field :purchase_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
+  -f.field :purchase_line, :tracking_serial
+  -f.field :purchase_line, :annotation, :field=>:textarea
+
+=hidden_field_tag :purchase_id, params[:purchase_id]
+=observe_field product_id, :url=>find_prices_url(:entity_id=>@purchase_line.purchase.supplier_id), :frequency => 0.25, :with=>"purchase_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"

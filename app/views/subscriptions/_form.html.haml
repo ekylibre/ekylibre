@@ -1,0 +1,12 @@
+-subscription_nature_id = nil
+=formalize do |f|
+  -f.error 'subscription'
+  -subscription_nature_id = f.field :subscription, :nature_id, :choices=>{:reflection=>:subscription_natures}, :new=>{:action=>:subscription_nature_create}
+  -f.field :subscription, :quantity
+  -#f.field :subscription, :entity_id, :choices=>:entities
+  -#f.field :subscription, :sales_invoice_id
+  -#f.field :subscription, :sale_id
+  -#f.field :subscription, :suspended
+=render :partial=>"coordinates_form"
+=observe_field(subscription_nature_id, :url=>{:action=>:coordinates, :mode=>:duration}, :update=>"subscription_duration", :frequency=>0.25, :with=>"nature_id", :loading=>"onLoading()", :loaded=>"onLoaded()")
+

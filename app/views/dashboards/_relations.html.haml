@@ -1,0 +1,15 @@
+=render :partial=>"entities/search"
+
+.menu
+  %h2= tg('indicator')
+  %ul
+    =li_link_to tc('x_entities',:count=>@current_company.entities.count), :controller=>:entities, :action=>:index
+
+-if @current_user.future_events.size > 0
+  %h2=tc(:future_events)
+  =list(:my_future_events)
+
+-if @current_company.events.size > 0
+  %h2=tc(:recent_events)
+  =list(:recent_events)
+

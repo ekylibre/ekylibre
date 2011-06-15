@@ -1,0 +1,34 @@
+=toolbar do
+  -link :edit, :id=>@product.id
+
+=attributes_list(@product) do |l|
+  -l.attribute :name
+  -l.attribute :price
+  -l.attribute :code
+  -l.attribute :code2
+  -l.attribute :ean13
+  -l.attribute :category, :url=>{:action=>:product_category}
+  -l.attribute :unit, :label=>:label
+  -l.attribute :weight
+  -l.attribute :active
+  -l.attribute :to
+  -l.attribute :catalog_name
+  -l.attribute :catalog_description
+  -l.attribute :description
+  -l.attribute :comment
+  -l.attribute :stockable
+
+=tabbox(:product) do |tb|
+  -tb.tab :prices do
+    =toolbar do |t|
+      -t.link(:sales_price_create, {:controller=>:prices, :action=>:new, :mode=>:sales, :product_id=>session[:product_id]}) if @product.for_sales
+      -t.link(:purchase_price_create, {:controller=>:prices, :action=>:new, :mode=>:purchases, :product_id=>session[:product_id]}) if @product.for_purchases
+    =list :prices
+  -tb.tab :components do
+    =toolbar do |t|
+      -t.link :new, :controller=>:product_components
+    =list :components
+  -tb.tab :stocks do
+    =list(:stocks)
+  -tb.tab :stock_moves do
+    =list(:stock_moves)
