@@ -35,12 +35,16 @@ File.open(tmpfile, "wb") do |file|
   file.write text.join("\n")
 end
 
-text_line = text.join(' ').gsub('\'', '\\\'').strip
+text_line = text.join(' ').strip
 
 if text_line.size.zero?
   puts "Nothing written, nothing committed."
 else
-  system "dch -a -c installer/debian/debian/changelog '#{text_line}'"
+  for line in text
+    line.gsub!('"', '\\\\"')
+    system "dch -a -c installer/debian/debian/changelog \"#{line.strip}\""
+  end
+  # system "dch -a -c installer/debian/debian/changelog '#{text_line}'"
   system "svn ci -F #{tmpfile}"
 end
 

@@ -1,13 +1,15 @@
 ekylibre (0.3.0+1.a1-1) unstable; urgency=low
 
-  * Explode master controllers in resources controllers.
+  * Explodes master controllers in resources controllers.
   * Adds new menu
-  * Fixes bug on debian building due to version filter. Adds push script
-    in order to build debian/changelog with every commit from now.
-  * Changes version in alpha1 because thats the right version.s the
-    right version.
+  * Fixes bug on debian building due to version filter.
+  * Adds push script in order to build debian/changelog with
+    every commit from now.
+  * Changes version in alpha1 because that's the right version.
+  * Fixes the bug on escape character in push script.
+  * Corrects debian/changelog
 
- -- Brice Texier <brice@thalie.nouva.local>  Fri, 17 Jun 2011 16:16:35 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Fri, 17 Jun 2011 16:29:58 +0200
 
 ekylibre (0.3.0) unstable; urgency=low
 
