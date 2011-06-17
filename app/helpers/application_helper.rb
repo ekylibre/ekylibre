@@ -514,7 +514,7 @@ module ApplicationHelper
     r = reverse_menus
     title = if @current_company
               if r.empty?
-                tc(:page_special, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title)
+                tc(:page_title_special, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title)
               else
                 tc(:page_title, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title, :menu=>tl("menus.#{r[0]}"))
               end

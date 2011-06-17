@@ -57,4 +57,4 @@ cd ..
 rm -fr copy
 rm -fr $root
 
-mv ${app}_${version}*.deb packages/
+mv ${app}_*.deb packages/

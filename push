@@ -1,0 +1,47 @@
+#!/usr/bin/ruby
+require 'fileutils'
+
+ignore = []
+if File.exist? ".gitignore"
+  `cat .gitignore`.split(/\s*\n\s*/).each do |pattern|
+    ignore += Dir[pattern]
+  end
+end
+
+tmpfile="/tmp/push-#{Time.now.to_i.to_s(36)}-#{rand.to_s[2..-1].to_i.to_s(36)}.tmp"
+File.open(tmpfile, "wb") do |file|
+  file.write("\n")
+  file.write("# Cette ligne et les suivantes seront ignorées\n")
+  files = `svn status`.to_s.split(/\s*\n\s*/)
+  files = files.delete_if do |f| 
+    f = f.split(/\s+/)[1]
+    ignore.include?(f)
+  end
+  for line in files
+    file.write "# #{line}\n"
+  end
+end
+
+system "sensible-editor #{tmpfile}"
+
+# Get written lines
+text = []
+File.open(tmpfile, "rb") do |file|
+  for line in file.read.split(/\s*\n\s*/)
+    text << line unless line.match(/^\s*\#/)
+  end
+end
+File.open(tmpfile, "wb") do |file|
+  file.write text.join("\n")
+end
+
+text_line = text.join(' ').gsub('\'', '\\\'').strip
+
+if text_line.size.zero?
+  puts "Nothing written, nothing committed."
+else
+  `dch -a -c installer/debian/debian/changelog '#{text_line}'`
+  `svn ci -F #{tmpfile}`
+end
+
+FileUtils.rm tmpfile
