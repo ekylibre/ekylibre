@@ -40,8 +40,8 @@ text_line = text.join(' ').gsub('\'', '\\\'').strip
 if text_line.size.zero?
   puts "Nothing written, nothing committed."
 else
-  `dch -a -c installer/debian/debian/changelog '#{text_line}'`
-  `svn ci -F #{tmpfile}`
+  system "dch -a -c installer/debian/debian/changelog '#{text_line}'"
+  system "svn ci -F #{tmpfile}"
 end
 
 FileUtils.rm tmpfile
