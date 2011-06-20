@@ -24,7 +24,7 @@ class ActiveSupport::TestCase
     old_controller = @controller
     @controller = SessionsController.new
     post :create, :name=>name, :password=>password
-    assert_redirected_to :controller=>:dashboards, :action=>:index, :company=>companies(:companies_001).code
+    assert_redirected_to :controller=>:dashboards, :action=>:general, :company=>companies(:companies_001).code
     assert_not_nil(session[:user_id])
     @controller = old_controller
   end

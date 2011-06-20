@@ -43,7 +43,7 @@ class MyselvesController < ApplicationController
         @user.password_confirmation = params[:user][:password_confirmation]
         if @user.save
           notify(:password_successfully_changed, :success)
-          redirect_to :action=>:index 
+          redirect_to :controller=>:dashboards, :action=>:general
         end
         @user.password = @user.password_confirmation = ''
       else

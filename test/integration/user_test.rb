@@ -22,7 +22,7 @@ class UserTest < ActionController::IntegrationTest
         get "session/new"
         assert_response :success
         post "session", :name=>@user.name, :password=>@user.comment
-        assert_redirected_to :controller=>:dashboards, :action=>:index, :company=>@company.code
+        assert_redirected_to :controller=>:dashboards, :action=>:general, :company=>@company.code
       end
 
       should "change its password" do 
@@ -33,7 +33,7 @@ class UserTest < ActionController::IntegrationTest
         delete "session"
         assert_response :redirect
         post "session", :name=>@user.name, :password=>"abcdefgh"
-        assert_redirected_to :controller=>:company, :action=>:index, :company=>@company.code
+        assert_redirected_to :controller=>:dashboards, :action=>:general, :company=>@company.code
         get "#{@company.code}/me/change_password"
         assert_response :success
         post "#{@company.code}/me/change_password", :user=>{:old_password=>"abcdefgh", :password=>@user.comment, :password_confirmation=>@user.comment}

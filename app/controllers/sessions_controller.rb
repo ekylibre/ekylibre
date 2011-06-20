@@ -4,7 +4,6 @@ class SessionsController < ApplicationController
     reset_session
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     session[:side] = false
-    session[:help] = false
   end
 
   def create
