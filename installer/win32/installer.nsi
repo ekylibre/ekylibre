@@ -20,12 +20,13 @@ SetCompressor /SOLID /FINAL zlib
   !define WSPORT 4064
   !define DBMSPORT 4032
 
-  VIAddVersionKey "ProductName" "${APP}"
-  VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
-  VIAddVersionKey "CompanyName" "www.ekylibre.org"
-  VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
-  VIAddVersionKey "FileVersion" "${VERSION}"
-  VIProductVersion "${VERSION}.0"
+  ; Can not work with Product Version
+  ; VIAddVersionKey "ProductName" "${APP}"
+  ; VIAddVersionKey "Comments" "Le logiciel de gestion des petites entreprises"
+  ; VIAddVersionKey "CompanyName" "www.ekylibre.org"
+  ; VIAddVersionKey "FileDescription" "${APP} ${VERSION} Installer"
+  ; VIAddVersionKey "FileVersion" "${VERSION}"
+  ; VIProductVersion "${VERSION}.156"
 
 
   ; Name and file

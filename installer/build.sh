@@ -20,7 +20,10 @@ help_message() {
     echo "$name create installers for ${app}"
     echo ""
     echo "Usage:"
-    echo "  $name [OPTIONS]"
+    echo "  $name [OPTIONS] [PACKAGES]"
+    echo ""
+    echo "Parameters"
+    echo "   PACKAGES              List of packages to build. All if no one selected"
     echo ""
     echo "Options"
     echo "  -c                     Skip checksums computation"
@@ -51,6 +54,12 @@ do
 done
 shift `expr $OPTIND - 1`
 
+builds_ref="source debian win32"
+builds=${builds_ref}
+if [ ! -z "$*" ]; then
+    builds=$*
+fi
+
 rm -fr ${datadir}
 mkdir -p ${datadir}
 
@@ -61,7 +70,7 @@ echo "== Build =================================================================
 echo "Output directory:    ${datadir}" >> $log
 echo "Resources directory: ${resdir}"  >> $log
 
-for build in source debian win32
+for build in $builds
 do
     script=${current_dir}/${build}/build
     if [ -e ${script} ]; then
