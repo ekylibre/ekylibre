@@ -1,4 +1,4 @@
-ekylibre (0.3.0+1.a1-1) unstable; urgency=low
+ekylibre (0.3.0+1.a1) unstable; urgency=low
 
   * Explodes master controllers in resources controllers.
   * Adds new menu
@@ -8,8 +8,9 @@ ekylibre (0.3.0+1.a1-1) unstable; urgency=low
   * Changes version in alpha1 because that's the right version.
   * Fixes the bug on escape character in push script.
   * Corrects debian/changelog
+  * Changes version dependency in package
 
- -- Brice Texier <brice@thalie.nouva.local>  Fri, 17 Jun 2011 16:29:58 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Tue, 21 Jun 2011 10:35:42 +0200
 
 ekylibre (0.3.0) unstable; urgency=low
 
