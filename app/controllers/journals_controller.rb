@@ -120,7 +120,6 @@ class JournalsController < ApplicationController
 
 
 
-  # create_kame(:draft, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>"JOIN #{JournalEntry.table_name} ON (entry_id = #{JournalEntry.table_name}.id)", :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
   list(:draft_lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions(:with_journals=>true, :state=>:draft), :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>true
     t.column :number, :through=>:entry, :url=>true
@@ -150,6 +149,78 @@ class JournalsController < ApplicationController
       end
     end
   end
+
+
+  def bookkeep
+    params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
+    params[:started_on] = params[:started_on].to_date rescue (params[:stopped_on] - 1.year).beginning_of_month
+    @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
+
+    if request.get?
+      notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
+      @step = 1
+    elsif request.put?
+      @step = 2
+    elsif request.post?
+      @step = 3
+    end
+
+
+    if @step >= 2
+      session[:stopped_on] = params[:stopped_on]
+      session[:started_on] = params[:started_on]
+      @records = {}
+      for nature in @natures
+        conditions = ["created_at BETWEEN ? AND ?", session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
+        @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>conditions)
+      end
+
+      if @step == 3
+        state = (params[:save_in_draft].to_i == 1 ? :draft : :confirmed)
+        for nature in @natures
+          for record in @records[nature]
+            record.bookkeep(:create, state)
+          end
+        end
+        notify(:bookkeeping_is_finished, :success)
+        redirect_to :action=>(state == :draft ? :draft : :bookkeep)
+      end
+    end
+    
+
+  end
+
   
+  def balance
+    if params[:period]
+      @balance = @current_company.balance(params) 
+    end
+  end
+
+  def self.general_ledger_conditions(options={})
+    conn = ActiveRecord::Base.connection
+    code = ""
+    code += "c=['journal_entries.company_id=?', @current_company.id]\n"
+    code += journal_period_crit("params")
+    code += journal_entries_states_crit("params")
+    code += accounts_range_crit("params")
+    code += journals_crit("params")
+    code += "c\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    return code # .gsub(/\s*\n\s*/, ";")
+  end
+
+  list(:general_ledger, :model=>:journal_entry_lines, :conditions=>general_ledger_conditions, :joins=>[:entry, :account], :order=>"accounts.number, journal_entries.number, #{JournalEntryLine.table_name}.position") do |t|
+    t.column :number, :through=>:account, :url=>true
+    t.column :name, :through=>:account, :url=>true
+    t.column :number, :through=>:entry, :url=>true
+    t.column :printed_on, :through=>:entry, :datatype=>:date
+    t.column :name
+    t.column :debit
+    t.column :credit
+  end
+
+  def general_ledger
+  end  
 
 end

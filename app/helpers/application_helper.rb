@@ -265,10 +265,18 @@ module ApplicationHelper
     I18n.valid_locales.collect{|l| [t("languages.#{l}"), l.to_s]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
   end
 
-  def link_to_back(options={})
-    #    link_to tg(options[:label]||'back'), :back
-    link_to tg(options[:label]||'back'), session[:history][1]
+  def back_url
+    if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
+      return session[:history][0][:url]
+    else
+      return :back
+    end
   end
+
+  def link_to_back(options={})
+    link_to(tg(options[:label]||'back'), back_url)
+  end
+
   #
 
 
@@ -506,8 +514,7 @@ module ApplicationHelper
   end
 
   def action_title
-    options = @title.is_a?(Hash) ? @title : {}
-    return ::I18n.translate("actions.#{controller.controller_name}.#{controller.action_name}", options)
+    return controller.human_action_name
   end
 
   def title_tag

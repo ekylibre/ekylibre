@@ -157,6 +157,8 @@ module AnnotateModels
   # then pas it to the associated block
 
   def self.do_annotations
+    print " - Annots: "
+
     header = PREFIX.dup
 
     header << "\n\n== License\n\n"
@@ -167,7 +169,6 @@ module AnnotateModels
 #      header << "\n# Schema version: #{version}"
 #    end
     
-    print " - Annotations: "
     errors = []
     self.get_model_names.each do |m|
       class_name = m.sub(/\.rb$/,'').camelize
@@ -185,7 +186,7 @@ module AnnotateModels
         errors << "Unable to annotate #{class_name}: #{e.message}"
       end
     end
-    print "#{errors.size} errors\n"
+    print "#{errors.size.to_s.rjust(3)} errors\n"
     for error in errors
       puts error.gsub(/^/, "     ")
     end

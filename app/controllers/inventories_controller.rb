@@ -22,7 +22,7 @@ class InventoriesController < ApplicationController
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :created_on
     t.column :changes_reflected
-    t.column :label, :through=>:responsible, :url=>{:controller=>:company, :action=>:user}
+    t.column :label, :through=>:responsible, :url=>true
     t.column :comment
     t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:inventory}
     t.action :reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", :confirm=>:are_you_sure
@@ -31,18 +31,18 @@ class InventoriesController < ApplicationController
   end
 
   list(:lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
-    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
-    t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :name, :through=>:warehouse, :url=>true
+    t.column :name, :through=>:product, :url=>true
+    t.column :name, :through=>:tracking, :url=>true
     t.column :quantity, :precision=>3
     t.column :label, :through=>:unit
     t.text_field :quantity
   end
 
   list(:lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
-    t.column :name, :through=>:warehouse, :url=>{:action=>:warehouse}
-    t.column :name, :through=>:product, :url=>{:action=>:product}
-    t.column :name, :through=>:tracking, :url=>{:action=>:tracking}
+    t.column :name, :through=>:warehouse, :url=>true
+    t.column :name, :through=>:product, :url=>true
+    t.column :name, :through=>:tracking, :url=>true
     t.column :theoric_quantity, :precision=>3
     t.text_field :quantity
   end
@@ -70,7 +70,7 @@ class InventoriesController < ApplicationController
       if @inventory.save
         @inventory.set_lines(params[:inventory_lines_create].values)
       end
-      redirect_to :action=>:inventories
+      redirect_to :action=>:index
     end
   end
 
@@ -90,7 +90,7 @@ class InventoriesController < ApplicationController
       if @inventory.save
         @inventory.set_lines(params[:inventory_lines_create].values)
       end
-      redirect_to :action=>:inventories
+      redirect_to :index
       return
     end
     render :new
@@ -111,7 +111,7 @@ class InventoriesController < ApplicationController
     else
       notify(:changes_have_not_been_reflected, :error)
     end
-    redirect_to :action=>:inventories 
+    redirect_to :index 
   end
 
   def edit
@@ -124,7 +124,7 @@ class InventoriesController < ApplicationController
           il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
         end
       end
-      redirect_to :action=>:inventories
+      redirect_to :index
     end
   end
 
@@ -138,7 +138,7 @@ class InventoriesController < ApplicationController
           il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
         end
       end
-      redirect_to :action=>:inventories
+      redirect_to :index
       return
     end
     render :edit

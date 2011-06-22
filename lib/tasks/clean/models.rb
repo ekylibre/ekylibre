@@ -36,7 +36,6 @@ task :models => :environment do
     end
     refs_code += "\n    :#{m} => {\n"+cols.join(",\n")+"\n    },"
   end
-  print "#{errors} errors\n"
   refs_code = "  @@references = {"+refs_code[0..-2]+"\n  }\n"
 
   File.open(models_file, "wb") do |f|
@@ -51,4 +50,5 @@ task :models => :environment do
     f.write("end\n")
   end
 
+  print "#{errors.to_s.rjust(3)} errors\n"
 end

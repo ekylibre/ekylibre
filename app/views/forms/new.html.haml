@@ -1,19 +1,15 @@
--form_id = @options[:id]||"f"+rand.to_s[2..-1]
+-form_id = options[:id]||"f"+rand.to_s[2..-1]
 -if params[:dialog]
   -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
   =form_remote_tag(:url=>{:action=>:create, :dialog=>params[:dialog], :formalize=>params[:formalize]}, :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText).resize();} else { #{jsaction}; closeDialog('#{params[:dialog]}')}", :html=>{:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
-    .fields.flex
-      =render :partial=>@partial
-      .end
+    =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
     .actions
-      =submit_tag(tg(@options[:submit]||:create), :disable_with=>tl(:please_wait))
-      =link_to_function(tg(@options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
+      =submit_tag(tg(options[:submit]||:create), :disable_with=>tl(:please_wait))
+      =link_to_function(tg(options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
 -else
   =form_tag({:action=>:create}, {:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}) do
-    .fields.flex
-      =render :partial=>@partial
-      .end
+    =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
     .actions
-      =submit_tag(tl(@options[:submit]||:create), :disable_with=>tl(:please_wait))
-      =link_to_back :label=>@options[:cancel]||:cancel
+      =submit_tag(tl(options[:submit]||:create), :disable_with=>tl(:please_wait))
+      =link_to_back :label=>options[:cancel]||:cancel
 

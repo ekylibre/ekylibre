@@ -155,9 +155,12 @@ eng:
     journal_entry_lines:
       new: 'Add a new entry line'
     journals:
+      balance: 'Balance'
+      bookkeep: 'Bookkeep'
       close: 'Closing of %{name}'
       draft: 'Draft'
       edit: 'Edit journal: %{name}'
+      general_ledger: 'General ledger'
       index: 'Journals'
       new: 'Create new journal'
       reopen: 'Closing of %{name}'
@@ -253,6 +256,7 @@ eng:
       new: 'Add a new production chain'
       show: 'Production chain: %{name}'
     products:
+      # change_quantities: 'Change quantities product'
       edit: 'Edit the product: %{name}'
       index: 'Products'
       new: 'Add a new product'
@@ -312,6 +316,13 @@ eng:
       destroy: 'Log out' #!
       new: 'New session'
       renew: 'Renew session'
+    settings:
+      about: 'About Ekylibre'
+      # backup: 'Backup setting'
+      backups: 'Backups'
+      edit: 'Configuration'
+      import: 'Import data'
+      # restore: 'Restore setting'
     stock_moves:
       edit: 'Edit the stock move: %{name}'
       new: 'add a new stock move'
@@ -1305,9 +1316,9 @@ eng:
     yearly: 'Yearly'
   notifications:
     access_denied: 'Access denied. %{reason} (%{url})'
-    bad_file: 'The file is incorrect.' #!
-    bookkeeping_is_finished: 'The commercial data transfer is finished.' #!
-    bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.' #!
+    bad_file: 'The file is incorrect.'
+    bookkeeping_is_finished: 'The commercial data transfer is finished.'
+    bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
     can_not_mark_entry_lines: 'Can not mark these entry lines'
     cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
     cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
@@ -1324,11 +1335,11 @@ eng:
     exception_raised: 'An error occurred during the processing: %{message}'
     expired_session: 'Session expired. Please reconnect.'
     fails_to_extract_listing: 'The listing can''t be made: %{message}'
-    importation_cancelled: 'Your data was not imported. Import has been canceled' #!
+    importation_cancelled: 'Your data was not imported. Import has been canceled'
     importation_finished: 'The import is complete.'
     impossible_to_add_lines: 'You can add more products to your sale, the estimate is passed in order'
     impossible_to_add_lines_to_purchase: 'You can not add products to your purchase '
-    invalid_file_nature: 'Invalid file type' #!
+    invalid_file_nature: 'Invalid file type'
     journal_closed_on: 'The journal "%{journal}" was closed on %{closed_on}.'
     journal_entry_already_validated: 'The record has already been validated and can not be changed'
     journal_entry_has_been_saved: 'The record %{number} has been successfully saved'
@@ -1368,7 +1379,7 @@ eng:
     record_cannot_be_removed: 'The record can not be deleted'
     record_has_been_correctly_removed: 'The record has been removed successfully'
     record_has_not_been_removed: 'The record has not been removed' #!
-    restoration_finished: 'Restoring the backup has completed (in %{value} seconds). Your company ID is %{code}' #!
+    restoration_finished: 'Restoring the backup has completed (in %{value} seconds). Your company ID is %{code}'
     sale_already_invoiced: 'The sale has already been invoiced: you can not define delivery '
     sale_cannot_be_updated: 'The estimate is no longer editable.'
     sale_cant_be_deleted: 'The sale can not be deleted.'
@@ -1378,7 +1389,7 @@ eng:
     unavailable_model: 'Inexistent %{model} (%{id})'
     unknown_action: 'The requested page is unavailable (%{url})' #!
     unknown_company: 'Unknown company'
-    unvalid_version_for_restore: 'The version of the software used to perform the backup does not match the current version of the software' #!
+    unvalid_version_for_restore: 'The version of the software used to perform the backup does not match the current version of the software'
     update_is_done: 'The update has been made'
     validates_old_inventories: 'It is advisable to clear or validate uncommitted inventories before making a new'
     x_unpointed_journal_entry_lines: 

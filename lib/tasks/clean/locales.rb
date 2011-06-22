@@ -266,6 +266,7 @@ task :locales => :environment do
   total, count = atotal, acount
   log.write "  - Total:           #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
   puts " - Locale: #{(100*count/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated (Reference)"
+  reference_label = ::I18n.locale_name
 
 
 
@@ -308,7 +309,7 @@ task :locales => :environment do
         end
       end
     end
-    puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from reference"
+    puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from #{reference_label}" # reference
   end
 
   log.close

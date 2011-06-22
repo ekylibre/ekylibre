@@ -183,9 +183,12 @@ fra:
     journal_entry_lines:
       new: 'Ajouter une nouvelle ligne d''écriture'
     journals:
+      balance: 'Balance'
+      bookkeep: 'Bascule comptable'
       close: 'Clôture du %{name}'
       draft: 'Brouillard'
       edit: 'Modifier le journal : %{name}'
+      general_ledger: 'Grand livre'
       index: 'Journaux'
       new: 'Créer un nouveau journal'
       reopen: 'Déclôture du %{name}'
@@ -358,7 +361,11 @@ fra:
       destroy: 'Se déconnecter'
       new: 'Connexion'
       renew: 'Renouveller la session'
-    settings: #!
+    settings:
+      about: 'À propos...'
+      backups: 'Sauvegardes'
+      edit: 'Configuration'
+      import: 'Importer des données'
     stock_moves:
       edit: 'Modifier le mouvement de stock : %{name}'
       new: 'Enregistrement d''un mouvement de stock'

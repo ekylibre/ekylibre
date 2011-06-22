@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.with_options(:path_prefix => '/:company') do |company|
     company.resource :myself, :as=>"me", :only=>[], :member=>{:statistics=>:get, :change_password=>[:get, :post]}
+    company.resource :settings, :only=>[:edit, :update], :member=>{:about=>:get, :backups=>:get, :backup=>:post, :restore=>:post, :import=>[:get, :post]}
     company.resources :dashboards, :only=>[], :collection=>{:welcome=>:get}
     # Permits to use dynamic dashboards
     company.dashboard '/dashboards/:action', :controller=>"dashboards", :conditions=>{:method=>:get}
@@ -55,7 +56,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :inventories, :collection=>{:list=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]} do |inventory|
       inventory.resources :lines, :controller=>"inventory_lines"
     end
-    company.resources :journals, :collection=>{:list=>:get, :draft=>[:get, :post], :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
+    company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
     company.resources :journal_entry_lines, :only=>[:new, :create]
     company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get}, :member=>{:divide=>[:get, :post]}
@@ -89,11 +90,11 @@ ActionController::Routing::Routes.draw do |map|
     end
     company.resources :professions, :collection=>{:list=>:get}
     company.resources :purchase_lines, :except=>[:index, :show]
-    company.resources :purchases, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_deliveries=>:get, :list_payment_uses=>:get}, :member=>{:correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post, :cancel=>[:get, :post]}
+    company.resources :purchases, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_deliveries=>:get, :list_payment_uses=>:get}, :member=>{:correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post}
     company.resources :roles, :collection=>{:list=>:get}
     company.resources :sale_lines, :except=>[:index, :show], :collection=>{:list=>:get, :detail=>:get}
     company.resources :sale_natures, :collection=>{:list=>:get}
-    company.resources :sales, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_subscriptions=>:get, :list_payment_uses=>:get, :list_deliveries=>:get, :list_credits=>:get, :list_creditable_lines=>:get, :statistics=>:get, :contacts=>[:get]}, :member=>{:duplicate=>:post, :correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post, :propose_and_invoice=>:post}
+    company.resources :sales, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_subscriptions=>:get, :list_payment_uses=>:get, :list_deliveries=>:get, :list_credits=>:get, :list_creditable_lines=>:get, :statistics=>:get, :contacts=>[:get]}, :member=>{:duplicate=>:post, :cancel=>[:get, :post], :correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post, :propose_and_invoice=>:post}
     company.resources :sequences, :collection=>{:list=>:get, :load=>:post}
     company.resources :stock_moves
     company.resources :stock_transfers, :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}

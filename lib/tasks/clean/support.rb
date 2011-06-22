@@ -89,7 +89,7 @@ def hash_diff(hash, ref, depth=0)
       count += scount
       total += stotal
     elsif r and h.nil?
-      code  += "  "*depth+"#>"+key.to_s+": "+yaml_value(r, depth+1)+"\n"
+      code  += "  "*depth+"# "+key.to_s+": "+yaml_value(r, depth+1)+"\n"
       count += 1
       total += 1
     elsif r and h and r.class == h.class

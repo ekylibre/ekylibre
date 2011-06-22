@@ -443,49 +443,12 @@ class EntitiesController < ApplicationController
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
-    if request.post? and @entity
-      
-      for custom_field in @custom_fields
-        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
-        attributes[:custom_field_id] = custom_field.id
-        attributes[:company_id] = @current_company.id
-        datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
-        if datum
-          datum.attributes = attributes 
-          @custom_field_data << datum
-        else
-          @custom_field_data << CustomFieldDatum.new(attributes)
-        end
-      end
-     
-      ActiveRecord::Base.transaction do
-        saved = @entity.update_attributes(params[:entity])
-        if saved
-          @entity.account(:client) if @entity.client?
-          @entity.account(:supplier) if @entity.supplier?
-          @entity.account(:attorney) if @entity.attorney?
-          
-          for datum in @custom_field_data
-            datum.entity_id = @entity.id
-            saved = false unless datum.save
-            @entity.errors.add_from_record(datum)
-          end
-        end
-        
-        saved = false unless @contact.update_attributes(params[:contact])
-        @entity.errors.add_from_record(@contact)
-        raise ActiveRecord::Rollback unless saved
-        redirect_to_back
-      end
-      
-    else
-      for custom_field in @custom_fields
-        datum  = CustomFieldDatum.find_by_custom_field_id_and_entity_id(custom_field.id, @entity.id)
-        if datum
-          @custom_field_data << datum
-        else
-          @custom_field_data << CustomFieldDatum.new(:custom_field_id=>custom_field.id)
-        end
+    for custom_field in @custom_fields
+      datum  = CustomFieldDatum.find_by_custom_field_id_and_entity_id(custom_field.id, @entity.id)
+      if datum
+        @custom_field_data << datum
+      else
+        @custom_field_data << CustomFieldDatum.new(:custom_field_id=>custom_field.id)
       end
     end
     t3e @entity.attributes
@@ -500,51 +463,39 @@ class EntitiesController < ApplicationController
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
-    if request.post? and @entity
-      
-      for custom_field in @custom_fields
-        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
-        attributes[:custom_field_id] = custom_field.id
-        attributes[:company_id] = @current_company.id
-        datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
-        if datum
-          datum.attributes = attributes 
-          @custom_field_data << datum
-        else
-          @custom_field_data << CustomFieldDatum.new(attributes)
-        end
-      end
-     
-      ActiveRecord::Base.transaction do
-        saved = @entity.update_attributes(params[:entity])
-        if saved
-          @entity.account(:client) if @entity.client?
-          @entity.account(:supplier) if @entity.supplier?
-          @entity.account(:attorney) if @entity.attorney?
-          
-          for datum in @custom_field_data
-            datum.entity_id = @entity.id
-            saved = false unless datum.save
-            @entity.errors.add_from_record(datum)
-          end
-        end
-        
-        saved = false unless @contact.update_attributes(params[:contact])
-        @entity.errors.add_from_record(@contact)
-        raise ActiveRecord::Rollback unless saved
-        redirect_to_back
-      end
-      
-    else
-      for custom_field in @custom_fields
-        datum  = CustomFieldDatum.find_by_custom_field_id_and_entity_id(custom_field.id, @entity.id)
-        if datum
-          @custom_field_data << datum
-        else
-          @custom_field_data << CustomFieldDatum.new(:custom_field_id=>custom_field.id)
-        end
+    for custom_field in @custom_fields
+      attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
+      attributes[:custom_field_id] = custom_field.id
+      attributes[:company_id] = @current_company.id
+      datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
+      if datum
+        datum.attributes = attributes 
+        @custom_field_data << datum
+      else
+        @custom_field_data << CustomFieldDatum.new(attributes)
       end
     end
+    
+    ActiveRecord::Base.transaction do
+      saved = @entity.update_attributes(params[:entity])
+      if saved
+        @entity.account(:client) if @entity.client?
+        @entity.account(:supplier) if @entity.supplier?
+        @entity.account(:attorney) if @entity.attorney?
+        
+        for datum in @custom_field_data
+          datum.entity_id = @entity.id
+          saved = false unless datum.save
+          @entity.errors.add_from_record(datum)
+        end
+      end
+      
+      saved = false unless @contact.update_attributes(params[:contact])
+      @entity.errors.add_from_record(@contact)
+      raise ActiveRecord::Rollback unless saved
+      redirect_to_back
+    end
+    
     t3e @entity.attributes
     render_restfully_form
   end

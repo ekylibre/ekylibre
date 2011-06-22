@@ -154,22 +154,14 @@ class ListingsController < ApplicationController
 
   def edit
     return unless @listing = find_and_check(:listing)
-    if request.post? and @listing
-      @listing.attributes = params[:listing]
-      return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
-    end
     t3e @listing.attributes
-    # render_restfully_form
   end
 
   def update
-    return unless @listing = find_and_check(:listing)
-    if request.post? and @listing
-      @listing.attributes = params[:listing]
-      return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
-    end
-    t3e @listing.attributes
-    # render_restfully_form
+    edit
+    @listing.attributes = params[:listing]
+    return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
+    render :edit
   end
 
   # Displays the main page with the list of listings

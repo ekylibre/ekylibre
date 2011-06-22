@@ -10,7 +10,7 @@
 =error_messages('sale', :object=>@credit) if @credit
 
 =form_tag() do
-  =kame :sale_creditable_lines
+  =list :creditable_lines
   .actions
     =submit_tag(tc('validate'))
  

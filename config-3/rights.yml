@@ -41,8 +41,6 @@
 # Access to the minimum
 __minimum__:
   actions:
-  - company::about # NONEXISTENT ACTION !!!
-  - company::unknown_action # NONEXISTENT ACTION !!!
   - dashboards::list_my_future_events
   - dashboards::list_recent_events
   - dashboards::welcome
@@ -73,6 +71,7 @@ __minimum__:
   - interfacers::toggle_tab
   - myselves::change_password
   - myselves::statistics
+  - settings::about
 # Public access
 __public__:
   actions:
@@ -84,13 +83,13 @@ __public__:
 # Make and reload backups
 backup_company:
   actions:
-  - company::backups # NONEXISTENT ACTION !!!
   - dashboards::general
+  - settings::backup
+  - settings::backups
+  - settings::restore
 # Transfer commercial data in accountancy
 bookkeep:
-  actions:
-  - accountancy::bookkeep # NONEXISTENT ACTION !!!
-  - dashboards::accountancy
+  actions: [dashboards::accountancy, journals::bookkeep]
 # Build production chains
 build_production_chains:
   actions: []
@@ -115,7 +114,6 @@ close_journals:
 # Configure the options of the company
 configure_company:
   actions:
-  - company::configure # NONEXISTENT ACTION !!!
   - dashboards::general
   - departments::create
   - departments::destroy
@@ -139,14 +137,16 @@ configure_company:
   - sequences::load
   - sequences::new
   - sequences::update
+  - settings::edit
+  - settings::update
 # Consult accounting documents
 consult_accounting_documents:
   actions:
-  - accountancy::balance # NONEXISTENT ACTION !!!
-  - accountancy::general_ledger # NONEXISTENT ACTION !!!
-  - accountancy::general_ledger_kame # NONEXISTENT ACTION !!!
   - dashboards::accountancy
   - documents::print
+  - journals::balance
+  - journals::general_ledger
+  - journals::list_general_ledger
 # Consult the people
 consult_entities:
   actions:
@@ -218,9 +218,7 @@ give_discounts_on_sales:
   actions: []
 # Import data from other software
 import_data:
-  actions:
-  - company::import # NONEXISTENT ACTION !!!
-  - dashboards::general
+  actions: [dashboards::general, settings::import]
 # Import, export people listings
 import_export_entities:
   actions:
@@ -764,12 +762,12 @@ manage_product_categories:
 manage_products:
   actions:
   - dashboards::trade
-  - management::change_quantities # NONEXISTENT ACTION !!!
   - product_components::create
   - product_components::destroy
   - product_components::edit
   - product_components::new
   - product_components::update
+  - products::change_quantities
   - products::create
   - products::destroy
   - products::edit

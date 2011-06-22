@@ -22,7 +22,7 @@
             -unless node.reflection?
               %td.item-tool.position{:id=>"#{node.key}_position"}=render(:partial=>"listing_nodes/position", :object=>node)
             %td.item-tool.delete
-              =link_to_remote(tg(:delete), {:url=>{:action=>:destroy, :controller=>:listing_nodes, :id=>node.id}, :update=>node.parent.key, :loading=>"onLoading();", :loaded=>"onLoaded();"}, :class=>"icon im-delete")
+              =link_to_remote(tg(:delete), {:url=>{:action=>:destroy, :controller=>:listing_nodes, :id=>node.id}, :update=>node.parent.key, :loading=>"onLoading();", :method=>:delete, :loaded=>"onLoaded();"}, :class=>"icon im-delete")
 
 -if node.reflection?
   .branches{:id=>node.key}=render(:partial=>"listings/reflection", :object=>node)

@@ -81,6 +81,9 @@ menus:
         - roles::new
         - roles::update
     - tools:
+      - - settings::backups
+        - settings::backup
+        - settings::restore
       - - listings::index
         - listing_nodes::create
         - listing_nodes::destroy
@@ -96,6 +99,7 @@ menus:
         - listings::mail
         - listings::new
         - listings::update
+      - - settings::import
     - company:
       - - establishments::index
         - establishments::create
@@ -112,6 +116,8 @@ menus:
         - departments::new
         - departments::update
     - parameters:
+      - - settings::edit
+        - settings::update
       - - document_templates::index
         - document_templates::create
         - document_templates::destroy
@@ -139,6 +145,7 @@ menus:
         - units::new
         - units::update
     - informations:
+      - - settings::about
       - - help::index
         - help::show
   - relations:
@@ -317,8 +324,12 @@ menus:
         - bank_statements::point
         - bank_statements::show
         - bank_statements::update
+      - - journals::bookkeep
     - reporting:
       - - documents::print
+      - - journals::balance
+      - - journals::general_ledger
+        - journals::list_general_ledger
     - accounts:
       - - accounts::index
         - accounts::create
@@ -570,6 +581,7 @@ menus:
         - product_components::edit
         - product_components::new
         - product_components::update
+        - products::change_quantities
         - products::destroy
         - products::edit
         - products::list

@@ -6,4 +6,4 @@
           %label=tc("search")
           =text_field_tag :key, params[:key]||session[:account_key]
         %td.submit=submit_tag tg("search_go"), :name=>nil
-=kame(:account_reconciliation)
+=list(:reconciliation)

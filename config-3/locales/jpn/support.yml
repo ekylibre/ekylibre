@@ -29,14 +29,14 @@ jpn:
         one: '約%{count}年'
       half_a_minute: '分半'
       less_than_x_minutes:
-        #>many: 'less than %{count} minutes'
-        #>one: 'less than a minute'
+        # many: 'less than %{count} minutes'
+        # one: 'less than a minute'
       less_than_x_seconds:
-        #>many: 'moins de %{count} secondes'
-        #>one: 'moins d''une seconde'
+        # many: 'moins de %{count} secondes'
+        # one: 'moins d''une seconde'
       over_x_years:
-        #>many: 'over %{count} years'
-        #>one: 'over 1 year'
+        # many: 'over %{count} years'
+        # one: 'over 1 year'
       x_days:
         many: '%{count}日間'
         one: '%{count}日間'
@@ -55,11 +55,11 @@ jpn:
       false_value: '偽'
       formats:
         csv: 'CSV'
-        #>ods: 'Spreadsheet ODF'
+        # ods: 'Spreadsheet ODF'
         xcsv: 'ExcelのCSV'
-      #>title: 'Export'
+      # title: 'Export'
       true_value: '真'
-    #>export_as: 'Export as %{exported}...'
+    # export_as: 'Export as %{exported}...'
     menu: 'メニュー'
     next: '次へ'
     no_records: '空'

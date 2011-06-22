@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
   before_filter :i18nize
   before_filter :authorize
+  after_filter :historize
   attr_accessor :current_user
   attr_accessor :current_company
   layout :xhr_or_not
@@ -82,23 +83,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-  # Initialize locale
-  def i18nize()
-    if (locale = params[:locale].to_s).size == 3
-      session[:locale] = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
-    elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
-      codes = {}
-      for l in ::I18n.active_locales
-        codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
-      end
-      session[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
-    end
-    session[:locale] ||= ::I18n.locale||::I18n.default_locale
-    ::I18n.locale = session[:locale]
+  hide_action :human_action_name
+  def human_action_name()
+    options = @title.is_a?(Hash) ? @title : {}
+    return ::I18n.translate("actions.#{controller_name}.#{action_name}", options)
   end
-
-
 
   def default_url_options(options={})
     options.merge(:company =>(params ? params[:company] : @company ? @company.name : nil))
@@ -109,14 +98,10 @@ class ApplicationController < ActionController::Base
   protected  
 
   def render_restfully_form(options={})
-    @_operation = action_name.to_sym
-    @_operation = (@_operation==:create ? :new : @_operation==:update ? :edit : @_operation)
-    @partial    = options[:partial]||'form'
-    @options    = options
-    begin
-      render :template=>options[:template]||'shared/form_'+@_operation.to_s
-    rescue ActionController::DoubleRenderError
-    end
+    operation = action_name.to_sym
+    operation = (operation==:create ? :new : operation==:update ? :edit : operation)
+    partial   = options[:partial]||'form'
+    render(:template=>options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
   end
 
   def self.search_conditions(model_name, columns)
@@ -232,6 +217,7 @@ class ApplicationController < ActionController::Base
   end
 
 
+
   def notify(message, nature=:information, mode=:next, options={})
     options = mode if mode.is_a? Hash
     mode = :now if nature == :now
@@ -267,20 +253,22 @@ class ApplicationController < ActionController::Base
     (request.xhr? ? "dialog" : "application")
   end
   
-  def historize()
-    unless (request.url.match(/_(print|create_kame|extract)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format] or controller_name.to_s == "sessions"
-      if request.url == session[:history][1]
-        session[:history].delete_at(0)
-      elsif request.url != session[:history][0]
-        session[:history].insert(0,request.url)
-        session[:history].delete_at(127)
+
+
+  # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
+  def i18nize()
+    if (locale = params[:locale].to_s).size == 3
+      session[:locale] = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
+    elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
+      codes = {}
+      for l in ::I18n.active_locales
+        codes[::I18n.translate("i18n.iso2", :locale=>l).to_s] = l
       end
+      session[:locale] = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
     end
-    unless (request.url.match(/_(print|create_kame|extract|create|update)(\/\d+(\.\w+)?)?$/) or (controller_name.to_s == "company" and ["print", "configure"].include?(action_name.to_s))) or params[:format] 
-      session[:last_page][self.controller_name] = request.url
-    end
+    session[:locale] ||= ::I18n.locale||::I18n.default_locale
+    ::I18n.locale = session[:locale]
   end
-  
 
 
   # Controls access to every view in Ekylibre. 
@@ -327,7 +315,6 @@ class ApplicationController < ActionController::Base
 
     # Set session variables and check state
     session[:last_page] ||= {}
-    session[:help_history] ||= []
     if request.get? and not request.xhr? and not [:sessions, :help].include?(controller_name.to_sym)
       session[:last_url] = request.url
     end
@@ -353,7 +340,6 @@ class ApplicationController < ActionController::Base
       return false
     else
       session[:last_query] = Time.now.to_i
-      historize if request.get? and not request.xhr?
     end
 
     # Check access for registered actions
@@ -372,7 +358,31 @@ class ApplicationController < ActionController::Base
     return true
   end
 
+
+
+
+
+  # Fill the history array
+  def historize()
+    if @current_user and request.get? and not request.xhr? and params[:format].blank?
+      session[:history] = [] unless session[:history].is_a? Array
+      if session[:history][1].is_a?(Hash) and session[:history][1][:url] == request.url
+        session[:history].delete_at(0)
+      elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:url] != request.url)
+        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{controller_name}::#{action_name}"]||[]})
+        session[:history].delete_at(99)
+      end
+    end
+  end
+  
+
+
+
+
+
+
   def search_article(article=nil)
+    session[:help_history] = [] unless session[:help_history].is_a? [].class
     article ||= "#{self.controller_name}-#{self.action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
@@ -396,9 +406,10 @@ class ApplicationController < ActionController::Base
   end
   
   def redirect_to_back(options={})
-    if session[:history] and session[:history][1]
-      # session[:history].delete_at(0)
-      redirect_to session[:history][1], options
+    if params[:redirect]
+      redirect_to params[:redirect], options
+    elsif session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
+      redirect_to session[:history][0][:url], options
     elsif request.referer and request.referer != request.url
       redirect_to request.referer, options
     else
@@ -406,19 +417,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_to_current()
-    if session[:history].is_a?(Array) and session[:history][0]
-      redirect_to session[:history][0]
-    else
-      redirect_to_back
-    end
+  def redirect_to_current(options={})
+    redirect_to_back(options)
+    # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
+    #   redirect_to session[:history][0]
+    # else
+    #   redirect_to_back
+    # end
   end
 
  
   def init_session(user)
     reset_session
     session[:expiration]   = 3600*5
-    session[:help_history] = []
     session[:history]      = []
     session[:last_page]    = {}
     session[:last_query]   = Time.now.to_i

@@ -50,23 +50,23 @@ arb:
         many: '%{count} ثواني'
         one: 'ثانية واحدة'
   list:
-    #>columns: 'Columns'
+    # columns: 'Columns'
     export:
       false_value: 'زائف'
       formats:
         csv: 'CSV'
-        #>ods: 'Spreadsheet ODF'
+        # ods: 'Spreadsheet ODF'
         xcsv: 'Excel CSV'
       title: 'تصدير'
       true_value: 'صحيح'
-    #>export_as: 'Export as %{exported}...'
-    #>menu: 'Menu'
+    # export_as: 'Export as %{exported}...'
+    # menu: 'Menu'
     next: 'التالي'
     no_records: 'ولا اية سجل'
     previous: 'السابق'
     x_per_page:
-      #>one: '%{count} per page'
-      #>other: '%{count} per page'
+      # one: '%{count} per page'
+      # other: '%{count} per page'
   number:
     currency:
       format:

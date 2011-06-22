@@ -9,8 +9,9 @@ ekylibre (0.3.0+1.a1) unstable; urgency=low
   * Fixes the bug on escape character in push script.
   * Corrects debian/changelog
   * Changes version dependency in package
+  * Fixes a part of remaining bugs since master controllers explosion
 
- -- Brice Texier <brice@thalie.nouva.local>  Tue, 21 Jun 2011 10:35:42 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Wed, 22 Jun 2011 18:43:47 +0200
 
 ekylibre (0.3.0) unstable; urgency=low
 

@@ -63,11 +63,8 @@ class ListingNodesController < ApplicationController
 
   def destroy
     return unless @listing_node = find_and_check(:listing_node)
-    parent = nil
-    if request.post?
-      parent = @listing_node.parent
-      @listing_node.destroy 
-    end
+    parent = @listing_node.parent
+    @listing_node.destroy 
     if request.xhr?
       render(:partial=>"listings/reflection", :object=>parent)
     else
@@ -83,14 +80,14 @@ class ListingNodesController < ApplicationController
         render :text=>""
       elsif params[:type] == "column_label"
         @listing_node.label = params[:label]
-        render(:partial=>"listing_node_column_label", :object=>@listing_node)
+        render(:partial=>"listing_nodes/column_label", :object=>@listing_node)
       elsif params[:type] == "comparison"
         @listing_node.condition_operator = params[:comparator]
         @listing_node.condition_value = params[:comparison_value]
-        render(:partial=>"listing_node_comparison", :object=>@listing_node)
+        render(:partial=>"listing_nodes/comparison", :object=>@listing_node)
       elsif params[:type] == "position"
         @listing_node.position = params[:position]
-        render(:partial=>"listing_node_position", :object=>@listing_node)
+        render(:partial=>"listing_nodes/position", :object=>@listing_node)
       end
       @listing_node.save
     else
@@ -106,14 +103,14 @@ class ListingNodesController < ApplicationController
         render :text=>""
       elsif params[:type] == "column_label"
         @listing_node.label = params[:label]
-        render(:partial=>"listing_node_column_label", :object=>@listing_node)
+        render(:partial=>"listing_nodes/column_label", :object=>@listing_node)
       elsif params[:type] == "comparison"
         @listing_node.condition_operator = params[:comparator]
         @listing_node.condition_value = params[:comparison_value]
-        render(:partial=>"listing_node_comparison", :object=>@listing_node)
+        render(:partial=>"listing_nodes/comparison", :object=>@listing_node)
       elsif params[:type] == "position"
         @listing_node.position = params[:position]
-        render(:partial=>"listing_node_position", :object=>@listing_node)
+        render(:partial=>"listing_nodes/position", :object=>@listing_node)
       end
       @listing_node.save
     else
