@@ -48,7 +48,7 @@ class DepositsController < ApplicationController
     t.column :name, :through=>:cash, :url=>true
     t.column :label, :through=>:responsible
     t.column :created_on
-    t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:deposit}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.locked == false'
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.locked == false'
   end
@@ -56,19 +56,24 @@ class DepositsController < ApplicationController
   # Displays details of one deposit selected with +params[:id]+
   def show
     return unless @deposit = find_and_check(:deposit)
-    session[:deposit_id] = @deposit.id
-    t3e @deposit.attributes
+    respond_to do |format|
+      format.html do
+        session[:deposit_id] = @deposit.id
+        t3e @deposit.attributes
+      end
+      format.pdf { render_print_deposit(@deposit) }
+    end
   end
 
   def new
     mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
     if mode.nil?
-      notify(:need_payment_mode_to_create_deposit, :warning)
+      notify_warning(:need_payment_mode_to_create_deposit)
       redirect_to deposits_url
       return
     end
     if mode.depositable_payments.size <= 0
-      notify(:no_payment_to_deposit, :warning)
+      notify_warning(:no_payment_to_deposit)
       redirect_to deposits_url
       return
     end
@@ -95,12 +100,12 @@ class DepositsController < ApplicationController
   def create
     mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
     if mode.nil?
-      notify(:need_payment_mode_to_create_deposit, :warning)
+      notify_warning(:need_payment_mode_to_create_deposit)
       redirect_to deposits_url
       return
     end
     if mode.depositable_payments.size <= 0
-      notify(:no_payment_to_deposit, :warning)
+      notify_warning(:no_payment_to_deposit)
       redirect_to deposits_url
       return
     end
@@ -192,7 +197,7 @@ class DepositsController < ApplicationController
 
   # Displays the main page with the list of deposits
   def index
-    notify(:no_depositable_payments, :now) if @current_company.depositable_payments.size <= 0
+    notify_now(:no_depositable_payments) if @current_company.depositable_payments.size <= 0
   end
 
 end

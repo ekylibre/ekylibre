@@ -58,7 +58,7 @@ class DashboardsController < ApplicationController
 
   for menu, submenus in Ekylibre.menus
     code  = "def #{menu}\n"
-    code += "  render :partial=>'dashboards/#{menu}', :layout=>true\n"
+    code += "  render :inline=>'<%=render :partial=>\"dashboards/#{menu}\"-%>', :layout=>dialog_or_not\n"
     code += "end\n"
     class_eval code
   end

@@ -4,7 +4,7 @@
 
 =attributes_list(@product_category) do |l|
   -l.attribute :name
-  -l.attribute :parent, :url=>{:action=>:product_category}
+  -l.attribute :parent, :url=>true
   -l.attribute :comment
   -l.attribute :catalog_name
   -l.attribute :catalog_description

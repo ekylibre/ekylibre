@@ -2,8 +2,8 @@
 =attributes_list(@tracking) do |l|
   -l.attribute :name
   -l.attribute :serial
-  -l.attribute :producer, :url=>{:action=>:entity, :controller=>:relations}
-  -l.attribute :product, :url=>{:action=>:product}
+  -l.attribute :producer, :url=>true
+  -l.attribute :product, :url=>true
 
 -if @tracking.stocks.size > 0
   %h2=tc(:stocks)

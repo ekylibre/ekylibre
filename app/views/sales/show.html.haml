@@ -13,14 +13,14 @@
     -t.send(event, @sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.send("can_#{event}?")
   -t.abort(@sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.can_abort?
   -if @sale.invoice?
-    -t.print :sales_invoice, :id=>@sale.id
+    -t.print_sales_invoice @sale
     -if @sale.cancelable?
       -t.cancel @sale
   -else
-    -t.print :sales_order, :id=>@sale.id
+    -t.print_sales_order @sale
 
 =attributes_list(@sale) do |l|
-  -l.attribute :client, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :client, :label=>:label, :url=>true
   -l.attribute :number
   -l.attribute :initial_number if @sale.invoice?
   -l.attribute :state_label
@@ -28,7 +28,7 @@
   -l.attribute :created_on
   -l.attribute :confirmed_on
   -l.attribute :invoiced_on
-  -l.attribute :origin, :url=>{:action=>:sale} if @sale.invoice? and @sale.origin
+  -l.attribute :origin, :url=>true if @sale.invoice? and @sale.origin
   -l.attribute :payment_delay, :label=>:name
   -l.attribute :nature
   -l.attribute :currency unless @sale.currency == @current_company.default_currency
@@ -37,7 +37,7 @@
   -l.attribute :delivery_contact, :label=>:address
   -l.attribute :invoice_contact, :label=>:address
   -l.attribute :letter_format
-  -l.attribute :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
+  -l.attribute :journal_entry, :url=>true
   -if @sale.letter_format?
     -l.attribute :subject
     -l.attribute :function_title

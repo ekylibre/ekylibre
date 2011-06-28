@@ -9,6 +9,8 @@ eng:
       reconciliation: 'Account reconciliation'
       show: 'Account: %{number} - %{name}'
       unmark: 'Unmark account'
+    application:
+      # dont_cache: 'Dont cache application'
     areas:
       edit: 'Edit the postal area: %{name}'
       index: 'Postal areas'
@@ -148,6 +150,7 @@ eng:
       edit: 'Edit the inventory'
       index: 'Inventories'
       new: 'Add a new inventory'
+      # show: 'Show inventory'
     journal_entries:
       edit: 'Edit journal entry: %{number}'
       new: 'Add an entry'
@@ -1035,6 +1038,7 @@ eng:
     query: 'Query:'
     received: 'Received'
     recent_events: 'Recent events'
+    recent_historic: 'Recent historic'
     record_has_been_correctly_removed: 'The recrd has been correctly removed'
     record_has_not_been_removed: 'The record has not been removed'
     reflect: 'Reflect'
@@ -1323,6 +1327,7 @@ eng:
     cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
     cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
     cannot_merge_entities: 'It''s impossible to merge these people.'
+    # cant_find_document_template: 'Cant find document template'
     changes_have_been_reflected: 'The changes have been reflected in the stocks state'
     changes_have_not_been_reflected: 'The changes have not been reflected in the stocks state'
     closed_financial_years: 'The financial year has been closed successfully'
@@ -1355,7 +1360,7 @@ eng:
     need_payment_mode_to_create_deposit: 'You must specify a mode of payment in order to make deposits'
     need_quantities_to_cancel_an_sale: 'You must specify a quantity in order to cancel the sales invoice'
     need_stocks_to_create_inventories: 'You have to manage some stocks in order to manage inventories'
-    need_stocks_warehouse_to_create_products: 'You must create a warehouse to be able to create a product'
+    need_stocks_warehouse_to_create_products: 'You must create a warehouse to be able to create a product' #!
     need_to_create_subscription_nature: 'You must create a type of subscription to manage your subscriptions'
     need_warehouse_to_create_purchase_line: 'You must create a warehouse to be able to create a purchase.'
     need_warehouse_to_create_sale_line: 'You must create a warehouse to be able to create a sale'

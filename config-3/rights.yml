@@ -1,4 +1,5 @@
 # Unused actions in rights
+#   - application::dont_cache
 #   - production_chain_conveyors::create
 #   - production_chain_conveyors::destroy
 #   - production_chain_conveyors::edit
@@ -553,6 +554,7 @@ manage_inventories:
   - inventories::list_lines_update
   - inventories::new
   - inventories::reflect
+  - inventories::show
   - inventories::update
 # Manaeg journal entries
 manage_journal_entries:

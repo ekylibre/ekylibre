@@ -8,8 +8,8 @@
   -l.attribute :printed_on
   -l.attribute :created_on
   -if @journal_entry.resource
-    -l.attribute :resource, :url=>{:controller=>(@journal_entry.resource_type.match(/(Cash|Payment)/) ? :finances : :management), :action=>@journal_entry.resource_type.underscore}
-  -l.attribute :journal, :url=>{:action=>:journal}
+    -l.attribute :resource, :url=>true
+  -l.attribute :journal, :url=>true
   -l.attribute :debit
   -l.attribute :credit
 

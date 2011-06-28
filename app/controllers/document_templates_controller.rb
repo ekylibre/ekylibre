@@ -30,10 +30,14 @@ class DocumentTemplatesController < ApplicationController
     t.column :to_archive
     t.column :language
     t.column :country
-    t.action :print
+    t.action :print, :format=>:pdf
     t.action :duplicate, :method=>:post
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+  end
+
+  # Displays the main page with the list of document templates
+  def index
   end
 
   def duplicate
@@ -58,14 +62,10 @@ class DocumentTemplatesController < ApplicationController
     send_data @document_template.sample, :filename=>@document_template.name.simpleize, :type=>Mime::PDF, :disposition=>'inline'
   end
 
-  # Displays the main page with the list of document templates
-  def index
-  end
-
   def load
     @current_company.load_prints
-    notify(:update_is_done, :success, :now)
-    redirect_to :action=>:document_templates
+    notify_success(:update_is_done)
+    redirect_to :action=>:index
   end
 
 end

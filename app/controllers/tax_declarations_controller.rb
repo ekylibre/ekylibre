@@ -243,14 +243,13 @@ class TaxDeclarationsController < ApplicationController
     @journals  =  @current_company.journals.find(:all, :conditions => ["nature = ? OR nature = ?", :sale.to_s,  :purchase.to_s])
     
     if @journals.nil?
-      notify(:need_journal_to_manage_tax_declaration, :now)
+      notify_now(:need_journal_to_manage_tax_declaration)
       redirect_to :action=>:journal_create
       return
     else
       @journals.each do |journal|
         unless journal.closable?(Date.today)
           notify(:need_balanced_journal_to_tax_declaration)
-          # redirect_to :action=>:entries
           return
         end
       end

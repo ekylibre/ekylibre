@@ -7,12 +7,12 @@
   -l.attribute :number
   -l.attribute :amount
   -l.attribute :used_amount
-  -l.attribute :payer, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :payer, :label=>:full_name, :url=>true
   -l.attribute :responsible, :label=>:label
-  -l.attribute :deposit, :url=>{:action=>:deposit}
+  -l.attribute :deposit, :url=>true
   -l.attribute :mode
   -l.attribute :commission_amount
-  -l.attribute :commission_account, :url=>{:controller=>:accountancy, :action=>:account}
+  -l.attribute :commission_account, :url=>true
   -l.attribute :paid_on
   -l.attribute :to_bank_on 
   -l.attribute :received
@@ -20,7 +20,7 @@
   -l.attribute :bank
   -l.attribute :account_number
   -l.attribute :check_number
-  -l.attribute :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+  -l.attribute :journal_entry, :url=>true
 
 -if @incoming_payment.uses.size>0
   -if Sale.find(:all, :conditions=>["sales.company_id=? AND id IN (SELECT expense_id FROM incoming_payment_uses WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], Sale.name]).size > 0

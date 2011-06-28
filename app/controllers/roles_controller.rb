@@ -27,72 +27,46 @@ class RolesController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
+  # Displays the main page with the list of roles
+  def index
+  end
+
   def new
     @role = Role.new
-    if request.post?
-      @role = Role.new(params[:role])
-      @role.company_id = @current_company.id
-      @role.rights_array = (params[:rights]||{}).keys
-      @rights = @role.rights_array
-      return if save_and_redirect(@role)
-    else
-      @rights = User.rights_list      
-    end
+    @rights = User.rights_list      
     render_restfully_form
   end
 
   def create
-    @role = Role.new
-    if request.post?
-      @role = Role.new(params[:role])
-      @role.company_id = @current_company.id
-      @role.rights_array = (params[:rights]||{}).keys
-      @rights = @role.rights_array
-      return if save_and_redirect(@role)
-    else
-      @rights = User.rights_list      
-    end
+    @role = Role.new(params[:role])
+    @role.company_id = @current_company.id
+    @role.rights_array = (params[:rights]||{}).keys
+    @rights = @role.rights_array
+    return if save_and_redirect(@role)
     render_restfully_form
   end
 
   def destroy
     return unless @role = find_and_check(:role)
-    if request.post? or request.delete?
-      Role.destroy(@role.id) if @role and @role.destroyable?
-    end
+    Role.destroy(@role.id) if @role.destroyable?
     redirect_to_current
   end
 
   def edit
     return unless @role = find_and_check(:role)
-    if request.post?
-      @role.attributes = params[:role]
-      @role.rights_array = (params[:rights]||{}).keys
-      @rights = @role.rights_array
-      return if save_and_redirect(@role)
-    else
-      @rights = @role.rights_array
-    end
+    @rights = @role.rights_array
     t3e @role.attributes
     render_restfully_form
   end
 
   def update
     return unless @role = find_and_check(:role)
-    if request.post?
-      @role.attributes = params[:role]
-      @role.rights_array = (params[:rights]||{}).keys
-      @rights = @role.rights_array
-      return if save_and_redirect(@role)
-    else
-      @rights = @role.rights_array
-    end
+    @role.attributes = params[:role]
+    @role.rights_array = (params[:rights]||{}).keys
+    @rights = @role.rights_array
+    return if save_and_redirect(@role)
     t3e @role.attributes
     render_restfully_form
-  end
-
-  # Displays the main page with the list of roles
-  def index
   end
 
 end

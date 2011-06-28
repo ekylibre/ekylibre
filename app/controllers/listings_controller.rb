@@ -20,7 +20,7 @@
 class ListingsController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name, :url=>true
+    t.column :name, :url=>{:action=>:edit}
     t.column :root_model_name
     t.column :comment
     t.action :extract, :url=>{:format=>:csv}, :image=>:action
@@ -30,6 +30,45 @@ class ListingsController < ApplicationController
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
+
+  # Displays the main page with the list of listings
+  def index
+    session[:listing_mail_column] = nil
+  end
+
+  def extract
+    return unless @listing = find_and_check(:listing)
+
+    begin
+      @listing.save if @listing.query.blank?
+      query = @listing.query.to_s
+      # FIXME: This is dirty code to solve quickly no_mail mode
+      query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
+      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+      first_line = []
+      @listing.exportable_columns.each {|line| first_line << line.label}
+      result = ActiveRecord::Base.connection.select_rows(query)
+      result.insert(0, first_line)
+      
+      respond_to do |format|
+        format.xml { render :xml => result.to_xml, :filename=>@listing.name.simpleize+'.xml' }
+        format.csv do        
+          csv_string = FasterCSV.generate do |csv|
+            for line in result
+              csv << line
+            end
+          end
+          send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
+        end
+      end
+      
+    rescue Exception=>e
+      notify_error(:fails_to_extract_listing, :message=>e.message)
+      redirect_to_current
+    end
+  end
+
+
 
   def new
     if request.post?
@@ -67,30 +106,6 @@ class ListingsController < ApplicationController
     redirect_to :action=>:index
   end
 
-  def extract
-    return unless @listing = find_and_check(:listing)
-    begin
-      @listing.save if @listing.query.blank?
-      query = @listing.query.to_s
-      # FIXME: This is dirty code to solve quickly no_mail mode
-      query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
-      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
-      first_line = []
-      @listing.exportable_columns.each {|line| first_line << line.label}
-      result = ActiveRecord::Base.connection.select_rows(query)
-      result.insert(0, first_line)
-      csv_string = FasterCSV.generate do |csv|
-        for line in result
-          csv << line
-        end
-      end
-      send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
-    rescue Exception=>e
-      notify(:fails_to_extract_listing, :error, :message=>e.message)
-      redirect_to_current
-    end
-  end
-
   def mail
     return unless @listing = find_and_check(:listing)
     if (query = @listing.query).blank?
@@ -99,7 +114,7 @@ class ListingsController < ApplicationController
     end
     query = query.to_s
     if @listing.mail_columns.size == 0 or query.blank?
-      notify(:you_must_have_an_email_column, :warning)
+      notify_warning(:you_must_have_an_email_column)
       redirect_to_back
       return
     end
@@ -139,7 +154,7 @@ class ListingsController < ApplicationController
             r
           end
           Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
-          notify(:mails_are_sent, :success, :now)
+          notify_success_now(:mails_are_sent)
         end
         nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
         #raise Exception.new nature.inspect
@@ -162,11 +177,6 @@ class ListingsController < ApplicationController
     @listing.attributes = params[:listing]
     return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
     render :edit
-  end
-
-  # Displays the main page with the list of listings
-  def index
-    session[:listing_mail_column] = nil
   end
 
 end

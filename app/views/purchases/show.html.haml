@@ -10,10 +10,10 @@
   -for event in [:propose, :correct, :refuse]
     -t.send(event, @purchase, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase.send("can_#{event}?")
   -t.abort(@purchase, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase.can_abort?
-  -t.print :purchase, :id=>@purchase.id
+  -t.print_purchase @purchase
 
 =attributes_list(@purchase) do |l|
-  -l.attribute :supplier, :label=>:label, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :supplier, :label=>:label, :url=>true
   -l.attribute :number
   -l.attribute :reference_number
   -l.attribute :state_label
@@ -24,7 +24,7 @@
   -l.attribute :currency unless @purchase.currency == @current_company.default_currency
   -l.attribute :comment
   -l.attribute :delivery_contact, :label=>:address
-  -l.attribute :journal_entry, :url=>{:action=>:journal_entry, :controller=>:accountancy}
+  -l.attribute :journal_entry, :url=>true
 
 
 -if ["products", "summary", ""].include? params[:step].to_s

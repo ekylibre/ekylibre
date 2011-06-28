@@ -79,8 +79,9 @@ task :locales => :environment do
   deleted_notifs = ::I18n.t("notifications").keys
   for controller in Dir[Rails.root.join("app", "controllers", "*.rb")]
     File.open(controller, "rb").each_line do |line|
-      if line.match(/([\s\W]+|^)notify\(\s*\:\w+/)
-        key = line.split(/notify\(\s*\:/)[1].split(/\W/)[0]
+      if line.match(/([\s\W]+|^)notify(_error|_warning|_success)?(_now)?\(\s*\:\w+/)
+        key = line.split(/notify\w*\(\s*\:/)[1].split(/\W/)[0]
+        # raise "Notification :#{key} (#{line})"
         deleted_notifs.delete(key.to_sym)
         notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
       end

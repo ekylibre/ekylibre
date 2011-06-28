@@ -18,12 +18,13 @@
 
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
+  before_filter :dont_cache
   before_filter :i18nize
   before_filter :authorize
-  after_filter :historize
+  after_filter  :historize
   attr_accessor :current_user
   attr_accessor :current_company
-  layout :xhr_or_not
+  layout :dialog_or_not
   
 
   include Userstamp
@@ -44,6 +45,42 @@ class ApplicationController < ActionController::Base
       @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2], :locale=>file.split(/[\\\/\.]+/)[-4].to_sym}
       raise Exception.new("No valid title for #{file}") if @@helps[file][:title].blank?
     end
+  end
+
+  # Generate render_print_* method which send data corresponding to a nature of
+  # document template. It use special method +print_fastly!+.
+  for nature, parameters in DocumentTemplate.document_natures
+    method_name = "render_print_#{nature}"
+    code  = "" # "hide_action :#{method_name}\n"
+    code += "def #{method_name}("+parameters.collect{|p| p[0]}.join(', ')+", template=nil)\n"
+    code += "  template ||= params[:template]\n"
+    code += "  template = if template.is_a? String or template.is_a? Symbol\n"
+    code += "    @current_company.document_templates.find_by_active_and_nature_and_code(true, '#{nature}', template.to_s)\n"
+    code += "  else\n"
+    code += "    @current_company.document_templates.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
+    code += "  end\n"
+    code += "  unless template\n"
+    code += "    notify_error(:cant_find_document_template, :nature=>'#{nature}', :template=>template.inspect)\n"
+    code += "    redirect_to_back\n"
+    code += "    return\n"
+    code += "  end\n"
+    code += "  headers['Cache-Control'] = 'maxage=3600'\n"
+    code += "  headers['Pragma'] = 'public'\n"
+    code += "  begin\n"
+    for p in parameters
+      code += "    #{p[0]} = #{p[1].name}.find_by_id_and_company_id(#{p[0]}.to_s.to_i, @current_company.id) unless #{p[0]}.is_a? #{p[1].name}\n" if p[1].ancestors.include?(ActiveRecord::Base)
+      code += "    #{p[0]} = #{p[0]}.to_date if #{p[0]}.is_a?(String)\n" if p[1] == Date
+      code += "    raise ArgumentError.new('#{p[1].name} expected, got '+#{p[0]}.class.name+':'+#{p[0]}.inspect) unless #{p[0]}.is_a?(#{p[1].name})\n"
+    end
+    code += "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
+    code += "    send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')\n"
+    code += "  rescue Exception=>e\n"
+    code += "    notify_error(:print_failure, :class=>e.class.to_s, :error=>e.message.to_s, :cache=>template.cache.to_s)\n"
+    code += "    redirect_to_back\n"
+    code += "  end\n"
+    code += "end\n"
+    # raise code
+    eval(code)
   end
 
 
@@ -85,14 +122,20 @@ class ApplicationController < ActionController::Base
 
   hide_action :human_action_name
   def human_action_name()
+    an = action_name.to_sym
     options = @title.is_a?(Hash) ? @title : {}
-    return ::I18n.translate("actions.#{controller_name}.#{action_name}", options)
+    options[:default] ||= []
+    options[:default] << "actions.#{controller_name}.new".to_sym  if an == :create
+    options[:default] << "actions.#{controller_name}.edit".to_sym if an == :update
+    return ::I18n.translate("actions.#{controller_name}.#{an}", options)
   end
 
   def default_url_options(options={})
-    options.merge(:company =>(params ? params[:company] : @company ? @company.name : nil))
+    options.merge(:company =>(params ? params[:company] : @current_company ? @current_company.name : nil))
   end
 
+
+  
 
   
   protected  
@@ -104,59 +147,6 @@ class ApplicationController < ActionController::Base
     render(:template=>options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
   end
 
-  def self.search_conditions(model_name, columns)
-    model = model_name.to_s.classify.constantize
-    columns = [columns] if [String, Symbol].include? columns.class 
-    columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
-    columns.flatten!
-    raise Exception.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
-    code = ""
-    code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
-    code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    # This line is incompatible with MySQL...
-    # code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
-    if ActiveRecord::Base.connection.adapter_name == "MySQL"
-      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'}.join(' OR ')+")';\n"
-    else
-      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
-    end
-    code+="c+=[#{(['kw']*columns.size).join(',')}]"
-    code+="}\n"
-    code+="c"
-    code
-  end
-
-  def self.light_search_conditions(search={}, options={})
-    conditions = options[:conditions] || 'c'
-    options[:except] ||= []
-    options[:filters] ||= {}
-    variable ||= options[:variable] || "params[:q]"
-    tables = search.keys.select{|t| !options[:except].include? t}
-    code = "#{conditions} = ['"+tables.collect{|t| "#{t}.company_id=?"}.join(' AND ')+"'"+", @current_company.id"*tables.size+"]\n"
-    columns = search.collect{|t, cs| cs.collect{|c| "#{t}.#{c}"}}.flatten
-    code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
-    code += "  kw = '%'+kw+'%'\n"
-    filters = columns.collect do |x| 
-      # This line is incompatible with MySQL...
-      if ActiveRecord::Base.connection.adapter_name == "MySQL"
-        'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
-      else
-        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
-      end
-    end
-    values = '['+(['kw']*columns.size).join(', ')+']'
-    for k, v in options[:filters]
-      filters << k
-      v = '['+v.join(', ')+']' if v.is_a? Array
-      values += "+"+v
-    end
-    code += "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
-    code += "  #{conditions} += #{values}\n"
-    code += "end\n"
-    code += "#{conditions}"
-    return code
-  end
-
 
   def find_and_check(model, id=nil, options={})
     model, record, klass = model.to_s, nil, nil
@@ -165,12 +155,12 @@ class ApplicationController < ActionController::Base
       klass = model.to_s.classify.constantize
       record = klass.find_by_id_and_company_id(id.to_s.to_i, @current_company.id)
     rescue
-      notify(:unavailable_model, :error, :model=>model.inspect, :id=>id)
+      notify_error(:unavailable_model, :model=>model.inspect, :id=>id)
       redirect_to_back
       return false
     end
     if record.nil?
-      notify(:unavailable_model, :error, :model=>klass.model_name.human, :id=>id)
+      notify_error(:unavailable_model, :model=>klass.model_name.human, :id=>id)
       redirect_to_back
     end
     return record
@@ -217,8 +207,22 @@ class ApplicationController < ActionController::Base
   end
 
 
+  def notify(message, options={}, nature=:information, mode=:next)
+    notistore = (mode==:now ? flash.now : flash)
+    notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
+    notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
+    notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)    
+  end
+  def notify_error(message, options={});   notify(message, options, :error); end
+  def notify_warning(message, options={}); notify(message, options, :warning); end
+  def notify_success(message, options={}); notify(message, options, :success); end
+  def notify_now(message, options={});         notify(message, options, :information, :now); end
+  def notify_error_now(message, options={});   notify(message, options, :error, :now); end
+  def notify_warning_now(message, options={}); notify(message, options, :warning, :now); end
+  def notify_success_now(message, options={}); notify(message, options, :success, :now); end
 
-  def notify(message, nature=:information, mode=:next, options={})
+
+  def notify0(message, nature=:information, mode=:next, options={})
     options = mode if mode.is_a? Hash
     mode = :now if nature == :now
     nature = :information if !nature.is_a? Symbol or nature == :now
@@ -226,7 +230,7 @@ class ApplicationController < ActionController::Base
     notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
     notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)
-  end
+  end  
   
   def has_notifications?(nature=nil)
     return false unless flash[:notifications].is_a? Hash
@@ -249,10 +253,21 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def xhr_or_not()
-    (request.xhr? ? "dialog" : "application")
+  def dialog_or_not()
+    return (request.xhr? ? "dialog" : "application")
   end
   
+
+  # Set HTTP headers to block page caching
+  def dont_cache
+    # Change headers to force zero cache
+    response.headers["Last-Modified"] = Time.now.httpdate
+    response.headers["Expires"] = '0'
+    # HTTP 1.0
+    response.headers["Pragma"] = "no-cache" 
+    # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
+    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
+  end
 
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
@@ -271,26 +286,22 @@ class ApplicationController < ActionController::Base
   end
 
 
+
   # Controls access to every view in Ekylibre. 
   def authorize()
-    # Change headers to force zero cache
-    response.headers["Last-Modified"] = Time.now.httpdate
-    response.headers["Expires"] = '0'
-    # HTTP 1.0
-    response.headers["Pragma"] = "no-cache" 
-    # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
-    response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
-
     # Load current_user if connected
     @current_user = User.find_by_id(session[:user_id]) if session[:user_id]
     
     # Load current_company if possible
     @current_company = Company.find_by_code(params[:company])
     if @current_user and @current_company and @current_company.id!=@current_user.company_id
-      notify(:unknown_company, :error) unless params[:company].blank?
+      notify_error(:unknown_company) unless params[:company].blank?
       redirect_to_login
       return false
     end
+
+    # Squeeze for test
+    # return true
 
     # Get action rights
     raise Exception.new("Controller #{controller_name.to_sym} is called but it has no actions or is undefined in #{User.rights_file}") unless controller_rights = User.rights[controller_name.to_sym]
@@ -301,14 +312,14 @@ class ApplicationController < ActionController::Base
 
     # Check current_user
     unless @current_user
-      notify(:access_denied, :error, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
+      notify_error(:access_denied, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
       redirect_to_login
       return false 
     end
 
     # Check current_company
     if not @current_company or @current_company.id!=@current_user.company_id
-      notify(:unknown_company, :error) unless params[:company].blank?
+      notify_error(:unknown_company) unless params[:company].blank?
       redirect_to_login
       return false
     end
@@ -347,7 +358,7 @@ class ApplicationController < ActionController::Base
 
     # Check rights before allowing access
     if message = @current_user.authorization(controller_name, action_name, session[:rights])
-      notify(:access_denied, :error, :reason=>message, :url=>request.url.inspect)
+      notify_error(:access_denied, :reason=>message, :url=>request.url.inspect)
       unless @current_user.admin
         redirect_to_back
         return false
@@ -369,16 +380,12 @@ class ApplicationController < ActionController::Base
       if session[:history][1].is_a?(Hash) and session[:history][1][:url] == request.url
         session[:history].delete_at(0)
       elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:url] != request.url)
-        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{controller_name}::#{action_name}"]||[]})
-        session[:history].delete_at(99)
+        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{controller_name}::#{action_name}"]||[], :path=>request.path})
+        session[:history].delete_at(31)
       end
     end
   end
   
-
-
-
-
 
 
   def search_article(article=nil)
@@ -496,13 +503,13 @@ class ApplicationController < ActionController::Base
     if model.instance_methods.include?("destroyable?")
       code += "  if @#{record_name}.destroyable?\n"
       code += "    #{model.name}.destroy(@#{record_name}.id)\n"
-      code += "    notify(:record_has_been_correctly_removed, :success)\n"
+      code += "    notify_success(:record_has_been_correctly_removed)\n"
       code += "  else\n"
-      code += "    notify(:record_cannot_be_removed, :error)\n"
+      code += "    notify_error(:record_cannot_be_removed)\n"
       code += "  end\n"
     else
       code += "  #{model.name}.destroy(@#{record_name}.id)\n"
-      code += "  notify(:record_has_been_correctly_removed, :success)\n"        
+      code += "  notify_success(:record_has_been_correctly_removed)\n"
     end
     code += "  redirect_to #{model.name.underscore.pluralize}_url\n"
     code += "end\n"
@@ -545,6 +552,62 @@ class ApplicationController < ActionController::Base
     
     class_eval(code)
   end
+
+
+
+  def self.search_conditions(model_name, columns)
+    model = model_name.to_s.classify.constantize
+    columns = [columns] if [String, Symbol].include? columns.class 
+    columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
+    columns.flatten!
+    raise Exception.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
+    code = ""
+    code+="c=['#{model.table_name}.company_id=?', @current_company.id]\n"
+    code+="session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
+    # This line is incompatible with MySQL...
+    # code+="c[0]+=' AND (#{columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS TEXT)) LIKE ?'}.join(' OR ')})';c+=[#{(['kw']*columns.size).join(',')}]}\n"
+    if ActiveRecord::Base.connection.adapter_name == "MySQL"
+      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'}.join(' OR ')+")';\n"
+    else
+      code+="c[0]+=' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
+    end
+    code+="c+=[#{(['kw']*columns.size).join(',')}]"
+    code+="}\n"
+    code+="c"
+    code
+  end
+
+  def self.light_search_conditions(search={}, options={})
+    conditions = options[:conditions] || 'c'
+    options[:except] ||= []
+    options[:filters] ||= {}
+    variable ||= options[:variable] || "params[:q]"
+    tables = search.keys.select{|t| !options[:except].include? t}
+    code = "#{conditions} = ['"+tables.collect{|t| "#{t}.company_id=?"}.join(' AND ')+"'"+", @current_company.id"*tables.size+"]\n"
+    columns = search.collect{|t, cs| cs.collect{|c| "#{t}.#{c}"}}.flatten
+    code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+    code += "  kw = '%'+kw+'%'\n"
+    filters = columns.collect do |x| 
+      # This line is incompatible with MySQL...
+      if ActiveRecord::Base.connection.adapter_name == "MySQL"
+        'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
+      else
+        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
+      end
+    end
+    values = '['+(['kw']*columns.size).join(', ')+']'
+    for k, v in options[:filters]
+      filters << k
+      v = '['+v.join(', ')+']' if v.is_a? Array
+      values += "+"+v
+    end
+    code += "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+    code += "  #{conditions} += #{values}\n"
+    code += "end\n"
+    code += "#{conditions}"
+    return code
+  end
+
 
   # accountancy -> account_reconciliation_conditions
   def self.account_reconciliation_conditions

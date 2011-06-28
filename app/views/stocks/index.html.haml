@@ -10,5 +10,6 @@
           %td=submit_tag(tg('filter'))
 
   =toolbar do |t|
-    -t.print :stocks, :p0=>Date.today.to_s
+    -t.print_stocks Date.today.to_s, :action=>:index, :controller=>:stocks
+
 =list

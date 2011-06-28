@@ -42,7 +42,7 @@ class FinancialYearsController < ApplicationController
       if financial_year = @current_company.closable_financial_year
         redirect_to :action=>:close, :id=>financial_year.id
       else
-        notify(:no_closable_financial_year, :information)
+        notify(:no_closable_financial_year)
         redirect_to :action=>:index
       end
     else
@@ -51,7 +51,7 @@ class FinancialYearsController < ApplicationController
       if request.post?
         params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
         if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
-          notify(:closed_financial_years, :success)
+          notify_success(:closed_financial_years)
           redirect_to(:action=>:index)
         end
       else

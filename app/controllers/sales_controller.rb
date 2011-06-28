@@ -131,7 +131,7 @@ class SalesController < ApplicationController
           elsif @sale.deliveries.size <= 0 and @sale.invoice?
             notify(:sale_already_invoiced)
           elsif @sale.lines.size <= 0
-            notify(:no_lines_found, :warning)
+            notify_warning(:no_lines_found)
             redirect_to :action=>:show, :step=>:products, :id=>@sale.id
           end
         end
@@ -139,15 +139,10 @@ class SalesController < ApplicationController
       end
       format.xml { render :xml => @sale.to_xml }
       format.pdf do
-        headers["Cache-Control"] = 'maxage=3600'  
-        headers["Pragma"] = 'public'  
-        begin
-          p = HashWithIndifferentAccess.new(:id=>(@sale.invoice? ? :sales_invoice : :sales_order), :p0=>@sale.id)
-          data, filename = @current_company.print(p)
-          send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')
-        rescue Exception=>e
-          notify(:print_failure, :error, :class=>e.class.to_s, :error=>e.message.to_s)
-          redirect_to_current
+        if @sale.invoice?
+          render_print_sales_invoice(@sale)
+        else
+          render_print_sales_order(@sale)
         end
       end
     end
@@ -169,7 +164,7 @@ class SalesController < ApplicationController
       lines = {}
       params[:sale_creditable_lines].select{|k,v| v[:validated].to_i == 1}.collect{|k, v| lines[k] = v[:quantity].to_f }
       if lines.empty?
-        notify(:need_quantities_to_cancel_an_sale, :error, :now)
+        notify_error_now(:need_quantities_to_cancel_an_sale)
         return
       end
       if credit = @sale.cancel(lines, :responsible=>@current_user)
@@ -272,7 +267,7 @@ class SalesController < ApplicationController
       if @sale.aborted?
         @sale.destroy
       else
-        notify(:sale_cant_be_deleted, :error)
+        notify_error(:sale_cant_be_deleted)
       end
     end
     redirect_to_current
@@ -333,7 +328,7 @@ class SalesController < ApplicationController
   def edit
     return unless @sale = find_and_check(:sale)
     unless @sale.draft?
-      notify(:sale_cannot_be_updated, :error)
+      notify_error(:sale_cannot_be_updated)
       redirect_to :action=>:show, :step=>:products, :id=>@sale.id
       return
     end
@@ -350,7 +345,7 @@ class SalesController < ApplicationController
   def update
     return unless @sale = find_and_check(:sale)
     unless @sale.draft?
-      notify(:sale_cannot_be_updated, :error)
+      notify_error(:sale_cannot_be_updated)
       redirect_to :action=>:show, :step=>:products, :id=>@sale.id
       return
     end

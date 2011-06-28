@@ -41,15 +41,15 @@ class MandatesController < ApplicationController
   end
 
   def configure
-    notify(:no_existing_mandates, :now) if @current_company.mandates.size == 0
+    notify_now(:no_existing_mandates) if @current_company.mandates.size == 0
    
     filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
     shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
     @filters = filters.collect{|f,k| [tc(f), f]}.sort
 
     if request.post?
-      notify(:specify_updates, :error, :now) unless params[:columns].detect{|k,v| !v[:update].blank?}
-      notify(:specify_filter, :error, :now)  unless params[:columns].detect{|k,v| !v[:filter].blank?}
+      notify_error_now(:specify_updates) unless params[:columns].detect{|k,v| !v[:update].blank?}
+      notify_error_now(:specify_filter)  unless params[:columns].detect{|k,v| !v[:filter].blank?}
       return if has_notifications?
       
       conditions = ["company_id = ?", @current_company.id]

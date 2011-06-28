@@ -91,7 +91,7 @@ class JournalsController < ApplicationController
     end    
     if request.post?   
       if @journal.close(params[:journal][:closed_on].to_date)
-        notify(:journal_closed_on, :success, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        notify_success(:journal_closed_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
         redirect_to_back 
       end
     end
@@ -107,7 +107,7 @@ class JournalsController < ApplicationController
     end    
     if request.post?
       if @journal.reopen(params[:journal][:closed_on].to_date)
-        notify(:journal_reopened_on, :success, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
+        notify_success(:journal_reopened_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
         redirect_to_back 
       end
     end
@@ -143,9 +143,9 @@ class JournalsController < ApplicationController
           entry.confirm if entry.can_confirm?
           undone += 1 if entry.draft?
         end
-        notify(:draft_entry_lines_are_validated, :success, :now, :count=>journal_entries.size-undone)
+        notify_success_now(:draft_entry_lines_are_validated, :count=>journal_entries.size-undone)
       rescue Exception=>e
-        notify(:exception_raised, :error, :now, :message=>e.message)
+        notify_error_now(:exception_raised, :message=>e.message)
       end
     end
   end
@@ -157,7 +157,7 @@ class JournalsController < ApplicationController
     @natures = [:sale, :incoming_payment_use, :incoming_payment, :deposit, :purchase, :outgoing_payment_use, :outgoing_payment, :cash_transfer]
 
     if request.get?
-      notify(:bookkeeping_works_only_with, :information, :now, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
+      notify_now(:bookkeeping_works_only_with, :list=>@natures.collect{|x| x.to_s.classify.constantize.model_name.human}.to_sentence)
       @step = 1
     elsif request.put?
       @step = 2
@@ -182,7 +182,7 @@ class JournalsController < ApplicationController
             record.bookkeep(:create, state)
           end
         end
-        notify(:bookkeeping_is_finished, :success)
+        notify_success(:bookkeeping_is_finished)
         redirect_to :action=>(state == :draft ? :draft : :bookkeep)
       end
     end

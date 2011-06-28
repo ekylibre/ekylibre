@@ -40,11 +40,11 @@ class OutgoingDeliveriesController < ApplicationController
   def new
     return unless @sale = find_and_check(:sales, params[:sale_id]||params[:sale_id]||session[:current_sale_id])
     unless @sale.order?
-      notify(:sale_already_invoiced, :warning)
+      notify_warning(:sale_already_invoiced)
       redirect_to_back
     end
     sale_lines = @sale.lines.find_all_by_reduction_origin_id(nil)
-    notify(:no_lines_found, :warning) if sale_lines.empty?
+    notify_warning(:no_lines_found) if sale_lines.empty?
 
     @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryLine.new(:sale_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @outgoing_delivery = OutgoingDelivery.new(:pretax_amount=>@sale.undelivered("pretax_amount"), :amount=>@sale.undelivered("amount"), :planned_on=>Date.today, :transporter_id=>@sale.transporter_id, :contact_id=>@sale.delivery_contact_id||@sale.client.default_contact)
@@ -73,11 +73,11 @@ class OutgoingDeliveriesController < ApplicationController
   def create
     return unless @sale = find_and_check(:sales, params[:sale_id]||params[:sale_id]||session[:current_sale_id])
     unless @sale.order?
-      notify(:sale_already_invoiced, :warning)
+      notify_warning(:sale_already_invoiced)
       redirect_to_back
     end
     sale_lines = @sale.lines.find_all_by_reduction_origin_id(nil)
-    notify(:no_lines_found, :warning) if sale_lines.empty?
+    notify_warning(:no_lines_found) if sale_lines.empty?
 
     @outgoing_delivery_lines = sale_lines.collect{|x| OutgoingDeliveryLine.new(:sale_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     @outgoing_delivery = OutgoingDelivery.new(:pretax_amount=>@sale.undelivered("pretax_amount"), :amount=>@sale.undelivered("amount"), :planned_on=>Date.today, :transporter_id=>@sale.transporter_id, :contact_id=>@sale.delivery_contact_id||@sale.client.default_contact)

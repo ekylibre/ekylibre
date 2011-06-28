@@ -5,6 +5,7 @@ fieldset legend { padding: 0 4px;  margin: 0 4px; color: #047; font-size: 15px; 
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
+small, sup, sub { font-size: 11px; }
 a:link, a:visited, a:focus { color:#00C; }
 a:hover { color: #000; }
 a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
@@ -154,10 +155,10 @@ html[dir="rtl"] div#side { float: right; }
 #side .module.menu ul { padding: 8px 0 0 0; margin-bottom: 8px; }
 #side .module.menu ul li { display: block; content: }
 #side .module.menu ul li a { display: block; padding: 4px 12px; text-decoration: none; color: black;}
-#side .module.menu ul li a:before { content: "• " }
+/*#side .module.menu ul li a:before { content: "• " }*/
 #side .module.menu ul li a:hover {background: #C9D7F1;}
 #side .module.menu ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
-
+#side .module.menu ul li a .path { color: #AAA; font-size: 11px;}
 
 /*#yield { padding: 8px; overflow: auto; background: url(../images/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
 .yield { padding: 8px; overflow: auto; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
@@ -191,8 +192,12 @@ html[dir="rtl"] #top .user-bar { float:left; text-align:left; }
 /*# .2357AB .3D5C8D .47628c 407ad8  688ED8*/
 #top .menu-bar { height: 29px; padding: 3px 8px 0; border-top: 1px solid #23579A; background: #688ED8 url(../images/shadow-bottom.png) top repeat-x; display: block;}
 #top .menu-bar ul { margin:0; padding: 0; }
-#top .menu-bar li { position:relative; float:left; list-style-type:none; }
-#top .menu-bar ul li ul { display:none; position:absolute; margin:0; width:10em; left:2px; top: 25px; padding: 4px 1px 1px; z-index: 1000; background: #3D5C8D; }
+#top .menu-bar li { position:relative; list-style-type:none; }
+html[dir="ltr"] #top .menu-bar li { float:left; }
+html[dir="rtl"] #top .menu-bar li { float:right; }
+#top .menu-bar ul li ul { display:none; position:absolute; margin:0; width:10em; top: 25px; padding: 4px 1px 1px; z-index: 1000; background: #3D5C8D; }
+html[dir="ltr"] #top .menu-bar ul li ul { left:2px; }
+html[dir="rtl"] #top .menu-bar ul li ul { right:2px; }
 #top .menu-bar ul li ul li { width:100%;  }
 #top .menu-bar ul li:hover ul, #top .menu-bar ul li ul:hover {display:block; box-shadow: 0 2px 5px #555; -moz-box-shadow: 0 2px 5px #555; -webkit-box-shadow: 0 2px 5px #555; behavior: url(/pie.htc);}
 #top .menu-bar ul li ul li a { display: block; text-transform: uppercase; font-size: 11px; font-weight: bold; padding: 0 8px;}

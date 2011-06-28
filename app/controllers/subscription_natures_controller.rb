@@ -46,7 +46,7 @@ class SubscriptionNaturesController < ApplicationController
     return unless @subscription_nature = find_and_check(:subscription_nature)
     if request.post?
       @subscription_nature.decrement!(:actual_number)
-      notify(:new_actual_number, :success, :actual_number=>@subscription_nature.actual_number)
+      notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
     end
     redirect_to_current
   end
@@ -55,7 +55,7 @@ class SubscriptionNaturesController < ApplicationController
     return unless @subscription_nature = find_and_check(:subscription_nature)
     if request.post?
       @subscription_nature.increment!(:actual_number)
-      notify(:new_actual_number, :success, :actual_number=>@subscription_nature.actual_number)
+      notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
     end
     redirect_to_current
   end

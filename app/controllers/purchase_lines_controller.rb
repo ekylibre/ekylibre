@@ -22,11 +22,11 @@ class PurchaseLinesController < ApplicationController
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if @current_company.warehouses.size <= 0
-      notify(:need_warehouse_to_create_purchase_line, :warning)
+      notify_warning(:need_warehouse_to_create_purchase_line)
       redirect_to :action=>:warehouse_create
       return
     elsif not @purchase.draft?
-      notify(:impossible_to_add_lines_to_purchase, :warning)
+      notify_warning(:impossible_to_add_lines_to_purchase)
       redirect_to :action=>:purchase, :step=>:products, :id=>@purchase.id
       return
     end
@@ -48,11 +48,11 @@ class PurchaseLinesController < ApplicationController
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if @current_company.warehouses.size <= 0
-      notify(:need_warehouse_to_create_purchase_line, :warning)
+      notify_warning(:need_warehouse_to_create_purchase_line)
       redirect_to :action=>:warehouse_create
       return
     elsif not @purchase.draft?
-      notify(:impossible_to_add_lines_to_purchase, :warning)
+      notify_warning(:impossible_to_add_lines_to_purchase)
       redirect_to :action=>:purchase, :step=>:products, :id=>@purchase.id
       return
     end

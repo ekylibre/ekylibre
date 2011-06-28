@@ -79,7 +79,7 @@ class PurchasesController < ApplicationController
     t.column :state_label
     t.column :paid_amount
     t.column :amount
-    t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:purchase}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
@@ -87,23 +87,28 @@ class PurchasesController < ApplicationController
   # Displays details of one purchase selected with +params[:id]+
   def show
     return unless @purchase = find_and_check(:purchase)
-    session[:current_purchase_id] = @purchase.id
-    if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
-      state  = @purchase.state
-      redirect_to :action=>:show, :id=>@purchase.id,  :step=>(["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
-      return
-    end
-    if params[:step] == "deliveries"
-      if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
-        redirect_to :action=>:incoming_delivery_create, :purchase_id=>@purchase.id
-      elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
-        notify(:purchase_already_invoiced)
-      elsif @purchase.lines.size <= 0
-        notify(:no_lines_found, :warning)
-        redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+    respond_to do |format|
+      format.html do
+        session[:current_purchase_id] = @purchase.id
+        if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
+          state  = @purchase.state
+          redirect_to :action=>:show, :id=>@purchase.id,  :step=>(["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
+          return
+        end
+        if params[:step] == "deliveries"
+          if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
+            redirect_to :action=>:incoming_delivery_create, :purchase_id=>@purchase.id
+          elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
+            notify(:purchase_already_invoiced)
+          elsif @purchase.lines.size <= 0
+            notify_warning(:no_lines_found)
+            redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
+          end
+        end
+        t3e @purchase.attributes, :supplier=>@purchase.supplier.full_name, :state=>@purchase.state_label
       end
+      format.pdf { render_print_purchase(@purchase) }
     end
-    t3e @purchase.attributes, :supplier=>@purchase.supplier.full_name, :state=>@purchase.state_label
   end
 
   def abort

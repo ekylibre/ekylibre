@@ -16,9 +16,9 @@ class SessionsController < ApplicationController
       end
     elsif User.count(:conditions=>{:name=>params[:name]}) > 1
       @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN #{Company.table_name} AS companies ON (companies.id=company_id)",  :order=>"companies.name")
-      notify(:need_company_code_to_login, :warning, :now)
+      notify_warning_now(:need_company_code_to_login)
     else
-      notify(:no_authenticated, :error, :now)
+      notify_error_now(:no_authenticated)
     end
     render :action=>:new
   end
@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
         return
       else
         @no_authenticated = true
-        notify(:no_authenticated, :error, :now)
+        notify_error_now(:no_authenticated)
       end
     end
     render :renew, :layout=>false

@@ -51,13 +51,15 @@ class DocumentTemplate < CompanyRecord
   validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
 
-  PREAMBLE = "#1.1\n"
+  PREAMBLE = "#1.2\n"
 
 
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
 
   # id is forbidden names for parameters
   @@document_natures = {
+#    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ]  }
+# {
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ], 
     :deposit =>          [ [:deposit, Deposit] ],
@@ -116,6 +118,32 @@ class DocumentTemplate < CompanyRecord
   def nature_label
     tc('natures.'+self.nature) if self.nature
   end
+
+
+  # Print document without checks fast but dangerous if parameters are not checked before...
+  # Use carefully
+  def print_fastly!(*args)
+    # Refresh cache if needed
+    self.save! unless self.cache.starts_with?(PREAMBLE)
+
+    # Try to find an existing archive
+    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
+    if self.to_archive
+      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name}, :order=>"created_at DESC")
+      return document.data, document.original_name if document
+    end
+
+    # Build the PDF data
+    pdf = eval(self.cache)
+
+    # Archive the document if necessary
+    document = self.archive(owner, pdf, :extension=>'pdf') if self.to_archive
+
+    return pdf, self.compute_filename(owner)+".pdf"
+  end
+
+
+
 
   # Print document raising Exceptions if necessary
   def print!(*args)

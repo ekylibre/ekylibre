@@ -1155,6 +1155,7 @@ arb:
     query: ': الاستعلام'
     received: 'مستلم'
     recent_events: 'الاحداث الاخيرة'
+    # recent_historic: 'Recent historic'
     record_has_been_correctly_removed: 'قد تم حذف السجلات بشكل صحيح'
     record_has_not_been_removed: 'لم يتم حذف السجلات'
     reflect: 'يعكس'

@@ -12,11 +12,8 @@ ActionController::Routing::Routes.draw do |map|
     company.toggle_side '/toggle/side', :controller=>"interfacers", :action=>"toggle_side"
     company.toggle_submenu '/toggle/submenu/:id', :controller=>"interfacers", :action=>"toggle_submenu"
     company.toggle_tab '/toggle/tab/:id', :controller=>"interfacers", :action=>"toggle_tab"
-    # company.resources :interfacers, :only=>[], :collection=>{:collected_account_dyli=>:get, :account_dyli=>:get, :entities=>:get, :paid_account=>:get}
     company.interfacer '/intf/:action', :controller=>:interfacers, :conditions=>{:method=>:get}
     company.resources :help, :only=>[:index, :show]
-    # company.help '/help', :controller=>:help, :action=>:search
-    # company.search_help '/help/:article', :controller=>:help, :action=>:search
 
     company.resources :account_balances
     company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :mark=>[:get, :post]}, :member=>{:unmark=>[:get, :post]}
@@ -112,27 +109,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :users, :collection=>{:list=>:get}, :member=>{:lock=>:post, :unlock=>:post}
     company.resources :warehouses, :collection=>{:list=>:get, :list_stocks=>:get, :list_stock_moves=>:get}
 
-    company.company_root "", :controller=>"dashboards", :action=>:general
+    company.company_root "", :controller=>"dashboards", :action=>"general"
   end
-
-
-  # The priority is based upon order of creation: 
-  # first created -> highest priority.
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  # Note: These default routes make all actions in every controller accessible via GET requests. You should
-  # consider removing the them or commenting them out if you're using named routes and resources.
-  # map.connect ':company/:controller/:action/:id.:format'
-  # map.connect ':company/:controller/:action/:id'
-  # map.connect ':company/:controller/:action.:format'
-  # map.connect ':company', :controller=>"company"
-  # map.connect ':controller/:action', :controller=>'company', :action=>'index'
-  # # map.connect '*path', :controller=>"company", :action=>"unknown_action"
-  # map.connect 'authentication/:action', :controller=>'authentication', :action=>/(login|register)/
-  # map.connect 'application/:action', :controller=>'application'
-
-  # map.connect '/:company', :controller=>"dashboards"
-  map.root :controller => "dashboards", :action=>:general
+  map.root :controller => "dashboards", :action=>"general"
 end

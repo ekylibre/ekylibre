@@ -1,10 +1,10 @@
 .search 
-  =form_tag do
+  =form_tag({}, :method=>:get) do
     %table
       %tr
         %td.crit
           %span=tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe
-        %td=submit_tag tg(:search_go)
+        %td=submit_tag tg(:search_go), :name=>nil
 
 
 -conditions = Proc.new{|x| ["#{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}

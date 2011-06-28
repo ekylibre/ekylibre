@@ -136,7 +136,7 @@ class OperationsController < ApplicationController
 
   def unvalidateds
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
-    notify(:no_unvalidated_operations, :now) if @operations.size <= 0
+    notify_now(:no_unvalidated_operations) if @operations.size <= 0
     if request.post?
       for id, values in params[:unvalidated_operations]
         operation = @current_company.operations.find_by_id(id)

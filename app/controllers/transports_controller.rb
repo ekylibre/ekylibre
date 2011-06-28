@@ -24,7 +24,7 @@ class TransportsController < ApplicationController
     t.column :transport_on, :children=>false, :url=>true
     t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>true
     t.column :weight
-    t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:transport}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

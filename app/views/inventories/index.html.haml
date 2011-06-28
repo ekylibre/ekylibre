@@ -1,6 +1,6 @@
 -# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.link(:inventory_create) if @current_company.stocks.size>0
-  -t.print :stocks, :p0=>Date.today.to_s
+  -t.link :new if @current_company.stocks.size>0
+  -t.print_stocks Date.today.to_s, :action=>:index, :controller=>:stocks
  
 =list

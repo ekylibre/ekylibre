@@ -157,7 +157,7 @@ class PricesController < ApplicationController
     
     if request.post?
       if params[:csv_file].nil?
-        notify(:you_must_select_a_file_to_import, :warning)
+        notify_warning(:you_must_select_a_file_to_import)
         redirect_to :action=>:prices_import
       else
         file = params[:csv_file][:path]
@@ -222,7 +222,7 @@ class PricesController < ApplicationController
             else
               price.update_attributes(price.attributes)
             end
-            notify(:prices_import_succeeded, :now)
+            notify_now(:prices_import_succeeded)
           end
         end
       end

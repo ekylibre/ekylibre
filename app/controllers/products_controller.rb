@@ -221,11 +221,6 @@ class ProductsController < ApplicationController
 
   # Displays the main page with the list of products
   def index
-    #     @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    #     if @warehouses.size < 1
-    #       notify(:need_stocks_warehouse_to_create_products, :warning)
-    #       redirect_to :action=>:warehouse_create
-    #     end
     @key = params[:key]||session[:product_key]||""
     session[:product_key] = @key
     session[:product_active] = true if session[:product_active].nil?

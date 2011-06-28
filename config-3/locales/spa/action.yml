@@ -1098,6 +1098,7 @@ spa:
     query: 'Demanda:'
     # received: 'Received'
     # recent_events: 'Recent events'
+    # recent_historic: 'Recent historic'
     # record_has_been_correctly_removed: 'The recrd has been correctly removed'
     # record_has_not_been_removed: 'The record has not been removed'
     # reflect: 'Reflect'

@@ -82,9 +82,9 @@ class SettingsController < ApplicationController
     start = Time.now
     if @current_company.restore(file)
       @current_company.reload
-      notify(:restoration_finished, :success, :now, :value=>(Time.now-start).to_s, :code=>@current_company.code)
+      notify_success_now(:restoration_finished, :value=>(Time.now-start).to_s, :code=>@current_company.code)
     else
-      notify(:unvalid_version_for_restore, :error, :now)
+      notify_error_now(:unvalid_version_for_restore)
     end
     render :backups
   end
@@ -100,7 +100,7 @@ class SettingsController < ApplicationController
       if params[:nature] == "ebp_edi"
         File.open(file, "rb") do |f|
           unless f.readline.match(/^EBP\.EDI$/)
-            notify(:bad_file, :error, :now)
+            notify_error_now(:bad_file)
             return
           end
           encoding = f.readline
@@ -148,13 +148,13 @@ class SettingsController < ApplicationController
                 end
               end
             end
-            notify(:importation_finished, :success, :now)
+            notify_success_now(:importation_finished)
           rescue Exception => e
-            notify(:importation_cancelled, :error, :now)
+            notify_error_now(:importation_cancelled)
           end
         end
       else
-        notify(:invalid_file_nature, :error, :now)
+        notify_error_now(:invalid_file_nature)
       end
     end
     

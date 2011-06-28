@@ -47,11 +47,11 @@ class IncomingDeliveriesController < ApplicationController
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
     unless @purchase.order?
-      notify(:purchase_already_invoiced, :warning)
+      notify_warning(:purchase_already_invoiced)
       redirect_to_back
     end
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
-    notify(:no_lines_found, :warning) if purchase_lines.empty?
+    notify_warning(:no_lines_found) if purchase_lines.empty?
 
     if request.post?
       @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
@@ -78,11 +78,11 @@ class IncomingDeliveriesController < ApplicationController
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id]||params[:purchase_id]||session[:current_purchase_id])
     unless @purchase.order?
-      notify(:purchase_already_invoiced, :warning)
+      notify_warning(:purchase_already_invoiced)
       redirect_to_back
     end
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
-    notify(:no_lines_found, :warning) if purchase_lines.empty?
+    notify_warning(:no_lines_found) if purchase_lines.empty?
 
     if request.post?
       @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])

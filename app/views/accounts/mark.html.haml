@@ -9,8 +9,8 @@
   -# t.link :account_reconciliation, {:mode=>session[:mode]}
 
 =attributes_list(@account, :without_stamp=>true) do |l|
-  -l.attribute :name, :url=>{:action=>:account, :id=>@account.id}
-  -l.attribute :number, :url=>{:action=>:account, :id=>@account.id}
+  -l.attribute :name, :url=>true
+  -l.attribute :number, :url=>true
   -l.attribute :comment
 
 =error_messages "account"

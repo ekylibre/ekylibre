@@ -76,12 +76,12 @@ class AccountsController < ApplicationController
       if params[:journal_entry_line]
         letter = @account.mark(params[:journal_entry_line].select{|k,v| v[:to_mark].to_i==1}.collect{|k,v| k.to_i})
         if letter.nil?
-          notify(:can_not_mark_entry_lines, :error, :now)
+          notify_error_now(:can_not_mark_entry_lines)
         else
-          notify(:journal_entry_lines_marked_with_letter, :success, :now, :letter=>letter)
+          notify_success_now(:journal_entry_lines_marked_with_letter, :letter=>letter)
         end
       else
-        notify(:select_entry_lines_to_mark_together, :warning, :now)
+        notify_warning_now(:select_entry_lines_to_mark_together)
       end
     end
     t3e @account.attributes

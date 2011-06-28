@@ -34,11 +34,11 @@ class SaleLinesController < ApplicationController
       # @subscription = Subscription.new()
     end
     if @warehouses.empty? 
-      notify(:need_warehouse_to_create_sale_line, :warning)
+      notify_warning(:need_warehouse_to_create_sale_line)
       redirect_to :action=>:warehouse_create
       return
     elsif not @sale.draft?
-      notify(:impossible_to_add_lines, :error)
+      notify_error(:impossible_to_add_lines)
       redirect_to :action=>:sale, :step=>:products, :id=>@sale.id
       return
     elsif request.post? 
@@ -76,11 +76,11 @@ class SaleLinesController < ApplicationController
       # @subscription = Subscription.new()
     end
     if @warehouses.empty? 
-      notify(:need_warehouse_to_create_sale_line, :warning)
-      redirect_to :action=>:warehouse_create
+      notify_warning(:need_warehouse_to_create_sale_line)
+      redirect_to :controller=>:warehouses, :action=>:new
       return
     elsif not @sale.draft?
-      notify(:impossible_to_add_lines, :error)
+      notify_error(:impossible_to_add_lines)
       redirect_to :action=>:sale, :step=>:products, :id=>@sale.id
       return
     elsif request.post? 

@@ -43,7 +43,7 @@ class JournalEntriesController < ApplicationController
     if request.post?
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
-        notify(:journal_entry_has_been_saved, :success, :number=>@journal_entry.number)
+        notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
         redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
@@ -63,7 +63,7 @@ class JournalEntriesController < ApplicationController
     if request.post?
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
-        notify(:journal_entry_has_been_saved, :success, :number=>@journal_entry.number)
+        notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
         redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
@@ -79,13 +79,13 @@ class JournalEntriesController < ApplicationController
   def destroy
     return unless @journal_entry = find_and_check(:journal_entry)
     unless @journal_entry.destroyable?
-      notify(:journal_entry_already_validated, :error)
+      notify_error(:journal_entry_already_validated)
       redirect_to_back
       return
     end
     if request.delete?
       @journal_entry.destroy
-      notify(:record_has_been_correctly_removed, :success)
+      notify_success(:record_has_been_correctly_removed)
     end
     redirect_to_current
   end
@@ -93,7 +93,7 @@ class JournalEntriesController < ApplicationController
   def edit
     return unless @journal_entry = find_and_check(:journal_entry)
     unless @journal_entry.updateable?
-      notify(:journal_entry_already_validated, :error)
+      notify_error(:journal_entry_already_validated)
       redirect_to_back
       return
     end
@@ -114,7 +114,7 @@ class JournalEntriesController < ApplicationController
   def update
     return unless @journal_entry = find_and_check(:journal_entry)
     unless @journal_entry.updateable?
-      notify(:journal_entry_already_validated, :error)
+      notify_error(:journal_entry_already_validated)
       redirect_to_back
       return
     end

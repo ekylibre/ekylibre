@@ -24,7 +24,7 @@ class InventoriesController < ApplicationController
     t.column :changes_reflected
     t.column :label, :through=>:responsible, :url=>true
     t.column :comment
-    t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:inventory}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", :confirm=>:are_you_sure
     t.action :edit,  :if=>'!RECORD.changes_reflected? '
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'!RECORD.changes_reflected? '
@@ -50,16 +50,25 @@ class InventoriesController < ApplicationController
   # Displays the main page with the list of inventories
   def index
     if @current_company.stockable_products.size <= 0
-      notify(:need_stocks_to_create_inventories, :now)
+      notify_now(:need_stocks_to_create_inventories)
     end    
   end
 
+
+  def show
+    return unless @inventory = find_and_check(:inventory)
+    respond_to do |format|
+      format.pdf { render_print_inventory(@inventory) }
+    end
+  end
+
+
   def new
     if @current_company.stockable_products.size <= 0
-      notify(:need_stocks_to_create_inventories, :warning)
+      notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify(:validates_old_inventories, :warning, :now) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
@@ -76,10 +85,10 @@ class InventoriesController < ApplicationController
 
   def create
     if @current_company.stockable_products.size <= 0
-      notify(:need_stocks_to_create_inventories, :warning)
+      notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify(:validates_old_inventories, :warning, :now) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
     if request.post?
       @inventory = Inventory.new(params[:inventory])
@@ -97,7 +106,7 @@ class InventoriesController < ApplicationController
   end
 
   def destroy
-    return unless @inventory = find_and_check(:inventories)
+    return unless @inventory = find_and_check(:inventory)
     if request.delete? and !@inventory.changes_reflected?
       @inventory.destroy
     end
@@ -105,17 +114,17 @@ class InventoriesController < ApplicationController
   end
 
   def reflect
-    return unless @inventory = find_and_check(:inventories)
+    return unless @inventory = find_and_check(:inventory)
     if @inventory.reflect_changes
-      notify(:changes_have_been_reflected, :success)
+      notify_success(:changes_have_been_reflected)
     else
-      notify(:changes_have_not_been_reflected, :error)
+      notify_error(:changes_have_not_been_reflected)
     end
     redirect_to :index 
   end
 
   def edit
-    return unless @inventory = find_and_check(:inventories)
+    return unless @inventory = find_and_check(:inventory)
     session[:current_inventory] = @inventory.id
     if request.post? and !@inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
@@ -129,7 +138,7 @@ class InventoriesController < ApplicationController
   end
 
   def update
-    return unless @inventory = find_and_check(:inventories)
+    return unless @inventory = find_and_check(:inventory)
     session[:current_inventory] = @inventory.id
     if request.post? and !@inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])

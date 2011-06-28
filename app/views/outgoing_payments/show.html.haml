@@ -6,13 +6,13 @@
   -l.attribute :number
   -l.attribute :amount
   -l.attribute :used_amount
-  -l.attribute :payee, :label=>:full_name, :url=>{:controller=>:relations, :action=>:entity}
+  -l.attribute :payee, :label=>:full_name, :url=>true
   -l.attribute :responsible, :label=>:label
   -l.attribute :mode
   -l.attribute :paid_on
   -l.attribute :to_bank_on
   -l.attribute :check_number
-  -l.attribute :journal_entry, :url=>{:controller=>:accountancy, :action=>:journal_entry}
+  -l.attribute :journal_entry, :url=>true
 
 -if false # @outgoing_payment.unused_amount > 0
   =form_tag(:action=>:outgoing_payment_use_create) do

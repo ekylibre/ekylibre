@@ -26,7 +26,7 @@ class EntitiesController < ApplicationController
     t.column :last_name, :url=>true
     t.column :first_name, :url=>true
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:edit}
-    t.action :print, :url=>{:format=>:pdf} #  :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
+    t.action :show, :url=>{:format=>:pdf} #  :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
@@ -125,7 +125,7 @@ class EntitiesController < ApplicationController
     t.column :state_label
     t.column :paid_amount
     t.column :amount
-    t.action :print, :url=>{:controller=>:documents, :p0=>"RECORD.id", :id=>:purchase}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
@@ -138,7 +138,6 @@ class EntitiesController < ApplicationController
     t.column :paid_amount, :children=>false
     t.column :amount
     t.action :sale, :url=>{:format=>:pdf}, :image=>:print
-    # t.action :print, :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:sale}
     t.action :duplicate, :method=>:post
     t.action :edit, :if=>"RECORD.draft? "
     t.action :destroy, :if=>"RECORD.aborted? ", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
@@ -273,7 +272,7 @@ class EntitiesController < ApplicationController
         all_columns = params[:columns].dup.delete_if{|k,v| v.match(/^special-dont_use/) or v.blank?}
         columns = params[:columns].delete_if{|k,v| v.match(/^special-/) or v.blank?}
         if (columns.values.size - columns.values.uniq.size) > 0
-          notify(:columns_are_already_uses, :error, :now)
+          notify_error_now(:columns_are_already_uses)
           return
         end
         cols = {}
@@ -284,7 +283,7 @@ class EntitiesController < ApplicationController
         end
         cols[:entity] ||= {}
         if cols[:entity].keys.size <= 0 or not cols[:entity].values.detect{|x| x == :name}
-          notify(:entity_columns_are_needed, :error, :now)
+          notify_error_now(:entity_columns_are_needed)
           return
         end
         # raise Exception.new columns.inspect+"\n"+cols.inspect
@@ -295,7 +294,7 @@ class EntitiesController < ApplicationController
       file, cols = session[:entities_import_file], session[:entities_import_cols]
       if request.post?
         @report = @current_company.import_entities(file, cols, :no_simulation=>true, :ignore=>session[:entities_import_ignore])
-        notify(:importation_finished, :success)
+        notify_success(:importation_finished)
         redirect_to :action=>:import, :id=>:upload
       else
         @report = @current_company.import_entities(file, cols)
@@ -309,13 +308,13 @@ class EntitiesController < ApplicationController
       return unless @master = find_and_check(:entity, params[:merge][:master])
       return unless @double = find_and_check(:entity, params[:merge][:double])
       if @master.id == @double.id
-        notify(:cannot_merge_an_entity_with_itself, :error, :now)
+        notify_error_now(:cannot_merge_an_entity_with_itself)
         return
       end
       begin
         @master.merge(@double, true)
       rescue
-        notify(:cannot_merge_entities, :error, :now)
+        notify_error_now(:cannot_merge_entities)
       end
     end
   end
@@ -323,10 +322,15 @@ class EntitiesController < ApplicationController
   # Displays details of one entity selected with +params[:id]+
   def show
     return unless @entity = find_and_check(:entity)
-    session[:current_entity_id] = @entity.id
-    session[:my_entity] = params[:id]
-    @key = ""
-    t3e @entity.attributes
+    respond_to do |format|
+      format.html do 
+        session[:current_entity_id] = @entity.id
+        session[:my_entity] = params[:id]
+        t3e @entity.attributes
+        @key = ""
+      end
+      format.pdf { render_print_entity(@entity) }
+    end
   end
 
   def new
@@ -429,7 +433,7 @@ class EntitiesController < ApplicationController
       unless @entity.sales_invoices.size > 0
         @entity.destroy
       else
-        notify(:cannot_delete_entity, :error)
+        notify_error(:cannot_delete_entity)
       end
     end
     redirect_to entities_url

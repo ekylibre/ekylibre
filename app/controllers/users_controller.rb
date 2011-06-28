@@ -45,39 +45,19 @@ class UsersController < ApplicationController
       @rights = role.rights_array if role
       render :partial=>"rights_form"
     else
-      if request.post?
-        @user = User.new(params[:user])
-        @user.company_id = @current_company.id
-        @user.rights_array = (params[:rights]||{}).keys
-        @rights = @user.rights_array        
-        return if save_and_redirect(@user)
-      else
-        role = @current_company.roles.first
-        @user = @current_company.users.new(:admin=>false, :role=>role, :employed=>params[:employed])
-        @rights = role ? role.rights_array : []
-      end
+      role = @current_company.roles.first
+      @user = @current_company.users.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>@current_company.entity.language)
+      @rights = role ? role.rights_array : []
+      render_restfully_form
     end
-    render_restfully_form
   end
 
   def create
-    if request.xhr? and params[:mode] == "rights"
-      role = @current_company.roles.find(params[:user_role_id]) rescue nil
-      @rights = role.rights_array if role
-      render :partial=>"rights_form"
-    else
-      if request.post?
-        @user = User.new(params[:user])
-        @user.company_id = @current_company.id
-        @user.rights_array = (params[:rights]||{}).keys
-        @rights = @user.rights_array        
-        return if save_and_redirect(@user)
-      else
-        role = @current_company.roles.first
-        @user = @current_company.users.new(:admin=>false, :role=>role, :employed=>params[:employed])
-        @rights = role ? role.rights_array : []
-      end
-    end
+    @user = User.new(params[:user])
+    @user.company_id = @current_company.id
+    @user.rights_array = (params[:rights]||{}).keys
+    @rights = @user.rights_array        
+    return if save_and_redirect(@user)
     render_restfully_form
   end
 

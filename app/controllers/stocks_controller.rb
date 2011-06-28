@@ -33,14 +33,20 @@ class StocksController < ApplicationController
 
   # Displays the main page with the list of stocks
   def index
-    @warehouses = @current_company.warehouses
-    if @warehouses.size == 0
-      notify(:no_warehouse, :warning)
-      redirect_to :action=>:warehouse_create
-    else
-      session[:warehouse_id] = params[:warehouse_id]
+    respond_to do |format|
+      format.html do
+        @warehouses = @current_company.warehouses
+        if @warehouses.size == 0
+          notify_warning(:no_warehouse)
+          redirect_to :controller=>:warehouses, :action=>:new
+          return
+        else
+          session[:warehouse_id] = params[:warehouse_id]
+        end
+        notify_now(:no_stocks) if @current_company.stocks.size <= 0
+      end
+      format.pdf { render_print_stocks(params[:established_on]||Date.today) }
     end
-    notify(:no_stocks, :now) if @current_company.stocks.size <= 0
   end
 
 end

@@ -2,7 +2,7 @@
 =render :partial=>"entities/search"
 =toolbar do |t|
   -t.edit @entity
-  -t.print :entity, :id=>@entity.id
+  -t.print_entity @entity
 
 =attributes_list(@entity) do |l|
   -l.attribute :last_name
@@ -23,7 +23,7 @@
   -l.attribute :prospect
   -l.attribute :client
   -if @entity.client
-    -l.attribute :category, :label=>:name, :url=>{:action=>:entity_category}
+    -l.attribute :category, :label=>:name, :url=>true
     -l.attribute :first_met_on unless @entity.first_met_on.blank?
     -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
     -l.attribute :vat_submissive
@@ -31,13 +31,13 @@
     -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
     -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
     -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
-    -l.attribute :client_account, :url=>{:controller=>:accountancy, :action=>:account}
+    -l.attribute :client_account, :url=>true
   -l.attribute :supplier
   -if @entity.supplier
-    -l.attribute :supplier_account, :url=>{:controller=>:accountancy, :action=>:account}
+    -l.attribute :supplier_account, :url=>true
   -l.attribute :attorney
   -if @entity.attorney
-    -l.attribute :attorney_account, :url=>{:controller=>:accountancy, :action=>:account}
+    -l.attribute :attorney_account, :url=>true
   -l.attribute :transporter
   -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
     -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?

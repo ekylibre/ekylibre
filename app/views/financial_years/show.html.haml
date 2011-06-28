@@ -1,7 +1,6 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.print :balance_sheet, :id=>@financial_year.id
-  -t.print :income_statement, :id=>@financial_year.id
+  -t.print_balance_sheet @financial_year
+  -t.print_income_statement @financial_year
 
 %h2= tc 'general_informations'
 =attributes_list(@financial_year) do |l|

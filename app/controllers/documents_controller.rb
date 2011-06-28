@@ -45,7 +45,7 @@ class DocumentsController < ApplicationController
           end
           send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
         rescue Exception => e 
-          notify(:exception_raised, :error, :now, :message=>e.message)
+          notify_error_now(:exception_raised, :message=>e.message)
         end
       elsif params[:export] == "isaquare"
         path = Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date, @current_company.code+".ECC")

@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
   -t.update @warehouse
 
@@ -10,7 +9,7 @@
   -l.attribute :y
   -l.attribute :z
   -if @warehouse.reservoir
-    -l.attribute :product, :label=>:name, :url=>{:action=>:product, :id=>@warehouse.product_id}
+    -l.attribute :product, :label=>:name, :url=>true
     -l.attribute :number
     -l.attribute :quantity_max
 

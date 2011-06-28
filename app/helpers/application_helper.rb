@@ -289,15 +289,20 @@ module ApplicationHelper
     else
       #     label = object.class.human_attribute_name(attribute.to_s)
       value = object.send(attribute)
-      default = ["activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}_id".to_sym]
-      default << "activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
+      model_name = object.class.name.underscore
+      default = ["activerecord.attributes.#{model_name}.#{attribute.to_s}_id".to_sym]
+      default << "activerecord.attributes.#{model_name}.#{attribute.to_s[0..-7]}".to_sym if attribute.to_s.match(/_label$/)
       default << "attributes.#{attribute.to_s}".to_sym
       default << "attributes.#{attribute.to_s}_id".to_sym
-      label = ::I18n.translate("activerecord.attributes.#{object.class.name.underscore}.#{attribute.to_s}".to_sym, :default=>default)
+      label = ::I18n.translate("activerecord.attributes.#{model_name}.#{attribute.to_s}".to_sym, :default=>default)
       if value.is_a? ActiveRecord::Base
         record = value
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
-        options[:url][:id] ||= record.id if options[:url]
+        if options[:url].is_a? TrueClass
+          options[:url] = {:controller=>model_name.pluralize, :action=>:show, :id=>record.id}
+        else
+          options[:url][:id] ||= record.id
+        end
       end
       value_class += ' code' if attribute.to_s == "code"
     end
@@ -510,7 +515,7 @@ module ApplicationHelper
 
   def top_tag
     session[:last_page] ||= {}
-    render :partial=>"shared/top"
+    render :partial=>"layouts/top"
   end
 
   def action_title
@@ -541,7 +546,7 @@ module ApplicationHelper
     session[:side] = true
     path = reverse_menus
     return '' if path.nil?
-    render(:partial=>'shared/side', :locals=>{:path=>path})
+    render(:partial=>'layouts/side', :locals=>{:path=>path})
   end
 
   def notification_tag(mode)
@@ -876,22 +881,26 @@ module ApplicationHelper
             code += li_link_to(*args)
           end
         elsif nature == :print
-          #raise Exception.new "ok"+args.inspect
-          name = args[0].to_s
-          args[2] ||= {}
-          args[1] ||= {}
-          args[1][:controller] = "documents"
-          args[1][:action] = "print"
-          args[1][:p0] ||= args[1][:id]
-          args[1][:id] = name
-          args[1][:format] = "pdf"
-          args[2][:class] = "icon im-print"
-          #          raise Exception.new "ok"+args.inspect
-          for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
-            args[0] = tc(:print_with_template, :name=>dc.name)
-            args[1][:id] = dc.code
-            #raise Exception.new "ok"
-            code += li_link_to(*args)
+          # #raise Exception.new "ok"+args.inspect
+          # name = args[0].to_s
+          # args[2] ||= {}
+          # args[1] ||= {}
+          # args[1][:controller] = "documents"
+          # args[1][:action] = "print"
+          # args[1][:p0] ||= args[1][:id]
+          # args[1][:id] = name
+          # args[1][:format] = "pdf"
+          # args[2][:class] = "icon im-print"
+          # #          raise Exception.new "ok"+args.inspect
+          # for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
+          #   args[0] = tc(:print_with_template, :name=>dc.name)
+          #   args[1][:id] = dc.code
+          #   #raise Exception.new "ok"
+          #   code += li_link_to(*args)
+          # end
+          dn, args, url = tool[1], tool[2], tool[3]
+          for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
+            code += li_link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print")
           end
         elsif nature == :javascript
           name = args[0]
@@ -912,7 +921,7 @@ module ApplicationHelper
           code += content_tag(:li, link_to(t("actions.#{url_options[:controller]}.#{url_options[:action]}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
-          action = "#{record.class.name.underscore}_#{verb}"
+          action = verb # "#{record.class.name.underscore}_#{verb}"
           tag_options = {} unless tag_options.is_a? Hash
           tag_options[:class] = "icon im-#{verb}"
           url_options = {} unless url_options.is_a? Hash
@@ -963,8 +972,23 @@ module ApplicationHelper
 
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
-      raise ArgumentError.new("First argument must be an ActiveRecord::Base") unless args[0].class.ancestors.include? ActiveRecord::Base
-      @tools << [:missing, method_name, args[0], args[1]]
+      if method_name.to_s.match(/^print_\w+$/)
+        nature = method_name.to_s.gsub(/^print_/, '').to_sym
+        raise Exception.new("Cannot use method :print_#{nature} because nature '#{nature}' does not exist.") unless parameters = DocumentTemplate.document_natures[nature]
+        url = args.delete_at(-1) if args[-1].is_a?(Hash)
+        raise ArgumentError.new("Parameters don't match. #{parameters.size} expected, got #{args.size} (#{[args, options].inspect}") unless args.size == parameters.size
+        url ||= {}
+        url[:action] ||= :show
+        url[:format] = :pdf
+        url[:id] ||= args[0].id if args[0].respond_to?(:id) and args[0].class.ancestors.include?(ActiveRecord::Base)
+        parameters.each_index do |i|
+          url[parameters[i][0]] = args[i]
+        end
+        @tools << [:print, nature, args, url]
+      else
+        raise ArgumentError.new("First argument must be an ActiveRecord::Base. (#{method_name})") unless args[0].class.ancestors.include? ActiveRecord::Base
+        @tools << [:missing, method_name, args[0], args[1]]
+      end
     end
   end
 

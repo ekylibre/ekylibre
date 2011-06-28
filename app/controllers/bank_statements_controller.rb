@@ -63,7 +63,7 @@ class BankStatementsController < ApplicationController
     end
     @journal_entry_lines = @bank_statement.eligible_lines
     unless @journal_entry_lines.size > 0
-      notify(:need_entries_to_point, :warning)
+      notify_warning(:need_entries_to_point)
       redirect_to bank_statements_url
     end    
     t3e @bank_statement.attributes, :cash => @bank_statement.cash.name
@@ -77,7 +77,7 @@ class BankStatementsController < ApplicationController
       redirect_to new_cash_url
       return
     end
-    notify(:x_unpointed_journal_entry_lines, :now, :count=>@current_company.journal_entry_lines.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
+    notify_now(:x_unpointed_journal_entry_lines, :count=>@current_company.journal_entry_lines.count(:conditions=>["bank_statement_id IS NULL and account_id IN (?)", cashes.collect{|ba| ba.account_id}]))
   end
 
 end
