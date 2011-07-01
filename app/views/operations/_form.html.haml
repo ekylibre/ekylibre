@@ -4,7 +4,7 @@
   - f.field :operation, :name
   - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
   - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>true
-  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>true
+  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>:land_parcel
   - f.field :operation, :planned_on
   - f.field :operation, :description, :field=>:textarea
   - f.title :duration
@@ -16,7 +16,7 @@
       = formalize do |f|
         - f.title :operation_lines
       =hidden_field_tag "operation[target_type]", LandParcel.name
-      %table.kame
+      %table.list
         %thead
           %tr
             %th=OperationLine.human_attribute_name("direction")
@@ -35,7 +35,7 @@
     %td{:valign=>:top}
       = formalize do |f|
         - f.title :tools
-      %table.kame
+      %table.list
         %thead
           %tr
             %th=OperationUse.human_attribute_name("tool_id")

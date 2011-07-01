@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     company.toggle_side '/toggle/side', :controller=>"interfacers", :action=>"toggle_side"
     company.toggle_submenu '/toggle/submenu/:id', :controller=>"interfacers", :action=>"toggle_submenu"
     company.toggle_tab '/toggle/tab/:id', :controller=>"interfacers", :action=>"toggle_tab"
-    company.interfacer '/ui/:action', :controller=>:interfacers, :conditions=>{:method=>:get}
+    company.interfacer '/ui/:action', :controller=>:interfacers # , :conditions=>{:method=>:get}
     company.resources :help, :only=>[:index, :show]
 
     company.resources :account_balances

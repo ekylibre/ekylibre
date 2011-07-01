@@ -32,7 +32,7 @@
     =toolbar do |t|
       -t.link(:new, :controller=>:purchase_lines, :purchase_id=>@purchase.id)
   =list :lines
-  %table.kame
+  %table.list
     %tr.total
       %th=Purchase.human_attribute_name("pretax_amount")
       %td=number_to_management(@purchase.pretax_amount)
@@ -59,7 +59,7 @@
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :financial_state
-  %table.kame
+  %table.list
     -for k, v in @purchase.stats(:with_balance=>true)
       %tr.total
         %th=tc(k)

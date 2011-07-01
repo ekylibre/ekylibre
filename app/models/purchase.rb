@@ -179,7 +179,7 @@ class Purchase < CompanyRecord
     self.number# tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.delivery_contact.address.to_s)
   end
 
-  # Need for use in kame
+  # Need for use in list
   def quantity 
     ''
   end

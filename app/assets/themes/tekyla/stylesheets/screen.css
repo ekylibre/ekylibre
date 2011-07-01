@@ -1,4 +1,4 @@
-* {margin:0; padding:0; font-family: helvetica, arial,"Liberation Sans", sans-serif;}
+* {margin:0; padding:0; font-family: /*helvetica, arial, "Liberation Sans",*/ sans-serif;}
 html { background: #F1F1F1;/*background: #C9D7F1;*/}
 fieldset { border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
 fieldset legend { padding: 0 4px;  margin: 0 4px; color: #047; font-size: 15px; font-weight: bold;}
@@ -41,6 +41,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-horizontal  { background-image: url(../images/buttons/horizontal.png); }
 .icon.im-import      { background-image: url(../images/buttons/left.png); }
 .icon.im-letter      { background-image: url(../images/buttons/letter.png); }
+.icon.im-list-check  { background-image: url(../images/buttons/list-check.png); }
 .icon.im-load        { background-image: url(../images/buttons/load.png); }
 .icon.im-logout      { background-image: url(../images/buttons/logout.png); }
 .icon.im-mail        { background-image: url(../images/buttons/mail.png); }
@@ -372,13 +373,13 @@ html[dir="rtl"] .toolbar ul li { float: right; }
 /*.toolbar ul > li > a {padding: 2px 2px 2px 20px; background: url(../images/round-blue.png) no-repeat center left; }
 html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-position: center right; }*/
 
-
-.tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #E7E7E7 url(../images/white-shadow.png) 0 -12px repeat-x; border: 1px solid #CCC;}
+/*#E7E7E7*/
+.tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/white-reflect.png) center repeat-x; border: 1px solid #CCC;}
 .tool:hover { background: #688ED8; border-color: #688ED8; color: white; z-index: 1000; } /*#3D5C8D */
 a.tool:hover, .tool:hover * { color: white; text-shadow: 1px 1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
-.toolbar .tool:first-child { -moz-border-radius-bottomleft: 5px; -moz-border-radius-topleft: 5px; }
-.toolbar .tool:last-child { -moz-border-radius-bottomright: 5px; -moz-border-radius-topright: 5px; }
+html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -moz-border-radius-bottomleft: 5px; -moz-border-radius-topleft: 5px; }
+html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child { -moz-border-radius-bottomright: 5px; -moz-border-radius-topright: 5px; }
 div.toolbar .tool { display: block; z-index: 0}
 html[dir="ltr"] div.toolbar .tool { float: left; }
 html[dir="rtl"] div.toolbar .tool { float: right;  }
@@ -420,7 +421,7 @@ h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1
 
 .stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
 .stepper td { height: 36px; }
-.stepper td.step { text-align:center; background: url(../images/stepper-default.png) no-repeat; padding: 0 20px;}
+.stepper td.step { text-align:center; background: url(../images/stepper-default.png) no-repeat; padding: 6px 20px; line-height: 24px; height: 24px; vertical-align:middle;}
 .stepper td.step.usable { background: url(../images/stepper-usable.png) no-repeat; }
 .stepper td.step.active { background: url(../images/stepper-active.png) no-repeat; }
 html[dir="ltr"] .stepper td.step { background-position: right center; }
@@ -584,7 +585,7 @@ html[dir="ltr"] .work-center-graph .input-conveyors .conveyor { margin-left: aut
 html[dir="rtl"] .work-center-graph .input-conveyors .conveyor { margin-right: auto; }
 
 .bmenu { position: relative; }
-.bmenu ul { display: none; position:absolute; background: Menu; border:1px solid ButtonShadow; z-index: 1000;}
+.bmenu ul { display: none; position:absolute; background: Menu; border:1px solid ButtonShadow; z-index: 1000; box-shadow: 0px 0px 4px #555; -moz-box-shadow: 0px 0px 4px #555; -webkit-box-shadow: 0px 0px 4px #555; behavior: url(/pie.htc);}
 .bmenu:hover ul { display: block;  }
 html[dir="ltr"] .bmenu ul { left: -1px; }
 html[dir="rtl"] .bmenu ul { right: -1px; }

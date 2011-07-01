@@ -60,6 +60,7 @@ fra:
       title: 'Exporter'
       true_value: 'VRAI'
     export_as: 'Exporter en %{exported}...'
+    items_per_page: 'Éléments par page'
     menu: 'Menu'
     next: 'Suivant'
     no_records: 'Aucun enregistrement'

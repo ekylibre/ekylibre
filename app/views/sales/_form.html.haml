@@ -5,7 +5,7 @@
   -f.title :client
   -sale_client_id = f.field :sale, :client_id, :choices=>:clients, :new=>true
 
-#contacts=render "contacts_form"
+#contacts{:data=>{:refresh=>url_for(:action=>:contacts)}}=render "contacts_form"
 
 =formalize do |f| 
   -f.title :sales_conditions
@@ -26,5 +26,5 @@
   window.letterInformations = function(){ toggleElement('letter_format', $('sale_letter_format').checked); }
   letterInformations();
 
-=observe_field sale_client_id, :frequency=>0.25,  :update=>"contacts", :url=>{:action=>:contacts, :sale_id=>@sale.id}, :with=>:id
+=observe_field sale_client_id, :frequency=>0.25, :update=>"contacts", :url=>{:action=>:contacts, :sale_id=>@sale.id}, :with=>:client_id, :method=>:get
 =observe_field("sale_letter_format", :frequency=>0.25, :function=>"letterInformations()")

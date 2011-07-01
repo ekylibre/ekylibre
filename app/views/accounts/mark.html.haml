@@ -19,7 +19,7 @@
   .fields
     -for x in [:period, :started_on, :stopped_on]
       =hidden_field_tag(x, params[x])
-    %table.kame
+    %table.list
       %tr
         %th=JournalEntryLine.human_attribute_name("letter")
         %th.act

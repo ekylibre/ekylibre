@@ -87,7 +87,7 @@ namespace :list do
       end
     end
 
-    File.open(Rails.root.join("public", "stylesheets", "list-colors.css"), "wb") do |f|
+    File.open(Rails.root.join("app", "assets", "stylesheets", "list-colors.css"), "wb") do |f|
       f.write("/* Auto-generated from plugin List (rake list:css) */\n")
       f.write(code)
     end

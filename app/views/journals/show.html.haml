@@ -35,7 +35,7 @@
 -totals[:balance_debit] = totals[:balance_credit] = 0.0
 -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
-%table.kame
+%table.list
   %tr.total
     %th
     %th=JournalEntry.human_attribute_name("debit")

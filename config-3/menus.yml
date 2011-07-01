@@ -27,7 +27,6 @@
 #         - interfacers::collected_account_dyli
 #         - interfacers::districts_dyli
 #         - interfacers::entities_dyli
-#         - interfacers::formalize
 #         - interfacers::incoming_delivery_contacts_dyli
 #         - interfacers::operation_products_dyli
 #         - interfacers::outgoing_deliveries_dyli
@@ -41,6 +40,7 @@
 #         - interfacers::suppliers_dyli
 #         - interfacers::toggle_side
 #         - interfacers::toggle_tab
+#         - interfacers::unroll_options
 #         - professions::create
 #         - professions::destroy
 #         - professions::edit

@@ -8,7 +8,7 @@
   -f.field :incoming_delivery, :planned_on
 
 %h2=IncomingDelivery.human_attribute_name("lines")
-%table.kame 
+%table.list 
   %tr
     %th=IncomingDeliveryLine.human_attribute_name(:product)
     %th=tc(:unit_price_pretax_amount)

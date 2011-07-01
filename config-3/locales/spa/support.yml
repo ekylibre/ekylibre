@@ -60,6 +60,7 @@ spa:
       title: 'Exportación'
       true_value: 'VERDAD'
     export_as: 'Exportar a %{exported}...'
+    # items_per_page: 'Items per page'
     menu: 'Menú'
     next: 'Siguiente'
     no_records: 'Vacío'

@@ -60,6 +60,7 @@ arb:
       title: 'تصدير'
       true_value: 'صحيح'
     # export_as: 'Export as %{exported}...'
+    # items_per_page: 'Items per page'
     # menu: 'Menu'
     next: 'التالي'
     no_records: 'ولا اية سجل'

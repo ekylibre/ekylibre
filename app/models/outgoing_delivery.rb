@@ -98,7 +98,7 @@ class OutgoingDelivery < CompanyRecord
     tc('label', :client=>self.sale.client.full_name.to_s, :address=>self.contact.address.to_s)
   end
 
-  # Used with kame for the moment
+  # Used with list for the moment
   def quantity
     ''
   end

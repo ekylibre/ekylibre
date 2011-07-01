@@ -59,7 +59,7 @@ class SalesController < ApplicationController
     t.column :downpayment
     # t.column :paid_on, :through=>:payment, :label=>:column, :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :controller=>:finances
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   list(:subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}) do |t|
@@ -104,7 +104,6 @@ class SalesController < ApplicationController
     t.column :created_on
     t.column :label, :through=>:responsible
     t.column :full_name, :through=>:client, :url=>true
-    # t.column :code, :through=>:client, :url=>{:controller=>:relations, :action=>:entity}, :label=>"client_code"
     t.column :comment
     t.column :state_label
     t.column :paid_amount
@@ -183,12 +182,22 @@ class SalesController < ApplicationController
   end
 
   def contacts
-    return unless client = find_and_check(:entity)
+
     if request.xhr?
-      session[:current_entity_id] = client.id
-      cid = client.default_contact.id
-      @sale = @current_company.sales.find_by_id(params[:sale_id])||Sale.new(:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid)
+      client, contact_id = nil, nil
+      client = if params[:selected] and contact = @current_company.contacts.find_by_id(params[:selected])
+                 contact.entity
+               else
+                 @current_company.entities.find_by_id(params[:client_id])
+               end
+      if client
+        session[:current_entity_id] = client.id
+        contact_id = contact.id||client.default_contact.id
+      end
+      @sale = @current_company.sales.find_by_id(params[:sale_id])||Sale.new(:contact_id=>contact_id, :delivery_contact_id=>contact_id, :invoice_contact_id=>contact_id)
       render :partial=>'contacts_form', :locals=>{:client=>client}
+    else
+      redirect_to :action=>:index
     end
 
 #     if @sale
@@ -237,27 +246,10 @@ class SalesController < ApplicationController
   end
 
   def create
-    if request.post?
-      @sale = Sale.new(params[:sale])
-      @sale.company_id = @current_company.id
-      @sale.number = ''
-      if @sale.save
-        redirect_to :action=>:show, :step=>:products, :id=>@sale.id
-      end
-    else
-      @sale = Sale.new
-      if client = @current_company.entities.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
-        cid = client.default_contact.id
-        @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
-      end
-      session[:current_entity_id] = (client ? client.id : nil)
-      @sale.responsible_id = @current_user.id
-      @sale.client_id = session[:current_entity_id]
-      @sale.letter_format = false
-      @sale.function_title = tg('letter_function_title')
-      @sale.introduction = tg('letter_introduction')
-      # @sale.conclusion = tg('letter_conclusion')
-    end
+    @sale = Sale.new(params[:sale])
+    @sale.company_id = @current_company.id
+    @sale.number = ''
+    return if save_and_redirect(@sale, :url=>{:action=>:show, :step=>:products, :id=>"id"})
     render_restfully_form
   end
 
@@ -396,7 +388,7 @@ class SalesController < ApplicationController
       end
 
       dir = "#{Rails.root.to_s}/public/images/gruff/#{@current_company.code}"
-      @graph = "management-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
+      @graph = "sales-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
       
       FileUtils.mkdir_p dir unless File.exists? dir
       g.write(dir+"/"+@graph)

@@ -60,6 +60,7 @@ eng:
       title: 'Export'
       true_value: 'TRUE'
     export_as: 'Export as %{exported}...'
+    items_per_page: 'Items per page'
     menu: 'Menu'
     next: 'Next'
     no_records: 'No records'

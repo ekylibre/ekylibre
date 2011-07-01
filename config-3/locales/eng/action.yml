@@ -1360,7 +1360,7 @@ eng:
     need_stocks_warehouse_to_create_products: 'You must create a warehouse to be able to create a product' #!
     need_to_create_subscription_nature: 'You must create a type of subscription to manage your subscriptions'
     need_warehouse_to_create_purchase_line: 'You must create a warehouse to be able to create a purchase.'
-    need_warehouse_to_create_sale_line: 'You must create a warehouse to be able to create a sale'
+    need_warehouse_to_create_sale_line: 'You must create a warehouse to be able to create a sale' #!
     need_warehouse_to_record_stock_moves: 'You must create a warehouse to be able to manage stocks.'
     new_actual_number: 'The new number is being %{actual_number}'
     no_authenticated: 'You could not be identified. The username or password must be incorrect.'

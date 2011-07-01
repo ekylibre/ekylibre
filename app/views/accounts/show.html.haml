@@ -13,7 +13,7 @@
 =tabbox(:account) do |tb|
   -tb.tab(:journal_entry_lines) do
     =list(:journal_entry_lines)
-    %table.kame
+    %table.list
       %tr.total
         %th
         %th=JournalEntry.human_attribute_name("debit")

@@ -22,7 +22,7 @@ class JournalEntryLinesController < ApplicationController
   def new
     @journal_entry_line = JournalEntryLine.new
     if request.xhr?
-      render :partial=>"journal_entry_line_row_form", :object=>@journal_entry_line
+      render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line
     else
       redirect_to_back
     end
@@ -31,7 +31,7 @@ class JournalEntryLinesController < ApplicationController
   def create
     @journal_entry_line = JournalEntryLine.new
     if request.xhr?
-      render :partial=>"journal_entry_line_row_form", :object=>@journal_entry_line
+      render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line
     else
       redirect_to_back
     end

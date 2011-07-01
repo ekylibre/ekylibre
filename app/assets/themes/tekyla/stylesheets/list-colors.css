@@ -1,0 +1,461 @@
+/* Auto-generated from plugin List (rake list:css) */
+
+/* _Default_ */
+table.list tr td {background:#FFFFFF}
+table.list tr:hover td {background:#F0F3FF}
+table.list tr td.act {background:#FFEEDD}
+table.list tr:hover td.act {background:#F0E8E7}
+table.list tr td.sor {background:#F2F2F8}
+table.list tr:hover td.sor {background:#E7EBFA}
+table.list tr.even td {background:#FFFFFF}
+table.list tr.even:hover td {background:#F0F3FF}
+table.list tr.even td.act {background:#FFEEDD}
+table.list tr.even:hover td.act {background:#F0E8E7}
+table.list tr.even td.sor {background:#F2F2F8}
+table.list tr.even:hover td.sor {background:#E7EBFA}
+table.list tr.odd td {background:#FFFFFF}
+table.list tr.odd:hover td {background:#F0F3FF}
+table.list tr.odd td.act {background:#FFEEDD}
+table.list tr.odd:hover td.act {background:#F0E8E7}
+table.list tr.odd td.sor {background:#F2F2F8}
+table.list tr.odd:hover td.sor {background:#E7EBFA}
+
+/* Advance */
+table.list tr.advance td {background:#D8FFA3}
+table.list tr.advance:hover td {background:#D5F3BF}
+table.list tr.advance td.act {background:#DDEE8D}
+table.list tr.advance:hover td.act {background:#D9E8B0}
+table.list tr.advance td.sor {background:#CCF2A1}
+table.list tr.advance:hover td.sor {background:#CEEBBE}
+table.list tr.advance.even td {background:#E9FFCB}
+table.list tr.advance.even:hover td {background:#E1F3DB}
+table.list tr.advance.even td.act {background:#ECEEB0}
+table.list tr.advance.even:hover td.act {background:#E3E8C8}
+table.list tr.advance.even td.sor {background:#DDF2C7}
+table.list tr.advance.even:hover td.sor {background:#D9EBD9}
+table.list tr.advance.odd td {background:#E9FFCB}
+table.list tr.advance.odd:hover td {background:#E1F3DB}
+table.list tr.advance.odd td.act {background:#ECEEB0}
+table.list tr.advance.odd:hover td.act {background:#E3E8C8}
+table.list tr.advance.odd td.sor {background:#DDF2C7}
+table.list tr.advance.odd:hover td.sor {background:#D9EBD9}
+
+/* Balanced */
+table.list tr.balanced td {background:#D8FFA3}
+table.list tr.balanced:hover td {background:#D5F3BF}
+table.list tr.balanced td.act {background:#DDEE8D}
+table.list tr.balanced:hover td.act {background:#D9E8B0}
+table.list tr.balanced td.sor {background:#CCF2A1}
+table.list tr.balanced:hover td.sor {background:#CEEBBE}
+table.list tr.balanced.even td {background:#E9FFCB}
+table.list tr.balanced.even:hover td {background:#E1F3DB}
+table.list tr.balanced.even td.act {background:#ECEEB0}
+table.list tr.balanced.even:hover td.act {background:#E3E8C8}
+table.list tr.balanced.even td.sor {background:#DDF2C7}
+table.list tr.balanced.even:hover td.sor {background:#D9EBD9}
+table.list tr.balanced.odd td {background:#E9FFCB}
+table.list tr.balanced.odd:hover td {background:#E1F3DB}
+table.list tr.balanced.odd td.act {background:#ECEEB0}
+table.list tr.balanced.odd:hover td.act {background:#E3E8C8}
+table.list tr.balanced.odd td.sor {background:#DDF2C7}
+table.list tr.balanced.odd:hover td.sor {background:#D9EBD9}
+
+/* Critic */
+table.list tr.critic td {background:#FFAD87}
+table.list tr.critic:hover td {background:#F0BBAC}
+table.list tr.critic td.act {background:#FFA775}
+table.list tr.critic:hover td.act {background:#F0B7A0}
+table.list tr.critic td.sor {background:#F2A586}
+table.list tr.critic:hover td.sor {background:#E7B5AC}
+table.list tr.critic.even td {background:#FFD1BB}
+table.list tr.critic.even:hover td {background:#F0D3D0}
+table.list tr.critic.even td.act {background:#FFC7A2}
+table.list tr.critic.even:hover td.act {background:#F0CCBF}
+table.list tr.critic.even td.sor {background:#F2C7B8}
+table.list tr.critic.even:hover td.sor {background:#E7CDCE}
+table.list tr.critic.odd td {background:#FFD1BB}
+table.list tr.critic.odd:hover td {background:#F0D3D0}
+table.list tr.critic.odd td.act {background:#FFC7A2}
+table.list tr.critic.odd:hover td.act {background:#F0CCBF}
+table.list tr.critic.odd td.sor {background:#F2C7B8}
+table.list tr.critic.odd:hover td.sor {background:#E7CDCE}
+
+/* Disabled */
+table.list tr.disabled td {background:#EEEEEE}
+table.list tr.disabled:hover td {background:#E4E7F3}
+table.list tr.disabled td.act {background:#F0E0CE}
+table.list tr.disabled:hover td.act {background:#E6DEDD}
+table.list tr.disabled td.sor {background:#E1E2E8}
+table.list tr.disabled:hover td.sor {background:#DCE0EF}
+table.list tr.disabled.even td {background:#F5F5F5}
+table.list tr.disabled.even:hover td {background:#EAECF8}
+table.list tr.disabled.even td.act {background:#F6E6D4}
+table.list tr.disabled.even:hover td.act {background:#EAE2E1}
+table.list tr.disabled.even td.sor {background:#E8E9EF}
+table.list tr.disabled.even:hover td.sor {background:#E1E4F4}
+table.list tr.disabled.odd td {background:#F5F5F5}
+table.list tr.disabled.odd:hover td {background:#EAECF8}
+table.list tr.disabled.odd td.act {background:#F6E6D4}
+table.list tr.disabled.odd:hover td.act {background:#EAE2E1}
+table.list tr.disabled.odd td.sor {background:#E8E9EF}
+table.list tr.disabled.odd:hover td.sor {background:#E1E4F4}
+
+/* Enough */
+table.list tr.enough td {background:#D8FFA3}
+table.list tr.enough:hover td {background:#D5F3BF}
+table.list tr.enough td.act {background:#DDEE8D}
+table.list tr.enough:hover td.act {background:#D9E8B0}
+table.list tr.enough td.sor {background:#CCF2A1}
+table.list tr.enough:hover td.sor {background:#CEEBBE}
+table.list tr.enough.even td {background:#E9FFCB}
+table.list tr.enough.even:hover td {background:#E1F3DB}
+table.list tr.enough.even td.act {background:#ECEEB0}
+table.list tr.enough.even:hover td.act {background:#E3E8C8}
+table.list tr.enough.even td.sor {background:#DDF2C7}
+table.list tr.enough.even:hover td.sor {background:#D9EBD9}
+table.list tr.enough.odd td {background:#E9FFCB}
+table.list tr.enough.odd:hover td {background:#E1F3DB}
+table.list tr.enough.odd td.act {background:#ECEEB0}
+table.list tr.enough.odd:hover td.act {background:#E3E8C8}
+table.list tr.enough.odd td.sor {background:#DDF2C7}
+table.list tr.enough.odd:hover td.sor {background:#D9EBD9}
+
+/* Error */
+table.list tr.error td {background:#FFAD87}
+table.list tr.error:hover td {background:#F0BBAC}
+table.list tr.error td.act {background:#FFA775}
+table.list tr.error:hover td.act {background:#F0B7A0}
+table.list tr.error td.sor {background:#F2A586}
+table.list tr.error:hover td.sor {background:#E7B5AC}
+table.list tr.error.even td {background:#FFD1BB}
+table.list tr.error.even:hover td {background:#F0D3D0}
+table.list tr.error.even td.act {background:#FFC7A2}
+table.list tr.error.even:hover td.act {background:#F0CCBF}
+table.list tr.error.even td.sor {background:#F2C7B8}
+table.list tr.error.even:hover td.sor {background:#E7CDCE}
+table.list tr.error.odd td {background:#FFD1BB}
+table.list tr.error.odd:hover td {background:#F0D3D0}
+table.list tr.error.odd td.act {background:#FFC7A2}
+table.list tr.error.odd:hover td.act {background:#F0CCBF}
+table.list tr.error.odd td.sor {background:#F2C7B8}
+table.list tr.error.odd:hover td.sor {background:#E7CDCE}
+
+/* Invoiced */
+table.list tr.invoiced td {background:#FFAD87}
+table.list tr.invoiced:hover td {background:#F0BBAC}
+table.list tr.invoiced td.act {background:#FFA775}
+table.list tr.invoiced:hover td.act {background:#F0B7A0}
+table.list tr.invoiced td.sor {background:#F2A586}
+table.list tr.invoiced:hover td.sor {background:#E7B5AC}
+table.list tr.invoiced.even td {background:#FFD1BB}
+table.list tr.invoiced.even:hover td {background:#F0D3D0}
+table.list tr.invoiced.even td.act {background:#FFC7A2}
+table.list tr.invoiced.even:hover td.act {background:#F0CCBF}
+table.list tr.invoiced.even td.sor {background:#F2C7B8}
+table.list tr.invoiced.even:hover td.sor {background:#E7CDCE}
+table.list tr.invoiced.odd td {background:#FFD1BB}
+table.list tr.invoiced.odd:hover td {background:#F0D3D0}
+table.list tr.invoiced.odd td.act {background:#FFC7A2}
+table.list tr.invoiced.odd:hover td.act {background:#F0CCBF}
+table.list tr.invoiced.odd td.sor {background:#F2C7B8}
+table.list tr.invoiced.odd:hover td.sor {background:#E7CDCE}
+
+/* Late */
+table.list tr.late td {background:#FFE0B3}
+table.list tr.late:hover td {background:#F0DECA}
+table.list tr.late td.act {background:#FFD49B}
+table.list tr.late:hover td.act {background:#F0D5BA}
+table.list tr.late td.sor {background:#F2D5B0}
+table.list tr.late:hover td.sor {background:#E7D6C9}
+table.list tr.late.even td {background:#FFEDD4}
+table.list tr.late.even:hover td {background:#F0E7E1}
+table.list tr.late.even td.act {background:#FFDFB8}
+table.list tr.late.even:hover td.act {background:#F0DDCE}
+table.list tr.late.even td.sor {background:#F2E2D0}
+table.list tr.late.even:hover td.sor {background:#E7DFDE}
+table.list tr.late.odd td {background:#FFEDD4}
+table.list tr.late.odd:hover td {background:#F0E7E1}
+table.list tr.late.odd td.act {background:#FFDFB8}
+table.list tr.late.odd:hover td.act {background:#F0DDCE}
+table.list tr.late.odd td.sor {background:#F2E2D0}
+table.list tr.late.odd:hover td.sor {background:#E7DFDE}
+
+/* Letter */
+table.list tr.letter td {background:#D8FFA3}
+table.list tr.letter:hover td {background:#D5F3BF}
+table.list tr.letter td.act {background:#DDEE8D}
+table.list tr.letter:hover td.act {background:#D9E8B0}
+table.list tr.letter td.sor {background:#CCF2A1}
+table.list tr.letter:hover td.sor {background:#CEEBBE}
+table.list tr.letter.even td {background:#E9FFCB}
+table.list tr.letter.even:hover td {background:#E1F3DB}
+table.list tr.letter.even td.act {background:#ECEEB0}
+table.list tr.letter.even:hover td.act {background:#E3E8C8}
+table.list tr.letter.even td.sor {background:#DDF2C7}
+table.list tr.letter.even:hover td.sor {background:#D9EBD9}
+table.list tr.letter.odd td {background:#E9FFCB}
+table.list tr.letter.odd:hover td {background:#E1F3DB}
+table.list tr.letter.odd td.act {background:#ECEEB0}
+table.list tr.letter.odd:hover td.act {background:#E3E8C8}
+table.list tr.letter.odd td.sor {background:#DDF2C7}
+table.list tr.letter.odd:hover td.sor {background:#D9EBD9}
+
+/* Letter-unbalanced */
+table.list tr.letter-unbalanced td {background:#FFE0B3}
+table.list tr.letter-unbalanced:hover td {background:#F0DECA}
+table.list tr.letter-unbalanced td.act {background:#FFD49B}
+table.list tr.letter-unbalanced:hover td.act {background:#F0D5BA}
+table.list tr.letter-unbalanced td.sor {background:#F2D5B0}
+table.list tr.letter-unbalanced:hover td.sor {background:#E7D6C9}
+table.list tr.letter-unbalanced.even td {background:#FFEDD4}
+table.list tr.letter-unbalanced.even:hover td {background:#F0E7E1}
+table.list tr.letter-unbalanced.even td.act {background:#FFDFB8}
+table.list tr.letter-unbalanced.even:hover td.act {background:#F0DDCE}
+table.list tr.letter-unbalanced.even td.sor {background:#F2E2D0}
+table.list tr.letter-unbalanced.even:hover td.sor {background:#E7DFDE}
+table.list tr.letter-unbalanced.odd td {background:#FFEDD4}
+table.list tr.letter-unbalanced.odd:hover td {background:#F0E7E1}
+table.list tr.letter-unbalanced.odd td.act {background:#FFDFB8}
+table.list tr.letter-unbalanced.odd:hover td.act {background:#F0DDCE}
+table.list tr.letter-unbalanced.odd td.sor {background:#F2E2D0}
+table.list tr.letter-unbalanced.odd:hover td.sor {background:#E7DFDE}
+
+/* Minimum */
+table.list tr.minimum td {background:#FFE0B3}
+table.list tr.minimum:hover td {background:#F0DECA}
+table.list tr.minimum td.act {background:#FFD49B}
+table.list tr.minimum:hover td.act {background:#F0D5BA}
+table.list tr.minimum td.sor {background:#F2D5B0}
+table.list tr.minimum:hover td.sor {background:#E7D6C9}
+table.list tr.minimum.even td {background:#FFEDD4}
+table.list tr.minimum.even:hover td {background:#F0E7E1}
+table.list tr.minimum.even td.act {background:#FFDFB8}
+table.list tr.minimum.even:hover td.act {background:#F0DDCE}
+table.list tr.minimum.even td.sor {background:#F2E2D0}
+table.list tr.minimum.even:hover td.sor {background:#E7DFDE}
+table.list tr.minimum.odd td {background:#FFEDD4}
+table.list tr.minimum.odd:hover td {background:#F0E7E1}
+table.list tr.minimum.odd td.act {background:#FFDFB8}
+table.list tr.minimum.odd:hover td.act {background:#F0DDCE}
+table.list tr.minimum.odd td.sor {background:#F2E2D0}
+table.list tr.minimum.odd:hover td.sor {background:#E7DFDE}
+
+/* Notice */
+table.list tr.notice td {background:#D8FFA3}
+table.list tr.notice:hover td {background:#D5F3BF}
+table.list tr.notice td.act {background:#DDEE8D}
+table.list tr.notice:hover td.act {background:#D9E8B0}
+table.list tr.notice td.sor {background:#CCF2A1}
+table.list tr.notice:hover td.sor {background:#CEEBBE}
+table.list tr.notice.even td {background:#E9FFCB}
+table.list tr.notice.even:hover td {background:#E1F3DB}
+table.list tr.notice.even td.act {background:#ECEEB0}
+table.list tr.notice.even:hover td.act {background:#E3E8C8}
+table.list tr.notice.even td.sor {background:#DDF2C7}
+table.list tr.notice.even:hover td.sor {background:#D9EBD9}
+table.list tr.notice.odd td {background:#E9FFCB}
+table.list tr.notice.odd:hover td {background:#E1F3DB}
+table.list tr.notice.odd td.act {background:#ECEEB0}
+table.list tr.notice.odd:hover td.act {background:#E3E8C8}
+table.list tr.notice.odd td.sor {background:#DDF2C7}
+table.list tr.notice.odd:hover td.sor {background:#D9EBD9}
+
+/* Pointable */
+table.list tr.pointable td {background:#D8FFA3}
+table.list tr.pointable:hover td {background:#D5F3BF}
+table.list tr.pointable td.act {background:#DDEE8D}
+table.list tr.pointable:hover td.act {background:#D9E8B0}
+table.list tr.pointable td.sor {background:#CCF2A1}
+table.list tr.pointable:hover td.sor {background:#CEEBBE}
+table.list tr.pointable.even td {background:#E9FFCB}
+table.list tr.pointable.even:hover td {background:#E1F3DB}
+table.list tr.pointable.even td.act {background:#ECEEB0}
+table.list tr.pointable.even:hover td.act {background:#E3E8C8}
+table.list tr.pointable.even td.sor {background:#DDF2C7}
+table.list tr.pointable.even:hover td.sor {background:#D9EBD9}
+table.list tr.pointable.odd td {background:#E9FFCB}
+table.list tr.pointable.odd:hover td {background:#E1F3DB}
+table.list tr.pointable.odd td.act {background:#ECEEB0}
+table.list tr.pointable.odd:hover td.act {background:#E3E8C8}
+table.list tr.pointable.odd td.sor {background:#DDF2C7}
+table.list tr.pointable.odd:hover td.sor {background:#D9EBD9}
+
+/* Processing */
+table.list tr.processing td {background:#FFE0B3}
+table.list tr.processing:hover td {background:#F0DECA}
+table.list tr.processing td.act {background:#FFD49B}
+table.list tr.processing:hover td.act {background:#F0D5BA}
+table.list tr.processing td.sor {background:#F2D5B0}
+table.list tr.processing:hover td.sor {background:#E7D6C9}
+table.list tr.processing.even td {background:#FFEDD4}
+table.list tr.processing.even:hover td {background:#F0E7E1}
+table.list tr.processing.even td.act {background:#FFDFB8}
+table.list tr.processing.even:hover td.act {background:#F0DDCE}
+table.list tr.processing.even td.sor {background:#F2E2D0}
+table.list tr.processing.even:hover td.sor {background:#E7DFDE}
+table.list tr.processing.odd td {background:#FFEDD4}
+table.list tr.processing.odd:hover td {background:#F0E7E1}
+table.list tr.processing.odd td.act {background:#FFDFB8}
+table.list tr.processing.odd:hover td.act {background:#F0DDCE}
+table.list tr.processing.odd td.sor {background:#F2E2D0}
+table.list tr.processing.odd:hover td.sor {background:#E7DFDE}
+
+/* Ready */
+table.list tr.ready td {background:#D8FFA3}
+table.list tr.ready:hover td {background:#D5F3BF}
+table.list tr.ready td.act {background:#DDEE8D}
+table.list tr.ready:hover td.act {background:#D9E8B0}
+table.list tr.ready td.sor {background:#CCF2A1}
+table.list tr.ready:hover td.sor {background:#CEEBBE}
+table.list tr.ready.even td {background:#E9FFCB}
+table.list tr.ready.even:hover td {background:#E1F3DB}
+table.list tr.ready.even td.act {background:#ECEEB0}
+table.list tr.ready.even:hover td.act {background:#E3E8C8}
+table.list tr.ready.even td.sor {background:#DDF2C7}
+table.list tr.ready.even:hover td.sor {background:#D9EBD9}
+table.list tr.ready.odd td {background:#E9FFCB}
+table.list tr.ready.odd:hover td {background:#E1F3DB}
+table.list tr.ready.odd td.act {background:#ECEEB0}
+table.list tr.ready.odd:hover td.act {background:#E3E8C8}
+table.list tr.ready.odd td.sor {background:#DDF2C7}
+table.list tr.ready.odd:hover td.sor {background:#D9EBD9}
+
+/* Subtotal */
+table.list tr.subtotal td {background:#FFFFDD}
+table.list tr.subtotal:hover td {background:#F0F3E7}
+table.list tr.subtotal td.act {background:#FFEEBF}
+table.list tr.subtotal:hover td.act {background:#F0E8D3}
+table.list tr.subtotal td.sor {background:#F2F2D8}
+table.list tr.subtotal:hover td.sor {background:#E7EBE4}
+table.list tr.subtotal.even td {background:#FFFFEB}
+table.list tr.subtotal.even:hover td {background:#F0F3F1}
+table.list tr.subtotal.even td.act {background:#FFEECC}
+table.list tr.subtotal.even:hover td.act {background:#F0E8DC}
+table.list tr.subtotal.even td.sor {background:#F2F2E6}
+table.list tr.subtotal.even:hover td.sor {background:#E7EBEE}
+table.list tr.subtotal.odd td {background:#FFFFEB}
+table.list tr.subtotal.odd:hover td {background:#F0F3F1}
+table.list tr.subtotal.odd td.act {background:#FFEECC}
+table.list tr.subtotal.odd:hover td.act {background:#F0E8DC}
+table.list tr.subtotal.odd td.sor {background:#F2F2E6}
+table.list tr.subtotal.odd:hover td.sor {background:#E7EBEE}
+
+/* Unbalanced */
+table.list tr.unbalanced td {background:#FFAD87}
+table.list tr.unbalanced:hover td {background:#F0BBAC}
+table.list tr.unbalanced td.act {background:#FFA775}
+table.list tr.unbalanced:hover td.act {background:#F0B7A0}
+table.list tr.unbalanced td.sor {background:#F2A586}
+table.list tr.unbalanced:hover td.sor {background:#E7B5AC}
+table.list tr.unbalanced.even td {background:#FFD1BB}
+table.list tr.unbalanced.even:hover td {background:#F0D3D0}
+table.list tr.unbalanced.even td.act {background:#FFC7A2}
+table.list tr.unbalanced.even:hover td.act {background:#F0CCBF}
+table.list tr.unbalanced.even td.sor {background:#F2C7B8}
+table.list tr.unbalanced.even:hover td.sor {background:#E7CDCE}
+table.list tr.unbalanced.odd td {background:#FFD1BB}
+table.list tr.unbalanced.odd:hover td {background:#F0D3D0}
+table.list tr.unbalanced.odd td.act {background:#FFC7A2}
+table.list tr.unbalanced.odd:hover td.act {background:#F0CCBF}
+table.list tr.unbalanced.odd td.sor {background:#F2C7B8}
+table.list tr.unbalanced.odd:hover td.sor {background:#E7CDCE}
+
+/* Unpointable */
+table.list tr.unpointable td {background:#FFAD87}
+table.list tr.unpointable:hover td {background:#F0BBAC}
+table.list tr.unpointable td.act {background:#FFA775}
+table.list tr.unpointable:hover td.act {background:#F0B7A0}
+table.list tr.unpointable td.sor {background:#F2A586}
+table.list tr.unpointable:hover td.sor {background:#E7B5AC}
+table.list tr.unpointable.even td {background:#FFD1BB}
+table.list tr.unpointable.even:hover td {background:#F0D3D0}
+table.list tr.unpointable.even td.act {background:#FFC7A2}
+table.list tr.unpointable.even:hover td.act {background:#F0CCBF}
+table.list tr.unpointable.even td.sor {background:#F2C7B8}
+table.list tr.unpointable.even:hover td.sor {background:#E7CDCE}
+table.list tr.unpointable.odd td {background:#FFD1BB}
+table.list tr.unpointable.odd:hover td {background:#F0D3D0}
+table.list tr.unpointable.odd td.act {background:#FFC7A2}
+table.list tr.unpointable.odd:hover td.act {background:#F0CCBF}
+table.list tr.unpointable.odd td.sor {background:#F2C7B8}
+table.list tr.unpointable.odd:hover td.sor {background:#E7CDCE}
+
+/* Unpointabled */
+table.list tr.unpointabled td {background:#FFE0B3}
+table.list tr.unpointabled:hover td {background:#F0DECA}
+table.list tr.unpointabled td.act {background:#FFD49B}
+table.list tr.unpointabled:hover td.act {background:#F0D5BA}
+table.list tr.unpointabled td.sor {background:#F2D5B0}
+table.list tr.unpointabled:hover td.sor {background:#E7D6C9}
+table.list tr.unpointabled.even td {background:#FFEDD4}
+table.list tr.unpointabled.even:hover td {background:#F0E7E1}
+table.list tr.unpointabled.even td.act {background:#FFDFB8}
+table.list tr.unpointabled.even:hover td.act {background:#F0DDCE}
+table.list tr.unpointabled.even td.sor {background:#F2E2D0}
+table.list tr.unpointabled.even:hover td.sor {background:#E7DFDE}
+table.list tr.unpointabled.odd td {background:#FFEDD4}
+table.list tr.unpointabled.odd:hover td {background:#F0E7E1}
+table.list tr.unpointabled.odd td.act {background:#FFDFB8}
+table.list tr.unpointabled.odd:hover td.act {background:#F0DDCE}
+table.list tr.unpointabled.odd td.sor {background:#F2E2D0}
+table.list tr.unpointabled.odd:hover td.sor {background:#E7DFDE}
+
+/* Validated */
+table.list tr.validated td {background:#EAFAEF}
+table.list tr.validated:hover td {background:#E2EFF4}
+table.list tr.validated td.act {background:#ECEACF}
+table.list tr.validated:hover td.act {background:#E4E5DE}
+table.list tr.validated td.sor {background:#DEEEE9}
+table.list tr.validated:hover td.sor {background:#D9E7F0}
+table.list tr.validated.even td {background:#F3FCF6}
+table.list tr.validated.even:hover td {background:#E8F1F8}
+table.list tr.validated.even td.act {background:#F4ECD5}
+table.list tr.validated.even:hover td.act {background:#E9E6E2}
+table.list tr.validated.even td.sor {background:#E6F0F0}
+table.list tr.validated.even:hover td.sor {background:#DFE9F4}
+table.list tr.validated.odd td {background:#F3FCF6}
+table.list tr.validated.odd:hover td {background:#E8F1F8}
+table.list tr.validated.odd td.act {background:#F4ECD5}
+table.list tr.validated.odd:hover td.act {background:#E9E6E2}
+table.list tr.validated.odd td.sor {background:#E6F0F0}
+table.list tr.validated.odd:hover td.sor {background:#DFE9F4}
+
+/* Verylate */
+table.list tr.verylate td {background:#FFAD87}
+table.list tr.verylate:hover td {background:#F0BBAC}
+table.list tr.verylate td.act {background:#FFA775}
+table.list tr.verylate:hover td.act {background:#F0B7A0}
+table.list tr.verylate td.sor {background:#F2A586}
+table.list tr.verylate:hover td.sor {background:#E7B5AC}
+table.list tr.verylate.even td {background:#FFD1BB}
+table.list tr.verylate.even:hover td {background:#F0D3D0}
+table.list tr.verylate.even td.act {background:#FFC7A2}
+table.list tr.verylate.even:hover td.act {background:#F0CCBF}
+table.list tr.verylate.even td.sor {background:#F2C7B8}
+table.list tr.verylate.even:hover td.sor {background:#E7CDCE}
+table.list tr.verylate.odd td {background:#FFD1BB}
+table.list tr.verylate.odd:hover td {background:#F0D3D0}
+table.list tr.verylate.odd td.act {background:#FFC7A2}
+table.list tr.verylate.odd:hover td.act {background:#F0CCBF}
+table.list tr.verylate.odd td.sor {background:#F2C7B8}
+table.list tr.verylate.odd:hover td.sor {background:#E7CDCE}
+
+/* Warning */
+table.list tr.warning td {background:#FFE0B3}
+table.list tr.warning:hover td {background:#F0DECA}
+table.list tr.warning td.act {background:#FFD49B}
+table.list tr.warning:hover td.act {background:#F0D5BA}
+table.list tr.warning td.sor {background:#F2D5B0}
+table.list tr.warning:hover td.sor {background:#E7D6C9}
+table.list tr.warning.even td {background:#FFEDD4}
+table.list tr.warning.even:hover td {background:#F0E7E1}
+table.list tr.warning.even td.act {background:#FFDFB8}
+table.list tr.warning.even:hover td.act {background:#F0DDCE}
+table.list tr.warning.even td.sor {background:#F2E2D0}
+table.list tr.warning.even:hover td.sor {background:#E7DFDE}
+table.list tr.warning.odd td {background:#FFEDD4}
+table.list tr.warning.odd:hover td {background:#F0E7E1}
+table.list tr.warning.odd td.act {background:#FFDFB8}
+table.list tr.warning.odd:hover td.act {background:#F0DDCE}
+table.list tr.warning.odd td.sor {background:#F2E2D0}
+table.list tr.warning.odd:hover td.sor {background:#E7DFDE}

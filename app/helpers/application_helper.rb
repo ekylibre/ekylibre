@@ -315,10 +315,11 @@ module ApplicationHelper
       if value.is_a? ActiveRecord::Base
         record = value
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
-        if options[:url].is_a? TrueClass
-          options[:url] = {:controller=>model_name.pluralize, :action=>:show, :id=>record.id}
-        elsif options[:url].is_a? Hash
+        options[:url] = {:action=>:show} if options[:url].is_a? TrueClass
+        if options[:url].is_a? Hash
           options[:url][:id] ||= record.id
+          # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
+          options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
       end
       value_class += ' code' if attribute.to_s == "code"
@@ -445,12 +446,12 @@ module ApplicationHelper
 
 
   # Permits to use themes for Ekylibre
-  #  stylesheet_link_tag 'application', 'kame', 'kame-colors'
+  #  stylesheet_link_tag 'application', 'list', 'list-colors'
   #  stylesheet_link_tag 'print', :media=>'print'
   def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
-    for sheet, media in ["screen", "print", "kame", "kame-colors"]
+    for sheet, media in ["screen", "print", "list", "list-colors"]
       media = (sheet == "print" ? :print : :screen)
       if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
         code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
@@ -1222,11 +1223,13 @@ module ApplicationHelper
         options[:new] = {}
       end
       if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
+        options[:edit] = {} unless options[:edit].is_a? Hash
         if method.to_s.match(/_id$/) and refl = model.reflections[method.to_s[0..-4].to_sym]
           options[:new][:controller] ||= refl.class_name.underscore.pluralize
+          options[:edit][:controller] ||= options[:new][:controller]
         end
         options[:new][:action] ||= :new
-        label = tg(options[:new].delete(:label)||:new)
+        options[:edit][:action] ||= :edit
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
@@ -1246,8 +1249,8 @@ module ApplicationHelper
 
           data = (options[:update] ? options[:update] : rlid)
 
-          #  + content_tag(:span, link_to("Modifier", {:controller=>options[:new][:controller], :action=>:edit, :id=>0}, :class=>"icon im-edit", "data-edit"=>data).html_safe, :class=>:tool).html_safe
-          input += content_tag(:span, content_tag(:span, link_to(label, options[:new], "data-dialog-open"=>true, "data-dialog-update"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+          #                     + content_tag(:span, link_to(tg(:edit), options[:edit], "data-edit-item"=>data, :class=>"icon im-edit").html_safe, :class=>:tool).html_safe
+          input += content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
 
         end
       end
@@ -1483,7 +1486,7 @@ module ApplicationHelper
       title = tc("#{name}_steps.#{step[:name]}")
       classes  = "step"
       classes += " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action=>url.to_s} unless url.is_a? Hash
-      if step[:states].include?(state)
+      if step[:states].include?(state) and record.id
         classes += " usable"
         title = link_to(title, step[:actions][0].merge(:id=>record.id)) 
       end

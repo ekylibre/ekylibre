@@ -66,7 +66,7 @@ class IncomingDelivery < CompanyRecord
     return true
   end
 
-  # Only used for Kame usage
+  # Only used for list usage
   def quantity
     nil
   end

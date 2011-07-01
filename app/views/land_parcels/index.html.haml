@@ -24,7 +24,7 @@
             %td.plot{:style=>"width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class=>cycle("odd", "even"), :onclick=>"toggleLandParcel(this, 'land_parcel_#{land_parcel.id}')"}
               =hidden_field_tag("land_parcel[#{land_parcel.id}]", "0", :id=>"land_parcel_#{land_parcel.id}")
               .bmenu
-                =link_to(land_parcel.name, {:action=>:land_parcel, :id=>land_parcel.id}, :class=>:name)
+                =link_to(land_parcel.name, {:action=>:show, :id=>land_parcel.id}, :class=>:name)
                 %ul
                   %li=link_to(::I18n.t("actions.operations.new"), {:controller=>:operations, :action=>:new, :target_id=>land_parcel.id, :planned_on=>session[:viewed_on]}, :class=>"icon im-new")
                   %li=link_to(tl(:divide), {:controller=>:land_parcels, :action=>:divide, :id=>land_parcel.id}, :class=>"icon im-divide")
@@ -34,7 +34,7 @@
               .desc=land_parcel.description
               %ul.operations
                 -for operation in land_parcel.operations.find(:all, :conditions=>["COALESCE(moved_on, planned_on) < ? ", session[:viewed_on]], :limit=>5)
-                  %li=link_to(operation.name, {:action=>:operation, :id=>operation.id})
+                  %li=link_to(operation.name, {:action=>:show, :controller=>:operations, :id=>operation.id})
   #merge
     .fields
       .end

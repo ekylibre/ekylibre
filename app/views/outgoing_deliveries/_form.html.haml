@@ -8,7 +8,7 @@
   -f.field :outgoing_delivery, :planned_on
   -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:transporter=>1}
 %h2=OutgoingDelivery.human_attribute_name("lines")
-%table.kame 
+%table.list 
   %tr
     %th=OutgoingDeliveryLine.human_attribute_name(:product)
     %th=tc(:unit_price_pretax_amount)

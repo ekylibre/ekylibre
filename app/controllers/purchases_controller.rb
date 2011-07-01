@@ -38,7 +38,7 @@ class PurchasesController < ApplicationController
     t.column :name, :through=>[:payment, :mode]
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>:column
-    t.action :destroy, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
   end
 
   list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
@@ -73,7 +73,6 @@ class PurchasesController < ApplicationController
     # t.column :planned_on
     # t.column :moved_on
     t.column :full_name, :through=>:supplier, :url=>true
-    # t.column :code, :through=>:supplier, :url=>{:controller=>:relations, :action=>:entity}, :label=>"supplier_code"
     t.column :comment
     # t.column :shipped
     t.column :state_label

@@ -52,7 +52,7 @@
       -t.link(:new, :controller=>:sale_lines, :sale_id=>@sale.id)
     =render :partial=>"sale_lines/row_form"
   =list :lines
-  %table.kame
+  %table.list
     %tr.total
       %th=Sale.human_attribute_name(:pretax_amount)
       %td=number_to_management(@sale.pretax_amount)
@@ -67,7 +67,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
   =toolbar do |t|
-    -t.link(:new, :controller=>:incoming_payment_use, :expense_type=>:sale, :expense_id=>@sale.id) unless @sale.unpaid_amount.zero?
+    -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id) unless @sale.unpaid_amount.zero?
   =list :payment_uses
 
       
@@ -87,7 +87,7 @@
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :financial_state
-  %table.kame
+  %table.list
     -for k, v in @sale.stats(:with_balance=>true)
       %tr.total
         %th=tc(k)

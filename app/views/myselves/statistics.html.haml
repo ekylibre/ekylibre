@@ -10,7 +10,7 @@
 -conditions = Proc.new{|x| ["#{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
 =unagi do |u|
   -u.cell :x_sales, :count=>@current_user.sales.count(:id, :conditions=>conditions[:created_on]) do
-    %table.kame
+    %table.list
       %tr.total
         %th=tc(:total_amount)
         %td=number_to_management @current_user.sales.sum(:amount, :conditions=>conditions[:created_on])

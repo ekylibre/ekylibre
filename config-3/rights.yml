@@ -61,7 +61,6 @@ __minimum__:
   - interfacers::entities_dyli
   - interfacers::entities_dyli
   - interfacers::entities_dyli
-  - interfacers::unroll_options
   - interfacers::product_trackings
   - interfacers::product_units
   - interfacers::purchase_products_dyli
@@ -69,6 +68,7 @@ __minimum__:
   - interfacers::suppliers_dyli
   - interfacers::toggle_side
   - interfacers::toggle_tab
+  - interfacers::unroll_options
   - myselves::change_password
   - myselves::statistics
   - settings::about

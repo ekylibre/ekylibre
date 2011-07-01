@@ -100,6 +100,6 @@
       -t.link :new, :controller=>:cashes, :entity_id=>@entity.id
     =list(:cashes)
 
-  -if File.exist?(Rails.root.join("app", "views", "relations", "_entity_extra.html.haml"))
+  -if File.exist?(Rails.root.join("app", "views", "entities", "_extra.html.haml"))
     -tb.tab("Extra") do
       =render :partial=>"extra"

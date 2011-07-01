@@ -19,101 +19,50 @@
 
 class SaleLinesController < ApplicationController
 
-  def new
-    return unless @sale = find_and_check(:sale, params[:sale_id]||session[:current_sale_id])
-    @warehouses = @current_company.warehouses
-    default_attributes = {:company_id=>@current_company.id, :price_amount=>0.0, :reduction_percent=>@sale.client.max_reduction_percent}
-    @sale_line = @sale.lines.new(default_attributes)
-    if @current_company.available_prices.size > 0
-      # @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
-      @product = @current_company.available_prices.first.product
-      @warehouse = @warehouses.first
-      session[:current_product_id] = @product.id
-      session[:current_warehouse_id] = @warehouse.id
-    else
-      # @subscription = Subscription.new()
-    end
-    if @warehouses.empty? 
-      notify_warning(:need_warehouse_to_create_sale_line)
-      redirect_to :action=>:warehouse_create
-      return
-    elsif not @sale.draft?
-      notify_error(:impossible_to_add_lines)
-      redirect_to :action=>:sale, :step=>:products, :id=>@sale.id
-      return
-    elsif request.post? 
-      @sale_line = @sale.lines.build(default_attributes)
-      @sale_line.attributes = params[:sale_line]
-      @sale_line.warehouse_id = @warehouses[0].id if @warehouses.size == 1
 
-      ActiveRecord::Base.transaction do
-        if saved = @sale_line.save
-          if @sale_line.subscription?
-            @subscription = @sale_line.new_subscription(params[:subscription])
-            saved = false unless @subscription.save
-            @subscription.errors.add_from_record(@sale_line)
-          end
-          raise ActiveRecord::Rollback unless saved
-        end
-        return if save_and_redirect(@sale_line, :url=>{:action=>:sale, :step=>:products, :id=>@sale.id}, :saved=>saved) 
-      end
+  def new
+    return unless @sale = find_and_check(:sale, params[:sale_id])
+    @sale_line = @sale.lines.new(:company_id=>@current_company.id, :price_amount=>0.0, :reduction_percent=>@sale.client.max_reduction_percent)
+    unless @sale.draft?
+      notify_error(:impossible_to_add_lines)
+      redirect_to :controller=>:sales, :action=>:show, :id=>@sale.id, :step=>:products
+      return
     end
     render_restfully_form
   end
 
   def create
-    return unless @sale = find_and_check(:sale, params[:sale_id]||session[:current_sale_id])
-    @warehouses = @current_company.warehouses
-    default_attributes = {:company_id=>@current_company.id, :price_amount=>0.0, :reduction_percent=>@sale.client.max_reduction_percent}
-    @sale_line = @sale.lines.new(default_attributes)
-    if @current_company.available_prices.size > 0
-      # @subscription = Subscription.new(:product_id=>@current_company.available_prices.first.product.id, :company_id=>@current_company.id).compute_period
-      @product = @current_company.available_prices.first.product
-      @warehouse = @warehouses.first
-      session[:current_product_id] = @product.id
-      session[:current_warehouse_id] = @warehouse.id
-    else
-      # @subscription = Subscription.new()
-    end
-    if @warehouses.empty? 
-      notify_warning(:need_warehouse_to_create_sale_line)
-      redirect_to :controller=>:warehouses, :action=>:new
-      return
-    elsif not @sale.draft?
+    return unless @sale = find_and_check(:sale, params[:sale_id])
+    @sale_line = @sale.lines.new(:company_id=>@current_company.id, :price_amount=>0.0, :reduction_percent=>@sale.client.max_reduction_percent)
+    unless @sale.draft?
       notify_error(:impossible_to_add_lines)
-      redirect_to :action=>:sale, :step=>:products, :id=>@sale.id
+      redirect_to :controller=>:sales, :action=>:show, :id=>@sale.id, :step=>:products
       return
-    elsif request.post? 
-      @sale_line = @sale.lines.build(default_attributes)
-      @sale_line.attributes = params[:sale_line]
-      @sale_line.warehouse_id = @warehouses[0].id if @warehouses.size == 1
-
-      ActiveRecord::Base.transaction do
-        if saved = @sale_line.save
-          if @sale_line.subscription?
-            @subscription = @sale_line.new_subscription(params[:subscription])
-            saved = false unless @subscription.save
-            @subscription.errors.add_from_record(@sale_line)
-          end
-          raise ActiveRecord::Rollback unless saved
+    end
+    @sale_line.attributes = params[:sale_line]
+    ActiveRecord::Base.transaction do
+      if saved = @sale_line.save
+        if @sale_line.subscription?
+          @subscription = @sale_line.new_subscription(params[:subscription])
+          saved = false unless @subscription.save
+          @subscription.errors.add_from_record(@sale_line)
         end
-        return if save_and_redirect(@sale_line, :url=>{:action=>:sale, :step=>:products, :id=>@sale.id}, :saved=>saved) 
+        raise ActiveRecord::Rollback unless saved
       end
+      return if save_and_redirect(@sale_line, :url=>{:controller=>:sales, :action=>:show, :id=>@sale.id}, :saved=>saved) 
     end
     render_restfully_form
   end
 
   def destroy
     return unless @sale_line = find_and_check(:sale_line)
-    if request.post? or request.delete?
-      @sale_line.destroy
-    end
+    @sale_line.destroy
     redirect_to_current
   end
 
   def detail
     if request.xhr?
-      return unless price = find_and_check(:price)
+      return unless price = find_and_check(:price, params[:price_id])
       @sale = @current_company.sales.find_by_id(params[:sale_id]) if params[:sale_id]
       @sale_line = @current_company.sale_lines.new(:product=>price.product, :price=>price, :price_amount=>0.0, :quantity=>1.0, :unit_id=>price.product.unit_id)
       if @sale

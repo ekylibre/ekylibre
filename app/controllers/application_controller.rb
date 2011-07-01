@@ -221,17 +221,6 @@ class ApplicationController < ActionController::Base
   def notify_warning_now(message, options={}); notify(message, options, :warning, :now); end
   def notify_success_now(message, options={}); notify(message, options, :success, :now); end
 
-
-  def notify0(message, nature=:information, mode=:next, options={})
-    options = mode if mode.is_a? Hash
-    mode = :now if nature == :now
-    nature = :information if !nature.is_a? Symbol or nature == :now
-    notistore = ((mode==:now or nature==:now) ? flash.now : flash)
-    notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
-    notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
-    notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)
-  end  
-  
   def has_notifications?(nature=nil)
     return false unless flash[:notifications].is_a? Hash
     if nature.nil?
@@ -300,11 +289,8 @@ class ApplicationController < ActionController::Base
       return false
     end
 
-    # Squeeze for test
-    # return true
-
     # Get action rights
-    raise Exception.new("Controller #{controller_name.to_sym} is called but it has no actions or is undefined in #{User.rights_file}") unless controller_rights = User.rights[controller_name.to_sym]
+    controller_rights = {} unless controller_rights = User.rights[controller_name.to_sym]
     action_rights = controller_rights[action_name.to_sym]||[]
 
     # Returns if action is public
@@ -358,8 +344,10 @@ class ApplicationController < ActionController::Base
 
     # Check rights before allowing access
     if message = @current_user.authorization(controller_name, action_name, session[:rights])
-      notify_error(:access_denied, :reason=>message, :url=>request.url.inspect)
-      unless @current_user.admin
+      if @current_user.admin
+        notify_error_now(:access_denied, :reason=>message, :url=>request.url.inspect)
+      else
+        notify_error(:access_denied, :reason=>message, :url=>request.url.inspect)
         redirect_to_back
         return false
       end

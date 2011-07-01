@@ -31,9 +31,10 @@ module List
     def build_table_code(table)
       record = "r"
       child  = "c"
+      style_class = "list"
 
       colgroup = columns_definition_code(table)
-      header = "'<thead><tr>'+"+columns_to_cells(table, :header, :id=>table.name)+"+'</tr></thead>'"
+      header = header_code(table)
       footer = footer_code(table)
       body = columns_to_cells(table, :body, :record=>record)
 
@@ -53,13 +54,13 @@ module List
       end
       code += "  end\n"
       code += "else\n"
-      code += "  body = ('<tr class=\"empty\"><td colspan=\"#{table.columns.size}\">'+::I18n.translate('list.no_records')+'</td></tr>')\n"
+      code += "  body = ('<tr class=\"empty\"><td colspan=\"#{table.columns.size+1}\">'+::I18n.translate('list.no_records')+'</td></tr>')\n"
       code += "end\n"
       # code += "text = #{colgroup}+#{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       code += "text = #{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
-      # code += "text = content_tag(:table, text.html_safe, :class=>:list, :id=>'#{table.name}') unless request.xhr?\n"
-      code += "text = content_tag(:table, text.html_safe, :class=>:kame)\n"
-      code += "text = content_tag(:div, text.html_safe, :class=>:kame, :id=>'#{table.name}') unless request.xhr?\n"
+      # code += "text = content_tag(:table, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
+      code += "text = content_tag(:table, text.html_safe, :class=>:#{style_class})\n"
+      code += "text = content_tag(:div, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
       code += "return text\n"
       return code
     end
@@ -71,13 +72,12 @@ module List
       record = options[:record]||'RECORD'
       for column in columns
         if nature==:header
-          code += "+\n      " unless code.blank?
           classes = 'hdr '+column_classes(column, true)
           classes = (column.sortable? ? "\"#{classes} sortable \"+(list_params[:sort]!='#{column.id}' ? 'nsr' : list_params[:dir])" : "\"#{classes}\"")
           header = "link_to(#{column.header_code}, url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(list_params[:sort]!='#{column.id}' ? 'asc' : list_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, 'data-remote-update'=>'#{table.name}')"
           code += "content_tag(:th, #{header}, :class=>\"#{column_classes(column)}\")"
+          code += "+\n      "#  unless code.blank?
         else
-          code   += "+\n        " unless code.blank?
           case column.class.name
           when DataColumn.name
             style = column.options[:style]||''
@@ -146,19 +146,41 @@ module List
           else 
             code += "content_tag(:td, '&#160;&#8709;&#160;'.html_safe)"
           end
+          code   += "+\n        " #  unless code.blank?
         end
       end
+      if nature==:header
+        code += "'<th class=\"spe\">#{menu_code(table)}</th>'"
+      else
+        code += "content_tag(:td)"
+      end
+
       return code
     end
 
 
-    # Produce the code to create bottom menu and pagination
-    def footer_code(table)
-      menu = "<div class=\"widget menu\">"
-      menu += "<a class=\"start icon im-action\">'+::I18n.translate('list.menu').gsub(/\'/,'&#39;')+'</a>"
+    # Produces main menu code
+    def menu_code(table)
+      menu = "<div class=\"list-menu\">"
+      menu += "<a class=\"list-menu-start\">'+::I18n.translate('list.menu').gsub(/\'/,'&#39;')+'</a>"
       menu += "<ul>"
+      if table.finder.paginate?
+        # Per page
+        list = [5, 10, 25, 50, 100]
+        list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
+        list = list.uniq.sort
+        menu += "<li class=\"per-page parent\">"
+        menu += "<a class=\"icon im-pages\">'+::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;')+'</a><ul>"
+        for n in list
+          menu += "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"icon im-list-check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</a></li>"
+        end
+        menu += "</ul></li>"
+        # +div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
+        # menu += "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
+      end
+
       # Column selector
-      menu += "<li class=\"columns\">"
+      menu += "<li class=\"columns parent\">"
       menu += "<a class=\"icon im-table \">'+::I18n.translate('list.columns').gsub(/\'/,'&#39;')+'</a><ul>"
       for column in table.data_columns
         menu += "<li>'+link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'data-toggle-column'=>'#{column.unique_id}', :class=>'icon '+(list_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
@@ -171,19 +193,26 @@ module List
         menu += "<li class=\"export #{exporter.name}\">'+link_to(::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\")+'</li>"
       end
       menu += "</ul></div>"
-      
-      pagination = ''
+      return menu
+    end
+
+    # Produces the code to create the header line using  top-end menu for columns
+    # and pagination management
+    def header_code(table)
+      return "'<thead><tr>'+"+columns_to_cells(table, :header, :id=>table.name)+"+'</tr></thead>'"
+    end
+
+    # Produces the code to create bottom menu and pagination
+    def footer_code(table)
+      code, pagination = '', ''
+
       if table.finder.paginate?
-        # Per page
-        list = [5, 10, 25, 50, 100]
-        list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
-        list = list.uniq.sort
-        pagination += "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
         # Pages link
         pagination += "'+will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('list.previous'), :next_label=>::I18n.translate('list.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}, :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+"}).to_s+'"
+
+        code = "(#{table.records_variable_name}.total_pages > 1 ? '<tfoot><tr><th colspan=\"#{table.columns.size+1}\">#{pagination}</th></tr></tfoot>' : '').html_safe"
       end
 
-      code = "('<tfoot><tr><th colspan=\"#{table.columns.size}\">#{menu}#{pagination}</th></tr></tfoot>').html_safe"
       return code
     end
 

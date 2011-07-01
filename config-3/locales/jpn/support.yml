@@ -60,6 +60,7 @@ jpn:
       # title: 'Export'
       true_value: '真'
     # export_as: 'Export as %{exported}...'
+    # items_per_page: 'Items per page'
     menu: 'メニュー'
     next: '次へ'
     no_records: '空'

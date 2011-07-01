@@ -65,6 +65,7 @@ class JournalEntriesController < ApplicationController
       if @journal_entry.save_with_lines(@journal_entry_lines)
         notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
         redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
+        return
       end
     else
       @journal_entry.printed_on = @journal_entry.created_on = Date.today
@@ -103,6 +104,7 @@ class JournalEntriesController < ApplicationController
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         redirect_to_back
+        return
       end
     else
       @journal_entry_lines = @journal_entry.lines
@@ -124,6 +126,7 @@ class JournalEntriesController < ApplicationController
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         redirect_to_back
+        return
       end
     else
       @journal_entry_lines = @journal_entry.lines

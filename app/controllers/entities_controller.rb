@@ -64,19 +64,17 @@ class EntitiesController < ApplicationController
   end
 
   list(:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
-    #t.column :id, :url=>{:controller=>:management, :action=>:incoming_payment}
     t.column :number, :url=>true
     t.column :paid_on
     t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
     t.column :bank
-    # t.column :account_number
     t.column :check_number
     t.column :used_amount
     t.column :amount, :url=>true
     t.column :number, :through=>:deposit, :url=>true
-    t.action :edit, :controller=>:finances, :if=>"RECORD.deposit.nil\?"
-    t.action :destroy, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.action :edit, :if=>"RECORD.deposit.nil\?"
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
   list(:links, :model=>:entity_links, :conditions=>['#{EntityLink.table_name}.stopped_on IS NULL AND #{EntityLink.table_name}.company_id = ? AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['@current_company.id'], ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page=>5) do |t|
@@ -113,8 +111,8 @@ class EntitiesController < ApplicationController
     t.column :check_number
     t.column :used_amount
     t.column :amount, :url=>true
-    t.action :edit, :controller=>:finances
-    t.action :destroy, :controller=>:finances, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
   list(:purchases, :model=>:purchase, :conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
@@ -137,7 +135,7 @@ class EntitiesController < ApplicationController
     t.column :state_label, :children=>false
     t.column :paid_amount, :children=>false
     t.column :amount
-    t.action :sale, :url=>{:format=>:pdf}, :image=>:print
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :duplicate, :method=>:post
     t.action :edit, :if=>"RECORD.draft? "
     t.action :destroy, :if=>"RECORD.aborted? ", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
@@ -498,6 +496,7 @@ class EntitiesController < ApplicationController
       @entity.errors.add_from_record(@contact)
       raise ActiveRecord::Rollback unless saved
       redirect_to_back
+      return
     end
     
     t3e @entity.attributes
