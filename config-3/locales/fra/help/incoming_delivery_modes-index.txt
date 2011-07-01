@@ -1,7 +1,6 @@
 ====== Types de livraison  ======
 
-  * Les types de livraison permettent de connaître la **nature d'une livraison**.
-Vous pouvez **ajouter** [[management-delivery_modes_create|{{theme:buttons/create.png|ajouter}}]], **modifier** [[management-delivery_modes_update|{{theme:buttons/update.png|modifier}}]] ou **supprimer** {{theme:buttons/delete.png|supprimer}} un type de livraison.
+Les types de livraison permettent de connaître la **nature d'une livraison**.
 
-  * Les **codes** correspondent à la **norme Incoterms 2000**.
+Vous pouvez **ajouter** [[outgoing_delivery_modes/new|{{theme:buttons/create.png|ajouter}}]], **modifier** {{theme:buttons/update.png|modifier}} ou **supprimer** {{theme:buttons/delete.png|supprimer}} un type de livraison.
 

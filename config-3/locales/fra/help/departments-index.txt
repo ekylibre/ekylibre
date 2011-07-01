@@ -2,6 +2,6 @@
 
 ===== Qu'est-ce qu'un service ? =====
 
-Un service représente une partie/atelier de l'entreprise.
+Un service représente une partie, un atelier ou une équipe de l'entreprise.
 
 

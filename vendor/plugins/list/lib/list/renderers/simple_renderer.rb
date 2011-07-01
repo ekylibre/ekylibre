@@ -172,7 +172,7 @@ module List
         menu += "<li class=\"per-page parent\">"
         menu += "<a class=\"icon im-pages\">'+::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;')+'</a><ul>"
         for n in list
-          menu += "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"icon im-list-check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</a></li>"
+          menu += "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"icon im-list-check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\" data-remote-update=\"#{table.name}\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</a></li>"
         end
         menu += "</ul></li>"
         # +div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"

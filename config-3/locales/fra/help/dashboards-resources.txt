@@ -6,6 +6,5 @@ La gestion des ressources humaines (la GRH) est un ensemble de pratiques ayant p
 ===== Comment gérer ses ressources~? =====
 Vous trouverez ici les différentes rubriques nécéssaires à la gestion de vos ressources~:
   * les **ressouces humaines**, c'est à dire les opérations de gestion des employés (ajout de nouveaux salariés, création de bulletin de paie...).
- 
   * les **paramètres**, opérations préalables et nécéssaires avant toutes autres opérations (enregistrement de profil type de profession pour cibler les employés...)
 

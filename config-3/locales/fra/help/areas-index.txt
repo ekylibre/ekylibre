@@ -1,6 +1,12 @@
-====== Villes ======
+====== Zones postales ======
 
-Ici, vous pouvez [[relations-cities_create|créer]], [[relations-cities_update|modifier]]{{theme:buttons/update.png|modifier}} ou même [[relations-cities_delete|supprimer]]{{theme:buttons/delete.png|supprimer}} des villes.
+===== Définition =====
+Une zone postale est l'assemblage d'un code postal et d'une ville. L'utilisation de la paire (plutôt que séparément) facilite les recherches.
+
+===== Utilisation =====
+Ici, vous pouvez [[>areas/new|créer]], modifier {{theme:buttons/edit.png}} ou même supprimer {{theme:buttons/delete.png}} des zones postales.
 De même, vous disposez d'un système de recherche classique pour filtrer la zone postale qui vous intéresse.
+
+>>> Les zones postales sont créées par défaut automatiquement lors des enregistrement d'adresse. 
 
 

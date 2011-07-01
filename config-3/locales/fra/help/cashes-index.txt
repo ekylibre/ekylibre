@@ -10,7 +10,7 @@ S'il n'a pas servi vous pourrez toujours le supprimer.
 ===== Comptes bancaires =====
 Un compte bancaire est d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques... 
 
-!!! Ne pas confondre les //comptes bancaires// et les [[>accountancy/accounts|comptes comptables]].
+!!! Ne pas confondre les //comptes bancaires// et les [[>accounts/index|comptes comptables]].
 
 ==== Informations nécessaires ====
 

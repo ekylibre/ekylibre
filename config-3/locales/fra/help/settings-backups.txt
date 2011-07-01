@@ -6,7 +6,7 @@ Deux formulaires apparaissent à l'écran respectivement pour la création et la
 
 Dans le premier cas, il s'agit de **l'enregistrement des données relatives à la société (nom, activité ...)** avec la possibilité d'inclure des impressions telles que les factures, les commandes.  
 
-**NB** : la prise en compte des impressions durant la sauvegarde peut entraîner un ralentissement du traitement.
+>>> La prise en compte des impressions durant la sauvegarde peut entraîner un ralentissement du traitement.
 
 ===== Restauration d'une sauvegarde =====
 
