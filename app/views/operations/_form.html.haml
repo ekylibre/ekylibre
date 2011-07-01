@@ -2,9 +2,9 @@
   - f.error :operation
   - f.title :infos
   - f.field :operation, :name
-  - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:company, :action=>:user_create, :employed=>1}
-  - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>{:action=>:operation_nature_create}
-  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>{:action=>:land_parcel_create}
+  - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
+  - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>true
+  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>true
   - f.field :operation, :planned_on
   - f.field :operation, :description, :field=>:textarea
   - f.title :duration
@@ -27,8 +27,8 @@
             %th.act
         %tbody#lines=render :partial=>'operation_line_row_form', :collection=>(@operation_lines||@operation.lines)
       =toolbar do |t|
-        -t.link :in_line_create,  :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:in},  :update=>:lines, :position=>:bottom
-        -t.link :out_line_create, :remote=>true, :url=>{:action=>:operation_line_create, :direction=>:out}, :update=>:lines, :position=>:bottom
+        -t.link :new_in_line,  :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:in},  :update=>:lines, :position=>:bottom
+        -t.link :new_out_line, :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:out}, :update=>:lines, :position=>:bottom
         
     %td{:style=>"width:8px"}
 
@@ -40,6 +40,6 @@
           %tr
             %th=OperationUse.human_attribute_name("tool_id")
             %th.act
-        %tbody#uses=render :partial=>"operation_use_row_form", :collection=>(@operation_uses||@operation.uses)
+        %tbody#uses=render :partial=>"operation_uses/row_form", :collection=>(@operation_uses||@operation.uses)
       =toolbar do |t|
-        -t.link :operation_use_create,  :remote=>true, :update=>:uses, :position=>:bottom # , :url=>{:action=>:operation_use_create}
+        -t.link :new, :remote=>true, :update=>:uses, :position=>:bottom # , :url=>{:action=>:new, :controller=>:operation_uses}

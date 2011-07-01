@@ -138,7 +138,7 @@ class OperationsController < ApplicationController
     @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
     notify_now(:no_unvalidated_operations) if @operations.size <= 0
     if request.post?
-      for id, values in params[:unvalidated_operations]
+      for id, values in params[:unvalidateds]
         operation = @current_company.operations.find_by_id(id)
         operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
         #operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1

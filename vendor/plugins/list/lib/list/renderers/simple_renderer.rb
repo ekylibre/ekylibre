@@ -98,6 +98,8 @@ module List
                 datum = "(#{datum}.blank? ? '' : link_to(#{datum}, {:controller=>:#{column.class_name.underscore.pluralize}, :action=>:show, :id=>#{column.record_expr(record)+'.id'}}))"
               elsif column.options[:url].is_a?(Hash) and nature==:body
                 column.options[:url][:id] ||= column.record_expr(record)+'.id'
+                column.options[:url][:action] ||= :show
+                column.options[:url][:controller] ||= column.class_name.underscore.pluralize.to_sym
                 url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
                 datum = "(#{datum}.blank? ? '' : link_to(#{datum}, url_for(#{url})))"
               elsif column.options[:mode] == :download# and !datum.nil?

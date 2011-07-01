@@ -4,6 +4,6 @@
 %tr.odd{:id=>id}
   %td=text_field_tag("subdivisions[#{id}][name]", (params[:name]||@land_parcel.name).succ, :id=>"subdivisions_#{id}_name")
   %td=text_field_tag("subdivisions[#{id}][area_measure]", measure, :class=>"area", :onkeyup=>"t5()")+@land_parcel.area_unit.name
-  %td.act=link_to_remote(tl(:add), {:url=>{:action=>:land_parcel_divide, :mode=>"new-line", :id=>@land_parcel.id}, :with=>"'used='+$('total_area').innerHTML+'&name='+encodeURIComponent($('subdivisions_#{id}_name').value)", :update=>:subdivisions, :position=>:bottom, :complete=>"t5()"}, :class=>"icon im-create")
+  %td.act=link_to_remote(tl(:add), {:url=>{:action=>:divide, :controller=>:land_parcel, :mode=>"new-line", :id=>@land_parcel.id}, :with=>"'used='+$('total_area').innerHTML+'&name='+encodeURIComponent($('subdivisions_#{id}_name').value)", :update=>:subdivisions, :position=>:bottom, :complete=>"t5()"}, :class=>"icon im-new")
   %td.act=link_to_function(tl(:delete), "$('#{id}').remove(); t5();", :class=>"icon im-delete") if params[:mode] == "new-line"
 

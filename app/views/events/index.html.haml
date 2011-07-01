@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 =form_tag({}, :method=>:get) do
   .search
     %table
@@ -8,6 +7,6 @@
           =text_field_tag("key", params[:key], :size=>30)
         %td.submit=submit_tag tg(:search_go), :name=>nil
 
-=toolbar do
-  -link :new
+=toolbar do |t|
+  -t.link :new
 =list

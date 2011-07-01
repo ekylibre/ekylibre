@@ -8,7 +8,7 @@
   -f.field :stock_move, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :stock_move, :planned_on
   -f.field :stock_move, :moved_on
-  -f.field :stock_move, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create}
+  -f.field :stock_move, :product_id, :choices=>{:reflection=>:products}, :new=>true
   -f.field :stock_move, :quantity
   -#f.field :stock_move, :unit_id, :choices=>{:reflection=>:units}
 

@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 -if @suppliers.size>0
   .search
     =form_tag do
@@ -7,10 +6,9 @@
         =radio_button(:price, :mode , mode, :checked=>( mode=="all" ? true : false))+" "+content_tag(:label, tc("prices_for_"+mode), :for=>'price_mode_'+mode)
       =select(:price, :supply, @suppliers.collect{|x| [x.full_name,x.id]})
       =submit_tag tg('filter')
-=toolbar do
-  -link :sale_price_create, {:action=>:price_create, :mode=>:sales}
-  -link :purchase_price_create, {:action=>:price_create, :mode=>:purchases}
-  -link :export
-  -link :import
-
+=toolbar do |t|
+  -t.link :new_sales_price, {:action=>:new, :mode=>:sales}
+  -t.link :new_purchases_price, {:action=>:new, :mode=>:purchases}
+  -t.link :export
+  -t.link :import
 =list

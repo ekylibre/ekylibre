@@ -1,6 +1,5 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.update @cash
+  -t.edit @cash
 
 =attributes_list(@cash) do |l|
   -l.attribute :name
@@ -24,5 +23,5 @@
   -if @cash.bank_account?
     -tb.tab(:bank_statements) do
       =toolbar do |t|
-        -t.link(:bank_statement_create, :cash_id=>@cash.id)
+        -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)
       =list(:bank_statements)

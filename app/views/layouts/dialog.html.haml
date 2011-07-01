@@ -1,11 +1,6 @@
--help_id = "#{params[:dialog]}-help"
 .wrap.hbox.flex
-  .help.flex-3.anchor-right{:id=>help_id, :style=>("display:none;" unless session[:help])}=help_tag
   .main.flex-9
-    .nav
-      -#=link_to_function(tg(:close), "closeDialog('#{params[:dialog]}')", :class=>"icon im-close")
-      =help_link_tag(:update=>help_id, :resize=>params[:dialog], :url=>{:dialog=>params[:dialog]})
-      =title_header_tag
     .yield.flex
+      =title_header_tag
       =notifications_tag
       =yield

@@ -105,7 +105,7 @@ class ApplicationController < ActionController::Base
 
   def self.authorized?(url={})
     if url.is_a?(Hash)
-      url[:controller]||=controller_name 
+      # url[:controller]||=controller_name 
       url[:action]||=:index
     end
     if @current_user
@@ -259,7 +259,7 @@ class ApplicationController < ActionController::Base
   
 
   # Set HTTP headers to block page caching
-  def dont_cache
+  def dont_cache()
     # Change headers to force zero cache
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'

@@ -3,10 +3,10 @@
 =formalize do |f|
   -f.error :outgoing_delivery
   -f.title :infos
-  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:controller=>:relations, :action=>:contact_create, :entity_id=>@sale.client_id} 
-  -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>{:action=>:outgoing_delivery_mode_create}
+  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:entity_id=>@sale.client_id} 
+  -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>true
   -f.field :outgoing_delivery, :planned_on
-  -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:controller=>:relations, :action=>:entity_create, :transporter=>1}
+  -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:transporter=>1}
 %h2=OutgoingDelivery.human_attribute_name("lines")
 %table.kame 
   %tr

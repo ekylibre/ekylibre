@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 .search
   =form_tag(nil, :method=>:get) do
     %table
@@ -7,8 +6,8 @@
         %td.field=calendar_field_tag :viewed_on, session[:viewed_on]
         %td.submit=submit_tag tg(:search_go)
 
-=toolbar do
-  -link :new
+=toolbar do |t|
+  -t.link :new
 
 
 -unit = Unit.find_by_base("m2")
@@ -27,10 +26,10 @@
               .bmenu
                 =link_to(land_parcel.name, {:action=>:land_parcel, :id=>land_parcel.id}, :class=>:name)
                 %ul
-                  %li=link_to(::I18n.t("actions.production.operation_create"), {:action=>:operation_create, :target_id=>land_parcel.id, :planned_on=>session[:viewed_on]}, :class=>"icon im-create")
-                  %li=link_to(tl(:divide), {:action=>:land_parcel_divide, :id=>land_parcel.id}, :class=>"icon im-divide")
-                  %li=link_to(tl(:update), {:action=>:land_parcel_update, :id=>land_parcel.id}, :class=>"icon im-update")
-                  %li=link_to(tl(:delete), {:action=>:land_parcel_delete, :id=>land_parcel.id}, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :class=>"icon im-delete")
+                  %li=link_to(::I18n.t("actions.operations.new"), {:controller=>:operations, :action=>:new, :target_id=>land_parcel.id, :planned_on=>session[:viewed_on]}, :class=>"icon im-new")
+                  %li=link_to(tl(:divide), {:controller=>:land_parcels, :action=>:divide, :id=>land_parcel.id}, :class=>"icon im-divide")
+                  %li=link_to(tl(:update), {:controller=>:land_parcels, :action=>:edit, :id=>land_parcel.id}, :class=>"icon im-edit")
+                  %li=link_to(tl(:delete), {:controller=>:land_parcels, :action=>:destroy, :id=>land_parcel.id}, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :class=>"icon im-destroy")
               .area=tl(:x_unit, :quantity=>land_parcel.area_measure, :unit=>land_parcel.area_unit.name)
               .desc=land_parcel.description
               %ul.operations

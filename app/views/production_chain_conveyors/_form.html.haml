@@ -5,13 +5,13 @@
   -#f.field :production_chain_conveyor, :name
   -f.field :production_chain_conveyor, :comment, :field=>:textarea
   -f.title :product
-  -f.field :production_chain_conveyor, :product_id, :choices=>{:reflection=>:products}, :new=>{:controller=>:management, :action=>:product_create}
+  -f.field :production_chain_conveyor, :product_id, :choices=>{:reflection=>:products}, :new=>true
   -f.field :production_chain_conveyor, :check_state
   -f.field :production_chain_conveyor, :flow
   -f.title :source
-  -f.field :production_chain_conveyor, :source_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:action=>:production_chain_work_center_create, :production_chain_id=>@production_chain_conveyor.production_chain_id}
+  -f.field :production_chain_conveyor, :source_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
   -f.field :production_chain_conveyor, :source_quantity
   -f.field :production_chain_conveyor, :unique_tracking
   -f.title :target
-  -f.field :production_chain_conveyor, :target_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:action=>:production_chain_work_center_create, :production_chain_id=>@production_chain_conveyor.production_chain_id}
+  -f.field :production_chain_conveyor, :target_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
   -f.field :production_chain_conveyor, :target_quantity

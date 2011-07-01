@@ -6,7 +6,7 @@
     - f.field @subscription_nature.class.human_attribute_name("nature"), @subscription_nature.nature_label
   - f.field :subscription_nature, :name
   - f.field :subscription_nature, :reduction_rate
-  - f.field :subscription_nature, :entity_link_nature_id, :choices=>{:reflection=>:entity_link_natures, :include_blank=>true}, :new=>{:controller=>:relations, :action=>:entity_link_nature_create}
+  - f.field :subscription_nature, :entity_link_nature_id, :choices=>{:reflection=>:entity_link_natures, :include_blank=>true}, :new=>true
   - f.field :subscription_nature, :comment, :field=>:textarea
 =formalize(:id=>:number) do |f|
   - f.field :subscription_nature, :actual_number

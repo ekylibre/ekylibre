@@ -1,7 +1,6 @@
--# Eclated automatically (2011-06-08)
-=toolbar do
-  -link :choice_create, :custom_field_id=>@custom_field.id
-  -link :sort, {:id=>@custom_field.id}, {:method=>:post} if @custom_field.nature == 'choice'
-  -link :edit, :id=>@custom_field.id
+=toolbar do |t|
+  -t.link :new, :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
+  -t.sort @custom_field, {:method=>:post} if @custom_field.nature == 'choice'
+  -t.edit @custom_field
 
 =list :choices

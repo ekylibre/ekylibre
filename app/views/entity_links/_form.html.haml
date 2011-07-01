@@ -1,9 +1,9 @@
 -e1, e2 = 0, 0
 =formalize do |f|
   -f.error :entity_link
-  -e1 = f.field :entity_link, :entity_1_id, :choices=>:entities, :new=>{:action=>:entity_create}
-  -f.field :entity_link, :nature_id,  :choices=>{:reflection=>:entity_link_natures, :label=>:name_1_to_2}, :new=>{:action=>:entity_link_nature_create}
-  -e2 = f.field :entity_link, :entity_2_id, :choices=>:entities, :new=>{:action=>:entity_create}
+  -e1 = f.field :entity_link, :entity_1_id, :choices=>:entities, :new=>true
+  -f.field :entity_link, :nature_id,  :choices=>{:reflection=>:entity_link_natures, :label=>:name_1_to_2}, :new=>true
+  -e2 = f.field :entity_link, :entity_2_id, :choices=>:entities, :new=>true
   -f.field :entity_link, :comment, :field=>:textarea
 =toolbar do |t|
   - t.javascript :permute, "permuteEntities('#{e1}', '#{e2}')"

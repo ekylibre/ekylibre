@@ -11,12 +11,12 @@
 -if (@warehouse.reservoir? and not @warehouse.new_record?) or @warehouse.new_record?
   =formalize(:id=>:reservoir) do |f|
     -f.title :reservoir_informations
-    -f.field :warehouse, :product_id, :choices=>{:reflection=>:available_products}, :new=>{:action=>:product_create}
+    -f.field :warehouse, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
     -f.field :warehouse, :quantity_max  
     -f.field :warehouse, :number
 =formalize do |f|
   -f.title :localization
-  -f.field :warehouse, :establishment_id, :choices=>{:reflection=>:establishments}, :new=>{:controller=>:company, :action=>:establishment_create}
+  -f.field :warehouse, :establishment_id, :choices=>{:reflection=>:establishments}, :new=>true
   -f.field :warehouse, :x
   -f.field :warehouse, :y
   -f.field :warehouse, :z

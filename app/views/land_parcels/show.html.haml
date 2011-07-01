@@ -1,6 +1,5 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.update @land_parcel
+  -t.edit @land_parcel
   -t.divide @land_parcel
 
 =attributes_list(@land_parcel) do |l|
@@ -19,5 +18,5 @@
 
 %h2=tc :operations
 =toolbar do |t|
-  -t.link :operation_create, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
+  -t.link :new, :controller=>:operations, :target_id=>@land_parcel.id, :target_type=>LandParcel.name
 =list(:operations)

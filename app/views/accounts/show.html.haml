@@ -1,8 +1,7 @@
--# Eclated automatically (2011-06-08)
 =render :partial=>"search"
 
 =toolbar do |t|
-  -t.update(@account)
+  -t.edit(@account)
   -t.mark(@account) if @account.reconcilable?
 
 =attributes_list(@account) do |l|

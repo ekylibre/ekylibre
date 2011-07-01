@@ -706,10 +706,10 @@ spa:
     department_create: 'Añadir un nuevo servicio' #!
     departments: 'Servicios'
     deposit: 'Aposto en banco del'
-    deposit_create:
-      one: 'Hacer un aposto : %{mode} (1 encajonamiento)'
-      other: 'Hacer un aposto : %{mode} (%{count} encajonamientos)'
-      zero: 'Hacer un aposto : %{mode} (Ningun encajonamiento)'
+    deposit_create:  #!
+      one: 'Hacer un aposto : %{mode} (1 encajonamiento)' #!
+      other: 'Hacer un aposto : %{mode} (%{count} encajonamientos)' #!
+      zero: 'Hacer un aposto : %{mode} (Ningun encajonamiento)' #!
     deposit_update: 'Modifiar el aposto en banco'
     # depositable: 'More informations'
     description: 'Descripción general'
@@ -803,7 +803,6 @@ spa:
     import: 'Importación de un  fichero de salvaguardia'
     # import_backup: 'Import backup'
     # importation_explanation: 'Importation explanation'
-    # in_line_create: 'Add a new incoming product'
     # include_blank: 'Include blank'
     income_statement: 'cuentos de résultos'
     # incoming_payment_conditions: 'Conditions of payment'
@@ -965,10 +964,19 @@ spa:
     # need_warehouse_to_create_production: 'You have to register a warehouse before using production'
     net_vat_amount: 'TVA neta deuda'
     # new: 'New...'
+    new_deposit:
+      # one: 'Make a deposit %{mode}: 1 payment'
+      # other: 'Make a deposit %{mode}: %{count} payments'
+      # zero: 'Make a deposit %{mode}: no payments'
     # new_family: 'New family'
+    # new_in_line: 'Add a new incoming product'
     # new_organization: 'New organization'
+    # new_out_line: 'Add a new outgoing product'
     # new_payment: 'New payment'
+    # new_purchase_price: 'Add a purchase price'
+    # new_reservoir: 'Add a new reservoir'
     # new_sale: 'New sale'
+    # new_sales_price: 'Add a sales price'
     # new_title: 'New title'
     # new_value: 'New value'
     # next: 'Next'
@@ -1012,7 +1020,6 @@ spa:
     others_assessable_operations: 'Autras operaciones imponibles'
     others_not_assessable_operations: 'Autras operaciones no imponibles'
     others_services: 'Otros bienes y servicios'
-    # out_line_create: 'Add a new outgoing product'
     out_vat_amount: 'Basa fuera de tarifa'
     # outgoing_payment_update: 'Edit the payment'
     # outgoing_payment_use_create: 'Pay purchase with a disbursement'
@@ -1083,7 +1090,6 @@ spa:
     # profitability: 'Profitability'
     # purchase: 'Purchase'
     # purchase_lines: 'Purchase lines'
-    # purchase_price_create: 'Purchase price create'
     purchase_steps:
       # deliveries: 'Incoming deliveries'
       products: 'Creación de la compra'
@@ -1111,7 +1117,7 @@ spa:
     reported_balance: 'Credito a rendir'
     reservoir: 'Deposito'
     reservoir_informations: 'Informaciones sobre el deposito'
-    reservoirs_create: 'Añadir un deposito'
+    reservoirs_create: 'Añadir un deposito' #!
     resource: 'Consultar la pieza de origen : %{resource} %{number}'
     resources: 'Administración de los recursos humanos'
     # rest_to_pay: 'Rest to pay'
@@ -1142,7 +1148,6 @@ spa:
     # sale_deliveries: 'Deliveries'
     # sale_line_create: 'Add a product to estimate (Full mode)'
     # sale_lines: 'Edit sale'
-    # sale_price_create: 'Add a new sale price'
     # sale_update: 'Update sale'
     sales: 'Exportar un cuadro de ventas al formato CSV'
     # sales_conditions: 'Conditions of sales'
@@ -1157,7 +1162,6 @@ spa:
       # cancelled: 'Cancelled'
       # credits: 'Credits'
     # sales_invoices_total: 'Sales invoices total'
-    # sales_price_create: 'Sales price create'
     sales_states:
       # all: 'All'
       # current: 'Current'

@@ -1,6 +1,5 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.update @entity_category
+  -t.edit @entity_category
 
 =attributes_list(@entity_category) do |l|
   -l.attribute :name
@@ -9,5 +8,5 @@
     
 %h2=tc :x_prices, :count=>@category_prices_count
 =toolbar do |t|
-  -t.link :price_create, {:action=>:new, :controller=>:prices, :mode=>:sales}
+  -t.link :new, :action=>:new, :controller=>:prices, :mode=>:sales
 =list :prices

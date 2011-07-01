@@ -53,7 +53,7 @@ module List
         code = "if "+cases.join("elsif ")+"end"
       else
         url = @options[:url] ||= {}
-        url[:controller] ||= @options[:controller]
+        url[:controller] ||= @options[:controller]||self.table.model.name.underscore.pluralize.to_sym
         url[:action] ||= @name
         url[:id] ||= "RECORD.id"
         url.delete_if{|k, v| v.nil?}

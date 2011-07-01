@@ -26,7 +26,7 @@ class CustomFieldsController < ApplicationController
     t.column :active
     t.column :choices_count, :datatype=>:integer
     t.action :edit
-    t.action :custom_field, :image=>:menulist, :if=>'RECORD.nature == "choice"'
+    t.action :show, :image=>:menulist, :if=>'RECORD.nature == "choice"'
   end
 
   list(:choices, :model=>:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
@@ -51,7 +51,7 @@ class CustomFieldsController < ApplicationController
       @custom_field = CustomField.new(params[:custom_field])
       @custom_field.company_id = @current_company.id
       @custom_field.save # Permits to get ID if saved
-      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:custom_field , :id=>@custom_field.id} : :back))
+      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:show, :id=>@custom_field.id} : :back))
     else
       @custom_field = CustomField.new
     end
@@ -63,7 +63,7 @@ class CustomFieldsController < ApplicationController
       @custom_field = CustomField.new(params[:custom_field])
       @custom_field.company_id = @current_company.id
       @custom_field.save # Permits to get ID if saved
-      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:custom_field , :id=>@custom_field.id} : :back))
+      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:show, :id=>@custom_field.id} : :back))
     else
       @custom_field = CustomField.new
     end

@@ -1,6 +1,6 @@
 =formalize do |f|
   - f.error :bank_statement
-  - f.field :bank_statement, :cash_id, :choices=>{:reflection=>:self_bank_accounts}, :new=>{:action=>:cash_create, :nature=>:bank_account}
+  - f.field :bank_statement, :cash_id, :choices=>{:reflection=>:self_bank_accounts}, :new=>{:nature=>:bank_account}
   - f.field :bank_statement, :number
   - f.field :bank_statement, :started_on
   - f.field :bank_statement, :stopped_on

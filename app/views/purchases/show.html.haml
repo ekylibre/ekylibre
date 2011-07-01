@@ -1,8 +1,7 @@
--# Eclated automatically (2011-06-08)
 =purchase_steps if params[:step]
 
 =toolbar do |t|
-  -t.update @purchase if @purchase.draft?
+  -t.edit @purchase if @purchase.draft?
   -if @purchase.can_confirm?
     -t.confirm @purchase, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
   -if @purchase.can_invoice?
@@ -31,7 +30,7 @@
   %h2=Purchase.human_attribute_name("lines")
   -if @purchase.draft?
     =toolbar do |t|
-      -t.link(:purchase_line_create, :purchase_id=>@purchase.id)
+      -t.link(:new, :controller=>:purchase_lines, :purchase_id=>@purchase.id)
   =list :lines
   %table.kame
     %tr.total
@@ -44,7 +43,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=Purchase.human_attribute_name("payment_uses")
   =toolbar do |t|
-    -t.link(:outgoing_payment_use_create, :expense_type=>:purchase, :expense_id=>@purchase.id, :controller=>:finances) unless @purchase.unpaid_amount.zero?
+    -t.link(:new, :controller=>:outgoing_payment_uses, :expense_type=>:purchase, :expense_id=>@purchase.id) unless @purchase.unpaid_amount.zero?
   =list :payment_uses
 
 
@@ -52,7 +51,7 @@
   -if @purchase.deliverable?
     %h2=tc :undelivered
     =toolbar do |t|
-      -t.link :incoming_delivery_create, :purchase=>@purchase.id
+      -t.link :new, :controller=>:incoming_deliveries, :purchase=>@purchase.id
     =list :undelivered_lines
   %h2=Purchase.human_attribute_name("deliveries")
   =list :deliveries

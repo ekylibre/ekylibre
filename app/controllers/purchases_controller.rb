@@ -97,7 +97,7 @@ class PurchasesController < ApplicationController
         end
         if params[:step] == "deliveries"
           if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
-            redirect_to :action=>:incoming_delivery_create, :purchase_id=>@purchase.id
+            redirect_to :action=>:new, :controller=>:incoming_deliveries, :purchase_id=>@purchase.id
           elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
             notify(:purchase_already_invoiced)
           elsif @purchase.lines.size <= 0

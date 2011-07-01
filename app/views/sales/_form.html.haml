@@ -3,15 +3,15 @@
 =formalize do |f| 
   -f.error 'sale'
   -f.title :client
-  -sale_client_id = f.field :sale, :client_id, :choices=>:clients, :new=>{:controller=>:entities, :action=>:new}
+  -sale_client_id = f.field :sale, :client_id, :choices=>:clients, :new=>true
 
 #contacts=render "contacts_form"
 
 =formalize do |f| 
   -f.title :sales_conditions
-  -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>{:controller=>:sale_natures, :action=>:new}
+  -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>true
   -f.field :sale, :currency_id, :choices=>{:reflection=>:currencies}
-  -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:controller=>:users, :action=>:new, :employed=>1}
+  -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
   -f.field :sale, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}
   -f.field :sale, :comment, :field=>:textarea
   -f.field :sale, :letter_format

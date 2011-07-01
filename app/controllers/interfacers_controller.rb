@@ -34,7 +34,7 @@ class InterfacersController < ApplicationController
   end
 
   # Returns the new list for a "dynamic select" using company's reflections
-  def formalize
+  def unroll_options
     @options = {}
     for x in [:reflection, :order, :label, :include_blank]
       @options[x] = params[x]

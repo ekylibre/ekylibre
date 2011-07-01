@@ -5,7 +5,7 @@
     -f.field :sale_line, :annotation, :field=>:textarea
   -if product.stockable
     =formalize do |f|
-      -#f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>{:action=>:warehouse_create} 
+      -#f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>true
       -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_line, :stock_id, product_stocks_options(product))
   -if product.nature == "subscrip"
     -@subscription = @sale_line.new_subscription(params[:subscription])
@@ -15,7 +15,7 @@
     =formalize do |f|
       -f.title :change_price
       -f.field :sale_line, :price_amount
-      -f.field :sale_line, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
+      -f.field :sale_line, :tax_id, :choices=>{:reflection=>:taxes}, :new=>true
 
   -if @current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
     =formalize do |f|

@@ -1,6 +1,8 @@
 -client ||= @sale.client
 -if client
+  -# rf = remote_function(:url=>{:action=>:contacts, :sale_id=>@sale.id, :id=>client.id}, :update=>:contacts)
+  -rf = {:url=>{:action=>:contacts, :sale_id=>@sale.id, :id=>client.id}, :update=>:contacts}
   =formalize do |f| 
-    -f.field :sale, :contact_id,          :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:contacts, :action=>:new, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:contacts, :sale_id=>@sale.id, :id=>client.id}, :update=>:contacts)
-    -f.field :sale, :delivery_contact_id, :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:contacts, :action=>:new, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:contacts, :sale_id=>@sale.id, :id=>client.id}, :update=>:contacts)
-    -f.field :sale, :invoice_contact_id,  :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:controller=>:contacts, :action=>:new, :entity_id=>client.id}, :remote=>remote_function(:url=>{:action=>:contacts, :sale_id=>@sale.id, :id=>client.id}, :update=>:contacts)
+    -f.field :sale, :contact_id,          :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :remote=>rf
+    -f.field :sale, :delivery_contact_id, :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :remote=>rf
+    -f.field :sale, :invoice_contact_id,  :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :remote=>rf

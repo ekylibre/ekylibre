@@ -1,9 +1,9 @@
 -event_nature_id = nil
 =formalize do |f|
   -f.error :event
-  -f.field :event, :entity_id, :choices=>:entities, :new=>{:action=>:entity_create}
-  -f.field :event, :responsible_id,   :choices=>{:reflection=>:users, :label=>:label, :order=>"last_name, first_name"}, :new=>{:controller=>:company, :action=>:user_create}
-  -event_nature_id = f.field :event, :nature_id, :choices=>{:reflection=>:event_natures, :label=>:name, :order=>:name}, :new=>{:action=>:event_nature_create}
+  -f.field :event, :entity_id, :choices=>:entities, :new=>true
+  -f.field :event, :responsible_id,   :choices=>{:reflection=>:users, :label=>:label, :order=>"last_name, first_name"}, :new=>true
+  -event_nature_id = f.field :event, :nature_id, :choices=>{:reflection=>:event_natures, :label=>:name, :order=>:name}, :new=>true
   -f.field :event, :duration
   -f.field Event.human_attribute_name("location"), text_field_with_auto_complete(:event, :location, {}, :controller=>:interfacers)
   -f.field :event, :reason, :field=>:textarea

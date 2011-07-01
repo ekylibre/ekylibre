@@ -77,6 +77,7 @@ module ApplicationHelper
       action = url.split("#")
       url = {:controller=>action[0].to_sym, :action=>action[1].to_sym}
     end
+    url[:controller]||=controller_name
     ApplicationController.authorized?(url)
   end
 
@@ -152,6 +153,22 @@ module ApplicationHelper
   end
 
   if Rails.version.match(/^2\.3/)
+    
+    def submit_tag(value = "Save changes", options = {})
+      options.stringify_keys!
+      
+      if disable_with = options.delete("disable_with")
+        options["data-disable-with"] = disable_with
+      end
+      
+      if confirm = options.delete("confirm")
+        # add_confirm_to_attributes!(options, confirm)
+        options["data-confirm"] = confirm
+      end
+      
+      tag :input, { "type" => "submit", "name" => "commit", "value" => value }.update(options.stringify_keys)
+    end
+
 
     # Rails 2.3 helpers
     def link_to(*args, &block)
@@ -166,7 +183,7 @@ module ApplicationHelper
         html_options = args.third || {}
 
         if options.is_a? Hash
-          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless controller.accessible?(options) 
+          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless authorized?(options) 
         end
 
         [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = html_options.delete(x) if html_options[x] }
@@ -222,7 +239,7 @@ module ApplicationHelper
         html_options = args[2] || {}
 
         if options.is_a? Hash
-          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless controller.accessible?(options) 
+          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options) 
         end
         
         html_options = convert_options_to_data_attributes(options, html_options)
@@ -249,8 +266,8 @@ module ApplicationHelper
 
   def li_link_to(*args)
     options      = args[1] || {}
-    # if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(options))
-    if controller.accessible?({:controller=>controller_name, :action=>:index}.merge(options))
+    # if authorized?({:controller=>controller_name, :action=>action_name}.merge(options))
+    if authorized?({:controller=>controller_name, :action=>:index}.merge(options))
       content_tag(:li, link_to(*args).html_safe)
     else
       ''
@@ -300,7 +317,7 @@ module ApplicationHelper
         value = record.send(options[:label]||[:label, :name, :code, :number, :inspect].detect{|x| record.respond_to?(x)})
         if options[:url].is_a? TrueClass
           options[:url] = {:controller=>model_name.pluralize, :action=>:show, :id=>record.id}
-        else
+        elsif options[:url].is_a? Hash
           options[:url][:id] ||= record.id
         end
       end
@@ -626,7 +643,7 @@ module ApplicationHelper
       link = link[3..-3].split('|')
       url = link[0].split(/[\/\?\&]+/)
       url = {:controller=>url[0], :action=>url[1]}
-      (controller.accessible?(url) ? link_to(link[1], url) : link[1])
+      (authorized?(url) ? link_to(link[1], url) : link[1])
     end
 
     options[:url] ||= {}
@@ -864,43 +881,25 @@ module ApplicationHelper
             args[1][:url] ||= {}
             if name.is_a? Symbol
               args[1][:url][:action] ||= name
-              # args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
-              args[0] = ::I18n.t("labels.#{name}".to_sym, :default=>["actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym]) 
+              args[0] = ::I18n.t("actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) 
             end
-            if controller.accessible?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
-              code += content_tag(:li, link_to_remote(*args).html_safe)
+            if authorized?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
+              code += content_tag(:div, link_to_remote(*args).html_safe, :class=>:tool) if authorized?(args[1][:url])
             end
           else
-            # args[0] = ::I18n.t("#{call}#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
-            args[0] = ::I18n.t("labels.#{name}".to_sym, :default=>["actions.#{args[1][:controller]||controller_name}.#{name}".to_sym]) if name.is_a? Symbol
+            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) if name.is_a? Symbol
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
               args[2][:class] = "icon im-"+args[1][:action].to_s.split('_')[-1] if args[1][:action]
             end
-            code += li_link_to(*args)
+            code += content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
           end
         elsif nature == :print
-          # #raise Exception.new "ok"+args.inspect
-          # name = args[0].to_s
-          # args[2] ||= {}
-          # args[1] ||= {}
-          # args[1][:controller] = "documents"
-          # args[1][:action] = "print"
-          # args[1][:p0] ||= args[1][:id]
-          # args[1][:id] = name
-          # args[1][:format] = "pdf"
-          # args[2][:class] = "icon im-print"
-          # #          raise Exception.new "ok"+args.inspect
-          # for dc in @current_company.document_templates.find_all_by_nature_and_active(name, true)
-          #   args[0] = tc(:print_with_template, :name=>dc.name)
-          #   args[1][:id] = dc.code
-          #   #raise Exception.new "ok"
-          #   code += li_link_to(*args)
-          # end
           dn, args, url = tool[1], tool[2], tool[3]
+          url[:controller] ||= controller_name
           for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
-            code += li_link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print")
+            code += content_tag(:div, link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print"), :class=>:tool) if authorized?(url)
           end
         elsif nature == :javascript
           name = args[0]
@@ -908,33 +907,34 @@ module ApplicationHelper
           args[0] = tl(name) if name.is_a? Symbol
           args[2] ||= {}
           args[2][:class] ||= "icon im-"+name.to_s.split('_')[-1]
-          code += content_tag(:li, link_to_function(*args).to_s)
+          code += content_tag(:div, link_to_function(*args), :class=>:tool)
         elsif nature == :mail
           args[2] ||= {}
           args[2][:class] = "icon im-mail"
-          code += content_tag(:li, mail_to(*args).to_s)
-        elsif nature == :update or nature == :edit
-          url_options = {} unless url_options.is_a? Hash
-          url_options[:controller] ||= controller_name
-          url_options[:action] = :edit
-          url_options[:id] = args.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]}.#{url_options[:action]}", args.attributes.symbolize_keys), url_options, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
+          code += content_tag(:div, mail_to(*args), :class=>:tool)
+        # elsif nature == :update or nature == :edit
+        #   url = {} unless url.is_a? Hash
+        #   url[:controller] ||= controller_name
+        #   url[:action] = :edit
+        #   url[:id] = args.id
+        #   code += content_tag(:li, link_to(t("actions.#{url[:controller]}.#{url[:action]}", args.attributes.symbolize_keys), url, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
           action = verb # "#{record.class.name.underscore}_#{verb}"
           tag_options = {} unless tag_options.is_a? Hash
           tag_options[:class] = "icon im-#{verb}"
-          url_options = {} unless url_options.is_a? Hash
-          url_options.merge(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
-          url_options[:action] = action
-          url_options[:id] = record.id
-          code += content_tag(:li, link_to(t("actions.#{url_options[:controller]||controller_name}.#{action}", record.attributes.symbolize_keys), url_options, tag_options))
+          url = {} unless url.is_a? Hash
+          url.merge(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
+          url[:controller] ||= controller_name
+          url[:action] = action
+          url[:id] = record.id
+          code += content_tag(:div, link_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options), :class=>:tool) if authorized?(url)
         end
       end
       if code.strip.length>0
-        code = content_tag(:ul, code.html_safe)+content_tag(:div)
-        code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
-        code = content_tag(:div, code.html_safe, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))
+        # code = content_tag(:ul, code.html_safe)+content_tag(:div)
+        # code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
+        code = content_tag(:div, code.html_safe, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))+content_tag(:div, nil, :class=>:clearfix)
       end
     else
       raise Exception.new('No block given for toolbar')
@@ -966,8 +966,8 @@ module ApplicationHelper
       # @tools << [:print, args]
     end
 
-    #     def update(record, url_options={})
-    #       @tools << [:update, record, url_options]
+    #     def update(record, url={})
+    #       @tools << [:update, record, url]
     #     end
 
     def method_missing(method_name, *args, &block)
@@ -1201,7 +1201,7 @@ module ApplicationHelper
                 options[:choices].insert(0, [options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                 select(record, method, options[:choices], options[:options], html_options)
               when :dyselect
-                select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options)
+                select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options.merge("data-refresh"=>url_for(options[:choices].merge(:controller=>:interfacers, :action=>:unroll_options)), "data-id-parameter-name"=>"selected") )
               when :dyli
                 dyli(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
               when :radio
@@ -1216,22 +1216,39 @@ module ApplicationHelper
                 text_field(record, method, html_options)
               end
 
-      options[:new]={:controller=>options[:new].to_s.pluralize.to_sym} if options[:new].is_a? Symbol
+      if options[:new].is_a? Symbol
+        options[:new] = {:controller=>options[:new].to_s.pluralize.to_sym} 
+      elsif options[:new].is_a? TrueClass
+        options[:new] = {}
+      end
       if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
+        if method.to_s.match(/_id$/) and refl = model.reflections[method.to_s[0..-4].to_sym]
+          options[:new][:controller] ||= refl.class_name.underscore.pluralize
+        end
         options[:new][:action] ||= :new
         label = tg(options[:new].delete(:label)||:new)
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
-        elsif controller.accessible?(options[:new])
-          data = if options[:remote]
-                   options[:remote]
-                 elsif options[:field] == :dyselect
-                   "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:interfacers, :action=>:formalize))}');"
-                 else
-                   "refreshAutoList('#{rlid}', request);"
-                 end
-          data = ActiveSupport::Base64.encode64(Marshal.dump(data))
-          input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
+        elsif authorized?(options[:new])
+          # data = if options[:remote]
+          #          # options[:remote].merge(:_mode=>:remote)
+          #          {:mode=>:remote, :remote=>remote}
+          #        elsif options[:field] == :dyselect
+          #          # "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:interfacers, :action=>:formalize))}');"
+          #          {:mode=>:select, :id=>rlid}
+          #        else
+          #          # "refreshAutoList('#{rlid}', request);"
+          #          {:mode=>:unroll, :id=>rlid}
+          #        end
+          # # data = ActiveSupport::Base64.encode64(Marshal.dump(data))
+          # # input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
+          # # input += content_tag(:span, content_tag(:span, link_to(label, options[:new], "data-dialog-open"=>url_for(options[:new].merge(:_after=>data)), :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+
+          data = (options[:update] ? options[:update] : rlid)
+
+          #  + content_tag(:span, link_to("Modifier", {:controller=>options[:new][:controller], :action=>:edit, :id=>0}, :class=>"icon im-edit", "data-edit"=>data).html_safe, :class=>:tool).html_safe
+          input += content_tag(:span, content_tag(:span, link_to(label, options[:new], "data-dialog-open"=>true, "data-dialog-update"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+
         end
       end
       
@@ -1454,12 +1471,6 @@ module ApplicationHelper
   end
 
 
-
-  # Imported from app/helpers/company_helper.rb
-
-
-  # Imported from app/helpers/finances_helper.rb
-
   # Imported from app/helpers/management_helper.rb
 
 
@@ -1485,20 +1496,20 @@ module ApplicationHelper
   end
 
   SALES_STEPS = [
-                 {:name=>:products,   :actions=>[{:action=>:sale, :step=>:products}, :sale_create, :sale_update, :sale_line_create, :sale_line_update], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
-                 {:name=>:deliveries, :actions=>[{:action=>:sale, :step=>:deliveries}, :outgoing_delivery_create, :outgoing_delivery_update], :states=>['order', 'invoice']},
-                 {:name=>:summary,    :actions=>[{:action=>:sale, :step=>:summary}], :states=>['invoice']}
-                ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
+                 {:name=>:products,   :actions=>[{:controller=>:sales, :action=>:show, :step=>:products}, "sales#new", "sales#create", "sales#edit", "sales#update", "sale_lines#new", "sale_lines#create", "sale_lines#edit", "sale_lines#update", "sale_lines#destroy"], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                 {:name=>:deliveries, :actions=>[{:controller=>:sales, :action=>:show, :step=>:deliveries}, "outgoing_deliveries#new", "outgoing_deliveries#create", "outgoing_deliveries#edit", "outgoing_deliveries#update"], :states=>['order', 'invoice']},
+                 {:name=>:summary,    :actions=>[{:controller=>:sales, :action=>:show, :step=>:summary}], :states=>['invoice']}
+                ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| (u.is_a?(String) ? {:controller=>u.split('#')[0].to_sym, :action=>u.split('#')[1].to_sym} : u)}, :states=>s[:states]}}.freeze
 
   def sales_steps
     steps_tag(@sale, SALES_STEPS, :name=>:sales)
   end
 
   PURCHASE_STEPS = [
-                    {:name=>:products,   :actions=>[{:action=>:purchase, :step=>:products}, :purchase_create, :purchase_update, :purchase_line_create, :purchase_line_update, :purchase_line_delete], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
-                    {:name=>:deliveries, :actions=>[{:action=>:purchase, :step=>:deliveries}, :incoming_delivery_create, :incoming_delivery_update], :states=>['order', 'invoice']},
-                    {:name=>:summary,    :actions=>[{:action=>:purchase, :step=>:summary}], :states=>['invoice']}
-                   ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| u={:action=>u.to_s} unless u.is_a?(Hash); u}, :states=>s[:states]}}
+                    {:name=>:products,   :actions=>[{:controller=>:purchases, :action=>:show, :step=>:products}, "purchases#new", "purchases#create", "purchases#edit", "purchases#update", "purchase_lines#new", "purchase_lines#create", "purchase_lines#edit", "purchase_lines#update", "purchase_lines#destroy"], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
+                    {:name=>:deliveries, :actions=>[{:controller=>:purchases, :action=>:show, :step=>:deliveries}, "incoming_deliveries#new", "incoming_deliveries#create", "incoming_deliveries#edit", "incoming_deliveries#update"], :states=>['order', 'invoice']},
+                    {:name=>:summary,    :actions=>[{:controller=>:purchases, :action=>:show, :step=>:summary}], :states=>['invoice']}
+                   ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| (u.is_a?(String) ? {:controller=>u.split('#')[0].to_sym, :action=>u.split('#')[1].to_sym} : u)}, :states=>s[:states]}}.freeze
 
   def purchase_steps
     steps_tag(@purchase, PURCHASE_STEPS, :name=>:purchase)
@@ -1529,13 +1540,7 @@ module ApplicationHelper
   end
 
 
-
-  # Imported from app/helpers/production_helper.rb
-
-
   # Imported from app/helpers/relations_helper.rb
-
-
   def condition_label(condition)
     if condition.match(/^generic/)
       klass, attribute = condition.split(/\-/)[1].classify.constantize, condition.split(/\-/)[2]
@@ -1544,12 +1549,6 @@ module ApplicationHelper
       return tl("conditions.#{condition}")
     end
   end
-
-
-  # Imported from app/helpers/resources_helper.rb
-
-
-  # Imported from app/helpers/store_helper.rb
 
 
 

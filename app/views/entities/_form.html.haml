@@ -2,7 +2,7 @@
   -f.error :entity
   -f.error :datum
   -f.title :general_informations
-  -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>{:action=>:entity_nature_create}
+  -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>true
   -f.field :entity, :language, :choices=>languages
   -f.field :entity, :last_name
   -f.field :entity, :first_name
@@ -30,29 +30,26 @@
 
 =formalize(:id=>:client_form) do |f|
   -f.title :client_informations
-  -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:action=>:entity_category_create}
+  -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
   -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin, {}, :controller=>:interfacers)
   -f.field :entity, :first_met_on
   -f.field :entity, :proposer_id, :choices=>:entities
-  -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>{:controller=>:company, :action=>:user_create}
+  -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>true
   -f.field :entity, :vat_submissive
   -f.field :entity, :reflation_submissive
   -f.field :entity, :discount_rate
   -f.field :entity, :reduction_rate
   -f.field :entity, :authorized_payments_count
   -f.field :entity, :deliveries_conditions, :field=>:textarea
-  -f.field :entity, :client_account_id, :choices=>:clients_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_clients_accounts}
-  -#####-f.field(:entity, :client_account_id, :choices=>{:reflection=>:client_accounts, :include_blank=>tc(:account_client_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_clients_accounts})
+  -f.field :entity, :client_account_id, :choices=>:clients_accounts, :new=>{:number=>@current_company.preferred_third_clients_accounts}
 
 =formalize(:id=>:supplier_form) do |f|
   -f.title :supplier_informations
-  -f.field :entity, :supplier_account_id, :choices=>:suppliers_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_suppliers_accounts}
-  -#####-f.field :entity, :supplier_account_id, :choices=>{:reflection=>:supplier_accounts, :include_blank=>tc(:account_supplier_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_suppliers_accounts}
+  -f.field :entity, :supplier_account_id, :choices=>:suppliers_accounts, :new=>{:number=>@current_company.preferred_third_suppliers_accounts}
 
 =formalize(:id=>:attorney_form) do |f|
   -f.title :attorney
-  -f.field :entity, :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_attorneys_accounts}
-  -#####-f.field :entity, :attorney_account_id, :choices=>{:reflection=>:attorney_accounts, :include_blank=>tc(:account_attorney_to_create)}, :new=>{:controller=>:accountancy, :action=>:account_create, :number=>@current_company.preferred_third_attorneys_accounts}
+  -f.field :entity, :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:number=>@current_company.preferred_third_attorneys_accounts}
 
 =render :partial=>"contacts/coordinates_form", :locals => {:company => @current_company}
 

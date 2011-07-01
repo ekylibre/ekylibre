@@ -12,11 +12,11 @@ ActionController::Routing::Routes.draw do |map|
     company.toggle_side '/toggle/side', :controller=>"interfacers", :action=>"toggle_side"
     company.toggle_submenu '/toggle/submenu/:id', :controller=>"interfacers", :action=>"toggle_submenu"
     company.toggle_tab '/toggle/tab/:id', :controller=>"interfacers", :action=>"toggle_tab"
-    company.interfacer '/intf/:action', :controller=>:interfacers, :conditions=>{:method=>:get}
+    company.interfacer '/ui/:action', :controller=>:interfacers, :conditions=>{:method=>:get}
     company.resources :help, :only=>[:index, :show]
 
     company.resources :account_balances
-    company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :mark=>[:get, :post]}, :member=>{:unmark=>[:get, :post]}
+    company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :reconciliation=>:get, :mark=>[:get, :post]}, :member=>{:unmark=>[:get, :post]}
     company.resources :areas, :collection=>{:list=>:get}
     company.resources :bank_statements, :collection=>{:list=>:get, :list_lines=>:get}, :member=>{:point=>[:get, :post]}
     company.resources :cashes, :collection=>{:list=>:get, :list_deposits=>:get, :list_bank_statements=>:get}
@@ -64,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :listings, :collection=>{:list=>:get}, :member=>{:extract=>:get, :duplicate=>:post, :mail=>[:get, :post]}
     company.resources :mandates, :collection=>{:list=>:get, :configure=>[:get, :post]}
     company.resources :observations    
-    company.resources :operations, :collection=>{:list=>:get, :list_lines=>:get, :list_uses=>:get, :unvalidateds=>[:get, :post]}
+    company.resources :operations, :collection=>{:list=>:get, :list_lines=>:get, :list_uses=>:get, :list_unvalidateds=>:get, :unvalidateds=>[:get, :post]}
     company.resources :operation_lines, :only=>[:new, :create]
     company.resources :operation_natures, :collection=>{:list=>:get}
     company.resources :operation_uses

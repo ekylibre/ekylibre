@@ -1,5 +1,4 @@
 # Unused actions in rights
-#   - application::dont_cache
 #   - production_chain_conveyors::create
 #   - production_chain_conveyors::destroy
 #   - production_chain_conveyors::edit
@@ -62,7 +61,7 @@ __minimum__:
   - interfacers::entities_dyli
   - interfacers::entities_dyli
   - interfacers::entities_dyli
-  - interfacers::formalize
+  - interfacers::unroll_options
   - interfacers::product_trackings
   - interfacers::product_units
   - interfacers::purchase_products_dyli

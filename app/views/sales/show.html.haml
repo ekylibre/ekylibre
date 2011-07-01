@@ -1,8 +1,7 @@
--# Eclated automatically (2011-06-08)
 =sales_steps if params[:step]
 
 =toolbar do |t|
-  -t.update @sale if @sale.draft?
+  -t.edit @sale if @sale.draft?
   -if @sale.can_confirm?
     -t.confirm @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
   -if @sale.can_propose?
@@ -50,7 +49,7 @@
   -@sale_line = @sale.lines.new
   -if @sale.draft?
     =toolbar do |t|
-      -t.link(:sale_line_create, :sale_id=>@sale.id) 
+      -t.link(:new, :controller=>:sale_lines, :sale_id=>@sale.id)
     =render :partial=>"sale_lines/row_form"
   =list :lines
   %table.kame
@@ -68,7 +67,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
   =toolbar do |t|
-    -t.link(:incoming_payment_use_create, :expense_type=>:sale, :expense_id=>@sale.id, :controller=>:finances) unless @sale.unpaid_amount.zero?
+    -t.link(:new, :controller=>:incoming_payment_use, :expense_type=>:sale, :expense_id=>@sale.id) unless @sale.unpaid_amount.zero?
   =list :payment_uses
 
       
@@ -76,7 +75,7 @@
   -if @sale.deliverable?
     %h2=tc :undelivered
     =toolbar do |t|
-      -t.link :outgoing_delivery_create, :sale=>@sale.id
+      -t.link :new, :controller=>:outgoing_deliveries, :sale=>@sale.id
     =list :undelivered_lines
   -if @sale.deliveries.count > 0
     %h2=Sale.human_attribute_name("deliveries")

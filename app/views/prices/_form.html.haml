@@ -2,9 +2,9 @@
   -f.error 'price'
   -#f.error 'price_tax'
   -f.title :general
-  -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create} 
+  -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>true
   -if @mode != :sales
-    -f.field :price, :entity_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create} 
+    -f.field :price, :entity_id, :choices=>:entities, :new=>true
   -f.field :price, :by_default
 =render :partial=>'amount_form'
 

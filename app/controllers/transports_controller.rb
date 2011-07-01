@@ -61,7 +61,7 @@ class TransportsController < ApplicationController
       @transport = Transport.new(params[:transport])
       @transport.company_id = @current_company.id
       @transport.save
-      return if save_and_redirect(@transport, :url=>{:action=>:transport_deliveries, :id=>@transport.id})
+      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
     end
     render_restfully_form
   end
@@ -74,7 +74,7 @@ class TransportsController < ApplicationController
       @transport = Transport.new(params[:transport])
       @transport.company_id = @current_company.id
       @transport.save
-      return if save_and_redirect(@transport, :url=>{:action=>:transport_deliveries, :id=>@transport.id})
+      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
     end
     render_restfully_form
   end
@@ -94,7 +94,7 @@ class TransportsController < ApplicationController
     if request.post?
       return unless outgoing_delivery = find_and_check(:outgoing_deliveries, params[:outgoing_delivery][:id].to_i)
       if outgoing_delivery
-        redirect_to :action=>:transport_update, :id=>@transport.id if outgoing_delivery.update_attributes(:transport_id=>@transport.id) 
+        redirect_to :action=>:edit, :id=>@transport.id if outgoing_delivery.update_attributes(:transport_id=>@transport.id) 
       end
     end
   end
@@ -111,7 +111,7 @@ class TransportsController < ApplicationController
     return unless @transport = find_and_check(:transports)
     session[:current_transport] = @transport.id
     if request.post?
-      return if save_and_redirect(@transport, :url=>{:action=>:transport_deliveries, :id=>@transport.id}, :attributes=>params[:transport])
+      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id}, :attributes=>params[:transport])
     end
   end
 
@@ -119,7 +119,7 @@ class TransportsController < ApplicationController
     return unless @transport = find_and_check(:transports)
     session[:current_transport] = @transport.id
     if request.post?
-      return if save_and_redirect(@transport, :url=>{:action=>:transport_deliveries, :id=>@transport.id}, :attributes=>params[:transport])
+      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id}, :attributes=>params[:transport])
     end
     render :edit
   end

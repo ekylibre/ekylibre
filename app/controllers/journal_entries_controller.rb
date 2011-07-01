@@ -44,7 +44,7 @@ class JournalEntriesController < ApplicationController
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
-        redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
+        redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
       @journal_entry.printed_on = @journal_entry.created_on = Date.today
@@ -64,7 +64,7 @@ class JournalEntriesController < ApplicationController
       @journal_entry_lines = (params[:lines]||{}).values
       if @journal_entry.save_with_lines(@journal_entry_lines)
         notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
-        redirect_to :action=>:journal_entry_create, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
+        redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
       end
     else
       @journal_entry.printed_on = @journal_entry.created_on = Date.today

@@ -109,7 +109,7 @@ class SalesController < ApplicationController
     t.column :state_label
     t.column :paid_amount
     t.column :amount
-    t.action :sale, :url=>{:format=>:pdf}, :image=>:print
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.draft? '
     t.action :cancel, :if=>'RECORD.cancelable? '
     t.action :destroy, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
@@ -127,7 +127,7 @@ class SalesController < ApplicationController
         end
         if params[:step] == "deliveries"
           if @sale.deliveries.size <= 0 and @sale.order? and @sale.has_content?
-            redirect_to :action=>:outgoing_delivery_create, :sale_id=>@sale.id
+            redirect_to :controller=>:outgoing_deliveries, :action=>:new, :sale_id=>@sale.id
           elsif @sale.deliveries.size <= 0 and @sale.invoice?
             notify(:sale_already_invoiced)
           elsif @sale.lines.size <= 0

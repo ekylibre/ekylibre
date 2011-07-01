@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link :journal_entry_line_create, :remote=>true, :url=>{:controller=>:accountancy}, :update=>:lines, :position=>:bottom
+  -t.link :new, :remote=>true, :url=>{:controller=>:journal_entry_lines}, :update=>:lines, :position=>:bottom
 =formalize do |f|
   -f.error :journal_entry
   -f.field JournalEntry.human_attribute_name("journal"), link_to(@journal_entry.journal.name, :action=>:journal, :id=>@journal.id)

@@ -1,11 +1,11 @@
 =formalize do |f|
   -f.error 'incoming_payment'
   -f.title :general_informations
-  -f.field :incoming_payment, :payer_id, :choices=>:entities, :new=>{:controller=>:relations, :action=>:entity_create}
+  -f.field :incoming_payment, :payer_id, :choices=>:entities, :new=>true
   -f.field :incoming_payment, :amount
   -f.field :incoming_payment, :to_bank_on
   -f.field :incoming_payment, :received
-  -f.field :incoming_payment, :mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>{:action=>:incoming_payment_mode_create}
+  -f.field :incoming_payment, :mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>true
   -f.title :depositable
   -f.field :incoming_payment, :responsible_id, :choices=>{:reflection=>:users}
   -f.field :incoming_payment, :paid_on

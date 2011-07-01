@@ -26,7 +26,7 @@ class EntitiesController < ApplicationController
     t.column :last_name, :url=>true
     t.column :first_name, :url=>true
     t.column :line_6, :through=>:default_contact, :url=>{:action=>:edit}
-    t.action :show, :url=>{:format=>:pdf} #  :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print #  :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end

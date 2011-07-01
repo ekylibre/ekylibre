@@ -23,7 +23,7 @@ class DistrictsController < ApplicationController
   list(:children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t|
     t.column :name
     t.column :code
-    t.action :area_create, :url=>{:district_id=>"(RECORD.id)", :id=>'nil'}
+    t.action :new, :url=>{:controller=>:areas, :district_id=>"(RECORD.id)", :id=>'nil'}
     t.action :edit
     t.action :destroy, :confirm=>:are_you_sure_you_want_to_delete, :method=>:delete
   end

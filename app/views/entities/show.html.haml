@@ -46,49 +46,60 @@
 =tabbox(:entity) do |tb|
   -tb.tab(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
     =toolbar do |t|
-      -t.link(:subscription_create, :controller=>:management, :entity_id=>@entity.id)
+      -t.link(:new, :controller=>:subscriptions, :entity_id=>@entity.id)
     =list(:subscriptions)
+
   -tb.tab(tl(:x_contacts, :count=>@entity.contacts.count)) do
     =toolbar do |t|
-      -t.link(:contact_create, :entity_id=>@entity.id)
+      -t.link(:new, :controller=>:contacts, :entity_id=>@entity.id)
     =list(:contacts)
+
   -tb.tab(tl(:x_sales, :count=>@entity.sales.count)) do
     =toolbar do |t|
-      -t.link(:sale_create, :controller=>:management, :client_id=>@entity.id)
+      -t.link(:new, :controller=>:sales, :client_id=>@entity.id)
     =list(:sales)
+
   -tb.tab(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
     =toolbar do |t|
-      -t.link :incoming_payment_create,{:controller=>:finances, :payer_id=>@entity.id}
+      -t.link :new, :controller=>:incoming_payments, :payer_id=>@entity.id
     =list(:incoming_payments)
+
   -tb.tab(tl(:x_purchases, :count=>@entity.purchases.count)) do
     =toolbar do |t|
-      -t.link(:purchase_create, :controller=>:management, :supplier_id=>@entity.id)
+      -t.link(:new, :controller=>:purchases, :supplier_id=>@entity.id)
     =list(:purchases)
+
   -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.size)) do
     =toolbar do |t|
-      -t.link :outgoing_payment_create,{:controller=>:finances, :payee_id=>@entity.id}
+      -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
     =list(:outgoing_payments)
+
   -tb.tab(tl(:x_events, :count=>@entity.events.count)) do
     =toolbar do |t|
-      -t.link :event_create, :entity_id=>@entity.id
+      -t.link :new, :controller=>:events, :entity_id=>@entity.id
     =list(:events)
+
   -el_count = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", @entity.id]).size
   -tb.tab(tl(:x_entity_links, :count=>el_count)) do
     =toolbar do |t|
-      -t.link :link_create, {:entity_id=>@entity.id}
+      -t.link :new, :controller=>:entity_links, :entity_id=>@entity.id
     =list(:links)
+
   -tb.tab(tl(:x_observations, :count=>@entity.observations.count)) do
     =toolbar do |t|
-      -t.link :observation_create, {:entity_id=>@entity.id}
+      -t.link :new, :controller=>:observations, :entity_id=>@entity.id
     =list(:observations)
+
   -tb.tab(tl(:x_mandates, :count=>@entity.mandates.count)) do
     =toolbar do |t|
-      -t.link :mandate_create, {:entity_id=>@entity.id}
+      -t.link :new, :controller=>:mandates, :entity_id=>@entity.id
     =list(:mandates)
-  -tb.tab(tl(:x_cashes, :count=>@entity.cashes.count)) do
+
+  -#tb.tab(tl(:x_cashes, :count=>@entity.cashes.count)) do
     =toolbar do |t|
-      -t.link :cash_create, {:controller =>:finances, :entity_id=>@entity.id}
+      -t.link :new, :controller=>:cashes, :entity_id=>@entity.id
     =list(:cashes)
+
   -if File.exist?(Rails.root.join("app", "views", "relations", "_entity_extra.html.haml"))
     -tb.tab("Extra") do
       =render :partial=>"extra"

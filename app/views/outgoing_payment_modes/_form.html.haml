@@ -7,7 +7,7 @@
 #accountancy
   =formalize do |f|
     -f.title :accountancy
-    -f.field :outgoing_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>{:controller=>:finances, :action=>:cash_create}
+    -f.field :outgoing_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>true
 
 :javascript
   window.toggleAccountancy = function() { toggleElement('accountancy', $('outgoing_payment_mode_with_accounting').checked); }

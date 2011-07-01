@@ -4,7 +4,7 @@
 Accounts are used to register all the financial transactions of the company. 
 An account id defined by its number and its name for more explicity.
 
-If the account is **reconcilable**, you can use the [[>accountancy/account_reconciliation|account reconciliation]]. By default, client, supplier and attorney accounts are reconcilable at their creation.
+If the account is **reconcilable**, you can use the [[>accounts/reconciliation|account reconciliation]]. By default, client, supplier and attorney accounts are reconcilable at their creation.
 
 ===== Account management  =====
 There is no particular restriction for updating plan of accounts.

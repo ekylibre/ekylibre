@@ -723,10 +723,10 @@ arb:
     department_create: 'اضافة وظيفة جديدة' #!
     departments: 'وظائف/مهام'
     deposit: 'اقتطاعات البنك'
-    deposit_create:
-      one: 'يقدم بيانا : %{mode} (دفعة واحدة)'
-      other: 'يقدم بيانا : %{mode} (%{count}دفعات اخرى)'
-      zero: 'يقدم بيانا : %{mode} (ولا دفعة)'
+    deposit_create:  #!
+      one: 'يقدم بيانا : %{mode} (دفعة واحدة)' #!
+      other: 'يقدم بيانا : %{mode} (%{count}دفعات اخرى)' #!
+      zero: 'يقدم بيانا : %{mode} (ولا دفعة)' #!
     deposit_update: 'تعديل اقتطاعات البنك'
     depositable: 'تكملة المعلومات'
     description: 'الوصف'
@@ -832,7 +832,7 @@ arb:
     import: 'استيراد'
     # import_backup: 'Import backup'
     importation_explanation: 'لتأكيد عملية الاستيراد، يجب عليك النقر عليه'
-    in_line_create: 'اضافة منتج وارد'
+    in_line_create: 'اضافة منتج وارد' #!
     include_blank: '--- ولا اية منظمة ---'
     income_statement: 'حسابات الناتج'
     # incoming_payment_conditions: 'Conditions of payment'
@@ -1005,10 +1005,19 @@ arb:
     # need_warehouse_to_create_production: 'You have to register a warehouse before using production'
     net_vat_amount: 'صافي قيمة الضريبة الاضافية المستحقة'
     new: 'انشاء دفعة جديدة'
+    new_deposit:
+      # one: 'Make a deposit %{mode}: 1 payment'
+      # other: 'Make a deposit %{mode}: %{count} payments'
+      # zero: 'Make a deposit %{mode}: no payments'
     new_family: 'اسرة جديدة'
+    # new_in_line: 'Add a new incoming product'
     new_organization: 'منظمة جديدة'
+    # new_out_line: 'Add a new outgoing product'
     new_payment: 'تسجيل دفعة جديدة'
+    # new_purchase_price: 'Add a purchase price'
+    # new_reservoir: 'Add a new reservoir'
     new_sale: 'بيعة جديدة'
+    # new_sales_price: 'Add a sales price'
     new_title: 'عنوان جديد'
     new_value: 'قيمة جديدة'
     next: 'التالي'
@@ -1056,7 +1065,7 @@ arb:
     others_assessable_operations: 'اجراءات ضريبية اخرى'
     others_not_assessable_operations: 'اجراءات غير ضريبية اخرى'
     others_services: 'احتياجات وخدمات اخرى'
-    out_line_create: 'اضافة منتج صادر'
+    out_line_create: 'اضافة منتج صادر' #!
     out_vat_amount: 'مبلغ الضريبة على القيمة المضافة'
     outgoing_delivery: 'التسليم' #!
     outgoing_delivery_create: 'اضافة تسليم' #!
@@ -1138,7 +1147,7 @@ arb:
     purchase_create: 'اضافة شراء جديد' #!
     purchase_line_create: 'اضافة طلب للمنتج' #!
     purchase_lines: 'تعديل تصميم الشراء'
-    purchase_price_create: 'انشاء سعر الشراء'
+    purchase_price_create: 'انشاء سعر الشراء' #!
     purchase_print: 'طباعة الطلب للممول' #!
     purchase_steps:
       # deliveries: 'Incoming deliveries'
@@ -1168,7 +1177,7 @@ arb:
     reported_balance: 'ارجاء الرصيد'
     reservoir: 'الاحتياطي'
     reservoir_informations: 'معلومات عن خزان الاحتياطي'
-    reservoirs_create: 'اضافة خزان احتياطي'
+    reservoirs_create: 'اضافة خزان احتياطي' #!
     resource: 'مراجعة السجلات الاصلية : %{resource} %{number}'
     resources: 'ادارة الموارد البشرية'
     rest_to_pay: 'القيمة المتبقية'
@@ -1201,7 +1210,7 @@ arb:
     sale_line_create: '(اضافة منتج للاسعار (صيغة كاملة'
     sale_lines: 'تعديل تصميم طلب البيع'
     sale_nature_create: 'انشاء نوع بيع جديد' #!
-    sale_price_create: 'اضافة سعر البيع'
+    sale_price_create: 'اضافة سعر البيع' #!
     sale_print: 'طباعة طلب البيع' #!
     sale_update: 'تعديل معلومات الطلب'
     sales: 'تم تسديد دفعات طلب البيع'
@@ -1218,7 +1227,7 @@ arb:
       # credits: 'Credits'
     sales_invoices_total: 'مجموع قيمة الفاتورة'
     sales_number: '' #!
-    sales_price_create: 'اضافة سعر البيع'
+    sales_price_create: 'اضافة سعر البيع' #!
     sales_states:
       # all: 'All'
       # current: 'Current'

@@ -1,4 +1,4 @@
 =formalize do |f|
-  - f.field :product_component, :component_id, :choices=>{:reflection=>:products}, :new=>{:action=>:product_create}
+  - f.field :product_component, :component_id, :choices=>{:reflection=>:products}, :new=>true
   - f.field :product_component, :quantity
-  - f.field :product_component, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>{:action=>:warehouse_create}
+  - f.field :product_component, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true

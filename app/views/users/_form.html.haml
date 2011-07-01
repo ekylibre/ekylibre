@@ -16,15 +16,15 @@
     -f.title User.human_attribute_name("employed")
     -f.field :user, :employment
     -f.field :user, :commercial
-    -# f.field :user, :profession_id,  :choices=>{:reflection=>:professions}, :new=>:profession
-    -f.field :user, :department_id, :choices=>{:reflection=>:departments}, :new=>:department
-    -f.field :user, :establishment_id, :choices=>{:reflection=>:establishments}, :new =>:establishment
+    -# f.field :user, :profession_id,  :choices=>{:reflection=>:professions}, :new=>true
+    -f.field :user, :department_id, :choices=>{:reflection=>:departments}, :new=>true
+    -f.field :user, :establishment_id, :choices=>{:reflection=>:establishments}, :new =>true
 
 -user_role_id = nil 
 #rights-conf
   =formalize(:id=>:show_rights) do |f|
     -f.title :rights
-    -user_role_id = f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>:role
+    -user_role_id = f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>true
     -#f.field :user, :reduction_percent
     -#f.field :user, :free_price
     -#f.field :user, :credits

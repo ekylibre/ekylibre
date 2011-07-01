@@ -1,7 +1,6 @@
--# Eclated automatically (2011-06-08)
 =journals_tag
 =toolbar do |t|
-  -t.update @journal_entry unless @journal_entry.closed?
+  -t.edit @journal_entry unless @journal_entry.closed?
 
 =attributes_list(@journal_entry) do |l|
   -l.attribute :number

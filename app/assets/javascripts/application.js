@@ -50,7 +50,7 @@ function _resize() {
   }
   $$('.dialog').each(function(element, index) { 
       var ratio;
-      try { ratio=parseFloat(element.getAttribute("ratio")); }
+      try { ratio=parseFloat(element.getAttribute("data-ratio")); }
       catch(error) { ratio=0.9; }
       var w = element.getWidth();
       var h = element.getHeight();

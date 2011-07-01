@@ -1,6 +1,6 @@
 =formalize do |f|
   -f.title :amount
-  -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>{:controller=>:relations, :action=>:entity_category_create}
+  -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
   -f.field :price, :amount
-  -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>{:controller=>:accountancy, :action=>:tax_create}
+  -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>true
   -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}

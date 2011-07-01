@@ -3,7 +3,7 @@
     =select_tag("operation_id", options_for_select([[]]+@production_chain.operations.collect{|x| [x.name, x.id]}, params[:operation_id].to_i))
   .fields.flex
     =formalize do |f|
-      -f.field :operation, :responsible_id, :choices=>{:reflection=>:users}, :new=>{:controller=>:company, :action=>:user_create}
+      -f.field :operation, :responsible_id, :choices=>{:reflection=>:users}, :new=>true
     #inputs=render :partial=>"production_chain_work_center_inputs", :object=>@production_chain_work_center
   .actions=submit_tag tl(:play)
 

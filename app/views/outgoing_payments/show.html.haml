@@ -1,6 +1,5 @@
--# Eclated automatically (2011-06-08)
 =toolbar do |t|
-  -t.update @outgoing_payment
+  -t.edit @outgoing_payment
 
 =attributes_list(@outgoing_payment) do |l|
   -l.attribute :number
@@ -15,10 +14,10 @@
   -l.attribute :journal_entry, :url=>true
 
 -if false # @outgoing_payment.unused_amount > 0
-  =form_tag(:action=>:outgoing_payment_use_create) do
+  =form_tag(:action=>:create, :controller=>:outgoing_payment_uses) do
     %fieldset
       %legend=tc(:add_purchase)
-      =render :partial=>"use_create"
+      =render :partial=>"outgoing_payment_uses/_form"
       .actions=submit_tag
 
 -if @outgoing_payment.uses.size>0
