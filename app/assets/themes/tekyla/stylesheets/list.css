@@ -10,7 +10,7 @@ table.list tbody, table.list thead th { border: 1px solid #AAA;}
 table.list th { background: #e0e7f9 url(../images/shadow-top.png) repeat-x bottom; padding: 2px; color: #000; font-weight: normal; }
 table.list th.act { background-color: #F1D7C9; width:16px; text-align: center; }
 */
-table.list th { background: #DDD url(../images/white-reflect.png) center repeat-x; padding: 2px 4px; }
+table.list th { background: #DDD url(../images/boss-effect.png) center repeat-x; padding: 2px 4px; }
 table.list th > a { color: #555; font-weight: normal; text-shadow: white 1px 1px 1px;}
 
 html[dir="ltr"] table.list th { text-align: left; }
@@ -37,6 +37,7 @@ table.list tr      td.act a img {padding: 0; margin: 0; display:block; border: n
 table.list tr.child td { color: #77A; }
 table.list tr.child td:first-child { padding:0 20px; }
 table.list tr.empty td { text-align:center;  color: #77A; padding: 1em; }
+table.list tr.empty:hover td { background: white; }
 
 table.list tfoot tr th { clear:both; border:none; background: #EEEFFA url(../images/shadow-bottom.png) repeat-x top center !important; font-weight: normal;  }
 table.list tfoot .widget { display: block; padding: 2px; }

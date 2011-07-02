@@ -14,8 +14,8 @@
       -for page in session[:history][0..4]
         %li
           -title=h(page[:title])
-          -title=h(tl("menus.#{page[:reverse][0]}"))+" &ndash; ".html_safe+title if page[:reverse].is_a?(Array) and page[:reverse][0]
-          =link_to(title.html_safe, page[:url], :title=>page[:path], :class=>(:current if request.url == page[:url]))
+          -# title=h(tl("menus.#{page[:reverse][0]}"))+" &ndash; ".html_safe+title if page[:reverse].is_a?(Array) and page[:reverse][0]
+          =link_to(title.html_safe, page[:url], :title=>(h(tl("menus.#{page[:reverse][0]}"))+" &ndash; ".html_safe+h(tl("menus.submenus.#{page[:reverse][1]}"))).html_safe, :class=>(:current if request.url == page[:url]))
 
 .module.help.flex
   %h2=tl("contextual_help")

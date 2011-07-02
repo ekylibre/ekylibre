@@ -799,52 +799,47 @@ module ApplicationHelper
 
 
   # TABBOX
-
-
   def tabbox(id, options={})
     tb = Tabbox.new(id)
     yield tb
-    tablabels = tabpanels = js = ''
-    tabs = tb.tabs
-    tp, tl = 'p', 'l'
-    jsmethod = "toggle"+tb.id.capitalize
-    js += "function #{jsmethod}(index) {"
-    tabs.size.times do |i|
-      tab = tabs[i]
-      js += "$('#{tab[:id]}#{tp}').removeClassName('current');"
-      js += "$('#{tab[:id]}#{tl}').removeClassName('current');"
-      tablabels += link_to_function((tab[:name].is_a?(Symbol) ? tl("#{tb.id}_tabbox.#{tab[:name]}") : tab[:name]), "#{jsmethod}(#{tab[:index]})", :class=>:tab, :id=>tab[:id]+tl)
-      tabpanels += content_tag(:div, capture(&tab[:block]).html_safe, :class=>:tabpanel, :id=>tab[:id]+tp)
+    tabs = taps = ''
+    session[:tabbox] ||= {}
+    for tab in tb.tabs
+      session[:tabbox][tb.id] ||= tab[:index]
+      class_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
+      tabs += content_tag(:span, tab[:name], :class=>class_name+"tab", "data-tabbox-index"=>tab[:index])
+      taps += content_tag(:div, capture(&tab[:block]).html_safe, :class=>class_name+"tabpanel", "data-tabbox-index"=>tab[:index])
     end
-    js += "$('#{tb.prefix}'+index+'#{tp}').addClassName('current');"
-    js += "$('#{tb.prefix}'+index+'#{tl}').addClassName('current');"
-    js += "new Ajax.Request('#{url_for(:controller=>:interfacers, :action=>:toggle_tab, :id=>tb.id)}?index='+index);"
-    js += "return true;};"
-    js += "#{jsmethod}(#{(session[:tabbox] ? session[:tabbox][tb.id] : nil)||tabs[0][:index]});"
-    code  = content_tag(:div, tablabels.html_safe, :class=>:tabs)+content_tag(:div, tabpanels.html_safe, :class=>:tabpanels)
-    code += javascript_tag(js)
-    content_tag(:div, code.html_safe, :class=>options[:class]||"tabbox", :id=>tb.id)
+    return content_tag(:div, :class=>options[:class]||"tabbox", :id=>tb.id, "data-tabbox"=>url_for(:controller=>:interfacers, :action=>:toggle_tab, :id=>tb.id)) do
+      code  = content_tag(:div, tabs.html_safe, :class=>:tabs)
+      code += content_tag(:div, taps.html_safe, :class=>:tabpanels)
+      code
+    end
   end
 
 
   class Tabbox
-    attr_accessor :tabs, :id, :generated
+    attr_accessor :tabs, :id
 
     def initialize(id)
       @tabs = []
       @id = id.to_s
       @sequence = 0
-      @separator = ""
     end
 
-    def prefix
-      @id+@separator
-    end
-
+    # Register a tab with a block of code
+    # The name of tab use I18n searching in :
+    #   - labels.<tabbox_id>_tabbox.<tab_name>
+    #   - labels.<tab_name>
     def tab(name, options={}, &block)
       raise ArgumentError.new("No given block") unless block_given?
+      if name.is_a?(Symbol)
+        options[:default] = [] unless options[:default].is_a?(Array)
+        options[:default] << ["labels.#{name}".to_sym]
+        name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options) 
+      end
+      @tabs << {:name=>name, :index=>(@sequence*1).to_s(36), :block=>block}
       @sequence += 1
-      @tabs << {:name=>name, :index=>@sequence, :id=>@id+@separator+@sequence.to_s, :block=>block}
     end
 
   end

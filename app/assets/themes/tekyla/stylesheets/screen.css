@@ -1,4 +1,4 @@
-* {margin:0; padding:0; font-family: /*helvetica, arial, "Liberation Sans",*/ sans-serif;}
+* {margin:0; padding:0; font-family: helvetica, arial, "Liberation Sans", sans-serif;}
 html { background: #F1F1F1;/*background: #C9D7F1;*/}
 fieldset { border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
 fieldset legend { padding: 0 4px;  margin: 0 4px; color: #047; font-size: 15px; font-weight: bold;}
@@ -374,7 +374,7 @@ html[dir="rtl"] .toolbar ul li { float: right; }
 html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-position: center right; }*/
 
 /*#E7E7E7*/
-.tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/white-reflect.png) center repeat-x; border: 1px solid #CCC;}
+.tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/boss-effect.png) center repeat-x; border: 1px solid #CCC;}
 .tool:hover { background: #688ED8; border-color: #688ED8; color: white; z-index: 1000; } /*#3D5C8D */
 a.tool:hover, .tool:hover * { color: white; text-shadow: 1px 1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
@@ -469,12 +469,13 @@ input.dyli { background: #FFF url(../images/buttons/dyli.png) no-repeat; }
 html[dir="ltr"] input.dyli { background-position: right center; padding-right: 18px; }
 html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18px; }
 
-.tabbox > .tabs  { padding: 4px 0 0px; }
-.tabbox > .tabs > .tab { line-height: 24px; background: #DDE; padding: 4px 6px 3px; margin: 0 4px 0 0; border: 1px solid #AAA; border-bottom: none;-webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; behavior: url(/pie.htc); color: #44D; white-space: nowrap; }
-.tabbox > .tabs > .tab:hover { background: #EEF; color: #00C }
-.tabbox > .tabs > .tab.current { color: #000; padding: 4px 6px 5px; text-decoration: none; background: #F0F7FF; font-weight: bold; }
-.tabbox > .tabpanels {background: url(../images/columns.png) repeat-x scroll center top; border: 1px solid #95b0e4; padding:8px; }
-.tabbox > .tabpanels > .tabpanel { display: none; min-height: 200px; }
+.tabbox { margin: 8px 0;}
+.tabbox > .tabs  { padding: 4px 4px 0px; background: #688ED8 url(../images/shadow-bottom.png) top repeat-x;}
+.tabbox > .tabs > .tab { text-decoration: none; line-height: 24px; /*background: #57D;*/ cursor: pointer; padding: 4px 8px 3px; margin: 0 6px 0 0; color: #FFF; text-shadow: 1px 1px 1px #3D5C8D; white-space: nowrap; -webkit-border-top-left-radius: 4px; -webkit-border-top-right-radius: 4px; -moz-border-radius-topleft: 4px; -moz-border-radius-topright: 4px; border-top-left-radius: 4px; border-top-right-radius: 4px; behavior: url(/pie.htc); } /*border: 1px solid #CCC; border-bottom: none;*/
+.tabbox > .tabs > .tab:hover { background: #3D5C8D }
+.tabbox > .tabs > .tab.current { color: #000; padding: 4px 6px; text-decoration: none; background: #F1F1F1; font-weight: bold; text-shadow: none; -moz-box-shadow: 0 -2px 2px #3D5C8D; -moz-box-shadow: -2px -2px 2px #3D5C8D, 2px -2px 2px #3D5C8D;}
+.tabbox > .tabpanels {background: #F1F1F1; border: 1px solid #CCC; padding:8px; border-top: none; }
+.tabbox > .tabpanels > .tabpanel { display: none; } /*min-height: 200px;*/
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
 
 html[dir="ltr"] .branches { margin-left: 18px; border-left: 1px dotted #AAA; }
@@ -499,13 +500,15 @@ html[dir="ltr"] .branch .item .item-tool { text-align: right; }
 html[dir="rtl"] .branch .item .item-tool { text-align: left; }
 .branch:hover { background-color: #DEF; }
 
-
+/*
 .journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }
 .journals.tabbox .tabs { padding: 0 8px; background: url(../images/shadow-top.png) repeat-x bottom; }
 .journals.tabbox .tabs .tab { background-image: url(../images/shadow-top.png); background-repeat: repeat-x; background-position: center bottom; }
 .journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
 .journals.tabbox .tabs .tab.special{ color: #C00; } /*border-top: 3px solid #95b0e4;*/
 
+.journals.tabbox > .tabs > .tab.current{ background: #FFF; }
+.journals.tabbox > .tabs > .tab.special{ color: #C00; }
 
 tbody.lines td input { width: 95%; }
 
