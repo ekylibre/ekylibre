@@ -321,6 +321,12 @@ module ApplicationHelper
           # raise [model_name.pluralize, record, record.class.name.underscore.pluralize].inspect
           options[:url][:controller] ||= record.class.name.underscore.pluralize
         end
+      else
+        options[:url] = {:action=>:show} if options[:url].is_a? TrueClass
+        if options[:url].is_a? Hash
+          options[:url][:controller] ||= object.class.name.underscore.pluralize
+          options[:url][:id] ||= object.id
+        end
       end
       value_class += ' code' if attribute.to_s == "code"
     end

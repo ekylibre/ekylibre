@@ -24,7 +24,7 @@ class DocumentsController < ApplicationController
     @document_templates = @current_company.document_templates.find(:all, :conditions=>{:family=>"accountancy", :nature=>["journal", "general_journal", "general_ledger"]}, :order=>:name)
     @document_template = @current_company.document_templates.find_by_family_and_code("accountancy", params[:code])
     if request.xhr?
-      render :partial=>'document_options'
+      render :partial=>'options'
       return
     end
     if request.post?

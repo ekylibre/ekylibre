@@ -324,6 +324,10 @@ menus:
         - bank_statements::point
         - bank_statements::show
         - bank_statements::update
+      - - accounts::reconciliation
+        - accounts::list_reconciliation
+        - accounts::mark
+        - accounts::unmark
       - - journals::bookkeep
     - reporting:
       - - documents::print
@@ -338,13 +342,9 @@ menus:
         - accounts::list
         - accounts::list_entities
         - accounts::list_journal_entry_lines
-        - accounts::list_reconciliation
         - accounts::load
-        - accounts::mark
         - accounts::new
-        - accounts::reconciliation
         - accounts::show
-        - accounts::unmark
         - accounts::update
     - financial_years:
       - - financial_years::index

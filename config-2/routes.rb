@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :help, :only=>[:index, :show]
 
     company.resources :account_balances
-    company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :reconciliation=>:get, :mark=>[:get, :post]}, :member=>{:unmark=>[:get, :post]}
+    company.resources :accounts, :collection=>{:list=>:get, :list_journal_entry_lines=>:get, :list_reconciliation=>:get, :list_entities=>:get, :load=>[:get, :post], :reconciliation=>:get}, :member=>{:unmark=>[:post], :mark=>[:get, :post]}
     company.resources :areas, :collection=>{:list=>:get}
     company.resources :bank_statements, :collection=>{:list=>:get, :list_lines=>:get}, :member=>{:point=>[:get, :post]}
     company.resources :cashes, :collection=>{:list=>:get, :list_deposits=>:get, :list_bank_statements=>:get}

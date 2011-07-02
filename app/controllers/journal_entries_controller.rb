@@ -99,16 +99,7 @@ class JournalEntriesController < ApplicationController
       return
     end
     @journal = @journal_entry.journal
-    if request.post?
-      @journal_entry.attributes = params[:journal_entry]
-      @journal_entry_lines = (params[:lines]||{}).values
-      if @journal_entry.save_with_lines(@journal_entry_lines)
-        redirect_to_back
-        return
-      end
-    else
-      @journal_entry_lines = @journal_entry.lines
-    end
+    @journal_entry_lines = @journal_entry.lines
     t3e @journal_entry.attributes
     render_restfully_form
   end
@@ -121,15 +112,11 @@ class JournalEntriesController < ApplicationController
       return
     end
     @journal = @journal_entry.journal
-    if request.post?
-      @journal_entry.attributes = params[:journal_entry]
-      @journal_entry_lines = (params[:lines]||{}).values
-      if @journal_entry.save_with_lines(@journal_entry_lines)
-        redirect_to_back
-        return
-      end
-    else
-      @journal_entry_lines = @journal_entry.lines
+    @journal_entry.attributes = params[:journal_entry]
+    @journal_entry_lines = (params[:lines]||{}).values
+    if @journal_entry.save_with_lines(@journal_entry_lines)
+      redirect_to_back
+      return
     end
     t3e @journal_entry.attributes
     render_restfully_form

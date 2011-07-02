@@ -62,7 +62,6 @@ class JournalEntry < CompanyRecord
   validates_format_of :number, :with => /^[\dA-Z]+$/
   validates_numericality_of :currency_rate, :greater_than=>0
 
-
   state_machine :state, :initial=>:draft do
     state :draft
     state :confirmed

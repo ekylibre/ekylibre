@@ -18,7 +18,7 @@
 #
 
 class BankStatementsController < ApplicationController
-  manage_restfully :cash_id=>"params[:cash_id]", :started_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to=>'{:action => :bank_statement_point, :id =>"id"}'
+  manage_restfully :cash_id=>"params[:cash_id]", :started_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)", :stopped_on=>"@current_company.cashes.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)", :redirect_to=>'{:action => :point, :id =>"id"}'
 
   list(:lines, :model =>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :bank_statement_id=>['session[:current_bank_statement_id]']}, :order=>"entry_id") do |t|
     t.column :name, :through=>:journal, :url=>true

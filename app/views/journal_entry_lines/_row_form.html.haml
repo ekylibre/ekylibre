@@ -2,7 +2,7 @@
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
 -if line.errors.size > 0
   %tr{:id=>id+'-errors'}
-    %td{:colspan=>5, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages 'journal_entry_line', :object=>line
+    %td{:colspan=>5, :style=>"background: transparent; padding:8px 4px 0; border-left:none; border-right:none;"}=error_messages(line)
 %tr{:id=>id}
   %td
     =text_field_tag("lines[#{id}][name]", line.name, :id=>"lines_#{id}_name")
