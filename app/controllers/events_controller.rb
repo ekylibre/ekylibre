@@ -37,7 +37,7 @@ class EventsController < ApplicationController
   end
 
   def change_minutes
-    return unless @event_nature = find_and_check(:event_nature)
+    return unless @event_nature = find_and_check(:event_nature, params[:nature_id])
   end
 
 end

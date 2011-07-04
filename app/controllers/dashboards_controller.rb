@@ -64,7 +64,6 @@ class DashboardsController < ApplicationController
   end
 
   def welcome
-    render :inline=>'<%=render :partial=>\"dashboards/'+Ekylibre.menus.keys[0].to_s+'\"-%>', :layout=>dialog_or_not
   end
 
 end

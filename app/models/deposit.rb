@@ -69,7 +69,7 @@ class Deposit < CompanyRecord
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    payments = self.reload.payments
+    payments = self.reload.payments unless b.action == :destroy
     b.journal_entry(self.cash.journal, :if=>!self.mode.depositables_account.nil?) do |entry|
 
       commissions, commissions_amount = {}, 0

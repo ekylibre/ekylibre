@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class DocumentTemplatesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :print=>{:id=>1, :format=>:pdf}
 end

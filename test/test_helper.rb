@@ -140,7 +140,7 @@ class ActionController::TestCase
                  :index
                elsif action_name.match(/^(show|edit)$/) # GET with ID
                  :show
-               elsif action_name.match(/^(create)$/) # POST without ID
+               elsif action_name.match(/^(create|load)$/) # POST without ID
                  :create
                elsif action_name.match(/^(update)$/) # PUT with ID
                  :update

@@ -15,5 +15,5 @@
           -for menuitem in menuitems
             =li_link_to(t("actions.#{menuitem[:controller]}.#{menuitem[:action]}"), menuitem)
 -# Test bug HAML
-  -Use haml 3.0.25 if it don't work  
+  -Use haml (>= 3.0.25) if it don't work  
   

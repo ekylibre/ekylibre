@@ -379,7 +379,7 @@ class EntitiesController < ApplicationController
   end
 
   def create
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
+    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})||[]
     @custom_field_data = []
     
     if request.post?
@@ -461,7 +461,7 @@ class EntitiesController < ApplicationController
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
        
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
+    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})||[]
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
