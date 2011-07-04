@@ -198,6 +198,8 @@ html[dir="rtl"] #top .menu-bar li { float:right; }
 #top .menu-bar ul li ul { display:none; position:absolute; margin:0; min-width: 10em; width: auto; top: 25px; padding: 4px 1px 1px; z-index: 1000; background: #3D5C8D; }
 html[dir="ltr"] #top .menu-bar ul li ul { left:2px; }
 html[dir="rtl"] #top .menu-bar ul li ul { right:2px; }
+/*html[dir="ltr"] #top .menu-bar ul li ul li ul{ left: 10em; }
+html[dir="rtl"] #top .menu-bar ul li ul li ul { right: 10em; }*/
 #top .menu-bar ul li ul li { width:100%;  }
 #top .menu-bar ul li:hover ul, #top .menu-bar ul li ul:hover {display:block; box-shadow: 0 2px 5px #555; -moz-box-shadow: 0 2px 5px #555; -webkit-box-shadow: 0 2px 5px #555; behavior: url(/pie.htc);}
 #top .menu-bar ul li ul li a { display: block; text-transform: uppercase; font-size: 11px; font-weight: bold; padding: 0 8px;}
@@ -212,10 +214,21 @@ html[dir="ltr"] #top .menu-bar ul li ul li a { text-align: left; }
 html[dir="rtl"] #top .menu-bar ul li ul li a { text-align: right; }
 
 
-#top .submenu-bar { padding: 2px 8px; background: #F1F1F1; clear: both;}
-#top .submenu-bar a { display: inline-block; padding: 4px 8px; margin: 2px; text-transform: uppercase; font-size: 11px; white-space: nowrap; font-weight: bold; color: #555; text-decoration: none; -moz-border-radius: 5px;}
-#top .submenu-bar a:hover { background: #DDD; }
-#top .submenu-bar a.current { background: #999; color: white; text-shadow: 0 0 2px #000;}
+#top .submenu-bar { padding: 1px 8px; background: #F1F1F1; clear: both;}
+#top .submenu-bar > ul > li > a { display: block; padding: 4px 8px; margin: 2px; text-transform: uppercase; font-size: 11px; white-space: nowrap; font-weight: bold; color: #555; text-decoration: none; -moz-border-radius: 4px;}
+#top .submenu-bar li { position:relative; list-style-type:none; display: block; }
+#top .submenu-bar ul li ul a { padding: 4px 8px;  text-transform: none; font-size: 13px; display: block; font-weight: normal; color: #555; white-space: nowrap; text-decoration: none; text-shadow: 1px 1px 1px white;}
+html[dir="ltr"] #top .submenu-bar li { float:left; }
+html[dir="rtl"] #top .submenu-bar li { float:right; }
+html[dir] #top .submenu-bar ul li ul li { float: none; }
+#top .submenu-bar ul li ul { display:none; position:absolute; margin:0; min-width: 10em; width: auto; top: 22px; padding: 1px; z-index: 1000; background: #DDD; }
+#top .submenu-bar ul li:hover ul, #top .submenu-bar ul li ul:hover {display:block; background-color: #DDD; box-shadow: 0 2px 2px #777; -moz-box-shadow: 0 2px 2px #777; -webkit-box-shadow: 0 2px 2px #777; behavior: url(/pie.htc);}
+html[dir="ltr"] #top .submenu-bar ul li ul { left:2px; }
+html[dir="rtl"] #top .submenu-bar ul li ul { right:2px; }
+#top .submenu-bar li:hover a { background-color: #DDD;}
+#top .submenu-bar ul li ul li:hover a { background-color: #FFF; color: #000; }
+#top .submenu-bar a.multi { background-image: url(../images/buttons/deploy.png); background-position: right center; background-repeat: no-repeat; padding-right:16px;}
+#top .submenu-bar a.current, #top .submenu-bar a.current:hover { background-color: #999; color: white; text-shadow: 0 0 2px #000;}
 
 #top #loading { background: url(../images/ajax-loader-3.gif) no-repeat; margin: 4px 0 0; width: 16px; height:16px; }
 html[dir="ltr"] #top #modules { float:left; }
@@ -431,7 +444,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 
-.login { width:500px; border: 1px solid #95b0e4; margin:64px auto; background:#c9d7f1; z-index: 1000; }
+.login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 5px double white; background: #c9d7f1; }
 .dialog .login { margin: 0; border-width: 4px; padding: 0 8px;}
 .login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
@@ -444,6 +457,8 @@ html[dir="rtl"] .login table tr td.label { text-align:left !important; }
 .login table tr td.button {text-align:center; padding:6px 6px 16px; }
 .login table.browsers tr td { padding: 8px 16px; }
 /*div.flash-error {text-align:center; color:red; font-style:italic;height:20px;padding: 16px; margin-top: 64px; }*/
+
+.login.register { padding:16px 0; text-align: center;}
 
 .window { padding:4px; background: #EEE; border: 1px solid #AAA; margin: 8px; }
 .window .kame { background: white; }

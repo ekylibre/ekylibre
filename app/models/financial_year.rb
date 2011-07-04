@@ -91,7 +91,7 @@ class FinancialYear < CompanyRecord
     if previous=self.previous
       return false if self.previous.closable?
     end
-    return false if self.journal_entries("debit != credit")
+    return false unless self.journal_entries("debit != credit").empty?
     return (self.stopped_on < noticed_on)
   end
 

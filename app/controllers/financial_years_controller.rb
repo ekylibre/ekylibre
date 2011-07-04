@@ -37,28 +37,19 @@ class FinancialYearsController < ApplicationController
   end
 
   def close
-    if params[:id].nil?
-      # We need an ID to close some financial year
-      if financial_year = @current_company.closable_financial_year
-        redirect_to :action=>:close, :id=>financial_year.id
-      else
-        notify(:no_closable_financial_year)
-        redirect_to :action=>:index
+    # Launch close process
+    return unless @financial_year = find_and_check(:financial_year)
+    if request.post?
+      params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
+      if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
+        notify_success(:closed_financial_years)
+        redirect_to(:action=>:index)
       end
     else
-      # Launch close process
-      return unless @financial_year = find_and_check(:financial_year)
-      if request.post?
-        params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
-        if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
-          notify_success(:closed_financial_years)
-          redirect_to(:action=>:index)
-        end
-      else
-        journal = @current_company.journals.find(:first, :conditions => {:nature => "forward"})
-        params[:journal_id] = (journal ? journal.id : 0)
-      end    
+      journal = @current_company.journals.find(:first, :conditions => {:nature => "forward"})
+      params[:journal_id] = (journal ? journal.id : 0)
     end
+    t3e @financial_year.attributes
   end
 
   def new

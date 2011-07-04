@@ -58,9 +58,6 @@ __minimum__:
   - interfacers::auto_complete_for_mandate_title
   - interfacers::client_contacts_dyli
   - interfacers::entities_dyli
-  - interfacers::entities_dyli
-  - interfacers::entities_dyli
-  - interfacers::entities_dyli
   - interfacers::product_trackings
   - interfacers::product_units
   - interfacers::purchase_products_dyli
@@ -143,10 +140,10 @@ configure_company:
 consult_accounting_documents:
   actions:
   - dashboards::accountancy
-  - documents::print
   - journals::balance
   - journals::general_ledger
   - journals::list_general_ledger
+  - journals::reports
 # Consult the people
 consult_entities:
   actions:
@@ -555,7 +552,7 @@ manage_inventories:
   - inventories::reflect
   - inventories::show
   - inventories::update
-# Manaeg journal entries
+# Manage journal entries
 manage_journal_entries:
   actions:
   - accounts::list_reconciliation
@@ -993,9 +990,6 @@ manage_warehouses:
 # Merge people
 merge_entities:
   actions: [dashboards::relations, entities::index, entities::merge]
-# Print
-print:
-  actions: [documents::print]
 # Use production chains
 use_production_chains:
   actions: []

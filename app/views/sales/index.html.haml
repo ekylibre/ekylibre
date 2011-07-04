@@ -1,6 +1,3 @@
--#=toolbar do |t|
-  -t.link :unpaid_sales_export
-
 .search
   =form_tag do
     %table
@@ -13,4 +10,7 @@
             %label{:for=>'sale_'+state.to_s}=tc("sales_states.#{state}")
         %td=submit_tag tg('search_go', :action=>:sales)
 
+=toolbar do |t|
+  -t.link :new
+  -#t.link :unpaid_sales_export
 =list

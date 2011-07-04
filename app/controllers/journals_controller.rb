@@ -223,4 +223,49 @@ class JournalsController < ApplicationController
   def general_ledger
   end  
 
+  def reports
+    # redirect_to :action=>:index
+    @document_templates = @current_company.document_templates.find(:all, :conditions=>{:family=>"accountancy", :nature=>["journal", "general_journal", "general_ledger"]}, :order=>:name)
+    @document_template = @current_company.document_templates.find_by_family_and_code("accountancy", params[:code])
+    if request.xhr?
+      render :partial=>'options'
+      return
+    end
+    if params[:export] == "balance"
+      query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
+      query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
+      query += " WHERE journal_entry_lines.company_id=#{@current_company.id} AND printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
+      query += " GROUP BY accounts.name, accounts.number"
+      query += " ORDER BY accounts.number"
+      begin
+        result = ActiveRecord::Base.connection.select_rows(query)
+        result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
+        result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
+        csv_string = FasterCSV.generate do |csv|
+          for line in result
+            csv << line
+          end
+        end
+        send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
+      rescue Exception => e 
+        notify_error_now(:exception_raised, :message=>e.message)
+      end
+    elsif params[:export] == "isaquare"
+      path = Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date, @current_company.code+".ECC")
+      send_file(path, :filename=>path.basename, :type=>Mime::ZIP)
+    elsif params[:template]
+      template = @current_company.document_templates.find_by_code(params[:template])
+      nature = template.nature.to_sym
+      if [:balance_sheet, :income_statement].include?(nature)
+        send("render_print_#{nature}", @current_company.financial_years.find_by_id(params[:financial_year_id]))
+      elsif [:general_journal, :general_ledger].include?(nature)
+        send("render_print_#{nature}", params[:started_on], params[:stopped_on])
+      elsif [:journal].include?(nature)
+        send("render_print_#{nature}", @current_company.journals.find_by_id(params[:journal_id]), params[:started_on], params[:stopped_on])
+      end
+    end
+    @document_template ||= @document_templates[0]
+  end
+
+
 end

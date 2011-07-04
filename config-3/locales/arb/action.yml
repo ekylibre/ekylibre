@@ -101,8 +101,8 @@ arb:
       load: 'تحميل نموذج الوثيقة افتراضيا'
       new: 'انشاء نموذج للوثيقة'
       # print: 'Print document template'
-    documents:
-      print: 'طباعة وتصدير'
+    documents:  #!
+      print: 'طباعة وتصدير' #!
     entities:
       edit: 'تعديل الملف : %{full_name}'
       export: 'تصدير الملفات'
@@ -193,6 +193,7 @@ arb:
       index: 'الدفاتر اليومية'
       new: 'انشاء دفتر يومي جديد'
       reopen: 'فتح %{name}'
+      # reports: 'Prints, exportations'
       show: 'الدفتر اليومي : %{name} (%{code})'
     land_parcel_groups:
       # edit: 'Edit group of land parcels: %{name}'

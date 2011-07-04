@@ -11,8 +11,10 @@ ekylibre (0.3.0+1.a1) unstable; urgency=low
   * Changes version dependency in package
   * Fixes a part of remaining bugs since master controllers explosion
   * Cleans a part of all broken links
+  * Fixes bug on accountancy reporting.
+  * Reorganizes the menu uses and structure.
 
- -- Brice Texier <brice@thalie.nouva.local>  Tue, 28 Jun 2011 16:17:13 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Mon, 04 Jul 2011 15:09:26 +0200
 
 ekylibre (0.3.0) unstable; urgency=low
 

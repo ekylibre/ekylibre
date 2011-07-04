@@ -74,6 +74,6 @@ arb:
     merge_entities: 'دمج ملفات العملاء / الممولين'
     __minimum__: 'بلوغ الفاعلية كحد ادنى'
     __not_used__: '(الحق الافتراضي (متعذر بلوغه' #!
-    print: 'الطباعة'
+    print: 'الطباعة' #!
     # __public__: 'Public access'
     # use_production_chains: 'Use production chains'

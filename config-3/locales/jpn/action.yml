@@ -85,8 +85,7 @@ jpn:
       # load: 'Load default document templates (overwrite the old templates)'
       # new: 'Add a new document template'
       # print: 'Print document template'
-    documents:
-      # print: 'Prints, exportations'
+    documents: #!
     entities:
       # edit: 'Edit person: %{full_name}'
       # export: 'Export people'
@@ -124,7 +123,7 @@ jpn:
       # index: 'Events'
       # new: 'Add a new event'
     financial_years:
-      # close: 'Close financial year'
+      # close: 'Close financial year: %{code}'
       # edit: 'Edit new financial year'
       # index: 'Financial years'
       # new: 'Open a new financial year'
@@ -175,6 +174,7 @@ jpn:
       # index: 'Journals'
       # new: 'Create new journal'
       # reopen: 'Closing of %{name}'
+      # reports: 'Prints, exportations'
       # show: 'Journal: %{name} (%{code})'
     land_parcel_groups:
       # edit: 'Edit group of land parcels: %{name}'

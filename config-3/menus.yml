@@ -191,12 +191,12 @@ menus:
     - events:
       - - events::index
         - events::change_minutes
+        - events::create
         - events::destroy
         - events::edit
         - events::list
+        - events::new
         - events::update
-      - - events::new
-        - events::create
     - subscriptions:
       - - subscriptions::index
         - subscriptions::coordinates
@@ -209,13 +209,13 @@ menus:
         - subscriptions::update
     - mandates:
       - - mandates::index
+        - mandates::configure
         - mandates::create
         - mandates::destroy
         - mandates::edit
         - mandates::list
         - mandates::new
         - mandates::update
-      - - mandates::configure
     - parameters:
       - - custom_fields::index
         - custom_field_choices::create
@@ -330,7 +330,7 @@ menus:
         - accounts::unmark
       - - journals::bookkeep
     - reporting:
-      - - documents::print
+      - - journals::reports
       - - journals::balance
       - - journals::general_ledger
         - journals::list_general_ledger
@@ -381,14 +381,14 @@ menus:
         - incoming_payment_uses::create
         - incoming_payment_uses::destroy
         - incoming_payment_uses::new
+        - incoming_payments::create
         - incoming_payments::destroy
         - incoming_payments::edit
         - incoming_payments::list
         - incoming_payments::list_sales
+        - incoming_payments::new
         - incoming_payments::show
         - incoming_payments::update
-      - - incoming_payments::new
-        - incoming_payments::create
       - - deposits::index
         - deposits::create
         - deposits::destroy
@@ -406,14 +406,14 @@ menus:
         - outgoing_payment_uses::create
         - outgoing_payment_uses::destroy
         - outgoing_payment_uses::new
+        - outgoing_payments::create
         - outgoing_payments::destroy
         - outgoing_payments::edit
         - outgoing_payments::list
         - outgoing_payments::list_purchases
+        - outgoing_payments::new
         - outgoing_payments::show
         - outgoing_payments::update
-      - - outgoing_payments::new
-        - outgoing_payments::create
     - tax_declarations:
       - - tax_declarations::index
         - tax_declarations::create
@@ -465,6 +465,7 @@ menus:
         - sales::confirm
         - sales::contacts
         - sales::correct
+        - sales::create
         - sales::destroy
         - sales::duplicate
         - sales::edit
@@ -477,13 +478,12 @@ menus:
         - sales::list_payment_uses
         - sales::list_subscriptions
         - sales::list_undelivered_lines
+        - sales::new
         - sales::propose
         - sales::propose_and_invoice
         - sales::refuse
         - sales::show
         - sales::update
-      - - sales::new
-        - sales::create
       - - sales::statistics
     - purchases:
       - - purchases::index
@@ -495,6 +495,7 @@ menus:
         - purchases::abort
         - purchases::confirm
         - purchases::correct
+        - purchases::create
         - purchases::destroy
         - purchases::edit
         - purchases::finish
@@ -504,12 +505,11 @@ menus:
         - purchases::list_lines
         - purchases::list_payment_uses
         - purchases::list_undelivered_lines
+        - purchases::new
         - purchases::propose
         - purchases::refuse
         - purchases::show
         - purchases::update
-      - - purchases::new
-        - purchases::create
     - stocks:
       - - stocks::index
         - stocks::list
@@ -583,6 +583,7 @@ menus:
         - product_components::new
         - product_components::update
         - products::change_quantities
+        - products::create
         - products::destroy
         - products::edit
         - products::list
@@ -590,10 +591,9 @@ menus:
         - products::list_prices
         - products::list_stock_moves
         - products::list_stocks
+        - products::new
         - products::show
         - products::update
-      - - products::new
-        - products::create
       - - product_categories::index
         - product_categories::create
         - product_categories::destroy

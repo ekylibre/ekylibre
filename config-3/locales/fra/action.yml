@@ -99,8 +99,6 @@ fra:
       load: 'Charger les modèles de document par défaut'
       new: 'Création d''un modèle de document'
       print: 'Imprimer un exemple'
-    documents:
-      print: 'Impression, exportation'
     entities:
       edit: 'Modifier la fiche : %{full_name}'
       export: 'Exportation de fiches'
@@ -141,7 +139,7 @@ fra:
       index: 'Finances' #!
       unvalidated_deposits: 'Remises en banque à valider' #!
     financial_years:
-      close: 'Clôture d''exercice'
+      close: 'Clôturer l''exercice %{code}'
       edit: 'Modifier un nouvel exercice'
       index: 'Exercices comptables'
       new: 'Créer un nouvel exercice'
@@ -192,6 +190,7 @@ fra:
       index: 'Journaux'
       new: 'Créer un nouveau journal'
       reopen: 'Déclôture du %{name}'
+      reports: 'Impression, exportation'
       show: 'Journal : %{name} (%{code})'
     land_parcel_groups:
       edit: 'Modifier le groupe d''îlots: %{name}'

@@ -76,8 +76,6 @@ eng:
       load: 'Load default document templates (overwrite the old templates)'
       new: 'Add a new document template'
       print: 'Print document template'
-    documents:
-      print: 'Prints, exportations'
     entities:
       edit: 'Edit person: %{full_name}'
       export: 'Export people'
@@ -116,7 +114,7 @@ eng:
       index: 'Events'
       new: 'Add a new event'
     financial_years:
-      close: 'Close financial year'
+      close: 'Close financial year: %{code}'
       edit: 'Edit new financial year'
       index: 'Financial years'
       new: 'Open a new financial year'
@@ -165,6 +163,7 @@ eng:
       index: 'Journals'
       new: 'Create new journal'
       reopen: 'Closing of %{name}'
+      reports: 'Prints, exportations'
       show: 'Journal: %{name} (%{code})'
     land_parcel_groups:
       edit: 'Edit group of land parcels: %{name}'
@@ -1364,7 +1363,7 @@ eng:
     need_warehouse_to_record_stock_moves: 'You must create a warehouse to be able to manage stocks.'
     new_actual_number: 'The new number is being %{actual_number}'
     no_authenticated: 'You could not be identified. The username or password must be incorrect.'
-    no_closable_financial_year: 'No closable financial year.'
+    no_closable_financial_year: 'No closable financial year.' #!
     no_closable_journal: 'No closable journal'
     no_depositable_payments: 'There are no payment to deposit'
     no_existing_mandates: 'There are no mandates'

@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :deposit_lines
     company.resources :districts, :collection=>{:list=>:get}
     company.resources :document_templates, :collection=>{:list=>:get, :load=>:post}, :member=>{:print=>:get, :duplicate=>:post}
-    company.resources :documents, :collection=>{:print=>:get}
+    company.resources :documents
     company.resources :entities, :collection=>{:list=>:get, :list_observations=>:get, :list_subscriptions=>:get, :list_sales=>:get, :list_purchases=>:get, :list_outgoing_payments=>:get, :list_mandates=>:get, :list_incoming_payments=>:get, :list_events=>:get, :list_contacts=>:get, :list_cashes=>:get, :list_links=>:get, :import=>[:get, :post], :export=>[:get, :post], :merge=>[:get, :post]}
     company.resources :entity_categories, :collection=>{:list=>:get, :list_prices=>:get}
     company.resources :entity_links, :except=>[:index, :show]
@@ -53,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :inventories, :collection=>{:list=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]} do |inventory|
       inventory.resources :lines, :controller=>"inventory_lines"
     end
-    company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
+    company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :reports=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
     company.resources :journal_entry_lines, :only=>[:new, :create]
     company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get}, :member=>{:divide=>[:get, :post]}

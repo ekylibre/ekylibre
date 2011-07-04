@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 .search  
   =form_tag do
     %table
@@ -8,5 +7,8 @@
         %td.label=tc(:select_date)
         %td.field=calendar_field_tag("date", session[:mandates][:date].to_s, :size=>8)
         %td.submit=submit_tag tg("search_go")
+
+=toolbar do |t|
+  -t.link :new
+  -t.link :configure
 =list
-=#javascript_tag("$('date').value="+Date.today.to_s+";")

@@ -100,8 +100,8 @@ spa:
       load: 'Cargar los modelos de documento por defecto'
       new: 'Créacion de un modelo de documento'
       # print: 'Print document template'
-    documents:
-      print: 'Impresion, exportacion'
+    documents:  #!
+      print: 'Impresion, exportacion' #!
     entities:
       # edit: 'Edit person: %{full_name}'
       # export: 'Export people'
@@ -191,6 +191,7 @@ spa:
       index: 'Periodicos'
       new: 'Crear un nuevo periodico'
       reopen: 'Déclôture du %{name}'
+      # reports: 'Prints, exportations'
       show: 'Periodico : %{name} (%{code})'
     land_parcel_groups:
       # edit: 'Edit group of land parcels: %{name}'

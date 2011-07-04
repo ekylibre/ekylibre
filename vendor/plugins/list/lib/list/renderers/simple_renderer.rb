@@ -59,8 +59,9 @@ module List
       # code += "text = #{colgroup}+#{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       code += "text = #{header}+#{footer}+content_tag(:tbody, body.html_safe)\n"
       # code += "text = content_tag(:table, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
-      code += "text = content_tag(:table, text.html_safe, :class=>:#{style_class})\n"
-      code += "text = content_tag(:div, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
+      code += "text = content_tag(:table, text.html_safe, :class=>'#{style_class}')\n"
+      # code += "text += '<div class=\"#{style_class}-slider\"><div class=\"#{style_class}-slider-handle\"></div></div>'\n"
+      code += "text = content_tag(:div, text.html_safe, :class=>'#{style_class}', :id=>'#{table.name}') unless request.xhr?\n"
       code += "return text\n"
       return code
     end

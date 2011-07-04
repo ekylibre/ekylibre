@@ -84,7 +84,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
   def accessible?(url={})
     #puts url.inspect
     if url.is_a?(Hash)

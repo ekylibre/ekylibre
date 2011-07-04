@@ -1,4 +1,3 @@
--# Eclated automatically (2011-06-08)
 .search
   =form_tag do
     %table
@@ -7,4 +6,6 @@
         %td.field=text_field_tag :key, params[:key]
         %td=submit_tag tg('search_go', :action=>:purchases)
 
+=toolbar do |t|
+  -t.link :new
 =list

@@ -2420,6 +2420,13 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3562"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2429,8 +2436,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="237.35582"
-     inkscape:cy="52.893348"
+     inkscape:cx="276.38212"
+     inkscape:cy="45.268348"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -4932,5 +4939,10 @@
        style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
        id="path2947-4"
        d="M 259,-42.979318 L 262.89475,-39.098265 L 269,-45 L 269,-41.027149 L 262.89475,-35 L 259,-38.896331 L 259,-42.979318 z" />
+    <path
+       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="M 280,-38 L 275,-43.000001 L 285,-43.000001 L 280,-38 z"
+       id="path4015-8"
+       sodipodi:nodetypes="cccc" />
   </g>
 </svg>
