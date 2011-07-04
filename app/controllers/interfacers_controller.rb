@@ -42,6 +42,16 @@ class InterfacersController < ApplicationController
     render :inline=>'<%=options_for_select(@current_company.reflection_options(@options), params[:selected].to_i)-%>'
   end
 
+  def product_trackings
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
+  end
+
+  def product_units
+    return unless @product = find_and_check(:product)
+    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
+  end
+
 
   dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
   # dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
@@ -140,16 +150,6 @@ class InterfacersController < ApplicationController
     end
   end
 
-
-  def product_trackings
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
-  end
-
-  def product_units
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
-  end
 
 
 

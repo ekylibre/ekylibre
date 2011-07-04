@@ -42,7 +42,7 @@ class IncomingPaymentModesController < ApplicationController
         payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
       end
     end
-    redirect_to :action=>:incoming_payment_modes
+    redirect_to :action=>:index
   end
 
   # Displays the main page with the list of incoming payment modes

@@ -102,7 +102,7 @@ class TaxDeclarationsController < ApplicationController
     
     unless @financial_years.size > 0
       notify(:need_closed_financial_year_to_declaration)
-      redirect_to :action=>:tax_declarations
+      redirect_to :action=>:index
       return
     end
     
@@ -157,7 +157,7 @@ class TaxDeclarationsController < ApplicationController
     
     unless @financial_years.size > 0
       notify(:need_closed_financial_year_to_declaration)
-      redirect_to :action=>:tax_declarations
+      redirect_to :action=>:index
       return
     end
     
@@ -211,7 +211,7 @@ class TaxDeclarationsController < ApplicationController
       @tax_declaration = TaxDeclaration.find_by_id_and_company_id(params[:id], @current_company.id) 
       TaxDeclaration.destroy @tax_declaration
     end    
-    redirect_to :action => "tax_declarations"
+    redirect_to :action => :index
   end
 
   def period_search
@@ -223,20 +223,10 @@ class TaxDeclarationsController < ApplicationController
       @stopped_on=(started_on.months_since 11).end_of_month if (["yearly"].include? params["period"])
       @stopped_on='' if (["other"].include? params["period"])
       
-      render :action=>"tax_declaration_period_search.rjs"
-
+      # render :action=>"period_search.rjs"
     end
   end
 
-  def edit
-    return unless find_and_check(:tax_declaration)
-    render_restfully_form
-  end
-
-  def update
-    return unless find_and_check(:tax_declaration)
-    render_restfully_form
-  end
 
   # Displays the main page with the list of tax declarations
   def index
@@ -244,7 +234,7 @@ class TaxDeclarationsController < ApplicationController
     
     if @journals.nil?
       notify_now(:need_journal_to_manage_tax_declaration)
-      redirect_to :action=>:journal_create
+      redirect_to :controller=>:journal, :action=>:new
       return
     else
       @journals.each do |journal|
@@ -253,9 +243,7 @@ class TaxDeclarationsController < ApplicationController
           return
         end
       end
-
     end
-
   end
 
 end

@@ -43,7 +43,7 @@ class TransportsController < ApplicationController
     t.column :pretax_amount
     t.column :amount
     t.column :weight, :children=>false
-    t.action :delivery_delete, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete_outgoing_delivery
+    t.action :delivery_delete, :method=>:delete, :controller=>:transports, :confirm=>:are_you_sure_you_want_to_delete_outgoing_delivery
   end
 
   # Displays details of one transport selected with +params[:id]+

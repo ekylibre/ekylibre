@@ -62,7 +62,7 @@ class LandParcelsController < ApplicationController
 
     if request.post?
       if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
-        redirect_to :action=>:land_parcels
+        redirect_to :action=>:index
       end
     end
     @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
@@ -75,7 +75,7 @@ class LandParcelsController < ApplicationController
     if request.post?
       land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
       child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-      redirect_to(:action=>:land_parcel, :id=>child.id) if child
+      redirect_to(:action=>:show, :id=>child.id) if child
     end
   end
 

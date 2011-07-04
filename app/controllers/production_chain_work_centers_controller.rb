@@ -21,10 +21,10 @@ class ProductionChainWorkCentersController < ApplicationController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
-    t.column :name, :url=>{:action=>:production_chain_work_center}
+    t.column :name, :url=>true
     t.column :name, :through=>:operation_nature
     t.column :nature
-    t.column :name, :through=>:building, :url=>{:controller=>:management, :action=>:warehouse}
+    t.column :name, :through=>:building, :url=>true
     t.column :comment
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete

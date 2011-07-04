@@ -158,7 +158,7 @@ class PricesController < ApplicationController
     if request.post?
       if params[:csv_file].nil?
         notify_warning(:you_must_select_a_file_to_import)
-        redirect_to :action=>:prices_import
+        redirect_to :action=>:import
       else
         file = params[:csv_file][:path]
         name = "MES_TARIFS.csv"

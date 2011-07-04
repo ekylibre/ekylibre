@@ -23,11 +23,11 @@ class PurchaseLinesController < ApplicationController
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if @current_company.warehouses.size <= 0
       notify_warning(:need_warehouse_to_create_purchase_line)
-      redirect_to :action=>:warehouse_create
+      redirect_to :action=>:new, :controller=>:warehouses
       return
     elsif not @purchase.draft?
       notify_warning(:impossible_to_add_lines_to_purchase)
-      redirect_to :action=>:purchase, :step=>:products, :id=>@purchase.id
+      redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
     if request.post?
@@ -36,7 +36,7 @@ class PurchaseLinesController < ApplicationController
       price = product.prices.create!(:entity_id=>@purchase.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_line][:price_id] = price.id
       @purchase_line = @purchase.lines.new(params[:purchase_line])
-      return if save_and_redirect(@purchase_line, :url=>{:action=>:purchase, :step=>:products, :id=>@purchase.id})
+      return if save_and_redirect(@purchase_line, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
     else
       @purchase_line = @purchase.lines.new
       @price = Price.new(:pretax_amount=>0.0)
@@ -49,11 +49,11 @@ class PurchaseLinesController < ApplicationController
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
     if @current_company.warehouses.size <= 0
       notify_warning(:need_warehouse_to_create_purchase_line)
-      redirect_to :action=>:warehouse_create
+      redirect_to :action=>:new, :controller=>:warehouses
       return
     elsif not @purchase.draft?
       notify_warning(:impossible_to_add_lines_to_purchase)
-      redirect_to :action=>:purchase, :step=>:products, :id=>@purchase.id
+      redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
     if request.post?
@@ -62,7 +62,7 @@ class PurchaseLinesController < ApplicationController
       price = product.prices.create!(:entity_id=>@purchase.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_line][:price_id] = price.id
       @purchase_line = @purchase.lines.new(params[:purchase_line])
-      return if save_and_redirect(@purchase_line, :url=>{:action=>:purchase, :step=>:products, :id=>@purchase.id})
+      return if save_and_redirect(@purchase_line, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
     else
       @purchase_line = @purchase.lines.new
       @price = Price.new(:pretax_amount=>0.0)
@@ -87,7 +87,7 @@ class PurchaseLinesController < ApplicationController
       price = product.prices.create!(:entity_id=>@purchase_line.purchase.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_line][:price_id] = price.id
       if @purchase_line.update_attributes(params[:purchase_line])  
-        redirect_to :action=>:purchase, :step=>:products, :id=>@purchase_line.purchase_id  
+        redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_line.purchase_id  
       end
     end
     t3e @purchase_line.attributes
@@ -102,7 +102,7 @@ class PurchaseLinesController < ApplicationController
       price = product.prices.create!(:entity_id=>@purchase_line.purchase.supplier_id, :pretax_amount=>params[:price][:pretax_amount], :tax_id=>params[:price][:tax_id].to_i, :active=>true) if price.nil?
       params[:purchase_line][:price_id] = price.id
       if @purchase_line.update_attributes(params[:purchase_line])  
-        redirect_to :action=>:purchase, :step=>:products, :id=>@purchase_line.purchase_id  
+        redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_line.purchase_id  
       end
     end
     t3e @purchase_line.attributes

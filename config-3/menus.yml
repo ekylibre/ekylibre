@@ -418,12 +418,12 @@ menus:
       - - tax_declarations::index
         - tax_declarations::create
         - tax_declarations::destroy
-        - tax_declarations::edit
+        - tax_declarations::edit # NONEXISTENT ACTION !!!
         - tax_declarations::list
         - tax_declarations::new
         - tax_declarations::period_search
         - tax_declarations::show
-        - tax_declarations::update
+        - tax_declarations::update # NONEXISTENT ACTION !!!
     - parameters:
       - - incoming_payment_modes::index
         - incoming_payment_modes::create

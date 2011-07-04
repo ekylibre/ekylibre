@@ -100,7 +100,6 @@ class SalesController < ApplicationController
 
   list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state') do |t|
     t.column :number, :url=>{:action=>:show, :step=>:default}
-    #t.column :name, :through=>:nature#, :url=>{:action=>:sale_nature}
     t.column :created_on
     t.column :label, :through=>:responsible
     t.column :full_name, :through=>:client, :url=>true

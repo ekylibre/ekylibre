@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class BankStatementsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :point=>:get_and_post
 end

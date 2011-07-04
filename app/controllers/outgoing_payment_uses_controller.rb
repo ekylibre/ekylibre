@@ -68,7 +68,7 @@ class OutgoingPaymentUsesController < ApplicationController
   def destroy
     return unless @outgoing_payment_use = find_and_check(:outgoing_payment_use)
     if request.post? or request.delete?
-      @outgoing_payment_use.destroy #:action=>:purchase_summary, :id=>@purchase.id
+      @outgoing_payment_use.destroy
     end
     redirect_to_back
   end

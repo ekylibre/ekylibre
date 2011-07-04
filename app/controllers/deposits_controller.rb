@@ -19,28 +19,6 @@
 
 class DepositsController < ApplicationController
 
-  list(:depositable_payments, :model=>:incoming_payments, :conditions=>["#{IncomingPayment.table_name}.company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payer, :url=>true
-    t.column :bank
-    t.column :account_number
-    t.column :check_number
-    t.column :paid_on
-    t.column :label, :through=>:responsible
-    t.column :amount
-    t.check_box :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
-  end
-
-  list(:payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :per_page=>1000, :order=>:number) do |t|
-    t.column :number, :url=>true
-    t.column :full_name, :through=>:payer, :url=>true
-    t.column :bank
-    t.column :account_number
-    t.column :check_number
-    t.column :paid_on
-    t.column :amount, :url=>true
-  end
-
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
     t.column :number, :url=>true
     t.column :amount, :url=>true
@@ -51,6 +29,22 @@ class DepositsController < ApplicationController
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.locked == false'
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.locked == false'
+  end
+
+  # Displays the main page with the list of deposits
+  def index
+    notify_now(:no_depositable_payments) if @current_company.depositable_payments.size <= 0
+  end
+
+
+  list(:payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :per_page=>1000, :order=>:number) do |t|
+    t.column :number, :url=>true
+    t.column :full_name, :through=>:payer, :url=>true
+    t.column :bank
+    t.column :account_number
+    t.column :check_number
+    t.column :paid_on
+    t.column :amount, :url=>true
   end
 
   # Displays details of one deposit selected with +params[:id]+
@@ -65,34 +59,34 @@ class DepositsController < ApplicationController
     end
   end
 
+
+  list(:depositable_payments, :model=>:incoming_payments, :conditions=>["#{IncomingPayment.table_name}.company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+    t.column :number, :url=>true
+    t.column :full_name, :through=>:payer, :url=>true
+    t.column :bank
+    t.column :account_number
+    t.column :check_number
+    t.column :paid_on
+    t.column :label, :through=>:responsible
+    t.column :amount
+    t.check_box :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
+  end
+
   def new
     mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
     if mode.nil?
       notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to deposits_url
+      redirect_to :action=>:index
       return
     end
     if mode.depositable_payments.size <= 0
       notify_warning(:no_payment_to_deposit)
-      redirect_to deposits_url
+      redirect_to :action=>:index
       return
     end
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-    if request.post?
-      @deposit = Deposit.new(params[:deposit])
-      # @deposit.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id if @current_company.payment_modes.find_all_by_mode("check").size == 1
-      @deposit.mode_id = mode.id 
-      @deposit.company_id = @current_company.id 
-      if saved = @deposit.save
-        payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-        IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
-        @deposit.refresh
-      end
-      return if save_and_redirect(@deposit, :saved=>saved)
-    else
-      @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
-    end
+    @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
     t3e :mode=>mode.name
     render_restfully_form
   end
@@ -101,17 +95,16 @@ class DepositsController < ApplicationController
     mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
     if mode.nil?
       notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to deposits_url
+      redirect_to :action=>:index
       return
     end
     if mode.depositable_payments.size <= 0
       notify_warning(:no_payment_to_deposit)
-      redirect_to deposits_url
+      redirect_to :action=>:index
       return
     end
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-    if request.post?
       @deposit = Deposit.new(params[:deposit])
       # @deposit.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id if @current_company.payment_modes.find_all_by_mode("check").size == 1
       @deposit.mode_id = mode.id 
@@ -122,9 +115,6 @@ class DepositsController < ApplicationController
         @deposit.refresh
       end
       return if save_and_redirect(@deposit, :saved=>saved)
-    else
-      @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
-    end
     t3e :mode=>mode.name
     render_restfully_form
   end
@@ -141,17 +131,6 @@ class DepositsController < ApplicationController
     return unless @deposit = find_and_check(:deposit)
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
-    if request.post?
-      if @deposit.update_attributes(params[:deposit])
-        ActiveRecord::Base.transaction do
-          payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-          IncomingPayment.update_all({:deposit_id=>nil}, ["company_id=? AND deposit_id=?", @current_company.id, @deposit.id])
-          IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
-        end
-        @deposit.refresh
-        redirect_to :action=>:deposit, :id=>@deposit.id
-      end
-    end
     t3e @deposit.attributes
     render_restfully_form
   end
@@ -160,7 +139,6 @@ class DepositsController < ApplicationController
     return unless @deposit = find_and_check(:deposit)
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
-    if request.post?
       if @deposit.update_attributes(params[:deposit])
         ActiveRecord::Base.transaction do
           payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
@@ -170,7 +148,6 @@ class DepositsController < ApplicationController
         @deposit.refresh
         redirect_to :action=>:deposit, :id=>@deposit.id
       end
-    end
     t3e @deposit.attributes
     render_restfully_form
   end
@@ -193,11 +170,6 @@ class DepositsController < ApplicationController
       end
       redirect_to :action=>:unvalidateds
     end
-  end
-
-  # Displays the main page with the list of deposits
-  def index
-    notify_now(:no_depositable_payments) if @current_company.depositable_payments.size <= 0
   end
 
 end

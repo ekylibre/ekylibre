@@ -214,6 +214,7 @@ module List
         code = "(#{table.records_variable_name}.total_pages > 1 ? '<tfoot><tr><th colspan=\"#{table.columns.size+1}\">#{pagination}</th></tr></tfoot>' : '').html_safe"
       end
 
+      code = "''" if code.blank?
       return code
     end
 

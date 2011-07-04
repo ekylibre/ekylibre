@@ -7,12 +7,9 @@
   - f.field :tax_declaration, :stopped_on
   - f.field :tax_declaration, :address, :field=>:textarea
 
-=observe_field "tax_declaration_period_monthly", :frequency => 0.25, :url=>{:action =>:tax_declaration_period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
+=observe_field "tax_declaration_period_monthly", :frequency => 0.25, :url=>{:controller=>:tax_declarations, :action=>:period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
+=observe_field "tax_declaration_period_quarterly", :frequency => 0.25, :url=>{:controller=>:tax_declarations, :action=>:period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
+=observe_field "tax_declaration_period_yearly", :frequency => 0.25, :url=>{:controller=>:tax_declarations, :action=>:period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
+=observe_field "tax_declaration_period_other", :frequency => 0.25, :url=>{:controller=>:tax_declarations, :action=>:period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
 
-=observe_field "tax_declaration_period_quarterly", :frequency => 0.25, :url=>{:action =>:tax_declaration_period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
-
-=observe_field "tax_declaration_period_yearly", :frequency => 0.25, :url=>{:action =>:tax_declaration_period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
-
-=observe_field "tax_declaration_period_other", :frequency => 0.25, :url=>{:action =>:tax_declaration_period_search}, :with=>"'period='+escape(value)+'&started_on='+$F('tax_declaration_started_on')"
-
-#stopped_period=render :partial=>"tax_declaration_period_search"
+#stopped_period=render :partial=>"tax_declarations/period_search"

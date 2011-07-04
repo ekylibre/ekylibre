@@ -5,14 +5,10 @@
         %td.crit=journal_period_crit
         %td.submit=submit_tag(tg(:display), :name=>nil)
 
-=toolbar do |t|
-  -# t.link :account_reconciliation, {:mode=>session[:mode]}
-
 =attributes_list(@account, :without_stamp=>true) do |l|
   -l.attribute :name, :url=>true
   -l.attribute :number, :url=>true
   -l.attribute :comment
-
 
 =error_messages "account"
 

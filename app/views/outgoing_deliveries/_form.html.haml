@@ -29,7 +29,6 @@
       %td.dec=line.sale_line.undelivered_quantity
       %td{:style=>'text-align:center'}
         =text_field_tag "outgoing_delivery_line[#{line.sale_line_id}][quantity]", line.quantity, :id=>"outgoing_delivery_line_#{line.sale_line_id}_quantity", :onkeyup=>"t6(this, #{line.sale_line.undelivered_quantity});", :class=>"pta-#{line.sale_line_id} awt-#{line.sale_line_id}"
-        =#observe_field "outgoing_delivery_line_#{line.sale_line_id}_quantity", :url=>{:action => :sum_calculate}, :frequency => 0.25, :with=>"Form.serialize('#{@outgoing_delivery_form}')"
       %td.dec.pta{"mul-of"=>"pta-#{line.sale_line_id}"}
       %td.dec.awt{"mul-of"=>"awt-#{line.sale_line_id}"}
   %tr.total

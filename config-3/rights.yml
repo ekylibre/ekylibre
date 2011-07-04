@@ -31,13 +31,11 @@
 #   - professions::update
 #   - tax_declarations::create
 #   - tax_declarations::destroy
-#   - tax_declarations::edit
 #   - tax_declarations::index
 #   - tax_declarations::list
 #   - tax_declarations::new
 #   - tax_declarations::period_search
 #   - tax_declarations::show
-#   - tax_declarations::update
 # Access to the minimum
 __minimum__:
   actions:

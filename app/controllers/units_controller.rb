@@ -36,7 +36,7 @@ class UnitsController < ApplicationController
 
   def load
     @current_company.load_units
-    redirect_to :action=>:units
+    redirect_to :action=>:index
   end
 
 end

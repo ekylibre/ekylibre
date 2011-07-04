@@ -65,7 +65,7 @@ class WarehousesController < ApplicationController
   def index
     unless @current_company.warehouses.size>0
       notify(:need_warehouse_to_record_stock_moves)
-      redirect_to :action=>:warehouse_create
+      redirect_to :action=>:new
       return
     end
   end

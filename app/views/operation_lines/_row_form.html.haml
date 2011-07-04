@@ -2,13 +2,13 @@
 -direction = (params[:direction]||line[:direction]||"in").to_sym
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
 -after_update = "function(e, v, h, m) { alert('ok');"
--after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:management, :action=>:product_units}, :with=>"'id='+h.value")+';'
+-after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:interfacers, :action=>:product_units}, :with=>"'id='+h.value")+';'
 -if direction == :in
-  -after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:management, :action=>:product_trackings}, :with=>"'id='+h.value")+';'
+  -after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:interfacers, :action=>:product_trackings}, :with=>"'id='+h.value")+';'
 -after_update += "}"
 -after_update  = "var product_id = $('lines_#{id}_product_id').value;"
--after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:management, :action=>:product_units}, :with=>"'id='+product_id")+";"
--after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:management, :action=>:product_trackings}, :with=>"'id='+product_id")+";" if direction == :in
+-after_update += remote_function(:update=>"lines_#{id}_unit_id", :url=>{:controller=>:interfacers, :action=>:product_units}, :with=>"'id='+product_id")+";"
+-after_update += remote_function(:update=>"lines_#{id}_tracking_id", :url=>{:controller=>:interfacers, :action=>:product_trackings}, :with=>"'id='+product_id")+";" if direction == :in
 -product = line[:product_id].blank? ?  nil : @current_company.products.find_by_id(line[:product_id])
 -if line.respond_to? :errors
   -if line.errors.size > 0

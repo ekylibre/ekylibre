@@ -14,7 +14,7 @@
           %table.conveyor
             %tr
               -if conveyor.source
-                %td.work-center=link_to(conveyor.source.name, :action=>:production_chain, :id=>conveyor.production_chain_id, :anchor=>"work_center#{conveyor.source_id}")
+                %td.work-center=link_to(conveyor.source.name, :controller=>:production_chains, :action=>:show, :id=>conveyor.production_chain_id, :anchor=>"work_center#{conveyor.source_id}")
               =render :partial=>"production_chains/conveyor", :object=>conveyor
         -if @current_user.can?(:build_production_chains) and (ic.size<=0 or (work_center.nature != "input"))
           %table.conveyor

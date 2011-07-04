@@ -21,7 +21,7 @@ class ProductionChainsController < ApplicationController
   manage_restfully 
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
-    t.column :name, :url=>{:action=>:production_chain}
+    t.column :name, :url=>true
     t.column :comment
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
@@ -90,7 +90,7 @@ class ProductionChainsController < ApplicationController
                   ]
           pc.conveyors.create!(:product=>ps[co[0]], :source=>ops[co[1]], :source_quantity=>co[2], :target=>ops[co[3]], :target_quantity=>co[4], :check_state=>co[5], :unique_tracking=>co[6]||false)
         end
-        redirect_to :action=>:production_chain, :id=>pc.id
+        redirect_to :action=>:show, :id=>pc.id
       end
     end
   end

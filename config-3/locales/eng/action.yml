@@ -346,7 +346,7 @@ eng:
       # message: 'Message subscription'
       new: 'Add a new subscription'
     tax_declarations:
-      edit: 'Create a Tax Declaration'
+      edit: 'Create a Tax Declaration' #!
       index: 'VAT Declaration'
       new: 'Create a Tax report'
       # period_search: 'Period search tax declaration'
