@@ -379,7 +379,7 @@ class EntitiesController < ApplicationController
   end
 
   def create
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})||[]
+    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
     @custom_field_data = []
     
     if request.post?
@@ -388,7 +388,7 @@ class EntitiesController < ApplicationController
       @contact = Contact.new(params[:contact])
       @contact.company_id = @current_company.id
       for custom_field in @custom_fields
-        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
+        attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
         attributes[:custom_field_id] = custom_field.id
         attributes[:company_id] = @current_company.id
         @custom_field_data << CustomFieldDatum.new(attributes)
@@ -466,7 +466,7 @@ class EntitiesController < ApplicationController
     @contact = @entity.default_contact||@entity.contacts.new
     
     for custom_field in @custom_fields
-      attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
+      attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
       attributes[:custom_field_id] = custom_field.id
       attributes[:company_id] = @current_company.id
       datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)

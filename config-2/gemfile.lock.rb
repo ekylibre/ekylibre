@@ -21,7 +21,7 @@ GEM
     fastercsv (1.5.4)
     haml (3.1.2)
     i18n (0.6.0)
-    libxml-ruby (2.0.9)
+    libxml-ruby (1.1.3)
     mysql (2.8.1)
     pg (0.11.0)
     rack (1.1.2)
@@ -47,7 +47,7 @@ DEPENDENCIES
   fastercsv
   haml
   i18n (>= 0.5)
-  libxml-ruby
+  libxml-ruby (= 1.1.3)
   mysql
   pg (= 0.11.0)
   rails (= 2.3.10)

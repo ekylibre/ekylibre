@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class AccountsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :mark=>:show, :unmark=>:touch, :load=>:get_and_post
+  test_restfully_all_actions :mark=>:show, :unmark=>:touch, :load=>:index
 end

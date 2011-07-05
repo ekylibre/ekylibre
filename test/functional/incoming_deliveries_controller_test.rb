@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class IncomingDeliveriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>{:purchase_id=>5}
 end

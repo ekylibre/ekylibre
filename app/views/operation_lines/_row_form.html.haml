@@ -1,4 +1,4 @@
--line = operation_line_row_form||{}
+-line = row_form||{}
 -direction = (params[:direction]||line[:direction]||"in").to_sym
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
 -after_update = "function(e, v, h, m) { alert('ok');"

@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class JournalsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :close=>{:id=>1}, :reopen=>{:id=>1}
 end

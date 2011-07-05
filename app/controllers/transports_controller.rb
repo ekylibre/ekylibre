@@ -57,25 +57,15 @@ class TransportsController < ApplicationController
     @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id)
     @transport.responsible_id = @current_user.id
     session[:current_transport] = 0
-    if request.post?
-      @transport = Transport.new(params[:transport])
-      @transport.company_id = @current_company.id
-      @transport.save
-      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
-    end
     render_restfully_form
   end
 
   def create
-    @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id)
-    @transport.responsible_id = @current_user.id
     session[:current_transport] = 0
-    if request.post?
-      @transport = Transport.new(params[:transport])
-      @transport.company_id = @current_company.id
-      @transport.save
-      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
-    end
+    @transport = Transport.new(params[:transport])
+    @transport.responsible_id = @current_user.id
+    @transport.company_id = @current_company.id
+    return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
     render_restfully_form
   end
 

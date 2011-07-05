@@ -297,7 +297,6 @@ menus:
         - journal_entries::new
         - journal_entries::show
         - journal_entries::update
-        - journal_entry_lines::create
         - journal_entry_lines::new
         - journals::close
         - journals::create
@@ -418,12 +417,10 @@ menus:
       - - tax_declarations::index
         - tax_declarations::create
         - tax_declarations::destroy
-        - tax_declarations::edit # NONEXISTENT ACTION !!!
         - tax_declarations::list
         - tax_declarations::new
         - tax_declarations::period_search
         - tax_declarations::show
-        - tax_declarations::update # NONEXISTENT ACTION !!!
     - parameters:
       - - incoming_payment_modes::index
         - incoming_payment_modes::create
@@ -498,7 +495,6 @@ menus:
         - purchases::create
         - purchases::destroy
         - purchases::edit
-        - purchases::finish
         - purchases::invoice
         - purchases::list
         - purchases::list_deliveries

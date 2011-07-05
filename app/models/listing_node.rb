@@ -59,7 +59,6 @@ class ListingNode < CompanyRecord
 
   autosave :listing
 
-
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
 
   @@comparators = {

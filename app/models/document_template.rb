@@ -85,6 +85,7 @@ class DocumentTemplate < CompanyRecord
     self.filename ||= 'document'
     self.cache = self.class.compile(self.source) # rescue nil
     self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
+    return true
   end
 
   validate do
@@ -284,9 +285,10 @@ class DocumentTemplate < CompanyRecord
 
 
   def self.compile(source, mode=:normal)
+    # raise source.to_s
+    code = ''    
     xml = ::LibXML::XML::Parser.io(StringIO.new(source.to_s)).parse
     template = xml.root
-    code = ''
     i = 0
     unless mode == :debug
       parameters = template.find('parameters/parameter')

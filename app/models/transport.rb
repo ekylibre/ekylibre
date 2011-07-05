@@ -51,6 +51,7 @@ class Transport < CompanyRecord
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today
+    return true
   end
 
   before_validation do

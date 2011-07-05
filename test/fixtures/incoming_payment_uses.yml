@@ -50,3 +50,30 @@
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
+
+incoming_payment_uses_001:
+  amount: 50
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  downpayment: false
+  expense_id: 1
+  expense_type: "Sale"
+  id: 1
+  payment_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+incoming_payment_uses_002:
+  amount: 73
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  downpayment: true
+  expense_id: 1
+  expense_type: "Sale"
+  id: 2
+  payment_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+

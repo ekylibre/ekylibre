@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class PurchaseLinesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>{:purchase_id=>1}
 end

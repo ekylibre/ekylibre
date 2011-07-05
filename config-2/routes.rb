@@ -23,7 +23,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :cash_transfers, :collection=>{:list=>:get}
     company.resources :contacts
     company.resources :cultivations
-    company.resources :currencies
+    # company.resources :currencies
     company.resources :custom_fields, :collection=>{:list=>:get, :list_choices=>:get}, :member=>{:sort=>:post}
     company.resources :custom_field_choices, :member=>{:up=>:post, :down=>:post}
     company.resources :custom_field_data
@@ -55,7 +55,7 @@ ActionController::Routing::Routes.draw do |map|
     end
     company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :reports=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
-    company.resources :journal_entry_lines, :only=>[:new, :create]
+    company.resources :journal_entry_lines, :only=>[:new]
     company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get}, :member=>{:divide=>[:get, :post]}
     company.resources :land_parcel_groups, :collection=>{:list=>:get}
     company.resources :land_parcel_kinships
@@ -77,7 +77,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :outgoing_payment_uses
     company.resources :preferences
     company.resources :prices, :collection=>{:list=>:get, :export=>[:get, :post], :import=>[:get, :post], :find=>:get}
-    company.resources :products, :collection=>{:list=>:get, :list_prices=>:get, :list_stocks=>:get, :list_stock_moves=>:get, :list_components=>:get}
+    company.resources :products, :collection=>{:list=>:get, :list_prices=>:get, :list_stocks=>:get, :list_stock_moves=>:get, :list_components=>:get, :change_quantities=>:get}
     company.resources :product_categories, :collection=>{:list=>:get, :list_products=>:get}
     company.resources :product_components, :except=>[:show, :index]
     company.resources :production_chains, :collection=>{:list=>:get} do |pc|

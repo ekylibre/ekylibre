@@ -78,7 +78,7 @@ class OperationsController < ApplicationController
       @operation = @current_company.operations.new(params[:operation])
       @operation_lines = (params[:lines]||{}).values
       @operation_uses = (params[:uses]||{}).values
-      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+      redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
     else
       @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
     end

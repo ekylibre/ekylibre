@@ -135,14 +135,6 @@ class PurchasesController < ApplicationController
     redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
   end
 
-  def finish
-    return unless @purchase = find_and_check(:purchase)
-    if request.post?
-      @purchase.finish
-    end
-    redirect_to :action=>:show, :step=>:summary, :id=>@purchase.id
-  end
-
   def invoice
     return unless @purchase = find_and_check(:purchase)
     if request.post?

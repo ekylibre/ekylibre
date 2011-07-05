@@ -273,7 +273,7 @@ eng:
       confirm: 'Confirm order and wait for deliveries'
       correct: 'Correct order'
       edit: 'Edit the purchase: %{number}'
-      finish: 'Finish order'
+      finish: 'Finish order' #!
       index: 'Purchases'
       invoice: 'Receive invoice'
       new: 'New purchase'

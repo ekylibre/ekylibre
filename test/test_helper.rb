@@ -56,72 +56,6 @@ class ActionController::TestCase
 
 
 
-  def self.test_all_actions0(controller=nil)
-    controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
-    code  = "def test_get_all_actions\n"
-    code += "  user = users(:users_001)\n"
-    code += "  login(user.name, user.comment)\n"
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| x.to_s.match(/_(delete|update)$/)}
-      code += "  get #{action.inspect}, :company=>user.company.code\n"
-      code += '  assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-      code += "  assert_select('html body div#body', :count=>1)\n"
-    end
-    code += "end"
-    class_eval(code)
-  end
-
-
-  def self.test_all_actions(options={})
-    controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
-    code  = "context 'A #{controller} controller' do\n"
-    code += "  setup do\n"
-    code += "    @user = users(:users_001)\n"
-    code += "    login(@user.name, @user.comment)\n"
-    code += "  end\n"
-    except = options.delete(:except)||[]
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| except.include? x}
-      code += "  should 'get #{action}' do\n"
-      if options[action].is_a? Hash
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += "    assert_response :redirect\n"
-        code += "    get #{action.inspect}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
-        code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-        code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"        
-      elsif action.to_s.match(/_(delete|duplicate|up|down)$/) or options[action]==:delete
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += "    assert_not_nil flash[:notifications]\n"
-        code += "    assert_response :redirect\n"
-        code += "    get #{action.inspect}, :company=>@user.company.code, :id=>2\n"
-        # code += "    assert_not_nil flash[:notifications]\n"
-        code += "    assert_response :redirect\n"
-      elsif action.to_s.match(/_update$/) or Ekylibre.references.keys.include?(action) or options[action]==:update
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += "    assert_response :redirect\n"
-        code += "    get #{action.inspect}, :company=>@user.company.code, :id=>1\n"
-        code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-        code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
-      elsif action.to_s.match(/_load$/) or options[action]==:load
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += "    assert_response :redirect\n"
-      elsif options[action]==:select
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += "    assert_response :redirect\n"
-        code += "    get #{action.inspect}, :company=>@user.company.code, :id=>1\n"
-        code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-        code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
-      elsif action.to_s.match(/_(print|extract)$/)
-      else # :list
-        code += "    get #{action.inspect}, :company=>@user.company.code\n"
-        code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-        code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
-      end
-      code += "  end\n"
-    end
-    code += "end"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    class_eval(code)
-  end
-
   def self.test_restfully_all_actions(options={})
     controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
     code  = "context 'A #{controller} controller' do\n"
@@ -130,6 +64,10 @@ class ActionController::TestCase
     code += "    login(@user.name, @user.comment)\n"
     code += "  end\n"
     except = options.delete(:except)||[]
+    except = [except] unless except.is_a? Array
+    for ignored in except
+      puts "Ignore: #{controller}##{ignored}"
+    end
     return unless User.rights[controller]
     for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| except.include? x}
       code += "  should 'execute :#{action}' do\n"
@@ -153,29 +91,30 @@ class ActionController::TestCase
 
       model = controller.to_s.singularize
       if options[action].is_a? Hash
-        code += "    get :#{action}, :company=>@user.company.code\n"
-        code += "    assert_response :redirect\n"
+        # code += "    get :#{action}, :company=>@user.company.code\n"
+        # code += "    assert_response :redirect\n"
         code += "    get :#{action}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
         code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
-        code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"        
+        # code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
       elsif mode == :index
         code += "    get :#{action}, :company=>@user.company.code\n"
-        code += "    assert_response :success\n"
+        code += '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show
         code += "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
         code += "      get :#{action}, :company=>@user.company.code\n"
         code += "    end\n"
         code += "    get :#{action}, :company=>@user.company.code, :id=>1\n"
-        code += "    assert_response :success\n"
+        code += '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+        code += "    assert_not_nil assigns(:#{model})\n"
       elsif mode == :create
-        code += "    new_#{model} = #{controller}(:#{controller}_001)\n"
+        code += "    #{model} = #{controller}(:#{controller}_001)\n"
         code += "    assert_nothing_raised do\n"
-        code += "      post :#{action}, :company=>@user.company.code, :#{model}=>new_#{model}.attributes\n"
+        code += "      post :#{action}, :company=>@user.company.code, :#{model}=>#{model}.attributes\n"
         code += "    end\n"
       elsif mode == :update
-        code += "    existing_#{model} = #{controller}(:#{controller}_001)\n"
+        code += "    #{model} = #{controller}(:#{controller}_001)\n"
         code += "    assert_nothing_raised do\n"
-        code += "      put :#{action}, :company=>@user.company.code, :id=>existing_#{model}.id, :#{model}=>existing_#{model}.attributes\n"
+        code += "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
         code += "    end\n"
       elsif mode == :destroy
         code += "    assert_nothing_raised do\n"
@@ -188,12 +127,22 @@ class ActionController::TestCase
         code += "    end\n"
         code += "    post :#{action}, :company=>@user.company.code, :id=>1\n"
         code += "    assert_response :redirect\n"
-      elsif mode == :get_and_post
+      elsif mode == :get_and_post # with ID
         code += "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
         code += "      get :#{action}, :company=>@user.company.code\n"
         code += "    end\n"
         code += "    get :#{action}, :company=>@user.company.code, :id=>1\n"
-        code += "    assert_response :success\n"
+        code += '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+      elsif mode == :index_xhr 
+        code += "    get :#{action}, :company=>@user.company.code\n"
+        code += "    assert_response :redirect\n"
+        code += "    xhr :get, :#{action}, :company=>@user.company.code\n"
+        code += '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+      elsif mode == :show_xhr
+        code += "    get :#{action}, :company=>@user.company.code, :id=>1\n"
+        code += "    assert_response :redirect\n"
+        code += "    xhr :get, :#{action}, :company=>@user.company.code, :id=>1\n"
+        code += "    assert_not_nil assigns(:#{model})\n"
       else
         code += "    get :#{action}, :company=>@user.company.code\n"
         code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
@@ -203,11 +152,78 @@ class ActionController::TestCase
     end
     code += "end"
 
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     class_eval(code)
     
   end
 
+
+
+  # def self.test_all_actions0(controller=nil)
+  #   controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
+  #   code  = "def test_get_all_actions\n"
+  #   code += "  user = users(:users_001)\n"
+  #   code += "  login(user.name, user.comment)\n"
+  #   for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| x.to_s.match(/_(delete|update)$/)}
+  #     code += "  get #{action.inspect}, :company=>user.company.code\n"
+  #     code += '  assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+  #     code += "  assert_select('html body div#body', :count=>1)\n"
+  #   end
+  #   code += "end"
+  #   class_eval(code)
+  # end
+
+
+  # def self.test_all_actions(options={})
+  #   controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
+  #   code  = "context 'A #{controller} controller' do\n"
+  #   code += "  setup do\n"
+  #   code += "    @user = users(:users_001)\n"
+  #   code += "    login(@user.name, @user.comment)\n"
+  #   code += "  end\n"
+  #   except = options.delete(:except)||[]
+  #   for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| except.include? x}
+  #     code += "  should 'get #{action}' do\n"
+  #     if options[action].is_a? Hash
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += "    assert_response :redirect\n"
+  #       code += "    get #{action.inspect}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
+  #       code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+  #       code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"        
+  #     elsif action.to_s.match(/_(delete|duplicate|up|down)$/) or options[action]==:delete
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += "    assert_not_nil flash[:notifications]\n"
+  #       code += "    assert_response :redirect\n"
+  #       code += "    get #{action.inspect}, :company=>@user.company.code, :id=>2\n"
+  #       # code += "    assert_not_nil flash[:notifications]\n"
+  #       code += "    assert_response :redirect\n"
+  #     elsif action.to_s.match(/_update$/) or Ekylibre.references.keys.include?(action) or options[action]==:update
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += "    assert_response :redirect\n"
+  #       code += "    get #{action.inspect}, :company=>@user.company.code, :id=>1\n"
+  #       code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+  #       code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
+  #     elsif action.to_s.match(/_load$/) or options[action]==:load
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += "    assert_response :redirect\n"
+  #     elsif options[action]==:select
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += "    assert_response :redirect\n"
+  #       code += "    get #{action.inspect}, :company=>@user.company.code, :id=>1\n"
+  #       code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+  #       code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
+  #     elsif action.to_s.match(/_(print|extract)$/)
+  #     else # :list
+  #       code += "    get #{action.inspect}, :company=>@user.company.code\n"
+  #       code += '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+  #       code += "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
+  #     end
+  #     code += "  end\n"
+  #   end
+  #   code += "end"
+  #   # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+  #   class_eval(code)
+  # end
   
   # if options[action].is_a? Hash
   #       code += "    get :#{action}, :company=>@user.company.code\n"

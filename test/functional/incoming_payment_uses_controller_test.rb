@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class IncomingPaymentUsesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>{:expense_id=>1, :expense_type=>"Sale"}
 end

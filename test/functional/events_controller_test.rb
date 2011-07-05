@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class EventsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :change_minutes=>{:nature_id=>1}
+  test_restfully_all_actions :except=>[:change_minutes]
 end

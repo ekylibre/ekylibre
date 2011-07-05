@@ -232,7 +232,7 @@ class ProductsController < ApplicationController
 
 
   def change_quantities
-    @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :company_id=>@current_company.id, :product_id=>session[:product_id]} ) 
+    @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :company_id=>@current_company.id, :product_id=>session[:product_id]})
     if @stock.nil?
       @stock = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
     end

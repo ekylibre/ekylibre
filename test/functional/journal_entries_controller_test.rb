@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class JournalEntriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>{:journal_id=>1}
 end

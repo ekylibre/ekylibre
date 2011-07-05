@@ -49,28 +49,11 @@ class IncomingDeliveriesController < ApplicationController
     unless @purchase.order?
       notify_warning(:purchase_already_invoiced)
       redirect_to_back
+      return
     end
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if purchase_lines.empty?
-
-    if request.post?
-      @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
-      ActiveRecord::Base.transaction do
-        if saved = @incoming_delivery.save
-          for line in purchase_lines
-            if params[:incoming_delivery_line][line.id.to_s][:quantity].to_f > 0
-              incoming_delivery_line = @incoming_delivery.lines.new(:purchase_line_id=>line.id, :quantity=>params[:incoming_delivery_line][line.id.to_s][:quantity].to_f)
-              saved = false unless incoming_delivery_line.save
-              @incoming_delivery.errors.add_from_record(incoming_delivery_line)
-            end
-          end
-        end
-        raise ActiveRecord::Rollback unless saved  
-        redirect_to :action=>:purchase, :step=>:deliveries, :id=>@purchase.id
-      end
-    else
-      @incoming_delivery = IncomingDelivery.new(:pretax_amount=>@purchase.undelivered("pretax_amount"), :amount=>@purchase.undelivered("amount"), :planned_on=>Date.today, :contact_id=>@purchase.delivery_contact_id)      
-    end
+    @incoming_delivery = IncomingDelivery.new(:pretax_amount=>@purchase.undelivered("pretax_amount"), :amount=>@purchase.undelivered("amount"), :planned_on=>Date.today, :contact_id=>@purchase.delivery_contact_id)      
     @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     render_restfully_form
   end
@@ -84,23 +67,20 @@ class IncomingDeliveriesController < ApplicationController
     purchase_lines = @purchase.lines# .find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if purchase_lines.empty?
 
-    if request.post?
-      @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
-      ActiveRecord::Base.transaction do
-        if saved = @incoming_delivery.save
-          for line in purchase_lines
-            if params[:incoming_delivery_line][line.id.to_s][:quantity].to_f > 0
-              incoming_delivery_line = @incoming_delivery.lines.new(:purchase_line_id=>line.id, :quantity=>params[:incoming_delivery_line][line.id.to_s][:quantity].to_f)
-              saved = false unless incoming_delivery_line.save
-              @incoming_delivery.errors.add_from_record(incoming_delivery_line)
-            end
+    @incoming_delivery = @purchase.deliveries.new(params[:incoming_delivery])
+    ActiveRecord::Base.transaction do
+      if saved = @incoming_delivery.save
+        for line in purchase_lines
+          if params[:incoming_delivery_line][line.id.to_s][:quantity].to_f > 0
+            incoming_delivery_line = @incoming_delivery.lines.new(:purchase_line_id=>line.id, :quantity=>params[:incoming_delivery_line][line.id.to_s][:quantity].to_f)
+            saved = false unless incoming_delivery_line.save
+            @incoming_delivery.errors.add_from_record(incoming_delivery_line)
           end
         end
-        raise ActiveRecord::Rollback unless saved  
-        redirect_to :action=>:purchase, :step=>:deliveries, :id=>@purchase.id
       end
-    else
-      @incoming_delivery = IncomingDelivery.new(:pretax_amount=>@purchase.undelivered("pretax_amount"), :amount=>@purchase.undelivered("amount"), :planned_on=>Date.today, :contact_id=>@purchase.delivery_contact_id)      
+      raise ActiveRecord::Rollback unless saved  
+      redirect_to :action=>:purchase, :step=>:deliveries, :id=>@purchase.id
+      return
     end
     @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     render_restfully_form

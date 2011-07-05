@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class IncomingPaymentModesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :except=>:reflect
 end

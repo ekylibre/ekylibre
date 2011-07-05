@@ -38,7 +38,7 @@ class OutgoingDeliveriesController < ApplicationController
   end
 
   def new
-    return unless @sale = find_and_check(:sales, params[:sale_id]||params[:sale_id]||session[:current_sale_id])
+    return unless @sale = find_and_check(:sale, params[:sale_id]||session[:current_sale_id])
     unless @sale.order?
       notify_warning(:sale_already_invoiced)
       redirect_to_back
@@ -50,23 +50,6 @@ class OutgoingDeliveriesController < ApplicationController
     @outgoing_delivery = OutgoingDelivery.new(:pretax_amount=>@sale.undelivered("pretax_amount"), :amount=>@sale.undelivered("amount"), :planned_on=>Date.today, :transporter_id=>@sale.transporter_id, :contact_id=>@sale.delivery_contact_id||@sale.client.default_contact)
     # session[:current_outgoing_delivery] = @outgoing_delivery.id
   
-    if request.post?
-      @outgoing_delivery = @sale.deliveries.new(params[:outgoing_delivery])
-      
-      ActiveRecord::Base.transaction do
-        if saved = @outgoing_delivery.save
-          for line in sale_lines
-            if params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f > 0
-              outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id=>line.id, :quantity=>params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f)
-              saved = false unless outgoing_delivery_line.save
-              @outgoing_delivery.errors.add_from_record(outgoing_delivery_line)
-            end
-          end
-        end
-        raise ActiveRecord::Rollback unless saved  
-        redirect_to :action=>:sale, :step=>:deliveries, :id=>session[:current_sale_id] 
-      end
-    end
     render_restfully_form(:id=>@outgoing_delivery_form)
   end
 

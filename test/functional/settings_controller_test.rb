@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class SettingsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :edit=>:index, :update=>:create, :except=>[:backups, :backup, :restore]
+  test_restfully_all_actions :edit=>:index, :except=>[:backups, :backup, :restore, :update]
 end

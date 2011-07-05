@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class OperationUsesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>:index_xhr
 end

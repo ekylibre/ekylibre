@@ -566,7 +566,6 @@ manage_journal_entries:
   - journal_entries::new
   - journal_entries::show
   - journal_entries::update
-  - journal_entry_lines::create
   - journal_entry_lines::new
   - journals::draft
   - journals::index
@@ -807,7 +806,6 @@ manage_purchases:
   - purchases::create
   - purchases::destroy
   - purchases::edit
-  - purchases::finish
   - purchases::index
   - purchases::invoice
   - purchases::list

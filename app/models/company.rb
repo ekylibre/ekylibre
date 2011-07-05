@@ -121,6 +121,7 @@ class Company < Ekylibre::Record::Base
   has_many :tools, :order=>:name
   has_many :trackings
   has_many :transfers
+  has_many :transports
   has_many :units, :order=>'base, coefficient, name'
   has_many :users, :order=>'last_name, first_name'
   has_many :warehouses

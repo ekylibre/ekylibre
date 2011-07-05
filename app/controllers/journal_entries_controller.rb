@@ -37,21 +37,12 @@ class JournalEntriesController < ApplicationController
   end
 
   def new
-    return unless @journal = find_and_check(:journal, params[:journal_id])  
+    return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
-    if request.post?
-      @journal_entry_lines = (params[:lines]||{}).values
-      if @journal_entry.save_with_lines(@journal_entry_lines)
-        notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
-        redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
-      end
-    else
-      @journal_entry.printed_on = @journal_entry.created_on = Date.today
-      @journal_entry.number = @journal.next_number
-      # @journal_entry.draft_mode = true if params[:draft_mode].to_i == 1
-      @journal_entry_lines = []
-    end
+    @journal_entry.printed_on = @journal_entry.created_on = Date.today
+    @journal_entry.number = @journal.next_number
+    @journal_entry_lines = []
     t3e @journal.attributes
     render_restfully_form
   end
@@ -60,18 +51,11 @@ class JournalEntriesController < ApplicationController
     return unless @journal = find_and_check(:journal, params[:journal_id])  
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
-    if request.post?
-      @journal_entry_lines = (params[:lines]||{}).values
-      if @journal_entry.save_with_lines(@journal_entry_lines)
-        notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
-        redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
-        return
-      end
-    else
-      @journal_entry.printed_on = @journal_entry.created_on = Date.today
-      @journal_entry.number = @journal.next_number
-      # @journal_entry.draft_mode = true if params[:draft_mode].to_i == 1
-      @journal_entry_lines = []
+    @journal_entry_lines = (params[:lines]||{}).values
+    if @journal_entry.save_with_lines(@journal_entry_lines)
+      notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
+      redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
+      return
     end
     t3e @journal.attributes
     render_restfully_form

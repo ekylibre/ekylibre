@@ -69,6 +69,7 @@ purchases_001:
   creator_id: 1
   id: 1
   number: "P000001"
+  planned_on: 2009-08-20
   state: "draft"
   supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -81,7 +82,7 @@ purchases_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
-  number: "P000001"
+  number: "P000002"
   state: "draft"
   supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -94,7 +95,35 @@ purchases_003:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
-  number: "P000001"
+  number: "P000003"
+  state: "order"
+  supplier_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+purchases_004:
+  amount: 0
+  pretax_amount: 0
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 4
+  number: "P000004"
+  planned_on: 2009-08-20
+  state: "order"
+  supplier_id: 1
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+purchases_005:
+  amount: 0
+  pretax_amount: 0
+  company_id: 1
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 5
+  number: "P000005"
+  planned_on: 2009-08-20
   state: "order"
   supplier_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00

@@ -99,7 +99,7 @@ class InventoriesController < ApplicationController
       if @inventory.save
         @inventory.set_lines(params[:inventory_lines_create].values)
       end
-      redirect_to :index
+      redirect_to :action=>:index
       return
     end
     render :new
@@ -120,21 +120,13 @@ class InventoriesController < ApplicationController
     else
       notify_error(:changes_have_not_been_reflected)
     end
-    redirect_to :index 
+    redirect_to :action=>:index 
   end
 
   def edit
     return unless @inventory = find_and_check(:inventory)
     session[:current_inventory] = @inventory.id
-    if request.post? and !@inventory.changes_reflected
-      if @inventory.update_attributes(params[:inventory])
-        # @inventory.set_lines(params[:inventory_lines_create].values)
-        for id, attributes in (params[:inventory_lines_update]||{})
-          il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
-        end
-      end
-      redirect_to :index
-    end
+    t3e @inventory.attributes
   end
 
   def update
@@ -147,7 +139,7 @@ class InventoriesController < ApplicationController
           il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
         end
       end
-      redirect_to :index
+      redirect_to :action=>:index
       return
     end
     render :edit

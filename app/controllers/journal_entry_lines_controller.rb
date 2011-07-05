@@ -28,13 +28,4 @@ class JournalEntryLinesController < ApplicationController
     end
   end
 
-  def create
-    @journal_entry_line = JournalEntryLine.new
-    if request.xhr?
-      render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line
-    else
-      redirect_to_back
-    end
-  end
-
 end

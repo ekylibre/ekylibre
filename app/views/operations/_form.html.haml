@@ -13,8 +13,8 @@
 %table.invex
   %tr
     %td{:valign=>:top}
-      = formalize do |f|
-        - f.title :operation_lines
+      =formalize do |f|
+        -f.title :operation_lines
       =hidden_field_tag "operation[target_type]", LandParcel.name
       %table.list
         %thead
@@ -25,7 +25,7 @@
             %th=OperationLine.human_attribute_name("tracking_id")
             %th=OperationLine.human_attribute_name("warehouse_id")
             %th.act
-        %tbody#lines=render :partial=>'operation_line_row_form', :collection=>(@operation_lines||@operation.lines)
+        %tbody#lines=render :partial=>"operation_lines/row_form", :collection=>(@operation_lines||@operation.lines)
       =toolbar do |t|
         -t.link :new_in_line,  :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:in},  :update=>:lines, :position=>:bottom
         -t.link :new_out_line, :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:out}, :update=>:lines, :position=>:bottom

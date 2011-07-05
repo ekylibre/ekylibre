@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class SaleLinesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :new=>{:sale_id=>1}, :except=>:detail
 end

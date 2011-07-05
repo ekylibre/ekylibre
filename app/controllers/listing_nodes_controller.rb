@@ -21,20 +21,21 @@ class ListingNodesController < ApplicationController
 
   def new
     return unless @listing_node = find_and_check(:listing_node, params[:parent_id])
-    render :text=>"[UnfoundListingNode]" unless @listing_node
-    desc = params[:nature].split("-")
-    # raise Exception.new desc.inspect
-    if desc[0] == "special"
-      if desc[1] == "all_columns"
-        model = @listing_node.model
-        for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
-          ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>@listing_node.model.human_attribute_name(column.name))
-          ln.save!
+    if params[:nature]
+      desc = params[:nature].split("-")
+      # raise Exception.new desc.inspect
+      if desc[0] == "special"
+        if desc[1] == "all_columns"
+          model = @listing_node.model
+          for column in model.content_columns.sort{|a,b| model.human_attribute_name(a.name.to_s)<=>model.human_attribute_name(b.name.to_s)}
+            ln = @listing_node.children.new(:nature=>"column", :attribute_name=>column.name, :label=>@listing_node.model.human_attribute_name(column.name))
+            ln.save!
+          end
         end
+      else
+        ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
+        ln.save!
       end
-    else
-      ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
-      ln.save!
     end
     
     render(:partial=>"listings/reflection", :object=>@listing_node)
@@ -64,7 +65,7 @@ class ListingNodesController < ApplicationController
   def destroy
     return unless @listing_node = find_and_check(:listing_node)
     parent = @listing_node.parent
-    @listing_node.destroy 
+    @listing_node.reload.destroy
     if request.xhr?
       render(:partial=>"listings/reflection", :object=>parent)
     else
@@ -88,6 +89,8 @@ class ListingNodesController < ApplicationController
       elsif params[:type] == "position"
         @listing_node.position = params[:position]
         render(:partial=>"listing_nodes/position", :object=>@listing_node)
+      else
+        render(:text=>"[ERROR] Unknown update type")
       end
       @listing_node.save
     else
