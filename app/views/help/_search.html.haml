@@ -4,7 +4,8 @@
   -update, complete, resize = "#{params[:dialog]}-help", "$('#{params[:dialog]}').resize()", params[:dialog]
 -base_url = {:controller=>:help}
 -base_url[:dialog] = params[:dialog] if params[:dialog]
--cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article) do
+-#cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article.split(/[^a-z0-9\-]/)[-2]) do
+-cache(article) do
   .content.flex{:style=>'overflow:auto;'}
     -if article.is_a? String
       =article(article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>:show))
