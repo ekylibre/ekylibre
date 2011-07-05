@@ -16,10 +16,10 @@
     -total_area = group.area(session[:viewed_on], unit)
     .group
       %h2=group.name
-      -next if total_area.zero?
+      -land_parcels = group.land_parcels_on(session[:viewed_on])
+      -next if land_parcels.size.zero?
       %table.treemap
         %tr
-          -land_parcels = group.land_parcels_on(session[:viewed_on])
           -for land_parcel in land_parcels
             %td.plot{:style=>"width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class=>cycle("odd", "even"), :onclick=>"toggleLandParcel(this, 'land_parcel_#{land_parcel.id}')"}
               =hidden_field_tag("land_parcel[#{land_parcel.id}]", "0", :id=>"land_parcel_#{land_parcel.id}")

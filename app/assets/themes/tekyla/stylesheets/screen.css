@@ -160,23 +160,22 @@ html[dir="rtl"] div#side { float: right; }
 #side .module.menu ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
 #side .module.menu ul li a .path { color: #AAA; font-size: 11px;}
 
-/*#yield { padding: 8px; overflow: auto; background: url(../images/columns.png) repeat-x top; border: 1px solid #95b0e4; }*/
-.yield { padding: 8px; overflow: auto; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
-.yield h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
-/*.yield h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
-.yield h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
-.yield .menu.mn-index { margin-bottom: 8px; width: 200px; }
-html[dir="ltr"] .yield .menu.mn-index {float: left; margin-right: 8px; }
-html[dir="rtl"] .yield .menu.mn-index {float: right; margin-left: 8px; }
-.yield .menu { border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; behavior: url(/pie.htc); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
-/*.yield .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
-.yield .menu h2 { margin: 2px 0px !important; }
-.yield .menu ul { padding: 4px 18px; }
-.yield .menu li { list-style-type: square; padding: 1px; }
-.yield .menu li { color:#047; }
-.yield .menu.special { background: #FE9; }
-.yield .menu.special a:link, .yield .menu.special a:visited { color: #A60; }
-.yield .menu.indicator { background: #FD8; } /*#FA3;*/
+.main { padding: 8px; overflow: auto; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
+.main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
+/*.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
+.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
+.main .menu.mn-index { margin-bottom: 8px; width: 200px; }
+html[dir="ltr"] .main .menu.mn-index {float: left; margin-right: 8px; }
+html[dir="rtl"] .main .menu.mn-index {float: right; margin-left: 8px; }
+.main .menu { border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; behavior: url(/pie.htc); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
+/*.main .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
+.main .menu h2 { margin: 2px 0px !important; }
+.main .menu ul { padding: 4px 18px; }
+.main .menu li { list-style-type: square; padding: 1px; }
+.main .menu li { color:#047; }
+.main .menu.special { background: #FE9; }
+.main .menu.special a:link, .main .menu.special a:visited { color: #A60; }
+.main .menu.indicator { background: #FD8; } /*#FA3;*/
 
 #top { border-bottom: 1px solid #999; }
 #top .logo-bar { font-size: 20px; font-weight: bold; height: 48px; line-height: 48px; vertical-align: middle; color: #95b0e4;}
