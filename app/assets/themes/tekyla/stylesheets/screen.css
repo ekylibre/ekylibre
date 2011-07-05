@@ -1,7 +1,7 @@
 * {margin:0; padding:0; font-family: helvetica, arial, "Liberation Sans", sans-serif;}
 html { background: #F1F1F1;/*background: #C9D7F1;*/}
-fieldset { border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); padding:  8px 0px 0px; margin: 1px 1px 8px; background: url(../images/columns.png) repeat-x top; }
-fieldset legend { padding: 0 4px;  margin: 0 4px; color: #047; font-size: 15px; font-weight: bold;}
+fieldset {padding: 8px; margin: 1px 1px 8px; border: 1px solid #DDD;/* border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); background: url(../images/columns.png) repeat-x top; */}
+fieldset legend { padding: 0 4px;  margin: 0 4px; color: #555; font-size: 15px; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
@@ -340,10 +340,10 @@ table.formalize a.fastadd { margin: 0px 8px; }
 
 
 /*.actions { text-align:center; padding:4px !important; background: #e9e9a8; border-top: 1px solid #BEBEBB; margin: 8px 0 0; }*/
-.actions { text-align:center; padding:4px !important; background: #CEC; border-top: 1px solid #ACA; margin: 0; }
+.actions { text-align:center; padding:4px !important; background: #F1F1F1; border-top: 1px solid #DDD;  margin: 0; } /* CEC  ACA*/
 .actions * { margin: 0px 8px; }
 .actions a { padding: 4px; margin: 4px; }
-.actions a:link, .actions a:visited, .actions a:hover { color:#080; } /* 080 */
+/*.actions a:link, .actions a:visited, .actions a:hover { color:#080; }*/
 
 
 a.right { float:right; }

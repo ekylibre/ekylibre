@@ -121,7 +121,7 @@ class Unit < CompanyRecord
     basic = measure.to_f*from.coefficient.to_f+from.base.to_f
     return basic if to.nil?
     raise Exception.new("The dimensions of the units #{from.label} and #{to.label} are incompatible!") unless from.convertible_to? to
-    return (basic-to.base.to_f)*to.coefficient.to_f
+    return (basic-to.base.to_f)/to.coefficient.to_f
   end
 
   # Convert a measure from the associated unit to self

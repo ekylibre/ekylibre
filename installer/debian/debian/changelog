@@ -9,8 +9,9 @@ ekylibre (0.3.0+1.a2) unstable; urgency=low
   * Removes old-style and bad links.
   * Fixes all tests and... all tests are passed
   * Fixes dependencies in Gemfile for win32 platform
+  * Fixes bug on unit convertion
 
- -- Brice Texier <brice@thalie.nouva.local>  Tue, 05 Jul 2011 17:43:11 +0200
+ -- Brice Texier <brice@localhost.localdomain>  Tue, 05 Jul 2011 23:06:36 +0200
 
 ekylibre (0.3.0+1.a1) unstable; urgency=low
 

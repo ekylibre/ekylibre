@@ -94,7 +94,8 @@ class LandParcel < CompanyRecord
   
   
   def area(unit=nil)
-    return Unit.convert(self.area_measure, self.area_unit, unit)
+    # return Unit.convert(self.area_measure, self.area_unit, unit)
+    return self.area_unit.convert_to(self.area_measure, unit)
   end
   
   def operations_on(viewed_on=Date.today)
