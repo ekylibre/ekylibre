@@ -1,7 +1,5 @@
-GIT
-  remote: https://github.com/smartinez87/exception_notification.git
-  revision: 3854ad7745c34430923fd2f7506c9bd427ab45f5
-  branch: 2-3-stable
+PATH
+  remote: vendor/ogems/exception_notification-2.3.3.0
   specs:
     exception_notification (2.3.3.0)
 
@@ -56,4 +54,5 @@ DEPENDENCIES
   shoulda
   sqlite3
   state_machine (= 0.9.4)
+  thin (>= 1.2.6)
   will_paginate (~> 2.3)
