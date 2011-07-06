@@ -1,7 +1,9 @@
 * {margin:0; padding:0; font-family: helvetica, arial, "Liberation Sans", sans-serif;}
 html { background: #F1F1F1;/*background: #C9D7F1;*/}
-fieldset {padding: 8px; margin: 1px 1px 8px; border: 1px solid #DDD;/* border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); background: url(../images/columns.png) repeat-x top; */}
-fieldset legend { padding: 0 4px;  margin: 0 4px; color: #555; font-size: 15px; font-weight: bold;}
+fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;/* border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); background: url(../images/columns.png) repeat-x top; */}
+/*html[dir="ltr"] ul { padding-left: 3ex; }
+html[dir="rtl"] ul { padding-right: 3ex; }*/
+fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: 15px; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
@@ -153,9 +155,8 @@ html[dir="rtl"] div#side { float: right; }
 #side .module.help .content { padding: 8px; }
 
 #side .module.menu ul { padding: 8px 0 0 0; margin-bottom: 8px; }
-#side .module.menu ul li { display: block; content: }
-#side .module.menu ul li a { display: block; padding: 4px 12px; text-decoration: none; color: black;}
-/*#side .module.menu ul li a:before { content: "• " }*/
+#side .module.menu ul li { display: block; }
+#side .module.menu ul li a { display: block; padding: 4px 12px; text-decoration: none; }
 #side .module.menu ul li a:hover {background: #C9D7F1;}
 #side .module.menu ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
 #side .module.menu ul li a .path { color: #AAA; font-size: 11px;}
@@ -164,9 +165,16 @@ html[dir="rtl"] div#side { float: right; }
 .main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
 /*.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
 .main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
-.main .menu.mn-index { margin-bottom: 8px; width: 200px; }
-html[dir="ltr"] .main .menu.mn-index {float: left; margin-right: 8px; }
-html[dir="rtl"] .main .menu.mn-index {float: right; margin-left: 8px; }
+.main .mn-index { margin-bottom: 8px; width: 200px; }
+html[dir="ltr"] .main .mn-index {float: left; margin-right: 8px; }
+html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
+
+.main .mn-index .mn-index-sub { margin: 8px 0 0; padding: 0 8px; }
+.main .mn-index .mn-index-sub:first-child { margin: 0; }
+.main .mn-index .mn-index-sub legend { font-size: 11px; text-transform: uppercase; }
+.main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; }
+.main .mn-index .mn-index-sub a:hover { background: #C9D7F1; }
+
 .main .menu { border-radius: 8px; -moz-border-radius: 8px; -webkit-border-radius: 8px; behavior: url(/pie.htc); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
 /*.main .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
 .main .menu h2 { margin: 2px 0px !important; }
@@ -177,7 +185,7 @@ html[dir="rtl"] .main .menu.mn-index {float: right; margin-left: 8px; }
 .main .menu.special a:link, .main .menu.special a:visited { color: #A60; }
 .main .menu.indicator { background: #FD8; } /*#FA3;*/
 
-#top { border-bottom: 1px solid #999; }
+#top { border-bottom: 1px solid #DDD; }
 #top .logo-bar { font-size: 20px; font-weight: bold; height: 48px; line-height: 48px; vertical-align: middle; color: #95b0e4;}
 html[dir="ltr"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) left 7px no-repeat; padding: 0 8px 0 170px; }
 html[dir="rtl"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) right 7px no-repeat; padding: 0 170px 0 8px;}
@@ -227,7 +235,8 @@ html[dir="rtl"] #top .submenu-bar ul li ul { right:2px; }
 #top .submenu-bar li:hover a { background-color: #DDD;}
 #top .submenu-bar ul li ul li:hover a { background-color: #FFF; color: #000; }
 #top .submenu-bar a.multi { background-image: url(../images/buttons/deploy.png); background-position: right center; background-repeat: no-repeat; padding-right:16px;}
-#top .submenu-bar a.current, #top .submenu-bar a.current:hover { background-color: #999; color: white; text-shadow: 0 0 2px #000;}
+#top .submenu-bar li a.current { background-color: #999; color: white; text-shadow: 0 0 2px #000;}
+/* , #top .submenu-bar a.current:hover */
 
 #top #loading { background: url(../images/ajax-loader-3.gif) no-repeat; margin: 4px 0 0; width: 16px; height:16px; }
 html[dir="ltr"] #top #modules { float:left; }
@@ -235,7 +244,7 @@ html[dir="ltr"] #top #loading { float:right; }
 html[dir="rtl"] #top #modules { float:right; }
 html[dir="rtl"] #top #loading { float:left; }
 
-#legals { background: #F1F1F1; border-top: 1px solid #999;}
+#legals { background: #F1F1F1; border-top: 1px solid #DDD;}
 
 #helpage { padding-left: 8px; }
 
@@ -258,7 +267,7 @@ table.quick td { padding: 0px 4px; }
 .attributes-list tr td { border-bottom: 1px dotted #CCC; }
 .attributes-list .label, .attributes-list .value { padding:1px 4px;  vertical-align: middle; }
 .attributes-list .code { font-family: "Liberation Mono", monospace; }
-.attributes-list .label { color: #777; }
+.attributes-list .label { color: #555; }
 .attributes-list .value .string { max-height: 3em; overflow-y: auto;}
 html[dir="ltr"] .attributes-list .label { text-align: right; }
 html[dir="rtl"] .attributes-list .label { text-align: left; }
@@ -314,8 +323,8 @@ html>body .flash { height:auto; min-height:32px; }
 
 table.formalize { border-collapse: collapse; margin-left: auto; margin-right: auto; width: 100% }
 table.formalize tr.field td { border-bottom:  1px dotted #CCC; }
-table.formalize tr.field td label { color: #008; }
-table.formalize td.label { text-align:right; padding:1px 4px; color: #008; width: 50%; border-right: 0px dotted #CCC;  }
+table.formalize tr.field td label { color: #555; }
+table.formalize td.label { text-align:right; padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
 html[dir="rtl"] table.formalize td.label { text-align:left !important; }
 table.formalize td.input { padding:2px 6px 2px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC; }
@@ -522,7 +531,8 @@ html[dir="rtl"] .branch .item .item-tool { text-align: left; }
 .journals.tabbox .tabs .tab.special{ color: #C00; } /*border-top: 3px solid #95b0e4;*/
 
 .journals.tabbox > .tabs > .tab.current{ background: #FFF; }
-.journals.tabbox > .tabs > .tab.special{ color: #C00; }
+.journals.tabbox > .tabs > .tab.special{ color: #FCC; }
+.journals.tabbox > .tabs > .tab.special.current { color: #C00; }
 
 tbody.lines td input { width: 95%; }
 

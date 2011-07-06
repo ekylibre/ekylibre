@@ -20,9 +20,9 @@
 class UsersController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
-    t.column :name, :url=>{:action=>:show}
-    t.column :first_name, :url=>{:action=>:show}
-    t.column :last_name, :url=>{:action=>:show}
+    t.column :name, :url=>true
+    t.column :first_name, :url=>true
+    t.column :last_name, :url=>true
     t.column :name, :through=>:role, :url=>{:action=>:edit}
     # t.column :reduction_percent
     t.column :email
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user.company_id = @current_company.id
     @user.rights_array = (params[:rights]||{}).keys
-    @rights = @user.rights_array        
+    @rights = @user.rights_array
     return if save_and_redirect(@user)
     render_restfully_form
   end
@@ -88,28 +88,18 @@ class UsersController < ApplicationController
 
   def edit
     return unless @user = find_and_check(:user)
-    if request.post?
-      @user.attributes = params[:user]
-      @user.rights_array = (params[:rights]||{}).keys
-      @rights = @user.rights_array
-      return if save_and_redirect(@user)
-    else
-      @rights = @user.rights_array
-    end
+    @rights = @user.rights_array
     t3e @user.attributes
     render_restfully_form
   end
 
   def update
     return unless @user = find_and_check(:user)
-    if request.post?
-      @user.attributes = params[:user]
-      @user.rights_array = (params[:rights]||{}).keys
-      @rights = @user.rights_array
-      return if save_and_redirect(@user)
-    else
-      @rights = @user.rights_array
-    end
+    @user.attributes = params[:user]
+    # raise params[:rights].inspect
+    @user.rights_array = (params[:rights]||{}).keys
+    @rights = @user.rights_array
+    return if save_and_redirect(@user, :url=>{:action=>:index})
     t3e @user.attributes
     render_restfully_form
   end

@@ -39,6 +39,7 @@
 # Access to the minimum
 __minimum__:
   actions:
+  - dashboards::general
   - dashboards::list_my_future_events
   - dashboards::list_recent_events
   - dashboards::welcome

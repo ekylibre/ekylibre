@@ -97,7 +97,8 @@ class User < CompanyRecord
     end
     self.reduction_percent ||= 0
     self.admin = true if self.rights.nil?
-    self.rights_array=self.rights_array # Clean the rights
+    self.rights_array = self.rights_array # Clean the rights
+    return true
   end
 
   protect_on_destroy do

@@ -82,7 +82,7 @@ module ApplicationHelper
   end
 
   def menus
-    session[:menus]||Ekylibre.menus
+    session[:menus]# ||Ekylibre.menus
   end
 
   # Return an array of menu and submenu concerned by the action (controller#action)

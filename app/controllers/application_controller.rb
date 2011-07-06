@@ -435,7 +435,7 @@ class ApplicationController < ActionController::Base
     for menu, submenus in Ekylibre.menus
       fsubmenus = ActiveSupport::OrderedHash.new
       for submenu, menuitems in submenus
-        fmenuitems = menuitems.select{|url| self.class.authorized?(url)}
+        fmenuitems = menuitems.select{|url| user.authorization(url[:controller], url[:action], session[:rights]).nil?}
         fsubmenus[submenu] = fmenuitems unless fmenuitems.size.zero?
       end
       session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?

@@ -183,13 +183,13 @@ fra:
     journals:
       balance: 'Balance'
       bookkeep: 'Bascule comptable'
-      close: 'Clôture du %{name}'
+      close: 'Clôturer le journal : %{name}'
       draft: 'Brouillard'
       edit: 'Modifier le journal : %{name}'
       general_ledger: 'Grand livre'
       index: 'Journaux'
       new: 'Créer un nouveau journal'
-      reopen: 'Déclôture du %{name}'
+      reopen: 'Déclôturer le journal : %{name}'
       reports: 'Impression, exportation'
       show: 'Journal : %{name} (%{code})'
     land_parcel_groups:
