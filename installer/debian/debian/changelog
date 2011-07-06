@@ -10,9 +10,12 @@ ekylibre (0.3.0+1.a2) unstable; urgency=low
   * Fixes all tests and... all tests are passed
   * Fixes dependencies in Gemfile for win32 platform
   * Fixes bug on unit convertion
-  * Completes the debian/changelog using ekylibre.org/code/projects/ekylibre/roadmap
+  * Completes the debian/changelog using
+    ekylibre.org/code/projects/ekylibre/roadmap
+  * Fixes bug on companies#register when a user is connected.
+  * Change dependencies in debian/control due to new package for rake
 
- -- Brice Texier <brice.texier@ekylibre.org>  Tue, 05 Jul 2011 23:06:36 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Wed, 06 Jul 2011 12:09:02 +0200
 
 ekylibre (0.3.0+1.a1) unstable; urgency=low
 

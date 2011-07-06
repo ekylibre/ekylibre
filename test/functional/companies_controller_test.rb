@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class CompaniesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions :except=>:register
 end

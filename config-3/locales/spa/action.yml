@@ -1324,6 +1324,7 @@ spa:
       other: '%{count} aposto en banco a validar'
       zero: 'Ningun aposto en banco a validar'
     x_entities:
+      # one: '%{count} person'
       # other: '%{count} people'
       # zero: 'No people'
     x_entity_links:

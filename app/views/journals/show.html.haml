@@ -2,7 +2,7 @@
 =toolbar do |t|
   -t.edit @journal
   -t.close @journal if @journal.closable?
-  -t.repoen @journal if @journal.reopenable?
+  -t.reopen @journal if @journal.reopenable?
   -t.link :new, :controller=>:journal_entries, :journal_id=>@journal.id
 
 

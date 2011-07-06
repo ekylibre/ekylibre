@@ -1243,6 +1243,7 @@ eng:
       other: '%{count} deposits to validate'
       zero: 'No deposits to validate'
     x_entities:
+      one: '%{count} person'
       other: '%{count} people'
       zero: 'No people'
     x_entity_links:

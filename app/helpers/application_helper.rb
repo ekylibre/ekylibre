@@ -81,8 +81,10 @@ module ApplicationHelper
     ApplicationController.authorized?(url)
   end
 
+  # It's the menu generated for the current user
+  # Therefore: No current user => No menu
   def menus
-    session[:menus]# ||Ekylibre.menus
+    session[:menus]
   end
 
   # Return an array of menu and submenu concerned by the action (controller#action)

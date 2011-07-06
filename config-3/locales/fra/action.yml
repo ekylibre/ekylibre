@@ -1314,7 +1314,7 @@ fra:
       other: '%{count} remises en banque à valider'
       zero: 'Aucune remise en banque à valider'
     x_entities:
-      one: '%{count} fiche client/fournisseur' #!
+      one: '%{count} fiche client/fournisseur'
       other: '%{count} fiches clients/fournisseurs'
       zero: 'Aucune fiche clients/fournisseurs'
     x_entity_links:

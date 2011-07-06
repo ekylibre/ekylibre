@@ -23,13 +23,14 @@ class CompaniesController < ApplicationController
   
   def register
     if request.post?
-      @my_company = Company.new(params[:my_company])
-      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>'fra'))
+      language = params[:locale]||I18n.default_locale
+      @my_company = Company.new(params[:my_company].merge(:language=>language))
+      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>language))
 
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
-        redirect_to :action=>:login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
-        redirect_to :action=>:login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
+        redirect_to_login unless defined?(Ekylibre::DONT_REGISTER_PASSWORD)
+        redirect_to_login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
         return
       end
       
@@ -42,7 +43,11 @@ class CompaniesController < ApplicationController
         redirect_to :controller=>:dashboards, :action=>:welcome, :company=>@my_company.code
       end      
     else
-      reset_session
+      if session[:user_id]
+        reset_session
+        redirect_to :action=>:register
+        return
+      end
       if params[:my_company]
         redirect_to :company=>nil, :locale=>params[:locale]
         return

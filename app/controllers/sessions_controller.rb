@@ -1,7 +1,11 @@
 class SessionsController < ApplicationController
 
   def new
-    reset_session
+    if session[:user_id]
+      reset_session
+      redirect_to :action=>:new
+      return
+    end
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
     session[:side] = false
   end
