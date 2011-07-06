@@ -1,3 +1,9 @@
+ekylibre (0.3.0+1.b1) unstable; urgency=low
+
+  * Changes versions files
+
+ -- Brice Texier <brice@thalie.nouva.local>  Wed, 06 Jul 2011 12:09:02 +0200
+
 ekylibre (0.3.0+1.a2) unstable; urgency=low
 
   * Changes version dependency in package
@@ -15,7 +21,7 @@ ekylibre (0.3.0+1.a2) unstable; urgency=low
   * Fixes bug on companies#register when a user is connected.
   * Change dependencies in debian/control due to new package for rake
 
- -- Brice Texier <brice@thalie.nouva.local>  Wed, 06 Jul 2011 12:09:02 +0200
+ -- Brice Texier <brice@ekylibre.org>  Wed, 06 Jul 2011 12:09:02 +0200
 
 ekylibre (0.3.0+1.a1) unstable; urgency=low
 
