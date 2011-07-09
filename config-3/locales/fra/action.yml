@@ -90,9 +90,9 @@ fra:
       show: 'Remise en banque %{number} du %{created_on}'
       unvalidateds: 'Remises en banque non validées'
     districts:
-      edit: 'Modifier la zone : %{name}'
+      edit: 'Modifier la zone administrative : %{name}'
       index: 'Zones administratives'
-      new: 'Ajouter une zone'
+      new: 'Ajouter une zone administrative'
     document_templates:
       edit: 'Modifier le modèle de document : %{name}'
       index: 'Modèles de document'
@@ -132,6 +132,7 @@ fra:
       index: 'Types d''évènements'
       new: 'Ajouter un type d''évènement'
     events:
+      change_minutes: 'Changer la durée de l''évènement'
       edit: 'Modifier l''un évènement'
       index: 'Évènements'
       new: 'Ajout d''un évènement'
@@ -173,6 +174,7 @@ fra:
       edit: 'Modifier l''inventaire'
       index: 'Inventaires'
       new: 'Inventaire'
+      show: 'Inventaire %{number}'
     inventory_lines: #!
     journal_entries:
       edit: 'Modifier l''écriture : %{number}'
@@ -299,6 +301,7 @@ fra:
       new: 'Ajouter une nouvelle chaîne de production'
       show: 'Chaîne de production : %{name}'
     products:
+      change_quantities: 'Changer les quantités pour ce produit'
       edit: 'Modifier le produit : %{name}'
       index: 'Produits'
       new: 'Ajouter un nouveau produit'
@@ -362,9 +365,11 @@ fra:
       renew: 'Renouveller la session'
     settings:
       about: 'À propos...'
+      backup: 'Faire une copie de sauvegarde'
       backups: 'Sauvegardes'
       edit: 'Configuration'
       import: 'Importer des données'
+      restore: 'Restaurer une sauvegarde'
     stock_moves:
       edit: 'Modifier le mouvement de stock : %{name}'
       new: 'Enregistrement d''un mouvement de stock'
@@ -382,6 +387,7 @@ fra:
       new: 'Ajouter un type d''abonnement'
       show: 'Type d''abonnement : %{name}'
     subscriptions:
+      coordinates: 'Rafraîchir les coordonnées et la période'
       edit: 'Modifier l''abonnement : N°%{number} du %{start} au %{finish}'
       index: 'Abonnements'
       new: 'Création d''un abonnement'
@@ -712,6 +718,7 @@ fra:
     deposit_update: 'Modifier la remise en banque'
     depositable: 'Complément d''information'
     description: 'Description'
+    destroy: 'Supprimer'
     details: 'Informations complémentaires'
     discount: 'Réduc. (%)'
     display: 'Afficher'
@@ -930,6 +937,7 @@ fra:
     missing_help: 'Page inexistante'
     mistake_on_quantities_sum: 'La somme des quantités n''est pas égale à la quantité totale produite'
     mobile: 'Portable'
+    mode: 'Mode'
     modes: 'Modes'
     modules: 'Modules'
     month_period: '%{code} - %{month} %{year}'
@@ -1397,8 +1405,9 @@ fra:
     bad_file: 'Le fichier ne semble pas correspondre.'
     bookkeeping_is_finished: 'La bascule en comptabilité est finie.'
     bookkeeping_works_only_with: 'La bascule en comptabilité ne peut se faire actuellement que pour : %{list}.'
-    can_not_mark_entry_lines: 'Impossible de lettrer ces lignes d''écritures ensemble'
     cannot_delete_entity: 'Il n''est pas possible de supprimer cette fiche car elle possède un historique comptable'
+    cannot_find_document_template: 'Impossible de trouver le modèle de document'
+    cannot_mark_entry_lines: 'Impossible de lettrer ces lignes d''écritures ensemble'
     cannot_merge_an_entity_with_itself: 'Il n''est pas possible de fusionner une fiche avec elle-même'
     cannot_merge_entities: 'Une erreur est survenue. Il n''est pas possible de fusionner ces fiches.'
     changes_have_been_reflected: 'Les changements ont été correctement répercutés sur l''état des stocks actuel'

@@ -98,6 +98,9 @@ class Deposit < CompanyRecord
     end
   end
 
+  protect_on_destroy do
+    return !self.locked?
+  end
 
   def refresh
     self.save

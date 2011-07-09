@@ -37,11 +37,15 @@
 class CustomFieldChoice < CompanyRecord
   belongs_to :company
   belongs_to :custom_field
-  has_many :data, :class_name=>CustomFieldDatum.to_s
+  has_many :data, :class_name=>"CustomFieldDatum", :foreign_key=>"choice_value_id"
   acts_as_list :scope=>:custom_field_id
 
   before_validation do
     self.value = self.name.to_s.codeize if self.value.blank?
+  end
+
+  protect_on_destroy do
+    return self.data.count.zero?
   end
 
   def to_s

@@ -20,6 +20,25 @@
 class MandatesController < ApplicationController
   manage_restfully :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
 
+  def self.mandates_conditions(options={}) 
+    code = ""
+    code += "conditions = ['mandates.company_id=?', @current_company.id]\n"
+    code += "if session[:mandates].is_a? Hash\n"
+    code += "  unless session[:mandates][:organization].blank?\n"
+    code += "    conditions[0] += ' AND organization = ?'\n"
+    code += "    conditions << session[:mandates][:organization]\n"
+    code += "  end\n"
+    code += "  unless session[:mandates][:viewed_on].blank?\n"
+    code += "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
+    code += "    conditions << session[:mandates][:viewed_on]\n"
+    code += "    conditions << session[:mandates][:viewed_on]\n"
+    code += "    conditions << session[:mandates][:viewed_on]\n"
+    code += "  end\n"
+    code += "end\n"
+    code += "conditions\n"
+    code
+  end
+
   list(:conditions=>mandates_conditions) do |t|
     t.column :full_name, :through=>:entity, :url=>true
     t.column :title
@@ -33,11 +52,11 @@ class MandatesController < ApplicationController
 
   # Displays the main page with the list of mandates
   def index
-    @entities = @current_company.entities    
+    notify_now(:no_existing_mandates) if @current_company.mandates.size == 0
     @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
     session[:mandates] ||= {}
     session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
-    session[:mandates][:date] = params[:date]||session[:mandates][:date]||Date.today
+    session[:mandates][:viewed_on] = (params[:viewed_on]||session[:mandates][:viewed_on]).to_date rescue Date.today
   end
 
   def configure

@@ -1,18 +1,6 @@
--# Eclated automatically (2011-06-08)
-.search
-  =form_tag({}, :method=>:get) do
-    %table
-      %tr
-        %td.crit
-          =tc(:search)
-          =text_field_tag :key, session[:incoming_payment_key]
-        %td.submit{:rowspan=>2}=submit_tag tg(:search_go), :name=>nil
-      %tr
-        %td.crit
-          -for state in [:all, :unparted, :unreceived, :waiting, :undeposited]
-            =radio_button_tag("state", state, (state.to_s == session[:incoming_payment_state]))
-            %label{:for=>"state_#{state}"}=tc("incoming_payments_states.#{state}")
-
+=kujaku do |k|
+  -k.text
+  -k.mode :all, :unparted, :unreceived, :waiting, :undeposited, :i18n_root=>'labels.incoming_payments_states.'
 =toolbar do |t|
   -t.link :new
 =list

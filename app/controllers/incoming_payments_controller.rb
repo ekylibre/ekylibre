@@ -20,12 +20,21 @@
 class IncomingPaymentsController < ApplicationController
   manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
-  list(:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_payment_id]'], Sale.name]) do |t|
-    t.column :number, :url=>true
-    t.column :description, :through=>:client, :url=>true
-    t.column :created_on
-    t.column :pretax_amount
-    t.column :amount
+  def self.incoming_payments_conditions(options={})
+    code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code += "if session[:incoming_payment_state] == 'unreceived'\n"
+    code += "  c[0] += ' AND received=?'\n"
+    code += "  c << false\n"
+    code += "elsif session[:incoming_payment_state] == 'waiting'\n"
+    code += "  c[0] += ' AND to_bank_on > ?'\n"
+    code += "  c << Date.today\n"
+    code += "elsif session[:incoming_payment_state] == 'undeposited'\n"
+    code += "  c[0] += ' AND deposit_id IS NULL'\n"
+    code += "elsif session[:incoming_payment_state] == 'unparted'\n"
+    code += "  c[0] += ' AND used_amount != amount'\n"
+    code += "end\n"
+    code += "c\n"
+    return code
   end
 
   list(:conditions=>incoming_payments_conditions, :joins=>:payer, :order=>"to_bank_on DESC") do |t|
@@ -37,23 +46,30 @@ class IncomingPaymentsController < ApplicationController
     t.column :name, :through=>:mode
     t.column :check_number
     t.column :to_bank_on
-    # t.column :label, :through=>:responsible
     t.column :number, :through=>:deposit, :url=>true
     t.action :edit, :if=>"RECORD.deposit.nil\?"
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
 
+  # Displays the main page with the list of incoming payments
+  def index
+    session[:incoming_payment_state] = params[:mode]||"all"
+    session[:incoming_payment_key]   = params[:q]
+  end
+
+  list(:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_incoming_payment_id]'], Sale.name]) do |t|
+    t.column :number, :url=>true
+    t.column :description, :through=>:client, :url=>true
+    t.column :created_on
+    t.column :pretax_amount
+    t.column :amount
+  end
+
   # Displays details of one incoming payment selected with +params[:id]+
   def show
     return unless @incoming_payment = find_and_check(:incoming_payment)
-    session[:current_payment_id] = @incoming_payment.id
+    session[:current_incoming_payment_id] = @incoming_payment.id
     t3e :number=>@incoming_payment.number, :entity=>@incoming_payment.payer.full_name
-  end
-
-  # Displays the main page with the list of incoming payments
-  def index
-    session[:incoming_payment_state] = params[:state]||session[:incoming_payment_state]||"all"
-    session[:incoming_payment_key]   = params[:key]||session[:incoming_payment_key]||""
   end
 
 end

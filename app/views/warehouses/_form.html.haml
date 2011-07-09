@@ -8,7 +8,7 @@
   -f.field :warehouse, :comment, :field=>:textarea
   -if @warehouse.new_record?
     -f.field :warehouse, :reservoir, :onchange=>"displayReservoir();"
--if (@warehouse.reservoir? and not @warehouse.new_record?) or @warehouse.new_record?
+-if @warehouse.reservoir? or @warehouse.new_record?
   =formalize(:id=>:reservoir) do |f|
     -f.title :reservoir_informations
     -f.field :warehouse, :product_id, :choices=>{:reflection=>:available_products}, :new=>true

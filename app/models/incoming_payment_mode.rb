@@ -42,7 +42,7 @@
 
 
 class IncomingPaymentMode < CompanyRecord
-  acts_as_list
+  acts_as_list :scope=>:company_id
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company

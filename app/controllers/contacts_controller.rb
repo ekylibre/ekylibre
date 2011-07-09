@@ -19,5 +19,4 @@
 
 class ContactsController < ApplicationController
   manage_restfully :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
-
 end

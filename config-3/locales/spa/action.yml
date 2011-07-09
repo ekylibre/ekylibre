@@ -135,6 +135,7 @@ spa:
       # index: 'Event types'
       # new: 'Add a new event type'
     events:
+      # change_minutes: 'Change minutes for event'
       # edit: 'Edit the event'
       # index: 'Events'
       # new: 'Add a new event'
@@ -174,6 +175,7 @@ spa:
       edit: 'Modificacion del inventario'
       index: 'Inventarios'
       new: 'Inventario'
+      # show: 'Inventory: %{number}'
     inventory_lines: #!
     journal_entries:
       edit: 'Modificar la pieza N°%{numro} du %{fecha de creacion}'
@@ -293,6 +295,7 @@ spa:
       # new: 'Add a new production chain'
       # show: 'Production chain: %{name}'
     products:
+      # change_quantities: 'Change quantities for product'
       # edit: 'Edit the product: %{name}'
       # index: 'Products'
       # new: 'Add a new product'
@@ -354,10 +357,12 @@ spa:
       # renew: 'Renew session'
     settings:
       about: 'A propocito de Ekylibre'
+      # backup: 'Backup data'
       backups: 'Salvaguardia'
       configure: 'Configuracion' #!
       # edit: 'Configuration'
       import: 'Importacion'
+      # restore: 'Restore data'
     stock_moves:
       # edit: 'Edit the stock move: %{name}'
       # new: 'add a new stock move'
@@ -375,6 +380,7 @@ spa:
       # new: 'Add a new subscription type'
       # show: 'Subscription type: %{name}'
     subscriptions:
+      # coordinates: 'Refresh coordinates and period'
       # edit: 'Edit subscription: %{number} from %{start} to %{finish}'
       # index: 'Subscriptions'
       # new: 'Add a new subscription'
@@ -714,6 +720,7 @@ spa:
     deposit_update: 'Modifiar el aposto en banco'
     # depositable: 'More informations'
     description: 'Descripción general'
+    # destroy: 'Destroy'
     # details: 'Details'
     # discount: 'Discount (%)'
     # display: 'Display'
@@ -941,6 +948,7 @@ spa:
     missing_help: 'La página no existe'
     # mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     # mobile: 'Mobile'
+    # mode: 'Mode'
     # modes: 'Modes'
     modules: 'Modulos'
     # month_period: '%{code} - %{month} %{year}'
@@ -1402,8 +1410,9 @@ spa:
     bad_file: 'El fichero no parece corresponder'
     bookkeeping_is_finished: 'La basula en contabilidad esta terminada.'
     bookkeeping_works_only_with: 'La bascula en contabilidad puede hacerse actualmente solo para : %{list}.'
-    # can_not_mark_entry_lines: 'Can not mark these entry lines'
     cannot_delete_entity: 'No es posible suprimir esta papeleta porque tiene reseña historica contable'
+    # cannot_find_document_template: 'Cant find document template'
+    # cannot_mark_entry_lines: 'Can not mark these entry lines'
     cannot_merge_an_entity_with_itself: 'No es posible fusionar una papeleta con si misma'
     cannot_merge_entities: 'Un error sobrevino. No es posible fusionar estas papeletas.'
     changes_have_been_reflected: 'Los cambios han sido repercutidos correctamente sobre el estatuto de depósitos actua'

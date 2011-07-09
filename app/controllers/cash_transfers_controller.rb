@@ -18,7 +18,7 @@
 #
 
 class CashTransfersController < ApplicationController
-  manage_restfully 
+  manage_restfully :created_on=>'Date.today'
 
   list(:conditions=>["#{CashTransfer.table_name}.company_id = ? ", ['@current_company.id']]) do |t|
     t.column :number, :url=>true
@@ -34,14 +34,14 @@ class CashTransfersController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
+  # Displays the main page with the list of cash transfers
+  def index
+  end
+
   # Displays details of one cash transfer selected with +params[:id]+
   def show
     return unless @cash_transfer = find_and_check(:cash_transfer)
     t3e @cash_transfer.attributes
-  end
-
-  # Displays the main page with the list of cash transfers
-  def index
   end
 
 end

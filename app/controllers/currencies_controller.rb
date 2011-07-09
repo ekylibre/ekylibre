@@ -18,5 +18,4 @@
 #
 
 class CurrenciesController < ApplicationController
-
 end

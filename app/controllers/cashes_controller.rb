@@ -60,63 +60,39 @@ class CashesController < ApplicationController
   def new
     if request.xhr? and params[:mode] == "accountancy"
       @cash = Cash.new(params[:cash])
-      render :partial=>'cash_accountancy_form', :locals=>{:nature=>params[:nature]}
-    elsif request.post? 
-      @cash = Cash.new(params[:cash])
-      @cash.company_id = @current_company.id
-      @cash.entity_id = session[:entity_id] 
-      return if save_and_redirect(@cash)
-    else
-      @cash = Cash.new(:mode=>"bban", :nature=>"bank_account")
-      session[:entity_id] = params[:entity_id]||@current_company.entity_id
-      @valid_account = @current_company.accounts.empty?
-      @valid_journal = @current_company.journals.empty?  
+      render :partial=>'accountancy_form', :locals=>{:nature=>params[:nature]}
+      return
     end
+    @cash = Cash.new(:mode=>"bban", :nature=>"bank_account", :entity_id=>params[:entity_id]||@current_company.entity_id)
     render_restfully_form
   end
 
   def create
-    if request.xhr? and params[:mode] == "accountancy"
-      @cash = Cash.new(params[:cash])
-      render :partial=>'cash_accountancy_form', :locals=>{:nature=>params[:nature]}
-    elsif request.post? 
-      @cash = Cash.new(params[:cash])
-      @cash.company_id = @current_company.id
-      @cash.entity_id = session[:entity_id] 
-      return if save_and_redirect(@cash)
-    else
-      @cash = Cash.new(:mode=>"bban", :nature=>"bank_account")
-      session[:entity_id] = params[:entity_id]||@current_company.entity_id
-      @valid_account = @current_company.accounts.empty?
-      @valid_journal = @current_company.journals.empty?  
-    end
+    @cash = Cash.new(params[:cash])
+    @cash.company = @current_company
+    @cash.entity = @current_company.entities.find_by_id(@cash.entity_id)||@current_company.entity
+    return if save_and_redirect(@cash)
     render_restfully_form
-  end
-
-  def destroy
-    return unless @cash = find_and_check(:cash)
-    @cash.destroy if request.delete? and @cash.destroyable?
-    redirect_to :action => :index
   end
 
   def edit
     return unless @cash = find_and_check(:cash)
-    if request.post? or request.put?
-      @cash.attributes = params[:cash]
-      return if save_and_redirect(@cash)
-    end
     t3e @cash.attributes
     render_restfully_form
   end
 
   def update
     return unless @cash = find_and_check(:cash)
-    if request.post? or request.put?
-      @cash.attributes = params[:cash]
-      return if save_and_redirect(@cash)
-    end
+    @cash.attributes = params[:cash]
+    return if save_and_redirect(@cash)
     t3e @cash.attributes
     render_restfully_form
+  end
+
+  def destroy
+    return unless @cash = find_and_check(:cash)
+    @cash.destroy if @cash.destroyable?
+    redirect_to :action => :index
   end
 
 end

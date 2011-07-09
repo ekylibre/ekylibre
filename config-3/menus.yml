@@ -204,7 +204,6 @@ menus:
         - subscriptions::destroy
         - subscriptions::edit
         - subscriptions::list
-        - subscriptions::message
         - subscriptions::new
         - subscriptions::update
     - mandates:
@@ -219,12 +218,15 @@ menus:
     - parameters:
       - - custom_fields::index
         - custom_field_choices::create
+        - custom_field_choices::destroy
         - custom_field_choices::down
         - custom_field_choices::edit
         - custom_field_choices::new
         - custom_field_choices::up
         - custom_field_choices::update
         - custom_fields::create
+        - custom_fields::destroy
+        - custom_fields::down
         - custom_fields::edit
         - custom_fields::list
         - custom_fields::list_choices
@@ -232,6 +234,7 @@ menus:
         - custom_fields::new
         - custom_fields::show
         - custom_fields::sort
+        - custom_fields::up
         - custom_fields::update
       - - entity_natures::index
         - entity_natures::create
@@ -271,7 +274,6 @@ menus:
         - subscription_natures::increment
         - subscription_natures::list
         - subscription_natures::new
-        - subscription_natures::show
         - subscription_natures::update
       - - areas::index
         - areas::create
@@ -413,14 +415,6 @@ menus:
         - outgoing_payments::new
         - outgoing_payments::show
         - outgoing_payments::update
-    - tax_declarations:
-      - - tax_declarations::index
-        - tax_declarations::create
-        - tax_declarations::destroy
-        - tax_declarations::list
-        - tax_declarations::new
-        - tax_declarations::period_search
-        - tax_declarations::show
     - parameters:
       - - incoming_payment_modes::index
         - incoming_payment_modes::create

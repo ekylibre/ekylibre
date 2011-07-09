@@ -33,6 +33,7 @@ class SequencesController < ApplicationController
   def index
   end
 
+  # Load missing sequences for current company
   def load
     @current_company.load_sequences
     redirect_to_back

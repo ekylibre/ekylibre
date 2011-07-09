@@ -33,12 +33,7 @@ class AreasController < ApplicationController
 
   # Displays the main page with the list of areas
   def index
-    session[:area_key] ||= {}
-    @key = params[:key] || session[:area_key] 
-    @areas = @current_company.areas
-    if request.post?
-      session[:area_key] = @key
-    end
+    session[:area_key] = params[:q]
   end
 
 end

@@ -1,12 +1,4 @@
-=form_tag({}, :method=>:get) do
-  .search
-    %table
-      %tr 
-        %td.crit
-          =tc(:search)
-          =text_field_tag("key", params[:key], :size=>30)
-        %td.submit=submit_tag tg(:search_go), :name=>nil
-
+=kujaku
 =toolbar do |t|
   -t.link :new
 =list

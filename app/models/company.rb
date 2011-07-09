@@ -42,7 +42,7 @@ class Company < Ekylibre::Record::Base
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas
-  has_many :cashes
+  has_many :cashes, :order=>:name
   has_many :cash_transfers
   has_many :bank_statements
   has_many :contacts
@@ -692,7 +692,7 @@ class Company < Ekylibre::Record::Base
                elsif id.is_a? String or id.is_a? Symbol
                  self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_by_default(id.to_s, true)
                end
-    raise Exception.new(tc(:cant_find_document_template)) unless template
+    raise Exception.new(I18n.translate("notifications.cannot_find_document_template")) unless template
     return template.print!(options)
   end
 

@@ -764,21 +764,37 @@ module ApplicationHelper
 
   # Kujaku 孔雀
   # Search bar
-  def kujaku(options={})
+  def kujaku(url={}, &block)
     k = Kujaku.new
-    yield k
+    if block_given?
+      yield k
+    else
+      k.text
+    end
     tag = ""
     first = true
     for c in k.criteria
-      if c[0] == :mode
-        code = content_tag(:label, tg(:modes))
+      code, options = "", c[:options]||{}
+      if c[:type] == :mode
+        code = content_tag(:label, options[:label]||tg(:mode))
         name = options[:name]||:mode
-        params[name] ||= c[1][0].to_s
-        for mode in c[1]
+        params[name] ||= c[:modes][0].to_s
+        i18n_root = options[:i18n_root]||'labels.criterion_modes.'
+        for mode in c[:modes]
           radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
           radio += " "
-          radio += content_tag(:label, tl("criterion_modes.#{mode}"), :for=>"#{name}_#{mode}")
+          radio += content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for=>"#{name}_#{mode}")
           code += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
+        end
+      elsif c[:type] == :text
+        code = content_tag(:label, options[:label]||tg(:search))
+        name = options[:name]||:q
+        code += " ".html_safe+text_field_tag(name, params[name])
+      elsif c[:type] == :criterion
+        if c[:block]
+          code += capture(&c[:block])
+        else
+          code += (c[:content].is_a?(String) ? c[:content] : c[:content].to_s)
         end
       end
       code = content_tag(:td, code.html_safe, :class=>:crit) 
@@ -788,7 +804,7 @@ module ApplicationHelper
       end
       tag += content_tag(:tr, code.html_safe)
     end
-    tag = form_tag({}, :method=>:get) {content_tag(:table, tag.html_safe)}
+    tag = form_tag(url, :method=>:get) {content_tag(:table, tag.html_safe)}
     return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
   end
 
@@ -797,8 +813,24 @@ module ApplicationHelper
     def initialize
       @criteria = []
     end
-    def mode(modes, options={})
-      @criteria << [:mode, modes, options]
+
+    def mode(*modes)
+      options = modes.delete_at(-1) if modes[-1].is_a? Hash
+      @criteria << {:type=>:mode, :modes=>modes, :options=>options}
+    end
+    
+    def text(name=:q, options={})
+      @criteria << {:type=>:text, :name=>name, :options=>options}
+    end
+
+    def criterion(content=nil, &block)
+      crit = {:type=>:criterion}
+      if block_given?
+        crit[:block] = block
+      else
+        crit[:content] = content
+      end
+      @criteria << crit
     end
   end
 

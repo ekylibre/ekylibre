@@ -18,5 +18,4 @@
 #
 
 class TransfersController < ApplicationController
-
 end

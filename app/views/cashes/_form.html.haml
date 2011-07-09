@@ -1,3 +1,6 @@
+-if @cash.new_record?
+  =hidden_field :cash, :entity_id
+
 =formalize do |f|
   -f.error :cash
   -f.title :general
@@ -38,6 +41,6 @@
     window.toggleCash = function() { toggleElement('bank_account', $('cash_nature_bank_account').checked, 'cash_box'); }
     toggleCash();
   =observe_field "cash_nature_bank_account", :frequency => 0.25, :function =>"toggleCash()"
-  =observe_field "cash_nature_bank_account", :frequency => 0.25, :update=>:cash_accountancy, :url=>new_cash_url(:mode=>:accountancy), :with=>"'nature='+(this.checked ? 'bank_account' : 'cash_box')", :loading=>"onLoading()", :loaded=>"onLoaded()"
+  =observe_field "cash_nature_bank_account", :frequency => 0.25, :update=>:cash_accountancy, :url=>{:controller=>:cashes, :action=>:new, :mode=>:accountancy}, :with=>"'nature='+(this.checked ? 'bank_account' : 'cash_box')", :loading=>"onLoading()", :loaded=>"onLoaded()", :method=>:get
 
 

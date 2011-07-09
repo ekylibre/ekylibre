@@ -20,7 +20,7 @@
 class EventsController < ApplicationController
   manage_restfully :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
 
-  list(:conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>{:responsible=>{}, :entity=>[:nature]}, :order=>"started_at DESC") do |t|
+  list(:conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :order=>"started_at DESC") do |t| # , :joins=>{:responsible=>{}, :entity=>[:nature]}
     t.column :full_name, :through=>:entity, :url=>true
     t.column :duration
     t.column :location
@@ -33,7 +33,7 @@ class EventsController < ApplicationController
 
   # Displays the main page with the list of events
   def index
-    session[:event_key] = params[:key]||session[:event_key]
+    session[:event_key] = params[:q] # = params[:q]||session[:event_key]
   end
 
   def change_minutes

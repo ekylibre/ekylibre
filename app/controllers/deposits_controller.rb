@@ -73,17 +73,7 @@ class DepositsController < ApplicationController
   end
 
   def new
-    mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
-    if mode.nil?
-      notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to :action=>:index
-      return
-    end
-    if mode.depositable_payments.size <= 0
-      notify_warning(:no_payment_to_deposit)
-      redirect_to :action=>:index
-      return
-    end
+    return unless mode = find_mode
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
     @deposit = Deposit.new(:created_on=>Date.today, :mode_id=>mode.id, :responsible_id=>@current_user.id)
@@ -92,39 +82,20 @@ class DepositsController < ApplicationController
   end
 
   def create
-    mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
-    if mode.nil?
-      notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to :action=>:index
-      return
-    end
-    if mode.depositable_payments.size <= 0
-      notify_warning(:no_payment_to_deposit)
-      redirect_to :action=>:index
-      return
-    end
+    return unless mode = find_mode
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-      @deposit = Deposit.new(params[:deposit])
-      # @deposit.mode_id = @current_company.payment_modes.find(:first, :conditions=>{:mode=>"check"}).id if @current_company.payment_modes.find_all_by_mode("check").size == 1
-      @deposit.mode_id = mode.id 
-      @deposit.company_id = @current_company.id 
-      if saved = @deposit.save
-        payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-        IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
-        @deposit.refresh
-      end
-      return if save_and_redirect(@deposit, :saved=>saved)
+    @deposit = Deposit.new(params[:deposit])
+    @deposit.mode_id = mode.id 
+    @deposit.company_id = @current_company.id 
+    if @deposit.save
+      payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
+      IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
+      @deposit.refresh
+      return if save_and_redirect(@deposit, :saved=>true)
+    end
     t3e :mode=>mode.name
     render_restfully_form
-  end
-
-  def destroy
-    return unless @deposit = find_and_check(:deposit)
-    if request.post? or request.delete?
-      @deposit.destroy
-    end
-    redirect_to_current
   end
 
   def edit
@@ -139,17 +110,23 @@ class DepositsController < ApplicationController
     return unless @deposit = find_and_check(:deposit)
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
-      if @deposit.update_attributes(params[:deposit])
-        ActiveRecord::Base.transaction do
-          payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-          IncomingPayment.update_all({:deposit_id=>nil}, ["company_id=? AND deposit_id=?", @current_company.id, @deposit.id])
-          IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
-        end
-        @deposit.refresh
-        redirect_to :action=>:deposit, :id=>@deposit.id
+    if @deposit.update_attributes(params[:deposit])
+      ActiveRecord::Base.transaction do
+        payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
+        IncomingPayment.update_all({:deposit_id=>nil}, ["company_id=? AND deposit_id=?", @current_company.id, @deposit.id])
+        IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
       end
+      @deposit.refresh
+      return if save_and_redirect(@deposit, :saved=>true)
+    end
     t3e @deposit.attributes
     render_restfully_form
+  end
+
+  def destroy
+    return unless @deposit = find_and_check(:deposit)
+    @deposit.destroy if @deposit.destroyable?
+    redirect_to_current
   end
 
 
@@ -170,6 +147,23 @@ class DepositsController < ApplicationController
       end
       redirect_to :action=>:unvalidateds
     end
+  end
+
+  protected
+
+  def find_mode()
+    mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
+    if mode.nil?
+      notify_warning(:need_payment_mode_to_create_deposit)
+      redirect_to :action=>:index
+      return nil
+    end
+    if mode.depositable_payments.size <= 0
+      notify_warning(:no_payment_to_deposit)
+      redirect_to :action=>:index
+      return nil
+    end
+    return mode
   end
 
 end

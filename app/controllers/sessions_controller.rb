@@ -3,11 +3,10 @@ class SessionsController < ApplicationController
   def new
     if session[:user_id]
       reset_session
-      redirect_to :action=>:new
+      redirect_to :action=>:new, :redirect=>params[:redirect]
       return
     end
     ActiveRecord::SessionStore::Session.delete_all(["updated_at <= ?", Date.today-1.month])
-    session[:side] = false
   end
 
   def create
@@ -15,7 +14,7 @@ class SessionsController < ApplicationController
       init_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
-        redirect_to params[:url]||{:controller=>:dashboards, :action=>:general, :company=>user.company.code}
+        redirect_to params[:redirect]||{:controller=>:dashboards, :action=>:general, :company=>user.company.code}
         return
       end
     elsif User.count(:conditions=>{:name=>params[:name]}) > 1

@@ -37,8 +37,9 @@
 class EntityCategory < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  has_many :entities, :foreign_key=>:category
-  has_many :prices, :foreign_key=>:category
+  has_many :active_prices, :class_name=>"Price", :foreign_key=>:category_id, :conditions=>{:active=>true}
+  has_many :entities, :foreign_key=>:category_id
+  has_many :prices, :foreign_key=>:category_id
   validates_uniqueness_of :code, :scope=>:company_id
 
   before_validation do

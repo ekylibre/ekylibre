@@ -6,9 +6,9 @@
   -l.attribute :nature_label
   -l.attribute :journal, :url=>true
   -l.attribute :account, :url=>true
-  -l.attribute :bank_name
-  -l.attribute :address
   -if @cash.bank_account?
+    -l.attribute :bank_name
+    -l.attribute :address
     -l.attribute :iban_label
     -l.attribute :bic
     -if @cash.use_mode? :bban

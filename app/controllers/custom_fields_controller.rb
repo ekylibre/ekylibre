@@ -18,15 +18,23 @@
 #
 
 class CustomFieldsController < ApplicationController
+  manage_restfully :redirect_to=>'(@custom_field.nature=="choice" ? {:action=>:show, :id=>"id"} : :back)'
+  manage_restfully_list
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
-    t.column :name
+  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
+    t.column :name, :url=>true
     t.column :nature_label
     t.column :required
     t.column :active
     t.column :choices_count, :datatype=>:integer
+    t.action :up, :method=>:post, :if=>'!RECORD.first? '
+    t.action :down, :method=>:post, :if=>'!RECORD.last? '
     t.action :edit
-    t.action :show, :image=>:menulist, :if=>'RECORD.nature == "choice"'
+    t.action :show, :image=>:menulist, :if=>"(RECORD.nature == 'choice')"
+  end
+
+  # Displays the main page with the list of custom fields
+  def index
   end
 
   list(:choices, :model=>:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
@@ -35,9 +43,8 @@ class CustomFieldsController < ApplicationController
     t.action :up, :if=>"not RECORD.first\?", :method=>:post
     t.action :down, :if=>"not RECORD.last\?", :method=>:post
     t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
-
-
 
   # Displays details of one custom field selected with +params[:id]+
   def show
@@ -46,60 +53,11 @@ class CustomFieldsController < ApplicationController
     t3e @custom_field.attributes
   end
 
-  def new
-    if request.post?
-      @custom_field = CustomField.new(params[:custom_field])
-      @custom_field.company_id = @current_company.id
-      @custom_field.save # Permits to get ID if saved
-      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:show, :id=>@custom_field.id} : :back))
-    else
-      @custom_field = CustomField.new
-    end
-    render_restfully_form
-  end
-
-  def create
-    if request.post?
-      @custom_field = CustomField.new(params[:custom_field])
-      @custom_field.company_id = @current_company.id
-      @custom_field.save # Permits to get ID if saved
-      return if save_and_redirect(@custom_field, :url=>(@custom_field.nature=='choice' ? {:action=>:show, :id=>@custom_field.id} : :back))
-    else
-      @custom_field = CustomField.new
-    end
-    render_restfully_form
-  end
-
+  # Sort all choices by name
   def sort
     return unless @custom_field = find_and_check(:custom_field)
-    if request.post? and @custom_field
-      @custom_field.sort_choices
-    end
+    @custom_field.sort_choices
     redirect_to_current
-  end
-
-  def edit
-    return unless @custom_field = find_and_check(:custom_field)
-    if request.post?
-      @custom_field.attributes = params[:custom_field]
-      return if save_and_redirect(@custom_field)
-    end
-    t3e @custom_field.attributes
-    render_restfully_form
-  end
-
-  def update
-    return unless @custom_field = find_and_check(:custom_field)
-    if request.post?
-      @custom_field.attributes = params[:custom_field]
-      return if save_and_redirect(@custom_field)
-    end
-    t3e @custom_field.attributes
-    render_restfully_form
-  end
-
-  # Displays the main page with the list of custom fields
-  def index
   end
 
 end

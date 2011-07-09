@@ -18,5 +18,4 @@
 #
 
 class AccountBalancesController < ApplicationController
-
 end

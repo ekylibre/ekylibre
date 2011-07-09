@@ -46,12 +46,6 @@ class RolesController < ApplicationController
     render_restfully_form
   end
 
-  def destroy
-    return unless @role = find_and_check(:role)
-    Role.destroy(@role.id) if @role.destroyable?
-    redirect_to_current
-  end
-
   def edit
     return unless @role = find_and_check(:role)
     @rights = @role.rights_array
@@ -67,6 +61,12 @@ class RolesController < ApplicationController
     return if save_and_redirect(@role)
     t3e @role.attributes
     render_restfully_form
+  end
+
+  def destroy
+    return unless @role = find_and_check(:role)
+    Role.destroy(@role.id) if @role.destroyable?
+    redirect_to_current
   end
 
 end

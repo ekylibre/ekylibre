@@ -24,13 +24,16 @@ class UsersController < ApplicationController
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
     t.column :name, :through=>:role, :url=>{:action=>:edit}
-    # t.column :reduction_percent
     t.column :email
     t.column :admin
     t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:unlock},"false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :edit 
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.id!=@current_user.id'
+  end
+
+  # Displays the main page with the list of users
+  def index
   end
 
   # Displays details of one user selected with +params[:id]+
@@ -61,31 +64,6 @@ class UsersController < ApplicationController
     render_restfully_form
   end
 
-  def destroy
-    return unless @user = find_and_check(:user)
-    if request.post? or request.delete? and @user.destroyable?
-      @user.destroy
-    end
-    redirect_to_back
-  end
-
-  def lock
-    return unless @user = find_and_check(:user)
-    if @user
-      @user.locked = true
-      @user.save
-    end
-    redirect_to_current
-  end
-  def unlock
-    return unless @user = find_and_check(:user)
-    if @user
-      @user.locked = false
-      @user.save
-    end
-    redirect_to_current
-  end
-
   def edit
     return unless @user = find_and_check(:user)
     @rights = @user.rights_array
@@ -96,7 +74,6 @@ class UsersController < ApplicationController
   def update
     return unless @user = find_and_check(:user)
     @user.attributes = params[:user]
-    # raise params[:rights].inspect
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user, :url=>{:action=>:index})
@@ -104,8 +81,24 @@ class UsersController < ApplicationController
     render_restfully_form
   end
 
-  # Displays the main page with the list of users
-  def index
+  def destroy
+    return unless @user = find_and_check(:user)
+    @user.destroy if @user.destroyable?
+    redirect_to_back
+  end
+
+  def lock
+    return unless @user = find_and_check(:user)
+    @user.locked = true
+    @user.save
+    redirect_to_current
+  end
+
+  def unlock
+    return unless @user = find_and_check(:user)
+    @user.locked = false
+    @user.save
+    redirect_to_current
   end
 
 end

@@ -37,10 +37,8 @@ class IncomingPaymentModesController < ApplicationController
 
   def reflect
     return unless @incoming_payment_mode = find_and_check(:incoming_payment_mode)
-    if request.post?
-      for payment in  @incoming_payment_mode.unlocked_payments
-        payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
-      end
+    for payment in @incoming_payment_mode.unlocked_payments
+      payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
     end
     redirect_to :action=>:index
   end

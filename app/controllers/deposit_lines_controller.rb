@@ -18,5 +18,4 @@
 #
 
 class DepositLinesController < ApplicationController
-
 end

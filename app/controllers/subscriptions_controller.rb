@@ -20,6 +20,25 @@
 class SubscriptionsController < ApplicationController
   manage_restfully :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 
+  def self.subscriptions_conditions(options={})
+    code = ""
+    code += "conditions = [ \" #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id = ? and state NOT IN ('invoice', 'order'))\" , @current_company.id, @current_company.id]\n"
+    code += "unless session[:subscriptions_nature_id].to_i.zero?\n"
+    code += "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
+    code += "  conditions << session[:subscriptions_nature_id].to_i\n"
+    code += "end\n"
+    code += "unless session[:subscriptions_instant].nil?\n"
+    code += "  if session[:subscriptions_nature_nature] == 'quantity'\n"
+    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
+    code += "  elsif session[:subscriptions_nature_nature] == 'period'\n"
+    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+    code += "  end\n"
+    code += "  conditions << session[:subscriptions_instant]\n"
+    code += "end\n"
+    code += "conditions\n"
+    code
+  end
+
   list(:conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>true
     t.column :line_2, :through=>:contact, :label=>:column
@@ -30,13 +49,33 @@ class SubscriptionsController < ApplicationController
     t.column :line_6_city, :through=>:contact, :label=>:column
     t.column :name, :through=>:product
     t.column :quantity
-    #t.column :started_on
-    #t.column :finished_on
-    #t.column :first_number
-    #t.column :last_number
     t.column :start
     t.column :finish
   end
+
+  # Displays the main page with the list of subscriptions
+  def index
+    if @current_company.subscription_natures.size.zero?
+      notify(:need_to_create_subscription_nature)
+      redirect_to :controller=>:subscription_natures
+      return
+    end
+    if request.xhr?
+      return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
+      session[:subscriptions_instant] = @subscription_nature.now
+      render :partial=>"options"
+      return
+    end
+    if params[:nature_id]
+      return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
+    end
+    @subscription_nature ||= @current_company.subscription_natures.first
+    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil 
+    session[:subscriptions_nature_id]  = @subscription_nature.id
+    session[:subscriptions_nature_nature] = @subscription_nature.nature
+    session[:subscriptions_instant] = ((instant.blank? or instant == 0) ? @subscription_nature.now : instant)
+  end
+
 
   def coordinates
     nature, attributes = nil, {}
@@ -56,36 +95,6 @@ class SubscriptionsController < ApplicationController
     end
     mode = params[:mode]||:coordinates
     render :partial=>"#{mode}_form"
-  end
-
-  def message
-    return unless price = find_and_check(:prices, params[:sale_line_price_id])
-    @product = price.product
-  end
-
-  # Displays the main page with the list of subscriptions
-  def index
-    if @current_company.subscription_natures.size == 0
-      notify(:need_to_create_subscription_nature)
-      redirect_to subscription_natures_url
-      return
-    end
-
-    if request.xhr?
-      return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
-      session[:subscriptions][:instant] = @subscription_nature.now
-      render :partial=>"options"
-      return
-    else
-      if params[:nature_id]
-        return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
-      end
-      @subscription_nature ||= @current_company.subscription_natures.first
-      instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant]) rescue nil 
-      session[:subscriptions] ||= {}
-      session[:subscriptions][:nature]  = @subscription_nature.attributes
-      session[:subscriptions][:instant] = (instant.blank? ? @subscription_nature.now : instant)
-    end
   end
 
 end

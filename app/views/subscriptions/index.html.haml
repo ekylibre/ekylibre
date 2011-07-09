@@ -1,13 +1,6 @@
--# Eclated automatically (2011-06-08)
-.search 
-  =form_tag() do
-    %table
-      %tr
-        %td.label=tc("subscription_nature")
-        %td.input=select_tag(:nature_id, options_for_select(@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :selected=>params[:nature_id].to_i) ) # ||session[:subscriptions][:nature]['id']
-        %td#subscriptions_options=render :partial=>"options"
-        %td=submit_tag tg("search_go")
-
+=kujaku do |k|
+  -k.criterion do
+    =select_tag(:nature_id, options_for_select(@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :selected=>params[:nature_id].to_i))
+    %span#subscriptions_options=render :partial=>"options"
 =list
-
-=observe_field("nature_id", :url=>{:action=>:index}, :update=>:subscriptions_options, :frequency => 0.25, :with=>"nature_id", :loading=>"onLoading()", :loaded=>"onLoaded()")
+=observe_field("nature_id", :url=>{:action=>:index}, :update=>:subscriptions_options, :frequency => 0.25, :with=>"nature_id", :method=>:get, :loading=>"onLoading()", :loaded=>"onLoaded()")

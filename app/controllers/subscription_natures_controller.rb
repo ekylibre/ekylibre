@@ -35,29 +35,18 @@ class SubscriptionNaturesController < ApplicationController
   def index
   end
 
-  # Displays details of one subscription nature selected with +params[:id]+
-  def show
-    return unless @subscription_nature = find_and_check(:subscription_nature)
-    session[:subscription_nature] = @subscription_nature
-    redirect_to subscriptions_url(:nature_id=>@subscription_nature.id)
-  end
-
   def decrement
     return unless @subscription_nature = find_and_check(:subscription_nature)
-    if request.post?
-      @subscription_nature.decrement!(:actual_number)
-      notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
-    end
-    redirect_to_current
+    @subscription_nature.decrement!(:actual_number)
+    notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
+    redirect_to_back
   end
 
   def increment
     return unless @subscription_nature = find_and_check(:subscription_nature)
-    if request.post?
-      @subscription_nature.increment!(:actual_number)
-      notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
-    end
-    redirect_to_current
+    @subscription_nature.increment!(:actual_number)
+    notify_success(:new_actual_number, :actual_number=>@subscription_nature.actual_number)
+    redirect_to_back
   end
 
 end

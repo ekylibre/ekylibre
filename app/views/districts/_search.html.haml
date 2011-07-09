@@ -1,7 +1,0 @@
-.search
-  =form_tag(districts_url, {:method=>:get}) do
-    %table
-      %tr
-        %td.label=tc(:search)
-        %td.field=text_field_tag :key, @key
-        %td.submit=submit_tag tg("search_go")

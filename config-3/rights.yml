@@ -29,13 +29,6 @@
 #   - professions::list
 #   - professions::new
 #   - professions::update
-#   - tax_declarations::create
-#   - tax_declarations::destroy
-#   - tax_declarations::index
-#   - tax_declarations::list
-#   - tax_declarations::new
-#   - tax_declarations::period_search
-#   - tax_declarations::show
 # Access to the minimum
 __minimum__:
   actions:
@@ -296,12 +289,15 @@ manage_cashes:
 manage_custom_fields:
   actions:
   - custom_field_choices::create
+  - custom_field_choices::destroy
   - custom_field_choices::down
   - custom_field_choices::edit
   - custom_field_choices::new
   - custom_field_choices::up
   - custom_field_choices::update
   - custom_fields::create
+  - custom_fields::destroy
+  - custom_fields::down
   - custom_fields::edit
   - custom_fields::index
   - custom_fields::list
@@ -309,6 +305,7 @@ manage_custom_fields:
   - custom_fields::new
   - custom_fields::show
   - custom_fields::sort
+  - custom_fields::up
   - custom_fields::update
   - dashboards::relations
 # Manage delays
@@ -884,7 +881,6 @@ manage_subscriptions:
   - subscription_natures::index
   - subscription_natures::list
   - subscription_natures::new
-  - subscription_natures::show
   - subscription_natures::update
   - subscriptions::coordinates
   - subscriptions::create
@@ -892,7 +888,6 @@ manage_subscriptions:
   - subscriptions::edit
   - subscriptions::index
   - subscriptions::list
-  - subscriptions::message
   - subscriptions::new
   - subscriptions::update
 # Manage taxes

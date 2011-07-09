@@ -18,5 +18,4 @@
 #
 
 class ListingNodeItemsController < ApplicationController
-
 end

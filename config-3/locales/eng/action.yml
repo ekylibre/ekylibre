@@ -109,7 +109,7 @@ eng:
       index: 'Event types'
       new: 'Add a new event type'
     events:
-      # change_minutes: 'Change minutes event'
+      change_minutes: 'Change minutes for event'
       edit: 'Edit the event'
       index: 'Events'
       new: 'Add a new event'
@@ -146,7 +146,7 @@ eng:
       edit: 'Edit the inventory'
       index: 'Inventories'
       new: 'Add a new inventory'
-      # show: 'Show inventory'
+      show: 'Inventory: %{number}'
     journal_entries:
       edit: 'Edit journal entry: %{number}'
       new: 'Add an entry'
@@ -256,7 +256,7 @@ eng:
       new: 'Add a new production chain'
       show: 'Production chain: %{name}'
     products:
-      # change_quantities: 'Change quantities product'
+      change_quantities: 'Change quantities for product'
       edit: 'Edit the product: %{name}'
       index: 'Products'
       new: 'Add a new product'
@@ -318,11 +318,11 @@ eng:
       renew: 'Renew session'
     settings:
       about: 'About Ekylibre'
-      # backup: 'Backup setting'
+      backup: 'Backup data'
       backups: 'Backups'
       edit: 'Configuration'
       import: 'Import data'
-      # restore: 'Restore setting'
+      restore: 'Restore data'
     stock_moves:
       edit: 'Edit the stock move: %{name}'
       new: 'add a new stock move'
@@ -338,19 +338,17 @@ eng:
       edit: 'Edit the subscription type: %{name}'
       index: 'Subscription types'
       new: 'Add a new subscription type'
-      show: 'Subscription type: %{name}'
+      show: 'Subscription type: %{name}' #!
     subscriptions:
-      # coordinates: 'Coordinates subscription'
+      coordinates: 'Refresh coordinates and period'
       edit: 'Edit subscription: %{number} from %{start} to %{finish}'
       index: 'Subscriptions'
-      # message: 'Message subscription'
       new: 'Add a new subscription'
     tax_declarations:
       edit: 'Create a Tax Declaration' #!
-      index: 'VAT Declaration'
-      new: 'Create a Tax report'
-      # period_search: 'Period search tax declaration'
-      show: '%{nature} for period from %{started_on} to %{stopped_on}'
+      index: 'VAT Declaration' #!
+      new: 'Create a Tax report' #!
+      show: '%{nature} for period from %{started_on} to %{stopped_on}' #!
     taxes:
       edit: 'Edit tax: %{name}'
       index: 'Taxes'
@@ -661,6 +659,7 @@ eng:
     deposit_update: 'Deposit update'
     depositable: 'More informations'
     description: 'Description'
+    destroy: 'Destroy'
     details: 'Details'
     discount: 'Discount (%)'
     display: 'Display'
@@ -877,6 +876,7 @@ eng:
     missing_help: 'Missing page'
     mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     mobile: 'Mobile'
+    mode: 'Mode'
     modes: 'Modes'
     modules: 'Modules'
     month_period: '%{code} - %{month} %{year}'
@@ -1320,11 +1320,11 @@ eng:
     bad_file: 'The file is incorrect.'
     bookkeeping_is_finished: 'The commercial data transfer is finished.'
     bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
-    can_not_mark_entry_lines: 'Can not mark these entry lines'
     cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
+    cannot_find_document_template: 'Cant find document template'
+    cannot_mark_entry_lines: 'Can not mark these entry lines'
     cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
     cannot_merge_entities: 'It''s impossible to merge these people.'
-    # cant_find_document_template: 'Cant find document template'
     changes_have_been_reflected: 'The changes have been reflected in the stocks state'
     changes_have_not_been_reflected: 'The changes have not been reflected in the stocks state'
     closed_financial_years: 'The financial year has been closed successfully'
@@ -1348,12 +1348,12 @@ eng:
     journal_entry_lines_marked_with_letter: 'Journal entry lines have been marked with letter %{letter}'
     journal_reopened_on: 'The journal "%{journal}" has been re-opened on %{closed_on}.'
     mails_are_sent: 'The emails were sent'
-    need_balanced_journal_to_tax_declaration: 'All your journals must be closed and balanced at that date.'
+    need_balanced_journal_to_tax_declaration: 'All your journals must be closed and balanced at that date.' #!
     need_cash_to_record_statements: 'You must be at least create a bank account to enter a statement.'
-    need_closed_financial_year_to_declaration: 'You must have a closed financial year to create a VAT return.'
+    need_closed_financial_year_to_declaration: 'You must have a closed financial year to create a VAT return.' #!
     need_company_code_to_login: 'You must select your company in order to connect with that username.'
     need_entries_to_point: 'No entry was found for the period of the bank statement.'
-    need_journal_to_manage_tax_declaration: 'You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns.'
+    need_journal_to_manage_tax_declaration: 'You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns.' #!
     need_payment_mode_to_create_deposit: 'You must specify a mode of payment in order to make deposits'
     need_quantities_to_cancel_an_sale: 'You must specify a quantity in order to cancel the sales invoice'
     need_stocks_to_create_inventories: 'You have to manage some stocks in order to manage inventories'

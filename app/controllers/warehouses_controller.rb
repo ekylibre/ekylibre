@@ -20,6 +20,21 @@
 class WarehousesController < ApplicationController
   manage_restfully :reservoir=>"params[:reservoir]"
 
+  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :name, :url=>true
+    t.column :comment
+    t.column :name, :through=>:establishment
+    t.column :name, :through=>:parent, :url=>true
+    t.column :reservoir
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays the main page with the list of warehouses
+  def index
+    notify_now(:need_warehouse_to_record_stock_moves) if @current_company.warehouses.count.zero?
+  end
+
   list(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}) do |t|
     t.column :name
     t.column :planned_on
@@ -43,31 +58,11 @@ class WarehousesController < ApplicationController
     t.column :quantity
   end
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name, :url=>true
-    t.column :comment
-    t.column :name, :through=>:establishment
-    t.column :name, :through=>:parent, :url=>true
-    t.column :reservoir
-    #t.action :edit, :mode=>:reservoir, :if=>'RECORD.reservoir == true'
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
-
   # Displays details of one warehouse selected with +params[:id]+
   def show
     return unless @warehouse = find_and_check(:warehouse)
     session[:current_warehouse_id] = @warehouse.id
     t3e @warehouse.attributes
-  end
-
-  # Displays the main page with the list of warehouses
-  def index
-    unless @current_company.warehouses.size>0
-      notify(:need_warehouse_to_record_stock_moves)
-      redirect_to :action=>:new
-      return
-    end
   end
 
 end

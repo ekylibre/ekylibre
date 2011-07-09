@@ -119,6 +119,7 @@ jpn:
       # index: 'Event types'
       # new: 'Add a new event type'
     events:
+      # change_minutes: 'Change minutes for event'
       # edit: 'Edit the event'
       # index: 'Events'
       # new: 'Add a new event'
@@ -157,6 +158,7 @@ jpn:
       # edit: 'Edit the inventory'
       # index: 'Inventories'
       # new: 'Add a new inventory'
+      # show: 'Inventory: %{number}'
     inventory_lines: #!
     journal_entries:
       # edit: 'Edit journal entry: %{number}'
@@ -272,6 +274,7 @@ jpn:
       # new: 'Add a new production chain'
       # show: 'Production chain: %{name}'
     products:
+      # change_quantities: 'Change quantities for product'
       # edit: 'Edit the product: %{name}'
       # index: 'Products'
       # new: 'Add a new product'
@@ -333,9 +336,11 @@ jpn:
       # renew: 'Renew session'
     settings:
       # about: 'About Ekylibre'
+      # backup: 'Backup data'
       # backups: 'Backups'
       # edit: 'Configuration'
       # import: 'Import data'
+      # restore: 'Restore data'
     stock_moves:
       # edit: 'Edit the stock move: %{name}'
       # new: 'add a new stock move'
@@ -353,6 +358,7 @@ jpn:
       # new: 'Add a new subscription type'
       # show: 'Subscription type: %{name}'
     subscriptions:
+      # coordinates: 'Refresh coordinates and period'
       # edit: 'Edit subscription: %{number} from %{start} to %{finish}'
       # index: 'Subscriptions'
       # new: 'Add a new subscription'
@@ -680,6 +686,7 @@ jpn:
     # deposit_update: 'Deposit update'
     # depositable: 'More informations'
     # description: 'Description'
+    # destroy: 'Destroy'
     # details: 'Details'
     # discount: 'Discount (%)'
     # display: 'Display'
@@ -896,6 +903,7 @@ jpn:
     missing_help: '無意味なページ'
     # mistake_on_quantities_sum: 'The sum of the quantities are not equals to the total produced quantity'
     # mobile: 'Mobile'
+    # mode: 'Mode'
     # modes: 'Modes'
     # modules: 'Modules'
     # month_period: '%{code} - %{month} %{year}'
@@ -1339,8 +1347,9 @@ jpn:
     # bad_file: 'The file is incorrect.'
     # bookkeeping_is_finished: 'The commercial data transfer is finished.'
     # bookkeeping_works_only_with: 'The transfer to accountancy can be done only for: %{list}.'
-    # can_not_mark_entry_lines: 'Can not mark these entry lines'
     # cannot_delete_entity: 'This person can''t be deleted because there is some accounting history.'
+    # cannot_find_document_template: 'Cant find document template'
+    # cannot_mark_entry_lines: 'Can not mark these entry lines'
     # cannot_merge_an_entity_with_itself: 'It''s impossible to merge a person with itself'
     # cannot_merge_entities: 'It''s impossible to merge these people.'
     # changes_have_been_reflected: 'The changes have been reflected in the stocks state'

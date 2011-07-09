@@ -1,13 +1,10 @@
-.search  
-  =form_tag do
-    %table
-      %tr
-        %td.label=tc(:select_organization)
-        %td.field=select_tag("organization", options_for_select([""]+@organizations.collect{|e| [e.organization.to_s, e.organization.to_s]}, session[:mandates][:organization].to_s))
-        %td.label=tc(:select_date)
-        %td.field=calendar_field_tag("date", session[:mandates][:date].to_s, :size=>8)
-        %td.submit=submit_tag tg("search_go")
-
+=kujaku do |k|
+  -k.criterion do
+    %label=tc(:select_date)
+    =calendar_field_tag("viewed_on", session[:mandates][:date].to_s, :size=>8)
+    %label=tc(:select_organization)
+    =select_tag("organization", options_for_select([""]+@organizations.collect{|e| [e.organization.to_s, e.organization.to_s]}, session[:mandates][:organization].to_s))
+  
 =toolbar do |t|
   -t.link :new
   -t.link :configure

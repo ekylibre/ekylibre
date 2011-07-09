@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
     code += "    @current_company.document_templates.find_by_active_and_nature_and_by_default(true, '#{nature}', true)\n"
     code += "  end\n"
     code += "  unless template\n"
-    code += "    notify_error(:cant_find_document_template, :nature=>'#{nature}', :template=>template.inspect)\n"
+    code += "    notify_error(:cannot_find_document_template, :nature=>'#{nature}', :template=>template.inspect)\n"
     code += "    redirect_to_back\n"
     code += "    return\n"
     code += "  end\n"
@@ -396,7 +396,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_login(url=nil)
     reset_session
     @current_user = nil
-    redirect_to(new_session_url(:url=>url, :company=>params[:company]))
+    redirect_to(new_session_url(:redirect=>url, :company=>params[:company]))
   end
   
   def redirect_to_back(options={})
@@ -449,6 +449,7 @@ class ApplicationController < ActionController::Base
     name = controller_name
     t3e = defaults.delete(:t3e)
     url = defaults.delete(:redirect_to)
+    durl = defaults.delete(:destroy_to)
     partial = defaults.delete(:partial)
     partial =  ":partial=>'#{partial}'" if partial
     record_name = name.to_s.singularize
@@ -498,7 +499,7 @@ class ApplicationController < ActionController::Base
       code += "  #{model.name}.destroy(@#{record_name}.id)\n"
       code += "  notify_success(:record_has_been_correctly_removed)\n"
     end
-    code += "  redirect_to #{model.name.underscore.pluralize}_url\n"
+    code += "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
     code += "end\n"
 
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}    
@@ -511,32 +512,37 @@ class ApplicationController < ActionController::Base
     name = controller_name
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
+    records = model.name.underscore.pluralize
 
     raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
     code = ''
     
     sort = ""
-    #     sort += "items = #{model.name}.find(:all, :conditions=>['#{model.scope_condition}'], :order=>'#{model.position_column}, #{order_by}')\n"
-    #     sort += "items.times do |x|\n"
-    #     sort += "  #{model.name}.update_all({:#{model.position_column}=>x}, {:id=>items[x].id})\n"
-    #     sort += "end\n"
+    position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
+    sort += "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
+    sort += "#{records}_count = #{model.name}.count(#{position}, :conditions=>#{conditions})\n"
+    sort += "unless #{records}_count == #{model.name}.count(#{position}, :conditions=>#{conditions}, :distinct=>true) and #{model.name}.sum(#{position}, :conditions=>#{conditions}) == #{records}_count*(#{records}_count+1)/2\n"
+    sort += "  #{records} = #{model.name}.find(:all, :conditions=>#{conditions}, :order=>#{position}+', #{order_by}')\n"
+    sort += "  #{records}.each_index do |i|\n"
+    sort += "    #{model.name}.update_all({#{position}=>i+1}, {:id=>#{records}[i].id})\n"
+    sort += "  end\n"
+    sort += "end\n"
     
     code += "def up\n"
     code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-    code += sort.gsub(/^/, "  ")
     code += "  #{record_name}.move_higher\n"
+    code += sort.gsub(/^/, "  ")
     code += "  redirect_to_current\n"
     code += "end\n"
     
     code += "def down\n"
     code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-    code += sort.gsub(/^/, "  ")
     code += "  #{record_name}.move_lower\n"
+    code += sort.gsub(/^/, "  ")
     code += "  redirect_to_current\n"
     code += "end\n"
 
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    
     class_eval(code)
   end
 
@@ -709,24 +715,6 @@ class ApplicationController < ActionController::Base
     return code
   end
 
-  # finances -> incoming_payments_conditions
-  def self.incoming_payments_conditions(options={})
-    code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
-    code += "if session[:incoming_payment_state] == 'unreceived'\n"
-    code += "  c[0] += ' AND received=?'\n"
-    code += "  c << false\n"
-    code += "elsif session[:incoming_payment_state] == 'waiting'\n"
-    code += "  c[0] += ' AND to_bank_on > ?'\n"
-    code += "  c << Date.today\n"
-    code += "elsif session[:incoming_payment_state] == 'undeposited'\n"
-    code += "  c[0] += ' AND deposit_id IS NULL'\n"
-    code += "elsif session[:incoming_payment_state] == 'unparted'\n"
-    code += "  c[0] += ' AND used_amount != amount'\n"
-    code += "end\n"
-    code += "c\n"
-    return code
-  end
-
   # finances -> outgoing_payments_conditions
   def self.outgoing_payments_conditions(options={})
     code = search_conditions(:outgoing_payments, :outgoing_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
@@ -805,44 +793,5 @@ class ApplicationController < ActionController::Base
     code
   end
 
-  # management -> subscriptions_conditions
-  def self.subscriptions_conditions(options={})
-    code = ""
-    code += "conditions = [ \" #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id = ? and state = 'E') \" , @current_company.id, @current_company.id]\n"
-    code += "if session[:subscriptions].is_a? Hash\n"
-    code += "  if session[:subscriptions][:nature].is_a? Hash\n"
-    code += "    conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\" \n "
-    code += "    conditions << session[:subscriptions][:nature]['id'].to_i\n"
-    code += "  end\n"
-    code += "  if session[:subscriptions][:nature]['nature'] == 'quantity'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
-    code += "  elsif session[:subscriptions][:nature]['nature'] == 'period'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
-    code += "  end\n"
-    code += "  conditions << session[:subscriptions][:instant]\n"
-    code += "end\n"
-    code += "conditions\n"
-    code
-  end
-
-  # relations -> mandates_conditions
-  def self.mandates_conditions(options={}) 
-    code = ""
-    code += "conditions = ['mandates.company_id=?', @current_company.id]\n"
-    code += "if session[:mandates].is_a? Hash\n"
-    code += "  unless session[:mandates][:organization].blank? \n"
-    code += "    conditions[0] += ' AND organization = ?'\n"
-    code += "    conditions << session[:mandates][:organization] \n"
-    code += "  end \n"
-    code += "  unless session[:mandates][:date].blank? \n"
-    code += "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
-    code += "    conditions << session[:mandates][:date].to_s \n"
-    code += "    conditions << session[:mandates][:date].to_s \n"
-    code += "    conditions << session[:mandates][:date].to_s \n"
-    code += "  end \n"
-    code += "end \n"
-    code += "conditions \n"
-    code
-  end
 
 end

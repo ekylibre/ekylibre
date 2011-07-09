@@ -20,7 +20,7 @@
 class ToolsController < ApplicationController
   manage_restfully 
 
-  list(:operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool]']}, :order=>"created_at ASC") do |t|
+  list(:operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :label=>:column, :url=>true
     t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
     t.column :moved_on,   :through=>:operation, :label=>:column
@@ -39,7 +39,7 @@ class ToolsController < ApplicationController
   # Displays details of one tool selected with +params[:id]+
   def show
     return unless @tool = find_and_check(:tools)
-    session[:current_tool] = @tool.id
+    session[:current_tool_id] = @tool.id
     t3e @tool.attributes
   end
 

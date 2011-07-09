@@ -19,5 +19,4 @@
 
 class ObservationsController < ApplicationController
   manage_restfully :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
-
 end

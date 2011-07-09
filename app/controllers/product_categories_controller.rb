@@ -21,13 +21,17 @@ class ProductCategoriesController < ApplicationController
   manage_restfully 
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
+    t.column :name, :url=>true
     t.column :comment
     t.column :catalog_name
     t.column :catalog_description
     t.column :name, :through=>:parent
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays the main page with the list of product categories
+  def index
   end
 
   list(:products, :conditions=>{:company_id=>['@current_company.id'], :category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
@@ -38,11 +42,6 @@ class ProductCategoriesController < ApplicationController
     t.column :active
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
-
-  # Displays the main page with the list of product categories
-  def index
-   # shelves_list params
   end
 
   # Displays details of one product category selected with +params[:id]+

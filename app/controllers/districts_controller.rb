@@ -30,13 +30,7 @@ class DistrictsController < ApplicationController
 
   # Displays the main page with the list of districts
   def index
-    session[:district_key] ||= {}
-    @districts_count = @current_company.districts.count
-    @key = params[:key] || session[:district_key] 
-    @districts = @current_company.districts
-    if request.post?
-      session[:district_key] = @key
-    end
+    session[:district_key] = params[:q]
   end
 
 end

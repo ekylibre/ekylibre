@@ -76,7 +76,7 @@ class AccountsController < ApplicationController
       if params[:journal_entry_line]
         letter = @account.mark(params[:journal_entry_line].select{|k,v| v[:to_mark].to_i==1}.collect{|k,v| k.to_i})
         if letter.nil?
-          notify_error_now(:can_not_mark_entry_lines)
+          notify_error_now(:cannot_mark_entry_lines)
         else
           notify_success_now(:journal_entry_lines_marked_with_letter, :letter=>letter)
         end

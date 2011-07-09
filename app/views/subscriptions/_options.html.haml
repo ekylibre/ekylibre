@@ -1,12 +1,8 @@
 -if @subscription_nature.nature == "quantity"
-  %table
-    %tr
-      %td.label=tc("select_number")
-      %td=text_field_tag(:instant, session[:subscriptions][:instant], :size=>6)
+  %label=tc("select_number")
+  =text_field_tag(:instant, session[:subscriptions_instant], :size=>6)
 -elsif @subscription_nature.nature == "period"
-  %table
-    %tr
-      %td.label=tc("select_date")
-      %td.input=calendar_field_tag(:instant, session[:subscriptions][:instant])
+  %label=tc("select_date")
+  =calendar_field_tag(:instant, session[:subscriptions_instant])
 -else
   %strong [NoNatureError]
