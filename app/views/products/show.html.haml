@@ -26,7 +26,7 @@
     =list :prices
   -tb.tab :components do
     =toolbar do |t|
-      -t.link :new, :controller=>:product_components
+      -t.link :new, :controller=>:product_components, :product_id=>@product.id
     =list :components
   -tb.tab :stocks do
     =list(:stocks)

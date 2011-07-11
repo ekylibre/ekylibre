@@ -1,4 +1,4 @@
--conveyor = production_chain_conveyor
+-#conveyor = production_chain_conveyor
 -unless conveyor.source_quantity.zero?
   %td
     .cell.source.quantity{:class=>("unique-tracking" if conveyor.unique_tracking)}=tl(:x_unit, :quantity=>conveyor.source_quantity, :unit=>conveyor.unit.readable_name)

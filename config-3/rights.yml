@@ -2,15 +2,14 @@
 #   - production_chain_conveyors::create
 #   - production_chain_conveyors::destroy
 #   - production_chain_conveyors::edit
-#   - production_chain_conveyors::list
 #   - production_chain_conveyors::new
 #   - production_chain_conveyors::update
 #   - production_chain_work_centers::create
 #   - production_chain_work_centers::destroy
 #   - production_chain_work_centers::down
 #   - production_chain_work_centers::edit
-#   - production_chain_work_centers::list
 #   - production_chain_work_centers::new
+#   - production_chain_work_centers::play
 #   - production_chain_work_centers::show
 #   - production_chain_work_centers::up
 #   - production_chain_work_centers::update
@@ -19,6 +18,8 @@
 #   - production_chains::edit
 #   - production_chains::index
 #   - production_chains::list
+#   - production_chains::list_conveyors
+#   - production_chains::list_work_centers
 #   - production_chains::new
 #   - production_chains::show
 #   - production_chains::update
@@ -854,11 +855,6 @@ manage_sales:
 manage_stock_moves:
   actions:
   - dashboards::trade
-  - stock_moves::create
-  - stock_moves::destroy
-  - stock_moves::edit
-  - stock_moves::new
-  - stock_moves::update
   - stock_transfers::confirm
   - stock_transfers::confirm_all
   - stock_transfers::create

@@ -18,44 +18,5 @@
 #
 
 class ProductComponentsController < ApplicationController
-
-  def new
-    return unless @product = find_and_check(:products, params[:product_id]||session[:product_id])
-    @product_component = @product.components.new(:quantity=>1.0)
-    t3e :product=>@product.name
-    render_restfully_form
-  end
-
-  def create
-    return unless @product = find_and_check(:products, params[:product_id]||session[:product_id])
-    @product_component = ProductComponent.new(params[:product_component])
-    @product_component.company_id = @current_company.id
-    @product_component.product_id = @product.id
-    return if save_and_redirect(@product_component, :url=>{:action=>:show, :controller=>:products, :id=>@product_component.product_id})
-    t3e :product=>@product.name
-    render_restfully_form
-  end
-
-  def destroy
-    return unless @product_component = find_and_check(:product_component)
-    @product_component.update_attributes!(:active=>false)
-    redirect_to :controller=>:products, :id=>session[:product_id]
-  end
-
-  def edit
-    return unless @product_component = find_and_check(:product_component)
-    @product = @product_component.product
-    t3e :product=>@product.name, :component=>@product_component.name
-    render_restfully_form
-  end
-
-  def update
-    return unless @product_component = find_and_check(:product_component)
-    @product = @product_component.product
-    @product_component.attributes = params[:product_component]
-    return if save_and_redirect(@product_component, :url=>{:action=>:show, :controller=>:products, :id=>@product_component.product_id})
-    t3e :product=>@product.name, :component=>@product_component.name
-    render_restfully_form
-  end
-
+  manage_restfully :product_id=>'params[:product_id]', :destroy_to=>':controller=>:products, :action=>:show, :id=>@product_component.product_id'
 end

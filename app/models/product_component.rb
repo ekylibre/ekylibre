@@ -40,7 +40,7 @@
 
 
 class ProductComponent < CompanyRecord
-  attr_readonly :company_id, :quantity, :content_id, :package_id, :name, :comment
+  attr_readonly :company_id, :quantity, :name, :comment
   belongs_to :company
   belongs_to :component, :class_name=>Product.to_s
   belongs_to :warehouse
@@ -49,11 +49,7 @@ class ProductComponent < CompanyRecord
   autosave :product
 
   before_validation do
-    if self.quantity >= 2
-      self.name = self.quantity.to_s+" "+self.component.unit.label+"s "+tc('of_product')+" "+self.component.name.to_s
-    else
-      self.name = self.quantity.to_s+" "+self.component.unit.label+" "+tc('of_product')+" "+self.component.name.to_s
-    end
+    self.name = tg(:x_units_of_product_y, :quantity=>self.quantity, :unit=>self.component.unit.name, :product=>self.component.name)
   end
   
   before_validation(:on=>:create) do    
@@ -73,7 +69,7 @@ class ProductComponent < CompanyRecord
 
   def destroy #_without_callbacks
     unless new_record?
-      self.class.update_all({:active=>false}, {:id=>self.id})
+      self.class.update_all({:active=>false, :stopped_at=>Time.now}, {:id=>self.id})
     end
   end
 

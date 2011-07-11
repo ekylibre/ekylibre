@@ -19,15 +19,4 @@
 
 class ProductionChainConveyorsController < ApplicationController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"
-
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
-    t.column :name, :through=>:product, :url=>true
-    t.column :flow
-    t.column :name, :through=>:unit
-    t.column :name, :through=>:source, :url=>true
-    t.column :name, :through=>:target, :url=>true
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
-
 end

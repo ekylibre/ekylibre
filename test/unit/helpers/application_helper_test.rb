@@ -28,10 +28,11 @@ class ApplicationHelperTest < ActionView::TestCase
 
     for file in Dir.glob(Rails.root.join("config", "locales", "*", "help", "*.txt"))
       File.open(file, "rb") do |f|
-        @source = f.read
-        should "'wikize' #{file}" do
+        source = f.read
+        should "'wikize' '#{file.gsub(Rails.root.to_s, '.')}'" do
           assert_nothing_raised() do
-            render :inline=>"<%=wikize(@source)-%>"
+            wikize(source, :url=>{:company=>@current_company.code, :controller=>:help, :action=>:show})
+            # render :inline=>"<%=wikize(@source)-%>"
           end
         end
       end

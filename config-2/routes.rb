@@ -82,11 +82,10 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :products, :collection=>{:list=>:get, :list_prices=>:get, :list_stocks=>:get, :list_stock_moves=>:get, :list_components=>:get, :change_quantities=>:get}
     company.resources :product_categories, :collection=>{:list=>:get, :list_products=>:get}
     company.resources :product_components, :except=>[:show, :index]
-    company.resources :production_chains, :collection=>{:list=>:get} do |pc|
-      pc.resources :conveyors, :controller=>"production_chain_conveyors"
-      pc.resources :work_centers, :controller=>"production_chain_work_centers"
-      pc.resources :work_center_uses, :controller=>"production_chain_work_centers_uses"
-    end
+    company.resources :production_chains, :collection=>{:list=>:get, :list_work_centers=>:get, :list_conveyors=>:get}
+    company.resources :production_chain_conveyors, :except=>[:show, :index]
+    company.resources :production_chain_work_centers, :except=>[:index], :member=>{:up=>:post, :down=>:post, :play=>[:get, :post]}
+    # company.resources :production_chain_work_center_uses, :except=>[:show, :index]
     company.resources :professions, :except=>[:show], :collection=>{:list=>:get}
     company.resources :purchase_lines, :except=>[:index, :show]
     company.resources :purchases, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_deliveries=>:get, :list_payment_uses=>:get}, :member=>{:correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post}
@@ -95,7 +94,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :sale_natures, :except=>[:show], :collection=>{:list=>:get}
     company.resources :sales, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_subscriptions=>:get, :list_payment_uses=>:get, :list_deliveries=>:get, :list_credits=>:get, :list_creditable_lines=>:get, :statistics=>:get, :contacts=>[:get]}, :member=>{:duplicate=>:post, :cancel=>[:get, :post], :correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post, :propose_and_invoice=>:post}
     company.resources :sequences, :except=>[:show], :collection=>{:list=>:get, :load=>:post}
-    company.resources :stock_moves, :except=>[:index, :show]
+    # company.resources :stock_moves, :except=>[:index, :show]
     company.resources :stock_transfers, :except=>[:show], :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}
     company.resources :stocks, :only=>[:index], :collection=>{:list=>:get}
     company.resources :subscription_natures, :except=>[:show], :collection=>{:list=>:get}, :member=>{:increment=>:post, :decrement=>:post}

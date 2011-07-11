@@ -27,12 +27,6 @@ class ProductionChainsController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  # Displays details of one production chain selected with +params[:id]+
-  def show
-    return unless @production_chain = find_and_check(:production_chain)
-    t3e @production_chain.attributes
-  end
-
   # Displays the main page with the list of production chains
   def index
     if params[:generate] == "sample"
@@ -93,6 +87,34 @@ class ProductionChainsController < ApplicationController
         redirect_to :action=>:show, :id=>pc.id
       end
     end
+  end
+
+
+
+  list(:work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+    t.column :name, :url=>true
+    t.column :name, :through=>:operation_nature
+    t.column :nature
+    t.column :name, :through=>:building, :url=>true
+    t.column :comment
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  list(:conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
+    t.column :name, :through=>:product, :url=>true
+    t.column :flow
+    t.column :name, :through=>:unit
+    t.column :name, :through=>:source, :url=>true
+    t.column :name, :through=>:target, :url=>true
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays details of one production chain selected with +params[:id]+
+  def show
+    return unless @production_chain = find_and_check(:production_chain)
+    t3e @production_chain.attributes
   end
 
 end

@@ -71,7 +71,7 @@ class ActionController::TestCase
     return unless User.rights[controller]
     for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s} # .delete_if{|x| except.include? x}
       if except.include? action
-        puts "Ignore: #{controller}##{ignored}"
+        puts "Ignore: #{controller}##{action}"
         next
       end
 

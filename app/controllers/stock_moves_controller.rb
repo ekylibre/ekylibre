@@ -18,5 +18,5 @@
 #
 
 class StockMovesController < ApplicationController
-  manage_restfully :planned_on=>'Date.today'
+  # manage_restfully :planned_on=>'Date.today'
 end

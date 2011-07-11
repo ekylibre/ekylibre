@@ -18,5 +18,4 @@
 #
 
 class ProductionChainWorkCenterUsesController < ApplicationController
-
 end

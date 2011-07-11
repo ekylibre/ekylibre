@@ -19,16 +19,7 @@
 
 class ProductionChainWorkCentersController < ApplicationController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
-
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:operation_nature
-    t.column :nature
-    t.column :name, :through=>:building, :url=>true
-    t.column :comment
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
+  manage_restfully_list
 
   # Displays details of one production chain work center selected with +params[:id]+
   def show
@@ -36,20 +27,7 @@ class ProductionChainWorkCentersController < ApplicationController
     t3e @production_chain_work_center.attributes
   end
 
-  def down
-    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
-    if request.post?
-      @production_chain_work_center.move_lower
-    end
-    redirect_to_current
-  end
-
-  def up
-    return unless @production_chain_work_center = find_and_check(:production_chain_work_center)
-    if request.post?
-      @production_chain_work_center.move_higher
-    end
-    redirect_to_current
+  def play
   end
 
 end

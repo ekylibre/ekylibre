@@ -281,20 +281,19 @@ fra:
       new: 'Ajout d''une nouvelle catégorie de produits'
       show: 'Détail de la catégorie : %{name}'
     product_components:
-      edit: 'Modifier l''un composant du produit %{product} '
-      new: 'Ajouter un composant au produit %{product} '
+      edit: 'Modifier le composant %{name}'
+      new: 'Ajouter un composant'
     production:  #!
       index: 'Gestion de la production' #!
-      production_chain_play: 'Éxécuter la chaîne de production : %{name}' #!
       unvalidated_operations: 'Travaux à réaliser' #!
     production_chain_conveyors:
       edit: 'Mettre à jour le convoyeur (%{source_id}-%{target_id})'
       new: 'Ajouter un nouveau convoyeur dans la chaîne de production'
-    production_chain_work_center_uses: #!
     production_chain_work_centers:
       edit: 'Modifier le centre d''opération : %{name}'
       new: 'Ajouter un nouveau centre d''opération'
       show: 'Centre d''opération : #{name}'
+      play: 'Éxécuter la chaîne de production : %{name}'
     production_chains:
       edit: 'Modifier la chaîne de production : %{name}'
       index: 'Chaînes de production'

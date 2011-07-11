@@ -20,7 +20,9 @@
 class ProductsController < ApplicationController
 
   list(:components, :model=>:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
-    t.column :name
+    t.column :quantity
+    t.column :label, :through=>[:component, :unit]
+    t.column :name, :through=>:component
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

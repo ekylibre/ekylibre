@@ -241,14 +241,15 @@ eng:
       new: 'Add a new product category'
       show: 'Product category: %{name}'
     product_components:
-      edit: 'Edit the component of %{product} '
-      new: 'Add a new component to %{product}'
+      edit: 'Edit the component: %{name}'
+      new: 'Add a new component'
     production_chain_conveyors:
       edit: 'Edit production chain conveyor (%{source_id}-%{target_id})'
       new: 'Add a new conveyor in the production chain'
     production_chain_work_centers:
       edit: 'Edit the work center: %{name}'
-      new: 'Add a new work center in the production chain'
+      new: 'Add a new work center'
+      play: 'Play work center: #{name}'
       show: 'Work center: #{name}'
     production_chains:
       edit: 'Edit production chain: %{name}'
@@ -324,8 +325,8 @@ eng:
       import: 'Import data'
       restore: 'Restore data'
     stock_moves:
-      edit: 'Edit the stock move: %{name}'
-      new: 'add a new stock move'
+      edit: 'Edit the stock move: %{name}' #!
+      new: 'add a new stock move' #!
     stock_transfers:
       confirm: 'Waiting stock transfers'
       confirm_all: 'Confirm all stock transfer'
@@ -1305,6 +1306,7 @@ eng:
       other: '%{count} subscriptions'
       zero: '0 subscriptions'
     x_unit: '%{quantity}%{unit}'
+    x_units_of_product_y: '%{quantity}%{unit} of %{product}'
     x_unit_of_product_per_second: '%{quantity}%{unit}/s of %{product}'
     x_unit_per_second: 'Flow: %{quantity}%{unit}/s'
     x_waiting_incoming_deliveries:

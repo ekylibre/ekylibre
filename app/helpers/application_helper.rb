@@ -648,25 +648,25 @@ module ApplicationHelper
     end
 
 
+    options[:url] ||= {}
     content = content.gsub(/\[\[>[^\|]+\|[^\]]*\]\]/) do |link|
       link = link[3..-3].split('|')
       url = link[0].split(/[\/\?\&]+/)
-      url = {:controller=>url[0], :action=>url[1]}
+      url = options[:url].merge(:controller=>url[0], :action=>url[1])
       (authorized?(url) ? link_to(link[1], url) : link[1])
     end
 
-    options[:url] ||= {}
     options[:method] = :get
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
-      options[:url][:id] = link[0]
-      link_to_remote(link[1].html_safe, options, {:href=>url_for(options[:url])}) # REMOTE
+      url = url_for(options[:url].merge(:id=>link[0]))
+      link_to_remote(link[1].html_safe, options.merge(:url=>url), {:href=>url}) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
-      options[:url][:id] = link
-      link_to_remote(link.html_safe, options, {:href=>url_for(options[:url])}) # REMOTE
+      url = url_for(options[:url].merge(:id=>link))
+      link_to_remote(link.html_safe, options.merge(:url=>url), {:href=>url}) # REMOTE
     end
 
     for x in 1..6

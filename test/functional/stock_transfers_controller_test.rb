@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class StockTransfersControllerTest < ActionController::TestCase
-  test_restfully_all_actions :except=>[:confirm]
+  test_restfully_all_actions
 end
