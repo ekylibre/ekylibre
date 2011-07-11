@@ -17,6 +17,26 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class StockMovesController < ApplicationController
-  manage_restfully :planned_on=>'Date.today'
+require 'test_helper'
+class ApplicationHelperTest < ActionView::TestCase
+
+  context 'Help controller' do
+    setup do
+      @current_company = companies(:companies_001)
+    end
+
+
+    for file in Dir.glob(Rails.root.join("config", "locales", "*", "help", "*.txt"))
+      File.open(file, "rb") do |f|
+        @source = f.read
+        should "'wikize' #{file}" do
+          assert_nothing_raised() do
+            render :inline=>"<%=wikize(@source)-%>"
+          end
+        end
+      end
+    end
+
+  end
+
 end

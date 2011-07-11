@@ -20,12 +20,31 @@
 class AccountsController < ApplicationController
   manage_restfully :number=>"params[:number]"
 
-  list(:entities, :conditions=>["#{Entity.table_name}.company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
-    t.column :code, :url=>true
-    t.column :full_name, :url=>true
-    t.column :label, :through=>:client_account, :url=>true
-    t.column :label, :through=>:supplier_account, :url=>true
-    t.column :label, :through=>:attorney_account, :url=>true
+  def self.accounts_conditions
+    code  = ""
+    code += light_search_conditions(Account.table_name=>[:name, :number, :comment])
+    code += "[0] += ' AND number LIKE ?'\n"
+    code += "c << params[:prefix].to_s+'%'\n"
+    code += "if params[:used_accounts].to_i == 1\n"
+    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+' AND je.company_id = ? AND jel.company_id = ?)'\n"
+    code += "  c += [@current_company.id, @current_company.id]\n"
+    code += "end\n"
+    code += "c\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    return code
+  end
+
+  list(:conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
+    t.column :number, :url=>true
+    t.column :name, :url=>true
+    t.column :reconcilable
+    t.column :comment
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+  end
+
+  # Displays the main page with the list of accounts
+  def index
   end
 
   list(:journal_entry_lines, :conditions=>["#{JournalEntryLine.table_name}.company_id = ? AND #{JournalEntryLine.table_name}.account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
@@ -39,6 +58,29 @@ class AccountsController < ApplicationController
     t.column :credit
   end
 
+  list(:entities, :conditions=>["#{Entity.table_name}.company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+    t.column :code, :url=>true
+    t.column :full_name, :url=>true
+    t.column :label, :through=>:client_account, :url=>true
+    t.column :label, :through=>:supplier_account, :url=>true
+    t.column :label, :through=>:attorney_account, :url=>true
+  end
+
+  # Displays details of one account selected with +params[:id]+
+  def show
+    return unless @account = find_and_check(:account)
+    session[:current_account_id] = @account.id   
+    t3e @account.attributes
+  end
+
+  def self.account_reconciliation_conditions
+    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code += "c << true\n"
+    code += "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
+    code += "c"
+    return code
+  end
+
   list(:reconciliation, :model=>:journal_entry_lines, :joins=>[:entry, :account], :conditions=>account_reconciliation_conditions, :order=>"accounts.number, journal_entries.printed_on") do |t|
     t.column :number, :through=>:account, :url=>{:action=>:mark}
     t.column :name, :through=>:account, :url=>{:action=>:mark}
@@ -48,26 +90,8 @@ class AccountsController < ApplicationController
     t.column :credit
   end
 
-  list(:conditions=>accounts_conditions, :order=>"number ASC", :per_page=>20) do |t|
-    t.column :number, :url=>true
-    t.column :name, :url=>true
-    t.column :reconcilable
-    t.column :comment
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
-  end
-
-  # Displays details of one account selected with +params[:id]+
-  def show
-    return unless @account = find_and_check(:account)
-    session[:current_account_id] = @account.id
-    @totals = {}
-    @totals[:debit]  = @account.journal_entry_lines.sum(:debit)
-    @totals[:credit] = @account.journal_entry_lines.sum(:credit)
-    @totals[:balance_debit] = 0.0
-    @totals[:balance_credit] = 0.0
-    @totals["balance_#{@totals[:debit]>@totals[:credit] ? 'debit' : 'credit'}".to_sym] = (@totals[:debit]-@totals[:credit]).abs    
-    t3e @account.attributes
+  def reconciliation
+    session[:account_key] = params[:q]
   end
 
   def mark
@@ -87,22 +111,10 @@ class AccountsController < ApplicationController
     t3e @account.attributes
   end
 
-  def reconciliation
-    params[:mode] ||= :clients
-    # session[:account_prefix] = @current_company.preferred("third_#{params[:mode]}_accounts").to_s+"%"
-    session[:account_key] = params[:key]
-  end
-
   def unmark
     return unless @account = find_and_check(:account)
-    if request.post? and params[:letter]
-      @account.unmark(params[:letter])
-    end
+    @account.unmark(params[:letter]) if params[:letter]
     redirect_to_current
-  end
-
-  # Displays the main page with the list of accounts
-  def index
   end
 
   def load

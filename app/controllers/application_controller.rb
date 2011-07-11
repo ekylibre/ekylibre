@@ -379,6 +379,7 @@ class ApplicationController < ActionController::Base
     session[:help_history] = [] unless session[:help_history].is_a? [].class
     article ||= "#{self.controller_name}-#{self.action_name}"
     file = nil
+    # raise [I18n.locale, I18n.default_locale]
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in @@helps
         next if attrs[:locale] != locale
@@ -407,7 +408,7 @@ class ApplicationController < ActionController::Base
     elsif request.referer and request.referer != request.url
       redirect_to request.referer, options
     else
-      redirect_to :controller=>:dashboards
+      redirect_to :controller=>:dashboards, :action=>:general
     end
   end
 
@@ -602,30 +603,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-  # accountancy -> account_reconciliation_conditions
-  def self.account_reconciliation_conditions
-    code  = search_conditions(:accounts, :accounts=>[:name, :number, :comment], :journal_entries=>[:number], JournalEntryLine.table_name=>[:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
-    code += "c << true\n"
-    code += "c[0] += ' AND "+JournalEntryLine.connection.length(JournalEntryLine.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
-    code += "c"
-    return code
-  end
-
-  # accountancy -> accounts_conditions
-  def self.accounts_conditions
-    code  = ""
-    code += light_search_conditions(Account.table_name=>[:name, :number, :comment])
-    code += "[0] += ' AND number LIKE ?'\n"
-    code += "c << params[:prefix].to_s+'%'\n"
-    code += "if params[:used_accounts].to_i == 1\n"
-    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+' AND je.company_id = ? AND jel.company_id = ?)'\n"
-    code += "  c += [@current_company.id, @current_company.id]\n"
-    code += "end\n"
-    code += "c\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code
-  end
-
   # accountancy -> accounts_range_crit
   def self.accounts_range_crit(variable, conditions='c')
     variable = "session[:#{variable}]" unless variable.is_a? String
@@ -715,22 +692,6 @@ class ApplicationController < ActionController::Base
     return code
   end
 
-  # finances -> outgoing_payments_conditions
-  def self.outgoing_payments_conditions(options={})
-    code = search_conditions(:outgoing_payments, :outgoing_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
-    code += "if session[:outgoing_payment_state] == 'undelivered'\n"
-    code += "  c[0] += ' AND delivered=?'\n"
-    code += "  c << false\n"
-    code += "elsif session[:outgoing_payment_state] == 'waiting'\n"
-    code += "  c[0] += ' AND to_bank_on > ?'\n"
-    code += "  c << Date.today\n"
-    code += "elsif session[:outgoing_payment_state] == 'unparted'\n"
-    code += "  c[0] += ' AND used_amount != amount'\n"
-    code += "end\n"
-    code += "c\n"
-    return code
-  end
-
   # management -> moved_conditions
   def self.moved_conditions(model)
     code = ""
@@ -782,16 +743,5 @@ class ApplicationController < ActionController::Base
     code += "c\n "
     code
   end
-
-  # management -> stocks_conditions
-  def self.stocks_conditions(options={})
-    code = ""
-    code += "conditions = {} \n"
-    code += "conditions[:company_id] = @current_company.id\n"
-    code += "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id] and session[:warehouse_id].to_i > 0\n "
-    code += "conditions \n "
-    code
-  end
-
 
 end

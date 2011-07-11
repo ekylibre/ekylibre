@@ -19,6 +19,15 @@
 
 class StocksController < ApplicationController
 
+  def self.stocks_conditions(options={})
+    code = ""
+    code += "conditions = {} \n"
+    code += "conditions[:company_id] = @current_company.id\n"
+    code += "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id].to_i > 0\n"
+    code += "conditions\n"
+    code
+  end
+
   list(:conditions=>stocks_conditions, :line_class=>'RECORD.state') do |t|
     t.column :name, :through=>:warehouse,:url=>true
     t.column :name, :through=>:product,:url=>true
@@ -35,15 +44,9 @@ class StocksController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        @warehouses = @current_company.warehouses
-        if @warehouses.size == 0
-          notify_warning(:no_warehouse)
-          redirect_to :controller=>:warehouses, :action=>:new
-          return
-        else
-          session[:warehouse_id] = params[:warehouse_id]
-        end
+        notify_warning_now(:no_warehouse) if @current_company.warehouses.size.zero?
         notify_now(:no_stocks) if @current_company.stocks.size <= 0
+        session[:warehouse_id] = params[:warehouse_id]
       end
       format.pdf { render_print_stocks(params[:established_on]||Date.today) }
     end

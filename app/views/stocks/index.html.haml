@@ -1,15 +1,9 @@
--# Eclated automatically (2011-06-08)
--if @current_company.stocks.size > 0
-  .search
-    =form_tag({}, {:method=>:get}) do
-      %table
-        %tr
-          %td.crit
-            =tc('select_warehouse')
-            =select_tag(:warehouse_id, options_for_select([[]]+@warehouses.collect{|x| [x.name, x.id]}, session[:warehouse_id]))
-          %td=submit_tag(tg('filter'))
+-unless @current_company.stocks.size.zero?
+  =kujaku do |k|
+    -k.criterion do
+      %label=tc('select_warehouse')
+      =select_tag(:warehouse_id, options_for_select([[]]+@current_company.warehouses.collect{|x| [x.name, x.id]}, params[:warehouse_id]))
 
   =toolbar do |t|
     -t.print_stocks Date.today.to_s, :action=>:index, :controller=>:stocks
-
 =list

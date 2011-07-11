@@ -1372,6 +1372,7 @@ eng:
     no_payment_to_deposit: 'There are no payment to deposit'
     no_reopenable_journal: 'You can not re-open this journal.'
     no_stocks: 'You have no stock. If you want to manage the stock of a product, please check the option "Manage stocks" in the characteristics of your product.'
+    # no_unconfirmed_stock_transfers: 'No unconfirmed stock transfers'
     no_unvalidated_operations: 'No task to do'
     no_warehouse: 'No warehouse is defined. Please create one in order to manage your stocks'
     password_successfully_changed: 'Your password has been updated successfully'

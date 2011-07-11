@@ -42,19 +42,15 @@ class DocumentTemplatesController < ApplicationController
 
   def duplicate
     return unless @document_template = find_and_check(:document_template)
-    if request.post?
-      if @document_template 
-        attrs = @document_template.attributes.dup
-        attrs.delete("id")
-        attrs.delete("lock_version")
-        attrs.delete_if{|k,v| k.match(/...ate.._../) }
-        while @current_company.document_templates.find(:first, :conditions=>{:code=>attrs["code"]})
-          attrs["code"].succ!
-        end
-        DocumentTemplate.create(attrs)
-      end
+    attrs = @document_template.attributes.dup
+    attrs.delete("id")
+    attrs.delete("lock_version")
+    attrs.delete_if{|k,v| k.match(/^(cre|upd)at((e|o)r_id|ed_(at|on))/) }
+    while @current_company.document_templates.find(:first, :conditions=>{:code=>attrs["code"]})
+      attrs["code"].succ!
     end
-    redirect_to_current    
+    copy = DocumentTemplate.create(attrs)
+    redirect_to :action=>:edit, :id=>copy
   end
 
   def print

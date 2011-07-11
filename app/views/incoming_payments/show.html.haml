@@ -21,6 +21,6 @@
   -l.attribute :journal_entry, :url=>true
 
 -if @incoming_payment.uses.size>0
-  -if Sale.find(:all, :conditions=>["sales.company_id=? AND id IN (SELECT expense_id FROM incoming_payment_uses WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], Sale.name]).size > 0
+  -if Sale.find(:all, :conditions=>["#{Sale.table_name}.company_id=? AND id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", @current_company.id, session[:current_payment_id], Sale.name]).size > 0
     %h2=tc(:sales)
     =list :sales

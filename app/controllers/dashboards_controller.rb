@@ -19,13 +19,6 @@
 
 class DashboardsController < ApplicationController
 
-  # def show
-  #   if params[:id].blank? or !ApplicationController.universes.include?(params[:id].to_s.to_sym)
-  #     return dashboards_url
-  #   end
-  #   @universe = params[:id].to_sym
-  # end
-
   list(:my_future_events, :model=>:events, :conditions=>['#{Event.table_name}.company_id = ? AND started_at >= CURRENT_TIMESTAMP', ['@current_company.id']], :order=>"started_at ASC", :line_class=>"(RECORD.responsible_id=@current_user.id ? 'notice' : '')", :per_page=>10) do |t|
     t.column :started_at
     t.column :full_name, :through=>:entity, :url=>true

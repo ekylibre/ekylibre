@@ -443,7 +443,7 @@ module ApplicationHelper
 
   
   def last_page(menu)
-    session[:last_page][menu.to_s]||dashboard_url(:action=>menu.to_s)
+    session[:last_page][menu.to_s]||url_for(:controller=>:dashboards, :action=>menu)
   end
 
 
@@ -791,13 +791,9 @@ module ApplicationHelper
         name = options[:name]||:q
         code += " ".html_safe+text_field_tag(name, params[name])
       elsif c[:type] == :criterion
-        if c[:block]
-          code += capture(&c[:block])
-        else
-          code += (c[:content].is_a?(String) ? c[:content] : c[:content].to_s)
-        end
+        code += capture(&c[:block])
       end
-      code = content_tag(:td, code.html_safe, :class=>:crit) 
+      code = content_tag(:td, code.html_safe, (c[:html_options]||{}).merge(:class=>:crit))
       if first
         code += content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait)), :rowspan=>k.criteria.size, :class=>:submit)
         first = false
@@ -823,14 +819,9 @@ module ApplicationHelper
       @criteria << {:type=>:text, :name=>name, :options=>options}
     end
 
-    def criterion(content=nil, &block)
-      crit = {:type=>:criterion}
-      if block_given?
-        crit[:block] = block
-      else
-        crit[:content] = content
-      end
-      @criteria << crit
+    def criterion(html_options={}, &block)
+      raise ArgumentError.new("No block given") unless block_given?
+      @criteria << {:type=>:criterion, :block=>block, :html_options=>html_options}
     end
   end
 

@@ -65,11 +65,16 @@ class ActionController::TestCase
     code += "  end\n"
     except = options.delete(:except)||[]
     except = [except] unless except.is_a? Array
-    for ignored in except
-      puts "Ignore: #{controller}##{ignored}"
-    end
+    # for ignored in except
+    #   puts "Ignore: #{controller}##{ignored}"
+    # end
     return unless User.rights[controller]
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| except.include? x}
+    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s} # .delete_if{|x| except.include? x}
+      if except.include? action
+        puts "Ignore: #{controller}##{ignored}"
+        next
+      end
+
       code += "  should 'execute :#{action}' do\n"
       
       unless mode = options[action] and options[action].is_a? Symbol

@@ -27,7 +27,7 @@
                         %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url)
 
           -else
-            =link_to(name, dashboard_url(:action=>menu), :class=>"menu #{menu} current")
+            =link_to(name, {:controller=>:dashboards, :action=>menu}, :class=>"menu #{menu} current")
   .submenu-bar
     %ul
       -for submenu, items in menus[rm[0]]||[]

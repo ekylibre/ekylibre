@@ -1,14 +1,14 @@
 =formalize do |f|
-  - f.error :stock_transfer 
+  -f.error :stock_transfer 
   -if @stock_transfer.new_record?
-    - f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
-  - f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
-  - f.field :stock_transfer, :quantity
-  - f.field :stock_transfer, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
+    -f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
+  -f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
+  -f.field :stock_transfer, :quantity
+  -f.field :stock_transfer, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
   -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"
-    - f.field :stock_transfer, :second_warehouse_id, :choices=>{:reflection=>:warehouses}, :html_options=>{:id=>:transfer}, :new=>true
-  - f.field :stock_transfer, :planned_on
-  - f.field :stock_transfer, :comment, :field=>:textarea
+    -f.field :stock_transfer, :second_warehouse_id, :choices=>{:reflection=>:warehouses}, :html_options=>{:id=>:transfer}, :new=>true
+  -f.field :stock_transfer, :planned_on
+  -f.field :stock_transfer, :comment, :field=>:textarea
 
 -if @stock_transfer.new_record?
   :javascript

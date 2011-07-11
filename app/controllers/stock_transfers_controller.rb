@@ -20,16 +20,6 @@
 class StockTransfersController < ApplicationController
   manage_restfully :nature=>"'transfer'", :planned_on=>"Date.today"
 
-  list(:confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t|
-    t.column :text_nature
-    t.column :name, :through=>:product
-    t.column :quantity, :datatype=>:decimal
-    t.column :name, :through=>:warehouse
-    t.column :name, :through=>:second_warehouse
-    t.column :planned_on, :children=>false
-    t.check_box :executed, :value=>'RECORD.planned_on<=Date.today'
-  end
-
   list(:conditions=>moved_conditions(StockTransfer)) do |t|
     t.column :text_nature
     t.column :name, :through=>:product, :url=>true
@@ -48,25 +38,40 @@ class StockTransfersController < ApplicationController
   def index
   end
 
+  # Confirms a single transfer
   def confirm
     return unless stock_transfer = find_and_check(:stock_transfer)
-    stock_transfer.execute if request.post?
-    redirect_to :action=>:index, :mode=>:unconfirmed
+    stock_transfer.execute
+    redirect_to :action=>:index, :mode=>:confirmed
   end
 
+  list(:confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t|
+    t.column :text_nature
+    t.column :name, :through=>:product
+    t.column :quantity, :datatype=>:decimal
+    t.column :name, :through=>:warehouse
+    t.column :name, :through=>:second_warehouse
+    t.column :planned_on, :children=>false
+    t.check_box :executed, :value=>'RECORD.planned_on<=Date.today'
+  end
+
+  # Confirms many transfers
   def confirm_all
-    @stock_transfers = @current_company.stock_transfers.find(:all, :conditions=>{:moved_on=>nil}, :order=>"planned_on ASC")
-    
+    if @current_company.unconfirmed_stock_transfers.count.zero?
+      notify_error(:no_unconfirmed_stock_transfers)
+      redirect_to_back
+      return
+    end
     if request.post?
       transfers = []
-      for id, values in params[:stock_transfers_confirm]
+      for id, values in params[:confirm]
         return unless transfer = find_and_check(:stock_transfer, id)
         transfers << transfer if values[:executed].to_i == 1
       end
       for transfer in transfers
         transfer.update_attributes(:moved_on=>Date.today)
       end
-      redirect_to confirm_all_stock_transfers_url
+      redirect_to :action=>:index, :mode=>:confirmed
     end
   end
 

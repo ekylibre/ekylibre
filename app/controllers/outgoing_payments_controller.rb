@@ -20,12 +20,19 @@
 class OutgoingPaymentsController < ApplicationController
   manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
 
-  list(:purchases, :conditions=>["#{Purchase.table_name}.company_id=? AND #{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
-    t.column :number, :url=>true
-    t.column :description, :through=>:supplier, :url=>true
-    t.column :created_on
-    t.column :pretax_amount
-    t.column :amount
+  def self.outgoing_payments_conditions(options={})
+    code = search_conditions(:outgoing_payments, :outgoing_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code += "if session[:outgoing_payment_state] == 'undelivered'\n"
+    code += "  c[0] += ' AND delivered=?'\n"
+    code += "  c << false\n"
+    code += "elsif session[:outgoing_payment_state] == 'waiting'\n"
+    code += "  c[0] += ' AND to_bank_on > ?'\n"
+    code += "  c << Date.today\n"
+    code += "elsif session[:outgoing_payment_state] == 'unparted'\n"
+    code += "  c[0] += ' AND used_amount != amount'\n"
+    code += "end\n"
+    code += "c\n"
+    return code
   end
 
   list(:conditions=>outgoing_payments_conditions, :joins=>:payee, :order=>"to_bank_on DESC", :line_class=>"(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')") do |t|
@@ -42,17 +49,25 @@ class OutgoingPaymentsController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
+  # Displays the main page with the list of outgoing payments
+  def index
+    session[:outgoing_payment_state] = params[:mode]||"all"
+    session[:outgoing_payment_key]   = params[:q]||""
+  end
+
+  list(:purchases, :conditions=>["#{Purchase.table_name}.company_id=? AND #{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
+    t.column :number, :url=>true
+    t.column :description, :through=>:supplier, :url=>true
+    t.column :created_on
+    t.column :pretax_amount
+    t.column :amount
+  end
+
   # Displays details of one outgoing payment selected with +params[:id]+
   def show
     return unless @outgoing_payment = find_and_check(:outgoing_payment)
     session[:current_outgoing_payment_id] = @outgoing_payment.id
     t3e :number=>@outgoing_payment.number, :payee=>@outgoing_payment.payee.full_name
-  end
-
-  # Displays the main page with the list of outgoing payments
-  def index
-    session[:outgoing_payment_state] = params[:state]||session[:outgoing_payment_state]||"all"
-    session[:outgoing_payment_key]   = params[:key]||session[:outgoing_payment_key]||""    
   end
 
 end

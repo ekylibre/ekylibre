@@ -1,7 +1,6 @@
 =kujaku do |k|
   -k.mode :all, :confirmed, :unconfirmed
-
 =toolbar do |t|
   -t.link :new
-
+  -t.link :confirm_all unless @current_company.unconfirmed_stock_transfers.size.zero?
 =list

@@ -21,35 +21,22 @@ class SettingsController < ApplicationController
 
   def edit
     @my_company = @current_company
-    if request.post?
-      saved = false
-      ActiveRecord::Base.transaction do
-        if saved = @my_company.update_attributes(params[:my_company])
-          for key, data in params[:preference]
-            @my_company.prefer! key, data[:value]
-          end
-        end
-      end
-      redirect_to_back if saved
-    end
     t3e @my_company.attributes
   end
 
   def update
     @my_company = @current_company
-    if request.post?
-      saved = false
-      ActiveRecord::Base.transaction do
-        if saved = @my_company.update_attributes(params[:my_company])
-          for key, data in params[:preference]
-            @my_company.prefer! key, data[:value]
-          end
+    saved = false
+    ActiveRecord::Base.transaction do
+      if saved = @my_company.update_attributes(params[:my_company])
+        for key, data in params[:preference]
+          @my_company.prefer! key, data[:value]
         end
       end
-      redirect_to_back if saved
     end
+    redirect_to_back if saved
     t3e @my_company.attributes
-    render :edit
+    render :action=>:edit
   end
 
 

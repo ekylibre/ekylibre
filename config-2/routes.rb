@@ -6,9 +6,11 @@ ActionController::Routing::Routes.draw do |map|
   map.with_options(:path_prefix => '/:company') do |company|
     company.resource :myself, :as=>"me", :only=>[], :member=>{:statistics=>:get, :change_password=>[:get, :post]}
     company.resource :settings, :only=>[:edit, :update], :member=>{:about=>:get, :backups=>:get, :backup=>:post, :restore=>:post, :import=>[:get, :post]}
-    company.resources :dashboards, :only=>[], :collection=>{:welcome=>:get}
+    dashboards = {}
+    Ekylibre.menus.keys.collect{|d| dashboards[d.to_sym] = :get}
+    company.resources :dashboards, :only=>[], :collection=>{:welcome=>:get, :list_my_future_events=>:get, :list_recent_events=>:get, :list_critic_stocks=>:get}.merge(dashboards)
     # Permits to use dynamic dashboards
-    company.dashboard '/dashboards/:action', :controller=>"dashboards", :conditions=>{:method=>:get}
+    # company.dashboard '/dashboards/:action', :controller=>"dashboards", :conditions=>{:method=>:get}
     company.toggle_side '/toggle/side', :controller=>"interfacers", :action=>"toggle_side"
     company.toggle_submenu '/toggle/submenu/:id', :controller=>"interfacers", :action=>"toggle_submenu"
     company.toggle_tab '/toggle/tab/:id', :controller=>"interfacers", :action=>"toggle_tab"
@@ -57,7 +59,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
     company.resources :journal_entry_lines, :only=>[:new]
     company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get}, :member=>{:divide=>[:get, :post]}
-    company.resources :land_parcel_groups, :collection=>{:list=>:get}
+    company.resources :land_parcel_groups, :except=>[:show], :collection=>{:list=>:get}
     # company.resources :land_parcel_kinships
     # company.resources :listing_node_items
     company.resources :listing_nodes
@@ -93,15 +95,15 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :sale_natures, :except=>[:show], :collection=>{:list=>:get}
     company.resources :sales, :collection=>{:list=>:get, :list_lines=>:get, :list_undelivered_lines=>:get, :list_subscriptions=>:get, :list_payment_uses=>:get, :list_deliveries=>:get, :list_credits=>:get, :list_creditable_lines=>:get, :statistics=>:get, :contacts=>[:get]}, :member=>{:duplicate=>:post, :cancel=>[:get, :post], :correct=>:post, :propose=>:post, :invoice=>:post, :confirm=>:post, :abort=>:get, :refuse=>:post, :propose_and_invoice=>:post}
     company.resources :sequences, :except=>[:show], :collection=>{:list=>:get, :load=>:post}
-    company.resources :stock_moves
-    company.resources :stock_transfers, :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}
-    company.resources :stocks, :collection=>{:list=>:get}
+    company.resources :stock_moves, :except=>[:index, :show]
+    company.resources :stock_transfers, :except=>[:show], :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}
+    company.resources :stocks, :only=>[:index], :collection=>{:list=>:get}
     company.resources :subscription_natures, :except=>[:show], :collection=>{:list=>:get}, :member=>{:increment=>:post, :decrement=>:post}
     company.resources :subscriptions, :except=>[:show], :collection=>{:list=>:get, :coordinates=>:get, :message=>:get}
     # company.resources :tax_declarations
     company.resources :taxes, :except=>[:show], :collection=>{:list=>:get}
     company.resources :tools, :collection=>{:list=>:get, :list_operations=>:get}
-    company.resources :trackings, :collection=>{:list_stocks=>:get, :list_sale_lines=>:get, :list_purchase_lines=>:get, :list_operation_lines=>:get}
+    company.resources :trackings, :only=>[:show], :collection=>{:list_stocks=>:get, :list_sale_lines=>:get, :list_purchase_lines=>:get, :list_operation_lines=>:get}
     # company.resources :tracking_states
     # company.resources :transfers
     company.resources :transports, :collection=>{:list=>:get, :list_deliveries=>:get, :deliveries=>[:get, :post], :delivery_delete=>[:get, :post]}

@@ -179,6 +179,20 @@ class Account < CompanyRecord
     return lines.sum("debit-credit").to_f.zero? 
   end
 
+  # Compute debit, credit, balance, balance_debit and balance_credit of the account
+  # with all the entry lines
+  def totals
+    hash = {}
+    hash[:debit]  = self.journal_entry_lines.sum(:debit)
+    hash[:credit] = self.journal_entry_lines.sum(:credit)
+    hash[:balance_debit] = 0.0
+    hash[:balance_credit] = 0.0
+    hash[:balance] = (hash[:debit]-hash[:credit]).abs 
+    hash["balance_#{hash[:debit]>hash[:credit] ? 'debit' : 'credit'}".to_sym] = hash[:balance]
+    return hash
+  end
+
+
   def journal_entry_lines_between(started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, #{JournalEntryLine.table_name}.id")
   end
