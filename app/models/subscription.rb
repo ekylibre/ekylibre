@@ -45,6 +45,14 @@
 
 
 class Subscription < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :suspended, :in => [true, false]
+  validates_presence_of :contact, :entity, :nature, :product, :sale, :sale_line
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company

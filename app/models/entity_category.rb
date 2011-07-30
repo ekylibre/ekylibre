@@ -35,6 +35,13 @@
 
 
 class EntityCategory < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :by_default, :in => [true, false]
+  validates_presence_of :name
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   has_many :active_prices, :class_name=>"Price", :foreign_key=>:category_id, :conditions=>{:active=>true}

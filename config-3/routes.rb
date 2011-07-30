@@ -39,18 +39,19 @@ Ekylibre::Application.routes.draw do
 
     resources :help, :only=>[:index, :show]
 
-    resources :account_balances
+    # resources :account_balances
     resources :accounts do
       collection do
         get :list
         get :list_journal_entry_lines
         get :list_reconciliation
         get :list_entities
+        get :reconciliation
         match "load", :via=>[:get, :post]
-        match "mark", :via=>[:get, :post]
       end
       member do
-        match "unmark", :via=>[:get, :post]
+        match "mark", :via=>[:get, :post]
+        match "unmark", :via=>[:post]
       end
     end
     resources :areas do
@@ -80,8 +81,8 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :contacts
-    resources :cultivations
-    resources :currencies
+    # resources :cultivations
+    # resources :currencies
     resources :custom_fields do
       collection do
         get :list
@@ -97,7 +98,7 @@ Ekylibre::Application.routes.draw do
         match "down", :via=>:post
       end
     end
-    resources :custom_field_data
+    # resources :custom_field_data
     resources :delays do
       collection do
         get :list
@@ -117,7 +118,7 @@ Ekylibre::Application.routes.draw do
         match "unvalidateds", :via=>:get
       end
     end
-    resources :deposit_lines
+    # resources :deposit_lines
     resources :districts do
       collection do
         get :list
@@ -205,8 +206,8 @@ Ekylibre::Application.routes.draw do
       member do
         match "confirm", :via=>[:get, :post]
       end
-      resources :lines, :controller=>"incoming_delivery_lines"
     end
+    # resources :incoming_delivery_lines
     resources :incoming_delivery_modes do
       collection do
         get :list
@@ -238,14 +239,15 @@ Ekylibre::Application.routes.draw do
       member do
         match "reflect", :via=>[:get, :post]
       end
-      resources :lines, :controller=>"inventory_lines"
     end
+    # resources :inventory_lines
     resources :journals do
       collection do
         match "draft", :via=>[:get, :post]
         match "bookkeep", :via=>[:get, :post]
-        match "balance", :via=>:get
-        match "general_ledger", :via=>:get
+        get :reports
+        get :balance
+        get :general_ledger
         get :list
         get :list_draft_lines
         get :list_mixed
@@ -278,8 +280,8 @@ Ekylibre::Application.routes.draw do
         get :list
       end
     end
-    resources :land_parcel_kinships
-    resources :listing_node_items
+    # resources :land_parcel_kinships
+    # resources :listing_node_items
     resources :listing_nodes
     resources :listings do
       collection do
@@ -317,8 +319,8 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
       end
-      resources :lines, :controller=>"outgoing_delivery_lines"
     end
+    # resources :outgoing_delivery_lines
     resources :outgoing_delivery_modes do
       collection do
         get :list
@@ -340,7 +342,7 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :outgoing_payment_uses
-    resources :preferences
+    # resources :preferences
     resources :prices do
       collection do
         get :list
@@ -369,10 +371,10 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
       end
-      resources :conveyors, :controller=>"production_chain_conveyors"
-      resources :work_centers, :controller=>"production_chain_work_centers"
-      resources :work_center_uses, :controller=>"production_chain_work_centers_uses"
     end
+    resources :production_chain_conveyors
+    resources :production_chain_work_centers
+    # resources :production_chain_work_centers_uses
     resources :professions do
       collection do
         get :list
@@ -443,7 +445,7 @@ Ekylibre::Application.routes.draw do
         post :load
       end
     end
-    resources :stock_moves
+    # resources :stock_moves
     resources :stock_transfers do
       collection do
         get :list
@@ -475,7 +477,7 @@ Ekylibre::Application.routes.draw do
         get :message
       end
     end
-    resources :tax_declarations
+    # resources :tax_declarations
     resources :taxes do
       collection do
         get :list
@@ -495,7 +497,7 @@ Ekylibre::Application.routes.draw do
         get :list_operation_lines
       end
     end
-    resources :tracking_states
+    # resources :tracking_states
     resources :transports do
       collection do
         get :list
@@ -504,7 +506,7 @@ Ekylibre::Application.routes.draw do
         match "delivery_delete", :via=>[:get, :post]
       end
     end
-    resources :transfers
+    # resources :transfers
     resources :units do
       collection do
         get :list

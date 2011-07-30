@@ -20,6 +20,13 @@ module AnnotateModels
     end
   end
 
+
+  def self.validable_column?(column)
+    return ![:created_at, :creator_id, :creator, :updated_at, :updater_id, :updater, :position, :lock_version].include?(column.name.to_sym)
+  end
+
+
+
   # Use the column information in an ActiveRecord class
   # to create a comment block containing a line for
   # each column. The line contains the column name,
@@ -112,6 +119,7 @@ module AnnotateModels
 
       # Write it back
       # File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
+
       File.open(file_name, "w") { |f| f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block) }
     end
   end
@@ -183,7 +191,7 @@ module AnnotateModels
         end
       rescue Exception => e
         # print "F"
-        errors << "Unable to annotate #{class_name}: #{e.message}"
+        errors << "Unable to annotate #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
       end
     end
     print "#{errors.size.to_s.rjust(3)} errors\n"
@@ -196,6 +204,6 @@ module AnnotateModels
 end
 
 desc "Add schema information (as comments) to model files"
-task :annotations do
+task :annotations=>:environment do
    AnnotateModels.do_annotations
 end

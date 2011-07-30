@@ -34,7 +34,7 @@ class SettingsController < ApplicationController
         end
       end
     end
-    redirect_to_back if saved
+    redirect_to_back and return if saved
     t3e @my_company.attributes
     render :action=>:edit
   end

@@ -73,6 +73,16 @@ module List
       code
     end
     
+    def select_code(table)
+      return nil unless table.options[:distinct] or table.options[:select]
+      code  = ""
+      code += "DISTINCT " if table.options[:distinct]
+      code += "#{table.model.table_name}.*"
+      if table.options[:select]
+        code += table.options[:select].collect{|k, v| ", #{k[0].to_s+'.'+k[1].to_s} AS #{v}" }.join
+      end
+      return "'"+code+"'"
+    end
 
 
     def sanitize_condition(value)

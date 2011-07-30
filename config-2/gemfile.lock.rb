@@ -3,6 +3,11 @@ PATH
   specs:
     exception_notification (2.3.3.0)
 
+PATH
+  remote: vendor/ogems/yasui_form
+  specs:
+    yasui_form (0.0.1)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -31,6 +36,7 @@ GEM
       activesupport (= 2.3.10)
       rake (>= 0.8.3)
     rake (0.8.7)
+    ruby-prof (0.10.8)
     rubyzip (0.9.4)
     shoulda (2.11.3)
     sqlite3 (1.3.3)
@@ -50,9 +56,11 @@ DEPENDENCIES
   pg (= 0.11.0)
   rails (= 2.3.10)
   rake (= 0.8.7)
+  ruby-prof
   rubyzip
   shoulda
   sqlite3
   state_machine (= 0.9.4)
   thin (>= 1.2.6)
   will_paginate (~> 2.3)
+  yasui_form!

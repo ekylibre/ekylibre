@@ -34,6 +34,10 @@
 
 
 class ListingNodeItem < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  #]VALIDATORS]
   belongs_to :company
   belongs_to :node, :class_name=>ListingNode.name
   attr_readonly :company_id, :node_id

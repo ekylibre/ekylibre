@@ -39,6 +39,10 @@
 
 
 class Listing < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   has_many :columns, :class_name=>ListingNode.name, :conditions=>["nature = ?", "column"]

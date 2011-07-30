@@ -39,6 +39,11 @@
 
 
 class LandParcel < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :area_measure, :allow_nil => true
+  validates_length_of :name, :number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :area_unit, :class_name=>Unit.name
   belongs_to :company

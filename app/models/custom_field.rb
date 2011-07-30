@@ -39,6 +39,15 @@
 
 
 class CustomField < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :length_max, :allow_nil => true, :only_integer => true
+  validates_numericality_of :decimal_max, :decimal_min, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :required, :in => [true, false]
+  validates_presence_of :name, :nature
+  #]VALIDATORS]
   NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
   acts_as_list :scope=>:company
   attr_readonly :company_id, :nature

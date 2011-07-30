@@ -474,8 +474,8 @@ menus:
         - sales::propose_and_invoice
         - sales::refuse
         - sales::show
+        - sales::statistics
         - sales::update
-      - - sales::statistics
     - purchases:
       - - purchases::index
         - purchase_lines::create
@@ -500,19 +500,43 @@ menus:
         - purchases::refuse
         - purchases::show
         - purchases::update
+    - outgoing_deliveries:
+      - - outgoing_deliveries::index
+        - outgoing_deliveries::create
+        - outgoing_deliveries::destroy
+        - outgoing_deliveries::edit
+        - outgoing_deliveries::list
+        - outgoing_deliveries::list_lines
+        - outgoing_deliveries::new
+        - outgoing_deliveries::show
+        - outgoing_deliveries::update
+      - - transports::index
+        - transports::create
+        - transports::destroy
+        - transports::edit
+        - transports::list
+        - transports::list_deliveries
+        - transports::list_transportable_deliveries
+        - transports::new
+        - transports::show
+        - transports::update
+    - incoming_deliveries:
+      - - incoming_deliveries::index
+        - incoming_deliveries::confirm
+        - incoming_deliveries::create
+        - incoming_deliveries::destroy
+        - incoming_deliveries::edit
+        - incoming_deliveries::list
+        - incoming_deliveries::new
+        - incoming_deliveries::update
     - stocks:
       - - stocks::index
+        - stocks::create
+        - stocks::destroy
+        - stocks::edit
         - stocks::list
-      - - warehouses::index
-        - warehouses::create
-        - warehouses::destroy
-        - warehouses::edit
-        - warehouses::list
-        - warehouses::list_stock_moves
-        - warehouses::list_stocks
-        - warehouses::new
-        - warehouses::show
-        - warehouses::update
+        - stocks::new
+        - stocks::update
       - - stock_transfers::index
         - stock_transfers::confirm
         - stock_transfers::confirm_all
@@ -528,38 +552,13 @@ menus:
         - inventories::destroy
         - inventories::edit
         - inventories::list
+        - inventories::list_lines
         - inventories::list_lines_create
         - inventories::list_lines_update
         - inventories::new
         - inventories::reflect
         - inventories::show
         - inventories::update
-      - - incoming_deliveries::index
-        - incoming_deliveries::confirm
-        - incoming_deliveries::create
-        - incoming_deliveries::destroy
-        - incoming_deliveries::edit
-        - incoming_deliveries::list
-        - incoming_deliveries::new
-        - incoming_deliveries::update
-      - - outgoing_deliveries::index
-        - outgoing_deliveries::create
-        - outgoing_deliveries::destroy
-        - outgoing_deliveries::edit
-        - outgoing_deliveries::list
-        - outgoing_deliveries::new
-        - outgoing_deliveries::update
-      - - transports::index
-        - transports::create
-        - transports::deliveries
-        - transports::delivery_delete
-        - transports::destroy
-        - transports::edit
-        - transports::list
-        - transports::list_deliveries
-        - transports::new
-        - transports::show
-        - transports::update
     - products:
       - - products::index
         - product_components::create
@@ -599,6 +598,16 @@ menus:
         - prices::new
         - prices::update
     - parameters:
+      - - warehouses::index
+        - warehouses::create
+        - warehouses::destroy
+        - warehouses::edit
+        - warehouses::list
+        - warehouses::list_stock_moves
+        - warehouses::list_stocks
+        - warehouses::new
+        - warehouses::show
+        - warehouses::update
       - - incoming_delivery_modes::index
         - incoming_delivery_modes::create
         - incoming_delivery_modes::destroy
@@ -637,6 +646,7 @@ menus:
         - land_parcels::edit
         - land_parcels::list
         - land_parcels::list_operations
+        - land_parcels::merge
         - land_parcels::new
         - land_parcels::show
         - land_parcels::update

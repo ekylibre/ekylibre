@@ -21,7 +21,7 @@ class CompaniesController < ApplicationController
 
   def register
     if request.post?
-      language = params[:locale]||I18n.default_locale
+      language = (params[:locale].blank? ? I18n.locale||I18n.default_locale : params[:locale])
       @my_company = Company.new(params[:my_company].merge(:language=>language.to_s))
       @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>language.to_s))
 

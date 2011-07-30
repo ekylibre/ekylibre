@@ -34,7 +34,7 @@ class HelpController < ApplicationController
     if request.xhr?
       render :inline=>"<%=article(params[:article], :url=>{:controller=>:help, :action=>:index, :id=>'\1'}, :update=>:helpage)-%>"
     else
-      @key = params[:key]||session[:help_key]
+      @key = params[:q]||session[:help_key]
       session[:help_key] = @key
       @key_words = @key.to_s.lower.split(" ").select{|x| x.strip.length>2}
       reg = /(#{@key_words.join("|")})/i

@@ -43,6 +43,16 @@
 
 
 class DocumentTemplate < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :country, :allow_nil => true, :maximum => 2
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :code, :family, :allow_nil => true, :maximum => 32
+  validates_length_of :nature, :allow_nil => true, :maximum => 64
+  validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :by_default, :in => [true, false]
+  validates_presence_of :language, :name
+  #]VALIDATORS]
   attr_readonly :company_id
   after_save :set_by_default
   cattr_reader :families, :document_natures
@@ -96,8 +106,11 @@ class DocumentTemplate < CompanyRecord
     end
   end
 
-  def set_by_default(by_default=nil)
-    DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature]) if by_default||self.by_default and self.nature != 'other'
+  def set_by_default# (by_default=nil)
+    if self.nature != 'other' and DocumentTemplate.count(:conditions=>{:by_default=>true, :company_id=>self.company_id, :nature=>self.nature}) != 1
+      DocumentTemplate.update_all({:by_default=>true}, {:id=>self.id})
+      DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature])
+    end
   end
 
   protect_on_destroy do

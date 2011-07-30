@@ -37,6 +37,12 @@
 
 
 class OutgoingPaymentUse < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :allow_nil => true
+  validates_inclusion_of :downpayment, :in => [true, false]
+  validates_presence_of :amount, :journal_entry
+  #]VALIDATORS]
   acts_as_reconcilable :supplier, :payee
   attr_readonly :company_id
   belongs_to :company
@@ -82,7 +88,7 @@ class OutgoingPaymentUse < CompanyRecord
   end
 
   bookkeep do |b|
-    label = tc(:bookkeep, :resource=>self.class.human_name, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payee.full_name, :supplier=>self.expense.supplier.full_name, :mode=>self.payment.mode.name)
+    label = tc(:bookkeep, :resource=>self.class.model_name.human, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payee.full_name, :supplier=>self.expense.supplier.full_name, :mode=>self.payment.mode.name)
     supplier, attorney = self.expense.supplier.account(:supplier), self.payment.payee.account(:supplier)
     b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(supplier.id == attorney.id)) do |entry|
       entry.add_debit(label,  supplier.id, self.amount)

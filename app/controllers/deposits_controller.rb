@@ -37,7 +37,7 @@ class DepositsController < ApplicationController
   end
 
 
-  list(:payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :per_page=>1000, :order=>:number) do |t|
+  list(:payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :pagination=>:none, :order=>:number) do |t|
     t.column :number, :url=>true
     t.column :full_name, :through=>:payer, :url=>true
     t.column :bank

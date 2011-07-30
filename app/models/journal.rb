@@ -36,6 +36,12 @@
 
 
 class Journal < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 4
+  validates_length_of :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :currency

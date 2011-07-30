@@ -35,6 +35,10 @@
 
 
 class Department < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   has_many :users
   validates_uniqueness_of :name, :scope=>:company_id

@@ -30,7 +30,33 @@ class InventoriesController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'!RECORD.changes_reflected? '
   end
 
-  list(:lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
+  # Displays the main page with the list of inventories
+  def index
+    if @current_company.stockable_products.size <= 0
+      notify_now(:need_stocks_to_create_inventories)
+    end    
+  end
+
+  list(:lines, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['params[:id]'] }, :order=>'warehouse_id') do |t|
+    t.column :name, :through=>:warehouse, :url=>true
+    t.column :name, :through=>:product, :url=>true
+    t.column :name, :through=>:tracking, :url=>true
+    t.column :theoric_quantity, :precision=>3
+    t.column :quantity, :precision=>3
+    t.column :name, :through=>:unit
+  end
+
+  # Displays details of one inventory selected with +params[:id]+
+  def show
+    return unless @inventory = find_and_check(:inventory)
+    session[:current_inventory_id] = @inventory.id
+    respond_to do |format|
+      format.html
+      format.pdf { render_print_inventory(@inventory) }
+    end
+  end
+
+  list(:lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :pagination=>:none, :order=>'warehouse_id') do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
     t.column :name, :through=>:tracking, :url=>true
@@ -39,27 +65,12 @@ class InventoriesController < ApplicationController
     t.text_field :quantity
   end
 
-  list(:lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory]'] }, :per_page=>1000, :order=>'warehouse_id') do |t|
+  list(:lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory_id]'] }, :pagination=>:none, :order=>'warehouse_id') do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
     t.column :name, :through=>:tracking, :url=>true
     t.column :theoric_quantity, :precision=>3
     t.text_field :quantity
-  end
-
-  # Displays the main page with the list of inventories
-  def index
-    if @current_company.stockable_products.size <= 0
-      notify_now(:need_stocks_to_create_inventories)
-    end    
-  end
-
-
-  def show
-    return unless @inventory = find_and_check(:inventory)
-    respond_to do |format|
-      format.pdf { render_print_inventory(@inventory) }
-    end
   end
 
 
@@ -125,13 +136,13 @@ class InventoriesController < ApplicationController
 
   def edit
     return unless @inventory = find_and_check(:inventory)
-    session[:current_inventory] = @inventory.id
+    session[:current_inventory_id] = @inventory.id
     t3e @inventory.attributes
   end
 
   def update
     return unless @inventory = find_and_check(:inventory)
-    session[:current_inventory] = @inventory.id
+    session[:current_inventory_id] = @inventory.id
     if request.post? and !@inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:inventory_lines_create].values)

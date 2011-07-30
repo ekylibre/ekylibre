@@ -51,7 +51,7 @@ class OutgoingPaymentsController < ApplicationController
 
   # Displays the main page with the list of outgoing payments
   def index
-    session[:outgoing_payment_state] = params[:mode]||"all"
+    session[:outgoing_payment_state] = params[:s]||"all"
     session[:outgoing_payment_key]   = params[:q]||""
   end
 

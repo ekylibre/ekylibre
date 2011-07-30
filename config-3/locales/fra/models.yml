@@ -18,7 +18,7 @@ fra:
         duration: 'Durée (en minutes)'
         location: 'Lieu'
         responsible: 'Intervenant'
-        responsible_id: 'Intervenant'
+        responsible_id: 'Intervenant' #!
       event_nature:
         duration: 'Durée par défaut (en min.)'
       financial_year:
@@ -30,7 +30,7 @@ fra:
       incoming_payment_use:
         amount: 'Montant attribué à la vente'
         payment: 'Encaissement'
-        payment_id: 'Encaissement'
+        payment_id: 'Encaissement' #!
         payment_way: 'Mode d''encaissement'
       inventory_line:
         quantity: 'Quantité constatée'
@@ -55,9 +55,9 @@ fra:
         amount: 'Montant'
       price:
         category: 'Catégorie de fiche associée'
-        category_id: 'Catégorie de fiche associée'
+        category_id: 'Catégorie de fiche associée' #!
         entity: 'Fournisseur'
-        entity_id: 'Fournisseur'
+        entity_id: 'Fournisseur' #!
       product:
         duration: 'Nombre de numéros OU période d''abonnement'
         price: 'Prix de revient'
@@ -74,10 +74,10 @@ fra:
         planned_on: 'Réception prévue le'
       purchase_line:
         order: 'Achat'
-        order_id: 'Achat'
+        order_id: 'Achat' #!
       sale:
         contact: 'Adresse pour le devis'
-        contact_id: 'Adresse pour le devis'
+        contact_id: 'Adresse pour le devis' #!
         has_downpayment: 'Acompte à verser'
         lines: 'Lignes de vente'
         parts_amount: 'Montant payé' #!
@@ -85,7 +85,7 @@ fra:
       sale_line:
         label: 'Produit'
         price: 'Produit tarifé'
-        price_id: 'Produit tarifé'
+        price_id: 'Produit tarifé' #!
       sale_nature:
         downpayment: 'Avec acompte'
       sales_invoice:  #!
@@ -100,12 +100,13 @@ fra:
       stock_move:
         origin: 'Origine'
       stock_transfer:
-        second_warehouse_id: 'Lieu de stockage d''arrivée'
+        # second_warehouse: 'Arrival warehouse'
+        second_warehouse_id: 'Lieu de stockage d''arrivée' #!
         warehouse: 'Lieu de stockage de départ'
-        warehouse_id: 'Lieu de stockage de départ'
+        warehouse_id: 'Lieu de stockage de départ' #!
       subscription:
         entity: 'Abonné'
-        entity_id: 'Abonné'
+        entity_id: 'Abonné' #!
       tax:
         amount: 'Valeur'
       tax_declaration:
@@ -129,7 +130,7 @@ fra:
       warehouse:
         children: 'Sous lieu de stockage'
         product: 'Produit contenu'
-        product_id: 'Produit contenu'
+        product_id: 'Produit contenu' #!
     errors:
       messages:
         accepted: '%{attribute} doit être accepté'
@@ -332,10 +333,10 @@ fra:
     address: 'Adresse'
     admin: 'Administrateur système'
     agency_code: 'Code guichet'
-    amount: 'Montant TTC'
+    amount: 'Montant'
     annotation: 'Annotation'
     area: 'Zone postale'
-    area_id: 'Zone postale'
+    area_id: 'Zone postale' #!
     area_measure: 'Superficie'
     area_unit: 'Unité de surface'
     area_unit_id: 'Unité de surface'
@@ -345,7 +346,7 @@ fra:
     atmospheric_pressure: 'Pression atmosphérique'
     attorney: 'Mandataire'
     attorney_account: 'Compte mandataire associé'
-    attorney_account_id: 'Compte mandataire associé'
+    attorney_account_id: 'Compte mandataire associé' #!
     attorney_accounts: 'Comptes mandataires'
     attribute_name: 'Nom de l''attribut'
     authorized_payments_count: 'Nombre d''encaissements autorisés'
@@ -359,7 +360,7 @@ fra:
     bank_journals: 'Journaux de banque'
     bank_name: 'Nom de la banque'
     bank_statement: 'Relevés de compte bancaire'
-    bank_statement_id: 'Relevé de compte bancaire'
+    bank_statement_id: 'Relevé de compte bancaire' #!
     bank_statements: 'Relevés de compte bancaire'
     banks_accounts: 'Comptes comptables de banque'
     base: 'Base'
@@ -368,7 +369,7 @@ fra:
     boolean_value: 'Valeur booléenne'
     born_on: 'Date de naissance'
     building: 'Bâtiment'
-    building_id: 'Bâtiment'
+    building_id: 'Bâtiment' #!
     by_default: 'Par défaut'
     cache: 'Cache'
     cash: 'Trésorerie'
@@ -384,17 +385,17 @@ fra:
     charges_accounts: 'Comptes de charge'
     check_number: 'N°Chèque'
     check_state: 'Vérifier l''état'
-    child_land_parcel_id: 'Sous-îlot'
+    child_land_parcel_id: 'Sous-îlot' #!
     children: 'Sous-nœuds'
     choice_value: 'Valeur choix'
-    choice_value_id: 'Valeur choix'
+    choice_value_id: 'Valeur choix' #!
     choices: 'Choix de champ complémentaire'
     choices_count: 'Nb. Choix'
     city: 'Ville'
     city_name: 'Nom'
     client: 'Client'
     client_account: 'Compte client associé'
-    client_account_id: 'Compte client associé'
+    client_account_id: 'Compte client associé' #!
     client_accounts: 'Comptes clients'
     client_id: 'Client'
     clients: 'Clients'
@@ -404,7 +405,7 @@ fra:
     code2: 'Code secondaire'
     coefficient: 'Coefficient'
     collected_account: 'TVA collectée'
-    collected_account_id: 'TVA collectée'
+    collected_account_id: 'TVA collectée' #!
     collected_amount: 'TVA brute'
     color: 'Couleur'
     comment: 'Commentaire'
@@ -417,7 +418,7 @@ fra:
     company: 'Société'
     company_id: 'Société'
     component: 'Produit contenu'
-    component_id: 'Produit contenu'
+    component_id: 'Produit contenu' #!
     components: 'Composants de produit'
     compute: 'Dernière valeur'
     conclusion: 'Conclusion'
@@ -478,21 +479,21 @@ fra:
     delivery_contact_id: 'Adresse pour la livraison'
     delivery_id: 'Livraison'
     delivery_lines: 'Lignes de livraison'
-    delivery_modes: 'Modes de livraison'
+    delivery_modes: 'Modes de livraison' #!
     density_label: 'Densité'
     departed_on: 'Parti le'
     department: 'Service'
-    department_id: 'Service'
+    department_id: 'Service' #!
     departments: 'Services'
     deposit: 'Remise en banque'
     deposit_id: 'Remise en banque'
     depositable_payments: 'Encaissements encaissables'
     depositables_account: 'Compte d''attente pour les encaissements à encaisser'
-    depositables_account_id: 'Compte d''attente pour les encaissements à encaisser'
+    depositables_account_id: 'Compte d''attente pour les encaissements à encaisser' #!
     deposits: 'Remises en banque'
     description: 'Description'
-    dest_contact: 'Adresse de livraison'
-    dest_contact_id: 'Adresse de livraison'
+    dest_contact: 'Adresse de livraison' #!
+    dest_contact_id: 'Adresse de livraison' #!
     diff_less: 'Droits enlevés'
     diff_more: 'Droits rajoutés'
     direct_links: 'Liens directs'
@@ -501,7 +502,7 @@ fra:
     discount: 'Réduction (en %)'
     discount_rate: 'Taux d''escompte'
     district: 'Zone administrative'
-    district_id: 'Zone administrative'
+    district_id: 'Zone administrative' #!
     districts: 'Zones administratives'
     document_templates: 'Modèles de document'
     documents: 'Documents'
@@ -515,30 +516,30 @@ fra:
     ean13: 'Code EAN13'
     email: 'Courriel (e-mail)'
     emitter_amount: 'Montant émis'
-    emitter_cash_id: 'Trésorerie émettrice'
-    emitter_currency_id: 'Devise émise'
+    emitter_cash_id: 'Trésorerie émettrice' #!
+    emitter_currency_id: 'Devise émise' #!
     emitter_currency_rate: 'Taux de la devise émise'
-    emitter_journal_entry_id: 'Écriture de l''émission'
+    emitter_journal_entry_id: 'Écriture de l''émission' #!
     employed: 'Employé par la société'
     employees: 'employés'
     employment: 'Emploi/Rôle'
     entities: 'Personnes'
     entity: 'Personne'
     entity_1: 'Personne 1'
-    entity_1_id: 'Personne 1'
+    entity_1_id: 'Personne 1' #!
     entity_2: 'Personne 2'
-    entity_2_id: 'Personne 2'
+    entity_2_id: 'Personne 2' #!
     entity_categories: 'Catégories de personne'
     entity_id: 'Personne'
     entity_link_nature: 'Type de lien permettant d''étendre l''abonnement'
-    entity_link_nature_id: 'Type de lien permettant d''étendre l''abonnement'
+    entity_link_nature_id: 'Type de lien permettant d''étendre l''abonnement' #!
     entity_link_natures: 'Natures de lien entre personnes'
     entity_links: 'Liens de personne'
     entity_name: 'Nom de l''abonné'
     entity_natures: 'Types de personne'
     entries: 'Écritures'
     entry: 'Écriture'
-    entry_id: 'Écriture'
+    entry_id: 'Écriture' #!
     establishment: 'Établissement'
     establishment_id: 'Établissement'
     establishments: 'Établissements'
@@ -581,14 +582,14 @@ fra:
     global_count: 'Population globale'
     global_credit: 'Crédit global'
     global_debit: 'Débit global'
-    group_id: 'Groupe'
+    group_id: 'Groupe' #!
     has_downpayment: 'A un acompte'
     hashed_password: 'Mot de passe crypté'
     hour_duration: 'Heure(s)'
     iban: 'IBAN'
     iban_label: 'IBAN'
     id: 'ID'
-    immobilizations_account_id: 'Compte d''immobilisation'
+    immobilizations_account_id: 'Compte d''immobilisation' #!
     importance: 'Importance'
     in_cash: 'En espèce'
     in_name: 'Abréviation incluse dans le nom de la personne'
@@ -602,18 +603,18 @@ fra:
     introduction: 'Introduction'
     inventories: 'Inventaires'
     inventory: 'Inventaire'
-    inventory_id: 'Inventaire'
+    inventory_id: 'Inventaire' #!
     inventory_lines: 'Lignes d''inventaire'
     invoice_contact: 'Adresse pour la facture'
-    invoice_contact_id: 'Adresse pour la facture'
+    invoice_contact_id: 'Adresse pour la facture' #!
     invoiced: 'Facturée' #!
     invoiced_on: 'Facturée le'
     invoices_count: 'Nombre de factures'
     is_debit: 'Débit'
     item_listing: 'Nœud de l''extraction'
-    item_listing_id: 'Nœud de l''extraction'
+    item_listing_id: 'Nœud de l''extraction' #!
     item_listing_node: 'Nœud de l''élément'
-    item_listing_node_id: 'Nœud de l''élément'
+    item_listing_node_id: 'Nœud de l''élément' #!
     item_nature: 'Nature de l''élément'
     item_value: 'Valeur de l''élément'
     items: 'Éléments de nœud d''extraction'
@@ -648,7 +649,7 @@ fra:
     line_6_code: 'Code postal'
     lines: 'Lignes'
     listing: 'Extraction'
-    listing_id: 'Extraction'
+    listing_id: 'Extraction' #!
     listing_node_items: 'Éléments de nœud d''extraction'
     listing_nodes: 'Nœuds d''extraction'
     listings: 'Extractions'
@@ -680,7 +681,7 @@ fra:
     net_weight: 'Masse nette'
     nic: 'NIC (Numéro Interne de Classement)'
     node: 'Nœud'
-    node_id: 'Nœud'
+    node_id: 'Nœud' #!
     nodes: 'Nœuds d''extraction'
     number: 'Numéro'
     number_increment: 'Incrément'
@@ -691,14 +692,14 @@ fra:
     operation: 'Travail'
     operation_id: 'Travail'
     operation_lines: 'Intrants/sortants'
-    operation_nature_id: 'Type d''operation'
+    operation_nature_id: 'Type d''operation' #!
     operation_natures: 'Types de travail'
     operation_uses: 'Utilisations d''outil'
     operations: 'Travaux'
-    order: 'Vente'
-    order_id: 'Vente'
-    order_line: 'Ligne de vente'
-    order_line_id: 'Ligne de vente'
+    order: 'Vente' #!
+    order_id: 'Vente' #!
+    order_line: 'Ligne de vente' #!
+    order_line_id: 'Ligne de vente' #!
     organization: 'Organisation'
     origin: 'Ligne d''origine'
     origin_id: 'Origine'
@@ -708,24 +709,24 @@ fra:
     outgoing_payment_uses: 'Parties de décaissements'
     outgoing_payments: 'Décaissements'
     owner: 'Propriétaire'
-    owner_id: 'Propriétaire'
+    owner_id: 'Propriétaire' #!
     owner_type: 'Nature du propriétaire'
     paid: 'Réglée'
     paid_account: 'TVA déductible'
-    paid_account_id: 'TVA déductible'
+    paid_account_id: 'TVA déductible' #!
     paid_amount: 'Montant payé'
     paid_on: 'Réglé le'
     parent: 'Parent'
     parent_id: 'Parent'
-    parent_land_parcel_id: 'Sur-îlot'
+    parent_land_parcel_id: 'Sur-îlot' #!
     parts: 'Affectations' #!
     parts_amount: 'Montant utilisé' #!
     password: 'Mot de passe'
     password_confirmation: 'Confirmation du mot de passe'
     payee: 'Bénéficiaire'
-    payee_id: 'Bénéficiaire'
+    payee_id: 'Bénéficiaire' #!
     payer: 'Payeur'
-    payer_id: 'Payeur'
+    payer_id: 'Payeur' #!
     payment: 'Décaissement'
     payment_delay: 'Délai d''encaissement'
     payment_delay_id: 'Délai d''encaissement'
@@ -758,32 +759,32 @@ fra:
     printed_at: 'Imprimé le'
     printed_on: 'Datée du'
     producer: 'Producteur'
-    producer_id: 'Producteur'
+    producer_id: 'Producteur' #!
     product: 'Produit'
     product_categories: 'Catégories de produit'
     product_components: 'Composants de produit'
     product_id: 'Produit'
     productable_products: 'Produits produisibles'
-    production_chain_conveyor_id: 'Convoyeur de chaîne de production'
+    production_chain_conveyor_id: 'Convoyeur de chaîne de production' #!
     production_chain_id: 'Chaîne de production'
-    production_chain_work_center_id: 'Centre d''opérations de chaîne de production'
+    production_chain_work_center_id: 'Centre d''opérations de chaîne de production' #!
     products: 'Produits'
     products_accounts: 'Comptes produits'
     profession: 'Profession'
-    profession_id: 'Profession'
+    profession_id: 'Profession' #!
     professions: 'Professions'
     propagate_contacts: 'Propager les contacts'
     proposer: 'Parrain'
-    proposer_id: 'Parrain'
+    proposer_id: 'Parrain' #!
     prospect: 'Prospect'
     published: 'Publié'
     purchase_id: 'Achat'
     purchase_line: 'Ligne d''achat'
-    purchase_line_id: 'Ligne d''achat'
+    purchase_line_id: 'Ligne d''achat' #!
     purchase_lines: 'Lignes d''achat'
     purchases: 'Achats'
     purchases_account: 'Compte comptable de charges'
-    purchases_account_id: 'Compte comptable de charges'
+    purchases_account_id: 'Compte comptable de charges' #!
     quantity: 'Quantité'
     quantity_max: 'Quantité maximum'
     quantity_min: 'Quantité minimum'
@@ -794,18 +795,18 @@ fra:
     receipt: 'Reçu électronique'
     received: 'Reçue'
     receiver_amount: 'Montant reçu'
-    receiver_cash_id: 'Tésorerie réceptrice'
-    receiver_currency_id: 'Devise reçue'
+    receiver_cash_id: 'Tésorerie réceptrice' #!
+    receiver_currency_id: 'Devise reçue' #!
     receiver_currency_rate: 'Taux de la devise reçue'
-    receiver_journal_entry_id: 'Écriture de la réception'
+    receiver_journal_entry_id: 'Écriture de la réception' #!
     reconcilable: 'Lettrable'
     record_value: 'Enregistrement'
-    record_value_id: 'Enregistrement'
+    record_value_id: 'Enregistrement' #!
     record_value_type: 'Type d''enregistrement'
     reductible: 'Réductible'
     reduction: 'Ligne de réduction'
     reduction_origin: 'Ligne soumise à réduction'
-    reduction_origin_id: 'Ligne soumise à réduction'
+    reduction_origin_id: 'Ligne soumise à réduction' #!
     reduction_percent: 'Pourcentage de réduction'
     reduction_rate: 'Taux de réduction'
     reduction_submissive: 'Soumis à réduction'
@@ -817,13 +818,13 @@ fra:
     required: 'Obligatoire'
     reservoir: 'Réservoir'
     resource: 'Origine'
-    resource_id: 'Origine'
+    resource_id: 'Origine' #!
     resource_type: 'Origine'
     responsible: 'Responsable'
     responsible_id: 'Responsable'
     rights: 'Droits'
     role: 'Rôle de base'
-    role_id: 'Rôle de base'
+    role_id: 'Rôle de base' #!
     roles: 'Rôles'
     rome: 'Code ROME'
     root_model: 'Racine'
@@ -835,7 +836,7 @@ fra:
     sale_natures: 'Types de vente'
     sales: 'Ventes'
     sales_account: 'Compte comptable de produits'
-    sales_account_id: 'Compte comptable de produits'
+    sales_account_id: 'Compte comptable de produits' #!
     sales_conditions: 'Conditions Générales de Vente'
     sales_invoice: 'Facture' #!
     sales_invoice_id: 'Facture' #!
@@ -844,10 +845,10 @@ fra:
     sales_invoices_count: 'Nombre de factures' #!
     salt: 'Sel'
     scheduled: 'Encaissement programmé'
-    second_move_id: 'Second mouvement'
-    second_stock_move_id: 'Second mouvement de stock'
+    second_move_id: 'Second mouvement' #!
+    second_stock_move_id: 'Second mouvement de stock' #!
     second_warehouse: 'Lieu de stockage d''arrivée'
-    second_warehouse_id: 'Lieu de stockage du second mouvement'
+    second_warehouse_id: 'Lieu de stockage du second mouvement' #!
     self_bank_accounts: 'Comptes bancaires en propre'
     self_cashes: 'Caisses en propre'
     self_contacts: 'Contacts en propre'
@@ -861,7 +862,7 @@ fra:
     siret: 'N° SIRET'
     soundex: 'Soundex'
     source: 'Source'
-    source_id: 'Source'
+    source_id: 'Source' #!
     source_quantity: 'Quantité source'
     sql_type: 'Type SQL'
     start: 'Début'
@@ -871,7 +872,7 @@ fra:
     state: 'État'
     state_label: 'État'
     stock: 'Stock de produit'
-    stock_id: 'Stock de produit'
+    stock_id: 'Stock de produit' #!
     stock_move_id: 'Mouvement de stock'
     stock_moves: 'Mouvements de stock'
     stock_transfers: 'Transferts ou pertes de stock'
@@ -885,7 +886,7 @@ fra:
     subdir: 'Sous-répertoire'
     subject: 'Objet'
     subscription_nature: 'Type'
-    subscription_nature_id: 'Type'
+    subscription_nature_id: 'Type' #!
     subscription_natures: 'Types d''abonnement'
     subscription_period: 'Période'
     subscription_quantity: 'Quantité'
@@ -893,7 +894,7 @@ fra:
     sum_method: 'Méthode de calcul'
     supplier: 'Fournisseur'
     supplier_account: 'Compte fournisseur associé'
-    supplier_account_id: 'Compte fournisseur associé'
+    supplier_account_id: 'Compte fournisseur associé' #!
     supplier_accounts: 'Comptes fournisseurs'
     supplier_id: 'Fournisseur'
     suppliers: 'Fournisseurs'
@@ -911,7 +912,7 @@ fra:
     taxes: 'Taxes'
     temperature: 'Température'
     template: 'Modèle'
-    template_id: 'Modèle'
+    template_id: 'Modèle' #!
     text_importance: 'Importance'
     text_nature: 'Type'
     theoric_quantity: 'Quantité théorique'
@@ -931,7 +932,7 @@ fra:
     trackings: 'Lots traçables'
     transfers: 'Transferts'
     transport: 'Transport'
-    transport_id: 'Transport'
+    transport_id: 'Transport' #!
     transport_on: 'Transport le'
     transporter: 'Transporteur'
     transporter_id: 'Transporteur'
@@ -955,7 +956,7 @@ fra:
     use_range: 'Utiliser un intervalle de quantité'
     used_amount: 'Montant utilisé'
     user: 'Utilisateur'
-    user_id: 'Utilisateur'
+    user_id: 'Utilisateur' #!
     users: 'Utilisateurs'
     uses: 'Matériels utilisés'
     value: 'Valeur'
@@ -974,7 +975,7 @@ fra:
     with_deposit: 'Utiliser les remises en banque'
     with_tracking: 'Avec tracabilité'
     with_transport: 'Avec transport'
-    work_center_id: 'Centre d''opération'
+    work_center_id: 'Centre d''opération' #!
     x: 'Position X'
     y: 'Position Y'
     z: 'Position Z'
@@ -1110,9 +1111,16 @@ fra:
             format: 'F[year|4][number|6]'
             name: 'Numérotation des factures'
             period: 'year'
+          stock_transfers:
+            # format: 'ST[year|4][number|4]'
+            # name: 'Numeration of stock transfers'
+            # period: 'year'
           subscriptions:
             format: 'ABO[number|8]'
             name: 'Numérotation des abonnements'
+          transports:
+            # format: 'SH[number|8]'
+            # name: 'Numeration of transports'
         taxes:
           tva0000:
             amount: '0.0'
@@ -1387,6 +1395,7 @@ fra:
       default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
+        # gain: 'Gain'
         transfer: 'Transfert'
         waste: 'Perte'
     subscription_nature:

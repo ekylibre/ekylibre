@@ -75,7 +75,7 @@
   -if @sale.deliverable?
     %h2=tc :undelivered
     =toolbar do |t|
-      -t.link :new, :controller=>:outgoing_deliveries, :sale=>@sale.id
+      -t.link :new, :controller=>:outgoing_deliveries, :sale_id=>@sale.id
     =list :undelivered_lines
   -if @sale.deliveries.count > 0
     %h2=Sale.human_attribute_name("deliveries")

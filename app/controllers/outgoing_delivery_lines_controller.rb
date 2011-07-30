@@ -18,5 +18,4 @@
 #
 
 class OutgoingDeliveryLinesController < ApplicationController
-
 end

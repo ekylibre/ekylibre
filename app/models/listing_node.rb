@@ -47,6 +47,13 @@
 
 
 class ListingNode < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :item_nature, :allow_nil => true, :maximum => 8
+  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :exportable, :in => [true, false]
+  validates_presence_of :item_listing, :item_listing_node, :label, :name, :nature, :parent
+  #]VALIDATORS]
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :company_id, :listing_id, :nature

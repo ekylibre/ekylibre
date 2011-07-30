@@ -45,16 +45,14 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :events, :except=>[:show], :collection=>{:list=>:get, :change_minutes=>:get}
     company.resources :event_natures, :except=>[:show], :collection=>{:list=>:get}
     company.resources :financial_years, :collection=>{:list=>:get}, :member=>{:close=>[:get, :post]}
-    company.resources :incoming_deliveries, :collection=>{:list=>:get}, :member=>{:confirm=>[:get, :post]} do |id|
-      id.resources :lines, :controller=>"incoming_delivery_lines"
-    end
+    company.resources :incoming_deliveries, :collection=>{:list=>:get}, :member=>{:confirm=>[:get, :post]}
+    # company.resources :incoming_delivery_lines
     company.resources :incoming_delivery_modes, :except=>[:show], :collection=>{:list=>:get}
     company.resources :incoming_payments, :collection=>{:list=>:get, :list_sales=>:get}
     company.resources :incoming_payment_modes, :except=>[:show], :collection=>{:list=>:get}, :member=>{:up=>:post, :down=>:post, :reflect=>:post}
     company.resources :incoming_payment_uses
-    company.resources :inventories, :collection=>{:list=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]} do |inventory|
-      inventory.resources :lines, :controller=>"inventory_lines"
-    end
+    company.resources :inventories, :collection=>{:list=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]}
+    # company.resources :inventory_lines
     company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :reports=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
     company.resources :journal_entry_lines, :only=>[:new]
@@ -70,9 +68,8 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :operation_lines, :only=>[:new, :create]
     company.resources :operation_natures, :except=>[:show], :collection=>{:list=>:get}
     company.resources :operation_uses
-    company.resources :outgoing_deliveries, :collection=>{:list=>:get} do |od|
-      od.resources :lines, :controller=>"outgoing_delivery_lines"
-    end
+    company.resources :outgoing_deliveries, :collection=>{:list=>:get, :list_lines=>:get}
+    # company.resources :outgoing_delivery_lines
     company.resources :outgoing_delivery_modes, :except=>[:show], :collection=>{:list=>:get}
     company.resources :outgoing_payments, :collection=>{:list=>:get, :list_purchases=>:get}
     company.resources :outgoing_payment_modes, :except=>[:show], :collection=>{:list=>:get}, :member=>{:up=>:post, :down=>:post}
@@ -96,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :sequences, :except=>[:show], :collection=>{:list=>:get, :load=>:post}
     # company.resources :stock_moves, :except=>[:index, :show]
     company.resources :stock_transfers, :except=>[:show], :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}
-    company.resources :stocks, :only=>[:index], :collection=>{:list=>:get}
+    company.resources :stocks, :except=>[:show], :collection=>{:list=>:get}
     company.resources :subscription_natures, :except=>[:show], :collection=>{:list=>:get}, :member=>{:increment=>:post, :decrement=>:post}
     company.resources :subscriptions, :except=>[:show], :collection=>{:list=>:get, :coordinates=>:get, :message=>:get}
     # company.resources :tax_declarations
@@ -105,7 +102,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :trackings, :only=>[:show], :collection=>{:list_stocks=>:get, :list_sale_lines=>:get, :list_purchase_lines=>:get, :list_operation_lines=>:get}
     # company.resources :tracking_states
     # company.resources :transfers
-    company.resources :transports, :collection=>{:list=>:get, :list_deliveries=>:get, :deliveries=>[:get, :post], :delivery_delete=>[:get, :post]}
+    company.resources :transports, :collection=>{:list=>:get, :list_deliveries=>:get, :list_transportable_deliveries=>:get, :deliveries=>[:get, :post], :delivery_delete=>[:get, :post]}
     company.resources :units, :except=>[:show], :collection=>{:list=>:get, :load=>:post}
     company.resources :users, :collection=>{:list=>:get}, :member=>{:lock=>:post, :unlock=>:post}
     company.resources :warehouses, :collection=>{:list=>:get, :list_stocks=>:get, :list_stock_moves=>:get}

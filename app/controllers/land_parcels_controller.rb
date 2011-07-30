@@ -20,18 +20,6 @@
 class LandParcelsController < ApplicationController
   manage_restfully :started_on=>"Date.today"
 
-  list(:operations, :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
-    t.column :name, :url=>true
-    t.column :name, :through=>:nature
-    t.column :label, :through=>:responsible, :url=>true
-    t.column :planned_on
-    t.column :moved_on
-    t.column :tools_list
-    t.column :duration
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
-  end
-
   list(:conditions=>["#{LandParcel.table_name}.company_id=? AND ? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>true
     t.column :number
@@ -42,6 +30,23 @@ class LandParcelsController < ApplicationController
     t.column :started_on
     t.column :stopped_on
     t.action :divide
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays the main page with the list of land parcels
+  def index
+    session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
+  end
+
+  list(:operations, :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
+    t.column :name, :url=>true
+    t.column :name, :through=>:nature
+    t.column :label, :through=>:responsible, :url=>true
+    t.column :planned_on
+    t.column :moved_on
+    t.column :tools_list
+    t.column :duration
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
@@ -69,14 +74,10 @@ class LandParcelsController < ApplicationController
     t3e @land_parcel.attributes
   end
 
-  # Displays the main page with the list of land parcels
-  def index
-    session[:viewed_on] = (params[:viewed_on]||session[:viewed_on]).to_date rescue Date.today
-    if request.post?
-      land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
-      child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-      redirect_to(:action=>:show, :id=>child.id) if child
-    end
+  def merge
+    land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
+    child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
+    redirect_to(:action=>:show, :id=>child.id) if child
   end
 
 end

@@ -1,14 +1,8 @@
-.search
-  =form_tag(nil, :method=>:get) do
-    %table
-      %tr
-        %td.label=tl(:display)
-        %td.field=calendar_field_tag :viewed_on, session[:viewed_on]
-        %td.submit=submit_tag tg(:search_go)
+=kujaku do |k|
+  -k.date :viewed_on
 
 =toolbar do |t|
   -t.link :new
-
 
 -unit = Unit.find_by_base("m2")
 =form_tag do

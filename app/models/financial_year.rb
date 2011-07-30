@@ -40,6 +40,12 @@ class FinancialYear < CompanyRecord
   has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financial_year_id
   validates_presence_of :started_on, :stopped_on
   validates_uniqueness_of :code, :scope=>:company_id
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 12
+  validates_inclusion_of :closed, :in => [true, false]
+  validates_presence_of :code, :started_on, :stopped_on
+  #]VALIDATORS]
 
   #
   before_validation do

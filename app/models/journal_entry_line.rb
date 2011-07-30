@@ -45,6 +45,13 @@
 
 
 class JournalEntryLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :balance, :credit, :currency_credit, :currency_debit, :debit, :allow_nil => true
+  validates_length_of :letter, :allow_nil => true, :maximum => 8
+  validates_length_of :state, :allow_nil => true, :maximum => 32
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_list :scope=>:entry
   after_create  :update_entry
   after_destroy :update_entry

@@ -44,6 +44,12 @@
 
 
 class Warehouse < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :number, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity_max, :allow_nil => true
+  validates_length_of :name, :x, :y, :z, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_tree
   attr_readonly :company_id, :reservoir
   belongs_to :company

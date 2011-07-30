@@ -10,7 +10,7 @@ module Ekylibre::Record
 
         # Add methods for reconciliating
         def acts_as_stockable(*args)
-          column = args[0].is_a?(Symbol) ? args[0] : :stock_move
+          stock_move = args[0].is_a?(Symbol) ? args[0] : :stock_move
           options = (args[-1].is_a?(Hash) ? args[-1] : {})
           condition = options.delete(:if)
           origin = options.delete(:origin)
@@ -24,12 +24,12 @@ module Ekylibre::Record
           attributes[:company_id] = "#{variable}.company_id"
           attrs = attributes.collect{|k,v| ":#{k}=>"+(v.is_a?(String) ? "(#{v})" : "#{variable}.#{v}")}.join(", ")
           code  = ""
-          update_method = "_update_#{column}_#{__LINE__}"
+          update_method = "_update_#{stock_move}_#{__LINE__}"
 
           # code += "before_save :#{update_method}\n"
           #WARN: BEFORE_SAVE DONT WORK VERY WELL
           code += "after_destroy do |old|\n"
-          code += "  old.#{column}.destroy if old.#{column} and not old.#{column}.destroyed?\n"
+          code += "  old.#{stock_move}.destroy if old.#{stock_move} and not old.#{stock_move}.destroyed?\n"
           code += "end\n"
 
           # code += "def #{update_method}\n"
@@ -38,32 +38,32 @@ module Ekylibre::Record
           # code += "  puts \"#{self.name} (\#\{#{variable}.id\})\"\n"
           if condition
             code += "  unless #{condition}\n" 
-            code += "    #{variable}.#{column}.destroy if #{variable}.#{column}\n" 
+            code += "    #{variable}.#{stock_move}.destroy if #{variable}.#{stock_move}\n" 
             code += "    return\n"
             code += "  end\n"
           end
           # code += "  puts \"#{self.name} (\#\{#{variable}.id\}) 2\"\n"
           # code += "  raise Exception.new '#{condition}'\n"
-          code += "  if #{variable}.#{column}\n"
+          code += "  if #{variable}.#{stock_move}\n"
           # code += "    puts \"#{self.name} (\#\{#{variable}.id\}) 2.1\"\n"
-          code += "    #{variable}.#{column}.update_attributes!(#{attrs})\n"
+          code += "    #{variable}.#{stock_move}.update_attributes!(#{attrs})\n"
           code += "  else\n"
           # code += "    puts \"#{self.name} (\#\{#{variable}.id\}) 2.2\"\n"
-          code += "    __#{column}__ = StockMove.new(#{attrs})\n"
+          code += "    __#{stock_move}__ = StockMove.new(#{attrs})\n"
           # code += "    puts \"#{self.name} (\#\{#{variable}.id\}) 2.2.1\"\n"
-          code += "    raise __#{column}__.errors.inspect unless __#{column}__.save\n"
+          code += "    raise __#{stock_move}__.errors.inspect unless __#{stock_move}__.save\n"
           # code += "    puts \"#{self.name} (\#\{#{variable}.id\}) 2.2.2\"\n"
-          code += "    #{self.name}.update_all({:#{column}_id => __#{column}__.id}, {:id=>#{variable}.id})\n"
-          # code += "    #{variable}.create_#{column}(#{attrs}, :company_id =>#{variable}.company_id)\n"
+          code += "    #{self.name}.update_all({:#{stock_move}_id => __#{stock_move}__.id}, {:id=>#{variable}.id})\n"
+          # code += "    #{variable}.create_#{stock_move}(#{attrs}, :company_id =>#{variable}.company_id)\n"
           # code += "    puts \"#{self.name} (\#\{#{variable}.id\}) 2.3\"\n"
           code += "  end\n"
           # code += "  puts \"#{self.name} (\#\{#{variable}.id\}) 3\"\n"
           code += "  self.reload\n"
           code += "end\n"
 
-          code += "def confirm_#{column}(moved_on=Date.today)\n"
-          code += "  if self.#{column}\n"
-          code += "    self.#{column}.update_attributes!(:moved_on=>moved_on)\n"
+          code += "def confirm_#{stock_move}(moved_on=Date.today)\n"
+          code += "  if self.#{stock_move}\n"
+          code += "    self.#{stock_move}.update_attributes!(:moved_on=>moved_on)\n"
           code += "  end\n"
           code += "end\n"
 

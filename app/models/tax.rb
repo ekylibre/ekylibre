@@ -39,6 +39,14 @@
 
 
 class Tax < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :included, :reductible, :in => [true, false]
+  validates_presence_of :amount, :collected_account, :name, :nature, :paid_account
+  #]VALIDATORS]
   attr_readonly :nature, :company_id #, :amount
   belongs_to :company
   belongs_to :collected_account, :class_name=>Account.name

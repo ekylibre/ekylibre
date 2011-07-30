@@ -16,16 +16,25 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
+
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
-  before_filter :dont_cache
+  around_filter(:profile) if RAILS_ENV == "development"
+  before_filter :no_cache
   before_filter :i18nize
+  before_filter :identify
   before_filter :authorize
   after_filter  :historize
   attr_accessor :current_user
   attr_accessor :current_company
   layout :dialog_or_not
-  
+
+  if RAILS_ENV == "development"
+    # require_dependency "vendor/plugins/list/init.rb"
+    require_dependency "vendor/ogems/yasui_form/lib/yasui_form.rb"
+    require_dependency "vendor/ogems/yasui_form/lib/yasui_form/action_view/form_helper.rb"
+    # require_dependency "vendor/plugins/intraform/init.rb"
+  end
 
   include Userstamp
   # include ExceptionNotifiable
@@ -119,18 +128,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  hide_action :human_action_name
-  def human_action_name()
-    an = action_name.to_sym
-    options = @title.is_a?(Hash) ? @title : {}
+
+  def self.human_action_name(action, options={})
+    options = {} unless options.is_a?(Hash)
+    root, action = "actions."+self.controller_name+".", action.to_s
     options[:default] ||= []
-    options[:default] << "actions.#{controller_name}.new".to_sym  if an == :create
-    options[:default] << "actions.#{controller_name}.edit".to_sym if an == :update
-    return ::I18n.translate("actions.#{controller_name}.#{an}", options)
+    options[:default] << (root+"new").to_sym  if action == "create"
+    options[:default] << (root+"edit").to_sym if action == "update"
+    return ::I18n.translate(root+action, options)
   end
 
+  hide_action :human_action_name
+  def human_action_name()
+    return self.class.human_action_name(action_name, @title)
+  end
+
+
   def default_url_options(options={})
-    options.merge(:company =>(params ? params[:company] : @current_company ? @current_company.name : nil))
+    options.update(:company =>((params and params[:company]) ? params[:company] : @current_company ? @current_company.code : nil))
+    # options.delete(:company)
+    return options
   end
 
 
@@ -165,27 +182,30 @@ class ApplicationController < ActionController::Base
     return record
   end
 
-  def save_and_redirect(record, options={})
+  def save_and_redirect(record, options={}, &block)
     url = options[:url] || :back
     record.attributes = options[:attributes] if options[:attributes]
-    if record.send(:save) or options[:saved]
-      if params[:dialog]
-        render :json=>{:id=>record.id}
-      else
-        # TODO: notif
-        if url == :back
-          redirect_to_back
+    ActiveRecord::Base.transaction do
+      if record.send(:save) or options[:saved]
+        yield record if block_given?
+        if params[:dialog]
+          render :json=>{:id=>record.id}
         else
-          record.reload
-          if url.is_a? Hash
-            url0 = {}
-            url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
-            url = url0
+          # TODO: notif
+          if url == :back
+            redirect_to_back
+          else
+            record.reload
+            if url.is_a? Hash
+              url0 = {}
+              url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
+              url = url0
+            end
+            redirect_to(url) 
           end
-          redirect_to(url) 
         end
+        return true
       end
-      return true
     end
     return false
   end
@@ -242,12 +262,13 @@ class ApplicationController < ActionController::Base
   private
 
   def dialog_or_not()
+    #return (params[:dialog] ? "dialog" : "application")
     return (request.xhr? ? "dialog" : "application")
   end
   
 
   # Set HTTP headers to block page caching
-  def dont_cache()
+  def no_cache()
     # Change headers to force zero cache
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
@@ -273,20 +294,34 @@ class ApplicationController < ActionController::Base
     ::I18n.locale = session[:locale]
   end
 
-
-
-  # Controls access to every view in Ekylibre. 
-  def authorize()
+  # Load @current_user and @current_company
+  def identify()
     # Load current_user if connected
-    @current_user = User.find_by_id(session[:user_id]) if session[:user_id]
+    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}) if session[:user_id] # _by_id(session[:user_id])
     
     # Load current_company if possible
-    @current_company = Company.find_by_code(params[:company])
-    if @current_user and @current_company and @current_company.id!=@current_user.company_id
+    @current_company = Company.find(:first, :conditions=>{:code=>params[:company]}) #_by_code(params[:company])
+    if @current_user and @current_company and @current_company["id"]!=@current_user["company_id"]
       notify_error(:unknown_company) unless params[:company].blank?
       redirect_to_login
       return false
     end
+  end
+  
+
+
+  # Controls access to every view in Ekylibre. 
+  def authorize()
+    # # Load current_user if connected
+    # @current_user = User.find_by_id(session[:user_id]) if session[:user_id]
+    
+    # # Load current_company if possible
+    # @current_company = Company.find_by_code(params[:company])
+    # if @current_user and @current_company and @current_company.id!=@current_user.company_id
+    #   notify_error(:unknown_company) unless params[:company].blank?
+    #   redirect_to_login
+    #   return false
+    # end
 
     # Get action rights
     controller_rights = {} unless controller_rights = User.rights[controller_name.to_sym]
@@ -321,6 +356,7 @@ class ApplicationController < ActionController::Base
       preference = @current_user.preference("interface.general.resized", true, :boolean)
       preference.value = (params[:resized] == "1" ? true : false)
       preference.save!
+      sessions[:resizable] = preference.value
     end
     # Check expiration
     if !session[:last_query].is_a?(Integer)
@@ -372,6 +408,107 @@ class ApplicationController < ActionController::Base
       end
     end
   end
+
+  # Generate HTML for a CallInfo object of RubyProf
+  def self.call_info_tree(call_info, total_time, threshold, depth=0)
+    html = ""
+    return "" unless call_info.total_time > total_time*threshold/100
+    method_info = call_info.target
+    # #{(255-3*depth).to_s(16)*3}
+    html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-100.to_f*call_info.total_time/total_time).to_i.to_s(16)*3}; #{'display: none' unless depth<5}'>"
+    regexp = /\([^\)]+\)/
+
+    # html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
+    # html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
+    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)}:#{h(call_info.line)}' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
+    html += "<span class='fil'><span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span></span>"
+    html += "<span class='md mdc'>"+(100*call_info.total_time/total_time).round(1).to_s+"%</span>"
+    html += "<span class='md mdc'>"+call_info.called.to_s+"&times;</span>"
+    html += "<span class='md dec'>"+(call_info.total_time*1_000_000).round(1).to_s+"µs</span>"
+    html += "<span class='md dec'>"+(call_info.self_time*1_000_000).round(1).to_s+"µs</span>"
+    html += "</div>"
+    for child in call_info.children.sort{|a,b| a.line <=> b.line}
+      html += call_info_tree(child, total_time, threshold, depth+1) 
+    end
+    html += "</div>"
+    return html
+  end
+
+  # Generate HTML for a CallInfo object of RubyProf
+  def self.app_tree(call_info, total_time, depth=0)
+    html = ""
+    method_info = call_info.target
+    # #{(255-3*depth).to_s(16)*3}
+    html += "<div class='profile' style='margin-left: 8px; background: ##{(255-140.to_f*call_info.total_time/total_time).to_i.to_s(16)*3}; border: none;'>"
+    regexp = /\([^\)]+\)/
+    if method_info.source_file.match(Rails.root.join("app").to_s) or method_info.source_file.match(Rails.root.join("vendor").to_s)
+      html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
+      html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
+    html += "<span class='dec tot'>"+(100*call_info.total_time/total_time).round(1).to_s+"%</span>"
+      html += "<span class='dec tot'>"+(call_info.total_time*1_000_000).round(1).to_s+"µs</span>"
+      html += "<span class='dec sav'>"+(call_info.self_time*1_000_000).round(1).to_s+"µs</span>"
+      html += "</div>"
+    end
+    for child in call_info.children.sort{|a,b| a.line <=> b.line}
+      html += app_tree(child, total_time, depth+1)
+    end
+    html += "</div>"
+    return html
+  end
+  
+  # Generate HTML for a CallInfo object of RubyProf
+  def self.method_info_tree(method_info)
+    regexp = /\([^\)]+\)/
+    html = ""
+    html += "<div class='profile'>"
+    html += "<div class='tit'>"
+    html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, ''))+"</span>:<span class='lno'>"+h(method_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
+    html += "<span class='dec tot'>"+(method_info.total_time*1_000_000).round(1).to_s+"µs</span>"
+    html += "<span class='dec sav'>"+(method_info.self_time*1_000_000).round(1).to_s+"µs</span>"
+    html += "</div>"
+    # html += "<h3>Called by</h3>"
+    # html += "<h3>Calls</h3>"
+    html += "</div>"
+    return html
+  end
+  
+
+  def profile()
+    yield and return unless params[:profile]
+    require 'ruby-prof'    
+    RubyProf.measure_mode = RubyProf::PROCESS_TIME
+    result = RubyProf.profile do
+      yield
+    end
+    if params[:profile] == "graph"
+      printer = RubyProf::CallStackPrinter.new(result)
+      name = "RubyProf-#{controller_name}-#{action_name}-#{Time.now.to_i.to_s(36)}.html"
+      file = File.open(Rails.root.join("public", name), "wb")
+      printer.print(file)
+      self.response.body.sub! "</body>", "<a href='/#{name}'>Graph</a></body>" # <div>CallTree printed in STDOUT</div>
+    else
+      html = "<small>"
+      for id, method_infos in result.threads
+        html += "<h2>Thread: #{id}</h2>"
+        ci  = method_infos[0].call_infos[0]
+        until ci.root?
+          ci = ci.parent
+        end
+        if params[:profile] == "tree"
+          html += self.class.call_info_tree(ci, ci.total_time, (params[:threshold]||0.5).to_f)
+        elsif params[:profile] == "app_tree"
+          html += self.class.app_tree(ci, ci.total_time)
+        elsif params[:profile] == "flat"
+          for method_info in method_infos
+            next unless method_info.source_file.match(Rails.root.to_s)
+            html += self.class.method_info_tree(method_info)
+          end
+        end
+      end
+      html += "</small>"
+      self.response.body.sub! "</body>", html+"</body>"
+    end
+  end
   
 
 
@@ -421,7 +558,7 @@ class ApplicationController < ActionController::Base
     # end
   end
 
- 
+  
   def init_session(user)
     reset_session
     session[:expiration]   = 3600*5
@@ -430,13 +567,16 @@ class ApplicationController < ActionController::Base
     session[:last_query]   = Time.now.to_i
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}
     session[:side]         = true
+    session[:resizable]    = user.preference("interface.general.resized", true, :boolean).value
     session[:user_id]      = user.id
     # Build and cache customized menu for all the session
     session[:menus] = ActiveSupport::OrderedHash.new
     for menu, submenus in Ekylibre.menus
       fsubmenus = ActiveSupport::OrderedHash.new
       for submenu, menuitems in submenus
-        fmenuitems = menuitems.select{|url| user.authorization(url[:controller], url[:action], session[:rights]).nil?}
+        fmenuitems = menuitems.select{|url| user.authorization(url[:controller], url[:action], session[:rights]).nil?}.each do |url| 
+          # url.update(:url=>url_for(url.merge(:company=>user.company.code)))
+        end
         fsubmenus[submenu] = fmenuitems unless fmenuitems.size.zero?
       end
       session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?
@@ -450,9 +590,10 @@ class ApplicationController < ActionController::Base
     name = controller_name
     t3e = defaults.delete(:t3e)
     url = defaults.delete(:redirect_to)
+    xhr = defaults.delete(:xhr)
     durl = defaults.delete(:destroy_to)
     partial = defaults.delete(:partial)
-    partial =  ":partial=>'#{partial}'" if partial
+    partial = " :partial=>'#{partial}'" if partial
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     code = ''
@@ -460,21 +601,29 @@ class ApplicationController < ActionController::Base
     code += "def new\n"
     values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
     code += "  @#{record_name} = #{model.name}.new(#{values})\n"
-    code += "  render_restfully_form #{partial}\n"
+    if xhr
+      code += "  if request.xhr?\n"
+      code += "    render :partial=>#{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
+      code += "  else\n"
+      code += "    render_restfully_form#{partial}\n"
+      code += "  end\n"
+    else
+      code += "  render_restfully_form#{partial}\n"
+    end
     code += "end\n"
 
     code += "def create\n"
     code += "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
     code += "  @#{record_name}.company_id = @current_company.id\n"
     code += "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
-    code += "  render_restfully_form #{partial}\n"
+    code += "  render_restfully_form#{partial}\n"
     code += "end\n"
 
     # this action updates an existing record with a form.
     code += "def edit\n"
     code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
     code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-    code += "  render_restfully_form #{partial}\n"
+    code += "  render_restfully_form#{partial}\n"
     code += "end\n"
 
     code += "def update\n"
@@ -483,7 +632,7 @@ class ApplicationController < ActionController::Base
     raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
     code += "  @#{record_name}.attributes = params[:#{record_name}]\n"
     code += "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
-    code += "  render_restfully_form #{partial}\n"
+    code += "  render_restfully_form#{partial}\n"
     code += "end\n"
 
     # this action deletes or hides an existing record.
@@ -577,8 +726,8 @@ class ApplicationController < ActionController::Base
     options[:filters] ||= {}
     variable ||= options[:variable] || "params[:q]"
     tables = search.keys.select{|t| !options[:except].include? t}
-    code = "#{conditions} = ['"+tables.collect{|t| "#{t}.company_id=?"}.join(' AND ')+"'"+", @current_company.id"*tables.size+"]\n"
-    columns = search.collect{|t, cs| cs.collect{|c| "#{t}.#{c}"}}.flatten
+    code = "\n#{conditions} = ['"+tables.collect{|t| "#{ActiveRecord::Base.connection.quote_table_name(t.is_a?(Symbol) ? t.to_s.classify.constantize.table_name : t)}.company_id=?"}.join(' AND ')+"'"+", @current_company.id"*tables.size+"]\n"
+    columns = search.collect{|t, cs| cs.collect{|c| "#{ActiveRecord::Base.connection.quote_table_name(t.is_a?(Symbol) ? t.to_s.classify.constantize.table_name : t)}.#{ActiveRecord::Base.connection.quote_column_name(c)}"}}.flatten
     code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
     code += "  kw = '%'+kw+'%'\n"
     filters = columns.collect do |x| 
@@ -693,12 +842,12 @@ class ApplicationController < ActionController::Base
   end
 
   # management -> moved_conditions
-  def self.moved_conditions(model)
-    code = ""
-    code += "c=['#{model.table_name}.company_id=?', @current_company.id]\n"
-    code += "if params[:mode]=='unconfirmed'\n"
+  def self.moved_conditions(model, state='params[:s]')
+    code = "\n"
+    code += "c||=['#{model.table_name}.company_id=?', @current_company.id]\n"
+    code += "if #{state}=='unconfirmed'\n"
     code += "  c[0] += ' AND moved_on IS NULL'\n"
-    code += "elsif params[:mode]=='confirmed'\n"
+    code += "elsif #{state}=='confirmed'\n"
     code += "  c[0] += ' AND moved_on IS NOT NULL'\n"
     code += "end\n"
     code += "c\n"
@@ -714,33 +863,6 @@ class ApplicationController < ActionController::Base
     code += " conditions = ['#{Price.table_name}.company_id = ? AND #{Price.table_name}.entity_id = ? AND #{Price.table_name}.active = ?', @current_company.id, session[:entity_id], true]"
     code += "end \n "
     code += "conditions \n "
-    code
-  end
-
-  # management -> products_conditions
-  def self.products_conditions(options={})
-    code = ""
-    code += "conditions = [ \" #{Product.table_name}.company_id = ? AND (LOWER(#{Product.table_name}.code) LIKE ? OR LOWER(#{Product.table_name}.name) LIKE ?) AND active = ? \" , @current_company.id, '%'+session[:product_key].to_s.lower+'%', '%'+session[:product_key].to_s.lower+'%', session[:product_active]] \n"
-    code += "if session[:product_category_id].to_i != 0 \n"
-    code += "  conditions[0] += \" AND #{Product.table_name}.category_id = ?\" \n" 
-    code += "  conditions << session[:product_category_id].to_i \n"
-    code += "end \n"
-    code += "conditions \n"
-    code
-  end
-
-  # management -> sales_conditions
-  def self.sales_conditions
-    code = ""
-    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number, :comment], :entities=>[:code, :full_name])+"||=[]\n"
-    code += "unless session[:sale_state].blank? \n "
-    code += "  if session[:sale_state] == 'current' \n "
-    code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice') \" \n " 
-    code += "  elsif session[:sale_state] == 'unpaid' \n "
-    code += "    c[0] += \"AND state IN ('order','invoice') AND paid_amount < amount\" \n "
-    code += "  end\n "
-    code += "end\n "
-    code += "c\n "
     code
   end
 

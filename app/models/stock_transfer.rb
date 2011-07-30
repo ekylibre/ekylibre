@@ -44,22 +44,28 @@
 
 
 class StockTransfer < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :number, :allow_nil => true, :maximum => 64
+  #]VALIDATORS]
+  NATURES = %w(waste transfer gain).freeze
   acts_as_numbered
   acts_as_stockable :quantity=>'-self.quantity'
   acts_as_stockable :second_stock_move, :warehouse=>'self.second_warehouse', :if=>'self.transfer? '
-
-  attr_readonly :company_id, :nature
-  belongs_to :company
+  attr_readonly :nature
   belongs_to :product
-  belongs_to :warehouse
   belongs_to :second_stock_move, :class_name=>"StockMove"
-  belongs_to :second_warehouse, :class_name=>Warehouse.to_s
+  belongs_to :second_warehouse, :class_name=>"Warehouse"
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit
+  belongs_to :warehouse
   validates_presence_of :unit
   validates_presence_of :second_warehouse, :if=>Proc.new{|x| x.transfer?}
   validates_numericality_of :quantity, :greater_than=>0.0
+  validates_inclusion_of :nature, :in=>NATURES
 
   before_validation do
     self.unit_id = self.product.unit_id if self.product
@@ -87,11 +93,10 @@ class StockTransfer < CompanyRecord
   end
   
   def self.natures
-    [:transfer, :waste].collect{|x| [tc('natures.'+x.to_s), x] }
+    NATURES.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
-
-  def text_nature
+  def nature_label
     tc('natures.'+self.nature.to_s)
   end
 

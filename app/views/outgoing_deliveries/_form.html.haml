@@ -1,18 +1,19 @@
-=sales_steps
+=sales_steps(@outgoing_delivery.sale)
 
 =formalize do |f|
   -f.error :outgoing_delivery
   -f.title :infos
-  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:entity_id=>@sale.client_id} 
+  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:entity_id=>@outgoing_delivery.sale.client_id} 
   -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>true
   -f.field :outgoing_delivery, :planned_on
-  -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:transporter=>1}
+  -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:controller=>:entities, :transporter=>1}
+
 %h2=OutgoingDelivery.human_attribute_name("lines")
 %table.list 
   %tr
     %th=OutgoingDeliveryLine.human_attribute_name(:product)
-    %th=tc(:unit_price_pretax_amount)
-    %th=tc(:unit_price_amount)
+    %th=Price.human_attribute_name(:pretax_amount)
+    %th=Price.human_attribute_name(:amount)
     %th=tc(:total_quantity)
     %th=OutgoingDeliveryLine.human_attribute_name(:unit)
     %th=tc(:quantity_rest)
@@ -25,7 +26,7 @@
       %td.dec{:class=>"pta-#{line.sale_line_id}"}=line.sale_line.price.pretax_amount
       %td.dec{:class=>"awt-#{line.sale_line_id}"}=line.sale_line.price.amount
       %td.dec=line.sale_line.quantity
-      %td=line.sale_line.unit.label
+      %td=line.sale_line.unit.name
       %td.dec=line.sale_line.undelivered_quantity
       %td{:style=>'text-align:center'}
         =text_field_tag "outgoing_delivery_line[#{line.sale_line_id}][quantity]", line.quantity, :id=>"outgoing_delivery_line_#{line.sale_line_id}_quantity", :onkeyup=>"t6(this, #{line.sale_line.undelivered_quantity});", :class=>"pta-#{line.sale_line_id} awt-#{line.sale_line_id}"

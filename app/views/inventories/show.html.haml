@@ -1,0 +1,9 @@
+=attributes_list(@inventory) do |l|
+  -l.attribute :number
+  -l.attribute :reponsible
+  -l.attribute :changes_reflected
+  -l.attribute :moved_on
+  -l.attribute :comment
+
+%h2=Inventory.human_attribute_name("lines")
+=list :lines

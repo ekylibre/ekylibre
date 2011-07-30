@@ -35,6 +35,12 @@
 
 
 class OutgoingPaymentMode < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :allow_nil => true, :maximum => 50
+  validates_inclusion_of :with_accounting, :in => [true, false]
+  validates_presence_of :cash, :name
+  #]VALIDATORS]
   acts_as_list :scope=>:company_id
   attr_readonly :company_id
   belongs_to :cash

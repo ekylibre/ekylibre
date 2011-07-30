@@ -1,0 +1,26 @@
+-#fields_for(@stock) do |f|
+  =f.field_set :general do
+    =f.input :product_id, :choices=>"@current_company.productable_products"
+    =f.input :unit_id, :choices=>"DEPENDS_ON.units", :depends_on=>:product_id, :new=>{:base=>"DEPENDS_ON.base"}
+    =f.input :tracking_id, :choices=>"DEPENDS_ON.trackings", :include_blank=>true, :depends_on=>:product_id, :new=>true
+    =f.input :warehouse, :new=>true
+
+
+=yasui_fields_for(@stock) do |f|
+  =f.field_set :general do
+    =f.choice :product_id, :choices=>:stockable_products
+    =f.inputs_depending_on(:product_id) do
+      =f.input :unit_id,     :choices=>{:record=>product, :reflection=>:units}
+      =f.input :tracking_id, :choices=>{:record=>product, :reflection=>:trackings, :include_blank=>true}
+    =f.input :warehouse_id
+
+-#   
+  -product_id = nil    
+  =formalize do |f|
+    -f.error :stock
+    -f.field :stock, :product_id, :choices=>{:reflection=>:stockable_products}
+  #detail=render :partial=>"stocks/_detail_form"
+
+  =observe_field(product_id, :url=>{:controller=>:stocks, :action=>:new}, :method=>:get, :frequency=>0.25, :with=>"product_id", :update=>:detail)
+
+

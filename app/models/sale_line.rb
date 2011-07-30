@@ -50,6 +50,10 @@
 
 
 class SaleLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
+  #]VALIDATORS]
   acts_as_list :scope=>:sale
   after_save :set_reduction
   attr_readonly :company_id, :sale_id

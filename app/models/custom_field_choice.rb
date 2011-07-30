@@ -35,6 +35,10 @@
 
 
 class CustomFieldChoice < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :value, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   belongs_to :company
   belongs_to :custom_field
   has_many :data, :class_name=>"CustomFieldDatum", :foreign_key=>"choice_value_id"

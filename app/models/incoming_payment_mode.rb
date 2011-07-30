@@ -42,6 +42,13 @@
 
 
 class IncomingPaymentMode < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
+  validates_length_of :name, :allow_nil => true, :maximum => 50
+  validates_inclusion_of :with_accounting, :with_commission, :with_deposit, :in => [true, false]
+  validates_presence_of :cash, :commission_account, :commission_base_amount, :commission_percent, :depositables_account, :name
+  #]VALIDATORS]
   acts_as_list :scope=>:company_id
   attr_readonly :company_id
   belongs_to :cash

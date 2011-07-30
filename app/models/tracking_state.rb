@@ -42,6 +42,10 @@
 
 
 class TrackingState < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :atmospheric_pressure, :luminance, :net_weight, :relative_humidity, :temperature, :total_weight, :allow_nil => true
+  #]VALIDATORS]
   attr_readonly :company_id, :tracking_id
   belongs_to :company
   belongs_to :tracking

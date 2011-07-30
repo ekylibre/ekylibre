@@ -43,6 +43,11 @@
 
 
 class IncomingDelivery < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id, :number
   belongs_to :contact
@@ -57,6 +62,7 @@ class IncomingDelivery < CompanyRecord
 
   before_validation do
     self.company_id = self.purchase.company_id if self.purchase
+    self.planned_on ||= Date.today
 #     self.pretax_amount = self.amount = self.weight = 0.0
 #     for line in self.lines
 #       self.pretax_amount += line.pretax_amount

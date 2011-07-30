@@ -26,7 +26,7 @@ class CompanyRecord < Ekylibre::Record::Base
     super
     code  = "attr_readonly :company_id\n"
     code += "belongs_to :company\n"
-    code += "validates_presence_of :company_id"
+    code += "validates_presence_of :company, :company_id"
     child.class_eval code
   end
 

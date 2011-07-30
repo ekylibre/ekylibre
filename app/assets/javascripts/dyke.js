@@ -178,6 +178,7 @@ function dyliChange(dyli, id) {
             if (obj!== null) {
 		dyli_hf.value = obj.hf_value;
 		dyli_tf.value = obj.tf_value;
+		dyli_tf.size = (dyli_tf.value.length > 64 ? 64 : dyli_tf.value.length);
             }
 	}
     });
@@ -195,18 +196,14 @@ function openDialog(url, updated, ratio) {
     var width  = dims.width;
     var dialog_id = 'dialog'+overlays;
     if (isNaN(ratio)) {ratio = 0.7}
+
+    addOverlay();
+
     return new Ajax.Request(url, {
 	method: 'get',
         parameters: {dialog: dialog_id},
         evalScripts: true,
         onSuccess: function(response) {
-            var overlay = $('overlay');
-            if (overlay === null) {
-		overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:fixed; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
-		/*  opacity: 0.5 */
-		body.appendChild(overlay);
-            }
-            overlays += 1;
             var dialog = new Element('div', {id: dialog_id, 'data-ratio': ratio, 'data-dialog-update': updated, flex: 1, 'class': 'dialog', style: ' z-index:'+(2+overlays*1)+'; position:fixed; opacity: 1'});
             body.appendChild(dialog);
             dialog.update(response.responseText);
@@ -222,15 +219,8 @@ function openDialog(url, updated, ratio) {
 	},
         onFailure: function(response) {
             alert("FAILURE (Error "+response.status+"): "+response.reponseText);
+	    removeOverlay();
 	}
-	/*      ,
-		onLoading: function(request) {
-		onLoading();
-		},
-		onLoaded: function(request) {
-		onLoaded();
-		}
-	*/
     });
 }
 
@@ -238,14 +228,32 @@ function openDialog(url, updated, ratio) {
 function closeDialog(dialog) {
     dialog = $(dialog);
     dialog.remove();
+    removeOverlay();
+    return true;
+}
+
+function addOverlay(body) {
+    body = body || document.body || document.getElementsByTagName("BODY")[0];
+    var dims   = document.viewport.getDimensions();
+    var height = dims.height; 
+    var width  = dims.width;
+    var overlay = $('overlay');
+    if (overlay === null) {
+	overlay = new Element('div', {id: 'overlay', style: 'z-index:1; position:fixed; top:0; left 0; width:'+width+'px; height: '+height+'px; opacity: 0.5'});
+	body.appendChild(overlay);
+    }
+    overlays += 1;
+    return overlay;
+}
+
+function removeOverlay() {
     overlays -= 1;
-    if (overlays === 0) {
+    if (overlays <= 0) {
 	var overlay = $('overlay');
 	if (overlay !== null) {
 	    overlay.remove();
 	}
     }
-    return true;
 }
 
 /*

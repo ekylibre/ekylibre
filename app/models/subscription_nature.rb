@@ -37,6 +37,13 @@
 
 
 class SubscriptionNature < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
+  validates_numericality_of :reduction_rate, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :entity_link_nature

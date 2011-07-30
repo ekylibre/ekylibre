@@ -45,6 +45,12 @@
 
 
 class JournalEntry < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :balance, :credit, :currency_credit, :currency_debit, :currency_rate, :debit, :allow_nil => true
+  validates_length_of :state, :allow_nil => true, :maximum => 32
+  validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
   belongs_to :currency

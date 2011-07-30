@@ -50,6 +50,19 @@
 
 
 class Contact < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :latitude, :longitude, :allow_nil => true
+  validates_length_of :country, :allow_nil => true, :maximum => 2
+  validates_length_of :code, :allow_nil => true, :maximum => 4
+  validates_length_of :fax, :mobile, :phone, :allow_nil => true, :maximum => 32
+  validates_length_of :line_2, :line_3, :line_5, :allow_nil => true, :maximum => 38
+  validates_length_of :line_4, :allow_nil => true, :maximum => 48
+  validates_length_of :email, :line_6, :website, :allow_nil => true, :maximum => 255
+  validates_length_of :address, :allow_nil => true, :maximum => 280
+  validates_inclusion_of :by_default, :in => [true, false]
+  validates_presence_of :area
+  #]VALIDATORS]
   attr_readonly :entity_id, :company_id
   attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
   belongs_to :area

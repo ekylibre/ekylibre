@@ -11,8 +11,8 @@
 %table.list 
   %tr
     %th=IncomingDeliveryLine.human_attribute_name(:product)
-    %th=tc(:unit_price_pretax_amount)
-    %th=tc(:unit_price_amount)
+    %th=Price.human_attribute_name(:pretax_amount)
+    %th=Price.human_attribute_name(:amount)
     %th=tc(:total_quantity)
     %th=IncomingDeliveryLine.human_attribute_name(:unit)
     %th=tc(:quantity_rest)

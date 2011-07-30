@@ -21,7 +21,8 @@ class StockTransfersController < ApplicationController
   manage_restfully :nature=>"'transfer'", :planned_on=>"Date.today"
 
   list(:conditions=>moved_conditions(StockTransfer)) do |t|
-    t.column :text_nature
+    t.column :number
+    t.column :nature_label
     t.column :name, :through=>:product, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
@@ -46,7 +47,8 @@ class StockTransfersController < ApplicationController
   end
 
   list(:confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t|
-    t.column :text_nature
+    t.column :number
+    t.column :nature_label
     t.column :name, :through=>:product
     t.column :quantity, :datatype=>:decimal
     t.column :name, :through=>:warehouse

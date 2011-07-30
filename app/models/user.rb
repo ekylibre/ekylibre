@@ -58,6 +58,16 @@
 require "digest/sha2"
 
 class User < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :reduction_percent, :allow_nil => true
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :name, :allow_nil => true, :maximum => 32
+  validates_length_of :hashed_password, :salt, :allow_nil => true, :maximum => 64
+  validates_length_of :email, :employment, :first_name, :last_name, :office, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :admin, :employed, :locked, :in => [true, false]
+  validates_presence_of :department, :establishment, :first_name, :language, :last_name, :name, :profession, :reduction_percent
+  #]VALIDATORS]
   belongs_to :department
   belongs_to :establishment
   belongs_to :profession
@@ -106,7 +116,7 @@ class User < CompanyRecord
   end
 
   def label
-    self.first_name+' '+self.last_name
+    self["first_name"]+' '+self["last_name"]
   end
   alias :full_name :label
   

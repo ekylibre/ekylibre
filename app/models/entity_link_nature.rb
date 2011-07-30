@@ -37,6 +37,12 @@
 
 
 class EntityLinkNature < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :name_1_to_2, :name_2_to_1, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :propagate_contacts, :symmetric, :in => [true, false]
+  validates_presence_of :name
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   has_many   :entity_links, :foreign_key=>:nature_id

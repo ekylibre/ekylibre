@@ -1,8 +1,3 @@
-PATH
-  remote: vendor/ogems/exception_notification-1.0.0
-  specs:
-    exception_notification (1.0.0)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -41,13 +36,14 @@ GEM
     coffee-script-source (1.1.1)
     erubis (2.6.6)
       abstract (>= 1.0.0)
+    exception_notification (2.4.1)
     execjs (1.2.0)
       multi_json (~> 1.0)
     fastercsv (1.5.4)
     haml (3.1.2)
     i18n (0.5.0)
     json (1.5.3)
-    libxml-ruby (1.1.3)
+    libxml-ruby (2.0.9)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
@@ -78,15 +74,16 @@ GEM
       rdoc (~> 3.4)
       thor (~> 0.14.4)
     rake (0.8.7)
-    rdoc (3.6.1)
+    rdoc (3.8)
     rubyzip (0.9.4)
-    sass (3.1.3)
-    state_machine (1.0.1)
+    sass (3.1.4)
+    sqlite3 (1.3.3)
+    state_machine (0.9.4)
     thor (0.14.6)
     thoughtbot-shoulda (2.11.1)
     treetop (1.4.9)
       polyglot (>= 0.3.1)
-    tzinfo (0.3.28)
+    tzinfo (0.3.29)
     uglifier (1.0.0)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
@@ -97,18 +94,19 @@ PLATFORMS
 
 DEPENDENCIES
   coffee-script
-  exception_notification!
+  exception_notification
   fastercsv
   haml
   json
-  libxml-ruby (= 1.1.3)
+  libxml-ruby
   mysql
-  pg
+  pg (= 0.11.0)
   rails (= 3.0.9)
   rake (= 0.8.7)
   rubyzip
   sass
-  state_machine
+  sqlite3
+  state_machine (= 0.9.4)
   thoughtbot-shoulda
   uglifier
   will_paginate (~> 3.0.pre2)

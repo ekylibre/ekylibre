@@ -77,6 +77,22 @@
 
 
 class Entity < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :discount_rate, :reduction_rate, :allow_nil => true
+  validates_length_of :country, :allow_nil => true, :maximum => 2
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :soundex, :allow_nil => true, :maximum => 4
+  validates_length_of :siren, :allow_nil => true, :maximum => 9
+  validates_length_of :ean13, :allow_nil => true, :maximum => 13
+  validates_length_of :excise, :vat_number, :allow_nil => true, :maximum => 15
+  validates_length_of :activity_code, :name, :allow_nil => true, :maximum => 32
+  validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
+  validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
+  validates_length_of :first_name, :full_name, :last_name, :origin, :photo, :webpass, :website, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :attorney, :client, :locked, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
+  validates_presence_of :attorney_account, :category, :client_account, :full_name, :language, :last_name, :payment_delay, :payment_mode, :proposer, :responsible, :supplier_account
+  #]VALIDATORS]
   acts_as_numbered :code
   attr_readonly :company_id
   belongs_to :attorney_account, :class_name=>Account.to_s
@@ -100,11 +116,11 @@ class Entity < CompanyRecord
   has_many :mandates
   has_many :observations
   has_many :prices
-  has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
+  has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
   has_many :purchases, :foreign_key=>:supplier_id
   has_many :outgoing_deliveries, :foreign_key=>:transporter_id
   has_many :outgoing_payments, :foreign_key=>:payee_id
-  has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>:invoice}
+  has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
   has_many :sales, :foreign_key=>:client_id, :order=>"created_on desc"
   has_many :sale_lines
   has_many :subscriptions
@@ -113,6 +129,7 @@ class Entity < CompanyRecord
   has_many :transports, :foreign_key=>:transporter_id
   has_many :transporter_sales, :foreign_key=>:transporter_id, :order=>"created_on desc", :class_name=>"Sale"
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
+  has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category
   validates_uniqueness_of :code, :scope=>:company_id
@@ -144,7 +161,8 @@ class Entity < CompanyRecord
     
   protect_on_destroy do
     #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
-    return false if self.id == self.company.entity.id
+    return false if self.id == self.company.entity.id or self.sales_invoices.size > 0
+    return true
   end
 
   def self.exportable_columns
@@ -231,7 +249,7 @@ class Entity < CompanyRecord
   end
 
   def max_reduction_percent(computed_on=Date.today)
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id=? AND state='E')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id=? AND state='estimate')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
   end
   
   def description

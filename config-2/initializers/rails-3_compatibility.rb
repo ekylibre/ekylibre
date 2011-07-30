@@ -132,7 +132,7 @@ class ActiveRecord::Base
 
     # Callbacks
     # Permits the use of callbacks like in Rails 3
-    compat = :compatibility_with_rails3
+    compat = :rails3_compatibility
     code = ""
     #  
     for callback in %w( before_validation validate after_validation )

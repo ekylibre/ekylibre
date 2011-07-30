@@ -34,4 +34,8 @@
 
 
 class DepositLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :quantity, :allow_nil => true
+  #]VALIDATORS]
 end

@@ -13,11 +13,15 @@ gem "will_paginate", "~> 2.3"
 # gem "exception_notification", :branch=>"2-3-stable", :git=>"https://github.com/smartinez87/exception_notification.git" # , :require=>"exception_notifier"
 gem "exception_notification", :path => "vendor/ogems/exception_notification-2.3.3.0"
 
+gem "yasui_form", :path => "vendor/ogems/yasui_form"
+# gem "yasui_form", :groups=>[:test, :production]
+
 gem "state_machine", "0.9.4"
 # gem "ruby-graphviz", ">= 0.9.0"
 
 group :test do
   gem "shoulda"
+  gem "ruby-prof"
 end  
 
 platform :mswin do

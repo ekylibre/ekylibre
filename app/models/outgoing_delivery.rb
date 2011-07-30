@@ -45,6 +45,11 @@
 
 
 class OutgoingDelivery < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id, :sale_id, :number
   belongs_to :company 
@@ -52,15 +57,26 @@ class OutgoingDelivery < CompanyRecord
   belongs_to :mode, :class_name=>OutgoingDeliveryMode.name
   belongs_to :sale
   belongs_to :transport
+  belongs_to :transporter, :class_name=>"Entity"
   has_many :lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
-  autosave :transport
+  # autosave :transport
+  sums :transport, :deliveries, :amount, :pretax_amount, :weight
 
   validates_presence_of :planned_on
 
-  before_validation do
+  before_validation(:on=>:create) do
     self.company_id = self.sale.company_id if self.sale
+  end
+
+  before_validation do
+    self.transporter_id ||= self.transport.transporter_id if self.transport
+    return true
+  end
+
+  protect_on_update do
+    return false unless self.moved_on.nil?
     return true
   end
 

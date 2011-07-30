@@ -1,14 +1,8 @@
--form_id = options[:id]||"f"+rand.to_s[2..-1]
--if params[:dialog]
-  -jsaction = params[:formalize] ? Marshal.load(ActiveSupport::Base64.decode64(params[:formalize])) : nil
-  =form_remote_tag(:url=>{:action=>:update, :dialog=>params[:dialog], :formalize=>params[:formalize]}, :method=>:put, :success=>"if (request.responseJSON===null) {$('#{params[:dialog]}').update(request.responseText).resize();} else { #{jsaction}; closeDialog('#{params[:dialog]}')}", :html=>{:id=>form_id, :style=>'overflow:none', :class=>"vbox flex"}, :loaded=>"resizeDialog('#{params[:dialog]}')") do
-    =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
-    .actions
-      =submit_tag(tg(options[:submit]||:update), :disable_with=>tl(:please_wait))
-      =link_to_function(tg(options[:cancel]||:cancel), "closeDialog('#{params[:dialog]}')")
-=form_tag({:action=>:update}, {:method=>:put, :id=>form_id, :class=>"vbox flex", :style=>'overflow:none'}) do
+-form_id = options[:id]||"f"+(rand*1_000_000_000).to_i.to_s(36)
+
+=form_tag({:action=>:update}, {:id=>form_id, :style=>"overflow:none", :class=>"vbox flex"}.merge(params[:dialog] ? {"data-dialog"=>params[:dialog]} : {})) do
+  =hidden_field_tag(:_method, :put) # Needed for layout
   =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
   .actions
     =submit_tag(tg(options[:submit]||:update), :disable_with=>tl(:please_wait))
-    =link_to_back :label=>options[:cancel]||:cancel
-
+    =link_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-dialog-close"=>params[:dialog]} : {}))

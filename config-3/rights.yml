@@ -543,6 +543,7 @@ manage_inventories:
   - inventories::edit
   - inventories::index
   - inventories::list
+  - inventories::list_lines
   - inventories::list_lines_create
   - inventories::list_lines_update
   - inventories::new
@@ -610,6 +611,7 @@ manage_land_parcels:
   - land_parcels::index
   - land_parcels::list
   - land_parcels::list_operations
+  - land_parcels::merge
   - land_parcels::new
   - land_parcels::show
   - land_parcels::update
@@ -838,7 +840,9 @@ manage_sales:
   - outgoing_deliveries::edit
   - outgoing_deliveries::index
   - outgoing_deliveries::list
+  - outgoing_deliveries::list_lines
   - outgoing_deliveries::new
+  - outgoing_deliveries::show
   - outgoing_deliveries::update
   - sales::abort
   - sales::confirm
@@ -865,6 +869,13 @@ manage_stock_moves:
   - stock_transfers::list_confirm
   - stock_transfers::new
   - stock_transfers::update
+  - stocks::create
+  - stocks::destroy
+  - stocks::edit
+  - stocks::index
+  - stocks::list
+  - stocks::new
+  - stocks::update
 # Manage subscriptions
 manage_subscriptions:
   actions:
@@ -918,13 +929,12 @@ manage_transports:
   - dashboards::trade
   - interfacers::outgoing_deliveries_dyli
   - transports::create
-  - transports::deliveries
-  - transports::delivery_delete
   - transports::destroy
   - transports::edit
   - transports::index
   - transports::list
   - transports::list_deliveries
+  - transports::list_transportable_deliveries
   - transports::new
   - transports::show
   - transports::update

@@ -17,7 +17,7 @@ module List
 
       # Find data
       code  = "#{table.records_variable_name} = #{table.model.name}.paginate(:all"
-      code += ", :select=>'DISTINCT #{table.model.table_name}.*'" if table.options[:distinct]
+      code += ", :select=>#{select_code(table)}" if select_code(table)
       code += ", :conditions=>"+conditions_to_code(table.options[:conditions]) unless table.options[:conditions].blank?
       code += ", :page=>list_params[:page], :per_page=>list_params[:per_page]"
       code += ", :joins=>#{table.options[:joins].inspect}" unless table.options[:joins].blank?

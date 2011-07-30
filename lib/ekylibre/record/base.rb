@@ -28,6 +28,14 @@ module Ekylibre::Record
     # Make all models stampables
     self.stampable
 
+    def destroyable?
+      true
+    end
+
+    def updateable?
+      true
+    end
+
 
     if Rails.version.match(/^2\.3/)
 

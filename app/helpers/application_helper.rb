@@ -93,8 +93,11 @@ module ApplicationHelper
     Ekylibre.reverse_menus[action]||[]
   end
 
+  LEGALS_SENTENCE = ("Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION}").freeze
+
   def legals_sentence
-    "Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION} - "+ActiveRecord::Base.connection.adapter_name+" - "+ActiveRecord::Migrator.current_version.to_s
+    # "Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION} - "+ActiveRecord::Base.connection.adapter_name+" - "+ActiveRecord::Migrator.current_version.to_s
+    LEGALS_SENTENCE
   end
 
   def choices_yes_no
@@ -536,7 +539,8 @@ module ApplicationHelper
 
 
   def resizable?
-    return ((@current_user and @current_user.preference("interface.general.resized", true, :boolean).value) or @current_user.nil?)
+    session[:resizable] = true if session[:resizable].nil?
+    return session[:resizable]
   end
 
   def top_tag
@@ -544,26 +548,22 @@ module ApplicationHelper
     render :partial=>"layouts/top"
   end
 
-  def action_title
-    return controller.human_action_name
-  end
-
   def title_tag
     r = reverse_menus
     title = if @current_company
               if r.empty?
-                tc(:page_title_special, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title)
+                tc(:page_title_special, :company_code=>@current_company["code"], :company_name=>@current_company["name"], :action=>controller.human_action_name)
               else
-                tc(:page_title, :company_code=>@current_company.code, :company_name=>@current_company.name, :action=>action_title, :menu=>tl("menus.#{r[0]}"))
+                tc(:page_title, :company_code=>@current_company["code"], :company_name=>@current_company["name"], :action=>controller.human_action_name, :menu=>tl("menus.#{r[0]}"))
               end
             else
-              tc(:page_title_by_default, :action=>action_title)
+              tc(:page_title_by_default, :action=>controller.human_action_name)
             end
-    return content_tag(:title, title)
+    return "<title>"+h(title)+"</title>"
   end
 
   def title_header_tag
-    titles = action_title
+    titles = controller.human_action_name
     content_tag(:h1, titles, :class=>"title", :title=>titles)
   end
 
@@ -771,13 +771,14 @@ module ApplicationHelper
     else
       k.text
     end
+    return "" if k.criteria.size.zero?
     tag = ""
     first = true
     for c in k.criteria
       code, options = "", c[:options]||{}
       if c[:type] == :mode
         code = content_tag(:label, options[:label]||tg(:mode))
-        name = options[:name]||:mode
+        name = c[:name]||:mode
         params[name] ||= c[:modes][0].to_s
         i18n_root = options[:i18n_root]||'labels.criterion_modes.'
         for mode in c[:modes]
@@ -786,10 +787,23 @@ module ApplicationHelper
           radio += content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for=>"#{name}_#{mode}")
           code += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
         end
+      elsif c[:type] == :radio
+        code = content_tag(:label, options[:label]||tg(:state))
+        params[c[:name]] ||= c[:states][0].to_s
+        i18n_root = options[:i18n_root]||"labels.#{controller_name}_states."
+        for state in c[:states]
+          radio  = radio_button_tag(c[:name], state, params[c[:name]] == state.to_s)
+          radio += " ".html_safe+content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for=>"#{c[:name]}_#{state}")
+          code  += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
+        end
       elsif c[:type] == :text
         code = content_tag(:label, options[:label]||tg(:search))
-        name = options[:name]||:q
+        name = c[:name]||:q
         code += " ".html_safe+text_field_tag(name, params[name])
+      elsif c[:type] == :date
+        code = content_tag(:label, options[:label]||tg(:display))
+        name = c[:name]||:d
+        code += " ".html_safe+calendar_field_tag(name, params[name])
       elsif c[:type] == :criterion
         code += capture(&c[:block])
       end
@@ -810,13 +824,27 @@ module ApplicationHelper
       @criteria = []
     end
 
-    def mode(*modes)
-      options = modes.delete_at(-1) if modes[-1].is_a? Hash
-      @criteria << {:type=>:mode, :modes=>modes, :options=>options}
+    # def mode(*modes)
+    #   options = modes.delete_at(-1) if modes[-1].is_a? Hash
+    #   options = {} unless options.is_a? Hash
+    #   @criteria << {:type=>:mode, :modes=>modes, :options=>options}
+    # end
+    
+    def radio(*states)
+      options = states.delete_at(-1) if states[-1].is_a? Hash
+      options = {} unless options.is_a? Hash
+      name = options.delete(:name)||:s
+      @criteria << {:type=>:radio, :name=>name, :states=>states, :options=>options}
     end
     
-    def text(name=:q, options={})
+    def text(name=nil, options={})
+      name ||= :q
       @criteria << {:type=>:text, :name=>name, :options=>options}
+    end
+
+    def date(name=nil, options={})
+      name ||= :d
+      @criteria << {:type=>:date, :name=>name, :options=>options}
     end
 
     def criterion(html_options={}, &block)
@@ -1042,8 +1070,6 @@ module ApplicationHelper
   end
 
 
-
-
   class Formalize
     attr_reader :lines
 
@@ -1259,29 +1285,13 @@ module ApplicationHelper
         if options[:field] == :select
           input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
-          # data = if options[:remote]
-          #          # options[:remote].merge(:_mode=>:remote)
-          #          {:mode=>:remote, :remote=>remote}
-          #        elsif options[:field] == :dyselect
-          #          # "refreshList('#{rlid}', request, '#{url_for(options[:choices].merge(:controller=>:interfacers, :action=>:formalize))}');"
-          #          {:mode=>:select, :id=>rlid}
-          #        else
-          #          # "refreshAutoList('#{rlid}', request);"
-          #          {:mode=>:unroll, :id=>rlid}
-          #        end
-          # # data = ActiveSupport::Base64.encode64(Marshal.dump(data))
-          # # input += link_to_function(label, "openDialog('#{url_for(options[:new].merge(:formalize=>data))}')", :href=>url_for(options[:new]), :class=>:fastadd)
-          # # input += content_tag(:span, content_tag(:span, link_to(label, options[:new], "data-dialog-open"=>url_for(options[:new].merge(:_after=>data)), :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
-
           data = (options[:update] ? options[:update] : rlid)
-
-          #                     + content_tag(:span, link_to(tg(:edit), options[:edit], "data-edit-item"=>data, :class=>"icon im-edit").html_safe, :class=>:tool).html_safe
           input += content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
 
         end
       end
       
-      label = object.class.human_attribute_name(method.to_s)
+      label = object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
       label = " " if options[:options][:hide_label] 
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
@@ -1487,19 +1497,6 @@ module ApplicationHelper
 
 
 
-  def lettering_modes_tag
-    code = content_tag(:span, tc("lettering_modes.title"))
-    for mode in [:clients, :suppliers, :attorneys]
-      if params[:id].to_s == mode.to_s
-        code += content_tag(:strong, tc("lettering_modes.#{mode}"))
-      else
-        code += link_to tc("lettering_modes.#{mode}"), {:controller=>:accounts, :action=>:reconciliation, :id=>mode}
-      end
-    end
-    return content_tag(:div, code, :class=>:view)
-  end
-
-
   # Imported from app/helpers/management_helper.rb
 
 
@@ -1526,12 +1523,13 @@ module ApplicationHelper
 
   SALES_STEPS = [
                  {:name=>:products,   :actions=>[{:controller=>:sales, :action=>:show, :step=>:products}, "sales#new", "sales#create", "sales#edit", "sales#update", "sale_lines#new", "sale_lines#create", "sale_lines#edit", "sale_lines#update", "sale_lines#destroy"], :states=>['aborted', 'draft', 'estimate', 'refused', 'order', 'invoice']},
-                 {:name=>:deliveries, :actions=>[{:controller=>:sales, :action=>:show, :step=>:deliveries}, "outgoing_deliveries#new", "outgoing_deliveries#create", "outgoing_deliveries#edit", "outgoing_deliveries#update"], :states=>['order', 'invoice']},
+                 {:name=>:deliveries, :actions=>[{:controller=>:sales, :action=>:show, :step=>:deliveries}, "outgoing_deliveries#show", "outgoing_deliveries#new", "outgoing_deliveries#create", "outgoing_deliveries#edit", "outgoing_deliveries#update"], :states=>['order', 'invoice']},
                  {:name=>:summary,    :actions=>[{:controller=>:sales, :action=>:show, :step=>:summary}], :states=>['invoice']}
                 ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| (u.is_a?(String) ? {:controller=>u.split('#')[0].to_sym, :action=>u.split('#')[1].to_sym} : u)}, :states=>s[:states]}}.freeze
 
-  def sales_steps
-    steps_tag(@sale, SALES_STEPS, :name=>:sales)
+  def sales_steps(sale=nil)
+    sale ||= @sale
+    steps_tag(sale, SALES_STEPS, :name=>:sales)
   end
 
   PURCHASE_STEPS = [
@@ -1540,8 +1538,9 @@ module ApplicationHelper
                     {:name=>:summary,    :actions=>[{:controller=>:purchases, :action=>:show, :step=>:summary}], :states=>['invoice']}
                    ].collect{|s| {:name=>s[:name], :actions=>s[:actions].collect{|u| (u.is_a?(String) ? {:controller=>u.split('#')[0].to_sym, :action=>u.split('#')[1].to_sym} : u)}, :states=>s[:states]}}.freeze
 
-  def purchase_steps
-    steps_tag(@purchase, PURCHASE_STEPS, :name=>:purchase)
+  def purchase_steps(purchase=nil)
+    purchase ||= @purchase
+    steps_tag(purchase, PURCHASE_STEPS, :name=>:purchase)
   end
 
 

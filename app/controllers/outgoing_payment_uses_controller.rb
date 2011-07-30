@@ -48,6 +48,7 @@ class OutgoingPaymentUsesController < ApplicationController
       @outgoing_payment_use = OutgoingPaymentUse.new(params[:outgoing_payment_use])
       if @outgoing_payment_use.save
         redirect_to_back
+        return
       end
       expense = @outgoing_payment_use.expense
 #       unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])

@@ -1,0 +1,8 @@
+# Codes come from ISO4217
+# This file defines all used currencies defined by the ISO
+currencies:
+  eur:
+    cash: [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500]
+    countries: [ad, at, be, cy, de, ee, es, fi, fr, gr, ie, it, lu, mc, me, mt, nl, pt, si, sk, sm, va]
+    name: 'Euro'
+    symbol: '€'

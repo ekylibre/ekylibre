@@ -19,9 +19,11 @@
 
 class TransportsController < ApplicationController
 
-  list(:children=>:deliveries, :conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :created_on, :children=>:planned_on, :url=>true
-    t.column :transport_on, :children=>false, :url=>true
+  list(:children=>:deliveries, :conditions=>light_search_conditions(:transports=>[:number, :comment], :entities=>[:code, :full_name])) do |t|
+    t.column :number, :url=>true
+    t.column :comment
+    t.column :created_on, :children=>:planned_on
+    t.column :transport_on, :children=>:moved_on
     t.column :full_name, :through=>:transporter, :children=>:contact_address, :url=>true
     t.column :weight
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
@@ -34,84 +36,126 @@ class TransportsController < ApplicationController
   end
 
 
-  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport]']}) do |t|
+  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
-    t.column :number, :through=>:sale, :url=>true, :children=>false
+    t.column :number, :url=>true, :children=>false
+    # t.column :number, :through=>:sale, :url=>true, :children=>false
     t.column :quantity
     t.column :pretax_amount
     t.column :amount
     t.column :weight, :children=>false
-    t.action :delivery_delete, :method=>:delete, :controller=>:transports, :confirm=>:are_you_sure_you_want_to_delete_outgoing_delivery
   end
 
   # Displays details of one transport selected with +params[:id]+
   def show
     return unless @transport = find_and_check(:transports)
-    session[:current_transport] = @transport.id
-    t3e @transport.attributes
+    respond_to do |format|
+      format.html do 
+        session[:current_transport_id] = @transport.id
+        t3e @transport.attributes
+      end
+      format.pdf { render_print_transport(@transport) }
+    end
+  end
+
+  def self.transportable_deliveries_conditions()
+    code  = ""
+    code += "c = ['company_id = ?', @current_company.id]\n"
+    code += "if session[:current_transport_id].to_i > 0\n"
+    code += "  c[0] += ' AND (transport_id = ? OR (transport_id IS NULL'\n"
+    code += "  c << session[:current_transport_id].to_i\n"
+    code += "  if session[:current_transporter_id].to_i > 0\n"
+    code += "    c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
+    code += "    c << session[:current_transporter_id].to_i\n"
+    code += "  end\n"
+    code += "  c[0] += '))'\n"
+    code += "elsif not session[:current_transporter_id].to_i.zero?\n"
+    code += "  c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
+    code += "  c << session[:current_transporter_id].to_i\n"
+    code += "else\n"
+    code += "  c[0] += ' AND transporter_id IS NULL'\n"
+    code += "end\n"
+
+    code += "c\n"
+    return code
+  end
+
+  list(:transportable_deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>transportable_deliveries_conditions, :pagination=>:none, :order=>:planned_on, :line_class=>"(RECORD.planned_on<Date.today ? 'critic' : RECORD.planned_on == Date.today ? 'warning' : '')") do |t|
+    t.check_box :selected, :value=>'(session[:current_transport_id].to_i.zero? ? RECORD.planned_on <= Date.today : RECORD.transport_id == session[:current_transport_id])'
+    t.column :address, :through=>:contact, :children=>:product_name
+    t.column :planned_on, :children=>false
+    t.column :moved_on, :children=>false
+    t.column :number, :url=>true, :children=>false
+    # t.column :number, :through=>:sale, :url=>true, :children=>false
+    t.column :last_name, :through=>:transporter, :children=>false, :url=>true
+    t.column :quantity
+    t.column :pretax_amount
+    t.column :amount
+    t.column :weight, :children=>false
   end
 
   def new
-    @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id)
-    @transport.responsible_id = @current_user.id
-    session[:current_transport] = 0
-    render_restfully_form
+    @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id, :transporter_id=>params[:transporter_id], :responsible_id=>@current_user.id)
+    session[:current_transport_id] = @transport.id
+    session[:current_transporter_id] = @transport.transporter_id
+    if request.xhr?
+      if params[:transport_id] and transport = @current_company.transports.find_by_id(params[:transport_id])
+        session[:current_transport_id] ||= transport.id
+      end
+      render :partial=>"deliveries_form"
+    else
+      render_restfully_form
+    end
   end
 
   def create
-    session[:current_transport] = 0
-    @transport = Transport.new(params[:transport])
-    @transport.responsible_id = @current_user.id
-    @transport.company_id = @current_company.id
-    return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id})
-    render_restfully_form
-  end
-
-  def destroy
-    #raise Exception.new params.inspect
-    return unless @transport = find_and_check(:transports)
-    if request.post? or request.delete?
-      @transport.destroy
-    end
-    redirect_to transports_url
-  end
-
-  def deliveries
-    return unless @transport = find_and_check(:transports, params[:id]||session[:current_transport])
-    session[:current_transport] = @transport.id
-    if request.post?
-      return unless outgoing_delivery = find_and_check(:outgoing_deliveries, params[:outgoing_delivery][:id].to_i)
-      if outgoing_delivery
-        redirect_to :action=>:edit, :id=>@transport.id if outgoing_delivery.update_attributes(:transport_id=>@transport.id) 
+    @transport = @current_company.transports.new(params[:transport])
+    session[:current_transport_id] = @transport.id
+    session[:current_transporter_id] = @transport.transporter_id
+    return if save_and_redirect(@transport, :url=>{:action=>:show, :id=>'id'}) do |transport|
+      transport.deliveries.clear
+      for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
+        delivery = OutgoingDelivery.find_by_id(delivery_id)
+        if delivery and not transport.deliveries.include? delivery
+          transport.deliveries << delivery
+        end
       end
     end
-  end
-
-  def delivery_delete
-    return unless @outgoing_delivery =  find_and_check(:outgoing_delivery)
-    if request.post? or request.delete?
-      @outgoing_delivery.update_attributes!(:transport_id=>nil)
-    end
-    redirect_to_current
+    render_restfully_form
   end
 
   def edit
     return unless @transport = find_and_check(:transports)
-    session[:current_transport] = @transport.id
-    if request.post?
-      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id}, :attributes=>params[:transport])
-    end
+    session[:current_transport_id] = @transport.id
+    session[:current_transporter_id] = @transport.transporter_id
+    t3e @transport.attributes
+    render_restfully_form
   end
 
   def update
     return unless @transport = find_and_check(:transports)
-    session[:current_transport] = @transport.id
-    if request.post?
-      return if save_and_redirect(@transport, :url=>{:action=>:deliveries, :id=>@transport.id}, :attributes=>params[:transport])
+    session[:current_transport_id] = @transport.id
+    session[:current_transporter_id] = @transport.transporter_id
+    return if save_and_redirect(@transport, :attributes=>params[:transport], :url=>{:action=>:show, :id=>'id'}) do |transport|
+      transport.deliveries.clear
+      for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
+        delivery = OutgoingDelivery.find_by_id(delivery_id)
+        if delivery and not transport.deliveries.include? delivery
+          transport.deliveries << delivery
+        end
+      end
     end
-    render :edit
+    t3e @transport.attributes
+    render_restfully_form
+  end
+
+
+  def destroy
+    return unless @transport = find_and_check(:transports)
+    @transport.destroy if @transport.destroyable?
+    redirect_to transports_url
   end
 
 end

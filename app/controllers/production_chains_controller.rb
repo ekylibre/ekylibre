@@ -47,23 +47,23 @@ class ProductionChainsController < ApplicationController
         us[:kg] = @current_company.units.find_by_name("kg")||@current_company.units.create!(:name=>"kg", :label=>"Kilogram", :base=>"kg")
         us[:u] = @current_company.units.find_by_name("u")||@current_company.units.create!(:name=>"u", :label=>"Unit", :base=>"")
         ps = {}
-        for p in [["TOMA", "Tomato (トマト)", :kg],
-                  ["TO11", "Tomato Q1S1 (トマト)", :kg],
-                  ["TO12", "Tomato Q1S2 (トマト)", :kg],
-                  ["TO21", "Tomato Q2S1 (トマト)", :kg],
-                  ["TO22", "Tomato Q2S2 (トマト)", :kg],
-                  ["BOX1", "Box S1 (匣)", :u],
-                  ["BOX2", "Box S2 (匣)", :u],
-                  ["TB11", "Tomato Box Q1S1 (トマトの匣)", :u],
-                  ["TB12", "Tomato Box Q1S2 (トマトの匣)", :u],
-                  ["TB21", "Tomato Box Q2S1 (トマトの匣)", :u],
-                  ["TB22", "Tomato Box Q2S2 (トマトの匣)", :u],
-                  ["STPA", "Special Tomato Palet (トマトの匣)", :u]
+        for p in [["TOMA", "Tomato (トマト)", :kg, 1],
+                  ["TO11", "Tomato Q1S1 (トマト)", :kg, 1],
+                  ["TO12", "Tomato Q1S2 (トマト)", :kg, 1],
+                  ["TO21", "Tomato Q2S1 (トマト)", :kg, 1],
+                  ["TO22", "Tomato Q2S2 (トマト)", :kg, 1],
+                  ["BOX1", "Box S1 (匣)", :u, 0.040],
+                  ["BOX2", "Box S2 (匣)", :u, 0.070],
+                  ["TB11", "Tomato Box Q1S1 (トマトの匣)", :u, 1.04],
+                  ["TB12", "Tomato Box Q1S2 (トマトの匣)", :u, 2.07],
+                  ["TB21", "Tomato Box Q2S1 (トマトの匣)", :u, 1.04],
+                  ["TB22", "Tomato Box Q2S2 (トマトの匣)", :u, 2.07],
+                  ["STPA", "Special Tomato Palet (トマトの匣)", :u, 925] # 912.8 of tomato + palet (12kg) + film
                  ]
           k = p[0] # .lower.to_sym
           ps[k] = @current_company.products.find_by_code(p[0])
           # ps[k].destroy; ps[k] = nil
-          ps[k] = @current_company.products.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :for_sales=>false, :category=>@current_company.product_categories.first, :nature=>"product", :stockable=>true) unless ps[k]
+          ps[k] = @current_company.products.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>@current_company.product_categories.first, :nature=>"product", :stockable=>true) unless ps[k]
         end
 
         for co in [ ["TOMA", nil, 0.0,  :a,   1, true],
@@ -76,10 +76,10 @@ class ProductionChainsController < ApplicationController
                     ["BOX2", nil, 0.0,  :d,   1, false],
                     ["BOX1", nil, 0.0,  :e,   1, false],
                     ["BOX2", nil, 0.0,  :f,   1, false],
-                    ["TB11",  :c, 1.0,  :g, 500, false, true],
-                    ["TB12",  :d, 1.0,  :g, 300, false, true],
-                    ["TB21",  :e, 1.0,  :g, 500, false, true],
-                    ["TB22",  :f, 1.0,  :g, 300, false, true],
+                    ["TB11",  :c, 1.0,  :g, 200, false, true],
+                    ["TB12",  :d, 1.0,  :g, 120, false, true],
+                    ["TB21",  :e, 1.0,  :g, 200, false, true],
+                    ["TB22",  :f, 1.0,  :g, 120, false, true],
                     ["STPA",  :g, 1.0, nil,   0, false, true]
                   ]
           pc.conveyors.create!(:product=>ps[co[0]], :source=>ops[co[1]], :source_quantity=>co[2], :target=>ops[co[3]], :target_quantity=>co[4], :check_state=>co[5], :unique_tracking=>co[6]||false)
@@ -91,7 +91,7 @@ class ProductionChainsController < ApplicationController
 
 
 
-  list(:work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  list(:work_centers, :model=>:production_chain_work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:operation_nature
     t.column :nature
@@ -101,7 +101,7 @@ class ProductionChainsController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  list(:conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
+  list(:conveyors, :model=>:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
     t.column :name, :through=>:product, :url=>true
     t.column :flow
     t.column :name, :through=>:unit

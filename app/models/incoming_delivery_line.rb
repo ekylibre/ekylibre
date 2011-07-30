@@ -43,6 +43,10 @@
 
 
 class IncomingDeliveryLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity, :weight, :allow_nil => true
+  #]VALIDATORS]
   acts_as_stockable :origin=>:delivery
   attr_readonly :purchase_line_id, :product_id, :price_id, :unit_id
   belongs_to :delivery, :class_name=>IncomingDelivery.name

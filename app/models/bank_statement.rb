@@ -39,6 +39,11 @@
 
 
 class BankStatement < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :credit, :currency_credit, :currency_debit, :debit, :allow_nil => true
+  validates_length_of :number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company

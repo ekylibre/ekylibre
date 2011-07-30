@@ -1,8 +1,8 @@
--# Eclated automatically (2011-06-08)
 =render :partial=>"entities/search"
 =toolbar do |t|
   -t.edit @entity
-  -t.print_entity @entity
+  -t.print_entity @entit
+  -t.destroy(@entity, :method=>:delete, :confirm=>tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 
 =attributes_list(@entity) do |l|
   -l.attribute :last_name

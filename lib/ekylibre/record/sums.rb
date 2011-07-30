@@ -25,6 +25,7 @@ module Ekylibre::Record
         callbacks = (options.delete(:callbacks) || [:after_save, :after_destroy])
         for callback in callbacks
           code +=" #{callback} do\n"
+          code += "  return if self.#{target}_id.to_i.zero?\n"
           code += "  "+options.collect{|k, v| v}.join(" = ")+" = 0\n"
           code += "  for #{children.to_s.singularize} in self.class.find(:all, :conditions=>{:#{target}_id=>self.#{target}_id})\n"
           for k, v in options

@@ -35,6 +35,11 @@
 
 
 class Establishment < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nic, :allow_nil => true, :maximum => 5
+  validates_length_of :name, :siret, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   has_many :warehouses

@@ -67,6 +67,18 @@
 
 
 class Product < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
+  validates_numericality_of :critic_quantity_min, :price, :quantity_max, :quantity_min, :service_coeff, :weight, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :ean13, :allow_nil => true, :maximum => 13
+  validates_length_of :code, :allow_nil => true, :maximum => 16
+  validates_length_of :code2, :allow_nil => true, :maximum => 64
+  validates_length_of :catalog_name, :name, :subscription_period, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :deliverable, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :published, :reduction_submissive, :stockable, :trackable, :unquantifiable, :with_tracking, :in => [true, false]
+  validates_presence_of :catalog_name, :name, :nature, :number, :purchases_account, :sales_account, :subscription_nature
+  #]VALIDATORS]
   @@natures = [:product, :service, :subscrip] # , :transfer]
   attr_readonly :company_id
   belongs_to :purchases_account, :class_name=>Account.to_s
@@ -203,11 +215,6 @@ class Product < CompanyRecord
       return tc('subscription_label.quantity', :start=>self.subscription_nature.actual_number.to_i, :finish=>(self.subscription_nature.actual_number.to_i + ((self.subscription_quantity-1)||0)), :entity=>entity, :address=>address, :subscription_nature=>self.subscription_nature.name)
     end
   end
-
-  def shelf_name
-    self.shelf.name
-  end
-
 
   # Create real stocks moves to update the real state of stocks
   def move_outgoing_stock(options={})

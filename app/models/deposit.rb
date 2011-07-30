@@ -43,6 +43,13 @@
 
 
 class Deposit < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :allow_nil => true
+  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :in_cash, :locked, :in => [true, false]
+  validates_presence_of :amount, :created_on, :journal_entry, :responsible
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :cash
@@ -79,7 +86,7 @@ class Deposit < CompanyRecord
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
+      label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :count=>self.payments_count, :mode=>self.mode.name, :responsible=>self.responsible.label, :comment=>self.comment)
       
       entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
       for commission_account_id, commission_amount in commissions
@@ -88,7 +95,7 @@ class Deposit < CompanyRecord
 
       if self.company.prefer_detail_payments_in_deposit_bookkeeping?
         for payment in payments
-          label = tc(:bookkeep_with_payment, :resource=>self.class.human_name, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
+          label = tc(:bookkeep_with_payment, :resource=>self.class.model_name.human, :number=>self.number, :mode=>self.mode.name, :payer=>payment.payer.full_name, :check_number=>payment.check_number, :payment=>payment.number)
           entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else

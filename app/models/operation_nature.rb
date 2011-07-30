@@ -34,6 +34,10 @@
 
 
 class OperationNature < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :target_type, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   belongs_to :company
   has_many :operations
 

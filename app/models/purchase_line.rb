@@ -44,6 +44,11 @@
 
 
 class PurchaseLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_list :scope=>:purchase
   attr_readonly :company_id, :purchase_id
   belongs_to :account

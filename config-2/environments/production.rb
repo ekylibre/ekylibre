@@ -26,3 +26,6 @@ config.action_view.cache_template_loading            = true
 
 # Enable threaded mode
 # config.threadsafe!
+
+# If set to true, Haml makes no attempt to properly indent or format the HTML output. This significantly improves rendering performance but makes viewing the source unpleasant.
+Haml::Template.options[:ugly] = true

@@ -48,6 +48,12 @@
 
 
 class Purchase < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :number, :state, :allow_nil => true, :maximum => 64
+  validates_length_of :reference_number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :company_id
@@ -120,7 +126,7 @@ class Purchase < CompanyRecord
   bookkeep do |b|
     # bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|
     b.journal_entry(self.company.journal(:purchases), :if=>self.invoice?) do |entry|
-      label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
+      label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
         entry.add_debit(label, line.price.tax.paid_account_id, line.taxes_amount) unless line.taxes_amount.zero?

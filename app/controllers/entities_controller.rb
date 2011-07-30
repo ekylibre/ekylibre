@@ -19,16 +19,21 @@
 
 class EntitiesController < ApplicationController
 
-  list(:conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :c=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS c ON (entities.id=c.entity_id AND c.deleted_at IS NULL)", :order=>"entities.code") do |t|
+  list(:select=>{[:contacts, :line_6]=>:line_6}, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :contacts=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS contacts ON (entities.id=contacts.entity_id AND contacts.deleted_at IS NULL)", :order=>"entities.code") do |t|
     t.column :active, :datatype=>:boolean
     t.column :code, :url=>true
     t.column :title, :through=>:nature
     t.column :last_name, :url=>true
     t.column :first_name, :url=>true
-    t.column :line_6, :through=>:default_contact, :url=>{:action=>:edit}
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print #  :url=>{:controller=>:company, :p0=>"RECORD.id", :id=>:entity}
+    t.column :line_6
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    # t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+  end
+
+  # Displays the main page with the list of entities
+  def index
+    session[:entity_key] = params[:q]
   end
 
   list(:cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
@@ -154,14 +159,23 @@ class EntitiesController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
-  # Displays the main page with the list of entities
-  def index
-    session[:entity_key] = params[:key]||session[:entity_key]
+  # Displays details of one entity selected with +params[:id]+
+  def show
+    return unless @entity = find_and_check(:entity)
+    respond_to do |format|
+      format.html do 
+        session[:current_entity_id] = @entity.id
+        session[:my_entity] = params[:id]
+        t3e @entity.attributes
+        @key = ""
+      end
+      format.pdf { render_print_entity(@entity) }
+    end
   end
 
   def export
     if request.xhr?
-      render :partial=>'entities_export_condition'
+      render :partial=>'export_condition'
     else
       @columns = @current_company.exportable_columns
       @conditions = ["special-subscriber"] # , "special-buyer", "special-relation"]
@@ -317,63 +331,13 @@ class EntitiesController < ApplicationController
     end
   end
 
-  # Displays details of one entity selected with +params[:id]+
-  def show
-    return unless @entity = find_and_check(:entity)
-    respond_to do |format|
-      format.html do 
-        session[:current_entity_id] = @entity.id
-        session[:my_entity] = params[:id]
-        t3e @entity.attributes
-        @key = ""
-      end
-      format.pdf { render_print_entity(@entity) }
-    end
-  end
-
   def new
     @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
-    @custom_field_data = []
-    
-    if request.post?
-      @entity = Entity.new(params[:entity])
-      @entity.company_id = @current_company.id
-      @contact = Contact.new(params[:contact])
-      @contact.company_id = @current_company.id
-      for custom_field in @custom_fields
-        attributes = params[:custom_field_datum][custom_field.id.to_s]||{}
-        attributes[:custom_field_id] = custom_field.id
-        attributes[:company_id] = @current_company.id
-        @custom_field_data << CustomFieldDatum.new(attributes)
-      end
-
-      ActiveRecord::Base.transaction do
-        if saved = @entity.save
-          @entity.account(:client) if @entity.client?
-          @entity.account(:supplier) if @entity.supplier?
-          @entity.account(:attorney) if @entity.attorney?
-          
-          for datum in @custom_field_data
-            datum.entity_id = @entity.id
-            saved = false unless datum.save
-            @entity.errors.add_from_record(datum)
-          end
-
-          @contact.entity_id = @entity.id
-          saved = false unless @contact.save
-          @entity.errors.add_from_record(@contact)
-        end
-
-        raise ActiveRecord::Rollback unless saved
-        return if save_and_redirect(@entity, :saved=>saved)
-      end
-
-    else
-      @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
-      @entity = @current_company.entities.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
-      for custom_field in @custom_fields
-        @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
-      end
+    @custom_field_data = []    
+    @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
+    @entity = @current_company.entities.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
+    for custom_field in @custom_fields
+      @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
     end
     render_restfully_form
   end
@@ -381,60 +345,39 @@ class EntitiesController < ApplicationController
   def create
     @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
     @custom_field_data = []
+    @entity = Entity.new(params[:entity])
+    @entity.company_id = @current_company.id
+    @contact = Contact.new(params[:contact])
+    @contact.company_id = @current_company.id
+    for custom_field in @custom_fields
+      attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
+      attributes[:custom_field_id] = custom_field.id
+      attributes[:company_id] = @current_company.id
+      @custom_field_data << CustomFieldDatum.new(attributes)
+    end
     
-    if request.post?
-      @entity = Entity.new(params[:entity])
-      @entity.company_id = @current_company.id
-      @contact = Contact.new(params[:contact])
-      @contact.company_id = @current_company.id
-      for custom_field in @custom_fields
-        attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
-        attributes[:custom_field_id] = custom_field.id
-        attributes[:company_id] = @current_company.id
-        @custom_field_data << CustomFieldDatum.new(attributes)
-      end
-
-      ActiveRecord::Base.transaction do
-        if saved = @entity.save
-          @entity.account(:client) if @entity.client?
-          @entity.account(:supplier) if @entity.supplier?
-          @entity.account(:attorney) if @entity.attorney?
-          
-          for datum in @custom_field_data
-            datum.entity_id = @entity.id
-            saved = false unless datum.save
-            @entity.errors.add_from_record(datum)
-          end
-
-          @contact.entity_id = @entity.id
-          saved = false unless @contact.save
-          @entity.errors.add_from_record(@contact)
+    ActiveRecord::Base.transaction do
+      if saved = @entity.save
+        @entity.account(:client) if @entity.client?
+        @entity.account(:supplier) if @entity.supplier?
+        @entity.account(:attorney) if @entity.attorney?
+        
+        for datum in @custom_field_data
+          datum.entity_id = @entity.id
+          saved = false unless datum.save
+          @entity.errors.add_from_record(datum)
         end
-
-        raise ActiveRecord::Rollback unless saved
-        return if save_and_redirect(@entity, :saved=>saved)
+        
+        @contact.entity_id = @entity.id
+        saved = false unless @contact.save
+        @entity.errors.add_from_record(@contact)
       end
-
-    else
-      @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
-      @entity = @current_company.entities.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
-      for custom_field in @custom_fields
-        @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
-      end
+      
+      raise ActiveRecord::Rollback unless saved
+      return if save_and_redirect(@entity, :saved=>saved)
     end
+
     render_restfully_form
-  end
-
-  def destroy
-    return unless @entity = find_and_check(:entity)
-    if request.post? or request.delete?
-      unless @entity.sales_invoices.size > 0
-        @entity.destroy
-      else
-        notify_error(:cannot_delete_entity)
-      end
-    end
-    redirect_to entities_url
   end
 
   def edit
@@ -501,6 +444,16 @@ class EntitiesController < ApplicationController
     
     t3e @entity.attributes
     render_restfully_form
+  end
+
+  def destroy
+    return unless @entity = find_and_check(:entity)
+    if @entity.destroyable?
+      @entity.destroy 
+    else
+      notify_error(:cannot_delete_entity)
+    end
+    redirect_to :action=>:index
   end
 
 end

@@ -19,15 +19,40 @@
 
 class SalesController < ApplicationController
 
-  list(:creditable_lines, :model=>:sale_lines, :conditions=>["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
-    t.column :label
-    t.column :annotation
-    t.column :name, :through=>:product
-    t.column :amount, :through=>:price, :label=>:column
-    t.column :quantity
-    t.column :credited_quantity, :datatype=>:decimal
-    t.check_box  :validated, :value=>"true", :label=>'OK'
-    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+  # management -> sales_conditions
+  def self.sales_conditions
+    code = ""
+    code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number, :comment], :entities=>[:code, :full_name])+"||=[]\n"
+    code += "unless session[:sale_state].blank?\n"
+    code += "  if session[:sale_state] == 'current'\n"
+    code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n" 
+    code += "  elsif session[:sale_state] == 'unpaid'\n"
+    code += "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount\"\n"
+    code += "  end\n "
+    code += "end\n "
+    code += "c\n "
+    code
+  end
+
+  list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state') do |t|
+    t.column :number, :url=>{:action=>:show, :step=>:default}
+    t.column :created_on
+    t.column :label, :through=>:responsible
+    t.column :full_name, :through=>:client, :url=>true
+    t.column :comment
+    t.column :state_label
+    t.column :paid_amount
+    t.column :amount
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.action :edit, :if=>'RECORD.draft? '
+    t.action :cancel, :if=>'RECORD.cancelable? '
+    t.action :destroy, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays the main page with the list of sales
+  def index
+    session[:sale_state] = params[:s] ||= params[:s]||"all"
+    session[:sale_key] = params[:q]
   end
 
   list(:credits, :model=>:sales, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sale_id]'] }, :children=>:lines) do |t|
@@ -40,6 +65,7 @@ class SalesController < ApplicationController
 
   list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}) do |t|
     t.column :number, :children=>:product_name
+    t.column :last_name, :through=>:transporter, :children=>false, :url=>true
     t.column :address, :through=>:contact, :children=>false
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -98,21 +124,6 @@ class SalesController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
-  list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state') do |t|
-    t.column :number, :url=>{:action=>:show, :step=>:default}
-    t.column :created_on
-    t.column :label, :through=>:responsible
-    t.column :full_name, :through=>:client, :url=>true
-    t.column :comment
-    t.column :state_label
-    t.column :paid_amount
-    t.column :amount
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :edit, :if=>'RECORD.draft? '
-    t.action :cancel, :if=>'RECORD.cancelable? '
-    t.action :destroy, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
-  end
-
   # Displays details of one sale selected with +params[:id]+
   def show
     return unless @sale = find_and_check(:sale)
@@ -155,6 +166,18 @@ class SalesController < ApplicationController
     redirect_to :action=>:show, :id=>@sale.id
   end
 
+
+  list(:creditable_lines, :model=>:sale_lines, :conditions=>["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
+    t.column :label
+    t.column :annotation
+    t.column :name, :through=>:product
+    t.column :amount, :through=>:price, :label=>:column
+    t.column :quantity
+    t.column :credited_quantity, :datatype=>:decimal
+    t.check_box  :validated, :value=>"true", :label=>'OK'
+    t.text_field :quantity, :value=>"RECORD.uncredited_quantity", :size=>6
+  end
+
   def cancel
     return unless @sale = find_and_check(:sale)
     session[:sale_id] = @sale.id
@@ -181,7 +204,6 @@ class SalesController < ApplicationController
   end
 
   def contacts
-
     if request.xhr?
       client, contact_id = nil, nil
       client = if params[:selected] and contact = @current_company.contacts.find_by_id(params[:selected])
@@ -191,24 +213,13 @@ class SalesController < ApplicationController
                end
       if client
         session[:current_entity_id] = client.id
-        contact_id = contact.id||client.default_contact.id
+        contact_id = (contact ? contact.id : client.default_contact.id)
       end
       @sale = @current_company.sales.find_by_id(params[:sale_id])||Sale.new(:contact_id=>contact_id, :delivery_contact_id=>contact_id, :invoice_contact_id=>contact_id)
       render :partial=>'contacts_form', :locals=>{:client=>client}
     else
       redirect_to :action=>:index
     end
-
-#     if @sale
-#       client_id = @sale.client_id
-#     else
-#       client_id = params[:client_id]||(params[:sale]||{})[:client_id]||session[:current_entity_id]
-#       client_id = 0 if client_id.blank?
-#     end
-#     client = @current_company.entities.find_by_id(client_id)
-#     session[:current_entity_id] = client_id
-#     @contacts = (client ? client.contacts.collect{|x| [x.address, x.id]} : [])
-#     render :text=>options_for_select(@contacts) if request.xhr?
   end
 
   def correct
@@ -350,17 +361,6 @@ class SalesController < ApplicationController
     render_restfully_form
   end
 
-  # Displays the main page with the list of sales
-  def index
-    #raise Exception.new session[:sale_state].inspect
-    session[:sale_state] ||= "all"
-    @key = params[:key]||session[:sale_key]||""
-    if request.post?
-      #raise Exception.new params.inspect
-      session[:sale_state] = params[:sale][:state]
-      session[:sale_key] = @key
-    end
-  end
 
   def statistics
     session[:nb_year] = params[:nb_year]||2

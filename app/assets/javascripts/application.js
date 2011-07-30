@@ -5,18 +5,18 @@
 function toggleElement(element, show, reverse_element) {
     element = $(element);
     if (show === null || show === undefined) { 
-	show = (element.style.display == "none"); 
+	      show = (element.style.display == "none"); 
     }
     if (show) {
-	element.show();
-	if (reverse_element !== undefined) {
-	    $(reverse_element).hide();
-	}
+	      element.show();
+	      if (reverse_element !== undefined) {
+	          $(reverse_element).hide();
+	      }
     } else {
-	element.hide();
-	if (reverse_element !== undefined) {
-	    $(reverse_element).show();
-	}
+	      element.hide();
+	      if (reverse_element !== undefined) {
+	          $(reverse_element).show();
+	      }
     }
     return show;
 }
@@ -27,13 +27,13 @@ function toggleMenu(element) {
     var title = $(element+'_title');
     var state;
     if (actions.style.display == "none") {
-	actions.blindDown();
-	title.removeClassName('closed');
-	state = "true";
+	      actions.blindDown();
+	      title.removeClassName('closed');
+	      state = "true";
     } else {
-	actions.blindUp();
-	title.addClassName('closed');
-	state = "false";
+	      actions.blindUp();
+	      title.addClassName('closed');
+	      state = "false";
     }
     return state;
 }
@@ -46,20 +46,20 @@ function _resize() {
     var width  = dims.width;
     var overlay = $('overlay');
     if (overlay !== null) { 
-	overlay.setStyle({'width': width+'px', 'height': height+'px'});
+	      overlay.setStyle({'width': width+'px', 'height': height+'px'});
     }
     $$('.dialog').each(function(element, index) { 
-	var ratio;
-	try { ratio=parseFloat(element.getAttribute("data-ratio")); }
-	catch(error) { ratio=0.9; }
-	var w = element.getWidth();
-	var h = element.getHeight();
-	if (ratio > 0) {
+	      var ratio;
+	      try { ratio=parseFloat(element.getAttribute("data-ratio")); }
+	      catch(error) { ratio=0.9; }
+	      var w = element.getWidth();
+	      var h = element.getHeight();
+	      if (ratio > 0) {
             w = ratio*width;
             h = ratio*height;
             element.resize(w, h);
-	}
-	element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
+	      }
+	      element.setStyle({left: ((width-w)/2)+'px', top: ((height-h)/2)+'px'});
     });
     if (!body.hasClassName('resizable')) { return 0; }
     body.resize(width, height);
@@ -95,14 +95,14 @@ function resize2() {
 function toggleHelp(help, show, resized) {
     toggleElement(help, show, help+'-open');
     if ($('help').style.display=='none') {
-	$('main').removeClassName('with-help');
+	      $('main').removeClassName('with-help');
     } else {
-	$('main').addClassName('with-help');
+	      $('main').addClassName('with-help');
     }
     if (resized === undefined) {
-	return resize();
+	      return resize();
     } else {
-	return $(resized).resize();
+	      return $(resized).resize();
     }
 }
 
@@ -123,13 +123,13 @@ function closeHelp() {
 
 function openSide() {
     if ($('side').style.display=='none') {
-	$('side').setStyle({display:'block'});
-	$('side-open').setAttribute('id', 'side-close');
-	$('main').addClassName('with-side');
+	      $('side').setStyle({display:'block'});
+	      $('side-open').setAttribute('id', 'side-close');
+	      $('main').addClassName('with-side');
     } else {
-	$('side').setStyle({display:'none'});
-	$('side-close').setAttribute('id', 'side-open');
-	$('main').removeClassName('with-side');
+	      $('side').setStyle({display:'none'});
+	      $('side-close').setAttribute('id', 'side-open');
+	      $('main').removeClassName('with-side');
     }
     return resize();
 }
@@ -146,11 +146,11 @@ function onLoaded() {
 function toggleCheckBox(element, checked) {
     element = $(element);
     if (element !== null) {
-	if (checked === null || checked === undefined) {
-	    checked = !element.checked;
-	}
-	element.checked = !element.checked;
-	element.onclick();
+	      if (checked === null || checked === undefined) {
+	          checked = !element.checked;
+	      }
+	      element.checked = !element.checked;
+	      element.onclick();
     }
     return element.checked;
 }
@@ -165,15 +165,15 @@ function format(valeur, decimal, separateur) {
     var val_format=val+"";
     var nb=val_format.length;
     for (var i=1;i<4;i++) {
-	if (val>=Math.pow(10,(3*i))) {
-	    val_format=val_format.substring(0,nb-(3*i))+separateur+val_format.substring(nb-(3*i));
-	}
+	      if (val>=Math.pow(10,(3*i))) {
+	          val_format=val_format.substring(0,nb-(3*i))+separateur+val_format.substring(nb-(3*i));
+	      }
     }
     if (decimal>0) {
-	var decim="";
-	for (var j=0;j<(decimal-deci.toString().length);j++) {decim+="0";}
-	deci=decim+deci.toString();
-	val_format=val_format+"."+deci;
+	      var decim="";
+	      for (var j=0;j<(decimal-deci.toString().length);j++) {decim+="0";}
+	      deci=decim+deci.toString();
+	      val_format=val_format+"."+deci;
     }
     if (parseFloat(valeur)<0) {val_format="-"+val_format;}
     return val_format;
@@ -197,11 +197,11 @@ function sumAll(css_rule, target_id) {
     var reg = new RegExp(",", "ig");
     var reg2 = new RegExp("[^0-9\\.]+", "ig");
     $$(css_rule).each(function(element, index) { 
-	var val;
-	if (element.tagName.toLowerCase() == "input") {val = element.value; } 
-	else { val = element.innerHTML; }
-	val = val.replace(reg, ".").replace(reg2, "");
-	if (!isNaN(val)) {sum += val*1;} 
+	      var val;
+	      if (element.tagName.toLowerCase() == "input") {val = element.value; } 
+	      else { val = element.innerHTML; }
+	      val = val.replace(reg, ".").replace(reg2, "");
+	      if (!isNaN(val)) {sum += val*1;} 
     });
     sum = toCurrency(sum);
     if (target.tagName.toLowerCase() == "input") { target.value = sum; }
@@ -221,30 +221,30 @@ function compute(element) {
     var mul_class = element.readAttribute('mul-of');
     var computed = 1;
     if (sum_class !== null) {
-	$$('.'+sum_class).each(function(item) { total = total*1+compute(item)*1; });
+	      $$('.'+sum_class).each(function(item) { total = total*1+compute(item)*1; });
     } else if (mul_class !== null) {
-	$$('.'+mul_class).each(function(item) { 
+	      $$('.'+mul_class).each(function(item) { 
             if (total == 0) { total = 1; }
             total = total*compute(item); 
-	});
+	      });
     } else {
-	computed = 0;
-	if (element.tagName.toLowerCase() == "input" && !isNaN(element.value)) { 
-	    total = parseFloat(element.value); 
-	} else if (!isNaN(element.innerHTML)) {
-	    total = parseFloat(element.innerHTML);
-	}
+	      computed = 0;
+	      if (element.tagName.toLowerCase() == "input" && !isNaN(element.value)) { 
+	          total = parseFloat(element.value); 
+	      } else if (!isNaN(element.innerHTML)) {
+	          total = parseFloat(element.innerHTML);
+	      }
     }
     if (isNaN(total)) {
-	total = 0;
+	      total = 0;
     }
 
     if (computed == 1) {
-	if (element.tagName.toLowerCase() == "input") { 
-	    element.value = toCurrency(total); 
-	} else { 
-	    element.innerHTML = toCurrency(total); 
-	}
+	      if (element.tagName.toLowerCase() == "input") { 
+	          element.value = toCurrency(total); 
+	      } else { 
+	          element.innerHTML = toCurrency(total); 
+	      }
     }
     return total;
 }
@@ -258,13 +258,13 @@ function compute(element) {
 function set_state(total_id, condition) {
     var total = $(total_id);
     if (condition) {
-	total.addClassName("valid");
-	total.removeClassName("invalid");
-	balanced = true;
+	      total.addClassName("valid");
+	      total.removeClassName("invalid");
+	      balanced = true;
     } else {
-	total.addClassName("invalid");
-	total.removeClassName("valid");
-	balanced = false;
+	      total.addClassName("invalid");
+	      total.removeClassName("valid");
+	      balanced = false;
     }
     return total;
 }
@@ -281,51 +281,51 @@ function insert_into(input, repdeb, repfin, middle) {
     var pos;
     /* pour l'Explorer Internet */
     if(typeof document.selection != 'undefined') {
-	/* Insertion du code de formatage */
-	var range = document.selection.createRange();
-	insText = range.text;
-	if (insText.length <= 0) { insText = middle; }
-	range.text = repdeb + insText + repfin;
-	/* Ajustement de la position du curseur */
-	range = document.selection.createRange();
-	if (insText.length === 0) {
-	    range.move('character', -repfin.length);
-	} else {
-	    range.moveStart('character', repdeb.length + insText.length + repfin.length);
-	}
-	range.select();
+	      /* Insertion du code de formatage */
+	      var range = document.selection.createRange();
+	      insText = range.text;
+	      if (insText.length <= 0) { insText = middle; }
+	      range.text = repdeb + insText + repfin;
+	      /* Ajustement de la position du curseur */
+	      range = document.selection.createRange();
+	      if (insText.length === 0) {
+	          range.move('character', -repfin.length);
+	      } else {
+	          range.moveStart('character', repdeb.length + insText.length + repfin.length);
+	      }
+	      range.select();
     }
     /* pour navigateurs plus récents basés sur Gecko*/
     else if(typeof input.selectionStart != 'undefined')	{
-	/* Insertion du code de formatage */
-	var start = input.selectionStart;
-	var end = input.selectionEnd;
-	insText = input.value.substring(start, end);
-	if (insText.length <= 0) { insText = middle; }
-	input.value = input.value.substr(0, start) + repdeb + insText + repfin + input.value.substr(end);
-	/* Ajustement de la position du curseur */
-	if (insText.length === 0) {
-	    pos = start + repdeb.length;
-	} else {
-	    pos = start + repdeb.length + insText.length + repfin.length;
-	}
-	input.selectionStart = pos;
-	input.selectionEnd = pos;
+	      /* Insertion du code de formatage */
+	      var start = input.selectionStart;
+	      var end = input.selectionEnd;
+	      insText = input.value.substring(start, end);
+	      if (insText.length <= 0) { insText = middle; }
+	      input.value = input.value.substr(0, start) + repdeb + insText + repfin + input.value.substr(end);
+	      /* Ajustement de la position du curseur */
+	      if (insText.length === 0) {
+	          pos = start + repdeb.length;
+	      } else {
+	          pos = start + repdeb.length + insText.length + repfin.length;
+	      }
+	      input.selectionStart = pos;
+	      input.selectionEnd = pos;
     }
     /* pour les autres navigateurs */
     else {
-	/* requête de la position d'insertion */
-	var re = new RegExp('^[0-9]{0,3}$');
-	while(!re.test(pos)) {
-	    pos = prompt("Insertion à la position (0.." + input.value.length + ") :", "0");
-	}
-	if(pos > input.value.length) {
-	    pos = input.value.length;
-	}
-	/* Insertion du code de formatage */
-	insText = prompt("Veuillez entrer le texte à formater :");
-	if (insText.length <= 0) { insText = middle; }
-	input.value = input.value.substr(0, pos) + repdeb + insText + repfin + input.value.substr(pos);
+	      /* requête de la position d'insertion */
+	      var re = new RegExp('^[0-9]{0,3}$');
+	      while(!re.test(pos)) {
+	          pos = prompt("Insertion à la position (0.." + input.value.length + ") :", "0");
+	      }
+	      if(pos > input.value.length) {
+	          pos = input.value.length;
+	      }
+	      /* Insertion du code de formatage */
+	      insText = prompt("Veuillez entrer le texte à formater :");
+	      if (insText.length <= 0) { insText = middle; }
+	      input.value = input.value.substr(0, pos) + repdeb + insText + repfin + input.value.substr(pos);
     }
 }
 
@@ -336,7 +336,7 @@ function reconnect() {
     var body = $('body');
     var href = body.getAttribute('data-timeout-href');
     if (href !== null && href !== undefined) {
-	openDialog(href, null, 0);
+	      openDialog(href, null, 0);
     }
 }
 
@@ -345,8 +345,8 @@ function unexpire() {
     try { window.clearTimeout(expirationTimer); }
     catch (error) { };
     if (!isNaN(body.getAttribute('data-timeout'))) {
-	var duration = parseFloat(body.getAttribute('data-timeout'))*1000;
-	expirationTimer = window.setTimeout(reconnect, duration);
+	      var duration = parseFloat(body.getAttribute('data-timeout'))*1000;
+	      expirationTimer = window.setTimeout(reconnect, duration);
     }
 }
 
@@ -361,43 +361,43 @@ Event.observe(window, "ajax:complete", unexpire);
 (function() {
 
     document.on("click", "#side-splitter[data-toggle]", function(event, element) {
-	var splitted;
-	if (toggleElement("side")) {
+	      var splitted;
+	      if (toggleElement("side")) {
             splitted = 0;
             element.removeClassName("closed");
-	} else {
+	      } else {
             splitted = 1;
             element.addClassName("closed");
-	}
-	resize();
-	/* Put request with url in param*/
-	var url = element.readAttribute('data-toggle');
-	new Ajax.Request(url, { method: "post", parameters: {splitted: splitted} });
-	event.stop();
+	      }
+	      resize();
+	      /* Put request with url in param*/
+	      var url = element.readAttribute('data-toggle');
+	      new Ajax.Request(url, { method: "post", parameters: {splitted: splitted} });
+	      event.stop();
     });
 
 
     document.on("click", ".tabbox > .tabs > .tab[data-tabbox-index]", function(event, element) {
-	var tabbox = element.ancestors()[1];
-	if (tabbox !== null) {
-	    tabbox.select('.tabs > .tab.current', '.tabpanels > .tabpanel.current').each(function (item) {
-		item.removeClassName('current');
-	    });
-	    var index = element.readAttribute('data-tabbox-index');
-	    if (index !== null) {
-		tabbox.select('.tabs > .tab[data-tabbox-index="'+index+'"]', '.tabpanels > .tabpanel[data-tabbox-index="'+index+'"]').each(function (item) {
-		item.addClassName('current');
-		});
-	    }
-	    var url = tabbox.readAttribute("data-tabbox");
-	    if (url !== null) {
-		new Ajax.Request(url, {
-		    method: 'get',
-		    parameters: {index: index}
-		});
-	    }
-	}
-	event.stop();
+	      var tabbox = element.ancestors()[1];
+	      if (tabbox !== null) {
+	          tabbox.select('.tabs > .tab.current', '.tabpanels > .tabpanel.current').each(function (item) {
+		            item.removeClassName('current');
+	          });
+	          var index = element.readAttribute('data-tabbox-index');
+	          if (index !== null) {
+		            tabbox.select('.tabs > .tab[data-tabbox-index="'+index+'"]', '.tabpanels > .tabpanel[data-tabbox-index="'+index+'"]').each(function (item) {
+		                item.addClassName('current');
+		            });
+	          }
+	          var url = tabbox.readAttribute("data-tabbox");
+	          if (url !== null) {
+		            new Ajax.Request(url, {
+		                method: 'get',
+		                parameters: {index: index}
+		            });
+	          }
+	      }
+	      event.stop();
     });
 
 

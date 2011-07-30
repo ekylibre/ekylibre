@@ -20,6 +20,29 @@
 class PurchasesController < ApplicationController
   manage_restfully :supplier_id=>"@current_company.entities.find(params[:supplier_id]).id rescue nil", :planned_on=>"Date.today+2", :redirect_to=>'{:action=>:show, :step=>:products, :id=>"id"}'
 
+  list(:conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
+    t.column :number, :url=>{:action=>:show, :step=>:default}
+    t.column :reference_number, :url=>{:action=>:show, :step=>:products}
+    t.column :created_on
+    # t.column :planned_on
+    # t.column :moved_on
+    t.column :full_name, :through=>:supplier, :url=>true
+    t.column :comment
+    # t.column :shipped
+    t.column :state_label
+    t.column :paid_amount
+    t.column :amount
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+  end
+
+  # Displays the main page with the list of purchases
+  def index
+    session[:purchase_key] = params[:q]
+  end
+
+
   list(:deliveries, :model=>:incoming_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
@@ -65,23 +88,6 @@ class PurchasesController < ApplicationController
   end
 
 
-
-  list(:conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
-    t.column :number, :url=>{:action=>:show, :step=>:default}
-    t.column :reference_number, :url=>{:action=>:show, :step=>:products}
-    t.column :created_on
-    # t.column :planned_on
-    # t.column :moved_on
-    t.column :full_name, :through=>:supplier, :url=>true
-    t.column :comment
-    # t.column :shipped
-    t.column :state_label
-    t.column :paid_amount
-    t.column :amount
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
-  end
 
   # Displays details of one purchase selected with +params[:id]+
   def show
@@ -161,11 +167,6 @@ class PurchasesController < ApplicationController
       @purchase.refuse
     end
     redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
-  end
-
-  # Displays the main page with the list of purchases
-  def index
-    session[:purchase_key] = params[:key] = params[:key] || session[:purchase_key] || ""
   end
 
 end

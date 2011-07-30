@@ -51,6 +51,13 @@
 
 
 class IncomingPayment < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
+  validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :received, :scheduled, :in => [true, false]
+  validates_presence_of :amount, :commission_account, :commission_amount, :deposit, :journal_entry, :payer, :responsible, :to_bank_on, :used_amount
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :commission_account, :class_name=>Account.name
@@ -105,7 +112,7 @@ class IncomingPayment < CompanyRecord
     # attorney_amount = self.attorney_amount
     client_amount   = self.amount # - attorney_amount
     mode = self.mode
-    label = tc(:bookkeep, :resource=>self.class.human_name, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
+    label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
     b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
       if mode.with_deposit?
         entry.add_debit(label, mode.depositables_account_id, self.amount)

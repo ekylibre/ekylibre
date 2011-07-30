@@ -40,6 +40,13 @@
 
 
 class Preference < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
+  validates_numericality_of :decimal_value, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   @@natures = Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
   attr_readonly :company_id, :user_id, :name, :nature

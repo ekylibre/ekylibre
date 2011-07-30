@@ -68,6 +68,15 @@
 
 
 class Sale < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :sum_method, :allow_nil => true, :maximum => 8
+  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
+  validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
+  validates_presence_of :amount, :contact, :created_on, :currency, :delivery_contact, :downpayment_amount, :expiration, :invoice_contact, :journal_entry, :nature, :number, :origin, :paid_amount, :pretax_amount, :responsible, :state, :sum_method, :transporter
+  #]VALIDATORS]
   acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :company_id, :created_on
@@ -329,7 +338,7 @@ class Sale < CompanyRecord
 
   # Returns true if there is some products to deliver
   def deliverable?
-    self.undelivered(:amount) > 0 # and not self.invoice?
+    not self.undelivered(:amount).zero? and (self.invoice? or self.order?)
   end
 
   # Calculate unpaid amount

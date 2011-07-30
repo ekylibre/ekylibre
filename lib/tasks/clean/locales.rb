@@ -143,7 +143,7 @@ task :locales => :environment do
       for column in model.columns.collect{|c| c.name.to_s}
         if attributes[column]
           attributes[column][1] = :used
-        else
+        elsif !column.match(/_id$/)
           attributes[column] = [column.humanize, :undefined]
         end
       end
@@ -177,11 +177,13 @@ task :locales => :environment do
   end
   translation += "  attributes:\n"
   for attribute, definition in attributes.sort
+    # unless attribute.to_s.match(/_id$/)
     translation += "    "
     translation += missing_prompt if definition[1] == :undefined
     translation += "#{attribute}: "+yaml_value(definition[0])
     translation += " #!" if definition[1] == :unused
     translation += "\n"
+    # end
   end
   translation += "  models:\n"
   for model, definition in models.sort

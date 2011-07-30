@@ -47,6 +47,11 @@
 
 
 class Operation < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :consumption, :duration, :hour_duration, :min_duration, :allow_nil => true
+  validates_length_of :name, :target_type, :tools_list, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   belongs_to :company
   belongs_to :nature, :class_name=>OperationNature.name
   belongs_to :responsible, :class_name=>User.name

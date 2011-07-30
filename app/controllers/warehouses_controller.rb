@@ -43,8 +43,8 @@ class WarehousesController < ApplicationController
     t.column :label, :through=>:unit
     t.column :name, :through=>:product, :url=>true
     t.column :virtual
-    t.action :edit, :if=>'RECORD.generated != true'
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete,:if=>'RECORD.generated != true' 
+    # t.action :edit, :if=>'RECORD.generated != true'
+    # t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete,:if=>'RECORD.generated != true' 
   end
 
   list(:stocks, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|

@@ -79,19 +79,11 @@ class IncomingDeliveriesController < ApplicationController
         end
       end
       raise ActiveRecord::Rollback unless saved  
-      redirect_to :action=>:purchase, :step=>:deliveries, :id=>@purchase.id
+      redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
       return
     end
     @incoming_delivery_lines = purchase_lines.collect{|x| IncomingDeliveryLine.new(:purchase_line_id=>x.id, :quantity=>x.undelivered_quantity)}
     render_restfully_form
-  end
-
-  def destroy
-    return unless @incoming_delivery = find_and_check(:incoming_delivery)
-    if request.post? or request.delete?
-      @incoming_delivery.destroy
-    end
-    redirect_to_current
   end
 
   def edit
@@ -102,19 +94,6 @@ class IncomingDeliveriesController < ApplicationController
     # purchase_lines = PurchaseLine.find(:all,:conditions=>{:company_id=>@current_company.id, :purchase_id=>session[:current_purchase_id]})
     # @incoming_delivery_lines = IncomingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :incoming_delivery_id=>@incoming_delivery.id})
     @incoming_delivery_lines = @incoming_delivery.lines
-    if request.post?
-      ActiveRecord::Base.transaction do
-        saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
-        if saved
-          for line in @incoming_delivery.lines
-            saved = false unless line.update_attributes(:quantity=>params[:incoming_delivery_line][line.purchase_line.id.to_s][:quantity])
-            @incoming_delivery.errors.add_from_record(line)
-          end
-        end
-        raise ActiveRecord::Rollback unless saved
-        redirect_to :action=>:purchase, :step=>:deliveries, :id=>session[:current_purchase_id] 
-      end
-    end
     render_restfully_form(:id=>@incoming_delivery_form)
   end
 
@@ -126,7 +105,6 @@ class IncomingDeliveriesController < ApplicationController
     # purchase_lines = PurchaseLine.find(:all,:conditions=>{:company_id=>@current_company.id, :purchase_id=>session[:current_purchase_id]})
     # @incoming_delivery_lines = IncomingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :incoming_delivery_id=>@incoming_delivery.id})
     @incoming_delivery_lines = @incoming_delivery.lines
-    if request.post?
       ActiveRecord::Base.transaction do
         saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
         if saved
@@ -136,10 +114,16 @@ class IncomingDeliveriesController < ApplicationController
           end
         end
         raise ActiveRecord::Rollback unless saved
-        redirect_to :action=>:purchase, :step=>:deliveries, :id=>session[:current_purchase_id] 
+        redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
       end
-    end
     render_restfully_form(:id=>@incoming_delivery_form)
+  end
+
+
+  def destroy
+    return unless @incoming_delivery = find_and_check(:incoming_delivery)
+    @incoming_delivery.destroy if @incoming_delivery.destroyable?
+    redirect_to_current
   end
 
 end

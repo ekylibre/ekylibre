@@ -19,6 +19,44 @@
 
 class ProductsController < ApplicationController
 
+  # management -> products_conditions
+  def self.products_conditions(options={})
+    code = ""
+    code = light_search_conditions(:products=>[:number, :code, :code2, :name, :catalog_name, :description, :catalog_description, :ean13])+"\n"
+    code += "if session[:product_state] == 'active'\n"
+    code += "  c[0] += ' AND active = ?'\n" 
+    code += "  c << true\n"
+    code += "elsif session[:product_state] == 'inactive'\n"
+    code += "  c[0] += ' AND active = ?'\n" 
+    code += "  c << false\n"
+    code += "end\n"
+    code += "if session[:product_category_id].to_i > 0\n"
+    code += "  c[0] += ' AND category_id = ?'\n" 
+    code += "  c << session[:product_category_id].to_i\n"
+    code += "end\n"
+    code += "c\n"
+    code
+  end
+
+  list(:conditions=>products_conditions) do |t|
+    # t.column :number
+    t.column :name, :through=>:category, :url=>true
+    t.column :name, :url=>true
+    t.column :code, :url=>true
+    t.column :stockable
+    t.column :nature_label
+    t.column :label, :through=>:unit
+    t.action :edit
+    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+  end
+
+  # Displays the main page with the list of products
+  def index
+    session[:product_state] = params[:s]||"all"
+    session[:product_category_id] = params[:category_id].to_i
+  end
+
+
   list(:components, :model=>:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :quantity
     t.column :label, :through=>[:component, :unit]
@@ -58,18 +96,6 @@ class ProductsController < ApplicationController
     #t.column :critic_quantity_min
     t.column :virtual_quantity
     t.column :quantity
-  end
-
-  list(:conditions=>products_conditions) do |t|
-    # t.column :number
-    t.column :name, :through=>:category, :url=>true
-    t.column :name, :url=>true
-    t.column :code, :url=>true
-    t.column :stockable
-    t.column :nature_label
-    t.column :label, :through=>:unit
-    t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   # Displays details of one product selected with +params[:id]+
@@ -220,18 +246,6 @@ class ProductsController < ApplicationController
     t3e @product.attributes
     render_restfully_form
   end
-
-  # Displays the main page with the list of products
-  def index
-    @key = params[:key]||session[:product_key]||""
-    session[:product_key] = @key
-    session[:product_active] = true if session[:product_active].nil?
-    if request.post?
-      session[:product_active] = params[:product_active].nil? ? false : true
-      session[:product_category_id] = params[:product].nil? ? 0 : params[:product][:category_id].to_i
-    end
-  end
-
 
   def change_quantities
     @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :company_id=>@current_company.id, :product_id=>session[:product_id]})

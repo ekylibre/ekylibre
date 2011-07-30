@@ -40,6 +40,11 @@
 
 
 class Sequence < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
+  validates_length_of :format, :name, :period, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
 

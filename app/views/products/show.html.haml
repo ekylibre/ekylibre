@@ -29,6 +29,8 @@
       -t.link :new, :controller=>:product_components, :product_id=>@product.id
     =list :components
   -tb.tab :stocks do
+    =toolbar do |t|
+      -t.link :new, :controller=>:stocks, :product_id=>@product.id
     =list(:stocks)
   -tb.tab :stock_moves do
     =list(:stock_moves)

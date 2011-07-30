@@ -42,6 +42,11 @@
 
 
 class Transport < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
@@ -54,11 +59,15 @@ class Transport < CompanyRecord
     return true
   end
 
-  before_validation do
-    self.weight = 0
-    for delivery in self.deliveries
-      self.weight += delivery.weight
-    end
+  # before_validation do
+  #   self.weight = self.deliveries.sums(:weight)
+  #   for delivery in self.deliveries
+  #     self.weight += delivery.weight
+  #   end
+  # end
+
+  protect_on_destroy do
+    return true
   end
 
   def refresh

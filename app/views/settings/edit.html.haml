@@ -2,7 +2,7 @@
   .fields.flex
     -if @my_company.preferences.find(:all, :conditions=>["record_value_type = 'Sequence' AND record_value_id IS NULL"]).size > 0
       =toolbar do |t|
-        -t.link :load, :controller=>:sequences, :method=>:post
+        -t.link :load, {:controller=>:sequences}, :method=>:post
     =formalize do |f|
       -f.error 'my_company'
       -f.title tc(:general)

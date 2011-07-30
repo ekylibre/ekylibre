@@ -1,8 +1,10 @@
+=tracking_id = nil
 =formalize do |f|
   -f.error :stock_transfer 
   -if @stock_transfer.new_record?
     -f.field :stock_transfer, :nature, :choices=>StockTransfer.natures, :field=>:radio
   -f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
+  -tracking_id = f.field :stock_transfer, :tracking_id
   -f.field :stock_transfer, :quantity
   -f.field :stock_transfer, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
   -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"

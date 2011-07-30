@@ -29,6 +29,10 @@ class FinancialYearsController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if => '!RECORD.closed'  
   end
 
+  # Displays the main page with the list of financial years
+  def index
+  end
+
   # Displays details of one financial year selected with +params[:id]+
   def show
     return unless @financial_year = find_and_check(:financial_years)
@@ -53,69 +57,40 @@ class FinancialYearsController < ApplicationController
   end
 
   def new
-    if request.post? 
-      @financial_year = FinancialYear.new(params[:financial_year])
-      @financial_year.company_id = @current_company.id
-      return if save_and_redirect(@financial_year)
-    else
-      @financial_year = FinancialYear.new
-      f = @current_company.financial_years.find(:first, :order=>"stopped_on DESC")
-      @financial_year.started_on = f.stopped_on+1.day unless f.nil?
-      @financial_year.started_on ||= Date.today
-      @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
-      @financial_year.code = @financial_year.default_code
-    end
-    
+    @financial_year = FinancialYear.new
+    f = @current_company.financial_years.find(:first, :order=>"stopped_on DESC")
+    @financial_year.started_on = f.stopped_on+1.day unless f.nil?
+    @financial_year.started_on ||= Date.today
+    @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
+    @financial_year.code = @financial_year.default_code    
     render_restfully_form
   end
 
   def create
-    if request.post? 
-      @financial_year = FinancialYear.new(params[:financial_year])
-      @financial_year.company_id = @current_company.id
-      return if save_and_redirect(@financial_year)
-    else
-      @financial_year = FinancialYear.new
-      f = @current_company.financial_years.find(:first, :order=>"stopped_on DESC")
-      @financial_year.started_on = f.stopped_on+1.day unless f.nil?
-      @financial_year.started_on ||= Date.today
-      @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
-      @financial_year.code = @financial_year.default_code
-    end
-    
+    @financial_year = FinancialYear.new(params[:financial_year])
+    @financial_year.company_id = @current_company.id
+    return if save_and_redirect(@financial_year)
     render_restfully_form
-  end
-
-  def destroy
-    return unless @financial_year = find_and_check(:financial_years)
-    if request.post? or request.delete?
-      FinancialYear.destroy @financial_year unless @financial_year.journal_entries.size > 0
-    end
-    redirect_to :action => :index
   end
 
   def edit
     return unless @financial_year = find_and_check(:financial_years)
-    if request.post? or request.put?
-      @financial_year.attributes = params[:financial_year]
-      return if save_and_redirect(@financial_year)
-    end
     t3e @financial_year.attributes
     render_restfully_form
   end
 
   def update
     return unless @financial_year = find_and_check(:financial_years)
-    if request.post? or request.put?
-      @financial_year.attributes = params[:financial_year]
-      return if save_and_redirect(@financial_year)
-    end
+    @financial_year.attributes = params[:financial_year]
+    return if save_and_redirect(@financial_year)
     t3e @financial_year.attributes
     render_restfully_form
   end
 
-  # Displays the main page with the list of financial years
-  def index
+  def destroy
+    return unless @financial_year = find_and_check(:financial_years)
+    @financial_year.destroy if @financial_year.destroyable?
+    redirect_to :action => :index
   end
 
 end

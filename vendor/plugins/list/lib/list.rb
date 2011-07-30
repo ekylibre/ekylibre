@@ -18,6 +18,8 @@ module List #:nodoc:
   # end
 end
 
+# raise "Stop"
+
 require "list/definition"
 require "list/generator"
 # Integration in Rails

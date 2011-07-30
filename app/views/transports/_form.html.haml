@@ -1,8 +1,14 @@
+-transporter_id = nil
 =formalize do |f|
   -f.error :transport
   -f.title :general
-  -f.field :transport, :transporter_id, :choices=>{:reflection=>:transporters}, :new=>{:transporter=>1}
+  -transporter_id = f.field(:transport, :transporter_id, :choices=>{:reflection=>:waiting_transporters}, :new=>{:transporter=>1})
   -f.field :transport, :responsible_id, :choices=>{:reflection=>:employees, :include_blank=>""}, :new=>{:employed=>1}
   -f.field :transport, :reference_number
   -f.field :transport, :transport_on
   -f.field :transport, :comment, :field=>:textarea
+
+%h2=Transport.human_attribute_name(:deliveries)
+#deliveries=render :partial=>'deliveries_form'
+
+=observe_field(transporter_id, :update=>:deliveries, :url=>{:controller=>:transports, :action=>:new, :transport_id=>@transport.id}, :method=>:get, :with=>"transporter_id")

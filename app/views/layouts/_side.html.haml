@@ -5,7 +5,7 @@
     .module.menu
       %ul{:id=>"side_#{prefix}_actions"}
         -for url in items
-          %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url, :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
+          %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
 
 
 -if session[:history].is_a?(Array) and not session[:history].size.zero?

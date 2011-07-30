@@ -1,4 +1,9 @@
-=render :partial=>"search"
+=kujaku do |k|
+  -k.text
+  -k.radio :all, :active, :inactive
+  -k.criterion do
+    %label=tl(:category)
+    =select_tag(:category_id, options_for_select([[]]+@current_company.product_categories.collect{|s| [s.name, s.id]}, :selected=>params[:category_id]))
 
 =toolbar do |t|
   -t.link :new

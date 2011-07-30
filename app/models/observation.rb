@@ -36,6 +36,10 @@
 class Observation < CompanyRecord
   belongs_to :company
   belongs_to :entity
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :importance, :allow_nil => true, :maximum => 10
+  #]VALIDATORS]
 
   attr_readonly :company_id
   

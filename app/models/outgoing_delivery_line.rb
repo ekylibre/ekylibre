@@ -42,6 +42,10 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  #]VALIDATORS]
   acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :company

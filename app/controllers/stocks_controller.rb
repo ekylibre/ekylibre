@@ -18,6 +18,7 @@
 #
 
 class StocksController < ApplicationController
+  manage_restfully :xhr=>true
 
   def self.stocks_conditions(options={})
     code = ""

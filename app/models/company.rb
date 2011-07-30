@@ -39,6 +39,13 @@
 
 
 class Company < Ekylibre::Record::Base
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 16
+  validates_length_of :language, :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :locked, :in => [true, false]
+  validates_presence_of :code, :entity, :language, :name
+  #]VALIDATORS]
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas
@@ -213,8 +220,10 @@ class Company < Ekylibre::Record::Base
   has_many :unconfirmed_stock_transfers, :class_name=>StockTransfer.name, :conditions=>{:moved_on=>nil}
   has_many :undelivered_incoming_deliveries, :class_name=>IncomingDelivery.name, :conditions=>{:moved_on=>nil}
   has_many :undelivered_outgoing_deliveries, :class_name=>OutgoingDelivery.name, :conditions=>{:moved_on=>nil}
+  has_many :untransportered_deliveries, :class_name=>OutgoingDelivery.name, :conditions=>{:moved_on=>nil, :transporter_id=>nil}
   has_many :usable_incoming_payments, :class_name=>IncomingPayment.name, :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
   has_many :usable_outgoing_payments, :class_name=>OutgoingPayment.name, :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
+  has_many :waiting_transporters, :class_name=>"Entity", :conditions=>["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
 
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
@@ -808,7 +817,7 @@ class Company < Ekylibre::Record::Base
           code = attributes[:name].to_s.codeize[0..7]
           doc = self.document_templates.find_by_code(code)
           doc ||= self.document_templates.new
-          doc.attributes = {:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false}.merge(attributes)
+          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
           doc.save!()
         end
         #rescue

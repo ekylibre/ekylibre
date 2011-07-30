@@ -26,3 +26,6 @@ config.action_mailer.delivery_method = :test
 # This is necessary if your schema can't be completely dumped by the schema dumper,
 # like if you have constraints or database-specific column types
 # config.active_record.schema_format = :sql
+
+# If set to true, Haml makes no attempt to properly indent or format the HTML output. This significantly improves rendering performance but makes viewing the source unpleasant.
+Haml::Template.options[:ugly] = true
