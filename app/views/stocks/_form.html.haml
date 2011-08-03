@@ -6,13 +6,17 @@
     =f.input :warehouse, :new=>true
 
 
-=yasui_fields_for(@stock) do |f|
-  =f.field_set :general do
-    =f.choice :product_id, :choices=>:stockable_products
-    =f.inputs_depending_on(:product_id) do
-      =f.input :unit_id,     :choices=>{:record=>product, :reflection=>:units}
-      =f.input :tracking_id, :choices=>{:record=>product, :reflection=>:trackings, :include_blank=>true}
-    =f.input :warehouse_id
+=yasui_fields_for(@stock) do |y|
+  -y.field_set(:general) do |f|
+    -f.field :warehouse, :new=>true, :choices=>:available_warehouses
+    -f.field :product, :new=>true, :choices=>:stockable_products
+  -y.field_set(:product_options, :depending_on=>:product) do |f|
+    -f.field :unit, :choices=>:units, :new=>{:base=>:base}
+    -f.field :tracking, :choices=>:trackings, :include_blank=>true, :new=>true
+    -f.field :critic_quantity
+    -f.field :quantity_min
+    -f.field :quantity_max
+
 
 -#   
   -product_id = nil    

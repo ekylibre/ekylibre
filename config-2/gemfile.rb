@@ -13,6 +13,8 @@ gem "will_paginate", "~> 2.3"
 # gem "exception_notification", :branch=>"2-3-stable", :git=>"https://github.com/smartinez87/exception_notification.git" # , :require=>"exception_notifier"
 gem "exception_notification", :path => "vendor/ogems/exception_notification-2.3.3.0"
 
+# gem "formtastic", "1.2.4"
+# gem "simple_form", "1.0.4"
 gem "yasui_form", :path => "vendor/ogems/yasui_form"
 # gem "yasui_form", :groups=>[:test, :production]
 

@@ -169,7 +169,7 @@ class Product < CompanyRecord
   end
 
   def label
-    tc('label', :product=>self.name, :unit=>self.unit.label)
+    tc('label', :product=>self["name"], :unit=>self.unit["label"])
   end
 
   def informations

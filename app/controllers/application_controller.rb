@@ -32,6 +32,8 @@ class ApplicationController < ActionController::Base
   if RAILS_ENV == "development"
     # require_dependency "vendor/plugins/list/init.rb"
     require_dependency "vendor/ogems/yasui_form/lib/yasui_form.rb"
+    require_dependency "vendor/ogems/yasui_form/lib/yasui_form/base.rb"
+    require_dependency "vendor/ogems/yasui_form/lib/yasui_form/compiler.rb"
     require_dependency "vendor/ogems/yasui_form/lib/yasui_form/action_view/form_helper.rb"
     # require_dependency "vendor/plugins/intraform/init.rb"
   end
@@ -145,8 +147,7 @@ class ApplicationController < ActionController::Base
 
 
   def default_url_options(options={})
-    options.update(:company =>((params and params[:company]) ? params[:company] : @current_company ? @current_company.code : nil))
-    # options.delete(:company)
+    options[:company] ||= ((params and params[:company]) ? params[:company] : @current_company ? @current_company.code : nil)
     return options
   end
 
@@ -297,10 +298,10 @@ class ApplicationController < ActionController::Base
   # Load @current_user and @current_company
   def identify()
     # Load current_user if connected
-    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}) if session[:user_id] # _by_id(session[:user_id])
+    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id] # _by_id(session[:user_id])
     
     # Load current_company if possible
-    @current_company = Company.find(:first, :conditions=>{:code=>params[:company]}) #_by_code(params[:company])
+    @current_company = Company.find(:first, :conditions=>{:code=>params[:company]}, :readonly=>true) #_by_code(params[:company])
     if @current_user and @current_company and @current_company["id"]!=@current_user["company_id"]
       notify_error(:unknown_company) unless params[:company].blank?
       redirect_to_login
@@ -410,52 +411,39 @@ class ApplicationController < ActionController::Base
   end
 
   # Generate HTML for a CallInfo object of RubyProf
-  def self.call_info_tree(call_info, total_time, threshold, depth=0)
+  def self.call_info_tree(call_info, options={})
+    options[:total_time] ||= call_info.total_time
+    options[:threshold]  ||= 0.5
+    options[:display] = true if options[:display].nil?
+    options[:depth] ||= 0
     html = ""
-    return "" unless call_info.total_time > total_time*threshold/100
+    percentage = 100*call_info.total_time.to_f/options[:total_time].to_f
+    return "" unless percentage >= options[:threshold]
     method_info = call_info.target
     # #{(255-3*depth).to_s(16)*3}
-    html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-100.to_f*call_info.total_time/total_time).to_i.to_s(16)*3}; #{'display: none' unless depth<5}'>"
+    
+    html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-percentage).to_i.to_s(16)*3}; #{'display: none' unless options[:display]}'>"
     regexp = /\([^\)]+\)/
 
     # html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
     # html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
     html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)}:#{h(call_info.line)}' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
     html += "<span class='fil'><span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span></span>"
-    html += "<span class='md mdc'>"+(100*call_info.total_time/total_time).round(1).to_s+"%</span>"
+    html += "<span class='md mdc'>"+percentage.round(1).to_s+"%</span>"
     html += "<span class='md mdc'>"+call_info.called.to_s+"&times;</span>"
     html += "<span class='md dec'>"+(call_info.total_time*1_000_000).round(1).to_s+"µs</span>"
     html += "<span class='md dec'>"+(call_info.self_time*1_000_000).round(1).to_s+"µs</span>"
     html += "</div>"
+    child_options = options.dup
+    child_options[:depth] += 1
+    child_options[:display] = (percentage >= 33 ? true : false)
     for child in call_info.children.sort{|a,b| a.line <=> b.line}
-      html += call_info_tree(child, total_time, threshold, depth+1) 
+      html += call_info_tree(child, child_options) 
     end
     html += "</div>"
     return html
   end
 
-  # Generate HTML for a CallInfo object of RubyProf
-  def self.app_tree(call_info, total_time, depth=0)
-    html = ""
-    method_info = call_info.target
-    # #{(255-3*depth).to_s(16)*3}
-    html += "<div class='profile' style='margin-left: 8px; background: ##{(255-140.to_f*call_info.total_time/total_time).to_i.to_s(16)*3}; border: none;'>"
-    regexp = /\([^\)]+\)/
-    if method_info.source_file.match(Rails.root.join("app").to_s) or method_info.source_file.match(Rails.root.join("vendor").to_s)
-      html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
-      html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
-    html += "<span class='dec tot'>"+(100*call_info.total_time/total_time).round(1).to_s+"%</span>"
-      html += "<span class='dec tot'>"+(call_info.total_time*1_000_000).round(1).to_s+"µs</span>"
-      html += "<span class='dec sav'>"+(call_info.self_time*1_000_000).round(1).to_s+"µs</span>"
-      html += "</div>"
-    end
-    for child in call_info.children.sort{|a,b| a.line <=> b.line}
-      html += app_tree(child, total_time, depth+1)
-    end
-    html += "</div>"
-    return html
-  end
-  
   # Generate HTML for a CallInfo object of RubyProf
   def self.method_info_tree(method_info)
     regexp = /\([^\)]+\)/
@@ -495,9 +483,7 @@ class ApplicationController < ActionController::Base
           ci = ci.parent
         end
         if params[:profile] == "tree"
-          html += self.class.call_info_tree(ci, ci.total_time, (params[:threshold]||0.5).to_f)
-        elsif params[:profile] == "app_tree"
-          html += self.class.app_tree(ci, ci.total_time)
+          html += self.class.call_info_tree(ci, :threshold=>params[:threshold])
         elsif params[:profile] == "flat"
           for method_info in method_infos
             next unless method_info.source_file.match(Rails.root.to_s)
@@ -506,7 +492,7 @@ class ApplicationController < ActionController::Base
         end
       end
       html += "</small>"
-      self.response.body.sub! "</body>", html+"</body>"
+      self.response.body.sub!("</body>", html << "</body>") if self.response.body.is_a?(String)
     end
   end
   
@@ -559,13 +545,13 @@ class ApplicationController < ActionController::Base
   end
 
   
-  def init_session(user)
+  def initialize_session(user)
     reset_session
     session[:expiration]   = 3600*5
     session[:history]      = []
     session[:last_page]    = {}
     session[:last_query]   = Time.now.to_i
-    session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}
+    session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}.freeze
     session[:side]         = true
     session[:resizable]    = user.preference("interface.general.resized", true, :boolean).value
     session[:user_id]      = user.id
@@ -574,9 +560,13 @@ class ApplicationController < ActionController::Base
     for menu, submenus in Ekylibre.menus
       fsubmenus = ActiveSupport::OrderedHash.new
       for submenu, menuitems in submenus
-        fmenuitems = menuitems.select{|url| user.authorization(url[:controller], url[:action], session[:rights]).nil?}.each do |url| 
-          # url.update(:url=>url_for(url.merge(:company=>user.company.code)))
-        end
+        fmenuitems = menuitems.collect do |url|
+          if user.authorization(url[:controller], url[:action], session[:rights]).nil?
+            url.merge(:url=>url_for(url.merge(:company=>user.company.code)))
+          else
+            nil
+          end
+        end.compact
         fsubmenus[submenu] = fmenuitems unless fmenuitems.size.zero?
       end
       session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?

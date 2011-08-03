@@ -36,7 +36,7 @@ class MyselvesController < ApplicationController
   end
 
   def change_password
-    @user = @current_user
+    @user = User.find(session[:user_id])
     if request.post?
       if @user.authenticated? params[:user][:old_password]
         @user.password = params[:user][:password]

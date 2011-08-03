@@ -36,7 +36,7 @@
 #           rescue
 #             for item in object.send(reflection.name)
 #               begin
-#                 item.send(reflection.primary_key_name.to_s+'=', self.id)
+#                 item.send(reflection.primary_key_name.to_s << '=', self.id)
 #                 item.send(:update_without_callbacks)
 #               rescue
 #                 # If the item can't be attached, the item can't be.
@@ -93,10 +93,10 @@ module ApplicationHelper
     Ekylibre.reverse_menus[action]||[]
   end
 
-  LEGALS_SENTENCE = ("Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION}").freeze
+  LEGALS_SENTENCE = ("Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION}").freeze
 
   def legals_sentence
-    # "Ekylibre "+Ekylibre.version+" - Ruby on Rails "+Rails.version+" - Ruby #{RUBY_VERSION} - "+ActiveRecord::Base.connection.adapter_name+" - "+ActiveRecord::Migrator.current_version.to_s
+    # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
     LEGALS_SENTENCE
   end
 
@@ -105,17 +105,17 @@ module ApplicationHelper
   end
 
   def radio_yes_no(name, value=nil)
-    radio_button_tag(name, 1, value.to_s=="1", id=>"#{name}_1")+
-      content_tag(:label, ::I18n.translate('general.y'), :for=>"#{name}_1")+
-      radio_button_tag(name, 0, value.to_s=="0", id=>"#{name}_0")+
+    radio_button_tag(name, 1, value.to_s=="1", id=>"#{name}_1") <<
+      content_tag(:label, ::I18n.translate('general.y'), :for=>"#{name}_1") <<
+      radio_button_tag(name, 0, value.to_s=="0", id=>"#{name}_0") <<
       content_tag(:label, ::I18n.translate('general.n'), :for=>"#{name}_0")
   end
 
   def radio_check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
     # raise Exception.new eval("@#{object_name}.#{method}").inspect
-    radio_button_tag(object_name, method, TrueClass, :id=>"#{object_name}_#{method}_#{checked_value}")+" "+
-      content_tag(:label, ::I18n.translate('general.y'), :for=>"#{object_name}_#{method}_#{checked_value}")+" "+
-      radio_button_tag(object_name, method, FalseClass, :id=>"#{object_name}_#{method}_#{unchecked_value}")+" "+
+    radio_button_tag(object_name, method, TrueClass, :id=>"#{object_name}_#{method}_#{checked_value}") << " " << 
+      content_tag(:label, ::I18n.translate('general.y'), :for=>"#{object_name}_#{method}_#{checked_value}") << " " << 
+      radio_button_tag(object_name, method, FalseClass, :id=>"#{object_name}_#{method}_#{unchecked_value}") << " " << 
       content_tag(:label, ::I18n.translate('general.n'), :for=>"#{object_name}_#{method}_#{unchecked_value}")
   end
 
@@ -135,7 +135,7 @@ module ApplicationHelper
 
 
   def preference(name)
-    # name = self.controller.controller_name.to_s+name.to_s if name.to_s.match(/^\./)
+    # name = self.controller.controller_name.to_s << name.to_s if name.to_s.match(/^\./)
     @current_company.preference(name)
   end
 
@@ -212,7 +212,7 @@ module ApplicationHelper
     module ::ActionView::Helpers::FormTagHelper
       def form_tag_in_block_with_compat(html_options, &block)
         content = capture(&block)
-        return form_tag_html(html_options).html_safe+content.html_safe+"</form>".html_safe
+        return form_tag_html(html_options).html_safe << content.html_safe << "</form>".html_safe
       end
       alias_method_chain :form_tag_in_block, :compat
 
@@ -333,7 +333,7 @@ module ApplicationHelper
           options[:url][:id] ||= object.id
         end
       end
-      value_class += ' code' if attribute.to_s == "code"
+      value_class  <<  ' code' if attribute.to_s == "code"
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
@@ -365,11 +365,11 @@ module ApplicationHelper
     label, value = attribute_item(object, attribute, options={})
     if options[:orient] == :vertical
       code  = content_tag(:tr, content_tag(:td, label.to_s, :class=>:label))
-      code += content_tag(:tr, content_tag(:td, value.to_s, :class=>:value))
+      code << content_tag(:tr, content_tag(:td, value.to_s, :class=>:value))
       return content_tag(:table, code, :class=>"evalue verti")
     else
       code  = content_tag(:td, label.to_s, :class=>:label)
-      code += content_tag(:td, value.to_s, :class=>:value)
+      code << content_tag(:td, value.to_s, :class=>:value)
       return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
     end
   end
@@ -402,9 +402,9 @@ module ApplicationHelper
                          elsif args[0] == :attribute
                            attribute_item(record, *args[1])
                          end
-          line += content_tag(:td, label, :class=>:label)+content_tag(:td, value, :class=>:value)
+          line << content_tag(:td, label, :class=>:label) << content_tag(:td, value, :class=>:value)
         end
-        code += content_tag(:tr, line.html_safe)
+        code << content_tag(:tr, line.html_safe)
       end
       code = content_tag(:table, code.html_safe, :class=>"attributes-list")
 
@@ -414,12 +414,12 @@ module ApplicationHelper
       #           args = attribute_list.items.shift
       #           break if args.nil?
       #           if args[0] == :evalue
-      #             column += evalue(*args[1]) if args.is_a? Array
+      #             column << evalue(*args[1]) if args.is_a? Array
       #           elsif args[0] == :attribute
-      #             column += evalue(record, *args[1]) if args.is_a? Array
+      #             column << evalue(record, *args[1]) if args.is_a? Array
       #           end
       #         end
-      #         code += content_tag(:td, column.html_safe)
+      #         code << content_tag(:td, column.html_safe)
       #       end
       #       code = content_tag(:tr, code.html_safe)
       #      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
@@ -465,7 +465,7 @@ module ApplicationHelper
     for sheet, media in ["screen", "print", "list", "list-colors"]
       media = (sheet == "print" ? :print : :screen)
       if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
-        code += stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
+        code << stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
       end
     end
     return code.html_safe
@@ -482,9 +482,9 @@ module ApplicationHelper
   # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
   # , 'calendar/border-radius'
   def calendar_link_tag(lang='fr')
-    return (javascript_include_tag('calendar/calendar')+
-            javascript_include_tag('calendar/lang/calendar-'+lang)+
-            javascript_include_tag('calendar/calendar-setup')+
+    return (javascript_include_tag('calendar/calendar') << 
+            javascript_include_tag('calendar/lang/calendar-' << lang) << 
+            javascript_include_tag('calendar/calendar-setup') << 
             stylesheet_link_tag('calendar')).html_safe
   end
 
@@ -493,16 +493,16 @@ module ApplicationHelper
   # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
   # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
   def calendar_field(object_name, method, options={})
-    name = object_name.to_s+'_'+method.to_s
-    text_field(object_name, method, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+    name = object_name.to_s << '_' << method.to_s
+    text_field(object_name, method, {:size=>10}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
   def calendar_field_tag(name, value=Date.today, options={})
     options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+    text_field_tag(name, value, {:size=>10}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
   end
 
@@ -510,30 +510,30 @@ module ApplicationHelper
 
 
   def date_field(object_name, method, options={})
-    name = object_name.to_s+'_'+method.to_s
-    text_field(object_name, method, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+    name = object_name.to_s << '_' << method.to_s
+    text_field(object_name, method, {:size=>10}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
   end
 
   def date_field_tag(name, value=Date.today, options={})
     options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>10}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+    text_field_tag(name, value, {:size=>10}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
   end
 
   def datetime_field(object_name, method, options={})
-    name = object_name.to_s+'_'+method.to_s
-    text_field(object_name, method, {:size=>18}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name+'_trigger')+
+    name = object_name.to_s << '_' << method.to_s
+    text_field(object_name, method, {:size=>18}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{name}', showsTime : true, timeFormat : 24, ifFormat : '%Y-%m-%d %H:%M:%S', button : '#{name}_trigger' });")
   end
 
   def datetime_field_tag(name, value=Date.today, options={})
     options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>18}.merge(options))+
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id]+'_trigger')+
+    text_field_tag(name, value, {:size=>18}.merge(options)) << 
+      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
       javascript_tag("Calendar.setup({inputField : '#{options[:id]}', showsTime : true, timeFormat : 24, ifFormat: '%Y-%m-%d %H:%M:%S', button : '#{options[:id]}_trigger' });")
   end
 
@@ -559,7 +559,7 @@ module ApplicationHelper
             else
               tc(:page_title_by_default, :action=>controller.human_action_name)
             end
-    return "<title>"+h(title)+"</title>"
+    return "<title>" << h(title) << "</title>"
   end
 
   def title_header_tag
@@ -576,25 +576,25 @@ module ApplicationHelper
   end
 
   def notification_tag(mode)
-    # content_tag(:div, flash[mode], :class=>'flash '+mode.to_s) unless flash[mode].blank?
+    # content_tag(:div, flash[mode], :class=>'flash ' << mode.to_s) unless flash[mode].blank?
     code = ''
     if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
       for message in flash[:notifications][mode]
-        code += "<div class='flash #{mode}'><h3>#{tg('notifications.'+mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div>"
+        code << "<div class='flash #{mode}'><h3>#{tg('notifications.' << mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div>"
       end
     end
     code.html_safe
   end
 
   def notifications_tag
-    return notification_tag(:error)+
-      notification_tag(:warning)+
-      notification_tag(:success)+
+    return notification_tag(:error) << 
+      notification_tag(:warning) << 
+      notification_tag(:success) << 
       notification_tag(:information)
   end
 
   def link_to_submit(form_name, label=:submit, options={})
-    link_to_function(l(label), "document."+form_name+".submit()", options.merge({:class=>:button}))
+    link_to_function(l(label), "document." << form_name << ".submit()", options.merge({:class=>:button}))
   end
 
 
@@ -605,11 +605,11 @@ module ApplicationHelper
       line << content_tag(:td, capture(item, &block))
       size += 1
       if size >= coln
-        html += content_tag(:tr, line).html_safe
+        html << content_tag(:tr, line).html_safe
         line, size = "", 0
       end
     end
-    html += content_tag(:tr, line).html_safe unless line.blank?
+    html << content_tag(:tr, line).html_safe unless line.blank?
     return content_tag(:table, html, html_options).html_safe
   end
 
@@ -636,7 +636,7 @@ module ApplicationHelper
 
     content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
       data = data.squeeze(' ')[2..-3].split('|')
-      align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0]+data[0][-1..-1]).gsub(/[^\ ]/,'x')]
+      align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0] << data[0][-1..-1]).gsub(/[^\ ]/,'x')]
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
       if src.match(/^theme:/)
@@ -644,7 +644,7 @@ module ApplicationHelper
       else
         src = image_path(src)
       end
-      '<img class="md md-'+align+'" alt="'+title+'" title="'+title+'" src="'+src+'"/>'
+      '<img class="md md-' << align << '" alt="' << title << '" title="' << title << '" src="' << src << '"/>'
     end
 
 
@@ -707,12 +707,12 @@ module ApplicationHelper
   #   file_name, locale = '', nil
   #   for locale in [I18n.locale, I18n.default_locale]
   #     help_dir = Rails.root.join("config", "locales", locale.to_s, "help")
-  #     file_name = [name, name.split("-")[0].to_s+"-index"].detect do |pattern|
-  #       File.exists? help_dir.join(pattern+".txt")
+  #     file_name = [name, name.split("-")[0].to_s << "-index"].detect do |pattern|
+  #       File.exists? help_dir.join(pattern << ".txt")
   #     end
   #     break unless file_name.blank?
   #   end
-  #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s+".txt")
+  #   file_text = Rails.root.join("config", "locales", locale.to_s, "help", file_name.to_s << ".txt")
   #   if File.exists?(file_text)
   #     File.open(file_text, 'r') do |file|
   #       content = file.read
@@ -732,8 +732,8 @@ module ApplicationHelper
     yield u
     tag = ""
     for c in u.cells
-      code = content_tag(:h2, tl(c.title, c.options))+content_tag(:div, capture(&c.block).html_safe)
-      tag += content_tag(:div, code.html_safe, :class=>:menu)
+      code = content_tag(:h2, tl(c.title, c.options)) << content_tag(:div, capture(&c.block).html_safe)
+      tag << content_tag(:div, code.html_safe, :class=>:menu)
     end
     return content_tag(:div, tag.html_safe, :class=>:unagi)
   end
@@ -757,7 +757,7 @@ module ApplicationHelper
     end
 
     def content
-      "aAAAAAAAAAAAAAAAAAA"+capture(@block).to_s
+      "aAAAAAAAAAAAAAAAAAA" << capture(@block).to_s
     end
   end
 
@@ -783,9 +783,9 @@ module ApplicationHelper
         i18n_root = options[:i18n_root]||'labels.criterion_modes.'
         for mode in c[:modes]
           radio  = radio_button_tag(name, mode, params[name] == mode.to_s)
-          radio += " "
-          radio += content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for=>"#{name}_#{mode}")
-          code += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
+          radio << " "
+          radio << content_tag(:label, ::I18n.translate("#{i18n_root}#{mode}"), :for=>"#{name}_#{mode}")
+          code << " ".html_safe << content_tag(:span, radio.html_safe, :class=>:rad)
         end
       elsif c[:type] == :radio
         code = content_tag(:label, options[:label]||tg(:state))
@@ -793,26 +793,26 @@ module ApplicationHelper
         i18n_root = options[:i18n_root]||"labels.#{controller_name}_states."
         for state in c[:states]
           radio  = radio_button_tag(c[:name], state, params[c[:name]] == state.to_s)
-          radio += " ".html_safe+content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for=>"#{c[:name]}_#{state}")
-          code  += " ".html_safe+content_tag(:span, radio.html_safe, :class=>:rad)
+          radio << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for=>"#{c[:name]}_#{state}")
+          code  << " ".html_safe << content_tag(:span, radio.html_safe, :class=>:rad)
         end
       elsif c[:type] == :text
         code = content_tag(:label, options[:label]||tg(:search))
         name = c[:name]||:q
-        code += " ".html_safe+text_field_tag(name, params[name])
+        code << " ".html_safe << text_field_tag(name, params[name])
       elsif c[:type] == :date
         code = content_tag(:label, options[:label]||tg(:display))
         name = c[:name]||:d
-        code += " ".html_safe+calendar_field_tag(name, params[name])
+        code << " ".html_safe << calendar_field_tag(name, params[name])
       elsif c[:type] == :criterion
-        code += capture(&c[:block])
+        code << capture(&c[:block])
       end
       code = content_tag(:td, code.html_safe, (c[:html_options]||{}).merge(:class=>:crit))
       if first
-        code += content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait)), :rowspan=>k.criteria.size, :class=>:submit)
+        code << content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait)), :rowspan=>k.criteria.size, :class=>:submit)
         first = false
       end
-      tag += content_tag(:tr, code.html_safe)
+      tag << content_tag(:tr, code.html_safe)
     end
     tag = form_tag(url, :method=>:get) {content_tag(:table, tag.html_safe)}
     return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
@@ -866,12 +866,12 @@ module ApplicationHelper
     for tab in tb.tabs
       session[:tabbox][tb.id] ||= tab[:index]
       class_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
-      tabs += content_tag(:span, tab[:name], :class=>class_name+"tab", "data-tabbox-index"=>tab[:index])
-      taps += content_tag(:div, capture(&tab[:block]).html_safe, :class=>class_name+"tabpanel", "data-tabbox-index"=>tab[:index])
+      tabs << content_tag(:span, tab[:name], :class=>class_name << "tab", "data-tabbox-index"=>tab[:index])
+      taps << content_tag(:div, capture(&tab[:block]).html_safe, :class=>class_name << "tabpanel", "data-tabbox-index"=>tab[:index])
     end
     return content_tag(:div, :class=>options[:class]||"tabbox", :id=>tb.id, "data-tabbox"=>url_for(:controller=>:interfacers, :action=>:toggle_tab, :id=>tb.id)) do
       code  = content_tag(:div, tabs.html_safe, :class=>:tabs)
-      code += content_tag(:div, taps.html_safe, :class=>:tabpanels)
+      code << content_tag(:div, taps.html_safe, :class=>:tabpanels)
       code
     end
   end
@@ -913,7 +913,7 @@ module ApplicationHelper
       if block
         if block.arity < 1
           self.instance_values.each do |k,v|
-            toolbar.instance_variable_set("@"+k.to_s, v)
+            toolbar.instance_variable_set("@" << k.to_s, v)
           end
           toolbar.instance_eval(&block)
         else
@@ -923,14 +923,14 @@ module ApplicationHelper
       toolbar.link :back if options[:back]
       # To HTML
       code = ''
-      # call = 'views.'+caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.')+'.'
+      # call = 'views.' << caller.detect{|x| x.match(/\/app\/views\//)}.split(/\/app\/views\//)[1].split('.')[0].gsub(/\//,'.') << '.'
       for tool in toolbar.tools
         nature, args = tool[0], tool[1]
         if nature == :link
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          args[2][:class] ||= "icon im-"+name.to_s.split('_')[-1]
+          args[2][:class] ||= "icon im-" << name.to_s.split('_')[-1]
           if args[1].is_a? Hash and args[1][:remote]
             args[1].delete(:remote)
             args[1][:url] ||= {}
@@ -939,40 +939,40 @@ module ApplicationHelper
               args[0] = ::I18n.t("actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) 
             end
             if authorized?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
-              code += content_tag(:div, link_to_remote(*args).html_safe, :class=>:tool) if authorized?(args[1][:url])
+              code << content_tag(:div, link_to_remote(*args).html_safe, :class=>:tool) if authorized?(args[1][:url])
             end
           else
             args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) if name.is_a? Symbol
             if name.is_a? Symbol and name!=:back
               args[1][:action] ||= name
             else
-              args[2][:class] = "icon im-"+args[1][:action].to_s.split('_')[-1] if args[1][:action]
+              args[2][:class] = "icon im-" << args[1][:action].to_s.split('_')[-1] if args[1][:action]
             end
-            code += content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
+            code << content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
           end
         elsif nature == :print
           dn, args, url = tool[1], tool[2], tool[3]
           url[:controller] ||= controller_name
           for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
-            code += content_tag(:div, link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print"), :class=>:tool) if authorized?(url)
+            code << content_tag(:div, link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print"), :class=>:tool) if authorized?(url)
           end
         elsif nature == :javascript
           name = args[0]
           # args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
           args[0] = tl(name) if name.is_a? Symbol
           args[2] ||= {}
-          args[2][:class] ||= "icon im-"+name.to_s.split('_')[-1]
-          code += content_tag(:div, link_to_function(*args), :class=>:tool)
+          args[2][:class] ||= "icon im-" << name.to_s.split('_')[-1]
+          code << content_tag(:div, link_to_function(*args), :class=>:tool)
         elsif nature == :mail
           args[2] ||= {}
           args[2][:class] = "icon im-mail"
-          code += content_tag(:div, mail_to(*args), :class=>:tool)
+          code << content_tag(:div, mail_to(*args), :class=>:tool)
         # elsif nature == :update or nature == :edit
         #   url = {} unless url.is_a? Hash
         #   url[:controller] ||= controller_name
         #   url[:action] = :edit
         #   url[:id] = args.id
-        #   code += content_tag(:li, link_to(t("actions.#{url[:controller]}.#{url[:action]}", args.attributes.symbolize_keys), url, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
+        #   code << content_tag(:li, link_to(t("actions.#{url[:controller]}.#{url[:action]}", args.attributes.symbolize_keys), url, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
           action = verb # "#{record.class.name.underscore}_#{verb}"
@@ -983,13 +983,13 @@ module ApplicationHelper
           url[:controller] ||= controller_name
           url[:action] = action
           url[:id] = record.id
-          code += content_tag(:div, link_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options), :class=>:tool) if authorized?(url)
+          code << content_tag(:div, link_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options), :class=>:tool) if authorized?(url)
         end
       end
       if code.strip.length>0
-        # code = content_tag(:ul, code.html_safe)+content_tag(:div)
-        # code = content_tag(:h2, t(call+options[:title].to_s))+code if options[:title]
-        code = content_tag(:div, code.html_safe, :class=>'toolbar'+(options[:class].nil? ? '' : ' '+options[:class].to_s))+content_tag(:div, nil, :class=>:clearfix)
+        # code = content_tag(:ul, code.html_safe) << content_tag(:div)
+        # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
+        code = content_tag(:div, code.html_safe, :class=>'toolbar' << (options[:class].nil? ? '' : ' ' << options[:class].to_s)) << content_tag(:div, nil, :class=>:clearfix)
       end
     else
       raise Exception.new('No block given for toolbar')
@@ -1083,7 +1083,7 @@ module ApplicationHelper
 
     def field(*params)
       line = params[2]||{}
-      id = line[:id]||"ff"+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)
+      id = line[:id]||"ff" << Time.now.to_i.to_s(36) << rand.to_s[2..-1].to_i.to_s(36)
       if params[1].is_a? Symbol
         line[:model] = params[0]
         line[:attribute] = params[1]
@@ -1105,14 +1105,10 @@ module ApplicationHelper
 
 
   def formalize(options={})
-    code = if block_given?
-             form = Formalize.new
-             yield form
-             formalize_lines(form, options)
-           else
-             '[EmptyFormalizeError]'
-           end
-    return code.html_safe
+    raise ArgumentError.new("Missing block") unless block_given?
+    form = Formalize.new
+    yield form
+    return formalize_lines(form, options).html_safe
   end
 
 
@@ -1132,7 +1128,7 @@ module ApplicationHelper
       line_code = ''
       case line[:nature]
       when :error
-        line_code += content_tag(:td, error_messages(line[:object]), :class=>"error", :colspan=>xcn)
+        line_code << content_tag(:td, error_messages(line[:object]), :class=>"error", :colspan=>xcn)
       when :title
         if line[:value].is_a? Symbol
           #calls = caller
@@ -1141,17 +1137,17 @@ module ApplicationHelper
           options.delete_if{|k,v| [:nature, :value].include?(k)}
           line[:value] = tl(line[:value], options)
         end
-        line_code += content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
+        line_code << content_tag(:th,line[:value].to_s, :class=>"title", :id=>line[:value].to_s.lower_ascii, :colspan=>xcn)
       when :field
         fragments = line_fragments(line)
-        line_code += content_tag(:td, fragments[:label], :class=>"label")
-        line_code += content_tag(:td, fragments[:input], :class=>"input")
-        # line_code += content_tag(:td, fragments[:help],  :class=>"help")
+        line_code << content_tag(:td, fragments[:label], :class=>"label")
+        line_code << content_tag(:td, fragments[:input], :class=>"input")
+        # line_code << content_tag(:td, fragments[:help],  :class=>"help")
       end
       unless line_code.blank?
         html_options = line[:html_options]||{}
         html_options[:class] = css_class
-        code += content_tag(:tr, line_code.html_safe, html_options)
+        code << content_tag(:tr, line_code.html_safe, html_options)
       end
       
     end
@@ -1169,8 +1165,8 @@ module ApplicationHelper
     #     help = ''
     #     for hs in help_tags
     #       line[hs] = translate_help(line, hs)
-    #       #      help += content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
-    #       help += content_tag(:div,t(hs), :class=>hs) if line[hs]
+    #       #      help << content_tag(:div,l(hs, [content_tag(:span,line[hs].to_s)]), :class=>hs) if line[hs]
+    #       help << content_tag(:div,t(hs), :class=>hs) if line[hs]
     #     end
     #     fragments[:help] = help
 
@@ -1186,30 +1182,30 @@ module ApplicationHelper
       options = line
 
       record.to_sym if record.is_a?(String)
-      object = record.is_a?(Symbol) ? instance_variable_get('@'+record.to_s) : record
-      raise Exception.new("Object #{record.inspect} is "+object.inspect) if object.nil?
+      object = record.is_a?(Symbol) ? instance_variable_get('@' << record.to_s) : record
+      raise Exception.new("Object #{record.inspect} is " << object.inspect) if object.nil?
       model = object.class
-      raise Exception.new('ModelError on object (not an ActiveRecord): '+object.class.to_s) unless model.ancestors.include? ActiveRecord::Base # methods.include? "create"
+      raise Exception.new('ModelError on object (not an ActiveRecord): ' << object.class.to_s) unless model.ancestors.include? ActiveRecord::Base # methods.include? "create"
 
       #      record = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]
       
       options[:field] = :password if method.to_s.match /password/
       
-      input_id = object.class.name.tableize.singularize+'_'+method.to_s
+      input_id = object.class.name.tableize.singularize << '_' << method.to_s
 
       html_options = {}
       html_options[:size] = options[:size]||24
       html_options[:onchange] = options[:onchange] if options[:onchange]
       html_options[:class] = options[:class].to_s
       if column.nil?
-        html_options[:class] += ' notnull' if options[:null]==false
+        html_options[:class] << ' notnull' if options[:null]==false
         if method.to_s.match /password/
           html_options[:size] = 12
           options[:field] = :password if options[:field].nil?
         end
       else
-        html_options[:class] += ' notnull' unless column.null
+        html_options[:class] << ' notnull' unless column.null
         html_options[:size] = 16 if column.type==:integer
         unless column.limit.nil?
           html_options[:size] = column.limit if column.limit<html_options[:size]
@@ -1258,7 +1254,7 @@ module ApplicationHelper
               when :dyli
                 dyli(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
               when :radio
-                options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1])+" "+content_tag(:label, x[0], :for=>input_id+'_'+x[1].to_s), :class=>:rad)}.join(" ").html_safe
+                options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1]) << " " << content_tag(:label, x[0], :for=>input_id << '_' << x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
@@ -1283,10 +1279,10 @@ module ApplicationHelper
         options[:new][:action] ||= :new
         options[:edit][:action] ||= :edit
         if options[:field] == :select
-          input += link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
+          input << link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
           data = (options[:update] ? options[:update] : rlid)
-          input += content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+          input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
 
         end
       end
@@ -1304,7 +1300,7 @@ module ApplicationHelper
         value = options.delete(:value)
         input = case datatype
                 when :boolean
-                  hidden_field_tag(name, "0")+check_box_tag(name, "1", value, options)
+                  hidden_field_tag(name, "0") << check_box_tag(name, "1", value, options)
                 when :string
                   size = (options[:size]||0).to_i
                   if size>64
@@ -1313,12 +1309,12 @@ module ApplicationHelper
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end
                 when :radio
-                  options[:choices].collect{ |x| content_tag(:span, radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}")+" "+content_tag(:label,x[0], :for=>"#{name}_#{x[1]}"), :class=>:rad) }.join(" ").html_safe
+                  options[:choices].collect{ |x| content_tag(:span, radio_button_tag(name, x[1], (value.to_s==x[1].to_s), :id=>"#{name}_#{x[1]}") << " " << content_tag(:label,x[0], :for=>"#{name}_#{x[1]}"), :class=>:rad) }.join(" ").html_safe
                 when :choice
                   options[:choices].insert(0,[options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
                   content = select_tag(name, options_for_select(options[:choices], value), :id=>options[:id])
                   if options[:new].is_a? Hash
-                    content += link_to(tg(options[:new].delete(:label)||:new), options[:new], :class=>:fastadd)
+                    content << link_to(tg(options[:new].delete(:label)||:new), options[:new], :class=>:fastadd)
                   end
                   content
                 when :record
@@ -1350,7 +1346,7 @@ module ApplicationHelper
   def translate_help(options,nature,id=nil)
     t = nil
     if options[nature].nil? and id
-      t = lh(controller.controller_name.to_sym, controller.action_name.to_sym, (id+'_'+nature.to_s).to_sym)
+      t = lh(controller.controller_name.to_sym, controller.action_name.to_sym, (id << '_' << nature.to_s).to_sym)
     elsif options[nature].is_a? Symbol
       t = tc(options[nature])
     elsif options[nature].is_a? String
@@ -1370,7 +1366,7 @@ module ApplicationHelper
               else
                 link_to(tc(:all_accounts), :controller=>:accounts, :action=>:index, :prefix=>nil)
               end
-    majors += @current_company.major_accounts.collect do |account| 
+    majors << @current_company.major_accounts.collect do |account| 
       if params[:prefix] == account.number.to_s
         content_tag(:strong, account.label)
       else
@@ -1393,9 +1389,9 @@ module ApplicationHelper
     code = content_tag(:span, tg(:view))
     for mode in controller.journal_views
       if @journal_view == mode
-        code += content_tag(:strong, tc("journal_view.#{mode}"))
+        code << content_tag(:strong, tc("journal_view.#{mode}"))
       else
-        code += link_to(tc("journal_view.#{mode}"), params.merge(:view=>mode)).html_safe
+        code << link_to(tc("journal_view.#{mode}"), params.merge(:view=>mode)).html_safe
       end
     end
     return content_tag(:div, code, :class=>:view)
@@ -1410,20 +1406,20 @@ module ApplicationHelper
     list = []
     list << [tc(:all_periods), "all"]
     for year in @current_company.financial_years.find(:all, :order=>:started_on)
-      list << [year.code, year.started_on.to_s+"_"+year.stopped_on.to_s]
+      list << [year.code, year.started_on.to_s << "_" << year.stopped_on.to_s]
       list2 = []
       date = year.started_on
       while date<year.stopped_on and date < Date.today
         date2 = date.end_of_month
-        list2 << [tc(:month_period, :year=>date.year, :month=>t("date.month_names")[date.month], :code=>year.code), date.to_s+"_"+date2.to_s]
+        list2 << [tc(:month_period, :year=>date.year, :month=>t("date.month_names")[date.month], :code=>year.code), date.to_s << "_" << date2.to_s]
         date = date2+1
       end
       list += list2.reverse
     end
     code = ""
-    code += content_tag(:label, tc(:period), :for=>configuration[:id])+" "
+    code << content_tag(:label, tc(:period), :for=>configuration[:id]) << " "
     fy = @current_company.current_financial_year
-    params[:period] = value = value || (fy ? fy.started_on.to_s+"_"+fy.stopped_on.to_s : :all)
+    params[:period] = value = value || (fy ? fy.started_on.to_s << "_" << fy.stopped_on.to_s : :all)
     if configuration[:custom]
       params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
       params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
@@ -1431,11 +1427,11 @@ module ApplicationHelper
       list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
       toggle_method = "toggle#{custom_id.camelcase}"
-      code += select_tag(name, options_for_select(list, value), :id=>configuration[:id], :onchange=>"#{toggle_method}()", :onkeyup=>"#{toggle_method}()")
-      code += " "+content_tag(:span, tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
-      code += javascript_tag("window.#{toggle_method} = function() { toggleElement('#{custom_id}', ($('#{configuration[:id]}').value == '#{configuration[:custom]}')); }; #{toggle_method}();")
+      code << select_tag(name, options_for_select(list, value), :id=>configuration[:id], :onchange=>"#{toggle_method}()", :onkeyup=>"#{toggle_method}()")
+      code << " " << content_tag(:span, tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
+      code << javascript_tag("window.#{toggle_method} = function() { toggleElement('#{custom_id}', ($('#{configuration[:id]}').value == '#{configuration[:custom]}')); }; #{toggle_method}();")
     else
-      code += select_tag(name, options_for_select(list, value), :id=>configuration[:id])
+      code << select_tag(name, options_for_select(list, value), :id=>configuration[:id])
     end
     return code.html_safe
   end
@@ -1443,7 +1439,7 @@ module ApplicationHelper
   # Create a widget to select states of entries (and entry lines)
   def journal_entries_states_crit
     code = ""
-    code += content_tag(:label, tc(:journal_entries_states))
+    code << content_tag(:label, tc(:journal_entries_states))
     states = JournalEntry.states
     params[:states] = {} unless params[:states].is_a? Hash
     no_state = !states.detect{|x| params[:states].has_key?(x)}
@@ -1455,8 +1451,8 @@ module ApplicationHelper
       else
         params[:states].delete(key)
       end
-      code += " "+check_box_tag(name, "1", active, :id=>id)
-      code += " "+content_tag(:label, JournalEntry.state_label(state), :for=>id)
+      code << " " << check_box_tag(name, "1", active, :id=>id)
+      code << " " << content_tag(:label, JournalEntry.state_label(state), :for=>id)
     end
     return code.html_safe
   end
@@ -1464,7 +1460,7 @@ module ApplicationHelper
   # Create a widget to select some journals
   def journals_crit
     code, field = "", :journals
-    code += content_tag(:label, Company.human_attribute_name("journals"))
+    code << content_tag(:label, Company.human_attribute_name("journals"))
     journals = @current_company.journals # .find(:all, :conditions=>["id IN (SELECT journal_id FROM journal_entry_lines WHERE company_id=? AND state=?)", @current_company.id, "draft"])
     params[field] = {} unless params[field].is_a? Hash
     no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
@@ -1476,8 +1472,8 @@ module ApplicationHelper
       else
         params[field].delete(key)
       end
-      code += " "+check_box_tag(name, "1", active, :id=>id)
-      code += " "+content_tag(:label, journal.name, :for=>id)
+      code << " " << check_box_tag(name, "1", active, :id=>id)
+      code << " " << content_tag(:label, journal.name, :for=>id)
     end
     return code.html_safe
   end
@@ -1489,8 +1485,8 @@ module ApplicationHelper
     id = :accounts
     params[id] = Account.clean_range_condition(params[id])
     code = ""
-    code += content_tag(:label, tc(:accounts), :for=>id)
-    code += " "+text_field_tag(id, params[id], :size=>30)
+    code << content_tag(:label, tc(:accounts), :for=>id)
+    code << " " << text_field_tag(id, params[id], :size=>30)
     return code.html_safe
   end
 
@@ -1508,13 +1504,13 @@ module ApplicationHelper
     for step in steps
       title = tc("#{name}_steps.#{step[:name]}")
       classes  = "step"
-      classes += " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action=>url.to_s} unless url.is_a? Hash
+      classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action=>url.to_s} unless url.is_a? Hash
       if step[:states].include?(state) and record.id
-        classes += " usable"
+        classes << " usable"
         title = link_to(title, step[:actions][0].merge(:id=>record.id)) 
       end
-      code += content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') unless code.blank?
-      code += content_tag(:td, title, :class=>classes)
+      code << content_tag(:td, '&nbsp;'.html_safe, :class=>'transition') unless code.blank?
+      code << content_tag(:td, title, :class=>classes)
     end
     code = content_tag(:tr, code.html_safe)
     code = content_tag(:table, code.html_safe, :class=>:stepper)
@@ -1547,8 +1543,8 @@ module ApplicationHelper
 
   def product_stocks_options(product)
     options = []
-    options += product.stocks.collect{|x| [x.label, x.id]}
-    options += @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
+    options << product.stocks.collect{|x| [x.label, x.id]}
+    options << @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
     return options
   end
 
@@ -1557,11 +1553,11 @@ module ApplicationHelper
     pref = @current_user.preference("interface.toggle.#{name}", modes[0].to_s)
     code = ""
     for mode in modes
-      # code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}#{' current' if mode.to_s==pref.value}")
+      # code << link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}#{' current' if mode.to_s==pref.value}")
       if mode.to_s==pref.value
-        code += content_tag(:a, nil, :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode} current")
+        code << content_tag(:a, nil, :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode} current")
       else
-        code += link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}")
+        code << link_to("", params.merge(name=>mode), :title=>tl("#{name}.#{mode}"), :class=>"icon im-#{mode}")
       end
     end
     content_tag(:div, code.html_safe, :class=>"toggle tg-#{name}")

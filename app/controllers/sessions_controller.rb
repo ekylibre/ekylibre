@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
 
   def create
     if user = User.authenticate(params[:name], params[:password], @current_company)
-      init_session(user)
+      initialize_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
         redirect_to params[:redirect]||{:controller=>:dashboards, :action=>:general, :company=>user.company.code}

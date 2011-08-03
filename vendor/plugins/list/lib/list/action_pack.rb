@@ -21,8 +21,8 @@ module List
         options[:records_variable_name]  = "@#{name}"
         table = List::Table.new(name, model, options)
         yield table
-        class_eval(table.send(:generate_controller_method_code))
-        ActionView::Base.send(:class_eval, table.send(:generate_view_method_code))
+        class_eval(table.send(:generate_controller_method_code), __FILE__, __LINE__)
+        ActionView::Base.send(:class_eval, table.send(:generate_view_method_code), __FILE__, __LINE__)
       end
 
     end

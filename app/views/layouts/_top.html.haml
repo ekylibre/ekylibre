@@ -30,8 +30,8 @@
             =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>"#{'multi' if items.size>1}")
             -if items.size>1
               %ul
-                -for url in items
-                  %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url)
+                -for item in items
+                  %li=link_to(t("actions.#{item[:controller]}.#{item[:action]}"), item[:url])
           -else     
             =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>:current)
   .clearfix
