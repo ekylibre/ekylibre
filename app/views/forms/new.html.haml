@@ -4,4 +4,4 @@
   =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
   .actions
     =submit_tag(tg(options[:submit]||:create), :disable_with=>tl(:please_wait))
-    =link_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-dialog-close"=>params[:dialog]} : {}))
+    =link_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-close-dialog"=>params[:dialog]} : {}))

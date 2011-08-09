@@ -93,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :sequences, :except=>[:show], :collection=>{:list=>:get, :load=>:post}
     # company.resources :stock_moves, :except=>[:index, :show]
     company.resources :stock_transfers, :except=>[:show], :collection=>{:list=>:get, :list_confirm=>:get, :confirm_all=>[:get, :post]}, :member=>{:confirm=>[:get, :post]}
-    company.resources :stocks, :except=>[:show], :collection=>{:list=>:get}
+    company.resources :stocks, :except=>[:show], :collection=>{:list=>:get, :formize=>:get}
     company.resources :subscription_natures, :except=>[:show], :collection=>{:list=>:get}, :member=>{:increment=>:post, :decrement=>:post}
     company.resources :subscriptions, :except=>[:show], :collection=>{:list=>:get, :coordinates=>:get, :message=>:get}
     # company.resources :tax_declarations

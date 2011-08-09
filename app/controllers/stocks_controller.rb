@@ -18,14 +18,29 @@
 #
 
 class StocksController < ApplicationController
-  manage_restfully :xhr=>true
+  manage_restfully
+
+  formize do |f|
+    f.field :warehouse, :new=>true, :choices=>:warehouses
+    f.field_set(:general) do |s|
+      s.field :product, :new=>true, :choices=>:stockable_products
+    end
+    f.field_set(:product_options, :depend_on=>:product) do |s|
+      s.field :unit, :choices=>:units, :new=>{:base=>"product.unit.base"}, :source=>"product", :default=>"product.unit"
+      s.field :tracking, :choices=>:trackings, :include_blank=>true, :source=>"product"
+      s.field :critic_quantity_min
+      s.field :quantity_min
+      s.field :quantity_max
+    end
+  end
+        
 
   def self.stocks_conditions(options={})
     code = ""
-    code += "conditions = {} \n"
-    code += "conditions[:company_id] = @current_company.id\n"
-    code += "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id].to_i > 0\n"
-    code += "conditions\n"
+    code << "conditions = {} \n"
+    code << "conditions[:company_id] = @current_company.id\n"
+    code << "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id].to_i > 0\n"
+    code << "conditions\n"
     code
   end
 

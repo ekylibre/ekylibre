@@ -353,6 +353,7 @@ function unexpire() {
 
 Event.observe(window, "dom:loaded", resize);
 Event.observe(window, "resize", resize);
+Event.observe(window, "layout:change", resize);
 
 Event.observe(window, "dom:loaded", unexpire);
 Event.observe(window, "ajax:complete", unexpire);

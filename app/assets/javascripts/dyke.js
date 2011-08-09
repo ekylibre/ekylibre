@@ -280,7 +280,7 @@ function refreshAutoList(dyli, request) {
 
 
 (function() {
-    
+/*  
     document.on("click", "a[data-new-item]", function(event, element) {
 	var list_id = element.readAttribute('data-new-item');
         var url = element.readAttribute('href');
@@ -303,7 +303,8 @@ function refreshAutoList(dyli, request) {
 	closeDialog(dialog_id);
 	event.stop();
     });
-
+*/
+/*
     document.on("submit", "form[data-dialog]", function(event, form) {
 	var dialog_id = form.readAttribute('data-dialog');
 	var dialog = $(dialog_id);
@@ -319,10 +320,10 @@ function refreshAutoList(dyli, request) {
             onLoaded:  function(request){ resizeDialog(dialog_id); }, 
             onSuccess: function(request){
 		if (request.responseJSON === null) {
-		    /* No return => validation error */
+		    // No return => validation error
 		    dialog.update(request.responseText).resize();
 		} else {
-		    /* Refresh list or execute call */
+		    // Refresh list or execute call
 		    var updated_id = dialog.readAttribute('data-dialog-update');
 		    var updated = $(updated_id);
 		    if (updated !== null) {
@@ -347,7 +348,7 @@ function refreshAutoList(dyli, request) {
                             dyliChange(updated_id, request.responseJSON.id);
                         }
 		    }
-		    /* Close dialog */
+		    // Close dialog
 		    closeDialog(dialog_id);
 		}
             }
@@ -356,6 +357,6 @@ function refreshAutoList(dyli, request) {
         return false;
     });
 
-
+*/
 
 })();

@@ -15,7 +15,7 @@ gem "exception_notification", :path => "vendor/ogems/exception_notification-2.3.
 
 # gem "formtastic", "1.2.4"
 # gem "simple_form", "1.0.4"
-gem "yasui_form", :path => "vendor/ogems/yasui_form"
+gem "formize", :path => "vendor/ogems/formize"
 # gem "yasui_form", :groups=>[:test, :production]
 
 gem "state_machine", "0.9.4"

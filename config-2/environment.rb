@@ -55,3 +55,4 @@ if defined? ExceptionNotifier
   ExceptionNotifier.exception_recipients = %w(dev@fdsea33.fr)
   ExceptionNotifier.sender_address =  %("Ekylibre Error" <notifier@ekylibre.org>)
 end
+

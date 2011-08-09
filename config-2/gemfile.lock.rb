@@ -4,9 +4,9 @@ PATH
     exception_notification (2.3.3.0)
 
 PATH
-  remote: vendor/ogems/yasui_form
+  remote: vendor/ogems/formize
   specs:
-    yasui_form (0.0.1)
+    formize (0.0.1)
 
 GEM
   remote: http://rubygems.org/
@@ -49,6 +49,7 @@ PLATFORMS
 DEPENDENCIES
   exception_notification!
   fastercsv
+  formize!
   haml
   i18n (>= 0.5)
   libxml-ruby (= 1.1.3)
@@ -63,4 +64,3 @@ DEPENDENCIES
   state_machine (= 0.9.4)
   thin (>= 1.2.6)
   will_paginate (~> 2.3)
-  yasui_form!

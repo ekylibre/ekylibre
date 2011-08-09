@@ -10,6 +10,7 @@
     =javascript_include_tag :defaults
     =javascript_include_tag "dyke"
     =javascript_include_tag "list"
+    =javascript_include_tag "formize"
   %body
     -expiration = {}
     -expiration = {"timeout"=>session[:expiration], "timeout-href"=>renew_session_url(:name=>@current_user.name)} if @current_user and session[:expiration].to_i>0

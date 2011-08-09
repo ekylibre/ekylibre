@@ -5,17 +5,8 @@
     =f.input :tracking_id, :choices=>"DEPENDS_ON.trackings", :include_blank=>true, :depends_on=>:product_id, :new=>true
     =f.input :warehouse, :new=>true
 
+=formize_fields
 
-=yasui_fields_for(@stock) do |y|
-  -y.field_set(:general) do |f|
-    -f.field :warehouse, :new=>true, :choices=>:available_warehouses
-    -f.field :product, :new=>true, :choices=>:stockable_products
-  -y.field_set(:product_options, :depending_on=>:product) do |f|
-    -f.field :unit, :choices=>:units, :new=>{:base=>:base}
-    -f.field :tracking, :choices=>:trackings, :include_blank=>true, :new=>true
-    -f.field :critic_quantity
-    -f.field :quantity_min
-    -f.field :quantity_max
 
 
 -#   
