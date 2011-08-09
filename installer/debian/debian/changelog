@@ -1,8 +1,9 @@
 ekylibre (0.3.0+1.b1) unstable; urgency=low
 
   * Changes versions files
+  * Adds configuration for formize
 
- -- Brice Texier <brice@thalie.nouva.local>  Wed, 06 Jul 2011 12:09:02 +0200
+ -- Brice Texier <brice@thalie.nouva.local>  Tue, 09 Aug 2011 19:36:09 +0200
 
 ekylibre (0.3.0+1.a2) unstable; urgency=low
 
