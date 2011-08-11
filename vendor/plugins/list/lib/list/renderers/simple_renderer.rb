@@ -163,7 +163,7 @@ module List
     # Produces main menu code
     def menu_code(table)
       menu = "<div class=\"list-menu\">"
-      menu << "<a class=\"list-menu-start\">' << ::I18n.translate('list.menu').gsub(/\'/,'&#39;') << '</a>"
+      menu << "<a class=\"list-menu-start\">' + h(::I18n.translate('list.menu').gsub(/\'/,'&#39;')) + '</a>"
       menu << "<ul>"
       if table.finder.paginate?
         # Per page
@@ -171,7 +171,7 @@ module List
         list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
         list = list.uniq.sort
         menu << "<li class=\"per-page parent\">"
-        menu << "<a class=\"icon im-pages\">' << ::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;') << '</a><ul>"
+        menu << "<a class=\"icon im-pages\">' + ::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;') + '</a><ul>"
         for n in list
           menu << "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"icon im-list-check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\" data-remote-update=\"#{table.name}\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</a></li>"
         end
@@ -182,7 +182,7 @@ module List
 
       # Column selector
       menu << "<li class=\"columns parent\">"
-      menu << "<a class=\"icon im-table \">' << ::I18n.translate('list.columns').gsub(/\'/,'&#39;') << '</a><ul>"
+      menu << "<a class=\"icon im-table \">' + ::I18n.translate('list.columns').gsub(/\'/,'&#39;') + '</a><ul>"
       for column in table.data_columns
         menu << "<li>'+link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'data-toggle-column'=>'#{column.unique_id}', :class=>'icon '+(list_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
       end
@@ -191,7 +191,7 @@ module List
       menu << "<li class=\"separator\"></li>"      
       # Exports
       for format, exporter in List.exporters
-        menu << "<li class=\"export #{exporter.name}\">' << link_to(::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\") << '</li>"
+        menu << "<li class=\"export #{exporter.name}\">' + link_to(::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\") + '</li>"
       end
       menu << "</ul></div>"
       return menu
@@ -200,7 +200,7 @@ module List
     # Produces the code to create the header line using  top-end menu for columns
     # and pagination management
     def header_code(table)
-      return "'<thead><tr>' << "+columns_to_cells(table, :header, :id=>table.name)+" << '</tr></thead>'"
+      return "'<thead><tr>' + "+columns_to_cells(table, :header, :id=>table.name)+" + '</tr></thead>'"
     end
 
     # Produces the code to create bottom menu and pagination
