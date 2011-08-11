@@ -5,6 +5,9 @@
     =f.input :tracking_id, :choices=>"DEPENDS_ON.trackings", :include_blank=>true, :depends_on=>:product_id, :new=>true
     =f.input :warehouse, :new=>true
 
+=formalize do |f|
+  -f.error :stock
+
 =formize_fields
 
 

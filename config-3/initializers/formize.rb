@@ -1,2 +1,2 @@
 
-Formize.default_source = "@current_company"
+Formize.default_source = ["@current_company", "Company"]

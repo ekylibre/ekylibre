@@ -39,9 +39,9 @@ GEM
     ruby-prof (0.10.8)
     rubyzip (0.9.4)
     shoulda (2.11.3)
-    sqlite3 (1.3.3)
+    sqlite3 (1.3.4)
     state_machine (0.9.4)
-    will_paginate (2.3.15)
+    will_paginate (2.3.16)
 
 PLATFORMS
   ruby

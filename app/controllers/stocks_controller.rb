@@ -26,8 +26,8 @@ class StocksController < ApplicationController
       s.field :product, :new=>true, :choices=>:stockable_products
     end
     f.field_set(:product_options, :depend_on=>:product) do |s|
-      s.field :unit, :choices=>:units, :new=>{:base=>"product.unit.base"}, :source=>"product", :default=>"product.unit"
-      s.field :tracking, :choices=>:trackings, :include_blank=>true, :source=>"product"
+      s.field :unit, :choices=>:units, :new=>{:base=>"product.unit.base"}, :source=>:product, :default=>"product.unit"
+      s.field :tracking, :choices=>:trackings, :include_blank=>true, :source=>:product
       s.field :critic_quantity_min
       s.field :quantity_min
       s.field :quantity_max

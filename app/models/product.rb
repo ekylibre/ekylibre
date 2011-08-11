@@ -100,6 +100,7 @@ class Product < CompanyRecord
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
+  has_many :units, :class_name=>"Unit", :finder_sql=>'SELECT #{Unit.table_name}.* FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)} ORDER BY coefficient, label', :counter_sql=>'SELECT count(*) AS count_all FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)}'
   validates_presence_of :subscription_nature,   :if=>Proc.new{|u| u.nature.to_s=="subscrip"}
   validates_presence_of :subscription_period,   :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and u.subscription_nature.period?}
   validates_presence_of :subscription_quantity, :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and not u.subscription_nature.period?}
@@ -154,10 +155,6 @@ class Product < CompanyRecord
 
   def subscription?
     self.nature.to_s == :subscrip.to_s
-  end
-
-  def units
-    self.company.units.find(:all, :conditions=>{:base=>self.unit.base}, :order=>"coefficient, label")
   end
 
   def has_components?

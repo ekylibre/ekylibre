@@ -1,3 +1,4 @@
+# encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2009 Brice Texier, Thibaud Merigon
@@ -15,7 +16,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
 
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
@@ -624,7 +624,7 @@ class ApplicationController < ActionController::Base
     code += "def update\n"
     code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
     code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-    raise Exception.new("You must put :company_id in attr_readonly of #{model.name}") if model.readonly_attributes.nil? or not model.readonly_attributes.include?("company_id")
+    raise Exception.new("You must put :company_id in attr_readonly of #{model.name} (#{model.readonly_attributes.inspect})") if model.readonly_attributes.nil? or not model.readonly_attributes.to_a.join.match(/company_id/)
     code += "  @#{record_name}.attributes = params[:#{record_name}]\n"
     code += "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
     code += "  render_restfully_form#{partial}\n"
