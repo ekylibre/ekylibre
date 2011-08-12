@@ -3,11 +3,6 @@ PATH
   specs:
     exception_notification (2.3.3.0)
 
-PATH
-  remote: vendor/ogems/formize
-  specs:
-    formize (0.0.1)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -22,6 +17,7 @@ GEM
       activesupport (= 2.3.10)
     activesupport (2.3.10)
     fastercsv (1.5.4)
+    formize (0.0.2)
     haml (3.1.2)
     i18n (0.6.0)
     libxml-ruby (1.1.3)
@@ -49,7 +45,7 @@ PLATFORMS
 DEPENDENCIES
   exception_notification!
   fastercsv
-  formize!
+  formize
   haml
   i18n (>= 0.5)
   libxml-ruby (= 1.1.3)
