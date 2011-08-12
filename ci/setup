@@ -1,7 +1,11 @@
 #!/usr/bin/env ruby
+require 'fileutils'
+include FileUtils
+
+here = File.expand_path('..', __FILE__)
 
 # Copy database.yml like in real case
-system("cp -f database.#{ENV['DB']}.yml ../config/database.yml")
+system("cp -f #{here}/database.#{ENV['DB']}.yml #{here}/../config/database.yml")
 
 # Create Database manually
 if ENV['DB'] == 'postgresql'
