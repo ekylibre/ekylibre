@@ -116,6 +116,7 @@ class TransportsController < ApplicationController
     session[:current_transporter_id] = @transport.transporter_id
     return if save_and_redirect(@transport, :url=>{:action=>:show, :id=>'id'}) do |transport|
       transport.deliveries.clear
+      params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
         delivery = OutgoingDelivery.find_by_id(delivery_id)
         if delivery and not transport.deliveries.include? delivery
@@ -140,6 +141,7 @@ class TransportsController < ApplicationController
     session[:current_transporter_id] = @transport.transporter_id
     return if save_and_redirect(@transport, :attributes=>params[:transport], :url=>{:action=>:show, :id=>'id'}) do |transport|
       transport.deliveries.clear
+      params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
         delivery = OutgoingDelivery.find_by_id(delivery_id)
         if delivery and not transport.deliveries.include? delivery

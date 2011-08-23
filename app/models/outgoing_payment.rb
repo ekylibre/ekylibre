@@ -49,7 +49,7 @@ class OutgoingPayment < CompanyRecord
   validates_numericality_of :amount, :used_amount, :allow_nil => true
   validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :in => [true, false]
-  validates_presence_of :amount, :journal_entry, :to_bank_on, :used_amount
+  validates_presence_of :amount, :company, :mode, :payee, :responsible, :to_bank_on, :used_amount
   #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id

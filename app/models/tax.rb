@@ -45,7 +45,7 @@ class Tax < CompanyRecord
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :included, :reductible, :in => [true, false]
-  validates_presence_of :amount, :collected_account, :name, :nature, :paid_account
+  validates_presence_of :amount, :company, :name, :nature
   #]VALIDATORS]
   attr_readonly :nature, :company_id #, :amount
   belongs_to :company

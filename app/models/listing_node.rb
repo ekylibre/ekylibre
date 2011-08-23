@@ -52,7 +52,7 @@ class ListingNode < CompanyRecord
   validates_length_of :item_nature, :allow_nil => true, :maximum => 8
   validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :exportable, :in => [true, false]
-  validates_presence_of :item_listing, :item_listing_node, :label, :name, :nature, :parent
+  validates_presence_of :company, :label, :listing, :name, :nature
   #]VALIDATORS]
   acts_as_list :scope=>:listing_id
   acts_as_tree

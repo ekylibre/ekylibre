@@ -77,7 +77,7 @@ class Product < CompanyRecord
   validates_length_of :code2, :allow_nil => true, :maximum => 64
   validates_length_of :catalog_name, :name, :subscription_period, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :deliverable, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :published, :reduction_submissive, :stockable, :trackable, :unquantifiable, :with_tracking, :in => [true, false]
-  validates_presence_of :catalog_name, :name, :nature, :number, :purchases_account, :sales_account, :subscription_nature
+  validates_presence_of :catalog_name, :category, :company, :name, :nature, :number, :unit
   #]VALIDATORS]
   @@natures = [:product, :service, :subscrip] # , :transfer]
   attr_readonly :company_id

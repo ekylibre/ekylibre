@@ -49,7 +49,7 @@ class Price < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity_max, :quantity_min, :allow_nil => true
   validates_inclusion_of :active, :use_range, :in => [true, false]
-  validates_presence_of :amount, :category, :currency, :entity, :pretax_amount, :quantity_max, :quantity_min
+  validates_presence_of :amount, :company, :pretax_amount, :product, :quantity_max, :quantity_min, :tax
   #]VALIDATORS]
   after_save :set_by_default
   attr_readonly :company_id

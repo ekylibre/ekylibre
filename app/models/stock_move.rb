@@ -50,7 +50,7 @@ class StockMove < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :generated, :virtual, :in => [true, false]
-  validates_presence_of :name, :origin, :planned_on, :quantity, :stock, :tracking
+  validates_presence_of :company, :name, :planned_on, :product, :quantity, :unit, :warehouse
   #]VALIDATORS]
   after_save :add_in_stock
   after_destroy :remove_from_stock

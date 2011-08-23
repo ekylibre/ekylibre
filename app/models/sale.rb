@@ -75,7 +75,7 @@ class Sale < CompanyRecord
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
-  validates_presence_of :amount, :contact, :created_on, :currency, :delivery_contact, :downpayment_amount, :expiration, :invoice_contact, :journal_entry, :nature, :number, :origin, :paid_amount, :pretax_amount, :responsible, :state, :sum_method, :transporter
+  validates_presence_of :amount, :client, :company, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
   acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}

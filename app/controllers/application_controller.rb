@@ -30,17 +30,17 @@ class ApplicationController < ActionController::Base
   layout :dialog_or_not
 
   if RAILS_ENV == "development"
-    # require_dependency "vendor/plugins/list/init.rb"
-    require_dependency "vendor/ogems/formize/lib/formize.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/definition.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition/element.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/definition/form.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/definition/form_element.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/definition/field_set.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/definition/field.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/generator.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/form_helper.rb"
-    require_dependency "vendor/ogems/formize/lib/formize/action_pack.rb"
+    # # require_dependency "vendor/plugins/list/init.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/definition.rb"
+    # # require_dependency "vendor/ogems/formize/lib/formize/definition/element.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/definition/form.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/definition/form_element.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/definition/field_set.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/definition/field.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/generator.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/form_helper.rb"
+    # require_dependency "vendor/ogems/formize/lib/formize/action_pack.rb"
   end
 
   include Userstamp

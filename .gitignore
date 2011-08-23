@@ -2,7 +2,7 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-installer/**/*.log
+installer/*.log
 config*/database.yml
 *~
 **/*~

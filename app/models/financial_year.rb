@@ -44,7 +44,7 @@ class FinancialYear < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :code, :started_on, :stopped_on
+  validates_presence_of :code, :company, :started_on, :stopped_on
   #]VALIDATORS]
 
   #

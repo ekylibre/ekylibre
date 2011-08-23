@@ -91,7 +91,7 @@ class Entity < CompanyRecord
   validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
   validates_length_of :first_name, :full_name, :last_name, :origin, :photo, :webpass, :website, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :attorney, :client, :locked, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
-  validates_presence_of :attorney_account, :category, :client_account, :full_name, :language, :last_name, :payment_delay, :payment_mode, :proposer, :responsible, :supplier_account
+  validates_presence_of :company, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   acts_as_numbered :code
   attr_readonly :company_id

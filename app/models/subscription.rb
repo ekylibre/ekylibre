@@ -51,7 +51,7 @@ class Subscription < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
-  validates_presence_of :contact, :entity, :nature, :product, :sale, :sale_line
+  validates_presence_of :company
   #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id

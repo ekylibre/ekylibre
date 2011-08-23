@@ -3,14 +3,29 @@ require 'fileutils'
 include FileUtils
 
 here = File.expand_path('..', __FILE__)
+root = File.expand_path('..', here)
+
+rails = ENV['RAILS']
+database = ENV['DB'].to_s
+if database.size.zero?
+  database = :sqlite3
+else
+  database = database.to_sym
+end
+
+# Select Rails env
+if rails
+  system("rm -fr config")
+  system("ln -sf #{root}/config-#{rails} #{root}/config")
+end
 
 # Copy database.yml like in real case
-system("cp -f #{here}/database.#{ENV['DB']}.yml #{here}/../config/database.yml")
+system("cp -f #{here}/database.#{database}.yml #{here}/../config/database.yml")
 
 # Create Database manually
-if ENV['DB'] == 'postgresql'
+if database == :postgresql
   system('psql -c "create database ekylibre_test;" -U postgres > /dev/null 2>&1')
-elsif ENV['DB'] == 'mysql'
+elsif database == :mysql
   system('mysql -e "create database ekylibre_test;" > /dev/null 2>&1')
 end
 

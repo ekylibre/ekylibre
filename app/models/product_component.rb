@@ -45,7 +45,7 @@ class ProductComponent < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :name, :quantity
+  validates_presence_of :company, :component, :name, :product, :quantity, :warehouse
   #]VALIDATORS]
   attr_readonly :company_id, :quantity, :name, :comment
   belongs_to :company

@@ -40,7 +40,7 @@ class OutgoingDeliveryMode < CompanyRecord
   validates_length_of :code, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :with_transport, :in => [true, false]
-  validates_presence_of :code, :name
+  validates_presence_of :code, :company, :name
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company

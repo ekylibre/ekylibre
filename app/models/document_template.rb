@@ -51,7 +51,7 @@ class DocumentTemplate < CompanyRecord
   validates_length_of :nature, :allow_nil => true, :maximum => 64
   validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :by_default, :in => [true, false]
-  validates_presence_of :language, :name
+  validates_presence_of :company, :language, :name
   #]VALIDATORS]
   attr_readonly :company_id
   after_save :set_by_default

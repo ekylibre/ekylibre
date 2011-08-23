@@ -131,7 +131,7 @@ class ActionController::TestCase
         code << "    end\n"
       elsif mode == :update
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
-        code << "    assert_nothing_raised do\n"
+        code << "    assert_nothing_raised() do\n"
         code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
         code << "    end\n"
       elsif mode == :destroy
@@ -172,7 +172,7 @@ class ActionController::TestCase
     code << "end\n"
 
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    class_eval(code)
+    class_eval(code, "#{__FILE__}:#{__LINE__}")
     
   end
 end

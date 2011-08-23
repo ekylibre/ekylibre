@@ -6,8 +6,8 @@ current_dir=`dirname $p`
 rails_root=`dirname ${current_dir}`
 
 line=`cat ${rails_root}/VERSION`
-name=`echo ${line} | cut -d',' -f1`
-version=`echo ${line} | cut -d',' -f2`
+version=`echo ${line} | cut -d',' -f1`
+# version=`echo ${line} | cut -d',' -f2`
 release=${app}-${version}
 
 datadir=${current_dir}/releases/${version}

@@ -42,7 +42,7 @@ class EntityNature < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :format, :name, :title, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in_name, :physical, :in => [true, false]
-  validates_presence_of :name
+  validates_presence_of :company, :name
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company

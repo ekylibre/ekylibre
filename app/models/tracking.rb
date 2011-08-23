@@ -41,7 +41,7 @@ class Tracking < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :name, :producer, :product
+  validates_presence_of :company, :name
   #]VALIDATORS]
   after_save :update_serials
   belongs_to :company

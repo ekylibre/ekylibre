@@ -56,7 +56,7 @@ class IncomingPayment < CompanyRecord
   validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
   validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :received, :scheduled, :in => [true, false]
-  validates_presence_of :amount, :commission_account, :commission_amount, :deposit, :journal_entry, :payer, :responsible, :to_bank_on, :used_amount
+  validates_presence_of :amount, :commission_amount, :company, :mode, :to_bank_on, :used_amount
   #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id

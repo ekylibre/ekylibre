@@ -46,7 +46,7 @@ class SaleNature < CompanyRecord
   validates_numericality_of :downpayment_minimum, :downpayment_rate, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :downpayment, :in => [true, false]
-  validates_presence_of :downpayment_minimum, :downpayment_rate, :name, :payment_mode
+  validates_presence_of :company, :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
   #]VALIDATORS]
   belongs_to :payment_delay, :class_name=>Delay.to_s
   belongs_to :payment_mode, :class_name=>IncomingPaymentMode.name

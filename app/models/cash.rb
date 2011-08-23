@@ -56,7 +56,7 @@ class Cash < CompanyRecord
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
   validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :entity, :mode, :name, :nature
+  validates_presence_of :account, :company, :currency, :journal, :mode, :name, :nature
   #]VALIDATORS]
   @@natures = ["bank_account", "cash_box"]
   @@modes = ["iban", "bban"]

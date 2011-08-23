@@ -105,17 +105,20 @@ class IncomingDeliveriesController < ApplicationController
     # purchase_lines = PurchaseLine.find(:all,:conditions=>{:company_id=>@current_company.id, :purchase_id=>session[:current_purchase_id]})
     # @incoming_delivery_lines = IncomingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :incoming_delivery_id=>@incoming_delivery.id})
     @incoming_delivery_lines = @incoming_delivery.lines
-      ActiveRecord::Base.transaction do
-        saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
-        if saved
-          for line in @incoming_delivery.lines
-            saved = false unless line.update_attributes(:quantity=>params[:incoming_delivery_line][line.purchase_line.id.to_s][:quantity])
+    ActiveRecord::Base.transaction do
+      saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])
+      if saved and params[:incoming_delivery_line]
+        for line in @incoming_delivery.lines
+          line_attrs = params[:incoming_delivery_line][line.purchase_line.id.to_s]||{}
+          if line_attrs[:quantity].to_f > 0
+            saved = false unless line.update_attributes(:quantity=>line_attrs[:quantity].to_f)
             @incoming_delivery.errors.add_from_record(line)
           end
         end
-        raise ActiveRecord::Rollback unless saved
-        redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
       end
+      raise ActiveRecord::Rollback unless saved
+      redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
+    end
     render_restfully_form(:id=>@incoming_delivery_form)
   end
 

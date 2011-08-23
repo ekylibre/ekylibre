@@ -43,7 +43,7 @@ class IncomingPaymentUse < CompanyRecord
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :expense_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :downpayment, :in => [true, false]
-  validates_presence_of :expense_type, :journal_entry
+  validates_presence_of :company, :expense, :expense_type, :payment
   #]VALIDATORS]
   acts_as_reconcilable :client, :payer
   attr_readonly :company_id

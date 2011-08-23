@@ -48,7 +48,7 @@ class Deposit < CompanyRecord
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :in_cash, :locked, :in => [true, false]
-  validates_presence_of :amount, :created_on, :journal_entry, :responsible
+  validates_presence_of :amount, :cash, :company, :created_on, :mode
   #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id

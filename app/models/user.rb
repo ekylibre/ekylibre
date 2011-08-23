@@ -66,7 +66,7 @@ class User < CompanyRecord
   validates_length_of :hashed_password, :salt, :allow_nil => true, :maximum => 64
   validates_length_of :email, :employment, :first_name, :last_name, :office, :allow_nil => true, :maximum => 255
   validates_inclusion_of :admin, :employed, :locked, :in => [true, false]
-  validates_presence_of :department, :establishment, :first_name, :language, :last_name, :name, :profession, :reduction_percent
+  validates_presence_of :company, :first_name, :language, :last_name, :name, :reduction_percent, :role
   #]VALIDATORS]
   belongs_to :department
   belongs_to :establishment

@@ -41,7 +41,7 @@ class ProductCategory < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :catalog_name, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :published, :in => [true, false]
-  validates_presence_of :catalog_name, :name, :parent
+  validates_presence_of :catalog_name, :company, :name
   #]VALIDATORS]
   acts_as_tree
   attr_readonly :company_id

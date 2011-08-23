@@ -65,7 +65,7 @@ class Account < CompanyRecord
   validates_length_of :name, :allow_nil => true, :maximum => 208
   validates_length_of :label, :allow_nil => true, :maximum => 255
   validates_inclusion_of :is_debit, :reconcilable, :in => [true, false]
-  validates_presence_of :label, :name, :number
+  validates_presence_of :company, :label, :name, :number
   #]VALIDATORS]
 
   # This method allows to create the parent accounts if it is necessary.

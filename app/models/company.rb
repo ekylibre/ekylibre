@@ -39,13 +39,6 @@
 
 
 class Company < Ekylibre::Record::Base
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :allow_nil => true, :maximum => 16
-  validates_length_of :language, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :locked, :in => [true, false]
-  validates_presence_of :code, :entity, :language, :name
-  #]VALIDATORS]
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas
@@ -228,8 +221,13 @@ class Company < Ekylibre::Record::Base
   has_one :current_financial_year, :class_name=>FinancialYear.name, :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>Currency.name, :conditions=>{:active=>true}, :order=>"id"
 
-
-
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 16
+  validates_length_of :language, :name, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :locked, :in => [true, false]
+  validates_presence_of :code, :language, :name
+  #]VALIDATORS]
   validates_uniqueness_of :code
   validates_length_of :code, :in=>4..16
 

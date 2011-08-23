@@ -31,7 +31,7 @@ def search_missing_validations(klass)
   needed += klass.reflect_on_all_associations(:belongs_to).select do |association| 
     column = klass.columns_hash[Rails.version.match(/^3\.1/) ? association.foreign_key.to_s : association.primary_key_name.to_s]
     raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
-    column.null and validable_column?(column)
+    !column.null and validable_column?(column)
   end.collect{|r| ":#{r.name}"}
   code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if cs.size > 0
 

@@ -61,7 +61,7 @@ class Contact < CompanyRecord
   validates_length_of :email, :line_6, :website, :allow_nil => true, :maximum => 255
   validates_length_of :address, :allow_nil => true, :maximum => 280
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :area
+  validates_presence_of :company, :entity
   #]VALIDATORS]
   attr_readonly :entity_id, :company_id
   attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website

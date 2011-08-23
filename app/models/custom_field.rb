@@ -46,7 +46,7 @@ class CustomField < CompanyRecord
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :required, :in => [true, false]
-  validates_presence_of :name, :nature
+  validates_presence_of :company, :name, :nature
   #]VALIDATORS]
   NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
   acts_as_list :scope=>:company
