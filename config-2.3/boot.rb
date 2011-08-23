@@ -1,7 +1,5 @@
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
-require 'yaml'
-YAML::ENGINE.yamler= 'syck'
 
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
@@ -133,6 +131,9 @@ class Rails::Boot
     Rails::Initializer.run(:set_load_path)
   end
 end
+
+require 'yaml'
+YAML::ENGINE.yamler= 'syck'
 
 # All that for this:
 Rails.boot!

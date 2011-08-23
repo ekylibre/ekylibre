@@ -116,8 +116,12 @@ class IncomingDeliveriesController < ApplicationController
           end
         end
       end
-      raise ActiveRecord::Rollback unless saved
-      redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
+      if saved
+        redirect_to :controller=>:purchases, :action=>:show, :step=>:deliveries, :id=>@purchase.id
+        return
+      else
+        raise ActiveRecord::Rollback
+      end
     end
     render_restfully_form(:id=>@incoming_delivery_form)
   end

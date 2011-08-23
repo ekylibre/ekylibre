@@ -32,7 +32,8 @@ module List
     
 
     def generate_controller_method_code
-      code  = "def #{self.controller_method_name}\n"
+      code  = "# encoding: utf-8\n"
+      code += "def #{self.controller_method_name}\n"
       code += self.session_initialization_code.gsub(/^/, '  ')
       # Maximum priority action
       code += "  if request.xhr?\n"
@@ -52,7 +53,8 @@ module List
     end
 
     def generate_view_method_code
-      code  = "def #{self.view_method_name}(options={})\n"
+      code  = "# encoding: utf-8\n"
+      code += "def #{self.view_method_name}(options={})\n"
       code += self.session_initialization_code.gsub(/^/, '  ')
       code += self.renderer.build_table_code(self).gsub(/^/, '  ')
       code += "end\n"

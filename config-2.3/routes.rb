@@ -51,12 +51,12 @@ ActionController::Routing::Routes.draw do |map|
     company.resources :incoming_payments, :collection=>{:list=>:get, :list_sales=>:get}
     company.resources :incoming_payment_modes, :except=>[:show], :collection=>{:list=>:get}, :member=>{:up=>:post, :down=>:post, :reflect=>:post}
     company.resources :incoming_payment_uses
-    company.resources :inventories, :collection=>{:list=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]}
+    company.resources :inventories, :collection=>{:list=>:get, :list_lines=>:get, :list_lines_create=>:get, :list_lines_update=>:get}, :member=>{:reflect=>[:get, :post]}
     # company.resources :inventory_lines
     company.resources :journals, :collection=>{:draft=>[:get, :post], :bookkeep=>[:get, :post], :balance=>:get, :general_ledger=>:get, :reports=>:get, :list=>:get, :list_draft_lines=>:get, :list_mixed=>:get, :list_lines=>:get, :list_entries=>:get, :list_general_ledger=>:get}, :member=>{:close=>[:get, :post], :reopen=>[:get, :post]}
     company.resources :journal_entries, :collection=>{:list_lines=>:get}
     company.resources :journal_entry_lines, :only=>[:new]
-    company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get}, :member=>{:divide=>[:get, :post]}
+    company.resources :land_parcels, :collection=>{:list=>:get, :list_operations=>:get, :merge=>[:get, :post]}, :member=>{:divide=>[:get, :post]}
     company.resources :land_parcel_groups, :except=>[:show], :collection=>{:list=>:get}
     # company.resources :land_parcel_kinships
     # company.resources :listing_node_items

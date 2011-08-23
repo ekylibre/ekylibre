@@ -82,7 +82,7 @@ class ActionController::TestCase
     #   puts "Ignore: #{controller}##{ignored}"
     # end
     return unless User.rights[controller]
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
+    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
       if except.include? action
         puts "Ignore: #{controller}##{action}"
         next
