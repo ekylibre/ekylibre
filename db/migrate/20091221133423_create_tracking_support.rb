@@ -1,3 +1,4 @@
+# encoding: utf-8
 class CreateTrackingSupport < ActiveRecord::Migration
   ACCOUNTED_TABLES = [:invoices, :payments, :purchase_orders, :sale_orders, :transfers]
 

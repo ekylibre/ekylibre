@@ -1,3 +1,4 @@
+# encoding: utf-8
 class NormalizeAccountizing < ActiveRecord::Migration
 
   TABLES_DELETED = [:accounts, :cashes, :companies, :document_templates, :entity_categories, :journals, :taxes]

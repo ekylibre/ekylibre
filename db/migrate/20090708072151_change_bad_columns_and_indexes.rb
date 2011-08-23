@@ -1,3 +1,4 @@
+# encoding: utf-8
 class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
   def self.up
     remove_index :accounts, :column=>[:alpha, :company_id]
