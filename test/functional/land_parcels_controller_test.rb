@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class LandParcelsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :divide=>{:id=>1}
+  test_restfully_all_actions :divide=>{:id=>1}, :except=>[:merge]
 end
