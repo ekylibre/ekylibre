@@ -17,10 +17,9 @@ GEM
       activesupport (= 2.3.10)
     activesupport (2.3.10)
     fastercsv (1.5.4)
-    formize (0.0.5)
+    formize (0.0.6)
       actionpack (~> 2.3)
       activesupport (~> 2.3)
-      rake (~> 0.8.7)
     haml (3.1.2)
     i18n (0.6.0)
     libxml-ruby (1.1.3)
@@ -34,7 +33,7 @@ GEM
       activeresource (= 2.3.10)
       activesupport (= 2.3.10)
       rake (>= 0.8.3)
-    rake (0.8.7)
+    rake (0.9.2)
     ruby-prof (0.10.8)
     rubyzip (0.9.4)
     shoulda (2.11.3)
@@ -55,7 +54,6 @@ DEPENDENCIES
   mysql
   pg (= 0.11.0)
   rails (= 2.3.10)
-  rake (= 0.8.7)
   ruby-prof
   rubyzip
   shoulda

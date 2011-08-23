@@ -1,10 +1,9 @@
 .bundle
 db/*.sqlite3
 log/*.log
-tmp/**/*
+tmp/*
 private/**/*
 installer/releases
 installer/*.log
 config*/database.yml
 *~
-**/*~

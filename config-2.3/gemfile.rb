@@ -2,7 +2,7 @@ source :gemcutter
 
 # gem "ruby-debug"
 
-gem "rake", "0.8.7"
+# gem "rake", "0.8.7"
 gem "rails", "2.3.10"
 gem "i18n", ">= 0.5"
 gem "haml"
