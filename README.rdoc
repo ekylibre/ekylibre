@@ -1,5 +1,23 @@
 = Ekylibre
 
-Ekylibre is a simple enterprise management web application written using Ruby on Rails framework.
+Ekylibre is a simple enterprise management web application written with Ruby on Rails framework.
 
 More details can be found at in the doc directory or on the official website http://www.ekylibre.org
+
+
+== Contributing http://travis-ci.org/ekylibre/ekylibre.png
+
+We encourage you to contribute to Ekylibre.
+
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Make sure to add tests for it. This is important so I don't break it in a future version unintentionally.
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+
+== License
+
+Ekylibre is released under the GNU/GPL3 license.
+

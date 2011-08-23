@@ -4,3 +4,5 @@ log/*.log
 tmp/**/*
 installer/**/*.log
 config*/database.yml
+*~
+**/*~
