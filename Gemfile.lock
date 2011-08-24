@@ -68,7 +68,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.4)
-    rake (0.9.2)
+    rake (0.8.7)
     rdoc (3.9.3)
     ruby-prof (0.10.8)
     rubyzip (0.9.4)
@@ -94,6 +94,7 @@ DEPENDENCIES
   mysql
   pg
   rails (= 3.0.10)
+  rake (= 0.8.7)
   ruby-prof
   rubyzip
   sqlite3
