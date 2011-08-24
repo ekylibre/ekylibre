@@ -54,10 +54,17 @@ class UserTest < ActionController::IntegrationTest
       assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
     end
 
-    should "register a new company with data" do
+    should "register a new company with english data" do
       get "company/register"
       assert_response :success
-      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>true
+      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"eng"
+      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
+    end
+
+    should "register a new company with french data" do
+      get "company/register"
+      assert_response :success
+      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"fra"
       assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
     end
 

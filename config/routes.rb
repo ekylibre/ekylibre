@@ -10,24 +10,24 @@ Ekylibre::Application.routes.draw do
     end
   end
   scope '/:company' do
-    resource :myself, :as=>"me", :only=>[] do
+    resource :myself, :path=>"me", :only=>[] do
       member do
-        match "statistics", :via=>:get
+        get :statistics
         match "change_password", :via=>[:get, :post]
       end
     end
     resource :settings, :only=>[:edit, :update] do
       member do
-        match "about", :via=>:get
-        match "backups", :via=>:get
-        match "backup", :via=>:post
-        match "restore", :via=>:post
+        get :about
+        get :backups
+        post :backup
+        post :restore
         match "import", :via=>[:get, :post]
       end
     end
     resources :dashboards, :only=>[] do
       collection do
-        match "welcome", :via=>:get
+        get :welcome
       end
     end
     # Permits to use dynamic dashboards
@@ -51,7 +51,7 @@ Ekylibre::Application.routes.draw do
       end
       member do
         match "mark", :via=>[:get, :post]
-        match "unmark", :via=>[:post]
+        post :unmark
       end
     end
     resources :areas do
@@ -89,13 +89,15 @@ Ekylibre::Application.routes.draw do
         get :list_choices
       end
       member do
-        match "sort", :via=>:post
+        post :up
+        post :down
+        post :sort
       end
     end
     resources :custom_field_choices do
       member do
-        match "up", :via=>:post
-        match "down", :via=>:post
+        post :up
+        post :down
       end
     end
     # resources :custom_field_data
@@ -115,7 +117,7 @@ Ekylibre::Application.routes.draw do
         get :list_payments
         get :list_depositable_payments
         get :list_unvalidateds
-        match "unvalidateds", :via=>:get
+        get :unvalidateds
       end
     end
     # resources :deposit_lines
@@ -127,16 +129,16 @@ Ekylibre::Application.routes.draw do
     resources :document_templates do
       collection do
         get :list
-        match "load", :via=>:post
+        post :load
       end
       member do
-        match "print", :via=>:get
-        match "duplicate", :via=>:post
+        get :print
+        post :duplicate
       end
     end
     resources :documents do
       collection do
-        match "print", :via=>:get
+        get :print
       end
     end
     resources :entities do
@@ -183,7 +185,7 @@ Ekylibre::Application.routes.draw do
     resources :events do
       collection do
         get :list
-        match "change_minutes", :via=>:get
+        get :change_minutes
       end
     end
     resources :event_natures do
@@ -224,15 +226,16 @@ Ekylibre::Application.routes.draw do
         get :list
       end
       member do
-        match "up", :via=>:post
-        match "down", :via=>:post
-        match "reflect", :via=>:post
+        post :up
+        post :down
+        post :reflect
       end
     end
     resources :incoming_payment_uses
     resources :inventories do
       collection do
         get :list
+        get :list_lines
         get :list_lines_create
         get :list_lines_update
       end
@@ -288,8 +291,8 @@ Ekylibre::Application.routes.draw do
         get :list
       end
       member do
-        match "extract", :via=>:get
-        match "duplicate", :via=>:post
+        get :extract
+        post :duplicate
         match "mail", :via=>[:get, :post]
       end
     end
@@ -305,6 +308,7 @@ Ekylibre::Application.routes.draw do
         get :list
         get :list_lines
         get :list_uses
+        get :list_unvalidateds
         match "unvalidateds", :via=>[:get, :post]
       end
     end
@@ -318,6 +322,7 @@ Ekylibre::Application.routes.draw do
     resources :outgoing_deliveries do
       collection do
         get :list
+        get :list_lines
       end
     end
     # resources :outgoing_delivery_lines
@@ -337,8 +342,8 @@ Ekylibre::Application.routes.draw do
         get :list
       end
       member do
-        match "up", :via=>:post
-        match "down", :via=>:post
+        post :up
+        post :down
       end
     end
     resources :outgoing_payment_uses
@@ -348,7 +353,7 @@ Ekylibre::Application.routes.draw do
         get :list
         match "export", :via=>[:get, :post]
         match "import", :via=>[:get, :post]
-        match "find", :via=>:get
+        get :find
       end
     end
     resources :products do
@@ -390,12 +395,12 @@ Ekylibre::Application.routes.draw do
         get :list_payment_uses
       end
       member do
-        match "correct", :via=>:post
-        match "propose", :via=>:post
-        match "invoice", :via=>:post
-        match "confirm", :via=>:post
-        match "abort", :via=>:post
-        match "refuse", :via=>:post
+        post :correct
+        post :propose
+        post :invoice
+        post :confirm
+        post :abort
+        post :refuse
       end
     end
     resources :roles do
@@ -406,7 +411,7 @@ Ekylibre::Application.routes.draw do
     resources :sale_lines, :except=>[:index, :show] do
       collection do
         get :list
-        match "detail", :via=>:get
+        get :detail
       end
     end
     resources :sale_natures do
@@ -458,6 +463,7 @@ Ekylibre::Application.routes.draw do
     end
     resources :stocks do
       collection do
+        get :formize
         get :list
       end
     end
@@ -502,8 +508,9 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_deliveries
-        match "deliveries", :via=>[:get, :post]
-        match "delivery_delete", :via=>[:get, :post]
+        get :list_transportable_deliveries
+        # match "deliveries", :via=>[:get, :post]
+        # match "delivery_delete", :via=>[:get, :post]
       end
     end
     # resources :transfers

@@ -131,9 +131,9 @@ class ActionController::TestCase
         code << "    end\n"
       elsif mode == :update
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
-        code << "    assert_nothing_raised() do\n"
+        # code << "    assert_nothing_raised() do\n"
         code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
-        code << "    end\n"
+        # code << "    end\n"
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
         code << "      delete :#{action}, :company=>@user.company.code, :id=>2\n"

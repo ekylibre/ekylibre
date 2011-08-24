@@ -430,7 +430,7 @@ html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-posi
 /*#E7E7E7*/
 .tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/boss-effect.png) center repeat-x; border: 1px solid #CCC;}
 .tool:hover { background: #688ED8; border-color: #688ED8; color: white; z-index: 1000; } /*#3D5C8D */
-a.tool:hover, .tool:hover * { color: white; text-shadow: 1px 1px 1px #555 }
+a.tool:hover, .tool:hover * { color: white; text-shadow: -1px -1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
 html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -moz-border-radius-bottomleft: 5px; -moz-border-radius-topleft: 5px; }
 html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child { -moz-border-radius-bottomright: 5px; -moz-border-radius-topright: 5px; }

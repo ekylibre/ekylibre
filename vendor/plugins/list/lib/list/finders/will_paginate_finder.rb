@@ -16,14 +16,14 @@ module List
       end
 
       # Find data
-      code  = "#{table.records_variable_name} = #{table.model.name}.paginate(:all"
-      code += ", :select=>#{select_code(table)}" if select_code(table)
-      code += ", :conditions=>"+conditions_to_code(table.options[:conditions]) unless table.options[:conditions].blank?
-      code += ", :page=>list_params[:page], :per_page=>list_params[:per_page]"
-      code += ", :joins=>#{table.options[:joins].inspect}" unless table.options[:joins].blank?
-      code += ", :include=>#{self.includes(table).inspect}"
-      code += ", :order=>order)||{}\n"
-      code += "return #{table.view_method_name}(options.merge(:page=>1)) if list_params[:page]>1 and #{table.records_variable_name}.out_of_bounds?\n"
+      code  = "#{table.records_variable_name} = #{table.model.name}.paginate("
+      code << ":include=>#{self.includes(table).inspect}"
+      code << ", :select=>#{select_code(table)}" if select_code(table)
+      code << ", :conditions=>"+conditions_to_code(table.options[:conditions]) unless table.options[:conditions].blank?
+      code << ", :page=>list_params[:page], :per_page=>list_params[:per_page]"
+      code << ", :joins=>#{table.options[:joins].inspect}" unless table.options[:joins].blank?
+      code << ", :order=>order)||{}\n"
+      code << "return #{table.view_method_name}(options.merge(:page=>1)) if list_params[:page]>1 and #{table.records_variable_name}.out_of_bounds?\n"
 
       return code
     end

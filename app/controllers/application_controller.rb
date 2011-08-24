@@ -19,7 +19,7 @@
 
 class ApplicationController < ActionController::Base
   # helper :all # include all helpers, all the time
-  around_filter(:profile) if RAILS_ENV == "development"
+  around_filter(:profile) if Rails.env == "development"
   before_filter :no_cache
   before_filter :i18nize
   before_filter :identify
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_company
   layout :dialog_or_not
 
-  if RAILS_ENV == "development"
+  if Rails.env == "development"
     # # require_dependency "vendor/plugins/list/init.rb"
     # require_dependency "vendor/ogems/formize/lib/formize.rb"
     # require_dependency "vendor/ogems/formize/lib/formize/definition.rb"
@@ -432,7 +432,7 @@ class ApplicationController < ActionController::Base
 
     # html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
     # html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
-    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)}:#{h(call_info.line)}' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
+    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)} called at line #{h(call_info.line)}' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
     html += "<span class='fil'><span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span></span>"
     html += "<span class='md mdc'>"+percentage.round(1).to_s+"%</span>"
     html += "<span class='md mdc'>"+call_info.called.to_s+"&times;</span>"
@@ -467,8 +467,11 @@ class ApplicationController < ActionController::Base
   
 
   def profile()
-    yield and return unless params[:profile]
-    require 'ruby-prof'    
+    unless params[:profile]
+      yield
+      return 
+    end
+    # require 'ruby-prof'
     RubyProf.measure_mode = RubyProf::PROCESS_TIME
     result = RubyProf.profile do
       yield
@@ -497,7 +500,7 @@ class ApplicationController < ActionController::Base
         end
       end
       html += "</small>"
-      self.response.body.sub!("</body>", html << "</body>") if self.response.body.is_a?(String)
+      self.response_body = self.response.body.sub("</body>", html + "</body>")
     end
   end
   

@@ -9,7 +9,7 @@ module Ekylibre
   
   def self.version
     return @@version unless @@version.nil?
-    File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[1..2].join("::")}
+    File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[0..1].join("::")}
     return @@version
   end  
 

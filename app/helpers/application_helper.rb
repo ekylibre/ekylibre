@@ -559,7 +559,7 @@ module ApplicationHelper
             else
               tc(:page_title_by_default, :action=>controller.human_action_name)
             end
-    return "<title>" << h(title) << "</title>"
+    return ("<title>" << h(title) << "</title>").html_safe
   end
 
   def title_header_tag

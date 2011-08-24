@@ -58,16 +58,6 @@
 require "digest/sha2"
 
 class User < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :reduction_percent, :allow_nil => true
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :name, :allow_nil => true, :maximum => 32
-  validates_length_of :hashed_password, :salt, :allow_nil => true, :maximum => 64
-  validates_length_of :email, :employment, :first_name, :last_name, :office, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :admin, :employed, :locked, :in => [true, false]
-  validates_presence_of :company, :first_name, :language, :last_name, :name, :reduction_percent, :role
-  #]VALIDATORS]
   belongs_to :department
   belongs_to :establishment
   belongs_to :profession
@@ -80,7 +70,17 @@ class User < CompanyRecord
   has_many :sales, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
-  validates_presence_of :company_id, :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :reduction_percent, :allow_nil => true
+  validates_length_of :language, :allow_nil => true, :maximum => 3
+  validates_length_of :name, :allow_nil => true, :maximum => 32
+  validates_length_of :hashed_password, :salt, :allow_nil => true, :maximum => 64
+  validates_length_of :email, :employment, :first_name, :last_name, :office, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :admin, :employed, :locked, :in => [true, false]
+  validates_presence_of :company, :first_name, :language, :last_name, :name, :reduction_percent, :role
+  #]VALIDATORS]
+  validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100
   validates_uniqueness_of :name, :scope=>:company_id

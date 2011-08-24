@@ -1112,15 +1112,15 @@ fra:
             name: 'Numérotation des factures'
             period: 'year'
           stock_transfers:
-            # format: 'ST[year|4][number|4]'
-            # name: 'Numeration of stock transfers'
-            # period: 'year'
+            format: 'TS[year|4][number|4]'
+            name: 'Numérotation des transferts de stock'
+            period: 'year'
           subscriptions:
             format: 'ABO[number|8]'
             name: 'Numérotation des abonnements'
           transports:
-            # format: 'SH[number|8]'
-            # name: 'Numeration of transports'
+            format: 'TR[number|8]'
+            name: 'Numérotation des transports'
         taxes:
           tva0000:
             amount: '0.0'

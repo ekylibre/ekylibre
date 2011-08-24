@@ -62,7 +62,7 @@ class TransportsController < ApplicationController
 
   def self.transportable_deliveries_conditions()
     code  = ""
-    code += "c = ['company_id = ?', @current_company.id]\n"
+    code += "c = [\"\#{OutgoingDelivery.table_name}.company_id = ?\", @current_company.id]\n"
     code += "if session[:current_transport_id].to_i > 0\n"
     code += "  c[0] += ' AND (transport_id = ? OR (transport_id IS NULL'\n"
     code += "  c << session[:current_transport_id].to_i\n"

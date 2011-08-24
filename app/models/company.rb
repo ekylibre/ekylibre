@@ -707,11 +707,6 @@ class Company < Ekylibre::Record::Base
 
 
 
-
-
-
-
-
   def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
     language = 'fra'
     company = Company.new({:language=>language}.merge(company_attr))
