@@ -1,6 +1,6 @@
 test:
   adapter: sqlite3
-  database: ":memory:"
+  database: db/test.sqlite3
   timeout: 500
 
 

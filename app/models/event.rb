@@ -53,6 +53,7 @@ class Event < CompanyRecord
   attr_readonly :company_id
 
   before_validation do
+    self.started_at ||= Time.now
     self.started_sec = self.started_at.to_i
   end
 
