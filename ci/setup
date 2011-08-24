@@ -3,20 +3,12 @@ require 'fileutils'
 include FileUtils
 
 here = File.expand_path('..', __FILE__)
-root = File.expand_path('..', here)
 
-rails = ENV['RAILS']
 database = ENV['DB'].to_s
 if database.size.zero?
   database = :sqlite3
 else
   database = database.to_sym
-end
-
-# Select Rails env
-if rails
-  system("rm -fr config")
-  system("ln -sf #{root}/config-#{rails} #{root}/config")
 end
 
 # Copy database.yml like in real case
