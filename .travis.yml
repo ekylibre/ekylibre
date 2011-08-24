@@ -6,5 +6,7 @@ env:
   - DB=mysql
   - DB=postgresql
   - DB=sqlite3
-before_script: "ci/setup"
-script: "bundle exec rake db:migrate test"
+before_script: 
+  - "ci/setup"
+  - "bundle exec rake db:schema:load"
+script: "bundle exec rake test"
