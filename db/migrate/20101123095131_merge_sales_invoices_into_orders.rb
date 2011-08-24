@@ -1,4 +1,6 @@
+require 'migration_helper'
 class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
+  extend MigrationHelper
 
   TRACKINGS = {:sales_orders=>[:rebuilt_id, :sales_invoice_id], :sales_order_lines=>[:rebuilt_id, :sales_invoice_line_id]}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   ORIGINS = {:sales_orders=>:sales_invoice_id, :sales_order_lines=>:sales_invoice_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
@@ -235,15 +237,18 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
         execute "UPDATE #{quoted_table_name(table)} SET #{column}_type='#{n.to_s.classify}' WHERE #{column}_type = '#{o.to_s.classify}'"
       end
     end
-    rename_column :incoming_deliveries, :purchase_order_id, :purchase_id
-    rename_column :incoming_delivery_lines, :order_line_id, :purchase_line_id
-    rename_column :outgoing_deliveries, :sales_order_id, :sale_id
-    rename_column :outgoing_delivery_lines, :order_line_id, :sale_line_id
-    rename_column :purchase_lines, :order_id, :purchase_id
-    rename_column :sale_lines, :order_id, :sale_id
-    rename_column :subscriptions, :sales_order_id, :sale_id
-    rename_column :subscriptions, :sales_order_line_id, :sale_line_id
-    rename_column :transports, :purchase_order_id, :purchase_id
+
+    protect_indexes [:incoming_delivery_lines] do
+      rename_column :incoming_deliveries, :purchase_order_id, :purchase_id
+      rename_column :incoming_delivery_lines, :order_line_id, :purchase_line_id
+      rename_column :outgoing_deliveries, :sales_order_id, :sale_id
+      rename_column :outgoing_delivery_lines, :order_line_id, :sale_line_id
+      rename_column :purchase_lines, :order_id, :purchase_id
+      rename_column :sale_lines, :order_id, :sale_id
+      rename_column :subscriptions, :sales_order_id, :sale_id
+      rename_column :subscriptions, :sales_order_line_id, :sale_line_id
+      rename_column :transports, :purchase_order_id, :purchase_id
+    end
 
     for o, n in TEMPLATES
       execute "UPDATE #{quoted_table_name(:document_templates)} SET source=REPLACE(source, '#{o}', '#{n}'), cache=''"

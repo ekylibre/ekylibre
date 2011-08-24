@@ -1,4 +1,7 @@
+require 'migration_helper'
 class EnhanceAccountancy < ActiveRecord::Migration
+  extend MigrationHelper
+
   PREFERENCES = {
     'accountancy.accountize.automatic'                   => 'bookkeep_automatically',
     'accountancy.accountize.draft_mode'                  => 'bookkeep_in_draft',
@@ -58,9 +61,11 @@ class EnhanceAccountancy < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:companies)} SET language = CASE "+preferences.collect{|p| "WHEN id=#{p['company_id']} THEN '#{p['string_value']}'"}.join(" ")+" END" if preferences.size > 0
     execute "DELETE FROM #{quoted_table_name(:preferences)} WHERE name='general.language'"
 
-    for table in AMOUNTS_TABLES
-      rename_column table, :amount, :pretax_amount
-      rename_column table, :amount_with_taxes, :amount
+    protect_indexes(AMOUNTS_TABLES) do
+      for table in AMOUNTS_TABLES
+        rename_column table, :amount, :pretax_amount
+        rename_column table, :amount_with_taxes, :amount
+      end
     end
 
     for o, n in TEMPLATES_REPLACES
@@ -137,9 +142,11 @@ class EnhanceAccountancy < ActiveRecord::Migration
 
     remove_column :accounts, :reconcilable
 
-    for table in AMOUNTS_TABLES.reverse
-      rename_column table, :amount, :amount_with_taxes
-      rename_column table, :pretax_amount, :amount
+    protect_indexes(AMOUNTS_TABLES.reverse) do
+      for table in AMOUNTS_TABLES.reverse
+        rename_column table, :amount, :amount_with_taxes
+        rename_column table, :pretax_amount, :amount
+      end
     end
 
     execute "INSERT INTO #{quoted_table_name(:preferences)}(string_value, company_id, created_at, updated_at, nature, name) SELECT language, id, created_at, updated_at, 'string', 'general.language' FROM #{quoted_table_name(:companies)}"

@@ -492,7 +492,9 @@ class Company < Ekylibre::Record::Base
   def backup(options={})
     creator, with_files = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)
-    file = Rails.root.join("tmp", "backup-#{self.code.lower}-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
+    temporary_dir = Rails.root.join("tmp", "backups")
+    FileUtils.mkdir_p(temporary_dir)
+    file = temporary_dir.join("backup-#{self.code.lower}-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
     doc = LibXML::XML::Document.new
     doc.root = backup = LibXML::XML::Node.new('backup')
     {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
@@ -543,7 +545,9 @@ class Company < Ekylibre::Record::Base
     files_dir = self.private_directory
     # Décompression
     puts "R> Uncompressing archive..." if verbose
-    archive = Rails.root.join("tmp", "uncompressed-backup-#{self.code}-#{Time.now.strftime('%Y%m%d-%H%M%S')}")
+    temporary_dir = Rails.root.join("tmp", "backups")
+    FileUtils.mkdir_p(temporary_dir)
+    archive = temporary_dir.join("uncompressed-backup-#{self.code}-#{Time.now.strftime('%Y%m%d-%H%M%S')}")
     stream = nil
 
     # Extract all files in archive
@@ -624,7 +628,7 @@ class Company < Ekylibre::Record::Base
           code += "puts 'R>     T: '+duration.to_s[0..6]+' | TDB1: '+tdb1.to_s[0..6]+' | TDB2: '+tdb2.to_s[0..6]+' | RS: '+(duration-tdb2p).to_s[0..6]+' | AVG(TDB1): '+(tdb1/#{element[:attributes]['records-count']}).to_s[0..6]+' | AVG(TDB2): '+(tdb2/#{element[:attributes]['records-count']}).to_s[0..6]\n"  if verbose
         end
       end
-      File.open("#{Rails.root.to_s}/tmp/restore-1.rb", "wb") {|f| f.write(code)}  if verbose
+      File.open(temporary_dir.join("restore-1.rb"), "wb") {|f| f.write(code)}  if verbose
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       eval(code)
       
@@ -652,7 +656,7 @@ class Company < Ekylibre::Record::Base
         code += "end\n"
       end
 
-      File.open("#{Rails.root.to_s}/tmp/restore-2.rb", "wb") {|f| f.write(code)} if verbose
+      File.open(temporary_dir.join("restore-2.rb"), "wb") {|f| f.write(code)} if verbose
       start = Time.now
       eval(code)
       puts "R> Total: #{(Time.now-start)}s" if verbose
@@ -682,7 +686,7 @@ class Company < Ekylibre::Record::Base
       end
     end
 
-    # Clean tmp directory  by removing backup data
+    # Clean temporary directory by removing backup data
     FileUtils.rm_rf(archive)
     return true
   end
