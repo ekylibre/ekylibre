@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -61,7 +62,7 @@ class DocumentTemplate < CompanyRecord
   validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
 
-  PREAMBLE = "#1.2\n"
+  PREAMBLE = "#1.3\n"
 
 
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
@@ -320,7 +321,7 @@ class DocumentTemplate < CompanyRecord
     code << "x = doc.generate\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     
-    return PREAMBLE+"# -*- coding: utf-8 -*-\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+    return PREAMBLE+"# encoding: utf-8\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 
 
