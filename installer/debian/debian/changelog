@@ -2,6 +2,7 @@ ekylibre (0.3.0+1.b1) unstable; urgency=low
 
   * Changes versions files
   * Adds configuration for formize
+  * Migrates to Rails 3.0.10
 
  -- Brice Texier <brice@thalie.nouva.local>  Tue, 09 Aug 2011 19:36:09 +0200
 
