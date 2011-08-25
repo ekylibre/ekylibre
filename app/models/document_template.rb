@@ -320,7 +320,6 @@ class DocumentTemplate < CompanyRecord
     code << "end\n"
     code << "x = doc.generate\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    
     return PREAMBLE+"# encoding: utf-8\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
   end
 

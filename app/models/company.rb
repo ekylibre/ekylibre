@@ -811,10 +811,15 @@ class Company < Ekylibre::Record::Base
           attributes[:nature] ||= template.to_s
           attributes[:filename] ||= "File"
           attributes[:to_archive] = true if attributes[:to_archive] == "true"
+          if RUBY_VERSION =~ /^1\.9/
+            attributes[:source] = f.read.force_encoding('UTF-8') 
+          else
+            attributes[:source] = f.read
+          end
           code = attributes[:name].to_s.codeize[0..7]
           doc = self.document_templates.find_by_code(code)
           doc ||= self.document_templates.new
-          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :source=>f.read, :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
+          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
           doc.save!()
         end
         #rescue
