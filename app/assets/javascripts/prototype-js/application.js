@@ -38,7 +38,7 @@ function toggleMenu(element) {
     return state;
 }
 
-
+/*
 function _resize() {
     var body = $('body');
     var dims   = document.viewport.getDimensions();
@@ -90,7 +90,7 @@ function resize2() {
     window.setTimeout('_resize()',350);
     return _resize();
 }
-
+*/
 
 function toggleHelp(help, show, resized) {
     toggleElement(help, show, help+'-open');
