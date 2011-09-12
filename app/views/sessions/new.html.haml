@@ -1,36 +1,7 @@
 -register = !defined?(Ekylibre::DONT_REGISTER)
--download_firefox = !request.env["HTTP_USER_AGENT"].to_s.match(/mozilla/i)
+-bad_browser = false
 -if request.env["HTTP_USER_AGENT"].to_s.match(/MSIE (\d+\.\d+);/)
   -bad_browser = ($1.to_f <= 6)
-#login.login{:style=>"display:none"}
-  .logoban{:title=>Ekylibre.version}
-  =form_tag({:action=>:create, :company=>params[:company], :redirect=>params[:redirect]}) do
-    %table
-      -if @current_company or @users
-        %tr
-          %td.label=Company.model_name.human
-          %td.value
-            -if @users
-              =select_tag("company", options_for_select(@users.collect{|x| [x.company.name, x.company.code]}))
-            -else
-              =link_to(@current_company.name, {:action=>:new, :company=>nil})
-      -if ::I18n.active_locales.size > 1
-        %tr
-          %td.label=tc(:locale)
-          %td.value=locale_selector
-      %tr
-        %td.label=tc :username
-        %td.input=text_field_tag :name, params[:name], :tabindex=>1
-      %tr
-        %td.label=tc :password
-        %td.input=password_field_tag :password, nil, :tabindex=>2
-      %tr
-        %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
--if register
-  .login.register
-    %span.toolbar
-      %span.tool=link_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :class=>"icon im-register", :tabindex=>4) 
-      -#=link_to(tc(:download_firefox), "http://www.mozilla.com/", :class=>"icon im-firefox") if download_firefox
 -if bad_browser
   #bad_browser.login{:style=>"margin: 64px;"}
     .logoban
@@ -46,13 +17,39 @@
         %td=link_to(tc("bad_browser.wb.ie"), "http://www.microsoft.com/france/windows/ie/")
   .clearfix
 -else
-  #nojavascript.login
+  #login.login{:style=>"display:none"}
+    .logoban{:title=>Ekylibre.version}
+    =form_tag({:action=>:create, :company=>params[:company], :redirect=>params[:redirect]}) do
+      %table
+        -if @current_company or @users
+          %tr
+            %td.label=Company.model_name.human
+            %td.value
+              -if @users
+                =select_tag("company", options_for_select(@users.collect{|x| [x.company.name, x.company.code]}))
+              -else
+                =link_to(@current_company.name, {:action=>:new, :company=>nil})
+        -if ::I18n.active_locales.size > 1
+          %tr
+            %td.label=tc(:locale)
+            %td.value=locale_selector
+        %tr
+          %td.label=tc :username
+          %td.input=text_field_tag :name, params[:name], :tabindex=>1, "data-autofocus"=>"true"
+        %tr
+          %td.label=tc :password
+          %td.input=password_field_tag :password, nil, :tabindex=>2
+        %tr
+          %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
+  -if register
+    .login.register{:style=>"display:none"}
+      %span.toolbar
+        %span.tool=link_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :class=>"icon im-register", :tabindex=>4) 
+  #nojavascript.login{"data-toggle-now-with"=>".login"}
     .logoban
     %p.message=tc('no_javascript')
   :javascript
     window.$('nojavascript').hide();
     window.$('login').show();
-
-:javascript
-  window.$('name').select();
-  window.$('name').focus(); 
+    window.$('name').select();
+    window.$('name').focus(); 
