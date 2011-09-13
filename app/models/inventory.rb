@@ -43,8 +43,8 @@ class Inventory < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 16
   #]VALIDATORS]
-  belongs_to :responsible, :class_name=>User.name
-  has_many :lines, :class_name=>InventoryLine.name, :dependent=>:destroy
+  belongs_to :responsible, :class_name=>"User"
+  has_many :lines, :class_name=>"InventoryLine", :dependent=>:destroy
 
   before_validation do
     self.created_on ||= Date.today

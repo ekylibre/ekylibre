@@ -49,7 +49,7 @@ class OperationLine < CompanyRecord
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
   acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation  
-  belongs_to :area_unit, :class_name=>Unit.name
+  belongs_to :area_unit, :class_name=>"Unit"
   belongs_to :company
   belongs_to :warehouse
   belongs_to :operation

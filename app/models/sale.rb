@@ -81,27 +81,27 @@ class Sale < CompanyRecord
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :company_id, :created_on
   attr_protected :pretax_amount, :amount
-  belongs_to :client, :class_name=>Entity.to_s
-  belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:client_id
+  belongs_to :client, :class_name=>"Entity"
+  belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
   belongs_to :company
   belongs_to :contact
   belongs_to :currency
-  belongs_to :delivery_contact, :class_name=>Contact.to_s
-  belongs_to :expiration, :class_name=>Delay.to_s
-  belongs_to :invoice_contact, :class_name=>Contact.to_s
+  belongs_to :delivery_contact, :class_name=>"Contact"
+  belongs_to :expiration, :class_name=>"Delay"
+  belongs_to :invoice_contact, :class_name=>"Contact"
   belongs_to :journal_entry
-  belongs_to :nature, :class_name=>SaleNature.to_s
-  belongs_to :origin, :class_name=>Sale.name
-  belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :responsible, :class_name=>User.name
-  belongs_to :transporter, :class_name=>Entity.name
-  has_many :credits, :class_name=>Sale.name, :foreign_key=>:origin_id
-  has_many :deliveries, :class_name=>OutgoingDelivery.name, :dependent=>:destroy
-  has_many :lines, :class_name=>SaleLine.to_s, :foreign_key=>:sale_id
-  has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name, :dependent=>:destroy
+  belongs_to :nature, :class_name=>"SaleNature"
+  belongs_to :origin, :class_name=>"Sale"
+  belongs_to :payment_delay, :class_name=>"Delay"
+  belongs_to :responsible, :class_name=>"User"
+  belongs_to :transporter, :class_name=>"Entity"
+  has_many :credits, :class_name=>"Sale", :foreign_key=>:origin_id
+  has_many :deliveries, :class_name=>"OutgoingDelivery", :dependent=>:destroy
+  has_many :lines, :class_name=>"SaleLine", :foreign_key=>:sale_id
+  has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
   has_many :payments, :through=>:payment_uses
-  has_many :subscriptions, :class_name=>Subscription.to_s
-  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name, :dependent=>:destroy
+  has_many :subscriptions, :class_name=>"Subscription"
+  has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
   validates_presence_of :client_id, :currency_id
   validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 

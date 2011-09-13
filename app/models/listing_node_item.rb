@@ -39,7 +39,7 @@ class ListingNodeItem < CompanyRecord
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   #]VALIDATORS]
   belongs_to :company
-  belongs_to :node, :class_name=>ListingNode.name
+  belongs_to :node, :class_name=>"ListingNode"
   attr_readonly :company_id, :node_id
 
 end

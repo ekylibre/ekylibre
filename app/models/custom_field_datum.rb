@@ -44,7 +44,7 @@ class CustomFieldDatum < CompanyRecord
   validates_numericality_of :decimal_value, :allow_nil => true
   #]VALIDATORS]
   attr_readonly :company_id, :custom_field_id, :entity_id
-  belongs_to :choice_value, :class_name=>CustomFieldChoice.to_s
+  belongs_to :choice_value, :class_name=>"CustomFieldChoice"
   belongs_to :company
   belongs_to :custom_field
   belongs_to :entity

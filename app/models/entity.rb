@@ -77,6 +77,44 @@
 
 
 class Entity < CompanyRecord
+  acts_as_numbered :code
+  attr_readonly :company_id
+  belongs_to :attorney_account, :class_name=>"Account"
+  belongs_to :client_account, :class_name=>"Account"
+  belongs_to :category, :class_name=>"EntityCategory"
+  belongs_to :company
+  belongs_to :nature, :class_name=>"EntityNature"
+  belongs_to :payment_delay, :class_name=>"Delay"
+  belongs_to :payment_mode, :class_name=>"IncomingPaymentMode"
+  belongs_to :proposer, :class_name=>"Entity"
+  belongs_to :responsible, :class_name=>"User"
+  belongs_to :supplier_account, :class_name=>"Account"
+  has_many :cashes, :dependent=>:destroy
+  has_many :contacts, :conditions=>{:deleted_at=>nil}
+  has_many :custom_field_data
+  has_many :direct_links, :class_name=>"EntityLink", :foreign_key=>:entity_1_id
+  has_many :events
+  has_many :godchildren, :class_name=>"Entity", :foreign_key=>"proposer_id"
+  has_many :incoming_payments, :foreign_key=>:payer_id
+  has_many :indirect_links, :class_name=>"EntityLink", :foreign_key=>:entity_2_id
+  has_many :mandates
+  has_many :observations
+  has_many :prices
+  has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
+  has_many :purchases, :foreign_key=>:supplier_id
+  has_many :outgoing_deliveries, :foreign_key=>:transporter_id
+  has_many :outgoing_payments, :foreign_key=>:payee_id
+  has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
+  has_many :sales, :foreign_key=>:client_id, :order=>"created_on desc"
+  has_many :sale_lines
+  has_many :subscriptions
+  has_many :trackings, :foreign_key=>:producer_id
+  has_many :transfers, :foreign_key=>:supplier_id
+  has_many :transports, :foreign_key=>:transporter_id
+  has_many :transporter_sales, :foreign_key=>:transporter_id, :order=>"created_on desc", :class_name=>"Sale"
+  has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>"IncomingPayment", :foreign_key=>:payer_id
+  has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
+  has_one :default_contact, :class_name=>"Contact", :conditions=>{:by_default=>true}
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :discount_rate, :reduction_rate, :allow_nil => true
@@ -93,44 +131,6 @@ class Entity < CompanyRecord
   validates_inclusion_of :active, :attorney, :client, :locked, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
   validates_presence_of :company, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
-  acts_as_numbered :code
-  attr_readonly :company_id
-  belongs_to :attorney_account, :class_name=>Account.to_s
-  belongs_to :client_account, :class_name=>Account.to_s
-  belongs_to :category, :class_name=>EntityCategory.to_s
-  belongs_to :company
-  belongs_to :nature, :class_name=>EntityNature.to_s
-  belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :payment_mode, :class_name=>IncomingPaymentMode.name
-  belongs_to :proposer, :class_name=>Entity.to_s
-  belongs_to :responsible, :class_name=>User.name
-  belongs_to :supplier_account, :class_name=>Account.to_s
-  has_many :cashes, :dependent=>:destroy
-  has_many :contacts, :conditions=>{:deleted_at=>nil}
-  has_many :custom_field_data
-  has_many :direct_links, :class_name=>EntityLink.name, :foreign_key=>:entity_1_id
-  has_many :events
-  has_many :godchildren, :class_name=>"Entity", :foreign_key=>"proposer_id"
-  has_many :incoming_payments, :foreign_key=>:payer_id
-  has_many :indirect_links, :class_name=>EntityLink.name, :foreign_key=>:entity_2_id
-  has_many :mandates
-  has_many :observations
-  has_many :prices
-  has_many :purchase_invoices, :class_name=>"Purchase", :foreign_key=>:supplier_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
-  has_many :purchases, :foreign_key=>:supplier_id
-  has_many :outgoing_deliveries, :foreign_key=>:transporter_id
-  has_many :outgoing_payments, :foreign_key=>:payee_id
-  has_many :sales_invoices, :class_name=>"Sale", :foreign_key=>:client_id, :order=>"created_on desc", :conditions=>{:state=>"invoice"}
-  has_many :sales, :foreign_key=>:client_id, :order=>"created_on desc"
-  has_many :sale_lines
-  has_many :subscriptions
-  has_many :trackings, :foreign_key=>:producer_id
-  has_many :transfers, :foreign_key=>:supplier_id
-  has_many :transports, :foreign_key=>:transporter_id
-  has_many :transporter_sales, :foreign_key=>:transporter_id, :order=>"created_on desc", :class_name=>"Sale"
-  has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>IncomingPayment.name, :foreign_key=>:payer_id
-  has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
-  has_one :default_contact, :class_name=>Contact.name, :conditions=>{:by_default=>true}
   validates_presence_of :category
   validates_uniqueness_of :code, :scope=>:company_id
 

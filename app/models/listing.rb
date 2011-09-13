@@ -45,12 +45,12 @@ class Listing < CompanyRecord
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
-  has_many :columns, :class_name=>ListingNode.name, :conditions=>["nature = ?", "column"]
-  has_many :exportable_columns, :class_name=>ListingNode.name, :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
-  has_many :filtered_columns, :class_name=>ListingNode.name, :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
-  has_many :mail_columns, :class_name=>ListingNode.name, :conditions=>["name LIKE ? AND nature = ? ", '%.email', "column"]
-  has_many :nodes, :class_name=>ListingNode.name, :dependent=>:delete_all
-  has_many :reflections, :class_name=>ListingNode.name, :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]]
+  has_many :columns, :class_name=>"ListingNode", :conditions=>["nature = ?", "column"]
+  has_many :exportable_columns, :class_name=>"ListingNode", :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
+  has_many :filtered_columns, :class_name=>"ListingNode", :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
+  has_many :mail_columns, :class_name=>"ListingNode", :conditions=>["name LIKE ? AND nature = ? ", '%.email', "column"]
+  has_many :nodes, :class_name=>"ListingNode", :dependent=>:delete_all
+  has_many :reflections, :class_name=>"ListingNode", :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
 #  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
   validates_format_of :query, :conditions, :with=>/^[^\;]*$/

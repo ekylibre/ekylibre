@@ -34,13 +34,12 @@
 
 
 class LandParcelKinship < CompanyRecord
+  attr_readonly :company_id
+  belongs_to :company
+  belongs_to :parent_land_parcel, :class_name=>"LandParcel"
+  belongs_to :child_land_parcel, :class_name=>"LandParcel"
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 16
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :parent_land_parcel, :class_name=>LandParcel.name
-  belongs_to :child_land_parcel, :class_name=>LandParcel.name
-
 end

@@ -44,13 +44,13 @@ class ProductionChainWorkCenter < CompanyRecord
   #]VALIDATORS]
   acts_as_list :scope=>:production_chain
   attr_readonly :company_id
-  belongs_to :building, :class_name=>Warehouse.name
+  belongs_to :building, :class_name=>"Warehouse"
   belongs_to :company
   belongs_to :operation_nature
   belongs_to :production_chain
-  has_many :uses,  :class_name=>ProductionChainWorkCenterUse.name,  :foreign_key=>:work_center_id
-  has_many :output_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:source_id # :as=>:source
-  has_many :input_conveyors, :dependent=>:nullify, :class_name=>ProductionChainConveyor.name, :foreign_key=>:target_id # :as=>:target
+  has_many :uses,  :class_name=>"ProductionChainWorkCenterUse",  :foreign_key=>:work_center_id
+  has_many :output_conveyors, :dependent=>:nullify, :class_name=>"ProductionChainConveyor", :foreign_key=>:source_id # :as=>:source
+  has_many :input_conveyors, :dependent=>:nullify, :class_name=>"ProductionChainConveyor", :foreign_key=>:target_id # :as=>:target
   validates_uniqueness_of :name, :scope=>:company_id
 
   @@natures = [:input, :output]

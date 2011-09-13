@@ -47,8 +47,8 @@ class Journal < CompanyRecord
   belongs_to :currency
   # cattr_accessor :natures
   has_many :cashes
-  has_many :entry_lines, :class_name=>JournalEntryLine.name
-  has_many :entries, :class_name=>JournalEntry.name
+  has_many :entry_lines, :class_name=>"JournalEntryLine"
+  has_many :entries, :class_name=>"JournalEntry"
   validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id

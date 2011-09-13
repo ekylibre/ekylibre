@@ -59,16 +59,16 @@ class Purchase < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   belongs_to :currency
-  belongs_to :delivery_contact, :class_name=>Contact.name
+  belongs_to :delivery_contact, :class_name=>"Contact"
   belongs_to :journal_entry
-  belongs_to :payee, :class_name=>Entity.name, :foreign_key=>:supplier_id
-  belongs_to :supplier, :class_name=>Entity.name
-  belongs_to :responsible, :class_name=>User.name
-  has_many :lines, :class_name=>PurchaseLine.name, :foreign_key=>:purchase_id
-  has_many :deliveries, :class_name=>IncomingDelivery.name
-  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
+  belongs_to :payee, :class_name=>"Entity", :foreign_key=>:supplier_id
+  belongs_to :supplier, :class_name=>"Entity"
+  belongs_to :responsible, :class_name=>"User"
+  has_many :lines, :class_name=>"PurchaseLine", :foreign_key=>:purchase_id
+  has_many :deliveries, :class_name=>"IncomingDelivery"
+  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
   has_many :products, :through=>:lines, :uniq=>true
-  has_many :uses, :foreign_key=>:expense_id, :class_name=>OutgoingPaymentUse.name, :dependent=>:destroy
+  has_many :uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
 
   validates_presence_of :planned_on, :created_on, :currency, :state
   validates_uniqueness_of :number, :scope=>:company_id

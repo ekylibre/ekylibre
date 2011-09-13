@@ -56,8 +56,8 @@ class JournalEntry < CompanyRecord
   belongs_to :currency
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
-  has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>JournalEntryLine.name
-  has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>JournalEntryLine.name
+  has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>"JournalEntryLine"
+  has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>"JournalEntryLine"
   has_many :outgoing_payments, :dependent=>:nullify
   has_many :outgoing_payment_uses, :dependent=>:nullify
   has_many :incoming_payments, :dependent=>:nullify

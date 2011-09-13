@@ -53,12 +53,12 @@ class IncomingPaymentMode < CompanyRecord
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  belongs_to :commission_account, :class_name=>Account.name
-  belongs_to :depositables_account, :class_name=>Account.name
-  has_many :depositable_payments, :class_name=>IncomingPayment.name, :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
+  belongs_to :commission_account, :class_name=>"Account"
+  belongs_to :depositables_account, :class_name=>"Account"
+  has_many :depositable_payments, :class_name=>"IncomingPayment", :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
-  has_many :payments, :foreign_key=>:mode_id, :class_name=>IncomingPayment.name
-  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>IncomingPayment.name, :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE closed=#{connection.quoted_false} AND company_id=#{self.company_id})'
+  has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
+  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE closed=#{connection.quoted_false} AND company_id=#{self.company_id})'
 
   validates_presence_of :depositables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash_id

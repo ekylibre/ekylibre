@@ -48,8 +48,8 @@ class SaleNature < CompanyRecord
   validates_inclusion_of :active, :downpayment, :in => [true, false]
   validates_presence_of :company, :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
   #]VALIDATORS]
-  belongs_to :payment_delay, :class_name=>Delay.to_s
-  belongs_to :payment_mode, :class_name=>IncomingPaymentMode.name
-  belongs_to :expiration, :class_name=>Delay.to_s
+  belongs_to :payment_delay, :class_name=>"Delay"
+  belongs_to :payment_mode, :class_name=>"IncomingPaymentMode"
+  belongs_to :expiration, :class_name=>"Delay"
   has_many :sales
 end

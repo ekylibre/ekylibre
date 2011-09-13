@@ -61,18 +61,18 @@ class SaleLine < CompanyRecord
   belongs_to :company
   belongs_to :entity
   belongs_to :warehouse
-  belongs_to :sale, :class_name=>Sale.to_s
-  belongs_to :origin, :class_name=>SaleLine.name
+  belongs_to :sale
+  belongs_to :origin, :class_name=>"SaleLine"
   belongs_to :price
   belongs_to :product
-  belongs_to :reduction_origin, :class_name=>SaleLine.to_s
+  belongs_to :reduction_origin, :class_name=>"SaleLine"
   belongs_to :tax
   belongs_to :tracking
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:sale_line_id
-  has_one :reduction, :class_name=>SaleLine.to_s, :foreign_key=>:reduction_origin_id
-  has_many :credits, :class_name=>SaleLine.to_s, :foreign_key=>:origin_id
-  has_many :reductions, :class_name=>SaleLine.to_s, :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
+  has_many :delivery_lines, :class_name=>"OutgoingDeliveryLine", :foreign_key=>:sale_line_id
+  has_one :reduction, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id
+  has_many :credits, :class_name=>"SaleLine", :foreign_key=>:origin_id
+  has_many :reductions, :class_name=>"SaleLine", :foreign_key=>:reduction_origin_id, :dependent=>:delete_all
   has_many :subscriptions, :dependent=>:destroy
 
   sums :sale, :lines, :pretax_amount, :amount

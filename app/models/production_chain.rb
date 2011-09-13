@@ -39,10 +39,10 @@ class ProductionChain < CompanyRecord
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
-  has_many :operations, :class_name=>ProductionChainWorkCenter.name, :order=>:position, :dependent=>:delete_all
-  has_many :conveyors, :class_name=>ProductionChainConveyor.name, :dependent=>:delete_all
-  has_many :unused_conveyors, :class_name=>ProductionChainConveyor.name, :conditions=>{:source_id=>nil, :target_id=>nil}
-  has_many :input_conveyors, :class_name=>ProductionChainConveyor.name, :conditions=>{:source_id=>nil}
+  has_many :operations, :class_name=>"ProductionChainWorkCenter", :order=>:position, :dependent=>:delete_all
+  has_many :conveyors, :class_name=>"ProductionChainConveyor", :dependent=>:delete_all
+  has_many :unused_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil, :target_id=>nil}
+  has_many :input_conveyors, :class_name=>"ProductionChainConveyor", :conditions=>{:source_id=>nil}
 
   validates_uniqueness_of :name, :scope=>:company_id
 

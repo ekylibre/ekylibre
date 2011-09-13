@@ -53,9 +53,9 @@ class IncomingDelivery < CompanyRecord
   belongs_to :contact
   belongs_to :company
   belongs_to :currency
-  belongs_to :mode, :class_name=>IncomingDeliveryMode.name
+  belongs_to :mode, :class_name=>"IncomingDeliveryMode"
   belongs_to :purchase
-  has_many :lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
+  has_many :lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
 
   validates_presence_of :planned_on

@@ -62,9 +62,9 @@ class User < CompanyRecord
   belongs_to :establishment
   belongs_to :profession
   belongs_to :role
-  has_many :clients, :class_name=>Entity.name, :foreign_key=>:responsible_id, :dependent=>:nullify
+  has_many :clients, :class_name=>"Entity", :foreign_key=>:responsible_id, :dependent=>:nullify
   has_many :events, :foreign_key=>:responsible_id
-  has_many :future_events, :class_name=>Event.name, :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
+  has_many :future_events, :class_name=>"Event", :foreign_key=>:responsible_id, :conditions=>["started_at >= CURRENT_TIMESTAMP"]
   has_many :preferences, :dependent=>:destroy
   has_many :sales_invoices, :foreign_key=>:responsible_id, :class_name=>"Sale", :conditions=>{:state=>:invoice}
   has_many :sales, :foreign_key=>:responsible_id

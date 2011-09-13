@@ -39,9 +39,9 @@
 class EntityLink < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :entity_1, :class_name=>Entity.name
-  belongs_to :entity_2, :class_name=>Entity.name
-  belongs_to :nature, :class_name=>EntityLinkNature.name
+  belongs_to :entity_1, :class_name=>"Entity"
+  belongs_to :entity_2, :class_name=>"Entity"
+  belongs_to :nature, :class_name=>"EntityLinkNature"
 
   before_validation do
     self.started_on ||= Date.today

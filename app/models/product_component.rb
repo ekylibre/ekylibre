@@ -49,7 +49,7 @@ class ProductComponent < CompanyRecord
   #]VALIDATORS]
   attr_readonly :company_id, :quantity, :name, :comment
   belongs_to :company
-  belongs_to :component, :class_name=>Product.to_s
+  belongs_to :component, :class_name=>"Product"
   belongs_to :warehouse
   belongs_to :product
 

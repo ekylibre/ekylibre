@@ -48,16 +48,6 @@
 
 
 class Cash < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
-  validates_length_of :iban, :allow_nil => true, :maximum => 34
-  validates_length_of :iban_label, :allow_nil => true, :maximum => 48
-  validates_length_of :bank_name, :allow_nil => true, :maximum => 50
-  validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :account, :company, :currency, :journal, :mode, :name, :nature
-  #]VALIDATORS]
   @@natures = ["bank_account", "cash_box"]
   @@modes = ["iban", "bban"]
   @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
@@ -72,11 +62,21 @@ class Cash < CompanyRecord
   has_many :deposits
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
-  has_one :last_bank_statement, :class_name=>BankStatement.name, :order=>"stopped_on DESC"
+  has_one :last_bank_statement, :class_name=>"BankStatement", :order=>"stopped_on DESC"
   validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id
+  # validates_presence_of :bank_name
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :iban, :allow_nil => true, :maximum => 34
+  validates_length_of :iban_label, :allow_nil => true, :maximum => 48
+  validates_length_of :bank_name, :allow_nil => true, :maximum => 50
+  validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :by_default, :in => [true, false]
+  validates_presence_of :account, :company, :currency, :journal, :mode, :name, :nature
+  #]VALIDATORS]
 
-  #validates_presence_of :bank_name
   
   COUNTRY_CODE_FR="FR"
 

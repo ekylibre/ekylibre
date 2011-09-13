@@ -46,8 +46,8 @@ class Event < CompanyRecord
   #]VALIDATORS]
   belongs_to :company
   belongs_to :entity
-  belongs_to :nature, :class_name=>EventNature.name
-  belongs_to :responsible, :class_name=>User.name
+  belongs_to :nature, :class_name=>"EventNature"
+  belongs_to :responsible, :class_name=>"User"
     
   validates_presence_of :responsible_id, :nature_id, :entity
   attr_readonly :company_id

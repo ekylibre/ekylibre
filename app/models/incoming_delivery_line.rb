@@ -49,10 +49,10 @@ class IncomingDeliveryLine < CompanyRecord
   #]VALIDATORS]
   acts_as_stockable :origin=>:delivery
   attr_readonly :purchase_line_id, :product_id, :price_id, :unit_id
-  belongs_to :delivery, :class_name=>IncomingDelivery.name
+  belongs_to :delivery, :class_name=>"IncomingDelivery"
   belongs_to :price
   belongs_to :product
-  belongs_to :purchase_line, :class_name=>PurchaseLine.name
+  belongs_to :purchase_line, :class_name=>"PurchaseLine"
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit

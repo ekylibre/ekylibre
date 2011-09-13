@@ -51,25 +51,18 @@
 
 
 class IncomingPayment < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
-  validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :received, :scheduled, :in => [true, false]
-  validates_presence_of :amount, :commission_amount, :company, :mode, :to_bank_on, :used_amount
-  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
-  belongs_to :commission_account, :class_name=>Account.name
+  belongs_to :commission_account, :class_name=>"Account"
   belongs_to :company
-  belongs_to :responsible, :class_name=>User.name
+  belongs_to :responsible, :class_name=>"User"
   belongs_to :deposit
   belongs_to :journal_entry
-  belongs_to :payer, :class_name=>Entity.name
-  belongs_to :mode, :class_name=>IncomingPaymentMode.name
-  has_many :uses, :class_name=>IncomingPaymentUse.name, :foreign_key=>:payment_id, :dependent=>:destroy
-  has_many :sales, :through=>:uses, :source=>:expense, :source_type=>Sale.name
-  has_many :transfers, :through=>:uses, :source=>:expense, :source_type=>Transfer.name
+  belongs_to :payer, :class_name=>"Entity"
+  belongs_to :mode, :class_name=>"IncomingPaymentMode"
+  has_many :uses, :class_name=>"IncomingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
+  has_many :sales, :through=>:uses, :source=>:expense, :source_type=>"Sale"
+  has_many :transfers, :through=>:uses, :source=>:expense, :source_type=>"Transfer"
 
   autosave :deposit
 
@@ -77,6 +70,13 @@ class IncomingPayment < CompanyRecord
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
   attr_protected :used_amount
 
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
+  validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :received, :scheduled, :in => [true, false]
+  validates_presence_of :amount, :commission_amount, :company, :mode, :to_bank_on, :used_amount
+  #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
   validates_presence_of :to_bank_on, :payer, :created_on

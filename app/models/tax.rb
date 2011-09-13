@@ -49,8 +49,8 @@ class Tax < CompanyRecord
   #]VALIDATORS]
   attr_readonly :nature, :company_id #, :amount
   belongs_to :company
-  belongs_to :collected_account, :class_name=>Account.name
-  belongs_to :paid_account, :class_name=>Account.name
+  belongs_to :collected_account, :class_name=>"Account"
+  belongs_to :paid_account, :class_name=>"Account"
   has_many :prices
   has_many :sale_lines
   validates_inclusion_of :nature, :in=>%w( amount percent )

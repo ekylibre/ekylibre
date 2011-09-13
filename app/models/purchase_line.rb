@@ -53,13 +53,13 @@ class PurchaseLine < CompanyRecord
   attr_readonly :company_id, :purchase_id
   belongs_to :account
   belongs_to :company
-  belongs_to :purchase, :class_name=>Purchase.name
+  belongs_to :purchase
   belongs_to :price
   belongs_to :product
   belongs_to :warehouse
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
-  has_many :delivery_lines, :class_name=>IncomingDeliveryLine.name, :foreign_key=>:purchase_line_id
+  has_many :delivery_lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:purchase_line_id
   validates_presence_of :pretax_amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true

@@ -38,6 +38,18 @@
 
 
 class IncomingPaymentUse < CompanyRecord
+  acts_as_reconcilable :client, :payer
+  attr_readonly :company_id
+  belongs_to :company
+  belongs_to :expense, :polymorphic=>true
+  belongs_to :journal_entry
+  belongs_to :payment, :class_name=>"IncomingPayment"
+
+  # autosave :expense, :payment
+
+  cattr_reader :expense_types
+  @@expense_types = ["Sale", "Transfer"]
+
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
@@ -45,18 +57,6 @@ class IncomingPaymentUse < CompanyRecord
   validates_inclusion_of :downpayment, :in => [true, false]
   validates_presence_of :company, :expense, :expense_type, :payment
   #]VALIDATORS]
-  acts_as_reconcilable :client, :payer
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :expense, :polymorphic=>true
-  belongs_to :journal_entry
-  belongs_to :payment, :class_name=>IncomingPayment.name
-
-  # autosave :expense, :payment
-
-  cattr_reader :expense_types
-  @@expense_types = [Sale.name, Transfer.name]
-
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense, :payment
 

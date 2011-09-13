@@ -47,7 +47,7 @@ class BankStatement < CompanyRecord
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  has_many :lines, :dependent=>:nullify, :class_name=>JournalEntryLine.name
+  has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryLine"
 
   before_validation do
     self.company_id = self.cash.company_id if self.cash

@@ -37,7 +37,7 @@
 class FinancialYear < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  has_many :account_balances, :class_name=>AccountBalance.name, :foreign_key=>:financial_year_id
+  has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id
   validates_presence_of :started_on, :stopped_on
   validates_uniqueness_of :code, :scope=>:company_id
   #[VALIDATORS[

@@ -81,14 +81,14 @@ class Product < CompanyRecord
   #]VALIDATORS]
   @@natures = [:product, :service, :subscrip] # , :transfer]
   attr_readonly :company_id
-  belongs_to :purchases_account, :class_name=>Account.to_s
+  belongs_to :purchases_account, :class_name=>"Account"
   belongs_to :company
-  belongs_to :sales_account, :class_name=>Account.to_s
+  belongs_to :sales_account, :class_name=>"Account"
   belongs_to :subscription_nature
-  belongs_to :category, :class_name=>ProductCategory.name
+  belongs_to :category, :class_name=>"ProductCategory"
   belongs_to :unit
-  has_many :available_stocks, :class_name=>Stock.name, :conditions=>["quantity > 0"]
-  has_many :components, :class_name=>ProductComponent.name, :conditions=>{:active=>true}
+  has_many :available_stocks, :class_name=>"Stock", :conditions=>["quantity > 0"]
+  has_many :components, :class_name=>"ProductComponent", :conditions=>{:active=>true}
   has_many :outgoing_delivery_lines
   has_many :prices
   has_many :purchase_lines

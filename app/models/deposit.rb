@@ -54,10 +54,10 @@ class Deposit < CompanyRecord
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  belongs_to :responsible, :class_name=>User.name
+  belongs_to :responsible, :class_name=>"User"
   belongs_to :journal_entry
-  belongs_to :mode, :class_name=>IncomingPaymentMode.name
-  has_many :payments, :class_name=>IncomingPayment.name, :dependent=>:nullify, :order=>"number"
+  belongs_to :mode, :class_name=>"IncomingPaymentMode"
+  has_many :payments, :class_name=>"IncomingPayment", :dependent=>:nullify, :order=>"number"
   # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
   validates_presence_of :responsible, :cash

@@ -58,7 +58,7 @@ class Subscription < CompanyRecord
   belongs_to :company
   belongs_to :contact
   belongs_to :entity
-  belongs_to :nature, :class_name=>SubscriptionNature.name
+  belongs_to :nature, :class_name=>"SubscriptionNature"
   belongs_to :product
   belongs_to :sale
   belongs_to :sale_line 

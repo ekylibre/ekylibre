@@ -53,13 +53,13 @@ class Operation < CompanyRecord
   validates_length_of :name, :target_type, :tools_list, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
   belongs_to :company
-  belongs_to :nature, :class_name=>OperationNature.name
-  belongs_to :responsible, :class_name=>User.name
+  belongs_to :nature, :class_name=>"OperationNature"
+  belongs_to :responsible, :class_name=>"User"
   belongs_to :target, :polymorphic=>true
   belongs_to :production_chain_work_center
   has_many :operation_uses, :dependent=>:destroy
-  has_many :uses,  :class_name=>OperationUse.name, :dependent=>:destroy
-  has_many :lines, :class_name=>OperationLine.name, :dependent=>:destroy
+  has_many :uses,  :class_name=>"OperationUse", :dependent=>:destroy
+  has_many :lines, :class_name=>"OperationLine", :dependent=>:destroy
   has_many :tools, :through=>:operation_uses
 
   attr_readonly :company_id

@@ -50,9 +50,9 @@ class Transport < CompanyRecord
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :responsible, :class_name=>User.name
-  belongs_to :transporter, :class_name=>Entity.name
-  has_many :deliveries, :dependent=>:nullify, :class_name=>OutgoingDelivery.name
+  belongs_to :responsible, :class_name=>"User"
+  belongs_to :transporter, :class_name=>"Entity"
+  has_many :deliveries, :dependent=>:nullify, :class_name=>"OutgoingDelivery"
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

@@ -42,7 +42,7 @@ class Tool < CompanyRecord
   #]VALIDATORS]
 
   belongs_to :company
-  has_many :uses, :class_name=>OperationUse.name
+  has_many :uses, :class_name=>"OperationUse"
 
   attr_readonly :company_id
 

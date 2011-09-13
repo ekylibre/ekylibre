@@ -41,21 +41,21 @@ class Account < CompanyRecord
   attr_readonly :company_id, :number
   belongs_to :company
   has_many :account_balances
-  has_many :attorneys, :class_name=>Entity.name, :foreign_key=>:attorney_account_id
-  has_many :balances, :class_name=>AccountBalance.name
+  has_many :attorneys, :class_name=>"Entity", :foreign_key=>:attorney_account_id
+  has_many :balances, :class_name=>"AccountBalance"
   has_many :cashes
-  has_many :clients, :class_name=>Entity.name, :foreign_key=>:client_account_id
-  has_many :collected_taxes, :class_name=>Tax.name, :foreign_key=>:collected_account_id
-  has_many :commissioned_incoming_payment_modes, :class_name=>IncomingPaymentMode.name, :foreign_key=>:commission_account_id
-  has_many :depositables_incoming_payment_modes, :class_name=>IncomingPaymentMode.name, :foreign_key=>:depositables_account_id
-  has_many :immobilizations_products, :class_name=>Product.name, :foreign_key=>:immobilizations_account_id
+  has_many :clients, :class_name=>"Entity", :foreign_key=>:client_account_id
+  has_many :collected_taxes, :class_name=>"Tax", :foreign_key=>:collected_account_id
+  has_many :commissioned_incoming_payment_modes, :class_name=>"IncomingPaymentMode", :foreign_key=>:commission_account_id
+  has_many :depositables_incoming_payment_modes, :class_name=>"IncomingPaymentMode", :foreign_key=>:depositables_account_id
+  has_many :immobilizations_products, :class_name=>"Product", :foreign_key=>:immobilizations_account_id
   has_many :journal_entry_lines
-  has_many :paid_taxes, :class_name=>Tax.name, :foreign_key=>:paid_account_id
-  has_many :purchases_products, :class_name=>Product.name, :foreign_key=>:purchases_account_id
+  has_many :paid_taxes, :class_name=>"Tax", :foreign_key=>:paid_account_id
+  has_many :purchases_products, :class_name=>"Product", :foreign_key=>:purchases_account_id
   has_many :purchase_lines
   has_many :sale_lines
-  has_many :sales_products, :class_name=>Product.name, :foreign_key=>:sales_account_id
-  has_many :suppliers, :class_name=>Entity.name, :foreign_key=>:supplier_account_id
+  has_many :sales_products, :class_name=>"Product", :foreign_key=>:sales_account_id
+  has_many :suppliers, :class_name=>"Entity", :foreign_key=>:supplier_account_id
   validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
   validates_uniqueness_of :number, :scope=>:company_id
   #[VALIDATORS[

@@ -54,11 +54,11 @@ class OutgoingDelivery < CompanyRecord
   attr_readonly :company_id, :sale_id, :number
   belongs_to :company 
   belongs_to :contact
-  belongs_to :mode, :class_name=>OutgoingDeliveryMode.name
+  belongs_to :mode, :class_name=>"OutgoingDeliveryMode"
   belongs_to :sale
   belongs_to :transport
   belongs_to :transporter, :class_name=>"Entity"
-  has_many :lines, :class_name=>OutgoingDeliveryLine.name, :foreign_key=>:delivery_id, :dependent=>:destroy
+  has_many :lines, :class_name=>"OutgoingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
 
   # autosave :transport

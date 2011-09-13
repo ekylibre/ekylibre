@@ -46,9 +46,9 @@ class OutgoingPaymentUse < CompanyRecord
   acts_as_reconcilable :supplier, :payee
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :expense, :class_name=>Purchase.name
+  belongs_to :expense, :class_name=>"Purchase"
   belongs_to :journal_entry
-  belongs_to :payment, :class_name=>OutgoingPayment.name
+  belongs_to :payment, :class_name=>"OutgoingPayment"
 
   # autosave :expense, :payment
 

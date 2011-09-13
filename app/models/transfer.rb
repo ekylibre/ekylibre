@@ -48,11 +48,11 @@ class Transfer < CompanyRecord
   #]VALIDATORS]
   attr_readonly :company_id, :comment
   belongs_to :company
-  belongs_to :supplier, :class_name=>Entity.to_s
-  belongs_to :client, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
-  belongs_to :payer, :class_name=>Entity.to_s, :foreign_key=>:supplier_id
-  has_many :payment_uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
-  has_many :uses, :as=>:expense, :class_name=>IncomingPaymentUse.name
+  belongs_to :supplier, :class_name=>"Entity"
+  belongs_to :client, :class_name=>"Entity", :foreign_key=>:supplier_id
+  belongs_to :payer, :class_name=>"Entity", :foreign_key=>:supplier_id
+  has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
+  has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
 
   validates_presence_of :created_on, :supplier
 

@@ -53,7 +53,7 @@ class Price < CompanyRecord
   #]VALIDATORS]
   after_save :set_by_default
   attr_readonly :company_id
-  belongs_to :category, :class_name=>EntityCategory.name
+  belongs_to :category, :class_name=>"EntityCategory"
   belongs_to :company
   belongs_to :currency
   belongs_to :entity

@@ -50,7 +50,7 @@ class Document < CompanyRecord
   #]VALIDATORS]
   belongs_to :company
   belongs_to :owner, :polymorphic=>true
-  belongs_to :template, :class_name=>DocumentTemplate.name
+  belongs_to :template, :class_name=>"DocumentTemplate"
 
   attr_accessor :archive
 

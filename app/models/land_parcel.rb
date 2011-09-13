@@ -45,12 +45,12 @@ class LandParcel < CompanyRecord
   validates_length_of :name, :number, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
   attr_readonly :company_id
-  belongs_to :area_unit, :class_name=>Unit.name
+  belongs_to :area_unit, :class_name=>"Unit"
   belongs_to :company
-  belongs_to :group, :class_name=>LandParcelGroup.name
+  belongs_to :group, :class_name=>"LandParcelGroup"
   has_many :operations, :as=>:target
-  has_many :parent_kinships, :class_name=>LandParcelKinship.name, :foreign_key=>:child_land_parcel_id, :dependent=>:destroy
-  has_many :child_kinships, :class_name=>LandParcelKinship.name, :foreign_key=>:parent_land_parcel_id, :dependent=>:destroy
+  has_many :parent_kinships, :class_name=>"LandParcelKinship", :foreign_key=>:child_land_parcel_id, :dependent=>:destroy
+  has_many :child_kinships, :class_name=>"LandParcelKinship", :foreign_key=>:parent_land_parcel_id, :dependent=>:destroy
   validates_presence_of :area_unit
   
   before_validation do

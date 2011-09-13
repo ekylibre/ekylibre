@@ -34,12 +34,12 @@
 
 
 class IncomingDeliveryMode < CompanyRecord
+  attr_readonly :company_id
+  belongs_to :company
+  has_many :deliveries, :foreign_key=>:mode_id, :class_name=>"IncomingDelivery"
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :deliveries, :foreign_key=>:mode_id, :class_name=>IncomingDelivery.name
 end

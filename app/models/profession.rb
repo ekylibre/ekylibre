@@ -35,13 +35,13 @@
 
 
 class Profession < CompanyRecord
+  belongs_to :company
+  has_many :employees, :class_name=>"User", :conditions=>{:employed=>true}
+  has_many :users
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :rome, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
-  belongs_to :company
-  has_many :employees, :class_name=>User.name, :conditions=>{:employed=>true}
-  has_many :users
 
   attr_readonly :company_id
 end

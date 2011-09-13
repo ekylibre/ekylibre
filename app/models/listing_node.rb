@@ -59,9 +59,9 @@ class ListingNode < CompanyRecord
   attr_readonly :company_id, :listing_id, :nature
   belongs_to :company
   belongs_to :listing
-  belongs_to :item_listing, :class_name=>Listing.name
-  belongs_to :item_listing_node, :class_name=>ListingNode.name
-  has_many :items, :class_name=>ListingNodeItem.name
+  belongs_to :item_listing, :class_name=>"Listing"
+  belongs_to :item_listing_node, :class_name=>"ListingNode"
+  has_many :items, :class_name=>"ListingNodeItem"
   validates_uniqueness_of :key
 
   autosave :listing

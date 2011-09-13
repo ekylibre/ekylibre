@@ -45,7 +45,7 @@ class Tracking < CompanyRecord
   #]VALIDATORS]
   after_save :update_serials
   belongs_to :company
-  belongs_to :producer, :class_name=>Entity.name
+  belongs_to :producer, :class_name=>"Entity"
   belongs_to :product
   has_many :outgoing_delivery_lines
   has_many :inventory_lines

@@ -52,8 +52,8 @@ class CustomField < CompanyRecord
   acts_as_list :scope=>:company
   attr_readonly :company_id, :nature
   belongs_to :company
-  has_many :choices, :class_name=>CustomFieldChoice.to_s, :order=>:position, :dependent=>:delete_all
-  has_many :data, :class_name=>CustomFieldDatum.to_s, :dependent=>:delete_all
+  has_many :choices, :class_name=>"CustomFieldChoice", :order=>:position, :dependent=>:delete_all
+  has_many :data, :class_name=>"CustomFieldDatum", :dependent=>:delete_all
   validates_inclusion_of :nature, :in=>NATURES
 
   def self.natures

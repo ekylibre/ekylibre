@@ -45,7 +45,7 @@ class OutgoingPaymentMode < CompanyRecord
   attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
-  has_many :payments, :class_name=>OutgoingPayment.name, :foreign_key=>:mode_id
+  has_many :payments, :class_name=>"OutgoingPayment", :foreign_key=>:mode_id
 
   protect_on_destroy do
     self.payments.size.zero?
