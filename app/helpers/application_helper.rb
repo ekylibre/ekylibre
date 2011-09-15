@@ -475,67 +475,6 @@ module ApplicationHelper
   end
 
 
-  # # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
-  # # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
-  # # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
-  # # , 'calendar/border-radius'
-  # def calendar_link_tag(lang='fr')
-  #   return (javascript_include_tag('calendar/calendar') << 
-  #           javascript_include_tag('calendar/lang/calendar-' << lang) << 
-  #           javascript_include_tag('calendar/calendar-setup') << 
-  #           stylesheet_link_tag('calendar')).html_safe
-  # end
-
-  # # <p><label for="issue_start_date">Start</label>
-  # # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
-  # # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
-  # # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
-  # def calendar_field(object_name, method, options={})
-  #   name = object_name.to_s << '_' << method.to_s
-  #   text_field(object_name, method, {:size=>10}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
-  # end
-
-  # def calendar_field_tag(name, value=Date.today, options={})
-  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-  #   text_field_tag(name, value, {:size=>10}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
-  # end
-
-
-
-
-  # def date_field(object_name, method, options={})
-  #   name = object_name.to_s << '_' << method.to_s
-  #   text_field(object_name, method, {:size=>10}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
-  # end
-
-  # def date_field_tag(name, value=Date.today, options={})
-  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-  #   text_field_tag(name, value, {:size=>10}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
-  # end
-
-  # def datetime_field(object_name, method, options={})
-  #   name = object_name.to_s << '_' << method.to_s
-  #   text_field(object_name, method, {:size=>18}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{name}', showsTime : true, timeFormat : 24, ifFormat : '%Y-%m-%d %H:%M:%S', button : '#{name}_trigger' });")
-  # end
-
-  # def datetime_field_tag(name, value=Date.today, options={})
-  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-  #   text_field_tag(name, value, {:size=>18}.merge(options)) << 
-  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', showsTime : true, timeFormat : 24, ifFormat: '%Y-%m-%d %H:%M:%S', button : '#{options[:id]}_trigger' });")
-  # end
-
-
   def resizable?
     session[:resizable] = true if session[:resizable].nil?
     return session[:resizable]
@@ -801,7 +740,7 @@ module ApplicationHelper
       elsif c[:type] == :date
         code = content_tag(:label, options[:label]||tg(:display))
         name = c[:name]||:d
-        code << " ".html_safe << calendar_field_tag(name, params[name])
+        code << " ".html_safe << date_field_tag(name, params[name])
       elsif c[:type] == :criterion
         code << capture(&c[:block])
       end
@@ -1426,7 +1365,7 @@ module ApplicationHelper
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
       toggle_method = "toggle#{custom_id.camelcase}"
       code << select_tag(name, options_for_select(list, value), :id=>configuration[:id], :onchange=>"#{toggle_method}()", :onkeyup=>"#{toggle_method}()")
-      code << " " << content_tag(:span, tc(:manual_period, :start=>calendar_field_tag(:started_on, params[:started_on], :size=>8), :finish=>calendar_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
+      code << " " << content_tag(:span, tc(:manual_period, :start=>date_field_tag(:started_on, params[:started_on], :size=>8), :finish=>date_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
       code << javascript_tag("window.#{toggle_method} = function() { toggleElement('#{custom_id}', ($('#{configuration[:id]}').value == '#{configuration[:custom]}')); }; #{toggle_method}();")
     else
       code << select_tag(name, options_for_select(list, value), :id=>configuration[:id])

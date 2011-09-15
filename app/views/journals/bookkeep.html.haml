@@ -2,8 +2,8 @@
 -if @step == 1
   =form_tag({}, :method=>:put) do
     =formalize do |f|
-      -f.field tc(:from), calendar_field_tag(:started_on, params[:started_on]) 
-      -f.field tc(:to),   calendar_field_tag(:stopped_on, params[:stopped_on]) 
+      -f.field tc(:from), date_field_tag(:started_on, params[:started_on]) 
+      -f.field tc(:to),   date_field_tag(:stopped_on, params[:stopped_on]) 
     .actions=submit_tag(tg(:validate))
 
 

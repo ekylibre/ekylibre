@@ -3,6 +3,6 @@
   =text_field_tag(:instant, session[:subscriptions_instant], :size=>6)
 -elsif @subscription_nature.nature == "period"
   %label=tc("select_date")
-  =calendar_field_tag(:instant, session[:subscriptions_instant])
+  =date_field_tag(:instant, session[:subscriptions_instant])
 -else
   %strong [NoNatureError]
