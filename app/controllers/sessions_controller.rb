@@ -36,10 +36,12 @@ class SessionsController < ApplicationController
     if request.post?
       if user = User.authenticate(params[:name], params[:password], @current_company)
         session[:last_query] = Time.now.to_i # Reactivate session
-        render :json=>{:dialog=>params[:dialog]}
+        # render :json=>{:dialog=>params[:dialog]}
+        head :ok, :x_return_code=>"granted"
         return
       else
         @no_authenticated = true
+        response.headers["X-Return-Code"] = "denied"
         notify_error_now(:no_authenticated)
       end
     end

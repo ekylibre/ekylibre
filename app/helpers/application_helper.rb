@@ -462,11 +462,9 @@ module ApplicationHelper
   def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
-    for sheet, media in ["screen", "print", "list", "list-colors"]
-      media = (sheet == "print" ? :print : :screen)
-      if File.exists?("#{Rails.root}/public/themes/#{name}/stylesheets/#{sheet}.css")
-        code << stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet}.css", :media=>media)
-      end
+    for sheet in Dir.glob(Rails.root.join("public", "themes", name, "stylesheets", "*.css"))
+      media = (sheet.match(/print/) ? :print : :screen)
+      code << stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet.split(/[\\\/]+/)[-1]}", :media=>media)
     end
     return code.html_safe
   end
@@ -477,65 +475,65 @@ module ApplicationHelper
   end
 
 
-  # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
-  # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
-  # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
-  # , 'calendar/border-radius'
-  def calendar_link_tag(lang='fr')
-    return (javascript_include_tag('calendar/calendar') << 
-            javascript_include_tag('calendar/lang/calendar-' << lang) << 
-            javascript_include_tag('calendar/calendar-setup') << 
-            stylesheet_link_tag('calendar')).html_safe
-  end
+  # # <script src="/red/javascripts/calendar/calendar.js" type="text/javascript"></script>
+  # # <script src="/red/javascripts/calendar/lang/calendar-fr.js" type="text/javascript"></script>
+  # # <script src="/red/javascripts/calendar/calendar-setup.js" type="text/javascript"></script>
+  # # , 'calendar/border-radius'
+  # def calendar_link_tag(lang='fr')
+  #   return (javascript_include_tag('calendar/calendar') << 
+  #           javascript_include_tag('calendar/lang/calendar-' << lang) << 
+  #           javascript_include_tag('calendar/calendar-setup') << 
+  #           stylesheet_link_tag('calendar')).html_safe
+  # end
 
-  # <p><label for="issue_start_date">Start</label>
-  # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
-  # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
-  # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
-  def calendar_field(object_name, method, options={})
-    name = object_name.to_s << '_' << method.to_s
-    text_field(object_name, method, {:size=>10}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
-  end
+  # # <p><label for="issue_start_date">Start</label>
+  # # <input id="issue_start_date" name="issue[start_date]" size="10" type="text" value="2009-09-18" />
+  # # <img alt="Calendar" class="calendar-trigger" id="issue_start_date_trigger" src="/red/images/calendar.png" />
+  # # <script type="text/javascript">//<![CDATA[ Calendar.setup({inputField : 'issue_start_date', ifFormat : '%Y-%m-%d', button : 'issue_start_date_trigger' }); //]]>
+  # def calendar_field(object_name, method, options={})
+  #   name = object_name.to_s << '_' << method.to_s
+  #   text_field(object_name, method, {:size=>10}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
+  # end
 
-  def calendar_field_tag(name, value=Date.today, options={})
-    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>10}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
-  end
-
-
+  # def calendar_field_tag(name, value=Date.today, options={})
+  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
+  #   text_field_tag(name, value, {:size=>10}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
+  # end
 
 
-  def date_field(object_name, method, options={})
-    name = object_name.to_s << '_' << method.to_s
-    text_field(object_name, method, {:size=>10}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
-  end
 
-  def date_field_tag(name, value=Date.today, options={})
-    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>10}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
-  end
 
-  def datetime_field(object_name, method, options={})
-    name = object_name.to_s << '_' << method.to_s
-    text_field(object_name, method, {:size=>18}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{name}', showsTime : true, timeFormat : 24, ifFormat : '%Y-%m-%d %H:%M:%S', button : '#{name}_trigger' });")
-  end
+  # def date_field(object_name, method, options={})
+  #   name = object_name.to_s << '_' << method.to_s
+  #   text_field(object_name, method, {:size=>10}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{name}', ifFormat : '%Y-%m-%d', button : '#{name}_trigger' });")
+  # end
 
-  def datetime_field_tag(name, value=Date.today, options={})
-    options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
-    text_field_tag(name, value, {:size=>18}.merge(options)) << 
-      image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
-      javascript_tag("Calendar.setup({inputField : '#{options[:id]}', showsTime : true, timeFormat : 24, ifFormat: '%Y-%m-%d %H:%M:%S', button : '#{options[:id]}_trigger' });")
-  end
+  # def date_field_tag(name, value=Date.today, options={})
+  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
+  #   text_field_tag(name, value, {:size=>10}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', ifFormat: '%Y-%m-%d', button : '#{options[:id]}_trigger' });")
+  # end
+
+  # def datetime_field(object_name, method, options={})
+  #   name = object_name.to_s << '_' << method.to_s
+  #   text_field(object_name, method, {:size=>18}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>name << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{name}', showsTime : true, timeFormat : 24, ifFormat : '%Y-%m-%d %H:%M:%S', button : '#{name}_trigger' });")
+  # end
+
+  # def datetime_field_tag(name, value=Date.today, options={})
+  #   options[:id] ||= name.to_s.gsub(/[\]\[]+/, '_').gsub(/_+$/, '')
+  #   text_field_tag(name, value, {:size=>18}.merge(options)) << 
+  #     image_tag(theme_button(:calendar), :class=>'calendar-trigger', :id=>options[:id] << '_trigger') << 
+  #     javascript_tag("Calendar.setup({inputField : '#{options[:id]}', showsTime : true, timeFormat : 24, ifFormat: '%Y-%m-%d %H:%M:%S', button : '#{options[:id]}_trigger' });")
+  # end
 
 
   def resizable?

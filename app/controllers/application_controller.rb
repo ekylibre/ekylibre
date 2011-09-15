@@ -29,39 +29,17 @@ class ApplicationController < ActionController::Base
   attr_accessor :current_company
   layout :dialog_or_not
 
-  if Rails.env == "development"
-    # # require_dependency "vendor/plugins/list/init.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition.rb"
-    # # require_dependency "vendor/ogems/formize/lib/formize/definition/element.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition/form.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition/form_element.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition/field_set.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/definition/field.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/generator.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/form_helper.rb"
-    # require_dependency "vendor/ogems/formize/lib/formize/action_pack.rb"
-  end
-
   include Userstamp
   # include ExceptionNotifiable
   # local_addresses.clear
 
-  for k, v in Ekylibre.references
-    for c, t in v
-      raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
-      t.to_s.classify.constantize if t.is_a? Symbol
-    end
-  end
-
-  # TODO Cleans help search system
-  @@helps = {}
-  for file in Dir[Rails.root.join("config", "locales", "*", "help", "*.txt")].sort
-    File.open(file, 'rb') do |f| 
-      @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2], :locale=>file.split(/[\\\/\.]+/)[-4].to_sym}
-      raise Exception.new("No valid title for #{file}") if @@helps[file][:title].blank?
-    end
-  end
+  # TODO: Move these lines to test
+  # for k, v in Ekylibre.references
+  #   for c, t in v
+  #     raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
+  #     t.to_s.classify.constantize if t.is_a? Symbol
+  #   end
+  # end
 
   # Generate render_print_* method which send data corresponding to a nature of
   # document template. It use special method +print_fastly!+.
@@ -512,7 +490,7 @@ class ApplicationController < ActionController::Base
     file = nil
     # raise [I18n.locale, I18n.default_locale]
     for locale in [I18n.locale, I18n.default_locale]
-      for f, attrs in @@helps
+      for f, attrs in Ekylibre.helps
         next if attrs[:locale] != locale
         file_name = [article, article.split("-")[0].to_s+"-index"].detect{|name| attrs[:name]==name}
         file = f and break unless file_name.blank?
