@@ -1,6 +1,36 @@
+function toggleElement(element, show, reverseElement) {
+    element = $(element);
+    if (show === null || show === undefined) { 
+	show = (element.css("display") == "none"); 
+    }
+    if (show) {
+	element.show();
+	if (reverseElement !== undefined) {
+	    $(reverseElement).hide();
+	}
+    } else {
+	element.hide();
+	if (reverseElement !== undefined) {
+	    $(reverseElement).show();
+	}
+    }
+    return show;
+}
+
+function toggleCheckBox(element, checked) {
+    element = $(element);
+    if (element !== null) {
+	if (checked === null || checked === undefined) {
+	    checked = !element.checked;
+	}
+	element.checked = !element.checked;
+	element.onclick();
+    }
+    return element.checked;
+}
+
+
 (function ($) {
-
-
     // Toggle now with
     $(document).ready(function(event) {
 	$('*[data-toggle-now-with]').each(function () {
@@ -10,14 +40,6 @@
 	});
     });
 
-
-    // Auto focus
-    $.autoFocus = function () {
-	this.focus();
-	this.select();
-    }
-    // $.behave("*[data-autofocus]", "load", $.autoFocus);
-    $.behave("input[type='text']:first", "load", $.autoFocus);
 
     // Auto-reconnection with time-out
     $.timedSession = {
@@ -61,5 +83,25 @@
     }
     $(document).ready($.timedSession.startCountdown);
     $(document).ajaxStop($.timedSession.startCountdown);
+
+    // Set auto resizing
+    $.resizeLayout = function () {
+	$.layoutResizing.resize($('#body'), $(window).width(), $(window).height());
+    }
+    $.resizeLayoutProperly = function () {
+	$.resizeLayout();
+	window.setTimeout($.resizeLayout, 300);
+    }
+    $(document).ready($.resizeLayoutProperly);
+    $(window).resize($.resizeLayoutProperly);
+
+
+    // Auto focus
+    $.autoFocus = function () {
+	this.focus();
+	this.select();
+    }
+    // $.behave("*[data-autofocus]", "load", $.autoFocus);
+    $.behave("input[type='text']:first", "load", $.autoFocus);
 
 }) (jQuery);

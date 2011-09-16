@@ -1132,6 +1132,9 @@ module ApplicationHelper
       input_id = object.class.name.tableize.singularize << '_' << method.to_s
 
       html_options = {}
+      for k, v in options
+        html_options[k] = v if k.to_s.match(/^data\-/)
+      end
       html_options[:size] = options[:size]||24
       html_options[:onchange] = options[:onchange] if options[:onchange]
       html_options[:class] = options[:class].to_s

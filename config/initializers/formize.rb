@@ -8,11 +8,10 @@
 #     has to be different, use next possibility.
 # - ["variable_name", "Class"] : Code used to select source with the 
 #     class_name of the variable.
-# Formize.default_source = :foreign_class
 Formize.default_source = ["@current_company", "Company"]
 
 # How many radio can be displayed before to become a +select+
-Formize.radio_count_max = 5
+Formize.radio_count_max = 7
 
 # How many select options can be displayed before to become a +unroll+
-Formize.select_count_max = 50
+Formize.select_count_max = 100

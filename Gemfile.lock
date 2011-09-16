@@ -38,7 +38,7 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     fastercsv (1.5.4)
-    formize (0.0.15)
+    formize (0.0.17)
       fastercsv
       jquery-rails
       rails (~> 3)

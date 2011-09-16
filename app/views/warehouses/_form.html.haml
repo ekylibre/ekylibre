@@ -7,7 +7,7 @@
     -f.field :warehouse, :parent_id, :choices=>warehouses.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
   -f.field :warehouse, :comment, :field=>:textarea
   -if @warehouse.new_record?
-    -f.field :warehouse, :reservoir, :onchange=>"displayReservoir();"
+    -f.field :warehouse, :reservoir, "data-show"=>"#reservoir"
 -if @warehouse.reservoir? or @warehouse.new_record?
   =formalize(:id=>:reservoir) do |f|
     -f.title :reservoir_informations
@@ -20,9 +20,3 @@
   -f.field :warehouse, :x
   -f.field :warehouse, :y
   -f.field :warehouse, :z
--if @warehouse.new_record?
-  :javascript
-    window.displayReservoir = function() {
-      toggleElement('reservoir', $('warehouse_reservoir').checked);
-    }
-    displayReservoir();

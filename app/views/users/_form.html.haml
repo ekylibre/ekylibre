@@ -8,10 +8,10 @@
   -f.field :user, :name
   -f.field :user, :password
   -f.field :user, :password_confirmation
-  -f.field :user, :admin, :onchange=>"displayRights()"
-  -f.field :user, :employed, :onchange=>"displayEmployee()"
+  -f.field :user, :admin, "data-show"=>"#rights-conf"
+  -f.field :user, :employed, "data-show"=>"#employee"
 
-#employee{:style=>"display: #{@user.employed ? 'block' : 'none'}"}
+#employee
   =formalize do |f| 
     -f.title User.human_attribute_name("employed")
     -f.field :user, :employment
@@ -20,25 +20,11 @@
     -f.field :user, :department_id, :choices=>{:reflection=>:departments}, :new=>true
     -f.field :user, :establishment_id, :choices=>{:reflection=>:establishments}, :new =>true
 
--user_role_id = nil 
 #rights-conf
   =formalize(:id=>:show_rights) do |f|
     -f.title :rights
-    -user_role_id = f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>true
+    -f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>true, :id=>"user_role_id", "data-dependents"=>"#rights"
     -#f.field :user, :reduction_percent
     -#f.field :user, :free_price
     -#f.field :user, :credits
-
-  #rights=render :partial=>"rights_form"
-
-:javascript
-  window.displayRights = function(){ 
-    toggleElement('rights-conf', !$('user_admin').checked); 
-  }
-  window.displayEmployee = function() { 
-    toggleElement('employee', $('user_employed').checked); 
-  }
-  displayRights();
-  displayEmployee();
-
-=observe_field(user_role_id, :url=>{:action=>:new, :mode=>:rights}, :update=>:rights, :frequency => 0.25 , :with=>"user_role_id", :method=>:get)
+  #rights{"data-refresh"=>url_for(:action=>:new, :mode=>:rights), "data-refresh-mode"=>"update"}=render :partial=>"rights_form"

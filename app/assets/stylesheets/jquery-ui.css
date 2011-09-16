@@ -566,3 +566,21 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  */
 .ui-progressbar { height:2em; text-align: left; }
 .ui-progressbar .ui-progressbar-value {margin: -1px; height:100%; }
+
+/*
+ * jQuery timepicker addon
+ * By: Trent Richardson [http://trentrichardson.com]
+ * Version 0.9.6
+ * Last Modified: 07/20/2011
+ *
+ * Copyright 2011 Trent Richardson
+ * Dual licensed under the MIT and GPL licenses.
+ * http://trentrichardson.com/Impromptu/GPL-LICENSE.txt
+ * http://trentrichardson.com/Impromptu/MIT-LICENSE.txt
+ */
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; }
+.ui-timepicker-div dl dd { margin: -25px 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
