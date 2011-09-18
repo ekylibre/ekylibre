@@ -1,7 +1,7 @@
 /* Inicialización en español para la extensión 'UI date picker' para jQuery. */
 /* Traducido por Vester (xvester@gmail.com). */
 jQuery(function($){
-	$.datepicker.regional['es'] = {
+	$.datepicker.regional['spa'] = {
 		closeText: 'Cerrar',
 		prevText: '&#x3c;Ant',
 		nextText: 'Sig&#x3e;',
@@ -19,5 +19,5 @@ jQuery(function($){
 		isRTL: false,
 		showMonthAfterYear: false,
 		yearSuffix: ''};
-	$.datepicker.setDefaults($.datepicker.regional['es']);
+	$.datepicker.setDefaults($.datepicker.regional['spa']);
 });

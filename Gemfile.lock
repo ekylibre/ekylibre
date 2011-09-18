@@ -38,7 +38,7 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     fastercsv (1.5.4)
-    formize (0.0.17)
+    formize (0.0.18)
       fastercsv
       jquery-rails
       rails (~> 3)
@@ -57,7 +57,7 @@ GEM
     mysql (2.8.1)
     pg (0.11.0)
     polyglot (0.3.2)
-    rack (1.2.3)
+    rack (1.2.4)
     rack-mount (0.6.14)
       rack (>= 1.0.0)
     rack-test (0.5.7)

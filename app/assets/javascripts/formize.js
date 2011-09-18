@@ -191,10 +191,11 @@ var Formize = {};
 
 Formize.refreshDependents = function (event) {
     var element = $(this);
-    var dependents = element.attr('data-dependents');
     var params = {};
     if (element.val() !== null && element.val() !== undefined) {
-        params[element.attr('id')] = element.val();
+	var dependents = element.attr('data-dependents');
+	var paramName = element.attr('data-parameter-name') || element.attr('id') || 'value';
+        params[paramName] = element.val();
         $(dependents).each(function(index, item) {
             // Replaces element
             var url = $(item).attr('data-refresh');
