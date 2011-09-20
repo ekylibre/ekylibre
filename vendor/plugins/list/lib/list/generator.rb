@@ -58,7 +58,7 @@ module List
       code += self.session_initialization_code.gsub(/^/, '  ')
       code += self.renderer.build_table_code(self).gsub(/^/, '  ')
       code += "end\n"
-      list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       return code      
     end
 
