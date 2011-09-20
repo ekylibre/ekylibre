@@ -1196,7 +1196,7 @@ module ApplicationHelper
               when :combo_box
                 combo_box(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
               when :radio
-                options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1]) << " " << content_tag(:label, x[0], :for=>input_id << '_' << x[1].to_s), :class=>:rad)}.join(" ").html_safe
+                options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1], x[2]||{}) + " " + content_tag(:label, x[0], :for=>input_id + '_' + x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date

@@ -1,6 +1,6 @@
 =kujaku do |k|
   -k.criterion do
-    =select_tag(:nature_id, options_for_select(@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :selected=>params[:nature_id].to_i))
-    %span#subscriptions_options=render :partial=>"options"
+    =select_tag(:nature_id, options_for_select(@current_company.subscription_natures.collect{|x| [x.name, x.id]}, :selected=>params[:nature_id].to_i), "data-dependents"=>"#subscriptions_options")
+    %span#subscriptions_options{"data-refresh"=>url_for(), "data-refresh-mode"=>"update"}=render :partial=>"options"
+
 =list
-=observe_field("nature_id", :url=>{:action=>:index}, :update=>:subscriptions_options, :frequency => 0.25, :with=>"nature_id", :method=>:get, :loading=>"onLoading()", :loaded=>"onLoaded()")

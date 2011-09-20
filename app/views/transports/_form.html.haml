@@ -9,6 +9,4 @@
   -f.field :transport, :comment, :field=>:textarea
 
 %h2=Transport.human_attribute_name(:deliveries)
-#deliveries{"data-refresh"=>url_for(:controller=>:transports, :action=>:new, :transport_id=>@transport.id), "data-refresh-mode"=>"update"}=render :partial=>'deliveries_form'
-
--#=observe_field(transporter_id, :update=>:deliveries, :url=>{:controller=>:transports, :action=>:new, :transport_id=>@transport.id}, :method=>:get, :with=>"transporter_id")
+#deliveries{"data-refresh"=>url_for(:controller=>:transports, :action=>:new, :transport_id=>@transport.id), "data-refresh-mode"=>"update"}=render :partial=>"deliveries_form"

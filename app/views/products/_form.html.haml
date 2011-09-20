@@ -14,20 +14,21 @@
   -f.field :product, :unit_id, :choices=>{:reflection=>:units}, :new=>true
   -f.field :product, :weight
   -# f.field :product, :price
-  -f.field :product, :nature, :field=>:radio, :choices=>Product.natures
-  -f.field :product, :service_coeff, :html_options=>{:id=>:service_coeff}
-=formalize(:id=>:subscriptions) do |f|
+  -f.field :product, :nature, :field=>:radio, :choices=>Product.natures.collect{|p| [p[0], p[1], "data-show"=>"##{p[1]}_options"]}
+=formalize(:id=>:service_options) do |f|
+  -f.field :product, :service_coeff
+=formalize(:id=>:subscrip_options) do |f|
   -f.field :product, :subscription_nature_id,  :choices=>{:reflection=>:subscription_natures}, :new=>true
   -f.field :product, :duration
 
 =formalize do |f|
   -f.field :product, :reduction_submissive
   -f.field :product, :active
-  -f.field :product, :for_sales
-  -f.field :product, :for_purchases
+  -f.field :product, :for_sales, "data-show"=>"#sales_account"
+  -f.field :product, :for_purchases, "data-show"=>"#purchases_account"
   -f.field :product, :for_productions
   -f.field :product, :deliverable
-  -f.field :product, :stockable
+  -f.field :product, :stockable, "data-show"=>"#product_form_stocks"
   -# f.field :product, :trackable
 =formalize(:id=>:product_form_stocks) do |f|
   -f.title :stocks_preferences
@@ -42,26 +43,3 @@
   -f.title :accountancy
   -f.field :product, :sales_account_id, :choices=>{:reflection=>:products_accounts}, :new=>true, :html_options=>{:id=>'sales_account'}
   -f.field :product, :purchases_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>true, :html_options=>{:id=>'purchases_account'}
-
-:javascript
-  window.toggleService = function() { toggleElement('service_coeff', $('product_nature_service').checked); }
-  toggleService();
-  window.toggleSubscription = function() { toggleElement('subscriptions', $('product_nature_subscrip').checked); }
-  toggleSubscription();
-  window.toggleStocks = function() { toggleElement('product_form_stocks', $('product_stockable').checked); }
-  toggleStocks();
-  window.togglePurchasesAccount = function() { toggleElement('purchases_account', $('product_for_purchases').checked); }
-  togglePurchasesAccount();
-  window.toggleSalesAccount = function() { 
-    toggleElement('sales_account', $('product_for_sales').checked); 
-    /*toggleElement('price', $('product_for_sales').checked); */
-  }
-  toggleSalesAccount();
-
-=observe_field("product_nature_service", :frequency =>0.25, :function => "toggleService();")
--if request.url.to_s.include? "update"
-  =observe_field(warehouse_id, :url=>{:action=>:change_quantities}, :frequency=>0.25, :with=>"warehouse_id")
-=observe_field("product_stockable", :frequency=>0.25, :function=> "toggleStocks();")
-=observe_field("product_nature_subscrip", :frequency=>0.25, :function=>"toggleSubscription();")
-=observe_field("product_for_purchases", :frequency=>0.25, :function=>"togglePurchasesAccount();")
-=observe_field("product_for_sales", :frequency=>0.25, :function=>"toggleSalesAccount();")

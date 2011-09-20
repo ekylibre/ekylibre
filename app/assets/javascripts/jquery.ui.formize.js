@@ -168,22 +168,20 @@ Formize.refreshDependents = function (event) {
     return false;
 }
 
-Formize.Toggles = {
-
-    ifChecked: function () {
-        var check_box = $(this);
-        if (check_box.prop("checked")) {
-            $(check_box.attr('data-show')).slideDown();
-            $(check_box.attr('data-hide')).slideUp();
-        } else {
-            $(check_box.attr('data-show')).slideUp();
-            $(check_box.attr('data-hide')).slideDown();
-        }
+Formize.toggleCheckboxes =  function () {
+    var checkable = $(this);
+    if (checkable.prop("checked")) {
+	$(checkable.attr('data-show')).slideDown();
+	$(checkable.attr('data-hide')).slideUp();
+    } else {
+	$(checkable.attr('data-show')).slideUp();
+	$(checkable.attr('data-hide')).slideDown();
     }
+};
 
-}
-
-
+Formize.toggleRadios = function () {
+    $("input[type='radio'][data-show], input[type='radio'][data-hide]").each(Formize.toggleCheckboxes);
+};
 
 // Initializes unroll inputs
 $.behave('input[data-unroll]', 'load', function() {
@@ -307,5 +305,11 @@ $.behave("*[data-dependents]", "emulated:change", Formize.refreshDependents);
 $.behave("select[data-dependents]", "keypress", Formize.refreshDependents);
 
 // Hide/show blocks depending on check boxes
-$.behave("input[data-show], input[data-hide]", "load", Formize.Toggles.ifChecked);
-$.behave("input[data-show], input[data-hide]", "change", Formize.Toggles.ifChecked);
+$.behave("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", "load", Formize.toggleCheckboxes);
+$.behave("input[type='checkbox'][data-show], input[type='checkbox'][data-hide]", "change", Formize.toggleCheckboxes)
+$.behave("input[type='radio'][data-show], input[type='radio'][data-hide]", "load", Formize.toggleCheckboxes);
+$.behave("input[type='radio'][data-show], input[type='radio'][data-hide]", "change", Formize.toggleRadios)
+// $.behave("input[data-show], input[data-hide]", "load", Formize.Toggles.ifChecked);
+// $.behave("input[data-show], input[data-hide]", "change", Formize.Toggles.ifChecked);
+//$.behave("input[type='checkbox'], input[type='radio']", "load", Formize.toggleCheckables);
+//$.behave("input[type='checkbox'], input[type='radio']", "change", Formize.toggleCheckables);

@@ -121,8 +121,12 @@ class Subscription < CompanyRecord
   # Initialize default preferences
   def compute_period
     #self.clean
-    self.nature_id ||= self.product.subscription_nature_id if self.product
-    self.clean_on_create if self.new_record?
+    if self.product
+      self.nature_id ||= self.product.subscription_nature_id 
+      self.company_id ||= self.product.company_id
+    end
+    self.company_id ||= self.nature.company_id if self.nature
+    self.valid? if self.new_record?
     self
   end
 

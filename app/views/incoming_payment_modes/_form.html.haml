@@ -2,14 +2,14 @@
   -f.error :incoming_payment_mode
   -f.title :general
   -f.field :incoming_payment_mode, :name
-  -f.field :incoming_payment_mode, :with_accounting, :onchange=>"toggleAccountancy();"
+  -f.field :incoming_payment_mode, :with_accounting, "data-show"=>"#accountancy"
 
 #accountancy
   =formalize do |f|
     -f.title :accountancy
     -f.field :incoming_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>true
-    -f.field :incoming_payment_mode, :with_deposit, :onchange=>"toggleDeposit();"
-    -f.field :incoming_payment_mode, :with_commission, :onchange=>"toggleCommission();"
+    -f.field :incoming_payment_mode, :with_deposit, "data-show"=>"#deposit"
+    -f.field :incoming_payment_mode, :with_commission, "data-show"=>"#commission"
   
   #deposit
     =formalize do |f|
@@ -22,11 +22,3 @@
       -f.field :incoming_payment_mode, :commission_base_amount
       -f.field :incoming_payment_mode, :commission_percent
       -f.field :incoming_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:number=>@current_company.preferred_charges_accounts}, :resize=>true
-
-:javascript
-  window.toggleAccountancy = function() { toggleElement('accountancy', $('incoming_payment_mode_with_accounting').checked); }
-  toggleAccountancy();
-  window.toggleCommission = function() { toggleElement('commission', $('incoming_payment_mode_with_commission').checked); }
-  toggleCommission();
-  window.toggleDeposit = function() { toggleElement('deposit', $('incoming_payment_mode_with_deposit').checked); }
-  toggleDeposit();

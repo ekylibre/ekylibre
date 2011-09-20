@@ -30,7 +30,7 @@ GEM
     activesupport (3.0.10)
     arel (2.0.10)
     builder (2.1.2)
-    combo_box (0.0.3)
+    combo_box (0.0.1)
       jquery-rails
       rails (~> 3)
     erubis (2.6.6)
@@ -38,7 +38,7 @@ GEM
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
     fastercsv (1.5.4)
-    formize (0.0.19)
+    formize (0.0.18)
       fastercsv
       jquery-rails
       rails (~> 3)
