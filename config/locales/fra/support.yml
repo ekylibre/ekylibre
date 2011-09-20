@@ -103,3 +103,5 @@ fra:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'
+  form:
+    new: 'Nouveau…'

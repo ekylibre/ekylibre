@@ -214,7 +214,7 @@ html[dir="rtl"] #top .menu-bar ul li ul li ul { right: 10em; }*/
 #top .menu-bar ul li ul li:hover a { background: #FFF; color: #000; }
 #top .menu-bar li:hover a { background-color: #3D5C8D; }
 #top .menu-bar a { display: block; height: 25px; line-height: 25px; vertical-align: middle; white-space: nowrap; color: white; text-decoration: none; background: transparent; }
-#top .menu-bar a.menu { margin: 0 2px; padding: 2px 8px; text-align: center; text-shadow: 1px 1px 1px #3D5C8D; -moz-border-radius-topright: 5px; -moz-border-radius-topleft: 5px; }
+#top .menu-bar a.menu { margin: 0 2px; padding: 2px 8px; text-align: center; text-shadow: 1px 1px 1px #3D5C8D; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; }
 #top .menu-bar a.menu.general { background-image: url(../images/home.png); background-repeat: no-repeat; background-position: center; width: 20px; color: transparent; text-shadow: none; }
 #top .menu-bar a.menu.current { background-color: #F1F1F1; color: black; text-shadow: 0 0 2px white; -moz-box-shadow: 0 -2px 2px #3D5C8D; -moz-box-shadow: -2px -2px 2px #3D5C8D, 2px -2px 2px #3D5C8D; }
 #top .menu-bar a.menu.general.current { background-image: url(../images/home-current.png);  color: transparent; text-shadow: none; }
@@ -223,7 +223,7 @@ html[dir="rtl"] #top .menu-bar ul li ul li a { text-align: right; }
 
 
 #top .submenu-bar { padding: 1px 8px; background: #F1F1F1; clear: both;}
-#top .submenu-bar > ul > li > a { display: block; padding: 4px 8px; margin: 2px; text-transform: uppercase; font-size: 11px; white-space: nowrap; font-weight: bold; color: #555; text-decoration: none; -moz-border-radius: 4px;}
+#top .submenu-bar > ul > li > a { display: block; padding: 4px 8px; margin: 2px; text-transform: uppercase; font-size: 11px; white-space: nowrap; font-weight: bold; color: #555; text-decoration: none; -webkit-border-radius: 4px; -moz-border-radius: 4px; border-radius: 4px;}
 #top .submenu-bar li { position:relative; list-style-type:none; display: block; }
 #top .submenu-bar ul li ul a { padding: 4px 8px;  text-transform: none; font-size: 13px; display: block; font-weight: normal; color: #555; white-space: nowrap; text-decoration: none; text-shadow: 1px 1px 1px white;}
 html[dir="ltr"] #top .submenu-bar li { float:left; }
@@ -379,9 +379,9 @@ input[type="submit"]:active, input[type="submit"]:focus { border:2px solid #68C;
 input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:focus { padding:0px 4px 1px; }
 */
 /* END */
-input[type="text"], input[type="password"], textarea, select { border:1px solid #aaa; background: #fff; } 
-input[type="text"], input[type="password"], textarea, select { margin:1px; border-width: 1px; }
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border:2px solid #79e !important; margin: 0px; }
+input[type="text"], input[type="password"], textarea, select { border: 1px solid #aaa; background: #fff; } 
+input[type="text"], input[type="password"], textarea, select { margin: 1px !important; border-width: 1px; }
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 2px solid #79e !important; margin: 0px !important; }
 input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
 input.invalid, textarea.invalid, select.invalid { border: 1px solid red !important; background-color: #FDD !important; } 
 
@@ -413,8 +413,8 @@ html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-posi
 .tool:hover { background: #688ED8; border-color: #688ED8; color: white; z-index: 1000; } /*#3D5C8D */
 a.tool:hover, .tool:hover * { color: white; text-shadow: -1px -1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
-html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -moz-border-radius-bottomleft: 5px; -moz-border-radius-topleft: 5px; }
-html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child { -moz-border-radius-bottomright: 5px; -moz-border-radius-topright: 5px; }
+html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; behavior: url(/pie.htc); }
+html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child { -webkit-border-top-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; behavior: url(/pie.htc); }
 div.toolbar .tool { display: block; z-index: 0}
 html[dir="ltr"] div.toolbar .tool { float: left; }
 html[dir="rtl"] div.toolbar .tool { float: right;  }
@@ -677,3 +677,6 @@ html[dir="ltr"] input[data-unroll] { background-position: right center; padding-
 html[dir="rtl"] input[data-unroll] { background-position: left center; padding-left: 18px; }
 */
 
+
+
+.ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }

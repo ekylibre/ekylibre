@@ -8,7 +8,7 @@
   -f.field :user, :name
   -f.field :user, :password
   -f.field :user, :password_confirmation
-  -f.field :user, :admin, "data-show"=>"#rights-conf"
+  -f.field :user, :admin, "data-hide"=>"#rights-conf"
   -f.field :user, :employed, "data-show"=>"#employee"
 
 #employee
@@ -24,7 +24,7 @@
   =formalize(:id=>:show_rights) do |f|
     -f.title :rights
     -f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>true, :id=>"user_role_id", "data-dependents"=>"#rights"
-    -#f.field :user, :reduction_percent
-    -#f.field :user, :free_price
-    -#f.field :user, :credits
+    -# f.field :user, :reduction_percent
+    -# f.field :user, :free_price
+    -# f.field :user, :credits
   #rights{"data-refresh"=>url_for(:action=>:new, :mode=>:rights), "data-refresh-mode"=>"update"}=render :partial=>"rights_form"

@@ -172,6 +172,8 @@ class ApplicationController < ActionController::Base
     ActiveRecord::Base.transaction do
       if record.send(:save) or options[:saved]
         yield record if block_given?
+        response.headers["X-Return-Code"] = "success"
+        response.headers["X-Saved-Record-Id"] = record.id.to_s
         if params[:dialog]
           render :json=>{:id=>record.id}
         else
@@ -191,6 +193,7 @@ class ApplicationController < ActionController::Base
         return true
       end
     end
+    response.headers["X-Return-Code"] = "invalid"
     return false
   end
 
@@ -340,7 +343,7 @@ class ApplicationController < ActionController::Base
       preference = @current_user.preference("interface.general.resized", true, :boolean)
       preference.value = (params[:resized] == "1" ? true : false)
       preference.save!
-      sessions[:resizable] = preference.value
+      session[:resizable] = preference.value
     end
     # Check expiration
     if !session[:last_query].is_a?(Integer)
@@ -539,7 +542,7 @@ class ApplicationController < ActionController::Base
     session[:last_query]   = Time.now.to_i
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}.freeze
     session[:side]         = true
-    session[:resizable]    = user.preference("interface.general.resized", true, :boolean).value
+    session[:resizable]    = false # user.preference("interface.general.resized", true, :boolean).value
     session[:user_id]      = user.id
     # Build and cache customized menu for all the session
     session[:menus] = ActiveSupport::OrderedHash.new
@@ -559,6 +562,26 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  # Autocomplete helper
+  def self.autocomplete_for(model_name, method)
+    item =  model_name.to_s
+    items = item.pluralize
+    items = "many_#{items}" if items == item
+    code =  "def #{__method__}_#{model_name}_#{method}\n"
+    code << "  if params[:term]\n"
+    code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
+    code << "    @#{items} = @current_company.#{items}.where('LOWER(#{method}) LIKE ?', pattern).order('#{method} ASC').limit(80)\n"
+    code << "    respond_to do |format|\n"
+    code << "      format.html { render :inline=>\"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{method})) }.join.html_safe)%>\" }\n"
+    code << "      format.json { render :json=>@#{items}.collect{|#{item}| #{item}.#{method}}.to_json }\n"
+    code << "    end\n"
+    code << "  else\n"
+    code << "    render :text=>'', :layout=>true\n"
+    code << "  end\n"
+    code << "end\n"
+    class_eval(code, "#{__FILE__}:#{__LINE__}")
+  end
 
 
   # Build standard RESTful actions to manage records of a model

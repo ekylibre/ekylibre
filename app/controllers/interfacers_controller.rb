@@ -52,106 +52,34 @@ class InterfacersController < ApplicationController
     render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
   end
 
+  search_for(:account, :columns=>["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
+  search_for(:all_contacts, :contacts, :columns=>[:address], :conditions =>["company_id = ? AND deleted_at IS NULL", ['@current_company.id']])
+  search_for(:attorneys_accounts, :accounts, :columns=>[:number, :name], :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_attorneys_accounts.to_s+'%'"]])
+  # search_for(:available_prices, :prices, :columns=>["products.code", "products.name", "prices.pretax_amount", "prices.amount"], :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+  search_for(:available_prices, :prices, :columns=>["product.code", "product.name", :pretax_amount, :amount], :joins=>[:product], :conditions=>["#{Price.table_name}.company_id=? AND #{Price.table_name}.active=? AND #{Product.table_name}.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+  search_for(:clients_accounts, :accounts, :columns=>[:number, :name], :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_clients_accounts.to_s+'%'"]])
+  search_for(:client_contacts, :contacts, :columns=>[:address], :conditions=>["company_id = ? AND entity_id = ? AND deleted_at IS NULL", ['@current_company.id'], ['session[:current_entity_id]']])
+  search_for(:clients, :entities, :columns=>[:code, :full_name], :conditions => {:company_id=>['@current_company.id'], :client=>true})
+  search_for(:collected_account, :account, :columns=>["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
+  # search_for(:contacts, :columns=>[:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
+  search_for(:districts, :columns=>[:name, :code], :conditions=>{:company_id=>['@current_company.id']})
+  search_for(:entities, :columns=>[:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
+  # search_for(:incoming_delivery_contacts, :contact, :columns=>['entities.full_name', :address], :conditions =>["#{Contact.table_name}.company_id = ? AND #{Contact.table_name}.deleted_at IS NULL", ['@current_company.id']], :joins=>"JOIN #{Company.table_name} AS companies ON (companies.entity_id=#{Contact.table_name}.entity_id))")
+  search_for(:incoming_delivery_contacts, :contact, :columns=>['entity.full_name', :address], :conditions =>["#{Contact.table_name}.company_id = ? AND #{Contact.table_name}.deleted_at IS NULL AND #{Contact.table_name}.entity_id = #{Company.table_name}.entity_id", ['@current_company.id']], :joins=>[:company])
+  search_for(:operation_products, :product, :columns=>[:code, :name], :conditions =>{:company_id=>['@current_company.id'], :active=>true})
+  # search_for(:operation_out_products, :products, :columns=>[:code, :name], :conditions => {:company_id=>['@current_company.id'], :active=>true, :to_produce=>true})
+  search_for(:outgoing_deliveries, :columns=>[:planned_on, "contact.address"], :conditions=>["#{OutgoingDelivery.table_name}.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>[:contact])
+  search_for(:outgoing_delivery_contacts, :contacts, :columns=>['entity.full_name', :address], :conditions=>["#{Contact.table_name}.company_id = ? AND #{Contact.table_name}.deleted_at IS NULL", ['@current_company.id']], :joins=>[:entity])
+  search_for(:paid_account, :account, :columns=>["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
+  search_for(:purchase_products, :product, :columns=>[:code, :name], :conditions => {:company_id=>['@current_company.id'], :active=>true}, :order=>"name")
+  search_for(:subscription_contacts, :contact, :columns=>['entity.code', 'entity.full_name', :address], :joins=>[:entity], :conditions=>["#{Contact.table_name}.company_id=? AND deleted_at IS NULL", ['@current_company.id']])
+  search_for(:suppliers_accounts, :accounts, :columns=>[:number, :name], :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_suppliers_accounts.to_s+'%'"]])
+  search_for(:suppliers, :entities, :columns=>[:code, :full_name], :conditions => {:company_id=>['@current_company.id'], :supplier=>true}, :order=>"active DESC, last_name, first_name")
 
-  dyli(:account, ["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})
-  # dyli(:account, ["number:X%", :name], :conditions => {:company_id=>['@current_company.id']})
-  dyli(:all_contacts, [:address], :model=>:contacts, :conditions =>["company_id = ? AND deleted_at IS NULL", ['@current_company.id']])
-  dyli(:attorneys_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_attorneys_accounts.to_s+'%'"]])
-  dyli(:available_prices, ["products.code", "products.name", "prices.pretax_amount", "prices.amount"], :model=>:prices, :joins=>"JOIN #{Product.table_name} AS products ON (product_id=products.id)", :conditions=>["prices.company_id=? AND prices.active=? AND products.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
-  dyli(:clients_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_clients_accounts.to_s+'%'"]])
-  dyli(:client_contacts, [:address] ,:model=>:contacts, :conditions=>["company_id = ? AND entity_id = ? AND deleted_at IS NULL", ['@current_company.id'], ['session[:current_entity_id]']])
-  dyli(:clients, [:code, :full_name], :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :client=>true})
-  dyli(:collected_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
-  # dyli(:contacts, [:address], :conditions => { :company_id=>['@current_company.id'], :entity_id=>['@current_company.entity_id']})
-  dyli(:districts, [:name, :code], :conditions=>{:company_id=>['@current_company.id']})
-  dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
-  # dyli(:entities, [:code, :full_name], :conditions => {:company_id=>['@current_company.id']})
-  dyli(:incoming_delivery_contacts, ['entities.full_name', :address], :conditions =>["#{Contact.table_name}.company_id = ? AND #{Contact.table_name}.deleted_at IS NULL", ['@current_company.id']], :joins=>"JOIN #{Company.table_name} AS companies ON (companies.entity_id=#{Contact.table_name}.entity_id))", :model=>:contacts)
-  dyli(:operation_products, [:code, :name], :model=>:products, :conditions =>{:company_id=>['@current_company.id'], :active=>true})
-  # dyli(:operation_out_products, [:code, :name], :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true, :to_produce=>true})
-  dyli(:outgoing_deliveries, [:planned_on, "contacts.address"], :conditions=>["deliveries.company_id = ? AND transport_id IS NULL", ['@current_company.id']], :joins=>"INNER JOIN #{Contact.table_name} AS contacts ON contacts.id = deliveries.contact_id ")
-  dyli(:outgoing_delivery_contacts, ['entities.full_name', :address], :conditions=>["#{Contact.table_name}.company_id = ? AND #{Contact.table_name}.deleted_at IS NULL", ['@current_company.id']], :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :model=>:contacts)
-  dyli(:paid_account, ["number:X%", :name], :model=>:account, :conditions => {:company_id=>['@current_company.id']})
-  dyli(:purchase_products, [:code, :name],  :model=>:products, :conditions => {:company_id=>['@current_company.id'], :active=>true}, :order=>"name")
-  # dyli(:subscription_contacts,  [:address] ,:model=>:contact, :conditions=>{:entity_id=>['session[:current_entity_id]'], :active=>true, :company_id=>['@current_company.id']})
-  dyli(:subscription_contacts,  ['entities.code', 'entities.full_name', :address] ,:model=>:contact, :joins=>"JOIN #{Entity.table_name} AS entities ON (entity_id=entities.id)", :conditions=>["entities.company_id=? AND deleted_at IS NULL", ['@current_company.id']])
-  dyli(:suppliers_accounts, [:number, :name], :model=>:accounts, :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_suppliers_accounts.to_s+'%'"]])
-  dyli(:suppliers, [:code, :full_name],  :model=>:entities, :conditions => {:company_id=>['@current_company.id'], :supplier=>true}, :order=>"active DESC, last_name, first_name")
-
-  def auto_complete_for_contact_line_6
-    if params[:contact] and request.xhr?
-      pattern = '%'+params[:contact][:line_6].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @areas = @current_company.areas.find(:all, :conditions => [ 'LOWER(name) LIKE ? ', pattern], :order => "name ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @areas.map { |area| content_tag(:li, h(area.name)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-  
-  def auto_complete_for_entity_origin
-    if params[:entity] and request.xhr?
-      pattern = '%'+params[:entity][:origin].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @entities = @current_company.entities.find(:all, :conditions=> [ 'LOWER(origin) LIKE ?', pattern ], :order=>"origin ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @entities.map { |entity| content_tag(:li, h(entity.origin)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-
-  def auto_complete_for_event_location
-    if params[:event] and request.xhr?
-      pattern = '%'+params[:event][:location].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @events = @current_company.events.find(:all, :conditions=> [ 'LOWER(location) LIKE ?', pattern ], :order=>"location ASC", :limit=>12)
-      render :inline => "<%=content_tag(:ul, @events.map { |event| content_tag(:li, h(event.location)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-
-  def auto_complete_for_mandate
-    if params[:columns] and request.xhr?
-      column = params[:column]||'family'
-      pattern = '%'+params[:columns][column][:search].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @mandates = @current_company.mandates.find(:all, :conditions => [ "LOWER(#{column}) LIKE ? ", pattern], :order=>column, :select => "DISTINCT #{column}")
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.#{column})) }.join.html_safe)-%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-
-  def auto_complete_for_mandate_family
-    if params[:mandate] and request.xhr?
-      pattern = '%'+params[:mandate][:family].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(family) LIKE ? ', pattern], :order => "family ASC", :select => 'DISTINCT family')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.family)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-  
-  def auto_complete_for_mandate_organization
-    if params[:mandate] and request.xhr?
-      pattern = '%'+params[:mandate][:organization].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(organization) LIKE ? ', pattern], :order => "organization ASC", :select => 'DISTINCT organization')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.organization)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-  
-  #
-  def auto_complete_for_mandate_title
-    if params[:mandate] and request.xhr?
-      pattern = '%'+params[:mandate][:title].to_s.lower.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'
-      @mandates = @current_company.mandates.find(:all, :conditions => [ 'LOWER(title) LIKE ? ', pattern], :order => "title ASC", :select => 'DISTINCT title')
-      render :inline => "<%=content_tag(:ul, @mandates.map { |mandate| content_tag(:li, h(mandate.title)) }.join.html_safe)%>"
-    else
-      render :text=>'', :layout=>true
-    end
-  end
-
-
-
-
-  
+  autocomplete_for(:entity, :origin)
+  autocomplete_for(:event, :location)
+  autocomplete_for(:mandate, :family)
+  autocomplete_for(:mandate, :organization)
+  autocomplete_for(:mandate, :title)
+  autocomplete_for(:area, :name)
 end

@@ -1,12 +1,9 @@
 =sales_steps unless request.xhr?
 
 =hidden_field_tag(:sale_id, @sale.id)
--price_id = nil
 =formalize do |f|
   -f.error :sale_line
   -f.error :subscription
   -f.title :infos
-  -price_id = f.field :sale_line, :price_id, :choices=>:available_prices, :new=>{:mode=>:sales}
-#detail=render :partial=>"sale_lines/detail_form"
-
-=observe_field(price_id, :url=>{:controller=>:sale_lines, :action=>:detail, :sale_id=>@sale.id}, :frequency=>0.25, :with=>"price_id", :update=>:detail, :method=>:get, :loading=>"onLoading()", :loaded=>"onLoaded()")
+  -f.field :sale_line, :price_id, :choices=>:available_prices, :new=>{:mode=>:sales}, :controller=>:interfacers, "data-dependents"=>"#detail", "data-parameter-name"=>"price_id"
+#detail{"data-refresh"=>url_for(:controller=>:sale_lines, :action=>:detail, :sale_id=>@sale.id), "data-refresh-mode"=>"update"}=render :partial=>"sale_lines/detail_form"

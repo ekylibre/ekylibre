@@ -16,7 +16,7 @@
         }
     }
     // Rebinds unbound elements on each ajax request.
-    $(document).ajaxStop(function () {
+    $(document).ajaxComplete(function () {
         for (var behaviour in $.behaviours) {
             behaviour = $.behaviours[behaviour];
             $(behaviour.selector).each(function(index, element){
@@ -51,7 +51,8 @@
                     show: 'fade',
                     modal: true,
                     width: 'auto',
-                    height: 'auto'
+                    // height: 'auto',
+		    height: $(window).height()*0.8
                 });
                 $.ajaxDialogInitialize(frame);
                 frame.dialog("open");
@@ -81,6 +82,7 @@
         $("#" + frame_id + " form").each(function (index, form) {
             $(form).attr('data-dialog', frame_id);
         });
+	
     };
 
     $.submitAjaxForm = function () {
@@ -129,24 +131,31 @@
     // Submits dialog forms
     $.behave(".ajax-dialog form[data-dialog]", "submit", $.submitAjaxForm);
 
+
 })(jQuery);
 
 var Formize = {};
 
 Formize.refreshDependents = function (event) {
     var element = $(this);
-    var dependents = element.attr('data-dependents');
     var params = {};
     if (element.val() !== null && element.val() !== undefined) {
-        params[element.attr('id')] = element.val();
+	var dependents = element.attr('data-dependents');
+	var paramName = element.attr('data-parameter-name') || element.attr('id') || 'value';
+        params[paramName] = element.val();
         $(dependents).each(function(index, item) {
             // Replaces element
             var url = $(item).attr('data-refresh');
+	    var mode = $(item).attr('data-refresh-mode') || 'replace';
             if (url !== null) {
                 $.ajax(url, {
                     data: params,
                     success: function(data, textStatus, response) {
-                        $(item).replaceWith(response.responseText);
+			if (mode == 'update') {
+			    $(item).html(response.responseText);
+			} else {
+                            $(item).replaceWith(response.responseText);
+			}
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         alert("FAILURE (Error "+textStatus+"): "+errorThrown);
@@ -162,12 +171,13 @@ Formize.refreshDependents = function (event) {
 Formize.Toggles = {
 
     ifChecked: function () {
-        if (this.checked) {
-            $($(this).attr('data-show')).slideDown();
-            $($(this).attr('data-hide')).slideUp();
+        var check_box = $(this);
+        if (check_box.prop("checked")) {
+            $(check_box.attr('data-show')).slideDown();
+            $(check_box.attr('data-hide')).slideUp();
         } else {
-            $($(this).attr('data-show')).slideUp();
-            $($(this).attr('data-hide')).slideDown();
+            $(check_box.attr('data-show')).slideUp();
+            $(check_box.attr('data-hide')).slideDown();
         }
     }
 
@@ -242,6 +252,7 @@ $.behave('input[data-datepicker]', "load", function() {
 
 // Initializes resizable text areas
 // Minimal size is defined on default size of the area
+/*
 $.behave('textarea[data-resizable]', "load", function() {
     var element = $(this);
     element.resizable({ 
@@ -252,7 +263,7 @@ $.behave('textarea[data-resizable]', "load", function() {
         stop: function (event, ui) { $(this).css("padding-bottom", "0px"); }
     });
 });
-
+*/
 // Opens a dialog for a resource creation
 $.behave("a[data-add-item]", "click", function() {
     var element = $(this);
@@ -279,6 +290,14 @@ $.behave("a[data-add-item]", "click", function() {
         },
     });
     return false;
+});
+
+$.behave("input[data-autocomplete]", "load", function () {
+    var element = $(this);
+    element.autocomplete({
+	source: element.attr("data-autocomplete"),
+	minLength: parseInt(element.attr("data-min-length") || 1)
+    });
 });
 
 // Refresh dependents on changes

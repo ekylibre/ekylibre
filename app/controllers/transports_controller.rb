@@ -96,6 +96,16 @@ class TransportsController < ApplicationController
     t.column :weight, :children=>false
   end
 
+  formize do |f|
+    f.field_set :general do |fs|
+      fs.field :transporter, :choices=>:waiting_transporters, :new=>{:transporter=>1}
+      fs.field :responsible, :choices=>:employees, :new=>{:employed=>1}, :include_blank=>true
+      fs.field :reference_number
+      fs.field :transport_on
+      fs.field :comment
+    end
+  end
+
   def new
     @transport = Transport.new(:transport_on=>Date.today, :responsible_id=>@current_user.id, :transporter_id=>params[:transporter_id], :responsible_id=>@current_user.id)
     session[:current_transport_id] = @transport.id

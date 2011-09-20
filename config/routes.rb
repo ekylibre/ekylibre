@@ -506,6 +506,7 @@ Ekylibre::Application.routes.draw do
     # resources :tracking_states
     resources :transports do
       collection do
+        get :formize
         get :list
         get :list_deliveries
         get :list_transportable_deliveries

@@ -798,13 +798,14 @@ module ApplicationHelper
   def tabbox(id, options={})
     tb = Tabbox.new(id)
     yield tb
-    tabs = taps = ''
+    tabs = ''
+    taps = ''
     session[:tabbox] ||= {}
     for tab in tb.tabs
       session[:tabbox][tb.id] ||= tab[:index]
-      class_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
-      tabs << content_tag(:span, tab[:name], :class=>class_name << "tab", "data-tabbox-index"=>tab[:index])
-      taps << content_tag(:div, capture(&tab[:block]).html_safe, :class=>class_name << "tabpanel", "data-tabbox-index"=>tab[:index])
+      style_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
+      tabs << content_tag(:span, tab[:name], :class=>style_name + "tab", "data-tabbox-index"=>tab[:index])
+      taps << content_tag(:div, capture(&tab[:block]).html_safe, :class=>style_name + "tabpanel", "data-tabbox-index"=>tab[:index])
     end
     return content_tag(:div, :class=>options[:class]||"tabbox", :id=>tb.id, "data-tabbox"=>url_for(:controller=>:interfacers, :action=>:toggle_tab, :id=>tb.id)) do
       code  = content_tag(:div, tabs.html_safe, :class=>:tabs)
@@ -1172,8 +1173,9 @@ module ApplicationHelper
           options[:field] = :dyselect
           html_options[:id] = rlid
         elsif options[:choices].is_a? Symbol
-          options[:field] = :dyli
-          options[:options][:field_id] = rlid
+          options[:field] = :combo_box
+          html_options[:id] = rlid
+          # options[:options][:field_id] = rlid
         else
           raise ArgumentError.new("Option :choices must be Array, Symbol or Hash (got #{options[:choices].class.name})")
         end
@@ -1191,8 +1193,8 @@ module ApplicationHelper
                 select(record, method, options[:choices], options[:options], html_options)
               when :dyselect
                 select(record, method, @current_company.reflection_options(options[:choices]), options[:options], html_options.merge("data-refresh"=>url_for(options[:choices].merge(:controller=>:interfacers, :action=>:unroll_options)), "data-id-parameter-name"=>"selected") )
-              when :dyli
-                dyli(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
+              when :combo_box
+                combo_box(record, method, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
               when :radio
                 options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1]) << " " << content_tag(:label, x[0], :for=>input_id << '_' << x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
@@ -1210,7 +1212,7 @@ module ApplicationHelper
       elsif options[:new].is_a? TrueClass
         options[:new] = {}
       end
-      if options[:new].is_a?(Hash) and [:select, :dyselect, :dyli].include?(options[:field])
+      if options[:new].is_a?(Hash) and [:select, :dyselect, :combo_box].include?(options[:field])
         options[:edit] = {} unless options[:edit].is_a? Hash
         if method.to_s.match(/_id$/) and refl = model.reflections[method.to_s[0..-4].to_sym]
           options[:new][:controller] ||= refl.class_name.underscore.pluralize
@@ -1222,7 +1224,7 @@ module ApplicationHelper
           input << link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
           data = (options[:update] ? options[:update] : rlid)
-          input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-add-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+          input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
 
         end
       end
@@ -1483,8 +1485,8 @@ module ApplicationHelper
 
   def product_stocks_options(product)
     options = []
-    options << product.stocks.collect{|x| [x.label, x.id]}
-    options << @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
+    options += product.stocks.collect{|x| [x.label, x.id]}
+    options += @current_company.warehouses.find(:all, :conditions=>["(product_id=? AND reservoir=?) OR reservoir=?", product.id, true, false]).collect{|x| [x.name, -x.id]}
     return options
   end
 

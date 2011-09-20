@@ -1,7 +1,36 @@
 /* -*- Mode: Javascript; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
 /*jslint browser: true */
 
+function toggleElement(element, show, reverseElement) {
+    element = $(element);
+    if (show === null || show === undefined) { 
+        show = (element.css("display") === "none"); 
+    }
+    if (show) {
+        element.show();
+        if (reverseElement !== undefined) {
+            $(reverseElement).hide();
+        }
+    } else {
+        element.hide();
+        if (reverseElement !== undefined) {
+            $(reverseElement).show();
+        }
+    }
+    return show;
+}
 
+function toggleCheckBox(element, checked) {
+    element = $(element);
+    if (element !== null) {
+        if (checked === null || checked === undefined) {
+            checked = !element.checked;
+        }
+        element.checked = !element.checked;
+        element.onclick();
+    }
+    return element.checked;
+}
 
 function insertInto(input, repdeb, repfin, middle) {
     if(repfin == 'undefined') {repfin=' ';}
@@ -100,12 +129,11 @@ function toCurrency(value) {
 
         getNumericalStyle: function(element, style) {
             element = $(element);
-            var reg = new RegExp("[^\\.0-9]", "ig");
             var value = element.css(style);
             if (value === null) {
                 value = "0";
             }
-            return Math.floor(parseFloat(value.replace(reg, "")));
+            return Math.floor(parseFloat(value.replace(new RegExp("[^\\.0-9]", "ig"), "")));
         },
 
         getBorderDimensions: function(element) {
@@ -226,7 +254,92 @@ function toCurrency(value) {
             element.addClass("resized");
             return element;
         }
-    };
+    };*/
     
+
+    $.fn.ellipsis = function(ellipsisText){
+        ellipsisText = ellipsisText || "&#8230;";
+        return this.each(function(){
+            var element = $(this);
+            if (element.css("overflow") == "hidden") {
+                element.prop("originalText", element.html());
+                element.resize(function () {
+                    var originalText = element.prop("originalText");
+                    var width = element.width();
+                
+                    var testElement = $(this.cloneNode(true)).hide().css({
+                        'position': 'absolute',
+                        'width': 'auto',
+                        'overflow': 'visible',
+                        'max-width': 'inherit'
+                    });
+                    element.after(testElement);
+                
+                    var text = originalText;
+                    while(text.length > 0 && testElement.width() > width){
+                        text = text.substr(0, text.length - 1);
+                        testElement.html(text + ellipsisText);
+                    }
+                    element.html(testElement.html());
+                
+                    testElement.remove();
+                
+                    if(enableUpdating == true){
+                        var oldWidth = element.width();
+                        setInterval(function(){
+                            if(element.width() != oldWidth){
+                                oldWidth = element.width();
+                                element.html(originalText);
+                                element.ellipsis();
+                            }
+                        }, 200);
+                    }
+
+                });
+            }
+        });
+    };
+
+    // Adds method to make truc ellipsisable !
+    /*$.fn.ellipsis = function(enableUpdating){
+        var s = document.documentElement.style;
+        if (!('textOverflow' in s || 'OTextOverflow' in s)) {
+            return this.each(function(){
+                var element = $(this);
+                if (element.css("overflow") == "hidden") {
+                    var originalText = element.html();
+                    var width = element.width();
+                    
+                    var testElement = $(this.cloneNode(true)).hide().css({
+                        'position': 'absolute',
+                        'width': 'auto',
+                        'overflow': 'visible',
+                        'max-width': 'inherit'
+                    });
+                    element.after(testElement);
+                    
+                    var text = originalText;
+                    while(text.length > 0 && testElement.width() > width){
+                        text = text.substr(0, text.length - 1);
+                        testElement.html(text + "&#8230;");
+                    }
+                    element.html(testElement.html());
+                    
+                    testElement.remove();
+                    
+                    if(enableUpdating == true){
+                        var oldWidth = element.width();
+                        setInterval(function(){
+                            if(element.width() != oldWidth){
+                                oldWidth = element.width();
+                                element.html(originalText);
+                                element.ellipsis();
+                            }
+                        }, 200);
+                    }
+                }
+            });
+        } else return this;
+    };*/
 
 })(jQuery);

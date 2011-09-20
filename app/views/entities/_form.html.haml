@@ -6,12 +6,12 @@
   -f.field :entity, :language, :choices=>languages
   -f.field :entity, :last_name
   -f.field :entity, :first_name
-  -f.field :entity, :active, :onchange=>"displayFields()"
+  -f.field :entity, :active, :zonchange=>"displayFields()", "data-hide"=>"#dead_on_form"
   -f.field :entity, :code
   -f.field :entity, :prospect
-  -f.field :entity, :client, :onchange=>"displayFields()"
-  -f.field :entity, :supplier, :onchange=>"displayFields()"
-  -f.field :entity, :attorney, :onchange=>"displayFields()"
+  -f.field :entity, :client, :zonchange=>"displayFields()", "data-show"=>"#client_form"
+  -f.field :entity, :supplier, :zonchange=>"displayFields()", "data-show"=>"#supplier_form"
+  -f.field :entity, :attorney, :zonchange=>"displayFields()", "data-show"=>"#attorney_form"
   -f.field :entity, :transporter
   -f.title :details
   -f.field :entity, :country,:choices=>countries
@@ -31,7 +31,7 @@
 =formalize(:id=>:client_form) do |f|
   -f.title :client_informations
   -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
-  -f.field Entity.human_attribute_name("origin"), text_field_with_auto_complete(:entity, :origin, {}, :controller=>:interfacers)
+  -f.field :entity, :origin, "data-autocomplete"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_entity_origin)
   -f.field :entity, :first_met_on
   -f.field :entity, :proposer_id, :choices=>:entities
   -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>true
@@ -52,13 +52,4 @@
   -f.field :entity, :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:number=>@current_company.preferred_third_attorneys_accounts}
 
 =render :partial=>"contacts/coordinates_form", :locals => {:company => @current_company}
-
-:javascript
-  window.displayFields = function(){
-    toggleElement('client_form', $('entity_client').checked);
-    toggleElement('supplier_form', $('entity_supplier').checked);
-    toggleElement('attorney_form', $('entity_attorney').checked);
-    toggleElement('dead_on_form', !$('entity_active').checked);
-  }
-  displayFields();
   

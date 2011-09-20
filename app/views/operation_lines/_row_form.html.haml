@@ -19,7 +19,6 @@
     %strong{:title=>h(line.inspect)}=::I18n.t("models.operation_line.direction_label."+direction.to_s)
     =hidden_field_tag("lines[#{id}][direction]", direction)
   %td=dyli_tag("lines[#{id}][product_id]", "operation_products", :value=>product, :controller=>:interfacers, :after_update_element=>after_update, :no_resize=>true)
-  -#%td=html_escape(dyli_tag("lines[#{id}][product_id]", "operation_products", :value=>product, :controller=>:interfacers, :after_update_element=>after_update, :no_resize=>true).inspect)
   %td
     %nobr
       =text_field_tag("lines[#{id}][quantity]", line[:quantity], :size=>8)

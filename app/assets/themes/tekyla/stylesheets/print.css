@@ -6,13 +6,13 @@ h1 { font-size: 16pt; font-weight: normal; border-bottom: 0.1mm solid black; mar
 
 #main { width: 100%; }
 
-.kame { border-collapse: collapse; width: 100%; }
-.kame th, .kame td { border: 0.1mm solid black; padding: 0.5mm; text-decoration:none;}
-.kame th, .kame th a { font-weight: bold; background: #DDD; color: black; text-decoration: none; }
-.kame td, .kame td a { color: black; text-decoration: none; }
+.list { border-collapse: collapse; width: 100%; }
+.list th, .list td { border: 0.1mm solid black; padding: 0.5mm; text-decoration:none;}
+.list th, .list th a { font-weight: bold; background: #DDD; color: black; text-decoration: none; }
+.list td, .list td a { color: black; text-decoration: none; }
 
-.kame tr.empty td { padding: 5mm; text-align:center; }
-.kame tfoot { display: none; }
+.list tr.empty td { padding: 5mm; text-align:center; }
+.list tfoot, .list .list-menu { display: none; }
 
 .checkbox-true:before { content: '☑'; font-size: 12pt; }
 .checkbox-false:before { content: '☐'; font-size: 12pt;}

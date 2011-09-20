@@ -18,8 +18,8 @@ gem 'will_paginate', '3.0.0'
 gem "exception_notification"
 gem 'state_machine', '0.9.4'
 gem 'jquery-rails' # Necessary to call the Rails's generator
-gem 'combo_box'
-gem 'formize'
+gem 'combo_box' #, :path=>'../combo_box'
+gem 'formize' #, :path=>'../formize'
 
 group :development do
   gem 'ruby-prof'
