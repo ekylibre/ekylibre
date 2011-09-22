@@ -62,7 +62,7 @@ class Company < Ekylibre::Record::Base
   has_many :entity_links
   has_many :entity_natures  
   has_many :establishments
-  has_many :event_natures
+  has_many :event_natures, :order=>"name"
   has_many :events
   has_many :financial_years, :order=>"started_on DESC"
   has_many :incoming_deliveries

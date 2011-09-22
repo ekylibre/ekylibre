@@ -257,46 +257,144 @@ function toCurrency(value) {
     };
     
 
+
+    // Adds a plugin to jQuery to work with numerical values.
+    $.fn.numericalValue = function (newValue) {
+        var element = $(this.get(0));
+        if (isNaN(newValue)) {
+            // Get
+            value = 0;
+            if (element.is("input") && !isNaN(element.val())) { 
+                value = parseFloat(element.val()); 
+            } else if (!isNaN(element.html())) {
+                value = parseFloat(element.html());
+            }
+            if (isNaN(value)) {
+                return 0;
+            } else {
+                return value;
+            }
+        } else {
+            // Set
+            if (element.is("input")) { 
+                element.val(toCurrency(newValue));
+            } else { 
+                element.html(toCurrency(newValue)); 
+            }
+            return element;
+        }
+    };
+
+    /*$.fn.isCalculationResult = function () {
+	      var elThis = $(this), result = true, calculations = ["sum", "mul"];
+        for (var i; i < calculations.length ; i += 1) {
+            cal = calculations[i];
+            $("*[data-" + cal + "-of]").each(function () {
+	              $($(this).data(cal + "-of")).each(function () {
+		                if (this === elThis) { result = false; }
+	              });
+	          });
+            if (result === false) { return result; }
+        }
+        return result;
+    };*/
+
+    $.fn.isCalculationResult = function () {
+	      var elThis = $(this), result = true;
+        $("*[data-calculate][data-use]").each(function () {
+	          $($(this).data("use")).each(function () {
+		            if (this === elThis) { result = false; }
+	          });
+	      });
+        return result;
+    };
+
+
+    // Calculate result base on markup
+    $.calculate = function () {
+        var element = $(this), calculation = element.data("calculate"), use = element.data("use");
+        var result = null;
+        if (use === null || use === undefined) {
+            return element.numericalValue();
+        }
+        if (calculation === "multiplication" || calculation === "mul") {
+            result = 1;
+            $(use).each(function () {
+                result = result * $.calculate.call(this);
+            });
+        } else { // Sum by default
+            result = 0;
+            $(use).each(function () {
+                result = result + $.calculate.call(this);
+            });                
+        }
+        if (element.numericalValue() !== result) {
+            element.numericalValue(result);
+            element.trigger("emulated:change");
+        }
+        return result;
+    };
+
+
+
+
+    // Removes all nodes triggering event on them
+    $.fn.deepRemove = function (event) {
+        if (event === null || event === undefined) {
+            event = "remove";
+        }
+        this.each(function() {     
+            var element = $(this), allChildren = element.find("*");
+	          allChildren.detach();
+	          allChildren.trigger(event);
+	          allChildren.remove();
+	          element.detach();
+	          element.trigger(event);
+	          element.remove();
+        });
+        return $;
+    };
+
     // Adds method to make truc ellipsisable !
     /*$.fn.ellipsis = function(enableUpdating){
-        var s = document.documentElement.style;
-        if (!('textOverflow' in s || 'OTextOverflow' in s)) {
-            return this.each(function(){
-                var element = $(this);
-                if (element.css("overflow") == "hidden") {
-                    var originalText = element.html();
-                    var width = element.width();
-                    
-                    var testElement = $(this.cloneNode(true)).hide().css({
-                        'position': 'absolute',
-                        'width': 'auto',
-                        'overflow': 'visible',
-                        'max-width': 'inherit'
-                    });
-                    element.after(testElement);
-                    
-                    var text = originalText;
-                    while(text.length > 0 && testElement.width() > width){
-                        text = text.substr(0, text.length - 1);
-                        testElement.html(text + "&#8230;");
-                    }
-                    element.html(testElement.html());
-                    
-                    testElement.remove();
-                    
-                    if(enableUpdating == true){
-                        var oldWidth = element.width();
-                        setInterval(function(){
-                            if(element.width() != oldWidth){
-                                oldWidth = element.width();
-                                element.html(originalText);
-                                element.ellipsis();
-                            }
-                        }, 200);
-                    }
-                }
-            });
-        } else return this;
-    };*/
+      var s = document.documentElement.style;
+      if (!('textOverflow' in s || 'OTextOverflow' in s)) {
+      return this.each(function(){
+      var element = $(this);
+      if (element.css("overflow") == "hidden") {
+      var originalText = element.html();
+      var width = element.width();
+      
+      var testElement = $(this.cloneNode(true)).hide().css({
+      'position': 'absolute',
+      'width': 'auto',
+      'overflow': 'visible',
+      'max-width': 'inherit'
+      });
+      element.after(testElement);
+      
+      var text = originalText;
+      while(text.length > 0 && testElement.width() > width){
+      text = text.substr(0, text.length - 1);
+      testElement.html(text + "&#8230;");
+      }
+      element.html(testElement.html());
+      
+      testElement.remove();
+      
+      if(enableUpdating == true){
+      var oldWidth = element.width();
+      setInterval(function(){
+      if(element.width() != oldWidth){
+      oldWidth = element.width();
+      element.html(originalText);
+      element.ellipsis();
+      }
+      }, 200);
+      }
+      }
+      });
+      } else return this;
+      };*/
 
 })(jQuery);

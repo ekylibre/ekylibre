@@ -259,6 +259,7 @@ table.invex, table.invisible { border-collapse: collapse; }
 table.invex { width: 100% }
 table.invex > tbody > tr > td { vertical-align: top;  }
 table.invex tr td.space{ width: 8px }
+table.center { margin-left: auto; margin-right: auto; }
 
 table.quick { margin: 0 8px 8px 8px; border-collapse: collapse; }
 table.quick td { padding: 0px 4px; }
@@ -554,6 +555,7 @@ table.list tr.total.invalid td { color: #D20; }
 table.list tr.total.valid   td { color: #090; }  
 table.list tr.first-line    td { border-top: 2px solid #F77; }  
 table.list tr.last-line     td { border-bottom: 2px solid #F77; }  
+table.list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
 
 div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
 

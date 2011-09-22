@@ -868,39 +868,20 @@ module ApplicationHelper
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          args[2][:class] ||= "icon im-" << name.to_s.split('_')[-1]
-          if args[1].is_a? Hash and args[1][:remote]
-            args[1].delete(:remote)
-            args[1][:url] ||= {}
-            if name.is_a? Symbol
-              args[1][:url][:action] ||= name
-              args[0] = ::I18n.t("actions.#{args[1][:url][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) 
-            end
-            if authorized?({:controller=>controller_name, :action=>action_name}.merge(args[1][:url]))
-              code << content_tag(:div, link_to_remote(*args).html_safe, :class=>:tool) if authorized?(args[1][:url])
-            end
+          args[2][:class] ||= "icon im-" + name.to_s.split('_')[-1]
+          args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) if name.is_a? Symbol
+          if name.is_a? Symbol and name!=:back
+            args[1][:action] ||= name
           else
-            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) if name.is_a? Symbol
-            if name.is_a? Symbol and name!=:back
-              args[1][:action] ||= name
-            else
-              args[2][:class] = "icon im-" << args[1][:action].to_s.split('_')[-1] if args[1][:action]
-            end
-            code << content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
+            args[2][:class] = "icon im-" + args[1][:action].to_s.split('_')[-1] if args[1][:action]
           end
+          code << content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
         elsif nature == :print
           dn, args, url = tool[1], tool[2], tool[3]
           url[:controller] ||= controller_name
           for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
             code << content_tag(:div, link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print"), :class=>:tool) if authorized?(url)
           end
-        elsif nature == :javascript
-          name = args[0]
-          # args[0] = ::I18n.t("#{call}#{name}".to_sym) if name.is_a? Symbol
-          args[0] = tl(name) if name.is_a? Symbol
-          args[2] ||= {}
-          args[2][:class] ||= "icon im-" << name.to_s.split('_')[-1]
-          code << content_tag(:div, link_to_function(*args), :class=>:tool)
         elsif nature == :mail
           args[2] ||= {}
           args[2][:class] = "icon im-mail"
@@ -927,7 +908,7 @@ module ApplicationHelper
       if code.strip.length>0
         # code = content_tag(:ul, code.html_safe) << content_tag(:div)
         # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
-        code = content_tag(:div, code.html_safe, :class=>'toolbar' << (options[:class].nil? ? '' : ' ' << options[:class].to_s)) << content_tag(:div, nil, :class=>:clearfix)
+        code = content_tag(:div, code.html_safe, :class=>'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class=>:clearfix)
       end
     else
       raise Exception.new('No block given for toolbar')
@@ -944,10 +925,6 @@ module ApplicationHelper
 
     def link(*args)
       @tools << [:link, args]
-    end
-
-    def javascript(*args)
-      @tools << [:javascript, args]
     end
 
     def mail(*args)

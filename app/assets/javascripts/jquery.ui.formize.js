@@ -4,16 +4,20 @@
     // Replaces `$(selector).live("ready", handler)` which don't work
     // It rebinds automatically after each ajax request all not-binded.
     $.behaviours = [];
-    $.behave = function (selector, eventType, handler) {
-        if (eventType == "load") {
-            $(document).ready(function(event) {
-                $(selector).each(handler);
-                $(selector).prop('alreadyBound', true);
-            });
-            $.behaviours.push({selector: selector, handler: handler});
-        } else {
-            $(selector).live(eventType, handler);
-        }
+    $.behave = function (selector, events, handler) {
+	events = events.split(/\s+/ig);
+	for (var i = 0; i < events.length; i += 1) {
+	    event = events[i];
+            if (event === "load") {
+		$(document).ready(function(event) {
+                    $(selector).each(handler);
+                    $(selector).prop('alreadyBound', true);
+		});
+		$.behaviours.push({selector: selector, handler: handler});
+            } else {
+		$(selector).live(event, handler);
+            }
+	}
     }
     // Rebinds unbound elements on each ajax request.
     $(document).ajaxComplete(function () {
@@ -153,6 +157,8 @@ Formize.refreshDependents = function (event) {
                     success: function(data, textStatus, response) {
 			if (mode == 'update') {
 			    $(item).html(response.responseText);
+			} else if (mode == 'update-value') {
+                            $(item).val(response.responseText);
 			} else {
                             $(item).replaceWith(response.responseText);
 			}
@@ -215,12 +221,12 @@ $.behave('input[data-unroll]', 'load', function() {
 // Initializes date fields
 $.behave('input[data-datepicker]', "load", function() {
     var element = $(this);
-    var locale = element.attr("data-locale");
+    var locale = element.data("locale");
     var options = $.datepicker.regional[locale];
-    if (element.attr("data-date-format") !== null) {
-        options['dateFormat'] = element.attr("data-date-format");
+    if (element.data("date-format") !== null) {
+        options['dateFormat'] = element.data("date-format");
     }
-    options['altField'] = '#'+element.attr("data-datepicker");
+    options['altField'] = '#'+element.data("datepicker");
     options['altFormat'] = 'yy-mm-dd';
     options['defaultDate'] = element.val();
     element.datepicker(options);
@@ -231,15 +237,15 @@ $.behave('input[data-datepicker]', "load", function() {
 // Can't work properly with actual datetimepicker
 // $.behave('input[data-datetimepicker]', "load", function() {
 //     var element = $(this);
-//     var locale = element.attr("data-locale");
+//     var locale = element.data("locale");
 //     var options = $.datepicker.regional[locale];
-//     if (element.attr("data-date-format") !== null) {
-//         options['dateFormat'] = element.attr("data-date-format");
+//     if (element.data("date-format") !== null) {
+//         options['dateFormat'] = element.data("date-format");
 //     }
-//     if (element.attr("data-time-format") !== null) {
-//         options['timeFormat'] = element.attr("data-time-format");
+//     if (element.data("time-format") !== null) {
+//         options['timeFormat'] = element.data("time-format");
 //     }
-//     options['altField'] = '#'+element.attr("data-datetimepicker");
+//     options['altField'] = '#'+element.data("datetimepicker");
 //     options['altFormat'] = 'yy-mm-dd';
 //     options['altFieldTimeOnly'] = false;
 //     options['showSecond'] = true;
@@ -293,8 +299,8 @@ $.behave("a[data-add-item]", "click", function() {
 $.behave("input[data-autocomplete]", "load", function () {
     var element = $(this);
     element.autocomplete({
-	source: element.attr("data-autocomplete"),
-	minLength: parseInt(element.attr("data-min-length") || 1)
+	source: element.data("autocomplete"),
+	minLength: parseInt(element.data("min-length") || 1)
     });
 });
 

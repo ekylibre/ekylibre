@@ -35,7 +35,7 @@
             %td.chk
               -if line.letter.blank? and not line.closed?
                 =check_box_tag("journal_entry_line[#{line.id}][to_mark]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t2();", :id=>"journal_entry_line_#{line.id}_to_mark" )
-                -conf = {:class=>"clickable", :onclick=>"toggleCheckBox('journal_entry_line_#{line.id}_to_mark')"}
+                -conf = {:class=>"clickable", :onclick=>"toggleCheckBox('journal_entry_line_#{line.id}_to_mark')", "data-check"=>"journal_entry_line_#{line.id}_to_mark"}
               -else
                 =line.letter
             %td.act=link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:unmark, :id=>@account.id, :letter=>line.letter}, :method=>:post, :confirm=>tg(:are_you_sure)) unless line.letter.blank? or line.closed?

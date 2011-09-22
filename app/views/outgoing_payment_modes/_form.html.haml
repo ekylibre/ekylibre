@@ -2,13 +2,9 @@
   -f.error :outgoing_payment_mode
   -f.title :general
   -f.field :outgoing_payment_mode, :name
-  -f.field :outgoing_payment_mode, :with_accounting, :onchange=>"toggleAccountancy();"
+  -f.field :outgoing_payment_mode, :with_accounting, "data-show"=>"#accountancy"
 
 #accountancy
   =formalize do |f|
     -f.title :accountancy
     -f.field :outgoing_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>true
-
-:javascript
-  window.toggleAccountancy = function() { toggleElement('accountancy', $('outgoing_payment_mode_with_accounting').checked); }
-  toggleAccountancy();

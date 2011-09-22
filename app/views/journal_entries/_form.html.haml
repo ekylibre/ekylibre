@@ -1,5 +1,5 @@
 =toolbar do |t|
-  -t.link :new, :remote=>true, :url=>{:controller=>:journal_entry_lines}, :update=>:lines, :position=>:bottom, :method=>:get
+  -t.link :new, {:controller=>:journal_entry_lines}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
 =formalize do |f|
   -f.error :journal_entry
   -f.field JournalEntry.human_attribute_name("journal"), link_to(@journal_entry.journal.name, :action=>:show, :controller=>:journals, :id=>@journal.id)
@@ -17,22 +17,11 @@
       %th=JournalEntryLine.human_attribute_name("credit")
       %th.act
   %tfoot
-    %tr#total.total
+    %tr#total.total{"data-valid-if-equality-between"=>"#entry-debit, #entry-credit"}
       %th{:colspan=>2}=tg(:total)
-      %td#total-debit.decimal=@journal_entry.debit
-      %td#total-credit.decimal=@journal_entry.credit
+      %td#entry-debit.decimal{"data-use"=>"input.debit"}=@journal_entry.debit
+      %td#entry-credit.decimal{"data-use"=>"input.credit"}=@journal_entry.credit
   %tbody#lines.lines
     -lines = @journal_entry_lines || @journal_entry.lines
     =render :partial=>"journal_entry_lines/row_form", :collection=>lines
     =render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry.lines.new if lines.empty?
-:javascript
-  var balanced = false;
-  window.t0 = function() {
-    var sd = sum_all('input.debit',  'total-debit');
-    var sc = sum_all('input.credit', 'total-credit');
-    balanced = (sd.innerHTML*1 === sc.innerHTML*1);
-    var total = set_state('total', balanced);
-    return total;
-  }
-  t0();
-  $('journal_entry_number').focus();

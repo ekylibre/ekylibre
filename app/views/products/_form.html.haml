@@ -1,4 +1,3 @@
--warehouse_id = nil
 =formalize do |f|
   -f.error :product
   -f.error :stock
@@ -27,16 +26,20 @@
   -f.field :product, :for_sales, "data-show"=>"#sales_account"
   -f.field :product, :for_purchases, "data-show"=>"#purchases_account"
   -f.field :product, :for_productions
-  -f.field :product, :deliverable
-  -f.field :product, :stockable, "data-show"=>"#product_form_stocks"
-  -# f.field :product, :trackable
-=formalize(:id=>:product_form_stocks) do |f|
-  -f.title :stocks_preferences
-  -f.field :stock, :quantity_min
-  -f.field :stock, :critic_quantity_min
-  -f.field :stock, :quantity_max
-  -if @warehouses.size > 1
-    -warehouse_id = f.field :stock, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
+  -f.field :product, :deliverable, "data-show"=>"#deliverable"
+#deliverable
+  =formalize do |f|
+    -f.field :product, :stockable, "data-show"=>"#stockable"
+    -# f.field :product, :trackable
+  #stockable
+    =formalize do |f|
+      -f.title :stocks_preferences
+      -f.field :stock, :quantity_min
+      -f.field :stock, :critic_quantity_min
+      -f.field :stock, :quantity_max
+      -if @warehouses.size > 1
+        -f.field :stock, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
+
 -#price=render :partial=>'price_amount_form'
 
 =formalize do |f|

@@ -1,6 +1,6 @@
 =formalize do |f|
   - f.title :general
-  - f.field :product_category, :name
+  - f.field :product_category, :name, (@product_category.new_record? ? {"data-live-copy-to"=>"#product_category_catalog_name"} : {})
   - f.field :product_category, :comment, :field=>:textarea
   - product_categories = @current_company.product_categories.find(:all, :conditions=>["id!=COALESCE(?,0)", @product_category.id], :order=>:parent_id)
   - if product_categories.size>0
@@ -8,5 +8,4 @@
   - f.title :catalog
   - f.field :product_category, :catalog_name
   - f.field :product_category, :catalog_description, :field=>:textarea
-=observe_field("product_category_name", :frequency =>0.25, :function => "$('product_category_catalog_name').value = value;") if @product_category.new_record?
 

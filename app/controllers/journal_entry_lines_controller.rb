@@ -21,7 +21,17 @@ class JournalEntryLinesController < ApplicationController
 
   def new
     @journal_entry_line = JournalEntryLine.new
+    @journal_entry_line.name = params[:name] if params[:name]
+    if params["entry-debit"] && params["entry-credit"]
+      debit, credit = params["entry-debit"].to_f, params["entry-credit"].to_f
+      if debit > credit
+        @journal_entry_line.credit = debit - credit
+      else
+        @journal_entry_line.debit  = credit - debit
+      end
+    end
     if request.xhr?
+      
       render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line
     else
       redirect_to_back

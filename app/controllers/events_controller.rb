@@ -18,7 +18,7 @@
 #
 
 class EventsController < ApplicationController
-  manage_restfully :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
+  manage_restfully :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.event_natures.first.id rescue nil", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
 
   list(:conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :order=>"started_at DESC") do |t| # , :joins=>{:responsible=>{}, :entity=>[:nature]}
     t.column :full_name, :through=>:entity, :url=>true
@@ -38,6 +38,8 @@ class EventsController < ApplicationController
 
   def change_minutes
     return unless @event_nature = find_and_check(:event_nature, params[:nature_id])
+    value = @event_nature.send(params[:field] || :name)
+    render :text=>value.to_s, :layout=>false
   end
 
 end

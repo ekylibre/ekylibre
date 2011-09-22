@@ -11,9 +11,13 @@
         element.comboBoxCache = selected.label;
 	element.val(element.comboBoxCache);
         element.attr("size", (element.comboBoxCache.length < 32 ? 32 : element.comboBoxCache.length > element.maxSize ? element.maxSize : element.comboBoxCache.length));
-        $(element.prop("valueField")).trigger("emulated:change");
+        element.prop("valueField").trigger("emulated:change");
 	return true;
-    }
+    };
+
+    $.getComboBox = function (element) {
+	return {id: element.prop("valueField").val(), label: element.val()};
+    };
 
     // Initializes combo-box controls
     $.initializeComboBox = function () {
@@ -46,4 +50,22 @@
     // $('input[data-combo-box]').ready($.initializeComboBoxes);
     $(document).ready($.initializeComboBoxes);
     $(document).ajaxComplete($.initializeComboBoxes);
+
+    $("a[data-permute-combo-box]").live("click", function () {
+	var elements = $($(this).attr("data-permute-combo-box"));
+	for (var i = 0; i < elements.length; i += 1) {
+	    if ($(elements[i]).attr("data-combo-box") === undefined || $(elements[i]).attr("data-combo-box") === null) {
+		elements[i] = $("input[data-value-container='" + $(elements[i]).attr("id") + "']");
+	    }
+	}
+	if (elements.length > 1) {	    
+	    var vt = $.getComboBox($(elements[0]));
+	    for (var i = 1; i < elements.length; i += 1) {
+		$.setComboBox($(elements[i-1]), $.getComboBox($(elements[i])));
+	    }
+	    $.setComboBox($(elements[elements.length - 1]), vt);
+	}
+	return false;
+    });
+    
 })(jQuery);

@@ -29,24 +29,10 @@
       %td=line.sale_line.unit.name
       %td.dec=line.sale_line.undelivered_quantity
       %td{:style=>'text-align:center'}
-        =text_field_tag "outgoing_delivery_line[#{line.sale_line_id}][quantity]", line.quantity, :id=>"outgoing_delivery_line_#{line.sale_line_id}_quantity", :onkeyup=>"t6(this, #{line.sale_line.undelivered_quantity});", :class=>"pta-#{line.sale_line_id} awt-#{line.sale_line_id}"
-      %td.dec.pta{"mul-of"=>"pta-#{line.sale_line_id}"}
-      %td.dec.awt{"mul-of"=>"awt-#{line.sale_line_id}"}
+        =text_field_tag "outgoing_delivery_line[#{line.sale_line_id}][quantity]", line.quantity, :id=>"outgoing_delivery_line_#{line.sale_line_id}_quantity", :class=>"pta-#{line.sale_line_id} awt-#{line.sale_line_id}", "data-less-than-or-equal-to"=>line.quantity+line.sale_line.undelivered_quantity
+      %td.dec.pta{"data-use"=>".pta-#{line.sale_line_id}", "data-calculate"=>"mul"}
+      %td.dec.awt{"data-use"=>".awt-#{line.sale_line_id}", "data-calculate"=>"mul"}
   %tr.total
     %th{:colspan=>7}=tg :total
-    %td#total_pretax_amount{"sum-of"=>"pta"}=@outgoing_delivery.pretax_amount
-    %td#total_amount{"sum-of"=>"awt"}=@outgoing_delivery.amount
-  :javascript
-    window.t6 = function(element, max) {
-      compute("total_pretax_amount");
-      compute("total_amount");
-      if (element !== null) {
-        if (isNaN(element.value) || (!isNaN(element.value) && parseFloat(element.value)>max)) {
-          element.addClassName("invalid");
-        } else {
-          element.removeClassName("invalid");
-        }
-      }
-    }
-    t6();
-
+    %td#total_pretax_amount{"data-use"=>".pta"}=@outgoing_delivery.pretax_amount
+    %td#total_amount{"data-use"=>".awt"}=@outgoing_delivery.amount

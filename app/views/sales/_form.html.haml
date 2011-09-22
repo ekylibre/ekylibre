@@ -20,5 +20,3 @@
   -f.field :sale, :function_title
   -f.field :sale, :introduction, :field=>:textarea
   -f.field :sale, :conclusion, :field=>:textarea
-
--#=observe_field sale_client_id, :frequency=>0.25, :update=>"contacts", :url=>{:action=>:contacts, :sale_id=>@sale.id}, :with=>:client_id, :method=>:get

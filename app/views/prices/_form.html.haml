@@ -6,14 +6,11 @@
   -if @mode != :sales
     -f.field :price, :entity_id, :choices=>:entities, :new=>true
   -f.field :price, :by_default
-=render :partial=>'amount_form'
+=render :partial=>"amount_form"
 
--#  -f.field :price, :use_range
--#=formalize(:id=>:interval) do |f|
--#  -f.field :price, :quantity_min
--#  -f.field :price, :quantity_max
+-#  -f.field :price, :use_range, "data-show"=>"interval"
+-#  #interval
+-#    =formalize do |f|
+-#      -f.field :price, :quantity_min
+-#      -f.field :price, :quantity_max
 
-:javascript
-  window.displayInterval = function() { toggleElement('interval', $('price_use_range').checked); };
-  displayInterval();
-=observe_field("price_use_range", :frequency =>0.25, :function => "displayInterval();")

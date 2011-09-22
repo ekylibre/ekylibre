@@ -124,10 +124,10 @@ class Product < CompanyRecord
         self.code.succ!
       end
     end
-    # self.stockable = false unless self.deliverable?
-    # self.trackable = false unless self.stockable?
-    self.stockable = true if self.trackable?
-    self.deliverable = true if self.stockable?
+    self.stockable = false unless self.deliverable?
+    self.trackable = false unless self.stockable?
+    # self.stockable = true if self.trackable?
+    # self.deliverable = true if self.stockable?
     self.for_productions = true if self.has_components?
     self.catalog_name = self.name if self.catalog_name.blank?
     self.subscription_nature_id = nil if self.nature != "subscrip"
