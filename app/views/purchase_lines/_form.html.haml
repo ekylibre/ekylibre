@@ -3,7 +3,6 @@
   -f.error :purchase_line
   -product_id = f.field :purchase_line, :product_id, :choices=>:purchase_products, :new=>true
   -f.field :purchase_line, :quantity
-  -#f.field :purchase_line, :unit_id, :choices=>[]
   -@price ||= @purchase_line.price
   -if @price
     -f.field :price, :pretax_amount 

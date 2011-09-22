@@ -158,7 +158,11 @@ Formize.refreshDependents = function (event) {
 			if (mode == 'update') {
 			    $(item).html(response.responseText);
 			} else if (mode == 'update-value') {
-                            $(item).val(response.responseText);
+			    if (element.data("attribute")) {
+				$(item).val($.parseJSON(data)[]);
+			    } else {
+				$(item).val(response.responseText);
+			    }
 			} else {
                             $(item).replaceWith(response.responseText);
 			}

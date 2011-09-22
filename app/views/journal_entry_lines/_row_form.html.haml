@@ -8,10 +8,6 @@
 %tr{:id=>id}
   %td=text_field_tag("lines[#{id}][name]", line.name, :id=>"lines_#{id}_name", "data-autofocus"=>"true", "data-parameter-name"=>"name")
   %td=combo_box_tag "lines[#{id}][account_id]", :account, :controller=>:interfacers, :value=>line.account
-  %td=text_field_tag "lines[#{id}][currency_debit]", (line.currency_debit||0.0), :size=>10, :id=>"lines_#{id}_currency_debit", :class=>"debit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-debit,#entry-credit"
-
-  -#, :onkeyup=>"t0();", :onblur=>"if (isNaN(this.value)) {return false;}; if (this.value!=0 && !balanced) {"+remote_function(:url=>{:controller=>:journal_entry_lines, :action=>:new}, :method=>:get, :update=>:lines, :position=>:bottom)+";}; return false;"
-
-  %td=text_field_tag "lines[#{id}][currency_credit]", (line.currency_credit||0.0), :size=>10, :class=>"credit"
-  -#, :onkeyup=>"t0();", :onblur=>"if (isNaN(this.value)) {return false;}; if (this.value!=0 && !balanced) {"+remote_function(:url=>{:controller=>:journal_entry_lines, :action=>:new}, :method=>:get, :update=>:lines, :position=>:bottom)+";}; return false;"
+  %td=text_field_tag "lines[#{id}][currency_debit]", (line.currency_debit||0.0), :size=>10, :id=>"lines_#{id}_currency_debit", :class=>"debit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-debit,#entry-credit,#journal_id"
+  %td=text_field_tag "lines[#{id}][currency_credit]", (line.currency_credit||0.0), :size=>10, :class=>"credit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-debit,#entry-credit,#journal_id"
   %td.act=link_to(image_tag(theme_button(:destroy), :border=>0), "#", "data-remove"=>"##{id}, ##{id}-errors")

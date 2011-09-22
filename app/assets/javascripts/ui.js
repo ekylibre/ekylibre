@@ -98,7 +98,7 @@
     });
 
     // Update DOM with new system
-    $.behave("a[data-update]", "ajax:success", function (event, data, status, xhr) {
+    $.behave("*[data-update]", "ajax:success", function (event, data, status, xhr) {
 	var element = $(this);
 	var position = $.trim(element.data("update-at")).toLowerCase();
 	if (position === "top") {
@@ -114,7 +114,7 @@
 	}
     });
 
-    $.behave("a[data-update]", "ajax:error", function (xhr, status, error) {
+    $.behave("*[data-update]", "ajax:error", function (xhr, status, error) {
         alert("FAILURE (Error "+status+"): "+error);
     });
 
@@ -241,19 +241,15 @@
     $.behave("input[data-add-line-unless]", "focusout", function () {
 	var element = $(this);
 	if (!$(element.data("add-line-unless")).hasClass("valid")) {
-	    alert("OK");
 	    if (element.data("with")) {	
-		alert("OK !");
 		params = {};
 		$(element.data("with")).each(function () {
-		    var paramName = $(this).data("parameter-name") || param.attr("id");
+		    var paramName = $(this).data("parameter-name") || $(this).attr("id");
 		    if (paramName !== null && paramName !== undefined) {
-			params[paramName] = $(this).val() || $(this).html(); // TODO
+			params[paramName] = $(this).val() || $(this).html();
 		    }
 		});
-		alert("OK > "+params);		
 		element.data("params", $.param(params));
-		alert("OK > "+element.data("params"));		
 	    }
 	    $.rails.handleRemote(element);
 	}

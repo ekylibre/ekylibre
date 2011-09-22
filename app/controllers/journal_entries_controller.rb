@@ -52,6 +52,7 @@ class JournalEntriesController < ApplicationController
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
     @journal_entry_lines = (params[:lines]||{}).values
+    # raise @journal_entry_lines.inspect
     if @journal_entry.save_with_lines(@journal_entry_lines)
       notify_success(:journal_entry_has_been_saved, :number=>@journal_entry.number)
       redirect_to :controller=>:journal_entries, :action=>:new, :journal_id=>@journal.id # , :draft_mode=>(1 if @journal_entry.draft_mode)
