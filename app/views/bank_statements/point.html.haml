@@ -17,22 +17,23 @@
       %th=JournalEntryLine.human_attribute_name("credit")
     - for @journal_entry_line in @journal_entry_lines
       -checked = (@journal_entry_line.bank_statement_id==@bank_statement.id)
-      -trid = "e#{@journal_entry_line.id}"
+      -trid, conf = "e#{@journal_entry_line.id}", {}
       %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
         %td.chk
           -if @journal_entry_line.bank_statement_id.nil? or checked
-            =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][checked]", "1", checked, :onclick =>"if(this.checked) {$('#{trid}').addClassName('notice');} else {$('#{trid}').removeClassName('notice');}; t1();", :id=>"journal_entry_line_#{@journal_entry_line.id}_checked" ) 
+            =check_box_tag("journal_entry_line[#{@journal_entry_line.id}][checked]", "1", checked, :id=>"journal_entry_line_#{@journal_entry_line.id}_checked", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
+            -conf = {"data-click"=>"#journal_entry_line_#{@journal_entry_line.id}_checked"}
           -else
             =link_to(@journal_entry_line.bank_statement.number, :action=>:show, :id=>@journal_entry_line.bank_statement.id)
-        %td=link_to(@journal_entry_line.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_line.entry_id)
-        %td.date=I18n.localize(@journal_entry_line.entry.printed_on)
-        %td.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=@journal_entry_line.name
-        %td.dec.debit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.debit)
-        %td.dec.credit.clickable{:onclick=>"toggleCheckBox('journal_entry_line_#{@journal_entry_line.id}_checked')"}=number_to_accountancy(@journal_entry_line.credit)
+        %td{conf}=link_to(@journal_entry_line.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_line.entry_id)
+        %td.date{conf}=I18n.localize(@journal_entry_line.entry.printed_on)
+        %td{conf}=@journal_entry_line.name
+        %td.dec.debit{conf}=number_to_accountancy(@journal_entry_line.debit)
+        %td.dec.credit{conf}=number_to_accountancy(@journal_entry_line.credit)
     %tr.total
       %th{:colspan=>4}=tg(:total)
-      %td#total-debit=@bank_statement.debit || 0
-      %td#total-credit=@bank_statement.credit || 0
+      %td#total-debit{"data-use"=>"tr.notice .debit"}=@bank_statement.debit || 0
+      %td#total-credit{"data-use"=>"tr.notice .credit"}=@bank_statement.credit || 0
     -if previous = @bank_statement.previous
       %tr.total
         %th{:colspan=>4}=tc(:previous_bank_statement, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
@@ -40,35 +41,10 @@
         %td#previous-credit=previous.balance_credit || 0
       %tr.total
         %th{:colspan=>4}=tc(:cumul, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
-        %td#cumul-debit=previous.balance_debit || 0
-        %td#cumul-credit=previous.balance_credit || 0
+        %td#cumul-debit{"data-use"=>"#total-debit, #previous-debit"}=previous.balance_debit || 0
+        %td#cumul-credit{"data-use"=>"#total-credit, #previous-credit"}=previous.balance_credit || 0
       %tr.total
         %th{:colspan=>4}=tc(:balance)
-        %td#balance-debit=previous.balance_debit || 0
-        %td#balance-credit=previous.balance_credit || 0
+        %td#balance-debit{"data-balance"=>"#cumul-debit - #cumul-credit"}=previous.balance_debit || 0
+        %td#balance-credit{"data-balance"=>"#cumul-credit - #cumul-debit"}=previous.balance_credit || 0
   .actions=submit_tag(tg(:save))
-:javascript
-  window.t1 = function() {
-    var sd = sum_all('tr.notice .debit',  'total-debit');
-    var sc = sum_all('tr.notice .credit', 'total-credit');
-    var bd = $('cumul-debit');
-    var bc = $('cumul-credit');
-    var d = 0;
-    var c = 0;
-    if (bd && bc) {
-      $('previous-debit').innerHTML  = toCurrency($('previous-debit').innerHTML);
-      $('previous-credit').innerHTML = toCurrency($('previous-credit').innerHTML);
-      d = sd.innerHTML*1+$('previous-debit').innerHTML*1
-      c = sc.innerHTML*1+$('previous-credit').innerHTML*1
-      bd.innerHTML = toCurrency(d);
-      bc.innerHTML = toCurrency(c);
-      if (d > c) {
-        $('balance-debit').innerHTML  = toCurrency(d-c);
-        $('balance-credit').innerHTML = toCurrency(0.0);
-      } else {
-        $('balance-debit').innerHTML  = toCurrency(0.0);
-        $('balance-credit').innerHTML = toCurrency(c-d);
-      }
-    }
-  }
-  t1();

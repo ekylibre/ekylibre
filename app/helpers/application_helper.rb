@@ -150,123 +150,38 @@ module ApplicationHelper
     options = locales.collect do |l|
       content_tag(:option, ::I18n.translate("i18n.name", :locale=>l), {:value=>l, :dir=>::I18n.translate("i18n.dir", :locale=>l)}.merge(locale == l ? {:selected=>true} : {}))
     end.join.html_safe
-    select_tag("locale", options, :onchange=>"window.location.replace('#{url_for(:locale=>'LOCALE').gsub('LOCALE', '\'+this.value+\'')}')") # "remote_function(:url=>request.url, :with=>"'locale='+this.value")")
+    select_tag("locale", options, "data-redirect"=>url_for())
   end
 
-  def svg_test_tag
-    return '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" baseProfile="full"><g fill-opacity="0.7" stroke="black" stroke-width="0.1cm"><circle cx="6cm" cy="2cm" r="100" fill="red" transform="translate(0,50)" /><circle cx="6cm" cy="2cm" r="100" fill="blue" transform="translate(70,150)" /><circle cx="6cm" cy="2cm" r="100" fill="green" transform="translate(-70,150)" /></g></svg>'.html_safe
-  end
-
-  if Rails.version.match(/^2\.3/)
-    
-    def submit_tag(value = "Save changes", options = {})
-      options.stringify_keys!
+  # Re-writing of link_to helper
+  def link_to(*args, &block)
+    if block_given?
+      options      = args.first || {}
+      html_options = args.second
+      link_to(capture(&block), options, html_options)
+    else
+      name         = args[0]
+      options      = args[1] || {}
+      html_options = args[2] || {}
       
-      if disable_with = options.delete("disable_with")
-        options["data-disable-with"] = disable_with
+      if options.is_a? Hash
+        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options) 
       end
       
-      if confirm = options.delete("confirm")
-        # add_confirm_to_attributes!(options, confirm)
-        options["data-confirm"] = confirm
-      end
+      html_options = convert_options_to_data_attributes(options, html_options)
+      url = url_for(options)
       
-      tag :input, { "type" => "submit", "name" => "commit", "value" => value }.update(options.stringify_keys)
-    end
-
-
-    # Rails 2.3 helpers
-    def link_to(*args, &block)
-      if block_given?
-        options      = args.first || {}
-        html_options = args.second
-        # concat(link_to(capture(&block), options, html_options))
-        link_to(capture(&block), options, html_options)
+      if html_options
+        html_options = html_options.stringify_keys
+        href = html_options['href']
+        tag_options = tag_options(html_options)
       else
-        name         = args.first
-        options      = args.second || {}
-        html_options = args.third || {}
-
-        if options.is_a? Hash
-          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>" : "") unless authorized?(options) 
-        end
-
-        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = html_options.delete(x) if html_options[x] }
-        [:confirm, :method, :remote].each{|x| html_options["data-#{x}"] = options[x] if options[x] } if options.is_a? Hash
-        url = url_for(options)
-
-        if html_options
-          html_options = html_options.stringify_keys
-          href = html_options['href']
-          # convert_options_to_javascript!(html_options, url)
-          tag_options = tag_options(html_options)
-        else
-          tag_options = nil
-        end
-        
-        href_attr = "href=\"#{url}\"" unless href
-        "<a #{href_attr}#{tag_options}>#{name || url}</a>"
+        tag_options = nil
       end
+      
+      href_attr = "href=\"#{html_escape(url)}\"" unless href
+      "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
     end
-
-    module ::ActionView::Helpers::FormTagHelper
-      def form_tag_in_block_with_compat(html_options, &block)
-        content = capture(&block)
-        return form_tag_html(html_options).html_safe << content.html_safe << "</form>".html_safe
-      end
-      alias_method_chain :form_tag_in_block, :compat
-
-      def form_tag_with_compat(url_for_options = {}, options = {}, *parameters_for_url, &block)
-        html_options = html_options_for_form(url_for_options, options, *parameters_for_url)
-        if block_given?
-          form_tag_in_block(html_options, &block)
-        else
-          form_tag_html(html_options)
-        end
-      end
-      alias_method_chain :form_tag, :compat
-    end
-
-#     def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
-#       return form_tag(url_for_options, options, *parameters_for_url, &block)
-#     end
-
-  else
-    # Rails 3 helpers
-    def link_to(*args, &block)
-      if block_given?
-        options      = args.first || {}
-        html_options = args.second
-        link_to(capture(&block), options, html_options)
-      else
-        name         = args[0]
-        options      = args[1] || {}
-        html_options = args[2] || {}
-
-        if options.is_a? Hash
-          return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options) 
-        end
-        
-        html_options = convert_options_to_data_attributes(options, html_options)
-        url = url_for(options)
-        
-        if html_options
-          html_options = html_options.stringify_keys
-          href = html_options['href']
-          tag_options = tag_options(html_options)
-        else
-          tag_options = nil
-        end
-        
-        href_attr = "href=\"#{html_escape(url)}\"" unless href
-        "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
-      end
-    end
-
-
-#     def keishiki_tag(url_for_options = {}, options = {}, *parameters_for_url, &block)
-#       return form_tag(url_for_options, options, *parameters_for_url, &block)
-#     end
   end
 
   def li_link_to(*args)
@@ -573,7 +488,7 @@ module ApplicationHelper
 
     content.gsub!(/\{\{\ *[^\}\|]+\ *(\|[^\}]+)?\}\}/) do |data|
       data = data.squeeze(' ')[2..-3].split('|')
-      align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0] << data[0][-1..-1]).gsub(/[^\ ]/,'x')]
+      align = {'  '=>'center', ' x'=>'right', 'x '=>'left', 'xx'=>''}[(data[0][0..0] + data[0][-1..-1]).gsub(/[^\ ]/,'x')]
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
       if src.match(/^theme:/)
@@ -581,7 +496,7 @@ module ApplicationHelper
       else
         src = image_path(src)
       end
-      '<img class="md md-' << align << '" alt="' << title << '" title="' << title << '" src="' << src << '"/>'
+      '<img class="md md-' + align + '" alt="' + title + '" title="' + title + '" src="' + src + '"/>'
     end
 
 
@@ -597,13 +512,13 @@ module ApplicationHelper
     content = content.gsub(/\[\[[\w\-]+\|[^\]]*\]\]/) do |link|
       link = link[2..-3].split('|')
       url = url_for(options[:url].merge(:id=>link[0]))
-      link_to_remote(link[1].html_safe, options.merge(:url=>url), {:href=>url}) # REMOTE
+      link_to(link[1].html_safe, url, {:remote=>true, "data-type"=>:html}.merge(options)) # REMOTE
     end
 
     content = content.gsub(/\[\[[\w\-]+\]\]/) do |link|
       link = link[2..-3]
       url = url_for(options[:url].merge(:id=>link))
-      link_to_remote(link.html_safe, options.merge(:url=>url), {:href=>url}) # REMOTE
+      link_to(link.html_safe, url, {:remote=>true, "data-type"=>:html}.merge(options)) # REMOTE
     end
 
     for x in 1..6
@@ -1114,7 +1029,6 @@ module ApplicationHelper
         html_options[k] = v if k.to_s.match(/^data\-/)
       end
       html_options[:size] = options[:size]||24
-      html_options[:onchange] = options[:onchange] if options[:onchange]
       html_options[:class] = options[:class].to_s
       if column.nil?
         html_options[:class] << ' notnull' if options[:null]==false
@@ -1336,9 +1250,9 @@ module ApplicationHelper
       list += list2.reverse
     end
     code = ""
-    code << content_tag(:label, tc(:period), :for=>configuration[:id]) << " "
+    code << content_tag(:label, tc(:period), :for=>configuration[:id]) + " "
     fy = @current_company.current_financial_year
-    params[:period] = value = value || (fy ? fy.started_on.to_s << "_" << fy.stopped_on.to_s : :all)
+    params[:period] = value = value || (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
     if configuration[:custom]
       params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
       params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
@@ -1346,9 +1260,8 @@ module ApplicationHelper
       list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
       custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
       toggle_method = "toggle#{custom_id.camelcase}"
-      code << select_tag(name, options_for_select(list, value), :id=>configuration[:id], :onchange=>"#{toggle_method}()", :onkeyup=>"#{toggle_method}()")
+      code << select_tag(name, options_for_select(list, value), :id=>configuration[:id], "data-show-value"=>"##{configuration[:id]}_")
       code << " " << content_tag(:span, tc(:manual_period, :start=>date_field_tag(:started_on, params[:started_on], :size=>8), :finish=>date_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe, :id=>custom_id)
-      code << javascript_tag("window.#{toggle_method} = function() { toggleElement('#{custom_id}', ($('#{configuration[:id]}').value == '#{configuration[:custom]}')); }; #{toggle_method}();")
     else
       code << select_tag(name, options_for_select(list, value), :id=>configuration[:id])
     end

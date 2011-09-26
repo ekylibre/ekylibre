@@ -101,7 +101,7 @@ class ListingNodesController < ApplicationController
   def update
     return unless @listing_node = find_and_check(:listing_node)
     if request.xhr?
-      if params[:type] == "hide" or params[:type] == "show"
+      if params[:type] == "exportable" # "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable
         render :text=>""
       elsif params[:type] == "column_label"

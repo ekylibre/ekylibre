@@ -6,12 +6,12 @@
   -f.field :entity, :language, :choices=>languages
   -f.field :entity, :last_name
   -f.field :entity, :first_name
-  -f.field :entity, :active, :zonchange=>"displayFields()", "data-hide"=>"#dead_on_form"
+  -f.field :entity, :active, "data-hide"=>"#dead_on_form"
   -f.field :entity, :code
   -f.field :entity, :prospect
-  -f.field :entity, :client, :zonchange=>"displayFields()", "data-show"=>"#client_form"
-  -f.field :entity, :supplier, :zonchange=>"displayFields()", "data-show"=>"#supplier_form"
-  -f.field :entity, :attorney, :zonchange=>"displayFields()", "data-show"=>"#attorney_form"
+  -f.field :entity, :client, "data-show"=>"#client_form"
+  -f.field :entity, :supplier, "data-show"=>"#supplier_form"
+  -f.field :entity, :attorney, "data-show"=>"#attorney_form"
   -f.field :entity, :transporter
   -f.title :details
   -f.field :entity, :country,:choices=>countries

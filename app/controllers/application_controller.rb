@@ -411,9 +411,7 @@ class ApplicationController < ActionController::Base
     html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-percentage).to_i.to_s(16)*3}; #{'display: none' unless options[:display]}'>"
     regexp = /\([^\)]+\)/
 
-    # html += "<div class='tit' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
-    # html += "<span class='fil'>"+h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))+"</span>:<span class='lno'>"+h(method_info.line)+"</span>:<span class='lno'>"+h(call_info.line)+"</span> <span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span>"
-    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)} called at line #{h(call_info.line)}' onclick='$$(\".p#{call_info.object_id}\").each(function(e) {e.toggle()});'>"
+    html += "<div class='tit' title='#{h(method_info.source_file.gsub(Rails.root.to_s, 'RAILS_ROOT').gsub(Gem.dir, 'GEM_DIR'))}:#{h(method_info.line)} called at line #{h(call_info.line)}' onclick='$(\".p#{call_info.object_id}\").toggle();'>"
     html += "<span class='fil'><span class='cls'>"+h(method_info.klass_name.gsub(regexp, ''))+"</span>&nbsp;<span class='mth'>"+h(method_info.method_name)+"</span></span>"
     html += "<span class='md mdc'>"+percentage.round(1).to_s+"%</span>"
     html += "<span class='md mdc'>"+call_info.called.to_s+"&times;</span>"

@@ -22,12 +22,12 @@ function toggleElement(element, show, reverseElement) {
 
 function toggleCheckBox(element, checked) {
     element = $(element);
-    if (element !== null) {
+    if (element[0] === null || element[0] === undefined) {
         if (checked === null || checked === undefined) {
-            checked = !element.checked;
+            checked = element.prop("checked");
         }
-        element.checked = !element.checked;
-        element.onclick();
+        element.prop("checked", !checked);
+        element.trigger("click");
     }
     return element.checked;
 }
@@ -90,7 +90,7 @@ function insertInto(input, repdeb, repfin, middle) {
 
 
 
-function formatNumber(value, decimal, separator) {
+function formatNumber(value, decimal, separator, thousand) {
     var deci=Math.round(Math.pow(10, decimal)*(Math.abs(value)-Math.floor(Math.abs(value))));
     var val=Math.floor(Math.abs(value));
     if ((decimal===0)||(deci==Math.pow(10,decimal))) {val=Math.floor(Math.abs(value)); deci=0;}
@@ -98,14 +98,14 @@ function formatNumber(value, decimal, separator) {
     var nb=valFormat.length;
     for (var i=1;i<4;i++) {
         if (val>=Math.pow(10,(3*i))) {
-            valFormat=valFormat.substring(0,nb-(3*i))+separator+valFormat.substring(nb-(3*i));
+            valFormat=valFormat.substring(0,nb-(3*i))+thousand+valFormat.substring(nb-(3*i));
         }
     }
     if (decimal>0) {
         var decim="";
         for (var j=0;j<(decimal-deci.toString().length);j++) {decim+="0";}
         deci=decim+deci.toString();
-        valFormat=valFormat+"."+deci;
+        valFormat=valFormat+separator+deci;
     }
     if (parseFloat(value)<0) {valFormat="-"+valFormat;}
     return valFormat;
@@ -113,7 +113,7 @@ function formatNumber(value, decimal, separator) {
 
 // Display a number with money presentation
 function toCurrency(value) {
-    return formatNumber(value, 2, "");
+    return formatNumber(value, 2, ".", "");
 }
 
 
@@ -263,12 +263,20 @@ function toCurrency(value) {
         var element = $(this.get(0));
         if (isNaN(newValue)) {
             // Get
-            value = 0;
-            if (element.is("input") && !isNaN(element.val())) { 
+            var value = element.val() || element.html(), commas=value.split(/\,/g), points=value.split(/\./g);
+            if (commas.length === 2 && points.length !== 2) { // Metric notation
+                value = value.replace(/\./g, "").replace(/\,/g, ".");
+            } else if (commas.length === 2 && points.length === 2 && commas[0].length > points[0].length) {
+                value = value.replace(/\./g, "").replace(/\,/g, ".");
+            } else {
+                value = value.replace(/\,/g, "");
+            }
+            value = parseFloat(value.replace(/[^0-9\.]*/g, ''));
+            /* if (element.is("input") && !isNaN(element.val())) { 
                 value = parseFloat(element.val()); 
             } else if (!isNaN(element.html())) {
                 value = parseFloat(element.html());
-            }
+            }*/
             if (isNaN(value)) {
                 return 0;
             } else {
@@ -335,7 +343,14 @@ function toCurrency(value) {
         return result;
     };
 
-
+    // Compute the sum of the elements
+    $.fn.sum = function () {
+        var result = 0;
+        this.each(function () {
+            result = result + $(this).numericalValue();            
+        });
+        return result;
+    };
 
 
     // Removes all nodes triggering event on them
@@ -355,46 +370,32 @@ function toCurrency(value) {
         return $;
     };
 
-    // Adds method to make truc ellipsisable !
-    /*$.fn.ellipsis = function(enableUpdating){
-      var s = document.documentElement.style;
-      if (!('textOverflow' in s || 'OTextOverflow' in s)) {
-      return this.each(function(){
-      var element = $(this);
-      if (element.css("overflow") == "hidden") {
-      var originalText = element.html();
-      var width = element.width();
-      
-      var testElement = $(this.cloneNode(true)).hide().css({
-      'position': 'absolute',
-      'width': 'auto',
-      'overflow': 'visible',
-      'max-width': 'inherit'
-      });
-      element.after(testElement);
-      
-      var text = originalText;
-      while(text.length > 0 && testElement.width() > width){
-      text = text.substr(0, text.length - 1);
-      testElement.html(text + "&#8230;");
-      }
-      element.html(testElement.html());
-      
-      testElement.remove();
-      
-      if(enableUpdating == true){
-      var oldWidth = element.width();
-      setInterval(function(){
-      if(element.width() != oldWidth){
-      oldWidth = element.width();
-      element.html(originalText);
-      element.ellipsis();
-      }
-      }, 200);
-      }
-      }
-      });
-      } else return this;
-      };*/
+
+	  // takes a GET-serialized string, e.g. first=5&second=3&a=b and sets input tags (e.g. input name="first") to their values (e.g. 5)
+	  $.unparam = function (params) {
+        if (params === null || params === undefined) {
+            return {};
+        }
+		    // this small bit of unserializing borrowed from James Campbell's "JQuery Unserialize v1.0"
+		    params = params.split("&");
+		    
+		    var unserializedParams = {};
+		    $.each(params, function() {
+			      var properties = this.split("=");
+			      if((typeof properties[0] !== 'undefined') && (typeof properties[1] !== 'undefined')) {
+				        unserializedParams[properties[0].replace(/\+/g, " ")] = properties[1].replace(/\+/g, " ");
+			      }
+		    });
+        return unserializedParams;
+	  };
+
+    $.buildURL = function (url, params) {
+        var tempArray = url.split("?");
+        var baseURL = tempArray[0];
+        params = $.extend($.unparam(tempArray[1]), params);
+        return baseURL + "?" + $.param(params);
+    };
+
+
 
 })(jQuery);

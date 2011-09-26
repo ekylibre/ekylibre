@@ -44,11 +44,6 @@
 
 
 class PurchaseLine < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
-  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  #]VALIDATORS]
   acts_as_list :scope=>:purchase
   attr_readonly :company_id, :purchase_id
   belongs_to :account
@@ -60,9 +55,14 @@ class PurchaseLine < CompanyRecord
   belongs_to :tracking, :dependent=>:destroy
   belongs_to :unit
   has_many :delivery_lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:purchase_line_id
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   validates_presence_of :pretax_amount, :price_id
   validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
-  validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true
+  validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true, :if=>Proc.new{|pl| !pl.tracking_serial.blank? }
 
   sums :purchase, :lines, :pretax_amount, :amount
   

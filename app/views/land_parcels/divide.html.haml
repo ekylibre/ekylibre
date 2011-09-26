@@ -12,21 +12,15 @@
           %th.act
           %th.act
       %tfoot
-        %tr.total#total_line
+        %tr.total#total_line{"data-valid-if-equality-between"=>"#used-area, #total-area"}
           %th=tl(:total)
           %td
-            %span#total_area
+            %span#used-area{"data-use"=>".area"}
             %span="/"
-            %span=@land_parcel.area_measure
+            %span#total-area=@land_parcel.area_measure
           %th
           %th
       %tbody#subdivisions
         =render :partial=>"land_parcels/subdivision_form"
   .actions
     =submit_tag(tl(:divide))
-:javascript
-  window.t5 = function() {
-    var total = sum_all(".area", "total_area");
-    set_state("total_line", (total.innerHTML*1 === #{@land_parcel.area_measure}));
-  }
-  t5();

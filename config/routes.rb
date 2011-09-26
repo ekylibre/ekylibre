@@ -273,6 +273,7 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :list_operations
+        post :merge
       end
       member do
         match "divide", :via=>[:get, :post]

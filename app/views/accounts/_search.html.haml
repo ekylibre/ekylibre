@@ -4,9 +4,6 @@
     %label{:for=>:search_account}=tc("search_account")
     =text_field_tag(:q, params[:q], :id=>:search_account)
     %label{:for=>:used_accounts}=tc(:used_accounts)
-    =check_box_tag("used_accounts", "1", params[:used_accounts], :onchange=>"toggleUsedPeriod();")
+    =check_box_tag("used_accounts", "1", params[:used_accounts], "data-show"=>"#used-period")
   -k.criterion(:id=>"used-period") do
     =journal_period_crit
-:javascript
-  window.toggleUsedPeriod=function() { toggleElement('used-period', $('used_accounts').checked); }
-  toggleUsedPeriod();

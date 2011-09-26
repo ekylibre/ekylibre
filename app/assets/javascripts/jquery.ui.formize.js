@@ -159,7 +159,7 @@ Formize.refreshDependents = function (event) {
 			    $(item).html(response.responseText);
 			} else if (mode == 'update-value') {
 			    if (element.data("attribute")) {
-				$(item).val($.parseJSON(data)[]);
+				$(item).val($.parseJSON(data)[element.data("attribute")]);
 			    } else {
 				$(item).val(response.responseText);
 			    }

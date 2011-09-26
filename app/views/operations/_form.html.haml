@@ -27,8 +27,8 @@
             %th.act
         %tbody#lines=render :partial=>"operation_lines/row_form", :collection=>(@operation_lines||@operation.lines)
       =toolbar do |t|
-        -t.link :new_in_line,  :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:in},  :update=>:lines, :position=>:bottom, :method=>:get
-        -t.link :new_out_line, :remote=>true, :url=>{:action=>:new, :controller=>:operation_lines, :direction=>:out}, :update=>:lines, :position=>:bottom, :method=>:get
+        -t.link :new_in_line, {:action=>:new, :controller=>:operation_lines, :direction=>:in}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
+        -t.link :new_out_line, {:action=>:new, :controller=>:operation_lines, :direction=>:out}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
         
     %td{:style=>"width:8px"}
 
@@ -42,4 +42,4 @@
             %th.act
         %tbody#uses=render :partial=>"operation_uses/row_form", :collection=>(@operation_uses||@operation.uses)
       =toolbar do |t|
-        -t.link :new, :remote=>true, :url=>{:action=>:new, :controller=>:operation_uses}, :update=>:uses, :position=>:bottom, :method=>:get
+        -t.link :new, {:action=>:new, :controller=>:operation_uses}, :remote=>true, "data-update"=>"#uses", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get

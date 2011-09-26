@@ -1,6 +1,5 @@
 =formalize do |f|
   -f.error 'price'
-  -#f.error 'price_tax'
   -f.title :general
   -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>true
   -if @mode != :sales

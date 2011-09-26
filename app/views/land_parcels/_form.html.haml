@@ -9,8 +9,3 @@
   -f.field :land_parcel, :area_unit_id, :choices=>{:reflection=>:surface_units}, :new=>{:base=>'m2'}
   -f.field :land_parcel, :started_on
   -f.field :land_parcel, :description, :field=>:textarea
-
-:javascript
-  window.master = function() { toggleElement('master_select', $('land_parcel_master').checked); };
-  master();
-=observe_field("land_parcel_master", :frequency=>0.25, :function=> "master();")

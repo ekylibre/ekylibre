@@ -3,6 +3,7 @@
 
 =toolbar do |t|
   -t.link :new
+  -t.link :merge, {}, :remote=>true, :method=>:post, :confirm=>tl(:are_you_sure), "data-with"=>"td.plot.selected input", "data-redirect"=>true, "data-type"=>"text"
 
 -unit = Unit.find_by_base("m2")
 =form_tag do
@@ -15,8 +16,8 @@
       %table.treemap
         %tr
           -for land_parcel in land_parcels
-            %td.plot{:style=>"width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class=>cycle("odd", "even"), :onclick=>"toggleLandParcel(this, 'land_parcel_#{land_parcel.id}')"}
-              =hidden_field_tag("land_parcel[#{land_parcel.id}]", "0", :id=>"land_parcel_#{land_parcel.id}")
+            %td.plot{:style=>"width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class=>cycle("odd", "even"), "data-toggle-class"=>"selected"}
+              =hidden_field_tag("land_parcel[#{land_parcel.id}]", "1", :id=>"land_parcel_#{land_parcel.id}")
               .bmenu
                 =link_to(land_parcel.name, {:action=>:show, :id=>land_parcel.id}, :class=>:name)
                 %ul
@@ -29,35 +30,6 @@
               %ul.operations
                 -for operation in land_parcel.operations.find(:all, :conditions=>["COALESCE(moved_on, planned_on) < ? ", session[:viewed_on]], :limit=>5)
                   %li=link_to(operation.name, {:action=>:show, :controller=>:operations, :id=>operation.id})
-  #merge
-    .fields
-      .end
-    .actions   
-      =submit_tag tg(:merge), :confirm=>tl(:are_you_sure)
-  :javascript
-    var selected = 0
-    window.toggleLandParcel = function(element, field) {
-      element = $(element);
-      field = $(field);
-      if (field.value == "0") {
-        element.addClassName('selected');
-        field.value = "1";
-        selected += 1;
-      } else {
-        element.removeClassName('selected');
-        field.value = "0";
-        selected -= 1;
-      }
-      toggleMerge();
-    }
-    window.toggleMerge = function() {
-      if (selected > 1) {
-        $('merge').show();
-      } else {
-        $('merge').hide();
-      }
-    }
-    toggleMerge();
 
 %h2=LandParcelGroup.human_attribute_name("land_parcels")
 =list

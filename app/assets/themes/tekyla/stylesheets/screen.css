@@ -89,7 +89,7 @@ body { /*background: #C9D7F1;*/ }
 #overlay { background: #000; zoom: 1; filter: alpha(opacity=50); opacity: 0.5; }
 #overlay.loading { background: black url(../images/ajax-loader-4.gif) center center no-repeat; }
 
-.clickable { cursor: pointer; }
+*[data-click], .clickable { cursor: pointer; }
 
 #wrap { padding-top: 0px; border-collapse: collapse; /*border-top: 1px solid #95b0e4; background: #C9D7F1; */ }
 #wrap-table {border-collapse: collapse; width: 100%;}

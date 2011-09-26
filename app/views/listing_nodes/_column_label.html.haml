@@ -1,6 +1,7 @@
 -listing_node = column_label
-=form_remote_tag(:url=>{:controller=>:listing_nodes, :action=>:update, :id=>listing_node.id, :type=>"column_label"}, :method=>:put, :update=>"#{listing_node.key}_label", :loading=>"onLoading()", :loaded=>"onLoaded();") do
-  =link_to_function(listing_node.label, "this.hide(); var tf = $('#{listing_node.key}_label_tf'); tf.show(); tf.select(); tf.focus();", :id=>"#{listing_node.key}_label_lb")
-  =text_field_tag("label", listing_node.label, :size=>listing_node.label.size, :id=>listing_node.key+"_label_tf", :style=>'display: none;', :onblur=>"$('#{listing_node.key}_label_lb').show(); this.hide();")
+=form_tag({:controller=>:listing_nodes, :action=>:update, :id=>listing_node.id, :type=>"column_label"}, :method=>:put, :remote=>true, "data-update"=>"##{listing_node.key}_label", "data-type"=>:html) do
+  =link_to_function(listing_node.label, "$(this).hide(); var tf = $('##{listing_node.key}_label_tf'); tf.show(); tf.select(); tf.focus();", :id=>"#{listing_node.key}_label_lb")
+  -#=link_to(listing_node.label, "#", "data-toggle-with"=>"##{listing_node.key}_label_tf", :id=>"#{listing_node.key}_label_lb")
+  =text_field_tag("label", listing_node.label, :size=>listing_node.label.size, :id=>listing_node.key+"_label_tf", :style=>"display: none;", :onblur=>"$('##{listing_node.key}_label_lb').show(); $(this).hide();")
   %span.attribute="("+listing_node.name+")"
   %span{:style=>'display: none;', :id=>listing_node.key+"_validate_label"}=submit_tag(tg(:validate))

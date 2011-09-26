@@ -61,7 +61,7 @@ class LandParcelsController < ApplicationController
   def divide
     return unless @land_parcel = find_and_check(:land_parcel)
     if request.xhr?
-      render :partial=>"land_parcel_subdivision_form"
+      render :partial=>"subdivision_form"
       return
     end
 
@@ -77,7 +77,12 @@ class LandParcelsController < ApplicationController
   def merge
     land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
     child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-    redirect_to(:action=>:show, :id=>child.id) if child
+    # redirect_to(:action=>:show, :id=>child.id) 
+    if child
+      render :text=>url_for(:action=>:show, :id=>child.id, :viewed_on=>session[:viewed_on] + 1), :layout=>false
+    else
+      render :text=>url_for(:action=>:index, :viewed_on=>session[:viewed_on] + 1), :layout=>false
+    end
   end
 
 end

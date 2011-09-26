@@ -1,12 +1,11 @@
 =render :partial=>"search_form"
 
 -article = @help
--update, complete, resize = "help", "resize2(); return true", nil
--base_url = {:controller=>:help}
+-base_url = {:controller=>:help, :action=>:show}
 -cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article) do
   .content.flex{:style=>'overflow:auto;'}
     -if article.is_a? String
-      =article(article, :update=>update, :complete=>complete, :url=>base_url.merge(:action=>:show), :without_title=>true)
+      =article(article, "data-update"=>"#help", :url=>base_url, :without_title=>true)
     -else
       %h1=tc("missing_help")
       .help-error=tc(:error_no_file, :article=>article.to_s)

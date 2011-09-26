@@ -66,7 +66,17 @@ class PricesController < ApplicationController
   end
 
   def find
-    if !params[:purchase_line_price_id].blank?
+    if params[:product_id] and params[:entity_id]
+      return unless product = find_and_check(:product, params[:product_id]) 
+      return unless entity = find_and_check(:entity, params[:entity_id])
+      @price = product.prices.find(:first, :conditions=>{:entity_id=>entity.id, :active=>true}, :order=>"by_default DESC")
+      @price ||= Price.new(:category_id=>entity.category_id)
+      respond_to do |format|
+        format.html { render :partial=>"amount_form" }
+        format.json { render :json=>@price.to_json }
+        format.xml  { render :xml=>@price.to_xml }
+      end
+    elsif !params[:purchase_line_price_id].blank?
       return unless @price = find_and_check(:price, params[:purchase_line_price_id])
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]

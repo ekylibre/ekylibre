@@ -1,16 +1,16 @@
--product_id = nil
+=hidden_field_tag :purchase_id, params[:purchase_id]
 =formalize do |f|
   -f.error :purchase_line
-  -product_id = f.field :purchase_line, :product_id, :choices=>:purchase_products, :new=>true
+  -f.field :purchase_line, :product_id, :choices=>:purchase_products, :new=>true, "data-parameter-name"=>"product_id", "data-dependents"=>"#price-amount"
   -f.field :purchase_line, :quantity
-  -@price ||= @purchase_line.price
-  -if @price
-    -f.field :price, :pretax_amount 
-    -f.field :price, :tax_id ,:choices=>{:reflection=>:taxes}
+  -f.field :purchase_line, :annotation, :field=>:textarea
+
+-@price ||= @purchase_line.price
+-if @price
+  #price-amount{"data-refresh"=>find_prices_url(:entity_id=>@purchase_line.purchase.supplier_id), "data-refresh-mode"=>"update"}=render :partial=>"prices/amount_form"
+
+=formalize do |f|
+  -f.title :stocks
   -if @current_company.warehouses.size > 1
     -f.field :purchase_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :purchase_line, :tracking_serial
-  -f.field :purchase_line, :annotation, :field=>:textarea
-
-=hidden_field_tag :purchase_id, params[:purchase_id]
-=observe_field product_id, :url=>find_prices_url(:entity_id=>@purchase_line.purchase.supplier_id), :frequency => 0.25, :with=>"purchase_line_product_id", :loading=>"onLoading()", :loaded=>"onLoaded()"

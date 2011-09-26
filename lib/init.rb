@@ -24,7 +24,7 @@ module Ekylibre
     return @@helps unless @@helps.nil?
     @@helps ||= {}
     for file in Dir[Rails.root.join("config", "locales", "*", "help", "*.txt")].sort
-      File.open(file, 'rb') do |f| 
+      File.open(file, 'rb:UTF-8') do |f| 
         @@helps[file] = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2], :locale=>file.split(/[\\\/\.]+/)[-4].to_sym}
         raise Exception.new("No valid title for #{file}") if @@helps[file][:title].blank?
       end

@@ -1,5 +1,7 @@
 
 (function ($) {
+    "use strict";
+
     // Toggle now with
     $(document).ready(function (event) {
 	$('*[data-toggle-now-with]').each(function () {
@@ -18,7 +20,7 @@
 	    var body = $('body');
 	    var url = body.attr('data-timeout-href');
 	    if ($.timedSession.reconnectable && url !== null && url !== undefined) {
-		window.clearTimeout($.timedSession.timer); 
+		window.clearTimeout($.timedSession.timer);
 		$.timedSession.reconnectable = false;
 		// Formize.Dialog.open(url, null, 0);
 		$.ajaxDialog(url, {
@@ -39,7 +41,7 @@
 		});
 		// Adds $.timedSession.reconnectable = true if granted and not denied
 	    }
-	},	
+	},
 	startCountdown: function () {
 	    var body = $('body');
 	    var timeout = body.attr('data-timeout');
@@ -114,10 +116,34 @@
 	}
     });
 
-    $.behave("*[data-update]", "ajax:error", function (xhr, status, error) {
+    // Redirect to the given location
+    $.behave("*[data-redirect]", "ajax:success", function (event, data, status, xhr) {
+	var element = $(this);
+	window.location.replace(data);
+    });
+
+    // Alert on errors
+    $.behave("*[data-update], *[data-redirect]", "ajax:error", function (xhr, status, error) {
         alert("FAILURE (Error "+status+"): "+error);
     });
 
+
+    $.behave("select[data-redirect]", "change keyup", function () {
+	var element = $(this), params = {};
+	params[element.attr("name") || element.attr("id") || "undefined"] = element.val();
+	window.location.replace($.buildURL(element.data("redirect"), params));
+    });
+
+    
+    $.behave("select[data-show-value]", "load change keypress", function () {
+	var element = $(this), prefix = element.data("show-value");
+	element.find("option").each(function () {
+	    $(prefix + $(this).val()).hide();
+	});
+	$(prefix + element.val()).show();
+    });
+
+    
 
     // Old system adaptation to jQuery
     $.behave("a[data-new-item]", "click", function () {
@@ -161,34 +187,9 @@
 	});
 	return false;
     });
-   /*
-    $.behave("*[data-sum-of]", "load", function () {
-	var element  = $(this);
-	var selector = element.data("sum-of");
-	$.behave(selector, "keyup change emulated:change remove", function () {
-	    var total = 0;
-	    $(selector).each(function () { 
-		total = total + $(this).numericalValue(); 
-	    });
-	    element.numericalValue(total);
-	    element.trigger("emulated:change");
-	});
-    });
 
 
-    $.behave("*[data-mul-of]", "load", function () {
-	var element  = $(this);
-	var selector = element.data("mul-of");
-	$.behave(selector, "keyup change emulated:change remove", function () {
-	    var total = 1;
-	    $(selector).each(function () { 
-		total = total * $(this).numericalValue(); 
-	    });
-	    element.numericalValue(total);
-	    element.trigger("emulated:change");
-	});
-    });
-*/
+    // Use element to compute a calculation
     $.behave("*[data-use]", "load", function () {
 	var element = $(this);
 	if (element.isCalculationResult()) {
@@ -202,8 +203,23 @@
 	$("*[data-use][data-auto-calculate]").each($.calculate);
     };
 
-    // $.calculateResults();
+    $.calculateResults();
     window.setInterval($.calculateResults, 300);
+
+    
+    $.behave("*[data-balance]", "load", function () {
+	var element = $(this), operands = $(this).data("balance").split(/\s\-\s/g).slice(0,2);
+	$.behave(operands.join(", "), 'change emulated:change', function () {
+	    var plus = $(operands[0]).sum(), minus = $(operands[1]).sum();
+	    // alert(operands[0] + " > " + plus);
+	    // alert(operands[1] + " > " + minus);
+	    if (plus > minus) {
+		element.numericalValue(plus - minus);
+	    } else {
+		element.numericalValue(0);
+	    }
+	});
+    });
 
     $.behave("*[data-less-than-or-equal-to]", "load keyup change emulated:change", function () {
 	var element = $(this), maximum = parseFloat(element.data("less-than-or-equal-to"));
@@ -234,15 +250,28 @@
     // Removes DOM Element defined by the selector
     $.behave("a[data-remove]", "click", function () {
 	$($(this).data("remove")).deepRemove();
-	return false
+	return false;
+    });
+
+    // Adds parameters
+    $.behave("*[data-with]", "ajax:before confirm", function () {
+	var element = $(this), params = $.unparam(element.data("params"));
+	$(element.data("with")).each(function () {
+	    var paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id");
+	    if (paramName !== null && (typeof(paramName) !== "undefined")) {
+		params[paramName] = $(this).val() || $(this).html();
+	    }
+	});
+	element.data("params", $.param(params));
+	return true;
     });
 
     // Adds a HTML
     $.behave("input[data-add-line-unless]", "focusout", function () {
 	var element = $(this);
-	if (!$(element.data("add-line-unless")).hasClass("valid")) {
+	if (element.numericalValue() !== 0 && !$(element.data("add-line-unless")).hasClass("valid")) {
 	    if (element.data("with")) {	
-		params = {};
+		var params = {};
 		$(element.data("with")).each(function () {
 		    var paramName = $(this).data("parameter-name") || $(this).attr("id");
 		    if (paramName !== null && paramName !== undefined) {
@@ -254,7 +283,47 @@
 	    $.rails.handleRemote(element);
 	}
     });
-    
+
+    // Nullify inputs if it filled
+    $.behave("input[data-exclusive-nullify]", "keyup", function () {
+	var element = $(this);
+	if (element.numericalValue() !== 0) {
+	    $(element.data("exclusive-nullify")).val('');
+	}
+    });
+
+    $.behave("*[data-click]", "click", function () {
+	$($(this).data("click")).each(function () {
+            $(this).trigger("click");
+	});
+	return false;
+    });
+
+    $.behave("input:checkbox[data-add-class-to]", "change", function () {
+	var element = $(this), classes = element.data("add-class") || element.attr("class");
+	if (element.prop("checked")) {
+	    $(element.data("add-class-to")).addClass(classes);
+	} else {
+	    $(element.data("add-class-to")).removeClass(classes);
+	}
+    });
+
+
+    $.behave("*[data-toggle-class]", "click", function () {
+	var element = $(this), classes = element.data("toggle-class"), classesArray = classes.split(/\s+/g), gotClasses=true;
+	for (var i=0; i < classesArray.length; i += 1) {
+	    if (!element.hasClass(classesArray[i])) {
+		gotClasses = false;
+		break;
+	    }
+	}
+	if (gotClasses) {
+	    element.removeClass(classes);
+	} else {
+	    element.addClass(classes);
+	}
+    });
+
 
     // Live copy
     $.behave("input[data-live-copy-to]", "keyup", function () {
@@ -266,10 +335,11 @@
     // Auto focus
     $.autoFocus = function () {
 	this.focus();
-	this.select();
+	// this.select();
     };
     // $.behave("*[data-autofocus]", "load", $.autoFocus);
-    $.behave("input[type='text']:first", "load", $.autoFocus);
+    // $.behave("input[type='text']:first", "load", $.autoFocus);
+    $.behave("*:input:first", "load", $.autoFocus);
     $.behave("*[data-autofocus]", "load", $.autoFocus);
 
-}) (jQuery);
+})( jQuery );

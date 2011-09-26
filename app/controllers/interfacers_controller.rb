@@ -43,13 +43,13 @@ class InterfacersController < ApplicationController
   end
 
   def product_trackings
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>"
+    return unless @product = find_and_check(:product, params[:product_id])
+    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>", :layout=>false
   end
 
   def product_units
-    return unless @product = find_and_check(:product)
-    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>"
+    return unless @product = find_and_check(:product, params[:product_id])
+    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>", :layout=>false
   end
 
   search_for(:account, :columns=>["number:X%", :name], :conditions =>{:company_id=>['@current_company.id']})

@@ -13,7 +13,7 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.x  If not, see <http://www.gnu.org/licenses/>.
 #
 
 class HelpController < ApplicationController
@@ -26,7 +26,7 @@ class HelpController < ApplicationController
     else
       @help = file
     end
-    t3e :title=>@@helps[file][:title]
+    t3e :title=>Ekylibre.helps[file][:title]
   end
 
   def index
@@ -40,11 +40,11 @@ class HelpController < ApplicationController
       reg = /(#{@key_words.join("|")})/i
       if @key_words.size>0
         @results = []
-        for file in @@helps.keys
-          File.open(file) do |f| 
+        for file in Ekylibre.helps.keys
+          File.open(file, "rb:UTF-8") do |f| 
             data = f.read
             if (match = data.scan(reg).size) > 0
-              @results << @@helps[file].merge(:count=>match) 
+              @results << Ekylibre.helps[file].merge(:count=>match) 
             end
           end
         end

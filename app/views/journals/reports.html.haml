@@ -3,10 +3,9 @@
     %legend=tc(:print)
     =formalize do |f|
       -f.title DocumentTemplate.model_name.human
-      -f.field DocumentTemplate.model_name.human, select_tag("template", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), :id=>"template_code")
-    #document_options=render(:partial=>'options')
+      -f.field DocumentTemplate.model_name.human, select_tag("template", options_for_select(@document_templates.collect{|d| [d.name, d.code]}, params[:code]), "data-dependents"=>"#document-options", "data-parameter-name"=>"code")
+    #document-options{"data-refresh"=>url_for(:action=>:reports), "data-refresh-mode"=>"update"}=render(:partial=>'options')
     .actions=submit_tag tg(:print), :name=>nil
-=observe_field "template_code", :update=>:document_options, :url=>{:action=>:reports}, :with=>"code", :method=>:get
 
 =form_tag({}, :method=>:get) do
   %fieldset
