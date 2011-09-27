@@ -339,7 +339,7 @@
     };
     // $.behave("*[data-autofocus]", "load", $.autoFocus);
     // $.behave("input[type='text']:first", "load", $.autoFocus);
-    $.behave("*:input:first", "load", $.autoFocus);
-    $.behave("*[data-autofocus]", "load", $.autoFocus);
+    $.behave("*:input:visible:first", "load", $.autoFocus);
+    $.behave("*[data-autofocus]:visible", "load", $.autoFocus);
 
 })( jQuery );

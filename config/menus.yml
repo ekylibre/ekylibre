@@ -144,9 +144,9 @@ menus:
         - units::new
         - units::update
     - informations:
-      - - settings::about
       - - help::index
         - help::show
+      - - settings::about
   - relations:
     - entities:
       - - entities::index

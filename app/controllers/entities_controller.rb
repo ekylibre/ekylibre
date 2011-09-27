@@ -250,7 +250,7 @@ class EntitiesController < ApplicationController
 
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, select_array.collect{|x| x[1]})
-        csv_string = FasterCSV.generate do |csv|
+        csv_string = Ekylibre::CSV.generate do |csv|
           for line in result
             csv << line
           end
@@ -266,8 +266,9 @@ class EntitiesController < ApplicationController
       # @formats = Spreet.formats.collect{|f| [tg("formats.#{f}"), f]}
       @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
       if request.post? and params[:upload]
-        data = params[:upload]
-        file = "#{Rails.root.to_s}/tmp/uploads/entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}"
+        data, tmp = params[:upload], Rails.root.join("tmp", "uploads")
+        FileUtils.mkdir_p(tmp)
+        file = tmp.join("entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}")
         File.open(file, "wb") { |f| f.write(data.read)}
         session[:entities_import_file] = file
         redirect_to :action=>:import, :id=>:columns
@@ -276,7 +277,7 @@ class EntitiesController < ApplicationController
       unless File.exist?(session[:entities_import_file].to_s)
         redirect_to :action=>:import, :id=>:upload
       end
-      csv = FasterCSV.open(session[:entities_import_file])
+      csv = Ekylibre::CSV.open(session[:entities_import_file])
       @columns = csv.shift
       @first_line = csv.shift
       @options = @current_company.importable_columns
@@ -294,7 +295,7 @@ class EntitiesController < ApplicationController
           columns.select{|k,v| v.match(/^#{prefix}-/)}.each{|k,v| cols[prefix.to_sym][k.to_s] = v.split(/\-/)[1].to_sym}
         end
         cols[:entity] ||= {}
-        if cols[:entity].keys.size <= 0 or not cols[:entity].values.detect{|x| x == :name}
+        if cols[:entity].keys.size <= 0 or not cols[:entity].values.detect{|x| x == :last_name}
           notify_error_now(:entity_columns_are_needed)
           return
         end

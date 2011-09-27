@@ -165,7 +165,6 @@ class JournalsController < ApplicationController
       @step = 3
     end
 
-
     if @step >= 2
       session[:stopped_on] = params[:stopped_on]
       session[:started_on] = params[:started_on]
@@ -241,7 +240,7 @@ class JournalsController < ApplicationController
         result = ActiveRecord::Base.connection.select_rows(query)
         result.insert(0, ["N°Compte", "Libellé du compte", "Débit", "Crédit", "Solde"])
         result.insert(0, ["Balance du #{params[:started_on]} au #{params[:stopped_on]}"])
-        csv_string = FasterCSV.generate do |csv|
+        csv_string = Ekylibre::CSV.generate do |csv|
           for line in result
             csv << line
           end

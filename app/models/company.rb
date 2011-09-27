@@ -998,7 +998,7 @@ class Company < Ekylibre::Record::Base
 
 
   def import_entities(file, cols, options={})
-    sheet = FasterCSV.open(file)
+    sheet = Ekylibre::CSV.open(file)
     header = sheet.shift # header
     problems = {}
     line_index = 1
@@ -1074,7 +1074,7 @@ class Company < Ekylibre::Record::Base
     code += "  end\n"
     code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
     code += "end\n"
-    list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     eval(code)
     return {:errors=>problems, :lines_count=>line_index-1}
   end
@@ -1083,7 +1083,7 @@ class Company < Ekylibre::Record::Base
 
   def export_entities(find_options={})
     entities = self.entities.find(:all, find_options)
-    csv_string = FasterCSV.generate do |csv|
+    csv_string = Ekylibre::CSV.generate do |csv|
       csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
       entities.each do |entity|
         contact = self.contacts.find(:first, :conditions=>{:entity_id=>entity.id, :by_default=>true, :deleted_at=>nil})

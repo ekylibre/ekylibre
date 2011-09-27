@@ -174,7 +174,7 @@ fra:
     inventories:
       edit: 'Modifier l''inventaire'
       index: 'Inventaires'
-      new: 'Inventaire'
+      new: 'Nouvel inventaire'
       show: 'Inventaire %{number}'
     inventory_lines: #!
     journal_entries:
@@ -1441,7 +1441,7 @@ fra:
       one: '%{count} ligne de brouillard validée'
       other: '%{count} lignes de brouillard validées'
       zero: 'Aucune ligne de brouillard validée'
-    entity_columns_are_needed: 'Vous devez spécifier au moins une colonne pour la personne et notamment son nom.'
+    entity_columns_are_needed: 'Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale.'
     exception_raised: 'Une erreur est survenue durant le traitement : %{message}'
     expired_session: 'Session expirée. Veuillez vous reconnecter.'
     fails_to_extract_listing: 'L''extraction n''a pas pu s''effectuer : %{message}'

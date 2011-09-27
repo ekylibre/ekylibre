@@ -11,19 +11,19 @@
 
     $.behave("a[data-toggle-column]", "click", function(event) {
         var element = $(this), columnId = element.data('toggle-column');
-        var column = $(columnId);
+        var column = $('#'+columnId);
         var className = column.data("cells-class");
         if (className === null) { className = columnId; }
         var search = '.'+className;
         var visibility = '';
         if (column.hasClass("hidden")) {
-            $(search).each(function(item) { item.removeClass("hidden"); });
+            $(search).removeClass("hidden");
             column.removeClass("hidden");
             element.removeClass("im-unchecked");
             element.addClass("im-checked");
             visibility = 'shown';
         } else {
-            $(search).each(function(item) { item.addClass("hidden"); });
+            $(search).addClass("hidden");
             column.addClass("hidden");
             element.removeClass("im-checked");
             element.addClass("im-unchecked");

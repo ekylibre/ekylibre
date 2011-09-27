@@ -241,8 +241,10 @@ class SalesController < ApplicationController
     else
       @sale = Sale.new
       if client = @current_company.entities.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
-        cid = client.default_contact.id
-        @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
+        if client.default_contact
+          cid = client.default_contact.id 
+          @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
+        end
       end
       session[:current_entity_id] = (client ? client.id : nil)
       @sale.responsible_id = @current_user.id
@@ -417,7 +419,7 @@ class SalesController < ApplicationController
         date += 1.month
       end
 
-      csv_data = FasterCSV.generate do |csv|
+      csv_data = Ekylibre::CSV.generate do |csv|
         csv << [Product.model_name.human, Product.human_attribute_name('sales_account_id')]+months
         for product in @current_company.products.find(:all, :order=>"active DESC, name")
           valid = false

@@ -36,12 +36,6 @@
 
 
 class Journal < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :allow_nil => true, :maximum => 4
-  validates_length_of :nature, :allow_nil => true, :maximum => 16
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :currency
@@ -49,6 +43,12 @@ class Journal < CompanyRecord
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
   has_many :entries, :class_name=>"JournalEntry"
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :allow_nil => true, :maximum => 4
+  validates_length_of :nature, :allow_nil => true, :maximum => 16
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id
@@ -113,7 +113,7 @@ class Journal < CompanyRecord
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["draft=? AND created_on BETWEEN ? AND ? ", true, self.closed_on+1, closed_on ]).size > 0
+    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["state=? AND created_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on ]).size > 0
     return false unless errors.empty?
     ActiveEntry::Base.transaction do
       for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])

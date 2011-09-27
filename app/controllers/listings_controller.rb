@@ -53,7 +53,7 @@ class ListingsController < ApplicationController
       respond_to do |format|
         format.xml { render :xml => result.to_xml, :filename=>@listing.name.simpleize+'.xml' }
         format.csv do        
-          csv_string = FasterCSV.generate do |csv|
+          csv_string = Ekylibre::CSV.generate do |csv|
             for line in result
               csv << line
             end

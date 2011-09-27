@@ -3,13 +3,17 @@
   -f.title :general
   -f.field :custom_field, :name
   -if @custom_field.new_record?
-    -f.field :custom_field, :nature, :choices=>CustomField.natures 
+    -f.field :custom_field, :nature, :choices=>CustomField.natures, "data-show-value"=>"#options_for_"
   -else
     -f.field CustomField.human_attribute_name('nature'), t('models.custom_field.natures.'+@custom_field.nature)
   -f.field :custom_field, :active
   -f.field :custom_field, :required
+
+=formalize(:id=>"options_for_string") do |f|
   -f.title :string_case
   -f.field :custom_field, :length_max
+
+=formalize(:id=>"options_for_decimal") do |f|
   -f.title :decimal_case
   -f.field :custom_field, :decimal_min
   -f.field :custom_field, :decimal_max

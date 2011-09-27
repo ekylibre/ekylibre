@@ -135,10 +135,10 @@ class PricesController < ApplicationController
       csv2 += ["HT","TTC","TVA"]
     end
     
-    csv_string = FasterCSV.generate_line(csv)
-    csv_string += FasterCSV.generate_line(csv2)
+    csv_string = Ekylibre::CSV.generate_line(csv)
+    csv_string += Ekylibre::CSV.generate_line(csv2)
     
-    csv_string += FasterCSV.generate do |csv|
+    csv_string += Ekylibre::CSV.generate do |csv|
       
       @products.each do |product|
         line = []
@@ -177,7 +177,7 @@ class PricesController < ApplicationController
         @unavailable_prices = []
         i = 0
         File.open("#{Rails.root.to_s}/#{name}", "w") { |f| f.write(file.read)}
-        FasterCSV.foreach("#{Rails.root.to_s}/#{name}") do |row|
+        Ekylibre::CSV.foreach("#{Rails.root.to_s}/#{name}") do |row|
           if i == 0
             x = 2
             while !row[x].nil?

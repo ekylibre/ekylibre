@@ -3,10 +3,13 @@ require File.join(File.dirname(__FILE__), 'safe_string')
 # require File.join(File.dirname(__FILE__), 'spreet')
 require File.join(File.dirname(__FILE__), 'activerecord')
 require File.join(File.dirname(__FILE__), 'ekylibre')
+require 'csv'
 
 module Ekylibre
   @@version = nil
   
+  CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
+
   def self.version
     return @@version unless @@version.nil?
     File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[0..1].join("::")}

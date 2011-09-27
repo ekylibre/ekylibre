@@ -247,7 +247,7 @@ Ekylibre::Application.routes.draw do
     resources :journals do
       collection do
         match "draft", :via=>[:get, :post]
-        match "bookkeep", :via=>[:get, :post]
+        match "bookkeep", :via=>[:get, :put, :post]
         get :reports
         get :balance
         get :general_ledger
