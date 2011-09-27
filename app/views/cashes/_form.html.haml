@@ -17,7 +17,7 @@
       -f.title @cash.nature_label
       -f.field :cash, :bank_name
       -f.field :cash, :address, :field=>:textarea
-      -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], "data-show"=>"##{m[1]}_options"]} 
+      -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], {"data-show"=>"##{m[1]}_options"}]} 
     =formalize(:id=>:bban_options) do |f|
       -f.field :cash, :bank_code, :size=>10
       -f.field :cash, :agency_code, :size=>10

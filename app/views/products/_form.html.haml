@@ -13,7 +13,7 @@
   -f.field :product, :unit_id, :choices=>{:reflection=>:units}, :new=>true
   -f.field :product, :weight
   -# f.field :product, :price
-  -f.field :product, :nature, :field=>:radio, :choices=>Product.natures.collect{|p| [p[0], p[1], "data-show"=>"##{p[1]}_options"]}
+  -f.field :product, :nature, :field=>:radio, :choices=>Product.natures.collect{|p| [p[0], p[1], {"data-show"=>"##{p[1]}_options"}]}
 =formalize(:id=>:service_options) do |f|
   -f.field :product, :service_coeff
 =formalize(:id=>:subscrip_options) do |f|
