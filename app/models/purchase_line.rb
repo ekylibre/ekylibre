@@ -91,7 +91,7 @@ class PurchaseLine < CompanyRecord
       end
     end
 
-    self.tracking_serial = self.tracking_serial.strip
+    self.tracking_serial = self.tracking_serial.to_s.strip
     unless self.tracking_serial.blank?
       producer = self.purchase.supplier
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)

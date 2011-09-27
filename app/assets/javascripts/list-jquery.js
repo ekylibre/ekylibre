@@ -4,6 +4,11 @@
 
 (function($) {
 
+    $.behave(".list .pagination[data-list] a", "load", function(event) {
+        $(this).attr("data-remote", "true");
+        $(this).attr("data-list-update", $(this).closest(".pagination[data-list]").data("list"));
+    });
+
     $.behave("a[data-toggle-column]", "click", function(event) {
         var element = $(this), columnId = element.data('toggle-column');
         var column = $(columnId);
@@ -57,6 +62,10 @@
             }
         });
         return false;
+    });
+
+    $.behave("a[data-list-update]", "ajax:success", function(event, data, status, xhr) {
+        $($(this).data('list-update')).html(data);
     });
 
 })(jQuery);

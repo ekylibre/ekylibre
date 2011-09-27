@@ -114,17 +114,30 @@ def actions_in_file(path, controller)
     line = line.gsub(/(^\s*|\s*$)/,'')
     if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
       actions << line.split(/def\s/)[1].gsub(/\s/,'') 
-    elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
-      dyxx = line.split(/[\s\(\)\,\:]+/)
-      actions << dyxx[1]+'_'+dyxx[0]
+    elsif line.match(/^\s*formize[\s\(]+\:\w+/)
+      formize = line.split(/[\s\(\)\,\:]+/)
+      actions << "formize_"+formize[1]
+    elsif line.match(/^\s*formize([\s\(]+|\s*$)/)
+      actions << "formize"
+    elsif line.match(/^\s*search_for[\s\(]+\:\w+/)
+      search_for = line.split(/[\s\(\)\,\:]+/)
+      actions << "search_for_"+search_for[1]
+    elsif line.match(/^\s*search_for([\s\(]+|\s*$)/)
+      actions << "search_for"
+    # elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
+    #   dyxx = line.split(/[\s\(\)\,\:]+/)
+    #   actions << dyxx[1]+'_'+dyxx[0]
+    elsif line.match(/^\s*autocomplete_for[\s\(]+\:\w+\s*\,\s*\:\w+/)
+      list = line.split(/[\s\(\)\,\:]+/)
+      actions << "autocomplete_for_#{list[1]}_#{list[2]}"
     elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
-      dyxx = line.split(/[\s\(\)\,\:]+/)
-      actions << 'list_'+dyxx[1]
+      list = line.split(/[\s\(\)\,\:]+/)
+      actions << 'list_'+list[1]
     elsif line.match(/^\s*list([\s\(]+|\s*$)/)
-      actions << "list" # _#{controller}"
-    elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
-      dyxx = line.split(/[\s\(\)\,\:]+/)
-      actions << dyxx[1]+'_kame'
+      actions << "list"
+    # elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
+    #   kame = line.split(/[\s\(\)\,\:]+/)
+    #   actions << kame[1]+'_kame'
     elsif line.match(/^\s*manage_restfully_list/)
       actions << 'up'
       actions << 'down'

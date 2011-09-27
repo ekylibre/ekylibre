@@ -39,23 +39,27 @@ __minimum__:
   - dashboards::welcome
   - help::index
   - help::show
-  - interfacers::account_dyli
-  - interfacers::account_dyli
-  - interfacers::all_contacts_dyli
-  - interfacers::auto_complete_for_contact_line_6
-  - interfacers::auto_complete_for_entity_origin
-  - interfacers::auto_complete_for_event_location
-  - interfacers::auto_complete_for_mandate
-  - interfacers::auto_complete_for_mandate_family
-  - interfacers::auto_complete_for_mandate_organization
-  - interfacers::auto_complete_for_mandate_title
-  - interfacers::client_contacts_dyli
-  - interfacers::entities_dyli
   - interfacers::product_trackings
   - interfacers::product_units
-  - interfacers::purchase_products_dyli
-  - interfacers::subscription_contacts_dyli
-  - interfacers::suppliers_dyli
+  - interfacers::search_for_account
+  - interfacers::search_for_all_contacts
+  - interfacers::search_for_attorneys_accounts
+  - interfacers::search_for_available_prices
+  - interfacers::search_for_client_contacts
+  - interfacers::search_for_clients
+  - interfacers::search_for_clients_accounts
+  - interfacers::search_for_collected_account
+  - interfacers::search_for_districts
+  - interfacers::search_for_entities
+  - interfacers::search_for_incoming_delivery_contacts
+  - interfacers::search_for_operation_products
+  - interfacers::search_for_outgoing_deliveries
+  - interfacers::search_for_outgoing_delivery_contacts
+  - interfacers::search_for_paid_account
+  - interfacers::search_for_purchase_products
+  - interfacers::search_for_subscription_contacts
+  - interfacers::search_for_suppliers
+  - interfacers::search_for_suppliers_accounts
   - interfacers::toggle_side
   - interfacers::toggle_tab
   - interfacers::unroll_options
@@ -348,7 +352,7 @@ manage_districts:
   - districts::list
   - districts::new
   - districts::update
-  - interfacers::districts_dyli
+  - interfacers::search_for_districts
 # Manage document templates
 manage_document_templates:
   actions:
@@ -385,11 +389,11 @@ manage_entities:
   - entities::list_subscriptions
   - entities::new
   - entities::update
-  - interfacers::attorneys_accounts_dyli
-  - interfacers::auto_complete_for_contact_line_6
-  - interfacers::auto_complete_for_entity_origin
-  - interfacers::clients_accounts_dyli
-  - interfacers::suppliers_accounts_dyli
+  - interfacers::autocomplete_for_area_name
+  - interfacers::autocomplete_for_entity_origin
+  - interfacers::search_for_attorneys_accounts
+  - interfacers::search_for_clients_accounts
+  - interfacers::search_for_suppliers_accounts
 # Manage people natures
 manage_entities_natures:
   actions:
@@ -435,8 +439,8 @@ manage_entity_links:
 manage_estimates:
   actions:
   - dashboards::trade
-  - interfacers::available_prices_dyli
-  - interfacers::clients_dyli
+  - interfacers::search_for_available_prices
+  - interfacers::search_for_clients
   - prices::find
   - sale_lines::create
   - sale_lines::destroy
@@ -477,7 +481,7 @@ manage_events:
   - events::list
   - events::new
   - events::update
-  - interfacers::auto_complete_for_event_location
+  - interfacers::autocomplete_for_event_location
 # Manage and close financial years
 manage_financial_years:
   actions:
@@ -558,7 +562,7 @@ manage_journal_entries:
   - accounts::reconciliation
   - accounts::unmark
   - dashboards::accountancy
-  - interfacers::account_dyli
+  - interfacers::search_for_account
   - journal_entries::create
   - journal_entries::destroy
   - journal_entries::edit
@@ -636,10 +640,9 @@ manage_listings:
 manage_mandates:
   actions:
   - dashboards::relations
-  - interfacers::auto_complete_for_mandate
-  - interfacers::auto_complete_for_mandate_family
-  - interfacers::auto_complete_for_mandate_organization
-  - interfacers::auto_complete_for_mandate_title
+  - interfacers::autocomplete_for_mandate_family
+  - interfacers::autocomplete_for_mandate_organization
+  - interfacers::autocomplete_for_mandate_title
   - mandates::configure
   - mandates::create
   - mandates::destroy
@@ -662,7 +665,7 @@ manage_observations:
 manage_operations:
   actions:
   - dashboards::production
-  - interfacers::operation_products_dyli
+  - interfacers::search_for_operation_products
   - operation_lines::create
   - operation_lines::new
   - operation_natures::create
@@ -793,9 +796,9 @@ manage_purchases:
   - incoming_delivery_modes::list
   - incoming_delivery_modes::new
   - incoming_delivery_modes::update
-  - interfacers::incoming_delivery_contacts_dyli
-  - interfacers::purchase_products_dyli
-  - interfacers::suppliers_dyli
+  - interfacers::search_for_incoming_delivery_contacts
+  - interfacers::search_for_purchase_products
+  - interfacers::search_for_suppliers
   - purchase_lines::create
   - purchase_lines::destroy
   - purchase_lines::edit
@@ -834,7 +837,7 @@ manage_sale_natures:
 manage_sales:
   actions:
   - dashboards::trade
-  - interfacers::outgoing_delivery_contacts_dyli
+  - interfacers::search_for_outgoing_delivery_contacts
   - outgoing_deliveries::create
   - outgoing_deliveries::destroy
   - outgoing_deliveries::edit
@@ -872,6 +875,7 @@ manage_stock_moves:
   - stocks::create
   - stocks::destroy
   - stocks::edit
+  - stocks::formize
   - stocks::index
   - stocks::list
   - stocks::new
@@ -901,8 +905,8 @@ manage_subscriptions:
 manage_taxes:
   actions:
   - dashboards::finances
-  - interfacers::collected_account_dyli
-  - interfacers::paid_account_dyli
+  - interfacers::search_for_collected_account
+  - interfacers::search_for_paid_account
   - taxes::create
   - taxes::destroy
   - taxes::edit
@@ -927,10 +931,11 @@ manage_tools:
 manage_transports:
   actions:
   - dashboards::trade
-  - interfacers::outgoing_deliveries_dyli
+  - interfacers::search_for_outgoing_deliveries
   - transports::create
   - transports::destroy
   - transports::edit
+  - transports::formize
   - transports::index
   - transports::list
   - transports::list_deliveries

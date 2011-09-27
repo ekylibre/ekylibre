@@ -916,7 +916,7 @@ class Company < Ekylibre::Record::Base
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     taxes = self.taxes
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :stockable=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :category_id=>product_category_id, :unit=>units[rand(units.size)], :deliverable=>true, :stockable=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end

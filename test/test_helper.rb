@@ -78,6 +78,7 @@ class ActionController::TestCase
     # code << "  should 'have restful actions' do\n"
     except = options.delete(:except)||[]
     except = [except] unless except.is_a? Array
+    except << :formize
     # for ignored in except
     #   puts "Ignore: #{controller}##{ignored}"
     # end

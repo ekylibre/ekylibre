@@ -100,8 +100,7 @@ fra:
       stock_move:
         origin: 'Origine'
       stock_transfer:
-        # second_warehouse: 'Arrival warehouse'
-        second_warehouse_id: 'Lieu de stockage d''arrivée' #!
+        second_warehouse: 'Lieu de stockage d''arrivée'
         warehouse: 'Lieu de stockage de départ'
         warehouse_id: 'Lieu de stockage de départ' #!
       subscription:
@@ -1395,7 +1394,7 @@ fra:
       default_name: '%{origin} (%{code})'
     stock_transfer:
       natures:
-        # gain: 'Gain'
+        gain: 'Gain'
         transfer: 'Transfert'
         waste: 'Perte'
     subscription_nature:

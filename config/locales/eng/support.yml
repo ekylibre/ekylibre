@@ -49,6 +49,8 @@ eng:
       x_seconds:
         many: '%{count} secondes'
         one: '1 seconde'
+  form:
+    new: 'New…'
   list:
     columns: 'Columns'
     export:
@@ -103,5 +105,5 @@ eng:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'
-  form:
-    new: 'New…'
+  will_paginate:
+    page_gap: '…'

@@ -49,6 +49,8 @@ jpn:
       x_seconds:
         many: '%{count}秒間'
         one: '%{count}秒間'
+  form:
+    # new: 'New…'
   list:
     columns: '列'
     export:
@@ -103,3 +105,5 @@ jpn:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'
+  will_paginate:
+    page_gap: '⋯'

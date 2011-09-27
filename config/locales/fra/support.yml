@@ -49,6 +49,8 @@ fra:
       x_seconds:
         many: '%{count} secondes'
         one: '1 seconde'
+  form:
+    new: 'Nouveau…'
   list:
     columns: 'Colonnes'
     export:
@@ -103,5 +105,5 @@ fra:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'
-  form:
-    new: 'Nouveau…'
+  will_paginate:
+    page_gap: '…'

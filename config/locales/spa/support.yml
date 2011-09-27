@@ -49,6 +49,8 @@ spa:
       x_seconds:
         many: '%{count} segundos'
         one: '1 segundo'
+  form:
+    # new: 'New…'
   list:
     columns: 'Columnas'
     export:
@@ -103,3 +105,5 @@ spa:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'pm'
+  will_paginate:
+    page_gap: '…'

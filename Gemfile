@@ -14,12 +14,12 @@ gem 'haml'
 gem 'fastercsv', :platforms=>[:ruby_18, :mri_18, :mingw_18, :mswin]
 gem 'libxml-ruby', :require=>'libxml' # , '1.1.3'
 gem 'rubyzip', :require=>'zip/zip'
-gem 'will_paginate', '3.0.0'
+gem 'will_paginate', '~> 3.0'
 gem "exception_notification"
 gem 'state_machine', '0.9.4'
 gem 'jquery-rails' # Necessary to call the Rails's generator
-gem 'combo_box'#, :path=>'../combo_box'
-gem 'formize'#, :path=>'../formize'
+gem 'combo_box' #, :path=>'../combo_box'
+gem 'formize' #, :path=>'../formize'
 
 group :development do
   gem 'ruby-prof'

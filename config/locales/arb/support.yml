@@ -49,6 +49,8 @@ arb:
       x_seconds:
         many: '%{count} ثواني'
         one: 'ثانية واحدة'
+  form:
+    # new: 'New…'
   list:
     # columns: 'Columns'
     export:
@@ -103,3 +105,5 @@ arb:
       long: '%B %d, %Y %H:%M'
       short: '%d %b %H:%M'
     pm: 'مساءا'
+  will_paginate:
+    page_gap: '…'

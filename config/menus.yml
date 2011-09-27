@@ -10,34 +10,33 @@
 #         - dashboards::relations
 #         - dashboards::trade
 #         - dashboards::welcome
-#         - interfacers::account_dyli
-#         - interfacers::all_contacts_dyli
-#         - interfacers::attorneys_accounts_dyli
-#         - interfacers::auto_complete_for_contact_line_6
-#         - interfacers::auto_complete_for_entity_origin
-#         - interfacers::auto_complete_for_event_location
-#         - interfacers::auto_complete_for_mandate
-#         - interfacers::auto_complete_for_mandate_family
-#         - interfacers::auto_complete_for_mandate_organization
-#         - interfacers::auto_complete_for_mandate_title
-#         - interfacers::available_prices_dyli
-#         - interfacers::client_contacts_dyli
-#         - interfacers::clients_accounts_dyli
-#         - interfacers::clients_dyli
-#         - interfacers::collected_account_dyli
-#         - interfacers::districts_dyli
-#         - interfacers::entities_dyli
-#         - interfacers::incoming_delivery_contacts_dyli
-#         - interfacers::operation_products_dyli
-#         - interfacers::outgoing_deliveries_dyli
-#         - interfacers::outgoing_delivery_contacts_dyli
-#         - interfacers::paid_account_dyli
+#         - interfacers::autocomplete_for_area_name
+#         - interfacers::autocomplete_for_entity_origin
+#         - interfacers::autocomplete_for_event_location
+#         - interfacers::autocomplete_for_mandate_family
+#         - interfacers::autocomplete_for_mandate_organization
+#         - interfacers::autocomplete_for_mandate_title
 #         - interfacers::product_trackings
 #         - interfacers::product_units
-#         - interfacers::purchase_products_dyli
-#         - interfacers::subscription_contacts_dyli
-#         - interfacers::suppliers_accounts_dyli
-#         - interfacers::suppliers_dyli
+#         - interfacers::search_for_account
+#         - interfacers::search_for_all_contacts
+#         - interfacers::search_for_attorneys_accounts
+#         - interfacers::search_for_available_prices
+#         - interfacers::search_for_client_contacts
+#         - interfacers::search_for_clients
+#         - interfacers::search_for_clients_accounts
+#         - interfacers::search_for_collected_account
+#         - interfacers::search_for_districts
+#         - interfacers::search_for_entities
+#         - interfacers::search_for_incoming_delivery_contacts
+#         - interfacers::search_for_operation_products
+#         - interfacers::search_for_outgoing_deliveries
+#         - interfacers::search_for_outgoing_delivery_contacts
+#         - interfacers::search_for_paid_account
+#         - interfacers::search_for_purchase_products
+#         - interfacers::search_for_subscription_contacts
+#         - interfacers::search_for_suppliers
+#         - interfacers::search_for_suppliers_accounts
 #         - interfacers::toggle_side
 #         - interfacers::toggle_tab
 #         - interfacers::unroll_options
@@ -514,6 +513,7 @@ menus:
         - transports::create
         - transports::destroy
         - transports::edit
+        - transports::formize
         - transports::list
         - transports::list_deliveries
         - transports::list_transportable_deliveries
@@ -534,6 +534,7 @@ menus:
         - stocks::create
         - stocks::destroy
         - stocks::edit
+        - stocks::formize
         - stocks::list
         - stocks::new
         - stocks::update

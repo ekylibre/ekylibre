@@ -208,8 +208,8 @@ module List
       code, pagination = '', ''
 
       if table.finder.paginate?
-        # Pages link
-        pagination << "' << will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('list.previous'), :next_label=>::I18n.translate('list.next'), :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}, :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+"}).to_s << '"
+        # Pages link # , :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}
+        pagination << "' << will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('list.previous'), :next_label=>::I18n.translate('list.next'), 'data-list'=>'##{table.name}', :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+"}).to_s << '"
 
         code = "(#{table.records_variable_name}.total_pages > 1 ? '<tfoot><tr><th colspan=\"#{table.columns.size+1}\">#{pagination}</th></tr></tfoot>' : '').html_safe"
       end

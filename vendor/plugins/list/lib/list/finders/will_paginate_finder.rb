@@ -43,12 +43,9 @@ List.register_finder(:will_paginate_finder, List::WillPaginateFinder)
 ERB::Util::HTML_ESCAPE.merge( '&' => '&#38;', '>' => '&#62;', '<' => '&#60;', '"' => '&#34;' )
 
 module ActionView
-  if defined? WillPaginate::ViewHelpers::LinkRenderer
+  # if defined? WillPaginate::ViewHelpers::LinkRenderer
+
     class RemoteLinkRenderer < WillPaginate::ViewHelpers::LinkRenderer
-      
-      def initialize
-        @gap_marker = '<span class="gap">&#8230;</span>'
-      end
 
       def prepare(collection, options, template)
         @remote = options.delete(:remote) || {}
@@ -56,41 +53,54 @@ module ActionView
       end
 
       protected
+      # def initialize
+      #   @gap_marker = '<span class="gap">&#8230;</span>'
+      # end
 
-      # WillPaginate 3
-      def link(text, target, attributes = {})
-        if target.is_a? Fixnum
-          attributes[:rel] = rel_value(target)
-          target = url(target)
-        end
-        @template.link_to(text, target, attributes.merge(@remote))
-        # attributes[:href] = target
-        # @template.link_to_remote(text, {:url => target, :method => :get}.merge(@remote), attributes)
+      def gap
+        '<span class="gap">&#8230;</span>'
       end
-
-    end  
-
-  elsif defined? WillPaginate::LinkRenderer
-
-    class RemoteLinkRenderer < WillPaginate::LinkRenderer
       
-      def initialize
-        @gap_marker = '<span class="gap">&#8230;</span>'
-      end
-
-      def prepare(collection, options, template)
-        @remote = options.delete(:remote) || {}
-        super
-      end
-
-      protected
-
-      # WillPaginate 2
       def page_link(page, text, attributes = {})
-        # @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
         @template.link_to(text, url_for(page), attributes.merge(@remote))
       end
+      
+      # protected
+
+      # # WillPaginate 3
+      # def link(text, target, attributes = {})
+      #   if target.is_a? Fixnum
+      #     attributes[:rel] = rel_value(target)
+      #     target = url(target)
+      #   end
+      #   @template.link_to(text, target, attributes.merge(@remote))
+      #   # attributes[:href] = target
+      #   # @template.link_to_remote(text, {:url => target, :method => :get}.merge(@remote), attributes)
+      # end
+
     end  
 
-  end
+  # elsif defined? WillPaginate::LinkRenderer
+
+  #   class RemoteLinkRenderer < WillPaginate::LinkRenderer
+      
+  #     def initialize
+  #       @gap_marker = '<span class="gap">&#8230;</span>'
+  #     end
+
+  #     def prepare(collection, options, template)
+  #       @remote = options.delete(:remote) || {}
+  #       super
+  #     end
+
+  #     protected
+
+  #     # WillPaginate 2
+  #     def page_link(page, text, attributes = {})
+  #       # @template.link_to_remote(text, {:url => url_for(page), :method => :get}.merge(@remote), attributes)
+  #       @template.link_to(text, url_for(page), attributes.merge(@remote))
+  #     end
+  #   end  
+
+  # end
 end

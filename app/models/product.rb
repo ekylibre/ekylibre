@@ -67,18 +67,6 @@
 
 
 class Product < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
-  validates_numericality_of :critic_quantity_min, :price, :quantity_max, :quantity_min, :service_coeff, :weight, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :ean13, :allow_nil => true, :maximum => 13
-  validates_length_of :code, :allow_nil => true, :maximum => 16
-  validates_length_of :code2, :allow_nil => true, :maximum => 64
-  validates_length_of :catalog_name, :name, :subscription_period, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :deliverable, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :published, :reduction_submissive, :stockable, :trackable, :unquantifiable, :with_tracking, :in => [true, false]
-  validates_presence_of :catalog_name, :category, :company, :name, :nature, :number, :unit
-  #]VALIDATORS]
   @@natures = [:product, :service, :subscrip] # , :transfer]
   attr_readonly :company_id
   belongs_to :purchases_account, :class_name=>"Account"
@@ -101,6 +89,18 @@ class Product < CompanyRecord
   has_many :subscriptions
   has_many :trackings
   has_many :units, :class_name=>"Unit", :finder_sql=>proc{ "SELECT #{Unit.table_name}.* FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)} ORDER BY coefficient, label"}, :counter_sql=>proc{ "SELECT count(*) AS count_all FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)}" }
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
+  validates_numericality_of :critic_quantity_min, :price, :quantity_max, :quantity_min, :service_coeff, :weight, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :ean13, :allow_nil => true, :maximum => 13
+  validates_length_of :code, :allow_nil => true, :maximum => 16
+  validates_length_of :code2, :allow_nil => true, :maximum => 64
+  validates_length_of :catalog_name, :name, :subscription_period, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :deliverable, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :published, :reduction_submissive, :stockable, :trackable, :unquantifiable, :with_tracking, :in => [true, false]
+  validates_presence_of :catalog_name, :category, :company, :name, :nature, :number, :unit
+  #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if=>Proc.new{|u| u.nature.to_s=="subscrip"}
   validates_presence_of :subscription_period,   :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and u.subscription_nature.period?}
   validates_presence_of :subscription_quantity, :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and not u.subscription_nature.period?}
@@ -113,9 +113,9 @@ class Product < CompanyRecord
   #validates_presence_of :charge_account_id
 
   before_validation do
-    self.code = self.name.codeize.upper if self.code.blank?
-    self.code = self.code[0..7]
-    if self.company_id
+    self.code = self.name.codeize.upper if !self.name.blank? and self.code.blank?
+    self.code = self.code[0..7] unless self.code.blank?
+    if self.company
       if self.number.blank?
         last = self.company.products.find(:first, :order=>'number DESC')
         self.number = last.nil? ? 1 : last.number+1 

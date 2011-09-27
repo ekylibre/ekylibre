@@ -7,7 +7,6 @@ module List
     end
 
     module ClassMethods
-
       # Permits to define and generate methods to manage dynamic 
       # table List
       def list(*args, &block)

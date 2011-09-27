@@ -203,7 +203,7 @@ fra:
       divide: 'Diviser l''îlot : %{name}'
       edit: 'Modifier l'' îlot : %{name}'
       index: 'Îlots'
-      # merge: 'Merge land parcels'
+      merge: 'Fusionner des îlots'
       new: 'Ajouter un nouvel îlot'
       show: 'Îlot %{name}'
     listing_node_items: #!
@@ -989,11 +989,11 @@ fra:
     new_sales_price: 'Ajouter un prix de vente'
     new_title: 'Nouveau titre'
     new_transport_of_x_deliveries:
-      # one: 'New transport (%{count} delivery)'
-      # other: 'New transport (%{count} deliveries)'
+      one: 'Nouveau transport (%{count} livraison)'
+      other: 'Nouveau transport (%{count} livraisons)'
     new_transport_of_x_deliveries_for_y:
-      # one: 'New transport for %{transporter} (%{count} delivery)'
-      # other: 'New transport for %{transporter} (%{count} deliveries)'
+      one: 'Nouveau transport pour %{transporter} (%{count} livraison)'
+      other: 'Nouveau transport pour %{transporter} (%{count} livraisons)'
     new_value: 'Nouvelle valeur'
     next: 'Suivant'
     no_commercial: '-- Sans commercial --'
@@ -1106,9 +1106,9 @@ fra:
     productions: 'Productions'
     products: 'Produits'
     products_states:
-      # active: 'Active'
-      # all: 'All'
-      # inactive: 'Inactive'
+      active: 'Actifs'
+      all: 'Tous'
+      inactive: 'Inactifs'
     profitability: 'Rentabilité'
     purchase: 'Achat'
     purchase_lines: 'Lignes de l''achat' #!
@@ -1273,11 +1273,11 @@ fra:
     transport: 'Transport'
     transport_deliveries: 'Livraisons du transport'
     transport_states:
-      # all: 'All'
-      # making: 'Making'
-      # ready: 'Ready'
-      # shipped: 'Shipped'
-      # waiting: 'Waiting'
+      all: 'Tous'
+      making: 'En cours'
+      ready: 'Prêts'
+      shipped: 'Expédié'
+      waiting: 'En attente'
     undelivered: 'Reste à livrer'
     undeposited: 'Non remis en banque'
     uninvoiced_amount: 'Montant non facturé'
@@ -1413,7 +1413,7 @@ fra:
     x_unit: '%{quantity}%{unit}'
     x_unit_of_product_per_second: '%{quantity}%{unit}/s de %{product}'
     x_unit_per_second: 'Débit: %{quantity}%{unit}/s'
-    # x_units_of_product_y: '%{quantity}%{unit} of %{product}'
+    x_units_of_product_y: '%{quantity}%{unit} de %{product}'
     x_waiting_incoming_deliveries:
       one: '%{count} livraison entrante en attente'
       other: '%{count} livraisons entrantes en attente'
@@ -1484,7 +1484,7 @@ fra:
     no_stocks: 'Vous n''avez aucun stock. Si vous désirez gérer le stock d''un produit, veuillez cocher l''option "Gérer les stocks" dans les caractéristiques de votre produit.'
     no_template_journal: 'Pas de modèle journal' #!
     no_template_journal_by_id: 'Pas de modèle journal' #!
-    # no_unconfirmed_stock_transfers: 'No unconfirmed stock transfers'
+    no_unconfirmed_stock_transfers: 'Aucun transfert de stocks non-confirmé'
     no_unvalidated_operations: 'Aucun travail à réaliser'
     no_warehouse: 'Aucun lieu de stockage n''est défini. Veuillez en créer un pour pouvoir gérer vos stocks'
     password_successfully_changed: 'Votre mot de passe a été mis à jour avec succès'
@@ -1541,8 +1541,7 @@ fra:
     sales_invoices_sequence: 'Numérotation des factures'
     sales_journal: 'Journal des ventes par défaut'
     sales_sequence: 'Numérotation des ventes'
-    stock_transfer_sequence: 'Numérotation des transferts et pertes de stock' #!
-    # stock_transfers_sequence: 'Numeration of stock transfers'
+    stock_transfers_sequence: 'Numérotation des transferts et pertes de stock'
     subscriptions_sequence: 'Numérotation des abonnements'
     taxes_acquisition_accounts: 'Compte des taxes d''acquisitions intracommunautaires'
     taxes_assimilated_accounts: 'Compte des taxes assimilées'
