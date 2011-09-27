@@ -104,6 +104,7 @@ arb:
     documents:  #!
       print: 'طباعة وتصدير' #!
     entities:
+      # destroy: 'Remove person'
       edit: 'تعديل الملف : %{full_name}'
       export: 'تصدير الملفات'
       import: 'استيراد الملفات'

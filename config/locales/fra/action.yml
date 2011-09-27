@@ -100,6 +100,7 @@ fra:
       new: 'Création d''un modèle de document'
       print: 'Imprimer un exemple'
     entities:
+      destroy: 'Supprimer la fiche'
       edit: 'Modifier la fiche : %{full_name}'
       export: 'Exportation de fiches'
       import: 'Importation de fiches'

@@ -4,6 +4,6 @@
   -f.field :event, :responsible_id,   :choices=>{:reflection=>:users, :label=>:label, :order=>"last_name, first_name"}, :new=>true
   -f.field :event, :nature_id, :choices=>{:reflection=>:event_natures, :label=>:name, :order=>:name}, :new=>true, "data-dependents"=>"#event_duration", "data-parameter-name"=>"nature_id"
   -f.field :event, :duration, "data-refresh"=>url_for(:action=>:change_minutes, :field=>:duration), "data-refresh-mode"=>"update-value"
-  -f.field :event, :location, "data-autocomplete"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_event_location)
+  -f.field :event, :location, "data-autocompletion"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_event_location)
   -f.field :event, :reason, :field=>:textarea
   -f.field :event, :started_at

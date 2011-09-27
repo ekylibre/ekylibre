@@ -77,6 +77,7 @@ eng:
       new: 'Add a new document template'
       print: 'Print document template'
     entities:
+      destroy: 'Remove person' #!
       edit: 'Edit person: %{full_name}'
       export: 'Export people'
       import: 'Import people'

@@ -31,7 +31,7 @@
 =formalize(:id=>:client_form) do |f|
   -f.title :client_informations
   -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
-  -f.field :entity, :origin, "data-autocomplete"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_entity_origin)
+  -f.field :entity, :origin, "data-autocompletion"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_entity_origin)
   -f.field :entity, :first_met_on
   -f.field :entity, :proposer_id, :choices=>:entities
   -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>true

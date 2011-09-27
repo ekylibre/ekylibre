@@ -87,6 +87,7 @@ jpn:
       # print: 'Print document template'
     documents: #!
     entities:
+      # destroy: 'Remove person'
       # edit: 'Edit person: %{full_name}'
       # export: 'Export people'
       # import: 'Import people'

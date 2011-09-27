@@ -5,19 +5,19 @@
     // It rebinds automatically after each ajax request all not-binded.
     $.behaviours = [];
     $.behave = function (selector, events, handler) {
-	events = events.split(/\s+/ig);
-	for (var i = 0; i < events.length; i += 1) {
-	    event = events[i];
+        events = events.split(/\s+/ig);
+        for (var i = 0; i < events.length; i += 1) {
+            event = events[i];
             if (event === "load") {
-		$(document).ready(function(event) {
+                $(document).ready(function(event) {
                     $(selector).each(handler);
                     $(selector).prop('alreadyBound', true);
-		});
-		$.behaviours.push({selector: selector, handler: handler});
+                });
+                $.behaviours.push({selector: selector, handler: handler});
             } else {
-		$(selector).live(event, handler);
+                $(selector).live(event, handler);
             }
-	}
+        }
     }
     // Rebinds unbound elements on each ajax request.
     $(document).ajaxComplete(function () {
@@ -56,7 +56,7 @@
                     modal: true,
                     width: 'auto',
                     // height: 'auto',
-		    height: $(window).height()*0.8
+                    height: $(window).height()*0.8
                 });
                 $.ajaxDialogInitialize(frame);
                 frame.dialog("open");
@@ -86,7 +86,7 @@
         $("#" + frame_id + " form").each(function (index, form) {
             $(form).attr('data-dialog', frame_id);
         });
-	
+        
     };
 
     $.submitAjaxForm = function () {
@@ -144,28 +144,28 @@ Formize.refreshDependents = function (event) {
     var element = $(this);
     var params = {};
     if (element.val() !== null && element.val() !== undefined) {
-	var dependents = element.attr('data-dependents');
-	var paramName = element.attr('data-parameter-name') || element.attr('id') || 'value';
+        var dependents = element.attr('data-dependents');
+        var paramName = element.attr('data-parameter-name') || element.attr('id') || 'value';
         params[paramName] = element.val();
         $(dependents).each(function(index, item) {
             // Replaces element
             var url = $(item).attr('data-refresh');
-	    var mode = $(item).attr('data-refresh-mode') || 'replace';
+            var mode = $(item).attr('data-refresh-mode') || 'replace';
             if (url !== null) {
                 $.ajax(url, {
                     data: params,
                     success: function(data, textStatus, response) {
-			if (mode == 'update') {
-			    $(item).html(response.responseText);
-			} else if (mode == 'update-value') {
-			    if (element.data("attribute")) {
-				$(item).val($.parseJSON(data)[element.data("attribute")]);
-			    } else {
-				$(item).val(response.responseText);
-			    }
-			} else {
+                        if (mode == 'update') {
+                            $(item).html(response.responseText);
+                        } else if (mode == 'update-value') {
+                            if (element.data("attribute")) {
+                                $(item).val($.parseJSON(data)[element.data("attribute")]);
+                            } else {
+                                $(item).val(response.responseText);
+                            }
+                        } else {
                             $(item).replaceWith(response.responseText);
-			}
+                        }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         alert("FAILURE (Error "+textStatus+"): "+errorThrown);
@@ -181,11 +181,11 @@ Formize.refreshDependents = function (event) {
 Formize.toggleCheckboxes =  function () {
     var checkable = $(this);
     if (checkable.prop("checked")) {
-	$(checkable.attr('data-show')).slideDown();
-	$(checkable.attr('data-hide')).slideUp();
+        $(checkable.attr('data-show')).slideDown();
+        $(checkable.attr('data-hide')).slideUp();
     } else {
-	$(checkable.attr('data-show')).slideUp();
-	$(checkable.attr('data-hide')).slideDown();
+        $(checkable.attr('data-show')).slideUp();
+        $(checkable.attr('data-hide')).slideDown();
     }
 };
 
@@ -300,11 +300,11 @@ $.behave("a[data-add-item]", "click", function() {
     return false;
 });
 
-$.behave("input[data-autocomplete]", "load", function () {
+$.behave("input[data-autocompletion]", "load", function () {
     var element = $(this);
     element.autocomplete({
-	source: element.data("autocomplete"),
-	minLength: parseInt(element.data("min-length") || 1)
+        source: element.data("autocompletion"),
+        minLength: parseInt(element.data("min-length") || 1)
     });
 });
 
