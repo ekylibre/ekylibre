@@ -147,20 +147,26 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 html[dir="ltr"] div#side { float: left; }
 html[dir="rtl"] div#side { float: right; }
 
-#side .module { padding:0; margin: 8px 0 0 0; border-top: 1px solid #95b0e4; }
-#side .module:first-child { margin-top: 0; border-top: none; }
+#side .module { padding: 0 0 8px; margin: 0; border-top: 1px solid #95b0e4; }
+#side .module:first-child { padding-top: 8px; border-top: none; }
 #side .module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }
 
 #side .module.help { background: #FAFAFA url(../images/shadow-top.png) repeat-x bottom; } /* #fefef9 url(../images/help.png) repeat-x top */
 #side .module.help #help { background: url(../images/shadow-bottom.png) repeat-x top; } /* #fefef9 url(../images/help.png) repeat-x top */
 #side .module.help .content { padding: 8px; }
 
-#side .module.menu ul { padding: 8px 0 0 0; margin-bottom: 8px; }
-#side .module.menu ul li { display: block; }
-#side .module.menu ul li a { display: block; padding: 4px 12px; text-decoration: none; /*white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis*/ }
-#side .module.menu ul li a:hover {background: #C9D7F1;}
-#side .module.menu ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
+#side .module.menu ul { padding: 0 20px; margin: 0 5px; }
+#side .module.menu ul li { list-style-type: square; }
+#side .module.menu ul li a { display: block; padding: 2px 4px; text-decoration: underline; }
 #side .module.menu ul li a .path { color: #AAA; font-size: 11px;}
+
+#side .module.menu.master { background: #F1F1F1; }
+#side .module.menu.master ul { padding: 0; margin: 0;}
+#side .module.menu.master ul li { display: block; list-style-type: none; }
+#side .module.menu.master ul li a { text-decoration: none; padding: 4px 12px; color: #222; }
+#side .module.menu.master ul li a:hover {background: #C9D7F1; border-left: 4px solid #95b0e4; padding-left: 8px;}
+#side .module.menu.master ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
+
 
 .main { padding: 8px; overflow: auto; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
 .main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }

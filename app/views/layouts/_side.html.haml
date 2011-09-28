@@ -2,11 +2,11 @@
   -items = menu[path[1]]||[]
   -if items.size > 1
     -prefix = "#{path[0]}_#{path[1]}"
-    .module.menu
+    .module.menu.master
+      -#%h2=tl("menus.submenus.#{path[1]}")
       %ul{:id=>"side_#{prefix}_actions"}
         -for url in items
           %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
-
 
 -if session[:history].is_a?(Array) and not session[:history].size.zero?
   .module.menu
@@ -15,8 +15,10 @@
       -for page in session[:history][0..4]
         %li
           -title=h(page[:title])
-          -# title=h(tl("menus.#{page[:reverse][0]}"))+" &ndash; ".html_safe+title if page[:reverse].is_a?(Array) and page[:reverse][0]
-          =link_to(title.html_safe, page[:url], :title=>(h(tl("menus.#{page[:reverse][0]}"))+" &ndash; ".html_safe+h(tl("menus.submenus.#{page[:reverse][1]}"))).html_safe, :class=>(:current if request.url == page[:url]))
+          -infotip  = h(tl("menus.#{page[:reverse][0]}"))
+          -if page[:reverse][1].to_s != "__hidden__"
+            -infotip << " &ndash; ".html_safe+h(tl("menus.submenus.#{page[:reverse][1]}")) 
+          =link_to(page[:title], page[:url], :title=>infotip.html_safe)
 
 .module.help.flex
   %h2=tl("contextual_help")
