@@ -63,7 +63,7 @@ eng:
     deposits:
       edit: 'Edit the deposit %{number}'
       index: 'Deposits'
-      new: 'Add a new deposit: %{mode}'
+      new: 'Add a new deposit'
       show: 'Deposit %{number} on %{created_on}'
       unvalidateds: 'Unvalidated deposits'
     districts:
@@ -137,12 +137,12 @@ eng:
       index: 'Incoming payment modes'
       new: 'Add a new incoming payment mode'
     incoming_payment_uses:
-      new: 'Add a new incoming payment: %{label}'
+      new: 'Attach an incoming payment'
     incoming_payments:
       edit: 'Edit the incoming payment %{number}'
       index: 'Incoming payments'
       new: 'Add a new incoming payment'
-      show: 'Incoming payment %{number} de %{entity}'
+      show: 'Incoming payment %{number} of %{entity}'
     inventories:
       edit: 'Edit the inventory'
       index: 'Inventories'
@@ -529,6 +529,8 @@ eng:
     are_you_sure_you_want_to_invoice: 'Are you sure you want to invoice?'
     are_you_sure_you_want_to_send_mails: 'Are you sure you want to send emails?'
     area_x: '%{name} (%{postcode})'
+    attach_an_incoming_payment_to_expense: 'Attach an incoming payment to %{type} %{number}'
+    attach_an_outgoing_payment_to_expense: 'Attach an outgoing payment to %{type} %{number}'
     attachment: 'Attachment'
     attorney: 'Attorney'
     available_columns: 'Available columns: %{columns}'
@@ -823,9 +825,9 @@ eng:
     nb_years: 'Years'
     new: 'New...'
     new_deposit:
-      one: 'Make a deposit %{mode}: 1 payment'
-      other: 'Make a deposit %{mode}: %{count} payments'
-      zero: 'Make a deposit %{mode}: no payments'
+      one: 'Make a deposit %{mode}: 1 available payment'
+      other: 'Make a deposit %{mode}: %{count} available payments'
+      zero: 'Make a deposit %{mode}: no available payments'
     new_family: 'New family'
     new_in_line: 'Add a new incoming product'
     new_organization: 'New organization'

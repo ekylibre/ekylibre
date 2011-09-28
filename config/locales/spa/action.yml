@@ -165,12 +165,12 @@ spa:
       # index: 'Incoming payment modes'
       # new: 'Add a new incoming payment mode'
     incoming_payment_uses:
-      # new: 'Add a new incoming payment: %{label}'
+      # new: 'Attach an incoming payment'
     incoming_payments:
       # edit: 'Edit the incoming payment %{number}'
       # index: 'Incoming payments'
       # new: 'Add a new incoming payment'
-      # show: 'Incoming payment %{number} de %{entity}'
+      # show: 'Incoming payment %{number} of %{entity}'
     interfacers: #!
     inventories:
       edit: 'Modificacion del inventario'
@@ -601,6 +601,8 @@ spa:
     # area_x: '%{name} (%{postcode})'
     assessable_operations: 'Operaciones imponibles (H.T)' #!
     assimilated_tax: 'Tarifas asimiladas calculadas sobre anexo n°3310A' #!
+    # attach_an_incoming_payment_to_expense: 'Attach an incoming payment to %{type} %{number}'
+    # attach_an_outgoing_payment_to_expense: 'Attach an outgoing payment to %{type} %{number}'
     attachment: 'Pieza juntada'
     # attorney: 'Attorney'
     available_columns: 'Campos disponibles : %{columns}'
@@ -948,9 +950,9 @@ spa:
     net_vat_amount: 'TVA neta deuda' #!
     # new: 'New...'
     new_deposit:
-      # one: 'Make a deposit %{mode}: 1 payment'
-      # other: 'Make a deposit %{mode}: %{count} payments'
-      # zero: 'Make a deposit %{mode}: no payments'
+      # one: 'Make a deposit %{mode}: 1 available payment'
+      # other: 'Make a deposit %{mode}: %{count} available payments'
+      # zero: 'Make a deposit %{mode}: no available payments'
     # new_family: 'New family'
     # new_in_line: 'Add a new incoming product'
     # new_organization: 'New organization'

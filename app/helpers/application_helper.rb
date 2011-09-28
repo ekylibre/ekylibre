@@ -419,6 +419,11 @@ module ApplicationHelper
     content_tag(:h1, titles, :class=>"title", :title=>titles)
   end
 
+
+  def subheading(key, options={})
+    content_tag(:div, tl(key, options), :class=>"subheading")
+  end
+
   
   def side_tag # (submenu = self.controller.controller_name.to_sym)
     session[:side] = true
@@ -784,7 +789,7 @@ module ApplicationHelper
           args[1] ||= {}
           args[2] ||= {}
           args[2][:class] ||= "icon im-" + name.to_s.split('_')[-1]
-          args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, :default=>["labels.#{name}".to_sym]) if name.is_a? Symbol
+          args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
           else

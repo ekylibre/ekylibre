@@ -164,6 +164,7 @@ html[dir="rtl"] div#side { float: right; }
 
 .main { padding: 8px; overflow: auto; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
 .main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
+.main .subheading { margin: -4px 0 8px; font-size:18px; color: #AAA; font-weight: normal; font-style: italic; }
 /*.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
 .main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
 .main .mn-index { margin-bottom: 8px; width: 200px; }

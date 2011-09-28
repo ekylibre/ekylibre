@@ -86,7 +86,7 @@ fra:
     deposits:
       edit: 'Modifier la remise en banque n°%{number} du %{created_on}'
       index: 'Remises en banque'
-      new: 'Créer une remise : %{mode}'
+      new: 'Effectuer une remise'
       show: 'Remise en banque %{number} du %{created_on}'
       unvalidateds: 'Remises en banque non validées'
     districts:
@@ -164,7 +164,7 @@ fra:
       index: 'Modes d''encaissement'
       new: 'Ajouter un nouveau mode d''encaissement'
     incoming_payment_uses:
-      new: 'Ajouter un nouvel encaissement : %{type} N°%{number}'
+      new: 'Rattacher un encaissement'
     incoming_payments:
       edit: 'Modifier l''encaissement n°%{number}'
       index: 'Encaissements'
@@ -610,6 +610,8 @@ fra:
     area_x: '%{name} (%{postcode})'
     assessable_operations: 'Opérations imposables (H.T)' #!
     assimilated_tax: 'Taxes assimilées calculées sur annexe n°3310A' #!
+    attach_an_incoming_payment_to_expense: 'Rattacher un encaissement : %{type} N°%{number}'
+    attach_an_outgoing_payment_to_expense: 'Rattacher un décaissement : %{type} N°%{number}'
     attachment: 'Pièce jointe'
     attorney: 'Informations mandataire'
     available_columns: 'Champs disponibles : %{columns}'
@@ -976,9 +978,9 @@ fra:
     net_vat_amount: 'TVA nette due' #!
     new: 'Nouveau...'
     new_deposit:
-      one: 'Effectuer une remise : %{mode} (%{count} encaissement)'
-      other: 'Effectuer une remise : %{mode} (%{count} encaissements)'
-      zero: 'Effectuer une remise : %{mode} (Pas d''encaissement)'
+      one: 'Effectuer une remise : %{mode} (%{count} encaissement disponible)'
+      other: 'Effectuer une remise : %{mode} (%{count} encaissements disponibles)'
+      zero: 'Effectuer une remise : %{mode} (Pas d''encaissements disponibles)'
     new_family: 'Nouvelle famille'
     new_in_line: 'Ajouter un produit intrant'
     new_organization: 'Nouvelle organisation'

@@ -1,3 +1,6 @@
+-if @deposit.new_record?
+  =subheading :new_deposit, :mode=>@deposit.mode.name, :count=>mode.depositable_payments.size
+
 =formalize do |f|
   - f.error :deposit
   - f.title :infos

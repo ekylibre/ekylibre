@@ -23,7 +23,7 @@ class IncomingPaymentUsesController < ApplicationController
     expense = nil
     return unless expense = find_and_check(params[:expense_type], params[:expense_id])
     @incoming_payment_use = IncomingPaymentUse.new(:expense=>expense, :downpayment=>!expense.invoice?)
-    t3e :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
+    # t3e :type=>expense.class.model_name.human, :number=>expense.number, :label=>expense.label
     render_restfully_form
   end
 

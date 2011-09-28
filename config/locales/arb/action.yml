@@ -615,6 +615,8 @@ arb:
     area_x: '%{name} (%{postcode})'
     assessable_operations: 'الاجراءات الضريبية (H.T)' #!
     assimilated_tax: 'A3310 حساب الضرائب المماثلة على جدول رقم' #!
+    # attach_an_incoming_payment_to_expense: 'Attach an incoming payment to %{type} %{number}'
+    # attach_an_outgoing_payment_to_expense: 'Attach an outgoing payment to %{type} %{number}'
     attachment: 'المرفق'
     attorney: 'معلومات الوكيل'
     available_columns: 'الحقول المتاحة : %{columns}'
@@ -1014,9 +1016,9 @@ arb:
     net_vat_amount: 'صافي قيمة الضريبة الاضافية المستحقة' #!
     new: 'انشاء دفعة جديدة'
     new_deposit:
-      # one: 'Make a deposit %{mode}: 1 payment'
-      # other: 'Make a deposit %{mode}: %{count} payments'
-      # zero: 'Make a deposit %{mode}: no payments'
+      # one: 'Make a deposit %{mode}: 1 available payment'
+      # other: 'Make a deposit %{mode}: %{count} available payments'
+      # zero: 'Make a deposit %{mode}: no available payments'
     new_family: 'اسرة جديدة'
     # new_in_line: 'Add a new incoming product'
     new_organization: 'منظمة جديدة'
