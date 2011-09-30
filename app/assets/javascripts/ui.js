@@ -326,7 +326,7 @@
 
 
     // Live copy
-    $.behave("input[data-live-copy-to]", "keyup", function () {
+    $.behave("input[data-live-copy-to]", "keyup change emulated:change", function () {
 	var element = $(this);
 	$(element.data("live-copy-to")).val(element.val());
     });

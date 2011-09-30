@@ -79,7 +79,7 @@ class IncomingPayment < CompanyRecord
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
-  validates_presence_of :to_bank_on, :payer, :created_on
+  validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
   
   before_validation(:on=>:create) do

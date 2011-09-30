@@ -3,17 +3,19 @@
 (function ($) {
     // Replaces `$(selector).live("ready", handler)` which don't work
     // It rebinds automatically after each ajax request all not-binded.
+    $.behavioursCount = 0;
     $.behaviours = [];
     $.behave = function (selector, events, handler) {
         events = events.split(/\s+/ig);
         for (var i = 0; i < events.length; i += 1) {
             event = events[i];
             if (event === "load") {
+		var index = $.behavioursCount; $.behavioursCount += 1;
+                $.behaviours.push({selector: selector, handler: handler, index: index});
                 $(document).ready(function(event) {
                     $(selector).each(handler);
-                    $(selector).prop('alreadyBound', true);
+                    $(selector).prop('alreadyBound'+index, true);
                 });
-                $.behaviours.push({selector: selector, handler: handler});
             } else {
                 $(selector).live(event, handler);
             }
@@ -24,9 +26,9 @@
         for (var behaviour in $.behaviours) {
             behaviour = $.behaviours[behaviour];
             $(behaviour.selector).each(function(index, element){
-                if ($(element).prop('alreadyBound') !== true) {
+                if ($(element).prop('alreadyBound'+behaviour.index) !== true) {
                     behaviour.handler.call($(element));
-                    $(element).prop('alreadyBound', true);
+                    $(element).prop('alreadyBound'+behaviour.index, true);
                 }
             });
         }
@@ -309,8 +311,8 @@ $.behave("input[data-autocompletion]", "load", function () {
 });
 
 // Refresh dependents on changes
-$.behave("*[data-dependents]", "change", Formize.refreshDependents);
-$.behave("*[data-dependents]", "emulated:change", Formize.refreshDependents);
+$.behave("*[data-dependents]", "change emulated:change", Formize.refreshDependents);
+// $.behave("*[data-dependents]", "emulated:change", Formize.refreshDependents);
 // Compensate for changes made with keyboard
 $.behave("select[data-dependents]", "keypress", Formize.refreshDependents);
 
