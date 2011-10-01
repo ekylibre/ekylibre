@@ -6,7 +6,7 @@ task :views => :environment do
   views = []
   for controller_file in Dir.glob(Rails.root.join("app", "controllers", "*.rb")).sort
     source = ""
-    File.open(controller_file, "rb") do |f|
+    File.open(controller_file, "rb:UTF-8") do |f|
       source = f.read
     end
     controller = controller_file.split(/[\\\/]+/)[-1].gsub('_controller.rb', '')
@@ -21,7 +21,7 @@ task :views => :environment do
           valid = true 
         else
           for view in Dir.glob(Rails.root.join("app", "views", controller, "*.*"))
-            File.open(view, "rb") do |f|
+            File.open(view, "rb:UTF-8") do |f|
               view_source = f.read
               if view_source.match(/(render|replace_html)[^\n]*partial[^\n]*#{view[1..-1]}/)
                 valid = true

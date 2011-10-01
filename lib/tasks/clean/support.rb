@@ -110,7 +110,7 @@ end
 
 def actions_in_file(path, controller)
   actions = []
-  File.open(path, "rb").each_line do |line|
+  File.open(path, "rb:UTF-8").each_line do |line|
     line = line.gsub(/(^\s*|\s*$)/,'')
     if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
       actions << line.split(/def\s/)[1].gsub(/\s/,'') 

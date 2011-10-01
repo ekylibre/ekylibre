@@ -85,7 +85,7 @@ class SettingsController < ApplicationController
       file = "#{Rails.root.to_s}/tmp/uploads/#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
       File.open(file, "wb") {|f| f.write(data.read)}
       if params[:nature] == "ebp_edi"
-        File.open(file, "rb") do |f|
+        File.open(file, "rb:CP1252") do |f|
           unless f.readline.match(/^EBP\.EDI$/)
             notify_error_now(:bad_file)
             return

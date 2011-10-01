@@ -61,7 +61,7 @@ task :validations=>:environment do
 
         # Get content
         content = nil
-        File.open(file, "rb") do |f|
+        File.open(file, "rb:UTF-8") do |f|
           content = f.read
         end
 

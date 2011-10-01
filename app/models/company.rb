@@ -806,7 +806,7 @@ class Company < Ekylibre::Record::Base
       for template, attributes in templates
         next unless File.exist? files_dir.join("#{template}.xml")
         #begin
-        File.open(files_dir.join("#{template}.xml"), 'rb') do |f|
+        File.open(files_dir.join("#{template}.xml"), "rb:UTF-8") do |f|
           attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
           attributes[:name] = attributes[:name].to_s
           attributes[:nature] ||= template.to_s
@@ -821,7 +821,8 @@ class Company < Ekylibre::Record::Base
           doc = self.document_templates.find_by_code(code)
           doc ||= self.document_templates.new
           doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
-          doc.save!()
+          # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
+          doc.save!
         end
         #rescue
         #end

@@ -6,7 +6,7 @@ task :version => :environment do
   rev = doc['info']['entry']['commit']['revision'].to_i+1
   puts " - Current revision: #{rev}"
   code = ""
-  File.open(Rails.root.join("VERSION"), "rb") do |f|
+  File.open(Rails.root.join("VERSION"), "rb:UTF-8") do |f|
     code = f.read
   end
   code.gsub!(/,\d*\s*$/, ",#{rev}")

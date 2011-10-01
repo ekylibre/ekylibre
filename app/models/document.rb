@@ -66,7 +66,7 @@ class Document < CompanyRecord
     path = self.file_path
     file_data = nil
     if File.exists? path
-      File.open(path, 'rb') do |file|
+      File.open(path, "rb") do |file|
         file_data = file.read
       end
     else
