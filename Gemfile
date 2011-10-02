@@ -22,7 +22,7 @@ gem 'combo_box' #, :path=>'../combo_box'
 gem 'formize' #, :path=>'../formize'
 
 group :development do
-  gem 'ruby-prof'
+  # gem 'ruby-prof'
   # gem 'ruby-debug'
   # gem 'ruby-debug19', :require => 'ruby-debug'
   # gem 'ruby-graphviz', '>= 0.9.0'

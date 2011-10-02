@@ -30,7 +30,7 @@ if [ -n "`which makensis`" ]; then
     makensis -DRELEASE=${release} -DVERSION=${version} -DRESOURCES=${files} -DIMAGES=images installer.nsi >> $log
     rm -fr ${files}
 else
-    echo " * No makensis command. Run 'apt-get install nsis'"
-    echo " * No makensis command. Run 'apt-get install nsis'" >> $log
+    echo " * No makensis command. Run 'sudo apt-get install nsis'"
+    echo " * No makensis command. Run 'sudo apt-get install nsis'" >> $log
 fi
 

@@ -162,18 +162,19 @@ Section "Ekylibre" sec_ekylibre
     MessageBox MB_OK "Installation du service EkyService impossible"
   ${EndIf}
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "Application" '$InstApp\ruby\bin\ruby.exe'
-  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production -A rails'
+  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppParameters" '"$InstApp\ruby\bin\thin" start -p ${WSPORT} -e production'
   WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService\Parameters" "AppDirectory" '$InstApp\apps\ekylibre'
   SimpleSC::SetServiceDescription "EkyService" "Service Web d'Ekylibre"
   
   FileOpen $1 "$InstApp\migrate.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
-  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
+  ; ruby\bin\rake
+  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\rollback.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
-  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:rollback RAILS_ENV=production$\r$\n'
+  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:rollback RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\ekylibre-start.cmd" "w"
