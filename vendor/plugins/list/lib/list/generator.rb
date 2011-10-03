@@ -1,3 +1,4 @@
+# encoding: UTF-8
 require "list/finders"
 require "list/exporters"
 require "list/renderers"
@@ -48,7 +49,7 @@ module List
       code += "    render(:inline=>'<%=#{self.view_method_name}-%>', :layout=>true)\n" 
       code += "  end\n"
       code += "end\n"
-      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+      list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       return code
     end
 

@@ -103,6 +103,8 @@ class ActionController::TestCase
                  :update
                elsif action_name.match(/^(destroy)$/) # DELETE with ID
                  :destroy
+               elsif action_name.match(/^list(_\w+)?$/) # GET list
+                 :list
                elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID 
                  :touch
                end
@@ -140,6 +142,13 @@ class ActionController::TestCase
         code << "      delete :#{action}, :company=>@user.company.code, :id=>2\n"
         code << "    end\n"
         code << "    assert_response :redirect\n"
+      elsif mode == :list
+        code << "    get :#{action}, :company=>@user.company.code\n"
+        code << '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+        for format in [:csv, :xcsv, :ods]
+          code << "    get :#{action}, :company=>@user.company.code, :format=>:#{format}\n"
+          code << '    assert_response :success, "Action #{action} does not esport in format #{format}\n"
+        end
       elsif mode == :touch
         code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
         code << "      post :#{action}, :company=>@user.company.code\n"

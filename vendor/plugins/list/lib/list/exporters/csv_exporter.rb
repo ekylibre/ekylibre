@@ -13,7 +13,7 @@ module List
     def send_data_code(table)
       record = "r"
       code  = List::SimpleFinder.new.select_data_code(table)
-      code += "data = FasterCSV.generate do |csv|\n"
+      code += "data = List::CSV.generate do |csv|\n"
       code += "  csv << [#{columns_to_array(table, :header).join(', ')}]\n"
       code += "  for #{record} in #{table.records_variable_name}\n"  
       code += "    csv << [#{columns_to_array(table, :body, :record=>record).join(', ')}]\n"
