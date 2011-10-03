@@ -324,6 +324,27 @@
 	}
     });
 
+    
+    // Live copy
+    $.behave("a[data-toggle-module]", "click", function () {
+	var element = $(this), module = element.closest(".sd-module"), target = module.find(".sd-content"), shown;
+	if (element.hasClass("show")) {
+	    element.removeClass("show");
+	    element.addClass("hide");
+	    module.removeClass("collapsed");
+	    target.slideDown();
+	    shown = 1;
+	} else {
+	    element.removeClass("hide");
+	    element.addClass("show");
+	    module.addClass("collapsed");
+	    target.slideUp();
+	    shown = 0;
+	}
+	$.ajax(element.attr("href"), {data: {module: element.data("toggle-module"), shown: shown }});
+	return false;
+    });
+
 
     // Live copy
     $.behave("input[data-live-copy-to]", "keyup change emulated:change", function () {

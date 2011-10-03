@@ -26,6 +26,14 @@ class InterfacersController < ApplicationController
     render :text=>''    
   end
   
+  # Saves the state of the side bar
+  def toggle_module
+    # Explicit conversion
+    session[:modules] ||= {}
+    session[:modules][params[:module]] = (params[:shown].to_i>0 ? true : false)
+    render :text=>''
+  end
+  
   # Saves the last selected tab in a tabbox
   def toggle_tab
     session[:tabbox] ||= {}

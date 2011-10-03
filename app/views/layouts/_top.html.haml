@@ -5,12 +5,13 @@
     %a=@current_user.label
     =link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class=>"icon im-logout")
 
-.logo-bar=@current_company["name"] if @current_company
+-#.logo-bar=@current_company["name"] if @current_company
 
 -if @current_user
   -rm = reverse_menus
   .menu-bar
     %ul
+      %li.logo-item
       -for menu, submenus in menus
         %li     
           -name = tl("menus.#{menu}")
@@ -22,7 +23,7 @@
                   =link_to(tl("menus.submenus.#{submenu}"), items[0][:url])
           -else
             =link_to(name, {:controller=>:dashboards, :action=>menu}, :class=>"menu #{menu} current")
-  .submenu-bar
+  -#.submenu-bar
     %ul
       -for submenu, items in menus[rm[0]]||[]
         %li
@@ -34,4 +35,3 @@
                   %li=link_to(t("actions.#{item[:controller]}.#{item[:action]}"), item[:url])
           -else     
             =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>:current)
-  .clearfix

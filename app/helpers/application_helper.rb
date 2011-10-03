@@ -432,6 +432,24 @@ module ApplicationHelper
     render(:partial=>'layouts/side', :locals=>{:path=>path})
   end
 
+  def side_module(name, title=nil, &block)
+    session[:modules] ||= {}
+    session[:modules][name.to_s] = true unless [TrueClass, FalseClass].include?(session[:modules][name.to_s].class)
+    shown = session[:modules][name]
+    html = ""
+    html << "<div class='sd-module#{' collapsed' unless shown}'>"
+    html << "<div class='sd-title'>"
+    html << link_to("", {:action=>:toggle_module, :controller=>:interfacers}, "data-toggle-module"=>name, :class=>(shown ? :hide : :show))
+    html << "<h2>" + (title||tl(name)) + "</h2>"
+    html << "</div>"
+    html << "<div class='sd-content'" + (shown ? '' : ' style="display: none"') + ">"
+    html << capture(&block)
+    html << "</div>"
+    html << "</div>"
+    return html.html_safe
+  end
+
+
   def notification_tag(mode)
     # content_tag(:div, flash[mode], :class=>'flash ' << mode.to_s) unless flash[mode].blank?
     code = ''

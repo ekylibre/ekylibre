@@ -14,8 +14,8 @@
   %body{:data=>expiration}
     #body.flex{:class=>("resizable" if resizable?)}
       #top=top_tag
-      -if resizable?
-        #wrap.wrap.hbox.flex
+      #wrap.wrap.hbox.flex
+        -if resizable?
           -if @current_user
             #side.side.flex-1.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
             #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
@@ -23,8 +23,7 @@
             =title_header_tag
             =notifications_tag
             =yield
-      -else
-        #wrap.wrap.hbox.flex
+        -else
           %table#wrap-table
             %tr
               -if @current_user
