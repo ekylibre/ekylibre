@@ -115,7 +115,7 @@ class ActionController::TestCase
         # code << "    get :#{action}, :company=>@user.company.code\n"
         # code << "    assert_response :redirect\n"
         code << "    get :#{action}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
-        code << '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+        code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         # code << "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
       elsif mode == :index
         code << "    get :#{action}, :company=>@user.company.code\n"
@@ -144,10 +144,10 @@ class ActionController::TestCase
         code << "    assert_response :redirect\n"
       elsif mode == :list
         code << "    get :#{action}, :company=>@user.company.code\n"
-        code << '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+        code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         for format in [:csv, :xcsv, :ods]
           code << "    get :#{action}, :company=>@user.company.code, :format=>:#{format}\n"
-          code << '    assert_response :success, "Action #{action} does not esport in format #{format}\n"
+          code << "    assert_response :success, 'Action #{action} does not esport in format #{format}'\n"
         end
       elsif mode == :touch
         code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
@@ -173,7 +173,7 @@ class ActionController::TestCase
         code << "    assert_not_nil assigns(:#{model})\n"
       else
         code << "    get :#{action}, :company=>@user.company.code\n"
-        code << '    assert_response :success, "The action '+action.inspect+' does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"'+"\n"
+        code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         code << "    assert_select('html body div#body', 1, '#{action}')\n" # +response.inspect
       end
       code << "  end\n"
