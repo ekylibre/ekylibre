@@ -33,35 +33,22 @@ class PricesController < ApplicationController
 
   def new
     @mode = (params[:mode]||"sales").to_sym 
-    if request.post? 
-      @price = @current_company.prices.new(params[:price])
-      @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
-      return if save_and_redirect(@price)
-    else
-      @price = Price.new(:product_id=>params[:product_id], :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
-      @price.entity_id = params[:entity_id] if params[:entity_id]
-    end
+    @price = Price.new(:product_id=>params[:product_id], :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form    
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym 
-    if request.post? 
-      @price = @current_company.prices.new(params[:price])
-      @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
-      return if save_and_redirect(@price)
-    else
-      @price = Price.new(:product_id=>params[:product_id], :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
-      @price.entity_id = params[:entity_id] if params[:entity_id]
-    end
+    @price = @current_company.prices.new(params[:price])
+    @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
+    return if save_and_redirect(@price)
     render_restfully_form    
   end
 
   def destroy
     return unless @price = find_and_check(:price)
-    if request.post? or request.delete?
-      @price.update_attributes(:active=>false)
-    end
+    @price.update_attributes(:active=>false)
     redirect_to_current
   end
 
@@ -88,10 +75,6 @@ class PricesController < ApplicationController
   def edit
     return unless @price = find_and_check(:price)
     @mode = "purchases" if @price.entity_id != @current_company.entity_id
-    if request.post?
-      @price.amount = 0
-      return if save_and_redirect(@price, :attributes=>params[:price])
-    end
     t3e @price.attributes, :product=>@price.product.name
     render_restfully_form
   end
@@ -99,10 +82,8 @@ class PricesController < ApplicationController
   def update
     return unless @price = find_and_check(:price)
     @mode = "purchases" if @price.entity_id != @current_company.entity_id
-    if request.post?
-      @price.amount = 0
-      return if save_and_redirect(@price, :attributes=>params[:price])
-    end
+    @price.amount = 0
+    return if save_and_redirect(@price, :attributes=>params[:price])
     t3e @price.attributes, :product=>@price.product.name
     render_restfully_form
   end

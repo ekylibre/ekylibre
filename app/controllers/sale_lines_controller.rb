@@ -78,14 +78,7 @@ class SaleLinesController < ApplicationController
   def edit
     return unless @sale_line = find_and_check(:sale_line)
     @sale = @sale_line.sale 
-    @warehouses = @current_company.warehouses
-    @product = @sale_line.product
-    @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_id=>@sale.id}) || Subscription.new
-    #raise Exception.new @subscription.inspect
-    if request.post?
-      @sale_line.attributes = params[:sale_line]
-      return if save_and_redirect(@sale_line)
-    end
+    # @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_id=>@sale.id}) || Subscription.new
     t3e :product=>@sale_line.product.name
     render_restfully_form
   end
@@ -93,14 +86,8 @@ class SaleLinesController < ApplicationController
   def update
     return unless @sale_line = find_and_check(:sale_line)
     @sale = @sale_line.sale 
-    @warehouses = @current_company.warehouses
-    @product = @sale_line.product
-    @subscription = @current_company.subscriptions.find(:first, :conditions=>{:sale_id=>@sale.id}) || Subscription.new
-    #raise Exception.new @subscription.inspect
-    if request.post?
-      @sale_line.attributes = params[:sale_line]
-      return if save_and_redirect(@sale_line)
-    end
+    @sale_line.attributes = params[:sale_line]
+    return if save_and_redirect(@sale_line)
     t3e :product=>@sale_line.product.name
     render_restfully_form
   end

@@ -60,34 +60,21 @@ class OperationsController < ApplicationController
   end
 
   def new
-    if request.post?
-      # raise params.inspect
-      @operation = @current_company.operations.new(params[:operation])
-      @operation_lines = (params[:lines]||{}).values
-      @operation_uses = (params[:uses]||{}).values
-      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-    else
-      @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
-    end
+    @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
     render_restfully_form
   end
 
   def create
-    if request.post?
-      # raise params.inspect
-      @operation = @current_company.operations.new(params[:operation])
-      @operation_lines = (params[:lines]||{}).values
-      @operation_uses = (params[:uses]||{}).values
-      redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-    else
-      @operation = Operation.new(:planned_on=>params[:planned_on]||Date.today, :target_id=>params[:target_id].to_i, :responsible_id=>@current_user.id, :hour_duration=>2, :min_duration=>0)
-    end
+    @operation = @current_company.operations.new(params[:operation])
+    @operation_lines = (params[:lines]||{}).values
+    @operation_uses = (params[:uses]||{}).values
+    redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
     render_restfully_form
   end
 
   def destroy
     return unless @operation = find_and_check(:operations)
-    @operation.destroy if request.post? or request.delete?
+    @operation.destroy
     redirect_to_current
   end
 
@@ -96,12 +83,6 @@ class OperationsController < ApplicationController
     session[:tool_ids] = []
     for tool in @operation.tools
       session[:tool_ids] << tool.id.to_s
-    end
-    if request.post?
-      @operation.attributes = params[:operation]
-      @operation_lines = (params[:lines]||{}).values
-      @operation_uses = (params[:uses]||{}).values
-      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
     end
     t3e @operation.attributes
     render_restfully_form
@@ -113,11 +94,12 @@ class OperationsController < ApplicationController
     for tool in @operation.tools
       session[:tool_ids] << tool.id.to_s
     end
-    if request.post?
-      @operation.attributes = params[:operation]
-      @operation_lines = (params[:lines]||{}).values
-      @operation_uses = (params[:uses]||{}).values
-      redirect_to_back if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+    @operation.attributes = params[:operation]
+    @operation_lines = (params[:lines]||{}).values
+    @operation_uses = (params[:uses]||{}).values
+    if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
+      redirect_to_back 
+      return
     end
     t3e @operation.attributes
     render_restfully_form

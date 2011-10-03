@@ -108,6 +108,8 @@ class Stock < CompanyRecord
   end
 
   def add_or_update(params, product_id)
+    params ||= {}
+    product_id ||= self.product_id
     stock = Stock.find(:first, :conditions=>{:company_id=>self.company_id, :warehouse_id=>params[:warehouse_id], :product_id=>product_id})
     if stock.nil?
       ps = Stock.new(:company_id=>self.company_id, :warehouse_id=>params[:warehouse_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])

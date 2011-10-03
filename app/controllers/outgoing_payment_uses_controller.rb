@@ -21,47 +21,20 @@ class OutgoingPaymentUsesController < ApplicationController
 
   def new
     expense = nil
-    if request.post?
-      @outgoing_payment_use = OutgoingPaymentUse.new(params[:outgoing_payment_use])
-      if @outgoing_payment_use.save
-        redirect_to_back
-      end
-      expense = @outgoing_payment_use.expense
-#       unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])
-#         @outgoing_payment_use.errors.add(:payment_id, :required)
-#         return
-#       end
-#       if outgoing_payment.pay(expense, :downpayment=>params[:outgoing_payment_use][:downpayment])
-#         redirect_to_back
-#       end
-    else
-      return unless expense = find_and_check(:purchase, params[:expense_id])
-      @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
-    end
+    return unless expense = find_and_check(:purchase, params[:expense_id])
+    @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
     t3e :number=>expense.number
     render_restfully_form
   end
 
   def create
     expense = nil
-    if request.post?
-      @outgoing_payment_use = OutgoingPaymentUse.new(params[:outgoing_payment_use])
-      if @outgoing_payment_use.save
-        redirect_to_back
-        return
-      end
-      expense = @outgoing_payment_use.expense
-#       unless outgoing_payment = @current_company.outgoing_payments.find_by_id(params[:outgoing_payment_use][:payment_id])
-#         @outgoing_payment_use.errors.add(:payment_id, :required)
-#         return
-#       end
-#       if outgoing_payment.pay(expense, :downpayment=>params[:outgoing_payment_use][:downpayment])
-#         redirect_to_back
-#       end
-    else
-      return unless expense = find_and_check(:purchase, params[:expense_id])
-      @outgoing_payment_use = OutgoingPaymentUse.new(:expense=>expense)
+    @outgoing_payment_use = OutgoingPaymentUse.new(params[:outgoing_payment_use])
+    if @outgoing_payment_use.save
+      redirect_to_back
+      return
     end
+    expense = @outgoing_payment_use.expense
     t3e :number=>expense.number
     render_restfully_form
   end

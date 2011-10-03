@@ -427,7 +427,6 @@ module ApplicationHelper
 
   
   def side_tag # (submenu = self.controller.controller_name.to_sym)
-    session[:side] = true
     path = reverse_menus
     return '' if path.nil?
     render(:partial=>'layouts/side', :locals=>{:path=>path})
@@ -667,7 +666,7 @@ module ApplicationHelper
       end
       code = content_tag(:td, code.html_safe, (c[:html_options]||{}).merge(:class=>:crit))
       if first
-        code << content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait)), :rowspan=>k.criteria.size, :class=>:submit)
+        code << content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait), :name=>nil), :rowspan=>k.criteria.size, :class=>:submit)
         first = false
       end
       tag << content_tag(:tr, code.html_safe)

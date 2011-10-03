@@ -5,9 +5,9 @@
     -f.field :sale_line, :annotation, :field=>:textarea
   -if product.stockable
     =formalize do |f|
-      -#f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>true
+      -# f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>true
       -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_line, :stock_id, product_stocks_options(product))
-  -if product.nature == "subscrip"
+  -if false # product.nature == "subscrip"
     -@subscription = @sale_line.new_subscription(params[:subscription])
     =render :partial=>"subscriptions/coordinates_form"
 

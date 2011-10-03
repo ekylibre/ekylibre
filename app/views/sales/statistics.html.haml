@@ -1,4 +1,4 @@
-=form_tag({}, :method=>:put) do 
+=form_tag({}, :method=>:get) do 
   .search
     %table
       %tr
@@ -6,8 +6,7 @@
           %label=tc("nb_years")
           =text_field_tag(:nb_years, session[:nb_year].to_s, :size=>5)
         %td.submit{:rowspan=>3}
-          -for b in [:export] # , :display]
-            =submit_tag tg(b), :name=>b
+          =submit_tag tg(:export), :name=>nil
       %tr
         %td.crit
           %label=tc("data_to_export")

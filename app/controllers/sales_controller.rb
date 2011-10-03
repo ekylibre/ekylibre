@@ -18,6 +18,8 @@
 #
 
 class SalesController < ApplicationController
+  include ActionView::Helpers::NumberHelper
+
 
   # management -> sales_conditions
   def self.sales_conditions
@@ -30,6 +32,10 @@ class SalesController < ApplicationController
     code += "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
     code += "    c << false\n"
     code += "  end\n "
+    code += "  if session[:sale_responsible_id] > 0\n"
+    code += "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
+    code += "    c << session[:sale_responsible_id]\n"
+    code += "  end\n"
     code += "end\n "
     code += "c\n "
     code
@@ -38,8 +44,9 @@ class SalesController < ApplicationController
   list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state') do |t|
     t.column :number, :url=>{:action=>:show, :step=>:default}
     t.column :created_on
-    t.column :label, :through=>:responsible
+    t.column :invoiced_on
     t.column :full_name, :through=>:client, :url=>true
+    t.column :label, :through=>:responsible
     t.column :comment
     t.column :state_label
     t.column :paid_amount
@@ -54,6 +61,7 @@ class SalesController < ApplicationController
   def index
     session[:sale_state] = params[:s] ||= params[:s]||"all"
     session[:sale_key] = params[:q]
+    session[:sale_responsible_id] = params[:responsible_id].to_i
   end
 
   list(:credits, :model=>:sales, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sale_id]'] }, :children=>:lines) do |t|
@@ -232,29 +240,20 @@ class SalesController < ApplicationController
   end
 
   def new
-    if request.post?
-      @sale = Sale.new(params[:sale])
-      @sale.company_id = @current_company.id
-      @sale.number = ''
-      if @sale.save
-        redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+    @sale = Sale.new
+    if client = @current_company.entities.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
+      if client.default_contact
+        cid = client.default_contact.id 
+        @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
       end
-    else
-      @sale = Sale.new
-      if client = @current_company.entities.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
-        if client.default_contact
-          cid = client.default_contact.id 
-          @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
-        end
-      end
-      session[:current_entity_id] = (client ? client.id : nil)
-      @sale.responsible_id = @current_user.id
-      @sale.client_id = session[:current_entity_id]
-      @sale.letter_format = false
-      @sale.function_title = tg('letter_function_title')
-      @sale.introduction = tg('letter_introduction')
-      # @sale.conclusion = tg('letter_conclusion')
     end
+    session[:current_entity_id] = (client ? client.id : nil)
+    @sale.responsible_id = @current_user.id
+    @sale.client_id = session[:current_entity_id]
+    @sale.letter_format = false
+    @sale.function_title = tg('letter_function_title')
+    @sale.introduction = tg('letter_introduction')
+    # @sale.conclusion = tg('letter_conclusion')
     render_restfully_form
   end
 
@@ -337,12 +336,6 @@ class SalesController < ApplicationController
       redirect_to :action=>:show, :step=>:products, :id=>@sale.id
       return
     end
-    if request.post?
-      if @sale.update_attributes(params[:sale])
-        redirect_to :action=>:show, :step=>:products, :id=>@sale.id
-        return
-      end
-    end
     t3e @sale.attributes
     render_restfully_form
   end
@@ -354,11 +347,9 @@ class SalesController < ApplicationController
       redirect_to :action=>:show, :step=>:products, :id=>@sale.id
       return
     end
-    if request.post?
-      if @sale.update_attributes(params[:sale])
-        redirect_to :action=>:show, :step=>:products, :id=>@sale.id
-        return
-      end
+    if @sale.update_attributes(params[:sale])
+      redirect_to :action=>:show, :step=>:products, :id=>@sale.id
+      return
     end
     t3e @sale.attributes
     render_restfully_form
@@ -367,76 +358,48 @@ class SalesController < ApplicationController
 
   def statistics
     session[:nb_year] = params[:nb_year]||2
-    if params[:display]
-      return unless product = find_and_check(:product, params[:product_id])
-      session[:product_id] = product.id
-
-      g = Gruff::Line.new('800x600')
-      g.title = product.catalog_name.to_s
-      g.title_font_size=20
-      g.line_width = 2
-      g.dot_radius = 2
-
-      (params[:nb_year].to_i+1).times do |x|
-        d = (Date.today - x.year) - 12.month
-        sales=[]
-        
-        12.times do |m|
-          sales << @current_company.sale_lines.sum(:quantity, :conditions=>['product_id=? and created_on BETWEEN ? AND ?', product.id, d.beginning_of_month, d.end_of_month], :joins=>"INNER JOIN #{Sale.table_name} AS s ON s.id=#{SaleLine.table_name}.sale_id").to_f
-          d += 1.month
-          g.labels[m] = d.month.to_s # t('date.abbr_month_names')[d.month].to_s
-        end
-        g.data('N'+(x>0 ? '-'+x.to_s : '').to_s, sales) # +d.year.to_s
+    data = {}
+    mode = (params[:mode]||:quantity).to_s.to_sym
+    source = (params[:source]||:sales_invoices).to_s.to_sym
+    states = [:invoice]
+    states << :order if source == :sales
+    query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
+    start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
+    finish = Date.today.end_of_month
+    date = start
+    months = [] # [::I18n.t('activerecord.models.product')]
+    # puts [start, finish].inspect
+    while date <= finish
+      # puts date.inspect
+      # raise Exception.new(t('date.month_names').inspect)
+      # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
+      period = '="'+date.year.to_s+" "+date.month.to_s+'"'
+      months << period
+      for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
+        data[product.id.to_s] ||= {}
+        data[product.id.to_s][period] = product.total if product.total.to_f!=0
       end
-
-      dir = "#{Rails.root.to_s}/public/images/gruff/#{@current_company.code}"
-      @graph = "sales-statistics-#{product.code}-#{rand.to_s[2..-1]}.png"
-      
-      FileUtils.mkdir_p dir unless File.exists? dir
-      g.write(dir+"/"+@graph)
-
-    elsif params[:export]
-      data = {}
-      mode = (params[:mode]||:quantity).to_s.to_sym
-      source = (params[:source]||:sales_invoices).to_s.to_sym
-      states = [:invoice]
-      states << :order if source == :sales
-      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
-      start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
-      finish = Date.today.end_of_month
-      date = start
-      months = [] # [::I18n.t('activerecord.models.product')]
-      # puts [start, finish].inspect
-      while date <= finish
-        # puts date.inspect
-        # raise Exception.new(t('date.month_names').inspect)
-        # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
-        period = '="'+date.year.to_s+" "+date.month.to_s+'"'
-        months << period
-        for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
-          data[product.id.to_s] ||= {}
-          data[product.id.to_s][period] = product.total if product.total.to_f!=0
-        end
-        date += 1.month
-      end
-
-      csv_data = Ekylibre::CSV.generate do |csv|
-        csv << [Product.model_name.human, Product.human_attribute_name('sales_account_id')]+months
-        for product in @current_company.products.find(:all, :order=>"active DESC, name")
-          valid = false
-          data[product.id.to_s].collect do |k,v|
-            valid = true unless v.nil? and  v != 0
-          end
-          if product.active or valid
-            row = [product.name, (product.sales_account ? product.sales_account.number : "?")]
-            months.size.times {|i| row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) }
-            csv << row
-          end
-        end
-      end
-      
-      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
+      date += 1.month
     end
+
+    csv_data = Ekylibre::CSV.generate do |csv|
+      csv << [Product.model_name.human, Product.human_attribute_name('code'), Product.human_attribute_name('sales_account_id')]+months
+      for product in @current_company.products.find(:all, :order=>"active DESC, name")
+        valid = false
+        data[product.id.to_s].collect do |k,v|
+          valid = true unless v.nil? and  v != 0
+        end
+        if product.active or valid
+          row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
+          months.size.times do |i| 
+            row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) 
+          end
+          csv << row
+        end
+      end
+    end
+    
+    send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
   end
 
 end

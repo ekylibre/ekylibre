@@ -50,10 +50,6 @@
 
 
 class SaleLine < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
-  #]VALIDATORS]
   acts_as_list :scope=>:sale
   after_save :set_reduction
   attr_readonly :company_id, :sale_id
@@ -77,6 +73,10 @@ class SaleLine < CompanyRecord
 
   sums :sale, :lines, :pretax_amount, :amount
 
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
+  #]VALIDATORS]
   validates_presence_of :price
 
   # accepts_nested_attributes_for :subscriptions
@@ -205,7 +205,7 @@ class SaleLine < CompanyRecord
 
   def new_subscription(attributes={})
     #raise Exception.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id))
+    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id, :sale_line_id=>self.id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature

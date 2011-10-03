@@ -428,7 +428,7 @@ html[dir="ltr"] div.toolbar .tool { float: left; }
 html[dir="rtl"] div.toolbar .tool { float: right;  }
 
 .toolbar.mini-toolbar .tool { padding: 2px 4px; }
-.formalize .toolbar.mini-toolbar { margin: 0 8px; }
+.formalize .toolbar.mini-toolbar { margin: 0 8px; line-height: 25px }
 
 .search { background: #CEA !important; color: #580; border-radius: 8px; -webkit-border-radius: 8px; -moz-border-radius: 8px; behavior: url(/pie.htc); padding:4px 6px; margin: 0 0 8px; }
 .search table { margin: 0px auto; }

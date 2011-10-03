@@ -106,65 +106,24 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    if request.post?
-      #raise Exception.new params.inspect
-      @product = @current_company.products.new(params[:product])
-      @product.duration = params[:product][:duration]
-      @stock = @current_company.stocks.new(params[:stock])
-      # @price = @current_company.prices.new(params[:price])
-      ActiveRecord::Base.transaction do
-        saved = @product.save
-        if @product.stockable and saved
-          @stock.product_id = @product.id
-          saved = false unless @stock.save
-          @product.errors.add_from_record(@stock)
-        end
-#         if @product.to_sale and saved
-#           @price.product_id = @product.id
-#           @price.entity_id = @current_company.id
-#           saved = false unless @price.save
-#           @product.errors.add_from_record(@price)          
-#         end
-        raise ActiveRecord::Rollback unless saved
-        return if save_and_redirect(@product, :saved=>saved)
-      end
-    else 
-      @product = Product.new(:nature=>Product.natures.first[1])
-      @stock = Stock.new
-#      @price = Price.new
-    end
+    @product = Product.new(:nature=>Product.natures.first[1])
+    @stock = Stock.new
     render_restfully_form
   end
 
   def create
-    @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    if request.post?
-      #raise Exception.new params.inspect
-      @product = @current_company.products.new(params[:product])
-      @product.duration = params[:product][:duration]
-      @stock = @current_company.stocks.new(params[:stock])
-      # @price = @current_company.prices.new(params[:price])
-      ActiveRecord::Base.transaction do
-        saved = @product.save
-        if @product.stockable and saved
-          @stock.product_id = @product.id
-          saved = false unless @stock.save
-          @product.errors.add_from_record(@stock)
-        end
-#         if @product.to_sale and saved
-#           @price.product_id = @product.id
-#           @price.entity_id = @current_company.id
-#           saved = false unless @price.save
-#           @product.errors.add_from_record(@price)          
-#         end
-        raise ActiveRecord::Rollback unless saved
-        return if save_and_redirect(@product, :saved=>saved)
+    @product = @current_company.products.new(params[:product])
+    @product.duration = params[:product][:duration]
+    @stock = @current_company.stocks.new(params[:stock])
+    ActiveRecord::Base.transaction do
+      saved = @product.save
+      if @product.stockable and saved
+        @stock.product_id = @product.id
+        saved = false unless @stock.save
+        @product.errors.add_from_record(@stock)
       end
-    else 
-      @product = Product.new(:nature=>Product.natures.first[1])
-      @stock = Stock.new
-#      @price = Price.new
+      raise ActiveRecord::Rollback unless saved
+      return if save_and_redirect(@product, :saved=>saved)
     end
     render_restfully_form
   end
@@ -180,34 +139,7 @@ class ProductsController < ApplicationController
   def edit
     return unless @product = find_and_check(:product)
     session[:product_id] = @product.id
-    @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    if !@product.stockable
-      @stock = Stock.new
-    else
-      @stock = Stock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||Stock.new 
-    end
-    if request.post?
-      saved = false
-      ActiveRecord::Base.transaction do
-        if saved = @product.update_attributes(params[:product])
-          if @stock.id.nil? and params[:product][:stockable] == "1"
-            @stock = Stock.new(params[:stock])
-            @stock.product_id = @product.id
-            @stock.company_id = @current_company.id 
-            save = false unless @stock.save
-            #raise Exception.new "ghghgh"
-          elsif !@stock.id.nil? and @warehouses.size > 1
-            save = false unless @stock.add_or_update(params[:stock],@product.id)
-          else
-            #save = false unless @stock.update_attributes(params[:stock])
-            save = true
-          end
-          @product.errors.add_from_record(@stock)
-        end
-        raise ActiveRecord::Rollback unless saved  
-      end
-      return if save_and_redirect(@product, :saved=>saved)
-    end
+    @stock = @product.default_stock || Stock.new
     t3e @product.attributes
     render_restfully_form
   end
@@ -215,34 +147,23 @@ class ProductsController < ApplicationController
   def update
     return unless @product = find_and_check(:product)
     session[:product_id] = @product.id
-    @warehouses = Warehouse.find_all_by_company_id(@current_company.id)
-    if !@product.stockable
-      @stock = Stock.new
-    else
-      @stock = Stock.find(:first, :conditions=>{:company_id=>@current_company.id ,:product_id=>@product.id} )||Stock.new 
-    end
-    if request.post?
-      saved = false
-      ActiveRecord::Base.transaction do
-        if saved = @product.update_attributes(params[:product])
-          if @stock.id.nil? and params[:product][:stockable] == "1"
-            @stock = Stock.new(params[:stock])
-            @stock.product_id = @product.id
-            @stock.company_id = @current_company.id 
-            save = false unless @stock.save
-            #raise Exception.new "ghghgh"
-          elsif !@stock.id.nil? and @warehouses.size > 1
-            save = false unless @stock.add_or_update(params[:stock],@product.id)
-          else
-            #save = false unless @stock.update_attributes(params[:stock])
-            save = true
-          end
-          @product.errors.add_from_record(@stock)
+    @stock = @product.default_stock || Stock.new
+    saved = false
+    ActiveRecord::Base.transaction do
+      if saved = @product.update_attributes(params[:product])
+        if @stock.new_record? and params[:product][:stockable] == "1"
+          @stock = Stock.new(params[:stock])
+          @stock.product_id = @product.id
+          @stock.company_id = @current_company.id 
+          save = false unless @stock.save
+        elsif !@stock.new_record? and @current_company.warehouses.size > 0
+          save = false unless @stock.add_or_update(params[:stock], @product.id)
         end
-        raise ActiveRecord::Rollback unless saved  
+        @product.errors.add_from_record(@stock)
       end
-      return if save_and_redirect(@product, :saved=>saved)
+      raise ActiveRecord::Rollback unless saved  
     end
+    return if save_and_redirect(@product, :saved=>saved)
     t3e @product.attributes
     render_restfully_form
   end

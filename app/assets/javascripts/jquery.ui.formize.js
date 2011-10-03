@@ -56,8 +56,9 @@
                     autoOpen: false,
                     show: 'fade',
                     modal: true,
-                    width: 'auto',
+                    //width: 'auto',
                     // height: 'auto',
+                    width: $(window).width()*0.6,
                     height: $(window).height()*0.8
                 });
                 $.ajaxDialogInitialize(frame);

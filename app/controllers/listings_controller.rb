@@ -71,24 +71,14 @@ class ListingsController < ApplicationController
 
 
   def new
-    if request.post?
-      @listing = Listing.new(params[:listing])
-      @listing.company_id = @current_company.id
-      return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
-    else
-      @listing = Listing.new
-    end
+    @listing = Listing.new
     render_restfully_form
   end
 
   def create
-    if request.post?
-      @listing = Listing.new(params[:listing])
-      @listing.company_id = @current_company.id
-      return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
-    else
-      @listing = Listing.new
-    end
+    @listing = Listing.new(params[:listing])
+    @listing.company_id = @current_company.id
+    return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
     render_restfully_form
   end
 

@@ -81,17 +81,6 @@ class InventoriesController < ApplicationController
     end
     notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
-    if request.post?
-      @inventory = Inventory.new(params[:inventory])
-      params[:inventory_lines_create] ||= {}
-      params[:inventory_lines_create].each{|k,v| v[:stock_id]=k}
-      # raise Exception.new(params[:inventory_lines_create].inspect)
-      @inventory.company_id = @current_company.id
-      if @inventory.save
-        @inventory.set_lines(params[:inventory_lines_create].values)
-      end
-      redirect_to :action=>:index
-    end
   end
 
   def create
@@ -100,16 +89,13 @@ class InventoriesController < ApplicationController
       redirect_to_back
     end
     notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
-    @inventory = Inventory.new(:responsible_id=>@current_user.id)
-    if request.post?
-      @inventory = Inventory.new(params[:inventory])
-      params[:inventory_lines_create] ||= {}
-      params[:inventory_lines_create].each{|k,v| v[:stock_id]=k}
-      # raise Exception.new(params[:inventory_lines_create].inspect)
-      @inventory.company_id = @current_company.id
-      if @inventory.save
-        @inventory.set_lines(params[:inventory_lines_create].values)
-      end
+    @inventory = Inventory.new(params[:inventory])
+    params[:inventory_lines_create] ||= {}
+    params[:inventory_lines_create].each{|k,v| v[:stock_id]=k}
+    # raise Exception.new(params[:inventory_lines_create].inspect)
+    @inventory.company_id = @current_company.id
+    if @inventory.save
+      @inventory.set_lines(params[:inventory_lines_create].values)
       redirect_to :action=>:index
       return
     end
@@ -118,7 +104,7 @@ class InventoriesController < ApplicationController
 
   def destroy
     return unless @inventory = find_and_check(:inventory)
-    if request.delete? and !@inventory.changes_reflected?
+    unless @inventory.changes_reflected?
       @inventory.destroy
     end
     redirect_to_current
@@ -143,7 +129,7 @@ class InventoriesController < ApplicationController
   def update
     return unless @inventory = find_and_check(:inventory)
     session[:current_inventory_id] = @inventory.id
-    if request.post? and !@inventory.changes_reflected
+    unless @inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:inventory_lines_create].values)
         for id, attributes in (params[:inventory_lines_update]||{})
