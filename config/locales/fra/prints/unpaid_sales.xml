@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<template title="État des ventes impayées" lang="fr" nature="sales" version="2.0">
+  <infos>
+    <info name="authors">Brice Texier</info>
+  </infos>
+  <parameters>
+    <parameter name="established_on" nature="date">Vu le</parameter>
+  </parameters>
+  <document unit="mm" size="10">
+    
+    <iteration variable="responsible" collection="company.unpaid_responsibles">
+      <page orientation="portrait" format="A4" margin="10mm">
+	
+	<part height="20mm">
+	  <set>
+	    <text value="État des impayées de {{responsible/label}} ({{company.name}})" left="50%" align="center" bold="true" size="14"/>
+	    <text value="Situation au {{Date.today?format=month_letter}}" left="50%" align="center" size="14" top="7mm"/>
+	  </set>
+	</part>
+	
+	<table collection="responsible.unpaid_sales" fixed="true">
+	  <column label="N°Cli" property="client/code" width="20mm"/>
+	  <column label="Nom du client" property="client/full_name" width="90mm"/>
+	  <column label="Créée le" property="created_on" format="default" width="20mm"/>
+	  <column label="Facturée le" property="invoiced_on" format="default" width="20mm"/>
+	  <column label="Montant payé" property="paid_amount" width="20mm" numeric="money"/>
+	  <column label="Montant" property="amount" width="20mm" numeric="money"/>
+	</table>
+
+	<!-- Totaux -->
+	<part height="14mm">
+	  <set left="110mm" top="0mm">
+	    <text value="Totaux" top="0.5mm" left="33mm" align="right" bold="true"/>
+	    <text value="Net à recouvrer" top="6mm" left="33mm" align="right" bold="true" size="11.5"/>
+	    <text value="{{responsible.unpaid_sales.sum('amount - paid_amount')?numeric}}" top="6mm" left="60mm" align="center" bold="true" size="12"/>
+	    <text value="{{responsible.unpaid_sales.sum(:paid_amount)?numeric}}" top="0.5mm" left="59.5mm" align="right"/>
+	    <text value="{{responsible.unpaid_sales.sum(:amount)?numeric}}" top="0.5mm" left="79.5mm" align="right"/>
+	    <rectangle width="80mm" height="4mm" border="0.5 solid #000"/>
+	    <rectangle width="80mm" height="7mm" top="4mm" border="0.5 solid #000"/>
+	    <line path="40mm,0 ; 40mm,11mm" width="0.5"  border="0.5 solid #000"/>
+	    <line path="60mm,0 ; 60mm,4mm"  width="0.5" border="0.5 solid #000"/>
+	  </set>
+	</part>
+
+      </page>
+    </iteration>
+  </document>
+</template>

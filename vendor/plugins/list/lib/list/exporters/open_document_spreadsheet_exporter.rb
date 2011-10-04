@@ -23,7 +23,7 @@ module List
     end
 
     def send_data_code(table)
-      xml_escape = "to_s.gsub('&', '&amp;').gsub('\\'', '&apos').gsub('<', '&lt;').gsub('>', '&gt;')"
+      xml_escape = "to_s.gsub('&', '&amp;').gsub('\\'', '&apos;').gsub('<', '&lt;').gsub('>', '&gt;')"
       xml_escape << ".force_encoding('US-ASCII')" if xml_escape.respond_to?(:force_encoding)
       record = "r"
       code  = List::SimpleFinder.new.select_data_code(table)

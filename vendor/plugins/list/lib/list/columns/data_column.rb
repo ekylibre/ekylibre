@@ -86,7 +86,7 @@ module List
       if self.datatype == :boolean
         datum = "(#{datum} ? ::I18n.translate('list.export.true_value') : ::I18n.translate('list.export.false_value'))"
       elsif self.datatype == :date
-        datum = "::I18n.localize(#{datum})"
+        datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
       elsif self.datatype == :decimal and not noview
         datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{self.options[:precision]||2}))"
       elsif @name==:country and  self.datatype == :string and self.limit == 2

@@ -213,6 +213,7 @@ class Company < Ekylibre::Record::Base
   has_many :unconfirmed_stock_transfers, :class_name=>"StockTransfer", :conditions=>{:moved_on=>nil}
   has_many :undelivered_incoming_deliveries, :class_name=>"IncomingDelivery", :conditions=>{:moved_on=>nil}
   has_many :undelivered_outgoing_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil}
+  has_many :unpaid_responsibles, :class_name=>"User", :conditions=>conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
   has_many :untransportered_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil, :transporter_id=>nil}
   has_many :usable_incoming_payments, :class_name=>"IncomingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
   has_many :usable_outgoing_payments, :class_name=>"OutgoingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'

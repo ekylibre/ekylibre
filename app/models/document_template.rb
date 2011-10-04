@@ -44,6 +44,11 @@
 
 
 class DocumentTemplate < CompanyRecord
+  attr_readonly :company_id
+  after_save :set_by_default
+  cattr_reader :families, :document_natures
+  belongs_to :company
+  has_many :documents, :foreign_key=>:template_id
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -54,11 +59,6 @@ class DocumentTemplate < CompanyRecord
   validates_inclusion_of :active, :by_default, :in => [true, false]
   validates_presence_of :company, :language, :name
   #]VALIDATORS]
-  attr_readonly :company_id
-  after_save :set_by_default
-  cattr_reader :families, :document_natures
-  belongs_to :company
-  has_many :documents, :foreign_key=>:template_id
   validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
 
@@ -81,6 +81,7 @@ class DocumentTemplate < CompanyRecord
     :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
     :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
     :purchase =>         [ [:purchase, Purchase] ], 
+    :sales =>            [ [:established_on, Date] ],
     :sales_order =>      [ [:sales_order, Sale] ],
     :stocks =>           [ [:established_on, Date] ],
     # :synthesis =>        [ [:financial_year, FinancialYear] ],

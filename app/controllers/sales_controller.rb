@@ -45,7 +45,7 @@ class SalesController < ApplicationController
     t.column :number, :url=>{:action=>:show, :step=>:default}
     t.column :created_on
     t.column :invoiced_on
-    t.column :full_name, :through=>:client, :url=>true
+    t.column :label, :through=>:client, :url=>true
     t.column :label, :through=>:responsible
     t.column :comment
     t.column :state_label
@@ -62,6 +62,10 @@ class SalesController < ApplicationController
     session[:sale_state] = params[:s] ||= params[:s]||"all"
     session[:sale_key] = params[:q]
     session[:sale_responsible_id] = params[:responsible_id].to_i
+    respond_to do |format|
+      format.html
+      format.pdf { render_print_sales(params[:established_on]||Date.today) }
+    end
   end
 
   list(:credits, :model=>:sales, :conditions=>{:company_id=>['@current_company.id'], :origin_id=>['session[:current_sale_id]'] }, :children=>:lines) do |t|

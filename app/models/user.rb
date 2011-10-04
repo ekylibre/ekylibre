@@ -70,6 +70,7 @@ class User < CompanyRecord
   has_many :sales, :foreign_key=>:responsible_id
   has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
+  has_many :unpaid_sales, :class_name=>"Sale", :foreign_key=>:responsible_id, :order=>"created_on", :conditions=>["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :reduction_percent, :allow_nil => true

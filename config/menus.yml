@@ -37,6 +37,7 @@
 #         - interfacers::search_for_subscription_contacts
 #         - interfacers::search_for_suppliers
 #         - interfacers::search_for_suppliers_accounts
+#         - interfacers::toggle_module
 #         - interfacers::toggle_side
 #         - interfacers::toggle_tab
 #         - interfacers::unroll_options

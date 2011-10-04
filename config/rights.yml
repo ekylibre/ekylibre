@@ -1,4 +1,5 @@
 # Unused actions in rights
+#   - interfacers::toggle_module
 #   - production_chain_conveyors::create
 #   - production_chain_conveyors::destroy
 #   - production_chain_conveyors::edit
