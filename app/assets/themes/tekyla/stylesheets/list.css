@@ -40,6 +40,8 @@ table.list tr.child td:first-child { padding:0 20px; }
 table.list tr.empty td { text-align:center;  color: #77A; padding: 1em; }
 table.list tr.empty:hover td { background: white; }
 
+table.list tbody td, table.list tbody td a, table.list thead th { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; -moz-binding: url('../xml/ellipsis.xml#ellipsis'); }
+
 table.list tfoot tr th { clear:both; border:none; background: #EEEFFA url(../images/shadow-bottom.png) repeat-x top center !important; font-weight: normal;  }
 table.list tfoot .widget { display: block; padding: 2px; }
 html[dir="ltr"] table.list tfoot .widget { float: left; margin: 0 8px 0 0; }

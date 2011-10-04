@@ -4,8 +4,9 @@
       %tr
         %td.crit
           %label=tc("nb_years")
-          =text_field_tag(:nb_years, session[:nb_year].to_s, :size=>5)
+          =text_field_tag(:nb_years, params[:nb_years], :size=>5)
         %td.submit{:rowspan=>3}
+          hidden_field_tag(:export, :sales)
           =submit_tag tg(:export), :name=>nil
       %tr
         %td.crit

@@ -143,7 +143,7 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 #side-splitter.closed:hover { cursor: e-resize; }
 
 
-#side { width: 20%; overflow: auto; vertical-align: top; } 
+#side { width: 200px; overflow: auto; vertical-align: top; } 
 html[dir="ltr"] div#side { float: left; }
 html[dir="rtl"] div#side { float: right; }
 
@@ -162,7 +162,7 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 #side .sd-module .sd-title .hide[data-toggle-module] { background-position: 0 12px; }
 #side .sd-module .sd-title .hide[data-toggle-module]:hover { background-position: 12px 12px;}
 #side .sd-module .sd-content .sd-item {padding: 0;}
-#side .sd-module .sd-content .sd-item a {display: block; text-decoration: none; padding: 2px 12px; color: #126; }
+#side .sd-module .sd-content .sd-item a {display: block; text-decoration: none; padding: 2px 12px; color: #126; white-space: nowrap; overflow: hidden; width: 176px; -moz-binding: url(../xml/ellipsis.xml#ellipsis); -o-text-overflow: ellipsis; text-overflow: ellipsis; }
 #side .sd-module .sd-content .sd-item a:hover {background: #C9D7F1; }
 #side .sd-module .sd-content .sd-item.current a {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D; font-weight: bold;}
 

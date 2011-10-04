@@ -361,49 +361,50 @@ class SalesController < ApplicationController
 
 
   def statistics
-    session[:nb_year] = params[:nb_year]||2
     data = {}
     mode = (params[:mode]||:quantity).to_s.to_sym
     source = (params[:source]||:sales_invoices).to_s.to_sym
-    states = [:invoice]
-    states << :order if source == :sales
-    query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
-    start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
-    finish = Date.today.end_of_month
-    date = start
-    months = [] # [::I18n.t('activerecord.models.product')]
-    # puts [start, finish].inspect
-    while date <= finish
-      # puts date.inspect
-      # raise Exception.new(t('date.month_names').inspect)
-      # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
-      period = '="'+date.year.to_s+" "+date.month.to_s+'"'
-      months << period
-      for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
-        data[product.id.to_s] ||= {}
-        data[product.id.to_s][period] = product.total if product.total.to_f!=0
-      end
-      date += 1.month
-    end
-
-    csv_data = Ekylibre::CSV.generate do |csv|
-      csv << [Product.model_name.human, Product.human_attribute_name('code'), Product.human_attribute_name('sales_account_id')]+months
-      for product in @current_company.products.find(:all, :order=>"active DESC, name")
-        valid = false
-        data[product.id.to_s].collect do |k,v|
-          valid = true unless v.nil? and  v != 0
+    if params[:export] == :sales
+      states = [:invoice]
+      states << :order if source == :sales
+      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
+      start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
+      finish = Date.today.end_of_month
+      date = start
+      months = [] # [::I18n.t('activerecord.models.product')]
+      # puts [start, finish].inspect
+      while date <= finish
+        # puts date.inspect
+        # raise Exception.new(t('date.month_names').inspect)
+        # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
+        period = '="'+date.year.to_s+" "+date.month.to_s+'"'
+        months << period
+        for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
+          data[product.id.to_s] ||= {}
+          data[product.id.to_s][period] = product.total.to_f
         end
-        if product.active or valid
-          row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
-          months.size.times do |i| 
-            row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2) 
+        date += 1.month
+      end
+      
+      csv_data = Ekylibre::CSV.generate do |csv|
+        csv << [Product.model_name.human, Product.human_attribute_name('code'), Product.human_attribute_name('sales_account_id')]+months
+        for product in @current_company.products.find(:all, :order=>"name")
+          valid = false
+          for period, amount in data[product.id.to_s]
+            valid = true if amount != 0
           end
-          csv << row
+          if product.active or valid
+            row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
+            months.size.times do |i| 
+              row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)
+            end
+            csv << row
+          end
         end
       end
+      
+      send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
     end
-    
-    send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
   end
 
 end

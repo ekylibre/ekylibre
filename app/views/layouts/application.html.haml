@@ -17,9 +17,9 @@
       #wrap.wrap.hbox.flex
         -if resizable?
           -if @current_user
-            #side.side.flex-1.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
+            #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
             #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
-          #main.main.flex-4
+          #main.main.flex
             =title_header_tag
             =notifications_tag
             =yield
