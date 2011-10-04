@@ -225,8 +225,8 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 html[dir="ltr"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) left 7px no-repeat; padding: 0 8px 0 170px; }
 html[dir="rtl"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) right 7px no-repeat; padding: 0 170px 0 8px;}
 
-#top .user-bar { padding: 4px; background: rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.32); height: 32px; }
-#top .user-bar a { margin: 0 4px; position:relative; top: 3px;}
+#top .user-bar { background: rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.32); height: 32px; padding: 0 4px;}
+#top .user-bar a { margin: 0 4px; position:relative; top: 7px;}
 #top .user-bar .im-printable, .user-bar .im-unprintable { background-position: center; }
 html[dir="ltr"] #top .user-bar { float:right; text-align:right; }
 html[dir="rtl"] #top .user-bar { float:left; text-align:left; }
