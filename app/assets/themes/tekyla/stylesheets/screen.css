@@ -166,6 +166,7 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 #side .sd-module .sd-content .sd-item a:hover {background: #C9D7F1; }
 #side .sd-module .sd-content .sd-item.current a {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D; font-weight: bold;}
 
+#side .sd-module.current { background: rgba(200,224,254,0.3); }
 #side .sd-module.history { background: #E7E7E7; }
 #side .sd-module.help { background: #E7E7E7; }
 

@@ -196,7 +196,7 @@ class SalesController < ApplicationController
     session[:sale_id] = @sale.id
     if request.post?
       lines = {}
-      params[:sale_creditable_lines].select{|k,v| v[:validated].to_i == 1}.collect{|k, v| lines[k] = v[:quantity].to_f }
+      params[:creditable_lines].select{|k,v| v[:validated].to_i == 1}.collect{ |k, v| lines[k] = v[:quantity].to_f }
       if lines.empty?
         notify_error_now(:need_quantities_to_cancel_an_sale)
         return

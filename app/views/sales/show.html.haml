@@ -13,8 +13,7 @@
   -t.abort(@sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.can_abort?
   -if @sale.invoice?
     -t.print_sales_invoice @sale
-    -if @sale.cancelable?
-      -t.cancel @sale
+    -t.cancel(@sale) if @sale.cancelable?
   -else
     -t.print_sales_order @sale
 

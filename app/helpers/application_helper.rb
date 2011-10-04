@@ -824,18 +824,12 @@ module ApplicationHelper
           args[2] ||= {}
           args[2][:class] = "icon im-mail"
           code << content_tag(:div, mail_to(*args), :class=>:tool)
-        # elsif nature == :update or nature == :edit
-        #   url = {} unless url.is_a? Hash
-        #   url[:controller] ||= controller_name
-        #   url[:action] = :edit
-        #   url[:id] = args.id
-        #   code << content_tag(:li, link_to(t("actions.#{url[:controller]}.#{url[:action]}", args.attributes.symbolize_keys), url, {:class=>"icon im-edit"})) if not record.respond_to?(:updateable?) or (record.respond_to?(:updateable?) and record.updateable?)
         elsif nature == :missing
           verb, record, tag_options = tool[1], tool[2], tool[3]
           action = verb # "#{record.class.name.underscore}_#{verb}"
           tag_options = {} unless tag_options.is_a? Hash
           tag_options[:class] = "icon im-#{verb}"
-          url = {} unless url.is_a? Hash
+          url = {}
           url.merge(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
           url[:controller] ||= controller_name
           url[:action] = action
