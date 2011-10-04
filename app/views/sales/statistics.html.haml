@@ -4,19 +4,19 @@
       %tr
         %td.crit
           %label=tc("nb_years")
-          =text_field_tag(:nb_years, params[:nb_years], :size=>5)
+          =text_field_tag(:nb_years, params[:nb_years]||2, :size=>5)
         %td.submit{:rowspan=>3}
-          hidden_field_tag(:export, :sales)
+          =hidden_field_tag(:export, :sales)
           =submit_tag tg(:export), :name=>nil
       %tr
         %td.crit
           %label=tc("data_to_export")
           -for x in [:quantity, :pretax_amount, :amount]
-            =radio_button_tag "mode", x
+            =radio_button_tag "mode", x, (params[:mode].to_s == x.to_s)
             %label{:for=>"mode_#{x}"}=SaleLine.human_attribute_name(x)
       %tr
         %td.crit
           %label=tc("source")
           -for x in [:sales_invoices, :sales]
-            =radio_button_tag "source", x
+            =radio_button_tag "source", x, (params[:source].to_s == x.to_s)
             %label{:for=>"source_#{x}"}=tc(x)

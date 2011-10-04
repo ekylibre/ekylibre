@@ -362,9 +362,9 @@ class SalesController < ApplicationController
 
   def statistics
     data = {}
-    mode = (params[:mode]||:quantity).to_s.to_sym
-    source = (params[:source]||:sales_invoices).to_s.to_sym
-    if params[:export] == :sales
+    mode = params[:mode] = (params[:mode]||:pretax_amount).to_s.to_sym
+    source = params[:source] = (params[:source]||:sales_invoices).to_s.to_sym
+    if params[:export] == "sales"
       states = [:invoice]
       states << :order if source == :sales
       query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
@@ -396,7 +396,11 @@ class SalesController < ApplicationController
           if product.active or valid
             row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
             months.size.times do |i| 
-              row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)
+              if data[product.id.to_s][months[i]].zero?
+                row << ''
+              else
+                row << number_to_currency(data[product.id.to_s][months[i]], :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)
+              end
             end
             csv << row
           end
