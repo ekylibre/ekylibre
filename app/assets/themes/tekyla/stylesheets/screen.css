@@ -143,15 +143,16 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 #side-splitter.closed:hover { cursor: e-resize; }
 
 
-#side { width: 20%; overflow: hidden; vertical-align: top; } 
+#side { width: 20%; overflow: auto; vertical-align: top; } 
 html[dir="ltr"] div#side { float: left; }
 html[dir="rtl"] div#side { float: right; }
 
 
 #side .sd-module { padding: 0 0 8px; margin: 0; border-top: 1px solid #95b0e4; }
-#side .sd-module.collapsed { opacity: 0.5}
+#side .sd-module.collapsed { padding-bottom: 0px; opacity: 0.5;}
 #side .sd-module:first-child { border-top: none; }
-#side .sd-module .sd-title { padding: 1px 8px; }
+html[dir="ltr"] #side .sd-module .sd-title { padding: 4px 4px 4px 12px; }
+html[dir="rtl"] #side .sd-module .sd-title { padding: 4px 12px 4px 4px; }
 #side .sd-module .sd-title h2 {}
 #side .sd-module .sd-title *[data-toggle-module] { display: block; cursor: pointer; height: 12px; width: 12px; position: relative; top: 2px; background: url(../images/toggle.png);}
 html[dir="ltr"] #side .sd-module .sd-title *[data-toggle-module] {float: right}
@@ -161,11 +162,12 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 #side .sd-module .sd-title .hide[data-toggle-module] { background-position: 0 12px; }
 #side .sd-module .sd-title .hide[data-toggle-module]:hover { background-position: 12px 12px;}
 #side .sd-module .sd-content .sd-item {padding: 0;}
-#side .sd-module .sd-content .sd-item a {display: block; padding: 0 8px; }
-#side .sd-module .sd-content .sd-item a {text-decoration: none; padding: 4px 12px; color: #222; }
+#side .sd-module .sd-content .sd-item a {display: block; text-decoration: none; padding: 2px 12px; color: #126; }
 #side .sd-module .sd-content .sd-item a:hover {background: #C9D7F1; }
 #side .sd-module .sd-content .sd-item.current a {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D; font-weight: bold;}
 
+#side .sd-module.history { background: #E7E7E7; }
+#side .sd-module.help { background: #E7E7E7; }
 
 /*#side .sd-module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }*/
 
@@ -223,8 +225,8 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 html[dir="ltr"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) left 7px no-repeat; padding: 0 8px 0 170px; }
 html[dir="rtl"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) right 7px no-repeat; padding: 0 170px 0 8px;}
 
-#top .user-bar { padding: 4px; background: rgba(255,255,255,0.5);}
-#top .user-bar a { margin: 0 4px;}
+#top .user-bar { padding: 4px; background: rgba(255,255,255,0.3); border-left: 1px solid rgba(255,255,255,0.32); height: 32px; }
+#top .user-bar a { margin: 0 4px; position:relative; top: 3px;}
 #top .user-bar .im-printable, .user-bar .im-unprintable { background-position: center; }
 html[dir="ltr"] #top .user-bar { float:right; text-align:right; }
 html[dir="rtl"] #top .user-bar { float:left; text-align:left; }
@@ -244,7 +246,7 @@ html[dir="rtl"] #top .menu-bar ul li ul li ul { right: 10em; }*/
 #top .menu-bar ul li ul li { width:100%;  }
 #top .menu-bar ul li:hover ul, #top .menu-bar ul li ul:hover {display:block; box-shadow: 0 2px 5px #555; -moz-box-shadow: 0 2px 5px #555; -webkit-box-shadow: 0 2px 5px #555; behavior: url(/pie.htc);}
 #top .menu-bar ul li ul li a { display: block; text-transform: uppercase; font-size: 11px; font-weight: bold; padding: 0 8px;}
-#top .menu-bar ul li ul li:hover a { background: #FFF; color: #000; }
+#top .menu-bar ul li ul li:hover a { background: #FFF; background: rgba(255,255,255,0.8); color: #000; }
 #top .menu-bar li:hover a { background-color: #3D5C8D; }
 #top .menu-bar a { display: block; height: 25px; line-height: 25px; vertical-align: middle; white-space: nowrap; color: white; text-decoration: none; background: transparent; }
 #top .menu-bar a.menu { margin: 0 2px; padding: 2px 8px; text-align: center; text-shadow: 1px 1px 1px #3D5C8D; -webkit-border-top-left-radius: 5px; -webkit-border-top-right-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-topright: 5px; border-top-left-radius: 5px; border-top-right-radius: 5px; }

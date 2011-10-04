@@ -540,7 +540,7 @@ class ApplicationController < ActionController::Base
     session[:last_query]   = Time.now.to_i
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}.freeze
     session[:side]         = true
-    session[:resizable]    = false # user.preference("interface.general.resized", true, :boolean).value
+    session[:resizable]    = user.preference("interface.general.resized", true, :boolean).value
     session[:user_id]      = user.id
     # Build and cache customized menu for all the session
     session[:menus] = ActiveSupport::OrderedHash.new

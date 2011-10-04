@@ -2427,6 +2427,20 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 0.5 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective3564"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective4358"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -2436,8 +2450,8 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="16"
-     inkscape:cx="276.38212"
-     inkscape:cy="45.268348"
+     inkscape:cx="340.51269"
+     inkscape:cy="-34.856652"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -4712,15 +4726,15 @@
        inkscape:export-ydpi="90.044426"
        inkscape:label="#path3393" />
     <path
-       style="fill:#c1c1c1;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.00024474px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#000000;fill-opacity:0.27450982;fill-rule:evenodd;stroke:none;stroke-width:1.00024474000000008px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 348,33 L 340,33 L 340,40 L 348,40 L 348,33 z M 339,32 L 339,37 L 337.03125,37 C 335.77036,40.356445 335.53727,43.492108 337.0625,47 L 338.25,47 L 338,48 L 350,48 L 349.75,47 L 351,47 C 352.37533,43.693687 352.26703,40.289234 351,37 L 349,37 L 349,32 L 339,32 z M 341,34 L 341,35 L 347,35 L 347,34 L 341,34 z M 341,36 L 341,37 L 347,37 L 347,36 L 341,36 z M 349,38 L 350,38 C 351.40332,40.622813 351.26178,43.293903 350,46 L 349.53125,46 L 349,44 L 339,44 L 338.5,46 L 338,46 C 336.67646,43.527361 336.81056,40.755682 338,38 L 339,38 L 339,41 L 349,41 L 349,38 z M 341,38 L 341,39 L 347,39 L 347,38 L 341,38 z M 348.25,45 L 348.72681,47 L 339.22675,47 L 339.75,45 L 348.25,45 z"
        id="path3408"
        sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccc"
-       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/print_mode-dis.png"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/themes/tekyla/images/buttons/unprintable.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
-       style="fill:#0000cc;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1.00024474000000008px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="fill:#1f1f8b;fill-opacity:0.63178295;fill-rule:evenodd;stroke:none;stroke-width:1.00024474000000008px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 348,49 L 340,49 L 340,56 L 348,56 L 348,49 z M 339,48 L 339,53 L 337.03125,53 C 335.77036,56.356445 335.53727,59.492108 337.0625,63 L 338.25,63 L 338,64 L 350,64 L 349.75,63 L 351,63 C 352.37533,59.693687 352.26703,56.289234 351,53 L 349,53 L 349,48 L 339,48 z M 341,50 L 341,51 L 347,51 L 347,50 L 341,50 z M 341,52 L 341,53 L 347,53 L 347,52 L 341,52 z M 349,54 L 350,54 C 351.40332,56.622813 351.26178,59.293903 350,62 L 349.53125,62 L 349,60 L 339,60 L 338.5,62 L 338,62 C 336.67646,59.527361 336.81056,56.755682 338,54 L 339,54 L 339,57 L 349,57 L 349,54 z M 341,54 L 341,55 L 347,55 L 347,54 L 341,54 z M 348.25,61 L 348.72681,63 L 339.22675,63 L 339.75,61 L 348.25,61 z"
        id="path3443"
        sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccc"
@@ -4944,5 +4958,21 @@
        d="M 280,-38 L 275,-43.000001 L 285,-43.000001 L 280,-38 z"
        id="path4015-8"
        sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#c1c1c1;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 364.00635,33 L 356.00164,33 L 356.00164,40 L 364.00635,40 L 364.00635,33 z M 355.00106,32 L 355.00106,37 L 353.03115,37 C 351.76951,40.356445 351.53629,43.492108 353.06242,47 L 354.25061,47 L 354.00047,48 L 366.00753,48 L 365.75738,47 L 367.00812,47 C 368.38426,43.693687 368.27589,40.289234 367.00812,37 L 365.00694,37 L 365.00694,32 L 355.00106,32 z M 357.00223,34 L 357.00223,35 L 363.00576,35 L 363.00576,34 L 357.00223,34 z M 357.00223,36 L 357.00223,37 L 363.00576,37 L 363.00576,36 L 357.00223,36 z M 365.00694,38 L 366.00753,38 C 367.41168,40.622813 367.27005,43.293903 366.00753,46 L 365.5385,46 L 365.00694,44 L 355.00106,44 L 354.50076,46 L 354.00047,46 C 352.67615,43.527361 352.81033,40.755682 354.00047,38 L 355.00106,38 L 355.00106,41 L 365.00694,41 L 365.00694,38 z M 357.00223,38 L 357.00223,39 L 363.00576,39 L 363.00576,38 L 357.00223,38 z M 364.2565,45 L 364.73359,47 L 355.22794,47 L 355.7515,45 L 364.2565,45 z"
+       id="path3408-7"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/print_mode-dis.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:#0000cc;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       d="M 364,49 L 356,49 L 356,56 L 364,56 L 364,49 z M 355,48 L 355,53 L 353.03125,53 C 351.77036,56.356445 351.53727,59.492108 353.0625,63 L 354.25,63 L 354,64 L 366,64 L 365.75,63 L 367,63 C 368.37533,59.693687 368.26703,56.289234 367,53 L 365,53 L 365,48 L 355,48 z M 357,50 L 357,51 L 363,51 L 363,50 L 357,50 z M 357,52 L 357,53 L 363,53 L 363,52 L 357,52 z M 365,54 L 366,54 C 367.40332,56.622813 367.26178,59.293903 366,62 L 365.53125,62 L 365,60 L 355,60 L 354.5,62 L 354,62 C 352.67646,59.527361 352.81056,56.755682 354,54 L 355,54 L 355,57 L 365,57 L 365,54 z M 357,54 L 357,55 L 363,55 L 363,54 L 357,54 z M 364.25,61 L 364.72681,63 L 355.22675,63 L 355.75,61 L 364.25,61 z"
+       id="path3443-7"
+       sodipodi:nodetypes="ccccccccccccccccccccccccccccccccccccccccccccccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/trunk/public/themes/tekyla/images/buttons/print_mode.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>

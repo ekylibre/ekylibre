@@ -1,5 +1,5 @@
--for submenu in menus[path[0]]
-  =side_module "menu.#{path[0]}.#{submenu[0]}", tl("menus.submenus.#{submenu[0]}") do
+-for submenu in menus[path[0]]||[]
+  =side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}") do
     -for url in submenu[1]
       .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
 
@@ -14,7 +14,7 @@
           %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
 
 -if session[:history].is_a?(Array) and not session[:history].size.zero?
-  =side_module "history", tl("recent_historic") do
+  =side_module "history", :title=>tl("recent_historic"), :class=>:history do
     -for page in session[:history][0..4]
       .sd-item
         -title=h(page[:title])
@@ -23,7 +23,7 @@
           -infotip << " &ndash; ".html_safe+h(tl("menus.submenus.#{page[:reverse][1]}")) 
         =link_to(page[:title], page[:url], :title=>infotip.html_safe)
 
-=side_module "help", tl("contextual_help") do
+=side_module "help", :title=>tl("contextual_help"), :class=>:help do
   #help.flex=render :partial=>"help/search", :object=>@article
   
 -#.module.help.flex
