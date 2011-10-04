@@ -735,6 +735,7 @@ eng:
     insert_password: 'Enter your new password'
     interval: 'Personalized Interval'
     inventory: 'Inventory'
+    invoices_only: 'Use only invoices'
     invoiced_amount: 'Sales invoiced amount'
     is: 'Is'
     journal: 'Journal'

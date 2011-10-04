@@ -16,7 +16,11 @@
             %label{:for=>"mode_#{x}"}=SaleLine.human_attribute_name(x)
       %tr
         %td.crit
-          %label=tc("source")
-          -for x in [:sales_invoices, :sales]
-            =radio_button_tag "source", x, (params[:source].to_s == x.to_s)
-            %label{:for=>"source_#{x}"}=tc(x)
+          %label{:for=>"invoices"}=tc("invoices_only")
+          =check_box_tag "invoices", "1", (params[:invoices].to_s == "1"), "data-hide"=>"#non-invoices"
+      %tr
+        %td#non-invoices.crit
+          %label=tc("state")
+          -for x in Sale.state_machine.states # [:invoice, :order, :estimate]
+            =check_box_tag "states[#{x.name}]", "1", (params[:states][x.name].to_s == x.name.to_s), :id=>"states_#{x.name}"
+            %label{:for=>"states_#{x.name}"}=Sale.state_label(x.name)

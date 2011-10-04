@@ -68,15 +68,6 @@
 
 
 class Sale < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
-  validates_length_of :sum_method, :allow_nil => true, :maximum => 8
-  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
-  validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
-  validates_presence_of :amount, :client, :company, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
-  #]VALIDATORS]
   acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
   attr_readonly :company_id, :created_on
@@ -102,6 +93,15 @@ class Sale < CompanyRecord
   has_many :payments, :through=>:payment_uses
   has_many :subscriptions, :class_name=>"Subscription"
   has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :sum_method, :allow_nil => true, :maximum => 8
+  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
+  validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
+  validates_presence_of :amount, :client, :company, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
+  #]VALIDATORS]
   validates_presence_of :client_id, :currency_id
   validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 
@@ -321,10 +321,14 @@ class Sale < CompanyRecord
     puts "DEPRECATION WARNING: Please use state_label in place of text_state"
     state_label
   end
+
+  def self.state_label(state)
+    tc('states.'+state.to_s)
+  end
   
   # Prints human name of current state
   def state_label
-    tc('states.'+self.state.to_s)
+    self.class.state_label(self.state)
   end
 
   # Computes an amount (with or without taxes) of the undelivered products

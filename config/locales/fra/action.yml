@@ -833,6 +833,7 @@ fra:
     interval: 'Intervalle personnalisé'
     inventory: 'Inventaire'
     inventory_print: 'Imprimer l''inventaire' #!
+    invoices_only: 'Utiliser seulement les factures'
     invoiced_amount: 'Montant facturé'
     is: 'Est'
     journal: 'Journal'

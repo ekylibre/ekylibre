@@ -362,12 +362,23 @@ class SalesController < ApplicationController
 
   def statistics
     data = {}
+    params[:states] ||= {}
     mode = params[:mode] = (params[:mode]||:pretax_amount).to_s.to_sym
     source = params[:source] = (params[:source]||:sales_invoices).to_s.to_sym
     if params[:export] == "sales"
       states = [:invoice]
       states << :order if source == :sales
-      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE state IN ("+states.collect{|s| "'#{s}'"}.join(', ')+")  AND created_on BETWEEN ? AND ? GROUP BY product_id"
+      query = "SELECT product_id, sum(sol.#{mode}) AS total FROM #{SaleLine.table_name} AS sol JOIN #{Sale.table_name} AS so ON (sol.sale_id=so.id) WHERE "
+      if params[:invoices].to_i > 0
+        query << "state='invoice' AND invoiced_on BETWEEN ? AND ? "
+      else
+        query << "(state IS NULL"
+        unless params[:states].empty?
+          query << " OR state IN ("+params[:states].collect{|k,v| "'#{k.to_s.ascii}'"}.join(', ')+")"
+        end
+        query << ") AND created_on BETWEEN ? AND ? "
+      end
+      query << " GROUP BY product_id"
       start = (Date.today - params[:nb_years].to_i.year).beginning_of_month
       finish = Date.today.end_of_month
       date = start
