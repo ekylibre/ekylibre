@@ -7,22 +7,22 @@
         %td=submit_tag tg(:search_go), :name=>nil
 
 
--conditions = Proc.new{|x| ["#{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
+-conditions = Proc.new{|x| ["state = 'invoice' AND #{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
 =unagi do |u|
-  -u.cell :x_sales, :count=>@current_user.sales.count(:id, :conditions=>conditions[:created_on]) do
+  -u.cell :x_sales_invoices, :count=>@current_user.sales.count(:id, :conditions=>conditions[:invoiced_on]) do
     %table.list
       %tr.total
-        %th=tc(:total_amount)
-        %td=number_to_management @current_user.sales.sum(:amount, :conditions=>conditions[:created_on])
+        %th=Sale.human_attribute_name(:pretax_amount)
+        %td=number_to_management @current_user.sales.sum(:pretax_amount, :conditions=>conditions[:invoiced_on])
       %tr.total
-        %th=tc(:total_invoiced_amount)
-        %td=number_to_management(invoiced_amount = @current_user.sales_invoices.sum(:amount, :conditions=>conditions[:invoiced_on]))
+        %th=Sale.human_attribute_name(:amount)
+        %td=number_to_management(invoiced_amount = @current_user.sales.sum(:amount, :conditions=>conditions[:invoiced_on]))
       %tr.total
         %th=tc(:total_paid_amount)
-        %td=number_to_management(paid_amount = @current_user.sales.sum(:paid_amount, :conditions=>conditions[:created_on]))
+        %td=number_to_management(paid_amount = @current_user.sales.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
       %tr.total
         %th=tc(:total_unpaid_amount)
-        %td=number_to_management(invoiced_amount - @current_user.sales_invoices.sum(:paid_amount, :conditions=>conditions[:invoiced_on]))
+        %td=number_to_management(invoiced_amount - paid_amount)
       -if invoiced_amount > 0
         %tr.total
           %th=tc(:profitability)

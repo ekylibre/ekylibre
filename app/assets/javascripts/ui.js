@@ -325,7 +325,20 @@
     });
 
     
-    // Live copy
+    // Toggle side menu
+    $.behave("a[data-toggle-view-mode]", "click", function () {
+	var element = $(this);
+	element.attr("href");
+	$.ajax(element.data("toggle-view-mode"), {
+	    success: function (data, status, xhr) {
+		window.location.replace(element.attr("href"));
+	    }
+	});
+	return false;
+    });
+
+
+    // Toggle side menu
     $.behave("a[data-toggle-module]", "click", function () {
 	var element = $(this), module = element.closest(".sd-module"), target = module.find(".sd-content"), shown;
 	if (element.hasClass("show")) {

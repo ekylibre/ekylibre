@@ -7,8 +7,8 @@
     =formalize do |f|
       -# f.field :sale_line, :stock_id, :choices=>{:reflection=>:s}, :new=>true
       -f.field SaleLine.human_attribute_name("stock_id"), select(:sale_line, :stock_id, product_stocks_options(product))
-  -if false # product.nature == "subscrip"
-    -@subscription = @sale_line.new_subscription(params[:subscription])
+  -if product.nature == "subscrip"
+    -@subscription ||= @sale_line.new_subscription(params[:subscription])
     =render :partial=>"subscriptions/coordinates_form"
 
   -if @current_user.can?(:change_prices_on_sales)

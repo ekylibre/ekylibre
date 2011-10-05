@@ -833,6 +833,7 @@ spa:
     inventory_create: 'Hacer un nuevo inventario' #!
     inventory_print: 'Imprimir el inventario' #!
     # invoiced_amount: 'Sales invoiced amount'
+    # invoices_only: 'Use only invoices'
     # is: 'Is'
     journal: 'Periodico'
     journal_detail: 'Cerrado al %{fecha de cerrado}'
@@ -1221,7 +1222,6 @@ spa:
     # to_date: 'To date'
     # to_deliver: 'To deliver'
     # to_deposit: 'To deposit'
-    # toggle_print_mode: 'Activate/deactivate "Printable" mode'
     # tool_update: 'Update tool'
     # tools: 'Used tools'
     # tools_list: 'Tools'
@@ -1283,6 +1283,9 @@ spa:
     vat_collected: 'TVA BRUTA' #!
     vat_paid: 'TVA DEDUCTIBLE' #!
     # view: 'View'
+    view_modes:
+      # printable: 'Printable mode'
+      # resized: 'Resized mode'
     # virtual_quantity: 'Virtual quantity'
     # warehouse: 'Warehouse'
     warehouse_create: 'Añadir un lugar de deposito' #!

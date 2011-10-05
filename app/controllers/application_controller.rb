@@ -339,12 +339,6 @@ class ApplicationController < ActionController::Base
     @article = search_article
     # TODO: Dynamic theme choosing
     @current_theme = "tekyla"
-    if params[:resized]
-      preference = @current_user.preference("interface.general.resized", true, :boolean)
-      preference.value = (params[:resized] == "1" ? true : false)
-      preference.save!
-      session[:resizable] = preference.value
-    end
     # Check expiration
     if !session[:last_query].is_a?(Integer)
       redirect_to_login(request.url)
@@ -540,7 +534,7 @@ class ApplicationController < ActionController::Base
     session[:last_query]   = Time.now.to_i
     session[:rights]       = user.rights.to_s.split(" ").collect{|x| x.to_sym}.freeze
     session[:side]         = true
-    session[:resizable]    = user.preference("interface.general.resized", true, :boolean).value
+    session[:view_mode]    = user.preference("interface.general.view_mode", "printable", :string).value
     session[:user_id]      = user.id
     # Build and cache customized menu for all the session
     session[:menus] = ActiveSupport::OrderedHash.new

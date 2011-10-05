@@ -39,15 +39,15 @@
 
 
 class CustomFieldDatum < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :decimal_value, :allow_nil => true
-  #]VALIDATORS]
   attr_readonly :company_id, :custom_field_id, :entity_id
   belongs_to :choice_value, :class_name=>"CustomFieldChoice"
   belongs_to :company
   belongs_to :custom_field
   belongs_to :entity
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :decimal_value, :allow_nil => true
+  #]VALIDATORS]
   validates_uniqueness_of :custom_field_id, :scope=>[:company_id, :entity_id]
 
   validate do

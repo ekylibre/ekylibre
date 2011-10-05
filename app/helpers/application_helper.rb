@@ -392,8 +392,7 @@ module ApplicationHelper
 
 
   def resizable?
-    session[:resizable] = true if session[:resizable].nil?
-    return session[:resizable]
+    return (session[:view_mode] == "resized" ? true : false)
   end
 
   def top_tag

@@ -41,6 +41,14 @@ class InterfacersController < ApplicationController
     render :text=>nil
   end
 
+  # Saves the view mode
+  def toggle_view_mode
+    session[:view_mode] = params[:mode]
+    render :text=>''
+  end
+  
+
+
   # Returns the new list for a "dynamic select" using company's reflections
   def unroll_options
     @options = {}

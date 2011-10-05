@@ -1,9 +1,14 @@
 -if @current_user
   .user-bar
-    -resized = session[:resizable]
-    =link_to("", params.merge(:resized=>(resized ? "0" : "1")), {:class=>"icon im-#{'un' if resized}printable", :title=>tl(:toggle_print_mode), :id=>:resizable})
-    %a=@current_user.label
-    =link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class=>"icon im-logout")
+    %a.name.root=@current_company.name
+    %ul
+      %li.no-link
+        %a.name=@current_user.label
+      %li.separator
+      -for mode in ["printable", "resized"]
+        %li=link_to(tl("view_modes.#{mode}"), params, :class=>"icon im-#{'un' unless mode == session[:view_mode]}checked", "data-toggle-view-mode"=>url_for(:action=>:toggle_view_mode, :controller=>:interfacers, :mode=>mode))
+      %li.separator
+      %li=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class=>"icon im-logout")
 
 -#.logo-bar=@current_company["name"] if @current_company
 

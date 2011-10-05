@@ -352,9 +352,7 @@ class EntitiesController < ApplicationController
     @contact.company_id = @current_company.id
     for custom_field in @custom_fields
       attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
-      attributes[:custom_field_id] = custom_field.id
-      attributes[:company_id] = @current_company.id
-      @custom_field_data << CustomFieldDatum.new(attributes)
+      @custom_field_data << custom_field.data.new(attributes)
     end
     
     ActiveRecord::Base.transaction do

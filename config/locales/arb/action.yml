@@ -873,6 +873,7 @@ arb:
     inventory_create: 'تأدية عملية جرد جديدة' #!
     inventory_print: 'طباعة الجرد' #!
     invoiced_amount: 'قيمة الفاتورة'
+    # invoices_only: 'Use only invoices'
     # is: 'Is'
     journal: 'دفتراليومية'
     journal_detail: 'اغلق في %{closed_on}'
@@ -1329,7 +1330,6 @@ arb:
     to_date: 'الى تاريخ'
     to_deliver: 'للتسليم'
     # to_deposit: 'To deposit'
-    # toggle_print_mode: 'Activate/deactivate "Printable" mode'
     tool_create: 'اضافة مادة' #!
     tool_update: 'تعديل المادة'
     tools: 'مادة مستخدمة'
@@ -1398,6 +1398,9 @@ arb:
     vat_collected: 'صافي قيمة الضريبة المضافة' #!
     vat_paid: 'خصم قيمة الضريبة المضافة' #!
     view: 'معاينة'
+    view_modes:
+      # printable: 'Printable mode'
+      # resized: 'Resized mode'
     virtual_quantity: 'الكمية العملية'
     waiting: 'أ€ التسدسد لاحقا' #!
     warehouse: 'مكان التخزين'

@@ -833,8 +833,8 @@ fra:
     interval: 'Intervalle personnalisé'
     inventory: 'Inventaire'
     inventory_print: 'Imprimer l''inventaire' #!
-    invoices_only: 'Utiliser seulement les factures'
     invoiced_amount: 'Montant facturé'
+    invoices_only: 'Utiliser seulement les factures'
     is: 'Est'
     journal: 'Journal'
     journal_detail: 'Cloturé au %{closed_on}'
@@ -1261,7 +1261,6 @@ fra:
     to_date: 'Au'
     to_deliver: 'Livrer'
     to_deposit: 'À encaisser'
-    toggle_print_mode: 'Activer/désactiver le mode "Imprimable"'
     tool_update: 'Modifier le matériel'
     tools: 'Matériel utilisé'
     tools_list: 'Matériel'
@@ -1320,6 +1319,9 @@ fra:
     vat_collected: 'TVA BRUTE' #!
     vat_paid: 'TVA DEDUCTIBLE' #!
     view: 'Affichage'
+    view_modes:
+      printable: 'Mode "Imprimable"'
+      resized: 'Mode "Tout à l''écran"'
     virtual_quantity: 'Quantité virtuelle'
     warehouse: 'Lieu de stockage'
     warehouse_name: 'Sortie de'
