@@ -139,8 +139,9 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 
 
 #side-splitter {width: 4px; background: #95b0e4; border-top: 4px solid #95b0e4; border-bottom: 4px solid #95b0e4;}
-#side-splitter:hover { background: #23579A; cursor: w-resize; }
-#side-splitter.closed:hover { cursor: e-resize; }
+#side-splitter:hover { background: #23579A; }
+html[dir="ltr"] #side-splitter:hover, html[dir="rtl"] #side-splitter.closed:hover { cursor: w-resize; }
+html[dir="ltr"] #side-splitter.closed:hover, html[dir="rtl"] #side-splitter:hover { cursor: e-resize; }
 
 
 #side { width: 200px; overflow: auto; vertical-align: top; } 
@@ -247,12 +248,12 @@ html[dir="ltr"] #top .user-bar { float:right;  }
 html[dir="rtl"] #top .user-bar { float:left; }
 
 /*# .2357AB .3D5C8D .47628c 407ad8  688ED8*/
-#top .menu-bar { height: 29px; padding: 3px 8px 0; /*border-top: 1px solid #23579A;*/ background: #688ED8 url(../images/shadow-top.png) bottom repeat-x; display: block;}
+#top .menu-bar { height: 29px; padding: 3px 3px 0; /*border-top: 1px solid #23579A;*/ background: #688ED8 url(../images/shadow-top.png) bottom repeat-x; display: block;}
 #top .menu-bar ul { margin:0; padding: 0; }
 #top .menu-bar li { position:relative; list-style-type:none; }
 html[dir="ltr"] #top .menu-bar li { float:left; }
 html[dir="rtl"] #top .menu-bar li { float:right; }
-#top .menu-bar li.logo-item { background: url(../images/ekylibre.png) no-repeat 2px 2px; width: 86px; height: 28px; border: none; margin:0; padding: 0;}
+#top .menu-bar li.logo-item { background: url(../images/ekylibre.png) no-repeat center; width: 86px; height: 28px; border: none; margin:0; padding: 0;}
 #top .menu-bar ul li ul { display:none; position:absolute; margin:0; min-width: 10em; width: auto; top: 25px; padding: 4px 1px 1px; z-index: 1000; background: #3D5C8D; }
 html[dir="ltr"] #top .menu-bar ul li ul { left:2px; }
 html[dir="rtl"] #top .menu-bar ul li ul { right:2px; }

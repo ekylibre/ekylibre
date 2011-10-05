@@ -385,10 +385,7 @@ class SalesController < ApplicationController
       months = [] # [::I18n.t('activerecord.models.product')]
       # puts [start, finish].inspect
       while date <= finish
-        # puts date.inspect
-        # raise Exception.new(t('date.month_names').inspect)
-        # period = '="'+t('date.month_names')[date.month]+" "+date.year.to_s+'"'
-        period = '="'+date.year.to_s+" "+date.month.to_s+'"'
+        period = '="'+t('date.abbr_month_names')[date.month]+" "+date.year.to_s+'"'
         months << period
         for product in @current_company.products.find(:all, :select=>"products.*, total", :joins=>ActiveRecord::Base.send(:sanitize_sql_array, ["LEFT JOIN (#{query}) AS sold ON (products.id=product_id)", date.beginning_of_month, date.end_of_month]), :order=>"product_id")
           data[product.id.to_s] ||= {}
