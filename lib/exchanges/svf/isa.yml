@@ -1,0 +1,318 @@
+format:
+  - version:
+    key: "VER   "
+    occurrence: 1
+    data:
+      windows_version*: 
+        type: integer-7
+        default: '0200000'
+      text_version*: 
+        type: integer-4
+        default: '8550'
+      remove_entry_lines: boolean
+      label: string-30
+      encoding:
+        type: integer-1
+        options:
+          0: ASCII
+          1: ANSI (ISO-8859)
+    children:
+      - folder:
+        key: "DOS   "
+        occurrence: 1
+        data:
+          number*: string-8
+          label: string-30
+          last_close: date
+          update_analytics: boolean
+          update_accounts: boolean
+          update_journals: boolean
+          update_taxes: boolean
+          prorata_explosion: boolean
+          comment_transfer: boolean
+          account_number_size:
+            type: integer-2
+            options:
+              6: 6 characters
+              8: 8 characters
+              10: 10 characters
+        children:
+          - creation:
+            key: "CREDOS"
+            occurrence: '?'
+            data:
+              folder*: string-7
+              password: string-10
+              year_1_start*: date
+              year_1_finish*: date
+              year_2_start: date
+              year_2_finish: date
+              expired_on: date
+              level:
+                type: integer-1
+                default: 0
+              remove_folder: boolean
+          - financial_year:
+            key: "EXO   "
+            occurrence: 1
+            data:
+              started_on*: date
+              stopped_on*: date
+              remove_journal_entries: boolean
+              opened: boolean
+              journal_entries_count: integer-11
+              currency: string-3
+            children:
+              - analytics:
+                key: "ANA   "
+                occurrence: *
+                data:
+                  activity_code: string-6
+                  cut_code: string-2
+                  label: string-40
+                  reference_activity: string-6
+                  unit_1: string-5
+                  unit_1_count: float-8.2
+                  sum_sub_activities_1: boolean
+                  unit_2: string-5
+                  unit_2_count: float-8.2
+                  sum_sub_activities_2: boolean
+                  assignable_activity: 
+                    type: boolean
+                    default: true
+                  group: boolean
+                  master: boolean
+                  reuse_group_result: boolean
+                  activities_count: integer-4
+                  extra_unit_quantity_count_1: integer-11
+                  extra_unit_quantity_count_2: integer-11
+                  extra_unit_quantity_count_3: integer-11
+                  extra_unit_quantity_count_4: integer-11
+                  extra_unit_quantity_count_5: integer-11
+                  extra_unit_quantity_count_6: integer-11
+                  extra_unit_quantity_count_7: integer-11
+                  extra_unit_quantity_count_8: integer-11
+                children:
+                  - repartitions: 
+                    key: "ANAREP"
+                    occurrence: *
+                    data:
+                      activity_code: string-6
+                      cut_code: string-2
+                      label: strnig-40
+                      percentage: float-4.5
+                      prorata: boolean
+              - account:
+                key: "CPT   "
+                occurrence: *
+                data:
+                  number: string-10
+                  label: string-30
+                  alpha_code: string-10
+                  quantity_1_unit: string-3
+                  quantity_1_label: string-10
+                  quantity_2_unit: string-3
+                  quantity_2_label: string-10
+                  authorized_number: boolean
+                  letter: string-3
+                  type:
+                    type: string-2
+                    options:
+                      au: 'Auxiliaire'
+                      ge: 'General'
+                      ce: 'Centralizer'
+                  third: string-7
+                  debit_account: string-10
+                  credit_account: string-10
+                  general_ledger_centralization: boolean
+                  input_direction:
+                    type: string-2
+                    options:
+                      de: 'Débit'
+                      cr: 'Crédit'
+                      in: 'Indifférent'
+                  taxe_code: string-2
+                  taxes_on_4_account: boolean
+                  group_account: string-10
+                  work_account: string-10
+                  linked_account: string-10
+                  letterable: boolean
+                  details_renew: boolean
+                  pointable: boolean
+                  entry_label: string-30
+                  activities_count: integer-4
+                  account_currency: string-3
+                  gc_indicator: boolean
+                  quantity_1_display: boolean
+                  quantity_2_display: boolean
+                  tax_jump: boolean
+                  required_affectation_to_line: boolean
+                  allowed_affectation_to_line: boolean
+                  currency: boolean
+                  exising_remark: boolean
+                  revision: boolean
+                  visa: boolean
+                  cycle: integer-11
+                children:
+                  - remark: &remark
+                    key: "RMQDEB"
+                    occurrence: '?'
+                    to: "RMQFIN"
+                  - analytic_accounts:
+                    key: "ANACPT"
+                    occurrence: *
+                    data:
+                      activity_code: string-6
+                      cut_code: string-2
+                      label: string-40
+                      percentage: integer-10
+                      prorata: boolean
+                  - thirds:
+                    key: "TIERS "
+                    occurrence: *
+                    data:
+                      identifier_1: string-30
+                      identifier_2: string-30
+                      address_1: string-30
+                      address_2: string-30
+                      country: string-5
+                      postal_code: string-8
+                      city: string-30
+                      phone: string-17
+                      fax: string-17
+                      tax_number: 
+                      fiscal_identifier: string-10
+                      agency: string-5
+                      bank: string-5
+                      bban_number: string-20
+                      bban_key: string-2
+                      info_1: string-30
+                      info_2: integer-15
+                      info_3: date
+              - taxes:
+                key: "TVA   "
+                occurrence: *
+                data:
+                  code: string-2
+                  label: string-30
+                     account: string-10
+                  rate: float-2.2
+                  type:
+                    type: string-2
+                    options:
+                      ac: 'Purchase'
+                      im: 'Immobilization'
+                      ve: 'Sale'
+                  position:
+                    type: string-2
+                    options:
+                      de: 'Debit'
+                      cr: 'Credit'
+                  fiscal_position: string-5
+                  on_payment: boolean
+                  zero_rate: boolean
+                  deduction_rate: float-3.2
+              - journal:
+                key: "JOU   "
+                occurrence: *
+                data:
+                  code: string-2
+                  label: string-30
+                  type:
+                    type: string-2
+                    options:
+                      ac: 'Purchase'
+                      an: 'Renew'
+                      ex: 'Extourne'
+                      ly: 'Analytic'
+                      od: 'OD'
+                      si: 'Situation'
+                      st: 'Stock'
+                      tr: 'Cash'
+                      ve: 'Sale'
+                  category:
+                    type: string-2
+                    options:
+                      fi: 'Fiscale'
+                      mi: 'Mixte'
+                      ge: 'Gestion'
+                      ly: 'Analytique'
+                  extourne_type:
+                    type: string-2
+                    options:
+                      1e: '1er jour de l''exercice'
+                      2e: '2ème jour de l''exercice'
+                      de: 'dernier jour de l''exercice'
+                  counterpart_account: string-10
+                  last_close_on: date
+                  last_entry_on: date
+                  last_entry_number: string-8
+                  extourne_flag: integer-2
+              - entries:
+                key: "ECR   "
+                occurrence: *
+                data:
+                  journal: string-2
+                  printed_on: date
+                  number: string-8
+                  label: string-30
+                  invoiced_on: date
+                  site_code: string-7
+                  user_code: string-7
+                  emitter_code: integer-3
+                  position: integer-11
+                  extourned: boolean
+                  unupdateable: boolean
+                  created_on: date
+                  updated_on: date
+                  code: integer-11
+                  destroyed: boolean
+                  currency: string-3
+                  type: string-2
+                  label_reinput: boolean
+                  counterpart_account: string-10
+                  existing_remark: boolean
+                  update_number: integer-11
+                children:
+                  - remark: *remark
+                  - lines:
+                    key: "MVT   "
+                    occurrence: *
+                    data:
+                      account: string-10
+                      label: string-30
+                      debit: float-10.3
+                      credit: float-10.3
+                      quantity_1: float-8.2
+                      quantity_2: float-8.2
+                      number: string-8
+                      tax_code: string-2
+                      account_tax_code: string-2
+                      lettering:
+                        type: integer-1
+                        options:
+                          0: 'Unlettered'
+                          1: 'Lettered'
+                          2: 'Lettered with past'
+                      letter: string-3
+                      pointed_on: date
+                      activities_count: integer-4
+                      expirable: boolean
+                      declared_on: date
+                    children:
+                      - analytics:
+                        key: "ANAMVT"
+                        occurrence: *
+                        data:
+                          activity_code: string-6
+                          cut_code: string-2
+                          label: string-40
+                          percentage: float-4.5
+                          prorata: boolean
+                      - expirations:
+                        key: "ECHMVT"
+                        occurrence: *
+                        data:
+                          amount: float-10.2
+                          rate: float-4.5
+                          expired_on: date
