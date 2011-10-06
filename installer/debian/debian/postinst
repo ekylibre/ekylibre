@@ -74,7 +74,7 @@ case "$1" in
 	# Check gems
 	$gem_bin_dir/bundle install
 
-	rake db:migrate RAILS_ENV=production
+	rake _0.8.7_ db:migrate RAILS_ENV=production
 
 	# Install apache conf
 	if [ ! -e /etc/apache2/conf.d/ekylibre.conf -a -e /etc/ekylibre/apache.conf ]; then
