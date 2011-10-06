@@ -10,33 +10,19 @@
       %li.separator
       %li=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class=>"icon im-logout")
 
--#.logo-bar=@current_company["name"] if @current_company
-
 -if @current_user
   -rm = reverse_menus
   .menu-bar
     %ul
       %li.logo-item
       -for menu, submenus in menus
-        %li     
-          -name = tl("menus.#{menu}")
-          -if rm[0] != menu
-            =link_to(name, last_page(menu), :class=>"menu #{menu}")
+        -if rm[0] != menu
+          %li.menu.other{:class=>menu}
+            =link_to(tl("menus.#{menu}"), last_page(menu), :class=>"menu other #{menu}")
             %ul
               -for submenu, items in submenus
-                %li
-                  =link_to(tl("menus.submenus.#{submenu}"), items[0][:url])
-          -else
-            =link_to(name, {:controller=>:dashboards, :action=>menu}, :class=>"menu #{menu} current")
-  -#.submenu-bar
-    %ul
-      -for submenu, items in menus[rm[0]]||[]
-        %li
-          -if rm[1] != submenu
-            =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>"#{'multi' if items.size>1}")
-            -if items.size>1
-              %ul
-                -for item in items
-                  %li=link_to(t("actions.#{item[:controller]}.#{item[:action]}"), item[:url])
-          -else     
-            =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>:current)
+                %li.submenu
+                  =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>"icon im-menu")
+        -else
+          %li.menu.current{:class=>menu}
+            =link_to(tl("menus.#{menu}"), {:controller=>:dashboards, :action=>menu}, :class=>"menu current #{menu}")

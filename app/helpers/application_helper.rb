@@ -639,7 +639,7 @@ module ApplicationHelper
   # Kujaku 孔雀
   # Search bar
   def kujaku(url={}, &block)
-    k = Kujaku.new
+    k = Kujaku.new(caller[0].split(":in ")[0])
     if block_given?
       yield k
     else
@@ -673,6 +673,8 @@ module ApplicationHelper
       elsif c[:type] == :text
         code = content_tag(:label, options[:label]||tg(:search))
         name = c[:name]||:q
+        session[:kujaku] = {} unless session[:kujaku].is_a? Hash
+        params[name] = session[:kujaku][c[:uid]] = (params[name]||session[:kujaku][c[:uid]])
         code << " ".html_safe << text_field_tag(name, params[name])
       elsif c[:type] == :date
         code = content_tag(:label, options[:label]||tg(:display))
@@ -694,7 +696,8 @@ module ApplicationHelper
 
   class Kujaku
     attr_reader :criteria
-    def initialize
+    def initialize(uid)
+      @uid = uid
       @criteria = []
     end
 
@@ -708,22 +711,28 @@ module ApplicationHelper
       options = states.delete_at(-1) if states[-1].is_a? Hash
       options = {} unless options.is_a? Hash
       name = options.delete(:name)||:s
-      @criteria << {:type=>:radio, :name=>name, :states=>states, :options=>options}
+      add_criterion :radio, :name=>name, :states=>states, :options=>options
     end
     
     def text(name=nil, options={})
       name ||= :q
-      @criteria << {:type=>:text, :name=>name, :options=>options}
+      add_criterion :text, :name=>name, :options=>options
     end
 
     def date(name=nil, options={})
       name ||= :d
-      @criteria << {:type=>:date, :name=>name, :options=>options}
+      add_criterion :date, :name=>name, :options=>options
     end
 
     def criterion(html_options={}, &block)
       raise ArgumentError.new("No block given") unless block_given?
-      @criteria << {:type=>:criterion, :block=>block, :html_options=>html_options}
+      add_criterion :criterion, :block=>block, :html_options=>html_options
+    end
+
+    private
+    
+    def add_criterion(type=nil, options={})
+      @criteria << options.merge(:type=>type, :uid=>"#{@uid}:"+@criteria.size.to_s)
     end
   end
 

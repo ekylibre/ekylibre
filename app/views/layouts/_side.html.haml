@@ -3,16 +3,6 @@
     -for url in submenu[1]
       .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
 
--#if menu = menus[path[0]] and path[1] != :__hidden__
-  -items = menu[path[1]]||[]
-  -if items.size > 1
-    -prefix = "#{path[0]}_#{path[1]}"
-    .module.menu.master
-      -#%h2=tl("menus.submenus.#{path[1]}")
-      %ul{:id=>"side_#{prefix}_actions"}
-        -for url in items
-          %li=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}"))
-
 -if session[:history].is_a?(Array) and not session[:history].size.zero?
   =side_module "history", :title=>tl("recent_historic"), :class=>:history do
     -for page in session[:history][0..4]
@@ -24,8 +14,4 @@
         =link_to(page[:title], page[:url], :title=>infotip.html_safe)
 
 =side_module "help", :title=>tl("contextual_help"), :class=>:help do
-  #help.flex=render :partial=>"help/search", :object=>@article
-  
--#.module.help.flex
-  %h2=tl("contextual_help")
   #help.flex=render :partial=>"help/search", :object=>@article

@@ -536,6 +536,12 @@ class ApplicationController < ActionController::Base
     session[:side]         = true
     session[:view_mode]    = user.preference("interface.general.view_mode", "printable", :string).value
     session[:user_id]      = user.id
+    # Loads modules preferences
+    session[:modules]      = {}
+    show_modules = "interface.show_modules."
+    for preference in user.preferences.where("name LIKE ?", "#{show_modules}%")
+      session[:modules][preference.name[show_modules.length..-1]] = preference.value
+    end
     # Build and cache customized menu for all the session
     session[:menus] = ActiveSupport::OrderedHash.new
     for menu, submenus in Ekylibre.menus
