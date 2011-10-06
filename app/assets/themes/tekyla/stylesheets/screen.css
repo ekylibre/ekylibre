@@ -49,7 +49,8 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-logout      { background-image: url(../images/buttons/logout.png); }
 .icon.im-mail        { background-image: url(../images/buttons/mail.png); }
 .icon.im-menu        { background-image: url(../images/round-black.png); }
-.icon.im-menu:hover  { background-image: url(../images/buttons/right.png); }
+html[dir="ltr"] .icon.im-menu:hover  { background-image: url(../images/buttons/right.png); }
+html[dir="rtl"] .icon.im-menu:hover  { background-image: url(../images/buttons/left.png); }
 .icon.im-merge       { background-image: url(../images/buttons/merge.png); }
 .icon.im-more        { background-image: url(../images/buttons/down2.png); }
 .icon.im-play        { background-image: url(../images/buttons/play.png); }
