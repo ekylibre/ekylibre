@@ -172,6 +172,7 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 #side .sd-module.current { background: rgba(200,224,254,0.3); }
 #side .sd-module.history { background: #E7E7E7; }
 #side .sd-module.help { background: #E7E7E7; }
+#side .sd-module.help #help .content { padding: 8px; }
 
 /*#side .sd-module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }*/
 
@@ -184,7 +185,6 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 
 #side .module.help { background: #FAFAFA url(../images/shadow-top.png) repeat-x bottom; }
 #side .module.help #help { background: url(../images/shadow-bottom.png) repeat-x top; }
-#side #help .content { padding: 8px; }
 
 #side .module.menu ul { padding: 0 20px; margin: 0 5px; }
 #side .module.menu ul li { list-style-type: square; }
