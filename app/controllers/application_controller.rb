@@ -41,6 +41,8 @@ class ApplicationController < ActionController::Base
   #   end
   # end
 
+
+
   # Generate render_print_* method which send data corresponding to a nature of
   # document template. It use special method +print_fastly!+.
   for nature, parameters in DocumentTemplate.document_natures
