@@ -359,9 +359,9 @@ module SVF
 
 end
 
-SVF.load(:i_s_a, Rails.root.join('lib', 'exchanges', 'svf', 'isa.yml'))
-isa = SVF::ISA.parse(Rails.root.join("FDSEA-1998.ISA"))
-File.open(Rails.root.join("FDSEA-1998-2.ISA"), "wb") do |f|
-  f.write isa.to_s
-end
-raise isa.to_s
+#SVF.load(:i_s_a, Rails.root.join('lib', 'exchanges', 'svf', 'isa.yml'))
+#isa = SVF::ISA.parse(Rails.root.join("FDSEA-1998.ISA"))
+#File.open(Rails.root.join("FDSEA-1998-2.ISA"), "wb") do |f|
+#  f.write isa.to_s
+#end
+#raise isa.to_s
