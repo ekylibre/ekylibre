@@ -83,7 +83,7 @@ module SVF
         value = "#{variable}.to_i.to_s.rjust(#{self.length})[0..#{self.length-1}]"
       elsif self.type == :float
         size = self.format.split(".")
-        value = "(#{variable}.to_i.to_s+','+((#{variable}-#{variable}.to_i)*#{10**size[1].to_i}).to_i.to_s.rjust(#{size[1].to_i}, '0')).rjust(#{self.length})[0..#{self.length-1}]"
+        value = "(#{variable}.to_i.to_s+','+((#{variable}-#{variable}.to_i)*#{10**size[1].to_i}).to_i.abs.to_s.rjust(#{size[1].to_i}, '0')).rjust(#{self.length})[0..#{self.length-1}]"
       elsif self.type == :string
         value = "#{variable}.to_s.rjust(#{self.length})[0..#{self.length-1}]"
       end

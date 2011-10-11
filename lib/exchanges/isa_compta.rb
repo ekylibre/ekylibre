@@ -20,7 +20,7 @@ module Exchanges
       end
       used_versions = [8550]
       version = used_versions.select{|x| x <= version}.sort[-1]
-      if version = 8550
+      if version == 8550
         isa = SVF::Isa8550.parse(file)
         if isa_fy = isa.folder.financial_year
           # Find or create financial year
@@ -50,19 +50,30 @@ module Exchanges
           all_journals = {}
           for isa_journal in isa_fy.journals
             journal = nil
-            journals = company.journals.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.gsub(/\s+/, '%')+'%')
+            journals = company.journals.find_all_by_code(isa_journal.code)
             journal = journals[0] if journals.size == 1
-            journal ||= company.journals.create!(:code=>isa_journal.code, :name=>"[#{isa_journal.code}] #{isa_journal.label}", :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
+            unless journal
+              journals = company.journals.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.gsub(/\s+/, '%')+'%')
+              journal = journals[0] if journals.size == 1
+            end
+            journal ||= company.journals.create!(:code=>isa_journal.code, :name=>(isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
             all_journals[isa_journal.code] = journal.id
           end
           
           for isa_entry in isa_fy.entries
             unless entry = company.journal_entries.find_by_number_and_journal_id(isa_entry.number, all_journals[isa_entry.journal])
-              entry = company.journal_entries.create!(:number=>isa_entry.number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number) # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft)
+              entry = company.journal_entries.create(:number=>(isa_entry.number.blank? ? 'NIL' : isa_entry.number), :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number) # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
+              raise isa_entry.inspect+"\n"+entry.errors.full_messages.to_sentence unless entry.valid?
             end
             entry.lines.clear
             for isa_line in isa_entry.lines
-              entry.lines.create!(:account_id=>all_accounts[isa_line.account], :name=>"#{isa_line.label} (#{isa_entry.label})", :currency_debit=>isa_line.debit, :currency_credit=>isa_line.credit, :letter=>(isa_line.lettering > 0 ? isa_line.letter : nil), :comment=>isa_line.to_s)
+              if isa_line.debit < 0 or isa_line.credit < 0
+                debit = isa_line.debit
+                isa_line.debit = isa_line.credit.abs
+                isa_line.credit = debit.abs
+              end
+              line =  entry.lines.create(:account_id=>all_accounts[isa_line.account], :name=>"#{isa_line.label} (#{isa_entry.label})", :currency_debit=>isa_line.debit, :currency_credit=>isa_line.credit, :letter=>(isa_line.lettering > 0 ? isa_line.letter : nil), :comment=>isa_line.to_s)
+              raise isa_line.to_s+"\n"+line.errors.full_messages.to_sentence unless line.valid?
             end
           end
           
