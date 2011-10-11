@@ -161,6 +161,7 @@ eng:
       draft: 'Draft'
       edit: 'Edit journal: %{name}'
       general_ledger: 'General ledger'
+      import: 'Import accounting data'
       index: 'Journals'
       new: 'Create new journal'
       reopen: 'Reopen journal : %{name}'

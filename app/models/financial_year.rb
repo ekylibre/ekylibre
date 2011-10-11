@@ -70,7 +70,7 @@ class FinancialYear < CompanyRecord
       # If some financial years are already present
       id = self.id || 0
       if self.company.financial_years.find(:all, :conditions=>["id!=?", id]).size > 0
-        errors.add(:started_on, :consecutive) if not self.company.financial_years.find(:first, :conditions=>["id != ? AND stopped_on=?", id, self.started_on-1]) and self.company.financial_years.find(:first, :conditions=>["stopped_on < ?", self.started_on])
+        # errors.add(:started_on, :consecutive) if not self.company.financial_years.find(:first, :conditions=>["id != ? AND stopped_on=?", id, self.started_on-1]) and self.company.financial_years.find(:first, :conditions=>["stopped_on < ?", self.started_on])
         errors.add(:started_on, :overlap) if self.company.financial_years.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.started_on])
         errors.add(:stopped_on, :overlap) if self.company.financial_years.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.stopped_on])
       end
@@ -88,7 +88,6 @@ class FinancialYear < CompanyRecord
   def default_code
     tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year=>self.started_on.year, :second_year=>self.stopped_on.year)
   end
-
 
   # tests if the financial_year can be closed.
   def closable?(noticed_on=nil)

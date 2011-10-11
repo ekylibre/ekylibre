@@ -1,0 +1,8 @@
+=form_tag(nil, {:multipart=>true, :class=>"vbox flex", :style=>'overflow:none'}) do
+  .fields.flex
+    =formalize do |f|
+      -f.field tc("file_to_import"), file_field_tag(:upload)
+      -f.field tc("file_nature"), select_tag(:nature, options_for_select(@supported_files))
+    .end
+  .actions
+    =submit_tag tg(:import), :confirm=>tg(:are_you_sure)

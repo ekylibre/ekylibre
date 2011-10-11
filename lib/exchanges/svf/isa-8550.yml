@@ -9,10 +9,10 @@ lines:
     cells:
       - windows_version: 
           type: string-7
-          default: '0200000'
+          force-default: '0200000'
       - text_version: 
           type: string-4
-          default: '8550'
+          force-default: '8550'
       - remove_entry_lines: boolean
       - label: string-30
       - encoding:
@@ -40,8 +40,8 @@ lines:
             6: 6 characters
             8: 8 characters
             10: 10 characters
-      - xxx: boolean
-      - currency: string-3
+      # - xxx: boolean
+      # - currency: string-3
     children:
       - creation: 'folder_creation-?'
       - financial_year: 1
@@ -73,7 +73,7 @@ lines:
     children:
       - activities: analytic_activities-*
       - accounts: *
-      - taxes: *
+      - taxes: "tax-*"
       - journals: *
       - entries: *
 
@@ -105,17 +105,17 @@ lines:
       - extra_unit_quantity_count_6: float-8.2
       - extra_unit_quantity_count_7: float-8.2
       - extra_unit_quantity_count_8: float-8.2
-      - extra_blabla: string-15
-      - extra_thing_0: float-8.2
-      - extra_thing_1: float-8.2
-      - extra_thing_2: float-8.2
-      - extra_thing_3: float-8.2
-      - extra_thing_4: float-8.2
-      - extra_thing_5: float-8.2
-      - extra_thing_6: float-8.2
-      - extra_thing_7: float-8.2
-      - extra_thing_8: float-8.2
-      - extra_thing_9: float-8.2
+      # - extra_blabla: string-15
+      # - extra_thing_0: float-8.2
+      # - extra_thing_1: float-8.2
+      # - extra_thing_2: float-8.2
+      # - extra_thing_3: float-8.2
+      # - extra_thing_4: float-8.2
+      # - extra_thing_5: float-8.2
+      # - extra_thing_6: float-8.2
+      # - extra_thing_7: float-8.2
+      # - extra_thing_8: float-8.2
+      # - extra_thing_9: float-8.2
     children:
       - repartitions: analytic_repartitions-+
 
@@ -161,7 +161,7 @@ lines:
       - group_account: string-10
       - work_account: string-10
       - linked_account: string-10
-      - letterable: boolean
+      - reconcilable: boolean
       - details_renew: boolean
       - pointable: boolean
       - entry_label: string-30
@@ -301,7 +301,7 @@ lines:
       - label_reinput: boolean
       - counterpart_account: string-10
       - existing_remark: boolean
-      - update_number: integer-11
+      - version_number: integer-11
     children:
       - remark: '?'
       - lines: entry_lines-+

@@ -19,7 +19,7 @@
 # ##### END LICENSE BLOCK #####
 
 
-require_dependency Rails.root.join("lib", "exchanges", "svf", "loader").to_s
+# require_dependency Rails.root.join("lib", "exchanges", "svf", "loader").to_s
 
 
 # module ActiveRecord

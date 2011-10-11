@@ -1,7 +1,7 @@
 require File.join(File.dirname(__FILE__), 'safe_string')
 # require File.join(File.dirname(__FILE__), 'i18n')
 # require File.join(File.dirname(__FILE__), 'spreet')
-# require File.join(File.dirname(__FILE__), 'exchanges', 'svf')
+require File.join(File.dirname(__FILE__), 'exchanges')
 require File.join(File.dirname(__FILE__), 'activerecord')
 require File.join(File.dirname(__FILE__), 'ekylibre')
 require 'csv'

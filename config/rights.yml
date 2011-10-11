@@ -581,6 +581,7 @@ manage_journal_entries:
   - journals::list_lines
   - journals::list_mixed
   - journals::show
+  - journals::import
 # Manage, close and reopen journals
 manage_journals:
   actions:

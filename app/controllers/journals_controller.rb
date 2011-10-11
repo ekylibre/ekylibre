@@ -185,7 +185,6 @@ class JournalsController < ApplicationController
         redirect_to :action=>(state == :draft ? :draft : :bookkeep)
       end
     end
-    
 
   end
 
@@ -265,6 +264,24 @@ class JournalsController < ApplicationController
     end
     @document_template ||= @document_templates[0]
   end
+
+
+
+
+
+  def import
+    @supported_files = [["COTFW.ISA", :isa_compta]]
+    if request.post?
+      data = params[:upload]
+      file = Rails.root.join("tmp", "upload-#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
+      File.open(file, "wb") {|f| f.write(data.read)}
+      nature = params[:nature].to_sym rescue nil
+      Exchanges.import(@current_company, nature, file)
+    end
+  end
+
+
+
 
 
 end
