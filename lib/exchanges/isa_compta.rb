@@ -47,13 +47,19 @@ module Exchanges
           # Ignore taxes
 
           # Add journals
+          # Find used journals
+          used_journals = isa_fy.entries.collect{|e| e.journal}.uniq
           all_journals = {}
-          for isa_journal in isa_fy.journals
+          for isa_journal in isa_fy.journals.select{|j| used_journals.include?(j.code)}
             journal = nil
             journals = company.journals.find_all_by_code(isa_journal.code)
             journal = journals[0] if journals.size == 1
             unless journal
-              journals = company.journals.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.gsub(/\s+/, '%')+'%')
+              journals = company.journals.where("LOWER(name) LIKE ? ", isa_journal.label.mb_chars.downcase)
+              journal = journals[0] if journals.size == 1
+            end
+            unless journal
+              journals = company.journals.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.mb_chars.downcase.gsub(/\s+/, '%')+'%')
               journal = journals[0] if journals.size == 1
             end
             journal ||= company.journals.create!(:code=>isa_journal.code, :name=>(isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
@@ -61,8 +67,10 @@ module Exchanges
           end
           
           for isa_entry in isa_fy.entries
-            unless entry = company.journal_entries.find_by_number_and_journal_id(isa_entry.number, all_journals[isa_entry.journal])
-              entry = company.journal_entries.create(:number=>(isa_entry.number.blank? ? 'NIL' : isa_entry.number), :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number) # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
+            # number = (isa_entry.number.blank? ? 'NIL'+isa_entry.position.to_s : isa_entry.number)
+            number = "#{isa_entry.code}"
+            unless entry = company.journal_entries.find_by_number_and_journal_id_and_printed_on(number, all_journals[isa_entry.journal], isa_entry.printed_on)
+              entry = company.journal_entries.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number) # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
               raise isa_entry.inspect+"\n"+entry.errors.full_messages.to_sentence unless entry.valid?
             end
             entry.lines.clear

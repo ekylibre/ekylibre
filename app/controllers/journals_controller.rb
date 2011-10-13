@@ -276,7 +276,13 @@ class JournalsController < ApplicationController
       file = Rails.root.join("tmp", "upload-#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
       File.open(file, "wb") {|f| f.write(data.read)}
       nature = params[:nature].to_sym rescue nil
-      Exchanges.import(@current_company, nature, file)
+      logger.silence do
+        Exchanges.import(@current_company, nature, file)
+        begin
+        rescue Exception => e
+          notify_error_now(:exception_raised, :message=>e.message)
+        end
+      end
     end
   end
 

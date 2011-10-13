@@ -42,13 +42,6 @@
 
 
 class IncomingPaymentMode < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
-  validates_length_of :name, :allow_nil => true, :maximum => 50
-  validates_inclusion_of :with_accounting, :with_commission, :with_deposit, :in => [true, false]
-  validates_presence_of :commission_base_amount, :commission_percent, :company, :name
-  #]VALIDATORS]
   acts_as_list :scope=>:company_id
   attr_readonly :company_id
   belongs_to :cash
@@ -59,7 +52,13 @@ class IncomingPaymentMode < CompanyRecord
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
   has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE closed=#{connection.quoted_false} AND company_id=#{self.company_id})'
-
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
+  validates_length_of :name, :allow_nil => true, :maximum => 50
+  validates_inclusion_of :with_accounting, :with_commission, :with_deposit, :in => [true, false]
+  validates_presence_of :commission_base_amount, :commission_percent, :company, :name
+  #]VALIDATORS]
   validates_presence_of :depositables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash_id
 

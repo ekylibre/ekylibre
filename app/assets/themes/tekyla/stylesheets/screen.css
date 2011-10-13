@@ -506,8 +506,8 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 
-.login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 5px double white; background: #c9d7f1; }
-.ui-dialog .login { margin: 0; border-width: 4px; padding: 0 8px;}
+.login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 1px solid #DDD; background: #f1f1f1; } /* #c9d7f1 */
+.ui-dialog .login { margin: 0; padding: 0 8px;}
 .login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
 .login p { margin:8px; }

@@ -69,7 +69,11 @@ module SVF
         # value = "(#{line}[#{start}..#{start+size-1}]+'.'+#{line}[#{start+size+1}..#{start+self.length-1}]).to_d"
         value = "#{value}.gsub(',', '.').to_d"
       elsif self.type == :string
-        value = "#{value}.strip"
+        if "Une phrase spéciale".respond_to?(:encode)
+          value = "#{value}.strip.encode('UTF-8')"
+        else
+          value = "Iconv.conv('UTF-8', 'ISO8859-1', #{value}.strip)"
+        end
       end
       return value
     end

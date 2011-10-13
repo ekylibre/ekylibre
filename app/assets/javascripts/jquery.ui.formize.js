@@ -40,26 +40,40 @@
     $.ajaxDialog = function (url, settings) {
         var frame_id = "dialog-" + $.ajaxDialogCount, width = $(document).width();
         var defaultSettings = {
-            header: "X-Return-Code"
+            header: "X-Return-Code",
+	    width: 0.6,
+	    height: 0.8
         };
         if (settings === null || settings === undefined) { settings = {}; }
         settings = $.extend({}, defaultSettings, settings);
         $.ajax(url, {
             data: {dialog: frame_id},
             success: function(data, textStatus, jqXHR) {
-                var frame = $(document.createElement('div'));
+                var frame = $(document.createElement('div')), width, height;
                 frame.attr({id: frame_id, 'class': 'dialog ajax-dialog', style: 'display:none;'});
                 $('body').append(frame);
                 frame.html(data);
                 frame.prop("dialogSettings", settings);
+		if (settings.width === 0) {
+		    width = 'auto';
+		} else if (settings.width < 1) {
+		    width = $(window).width() * settings.width;
+		} else {
+		    width = settings.width;
+		}
+		if (settings.height === 0) {
+		    height = 'auto';
+		} else if (settings.height < 1) {
+		    height = $(window).height() * settings.height;
+		} else {
+		    height = settings.height;
+		}
                 frame.dialog({
                     autoOpen: false,
                     show: 'fade',
                     modal: true,
-                    //width: 'auto',
-                    // height: 'auto',
-                    width: $(window).width()*0.6,
-                    height: $(window).height()*0.8
+                    width: width,
+                    height: height
                 });
                 $.ajaxDialogInitialize(frame);
                 frame.dialog("open");

@@ -24,6 +24,8 @@
 		$.timedSession.reconnectable = false;
 		// Formize.Dialog.open(url, null, 0);
 		$.ajaxDialog(url, {
+                    width: 0,
+		    height: 0,
 		    returns: {
 			granted: function (frame, data, textStatus, request) {
 			    frame.dialog("option", "effect", "fadeOut");

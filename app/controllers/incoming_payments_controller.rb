@@ -21,7 +21,8 @@ class IncomingPaymentsController < ApplicationController
   manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
   def self.incoming_payments_conditions(options={})
-    code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
+    code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number, :account_number
+], :entities=>[:code, :full_name])+"||=[]\n"
     code += "if session[:incoming_payment_state] == 'unreceived'\n"
     code += "  c[0] += ' AND received=?'\n"
     code += "  c << false\n"
@@ -29,7 +30,7 @@ class IncomingPaymentsController < ApplicationController
     code += "  c[0] += ' AND to_bank_on > ?'\n"
     code += "  c << Date.today\n"
     code += "elsif session[:incoming_payment_state] == 'undeposited'\n"
-    code += "  c[0] += ' AND deposit_id IS NULL'\n"
+    code += "  c[0] += ' AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
     code += "elsif session[:incoming_payment_state] == 'unparted'\n"
     code += "  c[0] += ' AND used_amount != amount'\n"
     code += "end\n"

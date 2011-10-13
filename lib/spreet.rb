@@ -1,4 +1,3 @@
-require 'fastercsv'
 require 'spreadsheet'
 
 
@@ -14,9 +13,9 @@ class Spreet
     @format = format.to_sym
     @handler = case @format
                when :csv
-                 FasterCSV.open(file)
+                 Ekylibre::CSV.open(file)
                when :xcsv
-                 FasterCSV.open(file, :col_sep=>';', :encoding=>'cp1252')
+                 Ekylibre::CSV.open(file, :col_sep=>';', :encoding=>'cp1252')
                else
                  raise ArgumentError.new("Unknown format #{format.inspect} (accepts only #{@@formats.to_sentence})")                 
                end
