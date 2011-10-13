@@ -20,6 +20,6 @@
       =render :partial=>"outgoing_payment_uses/_form"
       .actions=submit_tag
 
--if @outgoing_payment.uses.size>0
+-if @outgoing_payment.purchases.count > 0
   %h2=tc(:purchases)
   =list :purchases

@@ -44,13 +44,6 @@
 
 
 class OutgoingPayment < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :used_amount, :allow_nil => true
-  validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :delivered, :in => [true, false]
-  validates_presence_of :amount, :company, :mode, :payee, :responsible, :to_bank_on, :used_amount
-  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
@@ -61,7 +54,13 @@ class OutgoingPayment < CompanyRecord
   has_many :uses, :class_name=>"OutgoingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
   has_many :purchases, :through=>:uses
   has_many :expenses, :through=>:uses
-
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :used_amount, :allow_nil => true
+  validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :delivered, :in => [true, false]
+  validates_presence_of :amount, :company, :mode, :payee, :responsible, :to_bank_on, :used_amount
+  #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_numericality_of :used_amount, :greater_than_or_equal_to=>0
   validates_presence_of :to_bank_on, :created_on
