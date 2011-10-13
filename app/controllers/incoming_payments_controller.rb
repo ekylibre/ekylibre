@@ -58,7 +58,7 @@ class IncomingPaymentsController < ApplicationController
     session[:incoming_payment_key]   = params[:q]
   end
 
-  list(:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_incoming_payment_id]'], Sale.name]) do |t|
+  list(:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_incoming_payment_id]'], Sale.name], :line_class=>'RECORD.tags') do |t|
     t.column :number, :url=>true
     t.column :description, :through=>:client, :url=>true
     t.column :created_on

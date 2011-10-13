@@ -10,6 +10,8 @@
 =error_messages('sale', :object=>@credit) if @credit
 
 =form_tag() do
+  =formalize do |f|
+    -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
   =list :creditable_lines
   .actions
     =submit_tag(tc('validate'))

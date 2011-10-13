@@ -69,8 +69,8 @@ module List
       code += "options = (params||{}).merge(options)\n"
       # Session values
       code += "session[:list] = {} unless session[:list].is_a? Hash\n"
-      code += "session[:list][:#{self.name}] = {} unless session[:list][:#{self.name}].is_a? Hash\n"
-      code += "list_params = session[:list][:#{self.name}]\n"
+      code += "session[:list][:#{self.view_method_name}] = {} unless session[:list][:#{self.view_method_name}].is_a? Hash\n"
+      code += "list_params = session[:list][:#{self.view_method_name}]\n"
       code += "list_params[:hidden_columns] = [] unless list_params[:hidden_columns].is_a? Array\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
         expr = "options['#{self.name}_#{parameter}'] || options['#{parameter}'] || list_params[:#{parameter}]"

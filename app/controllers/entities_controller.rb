@@ -133,7 +133,7 @@ class EntitiesController < ApplicationController
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
 
-  list(:sales, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.state', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
+  list(:sales, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.tags', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
     t.column :number, :url=>true, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false

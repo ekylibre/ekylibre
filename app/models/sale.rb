@@ -360,6 +360,20 @@ class Sale < CompanyRecord
     self.letter_format?
   end
 
+  def tags
+    if self.order? or self.invoice? and !self.credit?
+      if self.paid_amount.zero?
+        return "critic "+self.state
+      elsif self.paid_amount != self.amount
+        return "warning "+self.state
+      else
+        return self.state
+      end
+    elsif self.credit?
+      return "disabled "+self.state      
+    end
+    return self.state
+  end
 
   def address
     a = self.client.full_name+"\n"

@@ -41,7 +41,7 @@ class SalesController < ApplicationController
     code
   end
 
-  list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.state') do |t|
+  list(:conditions=>sales_conditions, :joins=>:client, :order=>'created_on desc, number desc', :line_class=>'RECORD.tags') do |t|
     t.column :number, :url=>{:action=>:show, :step=>:default}
     t.column :created_on
     t.column :invoiced_on
@@ -201,7 +201,8 @@ class SalesController < ApplicationController
         notify_error_now(:need_quantities_to_cancel_an_sale)
         return
       end
-      if credit = @sale.cancel(lines, :responsible=>@current_user)
+      responsible = @current_company.employees.find_by_id(params[:sale][:responsible_id]) if params[:sale]
+      if credit = @sale.cancel(lines, :responsible=>responsible||@current_user)
         redirect_to :action=>:show, :id=>credit.id
       end
     end
