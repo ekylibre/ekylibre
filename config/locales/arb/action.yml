@@ -193,6 +193,7 @@ arb:
       draft: 'المسودات'
       edit: 'تعديل الدفتر اليومي : %{name}'
       general_ledger: 'دفتر الحسابات'
+      # import: 'Import accounting data'
       index: 'الدفاتر اليومية'
       new: 'انشاء دفتر يومي جديد'
       reopen: 'فتح %{name}'

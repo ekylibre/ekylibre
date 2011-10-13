@@ -42,7 +42,6 @@
 #         - interfacers::toggle_tab
 #         - interfacers::toggle_view_mode
 #         - interfacers::unroll_options
-#         - journals::import
 #         - professions::create
 #         - professions::destroy
 #         - professions::edit

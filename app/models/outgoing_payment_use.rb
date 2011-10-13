@@ -41,12 +41,13 @@ class OutgoingPaymentUse < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_inclusion_of :downpayment, :in => [true, false]
-  validates_presence_of :amount, :company, :expense, :payment
+  validates_presence_of :amount, :company, :expense, :payment, :purchase
   #]VALIDATORS]
   acts_as_reconcilable :supplier, :payee
   attr_readonly :company_id
   belongs_to :company
   belongs_to :expense, :class_name=>"Purchase"
+  belongs_to :purchase, :foreign_key=>"expense_id"
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>"OutgoingPayment"
 

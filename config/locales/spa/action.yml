@@ -191,6 +191,7 @@ spa:
       draft: 'Niebla'
       edit: 'Modicicar el periodico : %{name}'
       general_ledger: 'Grande libro'
+      # import: 'Import accounting data'
       index: 'Periodicos'
       new: 'Crear un nuevo periodico'
       reopen: 'Déclôture du %{name}'

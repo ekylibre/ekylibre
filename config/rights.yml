@@ -1,6 +1,4 @@
 # Unused actions in rights
-#   - interfacers::toggle_module
-#   - interfacers::toggle_view_mode
 #   - production_chain_conveyors::create
 #   - production_chain_conveyors::destroy
 #   - production_chain_conveyors::edit
@@ -62,8 +60,10 @@ __minimum__:
   - interfacers::search_for_subscription_contacts
   - interfacers::search_for_suppliers
   - interfacers::search_for_suppliers_accounts
+  - interfacers::toggle_module
   - interfacers::toggle_side
   - interfacers::toggle_tab
+  - interfacers::toggle_view_mode
   - interfacers::unroll_options
   - myselves::change_password
   - myselves::statistics
@@ -574,6 +574,7 @@ manage_journal_entries:
   - journal_entries::update
   - journal_entry_lines::new
   - journals::draft
+  - journals::import
   - journals::index
   - journals::list
   - journals::list_draft_lines
@@ -581,7 +582,6 @@ manage_journal_entries:
   - journals::list_lines
   - journals::list_mixed
   - journals::show
-  - journals::import
 # Manage, close and reopen journals
 manage_journals:
   actions:
