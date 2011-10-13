@@ -18,7 +18,7 @@
         -if resizable?
           -if @current_user
             #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
-            #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
+            #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}} 
           #main.main.flex
             =title_header_tag
             =notifications_tag
@@ -28,7 +28,7 @@
             %tr
               -if @current_user
                 %td#side.side{:style=>("display:none;" unless session[:side])}=side_tag
-                %td#side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}}
+                %td#side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}} &nbsp;
               %td#main.main.flex-9{:class=>"#{'with-side' if session[:side]} #{'with-help' if session[:help]}"}
                 =title_header_tag
                 =notifications_tag
