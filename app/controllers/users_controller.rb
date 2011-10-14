@@ -19,7 +19,7 @@
 
 class UsersController < ApplicationController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:last_name, :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
+  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
     t.column :name, :url=>true
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
@@ -27,7 +27,7 @@ class UsersController < ApplicationController
     t.column :email
     t.column :admin
     t.column :employed
-    t.action :locked, :actions=>{"true"=>{:action=>:unlock},"false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
+    t.action :locked, :actions=>{"true"=>{:action=>:unlock}, "false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :edit 
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.id!=@current_user.id'
   end

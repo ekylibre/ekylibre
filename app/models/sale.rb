@@ -361,7 +361,7 @@ class Sale < CompanyRecord
   end
 
   def tags
-    if self.order? or self.invoice? and !self.credit?
+    if self.order? or self.invoice? and !self.credit? and !self.amount.zero?
       if self.paid_amount.zero?
         return "critic "+self.state
       elsif self.paid_amount != self.amount
