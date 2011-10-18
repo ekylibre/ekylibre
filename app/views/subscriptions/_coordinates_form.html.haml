@@ -3,4 +3,4 @@
     -f.title :coordinates
     -f.field :subscription, :contact_id, :choices=>:subscription_contacts
     -f.field :subscription, :comment, :field=>:textarea
-  #subscription-duration{"data-refresh"=>url_for(:action=>:coordinates, :mode=>:duration), "data-refresh-mode"=>"update"}=render :partial=>"duration_form"
+  #subscription-duration{"data-refresh"=>url_for(:controller=>:subscriptions, :action=>:coordinates, :mode=>:duration), "data-refresh-mode"=>"update"}=render :partial=>"duration_form"
