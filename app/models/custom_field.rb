@@ -39,6 +39,12 @@
 
 
 class CustomField < CompanyRecord
+  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
+  acts_as_list :scope=>:company
+  attr_readonly :company_id, :nature
+  belongs_to :company
+  has_many :choices, :class_name=>"CustomFieldChoice", :order=>:position, :dependent=>:delete_all
+  has_many :data, :class_name=>"CustomFieldDatum", :dependent=>:delete_all
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :length_max, :allow_nil => true, :only_integer => true
@@ -48,12 +54,6 @@ class CustomField < CompanyRecord
   validates_inclusion_of :active, :required, :in => [true, false]
   validates_presence_of :company, :name, :nature
   #]VALIDATORS]
-  NATURES = ['string', 'decimal', 'boolean', 'date', 'datetime', 'choice']
-  acts_as_list :scope=>:company
-  attr_readonly :company_id, :nature
-  belongs_to :company
-  has_many :choices, :class_name=>"CustomFieldChoice", :order=>:position, :dependent=>:delete_all
-  has_many :data, :class_name=>"CustomFieldDatum", :dependent=>:delete_all
   validates_inclusion_of :nature, :in=>NATURES
 
   def self.natures

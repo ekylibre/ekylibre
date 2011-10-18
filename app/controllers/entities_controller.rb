@@ -416,7 +416,7 @@ class EntitiesController < ApplicationController
         datum.attributes = attributes 
         @custom_field_data << datum
       else
-        @custom_field_data << CustomFieldDatum.new(attributes)
+        @custom_field_data << custom_field.data.new(attributes)
       end
     end
     
