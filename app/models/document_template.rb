@@ -210,7 +210,7 @@ class DocumentTemplate < CompanyRecord
   # Print document or exception if necessary
   def print(*args)
     begin
-      self.print!(*args)
+      return self.print!(*args)
     rescue Exception=>e
       return self.class.error_document(e)
     end
