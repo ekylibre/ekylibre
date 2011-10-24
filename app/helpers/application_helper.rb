@@ -839,7 +839,7 @@ module ApplicationHelper
           tag_options = {} unless tag_options.is_a? Hash
           tag_options[:class] = "icon im-#{verb}"
           url = {}
-          url.merge(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
+          url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
           url[:controller] ||= controller_name
           url[:action] = action
           url[:id] = record.id

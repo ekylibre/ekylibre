@@ -64,7 +64,7 @@ class ListingsController < ApplicationController
       
     rescue Exception=>e
       notify_error(:fails_to_extract_listing, :message=>e.message)
-      redirect_to_current
+      redirect_to :action=>:index
     end
   end
 
