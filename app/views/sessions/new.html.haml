@@ -19,7 +19,7 @@
 -else
   #login.login{:style=>"display:none"}
     .logoban{:title=>Ekylibre.version}
-    =form_tag({:action=>:create, :company=>nil, :redirect=>params[:redirect]}) do
+    =form_tag({:action=>:create, :company=>params[:company], :redirect=>params[:redirect]}) do
       %table
         -if @current_company or @users
           %tr
@@ -29,7 +29,6 @@
                 =select_tag("company", options_for_select(@users.collect{|x| [x.company.name, x.company.code]}))
               -else
                 =link_to(@current_company.name, {:action=>:new, :company=>nil})
-                =hidden_field :company, @current_company.code
         -if ::I18n.active_locales.size > 1
           %tr
             %td.label=tc(:locale)
