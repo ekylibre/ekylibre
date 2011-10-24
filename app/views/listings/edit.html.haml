@@ -1,6 +1,6 @@
 =toolbar do |t|
   -t.extract @listing, :params=>{:format=>:csv}
-  -t.mail @listing if @listing.mail_columns.size > 0
+  -t.link :mail, {}, :i18n=>{:name=>@listing.name} if @listing.mail_columns.size > 0
 
 =form_tag({:action=>:update}, {:method=>:put}) do
   =formalize do |f|

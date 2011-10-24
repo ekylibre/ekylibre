@@ -216,7 +216,7 @@ fra:
       edit: 'Modifier l''extraction : %{name}'
       extract: 'Extraire les données de : %{name}'
       index: 'Exportations et mailings'
-      mail: 'Envoyer un mail pour "%{listing}"'
+      mail: 'Envoyer un e-mail pour : %{name}'
       new: 'Création d''une nouvelle extraction'
     management:  #!
       index: 'Gestion commerciale' #!
