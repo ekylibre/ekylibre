@@ -185,7 +185,7 @@ eng:
       edit: 'Edit the listing: %{name}'
       extract: 'Extract listing: %{name}'
       index: 'Listings and mailings'
-      mail: 'Send an email to: %{listing}'
+      mail: 'Send an email to: %{name}'
       new: 'Add a new listing'
     mandates:
       configure: 'Configure mandates'

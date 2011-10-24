@@ -219,7 +219,7 @@ arb:
       edit: 'تعديل المستخرج : %{name}'
       # extract: 'Extract listing: %{name}'
       index: 'الصادرات وارسال الرسائل'
-      mail: 'ارسال الرسالة ل "%{listing}"'
+      mail: 'ارسال الرسالة ل "%{name}"'
       new: 'انشاء استخلاص جديد'
     management:  #!
       index: 'ادارة الاعمال' #!

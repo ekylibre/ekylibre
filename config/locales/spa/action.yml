@@ -217,7 +217,7 @@ spa:
       edit: 'Modificacion de la extraccion : %{name}'
       # extract: 'Extract listing: %{name}'
       index: 'Exportacion y mailing'
-      mail: 'Enviar un correo electronico para "%{listing}"'
+      mail: 'Enviar un correo electronico para "%{name}"'
       new: 'Créacion de nueva extraccion'
     management:  #!
       index: 'Administracion commercial' #!
