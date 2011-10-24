@@ -9,7 +9,7 @@
               =link_to_function(node.label, "toggleElement('#{node.key}')")
               %span.attribute="(#{node.name})"
             %td
-              =form_tag({:controller=>:listing_nodes, :action=>:create, :parent_id=>node.id}, "data-update"=>"##{node.key}", "data-type"=>:html, :class=>:content) do
+              =form_tag({:controller=>:listing_nodes, :action=>:create, :parent_id=>node.id}, :remote=>true, "data-update"=>"##{node.key}", "data-type"=>:html, :class=>:content) do
                 =select_tag(:nature, grouped_options_for_select(node.available_nodes))
                 =submit_tag(tg(:add))
           -else
