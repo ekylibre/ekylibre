@@ -154,7 +154,7 @@ class ListingsController < ApplicationController
         session[:listing_mail_column] = nil
       end
     end
-    t3e :listing => @listing.name
+    t3e @listing.attributes
   end
 
   def edit
