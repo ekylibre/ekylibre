@@ -51,7 +51,7 @@ class IncomingPaymentMode < CompanyRecord
   has_many :depositable_payments, :class_name=>"IncomingPayment", :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
-  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE closed=#{connection.quoted_false} AND company_id=#{self.company_id})'
+  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")} AND company_id=#{self.company_id})'
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
