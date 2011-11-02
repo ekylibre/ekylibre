@@ -23,6 +23,36 @@ class JournalsController < ApplicationController
   @@journal_views = ["lines", "entries", "mixed"]
   cattr_reader :journal_views
 
+  def self.journal_entries_conditions(options={})
+    code = ""
+    search_options = {}
+    filter = {JournalEntryLine.table_name => [:name, :debit, :credit]}
+    unless options[:with_lines]
+      code += light_search_conditions(filter, :conditions=>"cjel")+"\n"
+      search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryLine.table_name} WHERE '+cjel[0]+')"=>"cjel[1..-1]"}
+      filter.delete(JournalEntryLine.table_name)
+    end
+    filter[JournalEntry.table_name] = [:number, :debit, :credit]
+    code += light_search_conditions(filter, search_options)
+    if options[:with_journals] 
+      code += "\n"
+      code += journals_crit("params")
+    else
+      code += "[0] += ' AND (#{JournalEntry.table_name}.journal_id=?)'\n"
+      code += "c << params[:id]\n"
+    end
+    if options[:state]
+      code += "c[0] += ' AND (#{JournalEntry.table_name}.state=?)'\n"
+      code += "c << '#{options[:state]}'\n"
+    else
+      code += journal_entries_states_crit("params")
+    end
+    code += journal_period_crit("params")
+    code += "c\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    return code.gsub(/\s*\n\s*/, ";")
+  end
+
   list(:lines, :model=>:journal_entry_lines, :conditions=>journal_entries_conditions, :joins=>:entry, :line_class=>"(RECORD.position==1 ? 'first-line' : '')", :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :number, :through=>:entry, :url=>true
     t.column :printed_on, :through=>:entry, :datatype=>:date
@@ -198,12 +228,13 @@ class JournalsController < ApplicationController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code += "c=['journal_entries.company_id=?', @current_company.id]\n"
-    code += journal_period_crit("params")
-    code += journal_entries_states_crit("params")
-    code += accounts_range_crit("params")
-    code += journals_crit("params")
-    code += "c\n"
+    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :currency_debit, :currency_credit]}, :conditions=>"c")+"\n"
+    # code << "c=['#{JournalEntry.table_name}.company_id=?', @current_company.id]\n"
+    code << journal_period_crit("params")
+    code << journal_entries_states_crit("params")
+    code << accounts_range_crit("params")
+    code << journals_crit("params")
+    code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code # .gsub(/\s*\n\s*/, ";")
   end

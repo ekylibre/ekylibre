@@ -682,6 +682,8 @@ module ApplicationHelper
         code = content_tag(:label, options[:label]||tg(:display))
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
+      elsif c[:type] == :crit
+        code << send("#{c[:name]}_crit", *c[:args])
       elsif c[:type] == :criterion
         code << capture(&c[:block])
       end
@@ -724,6 +726,10 @@ module ApplicationHelper
     def date(name=nil, options={})
       name ||= :d
       add_criterion :date, :name=>name, :options=>options
+    end
+
+    def crit(name=nil, *args)
+      add_criterion :crit, :name=>name, :args=>args
     end
 
     def criterion(html_options={}, &block)

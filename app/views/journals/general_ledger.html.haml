@@ -1,14 +1,8 @@
-=form_tag({}, :method=>:get) do
-  .search
-    %table
-      %tr 
-        %td.crit=journal_period_crit
-        %td.submit{:rowspan=>5}=submit_tag tg(:display), :name=>nil
-      %tr
-        %td.crit=journal_entries_states_crit
-      %tr
-        %td.crit=accounts_range_crit
-      %tr
-        %td.crit=journals_crit
+=kujaku do |k|
+  -k.text
+  -k.crit :journal_period
+  -k.crit :journal_entries_states
+  -k.crit :accounts_range
+  -k.crit :journals
 
 =list(:general_ledger)
