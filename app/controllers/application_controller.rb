@@ -571,7 +571,7 @@ class ApplicationController < ActionController::Base
     code =  "def #{__method__}_#{model_name}_#{method}\n"
     code << "  if params[:term]\n"
     code << "    pattern = '%'+params[:term].to_s.mb_chars.downcase.strip.gsub(/\s+/,'%').gsub(/[#{String::MINUSCULES.join}]/,'_')+'%'\n"
-    code << "    @#{items} = @current_company.#{items}.where('LOWER(#{method}) LIKE ?', pattern).order('#{method} ASC').limit(80)\n"
+    code << "    @#{items} = @current_company.#{items}.select('DISTINCT #{method}').where('LOWER(#{method}) LIKE ?', pattern).order('#{method} ASC').limit(80)\n"
     code << "    respond_to do |format|\n"
     code << "      format.html { render :inline=>\"<%=content_tag(:ul, @#{items}.map { |#{item}| content_tag(:li, #{item}.#{method})) }.join.html_safe)%>\" }\n"
     code << "      format.json { render :json=>@#{items}.collect{|#{item}| #{item}.#{method}}.to_json }\n"

@@ -228,14 +228,14 @@ class JournalsController < ApplicationController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :currency_debit, :currency_credit]}, :conditions=>"c")+"\n"
     # code << "c=['#{JournalEntry.table_name}.company_id=?', @current_company.id]\n"
+    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :currency_debit, :currency_credit]}, :conditions=>"c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")
     code << journals_crit("params")
     code << "c\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
     return code # .gsub(/\s*\n\s*/, ";")
   end
 
