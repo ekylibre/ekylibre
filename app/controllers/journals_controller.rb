@@ -318,7 +318,4 @@ class JournalsController < ApplicationController
   end
 
 
-
-
-
 end

@@ -33,12 +33,28 @@ class FinancialYearsController < ApplicationController
   def index
   end
 
+  list(:account_balances, :joins=>:account, :order=>"number") do |t|
+    t.column :number, :through=>:account
+    t.column :name, :through=>:account
+    t.column :local_debit
+    t.column :local_credit
+  end
+
   # Displays details of one financial year selected with +params[:id]+
   def show
     return unless @financial_year = find_and_check(:financial_years)
-    @financial_year.compute_balances # TODELETE !!!
+    if @financial_year.closed and @financial_year.account_balances.size.zero?
+      @financial_year.compute_balances
+    end
     t3e @financial_year.attributes
   end
+
+  def compute_balances
+    return unless @financial_year = find_and_check(:financial_years)
+    @financial_year.compute_balances
+    redirect_to_current    
+  end
+
 
   def close
     # Launch close process
@@ -91,6 +107,11 @@ class FinancialYearsController < ApplicationController
     return unless @financial_year = find_and_check(:financial_years)
     @financial_year.destroy if @financial_year.destroyable?
     redirect_to :action => :index
+  end
+
+  def synthesis
+    data = @current_company.current_financial_year.print_synthesis(Rails.root.join("balance_sheet.bl.xml"))
+    raise data.inspect
   end
 
 end

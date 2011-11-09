@@ -205,6 +205,9 @@ class FinancialYear < CompanyRecord
   end
 
   def compute_balances
+    self.account_balances.clear!
+    
+
     ## journal_entry_lines.all group_by account_id =>refresh account_balance corresponding
     results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.state = 'draft' GROUP BY account_id")
     results.each do |result|
@@ -216,6 +219,14 @@ class FinancialYear < CompanyRecord
     end
   end
   
- 
+  def print_synthesis(template)
+    template = ::LibXML::XML::Document.file(template.to_s)
+    root = template.root
+    columns = []
+    
+    
+
+    return "data"
+  end
 
 end

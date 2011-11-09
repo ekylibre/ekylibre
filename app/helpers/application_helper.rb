@@ -679,7 +679,7 @@ module ApplicationHelper
         params[name] = session[:kujaku][c[:uid]] = (params[name]||session[:kujaku][c[:uid]])
         code << " ".html_safe << text_field_tag(name, params[name])
       elsif c[:type] == :date
-        code = content_tag(:label, options[:label]||tg(:display))
+        code = content_tag(:label, options[:label]||tg(:select_date))
         name = c[:name]||:d
         code << " ".html_safe << date_field_tag(name, params[name])
       elsif c[:type] == :crit

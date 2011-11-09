@@ -1,4 +1,5 @@
 =toolbar do |t|
+  -t.compute_balances @financial_year, :method=>:post
   -t.print_balance_sheet @financial_year
   -t.print_income_statement @financial_year
 
@@ -8,3 +9,11 @@
   -l.attribute :stopped_on
   -l.attribute :closed
   -l.attribute :code
+
+
+%h2
+  -if @financial_year.closed
+    =tc :balance
+  -else
+    =tc :last_computed_balance
+=list :account_balances
