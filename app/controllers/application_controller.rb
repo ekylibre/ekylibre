@@ -648,7 +648,8 @@ class ApplicationController < ActionController::Base
       code += "  #{model.name}.destroy(@#{record_name}.id)\n"
       code += "  notify_success(:record_has_been_correctly_removed)\n"
     end
-    code += "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
+    # code += "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
+    code += "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code += "end\n"
 
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}    

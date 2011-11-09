@@ -805,7 +805,7 @@ module ApplicationHelper
       if block
         if block.arity < 1
           self.instance_values.each do |k,v|
-            toolbar.instance_variable_set("@" << k.to_s, v)
+            toolbar.instance_variable_set("@" + k.to_s, v)
           end
           toolbar.instance_eval(&block)
         else
@@ -822,10 +822,11 @@ module ApplicationHelper
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          args[2][:class] ||= "icon im-" + name.to_s.split('_')[-1]
+          # args[2][:class] ||= "icon im-" + name.to_s.split('_')[-1]
           args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
+            args[2][:class] = "icon im-" + args[1][:action].to_s if args[1][:action]
           else
             args[2][:class] = "icon im-" + args[1][:action].to_s.split('_')[-1] if args[1][:action]
           end

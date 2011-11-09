@@ -123,8 +123,9 @@ class SalesController < ApplicationController
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
-  list(:lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}, :order=>:id, :export=>false) do |t|
+  list(:lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}, :order=>:position, :export=>false, :line_class=>"((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include=>[:product, :subscriptions]) do |t|
     #t.column :name, :through=>:product
+    t.column :position
     t.column :label
     t.column :annotation
     t.column :serial, :through=>:tracking, :url=>true
@@ -284,11 +285,15 @@ class SalesController < ApplicationController
 
   def duplicate
     return unless sale = find_and_check(:sale)
-    if request.post?
-      if copy = sale.duplicate(:responsible_id=>@current_user.id)
-        redirect_to :action=>:show, :step=>:products, :id=>copy.id
-        return
-      end
+    copy = nil
+    begin
+      copy = sale.duplicate(:responsible_id=>@current_user.id)
+    rescue Exception => e
+      notify_error(:exception_raised, :message=>e.message)
+    end
+    if copy
+      redirect_to :action=>:show, :step=>:products, :id=>copy.id
+      return
     end
     redirect_to_current
   end

@@ -45,13 +45,7 @@
 
 
 class Price < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity_max, :quantity_min, :allow_nil => true
-  validates_inclusion_of :active, :use_range, :in => [true, false]
-  validates_presence_of :amount, :company, :pretax_amount, :product, :quantity_max, :quantity_min, :tax
-  #]VALIDATORS]
-  after_save :set_by_default
+  after_create :set_by_default
   attr_readonly :company_id
   belongs_to :category, :class_name=>"EntityCategory"
   belongs_to :company
@@ -63,6 +57,12 @@ class Price < CompanyRecord
   has_many :taxes
   has_many :purchase_lines
   has_many :sale_lines
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity_max, :quantity_min, :allow_nil => true
+  validates_inclusion_of :active, :use_range, :in => [true, false]
+  validates_presence_of :amount, :company, :pretax_amount, :product, :quantity_max, :quantity_min, :tax
+  #]VALIDATORS]
   validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
   validates_presence_of :currency_id, :product_id, :entity_id
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to=>0
@@ -87,20 +87,21 @@ class Price < CompanyRecord
     self.quantity_max ||= 0
   end
 
-  validate do
-    #   if self.use_range
-    #       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
-    #       errors.add_to_base(:range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
-    #     else
-    #       errors.add_to_base(:already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
-    #     end
-  end
+  # validate do
+  #   if self.use_range
+  #       price = self.company.prices.find(:first, :conditions=>["(? BETWEEN quantity_min AND quantity_max OR ? BETWEEN quantity_min AND quantity_max) AND product_id=? AND list_id=? AND id!=?", self.quantity_min, self.quantity_max, self.product_id, self.list_id, self.id])
+  #       errors.add_to_base(:range_overlap, :min=>price.quantity_min, :max=>price.quantity_max) unless price.nil?
+  #     else
+  #       errors.add_to_base(:already_defined) unless self.company.prices.find(:first, :conditions=>["NOT use_range AND product_id=? AND stopped_on IS NULL AND list_id=? AND id!=COALESCE(?,0)", self.product_id, self.list_id, self.id]).nil?
+  #     end
+  # end
 
   def update # _without_callbacks
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
     nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:started_at=>current_time, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
     self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+    nc.set_by_default
     return nc
   end
 
@@ -112,7 +113,9 @@ class Price < CompanyRecord
   end
 
   def set_by_default
-    Price.update_all({:by_default=>false}, ["product_id=? AND company_id=? AND id!=? AND entity_id=?", self.product_id, self.company_id, self.id||0, self.company.entity_id]) if self.by_default
+    if self.by_default
+      Price.update_all({:by_default=>false}, ["product_id=? AND company_id=? AND id!=? AND entity_id=?", self.product_id, self.company_id, self.id||0, self.company.entity_id]) 
+    end
   end
   
   def refresh

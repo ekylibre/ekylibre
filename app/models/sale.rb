@@ -282,12 +282,14 @@ class Sale < CompanyRecord
     copy.save!
     if copy.save
       # Lines
+      lines = {}
       for line in self.lines.find(:all, :conditions=>["quantity>0"])
-        copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :warehouse_id=>line.warehouse_id, :company_id=>self.company_id
+        l = copy.lines.create! :sale_id=>copy.id, :product_id=>line.product_id, :quantity=>line.quantity, :warehouse_id=>line.warehouse_id, :company_id=>self.company_id
+        lines[line.id] = l.id
       end
       # Subscriptions
       for sub in self.subscriptions.find(:all, :conditions=>["NOT suspended"])
-        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id)
+        copy.subscriptions.create!(:sale_id=>copy.id, :entity_id=>sub.entity_id, :contact_id=>sub.contact_id, :quantity=>sub.quantity, :nature_id=>sub.nature_id, :product_id=>sub.product_id, :company_id=>self.company_id, :sale_line_id=>lines[sub.sale_line_id])
       end
     else
       raise Exception.new(copy.errors.inspect)

@@ -590,6 +590,7 @@ fra:
     add_delivery: 'Ajouter une livraison'
     add_payment: 'Ajouter un encaissement'
     add_quickly_a_line: 'Ajouter rapidement une ligne de produit'
+    add_subscription_for_sale_line: 'Ajouter un abonnement pour la ligne N°%{position}'
     address: 'Adresse'
     all: 'Tous'
     all_accounts: 'Tous les comptes'

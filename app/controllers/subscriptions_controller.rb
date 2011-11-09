@@ -18,7 +18,7 @@
 #
 
 class SubscriptionsController < ApplicationController
-  manage_restfully :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
+  manage_restfully :contact_id=>"@current_company.contacts.find_by_entity_id(params[:entity_id]).id rescue 0", :sale_line_id=>"@current_company.sale_lines.find_by_id(params[:sale_line_id]).id rescue nil", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.subscription_natures.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
 
   def self.subscriptions_conditions(options={})
     code = ""

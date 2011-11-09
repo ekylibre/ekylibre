@@ -59,7 +59,12 @@
       %th=Sale.human_attribute_name(:amount)
       %td=number_to_management(@sale.amount)
   -if @sale.subscriptions.size>0
-    %h2=tl :subscriptions
+    %h2=tl :x_subscriptions, :count=>@sale.subscriptions.size
+    -if @sale.draft?
+      =toolbar do |t|
+        -for line in @sale.lines.includes(:product, :reduction_origin)
+          -if line.product.subscription? and not line.reduction_origin
+            -t.link :add_subscription_for_sale_line, {:action=>:new, :controller=>:subscriptions, :sale_line_id=>line.id, :nature_id=>line.product.subscription_nature_id}, :i18n=>{:position=>line.position}
     =list :subscriptions
 
 

@@ -45,14 +45,6 @@
 
 
 class Subscription < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :suspended, :in => [true, false]
-  validates_presence_of :company
-  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :company
@@ -62,15 +54,24 @@ class Subscription < CompanyRecord
   belongs_to :product
   belongs_to :sale
   belongs_to :sale_line 
-
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :suspended, :in => [true, false]
+  validates_presence_of :company
+  #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
-  validates_presence_of :nature_id, :entity_id
+  validates_presence_of :nature, :entity
+  validates_presence_of :sale_line, :if=>Proc.new{|s| !s.sale.nil?}
 
   before_validation do
     self.contact   ||= self.sale.delivery_contact if self.sale
     self.entity_id = self.contact.entity_id if self.contact
     self.nature_id ||= self.product.subscription_nature_id if self.product
+    self.sale_id ||= self.sale_line.sale_id if self.sale_line
     return true
   end
 

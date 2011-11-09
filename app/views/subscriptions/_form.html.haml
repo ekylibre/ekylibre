@@ -1,3 +1,4 @@
+=hidden_field :subscription, :sale_line_id
 =formalize do |f|
   -f.error :subscription
   -f.field :subscription, :nature_id, :choices=>{:reflection=>:subscription_natures}, :new=>true, "data-dependents"=>"#subscription-duration", "data-parameter-name"=>"nature_id"
