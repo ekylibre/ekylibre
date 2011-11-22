@@ -17,4 +17,9 @@ Ekylibre::Application.configure do
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
+
+  # Reload lib dir
+  config.autoload_paths += %W(#{config.root}/lib)
+  # config.autoload_paths += Dir["#{config.root}/lib/**/"]
+
 end

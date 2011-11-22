@@ -62,6 +62,8 @@ class DocumentTemplate < CompanyRecord
   validates_presence_of :filename
   validates_uniqueness_of :code, :scope=>:company_id
 
+  include ActionView::Helpers::NumberHelper 
+
   PREAMBLE = "#1.3\n"
 
 
@@ -140,7 +142,7 @@ class DocumentTemplate < CompanyRecord
   # Use carefully
   def print_fastly!(*args)
     # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(Templating.preamble)
+    self.save! # unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
     owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
@@ -150,6 +152,7 @@ class DocumentTemplate < CompanyRecord
     end
 
     # Build the PDF data
+    self.cache.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
     pdf = eval(self.cache)
 
     # Archive the document if necessary

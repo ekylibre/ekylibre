@@ -31,7 +31,7 @@ class TemplatingTest < Test::Unit::TestCase
   
 
   def test_compiler
-    for file in Dir.glob(Rails.root.join("config", "locales", "*", "prints", "sale*order*.xml"))
+    for file in Dir.glob(Rails.root.join("config", "locales", "*", "prints", "sale*invoice*.xml"))
       File.open(file, "rb") do |f|
         code = Templating.compile(f.read, :xil)
       end

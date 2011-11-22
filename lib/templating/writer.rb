@@ -26,7 +26,7 @@ module Templating
     class Document
       attr_reader :pen
       def initialize(options = {})
-        @pen = Prawn::Document.new(:skip_page_creation => true)
+        @pen = Prawn::Document.new(:skip_page_creation => true, :info=>options[:info])
         @debug = options[:debug]
       end
 
@@ -38,7 +38,7 @@ module Templating
       # @option options [Array,Float] :margins Margins presented like in CSS [<top>, <right>, <bottom>, <left>]
       def page(options = {}, &block)
         page = Page.new(self, options)
-        yield page # .instance_eval(&block)
+        yield page if block_given? # .instance_eval(&block)
         return self
       end
 
@@ -102,7 +102,7 @@ module Templating
         s = Slice.new(self)
         box = @pen.bounding_box([0, @y], :width=>inner_width, :height=>(options[:height] ? options[:height].mm : nil)) do
           # s.instance_eval(&block)
-          yield s
+          yield s if block_given?
           s.debug_box if @document.debug?
         end
         @y -= box.height
@@ -152,6 +152,7 @@ module Templating
     end
 
     class Slice
+      include ActionView::Helpers::NumberHelper 
 
       def initialize(page, options={}, &block)
         @page = page
@@ -164,8 +165,8 @@ module Templating
       # @option options [Float] :top Defines the distance from the top of the slice
       # @option options [Float] :left Defines the distance from the left of the slice
       def box(options={}, &block)
-        box = @pen.bounding_box([options[:left].to_f, options[:top].to_f], :width=>@pen.width) do
-          yield self
+        box = @pen.bounding_box([options[:left].to_f, options[:top].to_f], :width=>@pen.bounds.width) do
+          yield self if block_given?
           s.debug_box if @document.debug?
         end
       end
@@ -195,8 +196,22 @@ module Templating
 
       # Returns the width of the slice
       def width
-        @pen.width
+        @pen.bounds.width
       end
+
+
+      # Add an image in JPG or PNG
+      # @param [String] file The file path of the image
+      # @param [Hash] options The options to create the image
+      # @option options [Float] :width Width of the rectangle
+      # @option options [Float] :height Height of the rectangle
+      # @option options [Float] :top Left position of the image
+      # @option options [Float] :left Left position of the image
+      def image(file, options = {})
+        options[:at] = [options.delete(:left) || 0, options.delete(:top) || 0]
+        @pen.image(file, options)
+      end
+
 
       # Draw a rectangle from point A to point B
       # @param [Hash] options The options to create the rectangle
@@ -214,8 +229,8 @@ module Templating
             height = to[1] - point[1]
           end
         end
-        width ||= @pen.width
-        height ||= @pen.height
+        width ||= @pen.bounds.width
+        height ||= @pen.bounds.height
         if radius.zero?
           @pen.rectangle(point, width, height)
         else
@@ -260,43 +275,54 @@ module Templating
       # @option options [Symbol] :align Alignment of text
       def text(string, options={})
         # @pen.draw_text(string, :at=>[100,100]) # , :align=>:center)
-        @pen.text(string, options)
+        # @pen.text(string, options)
+        options = options.dup
+        options[:document] = @pen
+        
+        box = if options.delete(:inline_format)
+                array = Text::Formatted::Parser.to_array(string)
+                Prawn::Text::Formatted::Box.new(array, options)
+              else
+                Prawn::Text::Box.new(string, options)
+              end
+        
+        box.render
+        return box
       end
-
 
       # Writes an numeroted list with 1 line per item.
       # @param [String] lines The text to parse and present as a list
       # @param [Hash] options The options to define the list properties
       # @option options [Symbol] :columns Number of columns
       def list(lines, options={})
-        nb_columns = (options[:columns]||1).to_i
-        width = options[:width]||self.width
-        col_width = width/nb_columns
-        # face_options = {:italic=>options[:italic], :bold=>options[:bold]}
-        # font(options[:font], options.delete(:size), options.delete(:color), face_options)
-        # font_size = variable(:font_size)
-        alinea = font_size*4
-        total_height = 0
-        for s in lines
-          total_height += string_height(s, col_width - alinea) + 0.1*alinea; 
-        end
-        col_height = total_height.to_f/nb_columns
-        left = 0
-        walked = 0
-        max = 0
-        indice = 0
-        for string in lines
-          text((indice+=1).to_s+".",  :left=>left+0.6*alinea, :top=>walked, :align=>:right)
-          walked += text(string, :left=>left+0.7*alinea, :top=>walked, :width=>col_width - alinea) + 0.1*alinea
-          # puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
-          if walked>=0.97*col_height
-            max = walked if walked > max
-            left += col_width
-            walked = 0
-          end
-        end
-        # puts "************"
-        # self.part.resize_to(max+self.part.top-@top) if options[:resize]
+        # nb_columns = (options[:columns]||1).to_i
+        # width = options[:width]||self.width
+        # col_width = width/nb_columns
+        # # face_options = {:italic=>options[:italic], :bold=>options[:bold]}
+        # # font(options[:font], options.delete(:size), options.delete(:color), face_options)
+        # font_size = 7 # variable(:font_size)
+        # alinea = font_size*4
+        # total_height = 0
+        # for s in lines
+        #   total_height += string_height(s, col_width - alinea) + 0.1*alinea; 
+        # end
+        # col_height = total_height.to_f/nb_columns
+        # left = 0
+        # walked = 0
+        # max = 0
+        # indice = 0
+        # for string in lines
+        #   text((indice+=1).to_s+".",  :left=>left+0.6*alinea, :top=>walked, :align=>:right)
+        #   walked += text(string, :left=>left+0.7*alinea, :top=>walked, :width=>col_width - alinea) + 0.1*alinea
+        #   # puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
+        #   if walked>=0.97*col_height
+        #     max = walked if walked > max
+        #     left += col_width
+        #     walked = 0
+        #   end
+        # end
+        # # puts "************"
+        # # self.part.resize_to(max+self.part.top-@top) if options[:resize]
       end
 
 
