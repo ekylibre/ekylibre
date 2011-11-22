@@ -65,7 +65,7 @@ class Subscription < CompanyRecord
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
   validates_presence_of :nature, :entity
-  validates_presence_of :sale_line, :if=>Proc.new{|s| !s.sale.nil?}
+  validates_presence_of :sale_line, :if=>Proc.new{|s| !s.sale.nil?}, :on=>:create
 
   before_validation do
     self.contact   ||= self.sale.delivery_contact if self.sale

@@ -33,25 +33,26 @@ class FinancialYearsController < ApplicationController
   def index
   end
 
-  list(:account_balances, :joins=>:account, :order=>"number") do |t|
-    t.column :number, :through=>:account
-    t.column :name, :through=>:account
+  list(:account_balances, :joins=>:account, :conditions=>{:company_id=>['@current_company.id'], :financial_year_id=>['session[:current_financial_year_id]']}, :order=>"number") do |t|
+    t.column :number, :through=>:account, :url=>true
+    t.column :name, :through=>:account, :url=>true
     t.column :local_debit
     t.column :local_credit
   end
 
   # Displays details of one financial year selected with +params[:id]+
   def show
-    return unless @financial_year = find_and_check(:financial_years)
-    if @financial_year.closed and @financial_year.account_balances.size.zero?
-      @financial_year.compute_balances
+    return unless @financial_year = find_and_check(:financial_year)
+    session[:current_financial_year_id] = @financial_year.id
+    if @financial_year.closed? and @financial_year.account_balances.size.zero?
+      @financial_year.compute_balances!
     end
     t3e @financial_year.attributes
   end
 
   def compute_balances
-    return unless @financial_year = find_and_check(:financial_years)
-    @financial_year.compute_balances
+    return unless @financial_year = find_and_check(:financial_year)
+    @financial_year.compute_balances!
     redirect_to_current    
   end
 

@@ -88,14 +88,14 @@ class DocumentTemplate < CompanyRecord
     :transport =>        [ [:transport, Transport] ]
   }
 
-    #[:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
+  # [:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
 
-  include ActionView::Helpers::NumberHelper
+  # include ActionView::Helpers::NumberHelper
 
 
   before_validation do
     self.filename ||= 'document'
-    self.cache = self.class.compile(self.source) # rescue nil
+    self.cache = Templating.compile(self.source, :xil) # rescue nil
     self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
     return true
   end
@@ -140,7 +140,7 @@ class DocumentTemplate < CompanyRecord
   # Use carefully
   def print_fastly!(*args)
     # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(PREAMBLE)
+    self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
     owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
@@ -164,7 +164,7 @@ class DocumentTemplate < CompanyRecord
   # Print document raising Exceptions if necessary
   def print!(*args)
     # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(PREAMBLE)
+    self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Analyze and cleans parameters
     parameters = @@document_natures[self.nature.to_sym]
@@ -271,7 +271,7 @@ class DocumentTemplate < CompanyRecord
 
   def sample
     self.save!
-    code = self.class.compile(self.source, :debug)
+    code = Templating.compile(self.source, :xil, :mode=>:debug)
     pdf = nil
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     begin 
@@ -282,199 +282,41 @@ class DocumentTemplate < CompanyRecord
     pdf
   end
 
-  def self.error_document(e)
-    Ibeh.document(Hebi::Document.new) do |ibeh|
-      ibeh.page(:a4, :margin=>[15.mm]) do |p|
-        p.part(200.mm) do |x|
-          x.set do |s|
-            if e.is_a? Exception
-              s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"...", :width=>180.mm
-            else
-              s.text "Erreur : "+e.inspect, :width=>180.mm
+
+  # Produces a generic document with the trace of the thrown exception
+  def self.error_document(exception)
+    Templating::Writer.generate do |doc|
+      doc.page(:a4, :margin=>15.mm) do |page|
+        if exception.is_a? Exception
+          page.slice do |slice|
+            slice.text("Exception: "+e.inspect)
+          end
+          for line in exception.backtrace
+            page.slice do
+              slice.text(line)
             end
           end
-        end
-      end
-    end.generate    
-  end
-
-
-  def self.compile(source, mode=:normal)
-    # raise source.to_s
-    code = ''    
-    xml = ::LibXML::XML::Parser.io(StringIO.new(source.to_s)).parse
-    template = xml.root
-    i = 0
-    unless mode == :debug
-      parameters = template.find('parameters/parameter')
-      if parameters.size > 0
-        code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}\n"
-        parameters.each do |p|
-          code << "#{p.attributes['name']} = args[#{i}]\n"
-          i+=1
-        end
-      end
-    end
-    document = template.find('document')[0]
-    code << "doc = Ibeh.document(Hebi::Document.new) do |__d|\n"
-    code << compile_children(document, '__d', mode)
-    code << "end\n"
-    code << "x = doc.generate\n"
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return PREAMBLE+"# encoding: utf-8\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
-  end
-
-
-  private
-
-  class << self
-    
-    ATTRIBUTES = {
-      :page=>[:format],
-      :part=>[:height],
-      :table=>[:collection],
-      :list=>[:collection],
-      :column=>[:label, :property, :width],
-      :set=>[],
-      :font=>[],
-      :iteration=>[:variable, :collection],
-      :text=>[:value],
-      :cell=>[:value, :width],
-      :rectangle=>[:width, :height],
-      :line=>[:path],
-      :image=>[:value, :width, :height]
-    }
-    
-    CHILDREN = {
-      :document=>[:page, :iteration],
-      :page=>[:part, :table, :iteration],
-      :part=>[:set, :iteration],
-      :table=>[:column],
-      :set=>[:set, :iteration, :font, :text, :cell, :rectangle, :line, :image, :list]
-    }
-    
-
-    def str_to_measure(string, nvar)
-      string = string.to_s
-      m = if string.match(/\-?\d+(\.\d+)?mm/)
-            string[0..-3]+'.mm'
-          elsif string.match(/\-?\d+(\.\d+)?\%/)
-            string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
-          elsif string.match(/\-?\d+(\.\d+)?/)
-            string
-          else
-            " (0) "
-          end
-      m = '('+m+')' if m.match(/^\-/)
-      return m
-    end
-
-    def attrs_to_s(attrs, nvar, mode)
-      attrs.collect{|k,v| ":#{k}=>#{attr_to_s(k, v, nvar, mode)}"}.join(', ')
-    end
-    
-    def attr_to_s(k, v, nvar, mode)
-      case(k)
-      when :align, :valign, :numeric then
-        ":#{v.strip.gsub(/\s+/,'_')}"
-      when :top, :left, :right, :width, :height, :size, :border_width then
-        str_to_measure(v, nvar)
-      when :margin, :padding then
-        '['+v.strip.split(/\s+/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'
-      when :border then
-        border = v.strip.split(/\s+/)
-        raise Exception.new("Attribute border malformed: #{v.inspect}. Ex.: '1mm solid #123456'") if border.size!=3
-        "{:width=>#{str_to_measure(border[0], nvar)}, :style=>:#{border[1]}, :color=>#{border[2].inspect}}"
-      when :collection then
-        mode==:debug ? "[]" : v
-      when :format
-        if v.to_s.match(/x/)
-          v.to_s.split(/x/)[0..1].collect{|x| str_to_measure(x.strip)}
         else
-          ':'+v.to_s.lower
+          page.slice do
+            slice.text("Error: "+e.inspect, :width=>180.mm)
+          end
         end
-      when :property then
-        "'"+v.gsub(/\//, '.')+"'"
-      when :resize, :fixed, :bold, :italic then
-        v.lower == "true" ? "true" : "false"
-      when :value, :label
-        # v = "'"+v.gsub(/\'/, '\\\\\'')+"'"
-        v = "'"+v.gsub(/\'/, '\\\\\'')+"'"
-        v = v.gsub(/\{\{[^\}]+\}\}/) do |m|
-          data = m[2..-3].to_s.gsub('\\\'', '\'').split('?')
-          datum = data[0].gsub('/', '.')
-          datum = case data[1].to_s.split('=')[0]
-                  when 'format'
-                    "::I18n.localize(#{datum}, :format=>:legal)"
-                  when 'numeric'
-                    "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
-                  else
-                    datum
-                  end
-          (mode==:debug ? "[VALUE]" : "'+#{datum}.to_s+'")
-        end
-        v = v[3..-1] if v.match(/^\'\'\+/)
-        v = v[0..-4] if v.match(/\+\'\'$/)
-        v
-      when :path
-        '['+v.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, nvar)}.join(', ')+']'}.join(', ')+']'
-      when :variable
-        v.to_s.strip
-      else
-        "'"+v.gsub(/\'/, '\\\\\'')+"'"
       end
     end
 
-
-    def parameters(element, variable, mode)
-      name = element.name.to_sym
-      attributes, parameters = {}, []
-      element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-      attributes[:value] ||= element.content.gsub(/\n/, '{{"\\n"}}') if name == :text
-      (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), variable, mode)}
-      attributes.delete(:if)
-      attrs = attrs_to_s(attributes, variable, mode)
-      attrs = ', '+attrs if !attrs.blank? and parameters.size>0
-      return parameters.join(', ')+attrs, parameters, attributes
-    end
-
-    # Call code generation function for each children
-    def compile_children(element, variable, mode, depth=0)
-      code = ''
-      element.each_element do |x|
-        code += compile_element(x, variable, mode, depth)||'  '
-      end
-      code
-    end
-
-    # Generate code for given element
-    def compile_element(element, variable, mode, depth=0)
-      code  = ''
-      name = element.name.to_sym
-      params, p, attrs = parameters(element, variable, mode)
-      if name == :iteration
-        code += "for #{p[0]} in #{p[1]}\n" unless mode == :debug
-        code += compile_children(element, variable, mode, depth)
-        code += "end" unless mode == :debug
-      elsif name == :image
-        code += "if File.exist?((#{p[0]}).to_s)\n"
-        code += "  #{variable}.#{name}(#{params})\n"
-        code += "else\n"
-        code += compile_children(element, variable, mode, depth)
-        code += "end"
-      else
-        nvar = "_#{depth}"
-        children = compile_children(element, nvar, mode, depth+1)
-        code += "#{variable}.#{name}(#{params})"
-        code += "do |#{nvar}|\n"+children+"end" unless children.blank?
-      end
-
-      # Encapsulation if condition
-      code = "if #{element.attributes['if'].to_s.gsub(/\//,'.')}\n#{code.gsub(/^/,'  ')}\nend" if element.attributes['if'] and mode != :debug
-      code += "\n"
-      code.gsub(/^/, '  ')
-    end
-
+    # Ibeh.document(Hebi::Document.new) do |ibeh|
+    #   ibeh.page(:a4, :margin=>[15.mm]) do |p|
+    #     p.part(200.mm) do |x|
+    #       x.set do |s|
+    #         if e.is_a? Exception
+    #           s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"...", :width=>180.mm
+    #         else
+    #           s.text "Erreur : "+e.inspect, :width=>180.mm
+    #         end
+    #       end
+    #     end
+    #   end
+    # end.generate    
   end
   
 

@@ -37,7 +37,7 @@
 class FinancialYear < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id
+  has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   validates_presence_of :started_on, :stopped_on
   validates_uniqueness_of :code, :scope=>:company_id
   #[VALIDATORS[
@@ -47,7 +47,6 @@ class FinancialYear < CompanyRecord
   validates_presence_of :code, :company, :started_on, :stopped_on
   #]VALIDATORS]
 
-  #
   before_validation do
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
@@ -62,7 +61,6 @@ class FinancialYear < CompanyRecord
     end
   end
 
-  #
   validate do
     unless self.stopped_on.blank? or self.started_on.blank?
       errors.add(:stopped_on, :end_of_month) unless self.stopped_on == self.stopped_on.end_of_month
@@ -204,19 +202,14 @@ class FinancialYear < CompanyRecord
     end
   end
 
-  def compute_balances
-    self.account_balances.clear!
-    
-
-    ## journal_entry_lines.all group_by account_id =>refresh account_balance corresponding
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(journal_entry_lines.debit) as sum_debit, sum(journal_entry_lines.credit) as sum_credit FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{JournalEntry.table_name} AS jr ON (jr.id = journal_entry_lines.entry_id AND jr.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE journal_entry_lines.company_id =  #{self.company_id} AND jr.state = 'draft' GROUP BY account_id")
-    results.each do |result|
-      if account_balance = self.company.account_balances.find_by_financial_year_id_and_account_id(self.id, result["account_id"].to_i)
-        account_balance.update_attributes!(:local_credit=>result["sum_credit"].to_f, :local_debit=>result["sum_debit"].to_f)
-      else
-        self.company.account_balances.create!(:financial_year_id=>self.id, :account_id=>result["account_id"].to_i, :local_credit=>result["sum_credit"].to_f, :local_debit=>result["sum_debit"].to_f)
-      end
+  # Re-create all account_balances record for the financial year
+  def compute_balances!
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE jel.company_id = #{self.company_id} AND je.state != 'draft' GROUP BY account_id")
+    self.account_balances.clear
+    for result in results
+      self.account_balances.create!(:account_id=>result["account_id"].to_i, :local_count=>result["count"].to_i, :local_credit=>result["credit"].to_f, :local_debit=>result["debit"].to_f)
     end
+    return self
   end
   
   def print_synthesis(template)

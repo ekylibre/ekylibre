@@ -56,8 +56,6 @@ class Account < CompanyRecord
   has_many :sale_lines
   has_many :sales_products, :class_name=>"Product", :foreign_key=>:sales_account_id
   has_many :suppliers, :class_name=>"Entity", :foreign_key=>:supplier_account_id
-  validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
-  validates_uniqueness_of :number, :scope=>:company_id
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :last_letter, :allow_nil => true, :maximum => 8
@@ -67,6 +65,8 @@ class Account < CompanyRecord
   validates_inclusion_of :is_debit, :reconcilable, :in => [true, false]
   validates_presence_of :company, :label, :name, :number
   #]VALIDATORS]
+  validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
+  validates_uniqueness_of :number, :scope=>:company_id
 
   # This method allows to create the parent accounts if it is necessary.
   before_validation do

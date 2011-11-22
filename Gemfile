@@ -21,6 +21,7 @@ gem 'jquery-rails' # Necessary to call the Rails's generator
 gem 'combo_box' #, :path=>'../combo_box'
 gem 'formize' #, :path=>'../formize'
 gem 'spreet'
+gem 'prawn', '>= 0.10.0'
 
 group :development do
   # gem 'ruby-prof'

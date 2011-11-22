@@ -164,7 +164,7 @@ module Ibeh
                 elsif value.is_a? Numeric
                   value = number_to_currency(value, :separator=>options[:separator]||',', :delimiter=>options[:delimiter]||' ', :unit=>options[:unit]||'', :precision=>options[:precision]||2) if options[:numeric]==:money
                   options[:align] ||= :right
-                end                
+                end
                 p.resize_to(s.textbox(value.to_s, c[:width], p.height, :left=>c[:offset], :top=>0.5.mm, :align=>options[:align]))
               end
               for c in columns
