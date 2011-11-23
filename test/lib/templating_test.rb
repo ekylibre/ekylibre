@@ -13,12 +13,15 @@ class TemplatingTest < Test::Unit::TestCase
                Templating.fonts_dir.join("DejaVuSans-Bold.ttf").to_s,
                Templating.fonts_dir.join("DejaVuSans-Oblique.ttf").to_s,
                Templating.fonts_dir.join("DejaVuSans-BoldOblique.ttf").to_s)
-      doc.page(:size=>"A4") do |page|
-        page.slice(:height=>70.mm) do |s|
+      doc.page(:size=>"A4", :margins=>[41.9, 55.3, 40, 40]) do |page|
+        page.slice(:height=>200) do |s|
           s.text("Hello world")
-          s.box(70.mm) do
-            s.box(10.mm, 10.mm, :height=>50.mm, :width=>100.mm) do
+          s.box(200, 20) do
+            s.box(40, 40, :height=>50, :width=>100) do
               s.text("Boxed!")
+              s.box(0, 40) do
+                s.text("Re-boxed!")                
+              end
             end
           end
         end

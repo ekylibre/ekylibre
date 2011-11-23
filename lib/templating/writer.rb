@@ -125,8 +125,17 @@ module Templating
         #                              :left_margin => @margins[3])
         @document.pen.start_new_page(:size => [@width, @height], :margin => 0)
         if @document.debug?
-          marg = 4
-          @pen.rectangle([@margins[3]-marg, @height-@margins[1]+marg], self.inner_width+2*marg, self.inner_height+2*marg) 
+          marg = 6
+          # @pen.rectangle([@margins[3]-marg, @height-@margins[1]+marg], self.inner_width+2*marg, self.inner_height+2*marg) 
+          @pen.line([0, @margins[2]], [@margins[3]-marg, @margins[2]])
+          @pen.line([0, @height-@margins[0]], [@margins[3]-marg, @height-@margins[0]])
+          @pen.line([@width-@margins[1]+marg, @margins[2]], [@width, @margins[2]])
+          @pen.line([@width-@margins[1]+marg, @height-@margins[0]], [@width, @height-@margins[0]])
+          @pen.line([@margins[3], 0], [@margins[3], @margins[2]-marg])
+          @pen.line([@margins[3], @height-@margins[0]+marg], [@margins[3], @height])
+          @pen.line([@width-@margins[1], 0], [@width-@margins[1], @margins[2]-marg])
+          @pen.line([@width-@margins[1], @height-@margins[0]+marg], [@width-@margins[1], @height])
+
         end
         @done = @start.to_f
         return self
@@ -191,10 +200,11 @@ module Templating
         origin = Origin.new(left, top, options.merge(:parent=>current_box))
         if @document.debug?
           @pen.save_graphics_state do
-            @pen.stroke_color("AAAADD")
-            @pen.fill_color("AAAADD")
             @pen.line_width = 0.2
+            @pen.fill_color("AAAADD")
+            @pen.stroke_color("CCBBAA")
             @pen.rectangle([origin.x, origin.y], origin.width, origin.height)
+            @pen.stroke_color("AAAADD")
             @pen.line(origin.top_left, origin.bottom_right)
             @pen.line(origin.bottom_left, origin.top_right)
             @pen.stroke
@@ -305,7 +315,14 @@ module Templating
         options = options.dup
         options[:document] = @pen
         left, top = (options.delete(:left)||0), -(options.delete(:top)||0)
-        options[:at] = [left, top]
+        options[:at] = [current_box.absolute_left + left, top]
+        
+        if @document.debug?
+          # self.box(left, top)
+          # @pen.stroke_color("CCBBAA")
+          # @pen.rectangle([current_box.absolute_left+left, @page.height-(current_box.absolute_left+left)], )
+        end
+
         # @pen.font(options.delete(:font)) do
         box = if options.delete(:inline_format)
                 array = Text::Formatted::Parser.to_array(string)
@@ -424,11 +441,15 @@ module Templating
           @page ||= @parent.page
           @width  ||= @parent.width - @left
           @height ||= @parent.height - @top
-          @absolute_left += @parent.left
-          @absolute_top  += @parent.top
+          @absolute_left += @parent.absolute_left
+          @absolute_top  += @parent.absolute_top
         end
         raise ArgumentError.new("Option :width must be specified if no parent given.") if @width.nil?
         raise ArgumentError.new("Option :height must be specified if no parent given.") if @height.nil?
+      end
+
+      def inspect
+        "{#{@left}:#{@top}~>#{@absolute_left}:#{@absolute_top} #{@width.round}x#{@height.round}}" # #{@parent.inspect if @parent}->
       end
 
       def x
