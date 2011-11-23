@@ -22,7 +22,7 @@ module Templating
     compiler = format.to_s.camelcase
     if Templating::Compilers.const_defined?(compiler)
       mod = Templating::Compilers.const_get(compiler)
-      return self.preamble + mod.compile(string, options={})
+      return self.preamble + mod.compile(string, options)
     else
       raise ArgumentError.new("Unsupported format of template: #{format}")
     end

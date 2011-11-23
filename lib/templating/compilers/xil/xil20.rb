@@ -10,10 +10,10 @@ module Templating::Compilers
           element(:template) do
             has_many :document
           end
-          element(:document) do
+          element(:document, nil, {}, {:title=>:string, :subject=>:string, :author=>:string, :keywords=>:string}) do
             has_many :pages
           end
-          element(:page, nil, {}, {:format=>:page_format, :orientation=>:symbol, :margin=>:square_widths}) do
+          element(:page, nil, {}, {:format=>:page_format, :orientation=>:symbol, :margin=>:length4}) do
             has_many :parts, :tables, :iterations
           end
           element(:part, nil, {}, {:height=>:length}) do
@@ -51,19 +51,25 @@ module Templating::Compilers
           template = doc.root
           code = ""
           i = 0
-          unless mode == :debug
-            parameters = template.find('parameters/parameter')
-            if parameters.size > 0
+          parameters = template.find('parameters/parameter')
+          if parameters.size > 0
+            unless mode == :debug
               code << "raise ArgumentError.new('Unvalid number of argument') if args.size != #{parameters.size}\n"
-              parameters.each do |p|
-                code << "#{p.attributes['name']} = args[#{i}]\n"
-                i+=1
-              end
+            end
+            parameters.each do |p|
+              code << "#{p.attributes['name']} = args[#{i}]\n"
+              i+=1
             end
           end
           document = template.find('document')[0]
+          info = {}
+          for key, value in parameters_hash(document, nil, mode)
+            info[key.to_s.capitalize.to_sym] = value
+          end
+          info = hash_to_code(info)
+          info = ', '+info unless info.blank?
           code << "now = Time.now\n"
-          code << "Templating::Writer.generate(:info=>{:Producer=>'Ekylibre::Templating', :CreationDate=>now, :ModDate=>now}, #{':debug=>true' if mode == :debug}) do |__|\n"
+          code << "Templating::Writer.generate(:info=>{:Creator=>'Ekylibre::Templating', :CreationDate=>now, :ModDate=>now#{info}}, #{':debug=>true' if mode == :debug}) do |__|\n"
           code << compile_children(document, '__', mode).strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -99,7 +105,13 @@ module Templating::Compilers
         
         
         def hash_to_code(hash, wrapped = false)
-          code = hash.collect{|k,v| "#{k.inspect} => #{v}"}.join(', ')
+          code = hash.collect do |k,v| 
+            "#{k.inspect} => " + if v.is_a? Symbol
+                                   v.inspect
+                                 else
+                                   v.to_s
+                                 end
+          end.join(', ')
           if wrapped
             return '{'+code+'}'
           else
@@ -195,9 +207,24 @@ module Templating::Compilers
         end
 
 
-        def attr_to_code(value, type = :string)
-          ...
-          if type == :toto
+        def pt_to_s(float)
+          float.round(3).to_s.gsub(/^(\-?\d+\.\d{3})\d+$/, '\1')
+        end
+
+        def attr_to_code(string, type = :string)
+          value = Templating::Compilers::Xil::Schema::Attribute.read(string, type)
+          if type == :string
+            "'#{value}'"
+          elsif type == :length
+            pt_to_s(value)
+          elsif type == :length4
+            '['+value.collect{|x| pt_to_s(x)}.join(', ')+']'
+          elsif [:page_format, :symbol].include?(type)
+            value.inspect
+          elsif type == :border
+            "{:width=>#{pt_to_s(value[:width])}, :style=>#{value[:style].inspect}, :color=>#{value[:color].inspect}}"
+          elsif type == :path
+            '['+value.collect{|p| '['+pt_to_s(p[0])+', '+pt_to_s(p[1])+']'}.join(', ')+']'
           else
             value.to_s
           end
@@ -239,18 +266,38 @@ module Templating::Compilers
           attributes_hash = element.attributes.to_h
           hash = {}
           for attribute in SCHEMA[element.name].attributes
-            if value = attributes_hash[attribute.name]
-              hash[attribute.name.to_sym] = attr_to_s(attribute.name, value, variable, mode)
+            if string = attributes_hash[attribute.name]
+              # hash[attribute.name.to_sym] = attr_to_s(attribute.name, string, variable, mode)
+              hash[attribute.name.to_sym] = attr_to_code(string, attribute.type)
             elsif attribute.required?
               raise Exception.new("Attribute '#{attribute.name}' is required for element '#{name}'")
             end
           end
           if SCHEMA[element.name].has_content?
-            hash[:content] =  attr_to_s(:content, element.content, variable, mode)
+            # hash[:content] =  attr_to_s(:content, element.content, variable, mode)
+            hash[:content] =  attr_to_code(element.content, SCHEMA[element.name].content)
           end
-          hash.delete(:if)
+          # hash.delete(:if)
           return hash
         end
+
+        # Retrives true values
+        def parameters_values(element)
+          attributes_hash = element.attributes.to_h
+          hash = {}
+          for attribute in SCHEMA[element.name].attributes
+            if string = attributes_hash[attribute.name]
+              hash[attribute.name.to_sym] = attribute.read(string)
+            elsif attribute.required?
+              raise Exception.new("Attribute '#{attribute.name}' is required for element '#{name}'")
+            end
+          end
+          if SCHEMA[element.name].has_content?
+            hash[:content] =  element.read(string)
+          end
+          return hash
+        end
+
 
         # Call code generation function for each children
         def compile_children(element, variable, mode, depth=0)
@@ -280,8 +327,9 @@ module Templating::Compilers
           children_variable = "_#{depth}"
           phash = parameters_hash(element, variable, mode)
           if name == :image
-            code << "if File.exist?((#{phash[:value]}).to_s)\n"
-            code << "  #{variable}.image(#{params})\n"
+            file = phash.delete(:value)
+            code << "if File.exist?((#{file}).to_s)\n"
+            code << "  #{variable}.image(#{file}, #{hash_to_code(phash, true)})\n"
             code << "else\n"
             code << compile_children(element, variable, mode, depth).strip.gsub(/^/, '  ')+"\n"
             code << "end"
@@ -300,12 +348,12 @@ module Templating::Compilers
             code << "#{variable}.list(#{lines}, #{hash_to_code(phash, true)})"
 
           elsif name == :page
-            code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]}.to_s, :margins=>#{phash[:margin]})"
+            code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]}, :margins=>#{phash[:margin]})"
             code << execute_children(element, children_variable, mode, depth+1)
 
           elsif name == :part
             code << "#{variable}.slice"
-            code << "(:height=>#{phash[:height]})" if phash[:height]
+            code << "(:height => #{phash[:height]})" if phash[:height]
             code << execute_children(element, children_variable, mode, depth+1)
 
           elsif name == :rectangle
@@ -341,19 +389,21 @@ module Templating::Compilers
                 columns << col
               end
             end
-            code << "#{variable}.slice(:height => #{1.mm})\n"
+            code << "#{variable}.slice(:height => #{pt_to_s(1.mm)})\n"
             
             # Header
             code << "#{variable}.slice do |#{children_variable}|\n"
             code << "  row_height = 0\n"
             for column in columns
-              code << "  _b = #{children_variable}.text(#{column[:phash][:label]}, :left=>#{column[:offset]}, :width=>#{column[:width]})\n"
-              code << "  row_height = _b.height if _b.height > row_height\n"
+              code << "  _h = #{children_variable}.height_of(#{column[:phash][:label]}, :width=>#{pt_to_s(column[:width])})\n"
+              code << "  row_height = _h if _h > row_height\n"
             end
             for column in columns
-              code << "  #{children_variable}.line([#{column[:offset]}, 0], [#{column[:offset]}, row_height])\n"
+              code << "  #{children_variable}.text(#{column[:phash][:label]}, :left=>#{pt_to_s(column[:offset])}, :width=>#{pt_to_s(column[:width])}, :height=>row_height, :valign=>:center)\n"
+              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height])\n"
+              # code << "  row_height = _b.height if _b.height > row_height\n"
             end
-            code << "  #{children_variable}.line([#{start}, 0], [#{offset}, 0], [#{offset}, row_height], [#{start}, row_height])\n"
+            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height])\n"
             code << "end\n"
             # Rows
             code << "for #{record} in #{collection}\n"
@@ -369,17 +419,37 @@ module Templating::Compilers
                 value = "number_to_currency(#{value}, #{hash_to_code(curr_hash, true)})"
                 column[:phash][:align] ||= ":right"
               end
-              code << "    _b = #{children_variable}.text(#{value}.to_s, :left=>#{column[:offset]}, :width=>#{column[:width]})\n"
+              code << "    _b = #{children_variable}.text(#{value}.to_s, :left=>#{pt_to_s(column[:offset])}, :width=>#{pt_to_s(column[:width])})\n"
               code << "    row_height = _b.height if _b.height > row_height\n"
             end
             for column in columns
-              code << "    #{children_variable}.line([#{column[:offset]}, 0], [#{column[:offset]}, row_height])\n"
+              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height])\n"
             end
-            code << "    #{children_variable}.line([#{start}, 0], [#{offset}, 0], [#{offset}, row_height], [#{start}, row_height])\n"
+            code << "    puts 'ROW HEIGHT' + row_height.to_s\n"
+            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height])\n"
             code << "  end\n"
             code << "end\n"
 
           elsif name == :text
+            options = parameters_values(element)
+            if right = options.delete(:right)
+              if options[:width]
+                options[:left] = '(width - #{pt_to_s(right+options[:width])})'
+              else
+                options[:left] = '0'
+              end
+            else
+              options[:left] = pt_to_s(options[:left] || 0)
+            end
+            if options[:align] == :right and options[:width]
+              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width])})"
+            elsif options[:align] == :center and options[:width]
+              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width]/2)})"
+            elsif options[:align] != :left
+              options[:left] = '0'
+            end
+            phash[:left] = options[:left]
+            phash.delete(:right)
             value = phash.delete(:value)
             code << "#{variable}.text(#{value}, #{hash_to_code(phash, true)})"
 
@@ -387,12 +457,17 @@ module Templating::Compilers
             raise Exception.new("Unknown element '#{name}'")
           end
 
-          # Wrapper if condition
+
+          # Wrapper: font
+
+          # Wrapper: if <condition>
           if element.attributes['if'] and mode != :debug
             code = "if #{element.attributes['if'].to_s.gsub(/\//,'.')}\n#{code.strip.gsub(/^/,'  ')}\nend"
           end
           return code.strip
         end
+
+
 
       end
     end

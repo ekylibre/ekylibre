@@ -11,7 +11,7 @@ module Templating::Compilers
       compiler = "Xil#{version.gsub(/\./, '')}"
       if Templating::Compilers::Xil.const_defined?(compiler)
         mod = Templating::Compilers::Xil.const_get(compiler)
-        return mod.compile(doc, options={})
+        return mod.compile(doc, options)
       else
         raise ArgumentError.new("Version #{version} of XIL is not supported")
       end

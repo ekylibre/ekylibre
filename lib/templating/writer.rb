@@ -3,6 +3,7 @@ require 'prawn/measurement_extensions'
 
 module Templating
 
+  # All the lengths are in pt (the default unit of PDF).
   module Writer
 
     # PDF Data as a String
@@ -25,6 +26,7 @@ module Templating
     # of a page.
     class Document
       attr_reader :pen
+
       def initialize(options = {})
         @pen = Prawn::Document.new(:skip_page_creation => true, :info=>options[:info])
         @debug = options[:debug]
@@ -42,6 +44,12 @@ module Templating
         return self
       end
 
+      # Declares a font family. Needed to use extra fonts in the document
+      # @param [String] name Name to define the font
+      # @param [String] normal_font File for normal/regular font
+      # @param [String] bold_font File for bold font
+      # @param [String] italic_font File for italic/oblique font
+      # @param [String] bold_italic_font File for bold italic/oblique font
       def font_family(name, normal_font, bold_font, italic_font, bold_italic_font)
         @pen.font_families.update(name => {:normal=>normal_font, :bold=>bold_font, :italic_font=>italic_font, :bold_italic=>bold_italic_font})
       end
@@ -64,7 +72,7 @@ module Templating
     # Represents a page which can be continued on other pages with the same aspect
     # if the slices occupy more than a single page.
     class Page
-      attr_reader :margins, :size, :document
+      attr_reader :margins, :document, :width, :height, :done
 
       # Start a new page 
       def initialize(document, options={})
@@ -73,130 +81,144 @@ module Templating
         @margins = options.delete(:margins) 
         @margins = [@margins] if @margins.is_a? Numeric
         @margins = [] unless @margins.is_a? Array
-        @margins[0] = (@margins[0] || 15)
+        @margins[0] = (@margins[0] || 15.mm)
         @margins[1] = (@margins[1] || @margins[0])
         @margins[2] = (@margins[2] || @margins[0])
         @margins[3] = (@margins[3] || @margins[1])
-        @margins.each_index do |i|
-          @margins[i] = @margins[i].mm
-        end
         size = options.delete(:size)
         if size.is_a?(String) or size.nil?
-          @size = Prawn::Document::PageGeometry::SIZES[size || "A4"]
-        elsif size.is_a? Array
-          @size = [ size[0].mm, size[1].mm ]
+          size = Prawn::Document::PageGeometry::SIZES[size || "A4"]
         end
-        @size = Prawn::Document::PageGeometry::SIZES["A4"] unless @size.is_a? Array
-        @size = @size[0..1]
+        size = Prawn::Document::PageGeometry::SIZES["A4"] unless size.is_a? Array
+        size = size[0..1]
         orientation = options.delete(:orientation) || :portrait
         unless orientation == :portrait
           orientation = :landscape
-          @size.reverse!
+          size.reverse!
         end
-        @start = self.inner_height # @size[1]- @margins[0] - @margins[2]
+        @width, @height = size[0..1]
+        @start = @margins[0]
         self.break!
       end
 
       # Add a slice with the defined options
+      # @param [Hash] options The options to define the slice
+      # @option options [Float] :height Default height of the slice in pt
+      # @option options [TrueClass,FalseClass] :resize (false) Enable auto-resizing for larger elements
+      # @option options [TrueClass,FalseClass] :bottom (false) Put the slice at the bottom of the page
       def slice(options={}, &block)
-        s = Slice.new(self)
-        box = @pen.bounding_box([0, @y], :width=>inner_width, :height=>(options[:height] ? options[:height].mm : nil)) do
-          # s.instance_eval(&block)
-          yield s if block_given?
-          s.debug_box if @document.debug?
-        end
-        @y -= box.height
+        height = Slice.height_of(self, options, &block)
+        # New page if there is no place on the current
+        self.break! if @height-@done-@margins[2]-height < 0
+        # Add spacer slice in order to put slice at the bottom
+        self.slice(:height => @height-@done-@margins[2]-height, :bottom=>nil) if options[:bottom]
+        # Add slice after all
+        @done += Slice.new(self, options, &block).height
         return self
       end
-
-      # # Add a table as multi-slice (one slice per line)
-      # def collection_table(collection, options={}, &block)
-      #   self.slice(:height => 1.mm)
-      #   # Header
-      #   self.slice do |slice|
-          
-      #   end
-      #   # Rows
-      #   for record in collection
-      #     self.slice do |slice|
-      #     end        
-      #   end
-      #   return self
-      # end
-
-      # # Add a list with multi-column support
-      # def list(options={}, &block)
-      #   return self
-      # end
-
+      
       def break!
-        @document.pen.start_new_page(:size => @size,
-                                     :top_margin => @margins[0], 
-                                     :right_margin => @margins[1],
-                                     :bottom_margin => @margins[2],
-                                     :left_margin => @margins[3])
-
-        @pen.rectangle([0, self.inner_height], self.inner_width, self.inner_height) if @document.debug?
-        @y = @start.to_f
+        # @document.pen.start_new_page(:size => [@width, @height],
+        #                              :top_margin => @margins[0], 
+        #                              :right_margin => @margins[1],
+        #                              :bottom_margin => @margins[2],
+        #                              :left_margin => @margins[3])
+        @document.pen.start_new_page(:size => [@width, @height], :margin => 0)
+        if @document.debug?
+          marg = 4
+          @pen.rectangle([@margins[3]-marg, @height-@margins[1]+marg], self.inner_width+2*marg, self.inner_height+2*marg) 
+        end
+        @done = @start.to_f
         return self
       end
 
       def inner_width
-        @size[0] - @margins[1] - @margins[3]
+        @width - @margins[1] - @margins[3]
       end
 
       def inner_height
-        @size[1] - @margins[0] - @margins[2]
+        @height - @margins[0] - @margins[2]
       end
 
     end
 
-    class Slice
-      include ActionView::Helpers::NumberHelper 
 
+    # Slice is the main unit in the page. It is a band in the page.
+    class Slice
+      attr_reader :height
+
+      # Compute the height of a slice
+      # @return [Float] Height of the slice
+      # @see Slice#initialize
+      def self.height_of(page, options={}, &block)
+        height = options[:height]
+        if options[:resize]
+          pen = page.document.pen
+          pen.transaction do
+            height = Slice.new(page, options, &block).height
+            pen.rollback
+          end
+        else
+          raise ArgumentError.new("Option :height is expected when :resize is false") unless height
+        end
+        return height.to_f
+      end
+      
       def initialize(page, options={}, &block)
         @page = page
         @document = @page.document
         @pen = @document.pen
+        height = options[:height]
+        unless options[:resize]
+          raise ArgumentError.new("Option :height is expected when :resize is false") unless height
+        end
+        @no_resize = options[:no_resize]
+        @height = options[:height].to_f
+        @boxes_stack = []
+        @current_box = -1
+        left, top = options[:left]||@page.margins[3], options[:top]||@page.done
+        self.box(left, top, :width=>@page.width-left-@page.margins[1], :height=>(@height.zero? ? @page.height-top-@page.margins[2] : @height), :page=>@page, &block)
+        
       end
 
       # A Box permits to create items relatively to the box position.
+      # @param [Float] left (0) Left position from left paper border or parent box
+      # @param [Float] top (0) Top position from top paper border or parent box
       # @param [Hash] options The options to define the box
-      # @option options [Float] :top Defines the distance from the top of the slice
-      # @option options [Float] :left Defines the distance from the left of the slice
-      def box(options={}, &block)
-        box = @pen.bounding_box([options[:left].to_f, options[:top].to_f], :width=>@pen.bounds.width) do
-          yield self if block_given?
-          s.debug_box if @document.debug?
-        end
-      end
-      
-      
-      def debug_box()
-        @pen.save_graphics_state do
-          @pen.stroke_color("CCCCCC")
-          @pen.fill_color("CCCCCC")
-          @pen.dash(1, :space=>1)
-          @pen.stroke_bounds
-          @pen.line(@pen.bounds.top_left, @pen.bounds.bottom_right)
-          @pen.line(@pen.bounds.bottom_left, @pen.bounds.top_right)
-          @pen.stroke
-          angle = 0
-          @pen.font('Times-Roman', :size=>7) do
-            for corner in [:top_left, :top_right, :bottom_right, :bottom_left]
-              method = corner # "absolute_#{corner}"
-              abso = @pen.bounds.send("absolute_#{corner}")
-              @pen.draw_text("(#{abso[0].round(1)}, #{abso[1].round(1)})", :at=>@pen.bounds.send(method), :rotate=>angle)
-              angle -= 90
+      # @option options [Float] :width Defines the width of the zone
+      # @option options [Float] :height Defines the height of the zone
+      def box(left = 0, top = 0, options={}, &block)
+        origin = Origin.new(left, top, options.merge(:parent=>current_box))
+        if @document.debug?
+          @pen.save_graphics_state do
+            @pen.stroke_color("AAAADD")
+            @pen.fill_color("AAAADD")
+            @pen.line_width = 0.2
+            @pen.rectangle([origin.x, origin.y], origin.width, origin.height)
+            @pen.line(origin.top_left, origin.bottom_right)
+            @pen.line(origin.bottom_left, origin.top_right)
+            @pen.stroke
+            angle = 0
+            @pen.font('Times-Roman', :size=>7) do
+              for corner in [:top_left, :top_right, :bottom_right, :bottom_left]
+                method = corner # "absolute_#{corner}"
+                abso = origin.send(corner) # @pen.bounds.send("absolute_#{corner}")
+                @pen.draw_text("(#{abso[0].round(1)}, #{abso[1].round(1)})", :at=>origin.send(method), :rotate=>angle)
+                angle -= 90
+              end
             end
           end
-          @pen.undash
         end
+        @current_box += 1
+        @boxes_stack[@current_box] = origin
+        yield self if block_given?
+        @boxes_stack.delete_at(@current_box)
+        @current_box -= 1
       end
-
+      
       # Returns the width of the slice
       def width
-        @pen.bounds.width
+        current_box.width
       end
 
 
@@ -273,21 +295,33 @@ module Templating
       # @param [String] string Text to display
       # @param [Hash] options The options to define the page properties
       # @option options [Symbol] :align Alignment of text
+      # @option options [Float] :left Left position relatively to the slice or box
+      # @option options [Float] :top Top position relatively to the slice or box
+      # @option options [Float] :width Width of text box
+      # @option options [Float] :height Height of text box
       def text(string, options={})
         # @pen.draw_text(string, :at=>[100,100]) # , :align=>:center)
         # @pen.text(string, options)
         options = options.dup
         options[:document] = @pen
-        
+        left, top = (options.delete(:left)||0), -(options.delete(:top)||0)
+        options[:at] = [left, top]
+        # @pen.font(options.delete(:font)) do
         box = if options.delete(:inline_format)
                 array = Text::Formatted::Parser.to_array(string)
                 Prawn::Text::Formatted::Box.new(array, options)
               else
                 Prawn::Text::Box.new(string, options)
               end
-        
         box.render
+        # @pen.bounds.height = if @pen.bounds.height < box.height - top
+        # end
         return box
+      end
+
+      # Computes height of string
+      def height_of(string, options={})
+        @pen.height_of(string, options)
       end
 
       # Writes an numeroted list with 1 line per item.
@@ -360,12 +394,69 @@ module Templating
         end        
       end
 
+      private
+
+
+      def current_box
+        @boxes_stack[@current_box]
+      end
 
     end
     
 
     
     # Helper classes
+
+    
+    class Origin
+      attr_reader :left, :top, :width, :height, :absolute_left, :absolute_top, :parent, :page
+      
+      def initialize(left, top, options={})
+        @left = left
+        @top = top
+        @width = options[:width]
+        @height = options[:height]
+        @parent = options[:parent]
+        @page = options[:page]
+        @absolute_left = @left
+        @absolute_top = @top
+        if @parent
+          @page ||= @parent.page
+          @width  ||= @parent.width - @left
+          @height ||= @parent.height - @top
+          @absolute_left += @parent.left
+          @absolute_top  += @parent.top
+        end
+        raise ArgumentError.new("Option :width must be specified if no parent given.") if @width.nil?
+        raise ArgumentError.new("Option :height must be specified if no parent given.") if @height.nil?
+      end
+
+      def x
+        @absolute_left
+      end
+
+      def y
+        @page.height - @absolute_top
+      end
+
+      def top_left
+        [x, y]
+      end
+
+      def top_right
+        [x+@width, y]
+      end
+
+      def bottom_right
+        [x+@width, y-@height]
+      end
+
+      def bottom_left
+        [x, y-@height]
+      end
+
+    end
+
 
 
     class Fill
