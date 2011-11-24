@@ -646,45 +646,45 @@ module Templating
 
 
 
-    class Fill
+    # class Fill
 
-      def initialize(*args)
-      end
+    #   def initialize(*args)
+    #   end
 
-    end
+    # end
 
-    class Stroke
-      attr_reader :width, :style
+    # class Stroke
+    #   attr_reader :width, :style
       
-      def initialize(*args)
-        if args.size == 1 and args[0].is_a?(String)
-          expr = args[0].split(" ")
-          @width = Stoke.string_to_measure(expr[0])
-          @style = 0
-          @color = 0
+    #   def initialize(*args)
+    #     if args.size == 1 and args[0].is_a?(String)
+    #       expr = args[0].split(" ")
+    #       @width = Stoke.string_to_measure(expr[0])
+    #       @style = 0
+    #       @color = 0
             
-        else
-          raise Exception.new("Unknown stroke")
-        end
-      end
+    #     else
+    #       raise Exception.new("Unknown stroke")
+    #     end
+    #   end
 
-      def self.string_to_measure(string, nvar)
-        string = string.to_s
-        m = if string.match(/\-?\d+(\.\d+)?mm/)
-              string[0..-3]+'.mm'
-            elsif string.match(/\-?\d+(\.\d+)?\%/)
-              string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
-            elsif string.match(/\-?\d+(\.\d+)?/)
-              string
-            else
-            " (0) "
-            end
-        m = '('+m+')' if m.match(/^\-/)
-        return m
-      end
+    #   def self.string_to_measure(string, nvar)
+    #     string = string.to_s
+    #     m = if string.match(/\-?\d+(\.\d+)?mm/)
+    #           string[0..-3]+'.mm'
+    #         elsif string.match(/\-?\d+(\.\d+)?\%/)
+    #           string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
+    #         elsif string.match(/\-?\d+(\.\d+)?/)
+    #           string
+    #         else
+    #         " (0) "
+    #         end
+    #     m = '('+m+')' if m.match(/^\-/)
+    #     return m
+    #   end
 
       
-    end
+    # end
 
 
   end
