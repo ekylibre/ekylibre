@@ -7,6 +7,10 @@ module Templating
 
   VERSION = '2.0'
 
+  def self.version
+    VERSION
+  end
+
   def self.fonts_dir
     Pathname.new(File.dirname(__FILE__)).join("templating", "data", "fonts")
   end

@@ -35,8 +35,38 @@ module Templating
     class Document
       attr_reader :pen
 
+      INFOS = {
+        :created_on => :CreationDate,
+        :updated_on => :ModDate,
+        :title => :Title,
+        :subject => :Subject,
+        :keywords => :Keywords,
+        :author => :Author,
+        :creator => :Creator,
+        :producer => :Producer
+      }
+
+      # Create a document
+      # @param [Hash] options The options to specify the document properties
+      # @option options [TrueClass,FalseClass] :debug Activates debug mode
+      # @option options [String] :created_on (Time.now) Date of creation
+      # @option options [String] :updated_on (Time.now) Date of update
+      # @option options [String] :title Title of the whole document
+      # @option options [String] :subject Subject of the document
+      # @option options [String] :keywords Key words to define the document
+      # @option options [String] :author Person who is the origin of the document
+      # @option options [String] :creator Person who launches the print
+      # @option options [String] :producer Software which generates document.
+      #   This option may not be overloadable
       def initialize(options = {})
-        @pen = Prawn::Document.new(:skip_page_creation => true, :info=>options[:info])
+        now = Time.now
+        options[:created_on] ||= now
+        options[:updated_on] ||= now
+        info = {}
+        for key, value in options
+          info[INFOS[key]] = value if INFOS[key]
+        end
+        @pen = Prawn::Document.new(:skip_page_creation => true, :info=>info)
         @debug = options[:debug]
       end
 
@@ -59,6 +89,7 @@ module Templating
       # @param [String] italic_font File for italic/oblique font
       # @param [String] bold_italic_font File for bold italic/oblique font
       def font_family(name, normal_font, bold_font, italic_font, bold_italic_font)
+        name = name.to_s.capitalize
         @pen.font_families.update(name => {:normal=>normal_font, :bold=>bold_font, :italic_font=>italic_font, :bold_italic=>bold_italic_font})
       end
 
@@ -84,6 +115,7 @@ module Templating
       attr_accessor :debug_margin
 
       # Defines a page style and start a new page
+      # @see Document#page
       def initialize(document, options={})
         @document = document
         @pen = document.pen
@@ -239,8 +271,7 @@ module Templating
         child = Box.new(:left=>options[:left], :top=>options[:top], :width=>options[:width], :height=>options[:height], :page=>@page, :parent=>current_box)
         @current_box += 1
         @boxes_stack[@current_box] = child
-        yield self if block_given?
-        # current_box.resize(current_box.height)
+        yield if block_given?
         child = @boxes_stack.delete_at(@current_box)
         @current_box -= 1
         current_box.resize(child.top+child.height) if current_box
@@ -432,7 +463,7 @@ module Templating
         options[:at] = [current_box.x + left, current_box.y - top]
         options[:width] ||= current_box.width
         
-        @pen.font(options.delete(:font)) if options[:font]
+        # @pen.font(options.delete(:font)) if options[:font]
 
         if @document.debug?
           # @pen.stroke_color("CCBBAA")
@@ -459,6 +490,11 @@ module Templating
       # @param [Hash] options The options to define the list properties
       # @option options [Symbol] :size Size of the font
       def font(name, options={}, &block)
+        # name = name.to_s.capitalize
+        name = "Helvetica" if name.downcase == "helvetica"
+        name = "Times-Roman" if name.downcase == "times"
+        # fonts = @pen.font_registry.keys
+        # raise ArgumentError.new("Unknown font. Available fonts: #{fonts.join(', ')}") unless fonts.include?(name)
         @pen.font(name, options) do
           yield
         end
@@ -502,7 +538,8 @@ module Templating
 
 
       private
-
+      
+      # @todo Take in account the opacity like in CSS with rgba
       def paint(options={})
         @pen.save_graphics_state do
           # Set fill

@@ -62,14 +62,10 @@ module Templating::Compilers
             end
           end
           document = template.find('document')[0]
-          info = {}
-          for key, value in parameters_hash(document, nil, mode)
-            info[key.to_s.capitalize.to_sym] = value
-          end
+          info = parameters_hash(document, nil, mode)
           info = hash_to_code(info)
           info = ', '+info unless info.blank?
-          code << "now = Time.now\n"
-          code << "Templating::Writer.generate(:info=>{:Creator=>'Ekylibre::Templating', :CreationDate=>now, :ModDate=>now#{info}}, #{':debug=>true' if mode == :debug}) do |__|\n"
+          code << "Templating::Writer.generate(:creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if mode == :debug}) do |__|\n"
           code << compile_children(document, '__', mode).strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -214,7 +210,7 @@ module Templating::Compilers
         def attr_to_code(string, type = :string)
           value = Templating::Compilers::Xil::Schema::Attribute.read(string, type)
           if type == :string
-            "'#{value}'"
+            "'"+value.gsub(/\'/, '\\\\\'')+"'"
           elsif type == :length
             pt_to_s(value)
           elsif type == :length4
@@ -341,7 +337,7 @@ module Templating::Compilers
 
           elsif name == :line
             points = phash.delete(:path)
-            code << "#{variable}.line(#{points}, #{hash_to_code(phash, true)})"
+            code << "#{variable}.line(#{points[1..-2]}, #{hash_to_code(phash, true)})"
 
           elsif name == :list
             lines = phash.delete(:collection)
@@ -360,7 +356,7 @@ module Templating::Compilers
             if phash[:right]
               phash[:left] = "(#{variable}.width - #{phash.delete(:right)})"
             end
-            code << "#{variable}.rectangle([#{phash[:left]||0}, #{phash[:top]||0}], #{hash_to_code(phash)})"
+            code << "#{variable}.rectangle(#{hash_to_code(phash)})"
 
           elsif name == :set
             if phash.empty?
@@ -369,8 +365,9 @@ module Templating::Compilers
               if phash[:right]
                 phash[:left] = "(#{variable}.width - #{phash.delete(:right)})"
               end
-              code << "#{variable}.box(#{hash_to_code(phash)})"
-              code << execute_children(element, children_variable, mode, depth+1)
+              code << "#{variable}.box(#{hash_to_code(phash)}) do\n"
+              code << compile_children(element, variable, mode, depth+1).strip.gsub(/^/, '  ')+"\n"
+              code << "end\n"
             end
 
           elsif name == :table
@@ -460,7 +457,7 @@ module Templating::Compilers
 
           # Wrapper: font
           if element.attributes['font']
-            code = "font('#{element.attributes['font']}') do\n#{code.strip.gsub(/^/,'  ')}\nend"
+            code = "#{variable}.font('#{element.attributes['font']}') do\n#{code.strip.gsub(/^/,'  ')}\nend"
           end
 
           # Wrapper: if <condition>
