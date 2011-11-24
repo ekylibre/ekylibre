@@ -107,7 +107,7 @@ module Templating
       # @option options [TrueClass,FalseClass] :resize (false) Enable auto-resizing for larger elements
       # @option options [TrueClass,FalseClass] :bottom (false) Put the slice at the bottom of the page
       def slice(options={}, &block)
-        height = Slice.height_of(self, options, &block)
+        height = Slice.height(self, options, &block)
         # New page if there is no place on the current
         self.break! if @height-@done-@margins[2]-height < 0
         # Add spacer slice in order to put slice at the bottom
@@ -117,6 +117,9 @@ module Templating
         return self
       end
       
+
+      # Start a new page using the default settings
+      # To change the settings from a page to another, it's necessary to call {#page} again.
       def break!
         # @document.pen.start_new_page(:size => [@width, @height],
         #                              :top_margin => @margins[0], 
@@ -135,7 +138,6 @@ module Templating
           @pen.line([@margins[3], @height-@margins[0]+marg], [@margins[3], @height])
           @pen.line([@width-@margins[1], 0], [@width-@margins[1], @margins[2]-marg])
           @pen.line([@width-@margins[1], @height-@margins[0]+marg], [@width-@margins[1], @height])
-
         end
         @done = @start.to_f
         return self
@@ -152,14 +154,15 @@ module Templating
     end
 
 
-    # Slice is the main unit in the page. It is a band in the page.
+    # Slice is the atomic unit in the page. It is a band in the page.
+    # If there is not enough space on the page, the slice is drawn on a new page.
     class Slice
       attr_reader :height
 
-      # Compute the height of a slice
+      # Compute the maximal height of a slice
       # @return [Float] Height of the slice
       # @see Slice#initialize
-      def self.height_of(page, options={}, &block)
+      def self.height(page, options={}, &block)
         height = options[:height]
         if options[:resize]
           pen = page.document.pen
@@ -240,7 +243,10 @@ module Templating
       # @option options [Float] :top Left position of the image
       # @option options [Float] :left Left position of the image
       def image(file, options = {})
-        options[:at] = [options.delete(:left) || 0, options.delete(:top) || 0]
+        left, top = (options.delete(:left)||0), (options.delete(:top)||0)
+        options[:at] = [current_box.x + left, current_box.y - top]
+        options[:width] ||= current_box.width
+        # options[:at] = [options.delete(:left) || 0, options.delete(:top) || 0]
         @pen.image(file, options)
       end
 
@@ -314,11 +320,13 @@ module Templating
         # @pen.text(string, options)
         options = options.dup
         options[:document] = @pen
-        left, top = (options.delete(:left)||0), -(options.delete(:top)||0)
-        options[:at] = [current_box.absolute_left + left, top]
+        left, top = (options.delete(:left)||0), (options.delete(:top)||0)
+        options[:at] = [current_box.x + left, current_box.y - top]
+        options[:width] ||= current_box.width
         
+        @pen.font(options.delete(:font)) if options[:font]
+
         if @document.debug?
-          # self.box(left, top)
           # @pen.stroke_color("CCBBAA")
           # @pen.rectangle([current_box.absolute_left+left, @page.height-(current_box.absolute_left+left)], )
         end
@@ -339,6 +347,14 @@ module Templating
       # Computes height of string
       def height_of(string, options={})
         @pen.height_of(string, options)
+      end
+
+      # @param [Hash] options The options to define the list properties
+      # @option options [Symbol] :size Size of the font
+      def font(name, options={}, &block)
+        @pen.font(name, options) do
+          yield
+        end
       end
 
       # Writes an numeroted list with 1 line per item.

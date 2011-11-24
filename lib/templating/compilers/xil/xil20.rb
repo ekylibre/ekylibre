@@ -459,6 +459,9 @@ module Templating::Compilers
 
 
           # Wrapper: font
+          if element.attributes['font']
+            code = "font('#{element.attributes['font']}') do\n#{code.strip.gsub(/^/,'  ')}\nend"
+          end
 
           # Wrapper: if <condition>
           if element.attributes['if'] and mode != :debug

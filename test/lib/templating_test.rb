@@ -26,7 +26,11 @@ class TemplatingTest < Test::Unit::TestCase
           end
         end
         page.slice(:resize=>true) do |s|
-          s.text("Hello world" * 20, :width=>100.mm, :left=>20.mm, :top=>10.mm)
+          s.image(File.join(File.dirname(__FILE__), "images", "butterfly.jpg"))
+          s.text("Hello world! " * 20, :width=>100.mm, :left=>20.mm, :top=>10.mm)
+        end
+        page.slice(:height=>20, :bottom=>true) do |s|
+          s.text("Footer", :align=>:center)
         end
       end
       doc.page(:size=>"A5", :orientation=>:landscape, :margins=>40.mm) do |page|
