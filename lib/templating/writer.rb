@@ -247,7 +247,9 @@ module Templating
         left, top = @page.margins[3]+@margins[3], @page.done+@margins[0]
         inner_width = @page.width-(left + @page.margins[1] + @margins[1])
         inner_height = (resizing? ? nil : @height-@margins[0]-@margins[2])
-        box = self.box(:left=>left, :top=>top, :width=>inner_width, :height=>inner_height, &block)
+        box = self.box(:left=>left, :top=>top, :width=>inner_width, :height=>inner_height) do
+          yield self if block_given?
+        end
         @height = box.height + @margins[0] + @margins[2] if resizing?
         if @document.debug?
           bottom = @page.height - @height - @page.done
@@ -495,9 +497,7 @@ module Templating
         name = "Times-Roman" if name.downcase == "times"
         # fonts = @pen.font_registry.keys
         # raise ArgumentError.new("Unknown font. Available fonts: #{fonts.join(', ')}") unless fonts.include?(name)
-        @pen.font(name, options) do
-          yield
-        end
+        @pen.font(name, options, &block)
       end
 
       # Writes an numeroted list with 1 line per item.

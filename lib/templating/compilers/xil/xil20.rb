@@ -65,8 +65,8 @@ module Templating::Compilers
           info = parameters_hash(document, nil, mode)
           info = hash_to_code(info)
           info = ', '+info unless info.blank?
-          code << "Templating::Writer.generate(:creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if mode == :debug}) do |__|\n"
-          code << compile_children(document, '__', mode).strip.gsub(/^/, '  ')+"\n"
+          code << "Templating::Writer.generate(:debug=>true, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if mode == :debug}) do |_d|\n"
+          code << compile_children(document, '_d', mode).strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
           # return "# encoding: utf-8\n"+'('+(mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
@@ -324,6 +324,7 @@ module Templating::Compilers
           phash = parameters_hash(element, variable, mode)
           if name == :image
             file = phash.delete(:value)
+            # code << "raise [_d, _p, _s].inspect\n"
             code << "if File.exist?((#{file}).to_s)\n"
             code << "  #{variable}.image(#{file}, #{hash_to_code(phash, true)})\n"
             code << "else\n"
@@ -344,17 +345,18 @@ module Templating::Compilers
             code << "#{variable}.list(#{lines}, #{hash_to_code(phash, true)})"
 
           elsif name == :page
+            
             code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]}, :margins=>#{phash[:margin]})"
-            code << execute_children(element, children_variable, mode, depth+1)
+            code << execute_children(element, "_p", mode, depth+1)
 
           elsif name == :part
             code << "#{variable}.slice"
             code << "(:height => #{phash[:height]})" if phash[:height]
-            code << execute_children(element, children_variable, mode, depth+1)
+            code << execute_children(element, "_s", mode, depth+1)
 
           elsif name == :rectangle
             if phash[:right]
-              phash[:left] = "(#{variable}.width - #{phash.delete(:right)})"
+              phash[:left] = "(#{variable}.current_box.width - #{phash.delete(:right)})"
             end
             code << "#{variable}.rectangle(#{hash_to_code(phash)})"
 
@@ -363,7 +365,7 @@ module Templating::Compilers
               code << compile_children(element, variable, mode, depth)
             else
               if phash[:right]
-                phash[:left] = "(#{variable}.width - #{phash.delete(:right)})"
+                phash[:left] = "(#{variable}.current_box.width - #{phash.delete(:right)})"
               end
               code << "#{variable}.box(#{hash_to_code(phash)}) do\n"
               code << compile_children(element, variable, mode, depth+1).strip.gsub(/^/, '  ')+"\n"
@@ -386,8 +388,9 @@ module Templating::Compilers
                 columns << col
               end
             end
+            stroke = "'0.5pt solid #000'"
             code << "#{variable}.slice(:height => #{pt_to_s(1.mm)})\n"
-            
+            children_variable = "_s"
             # Header
             code << "#{variable}.slice do |#{children_variable}|\n"
             code << "  row_height = 0\n"
@@ -397,10 +400,10 @@ module Templating::Compilers
             end
             for column in columns
               code << "  #{children_variable}.text(#{column[:phash][:label]}, :left=>#{pt_to_s(column[:offset])}, :width=>#{pt_to_s(column[:width])}, :height=>row_height, :valign=>:center)\n"
-              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height])\n"
+              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
               # code << "  row_height = _b.height if _b.height > row_height\n"
             end
-            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height])\n"
+            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
             code << "end\n"
             # Rows
             code << "for #{record} in #{collection}\n"
@@ -420,10 +423,10 @@ module Templating::Compilers
               code << "    row_height = _b.height if _b.height > row_height\n"
             end
             for column in columns
-              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height])\n"
+              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
             end
             code << "    puts 'ROW HEIGHT' + row_height.to_s\n"
-            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height])\n"
+            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
             code << "  end\n"
             code << "end\n"
 
@@ -457,7 +460,7 @@ module Templating::Compilers
 
           # Wrapper: font
           if element.attributes['font']
-            code = "#{variable}.font('#{element.attributes['font']}') do\n#{code.strip.gsub(/^/,'  ')}\nend"
+            # code = "#{variable}.font('#{element.attributes['font']}') do\n#{code.strip.gsub(/^/,'  ')}\nend"
           end
 
           # Wrapper: if <condition>
