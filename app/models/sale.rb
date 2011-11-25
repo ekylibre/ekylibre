@@ -88,7 +88,7 @@ class Sale < CompanyRecord
   belongs_to :transporter, :class_name=>"Entity"
   has_many :credits, :class_name=>"Sale", :foreign_key=>:origin_id
   has_many :deliveries, :class_name=>"OutgoingDelivery", :dependent=>:destroy
-  has_many :lines, :class_name=>"SaleLine", :foreign_key=>:sale_id
+  has_many :lines, :class_name=>"SaleLine", :foreign_key=>:sale_id, :dependent=>:destroy, :order=>"position, id"
   has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
   has_many :payments, :through=>:payment_uses
   has_many :subscriptions, :class_name=>"Subscription"

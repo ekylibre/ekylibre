@@ -33,7 +33,7 @@ module Templating
     # A slice is a band in the document with a given or varying height. It's tha base unit
     # of a page.
     class Document
-      attr_reader :pen
+      attr_reader :pen, :default_font
 
       INFOS = {
         :created_on => :CreationDate,
@@ -49,6 +49,7 @@ module Templating
       # Create a document
       # @param [Hash] options The options to specify the document properties
       # @option options [TrueClass,FalseClass] :debug Activates debug mode
+      # @option options [Hash] :default_font ({:name=>'Helvetica', :size=>10}) Set default font
       # @option options [String] :created_on (Time.now) Date of creation
       # @option options [String] :updated_on (Time.now) Date of update
       # @option options [String] :title Title of the whole document
@@ -67,6 +68,8 @@ module Templating
           info[INFOS[key]] = value if INFOS[key]
         end
         @pen = Prawn::Document.new(:skip_page_creation => true, :info=>info)
+        @default_font = {:name=>'Helvetica', :size=>10}
+        @default_font.update(options[:default_font] || {})
         @debug = options[:debug]
       end
 
@@ -166,6 +169,8 @@ module Templating
       # To change the settings from a page to another, it's necessary to call {#page} again.
       def break!
         @document.pen.start_new_page(:size => [@width, @height], :margin => 0)
+        f = @document.default_font
+        @document.pen.font(f[:name], :size=>f[:size])
         if @document.debug?
           # @pen.rectangle([@margins[3]-@debug_margin, @height-@margins[1]+@debug_margin], self.inner_width+2*@debug_margin, self.inner_height+2*@debug_margin) 
           @pen.line([0, @margins[2]], [@margins[3]-@debug_margin, @margins[2]])
@@ -330,7 +335,7 @@ module Templating
       def image(file, options = {})
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
         options[:at] = [current_box.x + left, current_box.y - top]
-        options[:width] ||= current_box.width
+        options[:width] = current_box.width unless options[:width] or options[:height]
         info = @pen.image(file, options)
         current_box.resize(top + info.scaled_height)
         if @document.debug?
@@ -451,7 +456,7 @@ module Templating
       end
 
       # Write text
-      # @param [String] string Text to display
+      # @param [String,Array] string Text to display
       # @param [Hash] options The options to define the page properties
       # @option options [Symbol] :align Alignment of text
       # @option options [Float] :left Left position relatively to the slice or box
@@ -464,24 +469,79 @@ module Templating
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
         options[:at] = [current_box.x + left, current_box.y - top]
         options[:width] ||= current_box.width
-        
-        # @pen.font(options.delete(:font)) if options[:font]
+        box = nil
+        @pen.save_font do
+          @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
 
-        if @document.debug?
-          # @pen.stroke_color("CCBBAA")
-          # @pen.rectangle([current_box.absolute_left+left, @page.height-(current_box.absolute_left+left)], )
+          options[:inline_format] = true if options[:bold] or options[:italic]
+          string = "<b>#{string}</b>" if options[:bold] == true
+          string = "<i>#{string}</i>" if options[:italic] == true
+          
+          box = if options.delete(:inline_format)
+                  array = Prawn::Text::Formatted::Parser.to_array(string)
+                  Prawn::Text::Formatted::Box.new(array, options)
+                else
+                  Prawn::Text::Box.new(string, options)
+                end
+          box.render
+          current_box.resize(box.height+top)
         end
-
-        # @pen.font(options.delete(:font)) do
-        box = if options.delete(:inline_format)
-                array = Text::Formatted::Parser.to_array(string)
-                Prawn::Text::Formatted::Box.new(array, options)
-              else
-                Prawn::Text::Box.new(string, options)
-              end
-        box.render
-        current_box.resize(box.height+top)
         return box
+      end
+
+
+      # Writes an numeroted list with 1 line per item.
+      # @param [String] lines The text to parse and present as a list
+      # @param [Hash] options The options to define the list properties
+      # @option options [Float] :left (0) Left position from left paper border or parent box
+      # @option options [Float] :top (0) Top position from top paper border or parent box
+      # @option options [Float] :width Width of block
+      # @option options [Integer] :columns (3) Number of columns
+      # @option options [String] :font Name of the font used to write the list 
+      # @option options [Float] :size (7) Size of the font
+      # @option options [Float] :spacing (10) Space betwen columns
+      def list(lines, options={})
+        @pen.save_font do
+          nb_columns = options[:columns] || 3
+          left, top = (options.delete(:left)||0), (options.delete(:top)||0)
+          width = options.delete(:width) || (current_box.width - left)
+          spacing = options.delete(:spacing) || 10
+          col_width = (width - (nb_columns - 1) * spacing) / nb_columns
+          font_size = options[:size] || 7
+          if options[:font]
+            @pen.font(options[:font], :size=>font_size)
+          end
+          alinea = font_size * 3
+          interline = font_size * 0.5
+          total_height =  0
+          lines = lines.to_a
+          for line in lines
+            total_height += @pen.height_of(line, :width=>(col_width - alinea)) + interline
+          end
+          col_height = (total_height / nb_columns) - interline
+          if @document.debug?
+            @pen.rectangle([current_box.x + left, current_box.y - top], width, col_height)
+          end
+          walked = 0
+          lines.each_with_index do |line, index|
+            box = Prawn::Text::Box.new((index+1).to_s+".", :at=>[current_box.x + left, current_box.y - top - walked], :width=>0.9*alinea, :align=>:right, :document=>@pen)
+            box.render
+            box = Prawn::Text::Box.new(line, :at=>[current_box.x + left + alinea, current_box.y - top - walked], :width=>(col_width - alinea), :align=>:justify, :size=>font_size, :document=>@pen)
+            box.render
+            if @document.debug?
+              paint(:stoke=>"0.3pt solid #F00") do
+                @pen.rectangle([current_box.x + left + alinea, current_box.y - top - walked], (col_width - alinea), box.height)
+              end
+            end
+            walked += box.height + interline
+            current_box.resize(top+walked - interline)
+            if walked >= 0.97*col_height
+              left += col_width + spacing
+              walked = 0
+            end
+          end
+        end
+        return self
       end
 
       # Computes height of string
@@ -492,53 +552,14 @@ module Templating
       # @param [Hash] options The options to define the list properties
       # @option options [Symbol] :size Size of the font
       def font(name, options={}, &block)
-        # name = name.to_s.capitalize
-        name = "Helvetica" if name.downcase == "helvetica"
-        name = "Times-Roman" if name.downcase == "times"
-        # fonts = @pen.font_registry.keys
-        # raise ArgumentError.new("Unknown font. Available fonts: #{fonts.join(', ')}") unless fonts.include?(name)
         @pen.font(name, options, &block)
       end
 
-      # Writes an numeroted list with 1 line per item.
-      # @param [String] lines The text to parse and present as a list
-      # @param [Hash] options The options to define the list properties
-      # @option options [Symbol] :columns Number of columns
-      def list(lines, options={})
-        # nb_columns = (options[:columns]||1).to_i
-        # width = options[:width]||self.width
-        # col_width = width/nb_columns
-        # # face_options = {:italic=>options[:italic], :bold=>options[:bold]}
-        # # font(options[:font], options.delete(:size), options.delete(:color), face_options)
-        # font_size = 7 # variable(:font_size)
-        # alinea = font_size*4
-        # total_height = 0
-        # for s in lines
-        #   total_height += string_height(s, col_width - alinea) + 0.1*alinea; 
-        # end
-        # col_height = total_height.to_f/nb_columns
-        # left = 0
-        # walked = 0
-        # max = 0
-        # indice = 0
-        # for string in lines
-        #   text((indice+=1).to_s+".",  :left=>left+0.6*alinea, :top=>walked, :align=>:right)
-        #   walked += text(string, :left=>left+0.7*alinea, :top=>walked, :width=>col_width - alinea) + 0.1*alinea
-        #   # puts "WALKED: #{total_height*0.35} / #{max*0.35} / #{walked*0.35}"
-        #   if walked>=0.97*col_height
-        #     max = walked if walked > max
-        #     left += col_width
-        #     walked = 0
-        #   end
-        # end
-        # # puts "************"
-        # # self.part.resize_to(max+self.part.top-@top) if options[:resize]
-      end
 
 
 
       private
-      
+
       # @todo Take in account the opacity like in CSS with rgba
       def paint(options={})
         @pen.save_graphics_state do

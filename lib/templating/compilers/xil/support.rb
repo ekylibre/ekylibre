@@ -75,7 +75,7 @@ module Templating::Compilers
       
       class Attribute
         attr_reader :name, :type
-        TYPES = [:boolean, :border, :color, :integer, :length4, :length, :page_format, :path, :property, :string, :symbol, :variable]
+        TYPES = [:boolean, :stroke, :color, :integer, :length4, :length, :page_format, :path, :property, :string, :symbol, :variable]
 
         def initialize(name, type=:string, required=false)
           @name = name.to_s
@@ -99,7 +99,7 @@ module Templating::Compilers
             string
           elsif type == :boolean
             (string.downcase == 'true' ? true : false)
-          elsif type == :border
+          elsif type == :stroke
             array = string.strip.split(/\s+/)
             raise Exception.new("Attribute border malformed: #{string.inspect}. Ex.: '1mm solid #123456'") if array.size != 3
             {:width=> measure_to_float(array[0]), :style=>array[1].to_sym, :color=>array[2].to_s}

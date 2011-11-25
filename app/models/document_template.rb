@@ -273,7 +273,7 @@ class DocumentTemplate < CompanyRecord
 
 
   def sample
-    self.save!
+    # self.save!
     code = Templating.compile(self.source, :xil, :mode=>:debug)
     pdf = nil
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -289,37 +289,23 @@ class DocumentTemplate < CompanyRecord
   # Produces a generic document with the trace of the thrown exception
   def self.error_document(exception)
     Templating::Writer.generate do |doc|
-      doc.page(:a4, :margin=>15.mm) do |page|
+      doc.page(:size=>"A4", :margin=>15.mm) do |p|
         if exception.is_a? Exception
-          page.slice do |slice|
-            slice.text("Exception: "+e.inspect)
+          p.slice do |s|
+            s.text("Exception: "+exception.inspect)
           end
           for line in exception.backtrace
-            page.slice do
-              slice.text(line)
+            p.slice do |s|
+              s.text(line)
             end
           end
         else
-          page.slice do
-            slice.text("Error: "+e.inspect, :width=>180.mm)
+          p.slice do |s|
+            s.text("Error: "+exception.inspect, :width=>180.mm)
           end
         end
       end
     end
-
-    # Ibeh.document(Hebi::Document.new) do |ibeh|
-    #   ibeh.page(:a4, :margin=>[15.mm]) do |p|
-    #     p.part(200.mm) do |x|
-    #       x.set do |s|
-    #         if e.is_a? Exception
-    #           s.text "Exception : "+e.inspect+"\n"+e.backtrace[0..25].join("\n")+"...", :width=>180.mm
-    #         else
-    #           s.text "Erreur : "+e.inspect, :width=>180.mm
-    #         end
-    #       end
-    #     end
-    #   end
-    # end.generate    
   end
   
 
