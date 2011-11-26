@@ -72,7 +72,7 @@ class CompanyTest < ActiveSupport::TestCase
         end
         code = ""
         assert_nothing_raised(template.source) do
-          code = DocumentTemplate.compile(template.source, :debug)
+          code = Templating.compile(template.source, :xil, :mode=>:debug)
         end
         # puts code
         assert_nothing_raised(code) do

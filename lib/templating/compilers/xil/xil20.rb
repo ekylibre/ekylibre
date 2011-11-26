@@ -57,7 +57,7 @@ module Templating::Compilers
           code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if true or @mode == :debug}) do |_d|\n"
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
-          list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+          # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
           # return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
           return "# encoding: utf-8\n"+code
         end
@@ -125,7 +125,7 @@ module Templating::Compilers
           m = if string.match(/\-?\d+(\.\d+)?mm/)
                 string[0..-3].to_d.mm
               elsif string.match(/\-?\d+(\.\d+)?\%/)
-                puts "DEPRECATED: Percentage value will be removed from XIL"
+                # puts "DEPRECATED: Percentage value will be removed from XIL"
                 string[0..-2].to_d * max_width / 100
               elsif string.match(/\-?\d+(\.\d+)?/)
                 string.to_d
@@ -355,7 +355,8 @@ module Templating::Compilers
 
           elsif name == :list
             options = parameters_values(element)
-            lines = phash.delete(:collection)
+            collection = phash.delete(:collection)
+            lines = (@mode == :debug ? "[]" : collection)
             if font = options[:font]
               font = "Helvetica" if font.downcase == "helvetica"
               font = "Times-Roman" if font.downcase == "times"
@@ -365,7 +366,7 @@ module Templating::Compilers
 
           elsif name == :page            
             # Xil 2.0 assumes that Times 10pt is default font
-            code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]}, :margins=>#{phash[:margin]})"
+            code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]||':portrait'}, :margins=>#{phash[:margin]||'15.mm'})"
             code << execute_children(element, "_p", depth+1)
 
           elsif name == :part
@@ -395,7 +396,8 @@ module Templating::Compilers
 
           elsif name == :table
             children_variable = "_s"
-            collection = (@mode == :debug ? "[]" : phash.delete(:collection))
+            collection = phash.delete(:collection)
+            collection = (@mode == :debug ? "[]" : collection)
             stroke = phash.delete(:border) || "'0.5pt solid #000'"
             record = phash.delete(:variable) || '_r'
             columns = []

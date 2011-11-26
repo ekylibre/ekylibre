@@ -92,7 +92,6 @@ module Templating
       # @param [String] italic_font File for italic/oblique font
       # @param [String] bold_italic_font File for bold italic/oblique font
       def font_family(name, normal_font, bold_font, italic_font, bold_italic_font)
-        name = name.to_s.capitalize
         @pen.font_families.update(name => {:normal=>normal_font, :bold=>bold_font, :italic_font=>italic_font, :bold_italic=>bold_italic_font})
       end
 

@@ -152,7 +152,7 @@ module Templating::Compilers
               elsif string.blank?
                 0
               elsif string.match(/^\-?\d+(\.\d*)?\%$/)
-                puts "DEPRECATED: Use of percentage for lengths is deprecated because since Templating the reference width is fixed (#{width.to_s}pt)"
+                # puts "DEPRECATED: Use of percentage for lengths is deprecated because since Templating the reference width is fixed (#{width.to_s}pt)"
                 string[0..-2].to_d*width.to_d/100.0
               else
                 raise ArgumentError.new("Unvalid string to convert to float: #{string.inspect}")
