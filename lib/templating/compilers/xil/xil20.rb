@@ -320,7 +320,10 @@ module Templating::Compilers
                 column[:align] = :center
               elsif column[:attributes]['numeric']
                 column[:align] = :right
-                curr_hash = column[:phash].select{|k,v| [:separator, :delimiter, :unit, :precision, :scale].include?(k)}
+                curr_hash = {}
+                for pair in column[:phash].select{|k,v| [:separator, :delimiter, :unit, :precision, :scale].include?(k)}
+                  curr_hash[pair[0]] = pair[1]
+                end
                 curr_hash[:separator] ||= "','"
                 curr_hash[:delimiter] ||= "' '"
                 curr_hash[:unit] ||= "''"

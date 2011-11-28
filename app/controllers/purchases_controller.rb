@@ -143,12 +143,10 @@ class PurchasesController < ApplicationController
 
   def invoice
     return unless @purchase = find_and_check(:purchase)
-    if request.post?
-      ActiveRecord::Base.transaction do
-        raise ActiveRecord::Rollback unless @purchase.invoice
-        redirect_to :action=>:show, :step=>:summary, :id=>@purchase.id
-        return
-      end
+    ActiveRecord::Base.transaction do
+      raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_on])
+      redirect_to :action=>:show, :step=>:summary, :id=>@purchase.id
+      return
     end
     redirect_to :action=>:show, :step=>:products, :id=>@purchase.id
   end

@@ -111,8 +111,8 @@ class FinancialYearsController < ApplicationController
   end
 
   def synthesis
-    data = @current_company.current_financial_year.print_synthesis(Rails.root.join("balance_sheet.bl.xml"))
-    raise data.inspect
+    # data = @current_company.current_financial_year.print_synthesis(Rails.root.join("balance_sheet.bl.xml"))
+    # raise data.inspect
   end
 
 end

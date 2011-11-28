@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class FinancialYearsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :close=>:get_and_post
+  test_restfully_all_actions :close=>:get_and_post, :compute_balances=>:touch, :except=>[:synthesis]
 end

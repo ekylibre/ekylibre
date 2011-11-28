@@ -196,12 +196,12 @@ Ekylibre::Application.routes.draw do
     resources :financial_years do
       collection do
         get :list
+        get :list_account_balances
       end
       member do
         match "close", :via=>[:get, :post]
         post :compute_balances
         get :synthesis
-        get :list_account_balances
       end
     end
     resources :incoming_deliveries do
