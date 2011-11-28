@@ -194,7 +194,7 @@ module Templating::Compilers
 
         def pt_to_s(float, precision = 3)
           magnitude = 10**precision
-          ((float*magnitude).round.to_f/maginatude).to_s.gsub(/^(\-?\d+\.\d{#{precision}})\d+$/, '\1')
+          ((float*magnitude).round.to_f/magnitude).to_s.gsub(/^(\-?\d+\.\d{#{precision}})\d+$/, '\1')
         end
 
         def attr_to_code(string, type = :string)

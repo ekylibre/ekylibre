@@ -517,14 +517,14 @@ module Templating
           for line in lines
             total_height += @pen.height_of(line, :width=>(col_width - alinea)) + interline
           end
+          total_height -= interline
           col_height = (total_height / nb_columns) - interline
           if @document.debug?
             @pen.rectangle([current_box.x + left, current_box.y - top], width, col_height)
           end
           walked = 0
           lines.each_with_index do |line, index|
-            box = Prawn::Text::Box.new((index+1).to_s+".", :at=>[current_box.x + left, current_box.y - top - walked], :width=>0.9*alinea, :align=>:right, :document=>@pen)
-            box.render
+            Prawn::Text::Box.new((index+1).to_s+".", :at=>[current_box.x + left, current_box.y - top - walked], :width=>0.9*alinea, :align=>:right, :document=>@pen).render
             box = Prawn::Text::Box.new(line, :at=>[current_box.x + left + alinea, current_box.y - top - walked], :width=>(col_width - alinea), :align=>:justify, :size=>font_size, :document=>@pen)
             box.render
             if @document.debug?
