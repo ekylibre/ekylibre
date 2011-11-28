@@ -294,7 +294,7 @@ module Templating
               for corner in [:top_left, :top_right, :bottom_right, :bottom_left]
                 method = corner # "absolute_#{corner}"
                 abso = child.send(corner) # @pen.bounds.send("absolute_#{corner}")
-                @pen.draw_text("(#{abso[0].round(1)}, #{abso[1].round(1)})", :at=>child.send(method), :rotate=>angle)
+                @pen.draw_text("(#{abso[0]}, #{abso[1]})", :at=>child.send(method), :rotate=>angle)
                 angle -= 90
               end
             end

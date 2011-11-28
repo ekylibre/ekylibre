@@ -132,7 +132,7 @@ module Templating::Compilers
               else
                 0
               end
-          return m.round(3)
+          return m
         end
 
         # def attrs_to_s(attrs, nvar)
@@ -192,8 +192,9 @@ module Templating::Compilers
         # end
 
 
-        def pt_to_s(float)
-          float.round(3).to_s.gsub(/^(\-?\d+\.\d{3})\d+$/, '\1')
+        def pt_to_s(float, precision = 3)
+          magnitude = 10**precision
+          ((float*magnitude).round.to_f/maginatude).to_s.gsub(/^(\-?\d+\.\d{#{precision}})\d+$/, '\1')
         end
 
         def attr_to_code(string, type = :string)

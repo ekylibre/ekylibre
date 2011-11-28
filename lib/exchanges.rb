@@ -30,7 +30,7 @@ module Exchanges
         yield
         duration = (Time.now - start).to_f
         minutes = (duration/60).to_i
-        seconds = (duration - 60*minutes.to_f).round(3)
+        seconds = (duration - 60*minutes.to_f)
         puts(prefix + "\\ #{minutes.to_s.rjust(2, '0')}:#{seconds}")
         @@depth -= 1
       else

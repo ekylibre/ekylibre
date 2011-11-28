@@ -58,14 +58,14 @@ class TemplatingTest < Test::Unit::TestCase
           for x in -wl..wl
             points << [(x+wl)*xk, gs*(1.to_f-(x**power).to_f/(wl**power).to_f)]
           end
-          s.line(*points, :stroke=>"1pt solid #007")
+          s.line(*(points + [{:stroke=>"1pt solid #007"}]))
 
           points = []
           12.times do 
             points << [rand(70), rand(70)]
           end
-          s.polygon(*points, :stroke=>"1pt dotted #700", :top=>50, :left=>200)
-          s.polygon(*points, :stroke=>"1pt solid #070",  :top=>50, :left=>270, :radius=>7)
+          s.polygon(*(points + [{:stroke=>"1pt dotted #700", :top=>50, :left=>200}]))
+          s.polygon(*(points + [{:stroke=>"1pt solid #070",  :top=>50, :left=>270, :radius=>7}]))
 
           s.text("Footer", :align=>:center)
         end
