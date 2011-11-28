@@ -142,7 +142,7 @@ class DocumentTemplate < CompanyRecord
   # Use carefully
   def print_fastly!(*args)
     # Refresh cache if needed
-    self.save! # unless self.cache.starts_with?(Templating.preamble)
+    self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
     owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
@@ -273,10 +273,10 @@ class DocumentTemplate < CompanyRecord
 
 
   def sample
-    # self.save!
+    self.save!
     code = Templating.compile(self.source, :xil, :mode=>:debug)
     pdf = nil
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
     begin 
       pdf = eval(code)
     rescue Exception=>e

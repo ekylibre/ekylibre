@@ -77,15 +77,20 @@ class TemplatingTest < Test::Unit::TestCase
       end
     end
   end
-  
 
-  def test_compiler
-    for file in Dir.glob(Rails.root.join("config", "locales", "*", "prints", "sale*invoice*.xml"))
-      File.open(file, "rb") do |f|
-        # code = Templating.compile(f.read, :xil)
-      end
+
+  # Test all templates
+  code = ''
+  for file in Dir.glob(Rails.root.join("config", "locales", "*", "prints", "*.xml"))
+    File.open(file, "rb") do |f|
+      code << "def test_template_#{file.gsub(/\W+/, '_')}\n"
+      code << "  assert_nothing_raised(\"Template #{file} seems to be invalid\") do\n"
+      code << "    Templating.compile(#{f.read.inspect}, :xil)\n"
+      code << "  end\n"
+      code << "end\n\n"
     end
   end
+  eval(code)
 
 
 end

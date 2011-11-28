@@ -126,6 +126,7 @@ jpn:
       # new: 'Add a new event'
     financial_years:
       # close: 'Close financial year: %{code}'
+      # compute_balances: 'Compute financial year balance'
       # edit: 'Edit new financial year'
       # index: 'Financial years'
       # new: 'Open a new financial year'
@@ -200,7 +201,7 @@ jpn:
       # edit: 'Edit the listing: %{name}'
       # extract: 'Extract listing: %{name}'
       # index: 'Listings and mailings'
-      # mail: 'Send an email to: %{listing}'
+      # mail: 'Send an email to: %{name}'
       # new: 'Add a new listing'
     mandates:
       # configure: 'Configure mandates'
@@ -538,6 +539,7 @@ jpn:
     # add_delivery: 'Add delivery'
     # add_payment: 'Add payment'
     # add_quickly_a_line: 'Add quickly a line of product'
+    # add_subscription_for_sale_line: 'Add subscription for sale line #%{position}'
     # address: 'Address'
     # all: 'All'
     # all_accounts: 'All accounts'

@@ -3,5 +3,17 @@
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register_alias "text/html", :iphone
-Mime::Type.register "image/svg+xml", :svg  
-Mime::Type.register "application/zip", :zip
+Mime::Type.register("image/svg+xml", :svg) unless defined? Mime::SVG
+Mime::Type.register("application/zip", :zip) unless defined? Mime::ZIP
+# Portable Documents
+Mime::Type.register("application/pdf", :pdf) unless defined? Mime::PDF
+# Open Documents
+Mime::Type.register("application/vnd.oasis.opendocument.text", :odt) unless defined? Mime::ODT
+Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
+Mime::Type.register("application/vnd.oasis.opendocument.presentation", :odp) unless defined? Mime::ODP
+Mime::Type.register("application/vnd.oasis.opendocument.graphics", :odg) unless defined? Mime::ODG
+# Open Templates
+Mime::Type.register("application/vnd.oasis.opendocument.text-template", :ott) unless defined? Mime::OTT
+Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet-template", :ots) unless defined? Mime::OTS
+Mime::Type.register("application/vnd.oasis.opendocument.presentation-template", :otp) unless defined? Mime::OTP
+Mime::Type.register("application/vnd.oasis.opendocument.graphics-template", :otg) unless defined? Mime::OTG

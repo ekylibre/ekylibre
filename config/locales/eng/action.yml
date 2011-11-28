@@ -116,10 +116,12 @@ eng:
       new: 'Add a new event'
     financial_years:
       close: 'Close financial year: %{code}'
+      compute_balances: 'Compute financial year balance'
       edit: 'Edit new financial year'
       index: 'Financial years'
       new: 'Open a new financial year'
       show: 'Financial year %{code}'
+      # synthesis: 'Synthesis financial year'
     help:
       index: 'Help'
       show: 'Help: %{title}'

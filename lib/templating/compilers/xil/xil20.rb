@@ -37,6 +37,10 @@ module Templating::Compilers
         end
 
 
+        # Main method which compile an XIL/XML Doc to ruby code
+        # @param [XML::Document] doc Document to compile
+        # @param [Hash] options Options for compiler
+        # @return [String] Ruby code (using Templating::Writer)
         def compile(doc, options={})
           @mode = options.delete(:mode) || :normal
           template = doc.root
@@ -54,39 +58,13 @@ module Templating::Compilers
           info = parameters_hash(document, nil)
           info = hash_to_code(info)
           info = ', '+info unless info.blank?
-          code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if true or @mode == :debug}) do |_d|\n"
+          code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if @mode == :debug}) do |_d|\n"
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          # return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
-          return "# encoding: utf-8\n"+code
+          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
         end
 
-
-
-        # ATTRIBUTES = {
-        #   :page=>[:format],
-        #   :part=>[:height],
-        #   :table=>[:collection],
-        #   :list=>[:collection],
-        #   :column=>[:label, :property, :width],
-        #   :set=>[],
-        #   :font=>[],
-        #   :iteration=>[:variable, :collection],
-        #   :text=>[:value],
-        #   :cell=>[:value, :width],
-        #   :rectangle=>[:width, :height],
-        #   :line=>[:path],
-        #   :image=>[:value, :width, :height]
-        # }
-        
-        # CHILDREN = {
-        #   :document=>[:page, :iteration],
-        #   :page=>[:part, :table, :iteration],
-        #   :part=>[:set, :iteration],
-        #   :table=>[:column],
-        #   :set=>[:set, :iteration, :font, :text, :cell, :rectangle, :line, :image, :list]
-        # }
         
         
         def hash_to_code(hash, wrapped = false)
@@ -105,21 +83,6 @@ module Templating::Compilers
         end
 
 
-        # def str_to_measure(string, nvar)
-        #   string = string.to_s
-        #   m = if string.match(/\-?\d+(\.\d+)?mm/)
-        #         string[0..-3]+'.mm'
-        #       elsif string.match(/\-?\d+(\.\d+)?\%/)
-        #         string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
-        #       elsif string.match(/\-?\d+(\.\d+)?/)
-        #         string
-        #       else
-        #         " (0) "
-        #       end
-        #   m = '('+m+')' if m.match(/^\-/)
-        #   return m
-        # end
-
         def measure_to_float(string, max_width = 190.mm)
           string = string.to_s
           m = if string.match(/\-?\d+(\.\d+)?mm/)
@@ -134,62 +97,6 @@ module Templating::Compilers
               end
           return m
         end
-
-        # def attrs_to_s(attrs, nvar)
-        #   attrs.collect{|k,v| ":#{k}=>#{attr_to_s(k, v, nvar)}"}.join(', ')
-        # end
-        
-        # def attr_to_s(attribute_name, attribute_value, variable_name)
-        #   case(attribute_name.to_sym)
-        #   when :align, :valign, :numeric then
-        #     ":#{attribute_value.strip.gsub(/\s+/,'_')}"
-        #   when :top, :left, :right, :width, :height, :size, :border_width then
-        #     str_to_measure(attribute_value, variable_name)
-        #   when :margin, :padding then
-        #     '['+attribute_value.strip.split(/\s+/).collect{|m| str_to_measure(m, variable_name)}.join(', ')+']'
-        #   when :border then
-        #     border = attribute_value.strip.split(/\s+/)
-        #     raise Exception.new("Attribute border malformed: #{attribute_value.inspect}. Ex.: '1mm solid #123456'") if border.size!=3
-        #     "{:width=>#{str_to_measure(border[0], variable_name)}, :style=>:#{border[1]}, :color=>#{border[2].inspect}}"
-        #   when :collection then
-        #     @mode==:debug ? "[]" : attribute_value
-        #   when :format
-        #     if attribute_value.to_s.match(/x/)
-        #       attribute_value.to_s.split(/x/)[0..1].collect{|x| str_to_measure(x.strip)}
-        #     else
-        #       "'#{attribute_value.to_s.upcase}'"
-        #     end
-        #   when :property then
-        #     "'"+attribute_value.gsub(/\//, '.')+"'"
-        #   when :resize, :fixed, :bold, :italic then
-        #     attribute_value.lower == "true" ? "true" : "false"
-        #   when :value, :label
-        #     # attribute_value = "'"+attribute_value.gsub(/\'/, '\\\\\'')+"'"
-        #     attribute_value = "'"+attribute_value.gsub(/\'/, '\\\\\'')+"'"
-        #     attribute_value = attribute_value.gsub(/\{\{[^\}]+\}\}/) do |m|
-        #       data = m[2..-3].to_s.gsub('\\\'', '\'').split('?')
-        #       datum = data[0].gsub('/', '.')
-        #       datum = case data[1].to_s.split('=')[0]
-        #               when 'format'
-        #                 "::I18n.localize(#{datum}, :format=>:legal)"
-        #               when 'numeric'
-        #                 "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
-        #               else
-        #                 datum
-        #               end
-        #       (@mode==:debug ? "[VALUE]" : "'+#{datum}.to_s+'")
-        #     end
-        #     attribute_value = attribute_value[3..-1] if attribute_value.match(/^\'\'\+/)
-        #     attribute_value = attribute_value[0..-4] if attribute_value.match(/\+\'\'$/)
-        #     attribute_value
-        #   when :path
-        #     attribute_value.split(/\s*\;\s*/).collect{|point| '['+point.split(/\s*\,\s*/).collect{|m| str_to_measure(m, variable_name)}.join(', ')+']'}.join(', ')
-        #   when :variable
-        #     attribute_value.to_s.strip
-        #   else
-        #     "'"+attribute_value.gsub(/\'/, '\\\\\'')+"'"
-        #   end
-        # end
 
 
         def pt_to_s(float, precision = 3)
@@ -232,36 +139,6 @@ module Templating::Compilers
             value.to_s
           end
         end
-
-
-        # def parameters(element, variable)
-        #   name = element.name.to_sym
-        #   attributes, parameters = {}, []
-        #   element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-        #   attributes[:value] ||= element.content.gsub(/\n/, '{{"\\n"}}') if name == :text
-        #   (ATTRIBUTES[name]||[]).each{|attr| parameters << attr_to_s(attr, attributes.delete(attr), variable)}
-        #   attributes.delete(:if)
-        #   attrs = attrs_to_s(attributes, variable)
-        #   attrs = ', '+attrs if !attrs.blank? and parameters.size>0
-        #   return parameters.join(', ')+attrs, parameters, attributes
-        # end
-
-        # def parameters(element, variable)
-        #   name = element.name.to_sym
-        #   attributes, parameters, hash = {}, [], {}
-        #   element.attributes.to_h.collect{|k,v| attributes[k.to_sym] = v}
-        #   attributes[:value] ||= element.content.gsub(/\n/, '{{"\\n"}}') if name == :text
-        #   for name, value in attributes
-        #     hash[attr] = attr_to_s(name, value, variable)
-        #   end
-        #   for attr in ATTRIBUTES[name]||[]
-        #     parameters << hash[attr]
-        #   end
-        #   # attributes.delete(:if)
-        #   attrs = attrs_to_s(attributes, variable)
-        #   attrs = ', '+attrs if !attrs.blank? and parameters.size>0
-        #   return parameters.join(', ')+attrs, hash, attributes
-        # end
 
 
         def parameters_hash(element, variable)
@@ -517,8 +394,6 @@ module Templating::Compilers
           end
           return code.strip
         end
-
-
 
       end
     end

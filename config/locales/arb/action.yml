@@ -145,6 +145,7 @@ arb:
       unvalidated_deposits: 'التأكد من اقتطاعات البنك' #!
     financial_years:
       close: 'نهاية الممارسة'
+      # compute_balances: 'Compute financial year balance'
       edit: 'تعديل المهنة الجديدة'
       index: 'ممارسة المحاسبة'
       new: 'انشاء مهنة جديدة'
@@ -594,6 +595,7 @@ arb:
     add_delivery: 'اضافة وسيلة نقل'
     add_payment: 'اضافة دفعة'
     # add_quickly_a_line: 'Add quickly a line of product'
+    # add_subscription_for_sale_line: 'Add subscription for sale line #%{position}'
     address: 'العنوان'
     all: 'جميع الاسعار'
     # all_accounts: 'All accounts'

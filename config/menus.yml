@@ -352,12 +352,15 @@ menus:
     - financial_years:
       - - financial_years::index
         - financial_years::close
+        - financial_years::compute_balances
         - financial_years::create
         - financial_years::destroy
         - financial_years::edit
         - financial_years::list
+        - financial_years::list_account_balances
         - financial_years::new
         - financial_years::show
+        - financial_years::synthesis
         - financial_years::update
   - finances:
     - cashes:

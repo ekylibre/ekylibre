@@ -142,6 +142,7 @@ fra:
       unvalidated_deposits: 'Remises en banque à valider' #!
     financial_years:
       close: 'Clôturer l''exercice %{code}'
+      compute_balances: 'Calculer la balance de l''exercice'
       edit: 'Modifier un nouvel exercice'
       index: 'Exercices comptables'
       new: 'Créer un nouvel exercice'
