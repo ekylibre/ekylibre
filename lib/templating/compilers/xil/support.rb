@@ -8,7 +8,12 @@ module Templating::Compilers
           self.instance_eval(&block) if block_given?
         end
         
-        def element(name, content=nil, required_attributes = {}, attributes = {}, &block)
+        def element(name, attributes={}, content=nil, &block)
+          required_attributes = {}
+          for attr_name, type in attributes
+            required_attributes[attr_name.to_s[0..-2]] = type if attr_name.to_s.match(/\!$/)
+          end
+          attributes.delete_if{|k,v| k.to_s.match(/\!$/)}
           self[name] = Element.new(name, content, required_attributes, attributes, &block)
         end
 
@@ -59,9 +64,25 @@ module Templating::Compilers
           !@content.nil?
         end
 
+        def has(occurrences, *children)
+          options = (children[-1].is_a?(Hash) ? children.delete_at(-1) : {})
+          for child in children
+            child = child.to_s.singularize if child.is_a? Symbol
+            child = child.to_s
+            @children << child unless @children.include?(child)
+          end
+        end
+
         def has_many(*children)
           for child in children
-            child = child.to_s.singularize
+            child = child.to_s.singularize unless child.is_a? String
+            @children << child unless @children.include?(child)
+          end
+        end
+
+        def has_one(*children)
+          for child in children
+            child = child.to_s
             @children << child unless @children.include?(child)
           end
         end

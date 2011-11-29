@@ -43,11 +43,22 @@ class FinancialYearsController < ApplicationController
   # Displays details of one financial year selected with +params[:id]+
   def show
     return unless @financial_year = find_and_check(:financial_year)
-    session[:current_financial_year_id] = @financial_year.id
-    if @financial_year.closed? and @financial_year.account_balances.size.zero?
-      @financial_year.compute_balances!
+    respond_to do |format|
+      format.html do 
+        session[:current_financial_year_id] = @financial_year.id
+        if @financial_year.closed? and @financial_year.account_balances.size.zero?
+          @financial_year.compute_balances!
+        end
+        t3e @financial_year.attributes
+      end
+      format.pdf do 
+        if params[:n] == "balance_sheet" 
+          render_print_balance_sheet(@financial_year)
+        else
+          render_print_income_statement(@financial_year)
+        end
+      end
     end
-    t3e @financial_year.attributes
   end
 
   def compute_balances

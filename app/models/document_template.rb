@@ -142,7 +142,7 @@ class DocumentTemplate < CompanyRecord
   # Use carefully
   def print_fastly!(*args)
     # Refresh cache if needed
-    self.save! unless self.cache.starts_with?(Templating.preamble)
+    self.save! #  unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
     owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company

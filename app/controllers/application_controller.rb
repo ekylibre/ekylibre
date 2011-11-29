@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
     code << "  end\n"
     code << "  headers['Cache-Control'] = 'maxage=3600'\n"
     code << "  headers['Pragma'] = 'public'\n"
-    code << "  begin\n"
+    # code << "  begin\n"
     for p in parameters
       code << "    #{p[0]} = #{p[1].name}.find_by_id_and_company_id(#{p[0]}.to_s.to_i, @current_company.id) unless #{p[0]}.is_a? #{p[1].name}\n" if p[1].ancestors.include?(ActiveRecord::Base)
       code << "    #{p[0]} = #{p[0]}.to_date if #{p[0]}.is_a?(String)\n" if p[1] == Date
@@ -70,10 +70,10 @@ class ApplicationController < ActionController::Base
     end
     code << "    data, filename = template.print_fastly!("+parameters.collect{|p| p[0]}.join(', ')+")\n"
     code << "    send_data(data, :filename=>filename, :type=>Mime::PDF, :disposition=>'inline')\n"
-    code << "  rescue Exception=>e\n"
-    code << "    notify_error(:print_failure, :class=>e.class.to_s, :error=>e.message.to_s, :cache=>template.cache.to_s)\n"
-    code << "    redirect_to_back\n"
-    code << "  end\n"
+    # code << "  rescue Exception=>e\n"
+    # code << "    notify_error(:print_failure, :class=>e.class.to_s, :error=>e.message.to_s, :cache=>template.cache.to_s)\n"
+    # code << "    redirect_to_back\n"
+    # code << "  end\n"
     code << "end\n"
     # raise code
     eval(code)

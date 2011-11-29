@@ -1,5 +1,6 @@
 require 'templating/compilers/xil/support'
 require 'templating/compilers/xil/xil20'
+require 'templating/compilers/xil/xil30'
 
 module Templating::Compilers
   module Xil

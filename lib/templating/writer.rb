@@ -148,8 +148,6 @@ module Templating
       # Add a slice with the defined options
       # @param [Hash] options The options to define the slice
       # @option options [Float] :height Default height of the slice in pt
-      # @option options [TrueClass,FalseClass] :resize (false) Enable auto-resizing
-      #   for larger elements
       # @option options [TrueClass,FalseClass] :bottom (false) Put the slice at 
       #   the bottom of the page (It adds a filling slice before).
       def slice(options={}, &block)
@@ -457,30 +455,38 @@ module Templating
       # Write text
       # @param [String,Array] string Text to display
       # @param [Hash] options The options to define the page properties
-      # @option options [Symbol] :align Alignment of text
+      # @option options [Symbol] :align (:left) Horizontal alignment of text (:center, :left, :right, :justify)
+      # @option options [Symbol] :valign (:top) Vertical alignment of text (:center, :top, :bottom)
       # @option options [Float] :left Left position relatively to the slice or box
       # @option options [Float] :top Top position relatively to the slice or box
       # @option options [Float] :width Width of text box
       # @option options [Float] :height Height of text box
+      # @option options [String] :font Set the font
+      # @option options [Float] :size Set the size of the font
+      # @option options [Boolean] :bold Set the text in bold face
+      # @option options [Boolean] :italic Set the text in italic face
       def text(string, options={})
-        options = options.dup
-        options[:document] = @pen
+        box_options = {}
+        box_options[:document] = @pen
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
-        options[:at] = [current_box.x + left, current_box.y - top]
-        options[:width] ||= current_box.width
+        box_options[:at] = [current_box.x + left, current_box.y - top]
+        box_options[:width] = options[:width] || current_box.width
+        box_options[:height] = options[:height] if options[:height]
+        box_options[:align] = options[:align] || :left
+        box_options[:valign] = options[:valign] || :top
         box = nil
         @pen.save_font do
           @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
-
-          options[:inline_format] = true if options[:bold] or options[:italic]
+          inline_format = false
+          inline_format = true if options[:bold] or options[:italic]
           string = "<b>#{string}</b>" if options[:bold] == true
           string = "<i>#{string}</i>" if options[:italic] == true
           
-          box = if options.delete(:inline_format)
+          box = if inline_format
                   array = Prawn::Text::Formatted::Parser.to_array(string)
-                  Prawn::Text::Formatted::Box.new(array, options)
+                  Prawn::Text::Formatted::Box.new(array, box_options)
                 else
-                  Prawn::Text::Box.new(string, options)
+                  Prawn::Text::Box.new(string, box_options)
                 end
           box.render
           current_box.resize(box.height+top)
@@ -488,6 +494,72 @@ module Templating
         return box
       end
 
+      # Writes a row of text cell
+      # @param [Array] cells Array of cells. A cell can be a String or a Hash like
+      #   {:value=>"text", :width=>50}
+      # @param [Hash] options Option for the row
+      # @option options [Float] :left (0) Left position from left paper border or parent box
+      # @option options [Float] :top (0) Top position from top paper border or parent box
+      # @option options [Float] :width Default width for each cell
+      # @option options [Float] :border Default border for each cell
+      # @option options [Float,Array] :margins ([0.5,1,0]) Default margins for each cell
+      # @option cell_options [String] :value Text to display
+      # @option cell_options [Symbol] :align Vertical alignment of the text
+      # @option cell_options [String] :bold Text to display
+      # @option cell_options [String] :font Set the font
+      # @option cell_options [String] :color Set the text color
+      # @option cell_options [Float] :size Set the size of the font
+      # @option cell_options [Boolean] :bold Set the text in bold face
+      # @option cell_options [Boolean] :italic Set the text in italic face
+      # @option cell_options [String,Array] :border Set the border of the cell
+      def row(cells, options={})
+        left, top = (options.delete(:left)||0), (options.delete(:top)||0)
+        margins = options.delete(:margins) || [0.5,1,0]
+        margins = [margins.to_f] unless margins.is_a?(Array)
+        margins[1] ||= margins[0]
+        margins[2] ||= margins[0]
+        margins[3] ||= margins[1]
+        cells = cells.collect do |x|
+          (x.is_a?(Hash) ? x : {:value=>x.to_s})
+        end
+        for cell in cells
+          string = {:text=>cell[:value].to_s}
+          string[:size] = cell[:size] if cell[:size]
+          styles = []
+          styles << :bold if cell[:bold]
+          styles << :italic if cell[:italic]
+          string[:styles] = styles
+          string[:font] = cell[:font] if cell[:font]
+          string[:color] = cell[:color] if cell[:color]
+          cell[:value] = [string]
+        end
+        widthed = cells.select{|c| !c[:width].nil?}
+        if widthed.count != cells.count
+          unless default_width = options[:width]
+            default_width = (current_box.width - widthed.inject(0){|s, c| s + c[:width]}).to_f / (cells.count - widthed.count)
+          end
+          for cell in cells
+            cell[:width] ||= default_width
+          end
+        end
+        inner_height = 0
+        shift = 0
+        for cell in cells
+          @pen.save_font do
+            @pen.font(cell[:font], :size=>cell[:size])
+            height = @pen.height_of_formatted(cell[:value], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align])
+            inner_height = height if height > inner_height
+          end
+          cell[:left] = shift
+          shift += cell[:width]
+        end
+        inner_height += margins[0] + margins[2]
+        for cell in cells
+          @pen.formatted_text_box(cell[:value], :at=>[current_box.x + left + cell[:left] + margins[3], current_box.y - top - margins[0]], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align], :valign=>cell[:valign]||:center, :height=>inner_height)
+        end
+        current_box.resize(top + margins[0] + inner_height + margins[2])
+        return self
+      end
 
       # Writes an numeroted list with 1 line per item.
       # @param [String] lines The text to parse and present as a list

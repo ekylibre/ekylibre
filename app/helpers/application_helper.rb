@@ -900,6 +900,7 @@ module ApplicationHelper
         url[:action] ||= :show
         url[:format] = :pdf
         url[:id] ||= args[0].id if args[0].respond_to?(:id) and args[0].class.ancestors.include?(ActiveRecord::Base)
+        url[:n] = nature
         parameters.each_index do |i|
           url[parameters[i][0]] = args[i]
         end

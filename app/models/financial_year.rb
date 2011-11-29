@@ -38,14 +38,13 @@ class FinancialYear < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
-  validates_presence_of :started_on, :stopped_on
-  validates_uniqueness_of :code, :scope=>:company_id
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :code, :company, :started_on, :stopped_on
   #]VALIDATORS]
+  validates_uniqueness_of :code, :scope=>:company_id
 
   before_validation do
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
@@ -163,6 +162,11 @@ class FinancialYear < CompanyRecord
   end
 
  
+  # Computes the value of list of accounts in a String
+  # 123 will take all accounts 123*
+  # ^456 will remove all accounts 456*
+  # 789D will take only the debit value of accounts 789*
+  # 789C will take only the credit value of accounts 789*
   def balance(accounts_number)
     unless accounts_number.nil?
       not_in_query, in_query, accounts_to_substract = [], [], []

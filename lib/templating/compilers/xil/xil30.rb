@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 module Templating::Compilers
   module Xil
-    class Xil20
+    class Xil30
 
       class << self
 
-        SCHEMA = Templating::Compilers::Xil::Schema::Definition.new(:xil20) do
+        SCHEMA = Templating::Compilers::Xil::Schema::Definition.new(:xil30) do
           element("template") do
             has :many, "document"
           end
@@ -13,27 +13,35 @@ module Templating::Compilers
             has :many, "page"
           end
           element("page", "format"=>:page_format, "orientation"=>:symbol, "margin"=>:length4) do
-            has :many, "part", "table", "iteration"
+            has :many, "slice", "table", "iteration", "grid"
           end
-          element("part", "height"=>:length, "bottom"=>:boolean) do
-            has :many, "set", "iteration"
+          element("slice", "height"=>:length, "bottom"=>:boolean, "margins"=>:length4) do
+            has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
           element("table", "collection!"=>:variable, "variable"=>:variable) do
             has :many, "column"
           end
           element("list", "collection!"=>:variable, "variable"=>:variable, "columns"=>:integer, "size"=>:length, "font"=>:string)
           element("column", "label!"=>:string, "property!"=>:property, "width!"=>:length, "align"=>:symbol, "format"=>:symbol, "numeric"=>:symbol, "separator"=>:string, "delimiter"=>:string, "unit"=>:string, "precision"=>:integer, "scale"=>:integer)
-          element("set", "left"=>:length, "top"=>:length, "right"=>:length) do
+          element("set", "left"=>:length, "top"=>:length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
           element("iteration", "collection!"=>:variable, "variable!"=>:variable)
-          element("text", "value!"=>:string, "left"=>:length, "right"=>:length, "top"=>:length, "width"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string)
-          # element("cell", "string", "left"=>:length, "top"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "width"=>:length, "font"=>:string})
-          element("rectangle", "width!"=>:length, "height!"=>:length, "left"=>:length, "top"=>:length, "right"=>:length, "border"=>:stroke)
+          element("text", "value!"=>:string, "left"=>:length, "top"=>:length, "width"=>:length, "height"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string)
+          # element("cell", "string, {:left"=>:length, "top"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "width"=>:length, "font"=>:string})
+          element("rectangle", "width!"=>:length, "height!"=>:length, "left"=>:length, "top"=>:length, "stroke"=>:stroke)
           element("line", "path!"=>:path, "width"=>:length, "border"=>:stroke)
           element("image", "value!"=>:string, "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
+          element("grid") do
+            has :many, "grid-column", "grid-row"
+          end
+          element("grid-column", "width"=>:length, "align"=>:symbol, "data-type"=>:symbol)
+          element("grid-row", "size"=>:length, "bold"=>:boolean, "italic"=>:boolean, "font"=>:string) do
+            has :many, "grid-cell"
+          end
+          element("grid-cell", "value"=>:string, "align"=>:symbol, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean, "font"=>:string)
         end
 
 
@@ -55,21 +63,22 @@ module Templating::Compilers
             end
           end 
           document = template.find('document')[0]
-          info = parameters_hash(document, nil)
+          info = parameters_hash(document)
           info = hash_to_code(info)
           info = ', '+info unless info.blank?
-          code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if @mode == :debug}) do |_d|\n"
+          code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if true or @mode == :debug}) do |_d|\n"
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+          return "# encoding: utf-8\n("+code+')'
+          # return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
         end
 
         
         
         def hash_to_code(hash, wrapped = false)
           code = hash.collect do |k,v| 
-            "#{k.inspect} => " + if v.is_a? Symbol
+            ":#{k.to_s.gsub(/\-/, '_')} => " + if v.is_a? Symbol
                                    v.inspect
                                  else
                                    v.to_s
@@ -83,17 +92,24 @@ module Templating::Compilers
         end
 
 
-        def measure_to_float(string, max_width = 190.mm)
+        def measure_to_float(string)
           string = string.to_s
-          m = if string.match(/\-?\d+(\.\d+)?mm/)
+          m = if string.match(/^\-?\d+(\.\d*)?mm$/)
                 string[0..-3].to_d.mm
-              elsif string.match(/\-?\d+(\.\d+)?\%/)
-                # puts "DEPRECATED: Percentage value will be removed from XIL"
-                string[0..-2].to_d * max_width / 100
-              elsif string.match(/\-?\d+(\.\d+)?/)
+              elsif string.match(/^\-?\d+(\.\d*)?cm$/)
+                string[0..-3].to_d.cm
+              elsif string.match(/^\-?\d+(\.\d*)?pc$/)
+                string[0..-3].to_d * 12
+              elsif string.match(/^\-?\d+(\.\d*)?in$/)
+                string[0..-3].to_d.in
+              elsif string.match(/^\-?\d+(\.\d*)?pt$/)
+                string[0..-3].to_d
+              elsif string.match(/^\-?\d+(\.\d*)?$/)
                 string.to_d
-              else
+              elsif string.blank?
                 0
+              else
+                raise ArgumentError.new("Unvalid string to convert to float: #{string.inspect}")
               end
           return m
         end
@@ -141,20 +157,19 @@ module Templating::Compilers
         end
 
 
-        def parameters_hash(element, variable)
+        def parameters_hash(element)
           name = element.name.to_sym
+          raise "Unknown element #{element.name}" unless SCHEMA[element.name]
           attributes_hash = element.attributes.to_h
-          hash = {}
+          hash = HashWithIndifferentAccess.new
           for attribute in SCHEMA[element.name].attributes
             if string = attributes_hash[attribute.name]
-              # hash[attribute.name.to_sym] = attr_to_s(attribute.name, string, variable)
-              hash[attribute.name.to_sym] = attr_to_code(string, attribute.type)
+              hash[attribute.name] = attr_to_code(string, attribute.type)
             elsif attribute.required?
               raise Exception.new("Attribute '#{attribute.name}' is required for element '#{name}'")
             end
           end
           if SCHEMA[element.name].has_content?
-            # hash[:content] =  attr_to_s(:content, element.content, variable)
             hash[:content] =  attr_to_code(element.content, SCHEMA[element.name].content)
           end
           # hash.delete(:if)
@@ -205,8 +220,36 @@ module Templating::Compilers
           code  = ''
           name = element.name.to_sym
           children_variable = "_#{depth}"
-          phash = parameters_hash(element, variable)
-          if name == :image
+          phash = parameters_hash(element)
+          if name == :grid
+            options = parameters_values(element)
+            children_variable = "_s"
+            columns = []
+            for column in element.find('./grid-column')
+              columns << {:width=>measure_to_float(column["width"]), :align=>column["align"]||:left, :valign=>column["valign"]||:top}
+            end
+            for row in element.find('./grid-row')
+              code << "#{variable}.slice do |#{children_variable}|\n"
+              code << "  #{children_variable}.row(["
+              cells = row.find('./grid-cell').to_a
+              cells += [nil]*(columns.count-cells.count)
+              i = 0
+              code << cells.collect do |cell|
+                if cell.nil?
+                  pch = {}
+                else
+                  pch = parameters_hash(cell)
+                end
+                pch[:align] ||= ":#{columns[i][:align] || :left}"
+                pch[:width] = columns[i][:width]
+                i += 1
+                hash_to_code(pch, true)
+              end.join(', ')
+              code << "])\n"
+              code << "end\n"
+            end
+
+          elsif name == :image
             file = phash.delete(:value)
             # code << "raise [_d, _p, _s].inspect\n"
             code << "if File.exist?((#{file}).to_s)\n"
@@ -235,19 +278,17 @@ module Templating::Compilers
             options = parameters_values(element)
             collection = phash.delete(:collection)
             lines = (@mode == :debug ? "[]" : collection)
-            if font = options[:font]
-              font = "Helvetica" if font.downcase == "helvetica"
-              font = "Times-Roman" if font.downcase == "times"
-              phash[:font] = "'#{font}'"
-            end
             code << "#{variable}.list(#{lines}, #{hash_to_code(phash, true)})"
 
           elsif name == :page            
             # Xil 2.0 assumes that Times 10pt is default font
-            code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]||':portrait'}, :margins=>#{phash[:margin]||'15.mm'})"
+            phash[:size] = phash.delete(:format) || "'A4'"
+            phash[:orientation] ||= ':portrait'
+            phash[:margins] = phash.delete(:margin) || '15.mm'
+            code << "#{variable}.page(#{hash_to_code(phash)})"
             code << execute_children(element, "_p", depth+1)
 
-          elsif name == :part
+          elsif name == :slice
             # code << "(:height => #{phash[:height]})" if phash[:height]
             phash.delete(:height) if element.find(".//list[@resize='true']").size > 0
             code << "#{variable}.slice(#{hash_to_code(phash)})"
@@ -257,7 +298,7 @@ module Templating::Compilers
             if phash[:right]
               phash[:left] = "(#{variable}.current_box.width - #{phash.delete(:right)})"
             end
-            phash[:stroke] = phash.delete(:border)
+            # phash[:stroke] = phash.delete(:border)
             code << "#{variable}.rectangle(#{hash_to_code(phash)})"
 
           elsif name == :set
@@ -283,7 +324,7 @@ module Templating::Compilers
             offset = start
             element.each_element do |e|
               if e.name == 'column'
-                col = {:phash => parameters_hash(e, variable), :attributes=>e.attributes}
+                col = {:phash => parameters_hash(e), :attributes=>e.attributes}
                 col[:offset] = offset
                 col[:width] = measure_to_float(e.attributes['width'])
                 col[:align] = e.attributes["align"] || :left
@@ -344,40 +385,6 @@ module Templating::Compilers
 
 
           elsif name == :text
-            options = parameters_values(element)
-            options[:align] ||= :left
-            if right = options.delete(:right)
-              options[:left] = "(#{variable}.current_box.width - #{pt_to_s(right)})"
-            else
-              options[:left] ||= 0
-            end
-            if options[:align] == :right and options[:width]
-              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width])})"
-            elsif options[:align] == :right and !options[:width]
-              if options[:left].is_a?(Numeric) and options[:left] > 0
-                options[:width] = options[:left]
-              elsif options[:left].is_a?(String)
-                options[:width] = options[:left]
-              end
-              options[:left] = 0
-            elsif options[:align] == :center and options[:width]
-              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width]/2)})"              
-            elsif options[:align] == :center and !options[:width]
-              if options[:left].is_a?(Numeric) and options[:left] > 0
-                options[:width] = options[:left]*2 
-              elsif options[:left].is_a?(String)
-                options[:width] = "(#{options[:left]}*2)"
-              end
-              options[:left] = 0              
-            end
-            if font = options[:font]
-              font = "Helvetica" if font.downcase == "helvetica"
-              font = "Times-Roman" if font.downcase == "times"
-              phash[:font] = "'#{font}'"
-            end
-            phash[:left] = options[:left]
-            phash[:width] = options[:width] if options[:width]
-            phash.delete(:right)
             value = phash.delete(:value)
             code << "#{variable}.text(#{value}, #{hash_to_code(phash, true)})"
 
@@ -397,6 +404,8 @@ module Templating::Compilers
           end
           return code.strip
         end
+
+
 
       end
     end
