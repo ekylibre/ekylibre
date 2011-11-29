@@ -9,14 +9,14 @@
   <document unit="mm" size="10" title="Bilan {{financial_year.company.name}} {{financial_year.code}}">
     <page orientation="portrait" format="A4" margin="10mm">
       <slice margins="0 0 5mm">
-	<text value="Bilan {{financial_year.company.name}} pour la période du {{financial_year/started_on?format=month_letter}} au {{financial_year/stopped_on?format=month_letter}}" size="14" align="center" bold="true"/>
+	<text value="Bilan {{financial_year.company.name}} pour la période du {{financial_year/started_on?format=month_letter}} au {{financial_year/stopped_on?format=month_letter}}" size="14" align="center" bold="true" background="#ABF" margins="5mm"/>
       </slice>
       <slice>
  	<rectangle width="190mm" height="20mm" stroke="0.5pt solid #000"/>
 	<rectangle width="75mm"  height="20mm" left="90mm" stroke="0.5pt solid #000"/>
 	<rectangle width="100mm" height="5mm" left="90mm"  top="15mm" stroke="0.5pt solid #000"/>
 	<rectangle width="25mm"  height="5mm" left="115mm" top="15mm" stroke="0.5pt solid #000"/>
-	<text align="center" valign="center" width="90mm" height="20mm" value="ACTIF"/>
+	<text align="center" valign="center" width="90mm" height="20mm" value="ACTIF" size="14"/>
 	<text align="center" valign="center" width="75mm" height="15mm" left="90mm"  value="Exercice du {{financial_year.started_on?date-format=%d/%m/%Y}} au {{financial_year.stopped_on?date-format=%d/%m/%Y}}"/>
 	<text align="center" valign="center" width="25mm" height="15mm" left="165mm" value="Exercice du {{financial_year.previous.started_on?date-format=%d/%m/%Y}} au {{financial_year.previous.stopped_on?date-format=%d/%m/%Y}}" if="financial_year.previous"/>
 	<text align="center" valign="center" width="25mm" height="5mm" top="15mm" left="90mm"  value="Brut"/>
@@ -141,14 +141,14 @@
 	  <grid-cell value="Immobilisations financières (2)"/>
 	</grid-row>
 	<grid-row>
-	  <grid-cell value="Rowicipations"/>
+	  <grid-cell value="Participations"/>
 	  <grid-cell value="{{financial_year.balance('261,266')}}"/>
 	  <grid-cell value="{{financial_year.balance('2961,2966')}}"/>
 	  <grid-cell value="{{financial_year.balance('261,266,-2961,-2966')}}"/>
 	  <grid-cell value="{{financial_year.previous.balance('261,266,-2961,-2966')}}"/>
 	</grid-row>
 	<grid-row>
-	  <grid-cell value="Créances rattachées à des rowicipations"/>
+	  <grid-cell value="Créances rattachées à des participations"/>
 	  <grid-cell value="{{financial_year.balance('267,268')}}"/>
 	  <grid-cell value="{{financial_year.balance('2967,2968')}}"/>
 	  <grid-cell value="{{financial_year.balance('267,268,-2967,-2968')}}"/>
@@ -340,7 +340,7 @@
       <slice>
 	<rectangle width="190mm" height="15mm" stroke="0.5pt solid #000"/>
 	<rectangle width="25mm"  height="15mm" left="140mm" stroke="0.5pt solid #000"/>
-	<text align="center" valign="center" width="140mm" height="15mm" value="PASSIF"/>
+	<text align="center" valign="center" width="140mm" height="15mm" value="PASSIF" size="14"/>
 	<text align="center" valign="center" width="25mm" height="15mm" left="140mm" value="Exercice du {{financial_year.started_on?date-format=%d/%m/%Y}} au {{financial_year.stopped_on?date-format=%d/%m/%Y}}"/>
 	<text align="center" valign="center" width="25mm" height="15mm" left="165mm" value="Exercice du {{financial_year.previous.started_on?date-format=%d/%m/%Y}} au {{financial_year.previous.stopped_on?date-format=%d/%m/%Y}}" if="financial_year.previous"/>
       </slice>
@@ -424,7 +424,7 @@
 	  <grid-cell value="AUTRES FONDS PROPRES"/>
 	</grid-row>
 	<grid-row>
-	  <grid-cell value="Produits des émissions de titres rowicipatifs"/>
+	  <grid-cell value="Produits des émissions de titres participatifs"/>
 	  <grid-cell value="{{financial_year.balance('1671')}}"/>
 	  <grid-cell value="{{financial_year.previous.balance('1671')}}"/>
 	</grid-row>

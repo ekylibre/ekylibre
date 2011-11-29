@@ -121,13 +121,7 @@ module Templating
       def initialize(document, options={})
         @document = document
         @pen = document.pen
-        @margins = options.delete(:margins) 
-        @margins = [@margins] if @margins.is_a? Numeric
-        @margins = [] unless @margins.is_a? Array
-        @margins[0] = (@margins[0] || 15.mm)
-        @margins[1] = (@margins[1] || @margins[0])
-        @margins[2] = (@margins[2] || @margins[0])
-        @margins[3] = (@margins[3] || @margins[1])
+        @margins = normalize_margins(options.delete(:margins) || 15.mm)
         @debug_margin = 7
         size = options.delete(:size)
         if size.is_a?(String) or size.nil?
@@ -164,6 +158,7 @@ module Templating
 
       # Start a new page using the default settings
       # To change the settings from a page to another, it's necessary to call {#page} again.
+      # @todo set default graphics state
       def break!
         @document.pen.start_new_page(:size => [@width, @height], :margin => 0)
         f = @document.default_font
@@ -193,6 +188,17 @@ module Templating
         @height - @margins[0] - @margins[2]
       end
 
+      private
+
+      def normalize_margins(margins = 0)
+        margins ||= 0
+        margins = [margins.to_f] unless margins.is_a?(Array)
+        margins[1] ||= margins[0]
+        margins[2] ||= margins[0]
+        margins[3] ||= margins[1]
+        return margins
+      end
+
     end
 
 
@@ -210,7 +216,7 @@ module Templating
         if height.nil?
           pen = page.document.pen
           pen.transaction do
-            height = Slice.new(page, options, &block).height
+            height = Slice.new(page, options.dup, &block).height
             pen.rollback
           end
         end
@@ -231,13 +237,7 @@ module Templating
         @pen = @document.pen
         @resizing = options[:height].nil?
         @height = (resizing? ? nil : options.delete(:height).to_f)
-        @margins = options.delete(:margins)
-        @margins = [@margins] if @margins.is_a? Numeric
-        @margins = [] unless @margins.is_a? Array
-        @margins[0] = (@margins[0] || 0)
-        @margins[1] = (@margins[1] || @margins[0])
-        @margins[2] = (@margins[2] || @margins[0])
-        @margins[3] = (@margins[3] || @margins[1])
+        @margins = normalize_margins(options.delete(:margins))
         if !resizing? and @height < @margins[0]+@margins[2]
           raise ArgumentError.new("Vertical margins are too big")
         end
@@ -250,17 +250,16 @@ module Templating
         inner_width = @page.width-(left + @page.margins[1] + @margins[1])
         inner_height = (resizing? ? nil : @height-@margins[0]-@margins[2])
         box = self.box(:left=>left, :top=>top, :width=>inner_width, :height=>inner_height) do
-          yield self if block_given?
+          paint(:fill=>"#000", :stroke=>"1pt solid #000") do
+            yield self if block_given?
+          end
         end
         @height = box.height + @margins[0] + @margins[2] if resizing?
         if @document.debug?
           bottom = @page.height - @height - @page.done
           paint(:stroke=>"0.2pt solid #AAF") do
-            # @pen.stroke_color("AAAAFF")
-            # @pen.line_width = 0.2
             @pen.line([0, bottom], [@page.margins[3]-@page.debug_margin, bottom])
             @pen.line([@page.width-@page.margins[1]+@page.debug_margin, bottom], [@page.width, bottom])
-            # @pen.stroke
           end
         end
       end
@@ -276,7 +275,7 @@ module Templating
         @current_box += 1
         @boxes_stack[@current_box] = child
         yield if block_given?
-        child = @boxes_stack.delete_at(@current_box)
+        @boxes_stack.delete_at(@current_box)
         @current_box -= 1
         current_box.resize(child.top+child.height) if current_box
 
@@ -453,7 +452,7 @@ module Templating
       end
 
       # Write text
-      # @param [String,Array] string Text to display
+      # @param [String] string Text to display
       # @param [Hash] options The options to define the page properties
       # @option options [Symbol] :align (:left) Horizontal alignment of text (:center, :left, :right, :justify)
       # @option options [Symbol] :valign (:top) Vertical alignment of text (:center, :top, :bottom)
@@ -465,31 +464,39 @@ module Templating
       # @option options [Float] :size Set the size of the font
       # @option options [Boolean] :bold Set the text in bold face
       # @option options [Boolean] :italic Set the text in italic face
+      # @option options [String] :fill Set the background color of the text box
+      # @option options [String] :stroke Set the border of the text box
       def text(string, options={})
         box_options = {}
         box_options[:document] = @pen
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
-        box_options[:at] = [current_box.x + left, current_box.y - top]
-        box_options[:width] = options[:width] || current_box.width
+        margins = normalize_margins(options.delete(:margins))
+        box_options[:at] = [current_box.x + left + margins[3], current_box.y - top - margins[0]]
+        width, height = options[:width] || current_box.width, options[:height]
+        box_options[:width] = width - margins[1] - margins[3]
         box_options[:height] = options[:height] if options[:height]
         box_options[:align] = options[:align] || :left
         box_options[:valign] = options[:valign] || :top
         box = nil
-        @pen.save_font do
-          @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
-          inline_format = false
-          inline_format = true if options[:bold] or options[:italic]
-          string = "<b>#{string}</b>" if options[:bold] == true
-          string = "<i>#{string}</i>" if options[:italic] == true
-          
-          box = if inline_format
-                  array = Prawn::Text::Formatted::Parser.to_array(string)
-                  Prawn::Text::Formatted::Box.new(array, box_options)
-                else
-                  Prawn::Text::Box.new(string, box_options)
-                end
-          box.render
-          current_box.resize(box.height+top)
+        string = {:text=>string, :styles=>[]}
+        string[:styles] << :bold if options[:bold]
+        string[:styles] << :italic if options[:italic]
+        string[:font] = options[:font] if options[:font]
+        string[:size] = options[:size] if options[:size]
+        string[:color] = normalize_color(options[:color]) if options[:color]
+        inner_height = (options[:height].nil? ? @pen.height_of_formatted([string], box_options) : options[:height] - margins[0] - margins [2])
+        @pen.save_graphics_state do
+          @pen.save_font do
+            if false # options[:fill] or options[:stroke]
+              paint(:fill=>options.delete(:fill), :stroke=>options.delete(:stroke)) do
+                @pen.rectangle([current_box.x + left, current_box.y - top], width, inner_height + margins[0] + margins [2])
+              end
+            end
+            @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
+            box = Prawn::Text::Formatted::Box.new([string], box_options)
+            box.render
+            current_box.resize(top + margins[0] + inner_height + margins[2])
+          end
         end
         return box
       end
@@ -502,7 +509,7 @@ module Templating
       # @option options [Float] :top (0) Top position from top paper border or parent box
       # @option options [Float] :width Default width for each cell
       # @option options [Float] :border Default border for each cell
-      # @option options [Float,Array] :margins ([0.5,1,0]) Default margins for each cell
+      # @option options [Float,Array] :margins ([2,2,0]) Default margins for each cell
       # @option cell_options [String] :value Text to display
       # @option cell_options [Symbol] :align Vertical alignment of the text
       # @option cell_options [String] :bold Text to display
@@ -514,22 +521,18 @@ module Templating
       # @option cell_options [String,Array] :border Set the border of the cell
       def row(cells, options={})
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
-        margins = options.delete(:margins) || [0.5,1,0]
-        margins = [margins.to_f] unless margins.is_a?(Array)
-        margins[1] ||= margins[0]
-        margins[2] ||= margins[0]
-        margins[3] ||= margins[1]
+        margins = normalize_margins(options.delete(:margins) || [2,2,0])
         cells = cells.collect do |x|
           (x.is_a?(Hash) ? x : {:value=>x.to_s})
         end
         for cell in cells
           string = {:text=>cell[:value].to_s}
-          string[:size] = cell[:size] if cell[:size]
           styles = []
           styles << :bold if cell[:bold]
           styles << :italic if cell[:italic]
           string[:styles] = styles
           string[:font] = cell[:font] if cell[:font]
+          string[:size] = cell[:size] if cell[:size]
           string[:color] = cell[:color] if cell[:color]
           cell[:value] = [string]
         end
@@ -546,16 +549,18 @@ module Templating
         shift = 0
         for cell in cells
           @pen.save_font do
-            @pen.font(cell[:font], :size=>cell[:size])
             height = @pen.height_of_formatted(cell[:value], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align])
             inner_height = height if height > inner_height
           end
           cell[:left] = shift
           shift += cell[:width]
         end
-        inner_height += margins[0] + margins[2]
-        for cell in cells
-          @pen.formatted_text_box(cell[:value], :at=>[current_box.x + left + cell[:left] + margins[3], current_box.y - top - margins[0]], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align], :valign=>cell[:valign]||:center, :height=>inner_height)
+        # inner_height += margins[0] + margins[2]
+        paint(:stroke=>"0.5pt solid #000") do
+          for cell in cells
+            @pen.formatted_text_box(cell[:value], :at=>[current_box.x + left + cell[:left] + margins[3], current_box.y - top - margins[0]], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align], :valign=>cell[:valign]||:center, :height=>inner_height)
+            @pen.rectangle([current_box.x + left + cell[:left], current_box.y - top], cell[:width], margins[0] + inner_height + margins[2])
+          end
         end
         current_box.resize(top + margins[0] + inner_height + margins[2])
         return self
@@ -677,6 +682,15 @@ module Templating
         return color.downcase
       end
 
+      def normalize_margins(margins = 0)
+        margins ||= 0
+        margins = [margins.to_f] unless margins.is_a?(Array)
+        margins[1] ||= margins[0]
+        margins[2] ||= margins[0]
+        margins[3] ||= margins[1]
+        return margins
+      end
+
     end
     
 
@@ -710,7 +724,8 @@ module Templating
       end
 
       def inspect
-        "{#{@left}:#{@top}~>#{@absolute_left}:#{@absolute_top} #{@width.round}x#{@height.round}}" # #{@parent.inspect if @parent}->
+        # "{#{@left}:#{@top}~>#{@absolute_left}:#{@absolute_top} #{@width.round}x#{@height.round}}" # #{@parent.inspect if @parent}->
+        "{#{@left}:#{@top}~>#{self.x}:#{self.y} #{@width.round}x#{@height.round}}"
       end
 
       def resizing?
@@ -772,48 +787,6 @@ module Templating
       end
 
     end
-
-
-
-    # class Fill
-
-    #   def initialize(*args)
-    #   end
-
-    # end
-
-    # class Stroke
-    #   attr_reader :width, :style
-      
-    #   def initialize(*args)
-    #     if args.size == 1 and args[0].is_a?(String)
-    #       expr = args[0].split(" ")
-    #       @width = Stoke.string_to_measure(expr[0])
-    #       @style = 0
-    #       @color = 0
-            
-    #     else
-    #       raise Exception.new("Unknown stroke")
-    #     end
-    #   end
-
-    #   def self.string_to_measure(string, nvar)
-    #     string = string.to_s
-    #     m = if string.match(/\-?\d+(\.\d+)?mm/)
-    #           string[0..-3]+'.mm'
-    #         elsif string.match(/\-?\d+(\.\d+)?\%/)
-    #           string[0..-2].to_f == 100 ? "#{nvar}.width" : (string[0..-2].to_f/100).to_s+"*#{nvar}.width"
-    #         elsif string.match(/\-?\d+(\.\d+)?/)
-    #           string
-    #         else
-    #         " (0) "
-    #         end
-    #     m = '('+m+')' if m.match(/^\-/)
-    #     return m
-    #   end
-
-      
-    # end
 
 
   end

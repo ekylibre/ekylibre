@@ -27,8 +27,7 @@ module Templating::Compilers
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
           element("iteration", "collection!"=>:variable, "variable!"=>:variable)
-          element("text", "value!"=>:string, "left"=>:length, "top"=>:length, "width"=>:length, "height"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string)
-          # element("cell", "string, {:left"=>:length, "top"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "width"=>:length, "font"=>:string})
+          element("text", "value!"=>:string, "left"=>:length, "top"=>:length, "width"=>:length, "height"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:string, "valign"=>:symbol, "border"=>:stroke, "font"=>:string, "background"=>:string, "margins"=>:length4)
           element("rectangle", "width!"=>:length, "height!"=>:length, "left"=>:length, "top"=>:length, "stroke"=>:stroke)
           element("line", "path!"=>:path, "width"=>:length, "border"=>:stroke)
           element("image", "value!"=>:string, "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length) do
@@ -131,6 +130,8 @@ module Templating::Compilers
               datum = case option[0]
                       when 'format'
                         "::I18n.localize(#{datum}, :format=>:#{option[1]})"
+                      when 'date-format'
+                        "::I18n.localize(#{datum}, :format=>'#{option[1]}')"
                       when 'numeric'
                         "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
                       else
@@ -242,6 +243,7 @@ module Templating::Compilers
                 end
                 pch[:align] ||= ":#{columns[i][:align] || :left}"
                 pch[:width] = columns[i][:width]
+                pch[:border] ||= columns[i][:border]
                 i += 1
                 hash_to_code(pch, true)
               end.join(', ')
@@ -386,6 +388,8 @@ module Templating::Compilers
 
           elsif name == :text
             value = phash.delete(:value)
+            phash[:stroke] = phash.delete(:border)
+            phash[:fill] = phash.delete(:background)
             code << "#{variable}.text(#{value}, #{hash_to_code(phash, true)})"
 
           else
