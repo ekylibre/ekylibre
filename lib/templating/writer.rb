@@ -67,7 +67,7 @@ module Templating
         for key, value in options
           info[INFOS[key]] = value if INFOS[key]
         end
-        @pen = Prawn::Document.new(:skip_page_creation => true, :info=>info)
+        @pen = Prawn::Document.new(:skip_page_creation => true, :info=>info, :compress=>true)
         @default_font = {:name=>'Helvetica', :size=>10}
         @default_font.update(options[:default_font] || {})
         @debug = options[:debug]
@@ -109,6 +109,169 @@ module Templating
         @pen.render_file(filename)
       end
     end
+
+
+    # This module provides some methods to normalize values
+    module PenHelper
+      COLOR_KEYWORDS = {"black" => [0,0,0], "silver" => [192,192,192], "gray" => [128,128,128], "white" => [255,255,255], "maroon" => [128,0,0], "red" => [255,0,0], "purple" => [128,0,128], "fuchsia" => [255,0,255], "green" => [0,128,0], "lime" => [0,255,0], "olive" => [128,128,0], "yellow" => [255,255,0], "navy" => [0,0,128], "blue" => [0,0,255], "teal" => [0,128,128], "aqua" => [0,255,255], "orange" => [255,165,0], "aliceblue" => [240,248,245], "antiquewhite" => [250,235,215], "aquamarine" => [127,255,212], "azure" => [240,255,255], "beige" => [245,245,220], "bisque" => [255,228,196], "blanchedalmond" => [255,235,205], "blueviolet" => [138,43,226], "brown" => [165,42,42], "burlywood" => [222,184,35], "cadetblue" => [95,158,160], "chartreuse" => [127,255,0], "chocolate" => [210,105,30], "coral" => [255,127,80], "cornflowerblue" => [100,149,237], "cornsilk" => [255,248,220], "crimson" => [220,20,60], "darkblue" => [0,0,139], "darkcyan" => [0,139,139], "darkgoldenrod" => [184,134,11], "darkgray" => [169,169,169], "darkgreen" => [0,100,0], "darkgrey" => [169,169,169], "darkkhaki" => [189,183,107], "darkmagenta" => [139,0,139], "darkolivegreen" => [85,107,47], "darkorange" => [255,140,0], "darkorchid" => [153,50,204], "darkred" => [139,0,0], "darksalmon" => [233,150,122], "darkseagreen" => [143,188,143], "darkslateblue" => [72,61,139], "darkslategray" => [47,79,79], "darkslategrey" => [47,79,79], "darkturquoise" => [0,206,209], "darkviolet" => [148,0,211], "deeppink" => [255,20,147], "deepskyblue" => [0,191,255], "dimgray" => [105,105,105], "dimgrey" => [105,105,105], "dodgerblue" => [30,144,255], "firebrick" => [178,34,34], "floralwhite" => [255,250,240], "forestgreen" => [34,139,34], "gainsboro" => [220,220,220], "ghostwhite" => [248,248,255], "gold" => [255,215,0], "goldenrod" => [218,165,32], "greenyellow" => [173,255,47], "grey" => [128,128,128], "honeydew" => [240,255,240], "hotpink" => [255,105,180], "indianred" => [205,92,92], "indigo" => [75,0,130], "ivory" => [255,255,240], "khaki" => [240,230,140], "lavender" => [230,230,250], "lavenderblush" => [255,240,245], "lawngreen" => [124,252,0], "lemonchiffon" => [255,250,205], "lightblue" => [173,216,230], "lightcoral" => [240,128,128], "lightcyan" => [224,255,255], "lightgoldenrodyellow" => [250,250,210], "lightgray" => [211,211,211], "lightgreen" => [144,238,144], "lightgrey" => [211,211,211], "lightpink" => [255,182,193], "lightsalmon" => [255,160,122], "lightseagreen" => [32,178,170], "lightskyblue" => [135,206,250], "lightslategray" => [119,136,153], "lightslategrey" => [119,136,153], "lightsteelblue" => [176,196,222], "lightyellow" => [255,255,224], "limegreen" => [50,205,50], "linen" => [250,240,230], "mediumaquamarine" => [102,205,170], "mediumblue" => [0,0,205], "mediumorchid" => [186,85,211], "mediumpurple" => [147,112,219], "mediumseagreen" => [60,179,113], "mediumslateblue" => [123,104,238], "mediumspringgreen" => [0,250,154], "mediumturquoise" => [72,209,204], "mediumvioletred" => [199,21,133], "midnightblue" => [25,25,112], "mintcream" => [245,255,250], "mistyrose" => [255,228,225], "moccasin" => [255,228,181], "navajowhite" => [255,222,173], "oldlace" => [253,245,230], "olivedrab" => [107,142,35]}.freeze
+
+      # Normalizes margins. It generates an array of 4 values
+      # correponding to top, right, bottom and left like defined in CSS
+      def normalize_margins(margins = 0)
+        margins ||= 0
+        margins = [margins.to_f] unless margins.is_a?(Array)
+        margins[1] ||= margins[0]
+        margins[2] ||= margins[0]
+        margins[3] ||= margins[1]
+        return margins
+      end
+
+      # Normalizes color to usable form. Follow the CSS standard
+      # Accepted formats are: <name>, #L, #LL, #RGB, #RGBA, #RRGGBB, 
+      # #RRGGBBAA, rgb(R,G,B), rgba(R,G,B,A), hsl(H,S,L), hsla(H,S,L,A)
+      def normalize_color(color, with_opacity = false)
+        color = color.to_s.strip.downcase
+        rgba = [0, 0, 0, 1]
+        if color == "transparent"
+          rgba = [0, 0, 0, 0]
+        elsif COLOR_KEYWORDS[color]
+          rgba = COLOR_KEYWORDS[color].collect{|v| v.to_f/255}
+        elsif color.match(/^rgb\(\s*\d+\s*\,\s*\d+\s*\,\s*\d+\s*\)$/)
+          rgba = color.split(/[\(\s\)\,]+/)[1..3].collect{|x| (x.to_f > 255 ? 255 : x.to_f < 0 ? 0 : x).to_f/255.0}
+        elsif color.match(/^rgba\(\s*\d+\s*\,\s*\d+\s*\,\s*\d+\s*,\s*\d(\.\d+)?\s*\)$/)
+          values = color.split(/[\(\s\)\,]+/).collect{|x| x.to_f}
+          rgba = values[1..3].collect{|x| (x > 255 ? 255 : x < 0 ? 0 : x).to_f/255.0}
+          rgba << (values[4] > 1 ? 1 : values[4] < 0 ? 0 : values[4])
+        elsif color.match(/^rgb\(\s*\d+\%\s*\,\s*\d+\%\s*\,\s*\d+\%\s*\)$/)
+          rgba = color.split(/[\(\s\)\,\%]+/)[1..3].collect{|x| (x.to_f > 100 ? 100 : x.to_f < 0 ? 0 : x).to_f / 100.0}
+        elsif color.match(/^rgba\(\s*\d+\%\s*\,\s*\d+\%\s*\,\s*\d+\%\s*,\s*\d(\.\d+)?\s*\)$/)
+          values = color.split(/[\(\s\)\,]+/).collect{|x| x.to_f}
+          rgba = values[1..3].collect{|x| (x > 100 ? 100 : x < 0 ? 0 : x).to_f / 100.0}
+          rgba << (values[4] > 1 ? 1 : values[4] < 0 ? 0 : values[4])
+        elsif color.match(/^hsl\(\s*\d+\s*\,\s*\d+\%\s*\,\s*\d+\%\s*\)$/)
+          h, s, l = color.split(/[\(\s\)\,\%]+/)[1..3].collect{|x| x.to_f}
+          rgba = hsl_to_rgb(h, s, l)
+        elsif color.match(/^hsla\(\s*\d+\s*\,\s*\d+\%\s*\,\s*\d+\%\s*,\s*\d(\.\d+)?\s*\)$/)
+          values = color.split(/[\(\s\)\,]+/).collect{|x| x.to_f}
+          rgba = hsl_to_rgb(values[1], values[2], values[3])          
+          rgba << (values[4] > 1 ? 1 : values[4] < 0 ? 0 : values[4])
+        elsif color.match(/^\#[0123456789abcdef]$/)
+          rgba = [(color[1..1]*2).to_i(16).to_f/255]*3
+        elsif color.match(/^\#[0123456789abcdef]{2}$/)
+          rgba = [color[1..2].to_i(16).to_f/255]*3
+        elsif color.match(/^\#[0123456789abcdef]{3}$/)
+          rgba = [(color[1..1]*2).to_i(16).to_f/255, 
+                  (color[2..2]*2).to_i(16).to_f/255,
+                  (color[3..3]*2).to_i(16).to_f/255]
+        elsif color.match(/^\#[0123456789abcdef]{4}$/)
+          rgba = [(color[1..1]*2).to_i(16).to_f/255, 
+                  (color[2..2]*2).to_i(16).to_f/255,
+                  (color[3..3]*2).to_i(16).to_f/255,
+                  (color[4..4]*2).to_i(16).to_f/255]
+        elsif color.match(/^\#[0123456789abcdef]{6}$/)
+          rgba = [color[1..2].to_i(16).to_f/255,
+                  color[3..4].to_i(16).to_f/255,
+                  color[5..6].to_i(16).to_f/255]
+        elsif color.match(/^\#[0123456789abcdef]{8}$/)
+          rgba = [color[1..2].to_i(16).to_f/255,
+                  color[3..4].to_i(16).to_f/255,
+                  color[5..6].to_i(16).to_f/255,
+                  color[7..8].to_i(16).to_f/255]
+        else
+          raise ArgumentError.new("Color format not supported: #{color.inspect}")
+        end
+        rgba[3] ||= 1
+        string = "#{(rgba[0]*255).round.to_s(16).rjust(2,'0')}#{(rgba[1]*255).round.to_s(16).rjust(2,'0')}#{(rgba[2]*255).round.to_s(16).rjust(2,'0')}".downcase
+        if with_opacity
+          return string, rgba[3]
+        else
+          return string
+        end
+      end
+
+      # Converts HSL values to RGB
+      # @param h Hue (deg) in 0..360
+      # @param s Saturation (%) in 0..100
+      # @param l Luminosity (%) in 0..100
+      def hsl_to_rgb(h, s, l)
+        hp = h.to_i.modulo(360).to_f / 60.0
+        s = (s > 100 ? 100 : s < 0 ? 0 : s).to_f / 100.0
+        l = (l > 100 ? 100 : l < 0 ? 0 : l).to_f / 100.0
+        chroma = (1 - (2*l - 1).abs) * s
+        second = chroma * (1 - (hp.modulo(2) - 1).abs)
+        m =  l - 0.5 * chroma
+        rgb = if hp >= 5 
+                [chroma + m, second + m, m]
+              elsif hp >= 4
+                [second + m, chroma + m, m]
+              elsif hp >= 3
+                [m, chroma + m, second + m]
+              elsif hp >= 2
+                [m, second + m, chroma + m]
+              elsif hp >= 1
+                [second + m, m, chroma + m]
+              else
+                [chroma + m, m, second + m]
+              end
+        return rgb
+      end
+
+
+      # Sets the stroke and fill properties, yields and then fill and/or stroke
+      # @todo Take in account the opacity like in CSS with rgba
+      def paint(options={})
+        @pen.save_graphics_state do
+          fill_opacity, stroke_opacity = nil, nil
+          # Set fill
+          if fill = options.delete(:fill)
+            color, fill_opacity = normalize_color(fill, true)
+            @pen.fill_color(color)
+          end
+          # Set stroke
+          if stroke = options.delete(:stroke)
+            width, style, color = stroke.strip.split(/\s+/)
+            width = width.gsub(/[a-z]+/, '').to_d.send(width.gsub(/[^a-z]+/, '').to_sym)
+            @pen.line_width = width
+            if style == "dotted"
+              @pen.dash(width)
+            elsif style == "dashed"
+              @pen.dash(width*3) # Like in Firefox
+            else
+              @pen.undash
+            end
+            color, stroke_opacity = normalize_color(color, true)
+            @pen.stroke_color(color)
+          end
+          transparent(fill_opacity, stroke_opacity) do
+            yield if block_given?
+            # Paint
+            if fill and stroke
+              @pen.fill_and_stroke
+            elsif fill
+              @pen.fill
+            elsif stroke
+              @pen.stroke
+            end
+          end
+        end
+      end
+
+      def transparent(opacity, stroke_opacity = nil, &block)
+        if block_given?
+          opacity ||= 1
+          stroke_opacity ||= opacity
+          if opacity == 1 and stroke_opacity == 1
+            yield 
+          else
+            @pen.transparent(opacity, stroke_opacity) do
+              yield
+            end
+          end
+        end
+      end
+
+    end
+
 
     # Represents a page which can be continued on other pages with the same aspect
     # if the slices occupy more than a single page.
@@ -164,15 +327,17 @@ module Templating
         f = @document.default_font
         @document.pen.font(f[:name], :size=>f[:size])
         if @document.debug?
-          # @pen.rectangle([@margins[3]-@debug_margin, @height-@margins[1]+@debug_margin], self.inner_width+2*@debug_margin, self.inner_height+2*@debug_margin) 
-          @pen.line([0, @margins[2]], [@margins[3]-@debug_margin, @margins[2]])
-          @pen.line([0, @height-@margins[0]], [@margins[3]-@debug_margin, @height-@margins[0]])
-          @pen.line([@width-@margins[1]+@debug_margin, @margins[2]], [@width, @margins[2]])
-          @pen.line([@width-@margins[1]+@debug_margin, @height-@margins[0]], [@width, @height-@margins[0]])
-          @pen.line([@margins[3], 0], [@margins[3], @margins[2]-@debug_margin])
-          @pen.line([@margins[3], @height-@margins[0]+@debug_margin], [@margins[3], @height])
-          @pen.line([@width-@margins[1], 0], [@width-@margins[1], @margins[2]-@debug_margin])
-          @pen.line([@width-@margins[1], @height-@margins[0]+@debug_margin], [@width-@margins[1], @height])
+          paint(:stroke=>"0.2pt solid #00F5") do
+            # @pen.rectangle([@margins[3]-@debug_margin, @height-@margins[1]+@debug_margin], self.inner_width+2*@debug_margin, self.inner_height+2*@debug_margin)
+            @pen.line([0, @margins[2]], [@margins[3]-@debug_margin, @margins[2]])
+            @pen.line([0, @height-@margins[0]], [@margins[3]-@debug_margin, @height-@margins[0]])
+            @pen.line([@width-@margins[1]+@debug_margin, @margins[2]], [@width, @margins[2]])
+            @pen.line([@width-@margins[1]+@debug_margin, @height-@margins[0]], [@width, @height-@margins[0]])
+            @pen.line([@margins[3], 0], [@margins[3], @margins[2]-@debug_margin])
+            @pen.line([@margins[3], @height-@margins[0]+@debug_margin], [@margins[3], @height])
+            @pen.line([@width-@margins[1], 0], [@width-@margins[1], @margins[2]-@debug_margin])
+            @pen.line([@width-@margins[1], @height-@margins[0]+@debug_margin], [@width-@margins[1], @height])
+          end
         end
         @done = @start.to_f
         return self
@@ -190,14 +355,7 @@ module Templating
 
       private
 
-      def normalize_margins(margins = 0)
-        margins ||= 0
-        margins = [margins.to_f] unless margins.is_a?(Array)
-        margins[1] ||= margins[0]
-        margins[2] ||= margins[0]
-        margins[3] ||= margins[1]
-        return margins
-      end
+      include PenHelper
 
     end
 
@@ -250,14 +408,14 @@ module Templating
         inner_width = @page.width-(left + @page.margins[1] + @margins[1])
         inner_height = (resizing? ? nil : @height-@margins[0]-@margins[2])
         box = self.box(:left=>left, :top=>top, :width=>inner_width, :height=>inner_height) do
-          paint(:fill=>"#000", :stroke=>"1pt solid #000") do
+          paint(:fill=>"black", :stroke=>"1pt solid black") do
             yield self if block_given?
           end
         end
         @height = box.height + @margins[0] + @margins[2] if resizing?
         if @document.debug?
           bottom = @page.height - @height - @page.done
-          paint(:stroke=>"0.2pt solid #AAF") do
+          paint(:stroke=>"0.2pt solid #00F5") do
             @pen.line([0, bottom], [@page.margins[3]-@page.debug_margin, bottom])
             @pen.line([@page.width-@page.margins[1]+@page.debug_margin, bottom], [@page.width, bottom])
           end
@@ -280,18 +438,18 @@ module Templating
         current_box.resize(child.top+child.height) if current_box
 
         if @document.debug?
-          paint(:stroke=>"0.2pt solid #AAF") do
+          paint(:stroke=>"0.2pt solid #00F5") do
             @pen.rectangle([child.x, child.y], child.width, child.height)
             @pen.line(child.top_left, child.bottom_right)
             @pen.line(child.bottom_left, child.top_right)
           end
-          paint(:fill=>"#AAF") do
+          paint(:fill=>"#00F5") do
             angle = 0
             @pen.font('Times-Roman', :size=>7) do
               for corner in [:top_left, :top_right, :bottom_right, :bottom_left]
                 method = corner # "absolute_#{corner}"
                 abso = child.send(corner) # @pen.bounds.send("absolute_#{corner}")
-                @pen.draw_text("(#{abso[0]}, #{abso[1]})", :at=>child.send(method), :rotate=>angle)
+                @pen.text_box("(#{abso[0]}, #{abso[1]})", :at=>child.send(method), :rotate=>angle)
                 angle -= 90
               end
             end
@@ -335,7 +493,7 @@ module Templating
         info = @pen.image(file, options)
         current_box.resize(top + info.scaled_height)
         if @document.debug?
-          paint(:stroke=>"0.2pt solid #AAF") do
+          paint(:stroke=>"0.2pt solid #00F5") do
             @pen.rectangle(options[:at], info.scaled_width, info.scaled_height)
           end
         end
@@ -454,7 +612,8 @@ module Templating
       # Write text
       # @param [String] string Text to display
       # @param [Hash] options The options to define the page properties
-      # @option options [Symbol] :align (:left) Horizontal alignment of text (:center, :left, :right, :justify)
+      # @option options [Symbol] :align (:left) Horizontal alignment of text 
+      #   (:center, :left, :right, :justify)
       # @option options [Symbol] :valign (:top) Vertical alignment of text (:center, :top, :bottom)
       # @option options [Float] :left Left position relatively to the slice or box
       # @option options [Float] :top Top position relatively to the slice or box
@@ -466,6 +625,7 @@ module Templating
       # @option options [Boolean] :italic Set the text in italic face
       # @option options [String] :fill Set the background color of the text box
       # @option options [String] :stroke Set the border of the text box
+      # @option options [String] :radius (0) Radius length of rounded corners
       def text(string, options={})
         box_options = {}
         box_options[:document] = @pen
@@ -473,6 +633,7 @@ module Templating
         margins = normalize_margins(options.delete(:margins))
         box_options[:at] = [current_box.x + left + margins[3], current_box.y - top - margins[0]]
         width, height = options[:width] || current_box.width, options[:height]
+        radius = options.delete(:radius) || 0
         box_options[:width] = width - margins[1] - margins[3]
         box_options[:height] = options[:height] if options[:height]
         box_options[:align] = options[:align] || :left
@@ -484,15 +645,24 @@ module Templating
         string[:font] = options[:font] if options[:font]
         string[:size] = options[:size] if options[:size]
         string[:color] = normalize_color(options[:color]) if options[:color]
-        inner_height = (options[:height].nil? ? @pen.height_of_formatted([string], box_options) : options[:height] - margins[0] - margins [2])
         @pen.save_graphics_state do
           @pen.save_font do
-            if false # options[:fill] or options[:stroke]
-              paint(:fill=>options.delete(:fill), :stroke=>options.delete(:stroke)) do
-                @pen.rectangle([current_box.x + left, current_box.y - top], width, inner_height + margins[0] + margins [2])
-              end
-            end
             @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
+            inner_height = (options[:height].nil? ? @pen.height_of_formatted([string], box_options) : options[:height] - margins[0] - margins [2]) #  
+            if options[:fill] or options[:stroke]
+              paint(:fill=>options.delete(:fill), :stroke=>options.delete(:stroke)) do
+                if radius.zero?
+                  @pen.rectangle([current_box.x + left, current_box.y - top], width, inner_height + margins[0] + margins [2])
+                else
+                  @pen.rounded_rectangle([current_box.x + left, current_box.y - top], width, inner_height + margins[0] + margins [2], radius)
+                end
+              end
+              paint(:fill=>"#DDF5") do
+                @pen.rectangle(box_options[:at], box_options[:width], inner_height)
+              end if @document.debug?
+            end
+            # raise [@pen.font.send(:size), @pen.font.height, @pen.font.ascender, @pen.font.line_gap, @pen.font.descender].inspect
+            # box_options[:at][1] -= @pen.font.line_gap
             box = Prawn::Text::Formatted::Box.new([string], box_options)
             box.render
             current_box.resize(top + margins[0] + inner_height + margins[2])
@@ -533,7 +703,7 @@ module Templating
           string[:styles] = styles
           string[:font] = cell[:font] if cell[:font]
           string[:size] = cell[:size] if cell[:size]
-          string[:color] = cell[:color] if cell[:color]
+          string[:color] = normalize_color(cell[:color]) if cell[:color]
           cell[:value] = [string]
         end
         widthed = cells.select{|c| !c[:width].nil?}
@@ -631,66 +801,9 @@ module Templating
         @pen.font(name, options, &block)
       end
 
-
-
-
       private
 
-      # @todo Take in account the opacity like in CSS with rgba
-      def paint(options={})
-        @pen.save_graphics_state do
-          # Set fill
-          if fill = options.delete(:fill)
-            @pen.fill_color(normalize_color(fill))
-          end
-          # Set stroke
-          if stroke = options.delete(:stroke)
-            width, style, color = stroke.strip.split(/\s+/)
-            width = width.gsub(/[a-z]+/, '').to_d.send(width.gsub(/[^a-z]+/, '').to_sym)
-            @pen.line_width = width
-            if style == "dotted"
-              @pen.dash(width)
-            elsif style == "dashed"
-              @pen.dash(width*3) # Like in Firefox
-            else
-              @pen.undash
-            end
-            @pen.stroke_color(normalize_color(color))
-          end
-          yield if block_given?
-          # Paint
-          if fill and stroke
-            @pen.fill_and_stroke
-          elsif fill
-            @pen.fill
-          elsif stroke
-            @pen.stroke
-          end
-        end
-      end
-
-      def normalize_color(color)
-        raise ArgumentError.new('Gradient are not supported') if color.match(/gradient/)
-        color = color[1..-1] if color.match(/^\#/)
-        if color.match(/^[0123456789ABCDEF]$/)
-          color = color[0..0]*6
-        elsif color.match(/^[0123456789ABCDEF]{2}$/)
-          color = color[0..1]*3
-        elsif color.match(/^[0123456789ABCDEF]{3}$/)
-          color = color[0..0]*2+color[1..1]*2+color[2..2]*2
-        end
-        return color.downcase
-      end
-
-      def normalize_margins(margins = 0)
-        margins ||= 0
-        margins = [margins.to_f] unless margins.is_a?(Array)
-        margins[1] ||= margins[0]
-        margins[2] ||= margins[0]
-        margins[3] ||= margins[1]
-        return margins
-      end
-
+      include PenHelper
     end
     
 

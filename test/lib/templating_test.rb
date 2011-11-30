@@ -15,7 +15,7 @@ class TemplatingTest < Test::Unit::TestCase
                Templating.fonts_dir.join("DejaVuSans-BoldOblique.ttf").to_s)
       doc.page(:size=>"A4", :margins=>[41.89, 45.28, 40, 40]) do |page|
         page.slice(:height=>200, :margins=>[15.0, 32.0]) do |s|
-          s.text("Hello world", :align=>:center, :margins=>10, :size=>16, :bold=>true, :fill=>'#FED')
+          s.text("Hello world! [gjpq]", :align=>:center, :margins=>10, :size=>16, :bold=>true, :fill=>'#0077', :radius=>10)
           s.box(:left=>200, :top=>20) do
             s.box(:left=>40, :top=>40, :height=>50, :width=>100) do
               s.text("Boxed!")
@@ -29,7 +29,7 @@ class TemplatingTest < Test::Unit::TestCase
           end
         end
         page.slice(:margins=>27) do |s|
-          s.text("Hello world! " * 17, :align=>:center, :color=>'#D40', :font=>'Times-Roman', :size=>12)
+          s.text("Hello world! [gjpq] " * 17, :align=>:center, :color=>'#D40', :font=>'Times-Roman', :size=>12, :fill=>'#0377',:margins=>4)
         end
         page.slice do |s|
           s.box(:left=>20, :top=>20, :width=>100) do
