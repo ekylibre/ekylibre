@@ -69,7 +69,7 @@ module Templating::Compilers
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          # return "# encoding: utf-8\n("+code+')'
+          return "# encoding: utf-8\n("+code+')'
           return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
         end
 
@@ -78,10 +78,12 @@ module Templating::Compilers
         def hash_to_code(hash, wrapped = false)
           code = hash.collect do |k,v| 
             ":#{k.to_s.gsub(/\-/, '_')} => " + if v.is_a? Symbol
-                                   v.inspect
-                                 else
-                                   v.to_s
-                                 end
+                                                 v.inspect
+                                               elsif v.nil?
+                                                 "nil"
+                                               else
+                                                 v.to_s
+                                               end
           end.join(', ')
           if wrapped
             return '{'+code+'}'
@@ -243,7 +245,7 @@ module Templating::Compilers
                 end
                 pch[:align] ||= ":#{columns[i][:align] || :left}"
                 pch[:width] = columns[i][:width]
-                pch[:border] ||= columns[i][:border]
+                pch[:border] ||= columns[i][:border] if columns[i][:border]
                 i += 1
                 hash_to_code(pch, true)
               end.join(', ')
@@ -388,8 +390,8 @@ module Templating::Compilers
 
           elsif name == :text
             value = phash.delete(:value)
-            phash[:stroke] = phash.delete(:border)
-            phash[:fill] = phash.delete(:background)
+            phash[:stroke] ||= phash.delete(:border) if phash[:border]
+            phash[:fill] ||= phash.delete(:background) if phash[:background]
             code << "#{variable}.text(#{value}, #{hash_to_code(phash, true)})"
 
           else
