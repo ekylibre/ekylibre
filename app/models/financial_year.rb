@@ -167,7 +167,7 @@ class FinancialYear < CompanyRecord
   # ^456 will remove all accounts 456*
   # 789D will take only the debit value of accounts 789*
   # 789C will take only the credit value of accounts 789*
-  def balance(accounts_number)
+  def balance(accounts_number, credit = false)
     normals, debits, credits, excepts, negatives = [], [], [], [], []
     for prefix in accounts_number.strip.split(/\s*[\,\s]+\s*/)
       code = prefix.gsub(/(^(\-|\^)|[CD]+$)/, '')
@@ -177,68 +177,33 @@ class FinancialYear < CompanyRecord
       credits   << code if prefix.match(/^\-?\d+C$/)
       normals   << code if prefix.match(/^\-?\d+$/)
     end
-    balance = "local_debit - local_credit"
+    ref = (credit ? "local_credit - local_debit" : "local_debit - local_credit")
+    balance = ref
     if debits.size > 0 or credits.size > 0
       balance = "CASE "
       balance += "WHEN "+debits.sort.collect{|d|  "a.number LIKE '#{d}%'"}.join(" OR ")+" THEN CASE WHEN local_debit > local_credit THEN local_debit - local_credit ELSE 0 END" if debits.size > 0
       balance += "WHEN "+credits.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN CASE WHEN local_debit < local_credit THEN local_credit - local_debit ELSE 0 END" if credits.size > 0
-      balance += " ELSE local_debit - local_credit END"
+      balance += " ELSE #{ref} END"
     end
-
-    
-    #debit = (credits.size > 0 ? "CASE WHEN "+credits.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN 0 ELSE ab.local_debit END" : "local_debit")
-    #credit = (debits.size > 0 ? "CASE WHEN "+debits.collect{|d| "a.number LIKE '#{d}%'"}.join(" OR ")+" THEN 0 ELSE ab.local_credit END" : "local_credit")
     if negatives.size > 0
       balance = "CASE WHEN "+negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -1 ELSE 1 END * #{balance}"
-      # debit = "CASE WHEN "+negatives.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -1 ELSE 1 END * #{debit}"
-      # credit = "CASE WHEN "+negatives.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -1 ELSE 1 END * #{credit}"
     end
-
-    # sum(#{debit}) - sum(#{credit})
     query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE a.company_id = #{self.company_id} AND ab.financial_year_id=#{self.id}"
     all_codes = normals + debits + credits
     query += " AND ("+all_codes.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if all_codes.size > 0
     query += " AND NOT ("+excepts.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
     balance = ActiveRecord::Base.connection.select_value(query)
     return balance
-
-    # unless accounts_number.nil?
-    #   not_in_query, in_query, accounts_to_substract = [], [], []
-
-    #   if accounts_number.include?(",")
-        
-    #     if accounts_number.include?("-")
-    #       accounts_number.split(",").each{|a| accounts_to_substract << a.strip.gsub(/^\-/,'') if a.match(/\-/)}
-    #       accounts_to_substract.each do |a|
-    #         in_query << "accounts.number LIKE '#{a.upcase}%'"
-    #       end
-    #       balance_to_substract = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} AND account_balances.company_id = #{self.company_id}")
-    #     end
-        
-    #     in_query.clear
-    #     accounts = accounts_number.split(",").each{|a| a.strip!}
-    #     accounts.each do |a|
-    #       if a.match(/^\^/)
-    #         not_in_query << "accounts.number NOT LIKE '#{a.gsub!(/^\^/,'').upcase}%'"
-    #       elsif not a.match(/^\-/)
-    #         in_query << "accounts.number LIKE '#{a.upcase}%'"
-    #       end
-    #     end
-    #     not_in_query = not_in_query.empty? ? "" : "AND "+not_in_query.join(" OR ")
-    #     balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit , sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE #{in_query.join(' OR ')} #{not_in_query} AND account_balances.company_id = #{self.company_id}")
-    #     #raise Exception.new balance.inspect if accounts_number == "707,708,7097"
-    #   else
-    #     balance = ActiveRecord::Base.connection.select_all("SELECT sum(account_balances.local_credit) as sum_credit, sum(account_balances.local_debit) as sum_debit FROM #{AccountBalance.table_name} AS account_balances LEFT JOIN #{Account.table_name} AS accounts ON (accounts.id = account_balances.account_id  AND account_balances.financial_year_id = #{self.id}) WHERE accounts.number LIKE '#{accounts_number.strip.upcase}%' AND account_balances.company_id = #{self.company_id}")
-    #   end
-    # end
-    # #puts accounts_number.include?("-").inspect+balance[0].inspect+"!!!!!!!!!!!!!"+balance_to_substract.inspect
-    # #raise Exception.new balance_to_substract[0]["sum_credit"].to_d.inspect
-    # if accounts_number.include?("-")
-    #   return ( (balance[0]["sum_debit"].to_f - balance[0]["sum_credit"].to_f) - (balance_to_substract[0]["sum_debit"].to_f - balance_to_substract[0]["sum_credit"].to_f) )
-    # else
-    #   return (balance[0]["sum_debit"].to_f - balance[0]["sum_credit"].to_f)
-    # end
   end
+  
+  def debit_balance(accounts)
+    self.balance(accounts, false)
+  end
+
+  def credit_balance(accounts)
+    self.balance(accounts, true)
+  end
+
 
   # Re-create all account_balances record for the financial year
   def compute_balances!
