@@ -165,37 +165,34 @@ class FinancialYear < CompanyRecord
   # Computes the value of list of accounts in a String
   # 123 will take all accounts 123*
   # ^456 will remove all accounts 456*
-  # 789D will take only the debit value of accounts 789*
-  # 789C will take only the credit value of accounts 789*
-  def balance(accounts_number, credit = false)
-    normals, debits, credits, excepts, negatives = [], [], [], [], []
-    for prefix in accounts_number.strip.split(/\s*[\,\s]+\s*/)
-      code = prefix.gsub(/(^(\-|\^)|[CD]+$)/, '')
+  # 789X will compute the balance although result is negative
+  def balance(accounts, credit = false)
+    normals, excepts, negatives, forceds = ["(XD)"], [], [], []
+    for prefix in accounts.strip.split(/\s*[\,\s]+\s*/)
+      code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
       excepts   << code if prefix.match(/^\^\d+$/)
       negatives << code if prefix.match(/^\-\d+/)
-      debits    << code if prefix.match(/^\-?\d+D$/)
-      credits   << code if prefix.match(/^\-?\d+C$/)
-      normals   << code if prefix.match(/^\-?\d+$/)
+      forceds   << code if prefix.match(/^\-?\d+[CDX]$/)
+      normals   << code if prefix.match(/^\-?\d+[CDX]?$/)
     end
-    ref = (credit ? "local_credit - local_debit" : "local_debit - local_credit")
-    balance = ref
-    if debits.size > 0 or credits.size > 0
-      balance = "CASE "
-      balance += "WHEN "+debits.sort.collect{|d|  "a.number LIKE '#{d}%'"}.join(" OR ")+" THEN CASE WHEN local_debit > local_credit THEN local_debit - local_credit ELSE 0 END" if debits.size > 0
-      balance += "WHEN "+credits.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN CASE WHEN local_debit < local_credit THEN local_credit - local_debit ELSE 0 END" if credits.size > 0
-      balance += " ELSE #{ref} END"
+    
+    balance = FinancialYear.balance_expr(credit)
+    if forceds.size > 0 or negatives.size > 0
+      forceds_and_negatives = forceds & negatives
+      balance  = "CASE"
+      balance << " WHEN "+forceds_and_negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -#{FinancialYear.balance_expr(!credit, :forced=>true)}" if forceds_and_negatives.size > 0
+      balance << " WHEN "+forceds.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN #{FinancialYear.balance_expr(credit, :forced=>true)}" if forceds.size > 0
+      balance << " WHEN "+negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -#{FinancialYear.balance_expr(!credit)}" if negatives.size > 0
+      balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
-    if negatives.size > 0
-      balance = "CASE WHEN "+negatives.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+" THEN -1 ELSE 1 END * #{balance}"
-    end
-    query = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE a.company_id = #{self.company_id} AND ab.financial_year_id=#{self.id}"
-    all_codes = normals + debits + credits
-    query += " AND ("+all_codes.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if all_codes.size > 0
-    query += " AND NOT ("+excepts.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
+
+    query  = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE a.company_id = #{self.company_id} AND ab.financial_year_id=#{self.id}"
+    query << " AND ("+normals.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")"
+    query << " AND NOT ("+excepts.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
     balance = ActiveRecord::Base.connection.select_value(query)
-    return balance
+    # self.balance(accounts, false)
   end
-  
+
   def debit_balance(accounts)
     self.balance(accounts, false)
   end
@@ -203,6 +200,19 @@ class FinancialYear < CompanyRecord
   def credit_balance(accounts)
     self.balance(accounts, true)
   end
+
+
+  def self.balance_expr(credit = false, options = {})
+    columns = [:debit, :credit]
+    columns.reverse! if credit
+    prefix = (options[:record] ? options.delete(:record).to_s + "." : "") + "local_"
+    if options[:forced]
+      return "(#{prefix}#{columns[0]} - #{prefix}#{columns[1]})"
+    else
+      return "(CASE WHEN #{prefix}#{columns[0]} > #{prefix}#{columns[1]} THEN #{prefix}#{columns[0]} - #{prefix}#{columns[1]} ELSE 0 END)"
+    end
+  end
+  
 
 
   # Re-create all account_balances record for the financial year

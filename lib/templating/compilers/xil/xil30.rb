@@ -28,19 +28,19 @@ module Templating::Compilers
           end
           element("iteration", "collection!"=>:variable, "variable!"=>:variable)
           element("text", "value!"=>:string, "left"=>:length, "top"=>:length, "width"=>:length, "height"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:string, "valign"=>:symbol, "border"=>:stroke, "font"=>:string, "background"=>:string, "margins"=>:length4)
-          element("rectangle", "width!"=>:length, "height!"=>:length, "left"=>:length, "top"=>:length, "stroke"=>:stroke)
+          element("rectangle", "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length, "border"=>:stroke, "background"=>:string, "radius"=>:length)
           element("line", "path!"=>:path, "width"=>:length, "border"=>:stroke)
           element("image", "value!"=>:string, "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
-          element("grid") do
+          element("grid", "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean) do
             has :many, "grid-column", "grid-row"
           end
-          element("grid-column", "width"=>:length, "align"=>:symbol, "data-type"=>:symbol)
-          element("grid-row", "size"=>:length, "bold"=>:boolean, "italic"=>:boolean, "font"=>:string) do
+          element("grid-column", "width"=>:length, "align"=>:symbol, "data-type"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean)
+          element("grid-row", "align"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean) do
             has :many, "grid-cell"
           end
-          element("grid-cell", "value"=>:string, "align"=>:symbol, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean, "font"=>:string)
+          element("grid-cell", "value"=>:string, "margin-left"=>:length, "margin-top"=>:length, "margin-right"=>:length, "margin-bottom"=>:length, "margins"=>:length4, "align"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean)
         end
 
 
@@ -182,10 +182,10 @@ module Templating::Compilers
         # Retrives true values
         def parameters_values(element)
           attributes_hash = element.attributes.to_h
-          hash = {}
+          hash = HashWithIndifferentAccess.new
           for attribute in SCHEMA[element.name].attributes
             if string = attributes_hash[attribute.name]
-              hash[attribute.name.to_sym] = attribute.read(string)
+              hash[attribute.name] = attribute.read(string)
             elsif attribute.required?
               raise Exception.new("Attribute '#{attribute.name}' is required for element '#{name}'")
             end
@@ -229,23 +229,34 @@ module Templating::Compilers
             children_variable = "_s"
             columns = []
             for column in element.find('./grid-column')
-              columns << {:width=>measure_to_float(column["width"]), :align=>column["align"]||:left, :valign=>column["valign"]||:top}
+              columns << {:width=>measure_to_float(column["width"]), :align=>column["align"]||:left, :valign=>column["valign"]||:top, :if=>column["if"]}
             end
             for row in element.find('./grid-row')
+              prh = parameters_hash(row)
               code << "#{variable}.slice do |#{children_variable}|\n"
               code << "  #{children_variable}.row(["
               cells = row.find('./grid-cell').to_a
               cells += [nil]*(columns.count-cells.count)
               i = 0
               code << cells.collect do |cell|
-                if cell.nil?
-                  pch = {}
-                else
-                  pch = parameters_hash(cell)
-                end
+                pcv = (cell.nil? ? {} : parameters_values(cell))
+                pch = (cell.nil? ? {} : parameters_hash(cell))
                 pch[:align] ||= ":#{columns[i][:align] || :left}"
                 pch[:width] = columns[i][:width]
                 pch[:border] ||= columns[i][:border] if columns[i][:border]
+                for attr in [:background, :border, :font, :size, :bold, :italic, :align]
+                  if prh[attr] or columns[i][attr] or phash[attr]
+                    pch[attr] ||= prh[attr] || columns[i][attr] || phash[attr]
+                  end
+                end
+                pcv[:margins] ||= [] if pcv["margin-top"] or pcv["margin-right"] or pcv["margin-bottom"] or pcv["margin-left"]
+                [:top, :right, :bottom, :left].each_with_index do |side, index|
+                  pcv[:margins][index] = pcv.delete("margin-#{side}") if pcv["margin-#{side}"]
+                end
+                pch[:margins] = pcv[:margins].inspect if pcv[:margins]
+                pch[:fill] = pch.delete(:background) if pch[:background]
+                pch[:stroke] = pch.delete(:border) if pch[:border]
+                pch[:value] = "((#{columns[i][:if]}) ? #{pch[:value]} : '')" if pch[:value] and columns[i][:if]
                 i += 1
                 hash_to_code(pch, true)
               end.join(', ')
@@ -302,7 +313,8 @@ module Templating::Compilers
             if phash[:right]
               phash[:left] = "(#{variable}.current_box.width - #{phash.delete(:right)})"
             end
-            # phash[:stroke] = phash.delete(:border)
+            phash[:stroke] = phash.delete(:border) if phash[:border]
+            phash[:fill] = phash.delete(:background) if phash[:background]
             code << "#{variable}.rectangle(#{hash_to_code(phash)})"
 
           elsif name == :set

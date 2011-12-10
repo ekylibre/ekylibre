@@ -22,6 +22,7 @@ module Exchanges
 
     def self.benchmark(text, &block)
       if @@verbose
+        STDOUT.sync = true
         @@depth ||= -1 
         @@depth += 1
         prefix = "| " * @@depth

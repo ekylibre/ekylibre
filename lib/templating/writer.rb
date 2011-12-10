@@ -117,9 +117,13 @@ module Templating
 
       # Normalizes margins. It generates an array of 4 values
       # correponding to top, right, bottom and left like defined in CSS
-      def normalize_margins(margins = 0)
-        margins ||= 0
-        margins = [margins.to_f] unless margins.is_a?(Array)
+      # @param [Float, Array] margins Margins
+      # @param [Hash] options Options to build margins
+      # @option options [TrueClass, FalseClass] :allow_nil Allow nil value in margins
+      def normalize_margins(margins = nil, options = {})
+        use_nil = (margins.nil? and options[:allow_nil])
+        margins ||= 0 unless use_nil
+        margins = [(use_nil ? nil : margins.to_f)] unless margins.is_a?(Array)
         margins[1] ||= margins[0]
         margins[2] ||= margins[0]
         margins[3] ||= margins[1]
@@ -505,8 +509,8 @@ module Templating
       # @param [Hash] options The options to create the rectangle
       # @option options [Float] :left (0) Left position from left paper border or parent box
       # @option options [Float] :top (0) Top position from top paper border or parent box
-      # @option options [Float] :width Width of the rectangle
-      # @option options [Float] :height Height of the rectangle
+      # @option options [Float] :width (current_box.width) Width of the rectangle
+      # @option options [Float] :height (current_box.height) Height of the rectangle
       # @option options [Float] :radius (0) Radius length for rounded corners
       # @option options [String] :fill Color for background in CSS style
       # @option options [String] :stroke Style for border in CSS style
@@ -662,7 +666,8 @@ module Templating
               end if @document.debug?
             end
             # raise [@pen.font.send(:size), @pen.font.height, @pen.font.ascender, @pen.font.line_gap, @pen.font.descender].inspect
-            # box_options[:at][1] -= @pen.font.line_gap
+            # Little vertical adjustment
+            box_options[:at][1] -= @pen.font.descender/2
             box = Prawn::Text::Formatted::Box.new([string], box_options)
             box.render
             current_box.resize(top + margins[0] + inner_height + margins[2])
@@ -681,7 +686,8 @@ module Templating
       # @option options [Float] :border Default border for each cell
       # @option options [Float,Array] :margins ([2,2,0]) Default margins for each cell
       # @option cell_options [String] :value Text to display
-      # @option cell_options [Symbol] :align Vertical alignment of the text
+      # @option cell_options [Symbol] :align Horizontal alignment of the text
+      # @option cell_options [Symbol] :valign Vertical alignment of the text
       # @option cell_options [String] :bold Text to display
       # @option cell_options [String] :font Set the font
       # @option cell_options [String] :color Set the text color
@@ -689,9 +695,13 @@ module Templating
       # @option cell_options [Boolean] :bold Set the text in bold face
       # @option cell_options [Boolean] :italic Set the text in italic face
       # @option cell_options [String,Array] :border Set the border of the cell
+      # @option cell_options [Float,Array] :margins Margins of the cell. If a value is nil, the
+      #   default value is used.
+      # @option cell_options [String] :fill Set the background color of the cell
+      # @option cell_options [String] :stroke Set the border of the cell
       def row(cells, options={})
         left, top = (options.delete(:left)||0), (options.delete(:top)||0)
-        margins = normalize_margins(options.delete(:margins) || [2,2,0])
+        default_margins = normalize_margins(options.delete(:margins) || [2,2,0])
         cells = cells.collect do |x|
           (x.is_a?(Hash) ? x : {:value=>x.to_s})
         end
@@ -703,8 +713,12 @@ module Templating
           string[:styles] = styles
           string[:font] = cell[:font] if cell[:font]
           string[:size] = cell[:size] if cell[:size]
-          string[:color] = normalize_color(cell[:color]) if cell[:color]
+          string[:color] = normalize_color(cell[:color] || '#0')
           cell[:value] = [string]
+          cell[:margins] = normalize_margins(cell.delete(:margins), :allow_nil=>true)
+          default_margins.each_with_index do |length, index|
+            cell[:margins][index] ||= length
+          end
         end
         widthed = cells.select{|c| !c[:width].nil?}
         if widthed.count != cells.count
@@ -715,24 +729,29 @@ module Templating
             cell[:width] ||= default_width
           end
         end
-        inner_height = 0
+        max_height = 0
         shift = 0
         for cell in cells
+          cell[:inner_width] = cell[:width]-cell[:margins][1]-cell[:margins][3]
           @pen.save_font do
-            height = @pen.height_of_formatted(cell[:value], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align])
-            inner_height = height if height > inner_height
+            cell[:inner_height] = @pen.height_of_formatted(cell[:value], :width=>cell[:inner_width])
+            height = cell[:margins][0] + cell[:inner_height] + cell[:margins][2]
+            max_height = height if height > max_height
           end
           cell[:left] = shift
           shift += cell[:width]
         end
-        # inner_height += margins[0] + margins[2]
-        paint(:stroke=>"0.5pt solid #000") do
-          for cell in cells
-            @pen.formatted_text_box(cell[:value], :at=>[current_box.x + left + cell[:left] + margins[3], current_box.y - top - margins[0]], :width=>cell[:width]-margins[1]-margins[3], :align=>cell[:align], :valign=>cell[:valign]||:center, :height=>inner_height)
-            @pen.rectangle([current_box.x + left + cell[:left], current_box.y - top], cell[:width], margins[0] + inner_height + margins[2])
+        for cell in cells
+          cell[:inner_height] = max_height - cell[:margins][0] - cell[:margins][2]
+          puts cell.inspect
+          paint(:stroke=>cell[:stroke], :fill=>(cell[:fill] || 'transparent')) do
+            @pen.rectangle([current_box.x + left + cell[:left], current_box.y - top], cell[:width], cell[:margins][0] + cell[:inner_height] + cell[:margins][2])
+          end
+          paint do
+            @pen.formatted_text_box(cell[:value], :at=>[current_box.x + left + cell[:left] + cell[:margins][3], current_box.y - top - cell[:margins][0]], :width=>cell[:inner_width], :align=>cell[:align], :valign=>cell[:valign]||:center, :height=>cell[:inner_height])
           end
         end
-        current_box.resize(top + margins[0] + inner_height + margins[2])
+        current_box.resize(top + max_height)
         return self
       end
 
@@ -858,7 +877,6 @@ module Templating
             raise ArgumentError.new("Unexpected point type: #{point.class.name}:#{point.inspect}")
           end
         end
-        # puts "Resize(#{x.round},#{y.round})#{'*' if resizing?} {#{@width.round}x#{@height.round}} with: #{tops.inspect}"
         if resizing?
           for top in tops
             @height = top if top > @height
