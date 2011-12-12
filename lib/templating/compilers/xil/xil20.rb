@@ -114,7 +114,7 @@ module Templating::Compilers
               option = data[1].to_s.split('=')
               datum = case option[0]
                       when 'format'
-                        "::I18n.localize(#{datum}, :format=>:#{option[1]})"
+                        "(::I18n.localize(#{datum}, :format=>:#{option[1]}) rescue (#{datum}).to_s)"
                       when 'numeric'
                         "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
                       else
@@ -295,27 +295,19 @@ module Templating::Compilers
             code << "#{variable}.slice(:height => #{pt_to_s(1.mm)})\n"
             # Header
             code << "#{variable}.slice do |#{children_variable}|\n"
-            code << "  row_height = 0\n"
-            for column in columns
-              code << "  _h = #{children_variable}.height_of(#{column[:phash][:label]}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])})\n"
-              code << "  row_height = _h if _h > row_height\n"
-            end
-            code << "  row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
-            for column in columns
-              code << "  #{children_variable}.text(#{column[:phash][:label]}, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :height=>row_height, :valign=>:center, :align=>:center, :bold=>true)\n"
-              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
-              # code << "  row_height = _b.height if _b.height > row_height\n"
-            end
-            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+            code << "  #{children_variable}.row(["
+            code << columns.collect do |column|
+              "{:value=>#{column[:phash][:label]}, :width=>#{pt_to_s(column[:width])}, :valign=>:center, :align=>:center, :bold=>true}"
+            end.join(", ")
+            code << "], :stroke=>#{stroke})\n"
             code << "end\n"
-            # Rows
             code << "for #{record} in #{collection}\n"
             code << "  #{variable}.slice do |#{children_variable}|\n"
-            code << "    row_height = 0\n"
-            for column in columns
+            code << "    #{children_variable}.row(["
+            code << columns.collect do |column|
               value = "#{record}."+column[:attributes][:property].gsub(/\//, '.')
               if column[:attributes]['format']
-                value = "::I18n.localize(#{value}, :format=>#{column[:phash][:format]})"
+                value = "(::I18n.localize(#{value}, :format=>#{wcolumn[:phash][:format]}) rescue (#{value}).to_s)"
                 column[:phash][:align] ||= ":center"
                 column[:align] = :center
               elsif column[:attributes]['numeric']
@@ -331,16 +323,59 @@ module Templating::Compilers
                 value = "number_to_currency(#{value}, #{hash_to_code(curr_hash, true)})"
                 column[:phash][:align] ||= ":right"
               end
-              code << "    _b = #{children_variable}.text(#{value}.to_s, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :align=>:#{column[:align]})\n"
-              code << "    row_height = _b.height if _b.height > row_height\n"
-            end
-            code << "    row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
-            for column in columns
-              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
-            end
-            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+              "{:value=>#{value}.to_s, :width=>#{pt_to_s(column[:width])}, :align=>:#{column[:align]}}"
+            end.join(", ")
+            code << "], :stroke=>#{stroke})\n"
             code << "  end\n"
             code << "end\n"
+
+            # code << "#{variable}.slice do |#{children_variable}|\n"
+            # code << "  row_height = 0\n"
+            # for column in columns
+            #   code << "  _h = #{children_variable}.height_of(#{column[:phash][:label]}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])})\n"
+            #   code << "  row_height = _h if _h > row_height\n"
+            # end
+            # code << "  row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
+            # for column in columns
+            #   code << "  #{children_variable}.text(#{column[:phash][:label]}, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :height=>row_height, :valign=>:center, :align=>:center, :bold=>true)\n"
+            #   code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
+            #   # code << "  row_height = _b.height if _b.height > row_height\n"
+            # end
+            # code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+            # code << "end\n"
+            # # Rows
+            # code << "for #{record} in #{collection}\n"
+            # code << "  #{variable}.slice do |#{children_variable}|\n"
+            # code << "    row_height = 0\n"
+            # for column in columns
+            #   value = "#{record}."+column[:attributes][:property].gsub(/\//, '.')
+            #   if column[:attributes]['format']
+            #     value = "::I18n.localize(#{value}, :format=>#{column[:phash][:format]})"
+            #     column[:phash][:align] ||= ":center"
+            #     column[:align] = :center
+            #   elsif column[:attributes]['numeric']
+            #     column[:align] = :right
+            #     curr_hash = {}
+            #     for pair in column[:phash].select{|k,v| [:separator, :delimiter, :unit, :precision, :scale].include?(k)}
+            #       curr_hash[pair[0]] = pair[1]
+            #     end
+            #     curr_hash[:separator] ||= "','"
+            #     curr_hash[:delimiter] ||= "' '"
+            #     curr_hash[:unit] ||= "''"
+            #     curr_hash[:precision] ||= '2'
+            #     value = "number_to_currency(#{value}, #{hash_to_code(curr_hash, true)})"
+            #     column[:phash][:align] ||= ":right"
+            #   end
+            #   code << "    _b = #{children_variable}.text(#{value}.to_s, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :align=>:#{column[:align]})\n"
+            #   code << "    row_height = _b.height if _b.height > row_height\n"
+            # end
+            # code << "    row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
+            # for column in columns
+            #   code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
+            # end
+            # code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+            # code << "  end\n"
+            # code << "end\n"
 
 
           elsif name == :text

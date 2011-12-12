@@ -683,7 +683,7 @@ module Templating
       # @option options [Float] :left (0) Left position from left paper border or parent box
       # @option options [Float] :top (0) Top position from top paper border or parent box
       # @option options [Float] :width Default width for each cell
-      # @option options [Float] :border Default border for each cell
+      # @option options [Float] :stroke Default border for each cell
       # @option options [Float,Array] :margins ([2,2,0]) Default margins for each cell
       # @option cell_options [String] :value Text to display
       # @option cell_options [Symbol] :align Horizontal alignment of the text
@@ -744,7 +744,7 @@ module Templating
         for cell in cells
           cell[:inner_height] = max_height - cell[:margins][0] - cell[:margins][2]
           puts cell.inspect
-          paint(:stroke=>cell[:stroke], :fill=>(cell[:fill] || 'transparent')) do
+          paint(:stroke=>cell[:stroke]||options[:stroke], :fill=>(cell[:fill] || 'transparent')) do
             @pen.rectangle([current_box.x + left + cell[:left], current_box.y - top], cell[:width], cell[:margins][0] + cell[:inner_height] + cell[:margins][2])
           end
           paint do
