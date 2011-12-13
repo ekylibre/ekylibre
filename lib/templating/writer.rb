@@ -743,7 +743,6 @@ module Templating
         end
         for cell in cells
           cell[:inner_height] = max_height - cell[:margins][0] - cell[:margins][2]
-          puts cell.inspect
           paint(:stroke=>cell[:stroke]||options[:stroke], :fill=>(cell[:fill] || 'transparent')) do
             @pen.rectangle([current_box.x + left + cell[:left], current_box.y - top], cell[:width], cell[:margins][0] + cell[:inner_height] + cell[:margins][2])
           end

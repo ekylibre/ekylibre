@@ -69,7 +69,7 @@ module Templating::Compilers
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          return "# encoding: utf-8\n("+code+')'
+          # return "# encoding: utf-8\n("+code+')'
           return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
         end
 
