@@ -77,14 +77,14 @@ module Templating::Compilers
         
         def hash_to_code(hash, wrapped = false)
           code = hash.collect do |k,v| 
-            ":#{k.to_s.gsub(/\-/, '_')} => " + if v.is_a? Symbol
+            ":#{k.to_s.gsub(/\-/, '_')}=>" + if v.is_a? Symbol
                                                  v.inspect
                                                elsif v.nil?
                                                  "nil"
                                                else
                                                  v.to_s
                                                end
-          end.join(', ')
+          end.join(',')
           if wrapped
             return '{'+code+'}'
           else
@@ -242,7 +242,7 @@ module Templating::Compilers
                 pcv = (cell.nil? ? {} : parameters_values(cell))
                 pch = (cell.nil? ? {} : parameters_hash(cell))
                 pch[:align] ||= ":#{columns[i][:align] || :left}"
-                pch[:width] = columns[i][:width]
+                pch[:width] = pt_to_s(columns[i][:width])
                 pch[:border] ||= columns[i][:border] if columns[i][:border]
                 for attr in [:background, :border, :font, :size, :bold, :italic, :align]
                   if prh[attr] or columns[i][attr] or phash[attr]
@@ -253,7 +253,9 @@ module Templating::Compilers
                 [:top, :right, :bottom, :left].each_with_index do |side, index|
                   pcv[:margins][index] = pcv.delete("margin-#{side}") if pcv["margin-#{side}"]
                 end
-                pch[:margins] = pcv[:margins].inspect if pcv[:margins]
+                if pcv[:margins]
+                  pch[:margins] = '['+pcv[:margins][0..3].collect{|m| m.nil? ? 'nil' : pt_to_s(m)}.join(',')+']' 
+                end
                 pch[:fill] = pch.delete(:background) if pch[:background]
                 pch[:stroke] = pch.delete(:border) if pch[:border]
                 pch[:value] = "((#{columns[i][:if]}) ? #{pch[:value]} : '')" if pch[:value] and columns[i][:if]

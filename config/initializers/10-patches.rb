@@ -1,3 +1,7 @@
+if defined? Encoding
+  Encoding.default_internal = 'UTF-8'
+end
+
 module Ekylibre
   module I18n
 
@@ -72,7 +76,6 @@ ActionController::Base.send :include, Ekylibre::I18n::ContextualHelpers
 ActiveRecord::Base.send :extend, Ekylibre::I18n::ContextualModelHelpers
 ActiveRecord::Base.send :include, Ekylibre::I18n::ContextualModelInstanceHelpers
 ActionView::Base.send :include, Ekylibre::I18n::ContextualHelpers
-
 
 module ::I18n
 
