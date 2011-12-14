@@ -135,6 +135,7 @@ Section "Ekylibre" sec_ekylibre
       ; MessageBox MB_OK "Données sauvegardées. Merci de procéder à la désinstallation de l'ancienne version."
       Goto next
     no:
+      StrCpy $PreviousInstApp ""
       StrCpy $Backuping "false"
     next:
   ${EndIf}
@@ -169,7 +170,9 @@ Section "Ekylibre" sec_ekylibre
   FileOpen $1 "$InstApp\migrate.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
   ; ruby\bin\rake
-  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
+  ; FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
+  ; FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
+  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\bundle" exec "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\rollback.cmd" "w"
@@ -209,9 +212,10 @@ Section "MySQL Installation and Configuration" sec_mysql
   ; Mise en place du programme
   SetOutPath $InstApp
   File /r ${RESOURCES}/mysql
-  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__INSTDIR__" "$InstApp"
+  CopyFiles $InstApp\mysql\my.ini.conf $InstApp\mysql\my.ini
+  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__BASEDIR__" "$InstApp\mysql"
   !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__DATADIR__" "$DataDir"
-  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "3306" "${DBMSPORT}"
+  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__PORT__" "${DBMSPORT}"
 
   ; Mise en place de la copie de sauvegarde de la base de données
   Delete $InstApp\apps\ekylibre\config\database.yml
