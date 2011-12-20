@@ -10,7 +10,7 @@ module Templating::Compilers
             has :many, "document"
           end
           element("document", "title"=>:string, "subject"=>:string, "author"=>:string, "keywords"=>:string) do
-            has :many, "page"
+            has :many, "page", "iteration"
           end
           element("page", "format"=>:page_format, "orientation"=>:symbol, "margin"=>:length4) do
             has :many, "part", "table", "iteration"
@@ -26,8 +26,10 @@ module Templating::Compilers
           element("set", "left"=>:length, "top"=>:length, "right"=>:length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
-          element("iteration", "collection!"=>:variable, "variable!"=>:variable)
-          element("text", "value!"=>:string, "left"=>:length, "right"=>:length, "top"=>:length, "width"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string)
+          element("iteration", "collection!"=>:variable, "variable!"=>:variable) do
+            has :many, "page", "part", "table", "list", "set"
+          end
+          element("text", {"value"=>:string, "left"=>:length, "right"=>:length, "top"=>:length, "width"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string}, :string)
           # element("cell", "string", "left"=>:length, "top"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "width"=>:length, "font"=>:string})
           element("rectangle", "width!"=>:length, "height!"=>:length, "left"=>:length, "top"=>:length, "right"=>:length, "border"=>:stroke)
           element("line", "path!"=>:path, "width"=>:length, "border"=>:stroke)
@@ -173,7 +175,7 @@ module Templating::Compilers
             end
           end
           if SCHEMA[element.name].has_content?
-            hash[:content] =  element.read(string)
+            hash[:content] = SCHEMA[element.name].read(element.content)
           end
           return hash
         end
@@ -307,7 +309,7 @@ module Templating::Compilers
             code << columns.collect do |column|
               value = "#{record}."+column[:attributes][:property].gsub(/\//, '.')
               if column[:attributes]['format']
-                value = "(::I18n.localize(#{value}, :format=>#{wcolumn[:phash][:format]}) rescue (#{value}).to_s)"
+                value = "(::I18n.localize(#{value}, :format=>#{column[:phash][:format]}) rescue (#{value}).to_s)"
                 column[:phash][:align] ||= ":center"
                 column[:align] = :center
               elsif column[:attributes]['numeric']
@@ -413,7 +415,7 @@ module Templating::Compilers
             phash[:left] = options[:left]
             phash[:width] = options[:width] if options[:width]
             phash.delete(:right)
-            value = phash.delete(:value)
+            value = phash.delete(:value) || phash.delete(:content)
             code << "#{variable}.text(#{value}, #{hash_to_code(phash, true)})"
 
           else

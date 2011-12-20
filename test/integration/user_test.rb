@@ -5,7 +5,7 @@ class UserTest < ActionController::IntegrationTest
 
   context "A valid user" do
     setup do
-      @user = users(:users_001)
+      @user = Struct.new("MockedUser", :name, :comment).new('gendo', 'secret') # users(:users_001)
       @company = companies(:companies_001)
     end
     

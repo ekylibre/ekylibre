@@ -88,7 +88,7 @@ module Templating::Compilers
         end
 
         def read(string)
-           Templating::Compilers::Xil::Schema::Attribute.read(string, @content)
+          Templating::Compilers::Xil::Schema::Attribute.read(string, @content)
         end
         
       end

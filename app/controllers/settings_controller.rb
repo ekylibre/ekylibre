@@ -25,7 +25,7 @@ class SettingsController < ApplicationController
   end
 
   def update
-    @my_company = @current_company
+    @my_company = Company.find(@current_company.id)
     saved = false
     ActiveRecord::Base.transaction do
       if saved = @my_company.update_attributes(params[:my_company])

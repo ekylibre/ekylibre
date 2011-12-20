@@ -1,5 +1,4 @@
 source 'http://rubygems.org'
-# gem 'rake', '0.8.7', :platforms=>[:ruby_18, :mri_18, :mingw_18, :mswin]
 
 gem 'rails', '3.0.11'
 
@@ -11,8 +10,8 @@ gem 'mysql'
 gem 'sqlite3'
 
 gem 'haml'
-gem 'fastercsv', :platforms=>[:ruby_18, :mri_18, :mingw_18, :mswin]
-gem 'libxml-ruby', :require=>'libxml' # , '1.1.3'
+gem 'fastercsv'
+gem 'libxml-ruby', :require=>'libxml'
 gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0'
 gem "exception_notification"

@@ -80,17 +80,21 @@ class OutgoingDeliveriesController < ApplicationController
     end
     sale_lines = sale.lines.find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if sale_lines.empty?
-
+    @outgoing_delivery_lines = []
     @outgoing_delivery = sale.deliveries.new(params[:outgoing_delivery])      
     ActiveRecord::Base.transaction do
       if saved = @outgoing_delivery.save
+        puts [saved, @outgoing_delivery.errors].inspect
+
         for line in sale_lines
           quantity = params[:outgoing_delivery_line][line.id.to_s][:quantity].to_f rescue 0
+          outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id=>line.id, :quantity=>quantity)
           if quantity > 0
-            outgoing_delivery_line = @outgoing_delivery.lines.new(:sale_line_id=>line.id, :quantity=>quantity)
             saved = false unless outgoing_delivery_line.save
+            puts [saved, outgoing_delivery_line, outgoing_delivery_line.errors.to_hash].inspect
             @outgoing_delivery.errors.add_from_record(outgoing_delivery_line)
           end
+          @outgoing_delivery_lines << outgoing_delivery_line
         end if params[:outgoing_delivery_line].is_a? Hash
       end
       if saved

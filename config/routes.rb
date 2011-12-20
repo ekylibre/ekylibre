@@ -383,7 +383,13 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :production_chain_conveyors
-    resources :production_chain_work_centers
+    resources :production_chain_work_centers do
+      member do
+        get :play
+        post :down
+        post :up
+      end
+    end
     # resources :production_chain_work_centers_uses
     resources :professions do
       collection do

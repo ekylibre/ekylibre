@@ -42,10 +42,6 @@
 
 
 class OutgoingDeliveryLine < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
-  #]VALIDATORS]
   acts_as_stockable :quantity=>'-self.quantity', :origin=>:delivery
   attr_readonly :sale_line_id, :product_id, :price_id, :unit_id
   belongs_to :company
@@ -57,6 +53,10 @@ class OutgoingDeliveryLine < CompanyRecord
   belongs_to :tracking
   belongs_to :unit
   belongs_to :warehouse
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  #]VALIDATORS]
   validates_presence_of :product, :unit
 
   sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight
@@ -71,6 +71,7 @@ class OutgoingDeliveryLine < CompanyRecord
     end
     self.pretax_amount = self.sale_line.price.pretax_amount*self.quantity
     self.amount = self.sale_line.price.amount*self.quantity
+    true
   end
   
   validate(:on=>:create) do
@@ -78,6 +79,7 @@ class OutgoingDeliveryLine < CompanyRecord
       maximum = self.undelivered_quantity
       errors.add_to_base(:greater_than_undelivered_quantity, :maximum=>maximum, :unit=>self.product.unit.name, :product=>self.product_name) if (self.quantity > maximum)
     end
+    true
   end
 
   validate(:on=>:update) do
