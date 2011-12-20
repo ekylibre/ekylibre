@@ -5,7 +5,7 @@ require 'templating/compilers'
 # Supports only XIL format for now
 module Templating
 
-  VERSION = '2.0'
+  VERSION = '2.0.1'
 
   def self.version
     VERSION
