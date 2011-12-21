@@ -27,7 +27,7 @@ module Templating::Compilers
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
           element("iteration", "collection!"=>:variable, "variable!"=>:variable) do
-            has :many, "page", "part", "table", "list", "set"
+            has :many, "page", "part", "table", "list", "set", "iteration"
           end
           element("text", {"value"=>:string, "left"=>:length, "right"=>:length, "top"=>:length, "width"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "valign"=>:symbol, "border"=>:stroke, "font"=>:string}, :string)
           # element("cell", "string", "left"=>:length, "top"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:color, "width"=>:length, "font"=>:string})
@@ -64,7 +64,8 @@ module Templating::Compilers
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
+          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')' 
+          # return "# encoding: utf-8\n"+'('+code+')'
         end
 
         
@@ -110,6 +111,7 @@ module Templating::Compilers
           value = Templating::Compilers::Xil::Schema::Attribute.read(string, type)
           if type == :string
             value = "'"+value.gsub(/\'/, '\\\\\'')+"'"
+            value.gsub!(/\n/, "'+\"\\n\"+'")
             value.gsub!(/\{\{[^\}]+\}\}/) do |m|
               data = m[2..-3].to_s.gsub('\\\'', '\'').split('?')
               datum = data[0].gsub('/', '.')
