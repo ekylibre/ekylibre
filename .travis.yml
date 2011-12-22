@@ -8,6 +8,7 @@ env:
   - DB=sqlite3
 before_script: 
   - "ci/setup"
-  - "env -u RAILS_ENV" # Removes RAILS_ENV variable which seems to be set
+  - "unset RAILS_ENV" # Removes RAILS_ENV variable which seems to be set
+  - "unset RACK_ENV" # Removes RACK_ENV variable which seems to be set
   - "bundle exec rake db:migrate"
 script: "bundle exec rake test"
