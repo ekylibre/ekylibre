@@ -3,10 +3,10 @@ rvm:
   - 1.9.2
   - 1.9.3
 env:
-  - DB=mysql
-  - DB=postgresql
-  - DB=sqlite3
+  - DB=mysql RAILS_ENV= RACK_ENV=
+  - DB=postgresql RAILS_ENV= RACK_ENV=
+  - DB=sqlite3 RAILS_ENV= RACK_ENV=
 before_script: 
   - "ci/setup"
-  - "bundle exec rake db:migrate RAILS_ENV= RACK_ENV="
+  - "bundle exec rake db:migrate"
 script: "bundle exec rake test"
