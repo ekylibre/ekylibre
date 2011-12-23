@@ -8,5 +8,5 @@ env:
   - DB=sqlite3
 before_script: 
   - "ci/setup"
-  - "bundle exec rake db:migrate"
+  - "bundle exec rake db:migrate > migrate.log"
 script: "bundle exec rake test"
