@@ -20,4 +20,3 @@ if database == :postgresql
 elsif database == :mysql
   system('mysql -e "create database ekylibre_test;" > /dev/null 2>&1')
 end
-
