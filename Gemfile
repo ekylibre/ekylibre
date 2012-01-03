@@ -30,7 +30,7 @@ group :development do
 end
 
 group :test do
-  gem 'thoughtbot-shoulda', :require => 'shoulda'
+  # gem 'shoulda-context' # Do not work with Ruby 1.9.3
   # Pretty printed test output
   # gem 'turn', :require => false
 end  

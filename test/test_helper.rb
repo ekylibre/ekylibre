@@ -7,7 +7,19 @@ else
   require 'rails/test_help'
 end
 
+
+# Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
+# Use specific file lib/shoulda/context/context.rb
+# TODO: Re-add shoulda-context in Gemfile ASAP
+require File.join(File.dirname(__FILE__), 'shoulda-context')
+class Test::Unit::TestCase
+  include Shoulda::Context::InstanceMethods
+  extend Shoulda::Context::ClassMethods
+end
+
 class ActiveSupport::TestCase
+  
+
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
@@ -65,7 +77,8 @@ class ActionController::TestCase
 
   def self.test_restfully_all_actions(options={})
     controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
-    code  = "context 'A #{controller} controller' do\n"
+    code  = ""
+    code << "context 'A #{controller} controller' do\n"
     code << "  setup do\n"
     code << "    @user = users(:users_001)\n"
     # code << "    login(@user.name, @user.comment)\n"
