@@ -56,7 +56,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
-    mysql2 (0.2.18)
+    mysql (2.8.1)
     pdf-reader (0.10.1)
       Ascii85 (~> 1.0.0)
     pg (0.12.0)
@@ -115,7 +115,7 @@ DEPENDENCIES
   haml
   jquery-rails
   libxml-ruby
-  mysql2 (= 0.2.18)
+  mysql
   pg
   prawn (>= 0.10.0)
   rails (= 3.0.11)

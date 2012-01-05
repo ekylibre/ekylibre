@@ -8,7 +8,7 @@
     $.behave = function (selector, events, handler) {
         events = events.split(/\s+/ig);
         for (var i = 0; i < events.length; i += 1) {
-            event = events[i];
+            var event = events[i];
             if (event === "load") {
 		var index = $.behavioursCount; $.behavioursCount += 1;
                 $.behaviours.push({selector: selector, handler: handler, index: index});

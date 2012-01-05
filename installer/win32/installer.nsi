@@ -18,7 +18,7 @@ SetCompressor /SOLID /FINAL zlib
 
   !define APP "Ekylibre"
   !define WSPORT 4064
-  !define DBMSPORT 4032
+  !define DBMSPORT 5432
 
   ; Can not work with Product Version
   ; VIAddVersionKey "ProductName" "${APP}"
@@ -96,7 +96,7 @@ SetCompressor /SOLID /FINAL zlib
 
 
 ;--------------------------------
-;Sections
+; Sections
 Var /GLOBAL password
 Var /GLOBAL username
 Var /GLOBAL PreviousInstApp
@@ -106,14 +106,16 @@ Var /GLOBAL Backuping
 Var /GLOBAL Backup
 Var /GLOBAL Initialized
 
-InstType "Typical (MySQL included)"
-InstType "PostgreSQL Configuration (Expert)"
-InstType "SQL Server Configuration (Expert)"
-InstType "Only Ekylibre (Expert)"
+InstType "Typical (Database included)"
+; InstType "PostgreSQL Configuration (Expert)"
+; InstType "SQL Server Configuration (Expert)"
+InstType "Minimal (Expert)"
 InstType /NOCUSTOM
 
+
+
 Section "Ekylibre" sec_ekylibre
-  SectionIn 1 2 3 4
+  SectionIn 1 2
   Call initEnv
   
   ; Suppression des anciens services
@@ -135,8 +137,8 @@ Section "Ekylibre" sec_ekylibre
       ; MessageBox MB_OK "Données sauvegardées. Merci de procéder à la désinstallation de l'ancienne version."
       Goto next
     no:
-      StrCpy $PreviousInstApp ""
       StrCpy $Backuping "false"
+      StrCpy $PreviousInstApp ""
     next:
   ${EndIf}
 
@@ -169,15 +171,12 @@ Section "Ekylibre" sec_ekylibre
   
   FileOpen $1 "$InstApp\migrate.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
-  ; ruby\bin\rake
-  ; FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
-  ; FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\bundle" exec "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\rollback.cmd" "w"
   FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
-  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\lib\ruby\gems\1.8\bin\rake" db:rollback RAILS_ENV=production$\r$\n'
+  FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\bundle" exec "$InstApp\ruby\bin\rake" db:rollback RAILS_ENV=production$\r$\n'
   FileClose $1
 
   FileOpen $1 "$InstApp\ekylibre-start.cmd" "w"
@@ -191,112 +190,193 @@ SectionEnd
 
 
 SectionGroup /e "Database"
-
-Section "MySQL Installation and Configuration" sec_mysql
-  SectionIn 1
-  Call initEnv
-
-  ; Suppression des anciens services
-  SimpleSC::StopService   "EkyDatabase"
-  SimpleSC::RemoveService "EkyDatabase"
-  ; Retro compatility
-  SimpleSC::StopService   "EkyMySQL"
-  SimpleSC::RemoveService "EkyMySQL"
-
-  ; Initialisation de quelques valeurs
-  ; ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
-  StrCpy $username "ekylibre"
-  pwgen::GeneratePassword 32
-  Pop $password
-
-  ; Mise en place du programme
-  SetOutPath $InstApp
-  File /r ${RESOURCES}/mysql
-  CopyFiles $InstApp\mysql\my.ini.conf $InstApp\mysql\my.ini
-  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__BASEDIR__" "$InstApp\mysql"
-  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__DATADIR__" "$DataDir"
-  !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__PORT__" "${DBMSPORT}"
-
-  ; Mise en place de la copie de sauvegarde de la base de données
-  Delete $InstApp\apps\ekylibre\config\database.yml
-  Rename $InstApp\apps\ekylibre\config\database.mysql.yml $InstApp\apps\ekylibre\config\database.yml
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "$username"
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "$password"
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "3306" "${DBMSPORT}"
-  RMDir /r $DataDir
-  CreateDirectory $DataDir
-  ${If} $Backuping == "true"
-    CopyFiles /SILENT $Backup\data\* $DataDir
-    RMDir /r $Backup\data
-  ${Else}
-    CopyFiles /SILENT $InstApp\mysql\data\* $DataDir
-  ${EndIf}
-
-  ; Lancement de la base de données
-  SimpleSC::InstallService "EkyDatabase" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyDatabase'  "" "" ""
-  Pop $0
-  ${If} $0 <> 0
-    MessageBox MB_OK "Installation du service EkyDatabase impossible"
-  ${EndIf}
-  SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
-  WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
-  SimpleSC::StartService "EkyDatabase" ""
-
-  ; (Ré-)Initialisation
-  ${If} $PreviousInstApp == ""
-    ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
-    ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
-  ${Else}
-    ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "SET PASSWORD FOR $username@localhost = PASSWORD($\'$password$\')"'
-  ${EndIf}
-  ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "GRANT ALL PRIVILEGES ON ekylibre_production.* TO $username@localhost"'
-
-  ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
-SectionEnd
-
-
-; PostgreSQL
-Section "PostgreSQL Configuration" sec_postgresql
-  SectionIn 2
-  Call initEnv
-    
-  Delete $InstApp\apps\ekylibre\config\database.yml
-  IfFileExists $Backup\database.yml 0 +2
-    CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
-  IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
-    CopyFiles $InstApp\apps\ekylibre\config\database.postgresql.yml $InstApp\apps\ekylibre\config\database.yml
-
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
   
-  ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
-SectionEnd
-
-
-; SQL Server
-Section "SQL Server Configuration" sec_sqlserver
-  SectionIn 3
-  Call initEnv
-
-  FileOpen $1 "$InstApp\apps\ekylibre\Gemfile" "a"
-  FileSeek $1 0 END
-  FileWrite $1 '$\r$\n'
-  FileWrite $1 'gem "ruby-odbc"$\r$\n'
-  ; FileWrite $1 'gem "activerecord-sqlserver-adapter"$\r$\n'
-  FileClose $1
+;  Section "MySQL Installation and Configuration" sec_mysql
+;    ; SectionIn 101
+;    Call initEnv
+;  
+;    ; Suppression des anciens services
+;    SimpleSC::StopService   "EkyDatabase"
+;    SimpleSC::RemoveService "EkyDatabase"
+;    ; Retro compatility
+;    SimpleSC::StopService   "EkyMySQL"
+;    SimpleSC::RemoveService "EkyMySQL"
+;  
+;    ; Initialisation de quelques valeurs
+;    ; ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
+;    StrCpy $username "ekylibre"
+;    pwgen::GeneratePassword 32
+;    Pop $password
+;  
+;    ; Mise en place du programme
+;    SetOutPath $InstApp
+;    File /r ${RESOURCES}/mysql
+;    CopyFiles $InstApp\mysql\my.ini.conf $InstApp\mysql\my.ini
+;    !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__BASEDIR__" "$InstApp\mysql"
+;    !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__DATADIR__" "$DataDir"
+;    !insertmacro ReplaceInFile "$InstApp\mysql\my.ini" "__PORT__" "${DBMSPORT}"
+;  
+;    ; Mise en place de la copie de sauvegarde de la base de données
+;    Delete $InstApp\apps\ekylibre\config\database.yml
+;    Rename $InstApp\apps\ekylibre\config\database.mysql.yml $InstApp\apps\ekylibre\config\database.yml
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "$username"
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "$password"
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "3306" "${DBMSPORT}"
+;    RMDir /r $DataDir
+;    CreateDirectory $DataDir
+;    ${If} $Backuping == "true"
+;      CopyFiles /SILENT $Backup\data\* $DataDir
+;      RMDir /r $Backup\data
+;    ${Else}
+;      CopyFiles /SILENT $InstApp\mysql\data\* $DataDir
+;    ${EndIf}
+;  
+;    ; Lancement de la base de données
+;    SimpleSC::InstallService "EkyDatabase" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyDatabase'  "" "" ""
+;    Pop $0
+;    ${If} $0 <> 0
+;      MessageBox MB_OK "Installation du service EkyDatabase impossible"
+;    ${EndIf}
+;    SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
+;    WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
+;    SimpleSC::StartService "EkyDatabase" ""
+;  
+;    ; (Ré-)Initialisation
+;    ${If} $PreviousInstApp == ""
+;      ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE DATABASE ekylibre_production"'
+;      ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "CREATE USER $username@localhost IDENTIFIED BY $\'$password$\'"'
+;    ${Else}
+;      ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "SET PASSWORD FOR $username@localhost = PASSWORD($\'$password$\')"'
+;    ${EndIf}
+;    ExecWait '"$InstApp\mysql\bin\mysql" -u root -e "GRANT ALL PRIVILEGES ON ekylibre_production.* TO $username@localhost"'
+;  
+;    ExecWait '"$InstApp\migrate.cmd"'
+;  SectionEnd
   
-  Delete $InstApp\apps\ekylibre\config\database.yml
-  IfFileExists $Backup\database.yml 0 +2
-    CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
-  IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
-    CopyFiles $InstApp\apps\ekylibre\config\database.sqlserver.yml $InstApp\apps\ekylibre\config\database.yml
+  ; PostgreSQL
+  Section "PostgreSQL Installation and Configuration" sec_postgresql
+    SectionIn 1
+    Call initEnv
 
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
-  !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__dsn__" "sql2005dsn"
+    ; Suppression des anciens services
+    SimpleSC::StopService   "EkyDatabase"
+    SimpleSC::RemoveService "EkyDatabase"
+    ; Retro compatility
+    SimpleSC::StopService   "EkyMySQL"
+    SimpleSC::RemoveService "EkyMySQL"
+
+    ; Initialisation de quelques valeurs
+    ; ReadRegStr $PreviousInstApp HKLM Software\${APP} "AppDir"
+    StrCpy $username "ekylibre"
+    pwgen::GeneratePassword 32
+    Pop $password
+      
+    ; Mise en place du programme
+    SetOutPath $InstApp
+    File /r ${RESOURCES}/pgsql
   
-  ExecWait '"$InstApp\migrate.cmd" "$InstApp"'
-SectionEnd
+    ; Mise en place de la copie de sauvegarde de la base de données
+    Delete $InstApp\apps\ekylibre\config\database.yml
+    FileOpen $1 "$InstApp\apps\ekylibre\config\database.yml" "w"
+    FileWrite $1 "# Generated with installer$\n"
+    FileWrite $1 "production:$\n"
+    FileWrite $1 "  adapter: postgresql$\n"
+    FileWrite $1 "  encoding: utf-8$\n"
+    FileWrite $1 "  database: ekylibre_production$\n"
+    FileWrite $1 "  pool: 5$\n"
+    FileWrite $1 "  username: $username$\n"
+    FileWrite $1 "  password: $password$\n"
+    FileWrite $1 "  host: 127.0.0.1$\n"
+    FileWrite $1 "  port: ${DBMSPORT}$\n"
+    FileClose $1
+    RMDir /r $DataDir
+    CreateDirectory $DataDir
+    ${If} $Backuping == "true"
+      CopyFiles /SILENT $Backup\data\* $DataDir
+      RMDir /r $Backup\data
+    ${Else}
+      ExecWait '"$InstApp\pgsql\bin\initdb" -E UTF-8 --locale="French, France.UTF-8" "$DataDir"'
+    ${EndIf}
+  
+    ; Lancement de la base de données
+    ExecWait '"$InstApp\pgsql\bin\pg_ctl" register -N EkyDatabase -D "$DataDir"'
+    ; SimpleSC::InstallService "EkyDatabase" "${APP} DBMS" "16" "2" '"$InstApp\mysql\bin\mysqld.exe" --defaults-file="$InstApp\mysql\my.ini" EkyDatabase'  "" "" ""
+    ; Pop $0
+    ; ${If} $0 <> 0
+    ;   MessageBox MB_OK "Installation du service EkyDatabase impossible"
+    ; ${EndIf}
+    SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
+    WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
+    SimpleSC::StartService "EkyDatabase" ""
+
+    FileOpen $1 "$InstApp\test.cmd" "w"
+    FileWrite $1 '"$InstApp\pgsql\bin\createdb" ekylibre_production$\r$\n'
+    FileWrite $1 "pause$\r$\n"
+    FileClose $1
+    ExecWait '"$InstApp\test.cmd"'
+  
+    ; (Ré-)Initialisation
+    ${If} $PreviousInstApp == ""
+      ExecWait '"$InstApp\pgsql\bin\createdb" ekylibre_production'
+      FileOpen $1 "$InstApp\config_user.sql" "w"
+      FileWrite $1 "CREATE USER $username WITH NOSUPERUSER NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '$password';$\n"
+      FileClose $1
+      ExecWait '"$InstApp\pgsql\bin\psql" -f "$InstApp\config_user.sql" ekylibre_production'
+    ${Else}
+      FileOpen $1 "$InstApp\config_user.sql" "w"
+      FileWrite $1 "ALTER USER $username WITH NOSUPERUSER NOCREATEDB NOCREATEROLE ENCRYPTED PASSWORD '$password';$\n"
+      FileClose $1
+      ExecWait '"$InstApp\pgsql\bin\psql" -f "$InstApp\config_user.sql" ekylibre_production'
+    ${EndIf}
+    Delete $InstApp\config_user.sql     
+    ExecWait '"$InstApp\pgsql\bin\psql" -e "GRANT ALL PRIVILEGES ON DATABASE ekylibre_production TO $username" ekylibre_production'
+  
+    ExecWait '"$InstApp\migrate.cmd"'
+  SectionEnd
+
+  
+;  ; PostgreSQL Conf
+;  Section "PostgreSQL Configuration" sec_postgresql_conf
+;    ; SectionIn 102
+;    Call initEnv
+;      
+;    Delete $InstApp\apps\ekylibre\config\database.yml
+;    IfFileExists $Backup\database.yml 0 +2
+;      CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
+;    IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
+;      CopyFiles $InstApp\apps\ekylibre\config\database.postgresql.yml $InstApp\apps\ekylibre\config\database.yml
+;  
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
+;    
+;    ExecWait '"$InstApp\migrate.cmd"'
+;  SectionEnd
+  
+  
+;  ; SQL Server
+;  Section "SQL Server Configuration" sec_sqlserver
+;    ; SectionIn 103
+;    Call initEnv
+;  
+;    FileOpen $1 "$InstApp\apps\ekylibre\Gemfile" "a"
+;    FileSeek $1 0 END
+;    FileWrite $1 '$\r$\n'
+;    FileWrite $1 'gem "ruby-odbc"$\r$\n'
+;    ; FileWrite $1 'gem "activerecord-sqlserver-adapter"$\r$\n'
+;    FileClose $1
+;    
+;    Delete $InstApp\apps\ekylibre\config\database.yml
+;    IfFileExists $Backup\database.yml 0 +2
+;      CopyFiles $Backup\database.yml $InstApp\apps\ekylibre\config\database.yml
+;    IfFileExists $InstApp\apps\ekylibre\config\database.yml +2 0
+;      CopyFiles $InstApp\apps\ekylibre\config\database.sqlserver.yml $InstApp\apps\ekylibre\config\database.yml
+;  
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__username__" "ekylibre"
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__password__" "ekylibre"
+;    !insertmacro ReplaceInFile "$InstApp\apps\ekylibre\config\database.yml" "__dsn__" "sql2005dsn"
+;    
+;    ExecWait '"$InstApp\migrate.cmd"'
+;  SectionEnd
 
 SectionGroupEnd
 
@@ -367,7 +447,7 @@ Section "Uninstall"
 
   ; Suppression des programmes
   RMDir /r $SMPROGRAMS\${APP}
-  RMDir /r $InstApp\mysql
+  RMDir /r $InstApp\pgsql
   RMDir /r $InstApp\ruby
   Delete $InstApp\migrate.cmd
   Delete $InstApp\rollback.cmd
