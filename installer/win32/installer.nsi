@@ -112,7 +112,9 @@ InstType "Typical (Database included)"
 InstType "Minimal (Expert)"
 InstType /NOCUSTOM
 
-
+Section "-Reserve files"
+  ReserveFile ${RESOURCES}/vcredist_x86.exe
+SectionEnd
 
 Section "Ekylibre" sec_ekylibre
   SectionIn 1 2
@@ -274,7 +276,7 @@ SectionGroup /e "Database"
     ; Mise en place du programme
     SetOutPath $InstApp
     File /r ${RESOURCES}/pgsql
-  
+
     ; Mise en place de la copie de sauvegarde de la base de données
     Delete $InstApp\apps\ekylibre\config\database.yml
     FileOpen $1 "$InstApp\apps\ekylibre\config\database.yml" "w"
@@ -295,7 +297,7 @@ SectionGroup /e "Database"
       CopyFiles /SILENT $Backup\data\* $DataDir
       RMDir /r $Backup\data
     ${Else}
-      ExecWait '"$InstApp\pgsql\bin\initdb" -E UTF-8 --locale="French, France.UTF-8" "$DataDir"'
+      ExecWait '"$InstApp\pgsql\bin\initdb" -E UTF-8 --locale="French, France" -D "$DataDir"'
     ${EndIf}
   
     ; Lancement de la base de données
@@ -307,13 +309,21 @@ SectionGroup /e "Database"
     ; ${EndIf}
     SimpleSC::SetServiceDescription "EkyDatabase" "Service Base de Données d'Ekylibre"
     WriteRegStr HKLM "SYSTEM\CurrentControlSet\Services\EkyService" "DependOnService" 'EkyDatabase'
-    SimpleSC::StartService "EkyDatabase" ""
+    ; SimpleSC::StartService "EkyDatabase" "" 30
+    ; ExecWait 'sc start EkyDatabase'
 
-    FileOpen $1 "$InstApp\test.cmd" "w"
-    FileWrite $1 '"$InstApp\pgsql\bin\createdb" ekylibre_production$\r$\n'
-    FileWrite $1 "pause$\r$\n"
+    FileOpen $1 "$InstApp\start_synchronously.cmd" "w"
+    FileWrite $1 'sc start EkyDatabase$\r$\n'
+    FileWrite $1 ':wait$\r$\n'
+    FileWrite $1 'rem cause a ~1 second sleep before checking the service state$\r$\n'
+    FileWrite $1 'ping 127.0.0.1 -n 10 -w 100 > nul$\r$\n'
+    FileWrite $1 'sc query EkyDatabase | find /I "STATE" | find "STARTED"$\r$\n'
+    FileWrite $1 'if errorlevel 1 goto :continue$\r$\n'
+    FileWrite $1 'goto wait$\r$\n'
+    FileWrite $1 ':continue$\r$\n'
     FileClose $1
-    ExecWait '"$InstApp\test.cmd"'
+    ExecWait '"$InstApp\start_synchronously.cmd"'
+    Delete "$InstApp\start_synchronously.cmd"
   
     ; (Ré-)Initialisation
     ${If} $PreviousInstApp == ""
@@ -473,6 +483,15 @@ FunctionEnd
 
 Function .onInit
   !insertmacro MUI_LANGDLL_DISPLAY
+
+  ; Installation de Visual C++ 2008 redistributable packages
+  ; Nécessaire pour PostgreSQL
+  ; Chargé au début car nécessite du temps avec lancement initdb...
+  ; http://blogs.msdn.com/b/astebner/archive/2009/03/26/9513328.aspx
+  SetOutPath $TEMP
+  File ${RESOURCES}/vcredist_x86.exe
+  ExecWait '"$TEMP\vcredist_x86.exe" /qb'
+  Delete "$TEMP\vcredist_x86.exe"
   ; !insertmacro INSTALLOPTIONS_EXTRACT "select_database.ini"
   ; SectionSetText ${sec_ekylibre} "Install Ekylibre Web Service"
   ; SectionSetText ${sec_mysql} "Install and configure Integrated MySQL Service"
