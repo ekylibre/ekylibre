@@ -1,3 +1,14 @@
+ekylibre (0.3.2) stable; urgency=low
+
+  * Adds new synthesis documents
+  * Rewrites all print system
+  * Adds new format for document templates : XIL 3.0
+  * Adds Travis-CI support
+  * Adds compatibility with Ruby 1.9.3
+  * Migrates to Rails 3.0.11
+
+ -- Brice Texier <brice.texier@ekylibre.org>  Tue, 10 Jan 2012 20:15:49 +0200
+
 ekylibre (0.3.1) stable; urgency=low
 
   * Changes menu organization
