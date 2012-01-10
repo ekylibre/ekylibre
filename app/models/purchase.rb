@@ -176,8 +176,8 @@ class Purchase < CompanyRecord
 
   # Save the last date when the invoice of purchase was received
   def invoice(invoiced_on=nil, *args)
-    invoiced_on ||= self.planned_on
     return false unless self.can_invoice?
+    invoiced_on ||= self.planned_on
     self.reload.update_attributes!(:invoiced_on=>invoiced_on)
     return super
   end
