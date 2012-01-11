@@ -1,4 +1,4 @@
-module ActiveRecord
+module Ekylibre::Record
   module Acts #:nodoc:
     module Protected #:nodoc:
       def self.included(base)
@@ -29,3 +29,4 @@ module ActiveRecord
     end
   end
 end
+Ekylibre::Record::Base.send(:include, Ekylibre::Record::Acts::Protected)

@@ -1,9 +1,18 @@
-require File.join(File.dirname(__FILE__), 'safe_string')
-# require File.join(File.dirname(__FILE__), 'i18n')
-require File.join(File.dirname(__FILE__), 'exchanges')
-require File.join(File.dirname(__FILE__), 'templating')
-require File.join(File.dirname(__FILE__), 'activerecord')
-require File.join(File.dirname(__FILE__), 'ekylibre')
+# lib_dir = Rails.root.join("lib")
+#require lib_dir.join('stamp', 'init')
+#require lib_dir.join('userstamp', 'init')
+require 'userstamp/stamper'
+require 'userstamp/stampable'
+require 'userstamp/userstamp'
+require 'userstamp/migration_helper'
+
+require 'safe_string'
+require 'exchanges'
+require 'templating'
+require 'activerecord'
+require 'ekylibre'
+require 'list'
+
 require 'csv'
 
 module Ekylibre
@@ -37,3 +46,16 @@ module Ekylibre
   end
 
 end
+
+# # gem install -r fastercsv
+# # require 'fastercsv'
+# # gem install -r measure
+# # require 'measure'
+# # "Built-in" gems
+# require Rails.root.join("lib", "init")
+
+# # Load SCSS and SASS stylsheets in themes
+# # for theme_dir in Dir[Rails.root.join("public", "themes", "*")]
+# #   dir = File.join(theme_dir, "stylesheets")
+# #   Sass::Plugin.add_template_location(dir, dir) if File.exist? dir
+# # end

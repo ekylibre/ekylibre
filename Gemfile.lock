@@ -29,6 +29,8 @@ GEM
       activemodel (= 3.0.11)
       activesupport (= 3.0.11)
     activesupport (3.0.11)
+    acts_as_list (0.1.4)
+    acts_as_tree (0.1.1)
     arel (2.0.10)
     builder (2.1.2)
     combo_box (0.0.5)
@@ -108,6 +110,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts_as_list
+  acts_as_tree
   combo_box
   exception_notification
   fastercsv
