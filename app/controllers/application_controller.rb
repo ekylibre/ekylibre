@@ -322,7 +322,7 @@ class ApplicationController < ActionController::Base
     # Check current_user
     unless @current_user
       notify_error(:access_denied, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
-      redirect_to_login
+      redirect_to_login(request.url)
       return false 
     end
 
