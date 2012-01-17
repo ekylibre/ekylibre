@@ -141,7 +141,7 @@ class DepositsController < ApplicationController
   def unvalidateds
     @deposits = @current_company.deposits_to_lock
     if request.post?
-      for id, values in params[:unvalidated_deposits]
+      for id, values in params[:unvalidateds] || {}
         return unless deposit = find_and_check(:deposit, id)
         deposit.update_attributes!(:locked=>true) if deposit and values[:validated].to_i == 1
       end

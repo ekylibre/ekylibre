@@ -117,7 +117,7 @@ Ekylibre::Application.routes.draw do
         get :list_payments
         get :list_depositable_payments
         get :list_unvalidateds
-        get :unvalidateds
+        match "unvalidateds", :via=>[:get, :post]
       end
     end
     # resources :deposit_lines
