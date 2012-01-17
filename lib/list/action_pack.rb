@@ -39,6 +39,7 @@ module List
 
 end
 
+ActionController::Base.send(:include, ActionView::Helpers::NumberHelper)
 ActionController::Base.send(:include, List::ActionController)
 ActionView::Base.send(:include, List::ViewsHelper)
 

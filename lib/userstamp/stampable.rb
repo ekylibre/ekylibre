@@ -26,26 +26,26 @@ module Ddb #:nodoc:
           include InstanceMethods
 
           # Should ActiveRecord record userstamps? Defaults to true.
-          class_inheritable_accessor  :record_userstamp
+          class_attribute  :record_userstamp
           self.record_userstamp = true
 
           # Which class is responsible for stamping? Defaults to :user.
-          class_inheritable_accessor  :stamper_class_name
+          class_attribute  :stamper_class_name
 
           # What column should be used for the creator stamp?
           # Defaults to :creator_id when compatibility mode is off
           # Defaults to :created_by when compatibility mode is on
-          class_inheritable_accessor  :creator_attribute
+          class_attribute  :creator_attribute
 
           # What column should be used for the updater stamp?
           # Defaults to :updater_id when compatibility mode is off
           # Defaults to :updated_by when compatibility mode is on
-          class_inheritable_accessor  :updater_attribute
+          class_attribute  :updater_attribute
 
           # What column should be used for the deleter stamp?
           # Defaults to :deleter_id when compatibility mode is off
           # Defaults to :deleted_by when compatibility mode is on
-          class_inheritable_accessor  :deleter_attribute
+          class_attribute  :deleter_attribute
 
           self.stampable unless caller[-1].match(/rake\:/)
         end

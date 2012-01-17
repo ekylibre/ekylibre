@@ -149,9 +149,9 @@ class ListingNode < CompanyRecord
     for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
       parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.primary_key_name} = #{parent}.id)"
+        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"
       elsif child.nature == "belongs_to"
-        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{parent}.#{child.reflection.primary_key_name} = #{child.name}.id)"
+        conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{parent}.#{child.reflection.foreign_key} = #{child.name}.id)"
       end
       conditions += child.compute_joins
     end

@@ -47,7 +47,8 @@ module Ekylibre::Record
         self.send(:create_without_callbacks)
       end
 
-    else
+    elsif Rails.version.match(/^3\.0/)
+
       # Updates the associated record with values matching those of the instance attributes.
       # Returns the number of affected rows.
       def update_strictly(attribute_names = @attributes.keys)
@@ -74,6 +75,32 @@ module Ekylibre::Record
 
         self.id ||= new_id
 
+        @new_record = false
+        id
+      end
+
+    else
+
+      # Updates the associated record with values matching those of the instance attributes.
+      # Returns the number of affected rows.
+      def update_strictly(attribute_names = @attributes.keys)
+        attributes_with_values = arel_attributes_values(false, false, attribute_names)
+        return 0 if attributes_with_values.empty?
+        klass = self.class
+        stmt = klass.unscoped.where(klass.arel_table[klass.primary_key].eq(id)).arel.compile_update(attributes_with_values)
+        klass.connection.update stmt
+      end
+
+      # Creates a record with values matching those of the instance attributes
+      # and returns its id.
+      def create_strictly
+        attributes_values = arel_attributes_values(!id.nil?)
+
+        new_id = self.class.unscoped.insert attributes_values
+
+        self.id ||= new_id
+
+        IdentityMap.add(self) if defined?(IdentityMap) and IdentityMap.enabled?
         @new_record = false
         id
       end

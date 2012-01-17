@@ -33,11 +33,11 @@
 #         for reflection in reflections
 #           klass = reflection.class_name.constantize 
 #           begin
-#             klass.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+#             klass.update_all({reflection.foreign_key=>self.id}, {reflection.foreign_key=>object.id})
 #           rescue
 #             for item in object.send(reflection.name)
 #               begin
-#                 item.send(reflection.primary_key_name.to_s << '=', self.id)
+#                 item.send(reflection.foreign_key.to_s << '=', self.id)
 #                 item.send(:update_without_callbacks)
 #               rescue
 #                 # If the item can't be attached, the item can't be.
@@ -51,7 +51,7 @@
 #       else
 #         ActiveRecord::Base.transaction do
 #           for reflection in reflections
-#             reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+#             reflection.class_name.constantize.update_all({reflection.foreign_key=>self.id}, {reflection.foreign_key=>object.id})
 #           end
 #           object.delete
 #         end
@@ -181,8 +181,8 @@ module ApplicationHelper
         tag_options = nil
       end
       
-      href_attr = "href=\"#{html_escape(url)}\"" unless href
-      "<a #{href_attr}#{tag_options}>#{html_escape(name || url)}</a>".html_safe
+      href_attr = "href=\""+url+"\"" unless href
+      "<a #{href_attr}#{tag_options}>".html_safe+(name || url)+"</a>".html_safe
     end
   end
 

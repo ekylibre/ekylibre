@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.11'
+gem 'rails', '3.1.3'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -17,7 +17,6 @@ gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0'
 gem "exception_notification"
 gem 'state_machine'
-gem 'jquery-rails' # Necessary to call the Rails's generator
 gem 'combo_box' #, :path=>'../combo_box'
 gem 'formize' #, :path=>'../formize'
 gem 'spreet'
@@ -25,16 +24,29 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 
-group :development do
-  # gem 'ruby-prof'
-  # gem 'ruby-debug'
-  # gem 'ruby-debug19', :require => 'ruby-debug'
-  # gem 'ruby-graphviz', '>= 0.9.0'
+# Gems used only for assets and not required
+# in production environments by default.
+group :assets do
+  gem 'sass-rails',   '~> 3.1.5'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier', '>= 1.0.3'
 end
 
-group :test do
-  # gem 'shoulda-context' # Do not work with Ruby 1.9.3
-  # Pretty printed test output
-  # gem 'turn', :require => false
-end  
+gem 'jquery-rails'
 
+# To use ActiveModel has_secure_password
+# gem 'bcrypt-ruby', '~> 3.0.0'
+
+# Use unicorn as the web server
+# gem 'unicorn'
+
+# Deploy with Capistrano
+# gem 'capistrano'
+
+# To use debugger
+# gem 'ruby-debug19', :require => 'ruby-debug'
+
+group :test do
+  # Pretty printed test output
+  # gem 'turn', '0.8.2', :require => false
+end

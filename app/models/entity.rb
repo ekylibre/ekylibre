@@ -265,7 +265,7 @@ class Entity < CompanyRecord
       # Classics
       for many in [:cashes, :direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
         ref = self.class.reflections[many]
-        ref.class_name.constantize.update_all({ref.primary_key_name=>self.id}, {ref.primary_key_name=>entity.id})
+        ref.class_name.constantize.update_all({ref.foreign_key=>self.id}, {ref.foreign_key=>entity.id})
       end
       # Contact
       Contact.update_all(["code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false], {:entity_id => entity.id})

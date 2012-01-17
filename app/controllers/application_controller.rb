@@ -18,6 +18,7 @@
 #
 
 class ApplicationController < ActionController::Base
+  protect_from_forgery
   # helper :all # include all helpers, all the time
   around_filter(:profile) if Rails.env == "development"
   before_filter :no_cache

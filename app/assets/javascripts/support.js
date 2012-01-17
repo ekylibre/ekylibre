@@ -1,4 +1,4 @@
-/* -*- Mode: Javascript; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2; coding: latin-1 -*- */
+/* -*- Mode: Javascript; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2; coding: utf-8 -*- */
 /*jslint browser: true */
 
 function toggleElement(element, show, reverseElement) {
@@ -54,7 +54,7 @@ function insertInto(input, repdeb, repfin, middle) {
         }
         range.select();
     }
-    /* pour navigateurs plus récents basés sur Gecko*/
+    /* pour navigateurs plus rÃ©cents basÃ©s sur Gecko*/
     else if(typeof input.selectionStart != 'undefined')  {
         /* Insertion du code de formatage */
         var start = input.selectionStart;
@@ -73,16 +73,16 @@ function insertInto(input, repdeb, repfin, middle) {
     }
     /* pour les autres navigateurs */
     else {
-        /* requête de la position d'insertion */
+        /* requÃªte de la position d'insertion */
         var re = new RegExp('^[0-9]{0,3}$');
         while(!re.test(pos)) {
-            pos = prompt("Insertion à la position (0.." + input.value.length + ") :", "0");
+            pos = prompt("Insertion Ã  la position (0.." + input.value.length + ") :", "0");
         }
         if(pos > input.value.length) {
             pos = input.value.length;
         }
         /* Insertion du code de formatage */
-        insText = prompt("Veuillez entrer le texte à formater :");
+        insText = prompt("Veuillez entrer le texte Ã  formater :");
         if (insText.length <= 0) { insText = middle; }
         input.value = input.value.substr(0, pos) + repdeb + insText + repfin + input.value.substr(pos);
     }

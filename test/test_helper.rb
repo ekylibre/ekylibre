@@ -1,12 +1,7 @@
 # -*- coding: utf-8 -*-
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
-if Rails.version.match(/^2\.3/)
-  require 'test_help'
-else
-  require 'rails/test_help'
-end
-
+require 'rails/test_help'
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb

@@ -35,7 +35,7 @@ class CompaniesController < ApplicationController
       
       # Test validity
       @user.valid? # Perform validations
-      return unless @my_company.valid? and @user.errors.delete_if{|a,e| [:company, :role].include?(a)}.keys.empty?
+      return unless @my_company.valid? and @user.errors.to_hash.delete_if{|a,e| [:company, :role].include?(a)}.keys.empty?
 
       @my_company, @user = Company.create_with_data(params[:my_company], params[:user], params[:demo])
       if @my_company.id and @user.id

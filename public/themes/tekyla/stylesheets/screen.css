@@ -228,8 +228,8 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 /*#top { border-bottom: 1px solid #DDD; }*/
 
 #top .logo-bar { font-size: 20px; font-weight: bold; height: 48px; line-height: 48px; vertical-align: middle; color: #95b0e4;}
-html[dir="ltr"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) left 7px no-repeat; padding: 0 8px 0 170px; }
-html[dir="rtl"] #top .logo-bar { background: white url(../../../images/ekylibre-mini3.png) right 7px no-repeat; padding: 0 170px 0 8px;}
+html[dir="ltr"] #top .logo-bar { background: white url(../images/ekylibre-mini.png) left 7px no-repeat; padding: 0 8px 0 170px; }
+html[dir="rtl"] #top .logo-bar { background: white url(../images/ekylibre-mini.png) right 7px no-repeat; padding: 0 170px 0 8px;}
 
 #top .user-bar { background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.32); border-top: none; border-bottom: none; height: 32px; padding: 0; position :relative; vertical-align:bottom;}
 #top .user-bar a.root { display:block; height: 32px; line-height: 32px; white-space: nowrap; vertical-align: middle; padding: 0 8px;}
@@ -508,7 +508,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 .login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 1px solid #DDD; background: #f1f1f1; } /* #c9d7f1 */
 .ui-dialog .login { margin: 0; padding: 0 8px;}
-.login .logoban { height:80px; background: url(../../../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
+.login .logoban { height:80px; background: url(../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
 .login p { margin:8px; }
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto; }

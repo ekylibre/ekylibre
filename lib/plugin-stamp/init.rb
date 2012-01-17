@@ -15,7 +15,7 @@ module ActiveRecord
       reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
       ActiveRecord::Base.transaction do
         for reflection in reflections
-          reflection.class_name.constantize.update_all({reflection.primary_key_name=>self.id}, {reflection.primary_key_name=>object.id})
+          reflection.class_name.constantize.update_all({reflection.foreign_key=>self.id}, {reflection.foreign_key=>object.id})
         end
         object.delete
       end

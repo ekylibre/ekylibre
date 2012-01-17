@@ -39,7 +39,7 @@ module List
 #           model = model.reflections[@options[:through][x]].options[:class_name].constantize
 #         end
 #         reflection = @options[:through][@options[:through].size-1].to_sym
-#         "::I18n.translate('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].primary_key_name}')"
+#         "::I18n.translate('activerecord.attributes.#{model.name.underscore}.#{model.reflections[reflection].foreign_key}')"
 #       else
 #         "#{@table.model.name}.human_attribute_name('#{@name}')"
 #       end

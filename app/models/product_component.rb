@@ -40,6 +40,11 @@
 
 
 class ProductComponent < CompanyRecord
+  attr_readonly :company_id, :quantity, :name, :comment
+  belongs_to :company
+  belongs_to :component, :class_name=>"Product"
+  belongs_to :warehouse
+  belongs_to :product
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
@@ -47,11 +52,6 @@ class ProductComponent < CompanyRecord
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :company, :component, :name, :product, :quantity, :warehouse
   #]VALIDATORS]
-  attr_readonly :company_id, :quantity, :name, :comment
-  belongs_to :company
-  belongs_to :component, :class_name=>"Product"
-  belongs_to :warehouse
-  belongs_to :product
 
   autosave :product
 
