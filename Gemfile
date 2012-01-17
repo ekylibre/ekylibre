@@ -16,7 +16,7 @@ gem 'libxml-ruby', :require=>'libxml'
 gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0'
 gem "exception_notification"
-gem 'state_machine', '0.9.4'
+gem 'state_machine'
 gem 'jquery-rails' # Necessary to call the Rails's generator
 gem 'combo_box' #, :path=>'../combo_box'
 gem 'formize' #, :path=>'../formize'
