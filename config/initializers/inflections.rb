@@ -9,6 +9,11 @@
 #   inflect.irregular 'person', 'people'
 #   inflect.uncountable %w( fish sheep )
 # end
+#
+# These inflection rules are supported but not enabled by default:
+# ActiveSupport::Inflector.inflections do |inflect|
+#   inflect.acronym 'RESTful'
+# end
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'tax', 'taxes'

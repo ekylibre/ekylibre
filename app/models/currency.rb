@@ -39,6 +39,11 @@
 
 
 class Currency < CompanyRecord
+  attr_readonly :company
+  belongs_to :company
+  has_many :journals
+  has_many :prices
+  has_many :cashes
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :rate, :allow_nil => true
@@ -47,11 +52,6 @@ class Currency < CompanyRecord
   validates_inclusion_of :active, :by_default, :in => [true, false]
   validates_presence_of :code, :company, :format, :name, :rate, :symbol
   #]VALIDATORS]
-  attr_readonly :company
-  belongs_to :company
-  has_many :journals
-  has_many :prices
-  has_many :cashes
 
   validates_uniqueness_of :code, :scope=>:company_id
 

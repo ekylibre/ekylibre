@@ -28,7 +28,9 @@ module List
       record = "r"
       code  = List::SimpleFinder.new.select_data_code(table)
       code << "name = #{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')\n"
-      code << "file = Rails.root.join('tmp', 'list'+rand.to_s+'.#{self.file_extension}')\n"
+      code << "temporary_dir = Rails.root.join('tmp', 'list')\n"
+      code << "FileUtils.mkdir_p(temporary_dir)\n"
+      code << "file = temporary_dir.join(name+rand.to_s+'.#{self.file_extension}')\n"
       code << "Zip::ZipOutputStream.open(file) do |zile|\n"
       # MimeType in first place
       code << "  zile.put_next_entry('mimetype', nil, nil, Zip::ZipEntry::STORED)\n"
