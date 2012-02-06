@@ -664,7 +664,6 @@ class ApplicationController < ActionController::Base
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     records = model.name.underscore.pluralize
-
     raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
     code = ''
     

@@ -20,41 +20,41 @@
 # 
 # == Table: entity_natures
 #
-#  active       :boolean          default(TRUE), not null
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  description  :text             
-#  format       :string(255)      
-#  id           :integer          not null, primary key
-#  in_name      :boolean          default(TRUE), not null
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  physical     :boolean          not null
-#  title        :string(255)      
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  active           :boolean          default(TRUE), not null
+#  company_id       :integer          not null
+#  created_at       :datetime         not null
+#  creator_id       :integer          
+#  description      :text             
+#  full_name_format :string(255)      
+#  id               :integer          not null, primary key
+#  in_name          :boolean          default(TRUE), not null
+#  lock_version     :integer          default(0), not null
+#  name             :string(255)      not null
+#  physical         :boolean          not null
+#  title            :string(255)      
+#  updated_at       :datetime         not null
+#  updater_id       :integer          
 #
 
 
 class EntityNature < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :format, :name, :title, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :in_name, :physical, :in => [true, false]
-  validates_presence_of :company, :name
-  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   has_many :entities, :foreign_key=>:nature_id 
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :full_name_format, :name, :title, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :in_name, :physical, :in => [true, false]
+  validates_presence_of :company, :name
+  #]VALIDATORS]
   validates_uniqueness_of :name, :scope=>:company_id
 
   before_validation do
     self.in_name = false if self.physical
     if self.physical
-      self.format ||= '[title] [last_name] [first_name]'
+      self.full_name_format ||= '[title] [last_name] [first_name]'
     else
-      self.format ||= '[last_name]'
+      self.full_name_format ||= '[last_name]'
     end
   end
 

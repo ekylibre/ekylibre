@@ -44,7 +44,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
   }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
 
   RIGHTS = {
-    :change_prices_on_sales_order => :chnage_prices_on_sales,
+    :change_prices_on_sales_order => :change_prices_on_sales,
     :consult_purchase_orders => :consult_purchases,
     :consult_sale_orders => :consult_sales,
     :give_discounts_on_sales_orders => :give_discounts_on_sales,

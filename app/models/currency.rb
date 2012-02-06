@@ -27,7 +27,6 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  format       :string(16)       not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -35,6 +34,7 @@
 #  symbol       :string(255)      default("-"), not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer          
+#  value_format :string(16)       not null
 #
 
 
@@ -47,10 +47,10 @@ class Currency < CompanyRecord
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :rate, :allow_nil => true
-  validates_length_of :format, :allow_nil => true, :maximum => 16
+  validates_length_of :value_format, :allow_nil => true, :maximum => 16
   validates_length_of :code, :name, :symbol, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :by_default, :in => [true, false]
-  validates_presence_of :code, :company, :format, :name, :rate, :symbol
+  validates_presence_of :code, :company, :name, :rate, :symbol, :value_format
   #]VALIDATORS]
 
   validates_uniqueness_of :code, :scope=>:company_id

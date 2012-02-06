@@ -23,7 +23,6 @@
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  format           :string(255)      not null
 #  id               :integer          not null, primary key
 #  last_cweek       :integer          
 #  last_month       :integer          
@@ -31,6 +30,7 @@
 #  last_year        :integer          
 #  lock_version     :integer          default(0), not null
 #  name             :string(255)      not null
+#  number_format    :string(255)      not null
 #  number_increment :integer          default(1), not null
 #  number_start     :integer          default(1), not null
 #  period           :string(255)      default("number"), not null
@@ -40,19 +40,20 @@
 
 
 class Sequence < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
-  validates_length_of :format, :name, :period, :allow_nil => true, :maximum => 255
-  #]VALIDATORS]
+  # @@periods = ['cweek', 'month', 'number', 'year']
   @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
 
   attr_readonly :company_id
   belongs_to :company
   has_many :preferences, :as=>:record_value
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
+  validates_length_of :name, :number_format, :period, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   validates_inclusion_of :period, :in => @@periods  
-  validates_uniqueness_of :format, :scope=>:company_id
+  validates_uniqueness_of :number_format, :scope=>:company_id
 
   before_validation do
     self.period ||= 'number'
@@ -73,7 +74,7 @@ class Sequence < CompanyRecord
   def compute(number=nil)
     number ||= self.last_number
     today = Date.today
-    self['format'].gsub(@@replace) do |m|
+    self['number_format'].gsub(@@replace) do |m|
       key, size, pattern = $1, $3, $5
       string = (key == 'number' ? number :  today.send(key)).to_s
       size.nil? ? string : string.rjust(size.to_i, pattern||'0')

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20101123095131) do
+ActiveRecord::Schema.define(:version => 20120206153450) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -259,7 +259,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   create_table "currencies", :force => true do |t|
     t.string   "name",                                                                         :null => false
     t.string   "code",                                                                         :null => false
-    t.string   "format",       :limit => 16,                                                   :null => false
+    t.string   "value_format", :limit => 16,                                                   :null => false
     t.decimal  "rate",                       :precision => 16, :scale => 6, :default => 1.0,   :null => false
     t.boolean  "active",                                                    :default => true,  :null => false
     t.text     "comment"
@@ -647,19 +647,19 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
   add_index "entity_links", ["updater_id"], :name => "index_entity_links_on_updater_id"
 
   create_table "entity_natures", :force => true do |t|
-    t.string   "name",                            :null => false
+    t.string   "name",                                :null => false
     t.string   "title"
-    t.boolean  "active",       :default => true,  :null => false
-    t.boolean  "physical",     :default => false, :null => false
-    t.boolean  "in_name",      :default => true,  :null => false
+    t.boolean  "active",           :default => true,  :null => false
+    t.boolean  "physical",         :default => false, :null => false
+    t.boolean  "in_name",          :default => true,  :null => false
     t.text     "description"
-    t.integer  "company_id",                      :null => false
-    t.datetime "created_at",                      :null => false
-    t.datetime "updated_at",                      :null => false
+    t.integer  "company_id",                          :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0,     :null => false
-    t.string   "format"
+    t.integer  "lock_version",     :default => 0,     :null => false
+    t.string   "full_name_format"
   end
 
   add_index "entity_natures", ["company_id"], :name => "index_entity_natures_on_company_id"
@@ -1917,7 +1917,7 @@ ActiveRecord::Schema.define(:version => 20101123095131) do
 
   create_table "sequences", :force => true do |t|
     t.string   "name",                                   :null => false
-    t.string   "format",                                 :null => false
+    t.string   "number_format",                          :null => false
     t.integer  "company_id",                             :null => false
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false

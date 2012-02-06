@@ -5,6 +5,12 @@ module ActiveRecord
     def self.quoted_table_name(name)
       return ActiveRecord::Base.table_name_prefix.to_s+name.to_s+ActiveRecord::Base.table_name_suffix.to_s
     end
+
+    # Alias at instance level
+    def quoted_table_name(name)
+      self.class.quoted_table_name(name)
+    end
+
   end
 
 end

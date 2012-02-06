@@ -44,12 +44,6 @@
 
 
 class Warehouse < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :number, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity_max, :allow_nil => true
-  validates_length_of :name, :x, :y, :z, :allow_nil => true, :maximum => 255
-  #]VALIDATORS]
   acts_as_tree
   attr_readonly :company_id, :reservoir
   belongs_to :company
@@ -61,10 +55,16 @@ class Warehouse < CompanyRecord
   has_many :stocks
   has_many :stock_moves
   has_many :stock_transfers
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :number, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity_max, :allow_nil => true
+  validates_length_of :name, :x, :y, :z, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
 
-  before_validation(:on=>:create) do
-    # self.reservoir = true if !self.product_id.nil?
-  end
+  # before_validation(:on=>:create) do
+  #   self.reservoir = true if !self.product_id.nil?
+  # end
   
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect

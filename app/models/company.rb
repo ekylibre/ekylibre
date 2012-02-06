@@ -129,49 +129,49 @@ class Company < Ekylibre::Record::Base
 
 
   # Sequences
-  preference :cash_transfers_sequence, Sequence
-  preference :deposits_sequence, Sequence
-  preference :entities_sequence, Sequence
-  preference :incoming_deliveries_sequence, Sequence
-  preference :incoming_payments_sequence, Sequence
-  preference :outgoing_deliveries_sequence, Sequence
-  preference :outgoing_payments_sequence, Sequence
-  preference :purchases_sequence, Sequence
-  preference :sales_invoices_sequence, Sequence
-  preference :sales_sequence, Sequence
-  preference :stock_transfers_sequence, Sequence
-  preference :subscriptions_sequence, Sequence
-  preference :transports_sequence, Sequence
+  preference :cash_transfers_sequence, 'Sequence'
+  preference :deposits_sequence, 'Sequence'
+  preference :entities_sequence, 'Sequence'
+  preference :incoming_deliveries_sequence, 'Sequence'
+  preference :incoming_payments_sequence, 'Sequence'
+  preference :outgoing_deliveries_sequence, 'Sequence'
+  preference :outgoing_payments_sequence, 'Sequence'
+  preference :purchases_sequence, 'Sequence'
+  preference :sales_invoices_sequence, 'Sequence'
+  preference :sales_sequence, 'Sequence'
+  preference :stock_transfers_sequence, 'Sequence'
+  preference :subscriptions_sequence, 'Sequence'
+  preference :transports_sequence, 'Sequence'
   # Behaviours
-  preference :bookkeep_automatically, Boolean, :default=>true
-  preference :bookkeep_in_draft, Boolean, :default=>true
-  preference :detail_payments_in_deposit_bookkeeping, Boolean, :default=>true
-  preference :use_entity_codes_for_account_numbers, Boolean, :default=>true  
+  preference :bookkeep_automatically, 'Boolean', :default=>true
+  preference :bookkeep_in_draft, 'Boolean', :default=>true
+  preference :detail_payments_in_deposit_bookkeeping, 'Boolean', :default=>true
+  preference :use_entity_codes_for_account_numbers, 'Boolean', :default=>true  
   # Journals
-  preference :bank_journal, Journal
-  preference :cash_journal, Journal
-  preference :forward_journal, Journal
-  preference :purchases_journal, Journal
-  preference :sales_journal, Journal
-  preference :various_journal, Journal
+  preference :bank_journal, 'Journal'
+  preference :cash_journal, 'Journal'
+  preference :forward_journal, 'Journal'
+  preference :purchases_journal, 'Journal'
+  preference :sales_journal, 'Journal'
+  preference :various_journal, 'Journal'
   # Accounts
-  preference :capital_gains_accounts, Integer, :default=>120
-  preference :capital_losses_accounts, Integer, :default=>129
-  preference :charges_accounts, Integer, :default=>6
-  preference :financial_banks_accounts, Integer, :default=>51
-  preference :financial_cashes_accounts, Integer, :default=>53
-  preference :financial_internal_transfers_accounts, Integer, :default=>58
-  preference :financial_payments_to_deposit_accounts, Integer, :default=>511
-  preference :products_accounts, Integer, :default=>7
-  preference :taxes_acquisition_accounts, Integer, :default=>4452
-  preference :taxes_assimilated_accounts, Integer, :default=>447
-  preference :taxes_balance_accounts, Integer, :default=>44567
-  preference :taxes_collected_accounts, Integer, :default=>4457
-  preference :taxes_paid_accounts, Integer, :default=>4456
-  preference :taxes_payback_accounts, Integer, :default=>44583
-  preference :third_attorneys_accounts, Integer, :default=>467
-  preference :third_clients_accounts, Integer, :default=>411
-  preference :third_suppliers_accounts, Integer, :default=>401
+  preference :capital_gains_accounts, 'Integer', :default=>120
+  preference :capital_losses_accounts, 'Integer', :default=>129
+  preference :charges_accounts, 'Integer', :default=>6
+  preference :financial_banks_accounts, 'Integer', :default=>51
+  preference :financial_cashes_accounts, 'Integer', :default=>53
+  preference :financial_internal_transfers_accounts, 'Integer', :default=>58
+  preference :financial_payments_to_deposit_accounts, 'Integer', :default=>511
+  preference :products_accounts, 'Integer', :default=>7
+  preference :taxes_acquisition_accounts, 'Integer', :default=>4452
+  preference :taxes_assimilated_accounts, 'Integer', :default=>447
+  preference :taxes_balance_accounts, 'Integer', :default=>44567
+  preference :taxes_collected_accounts, 'Integer', :default=>4457
+  preference :taxes_paid_accounts, 'Integer', :default=>4456
+  preference :taxes_payback_accounts, 'Integer', :default=>44583
+  preference :third_attorneys_accounts, 'Integer', :default=>467
+  preference :third_clients_accounts, 'Integer', :default=>411
+  preference :third_suppliers_accounts, 'Integer', :default=>401
 
 
   def self.conditions_proc(string)
@@ -730,7 +730,7 @@ class Company < Ekylibre::Record::Base
 
       company.departments.create!(:name=>tc('default.department_name'))
       establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-      currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :format=>'%f €', :rate=>1)
+      currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
       company.product_categories.create(:name=>tc('default.product_category_name'))
       company.load_units
       company.load_sequences

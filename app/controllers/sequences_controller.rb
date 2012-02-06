@@ -18,12 +18,12 @@
 #
 
 class SequencesController < ApplicationController
-  manage_restfully :format=>"'[number|8]'", :last_number=>"0"
+  manage_restfully :number_format=>"'[number|8]'", :last_number=>"0"
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name
     t.column :compute
-    t.column :format, :class=>:code
+    t.column :number_format, :class=>:code
     t.column :period_name
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"

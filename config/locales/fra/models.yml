@@ -572,8 +572,8 @@ fra:
     for_productions: 'Produit fabriqué ou récolté'
     for_purchases: 'Produit acheté'
     for_sales: 'Produit vendu'
-    format: 'Format'
     full_name: 'Nom complet'
+    full_name_format: 'Format du nom complet'
     function_title: 'Civilités'
     future_events: 'Evènements futurs'
     generated: 'Généré'
@@ -683,6 +683,7 @@ fra:
     node_id: 'Nœud' #!
     nodes: 'Nœuds d''extraction'
     number: 'Numéro'
+    number_format: 'Format du numéro'
     number_increment: 'Incrément'
     number_start: 'Début de la numération'
     observations: 'Observations'
@@ -959,6 +960,7 @@ fra:
     users: 'Utilisateurs'
     uses: 'Matériels utilisés'
     value: 'Valeur'
+    value_format: 'Format de la valeur monétaire'
     vat_number: 'Numéro de TVA intra-communautaire'
     vat_submissive: 'Soumis à la TVA'
     virtual: 'Virtuel'
@@ -1072,53 +1074,53 @@ fra:
         sale_nature_name: 'Vente standard'
         sequences:
           cash_transfers:
-            format: 'VI[year|4][number|4]'
+            number_format: 'VI[year|4][number|4]'
             name: 'Numérotation des virements internes'
             period: 'year'
           deposits:
-            format: 'B[year|4][number|4]'
+            number_format: 'B[year|4][number|4]'
             name: 'Numérotation des remises en banque'
             period: 'year'
           entities:
-            format: '[number|8]'
+            number_format: '[number|8]'
             name: 'Numérotation des personnes'
           incoming_deliveries:
-            format: 'BR[year|4][number|4]'
+            number_format: 'BR[year|4][number|4]'
             name: 'Numérotation des bons de réceptions'
             period: 'year'
           incoming_payments:
-            format: 'R[year|4][number|6]'
+            number_format: 'R[year|4][number|6]'
             name: 'Numérotation des encaissements'
             period: 'year'
           outgoing_deliveries:
-            format: 'BL[year|4][number|6]'
+            number_format: 'BL[year|4][number|6]'
             name: 'Numérotation des bons de livraisons'
             period: 'year'
           outgoing_payments:
-            format: 'D[year|4][number|4]'
+            number_format: 'D[year|4][number|4]'
             name: 'Numérotation des décaissements'
             period: 'year'
           purchases:
-            format: 'A[year|4][month|2][number|6]'
+            number_format: 'A[year|4][month|2][number|6]'
             name: 'Numérotation des achats'
             period: 'month'
           sales:
-            format: 'V[year|4][month|2][number|6]'
+            number_format: 'V[year|4][month|2][number|6]'
             name: 'Numérotation des ventes'
             period: 'month'
           sales_invoices:
-            format: 'F[year|4][number|6]'
+            number_format: 'F[year|4][number|6]'
             name: 'Numérotation des factures'
             period: 'year'
           stock_transfers:
-            format: 'TS[year|4][number|4]'
+            number_format: 'TS[year|4][number|4]'
             name: 'Numérotation des transferts de stock'
             period: 'year'
           subscriptions:
-            format: 'ABO[number|8]'
+            number_format: 'ABO[number|8]'
             name: 'Numérotation des abonnements'
           transports:
-            format: 'TR[number|8]'
+            number_format: 'TR[number|8]'
             name: 'Numérotation des transports'
         taxes:
           tva0000:

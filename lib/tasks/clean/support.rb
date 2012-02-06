@@ -179,10 +179,18 @@ end
 
 def models_in_file
   Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
-  list = if ActiveRecord::Base.respond_to? :subclasses
+  list = if ActiveRecord::Base.respond_to? :descendants
+           ActiveRecord::Base.send(:descendants)
+         elsif ActiveRecord::Base.respond_to? :subclasses
            ActiveRecord::Base.send(:subclasses)
          else
            Object.subclasses_of(ActiveRecord::Base)
          end.select{|x| not x.name.match('::') and not x.abstract_class?}.sort{|a,b| a.name <=> b.name}
+  # if list.empty?
+  #   # Return approximative list
+  #   Dir.chdir(Rails.root.join("app", "models")) do
+  #     list = Dir.glob("*.rb").each{ |file| file.split(".")[0].classify }
+  #   end
+  # end
   return list
 end

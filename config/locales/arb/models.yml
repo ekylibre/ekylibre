@@ -944,8 +944,9 @@ arb:
     for_productions: 'المنتجات المصنعة او المقطوعة'
     for_purchases: 'منتجات الشراء'
     for_sales: 'منتجات البيع'
-    format: 'التصميم'
+    format: 'التصميم' #!
     full_name: 'الاسم بالكامل'
+    full_name_format: 'التصميم'
     function_title: 'الكياسة'
     future_events: 'احداث المستقبل'
     generated: 'ولدت'
@@ -1056,6 +1057,7 @@ arb:
     node_id: 'عقدة' #!
     nodes: 'عقد الاستخراج'
     number: 'الرقم'
+    number_format: 'التصميم'
     number_increment: 'الاضافة'
     number_start: 'بدأ الترقيم'
     observations: 'ملاحظات'
@@ -1326,6 +1328,7 @@ arb:
     users: 'المستخدمين'
     uses: 'المعدات المستخدمة'
     value: 'القيمة'
+    value_format: 'التصميم'
     vat_number: 'عدد القيمة الضريبية المضافة داخل المجتمع المحلي'
     vat_submissive: 'القيمة الضريبية المضافة التابعة'
     virtual: 'عملي'
@@ -1471,83 +1474,83 @@ arb:
         sequences:
           accountancy: #!
           cash_transfers:
-            # format: 'CT[year|4][number|4]'
+            # number_format: 'CT[year|4][number|4]'
             # name: 'Numeration of cash transfers'
             # period: 'year'
           deposits:
-            # format: 'B[year|4][number|4]'
+            # number_format: 'B[year|4][number|4]'
             # name: 'Numeration of deposits'
             # period: 'year'
           entities:
-            # format: '[number|8]'
+            # number_format: '[number|8]'
             # name: 'Numeration of people'
           incoming_deliveries:
-            # format: 'ID[year|4][number|4]'
+            # number_format: 'ID[year|4][number|4]'
             # name: 'Numeration of incoming deliveries'
             # period: 'year'
           incoming_payments:
-            # format: 'P[year|4][number|6]'
+            # number_format: 'P[year|4][number|6]'
             # name: 'Numeration of payments'
             # period: 'year'
           management:  #!
             deposits: #!
-              format: 'B[year|4][number|4]' #!
+              number_format: 'B[year|4][number|4]' #!
               name: 'عدد الاقتطاعات البنكية' #!
               period: 'السنة' #!
             payments: #!
-              format: 'R[year|4][number|6]' #!
+              number_format: 'R[year|4][number|6]' #!
               name: 'عدد اللوائح' #!
               period: 'السنة' #!
             purchases: #!
-              format: 'A[year|4][month|2][number|6]' #!
+              number_format: 'A[year|4][month|2][number|6]' #!
               name: 'عدد المشتريات' #!
               period: 'الشهر' #!
             sales: #!
-              format: 'V[year|4][month|2][number|6]' #!
+              number_format: 'V[year|4][month|2][number|6]' #!
               name: 'عدد المبيعات' #!
               period: 'الشهر' #!
             sales_invoices: #!
-              format: 'F[year|4][number|6]' #!
+              number_format: 'F[year|4][number|6]' #!
               name: 'عدد الفواتير' #!
               period: 'السنة' #!
             subscriptions: #!
-              format: 'ABO[number|8]' #!
+              number_format: 'ABO[number|8]' #!
               name: 'عدد الاشتراكات' #!
           outgoing_deliveries:
-            # format: 'OD[year|4][number|6]'
+            # number_format: 'OD[year|4][number|6]'
             # name: 'Numeration of outgoing deliveries'
             # period: 'year'
           outgoing_payments:
-            # format: 'D[year|4][number|4]'
+            # number_format: 'D[year|4][number|4]'
             # name: 'Numeration of payments'
             # period: 'year'
           purchase_order: #!
           purchases:
-            # format: 'PO[year|4][month|2][number|4]'
+            # number_format: 'PO[year|4][month|2][number|4]'
             # name: 'Numeration of purchases'
             # period: 'month'
           relations:  #!
             entities: #!
-              format: '[number|8]' #!
+              number_format: '[number|8]' #!
               name: 'عدد الاشخاص' #!
           sales:
-            # format: 'SO[year|4][month|2][number|6]'
+            # number_format: 'SO[year|4][month|2][number|6]'
             # name: 'Numeration of sales'
             # period: 'month'
           sales_invoices:
-            # format: 'F[year|4][number|6]'
+            # number_format: 'F[year|4][number|6]'
             # name: 'Numeration of sales invoices'
             # period: 'year'
           sales_orders: #!
           stock_transfers:
-            # format: 'ST[year|4][number|4]'
+            # number_format: 'ST[year|4][number|4]'
             # name: 'Numeration of stock transfers'
             # period: 'year'
           subscriptions:
-            # format: 'SUB[number|8]'
+            # number_format: 'SUB[number|8]'
             # name: 'Numeration of subscriptions'
           transports:
-            # format: 'SH[number|8]'
+            # number_format: 'SH[number|8]'
             # name: 'Numeration of transports'
         taxes:
           tva0000:

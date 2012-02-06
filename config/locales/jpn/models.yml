@@ -525,8 +525,8 @@ jpn:
     # for_productions: 'For productions'
     # for_purchases: 'For purchases'
     # for_sales: 'For sales'
-    # format: 'Format'
     # full_name: 'Full name'
+    # full_name_format: 'Full name format'
     # function_title: 'Function title'
     # future_events: 'Future events'
     # generated: 'Generated'
@@ -627,6 +627,7 @@ jpn:
     # node: 'Node'
     # nodes: 'Nodes'
     number: '番号'
+    # number_format: 'Number format'
     # number_increment: 'Number increment'
     # number_start: 'Number start'
     # observations: 'Observations'
@@ -861,6 +862,7 @@ jpn:
     # users: 'Users'
     # uses: 'Uses'
     # value: 'Value'
+    # value_format: 'Money format'
     # vat_number: 'Vat number'
     # vat_submissive: 'Vat submissive'
     # virtual: 'Virtual'
@@ -976,59 +978,54 @@ jpn:
             # public: 'Public (no rights)'
         # sale_nature_name: 'Standard'
         sequences:
-          accountancy: #!
           cash_transfers:
-            # format: 'CT[year|4][number|4]'
+            # number_format: 'CT[year|4][number|4]'
             # name: 'Numeration of cash transfers'
             # period: 'year'
           deposits:
-            # format: 'B[year|4][number|4]'
+            # number_format: 'B[year|4][number|4]'
             # name: 'Numeration of deposits'
             # period: 'year'
           entities:
-            # format: '[number|8]'
+            # number_format: '[number|8]'
             # name: 'Numeration of people'
           incoming_deliveries:
-            # format: 'ID[year|4][number|4]'
+            # number_format: 'ID[year|4][number|4]'
             # name: 'Numeration of incoming deliveries'
             # period: 'year'
           incoming_payments:
-            # format: 'P[year|4][number|6]'
+            # number_format: 'P[year|4][number|6]'
             # name: 'Numeration of payments'
             # period: 'year'
-          management: #!
           outgoing_deliveries:
-            # format: 'OD[year|4][number|6]'
+            # number_format: 'OD[year|4][number|6]'
             # name: 'Numeration of outgoing deliveries'
             # period: 'year'
           outgoing_payments:
-            # format: 'D[year|4][number|4]'
+            # number_format: 'D[year|4][number|4]'
             # name: 'Numeration of payments'
             # period: 'year'
-          purchase_order: #!
           purchases:
-            # format: 'PO[year|4][month|2][number|4]'
+            # number_format: 'PO[year|4][month|2][number|4]'
             # name: 'Numeration of purchases'
             # period: 'month'
-          relations: #!
           sales:
-            # format: 'SO[year|4][month|2][number|6]'
+            # number_format: 'SO[year|4][month|2][number|6]'
             # name: 'Numeration of sales'
             # period: 'month'
           sales_invoices:
-            # format: 'F[year|4][number|6]'
+            # number_format: 'F[year|4][number|6]'
             # name: 'Numeration of sales invoices'
             # period: 'year'
-          sales_orders: #!
           stock_transfers:
-            # format: 'ST[year|4][number|4]'
+            # number_format: 'ST[year|4][number|4]'
             # name: 'Numeration of stock transfers'
             # period: 'year'
           subscriptions:
-            # format: 'SUB[number|8]'
+            # number_format: 'SUB[number|8]'
             # name: 'Numeration of subscriptions'
           transports:
-            # format: 'SH[number|8]'
+            # number_format: 'SH[number|8]'
             # name: 'Numeration of transports'
         taxes:
           tva0000:

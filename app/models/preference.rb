@@ -40,13 +40,7 @@
 
 
 class Preference < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
-  validates_numericality_of :decimal_value, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
-  #]VALIDATORS]
+  # @@natures = ['boolean', 'decimal', 'integer', 'record', 'string']
   @@natures = Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
   attr_readonly :company_id, :user_id, :name, :nature
@@ -54,6 +48,13 @@ class Preference < CompanyRecord
   belongs_to :user
   belongs_to :record_value, :polymorphic=>true
   # cattr_reader :reference
+  #[VALIDATORS[
+  # Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
+  validates_numericality_of :decimal_value, :allow_nil => true
+  validates_length_of :nature, :allow_nil => true, :maximum => 8
+  validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
+  #]VALIDATORS]
   validates_inclusion_of :nature, :in => @@natures
   validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
 
@@ -63,13 +64,14 @@ class Preference < CompanyRecord
   end
 
   def self.type_to_nature(klass)
-    if  [String, Symbol].include? klass
+    klass = klass.to_s
+    if  ['String', 'Symbol'].include? klass
       :string
-    elsif [Integer, Fixnum, Bignum].include? klass
+    elsif ['Integer', 'Fixnum', 'Bignum'].include? klass
       :integer
-    elsif [TrueClass, FalseClass, Boolean].include? klass
+    elsif ['TrueClass', 'FalseClass', 'Boolean'].include? klass
       :boolean
-    elsif [BigDecimal].include? klass
+    elsif ['BigDecimal'].include? klass
       :decimal
     else
       :record

@@ -10,11 +10,12 @@ module Ekylibre::Record
     end
 
     module ClassMethods
-      def preference(name, type = String, options = {})
+      def preference(name, type = 'String', options = {})
+        type = type.to_s
         code = ""
 
         code += "@@preferences ||= {}\n"
-        code += "@@preferences['#{name}'] = {:default=>#{options[:default].inspect}, :type=>#{type.name}, :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type.name}'}\n"
+        code += "@@preferences['#{name}'] = {:default=>#{options[:default].inspect}, :type=>#{type}, :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type}'}\n"
 
         preferences = (self.name == "Company" ? "self.preferences" : "self.company.preferences")
         unless self.methods.include? "preferences_reference"
@@ -69,11 +70,11 @@ module Ekylibre::Record
           code += "end\n"
         end
 
-        code += "def "+(type == Boolean ? "prefer_#{name}?" : "preferred_#{name}")+"\n"
+        code += "def "+(type == 'Boolean' ? "prefer_#{name}?" : "preferred_#{name}")+"\n"
         code += "  return self.preferred('#{name}')\n"
 #         code += "  preference = #{preferences}.find_by_name('#{name}')\n"
 #         code += "  if preference.nil?\n"
-#         code += "    preference = #{preferences}.new(:name=>'#{name}', :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type.name}')\n"
+#         code += "    preference = #{preferences}.new(:name=>'#{name}', :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type}')\n"
 #         code += "    preference.value = #{options[:default].inspect}\n" if options[:default]
 #         code += "    preference.save!\n"
 #         code += "  end\n"
