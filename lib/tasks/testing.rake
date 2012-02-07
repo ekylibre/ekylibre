@@ -18,24 +18,27 @@ namespace :test do
     t.verbose = true    
   end
 
+  remove_task("run")
+
+  task :run => %w(test:units test:functionals test:integration test:lib)
 end
 
-# lib_task = Rake::Task["test:lib"]
-# test_task = Rake::Task[:test]
-# test_task.enhance { lib_task.invoke }
-remove_task("test")
+# # lib_task = Rake::Task["test:lib"]
+# # test_task = Rake::Task[:test]
+# # test_task.enhance { lib_task.invoke }
+# remove_task("test")
 
-task :test do
-  errors = %w(test:units test:functionals test:integration test:lib).collect do |task|
-    begin
-      Rake::Task[task].invoke
-      nil
-    rescue => e
-      task
-    end
-  end.compact
-  abort "Errors running #{errors * ', '}!" if errors.any?
-end
+# task :test do
+#   errors = %w(test:units test:functionals test:integration test:lib).collect do |task|
+#     begin
+#       Rake::Task[task].invoke
+#       nil
+#     rescue => e
+#       task
+#     end
+#   end.compact
+#   abort "Errors running #{errors * ', '}!" if errors.any?
+# end
 
 
 namespace :fixtures do
