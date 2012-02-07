@@ -878,6 +878,7 @@ arb:
     district: 'المنطقة'
     district_id: 'المنطقة الادارية' #!
     districts: 'المناطق الادارية'
+    division: 'X الوضع'
     document_templates: 'نماذج الوثائق'
     documents: 'الوثائق'
     downpayment: 'القسط'
@@ -1252,6 +1253,7 @@ arb:
     story: 'واقع'
     string_value: 'القيمة النصية'
     subdir: 'المرجع الفرعي'
+    subdivision: 'Y الوضع'
     subject: 'الموضوع'
     subscription_nature: 'النوع'
     subscription_nature_id: 'النوع' #!
@@ -1259,6 +1261,7 @@ arb:
     subscription_period: 'الفترة'
     subscription_quantity: 'الكمية'
     subscriptions: 'الاشتراك'
+    subsubdivision: 'Z الوضع'
     sum_method: 'اسلوب الاحصاء'
     supplier: 'الممول'
     supplier_account: 'حساب مساعد الممول'
@@ -1344,9 +1347,6 @@ arb:
     with_deposit: 'استخدام الاقتطاعات المصرفية'
     with_tracking: 'مع التتبع'
     # with_transport: 'With transport'
-    x: 'X الوضع'
-    y: 'Y الوضع'
-    z: 'Z الوضع'
   models:
     account:
       default_account_name: 'دفتر الحسابات %{number}' #!

@@ -503,6 +503,7 @@ fra:
     district: 'Zone administrative'
     district_id: 'Zone administrative' #!
     districts: 'Zones administratives'
+    division: 'Position X'
     document_templates: 'Modèles de document'
     documents: 'Documents'
     downpayment: 'Acompte'
@@ -884,6 +885,7 @@ fra:
     story: 'Historique'
     string_value: 'Valeur textuelle'
     subdir: 'Sous-répertoire'
+    subdivision: 'Position Y'
     subject: 'Objet'
     subscription_nature: 'Type'
     subscription_nature_id: 'Type' #!
@@ -891,6 +893,7 @@ fra:
     subscription_period: 'Période'
     subscription_quantity: 'Quantité'
     subscriptions: 'Abonnements'
+    subsubdivision: 'Position Z'
     sum_method: 'Méthode de calcul'
     supplier: 'Fournisseur'
     supplier_account: 'Compte fournisseur associé'
@@ -977,9 +980,6 @@ fra:
     with_tracking: 'Avec tracabilité'
     with_transport: 'Avec transport'
     work_center_id: 'Centre d''opération' #!
-    x: 'Position X'
-    y: 'Position Y'
-    z: 'Position Z'
   models:
     account:
       label: '%{number} - %{name}'

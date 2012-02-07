@@ -25,6 +25,7 @@
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
+#  division         :string(255)      
 #  establishment_id :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -34,12 +35,11 @@
 #  product_id       :integer          
 #  quantity_max     :decimal(16, 4)   
 #  reservoir        :boolean          
+#  subdivision      :string(255)      
+#  subsubdivision   :string(255)      
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  x                :string(255)      
-#  y                :string(255)      
-#  z                :string(255)      
 #
 
 
@@ -59,7 +59,7 @@ class Warehouse < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity_max, :allow_nil => true
-  validates_length_of :name, :x, :y, :z, :allow_nil => true, :maximum => 255
+  validates_length_of :division, :name, :subdivision, :subsubdivision, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
 
   # before_validation(:on=>:create) do

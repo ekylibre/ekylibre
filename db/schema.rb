@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120206153450) do
+ActiveRecord::Schema.define(:version => 20120207153010) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -2319,9 +2319,9 @@ ActiveRecord::Schema.define(:version => 20120206153450) do
 
   create_table "warehouses", :force => true do |t|
     t.string   "name",                                                               :null => false
-    t.string   "x"
-    t.string   "y"
-    t.string   "z"
+    t.string   "division"
+    t.string   "subdivision"
+    t.string   "subsubdivision"
     t.text     "comment"
     t.integer  "parent_id"
     t.integer  "establishment_id"

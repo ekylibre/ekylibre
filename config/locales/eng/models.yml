@@ -462,6 +462,7 @@ eng:
     discount_rate: 'Discount rate'
     district: 'District' #!
     districts: 'Districts' #!
+    division: 'X'
     document_templates: 'Document templates' #!
     documents: 'Documents' #!
     downpayment: 'Downpayment'
@@ -788,12 +789,14 @@ eng:
     story: 'Story'
     string_value: 'String value'
     subdir: 'Subdir'
+    subdivision: 'Y'
     subject: 'Subject'
     subscription_nature: 'Subscription type' #!
     subscription_natures: 'Subscription types' #!
     subscription_period: 'Subscription period'
     subscription_quantity: 'Subscription quantity'
     subscriptions: 'Subscriptions' #!
+    subsubdivision: 'Z'
     sum_method: 'Sum method'
     supplier: 'Supplier'
     supplier_account: 'Supplier account' #!
@@ -875,9 +878,6 @@ eng:
     with_deposit: 'With deposit'
     with_tracking: 'With tracking'
     with_transport: 'With transport'
-    x: 'X'
-    y: 'Y'
-    z: 'Z'
   models:
     account:
       label: '%{number} - %{name}'

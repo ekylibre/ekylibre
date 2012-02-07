@@ -25,6 +25,7 @@
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
+#  division         :string(255)      
 #  establishment_id :integer          
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -34,12 +35,11 @@
 #  product_id       :integer          
 #  quantity_max     :decimal(16, 4)   
 #  reservoir        :boolean          
+#  subdivision      :string(255)      
+#  subsubdivision   :string(255)      
 #  unit_id          :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  x                :string(255)      
-#  y                :string(255)      
-#  z                :string(255)      
 #
 
 
