@@ -39,6 +39,9 @@ Ekylibre::Application.routes.draw do
 
     resources :help, :only=>[:index, :show]
 
+    # Check that the id is an integer
+    # constraints(:id => /[0-9]+/) do
+
     # resources :account_balances
     resources :accounts do
       collection do
@@ -548,7 +551,7 @@ Ekylibre::Application.routes.draw do
         get :list_stock_moves
       end
     end
-
+    # end
     match "/", :controller=>"dashboards", :action=>"general", :as=>"company_root"
   end
   

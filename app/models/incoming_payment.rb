@@ -68,7 +68,6 @@ class IncomingPayment < CompanyRecord
 
   attr_readonly :company_id, :payer_id
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
-  attr_protected :used_amount
 
   #[VALIDATORS[
   # Do not edit these lines directly. Use `rake clean:validations`.

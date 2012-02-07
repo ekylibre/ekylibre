@@ -130,22 +130,43 @@ class ActionController::TestCase
         code << "    get :#{action}, :company=>@user.company.code\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show
-        code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        code << "      get :#{action}, :company=>@user.company.code\n"
-        code << "    end\n"
+        # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
+        # code << "      get :#{action}, :company=>@user.company.code\n"
+        # code << "    end\n"
+        code << "    get :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
         code << "    get :#{action}, :company=>@user.company.code, :id=>1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
         code << "    assert_not_nil assigns(:#{model})\n"
       elsif mode == :create
+        klass = model.classify.constantize
+        protected_attributes = klass.protected_attributes.to_a
+        attributes = klass.attribute_names - protected_attributes
+        protected_attributes -= ["id", "type"]
+
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :company=>@user.company.code, :#{model}=>#{model}.attributes\n"
+        code << "      post :#{action}, :company=>@user.company.code, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
+        if protected_attributes.size > 0
+          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n" 
+          code << "      post :#{action}, :company=>@user.company.code, :#{model}=>#{model}.attributes\n"
+          code << "    end\n"          
+        end
       elsif mode == :update
+        klass = model.classify.constantize
+        protected_attributes = klass.protected_attributes.to_a
+        attributes = klass.attribute_names - protected_attributes
+        protected_attributes -= ["id", "type"]
+
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
-        # code << "    assert_nothing_raised() do\n"
-        code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
-        # code << "    end\n"
+        code << "    assert_nothing_raised do\n" 
+        code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
+        code << "    end\n"
+        if protected_attributes.size > 0
+          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n" 
+          code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
+          code << "    end\n"          
+        end
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
         code << "      delete :#{action}, :company=>@user.company.code, :id=>2\n"
@@ -159,15 +180,17 @@ class ActionController::TestCase
           code << "    assert_response :success, 'Action #{action} does not esport in format #{format}'\n"
         end
       elsif mode == :touch
-        code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
-        code << "      post :#{action}, :company=>@user.company.code\n"
-        code << "    end\n"
+        # code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
+        # code << "      post :#{action}, :company=>@user.company.code\n"
+        # code << "    end\n"
+        code << "    post :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
         code << "    post :#{action}, :company=>@user.company.code, :id=>1\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
-        code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        code << "      get :#{action}, :company=>@user.company.code\n"
-        code << "    end\n"
+        # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
+        # code << "      get :#{action}, :company=>@user.company.code\n"
+        # code << "    end\n"
+        code << "    get :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
         code << "    get :#{action}, :company=>@user.company.code, :id=>1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr 
@@ -190,7 +213,7 @@ class ActionController::TestCase
     # code << "  end\n"
     code << "end\n"
 
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
     class_eval(code, "#{__FILE__}:#{__LINE__}")
     
   end
