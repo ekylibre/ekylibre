@@ -8,6 +8,9 @@
         :keys=> [:other],
         :rule=> lambda { |n| :other }
       }
+    },
+    :date => {
+      :order => [:month, :day, :year]
     }
   }
 }

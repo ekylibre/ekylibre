@@ -1,1004 +1,1004 @@
 # Unused actions in rights
-#   - production_chain_conveyors::create
-#   - production_chain_conveyors::destroy
-#   - production_chain_conveyors::edit
-#   - production_chain_conveyors::new
-#   - production_chain_conveyors::update
-#   - production_chain_work_centers::create
-#   - production_chain_work_centers::destroy
-#   - production_chain_work_centers::down
-#   - production_chain_work_centers::edit
-#   - production_chain_work_centers::new
-#   - production_chain_work_centers::play
-#   - production_chain_work_centers::show
-#   - production_chain_work_centers::up
-#   - production_chain_work_centers::update
-#   - production_chains::create
-#   - production_chains::destroy
-#   - production_chains::edit
-#   - production_chains::index
-#   - production_chains::list
-#   - production_chains::list_conveyors
-#   - production_chains::list_work_centers
-#   - production_chains::new
-#   - production_chains::show
-#   - production_chains::update
-#   - professions::create
-#   - professions::destroy
-#   - professions::edit
-#   - professions::index
-#   - professions::list
-#   - professions::new
-#   - professions::update
+#   - "production_chain_conveyors::create"
+#   - "production_chain_conveyors::destroy"
+#   - "production_chain_conveyors::edit"
+#   - "production_chain_conveyors::new"
+#   - "production_chain_conveyors::update"
+#   - "production_chain_work_centers::create"
+#   - "production_chain_work_centers::destroy"
+#   - "production_chain_work_centers::down"
+#   - "production_chain_work_centers::edit"
+#   - "production_chain_work_centers::new"
+#   - "production_chain_work_centers::play"
+#   - "production_chain_work_centers::show"
+#   - "production_chain_work_centers::up"
+#   - "production_chain_work_centers::update"
+#   - "production_chains::create"
+#   - "production_chains::destroy"
+#   - "production_chains::edit"
+#   - "production_chains::index"
+#   - "production_chains::list"
+#   - "production_chains::list_conveyors"
+#   - "production_chains::list_work_centers"
+#   - "production_chains::new"
+#   - "production_chains::show"
+#   - "production_chains::update"
+#   - "professions::create"
+#   - "professions::destroy"
+#   - "professions::edit"
+#   - "professions::index"
+#   - "professions::list"
+#   - "professions::new"
+#   - "professions::update"
 # Access to the minimum
 __minimum__:
   actions:
-  - dashboards::general
-  - dashboards::list_my_future_events
-  - dashboards::list_recent_events
-  - dashboards::welcome
-  - help::index
-  - help::show
-  - interfacers::product_trackings
-  - interfacers::product_units
-  - interfacers::search_for_account
-  - interfacers::search_for_all_contacts
-  - interfacers::search_for_attorneys_accounts
-  - interfacers::search_for_available_prices
-  - interfacers::search_for_client_contacts
-  - interfacers::search_for_clients
-  - interfacers::search_for_clients_accounts
-  - interfacers::search_for_collected_account
-  - interfacers::search_for_districts
-  - interfacers::search_for_entities
-  - interfacers::search_for_incoming_delivery_contacts
-  - interfacers::search_for_operation_products
-  - interfacers::search_for_outgoing_deliveries
-  - interfacers::search_for_outgoing_delivery_contacts
-  - interfacers::search_for_paid_account
-  - interfacers::search_for_purchase_products
-  - interfacers::search_for_subscription_contacts
-  - interfacers::search_for_suppliers
-  - interfacers::search_for_suppliers_accounts
-  - interfacers::toggle_module
-  - interfacers::toggle_side
-  - interfacers::toggle_tab
-  - interfacers::toggle_view_mode
-  - interfacers::unroll_options
-  - myselves::change_password
-  - myselves::statistics
-  - settings::about
+  - "dashboards::general"
+  - "dashboards::list_my_future_events"
+  - "dashboards::list_recent_events"
+  - "dashboards::welcome"
+  - "help::index"
+  - "help::show"
+  - "interfacers::product_trackings"
+  - "interfacers::product_units"
+  - "interfacers::search_for_account"
+  - "interfacers::search_for_all_contacts"
+  - "interfacers::search_for_attorneys_accounts"
+  - "interfacers::search_for_available_prices"
+  - "interfacers::search_for_client_contacts"
+  - "interfacers::search_for_clients"
+  - "interfacers::search_for_clients_accounts"
+  - "interfacers::search_for_collected_account"
+  - "interfacers::search_for_districts"
+  - "interfacers::search_for_entities"
+  - "interfacers::search_for_incoming_delivery_contacts"
+  - "interfacers::search_for_operation_products"
+  - "interfacers::search_for_outgoing_deliveries"
+  - "interfacers::search_for_outgoing_delivery_contacts"
+  - "interfacers::search_for_paid_account"
+  - "interfacers::search_for_purchase_products"
+  - "interfacers::search_for_subscription_contacts"
+  - "interfacers::search_for_suppliers"
+  - "interfacers::search_for_suppliers_accounts"
+  - "interfacers::toggle_module"
+  - "interfacers::toggle_side"
+  - "interfacers::toggle_tab"
+  - "interfacers::toggle_view_mode"
+  - "interfacers::unroll_options"
+  - "myselves::change_password"
+  - "myselves::statistics"
+  - "settings::about"
 # Public access
 __public__:
   actions:
-  - companies::register
-  - sessions::create
-  - sessions::destroy
-  - sessions::new
-  - sessions::renew
+  - "companies::register"
+  - "sessions::create"
+  - "sessions::destroy"
+  - "sessions::new"
+  - "sessions::renew"
 # Make and reload backups
 backup_company:
   actions:
-  - dashboards::general
-  - settings::backup
-  - settings::backups
-  - settings::restore
+  - "dashboards::general"
+  - "settings::backup"
+  - "settings::backups"
+  - "settings::restore"
 # Transfer commercial data in accountancy
 bookkeep:
-  actions: [dashboards::accountancy, journals::bookkeep]
+  actions: ["dashboards::accountancy", "journals::bookkeep"]
 # Build production chains
 build_production_chains:
   actions: []
 # Cancel sales_invoices
 cancel_sales_invoices:
   actions:
-  - dashboards::trade
-  - sales::cancel
-  - sales::index
-  - sales::list_creditable_lines
-  - sales::list_credits
+  - "dashboards::trade"
+  - "sales::cancel"
+  - "sales::index"
+  - "sales::list_creditable_lines"
+  - "sales::list_credits"
 # Change prices on sales
 change_prices_on_sales:
   actions: []
 # Close and reopen journals
 close_journals:
   actions:
-  - dashboards::accountancy
-  - journals::close
-  - journals::index
-  - journals::reopen
+  - "dashboards::accountancy"
+  - "journals::close"
+  - "journals::index"
+  - "journals::reopen"
 # Configure the options of the company
 configure_company:
   actions:
-  - dashboards::general
-  - departments::create
-  - departments::destroy
-  - departments::edit
-  - departments::index
-  - departments::list
-  - departments::new
-  - departments::update
-  - establishments::create
-  - establishments::destroy
-  - establishments::edit
-  - establishments::index
-  - establishments::list
-  - establishments::new
-  - establishments::update
-  - sequences::create
-  - sequences::destroy
-  - sequences::edit
-  - sequences::index
-  - sequences::list
-  - sequences::load
-  - sequences::new
-  - sequences::update
-  - settings::edit
-  - settings::update
+  - "dashboards::general"
+  - "departments::create"
+  - "departments::destroy"
+  - "departments::edit"
+  - "departments::index"
+  - "departments::list"
+  - "departments::new"
+  - "departments::update"
+  - "establishments::create"
+  - "establishments::destroy"
+  - "establishments::edit"
+  - "establishments::index"
+  - "establishments::list"
+  - "establishments::new"
+  - "establishments::update"
+  - "sequences::create"
+  - "sequences::destroy"
+  - "sequences::edit"
+  - "sequences::index"
+  - "sequences::list"
+  - "sequences::load"
+  - "sequences::new"
+  - "sequences::update"
+  - "settings::edit"
+  - "settings::update"
 # Consult accounting documents
 consult_accounting_documents:
   actions:
-  - dashboards::accountancy
-  - journals::balance
-  - journals::general_ledger
-  - journals::list_general_ledger
-  - journals::reports
+  - "dashboards::accountancy"
+  - "journals::balance"
+  - "journals::general_ledger"
+  - "journals::list_general_ledger"
+  - "journals::reports"
 # Consult the people
 consult_entities:
   actions:
-  - dashboards::relations
-  - entities::index
-  - entities::list
-  - entities::list_cashes
-  - entities::list_contacts
-  - entities::list_events
-  - entities::list_incoming_payments
-  - entities::list_outgoing_payments
-  - entities::list_purchases
-  - entities::list_sales
-  - entities::list_subscriptions
-  - entities::show
+  - "dashboards::relations"
+  - "entities::index"
+  - "entities::list"
+  - "entities::list_cashes"
+  - "entities::list_contacts"
+  - "entities::list_events"
+  - "entities::list_incoming_payments"
+  - "entities::list_outgoing_payments"
+  - "entities::list_purchases"
+  - "entities::list_sales"
+  - "entities::list_subscriptions"
+  - "entities::show"
 # Consult the journal entries
 consult_journal_entries:
-  actions: [dashboards::accountancy, journals::index, journals::show]
+  actions: ["dashboards::accountancy", "journals::index", "journals::show"]
 # Consult the prices
 consult_prices:
-  actions: [dashboards::trade, prices::index]
+  actions: ["dashboards::trade", "prices::index"]
 # Consult the products
 consult_products:
-  actions: [dashboards::trade, products::index, products::show]
+  actions: ["dashboards::trade", "products::index", "products::show"]
 # Consult the purchases
 consult_purchases:
   actions:
-  - dashboards::trade
-  - purchases::index
-  - purchases::list
-  - purchases::list_deliveries
-  - purchases::list_lines
-  - purchases::list_payment_uses
-  - purchases::list_undelivered_lines
-  - purchases::show
+  - "dashboards::trade"
+  - "purchases::index"
+  - "purchases::list"
+  - "purchases::list_deliveries"
+  - "purchases::list_lines"
+  - "purchases::list_payment_uses"
+  - "purchases::list_undelivered_lines"
+  - "purchases::show"
 # Consult the sales
 consult_sales:
   actions:
-  - dashboards::trade
-  - sales::index
-  - sales::list
-  - sales::list_deliveries
-  - sales::list_lines
-  - sales::list_payment_uses
-  - sales::list_undelivered_lines
-  - sales::show
-  - sales::statistics
+  - "dashboards::trade"
+  - "sales::index"
+  - "sales::list"
+  - "sales::list_deliveries"
+  - "sales::list_lines"
+  - "sales::list_payment_uses"
+  - "sales::list_undelivered_lines"
+  - "sales::show"
+  - "sales::statistics"
 # Consult the stocks
 consult_stocks:
   actions:
-  - dashboards::list_critic_stocks
-  - dashboards::trade
-  - stocks::index
-  - stocks::list
+  - "dashboards::list_critic_stocks"
+  - "dashboards::trade"
+  - "stocks::index"
+  - "stocks::list"
 # Consult the tracking informations
 consult_trackings:
   actions:
-  - dashboards::trade
-  - trackings::list_operation_lines
-  - trackings::list_purchase_lines
-  - trackings::list_sale_lines
-  - trackings::list_stocks
-  - trackings::show
+  - "dashboards::trade"
+  - "trackings::list_operation_lines"
+  - "trackings::list_purchase_lines"
+  - "trackings::list_sale_lines"
+  - "trackings::list_stocks"
+  - "trackings::show"
 # Export listings
 extract_listings:
-  actions: [dashboards::general, listings::extract, listings::index]
+  actions: ["dashboards::general", "listings::extract", "listings::index"]
 # Set reduction on sales
 give_discounts_on_sales:
   actions: []
 # Import data from other software
 import_data:
-  actions: [dashboards::general, settings::import]
+  actions: ["dashboards::general", "settings::import"]
 # Import, export people listings
 import_export_entities:
   actions:
-  - dashboards::relations
-  - entities::export
-  - entities::import
-  - entities::index
-  - entities::list
+  - "dashboards::relations"
+  - "entities::export"
+  - "entities::import"
+  - "entities::index"
+  - "entities::list"
 # Send mail to lists
 mail_to_listings:
-  actions: [dashboards::general, listings::index, listings::mail]
+  actions: ["dashboards::general", "listings::index", "listings::mail"]
 # Manage accounts
 manage_accounts:
   actions:
-  - accounts::create
-  - accounts::destroy
-  - accounts::edit
-  - accounts::index
-  - accounts::list
-  - accounts::list_entities
-  - accounts::list_journal_entry_lines
-  - accounts::load
-  - accounts::new
-  - accounts::show
-  - accounts::update
-  - dashboards::accountancy
+  - "accounts::create"
+  - "accounts::destroy"
+  - "accounts::edit"
+  - "accounts::index"
+  - "accounts::list"
+  - "accounts::list_entities"
+  - "accounts::list_journal_entry_lines"
+  - "accounts::load"
+  - "accounts::new"
+  - "accounts::show"
+  - "accounts::update"
+  - "dashboards::accountancy"
 # Manage areas
 manage_areas:
   actions:
-  - areas::create
-  - areas::destroy
-  - areas::edit
-  - areas::index
-  - areas::list
-  - areas::new
-  - areas::update
-  - dashboards::relations
+  - "areas::create"
+  - "areas::destroy"
+  - "areas::edit"
+  - "areas::index"
+  - "areas::list"
+  - "areas::new"
+  - "areas::update"
+  - "dashboards::relations"
 # Point bank statements
 manage_bank_statements:
   actions:
-  - bank_statements::create
-  - bank_statements::destroy
-  - bank_statements::edit
-  - bank_statements::index
-  - bank_statements::list
-  - bank_statements::list_lines
-  - bank_statements::new
-  - bank_statements::point
-  - bank_statements::show
-  - bank_statements::update
-  - dashboards::accountancy
+  - "bank_statements::create"
+  - "bank_statements::destroy"
+  - "bank_statements::edit"
+  - "bank_statements::index"
+  - "bank_statements::list"
+  - "bank_statements::list_lines"
+  - "bank_statements::new"
+  - "bank_statements::point"
+  - "bank_statements::show"
+  - "bank_statements::update"
+  - "dashboards::accountancy"
 # Manage cash transfers
 manage_cash_transfers:
   actions:
-  - cash_transfers::create
-  - cash_transfers::destroy
-  - cash_transfers::edit
-  - cash_transfers::index
-  - cash_transfers::list
-  - cash_transfers::new
-  - cash_transfers::show
-  - cash_transfers::update
-  - dashboards::finances
+  - "cash_transfers::create"
+  - "cash_transfers::destroy"
+  - "cash_transfers::edit"
+  - "cash_transfers::index"
+  - "cash_transfers::list"
+  - "cash_transfers::new"
+  - "cash_transfers::show"
+  - "cash_transfers::update"
+  - "dashboards::finances"
 # Manage cashes
 manage_cashes:
   actions:
-  - cashes::create
-  - cashes::destroy
-  - cashes::edit
-  - cashes::index
-  - cashes::list
-  - cashes::list_bank_statements
-  - cashes::list_deposits
-  - cashes::new
-  - cashes::show
-  - cashes::update
-  - dashboards::finances
+  - "cashes::create"
+  - "cashes::destroy"
+  - "cashes::edit"
+  - "cashes::index"
+  - "cashes::list"
+  - "cashes::list_bank_statements"
+  - "cashes::list_deposits"
+  - "cashes::new"
+  - "cashes::show"
+  - "cashes::update"
+  - "dashboards::finances"
 # Manage custom fields
 manage_custom_fields:
   actions:
-  - custom_field_choices::create
-  - custom_field_choices::destroy
-  - custom_field_choices::down
-  - custom_field_choices::edit
-  - custom_field_choices::new
-  - custom_field_choices::up
-  - custom_field_choices::update
-  - custom_fields::create
-  - custom_fields::destroy
-  - custom_fields::down
-  - custom_fields::edit
-  - custom_fields::index
-  - custom_fields::list
-  - custom_fields::list_choices
-  - custom_fields::new
-  - custom_fields::show
-  - custom_fields::sort
-  - custom_fields::up
-  - custom_fields::update
-  - dashboards::relations
+  - "custom_field_choices::create"
+  - "custom_field_choices::destroy"
+  - "custom_field_choices::down"
+  - "custom_field_choices::edit"
+  - "custom_field_choices::new"
+  - "custom_field_choices::up"
+  - "custom_field_choices::update"
+  - "custom_fields::create"
+  - "custom_fields::destroy"
+  - "custom_fields::down"
+  - "custom_fields::edit"
+  - "custom_fields::index"
+  - "custom_fields::list"
+  - "custom_fields::list_choices"
+  - "custom_fields::new"
+  - "custom_fields::show"
+  - "custom_fields::sort"
+  - "custom_fields::up"
+  - "custom_fields::update"
+  - "dashboards::relations"
 # Manage delays
 manage_delays:
   actions:
-  - dashboards::trade
-  - delays::create
-  - delays::destroy
-  - delays::edit
-  - delays::index
-  - delays::list
-  - delays::new
-  - delays::show
-  - delays::update
+  - "dashboards::trade"
+  - "delays::create"
+  - "delays::destroy"
+  - "delays::edit"
+  - "delays::index"
+  - "delays::list"
+  - "delays::new"
+  - "delays::show"
+  - "delays::update"
 # Manage deposits
 manage_deposits:
   actions:
-  - dashboards::finances
-  - deposits::create
-  - deposits::destroy
-  - deposits::edit
-  - deposits::index
-  - deposits::list
-  - deposits::list_depositable_payments
-  - deposits::list_payments
-  - deposits::list_unvalidateds
-  - deposits::new
-  - deposits::show
-  - deposits::unvalidateds
-  - deposits::update
+  - "dashboards::finances"
+  - "deposits::create"
+  - "deposits::destroy"
+  - "deposits::edit"
+  - "deposits::index"
+  - "deposits::list"
+  - "deposits::list_depositable_payments"
+  - "deposits::list_payments"
+  - "deposits::list_unvalidateds"
+  - "deposits::new"
+  - "deposits::show"
+  - "deposits::unvalidateds"
+  - "deposits::update"
 # Manage districts
 manage_districts:
   actions:
-  - dashboards::relations
-  - districts::create
-  - districts::destroy
-  - districts::edit
-  - districts::index
-  - districts::list
-  - districts::new
-  - districts::update
-  - interfacers::search_for_districts
+  - "dashboards::relations"
+  - "districts::create"
+  - "districts::destroy"
+  - "districts::edit"
+  - "districts::index"
+  - "districts::list"
+  - "districts::new"
+  - "districts::update"
+  - "interfacers::search_for_districts"
 # Manage document templates
 manage_document_templates:
   actions:
-  - dashboards::general
-  - document_templates::create
-  - document_templates::destroy
-  - document_templates::duplicate
-  - document_templates::edit
-  - document_templates::index
-  - document_templates::list
-  - document_templates::load
-  - document_templates::new
-  - document_templates::print
-  - document_templates::update
+  - "dashboards::general"
+  - "document_templates::create"
+  - "document_templates::destroy"
+  - "document_templates::duplicate"
+  - "document_templates::edit"
+  - "document_templates::index"
+  - "document_templates::list"
+  - "document_templates::load"
+  - "document_templates::new"
+  - "document_templates::print"
+  - "document_templates::update"
 # Manage people
 manage_entities:
   actions:
-  - contacts::create
-  - contacts::destroy
-  - contacts::edit
-  - contacts::new
-  - contacts::update
-  - dashboards::relations
-  - entities::create
-  - entities::destroy
-  - entities::edit
-  - entities::list_cashes
-  - entities::list_contacts
-  - entities::list_events
-  - entities::list_incoming_payments
-  - entities::list_mandates
-  - entities::list_purchases
-  - entities::list_sales
-  - entities::list_subscriptions
-  - entities::new
-  - entities::update
-  - interfacers::autocomplete_for_area_name
-  - interfacers::autocomplete_for_entity_origin
-  - interfacers::search_for_attorneys_accounts
-  - interfacers::search_for_clients_accounts
-  - interfacers::search_for_suppliers_accounts
+  - "contacts::create"
+  - "contacts::destroy"
+  - "contacts::edit"
+  - "contacts::new"
+  - "contacts::update"
+  - "dashboards::relations"
+  - "entities::create"
+  - "entities::destroy"
+  - "entities::edit"
+  - "entities::list_cashes"
+  - "entities::list_contacts"
+  - "entities::list_events"
+  - "entities::list_incoming_payments"
+  - "entities::list_mandates"
+  - "entities::list_purchases"
+  - "entities::list_sales"
+  - "entities::list_subscriptions"
+  - "entities::new"
+  - "entities::update"
+  - "interfacers::autocomplete_for_area_name"
+  - "interfacers::autocomplete_for_entity_origin"
+  - "interfacers::search_for_attorneys_accounts"
+  - "interfacers::search_for_clients_accounts"
+  - "interfacers::search_for_suppliers_accounts"
 # Manage people natures
 manage_entities_natures:
   actions:
-  - dashboards::relations
-  - entity_natures::create
-  - entity_natures::destroy
-  - entity_natures::edit
-  - entity_natures::index
-  - entity_natures::list
-  - entity_natures::new
-  - entity_natures::update
+  - "dashboards::relations"
+  - "entity_natures::create"
+  - "entity_natures::destroy"
+  - "entity_natures::edit"
+  - "entity_natures::index"
+  - "entity_natures::list"
+  - "entity_natures::new"
+  - "entity_natures::update"
 # Manage people categories
 manage_entity_categories:
   actions:
-  - dashboards::relations
-  - entity_categories::create
-  - entity_categories::destroy
-  - entity_categories::edit
-  - entity_categories::index
-  - entity_categories::list
-  - entity_categories::list_prices
-  - entity_categories::new
-  - entity_categories::show
-  - entity_categories::update
+  - "dashboards::relations"
+  - "entity_categories::create"
+  - "entity_categories::destroy"
+  - "entity_categories::edit"
+  - "entity_categories::index"
+  - "entity_categories::list"
+  - "entity_categories::list_prices"
+  - "entity_categories::new"
+  - "entity_categories::show"
+  - "entity_categories::update"
 # Manage people links
 manage_entity_links:
   actions:
-  - dashboards::relations
-  - entities::list_links
-  - entity_link_natures::create
-  - entity_link_natures::destroy
-  - entity_link_natures::edit
-  - entity_link_natures::index
-  - entity_link_natures::list
-  - entity_link_natures::new
-  - entity_link_natures::update
-  - entity_links::create
-  - entity_links::destroy
-  - entity_links::edit
-  - entity_links::new
-  - entity_links::update
+  - "dashboards::relations"
+  - "entities::list_links"
+  - "entity_link_natures::create"
+  - "entity_link_natures::destroy"
+  - "entity_link_natures::edit"
+  - "entity_link_natures::index"
+  - "entity_link_natures::list"
+  - "entity_link_natures::new"
+  - "entity_link_natures::update"
+  - "entity_links::create"
+  - "entity_links::destroy"
+  - "entity_links::edit"
+  - "entity_links::new"
+  - "entity_links::update"
 # Create and update estimates
 manage_estimates:
   actions:
-  - dashboards::trade
-  - interfacers::search_for_available_prices
-  - interfacers::search_for_clients
-  - prices::find
-  - sale_lines::create
-  - sale_lines::destroy
-  - sale_lines::detail
-  - sale_lines::edit
-  - sale_lines::new
-  - sale_lines::update
-  - sales::abort
-  - sales::confirm
-  - sales::contacts
-  - sales::correct
-  - sales::create
-  - sales::duplicate
-  - sales::edit
-  - sales::list_subscriptions
-  - sales::new
-  - sales::propose
-  - sales::refuse
-  - sales::show
-  - sales::update
-  - subscriptions::coordinates
+  - "dashboards::trade"
+  - "interfacers::search_for_available_prices"
+  - "interfacers::search_for_clients"
+  - "prices::find"
+  - "sale_lines::create"
+  - "sale_lines::destroy"
+  - "sale_lines::detail"
+  - "sale_lines::edit"
+  - "sale_lines::new"
+  - "sale_lines::update"
+  - "sales::abort"
+  - "sales::confirm"
+  - "sales::contacts"
+  - "sales::correct"
+  - "sales::create"
+  - "sales::duplicate"
+  - "sales::edit"
+  - "sales::list_subscriptions"
+  - "sales::new"
+  - "sales::propose"
+  - "sales::refuse"
+  - "sales::show"
+  - "sales::update"
+  - "subscriptions::coordinates"
 # Manage events
 manage_events:
   actions:
-  - dashboards::relations
-  - event_natures::create
-  - event_natures::destroy
-  - event_natures::edit
-  - event_natures::index
-  - event_natures::list
-  - event_natures::new
-  - event_natures::update
-  - events::change_minutes
-  - events::create
-  - events::destroy
-  - events::edit
-  - events::index
-  - events::list
-  - events::new
-  - events::update
-  - interfacers::autocomplete_for_event_location
+  - "dashboards::relations"
+  - "event_natures::create"
+  - "event_natures::destroy"
+  - "event_natures::edit"
+  - "event_natures::index"
+  - "event_natures::list"
+  - "event_natures::new"
+  - "event_natures::update"
+  - "events::change_minutes"
+  - "events::create"
+  - "events::destroy"
+  - "events::edit"
+  - "events::index"
+  - "events::list"
+  - "events::new"
+  - "events::update"
+  - "interfacers::autocomplete_for_event_location"
 # Manage and close financial years
 manage_financial_years:
   actions:
-  - dashboards::accountancy
-  - financial_years::close
-  - financial_years::compute_balances
-  - financial_years::create
-  - financial_years::destroy
-  - financial_years::edit
-  - financial_years::index
-  - financial_years::list
-  - financial_years::list_account_balances
-  - financial_years::new
-  - financial_years::show
-  - financial_years::synthesis
-  - financial_years::update
+  - "dashboards::accountancy"
+  - "financial_years::close"
+  - "financial_years::compute_balances"
+  - "financial_years::create"
+  - "financial_years::destroy"
+  - "financial_years::edit"
+  - "financial_years::index"
+  - "financial_years::list"
+  - "financial_years::list_account_balances"
+  - "financial_years::new"
+  - "financial_years::show"
+  - "financial_years::synthesis"
+  - "financial_years::update"
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
   actions:
-  - dashboards::trade
-  - incoming_delivery_modes::create
-  - incoming_delivery_modes::destroy
-  - incoming_delivery_modes::edit
-  - incoming_delivery_modes::index
-  - incoming_delivery_modes::list
-  - incoming_delivery_modes::new
-  - incoming_delivery_modes::update
+  - "dashboards::trade"
+  - "incoming_delivery_modes::create"
+  - "incoming_delivery_modes::destroy"
+  - "incoming_delivery_modes::edit"
+  - "incoming_delivery_modes::index"
+  - "incoming_delivery_modes::list"
+  - "incoming_delivery_modes::new"
+  - "incoming_delivery_modes::update"
 # Manage incoming payment modes
 manage_incoming_payment_modes:
   actions:
-  - dashboards::finances
-  - incoming_payment_modes::create
-  - incoming_payment_modes::destroy
-  - incoming_payment_modes::down
-  - incoming_payment_modes::edit
-  - incoming_payment_modes::index
-  - incoming_payment_modes::list
-  - incoming_payment_modes::new
-  - incoming_payment_modes::reflect
-  - incoming_payment_modes::up
-  - incoming_payment_modes::update
+  - "dashboards::finances"
+  - "incoming_payment_modes::create"
+  - "incoming_payment_modes::destroy"
+  - "incoming_payment_modes::down"
+  - "incoming_payment_modes::edit"
+  - "incoming_payment_modes::index"
+  - "incoming_payment_modes::list"
+  - "incoming_payment_modes::new"
+  - "incoming_payment_modes::reflect"
+  - "incoming_payment_modes::up"
+  - "incoming_payment_modes::update"
 # Manage sale payments
 manage_incoming_payments:
   actions:
-  - dashboards::finances
-  - incoming_payment_uses::create
-  - incoming_payment_uses::destroy
-  - incoming_payment_uses::new
-  - incoming_payments::create
-  - incoming_payments::destroy
-  - incoming_payments::edit
-  - incoming_payments::index
-  - incoming_payments::list
-  - incoming_payments::list_sales
-  - incoming_payments::new
-  - incoming_payments::show
-  - incoming_payments::update
-  - sales::list_payment_uses
-  - sales::show
+  - "dashboards::finances"
+  - "incoming_payment_uses::create"
+  - "incoming_payment_uses::destroy"
+  - "incoming_payment_uses::new"
+  - "incoming_payments::create"
+  - "incoming_payments::destroy"
+  - "incoming_payments::edit"
+  - "incoming_payments::index"
+  - "incoming_payments::list"
+  - "incoming_payments::list_sales"
+  - "incoming_payments::new"
+  - "incoming_payments::show"
+  - "incoming_payments::update"
+  - "sales::list_payment_uses"
+  - "sales::show"
 # Manage inventories
 manage_inventories:
   actions:
-  - dashboards::trade
-  - inventories::create
-  - inventories::destroy
-  - inventories::edit
-  - inventories::index
-  - inventories::list
-  - inventories::list_lines
-  - inventories::list_lines_create
-  - inventories::list_lines_update
-  - inventories::new
-  - inventories::reflect
-  - inventories::show
-  - inventories::update
+  - "dashboards::trade"
+  - "inventories::create"
+  - "inventories::destroy"
+  - "inventories::edit"
+  - "inventories::index"
+  - "inventories::list"
+  - "inventories::list_lines"
+  - "inventories::list_lines_create"
+  - "inventories::list_lines_update"
+  - "inventories::new"
+  - "inventories::reflect"
+  - "inventories::show"
+  - "inventories::update"
 # Manage journal entries
 manage_journal_entries:
   actions:
-  - accounts::list_reconciliation
-  - accounts::mark
-  - accounts::reconciliation
-  - accounts::unmark
-  - dashboards::accountancy
-  - interfacers::search_for_account
-  - journal_entries::create
-  - journal_entries::destroy
-  - journal_entries::edit
-  - journal_entries::list_lines
-  - journal_entries::new
-  - journal_entries::show
-  - journal_entries::update
-  - journal_entry_lines::new
-  - journals::draft
-  - journals::import
-  - journals::index
-  - journals::list
-  - journals::list_draft_lines
-  - journals::list_entries
-  - journals::list_lines
-  - journals::list_mixed
-  - journals::show
+  - "accounts::list_reconciliation"
+  - "accounts::mark"
+  - "accounts::reconciliation"
+  - "accounts::unmark"
+  - "dashboards::accountancy"
+  - "interfacers::search_for_account"
+  - "journal_entries::create"
+  - "journal_entries::destroy"
+  - "journal_entries::edit"
+  - "journal_entries::list_lines"
+  - "journal_entries::new"
+  - "journal_entries::show"
+  - "journal_entries::update"
+  - "journal_entry_lines::new"
+  - "journals::draft"
+  - "journals::import"
+  - "journals::index"
+  - "journals::list"
+  - "journals::list_draft_lines"
+  - "journals::list_entries"
+  - "journals::list_lines"
+  - "journals::list_mixed"
+  - "journals::show"
 # Manage, close and reopen journals
 manage_journals:
   actions:
-  - dashboards::accountancy
-  - journals::close
-  - journals::create
-  - journals::destroy
-  - journals::edit
-  - journals::index
-  - journals::list
-  - journals::new
-  - journals::reopen
-  - journals::show
-  - journals::update
+  - "dashboards::accountancy"
+  - "journals::close"
+  - "journals::create"
+  - "journals::destroy"
+  - "journals::edit"
+  - "journals::index"
+  - "journals::list"
+  - "journals::new"
+  - "journals::reopen"
+  - "journals::show"
+  - "journals::update"
 # Manage groups of land parcels
 manage_land_parcel_groups:
   actions:
-  - dashboards::production
-  - land_parcel_groups::create
-  - land_parcel_groups::destroy
-  - land_parcel_groups::edit
-  - land_parcel_groups::index
-  - land_parcel_groups::list
-  - land_parcel_groups::new
-  - land_parcel_groups::update
+  - "dashboards::production"
+  - "land_parcel_groups::create"
+  - "land_parcel_groups::destroy"
+  - "land_parcel_groups::edit"
+  - "land_parcel_groups::index"
+  - "land_parcel_groups::list"
+  - "land_parcel_groups::new"
+  - "land_parcel_groups::update"
 # Manage fields
 manage_land_parcels:
   actions:
-  - dashboards::production
-  - land_parcels::create
-  - land_parcels::destroy
-  - land_parcels::divide
-  - land_parcels::edit
-  - land_parcels::index
-  - land_parcels::list
-  - land_parcels::list_operations
-  - land_parcels::merge
-  - land_parcels::new
-  - land_parcels::show
-  - land_parcels::update
+  - "dashboards::production"
+  - "land_parcels::create"
+  - "land_parcels::destroy"
+  - "land_parcels::divide"
+  - "land_parcels::edit"
+  - "land_parcels::index"
+  - "land_parcels::list"
+  - "land_parcels::list_operations"
+  - "land_parcels::merge"
+  - "land_parcels::new"
+  - "land_parcels::show"
+  - "land_parcels::update"
 # Manage listings
 manage_listings:
   actions:
-  - dashboards::general
-  - listing_nodes::create
-  - listing_nodes::destroy
-  - listing_nodes::edit
-  - listing_nodes::new
-  - listing_nodes::update
-  - listings::create
-  - listings::destroy
-  - listings::duplicate
-  - listings::edit
-  - listings::index
-  - listings::list
-  - listings::new
-  - listings::update
+  - "dashboards::general"
+  - "listing_nodes::create"
+  - "listing_nodes::destroy"
+  - "listing_nodes::edit"
+  - "listing_nodes::new"
+  - "listing_nodes::update"
+  - "listings::create"
+  - "listings::destroy"
+  - "listings::duplicate"
+  - "listings::edit"
+  - "listings::index"
+  - "listings::list"
+  - "listings::new"
+  - "listings::update"
 # Manage mandates
 manage_mandates:
   actions:
-  - dashboards::relations
-  - interfacers::autocomplete_for_mandate_family
-  - interfacers::autocomplete_for_mandate_organization
-  - interfacers::autocomplete_for_mandate_title
-  - mandates::configure
-  - mandates::create
-  - mandates::destroy
-  - mandates::edit
-  - mandates::index
-  - mandates::list
-  - mandates::new
-  - mandates::update
+  - "dashboards::relations"
+  - "interfacers::autocomplete_for_mandate_family"
+  - "interfacers::autocomplete_for_mandate_organization"
+  - "interfacers::autocomplete_for_mandate_title"
+  - "mandates::configure"
+  - "mandates::create"
+  - "mandates::destroy"
+  - "mandates::edit"
+  - "mandates::index"
+  - "mandates::list"
+  - "mandates::new"
+  - "mandates::update"
 # Manage observations
 manage_observations:
   actions:
-  - dashboards::relations
-  - entities::list_observations
-  - observations::create
-  - observations::destroy
-  - observations::edit
-  - observations::new
-  - observations::update
+  - "dashboards::relations"
+  - "entities::list_observations"
+  - "observations::create"
+  - "observations::destroy"
+  - "observations::edit"
+  - "observations::new"
+  - "observations::update"
 # Manage operations
 manage_operations:
   actions:
-  - dashboards::production
-  - interfacers::search_for_operation_products
-  - operation_lines::create
-  - operation_lines::new
-  - operation_natures::create
-  - operation_natures::destroy
-  - operation_natures::edit
-  - operation_natures::index
-  - operation_natures::list
-  - operation_natures::new
-  - operation_natures::update
-  - operation_uses::create
-  - operation_uses::new
-  - operations::create
-  - operations::destroy
-  - operations::edit
-  - operations::index
-  - operations::list
-  - operations::list_lines
-  - operations::list_unvalidateds
-  - operations::list_uses
-  - operations::new
-  - operations::show
-  - operations::unvalidateds
-  - operations::update
+  - "dashboards::production"
+  - "interfacers::search_for_operation_products"
+  - "operation_lines::create"
+  - "operation_lines::new"
+  - "operation_natures::create"
+  - "operation_natures::destroy"
+  - "operation_natures::edit"
+  - "operation_natures::index"
+  - "operation_natures::list"
+  - "operation_natures::new"
+  - "operation_natures::update"
+  - "operation_uses::create"
+  - "operation_uses::new"
+  - "operations::create"
+  - "operations::destroy"
+  - "operations::edit"
+  - "operations::index"
+  - "operations::list"
+  - "operations::list_lines"
+  - "operations::list_unvalidateds"
+  - "operations::list_uses"
+  - "operations::new"
+  - "operations::show"
+  - "operations::unvalidateds"
+  - "operations::update"
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
   actions:
-  - dashboards::trade
-  - outgoing_delivery_modes::create
-  - outgoing_delivery_modes::destroy
-  - outgoing_delivery_modes::edit
-  - outgoing_delivery_modes::index
-  - outgoing_delivery_modes::list
-  - outgoing_delivery_modes::new
-  - outgoing_delivery_modes::update
+  - "dashboards::trade"
+  - "outgoing_delivery_modes::create"
+  - "outgoing_delivery_modes::destroy"
+  - "outgoing_delivery_modes::edit"
+  - "outgoing_delivery_modes::index"
+  - "outgoing_delivery_modes::list"
+  - "outgoing_delivery_modes::new"
+  - "outgoing_delivery_modes::update"
 # Manage disbursement modes
 manage_outgoing_payment_modes:
   actions:
-  - dashboards::finances
-  - outgoing_payment_modes::create
-  - outgoing_payment_modes::destroy
-  - outgoing_payment_modes::down
-  - outgoing_payment_modes::edit
-  - outgoing_payment_modes::index
-  - outgoing_payment_modes::list
-  - outgoing_payment_modes::new
-  - outgoing_payment_modes::up
-  - outgoing_payment_modes::update
+  - "dashboards::finances"
+  - "outgoing_payment_modes::create"
+  - "outgoing_payment_modes::destroy"
+  - "outgoing_payment_modes::down"
+  - "outgoing_payment_modes::edit"
+  - "outgoing_payment_modes::index"
+  - "outgoing_payment_modes::list"
+  - "outgoing_payment_modes::new"
+  - "outgoing_payment_modes::up"
+  - "outgoing_payment_modes::update"
 # Manage disbursements
 manage_outgoing_payments:
   actions:
-  - dashboards::finances
-  - outgoing_payment_uses::create
-  - outgoing_payment_uses::destroy
-  - outgoing_payment_uses::new
-  - outgoing_payments::create
-  - outgoing_payments::destroy
-  - outgoing_payments::edit
-  - outgoing_payments::index
-  - outgoing_payments::list
-  - outgoing_payments::list_purchases
-  - outgoing_payments::new
-  - outgoing_payments::show
-  - outgoing_payments::update
-  - purchases::list_lines
-  - purchases::list_payment_uses
-  - purchases::show
+  - "dashboards::finances"
+  - "outgoing_payment_uses::create"
+  - "outgoing_payment_uses::destroy"
+  - "outgoing_payment_uses::new"
+  - "outgoing_payments::create"
+  - "outgoing_payments::destroy"
+  - "outgoing_payments::edit"
+  - "outgoing_payments::index"
+  - "outgoing_payments::list"
+  - "outgoing_payments::list_purchases"
+  - "outgoing_payments::new"
+  - "outgoing_payments::show"
+  - "outgoing_payments::update"
+  - "purchases::list_lines"
+  - "purchases::list_payment_uses"
+  - "purchases::show"
 # Manage prices
 manage_prices:
   actions:
-  - dashboards::trade
-  - prices::create
-  - prices::destroy
-  - prices::edit
-  - prices::export
-  - prices::import
-  - prices::list
-  - prices::new
-  - prices::update
+  - "dashboards::trade"
+  - "prices::create"
+  - "prices::destroy"
+  - "prices::edit"
+  - "prices::export"
+  - "prices::import"
+  - "prices::list"
+  - "prices::new"
+  - "prices::update"
 # Manage product categories
 manage_product_categories:
   actions:
-  - dashboards::trade
-  - product_categories::create
-  - product_categories::destroy
-  - product_categories::edit
-  - product_categories::index
-  - product_categories::list
-  - product_categories::list_products
-  - product_categories::new
-  - product_categories::show
-  - product_categories::update
+  - "dashboards::trade"
+  - "product_categories::create"
+  - "product_categories::destroy"
+  - "product_categories::edit"
+  - "product_categories::index"
+  - "product_categories::list"
+  - "product_categories::list_products"
+  - "product_categories::new"
+  - "product_categories::show"
+  - "product_categories::update"
 # Manage products
 manage_products:
   actions:
-  - dashboards::trade
-  - product_components::create
-  - product_components::destroy
-  - product_components::edit
-  - product_components::new
-  - product_components::update
-  - products::change_quantities
-  - products::create
-  - products::destroy
-  - products::edit
-  - products::list
-  - products::list_components
-  - products::list_prices
-  - products::list_stock_moves
-  - products::list_stocks
-  - products::new
-  - products::update
+  - "dashboards::trade"
+  - "product_components::create"
+  - "product_components::destroy"
+  - "product_components::edit"
+  - "product_components::new"
+  - "product_components::update"
+  - "products::change_quantities"
+  - "products::create"
+  - "products::destroy"
+  - "products::edit"
+  - "products::list"
+  - "products::list_components"
+  - "products::list_prices"
+  - "products::list_stock_moves"
+  - "products::list_stocks"
+  - "products::new"
+  - "products::update"
 # Manage purchase orders
 manage_purchases:
   actions:
-  - dashboards::trade
-  - incoming_deliveries::confirm
-  - incoming_deliveries::create
-  - incoming_deliveries::destroy
-  - incoming_deliveries::edit
-  - incoming_deliveries::index
-  - incoming_deliveries::list
-  - incoming_deliveries::new
-  - incoming_deliveries::update
-  - incoming_delivery_modes::create
-  - incoming_delivery_modes::destroy
-  - incoming_delivery_modes::edit
-  - incoming_delivery_modes::index
-  - incoming_delivery_modes::list
-  - incoming_delivery_modes::new
-  - incoming_delivery_modes::update
-  - interfacers::search_for_incoming_delivery_contacts
-  - interfacers::search_for_purchase_products
-  - interfacers::search_for_suppliers
-  - purchase_lines::create
-  - purchase_lines::destroy
-  - purchase_lines::edit
-  - purchase_lines::new
-  - purchase_lines::update
-  - purchases::abort
-  - purchases::confirm
-  - purchases::correct
-  - purchases::create
-  - purchases::destroy
-  - purchases::edit
-  - purchases::index
-  - purchases::invoice
-  - purchases::list
-  - purchases::list_deliveries
-  - purchases::list_lines
-  - purchases::list_payment_uses
-  - purchases::list_undelivered_lines
-  - purchases::new
-  - purchases::propose
-  - purchases::refuse
-  - purchases::show
-  - purchases::update
+  - "dashboards::trade"
+  - "incoming_deliveries::confirm"
+  - "incoming_deliveries::create"
+  - "incoming_deliveries::destroy"
+  - "incoming_deliveries::edit"
+  - "incoming_deliveries::index"
+  - "incoming_deliveries::list"
+  - "incoming_deliveries::new"
+  - "incoming_deliveries::update"
+  - "incoming_delivery_modes::create"
+  - "incoming_delivery_modes::destroy"
+  - "incoming_delivery_modes::edit"
+  - "incoming_delivery_modes::index"
+  - "incoming_delivery_modes::list"
+  - "incoming_delivery_modes::new"
+  - "incoming_delivery_modes::update"
+  - "interfacers::search_for_incoming_delivery_contacts"
+  - "interfacers::search_for_purchase_products"
+  - "interfacers::search_for_suppliers"
+  - "purchase_lines::create"
+  - "purchase_lines::destroy"
+  - "purchase_lines::edit"
+  - "purchase_lines::new"
+  - "purchase_lines::update"
+  - "purchases::abort"
+  - "purchases::confirm"
+  - "purchases::correct"
+  - "purchases::create"
+  - "purchases::destroy"
+  - "purchases::edit"
+  - "purchases::index"
+  - "purchases::invoice"
+  - "purchases::list"
+  - "purchases::list_deliveries"
+  - "purchases::list_lines"
+  - "purchases::list_payment_uses"
+  - "purchases::list_undelivered_lines"
+  - "purchases::new"
+  - "purchases::propose"
+  - "purchases::refuse"
+  - "purchases::show"
+  - "purchases::update"
 # Mange sale orders natures
 manage_sale_natures:
   actions:
-  - dashboards::trade
-  - sale_natures::create
-  - sale_natures::destroy
-  - sale_natures::edit
-  - sale_natures::index
-  - sale_natures::list
-  - sale_natures::new
-  - sale_natures::update
+  - "dashboards::trade"
+  - "sale_natures::create"
+  - "sale_natures::destroy"
+  - "sale_natures::edit"
+  - "sale_natures::index"
+  - "sale_natures::list"
+  - "sale_natures::new"
+  - "sale_natures::update"
 # Manages sale orders
 manage_sales:
   actions:
-  - dashboards::trade
-  - interfacers::search_for_outgoing_delivery_contacts
-  - outgoing_deliveries::create
-  - outgoing_deliveries::destroy
-  - outgoing_deliveries::edit
-  - outgoing_deliveries::index
-  - outgoing_deliveries::list
-  - outgoing_deliveries::list_lines
-  - outgoing_deliveries::new
-  - outgoing_deliveries::show
-  - outgoing_deliveries::update
-  - sales::abort
-  - sales::confirm
-  - sales::correct
-  - sales::destroy
-  - sales::invoice
-  - sales::list_deliveries
-  - sales::list_undelivered_lines
-  - sales::propose
-  - sales::propose_and_invoice
-  - sales::refuse
-  - sales::show
+  - "dashboards::trade"
+  - "interfacers::search_for_outgoing_delivery_contacts"
+  - "outgoing_deliveries::create"
+  - "outgoing_deliveries::destroy"
+  - "outgoing_deliveries::edit"
+  - "outgoing_deliveries::index"
+  - "outgoing_deliveries::list"
+  - "outgoing_deliveries::list_lines"
+  - "outgoing_deliveries::new"
+  - "outgoing_deliveries::show"
+  - "outgoing_deliveries::update"
+  - "sales::abort"
+  - "sales::confirm"
+  - "sales::correct"
+  - "sales::destroy"
+  - "sales::invoice"
+  - "sales::list_deliveries"
+  - "sales::list_undelivered_lines"
+  - "sales::propose"
+  - "sales::propose_and_invoice"
+  - "sales::refuse"
+  - "sales::show"
 # Manage stock moves
 manage_stock_moves:
   actions:
-  - dashboards::trade
-  - stock_transfers::confirm
-  - stock_transfers::confirm_all
-  - stock_transfers::create
-  - stock_transfers::destroy
-  - stock_transfers::edit
-  - stock_transfers::index
-  - stock_transfers::list
-  - stock_transfers::list_confirm
-  - stock_transfers::new
-  - stock_transfers::update
-  - stocks::create
-  - stocks::destroy
-  - stocks::edit
-  - stocks::formize
-  - stocks::index
-  - stocks::list
-  - stocks::new
-  - stocks::update
+  - "dashboards::trade"
+  - "stock_transfers::confirm"
+  - "stock_transfers::confirm_all"
+  - "stock_transfers::create"
+  - "stock_transfers::destroy"
+  - "stock_transfers::edit"
+  - "stock_transfers::index"
+  - "stock_transfers::list"
+  - "stock_transfers::list_confirm"
+  - "stock_transfers::new"
+  - "stock_transfers::update"
+  - "stocks::create"
+  - "stocks::destroy"
+  - "stocks::edit"
+  - "stocks::formize"
+  - "stocks::index"
+  - "stocks::list"
+  - "stocks::new"
+  - "stocks::update"
 # Manage subscriptions
 manage_subscriptions:
   actions:
-  - dashboards::trade
-  - subscription_natures::create
-  - subscription_natures::decrement
-  - subscription_natures::destroy
-  - subscription_natures::edit
-  - subscription_natures::increment
-  - subscription_natures::index
-  - subscription_natures::list
-  - subscription_natures::new
-  - subscription_natures::update
-  - subscriptions::coordinates
-  - subscriptions::create
-  - subscriptions::destroy
-  - subscriptions::edit
-  - subscriptions::index
-  - subscriptions::list
-  - subscriptions::new
-  - subscriptions::update
+  - "dashboards::trade"
+  - "subscription_natures::create"
+  - "subscription_natures::decrement"
+  - "subscription_natures::destroy"
+  - "subscription_natures::edit"
+  - "subscription_natures::increment"
+  - "subscription_natures::index"
+  - "subscription_natures::list"
+  - "subscription_natures::new"
+  - "subscription_natures::update"
+  - "subscriptions::coordinates"
+  - "subscriptions::create"
+  - "subscriptions::destroy"
+  - "subscriptions::edit"
+  - "subscriptions::index"
+  - "subscriptions::list"
+  - "subscriptions::new"
+  - "subscriptions::update"
 # Manage taxes
 manage_taxes:
   actions:
-  - dashboards::finances
-  - interfacers::search_for_collected_account
-  - interfacers::search_for_paid_account
-  - taxes::create
-  - taxes::destroy
-  - taxes::edit
-  - taxes::index
-  - taxes::list
-  - taxes::new
-  - taxes::update
+  - "dashboards::finances"
+  - "interfacers::search_for_collected_account"
+  - "interfacers::search_for_paid_account"
+  - "taxes::create"
+  - "taxes::destroy"
+  - "taxes::edit"
+  - "taxes::index"
+  - "taxes::list"
+  - "taxes::new"
+  - "taxes::update"
 # Manage tools of production
 manage_tools:
   actions:
-  - dashboards::production
-  - tools::create
-  - tools::destroy
-  - tools::edit
-  - tools::index
-  - tools::list
-  - tools::list_operations
-  - tools::new
-  - tools::show
-  - tools::update
+  - "dashboards::production"
+  - "tools::create"
+  - "tools::destroy"
+  - "tools::edit"
+  - "tools::index"
+  - "tools::list"
+  - "tools::list_operations"
+  - "tools::new"
+  - "tools::show"
+  - "tools::update"
 # Manage transports
 manage_transports:
   actions:
-  - dashboards::trade
-  - interfacers::search_for_outgoing_deliveries
-  - transports::create
-  - transports::destroy
-  - transports::edit
-  - transports::formize
-  - transports::index
-  - transports::list
-  - transports::list_deliveries
-  - transports::list_transportable_deliveries
-  - transports::new
-  - transports::show
-  - transports::update
+  - "dashboards::trade"
+  - "interfacers::search_for_outgoing_deliveries"
+  - "transports::create"
+  - "transports::destroy"
+  - "transports::edit"
+  - "transports::formize"
+  - "transports::index"
+  - "transports::list"
+  - "transports::list_deliveries"
+  - "transports::list_transportable_deliveries"
+  - "transports::new"
+  - "transports::show"
+  - "transports::update"
 # Manage units of measure
 manage_units:
   actions:
-  - dashboards::general
-  - units::create
-  - units::destroy
-  - units::edit
-  - units::index
-  - units::list
-  - units::load
-  - units::new
-  - units::update
+  - "dashboards::general"
+  - "units::create"
+  - "units::destroy"
+  - "units::edit"
+  - "units::index"
+  - "units::list"
+  - "units::load"
+  - "units::new"
+  - "units::update"
 # Manage users
 manage_users:
   actions:
-  - dashboards::general
-  - roles::create
-  - roles::destroy
-  - roles::edit
-  - roles::index
-  - roles::list
-  - roles::new
-  - roles::update
-  - users::create
-  - users::destroy
-  - users::edit
-  - users::index
-  - users::list
-  - users::lock
-  - users::new
-  - users::show
-  - users::unlock
-  - users::update
+  - "dashboards::general"
+  - "roles::create"
+  - "roles::destroy"
+  - "roles::edit"
+  - "roles::index"
+  - "roles::list"
+  - "roles::new"
+  - "roles::update"
+  - "users::create"
+  - "users::destroy"
+  - "users::edit"
+  - "users::index"
+  - "users::list"
+  - "users::lock"
+  - "users::new"
+  - "users::show"
+  - "users::unlock"
+  - "users::update"
 # Manage warehouses
 manage_warehouses:
   actions:
-  - dashboards::trade
-  - warehouses::create
-  - warehouses::destroy
-  - warehouses::edit
-  - warehouses::index
-  - warehouses::list
-  - warehouses::list_stock_moves
-  - warehouses::list_stocks
-  - warehouses::new
-  - warehouses::show
-  - warehouses::update
+  - "dashboards::trade"
+  - "warehouses::create"
+  - "warehouses::destroy"
+  - "warehouses::edit"
+  - "warehouses::index"
+  - "warehouses::list"
+  - "warehouses::list_stock_moves"
+  - "warehouses::list_stocks"
+  - "warehouses::new"
+  - "warehouses::show"
+  - "warehouses::update"
 # Merge people
 merge_entities:
-  actions: [dashboards::relations, entities::index, entities::merge]
+  actions: ["dashboards::relations", "entities::index", "entities::merge"]
 # Use production chains
 use_production_chains:
   actions: []

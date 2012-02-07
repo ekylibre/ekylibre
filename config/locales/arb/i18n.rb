@@ -10,6 +10,9 @@
         :rule=> lambda { |n| n == 1 ? :one : :other } # Use the english rule temporarly
 
       }
+    },
+    :date => {
+      :order => [:month, :day, :year]
     }
   }
 }

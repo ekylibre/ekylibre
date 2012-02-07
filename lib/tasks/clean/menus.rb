@@ -30,7 +30,7 @@ task :menus => :environment do
   yaml = ""
   yaml += "# Unused actions in menus\n" unless unused_actions.empty?
   for action in unused_actions.sort
-    yaml += "#         - #{action}\n"
+    yaml += "#         - \"#{action}\"\n"
   end
   # yaml += "\n"
   yaml += "menus:\n"
@@ -45,7 +45,7 @@ task :menus => :environment do
               # yaml += "      - [#{list.join(', ')}]\n"
               # yaml += "      - - #{list[0]}#{unexistent_action unless ref.include?(list[0])}\n"
               yaml += "      - "+([list[0]]+list[1..-1].sort).collect do |item|
-                l = "        - #{item}"
+                l = "        - \"#{item}\""
                 unless ref_actions.include?(item)
                   deleted += 1
                   l += " # NONEXISTENT ACTION !!!"

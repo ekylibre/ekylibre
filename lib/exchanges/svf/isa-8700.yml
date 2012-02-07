@@ -1,3 +1,4 @@
+---
 root:
   - version: 1
   - folder: 1
@@ -72,11 +73,11 @@ lines:
       - currency: string-3
       - xxx_0: string-8
     children:
-      - activities: analytic_activities-*
-      - accounts: *
-      - taxes: *
-      - journals: *
-      - entries: *
+      - activities: "analytic_activities-*"
+      - accounts: "*"
+      - taxes: "*"
+      - journals: "*"
+      - entries: "*"
 
   analytic_activity:
     key: "ANA   "
@@ -181,8 +182,8 @@ lines:
       - cycle: integer-11
     children:
       - remark: '?'
-      - analytic_accounts: *
-      - thirds: *
+      - analytic_accounts: "*"
+      - thirds: "*"
 
   remark:
     key: "RMQDEB"
@@ -283,7 +284,7 @@ lines:
 
   entry:
     key: "ECR   "
-    occurrence: *
+    occurrence: "*"
     cells:
       - journal: string-2
       - printed_on: date
@@ -334,8 +335,8 @@ lines:
       - expirable: boolean
       - declared_on: date
     children:
-      - analytic_lines: *
-      - expirations: *
+      - analytic_lines: "*"
+      - expirations: "*"
 
   analytic_line:
     key: "ANAMVT"

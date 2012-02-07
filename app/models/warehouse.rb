@@ -45,7 +45,7 @@
 
 class Warehouse < CompanyRecord
   acts_as_tree
-  attr_readonly :company_id, :reservoir
+  attr_readonly :reservoir
   belongs_to :company
   belongs_to :contact
   belongs_to :establishment

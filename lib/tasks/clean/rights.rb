@@ -49,7 +49,7 @@ task :rights => :environment do
   yaml = ""
   yaml += "# Unused actions in rights\n" unless unused_actions.empty?
   for action in unused_actions.sort
-    yaml += "#   - #{action}\n"
+    yaml += "#   - \"#{action}\"\n"
   end
   for right in rights.keys.sort
     yaml += "# #{::I18n.translate('rights.'+right.to_s)}\n"
@@ -60,12 +60,12 @@ task :rights => :environment do
     if rights[right]["actions"].is_a?(Array)
       actions = rights[right]['actions'].sort
       actions = actions.collect{|x| x.match(/^#{controller}\:\:/) ? x.split('::')[1] : x}.sort unless controller.blank?
-      line = "  actions: [#{actions.join(', ')}]"
+      line = "  actions: ["+actions.collect{|a| '"'+a+'"'}.join(', ')+"]"
       if line.length > 80 or line.match(/\#/)
         # if line.match(/\#/)
         yaml += "  actions:\n"
         for action in actions
-          yaml += "  - #{action}\n"
+          yaml += "  - \"#{action}\"\n"
         end
       else
         yaml += line+"\n"

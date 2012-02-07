@@ -979,54 +979,54 @@ jpn:
         # sale_nature_name: 'Standard'
         sequences:
           cash_transfers:
-            # number_format: 'CT[year|4][number|4]'
             # name: 'Numeration of cash transfers'
+            # number_format: 'CT[year|4][number|4]'
             # period: 'year'
           deposits:
-            # number_format: 'B[year|4][number|4]'
             # name: 'Numeration of deposits'
+            # number_format: 'B[year|4][number|4]'
             # period: 'year'
           entities:
-            # number_format: '[number|8]'
             # name: 'Numeration of people'
+            # number_format: '[number|8]'
           incoming_deliveries:
-            # number_format: 'ID[year|4][number|4]'
             # name: 'Numeration of incoming deliveries'
+            # number_format: 'ID[year|4][number|4]'
             # period: 'year'
           incoming_payments:
-            # number_format: 'P[year|4][number|6]'
             # name: 'Numeration of payments'
+            # number_format: 'P[year|4][number|6]'
             # period: 'year'
           outgoing_deliveries:
-            # number_format: 'OD[year|4][number|6]'
             # name: 'Numeration of outgoing deliveries'
+            # number_format: 'OD[year|4][number|6]'
             # period: 'year'
           outgoing_payments:
-            # number_format: 'D[year|4][number|4]'
             # name: 'Numeration of payments'
+            # number_format: 'D[year|4][number|4]'
             # period: 'year'
           purchases:
-            # number_format: 'PO[year|4][month|2][number|4]'
             # name: 'Numeration of purchases'
+            # number_format: 'PO[year|4][month|2][number|4]'
             # period: 'month'
           sales:
-            # number_format: 'SO[year|4][month|2][number|6]'
             # name: 'Numeration of sales'
+            # number_format: 'SO[year|4][month|2][number|6]'
             # period: 'month'
           sales_invoices:
-            # number_format: 'F[year|4][number|6]'
             # name: 'Numeration of sales invoices'
+            # number_format: 'F[year|4][number|6]'
             # period: 'year'
           stock_transfers:
-            # number_format: 'ST[year|4][number|4]'
             # name: 'Numeration of stock transfers'
+            # number_format: 'ST[year|4][number|4]'
             # period: 'year'
           subscriptions:
-            # number_format: 'SUB[number|8]'
             # name: 'Numeration of subscriptions'
+            # number_format: 'SUB[number|8]'
           transports:
-            # number_format: 'SH[number|8]'
             # name: 'Numeration of transports'
+            # number_format: 'SH[number|8]'
         taxes:
           tva0000:
             # amount: '0.0'
