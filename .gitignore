@@ -18,6 +18,7 @@
 /private/**/*
 /config/database.yml
 /*~
+/**/*~
 installer/debian/debian/ekylibre.debhelper.log
 installer/debian/debian/ekylibre.substvars
 installer/debian/debian/ekylibre
