@@ -20,9 +20,20 @@ set -e
 
 case "$1" in
     configure)
+	gem_bin_dir="`gem environment gemdir`/bin"
+	PATH=$gem_bin_dir:$PATH
+
+	# Update Rubygems if necessary
+	versions="`gem --version`\n1.3.6.9999"
+	version="`echo -e ${versions} | sort -t '.' -g | tail -n 1`"
+	if [ ${version} = "1.3.6.9999" ]; then
+	    gem install rubygems-update --no-ri --no-rdoc
+            update_rubygems
+	fi
+
 	# Install conf dir
 	rm -f /usr/share/ekylibre/config/database.yml
-	cp /usr/share/ekylibre/config/database.*.yml /etc/ekylibre/
+	cp -u /usr/share/ekylibre/config/database.*.yml /etc/ekylibre/
 	rm -f /usr/share/ekylibre/config/database.yml
 	ln -s /etc/ekylibre/database.yml /usr/share/ekylibre/config/database.yml
 	
@@ -45,17 +56,17 @@ case "$1" in
 	    password=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32`
 
 	    # Conf database
-	    count=`sudo -u postgres psql -t -A -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename='${user}'"`
+	    count=`sudo -u postgres psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename='${user}'"`
 	    if [ "${count}" = "0" ]; then
-		sudo -u postgres psql -c "CREATE USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
+		sudo -u postgres psql -q -c "CREATE USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
 	    else
-		sudo -u postgres psql -c "ALTER USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
+		sudo -u postgres psql -q -c "ALTER USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
 	    fi
-	    count=`sudo -u postgres psql -t -A -c "SELECT count(*) FROM pg_catalog.pg_database WHERE datname='${dbname}'"`
+	    count=`sudo -u postgres psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_database WHERE datname='${dbname}'"`
 	    if [ "${count}" = "0" ]; then
-		sudo -u postgres psql -c "CREATE DATABASE ${dbname}"		
+		sudo -u postgres psql -q -c "CREATE DATABASE ${dbname}"		
 	    fi
-	    sudo -u postgres psql -c "GRANT ALL ON DATABASE ${dbname} TO ${user}"
+	    sudo -u postgres psql -q -c "GRANT ALL ON DATABASE ${dbname} TO ${user}"
 
 	    # Write database conf
 	    cp /etc/ekylibre/database.postgresql.yml /etc/ekylibre/database.yml
@@ -68,13 +79,53 @@ case "$1" in
 	if [ "`gem list -i bundler`" = "false" ]; then
 	    gem install bundler --no-ri --no-rdoc
 	fi
-
-	gem_bin_dir="`gem environment gemdir`/bin"
+	
+	# Determine bundle command
+	if [ "command -v bundle >/dev/null && echo 'OK' || echo 'KO'" = 'KO' ]; then
+	    echo "Bundle cannot be found. Please send us a report to dev@ekylibre.org."
+	    exit 0
+	fi
 
 	# Check gems
-	$gem_bin_dir/bundle install
+	bundle install
 
-	rake _0.8.7_ db:migrate RAILS_ENV=production
+	bundle exec rake db:migrate RAILS_ENV=production
+
+
+	if [ -e /etc/apache2/mods-enabled/passenger.load ]; then
+	    a2dismod passenger
+	fi
+
+	gem install rake passenger --no-ri --no-rdoc
+
+	version=`passenger-config --version`
+	passenger-install-apache2-module -a
+	passenger-install-apache2-module --snippet > /etc/apache2/conf.d/passenger.conf
+
+	# Update passenger
+	# Previous version cannot work
+	# install_passenger="1"
+	# if [ "command -v passenger-config >/dev/null && echo 'OK' || echo 'KO'" = 'OK' ]; then
+	#     versions="`passenger-config --version`\n2.9.999"
+	#     version="`echo -e ${versions} | sort -t '.' -g | tail -n 1`"
+	#     if [ $version = "2.999.999" ]; then
+	# 	if [ -e /etc/apache2/mods-enabled/passenger.load ]; then
+	# 	    a2dismod passenger
+	# 	fi
+	#     else
+	# 	install_passenger="0"
+	#     fi
+	# fi
+
+	# # Make sure that Rake is fully installed and usable from $PATH
+	# gem install rake --no-ri --no-rdoc
+
+	# if [ $install_passenger = "1" ]; then
+	#     gem install passenger --no-ri --no-rdoc
+	#     version=`passenger-config --version`
+	#     passenger-install-apache2-module -a
+	#     passenger-install-apache2-module --snippet > /etc/apache2/conf.d/passenger.conf
+	# fi
 
 	# Install apache conf
 	if [ ! -e /etc/apache2/conf.d/ekylibre.conf -a -e /etc/ekylibre/apache.conf ]; then

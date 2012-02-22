@@ -27,6 +27,12 @@ case "$1" in
 	if [ -e /var/www/ekylibre ]; then
 	    rm -f /var/www/ekylibre
 	fi
+	if [ -e /etc/apache2/conf.d/passenger.conf ]; then
+	    rm -f /etc/apache2/conf.d/passenger.conf
+	    if [ -e /etc/apache2/mods-available/passenger.load ]; then
+		a2enmod passenger
+	    fi
+	fi
 	invoke-rc.d apache2 reload
     ;;
     *)

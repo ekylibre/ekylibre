@@ -40,7 +40,7 @@ control=$debdir/control
 
 rm -fr copy
 cp -rL ${app} copy
-sed -i -e 's/gem "mysql/#gem "mysql/g' -i -e 's/gem "sqlite/#gem "sqlite/g' copy/Gemfile
+sed -i -e 's/gem "mysql/# gem "mysql/g' -i -e 's/gem "sqlite/# gem "sqlite/g' -i -e "s/gem 'mysql/# gem 'mysql/g" -i -e "s/gem 'sqlite/# gem 'sqlite/g" copy/Gemfile
 find copy -name .svn* -print0 | xargs -0 rm -rf
 find copy -name .git* -print0 | xargs -0 rm -rf
 find copy -name "*~"  -print0 | xargs -0 rm -rf

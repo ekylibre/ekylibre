@@ -1,3 +1,9 @@
+ekylibre (0.3.2.1) stable; urgency=low
+
+  * Fixes bug on debian packages due to missing dependencies
+
+ -- Brice Texier <brice.texier@ekylibre.org>  Tue, 21 Feb 2012 15:11:32 +0200
+
 ekylibre (0.3.2) stable; urgency=low
 
   * Adds new synthesis documents
