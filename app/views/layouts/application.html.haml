@@ -7,6 +7,7 @@
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
     =title_tag
     =javascript_include_tag :application
+    =csrf_meta_tags
     -#=formize_include_tag
     -#=javascript_include_tag "combo_box", "list-jquery", "support", "ui"
     =theme_link_tag(@current_theme)

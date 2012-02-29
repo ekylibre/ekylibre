@@ -1,4 +1,17 @@
-* {margin:0; padding:0; font-size: 100%; font-family: "Liberation Sans", helvetica, arial, sans-serif;}
+@font-face {font-family: "Droid Sans"; src: url(../fonts/DroidSans.ttf)}
+@font-face {font-family: "Droid Sans"; src: url(../fonts/DroidSans-Bold.ttf); font-weight: bold }
+
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Regular.ttf)}
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Bold.ttf); font-weight: bold }
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Italic.ttf); font-style: italic; }
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-BoldItalic.ttf); font-weight: bold; font-style: italic; }
+/*
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Light.ttf)}
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Regular.ttf); font-weight: bold }
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-LightItalic.ttf); font-style: italic; }
+@font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Italic.ttf); font-weight: bold; font-style: italic; }
+*/
+* {margin:0; padding:0; font-size: 100%; font-family: "Open Sans", "Liberation Sans", helvetica, arial, sans-serif;}
 
 html { background: #F1F1F1;/*background: #688ED8 #C9D7F1;*/}
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;/* border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); background: url(../images/columns.png) repeat-x top; */}
@@ -721,3 +734,5 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 
 .ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
+
+input[data-datepicker] {text-align: center}
