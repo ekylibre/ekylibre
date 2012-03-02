@@ -55,13 +55,21 @@ class AccountBalance < CompanyRecord
   alias_attribute :balance, :local_balance
   alias_attribute :journal_entry_lines_count, :local_count
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.company_id = self.financial_year.company_id
   end
 
   before_validation do
     self.balance = self.debit - self.credit
     # self.global_balance = self.global_debit - self.global_credit
+  end
+
+  def balance_debit
+    return (self.balance > 0 ? self.debit : 0)
+  end
+
+  def balance_credit
+    return (self.balance > 0 ? 0 : self.credit)
   end
 
   # #lists the accounts used in a given period with the credit and the debit.
