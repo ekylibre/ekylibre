@@ -755,6 +755,7 @@ eng:
     land_parcels: 'Land parcels'
     last_payment_amount: 'Amount of the last payment'
     last_payment_date: 'Date of the last payment'
+    last_computed_balance: 'Last computed balance'
     left_balance_amount: 'Left Balance Amount'
     letter: 'Letter'
     letter_conclusion: 'Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration.'
