@@ -115,40 +115,53 @@ class FinancialYear < CompanyRecord
 
 
   # When a financial year is closed, all the matching journals are closed too. 
-  def close(to_close_on, options={})
+ def close(to_close_on=nil, options={})
     return false unless self.closable?
-    if renew_journal = options[:renew_id].blank? ? nil : self.company.journals.find_by_id(options[:renew_id])
-      new_financial_year = self.next||Financial_Year.create!(:started_on=>to_close_on+1)
-      balance_account =  Account.balance(self.company_id, self.started_on, self.stopped_on)
-      if balance_account.size > 0
-        renew_entry = renew_journal.entries.create!(:financial_year_id => new_financial_year.id, :company_id => self.company.id, :created_on => new_financial_year.started_on, :printed_on => new_financial_year.started_on)
-        result   = 0
-        gains    = self.company.account(self.company.preferred_capital_gains_accounts)
-        losses   = self.company.account(self.company.preferred_capital_losses_accounts)
-        charges  = self.company.account(self.company.preferred_charges_accounts)
-        products = self.company.account(self.company.preferred_products_accounts)
-        for account in balance_account
-          if account[:number].to_s.match /^#{gains.number}/
-            result += account[:balance]
-          elsif account[:number].to_s.match /^#{losses.number}/
-            result -= account[:balance]
-          elsif account[:number].to_s.match /^(#{charges.number}|#{products.number})/
-            result += account[:balance] 
-          elsif account[:debit] > 0 or account[:credit] > 0
-            renew_entry.lines.create!(:currency_id => renew_journal.currency_id, :account_id => account[:id], :name => account[:name], :currency_debit => account[:debit], :currency_credit => account[:credit])
+
+    to_close_on ||= self.stopped_on
+
+    ActiveRecord::Base.transaction do      
+      # Close all journals to the 
+      for journal in self.company.journals.find(:all, :conditions => ["closed_on < ?", to_close_on])
+        raise false unless journal.close(to_close_on)
+      end
+
+      # Close year
+      self.update_attributes(:stopped_on => to_close_on, :closed => true)
+
+      # Compute balance of closed year
+      self.compute_balances!
+
+      # Create first entry of the new year
+      if renew_journal = self.company.journals.find_by_id(options[:renew_id].to_i)
+        
+        if self.account_balances.size > 0
+          entry = renew_journal.entries.create!(:company_id => self.company.id, :printed_on => to_close_on+1, :currency_id => renew_journal.currency_id)
+          result   = 0
+          gains    = self.company.account(self.company.preferred_capital_gains_accounts)
+          losses   = self.company.account(self.company.preferred_capital_losses_accounts)
+          charges  = self.company.account(self.company.preferred_charges_accounts)
+          products = self.company.account(self.company.preferred_products_accounts)
+          
+          for balance in self.account_balances.joins(:account).order("number")
+            if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)
+              result += balance.balance
+            elsif balance.balance != 0
+              # TODO: Use currencies properly in account_balances !
+              entry.lines.create!(:account_id => balance.account_id, :name => balance.account.name, :currency_debit => balance.balance_debit, :currency_credit => balance.balance_credit)
+            end
           end
-        end
-        if result > 0
-          renew_entry.lines.create!(:currency_id => renew_journal.currency_id, :account_id => losses.id, :name => losses.name, :currency_debit => result, :currency_credit => 0.0) 
-        elsif result < 0
-          renew_entry.lines.create!(:currency_id => renew_journal.currency_id, :account_id => gains.id, :name => gains.name, :currency_debit => 0.0, :currency_credit => result.abs)
+
+          if result > 0
+            entry.lines.create!(:account_id => losses.id, :name => losses.name, :currency_debit => result, :currency_credit => 0.0) 
+          elsif result < 0
+            entry.lines.create!(:account_id => gains.id, :name => gains.name, :currency_debit => 0.0, :currency_credit => result.abs)
+          end
+
         end
       end
     end
-    for journal in self.company.journals.find(:all, :conditions => ["closed_on < ?", to_close_on])
-      journal.close(to_close_on)
-    end
-    self.update_attributes(:stopped_on => to_close_on, :closed => true)
+    return true
   end
 
   # this method returns the previous financial_year.
@@ -156,7 +169,7 @@ class FinancialYear < CompanyRecord
     return self.company.financial_years.find(:first, :conditions => {:stopped_on=>self.started_on-1})
   end
  
-   # this method returns the next financial_year.
+  # this method returns the next financial_year.
   def next
     return self.company.financial_years.find(:first, :conditions => {:started_on=>self.stopped_on+1})
   end

@@ -113,10 +113,10 @@ class Journal < CompanyRecord
   # this method closes a journal.
   def close(closed_on)
     errors.add(:closed_on, :end_of_month) if self.closed_on != self.closed_on.end_of_month
-    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["state=? AND created_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on ]).size > 0
+    errors.add_to_base(:draft_entry_lines) if self.entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)", :conditions=>["#{JournalEntryLine.table_name}.state=? AND printed_on BETWEEN ? AND ? ", "draft", self.closed_on+1, closed_on ]).size > 0
     return false unless errors.empty?
-    ActiveEntry::Base.transaction do
-      for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
+    ActiveRecord::Base.transaction do
+      for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
         entry.close
       end
       self.update_attribute(:closed_on, closed_on)
