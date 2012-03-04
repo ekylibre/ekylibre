@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120207153010) do
+ActiveRecord::Schema.define(:version => 20120304160717) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -85,6 +85,20 @@ ActiveRecord::Schema.define(:version => 20120207153010) do
   add_index "areas", ["district_id"], :name => "index_areas_on_district_id"
   add_index "areas", ["updated_at"], :name => "index_areas_on_updated_at"
   add_index "areas", ["updater_id"], :name => "index_areas_on_updater_id"
+
+  create_table "assets", :force => true do |t|
+    t.integer  "company_id",                         :null => false
+    t.string   "name",                               :null => false
+    t.text     "description"
+    t.date     "acquired_on",                        :null => false
+    t.decimal  "amount",                             :null => false
+    t.string   "depreciation_method",                :null => false
+    t.datetime "created_at",                         :null => false
+    t.integer  "creator_id"
+    t.datetime "updated_at",                         :null => false
+    t.integer  "updater_id"
+    t.integer  "lock_version",        :default => 0, :null => false
+  end
 
   create_table "bank_statements", :force => true do |t|
     t.integer  "cash_id",                                                         :null => false

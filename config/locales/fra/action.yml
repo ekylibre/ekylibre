@@ -551,7 +551,6 @@ fra:
         one: '%{count} erreur a empêché l''enregistrement (%{model})'
         other: '%{count} erreurs ont empêché l''enregistrement (%{model})'
   labels:
-    last_computed_balance: 'Dernière balance calculée'
     account_accruals: 'Comptes de régularisation' #!
     account_attorney_to_create: '-- Créer automatiquement un compte mandataire --' #!
     account_claims_assets: 'Créances' #!
@@ -855,6 +854,7 @@ fra:
     land_parcel_name: 'Îlot'
     land_parcel_update: 'Modifier l''îlot' #!
     land_parcels: 'Îlots'
+    last_computed_balance: 'Dernière balance calculée'
     last_payment_amount: 'Montant du dernier encaissement'
     last_payment_date: 'Date du dernier encaissement'
     left_balance_amount: 'Report du crédit antérieur non imputé et non remboursé'

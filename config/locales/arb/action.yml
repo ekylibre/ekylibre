@@ -898,6 +898,7 @@ arb:
     land_parcel_name: 'نظام'
     land_parcel_update: 'تعديل النظام' #!
     land_parcels: 'قائمة بالنظام'
+    # last_computed_balance: 'Last computed balance'
     # last_payment_amount: 'Amount of the last payment'
     # last_payment_date: 'Date of the last payment'
     left_balance_amount: 'ارجاء الرصيد السابق غير معلق وغير مكلف'

@@ -34,3 +34,16 @@ module MigrationHelper
 
 
 end
+
+class ActiveRecord::ConnectionAdapters::TableDefinition
+
+  # Appends 5 columns: created_at, creator_id, updated_at, updater_id and lock_version
+  def stamps(*args)
+    options = args.extract_options!
+    column(:created_at, :datetime, {:null=>false}.merge(options))
+    column(:creator_id, :integer, options)
+    column(:updated_at, :datetime, {:null=>false}.merge(options))
+    column(:updater_id, :integer, options)
+    column(:lock_version, :integer, {:null=>false, :default=>0}.merge(options))
+  end
+end

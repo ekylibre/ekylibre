@@ -206,6 +206,7 @@ eng:
       account: 'Account'
       account_balance: 'Account balance'
       area: 'Area'
+      # asset: 'Asset'
       bank_statement: 'Bank statement'
       cash: 'Cash'
       cash_transfer: 'Cash transfer'
@@ -300,6 +301,7 @@ eng:
     account_number: 'Account number'
     accounted_at: 'Accounted at'
     accounts: 'Accounts' #!
+    # acquired_on: 'Acquired on'
     acquisition_amount: 'Acquisition amount'
     active: 'Active'
     activity_code: 'Activity code'
@@ -452,6 +454,7 @@ eng:
     depositable_payments: 'Embankable payments' #!
     depositables_account: 'Embankables account' #!
     deposits: 'Deposits' #!
+    # depreciation_method: 'Depreciation method'
     description: 'Description'
     diff_less: 'Diff less' #!
     diff_more: 'Diff more' #!

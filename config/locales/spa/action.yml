@@ -855,6 +855,7 @@ spa:
     journals: 'Periodico general'
     # land_parcel_name: 'Land parcel name'
     # land_parcels: 'Land parcels'
+    # last_computed_balance: 'Last computed balance'
     # last_payment_amount: 'Amount of the last payment'
     # last_payment_date: 'Date of the last payment'
     left_balance_amount: 'Aplazamiento del credito anterior sin imputar ni reembolsar'
