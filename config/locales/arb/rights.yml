@@ -25,6 +25,7 @@ arb:
     mail_to_listings: 'ادارة ارسال رسائل البريد الالكتروني بواسطة الاستخراج'
     manage_accounts: 'ادارة الحسابات'
     manage_areas: 'ادارة المناطق'
+    # manage_assets: '(((MANAGE_ASSETS)))'
     manage_bank_statements: 'كشوفات البيانات الحسابية'
     # manage_cash_transfers: 'Manage cash transfers'
     manage_cashes: 'ادارة حسابات الخزينة'

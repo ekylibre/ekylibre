@@ -38,8 +38,7 @@ class FinancialYear < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :code, :company, :started_on, :stopped_on

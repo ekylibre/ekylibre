@@ -56,10 +56,10 @@ class CashTransfer < CompanyRecord
   belongs_to :receiver_cash, :class_name=>"Cash"
   belongs_to :receiver_currency, :class_name=>"Currency"
   belongs_to :receiver_journal_entry, :class_name=>"JournalEntry"
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :emitter_amount, :emitter_currency_rate, :receiver_amount, :receiver_currency_rate, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :emitter_amount, :emitter_cash, :emitter_currency, :emitter_currency_rate, :number, :receiver_amount, :receiver_cash
   #]VALIDATORS]
   validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
   validates_presence_of :receiver_amount, :emitter_amount, :created_on

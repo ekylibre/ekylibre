@@ -55,10 +55,10 @@ class OutgoingDelivery < CompanyRecord
   belongs_to :transporter, :class_name=>"Entity"
   has_many :lines, :class_name=>"OutgoingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :company, :pretax_amount, :sale
   #]VALIDATORS]
 
   # autosave :transport

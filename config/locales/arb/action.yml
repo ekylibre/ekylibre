@@ -21,6 +21,11 @@ arb:
       edit: 'تعديل العنوان البريدي : %{name}'
       index: 'العناوين البريد'
       new: 'اضافة عنوان بريدي'
+    assets:
+      # edit: 'Edit asset: %{name}'
+      # index: 'Assets'
+      # new: 'New asset'
+      # show: 'Asset: %{name}'
     authentication:  #!
       login: 'الدخول' #!
       logout: 'الخروج' #!
@@ -449,6 +454,7 @@ arb:
     accounts: 'مخطط الحساب'
     application: 'تطبيق'
     areas: 'العناوين البريد'
+    # assets: 'Assets'
     authentication: 'المصادقة' #!
     bank_statements: 'بيان الحساب المصرفي'
     # cash_transfers: 'Cash transfers'
@@ -961,6 +967,7 @@ arb:
       relations: 'العلاقات'
       submenus:
         # accounts: 'Accounts'
+        # assets: 'Assets'
         # cashes: 'Cashes'
         # company: 'Company'
         # entities: 'People'

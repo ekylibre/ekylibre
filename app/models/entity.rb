@@ -115,8 +115,7 @@ class Entity < CompanyRecord
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>"IncomingPayment", :foreign_key=>:payer_id
   has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_contact, :class_name=>"Contact", :conditions=>{:by_default=>true}
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :discount_rate, :reduction_rate, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :language, :allow_nil => true, :maximum => 3

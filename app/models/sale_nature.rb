@@ -41,8 +41,7 @@
 
 
 class SaleNature < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :downpayment_minimum, :downpayment_rate, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :downpayment, :in => [true, false]

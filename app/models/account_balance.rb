@@ -44,9 +44,9 @@ class AccountBalance < CompanyRecord
   belongs_to :account
   belongs_to :company
   belongs_to :financial_year
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit, :allow_nil => true
+  validates_presence_of :account, :company, :financial_year, :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit
   #]VALIDATORS]
   validates_uniqueness_of :account_id, :scope=>[:company_id, :financial_year_id]
 

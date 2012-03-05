@@ -29,24 +29,22 @@ def search_missing_validations(klass)
   
   needed = columns.select{|c| not c.null and c.type != :boolean}.collect{|c| ":#{c.name}"}
   needed += klass.reflect_on_all_associations(:belongs_to).select do |association| 
-    column = klass.columns_hash[Rails.version.match(/^3\.1/) ? association.foreign_key.to_s : association.foreign_key.to_s]
+    column = klass.columns_hash[association.foreign_key.to_s]
     raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
     !column.null and validable_column?(column)
   end.collect{|r| ":#{r.name}"}
-  code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if cs.size > 0
+  code << "  validates_presence_of "+needed.sort.join(', ')+"\n" if needed.size > 0
 
   return code
 end
 
 desc "Adds default validations in models based on the schema"
 task :validations=>:environment do
-  models = ARGV.dup
-  models.shift
-  
-  if models.empty?
-    Dir.chdir(MODEL_DIR) do 
-      models = Dir["**/*.rb"].sort
-    end
+  log = File.open(Rails.root.join("log", "clean-validations.log"), "wb")
+
+  models = []
+  Dir.chdir(MODEL_DIR) do 
+    models = Dir["**/*.rb"].sort
   end
 
   print " - Valids: "
@@ -82,7 +80,7 @@ task :validations=>:environment do
         end
 
         # Update tag
-        content.sub!(regexp, "  "+tag_start+"\n  # Do not edit these lines directly. Use `rake clean:validations`.\n"+validations.to_s+"  "+tag_end)
+        content.sub!(regexp, "  "+tag_start+" Do not edit these lines directly. Use `rake clean:validations`.\n"+validations.to_s+"  "+tag_end)
 
         # Save file
         File.open(file, "wb") do |f|
@@ -91,9 +89,49 @@ task :validations=>:environment do
 
       end
     rescue Exception => e
-      errors << "Unable to adds validations on #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
+      errors << e
+      log.write("Unable to adds validations on #{class_name}: #{e.message}\n"+e.backtrace.join("\n"))
     end
   end
   print "#{errors.size.to_s.rjust(3)} errors\n"
 
+  log.close
+end
+
+desc "Removes the validators contained betweens the tags"
+task :empty_validations do
+  models = Dir[Rails.root.join("app", "models", "*.rb")].sort
+  
+  errors = []
+  models.each do |file|
+    class_name = file.split(/\/\\/)[-1].sub(/\.rb$/,'').camelize
+    begin
+      
+      # Get content
+      content = nil
+      File.open(file, "rb:UTF-8") do |f|
+        content = f.read
+      end
+
+      # Look for tag
+      tag_start = "#[VALIDATORS["
+      tag_end = "#]VALIDATORS]"
+
+      regexp = /\ *#{Regexp.escape(tag_start)}[^\A]*#{Regexp.escape(tag_end)}\ */x
+      tag = regexp.match(content)
+
+      # Compute (missing) validations
+      next unless tag
+
+      # Update tag
+      content.sub!(regexp, "  "+tag_start+"\n  "+tag_end)
+
+      # Save file
+      File.open(file, "wb") do |f|
+        f.write content
+      end      
+    rescue Exception => e
+      puts "Unable to adds validations on #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
+    end
+  end
 end

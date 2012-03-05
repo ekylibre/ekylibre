@@ -52,7 +52,6 @@
 
 class IncomingPayment < CompanyRecord
   acts_as_numbered
-  attr_readonly :company_id
   belongs_to :commission_account, :class_name=>"Account"
   belongs_to :company
   belongs_to :responsible, :class_name=>"User"
@@ -69,8 +68,7 @@ class IncomingPayment < CompanyRecord
   attr_readonly :company_id, :payer_id
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
 
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
   validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :received, :scheduled, :in => [true, false]

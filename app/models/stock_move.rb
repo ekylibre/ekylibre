@@ -45,8 +45,7 @@
 
 
 class StockMove < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :generated, :virtual, :in => [true, false]

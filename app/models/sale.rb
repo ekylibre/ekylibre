@@ -93,8 +93,7 @@ class Sale < CompanyRecord
   has_many :payments, :through=>:payment_uses
   has_many :subscriptions, :class_name=>"Subscription"
   has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
   validates_length_of :sum_method, :allow_nil => true, :maximum => 8
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64

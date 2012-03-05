@@ -43,10 +43,10 @@
 #
 
 class Document < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :filesize, :allow_nil => true, :only_integer => true
   validates_length_of :crypt_mode, :extension, :filename, :nature_code, :original_name, :owner_type, :sha256, :subdir, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :crypt_mode, :original_name, :sha256
   #]VALIDATORS]
   belongs_to :company
   belongs_to :owner, :polymorphic=>true

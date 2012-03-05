@@ -44,8 +44,7 @@ class Currency < CompanyRecord
   has_many :journals
   has_many :prices
   has_many :cashes
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :rate, :allow_nil => true
   validates_length_of :value_format, :allow_nil => true, :maximum => 16
   validates_length_of :code, :name, :symbol, :allow_nil => true, :maximum => 255

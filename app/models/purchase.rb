@@ -48,11 +48,11 @@
 
 
 class Purchase < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
   validates_length_of :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :company, :number, :paid_amount, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}

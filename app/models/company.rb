@@ -222,8 +222,7 @@ class Company < Ekylibre::Record::Base
   has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>{:closed=>false}
   has_one :default_currency, :class_name=>"Currency", :conditions=>{:active=>true}, :order=>"id"
 
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 16
   validates_length_of :language, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :locked, :in => [true, false]

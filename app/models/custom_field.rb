@@ -45,8 +45,7 @@ class CustomField < CompanyRecord
   belongs_to :company
   has_many :choices, :class_name=>"CustomFieldChoice", :order=>:position, :dependent=>:delete_all
   has_many :data, :class_name=>"CustomFieldDatum", :dependent=>:delete_all
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :length_max, :allow_nil => true, :only_integer => true
   validates_numericality_of :decimal_max, :decimal_min, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8

@@ -38,10 +38,10 @@
 
 
 class Area < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :city, :city_name, :code, :name, :postcode, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name, :postcode
   #]VALIDATORS]
   belongs_to :company
   belongs_to :district

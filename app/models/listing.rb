@@ -39,9 +39,9 @@
 
 
 class Listing < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name, :root_model
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company

@@ -37,8 +37,7 @@
 
 
 class Delay < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :expression, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
   validates_presence_of :company, :expression, :name

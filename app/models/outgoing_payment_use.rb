@@ -37,8 +37,7 @@
 
 
 class OutgoingPaymentUse < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_inclusion_of :downpayment, :in => [true, false]
   validates_presence_of :amount, :company, :expense, :payment, :purchase

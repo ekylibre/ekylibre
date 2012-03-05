@@ -54,8 +54,7 @@ class OutgoingPayment < CompanyRecord
   has_many :uses, :class_name=>"OutgoingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
   has_many :purchases, :through=>:uses
   has_many :expenses, :through=>:uses
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :used_amount, :allow_nil => true
   validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :in => [true, false]

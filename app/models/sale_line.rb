@@ -73,9 +73,9 @@ class SaleLine < CompanyRecord
 
   sums :sale, :lines, :pretax_amount, :amount
 
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
+  validates_presence_of :amount, :company, :pretax_amount, :price, :product, :quantity, :reduction_percent, :sale
   #]VALIDATORS]
   validates_presence_of :price
 

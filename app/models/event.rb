@@ -39,10 +39,10 @@
 
 
 class Event < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :started_sec, :allow_nil => true, :only_integer => true
   validates_length_of :location, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :entity, :nature, :responsible, :started_at, :started_sec
   #]VALIDATORS]
   belongs_to :company
   belongs_to :entity

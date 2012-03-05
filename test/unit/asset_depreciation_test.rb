@@ -18,28 +18,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: departments
+# == Table: asset_depreciations
 #
-#  comment          :text             
+#  accountable      :boolean          not null
+#  accounted_at     :datetime         
+#  amount           :decimal(16, 2)   not null
+#  asset_id         :integer          not null
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
+#  created_on       :date             not null
 #  creator_id       :integer          
+#  depreciation     :text             
 #  id               :integer          not null, primary key
+#  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
-#  name             :string(255)      not null
-#  parent_id        :integer          
-#  sales_conditions :text             
+#  position         :integer          
+#  started_on       :date             not null
+#  stopped_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
+require 'test_helper'
 
-
-class Department < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
-  #]VALIDATORS]
-  attr_readonly :company_id
-  has_many :users
-  validates_uniqueness_of :name, :scope=>:company_id
+class AssetDepreciationTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end

@@ -315,6 +315,15 @@ menus:
         - "journals::reopen"
         - "journals::show"
         - "journals::update"
+    - assets:
+      - - "assets::index"
+        - "assets::create"
+        - "assets::destroy"
+        - "assets::edit"
+        - "assets::list"
+        - "assets::new"
+        - "assets::show"
+        - "assets::update"
     - tasks:
       - - "bank_statements::index"
         - "bank_statements::create"

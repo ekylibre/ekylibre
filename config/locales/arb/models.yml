@@ -595,6 +595,7 @@ arb:
       account: 'الحساب'
       account_balance: 'رصيد الحساب'
       area: 'المنطقة البريدية'
+      # asset: 'Asset'
       bank_statement: 'بيان الحساب المصرفي'
       cash: 'الخزينة'
       # cash_transfer: 'Cash transfer'
@@ -696,6 +697,7 @@ arb:
     account_number: 'رقم الحساب'
     accounted_at: 'تمت محاسبته يوم'
     accounts: 'الحسابات'
+    # acquired_on: 'Acquired on'
     acquisition_amount: 'قيمة الاقتناء'
     active: 'فعال'
     activity_code: 'APE/NAF رمز'
@@ -865,6 +867,7 @@ arb:
     depositer: 'الجابي' #!
     depositer_id: 'الجابي' #!
     deposits: 'اقتطاعات البنك'
+    # depreciation_method: 'Depreciation method'
     description: 'الوصف'
     dest_contact: 'عنوان التسليم' #!
     dest_contact_id: 'عنوان التسليم' #!

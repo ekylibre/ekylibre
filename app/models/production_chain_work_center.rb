@@ -38,9 +38,9 @@
 
 
 class ProductionChainWorkCenter < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
+  validates_presence_of :building, :company, :name, :nature, :operation_nature, :production_chain
   #]VALIDATORS]
   acts_as_list :scope=>:production_chain
   attr_readonly :company_id

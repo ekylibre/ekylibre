@@ -48,12 +48,12 @@ class Preference < CompanyRecord
   belongs_to :user
   belongs_to :record_value, :polymorphic=>true
   # cattr_reader :reference
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
   validates_numericality_of :decimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => @@natures
   validates_uniqueness_of :name, :scope=>[:company_id, :user_id]

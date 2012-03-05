@@ -148,8 +148,9 @@ module AnnotateModels
   # Otherwise we take all the model files in the 
   # app/models directory.
   def self.get_model_names
-    models = ARGV.dup
-    models.shift
+    #models = ARGV.dup
+    #models.shift
+    models = []
     
     if models.empty?
       Dir.chdir(MODEL_DIR) do 

@@ -15,6 +15,11 @@ jpn:
       # edit: 'Edit the postal area: %{name}'
       # index: 'Postal areas'
       # new: 'Add a postal area'
+    assets:
+      # edit: 'Edit asset: %{name}'
+      # index: 'Assets'
+      # new: 'New asset'
+      # show: 'Asset: %{name}'
     authentication:  #!
       login: 'ログイン' #!
       logout: 'ログアウト' #!
@@ -414,6 +419,7 @@ jpn:
     # accounts: 'Plan of accounts'
     application: '一般的な車掌'
     # areas: 'Postal areas'
+    # assets: 'Assets'
     authentication: '認証' #!
     # bank_statements: 'Bank statements'
     # cash_transfers: 'Cash transfers'
@@ -816,6 +822,7 @@ jpn:
       # relations: 'Relations'
       submenus:
         # accounts: 'Accounts'
+        # assets: 'Assets'
         # cashes: 'Cashes'
         # company: 'Company'
         # entities: 'People'

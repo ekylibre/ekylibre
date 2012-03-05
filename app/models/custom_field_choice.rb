@@ -35,9 +35,9 @@
 
 
 class CustomFieldChoice < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :value, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :custom_field, :name, :value
   #]VALIDATORS]
   belongs_to :company
   belongs_to :custom_field

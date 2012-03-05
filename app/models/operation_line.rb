@@ -42,11 +42,11 @@
 
 
 class OperationLine < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :unit_quantity, :allow_nil => true
   validates_length_of :direction, :allow_nil => true, :maximum => 4
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :direction, :operation, :quantity, :unit_quantity
   #]VALIDATORS]
   acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation  
   belongs_to :area_unit, :class_name=>"Unit"

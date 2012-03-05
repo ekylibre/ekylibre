@@ -34,11 +34,11 @@
 
 
 class Tool < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :consumption, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name, :nature
   #]VALIDATORS]
 
   belongs_to :company

@@ -1,7 +1,7 @@
 #
 desc "Update and sort translation files"
 task :locales => :environment do
-  log = File.open(Rails.root.join("log", "clean.locales.log"), "wb")
+  log = File.open(Rails.root.join("log", "clean-locales.log"), "wb")
 
   missing_prompt = "# "
 

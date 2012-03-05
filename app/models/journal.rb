@@ -43,11 +43,11 @@ class Journal < CompanyRecord
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
   has_many :entries, :class_name=>"JournalEntry"
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 4
   validates_length_of :nature, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :closed_on, :code, :company, :currency, :name, :nature
   #]VALIDATORS]
   validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id

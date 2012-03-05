@@ -66,8 +66,7 @@ class Cash < CompanyRecord
   validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id
   # validates_presence_of :bank_name
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
   validates_length_of :iban, :allow_nil => true, :maximum => 34
   validates_length_of :iban_label, :allow_nil => true, :maximum => 48

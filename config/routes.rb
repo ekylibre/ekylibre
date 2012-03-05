@@ -63,7 +63,11 @@ Ekylibre::Application.routes.draw do
         get :list
       end
     end
-    resources :assets
+    resources :assets do
+      collection do
+        get :list
+      end
+    end
     resources :bank_statements do
       collection do
         get :list

@@ -33,6 +33,9 @@
 
 
 class OperationUse < CompanyRecord
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :company, :operation, :tool
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :operation

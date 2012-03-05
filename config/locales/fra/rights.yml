@@ -23,6 +23,7 @@ fra:
     mail_to_listings: 'Gérer l''envoi de courriels par les extractions'
     manage_accounts: 'Gérer les comptes comptables'
     manage_areas: 'Gérer les zones'
+    # manage_assets: '(((MANAGE_ASSETS)))'
     manage_bank_statements: 'Pointage des relevés de comptes'
     manage_cash_transfers: 'Gérer les virements internes'
     manage_cashes: 'Gérer les comptes de trésorerie'

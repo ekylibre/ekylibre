@@ -35,8 +35,7 @@
 
 
 class EventNature < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :usage, :allow_nil => true, :maximum => 64
   validates_length_of :name, :allow_nil => true, :maximum => 255

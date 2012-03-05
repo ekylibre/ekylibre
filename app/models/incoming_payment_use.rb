@@ -50,8 +50,7 @@ class IncomingPaymentUse < CompanyRecord
   cattr_reader :expense_types
   @@expense_types = ["Sale", "Transfer"]
 
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :expense_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :downpayment, :in => [true, false]

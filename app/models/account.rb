@@ -56,8 +56,7 @@ class Account < CompanyRecord
   has_many :sale_lines
   has_many :sales_products, :class_name=>"Product", :foreign_key=>:sales_account_id
   has_many :suppliers, :class_name=>"Entity", :foreign_key=>:supplier_account_id
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :last_letter, :allow_nil => true, :maximum => 8
   validates_length_of :number, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 208

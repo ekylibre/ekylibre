@@ -45,8 +45,7 @@ class ProductComponent < CompanyRecord
   belongs_to :component, :class_name=>"Product"
   belongs_to :warehouse
   belongs_to :product
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]

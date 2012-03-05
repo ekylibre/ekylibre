@@ -44,11 +44,11 @@
 
 
 class StockTransfer < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :number, :allow_nil => true, :maximum => 64
+  validates_presence_of :company, :nature, :number, :planned_on, :product, :quantity, :warehouse
   #]VALIDATORS]
   NATURES = %w(waste transfer gain).freeze
   acts_as_numbered

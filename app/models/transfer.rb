@@ -41,10 +41,10 @@
 
 
 class Transfer < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :paid_amount, :allow_nil => true
   validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :company, :paid_amount
   #]VALIDATORS]
   attr_readonly :company_id, :comment
   belongs_to :company

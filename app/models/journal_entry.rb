@@ -58,11 +58,11 @@ class JournalEntry < CompanyRecord
   has_many :incoming_payment_uses, :dependent=>:nullify
   has_many :purchases, :dependent=>:nullify
   has_many :sales, :dependent=>:nullify
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :currency_credit, :currency_debit, :currency_rate, :debit, :allow_nil => true
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
+  validates_presence_of :balance, :company, :created_on, :credit, :currency, :currency_credit, :currency_debit, :currency_rate, :debit, :journal, :number, :printed_on, :state
   #]VALIDATORS]
   validates_presence_of :currency
   validates_format_of :number, :with => /^[\dA-Z]+$/

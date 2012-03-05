@@ -23,6 +23,7 @@ jpn:
     # mail_to_listings: 'Send mail to lists'
     # manage_accounts: 'Manage accounts'
     # manage_areas: 'Manage areas'
+    # manage_assets: '(((MANAGE_ASSETS)))'
     # manage_bank_statements: 'Point bank statements'
     # manage_cash_transfers: 'Manage cash transfers'
     # manage_cashes: 'Manage cashes'

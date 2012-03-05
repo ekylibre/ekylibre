@@ -18,47 +18,32 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: entity_natures
+# == Table: asset_depreciations
 #
-#  active           :boolean          default(TRUE), not null
+#  accountable      :boolean          not null
+#  accounted_at     :datetime         
+#  amount           :decimal(16, 2)   not null
+#  asset_id         :integer          not null
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
+#  created_on       :date             not null
 #  creator_id       :integer          
-#  description      :text             
-#  full_name_format :string(255)      
+#  depreciation     :text             
 #  id               :integer          not null, primary key
-#  in_name          :boolean          default(TRUE), not null
+#  journal_entry_id :integer          
 #  lock_version     :integer          default(0), not null
-#  name             :string(255)      not null
-#  physical         :boolean          not null
-#  title            :string(255)      
+#  position         :integer          
+#  started_on       :date             not null
+#  stopped_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #
-
-
-class EntityNature < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :entities, :foreign_key=>:nature_id 
+class AssetDepreciation < CompanyRecord
+  belongs_to :asset
+  belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :full_name_format, :name, :title, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :in_name, :physical, :in => [true, false]
-  validates_presence_of :company, :name
+  validates_numericality_of :amount, :allow_nil => true
+  validates_inclusion_of :accountable, :in => [true, false]
+  validates_presence_of :amount, :asset, :company, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
-  validates_uniqueness_of :name, :scope=>:company_id
-
-  before_validation do
-    self.in_name = false if self.physical
-    if self.physical
-      self.full_name_format ||= '[title] [last_name] [first_name]'
-    else
-      self.full_name_format ||= '[last_name]'
-    end
-  end
-
-  protect_on_destroy do
-    self.entities.size <= 0
-  end
-
 end

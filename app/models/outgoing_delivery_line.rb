@@ -53,9 +53,9 @@ class OutgoingDeliveryLine < CompanyRecord
   belongs_to :tracking
   belongs_to :unit
   belongs_to :warehouse
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
+  validates_presence_of :amount, :company, :delivery, :pretax_amount, :price, :product, :quantity, :sale_line, :unit
   #]VALIDATORS]
   validates_presence_of :product, :unit
 

@@ -50,8 +50,7 @@
 
 
 class Contact < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :latitude, :longitude, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :code, :allow_nil => true, :maximum => 4

@@ -50,10 +50,10 @@ class Stock < CompanyRecord
   has_many :moves, :class_name=>"StockMove"
   validates_presence_of :product, :warehouse, :unit, :quantity, :virtual_quantity
   validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :critic_quantity_min, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :critic_quantity_min, :product, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :warehouse
   #]VALIDATORS]
 
   before_validation(:on=>:create) do

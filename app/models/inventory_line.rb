@@ -39,9 +39,9 @@
 
 
 class InventoryLine < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
+  validates_presence_of :company, :inventory, :product, :quantity, :theoric_quantity, :warehouse
   #]VALIDATORS]
   acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
   #belongs_to :company

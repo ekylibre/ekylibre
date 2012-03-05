@@ -33,6 +33,9 @@
 
 
 class ProductionChainWorkCenterUse < CompanyRecord
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :company, :tool, :work_center
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :work_center, :class_name=>"ProductionChainWorkCenter"

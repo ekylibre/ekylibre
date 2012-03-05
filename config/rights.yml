@@ -252,6 +252,18 @@ manage_areas:
   - "areas::new"
   - "areas::update"
   - "dashboards::relations"
+# (((MANAGE_ASSETS)))
+manage_assets:
+  actions:
+  - "assets::create"
+  - "assets::destroy"
+  - "assets::edit"
+  - "assets::index"
+  - "assets::list"
+  - "assets::new"
+  - "assets::show"
+  - "assets::update"
+  - "dashboards::accoutancy # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Point bank statements
 manage_bank_statements:
   actions:

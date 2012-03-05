@@ -21,6 +21,11 @@ fra:
       edit: 'Modifier la zone postale : %{name}'
       index: 'Zones postales'
       new: 'Ajouter une zone postale'
+    assets:
+      edit: 'Modifier l''immobilisation : %{name}'
+      index: 'Immobilisations'
+      new: 'Nouvelle immobilisation'
+      show: 'Immobilisation: %{name}'
     authentication:  #!
       login: 'Connexion' #!
       logout: 'Se déconnecter' #!
@@ -444,6 +449,7 @@ fra:
     accounts: 'Plan de comptes'
     application: 'Application'
     areas: 'Zones postales'
+    assets: 'Immobilisations'
     authentication: 'Authentification' #!
     bank_statements: 'Relevés de compte bancaire'
     cash_transfers: 'Virements internes'
@@ -918,6 +924,7 @@ fra:
       relations: 'Relations'
       submenus:
         accounts: 'Comptes'
+        assets: 'Immobilisations'
         cashes: 'Trésorerie'
         company: 'Société'
         entities: 'Personnes'

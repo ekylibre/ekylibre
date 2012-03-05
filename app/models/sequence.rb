@@ -47,10 +47,10 @@ class Sequence < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
   has_many :preferences, :as=>:record_value
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
   validates_length_of :name, :number_format, :period, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name, :number_format, :number_increment, :number_start, :period
   #]VALIDATORS]
   validates_inclusion_of :period, :in => @@periods  
   validates_uniqueness_of :number_format, :scope=>:company_id

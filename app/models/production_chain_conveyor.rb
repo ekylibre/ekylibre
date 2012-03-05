@@ -42,8 +42,7 @@
 
 
 class ProductionChainConveyor < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :flow, :source_quantity, :target_quantity, :allow_nil => true
   validates_inclusion_of :check_state, :unique_tracking, :in => [true, false]
   validates_presence_of :company, :flow, :product, :production_chain, :source_quantity, :target_quantity, :unit

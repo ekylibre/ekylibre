@@ -43,8 +43,7 @@
 
 
 class Deposit < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :in_cash, :locked, :in => [true, false]

@@ -36,10 +36,10 @@
 
 
 class Cultivation < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :color, :allow_nil => true, :maximum => 6
   validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :color, :company, :name, :started_on
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company

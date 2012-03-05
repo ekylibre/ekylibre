@@ -21,6 +21,11 @@ spa:
       # edit: 'Edit the postal area: %{name}'
       # index: 'Postal areas'
       # new: 'Add a postal area'
+    assets:
+      # edit: 'Edit asset: %{name}'
+      # index: 'Assets'
+      # new: 'New asset'
+      # show: 'Asset: %{name}'
     authentication:  #!
       login: 'Conexión' #!
     bank_statements:
@@ -437,6 +442,7 @@ spa:
     accounts: 'Plan de cuento'
     application: 'Aplicación'
     # areas: 'Postal areas'
+    # assets: 'Assets'
     authentication: 'Autenticación' #!
     bank_statements: 'Levantar de cuntos bancarios'
     # cash_transfers: 'Cash transfers'
@@ -900,6 +906,7 @@ spa:
       # relations: 'Relations'
       submenus:
         # accounts: 'Accounts'
+        # assets: 'Assets'
         # cashes: 'Cashes'
         # company: 'Company'
         # entities: 'People'

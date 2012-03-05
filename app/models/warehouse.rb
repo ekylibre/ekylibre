@@ -55,11 +55,11 @@ class Warehouse < CompanyRecord
   has_many :stocks
   has_many :stock_moves
   has_many :stock_transfers
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity_max, :allow_nil => true
   validates_length_of :division, :name, :subdivision, :subsubdivision, :allow_nil => true, :maximum => 255
+  validates_presence_of :company, :name
   #]VALIDATORS]
 
   # before_validation(:on=>:create) do

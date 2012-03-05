@@ -38,11 +38,11 @@
 
 
 class Unit < CompanyRecord
-  #[VALIDATORS[
-  # Do not edit these lines directly. Use `rake clean:validations`.
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
   validates_length_of :base, :label, :allow_nil => true, :maximum => 255
+  validates_presence_of :coefficient, :company, :label, :name, :start
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company

@@ -37,6 +37,9 @@
 
 
 class EntityLink < CompanyRecord
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :company, :entity_1, :entity_2, :nature
+  #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :company
   belongs_to :entity_1, :class_name=>"Entity"

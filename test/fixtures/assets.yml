@@ -20,31 +20,58 @@
 # 
 # == Table: assets
 #
-#  acquired_on         :date             not null
-#  amount              :decimal(, )      not null
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  depreciation_method :string(255)      not null
-#  description         :text             
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
+#  account_id            :integer          not null
+#  ceded                 :boolean          
+#  ceded_on              :date             
+#  comment               :text             
+#  company_id            :integer          not null
+#  created_at            :datetime         not null
+#  creator_id            :integer          
+#  currency_id           :integer          not null
+#  deprecated_amount     :decimal(16, 2)   not null
+#  depreciable_amount    :decimal(16, 2)   not null
+#  depreciable_on        :date             not null
+#  depreciation_duration :integer          not null
+#  depreciation_method   :string(255)      not null
+#  description           :text             
+#  id                    :integer          not null, primary key
+#  journal_id            :integer          not null
+#  lock_version          :integer          default(0), not null
+#  name                  :string(255)      not null
+#  number                :string(255)      not null
+#  purchase_amount       :decimal(16, 2)   not null
+#  purchase_id           :integer          
+#  purchase_line_id      :integer          
+#  purchased_on          :date             not null
+#  sale_id               :integer          
+#  sale_line_id          :integer          
+#  started_on            :date             not null
+#  stopped_on            :date             not null
+#  updated_at            :datetime         not null
+#  updater_id            :integer          
 #
 #
 # == Fixture: assets
 #
 # assets_001:
-#   acquired_on: 2009-07-19
-#   amount: 0
+#   account_id: 1
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
+#   currency_id: 1
+#   deprecated_amount: 0
+#   depreciable_amount: 0
+#   depreciable_on: 2009-07-19
+#   depreciation_duration: 0
 #   depreciation_method: "Lorem ipsum"
 #   id: 1
+#   journal_id: 1
 #   name: "Lorem ipsum"
+#   number: "Lorem ipsum"
+#   purchase_amount: 0
+#   purchased_on: 2009-07-19
+#   started_on: 2009-07-19
+#   stopped_on: 2009-07-19
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #

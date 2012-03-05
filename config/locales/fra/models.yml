@@ -229,6 +229,7 @@ fra:
       account: 'Compte'
       account_balance: 'Balance de compte'
       area: 'Zone postale'
+      # asset: 'Asset'
       bank_statement: 'Relevé de compte bancaire'
       cash: 'Trésorerie'
       cash_transfer: 'Virement interne'
@@ -325,6 +326,7 @@ fra:
     account_number: 'Numéro de compte'
     accounted_at: 'Date comptabilisation'
     accounts: 'Comptes'
+    # acquired_on: 'Acquired on'
     acquisition_amount: 'Montant des acquisition'
     active: 'Utilisable'
     activity_code: 'Code APE/NAF'
@@ -490,6 +492,7 @@ fra:
     depositables_account: 'Compte d''attente pour les encaissements à encaisser'
     depositables_account_id: 'Compte d''attente pour les encaissements à encaisser' #!
     deposits: 'Remises en banque'
+    # depreciation_method: 'Depreciation method'
     description: 'Description'
     dest_contact: 'Adresse de livraison' #!
     dest_contact_id: 'Adresse de livraison' #!
