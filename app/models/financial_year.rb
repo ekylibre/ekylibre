@@ -115,9 +115,11 @@ class FinancialYear < CompanyRecord
 
 
   # When a financial year is closed, all the matching journals are closed too. 
-  def close(to_close_on, options={})
+  def close(to_close_on=nil, options={})
     return false unless self.closable?
-    
+
+    to_close_on ||= self.stopped_on
+
     ActiveRecord::Base.transaction do
       
       # Close journals
@@ -142,14 +144,14 @@ class FinancialYear < CompanyRecord
           charges  = self.company.account(self.company.preferred_charges_accounts)
           products = self.company.account(self.company.preferred_products_accounts)
           
-          for balance in self.account_balances.includes(:account)
+          for balance in self.account_balances.joins(:account).order("number")
             if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)
               result += balance.balance
-            # elsif balance.account.number.to_s.match(/^#{gains.number}/)
-            #   result += balance.local_balance
-            # elsif balance.account.number.to_s.match(/^#{losses.number}/)
-            #   result += balance.local_balance
-            else
+              # elsif balance.account.number.to_s.match(/^#{gains.number}/)
+              #   result += balance.local_balance
+              # elsif balance.account.number.to_s.match(/^#{losses.number}/)
+              #   result += balance.local_balance
+            elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
               entry.lines.create!(:account_id => balance.account_id, :name => balance.account.name, :currency_debit => balance.balance_debit, :currency_credit => balance.balance_credit)
             end

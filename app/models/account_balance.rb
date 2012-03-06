@@ -65,11 +65,11 @@ class AccountBalance < CompanyRecord
   end
 
   def balance_debit
-    return (self.balance > 0 ? self.debit : 0)
+    return (self.balance > 0 ? self.balance.abs : 0)
   end
 
   def balance_credit
-    return (self.balance > 0 ? 0 : self.credit)
+    return (self.balance > 0 ? 0 : self.balance.abs)
   end
 
   # #lists the accounts used in a given period with the credit and the debit.
