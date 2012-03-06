@@ -200,14 +200,19 @@ class Sale < CompanyRecord
   def has_content?
     self.lines.size > 0
   end
-  
-  def has_content_not_deliverable?
+
+  def has_content_deliverable?
     return false unless self.has_content?
     deliverable = false
     for line in self.lines
       deliverable = true if line.product.deliverable?
     end
-    return !deliverable
+    return deliverable
+  end
+  
+  def has_content_not_deliverable?
+    return false unless self.has_content?
+    return !self.deliverable?
   end
 
 
@@ -342,9 +347,9 @@ class Sale < CompanyRecord
   end
 
 
-  # Returns true if there is some products to deliver
+  # Returns true if there is some undelivered deliverable products
   def deliverable?
-    not self.undelivered(:amount).zero? and (self.invoice? or self.order?)
+    self.has_content_deliverable? and not self.undelivered(:amount).zero? and (self.invoice? or self.order?)
   end
 
   # Calculate unpaid amount
