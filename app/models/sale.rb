@@ -212,7 +212,11 @@ class Sale < CompanyRecord
   
   def has_content_not_deliverable?
     return false unless self.has_content?
-    return !self.deliverable?
+    deliverable = false
+    for line in self.lines
+      deliverable = true if line.product.deliverable?
+    end
+    return !deliverable
   end
 
 
