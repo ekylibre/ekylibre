@@ -460,9 +460,7 @@ eng:
     deposits: 'Deposits' #!
     # deprecated_amount: 'Deprecated amount'
     # depreciable_amount: 'Depreciable amount'
-    # depreciable_on: 'Depreciable on'
     # depreciation: 'Depreciation'
-    # depreciation_duration: 'Depreciation duration'
     depreciation_method: 'Depreciation method'
     description: 'Description'
     diff_less: 'Diff less' #!

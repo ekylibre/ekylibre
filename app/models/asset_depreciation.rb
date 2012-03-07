@@ -46,4 +46,7 @@ class AssetDepreciation < CompanyRecord
   validates_inclusion_of :accountable, :in => [true, false]
   validates_presence_of :amount, :asset, :company, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
+
+  sums :asset, :depreciations, :amount => :deprecated_amount
+
 end

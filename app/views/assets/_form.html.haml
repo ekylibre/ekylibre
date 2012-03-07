@@ -1,5 +1,19 @@
 =formalize do |f|
   -f.error :asset
   -f.field :asset, :name
-  -f.field :asset, :description
+  -f.field :asset, :description, :field=>:textarea
+  -f.field :asset, :comment, :field=>:textarea
+  -f.field :asset, :purchase_amount, (@asset.new_record? ? {"data-live-copy-to"=>"#asset_depreciable_amount"} : {})
+  -f.field :asset, :purchased_on, (@asset.new_record? ? {"data-live-copy-to"=>"#depreciation_started_on"} : {})
 
+=formalize do |f|
+  -f.title :depreciation
+  -f.field :asset, :started_on, :id=>"depreciation_started_on"
+  -f.field :asset, :stopped_on
+  -f.field :asset, :depreciable_amount
+  -f.field :asset, :depreciation_method, :choices=>Asset.deprecation_methods
+ 
+=formalize do |f|
+  -f.title :accountancy
+  -f.field :asset, :journal_id, :choices=>{:reflection=>:journals}
+  -f.field :asset, :account_id, :choices=>:account

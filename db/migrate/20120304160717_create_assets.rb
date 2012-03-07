@@ -19,13 +19,13 @@ class CreateAssets < ActiveRecord::Migration
       t.belongs_to :sale
       t.belongs_to :sale_line
       t.decimal    :purchase_amount,       :null=>false, :precision=>16, :scale=>2
-      t.date       :depreciable_on,        :null=>false
+      # t.date       :depreciable_on,        :null=>false
       t.date       :started_on,            :null=>false
       t.date       :stopped_on,            :null=>false
       t.decimal    :depreciable_amount,    :null=>false, :precision=>16, :scale=>2
       t.decimal    :deprecated_amount,     :null=>false, :precision=>16, :scale=>2
       t.string     :depreciation_method,   :null=>false
-      t.integer    :depreciation_duration, :null=>false
+      # t.integer    :depreciation_duration, :null=>false
       t.stamps
     end
     add_index :assets, :company_id

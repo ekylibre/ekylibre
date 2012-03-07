@@ -42,6 +42,8 @@ class Company < Ekylibre::Record::Base
   has_many :accounts, :order=>:number
   has_many :account_balances
   has_many :areas
+  has_many :assets
+  has_many :asset_depreciations
   has_many :cashes, :order=>:name
   has_many :cash_transfers
   has_many :bank_statements
@@ -129,6 +131,7 @@ class Company < Ekylibre::Record::Base
 
 
   # Sequences
+  preference :assets_sequence, 'Sequence'
   preference :cash_transfers_sequence, 'Sequence'
   preference :deposits_sequence, 'Sequence'
   preference :entities_sequence, 'Sequence'

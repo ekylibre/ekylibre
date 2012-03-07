@@ -263,7 +263,7 @@ manage_assets:
   - "assets::new"
   - "assets::show"
   - "assets::update"
-  - "dashboards::accoutancy # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "dashboards::accountancy"
 # Point bank statements
 manage_bank_statements:
   actions:
