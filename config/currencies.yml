@@ -6,3 +6,6 @@ currencies:
     countries: [ad, at, be, cy, de, ee, es, fi, fr, gr, ie, it, lu, mc, me, mt, nl, pt, si, sk, sm, va]
     name: 'Euro'
     symbol: '€'
+    number: 978
+    scale: 2
+    active: true
