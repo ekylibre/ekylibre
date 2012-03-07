@@ -156,8 +156,8 @@ class Contact < CompanyRecord
   end
  
   def print_address
-    a = self.entity.full_name+"\n"
-    a += self.address.gsub(/\s*\,\s*/, "\n")
+    a = self.entity.full_name+" \r\n"
+    a += self.address.gsub(/\s*\,\s*/, " \r\n")
     a
   end
   

@@ -377,9 +377,9 @@ class Sale < CompanyRecord
   end
 
   def address
-    a = self.client.full_name+"\n"
+    a = self.client.full_name+" \r\n"
     c = (self.invoice? ? self.invoice_contact : self.contact)
-    a += (c ? c.address : self.client.default_contact.address).gsub(/\s*\,\s*/, "\n")
+    a += (c ? c.address : self.client.default_contact.address).gsub(/\s*\,\s*/, " \r\n")
     a
   end
 
