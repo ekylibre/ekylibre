@@ -22,6 +22,11 @@ class AssetsController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>true
+    t.column :purchase_amount
+    t.column :depreciable_amount
+    t.column :current_amount, :type=>:numeric
+    t.column :started_on
+    t.column :stopped_on
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end

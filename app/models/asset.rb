@@ -77,4 +77,9 @@ class Asset < CompanyRecord
     self.started_on ||= self.purchased_on
     self.currency_id = self.journal.currency
   end
+
+  # Depreciable amount less deprecated amount
+  def current_amount
+    self.depreciable_amount - self.deprecated_amount
+  end
 end
