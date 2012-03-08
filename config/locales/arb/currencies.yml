@@ -1,0 +1,15 @@
+arb:
+  currencies:
+    EUR:
+      name: 'يورو'
+    FRF:
+      name: 'فرنك فرنسي'
+    JPY:
+      name: 'ين_ياباني'
+    USD:
+      name: 'دولار_أمريكي'
+    default:
+      delimiter: ','
+      format: '%n%u'
+      negative_format: '-%n%u'
+      separator: '.'

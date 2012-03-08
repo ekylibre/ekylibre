@@ -1,0 +1,15 @@
+spa:
+  currencies:
+    EUR:
+      name: 'Euro'
+    FRF:
+      name: 'Franco francés'
+    JPY:
+      name: 'Yen'
+    USD:
+      name: 'Dólar de los Estados Unidos'
+    default:
+      delimiter: ' '
+      format: '%n%u'
+      negative_format: '-%n%u'
+      separator: ','

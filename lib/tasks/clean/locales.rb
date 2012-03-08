@@ -113,13 +113,59 @@ task :locales => :environment do
   acount += total-untranslated
   
 
+  # Countries
   count = sort_yaml_file :countries, log
   atotal += count
   acount += count
 
+  # Languages
   count = sort_yaml_file :languages, log
   atotal += count
   acount += count
+
+  # Support
+  count = sort_yaml_file :support, log
+  atotal += count
+  acount += count
+
+  # Currencies
+  #  count = sort_yaml_file :currencies, log
+  #  atotal += count
+  #  acount += count
+
+  currencies_ref = YAML.load_file(Rails.root.join("config", "currencies.yml"))["currencies"]
+  currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]["currencies"]
+  translation  = locale.to_s+":\n"
+  translation << "  currencies:\n"
+  to_translate, untranslated = 0, 0
+  for currency, details in currencies_ref.sort
+    translation << "    #{currency}:"
+    if currency == "default"
+      to_translate += hash_count(::I18n.translate("currencies.#{currency}"))
+      translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
+    else
+      to_translate += 1
+      if currencies[currency].nil?
+        translation << "\n      #{missing_prompt}name: #{currency.to_s.humanize}\n"      
+        untranslated += 1
+      elsif currencies[currency]["name"].blank?
+        translation << "\n      #{missing_prompt}name: #{currency.to_s.humanize}"      
+        translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
+        untranslated += 1
+      else
+        translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
+      end
+    end
+  end
+  File.open(locale_dir.join("currencies.yml"), "wb") do |file|
+    file.write translation
+  end
+  total = to_translate
+  log.write "  - #{'currencies.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
+  atotal += total
+  acount += total-untranslated
+
+      
 
   # Models
   untranslated = 0
@@ -224,46 +270,6 @@ task :locales => :environment do
   acount += count
 
 
-  #     log.write "  - help: # Missing files\n"
-  #     for controller, actions in useful_actions
-  #       for action in actions
-  #         if File.exists?("#{Rails.root.to_s}/app/views/#{controller}/#{action}.html.haml") or (File.exists?("#{Rails.root.to_s}/app/views/#{controller}/_#{action.gsub(/_[^_]*$/,'')}_form.html.haml") and action.split("_")[-1].match(/create|update/))
-  #           unless File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.split(/\_/)[0..-2].join('_').pluralize}.txt") or File.exist?("#{Rails.root.to_s}/config/locales/#{locale}/help/#{controller}-#{action.to_s.pluralize}.txt")
-  #             log.write "    - ./config/locales/#{locale}/help/#{controller}-#{action}.txt\n" 
-  #           end
-  #         end
-  #       end
-  #     end
-
-  # #     # wkl = [:zho, :cmn, :spa, :eng, :arb, :ara, :hin, :ben, :por, :rus, :jpn, :deu, :jav, :lah, :wuu, :tel, :vie, :mar, :fra, :kor, :tam, :pnb, :ita, :urd, :yue, :arz, :tur, :nan, :guj, :cjy, :pol, :msa, :bho, :awa, :ukr, :hsn, :mal, :kan, :mai, :sun, :mya, :ori, :fas, :mwr, :hak, :pan, :hau, :fil, :pes, :tgl, :ron, :ind, :arq, :nld, :snd, :ary, :gan, :tha, :pus, :uzb, :raj, :yor, :aze, :aec, :uzn, :ibo, :amh, :hne, :orm, :apd, :asm, :hbs, :kur, :ceb, :sin, :acm, :rkt, :tts, :zha, :mlg, :apc, :som, :nep, :skr, :mad, :khm, :bar, :ell, :mag, :ctg, :bgc, :dcc, :azb, :hun, :ful, :cat, :sna, :mup, :syl, :mnp, :zlm, :zul, :que, :ars, :pbu, :ces, :bjj, :aeb, :kmr, :bul, :lmo, :cdo, :dhd, :gaz, :uig, :nya, :bel, :aka, :swe, :kaz, :pst, :bfy, :xho, :hat, :kok, :prs, :ayn, :plt, :azj, :kin, :kik, :acq, :vah, :srp, :nap, :bal, :ilo, :tuk, :hmn, :tat, :gsw, :hye, :ayp, :lua, :ajp, :sat, :vec, :vls, :acw, :kon, :lmn, :sot, :nod, :tir, :sqi, :hil, :mon, :dan, :rwr, :kas, :min, :hrv, :suk, :heb, :mos, :wtm, :kng, :fin, :slk, :afr, :run, :grn, :vmf, :gug, :scn, :bik, :hoj, :nor, :czh, :sou, :hae, :tgk, :tsn, :man, :luo, :kat, :ayl, :aln, :ktu, :lug, :nso, :rmt, :umb, :kau, :wol, :kam, :knn, :mui, :wry, :myi, :doi, :gax, :ckb, :tso, :fuc, :quh, :afb, :gom, :bem, :bjn, :bug, :ace, :bcc, :mvf, :shn, :mzn, :ban, :glk, :knc, :lao, :glg, :tzm, :jam, :lit, :mey, :pms, :czo, :kab, :ewe, :vmw, :kmb, :sdh, :shi, :hrx, :als, :swv, :gdx]
-  # #     wkl = [:ace, :acm, :acq, :acw, :aeb, :aec, :afb, :afr, :ajp, :aka, :aln, :als, :amh, :apc, :apd, :ara, :arb, :arq, :ars, :ary, :arz, :asm, :awa, :ayl, :ayn, :ayp, :azb, :aze, :azj, :bal, :ban, :bar, :bcc, :bel, :bem, :ben, :bfy, :bgc, :bho, :bik, :bjj, :bjn, :bug, :bul, :cat, :cdo, :ceb, :ces, :cjy, :ckb, :cmn, :ctg, :czh, :czo, :dan, :dcc, :deu, :dhd, :doi, :ell, :eng, :ewe, :fas, :fil, :fin, :fra, :fuc, :ful, :gan, :gax, :gaz, :gdx, :glg, :glk, :gom, :grn, :gsw, :gug, :guj, :hae, :hak, :hat, :hau, :hbs, :heb, :hil, :hin, :hmn, :hne, :hoj, :hrv, :hrx, :hsn, :hun, :hye, :ibo, :ilo, :ind, :ita, :jam, :jav, :jpn, :kab, :kam, :kan, :kas, :kat, :kau, :kaz, :khm, :kik, :kin, :kmb, :kmr, :knc, :kng, :knn, :kok, :kon, :kor, :ktu, :kur, :lah, :lao, :lit, :lmn, :lmo, :lua, :lug, :luo, :mad, :mag, :mai, :mal, :man, :mar, :mey, :min, :mlg, :mnp, :mon, :mos, :msa, :mui, :mup, :mvf, :mwr, :mya, :myi, :mzn, :nan, :nap, :nep, :nld, :nod, :nor, :nso, :nya, :ori, :orm, :pan, :pbu, :pes, :plt, :pms, :pnb, :pol, :por, :prs, :pst, :pus, :que, :quh, :raj, :rkt, :rmt, :ron, :run, :rus, :rwr, :sat, :scn, :sdh, :shi, :shn, :sin, :skr, :slk, :sna, :snd, :som, :sot, :sou, :spa, :sqi, :srp, :suk, :sun, :swe, :swv, :syl, :tam, :tat, :tel, :tgk, :tgl, :tha, :tir, :tsn, :tso, :tts, :tuk, :tur, :tzm, :uig, :ukr, :umb, :urd, :uzb, :uzn, :vah, :vec, :vie, :vls, :vmf, :vmw, :wol, :wry, :wtm, :wuu, :xho, :yor, :yue, :zha, :zho, :zlm, :zul]
-  #     # Official languages
-  #     wkl = [:eng, :arb, :cmn, :spa, :fra, :rus, :sqi, :deu, :hye, :aym, :ben, :cat, :kor, :hrv, :dan, :fin, :ell, :hun, :ita, :jpn, :swa, :msa, :mon, :nld, :urd, :fas, :por, :que, :ron, :smo, :srp, :sot, :slk, :slv, :swe, :tam, :tur, :afr, :amh, :aze, :bis, :bel, :mya, :bul, :nya, :sin, :pov, :hat, :crs, :div, :dzo, :est, :fij, :fil, :kat, :gil, :grn, :heb, :urd, :hin, :hmo, :iba, :ind, :gle, :isl, :kaz, :khm, :kir, :run, :lao, :nzs, :lat, :lav, :lit, :ltz, :mkd, :mlg, :mlt, :mri, :rar, :mah, :srp, :nau, :nep, :nor, :uzb, :pus, :pau, :pol, :sag, :swb, :sna, :nde, :som, :tgk, :tzm, :ces, :tet, :tir, :tha, :tpi, :ton, :tuk, :tvl, :ukr, :vie]
-  #     for reference_path in Dir.glob(Rails.root.join("config", "locales", "*", "languages.yml")).sort
-  #       lh = yaml_to_hash(reference_path)||{}
-  #       # puts lh.to_a[0][1][:languages].inspect
-  #       next if lh.to_a[0][1][:languages].nil?
-  #       lh.to_a[0][1][:languages].delete_if{|k,v| not wkl.include? k.to_s.to_sym}
-  #       translation = hash_to_yaml(lh)
-  #       File.open(reference_path.to_s, "wb") do |file|
-  #         file.write(translation.strip)
-  #       end
-  #     end
-
-
-
-  #     # ldir = Rails.root.join("config", "locales", locale.to_s)
-  #     ldir = Rails.root.join("lcx", locale.to_s)
-  #     FileUtils.makedirs(ldir)
-  #     for reference_path in Dir.glob(Rails.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
-  #       file_name = reference_path.split(/[\/\\]+/)[-1]
-  #       target_path = ldir.join(file_name)
-  #       translation = hash_to_yaml(yaml_to_hash(reference_path))
-  #       File.open(target_path, "wb") do |file|
-  #         file.write(translation.strip)
-  #       end
-  #     end
-
   
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
   total, count = atotal, acount
@@ -295,7 +301,8 @@ task :locales => :environment do
       translation, scount, stotal = hash_diff(target[locale], reference[::I18n.default_locale], 1)
       count += scount
       total += stotal
-      log.write "  - #{(file_name+':').ljust(16)} #{(100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
+      # puts "  - #{(file_name+':').ljust(16)} #{stotal} #{scount}"
+      log.write "  - #{(file_name+':').ljust(16)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
       File.open(target_path, "wb") do |file|
         file.write("#{locale}:\n")
         file.write(translation)

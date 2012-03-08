@@ -1,28 +1,37 @@
 # Codes come from ISO4217
 # This file defines all used currencies defined by the ISO
+# All these data must not contain l10n or i18n data.
+# Symbols used in currencies are the most international as possible
+# The symbols can be overriden with locales (config/locales).
 # Last update: 2012-03-07
 currencies:
+  default:
+    cash: [1, 10, 50, 100]
+    precision: 2
   EUR:
+    active: true
     cash: [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500]
     countries: [ad, at, be, cy, de, ee, es, fi, fr, gr, ie, it, lu, mc, me, mt, nl, pt, si, sk, sm, va]
-    name: 'Euro'
-    symbol: '€'
     number: "978"
-    scale: 2
-    active: true
+    precision: 2
+    symbol: '€'
   FRF:
+    active: false
     cash: [0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200, 500]
     countries: [fr]
-    name: 'Franc'
-    symbol: 'F'
     number: "250"
-    scale: 2
-    active: false
-  USD:
-    cash: [0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100]
-    countries: [ec, gt, us]
-    name: 'US Dollar'
-    symbol: '$'
-    number: "840"
-    scale: 2
+    precision: 2
+  JPY:
     active: true
+    cash: [1, 5, 10, 50, 100, 500, 1000, 2000, 5000, 10000]
+    countries: [ja]
+    number: "392"
+    precision: 0
+    symbol: '¥'
+  USD:
+    active: true
+    cash: [0.01, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10, 20, 50, 100]
+    countries: [ec, fm, gt, kh, mh, pa, pw, sv, tc, tl, us, vg, zw]
+    number: "840"
+    precision: 2
+    symbol: '$'

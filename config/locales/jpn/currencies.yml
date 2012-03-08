@@ -1,0 +1,17 @@
+jpn:
+  currencies:
+    EUR:
+      name: 'ユーロ'
+    FRF:
+      name: 'フランス・フラン'
+    JPY:
+      format: '%n円' #!
+      name: '円'
+      negative_format: '%n円' #!
+    USD:
+      name: 'アメリカ合衆国ドル'
+    default:
+      delimiter: ''
+      format: '%n%u'
+      negative_format: '-%n%u'
+      separator: '.'
