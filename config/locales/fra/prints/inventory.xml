@@ -11,7 +11,7 @@
        
       <part height="20mm">
 	<set>
-	  <text value="Inventaire du {{inventory.date?format=month_letter}} effectué par {{inventory.responsible.label}}" left="50%" align="center" bold="true" size="14"/>
+	  <text value="Inventaire du {{inventory.moved_on?format=month_letter}} effectué par {{inventory.responsible.label}}" left="50%" align="center" bold="true" size="14"/>
 	</set>
       </part>
       
