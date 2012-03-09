@@ -33,7 +33,7 @@
 #  number           :integer          
 #  parent_id        :integer          
 #  product_id       :integer          
-#  quantity_max     :decimal(16, 4)   
+#  quantity_max     :decimal(19, 4)   
 #  reservoir        :boolean          
 #  subdivision      :string(255)      
 #  subsubdivision   :string(255)      

@@ -20,34 +20,33 @@
 # 
 # == Table: journal_entries
 #
-#  balance         :decimal(16, 2)   default(0.0), not null
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  created_on      :date             not null
-#  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  currency_id     :integer          default(0), not null
-#  currency_rate   :decimal(16, 6)   default(0.0), not null
-#  debit           :decimal(16, 2)   default(0.0), not null
-#  id              :integer          not null, primary key
-#  journal_id      :integer          not null
-#  lock_version    :integer          default(0), not null
-#  number          :string(255)      not null
-#  printed_on      :date             not null
-#  resource_id     :integer          
-#  resource_type   :string(255)      
-#  state           :string(32)       default("draft"), not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  balance                :decimal(19, 4)   default(0.0), not null
+#  company_id             :integer          not null
+#  created_at             :datetime         not null
+#  created_on             :date             not null
+#  creator_id             :integer          
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  journal_id             :integer          not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string(255)      not null
+#  original_credit        :decimal(19, 4)   default(0.0), not null
+#  original_currency      :string(3)        
+#  original_currency_rate :decimal(19, 10)  default(0.0), not null
+#  original_debit         :decimal(19, 4)   default(0.0), not null
+#  printed_on             :date             not null
+#  resource_id            :integer          
+#  resource_type          :string(255)      
+#  state                  :string(32)       default("draft"), not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer          
 #
 
 
 class JournalEntry < CompanyRecord
   attr_readonly :company_id, :journal_id, :created_on
   belongs_to :company
-  belongs_to :currency
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
   has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>"JournalEntryLine"
@@ -59,14 +58,15 @@ class JournalEntry < CompanyRecord
   has_many :purchases, :dependent=>:nullify
   has_many :sales, :dependent=>:nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :balance, :credit, :currency_credit, :currency_debit, :currency_rate, :debit, :allow_nil => true
+  validates_numericality_of :balance, :credit, :debit, :original_credit, :original_currency_rate, :original_debit, :allow_nil => true
+  validates_length_of :original_currency, :allow_nil => true, :maximum => 3
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :balance, :company, :created_on, :credit, :currency, :currency_credit, :currency_debit, :currency_rate, :debit, :journal, :number, :printed_on, :state
+  validates_presence_of :balance, :company, :created_on, :credit, :debit, :journal, :number, :original_credit, :original_currency_rate, :original_debit, :printed_on, :state
   #]VALIDATORS]
-  validates_presence_of :currency
+  validates_presence_of :original_currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
-  validates_numericality_of :currency_rate, :greater_than=>0
+  validates_numericality_of :original_currency_rate, :greater_than=>0
 
   state_machine :state, :initial=>:draft do
     state :draft
@@ -133,13 +133,19 @@ class JournalEntry < CompanyRecord
   before_validation do
     if self.journal
       self.company_id  = self.journal.company_id 
-      self.currency_id = self.journal.currency_id
+      self.original_currency ||= self.journal.currency
     end
-    if self.currency
-      self.currency_rate = self.currency.rate if self.currency_rate.to_f <= 0
+    if self.original_currency
+      if self.original_currency == self.financial_year.currency
+        self.original_currency_rate = 1
+      else
+        # TODO: Find a way to manage currency rates!
+        
+        self.original_currency_rate = rand # self.original_currency.rate 
+      end
     end
-    self.currency_debit  = self.lines.sum(:currency_debit)
-    self.currency_credit = self.lines.sum(:currency_credit)
+    self.original_debit  = self.lines.sum(:original_debit)
+    self.original_credit = self.lines.sum(:original_credit)
     self.debit  = self.lines.sum(:debit)
     self.credit = self.lines.sum(:credit)
     self.balance = self.debit - self.credit
@@ -220,7 +226,7 @@ class JournalEntry < CompanyRecord
   # Create counter-entry_lines
   def cancel
     reconcilable_accounts = []
-    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :currency=>self.currency, :currency_rate=>self.currency_rate, :printed_on=>self.printed_on)
+    entry = self.class.new(:journal=>self.journal, :resource=>self.resource, :original_currency=>self.original_currency, :original_currency_rate=>self.original_currency_rate, :printed_on=>self.printed_on)
     ActiveRecord::Base.transaction do
       entry.save!
       for line in self.useful_lines
@@ -290,15 +296,15 @@ class JournalEntry < CompanyRecord
     end
     attributes = options.merge(:name=>name)
     attributes[:account_id] = account.is_a?(Integer) ? account : account.id
-    # attributes[:currency_id] = self.journal.currency_id
+    # attributes[:original_currency] = self.journal.currency
     credit = options.delete(:credit) ? true : false
     credit = (not credit) if amount < 0
     if credit
-      attributes[:currency_credit] = amount.abs
-      attributes[:currency_debit]  = 0.0
+      attributes[:original_credit] = amount.abs
+      attributes[:original_debit]  = 0.0
     else
-      attributes[:currency_credit] = 0.0
-      attributes[:currency_debit]  = amount.abs
+      attributes[:original_credit] = 0.0
+      attributes[:original_debit]  = amount.abs
     end
     e = self.lines.create!(attributes)
     return e

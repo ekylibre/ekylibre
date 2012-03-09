@@ -20,7 +20,7 @@
 # 
 # == Table: taxes
 #
-#  amount               :decimal(16, 4)   default(0.0), not null
+#  amount               :decimal(19, 4)   default(0.0), not null
 #  collected_account_id :integer          
 #  company_id           :integer          not null
 #  created_at           :datetime         not null

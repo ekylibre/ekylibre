@@ -29,6 +29,7 @@ class NormalizeCurrencies < ActiveRecord::Migration
       :emitter_currency_id => :emitter_currency,
       :receiver_currency_id => :receiver_currency
     },
+    :companies => {:__none__ => :currency},
     :financial_years => {:__none__ => :currency},
     :incoming_deliveries => {:currency_id => :currency},
     :journal_entries => {:currency_id => :currency},

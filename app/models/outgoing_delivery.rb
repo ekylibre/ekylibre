@@ -20,27 +20,27 @@
 # 
 # == Table: outgoing_deliveries
 #
-#  amount           :decimal(16, 2)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  currency_id      :integer          
+#  currency         :string(3)        
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer          
 #  moved_on         :date             
 #  number           :string(255)      
 #  planned_on       :date             
-#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  reference_number :string(255)      
 #  sale_id          :integer          not null
 #  transport_id     :integer          
 #  transporter_id   :integer          
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  weight           :decimal(16, 4)   
+#  weight           :decimal(19, 4)   
 #
 
 
@@ -57,6 +57,7 @@ class OutgoingDelivery < CompanyRecord
   has_many :stock_moves, :as=>:origin, :dependent=>:destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
   validates_presence_of :amount, :company, :pretax_amount, :sale
   #]VALIDATORS]

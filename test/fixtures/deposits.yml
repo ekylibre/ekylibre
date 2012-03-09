@@ -21,7 +21,7 @@
 # == Table: deposits
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(16, 4)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  cash_id          :integer          not null
 #  comment          :text             
 #  company_id       :integer          not null

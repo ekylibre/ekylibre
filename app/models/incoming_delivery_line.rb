@@ -20,25 +20,25 @@
 # 
 # == Table: incoming_delivery_lines
 #
-#  amount           :decimal(16, 2)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  price_id         :integer          not null
 #  product_id       :integer          not null
 #  purchase_line_id :integer          not null
-#  quantity         :decimal(16, 4)   default(1.0), not null
+#  quantity         :decimal(19, 4)   default(1.0), not null
 #  stock_move_id    :integer          
 #  tracking_id      :integer          
 #  unit_id          :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
 #  warehouse_id     :integer          
-#  weight           :decimal(16, 4)   
+#  weight           :decimal(19, 4)   
 #
 
 

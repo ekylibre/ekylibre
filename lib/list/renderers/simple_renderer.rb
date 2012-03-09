@@ -112,6 +112,8 @@ module List
                 datum = "(#{datum}.blank? ? '' : link_to("+datum+", "+datum+"))"
               elsif column.name==:color
                 style << "background: #'+"+column.datum_code(record)+"+';"
+              elsif column.name.to_s.match(/(^|\_)currency$/) and column.datatype == :string and column.limit == 3
+                datum = "(#{datum}.blank? ? '' : Numisma.currencies[#{datum}].label)"
               elsif column.name==:language and  column.datatype == :string and column.limit <= 8
                 datum = "(#{datum}.blank? ? '' : ::I18n.translate('languages.'+#{datum}))"
               elsif column.name==:country and  column.datatype == :string and column.limit <= 8

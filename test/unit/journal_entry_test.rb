@@ -20,27 +20,27 @@
 # 
 # == Table: journal_entries
 #
-#  balance         :decimal(16, 2)   default(0.0), not null
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  created_on      :date             not null
-#  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  currency_id     :integer          default(0), not null
-#  currency_rate   :decimal(16, 6)   default(0.0), not null
-#  debit           :decimal(16, 2)   default(0.0), not null
-#  id              :integer          not null, primary key
-#  journal_id      :integer          not null
-#  lock_version    :integer          default(0), not null
-#  number          :string(255)      not null
-#  printed_on      :date             not null
-#  resource_id     :integer          
-#  resource_type   :string(255)      
-#  state           :string(32)       default("draft"), not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  balance                :decimal(19, 4)   default(0.0), not null
+#  company_id             :integer          not null
+#  created_at             :datetime         not null
+#  created_on             :date             not null
+#  creator_id             :integer          
+#  credit                 :decimal(19, 4)   default(0.0), not null
+#  debit                  :decimal(19, 4)   default(0.0), not null
+#  id                     :integer          not null, primary key
+#  journal_id             :integer          not null
+#  lock_version           :integer          default(0), not null
+#  number                 :string(255)      not null
+#  original_credit        :decimal(19, 4)   default(0.0), not null
+#  original_currency      :string(3)        
+#  original_currency_rate :decimal(19, 10)  default(0.0), not null
+#  original_debit         :decimal(19, 4)   default(0.0), not null
+#  printed_on             :date             not null
+#  resource_id            :integer          
+#  resource_type          :string(255)      
+#  state                  :string(32)       default("draft"), not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer          
 #
 
 

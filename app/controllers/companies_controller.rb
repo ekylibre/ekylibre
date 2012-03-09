@@ -52,7 +52,7 @@ class CompaniesController < ApplicationController
         redirect_to :company=>nil, :locale=>params[:locale]
         return
       end
-      @my_company = Company.new
+      @my_company = Company.new(:currency=>'EUR')
       @user = User.new
     end
   end

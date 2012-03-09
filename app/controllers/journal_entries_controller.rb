@@ -24,8 +24,9 @@ class JournalEntriesController < ApplicationController
     t.column :number, :through=>:account, :url=>true
     t.column :name, :through=>:account, :url=>true
     t.column :number, :through=>:bank_statement, :url=>true
-    t.column :currency_debit
-    t.column :currency_credit
+    t.column :original_debit
+    t.column :original_credit
+    t.column :original_currency
   end
 
 

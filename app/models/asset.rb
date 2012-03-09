@@ -27,9 +27,9 @@
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  currency_id         :integer          not null
-#  deprecated_amount   :decimal(16, 2)   not null
-#  depreciable_amount  :decimal(16, 2)   not null
+#  currency            :string(3)        
+#  deprecated_amount   :decimal(19, 4)   not null
+#  depreciable_amount  :decimal(19, 4)   not null
 #  depreciation_method :string(255)      not null
 #  description         :text             
 #  id                  :integer          not null, primary key
@@ -37,7 +37,7 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  number              :string(255)      not null
-#  purchase_amount     :decimal(16, 2)   not null
+#  purchase_amount     :decimal(19, 4)   not null
 #  purchase_id         :integer          
 #  purchase_line_id    :integer          
 #  purchased_on        :date             not null
@@ -57,6 +57,7 @@ class Asset < CompanyRecord
   has_many :depreciations, :class_name => "AssetDepreciation"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :deprecated_amount, :depreciable_amount, :purchase_amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :company, :deprecated_amount, :depreciable_amount, :depreciation_method, :journal, :name, :number, :purchase_amount, :purchased_on, :started_on, :stopped_on
   #]VALIDATORS]
@@ -75,7 +76,7 @@ class Asset < CompanyRecord
   before_validation do
     self.depreciable_amount ||= self.purchase_amount
     self.started_on ||= self.purchased_on
-    self.currency_id = self.journal.currency
+    self.currency = self.journal.currency
   end
 
   # Depreciable amount less deprecated amount

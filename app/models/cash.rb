@@ -30,7 +30,7 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  currency_id  :integer          not null
+#  currency     :string(3)        
 #  entity_id    :integer          
 #  iban         :string(34)       
 #  iban_label   :string(48)       
@@ -55,7 +55,6 @@ class Cash < CompanyRecord
   attr_readonly :company_id, :nature
   belongs_to :account
   belongs_to :company
-  belongs_to :currency
   belongs_to :entity
   belongs_to :journal
   has_many :bank_statements
@@ -67,13 +66,14 @@ class Cash < CompanyRecord
   validates_uniqueness_of :account_id
   # validates_presence_of :bank_name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
   validates_length_of :iban, :allow_nil => true, :maximum => 34
   validates_length_of :iban_label, :allow_nil => true, :maximum => 48
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
   validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :account, :company, :currency, :journal, :mode, :name, :nature
+  validates_presence_of :account, :company, :journal, :mode, :name, :nature
   #]VALIDATORS]
 
   

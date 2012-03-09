@@ -21,12 +21,12 @@
 # == Table: tax_declarations
 #
 #  accounted_at             :datetime         
-#  acquisition_amount       :decimal(16, 2)   
+#  acquisition_amount       :decimal(19, 4)   
 #  address                  :string(255)      
-#  amount                   :decimal(16, 2)   
-#  assimilated_taxes_amount :decimal(16, 2)   
-#  balance_amount           :decimal(16, 2)   
-#  collected_amount         :decimal(16, 2)   
+#  amount                   :decimal(19, 4)   
+#  assimilated_taxes_amount :decimal(19, 4)   
+#  balance_amount           :decimal(19, 4)   
+#  collected_amount         :decimal(19, 4)   
 #  company_id               :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer          
@@ -37,7 +37,7 @@
 #  journal_entry_id         :integer          
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
-#  paid_amount              :decimal(16, 2)   
+#  paid_amount              :decimal(19, 4)   
 #  paid_on                  :date             
 #  started_on               :date             
 #  stopped_on               :date             

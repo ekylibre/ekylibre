@@ -21,7 +21,7 @@
 # == Table: sales
 #
 #  accounted_at        :datetime         
-#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -33,9 +33,9 @@
 #  created_on          :date             not null
 #  creator_id          :integer          
 #  credit              :boolean          not null
-#  currency_id         :integer          
+#  currency            :string(3)        
 #  delivery_contact_id :integer          
-#  downpayment_amount  :decimal(16, 2)   default(0.0), not null
+#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          
 #  expired_on          :date             
 #  function_title      :string(255)      
@@ -52,10 +52,10 @@
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  paid_amount         :decimal(16, 2)   not null
+#  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
 #  payment_on          :date             
-#  pretax_amount       :decimal(16, 2)   default(0.0), not null
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null

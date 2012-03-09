@@ -118,7 +118,7 @@ module ::I18n
 
   def self.hardtranslate(*args)
     result = translate(*args)
-    return (result.match(/translation\ missing|\(\(\(/) ? nil : result)
+    return (result.to_s.match(/(translation\ missing|\(\(\()/) ? nil : result)
   end
 
 end

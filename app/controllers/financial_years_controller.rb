@@ -22,8 +22,9 @@ class FinancialYearsController < ApplicationController
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"started_on DESC") do |t|
     t.column :code, :url=>true
     t.column :closed
-    t.column :started_on,:url=>true
-    t.column :stopped_on,:url=>true
+    t.column :started_on, :url=>true
+    t.column :stopped_on, :url=>true
+    t.column :currency
     t.action :close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :edit, :if => '!RECORD.closed'  
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if => '!RECORD.closed'  

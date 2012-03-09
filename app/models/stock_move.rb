@@ -33,7 +33,7 @@
 #  origin_type  :string(255)      
 #  planned_on   :date             not null
 #  product_id   :integer          not null
-#  quantity     :decimal(16, 4)   not null
+#  quantity     :decimal(19, 4)   not null
 #  stock_id     :integer          
 #  tracking_id  :integer          
 #  unit_id      :integer          not null

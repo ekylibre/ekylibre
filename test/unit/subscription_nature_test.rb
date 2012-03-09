@@ -30,7 +30,7 @@
 #  lock_version          :integer          default(0), not null
 #  name                  :string(255)      not null
 #  nature                :string(8)        not null
-#  reduction_rate        :decimal(8, 2)    
+#  reduction_rate        :decimal(19, 10)  
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
 #

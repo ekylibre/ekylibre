@@ -22,11 +22,11 @@
 #
 #  account_number        :string(255)      
 #  accounted_at          :datetime         
-#  amount                :decimal(16, 2)   not null
+#  amount                :decimal(19, 4)   not null
 #  bank                  :string(255)      
 #  check_number          :string(255)      
 #  commission_account_id :integer          
-#  commission_amount     :decimal(16, 2)   default(0.0), not null
+#  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  created_on            :date             
@@ -46,7 +46,7 @@
 #  to_bank_on            :date             default(CURRENT_DATE), not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer          
-#  used_amount           :decimal(16, 2)   not null
+#  used_amount           :decimal(19, 4)   not null
 #
 
 

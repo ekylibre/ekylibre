@@ -21,22 +21,22 @@
 # == Table: journal_entry_lines
 #
 #  account_id        :integer          not null
-#  balance           :decimal(16, 2)   default(0.0), not null
+#  balance           :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id :integer          
 #  comment           :text             
 #  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
-#  credit            :decimal(16, 2)   default(0.0), not null
-#  currency_credit   :decimal(16, 2)   default(0.0), not null
-#  currency_debit    :decimal(16, 2)   default(0.0), not null
-#  debit             :decimal(16, 2)   default(0.0), not null
+#  credit            :decimal(19, 4)   default(0.0), not null
+#  debit             :decimal(19, 4)   default(0.0), not null
 #  entry_id          :integer          not null
 #  id                :integer          not null, primary key
 #  journal_id        :integer          
 #  letter            :string(8)        
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
+#  original_credit   :decimal(19, 4)   default(0.0), not null
+#  original_debit    :decimal(19, 4)   default(0.0), not null
 #  position          :integer          
 #  state             :string(32)       default("draft"), not null
 #  updated_at        :datetime         not null
@@ -57,11 +57,11 @@ class JournalEntryLine < CompanyRecord
   belongs_to :entry, :class_name=>"JournalEntry"
   belongs_to :bank_statement
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :balance, :credit, :currency_credit, :currency_debit, :debit, :allow_nil => true
+  validates_numericality_of :balance, :credit, :debit, :original_credit, :original_debit, :allow_nil => true
   validates_length_of :letter, :allow_nil => true, :maximum => 8
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :balance, :company, :credit, :currency_credit, :currency_debit, :debit, :entry, :name, :state
+  validates_presence_of :account, :balance, :company, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
   #]VALIDATORS]
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
@@ -79,20 +79,20 @@ class JournalEntryLine < CompanyRecord
     self.name = self.name.to_s[0..254]
     # computes the values depending on currency rate
     # for debit and credit.
-    self.currency_debit  ||= 0
-    self.currency_credit ||= 0
+    self.original_debit  ||= 0
+    self.original_credit ||= 0
     currency_rate = nil
     if self.entry
       # self.draft = self.entry.draft
       # self.closed = self.entry.closed
       self.company_id ||= self.entry.company_id 
       self.journal_id ||= self.entry.journal_id
-      currency_rate = self.entry.currency.rate
+      currency_rate = self.entry.original_currency_rate
     end
     unless currency_rate.nil?
       unless self.closed?
-        self.debit  = self.currency_debit * currency_rate 
-        self.credit = self.currency_credit * currency_rate
+        self.debit  = Numisma[self.entry.original_currency].round(self.original_debit * currency_rate)
+        self.credit = Numisma[self.entry.original_currency].round(self.original_credit * currency_rate)
       end
     end
   end
@@ -189,9 +189,9 @@ class JournalEntryLine < CompanyRecord
   def next(balance)
     entry_line = JournalEntryLine.new
     if balance > 0
-      entry_line.currency_credit = balance.abs
+      entry_line.original_credit = balance.abs
     elsif balance < 0
-      entry_line.currency_debit  = balance.abs
+      entry_line.original_debit  = balance.abs
     end
     return entry_line
   end

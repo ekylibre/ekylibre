@@ -21,7 +21,7 @@
 # == Table: sales
 #
 #  accounted_at        :datetime         
-#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
@@ -33,9 +33,9 @@
 #  created_on          :date             not null
 #  creator_id          :integer          
 #  credit              :boolean          not null
-#  currency_id         :integer          
+#  currency            :string(3)        
 #  delivery_contact_id :integer          
-#  downpayment_amount  :decimal(16, 2)   default(0.0), not null
+#  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer          
 #  expired_on          :date             
 #  function_title      :string(255)      
@@ -52,10 +52,10 @@
 #  nature_id           :integer          
 #  number              :string(64)       not null
 #  origin_id           :integer          
-#  paid_amount         :decimal(16, 2)   not null
+#  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
 #  payment_on          :date             
-#  pretax_amount       :decimal(16, 2)   default(0.0), not null
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       default("O"), not null
@@ -76,7 +76,6 @@ class Sale < CompanyRecord
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
   belongs_to :company
   belongs_to :contact
-  belongs_to :currency
   belongs_to :delivery_contact, :class_name=>"Contact"
   belongs_to :expiration, :class_name=>"Delay"
   belongs_to :invoice_contact, :class_name=>"Contact"
@@ -95,13 +94,14 @@ class Sale < CompanyRecord
   has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse", :dependent=>:destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :downpayment_amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :sum_method, :allow_nil => true, :maximum => 8
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :function_title, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
   validates_presence_of :amount, :client, :company, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
-  validates_presence_of :client_id, :currency_id
+  validates_presence_of :client, :currency
   validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 
   state_machine :state, :initial => :draft do
@@ -140,7 +140,7 @@ class Sale < CompanyRecord
   @@natures = [:estimate, :order, :invoice]
   
   before_validation do
-    self.currency_id ||= self.company.currencies.first.id if self.currency.nil? and self.company.currencies.count == 1
+    self.currency ||= self.company.default_currency if self.currency.blank?
 
     self.paid_amount = self.payment_uses.sum(:amount)||0
     self.paid_amount -= self.credits.sum(:amount)||0
@@ -274,7 +274,7 @@ class Sale < CompanyRecord
 
   # Duplicates a +sale+ in 'E' mode with its lines and its active subscriptions
   def duplicate(attributes={})
-    fields = [:client_id, :nature_id, :currency_id, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
+    fields = [:client_id, :nature_id, :currency, :letter_format, :annotation, :subject, :function_title, :introduction, :conclusion, :comment]
     hash = {}
     fields.each{|c| hash[c] = self.send(c)}
     copy = self.company.sales.build(attributes.merge(hash))

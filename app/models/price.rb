@@ -21,20 +21,20 @@
 # == Table: prices
 #
 #  active        :boolean          default(TRUE), not null
-#  amount        :decimal(16, 4)   not null
+#  amount        :decimal(19, 4)   not null
 #  by_default    :boolean          default(TRUE)
 #  category_id   :integer          
 #  company_id    :integer          not null
 #  created_at    :datetime         not null
 #  creator_id    :integer          
-#  currency_id   :integer          
+#  currency      :string(3)        
 #  entity_id     :integer          
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
-#  pretax_amount :decimal(16, 4)   not null
+#  pretax_amount :decimal(19, 4)   not null
 #  product_id    :integer          not null
-#  quantity_max  :decimal(16, 4)   default(0.0), not null
-#  quantity_min  :decimal(16, 4)   default(0.0), not null
+#  quantity_max  :decimal(19, 4)   default(0.0), not null
+#  quantity_min  :decimal(19, 4)   default(0.0), not null
 #  started_at    :datetime         
 #  stopped_at    :datetime         
 #  tax_id        :integer          not null
@@ -49,7 +49,6 @@ class Price < CompanyRecord
   attr_readonly :company_id
   belongs_to :category, :class_name=>"EntityCategory"
   belongs_to :company
-  belongs_to :currency
   belongs_to :entity
   belongs_to :product
   belongs_to :tax
@@ -59,17 +58,19 @@ class Price < CompanyRecord
   has_many :sale_lines
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity_max, :quantity_min, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_inclusion_of :active, :use_range, :in => [true, false]
   validates_presence_of :amount, :company, :pretax_amount, :product, :quantity_max, :quantity_min, :tax
   #]VALIDATORS]
-  validates_presence_of :category_id, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
-  validates_presence_of :currency_id, :product_id, :entity_id
+  validates_presence_of :category, :if=>Proc.new{|price| price.entity_id == price.company.entity_id}
+  validates_presence_of :entity
   validates_numericality_of :pretax_amount, :amount, :greater_than_or_equal_to=>0
 
   before_validation do
     self.company_id  ||= self.product.company_id if self.product
     if self.company
-      self.currency_id ||= self.company.currencies.first.id 
+      # TODO: Specify a default currency per company
+      self.currency ||= self.company.default_currency
       self.entity_id ||=  self.company.entity_id
     end
     if self.amount.to_f > 0
@@ -122,7 +123,7 @@ class Price < CompanyRecord
   end
 
   def change(amount, tax_id)
-    conditions = {:product_id=>self.product_id, :amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency_id=>self.currency_id, :category_id=>self.category_id}
+    conditions = {:product_id=>self.product_id, :amount=>amount, :tax_id=>tax_id, :active=>true, :entity_id=>self.entity_id, :currency=>self.currency, :category_id=>self.category_id}
     price = self.company.prices.find(:first, :conditions=>conditions)
     if price.nil?
       self.update_attribute(:active, false)
@@ -140,7 +141,7 @@ class Price < CompanyRecord
   end
 
   def label
-    tc(:label, :product=>self.product.name, :amount=>self.amount, :currency=>self.currency.code)
+    tc(:label, :product=>self.product.name, :amount=>self.amount, :currency=>self.currency)
   end
 
   def compute(quantity=nil, pretax_amount=nil, amount=nil)

@@ -46,7 +46,7 @@
 #  name              :string(32)       not null
 #  office            :string(255)      
 #  profession_id     :integer          
-#  reduction_percent :decimal(16, 4)   default(5.0), not null
+#  reduction_percent :decimal(19, 4)   default(5.0), not null
 #  rights            :text             
 #  role_id           :integer          not null
 #  salt              :string(64)       

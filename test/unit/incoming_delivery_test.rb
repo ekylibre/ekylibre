@@ -20,25 +20,25 @@
 # 
 # == Table: incoming_deliveries
 #
-#  amount           :decimal(16, 2)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
 #  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
-#  currency_id      :integer          
+#  currency         :string(3)        
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer          
 #  moved_on         :date             
 #  number           :string(255)      
 #  planned_on       :date             
-#  pretax_amount    :decimal(16, 2)   default(0.0), not null
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  purchase_id      :integer          
 #  reference_number :string(255)      
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  weight           :decimal(16, 4)   
+#  weight           :decimal(19, 4)   
 #
 
 

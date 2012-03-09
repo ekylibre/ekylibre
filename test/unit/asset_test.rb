@@ -27,9 +27,9 @@
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  currency_id         :integer          not null
-#  deprecated_amount   :decimal(16, 2)   not null
-#  depreciable_amount  :decimal(16, 2)   not null
+#  currency            :string(3)        
+#  deprecated_amount   :decimal(19, 4)   not null
+#  depreciable_amount  :decimal(19, 4)   not null
 #  depreciation_method :string(255)      not null
 #  description         :text             
 #  id                  :integer          not null, primary key
@@ -37,7 +37,7 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  number              :string(255)      not null
-#  purchase_amount     :decimal(16, 2)   not null
+#  purchase_amount     :decimal(19, 4)   not null
 #  purchase_id         :integer          
 #  purchase_line_id    :integer          
 #  purchased_on        :date             not null

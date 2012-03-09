@@ -25,7 +25,7 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  currency_id  :integer          not null
+#  currency     :string(3)        
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -38,16 +38,16 @@
 class Journal < CompanyRecord
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :currency
   # cattr_accessor :natures
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
   has_many :entries, :class_name=>"JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 4
   validates_length_of :nature, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :closed_on, :code, :company, :currency, :name, :nature
+  validates_presence_of :closed_on, :code, :company, :name, :nature
   #]VALIDATORS]
   validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id
@@ -58,7 +58,7 @@ class Journal < CompanyRecord
   # this method is called before creation or validation method.
   before_validation do
     self.name = self.nature_label if self.name.blank? and self.nature
-    self.currency_id ||= self.company.currencies.find(:first, :order=>:id).id
+    self.currency ||= self.company.default_currency
     if self.closed_on.blank?
       if fy = self.company.financial_years.first
         self.closed_on = fy.started_on-1 
@@ -175,7 +175,7 @@ class Journal < CompanyRecord
   end
 
   def entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "#{JournalEntryLine.table_name}.currency_debit - #{JournalEntryLine.table_name}.currency_credit" : "#{JournalEntryLine.table_name}.currency_#{column}")
+    column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
     self.entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 

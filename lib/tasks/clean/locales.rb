@@ -49,7 +49,7 @@ task :locales => :environment do
           untranslated += 1 if name.blank?
         end
         translation += "      #{missing_prompt if name.blank?}#{action_name}: "+yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
-        translation += " #!" unless actions.include?(action_name)
+        translation += " #?" unless actions.include?(action_name)
         translation += "\n"
       end
     end
@@ -95,7 +95,7 @@ task :locales => :environment do
       line += missing_prompt
     end
     line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-    line.gsub!(/$/, " #!") if deleted_notifs.include?(key)
+    line.gsub!(/$/, " #?") if deleted_notifs.include?(key)
     translation += line+"\n"
   end
   warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
@@ -129,32 +129,32 @@ task :locales => :environment do
   acount += count
 
   # Currencies
-  #  count = sort_yaml_file :currencies, log
-  #  atotal += count
-  #  acount += count
-
-  currencies_ref = YAML.load_file(Rails.root.join("config", "currencies.yml"))["currencies"]
-  currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]["currencies"]
+  currencies_ref = YAML.load_file(Numisma.currencies_file)
+  currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
   translation  = locale.to_s+":\n"
   translation << "  currencies:\n"
   to_translate, untranslated = 0, 0
-  for currency, details in currencies_ref.sort
-    translation << "    #{currency}:"
-    if currency == "default"
-      to_translate += hash_count(::I18n.translate("currencies.#{currency}"))
-      translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
+  for currency, details in currencies_ref.sort 
+    to_translate += 1
+    if currencies["currencies"][currency].blank?
+      translation << "    #{missing_prompt}#{currency}: #{yaml_value(details['iso_name'])}\n"
+      untranslated += 1
     else
-      to_translate += 1
-      if currencies[currency].nil?
-        translation << "\n      #{missing_prompt}name: #{currency.to_s.humanize}\n"      
-        untranslated += 1
-      elsif currencies[currency]["name"].blank?
-        translation << "\n      #{missing_prompt}name: #{currency.to_s.humanize}"      
-        translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
-        untranslated += 1
-      else
-        translation << hash_to_yaml(::I18n.translate("currencies.#{currency}"), 3)+"\n"
-      end
+      translation << "    #{currency}: "+yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
+    end
+  end
+  translation << "  # Override here default formatting options for each currency IF NEEDED\n"
+  translation << "  # Ex.: number.currency.formats.XXX.format\n"
+  translation << "  number:\n"
+  translation << "    currency:\n"
+  translation << "      formats:\n"
+  for currency, details in currencies_ref.sort 
+    x = hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
+    to_translate += x
+    if x > 0
+      translation << "        #{currency}:"+hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
+#    else
+#      translation << "        #{missing_prompt}#{currency}:\n"
     end
   end
   File.open(locale_dir.join("currencies.yml"), "wb") do |file|
@@ -218,7 +218,7 @@ task :locales => :environment do
     translation += "      "
     translation += missing_prompt if definition[1] == :undefined
     translation += "#{model}: "+yaml_value(definition[0])
-    translation += " #!" if definition[1] == :unused      
+    translation += " #?" if definition[1] == :unused      
     translation += "\n"
   end
   translation += "  attributes:\n"
@@ -227,7 +227,7 @@ task :locales => :environment do
     translation += "    "
     translation += missing_prompt if definition[1] == :undefined
     translation += "#{attribute}: "+yaml_value(definition[0])
-    translation += " #!" if definition[1] == :unused
+    translation += " #?" if definition[1] == :unused
     translation += "\n"
     # end
   end
@@ -235,7 +235,7 @@ task :locales => :environment do
   for model, definition in models.sort
     next unless definition[2]
     to_translate += hash_count(definition[2])
-    translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #!\n" : "\n"))+"\n"
+    translation += "    #{model}:"+yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n"))+"\n"
   end
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|

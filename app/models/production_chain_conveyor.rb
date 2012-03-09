@@ -25,15 +25,15 @@
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
-#  flow                :decimal(16, 4)   default(0.0), not null
+#  flow                :decimal(19, 4)   default(0.0), not null
 #  id                  :integer          not null, primary key
 #  lock_version        :integer          default(0), not null
 #  product_id          :integer          not null
 #  production_chain_id :integer          not null
 #  source_id           :integer          
-#  source_quantity     :decimal(16, 4)   default(0.0), not null
+#  source_quantity     :decimal(19, 4)   default(0.0), not null
 #  target_id           :integer          
-#  target_quantity     :decimal(16, 4)   default(0.0), not null
+#  target_quantity     :decimal(19, 4)   default(0.0), not null
 #  unique_tracking     :boolean          not null
 #  unit_id             :integer          not null
 #  updated_at          :datetime         not null

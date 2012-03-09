@@ -25,6 +25,7 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  currency     :string(3)        
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  started_on   :date             not null
@@ -39,13 +40,16 @@ class FinancialYear < CompanyRecord
   belongs_to :company
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]
   validates_presence_of :code, :company, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :code, :scope=>:company_id
+  validates_presence_of :currency
 
   before_validation do
+    self.currency ||= self.company.currency
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
     if self.started_on and self.stopped_on and code.blank?
@@ -147,14 +151,14 @@ class FinancialYear < CompanyRecord
               result += balance.balance
             elsif balance.balance != 0
               # TODO: Use currencies properly in account_balances !
-              entry.lines.create!(:account_id => balance.account_id, :name => balance.account.name, :currency_debit => balance.balance_debit, :currency_credit => balance.balance_credit)
+              entry.lines.create!(:account_id => balance.account_id, :name => balance.account.name, :original_debit => balance.balance_debit, :original_credit => balance.balance_credit)
             end
           end
 
           if result > 0
-            entry.lines.create!(:account_id => losses.id, :name => losses.name, :currency_debit => result, :currency_credit => 0.0) 
+            entry.lines.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0) 
           elsif result < 0
-            entry.lines.create!(:account_id => gains.id, :name => gains.name, :currency_debit => 0.0, :currency_credit => result.abs)
+            entry.lines.create!(:account_id => gains.id, :name => gains.name, :original_debit => 0.0, :original_credit => result.abs)
           end
 
         end

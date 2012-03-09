@@ -24,6 +24,7 @@
 #  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
+#  currency         :string(3)        
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  language         :string(255)      default("eng"), not null

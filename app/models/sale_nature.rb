@@ -26,8 +26,8 @@
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  downpayment             :boolean          not null
-#  downpayment_minimum     :decimal(16, 2)   default(0.0), not null
-#  downpayment_rate        :decimal(16, 2)   default(0.0), not null
+#  downpayment_minimum     :decimal(19, 4)   default(0.0), not null
+#  downpayment_rate        :decimal(19, 10)  default(0.0), not null
 #  expiration_id           :integer          not null
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null

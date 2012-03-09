@@ -26,6 +26,7 @@
 #  code             :string(16)       not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
+#  currency         :string(3)        
 #  entity_id        :integer          
 #  id               :integer          not null, primary key
 #  language         :string(255)      default("eng"), not null
@@ -48,7 +49,6 @@ class Company < Ekylibre::Record::Base
   has_many :cash_transfers
   has_many :bank_statements
   has_many :contacts
-  has_many :currencies
   has_many :custom_fields
   has_many :custom_field_choices
   has_many :custom_field_data
@@ -223,9 +223,9 @@ class Company < Ekylibre::Record::Base
   has_many :waiting_transporters, :class_name=>"Entity", :conditions=>["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
 
   has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>{:closed=>false}
-  has_one :default_currency, :class_name=>"Currency", :conditions=>{:active=>true}, :order=>"id"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 16
   validates_length_of :language, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :locked, :in => [true, false]
@@ -233,6 +233,7 @@ class Company < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_length_of :code, :in=>4..16
+  validates_presence_of :currency
 
   attr_readonly :code
 
@@ -340,6 +341,11 @@ class Company < Ekylibre::Record::Base
     return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
   end
 
+  # Return the default currency
+  def default_currency
+    self.currency # || 'EUR'
+  end
+
   def imported_entity_nature(row)
     if row.blank?
       nature = self.entity_natures.find_by_abbreviation("-")
@@ -413,7 +419,7 @@ class Company < Ekylibre::Record::Base
     raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.has_key? pref_name
     unless journal = self.preferred(pref_name)
       journal = self.journals.find_by_nature(name)
-      journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency_id=>self.default_currency.id) unless journal
+      journal = self.journals.create!(:name=>tc("default.journals.#{name}"), :nature=>name, :currency=>self.default_currency) unless journal
       self.prefer!(pref_name, journal)
     end
     return journal
@@ -732,7 +738,7 @@ class Company < Ekylibre::Record::Base
 
       company.departments.create!(:name=>tc('default.department_name'))
       establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-      currency = company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
+      currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
       company.product_categories.create(:name=>tc('default.product_category_name'))
       company.load_units
       company.load_sequences
@@ -760,7 +766,7 @@ class Company < Ekylibre::Record::Base
       company.load_prints
 
       for journal in [:sales, :purchases, :bank, :various, :cash]
-        company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency_id=>currency.id))
+        company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
       end
       
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash).id)
@@ -969,7 +975,7 @@ class Company < Ekylibre::Record::Base
   end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
-    column = (column == :balance ? "#{JournalEntryLine.table_name}.currency_debit - #{JournalEntryLine.table_name}.currency_credit" : "#{JournalEntryLine.table_name}.currency_#{column}")
+    column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
     self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 

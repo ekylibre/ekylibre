@@ -21,23 +21,23 @@
 # == Table: purchases
 #
 #  accounted_at        :datetime         
-#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(19, 4)   default(0.0), not null
 #  comment             :text             
 #  company_id          :integer          not null
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             
 #  creator_id          :integer          
-#  currency_id         :integer          
+#  currency            :string(3)        
 #  delivery_contact_id :integer          
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  lock_version        :integer          default(0), not null
 #  number              :string(64)       not null
-#  paid_amount         :decimal(16, 2)   default(0.0), not null
+#  paid_amount         :decimal(19, 4)   default(0.0), not null
 #  planned_on          :date             
-#  pretax_amount       :decimal(16, 2)   default(0.0), not null
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)      
 #  responsible_id      :integer          
 #  state               :string(64)       
@@ -50,6 +50,7 @@
 class Purchase < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
   validates_presence_of :amount, :company, :number, :paid_amount, :payee, :pretax_amount, :supplier
@@ -58,7 +59,6 @@ class Purchase < CompanyRecord
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :company_id
   belongs_to :company
-  belongs_to :currency
   belongs_to :delivery_contact, :class_name=>"Contact"
   belongs_to :journal_entry
   belongs_to :payee, :class_name=>"Entity", :foreign_key=>:supplier_id

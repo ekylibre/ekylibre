@@ -37,7 +37,7 @@
 #  creator_id                :integer          
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(8, 2)    
+#  discount_rate             :decimal(19, 10)  
 #  ean13                     :string(13)       
 #  excise                    :string(15)       
 #  first_met_on              :date             
@@ -58,7 +58,7 @@
 #  photo                     :string(255)      
 #  proposer_id               :integer          
 #  prospect                  :boolean          not null
-#  reduction_rate            :decimal(8, 2)    
+#  reduction_rate            :decimal(19, 10)  
 #  reflation_submissive      :boolean          not null
 #  responsible_id            :integer          
 #  salt                      :string(64)       

@@ -21,7 +21,7 @@
 # == Table: transfers
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :string(255)      
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
@@ -31,7 +31,7 @@
 #  journal_entry_id :integer          
 #  label            :string(255)      
 #  lock_version     :integer          default(0), not null
-#  paid_amount      :decimal(16, 2)   default(0.0), not null
+#  paid_amount      :decimal(19, 4)   default(0.0), not null
 #  started_on       :date             
 #  stopped_on       :date             
 #  supplier_id      :integer          

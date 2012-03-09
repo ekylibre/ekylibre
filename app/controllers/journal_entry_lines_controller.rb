@@ -25,9 +25,9 @@ class JournalEntryLinesController < ApplicationController
     if params["entry-debit"] and params["entry-credit"]
       debit, credit = params["entry-debit"].to_f, params["entry-credit"].to_f
       if debit > credit
-        @journal_entry_line.currency_credit = debit - credit
+        @journal_entry_line.original_credit = debit - credit
       else
-        @journal_entry_line.currency_debit  = credit - debit
+        @journal_entry_line.original_debit  = credit - debit
       end
     end
     if params[:journal_id] and journal = @current_company.journals.find_by_id(params[:journal_id])

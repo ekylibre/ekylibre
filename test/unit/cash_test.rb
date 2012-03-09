@@ -30,7 +30,7 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  currency_id  :integer          not null
+#  currency     :string(3)        
 #  entity_id    :integer          
 #  iban         :string(34)       
 #  iban_label   :string(48)       

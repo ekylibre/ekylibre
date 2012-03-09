@@ -20,29 +20,27 @@
 # 
 # == Table: bank_statements
 #
-#  cash_id         :integer          not null
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  credit          :decimal(16, 2)   default(0.0), not null
-#  currency_credit :decimal(16, 2)   default(0.0), not null
-#  currency_debit  :decimal(16, 2)   default(0.0), not null
-#  debit           :decimal(16, 2)   default(0.0), not null
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  number          :string(255)      not null
-#  started_on      :date             not null
-#  stopped_on      :date             not null
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
+#  cash_id      :integer          not null
+#  company_id   :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer          
+#  credit       :decimal(19, 4)   default(0.0), not null
+#  debit        :decimal(19, 4)   default(0.0), not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  number       :string(255)      not null
+#  started_on   :date             not null
+#  stopped_on   :date             not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer          
 #
 
 
 class BankStatement < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :credit, :currency_credit, :currency_debit, :debit, :allow_nil => true
+  validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :cash, :company, :credit, :currency_credit, :currency_debit, :debit, :number, :started_on, :stopped_on
+  validates_presence_of :cash, :company, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
   attr_readonly :company_id
   belongs_to :cash

@@ -22,7 +22,7 @@
 #
 #  accountable      :boolean          not null
 #  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   not null
+#  amount           :decimal(19, 4)   not null
 #  asset_id         :integer          not null
 #  company_id       :integer          not null
 #  created_at       :datetime         not null

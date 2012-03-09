@@ -96,12 +96,12 @@ def hash_diff(hash, ref, depth=0)
       code  += "  "*depth+key.to_s+": "+yaml_value(h, depth+1)+"\n"
       total += 1
     elsif r and h and r.class != h.class
-      code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").gsub(/\n/, " #! #{r.class.name} excepted (#{h.class.name+':'+h.inspect})\n")
+      code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").gsub(/\n/, " #? #{r.class.name} excepted (#{h.class.name+':'+h.inspect})\n")
       total += 1
     elsif h and r.nil?
-      code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").to_s.gsub(/\n/, " #!\n")
+      code  += "  "*depth+key.to_s+": "+(yaml_value(h, depth)+"\n").to_s.gsub(/\n/, " #?\n")
     elsif r.nil?
-      code  += "  "*depth+key.to_s+": #!\n"
+      code  += "  "*depth+key.to_s+": #?\n"
     end
   end  
   return code, count, total

@@ -251,11 +251,13 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
     t.integer  "entity_id"
     t.text     "sales_conditions"
     t.string   "language",                       :default => "eng", :null => false
+    t.string   "currency",         :limit => 3
   end
 
   add_index "companies", ["code"], :name => "index_companies_on_code", :unique => true
   add_index "companies", ["created_at"], :name => "index_companies_on_created_at"
   add_index "companies", ["creator_id"], :name => "index_companies_on_creator_id"
+  add_index "companies", ["currency"], :name => "index_companies_on_currency"
   add_index "companies", ["name"], :name => "index_companies_on_name"
   add_index "companies", ["updated_at"], :name => "index_companies_on_updated_at"
   add_index "companies", ["updater_id"], :name => "index_companies_on_updater_id"

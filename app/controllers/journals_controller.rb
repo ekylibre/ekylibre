@@ -89,7 +89,7 @@ class JournalsController < ApplicationController
     t.column :name, :url=>true
     t.column :code, :url=>true
     t.column :nature_label
-    t.column :name, :through=>:currency
+    t.column :currency
     t.column :closed_on
     # t.action :document_print, :url=>{:code=>:JOURNAL, :journal=>"RECORD.id"}
     t.action :close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
@@ -229,7 +229,7 @@ class JournalsController < ApplicationController
     conn = ActiveRecord::Base.connection
     code = ""
     # code << "c=['#{JournalEntry.table_name}.company_id=?', @current_company.id]\n"
-    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :currency_debit, :currency_credit]}, :conditions=>"c")+"\n"
+    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :original_debit, :original_credit]}, :conditions=>"c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")

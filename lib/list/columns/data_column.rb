@@ -89,9 +89,11 @@ module List
         datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
       elsif self.datatype == :decimal and not noview
         datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{self.options[:precision]||2}))"
+      elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string and self.limit == 3
+        datum = "(#{datum}.nil? ? '' : Numisma.currencies[#{datum}].label)"
       elsif @name==:country and  self.datatype == :string and self.limit == 2
         datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
-      elsif @name==:language and  self.datatype == :string and self.limit <= 8
+      elsif @name==:language and self.datatype == :string and self.limit <= 8
         datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
       end
       return datum

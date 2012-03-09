@@ -20,7 +20,7 @@
 # 
 # == Table: tracking_states
 #
-#  atmospheric_pressure         :decimal(16, 2)   
+#  atmospheric_pressure         :decimal(19, 4)   
 #  comment                      :text             
 #  company_id                   :integer          not null
 #  created_at                   :datetime         not null
@@ -28,13 +28,13 @@
 #  examinated_at                :datetime         not null
 #  id                           :integer          not null, primary key
 #  lock_version                 :integer          default(0), not null
-#  luminance                    :decimal(16, 2)   
-#  net_weight                   :decimal(16, 2)   
+#  luminance                    :decimal(19, 4)   
+#  net_weight                   :decimal(19, 4)   
 #  production_chain_conveyor_id :integer          
-#  relative_humidity            :decimal(16, 2)   
+#  relative_humidity            :decimal(19, 4)   
 #  responsible_id               :integer          not null
-#  temperature                  :decimal(16, 2)   
-#  total_weight                 :decimal(16, 2)   
+#  temperature                  :decimal(19, 4)   
+#  total_weight                 :decimal(19, 4)   
 #  tracking_id                  :integer          not null
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer          

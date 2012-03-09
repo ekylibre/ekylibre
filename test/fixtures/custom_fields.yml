@@ -24,8 +24,8 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
-#  decimal_max  :decimal(16, 4)   
-#  decimal_min  :decimal(16, 4)   
+#  decimal_max  :decimal(19, 4)   
+#  decimal_min  :decimal(19, 4)   
 #  id           :integer          not null, primary key
 #  length_max   :integer          
 #  lock_version :integer          default(0), not null

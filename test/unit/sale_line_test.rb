@@ -21,7 +21,7 @@
 # == Table: sale_lines
 #
 #  account_id          :integer          
-#  amount              :decimal(16, 2)   default(0.0), not null
+#  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
 #  company_id          :integer          not null
 #  created_at          :datetime         not null
@@ -32,13 +32,13 @@
 #  lock_version        :integer          default(0), not null
 #  origin_id           :integer          
 #  position            :integer          
-#  pretax_amount       :decimal(16, 2)   default(0.0), not null
-#  price_amount        :decimal(16, 2)   
+#  pretax_amount       :decimal(19, 4)   default(0.0), not null
+#  price_amount        :decimal(19, 4)   
 #  price_id            :integer          not null
 #  product_id          :integer          not null
-#  quantity            :decimal(16, 4)   default(1.0), not null
+#  quantity            :decimal(19, 4)   default(1.0), not null
 #  reduction_origin_id :integer          
-#  reduction_percent   :decimal(16, 2)   default(0.0), not null
+#  reduction_percent   :decimal(19, 4)   default(0.0), not null
 #  sale_id             :integer          not null
 #  tax_id              :integer          
 #  tracking_id         :integer          

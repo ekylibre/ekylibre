@@ -6,14 +6,15 @@
         -f.error 'my_company'
         -f.error 'user'
         -f.title :my_company
-        -f.field :my_company, :name, {:example=>tc(:company_name_example)}
-        -f.field :my_company, :code, {:example=>tc(:company_name_example)}
+        -f.field :my_company, :name
+        -f.field :my_company, :code
+        -f.field :my_company, :currency, :choices=>currencies
         -f.title :my_self
         -f.field :user, :last_name
-        -f.field :user, :first_name, :example=>tc(:user_first_name_example)
-        -f.field :user, :name, :example=>tc(:user_name_example), :info=>tc(:user_name_info)
-        -f.field :user, :password, :null=>false, :hint=>tc(:user_password_hint)
-        -f.field :user, :password_confirmation, :null=>false, :info=>tc(:user_password_confirmation_info)
+        -f.field :user, :first_name
+        -f.field :user, :name
+        -f.field :user, :password, :null=>false
+        -f.field :user, :password_confirmation, :null=>false
       %table.formalize
         %tr.field
           %td.label=tc(:load_demo_data)

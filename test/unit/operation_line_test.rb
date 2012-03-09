@@ -29,12 +29,12 @@
 #  lock_version    :integer          default(0), not null
 #  operation_id    :integer          not null
 #  product_id      :integer          
-#  quantity        :decimal(16, 4)   default(0.0), not null
+#  quantity        :decimal(19, 4)   default(0.0), not null
 #  stock_move_id   :integer          
 #  tracking_id     :integer          
 #  tracking_serial :string(255)      
 #  unit_id         :integer          
-#  unit_quantity   :decimal(16, 4)   default(0.0), not null
+#  unit_quantity   :decimal(19, 4)   default(0.0), not null
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #  warehouse_id    :integer          

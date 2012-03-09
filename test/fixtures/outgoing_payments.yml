@@ -21,7 +21,7 @@
 # == Table: outgoing_payments
 #
 #  accounted_at     :datetime         
-#  amount           :decimal(16, 2)   default(0.0), not null
+#  amount           :decimal(19, 4)   default(0.0), not null
 #  check_number     :string(255)      
 #  company_id       :integer          not null
 #  created_at       :datetime         not null
@@ -39,7 +39,7 @@
 #  to_bank_on       :date             not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
-#  used_amount      :decimal(16, 2)   default(0.0), not null
+#  used_amount      :decimal(19, 4)   default(0.0), not null
 #
 #
 # == Fixture: outgoing_payments

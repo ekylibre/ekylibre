@@ -21,7 +21,7 @@
 # == Table: tools
 #
 #  company_id   :integer          not null
-#  consumption  :decimal(16, 4)   
+#  consumption  :decimal(19, 4)   
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key

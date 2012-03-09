@@ -25,6 +25,7 @@
 #  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
+#  currency     :string(3)        
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  started_on   :date             not null

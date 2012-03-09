@@ -31,7 +31,7 @@
 #  number               :string(64)       not null
 #  planned_on           :date             not null
 #  product_id           :integer          not null
-#  quantity             :decimal(16, 4)   not null
+#  quantity             :decimal(19, 4)   not null
 #  second_stock_move_id :integer          
 #  second_warehouse_id  :integer          
 #  stock_move_id        :integer          

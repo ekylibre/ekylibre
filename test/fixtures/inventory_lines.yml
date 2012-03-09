@@ -27,9 +27,9 @@
 #  inventory_id     :integer          not null
 #  lock_version     :integer          default(0), not null
 #  product_id       :integer          not null
-#  quantity         :decimal(16, 4)   not null
+#  quantity         :decimal(19, 4)   not null
 #  stock_move_id    :integer          
-#  theoric_quantity :decimal(16, 4)   not null
+#  theoric_quantity :decimal(19, 4)   not null
 #  tracking_id      :integer          
 #  unit_id          :integer          
 #  updated_at       :datetime         not null

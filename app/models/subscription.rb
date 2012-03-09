@@ -33,7 +33,7 @@
 #  nature_id    :integer          
 #  number       :string(255)      
 #  product_id   :integer          
-#  quantity     :decimal(16, 4)   
+#  quantity     :decimal(19, 4)   
 #  sale_id      :integer          
 #  sale_line_id :integer          
 #  started_on   :date             
