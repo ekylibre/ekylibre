@@ -36,7 +36,7 @@
 
 
 class FinancialYear < CompanyRecord
-  attr_readonly :company_id
+  attr_readonly :currency
   belongs_to :company
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -169,12 +169,12 @@ class FinancialYear < CompanyRecord
 
   # this method returns the previous financial_year.
   def previous
-    return self.company.financial_years.find(:first, :conditions => {:stopped_on=>self.started_on-1})
+    return self.company.financial_years.where(:stopped_on=>self.started_on-1).first
   end
  
   # this method returns the next financial_year.
   def next
-    return self.company.financial_years.find(:first, :conditions => {:started_on=>self.stopped_on+1})
+    return self.company.financial_years.where(:started_on=>self.stopped_on+1).first
   end
 
  

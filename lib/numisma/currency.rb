@@ -30,6 +30,10 @@ module Numisma
         return value.round(precision)
       end
     end
+
+    def ==(other_currency)
+      self.code == other_currency.code
+    end
     
   end
 

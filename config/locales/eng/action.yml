@@ -499,6 +499,7 @@ eng:
         one: '1 error prohibited this %{model} from being saved'
         other: '%{count} errors prohibited this %{model} from being saved'
   labels:
+    exchange_rate_from_x_to_y: 'Exchange rate from %{x} to %{y}'
     account_name: 'Account name'
     account_number: 'Account number'
     account_tabbox:

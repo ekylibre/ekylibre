@@ -135,14 +135,15 @@ class JournalEntry < CompanyRecord
       self.company_id  = self.journal.company_id 
       self.original_currency ||= self.journal.currency
     end
-    if self.original_currency
+    if self.original_currency and self.financial_year
       if self.original_currency == self.financial_year.currency
         self.original_currency_rate = 1
       else
         # TODO: Find a way to manage currency rates!
-        
-        self.original_currency_rate = rand # self.original_currency.rate 
+        self.original_currency_rate = Numisma.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate 
       end
+    else
+      self.original_currency_rate = 1
     end
     self.original_debit  = self.lines.sum(:original_debit)
     self.original_credit = self.lines.sum(:original_credit)
@@ -150,12 +151,6 @@ class JournalEntry < CompanyRecord
     self.credit = self.lines.sum(:credit)
     self.balance = self.debit - self.credit
     self.created_on = Date.today
-#     # self.draft = (self.draft_mode or not self.balanced?)
-#     if self.draft_mode
-#       self.draft = true
-#     else
-#       self.draft = (self.balanced? ? false : true)
-#     end
     if self.journal and not self.number
       self.number ||= self.journal.next_number 
     end
@@ -170,19 +165,10 @@ class JournalEntry < CompanyRecord
   validate do
     return unless self.created_on
     if self.journal
-      if self.printed_on <= self.journal.closed_on
-        errors.add_to_base(:closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on))
-        return false
-      end
+      errors.add(:printed_on, :closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
     end
-#     if self.printed_on
-#       errors.add(:created_on, :posterior, :to=>::I18n.localize(self.printed_on)) if self.printed_on > self.created_on
-#     end
-    if self.financial_year
-      errors.add(:printed_on, :out_of_financial_year, :from=>::I18n.localize(self.financial_year.started_on), :to=>::I18n.localize(self.financial_year.stopped_on)) if self.financial_year.closed?
-#       if self.printed_on < self.financial_year.started_on or self.printed_on > self.financial_year.stopped_on
-#         errors.add(:printed_on, :out_of_financial_year, :from=>::I18n.localize(self.financial_year.started_on), :to=>::I18n.localize(self.financial_year.stopped_on)) 
-#       end
+    unless self.financial_year
+      errors.add(:printed_on, :out_of_existing_financial_year)
     end
   end
   
@@ -219,7 +205,7 @@ class JournalEntry < CompanyRecord
   end
 
   def financial_year
-    self.company.financial_years.find(:first, :conditions=>['? BETWEEN started_on AND stopped_on', self.printed_on], :order=>"id")
+    self.company.financial_year_at(self.printed_on)
   end
   
   # Add a entry which cancel the entry

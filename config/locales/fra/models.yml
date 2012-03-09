@@ -1056,11 +1056,11 @@ fra:
           transfer:
             name: 'Virement'
         journals:
-          bank: 'Journal de banque'
-          cash: 'Journal de caisse'
-          purchases: 'Journal des achats'
-          sales: 'Journal des ventes'
-          various: 'Journal des opérations diverses'
+          bank: 'Banque'
+          cash: 'Caisse'
+          purchases: 'Achats'
+          sales: 'Ventes'
+          various: 'Opérations diverses'
         outgoing_payment_modes:
           cash:
             name: 'Espèces'

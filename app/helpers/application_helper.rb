@@ -201,7 +201,7 @@ module ApplicationHelper
   end
 
   def currencies
-    Numisma.active_currencies.collect{|k, c| [c.label, c.code]}.to_a.sort{|a, b| a[0].ascii.to_s<=>b[0].ascii.to_s}
+    Numisma.active_currencies.values.sort{|a, b| a.name.ascii.to_s<=>b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
   end
 
   def languages
@@ -1130,9 +1130,9 @@ module ApplicationHelper
               when :textarea
                 text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
-                date_field(record, method)
+                date_field(record, method, html_options)
               when :datetime
-                datetime_field(record, method)
+                datetime_field(record, method, html_options)
               else
                 text_field(record, method, html_options)
               end
@@ -1159,7 +1159,7 @@ module ApplicationHelper
         end
       end
       
-      label = object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
+      label = options[:label] || object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
       label = " " if options[:options][:hide_label] 
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]

@@ -1,6 +1,9 @@
 =formalize do |f|
-  - f.error :journal
-  - f.field :journal, :name
-  - f.field :journal, :code
-  - f.field :journal, :currency_id, :choices=>{:reflection=>:currencies}
-  - f.field :journal, :nature, :field=>:radio, :choices=>Journal.natures
+  -f.error :journal
+  -f.field :journal, :name
+  -f.field :journal, :code
+  -if @journal.new_record?
+    -f.field :journal, :currency, :choices=>currencies
+  -else
+    -f.field :journal, :currency, :field=>:label
+  -f.field :journal, :nature, :field=>:radio, :choices=>Journal.natures

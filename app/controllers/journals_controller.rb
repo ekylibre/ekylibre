@@ -18,7 +18,7 @@
 #
 
 class JournalsController < ApplicationController
-  manage_restfully :nature=>"params[:nature]||Journal.natures[0][1]"
+  manage_restfully :nature=>"params[:nature]||Journal.natures[0][1]", :currency=>"@current_company.default_currency"
 
   @@journal_views = ["lines", "entries", "mixed"]
   cattr_reader :journal_views

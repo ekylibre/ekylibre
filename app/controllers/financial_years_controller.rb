@@ -86,12 +86,14 @@ class FinancialYearsController < ApplicationController
   end
 
   def new
-    @financial_year = FinancialYear.new
+    @financial_year = @current_company.financial_years.new
     f = @current_company.financial_years.find(:first, :order=>"stopped_on DESC")
     @financial_year.started_on = f.stopped_on+1.day unless f.nil?
     @financial_year.started_on ||= Date.today
     @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
     @financial_year.code = @financial_year.default_code    
+    @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
+    @financial_year.currency ||= @current_company.default_currency
     render_restfully_form
   end
 

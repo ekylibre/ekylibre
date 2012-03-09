@@ -36,7 +36,7 @@
 
 
 class Journal < CompanyRecord
-  attr_readonly :company_id
+  attr_readonly :currency
   belongs_to :company
   # cattr_accessor :natures
   has_many :cashes
@@ -49,23 +49,24 @@ class Journal < CompanyRecord
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :closed_on, :code, :company, :name, :nature
   #]VALIDATORS]
-  validates_presence_of :closed_on
   validates_uniqueness_of :code, :scope=>:company_id
   validates_uniqueness_of :name, :scope=>:company_id
 
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
+  before_validation(:on=>:create) do
+    if self.company and year = self.company.financial_years.first
+      self.closed_on = year.started_on - 1
+    else
+      self.closed_on = Date.civil(1900, 12, 31)
+    end
+  end
+
   # this method is called before creation or validation method.
   before_validation do
     self.name = self.nature_label if self.name.blank? and self.nature
     self.currency ||= self.company.default_currency
-    if self.closed_on.blank?
-      if fy = self.company.financial_years.first
-        self.closed_on = fy.started_on-1 
-      else
-        self.closed_on = Date.civil(1970, 12, 31)
-      end
-    end
+    # TODO: Removes default value for closed_on
     self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
     self.code = self.code[0..3]
   end
@@ -95,7 +96,8 @@ class Journal < CompanyRecord
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    self.class.update_all({:closed_on=>Date.civil(1900,12,31)}) if self.closed_on.nil?
+    self.class.update_all({:closed_on=>Date.civil(1900,12,31)}, {:id=>self.id}) if self.closed_on.nil?
+    self.reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
   end

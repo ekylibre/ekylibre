@@ -333,6 +333,10 @@ class Company < Ekylibre::Record::Base
     self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
   end
 
+  def financial_year_at(searched_on=Date.today)
+    self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
+  end
+
   def reconcilable_prefixes
     return [:client, :supplier, :attorney].collect{|mode| self.preferred('third_'+mode.to_s.pluralize+'_accounts')}
   end

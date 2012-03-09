@@ -26,7 +26,8 @@ class JournalEntriesController < ApplicationController
     t.column :number, :through=>:bank_statement, :url=>true
     t.column :original_debit
     t.column :original_credit
-    t.column :original_currency
+    t.column :debit
+    t.column :credit
   end
 
 
@@ -41,11 +42,16 @@ class JournalEntriesController < ApplicationController
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
-    @journal_entry.printed_on = @journal_entry.created_on = Date.today
+    @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
+    @journal_entry.company_id = @journal.company_id
     @journal_entry_lines = []
-    t3e @journal.attributes
-    render_restfully_form
+    if request.xhr?
+      render(:partial=>'journal_entries/exchange_rate_form')
+    else
+      t3e @journal.attributes
+      render_restfully_form
+    end
   end
 
   def create
@@ -107,5 +113,4 @@ class JournalEntriesController < ApplicationController
     t3e @journal_entry.attributes
     render_restfully_form
   end
-
 end

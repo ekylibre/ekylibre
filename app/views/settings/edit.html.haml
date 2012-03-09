@@ -10,6 +10,7 @@
       -f.field :my_company, :language, :choices=>languages
       -f.field Company.human_attribute_name("code"), content_tag(:strong, @my_company.code)
       -f.field Company.human_attribute_name("entity_id"), link_to(@my_company.entity.full_name, {:controller=>:entities, :action=>:edit, :id=>@my_company.entity_id})
+      -f.field :my_company, :currency, :choices=>currencies
       -f.field :my_company, :sales_conditions, :field=>:textarea, :options=>{:cols=>60, :rows=>8}
       -f.title :preferences
       -for name, preference in @my_company.preferences_list

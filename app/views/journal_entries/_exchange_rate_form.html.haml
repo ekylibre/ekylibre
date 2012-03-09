@@ -1,0 +1,7 @@
+=formalize do |f|
+  -if !@journal_entry.valid?
+    -f.error :journal_entry
+  -elsif financial_year = @current_company.financial_year_at(@journal_entry.printed_on)
+    -if @journal.currency != financial_year.currency
+      -f.field :journal_entry, :original_currency_rate, :label=>tl(:exchange_rate_from_x_to_y, :x=>Numisma[@journal.currency].name, :y=>Numisma[financial_year.currency].name)
+  

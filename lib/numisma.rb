@@ -1,6 +1,7 @@
 # This module aimed to structure and controls currencies through the application
 # It represents the international monetary system with all its currencies like specified in ISO 4217
 # Numisma comes from latin: It designs here the "science of money"
+require 'net/http'
 require 'numisma/currency'
 # require 'numisma/money'
 module Numisma
@@ -25,6 +26,13 @@ module Numisma
     # Shorcut to get currency
     def [](currency_code)
       @@currencies[currency_code]
+    end
+
+    def currency_rate(from, to)
+      uri = URI("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate")
+      response = Net::HTTP.post_form(uri, 'FromCurrency' => from, 'ToCurrency' => to)
+      doc = ::LibXML::XML::Parser.string(response.body).parse
+      return doc.root.content.to_f
     end
     
     
