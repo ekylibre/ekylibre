@@ -32,7 +32,7 @@ spa:
         # payment_way: 'Mode of payment'
       inventory_line:
         # quantity: 'Found quantity'
-      journal_entry: #!
+      journal_entry: #?
       journal_entry_line:
         # closed: 'Closed'
       land_parcel:
@@ -81,8 +81,8 @@ spa:
         # price: 'Product'
       sale_nature:
         # downpayment: 'Request downpayment'
-      sales_invoice: #!
-      sales_invoice_line: #!
+      sales_invoice: #?
+      sales_invoice_line: #?
       stock:
         # quantity: 'Real quantity'
       stock_move:
@@ -415,9 +415,6 @@ spa:
     # crypt_mode: 'Crypt mode'
     # currencies: 'Currencies'
     # currency: 'Currency'
-    # currency_credit: 'Currency credit'
-    # currency_debit: 'Currency debit'
-    # currency_id: 'Currency'
     # currency_rate: 'Currency rate'
     # current_financial_year: 'Current financial year'
     # custom_field: 'Custom field'
@@ -647,6 +644,8 @@ spa:
     # origin: 'Origin'
     # origin_id: 'Origin'
     # origin_type: 'Origin type'
+    # original_credit: 'Original credit'
+    # original_debit: 'Original debit'
     # original_name: 'Original name'
     # outgoing_payment_modes: 'Disbursement modes'
     # outgoing_payment_uses: 'Disbursement parts'
@@ -887,7 +886,7 @@ spa:
   models:
     account:
       # label: '%{number} - %{name}'
-    bank_statement: #!
+    bank_statement: #?
     cash:
       modes:
         # bban: 'Basic Bank Account Number'
@@ -915,7 +914,7 @@ spa:
             # immediate: 'Immediatly'
             # standard: 'Standard (30d EOM)'
         # department_name: 'Default department'
-        document_natures: #!
+        document_natures: #?
         document_templates:
           accountancy:
             balance_sheet:
@@ -935,7 +934,7 @@ spa:
               # filename: 'Inventory [number]'
             purchase:
               # filename: 'Purchase order [number]'
-            sale: #!
+            sale: #?
             sales_invoice:
               # filename: 'Sales invoice [number]'
               # to_archive: 'true'
@@ -948,7 +947,7 @@ spa:
           relations:
             entity:
               # filename: '[full_name]'
-        document_templates_filenames: #!
+        document_templates_filenames: #?
         # establishment_name: 'Default establishment'
         event_natures:
           # purchase: 'Creation of a purchase'
@@ -1068,7 +1067,7 @@ spa:
         # dont_use: '-- Do not use --'
         # generate_string_custom_field: '-- Create a personalized field (text) --'
       # sales: 'sales'
-    complement: #!
+    complement: #?
     contact:
       # error_modify_contact: 'The contact can not be updated.'
     custom_field:
@@ -1081,8 +1080,8 @@ spa:
         # string: 'Text'
     delay:
       # error_unvalid_format_for_expression: 'Unvalid format for expression'
-    delivery: #!
-    delivery_line: #!
+    delivery: #?
+    delivery_line: #?
     deposit:
       bookkeep:
         # one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
@@ -1149,13 +1148,13 @@ spa:
         # various: 'Various operations'
     journal_entry:
       # entry_cancel: 'Cancel of entry %{number}: %{name}'
-      state: #!
+      state: #?
       states:
         # closed: 'Closed'
         # confirmed: 'Confirmed'
         # draft: 'Draft'
-    journal_entry_line: #!
-    journal_record: #!
+    journal_entry_line: #?
+    journal_record: #?
     listing_node:
       # add_filter: ' Add a filter'
       # all_columns: '-- All columns --'
@@ -1295,8 +1294,8 @@ spa:
       # reduction_on: 'Discount of %{percent}%  on %{product}'
       # tracking: 'S/N: %{serial}'
       # warehouse_can_not_transfer_product: 'The product %{product} can not be used with %{warehouse}, because it contains only %{contained_product} '
-    sales_invoice: #!
-    sales_invoice_line: #!
+    sales_invoice: #?
+    sales_invoice_line: #?
     sequence:
       periods:
         # cweek: 'Commercial week'

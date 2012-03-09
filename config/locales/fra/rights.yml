@@ -70,6 +70,6 @@ fra:
     manage_warehouses: 'Gérer les lieux de stockage'
     merge_entities: 'Fusionner les fiches clients/fournisseurs'
     __minimum__: 'Accéder au minimum vital'
-    print: 'Imprimer' #!
+    print: 'Imprimer' #?
     __public__: 'Public access'
     use_production_chains: 'Utiliser les chaînes de production'

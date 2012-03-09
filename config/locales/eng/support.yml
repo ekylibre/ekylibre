@@ -74,6 +74,7 @@ eng:
       format:
         delimiter: ','
         format: '%u%n'
+        negative_format: '-%n%u'
         precision: 2
         separator: '.'
         unit: '$'

@@ -1,6 +1,6 @@
 arb:
   rights:
-    administrate_accountancy: 'مدخل لوحدة المحاسبة' #!
+    administrate_accountancy: 'مدخل لوحدة المحاسبة' #?
     backup_company: 'تطبيق / تحديث النسخ الاحتياطية'
     bookkeep: 'مبادلة الاجراءات التجارية للمحاسبة'
     # build_production_chains: 'Build production chains'
@@ -15,7 +15,7 @@ arb:
     consult_products: 'مراجعة المنتجات'
     consult_purchases: 'مراجعة المشتريات'
     consult_sales: 'مراجعة المبيعات'
-    consult_sales_invoices: 'مراجعة الفواتير' #!
+    consult_sales_invoices: 'مراجعة الفواتير' #?
     consult_stocks: 'مراجعة حالة الاسهم'
     consult_trackings: 'مراجعة المعلومات التتابعية'
     extract_listings: '(تنفيذ الاستخراج (دون القدرة على التصور'
@@ -53,11 +53,11 @@ arb:
     manage_mandates: 'ادارة التفويضات'
     manage_observations: 'ادارة الملاحظات'
     manage_operations: 'ادارة الاجراءات'
-    manage_outgoing_deliveries: 'ادارة انواع التسليم' #!
+    manage_outgoing_deliveries: 'ادارة انواع التسليم' #?
     # manage_outgoing_delivery_modes: 'Manage outgoing delivery modes'
     # manage_outgoing_payment_modes: 'Manage disbursement modes'
     # manage_outgoing_payments: 'Manage disbursements'
-    manage_payment_modes: 'ادارة طرق الدفع' #!
+    manage_payment_modes: 'ادارة طرق الدفع' #?
     manage_prices: 'ادارة الاموال'
     manage_product_categories: 'ادارة فئات المنتجات'
     manage_products: 'ادارة المنتجات'
@@ -74,7 +74,7 @@ arb:
     manage_warehouses: 'ادارة مواقع التخزين'
     merge_entities: 'دمج ملفات العملاء / الممولين'
     __minimum__: 'بلوغ الفاعلية كحد ادنى'
-    __not_used__: '(الحق الافتراضي (متعذر بلوغه' #!
-    print: 'الطباعة' #!
+    __not_used__: '(الحق الافتراضي (متعذر بلوغه' #?
+    print: 'الطباعة' #?
     # __public__: 'Public access'
     # use_production_chains: 'Use production chains'

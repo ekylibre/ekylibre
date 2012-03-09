@@ -1,6 +1,6 @@
 jpn:
   actions:
-    account_balances: #!
+    account_balances: #?
     accounts:
       # edit: 'Edit account: %{number} - %{name}'
       # index: 'Plan of accounts'
@@ -10,7 +10,7 @@ jpn:
       # reconciliation: 'Account reconciliation'
       # show: 'Account: %{number} - %{name}'
       # unmark: 'Unmark account'
-    application: #!
+    application: #?
     areas:
       # edit: 'Edit the postal area: %{name}'
       # index: 'Postal areas'
@@ -20,9 +20,9 @@ jpn:
       # index: 'Assets'
       # new: 'New asset'
       # show: 'Asset: %{name}'
-    authentication:  #!
-      login: 'ログイン' #!
-      logout: 'ログアウト' #!
+    authentication:  #?
+      login: 'ログイン' #?
+      logout: 'ログアウト' #?
     bank_statements:
       # edit: 'Edit bank statement %{number}'
       # index: 'Bank statements'
@@ -44,12 +44,12 @@ jpn:
     contacts:
       # edit: 'Edit the contact of %{entity}'
       # new: 'Add a new contact'
-    cultivations: #!
-    currencies: #!
+    cultivations: #?
+    currencies: #?
     custom_field_choices:
       # edit: 'Edit the option: %{name}'
       # new: 'Add a new option for a choices list'
-    custom_field_data: #!
+    custom_field_data: #?
     custom_fields:
       # edit: 'Edit the custom field: %{name}'
       # index: 'Custom fields'
@@ -73,7 +73,7 @@ jpn:
       # edit: 'Edit the department: %{name}'
       # index: 'Departments'
       # new: 'Add a new department'
-    deposit_lines: #!
+    deposit_lines: #?
     deposits:
       # edit: 'Edit the deposit %{number}'
       # index: 'Deposits'
@@ -90,7 +90,7 @@ jpn:
       # load: 'Load default document templates (overwrite the old templates)'
       # new: 'Add a new document template'
       # print: 'Print document template'
-    documents: #!
+    documents: #?
     entities:
       # destroy: 'Remove person'
       # edit: 'Edit person: %{full_name}'
@@ -144,7 +144,7 @@ jpn:
       # edit: 'Edit the incoming delivery'
       # index: 'Incoming deliveries'
       # new: 'Add a new incoming delivery'
-    incoming_delivery_lines: #!
+    incoming_delivery_lines: #?
     incoming_delivery_modes:
       # edit: 'Edit the incoming delivery mode: %{name}'
       # index: 'Incoming delivery modes'
@@ -160,13 +160,13 @@ jpn:
       # index: 'Incoming payments'
       # new: 'Add a new incoming payment'
       # show: 'Incoming payment %{number} of %{entity}'
-    interfacers: #!
+    interfacers: #?
     inventories:
       # edit: 'Edit the inventory'
       # index: 'Inventories'
       # new: 'Add a new inventory'
       # show: 'Inventory: %{number}'
-    inventory_lines: #!
+    inventory_lines: #?
     journal_entries:
       # edit: 'Edit journal entry: %{number}'
       # new: 'Add an entry'
@@ -190,7 +190,7 @@ jpn:
       # edit: 'Edit group of land parcels: %{name}'
       # index: 'Groups of land parcels'
       # new: 'Add a new group of land parcels'
-    land_parcel_kinships: #!
+    land_parcel_kinships: #?
     land_parcels:
       # divide: 'Divide land parcel: %{name}'
       # edit: 'Edit land parcel: %{name}'
@@ -198,7 +198,7 @@ jpn:
       # merge: 'Merge land parcels'
       # new: 'Add a new land parcel'
       # show: 'Land parcel %{name}'
-    listing_node_items: #!
+    listing_node_items: #?
     listing_nodes:
       # edit: 'Edit listing node'
       # new: 'New listing node'
@@ -238,7 +238,7 @@ jpn:
       # index: 'Outgoing deliveries'
       # new: 'Add a new outgoing delivery'
       # show: 'Outgoing delivery: %{number}'
-    outgoing_delivery_lines: #!
+    outgoing_delivery_lines: #?
     outgoing_delivery_modes:
       # edit: 'Edit the outgoing delivery mode: %{name}'
       # index: 'Outgoing delivery modes'
@@ -254,7 +254,7 @@ jpn:
       # index: 'Disbursements'
       # new: 'Add a new disbursement'
       # show: 'Disbursement %{number} for %{payee}'
-    preferences: #!
+    preferences: #?
     prices:
       # edit: 'Edit price %{pretax_amount}/%{amount} of %{product}'
       # export: 'Export prices'
@@ -273,7 +273,7 @@ jpn:
     production_chain_conveyors:
       # edit: 'Edit production chain conveyor (%{source_id}-%{target_id})'
       # new: 'Add a new conveyor in the production chain'
-    production_chain_work_center_uses: #!
+    production_chain_work_center_uses: #?
     production_chain_work_centers:
       # edit: 'Edit the work center: %{name}'
       # new: 'Add a new work center'
@@ -387,10 +387,10 @@ jpn:
       # index: 'Tools'
       # new: 'Add a tool'
       # show: 'Tool: %{name}'
-    tracking_states: #!
+    tracking_states: #?
     trackings:
       # show: 'Tracking: %{name}'
-    transfers: #!
+    transfers: #?
     transports:
       # edit: 'Edit the transport %{number}'
       # index: 'Transports'
@@ -415,20 +415,19 @@ jpn:
       # show: 'Warehouse: %{name}'
   controllers:
     # account_balances: 'Account balances'
-    accountancy: '会計' #!
+    accountancy: '会計' #?
     # accounts: 'Plan of accounts'
     application: '一般的な車掌'
     # areas: 'Postal areas'
     # assets: 'Assets'
-    authentication: '認証' #!
+    authentication: '認証' #?
     # bank_statements: 'Bank statements'
     # cash_transfers: 'Cash transfers'
     # cashes: 'Cashes'
     # companies: 'Companies'
-    company: '会社' #!
+    company: '会社' #?
     # contacts: 'Contacts'
     # cultivations: 'Cultivations'
-    # currencies: 'Currencies'
     # custom_field_choices: 'Custom field choices'
     # custom_field_data: 'Custom field data'
     # custom_fields: 'Custom fields'
@@ -468,7 +467,7 @@ jpn:
     # listing_node_items: 'Listing node items'
     # listing_nodes: 'Listing nodes'
     # listings: 'Listings and mailings'
-    management: '商業の管理' #!
+    management: '商業の管理' #?
     # mandates: 'Mandates'
     # myselves: 'Myself'
     # observations: 'Observations'
@@ -486,7 +485,7 @@ jpn:
     # prices: 'Prices'
     # product_categories: 'Product categories'
     # product_components: 'Product components'
-    production: '生産' #!
+    production: '生産' #?
     # production_chain_conveyors: 'Production chain conveyors'
     # production_chain_work_center_uses: 'Production chain work center uses'
     # production_chain_work_centers: 'Production chain work centers'
@@ -495,7 +494,7 @@ jpn:
     # professions: 'Professions'
     # purchase_lines: 'Purchase lines'
     # purchases: 'Purchases'
-    relations: '関係' #!
+    relations: '関係' #?
     # roles: 'Roles'
     # sale_lines: 'Sale lines'
     # sale_natures: 'Sale types'
@@ -653,6 +652,7 @@ jpn:
     # critic_stocks: 'Stocks below critical threshold'
     # csv_statistics: 'CSV statistics'
     # cumul: 'Accumulation of tattle and previous balance N°%{number}'
+    # currency_with_code: '%{name} (%{code})'
     # current: 'Current'
     # custom_field_update: 'Custom field update'
     # data_to_export: 'Data to export'
@@ -669,7 +669,7 @@ jpn:
     # delivery: 'Delivery'
     # departments: 'Departments'
     # deposit: 'Deposit'
-    deposit_create: #!
+    deposit_create: #?
     # depositable: 'More informations'
     # description: 'Description'
     # destroy: 'Destroy'
@@ -794,7 +794,7 @@ jpn:
     # letter_function_title: 'Dear madam, dear sir'
     # letter_introduction: 'Following our conversation, I give you the elements of the estimate.'
     # letter_options: 'Letter options'
-    lettering_modes: #!
+    lettering_modes: #?
     # line: 'Line #%{index}:'
     # line_stock: 'Warehouse: %{warehouse}, available quantity: %{virtual_q}'
     # load: 'Load'
@@ -809,10 +809,10 @@ jpn:
       # other: '%{count} emails'
       # zero: 'No emails'
     # manual_period: 'from %{start} to %{finish}'
-    menu:  #!
-      accountancy_tasks: '用事' #!
-      parameters: 'パラメーター' #!
-      tools: '道具' #!
+    menu:  #?
+      accountancy_tasks: '用事' #?
+      parameters: 'パラメーター' #?
+      tools: '道具' #?
     menus:
       # accountancy: 'Accountancy'
       # finances: 'Finances'
@@ -1017,7 +1017,7 @@ jpn:
       # other: '%{count} results'
       # zero: 'No results'
     # reverse: 'Reverse condition'
-    right_modules: #!
+    right_modules: #?
     # rights: 'Rights'
     # role: 'Role'
     # role_name: 'Fill the name and check all the needed rights'

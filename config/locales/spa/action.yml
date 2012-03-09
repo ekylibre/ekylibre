@@ -1,12 +1,12 @@
 spa:
   actions:
-    account_balances: #!
-    accountancy:  #!
-      balance: 'Equilibrio' #!
-      bookkeep: 'Bascula contable' #!
-      draft: 'Niebla' #!
-      general_ledger: 'Grande libro' #!
-      index: 'Contabilidad general' #!
+    account_balances: #?
+    accountancy:  #?
+      balance: 'Equilibrio' #?
+      bookkeep: 'Bascula contable' #?
+      draft: 'Niebla' #?
+      general_ledger: 'Grande libro' #?
+      index: 'Contabilidad general' #?
     accounts:
       edit: 'Modificar el cuento : %{number} - %{name}'
       index: 'Plan de cuento'
@@ -16,7 +16,7 @@ spa:
       reconciliation: 'Marcar con letra los cuentos'
       show: 'Compte : %{number} - %{name}'
       # unmark: 'Unmark account'
-    application: #!
+    application: #?
     areas:
       # edit: 'Edit the postal area: %{name}'
       # index: 'Postal areas'
@@ -26,8 +26,8 @@ spa:
       # index: 'Assets'
       # new: 'New asset'
       # show: 'Asset: %{name}'
-    authentication:  #!
-      login: 'Conexión' #!
+    authentication:  #?
+      login: 'Conexión' #?
     bank_statements:
       edit: 'Modificar el leventar N°%{number}'
       index: 'Levantar de cuntos bancarios'
@@ -46,25 +46,25 @@ spa:
       show: '%{nature_label} : %{name}'
     companies:
       register: 'Registrar la sociedad'
-    company:  #!
-      about: 'A propocito de Ekylibre' #!
-      backups: 'Salvaguardia' #!
-      change_password: 'Cambiar su contraseña' #!
-      configure: 'Configuracion' #!
-      help: 'Ayuda' #!
-      import: 'Importacion' #!
-      index: 'Hola, %{user}' #!
-      listing_nodes: 'Escoge las informaciones para extraer' #!
-      welcome: 'Bienvenido sobre Ekylibre, %{user}' #!
+    company:  #?
+      about: 'A propocito de Ekylibre' #?
+      backups: 'Salvaguardia' #?
+      change_password: 'Cambiar su contraseña' #?
+      configure: 'Configuracion' #?
+      help: 'Ayuda' #?
+      import: 'Importacion' #?
+      index: 'Hola, %{user}' #?
+      listing_nodes: 'Escoge las informaciones para extraer' #?
+      welcome: 'Bienvenido sobre Ekylibre, %{user}' #?
     contacts:
       # edit: 'Edit the contact of %{entity}'
       # new: 'Add a new contact'
-    cultivations: #!
-    currencies: #!
+    cultivations: #?
+    currencies: #?
     custom_field_choices:
       # edit: 'Edit the option: %{name}'
       # new: 'Add a new option for a choices list'
-    custom_field_data: #!
+    custom_field_data: #?
     custom_fields:
       # edit: 'Edit the custom field: %{name}'
       # index: 'Custom fields'
@@ -88,7 +88,7 @@ spa:
       edit: 'Modificar el servicio : %{name}'
       index: 'Servicios'
       new: 'Añadido de nuevo servicio'
-    deposit_lines: #!
+    deposit_lines: #?
     deposits:
       edit: 'Modificacion del aposto en banco del %{created_on}'
       index: 'Aposto en banco'
@@ -105,8 +105,8 @@ spa:
       load: 'Cargar los modelos de documento por defecto'
       new: 'Créacion de un modelo de documento'
       # print: 'Print document template'
-    documents:  #!
-      print: 'Impresion, exportacion' #!
+    documents:  #?
+      print: 'Impresion, exportacion' #?
     entities:
       # destroy: 'Remove person'
       # edit: 'Edit person: %{full_name}'
@@ -145,7 +145,7 @@ spa:
       # edit: 'Edit the event'
       # index: 'Events'
       # new: 'Add a new event'
-    finances: #!
+    finances: #?
     financial_years:
       close: 'Cerrado de ejercicio'
       # compute_balances: 'Compute financial year balance'
@@ -161,7 +161,7 @@ spa:
       # edit: 'Edit the incoming delivery'
       # index: 'Incoming deliveries'
       # new: 'Add a new incoming delivery'
-    incoming_delivery_lines: #!
+    incoming_delivery_lines: #?
     incoming_delivery_modes:
       # edit: 'Edit the incoming delivery mode: %{name}'
       # index: 'Incoming delivery modes'
@@ -177,13 +177,13 @@ spa:
       # index: 'Incoming payments'
       # new: 'Add a new incoming payment'
       # show: 'Incoming payment %{number} of %{entity}'
-    interfacers: #!
+    interfacers: #?
     inventories:
       edit: 'Modificacion del inventario'
       index: 'Inventarios'
       new: 'Inventario'
       # show: 'Inventory: %{number}'
-    inventory_lines: #!
+    inventory_lines: #?
     journal_entries:
       edit: 'Modificar la pieza N°%{numro} du %{fecha de creacion}'
       new: 'Añadir una pieza'
@@ -207,7 +207,7 @@ spa:
       # edit: 'Edit group of land parcels: %{name}'
       # index: 'Groups of land parcels'
       # new: 'Add a new group of land parcels'
-    land_parcel_kinships: #!
+    land_parcel_kinships: #?
     land_parcels:
       # divide: 'Divide land parcel: %{name}'
       # edit: 'Edit land parcel: %{name}'
@@ -215,7 +215,7 @@ spa:
       # merge: 'Merge land parcels'
       # new: 'Add a new land parcel'
       # show: 'Land parcel %{name}'
-    listing_node_items: #!
+    listing_node_items: #?
     listing_nodes:
       # edit: 'Edit listing node'
       # new: 'New listing node'
@@ -225,10 +225,10 @@ spa:
       index: 'Exportacion y mailing'
       mail: 'Enviar un correo electronico para "%{name}"'
       new: 'Créacion de nueva extraccion'
-    management:  #!
-      index: 'Administracion commercial' #!
-      sales_invoice: '%{nature} %{number}' #!
-      sales_invoices: 'Facturas' #!
+    management:  #?
+      index: 'Administracion commercial' #?
+      sales_invoice: '%{nature} %{number}' #?
+      sales_invoices: 'Facturas' #?
     mandates:
       # configure: 'Configure mandates'
       # edit: 'Edit the mandate'
@@ -259,7 +259,7 @@ spa:
       # index: 'Outgoing deliveries'
       new: 'Añadir una entrega'
       # show: 'Outgoing delivery: %{number}'
-    outgoing_delivery_lines: #!
+    outgoing_delivery_lines: #?
     outgoing_delivery_modes:
       edit: 'Modificacion del modo de entrega : %{name}'
       index: 'Modos de entrega'
@@ -275,7 +275,7 @@ spa:
       # index: 'Disbursements'
       # new: 'Add a new disbursement'
       # show: 'Disbursement %{number} for %{payee}'
-    preferences: #!
+    preferences: #?
     prices:
       # edit: 'Edit price %{pretax_amount}/%{amount} of %{product}'
       # export: 'Export prices'
@@ -294,7 +294,7 @@ spa:
     production_chain_conveyors:
       # edit: 'Edit production chain conveyor (%{source_id}-%{target_id})'
       # new: 'Add a new conveyor in the production chain'
-    production_chain_work_center_uses: #!
+    production_chain_work_center_uses: #?
     production_chain_work_centers:
       # edit: 'Edit the work center: %{name}'
       # new: 'Add a new work center'
@@ -369,7 +369,7 @@ spa:
       about: 'A propocito de Ekylibre'
       # backup: 'Backup data'
       backups: 'Salvaguardia'
-      configure: 'Configuracion' #!
+      configure: 'Configuracion' #?
       # edit: 'Configuration'
       import: 'Importacion'
       # restore: 'Restore data'
@@ -409,10 +409,10 @@ spa:
       # index: 'Tools'
       # new: 'Add a tool'
       # show: 'Tool: %{name}'
-    tracking_states: #!
+    tracking_states: #?
     trackings:
       # show: 'Tracking: %{name}'
-    transfers: #!
+    transfers: #?
     transports:
       # edit: 'Edit the transport %{number}'
       # index: 'Transports'
@@ -429,7 +429,7 @@ spa:
       # lock: 'Lock user'
       new: 'Creacion de nuevo utilizador'
       show: 'Utilizador : %{first_name} %{last_name} (%{name})'
-      statistics: 'Mis estadisticas' #!
+      statistics: 'Mis estadisticas' #?
       # unlock: 'Unlock user'
     warehouses:
       edit: 'Modificacion de un lugar de deposito'
@@ -438,20 +438,19 @@ spa:
       show: 'Detaile del lugar de deposito : %{name}'
   controllers:
     # account_balances: 'Account balances'
-    accountancy: 'Contabilidad' #!
+    accountancy: 'Contabilidad' #?
     accounts: 'Plan de cuento'
     application: 'Aplicación'
     # areas: 'Postal areas'
     # assets: 'Assets'
-    authentication: 'Autenticación' #!
+    authentication: 'Autenticación' #?
     bank_statements: 'Levantar de cuntos bancarios'
     # cash_transfers: 'Cash transfers'
     cashes: 'Tresorerias'
     # companies: 'Companies'
-    company: 'Compañía' #!
+    company: 'Compañía' #?
     # contacts: 'Contacts'
     # cultivations: 'Cultivations'
-    # currencies: 'Currencies'
     # custom_field_choices: 'Custom field choices'
     # custom_field_data: 'Custom field data'
     # custom_fields: 'Custom fields'
@@ -471,7 +470,7 @@ spa:
     establishments: 'Establecimientos'
     # event_natures: 'Event types'
     # events: 'Events'
-    finances: 'Finanzas' #!
+    finances: 'Finanzas' #?
     financial_years: 'Exercicios contables'
     help: 'Ayuda'
     # incoming_deliveries: 'Incoming deliveries'
@@ -492,7 +491,7 @@ spa:
     # listing_node_items: 'Listing node items'
     # listing_nodes: 'Listing nodes'
     listings: 'Exportacion y mailing'
-    management: 'Administración comercial' #!
+    management: 'Administración comercial' #?
     # mandates: 'Mandates'
     # myselves: 'Myself'
     # observations: 'Observations'
@@ -510,7 +509,7 @@ spa:
     # prices: 'Prices'
     # product_categories: 'Product categories'
     # product_components: 'Product components'
-    production: 'Producción' #!
+    production: 'Producción' #?
     # production_chain_conveyors: 'Production chain conveyors'
     # production_chain_work_center_uses: 'Production chain work center uses'
     # production_chain_work_centers: 'Production chain work centers'
@@ -519,7 +518,7 @@ spa:
     # professions: 'Professions'
     # purchase_lines: 'Purchase lines'
     # purchases: 'Purchases'
-    relations: 'Relaciónes' #!
+    relations: 'Relaciónes' #?
     roles: 'Papeles'
     # sale_lines: 'Sale lines'
     # sale_natures: 'Sale types'
@@ -549,31 +548,31 @@ spa:
         # one: '1 error prohibited this %{model} from being saved'
         # other: '%{count} errors prohibited this %{model} from being saved'
   labels:
-    account_accruals: 'Cuentos de regularisación' #!
-    account_claims_assets: 'Creditos' #!
-    account_create: 'Registrar un nuevo cuento' #!
-    account_current_assets: 'Activo circulando' #!
-    account_debt: 'Deudas' #!
-    account_equity: 'Capitales propios' #!
-    account_financial_assets: 'Inmobilisación financières' #!
-    account_fixed_assets: 'Activo inmobilisado' #!
-    account_inventories_assets: 'Stocks' #!
-    account_mark: 'Letra de cuento' #!
+    account_accruals: 'Cuentos de regularisación' #?
+    account_claims_assets: 'Creditos' #?
+    account_create: 'Registrar un nuevo cuento' #?
+    account_current_assets: 'Activo circulando' #?
+    account_debt: 'Deudas' #?
+    account_equity: 'Capitales propios' #?
+    account_financial_assets: 'Inmobilisación financières' #?
+    account_fixed_assets: 'Activo inmobilisado' #?
+    account_inventories_assets: 'Stocks' #?
+    account_mark: 'Letra de cuento' #?
     account_name: 'Cuento contable'
     account_number: 'Numero de cuenta'
-    account_others_assets: 'Autros' #!
-    account_provision: 'Provisiones para riesgos y cargas' #!
+    account_others_assets: 'Autros' #?
+    account_provision: 'Provisiones para riesgos y cargas' #?
     account_tabbox:
       children: 'subcuentos'
       entities: 'Personas'
-      journal_entries: 'Éscrituras' #!
+      journal_entries: 'Éscrituras' #?
       # journal_entry_lines: 'Journal entry lines'
-    account_tangible_fixed_assets: 'Inmobilisaciones corporales' #!
-    account_untangible_fixed_assets: 'Inmobilisacions incorporales' #!
-    account_update: 'Modificar el cuento' #!
-    account_value_current: 'BRUT' #!
-    account_value_previous: 'BRUT N-1' #!
-    accountancy: 'contabilidad' #!
+    account_tangible_fixed_assets: 'Inmobilisaciones corporales' #?
+    account_untangible_fixed_assets: 'Inmobilisacions incorporales' #?
+    account_update: 'Modificar el cuento' #?
+    account_value_current: 'BRUT' #?
+    account_value_previous: 'BRUT N-1' #?
+    accountancy: 'contabilidad' #?
     # accounting_balance: 'Accounting balance'
     accounts: 'Cuentos contables utilizados'
     # accounts_to_load: 'Accounts to load'
@@ -599,7 +598,7 @@ spa:
     amount: 'Total TVA a pagar'
     amount_to_add: 'Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones'
     amount_to_reduce: 'Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones'
-    amount_with_taxes: 'Total de la entrega TTC' #!
+    amount_with_taxes: 'Total de la entrega TTC' #?
     # apply: 'Apply'
     # are_you_sure: 'Are you sure you want to do this?'
     # are_you_sure_you_want_to_confirm: 'Are you sure you want to order'
@@ -608,8 +607,8 @@ spa:
     # are_you_sure_you_want_to_invoice: 'Are you sure you want to invoice?'
     are_you_sure_you_want_to_send_mails: 'Esta seguro querer enviar este correo electronico?'''
     # area_x: '%{name} (%{postcode})'
-    assessable_operations: 'Operaciones imponibles (H.T)' #!
-    assimilated_tax: 'Tarifas asimiladas calculadas sobre anexo n°3310A' #!
+    assessable_operations: 'Operaciones imponibles (H.T)' #?
+    assimilated_tax: 'Tarifas asimiladas calculadas sobre anexo n°3310A' #?
     # attach_an_incoming_payment_to_expense: 'Attach an incoming payment to %{type} %{number}'
     # attach_an_outgoing_payment_to_expense: 'Attach an outgoing payment to %{type} %{number}'
     attachment: 'Pieza juntada'
@@ -629,8 +628,8 @@ spa:
         opera: 'Opéra'
         safari: 'Safari'
     balance: 'Saldo'
-    bank_statement_point: 'Despuntar el levantar' #!
-    bank_statement_update: 'Modificar el leventar' #!
+    bank_statement_point: 'Despuntar el levantar' #?
+    bank_statement_update: 'Modificar el leventar' #?
     # begins: 'Starts with'
     body: 'Cuerpo del mensaje'
     # canals: 'Canals'
@@ -663,7 +662,7 @@ spa:
     # close_financial_year: 'Close financial year'
     # close_journal: 'Close the journal'
     closed: 'Cerrados'
-    code: 'Codigo' #!
+    code: 'Codigo' #?
     # column: 'Column'
     # column_family: 'Family'
     # column_organization: 'Organization'
@@ -702,8 +701,9 @@ spa:
     critic_stocks: 'Depósitos bajo el umbral crítico'
     csv_statistics: 'Statisticas a exportar al formato CSV'
     cumul: 'Cumul del total y del saldo precedente N°%{number}'
+    # currency_with_code: '%{name} (%{code})'
     # current: 'Current'
-    current_letter: 'Carta en curso : %{carta}' #!
+    current_letter: 'Carta en curso : %{carta}' #?
     # custom_field_update: 'Custom field update'
     data_to_export: 'Datos a exportar'
     data_to_extract: 'Datos para extraer'
@@ -711,23 +711,23 @@ spa:
     debit: 'Flujo'
     # decimal_case: 'Decimal case'
     default_subject: '[%{company}]'
-    delay_create: 'Añadir un plazo' #!
+    delay_create: 'Añadir un plazo' #?
     delay_update: 'Modifiar el plazo'
     # delays: 'Delays'
     # delete: 'Delete'
     # deliver: 'Delivered on'
     # deliveries: 'Deliveries'
     # delivery: 'Delivery'
-    delivery_natural_gas_and_electricity_assessable: 'Entrega de gaz natural ou elctricidad imponible en Francia' #!
-    delivery_natural_gas_and_electricity_not_assessable: 'Entrega de gaz natural ou elctricidad no imponible en Francia' #!
-    department_create: 'Añadir un nuevo servicio' #!
+    delivery_natural_gas_and_electricity_assessable: 'Entrega de gaz natural ou elctricidad imponible en Francia' #?
+    delivery_natural_gas_and_electricity_not_assessable: 'Entrega de gaz natural ou elctricidad no imponible en Francia' #?
+    department_create: 'Añadir un nuevo servicio' #?
     departments: 'Servicios'
     deposit: 'Aposto en banco del'
-    deposit_create:  #!
-      one: 'Hacer un aposto : %{mode} (1 encajonamiento)' #!
-      other: 'Hacer un aposto : %{mode} (%{count} encajonamientos)' #!
-      zero: 'Hacer un aposto : %{mode} (Ningun encajonamiento)' #!
-    deposit_update: 'Modifiar el aposto en banco' #!
+    deposit_create:  #?
+      one: 'Hacer un aposto : %{mode} (1 encajonamiento)' #?
+      other: 'Hacer un aposto : %{mode} (%{count} encajonamientos)' #?
+      zero: 'Hacer un aposto : %{mode} (Ningun encajonamiento)' #?
+    deposit_update: 'Modifiar el aposto en banco' #?
     # depositable: 'More informations'
     description: 'Descripción general'
     # destroy: 'Destroy'
@@ -738,7 +738,7 @@ spa:
     # district_x: '%{name} (%{code})'
     # divide: 'Divide'
     document_natures: 'Tipos de documentos'
-    document_template_create: 'Crear un modelo de documento' #!
+    document_template_create: 'Crear un modelo de documento' #?
     document_templates: 'Modelos de documentos'
     dont_use_journal: '-- No utilizar el periodico --'
     # down: 'Down'
@@ -746,7 +746,7 @@ spa:
     download_firefox: 'Carga Mozilla Firefox...'
     # downpayment: 'Downpayment'
     draft: 'Niebla'
-    draft_entries: 'niebla' #!
+    draft_entries: 'niebla' #?
     # duplicate: 'Duplicate'
     # duration: 'Duration'
     # duration_in_hours_and_minutes: '%{hours}h %{minutes}min'
@@ -764,10 +764,10 @@ spa:
     error_no_file: 'Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones.'
     # error_sale_already_paid: 'The sale is already paid'
     # errors_explanation: 'There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import.'
-    establish_capital_goods: 'Bienes que  constituyen inmobilizaciones' #!
-    establishment: 'Establecimiento' #!
-    establishment_create: 'Añadir un nuevo establecimiento' #!
-    establishments: 'Establecimiento' #!
+    establish_capital_goods: 'Bienes que  constituyen inmobilizaciones' #?
+    establishment: 'Establecimiento' #?
+    establishment_create: 'Añadir un nuevo establecimiento' #?
+    establishments: 'Establecimiento' #?
     # estimate: 'Estimate'
     # estimate_to_order: 'Estimate to order'
     europe_out_export: 'Exportaciones fuera de CC.EE'
@@ -787,7 +787,7 @@ spa:
     # filter: 'Filter'
     filter_entries_with: 'Flitrar las escrituras con'
     # financial_state: 'Financial state'
-    financial_year_create: 'Abrir un nuevo ejercicio contable' #!
+    financial_year_create: 'Abrir un nuevo ejercicio contable' #?
     # finish: 'Finish'
     finished_income_statement: 'Productos'
     finished_sum: 'Total productos de explotación'
@@ -834,30 +834,30 @@ spa:
     infos: 'Informar las caracteristicas de la entrega'
     insert_actual_password: 'Coja su contraseña actual'
     insert_password: 'Coja su nueva contraseña'
-    international_normal_vat_collected: 'Tasa normal a 8,5%' #!
-    international_reduce_vat_collected: 'Tasa réducida a 2,1%' #!
-    international_vat_collected: 'Operación realisada en los DOM' #!
+    international_normal_vat_collected: 'Tasa normal a 8,5%' #?
+    international_reduce_vat_collected: 'Tasa réducida a 2,1%' #?
+    international_vat_collected: 'Operación realisada en los DOM' #?
     interval: 'Intervalo personalisado'
     inventory: 'Completar el inventario'
-    inventory_create: 'Hacer un nuevo inventario' #!
-    inventory_print: 'Imprimir el inventario' #!
+    inventory_create: 'Hacer un nuevo inventario' #?
+    inventory_print: 'Imprimir el inventario' #?
     # invoiced_amount: 'Sales invoiced amount'
     # invoices_only: 'Use only invoices'
     # is: 'Is'
     journal: 'Periodico'
     journal_detail: 'Cerrado al %{fecha de cerrado}'
-    journal_entries: 'Escrituras' #!
+    journal_entries: 'Escrituras' #?
     # journal_entries_states: 'States of entries'
-    journal_entry_lines_states: 'Estado de las escrituras utilizadas' #!
+    journal_entry_lines_states: 'Estado de las escrituras utilizadas' #?
     journal_name: '%{name}'
-    journal_record_update: 'Modificar la pieza' #!
-    journal_update: 'Modificar el periodico' #!
+    journal_record_update: 'Modificar la pieza' #?
+    journal_update: 'Modificar el periodico' #?
     journal_view:
-      draft_entries: 'Niebla' #!
+      draft_entries: 'Niebla' #?
       entries: 'Éscrituras'
       # lines: 'Lines of entries'
       mixed: 'Piezas y Escrituras'
-      records: 'Piezas' #!
+      records: 'Piezas' #?
     journals: 'Periodico general'
     # land_parcel_name: 'Land parcel name'
     # land_parcels: 'Land parcels'
@@ -870,19 +870,19 @@ spa:
     # letter_function_title: 'Dear madam, dear sir'
     # letter_introduction: 'Following our conversation, I give you the elements of the estimate.'
     # letter_options: 'Letter options'
-    lettering_account_client: 'marcar con lettras los cuentos clientos' #!
-    lettering_account_supplier: 'marcar con lettra los cuentos abastecedores' #!
-    lettering_modes:  #!
-      attorneys: 'Mandatarios' #!
-      clients: 'Clientes' #!
-      suppliers: 'abastecedores' #!
-      title: 'Catégorias de tercios' #!
+    lettering_account_client: 'marcar con lettras los cuentos clientos' #?
+    lettering_account_supplier: 'marcar con lettra los cuentos abastecedores' #?
+    lettering_modes:  #?
+      attorneys: 'Mandatarios' #?
+      clients: 'Clientes' #?
+      suppliers: 'abastecedores' #?
+      title: 'Catégorias de tercios' #?
     # line: 'Line #%{index}:'
     # line_stock: 'Warehouse: %{warehouse}, available quantity: %{virtual_q}'
-    listing_create: 'Craer una nueva extracción' #!
-    listing_extract: 'Ejecutar la extracción' #!
-    listing_mail: 'Enviar un correo electronico' #!
-    listings: 'Extracciones de datos' #!
+    listing_create: 'Craer una nueva extracción' #?
+    listing_extract: 'Ejecutar la extracción' #?
+    listing_mail: 'Enviar un correo electronico' #?
+    listings: 'Extracciones de datos' #?
     # load: 'Load'
     load_demo_data: 'Cargar datos de prueba'
     locale: 'Idioma'
@@ -894,9 +894,9 @@ spa:
       one: '1 correro electronico'
       other: '%{count} correos electronicos'
       zero: 'Ningun correo electronico'
-    management: 'Administración comercial' #!
+    management: 'Administración comercial' #?
     manual_period: 'del %{empezo} al %{termino}'
-    menu: #!
+    menu: #?
     menus:
       # accountancy: 'Accountancy'
       # finances: 'Finances'
@@ -949,17 +949,17 @@ spa:
     my_self: 'Coja sus informaciones'
     # n: 'Non'
     # name: 'Name'
-    national_deliveries: 'Entregas intracolectivas' #!
-    national_normal_vat_collected: 'Tasa normal a 19,6%' #!
-    national_reduce_vat_collected: 'Tasa réducida a 5,5%' #!
-    national_vat_collected: 'Opéraciones réalisadas en Francia métropolitaria' #!
+    national_deliveries: 'Entregas intracolectivas' #?
+    national_normal_vat_collected: 'Tasa normal a 19,6%' #?
+    national_reduce_vat_collected: 'Tasa réducida a 5,5%' #?
+    national_vat_collected: 'Opéraciones réalisadas en Francia métropolitaria' #?
     # nature: 'Type'
-    nb_purchases:  #!
-      one: 'Una compra en espera de recepción' #!
-      other: '%{count} Compras en espera de recepción' #!
-      zero: 'Ningunas compras en espera de recepción' #!
+    nb_purchases:  #?
+      one: 'Una compra en espera de recepción' #?
+      other: '%{count} Compras en espera de recepción' #?
+      zero: 'Ningunas compras en espera de recepción' #?
     nb_years: 'Nombre de años en el historico'
-    net_vat_amount: 'TVA neta deuda' #!
+    net_vat_amount: 'TVA neta deuda' #?
     # new: 'New...'
     new_deposit:
       # one: 'Make a deposit %{mode}: 1 available payment'
@@ -998,7 +998,7 @@ spa:
     # no_tracking: 'No tracking'
     # no_transfers: 'No transfers'
     normal: 'Regimen del real normal'
-    not_assessable_operations: 'Opéraciones no imposnibles' #!
+    not_assessable_operations: 'Opéraciones no imposnibles' #?
     # not_begins: 'Do not start with'
     # not_contains: 'Do not contains'
     # not_finishes: 'Do not finish with'
@@ -1016,11 +1016,11 @@ spa:
     # order: 'Order'
     # order_amount_with_taxes: 'Order amount with taxes'
     other_results: 'Otros resultados'
-    others: 'Otra TVA a deducir' #!
-    others_assessable_operations: 'Autras operaciones imponibles' #!
-    others_not_assessable_operations: 'Autras operaciones no imponibles' #!
-    others_services: 'Otros bienes y servicios' #!
-    out_vat_amount: 'Basa fuera de tarifa' #!
+    others: 'Otra TVA a deducir' #?
+    others_assessable_operations: 'Autras operaciones imponibles' #?
+    others_not_assessable_operations: 'Autras operaciones no imponibles' #?
+    others_services: 'Otros bienes y servicios' #?
+    out_vat_amount: 'Basa fuera de tarifa' #?
     outgoing_payments_states:
       # all: 'All'
       # undelivered: 'Undelivered'
@@ -1034,11 +1034,11 @@ spa:
     # paid_on: 'Paid on'
     parameters: 'Parametros'
     # parts_amount: 'Paid amount'
-    passive_balance_sheet: 'Balance pasivo' #!
-    passive_capital_sum: 'Total capitales' #!
-    passive_debt_sum: 'Total deudas' #!
-    passive_stock_sum: 'Total proviciones' #!
-    passive_sum: 'Total pasivos' #!
+    passive_balance_sheet: 'Balance pasivo' #?
+    passive_capital_sum: 'Total capitales' #?
+    passive_debt_sum: 'Total deudas' #?
+    passive_stock_sum: 'Total proviciones' #?
+    passive_sum: 'Total pasivos' #?
     password: 'Contraseña'
     payback: 'Reembolso pedido'
     # payment_amount: 'Amount of payment'
@@ -1064,8 +1064,8 @@ spa:
     # previous: 'Previous'
     previous_bank_statement: 'Saldo del leventar precedente N°%{number}'
     # price: 'Price'
-    price_amount: 'Precio HT' #!
-    price_amount_with_taxes: 'PrecioTTC' #!
+    price_amount: 'Precio HT' #?
+    price_amount_with_taxes: 'PrecioTTC' #?
     # prices_export: 'Export your prices in CSV'
     # prices_for_all: 'All the prices'
     # prices_for_clients: 'Prices of sale'
@@ -1082,7 +1082,7 @@ spa:
       # prices: 'Prices'
       # stock_moves: 'Stock moves'
       # stocks: 'Stocks'
-    production: 'Administración de la producción' #!
+    production: 'Administración de la producción' #?
     # productions: 'Productions'
     # products: 'Products'
     products_states:
@@ -1108,15 +1108,15 @@ spa:
     # record_has_not_been_removed: 'The record has not been removed'
     # reflect: 'Reflect'
     # refresh: 'Refresh'
-    register: 'Crear una nueva compañía' #!
-    relations: 'Relaciones clientos/abastecedores' #!
+    register: 'Crear una nueva compañía' #?
+    relations: 'Relaciones clientos/abastecedores' #?
     reopen: 'Volver a abrir el periodico'
     # reopen_journal: 'Reopen the journal'
     report: 'Informaciones comunes'
     reported_balance: 'Credito a rendir'
     reservoir: 'Deposito'
     reservoir_informations: 'Informaciones sobre el deposito'
-    reservoirs_create: 'Añadir un deposito' #!
+    reservoirs_create: 'Añadir un deposito' #?
     resource: 'Consultar la pieza de origen : %{resource} %{number}'
     resources: 'Administración de los recursos humanos'
     # rest_to_pay: 'Rest to pay'
@@ -1127,28 +1127,28 @@ spa:
       other: '%{count} resultado'
       zero: 'Ningun resultado'
     # reverse: 'Reverse condition'
-    right_modules:  #!
-      accountancy: 'Derechos modulo contabilidad' #!
-      company: 'Derechos modulo sociedad' #!
-      management: 'Derechos modulo comercio' #!
-      production: 'Derechos modulo producción' #!
-      relations: 'Derechos modulo relaciones' #!
-      resources: 'Derechos modulo recursos' #!
+    right_modules:  #?
+      accountancy: 'Derechos modulo contabilidad' #?
+      company: 'Derechos modulo sociedad' #?
+      management: 'Derechos modulo comercio' #?
+      production: 'Derechos modulo producción' #?
+      relations: 'Derechos modulo relaciones' #?
+      resources: 'Derechos modulo recursos' #?
     rights: 'Derechos'
     # role: 'Role'
-    role_create: 'Añadir un papel' #!
+    role_create: 'Añadir un papel' #?
     role_name: 'Entrar el nombre del papel y atribuirle sus derechos'
     roles: 'Papeles'
-    running_cost: 'Cargas de explotación' #!
-    running_finished: 'Productos de explotación' #!
-    sale: 'Encargos' #!
-    sale_cancel: 'Hacer un activo sobre une factura' #!
-    sales: 'Exportar un cuadro de ventas al formato CSV' #!
+    running_cost: 'Cargas de explotación' #?
+    running_finished: 'Productos de explotación' #?
+    sale: 'Encargos' #?
+    sale_cancel: 'Hacer un activo sobre une factura' #?
+    sales: 'Exportar un cuadro de ventas al formato CSV' #?
     # sales_conditions: 'Conditions of sales'
     sales_invoice: 'Facturas'
-    sales_invoice_lines: 'Lineas de factura' #!
+    sales_invoice_lines: 'Lineas de factura' #?
     # sales_invoice_number: 'Sales invoice'
-    sales_invoice_print: 'Imprimir la factura' #!
+    sales_invoice_print: 'Imprimir la factura' #?
     sales_invoices_states:
       # all: 'All'
       # cancelled: 'Cancelled'
@@ -1191,11 +1191,11 @@ spa:
     select_warehouse: 'Escoger un lugar de deposito'
     send: 'Enviar un correro electronico'
     send_test: 'Enviar un correo electronico de prueba'
-    sequence_create: 'Añadir une sequencia' #!
-    sequences: 'Séquencias' #!
+    sequence_create: 'Añadir une sequencia' #?
+    sequences: 'Séquencias' #?
     sequences_load: 'Cargar las secuencias faltantes'
     # set_reconcilable_new_but_existing_third_accounts: 'Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)'
-    shelf: 'Categoria' #!
+    shelf: 'Categoria' #?
     # ship: 'Ship'
     simplified: 'Regimen del real simplificado'
     source: 'Fuente de datos'
@@ -1203,7 +1203,7 @@ spa:
     # state: 'State'
     # stock_max: 'Stock max'
     # stock_min: 'Stock min'
-    stock_move_create: 'Añadir un movimiento de deposito' #!
+    stock_move_create: 'Añadir un movimiento de deposito' #?
     # stocks: 'Stocks'
     # stocks_preferences: 'Stock management'
     # stop: 'Stop'
@@ -1225,8 +1225,8 @@ spa:
     # supply: 'Supply'
     synthesis: 'Documentos de sintesis'
     # target: 'Target'
-    tax_create: 'Añadir una nueva tasa' #!
-    tax_declaration_create: 'Añadir una nueva declaración' #!
+    tax_create: 'Añadir una nueva tasa' #?
+    tax_declaration_create: 'Añadir una nueva declaración' #?
     theoric_quantity: 'cantidad teorica'
     to: 'Al'
     # to_bank_on: 'To bank on'
@@ -1257,10 +1257,10 @@ spa:
     # undeposited: 'Undeposited'
     # uninvoiced_amount: 'Uninvoiced amount'
     unit: 'Unidad'
-    unit_create: 'Añadir una nueva unidad de medida' #!
-    unit_price_amount: 'PU HT' #!
-    unit_price_amount_with_taxes: 'PU TTC' #!
-    units_load: 'Cargar las unidades de base que falten' #!
+    unit_create: 'Añadir una nueva unidad de medida' #?
+    unit_price_amount: 'PU HT' #?
+    unit_price_amount_with_taxes: 'PU TTC' #?
+    units_load: 'Cargar las unidades de base que falten' #?
     # unknown_condition: 'Unknown condition'
     # unlock: 'Unlock'
     # unpaid: 'Unpaid'
@@ -1277,34 +1277,34 @@ spa:
     # up: 'Up'
     # update: 'Update'
     # update_params: 'Update params'
-    upload: 'Séleccionar el fichero de salvaguardia a cargar' #!
+    upload: 'Séleccionar el fichero de salvaguardia a cargar' #?
     # usage: 'Usage'
     use_renew: 'Seleccionar un periodico para los aplazamientos de nuevo'
     used_accounts: 'Cuentos utilozados unico'
-    user_create: 'Añadir un nuevo utilizador' #!
-    user_update: 'Modificar las informaciones del utilizador' #!
+    user_create: 'Añadir un nuevo utilizador' #?
+    user_update: 'Modificar las informaciones del utilizador' #?
     username: 'Nombre de usuario'
     # uses: 'Tools'
     # valid: 'Valid'
     validate: 'Validar'
     validate_selected_entries: 'Validar la escrituras seleccionadas'
-    vat: 'Tasa a pagar' #!
-    vat_acquisitions: 'Adquisición intracomunotarios' #!
-    vat_amount: 'Tasa deuda' #!
-    vat_collected: 'TVA BRUTA' #!
-    vat_paid: 'TVA DEDUCTIBLE' #!
+    vat: 'Tasa a pagar' #?
+    vat_acquisitions: 'Adquisición intracomunotarios' #?
+    vat_amount: 'Tasa deuda' #?
+    vat_collected: 'TVA BRUTA' #?
+    vat_paid: 'TVA DEDUCTIBLE' #?
     # view: 'View'
     view_modes:
       # printable: 'Printable mode'
       # resized: 'Resized mode'
     # virtual_quantity: 'Virtual quantity'
     # warehouse: 'Warehouse'
-    warehouse_create: 'Añadir un lugar de deposito' #!
+    warehouse_create: 'Añadir un lugar de deposito' #?
     # warehouse_name: 'Warehouse name'
     warehouse_tabbox:
       # stock_moves: 'Stocks moves'
       # stocks: 'Stocks'
-    warehouse_update: 'Modifiar el lugar de deposito' #!
+    warehouse_update: 'Modifiar el lugar de deposito' #?
     warehouses: 'Ver la lista de los lugares de deposito'
     # weight: 'Weight'
     with_prints: 'Incluir las impresiones (facturas, encargos...)'
@@ -1344,7 +1344,7 @@ spa:
     x_journal_entries:
       one: 'La escritura'
       other: '%{cuento} escrituras'
-      zero: 'Ninguna escrituras' #!
+      zero: 'Ninguna escrituras' #?
     x_mandates:
       # one: '%{count} mandate'
       # other: '%{count} mandates'
@@ -1411,10 +1411,10 @@ spa:
     changes_have_not_been_reflected: 'Los cambios no han sido repercutidos correctamente sobre el estatuto de depósitos actua'
     closed_financial_years: 'El ejercicio ha sido correctamente cerrado'
     columns_are_already_uses: 'Una o varias columnas que hay que importar son seleccionados muchas veces'
-    draft_entries_are_validated:  #!
-      one: 'La pieza ha sido validada y es sacada de la niebla' #!
-      other: 'Las %{cuentos} han sido validadas y son sacadas de la niebla' #!
-      zero: 'Ninguna pieza ha sido validada' #!
+    draft_entries_are_validated:  #?
+      one: 'La pieza ha sido validada y es sacada de la niebla' #?
+      other: 'Las %{cuentos} han sido validadas y son sacadas de la niebla' #?
+      zero: 'Ninguna pieza ha sido validada' #?
     draft_entry_lines_are_validated:
       # one: 'One entry has been validated'
       # other: '%{count} entries have been validated'
@@ -1423,7 +1423,7 @@ spa:
     exception_raised: 'Un error sobrevino durante el tratamiento : %{mensaje}'
     expired_session: 'sesion espirada. por favor reconectese.'
     fails_to_extract_listing: 'La extracción no ha podido hacerse : %{mensaje}'
-    import_succeeded: 'Sus datos han sido correctamente importados' #!
+    import_succeeded: 'Sus datos han sido correctamente importados' #?
     importation_cancelled: 'Sus datos no han sido importados. La importación ha sido anulada'
     importation_finished: 'La importación esta terminada.'
     impossible_to_add_lines: 'No se puede añadir productos a su venta, el presupuesto esta en encargo'
@@ -1433,8 +1433,8 @@ spa:
     # journal_entry_already_validated: 'The record has already been validated and can not be changed'
     # journal_entry_has_been_saved: 'The record %{number} has been successfully saved'
     # journal_entry_lines_marked_with_letter: 'Journal entry lines have been marked with letter %{letter}'
-    journal_record_already_validated: 'La pieza ya ha sido validada y ya no puede ser modificada' #!
-    journal_record_has_been_saved: 'La pieza N°%{number} ha sido registrada correctamente' #!
+    journal_record_already_validated: 'La pieza ya ha sido validada y ya no puede ser modificada' #?
+    journal_record_has_been_saved: 'La pieza N°%{number} ha sido registrada correctamente' #?
     journal_reopened_on: 'El %{periodico} ha sido cerrado %{fecha de cerre} correctamente.'
     mails_are_sent: 'Los correos electronicos han sido enviados'
     need_balanced_journal_to_tax_declaration: 'Todos sur periodicos deben de ser cerrados y equilibrados a esta fecha.'
@@ -1445,7 +1445,7 @@ spa:
     need_journal_to_manage_tax_declaration: 'Se debe tener pôr lo menos un periodico de las operaciones diversas y un periodico de venta o de compra para poder registrar dclaraciones de tasa.'
     need_payment_mode_to_create_deposit: 'Se debe especifiar una forma de pago para hacer une entrega en banco'
     # need_quantities_to_cancel_an_sale: 'You must specify a quantity in order to cancel the sales invoice'
-    need_quantities_to_cancel_an_sales_invoice: 'Se debe especifiar una quantidad para hacer un haber' #!
+    need_quantities_to_cancel_an_sales_invoice: 'Se debe especifiar una quantidad para hacer un haber' #?
     need_stocks_to_create_inventories: 'Se debe administrar los depositos a lo menos de un producto para hacer un inventario'
     need_stocks_warehouse_to_create_products: 'Se debe crear un lugar de almacenamiento para crear un producto'
     need_to_create_subscription_nature: 'se debe crear un tipo de abono para administrar los abonos'
@@ -1454,18 +1454,18 @@ spa:
     need_warehouse_to_record_stock_moves: 'Para administrar sus depositos se debe registrar sus lugares de almacenamiento.'
     new_actual_number: 'El nuevo numero en curso es %{numero_actual}'
     no_authenticated: 'No puede ser identificado. El nombre de utilizador o la contrasña debe de ser incorrecta.'
-    no_balance_template: 'No hay modelo de documento para este equilibrio' #!
+    no_balance_template: 'No hay modelo de documento para este equilibrio' #?
     no_closable_financial_year: 'Hay ningun ejercicio para cerrar.'
     no_closable_journal: 'No se puede cerrar este periodico.'
     no_depositable_payments: 'No hay pago para entregar en banco'
     no_existing_mandates: 'No hay responsabilidades registradas por el momento'
-    no_financial_year: 'Ningun ejercicio registrado' #!
+    no_financial_year: 'Ningun ejercicio registrado' #?
     no_lines_found: 'Ningun producto ha sido añadido al encargo'
     no_payment_to_deposit: 'Ninguna forma de pago a cobrar'
     no_reopenable_journal: 'nos se puede cerrar este periodico.'
     no_stocks: 'No hay ningun deposito. Si se quiere adùinistrar los depositos para une producto, por favor escroge la opción "administrar los depositos" dentro de las caracteristicas de vuestro producto.'
-    no_template_journal: 'Ningun modelo de periodico' #!
-    no_template_journal_by_id: 'Ningun modedo de periodico' #!
+    no_template_journal: 'Ningun modelo de periodico' #?
+    no_template_journal_by_id: 'Ningun modedo de periodico' #?
     # no_unconfirmed_stock_transfers: 'No unconfirmed stock transfers'
     no_unvalidated_operations: 'Ningún trabajo que hay que realizar'
     no_warehouse: 'Ningun lugar de almacenamineto es definido. por favor cree uno para administrar los depositos'
@@ -1480,7 +1480,7 @@ spa:
     sale_already_invoiced: 'La vente a déjà été facturée: vous ne pouvez pas définir de livraison'
     sale_cannot_be_updated: 'El presupuesto ya no esta modificable.'
     sale_cant_be_deleted: 'La venta no puede ser suprimida'
-    select_entries_to_letter_together: 'Escroge escroturas para latrarlas juntas' #!
+    select_entries_to_letter_together: 'Escroge escroturas para latrarlas juntas' #?
     # select_entry_lines_to_mark_together: 'Select entry lines to mark together'
     specify_filter: 'Se debe escoger aplicar a lo menos un filtro de busqueda'
     specify_updates: 'Se debe especifiar a la menos un campo a modifiar'
@@ -1490,10 +1490,10 @@ spa:
     unvalid_version_for_restore: 'La version del software utilisado para hacer la slvaguardia no corresponde a la version actueal del software'
     update_is_done: 'La puesta al día ha sido efectuada'
     validates_old_inventories: 'Es aconsejado suprimir o validar los inventarios que no lo son antes de hacer nuevos'
-    x_unpointed_journal_entries:  #!
-      one: 'Hay escritura a puntar' #!
-      other: 'hay %{number} escrituras a puntar' #!
-      zero: 'No hay escrituras a puntar por el momento' #!
+    x_unpointed_journal_entries:  #?
+      one: 'Hay escritura a puntar' #?
+      other: 'hay %{number} escrituras a puntar' #?
+      zero: 'No hay escrituras a puntar por el momento' #?
     x_unpointed_journal_entry_lines:
       # one: 'There is one entry to point'
       # other: 'There are %{count} entries to point'
