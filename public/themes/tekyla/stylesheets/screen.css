@@ -605,6 +605,8 @@ tbody.lines td input { width: 95%; }
 
 table.list tr.total.invalid td { color: #D20; }  
 table.list tr.total.valid   td { color: #090; }  
+table.list tr.subtotal.invalid td { color: #D20; }  
+table.list tr.subtotal.valid   td { color: #090; }  
 table.list tr.first-line    td { border-top: 2px solid #F77; }  
 table.list tr.last-line     td { border-bottom: 2px solid #F77; }  
 table.list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }

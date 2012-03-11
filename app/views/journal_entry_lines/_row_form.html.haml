@@ -4,10 +4,20 @@
 -@@line_count += 1
 -if line.errors.size > 0
   %tr.inline-errors{:id=>id+'-errors'}
-    %td{:colspan=>5}=error_messages(line)
+    %td{"colspan"=>5}=error_messages(line)
 %tr{:id=>id}
   %td=text_field_tag("lines[#{id}][name]", line.name, :id=>"lines_#{id}_name", "data-autofocus"=>"true", "data-parameter-name"=>"name")
   %td=combo_box_tag "lines[#{id}][account_id]", :account, :controller=>:interfacers, :value=>line.account
-  %td=text_field_tag "lines[#{id}][original_debit]", (line.original_debit||0.0), :size=>10, :id=>"lines_#{id}_original_debit", :class=>"debit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-debit,#entry-credit,#journal_id", "data-exclusive-nullify"=>"#lines_#{id}_original_credit"
-  %td=text_field_tag "lines[#{id}][original_credit]", (line.original_credit||0.0), :size=>10, :id=>"lines_#{id}_original_credit", :class=>"credit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-debit,#entry-credit,#journal_id", "data-exclusive-nullify"=>"#lines_#{id}_original_debit"
+  %td.dec=text_field_tag "lines[#{id}][original_debit]", (line.original_debit||0.0), :size=>10, :id=>"lines_#{id}_original_debit", :class=>"original-debit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,#journal_entry_printed_on", "data-exclusive-nullify"=>"#lines_#{id}_original_credit"
+  %td=@journal.currency
+  %td.dec=text_field_tag "lines[#{id}][original_credit]", (line.original_credit||0.0), :size=>10, :id=>"lines_#{id}_original_credit", :class=>"original-credit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,#journal_entry_printed_on", "data-exclusive-nullify"=>"#lines_#{id}_original_debit"
+  %td=@journal.currency
   %td.act=link_to(image_tag(theme_button(:destroy), :border=>0), "#", "data-remove"=>"##{id}, ##{id}-errors")
+-if @journal.currency != @financial_year.currency
+  %tr
+    %td.dec{"colspan"=>2}
+    %td.dec.debit{"data-use"=>"#lines_#{id}_original_debit,#journal_entry_original_currency_rate", "data-calculate"=>"mul"}
+    %td=@financial_year.currency
+    %td.dec.credit{"data-use"=>"#lines_#{id}_original_credit,#journal_entry_original_currency_rate", "data-calculate"=>"mul"}
+    %td=@financial_year.currency
+    %td.act

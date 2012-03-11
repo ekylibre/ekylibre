@@ -1,7 +1,34 @@
-=formalize do |f|
-  -if !@journal_entry.valid?
+-if !@journal_entry.valid?
+  =formalize do |f|
     -f.error :journal_entry
-  -elsif financial_year = @current_company.financial_year_at(@journal_entry.printed_on)
-    -if @journal.currency != financial_year.currency
-      -f.field :journal_entry, :original_currency_rate, :label=>tl(:exchange_rate_from_x_to_y, :x=>Numisma[@journal.currency].name, :y=>Numisma[financial_year.currency].name)
-  
+-elsif @financial_year = @current_company.financial_year_at(@journal_entry.printed_on)
+  =formalize do |f|
+    -if @journal.currency != @financial_year.currency
+      -f.field :journal_entry, :original_currency_rate, :label=>tl(:exchange_rate_from_x_to_y, :x=>Numisma[@journal.currency].name, :y=>Numisma[@financial_year.currency].name)  
+  =toolbar do |t|
+    -t.link :new, {:controller=>:journal_entry_lines, :printed_on=>@journal_entry.printed_on, :journal_id=>@journal.id}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
+
+  %table.list{:style=>"margin-bottom: 8px;"}
+    %thead
+      %tr
+        %th=JournalEntryLine.human_attribute_name("name")
+        %th=JournalEntryLine.human_attribute_name("account")
+        %th{"colspan"=>2}=JournalEntryLine.human_attribute_name("debit")
+        %th{"colspan"=>2}=JournalEntryLine.human_attribute_name("credit")
+        %th.act
+    %tfoot
+      %tr#total.total{"data-valid-if-equality-between"=>"#entry-original-debit, #entry-original-credit"}
+        %th{"colspan"=>2}=tl(:total_in_currency, :currency=>Numisma[@journal.currency].name)
+        %td#entry-original-debit.decimal{"colspan"=>2, "data-use"=>"input.original-debit"}=@journal_entry.original_debit
+        %td#entry-original-credit.decimal{"colspan"=>2, "data-use"=>"input.original-credit"}=@journal_entry.original_credit
+
+      -if @journal.currency != @financial_year.currency
+        %tr.subtotal{"data-valid-if-equality-between"=>"#entry-debit, #entry-credit"}
+          %th{"colspan"=>2}=tl(:total_in_currency, :currency=>Numisma[@financial_year.currency].name)
+          %td#entry-debit.decimal{"colspan"=>2, "data-use"=>"td.debit"}=@journal_entry.debit
+          %td#entry-credit.decimal{"colspan"=>2, "data-use"=>"td.credit"}=@journal_entry.credit
+
+    %tbody#lines.lines
+      -lines = @journal_entry_lines || @journal_entry.lines
+      =render :partial=>"journal_entry_lines/row_form", :collection=>lines
+      =render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry.lines.new if lines.empty?

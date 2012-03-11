@@ -139,7 +139,11 @@ table.list tr.total th { text-align: right;}
 html[dir="rtl"] table.list tr.total th {text-align: left;}
 table.list tr.total td {font-size: 18px; font-weight:bold; width: 10em; white-space: nowrap; background:#FFD !important; padding: 2px 4px; text-align: right; border:1px solid #CCC; }  
 table.list tr.total td.important {font-size: 20px; } 
-table.list tr.subtotal td { font-weight:bold; font-style: italic; max-width: 12em; color: #776; }  /*border:1px solid #BACFE6;*/
+
+table.list tr.subtotal th { text-align: right;}
+html[dir="rtl"] table.list tr.subtotal th {text-align: left;}
+table.list tr.subtotal td {font-size: 15px; font-weight:normal; width: 10em; white-space: nowrap; background: #FFE !important; padding: 2px 4px; text-align: right; border:1px solid #CCC; }  
+
 table.list tr.centralize td { font-weight:bold; }  
 
 table.list tr.disabled td, table.list tr.disabled td * {color: #888; }  
