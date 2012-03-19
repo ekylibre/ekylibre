@@ -72,12 +72,12 @@ fra:
   number:
     currency:
       format:
-        delimiter: ','
-        format: '%u%n'
-        # negative_format: '-%n%u'
+        delimiter: '%s'
+        format: '%n%s%u'
+        negative_format: '-%n%s%u'
         precision: 2
-        separator: '.'
-        unit: '$'
+        separator: ','
+        unit: '@'
     format:
       delimiter: ' '
       precision: 3

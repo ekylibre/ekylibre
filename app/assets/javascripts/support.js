@@ -111,9 +111,28 @@ function formatNumber(value, decimal, separator, thousand) {
     return valFormat;
 }
 
+
+function formatNumber2(value, precision, separator, thousand) {
+    if (isNaN(value)) return "NaN";
+    var splitted, integers, decimals, coeff = 1, formatted;
+    if (value < 0) coeff = -1;
+    splitted = Math.abs(value).toString().split(/\./g);
+    // alert(splitted.length);
+    integers = splitted[0].replace(/^0+[1-9]+/g, '');
+    decimals = (splitted[1] || '').replace(/0+$/g, '');
+    while (decimals.length < precision) {
+        decimals = decimals + "0";
+    }
+    formatted = integers;
+    if (!(/^\s*$/).test(decimals)) {
+        formatted = formatted + separator + decimals;
+    }
+    return formatted;
+}
+
 // Display a number with money presentation
 function toCurrency(value) {
-    return formatNumber(value, 2, ".", "");
+    return formatNumber2(value, 2, ".", "");
 }
 
 

@@ -1448,4 +1448,63 @@ module ApplicationHelper
 
 
 
+  # Take an extra argument which will translate
+  def number_to_money(amount, currency, options={})
+    return unless amount and currency
+
+    options.symbolize_keys!
+
+    defaults  = I18n.translate('number.format'.to_sym, :locale => options[:locale], :default => {})
+    defaultt  = I18n.translate('number.currency.format'.to_sym, :locale => options[:locale], :default => {})
+    defaultt[:negative_format] ||= "-" + defaultt[:format] if defaultt[:format]
+    formatcy  = I18n.translate("number.currency.formats.#{currency}".to_sym, :locale => options[:locale], :default => {})
+    formatcy[:negative_format] ||= "-" + formatcy[:format] if formatcy[:format]
+
+    prec = {}
+    prec[:separator] = formatcy[:separator] || defaultt[:separator] || defaults[:separator]
+    prec[:delimiter] = formatcy[:delimiter] || defaultt[:delimiter] || defaults[:delimiter]
+    prec[:precision] = formatcy[:precision] || Numisma[currency].precision || defaultt[:precision]
+    format           = formatcy[:format] || defaultt[:format] || defaults[:format]
+    negative_format  = formatcy[:negative_format] || defaultt[:negative_format] || defaults[:negative_format] || "-" + format
+    unit             = formatcy[:unit] || Numisma[currency].unit || currency
+
+    # defaults  = {}.merge(defaults).merge!(formatcy)
+    # defaults.merge!(defaultt)
+    # defaults.merge!(formatcy)
+    # defaults[:negative_format] = "-" + options[:format] if options[:format]
+    # options   = defaults.merge!(options)
+    
+    # unit      = formatcy[:unit] || Numisma[currency].unit || currency
+    # format    = options.delete(:format)
+
+    # options[:precision] ||= Numisma[currency].precision
+
+    # raise [amount, currency, prec, unit, format, negative_format].inspect
+
+    if amount.to_f < 0
+      format = negative_format # options.delete(:negative_format)
+      amount = amount.respond_to?("abs") ? amount.abs : amount.sub(/^-/, '')
+    end
+    
+    #begin
+    # value = number_with_precision(amount, prec.merge(:raise => true))
+    value = amount.to_s
+    integers, decimals = value.split(/\./)
+    # TODO: Find a better way to delimite thousands
+    decimals = decimals.gsub(/0+$/, '').ljust(prec[:precision], '0').reverse.split(/(?=\d{3})/).reverse.collect{|x| x.reverse}.join(prec[:delimiter])
+    value = integers.gsub(/^0+[1-9]+/, '').gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{prec[:delimiter]}")
+    value += prec[:separator] + decimals unless decimals.blank?
+    format.gsub(/%n/, value).gsub(/%u/, unit).gsub(/%s/, '&nbsp;').html_safe
+    # rescue InvalidNumberError => e
+    #   if options[:raise]
+    #     raise
+    #   else
+    #     formatted_number = format.gsub(/%n/, e.number).gsub(/%u/, unit).gsub(/%s/, '&nbsp;')
+    #     e.number.to_s.html_safe? ? formatted_number.html_safe : formatted_number
+    #   end
+    # end
+  end
+
+
 end
+

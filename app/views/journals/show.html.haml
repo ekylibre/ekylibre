@@ -32,8 +32,8 @@
 
 -conditions = eval(controller.class.journal_entries_conditions)
 -totals = {}
--totals[:debit]  = JournalEntry.sum(:debit, :conditions=>conditions)
--totals[:credit] = JournalEntry.sum(:credit, :conditions=>conditions)
+-totals[:debit]  = JournalEntry.sum(:original_debit, :conditions=>conditions)
+-totals[:credit] = JournalEntry.sum(:original_credit, :conditions=>conditions)
 -totals[:balance_debit] = totals[:balance_credit] = 0.0
 -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
@@ -44,9 +44,10 @@
     %th=JournalEntry.human_attribute_name("credit")
   %tr.important.total
     %th=tc :totals
-    %td=number_to_accountancy totals[:debit]
-    %td=number_to_accountancy totals[:credit]
-  %tr.important.total
-    %th=tc :balance
-    %td=number_to_accountancy totals[:balance_debit]
-    %td=number_to_accountancy totals[:balance_credit]
+    %td=number_to_money(totals[:debit], @journal.currency)
+    %td=number_to_money(totals[:credit], @journal.currency)
+  -if totals[:balance_debit] != totals[:balance_credit]
+    %tr.important.total
+      %th=tc :balance
+      %td=number_to_money(totals[:balance_debit], @journal.currency)
+      %td=number_to_money(totals[:balance_credit], @journal.currency)

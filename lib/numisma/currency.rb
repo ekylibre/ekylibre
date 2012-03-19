@@ -10,7 +10,7 @@ module Numisma
       @countries = options[:countries].to_a.collect{|x| x.to_s}.sort.collect{|x| x.to_sym}
       @number = options[:number].to_i
       @precision = options[:precision].to_i
-      @unit = options[:unit].to_s
+      @unit = (options[:unit].nil? ? nil : options[:unit].to_s)
     end
 
     def name

@@ -18,7 +18,7 @@ gem 'will_paginate', '~> 3.0'
 gem "exception_notification"
 gem 'state_machine'
 gem 'combo_box' #, :path=>'../combo_box'
-gem 'formize' # , :path=>'../formize'
+gem 'formize' #, :path=>'../formize'
 gem 'spreet'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'

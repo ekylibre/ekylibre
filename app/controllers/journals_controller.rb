@@ -60,16 +60,16 @@ class JournalsController < ApplicationController
     t.column :name, :through=>:account, :url=>true
     t.column :name
     t.column :state_label
-    t.column :debit
-    t.column :credit
+    t.column :original_debit, :currency=>"RECORD.entry.original_currency"
+    t.column :original_credit, :currency=>"RECORD.entry.original_currency"
   end
 
   list(:entries, :model=>:journal_entries, :conditions=>journal_entries_conditions, :order=>"created_at DESC") do |t|
     t.column :number, :url=>true
     t.column :printed_on
     t.column :state_label
-    t.column :debit
-    t.column :credit
+    t.column :original_debit, :currency=>:original_currency
+    t.column :original_credit, :currency=>:original_currency
     t.action :edit, :if=>'RECORD.updateable? '
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end
@@ -79,8 +79,8 @@ class JournalsController < ApplicationController
     t.column :printed_on, :datatype=>:date, :children=>false
     # t.column :label, :through=>:account, :url=>{:action=>:account}
     t.column :state_label
-    t.column :debit
-    t.column :credit
+    t.column :original_debit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
+    t.column :original_credit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
     t.action :edit, :if=>'RECORD.updateable? '
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
   end

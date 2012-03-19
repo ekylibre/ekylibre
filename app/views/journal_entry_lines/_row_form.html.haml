@@ -6,7 +6,7 @@
   %tr.inline-errors{:id=>id+'-errors'}
     %td{"colspan"=>5}=error_messages(line)
 %tr{:id=>id}
-  %td=text_field_tag("lines[#{id}][name]", line.name, :id=>"lines_#{id}_name", "data-autofocus"=>"true", "data-parameter-name"=>"name")
+  %td=text_field_tag("lines[#{id}][name]", line.name, :id=>"lines_#{id}_name", "data-parameter-name"=>"name", "data-autofocus"=>(controller.controller_name.to_s == "journal_entries" ? "false" : "true"))
   %td=combo_box_tag "lines[#{id}][account_id]", :account, :controller=>:interfacers, :value=>line.account
   %td.dec=text_field_tag "lines[#{id}][original_debit]", (line.original_debit||0.0), :size=>10, :id=>"lines_#{id}_original_debit", :class=>"original-debit", :href=>url_for(:controller=>:journal_entry_lines, :action=>:new), "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, "data-add-line-unless"=>"#total", "data-with"=>"#lines_#{id}_name,#entry-original-debit,#entry-original-credit,#journal_id,#journal_entry_printed_on", "data-exclusive-nullify"=>"#lines_#{id}_original_credit"
   %td=@journal.currency

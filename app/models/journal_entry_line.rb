@@ -116,7 +116,7 @@ class JournalEntryLine < CompanyRecord
   end
   
   protect_on_update do
-    not self.closed? and self.entry.updateable?
+    not self.closed? and self.entry and self.entry.updateable?
   end
 
   protect_on_destroy do

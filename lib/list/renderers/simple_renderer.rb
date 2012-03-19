@@ -92,7 +92,12 @@ module List
               if [:date, :datetime, :timestamp].include? column.datatype
                 datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
               end
-              if column.datatype == :decimal
+              if column.datatype == :decimal and currency = column.options[:currency]
+                currency = currency[nature] if currency.is_a?(Hash)
+                currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
+                currency.gsub!(/RECORD/, record)
+                datum = "(#{datum}.nil? ? '' : number_to_money(#{datum}, #{currency}))"
+              elsif column.datatype == :decimal
                 datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'&#160;', :unit=>'', :precision=>#{column.options[:precision]||2}))"
               end
               if column.options[:url].is_a?(TrueClass) and nature==:body

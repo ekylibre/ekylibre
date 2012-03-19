@@ -144,8 +144,8 @@ class Journal < CompanyRecord
   end
 
   def reopen(closed_on)
-    ActiveEntry::Base.transaction do
-      for entry in self.entries.find(:all, :conditions=>["created_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
+    ActiveRecord::Base.transaction do
+      for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
         entry.reopen
       end
       self.update_attribute(:closed_on, closed_on)
