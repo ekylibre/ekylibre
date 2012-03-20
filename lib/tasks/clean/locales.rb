@@ -118,16 +118,6 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-  # Languages
-  count = sort_yaml_file :languages, log
-  atotal += count
-  acount += count
-
-  # Support
-  count = sort_yaml_file :support, log
-  atotal += count
-  acount += count
-
   # Currencies
   currencies_ref = YAML.load_file(Numisma.currencies_file)
   currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
@@ -165,14 +155,20 @@ task :locales => :environment do
   atotal += total
   acount += total-untranslated
 
+
+  # Languages
+  count = sort_yaml_file :languages, log
+  atotal += count
+  acount += count
+
       
 
   # Models
   untranslated = 0
   to_translate = 0
   warnings = []
-  models = {}
-  attributes = {}
+  models = HashWithIndifferentAccess.new
+  attributes = HashWithIndifferentAccess.new
   ::I18n.translate("attributes").collect{|k, v| attributes[k.to_s] = [v, :unused]}
   ::I18n.translate("activerecord.models").collect{|k, v| models[k.to_s] = [v, :unused]}
   ::I18n.translate("models").collect{|k, v| models[k.to_s] ||= []; models[k.to_s][2] = v}
@@ -250,12 +246,16 @@ task :locales => :environment do
   # Rights
   rights = YAML.load_file(User.rights_file)
   translation  = locale.to_s+":\n"
-  translation += "  rights:\n"
+  translation << "  rights:\n"
   untranslated = 0
   for right in rights.keys.sort
-    trans = ::I18n.pretranslate("rights.#{right}")
-    untranslated += 1 if trans.match(/^\(\(\(.*\)\)\)$/)
-    translation += "    #{right}: "+trans+"\n"
+    name = ::I18n.hardtranslate("rights.#{right}")
+    if name.blank?
+      untranslated += 1
+      translation << "    #{missing_prompt}#{right}: #{yaml_value(right.humanize, 2)}\n"
+    else
+      translation << "    #{right}: #{yaml_value(name, 2)}\n"
+    end
   end
   File.open(locale_dir.join("rights.yml"), "wb") do |file|
     file.write translation
@@ -265,6 +265,8 @@ task :locales => :environment do
   atotal += total
   acount += total-untranslated
 
+
+  # Support
   count = sort_yaml_file :support, log
   atotal += count
   acount += count

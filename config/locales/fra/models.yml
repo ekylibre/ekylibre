@@ -188,7 +188,8 @@ fra:
               end_of_month: '%{attribute} doit correspondre à une date de fin de mois (%{closed_on})'
         journal_entry:
           closed_journal: 'Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
-          out_of_financial_year: 'La pièce doit être saisie durant l''exercice'
+          # out_of_existing_financial_year: 'The journal entry must be recorded in a period corresponding to an existing financial year.'
+          out_of_financial_year: 'La pièce doit être saisie durant l''exercice' #?
           unbalanced: 'La pièce n''est pas équilibrée'
         journal_entry_line:
           closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
@@ -230,13 +231,14 @@ fra:
       account_balance: 'Balance de compte'
       area: 'Zone postale'
       # asset: 'Asset'
+      # asset_depreciation: 'Asset depreciation'
       bank_statement: 'Relevé de compte bancaire'
       cash: 'Trésorerie'
       cash_transfer: 'Virement interne'
       company: 'Société'
       contact: 'Contact'
       cultivation: 'Culture'
-      currency: 'Devise'
+      currency: 'Devise' #?
       custom_field: 'Champ complémentaire'
       custom_field_choice: 'Choix de champ complémentaire'
       custom_field_datum: 'Donnée complémentaire de fiche'
@@ -326,7 +328,6 @@ fra:
     account_number: 'Numéro de compte'
     accounted_at: 'Date comptabilisation'
     accounts: 'Comptes'
-    # acquired_on: 'Acquired on'
     acquisition_amount: 'Montant des acquisition'
     active: 'Utilisable'
     activity_code: 'Code APE/NAF'
@@ -382,6 +383,8 @@ fra:
     catalog_name: 'Nom pour le catalogue'
     category: 'Catégorie'
     category_id: 'Catégorie'
+    # ceded: 'Ceded'
+    # ceded_on: 'Ceded on'
     changes_reflected: 'Refléter les changements'
     charges_accounts: 'Comptes de charge'
     check_number: 'N°Chèque'
@@ -438,15 +441,15 @@ fra:
     creator: 'Créateur'
     creator_id: 'Créateur'
     credit: 'Crédit'
-    credit_lines: 'Lignes d''avoir'
+    credit_lines: 'Lignes d''avoir' #?
     credited_quantity: 'Quantité déjà passée en avoir'
     credits: 'Avoirs'
     critic_quantity_min: 'Quantité minimum critique'
     crypt_key: 'Clé de cryptage'
     crypt_mode: 'Mode de cryptage'
-    currencies: 'Devises'
+    currencies: 'Devises' #?
     currency: 'Devise'
-    currency_rate: 'Taux de change'
+    currency_rate: 'Taux de change' #?
     current_financial_year: 'Exercice comptable en cours'
     custom_field: 'Champ complémentaire'
     custom_field_choices: 'Choix de champ complémentaire'
@@ -489,6 +492,9 @@ fra:
     depositables_account: 'Compte d''attente pour les encaissements à encaisser'
     depositables_account_id: 'Compte d''attente pour les encaissements à encaisser' #?
     deposits: 'Remises en banque'
+    # deprecated_amount: 'Deprecated amount'
+    # depreciable_amount: 'Depreciable amount'
+    # depreciation: 'Depreciation'
     # depreciation_method: 'Depreciation method'
     description: 'Description'
     dest_contact: 'Adresse de livraison' #?
@@ -498,7 +504,7 @@ fra:
     direct_links: 'Liens directs'
     direction: 'Type'
     direction_label: 'Type'
-    discount: 'Réduction (en %)'
+    discount: 'Réduction (en %)' #?
     discount_rate: 'Taux d''escompte'
     district: 'Zone administrative'
     district_id: 'Zone administrative' #?
@@ -517,7 +523,7 @@ fra:
     email: 'Courriel (e-mail)'
     emitter_amount: 'Montant émis'
     emitter_cash_id: 'Trésorerie émettrice' #?
-    emitter_currency: 'Devise émise' #?
+    emitter_currency: 'Devise émise'
     emitter_currency_rate: 'Taux de la devise émise'
     emitter_journal_entry_id: 'Écriture de l''émission' #?
     employed: 'Employé par la société'
@@ -706,6 +712,8 @@ fra:
     origin_id: 'Origine'
     origin_type: 'Type de l''origine'
     original_credit: 'Crédit'
+    # original_currency: 'Original currency'
+    # original_currency_rate: 'Original currency rate'
     original_debit: 'Débit'
     original_name: 'Nom original'
     outgoing_payment_modes: 'Modes de décaissement'
@@ -714,7 +722,7 @@ fra:
     owner: 'Propriétaire'
     owner_id: 'Propriétaire' #?
     owner_type: 'Nature du propriétaire'
-    paid: 'Réglée'
+    paid: 'Réglée' #?
     paid_account: 'TVA déductible'
     paid_account_id: 'TVA déductible' #?
     paid_amount: 'Montant payé'
@@ -781,10 +789,12 @@ fra:
     proposer_id: 'Parrain' #?
     prospect: 'Prospect'
     published: 'Publié'
+    # purchase_amount: 'Purchase amount'
     purchase_id: 'Achat'
     purchase_line: 'Ligne d''achat'
     purchase_line_id: 'Ligne d''achat' #?
     purchase_lines: 'Lignes d''achat'
+    # purchased_on: 'Purchased on'
     purchases: 'Achats'
     purchases_account: 'Compte comptable de charges'
     purchases_account_id: 'Compte comptable de charges' #?
@@ -793,13 +803,13 @@ fra:
     quantity_min: 'Quantité minimum'
     query: 'Requête'
     range: 'Intervalle'
-    rate: 'Taux de change'
+    rate: 'Taux de change' #?
     reason: 'Motif'
     receipt: 'Reçu électronique'
     received: 'Reçue'
     receiver_amount: 'Montant reçu'
     receiver_cash_id: 'Tésorerie réceptrice' #?
-    receiver_currency: 'Devise reçue' #?
+    receiver_currency: 'Devise reçue'
     receiver_currency_rate: 'Taux de la devise reçue'
     receiver_journal_entry_id: 'Écriture de la réception' #?
     reconcilable: 'Lettrable'
@@ -859,8 +869,8 @@ fra:
     serial: 'N°Lot'
     service_coeff: 'Coefficient (de quantité) de service'
     sha256: 'SHA256'
-    shipped: 'Reçu'
-    shipped_on: 'Envoyé le'
+    shipped: 'Reçu' #?
+    shipped_on: 'Envoyé le' #?
     siren: 'N° SIREN'
     siret: 'N° SIRET'
     soundex: 'Soundex'
@@ -905,7 +915,7 @@ fra:
     suppliers: 'Fournisseurs'
     surface_units: 'Unités de surface'
     suspended: 'Suspendu'
-    symbol: 'Symbole'
+    symbol: 'Symbole' #?
     symmetric: 'Symétrique'
     target: 'Parcelle'
     target_id: 'Parcelle'
@@ -943,7 +953,7 @@ fra:
     transporter_id: 'Transporteur'
     transporters: 'Transporteurs'
     transports: 'Transports'
-    type: 'Type'
+    type: 'Type' #?
     undelivered_quantity: 'Reste à livrer'
     unique_tracking: 'Numéro unique'
     unit: 'Unité'
@@ -965,7 +975,7 @@ fra:
     users: 'Utilisateurs'
     uses: 'Matériels utilisés'
     value: 'Valeur'
-    value_format: 'Format de la valeur monétaire'
+    value_format: 'Format de la valeur monétaire' #?
     vat_number: 'Numéro de TVA intra-communautaire'
     vat_submissive: 'Soumis à la TVA'
     virtual: 'Virtuel'
@@ -985,6 +995,10 @@ fra:
   models:
     account:
       label: '%{number} - %{name}'
+    asset:
+      depreciation_methods:
+        # graduated: 'Graduated'
+        # linear: 'Linear'
     cash:
       modes:
         bban: 'Relevé d''identité bancaire (RIB)'

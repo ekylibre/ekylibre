@@ -553,7 +553,8 @@ arb:
               end_of_month: '%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_on})'
         journal_entry:
           closed_journal: '.مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_on} تم اغلاق الدفتر اليومي في'
-          out_of_financial_year: 'يجب اغتنام السجل خلال السنة المالية'
+          # out_of_existing_financial_year: 'The journal entry must be recorded in a period corresponding to an existing financial year.'
+          out_of_financial_year: 'يجب اغتنام السجل خلال السنة المالية' #?
           unbalanced: 'ان السجل غير متعادل'
         journal_entry_line:
           closed_entry: '.تم اغلاق المدخلات، ولا يمكن التعديل عليها'
@@ -595,13 +596,14 @@ arb:
       account_balance: 'رصيد الحساب'
       area: 'المنطقة البريدية'
       # asset: 'Asset'
+      # asset_depreciation: 'Asset depreciation'
       bank_statement: 'بيان الحساب المصرفي'
       cash: 'الخزينة'
       # cash_transfer: 'Cash transfer'
       company: 'الشركة'
       contact: 'الاتصالات'
       # cultivation: 'Cultivation'
-      currency: 'العملة'
+      currency: 'العملة' #?
       custom_field: 'الحقول التكميلية'
       custom_field_choice: 'اختيار الحقل التكميلي'
       custom_field_datum: 'بيانات الملف التكميلية'
@@ -696,7 +698,6 @@ arb:
     account_number: 'رقم الحساب'
     accounted_at: 'تمت محاسبته يوم'
     accounts: 'الحسابات'
-    # acquired_on: 'Acquired on'
     acquisition_amount: 'قيمة الاقتناء'
     active: 'فعال'
     activity_code: 'APE/NAF رمز'
@@ -752,6 +753,8 @@ arb:
     catalog_name: 'اسم للدليل'
     category: 'الفئة'
     category_id: 'الفئة'
+    # ceded: 'Ceded'
+    # ceded_on: 'Ceded on'
     changes_reflected: 'انعكاس التغييرات'
     charges_accounts: 'حسابات الحمولة'
     check_number: 'رقم الشيك'
@@ -810,15 +813,15 @@ arb:
     creator: 'المنتج'
     creator_id: 'المنتج'
     credit: 'الائتمان'
-    credit_lines: 'اساليب الائتمانات'
+    credit_lines: 'اساليب الائتمانات' #?
     credited_quantity: 'كمية الائتمان '
     credits: 'الائتمانات'
     critic_quantity_min: 'الكمية المنتفدة كحد ادنى'
     crypt_key: 'مفتاح التشفير'
     crypt_mode: 'طؤيقة التشفير'
-    currencies: 'العملات'
+    currencies: 'العملات' #?
     currency: 'عملة'
-    currency_rate: 'سعر الصرف'
+    currency_rate: 'سعر الصرف' #?
     current_financial_year: 'الفترة المحاسبية الحالية'
     custom_field: 'حقول اضافية'
     custom_field_choices: 'اختيارات الحقول الاضافية'
@@ -863,6 +866,9 @@ arb:
     depositer: 'الجابي' #?
     depositer_id: 'الجابي' #?
     deposits: 'اقتطاعات البنك'
+    # deprecated_amount: 'Deprecated amount'
+    # depreciable_amount: 'Depreciable amount'
+    # depreciation: 'Depreciation'
     # depreciation_method: 'Depreciation method'
     description: 'الوصف'
     dest_contact: 'عنوان التسليم' #?
@@ -872,7 +878,7 @@ arb:
     direct_links: 'روابط مباشرة'
     direction: 'النوع'
     direction_label: 'النوع'
-    discount: '(%خصم (بنسبة  '
+    discount: '(%خصم (بنسبة  ' #?
     discount_rate: 'سعر الخصم'
     district: 'المنطقة'
     district_id: 'المنطقة الادارية' #?
@@ -890,6 +896,7 @@ arb:
     ean13: 'Ean13'
     email: 'عنوان البريد الالكتروني'
     # emitter_amount: 'Emitted amount'
+    # emitter_currency: 'Emitter currency'
     # emitter_currency_rate: 'Emitted currency rate'
     employed: 'وظف من قبل الشركة'
     employees: 'الموظفين'
@@ -1078,6 +1085,8 @@ arb:
     origin_id: 'المنشأ'
     origin_type: 'نوع المنشأ'
     original_credit: 'الائتمان'
+    # original_currency: 'Original currency'
+    # original_currency_rate: 'Original currency rate'
     original_debit: 'الدين المطلوب'
     original_name: 'الاسم الاصلي'
     outgoing_payment_modes: 'اساليب المصروفات'
@@ -1086,7 +1095,7 @@ arb:
     owner: 'المالك'
     owner_id: 'مالك' #?
     owner_type: 'طبيعة المالك'
-    paid: 'سددت'
+    paid: 'سددت' #?
     paid_account: 'سددت القيمة الضريبية الاضافية'
     paid_account_id: 'سددت القيمة الضريبية الاضافية' #?
     paid_amount: 'خصمة من قيمة الضريبة الاضافية'
@@ -1153,9 +1162,11 @@ arb:
     proposer_id: 'الكفيل' #?
     prospect: 'الراعي'
     published: 'تم نشره'
+    # purchase_amount: 'Purchase amount'
     # purchase_id: 'Purchase'
     # purchase_line: 'Purchase line'
     purchase_lines: 'طرق طلب الشراء'
+    # purchased_on: 'Purchased on'
     purchases: 'المشتريات'
     purchases_account: 'رسوم المحاسبة'
     purchases_account_id: 'رسوم المحاسبة' #?
@@ -1164,11 +1175,12 @@ arb:
     quantity_min: 'الكمية كحد ادنى'
     query: 'التساؤل'
     range: 'فترة فاصلة'
-    rate: 'معدل سعر الصرف'
+    rate: 'معدل سعر الصرف' #?
     reason: 'الدافع'
     receipt: 'استلام الكتروني'
     received: 'مستلم'
     # receiver_amount: 'Received amount'
+    # receiver_currency: 'Receiver currency'
     # receiver_currency_rate: 'Received currency rate'
     # reconcilable: 'Reconcilable'
     record_value: 'التسجيل'
@@ -1227,8 +1239,8 @@ arb:
     serial: 'عدد الحصص'
     service_coeff: 'معامل كمية الخدمة'
     sha256: 'SHA256'
-    shipped: 'المستلم'
-    shipped_on: 'شحنها يوم'
+    shipped: 'المستلم' #?
+    shipped_on: 'شحنها يوم' #?
     siren: 'رقم صفارة الانذار'
     siret: 'SIRET رقم'
     soundex: 'خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات'
@@ -1272,7 +1284,7 @@ arb:
     suppliers: 'الممولين'
     surface_units: 'وحدات المظهر الخارجي'
     suspended: 'معطل'
-    symbol: 'نموذج'
+    symbol: 'نموذج' #?
     symmetric: 'متساو'
     target: 'الهدف'
     target_id: 'الهدف'
@@ -1310,7 +1322,7 @@ arb:
     transporter_id: 'ناقل'
     transporters: 'ناقلات الشحن'
     transports: 'وسائل النقل'
-    type: 'النوع'
+    type: 'النوع' #?
     undelivered_quantity: 'يبقى للتسليم'
     # unique_tracking: 'Unique tracking'
     unit: 'الوحدة'
@@ -1332,7 +1344,7 @@ arb:
     users: 'المستخدمين'
     uses: 'المعدات المستخدمة'
     value: 'القيمة'
-    value_format: 'التصميم'
+    value_format: 'التصميم' #?
     vat_number: 'عدد القيمة الضريبية المضافة داخل المجتمع المحلي'
     vat_submissive: 'القيمة الضريبية المضافة التابعة'
     virtual: 'عملي'
@@ -1353,6 +1365,10 @@ arb:
       default_account_name: 'دفتر الحسابات %{number}' #?
       error_delete: 'لا يمكن حذف حساب لاحتوائه على حسابات فرعية' #?
       label: '%{number} - %{name}'
+    asset:
+      depreciation_methods:
+        # graduated: 'Graduated'
+        # linear: 'Linear'
     bank_statement:  #?
       error_account_children: '.لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية' #?
       error_journal_statement: 'بيان بنكي محدد لدى الدفتر اليومي' #?

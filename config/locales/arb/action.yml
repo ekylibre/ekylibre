@@ -808,6 +808,7 @@ arb:
       other: '%{count} احداث اخرى' #?
       zero: 'ولا حدث' #?
     example: 'مثال&nbsp;: %{value}'
+    # exchange_rate_from_x_to_y: 'Exchange rate from %{x} to %{y}'
     executed: 'انجز'
     existing_part: 'استخدام الدفعات الغير متضررة'
     # expedier: 'Expedier'
@@ -1347,6 +1348,7 @@ arb:
     # tools_list: 'Tools'
     total: 'المجموع'
     total_amount: 'صافي اجمالي الكمية'
+    # total_in_currency: 'Total (%{currency})'
     total_invoiced_amount: 'فواتير المبلغ الاجمالي'
     # total_paid_amount: 'Total paid amount'
     total_quantity: 'مجموع الكمية'

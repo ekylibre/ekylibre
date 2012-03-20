@@ -107,15 +107,6 @@ module ::I18n
     ::I18n.t("i18n.name")
   end
 
-  def self.pretranslate(*args)
-    res = translate(*args)
-    if res.match(/translation\ missing|\(\(/)
-      "((("+args[0].to_s.split(".")[-1].upper+")))"
-    else
-      "'"+res.gsub(/\'/,"''")+"'"
-    end
-  end
-
   def self.hardtranslate(*args)
     result = translate(*args)
     return (result.to_s.match(/(translation\ missing|\(\(\()/) ? nil : result)

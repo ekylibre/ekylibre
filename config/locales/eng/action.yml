@@ -260,8 +260,8 @@ eng:
     production_chain_work_centers:
       edit: 'Edit the work center: %{name}'
       new: 'Add a new work center'
-      play: 'Play work center: #{name}'
-      show: 'Work center: #{name}'
+      play: 'Play work center: %{name}'
+      show: 'Work center: %{name}'
     production_chains:
       edit: 'Edit production chain: %{name}'
       index: 'Production chains'
@@ -499,8 +499,6 @@ eng:
         one: '1 error prohibited this %{model} from being saved'
         other: '%{count} errors prohibited this %{model} from being saved'
   labels:
-    exchange_rate_from_x_to_y: 'Exchange rate from %{x} to %{y}'
-    total_in_currency: 'Total (%{currency})'
     account_name: 'Account name'
     account_number: 'Account number'
     account_tabbox:
@@ -684,6 +682,7 @@ eng:
     estimate_to_order: 'Estimate to order'
     europe_out_export: 'Export outside Country'
     example: 'Example&nbsp;: %{value}'
+    exchange_rate_from_x_to_y: 'Exchange rate from %{x} to %{y}'
     executed: 'Executed'
     existing_part: 'Existing part'
     expedier: 'Expedier'
@@ -1078,6 +1077,7 @@ eng:
     tools_list: 'Tools'
     total: 'Total'
     total_amount: 'Total amount'
+    total_in_currency: 'Total (%{currency})'
     total_invoiced_amount: 'Total invoiced amount'
     total_paid_amount: 'Total paid amount'
     total_quantity: 'Total quantity'
