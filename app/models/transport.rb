@@ -66,7 +66,7 @@ class Transport < CompanyRecord
   #   end
   # end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     return true
   end
 

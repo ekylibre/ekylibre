@@ -99,33 +99,33 @@ class IncomingPayment < CompanyRecord
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     self.deposit.nil? or not self.deposit.locked
   end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    # attorney_amount = self.attorney_amount
-    client_amount   = self.amount # - attorney_amount
     mode = self.mode
     label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :payer=>self.payer.full_name, :mode=>mode.name, :expenses=>self.uses.collect{|p| p.expense.number}.to_sentence, :check_number=>self.check_number)
-    b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
-      if mode.with_deposit?
-        entry.add_debit(label, mode.depositables_account_id, self.amount)
-      else
-        entry.add_debit(label, mode.cash.account_id, self.amount-self.commission_amount)
-        entry.add_debit(label, self.commission_account_id, self.commission_amount) if self.commission_amount > 0
+    if mode.with_deposit?
+      b.journal_entry(mode.depositables_journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+        entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
+        entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
+        entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
-      entry.add_credit(label, self.payer.account(:client).id,   client_amount)   unless client_amount.zero?
-      # entry.add_credit(label, self.payer.account(:attorney).id, attorney_amount) unless attorney_amount.zero?
+    else
+      b.journal_entry(mode.cash.journal, :printed_on=>self.to_bank_on, :unless=>(!mode or !mode.with_accounting? or !self.received)) do |entry|
+        entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
+        entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
+        entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
+      end
     end
-    # self.uses.first.reconciliate if self.uses.first
   end
 
   
   def label
-    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payer=>self.payer.full_name, :number=>self.number, :currency=>self.company.default_currency.symbol)
+    tc(:label, :amount=>Numisma[self.mode.cash.currency].localize(self.amount), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>Numisma[self.mode.cash.currency].localize(self.unused_amount), :payer=>self.payer.full_name, :number=>self.number)
   end
 
   def unused_amount

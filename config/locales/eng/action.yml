@@ -303,6 +303,7 @@ eng:
       edit: 'Edit the sale type: %{name}'
       index: 'Sale types'
       new: 'Add a new type of sale'
+      show: 'Sale type: %{name}'
     sales:
       abort: 'Abort sale'
       cancel: 'Cancel sales invoice %{number}'
@@ -1014,6 +1015,7 @@ eng:
     scheduled: 'Scheduled'
     search: 'Search'
     search_account: 'Search for accounts'
+    search_for_available_prices: '%{code} - %{name}, %{pretax_amount}'
     search_go: 'Search!'
     search_sales: 'Search sales'
     second_contact: 'Second address'

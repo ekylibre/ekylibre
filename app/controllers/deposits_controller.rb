@@ -21,11 +21,12 @@ class DepositsController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
     t.column :number, :url=>true
-    t.column :amount, :url=>true
+    t.column :amount, :currency=>"RECORD.cash.currency", :url=>true
     t.column :payments_count
     t.column :name, :through=>:cash, :url=>true
     t.column :label, :through=>:responsible
     t.column :created_on
+    t.column :comment
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.locked == false'
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.locked == false'
@@ -44,7 +45,7 @@ class DepositsController < ApplicationController
     t.column :account_number
     t.column :check_number
     t.column :paid_on
-    t.column :amount, :url=>true
+    t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
   end
 
   # Displays details of one deposit selected with +params[:id]+
@@ -68,7 +69,7 @@ class DepositsController < ApplicationController
     t.column :check_number
     t.column :paid_on
     t.column :label, :through=>:responsible
-    t.column :amount
+    t.column :amount, :currency=>"RECORD.mode.cash.currency"
     t.check_box :to_deposit, :value=>'(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label=>tc(:to_deposit)
   end
 

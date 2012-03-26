@@ -28,6 +28,7 @@
 #  bic          :string(16)       
 #  by_default   :boolean          not null
 #  company_id   :integer          not null
+#  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency     :string(3)        
@@ -52,7 +53,7 @@ class Cash < CompanyRecord
   @@modes = ["iban", "bban"]
   @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
 
-  attr_readonly :company_id, :nature
+  attr_readonly :nature, :currency
   belongs_to :account
   belongs_to :company
   belongs_to :entity
@@ -62,10 +63,8 @@ class Cash < CompanyRecord
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_one :last_bank_statement, :class_name=>"BankStatement", :order=>"stopped_on DESC"
-  validates_inclusion_of :mode, :in=>%w( iban bban )
-  validates_uniqueness_of :account_id
-  # validates_presence_of :bank_name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :bic, :nature, :allow_nil => true, :maximum => 16
   validates_length_of :iban, :allow_nil => true, :maximum => 34
@@ -75,10 +74,11 @@ class Cash < CompanyRecord
   validates_inclusion_of :by_default, :in => [true, false]
   validates_presence_of :account, :company, :journal, :mode, :name, :nature
   #]VALIDATORS]
+  # validates_presence_of :bank_name
+  validates_inclusion_of :mode, :in=>%w( iban bban )
+  validates_uniqueness_of :account_id
 
   
-  COUNTRY_CODE_FR="FR"
-
   # before create a bank account, this computes automatically code iban.
   before_validation do
     self.mode.lower!
@@ -86,25 +86,28 @@ class Cash < CompanyRecord
     # raise Exception.new self.mode.inspect
     self.entity_id = self.company.entity_id if self.company
     self.currency ||= self.company.default_currency
-    if self.use_mode?
+    if self.iban_mode?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
-    else
-      self.iban = self.class.generate_iban(COUNTRY_CODE_FR, self.bank_code+self.agency_code+self.number+self.key)
+    elsif self.bban_mode?
+      self.iban = self.class.generate_iban(self.country, self.bank_code+self.agency_code+self.number+self.key)
     end
     self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ") 
   end  
   
   # IBAN have to be checked before saved.
   validate do
+    if self.journal
+      errors.add(:journal, :currency_does_not_match) unless self.currency == self.journal.currency
+    end
     if self.bank_account?
-      if self.use_mode?(:bban)
-        errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(COUNTRY_CODE_FR, self.attributes)
+      if self.bban_mode?
+        errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
       end
       errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
     end
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.deposits.size <= 0 and self.bank_statements.size <= 0
   end
 
@@ -113,8 +116,16 @@ class Cash < CompanyRecord
     self.nature.to_s == "bank_account"
   end
 
-  def use_mode?(value=:iban)
-    self.mode.to_s.lower == value.to_s.lower
+  def cash?
+    self.nature.to_s == "cash"
+  end
+
+  def bban_mode?
+    self.mode.to_s.downcase == "bban"
+  end
+
+  def iban_mode?
+    self.mode.to_s.downcase == "iban"
   end
 
 
@@ -154,7 +165,7 @@ class Cash < CompanyRecord
 
   #this method generates the IBAN key.
   def self.generate_iban(country_code, bban)
-   iban=bban+country_code+"00"
+   iban = bban+country_code.upcase+"00"
     iban.each_char do |c|
       if c=~/\D/
        iban.gsub!(c, c.to_i(36).to_s)

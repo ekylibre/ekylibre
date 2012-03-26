@@ -17,7 +17,7 @@ gem 'rubyzip', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0'
 gem "exception_notification"
 gem 'state_machine'
-gem 'combo_box' #, :path=>'../combo_box'
+gem 'combo_box', :path=>'../combo_box'
 gem 'formize' #, :path=>'../formize'
 gem 'spreet'
 gem 'prawn', '>= 0.10.0'

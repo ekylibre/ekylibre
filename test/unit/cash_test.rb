@@ -28,6 +28,7 @@
 #  bic          :string(16)       
 #  by_default   :boolean          not null
 #  company_id   :integer          not null
+#  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency     :string(3)        

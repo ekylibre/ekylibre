@@ -54,7 +54,7 @@ class EntityCategory < CompanyRecord
     self.code = self.code[0..7]
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.entities.size <= 0 and self.prices.size <= 0
   end
   

@@ -23,8 +23,8 @@ class OutgoingPaymentModesController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
     t.column :name
-    t.column :with_accounting
     t.column :name, :through=>:cash, :url=>true
+    t.column :with_accounting
     t.action :up, :method=>:post, :if=>"!RECORD.first\?"
     t.action :down, :method=>:post, :if=>"!RECORD.last\?"
     t.action :edit

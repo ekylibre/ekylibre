@@ -56,7 +56,7 @@ class SubscriptionNature < CompanyRecord
     self.reduction_rate ||= 0
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.subscriptions.size <= 0 and self.products.size <= 0
   end
 

@@ -347,6 +347,7 @@ fra:
       edit: 'Modifier le type de vente : %{name}'
       index: 'Types de ventes'
       new: 'Ajout d''un type de vente'
+      show: 'Type de vente : %{name}'
     sales:
       abort: 'Annuler la vente'
       cancel: 'Passage en avoir de la facture %{number}'
@@ -1215,6 +1216,7 @@ fra:
     scheduled: 'Échéance'
     search: 'Rechercher'
     search_account: 'Rechercher un compte'
+    search_for_available_prices: '%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)'
     search_go: 'Lancer la recherche'
     search_sales: 'Rechercher des ventes'
     second_contact: 'Adresse secondaire'

@@ -50,7 +50,7 @@
 #
 
 class Asset < CompanyRecord
-  DEPRECATION_METHODS = ['linear']
+  DEPRECATION_METHODS = ['linear', 'graduated']
   acts_as_numbered
   belongs_to :account
   belongs_to :journal

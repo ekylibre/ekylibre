@@ -158,7 +158,7 @@ class Entity < CompanyRecord
     end
   end
     
-  protect_on_destroy do
+  protect(:on => :destroy) do
     #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
     return false if self.id == self.company.entity.id or self.sales_invoices.size > 0
     return true

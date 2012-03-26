@@ -5,11 +5,12 @@
   -f.error :cash
   -f.title :general
   -f.field :cash, :name
-  -f.field :cash, :currency_id, :choices=>{:reflection=>:currencies}
-  -if @cash.new_record? 
-    -f.field :cash, :nature, :field=>:radio, :choices=>Cash.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options", "data-dependents"=>"#cash-accountancy", "data-parameter-name"=>"nature"}]}
-  -else
+  -if @cash.has_dependents?
+    -f.field :cash, :currency, :field=>:label
     -f.field :cash, :nature_label, :field=>:label
+  -else
+    -f.field :cash, :currency, :choices=>currencies
+    -f.field :cash, :nature, :field=>:radio, :choices=>Cash.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options", "data-dependents"=>"#cash-accountancy", "data-parameter-name"=>"nature"}]}
 
 -if @cash.new_record? or @cash.bank_account?
   #bank_account_options
@@ -18,11 +19,13 @@
       -f.field :cash, :bank_name
       -f.field :cash, :address, :field=>:textarea
       -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], {"data-show"=>"##{m[1]}_options"}]} 
-    =formalize(:id=>:bban_options) do |f|
-      -f.field :cash, :bank_code, :size=>10
-      -f.field :cash, :agency_code, :size=>10
-      -f.field :cash, :number
-      -f.field :cash, :key, :size=>4
+    #bban_options
+      =hidden_field_tag "cash[country]", "fr"
+      =formalize do |f|
+        -f.field :cash, :bank_code, :size=>10
+        -f.field :cash, :agency_code, :size=>10
+        -f.field :cash, :number
+        -f.field :cash, :key, :size=>4
     =formalize(:id=>:iban_options) do |f|  
       -f.field :cash, :iban, :size=>48
       -f.field :cash, :bic

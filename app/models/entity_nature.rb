@@ -57,7 +57,7 @@ class EntityNature < CompanyRecord
     end
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.entities.size <= 0
   end
 

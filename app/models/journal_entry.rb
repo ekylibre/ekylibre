@@ -176,11 +176,11 @@ class JournalEntry < CompanyRecord
     JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 

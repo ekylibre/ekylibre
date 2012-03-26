@@ -111,7 +111,7 @@ class User < CompanyRecord
     return true
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.events.size <= 0 and self.sales.size <= 0 and self.operations.size <= 0 and self.transports.size <= 0
   end
 
@@ -196,7 +196,7 @@ class User < CompanyRecord
     self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
   
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.company.users.count > 1
   end
 

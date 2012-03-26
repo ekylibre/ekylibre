@@ -20,18 +20,19 @@
 # 
 # == Table: financial_years
 #
-#  closed       :boolean          not null
-#  code         :string(12)       not null
-#  company_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  currency     :string(3)        
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  started_on   :date             not null
-#  stopped_on   :date             not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  closed             :boolean          not null
+#  code               :string(12)       not null
+#  company_id         :integer          not null
+#  created_at         :datetime         not null
+#  creator_id         :integer          
+#  currency           :string(3)        
+#  currency_precision :integer          
+#  id                 :integer          not null, primary key
+#  lock_version       :integer          default(0), not null
+#  started_on         :date             not null
+#  stopped_on         :date             not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer          
 #
 
 
@@ -40,6 +41,7 @@ class FinancialYear < CompanyRecord
   belongs_to :company
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]

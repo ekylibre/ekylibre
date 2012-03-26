@@ -25,18 +25,18 @@
 #  creator_id    :integer          
 #  crypt_key     :binary           
 #  crypt_mode    :string(255)      not null
-#  extension     :string(255)      
+#  extension     :string(255)      not null
 #  filename      :string(255)      
 #  filesize      :integer          
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  nature_code   :string(255)      
 #  original_name :string(255)      not null
-#  owner_id      :integer          
-#  owner_type    :string(255)      
+#  owner_id      :integer          not null
+#  owner_type    :string(255)      not null
 #  printed_at    :datetime         
 #  sha256        :string(255)      not null
-#  subdir        :string(255)      
+#  subdir        :string(255)      not null
 #  template_id   :integer          
 #  updated_at    :datetime         not null
 #  updater_id    :integer          
@@ -46,7 +46,7 @@ class Document < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :filesize, :allow_nil => true, :only_integer => true
   validates_length_of :crypt_mode, :extension, :filename, :nature_code, :original_name, :owner_type, :sha256, :subdir, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :crypt_mode, :original_name, :sha256
+  validates_presence_of :company, :crypt_mode, :extension, :original_name, :owner, :owner_type, :sha256, :subdir
   #]VALIDATORS]
   belongs_to :company
   belongs_to :owner, :polymorphic=>true

@@ -42,15 +42,13 @@ class BankStatement < CompanyRecord
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_presence_of :cash, :company, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
-  attr_readonly :company_id
   belongs_to :cash
-  belongs_to :company
   has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryLine"
 
   before_validation do
     self.company_id = self.cash.company_id if self.cash
-    self.debit  = self.lines.sum(:debit)
-    self.credit = self.lines.sum(:credit)
+    self.debit  = self.lines.sum(:original_debit)
+    self.credit = self.lines.sum(:original_credit)
   end
 
   # A bank account statement has to contain all the planned records.

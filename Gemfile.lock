@@ -1,3 +1,10 @@
+PATH
+  remote: ../combo_box
+  specs:
+    combo_box (0.0.7)
+      jquery-rails
+      rails (~> 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -40,9 +47,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
-    combo_box (0.0.7)
-      jquery-rails
-      rails (~> 3)
     erubis (2.7.0)
     exception_notification (2.5.2)
       actionmailer (>= 3.0.4)
@@ -140,7 +144,7 @@ DEPENDENCIES
   acts_as_list
   acts_as_tree
   coffee-rails (~> 3.2.1)
-  combo_box
+  combo_box!
   exception_notification
   fastercsv
   formize

@@ -140,7 +140,7 @@ class Sale < CompanyRecord
   @@natures = [:estimate, :order, :invoice]
   
   before_validation do
-    self.currency ||= self.company.default_currency if self.currency.blank?
+    self.currency = self.nature.currency if self.nature
 
     self.paid_amount = self.payment_uses.sum(:amount)||0
     self.paid_amount -= self.credits.sum(:amount)||0
@@ -305,7 +305,7 @@ class Sale < CompanyRecord
   def stats(options={})
     array = []
     array << [:client_balance, self.client.balance] if options[:with_balance]
-    array << [:total_amount, self.amount]
+    array << [:amount, self.amount]
     array << [:paid_amount, self.paid_amount]
     array << [:unpaid_amount, self.unpaid_amount]
     array 

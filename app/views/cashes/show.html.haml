@@ -11,16 +11,16 @@
     -l.attribute :address
     -l.attribute :iban_label
     -l.attribute :bic
-    -if @cash.use_mode? :bban
+    -if @cash.bban_mode?
       -l.attribute :bank_code
       -l.attribute :agency_code
       -l.attribute :number
       -l.attribute :key
 
-=tabbox(:cash) do |tb|
-  -tb.tab(:deposits) do
-    =list(:deposits)
-  -if @cash.bank_account?
+-if @cash.bank_account?
+  =tabbox(:cash) do |tb|
+    -tb.tab(:deposits) do
+      =list(:deposits)
     -tb.tab(:bank_statements) do
       =toolbar do |t|
         -t.link(:new, :controller=>:bank_statements, :cash_id=>@cash.id)

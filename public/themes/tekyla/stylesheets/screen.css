@@ -22,8 +22,8 @@ fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 td, th, a, p, input, textarea, select, div { font-size:13px;}
 small, sup, sub { font-size: 11px; }
-a:link, a:visited, a:focus { color:#00C; }
-a:hover { color: #000; }
+a:link, a:visited, a:focus { color:#02C; text-decoration: none; }
+a:hover { color: #000; text-decoration: underline;}
 a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
 a.current:hover { color: #000; }
 input[type="submit"] { padding: 1px 4px; }
@@ -171,7 +171,7 @@ html[dir="rtl"] div#side { float: right; }
 html[dir="ltr"] #side .sd-module .sd-title { padding: 4px 4px 4px 12px; }
 html[dir="rtl"] #side .sd-module .sd-title { padding: 4px 12px 4px 4px; }
 #side .sd-module .sd-title h2 {}
-#side .sd-module .sd-title *[data-toggle-module] { display: block; cursor: pointer; height: 12px; width: 12px; position: relative; top: 2px; background: url(../images/toggle.png);}
+#side .sd-module .sd-title *[data-toggle-module] { display: block; cursor: pointer; height: 12px; width: 12px; position: relative; top: 2px; background: url(../images/toggle.png); padding: 0;}
 html[dir="ltr"] #side .sd-module .sd-title *[data-toggle-module] {float: right}
 html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 #side .sd-module .sd-title .show[data-toggle-module] { background-position: 0 0; }
@@ -191,27 +191,6 @@ html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
 /*#side .sd-module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }*/
 
 
-
-/*
-#side .module { padding: 0 0 8px; margin: 0; border-top: 1px solid #95b0e4; }
-#side .module:first-child { padding-top: 8px; border-top: none; }
-#side .module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }
-
-#side .module.help { background: #FAFAFA url(../images/shadow-top.png) repeat-x bottom; }
-#side .module.help #help { background: url(../images/shadow-bottom.png) repeat-x top; }
-
-#side .module.menu ul { padding: 0 20px; margin: 0 5px; }
-#side .module.menu ul li { list-style-type: square; }
-#side .module.menu ul li a { display: block; padding: 2px 4px; text-decoration: underline; }
-#side .module.menu ul li a .path { color: #AAA; font-size: 11px;}
-
-#side .module.menu.master { background: #F1F1F1; }
-#side .module.menu.master ul { padding: 0; margin: 0;}
-#side .module.menu.master ul li { display: block; list-style-type: none; }
-#side .module.menu.master ul li a { text-decoration: none; padding: 4px 12px; color: #222; }
-#side .module.menu.master ul li a:hover {background: #C9D7F1; border-left: 4px solid #95b0e4; padding-left: 8px;}
-#side .module.menu.master ul li a.current {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D;}
-*/
 
 .main { padding: 8px; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
 .main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }

@@ -59,7 +59,7 @@ class Tax < CompanyRecord
   validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
 
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.prices.size <= 0 and self.sale_lines.size <= 0
   end
   

@@ -9,8 +9,8 @@
   -if @journal_entry.resource
     -l.attribute :resource, :url=>true
   -l.attribute :journal, :url=>true
-  -l.attribute :debit
-  -l.attribute :credit
+  -l.attribute :debit, :currency=>@journal_entry.financial_year.currency
+  -l.attribute :credit, :currency=>@journal_entry.financial_year.currency
 
 %h2=JournalEntry.human_attribute_name("lines")
 =list(:lines)

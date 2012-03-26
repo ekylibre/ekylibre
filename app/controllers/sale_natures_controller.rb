@@ -18,23 +18,31 @@
 #
 
 class SaleNaturesController < ApplicationController
-  manage_restfully 
+  manage_restfully :currency=>"@current_company.default_currency"
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :name
+    t.column :name, :url=>true
     t.column :active
-    t.column :name, :through=>:expiration, :url=>true
-    t.column :name, :through=>:payment_delay, :url=>true
+    t.column :currency
+    # t.column :name, :through=>:expiration, :url=>true
+    # t.column :name, :through=>:payment_delay, :url=>true
     t.column :downpayment
-    t.column :downpayment_minimum
-    t.column :downpayment_rate
-    t.column :comment
+    # t.column :downpayment_minimum
+    # t.column :downpayment_rate
+    t.column :with_accounting
+    t.column :name, :through=>:journal, :url=>true
+    #t.column :comment
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   # Displays the main page with the list of sale natures
   def index
+  end
+
+  def show
+    @sale_nature = find_and_check
+    t3e @sale_nature
   end
 
 end

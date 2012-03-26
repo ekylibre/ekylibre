@@ -9,7 +9,6 @@
 =formalize do |f| 
   -f.title :sales_conditions
   -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>true
-  -f.field :sale, :currency_id, :choices=>{:reflection=>:currencies}
   -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
   -f.field :sale, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}
   -f.field :sale, :comment, :field=>:textarea

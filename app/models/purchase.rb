@@ -112,11 +112,11 @@ class Purchase < CompanyRecord
     return true
   end
   
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.updateable?
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     # return false if self.unpaid_amount.zero? and self.shipped
     return true
   end

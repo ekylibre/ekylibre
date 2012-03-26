@@ -28,6 +28,7 @@
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  depositables_account_id :integer          
+#  depositables_journal_id :integer          
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  name                    :string(50)       not null
@@ -42,12 +43,13 @@
 
 
 class IncomingPaymentMode < CompanyRecord
+  attr_readonly :cash_id
   acts_as_list :scope=>:company_id
-  attr_readonly :company_id
   belongs_to :cash
   belongs_to :company
   belongs_to :commission_account, :class_name=>"Account"
   belongs_to :depositables_account, :class_name=>"Account"
+  belongs_to :depositables_journal, :class_name=>"Journal"
   has_many :depositable_payments, :class_name=>"IncomingPayment", :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
@@ -62,11 +64,18 @@ class IncomingPaymentMode < CompanyRecord
   validates_presence_of :cash_id
 
   before_validation do
-    self.depositables_account = nil unless self.with_deposit?
+    if self.cash.cash?
+      self.with_deposit = false
+      self.with_commission = false
+    end
+    unless self.with_deposit?
+      self.depositables_account = nil 
+      self.depositables_journal = nil 
+    end
     return true
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.payments.size <= 0
   end  
 

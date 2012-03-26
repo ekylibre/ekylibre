@@ -149,7 +149,7 @@ class Unit < CompanyRecord
     return (self.base == other_unit.base ? true : false)
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     return false
   end
 

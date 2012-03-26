@@ -7,21 +7,16 @@ module Ekylibre::Record
 
       module ClassMethods
 
-        def protect_on_update(&block)
-          define_method :updateable?, &block
-          class_eval "before_update {|record| record.updateable? }"
-#           if Rails.version.match(/^2\.3/)
-#             class_eval "before_update {|record| return false unless record.updateable? }"
-#           else
-#             class_eval "before_update { return false unless self.updateable? }"
-#           end
-        end
-
-
-
-        def protect_on_destroy(&block)
-          define_method :destroyable?, &block
-          class_eval "before_destroy { |record| record.destroyable? }"
+        # Blocks update or destroy if necessary
+        def protect(options={}, &block)
+          options[:on] = [:update, :destroy] unless options[:on]
+          options[:on] = [options[:on]] unless options[:on].is_a?(Array)
+          for callback in options[:on]
+            method_name = "#{callback}able?".to_sym
+            raise Exception, "Cannot protect because a method #{method_name} is already defined." if self.respond_to?(method_name)
+            define_method method_name, &block
+            class_eval "before_#{callback} {|record| record.#{method_name} }"
+          end
         end
 
 

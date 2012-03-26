@@ -22,11 +22,9 @@ class CashTransfersController < ApplicationController
 
   list(:conditions=>["#{CashTransfer.table_name}.company_id = ? ", ['@current_company.id']]) do |t|
     t.column :number, :url=>true
-    t.column :emitter_amount
-    t.column :name, :through=>:emitter_currency
+    t.column :emitter_amount, :currency=>"RECORD.emitter_cash.currency"
     t.column :name, :through=>:emitter_cash, :url=>true
-    t.column :receiver_amount
-    t.column :name, :through=>:receiver_currency
+    t.column :receiver_amount, :currency=>"RECORD.receiver_cash.currency"
     t.column :name, :through=>:receiver_cash, :url=>true
     t.column :created_on
     t.column :comment

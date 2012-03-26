@@ -59,7 +59,7 @@ class Sequence < CompanyRecord
     self.period ||= 'number'
   end
 
-  protect_on_destroy do
+  protect(:on=>:destroy) do
     self.preferences.size <= 0
   end
 
@@ -94,7 +94,8 @@ class Sequence < CompanyRecord
       self.last_number = self.number_start if self.send('last_'+period) != today.send(period) or self.last_year != today.year
     end
     self.last_year, self.last_month, self.last_cweek = today.year, today.month, today.cweek
-    self.save!
+    raise [self.updateable?, self.destroyable?, self.errors.to_hash].inspect unless self.save
+    
     self.compute
   end
 

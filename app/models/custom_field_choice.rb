@@ -48,7 +48,7 @@ class CustomFieldChoice < CompanyRecord
     self.value = self.name.to_s.codeize if self.value.blank?
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     return self.data.count.zero?
   end
 

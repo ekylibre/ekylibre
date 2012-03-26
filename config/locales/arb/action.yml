@@ -307,8 +307,8 @@ arb:
     production_chain_work_centers:
       # edit: 'Edit the work center: %{name}'
       # new: 'Add a new work center'
-      # play: 'Play work center: #{name}'
-      # show: 'Work center: #{name}'
+      # play: 'Play work center: %{name}'
+      # show: 'Work center: %{name}'
     production_chains:
       # edit: 'Edit production chain: %{name}'
       # index: 'Production chains'
@@ -1276,6 +1276,7 @@ arb:
     # scheduled: 'Scheduled'
     search: 'البحث عن الشراء'
     # search_account: 'Search for accounts'
+    # search_for_available_prices: '%{code} - %{name}, %{pretax_amount}'
     search_go: 'بدء البحث'
     search_sales: 'البحث عن طلبات البيع'
     # second_contact: 'Second address'

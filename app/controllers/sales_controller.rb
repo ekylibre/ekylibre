@@ -49,8 +49,8 @@ class SalesController < ApplicationController
     t.column :label, :through=>:responsible
     t.column :comment
     t.column :state_label
-    t.column :paid_amount
-    t.column :amount
+    t.column :paid_amount, :currency=>true
+    t.column :amount, :currency=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.draft? '
     t.action :cancel, :if=>'RECORD.cancelable? '
@@ -72,8 +72,8 @@ class SalesController < ApplicationController
     t.column :number, :url=>true, :children=>:designation
     t.column :full_name, :through=>:client, :children=>false
     t.column :created_on, :children=>false
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>true
+    t.column :amount, :currency=>true
   end
 
   list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}) do |t|
@@ -131,9 +131,9 @@ class SalesController < ApplicationController
     t.column :serial, :through=>:tracking, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount"
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>true
+    t.column :pretax_amount, :currency=>"RECORD.sale.currency"
+    t.column :amount, :currency=>"RECORD.sale.currency"
     t.action :edit, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end

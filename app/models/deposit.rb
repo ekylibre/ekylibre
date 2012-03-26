@@ -43,12 +43,6 @@
 
 
 class Deposit < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :in_cash, :locked, :in => [true, false]
-  validates_presence_of :amount, :cash, :company, :created_on, :mode
-  #]VALIDATORS]
   acts_as_numbered
   attr_readonly :company_id
   belongs_to :cash
@@ -59,7 +53,17 @@ class Deposit < CompanyRecord
   has_many :payments, :class_name=>"IncomingPayment", :dependent=>:nullify, :order=>"number"
   # has_many :journal_entries, :as=>:resource, :dependent=>:nullify, :order=>"created_at"
 
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :allow_nil => true
+  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :in_cash, :locked, :in => [true, false]
+  validates_presence_of :amount, :cash, :company, :created_on, :mode
+  #]VALIDATORS]
   validates_presence_of :responsible, :cash
+
+  before_validation do
+    self.cash = self.mode.cash if self.mode
+  end
 
   before_validation(:on=>:update) do
     self.payments_count = self.payments.count
@@ -104,7 +108,7 @@ class Deposit < CompanyRecord
     end
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     return !self.locked?
   end
 

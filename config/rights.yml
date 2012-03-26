@@ -252,7 +252,7 @@ manage_areas:
   - "areas::new"
   - "areas::update"
   - "dashboards::relations"
-# (((MANAGE_ASSETS)))
+# Manage assets
 manage_assets:
   actions:
   - "assets::create"
@@ -851,6 +851,7 @@ manage_sale_natures:
   - "sale_natures::list"
   - "sale_natures::new"
   - "sale_natures::update"
+  - "sale_natures::show"
 # Manages sale orders
 manage_sales:
   actions:

@@ -20,4 +20,4 @@
     %td=@deposit.payments_count 
   %tr.total.important
     %th=tc(:total)
-    %td=@deposit.amount.to_s+" "+@deposit.cash.currency.code
+    %td=number_to_money(@deposit.amount, @deposit.cash.currency)

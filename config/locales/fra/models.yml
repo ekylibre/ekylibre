@@ -18,7 +18,6 @@ fra:
         duration: 'Durée (en minutes)'
         location: 'Lieu'
         responsible: 'Intervenant'
-        responsible_id: 'Intervenant' #?
       event_nature:
         duration: 'Durée par défaut (en min.)'
       financial_year:
@@ -30,7 +29,6 @@ fra:
       incoming_payment_use:
         amount: 'Montant attribué à la vente'
         payment: 'Encaissement'
-        payment_id: 'Encaissement' #?
         payment_way: 'Mode d''encaissement'
       inventory_line:
         quantity: 'Quantité constatée'
@@ -55,9 +53,7 @@ fra:
         amount: 'Montant'
       price:
         category: 'Catégorie de fiche associée'
-        category_id: 'Catégorie de fiche associée' #?
         entity: 'Fournisseur'
-        entity_id: 'Fournisseur' #?
       product:
         duration: 'Nombre de numéros OU période d''abonnement'
         price: 'Prix de revient'
@@ -74,10 +70,8 @@ fra:
         planned_on: 'Réception prévue le'
       purchase_line:
         order: 'Achat'
-        order_id: 'Achat' #?
       sale:
         contact: 'Adresse pour le devis'
-        contact_id: 'Adresse pour le devis' #?
         has_downpayment: 'Acompte à verser'
         lines: 'Lignes de vente'
         parts_amount: 'Montant payé' #?
@@ -85,16 +79,14 @@ fra:
       sale_line:
         label: 'Produit'
         price: 'Produit tarifé'
-        price_id: 'Produit tarifé' #?
       sale_nature:
         downpayment: 'Avec acompte'
       sales_invoice:  #?
         credit: 'Avoir' #?
         lines: 'Lignes de facture' #?
         origin: 'Facture d''origine' #?
-        origin_id: 'Facture d''origine' #?
       sales_invoice_line:  #?
-        origin_id: 'Ligne d''origine' #?
+        origin: 'Ligne d''origine' #?
       stock:
         quantity: 'Stock réel'
       stock_move:
@@ -102,10 +94,8 @@ fra:
       stock_transfer:
         second_warehouse: 'Lieu de stockage d''arrivée'
         warehouse: 'Lieu de stockage de départ'
-        warehouse_id: 'Lieu de stockage de départ' #?
       subscription:
         entity: 'Abonné'
-        entity_id: 'Abonné' #?
       tax:
         amount: 'Valeur'
       tax_declaration:
@@ -129,7 +119,6 @@ fra:
       warehouse:
         children: 'Sous lieu de stockage'
         product: 'Produit contenu'
-        product_id: 'Produit contenu' #?
     errors:
       messages:
         accepted: '%{attribute} doit être accepté'
@@ -164,6 +153,7 @@ fra:
         wrong_length: '%{attribute} n''est pas d''une bon longueur (%{count} caractères)'
       models:
         cash:
+          # currency_does_not_match: 'The currency of the %{journal} is different from that specified for the cash'
           unvalid_bban: 'Un ou plusieurs éléments du RIB sont incorrects.'
         custom_field_datum:
           greater_than: '%{field} est trop grand (%{maximum} maximum)'
@@ -188,8 +178,7 @@ fra:
               end_of_month: '%{attribute} doit correspondre à une date de fin de mois (%{closed_on})'
         journal_entry:
           closed_journal: 'Le journal est clôturé au %{closed_on} donc vous ne pouvez plus créer, modifier ou supprimer de pièces jusqu''à cette date-là.'
-          # out_of_existing_financial_year: 'The journal entry must be recorded in a period corresponding to an existing financial year.'
-          out_of_financial_year: 'La pièce doit être saisie durant l''exercice' #?
+          out_of_existing_financial_year: 'L''écriture doit être enregistrée dans un exercice comptable existant.'
           unbalanced: 'La pièce n''est pas équilibrée'
         journal_entry_line:
           closed_entry: 'L''écriture est verrouillée. Il n''est pas possible de la modifier.'
@@ -230,15 +219,14 @@ fra:
       account: 'Compte'
       account_balance: 'Balance de compte'
       area: 'Zone postale'
-      # asset: 'Asset'
-      # asset_depreciation: 'Asset depreciation'
+      asset: 'Immobilisation'
+      asset_depreciation: 'Amortissement d''immobilisation'
       bank_statement: 'Relevé de compte bancaire'
       cash: 'Trésorerie'
       cash_transfer: 'Virement interne'
       company: 'Société'
       contact: 'Contact'
       cultivation: 'Culture'
-      currency: 'Devise' #?
       custom_field: 'Champ complémentaire'
       custom_field_choice: 'Choix de champ complémentaire'
       custom_field_datum: 'Donnée complémentaire de fiche'
@@ -303,8 +291,6 @@ fra:
       sale: 'Vente'
       sale_line: 'Ligne de vente'
       sale_nature: 'Type de vente'
-      sales_invoice: 'Facture' #?
-      sales_invoice_line: 'Ligne de facture' #?
       sequence: 'Séquence'
       stock: 'Stock de produit'
       stock_move: 'Mouvement de stock'
@@ -324,7 +310,6 @@ fra:
   attributes:
     account: 'Compte comptable'
     account_balances: 'Balances de compte'
-    account_id: 'Compte comptable'
     account_number: 'Numéro de compte'
     accounted_at: 'Date comptabilisation'
     accounts: 'Comptes'
@@ -338,17 +323,14 @@ fra:
     amount: 'Montant'
     annotation: 'Annotation'
     area: 'Zone postale'
-    area_id: 'Zone postale' #?
     area_measure: 'Superficie'
     area_unit: 'Unité de surface'
-    area_unit_id: 'Unité de surface'
     areas: 'Zones postales'
     arrived_on: 'Arrivé le'
     assimilated_taxes_amount: 'Montant des taxes assimilées'
     atmospheric_pressure: 'Pression atmosphérique'
     attorney: 'Mandataire'
     attorney_account: 'Compte mandataire associé'
-    attorney_account_id: 'Compte mandataire associé' #?
     attorney_accounts: 'Comptes mandataires'
     attribute_name: 'Nom de l''attribut'
     authorized_payments_count: 'Nombre d''encaissements autorisés'
@@ -361,8 +343,7 @@ fra:
     bank_code: 'Code banque'
     bank_journals: 'Journaux de banque'
     bank_name: 'Nom de la banque'
-    bank_statement: 'Relevés de compte bancaire'
-    bank_statement_id: 'Relevé de compte bancaire' #?
+    bank_statement: 'Relevé de compte bancaire'
     bank_statements: 'Relevés de compte bancaire'
     banks_accounts: 'Comptes comptables de banque'
     base: 'Base'
@@ -371,37 +352,31 @@ fra:
     boolean_value: 'Valeur booléenne'
     born_on: 'Date de naissance'
     building: 'Bâtiment'
-    building_id: 'Bâtiment' #?
     by_default: 'Par défaut'
     cache: 'Cache'
     cash: 'Trésorerie'
-    cash_id: 'Trésorerie'
     cash_journals: 'Journaux de caisse'
     cashes: 'Trésoreries'
     cashes_accounts: 'Comptes de caisse'
     catalog_description: 'Description pour le catalogue'
     catalog_name: 'Nom pour le catalogue'
     category: 'Catégorie'
-    category_id: 'Catégorie'
     # ceded: 'Ceded'
     # ceded_on: 'Ceded on'
     changes_reflected: 'Refléter les changements'
     charges_accounts: 'Comptes de charge'
     check_number: 'N°Chèque'
     check_state: 'Vérifier l''état'
-    child_land_parcel_id: 'Sous-îlot' #?
+    child_land_parcel: 'Sous-îlot' #?
     children: 'Sous-nœuds'
     choice_value: 'Valeur choix'
-    choice_value_id: 'Valeur choix' #?
     choices: 'Choix de champ complémentaire'
     choices_count: 'Nb. Choix'
     city: 'Ville'
     city_name: 'Nom'
     client: 'Client'
     client_account: 'Compte client associé'
-    client_account_id: 'Compte client associé' #?
     client_accounts: 'Comptes clients'
-    client_id: 'Client'
     clients: 'Clients'
     closed: 'Clôturé'
     closed_on: 'Date de clôture'
@@ -409,20 +384,16 @@ fra:
     code2: 'Code secondaire'
     coefficient: 'Coefficient'
     collected_account: 'TVA collectée'
-    collected_account_id: 'TVA collectée' #?
     collected_amount: 'TVA brute'
     color: 'Couleur'
     comment: 'Commentaire'
     commercial: 'Activité commerciale'
     commission_account: 'Compte à utiliser pour la commission'
-    commission_account_id: 'Compte à utiliser pour la commission'
     commission_amount: 'Montant de la commission'
     commission_base_amount: 'Montant fixe de la commission'
     commission_percent: 'Pourcentage de commission'
     company: 'Société'
-    company_id: 'Société'
     component: 'Produit contenu'
-    component_id: 'Produit contenu' #?
     components: 'Composants de produit'
     compute: 'Dernière valeur'
     conclusion: 'Conclusion'
@@ -433,13 +404,11 @@ fra:
     connected_at: 'Connecté le'
     consumption: 'Consommation (litres/heure)'
     contact: 'Adresse'
-    contact_id: 'Adresse'
     contacts: 'Contacts'
     country: 'Pays'
     created_at: 'Date et heure de création'
     created_on: 'Date de création'
     creator: 'Créateur'
-    creator_id: 'Créateur'
     credit: 'Crédit'
     credit_lines: 'Lignes d''avoir' #?
     credited_quantity: 'Quantité déjà passée en avoir'
@@ -447,14 +416,12 @@ fra:
     critic_quantity_min: 'Quantité minimum critique'
     crypt_key: 'Clé de cryptage'
     crypt_mode: 'Mode de cryptage'
-    currencies: 'Devises' #?
     currency: 'Devise'
     currency_rate: 'Taux de change' #?
     current_financial_year: 'Exercice comptable en cours'
     custom_field: 'Champ complémentaire'
     custom_field_choices: 'Choix de champ complémentaire'
     custom_field_data: 'Données complémentaires de fiche'
-    custom_field_id: 'Champ complémentaire'
     custom_fields: 'Champs complémentaires'
     data: 'Données complémentaires'
     date_value: 'Valeur date'
@@ -477,20 +444,15 @@ fra:
     deliveries_conditions: 'Conditions de Livraison'
     delivery: 'Livraison'
     delivery_contact: 'Adresse pour la livraison'
-    delivery_contact_id: 'Adresse pour la livraison'
-    delivery_id: 'Livraison'
     delivery_lines: 'Lignes de livraison'
     delivery_modes: 'Modes de livraison' #?
     density_label: 'Densité'
     departed_on: 'Parti le'
     department: 'Service'
-    department_id: 'Service' #?
     departments: 'Services'
     deposit: 'Remise en banque'
-    deposit_id: 'Remise en banque'
     depositable_payments: 'Encaissements encaissables'
     depositables_account: 'Compte d''attente pour les encaissements à encaisser'
-    depositables_account_id: 'Compte d''attente pour les encaissements à encaisser' #?
     deposits: 'Remises en banque'
     # deprecated_amount: 'Deprecated amount'
     # depreciable_amount: 'Depreciable amount'
@@ -498,7 +460,6 @@ fra:
     # depreciation_method: 'Depreciation method'
     description: 'Description'
     dest_contact: 'Adresse de livraison' #?
-    dest_contact_id: 'Adresse de livraison' #?
     diff_less: 'Droits enlevés'
     diff_more: 'Droits rajoutés'
     direct_links: 'Liens directs'
@@ -507,7 +468,6 @@ fra:
     discount: 'Réduction (en %)' #?
     discount_rate: 'Taux d''escompte'
     district: 'Zone administrative'
-    district_id: 'Zone administrative' #?
     districts: 'Zones administratives'
     division: 'Position X'
     document_templates: 'Modèles de document'
@@ -522,42 +482,34 @@ fra:
     ean13: 'Code EAN13'
     email: 'Courriel (e-mail)'
     emitter_amount: 'Montant émis'
-    emitter_cash_id: 'Trésorerie émettrice' #?
+    emitter_cash: 'Trésorerie émettrice'
     emitter_currency: 'Devise émise'
     emitter_currency_rate: 'Taux de la devise émise'
-    emitter_journal_entry_id: 'Écriture de l''émission' #?
+    emitter_journal_entry: 'Écriture de l''émission' #?
     employed: 'Employé par la société'
     employees: 'employés'
     employment: 'Emploi/Rôle'
     entities: 'Personnes'
     entity: 'Personne'
     entity_1: 'Personne 1'
-    entity_1_id: 'Personne 1' #?
     entity_2: 'Personne 2'
-    entity_2_id: 'Personne 2' #?
     entity_categories: 'Catégories de personne'
-    entity_id: 'Personne'
     entity_link_nature: 'Type de lien permettant d''étendre l''abonnement'
-    entity_link_nature_id: 'Type de lien permettant d''étendre l''abonnement' #?
     entity_link_natures: 'Natures de lien entre personnes'
     entity_links: 'Liens de personne'
     entity_name: 'Nom de l''abonné'
     entity_natures: 'Types de personne'
     entries: 'Écritures'
     entry: 'Écriture'
-    entry_id: 'Écriture' #?
     establishment: 'Établissement'
-    establishment_id: 'Établissement'
     establishments: 'Établissements'
     event_natures: 'Types d''évènement'
     events: 'Évènements'
     examinated_at: 'Examiné le'
     excise: 'Numéro d''accises'
     expense: 'Dépense'
-    expense_id: 'Dépense'
     expense_type: 'Type de dépense'
     expiration: 'Délai d''expiration du devis'
-    expiration_id: 'Délai d''expiration du devis'
     expired_on: 'Date d''expiration'
     exportable: 'Exportable'
     expression: 'Expression'
@@ -568,7 +520,6 @@ fra:
     filename: 'Nom de fichier'
     filesize: 'Taille du fichier'
     financial_year: 'Exercice'
-    financial_year_id: 'Exercice'
     financial_years: 'Exercices'
     finish: 'Fin'
     first_met_on: 'Date de la première rencontre'
@@ -588,14 +539,14 @@ fra:
     global_count: 'Population globale'
     global_credit: 'Crédit global'
     global_debit: 'Débit global'
-    group_id: 'Groupe' #?
+    group: 'Groupe' #?
     has_downpayment: 'A un acompte'
     hashed_password: 'Mot de passe crypté'
     hour_duration: 'Heure(s)'
     iban: 'IBAN'
     iban_label: 'IBAN'
     id: 'ID'
-    immobilizations_account_id: 'Compte d''immobilisation' #?
+    immobilizations_account: 'Compte d''immobilisation' #?
     importance: 'Importance'
     in_cash: 'En espèce'
     in_name: 'Abréviation incluse dans le nom de la personne'
@@ -605,31 +556,26 @@ fra:
     incoming_payments: 'Encaissements'
     indirect_links: 'Liens indirects'
     initial_number: 'Numér initial'
+    # input_conveyors: 'Input conveyors'
     integer_value: 'Valeur entière'
     introduction: 'Introduction'
     inventories: 'Inventaires'
     inventory: 'Inventaire'
-    inventory_id: 'Inventaire' #?
     inventory_lines: 'Lignes d''inventaire'
     invoice_contact: 'Adresse pour la facture'
-    invoice_contact_id: 'Adresse pour la facture' #?
     invoiced: 'Facturée' #?
     invoiced_on: 'Facturée le'
     invoices_count: 'Nombre de factures'
     is_debit: 'Débit'
     item_listing: 'Nœud de l''extraction'
-    item_listing_id: 'Nœud de l''extraction' #?
     item_listing_node: 'Nœud de l''élément'
-    item_listing_node_id: 'Nœud de l''élément' #?
     item_nature: 'Nature de l''élément'
     item_value: 'Valeur de l''élément'
     items: 'Éléments de nœud d''extraction'
     journal: 'Journal'
     journal_entries: 'Écritures'
     journal_entry: 'Écriture'
-    journal_entry_id: 'Écriture'
     journal_entry_lines: 'Lignes d''écritures'
-    journal_id: 'Journal'
     journals: 'Journaux'
     key: 'Clé'
     label: 'Libellé'
@@ -655,7 +601,6 @@ fra:
     line_6_code: 'Code postal'
     lines: 'Lignes'
     listing: 'Extraction'
-    listing_id: 'Extraction' #?
     listing_node_items: 'Éléments de nœud d''extraction'
     listing_nodes: 'Nœuds d''extraction'
     listings: 'Extractions'
@@ -675,19 +620,16 @@ fra:
     min_duration: 'Minute(s)'
     mobile: 'Portable'
     mode: 'Mode'
-    mode_id: 'Mode'
     moved_on: 'Fait le'
     name: 'Nom'
     name_1_to_2: 'Personne 1 ⇒ Personne 2'
     name_2_to_1: 'Personne 2 ⇒ Personne 1'
     nature: 'Type'
     nature_code: 'Code'
-    nature_id: 'Type'
     nature_label: 'Type'
     net_weight: 'Masse nette'
     nic: 'NIC (Numéro Interne de Classement)'
     node: 'Nœud'
-    node_id: 'Nœud' #?
     nodes: 'Nœuds d''extraction'
     number: 'Numéro'
     number_format: 'Format du numéro'
@@ -697,54 +639,44 @@ fra:
     office: 'Bureau/Atelier'
     old_password: 'Mot de passe actuel'
     operation: 'Travail'
-    operation_id: 'Travail'
     operation_lines: 'Intrants/sortants'
-    operation_nature_id: 'Type d''operation' #?
+    operation_nature: 'Type d''operation' #?
     operation_natures: 'Types de travail'
     operation_uses: 'Utilisations d''outil'
     operations: 'Travaux'
     order: 'Vente' #?
-    order_id: 'Vente' #?
     order_line: 'Ligne de vente' #?
-    order_line_id: 'Ligne de vente' #?
     organization: 'Organisation'
-    origin: 'Ligne d''origine'
-    origin_id: 'Origine'
+    origin: 'Origine'
     origin_type: 'Type de l''origine'
     original_credit: 'Crédit'
     # original_currency: 'Original currency'
     # original_currency_rate: 'Original currency rate'
     original_debit: 'Débit'
     original_name: 'Nom original'
+    # outgoing_deliveries: 'Outgoing deliveries'
+    # outgoing_delivery_lines: 'Outgoing delivery lines'
     outgoing_payment_modes: 'Modes de décaissement'
     outgoing_payment_uses: 'Parties de décaissements'
     outgoing_payments: 'Décaissements'
     owner: 'Propriétaire'
-    owner_id: 'Propriétaire' #?
     owner_type: 'Nature du propriétaire'
     paid: 'Réglée' #?
     paid_account: 'TVA déductible'
-    paid_account_id: 'TVA déductible' #?
     paid_amount: 'Montant payé'
     paid_on: 'Réglé le'
     parent: 'Parent'
-    parent_id: 'Parent'
-    parent_land_parcel_id: 'Sur-îlot' #?
+    parent_land_parcel: 'Sur-îlot' #?
     parts: 'Affectations' #?
     parts_amount: 'Montant utilisé' #?
     password: 'Mot de passe'
     password_confirmation: 'Confirmation du mot de passe'
     payee: 'Bénéficiaire'
-    payee_id: 'Bénéficiaire' #?
     payer: 'Payeur'
-    payer_id: 'Payeur' #?
     payment: 'Décaissement'
     payment_delay: 'Délai d''encaissement'
-    payment_delay_id: 'Délai d''encaissement'
-    payment_id: 'Décaissement'
     payment_mode: 'Mode d''encaissement'
     payment_mode_complement: 'Complément d''information sur le mode d''encaissement'
-    payment_mode_id: 'Mode d''encaissement'
     payment_modes: 'Modes d''encaissement' #?
     payment_on: 'A régler au plus tard le'
     payment_uses: 'Parties d''encaissement'
@@ -765,39 +697,32 @@ fra:
     pretax_amount: 'Montant HT'
     price: 'Prix'
     price_amount: 'Montant HT'
-    price_id: 'Prix'
     prices: 'Prix'
     printed_at: 'Imprimé le'
     printed_on: 'Datée du'
     producer: 'Producteur'
-    producer_id: 'Producteur' #?
     product: 'Produit'
     product_categories: 'Catégories de produit'
     product_components: 'Composants de produit'
-    product_id: 'Produit'
     productable_products: 'Produits produisibles'
-    production_chain_conveyor_id: 'Convoyeur de chaîne de production' #?
-    production_chain_id: 'Chaîne de production'
-    production_chain_work_center_id: 'Centre d''opérations de chaîne de production' #?
+    production_chain: 'Chaîne de production'
+    production_chain_conveyor: 'Convoyeur de chaîne de production' #?
+    production_chain_work_center: 'Centre d''opérations de chaîne de production' #?
     products: 'Produits'
     products_accounts: 'Comptes produits'
     profession: 'Profession'
-    profession_id: 'Profession' #?
     professions: 'Professions'
     propagate_contacts: 'Propager les contacts'
     proposer: 'Parrain'
-    proposer_id: 'Parrain' #?
     prospect: 'Prospect'
     published: 'Publié'
+    purchase: 'Achat'
     # purchase_amount: 'Purchase amount'
-    purchase_id: 'Achat'
     purchase_line: 'Ligne d''achat'
-    purchase_line_id: 'Ligne d''achat' #?
     purchase_lines: 'Lignes d''achat'
     # purchased_on: 'Purchased on'
     purchases: 'Achats'
     purchases_account: 'Compte comptable de charges'
-    purchases_account_id: 'Compte comptable de charges' #?
     quantity: 'Quantité'
     quantity_max: 'Quantité maximum'
     quantity_min: 'Quantité minimum'
@@ -808,60 +733,52 @@ fra:
     receipt: 'Reçu électronique'
     received: 'Reçue'
     receiver_amount: 'Montant reçu'
-    receiver_cash_id: 'Tésorerie réceptrice' #?
+    receiver_cash: 'Trésorerie réceptrice'
     receiver_currency: 'Devise reçue'
     receiver_currency_rate: 'Taux de la devise reçue'
-    receiver_journal_entry_id: 'Écriture de la réception' #?
+    receiver_journal_entry: 'Écriture de la réception'
     reconcilable: 'Lettrable'
     record_value: 'Enregistrement'
-    record_value_id: 'Enregistrement' #?
     record_value_type: 'Type d''enregistrement'
     reductible: 'Réductible'
     reduction: 'Ligne de réduction'
     reduction_origin: 'Ligne soumise à réduction'
-    reduction_origin_id: 'Ligne soumise à réduction' #?
     reduction_percent: 'Pourcentage de réduction'
     reduction_rate: 'Taux de réduction'
     reduction_submissive: 'Soumis à réduction'
     reductions: 'Lignes de réductions'
     reference_number: 'N°Référence'
     reflation_submissive: 'Soumis à la relance'
+    # reflections: 'Reflections'
     relative_humidity: 'Humidité relative'
     remaining_duration: 'Durée d''utilisation prévue (heures)'
     required: 'Obligatoire'
     reservoir: 'Réservoir'
     resource: 'Origine'
-    resource_id: 'Origine' #?
     resource_type: 'Origine'
     responsible: 'Responsable'
-    responsible_id: 'Responsable'
     rights: 'Droits'
     role: 'Rôle de base'
-    role_id: 'Rôle de base' #?
     roles: 'Rôles'
     rome: 'Code ROME'
     root_model: 'Racine'
     root_model_name: 'Racine'
     sale: 'Vente'
-    sale_id: 'Vente'
-    sale_line_id: 'Ligne de vente'
+    sale_line: 'Ligne de vente'
     sale_lines: 'Lignes de vente'
     sale_natures: 'Types de vente'
     sales: 'Ventes'
     sales_account: 'Compte comptable de produits'
-    sales_account_id: 'Compte comptable de produits' #?
     sales_conditions: 'Conditions Générales de Vente'
     sales_invoice: 'Facture' #?
-    sales_invoice_id: 'Facture' #?
     sales_invoice_lines: 'Lignes de facture' #?
     sales_invoices: 'Factures'
     sales_invoices_count: 'Nombre de factures' #?
     salt: 'Sel'
     scheduled: 'Encaissement programmé'
-    second_move_id: 'Second mouvement' #?
-    second_stock_move_id: 'Second mouvement de stock' #?
-    second_warehouse: 'Lieu de stockage d''arrivée'
-    second_warehouse_id: 'Lieu de stockage du second mouvement' #?
+    second_move: 'Second mouvement' #?
+    second_stock_move: 'Second mouvement de stock' #?
+    second_warehouse: 'Lieu de stockage du second mouvement'
     self_bank_accounts: 'Comptes bancaires en propre'
     self_cashes: 'Caisses en propre'
     self_contacts: 'Contacts en propre'
@@ -875,7 +792,6 @@ fra:
     siret: 'N° SIRET'
     soundex: 'Soundex'
     source: 'Source'
-    source_id: 'Source' #?
     source_quantity: 'Quantité source'
     sql_type: 'Type SQL'
     start: 'Début'
@@ -885,8 +801,7 @@ fra:
     state: 'État'
     state_label: 'État'
     stock: 'Stock de produit'
-    stock_id: 'Stock de produit' #?
-    stock_move_id: 'Mouvement de stock'
+    stock_move: 'Mouvement de stock'
     stock_moves: 'Mouvements de stock'
     stock_transfers: 'Transferts ou pertes de stock'
     stockable: 'Gérer les stocks'
@@ -900,7 +815,6 @@ fra:
     subdivision: 'Position Y'
     subject: 'Objet'
     subscription_nature: 'Type'
-    subscription_nature_id: 'Type' #?
     subscription_natures: 'Types d''abonnement'
     subscription_period: 'Période'
     subscription_quantity: 'Quantité'
@@ -909,25 +823,20 @@ fra:
     sum_method: 'Méthode de calcul'
     supplier: 'Fournisseur'
     supplier_account: 'Compte fournisseur associé'
-    supplier_account_id: 'Compte fournisseur associé' #?
     supplier_accounts: 'Comptes fournisseurs'
-    supplier_id: 'Fournisseur'
     suppliers: 'Fournisseurs'
     surface_units: 'Unités de surface'
     suspended: 'Suspendu'
     symbol: 'Symbole' #?
     symmetric: 'Symétrique'
     target: 'Parcelle'
-    target_id: 'Parcelle'
     target_quantity: 'Quantité cible'
     target_type: 'Type de cible'
     tax: 'Taxe'
     tax_declarations: 'Déclarations de taxes'
-    tax_id: 'Taxe'
     taxes: 'Taxes'
     temperature: 'Température'
     template: 'Modèle'
-    template_id: 'Modèle' #?
     text_importance: 'Importance'
     text_nature: 'Type'
     theoric_quantity: 'Quantité théorique'
@@ -935,35 +844,30 @@ fra:
     to: 'Pour'
     to_archive: 'Archiver les documents'
     to_bank_on: 'À décaisser le'
+    to_deposit: 'À remettre'
     tool: 'Outil'
-    tool_id: 'Outil'
     tools: 'Outils'
     tools_list: 'Matériel'
     total_weight: 'Masse totale'
     trackable: 'Traçable'
     tracking: 'Lot'
-    tracking_id: 'Lot'
     tracking_serial: 'Numéro de lot'
     trackings: 'Lots traçables'
     transfers: 'Transferts'
     transport: 'Transport'
-    transport_id: 'Transport' #?
     transport_on: 'Transport le'
     transporter: 'Transporteur'
-    transporter_id: 'Transporteur'
     transporters: 'Transporteurs'
     transports: 'Transports'
     type: 'Type' #?
     undelivered_quantity: 'Reste à livrer'
     unique_tracking: 'Numéro unique'
     unit: 'Unité'
-    unit_id: 'Unité'
     unit_quantity: 'Quantité par unité de surface'
     units: 'Unités'
     unquantifiable: 'Non quantifiable'
     updated_at: 'Mis à jour le'
     updater: 'Modificateur'
-    updater_id: 'Modificateur'
     usable_incoming_payments: 'Encaissements utilisables'
     usable_outgoing_payments: 'Décaissements utilisables'
     usage: 'Utilisation'
@@ -971,7 +875,6 @@ fra:
     use_range: 'Utiliser un intervalle de quantité'
     used_amount: 'Montant utilisé'
     user: 'Utilisateur'
-    user_id: 'Utilisateur' #?
     users: 'Utilisateurs'
     uses: 'Matériels utilisés'
     value: 'Valeur'
@@ -981,24 +884,23 @@ fra:
     virtual: 'Virtuel'
     virtual_quantity: 'Stock virtuel'
     warehouse: 'Lieu de stockage'
-    warehouse_id: 'Lieu de stockage'
     warehouses: 'Lieux de stockage'
     webpass: 'Mot de passe web'
     website: 'Site web'
     weight: 'Poids (kg)'
-    with_accounting: 'Comptabiliser les encaissements'
+    with_accounting: 'Passer en comptabilité'
     with_commission: 'Inclure une commission'
     with_deposit: 'Utiliser les remises en banque'
     with_tracking: 'Avec tracabilité'
     with_transport: 'Avec transport'
-    work_center_id: 'Centre d''opération' #?
+    work_center: 'Centre d''opération' #?
   models:
     account:
       label: '%{number} - %{name}'
     asset:
       depreciation_methods:
-        # graduated: 'Graduated'
-        # linear: 'Linear'
+        graduated: 'Dégressive'
+        linear: 'Linéaire'
     cash:
       modes:
         bban: 'Relevé d''identité bancaire (RIB)'

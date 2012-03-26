@@ -26,19 +26,15 @@
 #  created_at                :datetime         not null
 #  created_on                :date             
 #  creator_id                :integer          
-#  currency                  :string(3)        
+#  currency_rate             :decimal(19, 10)  default(1.0), not null
 #  emitter_amount            :decimal(19, 4)   default(0.0), not null
 #  emitter_cash_id           :integer          not null
-#  emitter_currency          :string(3)        
-#  emitter_currency_rate     :decimal(19, 10)  default(1.0), not null
 #  emitter_journal_entry_id  :integer          
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
 #  number                    :string(255)      not null
 #  receiver_amount           :decimal(19, 4)   default(0.0), not null
 #  receiver_cash_id          :integer          not null
-#  receiver_currency         :string(3)        
-#  receiver_currency_rate    :decimal(19, 10)  
 #  receiver_journal_entry_id :integer          
 #  updated_at                :datetime         not null
 #  updater_id                :integer          

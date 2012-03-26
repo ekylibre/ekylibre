@@ -116,7 +116,7 @@ class DocumentTemplate < CompanyRecord
     end
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.documents.size <= 0
   end
 

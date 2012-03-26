@@ -86,7 +86,6 @@ module ::I18n
     self.available_locales.select{|x| x.to_s.size == 3}
   end
 
-
   def self.active_locales
     @@active_locales ||= self.valid_locales
     @@active_locales
@@ -107,146 +106,123 @@ module ::I18n
     ::I18n.t("i18n.name")
   end
 
+  # Returns translation if found else nil
   def self.hardtranslate(*args)
     result = translate(*args)
     return (result.to_s.match(/(translation\ missing|\(\(\()/) ? nil : result)
   end
 
-end
+  module Backend
+    module Base
 
 
-if Rails.version.match(/^2\.3/)
-  module ActiveRecord
-    class Errors
+      def localize_with_numbers(locale, object, format = :default, options = {})
+        options.symbolize_keys!
+        if object.respond_to?(:abs)
+          if currency = options[:currency]
+            return Numisma[currency].localize(object, :locale=>locale)
+          else
+            formatter = I18n.translate('number.format'.to_sym, :locale => locale, :default => {})
+            if formatter.is_a?(Proc)
+              return formatter[object]
+            elsif formatter.is_a?(Hash)
+              formatter = {:format => "%n", :separator=>'.', :delimiter=>'', :precision=>3}.merge(formatter).merge(options)
+              format = formatter[:format]
+              negative_format = formatter[:negative_format] || "-" + format
 
-      # allow a proc as a user defined message
-      def add(attribute, message = nil, options = {})
-        options[:message] = options.delete(:default) if options[:default].is_a?(Symbol)
-        error, message = message, nil if message.is_a?(Error)
-        raise ArgumentError.new("Symbol expected, #{message.inspect} received.") unless error or message.is_a?(Symbol) or options[:forced]
-
-        @errors[attribute.to_s] ||= []
-        @errors[attribute.to_s] << (error || Error.new(@base, attribute, message, options))
-      end
-
-      def add_to_base(msg, options = {})
-        add(:base, msg, options)
-      end
-      
-      def add_from_record(record)
-        record.errors.each_error do |attribute, error|
-          @errors[attribute.to_s] ||= []
-          @errors[attribute.to_s] << error
-        end
-      end
-
-
-      # Generate only full translated messages
-      def generate_message(attribute, message = :invalid, options = {})
-        message, options[:default] = options[:default], message if options[:default].is_a?(Symbol)
-
-        defaults = @base.class.self_and_descendants_from_active_record.map do |klass|
-          [ "models.#{klass.name.underscore}.attributes.#{attribute}.#{message}".to_sym, 
-            "models.#{klass.name.underscore}.#{message}".to_sym ]
-        end
-        
-        defaults << options.delete(:default)
-        defaults = defaults.compact.flatten << "messages.#{message}".to_sym
-
-        key = defaults.shift
-        value = @base.respond_to?(attribute) ? @base.send(attribute) : nil
-
-        options = { :default => defaults,
-          :model => @base.class.human_name,
-          :attribute => @base.class.human_attribute_name(attribute.to_s),
-          :value => value,
-          :scope => [:activerecord, :errors]
-        }.merge(options)
-
-        I18n.translate(key, options)
-      end
-
-      def full_messages(options = {})
-        full_messages = []
-        
-        @errors.each_key do |attr|
-          @errors[attr].each do |message|
-            next unless message
-            full_messages << message
+              if object.to_f < 0
+                format = negative_format
+                object = object.abs
+              end
+              
+              value = object.to_s.split(/\./)
+              integrals, decimals = value[0].to_s, value[1].to_s
+              decimals = decimals.gsub(/0+$/, '').ljust(formatter[:precision], '0').reverse.split(/(?=\d{3})/).reverse.collect{|x| x.reverse}.join(formatter[:delimiter])
+              value = integrals.gsub(/^0+[1-9]+/, '').gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{formatter[:delimiter]}")
+              value += formatter[:separator] + decimals unless decimals.blank?
+              return format.gsub(/%n/, value).gsub(/%s/, "\u{00A0}").html_safe
+            end
           end
+        elsif object.respond_to?(:strftime)
+          return localize_without_numbers(locale, object, format, options)
+        else
+          raise ArgumentError, "Object must be a Numeric, Date, DateTime or Time object. #{object.inspect} given."
         end
-        full_messages
-      end 
+      end
+      alias_method_chain :localize, :numbers
+  
 
     end
   end
-else
 
-  module ActiveModel
-    class Errors
+end
 
-      #     # allow a proc as a user defined message
-      #     def add(attribute, message = nil, options = {})
-      #       message ||= :invalid
-      #       raise options.inspect if options.frozen?
+
+
+module ActiveModel
+  class Errors
+
+    #     # allow a proc as a user defined message
+    #     def add(attribute, message = nil, options = {})
+    #       message ||= :invalid
+    #       raise options.inspect if options.frozen?
+    
+    #       message = generate_message(attribute, message, options) # if message.is_a?(Symbol)
+    #       self[attribute] ||= []
+    #       self[attribute] << message
+    #     end
+    
+
+    def add(attribute, message = nil, options = {})
+      message ||= :invalid
       
-      #       message = generate_message(attribute, message, options) # if message.is_a?(Symbol)
-      #       self[attribute] ||= []
-      #       self[attribute] << message
-      #     end
+      if message.is_a?(Symbol)
+        message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
+      elsif message.is_a?(Proc)
+        message = message.call
+      elsif !options.delete(:forced)
+        raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
+      end
       
+      self[attribute] << message
+    end
 
-      def add(attribute, message = nil, options = {})
-        message ||= :invalid
-        
-        if message.is_a?(Symbol)
-          message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
-        elsif message.is_a?(Proc)
-          message = message.call
-        elsif !options.delete(:forced)
-          raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
-        end
-        
+
+
+
+    def add_to_base(message, options = {})
+      add(:id, message, options)
+    end
+
+    def add_from_record(record)
+      record.errors.each do |attribute, message|
+        self[attribute] ||= []
         self[attribute] << message
       end
-
-
-
-
-      def add_to_base(message, options = {})
-        add(:id, message, options)
-      end
-
-      def add_from_record(record)
-        record.errors.each do |attribute, message|
-          self[attribute] ||= []
-          self[attribute] << message
-        end
-      end
-
-      # Returns all the full error messages in an array.
-      #
-      #   class Company
-      #     validates_presence_of :name, :address, :email
-      #     validates_length_of :name, :in => 5..30
-      #   end
-      #
-      #   company = Company.create(:address => '123 First St.')
-      #   company.errors.full_messages # =>
-      #     ["Name is too short (minimum is 5 characters)", "Name can't be blank", "Address can't be blank"]
-      def full_messages(options = {})
-        full_messages = []
-        each do |attribute, messages|
-          messages = Array.wrap(messages)
-          full_messages += messages
-        end
-        full_messages
-      end 
-
     end
-  end
 
+    # Returns all the full error messages in an array.
+    #
+    #   class Company
+    #     validates_presence_of :name, :address, :email
+    #     validates_length_of :name, :in => 5..30
+    #   end
+    #
+    #   company = Company.create(:address => '123 First St.')
+    #   company.errors.full_messages # =>
+    #     ["Name is too short (minimum is 5 characters)", "Name can't be blank", "Address can't be blank"]
+    def full_messages(options = {})
+      full_messages = []
+      each do |attribute, messages|
+        messages = Array.wrap(messages)
+        full_messages += messages
+      end
+      full_messages
+    end 
+
+  end
 end
+
 
 
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|

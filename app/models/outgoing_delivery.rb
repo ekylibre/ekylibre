@@ -76,7 +76,7 @@ class OutgoingDelivery < CompanyRecord
     return true
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     return false unless self.moved_on.nil?
     return true
   end

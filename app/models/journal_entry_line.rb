@@ -115,11 +115,11 @@ class JournalEntryLine < CompanyRecord
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
   end
   
-  protect_on_update do
+  protect(:on => :update) do
     not self.closed? and self.entry and self.entry.updateable?
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     !self.closed?
   end
 

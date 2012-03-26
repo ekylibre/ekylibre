@@ -46,7 +46,7 @@ class EventNature < CompanyRecord
   belongs_to :company
   has_many :events, :foreign_key=>:nature_id
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.events.size <= 0 
   end
 

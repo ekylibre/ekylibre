@@ -192,13 +192,16 @@ task :locales => :environment do
       for column in model.instance_methods
         attributes[column][1] = :used if attributes[column]
       end
+      for column in model.reflections.keys
+        attributes[column] = [column.to_s.humanize, :undefined] unless attributes[column]
+      end
     end
   end
   for k, v in models
     to_translate += 1 # if v[1]!=:unused
     untranslated += 1 if v[1]==:undefined
   end
-  for k, v in attributes
+  for k, v in attributes.delete_if{|k,v| k.to_s.match(/^\_/)}
     to_translate += 1 # if v[1]!=:unused
     untranslated += 1 if v[1]==:undefined
   end

@@ -277,8 +277,8 @@ jpn:
     production_chain_work_centers:
       # edit: 'Edit the work center: %{name}'
       # new: 'Add a new work center'
-      # play: 'Play work center: #{name}'
-      # show: 'Work center: #{name}'
+      # play: 'Play work center: %{name}'
+      # show: 'Work center: %{name}'
     production_chains:
       # edit: 'Edit production chain: %{name}'
       # index: 'Production chains'
@@ -1046,6 +1046,7 @@ jpn:
     # scheduled: 'Scheduled'
     search: '探す'
     # search_account: 'Search for accounts'
+    # search_for_available_prices: '%{code} - %{name}, %{pretax_amount}'
     # search_go: 'Search!'
     # search_sales: 'Search sales'
     # second_contact: 'Second address'

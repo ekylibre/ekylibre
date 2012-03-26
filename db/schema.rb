@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120308184507) do
+ActiveRecord::Schema.define(:version => 20120320105523) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -170,35 +170,28 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
   add_index "bank_statements", ["updater_id"], :name => "index_bank_account_statements_on_updater_id"
 
   create_table "cash_transfers", :force => true do |t|
-    t.integer  "emitter_cash_id",                                                                         :null => false
-    t.integer  "receiver_cash_id",                                                                        :null => false
+    t.integer  "emitter_cash_id",                                                            :null => false
+    t.integer  "receiver_cash_id",                                                           :null => false
     t.integer  "emitter_journal_entry_id"
     t.datetime "accounted_at"
-    t.string   "number",                                                                                  :null => false
+    t.string   "number",                                                                     :null => false
     t.text     "comment"
-    t.decimal  "emitter_currency_rate",                  :precision => 19, :scale => 10, :default => 1.0, :null => false
-    t.decimal  "emitter_amount",                         :precision => 19, :scale => 4,  :default => 0.0, :null => false
-    t.decimal  "receiver_amount",                        :precision => 19, :scale => 4,  :default => 0.0, :null => false
-    t.integer  "company_id",                                                                              :null => false
-    t.datetime "created_at",                                                                              :null => false
-    t.datetime "updated_at",                                                                              :null => false
+    t.decimal  "currency_rate",             :precision => 19, :scale => 10, :default => 1.0, :null => false
+    t.decimal  "emitter_amount",            :precision => 19, :scale => 4,  :default => 0.0, :null => false
+    t.decimal  "receiver_amount",           :precision => 19, :scale => 4,  :default => 0.0, :null => false
+    t.integer  "company_id",                                                                 :null => false
+    t.datetime "created_at",                                                                 :null => false
+    t.datetime "updated_at",                                                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                           :default => 0,   :null => false
+    t.integer  "lock_version",                                              :default => 0,   :null => false
     t.integer  "receiver_journal_entry_id"
-    t.decimal  "receiver_currency_rate",                 :precision => 19, :scale => 10
     t.date     "created_on"
-    t.string   "currency",                  :limit => 3
-    t.string   "emitter_currency",          :limit => 3
-    t.string   "receiver_currency",         :limit => 3
   end
 
   add_index "cash_transfers", ["company_id"], :name => "index_cash_transfers_on_company_id"
   add_index "cash_transfers", ["created_at"], :name => "index_cash_transfers_on_created_at"
   add_index "cash_transfers", ["creator_id"], :name => "index_cash_transfers_on_creator_id"
-  add_index "cash_transfers", ["currency"], :name => "index_cash_transfers_on_currency"
-  add_index "cash_transfers", ["emitter_currency"], :name => "index_cash_transfers_on_emitter_currency"
-  add_index "cash_transfers", ["receiver_currency"], :name => "index_cash_transfers_on_receiver_currency"
   add_index "cash_transfers", ["updated_at"], :name => "index_cash_transfers_on_updated_at"
   add_index "cash_transfers", ["updater_id"], :name => "index_cash_transfers_on_updater_id"
 
@@ -226,6 +219,7 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
     t.string   "bank_name",    :limit => 50
     t.string   "nature",       :limit => 16, :default => "bank_account", :null => false
     t.string   "currency",     :limit => 3
+    t.string   "country",      :limit => 2
   end
 
   add_index "cashes", ["account_id"], :name => "index_bank_accounts_on_account_id"
@@ -775,17 +769,18 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
   add_index "events", ["updater_id"], :name => "index_events_on_updater_id"
 
   create_table "financial_years", :force => true do |t|
-    t.string   "code",         :limit => 12,                    :null => false
-    t.boolean  "closed",                     :default => false, :null => false
-    t.date     "started_on",                                    :null => false
-    t.date     "stopped_on",                                    :null => false
-    t.integer  "company_id",                                    :null => false
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.string   "code",               :limit => 12,                    :null => false
+    t.boolean  "closed",                           :default => false, :null => false
+    t.date     "started_on",                                          :null => false
+    t.date     "stopped_on",                                          :null => false
+    t.integer  "company_id",                                          :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",               :default => 0,     :null => false
-    t.string   "currency",     :limit => 3
+    t.integer  "lock_version",                     :default => 0,     :null => false
+    t.string   "currency",           :limit => 3
+    t.integer  "currency_precision"
   end
 
   add_index "financial_years", ["code", "company_id"], :name => "index_financialyears_on_code_and_company_id", :unique => true
@@ -891,6 +886,7 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
     t.decimal  "commission_base_amount",                :precision => 19, :scale => 4, :default => 0.0,   :null => false
     t.integer  "commission_account_id"
     t.integer  "position"
+    t.integer  "depositables_journal_id"
   end
 
   add_index "incoming_payment_modes", ["company_id"], :name => "index_payment_modes_on_company_id"
@@ -1878,22 +1874,25 @@ ActiveRecord::Schema.define(:version => 20120308184507) do
   add_index "sale_lines", ["updater_id"], :name => "index_sale_order_lines_on_updater_id"
 
   create_table "sale_natures", :force => true do |t|
-    t.string   "name",                                                                       :null => false
-    t.integer  "expiration_id",                                                              :null => false
-    t.boolean  "active",                                                  :default => true,  :null => false
-    t.integer  "payment_delay_id",                                                           :null => false
-    t.boolean  "downpayment",                                             :default => false, :null => false
-    t.decimal  "downpayment_minimum",     :precision => 19, :scale => 4,  :default => 0.0,   :null => false
-    t.decimal  "downpayment_rate",        :precision => 19, :scale => 10, :default => 0.0,   :null => false
+    t.string   "name",                                                                                    :null => false
+    t.integer  "expiration_id",                                                                           :null => false
+    t.boolean  "active",                                                               :default => true,  :null => false
+    t.integer  "payment_delay_id",                                                                        :null => false
+    t.boolean  "downpayment",                                                          :default => false, :null => false
+    t.decimal  "downpayment_minimum",                  :precision => 19, :scale => 4,  :default => 0.0,   :null => false
+    t.decimal  "downpayment_rate",                     :precision => 19, :scale => 10, :default => 0.0,   :null => false
     t.text     "comment"
-    t.integer  "company_id",                                                                 :null => false
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.integer  "company_id",                                                                              :null => false
+    t.datetime "created_at",                                                                              :null => false
+    t.datetime "updated_at",                                                                              :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                            :default => 0,     :null => false
+    t.integer  "lock_version",                                                         :default => 0,     :null => false
     t.integer  "payment_mode_id"
     t.text     "payment_mode_complement"
+    t.boolean  "with_accounting",                                                      :default => false, :null => false
+    t.string   "currency",                :limit => 3
+    t.integer  "journal_id"
   end
 
   add_index "sale_natures", ["company_id"], :name => "index_sale_order_natures_on_company_id"

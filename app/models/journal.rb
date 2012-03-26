@@ -84,7 +84,7 @@ class Journal < CompanyRecord
     end
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.entries.size <= 0 and self.entry_lines.size <= 0 and self.cashes.size <= 0
   end
 

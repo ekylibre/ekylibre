@@ -77,11 +77,11 @@ class OutgoingPayment < CompanyRecord
     errors.add(:amount, :greater_than_or_equal_to, :count=>self.used_amount) if self.amount < self.used_amount
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     return (self.journal_entry ? !self.journal_entry.closed? : true)
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     updateable? and self.used_amount.zero?
   end
 

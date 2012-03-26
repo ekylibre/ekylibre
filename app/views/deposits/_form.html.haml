@@ -2,12 +2,12 @@
   =subheading :new_deposit, :mode=>@deposit.mode.name, :count=>@deposit.mode.depositable_payments.size
 
 =formalize do |f|
-  - f.error :deposit
-  - f.title :infos
-  - f.field :deposit, :cash_id, :choices=>{:reflection=>:self_bank_accounts}, :new=>{:nature=>:bank_account}
-  - f.field :deposit, :responsible_id, :choices=>{:reflection=>:users}
-  - f.field :deposit, :created_on
-  - f.field :deposit, :comment
+  -f.error :deposit
+  -f.title :infos
+  -# f.field :deposit, :cash_id, :choices=>{:reflection=>:self_bank_accounts}, :new=>{:nature=>:bank_account}
+  -f.field :deposit, :responsible_id, :choices=>{:reflection=>:users}
+  -f.field :deposit, :created_on
+  -f.field :deposit, :comment
 
 =hidden_field_tag :mode_id, @deposit.mode_id
 

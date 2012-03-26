@@ -144,7 +144,7 @@ class Operation < CompanyRecord
     end
   end
 
-  protect_on_update do
+  protect(:on => :update) do
     self.production_chain_work_center.nil?
   end
 

@@ -91,7 +91,7 @@ class Role < CompanyRecord
     self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     self.users.size <= 0
   end
 

@@ -247,6 +247,7 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :depositables_account_id => :account,
+      :depositables_journal_id => :journal,
       :updater_id => :user
     },
     :incoming_payment_use => {
@@ -569,6 +570,7 @@ module Ekylibre
       :company_id => :company,
       :creator_id => :user,
       :expiration_id => :delay,
+      :journal_id => :journal,
       :payment_delay_id => :delay,
       :payment_mode_id => :incoming_payment_mode,
       :updater_id => :user

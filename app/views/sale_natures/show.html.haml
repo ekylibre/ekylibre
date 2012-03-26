@@ -1,0 +1,16 @@
+=toolbar do |t|
+  -t.edit @sale_nature
+=attributes_list(@sale_nature) do |l|
+  -l.attribute :name
+  -l.attribute :active
+  -l.attribute :currency
+  -l.attribute :expiration
+  -l.attribute :payment_delay
+  -l.attribute :downpayment
+  -if @sale_nature.downpayment?
+    -l.attribute :downpayment_minimum
+    -l.attribute :downpayment_rate
+  -l.attribute :with_accounting
+  -if @sale_nature.with_accounting?
+    -l.attribute :journal
+  -l.attribute :comment

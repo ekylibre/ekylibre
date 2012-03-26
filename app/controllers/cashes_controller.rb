@@ -22,7 +22,8 @@ class CashesController < ApplicationController
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
     t.column :name, :url=>true
     t.column :nature_label
-    t.column :name, :through=>:currency
+    t.column :currency
+    t.column :country
     t.column :number, :through=>:account, :url=>true
     t.column :name, :through=>:journal, :url=>true
     t.action :edit
@@ -63,7 +64,7 @@ class CashesController < ApplicationController
       render :partial=>'accountancy_form', :locals=>{:nature=>params[:nature]}
       return
     end
-    @cash = Cash.new(:mode=>"bban", :nature=>"bank_account", :entity_id=>params[:entity_id]||@current_company.entity_id)
+    @cash = Cash.new(:mode=>"bban", :currency=>@current_company.default_currency, :nature=>"bank_account", :entity_id=>params[:entity_id]||@current_company.entity_id)
     render_restfully_form
   end
 

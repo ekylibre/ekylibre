@@ -48,43 +48,21 @@ table.list tfoot .widget { display: block; padding: 2px; }
 html[dir="ltr"] table.list tfoot .widget { float: left; margin: 0 8px 0 0; }
 html[dir="rtl"] table.list tfoot .widget { float: right; margin: 0 0 0 8px; }
 
-/*
-table.list tfoot .menu { position: relative; background: none; border: none; padding: 4px;}
-table.list tfoot .menu a { cursor: pointer; }
-table.list tfoot .menu a.start { padding: 4px; }
-table.list tfoot .menu ul { display: none; bottom: 22px; padding: 1px; position:absolute; background: Menu; border:1px solid ButtonShadow; z-index: 1000; box-shadow: 0px 0px 4px #999; -moz-box-shadow: 0px 0px 4px #999; -webkit-box-shadow: 0px 0px 4px #999;}
-html[dir="ltr"] table.list tfoot .menu ul { left: -1px;}
-html[dir="rtl"] table.list tfoot .menu ul { right: -1px;}
-table.list tfoot .menu:hover > ul { display: block; }
-table.list tfoot .menu ul li { list-style-type: none; color: MenuText; padding: 2px 4px; width: 15em; position: relative;}
-table.list tfoot .menu ul li * { color: MenuText;}
-table.list tfoot .menu ul li.separator { height: 0; padding:0; margin:0; border-top: 1px solid ButtonHighlight; border-top: 1px solid ButtonShadow; margin: 3px 0 3px;}
-table.list tfoot .menu ul li.separator:hover { background: transparent;}
-table.list tfoot .menu ul li a { padding: 2px 2px 2px 20px; display: block; }
-table.list tfoot .menu ul li ul { display: none; position: absolute; bottom: -1px; }
-html[dir="ltr"] table.list tfoot .menu ul li ul { left: 15em; }
-html[dir="rtl"] table.list tfoot .menu ul li ul { right: 15em; }
-table.list tfoot .menu ul li:hover { background: Highlight; color: HighlightText; }
-table.list tfoot .menu ul li:hover > * { color: HighlightText; }
-table.list tfoot .menu ul li:hover ul { display:block; }
-table.list tfoot .menu ul li ul:hover { display:block; }
-*/
-
 
 table.list .spe { width: 16px; height: 16px; padding: 0; vertical-align:bottom;}
 table.list .spe .list-menu { position: relative; background: none; border: none; }
 table.list .spe .list-menu * { font-weight: normal; }
 table.list .spe .list-menu a { cursor: pointer; }
 table.list .spe .list-menu .list-menu-start { display: block; font-size: 0; color: transparent; text-shadow: none; padding: 4px; width: 16px; height: 16px; background: url(../images/buttons/list-start.png) no-repeat center; }
-table.list .spe .list-menu:hover .list-menu-start { background-color: Menu; z-index:5000;  position: relative; top: 0px; }
-table.list .spe .list-menu ul { display: none; position:absolute; top: 22px; padding: 1px; margin:0; background: Menu; border:1px solid ButtonShadow; z-index: 1000; box-shadow: 0 0 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 0 4px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.2); behavior: url(/pie.htc); }
+table.list .spe .list-menu:hover .list-menu-start { background-color: #F1F1F1; z-index:5000;  position: relative; top: 0px; }
+table.list .spe .list-menu ul { display: none; position:absolute; top: 22px; padding: 1px; margin:0; background: #F1F1F1; border:1px solid #AAA; z-index: 1000; box-shadow: 0 0 4px rgba(0,0,0,0.2); -moz-box-shadow: 0 0 4px rgba(0,0,0,0.2); -webkit-box-shadow: 0 0 4px rgba(0,0,0,0.2); behavior: url(/pie.htc); }
 html[dir="ltr"] table.list .spe .list-menu ul { right: -1px;}
 html[dir="rtl"] table.list .spe .list-menu ul { left: -1px;}
 table.list .spe .list-menu:hover > ul { display: block; }
-table.list .spe .list-menu ul li { list-style-type: none; color: MenuText; padding: 2px 4px; width: 190px; position: relative;}
-table.list .spe .list-menu ul li * { color: MenuText;}
+table.list .spe .list-menu ul li { list-style-type: none; color: #000; padding: 2px 4px; width: 190px; position: relative;}
+table.list .spe .list-menu ul li * { color: #000;}
 table.list .spe .list-menu ul li.parent > a { font-weight: bold; }
-table.list .spe .list-menu ul li.separator { height: 0; padding: 0; border-top: 1px solid ButtonHighlight; border-bottom: 1px solid ButtonShadow; margin: 2px auto;}
+table.list .spe .list-menu ul li.separator { height: 0; padding: 0; border-top: 1px solid #F1F1F1; border-bottom: 1px solid #AAA; margin: 2px auto;}
 table.list .spe .list-menu ul li.separator:hover { background: transparent;}
 table.list .spe .list-menu ul li a { display: block; }
 html[dir="ltr"] table.list .spe .list-menu ul li a { padding: 2px 2px 2px 20px; }
@@ -92,8 +70,8 @@ html[dir="rtl"] table.list .spe .list-menu ul li a { padding: 2px 20px 2px 2px; 
 table.list .spe .list-menu ul li ul { display: none; position: absolute; top: -2px; }
 html[dir="ltr"] table.list .spe .list-menu ul li ul { right: 198px; }
 html[dir="rtl"] table.list .spe .list-menu ul li ul { left: 198px; }
-table.list .spe .list-menu ul li:hover { background: Highlight; color: HighlightText; }
-table.list .spe .list-menu ul li:hover > * { color: HighlightText; }
+table.list .spe .list-menu ul li:hover { background: #C9D7F1; color: #000; }
+table.list .spe .list-menu ul li:hover > * { color: #000; }
 table.list .spe .list-menu ul li:hover ul { display:block; }
 table.list .spe .list-menu ul li ul:hover { display:block; }
 

@@ -91,7 +91,7 @@ class Warehouse < CompanyRecord
     self.can_receive?(product_id)
   end
 
-  protect_on_destroy do
+  protect(:on => :destroy) do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).size

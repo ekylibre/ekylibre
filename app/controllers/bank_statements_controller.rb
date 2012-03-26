@@ -25,8 +25,8 @@ class BankStatementsController < ApplicationController
     t.column :number, :url=>true
     t.column :started_on
     t.column :stopped_on
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency=>"RECORD.cash.currency"
+    t.column :credit, :currency=>"RECORD.cash.currency"
     t.action :point
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete

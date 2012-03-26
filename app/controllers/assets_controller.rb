@@ -18,7 +18,7 @@
 #
 
 class AssetsController < ApplicationController
-  manage_restfully
+  manage_restfully :currency=>'@current_company.default_currency', :depreciation_method=>"'linear'"
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>true

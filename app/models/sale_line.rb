@@ -155,7 +155,7 @@ class SaleLine < CompanyRecord
     # TODO validates responsible can make reduction and reduction rate is convenient
   end
   
-  protect_on_update do
+  protect(:on => :update) do
     return self.sale.draft?
   end
   

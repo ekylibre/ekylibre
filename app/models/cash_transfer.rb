@@ -26,19 +26,15 @@
 #  created_at                :datetime         not null
 #  created_on                :date             
 #  creator_id                :integer          
-#  currency                  :string(3)        
+#  currency_rate             :decimal(19, 10)  default(1.0), not null
 #  emitter_amount            :decimal(19, 4)   default(0.0), not null
 #  emitter_cash_id           :integer          not null
-#  emitter_currency          :string(3)        
-#  emitter_currency_rate     :decimal(19, 10)  default(1.0), not null
 #  emitter_journal_entry_id  :integer          
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
 #  number                    :string(255)      not null
 #  receiver_amount           :decimal(19, 4)   default(0.0), not null
 #  receiver_cash_id          :integer          not null
-#  receiver_currency         :string(3)        
-#  receiver_currency_rate    :decimal(19, 10)  
 #  receiver_journal_entry_id :integer          
 #  updated_at                :datetime         not null
 #  updater_id                :integer          
@@ -54,10 +50,9 @@ class CashTransfer < CompanyRecord
   belongs_to :receiver_cash, :class_name=>"Cash"
   belongs_to :receiver_journal_entry, :class_name=>"JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :emitter_amount, :emitter_currency_rate, :receiver_amount, :receiver_currency_rate, :allow_nil => true
-  validates_length_of :currency, :emitter_currency, :receiver_currency, :allow_nil => true, :maximum => 3
+  validates_numericality_of :currency_rate, :emitter_amount, :receiver_amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :emitter_amount, :emitter_cash, :emitter_currency_rate, :number, :receiver_amount, :receiver_cash
+  validates_presence_of :company, :currency_rate, :emitter_amount, :emitter_cash, :number, :receiver_amount, :receiver_cash
   #]VALIDATORS]
   validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
   validates_presence_of :created_on
@@ -68,14 +63,14 @@ class CashTransfer < CompanyRecord
 
     if self.currency == self.company.default_currency
       if self.emitter_cash
-        self.emitter_currency ||= self.emitter_cash.currency
+        self.emitter_currency = self.emitter_cash.currency
         # TODO: Find a way to specify currency rates
-        self.emitter_currency_rate ||= self.emitter_currency.rate
+        self.emitter_currency_rate ||= rand # self.emitter_currency.rate
       end
       if self.receiver_cash
-        self.receiver_currency ||= self.receiver_cash.currency
+        self.receiver_currency = self.receiver_cash.currency
         # TODO: Find a way to specify currency rates
-        self.receiver_currency_rate ||= self.receiver_currency.rate
+        self.receiver_currency_rate ||= rand # self.receiver_currency.rate
       end
     end
 
