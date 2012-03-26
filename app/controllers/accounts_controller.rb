@@ -47,15 +47,27 @@ class AccountsController < ApplicationController
   def index
   end
 
-  list(:journal_entry_lines, :conditions=>["#{JournalEntryLine.table_name}.company_id = ? AND #{JournalEntryLine.table_name}.account_id = ?", ['@current_company.id'], ['session[:current_account_id]']], :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
+  def self.account_moves_conditions(options={})
+    code = ""
+    code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :original_debit, :original_credit], :journal_entry=>[:number]}, :conditions=>"c", :variable=>"params[:b]")+"\n"
+    code << journal_period_crit("params")
+    code << journal_entries_states_crit("params")
+    # code << journals_crit("params")
+    code << "c[0] << ' AND #{JournalEntryLine.table_name}.account_id=?'\n"
+    code << "c << session[:current_account_id]\n"
+    code << "c\n"
+    return code
+  end
+
+  list(:journal_entry_lines, :joins=>:entry, :conditions=>account_moves_conditions, :order=>"entry_id DESC, #{JournalEntryLine.table_name}.position") do |t|
     t.column :name, :through=>:journal, :url=>true
     t.column :number, :through=>:entry, :url=>true
     t.column :printed_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
     t.column :state_label
     t.column :letter
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
   end
 
   list(:entities, :conditions=>["#{Entity.table_name}.company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
@@ -68,9 +80,9 @@ class AccountsController < ApplicationController
 
   # Displays details of one account selected with +params[:id]+
   def show
-    return unless @account = find_and_check(:account)
+    return unless @account = find_and_check
     session[:current_account_id] = @account.id   
-    t3e @account.attributes
+    t3e @account
   end
 
   def self.account_reconciliation_conditions

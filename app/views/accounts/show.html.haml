@@ -12,20 +12,31 @@
 
 =tabbox(:account) do |tb|
   -tb.tab(:journal_entry_lines) do
-    =list(:journal_entry_lines)
-    -totals = @account.totals
-    %table.list
-      %tr.total
-        %th
-        %th=JournalEntry.human_attribute_name("debit")
-        %th=JournalEntry.human_attribute_name("credit")
-      %tr.total
-        %th=tc(:totals)
-        %td.value=number_to_accountancy(totals[:debit])
-        %td.value=number_to_accountancy(totals[:credit])
-      %tr.total
-        %th=tc(:balance)
-        %td.value=number_to_accountancy(totals[:balance_debit])
-        %td.value=number_to_accountancy(totals[:balance_credit])
+    =kujaku do |k|
+      -k.text :b
+      -k.crit :journal_period, :p
+      -k.crit :journal_entries_states
+
+    -lines = JournalEntryLine.joins(:entry).where(eval(controller.class.account_moves_conditions))
+    -currencies = lines.joins(:entry=>:financial_year).select("DISTINCT currency")
+    -totals = {}
+    -totals[:debit]  = lines.sum(:debit)
+    -totals[:credit] = lines.sum(:credit)
+    -totals[:balance_debit] = totals[:balance_credit] = 0.0
+    -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
+
+    =list(:journal_entry_lines) do
+      -if currencies.size == 1
+        -currency = currencies[0].currency
+        %tr.total
+          %th{:colspan=>6}=tc(:total)
+          %td.value=number_to_money(totals[:debit], currency)
+          %td.value=number_to_money(totals[:credit], currency)
+          %th
+        %tr.total
+          %th{:colspan=>6}=tc(:balance)
+          %td.value=number_to_money(totals[:balance_debit], currency)
+          %td.value=number_to_money(totals[:balance_credit], currency)
+          %th
   -tb.tab(:entities) do
     =list(:entities)
