@@ -23,12 +23,19 @@ class ReviewFinancialModels < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:sale_natures)} SET with_accounting = #{quoted_true}, currency ='EUR', journal_id=CASE "+sales_journals.collect{|r| "WHEN company_id=#{r['company_id']} THEN #{r['id']}"}.join(" ")+" END"
     sales_journals = connection.select_all("SELECT id, company_id FROM #{quoted_table_name(:journals)} WHERE nature = 'sales' AND currency = 'EUR'")
     execute "UPDATE #{quoted_table_name(:sale_natures)} SET journal_id=CASE "+sales_journals.collect{|r| "WHEN company_id=#{r['company_id']} THEN #{r['id']}"}.join(" ")+" END WHERE journal_id IS NULL"
+
+    add_column :journal_entries, :financial_year_id, :integer
+    for fy in connection.select_all("SELECT id, company_id, started_on, stopped_on FROM #{quoted_table_name(:financial_years)}")
+      execute "UPDATE #{quoted_table_name(:journal_entries)} SET financial_year_id=#{fy['id']} WHERE company_id=#{fy['company_id']} AND printed_on BETWEEN '#{fy['started_on']}' AND '#{fy['stopped_on']}'"
+    end
   end
 
   def down
-    remove_column :sales, :journal_id
-    remove_column :sales, :currency
-    remove_column :sales, :with_accounting
+    remove_column :journal_entries, :financial_year_id
+
+    remove_column :sale_natures, :journal_id
+    remove_column :sale_natures, :currency
+    remove_column :sale_natures, :with_accounting
 
     remove_column :incoming_payment_modes, :depositables_journal_id
 

@@ -29,11 +29,11 @@ module List
   end
 
   module ViewsHelper
-    def list(*args)
+    def list(*args, &block)
       name, options = nil, {}
       name = args[0] if args[0].is_a? Symbol
       options = args[-1] if args[-1].is_a? Hash
-      self.send("_#{options[:controller]||self.controller_name}_#{__method__}_#{name||self.controller_name}_tag")
+      self.send("_#{options[:controller]||self.controller_name}_#{__method__}_#{name||self.controller_name}_tag", &block)
     end
   end
 

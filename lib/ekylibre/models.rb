@@ -284,6 +284,7 @@ module Ekylibre
     :journal_entry => {
       :company_id => :company,
       :creator_id => :user,
+      :financial_year_id => :financial_year,
       :journal_id => :journal,
       :resource_id => "resource_type",
       :updater_id => :user

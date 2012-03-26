@@ -663,8 +663,7 @@ module ApplicationHelper
     end
     return "" if k.criteria.size.zero?
     tag = ""
-    first = true
-    for c in k.criteria
+    k.criteria.each_with_index do |c, index|
       code, options = "", c[:options]||{}
       if c[:type] == :mode
         code = content_tag(:label, options[:label]||tg(:mode))
@@ -701,9 +700,13 @@ module ApplicationHelper
       elsif c[:type] == :criterion
         code << capture(&c[:block])
       end
-      code = content_tag(:td, code.html_safe, (c[:html_options]||{}).merge(:class=>:crit))
-      if first
-        code << content_tag(:td, submit_tag(tl(:search_go), :disable_with=>tg(:please_wait), :name=>nil), :rowspan=>k.criteria.size, :class=>:submit)
+      html_options = (c[:html_options]||{}).merge(:class=>"crit")
+      html_options[:class] << " hideable" unless index.zero?
+      code = content_tag(:td, code.html_safe, html_options)
+      if index.zero?
+        launch = submit_tag(tl(:search_go), :disable_with=>tg(:please_wait), :name=>nil)
+        # TODO: Add link to unhide hidden criteria
+        code << content_tag(:td, launch, :rowspan=>k.criteria.size, :class=>:submit)
         first = false
       end
       tag << content_tag(:tr, code.html_safe)
@@ -1284,7 +1287,7 @@ module ApplicationHelper
     configuration = {:custom=>:interval}
     configuration.update(options) if options.is_a?(Hash)
     configuration[:id] ||= name.to_s.gsub(/\W+/, '_').gsub(/(^_|_$)/, '')
-    value = params[name]
+    value ||= params[name]
     list = []
     list << [tc(:all_periods), "all"]
     for year in @current_company.financial_years.find(:all, :order=>:started_on)

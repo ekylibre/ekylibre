@@ -320,6 +320,7 @@ jpn:
       # edit: 'Edit the sale type: %{name}'
       # index: 'Sale types'
       # new: 'Add a new type of sale'
+      # show: 'Sale type: %{name}'
     sales:
       # abort: 'Abort sale'
       # cancel: 'Cancel sales invoice %{number}'

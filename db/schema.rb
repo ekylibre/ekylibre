@@ -1020,6 +1020,7 @@ ActiveRecord::Schema.define(:version => 20120320105523) do
     t.string   "state",                  :limit => 32,                                 :default => "draft", :null => false
     t.decimal  "balance",                              :precision => 19, :scale => 4,  :default => 0.0,     :null => false
     t.string   "original_currency",      :limit => 3
+    t.integer  "financial_year_id"
   end
 
   add_index "journal_entries", ["company_id"], :name => "index_journal_records_on_company_id"

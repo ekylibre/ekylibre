@@ -352,6 +352,7 @@ arb:
       edit: 'تعديل نوع البيع : %{name}'
       index: 'انواع طلبات البيع'
       new: 'اضافة نوع البيع'
+      # show: 'Sale type: %{name}'
     sales:
       # abort: 'Abort sale'
       cancel: 'مسالك شمولية الفاتورة %{number}'

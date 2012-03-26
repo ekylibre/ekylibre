@@ -245,8 +245,8 @@ class JournalsController < ApplicationController
     t.column :number, :through=>:entry, :url=>true
     t.column :printed_on, :through=>:entry, :datatype=>:date
     t.column :name
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
   end
 
   def general_ledger

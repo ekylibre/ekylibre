@@ -41,7 +41,7 @@ class SaleNaturesController < ApplicationController
   end
 
   def show
-    @sale_nature = find_and_check
+    return unless @sale_nature = find_and_check
     t3e @sale_nature
   end
 

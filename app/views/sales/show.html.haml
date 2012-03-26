@@ -50,14 +50,12 @@
     =toolbar do |t|
       -t.link(:new, :controller=>:sale_lines, :sale_id=>@sale.id)
     =render :partial=>"sale_lines/row_form"
-  =list :lines
-  %table.list
+  =list :lines do
     %tr.total
-      %th=Sale.human_attribute_name(:pretax_amount)
+      %th{:colspan=>7}=tc :total
       %td=number_to_money(@sale.pretax_amount, @sale.currency)
-    %tr.important.total
-      %th=Sale.human_attribute_name(:amount)
       %td=number_to_money(@sale.amount, @sale.currency)
+      %th{:colspan=>3}
   -if @sale.subscriptions.size>0
     %h2=tl :x_subscriptions, :count=>@sale.subscriptions.size
     -if @sale.draft?

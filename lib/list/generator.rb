@@ -55,11 +55,11 @@ module List
 
     def generate_view_method_code
       code  = "# encoding: utf-8\n"
-      code += "def #{self.view_method_name}(options={})\n"
+      code += "def #{self.view_method_name}(options={}, &block)\n"
       code += self.session_initialization_code.gsub(/^/, '  ')
       code += self.renderer.build_table_code(self).gsub(/^/, '  ')
       code += "end\n"
-      # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+      list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       return code      
     end
 

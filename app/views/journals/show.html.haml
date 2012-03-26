@@ -27,8 +27,6 @@
         %td.crit=journal_period_crit
 
 =journal_view_tag
-.tab-content=list(@journal_view.to_sym)
-
 
 -conditions = eval(controller.class.journal_entries_conditions)
 -totals = {}
@@ -37,17 +35,17 @@
 -totals[:balance_debit] = totals[:balance_credit] = 0.0
 -totals["balance_#{totals[:debit]>totals[:credit] ? 'debit' : 'credit'}".to_sym] = (totals[:debit]-totals[:credit]).abs
 
-%table.list
-  %tr.total
-    %th
-    %th=JournalEntry.human_attribute_name("debit")
-    %th=JournalEntry.human_attribute_name("credit")
-  %tr.important.total
-    %th=tc :totals
-    %td=number_to_money(totals[:debit], @journal.currency)
-    %td=number_to_money(totals[:credit], @journal.currency)
-  -if totals[:balance_debit] != totals[:balance_credit]
+.tab-content
+  =list(@journal_view.to_sym) do
+    -colspans = (@journal_view == "lines" ? [6,1] : [3,3])
     %tr.important.total
-      %th=tc :balance
-      %td=number_to_money(totals[:balance_debit], @journal.currency)
-      %td=number_to_money(totals[:balance_credit], @journal.currency)
+      %th{:colspan=>colspans[0]}=tc :total
+      %td=number_to_money(totals[:debit], @journal.currency)
+      %td=number_to_money(totals[:credit], @journal.currency)
+      %th{:colspan=>colspans[1]}
+    -if totals[:balance_debit] != totals[:balance_credit]
+      %tr.important.total
+        %th{:colspan=>colspans[0]}=tc :balance
+        %td=number_to_money(totals[:balance_debit], @journal.currency)
+        %td=number_to_money(totals[:balance_credit], @journal.currency)
+        %th{:colspan=>colspans[1]}

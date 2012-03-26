@@ -58,6 +58,11 @@ module List
       code << "end\n"
       # code << "text = #{colgroup} << #{header} << #{footer} << content_tag(:tbody, body.html_safe)\n"
       code << "text = #{header} << #{footer} << content_tag(:tbody, body.html_safe)\n"
+      code << "if block_given?\n"
+      code << "  text << capture("+table.columns.collect{|c| {:name=>c.name, :id=>c.id}}.inspect+", &block).html_safe\n"
+      code << "end\n"
+
+
       # code << "text = content_tag(:table, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
       code << "text = content_tag(:table, text.html_safe, :class=>'#{style_class}')\n"
       # code << "text << '<div class=\"#{style_class}-slider\"><div class=\"#{style_class}-slider-handle\"></div></div>'\n"

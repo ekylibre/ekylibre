@@ -142,8 +142,9 @@ class Sale < CompanyRecord
   before_validation do
     self.currency = self.nature.currency if self.nature
 
-    self.paid_amount = self.payment_uses.sum(:amount)||0
-    self.paid_amount -= self.credits.sum(:amount)||0
+    self.paid_amount = 0
+    self.paid_amount = self.payment_uses.sum(:amount) unless self.payment_uses.empty?
+    self.paid_amount -= self.credits.sum(:amount) unless self.credits.empty?
     if self.contact.nil? and self.client
       dc = self.client.default_contact
       self.contact_id = dc.id if dc

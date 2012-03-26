@@ -795,7 +795,7 @@ manage_products:
   - "products::list_stocks"
   - "products::new"
   - "products::update"
-# Manage purchase orders
+# Manage purchases
 manage_purchases:
   actions:
   - "dashboards::trade"
@@ -840,7 +840,7 @@ manage_purchases:
   - "purchases::refuse"
   - "purchases::show"
   - "purchases::update"
-# Mange sale orders natures
+# Manage sales natures
 manage_sale_natures:
   actions:
   - "dashboards::trade"
@@ -850,9 +850,9 @@ manage_sale_natures:
   - "sale_natures::index"
   - "sale_natures::list"
   - "sale_natures::new"
-  - "sale_natures::update"
   - "sale_natures::show"
-# Manages sale orders
+  - "sale_natures::update"
+# Manages sales
 manage_sales:
   actions:
   - "dashboards::trade"

@@ -27,6 +27,7 @@
 #  creator_id             :integer          
 #  credit                 :decimal(19, 4)   default(0.0), not null
 #  debit                  :decimal(19, 4)   default(0.0), not null
+#  financial_year_id      :integer          
 #  id                     :integer          not null, primary key
 #  journal_id             :integer          not null
 #  lock_version           :integer          default(0), not null
@@ -46,7 +47,7 @@
 
 class JournalEntry < CompanyRecord
   attr_readonly :company_id, :journal_id, :created_on
-  belongs_to :company
+  belongs_to :financial_year
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
   has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>"JournalEntryLine"
@@ -131,6 +132,7 @@ class JournalEntry < CompanyRecord
 
   #
   before_validation do
+    self.financial_year = (self.company ? self.company.financial_year_at(self.printed_on) : nil)
     if self.journal
       self.company_id  = self.journal.company_id 
       self.original_currency ||= self.journal.currency
@@ -167,7 +169,7 @@ class JournalEntry < CompanyRecord
     if self.journal
       errors.add(:printed_on, :closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
     end
-    unless self.financial_year
+    unless self.financial_year 
       errors.add(:printed_on, :out_of_existing_financial_year)
     end
   end
@@ -176,11 +178,11 @@ class JournalEntry < CompanyRecord
     JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
 
-  protect(:on => :destroy) do
+  protect(:on=>:destroy) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  protect(:on => :update) do
+  protect(:on=>:update) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
@@ -204,10 +206,6 @@ class JournalEntry < CompanyRecord
     self.save!
   end
 
-  def financial_year
-    self.company.financial_year_at(self.printed_on)
-  end
-  
   # Add a entry which cancel the entry
   # Create counter-entry_lines
   def cancel
