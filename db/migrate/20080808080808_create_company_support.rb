@@ -35,6 +35,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :language_id,            :integer,  :null=>false, :references=>nil
       t.column :role_id,                :integer,  :null=>false, :references=>nil
     end
+    add_stamps :users
     add_index :users, :name, :unique=>true
     add_index :users, :email
     add_index :users, :role_id
@@ -50,6 +51,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :locked,                 :boolean,  :null=>false, :default=>false
       t.column :deleted,                :boolean,  :null=>false, :default=>false
     end
+    add_stamps :companies
     add_index :companies, :name, :unique=>true
     add_index :companies, :code, :unique=>true
     
@@ -66,6 +68,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :user_id,                :integer,  :references=>:users, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :parameters
     add_index :parameters, :name
     add_index :parameters, :nature
     add_index :parameters, :company_id
@@ -79,6 +82,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :actions,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :roles
     add_index :roles, :name
     add_index :roles, :company_id
     add_index :roles, [:company_id, :name], :unique=>true
@@ -90,6 +94,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :cache,                  :text    
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :templates
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
     
@@ -105,6 +110,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :printed_at,             :datetime
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :documents
     add_index :documents, :sha256
     add_index :documents, :company_id
 
@@ -116,6 +122,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :establishments
     add_index :establishments, [:name,  :company_id], :unique=>true
     add_index :establishments, [:siret, :company_id], :unique=>true
 
@@ -126,6 +133,7 @@ class CreateCompanySupport < ActiveRecord::Migration
       t.column :parent_id,              :integer,  :references=>:departments, :on_delete=>:restrict, :on_update=>:restrict
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :departments
     add_index :departments, [:name, :company_id], :unique=>true
     add_index :departments, :parent_id
 

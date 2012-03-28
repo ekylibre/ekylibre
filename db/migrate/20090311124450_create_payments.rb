@@ -7,6 +7,7 @@ class CreatePayments < ActiveRecord::Migration
       t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict 
     end
+    add_stamps :payment_modes
     add_index :payment_modes, :company_id
     
     create_table :payments do |t|
@@ -16,6 +17,7 @@ class CreatePayments < ActiveRecord::Migration
       t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :payments
     add_index :payments, :company_id
 
     create_table :payment_parts do |t|
@@ -24,6 +26,7 @@ class CreatePayments < ActiveRecord::Migration
       t.column :order_id,               :integer,  :null=>false, :references=>:sale_orders
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :payment_parts
     add_index :payment_parts, :company_id
 
     add_column :payments, :part_amount, :decimal,  :precision=>16, :scale=>2

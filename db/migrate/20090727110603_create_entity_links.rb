@@ -7,6 +7,7 @@ class CreateEntityLinks < ActiveRecord::Migration
       t.column :symmetric,       :boolean,  :null=>false, :default=>false   
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :entity_link_natures
     add_index :entity_link_natures, :company_id
     add_index :entity_link_natures, :name    
     add_index :entity_link_natures, :name_1_to_2
@@ -21,6 +22,7 @@ class CreateEntityLinks < ActiveRecord::Migration
       t.column :comment,         :text
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :entity_links
 
     add_index :entity_links, :company_id
     add_index :entity_links, :nature_id

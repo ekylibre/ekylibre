@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
-  def self.up 
+  def up 
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_column    :bank_accounts,    :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_index :bank_accounts, :entity_id
@@ -65,15 +65,16 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :employees
     add_index :employees, :company_id
     add_column    :entities,         :employee_id,    :integer, :references=>:employees
 
   end
 
-  def self.down
+  def down
     remove_column :entities, :employee_id
     drop_table :employees
-    create_table  :price_lists do |t|
+    create_table :price_lists do |t|
       t.column :name,                   :string,   :null=>false
       t.column :started_on,             :date,     :null=>false
       t.column :stopped_on,             :date
@@ -85,6 +86,7 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
       t.column :entity_id,              :integer,  :references=>:entities,  :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :price_lists
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
 

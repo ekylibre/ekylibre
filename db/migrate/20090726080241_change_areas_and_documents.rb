@@ -45,6 +45,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
       t.column :cache,                  :text    
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :templates
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
 
@@ -71,6 +72,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
       t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :cities
     
     add_column :documents, :key, :integer
     add_column :contacts, :line_6_code, :string, :limit=>38

@@ -1,6 +1,4 @@
-require 'migration_helper'
 class EnhanceAccountancy < ActiveRecord::Migration
-  extend MigrationHelper
 
   PREFERENCES = {
     'accountancy.accountize.automatic'                   => 'bookkeep_automatically',

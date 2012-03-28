@@ -11,7 +11,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
   }
   def self.change_ids(table, column, conv)
     # Build of CASE WHEN which register all employee_id=>user_id conversion
-    casewhen =  "CASE "+conv.collect{|k, v| "WHEN #{column}=#{k} THEN #{v}"}.join(" ")+ " END"
+    casewhen =  "CASE "+conv.collect{|k, v| "WHEN #{column}=#{k} THEN #{v}"}.join(" ")+ " ELSE 0 END"
     execute "UPDATE #{quoted_table_name(table)} SET #{column}=#{casewhen}"
   end
   
@@ -120,10 +120,10 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     end
 
     add_index(:employees, :company_id, :name => "index_#{quoted_table_name(:employees)}_on_company_id")
-    #add_index(:employees, :updater_id, :name => "index_employees_on_updater_id")
-    #add_index(:employees, :creator_id, :name => "index_employees_on_creator_id")
-    #add_index(:employees, :updated_at, :name => "index_employees_on_updated_at")
-    #add_index(:employees, :created_at, :name => "index_employees_on_created_at")
+    add_index(:employees, :updater_id, :name => "index_employees_on_updater_id")
+    add_index(:employees, :creator_id, :name => "index_employees_on_creator_id")
+    add_index(:employees, :updated_at, :name => "index_employees_on_updated_at")
+    add_index(:employees, :created_at, :name => "index_employees_on_created_at")
 
     # Add employees
     execute "INSERT INTO #{quoted_table_name(:employees)} (department_id, establishment_id, user_id, title, last_name, first_name, arrived_on, departed_on, role, office, comment, company_id, created_at, updated_at, profession_id, commercial) SELECT COALESCE(department_id, 0), COALESCE(establishment_id, 0), id, "+connection.substr("COALESCE(employment, '-')", 1, 32)+", COALESCE(last_name, '-'), COALESCE(first_name, '-'), arrived_on, departed_on, COALESCE(employment, '-'), COALESCE(office, '-'), comment, company_id, COALESCE(created_at, CURRENT_TIMESTAMP), COALESCE(updated_at, CURRENT_TIMESTAMP), profession_id, commercial FROM #{quoted_table_name(:users)} WHERE employed = #{quoted_true}"

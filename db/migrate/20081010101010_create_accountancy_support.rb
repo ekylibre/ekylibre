@@ -11,6 +11,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :currencies
     add_index :currencies, :company_id
     add_index :currencies, :active
     add_index :currencies, [:code, :company_id], :unique=>true
@@ -32,15 +33,13 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :is_debit,         :boolean, :null=>false, :default=>false
       t.column :last_letter,      :string,  :limit=>8
       t.column :comment,          :text
-     # t.column :entity_id,        :integer, :references=>:entities, :on_delete=>:restrict, :on_update=>:cascade
       t.column :parent_id,        :integer, :null=>false, :default=>0, :references=>nil
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :accounts
     add_index :accounts, [:number, :company_id], :unique=>true
     add_index :accounts, [:alpha, :company_id], :unique=>true
     add_index :accounts, [:name, :company_id]
-   # add_index :accounts, [:entity_id, :company_id]
-   # add_index :accounts, [:entity_id]
     add_index :accounts, [:parent_id]
     add_index :accounts, [:company_id]
 
@@ -51,18 +50,14 @@ class CreateAccountancySupport < ActiveRecord::Migration
     # Financialyear : Exercice comptable
     create_table :financialyears do |t|
       t.column :code,             :string,  :null=>false, :limit=>12
-      #t.column :nature_id,        :integer, :null=>false, :references=>:financialyear_natures
       t.column :closed,           :boolean, :null=>false, :default=>false
       t.column :started_on,       :date,    :null=>false
       t.column :stopped_on,       :date,    :null=>false
       t.column :written_on,       :date,    :null=>false  # Date butoir de création des journaux
-      #t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      #t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      #t.column :position,         :integer, :null=>false
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :financialyears
     add_index :financialyears, [:code, :company_id], :unique=>true
-    #add_index :financialyears, [:nature_id, :company_id]
     add_index :financialyears, :company_id
 
     # AccountBalance : Historique des soldes des comptes par exercice
@@ -79,20 +74,11 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :local_count,      :integer, :null=>false, :default=>0
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :account_balances
     add_index :account_balances, :company_id
     add_index :account_balances, :financialyear_id
-    # add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"account_balannces_unique"
     add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:account_balances)}_unique"
 
-
-#     # JournalNature : Type de journal
-#     create_table :journal_natures do |t|
-#       t.column :name,             :string,  :null=>false
-#       t.column :comment,          :text
-#       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-#     end
-#     add_index :journal_natures, :company_id
-#     add_index :journal_natures, [:name, :company_id], :unique=>true
 
     # Journal : Journal
     create_table :journals do |t|
@@ -106,6 +92,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1970,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :journals
     add_index :journals, :company_id
     add_index :journals, :currency_id
     add_index :journals, [:name, :company_id], :unique=>true
@@ -123,6 +110,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :balance,          :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :journal_periods
     add_index :journal_periods, :company_id
     add_index :journal_periods, :journal_id
     add_index :journal_periods, :financialyear_id
@@ -145,6 +133,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :journal_id,       :integer, :null=>false, :references=>:journals,  :on_delete=>:restrict, :on_update=>:cascade
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :journal_records
     add_index :journal_records, [:status, :company_id]
     add_index :journal_records, [:created_on, :company_id]
     add_index :journal_records, [:printed_on, :company_id]
@@ -154,61 +143,39 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_index :journal_records, :company_id
     
 
-    # Bank : Banques
-   #  create_table :banks do |t|
-#       t.column :name,             :string,  :null=>false
-#       t.column :code,             :string,  :null=>false, :limit=>16
-#       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-#     end
-#     add_index :banks, [:name, :company_id], :unique=>true
-#     add_index :banks, [:code, :company_id], :unique=>true
-#     add_index :banks, :company_id
-    
     # BankAccount : Comptes bancaires
     create_table :bank_accounts do |t|
       t.column :name,             :string,  :null=>false
-#      t.column :french,           :boolean, :null=>false
-    #   t.column :bank_name,        :string
-#       t.column :bank_code,        :string
-#       t.column :agency,           :string
-#       t.column :agency_code,      :string,  :limit=>16 
-#       t.column :number,           :string,  :limit=>32
-#       t.column :key,              :string,  :limit=>4
       t.column :iban,             :string,  :null=>false, :limit=>34
       t.column :iban_label,       :string,  :null=>false, :limit=>48
       t.column :iban_label2,      :string,  :null=>false, :limit=>48
       t.column :bic,              :string,  :limit=>16
       t.column :deleted,          :boolean, :null=>false, :default=>false
-      #t.column :bank_id,          :integer, :null=>false, :references=>:banks,      :on_delete=>:cascade, :on_update=>:cascade
       t.column :journal_id,       :integer, :null=>false, :references=>:journals,   :on_delete=>:restrict, :on_update=>:cascade
       t.column :currency_id,      :integer, :null=>false, :references=>:currencies, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,       :integer, :null=>false, :references=>:accounts,   :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,       :integer, :null=>false, :references=>:companies,  :on_delete=>:cascade, :on_update=>:cascade
     end
-    #add_index :bank_accounts, [:name, :bank_id, :account_id], :unique=>true
-    #add_index :bank_accounts, :bank_id
+    add_stamps :bank_accounts
     add_index :bank_accounts, :journal_id
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
     add_index :bank_accounts, :company_id
-    #add_index :bank_accounts, :number, :unique => true
-    #add_index :bank_accounts, [:bank_id, :account_id], :unique=>true
 
     # BankAccountStatement : Relevé de compte
     create_table :bank_account_statements do |t|
       t.column :bank_account_id,        :integer, :null=>false, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :started_on,             :date,    :null=>false
       t.column :stopped_on,             :date,    :null=>false
-      #t.column :printed_on,             :date,    :null=>false
       t.column :intermediate,           :boolean, :null=>false, :default=>false
       t.column :number,                 :string,  :null=>false
       t.column :debit,                  :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :credit,                 :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :company_id,             :integer, :null=>false, :references=>:companies,  :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :bank_account_statements
     add_index :bank_account_statements, :bank_account_id
     add_index :bank_account_statements, :company_id
-    #add_index :bank_account_statements, [:started_on, :stopped_on, :bank_account_id, :company_id], :unique=>true
     
     # Entry : Écriture comptable
     create_table :entries do |t|
@@ -230,6 +197,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :entries
     add_index :entries, :company_id
     add_index :entries, :record_id
     add_index :entries, :account_id
@@ -247,7 +215,6 @@ class CreateAccountancySupport < ActiveRecord::Migration
     drop_table :journal_records
     drop_table :journal_periods
     drop_table :journals
-#    drop_table :journal_natures
     drop_table :account_balances
     drop_table :financialyears
     remove_column :entities, :client_account_id

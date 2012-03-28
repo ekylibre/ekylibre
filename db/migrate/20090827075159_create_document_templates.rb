@@ -7,6 +7,7 @@ class CreateDocumentTemplates < ActiveRecord::Migration
       t.column :family,                 :string
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :document_natures
     add_index :document_natures, :company_id
 
     create_table :document_templates do |t|
@@ -20,6 +21,7 @@ class CreateDocumentTemplates < ActiveRecord::Migration
       t.column :country,                :string,   :limit=>2
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
     end
+    add_stamps :document_templates
     add_index :document_templates, :company_id
     add_index :document_templates, :nature_id
     add_index :document_templates, :language_id

@@ -14,6 +14,7 @@ class CreateProductionsAndComponents < ActiveRecord::Migration
       t.column :stopped_at,     :datetime
       t.column :company_id,     :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :product_components
 
     # Productions
     create_table :productions do |t|
@@ -24,6 +25,7 @@ class CreateProductionsAndComponents < ActiveRecord::Migration
       t.column :moved_on,       :date,     :null=>false
       t.column :company_id,     :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :productions
 
     # Columns
     add_column :stock_moves,  :origin_type,    :string

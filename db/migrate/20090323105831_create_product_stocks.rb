@@ -25,6 +25,7 @@ class CreateProductStocks < ActiveRecord::Migration
       t.column :quantity_max,           :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade,  :on_update=>:cascade
     end
+    add_stamps :product_stocks 
     add_index :product_stocks, :company_id
 
 

@@ -91,7 +91,8 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :color,            :string, :limit=>6, :null=>false, :default=>"000000"
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end    
+    end
+    add_stamps :land_parcel_groups
     add_index :land_parcel_groups, :company_id
     
     create_table :land_parcel_kinships do |t|
@@ -99,7 +100,8 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :child_land_parcel_id,  :integer, :null=>false
       t.column :nature,                :string, :limit=>16 # fusion division
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-    end    
+    end
+    add_stamps :land_parcel_kinships
     add_index :land_parcel_kinships, :company_id
     add_index :land_parcel_kinships, [:parent_land_parcel_id, :company_id], :name=>"index_#{quoted_table_name(:land_parcel_kinships)}_parent"
     add_index :land_parcel_kinships, [:child_land_parcel_id, :company_id], :name=>"index_#{quoted_table_name(:land_parcel_kinships)}_child"
@@ -112,6 +114,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :cultivations
     add_index :cultivations, :company_id
 
     create_table :tracking_states do |t|
@@ -128,6 +131,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :tracking_states
     add_index :tracking_states, :company_id
     add_index :tracking_states, [:tracking_id, :company_id]
     add_index :tracking_states, [:responsible_id, :company_id]
@@ -137,6 +141,7 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :production_chains
     add_index :production_chains, :company_id
 
 
@@ -154,26 +159,10 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :production_chain_conveyors
     add_index :production_chain_conveyors, :company_id
     add_index :production_chain_conveyors, [:production_chain_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_conveyors)}_chain"
 
-
-#     create_table :production_chain_tokens do |t|
-#       t.column :production_chain_id, :integer, :null=>false
-#       t.column :number,           :string,   :null=>false
-#       t.column :where_id,         :integer,  :null=>false
-#       t.column :where_type,       :string,   :null=>false
-#       t.column :started_at,       :datetime, :null=>false
-#       t.column :stopped_at,       :datetime
-#       t.column :comment,          :text
-#       t.column :story,            :text
-#       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-#     end
-#     add_index :production_chain_tokens, :company_id
-#     add_index :production_chain_tokens, [:production_chain_id, :company_id]
-#     add_index :production_chain_tokens, [:where_id, :where_type, :company_id]
-    
-    
 
     create_table :production_chain_work_centers do |t|
       t.column :production_chain_id, :integer, :null=>false
@@ -185,30 +174,18 @@ class CreateProductionChains < ActiveRecord::Migration
       t.column :position,         :integer
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :production_chain_work_centers
     add_index :production_chain_work_centers, :company_id
     add_index :production_chain_work_centers, [:production_chain_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_centers)}_chain"
     add_index :production_chain_work_centers, [:operation_nature_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_centers)}_nature"
 
-
-#     create_table :production_chain_work_center_lines do |t|
-#       t.column :work_center_id,     :integer,  :null=>false
-#       t.column :from_work_center_line_id, :integer, :null=>false
-#       t.column :direction,        :string,   :null=>false, :default=>"out"
-#       t.column :product_id,       :integer
-#       t.column :quantity,         :decimal,  :precision=>16, :scale=>4, :default=>0.0
-#       t.column :unit_id,          :integer
-#       t.column :warehouse_id,     :integer
-#       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-#     end
-#     add_index :production_chain_work_center_lines, :company_id
-#     add_index :production_chain_work_center_lines, [:work_center_id, :company_id]
-#     add_index :production_chain_work_center_lines, [:work_center_line_id, :company_id]
 
     create_table :production_chain_work_center_uses do |t|
       t.column :work_center_id,     :integer,  :null=>false
       t.column :tool_id,          :integer,  :null=>false
       t.column :company_id,       :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :production_chain_work_center_uses
     add_index :production_chain_work_center_uses, :company_id
     add_index :production_chain_work_center_uses, [:work_center_id, :company_id], :name=>"index_#{quoted_table_name(:production_chain_work_center_uses)}_work_center"
 

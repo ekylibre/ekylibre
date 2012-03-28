@@ -9,7 +9,8 @@ class CreateTransports < ActiveRecord::Migration
       t.column :transport_on,:date
       t.column :comment,     :text
       t.column :company_id,  :integer, :null=>false, :references=>:companies, :on_update=>:cascade, :on_delete=>:cascade 
-    end 
+    end
+    add_stamps :transports
     add_index :transports, :company_id
     
     

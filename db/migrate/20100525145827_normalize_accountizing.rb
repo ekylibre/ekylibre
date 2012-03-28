@@ -83,6 +83,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       # t.column :draft_mode,        :boolean, :null=>false, :default=>false
       t.column :company_id,        :integer, :null=>false
     end
+    add_stamps :purchase_payment_modes
     
     create_table :purchase_payment_parts do |t|
       t.column :accounted_at,      :datetime         
@@ -93,6 +94,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :journal_record_id, :integer
       t.column :company_id,        :integer, :null=>false
     end
+    add_stamps :purchase_payment_parts
     
     create_table :purchase_payments do |t|
       t.column :accounted_at,      :datetime         
@@ -110,6 +112,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :to_bank_on,        :date,    :null=>false
       t.column :company_id,        :integer, :null=>false
     end
+    add_stamps :purchase_payments
     
 
     # Remove "deleted"
@@ -579,6 +582,7 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :iso3,                   :string, :limit=>3, :null=>false
       t.column :company_id,             :integer, :null=>false
     end
+    add_stamps :languages
     add_index :languages, :name
     add_index :languages, :iso2
     add_index :languages, :iso3

@@ -147,14 +147,14 @@ class NormalizeCurrencies < ActiveRecord::Migration
     companies = {}
     for table, changes in CURRENCIES.reverse
       for id_column, code_column in changes
-        for result in connection.select_all("SELECT DISTINCT company_id, #{code_column} AS codes FROM #{quoted_table_name(table)}")
+        for result in connection.select_all("SELECT DISTINCT #{table == :companies ? 'id' : 'company_id'} AS company_id, #{code_column} AS codes FROM #{quoted_table_name(table)}")
           cid, code = result['company_id'].to_i, result['code']||'EUR'
           companies[cid] ||= []
           companies[cid] << code unless companies[cid].include?(code)
         end
       end
     end
-    puts companies.inspect
+
     for company, codes in companies
       for code in codes
         execute "INSERT INTO #{quoted_table_name(:currencies)}(name, code, value_format, company_id, created_at, updated_at, by_default) SELECT '#{code}', '#{code}', '%n%u', #{company}, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{code == 'EUR' ? quoted_true : quoted_false}"
@@ -164,7 +164,7 @@ class NormalizeCurrencies < ActiveRecord::Migration
     for result in connection.select_all("SELECT id, code, company_id FROM #{quoted_table_name(:currencies)}")
       currencies[result['code']+result['company_id']] = result['id']
     end
-    cases =lambda do |code_column|
+    cases = lambda do |code_column|
       "CASE " + currencies.collect do |key, id|
         "WHEN #{code_column}||company_id = '#{key}' THEN #{id}"
       end.join(" ") + " END"
@@ -172,9 +172,9 @@ class NormalizeCurrencies < ActiveRecord::Migration
     for table, changes in CURRENCIES.reverse
       for id_column, code_column in changes
         if id_column != :__none__
-          add_column table, id_column, :string, :limit => 3
+          add_column table, id_column, :integer
           add_index table, id_column
-          execute "UPDATE #{quoted_table_name(table)} SET #{id_column} = " + cases[code_column]
+          execute "UPDATE #{quoted_table_name(table)} SET #{id_column} = " + cases[code_column] unless currencies.empty?
         end
         remove_column(table, code_column)
       end

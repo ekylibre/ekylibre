@@ -10,6 +10,7 @@ class CreateDeliveryModes < ActiveRecord::Migration
       t.column :comment,        :text
       t.column :company_id,     :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
     end
+    add_stamps :delivery_modes
     
     add_column :deliveries,   :mode_id,  :integer,  :references=>:delivery_modes, :on_delete=>:restrict, :on_update=>:restrict
     

@@ -7,6 +7,7 @@ class AddMaterialProduction < ActiveRecord::Migration
       t.column :consumption,     :decimal
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :tools
 
     add_column :shape_operations, :hour_duration, :decimal
     add_column :shape_operations, :min_duration,  :decimal
@@ -18,6 +19,7 @@ class AddMaterialProduction < ActiveRecord::Migration
       t.column :tool_id,             :integer,  :null=>false, :references=>:tools, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,          :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :tool_uses
     
 
   end

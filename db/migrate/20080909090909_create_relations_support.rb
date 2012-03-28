@@ -11,6 +11,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :description,            :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :entity_natures
     add_index :entity_natures, :company_id
     add_index :entity_natures, [:name, :company_id], :unique=>true
 
@@ -32,6 +33,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :supplier,               :boolean,  :null=>false, :default=>false 
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :entities
     add_index :entities, :company_id
     add_index :entities, [:code, :company_id], :unique=>true
     add_index :entities, [:name, :company_id]
@@ -47,6 +49,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :align,                  :string,   :null=>false, :default=>"left", :limit=>8
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :address_norms
     add_index :address_norms, :company_id
     add_index :address_norms, [:name, :company_id], :unique=>true
 
@@ -64,6 +67,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :position,               :integer
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :address_norm_items
     add_index :address_norm_items, :company_id
     add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_nature"
     add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_name"
@@ -95,6 +99,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :longitude,              :float
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :contacts
     add_index :contacts, :company_id
     add_index :contacts, :entity_id
     # add_index :contacts, :element_id
@@ -114,7 +119,8 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :decimal_min,            :decimal,   :precision=>16, :scale=>4
       t.column :decimal_max,            :decimal,   :precision=>16, :scale=>4
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade 
-    end  
+    end
+    add_stamps :complements
     add_index :complements, [:company_id, :position]
     add_index :complements, :required
     add_index :complements, :company_id
@@ -126,6 +132,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :value,                  :string,    :null=>false
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :complement_choices
     add_index :complement_choices, :complement_id
     add_index :complement_choices, :company_id
     
@@ -141,6 +148,7 @@ class CreateRelationsSupport < ActiveRecord::Migration
       t.column :choice_value_id,        :integer,   :references=>:complement_choices, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,   :null=>false,   :references=>:companies,          :on_delete=>:cascade, :on_update=>:cascade 
     end
+    add_stamps :complement_data
     add_index :complement_data, :entity_id
     add_index :complement_data, :choice_value_id
     add_index :complement_data, :complement_id

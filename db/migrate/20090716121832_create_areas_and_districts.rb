@@ -4,6 +4,7 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.column :name, :string, :null=>false
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :districts
     
     create_table :cities do |t|
       t.column :insee_cdc, :string, :limit=>1
@@ -28,6 +29,7 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :cities
     
     create_table :areas do |t|
       t.column :postcode, :string, :null=>false
@@ -35,6 +37,7 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.column :city_id, :integer, :null=>false, :references=>:cities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
+    add_stamps :areas
     
     add_column :contacts, :area_id, :integer, :references=>:areas, :on_delete=>:cascade, :on_update=>:cascade
   end
