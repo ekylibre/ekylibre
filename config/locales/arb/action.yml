@@ -327,6 +327,7 @@ arb:
     purchase_lines:
       edit: 'تعديل تصميم الطلب'
       new: 'اضافة طلب للمنتج : %{number}'
+    purchase_natures: #?
     purchases:
       # abort: 'Abort'
       # confirm: 'Confirm order and wait for deliveries'

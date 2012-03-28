@@ -38,15 +38,15 @@ class CashesController < ApplicationController
     t.column :number, :url=>true
     t.column :started_on
     t.column :stopped_on
-    t.column :credit
-    t.column :debit
+    t.column :credit, :currency=>"RECORD.cash.currency"
+    t.column :debit, :currency=>"RECORD.cash.currency"
   end
 
   list(:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
     t.column :number, :url=>true
     t.column :created_on
     t.column :payments_count
-    t.column :amount
+    t.column :amount, :currency=>"RECORD.cash.currency"
     t.column :name, :through=>:mode
     t.column :comment
   end

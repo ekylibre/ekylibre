@@ -23,6 +23,7 @@ gem 'spreet'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
+# gem 'userstamp'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer'

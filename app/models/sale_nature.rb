@@ -44,7 +44,6 @@
 
 
 class SaleNature < CompanyRecord
-  acts_as_list :scope=>:company_id
   belongs_to :journal
   belongs_to :expiration, :class_name=>"Delay"
   belongs_to :payment_delay, :class_name=>"Delay"

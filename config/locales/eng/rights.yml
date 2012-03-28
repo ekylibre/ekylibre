@@ -59,6 +59,7 @@ eng:
     manage_prices: 'Manage prices'
     manage_product_categories: 'Manage product categories'
     manage_products: 'Manage products'
+    # manage_purchase_natures: 'Manage purchase natures'
     manage_purchases: 'Manage purchases'
     manage_sale_natures: 'Manage sales natures'
     manage_sales: 'Manages sales'

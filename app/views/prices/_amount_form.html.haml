@@ -3,4 +3,4 @@
   -f.field :price, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
   -f.field :price, :pretax_amount
   -f.field :price, :tax_id, :choices=>{:reflection=>:taxes}, :new=>true
-  -f.field :price, :currency_id, :choices=>{:reflection=>:currencies}
+  -f.field :price, :currency, :choices=>currencies

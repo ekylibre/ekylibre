@@ -280,6 +280,11 @@ eng:
     purchase_lines:
       edit: 'Edit the purhase order line'
       new: 'Add a product to the purchase'
+    purchase_natures:
+      # edit: 'Edit purchase nature'
+      # index: 'Index purchase nature'
+      # new: 'New purchase nature'
+      # show: 'Show purchase nature'
     purchases:
       abort: 'Abort'
       confirm: 'Confirm order and wait for deliveries'
@@ -470,6 +475,7 @@ eng:
     products: 'Products'
     professions: 'Professions'
     purchase_lines: 'Purchase lines'
+    # purchase_natures: 'Purchase natures'
     purchases: 'Purchases'
     roles: 'Roles'
     sale_lines: 'Sale lines'

@@ -23,8 +23,8 @@ class PricesController < ApplicationController
     t.column :name, :through=>:product, :url=>true
     t.column :full_name, :through=>:entity, :url=>true
     t.column :name, :through=>:category, :url=>true
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>true
+    t.column :amount, :currency=>true
     t.column :by_default
     # t.column :range
     t.action :edit
@@ -33,7 +33,7 @@ class PricesController < ApplicationController
 
   def new
     @mode = (params[:mode]||"sales").to_sym 
-    @price = Price.new(:product_id=>params[:product_id], :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = Price.new(:product_id=>params[:product_id], :currency=>@current_company.default_currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form    
   end

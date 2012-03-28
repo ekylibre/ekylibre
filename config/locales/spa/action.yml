@@ -318,6 +318,7 @@ spa:
     purchase_lines:
       # edit: 'Edit the purhase order line'
       # new: 'Add a product to the purchase'
+    purchase_natures: #?
     purchases:
       # abort: 'Abort'
       # confirm: 'Confirm order and wait for deliveries'

@@ -795,6 +795,17 @@ manage_products:
   - "products::list_stocks"
   - "products::new"
   - "products::update"
+# translation missing: eng.rights.manage_purchase_natures
+manage_purchase_natures:
+  actions:
+  - "purchase_natures::create"
+  - "purchase_natures::destroy"
+  - "purchase_natures::edit"
+  - "purchase_natures::index"
+  - "purchase_natures::list"
+  - "purchase_natures::new"
+  - "purchase_natures::show"
+  - "purchase_natures::update"
 # Manage purchases
 manage_purchases:
   actions:

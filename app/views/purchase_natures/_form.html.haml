@@ -1,0 +1,16 @@
+=formalize do |f|
+  -f.title :general
+  -f.field :purchase_nature, :name
+  -f.field :purchase_nature, :active
+  -f.field :purchase_nature, :currency, :choices=>currencies
+  -f.field :purchase_nature, :with_accounting, "data-show"=>"#accountancy"
+  -f.field :purchase_nature, :comment, :field=>:textarea
+
+#accountancy
+  =formalize do |f|
+    -f.title :accountancy
+    -f.field :purchase_nature, :journal_id, :choices=>{:reflection=>:journals}, :new=>{:nature=>'purchases'}, :resize=>true
+
+
+
+

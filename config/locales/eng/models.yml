@@ -275,6 +275,7 @@ eng:
       profession: 'Profession'
       purchase: 'Purchase order'
       purchase_line: 'Purchase order line'
+      # purchase_nature: 'Purchase nature'
       role: 'Role'
       sale: 'sale'
       sale_line: 'sale line'

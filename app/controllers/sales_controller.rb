@@ -131,7 +131,7 @@ class SalesController < ApplicationController
     t.column :serial, :through=>:tracking, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>true
+    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>"RECORD.sale.currency"
     t.column :pretax_amount, :currency=>"RECORD.sale.currency"
     t.column :amount, :currency=>"RECORD.sale.currency"
     t.action :edit, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '

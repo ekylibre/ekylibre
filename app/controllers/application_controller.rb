@@ -488,13 +488,13 @@ class ApplicationController < ActionController::Base
     session[:help_history] = [] unless session[:help_history].is_a? [].class
     article ||= "#{self.controller_name}-#{self.action_name}"
     file = nil
-    # raise [I18n.locale, I18n.default_locale]
     for locale in [I18n.locale, I18n.default_locale]
       for f, attrs in Ekylibre.helps
-        next if attrs[:locale] != locale
+        next if attrs[:locale].to_s != locale.to_s
         file_name = [article, article.split("-")[0].to_s+"-index"].detect{|name| attrs[:name]==name}
         file = f and break unless file_name.blank?
       end
+      break unless file.nil?
     end
     if file and session[:side] and article != session[:help_history].last
       session[:help_history] << file

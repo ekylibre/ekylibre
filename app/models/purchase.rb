@@ -34,6 +34,7 @@
 #  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  lock_version        :integer          default(0), not null
+#  nature_id           :integer          
 #  number              :string(64)       not null
 #  paid_amount         :decimal(19, 4)   default(0.0), not null
 #  planned_on          :date             
@@ -48,19 +49,13 @@
 
 
 class Purchase < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :number, :state, :allow_nil => true, :maximum => 64
-  validates_length_of :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :number, :paid_amount, :payee, :pretax_amount, :supplier
-  #]VALIDATORS]
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
-  attr_readonly :company_id
+  attr_readonly :currency
   belongs_to :company
   belongs_to :delivery_contact, :class_name=>"Contact"
   belongs_to :journal_entry
+  belongs_to :nature, :class_name=>"PurchaseNature"
   belongs_to :payee, :class_name=>"Entity", :foreign_key=>:supplier_id
   belongs_to :supplier, :class_name=>"Entity"
   belongs_to :responsible, :class_name=>"User"
@@ -69,8 +64,14 @@ class Purchase < CompanyRecord
   has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
   has_many :products, :through=>:lines, :uniq=>true
   has_many :uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
-
-  validates_presence_of :planned_on, :created_on, :currency, :state
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :number, :state, :allow_nil => true, :maximum => 64
+  validates_length_of :reference_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :company, :number, :paid_amount, :payee, :pretax_amount, :supplier
+  #]VALIDATORS]
+  validates_presence_of :planned_on, :created_on, :currency, :state, :nature
   validates_uniqueness_of :number, :scope=>:company_id
 
   state_machine :state, :initial => :draft do
@@ -101,7 +102,11 @@ class Purchase < CompanyRecord
     end
   end
 
-  ## shipped used as received
+  before_validation(:on => :create) do
+    if self.nature
+      self.currency = self.nature.currency
+    end
+  end
 
   before_validation do
     self.created_on ||= Date.today

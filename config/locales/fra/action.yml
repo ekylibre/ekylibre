@@ -1,12 +1,5 @@
 fra:
   actions:
-    account_balances: #?
-    accountancy:  #?
-      balance: 'Balance' #?
-      bookkeep: 'Bascule comptable' #?
-      draft: 'Brouillard' #?
-      general_ledger: 'Grand livre' #?
-      index: 'Comptabilité générale' #?
     accounts:
       edit: 'Modifier le compte : %{number} - %{name}'
       index: 'Plan de comptes'
@@ -16,7 +9,6 @@ fra:
       reconciliation: 'Lettrage de comptes'
       show: 'Compte : %{number} - %{name}'
       unmark: 'Délettrer un compte'
-    application: #?
     areas:
       edit: 'Modifier la zone postale : %{name}'
       index: 'Zones postales'
@@ -26,10 +18,6 @@ fra:
       index: 'Immobilisations'
       new: 'Nouvelle immobilisation'
       show: 'Immobilisation: %{name}'
-    authentication:  #?
-      login: 'Connexion' #?
-      logout: 'Se déconnecter' #?
-      relogin: 'Reconnexion' #?
     bank_statements:
       edit: 'Modifier le relevé N°%{number}'
       index: 'Relevés de compte bancaire'
@@ -58,12 +46,9 @@ fra:
     contacts:
       edit: 'Modifier l''adresse de : %{entity}'
       new: 'Ajout d''un contact'
-    cultivations: #?
-    currencies: #?
     custom_field_choices:
       edit: 'Modifier l''option : %{name}'
       new: ' Création d''une option pour une liste de choix'
-    custom_field_data: #?
     custom_fields:
       edit: 'Modifier le champ personnalisé : %{name}'
       index: 'Champs personnalisés'
@@ -87,7 +72,6 @@ fra:
       edit: 'Modifier le service : %{name}'
       index: 'Services'
       new: 'Ajout d''un nouveau service'
-    deposit_lines: #?
     deposits:
       edit: 'Modifier la remise en banque n°%{number} du %{created_on}'
       index: 'Remises en banque'
@@ -142,9 +126,6 @@ fra:
       edit: 'Modifier l''un évènement'
       index: 'Évènements'
       new: 'Ajout d''un évènement'
-    finances:  #?
-      index: 'Finances' #?
-      unvalidated_deposits: 'Remises en banque à valider' #?
     financial_years:
       close: 'Clôturer l''exercice %{code}'
       compute_balances: 'Calculer la balance de l''exercice'
@@ -160,7 +141,6 @@ fra:
       edit: 'Modifier l''arrivage: %{number}'
       index: 'Livraisons entrantes'
       new: 'Enregistrer un nouveau arrivage'
-    incoming_delivery_lines: #?
     incoming_delivery_modes:
       edit: 'Modifier le mode de réception d''arrivage: %{name}'
       index: 'Modes de réception d''arrivage'
@@ -176,13 +156,11 @@ fra:
       index: 'Encaissements'
       new: 'Ajout d''un nouvel encaissement'
       show: 'Encaissement n°%{number} de %{entity}'
-    interfacers: #?
     inventories:
       edit: 'Modifier l''inventaire'
       index: 'Inventaires'
       new: 'Nouvel inventaire'
       show: 'Inventaire %{number}'
-    inventory_lines: #?
     journal_entries:
       edit: 'Modifier l''écriture : %{number}'
       new: 'Ajouter une écriture'
@@ -224,13 +202,6 @@ fra:
       index: 'Exportations et mailings'
       mail: 'Envoyer un e-mail pour : %{name}'
       new: 'Création d''une nouvelle extraction'
-    management:  #?
-      index: 'Gestion commerciale' #?
-      sale_finish: 'Finir la vente' #?
-      sales_invoice: '%{nature} %{number}' #?
-      sales_invoices: 'Factures' #?
-      statistics: 'Statistiques' #?
-      undelivered_sales: 'Livraisons en attente' #?
     mandates:
       configure: 'Configuration des responsabilités'
       edit: 'Modifier la responsabilité'
@@ -276,7 +247,6 @@ fra:
       index: 'Décaissements'
       new: 'Ajout d''un décaissement'
       show: 'Décaissement n°%{number} pour %{payee}'
-    preferences: #?
     prices:
       edit: 'Modifie le prix %{pretax_amount}/%{amount} sur %{product}'
       export: 'Exporter les prix'
@@ -321,6 +291,7 @@ fra:
     purchase_lines:
       edit: 'Modifier une ligne de la commande'
       new: 'Ajouter un produit à la commande'
+    purchase_natures: #?
     purchases:
       abort: 'Annuler l''achat'
       confirm: 'Confimer l''achat et attendre les arrivages'
@@ -332,7 +303,7 @@ fra:
       new: 'Nouvel achat'
       propose: 'Commande soumise au fournisseur'
       refuse: 'Commande refusée'
-      show: 'Détails de l''achat %{number} au fournisseur %{supplier} '
+      show: 'Achat : %{number} au fournisseur %{supplier}'
     relations:  #?
       index: 'Gestion des relations clients et fournisseurs' #?
     roles:
@@ -711,7 +682,7 @@ fra:
     critic_stocks: 'Stocks sous le seuil critique'
     csv_statistics: 'Statistiques à exporter au format CSV'
     cumul: 'Cumul du total et du solde précédent N°%{number}'
-    currency_with_code: '%{name} - %{code}'
+    currency_with_code: '%{code} - %{name}'
     current: 'En cours'
     current_letter: 'Lettre en cours : %{letter}' #?
     custom_field_update: 'Modifier le champ personnalisé'
@@ -902,22 +873,6 @@ fra:
     mandates_new_fields: 'Vous devez saisir au moins une valeur dans l''un des champs de modification' #?
     manual_period: 'du %{start} au %{finish}'
     meeting: 'Lieu(x) de rencontre' #?
-    menu:  #?
-      accountancy_tasks: 'Travaux comptables' #?
-      bank_statements: 'Relevés de compte' #?
-      bookkeep: 'Bascule comptable' #?
-      documents: 'Documents' #?
-      financial_operations: 'Opérations financières' #?
-      informations: 'Informations' #?
-      my_account: 'Mon compte' #?
-      parameters: 'Paramètres' #?
-      production: 'Production' #?
-      purchases: 'Achats' #?
-      relations_tasks: 'Clients et fournisseurs' #?
-      sales: 'Ventes' #?
-      stock_transfers: 'Transferts et pertes' #?
-      stocks_tasks: 'Stocks' #?
-      tools: 'Outils' #?
     menus:
       accountancy: 'Comptabilité'
       finances: 'Finances'

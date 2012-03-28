@@ -34,6 +34,7 @@
 #  invoiced_on         :date             
 #  journal_entry_id    :integer          
 #  lock_version        :integer          default(0), not null
+#  nature_id           :integer          
 #  number              :string(64)       not null
 #  paid_amount         :decimal(19, 4)   default(0.0), not null
 #  planned_on          :date             

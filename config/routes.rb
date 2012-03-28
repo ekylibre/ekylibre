@@ -1,5 +1,4 @@
 Ekylibre::Application.routes.draw do
-
   resource :session, :only=>[:new, :create, :destroy] do
     member do
       match "renew", :via=>[:get, :post]
@@ -406,6 +405,11 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :purchase_lines, :except=>[:index, :show]
+    resources :purchase_natures do
+      collection do
+        get :list
+      end
+    end
     resources :purchases do
       collection do
         get :list

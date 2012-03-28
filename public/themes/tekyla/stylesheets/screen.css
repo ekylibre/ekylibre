@@ -1,3 +1,4 @@
+/*
 @font-face {font-family: "Droid Sans"; src: url(../fonts/DroidSans.ttf)}
 @font-face {font-family: "Droid Sans"; src: url(../fonts/DroidSans-Bold.ttf); font-weight: bold }
 
@@ -5,6 +6,7 @@
 @font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Bold.ttf); font-weight: bold }
 @font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Italic.ttf); font-style: italic; }
 @font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-BoldItalic.ttf); font-weight: bold; font-style: italic; }
+*/
 /*
 @font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Light.ttf)}
 @font-face {font-family: "Open Sans"; src: url(../fonts/OpenSans-Regular.ttf); font-weight: bold }
@@ -442,7 +444,7 @@ html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-posi
 
 /*#E7E7E7*/
 .tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/boss-effect.png) center repeat-x; border: 1px solid #CCC;}
-.tool:hover { background: #688ED8 url(../images/shadow-top.png) bottom repeat-x; border-color: #688ED8; color: white; z-index: 1000; } /*#3D5C8D */
+.tool:hover { background: #688ED8 url(../images/shadow-top.png) bottom repeat-x; border-color: #688ED8; color: white; z-index: 1000; box-shadow: 0 0 7px rgba(0,0,0,0.4) inset; } /*#3D5C8D */
 a.tool:hover, .tool:hover * { color: white; text-shadow: -1px -1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
 html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; behavior: url(/pie.htc); }

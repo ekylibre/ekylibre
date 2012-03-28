@@ -98,8 +98,8 @@ class AccountsController < ApplicationController
     t.column :name, :through=>:account, :url=>{:action=>:mark}
     t.column :number, :through=>:entry
     t.column :name
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency=>"RECORD.entry.financial_year.currency"
+    t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
   end
 
   def reconciliation
