@@ -340,13 +340,13 @@ class Company < Ekylibre::Record::Base
 
   def imported_entity_nature(row)
     if row.blank?
-      nature = self.entity_natures.find_by_abbreviation("-")
+      nature = self.entity_natures.find_by_title("-")
     else
       nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
       #raise Exception.new nature.empty?.inspect
       #raise Exception.new nature.inspect if row == "SCEA"
-      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(abbreviation) LIKE ?', self.id, row.lower]) if nature.nil?
-      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
+      nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(title) LIKE ?', self.id, row.lower]) if nature.nil?
+      nature = EntityNature.create!(:name=>row, :title=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
     end
     nature.id
   end 
@@ -981,7 +981,7 @@ class Company < Ekylibre::Record::Base
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
     cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
     columns += cols.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
-    columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
+    columns += ["name", "title"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
     columns += self.custom_fields.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
     return columns
@@ -1024,8 +1024,8 @@ class Company < Ekylibre::Record::Base
       code += "    begin\n"
       code += "      nature = self.entity_natures.create!("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
       code += "    rescue\n"
-      code += "      nature = self.entity_natures.find(:first, :conditions=>['abbreviation=? OR name=?', '-', '-'])\n"
-      code += "      nature = self.entity_natures.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+      code += "      nature = self.entity_natures.find(:first, :conditions=>['title=? OR name=?', '-', '-'])\n"
+      code += "      nature = self.entity_natures.create!(:title=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
       code += "    end unless nature\n"
     end
     if cols[:entity_category].is_a? Hash
