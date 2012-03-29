@@ -1801,7 +1801,7 @@ ActiveRecord::Schema.define(:version => 20120320105523) do
   add_index "purchase_lines", ["updater_id"], :name => "index_purchase_order_lines_on_updater_id"
 
   create_table "purchase_natures", :force => true do |t|
-    t.integer  "company_id"
+    t.integer  "company_id",                                      :null => false
     t.boolean  "active",                       :default => false, :null => false
     t.string   "name"
     t.text     "comment"

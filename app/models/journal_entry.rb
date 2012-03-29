@@ -132,11 +132,11 @@ class JournalEntry < CompanyRecord
 
   #
   before_validation do
-    self.financial_year = (self.company ? self.company.financial_year_at(self.printed_on) : nil)
     if self.journal
       self.company_id  = self.journal.company_id 
       self.original_currency ||= self.journal.currency
     end
+    self.financial_year = (self.company ? self.company.financial_year_at(self.printed_on) : nil)
     if self.original_currency and self.financial_year
       if self.original_currency == self.financial_year.currency
         self.original_currency_rate = 1

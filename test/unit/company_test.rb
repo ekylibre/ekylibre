@@ -47,9 +47,8 @@ class CompanyTest < ActiveSupport::TestCase
   context "A generated company" do
 
     setup do
-      @company, @user = Company.create_with_data({:name=>"Generated LTD", :code=>"gltd"}, {:first_name=>"Gendo", :last_name=>"IKARI", :name=>"gendo", :password=>"12345678", :password_confirmation=>"12345678"}, "fr-FR")
+      @company, @user = Company.create_with_data({:name=>"Generated LTD", :code=>"gltd", :currency=>'EUR'}, {:first_name=>"Gendo", :last_name=>"IKARI", :name=>"gendo", :password=>"12345678", :password_confirmation=>"12345678"}, "fr-FR")
       assert_operator @company.id, :> , 0
-      assert_equal @company.currencies.size, 1
     end
     
     should "not be locked" do
@@ -94,7 +93,7 @@ class CompanyTest < ActiveSupport::TestCase
     context "with sales" do
 
       setup do
-        @sale = @company.sales.create!(:client=>@company.entities.third)
+        @sale = @company.sales.create!(:client=>@company.entities.third, :nature=>@company.sale_natures.first)
       end
 
       should "invoice its sales" do
@@ -125,7 +124,7 @@ class CompanyTest < ActiveSupport::TestCase
     context "already invoiced" do
 
       setup do
-        @sale = @company.sales.new(:client=>@company.entities.third)
+        @sale = @company.sales.new(:client=>@company.entities.third, :nature=>@company.sale_natures.first)
         assert @sale.save, @sale.errors.inspect
         assert_equal Date.today, @sale.created_on
         for y in 1..10

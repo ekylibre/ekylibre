@@ -70,7 +70,7 @@
 class Sale < CompanyRecord
   acts_as_numbered :number, :readonly=>false
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
-  attr_readonly :company_id, :created_on
+  attr_readonly :company_id, :created_on, :currency
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name=>"Entity"
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
@@ -101,7 +101,7 @@ class Sale < CompanyRecord
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :lost, :in => [true, false]
   validates_presence_of :amount, :client, :company, :created_on, :downpayment_amount, :number, :paid_amount, :payer, :payment_delay, :pretax_amount, :state, :sum_method
   #]VALIDATORS]
-  validates_presence_of :client, :currency
+  validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if=>Proc.new{|s| s.invoice?}
 
   state_machine :state, :initial => :draft do
@@ -139,9 +139,11 @@ class Sale < CompanyRecord
 
   @@natures = [:estimate, :order, :invoice]
   
-  before_validation do
+  before_validation(:on => :create) do
     self.currency = self.nature.currency if self.nature
+  end
 
+  before_validation do
     self.paid_amount = 0
     self.paid_amount = self.payment_uses.sum(:amount) unless self.payment_uses.empty?
     self.paid_amount -= self.credits.sum(:amount) unless self.credits.empty?

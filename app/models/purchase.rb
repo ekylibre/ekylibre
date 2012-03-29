@@ -103,9 +103,7 @@ class Purchase < CompanyRecord
   end
 
   before_validation(:on => :create) do
-    if self.nature
-      self.currency = self.nature.currency
-    end
+    self.currency = self.nature.currency if self.nature
   end
 
   before_validation do

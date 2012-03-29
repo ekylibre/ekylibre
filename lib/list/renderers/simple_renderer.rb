@@ -97,10 +97,11 @@ module List
               if [:date, :datetime, :timestamp].include? column.datatype
                 datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
               end
-              if (currency = column.options[:currency]) # column.datatype == :decimal and 
+              if !column.options[:currency].is_a?(FalseClass) and (currency = column.options[:currency]) # column.datatype == :decimal and 
                 currency = currency[nature] if currency.is_a?(Hash)
                 currency = :currency if currency.is_a?(TrueClass)
                 currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
+                raise Exception.new("Option :currency is not valid. Hash, Symbol or true/false") unless currency.is_a?(String)
                 currency.gsub!(/RECORD/, record)
                 # datum = "(#{datum}.nil? ? '' : number_to_money(#{datum}, #{currency}))"
                 datum = "(#{datum}.nil? ? '' : I18n.localize(#{datum}, :currency => #{currency}))"

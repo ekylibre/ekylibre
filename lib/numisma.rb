@@ -29,6 +29,8 @@ module Numisma
     end
 
     def currency_rate(from, to)
+      raise ArgumentError.new(":from currency is unknown (#{from.class}:#{from.inspect})") if Numisma[from].nil?
+      raise ArgumentError.new(":to currency is unknown (#{to.class}:#{to.inspect})") if Numisma[to].nil?
       uri = URI("http://www.webservicex.net/CurrencyConvertor.asmx/ConversionRate")
       response = Net::HTTP.post_form(uri, 'FromCurrency' => from, 'ToCurrency' => to)
       doc = ::LibXML::XML::Parser.string(response.body).parse

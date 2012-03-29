@@ -108,6 +108,7 @@ class Company < Ekylibre::Record::Base
   has_many :professions
   has_many :purchases
   has_many :purchase_lines
+  has_many :purchase_natures
   has_many :roles
   has_many :sales
   has_many :sale_lines
@@ -788,7 +789,8 @@ class Company < Ekylibre::Record::Base
         delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
       end
       company.financial_years.create!(:started_on=>Date.today)
-      company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3)
+      company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3, :currency=>currency, :with_accounting=>true, :journal=>company.preferred_sales_journal)
+      company.purchase_natures.create!(:name=>tc('default.purchase_nature_name'), :currency=>currency, :with_accounting=>true, :journal=>company.preferred_purchases_journal)
       
 
       company.load_sequences

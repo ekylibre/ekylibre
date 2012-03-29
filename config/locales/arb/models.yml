@@ -1492,6 +1492,7 @@ arb:
         paid_tax: 'TVA خصم' #?
         price_list_name: 'التسعيرة سوية' #?
         product_category_name: 'من غير فئة'
+        # purchase_nature_name: 'Standard'
         role:
           name:
             admin: 'المدير'

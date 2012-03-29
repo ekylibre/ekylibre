@@ -62,8 +62,7 @@ cash_transfers_001:
   creator_id: 1
   emitter_amount: 10
   emitter_cash_id: 1
-  emitter_currency_id: 1
-  emitter_currency_rate: 1
+  currency_rate: 1
   id: 1
   number: "0001"
   receiver_amount: 10
@@ -78,8 +77,7 @@ cash_transfers_001:
   creator_id: 1
   emitter_amount: 100
   emitter_cash_id: 3
-  emitter_currency_id: 1
-  emitter_currency_rate: 1
+  currency_rate: 1
   id: 1
   number: "0001"
   receiver_amount: 100

@@ -946,6 +946,7 @@ spa:
           transfer:
             # name: 'Transfer'
         # product_category_name: 'Default category'
+        # purchase_nature_name: 'Standard'
         role:
           name:
             # admin: 'Manager'
@@ -1105,7 +1106,7 @@ spa:
         # single: 'FY%{first_year}'
     incoming_payment:
       # bookkeep: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
-      # label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
+      # label: '%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}'
     incoming_payment_use:
       # bookkeep: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     inventory_line:
@@ -1181,7 +1182,7 @@ spa:
       # sale: 'Sale %{number}'
     outgoing_payment:
       # bookkeep: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
-      # label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
+      # label: '%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}'
     outgoing_payment_use:
       # bookkeep: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
     price:

@@ -30,7 +30,7 @@ class ReviewFinancialModels < ActiveRecord::Migration
     end
 
     create_table :purchase_natures do |t|
-      t.belongs_to :company
+      t.belongs_to :company, :null=>false
       t.boolean :active, :null=>false, :default=>false
       t.string :name
       t.text :comment

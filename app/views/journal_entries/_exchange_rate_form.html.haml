@@ -24,7 +24,7 @@
       %td#entry-original-debit.decimal{"colspan"=>2, "data-use"=>"input.original-debit"}=@journal_entry.original_debit
       %td#entry-original-credit.decimal{"colspan"=>2, "data-use"=>"input.original-credit"}=@journal_entry.original_credit
 
-    -if @journal.currency != @financial_year.currency
+    -if @financial_year and@journal.currency != @financial_year.currency
       %tr.subtotal{"data-valid-if-equality-between"=>"#entry-debit, #entry-credit"}
         %th{"colspan"=>2}=tl(:total_in_currency, :currency=>Numisma[@financial_year.currency].name)
         %td#entry-debit.decimal{"colspan"=>2, "data-use"=>"td.debit"}=@journal_entry.debit

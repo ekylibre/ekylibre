@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class JournalEntryLinesControllerTest < ActionController::TestCase
-  test_restfully_all_actions :new=>:index_xhr
+  test_restfully_all_actions :except=>:new # =>:index_xhr
 end

@@ -20,7 +20,7 @@
       <part height="14mm">
 	<set>
 	  <text value="{{journal.name}}" left="50%" align="center" width="150mm" bold="true" size="12"/>
-	  <text value="Du {{started_on?format=month_letter}} au {{stopped_on?format=month_letter}} (en {{journal/currency/name}})" left="50%" align="center" width="150mm" top="7mm" size="12"/>
+	  <text value="From {{started_on?format=month_letter}} to {{stopped_on?format=month_letter}} ({{journal/currency}})" left="50%" align="center" width="150mm" top="7mm" size="12"/>
 	</set>
       </part>
       

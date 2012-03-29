@@ -59,26 +59,26 @@ class CashTransfer < CompanyRecord
 
   before_validation do
     self.created_on ||= Date.today
-    self.currency ||= self.company.default_currency
+    #self.currency ||= self.company.default_currency
 
-    if self.currency == self.company.default_currency
-      if self.emitter_cash
-        self.emitter_currency = self.emitter_cash.currency
-        # TODO: Find a way to specify currency rates
-        self.emitter_currency_rate ||= rand # self.emitter_currency.rate
-      end
-      if self.receiver_cash
-        self.receiver_currency = self.receiver_cash.currency
-        # TODO: Find a way to specify currency rates
-        self.receiver_currency_rate ||= rand # self.receiver_currency.rate
-      end
-    end
+    # if self.currency == self.company.default_currency
+    #   if self.emitter_cash
+    #     self.emitter_currency = self.emitter_cash.currency
+    #     # TODO: Find a way to specify currency rates
+    #     self.emitter_currency_rate ||= rand # self.emitter_currency.rate
+    #   end
+    #   if self.receiver_cash
+    #     self.receiver_currency = self.receiver_cash.currency
+    #     # TODO: Find a way to specify currency rates
+    #     self.receiver_currency_rate ||= rand # self.receiver_currency.rate
+    #   end
+    # end
 
-    if self.emitter_amount.to_f > 0
-      self.receiver_amount = self.emitter_amount*self.emitter_currency_rate/self.receiver_currency_rate
-    elsif self.receiver_amount.to_f > 0
-      self.emitter_amount = self.receiver_amount*self.receiver_currency_rate/self.emitter_currency_rate
-    end
+    # if self.emitter_amount.to_f > 0
+    #   self.receiver_amount = self.emitter_amount*self.emitter_currency_rate/self.receiver_currency_rate
+    # elsif self.receiver_amount.to_f > 0
+    #   self.emitter_amount = self.receiver_amount*self.receiver_currency_rate/self.emitter_currency_rate
+    # end
 
     if self.number.blank?
       last = self.company.cash_transfers.find(:first, :order=>"number desc")

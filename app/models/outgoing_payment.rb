@@ -101,7 +101,7 @@ class OutgoingPayment < CompanyRecord
 
 
   def label
-    tc(:label, :amount=>self.amount.to_s, :date=>self.created_at.to_date, :mode=>self.mode.name, :usable_amount=>self.unused_amount.to_s, :payee=>self.payee.full_name, :number=>self.number, :currency=>self.company.default_currency.symbol)
+    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.created_at.to_date), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payee=>self.payee.full_name, :number=>self.number)
   end
 
   def unused_amount

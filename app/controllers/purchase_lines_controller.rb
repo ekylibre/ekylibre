@@ -30,7 +30,7 @@ class PurchaseLinesController < ApplicationController
       redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
-    @purchase_line = @purchase.lines.new(:currency=>)
+    @purchase_line = @purchase.lines.new()
     @price = Price.new(:pretax_amount=>0.0)
     t3e @purchase.attributes
     render_restfully_form

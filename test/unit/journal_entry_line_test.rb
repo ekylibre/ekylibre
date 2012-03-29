@@ -53,11 +53,11 @@ class JournalEntryLineTest < ActiveSupport::TestCase
   test "the validity of entries" do
     line = journal_entry_lines(:journal_entry_lines_001)
     assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.currency_debit = 5
+    line.original_debit = 5
     assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.currency_credit = 17
+    line.original_credit = 17
     assert !line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
-    line.currency_debit = 0
+    line.original_debit = 0
     assert line.valid?, line.inspect+"\n"+line.errors.full_messages.to_sentence
   end
 

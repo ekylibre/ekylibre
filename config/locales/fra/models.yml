@@ -985,6 +985,7 @@ fra:
           transfer:
             name: 'Virement'
         product_category_name: 'Sans catégorie'
+        # purchase_nature_name: 'Standard'
         role:
           name:
             admin: 'Gérant'

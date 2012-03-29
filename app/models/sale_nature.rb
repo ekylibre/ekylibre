@@ -57,6 +57,7 @@ class SaleNature < CompanyRecord
   validates_presence_of :company, :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if=>Proc.new{|sn| sn.with_accounting?}
+  validates_presence_of :currency
   validates_uniqueness_of :name, :scope=>:company_id
 
   validate do

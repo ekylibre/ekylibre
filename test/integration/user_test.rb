@@ -52,22 +52,22 @@ class UserTest < ActionController::IntegrationTest
     should "register a new company" do
       get "company/register"
       assert_response :success
-      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}
-      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
+      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd1", :currency=>"JPY"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my1", :password=>"12345678", :password_confirmation=>"12345678"}
+      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd1"
     end
 
     should "register a new company with english data" do
       get "company/register"
       assert_response :success
-      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"eng"
-      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
+      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd2", :currency=>"USD"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my2", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"eng"
+      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd2"
     end
 
     should "register a new company with french data" do
       get "company/register"
       assert_response :success
-      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"fra"
-      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd"
+      post "company/register", :my_company=>{:name=>"My Company LTD", :code=>"mcltd3", :currency=>"EUR"}, :user=>{:last_name=>"Company", :first_name=>"My", :name=>"my3", :password=>"12345678", :password_confirmation=>"12345678"}, :demo=>"fra"
+      assert_redirected_to :controller=>:dashboards, :action=>:welcome, :company=>"mcltd3"
     end
 
   end

@@ -125,7 +125,7 @@ class IncomingPayment < CompanyRecord
 
   
   def label
-    tc(:label, :amount=>Numisma[self.mode.cash.currency].localize(self.amount), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>Numisma[self.mode.cash.currency].localize(self.unused_amount), :payer=>self.payer.full_name, :number=>self.number)
+    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payer=>self.payer.full_name, :number=>self.number)
   end
 
   def unused_amount

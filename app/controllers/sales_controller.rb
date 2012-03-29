@@ -72,8 +72,8 @@ class SalesController < ApplicationController
     t.column :number, :url=>true, :children=>:designation
     t.column :full_name, :through=>:client, :children=>false
     t.column :created_on, :children=>false
-    t.column :pretax_amount, :currency=>true
-    t.column :amount, :currency=>true
+    t.column :pretax_amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}
+    t.column :amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}
   end
 
   list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}) do |t|

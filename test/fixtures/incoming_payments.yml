@@ -74,6 +74,7 @@ incoming_payments_001:
   id: 1
   payer_id: 1
   mode_id: 1
+  number: "IP001"
   used_amount: 0
   received: true
   scheduled: true
@@ -88,6 +89,7 @@ incoming_payments_002:
   creator_id: 1
   payer_id: 1
   id: 2
+  number: "IP002"
   mode_id: 1
   used_amount: 0
   received: true
@@ -105,6 +107,7 @@ incoming_payments_003:
   id: 3
   mode_id: 1
   used_amount: 0
+  number: "IP003"
   received: true
   scheduled: false
   to_bank_on: 2009-07-19
