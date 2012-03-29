@@ -265,6 +265,8 @@ module ApplicationHelper
     end
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
+    elsif attribute.match(/(^|_)currency$/)
+      value = ::Numisma[value].label
     elsif options[:currency] and value.is_a?(Numeric)
       value = ::I18n.localize(value, :currency=>options[:currency])
       value = link_to(value.to_s, options[:url]) if options[:url]
