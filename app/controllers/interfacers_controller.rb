@@ -74,8 +74,18 @@ class InterfacersController < ApplicationController
   search_for(:all_contacts, :contacts, :columns=>[:address], :conditions =>["company_id = ? AND deleted_at IS NULL", ['@current_company.id']])
   search_for(:attorneys_accounts, :accounts, :columns=>[:number, :name], :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_attorneys_accounts.to_s+'%'"]])
 
+  def self.available_prices_conditions
+    code = ""
+    code << "c=['#{Price.table_name}.company_id=? AND #{Price.table_name}.active=? AND #{Product.table_name}.active=?', @current_company.id, true, true]\n"
+    code << "if session[:current_currency]\n"
+    code << "  c[0] << ' AND currency=?'\n"
+    code << "  c << session[:current_currency]\n"
+    code << "end\n"
+    return code
+  end
 
-  search_for(:available_prices, :prices, :columns=>["product.code", "product.name", {:name=>:pretax_amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}, {:name=>:amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}], :joins=>[:product], :conditions=>["#{Price.table_name}.company_id=? AND #{Price.table_name}.active=? AND #{Product.table_name}.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
+
+  search_for(:available_prices, :prices, :columns=>["product.code", "product.name", {:name=>:pretax_amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}, {:name=>:amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}], :joins=>[:product], :conditions=>available_prices_conditions, :order=>"products.name, prices.amount")
   # search_for(:available_prices, :prices, :columns=>["product.code", "product.name", :pretax_amount, :amount], :joins=>[:product], :conditions=>["#{Price.table_name}.company_id=? AND #{Price.table_name}.active=? AND #{Product.table_name}.active=?", ['@current_company.id'], true, true], :order=>"products.name, prices.amount")
   search_for(:clients_accounts, :accounts, :columns=>[:number, :name], :conditions=>["company_id=? AND number LIKE ?", ["@current_company.id"], ["@current_company.preferred_third_clients_accounts.to_s+'%'"]])
   search_for(:client_contacts, :contacts, :columns=>[:address], :conditions=>["company_id = ? AND entity_id = ? AND deleted_at IS NULL", ['@current_company.id'], ['session[:current_entity_id]']])

@@ -1276,6 +1276,7 @@ fra:
     update: 'Modifier'
     update_params: 'Modifier la recherche'
     usage: 'Utilisation'
+    use_incoming_payment: 'Rattacher l''encaissement %{payment}'
     use_renew: 'Sélectionnez un journal pour reporter les à nouveaux'
     used_accounts: 'Comptes utilisés seulement'
     user_update: 'Modifier les informations de l''utilisateur' #?

@@ -32,6 +32,7 @@ class PurchaseLinesController < ApplicationController
     end
     @purchase_line = @purchase.lines.new()
     @price = Price.new(:pretax_amount=>0.0)
+    session[:current_currency] = @purchase.currency
     t3e @purchase.attributes
     render_restfully_form
   end

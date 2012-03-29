@@ -777,7 +777,7 @@ class Company < Ekylibre::Record::Base
       cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>company.journal(:cash).id)
       baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>company.journal(:bank).id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
       company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id)
+      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id, :depositables_journal_id=>company.preferred_various_journal)
       company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
 
       company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)

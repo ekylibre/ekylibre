@@ -1142,7 +1142,7 @@ fra:
         single: 'EX%{first_year}'
     incoming_payment:
       bookkeep: '[%{resource} %{number}] %{mode} %{check_number} de %{payer} (%{expenses})'
-      label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} de %{payer}'
+      label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} de %{payer}'
     incoming_payment_use:
       bookkeep: '[%{resource}] %{mode} (%{payment_number}) reçu de %{attorney} pour %{client} (%{expense_number})'
     inventory_line:
@@ -1215,7 +1215,7 @@ fra:
       sale: 'Vente %{number}'
     outgoing_payment:
       bookkeep: '[%{resource} %{number}] %{mode} %{check_number} pour %{payee} (%{expenses})'
-      label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} par %{mode} pour %{payee}'
+      label: '%{number}. %{amount} (%{usable_amount} restants) du %{date} en %{mode} pour %{payee}'
     outgoing_payment_use:
       bookkeep: '[%{resource}] %{mode} (%{payment_number}) reçu par %{attorney} pour %{supplier} (%{expense_number})'
     price:

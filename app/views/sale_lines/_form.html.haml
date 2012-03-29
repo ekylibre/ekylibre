@@ -5,5 +5,5 @@
   -f.error :sale_line
   -f.error :subscription
   -f.title :infos
-  -f.field :sale_line, :price_id, :choices=>:available_prices, :new=>{:mode=>:sales}, :controller=>:interfacers, "data-dependents"=>"#detail", "data-parameter-name"=>"price_id"
+  -f.field :sale_line, :price_id, :choices=>:available_prices, :new=>{:mode=>:sales, :currency=>@sale.currency}, :controller=>:interfacers, "data-dependents"=>"#detail", "data-parameter-name"=>"price_id"
 #detail{"data-refresh"=>url_for(:controller=>:sale_lines, :action=>:detail, :sale_id=>@sale.id), "data-refresh-mode"=>"update"}=render :partial=>"sale_lines/detail_form"

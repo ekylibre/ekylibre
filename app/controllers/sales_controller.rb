@@ -83,16 +83,16 @@ class SalesController < ApplicationController
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
+    t.column :amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
     t.action :edit, :if=>'RECORD.sale.order? '
     t.action :destroy, :if=>'RECORD.sale.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   list(:payment_uses, :model=>:incoming_payment_uses, :conditions=>["#{IncomingPaymentUse.table_name}.company_id=? AND #{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['@current_company.id'], ['session[:current_sale_id]'], Sale.name]) do |t|
     t.column :number, :through=>:payment, :url=>true
-    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>true
-    t.column :amount
+    t.column :amount, :currency=>"RECORD.payment.currency", :through=>:payment, :label=>"payment_amount", :url=>true
+    t.column :amount, :currency=>"RECORD.payment.currency"
     t.column :payment_way
     t.column :scheduled, :through=>:payment, :datatype=>:boolean, :label=>:column
     t.column :downpayment
@@ -115,10 +115,10 @@ class SalesController < ApplicationController
 
   list(:undelivered_lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]'], :reduction_origin_id=>nil}) do |t|
     t.column :name, :through=>:product
-    t.column :pretax_amount, :through=>:price
+    t.column :pretax_amount, :currency=>"RECORD.price.currency", :through=>:price
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount
+    t.column :pretax_amount, :currency=>"RECORD.price.currency"
     t.column :amount
     t.column :undelivered_quantity, :datatype=>:decimal
   end
@@ -131,7 +131,7 @@ class SalesController < ApplicationController
     t.column :serial, :through=>:tracking, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>"RECORD.sale.currency"
+    t.column :pretax_amount, :through=>:price, :label=>"unit_price_amount", :currency=>"RECORD.price.currency"
     t.column :pretax_amount, :currency=>"RECORD.sale.currency"
     t.column :amount, :currency=>"RECORD.sale.currency"
     t.action :edit, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
@@ -144,6 +144,7 @@ class SalesController < ApplicationController
     respond_to do |format|
       format.html do
         session[:current_sale_id] = @sale.id
+        session[:current_currency] = @sale.currency
         if params[:step] and not ["products", "deliveries", "summary"].include? params[:step]
           state  = @sale.state
           params[:step] = (@sale.invoice? ? :summary : @sale.order? ? :deliveries : :products).to_s

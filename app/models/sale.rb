@@ -395,7 +395,7 @@ class Sale < CompanyRecord
   end
 
   def usable_payments
-    self.company.incoming_payments.find(:all, :conditions=>["COALESCE(paid_amount, 0)<COALESCE(amount, 0)"], :order=>"amount")
+    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode=>:cash).where("currency=?", self.currency).order("to_bank_on")
   end
 
   # Build general sales condition for the sale order

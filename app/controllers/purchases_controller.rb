@@ -30,8 +30,8 @@ class PurchasesController < ApplicationController
     t.column :comment
     # t.column :shipped
     t.column :state_label
-    t.column :paid_amount
-    t.column :amount
+    t.column :paid_amount, :currency=>true
+    t.column :amount, :currency=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
@@ -48,16 +48,16 @@ class PurchasesController < ApplicationController
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
+    t.column :amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
     t.action :edit, :if=>'RECORD.purchase.order? '
     t.action :destroy, :if=>'RECORD.purchase.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
   end
 
   list(:payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.company_id=? AND #{OutgoingPaymentUse.table_name}.expense_id=? ", ['@current_company.id'], ['session[:current_purchase_id]']]) do |t|
     t.column :number, :through=>:payment, :url=>true
-    t.column :amount, :through=>:payment, :label=>"payment_amount", :url=>true
-    t.column :amount
+    t.column :amount, :currency=>"RECORD.payment.currency", :through=>:payment, :label=>"payment_amount", :url=>true
+    t.column :amount, :currency=>"RECORD.payment.currency"
     t.column :name, :through=>[:payment, :mode]
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>:column
@@ -66,11 +66,11 @@ class PurchasesController < ApplicationController
 
   list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
     t.column :name, :through=>:product
-    t.column :pretax_amount, :through=>:price
+    t.column :pretax_amount, :currency=>"RECORD.price.currency", :through=>:price
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>"RECORD.purchase.currency"
+    t.column :amount, :currency=>"RECORD.purchase.currency"
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
@@ -80,9 +80,9 @@ class PurchasesController < ApplicationController
     t.column :tracking_serial
     t.column :quantity
     t.column :label, :through=>:unit
-    t.column :pretax_amount, :through=>:price
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>"RECORD.purchase.currency", :through=>:price
+    t.column :pretax_amount, :currency=>"RECORD.purchase.currency"
+    t.column :amount, :currency=>"RECORD.purchase.currency"
     t.action :edit, :if=>'RECORD.purchase.draft? '
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.purchase.draft? '
   end

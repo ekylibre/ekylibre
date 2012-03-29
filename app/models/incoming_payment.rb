@@ -124,6 +124,10 @@ class IncomingPayment < CompanyRecord
   end
 
   
+  def currency
+    self.mode.cash.currency
+  end
+
   def label
     tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payer=>self.payer.full_name, :number=>self.number)
   end

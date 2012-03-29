@@ -33,7 +33,7 @@ class PricesController < ApplicationController
 
   def new
     @mode = (params[:mode]||"sales").to_sym 
-    @price = Price.new(:product_id=>params[:product_id], :currency=>@current_company.default_currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = Price.new(:product_id=>params[:product_id], :currency=>params[:currency]||@current_company.default_currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form    
   end

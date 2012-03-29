@@ -75,8 +75,8 @@ class EntitiesController < ApplicationController
     t.column :name, :through=>:mode
     t.column :bank
     t.column :check_number
-    t.column :used_amount
-    t.column :amount, :url=>true
+    t.column :used_amount, :currency=>"RECORD.mode.cash.currency"
+    t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
     t.column :number, :through=>:deposit, :url=>true
     t.action :edit, :if=>"RECORD.deposit.nil\?"
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
@@ -114,8 +114,8 @@ class EntitiesController < ApplicationController
     t.column :label, :through=>:responsible
     t.column :name, :through=>:mode
     t.column :check_number
-    t.column :used_amount
-    t.column :amount, :url=>true
+    t.column :used_amount, :currency=>"RECORD.mode.cash.currency"
+    t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
   end
@@ -126,8 +126,8 @@ class EntitiesController < ApplicationController
     t.column :invoiced_on
     t.column :address, :through=>:delivery_contact
     t.column :state_label
-    t.column :paid_amount
-    t.column :amount
+    t.column :paid_amount, :currency=>true
+    t.column :amount, :currency=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
@@ -138,8 +138,8 @@ class EntitiesController < ApplicationController
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
     t.column :state_label, :children=>false
-    t.column :paid_amount, :children=>false
-    t.column :amount
+    t.column :paid_amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}, :children=>false
+    t.column :amount, :currency=>{:body=>true, :children=>"RECORD.sale.currency"}
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :duplicate, :method=>:post
     t.action :edit, :if=>"RECORD.draft? "

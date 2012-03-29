@@ -1122,6 +1122,7 @@ eng:
     update: 'Update'
     update_params: 'Update params'
     usage: 'Usage'
+    use_incoming_payment: 'Add incoming payment %{payment}'
     use_renew: 'Select the journal to carry over'
     used_accounts: 'Used accounts only'
     username: 'Username'

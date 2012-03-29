@@ -68,8 +68,11 @@
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :incoming_payments
-  =toolbar do |t|
-    -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id, :i18n=>{:label=>@sale.label}) unless @sale.unpaid_amount.zero?
+  -unless @sale.unpaid_amount.zero?
+    =toolbar do |t|
+      -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id, :i18n=>{:label=>@sale.label})
+      -for payment in @sale.usable_payments
+        -t.link(tl("use_incoming_payment", :payment=>payment.label), {:action=>:create, :controller=>:incoming_payment_uses, :incoming_payment_use=>{:expense_type=>@sale.class.name, :expense_id=>@sale.id, :payment_id=>payment.id}}, :method=>:post) 
   =list :payment_uses
 
       
@@ -90,7 +93,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :financial_state
   %table.list
-    -for k, v in @sale.stats(:with_balance=>true)
+    -for k, v in @sale.stats # (:with_balance=>true)
       %tr.total
         %th=tc(k)
         %td=number_to_money(v, @sale.currency)

@@ -190,6 +190,15 @@
 	return false;
     });
 
+    // Use element to compute a calculation
+    $.behave("*[data-close-dialog]", "click", function () {
+	var element = $(this), frame;
+	frame = $('#'+element.data("close-dialog"));
+	frame.dialog("close");
+	return false;
+    });
+
+
 
     // Use element to compute a calculation
     $.behave("*[data-use]", "load", function () {

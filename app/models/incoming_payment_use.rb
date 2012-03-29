@@ -85,6 +85,11 @@ class IncomingPaymentUse < CompanyRecord
   end
 
   validate do
+    if self.payment and self.expense
+      if self.payment.currency != self.expense.currency
+        errors.add(:payment_id, :currency_does_not_match)
+      end
+    end
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
     if self.expense
       errors.add(:expense_id, :invalid) unless self.expense.company_id = self.company_id

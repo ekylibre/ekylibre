@@ -99,9 +99,12 @@ class OutgoingPayment < CompanyRecord
     # self.uses.first.reconciliate if self.uses.first
   end
 
+  def currency
+    self.mode.cash.currency
+  end
 
   def label
-    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.created_at.to_date), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payee=>self.payee.full_name, :number=>self.number)
+    tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.currency), :date=>I18n.localize(self.created_at.to_date), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payee=>self.payee.full_name, :number=>self.number)
   end
 
   def unused_amount

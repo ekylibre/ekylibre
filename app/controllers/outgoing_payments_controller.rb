@@ -39,8 +39,8 @@ class OutgoingPaymentsController < ApplicationController
     t.column :number, :url=>true
     t.column :full_name, :through=>:payee, :url=>true
     t.column :paid_on
-    t.column :amount, :url=>true
-    t.column :used_amount
+    t.column :amount, :currency=>true, :url=>true
+    t.column :used_amount, :currency=>true
     t.column :name, :through=>:mode
     t.column :check_number
     t.column :to_bank_on
@@ -59,8 +59,8 @@ class OutgoingPaymentsController < ApplicationController
     t.column :number, :url=>true
     t.column :description, :through=>:supplier, :url=>true
     t.column :created_on
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency=>true
+    t.column :amount, :currency=>true
   end
 
   # Displays details of one outgoing payment selected with +params[:id]+

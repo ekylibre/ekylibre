@@ -28,6 +28,7 @@ class SaleLinesController < ApplicationController
       redirect_to :controller=>:sales, :action=>:show, :id=>@sale.id, :step=>:products
       return
     end
+    session[:current_currency] = @sale.currency
     render_restfully_form
   end
 

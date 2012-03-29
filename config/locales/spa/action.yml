@@ -1284,6 +1284,7 @@ spa:
     # update_params: 'Update params'
     upload: 'Séleccionar el fichero de salvaguardia a cargar' #?
     # usage: 'Usage'
+    # use_incoming_payment: 'Add incoming payment %{payment}'
     use_renew: 'Seleccionar un periodico para los aplazamientos de nuevo'
     used_accounts: 'Cuentos utilozados unico'
     user_create: 'Añadir un nuevo utilizador' #?

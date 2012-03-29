@@ -5,7 +5,7 @@
   -f.error 'incoming_payment_use'
   -f.field :incoming_payment_use, :downpayment
   -payment = @incoming_payment_use.expense.payer.last_incoming_payment || IncomingPayment.new
-  -f.field :incoming_payment_use, :payment_id, :choices=>{:reflection=>:usable_incoming_payments}, :new=>{:payer_id=>@incoming_payment_use.expense.payer.id, :amount=>@incoming_payment_use.expense.unpaid_amount, :bank=>payment.bank, :account_number=>payment.account_number}
+  -f.field :incoming_payment_use, :payment_id, :choices=>{:reflection=>:usable_incoming_payments}, :new=>{:payer_id=>@incoming_payment_use.expense.payer.id, :amount=>@incoming_payment_use.expense.unpaid_amount, :bank=>payment.bank, :account_number=>payment.account_number, :currency=>@incoming_payment_use.expense.currency}
 =hidden_field(:incoming_payment_use, :expense_id)
 =hidden_field(:incoming_payment_use, :expense_type)
 
