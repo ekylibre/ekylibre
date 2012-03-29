@@ -2,6 +2,7 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'capybara/rails'
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
 # Use specific file lib/shoulda/context/context.rb
@@ -11,6 +12,13 @@ class Test::Unit::TestCase
   include Shoulda::Context::InstanceMethods
   extend Shoulda::Context::ClassMethods
 end
+
+
+class CapybaraIntegrationTest < ActionController::IntegrationTest
+  include Capybara::DSL
+end
+
+
 
 class ActiveSupport::TestCase
   

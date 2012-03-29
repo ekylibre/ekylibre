@@ -5,10 +5,11 @@ module MigrationHelper
   # At the end of the operations the indexes are renamed back.
   def protect_indexes(tables, &block)
     if adapter_name == "SQLite"
+      sqlite_indexes = []
+      root, count = rand.to_s[2..-1].to_i.to_s(36), "a"
+      Struct.new("ShortIndexName", :table, :name, :short_name)
+      
       suppress_messages do
-        sqlite_indexes = []
-        root, count = rand.to_s[2..-1].to_i.to_s(36), "a"
-        Struct.new("ShortIndexName", :table, :name, :short_name)
         for table in tables
           for index in indexes(table)
             if index.name.length > 32
