@@ -3,8 +3,9 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
     create_table :districts do |t|
       t.column :name, :string, :null=>false
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :districts
+    add_stamps_indexes :districts
     
     create_table :cities do |t|
       t.column :insee_cdc, :string, :limit=>1
@@ -28,16 +29,18 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.column :name, :string, :null=>false
       t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :cities
+    add_stamps_indexes :cities
     
     create_table :areas do |t|
       t.column :postcode, :string, :null=>false
       t.column :name, :string, :null=>false
       t.column :city_id, :integer, :null=>false, :references=>:cities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :areas
+    add_stamps_indexes :areas
     
     add_column :contacts, :area_id, :integer, :references=>:areas, :on_delete=>:cascade, :on_update=>:cascade
   end

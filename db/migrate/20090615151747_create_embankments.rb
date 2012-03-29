@@ -8,8 +8,9 @@ class CreateEmbankments < ActiveRecord::Migration
       t.column :bank_account_id,   :integer,  :null=>false, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :mode_id,           :integer,  :null=>false, :references=>:payment_modes, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,        :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :embankments
+    add_stamps_indexes :embankments
     
     add_column :payments, :embankment_id, :integer, :references=>:payments_lists, :on_delete=>:cascade, :on_update=>:cascade
     add_column :embankments, :locked, :boolean, :null=>false, :default=>false

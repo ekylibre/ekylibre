@@ -5,8 +5,9 @@ class CreateObservations < ActiveRecord::Migration
       t.column :description,     :text,     :null=>false
       t.column :entity_id,       :integer,  :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :observations
+    add_stamps_indexes :observations
   end
 
   def self.down

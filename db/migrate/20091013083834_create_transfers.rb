@@ -10,8 +10,9 @@ class CreateTransfers < ActiveRecord::Migration
       t.column :started_on,   :date
       t.column :stopped_on,   :date
       t.column :company_id,   :integer, :null=>false
+      t.stamps
     end
-    add_stamps :transfers
+    add_stamps_indexes :transfers
     add_index :transfers, :company_id
     
     add_column :payment_parts, :expense_type, :string,  :null=>false, :default=>'UnknownModel'

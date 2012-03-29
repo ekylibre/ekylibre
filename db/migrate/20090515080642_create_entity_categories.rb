@@ -13,8 +13,9 @@ class CreateEntityCategories < ActiveRecord::Migration
       t.column :default, :boolean, :null=>false, :default=>false
       t.column :deleted, :boolean, :null=>false, :default=>false
       t.column :company_id,  :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :entity_categories
+    add_stamps_indexes :entity_categories
 
     add_column :entities, :category_id, :integer, :references=>:entities, :on_update=>:restrict, :on_delete=>:restrict
     

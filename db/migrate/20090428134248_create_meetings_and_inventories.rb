@@ -6,15 +6,17 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
       t.column :description, :text
       t.column :active,      :boolean
       t.column :company_id,  :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meeting_locations
+    add_stamps_indexes :meeting_locations
 
     create_table :meeting_modes do |t|
       t.column :name,        :string,    :null=>false
       t.column :active,      :boolean
       t.column :company_id,  :integer,   :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meeting_modes
+    add_stamps_indexes :meeting_modes
 
     create_table :meetings do |t|
       t.column :entity_id,    :integer,  :null=>false,  :references=>:entities,  :on_delete=>:restrict, :on_update=>:restrict
@@ -25,8 +27,9 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
       t.column :address,      :text
       t.column :description,  :text
       t.column :company_id,   :integer,  :null=>false,  :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meetings
+    add_stamps_indexes :meetings
 
     create_table :stock_transfers do |t|
       t.column :nature,       :string,   :null=>false,  :limit=>8     ## "Transfer"  "Waste" 
@@ -38,16 +41,18 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
       t.column :moved_on,     :date
       t.column :comment,      :text
       t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.stamps
     end
-    add_stamps :stock_transfers
+    add_stamps_indexes :stock_transfers
 
     create_table :inventories do |t|
       t.column :date,         :date,     :null=>false
       t.column :comment,      :text
       t.column :changes_reflected,       :boolean 
       t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.stamps
     end
-    add_stamps :inventories
+    add_stamps_indexes :inventories
 
     create_table :inventory_lines do |t|
       t.column :product_id,       :integer,  :null=>false,  :references=>:products,       :on_delete=>:restrict, :on_update=>:restrict 
@@ -56,8 +61,9 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
       t.column :validated_quantity,:decimal, :null=>false, :precision=>16, :scale=>2
       t.column :inventory_id,     :integer,  :null=>false,  :references=>:inventories,     :on_delete=>:restrict, :on_update=>:restrict 
       t.column :company_id,       :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.stamps
     end
-    add_stamps :inventory_lines
+    add_stamps_indexes :inventory_lines
 
     add_column :stock_locations,  :reservoir,   :boolean, :default=>false
     add_column :stock_locations,  :product_id,  :integer, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict

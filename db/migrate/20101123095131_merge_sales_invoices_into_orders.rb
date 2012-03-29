@@ -323,8 +323,9 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       t.integer "unit_id"
       t.integer "tracking_id"
       t.integer "warehouse_id"
+      t.stamps
     end
-    add_stamps :sales_invoice_lines
+    add_stamps_indexes :sales_invoice_lines
 
     add_index :sales_invoice_lines, ["company_id"], :name => "index_invoice_lines_on_company_id"
 
@@ -350,8 +351,9 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       t.integer "currency_id"
       t.datetime "accounted_at"
       t.integer "journal_entry_id"
+      t.stamps
     end
-    add_stamps :sales_invoices
+    add_stamps_indexes :sales_invoices
     add_index :sales_invoices, ["accounted_at"], :name => "index_invoices_on_accounted_at"
     add_index :sales_invoices, ["company_id"], :name => "index_invoices_on_company_id"
 

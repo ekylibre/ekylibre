@@ -24,8 +24,9 @@ class CreateAssets < ActiveRecord::Migration
       t.decimal    :deprecated_amount,     :null=>false, :precision=>16, :scale=>2
       t.string     :depreciation_method,   :null=>false
       # t.integer    :depreciation_duration, :null=>false
+      t.stamps
     end
-    add_stamps :assets
+    add_stamps_indexes :assets
     add_index :assets, :company_id
     add_index :assets, :account_id
     add_index :assets, :journal_id
@@ -47,8 +48,9 @@ class CreateAssets < ActiveRecord::Migration
       t.text       :depreciation
       t.decimal    :amount,             :null=>false, :precision=>16, :scale=>2
       t.integer    :position
+      t.stamps
     end
-    add_stamps :asset_depreciations
+    add_stamps_indexes :asset_depreciations
     add_index :asset_depreciations, :company_id
     add_index :asset_depreciations, :asset_id
     add_index :asset_depreciations, :journal_entry_id

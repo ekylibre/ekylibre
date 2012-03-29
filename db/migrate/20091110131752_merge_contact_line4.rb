@@ -21,8 +21,9 @@ class MergeContactLine4 < ActiveRecord::Migration
       t.column :rtl,                    :boolean,  :null=>false, :default=>false
       t.column :align,                  :string,   :null=>false, :default=>"left", :limit=>8
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :address_norms
+    add_stamps_indexes :address_norms
     add_index :address_norms, :company_id
     add_index :address_norms, [:name, :company_id], :unique=>true
 
@@ -39,8 +40,9 @@ class MergeContactLine4 < ActiveRecord::Migration
       t.column :right_value,            :string,  :limit=>63
       t.column :position,               :integer
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :address_norm_items
+    add_stamps_indexes :address_norm_items
     add_index :address_norm_items, :company_id
     add_index :address_norm_items, [:nature, :contact_norm_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_nature"
     add_index :address_norm_items, [:name, :contact_norm_id, :company_id],  :unique=>true, :name=>"#{quoted_table_name(:address_norm)}_items_name"

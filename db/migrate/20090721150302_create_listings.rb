@@ -7,8 +7,9 @@ class CreateListings < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :story,                  :text
       t.column :company_id,             :integer,  :null=>false
+      t.stamps
     end
-    add_stamps :listings
+    add_stamps_indexes :listings
     add_index :listings, :company_id
     add_index :listings, :name
     add_index :listings, :root_model
@@ -28,8 +29,9 @@ class CreateListings < ActiveRecord::Migration
       t.column :item_listing_node_id,   :integer
       t.column :listing_id,             :integer,  :null=>false
       t.column :company_id,             :integer,  :null=>false
+      t.stamps
     end
-    add_stamps :listing_nodes
+    add_stamps_indexes :listing_nodes
     add_index :listing_nodes, :name
     add_index :listing_nodes, :nature
     add_index :listing_nodes, :exportable
@@ -44,8 +46,9 @@ class CreateListings < ActiveRecord::Migration
       t.column :nature,                 :string,   :null=>false, :limit=>8
       t.column :value,                  :text
       t.column :company_id,             :integer,  :null=>false
+      t.stamps
     end
-    add_stamps :listing_node_items
+    add_stamps_indexes :listing_node_items
     add_index :listing_node_items, :node_id
     add_index :listing_node_items, :company_id
 

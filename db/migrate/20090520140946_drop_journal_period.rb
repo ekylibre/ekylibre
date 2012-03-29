@@ -35,8 +35,9 @@ class DropJournalPeriod < ActiveRecord::Migration
       t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :balance,          :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :journal_periods
+    add_stamps_indexes :journal_periods
     add_index :journal_periods, :company_id
     add_index :journal_periods, :journal_id
     add_index :journal_periods, :financialyear_id

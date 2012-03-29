@@ -37,8 +37,9 @@ class ReviewFinancialModels < ActiveRecord::Migration
       t.string :currency, :limit=>3
       t.boolean :with_accounting, :null=>false, :default=>false
       t.belongs_to :journal
+      t.stamps
     end
-    add_stamps :purchase_natures
+    add_stamps_indexes :purchase_natures
     add_index :purchase_natures, :company_id
     add_index :purchase_natures, :journal_id
     add_index :purchase_natures, :currency

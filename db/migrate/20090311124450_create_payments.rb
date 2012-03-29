@@ -6,8 +6,9 @@ class CreatePayments < ActiveRecord::Migration
       t.column :nature,                 :string,   :null=>false, :limit=>1, :default=>'U'        # U undefined   C check
       t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict 
+      t.stamps
     end
-    add_stamps :payment_modes
+    add_stamps_indexes :payment_modes
     add_index :payment_modes, :company_id
     
     create_table :payments do |t|
@@ -16,8 +17,9 @@ class CreatePayments < ActiveRecord::Migration
       t.column :mode_id,                :integer,  :null=>false, :references=>:payment_modes
       t.column :account_id,             :integer,  :references=>:accounts
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :payments
+    add_stamps_indexes :payments
     add_index :payments, :company_id
 
     create_table :payment_parts do |t|
@@ -25,8 +27,9 @@ class CreatePayments < ActiveRecord::Migration
       t.column :payment_id,             :integer,  :null=>false, :references=>:payments
       t.column :order_id,               :integer,  :null=>false, :references=>:sale_orders
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :payment_parts
+    add_stamps_indexes :payment_parts
     add_index :payment_parts, :company_id
 
     add_column :payments, :part_amount, :decimal,  :precision=>16, :scale=>2

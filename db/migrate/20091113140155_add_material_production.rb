@@ -6,8 +6,9 @@ class AddMaterialProduction < ActiveRecord::Migration
       t.column :nature,          :string,   :null=>false, :limit=>8   ## tractor, towed, other
       t.column :consumption,     :decimal
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :tools
+    add_stamps_indexes :tools
 
     add_column :shape_operations, :hour_duration, :decimal
     add_column :shape_operations, :min_duration,  :decimal
@@ -18,8 +19,9 @@ class AddMaterialProduction < ActiveRecord::Migration
       t.column :shape_operation_id,  :integer,  :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :tool_id,             :integer,  :null=>false, :references=>:tools, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,          :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :tool_uses
+    add_stamps_indexes :tool_uses
     
 
   end

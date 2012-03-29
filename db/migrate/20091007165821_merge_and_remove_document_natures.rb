@@ -22,8 +22,9 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
       t.column :to_archive,             :boolean,  :null=>false, :default=>false
       t.column :family,                 :string
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
+      t.stamps
     end
-    add_stamps :document_natures
+    add_stamps_indexes :document_natures
     add_index :document_natures, :company_id
 
     add_column :document_templates, :nature_id, :integer

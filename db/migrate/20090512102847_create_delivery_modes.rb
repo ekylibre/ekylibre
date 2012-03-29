@@ -9,8 +9,9 @@ class CreateDeliveryModes < ActiveRecord::Migration
       t.column :code,           :string, :null=>false,   :limit=>3  ## "exw" "cip" "cpt"
       t.column :comment,        :text
       t.column :company_id,     :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :delivery_modes
+    add_stamps_indexes :delivery_modes
     
     add_column :deliveries,   :mode_id,  :integer,  :references=>:delivery_modes, :on_delete=>:restrict, :on_update=>:restrict
     

@@ -16,8 +16,9 @@ class CreateTaxDeclarations < ActiveRecord::Migration
       t.column :financialyear_id, :integer, :references=>:financialyears, :on_delete=>:restrict, :on_update=>:restrict 
       t.column :started_on, :date
       t.column :stopped_on, :date
+      t.stamps
     end
-    add_stamps :tax_declarations
+    add_stamps_indexes :tax_declarations
 
    add_index :tax_declarations, :company_id
   end

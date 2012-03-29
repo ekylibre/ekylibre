@@ -11,8 +11,9 @@ class CreateShapeOperations < ActiveRecord::Migration
       t.column :description,  :text
       t.column :parent_id,    :integer,                :references=>:shapes,    :on_delete=>:restrict, :on_update=>:restrict
       t.column :company_id,   :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :shapes
+    add_stamps_indexes :shapes
 
     create_table :shape_operations do |t|
       t.column :name,         :string,   :null=>false
@@ -25,15 +26,17 @@ class CreateShapeOperations < ActiveRecord::Migration
       t.column :started_at,   :timestamp,:null=>false
       t.column :stopped_at,   :timestamp
       t.column :company_id,   :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :shape_operations
+    add_stamps_indexes :shape_operations
 
     create_table :shape_operation_natures do |t|
       t.column :name, :string, :null=>false
       t.column :description, :text
       t.column :company_id,  :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :shape_operation_natures
+    add_stamps_indexes :shape_operation_natures
 
   end
   

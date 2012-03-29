@@ -72,8 +72,9 @@ class CreateTrackingSupport < ActiveRecord::Migration
       t.column :area_unit_id,           :integer,   :references=>:units
       t.column :tracking_id,            :integer,   :references=>:stock_trackings
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :shape_operation_lines
+    add_stamps_indexes :shape_operation_lines
 
   end
 

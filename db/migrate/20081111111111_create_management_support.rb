@@ -8,8 +8,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :base,                   :string,   :null=>false # u g m m2 m3
       t.column :quantity,               :numeric,  :null=>false, :precision=>18, :scale=>9
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :units
+    add_stamps_indexes :units
     add_index :units, [:name, :company_id], :unique=>true
     add_index :units, :company_id
     
@@ -21,8 +22,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :comment,                :text
       t.column :parent_id,              :integer,  :references=>:shelves, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :shelves
+    add_stamps_indexes :shelves
     add_index :shelves, [:name, :company_id], :unique=>true
     add_index :shelves, :parent_id
     add_index :shelves, :company_id
@@ -51,8 +53,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :unit_id,                :integer,  :null=>false, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :products
+    add_stamps_indexes :products
     add_index :products, [:name, :company_id], :unique=>true
     add_index :products, [:code, :company_id], :unique=>true
     add_index :products, :shelf_id
@@ -72,8 +75,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :account_collected_id,   :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_paid_id,        :integer,  :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :taxes
+    add_stamps_indexes :taxes
     add_index :taxes, [:name, :company_id], :unique=>true
     add_index :taxes, [:nature, :company_id]
     add_index :taxes, [:group_name, :company_id]
@@ -93,8 +97,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
       t.column :entity_id,              :integer,  :references=>:entities,  :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :price_lists
+    add_stamps_indexes :price_lists
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
         
@@ -113,8 +118,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :list_id,                :integer,  :null=>false, :references=>:price_lists, :on_delete=>:cascade, :on_update=>:cascade
       t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :prices
+    add_stamps_indexes :prices
     add_index :prices, :product_id
     add_index :prices, :deleted
     add_index :prices, :list_id
@@ -126,8 +132,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :price_id,               :integer,  :null=>false, :references=>:prices, :on_delete=>:cascade, :on_update=>:cascade
       t.column :tax_id,                 :integer,  :null=>false, :references=>:taxes, :on_delete=>:cascade, :on_update=>:cascade
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4, :default=>0.0.to_d
+      t.stamps
     end
-    add_stamps :price_taxes
+    add_stamps_indexes :price_taxes
     add_index :price_taxes, [:price_id, :tax_id], :unique=>true
     add_index :price_taxes, :tax_id
     add_index :price_taxes, :price_id
@@ -144,8 +151,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :establishment_id,       :integer,  :references=>:establishments, :on_delete=>:cascade, :on_update=>:cascade
       t.column :contact_id,             :integer,  :references=>:contacts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :stock_locations
+    add_stamps_indexes :stock_locations
     add_index :stock_locations, :company_id
 
     # StockTracking
@@ -156,8 +164,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :begun_at,               :timestamp, :null=>false
       t.column :comment,                :text
       t.column :company_id,             :integer,   :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :stock_trackings
+    add_stamps_indexes :stock_trackings
     add_index :stock_trackings, :company_id
 
     # StockMove
@@ -174,8 +183,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :unit_id,                :integer,  :null=>false, :references=>:units, :on_delete=>:cascade, :on_update=>:cascade
       t.column :product_id,             :integer,  :null=>false, :references=>:products, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :stock_moves
+    add_stamps_indexes :stock_moves
     add_index :stock_moves, :company_id
 
 
@@ -188,8 +198,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :active,                 :boolean,  :null=>false
       t.column :next_number,            :integer,  :null=>false, :default=>0
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :sequences
+    add_stamps_indexes :sequences
     add_index :sequences, :company_id
 
 
@@ -201,8 +212,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :expression,       :string,  :null=>false
       t.column :comment,          :text
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :delays
+    add_stamps_indexes :delays
     add_index :delays, [:name, :company_id], :unique=>true
 
 
@@ -217,8 +229,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :downpayment_rate,       :decimal,  :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :sale_order_natures
+    add_stamps_indexes :sale_order_natures
     add_index :sale_order_natures, :company_id
   
     # SaleOrder
@@ -246,8 +259,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :conclusion,             :text
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :sale_orders
+    add_stamps_indexes :sale_orders
     add_index :sale_orders, :company_id
   
     # SaleOrderLine
@@ -264,8 +278,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :position,               :integer
       t.column :account_id,             :integer, :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :sale_order_lines
+    add_stamps_indexes :sale_order_lines
     add_index :sale_order_lines, :company_id
 
     # Invoice
@@ -283,8 +298,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :downpayment_price,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :contact_id,             :integer, :null=>false, :references=>:contacts
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :invoices
+    add_stamps_indexes :invoices
     add_index :invoices, :company_id
 
     # InvoiceLine
@@ -299,8 +315,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :position,               :integer
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :invoice_lines
+    add_stamps_indexes :invoice_lines
     add_index :invoice_lines, :company_id
     
     # Delivery
@@ -313,8 +330,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :deliveries
+    add_stamps_indexes :deliveries
     add_index :deliveries, :company_id
     
     # DeliveryLine
@@ -329,8 +347,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :amount,                 :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :amount_with_taxes,      :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0.0.to_d
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :delivery_lines
+    add_stamps_indexes :delivery_lines
     add_index :delivery_lines, :company_id
 
     # PurchaseOrder
@@ -345,8 +364,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :dest_contact_id,        :integer,  :references=>:contacts
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-      end
-    add_stamps :purchase_orders
+        t.stamps
+    end
+    add_stamps_indexes :purchase_orders
     add_index :purchase_orders, :company_id
   
     # PurchaseOrderLine
@@ -361,8 +381,9 @@ class CreateManagementSupport < ActiveRecord::Migration
       t.column :position,               :integer
       t.column :account_id,             :integer,  :null=>false, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
-      end
-    add_stamps :purchase_order_lines
+        t.stamps
+    end
+    add_stamps_indexes :purchase_order_lines
     add_index :purchase_order_lines, :company_id
 
 

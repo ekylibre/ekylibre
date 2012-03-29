@@ -8,8 +8,9 @@ class ReplaceMeetingsWithEvents < ActiveRecord::Migration
       t.column :name,         :string,  :null=>false
       t.column :duration,     :integer
       t.column :company_id,   :integer, :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :event_natures
+    add_stamps_indexes :event_natures
     add_index :event_natures, :company_id
     add_index :event_natures, :name
 
@@ -23,8 +24,9 @@ class ReplaceMeetingsWithEvents < ActiveRecord::Migration
       t.column :nature_id,    :integer, :null=>false, :references=>:event_natures, :on_delete=>:restrict, :on_update=>:restrict 
       t.column :employee_id,  :integer, :null=>false, :references=>:employees, :on_delete=>:restrict, :on_update=>:restrict
       t.column :company_id,   :integer, :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :events
+    add_stamps_indexes :events
     add_index :events, :company_id
     add_index :events, :entity_id
     add_index :events, :nature_id
@@ -47,15 +49,17 @@ class ReplaceMeetingsWithEvents < ActiveRecord::Migration
       t.column :description, :text
       t.column :active,      :boolean
       t.column :company_id,  :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meeting_locations
+    add_stamps_indexes :meeting_locations
 
     create_table :meeting_modes do |t|
       t.column :name,        :string,    :null=>false
       t.column :active,      :boolean
       t.column :company_id,  :integer,   :null=>false, :references=>:companies,:on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meeting_modes
+    add_stamps_indexes :meeting_modes
 
     create_table :meetings do |t|
       t.column :entity_id,    :integer,  :null=>false,  :references=>:entities,:on_delete=>:restrict, :on_update=>:restrict
@@ -66,8 +70,9 @@ class ReplaceMeetingsWithEvents < ActiveRecord::Migration
       t.column :address,      :text
       t.column :description,  :text
       t.column :company_id,   :integer,  :null=>false,  :references=>:companies,:on_delete=>:restrict,:on_update=>:restrict
+      t.stamps
     end
-    add_stamps :meetings
+    add_stamps_indexes :meetings
     
     drop_table    :events
     drop_table    :event_natures

@@ -94,10 +94,12 @@ class NormalizeCurrencies < ActiveRecord::Migration
       end
     end
 
-    for table in TABLES
-      for column in columns(table)
-        if column.type == :decimal
-          change_column(table, column.name, :decimal, :precision => 19, :scale => ((column.scale >= 6 or column.name.match(/(coefficient|rate)/)) ? 10 : 4), :null=>column.null, :default=>column.default)
+    protect_indexes(TABLES) do
+      for table in TABLES
+        for column in columns(table)
+          if column.type == :decimal
+            change_column(table, column.name, :decimal, :precision => 19, :scale => ((column.scale >= 6 or column.name.match(/(coefficient|rate)/)) ? 10 : 4), :null=>column.null, :default=>column.default)
+          end
         end
       end
     end

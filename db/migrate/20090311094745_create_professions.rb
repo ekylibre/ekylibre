@@ -7,8 +7,9 @@ class CreateProfessions < ActiveRecord::Migration
       t.column :rome,                   :string   
       t.column :commercial,             :boolean
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :professions
+    add_stamps_indexes :professions
     
     add_column :employees, :profession_id, :integer, :references=>:professions, :on_delete=>:restrict, :on_update=>:restrict
     add_column :employees, :commercial, :boolean, :null=>false, :default=>false

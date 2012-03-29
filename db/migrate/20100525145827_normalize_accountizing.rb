@@ -82,8 +82,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :cash_id,           :integer
       # t.column :draft_mode,        :boolean, :null=>false, :default=>false
       t.column :company_id,        :integer, :null=>false
+      t.stamps
     end
-    add_stamps :purchase_payment_modes
+    add_stamps_indexes :purchase_payment_modes
     
     create_table :purchase_payment_parts do |t|
       t.column :accounted_at,      :datetime         
@@ -93,8 +94,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :payment_id,        :integer, :null=>false
       t.column :journal_record_id, :integer
       t.column :company_id,        :integer, :null=>false
+      t.stamps
     end
-    add_stamps :purchase_payment_parts
+    add_stamps_indexes :purchase_payment_parts
     
     create_table :purchase_payments do |t|
       t.column :accounted_at,      :datetime         
@@ -111,8 +113,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :parts_amount,      :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :to_bank_on,        :date,    :null=>false
       t.column :company_id,        :integer, :null=>false
+      t.stamps
     end
-    add_stamps :purchase_payments
+    add_stamps_indexes :purchase_payments
     
 
     # Remove "deleted"
@@ -561,14 +564,10 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.integer  :price_id,                      :null => false
       t.integer  :tax_id,                        :null => false
       t.decimal  :amount,       :default => 0.0, :null => false
-      t.datetime :created_at,                    :null => false
-      t.datetime :updated_at,                    :null => false
-      t.integer  :creator_id
-      t.integer  :updater_id
-      t.integer  :lock_version, :default => 0,   :null => false
       t.integer  :company_id,                    :null => false
+      t.stamps
     end
-    
+    add_stamps_indexes :price_taxes    
     add_index :price_taxes, ["company_id", "price_id", "tax_id"], :name => "index_#{quoted_table_name(:price_taxes)}_on_price_id_and_tax_id", :unique => true
     add_index :price_taxes, ["price_id"], :name => "index_#{quoted_table_name(:price_taxes)}_on_price_id"
     add_index :price_taxes, ["tax_id"], :name => "index_#{quoted_table_name(:price_taxes)}_on_tax_id"
@@ -581,8 +580,9 @@ class NormalizeAccountizing < ActiveRecord::Migration
       t.column :iso2,                   :string, :limit=>2, :null=>false
       t.column :iso3,                   :string, :limit=>3, :null=>false
       t.column :company_id,             :integer, :null=>false
+      t.stamps
     end
-    add_stamps :languages
+    add_stamps_indexes :languages
     add_index :languages, :name
     add_index :languages, :iso2
     add_index :languages, :iso3

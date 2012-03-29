@@ -64,8 +64,9 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
       t.column :office,                 :string,   :limit=>32
       t.column :comment,                :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :employees
+    add_stamps_indexes :employees
     add_index :employees, :company_id
     add_column    :entities,         :employee_id,    :integer, :references=>:employees
 
@@ -85,8 +86,9 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
       t.column :currency_id,            :integer,  :null=>false, :references=>:currencies
       t.column :entity_id,              :integer,  :references=>:entities,  :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :price_lists
+    add_stamps_indexes :price_lists
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
 

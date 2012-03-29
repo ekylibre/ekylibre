@@ -12,8 +12,9 @@ class CompleteManagementTables < ActiveRecord::Migration
       t.column :currency_amount,  :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :amount,           :decimal, :null=>false, :precision=>16, :scale=>2, :default=>0
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :cash_transfers
+    add_stamps_indexes :cash_transfers
     add_index :cash_transfers, :company_id
 
     create_table :purchase_deliveries do |t|
@@ -27,8 +28,9 @@ class CompleteManagementTables < ActiveRecord::Migration
       t.date     :moved_on
       t.decimal  :weight,            :precision => 16, :scale => 4
       t.column   :company_id,        :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :purchase_deliveries
+    add_stamps_indexes :purchase_deliveries
     add_index :purchase_deliveries, :company_id
     add_index :purchase_deliveries, [:order_id, :company_id]
 
@@ -45,8 +47,9 @@ class CompleteManagementTables < ActiveRecord::Migration
       t.integer  :warehouse_id
       t.decimal  :weight,            :precision => 16, :scale => 4
       t.column   :company_id,        :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :purchase_delivery_lines
+    add_stamps_indexes :purchase_delivery_lines
     add_index :purchase_delivery_lines, :company_id
     add_index :purchase_delivery_lines, [:delivery_id, :company_id]
     add_index :purchase_delivery_lines, [:tracking_id, :company_id]
@@ -57,8 +60,9 @@ class CompleteManagementTables < ActiveRecord::Migration
       t.string   :code,         :limit => 8,                :null => false
       t.text     :comment
       t.column   :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :purchase_delivery_modes
+    add_stamps_indexes :purchase_delivery_modes
     add_index :purchase_delivery_modes, :company_id
 
     create_table :deposit_lines do |t|
@@ -66,8 +70,9 @@ class CompleteManagementTables < ActiveRecord::Migration
       t.column   :quantity,         :decimal, :null=>false, :precision=>16, :scale=>4, :default=>0.0
       t.column   :amount,           :decimal, :null=>false, :precision=>16, :scale=>2, :default=>1.0
       t.column   :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :deposit_lines
+    add_stamps_indexes :deposit_lines
     add_index :deposit_lines, :company_id
     add_index :deposit_lines, [:deposit_id, :company_id]
 

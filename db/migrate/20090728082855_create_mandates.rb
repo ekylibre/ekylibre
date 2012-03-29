@@ -8,8 +8,9 @@ class CreateMandates < ActiveRecord::Migration
       t.column :title, :string, :null=>false
       t.column :entity_id, :integer, :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :mandates
+    add_stamps_indexes :mandates
 
     add_index :mandates, [:family, :company_id]
     add_index :mandates, [:organization, :company_id]

@@ -6,8 +6,9 @@ class CreateDocumentTemplates < ActiveRecord::Migration
       t.column :to_archive,             :boolean,  :null=>false, :default=>false
       t.column :family,                 :string
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
+      t.stamps
     end
-    add_stamps :document_natures
+    add_stamps_indexes :document_natures
     add_index :document_natures, :company_id
 
     create_table :document_templates do |t|
@@ -20,8 +21,9 @@ class CreateDocumentTemplates < ActiveRecord::Migration
       t.column :language_id,            :integer,  :references=>:languages
       t.column :country,                :string,   :limit=>2
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
+      t.stamps
     end
-    add_stamps :document_templates
+    add_stamps_indexes :document_templates
     add_index :document_templates, :company_id
     add_index :document_templates, :nature_id
     add_index :document_templates, :language_id

@@ -7,8 +7,9 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.column :nature,       :string,   :null=>false, :limit=>8
       t.column :comment,      :text
       t.column :company_id,   :integer,  :null=>false, :references=>:companies,:on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :subscription_natures
+    add_stamps_indexes :subscription_natures
     
     create_table :subscriptions do |t|
       t.column :started_on,        :date
@@ -19,8 +20,9 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.column :product_id,   :integer,  :null=>false, :references=>:products, :on_delete=>:restrict, :on_update=>:restrict
       t.column :contact_id,   :integer,  :null=>false, :references=>:contacts, :on_delete=>:restrict, :on_update=>:restrict
       t.column :company_id,   :integer,  :null=>false, :references=>:companies,:on_delete=>:restrict, :on_update=>:restrict
+      t.stamps
     end
-    add_stamps :subscriptions
+    add_stamps_indexes :subscriptions
     
     add_column :products,     :subscription_quantity, :integer
     add_column :products,     :subscription_period,   :string

@@ -10,8 +10,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :active,           :boolean,  :null=>false, :default=>true
       t.column :comment,          :text
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :currencies
+    add_stamps_indexes :currencies
     add_index :currencies, :company_id
     add_index :currencies, :active
     add_index :currencies, [:code, :company_id], :unique=>true
@@ -35,8 +36,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :comment,          :text
       t.column :parent_id,        :integer, :null=>false, :default=>0, :references=>nil
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :accounts
+    add_stamps_indexes :accounts
     add_index :accounts, [:number, :company_id], :unique=>true
     add_index :accounts, [:alpha, :company_id], :unique=>true
     add_index :accounts, [:name, :company_id]
@@ -55,8 +57,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :stopped_on,       :date,    :null=>false
       t.column :written_on,       :date,    :null=>false  # Date butoir de création des journaux
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :financialyears
+    add_stamps_indexes :financialyears
     add_index :financialyears, [:code, :company_id], :unique=>true
     add_index :financialyears, :company_id
 
@@ -73,8 +76,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :local_balance,    :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :local_count,      :integer, :null=>false, :default=>0
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :account_balances
+    add_stamps_indexes :account_balances
     add_index :account_balances, :company_id
     add_index :account_balances, :financialyear_id
     add_index :account_balances, [:account_id, :financialyear_id, :company_id], :unique=>true, :name=>"#{quoted_table_name(:account_balances)}_unique"
@@ -91,8 +95,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :counterpart_id,   :integer, :references=>:accounts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :closed_on,        :date,    :null=>false, :default=>Date.civil(1970,12,31)
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :journals
+    add_stamps_indexes :journals
     add_index :journals, :company_id
     add_index :journals, :currency_id
     add_index :journals, [:name, :company_id], :unique=>true
@@ -109,8 +114,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :balance,          :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :journal_periods
+    add_stamps_indexes :journal_periods
     add_index :journal_periods, :company_id
     add_index :journal_periods, :journal_id
     add_index :journal_periods, :financialyear_id
@@ -132,8 +138,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :period_id,        :integer, :null=>false, :references=>:journal_periods, :on_delete=>:restrict, :on_update=>:cascade
       t.column :journal_id,       :integer, :null=>false, :references=>:journals,  :on_delete=>:restrict, :on_update=>:cascade
       t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :journal_records
+    add_stamps_indexes :journal_records
     add_index :journal_records, [:status, :company_id]
     add_index :journal_records, [:created_on, :company_id]
     add_index :journal_records, [:printed_on, :company_id]
@@ -155,8 +162,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :currency_id,      :integer, :null=>false, :references=>:currencies, :on_delete=>:cascade, :on_update=>:cascade
       t.column :account_id,       :integer, :null=>false, :references=>:accounts,   :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id,       :integer, :null=>false, :references=>:companies,  :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :bank_accounts
+    add_stamps_indexes :bank_accounts
     add_index :bank_accounts, :journal_id
     add_index :bank_accounts, :currency_id
     add_index :bank_accounts, :account_id
@@ -172,8 +180,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :debit,                  :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :credit,                 :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
       t.column :company_id,             :integer, :null=>false, :references=>:companies,  :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :bank_account_statements
+    add_stamps_indexes :bank_account_statements
     add_index :bank_account_statements, :bank_account_id
     add_index :bank_account_statements, :company_id
     
@@ -196,8 +205,9 @@ class CreateAccountancySupport < ActiveRecord::Migration
       t.column :position,               :integer
       t.column :comment,                :text
       t.column :company_id,             :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.stamps
     end
-    add_stamps :entries
+    add_stamps_indexes :entries
     add_index :entries, :company_id
     add_index :entries, :record_id
     add_index :entries, :account_id
