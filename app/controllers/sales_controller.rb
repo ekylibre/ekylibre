@@ -83,7 +83,7 @@ class SalesController < ApplicationController
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
     t.column :quantity, :datatype=>:decimal
-    t.column :pretax_amount, :currency=>, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
+    t.column :pretax_amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
     t.column :amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
     t.action :edit, :if=>'RECORD.sale.order? '
     t.action :destroy, :if=>'RECORD.sale.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete

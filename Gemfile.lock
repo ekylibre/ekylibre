@@ -49,7 +49,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.2.0)
-    combo_box (0.0.9)
+    combo_box (0.0.10)
       jquery-rails
       rails (~> 3)
     erubis (2.7.0)
