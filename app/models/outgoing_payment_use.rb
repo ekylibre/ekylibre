@@ -69,6 +69,7 @@ class OutgoingPaymentUse < CompanyRecord
 
   validate(:on=>:create) do
     if self.expense and self.payment
+      errors.add(:payment_id, :currency_does_not_match, :currency=>self.expense.currency) unless self.expense.currency == self.payment.currency
       errors.add(:amount, :invalid) unless self.amount <= self.reconcilable_amount
     end
   end

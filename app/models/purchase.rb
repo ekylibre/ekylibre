@@ -240,7 +240,7 @@ class Purchase < CompanyRecord
   # Produces some amounts about the purchase order.
   def stats(options={})
     array = []
-    array << [:total_amount, self.amount]
+    array << [:amount, self.amount]
     array << [:paid_amount, self.paid_amount]
     array << [:unpaid_amount, self.unpaid_amount]
     array 

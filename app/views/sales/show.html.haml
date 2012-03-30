@@ -96,5 +96,5 @@
     -for k, v in @sale.stats # (:with_balance=>true)
       %tr.total
         %th=tc(k)
-        %td=number_to_money(v, @sale.currency)
+        %td=I18n.localize(v, :currency=>@sale.currency)
   
