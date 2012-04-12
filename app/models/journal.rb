@@ -154,7 +154,7 @@ class Journal < CompanyRecord
   end
 
   def next_number
-    entry = self.entries.find(:first, :conditions=>["created_on>=?", self.closed_on], :order=>"number DESC")
+    entry = self.entries.find(:first, :conditions=>["created_at>=?", self.closed_on], :order=>"number DESC")
     code = entry ? entry.number : self.code.to_s+"000000"
     code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
     return code.succ
