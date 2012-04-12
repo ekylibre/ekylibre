@@ -50,23 +50,12 @@ case "$1" in
 	ln -s /var/lib/ekylibre /usr/share/ekylibre/private
 
 	# Install user
+	chmod 550 /usr/sbin/ekylibre-init-db
+	chown root:postgres /usr/sbin/ekylibre-init-db
 	if [ ! -e /etc/ekylibre/database.yml ]; then
 	    user=ekylibre
 	    dbname=${user}_production
-	    password=`< /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c32`
-
-	    # Conf database
-	    count=`sudo -u postgres psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_user WHERE usename='${user}'"`
-	    if [ "${count}" = "0" ]; then
-		sudo -u postgres psql -q -c "CREATE USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
-	    else
-		sudo -u postgres psql -q -c "ALTER USER ${user} WITH ENCRYPTED PASSWORD '${password}'"
-	    fi
-	    count=`sudo -u postgres psql -q -t -A -c "SELECT count(*) FROM pg_catalog.pg_database WHERE datname='${dbname}'"`
-	    if [ "${count}" = "0" ]; then
-		sudo -u postgres psql -q -c "CREATE DATABASE ${dbname}"		
-	    fi
-	    sudo -u postgres psql -q -c "GRANT ALL ON DATABASE ${dbname} TO ${user}"
+	    password=`su - postgres -c "/usr/sbin/ekylibre-init-db ${user} ${dbname}"`
 
 	    # Write database conf
 	    cp /etc/ekylibre/database.postgresql.yml /etc/ekylibre/database.yml
