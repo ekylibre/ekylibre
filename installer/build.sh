@@ -100,7 +100,7 @@ do
 	echo "------------------------------------------------------------------------------------------" > $blog
 	echo "-- Build ${build} packages" >> $blog
 	echo "------------------------------------------------------------------------------------------" >> $blog
-	./build ${app} ${version} ${blog} ${resdir}/win32
+	./build ${app} ${version} ${blog} ${resdir}/${build}
 	echo " * See ${blog} for details." >> $log
 
 	# Move packages
