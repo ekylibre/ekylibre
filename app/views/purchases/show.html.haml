@@ -31,14 +31,12 @@
   -if @purchase.draft?
     =toolbar do |t|
       -t.link(:new, :controller=>:purchase_lines, :purchase_id=>@purchase.id)
-  =list :lines
-  %table.list
+  =list :lines do
     %tr.total
-      %th=Purchase.human_attribute_name("pretax_amount")
-      %td=number_to_management(@purchase.pretax_amount)
-    %tr.important.total
-      %th=Purchase.human_attribute_name("amount")
-      %td=number_to_management(@purchase.amount)
+      %th{:colspan=>6}
+      %td=I18n.localize(@purchase.pretax_amount, :currency=>@purchase.currency)
+      %td=I18n.localize(@purchase.amount, :currency=>@purchase.currency)
+      %th{:colspan=>3}
 
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=Purchase.human_attribute_name("payment_uses")
@@ -60,7 +58,7 @@
 -if ["products", "summary", ""].include? params[:step].to_s
   %h2=tc :financial_state
   %table.list
-    -for k, v in @purchase.stats(:with_balance=>true)
+    -for k, v in @purchase.stats
       %tr.total
         %th=tc(k)
-        %td=number_to_management(v)
+        %td=I18n.localize(v, :currency=>@purchase.currency)

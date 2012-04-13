@@ -88,7 +88,14 @@ module List
       elsif self.datatype == :date
         datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
       elsif self.datatype == :decimal and not noview
-        datum = "(#{datum}.nil? ? '' : number_to_currency(#{datum}, :separator=>',', :delimiter=>'', :unit=>'', :precision=>#{self.options[:precision]||2}))"
+        currency = nil
+        if currency = self.options[:currency]
+          currency = currency[:body] if currency.is_a?(Hash)
+          currency = :currency if currency.is_a?(TrueClass)
+          currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
+          raise Exception.new("Option :currency is not valid. Hash, Symbol or true/false") unless currency.is_a?(String)
+        end
+        datum = "(#{datum}.nil? ? '' : I18n.localize(#{datum}#{', :currency=>'+currency.gsub(/RECORD/, record) if currency}))"
       elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string and self.limit == 3
         datum = "(#{datum}.nil? ? '' : Numisma.currencies[#{datum}].label)"
       elsif @name==:country and  self.datatype == :string and self.limit == 2
@@ -103,6 +110,7 @@ module List
     def datatype
       @options[:datatype] || (@column ? @column.type : nil)
     end
+
 
     def numeric?
       [:decimal, :integer, :float, :numeric].include? self.datatype

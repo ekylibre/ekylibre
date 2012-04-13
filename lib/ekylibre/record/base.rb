@@ -111,6 +111,13 @@ module Ekylibre::Record
 
     class << self
 
+      # Permits to consider something and something_id like the same
+      def human_attribute_name_with_id(attribute, options = {})
+        human_attribute_name_without_id(attribute.to_s.gsub(/_id$/, ''), options)
+      end
+      alias_method_chain :human_attribute_name, :id
+
+      # Permits to add conditions on attr_readonly
       def attr_readonly_with_conditions(*args)
         options = args.extract_options!
         return attr_readonly_without_conditions(args) unless options[:if]
@@ -126,9 +133,9 @@ module Ekylibre::Record
         code += "  end\n"
         code += "end\n"
         class_eval code
-      end
-      
+      end      
       alias_method_chain :attr_readonly, :conditions
+
     end
 
 

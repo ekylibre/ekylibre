@@ -60,7 +60,7 @@ class PurchasesController < ApplicationController
     t.column :amount, :currency=>"RECORD.payment.currency"
     t.column :name, :through=>[:payment, :mode]
     t.column :downpayment
-    t.column :to_bank_on, :through=>:payment, :label=>:column
+    t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
     t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
   end
 
@@ -91,14 +91,15 @@ class PurchasesController < ApplicationController
 
   # Displays details of one purchase selected with +params[:id]+
   def show
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     respond_to do |format|
       format.html do
         session[:current_purchase_id] = @purchase.id
         if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
           state  = @purchase.state
-          redirect_to :action=>:show, :id=>@purchase.id,  :step=>(["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
-          return
+          params[:step] = (@purchase.invoice? ? :summary : @purchase.order? ? :deliveries : :products).to_s
+          # redirect_to :action=>:show, :id=>@purchase.id,  :step=>(["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
+          # return
         end
         if params[:step] == "deliveries"
           if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
@@ -112,6 +113,7 @@ class PurchasesController < ApplicationController
         end
         t3e @purchase.attributes, :supplier=>@purchase.supplier.full_name, :state=>@purchase.state_label
       end
+      format.xml { render :xml => @purchase.to_xml }
       format.pdf { render_print_purchase(@purchase) }
     end
   end
