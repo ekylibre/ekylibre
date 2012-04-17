@@ -153,14 +153,13 @@ class Journal < CompanyRecord
     return true
   end
 
+  # Takes the very last created entry in the journal to generate the entry number
   def next_number
-    entry = self.entries.find(:first, :conditions=>["created_at>=?", self.closed_on], :order=>"number DESC")
+    entry = self.entries.order("created_at DESC").first
     code = entry ? entry.number : self.code.to_s+"000000"
     code.gsub!(/(9+)$/, '0\1') if code.match(/[^\d]9+$/)
     return code.succ
   end
-
-
 
   # this method searches the last entries according to a number.  
   def last_entries(period, number_entry=:all)

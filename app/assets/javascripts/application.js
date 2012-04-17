@@ -15,4 +15,6 @@
 //= require jquery-ui
 //= require formize
 //= require combo_box
+//= require big-integer
+//= require scheme-number
 //= require_tree .

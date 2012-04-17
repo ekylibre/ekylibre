@@ -6,11 +6,10 @@
   %head
     %link{:rel=>"icon", :type=>"image/png", :href=>image_path("favicon.png")}
     =title_tag
-    =javascript_include_tag :application
     =csrf_meta_tags
-    -#=formize_include_tag
-    -#=javascript_include_tag "combo_box", "list-jquery", "support", "ui"
+    =stylesheet_link_tag :application
     =theme_link_tag(@current_theme)
+    =javascript_include_tag :application
   -expiration = {}
   -expiration = {"timeout"=>session[:expiration], "timeout-href"=>renew_session_url(:name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
   %body{:data=>expiration}

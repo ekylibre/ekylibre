@@ -395,16 +395,19 @@ module ApplicationHelper
   def theme_link_tag(name=nil)
     name ||= 'tekyla'
     code = ""
-    for sheet in Dir.glob(Rails.root.join("public", "themes", name, "stylesheets", "*.css"))
-      media = (sheet.match(/print/) ? :print : :screen)
-      code << stylesheet_link_tag("/themes/#{name}/stylesheets/#{sheet.split(/[\\\/]+/)[-1]}", :media=>media)
+    Dir.chdir(Rails.root.join("app", "assets", "stylesheets", "themes", name)) do
+      for media in ["all", "embossed", "handheld", "print", "projection", "screen", "speech", "tty", "tv"]
+        if File.exist?(media+".css") or File.exist?(media+".css.scss")
+          code << stylesheet_link_tag("themes/#{name}/#{media}.css", :media=>media)+"\n"
+        end
+      end
     end
     return code.html_safe
   end
 
 
   def theme_button(name, theme='tekyla')
-    image_path("/themes/#{theme}/images/buttons/#{name}.png").to_s
+    image_path("themes/#{theme}/buttons/#{name}.png").to_s
   end
 
 
@@ -816,6 +819,17 @@ module ApplicationHelper
 
 
   # TOOLBAR
+
+  def tool_to(name, url, options={})
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    icon = options.delete(:tool) || (url.is_a?(Hash) ? url[:action] : "action")
+    sprite = options.delete(:sprite) || "icons-16"
+    options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
+    options[:class] += ' alone' unless options.delete(:grouped)
+    link_to(url, options) do
+      content_tag(:span, '', :class=>"icon #{sprite}-#{icon}")+content_tag(:span, name, :class=>"text")
+    end
+  end
 
   def toolbar(options={}, &block)
     code = '[EmptyToolbarError]'

@@ -43,8 +43,10 @@
           %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3)
   -if register
     #register.login.register{:style=>"display:none"}
+      =tool_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :tabindex=>4, :tool=>:action)
+    #register.login.register{:style=>"display:none"}
       %span.toolbar
-        %span.tool=link_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :class=>"icon im-register", :tabindex=>4) 
+        %span.tool=link_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :class=>"icon im-action", :tabindex=>4) 
   #nojavascript.login{"data-toggle-now-with"=>"#login, #register"}
     .logoban
     %p.message=tc('no_javascript')

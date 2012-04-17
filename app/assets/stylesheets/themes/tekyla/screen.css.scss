@@ -1,4 +1,113 @@
-* {margin:0; padding:0; font-size: 100%; font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;}
+/*
+ * This is a manifest file that'll be compiled into screen.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require ./list
+ *= require ./list-colors
+*/
+
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+$experimental-support-for-svg: true;
+
+@mixin btn0 { 
+  margin: 0 -.5px 8px; 
+  padding: 4px 8px; 
+  @include background-image(linear-gradient(#EEE, #DDD));
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+  color: #555;
+  &:link, html .toolbar & { 
+    color: #555;
+    @include text-shadow(1px 1px 1px #FFF);
+  }
+  &:hover, html .toolbar &:hover {
+    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
+    color: #FFF; 
+    @include text-shadow(-1px -1px 1px #555);
+    text-decoration: none;
+  }
+  &:active, html .toolbar &:active {
+    @include background-image(linear-gradient(darken(#688ED8, 15%), darken(#688ED8, 8%)));
+    color: #FFF; 
+    @include text-shadow(-1px -1px 1px #555);
+    text-decoration: none;
+  }
+  html[dir="ltr"] &.grp:first-child, html[dir="rtl"] &.grp:last-child {
+    @include border-top-left-radius(5px);
+    @include border-bottom-left-radius(5px);
+  }
+  html[dir="ltr"] &.grp:last-child, html[dir="rtl"] &.grp:first-child {
+    @include border-top-right-radius(5px);
+    @include border-bottom-right-radius(5px);
+  }
+}
+
+
+@mixin btn { 
+  margin: 0 -.5px 8px; 
+  padding: 4px 8px; 
+  @include background-image(linear-gradient(#EEE, #DDD));
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  font-weight: bold;
+  .text { 
+    color: #555;
+    @include text-shadow(1px 1px 1px #FFF);
+  }
+  &:hover {
+    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
+    &, .text {
+      color: #FFF; 
+      @include text-shadow(-1px -1px 1px #555);
+      text-decoration: none;
+    }
+  }
+  &:active {
+    @include background-image(linear-gradient(darken(#688ED8, 15%), darken(#688ED8, 8%)));
+    &, .text {
+      color: #FFF; 
+      @include text-shadow(-1px -1px 1px #555);
+      text-decoration: none;
+    }
+  }
+  html[dir="ltr"] .toolbar &:first-child, html[dir="rtl"] .toolbar &:last-child, &.alone {
+    @include border-top-left-radius(5px);
+    @include border-bottom-left-radius(5px);
+  }
+  html[dir="ltr"] .toolbar &:last-child, html[dir="rtl"] .toolbar &:first-child, &.alone {
+    @include border-top-right-radius(5px);
+    @include border-bottom-right-radius(5px);
+  }
+  .icon { 
+    background-repeat: no-repeat; 
+    width: 16px;
+    height: 16px;
+    margin: 2px 4px 2px 0;
+    @include inline-block;
+  }
+  .text { 
+   line-height: 16px;
+  }
+
+}
+
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {margin:0; padding:0; font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;}
 
 html { background: #F1F1F1;/*background: #688ED8 #C9D7F1;*/}
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;/* border:1px solid #95b0e4; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; behavior: url(/pie.htc); background: url(../images/columns.png) repeat-x top; */}
@@ -17,11 +126,21 @@ input[type="submit"] { padding: 1px 4px; }
 
 /*a img { padding: 0; margin: 0; display:block; border: none;}*/
 
-
+/*
 .icon { background-image: url(../images/buttons/action.png); background-repeat: no-repeat; }
 html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important;  background-position: center left; }
-html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }
+html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background-position: center right; }*/
+/*
+.icon { background-repeat: no-repeat; }
+html[dir="ltr"] .icon { padding: 2px; padding-left: 20px !important; }
+html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; }
+*/
 
+@import "themes/tekyla/icons-16/*.png";
+@include all-icons-16-sprites;
+
+
+/*
 .icon.im-abort       { background-image: url(../images/buttons/delete.png); }
 .icon.im-action      { background-image: url(../images/buttons/action.png); }
 .icon.im-backup      { background-image: url(../images/buttons/right.png); }
@@ -32,6 +151,7 @@ html[dir="rtl"] .icon { padding: 2px; padding-right: 20px !important; background
 .icon.im-confirm     { background-image: url(../images/buttons/finished.png); }
 .icon.im-configure   { background-image: url(../images/buttons/configure.png); }
 .icon.im-correct     { background-image: url(../images/buttons/update.png); }
+*/
 .icon.im-new, .icon.im-create { background-image: url(../images/buttons/create.png); }
 .icon.im-destroy, .icon.im-delete { background-image: url(../images/buttons/delete.png); }
 .icon.im-divide      { background-image: url(../images/buttons/divide.png); }
@@ -428,12 +548,35 @@ html[dir="rtl"] .toolbar ul li { float: right; }
 html[dir="rtl"] .toolbar ul > li > a {padding: 2px 20px 2px 2px; background-position: center right; }*/
 
 /*#E7E7E7*/
-.tool { margin: 0 -.5px 8px; padding: 4px 6px; background: #DDD url(../images/boss-effect.png) center repeat-x; border: 1px solid #CCC;}
-.tool:hover { background: #688ED8 url(../images/shadow-top.png) bottom repeat-x; border-color: #688ED8; color: white; z-index: 1000; box-shadow: 0 0 7px rgba(0,0,0,0.4) inset; } /*#3D5C8D */
+.btn {
+  @include btn;
+}
+.tool { 
+  margin: 0 -.5px 8px; 
+  padding: 4px 6px; 
+  @include background-image(linear-gradient(#EEE, #DDD));
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+}
+.tool:hover { 
+  @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
+  /*border-color: #688ED8; */
+  color: white; 
+  z-index: 1000; 
+              /*box-shadow: 0 0 7px rgba(0,0,0,0.4) inset; */
+} /*#3D5C8D */
 a.tool:hover, .tool:hover * { color: white; text-shadow: -1px -1px 1px #555 }
 a.tool, .tool a { text-decoration: none; color : #555; text-shadow: 1px 1px 1px #FFF; font-weight: bold;}
-html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { -webkit-border-top-left-radius: 5px; -webkit-border-bottom-left-radius: 5px; -moz-border-radius-topleft: 5px; -moz-border-radius-bottomleft: 5px; border-top-left-radius: 5px; border-bottom-left-radius: 5px; behavior: url(/pie.htc); }
-html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child { -webkit-border-top-right-radius: 5px; -webkit-border-bottom-right-radius: 5px; -moz-border-radius-topright: 5px; -moz-border-radius-bottomright: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; behavior: url(/pie.htc); }
+html[dir="ltr"] .toolbar .tool:first-child, html[dir="rtl"] .toolbar .tool:last-child { 
+  @include border-top-left-radius(5px);
+  @include border-bottom-left-radius(5px);
+}
+html[dir="ltr"] .toolbar .tool:last-child, html[dir="rtl"] .toolbar .tool:first-child {
+  @include border-top-right-radius(5px);
+  @include border-bottom-right-radius(5px);
+}
 div.toolbar .tool { display: block; z-index: 0}
 html[dir="ltr"] div.toolbar .tool { float: left; }
 html[dir="rtl"] div.toolbar .tool { float: right;  }
@@ -487,7 +630,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 .login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 1px solid #DDD; background: #f1f1f1; } /* #c9d7f1 */
 .ui-dialog .login { margin: 0; padding: 0 8px;}
-.login .logoban { height:80px; background: url(../images/ekylong.png) no-repeat center; margin: 16px 16px 8px; }
+.login .logoban { height:80px; background: image-url("themes/tekyla/ekylong.png") no-repeat center; margin: 16px 16px 8px; }
 .login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
 .login p { margin:8px; }
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto; }
@@ -659,12 +802,24 @@ html[dir="rtl"] .bmenu ul { right: -1px; }
 
 
 
-.treemap { border-collapse: collapse; width: 100%; }
-.treemap .plot { padding: 4px; border: 2px solid #8a8; vertical-align: top; }
-.treemap .plot .name { padding: 2px; display:block; border-bottom: 1px dotted #8A8; }
+.treemap { 
+  border-collapse: collapse; width: 100%;
+  .plot { 
+    padding: 4px; 
+    border: 2px solid #8a8; 
+    vertical-align: top; 
+    .name { 
+      padding: 2px; 
+      display:block; 
+      border-bottom: 1px dotted #8A8; 
+    }
+    ul.operations { 
+      padding: 2px 2px 2px 20px; 
+    }
+  }
+}
 .treemap .plot.odd { background: #D7F1C9; }
 .treemap .plot.even { background: #C9F1D7; }
-.treemap .plot ul.operations { padding: 2px 2px 2px 20px; }
 .treemap .plot.selected {background: Highlight; color: HighlightText; }
 .treemap .plot.selected * { color: HighlightText; }
 
