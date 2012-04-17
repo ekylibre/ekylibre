@@ -855,36 +855,39 @@ module ApplicationHelper
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          # args[2][:class] ||= "icon im-" + name.to_s.split('_')[-1]
+          args[2][:grouped] = true
           args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
-            args[2][:class] = "icon im-" + args[1][:action].to_s if args[1][:action]
-          else
-            args[2][:class] = "icon im-" + args[1][:action].to_s.split('_')[-1] if args[1][:action]
           end
-          code << content_tag(:div, link_to(*args), :class=>:tool) if authorized?(args[1])
+          code << tool_to(*args) if authorized?(args[1])
         elsif nature == :print
           dn, args, url = tool[1], tool[2], tool[3]
           url[:controller] ||= controller_name
           for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
-            code << content_tag(:div, link_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :class=>"icon im-print"), :class=>:tool) if authorized?(url)
+            code << tool_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :tool=>:print, :grouped=>true) if authorized?(url)
           end
         elsif nature == :mail
+          args[1] = content_tag(:span, '', :class=>"icon #{sprite}-#{icon}")+content_tag(:span, args[1], :class=>"text")
           args[2] ||= {}
-          args[2][:class] = "icon im-mail"
-          code << content_tag(:div, mail_to(*args), :class=>:tool)
+          email_address = ERB::Util.html_escape(args[0])
+          extras = %w{ cc bcc body subject }.map { |item|
+            option = args[2].delete(item) || next
+            "#{item}=#{Rack::Utils.escape(option).gsub("+", "%20")}"
+          }.compact
+          extras = extras.empty? ? '' : '?' + ERB::Util.html_escape(extras.join('&'))
+          # code << content_tag(:div, mail_to(*args), :class=>:tool)
+          code << tool_to(args[1], "mailto:#{email_address}#{extras}".html_safe, :tool=>:mail)
         elsif nature == :missing
-          verb, record, tag_options = tool[1], tool[2], tool[3]
-          action = verb # "#{record.class.name.underscore}_#{verb}"
+          action, record, tag_options = tool[1], tool[2], tool[3]
           tag_options = {} unless tag_options.is_a? Hash
-          tag_options[:class] = "icon im-#{verb}"
+          tag_options[:grouped] = true
           url = {}
           url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
           url[:controller] ||= controller_name
           url[:action] = action
           url[:id] = record.id
-          code << content_tag(:div, link_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options), :class=>:tool) if authorized?(url)
+          code << tool_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options) if authorized?(url)
         end
       end
       if code.strip.length>0

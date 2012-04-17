@@ -1,0 +1,284 @@
+@import "compass/css3";
+
+
+@function merge-color($color-1, $color-2) { 
+  $col2: rgb(red($color-2), green($color-2), blue($color-2));
+  $percent: 100*alpha($color-2);
+  @return mix($col2, $color-1, $percent);
+}
+
+@function merge-colors($color, $color-1: rgba(0, 0, 0, 0), $color-2: rgba(0, 0, 0, 0), $color-3: rgba(0, 0, 0, 0), $color-4: rgba(0, 0, 0, 0), $color-5: rgba(0, 0, 0, 0), $color-6: rgba(0, 0, 0, 0), $color-7: rgba(0, 0, 0, 0), $color-8: rgba(0, 0, 0, 0), $color-9: rgba(0, 0, 0, 0), $color-10: rgba(0, 0, 0, 0)) { 
+  @return merge-color(merge-color(merge-color(merge-color(merge-color(merge-color(merge-color(merge-color(merge-color(merge-color($color, $color-1), $color-2), $color-3), $color-4), $color-5), $color-6), $color-7), $color-8), $color-9), $color-10);
+}
+
+$list-line-backgrounds: ("" rgba(255, 255, 255, 0)) (".odd" rgba(255, 255, 255, 0.5)) (".even" rgba(255, 255, 255, 0.5));
+$list-column-backgrounds: ("" rgba(255, 255, 255, 0)) (".act" rgba(255, 134, 0, 0.14)) (".sor" rgba(0, 18, 132, 0.05));
+$list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" rgba(209, 218, 255, 0.3));
+
+@mixin list-colors($bgcolor: #000000, $selector: '&') { 
+  tr { 
+    #{$selector} { 
+      @each $line-background in $list-line-backgrounds { 
+        &#{nth($line-background, 1)} { 
+          @each $hover-background in $list-hover-backgrounds { 
+            &#{nth($hover-background, 1)} { 
+              @each $col-background in $list-column-backgrounds { 
+                td#{nth($col-background, 1)} { 
+                  background-color: merge-colors($bgcolor, nth($line-background, 2), nth($col-background, 2), nth($hover-background, 2));
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+div.list { margin: 0; }
+
+table.list { 
+  border-collapse: collapse; 
+  width:100%;  
+  padding:0; 
+  margin: 0;
+  tbody, & thead th { border: 1px solid #AAA;}
+  th { 
+    background: #DDD image-url("themes/tekyla/boss-effect.png") center repeat-x;
+    padding: 2px 4px; 
+    & > a { 
+      color: #555; 
+      font-weight: normal; 
+      @include text-shadow(white 1px 1px 1px);
+    }
+    html[dir="ltr"] & { text-align: left; }
+    html[dir="rtl"] & { text-align: right; }
+    &.act { 
+      background-color: #F1D7C9; 
+      width:16px; 
+      text-align: center; 
+    }
+  }
+  thead { 
+    th { 
+      a { 
+        display: block; 
+        text-decoration:none; 
+        color: #000; 
+        padding: 1px; 
+        background-position: right center; 
+        background-repeat: no-repeat; 
+        &.sortable { 
+          background-position: right center; 
+          background-repeat: no-repeat; 
+          padding-right: 12px;
+          html[dir="rtl"] & { background-position: left center; padding-left: 12px; }
+          &.nsr  { background-image: image-url("themes/tekyla/icons-12/center.png"); }
+          &.desc { background-image: image-url("themes/tekyla/icons-12/down3.png"); }
+          &.asc  { background-image: image-url("themes/tekyla/icons-12/up3.png"); }
+        }
+      }
+      &:hover { background-color: #E6EBFB; }
+      &.sor { background-color: #C9D7F1; color: #000; font-weight: normal; }
+    }
+  }
+  tr {
+    &:first-child td {
+      border-top: none;
+    }
+    td {
+      border-top: 1px solid #EEE;
+      padding: 0px 4px;
+      color: #000; 
+      height:22px;
+      &.chk { text-align:center }
+      &.act { padding: 0 2px; width:16px; }
+      &.act a {padding: 1px; margin: 0; display:block; text-align: center;}
+      &.act a img {padding: 0; margin: 0; display:block; border: none;}
+      &.dec { text-align: right; }
+      &.flt { text-align: right; }
+      &.int { text-align: right; }
+      &.dld { text-align: center; }
+      &.bln { text-align: center; }
+      &.bln div { margin: 0 auto; }
+      &.dat { text-align: center; }
+      &.web { text-align: center; }
+      &.country { white-space: nowrap; }
+      &.code { font-family: "Liberation Mono", monospace; }
+      &.code * { font-family: "Liberation Mono", monospace; }
+      &.color { color:white; text-shadow: black 0 0 2px; width: 6em; text-align: center; }
+      &.rights * { font-size: 11px; }
+      &.rights.more * { color: #080; }
+      &.rights.less * { color: #F00; }
+    }
+    &.child { 
+      td { color: #77A; }
+      td:first-child { padding:0 20px; }
+    }
+    &.empty { 
+      td { text-align:center;  color: #77A; padding: 1em; }
+      &:hover td { background: white; }
+    }
+  }
+
+  thead th.col, table.list thead th.act { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; -o-text-overflow: ellipsis; }
+
+  tfoot { 
+    tr th { 
+      clear:both; 
+      border:none; 
+      background: #EEEFFA image-url("themes/tekyla/shadow-bottom.png") repeat-x top center !important; 
+      font-weight: normal;  
+      div.pagination {
+        padding: 4px; 
+        display:block;
+        * { padding: 2px 4px; }
+        span.current { font-weight:bold; color: black; }
+        em { font-weight:bold; color: black; font-style: normal; }
+        span.disabled { color: #88A; }
+        .previous_page { 
+          padding: 2px 4px 2px 10px; 
+          background: image-url("themes/tekyla/icons-12/previous2.png") no-repeat left;
+          &.disabled { background: image-url("themes/tekyla/icons-12/previous2-dis.png") no-repeat left;}
+        }
+        .next_page { 
+          padding: 2px 10px 2px 4px; 
+          background: image-url("themes/tekyla/icons-12/next2.png") no-repeat right;
+          &.disabled { background: image-url("themes/tekyla/icons-12/next2-dis.png") no-repeat right;}
+        }
+        html[dir="rtl"] & { 
+          .previous_page { 
+            padding: 2px 10px 2px 4px; 
+            background: image-url("themes/tekyla/icons-12/next2.png") no-repeat right;
+            &.disabled { background: image-url("themes/tekyla/icons-12/next2-dis.png") no-repeat right;}
+          }
+          .next_page { 
+            padding:2px 4px 2px 10px; 
+            background: image-url("themes/tekyla/icons-12/previous2.png") no-repeat left;
+            .disabled { background: image-url("themes/tekyla/icons-12/previous2-dis.png") no-repeat left;}
+          }
+        }
+      }
+    }
+    .widget { 
+      display: block; 
+      padding: 2px;
+      html[dir="ltr"] & { float: left; margin: 0 8px 0 0; }
+      html[dir="rtl"] & { float: right; margin: 0 0 0 8px; }
+    }
+  }
+
+  .spe { 
+    width: 16px; 
+    height: 16px; 
+    padding: 0; 
+    vertical-align:bottom;
+    .list-menu { 
+      position: relative; 
+      background: none; 
+      border: none;
+      * { font-weight: normal; }
+      a { cursor: pointer; }
+      .list-menu-start { 
+        display: block; 
+        font-size: 0; 
+        color: transparent; 
+        text-shadow: none; 
+        padding: 4px; 
+        width: 16px; 
+        height: 16px; 
+        background: image-url("themes/tekyla/icons-16/list-start.png") no-repeat center; 
+      }
+      &:hover { 
+        .list-menu-start { background-color: #F1F1F1; z-index:5000;  position: relative; top: 0px; }
+        & > ul { display: block; }
+      }
+      ul { 
+        display: none; 
+        position:absolute; 
+        top: 22px; 
+        padding: 1px; 
+        margin:0; 
+        background: #F1F1F1; 
+        border:1px solid #AAA; 
+        z-index: 1000; 
+        @include box-shadow(0 0 4px rgba(0,0,0,0.2));
+        html[dir="ltr"] & { right: -1px;}
+        html[dir="rtl"] & { left: -1px;}
+        li { 
+          list-style-type: none; 
+          color: #000; 
+          padding: 2px 4px; 
+          width: 190px; 
+          position: relative;
+          * { color: #000;}
+          &.parent > a { font-weight: bold; }
+          &.separator { height: 0; padding: 0; border-top: 1px solid #F1F1F1; border-bottom: 1px solid #AAA; margin: 2px auto;}
+          &.separator:hover { background: transparent;}
+          a { display: block; }
+          html[dir="ltr"] & a { padding: 2px 2px 2px 20px; }
+          html[dir="rtl"] & a { padding: 2px 20px 2px 2px; }
+          ul { 
+            display: none; 
+            position: absolute; 
+            top: -2px;
+            html[dir="ltr"] & { right: 198px; }
+            html[dir="rtl"] & { left: 198px; }
+            &:hover { display:block; }
+          }
+          &:hover { background: #C9D7F1; color: #000; }
+          &:hover > * { color: #000; }
+          &:hover ul { display:block; }
+        }
+      }
+    }
+  }
+
+  th.hidden, table.list td.hidden { display: none; }
+
+  tr.details td { 
+    padding: 8px; 
+    text-align:center;
+    &.comment { 
+      padding: 10px; 
+      font-size:15px;
+    }
+  }
+  
+  tr.total { 
+    th { 
+      text-align: right;
+      html[dir="rtl"] & {text-align: left;}
+    }
+    td {
+      font-size: 18px;
+      font-weight:bold; 
+      width: 10em; 
+      white-space: nowrap; 
+      background:#FFD !important; 
+      padding: 2px 4px; 
+      text-align: right; 
+      border:1px solid #CCC;
+      &.important {font-size: 20px; } 
+    }
+  }
+  tr.subtotal { 
+    th { text-align: right;}
+    html[dir="rtl"] & th {text-align: left;}
+    td {font-size: 15px; font-weight:normal; width: 10em; white-space: nowrap; background: #FFE !important; padding: 2px 4px; text-align: right; border:1px solid #CCC; }  
+  }
+  tr.centralize td { font-weight:bold; }  
+
+  tr.disabled td, table.list tr.disabled td * {color: #888; }
+
+  @include list-colors(#FFFFFF);
+  @include list-colors(#D8FFA3, "&.notice, &.estimate, &.advance, &.enough, &.balanced, &.pointable, &.letter");
+  @include list-colors(#FFE0B3, "&.warning, &.order, &.late, &.minimum, &.unpointabled, &.letter-unbalanced");
+  @include list-colors(#FFAD87, "&.error, &.unpaid, &.verylate, &.critic, &.unbalanced, &.unpointable");
+  @include list-colors(#FFFFDD, "&.subtotal");
+  @include list-colors(#EEEEEE, "&.disabled");
+  @include list-colors(#EAFAEF, "&.validated");
+
+}
+
