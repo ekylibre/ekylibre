@@ -1,0 +1,132 @@
+@import "compass/css3";
+
+$buttons-names: new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement;
+$buttons-states: hover active disabled normal;
+$buttons-interval: 24px;
+@mixin buttons-background { 
+  background: url(/assets/themes/tekyla/buttons-16.png) no-repeat;
+}
+
+$i: 0;
+@each $button-name in $buttons-names { 
+  .btn.#{$button-name} {
+    .icon {
+      @include inline-block;
+      height: $buttons-interval*2/3;
+      width: $buttons-interval*2/3;
+      @include buttons-background;
+      background-position: (-$buttons-interval*$i) (-$buttons-interval*3);
+    }
+    &:hover {
+      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*0);}
+    }
+    &:active {
+      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*0); }
+    }
+    &[disabled] {
+      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*2); }
+    }
+  }
+  $i: $i + 1;
+}
+
+input[type="submit"], a.btn {
+ cursor: pointer;
+}
+
+input[type="submit"] { 
+  padding: 3px 6px 4px; 
+  margin: 0 -.5px; 
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  @include background-image(linear-gradient(#EEE, #DDD));
+  @include border-radius(5px);
+  @include inline-block;
+  color: #555;
+  @include text-shadow(1px 1px 1px #FFF);
+  &:hover {
+    @include background-image(linear-gradient(lighten(#688ED8, 8%), #688ED8));
+    color: #FFF; 
+    @include text-shadow(0 0 1px #555);
+    text-decoration: none;
+  }
+  &:active {
+    padding: 4px 6px 3px 6px;
+    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
+    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
+    color: #FFF; 
+    @include text-shadow(-1px -1px 1px #555);
+    text-decoration: none;
+  }
+}
+
+
+a.btn {
+  white-space: nowrap;
+  margin: 0 -.5px; 
+  padding: 4px 6px;
+  font-weight: bold;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  @include background-image(linear-gradient(#EEE, #DDD));
+  @include border-radius(5px);
+  @include inline-block;
+  height: 16px;
+  span { 
+    vertical-align: middle;
+    margin: 0 2px;
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
+    html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
+  }
+  .text { 
+    line-height: 16px;
+    color: #555;
+    @include text-shadow(1px 1px 1px #FFF);
+  }
+  .icon { 
+    background-repeat: no-repeat; 
+    width: 16px;
+    height: 16px;
+    display: none;
+  }
+  &:hover {
+    @include background-image(linear-gradient(lighten(#688ED8, 8%), #688ED8));
+    &, .text {
+      color: #FFF; 
+      @include text-shadow(0 0 1px #555);
+      text-decoration: none;
+    }
+  }
+  &:active {
+    padding: 5px 6px 3px 6px;
+    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
+    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+    @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
+    &, .text {
+      color: #FFF; 
+      @include text-shadow(-1px -1px 1px #555);
+      text-decoration: none;
+    }
+  }
+}
+
+.toolbar { 
+  margin: 0 0 8px 0;
+  a.btn, input[type="submit"] { 
+    @include border-radius(0);
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
+      @include border-top-left-radius(5px);
+      @include border-bottom-left-radius(5px);
+    }
+    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
+      @include border-top-right-radius(5px);
+      @include border-bottom-right-radius(5px);
+    }
+  }
+}

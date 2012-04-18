@@ -19,14 +19,14 @@
         if (column.hasClass("hidden")) {
             $(search).removeClass("hidden");
             column.removeClass("hidden");
-            element.removeClass("im-unchecked");
-            element.addClass("im-checked");
+            element.removeClass("unchecked");
+            element.addClass("checked");
             visibility = 'shown';
         } else {
             $(search).addClass("hidden");
             column.addClass("hidden");
-            element.removeClass("im-checked");
-            element.addClass("im-unchecked");
+            element.removeClass("checked");
+            element.addClass("unchecked");
             visibility = 'hidden';
         }
         var url = element.attr("href")

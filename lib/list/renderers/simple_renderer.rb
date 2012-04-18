@@ -80,7 +80,7 @@ module List
         if nature==:header
           classes = 'hdr '+column_classes(column, true)
           classes = (column.sortable? ? "\"#{classes} sortable \"+(list_params[:sort]!='#{column.id}' ? 'nsr' : list_params[:dir])" : "\"#{classes}\"")
-          header = "link_to(#{column.header_code}, url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(list_params[:sort]!='#{column.id}' ? 'asc' : list_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, :remote=>true, 'data-list-update'=>'##{table.name}')"
+          header = "link_to("+(column.sortable? ? "content_tag(:span, #{column.header_code}, :class=>'text')+content_tag(:span, '', :class=>'icon')" : "content_tag(:span, #{column.header_code}, :class=>'text')")+", url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(list_params[:sort]!='#{column.id}' ? 'asc' : list_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, :remote=>true, 'data-list-update'=>'##{table.name}')"
           code << "content_tag(:th, #{header}, :class=>\"#{column_classes(column)}\")"
           code << "+\n      "#  unless code.blank?
         else
@@ -179,7 +179,7 @@ module List
     # Produces main menu code
     def menu_code(table)
       menu = "<div class=\"list-menu\">"
-      menu << "<a class=\"list-menu-start\">' + h(::I18n.translate('list.menu').gsub(/\'/,'&#39;')) + '</a>"
+      menu << "<a class=\"list-menu-start\"><span class=\"icon\"></span><span class=\"text\">' + h(::I18n.translate('list.menu').gsub(/\'/,'&#39;')) + '</span></a>"
       menu << "<ul>"
       if table.finder.paginate?
         # Per page
@@ -187,27 +187,25 @@ module List
         list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
         list = list.uniq.sort
         menu << "<li class=\"per-page parent\">"
-        menu << "<a class=\"icon im-pages\">' + ::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;') + '</a><ul>"
+        menu << "<a class=\"pages\"><span class=\"icon\"></span><span class=\"text\">' + ::I18n.translate('list.items_per_page').gsub(/\'/,'&#39;') + '</span></a><ul>"
         for n in list
-          menu << "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"icon im-list-check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\" data-remote=\"true\" data-list-update=\"##{table.name}\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</a></li>"
+          menu << "<li><a'+(list_params[:per_page] == #{n} ? ' class=\"check\"' : '')+' href=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :per_page=>#{n}))+'\" data-remote=\"true\" data-list-update=\"##{table.name}\"><span class=\"icon\"></span><span class=\"text\">'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</span></a></li>"
         end
         menu << "</ul></li>"
-        # +div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
-        # menu << "<div class=\"widget\"><select data-update=\"#{table.name}\" data-per-page=\"'+url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir]))+'\">"+list.collect{|n| "<option value=\"#{n}\"'+(list_params[:per_page] == #{n} ? ' selected=\"selected\"' : '')+'>'+h(::I18n.translate('list.x_per_page', :count=>#{n}))+'</option>"}.join+"</select></div>"
       end
 
       # Column selector
       menu << "<li class=\"columns parent\">"
-      menu << "<a class=\"icon im-table \">' + ::I18n.translate('list.columns').gsub(/\'/,'&#39;') + '</a><ul>"
+      menu << "<a class=\"columns\"><span class=\"icon\"></span><span class=\"text\">' + ::I18n.translate('list.columns').gsub(/\'/,'&#39;') + '</span></a><ul>"
       for column in table.data_columns
-        menu << "<li>'+link_to(#{column.header_code}, url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'data-toggle-column'=>'#{column.unique_id}', :class=>'icon '+(list_params[:hidden_columns].include?('#{column.id}') ? 'im-unchecked' : 'im-checked'))+'</li>"
+        menu << "<li>'+link_to(url_for(:action=>:#{table.controller_method_name}, :column=>'#{column.id}'), 'data-toggle-column'=>'#{column.unique_id}', :class=>'icon '+(list_params[:hidden_columns].include?('#{column.id}') ? 'unchecked' : 'checked')) { '<span class=\"icon\"></span>'.html_safe + content_tag('span', #{column.header_code}, :class=>'text')}+'</li>"
       end
       menu << "</ul></li>"
       # Separator
       menu << "<li class=\"separator\"></li>"      
       # Exports
       for format, exporter in List.exporters
-        menu << "<li class=\"export #{exporter.name}\">' + link_to(::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}'), :class=>\"icon im-export\") + '</li>"
+        menu << "<li class=\"export #{exporter.name}\">' + link_to(params.merge(:action=>:#{table.controller_method_name}, :sort=>list_params[:sort], :dir=>list_params[:dir], :format=>'#{format}'), :class=>\"export\") { '<span class=\"icon\"></span>'.html_safe + content_tag('span', ::I18n.translate('list.export_as', :exported=>::I18n.translate('list.export.formats.#{format}')).gsub(/\'/,'&#39;'), :class=>'text')} + '</li>"
       end
       menu << "</ul></div>"
       return menu

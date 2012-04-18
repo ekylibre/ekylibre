@@ -1,28 +1,39 @@
 -if @current_user
   .user-bar
-    %a.name.root=@current_company.name
+    %a.name.root
+      %span.icon
+      %span.text=@current_company.name
     %ul
       %li.no-link
-        %a.name=@current_user.label
+        %a.mn.name
+          %span.icon
+          %span.text=@current_user.label
       %li.separator
       -for mode in ["printable", "resized"]
-        %li=link_to(tl("view_modes.#{mode}"), params, :class=>"icon im-#{'un' unless mode == session[:view_mode]}checked", "data-toggle-view-mode"=>url_for(:action=>:toggle_view_mode, :controller=>:interfacers, :mode=>mode))
+        %li=menu_to(tl("view_modes.#{mode}"), params, :menu=>"#{'un' unless mode == session[:view_mode]}checked", "data-toggle-view-mode"=>url_for(:action=>:toggle_view_mode, :controller=>:interfacers, :mode=>mode))
       %li.separator
-      %li=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class=>"icon im-logout")
+      %li=menu_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :menu=>:logout)
 
 -if @current_user
   -rm = reverse_menus
   .menu-bar
     %ul
-      %li.logo-item
+      %li
+        .logo-item
       -for menu, submenus in menus
         -if rm[0] != menu
           %li.menu.other{:class=>menu}
-            =link_to(tl("menus.#{menu}"), last_page(menu), :class=>"menu other #{menu}")
+            =link_to(last_page(menu), :class=>"menu other #{menu}") do
+              %span.icon
+              %span.text=tl("menus.#{menu}")
             %ul
               -for submenu, items in submenus
                 %li.submenu
-                  =link_to(tl("menus.submenus.#{submenu}"), items[0][:url], :class=>"icon im-menu")
+                  =link_to(items[0][:url]) do
+                    %span.icon
+                    %span.text=tl("menus.submenus.#{submenu}")
         -else
           %li.menu.current{:class=>menu}
-            =link_to(tl("menus.#{menu}"), {:controller=>:dashboards, :action=>menu}, :class=>"menu current #{menu}")
+            =link_to({:controller=>:dashboards, :action=>menu}, :class=>"menu current #{menu}") do
+              %span.icon
+              %span.text=tl("menus.#{menu}")

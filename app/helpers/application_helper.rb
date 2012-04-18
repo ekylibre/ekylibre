@@ -820,15 +820,26 @@ module ApplicationHelper
 
   # TOOLBAR
 
+  def menu_to(name, url, options={})
+    raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
+    icon = (options.has_key?(:menu) ? options.delete(:menu) : url.is_a?(Hash) ? url[:action] : nil)
+    sprite = options.delete(:sprite) || "icons-16"
+    options[:class] = (options[:class].blank? ? 'mn' : options[:class]+' mn')
+    options[:class] += ' '+icon.to_s if icon
+    link_to(url, options) do
+      (icon ? content_tag(:span, '', :class=>"icon")+content_tag(:span, name, :class=>"text") : content_tag(:span, name, :class=>"text"))
+    end
+  end
+
+
   def tool_to(name, url, options={})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
-    icon = (options.delete(:tool) || (url.is_a?(Hash) ? url[:action] : "action")).to_s
+    icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || "icons-16"
     options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
-    options[:class] += ' '+icon
-    options[:class] += ' alone' unless options.delete(:grouped)
+    options[:class] += ' '+icon.to_s if icon
     link_to(url, options) do
-      content_tag(:span, '', :class=>"icon")+content_tag(:span, name, :class=>"text")
+      (icon ? content_tag(:span, '', :class=>"icon")+content_tag(:span, name, :class=>"text") : content_tag(:span, name, :class=>"text"))
     end
   end
 
@@ -855,8 +866,6 @@ module ApplicationHelper
         if nature == :link
           name = args[0]
           args[1] ||= {}
-          args[2] ||= {}
-          args[2][:grouped] = true
           args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
@@ -866,10 +875,9 @@ module ApplicationHelper
           dn, args, url = tool[1], tool[2], tool[3]
           url[:controller] ||= controller_name
           for dt in @current_company.document_templates.find(:all, :conditions=>{:nature=>dn.to_s, :active=>true}, :order=>:name)
-            code << tool_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :tool=>:print, :grouped=>true) if authorized?(url)
+            code << tool_to(tc(:print_with_template, :name=>dt.name), url.merge(:template=>dt.code), :tool=>:print) if authorized?(url)
           end
         elsif nature == :mail
-          args[1] = content_tag(:span, '', :class=>"icon #{sprite}-#{icon}")+content_tag(:span, args[1], :class=>"text")
           args[2] ||= {}
           email_address = ERB::Util.html_escape(args[0])
           extras = %w{ cc bcc body subject }.map { |item|
@@ -882,7 +890,6 @@ module ApplicationHelper
         elsif nature == :missing
           action, record, tag_options = tool[1], tool[2], tool[3]
           tag_options = {} unless tag_options.is_a? Hash
-          tag_options[:grouped] = true
           url = {}
           url.update(tag_options.delete(:params)) if tag_options[:params].is_a? Hash
           url[:controller] ||= controller_name
