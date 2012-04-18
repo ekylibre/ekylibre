@@ -822,12 +822,13 @@ module ApplicationHelper
 
   def tool_to(name, url, options={})
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
-    icon = options.delete(:tool) || (url.is_a?(Hash) ? url[:action] : "action")
+    icon = (options.delete(:tool) || (url.is_a?(Hash) ? url[:action] : "action")).to_s
     sprite = options.delete(:sprite) || "icons-16"
     options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
+    options[:class] += ' '+icon
     options[:class] += ' alone' unless options.delete(:grouped)
     link_to(url, options) do
-      content_tag(:span, '', :class=>"icon #{sprite}-#{icon}")+content_tag(:span, name, :class=>"text")
+      content_tag(:span, '', :class=>"icon")+content_tag(:span, name, :class=>"text")
     end
   end
 
