@@ -866,6 +866,7 @@ module ApplicationHelper
         if nature == :link
           name = args[0]
           args[1] ||= {}
+          args[2] ||= {}
           args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name

@@ -92,7 +92,7 @@ module List
         cases = []
         for a in @options[:actions]
           v = a[1][:action].to_s.split('_')[-1]
-          cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\nlink_to(image_tag(theme_button('#{v}'), :alt=>'"+a[0].to_s+"')"+
+          cases << record+"."+@name.to_s+".to_s=="+a[0].inspect+"\ntool_to(::I18n.translate('labels.#{v}')"+
             ", {"+(a[1][:controller] ? ':controller=>:'+a[1][:controller].to_s+', ' : '')+":action=>'"+a[1][:action].to_s+"', :id=>"+record+".id"+format+"}"+
             ", {:id=>'"+@name.to_s+"_'+"+record+".id.to_s"+link_options+", :title=>::I18n.translate('labels.#{v}')}"+
             ")\n"

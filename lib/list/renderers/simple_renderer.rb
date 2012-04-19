@@ -80,7 +80,7 @@ module List
         if nature==:header
           classes = 'hdr '+column_classes(column, true)
           classes = (column.sortable? ? "\"#{classes} sortable \"+(list_params[:sort]!='#{column.id}' ? 'nsr' : list_params[:dir])" : "\"#{classes}\"")
-          header = "link_to("+(column.sortable? ? "content_tag(:span, #{column.header_code}, :class=>'text')+content_tag(:span, '', :class=>'icon')" : "content_tag(:span, #{column.header_code}, :class=>'text')")+", url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(list_params[:sort]!='#{column.id}' ? 'asc' : list_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, :remote=>true, 'data-list-update'=>'##{table.name}')"
+          header = "link_to("+(column.sortable? ? "content_tag(:span, #{column.header_code}, :class=>'text')+content_tag(:span, '', :class=>'icon')" : "content_tag(:span, #{column.header_code}, :class=>'text')")+", url_for(params.merge(:action=>:#{table.controller_method_name}, :sort=>#{column.id.to_s.inspect}, :dir=>(list_params[:sort]!='#{column.id}' ? 'asc' : list_params[:dir]=='asc' ? 'desc' : 'asc'))), :id=>'#{column.unique_id}', 'data-cells-class'=>'#{column.simple_id}', :class=>#{classes}, :remote=>true, 'data-list-update'=>'##{table.name}', 'data-type'=>'html')"
           code << "content_tag(:th, #{header}, :class=>\"#{column_classes(column)}\")"
           code << "+\n      "#  unless code.blank?
         else
