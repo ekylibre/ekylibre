@@ -4,7 +4,7 @@ $buttons-names: new edit destroy search validate cancel lock unlock action up do
 $buttons-states: hover active disabled normal;
 $buttons-interval: 24px;
 @mixin buttons-background { 
-  background: url(/assets/themes/tekyla/buttons-16.png) no-repeat;
+  background: image-url("themes/tekyla/buttons-16.png") no-repeat;
 }
 
 $i: 0;
@@ -70,6 +70,7 @@ a.btn {
   margin: 0 -.5px; 
   padding: 4px 6px;
   font-weight: bold;
+  text-decoration: none;
   border-width: 1px;
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
