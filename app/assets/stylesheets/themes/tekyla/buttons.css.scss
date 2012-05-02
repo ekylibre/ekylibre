@@ -4,7 +4,139 @@ $buttons-names: new edit destroy search validate cancel lock unlock action up do
 $buttons-states: hover active disabled normal;
 $buttons-interval: 24px;
 @mixin buttons-background { 
-  background: url(/assets/themes/tekyla/buttons-16.png) no-repeat;
+  background: image-url("themes/tekyla/buttons-16.png") no-repeat;
+}
+
+$buttons-radius: 3px;
+$passive-bg: #E5E5E5;
+$active-bg: #688ED8;
+
+input[type="submit"], a.btn {
+  cursor: pointer;
+}
+
+@mixin button-normal-state($normal) {
+  font-weight: bold;
+  text-decoration: none;
+  border: 1px solid darken($normal, 10%);
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  background: $normal;
+  @include background-image(linear-gradient(lighten($normal, 4%), darken($normal, 4%)));
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset);
+  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
+  @include border-radius($buttons-radius);
+}
+
+
+@mixin button($normal: #E5E5E5, $active: #688ED8, $selector: '&') {
+  $normal-color: darken($normal, 50%);
+  $normal-shadow: lighten($normal, 20%);
+  a.btn {
+    #{$selector} { 
+      white-space: nowrap;
+      margin: 0;
+      padding: 4px 6px;
+      color: $normal-color;
+      @include button-normal-state($normal);
+      @include inline-block;
+      span { 
+        vertical-align: middle;
+        margin: 0 2px;
+        html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
+        html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
+      }
+      &, .text { 
+        line-height: 16px;
+        color: $normal-color;
+        @include text-shadow(1px 1px 1px $normal-shadow);
+      }
+      .icon { 
+        background-repeat: no-repeat; 
+        width: 16px;
+        height: 16px;
+        display: none;
+      }
+      &:focus {
+        border: 1px solid $active;
+      }
+      &:hover {
+        @include background-image(linear-gradient(lighten($active, 8%), $active));
+        &, .text {
+          color: #FFF; 
+          @include text-shadow(0 0 1px $normal-color);
+          text-decoration: none;
+        }
+        padding: 4px 6px;
+        border-width: 1px;
+      }
+      &:active {
+        padding: 5px 6px 3px 6px;
+        @include background-image(linear-gradient($active, darken($active, 8%)));
+        border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
+        &, .text {
+          color: #FFF; 
+          @include text-shadow(-1px -1px 1px $normal-color);
+          text-decoration: none;
+        }
+      }
+      &[disabled] {
+      }
+    }
+  }
+  input[type="submit"] {
+    #{$selector} { 
+      padding: 3px 6px 4px; 
+      color: $normal-color;
+      @include button-normal-state($normal);
+      @include inline-block;
+      @include text-shadow(1px 1px 1px $normal-shadow);
+      &:focus { 
+        border: 1px solid $active;
+      }
+      &:hover {
+        @include text-shadow(0 0 1px $normal-color);
+        @include background-image(linear-gradient(lighten($active, 8%), $active));
+        color: #FFF; 
+        text-decoration: none;
+        padding: 3px 6px 4px; 
+        border-width: 1px;
+      }
+      &:active {
+        padding: 4px 6px 3px 6px;
+        color: #FFF; 
+        border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
+        @include background-image(linear-gradient($active, darken($active, 8%)));
+        @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
+        @include text-shadow(-1px -1px 1px $normal-color);
+        text-decoration: none;
+      }
+      &[disabled] { 
+      }
+    }
+  } 
+}
+
+
+@include button($passive-bg, #688ED8);
+@include button(#D88E68, #D88E68, "&.important");
+
+.toolbar { 
+  margin: 0 0 8px 0;
+  a.btn, input[type="submit"] { 
+    @include border-radius(0);
+    margin: 0 -.5px;
+    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
+      @include border-top-left-radius($buttons-radius);
+      @include border-bottom-left-radius($buttons-radius);
+    }
+    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
+      @include border-top-right-radius($buttons-radius);
+      @include border-bottom-right-radius($buttons-radius);
+    }
+  }
 }
 
 $i: 0;
@@ -28,105 +160,4 @@ $i: 0;
     }
   }
   $i: $i + 1;
-}
-
-input[type="submit"], a.btn {
- cursor: pointer;
-}
-
-input[type="submit"] { 
-  padding: 3px 6px 4px; 
-  margin: 0 -.5px; 
-  font-weight: bold;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
-  @include background-image(linear-gradient(#EEE, #DDD));
-  @include border-radius(5px);
-  @include inline-block;
-  color: #555;
-  @include text-shadow(1px 1px 1px #FFF);
-  &:hover {
-    @include background-image(linear-gradient(lighten(#688ED8, 8%), #688ED8));
-    color: #FFF; 
-    @include text-shadow(0 0 1px #555);
-    text-decoration: none;
-  }
-  &:active {
-    padding: 4px 6px 3px 6px;
-    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
-    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
-    @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
-    color: #FFF; 
-    @include text-shadow(-1px -1px 1px #555);
-    text-decoration: none;
-  }
-}
-
-
-a.btn {
-  white-space: nowrap;
-  margin: 0 -.5px; 
-  padding: 4px 6px;
-  font-weight: bold;
-  border-width: 1px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  @include box-shadow(0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 1px 2px rgba(0, 0, 0, 0.05));
-  @include background-image(linear-gradient(#EEE, #DDD));
-  @include border-radius(5px);
-  @include inline-block;
-  height: 16px;
-  span { 
-    vertical-align: middle;
-    margin: 0 2px;
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
-    html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
-  }
-  .text { 
-    line-height: 16px;
-    color: #555;
-    @include text-shadow(1px 1px 1px #FFF);
-  }
-  .icon { 
-    background-repeat: no-repeat; 
-    width: 16px;
-    height: 16px;
-    display: none;
-  }
-  &:hover {
-    @include background-image(linear-gradient(lighten(#688ED8, 8%), #688ED8));
-    &, .text {
-      color: #FFF; 
-      @include text-shadow(0 0 1px #555);
-      text-decoration: none;
-    }
-  }
-  &:active {
-    padding: 5px 6px 3px 6px;
-    @include background-image(linear-gradient(#688ED8, darken(#688ED8, 8%)));
-    border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
-    @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
-    &, .text {
-      color: #FFF; 
-      @include text-shadow(-1px -1px 1px #555);
-      text-decoration: none;
-    }
-  }
-}
-
-.toolbar { 
-  margin: 0 0 8px 0;
-  a.btn, input[type="submit"] { 
-    @include border-radius(0);
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
-      @include border-top-left-radius(5px);
-      @include border-bottom-left-radius(5px);
-    }
-    html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
-      @include border-top-right-radius(5px);
-      @include border-bottom-right-radius(5px);
-    }
-  }
 }
