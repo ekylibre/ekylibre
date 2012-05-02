@@ -2,6 +2,7 @@
 @import "compass/utilities";
 $experimental-support-for-svg: true;
 
+
 @function merge-color($color-1, $color-2) { 
   $col2: rgb(red($color-2), green($color-2), blue($color-2));
   $percent: 100*alpha($color-2);
@@ -80,7 +81,7 @@ table.list {
           vertical-align: middle;
         }
         span.icon {
-          width:10px;
+          width:11px;
           @include inline-block;
         }
         &.sortable {
@@ -246,6 +247,8 @@ table.list {
               html[dir="ltr"] & { margin-right:  4px; }
               html[dir="rtl"] & { margin-left: 4px; }
             }
+
+            &.pages     .icon { @include list-sprite(pages); }
             &.export    .icon { @include list-sprite(export); }
             &.check     .icon { @include list-sprite(check); }
             &.checked   .icon { @include list-sprite(checked); }
