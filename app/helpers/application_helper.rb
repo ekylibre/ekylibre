@@ -230,6 +230,21 @@ module ApplicationHelper
   #
 
 
+  #
+  def evalue(object, attribute, options={})
+    label, value = attribute_item(object, attribute, options={})
+    if options[:orient] == :vertical
+      code  = content_tag(:tr, content_tag(:td, label.to_s, :class=>:label))
+      code << content_tag(:tr, content_tag(:td, value.to_s, :class=>:value))
+      return content_tag(:table, code, :class=>"evalue verti")
+    else
+      code  = content_tag(:td, label.to_s, :class=>:label)
+      code << content_tag(:td, value.to_s, :class=>:value)
+      return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
+    end
+  end
+
+
   def attribute_item(object, attribute, options={})
     value_class = 'value'
     if object.is_a? String
@@ -293,21 +308,6 @@ module ApplicationHelper
   end
 
 
-  #
-  def evalue(object, attribute, options={})
-    label, value = attribute_item(object, attribute, options={})
-    if options[:orient] == :vertical
-      code  = content_tag(:tr, content_tag(:td, label.to_s, :class=>:label))
-      code << content_tag(:tr, content_tag(:td, value.to_s, :class=>:value))
-      return content_tag(:table, code, :class=>"evalue verti")
-    else
-      code  = content_tag(:td, label.to_s, :class=>:label)
-      code << content_tag(:td, value.to_s, :class=>:value)
-      return content_tag(:table, content_tag(:tr, code), :class=>"evalue hori")
-    end
-  end
-
-
   def attributes_list(record, options={}, &block)
     columns = options[:columns] || 3
     attribute_list = AttributesList.new
@@ -340,22 +340,6 @@ module ApplicationHelper
         code << content_tag(:tr, line.html_safe)
       end
       code = content_tag(:table, code.html_safe, :class=>"attributes-list")
-
-      #       for c in 1..columns
-      #         column = ""
-      #         for i in 1..column_height
-      #           args = attribute_list.items.shift
-      #           break if args.nil?
-      #           if args[0] == :evalue
-      #             column << evalue(*args[1]) if args.is_a? Array
-      #           elsif args[0] == :attribute
-      #             column << evalue(record, *args[1]) if args.is_a? Array
-      #           end
-      #         end
-      #         code << content_tag(:td, column.html_safe)
-      #       end
-      #       code = content_tag(:tr, code.html_safe)
-      #      code = content_tag(:table, code.html_safe, :class=>"attributes-list")
     end
     return code.html_safe
   end
