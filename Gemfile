@@ -22,7 +22,7 @@ gem 'formize' #, :path=>'../formize'
 gem 'spreet'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
-gem 'acts_as_tree'
+gem 'acts_as_tree', '0.2.0'
 
 # Gems used only for assets and not required
 # in production environments by default.
