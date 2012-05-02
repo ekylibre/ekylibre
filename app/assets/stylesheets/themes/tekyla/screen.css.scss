@@ -18,7 +18,13 @@
 @import "compass/utilities";
 $experimental-support-for-svg: true;
 
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {margin:0; padding:0; font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
+  margin:0; 
+  padding:0; 
+  font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;
+  vertical-align: middle;
+  line-height: 1.4em;
+}
 
 
 $icons-layout: smart;
@@ -160,36 +166,79 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 html[dir="ltr"] #side-splitter:hover, html[dir="rtl"] #side-splitter.closed:hover { cursor: w-resize; }
 html[dir="ltr"] #side-splitter.closed:hover, html[dir="rtl"] #side-splitter:hover { cursor: e-resize; }
 
+div#side { 
+  html[dir="ltr"] & { float: left; }
+  html[dir="rtl"] & { float: right; }
+}
 
-#side { width: 200px; overflow: auto; vertical-align: top; } 
-html[dir="ltr"] div#side { float: left; }
-html[dir="rtl"] div#side { float: right; }
-
-
-#side .sd-module { padding: 0 0 8px; margin: 0; border-top: 1px solid #95b0e4; }
-#side .sd-module.collapsed { padding-bottom: 0px; @include opacity(0.5);}
-#side .sd-module:first-child { border-top: none; }
-html[dir="ltr"] #side .sd-module .sd-title { padding: 4px 4px 4px 12px; }
-html[dir="rtl"] #side .sd-module .sd-title { padding: 4px 12px 4px 4px; }
-#side .sd-module .sd-title h2 { font-weight: bold;}
-#side .sd-module .sd-title *[data-toggle-module] { display: block; cursor: pointer; height: 12px; width: 12px; position: relative; top: 2px; padding: 0;}
-html[dir="ltr"] #side .sd-module .sd-title *[data-toggle-module] {float: right}
-html[dir="rtl"] #side .sd-module .sd-title *[data-toggle-module] {float: left}
-#side .sd-module .sd-title .show[data-toggle-module] { @include common-sprite(toggle-show) }
-#side .sd-module .sd-title .show[data-toggle-module]:hover { @include common-sprite(toggle-show-hover) }
-#side .sd-module .sd-title .hide[data-toggle-module] { @include common-sprite(toggle-hide) }
-#side .sd-module .sd-title .hide[data-toggle-module]:hover { @include common-sprite(toggle-hide-hover) }
-#side .sd-module .sd-content .sd-item {padding: 0;}
-#side .sd-module .sd-content .sd-item a {display: block; text-decoration: none; padding: 2px 12px; color: #126; white-space: nowrap; overflow: hidden; width: 176px; -moz-binding: url(../xml/ellipsis.xml#ellipsis); -o-text-overflow: ellipsis; text-overflow: ellipsis; }
-#side .sd-module .sd-content .sd-item a:hover {background: #C9D7F1; }
-#side .sd-module .sd-content .sd-item.current a {background: #95b0e4; color: white; text-shadow: 0 0 2px #3D5C8D; font-weight: bold;}
-
-#side .sd-module.current { background: rgba(200,224,254,0.3); }
-#side .sd-module.history { background: #E7E7E7; }
-#side .sd-module.help { background: #E7E7E7; }
-#side .sd-module.help #help .content { padding: 8px; }
-
-/*#side .sd-module > h2 { padding: 4px 8px; font-size : 13px; color: #012; font-weight: bold; }*/
+#side { 
+  width: 200px; 
+  overflow: auto; 
+  vertical-align: top;
+  .sd-module { 
+    padding: 0 0 8px; 
+    margin: 0; 
+    border-top: 1px solid #95b0e4;
+    &.collapsed { 
+      padding-bottom: 0px; 
+      @include opacity(0.5);
+    }
+    &:first-child { 
+      border-top: none; 
+    }
+    .sd-title {
+      html[dir="ltr"] & { padding: 4px 4px 4px 12px; }
+      html[dir="rtl"] & { padding: 4px 12px 4px 4px; }
+      h2 { font-weight: bold;}
+      *[data-toggle-module] { 
+        display: block; 
+        cursor: pointer; 
+        height: 12px; 
+        width: 12px; 
+        position: relative; 
+        top: 2px; 
+        padding: 0;
+        html[dir="ltr"] & {float: right}
+        html[dir="rtl"] & {float: left}
+        &.show { @include common-sprite(toggle-show) }
+        &.show:hover { @include common-sprite(toggle-show-hover) }
+        &.hide { @include common-sprite(toggle-hide) }
+        &.hide:hover { @include common-sprite(toggle-hide-hover) }
+      }
+    }
+    .sd-content { 
+      .sd-item {
+        padding: 0;
+        a { 
+          display: block; 
+          text-decoration: none; 
+          padding: 2px 12px; 
+          color: #126; 
+          vertical-align: middle;
+          white-space: nowrap; 
+          overflow: hidden; 
+          width: 176px;
+          @include ellipsis;
+          -moz-binding: url(../xml/ellipsis.xml#ellipsis); 
+          -o-text-overflow: ellipsis; text-overflow: ellipsis; 
+          &:hover {background: #C9D7F1; }          
+        }
+        &.current a {
+          background: #95b0e4; 
+          color: white; 
+          text-shadow: 0 0 2px #3D5C8D; 
+          font-weight: bold;
+        }
+      }
+    }
+    &.current { background: rgba(200,224,254,0.3); }
+    &.history { background: #E7E7E7; }
+    &.help { 
+      background: #E7E7E7;
+      #help .content { padding: 8px; }
+    }
+  }
+}
 
 
 

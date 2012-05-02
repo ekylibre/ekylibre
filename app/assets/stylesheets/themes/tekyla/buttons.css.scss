@@ -41,14 +41,15 @@ input[type="submit"], a.btn {
       color: $normal-color;
       @include button-normal-state($normal);
       @include inline-block;
+      height: 16px;
+      vertical-align: middle;
       span { 
-        vertical-align: middle;
         margin: 0 2px;
         html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
         html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
       }
       &, .text { 
-        line-height: 16px;
+        line-height: 1em;
         color: $normal-color;
         @include text-shadow(1px 1px 1px $normal-shadow);
       }
@@ -90,6 +91,7 @@ input[type="submit"], a.btn {
     #{$selector} { 
       padding: 3px 6px 4px; 
       color: $normal-color;
+      line-height: 1em;
       @include button-normal-state($normal);
       @include inline-block;
       @include text-shadow(1px 1px 1px $normal-shadow);
