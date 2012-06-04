@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+  - 1.8.7
+before_install:
+  - gem install rails -v=2.3.14 --no-ri --no-rdoc
+  - rake gems:install --trace
