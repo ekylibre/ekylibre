@@ -855,9 +855,9 @@ class Company < ActiveRecord::Base
     product_account = self.accounts.find_by_number("7")
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
     for product_name in products
-      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit_id=>units.rand.id, :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
+      product = self.products.create!(:nature=>"product", :name=>product_name, :for_sales=>true, :for_productions=>true, :shelf_id=>shelf_id, :unit_id=>units.sample.id, :manage_stocks=>true, :weight=>rand(3), :sales_account_id=>product_account.id)
       product.reload
-      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>self.taxes.rand.id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
+      product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>self.taxes.sample.id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
     
     product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
@@ -879,7 +879,7 @@ class Company < ActiveRecord::Base
 
     units = self.units.find(:all, :conditions=>{:base =>'m2'})
     for shape in ["Milou", "Rantanplan", "Idéfix", "Cubitus", "Snoopy"]
-      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit_id=>units.rand.id)
+      self.shapes.create!(:name=>shape, :area_measure=>rand(1000)+10, :area_unit_id=>units.sample.id)
     end
     for nature in ["Palissage", "Récolte", "Traitements", "Labour", "Vendange", "Épandange", "Éclaircissage"]
       self.operation_natures.create!(:name=>nature, :target_type=>"Shape")
