@@ -514,7 +514,7 @@ class Company < ActiveRecord::Base
       # File.open(file, 'wb') {|f| f.write(zile.read("backup.xml"))}
       zile.each do |entry|
         if entry.name.match(/^prints[\\\/]/)
-          File.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
+          FileUtils.makedirs(File.join(prints_dir+"."+File.join(entry.name.split(/[\\\/]+/)[0..-2])))
           zile.extract(entry, "#{prints_dir}.#{entry.name}") 
         end
       end
@@ -637,9 +637,13 @@ class Company < ActiveRecord::Base
 
       if File.exist?(prints_dir+".prints")
         puts "R> Replacing prints..." if verbose
-        File.move prints_dir, prints_dir+'.old'
+        if File.exist?(prints_dir)
+          File.move prints_dir, prints_dir+'.old'
+        end
         File.move prints_dir+'.prints', prints_dir
-        FileUtils.rm_rf(prints_dir+'.old')
+        if File.exist?(prints_dir+'.old')
+          FileUtils.rm_rf(prints_dir+'.old')
+        end
       end
     end
 
