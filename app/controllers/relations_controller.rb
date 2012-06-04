@@ -647,7 +647,7 @@ class RelationsController < ApplicationController
     code += "    conditions << session[:mandates][:organization] \n"
     code += "  end \n"
     code += "  unless session[:mandates][:date].blank? \n"
-    code += "    conditions[0] += 'AND (? BETWEEN started_on AND stopped_on)'\n"
+    code += "    conditions[0] += ' AND (? BETWEEN started_on AND stopped_on)'\n"
     code += "    conditions << session[:mandates][:date].to_s \n"
     code += "  end \n"
     code += "end \n"
