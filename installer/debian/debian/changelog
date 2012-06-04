@@ -1,8 +1,9 @@
 ekylibre (0.3.2.3) stable; urgency=low
 
   * Fixes bug on journal entries's numeration
+  * Fixes bug on backup restoration
 
- -- Brice Texier <brice.texier@ekylibre.org>  Mon, 16 Apr 2012 14:53:19 +0200
+ -- Brice Texier <brice.texier@ekylibre.org>  Mon, 04 Jun 2012 16:46:48 +0200
 
 ekylibre (0.3.2.2) stable; urgency=low
 
