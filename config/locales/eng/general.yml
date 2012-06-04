@@ -16,35 +16,35 @@ eng:
   datetime:
     distance_in_words:
       about_x_hours:
-        many: 'about {{count}} hours'
+        many: 'about %{count} hours'
         one: 'about 1 hour'
       about_x_months:
-        many: 'about {{count}} months'
+        many: 'about %{count} months'
         one: 'about 1 month'
       about_x_years:
-        many: 'about {{count}} years'
+        many: 'about %{count} years'
         one: 'about 1 year'
       half_a_minute: 'half a minute'
       less_than_x_minutes:
-        many: 'less than {{count}} minutes'
+        many: 'less than %{count} minutes'
         one: 'less than a minute'
       less_than_x_seconds:
-        many: 'moins de {{count}} secondes'
+        many: 'moins de %{count} secondes'
         one: 'moins d''une seconde'
       over_x_years:
-        many: 'over {{count}} years'
+        many: 'over %{count} years'
         one: 'over 1 year'
       x_days:
-        many: '{{count}} days'
+        many: '%{count} days'
         one: '1 day'
       x_minutes:
-        many: '{{count}} minutes'
+        many: '%{count} minutes'
         one: '1 minute'
       x_months:
-        many: '{{count}} months'
+        many: '%{count} months'
         one: '1 month'
       x_seconds:
-        many: '{{count}} secondes'
+        many: '%{count} secondes'
         one: '1 seconde'
   dyta:
     export:
@@ -67,17 +67,17 @@ eng:
     choices: 'Choices'
     close: 'Close'
     consult: 'Consult'
-    copy_of: 'Copy of {{source}}'
+    copy_of: 'Copy of %{source}'
     create: 'Create'
     delete: 'Delete'
     display: 'display'
     display_help: 'Display help'
     down: 'Down'
     duplicate: 'Duplicate'
-    duration: '{{hours}}h {{minutes}}min'
+    duration: '%{hours}h %{minutes}min'
     dyta:
     edit: 'Edit'
-    example: 'Example&nbsp;: {{value}}'
+    example: 'Example&nbsp;: %{value}'
     export: 'Export'
     extract: 'Extract'
     filter: 'Filter'
@@ -85,10 +85,10 @@ eng:
     format_date:
       iso: '(YYYY-MM-DD)'
     from: 'From'
-    #>hint: 'Astuce&nbsp;: {{value}}'
+    #>hint: 'Astuce&nbsp;: %{value}'
     import: 'Import'
     indicator: 'Dashboard'
-    #>info: 'Information&nbsp;: {{value}}'
+    #>info: 'Information&nbsp;: %{value}'
     letter: 'Letter'
     letter_conclusion: 'Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration.'
     letter_function_title: 'Dear madam, dear sir'
@@ -119,8 +119,8 @@ eng:
     total: 'Total'
     unavailable:
       #>entity: 'La fiche demandée est indisponible'
-      #>financialyear: 'L''exercice comptable est indisponible {{value}}'
-      #>journal: 'Le journal demandé est indisponible ({{value}})'
+      #>financialyear: 'L''exercice comptable est indisponible %{value}'
+      #>journal: 'Le journal demandé est indisponible (%{value})'
       #>product: 'Le produit demandé est indisponible'
     unlock: 'Unlock'
     up: 'Up'
@@ -132,9 +132,9 @@ eng:
   iso: '(YYYY-MM-DD)' #!
   models:
     account:
-      #>default_account_name: 'Compte comptable {{number}}'
+      #>default_account_name: 'Compte comptable %{number}'
       #>error_delete: 'Le compte ne peut être effacé car il contient des sous-comptes.'
-      label: '{{number}} - {{name}}'
+      label: '%{number} - %{name}'
     bank_statement:
       #>error_account_children: 'Le compte comptable ne peut pas être supprimé car il contient des sous-comptes'
       #>error_journal_statement: 'Le relevé bancaire est spécifique à un journal.'
@@ -329,16 +329,16 @@ eng:
     delay:
       error_unvalid_format_for_expression: 'Unvalid format for expression'
     delivery:
-      label: '{{client}} at {{address}}'
+      label: '%{client} at %{address}'
       natures:
         #>cip: 'Livraison avec assurance'
         #>cpt: 'Livraison sans assurance'
         #>exw: 'Remise en main propre'
-      sale: 'Sale {{number}}'
+      sale: 'Sale %{number}'
     delivery_line:
-      sale: 'Sale {{number}}'
+      sale: 'Sale %{number}'
     document_template:
-      error_attribute: 'The key word {{value}} is incorrect. The possibilities are: {{possibilities}}'
+      error_attribute: 'The key word %{value} is incorrect. The possibilities are: %{possibilities}'
       families:
         accountancy: 'Accountancy'
         company: 'Company'
@@ -368,10 +368,10 @@ eng:
       unvalid_nature: 'Unvalid type of document template.'
     embankment:
       to_accountancy:
-        one: '[{{resource}} {{number}}] {{count}} payment {{mode}} {{comment}}'
-        other: '[{{resource}} {{number}}] {{count}} payments {{mode}} {{comment}}'
-        zero: '[{{resource}} {{number}}] No payments {{mode}} {{comment}}'
-      to_accountancy_with_payment: '[{{resource}} {{number}}] {{mode}} {{check_number}} from {{payer}} ({{payment}})'
+        one: '[%{resource} %{number}] %{count} payment %{mode} %{comment}'
+        other: '[%{resource} %{number}] %{count} payments %{mode} %{comment}'
+        zero: '[%{resource} %{number}] No payments %{mode} %{comment}'
+      to_accountancy_with_payment: '[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})'
     entity:
       client: 'Client'
       supplier: 'Supplier'
@@ -385,16 +385,16 @@ eng:
         sale_order: 'Creation of a product'
     financialyear:
       code:
-        double: 'FY{{first_year}}/{{second_year}}'
-        single: 'FY{{first_year}}'
+        double: 'FY%{first_year}/%{second_year}'
+        single: 'FY%{first_year}'
     idea:
     inventory_line:
       inventory: 'Inventory'
     invoice:
       label:
-        credit: 'Credit {{number}}'
-        normal: 'Invoice {{number}}'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} for {{client}} ({{sale_order}})'
+        credit: 'Credit %{number}'
+        normal: 'Invoice %{number}'
+      to_accountancy: '[%{resource} %{number}] %{products} for %{client} (%{sale_order})'
     invoice_line:
       no_product: '[No product]'
     journal:
@@ -406,7 +406,7 @@ eng:
         sales: 'Sales'
         various: 'Various operations'
     journal_record:
-      record_cancel: 'Cancel of record {{number}}: {{name}}'
+      record_cancel: 'Cancel of record %{number}: %{name}'
     listing_node:
       add_filter: ' Add a filter'
       all_columns: '-- All columns --'
@@ -441,8 +441,8 @@ eng:
         nvn: 'Is not empty'
         vn: 'Is empty'
       comparison:
-        with_value: '{{comparator}} {{value}}'
-        without_value: '{{comparator}}'
+        with_value: '%{comparator} %{value}'
+        without_value: '%{comparator}'
       reflections: 'Associated tables'
     observation:
       importances:
@@ -450,30 +450,30 @@ eng:
         normal: 'Normal'
         notice: 'Notice'
     operation_line:
-      density_label: '{{value}} {{product_unit}}/{{area_unit}}'
+      density_label: '%{value} %{product_unit}/%{area_unit}'
       direction_label:
         in: 'In'
         out: 'Out'
     payment_mode:
     price:
-      label: '{{product}} / {{amount}} {{currency}}'
+      label: '%{product} / %{amount} %{currency}'
       no_range: 'No range'
-      range: 'From {{min}} to {{max}}'
+      range: 'From %{min} to %{max}'
     price_list:
     product:
       informations:
-        with_components: '{{product}} ({{unit}}) (transformed material)'
-        without_components: '{{product}} ({{unit}}) (raw material)'
-      label: '{{product}} ({{unit}})'
+        with_components: '%{product} (%{unit}) (transformed material)'
+        without_components: '%{product} (%{unit}) (raw material)'
+      label: '%{product} (%{unit})'
       natures:
         product: 'Product'
         service: 'Service'
         subscrip: 'Subcription'
         transfer: 'Transfer'
-      stock_move: '{{origin}} ({{code}})'
+      stock_move: '%{origin} (%{code})'
       subscription_label:
-        period: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
-        quantity: 'Subscription {{subscription_nature}} for {{entity}} at {{address}} from {{start}} to {{finish}}'
+        period: 'Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}'
+        quantity: 'Subscription %{subscription_nature} for %{entity} at %{address} from %{start} to %{finish}'
       supply_methods:
         buy: 'Buy'
         produce: 'Produce'
@@ -487,47 +487,47 @@ eng:
       of_product: 'of product'
     production:
     purchase_order:
-      label: '{{supplier}} at {{address}}'
+      label: '%{supplier} at %{address}'
       purchase: 'Purchase'
-      to_accountancy: '[{{resource}} {{number}}] {{products}} of {{supplier}}'
+      to_accountancy: '[%{resource} %{number}] %{products} of %{supplier}'
     purchase_order_line:
-      name: '{{product}} ({{quantity}}{{unit}}), {{amount}}{{currency}}/{{unit}}'
-      name_with_tracking: '{{product}}/{{tracking}} ({{quantity}}{{unit}}), {{amount}}{{currency}}/{{unit}}'
-      tracking: 'S/N: {{serial}}'
+      name: '%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
+      name_with_tracking: '%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}'
+      tracking: 'S/N: %{serial}'
     purchase_payment:
-      label: '{{number}}. {{usable_amount}}/{{amount}} {{currency}}, {{mode}} for {{payee}} on {{date}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} for {{payee}} ({{expenses}})'
+      label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} for %{payee} on %{date}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})'
     purchase_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) received from {{attorney}} for {{supplier}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{supplier} (%{expense_number})'
     sale_order:
       label:
-        estimate: 'Estimate {{number}}'
-        order: 'Order {{number}}'
+        estimate: 'Estimate %{number}'
+        order: 'Order %{number}'
       natures:
         estimate: 'Estimate'
         invoice: 'Invoice'
         order: 'Order'
-      sale: 'Sale {{number}}'
+      sale: 'Sale %{number}'
       sales_conditions:
-        downpayment: 'A downpayment of {{percent}}% (i.e. {{amount}}€) must be paid at the signature of this present estimate.'
-        validity: 'This estimate and its general conditions are available until the {{expiration}}.'
+        downpayment: 'A downpayment of %{percent}% (i.e. %{amount}€) must be paid at the signature of this present estimate.'
+        validity: 'This estimate and its general conditions are available until the %{expiration}.'
       states:
         A: 'Active'
         C: 'Finished'
         E: 'Estimate'
     sale_order_line:
-      can_not_use_this_tracking: 'You can not use the tracking {{name}}, the requested quantity is greater than the available quantity'
+      can_not_use_this_tracking: 'You can not use the tracking %{name}, the requested quantity is greater than the available quantity'
       currency_is_not_sale_order_currency: 'The currency of the price differs from the sale order currency'
       #>error_no_found_price: 'Aucun prix n'' a pu être trouvé pour ce produit et cette liste de tarif'
-      location_can_not_transfer_product: 'The product {{product}} can not be used with {{location}}, because it contains only {{contained_product}} '
-      reduction_on: 'Discount of {{percent}}%  on {{product}}'
-      tracking: 'S/N: {{serial}}'
+      location_can_not_transfer_product: 'The product %{product} can not be used with %{location}, because it contains only %{contained_product} '
+      reduction_on: 'Discount of %{percent}%  on %{product}'
+      tracking: 'S/N: %{serial}'
     sale_order_nature:
     sale_payment:
-      label: '{{number}}. {{usable_amount}}/{{amount}} {{currency}}, {{mode}} of {{payer}} on {{date}}'
-      to_accountancy: '[{{resource}} {{number}}] {{mode}} {{check_number}} of {{payer}} ({{expenses}})'
+      label: '%{number}. %{usable_amount}/%{amount} %{currency}, %{mode} of %{payer} on %{date}'
+      to_accountancy: '[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})'
     sale_payment_part:
-      to_accountancy: '[{{resource}}] {{mode}} ({{payment_number}}) received from {{attorney}} for {{client}} ({{expense_number}})'
+      to_accountancy: '[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})'
     sequence:
       periods:
         cweek: 'Commercial week'
@@ -536,8 +536,8 @@ eng:
         year: 'Year'
     stock:
       label:
-        with_tracking: '{{location}}: S/N{{tracking}}, {{quantity}}{{unit}} available'
-        without_tracking: '{{location}}: No serial, {{quantity}}{{unit}} available'
+        with_tracking: '%{location}: S/N%{tracking}, %{quantity}%{unit} available'
+        without_tracking: '%{location}: No serial, %{quantity}%{unit} available'
     stock_transfer:
       natures:
         transfer: 'Transfer'
@@ -566,7 +566,7 @@ eng:
         towed: 'Towed'
         tractor: 'Tractor'
     user:
-      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: {{controller}}{{action}}'
+      no_right_defined_for_this_part_of_the_application: 'No right defined for this part of the application: %{controller}%{action}'
       no_right_defined_for_this_part_of_the_application_and_this_user: 'You can not access to this page'
   notifications:
   number:

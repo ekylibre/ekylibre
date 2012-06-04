@@ -18,7 +18,7 @@ fra:
         clients: 'Clients'
         suppliers: 'Fournisseurs'
         title: 'Catégories de tiers'
-      month_period: '{{code}} - {{month}} {{year}}'
+      month_period: '%{code} - %{month} %{year}'
   views:
     accountancy:
       account:
@@ -30,16 +30,16 @@ fra:
         account_letter: 'Lettrer le compte'
         account_update: 'Modifier le compte'
         balance: 'Solde'
-        title: 'Compte : {{number}} - {{name}}'
+        title: 'Compte : %{number} - %{name}'
         totals: 'Totaux (pièces validées et brouillard)'
       account_create:
         title: 'Créer un nouveau compte'
       account_letter:
-        current_letter: 'Lettre en cours : {{letter}}'
-        title: 'Lettrage du compte N°{{number}} du {{started_on}} au {{stopped_on}}'
+        current_letter: 'Lettre en cours : %{letter}'
+        title: 'Lettrage du compte N°%{number} du %{started_on} au %{stopped_on}'
         #>lettering: # Potentially missing translation
       account_update:
-        title: 'Modifier le compte : {{number}} - {{name}}'
+        title: 'Modifier le compte : %{number} - %{name}'
       accountize:
         counts_by_nature: 'Nombre de pièces à comptabiliser par type'
         parameters: 'Paramètres'
@@ -56,13 +56,13 @@ fra:
         accounts: 'Comptes comptables utilisés'
         balance: 'Solde'
         centralize: 'Comptes comptables centralisateurs'
-        centralized_account: 'Compte centralisateur {{name}}'
+        centralized_account: 'Compte centralisateur %{name}'
         closed: 'Verrouillées' #!
         confirmed: 'Confirmées' #!
         down_to_level: 'Détailler jusqu''au niveau' #!
         draft: 'Brouillard' #!
         journal_entries_states: 'États des écritures utilisées'
-        subtotal: 'Sous-total {{name}}'
+        subtotal: 'Sous-total %{name}'
         subtotals_at_level: 'Sous-totaux aux niveaux'
         title: 'Balance'
         total: 'Total'
@@ -70,18 +70,18 @@ fra:
         bank_statement_point: 'Pointer le relevé'
         bank_statement_update: 'Modifier le relevé'
         journal_entries: 'Écritures'
-        title: 'Relevé de compte N°{{number}}'
+        title: 'Relevé de compte N°%{number}'
       bank_statement_create:
         title: 'Pointer un nouveau relevé de compte'
       bank_statement_point:
         balance: 'Solde final'
         bank_statement_update: 'Modifier le relevé'
-        cumul: 'Cumul du total et du solde précédent N°{{number}}'
+        cumul: 'Cumul du total et du solde précédent N°%{number}'
         entries_to_point: 'Écritures à pointer'
-        previous_bank_statement: 'Solde du relevé précédent N°{{number}}'
-        title: 'Pointer le relevé N°{{number}} du {{cash}}'
+        previous_bank_statement: 'Solde du relevé précédent N°%{number}'
+        title: 'Pointer le relevé N°%{number} du %{cash}'
       bank_statement_update:
-        title: 'Modifier le relevé N°{{number}}'
+        title: 'Modifier le relevé N°%{number}'
       bank_statements:
         title: 'Relevés de compte bancaire'
         #>bank_statement_create: # Potentially missing translation
@@ -91,7 +91,7 @@ fra:
           embankments: 'Remises en banque' #!
  #!
         cash_update: 'Modifier la trésorerie'
-        title: '{{nature_label}} : {{name}}'
+        title: '%{nature_label} : %{name}'
         #>bank_statement_create: # Potentially missing translation
       _cash_accountancy_form:
         accountancy: 'Comptabilité'
@@ -101,7 +101,7 @@ fra:
         general: 'Description générale'
         iban: 'Numéro de compte bancaire internationale (IBAN)' #!
       cash_update:
-        title: 'Modifier la trésorerie : {{name}}'
+        title: 'Modifier la trésorerie : %{name}'
       cashes:
         title: 'Trésoreries'
         #>cash_create: # Potentially missing translation
@@ -126,7 +126,7 @@ fra:
         validate_selected_entries: 'Valider les écritures sélectionnées'
       financialyear:
         general_informations: 'Informations générales'
-        title: 'Exercice comptable {{code}}'
+        title: 'Exercice comptable %{code}'
       financialyear_close:
         close: 'Clôturer l''exercice'
         create_journal: '-- Créer le journal --'
@@ -152,7 +152,7 @@ fra:
         journals: 'Journaux'
         nb_entries: 
           one: '1 écriture'
-          other: '{{count}} écritures'
+          other: '%{count} écritures'
           zero: 'Aucune écriture'
         title: 'Comptabilité générale'
       journal:
@@ -161,13 +161,13 @@ fra:
         debit: 'Débit' #!
         journal_update: 'Modifier le journal'
         search: 'Rechercher des pièces/écritures' #!
-        title: 'Journal : {{name}} ({{code}})'
+        title: 'Journal : %{name} (%{code})'
         totals: 'Totaux (pièces validées et brouillard)'
         #>journal_record_create: # Potentially missing translation
       journal_close:
         close: 'Clôturer le journal'
         select_closure_date: 'Choisissez la date de clôture'
-        title: 'Clôture du {{name}}'
+        title: 'Clôture du %{name}'
       journal_create:
         title: 'Créer un nouveau journal'
       # Unfound view ./app/views/accountancy/journal_entry_create
@@ -176,29 +176,29 @@ fra:
       journal_record:
         entries: 'Écritures'
         journal_record_update: 'Modifier la pièce'
-        resource: 'Consulter la pièce d''origine : {{resource}} {{number}}' #!
-        title: 'Pièce comptable N°{{number}} du {{created_on}}'
+        resource: 'Consulter la pièce d''origine : %{resource} %{number}' #!
+        title: 'Pièce comptable N°%{number} du %{created_on}'
       journal_record_create:
         title: 'Ajouter une pièce'
       journal_record_update:
-        title: 'Modifier la pièce N°{{number}} du {{created_on}}'
+        title: 'Modifier la pièce N°%{number} du %{created_on}'
       journal_reopen:
         reopen: 'Déclôturer le journal'
         select_closure_date: 'Choisissez la date de clôture'
-        title: 'Déclôture du {{name}}'
+        title: 'Déclôture du %{name}'
       journal_update:
-        title: 'Modifier le journal : {{name}}'
+        title: 'Modifier le journal : %{name}'
       _journals:
         draft_entries: 'Brouillard'
-        journal_detail: 'Cloturé au {{closed_on}}' #!
-        journal_name: '{{name}}' #!
+        journal_detail: 'Cloturé au %{closed_on}' #!
+        journal_name: '%{name}' #!
       journals:
         title: 'Journaux'
         #>journal_create: # Potentially missing translation
       _journals_search:
         filter_entries_with: 'Filtrer les écritures avec' #!
         interval: 'Intervalle personnalisé'
-        manual_period: 'du {{start}} au {{finish}}'
+        manual_period: 'du %{start} au %{finish}'
         period: 'Période prédéfinie'
       lettering:
         lettering_account_client: 'Lettrage des comptes clients' #!
@@ -247,7 +247,7 @@ fra:
         result: 'Résultat'
         running_cost: 'Charges d''exploitation'
         running_finished: 'Produits d''exploitation'
-        title: 'Documents annuels pour {{value}}'
+        title: 'Documents annuels pour %{value}'
         total: 'Total' #!
       tax_create:
         title: 'Ajouter une nouvelle taxe'
@@ -285,7 +285,7 @@ fra:
         payback: 'Remboursement demandée'
         reported_balance: 'Crédit à reporter'
         simplified: 'Régime du réel simplifié' #!
-        title: '{{nature}} pour la période du {{started_on}} au {{stopped_on}}'
+        title: '%{nature} pour la période du %{started_on} au %{stopped_on}'
         vat: 'Taxe à payer'
         vat_acquisitions: 'Acquisitions intracommunautaires'
         vat_amount: 'Taxe due'
@@ -310,7 +310,7 @@ fra:
         tax_declaration_create: 'Ajouter une nouvelle déclaration'
         title: 'Déclaration de TVA'
       tax_update:
-        title: 'Modifier la taxe : {{name}}'
+        title: 'Modifier la taxe : %{name}'
       taxes:
         tax_create: 'Ajouter une nouvelle taxe'
         title: 'Taxes'

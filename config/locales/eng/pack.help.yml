@@ -8,7 +8,7 @@ eng:
     help:
       _search:
         ekylibre: 'www.ekylibre.org'
-        error_no_file: 'No help is available for this part of the application ({{article}}). Help has not yet been written. You can visit online website for more information.'
+        error_no_file: 'No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information.'
         home: 'Back to Help home'
         missing_help: 'Missing page'
         title: 'Help'

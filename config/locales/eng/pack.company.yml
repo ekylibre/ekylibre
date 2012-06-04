@@ -34,14 +34,14 @@ eng:
       _department_form:
         subtitle: 'General'
       department_update:
-        title: 'Update the department : {{name}}'
+        title: 'Update the department : %{name}'
       departments:
         #>department_create: 'Ajouter un nouveau service'
         title: 'Departments'
       document_template_create:
         title: 'Add a new document template'
       document_template_update:
-        title: 'Edit the document template: {{name}}'
+        title: 'Edit the document template: %{name}'
       document_templates:
         #>document_template_create: 'Créer un modèle de document'
         title: 'Document templates'
@@ -52,7 +52,7 @@ eng:
       _establishment_form:
         subtitle: 'General parameters'
       establishment_update:
-        title: 'Edit the establishment: {{name}}'
+        title: 'Edit the establishment: %{name}'
       establishments:
         #>establishment_create: 'Ajouter un nouvel établissement'
         title: 'Establishments'
@@ -60,12 +60,12 @@ eng:
         other_results: 'Other results...'
         results:
           one: '1 result'
-          other: '{{count}} results'
+          other: '%{count} results'
           zero: 'No results'
         search: 'Search an article'
         title: 'Help'
       _help_result:
-        pertinence: '{{value}}%'
+        pertinence: '%{value}%'
       import:
         file_nature: 'File type'
         file_to_import: 'File to upload'
@@ -84,22 +84,22 @@ eng:
         modules: 'Modules'
         nb_entities:
           one: 'One person'
-          other: '{{count}} people'
+          other: '%{count} people'
           zero: 'No people'
         nb_purchases:
           #>one: '1 achat en attente de reception'
-          #>other: '{{count}} achats en attente de reception'
+          #>other: '%{count} achats en attente de reception'
           #>zero: 'Aucun achat en attente de reception'
         nb_sales:
           one: 'One waiting delivery'
-          other: '{{count}} waiting deliveries'
+          other: '%{count} waiting deliveries'
           zero: 'No waiting deliveries'
         production: 'Production management'
         relations: 'Clients/suppliers Relationships Management'
         resources: 'Resources management'
         #>roles: 'Rôles'
         #>sequences: 'Séquences'
-        title: 'Hello, {{user}}'
+        title: 'Hello, %{user}'
       listing_create:
         title: 'Add a new listing'
       _listing_form:
@@ -107,21 +107,21 @@ eng:
       listing_mail:
         are_you_sure_to_send_mails: 'Are you sure you want to send emails?'
         attachment: 'Attachment'
-        available_columns: 'Available columns: {{columns}}'
+        available_columns: 'Available columns: %{columns}'
         body: 'Body of the message'
         choose_mail_column: 'Choose email column'
         click_to_mail: 'Click to email with your own mail software'
-        default_subject: '[{{company}}]'
+        default_subject: '[%{company}]'
         from: 'From'
         mails:
           one: 'One email'
-          other: '{{count}} emails'
+          other: '%{count} emails'
           zero: 'No emails'
         personalized_mail: 'Send a personalized mail'
         send: 'Send the mail'
         send_test: 'Send test'
         subject: 'Subject'
-        title: 'Send an email to: {{listing}}'
+        title: 'Send an email to: %{listing}'
       listing_nodes:
         title: 'Choose informations to extract'
       listing_update:
@@ -130,7 +130,7 @@ eng:
         listing_mail: 'Email a listing'
         query: 'Query: '
         subtitle: 'Genral parameters'
-        title: 'Edit the listing: {{name}}'
+        title: 'Edit the listing: %{name}'
       listings:
         #>listing_create: 'Créer une nouvelle extraction'
         title: 'Listings and mailings'
@@ -146,7 +146,7 @@ eng:
       _role_form:
         role_name: 'Fill the name and check all the needed rights'
       role_update:
-        title: 'Edit the role: {{name}}'
+        title: 'Edit the role: %{name}'
       roles:
         #>role_create: 'Ajouter un rôle'
         title: 'Roles'
@@ -155,7 +155,7 @@ eng:
       _sequence_form:
         subtitle: 'General parameters'
       sequence_update:
-        title: 'Edit the sequence: {{name}}'
+        title: 'Edit the sequence: %{name}'
       sequences:
         #>sequence_create: 'Ajouter une séquence'
         sequences_load: 'Load missing sequences'
@@ -163,13 +163,13 @@ eng:
       unit_create:
         title: 'Add a new unit of measure'
       unit_update:
-        title: 'Edit the unit: {{label}}'
+        title: 'Edit the unit: %{label}'
       units:
         title: 'Units of measure'
         #>unit_create: 'Ajouter une nouvelle unité de mesure'
         units_load: 'Load missing units'
       user:
-        title: 'Utilisateur : {{first_name}} {{last_name}} ({{name}})'
+        title: 'Utilisateur : %{first_name} %{last_name} (%{name})'
         user_update: 'Modifier les informations de l''utilisateur'
       user_create:
         title: 'Add a new user'
@@ -180,12 +180,12 @@ eng:
       user_statistics:
         end: ' to '
         events:
-          one: 'One event {{nature}} for a total duration of {{duration}} minutes'
-          other: '{{count}} events {{nature}} for a total duration of {{duration}} minutes'
-          zero: 'No events {{nature}}'
+          one: 'One event %{nature} for a total duration of %{duration} minutes'
+          other: '%{count} events %{nature} for a total duration of %{duration} minutes'
+          zero: 'No events %{nature}'
         nb_sales:
           one: 'One sale order'
-          other: '{{count}} sale orders'
+          other: '%{count} sale orders'
           zero: 'No sale orders'
         start: 'From'
         title: 'My statistics'
@@ -197,4 +197,4 @@ eng:
         title: 'Users'
         #>user_create: 'Ajouter un nouvel utilisateur'
       welcome:
-        title: 'Welcome in Ekylibre, {{user}}'
+        title: 'Welcome in Ekylibre, %{user}'

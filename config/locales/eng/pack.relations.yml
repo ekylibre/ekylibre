@@ -30,11 +30,11 @@ eng:
       area_create:
         title: 'Add a postal area'
       area_update:
-        title: 'Edit the postal area: {{name}}'
+        title: 'Edit the postal area: %{name}'
       areas:
         all_areas: 'All postal areas'
         #>area_create: 'Ajouter une zone postale'
-        area_x: '{{name}} ({{postcode}})'
+        area_x: '%{name} (%{postcode})'
         select_area: 'Select area'
         title: 'Postal areas'
       _areas_search:
@@ -43,13 +43,13 @@ eng:
         complement_choice_create: 'Complement choice create'
         complement_sort: 'Complement sort'
         complement_update: 'Complement update'
-        title: 'Personalized fields: {{name}}'
+        title: 'Personalized fields: %{name}'
       complement_choice_create:
         title: 'Add a new option for a choices list'
       _complement_choice_form:
         title: 'General parameters'
       complement_choice_update:
-        title: 'Edit the option: {{name}}'
+        title: 'Edit the option: %{name}'
       complement_create:
         title: 'Add a new personalized field'
       _complement_form:
@@ -57,7 +57,7 @@ eng:
         general: 'General'
         string_case: 'String case'
       complement_update:
-        title: 'Edit the personalized field: {{name}}'
+        title: 'Edit the personalized field: %{name}'
       complements:
         #>complement_create: 'Créer un nouveau champ personnalisé'
         title: 'Personalized fields'
@@ -69,19 +69,19 @@ eng:
         general: 'General'
         title: 'General parameters'
       contact_update:
-        title: 'Edit the contact of {{entity}}'
+        title: 'Edit the contact of %{entity}'
       _coordinates_form:
         address: 'Address'
         canals: 'Canals'
       district_create:
         title: 'Add a new district'
       district_update:
-        title: 'Edit the district: {{name}}'
+        title: 'Edit the district: %{name}'
       districts:
         area_create: 'Add a new postal area'
         city_name: 'City name'
         #>district_create: 'Ajouter une zone administrative'
-        district_x: '{{name}} ({{code}})'
+        district_x: '%{name} (%{code})'
         title: 'Districts'
       _districts_search:
         search: 'Search'
@@ -107,12 +107,12 @@ eng:
         select_columns: 'Select columns'
         title: 'Export people'
       _entities_export_condition:
-        created_between: 'Created between {{started_on}} and {{stopped_on}}'
+        created_between: 'Created between %{started_on} and %{stopped_on}'
         moment:
         no_products: 'No products'
         reverse: 'Reverse condition'
-        subscriber_period: 'Subscribed on {{subscribed_on}}'
-        subscriber_quantity: 'Subscribed at the number {{subscribed_on}}'
+        subscriber_period: 'Subscribed on %{subscribed_on}'
+        subscriber_quantity: 'Subscribed at the number %{subscribed_on}'
         unknown_condition: 'Unknown condition'
       entities_import:
         columns: 'Columns to import'
@@ -120,7 +120,7 @@ eng:
         file_nature: 'File type'
         import: 'Import'
         importation_explanation: 'Importation explanation'
-        line: 'Line #{{index}} :'
+        line: 'Line #%{index} :'
         title: 'Import people'
         upload: 'Upload'
       entities_merge:
@@ -205,7 +205,7 @@ eng:
           one: 'One'
           other: 'Other'
           zero: 'Zero'
-        title: 'Person: {{full_name}}'
+        title: 'Person: %{full_name}'
       entity_categories:
         #>entity_category_create: 'Ajouter une catégorie de fiche'
         title: 'Person categories'
@@ -216,11 +216,11 @@ eng:
           one: 'One'
           other: 'Other'
           zero: 'Zero'
-        title: 'Person category: {{name}}'
+        title: 'Person category: %{name}'
       entity_category_create:
         title: 'Add a new person category'
       entity_category_update:
-        title: 'Edit the person category: {{name}}'
+        title: 'Edit the person category: %{name}'
       entity_create:
         title: 'Add a new person'
       _entity_form:
@@ -244,7 +244,7 @@ eng:
       entity_link_nature_create:
         title: 'Add a new link type'
       entity_link_nature_update:
-        title: 'Edit the link type: {{name}}'
+        title: 'Edit the link type: %{name}'
       entity_link_natures:
         #>entity_link_nature_create: 'Ajouter un nouveau type de lien'
         title: 'Link types'
@@ -253,18 +253,18 @@ eng:
       entity_nature_create:
         title: 'Add a new person type'
       entity_nature_update:
-        title: 'Edit the person type: {{name}}'
+        title: 'Edit the person type: %{name}'
       entity_natures:
         #>entity_nature_create: 'Ajouter un nouveau type de fiche'
         title: 'Person types'
       entity_update:
-        title: 'Edit person: {{full_name}}'
+        title: 'Edit person: %{full_name}'
       event_create:
         title: 'Add a new event'
       event_nature_create:
         title: 'Add a new event type'
       event_nature_update:
-        title: 'Edit thee event type: {{name}}'
+        title: 'Edit thee event type: %{name}'
       event_natures:
         #>event_nature_create: 'Ajout d''un type d''évènement'
         title: 'Event types'

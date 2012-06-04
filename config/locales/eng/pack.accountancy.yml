@@ -23,7 +23,7 @@ eng:
         clients: 'Customers'
         suppliers: 'Suppliers'
         title: 'third Party category'
-      month_period: '{{code}} - {{month}} {{year}}'
+      month_period: '%{code} - %{month} %{year}'
   views:
     accountancy:
       account:
@@ -34,15 +34,15 @@ eng:
         account_letter: 'Account lettering'
         account_update: 'Update account'
         balance: 'Balance'
-        title: 'Account: {{number}} - {{name}}'
+        title: 'Account: %{number} - %{name}'
         totals: 'Totals (Valided documents and draft)'
       account_create:
         title: 'Create new account'
       account_letter:
-        current_letter: 'Lettering in process: {{letter}}'
-        title: 'Lettering account N°{{number}} du {{started_on}} au {{stopped_on}}'
+        current_letter: 'Lettering in process: %{letter}'
+        title: 'Lettering account N°%{number} du %{started_on} au %{stopped_on}'
       account_update:
-        title: 'Update account: {{number}} - {{name}}'
+        title: 'Update account: %{number} - %{name}'
       accountize:
         counts_by_nature: 'Number of documents to account per type'
         nb_invoices:
@@ -66,13 +66,13 @@ eng:
         accounts: 'Comptes comptables utilisés'
         balance: 'Balance'
         centralize: 'Centralize account'
-        centralized_account: 'Centralize account {{name}}'
+        centralized_account: 'Centralize account %{name}'
         closed: 'Locked'
         confirmed: 'Confirmed'
         down_to_level: 'Down to level'
         draft: 'draft'
         journal_entries_states: 'Status of used entries'
-        subtotal: 'Sub-total {{name}}'
+        subtotal: 'Sub-total %{name}'
         subtotals_at_level: 'Sub-total at level'
         title: 'Balance'
         total: 'Total'
@@ -84,18 +84,18 @@ eng:
         bank_statement_point: 'Bank Statement Point'
         bank_statement_update: 'Update bank Statement'
         journal_entries: 'Entries Journal'
-        title: 'Account statement N°{{number}}'
+        title: 'Account statement N°%{number}'
       bank_statement_create:
         title: 'Create a new account statement'
       bank_statement_point:
         balance: 'Final balance'
         bank_statement_update: 'Update Statement'
-        cumul: 'Accumulation of tattle and previous balance N°{{number}}'
+        cumul: 'Accumulation of tattle and previous balance N°%{number}'
         entries_to_point: 'Entries pointing to '
-        previous_bank_statement: 'Previous account statement N°{{number}}'
-        title: 'Point statement N°{{number}} du {{cash}}'
+        previous_bank_statement: 'Previous account statement N°%{number}'
+        title: 'Point statement N°%{number} du %{cash}'
       bank_statement_update:
-        title: 'Update Statement N°{{number}}'
+        title: 'Update Statement N°%{number}'
       bank_statements:
         title: 'Statement of Bank Accounts'
       cash:
@@ -103,7 +103,7 @@ eng:
           bank_statements: 'Bank Statement'
           embankments: 'Embankments'
         cash_update: 'Update Cash'
-        title: '{{nature_label}}: {{name}}'
+        title: '%{nature_label}: %{name}'
       _cash_accountancy_form:
         accountancy: 'Accountancy'
       cash_create:
@@ -112,7 +112,7 @@ eng:
         general: 'General Description'
         iban: 'International Bank Account Number (IBAN)'
       cash_update:
-        title: 'Update Cash: {{name}}'
+        title: 'Update Cash: %{name}'
       cashes:
         title: 'Cash'
       _currencies_find:
@@ -138,7 +138,7 @@ eng:
       entry_update:
       financialyear:
         general_informations: 'General Information'
-        title: 'Period {{code}}'
+        title: 'Period %{code}'
       financialyear_close:
         close: 'Close period'
         create_journal: '-- Create journal --'
@@ -164,7 +164,7 @@ eng:
         journals: 'Journals'
         nb_entries:
           one: '1 entries'
-          other: '{{count}} entries '
+          other: '%{count} entries '
           zero: 'Aucune entries'
         title: 'General Accountancy'
       journal:
@@ -173,12 +173,12 @@ eng:
         debit: 'Debit'
         journal_update: 'Update Journal'
         search: 'Search entries & docuemnts'
-        title: 'Journal: {{name}} ({{code}})'
+        title: 'Journal: %{name} (%{code})'
         totals: 'Totals (validated documents and draft)'
       journal_close:
         close: 'Close the journal'
         select_closure_date: 'Select closing date'
-        title: 'Closing of {{name}}'
+        title: 'Closing of %{name}'
       journal_create:
         title: 'Create new journal'
       journal_entry_create:
@@ -186,29 +186,29 @@ eng:
       journal_record:
         entries: 'Entries'
         journal_record_update: 'Update document'
-        resource: 'View original document: {{resource}} {{number}}'
-        title: 'document N°{{number}} du {{created_on}}'
+        resource: 'View original document: %{resource} %{number}'
+        title: 'document N°%{number} du %{created_on}'
       journal_record_create:
         title: 'Add a document'
       journal_record_update:
-        title: 'Update Document N°{{number}} du {{created_on}}'
+        title: 'Update Document N°%{number} du %{created_on}'
       journal_reopen:
         reopen: 'Re-open journal'
         select_closure_date: 'Choose closing date'
-        title: 'Closing of {{name}}'
+        title: 'Closing of %{name}'
       journal_update:
-        title: 'Update journal: {{name}}'
+        title: 'Update journal: %{name}'
       _journals:
         draft_entries: 'Draft entries'
-        journal_detail: 'Closing on {{closed_on}}'
-        journal_name: '{{name}}'
+        journal_detail: 'Closing on %{closed_on}'
+        journal_name: '%{name}'
       journals:
         title: 'Journals'
       _journals_find:
       _journals_search:
         filter_entries_with: 'Filter entries with'
         interval: 'Personalized Interval'
-        manual_period: 'from {{start}} to {{finish}}'
+        manual_period: 'from %{start} to %{finish}'
         period: 'Predefined Period'
       lettering:
         lettering_account_client: 'Lettering Customer accounts'
@@ -264,7 +264,7 @@ eng:
         result: 'Result'
         running_cost: 'Running Cost'
         running_finished: 'Running Finished'
-        title: 'Annual Documents for {{value}}'
+        title: 'Annual Documents for %{value}'
         total: 'Total'
       tax_create:
         title: 'Add a new tax'
@@ -301,7 +301,7 @@ eng:
         payback: 'Payback'
         reported_balance: 'Reported Balance'
         simplified: 'Simplified Accounting'
-        title: '{{nature}} for period from {{started_on}} to {{stopped_on}}'
+        title: '%{nature} for period from %{started_on} to %{stopped_on}'
         vat: 'Tax to pay'
         vat_acquisitions: 'VAT Acquisitions'
         vat_amount: 'VAT Amount'
@@ -321,7 +321,7 @@ eng:
         tax_declaration_create: 'Add a new Declaration'
         title: 'VAT Declaration'
       tax_update:
-        title: 'Update tax: {{name}}'
+        title: 'Update tax: %{name}'
       taxes:
         tax_create: 'Add a new tax'
         title: 'Taxes'

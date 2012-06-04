@@ -17,14 +17,14 @@ eng:
         indicator: 'Indicators'
         nb_operations:
           one: '1 Operation performed'
-          other: '{{count}} Operation performed'
+          other: '%{count} Operation performed'
           zero: 'No Operation performed'
         title: 'Production Management'
       operation:
         lines: 'Incoming and Outgoing'
         operation:
         operation_update: 'Update Operation'
-        title: 'Operation Details {{name}}'
+        title: 'Operation Details %{name}'
         uses: 'Tools'
       operation_create:
         title: 'Create a new Operation'
@@ -39,12 +39,12 @@ eng:
       operation_nature_create:
         title: 'Create a new type of Operation'
       operation_nature_update:
-        title: 'update Type of Operation: {{name}}'
+        title: 'update Type of Operation: %{name}'
       operation_natures:
         operation_nature_create: 'Create a new type of Operation'
         title: 'Types of Operation'
       operation_update:
-        title: 'Update Operation {{name}}'
+        title: 'Update Operation %{name}'
       operations:
         operation_create: 'Create a new Operation'
         title: 'Opetations'
@@ -61,13 +61,13 @@ eng:
         operations: 'Operations'
         shape_update: 'Update Shape'
         shapes: 'List of Shapes'
-        title: 'Shape {{name}}'
+        title: 'Shape %{name}'
       shape_create:
         title: 'Add a new shape'
       _shape_form:
         infos: 'Informations about the Shape'
       shape_update:
-        title: 'Update Shape: {{name}}'
+        title: 'Update Shape: %{name}'
       shapes:
         shape_create: 'Create a new Shape'
         shapes: 'Shapes'
@@ -75,18 +75,18 @@ eng:
       tool:
         hour_duration:
           one: 'Total used time: 1 hour'
-          other: 'Total used time: 1 hour: {{count}} hours'
+          other: 'Total used time: 1 hour: %{count} hours'
           zero: 'No Time used'
         operations:
           one: '1 Operation'
-          other: '{{count}} Operations'
+          other: '%{count} Operations'
           zero: 'No Operations'
-        title: 'Tool: {{name}}'
+        title: 'Tool: %{name}'
         tool_update: 'Update tool'
       tool_create:
         title: 'Add a tool'
       tool_update:
-        title: 'Update tool: {{name}}'
+        title: 'Update tool: %{name}'
       tools:
         title: 'Tools'
         tool_create: 'Add a tool'

@@ -85,13 +85,13 @@ eng:
         source: 'Source'
       delay:
         delay_update: 'Edit delay'
-        title: 'Delay: {{name}}'
+        title: 'Delay: %{name}'
       delay_create:
         title: 'Add a new delay'
       _delay_form:
         general: 'General'
       delay_update:
-        title: 'Edit the delay: {{name}}'
+        title: 'Edit the delay: %{name}'
       delays:
         #>delay_create: 'Ajouter un nouveau délai'
         title: 'Delays'
@@ -111,7 +111,7 @@ eng:
       delivery_mode_create:
         title: 'Add a new delivery mode'
       delivery_mode_update:
-        title: 'Edit the delivery mode: {{name}}'
+        title: 'Edit the delivery mode: %{name}'
       delivery_modes:
         title: 'Delivery modes'
       delivery_update:
@@ -123,19 +123,19 @@ eng:
         on_account: 'On account'
         payments_count: 'Payments count'
         print_on: 'Print on'
-        title: 'Embankment {{number}} on {{created_on}}'
+        title: 'Embankment %{number} on %{created_on}'
       embankment_create:
-        title: 'Add a new embankment: {{mode}}'
+        title: 'Add a new embankment: %{mode}'
       _embankment_form:
         infos: 'Informations'
         payments: 'Payments'
       embankment_update:
-        title: 'Edit the embankment {{number}}'
+        title: 'Edit the embankment %{number}'
       embankments:
         embankment_create:
-          one: 'Make an embankment {{mode}}: 1 payment'
-          other: 'Make an embankment {{mode}}: {{count}} payments'
-          zero: 'Make an embankment {{mode}}: no payments'
+          one: 'Make an embankment %{mode}: 1 payment'
+          other: 'Make an embankment %{mode}: %{count} payments'
+          zero: 'Make an embankment %{mode}: no payments'
         nb_checks:
         title: 'Embankments'
       _graph_statistics:
@@ -144,12 +144,12 @@ eng:
       index:
         low_stocks: 'Stocks below critical threshold'
         nb_enbankments:
-          one: '{{count}} embankment to validate'
-          other: '{{count}} embankments to validate'
+          one: '%{count} embankment to validate'
+          other: '%{count} embankments to validate'
           zero: 'No embankments to validate'
         nb_payments:
-          one: '{{count}} payment to embank'
-          other: '{{count}} payments to embank'
+          one: '%{count} payment to embank'
+          other: '%{count} payments to embank'
           zero: 'No payments to embank'
         nb_purchases:
           one: 'One'
@@ -187,14 +187,14 @@ eng:
         invoice_cancel: 'Cancel invoice'
         invoice_lines: 'Invoice lines'
         invoice_print: 'Print invoice'
-        title: '{{nature}} {{number}}'
+        title: '%{nature} %{number}'
       invoice_cancel:
         already_credited_quantity: 'Already credited quantity'
         price_amount: 'Price amount'
         price_amount_with_taxes: 'Price amount with taxes'
         product: 'Product'
         quantity_to_credit: 'Quantity to credit'
-        title: 'Cancel invoice {{number}}'
+        title: 'Cancel invoice %{number}'
         total_quantity: 'Total quantity'
         unit: 'Unit'
         validate: 'Validate'
@@ -218,7 +218,7 @@ eng:
         locations: 'Locations'
         moves: 'Moves'
         stock_move_create: 'Stock move create'
-        title: 'Warehouse: {{name}}'
+        title: 'Warehouse: %{name}'
       _location_choice:
         select_location: 'Select location'
       location_create:
@@ -270,11 +270,11 @@ eng:
         sale_price_create: 'Sale price create'
         sales_price_create: 'Sales price create'
         stocks: 'Stocks'
-        title: 'Product: {{name}}'
+        title: 'Product: %{name}'
       product_component_create:
-        title: 'Add a new component to {{product}}'
+        title: 'Add a new component to %{product}'
       product_component_update:
-        title: 'Edit the component of {{product}} '
+        title: 'Edit the component of %{product} '
       _product_components:
         #>product_component_create: 'Ajouter un nouveau composant'
       product_create:
@@ -289,7 +289,7 @@ eng:
         purchase_price_create: 'Add a new purchase price'
         sale_price_create: 'Add a new sale price'
       product_update:
-        title: 'Edit the product: {{name}}'
+        title: 'Edit the product: %{name}'
       products:
         nb_products:
           one: 'One'
@@ -310,13 +310,13 @@ eng:
         purchase_order_print: 'Purchase order print'
         purchase_payment_part_create: 'Purchase payment part create'
         sale_payment_part_create: 'Sale payment part create'
-        title: 'Details of the purchase {{number}} au fournisseur {{supplier}} '
+        title: 'Details of the purchase %{number} au fournisseur %{supplier} '
       purchase_order_create:
         title: 'New purchase order'
       _purchase_order_form:
         infos: 'General parameters'
       purchase_order_line_create:
-        title: 'Add a product to the purchase: {{number}}'
+        title: 'Add a product to the purchase: %{number}'
       purchase_order_line_update:
         title: 'Edit the purhase order line'
       purchase_order_lines:
@@ -329,7 +329,7 @@ eng:
         purchase_order_print: 'Purchase order print'
         purchase_order_update: 'Purchase order update'
         purchase_orders: 'Purchase orders'
-        title: 'Products of the purchase {{number}} to the supplier {{supplier}}'
+        title: 'Products of the purchase %{number} to the supplier %{supplier}'
         validate: 'Validate'
       purchase_order_summary:
         financial_state: 'Financial state'
@@ -338,11 +338,11 @@ eng:
         products: 'Products'
         purchase_payment_part_create: 'Purchase payment part create'
         sale_payment_part_create: 'Sale payment part create'
-        title: 'Payments of the purchase order {{number}}'
+        title: 'Payments of the purchase order %{number}'
         total_amount: 'Total amount'
         unpaid_amount: 'Unpaid amount'
       purchase_order_update:
-        title: 'Edit the purchase order: {{number}}'
+        title: 'Edit the purchase order: %{number}'
       purchase_orders:
         nb_purchases:
         search: 'Search a purchase order'
@@ -350,7 +350,7 @@ eng:
       purchase_payment:
         #>purchase_orders: 'Achats payés avec ce décaissement'
         purchase_payment_update: 'Edit the payment'
-        title: 'Purchase payment #{{number}} for {{payee}}'
+        title: 'Purchase payment #%{number} for %{payee}'
       purchase_payment_create:
         title: 'Add a new purchase payment'
       _purchase_payment_form:
@@ -366,9 +366,9 @@ eng:
       purchase_payment_modes:
         title: 'Purchase payments modes'
       purchase_payment_part_create:
-        title: 'Pay the purchase order {{number}}'
+        title: 'Pay the purchase order %{number}'
       purchase_payment_update:
-        title: 'Edit the purchase payment: {{number}}'
+        title: 'Edit the purchase payment: %{number}'
       purchase_payments:
         all: 'All'
         search: 'Search'
@@ -386,7 +386,7 @@ eng:
         sale_order_print: 'Sale order print'
         sale_payment_part_create: 'Add a new sale payment'
         subscriptions: 'Subscriptions'
-        title: 'Sale order {{number}}'
+        title: 'Sale order %{number}'
       sale_order_create:
         title: 'New sale order'
       sale_order_deliveries:
@@ -450,7 +450,7 @@ eng:
         unit: 'Unit'
         valid: 'Valid'
       _sale_order_line_stocks:
-        line_stock: 'Warehouse: {{location}}, available quantity: {{virtual_q}}'
+        line_stock: 'Warehouse: %{location}, available quantity: %{virtual_q}'
       _sale_order_line_tracking:
         no_tracking: 'No tracking'
         tracking: 'Tracking'
@@ -473,7 +473,7 @@ eng:
         sale_order_print: 'Sale order print'
         sale_order_update: 'Update sale order'
         subscriptions: 'Subscriptions'
-        title: 'Selection of the products for the estimate {{sale_order}}'
+        title: 'Selection of the products for the estimate %{sale_order}'
         total: 'Total'
       sale_order_nature_create:
         title: 'Add a new type of sale'
@@ -483,7 +483,7 @@ eng:
         downpayment: 'Downpayment parameters'
         general: 'General'
       sale_order_nature_update:
-        title: 'Edit the sale order nature: {{name}}'
+        title: 'Edit the sale order nature: %{name}'
       sale_order_natures:
         #>sale_order_nature_create: 'Créer un nouveau type de vente'
         title: 'Sale order natures'
@@ -506,12 +506,12 @@ eng:
         payments_total: 'Payments total'
         rest_to_pay: 'Rest to pay'
         sale_payment_part_create: 'Sale payment part create'
-        title: 'Invoice and payments of the sale order {{number}}'
+        title: 'Invoice and payments of the sale order %{number}'
         total_amount: 'Total amount'
         uninvoiced_amount: 'Uninvoiced amount'
         unpaid_amount: 'Unpaid amount'
       sale_order_update:
-        title: 'Edit the sale order {{number}}'
+        title: 'Edit the sale order %{number}'
       sale_orders:
         all: 'All'
         current: 'Current'
@@ -526,7 +526,7 @@ eng:
       sale_payment:
         sale_orders: 'Sale orders'
         sale_payment_update: 'Update sale payment'
-        title: 'Sale payment {{number}} de {{entity}}'
+        title: 'Sale payment %{number} de %{entity}'
       sale_payment_create:
         title: 'Add a new sale payment'
       _sale_payment_form:
@@ -540,11 +540,11 @@ eng:
         embankment: 'Embankment'
         general: 'General'
       sale_payment_mode_update:
-        title: 'Edit the sale payment mode: {{name}}'
+        title: 'Edit the sale payment mode: %{name}'
       sale_payment_modes:
         title: 'Sale payment modes'
       sale_payment_part_create:
-        title: 'Add a new sale payment: {{type}} N°{{number}}'
+        title: 'Add a new sale payment: %{type} N°%{number}'
       _sale_payment_part_form:
         downpayment: 'Downpayment'
         existing_part: 'Existing part'
@@ -554,7 +554,7 @@ eng:
         select_existing_payment: 'Select existing payment'
         unused_payment: 'Unused payment'
       sale_payment_update:
-        title: 'Edit the sale payment {{number}}'
+        title: 'Edit the sale payment %{number}'
       sale_payments:
         all: 'All'
         nb_payments:
@@ -569,14 +569,14 @@ eng:
       shelf:
         products: 'Products'
         shelf_update: 'Shelf update'
-        title: 'Shelf: {{name}}'
+        title: 'Shelf: %{name}'
       shelf_create:
         title: 'Add a new shelf'
       _shelf_form:
         catalog: 'Catalog'
         general: 'General'
       shelf_update:
-        title: 'Edit the shelf: {{name}}'
+        title: 'Edit the shelf: %{name}'
       shelves:
         #>shelf_create: 'Ajouter une nouvelle catégorie de produits'
         title: 'Shelves'
@@ -612,7 +612,7 @@ eng:
         nature: 'Nature'
         product: 'Product'
       stock_move_update:
-        title: 'Edit the stock move: {{name}}'
+        title: 'Edit the stock move: %{name}'
       stock_transfer_create:
         title: 'Add a new stock transfer or loss'
       stock_transfer_update:
@@ -644,12 +644,12 @@ eng:
       subscription_nature_create:
         title: 'Add a new subscription nature'
       subscription_nature_update:
-        title: 'Edit the subscription nature: {{name}}'
+        title: 'Edit the subscription nature: %{name}'
       subscription_natures:
         #>subscription_nature_create: 'Ajouter un type d''abonnement'
         title: 'Subscription natures'
       subscription_update:
-        title: 'Update subscription: {{number}} from {{start}} to {{finish}}'
+        title: 'Update subscription: %{number} from %{start} to %{finish}'
       subscriptions:
         select_number_or_date: 'Select number or date'
         subscription_nature: 'Subscription nature'
@@ -666,10 +666,10 @@ eng:
         purchases: 'Purchases'
         sales: 'Sales'
         stocks: 'Stocks'
-        title: 'Tracking: {{name}}'
+        title: 'Tracking: %{name}'
       transport:
         deliveries: 'Deliveries'
-        title: 'Transport of {{created_on}}'
+        title: 'Transport of %{created_on}'
       transport_create:
         title: 'Add a new transport'
       _transport_deliveries:

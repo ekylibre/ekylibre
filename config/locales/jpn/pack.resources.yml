@@ -11,18 +11,18 @@ jpn:
         #>event_create: 'Ajouter un événement'
         events:
           #>one: '1 événement'
-          #>other: '{{count}} événements'
+          #>other: '%{count} événements'
           #>zero: 'Aucun événement'
         operations:
           #>one: '1 travail'
-          #>other: '{{count}} travaux'
+          #>other: '%{count} travaux'
           #>zero: 'Aucun travail'
         #>sale_order_create: 'Créer un nouveau devis'
         sale_orders:
           #>one: '1 vente'
-          #>other: '{{count}} ventes'
+          #>other: '%{count} ventes'
           #>zero: 'Aucune vente'
-        #>title: 'Employé : {{label}}'
+        #>title: 'Employé : %{label}'
         #>user_update: 'Modifier la fiche'
       employee_create:
         #>title: 'Création d''un nouvel employé'
@@ -34,7 +34,7 @@ jpn:
         #>create: 'Créer un nouvel employé'
         nb_employees:
           #>one: '1 employé enregistré'
-          #>other: '{{count}} employés enregistrés'
+          #>other: '%{count} employés enregistrés'
           #>zero: 'Aucun employé enregistré'
         #>title: 'Fiches des employés'
         #>user_create: 'Création d''un nouvel employé'
@@ -46,7 +46,7 @@ jpn:
         #>human: 'Ressources humaines'
         nb_employees:
           #>one: '1 employé'
-          #>other: '{{count}} employés'
+          #>other: '%{count} employés'
           #>zero: 'Aucun employé'
         #>parameters: 'Paramètres'
         #>professions: 'Professions'

@@ -4,9 +4,9 @@ eng:
       title: 'Application'
   helpers:
     application:
-      default_title: 'Ekylibre - {{controller}} - {{action}}'
+      default_title: 'Ekylibre - %{controller} - %{action}'
       exit: 'Exit'
-      print: 'Print {{name}}'
-      title: '{{company_code}} - {{controller}} - {{action}}'
+      print: 'Print %{name}'
+      title: '%{company_code} - %{controller} - %{action}'
   views:
     application:
