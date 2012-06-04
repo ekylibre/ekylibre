@@ -24,7 +24,9 @@ Rails::Initializer.run do |config|
   config.gem "libxml-ruby", :lib=>'libxml'
   config.gem "rubyzip", :lib=>"zip/zip"
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
-  # config.gem "measure"
+  config.gem "pg"
+  config.gem "mysql"
+  config.gem "sqlite3"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
