@@ -641,7 +641,7 @@ class Company < Ekylibre::Record::Base
 
       for model_name in Ekylibre.models
         model = model_name.to_s.classify.constantize
-
+        next if model == self.class
         new_ids = "'"
         for i in 1..keys[model.name].size
           reference = keys[model.name][i-1]
@@ -682,9 +682,9 @@ class Company < Ekylibre::Record::Base
       backup_files = File.join(archive, "Files")
       if File.exist?(backup_files)
         puts "R> Replacing files..." if verbose
-        FileUtils.mv files_dir, files_dir+'.old'
+        FileUtils.mv(files_dir, files_dir+'.old') if File.exist?(files_dir)
         FileUtils.mv backup_files, files_dir
-        FileUtils.rm_rf(files_dir+'.old')
+        FileUtils.rm_rf(files_dir+'.old') if File.exist?(files_dir+'.old')
       end
     end
 
