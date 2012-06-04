@@ -28,17 +28,9 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
 
     # puts "#{User.all.size} users"
     execute "INSERT INTO users (company_id, created_at, updated_at, first_name, last_name, language_id, name, role_id, office, admin) "+
-      "SELECT company_id, created_at, updated_at, first_name, last_name, 0, LOWER("+concatenate("first_name", "'.'", "last_name")+"), 0, id, #{quoted_false} FROM employees WHERE user_id IS NULL"
-    # puts "#{User.all.size} users"
+      "SELECT company_id, created_at, updated_at, first_name, last_name, 0, LOWER(first_name||'.'||last_name), 0, id, #{quoted_false} FROM employees WHERE user_id IS NULL"
     for user in select_all("SELECT * FROM users WHERE language_id=0")
-#      user.password = ([0]*(rand*10+3).to_i).collect{|x| rand.to_s[2..-1].to_i.to_s(36)}.join
-#      user.password_confirmation = user.password
-#      user.language = user.company.entity.language
-#      user.role = user.company.roles.find(:first, :order=>length("rights"))
-#      user.name = user.name.lower_ascii.gsub(/\W/, "")
-#      user.save!
       execute "UPDATE employees SET user_id = #{user['id']} WHERE id = #{user['office']}"
-      # puts user.inspect
     end
 
     employees = {}
@@ -126,7 +118,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     #add_index(:employees, :created_at, :name => "index_employees_on_created_at")
 
     # Add employees
-    execute "INSERT INTO employees (department_id, establishment_id, user_id, title, last_name, first_name, arrived_on, departed_on, role, office, comment, company_id, created_at, updated_at, profession_id, commercial) SELECT COALESCE(department_id, 0), COALESCE(establishment_id, 0), id, "+substr("COALESCE(employment, '-')", 1, 32)+", COALESCE(last_name, '-'), COALESCE(first_name, '-'), arrived_on, departed_on, COALESCE(employment, '-'), COALESCE(office, '-'), comment, company_id, COALESCE(created_at, CURRENT_TIMESTAMP), COALESCE(updated_at, CURRENT_TIMESTAMP), profession_id, commercial FROM users WHERE employed = #{quoted_true}"
+    execute "INSERT INTO employees (department_id, establishment_id, user_id, title, last_name, first_name, arrived_on, departed_on, role, office, comment, company_id, created_at, updated_at, profession_id, commercial) SELECT COALESCE(department_id, 0), COALESCE(establishment_id, 0), id, SUBSTR(COALESCE(employment, '-'), 1, 32), COALESCE(last_name, '-'), COALESCE(first_name, '-'), arrived_on, departed_on, COALESCE(employment, '-'), COALESCE(office, '-'), comment, company_id, COALESCE(created_at, CURRENT_TIMESTAMP), COALESCE(updated_at, CURRENT_TIMESTAMP), profession_id, commercial FROM users WHERE employed = #{quoted_true}"
 
     puts select_one("SELECT count(*) AS x from employees").inspect
 

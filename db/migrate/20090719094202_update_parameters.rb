@@ -35,23 +35,24 @@ class UpdateParameters < ActiveRecord::Migration
     add_column :parameters, :element_id, :integer
     add_column :parameters, :element_type, :string
 
-    for company in Company.all
-      ['sales', 'purchases', 'bank'].each do |journal|
-        parameter = company.parameter("accountancy.default_journals.#{journal}")
-        company.send("#{journal}_journal_id=", parameter.value.id) if parameter and parameter.value
+    
+    for company in connection.select_all("SELECT * FROM companies")
+      for journal in [:sales, :purchases, :bank]
+        parameter = select_one("SELECT record_value_id FROM parameters WHERE name LIKE 'accountancy.default_journals.#{journal}'")
+        execute "UPDATE companies SET #{journal}_journal_id=#{parameter['record_value_id']}" if parameter
       end
-      parameter = company.parameter("management.invoicing.numeration")
-      company.invoice_sequence_id = parameter.value.id if parameter and parameter.value
-      company.send(:update_without_callbacks)
+      parameter = select_one("SELECT record_value_id FROM parameters WHERE name LIKE 'management.invoicing.numeration'")
+      execute "UPDATE companies SET invoice_sequence_id=#{parameter['record_value_id']}" if parameter
     end
-    Parameter.delete_all(["name LIKE ?", 'accountancy.default_journals.%'])
-    Parameter.delete_all(["name = ?", 'management.invoicing.numeration'])
+
+    execute "DELETE FROM parameters WHERE name LIKE 'accountancy.default_journals.%'"
+    execute "DELETE FROM parameters WHERE name LIKE 'management.invoicing.numeration'"
 
     for k, v in CONVERSIONS
-      Parameter.update_all("nature='#{k}'","nature='#{v}'")
+      execute "UPDATE parameters SET nature='#{k}' WHERE nature='#{v}'"
     end
+    execute "UPDATE parameters SET element_id = record_value_id, element_type = record_value_type"
 
-    Parameter.update_all("element_id = record_value_id, element_type = record_value_type")
     change_column :parameters, :nature, :string, :limit=>1
     remove_column :parameters, :record_value_id
     remove_column :parameters, :record_value_type

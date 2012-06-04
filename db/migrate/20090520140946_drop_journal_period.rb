@@ -26,15 +26,15 @@ class DropJournalPeriod < ActiveRecord::Migration
     add_column :financialyears, :written_on, :date
     
     create_table :journal_periods do |t|
-      t.column :journal_id,       :integer, :null=>false, :references=>:journals, :on_delete=>:restrict, :on_update=>:cascade
+      t.column :journal_id, :integer, :null=>false, :references=>:journals, :on_delete=>:restrict, :on_update=>:cascade
       t.column :financialyear_id, :integer, :null=>false, :references=>:financialyears, :on_delete=>:restrict, :on_update=>:cascade
-      t.column :started_on,       :date,    :null=>false
-      t.column :stopped_on,       :date,    :null=>false
-      t.column :closed,           :boolean, :default=>false
-      t.column :debit,            :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :credit,           :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :balance,          :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
-      t.column :company_id,       :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
+      t.column :started_on, :date, :null=>false
+      t.column :stopped_on, :date, :null=>false
+      t.column :closed, :boolean, :default=>false
+      t.column :debit, :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :credit, :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :balance, :decimal, :null=>false, :default=>0, :precision=>16, :scale=>2
+      t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
     end
     add_index :journal_periods, :company_id
     add_index :journal_periods, :journal_id
@@ -44,12 +44,12 @@ class DropJournalPeriod < ActiveRecord::Migration
     add_index :journal_periods, [:started_on, :stopped_on, :journal_id, :financialyear_id, :company_id], :unique=>true, :name=>"journal_periods_unique"
     
     
-    add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade 
+    add_column :journal_records, :period_id, :integer, :references => :journal_periods, :on_delete=>:restrict, :on_update=>:cascade
 
-    execute "insert into journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST("+concatenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-01'")+" AS date),  cast("+concantenate("extract(year from created_on)", "'-'", "extract(month from created_on)", "'-28'")+" AS date), closed, company_id, current_timestamp, current_timestamp from journal_records"
+    execute "INSERT INTO journal_periods (journal_id, financialyear_id, started_on, stopped_on, closed, company_id, created_at, updated_at) select distinct journal_id, coalesce(financialyear_id, 0), CAST(extract(year from created_on) || '-' || extract(month from created_on) || '-01' AS date), cast(extract(year from created_on) || '-' || extract(month from created_on) || '-28' AS date), closed, company_id, current_timestamp, current_timestamp from journal_records"
 
     if defined? JournalPeriod
-      JournalPeriod.find(:all).each do |period| 
+      JournalPeriod.find(:all).each do |period|
         period.stopped_on=period.stopped_on.end_of_month
         period.save(false)
       end

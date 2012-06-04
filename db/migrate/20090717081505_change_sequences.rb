@@ -28,8 +28,9 @@ class ChangeSequences < ActiveRecord::Migration
   def self.down
     add_column    :companies, :siren, :string, :limit=>9, :null=>false, :default=>"000000000"
 
-    for company in Company.all
-      Company.update_all({:siren=>company.entity.siren}, {:id=>company.entity_id}) if company.entity and company.entity.siren
+    for company in connection.select_all("SELECT * FROM companies")
+      siren = connection.select_one("SELECT siren FROM entities WHERE id=#{company['entity_id']}")
+      execute "UPDATE companies SET siren=#{siren} WHERE id=#{company['id']}" unless siren.blank?
     end
 
     execute "DELETE FROM sequences WHERE format='F[year][month|2][number|6]'"
