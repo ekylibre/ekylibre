@@ -10,4 +10,5 @@ before_install:
   - "gem install pg mysql sqlite3 --no-ri --no-rdoc"
   - "gem install rails -v=2.3.14 --no-ri --no-rdoc"
   - "rake gems:install --trace"
+  - "rake db:migrate"
 script: "rake test"
