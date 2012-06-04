@@ -454,7 +454,9 @@ class Company < ActiveRecord::Base
     creator, with_prints = options[:creator], options[:with_prints]
     version = (ActiveRecord::Migrator.current_version rescue 0)
     filename = "backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")
-    file = "#{RAILS_ROOT}/tmp/#{filename}.zip"
+    tmp_dir = "#{RAILS_ROOT}/tmp"
+    FileUtils.makedirs(tmp_dir)
+    file = "#{tmp_dir}/#{filename}.zip"
     doc = LibXML::XML::Document.new
     doc.root = backup = XML::Node.new('backup')
     {'version'=>version, 'creation-date'=>Date.today, 'creator'=>creator}.each{|k,v| backup[k]=v.to_s}
@@ -505,7 +507,9 @@ class Company < ActiveRecord::Base
     prints_dir = "#{RAILS_ROOT}/private/#{self.code}"
     # Décompression
     puts "R> Uncompressing backup..." if verbose
-    backup = "#{RAILS_ROOT}/tmp/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
+    tmp_dir = "#{RAILS_ROOT}/tmp"
+    FileUtils.makedirs(tmp_dir)
+    backup = "#{tmp_dir}/uncompressed-backup-"+self.code.lower+"-"+Time.now.strftime("%Y%m%d-%H%M%S")+".xml"
     stream = nil
     FileUtils.rm_rf(prints_dir+'.prints')
     Zip::ZipFile.open(file) do |zile|
