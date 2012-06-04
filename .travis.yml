@@ -6,7 +6,7 @@ env:
   - DB=postgresql
   - DB=sqlite3
 before_install:
+  - "ci/setup"
   - "gem install rails -v=2.3.14 --no-ri --no-rdoc"
   - "rake gems:install --trace"
-  - "ci/setup"
 script: "rake test"
