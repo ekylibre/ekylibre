@@ -312,7 +312,7 @@ module Ekylibre
                     datum = 'nil'
                   end
                   css_class = column.datatype.to_s+css_class
-                  css_class = (css_class.strip.size>0 ? ", :class=>'"+css_class+"'" : '')
+                  css_class = ((css_class.strip.size>0 or !column_sort.blank?)? ", :class=>'"+css_class+"'" : '')
                   code += "content_tag(:td, "+datum+css_class+column_sort
                   code += ", :style=>"+style+"'" unless style[1..-1].blank?
                   code += ")"

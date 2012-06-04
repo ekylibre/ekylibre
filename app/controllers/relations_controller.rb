@@ -728,7 +728,7 @@ class RelationsController < ApplicationController
   
 
 
-  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN users ON (responsible_id=users.id) JOIN entities ON (entity_id=entities.id) JOIN event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
+  dyta(:events, :conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :joins=>"JOIN users ON (events.responsible_id=users.id) JOIN entities ON (entity_id=entities.id) JOIN event_natures ON (events.nature_id=event_natures.id)", :order=>"started_at DESC") do |t|
     t.column :full_name, :through=>:entity, :url=>{:action=>:entity}
     t.column :duration
     t.column :location

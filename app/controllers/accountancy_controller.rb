@@ -334,7 +334,7 @@ class AccountancyController < ApplicationController
     code += "c[0]+=' AND journal_records.printed_on BETWEEN ? AND ?'\n"
     code += "c+=[session[:general_ledger][:started_on], session[:general_ledger][:stopped_on]]\n"
     # state
-    code += "c[0] += \" AND (false\"\n"
+    code += "c[0] += \" AND (#{conn.quoted_false}\"\n"
     code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_true})\" if options[:draft] == '1'\n"
     code += "c[0] += \" OR (journal_entries.draft = #{conn.quoted_false} AND journal_entries.closed = #{conn.quoted_false})\" if options[:confirmed] == '1'\n"
     code += "c[0] += \" OR (journal_entries.closed = #{conn.quoted_true})\" if options[:closed] == '1'\n"
@@ -368,7 +368,7 @@ class AccountancyController < ApplicationController
     if params[:accounts]
       conn = ActiveRecord::Base.connection
       valid_expr = /^\d(\d(\d[0-9A-Z]*)?)?$/
-      accounts = "false"
+      accounts = conn.quoted_false
       expression = ""
       for expr in params[:accounts].split(/[^0-9A-Z\-\*]+/)
         if expr.match(/\-/)

@@ -271,7 +271,7 @@ class Company < ActiveRecord::Base
   end
 
   def current_financialyear
-    self.financialyears.find(:last, :conditions => "closed = false", :order=>"started_on ASC")
+    self.financialyears.find(:last, :conditions => {:closed => false}, :order=>"started_on ASC")
   end
 
   #   def productable_products

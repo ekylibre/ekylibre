@@ -88,8 +88,8 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.date     "started_on",                                                      :null => false
     t.date     "stopped_on",                                                      :null => false
     t.string   "number",                                                          :null => false
-    t.decimal  "debit",           :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "credit",          :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "debit",                                          :default => 0.0, :null => false
+    t.decimal  "credit",                                         :default => 0.0, :null => false
     t.integer  "company_id",                                                      :null => false
     t.datetime "created_at",                                                      :null => false
     t.datetime "updated_at",                                                      :null => false
@@ -185,24 +185,23 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "complement_choices", ["updater_id"], :name => "index_complement_choices_on_updater_id"
 
   create_table "complement_data", :force => true do |t|
-    t.integer  "entity_id",                                                     :null => false
-    t.integer  "complement_id",                                                 :null => false
-    t.decimal  "decimal_value",   :precision => 16, :scale => 4
+    t.integer  "entity_id",                      :null => false
+    t.integer  "complement_id",                  :null => false
+    t.decimal  "decimal_value"
     t.text     "string_value"
     t.boolean  "boolean_value"
     t.date     "date_value"
     t.datetime "datetime_value"
     t.integer  "choice_value_id"
-    t.integer  "company_id",                                                    :null => false
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.integer  "company_id",                     :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                   :default => 0, :null => false
+    t.integer  "lock_version",    :default => 0, :null => false
   end
 
   add_index "complement_data", ["choice_value_id"], :name => "index_complement_data_on_choice_value_id"
-  add_index "complement_data", ["company_id", "complement_id", "entity_id"], :name => "index_complement_data_on_entity_id_and_complement_id", :unique => true
   add_index "complement_data", ["company_id"], :name => "index_complement_data_on_company_id"
   add_index "complement_data", ["complement_id"], :name => "index_complement_data_on_complement_id"
   add_index "complement_data", ["created_at"], :name => "index_complement_data_on_created_at"
@@ -320,23 +319,23 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "delays", ["updater_id"], :name => "index_delays_on_updater_id"
 
   create_table "deliveries", :force => true do |t|
-    t.integer  "order_id",                                                          :null => false
+    t.integer  "order_id",                           :null => false
     t.integer  "invoice_id"
-    t.decimal  "amount",            :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "amount_with_taxes", :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "amount_with_taxes", :default => 0.0, :null => false
     t.text     "comment"
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "company_id",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,   :null => false
+    t.integer  "lock_version",      :default => 0,   :null => false
     t.integer  "contact_id"
     t.date     "planned_on"
     t.date     "moved_on"
     t.integer  "mode_id"
     t.integer  "currency_id"
-    t.decimal  "weight",            :precision => 16, :scale => 4
+    t.decimal  "weight"
     t.integer  "transport_id"
     t.integer  "transporter_id"
   end
@@ -348,20 +347,20 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "deliveries", ["updater_id"], :name => "index_deliveries_on_updater_id"
 
   create_table "delivery_lines", :force => true do |t|
-    t.integer  "delivery_id",                                                       :null => false
-    t.integer  "order_line_id",                                                     :null => false
-    t.integer  "product_id",                                                        :null => false
-    t.integer  "price_id",                                                          :null => false
-    t.decimal  "quantity",          :precision => 16, :scale => 4, :default => 1.0, :null => false
-    t.integer  "unit_id",                                                           :null => false
-    t.decimal  "amount",            :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "amount_with_taxes", :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "delivery_id",                        :null => false
+    t.integer  "order_line_id",                      :null => false
+    t.integer  "product_id",                         :null => false
+    t.integer  "price_id",                           :null => false
+    t.decimal  "quantity",          :default => 1.0, :null => false
+    t.integer  "unit_id",                            :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "amount_with_taxes", :default => 0.0, :null => false
+    t.integer  "company_id",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,   :null => false
+    t.integer  "lock_version",      :default => 0,   :null => false
     t.integer  "tracking_id"
     t.integer  "location_id"
   end
@@ -486,19 +485,19 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
 
   create_table "embankments", :force => true do |t|
-    t.decimal  "amount",            :precision => 16, :scale => 4, :default => 0.0,   :null => false
-    t.integer  "payments_count",                                   :default => 0,     :null => false
-    t.date     "created_on",                                                          :null => false
+    t.decimal  "amount",            :default => 0.0,   :null => false
+    t.integer  "payments_count",    :default => 0,     :null => false
+    t.date     "created_on",                           :null => false
     t.text     "comment"
-    t.integer  "cash_id",                                                             :null => false
-    t.integer  "mode_id",                                                             :null => false
-    t.integer  "company_id",                                                          :null => false
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.integer  "cash_id",                              :null => false
+    t.integer  "mode_id",                              :null => false
+    t.integer  "company_id",                           :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,     :null => false
-    t.boolean  "locked",                                           :default => false, :null => false
+    t.integer  "lock_version",      :default => 0,     :null => false
+    t.boolean  "locked",            :default => false, :null => false
     t.integer  "embanker_id"
     t.string   "number"
     t.datetime "accounted_at"
@@ -511,32 +510,32 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "embankments", ["updater_id"], :name => "index_embankments_on_updater_id"
 
   create_table "entities", :force => true do |t|
-    t.integer  "nature_id",                                                                                :null => false
-    t.string   "last_name",                                                                                :null => false
+    t.integer  "nature_id",                                                  :null => false
+    t.string   "last_name",                                                  :null => false
     t.string   "first_name"
-    t.string   "full_name",                                                                                :null => false
+    t.string   "full_name",                                                  :null => false
     t.string   "code",                      :limit => 16
-    t.boolean  "active",                                                                :default => true,  :null => false
+    t.boolean  "active",                                  :default => true,  :null => false
     t.date     "born_on"
     t.date     "dead_on"
     t.string   "ean13",                     :limit => 13
     t.string   "soundex",                   :limit => 4
     t.string   "website"
-    t.boolean  "client",                                                                :default => false, :null => false
-    t.boolean  "supplier",                                                              :default => false, :null => false
-    t.integer  "company_id",                                                                               :null => false
-    t.datetime "created_at",                                                                               :null => false
-    t.datetime "updated_at",                                                                               :null => false
+    t.boolean  "client",                                  :default => false, :null => false
+    t.boolean  "supplier",                                :default => false, :null => false
+    t.integer  "company_id",                                                 :null => false
+    t.datetime "created_at",                                                 :null => false
+    t.datetime "updated_at",                                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                          :default => 0,     :null => false
+    t.integer  "lock_version",                            :default => 0,     :null => false
     t.integer  "client_account_id"
     t.integer  "supplier_account_id"
-    t.boolean  "vat_submissive",                                                        :default => true,  :null => false
-    t.boolean  "reflation_submissive",                                                  :default => false, :null => false
+    t.boolean  "vat_submissive",                          :default => true,  :null => false
+    t.boolean  "reflation_submissive",                    :default => false, :null => false
     t.string   "deliveries_conditions",     :limit => 60
-    t.decimal  "discount_rate",                           :precision => 8, :scale => 2
-    t.decimal  "reduction_rate",                          :precision => 8, :scale => 2
+    t.decimal  "discount_rate"
+    t.decimal  "reduction_rate"
     t.text     "comment"
     t.string   "excise",                    :limit => 15
     t.string   "vat_number",                :limit => 15
@@ -554,15 +553,15 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.string   "webpass"
     t.string   "activity_code",             :limit => 32
     t.string   "photo"
-    t.boolean  "transporter",                                                           :default => false, :null => false
-    t.string   "language",                  :limit => 3,                                :default => "???", :null => false
-    t.boolean  "prospect",                                                              :default => false, :null => false
-    t.boolean  "attorney",                                                              :default => false, :null => false
+    t.boolean  "transporter",                             :default => false, :null => false
+    t.string   "language",                  :limit => 3,  :default => "???", :null => false
+    t.boolean  "prospect",                                :default => false, :null => false
+    t.boolean  "attorney",                                :default => false, :null => false
     t.integer  "attorney_account_id"
     t.string   "name",                      :limit => 32
     t.string   "salt",                      :limit => 64
     t.string   "hashed_password",           :limit => 64
-    t.boolean  "locked",                                                                :default => false, :null => false
+    t.boolean  "locked",                                  :default => false, :null => false
   end
 
   add_index "entities", ["code", "company_id"], :name => "index_entities_on_code_and_company_id", :unique => true
@@ -773,17 +772,17 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
   create_table "inventory_lines", :force => true do |t|
-    t.integer  "product_id",                                                     :null => false
-    t.integer  "location_id",                                                    :null => false
-    t.decimal  "theoric_quantity", :precision => 16, :scale => 4,                :null => false
-    t.decimal  "quantity",         :precision => 16, :scale => 4,                :null => false
-    t.integer  "inventory_id",                                                   :null => false
-    t.integer  "company_id",                                                     :null => false
-    t.datetime "created_at",                                                     :null => false
-    t.datetime "updated_at",                                                     :null => false
+    t.integer  "product_id",                      :null => false
+    t.integer  "location_id",                     :null => false
+    t.decimal  "theoric_quantity",                :null => false
+    t.decimal  "quantity",                        :null => false
+    t.integer  "inventory_id",                    :null => false
+    t.integer  "company_id",                      :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0, :null => false
+    t.integer  "lock_version",     :default => 0, :null => false
     t.integer  "tracking_id"
     t.integer  "unit_id"
   end
@@ -795,18 +794,18 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
 
   create_table "invoice_lines", :force => true do |t|
     t.integer  "order_line_id"
-    t.integer  "product_id",                                                        :null => false
-    t.integer  "price_id",                                                          :null => false
-    t.decimal  "quantity",          :precision => 16, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "amount",            :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "amount_with_taxes", :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.integer  "product_id",                         :null => false
+    t.integer  "price_id",                           :null => false
+    t.decimal  "quantity",          :default => 1.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "amount_with_taxes", :default => 0.0, :null => false
     t.integer  "position"
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "company_id",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,   :null => false
+    t.integer  "lock_version",      :default => 0,   :null => false
     t.integer  "invoice_id"
     t.integer  "origin_id"
     t.text     "annotation"
@@ -823,27 +822,27 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "invoice_lines", ["updater_id"], :name => "index_invoice_lines_on_updater_id"
 
   create_table "invoices", :force => true do |t|
-    t.integer  "client_id",                                                                          :null => false
-    t.string   "nature",             :limit => 1,                                                    :null => false
-    t.string   "number",             :limit => 64,                                                   :null => false
-    t.decimal  "amount",                           :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "amount_with_taxes",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.integer  "payment_delay_id",                                                                   :null => false
-    t.date     "payment_on",                                                                         :null => false
-    t.boolean  "paid",                                                            :default => false, :null => false
-    t.boolean  "lost",                                                            :default => false, :null => false
-    t.boolean  "has_downpayment",                                                 :default => false, :null => false
-    t.decimal  "downpayment_amount",               :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.integer  "client_id",                                           :null => false
+    t.string   "nature",             :limit => 1,                     :null => false
+    t.string   "number",             :limit => 64,                    :null => false
+    t.decimal  "amount",                           :default => 0.0,   :null => false
+    t.decimal  "amount_with_taxes",                :default => 0.0,   :null => false
+    t.integer  "payment_delay_id",                                    :null => false
+    t.date     "payment_on",                                          :null => false
+    t.boolean  "paid",                             :default => false, :null => false
+    t.boolean  "lost",                             :default => false, :null => false
+    t.boolean  "has_downpayment",                  :default => false, :null => false
+    t.decimal  "downpayment_amount",               :default => 0.0,   :null => false
     t.integer  "contact_id"
-    t.integer  "company_id",                                                                         :null => false
-    t.datetime "created_at",                                                                         :null => false
-    t.datetime "updated_at",                                                                         :null => false
+    t.integer  "company_id",                                          :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                    :default => 0,     :null => false
+    t.integer  "lock_version",                     :default => 0,     :null => false
     t.integer  "sale_order_id"
     t.integer  "origin_id"
-    t.boolean  "credit",                                                          :default => false, :null => false
+    t.boolean  "credit",                           :default => false, :null => false
     t.date     "created_on"
     t.text     "annotation"
     t.integer  "currency_id"
@@ -859,27 +858,27 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "invoices", ["updater_id"], :name => "index_invoices_on_updater_id"
 
   create_table "journal_entries", :force => true do |t|
-    t.integer  "record_id",                                                                        :null => false
-    t.integer  "account_id",                                                                       :null => false
-    t.string   "name",                                                                             :null => false
-    t.decimal  "currency_debit",                 :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "currency_credit",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "debit",                          :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "credit",                         :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.integer  "record_id",                                         :null => false
+    t.integer  "account_id",                                        :null => false
+    t.string   "name",                                              :null => false
+    t.decimal  "currency_debit",                 :default => 0.0,   :null => false
+    t.decimal  "currency_credit",                :default => 0.0,   :null => false
+    t.decimal  "debit",                          :default => 0.0,   :null => false
+    t.decimal  "credit",                         :default => 0.0,   :null => false
     t.integer  "bank_statement_id"
     t.string   "letter",            :limit => 8
     t.date     "expired_on"
     t.integer  "position"
     t.text     "comment"
-    t.integer  "company_id",                                                                       :null => false
-    t.datetime "created_at",                                                                       :null => false
-    t.datetime "updated_at",                                                                       :null => false
+    t.integer  "company_id",                                        :null => false
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  :default => 0,     :null => false
-    t.boolean  "draft",                                                         :default => false, :null => false
+    t.integer  "lock_version",                   :default => 0,     :null => false
+    t.boolean  "draft",                          :default => false, :null => false
     t.integer  "journal_id"
-    t.boolean  "closed",                                                        :default => false, :null => false
+    t.boolean  "closed",                         :default => false, :null => false
   end
 
   add_index "journal_entries", ["account_id"], :name => "index_entries_on_account_id"
@@ -899,8 +898,8 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.date     "created_on",                                                        :null => false
     t.date     "printed_on",                                                        :null => false
     t.string   "number",                                                            :null => false
-    t.decimal  "debit",           :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "credit",          :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "debit",                                          :default => 0.0,   :null => false
+    t.decimal  "credit",                                         :default => 0.0,   :null => false
     t.integer  "position"
     t.integer  "journal_id",                                                        :null => false
     t.integer  "company_id",                                                        :null => false
@@ -919,6 +918,7 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   end
 
   add_index "journal_records", ["company_id"], :name => "index_journal_records_on_company_id"
+  add_index "journal_records", ["company_id"], :name => "index_journal_records_on_status_and_company_id"
   add_index "journal_records", ["created_at"], :name => "index_journal_records_on_created_at"
   add_index "journal_records", ["created_on", "company_id"], :name => "index_journal_records_on_created_on_and_company_id"
   add_index "journal_records", ["creator_id"], :name => "index_journal_records_on_creator_id"
@@ -1034,24 +1034,24 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "listings", ["updater_id"], :name => "index_listings_on_updater_id"
 
   create_table "locations", :force => true do |t|
-    t.string   "name",                                                               :null => false
+    t.string   "name",                                :null => false
     t.string   "x"
     t.string   "y"
     t.string   "z"
     t.text     "comment"
     t.integer  "parent_id"
-    t.integer  "account_id",                                                         :null => false
+    t.integer  "account_id",                          :null => false
     t.integer  "establishment_id"
     t.integer  "contact_id"
-    t.integer  "company_id",                                                         :null => false
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.integer  "company_id",                          :null => false
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,     :null => false
-    t.boolean  "reservoir",                                       :default => false
+    t.integer  "lock_version",     :default => 0,     :null => false
+    t.boolean  "reservoir",        :default => false
     t.integer  "product_id"
-    t.decimal  "quantity_max",     :precision => 16, :scale => 4
+    t.decimal  "quantity_max"
     t.integer  "unit_id"
     t.integer  "number"
   end
@@ -1103,21 +1103,21 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
 
   create_table "operation_lines", :force => true do |t|
-    t.integer  "operation_id",                                                                  :null => false
+    t.integer  "operation_id",                                   :null => false
     t.integer  "product_id"
-    t.decimal  "unit_quantity",                :precision => 16, :scale => 4, :default => 0.0,  :null => false
-    t.decimal  "quantity",                     :precision => 16, :scale => 4, :default => 0.0,  :null => false
+    t.decimal  "unit_quantity",                :default => 0.0,  :null => false
+    t.decimal  "quantity",                     :default => 0.0,  :null => false
     t.integer  "unit_id"
     t.integer  "area_unit_id"
     t.integer  "tracking_id"
-    t.integer  "company_id",                                                                    :null => false
-    t.datetime "created_at",                                                                    :null => false
-    t.datetime "updated_at",                                                                    :null => false
+    t.integer  "company_id",                                     :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                :default => 0,    :null => false
+    t.integer  "lock_version",                 :default => 0,    :null => false
     t.integer  "location_id"
-    t.string   "direction",       :limit => 4,                                :default => "in", :null => false
+    t.string   "direction",       :limit => 4, :default => "in", :null => false
     t.string   "tracking_serial"
   end
 
@@ -1144,24 +1144,24 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "operation_natures", ["updater_id"], :name => "index_shape_operation_natures_on_updater_id"
 
   create_table "operations", :force => true do |t|
-    t.string   "name",                                                         :null => false
+    t.string   "name",                          :null => false
     t.text     "description"
-    t.integer  "responsible_id",                                               :null => false
+    t.integer  "responsible_id",                :null => false
     t.integer  "nature_id"
-    t.date     "planned_on",                                                   :null => false
+    t.date     "planned_on",                    :null => false
     t.date     "moved_on"
-    t.datetime "started_at",                                                   :null => false
+    t.datetime "started_at",                    :null => false
     t.datetime "stopped_at"
-    t.integer  "company_id",                                                   :null => false
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.integer  "company_id",                    :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  :default => 0, :null => false
-    t.decimal  "hour_duration",  :precision => 16, :scale => 4
-    t.decimal  "min_duration",   :precision => 16, :scale => 4
-    t.decimal  "duration",       :precision => 16, :scale => 4
-    t.decimal  "consumption",    :precision => 16, :scale => 4
+    t.integer  "lock_version",   :default => 0, :null => false
+    t.decimal  "hour_duration"
+    t.decimal  "min_duration"
+    t.decimal  "duration"
+    t.decimal  "consumption"
     t.string   "tools_list"
     t.string   "target_type"
     t.integer  "target_id"
@@ -1173,19 +1173,19 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "operations", ["updater_id"], :name => "index_shape_operations_on_updater_id"
 
   create_table "parameters", :force => true do |t|
-    t.string   "name",                                                                           :null => false
-    t.string   "nature",            :limit => 8,                                :default => "u", :null => false
+    t.string   "name",                                            :null => false
+    t.string   "nature",            :limit => 8, :default => "u", :null => false
     t.text     "string_value"
     t.boolean  "boolean_value"
     t.integer  "integer_value"
-    t.decimal  "decimal_value",                  :precision => 16, :scale => 4
+    t.decimal  "decimal_value"
     t.integer  "user_id"
-    t.integer  "company_id",                                                                     :null => false
-    t.datetime "created_at",                                                                     :null => false
-    t.datetime "updated_at",                                                                     :null => false
+    t.integer  "company_id",                                      :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  :default => 0,   :null => false
+    t.integer  "lock_version",                   :default => 0,   :null => false
     t.integer  "record_value_id"
     t.string   "record_value_type"
   end
@@ -1201,25 +1201,25 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "parameters", ["user_id"], :name => "index_parameters_on_user_id"
 
   create_table "prices", :force => true do |t|
-    t.decimal  "amount",            :precision => 16, :scale => 4,                    :null => false
-    t.decimal  "amount_with_taxes", :precision => 16, :scale => 4,                    :null => false
-    t.boolean  "use_range",                                        :default => false, :null => false
-    t.decimal  "quantity_min",      :precision => 16, :scale => 4, :default => 0.0,   :null => false
-    t.decimal  "quantity_max",      :precision => 16, :scale => 4, :default => 0.0,   :null => false
-    t.integer  "product_id",                                                          :null => false
-    t.integer  "tax_id",                                                              :null => false
-    t.integer  "company_id",                                                          :null => false
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.decimal  "amount",                               :null => false
+    t.decimal  "amount_with_taxes",                    :null => false
+    t.boolean  "use_range",         :default => false, :null => false
+    t.decimal  "quantity_min",      :default => 0.0,   :null => false
+    t.decimal  "quantity_max",      :default => 0.0,   :null => false
+    t.integer  "product_id",                           :null => false
+    t.integer  "tax_id",                               :null => false
+    t.integer  "company_id",                           :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,     :null => false
+    t.integer  "lock_version",      :default => 0,     :null => false
     t.integer  "entity_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.boolean  "active",                                           :default => true,  :null => false
+    t.boolean  "active",            :default => true,  :null => false
     t.integer  "currency_id"
-    t.boolean  "by_default",                                       :default => true
+    t.boolean  "by_default",        :default => true
     t.integer  "category_id"
   end
 
@@ -1231,21 +1231,21 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "prices", ["updater_id"], :name => "index_prices_on_updater_id"
 
   create_table "product_components", :force => true do |t|
-    t.string   "name",                                                       :null => false
-    t.integer  "product_id",                                                 :null => false
-    t.integer  "component_id",                                               :null => false
-    t.integer  "location_id",                                                :null => false
-    t.decimal  "quantity",     :precision => 16, :scale => 4,                :null => false
+    t.string   "name",                        :null => false
+    t.integer  "product_id",                  :null => false
+    t.integer  "component_id",                :null => false
+    t.integer  "location_id",                 :null => false
+    t.decimal  "quantity",                    :null => false
     t.text     "comment"
-    t.boolean  "active",                                                     :null => false
+    t.boolean  "active",                      :null => false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.integer  "company_id",                                                 :null => false
-    t.datetime "created_at",                                                 :null => false
-    t.datetime "updated_at",                                                 :null => false
+    t.integer  "company_id",                  :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                :default => 0, :null => false
+    t.integer  "lock_version", :default => 0, :null => false
   end
 
   add_index "product_components", ["created_at"], :name => "index_product_components_on_created_at"
@@ -1254,46 +1254,46 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "product_components", ["updater_id"], :name => "index_product_components_on_updater_id"
 
   create_table "products", :force => true do |t|
-    t.boolean  "for_purchases",                                                           :default => false, :null => false
-    t.boolean  "for_sales",                                                               :default => true,  :null => false
-    t.string   "nature",                     :limit => 8,                                                    :null => false
-    t.string   "name",                                                                                       :null => false
-    t.integer  "number",                                                                                     :null => false
-    t.boolean  "active",                                                                  :default => true,  :null => false
+    t.boolean  "for_purchases",                            :default => false, :null => false
+    t.boolean  "for_sales",                                :default => true,  :null => false
+    t.string   "nature",                     :limit => 8,                     :null => false
+    t.string   "name",                                                        :null => false
+    t.integer  "number",                                                      :null => false
+    t.boolean  "active",                                   :default => true,  :null => false
     t.string   "code",                       :limit => 16
     t.string   "code2",                      :limit => 64
     t.string   "ean13",                      :limit => 13
-    t.string   "catalog_name",                                                                               :null => false
+    t.string   "catalog_name",                                                :null => false
     t.text     "catalog_description"
     t.text     "description"
     t.text     "comment"
-    t.decimal  "service_coeff",                            :precision => 16, :scale => 4
-    t.integer  "shelf_id",                                                                                   :null => false
-    t.integer  "unit_id",                                                                                    :null => false
-    t.integer  "company_id",                                                                                 :null => false
-    t.datetime "created_at",                                                                                 :null => false
-    t.datetime "updated_at",                                                                                 :null => false
+    t.decimal  "service_coeff"
+    t.integer  "shelf_id",                                                    :null => false
+    t.integer  "unit_id",                                                     :null => false
+    t.integer  "company_id",                                                  :null => false
+    t.datetime "created_at",                                                  :null => false
+    t.datetime "updated_at",                                                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                            :default => 0,     :null => false
-    t.decimal  "weight",                                   :precision => 16, :scale => 3
-    t.decimal  "price",                                    :precision => 16, :scale => 2, :default => 0.0
-    t.decimal  "quantity_min",                             :precision => 16, :scale => 4, :default => 0.0
-    t.decimal  "critic_quantity_min",                      :precision => 16, :scale => 4, :default => 1.0
-    t.decimal  "quantity_max",                             :precision => 16, :scale => 4, :default => 0.0
-    t.boolean  "manage_stocks",                                                           :default => false, :null => false
+    t.integer  "lock_version",                             :default => 0,     :null => false
+    t.decimal  "weight"
+    t.decimal  "price",                                    :default => 0.0
+    t.decimal  "quantity_min",                             :default => 0.0
+    t.decimal  "critic_quantity_min",                      :default => 1.0
+    t.decimal  "quantity_max",                             :default => 0.0
+    t.boolean  "manage_stocks",                            :default => false, :null => false
     t.integer  "sales_account_id"
     t.integer  "purchases_account_id"
     t.integer  "subscription_quantity"
     t.string   "subscription_period"
     t.integer  "subscription_nature_id"
-    t.boolean  "reduction_submissive",                                                    :default => false, :null => false
-    t.boolean  "unquantifiable",                                                          :default => false, :null => false
-    t.boolean  "for_productions",                                                         :default => false, :null => false
-    t.boolean  "for_immobilizations",                                                     :default => false, :null => false
+    t.boolean  "reduction_submissive",                     :default => false, :null => false
+    t.boolean  "unquantifiable",                           :default => false, :null => false
+    t.boolean  "for_productions",                          :default => false, :null => false
+    t.boolean  "for_immobilizations",                      :default => false, :null => false
     t.integer  "immobilizations_account_id"
-    t.boolean  "published",                                                               :default => false, :null => false
-    t.boolean  "with_tracking",                                                           :default => false, :null => false
+    t.boolean  "published",                                :default => false, :null => false
+    t.boolean  "with_tracking",                            :default => false, :null => false
   end
 
   add_index "products", ["code", "company_id"], :name => "index_products_on_code_and_company_id", :unique => true
@@ -1325,21 +1325,21 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "professions", ["updater_id"], :name => "index_professions_on_updater_id"
 
   create_table "purchase_order_lines", :force => true do |t|
-    t.integer  "order_id",                                                          :null => false
-    t.integer  "product_id",                                                        :null => false
-    t.integer  "unit_id",                                                           :null => false
-    t.integer  "price_id",                                                          :null => false
-    t.decimal  "quantity",          :precision => 16, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "amount",            :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "amount_with_taxes", :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.integer  "order_id",                           :null => false
+    t.integer  "product_id",                         :null => false
+    t.integer  "unit_id",                            :null => false
+    t.integer  "price_id",                           :null => false
+    t.decimal  "quantity",          :default => 1.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "amount_with_taxes", :default => 0.0, :null => false
     t.integer  "position"
-    t.integer  "account_id",                                                        :null => false
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "account_id",                         :null => false
+    t.integer  "company_id",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,   :null => false
+    t.integer  "lock_version",      :default => 0,   :null => false
     t.integer  "location_id"
     t.text     "annotation"
     t.integer  "tracking_id"
@@ -1356,8 +1356,8 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.integer  "supplier_id",                                                                       :null => false
     t.string   "number",            :limit => 64,                                                   :null => false
     t.boolean  "shipped",                                                        :default => false, :null => false
-    t.decimal  "amount",                          :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "amount_with_taxes",               :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "amount",                                                         :default => 0.0,   :null => false
+    t.decimal  "amount_with_taxes",                                              :default => 0.0,   :null => false
     t.integer  "dest_contact_id"
     t.text     "comment"
     t.integer  "company_id",                                                                        :null => false
@@ -1470,10 +1470,10 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.integer  "product_id",                                                            :null => false
     t.integer  "price_id",                                                              :null => false
     t.boolean  "invoiced",                                           :default => false, :null => false
-    t.decimal  "quantity",            :precision => 16, :scale => 4, :default => 1.0,   :null => false
+    t.decimal  "quantity",                                           :default => 1.0,   :null => false
     t.integer  "unit_id",                                                               :null => false
-    t.decimal  "amount",              :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "amount_with_taxes",   :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.decimal  "amount",                                             :default => 0.0,   :null => false
+    t.decimal  "amount_with_taxes",                                  :default => 0.0,   :null => false
     t.integer  "position"
     t.integer  "account_id",                                                            :null => false
     t.integer  "company_id",                                                            :null => false
@@ -1483,7 +1483,7 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                       :default => 0,     :null => false
     t.integer  "location_id"
-    t.decimal  "price_amount",        :precision => 16, :scale => 2
+    t.decimal  "price_amount"
     t.integer  "tax_id"
     t.text     "annotation"
     t.integer  "entity_id"
@@ -1501,20 +1501,20 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "sale_order_lines", ["updater_id"], :name => "index_sale_order_lines_on_updater_id"
 
   create_table "sale_order_natures", :force => true do |t|
-    t.string   "name",                                                                      :null => false
-    t.integer  "expiration_id",                                                             :null => false
-    t.boolean  "active",                                                 :default => true,  :null => false
-    t.integer  "payment_delay_id",                                                          :null => false
-    t.boolean  "downpayment",                                            :default => false, :null => false
-    t.decimal  "downpayment_minimum",     :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "downpayment_rate",        :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.string   "name",                                       :null => false
+    t.integer  "expiration_id",                              :null => false
+    t.boolean  "active",                  :default => true,  :null => false
+    t.integer  "payment_delay_id",                           :null => false
+    t.boolean  "downpayment",             :default => false, :null => false
+    t.decimal  "downpayment_minimum",     :default => 0.0,   :null => false
+    t.decimal  "downpayment_rate",        :default => 0.0,   :null => false
     t.text     "comment"
-    t.integer  "company_id",                                                                :null => false
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.integer  "company_id",                                 :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                           :default => 0,     :null => false
+    t.integer  "lock_version",            :default => 0,     :null => false
     t.integer  "payment_mode_id"
     t.text     "payment_mode_complement"
   end
@@ -1526,20 +1526,20 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "sale_order_natures", ["updater_id"], :name => "index_sale_order_natures_on_updater_id"
 
   create_table "sale_orders", :force => true do |t|
-    t.integer  "client_id",                                                                           :null => false
-    t.integer  "nature_id",                                                                           :null => false
-    t.date     "created_on",                                                                          :null => false
-    t.string   "number",              :limit => 64,                                                   :null => false
-    t.string   "sum_method",          :limit => 8,                                 :default => "wt",  :null => false
-    t.boolean  "invoiced",                                                         :default => false, :null => false
-    t.decimal  "amount",                            :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "amount_with_taxes",                 :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.string   "state",               :limit => 1,                                 :default => "O",   :null => false
-    t.integer  "expiration_id",                                                                       :null => false
-    t.date     "expired_on",                                                                          :null => false
-    t.integer  "payment_delay_id",                                                                    :null => false
-    t.boolean  "has_downpayment",                                                  :default => false, :null => false
-    t.decimal  "downpayment_amount",                :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.integer  "client_id",                                            :null => false
+    t.integer  "nature_id",                                            :null => false
+    t.date     "created_on",                                           :null => false
+    t.string   "number",              :limit => 64,                    :null => false
+    t.string   "sum_method",          :limit => 8,  :default => "wt",  :null => false
+    t.boolean  "invoiced",                          :default => false, :null => false
+    t.decimal  "amount",                            :default => 0.0,   :null => false
+    t.decimal  "amount_with_taxes",                 :default => 0.0,   :null => false
+    t.string   "state",               :limit => 1,  :default => "O",   :null => false
+    t.integer  "expiration_id",                                        :null => false
+    t.date     "expired_on",                                           :null => false
+    t.integer  "payment_delay_id",                                     :null => false
+    t.boolean  "has_downpayment",                   :default => false, :null => false
+    t.decimal  "downpayment_amount",                :default => 0.0,   :null => false
     t.integer  "contact_id"
     t.integer  "invoice_contact_id"
     t.integer  "delivery_contact_id"
@@ -1548,16 +1548,16 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.text     "introduction"
     t.text     "conclusion"
     t.text     "comment"
-    t.integer  "company_id",                                                                          :null => false
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.integer  "company_id",                                           :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                     :default => 0,     :null => false
+    t.integer  "lock_version",                      :default => 0,     :null => false
     t.date     "confirmed_on"
-    t.decimal  "parts_amount",                      :precision => 16, :scale => 2
+    t.decimal  "parts_amount"
     t.integer  "responsible_id"
-    t.boolean  "letter_format",                                                    :default => true,  :null => false
+    t.boolean  "letter_format",                     :default => true,  :null => false
     t.text     "annotation"
     t.integer  "currency_id"
     t.integer  "transporter_id"
@@ -1573,21 +1573,21 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "sale_orders", ["updater_id"], :name => "index_sale_orders_on_updater_id"
 
   create_table "sale_payment_modes", :force => true do |t|
-    t.string   "name",                   :limit => 50,                                                   :null => false
+    t.string   "name",                   :limit => 50,                    :null => false
     t.integer  "embankables_account_id"
-    t.integer  "company_id",                                                                             :null => false
-    t.datetime "created_at",                                                                             :null => false
-    t.datetime "updated_at",                                                                             :null => false
+    t.integer  "company_id",                                              :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                        :default => 0,     :null => false
+    t.integer  "lock_version",                         :default => 0,     :null => false
     t.integer  "cash_id"
-    t.boolean  "published",                                                           :default => false
-    t.boolean  "with_accounting",                                                     :default => false, :null => false
-    t.boolean  "with_embankment",                                                     :default => false, :null => false
-    t.boolean  "with_commission",                                                     :default => false, :null => false
-    t.decimal  "commission_percent",                   :precision => 16, :scale => 2, :default => 0.0,   :null => false
-    t.decimal  "commission_amount",                    :precision => 16, :scale => 2, :default => 0.0,   :null => false
+    t.boolean  "published",                            :default => false
+    t.boolean  "with_accounting",                      :default => false, :null => false
+    t.boolean  "with_embankment",                      :default => false, :null => false
+    t.boolean  "with_commission",                      :default => false, :null => false
+    t.decimal  "commission_percent",                   :default => 0.0,   :null => false
+    t.decimal  "commission_amount",                    :default => 0.0,   :null => false
     t.integer  "commission_account_id"
   end
 
@@ -1598,17 +1598,17 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "sale_payment_modes", ["updater_id"], :name => "index_payment_modes_on_updater_id"
 
   create_table "sale_payment_parts", :force => true do |t|
-    t.decimal  "amount",            :precision => 16, :scale => 2
-    t.integer  "payment_id",                                                                   :null => false
-    t.integer  "company_id",                                                                   :null => false
-    t.datetime "created_at",                                                                   :null => false
-    t.datetime "updated_at",                                                                   :null => false
+    t.decimal  "amount"
+    t.integer  "payment_id",                                    :null => false
+    t.integer  "company_id",                                    :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,              :null => false
-    t.boolean  "downpayment",                                      :default => false,          :null => false
-    t.string   "expense_type",                                     :default => "UnknownModel", :null => false
-    t.integer  "expense_id",                                       :default => 0,              :null => false
+    t.integer  "lock_version",      :default => 0,              :null => false
+    t.boolean  "downpayment",       :default => false,          :null => false
+    t.string   "expense_type",      :default => "UnknownModel", :null => false
+    t.integer  "expense_id",        :default => 0,              :null => false
     t.integer  "journal_record_id"
     t.datetime "accounted_at"
   end
@@ -1623,24 +1623,24 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
 
   create_table "sale_payments", :force => true do |t|
     t.date     "paid_on"
-    t.decimal  "amount",            :precision => 16, :scale => 2,                           :null => false
-    t.integer  "mode_id",                                                                    :null => false
-    t.integer  "company_id",                                                                 :null => false
-    t.datetime "created_at",                                                                 :null => false
-    t.datetime "updated_at",                                                                 :null => false
+    t.decimal  "amount",                                      :null => false
+    t.integer  "mode_id",                                     :null => false
+    t.integer  "company_id",                                  :null => false
+    t.datetime "created_at",                                  :null => false
+    t.datetime "updated_at",                                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,            :null => false
+    t.integer  "lock_version",      :default => 0,            :null => false
     t.string   "bank"
     t.string   "check_number"
     t.string   "account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                       :default => '2012-06-04', :null => false
+    t.date     "to_bank_on",        :default => '2012-06-04', :null => false
     t.integer  "embankment_id"
     t.integer  "embanker_id"
-    t.boolean  "scheduled",                                        :default => false,        :null => false
-    t.boolean  "received",                                         :default => true,         :null => false
-    t.decimal  "parts_amount",      :precision => 16, :scale => 2,                           :null => false
+    t.boolean  "scheduled",         :default => false,        :null => false
+    t.boolean  "received",          :default => true,         :null => false
+    t.decimal  "parts_amount",                                :null => false
     t.string   "number"
     t.date     "created_on"
     t.datetime "accounted_at"
@@ -1689,19 +1689,19 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "shapes", :force => true do |t|
-    t.string   "name",                                                          :null => false
-    t.string   "polygon",                                                       :null => false
-    t.boolean  "master",                                      :default => true, :null => false
+    t.string   "name",                           :null => false
+    t.string   "polygon",                        :null => false
+    t.boolean  "master",       :default => true, :null => false
     t.text     "description"
     t.integer  "parent_id"
-    t.integer  "company_id",                                                    :null => false
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
+    t.integer  "company_id",                     :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                :default => 0,    :null => false
+    t.integer  "lock_version", :default => 0,    :null => false
     t.string   "number"
-    t.decimal  "area_measure", :precision => 16, :scale => 4, :default => 0.0,  :null => false
+    t.decimal  "area_measure", :default => 0.0,  :null => false
     t.integer  "area_unit_id"
   end
 
@@ -1734,25 +1734,25 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "shelves", ["updater_id"], :name => "index_shelves_on_updater_id"
 
   create_table "stock_moves", :force => true do |t|
-    t.string   "name",                                                                 :null => false
-    t.date     "planned_on",                                                           :null => false
+    t.string   "name",                                  :null => false
+    t.date     "planned_on",                            :null => false
     t.date     "moved_on"
-    t.decimal  "quantity",           :precision => 16, :scale => 4,                    :null => false
+    t.decimal  "quantity",                              :null => false
     t.text     "comment"
     t.integer  "second_move_id"
     t.integer  "second_location_id"
     t.integer  "tracking_id"
-    t.integer  "location_id",                                                          :null => false
-    t.integer  "unit_id",                                                              :null => false
-    t.integer  "product_id",                                                           :null => false
-    t.integer  "company_id",                                                           :null => false
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.integer  "location_id",                           :null => false
+    t.integer  "unit_id",                               :null => false
+    t.integer  "product_id",                            :null => false
+    t.integer  "company_id",                            :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                      :default => 0,     :null => false
+    t.integer  "lock_version",       :default => 0,     :null => false
     t.boolean  "virtual"
-    t.boolean  "generated",                                         :default => false
+    t.boolean  "generated",          :default => false
     t.string   "origin_type"
     t.integer  "origin_id"
     t.integer  "stock_id"
@@ -1765,20 +1765,20 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "stock_moves", ["updater_id"], :name => "index_stock_moves_on_updater_id"
 
   create_table "stock_transfers", :force => true do |t|
-    t.string   "nature",             :limit => 8,                                               :null => false
-    t.integer  "product_id",                                                                    :null => false
-    t.decimal  "quantity",                        :precision => 16, :scale => 4,                :null => false
-    t.integer  "location_id",                                                                   :null => false
+    t.string   "nature",             :limit => 8,                :null => false
+    t.integer  "product_id",                                     :null => false
+    t.decimal  "quantity",                                       :null => false
+    t.integer  "location_id",                                    :null => false
     t.integer  "second_location_id"
-    t.date     "planned_on",                                                                    :null => false
+    t.date     "planned_on",                                     :null => false
     t.date     "moved_on"
     t.text     "comment"
-    t.integer  "company_id",                                                                    :null => false
-    t.datetime "created_at",                                                                    :null => false
-    t.datetime "updated_at",                                                                    :null => false
+    t.integer  "company_id",                                     :null => false
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                   :default => 0, :null => false
+    t.integer  "lock_version",                    :default => 0, :null => false
     t.integer  "tracking_id"
     t.integer  "unit_id"
   end
@@ -1789,19 +1789,19 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "stock_transfers", ["updater_id"], :name => "index_stock_transfers_on_updater_id"
 
   create_table "stocks", :force => true do |t|
-    t.integer  "product_id",                                                          :null => false
-    t.integer  "location_id",                                                         :null => false
-    t.decimal  "quantity",            :precision => 16, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "virtual_quantity",    :precision => 16, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "quantity_min",        :precision => 16, :scale => 4, :default => 1.0, :null => false
-    t.decimal  "critic_quantity_min", :precision => 16, :scale => 4, :default => 0.0, :null => false
-    t.decimal  "quantity_max",        :precision => 16, :scale => 4, :default => 0.0, :null => false
-    t.integer  "company_id",                                                          :null => false
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.integer  "product_id",                           :null => false
+    t.integer  "location_id",                          :null => false
+    t.decimal  "quantity",            :default => 0.0, :null => false
+    t.decimal  "virtual_quantity",    :default => 0.0, :null => false
+    t.decimal  "quantity_min",        :default => 1.0, :null => false
+    t.decimal  "critic_quantity_min", :default => 0.0, :null => false
+    t.decimal  "quantity_max",        :default => 0.0, :null => false
+    t.integer  "company_id",                           :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                       :default => 0,   :null => false
+    t.integer  "lock_version",        :default => 0,   :null => false
     t.integer  "origin_id"
     t.string   "origin_type"
     t.integer  "tracking_id"
@@ -1844,14 +1844,14 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.integer  "sale_order_id"
     t.integer  "product_id"
     t.integer  "contact_id"
-    t.integer  "company_id",                                                           :null => false
-    t.datetime "created_at",                                                           :null => false
-    t.datetime "updated_at",                                                           :null => false
+    t.integer  "company_id",                            :null => false
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                      :default => 0,     :null => false
-    t.decimal  "quantity",           :precision => 16, :scale => 4
-    t.boolean  "suspended",                                         :default => false, :null => false
+    t.integer  "lock_version",       :default => 0,     :null => false
+    t.decimal  "quantity"
+    t.boolean  "suspended",          :default => false, :null => false
     t.integer  "nature_id"
     t.integer  "invoice_id"
     t.integer  "entity_id"
@@ -1897,20 +1897,20 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "tax_declarations", ["updater_id"], :name => "index_tax_declarations_on_updater_id"
 
   create_table "taxes", :force => true do |t|
-    t.string   "name",                                                                                :null => false
-    t.boolean  "included",                                                         :default => false, :null => false
-    t.boolean  "reductible",                                                       :default => true,  :null => false
-    t.string   "nature",               :limit => 8,                                                   :null => false
-    t.decimal  "amount",                            :precision => 16, :scale => 4, :default => 0.0,   :null => false
+    t.string   "name",                                                 :null => false
+    t.boolean  "included",                          :default => false, :null => false
+    t.boolean  "reductible",                        :default => true,  :null => false
+    t.string   "nature",               :limit => 8,                    :null => false
+    t.decimal  "amount",                            :default => 0.0,   :null => false
     t.text     "description"
     t.integer  "account_collected_id"
     t.integer  "account_paid_id"
-    t.integer  "company_id",                                                                          :null => false
-    t.datetime "created_at",                                                                          :null => false
-    t.datetime "updated_at",                                                                          :null => false
+    t.integer  "company_id",                                           :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                     :default => 0,     :null => false
+    t.integer  "lock_version",                      :default => 0,     :null => false
   end
 
   add_index "taxes", ["account_collected_id"], :name => "index_taxes_on_account_collected_id"
@@ -1940,15 +1940,15 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "tool_uses", ["updater_id"], :name => "index_tool_uses_on_updater_id"
 
   create_table "tools", :force => true do |t|
-    t.string   "name",                                                                    :null => false
-    t.string   "nature",       :limit => 8,                                               :null => false
-    t.decimal  "consumption",               :precision => 16, :scale => 4
-    t.integer  "company_id",                                                              :null => false
-    t.datetime "created_at",                                                              :null => false
-    t.datetime "updated_at",                                                              :null => false
+    t.string   "name",                                     :null => false
+    t.string   "nature",       :limit => 8,                :null => false
+    t.decimal  "consumption"
+    t.integer  "company_id",                               :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                             :default => 0, :null => false
+    t.integer  "lock_version",              :default => 0, :null => false
   end
 
   add_index "tools", ["created_at"], :name => "index_tools_on_created_at"
@@ -1978,19 +1978,19 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "trackings", ["updater_id"], :name => "index_stock_trackings_on_updater_id"
 
   create_table "transfers", :force => true do |t|
-    t.decimal  "amount",            :precision => 16, :scale => 2, :default => 0.0, :null => false
-    t.decimal  "parts_amount",      :precision => 16, :scale => 2, :default => 0.0, :null => false
+    t.decimal  "amount",            :default => 0.0, :null => false
+    t.decimal  "parts_amount",      :default => 0.0, :null => false
     t.integer  "supplier_id"
     t.string   "label"
     t.string   "comment"
     t.date     "started_on"
     t.date     "stopped_on"
-    t.integer  "company_id",                                                        :null => false
-    t.datetime "created_at",                                                        :null => false
-    t.datetime "updated_at",                                                        :null => false
+    t.integer  "company_id",                         :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,   :null => false
+    t.integer  "lock_version",      :default => 0,   :null => false
     t.date     "created_on"
     t.datetime "accounted_at"
     t.integer  "journal_record_id"
@@ -2004,18 +2004,18 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 
   create_table "transports", :force => true do |t|
-    t.integer  "transporter_id",                                               :null => false
+    t.integer  "transporter_id",                :null => false
     t.integer  "responsible_id"
-    t.decimal  "weight",         :precision => 16, :scale => 4
+    t.decimal  "weight"
     t.date     "created_on"
     t.date     "transport_on"
     t.text     "comment"
-    t.integer  "company_id",                                                   :null => false
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.integer  "company_id",                    :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                  :default => 0, :null => false
+    t.integer  "lock_version",   :default => 0, :null => false
   end
 
   add_index "transports", ["company_id"], :name => "index_transports_on_company_id"
@@ -2025,17 +2025,17 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "transports", ["updater_id"], :name => "index_transports_on_updater_id"
 
   create_table "units", :force => true do |t|
-    t.string   "name",         :limit => 8,                                                 :null => false
-    t.string   "label",                                                                     :null => false
+    t.string   "name",         :limit => 8,                  :null => false
+    t.string   "label",                                      :null => false
     t.string   "base"
-    t.decimal  "coefficient",               :precision => 16, :scale => 4, :default => 1.0, :null => false
-    t.integer  "company_id",                                                                :null => false
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.decimal  "coefficient",               :default => 1.0, :null => false
+    t.integer  "company_id",                                 :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                             :default => 0,   :null => false
-    t.decimal  "start",                     :precision => 16, :scale => 4, :default => 0.0, :null => false
+    t.integer  "lock_version",              :default => 0,   :null => false
+    t.decimal  "start",                     :default => 0.0, :null => false
   end
 
   add_index "units", ["company_id"], :name => "index_units_on_company_id"
@@ -2046,22 +2046,22 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
   add_index "units", ["updater_id"], :name => "index_units_on_updater_id"
 
   create_table "users", :force => true do |t|
-    t.string   "name",              :limit => 32,                                                   :null => false
-    t.string   "first_name",                                                                        :null => false
-    t.string   "last_name",                                                                         :null => false
+    t.string   "name",              :limit => 32,                    :null => false
+    t.string   "first_name",                                         :null => false
+    t.string   "last_name",                                          :null => false
     t.string   "salt",              :limit => 64
     t.string   "hashed_password",   :limit => 64
-    t.boolean  "locked",                                                         :default => false, :null => false
+    t.boolean  "locked",                          :default => false, :null => false
     t.string   "email"
-    t.integer  "company_id",                                                                        :null => false
-    t.integer  "role_id",                                                                           :null => false
-    t.datetime "created_at",                                                                        :null => false
-    t.datetime "updated_at",                                                                        :null => false
+    t.integer  "company_id",                                         :null => false
+    t.integer  "role_id",                                            :null => false
+    t.datetime "created_at",                                         :null => false
+    t.datetime "updated_at",                                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                   :default => 0,     :null => false
-    t.decimal  "reduction_percent",               :precision => 16, :scale => 4, :default => 5.0,   :null => false
-    t.boolean  "admin",                                                          :default => true,  :null => false
+    t.integer  "lock_version",                    :default => 0,     :null => false
+    t.decimal  "reduction_percent",               :default => 5.0,   :null => false
+    t.boolean  "admin",                           :default => true,  :null => false
     t.text     "rights"
     t.date     "arrived_on"
     t.text     "comment"
@@ -2071,9 +2071,9 @@ ActiveRecord::Schema.define(:version => 20100525145827) do
     t.integer  "establishment_id"
     t.string   "office"
     t.integer  "profession_id"
-    t.boolean  "employed",                                                       :default => false, :null => false
+    t.boolean  "employed",                        :default => false, :null => false
     t.string   "employment"
-    t.string   "language",          :limit => 3,                                 :default => "???", :null => false
+    t.string   "language",          :limit => 3,  :default => "???", :null => false
     t.datetime "connected_at"
   end
 
