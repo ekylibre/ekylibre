@@ -21,7 +21,9 @@ module List
       code << "  column = params[:column].to_s\n"
       code << "  list_params[:hidden_columns].delete(column) if params[:visibility] == 'shown'\n"
       code << "  list_params[:hidden_columns] << column if params[:visibility] == 'hidden'\n"
-      code << "  render(:nothing=>true)\n"
+      code << "  head :success\n"
+      code << "elsif params[:only]\n"
+      code << "  render(:inline=>'<%=#{table.view_method_name}(:only => params[:only])-%>')\n" 
       code << "else\n"
       code << "  render(:inline=>'<%=#{table.view_method_name}-%>')\n" 
       code << "end\n"
@@ -38,9 +40,15 @@ module List
       footer = footer_code(table)
       body = columns_to_cells(table, :body, :record=>record)
 
-      code  = table.finder.select_data_code(table)
-      code << "body = ''\n"
-      code << "if #{table.records_variable_name}.size>0\n"
+      code  = table.select_data_code
+      code << "body = '<tbody data-total=\"'+#{table.records_variable_name}_count+'\""
+      if table.paginate?
+        code << " data-per-page=\"'+#{table.records_variable_name}_limit+'\""
+        code << " data-pages-count=\"'+#{table.records_variable_name}_last+'\""
+        # code << " data-page-label=\"'+#{table.records_variable_name}_limit+'\""
+      end
+      code << ">'\n"
+      code << "if #{table.records_variable_name}_count > 0\n"
       code << "  reset_cycle('list')\n"
       code << "  for #{record} in #{table.records_variable_name}\n"
       line_class = "#{'+\' \'+('+table.options[:line_class].to_s.gsub(/RECORD/, record)+').to_s' unless table.options[:line_class].nil?}+cycle(' odd', ' even', :name=>'list')"
@@ -54,18 +62,19 @@ module List
       end
       code << "  end\n"
       code << "else\n"
-      code << "  body = ('<tr class=\"empty\"><td colspan=\"#{table.columns.size+1}\">' << ::I18n.translate('list.no_records') << '</td></tr>')\n"
+      code << "  body << '<tr class=\"empty\"><td colspan=\"#{table.columns.size+1}\">' + ::I18n.translate('list.no_records') + '</td></tr>'\n"
       code << "end\n"
-      # code << "text = #{colgroup} << #{header} << #{footer} << content_tag(:tbody, body.html_safe)\n"
-      code << "text = #{header} << #{footer} << content_tag(:tbody, body.html_safe)\n"
+      code << "body << '</tbody>'\n"
+      code << "if options[:only] == 'body'\n"
+      code << "  return body.html_safe\n"
+      code << "  return\n"
+      code << "end\n"
+      code << "text = #{header} << #{footer} << body.html_safe\n"
       code << "if block_given?\n"
       code << "  text << capture("+table.columns.collect{|c| {:name=>c.name, :id=>c.id}}.inspect+", &block).html_safe\n"
       code << "end\n"
 
-
-      # code << "text = content_tag(:table, text.html_safe, :class=>:#{style_class}, :id=>'#{table.name}') unless request.xhr?\n"
       code << "text = content_tag(:table, text.html_safe, :class=>'#{style_class}')\n"
-      # code << "text << '<div class=\"#{style_class}-slider\"><div class=\"#{style_class}-slider-handle\"></div></div>'\n"
       code << "text = content_tag(:div, text.html_safe, :class=>'#{style_class}', :id=>'#{table.name}') unless request.xhr?\n"
       code << "return text\n"
       return code
@@ -181,7 +190,7 @@ module List
       menu = "<div class=\"list-menu\">"
       menu << "<a class=\"list-menu-start\"><span class=\"icon\"></span><span class=\"text\">' + h(::I18n.translate('list.menu').gsub(/\'/,'&#39;')) + '</span></a>"
       menu << "<ul>"
-      if table.finder.paginate?
+      if table.paginate?
         # Per page
         list = [5, 10, 25, 50, 100]
         list << table.options[:per_page].to_i if table.options[:per_page].to_i > 0
@@ -221,11 +230,29 @@ module List
     def footer_code(table)
       code, pagination = '', ''
 
-      if table.finder.paginate?
+      if table.paginate?
         # Pages link # , :renderer=>ActionView::RemoteLinkRenderer, :remote=>{'data-remote-update'=>'#{table.name}'}
-        pagination << "' << will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('list.previous'), :next_label=>::I18n.translate('list.next'), 'data-list'=>'##{table.name}', :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+"}).to_s << '"
+        # pagination << "' << will_paginate(#{table.records_variable_name}, :class=>'widget pagination', :previous_label=>::I18n.translate('list.previous'), :next_label=>::I18n.translate('list.next'), 'data-list'=>'##{table.name}', :params=>{:action=>:#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+"}).to_s << '"
 
-        code = "(#{table.records_variable_name}.total_pages > 1 ? '<tfoot><tr><th colspan=\"#{table.columns.size+1}\">#{pagination}</th></tr></tfoot>' : '').html_safe"
+        current_page = "#{table.records_variable_name}_page"
+        last_page = "#{table.records_variable_name}_last"
+        # default_html_options = ", :remote=>true, 'data-type'=> 'html', 'data-list-update' => '##{table.name}'"
+        default_html_options = ", 'data-list' => '#{table.name}'"
+
+        pagination << "<div class=\"pagination\">" #  data-list=\"##{table.name}\"
+        pagination << "'+link_to_if(#{current_page} != 1, I18n.translate('list.pagination.first'), {:action => :#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+", :page => 1}, :class=>'first-page'#{default_html_options}) { |name| content_tag('span', name, :class=>'first-page disabled')} +'"
+        pagination << "'+link_to_if(#{current_page} != 1, I18n.translate('list.pagination.previous'), {:action => :#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+", :page => #{current_page}-1}, :class=>'previous-page'#{default_html_options}) { |name| content_tag('span', name, :class=>'previous-page disabled') }+'"
+
+        pagination << "<div class=\"paginator\"><div data-list=\"#{table.name}\" data-url=\"'+url_for(:action=>:#{table.controller_method_name}, :only=>:body, :page=>'PAGE'"+table.parameters.select{|k,v| k!= :page}.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+")+'\"data-paginate-at=\"'+#{current_page}.to_s+'\" data-paginate-to=\"'+#{last_page}.to_s+'\"></div></div>"
+
+        pagination << "'+link_to_if(#{current_page} != #{last_page}, I18n.translate('list.pagination.next'), {:action => :#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+", :page => #{current_page}+1}, :class=>'next-page'#{default_html_options}) { |name| content_tag('span', name, :class=>'next-page disabled') }+'"
+        pagination << "'+link_to_if(#{current_page} != #{last_page}, I18n.translate('list.pagination.last'), {:action => :#{table.controller_method_name}"+table.parameters.collect{|k,c| ", :#{k}=>list_params[:#{k}]"}.join+", :page => #{table.records_variable_name}_last}, :class=>'last-page'#{default_html_options}) { |name| content_tag('span', name, :class=>'last-page disabled') }+'"
+        pagination << "<span class=\"separator\"></span>"
+
+        pagination << "<span class=\"status\">'+I18n.translate('list.pagination.showing_x_to_y_of_total', :x => (#{table.records_variable_name}_offset + 1), :y => (#{table.records_variable_name}_offset+#{table.records_variable_name}_limit), :total => #{table.records_variable_name}_count)+'</span>"
+        pagination << "</div>"
+
+        code = "(#{table.records_variable_name}_last > 1 ? '<tfoot><tr><th colspan=\"#{table.columns.size+1}\">#{pagination}</th></tr></tfoot>' : '').html_safe"
       end
 
       code = "''" if code.blank?

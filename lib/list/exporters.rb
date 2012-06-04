@@ -23,9 +23,10 @@ module List
       Mime::TEXT
     end
 
-    def condition
-      "not request.xhr? and params[:format] == '#{name}'"
-    end
+    # Not used
+    # def condition
+    #   "not request.xhr? and params[:format] == '#{name}'"
+    # end
        
     def send_data_code(table)
       raise NotImplementedError.new("#{self.class.name}#format_data_code is not implemented.")

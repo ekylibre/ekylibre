@@ -65,6 +65,12 @@ fra:
     menu: 'Menu'
     next: 'Suivant'
     no_records: 'Aucun enregistrement'
+    pagination:
+      showing_x_to_y_of_total: 'Enregistrements %{x} à %{y} sur %{total}'
+      first: 'Début'
+      next: 'Suivant'
+      last: 'Fin'
+      previous: 'Précédent'
     previous: 'Précédent'
     x_per_page:
       one: '%{count} par page'

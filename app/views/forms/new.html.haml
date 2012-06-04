@@ -2,6 +2,6 @@
 
 =form_tag({:action=>:create}, {:id=>form_id, :style=>"overflow:none", :class=>"vbox flex"}.merge(params[:dialog] ? {"data-dialog"=>params[:dialog]} : {})) do
   =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
-  .actions.toolbar
-    =submit_tag(tg(options[:submit]||:create), :disable_with=>tl(:please_wait), :class=>"btn")
-    =tool_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-close-dialog"=>params[:dialog]} : {:tool=>:cancel, :grouped=>true}))
+  .actions
+    =submit_tag(tg(options[:submit]||:create), :disable_with=>tl(:please_wait))
+    =tool_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-close-dialog"=>params[:dialog]} : {:tool=>:cancel}))

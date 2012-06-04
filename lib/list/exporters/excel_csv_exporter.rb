@@ -1,10 +1,23 @@
+# encoding: UTF-8
+
+# Register XCSV format unless is already set
+Mime::Type.register("text/csv", :xcsv) unless defined? Mime::XCSV
+
 module List
   
   class ExcelCsvExporter < List::CsvExporter
 
+    def file_extension
+      "csv"
+    end
+
+    def mime_type
+      Mime::XCSV
+    end
+
     def send_data_code(table)
       record = "r"
-      code  = List::SimpleFinder.new.select_data_code(table)
+      code  = table.select_data_code(:paginate => false)
       code += "ic = Iconv.new('cp1252', 'utf-8')\n"
       code += "data = List::CSV.generate(:col_sep=>';') do |csv|\n"
       code += "  csv << [#{columns_to_array(table, :header, :iconv=>'ic').join(', ')}]\n"

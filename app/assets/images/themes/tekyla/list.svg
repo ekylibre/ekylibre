@@ -10,13 +10,13 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="96"
+   width="112"
    height="32"
    id="svg2"
    sodipodi:version="0.32"
    inkscape:version="0.47 r22583"
    version="1.0"
-   inkscape:export-filename="/home/brice/pygmalion/projets/images/boutons24.png"
+   inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list-aaaa.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
    sodipodi:docname="list.svg"
@@ -34,13 +34,6 @@
          offset="1"
          id="stop3712" />
     </linearGradient>
-    <inkscape:perspective
-       sodipodi:type="inkscape:persp3d"
-       inkscape:vp_x="0 : 32 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_z="104.00006 : 32 : 1"
-       inkscape:persp3d-origin="52.000031 : 21.333333 : 1"
-       id="perspective96" />
     <linearGradient
        id="linearGradient4477">
       <stop
@@ -97,18 +90,6 @@
          id="stop3776" />
     </linearGradient>
     <linearGradient
-       inkscape:collect="always"
-       id="linearGradient3753">
-      <stop
-         style="stop-color:#000000;stop-opacity:1;"
-         offset="0"
-         id="stop3755" />
-      <stop
-         style="stop-color:#000000;stop-opacity:0;"
-         offset="1"
-         id="stop3757" />
-    </linearGradient>
-    <linearGradient
        id="linearGradient3745">
       <stop
          style="stop-color:#535d80;stop-opacity:1;"
@@ -119,15 +100,6 @@
          offset="1"
          id="stop3749" />
     </linearGradient>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3753"
-       id="linearGradient3760"
-       x1="215.2419"
-       y1="59.999992"
-       x2="240.75793"
-       y2="59.999992"
-       gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3745"
@@ -149,37 +121,6 @@
        r="6"
        gradientTransform="matrix(-0.02083187,1.7291667,-1.6873781,-0.02032843,261.24652,-595.23794)"
        gradientUnits="userSpaceOnUse" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3877"
-       id="radialGradient3897"
-       cx="325.99997"
-       cy="-22.000002"
-       fx="325.99997"
-       fy="-22.000002"
-       r="6"
-       gradientTransform="translate(0,1.748403e-6)"
-       gradientUnits="userSpaceOnUse" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4477"
-       id="linearGradient4035"
-       x1="291.5625"
-       y1="31.3125"
-       x2="291.5"
-       y2="22.375"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-38,-15.0625)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3910"
-       id="linearGradient4043"
-       x1="288.125"
-       y1="18.625"
-       x2="291.5625"
-       y2="26.1875"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-38,-15.0625)" />
     <filter
        inkscape:collect="always"
        id="filter4180"
@@ -193,26 +134,6 @@
          stdDeviation="0.375"
          id="feGaussianBlur4182" />
     </filter>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3772"
-       id="linearGradient4191"
-       x1="288.78125"
-       y1="19.15625"
-       x2="290.78125"
-       y2="17.03125"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-38,-15.0625)" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient4155"
-       id="linearGradient4203"
-       gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(-38,-15)"
-       x1="286.69965"
-       y1="30.125"
-       x2="286.34903"
-       y2="20.6875" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3772"
@@ -264,27 +185,6 @@
        y1="15.954545"
        x2="321.875"
        y2="4.5" />
-    <inkscape:perspective
-       id="perspective2910"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <inkscape:perspective
-       id="perspective2933"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <inkscape:perspective
-       id="perspective2964"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3708"
@@ -294,7 +194,7 @@
        x2="304"
        y2="1"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="translate(0,-1)" />
+       gradientTransform="translate(-16,-1)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3910"
@@ -335,43 +235,6 @@
        y1="19.15625"
        x2="290.78125"
        y2="17.03125" />
-    <inkscape:perspective
-       id="perspective3705"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <inkscape:perspective
-       id="perspective3705-5"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <inkscape:perspective
-       id="perspective3705-6"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <inkscape:perspective
-       id="perspective2925"
-       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
-       inkscape:vp_z="1 : 0.5 : 1"
-       inkscape:vp_y="0 : 1000 : 0"
-       inkscape:vp_x="0 : 0.5 : 1"
-       sodipodi:type="inkscape:persp3d" />
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3877"
-       id="linearGradient3731"
-       x1="273.5"
-       y1="1.6875"
-       x2="286.5625"
-       y2="13.75"
-       gradientUnits="userSpaceOnUse" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3877"
@@ -380,7 +243,8 @@
        y1="21.375"
        x2="13"
        y2="27.0625"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(288,-32)" />
     <filter
        id="filter2934"
        inkscape:label="Colorize"
@@ -412,9 +276,18 @@
          id="feComposite2942"
          in2="SourceGraphic"
          operator="in"
-         k2="1"
          result="result4" />
     </filter>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3877"
+       id="linearGradient4052"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(48,-16)"
+       x1="273.5"
+       y1="1.6875"
+       x2="286.5625"
+       y2="13.75" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -423,9 +296,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="16"
-     inkscape:cx="45.975523"
-     inkscape:cy="16.715179"
+     inkscape:zoom="8"
+     inkscape:cx="48.070672"
+     inkscape:cy="14.090179"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showguides="true"
@@ -488,10 +361,6 @@
        id="guide2637" />
     <sodipodi:guide
        orientation="vertical"
-       position="24,0"
-       id="guide1709" />
-    <sodipodi:guide
-       orientation="vertical"
        position="32,0"
        id="guide1789" />
     <sodipodi:guide
@@ -502,10 +371,6 @@
        orientation="vertical"
        position="-48,0"
        id="guide1765" />
-    <sodipodi:guide
-       orientation="vertical"
-       position="112,0"
-       id="guide1793" />
     <sodipodi:guide
        orientation="vertical"
        position="-32,0"
@@ -570,10 +435,10 @@
      id="layer1"
      transform="translate(-240,16)">
     <path
-       style="opacity:0.50151056;fill:#333366;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="M 311.5,-14 L 306,-8.9999999 L 317,-8.9999997 L 311.5,-14 z"
+       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="M 344,2 L 338.5,7 L 341.25,7 L 344,4.5 L 346.75,7 L 349.5,7 L 344,2 z"
        id="up3"
-       sodipodi:nodetypes="cccc"
+       sodipodi:nodetypes="ccccccc"
        inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/sort-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -683,44 +548,37 @@
        id="path2947-4"
        d="M 258.99995,-10.979318 L 262.8947,-7.098265 L 268.99995,-13 L 268.99995,-9.027149 L 262.8947,-3 L 258.99995,-6.896331 L 258.99995,-10.979318 z" />
     <path
-       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
-       d="M 279.99995,-6 L 274.99995,-11.000001 L 284.99995,-11.000001 L 279.99995,-6 z"
-       id="path4015-8"
-       sodipodi:nodetypes="cccc" />
-    <path
        style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:url(#linearGradient3714);fill-opacity:1;stroke:none;stroke-width:1px;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Arial"
-       d="M 288,-16 L 288,0 L 290,0 L 290,-10 L 295,-10 L 295,0 L 297,0 L 297,-10 L 302,-10 L 302,0 L 304,0 L 304,-16 L 288,-16 z M 290,-14 L 295,-14 L 295,-12 L 290,-12 L 290,-14 z M 297,-14 L 302,-14 L 302,-12 L 297,-12 L 297,-14 z"
+       d="M 272,-16 L 272,0 L 274,0 L 274,-10 L 279,-10 L 279,0 L 281,0 L 281,-10 L 286,-10 L 286,0 L 288,0 L 288,-16 L 272,-16 z M 274,-14 L 279,-14 L 279,-12 L 274,-12 L 274,-14 z M 281,-14 L 286,-14 L 286,-12 L 281,-12 L 281,-14 z"
        id="path2917"
        sodipodi:nodetypes="ccccccccccccccccccccccc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/columns.png" />
     <path
-       style="fill:url(#linearGradient3743);stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
-       d="M 2,17 L 9.1875,17 L 13,20.5 L 13,31 L 2,31 L 2,17 z"
+       style="fill:url(#linearGradient3743);fill-opacity:1;stroke:none"
+       d="M 290,-15 L 297.1875,-15 L 301,-11.5 L 301,-1 L 290,-1 L 290,-15 z"
        id="path3735"
-       transform="translate(240,-16)"
        sodipodi:nodetypes="cccccc" />
     <path
        style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#555555;fill-opacity:1;stroke:none;stroke-width:2;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Arial"
-       d="M 241,0 L 241,16 L 254,16 L 254,4.0625 L 249.875,0 L 241,0 z M 243,2 L 249,2 L 249,5 L 252,5 L 252,14 L 243,14 L 243,2 z"
+       d="M 289,-16 L 289,0 L 302,0 L 302,-11.9375 L 297.875,-16 L 289,-16 z M 291,-14 L 297,-14 L 297,-11 L 300,-11 L 300,-2 L 291,-2 L 291,-14 z"
        id="path2913"
        sodipodi:nodetypes="ccccccccccccc" />
     <path
-       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#555555;fill-opacity:1;stroke:none;stroke-width:1.99999988000000006;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Arial"
-       d="M 18 17 L 18 19 L 30 19 L 30 17 L 18 17 z M 18 21 L 18 23 L 30 23 L 30 21 L 18 21 z M 18 25 L 18 27 L 30 27 L 30 25 L 18 25 z M 18 29 L 18 31 L 30 31 L 30 29 L 18 29 z "
-       transform="translate(240,-16)"
+       style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#555555;fill-opacity:1;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Arial"
+       d="M 306,-15 L 306,-13 L 318,-13 L 318,-15 L 306,-15 z M 306,-11 L 306,-9 L 318,-9 L 318,-11 L 306,-11 z M 306,-7 L 306,-5 L 318,-5 L 318,-7 L 306,-7 z M 306,-3 L 306,-1 L 318,-1 L 318,-3 L 306,-3 z"
        id="path3691"
        inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/pages.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
-       style="fill:url(#linearGradient3731);stroke:#555555;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;fill-opacity:1"
+       style="fill:url(#linearGradient4052);fill-opacity:1;stroke:#555555;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect3723"
        width="14"
        height="14"
-       x="273"
-       y="1"
+       x="321"
+       y="-15"
        inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/checked.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -729,17 +587,16 @@
        y="0"
        xlink:href="#path2947-4"
        id="use2939"
-       transform="translate(16.00005,16)"
+       transform="translate(64.00005,0)"
        width="96"
        height="32" />
     <rect
-       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#5555ff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0;stroke-dasharray:none"
+       style="fill:none;stroke:#5555ff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:0;stroke-dasharray:none"
        id="rect2943"
        width="14"
        height="14"
-       x="33"
-       y="17.0625"
-       transform="translate(240,-16)" />
+       x="321"
+       y="-15" />
     <use
        x="0"
        y="0"
@@ -756,57 +613,126 @@
        y="0"
        xlink:href="#up3"
        id="use2924"
-       transform="matrix(1,0,0,-1,8.5269988e-8,-16.000006)"
+       transform="matrix(1,0,0,-1,0,15.999994)"
        width="96"
        height="32"
        inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/sort-down.png"
        inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="fill:#555555;fill-opacity:1" />
+    <path
+       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="M 315.4375,21.5 L 310.4375,16.5 L 320.4375,16.5 L 315.4375,21.5 z"
+       id="path4015-8"
+       sodipodi:nodetypes="cccc" />
+    <path
+       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       d="M 275,8 L 281.375,0 L 284,0 L 277.625,8 L 284,16 L 281.375,16 L 275,8 z"
+       id="path4015-8-4-6-8"
+       sodipodi:nodetypes="ccccccc"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/home.png"
+       inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       id="g3914"
+       transform="translate(-1,32)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/previous-page.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <path
+         style="fill:#baba6b;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:0.52916664"
+         d="M 24.4375,16 L 18.75,24 L 24.5625,32 L 29.875,32 L 24,24 L 29.8125,16 L 24.4375,16 z"
+         id="path4056"
+         transform="translate(241,-48)"
+         sodipodi:nodetypes="ccccccc" />
+      <use
+         height="32"
+         width="96"
+         transform="translate(-12,-32)"
+         id="use3904"
+         xlink:href="#path4015-8-4-6-8"
+         y="0"
+         x="0" />
+      <use
+         height="32"
+         width="96"
+         transform="translate(-17,-32)"
+         id="use3906"
+         xlink:href="#path4015-8-4-6-8"
+         y="0"
+         x="0" />
+    </g>
+    <g
+       id="g3958"
+       transform="translate(0,32)"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/begin.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <use
+         height="32"
+         width="96"
+         transform="translate(-15,-32)"
+         id="use3918"
+         xlink:href="#g3914"
+         y="0"
+         x="0" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/home.png"
+         y="-32"
+         x="240"
+         height="16"
+         width="2"
+         id="rect2994-3-0"
+         style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    </g>
     <use
        x="0"
        y="0"
+       xlink:href="#path4015-8-4-6-8"
+       id="use3962"
+       transform="matrix(-1,0,0,1,576,0)"
+       width="96"
+       height="32" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3914"
+       id="use3964"
+       transform="matrix(-1,0,0,1,576,0)"
+       width="96"
+       height="32" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#g3958"
+       id="use3966"
+       transform="matrix(-1,0,0,1,576,0)"
+       width="96"
+       height="32"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/end.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/sort.png"
+       sodipodi:nodetypes="cccc"
+       id="path4177"
+       d="M 346.375,21.875 L 340.875,26.875 L 351.875,26.875 L 346.375,21.875 z"
+       style="fill:#555555;fill-opacity:1;fill-rule:nonzero;stroke:none" />
+    <use
+       style="fill:#555555;fill-opacity:1"
+       inkscape:export-ydpi="90"
+       inkscape:export-xdpi="90"
+       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/sort.png"
+       height="32"
+       width="96"
+       transform="matrix(1,0,0,-1,2.375,35.874994)"
+       id="use4179"
        xlink:href="#up3"
-       id="use2926"
-       transform="matrix(0,1,-1,0,318,-319.5)"
-       width="96"
-       height="32"
-       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/next.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <use
-       x="0"
        y="0"
-       xlink:href="#up3"
-       id="use2928"
-       transform="matrix(0,-1,1,0,334,303.5)"
-       width="96"
-       height="32"
-       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/previous.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#use2928"
-       id="use2930"
-       transform="translate(0,14)"
-       width="96"
-       height="32"
-       style="filter:url(#filter2934)"
-       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/previous-disabled.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <use
-       x="0"
-       y="0"
-       xlink:href="#use2926"
-       id="use2932"
-       transform="translate(3.0000001e-7,14)"
-       width="96"
-       height="32"
-       style="filter:url(#filter2934)"
-       inkscape:export-filename="/home/brice/dev/ekylibre/app/assets/images/themes/tekyla/list/next-disabled.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       x="0" />
   </g>
 </svg>

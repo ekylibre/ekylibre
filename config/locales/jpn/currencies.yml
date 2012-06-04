@@ -181,4 +181,4 @@ jpn:
       formats:  #?
         JPY: #?
           format: '%n円' #?
-          negative_format: '%n円' #?
+          negative_format: '-%n円' #?

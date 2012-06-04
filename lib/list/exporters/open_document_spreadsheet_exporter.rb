@@ -1,6 +1,6 @@
 # encoding: UTF-8
-# Register ODS format unless is already set
 
+# Register ODS format unless is already set
 Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
 
 module List
@@ -26,7 +26,7 @@ module List
       xml_escape = "to_s.gsub('&', '&amp;').gsub('\\'', '&apos;').gsub('<', '&lt;').gsub('>', '&gt;')"
       xml_escape << ".force_encoding('US-ASCII')" if xml_escape.respond_to?(:force_encoding)
       record = "r"
-      code  = List::SimpleFinder.new.select_data_code(table)
+      code  = table.select_data_code(:paginate => false)
       code << "name = #{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i,'_')\n"
       code << "temporary_dir = Rails.root.join('tmp', 'list')\n"
       code << "FileUtils.mkdir_p(temporary_dir)\n"

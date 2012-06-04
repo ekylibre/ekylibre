@@ -9,7 +9,7 @@ module List
       @name    = name
       @model   = model
       @options = options
-      @options[:finder] = (@options[:pagination]==:none ? :simple_finder  : :will_paginate_finder)
+      @paginate = !(@options[:pagination]==:none || @options[:paginate].is_a?(FalseClass))
       @options[:renderer] ||= :simple_renderer
       @options[:per_page] = 25 if @options[:per_page].to_i <= 0
       @options[:page] = 1 if @options[:page].to_i <= 0
@@ -18,7 +18,7 @@ module List
       @id = @@current_id.to_s(36).to_sym
       @@current_id += 1
       @parameters = {:sort=>:to_s, :dir=>:to_s}
-      @parameters.merge!(:page=>:to_i, :per_page=>:to_i) if self.finder.paginate?
+      @parameters.merge!(:page=>:to_i, :per_page=>:to_i) if self.paginate?
     end
 
     def new_id
@@ -33,6 +33,10 @@ module List
 
     def exportable_columns
       @columns.select{|c| c.exportable?}
+    end
+
+    def paginate?
+      @paginate
     end
 
   end

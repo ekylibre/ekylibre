@@ -43,7 +43,6 @@ $list-layout: smart;
 @import "themes/tekyla/list/*.png";
 @include all-list-sprites;
 
-
 div.list { margin: 0; }
 
 table.list { 
@@ -161,23 +160,64 @@ table.list {
       clear:both; 
       border:none; 
       background: #EEEFFA image-url("themes/tekyla/shadow-bottom.png") repeat-x top center !important; 
+      background: rgba(240,242,250,0.7) image-url("themes/tekyla/shadow-bottom.png") repeat-x top center !important;
       font-weight: normal;  
       div.pagination {
         padding: 4px; 
         display:block;
-        * { padding: 2px 4px; }
+        * { padding: 2px 4px; margin: 0 2px }
         span.current { font-weight:bold; color: black; }
         em { font-weight:bold; color: black; font-style: normal; }
-        span.disabled { color: #88A; }
-        html[dir="rtl"] & .next_page, html[dir="ltr"] & .previous_page { 
-          padding: 2px 4px 2px 10px; 
-          @include list-sprite(previous);
-          &.disabled { @include list-sprite(previous-disabled);}
+        span.disabled {
+          @include opacity(0.5);
         }
-        html[dir="rtl"] & .previous_page, html[dir="ltr"] & .next_page { 
-          padding: 2px 10px 2px 4px; 
-          @include list-sprite(next);
-          &.disabled { @include list-sprite(next-disabled);}
+        .paginator { 
+          padding: 5px;
+          @include inline-block;
+          .ui-slider-horizontal {
+            width: 200px;
+            height: 4px;
+            position: relative;
+            background: white;
+            border: 1px solid #AAA;
+            padding: 0;
+            @include border-radius(3px);
+            .ui-slider-handle { 
+              position: absolute;
+              top: -6px;
+              z-index: 2;
+              width: 16px; 
+              height: 16px;
+              margin-left: -8px;
+              padding:0;
+              background: #48A;
+              @include box-shadow(0 0 4px black inset);
+              @include border-radius(8px);
+            }
+          }
+        }
+        .last-page, .first-page, .next-page, .previous-page {
+          @include hide-text;
+          @include inline-block;
+          width: 16px;
+          height: 16px;
+          padding: 0;
+        }
+        html[dir="rtl"] & .last-page, html[dir="ltr"] & .first-page { 
+          @include list-sprite(first);
+        }
+        html[dir="rtl"] & .first-page, html[dir="ltr"] & .last-page { 
+          @include list-sprite(last);
+        }
+        html[dir="rtl"] & .next-page, html[dir="ltr"] & .previous-page { 
+         /* padding: 2px 4px 2px 10px; */
+          @include list-sprite(previous-page);
+          /* &.disabled { @include list-sprite(previous-disabled);}*/
+        }
+        html[dir="rtl"] & .previous-page, html[dir="ltr"] & .next-page { 
+          /*padding: 2px 10px 2px 4px; */
+          @include list-sprite(next-page);
+          /* &.disabled { @include list-sprite(next-disabled);}*/
         }
       }
     }

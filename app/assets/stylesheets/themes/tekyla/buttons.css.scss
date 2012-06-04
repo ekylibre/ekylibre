@@ -143,7 +143,7 @@ input[type="submit"], a.btn {
 
 $i: 0;
 @each $button-name in $buttons-names { 
-  .btn.#{$button-name} {
+  .btn.#{$button-name}, .mn.#{$button-name} {
     .icon {
       @include inline-block;
       height: $buttons-interval*2/3;

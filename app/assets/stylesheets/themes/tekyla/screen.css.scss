@@ -23,7 +23,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   padding:0; 
   font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;
   vertical-align: middle;
-  line-height: 1.4em;
+  /*line-height: 1.4em;*/
 }
 
 
@@ -36,10 +36,8 @@ $common-layout: smart;
 @include all-common-sprites;
 
 
-html { background: #F1F1F1;/*background: #688ED8 #C9D7F1;*/}
+html { background: #F1F1F1; }
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;}
-/*html[dir="ltr"] ul { padding-left: 3ex; }
-html[dir="rtl"] ul { padding-right: 3ex; }*/
 fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: 15px; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
@@ -218,6 +216,7 @@ div#side {
           white-space: nowrap; 
           overflow: hidden; 
           width: 176px;
+          line-height: 1.4em;
           @include ellipsis;
           -moz-binding: url(../xml/ellipsis.xml#ellipsis); 
           -o-text-overflow: ellipsis; text-overflow: ellipsis; 
@@ -254,7 +253,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 .main .mn-index .mn-index-sub { margin: 8px 0 0; padding: 0 8px; }
 .main .mn-index .mn-index-sub:first-child { margin: 0; }
 .main .mn-index .mn-index-sub legend { font-size: 11px; text-transform: uppercase; }
-.main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; }
+.main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; line-height: 1.4em;}
 .main .mn-index .mn-index-sub a:hover { background: #C9D7F1; }
 
 .main .menu { @include border-radius(8px); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
@@ -269,27 +268,68 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
 /*#top { border-bottom: 1px solid #DDD; }*/
 
-#top .user-bar { background: rgba(255,255,255,0.3); border: 1px solid rgba(255,255,255,0.32); border-top: none; border-bottom: none; height: 32px; padding: 0; position :relative; vertical-align:bottom;}
-#top .user-bar a.root { display:block; height: 32px; line-height: 32px; white-space: nowrap; vertical-align: middle; padding: 0 8px;}
-#top .user-bar ul { display: none; border: 1px solid #AAA; margin: 0; padding: 2px; position:absolute; margin:0; top: 30px; z-index: 1000; width:auto; min-width: 10em; background: #F1F1F1; box-shadow: 0 0 5px rgba(0,0,0,0.3)}
-#top .user-bar:hover { background: #F1F1F1; border-color: #AAA;}
-#top .user-bar:hover a.root { z-index:5000; position: relative; top: 0; background: #F1F1F1 }
-#top .user-bar:hover ul { display: block; }
-html[dir="ltr"] #top .user-bar ul { right: -1px; }
-html[dir="rtl"] #top .user-bar ul { left: -1px; }
-#top .user-bar ul li { display: block; padding: 0px;}
-#top .user-bar ul li:hover { background: #C9D7F1 }
-#top .user-bar ul li a { display: block; padding: 4px 6px; white-space: nowrap; text-decoration: none; color: black;}
-#top .user-bar ul li.separator { height: 1px; padding: 0; background: #CCC; margin: 3px auto;}
-#top .user-bar ul li.separator:hover, #top .user-bar ul li.no-link:hover { background: transparent;}
+#top {
+  .user-bar { 
+    background: rgba(255,255,255,0.3); 
+    border: 1px solid rgba(255,255,255,0.32); 
+    border-top: none; 
+    border-bottom: none; 
+    height: 32px; 
+    padding: 0; 
+    position :relative; 
+    vertical-align:bottom;
+    html[dir="ltr"] & { float:right; }
+    html[dir="rtl"] & { float:left; }
+    a.root { 
+      display:block; 
+      height: 32px; 
+      line-height: 26px; 
+      white-space: nowrap; 
+      vertical-align: middle; 
+      padding: 0 8px;
+      text-decoration: none;
+    }
+    .name { font-weight: bold; }
+    ul { 
+      display: none; 
+      border: 1px solid #AAA; 
+      margin: 0; 
+      padding: 2px; 
+      position:absolute; 
+      top: 30px; 
+      z-index: 1000; 
+      width:auto; 
+      min-width: 10em; 
+      background: #F1F1F1; 
+      @include box-shadow(0 0 5px rgba(0,0,0,0.3));
+      html[dir="ltr"] & { right: -1px; }
+      html[dir="rtl"] & { left: -1px; }
+      li { 
+        display: block; 
+        padding: 0;
+        &:hover { background: #C9D7F1 }
+        a { display: block; padding: 4px 6px; white-space: nowrap; text-decoration: none; color: black;}
+        &.separator { height: 1px; padding: 0; background: #CCC; margin: 3px auto;}
+        &.separator:hover, &.no-link:hover { background: transparent;}
+      }
+    }
+    &:hover { 
+      background: #F1F1F1; 
+      border-color: #AAA;
+      a.root { 
+        z-index:5000; 
+        position: relative; 
+        top: 0; 
+        background: #F1F1F1 
+      }
+      ul { display: block; }
+    }
+  }
 
-#top .user-bar .name { font-weight: bold; }
 
-/*#top .user-bar > a { margin: 0 4px; position:relative; top: 7px;}*/
-html[dir="ltr"] #top .user-bar { float:right;  }
-html[dir="rtl"] #top .user-bar { float:left; }
+}
 
-/*# .2357AB .3D5C8D .47628c 407ad8  688ED8*/
+
 #top .menu-bar { height: 29px; padding: 3px 3px 0; /*border-top: 1px solid #23579A;*/ background: #688ED8 image-url("themes/tekyla/shadow-top.png") bottom repeat-x; display: block;}
 #top .menu-bar ul { margin:0; padding: 0; }
 #top .menu-bar li { position:relative; list-style-type:none; padding: 0; }
@@ -323,7 +363,8 @@ html[dir="rtl"] #top .menu-bar ul li ul { right:-1px; }
       vertical-align: middle;
       @include common-sprite(home); 
       @include inline-block; 
-      height: 16px; width: 17px; 
+      height: 16px; 
+      width: 17px; 
     }
   }
   &:hover a.menu.general .icon, &.current a.menu.general .icon{ 
@@ -334,12 +375,6 @@ html[dir="rtl"] #top .menu-bar ul li ul { right:-1px; }
 html[dir="ltr"] #top .menu-bar ul li ul li a { text-align: left; }
 html[dir="rtl"] #top .menu-bar ul li ul li a { text-align: right; }
 
-
-#top #loading { background: image-url("themes/tekyla/ajax-loader-3.gif") no-repeat; margin: 4px 0 0; width: 16px; height:16px; }
-html[dir="ltr"] #top #modules { float:left; }
-html[dir="ltr"] #top #loading { float:right; }
-html[dir="rtl"] #top #modules { float:right; }
-html[dir="rtl"] #top #loading { float:left; }
 
 #helpage { padding-left: 8px; }
 
