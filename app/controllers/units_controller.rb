@@ -23,7 +23,7 @@ class UnitsController < ApplicationController
   list(:conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
     t.column :label
     t.column :name
-    t.column :coefficient
+	t.column :coefficient, :datatype=>:numeric
     t.column :base
     t.column :start
     t.action :edit
