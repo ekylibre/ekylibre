@@ -18,7 +18,9 @@ We encourage you to contribute to Ekylibre.
 
 == Build Status {<img src="https://secure.travis-ci.org/ekylibre/ekylibre.png"/>}[http://travis-ci.org/ekylibre/ekylibre]
 
-== Dependency Status {<img src="https://gemnasium.com/ekylibre/ekylibre.png?travis"/>}[https://gemnasium.com/ekylibre/ekylibre]
+== Dependency Status {<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
+
+== Code Climate {<img src="https://codeclimate.com/badge.png"/>}[https://codeclimate.com/github/ekylibre/ekylibre]
 
 == License
 

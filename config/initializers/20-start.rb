@@ -11,7 +11,7 @@ require 'templating'
 require 'numisma'
 require 'activerecord'
 require 'ekylibre'
-require 'list'
+# require 'list'
 
 require 'csv'
 

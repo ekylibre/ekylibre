@@ -34,15 +34,6 @@ class ApplicationController < ActionController::Base
   # include ExceptionNotifiable
   # local_addresses.clear
 
-  # TODO: Move these lines to test
-  # for k, v in Ekylibre.references
-  #   for c, t in v
-  #     raise Exception.new("#{k}.#{c} is not filled.") if t.blank?
-  #     t.to_s.classify.constantize if t.is_a? Symbol
-  #   end
-  # end
-
-
 
   # Generate render_print_* method which send data corresponding to a nature of
   # document template. It use special method +print_fastly!+.

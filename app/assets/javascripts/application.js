@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require active-list.jquery
 //= require formize
 //= require combo_box
 //= require big-integer

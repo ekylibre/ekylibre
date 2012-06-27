@@ -9,8 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require active-list
  *= require ./buttons
- *= require ./list
 */
 
 @import "compass/reset";
@@ -21,7 +21,7 @@ $experimental-support-for-svg: true;
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
   padding:0; 
-  font-family: "Open Sans", "Liberation Sans", helvetica, sans-serif;
+  font-family: /*"Open Sans", "Liberation Sans",*/ helvetica, sans-serif;
   vertical-align: middle;
   /*line-height: 1.4em;*/
 }
@@ -35,8 +35,21 @@ $common-layout: smart;
 @import "themes/tekyla/common/*.png";
 @include all-common-sprites;
 
+$base-color: #95b0e4;
+$menu-background: #F1F1F1;
+$menu-background-hover: mix($menu-background, $base-color, 80%);
+$menu-border: 1px solid mix($menu-background, #000000, 80%);
+@mixin menu-shadow { 
+  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3))
+}
 
-html { background: #F1F1F1; }
+
+
+
+
+
+
+html { background: $menu-background; }
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;}
 fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: 15px; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
@@ -648,13 +661,34 @@ html[dir="rtl"] .branch .item .item-tool { text-align: left; }
 
 tbody.lines td input { width: 95%; }
 
-table.list tr.total.invalid td { color: #D20; }  
-table.list tr.total.valid   td { color: #090; }  
-table.list tr.subtotal.invalid td { color: #D20; }  
-table.list tr.subtotal.valid   td { color: #090; }  
-table.list tr.first-line    td { border-top: 2px solid #F77; }  
-table.list tr.last-line     td { border-bottom: 2px solid #F77; }  
-table.list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
+table.list { 
+  width: 100%;
+  tr.total {
+    td, th { 
+      border: 1px solid #DDD;
+      font-size: 130%; 
+      font-weight: bold;
+      padding: 2px;
+      html[dir="ltr"] & { text-align:right; }
+      html[dir="rtl"] & { text-align:left; }
+    }
+    th { 
+      padding: 2px 4px;
+      @include background(linear-gradient(top, #EEE, #DDD));
+    }
+    td { 
+      color: black;
+      @include background(linear-gradient(top, #FFF, #EEE));
+    }
+    &.invalid td { color: #D20; }  
+  }
+}
+table.active-list tr.total.valid   td { color: #090; }  
+table.active-list tr.subtotal.invalid td { color: #D20; }  
+table.active-list tr.subtotal.valid   td { color: #090; }  
+table.active-list tr.first-line    td { border-top: 2px solid #F77; }  
+table.active-list tr.last-line     td { border-bottom: 2px solid #F77; }  
+table.active-list tr.inline-errors td { background: transparent; padding:8px 4px 0; border-left:none; border-right:none; }
 
 div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; }
 
@@ -667,7 +701,7 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .param:last-child { border-bottom:none; }
 
 table.accounts tr td.tabs { width: 16em; }
-table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px; }
+table.accounts tr td.active-list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px; }
 .major-accounts a, .major-accounts strong { background: #DBE4F6; display: block; padding:4px 8px; margin-bottom:2px; }
 html[dir="ltr"] .major-accounts a, html[dir="ltr"] .major-accounts strong { @include border-top-left-radius(8px); @include border-bottom-left-radius(8px); }
 html[dir="rtl"] .major-accounts a, html[dir="rtl"] .major-accounts strong { @include border-top-right-radius(8px); @include border-bottom-right-radius(8px); }
@@ -760,7 +794,7 @@ html[dir="rtl"] .bmenu ul { right: -1px; }
 .treemap .plot.selected * { color: HighlightText; }
 
 
-table.list tr.aborted td, table.list tr.refused td { text-decoration: line-through; }
+table.active-list tr.aborted td, table.active-list tr.refused td { text-decoration: line-through; }
 
 table.profile { border-collapse: collapse; border-spacing: 0; width: 100%;}
 table.profile td { padding: 1px 2px; }
@@ -793,6 +827,98 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 
 .ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
+
+.ui-autocomplete.ui-menu { 
+  position: absolute;
+  cursor: default;
+  background: $menu-background;
+  @include menu-shadow;
+  border: $menu-border;
+  list-style:none;
+  padding: 0;
+  margin: 0;
+  display:block;
+  float: left;
+  .ui-menu {
+    margin-top: -3px;
+  }
+  .ui-menu-item {
+    margin:0;
+    padding: 0;
+    zoom: 1;
+    float: left;
+    clear: left;
+    width: 100%;
+    a {
+      text-decoration:none;
+      display:block;
+      padding:.2em .4em;
+      line-height:1.5;
+      zoom:1;
+      &.ui-state-hover, &.ui-state-active {
+        font-weight: normal;
+        background: $menu-background-hover;
+        /*margin: -1px;*/
+      }
+    }
+  }
+}
+
+
+
+
+.ui-dialog { 
+  position: absolute; 
+  background: $menu-background;
+  border: 2px solid $base-color;
+  @include box-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+  overflow: hidden;
+  .ui-dialog-titlebar { 
+    padding: 4px;
+    height: 16px;
+    background: $base-color;
+    .ui-dialog-title {
+      margin: 4px;
+      font-weight: bold;
+      font-size: 110%;
+      color: white;
+      @include text-shadow(0 0 3px rgba(0,0,0,0.5));
+    }
+    .ui-dialog-titlebar-close { 
+      float: right;
+      span { 
+        display: block;
+        @include squish-text;
+        @include icons-sprite(close);
+        height: 16px;
+        width: 16px;
+      }
+      &:hover, &:focus { padding: 0; }
+    }
+  }
+  .ui-dialog-content { 
+    clear: both;
+    position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
+  .ui-dialog-buttonpane { 
+    text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; 
+    .ui-dialog-buttonset { float: right; }
+    button { margin: .5em .4em .5em 0; cursor: pointer; }
+  }
+  .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
+}
+
+.ui-draggable .ui-dialog-titlebar { cursor: move; }
+
+.ui-widget-overlay { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: transparentize($base-color, 0.8);
+}
+
+
 
 input[data-datepicker] {text-align: center}
 
