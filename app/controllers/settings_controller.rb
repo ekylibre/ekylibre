@@ -65,6 +65,7 @@ class SettingsController < ApplicationController
   def restore
     backup = params[:file][:path]
     temporary_dir = Rails.root.join("tmp", "uploads")
+    FileUtils.mkdir_p(temporary_dir)
     file = temporary_dir.join(backup.original_filename+"."+rand.to_s[2..-1].to_i.to_s(36))
     File.open(file, "wb") { |f| f.write(backup.read)}
     start = Time.now
