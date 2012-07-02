@@ -160,6 +160,7 @@ class CompanyController < ApplicationController
       elsif params['restore'] and params[:file] and params[:file][:path]
         # Récupération d'une sauvegarde
         backup = params[:file][:path]
+        FileUtils.makedirs("#{RAILS_ROOT}/tmp/uploads")
         file = "#{RAILS_ROOT}/tmp/uploads/#{backup.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
         File.open(file, "wb") { |f| f.write(backup.read)}
         start = Time.now

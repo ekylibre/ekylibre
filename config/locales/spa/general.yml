@@ -13,7 +13,10 @@ spa:
       #>month_letter: '%d %B %Y'
       #>short: '%b %d'
     month_names: ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
-    order: [:day, :month, :year]
+    order: 
+    - :day
+    - :month
+    - :year
   datetime:
     distance_in_words:
       about_x_hours:

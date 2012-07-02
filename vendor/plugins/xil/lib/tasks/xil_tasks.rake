@@ -1,3 +1,4 @@
+# encoding: utf-8
 namespace :xil do
 
   desc "Build a sample PDF with Ebi"

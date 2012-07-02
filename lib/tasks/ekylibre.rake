@@ -1,3 +1,4 @@
+# encoding: utf-8
 desc "Create schema_hash.rb"
 task :shash => :environment do
   hash = {}; 
