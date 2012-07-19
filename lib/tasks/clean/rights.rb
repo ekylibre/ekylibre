@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 desc "Update and sort rights.yml"
 task :rights => :environment do
@@ -61,7 +62,7 @@ task :rights => :environment do
       actions = rights[right]['actions'].sort
       actions = actions.collect{|x| x.match(/^#{controller}\:\:/) ? x.split('::')[1] : x}.sort unless controller.blank?
       line = "  actions: [#{actions.join(', ')}]"
-      if line.length > 80 or line.match(/\#/)
+      if line.length > 0 or line.match(/\#/)
         # if line.match(/\#/)
         yaml += "  actions:\n"
         for action in actions

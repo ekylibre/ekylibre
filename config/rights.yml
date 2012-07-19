@@ -85,10 +85,12 @@ backup_company:
   - settings::restore
 # Transfer commercial data in accountancy
 bookkeep:
-  actions: [dashboards::accountancy, journals::bookkeep]
+  actions:
+  - dashboards::accountancy
+  - journals::bookkeep
 # Build production chains
 build_production_chains:
-  actions: []
+  actions:
 # Cancel sales_invoices
 cancel_sales_invoices:
   actions:
@@ -99,7 +101,7 @@ cancel_sales_invoices:
   - sales::list_credits
 # Change prices on sales
 change_prices_on_sales:
-  actions: []
+  actions:
 # Close and reopen journals
 close_journals:
   actions:
@@ -160,13 +162,21 @@ consult_entities:
   - entities::show
 # Consult the journal entries
 consult_journal_entries:
-  actions: [dashboards::accountancy, journals::index, journals::show]
+  actions:
+  - dashboards::accountancy
+  - journals::index
+  - journals::show
 # Consult the prices
 consult_prices:
-  actions: [dashboards::trade, prices::index]
+  actions:
+  - dashboards::trade
+  - prices::index
 # Consult the products
 consult_products:
-  actions: [dashboards::trade, products::index, products::show]
+  actions:
+  - dashboards::trade
+  - products::index
+  - products::show
 # Consult the purchases
 consult_purchases:
   actions:
@@ -208,13 +218,18 @@ consult_trackings:
   - trackings::show
 # Export listings
 extract_listings:
-  actions: [dashboards::general, listings::extract, listings::index]
+  actions:
+  - dashboards::general
+  - listings::extract
+  - listings::index
 # Set reduction on sales
 give_discounts_on_sales:
-  actions: []
+  actions:
 # Import data from other software
 import_data:
-  actions: [dashboards::general, settings::import]
+  actions:
+  - dashboards::general
+  - settings::import
 # Import, export people listings
 import_export_entities:
   actions:
@@ -225,7 +240,10 @@ import_export_entities:
   - entities::list
 # Send mail to lists
 mail_to_listings:
-  actions: [dashboards::general, listings::index, listings::mail]
+  actions:
+  - dashboards::general
+  - listings::index
+  - listings::mail
 # Manage accounts
 manage_accounts:
   actions:
@@ -998,7 +1016,10 @@ manage_warehouses:
   - warehouses::update
 # Merge people
 merge_entities:
-  actions: [dashboards::relations, entities::index, entities::merge]
+  actions:
+  - dashboards::relations
+  - entities::index
+  - entities::merge
 # Use production chains
 use_production_chains:
-  actions: []
+  actions:
