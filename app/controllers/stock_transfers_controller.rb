@@ -30,9 +30,9 @@ class StockTransfersController < ApplicationController
     t.column :name, :through=>:second_warehouse, :url=>true
     t.column :planned_on
     t.column :moved_on
-    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', :confirm=>:are_you_sure
+    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', 'data-confirm' => :are_you_sure
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of stock transfers

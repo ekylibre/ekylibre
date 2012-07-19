@@ -4,5 +4,5 @@
   =hidden_field_tag(:_method, :put) # Needed for better layout presentation
   =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
   .actions
-    =submit_tag(tg(options[:submit]||:update), :disable_with=>tl(:please_wait))
+    =submit_tag(tg(options[:submit]||:update), "data-disable-with"=>tl(:please_wait))
     =link_to(tg(options[:cancel]||:cancel), :back, (params[:dialog] ? {"data-close-dialog"=>params[:dialog]} : {:tool=>:cancel}))

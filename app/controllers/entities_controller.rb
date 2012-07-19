@@ -28,7 +28,7 @@ class EntitiesController < ApplicationController
     t.column :line_6
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
-    # t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    # t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of entities
@@ -41,7 +41,7 @@ class EntitiesController < ApplicationController
     t.column :number
     t.column :iban_label
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=> :are_you_sure_you_want_to_delete 
+    t.action :destroy
   end
 
   list(:contacts, :conditions=>['#{Contact.table_name}.company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
@@ -54,7 +54,7 @@ class EntitiesController < ApplicationController
     t.column :by_default
     t.column :code, :through=>:entity, :url=>true
     t.action :edit  
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
@@ -65,7 +65,7 @@ class EntitiesController < ApplicationController
     t.column :location
     t.column :started_at
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
@@ -79,7 +79,7 @@ class EntitiesController < ApplicationController
     t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
     t.column :number, :through=>:deposit, :url=>true
     t.action :edit, :if=>"RECORD.deposit.nil\?"
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
   end
 
   list(:links, :model=>:entity_links, :conditions=>['#{EntityLink.table_name}.stopped_on IS NULL AND #{EntityLink.table_name}.company_id = ? AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['@current_company.id'], ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page=>5) do |t|
@@ -88,7 +88,7 @@ class EntitiesController < ApplicationController
     t.column :description, :through=>:entity_2, :url=>true
     t.column :comment
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
@@ -98,14 +98,14 @@ class EntitiesController < ApplicationController
     t.column :started_on, :datatype=>:date
     t.column :stopped_on, :datatype=>:date
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:outgoing_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
@@ -117,7 +117,7 @@ class EntitiesController < ApplicationController
     t.column :used_amount, :currency=>"RECORD.mode.cash.currency"
     t.column :amount, :currency=>"RECORD.mode.cash.currency", :url=>true
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
   end
 
   list(:purchases, :model=>:purchase, :conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
@@ -130,7 +130,7 @@ class EntitiesController < ApplicationController
     t.column :amount, :currency=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   list(:sales, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.tags', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
@@ -143,7 +143,7 @@ class EntitiesController < ApplicationController
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :duplicate, :method=>:post
     t.action :edit, :if=>"RECORD.draft? "
-    t.action :destroy, :if=>"RECORD.aborted? ", :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy, :if=>"RECORD.aborted? "
   end
 
   list(:subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
@@ -156,7 +156,7 @@ class EntitiesController < ApplicationController
     t.column :quantity, :datatype=>:decimal
     t.column :suspended
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays details of one entity selected with +params[:id]+

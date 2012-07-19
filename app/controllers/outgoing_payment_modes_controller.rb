@@ -28,7 +28,7 @@ class OutgoingPaymentModesController < ApplicationController
     t.action :up, :method=>:post, :if=>"!RECORD.first\?"
     t.action :down, :method=>:post, :if=>"!RECORD.last\?"
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of outgoing payment modes

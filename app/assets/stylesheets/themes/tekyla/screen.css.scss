@@ -35,12 +35,39 @@ $common-layout: smart;
 @import "themes/tekyla/common/*.png";
 @include all-common-sprites;
 
+@mixin left($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-left: $value; }
+  html[dir="rtl"] & { #{$base-name}-right: $value; }
+}
+
+@mixin right($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-right: $value; }
+  html[dir="rtl"] & { #{$base-name}-left: $value; }
+}
+
+@mixin text-align($dir) { 
+  @if $dir == right {
+    html[dir="ltr"] & { text-align: right; }
+    html[dir="rtl"] & { text-align: left; }    
+  } @else if $dir == left {
+    html[dir="ltr"] & { text-align: left; }
+    html[dir="rtl"] & { text-align: right; }    
+  } @else {
+    & { text-align: $dir; }
+  }
+}
+
+@function background-hover($background-color: #FFF) { 
+  @return mix($background-color, $base-color, 78%);
+}
+
+
 $base-color: #95b0e4;
 $menu-background: #F1F1F1;
-$menu-background-hover: mix($menu-background, $base-color, 80%);
+$menu-background-hover: background-hover($menu-background);
 $menu-border: 1px solid mix($menu-background, #000000, 80%);
 @mixin menu-shadow { 
-  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3))
+  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3));
 }
 
 
@@ -626,27 +653,59 @@ html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18p
 .tabbox > .tabpanels > .tabpanel { display: none; } /*min-height: 200px;*/
 .tabbox > .tabpanels > .tabpanel.current { display: block; }
 
-html[dir="ltr"] .branches { margin-left: 18px; border-left: 1px dotted #AAA; }
-html[dir="rtl"] .branches { margin-right: 18px; border-right: 1px dotted #AAA; }
-.branch .shift { height: 15px; width:10px; border-bottom: 1px dotted #AAA; }
-html[dir="ltr"] .branch .shift { float:left; }
-html[dir="rtl"] .branch .shift { float:right; }
-.branch .tools { padding: 1px 4px; width: 20em; }
-html[dir="ltr"] .branch .tools { float:right; }
-html[dir="rtl"] .branch .tools { float:left; }
+$tree-line: 1px dotted #AAA;
+.branch { 
+
+  &:hover { 
+    background-color: background-hover(); 
+  }
+  .shift { 
+    height: 15px; 
+    width:10px; 
+    border-bottom: $tree-line;
+    html[dir="ltr"] & { float:left; }
+    html[dir="rtl"] & { float:right; }
+  }
+  .tools { 
+    padding: 1px 4px; 
+    width: 20em;
+    html[dir="ltr"] & { float:right; }
+    html[dir="rtl"] & { float:left; }
+  }
+  .item {
+    padding: 2px;
+    @include left(padding, 16px);
+    td.ic { 
+      width: 16px;
+      @include right(padding, 4px);
+      .icon { 
+        height: 16px;
+        width:16px;
+        &.table  { @include icons-sprite(table) }
+        &.column { @include icons-sprite(column) }
+      }
+    }
+    table { 
+      width: 100%; 
+/*      border-bottom:1px dotted #79F; */
+    }
+    form { @include inline-block; }
+    .export { vertical-align: middle; width: 1em; @include right(padding, 2px);}
+    .attribute { color: #888; font-style: italic; }
+    td.delete {padding: 0 4px; width: 2em; }
+    td.position { width: 15ex; }
+    .item-tool { @include text-align(right); }
+  }
+}
+
+.branches { 
+  html[dir="ltr"] & { margin-left: 20px; border-left: $tree-line; }
+  html[dir="rtl"] & { margin-right: 20px; border-right: $tree-line; }
+}
+
+
 /*.branch .item  { padding: 0 0 0 16px; background: image-url("themes/tekyla/buttons/increment.png") no-repeat center left; margin: 0 0 0 10px; }*/
 /*.branch .item  { padding: 0 0 0 16px; background: image-url("themes/tekyla/buttons/increment.png") no-repeat center left; margin: 0 0 0 10px; }*/
-html[dir="ltr"] .branch .item  { padding: 0 0 0 16px; margin: 0 0 0 10px; }
-html[dir="rtl"] .branch .item  { padding: 0 16px 0 0; margin: 0 10px 0 0; }
-.branch .item .item-detail table { width: 100%; }
-.branch .item .item-detail { border-bottom:1px dotted #79F; padding: 2px 4px; }
-.branch .item .export { vertical-align: bottom; width: 1em; }
-.branch .item .attribute { color: #888; font-style: italic; }
-.branch .item td.delete {padding: 0 4px; width: 2em; }
-.branch .item td.position {width: 6ex; }
-html[dir="ltr"] .branch .item .item-tool { text-align: right; }
-html[dir="rtl"] .branch .item .item-tool { text-align: left; }
-.branch:hover { background-color: #DEF; }
 
 /*
 .journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }

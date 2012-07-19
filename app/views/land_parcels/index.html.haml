@@ -3,7 +3,7 @@
 
 =toolbar do |t|
   -t.link :new
-  -t.link :merge, {}, :remote=>true, :method=>:post, :confirm=>tl(:are_you_sure), "data-with"=>"td.plot.selected input", "data-redirect"=>true, "data-type"=>"text"
+  -t.link :merge, {}, :remote=>true, :method=>:post, "data-confirm" => tl(:are_you_sure), "data-with"=>"td.plot.selected input", "data-redirect"=>true, "data-type"=>"text"
 
 -unit = Unit.find_by_base("m2")
 =form_tag do
@@ -24,7 +24,7 @@
                   %li=link_to(::I18n.t("actions.operations.new"), {:controller=>:operations, :action=>:new, :target_id=>land_parcel.id, :planned_on=>session[:viewed_on]}, :class=>"icon im-new")
                   %li=link_to(tl(:divide), {:controller=>:land_parcels, :action=>:divide, :id=>land_parcel.id}, :class=>"icon im-divide")
                   %li=link_to(tl(:update), {:controller=>:land_parcels, :action=>:edit, :id=>land_parcel.id}, :class=>"icon im-edit")
-                  %li=link_to(tl(:delete), {:controller=>:land_parcels, :action=>:destroy, :id=>land_parcel.id}, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :class=>"icon im-destroy")
+                  %li=link_to(tl(:delete), {:controller=>:land_parcels, :action=>:destroy, :id=>land_parcel.id}, :method=>:delete, "data-confirm" => :are_you_sure_you_want_to_delete, :class=>"icon im-destroy")
               .area=tl(:x_unit, :quantity=>land_parcel.area_measure, :unit=>land_parcel.area_unit.name)
               .desc=land_parcel.description
               %ul.operations

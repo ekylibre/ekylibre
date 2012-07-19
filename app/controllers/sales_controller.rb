@@ -54,7 +54,7 @@ class SalesController < ApplicationController
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.draft? '
     t.action :cancel, :if=>'RECORD.cancelable? '
-    t.action :destroy, :method=>:delete, :if=>'RECORD.aborted? ', :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy, :if=>'RECORD.aborted? '
   end
 
   # Displays the main page with the list of sales
@@ -86,7 +86,7 @@ class SalesController < ApplicationController
     t.column :pretax_amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
     t.column :amount, :currency=>{:body=>"RECORD.sale.currency", :children=>"RECORD.delivery.sale.currency"}
     t.action :edit, :if=>'RECORD.sale.order? '
-    t.action :destroy, :if=>'RECORD.sale.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy, :if=>'RECORD.sale.order? '
   end
 
   list(:payment_uses, :model=>:incoming_payment_uses, :conditions=>["#{IncomingPaymentUse.table_name}.company_id=? AND #{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['@current_company.id'], ['session[:current_sale_id]'], Sale.name]) do |t|
@@ -98,7 +98,7 @@ class SalesController < ApplicationController
     t.column :downpayment
     # t.column :paid_on, :through=>:payment, :label=>:column, :datatype=>:date
     t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:subscriptions, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}) do |t|
@@ -110,7 +110,7 @@ class SalesController < ApplicationController
     t.column :finish
     t.column :quantity
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:undelivered_lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]'], :reduction_origin_id=>nil}) do |t|
@@ -135,7 +135,7 @@ class SalesController < ApplicationController
     t.column :pretax_amount, :currency=>"RECORD.sale.currency"
     t.column :amount, :currency=>"RECORD.sale.currency"
     t.action :edit, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    t.action :destroy, :if=>'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
   # Displays details of one sale selected with +params[:id]+

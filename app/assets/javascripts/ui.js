@@ -387,4 +387,43 @@
     $.behave("*:input:visible:first", "load", $.autoFocus);
     $.behave("*[data-autofocus]:visible", "load", $.autoFocus);
 
+
+    // Toggle visibility
+    $(document).on("click", "a[data-toggle-with]", function (event) {
+	var element = $(this);
+	if (element.is(":visible")) {
+	    element.hide();
+	    $(element.data('toggle-with')).show();
+	} else {
+	    $(element.data('toggle-with')).hide()
+	    element.show();
+	}
+	return false;
+    });
+
+
+    // Toggle visibility
+    $(document).on("click", "a[data-toggle-visibility]", function (event) {
+	var selector = $(this).data('toggle-visibility');
+	$(selector).each(function (index) {
+	    var target = $(this);
+	    if (target.is(":visible")) {
+		target.hide();
+	    } else {
+		target.show();
+	    }
+	});
+	return false;
+    });
+
+
+    $(document).on("click", "a[data-insert-into][data-insert]", function (event) {
+	var element = $(this), data, target;
+	data = element.data("insert");
+	$(element.data("insert-into")).each(function (index) {
+	    insertInto(this, '', '', data);
+	});
+	return false;
+    });
+
 })( jQuery );

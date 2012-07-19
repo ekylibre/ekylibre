@@ -71,7 +71,7 @@ class JournalsController < ApplicationController
     t.column :original_debit, :currency=>:original_currency
     t.column :original_credit, :currency=>:original_currency
     t.action :edit, :if=>'RECORD.updateable? '
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   list(:mixed, :model=>:journal_entries, :conditions=>journal_entries_conditions, :children=>:lines, :order=>"created_at DESC", :per_page=>10) do |t|
@@ -82,7 +82,7 @@ class JournalsController < ApplicationController
     t.column :original_debit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
     t.column :original_credit, :currency=>{:body=>:original_currency, :children=>"RECORD.entry.original_currency"}
     t.action :edit, :if=>'RECORD.updateable? '
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
@@ -95,7 +95,7 @@ class JournalsController < ApplicationController
     t.action :close, :if=>'RECORD.closable?(Date.today)', :image=>:unlock
     t.action :reopen, :if=>"RECORD.reopenable\?", :image=>:lock
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays details of one journal selected with +params[:id]+

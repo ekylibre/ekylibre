@@ -5,7 +5,7 @@
   .delete
     =link_to(tl(:up), {:action=>:up, :controller=>:production_chain_work_centers, :id=>work_center.id}, :method=>:post, :class=>"icon im-up") unless work_center.first?
     =link_to(tl(:down), {:action=>:down, :controller=>:production_chain_work_centers, :id=>work_center.id}, :method=>:post, :class=>"icon im-down") unless work_center.last?
-    =link_to tl(:delete), {:action=>:destroy, :controller=>:production_chain_work_centers, :id=>work_center.id}, :confirm=>tl(:are_you_sure_you_want_to_delete), :method=>:delete, :class=>"icon im-delete"        
+    =link_to tl(:delete), {:action=>:destroy, :controller=>:production_chain_work_centers, :id=>work_center.id}, "data-confirm" => tl(:are_you_sure_you_want_to_delete), :method=>:delete, :class=>"icon im-delete"        
   %h2=work_center.name
   %table.work-center-graph
     %tr

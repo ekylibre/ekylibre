@@ -28,7 +28,7 @@ class PricesController < ApplicationController
     t.column :by_default
     # t.column :range
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   def new

@@ -28,7 +28,7 @@ class AreasController < ApplicationController
     t.column :name, :through=>:district
     t.column :country    
     t.action :edit
-    t.action :destroy, :confirm=>:are_you_sure_you_want_to_delete, :method=>:delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of areas

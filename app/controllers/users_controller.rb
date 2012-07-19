@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:unlock}, "false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
     t.action :edit 
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.id!=@current_user.id'
+    t.action :destroy, :if=>'RECORD.id!=@current_user.id'
   end
 
   # Displays the main page with the list of users

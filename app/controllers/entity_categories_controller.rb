@@ -26,7 +26,7 @@ class EntityCategoriesController < ApplicationController
     t.column :description
     t.column :by_default
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of entity categories
@@ -38,7 +38,7 @@ class EntityCategoriesController < ApplicationController
     t.column :pretax_amount
     t.column :amount
     t.column :name, :through=>:tax
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays details of one entity category selected with +params[:id]+

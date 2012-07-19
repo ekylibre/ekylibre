@@ -3,12 +3,12 @@
 =toolbar do |t|
   -t.edit @purchase if @purchase.draft?
   -if @purchase.can_confirm?
-    -t.confirm @purchase, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+    -t.confirm @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
   -if @purchase.can_invoice?
-    -t.invoice @purchase, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+    -t.invoice @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   -for event in [:propose, :correct, :refuse]
-    -t.send(event, @purchase, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase.send("can_#{event}?")
-  -t.abort(@purchase, :method=>:post, :confirm=>tc(:are_you_sure)) if @purchase.can_abort?
+    -t.send(event, @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @purchase.send("can_#{event}?")
+  -t.abort(@purchase, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @purchase.can_abort?
   -t.print_purchase @purchase
 
 =attributes_list(@purchase) do |l|

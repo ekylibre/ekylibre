@@ -16,4 +16,4 @@
     =list(:draft_lines)
     .end
   .actions
-    =submit_tag(tc(:validate_selected_entries), :confirm=>tg(:are_you_sure), :name=>:validate)
+    =submit_tag(tc(:validate_selected_entries), "data-confirm" => tg(:are_you_sure), :name=>:validate)

@@ -28,7 +28,7 @@ class EventsController < ApplicationController
     t.column :name, :through=>:nature
     t.column :started_at
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of events

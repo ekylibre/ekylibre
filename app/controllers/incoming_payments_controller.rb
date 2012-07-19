@@ -49,7 +49,7 @@ class IncomingPaymentsController < ApplicationController
     t.column :to_bank_on
     t.column :number, :through=>:deposit, :url=>true
     t.action :edit, :if=>"RECORD.deposit.nil\?"
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.used_amount.to_f<=0"
+    t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
   end
 
   # Displays the main page with the list of incoming payments

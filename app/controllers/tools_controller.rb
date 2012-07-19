@@ -33,7 +33,7 @@ class ToolsController < ApplicationController
     t.column :text_nature
     t.column :consumption
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.uses.size == 0'
+    t.action :destroy, :if=>'RECORD.uses.size == 0'
   end
 
   # Displays details of one tool selected with +params[:id]+

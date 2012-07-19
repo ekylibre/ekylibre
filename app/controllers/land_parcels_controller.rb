@@ -31,7 +31,7 @@ class LandParcelsController < ApplicationController
     t.column :stopped_on
     t.action :divide
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of land parcels
@@ -48,7 +48,7 @@ class LandParcelsController < ApplicationController
     t.column :tools_list
     t.column :duration
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays details of one land parcel selected with +params[:id]+

@@ -3,14 +3,14 @@
 =toolbar do |t|
   -t.edit @sale if @sale.draft?
   -if @sale.can_confirm?
-    -t.confirm @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_confirm)
+    -t.confirm @sale, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
   -if @sale.can_propose?
-    -t.propose_and_invoice @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+    -t.propose_and_invoice @sale, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   -if @sale.can_invoice?
-    -t.invoice @sale, :method=>:post, :confirm=>tc(:are_you_sure_you_want_to_invoice)
+    -t.invoice @sale, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   -for event in [:propose, :correct, :refuse]
-    -t.send(event, @sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.send("can_#{event}?")
-  -t.abort(@sale, :method=>:post, :confirm=>tc(:are_you_sure)) if @sale.can_abort?
+    -t.send(event, @sale, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
+  -t.abort(@sale, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
   -if @sale.invoice?
     -t.print_sales_invoice @sale
     -t.cancel(@sale) if @sale.cancelable?

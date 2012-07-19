@@ -31,9 +31,9 @@ class IncomingPaymentModesController < ApplicationController
     t.column :with_commission
     t.action :up, :method=>:post, :if=>"!RECORD.first\?"
     t.action :down, :method=>:post, :if=>"!RECORD.last\?"
-    t.action :reflect, :method=>:post, :confirm=>:are_you_sure
+    t.action :reflect, :method=>:post, 'data-confirm' => :are_you_sure
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   def reflect

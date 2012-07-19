@@ -29,9 +29,9 @@ class IncomingDeliveriesController < ApplicationController
     t.column :name, :through=>:mode
     t.column :number, :through=>:purchase, :url=>true
     t.column :amount
-    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', :confirm=>:are_you_sure
+    t.action :confirm, :method=>:post, :if=>'RECORD.moved_on.nil? ', 'data-confirm' => :are_you_sure
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of incoming deliveries

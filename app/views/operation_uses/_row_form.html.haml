@@ -7,4 +7,4 @@
 %tr{:id=>id, :class=>cycle('odd', 'even')}
   %td
     =select_tag("uses[#{id}][tool_id]", options_for_select(@current_company.tools.collect{|t| [t.name, t.id]}, use[:tool_id].to_i))
-  %td.act=link_to_function(image_tag(theme_button("delete"), :border=>0), "$('#{id}').remove();$('#{id}-errors').remove();")
+  %td.act=tool_to(tg(:destroy), "#", :tool => :destroy, "data-remove" => "##{id}, ##{id}-errors")

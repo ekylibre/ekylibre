@@ -27,7 +27,7 @@ class WarehousesController < ApplicationController
     t.column :name, :through=>:parent, :url=>true
     t.column :reservoir
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of warehouses
@@ -44,7 +44,7 @@ class WarehousesController < ApplicationController
     t.column :name, :through=>:product, :url=>true
     t.column :virtual
     # t.action :edit, :if=>'RECORD.generated != true'
-    # t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete,:if=>'RECORD.generated != true' 
+    # t.action :destroy,:if=>'RECORD.generated != true' 
   end
 
   list(:stocks, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|

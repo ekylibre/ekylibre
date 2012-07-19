@@ -46,7 +46,7 @@ class OutgoingPaymentsController < ApplicationController
     t.column :to_bank_on
     # t.column :label, :through=>:responsible
     t.action :edit, :if=>"RECORD.updateable\?"
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of outgoing payments

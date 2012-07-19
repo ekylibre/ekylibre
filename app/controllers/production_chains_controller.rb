@@ -24,7 +24,7 @@ class ProductionChainsController < ApplicationController
     t.column :name, :url=>true
     t.column :comment
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of production chains
@@ -98,7 +98,7 @@ class ProductionChainsController < ApplicationController
     t.column :name, :through=>:building, :url=>true
     t.column :comment
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   list(:conveyors, :model=>:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
@@ -108,7 +108,7 @@ class ProductionChainsController < ApplicationController
     t.column :name, :through=>:source, :url=>true
     t.column :name, :through=>:target, :url=>true
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays details of one production chain selected with +params[:id]+

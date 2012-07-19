@@ -43,7 +43,7 @@ class CustomFieldsController < ApplicationController
     t.action :up, :if=>"not RECORD.first\?", :method=>:post
     t.action :down, :if=>"not RECORD.last\?", :method=>:post
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays details of one custom field selected with +params[:id]+

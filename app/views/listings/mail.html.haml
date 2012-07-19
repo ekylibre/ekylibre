@@ -1,6 +1,4 @@
-=#puts @listing.mail_columns.size.inspect
 -if @listing.mail_columns.size > 1 and session[:listing_mail_column].nil?
-  =#puts @listing.mail_columns.size.inspect
   %h2=tc(:choose_mail_column)
   =form_tag  do
     -for node in @listing.mail_columns
@@ -13,7 +11,7 @@
 
   %h2=tc(:personalized_mail)
   .count=tc(:mails, :count=>@mails.size)
-  .count=tc(:available_columns, :columns=>@columns.collect{|x| link_to_function(x, "insert_into($('mail_body'), ' ', ' ', '{{#{x}}}');")}.to_sentence)
+  .count=tc(:available_columns, :columns=>@columns.collect{|x| link_to(x, "#", "data-insert-into" => "#mail_body", "data-insert" => "{{#{x}}}").html_safe}.to_sentence).html_safe
 
   =form_tag({}, :multipart=>true) do
     =formalize do |f|
@@ -23,5 +21,5 @@
       -f.field tc(:attachment), file_field_tag(:attachment)
     .actions
       =submit_tag tc(:send_test), :name=>:send_test
-      =submit_tag tc(:send), :confirm=>tc(:are_you_sure_you_want_to_send_mails), :name=>:send
+      =submit_tag tc(:send), "data-confirm" => tc(:are_you_sure_you_want_to_send_mails), :name=>:send
 

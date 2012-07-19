@@ -34,7 +34,7 @@ class PurchasesController < ApplicationController
     t.column :amount, :currency=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of purchases
@@ -51,7 +51,7 @@ class PurchasesController < ApplicationController
     t.column :pretax_amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
     t.column :amount, :currency=>{:body=>"RECORD.purchase.currency", :children=>"RECORD.delivery.purchase.currency"}
     t.action :edit, :if=>'RECORD.purchase.order? '
-    t.action :destroy, :if=>'RECORD.purchase.order? ', :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy, :if=>'RECORD.purchase.order? '
   end
 
   list(:payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.company_id=? AND #{OutgoingPaymentUse.table_name}.expense_id=? ", ['@current_company.id'], ['session[:current_purchase_id]']]) do |t|
@@ -61,7 +61,7 @@ class PurchasesController < ApplicationController
     t.column :name, :through=>[:payment, :mode]
     t.column :downpayment
     t.column :to_bank_on, :through=>:payment, :label=>:column, :datatype=>:date
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete#, :if=>'RECORD.expense.shipped == false'
+    t.action :destroy#, :if=>'RECORD.expense.shipped == false'
   end
 
   list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
@@ -84,7 +84,7 @@ class PurchasesController < ApplicationController
     t.column :pretax_amount, :currency=>"RECORD.purchase.currency"
     t.column :amount, :currency=>"RECORD.purchase.currency"
     t.action :edit, :if=>'RECORD.purchase.draft? '
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.purchase.draft? '
+    t.action :destroy, :if=>'RECORD.purchase.draft? '
   end
 
 

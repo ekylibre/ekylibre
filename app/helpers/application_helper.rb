@@ -472,10 +472,6 @@ module ApplicationHelper
       notification_tag(:information)
   end
 
-  def link_to_submit(form_name, label=:submit, options={})
-    link_to_function(l(label), "document." << form_name << ".submit()", options.merge({:class=>:button}))
-  end
-
 
   def table_of(array, html_options={}, &block)
     coln = html_options.delete(:columns)||3
@@ -693,7 +689,7 @@ module ApplicationHelper
       html_options[:class] << " hideable" unless index.zero?
       code = content_tag(:td, code.html_safe, html_options)
       if index.zero?
-        launch = submit_tag(tl(:search_go), :disable_with=>tg(:please_wait), :name=>nil)
+        launch = submit_tag(tl(:search_go), 'data-disable-with' => tg(:please_wait), :name=>nil)
         # TODO: Add link to unhide hidden criteria
         code << content_tag(:td, launch, :rowspan=>k.criteria.size, :class=>:submit)
         first = false
@@ -1176,7 +1172,7 @@ module ApplicationHelper
         options[:new][:action] ||= :new
         options[:edit][:action] ||= :edit
         if options[:field] == :select
-          input << link_to(label, options[:new], :class=>:fastadd, :confirm=>::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
+          input << link_to(label, options[:new], :class=>:fastadd, "data-confirm" => ::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
           data = (options[:update] ? options[:update] : rlid)
           input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")

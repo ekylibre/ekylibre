@@ -25,9 +25,9 @@ class InventoriesController < ApplicationController
     t.column :label, :through=>:responsible, :url=>true
     t.column :comment
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", :confirm=>:are_you_sure
+    t.action :reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", 'data-confirm' => :are_you_sure
     t.action :edit,  :if=>'!RECORD.changes_reflected? '
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'!RECORD.changes_reflected? '
+    t.action :destroy, :if=>'!RECORD.changes_reflected? '
   end
 
   # Displays the main page with the list of inventories

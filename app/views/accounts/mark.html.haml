@@ -38,7 +38,7 @@
                 -conf = {"data-click"=>"#journal_entry_line_#{line.id}_to_mark"}
               -else
                 =line.letter
-            %td.act=link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:unmark, :id=>@account.id, :letter=>line.letter}, :method=>:post, :confirm=>tg(:are_you_sure)) unless line.letter.blank? or line.closed?
+            %td.act=link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:unmark, :id=>@account.id, :letter=>line.letter}, :method=>:post, "data-confirm" => tg(:are_you_sure)) unless line.letter.blank? or line.closed?
             %td.dat{conf}=I18n.localize(line.entry.printed_on)
             %td{conf}=link_to(line.journal.name, {:action=>:show, :controller=>:journals, :id=>line.journal_id}, :keep=>true)
             %td.code{conf}=link_to(line.entry.number, {:action=>:show, :controller=>:journal_entries, :id=>line.entry_id}, :keep=>true)

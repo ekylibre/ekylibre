@@ -28,7 +28,7 @@ class ListingsController < ApplicationController
     t.action :mail, :if=>'RECORD.mail_columns.size > 0'
     t.action :duplicate, :method=>:post
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of listings

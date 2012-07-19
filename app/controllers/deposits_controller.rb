@@ -29,7 +29,7 @@ class DepositsController < ApplicationController
     t.column :comment
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit, :if=>'RECORD.locked == false'
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>'RECORD.locked == false'
+    t.action :destroy, :if=>'RECORD.locked == false'
   end
 
   # Displays the main page with the list of deposits

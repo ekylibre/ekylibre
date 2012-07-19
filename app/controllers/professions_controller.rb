@@ -26,7 +26,7 @@ class ProfessionsController < ApplicationController
     t.column :rome 
     t.column :commercial
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure
+    t.action :destroy
   end
 
   # Displays the main page with the list of professions

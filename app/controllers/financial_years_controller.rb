@@ -28,7 +28,7 @@ class FinancialYearsController < ApplicationController
     t.column :currency_precision
     t.action :close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :edit, :if => '!RECORD.closed'  
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if => '!RECORD.closed'  
+    t.action :destroy, :if => '!RECORD.closed'  
   end
 
   # Displays the main page with the list of financial years

@@ -28,7 +28,7 @@ class SubscriptionNaturesController < ApplicationController
     t.action :increment, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :decrement, :method=>:post, :if=>"RECORD.nature=='quantity'"
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of subscription natures

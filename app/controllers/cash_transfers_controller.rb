@@ -29,7 +29,7 @@ class CashTransfersController < ApplicationController
     t.column :created_on
     t.column :comment
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete
+    t.action :destroy
   end
 
   # Displays the main page with the list of cash transfers

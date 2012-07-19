@@ -24,7 +24,7 @@ class RolesController < ApplicationController
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
     t.action :edit
-    t.action :destroy, :method=>:delete, :confirm=>:are_you_sure_you_want_to_delete, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of roles
