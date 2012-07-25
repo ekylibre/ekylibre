@@ -81,6 +81,15 @@ input[type="submit"], a.btn {
         }
       }
       &[disabled] {
+        background: #CCC;
+        cursor: default;
+        pointer-events: none;
+        .text { 
+          @include text-shadow(none);
+        }
+        &:hover { 
+          .text { color: #666; }
+        }
       }
     }
   }
@@ -113,6 +122,11 @@ input[type="submit"], a.btn {
         text-decoration: none;
       }
       &[disabled] { 
+        background: #CCC;
+        cursor: default;
+        pointer-events: none;
+        @include text-shadow(none);
+        color: #666;
       }
     }
   } 
