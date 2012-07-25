@@ -142,7 +142,7 @@ class JournalEntry < CompanyRecord
         self.original_currency_rate = 1
       else
         # TODO: Find a way to manage currency rates!
-        self.original_currency_rate = Numisma.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate 
+        self.original_currency_rate = I18n.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate 
       end
     else
       self.original_currency_rate = 1

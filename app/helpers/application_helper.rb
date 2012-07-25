@@ -138,7 +138,7 @@ module ApplicationHelper
   # Take an extra argument which will translate
   def number_to_money(amount, currency, options={})
     return unless amount and currency
-    return Numisma[currency].localize(amount, options)
+    return currency.to_currency.localize(amount, options)
   end
 
 
@@ -208,7 +208,7 @@ module ApplicationHelper
   end
 
   def currencies
-    Numisma.active_currencies.values.sort{|a, b| a.name.ascii.to_s<=>b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
+    I18n.active_currencies.values.sort{|a, b| a.name.ascii.to_s<=>b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
   end
 
   def languages
@@ -281,7 +281,7 @@ module ApplicationHelper
     if [TrueClass, FalseClass].include? value.class
       value = content_tag(:div, "", :class=>"checkbox-#{value}")
     elsif attribute.to_s.match(/(^|_)currency$/)
-      value = ::Numisma[value].label
+      value = value.to_currency.label
     elsif options[:currency] and value.is_a?(Numeric)
       value = ::I18n.localize(value, :currency=>options[:currency])
       value = link_to(value.to_s, options[:url]) if options[:url]

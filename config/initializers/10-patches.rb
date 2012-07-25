@@ -112,48 +112,48 @@ module ::I18n
     return (result.to_s.match(/(translation\ missing|\(\(\()/) ? nil : result)
   end
 
-  module Backend
-    module Base
+  # module Backend
+  #   module Base
 
 
-      def localize_with_numbers(locale, object, format = :default, options = {})
-        options.symbolize_keys!
-        if object.respond_to?(:abs)
-          if currency = options[:currency]
-            return Numisma[currency].localize(object, :locale=>locale)
-          else
-            formatter = I18n.translate('number.format'.to_sym, :locale => locale, :default => {})
-            if formatter.is_a?(Proc)
-              return formatter[object]
-            elsif formatter.is_a?(Hash)
-              formatter = {:format => "%n", :separator=>'.', :delimiter=>'', :precision=>3}.merge(formatter).merge(options)
-              format = formatter[:format]
-              negative_format = formatter[:negative_format] || "-" + format
+  #     def localize_with_numbers(locale, object, format = :default, options = {})
+  #       options.symbolize_keys!
+  #       if object.respond_to?(:abs)
+  #         if currency = options[:currency]
+  #           return currency.to_currency.localize(object, :locale=>locale)
+  #         else
+  #           formatter = I18n.translate('number.format'.to_sym, :locale => locale, :default => {})
+  #           if formatter.is_a?(Proc)
+  #             return formatter[object]
+  #           elsif formatter.is_a?(Hash)
+  #             formatter = {:format => "%n", :separator=>'.', :delimiter=>'', :precision=>3}.merge(formatter).merge(options)
+  #             format = formatter[:format]
+  #             negative_format = formatter[:negative_format] || "-" + format
 
-              if object.to_f < 0
-                format = negative_format
-                object = object.abs
-              end
+  #             if object.to_f < 0
+  #               format = negative_format
+  #               object = object.abs
+  #             end
               
-              value = object.to_s.split(/\./)
-              integrals, decimals = value[0].to_s, value[1].to_s
-              decimals = decimals.gsub(/0+$/, '').ljust(formatter[:precision], '0').reverse.split(/(?=\d{3})/).reverse.collect{|x| x.reverse}.join(formatter[:delimiter])
-              value = integrals.gsub(/^0+[1-9]+/, '').gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{formatter[:delimiter]}")
-              value += formatter[:separator] + decimals unless decimals.blank?
-              return format.gsub(/%n/, value).gsub(/%s/, "\u{00A0}").html_safe
-            end
-          end
-        elsif object.respond_to?(:strftime)
-          return localize_without_numbers(locale, object, format, options)
-        else
-          raise ArgumentError, "Object must be a Numeric, Date, DateTime or Time object. #{object.inspect} given."
-        end
-      end
-      alias_method_chain :localize, :numbers
+  #             value = object.to_s.split(/\./)
+  #             integrals, decimals = value[0].to_s, value[1].to_s
+  #             decimals = decimals.gsub(/0+$/, '').ljust(formatter[:precision], '0').reverse.split(/(?=\d{3})/).reverse.collect{|x| x.reverse}.join(formatter[:delimiter])
+  #             value = integrals.gsub(/^0+[1-9]+/, '').gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{formatter[:delimiter]}")
+  #             value += formatter[:separator] + decimals unless decimals.blank?
+  #             return format.gsub(/%n/, value).gsub(/%s/, "\u{00A0}").html_safe
+  #           end
+  #         end
+  #       elsif object.respond_to?(:strftime)
+  #         return localize_without_numbers(locale, object, format, options)
+  #       else
+  #         raise ArgumentError, "Object must be a Numeric, Date, DateTime or Time object. #{object.inspect} given."
+  #       end
+  #     end
+  #     alias_method_chain :localize, :numbers
   
 
-    end
-  end
+  #   end
+  # end
 
 end
 

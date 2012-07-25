@@ -119,7 +119,7 @@ task :locales => :environment do
   acount += count
 
   # Currencies
-  currencies_ref = YAML.load_file(Numisma.currencies_file)
+  currencies_ref = YAML.load_file(I18n.currencies_file)
   currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
   translation  = locale.to_s+":\n"
   translation << "  currencies:\n"

@@ -91,8 +91,8 @@ class JournalEntryLine < CompanyRecord
     end
     unless currency_rate.nil?
       unless self.closed?
-        self.debit  = Numisma[self.entry.original_currency].round(self.original_debit * currency_rate)
-        self.credit = Numisma[self.entry.original_currency].round(self.original_credit * currency_rate)
+        self.debit  = self.entry.original_currency.to_currency.round(self.original_debit * currency_rate)
+        self.credit = self.entry.original_currency.to_currency.round(self.original_credit * currency_rate)
       end
     end
   end
