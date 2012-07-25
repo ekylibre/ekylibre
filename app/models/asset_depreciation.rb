@@ -39,6 +39,7 @@
 #  updater_id       :integer          
 #
 class AssetDepreciation < CompanyRecord
+  acts_as_list :scope => :asset_id
   belongs_to :asset
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -321,6 +321,7 @@ menus:
         - "assets::destroy"
         - "assets::edit"
         - "assets::list"
+        - "assets::list_depreciations"
         - "assets::new"
         - "assets::show"
         - "assets::update"

@@ -260,6 +260,7 @@ manage_assets:
   - "assets::edit"
   - "assets::index"
   - "assets::list"
+  - "assets::list_depreciations"
   - "assets::new"
   - "assets::show"
   - "assets::update"

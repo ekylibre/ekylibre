@@ -1,0 +1,12 @@
+
+=toolbar do |t|
+  -t.edit(@asset)
+
+=attributes_list(@asset) do |l|
+  -l.attribute :name
+  -l.attribute :description
+  -l.attribute :comment
+
+=tabbox(:asset) do |tb|
+  -tb.tab(:depreciations) do
+    =list :depreciations

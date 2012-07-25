@@ -66,6 +66,9 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
       end
+      member do
+        get :list_depreciations
+      end
     end
     resources :bank_statements do
       collection do

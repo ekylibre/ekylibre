@@ -1029,6 +1029,8 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
   margin: 0;
   display:block;
   float: left;
+  max-height: 200px;
+  overflow: auto;
   .ui-menu {
     margin-top: -3px;
   }

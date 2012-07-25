@@ -22,9 +22,9 @@ class AssetsController < ApplicationController
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
     t.column :name, :url=>true
-    t.column :purchase_amount
-    t.column :depreciable_amount
-    t.column :current_amount, :type=>:numeric
+    t.column :purchase_amount, :currency => true
+    t.column :depreciable_amount, :currency => true
+    t.column :current_amount, :type=>:decimal, :currency => true
     t.column :started_on
     t.column :stopped_on
     t.action :edit
@@ -34,9 +34,16 @@ class AssetsController < ApplicationController
   def index
   end
 
+  list(:depreciations, :model => :asset_depreciations, :conditions => {:asset_id => ['params[:id]']}) do |t|
+    t.column :amount
+    t.column :started_on
+    t.column :stopped_on
+    
+  end
+
   # Displays details of an asset
   def show
-    return unless @asset = find_and_check(:attribute)
+    return unless @asset = find_and_check
     t3e @asset.attributes
   end
 

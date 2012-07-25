@@ -54,7 +54,7 @@ class Asset < CompanyRecord
   acts_as_numbered
   belongs_to :account
   belongs_to :journal
-  has_many :depreciations, :class_name => "AssetDepreciation"
+  has_many :depreciations, :class_name => "AssetDepreciation", :order => :position
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :deprecated_amount, :depreciable_amount, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
