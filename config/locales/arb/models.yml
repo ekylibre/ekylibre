@@ -504,6 +504,7 @@ arb:
         accepted: '%{attribute} يجب أن تكون مقبولة'
         blank: '%{attribute} لا يمكن أن تكون فارغة'
         confirmation: '%{attribute} لا تطابق التثبيت'
+        # currency_does_not_match: 'The currency of the %{attribute} is different from %{currency}'
         empty: '%{attribute} لا يمكن أن تكون فارغة'
         equal_to: '%{attribute} يجب أن يكون مساو ل %{count}'
         even: '%{attribute} يجب ان يكون متساو'
@@ -670,6 +671,7 @@ arb:
       profession: 'المهنة'
       purchase: 'الشراء'
       purchase_line: 'طريقة طلب الشراء'
+      # purchase_nature: 'Purchase nature'
       role: 'الدور'
       sale: 'البيع'
       sale_line: 'طريقة طلب البيع'
@@ -716,16 +718,21 @@ arb:
     area_unit_id: 'وحدة مساحة' #?
     areas: 'الرموز البريدية'
     arrived_on: 'وصل يوم'
+    # asset: 'Asset'
+    # asset_depreciations: 'Asset depreciations'
+    # assets: 'Assets'
     assimilated_taxes_amount: 'قيمة الضرائب المماثلة'
     # atmospheric_pressure: 'Atmospheric pressure'
     attorney: 'الوكيل'
     attorney_account: 'حساب مساعد الوكيل'
     attorney_account_id: 'حساب مساعد الوكيل' #?
     attorney_accounts: 'وكلاء الحسابات'
+    # attorneys: 'Attorneys'
     attribute_name: 'اسم الصفة المميزة'
     authorized_payments_count: 'عدد الدفعات المصرحة بها'
     available_prices: 'الاسعار المتوفرة'
     available_products: 'المنتجات المتوفرة'
+    # available_stocks: 'Available stocks'
     # balance: 'Balance'
     balance_amount: 'الرصيد'
     balances: 'ارصدة الحساب'
@@ -743,11 +750,13 @@ arb:
     boolean_value: 'القيمة المنطقية'
     born_on: 'تاريخ الميلاد'
     # building: 'Building'
+    # buildings: 'Buildings'
     by_default: 'افتراضيا'
     cache: 'مخبأ'
     cash: 'الحسابات المصرفية المستخدمة'
     cash_id: 'الحسابات المصرفية المستخدمة' #?
     cash_journals: 'الدفاتر اليومية للصناديق النقدية'
+    # cash_transfers: 'Cash transfers'
     cashes: 'الحسابات المصرفية'
     cashes_accounts: 'حسابات الصندوق النقدي'
     catalog_description: 'مواصفات للدليل'
@@ -760,8 +769,10 @@ arb:
     charges_accounts: 'حسابات الحمولة'
     check_number: 'رقم الشيك'
     # check_state: 'Check state'
+    # child_kinships: 'Child kinships'
+    # child_land_parcel: 'Child land parcel'
     children: 'مواقع فرعية للتخزين'
-    choice_custom_fields: '"قائمة الخيارات"' #?
+    choice_custom_fields: '"قائمة الخيارات"'
     choice_value: 'اختيار القيمة'
     choice_value_id: 'اختيار القيمة' #?
     choices: 'خيارات الحقول الاضافية'
@@ -806,6 +817,7 @@ arb:
     contact: 'العنوان'
     contact_id: 'العنوان' #?
     contacts: 'الاتصالات'
+    # conveyors: 'Conveyors'
     counterpart: 'النسخة المطابقة' #?
     counterpart_id: 'النسخة المطالقة' #?
     country: 'البلد'
@@ -818,11 +830,12 @@ arb:
     credited_quantity: 'كمية الائتمان '
     credits: 'الائتمانات'
     critic_quantity_min: 'الكمية المنتفدة كحد ادنى'
+    # critic_stocks: 'Critic stocks'
     crypt_key: 'مفتاح التشفير'
     crypt_mode: 'طؤيقة التشفير'
     currencies: 'العملات' #?
     currency: 'عملة'
-    currency_rate: 'سعر الصرف' #?
+    currency_rate: 'سعر الصرف'
     current_financial_year: 'الفترة المحاسبية الحالية'
     custom_field: 'حقول اضافية'
     custom_field_choices: 'اختيارات الحقول الاضافية'
@@ -840,6 +853,7 @@ arb:
     declared_on: 'صرح يوم'
     default_contact: 'الشخص المتوقع الاتصال به'
     default_currency: 'العملة الافتراضية'
+    # default_stock: 'Default stock'
     deferred_payment: 'ائتمان معلق'
     delays: 'تأخير'
     deleted_at: 'الغيه في'
@@ -864,6 +878,8 @@ arb:
     depositable_payments: 'تسديد الدفعات نقدا'
     depositables_account: 'حساب معلق للدفعات النقدية'
     depositables_account_id: 'الحساب المعلق اادفعات النقدية' #?
+    # depositables_incoming_payment_modes: 'Depositables incoming payment modes'
+    # depositables_journal: 'Depositables journal'
     depositer: 'الجابي' #?
     depositer_id: 'الجابي' #?
     deposits: 'اقتطاعات البنك'
@@ -871,6 +887,7 @@ arb:
     # depreciable_amount: 'Depreciable amount'
     # depreciation: 'Depreciation'
     # depreciation_method: 'Depreciation method'
+    # depreciations: 'Depreciations'
     description: 'الوصف'
     dest_contact: 'عنوان التسليم' #?
     dest_contact_id: 'عنوان التسليم' #?
@@ -900,6 +917,7 @@ arb:
     # emitter_cash: 'Emitter cash'
     # emitter_currency: 'Emitter currency'
     # emitter_currency_rate: 'Emitted currency rate'
+    # emitter_journal_entry: 'Emitter journal entry'
     employed: 'وظف من قبل الشركة'
     employees: 'الموظفين'
     employment: 'الوظيفة'
@@ -920,6 +938,7 @@ arb:
     entries: 'السجلات المحاسبية'
     entry: 'سجل المحاسبة'
     entry_id: 'سجا المحاسبة' #?
+    # entry_lines: 'Entry lines'
     establishment: 'المؤسسة'
     establishment_id: 'مؤسسة' #?
     establishments: 'المؤسسات'
@@ -930,10 +949,12 @@ arb:
     expense: 'التكلفة'
     expense_id: 'انفاق' #?
     expense_type: 'نوع التكلفة'
+    # expenses: 'Expenses'
     expiration: 'تأخير المهلة'
     expiration_id: 'تأخير مهلة' #?
     expired_on: 'انتهى يوم'
     exportable: 'قبل للتصدير'
+    # exportable_columns: 'Exportable columns'
     expression: 'اسلوب للتعبير'
     extension: 'التوسع'
     family: 'وحدة قياس'
@@ -963,6 +984,8 @@ arb:
     global_count: 'مجموع السكان'
     global_credit: 'الائتمان العالمي'
     global_debit: 'الانتاجية الاجمالية'
+    # godchildren: 'Godchildren'
+    # group: 'Group'
     has_downpayment: 'لديه عربون واحد'
     hashed_password: 'تشفير كلمة المرور'
     hour_duration: '(ساعة (ساعات'
@@ -970,10 +993,14 @@ arb:
     iban_label: 'IBAN'
     id: 'ID'
     immobilizations_account_id: 'الحساب الساكن' #?
+    # immobilizations_products: 'Immobilizations products'
     importance: 'ذو شأن'
     # in_cash: 'In cash'
     in_name: 'الاختصارات تشمل اسم الملف'
     included: 'تضمنت'
+    # incoming_deliveries: 'Incoming deliveries'
+    # incoming_delivery_lines: 'Incoming delivery lines'
+    # incoming_delivery_modes: 'Incoming delivery modes'
     incoming_payment_modes: 'طرق تسديد الدفعات'
     incoming_payment_uses: 'اجزاء الدفعات'
     incoming_payments: 'الدفعات'
@@ -1008,6 +1035,8 @@ arb:
     journals: 'الدفاتر اليومية'
     key: 'المفتاح'
     label: 'الملصق'
+    # land_parcel_groups: 'Land parcel groups'
+    # land_parcel_kinships: 'Land parcel kinships'
     land_parcels: 'الكتل'
     language: 'اللغة'
     last_bank_statement: '(((LAST_BANK_STATEMENT)))'
@@ -1045,6 +1074,7 @@ arb:
     lost: 'الضائع'
     # luminance: 'Luminance'
     mail: 'البريد الالكتروني'
+    # mail_columns: 'Mail columns'
     major_accounts: 'الحسابات الئيسية'
     mandates: 'تفويضات'
     master: 'كتلة رئيسية' #?
@@ -1054,6 +1084,7 @@ arb:
     mode: 'نمط الدفعة'
     mode_id: 'طريقة تسديد دفعة' #?
     moved_on: 'انجز يوم'
+    # moves: 'Moves'
     name: 'الاسم'
     name_1_to_2: 'الملف الاول الى الثاني'
     name_2_to_1: 'الملف الثاني الى الاول'
@@ -1094,9 +1125,11 @@ arb:
     original_name: 'الاسم الاصلي'
     # outgoing_deliveries: 'Outgoing deliveries'
     # outgoing_delivery_lines: 'Outgoing delivery lines'
+    # outgoing_delivery_modes: 'Outgoing delivery modes'
     outgoing_payment_modes: 'اساليب المصروفات'
     outgoing_payment_uses: 'ازاء المصروفات'
     outgoing_payments: 'المصروفات'
+    # output_conveyors: 'Output conveyors'
     owner: 'المالك'
     owner_id: 'مالك' #?
     owner_type: 'طبيعة المالك'
@@ -1105,8 +1138,11 @@ arb:
     paid_account_id: 'سددت القيمة الضريبية الاضافية' #?
     paid_amount: 'خصمة من قيمة الضريبة الاضافية'
     paid_on: 'سددت يوم'
+    # paid_taxes: 'Paid taxes'
     parent: 'النسب'
     parent_id: 'نسب' #?
+    # parent_kinships: 'Parent kinships'
+    # parent_land_parcel: 'Parent land parcel'
     parts: 'الاجزاء' #?
     parts_amount: 'القيمة المستخدمة' #?
     password: 'كلمة المرور'
@@ -1157,6 +1193,11 @@ arb:
     product_id: 'المنتج' #?
     productable_products: 'المنتجات الممكن انتاجها'
     # production_chain: 'Production chain'
+    # production_chain_work_center: 'Production chain work center'
+    # production_chain_work_center_lines: 'Production chain work center lines'
+    # production_chain_work_center_uses: 'Production chain work center uses'
+    # production_chain_work_centers: 'Production chain work centers'
+    # production_chains: 'Production chains'
     products: 'المنتجات'
     products_accounts: 'حسابات المنتجات'
     profession: 'المهنة'
@@ -1169,12 +1210,15 @@ arb:
     published: 'تم نشره'
     # purchase: 'Purchase'
     # purchase_amount: 'Purchase amount'
+    # purchase_invoices: 'Purchase invoices'
     # purchase_line: 'Purchase line'
     purchase_lines: 'طرق طلب الشراء'
+    # purchase_natures: 'Purchase natures'
     # purchased_on: 'Purchased on'
     purchases: 'المشتريات'
     purchases_account: 'رسوم المحاسبة'
     purchases_account_id: 'رسوم المحاسبة' #?
+    # purchases_products: 'Purchases products'
     quantity: 'الكمية'
     quantity_max: 'الكمية كحد اقصى'
     quantity_min: 'الكمية كحد ادنى'
@@ -1236,9 +1280,11 @@ arb:
     sales_invoiceable: 'يفوتر' #?
     sales_invoices: 'الفواتير'
     sales_invoices_count: 'عدد الفواتير' #?
+    # sales_products: 'Sales products'
     salt: 'الملح'
     scheduled: 'الدفعة المبرمجة'
     second_move_id: 'الحركة الثانية' #?
+    # second_stock_move: 'Second stock move'
     second_warehouse: 'موقع تخزين الوصول'
     second_warehouse_id: 'موقع تخزين الوصول' #?
     self_bank_accounts: 'الحسابات المصرفية الخاصة'
@@ -1330,16 +1376,25 @@ arb:
     transport_on: 'نقل يوم'
     transporter: 'الناقلة'
     transporter_id: 'ناقل' #?
+    # transporter_sales: 'Transporter sales'
     transporters: 'ناقلات الشحن'
     transports: 'وسائل النقل'
     type: 'النوع' #?
+    # unconfirmed_stock_transfers: 'Unconfirmed stock transfers'
+    # undelivered_incoming_deliveries: 'Undelivered incoming deliveries'
+    # undelivered_outgoing_deliveries: 'Undelivered outgoing deliveries'
     undelivered_quantity: 'يبقى للتسليم'
     # unique_tracking: 'Unique tracking'
     unit: 'الوحدة'
     unit_id: 'وحدة' #?
     unit_quantity: 'وحدة مساحة الكمية'
     units: 'الوحدات'
+    # unlocked_payments: 'Unlocked payments'
+    # unpaid_responsibles: 'Unpaid responsibles'
+    # unpaid_sales: 'Unpaid sales'
     unquantifiable: 'غير قابل للقياس'
+    # untransportered_deliveries: 'Untransportered deliveries'
+    # unused_conveyors: 'Unused conveyors'
     updated_at: 'تم تحديثه في'
     updater: 'التحديث'
     updater_id: 'التحديث' #?
@@ -1349,6 +1404,7 @@ arb:
     usage_duration: '(مدة الاستخدام (ساعات'
     use_range: 'استخدام الكمية الفاصلة'
     # used_amount: 'Used amount'
+    # useful_lines: 'Useful lines'
     user: 'المستخدم'
     user_id: 'المستخدم' #?
     users: 'المستخدمين'
@@ -1359,6 +1415,8 @@ arb:
     vat_submissive: 'القيمة الضريبية المضافة التابعة'
     virtual: 'عملي'
     virtual_quantity: 'الاسهم العملية'
+    # waiting_deliveries: 'Waiting deliveries'
+    # waiting_transporters: 'Waiting transporters'
     warehouse: 'موقع التخزين'
     warehouse_id: 'موقع التخزين' #?
     warehouses: 'مواقع التخزين'
@@ -1370,6 +1428,7 @@ arb:
     with_deposit: 'استخدام الاقتطاعات المصرفية'
     with_tracking: 'مع التتبع'
     # with_transport: 'With transport'
+    # work_center: 'Work center'
   models:
     account:
       default_account_name: 'دفتر الحسابات %{number}' #?

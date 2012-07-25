@@ -116,6 +116,7 @@ eng:
         accepted: '%{attribute} must be accepted'
         blank: '%{attribute} can''t be blank'
         confirmation: '%{attribute} doesn''t match confirmation'
+        currency_does_not_match: 'The currency of the %{attribute} is different from %{currency}'
         empty: '%{attribute} can''t be empty'
         equal_to: '%{attribute} must be equal to %{count}'
         even: '%{attribute} must be even'
@@ -139,7 +140,6 @@ eng:
         too_long: '%{attribute} is too long (maximum is %{count} characters)'
         too_short: '%{attribute} is too short (minimum is %{count} characters)'
         wrong_length: '%{attribute} is the wrong length (should be %{count} characters)'
-        currency_does_not_match: 'The currency of the %{attribute} is different from %{currency}'
       models:
         cash:
           currency_does_not_match: 'The currency of the %{journal} is different from that specified for the cash'

@@ -17,7 +17,7 @@ fra:
       edit: 'Modifier l''immobilisation : %{name}'
       index: 'Immobilisations'
       new: 'Nouvelle immobilisation'
-      show: 'Immobilisation: %{name}'
+      show: 'Immobilisation : %{name}'
     bank_statements:
       edit: 'Modifier le relevé N°%{number}'
       index: 'Relevés de compte bancaire'

@@ -65,11 +65,11 @@ eng:
     menu: 'Menu'
     no_records: 'No records'
     pagination:
-      showing_x_to_y_of_total: 'Showing %{x} to %{y} of %{total}'
       first: 'First page'
-      next: 'Next page'
       last: 'Last page'
+      next: 'Next page'
       previous: 'Previous page'
+      showing_x_to_y_of_total: 'Showing %{x} to %{y} of %{total}'
     x_per_page:
       one: '%{count} per page'
       other: '%{count} per page'
