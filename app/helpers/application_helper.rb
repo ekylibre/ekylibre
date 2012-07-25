@@ -1178,7 +1178,7 @@ module ApplicationHelper
         elsif authorized?(options[:new])
           data = (options[:update] ? options[:update] : rlid)
           # input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
-          input << content_tag(:span, tool_to(tg(:new), options[:new], "data-new-item"=>data, :tool=>:new, :size => :mini).html_safe, :class => "mini-toolbar")
+          input << content_tag(:span, tool_to(tg(:new), options[:new], "data-new-item"=>data, :tool=>:new).html_safe, :class => "mini-toolbar")
          
         end
       end

@@ -16,14 +16,21 @@
    sodipodi:version="0.32"
    inkscape:version="0.47 r22583"
    version="1.0"
-   inkscape:export-filename="/home/brice/Projets/ekylibre/app/assets/images/themes/tekyla/icons-12.png"
-   inkscape:export-xdpi="67.5"
-   inkscape:export-ydpi="67.5"
+   inkscape:export-filename="/home/brice/Projets/ekylibre/app/assets/images/themes/tekyla/icons-16.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
    sodipodi:docname="icons.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    style="display:inline">
   <defs
      id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 56 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="928 : 56 : 1"
+       inkscape:persp3d-origin="464 : 37.333333 : 1"
+       id="perspective366" />
     <linearGradient
        id="linearGradient3964">
       <stop
@@ -403,15 +410,15 @@
     <linearGradient
        id="linearGradient18380">
       <stop
-         style="stop-color:#7fff1a;stop-opacity:1;"
+         style="stop-color:#2e6800;stop-opacity:1;"
          offset="0"
          id="stop18382" />
       <stop
          id="stop18388"
          offset="0.36170211"
-         style="stop-color:#7bfd79;stop-opacity:1;" />
+         style="stop-color:#46cc04;stop-opacity:1;" />
       <stop
-         style="stop-color:#beffcc;stop-opacity:1;"
+         style="stop-color:#9cff34;stop-opacity:1;"
          offset="1"
          id="stop18384" />
     </linearGradient>
@@ -1387,11 +1394,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
-     inkscape:cx="247.89986"
-     inkscape:cy="91.125"
+     inkscape:zoom="16"
+     inkscape:cx="23.09195"
+     inkscape:cy="16.625"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="source-icons"
      showguides="true"
      showgrid="true"
      inkscape:showpageshadow="false"
@@ -1408,13 +1415,13 @@
        type="xygrid"
        originx="0px"
        originy="0px"
-       spacingx="8px"
-       spacingy="8px"
+       spacingx="1px"
+       spacingy="1px"
        color="#563fff"
        empcolor="#031b4b"
-       opacity="0.64313725"
-       empopacity="0.17647059"
-       empspacing="1"
+       opacity="0.21960784"
+       empopacity="0.29019608"
+       empspacing="8"
        visible="true"
        enabled="true"
        snapvisiblegridlinesonly="false"
@@ -1428,7 +1435,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
       <cc:Work
          rdf:about="">
@@ -1470,7 +1477,7 @@
          inkscape:label="#new"
          sodipodi:nodetypes="ccccccccccccc"
          id="new"
-         d="M 5.5,2.5565924 L 5.5,7.556592 L 0.5,7.556592 L 0.5,12.556592 L 5.5,12.556592 L 5.5,17.556592 L 10.5,17.556592 L 10.5,12.556592 L 15.5,12.556592 L 15.5,7.556592 L 10.5,7.556592 L 10.5,2.5565924 L 5.5,2.5565924 z"
+         d="M 6.5,2.5565924 L 6.5,8.556592 L 0.5,8.556592 L 0.5,11.556592 L 6.5,11.556592 L 6.5,17.556592 L 9.5,17.556592 L 9.5,11.556592 L 15.5,11.556592 L 15.5,8.556592 L 9.5,8.556592 L 9.5,2.5565924 L 6.5,2.5565924 z"
          style="opacity:0.9;fill:url(#radialGradient4492);fill-opacity:1;fill-rule:evenodd;stroke:#00ad00;stroke-width:1;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
       <path
          inkscape:export-ydpi="90"
@@ -1984,7 +1991,7 @@
            style="fill:url(#linearGradient4608);fill-opacity:1;stroke:none" />
         <path
            transform="matrix(1.122807,0,0,1.122807,-10.571271,-83.03332)"
-           d="M 81.5,94.375 C 81.5,96.342514 79.905014,97.9375 77.9375,97.9375 C 75.969986,97.9375 74.375,96.342514 74.375,94.375 C 74.375,92.407486 75.969986,90.8125 77.9375,90.8125 C 79.905014,90.8125 81.5,92.407486 81.5,94.375 z"
+           d="M 81.5,94.375 A 3.5625,3.5625 0 1 1 74.375,94.375 A 3.5625,3.5625 0 1 1 81.5,94.375 z"
            sodipodi:ry="3.5625"
            sodipodi:rx="3.5625"
            sodipodi:cy="94.375"

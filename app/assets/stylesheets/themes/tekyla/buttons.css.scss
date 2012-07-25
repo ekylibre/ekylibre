@@ -180,7 +180,7 @@ input[type="submit"], a.btn {
             .icon { background-position: (-$format-interval*$i) (-$format-interval*1);}
           }
           &:active {
-            .icon { background-position: (-$format-interval*$i) (-$format-interval*2); }
+            .icon { background-position: (-$format-interval*$i) (-$format-interval*1); }
           }
           &[disabled] {
             .icon { background-position: (-$format-interval*$i) (-$format-interval*3); }
