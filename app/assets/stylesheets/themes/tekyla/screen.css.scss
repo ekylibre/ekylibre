@@ -57,6 +57,20 @@ $common-layout: smart;
   }
 }
 
+
+@mixin float($dir) { 
+  @if $dir == right {
+    html[dir="ltr"] & { float: right; }
+    html[dir="rtl"] & { float: left; }    
+  } @else if $dir == left {
+    html[dir="ltr"] & { float: left; }
+    html[dir="rtl"] & { float: right; }    
+  } @else {
+    & { float: $dir; }
+  }
+}
+
+
 @function background-hover($background-color: #FFF) { 
   @return mix($background-color, $base-color, 78%);
 }
@@ -469,15 +483,64 @@ div.td { display: table-cell; }
 #company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px; }
 #company div.side .value {color:#227;  padding: 2px; }
 
-.flash { padding: 8px 8px 8px 48px; margin-bottom: 8px; vertical-align: middle; background-position: 8px center; background-repeat: no-repeat; background-color: #FFF; color: black; border: 1px solid black; @include border-radius(8px);}
-.flash h3 { font-size: 13px; font-weight: bold; padding: 0 0 2px; margin-bottom: 2px; border-bottom: 1px dotted #999; }
-.flash ul { padding-left: 20px; }
-.flash ul li { list-style-type: square; }
-html>body .flash { height:auto; min-height:32px; } 
-.flash.error       { border-color: #D10; color: #D10; background-color: #FFDFD0; @include common-sprite(notification-error); }
-.flash.warning     { border-color: #E60; color: #E60; background-color: #FFEECC; @include common-sprite(notification-warning); }
-.flash.success     { border-color: #5A1; color: #5A1; background-color: #EEFFCC; @include common-sprite(notification-success); }
-.flash.information { border-color: #777; color: #777; background-color: #F5F5F5; @include common-sprite(notification-info); }
+.flash { 
+  padding: 8px; 
+  margin-bottom: 8px; 
+  vertical-align: middle; 
+  color: black; 
+  border: 1px solid black; 
+  @include border-radius(8px);
+  @include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
+  .icon {
+    display: block;
+    height: 32px;
+    width: 32px;
+    @include right(margin, 8px);
+    @include float(left);
+  }
+  .message { 
+    @include left(margin, 40px);
+    h3 {
+      font-size: 13px; 
+      font-weight: bold; 
+      padding: 0 0 2px; 
+      margin-bottom: 2px; 
+      border-bottom: 1px dotted #999; 
+    }
+    ul { 
+      padding-left: 20px; 
+      li { list-style-type: square; }
+    }
+  }
+  .end { 
+    clear: both;
+    height: 0;
+  }
+  &.error { 
+    border-color: #D10; 
+    color: #D10; 
+    background-color: #FFDFD0; 
+    .icon { @include common-sprite(notification-error); }
+  }
+  &.warning {
+    border-color: #E60;
+    color: #E60;
+    background-color: #FFEECC;
+    .icon { @include common-sprite(notification-warning); }
+  }
+  &.success {
+    border-color: #5A1;
+    color: #5A1;
+    background-color: #EEFFCC;
+    .icon { @include common-sprite(notification-success); }
+  }
+  &.information {
+    border-color: #777;
+    color: #777;
+    background-color: #F5F5F5;
+    .icon { @include common-sprite(notification-info); }
+  }
+}
 
 /*.errorExplanation { background: #ECA; color: #543; margin: 8px; }
 .errorExplanation { padding: 0 0 0 40px; border: 1px solid #F00; vertical-align: middle; min-height:32px; background: #FDD image-url("themes/tekyla/notification-error.png") left center no-repeat; }
@@ -720,28 +783,96 @@ $tree-line: 1px dotted #AAA;
 
 tbody.lines td input { width: 95%; }
 
+
 table.list { 
   width: 100%;
-  tr.total {
-    td, th { 
-      border: 1px solid #DDD;
-      font-size: 130%; 
-      font-weight: bold;
-      padding: 2px;
-      html[dir="ltr"] & { text-align:right; }
-      html[dir="rtl"] & { text-align:left; }
+    tr.total {
+      td, th { 
+        border: 1px solid #DDD;
+        font-size: 130%; 
+        font-weight: bold;
+        padding: 2px;
+        html[dir="ltr"] & { text-align:right; }
+        html[dir="rtl"] & { text-align:left; }
+      }
+      th { 
+        padding: 4px 6px;
+        @include background(linear-gradient(top, #EEE, #DDD));
+      }
+      td { 
+        padding: 4px;
+        color: black;
+        @include background(linear-gradient(top, #FFF, #EEE));
+      }
+      &.invalid td { color: #D20; }  
     }
-    th { 
-      padding: 2px 4px;
-      @include background(linear-gradient(top, #EEE, #DDD));
+  tbody {
+    tr.empty { 
+      td { 
+        text-align: center;
+        color: rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        padding: 1ex !important;
+      }
     }
-    td { 
-      color: black;
-      @include background(linear-gradient(top, #FFF, #EEE));
+    td.act { 
+      width: 16px;
+      a { 
+        color: transparent;
+        font-size: 0;
+        @include icons-sprite(action);
+        display: block;
+        height: 16px;
+        width: 16px;
+        margin: 0 auto;
+
+        &.show { @include icons-sprite(print); }
+        &.destroy { @include icons-sprite(destroy); }
+
+        &.abort       { @include icons-sprite(destroy); }
+        &.action      { @include icons-sprite(action); }
+        &.backup      { @include icons-sprite(right); }
+        &.cancel      { @include icons-sprite(cancel); }
+        &.checked     { @include icons-sprite(true); }
+        &.close       { @include icons-sprite(close); }
+        &.column      { @include icons-sprite(column); }
+        &.confirm     { @include icons-sprite(validate); }
+        &.configure   { @include icons-sprite(configure); }
+        &.correct     { @include icons-sprite(edit); }
+        &.edit,        &.update { @include icons-sprite(edit); }
+        &.new,         &.create { @include icons-sprite(new); }
+        &.destroy,     &.delete { @include icons-sprite(destroy); }
+        &.divide      { @include icons-sprite(divide); }
+        &.down        { @include icons-sprite(down); }
+        &.duplicate   { @include icons-sprite(duplicate); }
+        &.extract     { @include icons-sprite(action); }
+        &.filter      { @include icons-sprite(filter); }
+        &.firefox     { @include icons-sprite(down); }
+        &.help        { @include icons-sprite(help); }
+        &.import      { @include icons-sprite(left); }
+        &.letter      { @include icons-sprite(mark); }
+        &.load        { @include icons-sprite(load); }
+        &.logout      { @include icons-sprite(logout); }
+        &.mail        { @include icons-sprite(mail); }
+        &.merge       { @include icons-sprite(merge); }
+        &.point       { @include icons-sprite(point); }
+        &.print       { @include icons-sprite(print); }
+        &.reflect     { @include icons-sprite(action); }
+        &.refuse      { @include icons-sprite(destroy); }
+        &.register    { @include icons-sprite(new); }
+        &.restore     { @include icons-sprite(left); }
+        &.sort        { @include icons-sprite(sort); }
+        &.table       { @include icons-sprite(table); }
+        &.unchecked   { @include icons-sprite(false); }
+        &.up          { @include icons-sprite(up); }
+      }
+     
     }
-    &.invalid td { color: #D20; }  
   }
+  
 }
+
+
 table.active-list tr.total.valid   td { color: #090; }  
 table.active-list tr.subtotal.invalid td { color: #D20; }  
 table.active-list tr.subtotal.valid   td { color: #090; }  
@@ -977,9 +1108,72 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
   background: transparentize($base-color, 0.8);
 }
 
+.ui-datepicker {
+  display:none;
+  background: #EEE;
+  @include background(linear-gradient(top, #EEE, #DDD));
+  padding: 4px;
+  border: 1px solid #AAA;
+  @include border-radius(3px);
+  @include box-shadow(0 0 5px rgba(0,0,0,0.3));
+  $title-line-height: 16px;
+  .ui-datepicker-prev { 
+    float: left; 
+    line-height: $title-line-height;
+    @include hide-text;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin: 3px;
+    @include icons-sprite(left);
+  }
+  .ui-datepicker-next {
+    float: right;
+    line-height: $title-line-height;
+    @include hide-text;
+    display: block;
+    width: 16px;
+    height: 16px;
+    margin:3px;
+    @include icons-sprite(right);
+  }
+  .ui-datepicker-title { 
+    padding: 4px;
+    text-align: center;
+    line-height: $title-line-height;
+    * { font-weight: bold; }
+  }
+  table { 
+    border-collapse: separate;
+    border-spacing: 2px;
+    th { 
+      text-align: center;
+      font-weight: bold;
+    }
+    td { 
+      border: 1px solid mix($base-color, #FFF, 15%);
+      &:hover { 
+        border: 1px solid #FFF;
+        background: rgba(255, 255, 255, 0.5);
+      }
+      &.ui-datepicker-unselectable { 
+        border: none;
+        background: transparent;
+      }
+      a { 
+        display: block;
+        padding: 2px 4px;
+        text-align: center;
+      }
+    }
+  }
+}
+
 
 
 input[data-datepicker] {text-align: center}
+
+
 
 
 a.mn { 

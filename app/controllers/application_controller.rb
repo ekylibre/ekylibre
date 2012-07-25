@@ -437,7 +437,11 @@ class ApplicationController < ActionController::Base
 
   def profile()
     unless params[:profile]
+      set_trace_func(proc { |event, file, line, id, binding, classname|
+                       printf "%8s %s:%-2d %10s %8s\n", event, file, line, id, classname
+                     }) if params[:trace]
       yield
+      set_trace_func(nil) if params[:trace]
       return 
     end
     # require 'ruby-prof'

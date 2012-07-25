@@ -1,13 +1,10 @@
 @import "compass/css3";
 
-$buttons-names: new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement;
-$buttons-states: hover active disabled normal;
-$buttons-interval: 24px;
-@mixin buttons-background { 
-  background: image-url("themes/tekyla/buttons-16.png") no-repeat;
-}
-
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement);
+$buttons-states: hover whited active disabled normal;
 $buttons-radius: 3px;
+$buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px);
+
 $passive-bg: #E5E5E5;
 $active-bg: #688ED8;
 
@@ -57,7 +54,7 @@ input[type="submit"], a.btn {
         background-repeat: no-repeat; 
         width: 16px;
         height: 16px;
-        display: none;
+       // display: none;
       }
       &:focus {
         border: 1px solid $active;
@@ -141,25 +138,42 @@ input[type="submit"], a.btn {
   }
 }
 
-$i: 0;
-@each $button-name in $buttons-names { 
-  .btn.#{$button-name}, .mn.#{$button-name} {
-    .icon {
-      @include inline-block;
-      height: $buttons-interval*2/3;
-      width: $buttons-interval*2/3;
-      @include buttons-background;
-      background-position: (-$buttons-interval*$i) (-$buttons-interval*3);
+@each $format in $buttons-formats {
+  $i: 0;
+  $format-image: nth($format, 1);
+  $format-interval: nth($format, 2);
+  $format-selector: nth($format, 3);
+  $format-radius: nth($format, 4);
+  @each $buttons in $buttons-names { 
+    @each $button-name in $buttons { 
+      @if $button-name == default { 
+        $button-name: ""
+      } @else { 
+        $button-name: ".#{$button-name}"
+      }
+      .btn#{$button-name}, .mn#{$button-name} {
+        #{$format-selector} {
+          @include border-radius($format-radius);
+          padding: ($format-interval/6) ($format-interval/4);
+          .icon {
+            @include inline-block;
+            height: $format-interval*2/3;
+            width: $format-interval*2/3;
+            background: image-url($format-image) no-repeat;
+            background-position: (-$format-interval*$i) (-$format-interval*4);
+          }
+          &:hover {
+            .icon { background-position: (-$format-interval*$i) (-$format-interval*1);}
+          }
+          &:active {
+            .icon { background-position: (-$format-interval*$i) (-$format-interval*2); }
+          }
+          &[disabled] {
+            .icon { background-position: (-$format-interval*$i) (-$format-interval*3); }
+          }
+        }
+      }
     }
-    &:hover {
-      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*0);}
-    }
-    &:active {
-      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*0); }
-    }
-    &[disabled] {
-      .icon { background-position: (-$buttons-interval*$i) (-$buttons-interval*2); }
-    }
+    $i: $i + 1;
   }
-  $i: $i + 1;
 }

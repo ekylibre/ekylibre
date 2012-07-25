@@ -459,7 +459,7 @@ module ApplicationHelper
     if flash[:notifications].is_a?(Hash) and flash[:notifications][mode].is_a?(Array)
       for message in flash[:notifications][mode]
         message.force_encoding('UTF-8') if message.respond_to? :force_encoding
-        code << "<div class='flash #{mode}'><h3>#{tg('notifications.' << mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div>"
+        code << "<div class='flash #{mode}'><div class='icon'></div><div class='message'><h3>#{tg('notifications.' << mode.to_s)}</h3><p>#{h(message).gsub(/\n/, '<br/>')}</p></div><div class='end'></div></div>"
       end
     end
     code.html_safe
@@ -515,7 +515,8 @@ module ApplicationHelper
       title = data[1]||data[0].split(/[\:\\\/]+/)[-1].humanize
       src = data[0].strip
       if src.match(/^theme:/)
-        src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
+        # src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
+        src = image_path("themes/#{@current_theme}/#{src.split(':')[1]}")
       else
         src = image_path(src)
       end
@@ -818,6 +819,7 @@ module ApplicationHelper
     sprite = options.delete(:sprite) || "icons-16"
     options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
     options[:class] += ' '+icon.to_s if icon
+    options[:class] += ' '+options.delete(:size).to_s if options.has_key?(:size)
     link_to(url, options) do
       (icon ? content_tag(:span, '', :class=>"icon")+content_tag(:span, name, :class=>"text") : content_tag(:span, name, :class=>"text"))
     end
@@ -1175,8 +1177,9 @@ module ApplicationHelper
           input << link_to(label, options[:new], :class=>:fastadd, "data-confirm" => ::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
         elsif authorized?(options[:new])
           data = (options[:update] ? options[:update] : rlid)
-          input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
-
+          # input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item"=>data, :class=>"icon im-new").html_safe, :class=>:tool).html_safe, :class=>"toolbar mini-toolbar")
+          input << content_tag(:span, tool_to(tg(:new), options[:new], "data-new-item"=>data, :tool=>:new, :size => :mini).html_safe, :class => "mini-toolbar")
+         
         end
       end
       
