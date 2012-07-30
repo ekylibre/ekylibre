@@ -1,115 +1,115 @@
 arb:
   about:
-    authors: ['Alaa Alshoubaki']
-    dir: 'rtl'
-    iso2: 'ar'
-    name: 'لعربية'
+    authors: ["Alaa Alshoubaki"]
+    dir: "rtl"
+    iso2: "ar"
+    name: "لعربية"
   date:
-    abbr_day_names: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
-    abbr_month_names: ['', 'jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec']
-    day_names: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    abbr_day_names: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+    abbr_month_names: ["", "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"]
+    day_names: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     formats:
-      default: '%m/%d/%Y'
-      legal: '%d %B %Y'
-      long: '%B %d, %Y'
-      month_letter: '%d %B %Y'
-      short: '%b %d'
-    month_names: ['', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
+      default: "%m/%d/%Y"
+      legal: "%d %B %Y"
+      long: "%B %d, %Y"
+      month_letter: "%d %B %Y"
+      short: "%b %d"
+    month_names: ["", "january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
   datetime:
     distance_in_words:
       about_x_hours:
-        many: 'ساعة %{count} حوالي'
-        one: 'حوالي ساعة واحدة'
+        many: "ساعة %{count} حوالي"
+        one: "حوالي ساعة واحدة"
       about_x_months:
-        many: 'شهر %{count} حوالي'
-        one: 'حوالي شهر واحد'
+        many: "شهر %{count} حوالي"
+        one: "حوالي شهر واحد"
       about_x_years:
-        many: 'سنة %{count} حوالي'
-        one: 'تقريبا سنة واحدة'
-      half_a_minute: 'نصف دقيقة'
+        many: "سنة %{count} حوالي"
+        one: "تقريبا سنة واحدة"
+      half_a_minute: "نصف دقيقة"
       less_than_x_minutes:
-        many: ' دقيقة%{count}اقل من'
-        one: 'اقل من دقيقة واحدة'
+        many: " دقيقة%{count}اقل من"
+        one: "اقل من دقيقة واحدة"
       less_than_x_seconds:
-        many: 'ثانية %{count} اقل من'
-        one: 'اقل من ثانية واحدة'
+        many: "ثانية %{count} اقل من"
+        one: "اقل من ثانية واحدة"
       over_x_years:
-        many: 'سنة %{count} اكثر من'
-        one: 'اكثر من سنة'
+        many: "سنة %{count} اكثر من"
+        one: "اكثر من سنة"
       x_days:
-        many: '%{count} ايام'
-        one: 'يوم واحد'
+        many: "%{count} ايام"
+        one: "يوم واحد"
       x_minutes:
-        many: '%{count} دقائق'
-        one: 'دقيقة واحدة'
+        many: "%{count} دقائق"
+        one: "دقيقة واحدة"
       x_months:
-        many: '%{count} اشهر'
-        one: 'شهر واحد'
+        many: "%{count} اشهر"
+        one: "شهر واحد"
       x_seconds:
-        many: '%{count} ثواني'
-        one: 'ثانية واحدة'
+        many: "%{count} ثواني"
+        one: "ثانية واحدة"
   form:
-    # new: 'New…'
+    # new: "New…"
   list:
-    # columns: 'Columns'
+    # columns: "Columns"
     export:
-      false_value: 'زائف'
+      false_value: "زائف"
       formats:
-        csv: 'CSV'
-        # ods: 'Spreadsheet ODF'
-        xcsv: 'Excel CSV'
-      title: 'تصدير'
-      true_value: 'صحيح'
-    # export_as: 'Export as %{exported}...'
-    # items_per_page: 'Items per page'
-    # menu: 'Menu'
-    next: 'التالي' #?
-    no_records: 'ولا اية سجل'
+        csv: "CSV"
+        # ods: "Spreadsheet ODF"
+        xcsv: "Excel CSV"
+      title: "تصدير"
+      true_value: "صحيح"
+    # export_as: "Export as %{exported}..."
+    # items_per_page: "Items per page"
+    # menu: "Menu"
+    next: "التالي" #?
+    no_records: "ولا اية سجل"
     pagination:
-      # first: 'First page'
-      # last: 'Last page'
-      # next: 'Next page'
-      # previous: 'Previous page'
-      # showing_x_to_y_of_total: 'Showing %{x} to %{y} of %{total}'
-    previous: 'السابق' #?
+      # first: "First page"
+      # last: "Last page"
+      # next: "Next page"
+      # previous: "Previous page"
+      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
+    previous: "السابق" #?
     x_per_page:
-      # one: '%{count} per page'
-      # other: '%{count} per page'
+      # one: "%{count} per page"
+      # other: "%{count} per page"
   number:
     currency:
       format:
-        delimiter: ','
-        format: '%u%n'
-        # negative_format: '-%n%u'
+        delimiter: ","
+        format: "%u%n"
+        # negative_format: "-%n%u"
         precision: 2
-        separator: '.'
-        unit: '$'
+        separator: "."
+        unit: "$"
     format:
-      delimiter: ' '
+      delimiter: " "
       precision: 3
-      separator: ','
+      separator: ","
     human:
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 1
     percentage:
       format:
-        delimiter: ''
+        delimiter: ""
     precision:
       format:
-        delimiter: ''
+        delimiter: ""
   support:
     array:
-      last_word_connector: ' و '
-      sentence_connector: 'و'
-      two_words_connector: ', '
-      words_connector: ', '
+      last_word_connector: " و "
+      sentence_connector: "و"
+      two_words_connector: ", "
+      words_connector: ", "
   time:
-    am: 'صباحا'
+    am: "صباحا"
     formats:
-      default: '%b. %d, %Y at %H:%M:%S'
-      long: '%B %d, %Y %H:%M'
-      short: '%d %b %H:%M'
-    pm: 'مساءا'
+      default: "%b. %d, %Y at %H:%M:%S"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: "مساءا"
   will_paginate:
-    page_gap: '…'
+    page_gap: "…"

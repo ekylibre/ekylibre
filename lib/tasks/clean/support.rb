@@ -71,7 +71,8 @@ def yaml_value(value, depth=0)
   elsif value.is_a?(Numeric)
     value.to_s
   else
-    "'"+value.to_s.gsub("'", "''")+"'"
+    # "'"+value.to_s.gsub("'", "''")+"'"
+    '"'+value.to_s.gsub("\u00A0", "\\_")+'"'
   end
 end
 
@@ -106,6 +107,9 @@ def hash_diff(hash, ref, depth=0)
   end  
   return code, count, total
 end
+
+
+
 
 
 def actions_in_file(path, controller)

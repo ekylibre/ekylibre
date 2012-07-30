@@ -1,115 +1,115 @@
 spa:
   about:
-    authors: ['Coralie Labouyrie', 'Brice Texier']
-    dir: 'ltr'
-    iso2: 'es'
-    name: 'Español'
+    authors: ["Coralie Labouyrie", "Brice Texier"]
+    dir: "ltr"
+    iso2: "es"
+    name: "Español"
   date:
-    abbr_day_names: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá']
-    abbr_month_names: ['', 'ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic']
-    day_names: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+    abbr_day_names: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"]
+    abbr_month_names: ["", "ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"]
+    day_names: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"]
     formats:
-      default: '%d/%m/%Y'
-      legal: '%d %B %Y'
-      long: '%B %d, %Y'
-      month_letter: '%d %B %Y'
-      short: '%b %d'
-    month_names: ['', 'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
+      default: "%d/%m/%Y"
+      legal: "%d %B %Y"
+      long: "%B %d, %Y"
+      month_letter: "%d %B %Y"
+      short: "%b %d"
+    month_names: ["", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
   datetime:
     distance_in_words:
       about_x_hours:
-        many: 'alrededor de %{count} horas'
-        one: 'alrededor de 1 hora'
+        many: "alrededor de %{count} horas"
+        one: "alrededor de 1 hora"
       about_x_months:
-        many: 'alrededor de %{count} meses'
-        one: 'alrededor de 1 mes'
+        many: "alrededor de %{count} meses"
+        one: "alrededor de 1 mes"
       about_x_years:
-        many: 'alrededor de %{count} años'
-        one: 'alrededor de 1 año'
-      half_a_minute: 'half a minuto'
+        many: "alrededor de %{count} años"
+        one: "alrededor de 1 año"
+      half_a_minute: "half a minuto"
       less_than_x_minutes:
-        many: 'menos de %{count} minutos'
-        one: 'menos de 1 minuto'
+        many: "menos de %{count} minutos"
+        one: "menos de 1 minuto"
       less_than_x_seconds:
-        many: 'menos de %{count} segundos'
-        one: 'menos de 1 segundo'
+        many: "menos de %{count} segundos"
+        one: "menos de 1 segundo"
       over_x_years:
-        many: 'más de %{count} años'
-        one: 'más de 1 año'
+        many: "más de %{count} años"
+        one: "más de 1 año"
       x_days:
-        many: '%{count} días'
-        one: '1 día'
+        many: "%{count} días"
+        one: "1 día"
       x_minutes:
-        many: '%{count} minutos'
-        one: '1 minuto'
+        many: "%{count} minutos"
+        one: "1 minuto"
       x_months:
-        many: '%{count} meses'
-        one: '1 mes'
+        many: "%{count} meses"
+        one: "1 mes"
       x_seconds:
-        many: '%{count} segundos'
-        one: '1 segundo'
+        many: "%{count} segundos"
+        one: "1 segundo"
   form:
-    # new: 'New…'
+    # new: "New…"
   list:
-    columns: 'Columnas'
+    columns: "Columnas"
     export:
-      false_value: 'FALSO'
+      false_value: "FALSO"
       formats:
-        csv: 'CSV'
-        ods: 'OpenDocument Spreadsheet'
-        xcsv: 'CSV para Excel'
-      title: 'Exportación'
-      true_value: 'VERDAD'
-    export_as: 'Exportar a %{exported}...'
-    # items_per_page: 'Items per page'
-    menu: 'Menú'
-    next: 'Siguiente' #?
-    no_records: 'Vacío'
+        csv: "CSV"
+        ods: "OpenDocument Spreadsheet"
+        xcsv: "CSV para Excel"
+      title: "Exportación"
+      true_value: "VERDAD"
+    export_as: "Exportar a %{exported}..."
+    # items_per_page: "Items per page"
+    menu: "Menú"
+    next: "Siguiente" #?
+    no_records: "Vacío"
     pagination:
-      # first: 'First page'
-      # last: 'Last page'
-      # next: 'Next page'
-      # previous: 'Previous page'
-      # showing_x_to_y_of_total: 'Showing %{x} to %{y} of %{total}'
-    previous: 'Anterior' #?
+      # first: "First page"
+      # last: "Last page"
+      # next: "Next page"
+      # previous: "Previous page"
+      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
+    previous: "Anterior" #?
     x_per_page:
-      one: '%{count} por página'
-      other: '%{count} por página'
+      one: "%{count} por página"
+      other: "%{count} por página"
   number:
     currency:
       format:
-        delimiter: ','
-        format: '%u%n'
-        # negative_format: '-%n%u'
+        delimiter: ","
+        format: "%u%n"
+        # negative_format: "-%n%u"
         precision: 2
-        separator: '.'
-        unit: '€'
+        separator: "."
+        unit: "€"
     format:
-      delimiter: ' '
+      delimiter: " "
       precision: 3
-      separator: ','
+      separator: ","
     human:
       format:
-        delimiter: ''
+        delimiter: ""
         precision: 1
     percentage:
       format:
-        delimiter: ''
+        delimiter: ""
     precision:
       format:
-        delimiter: ''
+        delimiter: ""
   support:
     array:
-      last_word_connector: ' y '
-      sentence_connector: 'y'
-      two_words_connector: ', '
-      words_connector: ', '
+      last_word_connector: " y "
+      sentence_connector: "y"
+      two_words_connector: ", "
+      words_connector: ", "
   time:
-    am: 'am'
+    am: "am"
     formats:
-      default: '%d %b. %Y - %H:%M:%S'
-      long: '%B %d, %Y %H:%M'
-      short: '%d %b %H:%M'
-    pm: 'pm'
+      default: "%d %b. %Y - %H:%M:%S"
+      long: "%B %d, %Y %H:%M"
+      short: "%d %b %H:%M"
+    pm: "pm"
   will_paginate:
-    page_gap: '…'
+    page_gap: "…"
