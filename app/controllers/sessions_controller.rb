@@ -10,11 +10,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    if user = User.authenticate(params[:name], params[:password], @current_company)
+    # params.delete(:company)
+    # if user = User.authenticate(params[:name], params[:password], @current_company)
+    if user = User.authenticate(params[:name], params[:password], Company.find_by_code(params[:company]))
       initialize_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
-        redirect_to params[:redirect]||{:controller=>:dashboards, :action=>:general, :company=>user.company.code}
+        redirect_to params[:redirect]||{:controller=>:dashboards, :action=>:general}
         return
       end
     elsif User.count(:conditions=>{:name=>params[:name]}) > 1

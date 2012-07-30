@@ -19,7 +19,7 @@
 -else
   #login.login{:style=>"display:none"}
     .logoban{:title=>Ekylibre.version}
-    =form_tag({:action=>:create, :company=>params[:company], :redirect=>params[:redirect]}) do
+    =form_tag(session_path(:redirect=>params[:redirect])) do
       %table
         -if @current_company or @users
           %tr

@@ -31,7 +31,7 @@ class ApplicationHelperTest < ActionView::TestCase
         source = f.read
         should "'wikize' '#{file.gsub(Rails.root.to_s, '.')}'" do
           assert_nothing_raised() do
-            wikize(source, :url=>{:company=>@current_company.code, :controller=>:help, :action=>:show})
+            wikize(source, :url=>{:controller=>:help, :action=>:show})
             # render :inline=>"<%=wikize(@source)-%>"
           end
         end

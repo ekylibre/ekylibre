@@ -121,16 +121,6 @@ class ApplicationController < ActionController::Base
   def human_action_name()
     return self.class.human_action_name(action_name, @title)
   end
-
-
-  def default_url_options(options={})
-    options[:company] ||= ((params and params[:company]) ? params[:company] : @current_company ? @current_company.code : nil)
-    return options
-  end
-
-
-  
-
   
   protected  
 
@@ -280,15 +270,12 @@ class ApplicationController < ActionController::Base
   # Load @current_user and @current_company
   def identify()
     # Load current_user if connected
-    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id] # _by_id(session[:user_id])
+    @current_user = nil
+    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id]
     
     # Load current_company if possible
-    @current_company = Company.find(:first, :conditions=>{:code=>params[:company]}, :readonly=>true) #_by_code(params[:company])
-    if @current_user and @current_company and @current_company["id"]!=@current_user["company_id"]
-      notify_error(:unknown_company) unless params[:company].blank?
-      redirect_to_login
-      return false
-    end
+    @current_company = nil
+    @current_company = @current_user.company if @current_user
   end
   
 
@@ -501,7 +488,7 @@ class ApplicationController < ActionController::Base
   def redirect_to_login(url=nil)
     reset_session
     @current_user = nil
-    redirect_to(new_session_url(:redirect=>url, :company=>params[:company]))
+    redirect_to(new_session_url(:redirect=>url))
   end
   
   def redirect_to_back(options={})
@@ -512,7 +499,7 @@ class ApplicationController < ActionController::Base
     elsif request.referer and request.referer != request.url
       redirect_to request.referer, options
     else
-      redirect_to :controller=>:dashboards, :action=>:general
+      redirect_to(:controller=>:dashboards, :action=>:general)
     end
   end
 
@@ -549,7 +536,7 @@ class ApplicationController < ActionController::Base
       for submenu, menuitems in submenus
         fmenuitems = menuitems.collect do |url|
           if user.authorization(url[:controller], url[:action], session[:rights]).nil?
-            url.merge(:url=>url_for(url.merge(:company=>user.company.code)))
+            url.merge(:url=>url_for(url))
           else
             nil
           end

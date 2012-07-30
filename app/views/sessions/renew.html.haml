@@ -1,7 +1,7 @@
 %h1=controller.human_action_name
 #login.login
   .logoban{:title=>Ekylibre.version}
-  =form_tag({:company=>params[:company], :url=>params[:url]}, {"data-dialog"=>params[:dialog]}) do
+  =form_tag({:url=>params[:url]}, {"data-dialog"=>params[:dialog]}) do
     %table
       %tr
         %td.label=Company.model_name.human

@@ -40,7 +40,7 @@ class CompaniesController < ApplicationController
       @my_company, @user = Company.create_with_data(params[:my_company], params[:user], params[:demo])
       if @my_company.id and @user.id
         initialize_session(@user)
-        redirect_to :controller=>:dashboards, :action=>:welcome, :company=>@my_company.code
+        redirect_to :controller=>:dashboards, :action=>:welcome
       end      
     else
       if session[:user_id]

@@ -40,7 +40,7 @@ class ActiveSupport::TestCase
     old_controller = @controller
     @controller = SessionsController.new
     post :create, :name=>name, :password=>password
-    url = {:controller=>:dashboards, :action=>:general, :company=>companies(:companies_001).code}
+    url = {:controller=>:dashboards, :action=>:general}
     assert_redirected_to url, url.inspect
     assert_not_nil(session[:user_id])
     @controller = old_controller
@@ -63,19 +63,6 @@ class ActionController::TestCase
     end
   end
   
-
-
-  def self.get_actions(controller=nil)
-    controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s<=>b.to_s}
-      should "get #{action}" do
-        get action, :company=>@user.company.code
-        assert_response :success, "The action #{action.inspect} does not seem to support GET method #{redirect_to_url} / #{flash.inspect}"
-        assert_select("html body div#body", :count=>1)
-      end
-    end
-  end
-
 
 
   def self.test_restfully_all_actions(options={})
@@ -129,20 +116,20 @@ class ActionController::TestCase
 
       model = controller.to_s.singularize
       if options[action].is_a? Hash
-        # code << "    get :#{action}, :company=>@user.company.code\n"
+        # code << "    get :#{action}\n"
         # code << "    assert_response :redirect\n"
-        code << "    get :#{action}, :company=>@user.company.code, #{options[action].inspect[1..-2]}\n"
+        code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         # code << "    assert_select('html body div#body', 1, '#{action}'+response.inspect)\n"
       elsif mode == :index
-        code << "    get :#{action}, :company=>@user.company.code\n"
+        code << "    get :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show
         # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        # code << "      get :#{action}, :company=>@user.company.code\n"
+        # code << "      get :#{action}\n"
         # code << "    end\n"
-        code << "    get :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
-        code << "    get :#{action}, :company=>@user.company.code, :id=>1\n"
+        code << "    get :#{action}, :id=>'NaID'\n"
+        code << "    get :#{action}, :id=>1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
         code << "    assert_not_nil assigns(:#{model})\n"
       elsif mode == :create
@@ -153,11 +140,11 @@ class ActionController::TestCase
 
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      post :#{action}, :company=>@user.company.code, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
+        code << "      post :#{action}, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
           code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n" 
-          code << "      post :#{action}, :company=>@user.company.code, :#{model}=>#{model}.attributes\n"
+          code << "      post :#{action}, :#{model}=>#{model}.attributes\n"
           code << "    end\n"          
         end
       elsif mode == :update
@@ -168,51 +155,51 @@ class ActionController::TestCase
 
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
         code << "    assert_nothing_raised do\n" 
-        code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
+        code << "      put :#{action}, :id=>#{model}.id, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
           code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n" 
-          code << "      put :#{action}, :company=>@user.company.code, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
+          code << "      put :#{action}, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
           code << "    end\n"          
         end
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
-        code << "      delete :#{action}, :company=>@user.company.code, :id=>2\n"
+        code << "      delete :#{action}, :id=>2\n"
         code << "    end\n"
         code << "    assert_response :redirect\n"
       elsif mode == :list
-        code << "    get :#{action}, :company=>@user.company.code\n"
+        code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         for format in [:csv, :xcsv, :ods]
-          code << "    get :#{action}, :company=>@user.company.code, :format=>:#{format}\n"
+          code << "    get :#{action}, :format=>:#{format}\n"
           code << "    assert_response :success, 'Action #{action} does not esport in format #{format}'\n"
         end
       elsif mode == :touch
         # code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
-        # code << "      post :#{action}, :company=>@user.company.code\n"
+        # code << "      post :#{action}\n"
         # code << "    end\n"
-        code << "    post :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
-        code << "    post :#{action}, :company=>@user.company.code, :id=>1\n"
+        code << "    post :#{action}, :id=>'NaID'\n"
+        code << "    post :#{action}, :id=>1\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
         # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        # code << "      get :#{action}, :company=>@user.company.code\n"
+        # code << "      get :#{action}\n"
         # code << "    end\n"
-        code << "    get :#{action}, :company=>@user.company.code, :id=>'NaID'\n"
-        code << "    get :#{action}, :company=>@user.company.code, :id=>1\n"
+        code << "    get :#{action}, :id=>'NaID'\n"
+        code << "    get :#{action}, :id=>1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr 
-        code << "    get :#{action}, :company=>@user.company.code\n"
+        code << "    get :#{action}\n"
         code << "    assert_response :redirect\n"
-        code << "    xhr :get, :#{action}, :company=>@user.company.code\n"
+        code << "    xhr :get, :#{action}\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show_xhr
-        code << "    get :#{action}, :company=>@user.company.code, :id=>1\n"
+        code << "    get :#{action}, :id=>1\n"
         code << "    assert_response :redirect\n"
-        code << "    xhr :get, :#{action}, :company=>@user.company.code, :id=>1\n"
+        code << "    xhr :get, :#{action}, :id=>1\n"
         code << "    assert_not_nil assigns(:#{model})\n"
       else
-        code << "    get :#{action}, :company=>@user.company.code\n"
+        code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
         code << "    assert_select('html body div#body', 1, '#{action}')\n" # +response.inspect
       end
