@@ -580,7 +580,7 @@ fra:
     incoming_payment_uses: 'Parties d''encaissement'
     incoming_payments: 'Encaissements'
     indirect_links: 'Liens indirects'
-    initial_number: 'Numér initial'
+    initial_number: 'Numéro initial'
     # input_conveyors: 'Input conveyors'
     integer_value: 'Valeur entière'
     introduction: 'Introduction'
