@@ -21,7 +21,7 @@ $experimental-support-for-svg: true;
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
   padding:0; 
-  font-family: /*"Open Sans", "Liberation Sans",*/ helvetica, sans-serif;
+  font-family: "Liberation Sans", sans-serif;
   vertical-align: middle;
   /*line-height: 1.4em;*/
 }
@@ -228,12 +228,12 @@ div#side {
   overflow: auto; 
   vertical-align: top;
   .sd-module { 
-    padding: 0 0 8px; 
+    padding: 4px 0; 
     margin: 0; 
     border-top: 1px solid #95b0e4;
     &.collapsed { 
-      padding-bottom: 0px; 
-      @include opacity(0.5);
+      // padding-bottom: 0px; 
+      @include opacity(0.7);
     }
     &:first-child { 
       border-top: none; 
@@ -248,7 +248,7 @@ div#side {
         height: 12px; 
         width: 12px; 
         position: relative; 
-        top: 2px; 
+        top: 0px; 
         padding: 0;
         html[dir="ltr"] & {float: right}
         html[dir="rtl"] & {float: left}
@@ -259,13 +259,16 @@ div#side {
       }
     }
     .sd-content { 
+      &.unique .sd-item { 
+        font-weight: bold;
+      }
       .sd-item {
         padding: 0;
         a { 
           display: block; 
           text-decoration: none; 
           padding: 2px 12px; 
-          color: #126; 
+          // color: #126; 
           vertical-align: middle;
           white-space: nowrap; 
           overflow: hidden; 
@@ -284,7 +287,7 @@ div#side {
         }
       }
     }
-    &.current { background: rgba(200,224,254,0.3); }
+    &.current { background: transparentize(#95b0e4, 0.9); }
     &.history { background: #E7E7E7; }
     &.help { 
       background: #E7E7E7;

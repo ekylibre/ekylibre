@@ -1,7 +1,23 @@
 -for submenu in menus[path[0]]||[]
-  =side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
+  -#=side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
     -for url in submenu[1]
       .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
+
+  -name = "menu.#{path[0]}.#{submenu[0]}"
+  -unique = (submenu[1].size - 1).zero?
+  -session[:modules] ||= {}
+  -session[:modules][name.to_s] = true if ![TrueClass, FalseClass].include?(session[:modules][name.to_s].class) or unique
+  -shown = session[:modules][name]
+  .sd-module{:class => "#{'collapsed' unless shown}#{' current' if path[1] == submenu[0]}"}
+    -unless unique
+      .sd-title
+        =link_to("", {:action=>:toggle_module, :controller=>:interfacers}, "data-toggle-module"=>name, :class=>(shown ? :hide : :show))
+        %h2=tl("menus.submenus.#{submenu[0]}")
+    .sd-content{:class => (unique ? 'unique' : ''), :style => (shown ? "" : "display: none")}
+      -for url in submenu[1]
+        .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
+
+
 
 -if session[:history].is_a?(Array) and not session[:history].size.zero?
   =side_module "history", :title=>tl("recent_historic"), :class=>:history do
