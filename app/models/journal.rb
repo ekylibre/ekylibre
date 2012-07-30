@@ -20,7 +20,7 @@
 # 
 # == Table: journals
 #
-#  closed_on    :date             default(CURRENT_DATE), not null
+#  closed_on    :date             not null
 #  code         :string(4)        not null
 #  company_id   :integer          not null
 #  created_at   :datetime         not null

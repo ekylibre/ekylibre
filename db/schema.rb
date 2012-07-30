@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320105523) do
+ActiveRecord::Schema.define(:version => 20120730093920) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1076,16 +1076,16 @@ ActiveRecord::Schema.define(:version => 20120320105523) do
   add_index "journal_entry_lines", ["updater_id"], :name => "index_entries_on_updater_id"
 
   create_table "journals", :force => true do |t|
-    t.string   "nature",       :limit => 16,                           :null => false
-    t.string   "name",                                                 :null => false
-    t.string   "code",         :limit => 4,                            :null => false
-    t.date     "closed_on",                  :default => '1970-12-31', :null => false
-    t.integer  "company_id",                                           :null => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
+    t.string   "nature",       :limit => 16,                :null => false
+    t.string   "name",                                      :null => false
+    t.string   "code",         :limit => 4,                 :null => false
+    t.date     "closed_on",                                 :null => false
+    t.integer  "company_id",                                :null => false
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",               :default => 0,            :null => false
+    t.integer  "lock_version",               :default => 0, :null => false
     t.string   "currency",     :limit => 3
   end
 
