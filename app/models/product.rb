@@ -88,7 +88,7 @@ class Product < CompanyRecord
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
-  has_many :units, :class_name=>"Unit", :finder_sql=>proc{ "SELECT #{Unit.table_name}.* FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)} ORDER BY coefficient, label"}, :counter_sql=>proc{ "SELECT count(*) AS count_all FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)}" }
+  # has_many :units, :class_name=>"Unit", :finder_sql=>proc{ "SELECT #{Unit.table_name}.* FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)} ORDER BY coefficient, label"}, :counter_sql=>proc{ "SELECT count(*) AS count_all FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)}" }
   has_one :default_stock, :class_name=>"Stock", :order=>:name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
@@ -142,6 +142,11 @@ class Product < CompanyRecord
     to << :produce if self.for_productions
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
+
+  def units
+    Unit.of_product(self)
+  end
+
 
   def self.natures
     @@natures.collect{|x| [self.nature_label(x), x] }

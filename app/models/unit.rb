@@ -49,6 +49,9 @@ class Unit < CompanyRecord
   has_many :products
   validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
   validates_uniqueness_of :name, :scope=>:company_id
+  scope :of_product, lambda { |product|
+    where(:base => product.unit.base).order(:coefficient, :label)
+  }
 
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
