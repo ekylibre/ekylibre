@@ -223,7 +223,7 @@ class Entity < CompanyRecord
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
         valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name, :reconcilable=>true)
       end
-      self.reload.update_attribute("#{natures[nature]}_id", valid_account.id)
+      self.reload.update_column("#{natures[nature]}_id", valid_account.id)
     end
     return valid_account
   end

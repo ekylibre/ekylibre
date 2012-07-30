@@ -121,7 +121,7 @@ class Journal < CompanyRecord
       for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", self.closed_on+1, closed_on])
         entry.close
       end
-      self.update_attribute(:closed_on, closed_on)
+      self.update_column(:closed_on, closed_on)
     end
     return true
   end
@@ -148,7 +148,7 @@ class Journal < CompanyRecord
       for entry in self.entries.find(:all, :conditions=>["printed_on BETWEEN ? AND ? ", closed_on+1, self.closed_on])
         entry.reopen
       end
-      self.update_attribute(:closed_on, closed_on)
+      self.update_column(:closed_on, closed_on)
     end
     return true
   end

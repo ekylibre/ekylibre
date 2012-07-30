@@ -80,7 +80,7 @@ class LandParcel < CompanyRecord
       child = self.company.land_parcels.create!(subdivision.merge(:started_on=>divided_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id))
       self.company.land_parcel_kinships.create!(:parent_land_parcel=>self, :child_land_parcel=>child, :nature=>"divide")
     end
-    self.update_attribute(:stopped_on, divided_on)
+    self.update_column(:stopped_on, divided_on)
   end
   
   def merge(other_parcels, merged_on)
@@ -92,7 +92,7 @@ class LandParcel < CompanyRecord
     child = self.company.land_parcels.create!(:name=>parcels.collect{|p| p.name}.join("+"), :started_on=>merged_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id, :area_measure=>area)
     for parcel in parcels
       self.company.land_parcel_kinships.create!(:parent_land_parcel=>parcel, :child_land_parcel=>child, :nature=>"merge")
-      parcel.update_attribute(:stopped_on, merged_on)
+      parcel.update_column(:stopped_on, merged_on)
     end
     return child
   end

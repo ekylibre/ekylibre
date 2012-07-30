@@ -145,7 +145,7 @@ class CompanyTest < ActiveSupport::TestCase
       
       should "not be updateable" do
         amount = @sale.amount
-        @sale.update_attribute(:amount, amount.to_i+50)
+        @sale.update_column(:amount, amount.to_i+50)
         @sale.reload
         assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
       end

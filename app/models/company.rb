@@ -876,7 +876,7 @@ class Company < Ekylibre::Record::Base
         
         # Existing accounts
         for account in self.reload.accounts
-          account.update_attribute(:reconcilable, true) if account.number.match(regexp)
+          account.update_column(:reconcilable, true) if account.number.match(regexp)
         end if options[:reconcilable]
 
         # Create new accounts

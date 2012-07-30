@@ -88,7 +88,7 @@ class Operation < CompanyRecord
       end
       if saved
         self.reload
-        self.update_attribute(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
+        self.update_column(:tools_list, self.tools.collect{|t| t.name}.to_sentence)
       end
         
       # Lines

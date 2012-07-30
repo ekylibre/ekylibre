@@ -142,11 +142,11 @@ class JournalEntryLine < CompanyRecord
   
 #   # this method allows to lock the entry_line. 
 #   def close
-#     self.update_attribute(:closed, true)
+#     self.update_column(:closed, true)
 #   end
   
 #   def reopen
-#     self.update_attribute(:closed, false)
+#     self.update_column(:closed, false)
 #   end
 
   # Check if the current letter is balanced with all entrty lines with the same letter

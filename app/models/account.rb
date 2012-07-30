@@ -150,7 +150,7 @@ class Account < CompanyRecord
   def new_letter
     letter = self.last_letter
     letter = letter.blank? ? "AAA" : letter.succ
-    self.update_attribute(:last_letter, letter)
+    self.update_column(:last_letter, letter)
     # line = self.journal_entry_lines.find(:first, :conditions=>[self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order=>"letter DESC")
     # return (line ? line.letter.succ : "AAA")
     return letter
