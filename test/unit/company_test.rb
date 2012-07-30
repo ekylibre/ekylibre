@@ -145,7 +145,9 @@ class CompanyTest < ActiveSupport::TestCase
       
       should "not be updateable" do
         amount = @sale.amount
-        @sale.update_column(:amount, amount.to_i+50)
+        assert_raise ActiveModel::MassAssignmentSecurity::Error do
+          @sale.update_attributes(:amount => amount.to_i+50)
+        end
         @sale.reload
         assert_equal amount, @sale.amount, "State of sale is: #{@sale.state}"
       end
