@@ -66,6 +66,9 @@ Ekylibre::Application.routes.draw do
       get :list
     end
     member do
+      get :cede
+      get :sell
+      get :depreciate
       get :list_depreciations
     end
   end

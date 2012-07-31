@@ -1,4 +1,7 @@
 # Unused actions in rights
+#   - "assets::cede"
+#   - "assets::depreciate"
+#   - "assets::sell"
 #   - "production_chain_conveyors::create"
 #   - "production_chain_conveyors::destroy"
 #   - "production_chain_conveyors::edit"

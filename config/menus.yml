@@ -1,4 +1,7 @@
 # Unused actions in menus
+#         - "assets::cede"
+#         - "assets::depreciate"
+#         - "assets::sell"
 #         - "companies::register"
 #         - "dashboards::accountancy"
 #         - "dashboards::finances"

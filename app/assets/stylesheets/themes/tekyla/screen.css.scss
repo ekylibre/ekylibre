@@ -228,20 +228,17 @@ div#side {
   overflow: auto; 
   vertical-align: top;
   .sd-module { 
-    padding: 4px 0; 
-    margin: 0; 
+    padding: 4px 0;
     border-top: 1px solid #95b0e4;
-    &.collapsed { 
-      // padding-bottom: 0px; 
-      @include opacity(0.7);
-    }
     &:first-child { 
       border-top: none; 
     }
     .sd-title {
-      html[dir="ltr"] & { padding: 4px 4px 4px 12px; }
-      html[dir="rtl"] & { padding: 4px 12px 4px 4px; }
-      h2 { font-weight: bold;}
+      padding: 4px;
+      @include left(padding, 8px);
+      h2 { 
+        font-weight: bold;
+      }
       *[data-toggle-module] { 
         display: block; 
         cursor: pointer; 
@@ -250,8 +247,7 @@ div#side {
         position: relative; 
         top: 0px; 
         padding: 0;
-        html[dir="ltr"] & {float: right}
-        html[dir="rtl"] & {float: left}
+        @include float(right);
         &.show { @include common-sprite(toggle-show) }
         &.show:hover { @include common-sprite(toggle-show-hover) }
         &.hide { @include common-sprite(toggle-hide) }
@@ -267,17 +263,20 @@ div#side {
         a { 
           display: block; 
           text-decoration: none; 
-          padding: 2px 12px; 
+          padding: 2px;
+          @include left(padding, 8px);
+          width: 194px;
           // color: #126; 
           vertical-align: middle;
           white-space: nowrap; 
           overflow: hidden; 
-          width: 176px;
           line-height: 1.4em;
           @include ellipsis;
           -moz-binding: url(../xml/ellipsis.xml#ellipsis); 
           -o-text-overflow: ellipsis; text-overflow: ellipsis; 
-          &:hover {background: #C9D7F1; }          
+          &:hover {
+            @include background(#C9D7F1);
+          }          
         }
         &.current a {
           background: #95b0e4; 
@@ -287,7 +286,7 @@ div#side {
         }
       }
     }
-    &.current { background: transparentize(#95b0e4, 0.9); }
+   /* &.current { background: transparentize(#95b0e4, 0.9); }*/
     &.history { background: #E7E7E7; }
     &.help { 
       background: #E7E7E7;
@@ -894,7 +893,7 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .param:last-child { border-bottom:none; }
 
 table.accounts tr td.tabs { width: 16em; }
-table.accounts tr td.active-list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px; }
+table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px; }
 .major-accounts a, .major-accounts strong { background: #DBE4F6; display: block; padding:4px 8px; margin-bottom:2px; }
 html[dir="ltr"] .major-accounts a, html[dir="ltr"] .major-accounts strong { @include border-top-left-radius(8px); @include border-bottom-left-radius(8px); }
 html[dir="rtl"] .major-accounts a, html[dir="rtl"] .major-accounts strong { @include border-top-right-radius(8px); @include border-bottom-right-radius(8px); }

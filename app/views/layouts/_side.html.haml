@@ -15,7 +15,8 @@
         %h2=tl("menus.submenus.#{submenu[0]}")
     .sd-content{:class => (unique ? 'unique' : ''), :style => (shown ? "" : "display: none")}
       -for url in submenu[1]
-        .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
+        .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}
+          =link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
 
 
 

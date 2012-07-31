@@ -47,4 +47,16 @@ class AssetsController < ApplicationController
     t3e @asset.attributes
   end
 
+  def cede
+    return unless @asset = find_and_check
+  end
+  
+  def sell
+    return unless @asset = find_and_check
+  end
+
+  def depreciate
+    return unless @asset = find_and_check
+  end
+
 end

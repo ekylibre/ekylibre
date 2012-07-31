@@ -14,9 +14,12 @@ eng:
       index: "Postal areas"
       new: "Add a postal area"
     assets:
+      # cede: "Cede asset"
+      # depreciate: "Depreciate asset"
       edit: "Edit asset: %{name}"
       index: "Assets"
       new: "New asset"
+      # sell: "Sell asset"
       show: "Asset: %{name}"
     bank_statements:
       edit: "Edit bank statement %{number}"
