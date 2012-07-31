@@ -1260,7 +1260,7 @@ module ApplicationHelper
     majors << if params[:prefix].blank?
                 content_tag(:strong, tc(:all_accounts))
               else
-                link_to(tc(:all_accounts), :controller=>:accounts, :action=>:index, :prefix=>nil)
+                link_to(tc(:all_accounts), params.merge(:controller=>:accounts, :action=>:index, :prefix=>nil))
               end
     majors << @current_company.major_accounts.collect do |account| 
       if params[:prefix] == account.number.to_s
