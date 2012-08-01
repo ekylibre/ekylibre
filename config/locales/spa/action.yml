@@ -1513,6 +1513,7 @@ spa:
     you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar"
     you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?"
   preferences:
+    # assets_sequence: "Numeration of assets"
     # bank_journal: "Default bank journal"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"

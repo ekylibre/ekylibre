@@ -1322,6 +1322,7 @@ eng:
     you_must_select_a_file_to_import: "You must select a file to import"
     you_will_lose_all_your_current_data: "If you continue, you will lose all your data being entered. Would you continue?" #?
   preferences:
+    assets_sequence: "Numeration of assets"
     bank_journal: "Default bank journal"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"

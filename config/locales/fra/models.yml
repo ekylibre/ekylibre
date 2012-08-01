@@ -1032,6 +1032,7 @@ fra:
         journals:
           bank: "Banque"
           cash: "Caisse"
+          # forward: "Carried-forward"
           purchases: "Achats"
           sales: "Ventes"
           various: "Opérations diverses"
@@ -1050,6 +1051,9 @@ fra:
             public: "Public (sans droits)"
         sale_nature_name: "Vente standard"
         sequences:
+          assets:
+            # name: "Numeration of assets"
+            # number_format: "A[number|7]"
           cash_transfers:
             name: "Numérotation des virements internes"
             number_format: "VI[year|4][number|4]"

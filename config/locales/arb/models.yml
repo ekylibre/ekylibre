@@ -1546,6 +1546,7 @@ arb:
         journals:
           bank: "الدفتر اليومي للبنك"
           cash: "الدفتر اليومي للصندوق النقدي"
+          # forward: "Carried-forward"
           purchases: "دفاتر الشراء اليومية"
           sales: "دفاتر البيع اليومية"
           various: "دفاتر يومية لعمليات متنوعة"
@@ -1568,6 +1569,9 @@ arb:
         sample_product_name: "عينة المنتج" #?
         sequences:
           accountancy: #?
+          assets:
+            # name: "Numeration of assets"
+            # number_format: "A[number|7]"
           cash_transfers:
             # name: "Numeration of cash transfers"
             # number_format: "CT[year|4][number|4]"

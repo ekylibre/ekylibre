@@ -1007,6 +1007,7 @@ jpn:
         journals:
           # bank: "Bank"
           # cash: "Cash"
+          # forward: "Carried-forward"
           # purchases: "Purchases"
           # sales: "Sales"
           # various: "Various operations"
@@ -1025,6 +1026,9 @@ jpn:
             # public: "Public (no rights)"
         # sale_nature_name: "Standard"
         sequences:
+          assets:
+            # name: "Numeration of assets"
+            # number_format: "A[number|7]"
           cash_transfers:
             # name: "Numeration of cash transfers"
             # number_format: "CT[year|4][number|4]"
