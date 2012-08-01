@@ -68,8 +68,8 @@ class ProductsController < ApplicationController
   list(:prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name, :through=>:entity, :url=>true
     t.column :name, :through=>:category, :url=>true
-    t.column :pretax_amount
-    t.column :amount
+    t.column :pretax_amount, :currency => true
+    t.column :amount, :currency => true
     t.column :by_default
     # t.column :range
     t.action :edit

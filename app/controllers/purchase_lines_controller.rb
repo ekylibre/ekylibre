@@ -30,9 +30,9 @@ class PurchaseLinesController < ApplicationController
       redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
       return
     end
-    @purchase_line = @purchase.lines.new()
-    @price = Price.new(:pretax_amount=>0.0)
-    session[:current_currency] = @purchase.currency
+    @purchase_line = @purchase.lines.new
+    @price = Price.new(:pretax_amount=>0.0, :currency => @purchase.currency)
+    session[:current_currency] = @price.currency
     t3e @purchase.attributes
     render_restfully_form
   end
