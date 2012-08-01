@@ -18,13 +18,22 @@
 @import "compass/utilities";
 $experimental-support-for-svg: true;
 
+$fs-normal: 14px;
+$fs-small:      ceil(0.7*$fs-normal);
+$fs-large: round(1.15*$fs-normal);
+$fs-huge:   round(1.3*$fs-normal);
+$fs-very-huge:      round(1.7*$fs-normal);
+
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
   padding:0; 
   font-family: "Liberation Sans", sans-serif;
   vertical-align: middle;
+  font-size: $fs-normal;
   /*line-height: 1.4em;*/
 }
+
 
 
 $icons-layout: smart;
@@ -92,11 +101,11 @@ $menu-border: 1px solid mix($menu-background, #000000, 80%);
 
 html { background: $menu-background; }
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;}
-fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: 15px; font-weight: bold;}
+fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: $fs-large; font-weight: bold;}
 fieldset nobr { margin: 0 8px; vertical-align: middle; }
 fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
-td, th, a, p, input, textarea, select, div { font-size:13px;}
-small, sup, sub { font-size: 11px; }
+td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
+small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color:#02C; text-decoration: none; }
 a:hover { color: #000; text-decoration: underline;}
 a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
@@ -169,7 +178,7 @@ html[dir="rtl"] .icon.im-menu:hover  { background-image: image-url("themes/tekyl
 #wrap-table td#side, #wrap-table td#main {vertical-align: top}
 
 #legals { text-align: center; padding: 2px 4px; }
-#legals, #legals * { color: #AAA; font-size: 11px; text-shadow: 1px 1px 1px #FFF }
+#legals, #legals * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
 
 .fields { 
   background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
@@ -187,9 +196,9 @@ html[dir="rtl"] .icon.im-menu:hover  { background-image: image-url("themes/tekyl
 
 .content { clear: both; }
 .content * { color: #000 }
-.content h1 { font-size: 12px; margin: 0px 0 8px; color: #23579A; font-weight:bold; text-transform: uppercase; letter-spacing: 1px;}
-.content h2 { font-size: 13px; margin: 8px 0 4px; border-bottom: 1px dotted #AAA; color: #23579A; font-weight:bold; }
-.content h3 { font-size: 13px; margin: 4px 0 2px 10px; font-weight: bold; color: #000; }
+.content h1 { font-size: $fs-normal; margin: 0px 0 8px; color: #23579A; font-weight:bold; text-transform: uppercase; letter-spacing: 1px;}
+.content h2 { font-size: $fs-normal; margin: 8px 0 4px; border-bottom: 1px dotted #AAA; color: #23579A; font-weight:bold; }
+.content h3 { font-size: $fs-normal; margin: 4px 0 2px 10px; font-weight: bold; color: #000; }
 .content pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
 .content ul { padding: 4px 2em; }
 .content ul li { list-style-type: square; }
@@ -298,22 +307,22 @@ div#side {
 
 
 .main { padding: 8px; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid #95b0e4; border-right: none; border-top: none;*/
-.main h1 { margin: 0px 0px 8px; font-size:20px; color: #047; font-weight: bold; }
-.main .subheading { margin: -4px 0 8px; font-size:18px; color: #AAA; font-weight: normal; font-style: italic; }
-/*.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
-.main h2 { margin: 8px 0px 4px; font-size:18px; color: #047; font-weight: bold;  padding: 1px 0;}
+.main h1 { margin: 0px 0px 8px; font-size: $fs-very-huge; color: #047; font-weight: bold; }
+.main .subheading { margin: -4px 0 8px; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
+/*.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
+.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: #047; font-weight: bold;  padding: 1px 0;}
 .main .mn-index { margin-bottom: 8px; width: 200px; }
 html[dir="ltr"] .main .mn-index {float: left; margin-right: 8px; }
 html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
 .main .mn-index .mn-index-sub { margin: 8px 0 0; padding: 0 8px; }
 .main .mn-index .mn-index-sub:first-child { margin: 0; }
-.main .mn-index .mn-index-sub legend { font-size: 11px; text-transform: uppercase; }
+.main .mn-index .mn-index-sub legend { font-size: $fs-small; text-transform: uppercase; }
 .main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; line-height: 1.4em;}
 .main .mn-index .mn-index-sub a:hover { background: #C9D7F1; }
 
 .main .menu { @include border-radius(8px); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
-/*.main .menu h2 { font-size : 15px; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
+/*.main .menu h2 { font-size : $fs-large; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
 .main .menu h2 { margin: 2px 0px !important; }
 .main .menu ul { padding: 4px 18px; }
 .main .menu li { list-style-type: square; padding: 1px; }
@@ -503,7 +512,7 @@ div.td { display: table-cell; }
   .message { 
     @include left(margin, 40px);
     h3 {
-      font-size: 13px; 
+      font-size: $fs-normal; 
       font-weight: bold; 
       padding: 0 0 2px; 
       margin-bottom: 2px; 
@@ -547,7 +556,7 @@ div.td { display: table-cell; }
 
 /*.errorExplanation { background: #ECA; color: #543; margin: 8px; }
 .errorExplanation { padding: 0 0 0 40px; border: 1px solid #F00; vertical-align: middle; min-height:32px; background: #FDD image-url("themes/tekyla/notification-error.png") left center no-repeat; }
-.errorExplanation h2 { color: #F00;  font-size: 13px; }
+.errorExplanation h2 { color: #F00;  font-size: $fs-normal; }
 */
 
 .checkbox-true { @include common-sprite(true); height:12px; width:12px; }
@@ -564,7 +573,7 @@ table.formalize tr.field td label { color: #555; }
 table.formalize td.label { text-align:right; padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
 html[dir="rtl"] table.formalize td.label { text-align:left !important; }
 table.formalize td.input { padding:2px 6px 2px 2px; }
-table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: 11px; border-left:1px dashed #CCC; }
+table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left:1px dashed #CCC; }
 table.formalize td .notnull { border: 1px solid #33F; background-color: #EEF }
 table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
 table.formalize td .info span    { color: #55C; }
@@ -573,7 +582,7 @@ table.formalize td .example span { color: #4A5; }
 table.formalize td .hint         { color: #600;  background:#FDE; padding:2px; }
 table.formalize td .hint span    { color: #B54; }
 table.formalize td .note         { color: #777; }
-table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #012; color: #012; font-size:13px; border-bottom: 1px solid #CCC; font-weight:bold; }
+table.formalize tr.title th { padding: 16px 8px 2px; border-bottom: 0px dotted #012; color: #012; font-size: $fs-normal; border-bottom: 1px solid #CCC; font-weight:bold; }
 table.formalize td.input .code { font-family: "Liberation Mono", monospace; }
 a.act img { border: none !important; }
 /*
@@ -647,7 +656,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 
 
 .results { background: #EEF;  padding:4px 6px; margin: 0 0 8px; width:192px; }
-.results h2 { font-size : 16px; color: black; padding: 2px; margin: 2px 0px; }
+.results h2 { font-size : $fs-large; color: black; padding: 2px; margin: 2px 0px; }
 .results ul { padding: 4px 4px 4px 18px; }
 .results li { list-style-type: square; }
 .results li .pertinence{ color: #AAA; font-size: 11px; }
@@ -656,7 +665,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 
 /*e7f2fd bbcfe6*/
 
-h2.form { font-size: 15px; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
+h2.form { font-size: $fs-large; margin: 8px 0px 4px; border-bottom: 1px solid #C9D7F1; color: #656C79; }
 
 .stepper { border-collapse: collapse; width: 100%; margin-bottom:8px; }
 .stepper td { height: 36px; }
@@ -673,7 +682,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 .login { width:500px; margin:64px auto; /*border: 1px solid #95b0e4; background:#c9d7f1;*/ z-index: 1000; border: 1px solid #DDD; background: #f1f1f1; } /* #c9d7f1 */
 .ui-dialog .login { margin: 0; padding: 0 8px;}
 .login .logoban { height:80px; width: 280px; @include common-sprite(ekylong); margin: 16px auto 8px; }
-.login h2 { color:red !important; padding: 2px; text-align:center; font-size:18px; }
+.login h2 { color:red !important; padding: 2px; text-align:center; font-size: $fs-huge; }
 .login p { margin:8px; }
 .login table { border-collapse: collapse;  margin:16px auto; margin-left:auto; margin-right:auto; }
 .login table tr td { padding: 2px 4px; }
@@ -787,28 +796,28 @@ $tree-line: 1px dotted #AAA;
 tbody.lines td input { width: 95%; }
 
 
-table.list { 
+.active-list[data-list-source] table.list, .active-list table.list, table.list { 
   width: 100%;
-    tr.total {
-      td, th { 
-        border: 1px solid #DDD;
-        font-size: 130%; 
-        font-weight: bold;
-        padding: 2px;
-        html[dir="ltr"] & { text-align:right; }
-        html[dir="rtl"] & { text-align:left; }
-      }
-      th { 
-        padding: 4px 6px;
-        @include background(linear-gradient(top, #EEE, #DDD));
-      }
-      td { 
-        padding: 4px;
-        color: black;
-        @include background(linear-gradient(top, #FFF, #EEE));
-      }
-      &.invalid td { color: #D20; }  
+  tr.total {
+    td, th { 
+      border: 1px solid #DDD;
+      font-size: $fs-large; 
+      font-weight: bold;
+      padding: 2px;
+      html[dir="ltr"] & { text-align:right; }
+      html[dir="rtl"] & { text-align:left; }
     }
+    th { 
+      padding: 4px 6px;
+      @include background(linear-gradient(top, #EEE, #DDD));
+    }
+    td { 
+      padding: 4px;
+      color: black;
+      @include background(linear-gradient(top, #FFF, #EEE));
+    }
+    &.invalid td { color: #D20; }  
+  }
   tbody {
     tr.empty { 
       td { 
@@ -816,6 +825,12 @@ table.list {
         color: rgba(0, 0, 0, 0.3);
         font-weight: bold;
         padding: 1ex !important;
+      }
+    }
+    tr.odd, tr.even { 
+      td { 
+        padding-top: $fs-normal*0.25;
+        padding-bottom: $fs-normal*0.25;
       }
     }
     td.act { 
@@ -888,7 +903,7 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .condition { background: #FD8; padding: 4px; margin-bottom: 8px; }
 #conditions .title { clear: both; background: #FEA; padding: 4px; }
 #conditions .title .right-menu { float: right; padding-left:8px; }
-#conditions .title h3 { font-size: 13px; }
+#conditions .title h3 { font-size: $fs-normal; }
 #conditions .parameters { padding-top: 4px; }
 #conditions .param { padding: 2px; border-bottom: 1px dotted #AAA; }
 #conditions .param:last-child { border-bottom:none; }
@@ -926,8 +941,8 @@ html[dir="rtl"] .chain .delete { float:left; }
 .work-center-graph .work-center .action { margin: 2px;}
 table.conveyor { border-collapse: collapse; margin: 2px 0; }
 .conveyor .information table { border-collapse: collapse; padding: 0}
-.conveyor .cell { background: #DDD; font-size: 11px; border: 2px solid #555; padding: 0;}
-.conveyor .cell * { font-size: 11px; }
+.conveyor .cell { background: #DDD; font-size: $fs-small; border: 2px solid #555; padding: 0;}
+.conveyor .cell * { font-size: $fs-small; }
 .conveyor .cell .bmenu { padding: 0; width: 12em;}
 .conveyor .cell .bmenu ul { width: 12em;}
 .conveyor .cell .bmenu a { display: block; padding: 2px 4px;}
@@ -995,7 +1010,7 @@ table.profile td { padding: 1px 2px; }
 div.profile { clear: both; border-left: 1px solid #000; border-top: 1px solid #000;}
 div.profile .md { float: right; }
 
-.profile * { font-size: 10px; font-family: "Liberation Mono", monospace; }
+.profile * { font-size: $fs-small; font-family: "Liberation Mono", monospace; }
 .profile .dec { text-align: right; width: 15ex;}
 .profile .mdc { text-align: right; width: 7ex;}
 .profile .tit { border : 1px solid transparent; cursor: pointer;}
@@ -1075,7 +1090,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
     .ui-dialog-title {
       margin: 4px;
       font-weight: bold;
-      font-size: 110%;
+      font-size: $fs-large;
       color: white;
       @include text-shadow(0 0 3px rgba(0,0,0,0.5));
     }
