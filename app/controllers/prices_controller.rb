@@ -47,8 +47,8 @@ class PricesController < ApplicationController
   end
 
   def destroy
-    return unless @price = find_and_check(:price)
-    @price.update_attributes(:active=>false)
+    return unless @price = find_and_check
+    @price.destroy
     redirect_to_current
   end
 
@@ -73,14 +73,14 @@ class PricesController < ApplicationController
   end
 
   def edit
-    return unless @price = find_and_check(:price)
+    return unless @price = find_and_check
     @mode = "purchases" if @price.entity_id != @current_company.entity_id
     t3e @price.attributes, :product=>@price.product.name
     render_restfully_form
   end
 
   def update
-    return unless @price = find_and_check(:price)
+    return unless @price = find_and_check
     @mode = "purchases" if @price.entity_id != @current_company.entity_id
     @price.amount = 0
     return if save_and_redirect(@price, :attributes=>params[:price])

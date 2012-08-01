@@ -47,8 +47,51 @@
 require 'test_helper'
 
 class PriceTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+
+  # Test if the historic is preserved on updates
+  def test_update
+    price = prices(:prices_001)
+    count = Price.count
+    assert !count.zero?
+    
+    # Update
+    id, pretax_amount = price.id, price.pretax_amount
+    price.pretax_amount = pretax_amount + 50
+    saved = price.update
+    assert saved, "Price must be saved (#{price.errors.inspect})"
+    assert_equal count + 1, Price.count
+    assert price.stopped_at.nil?
+    old_price = nil
+    assert_nothing_raised do
+      old_price = Price.find(id)
+    end
+    assert_equal pretax_amount, old_price.pretax_amount
+    assert_nothing_raised do
+      saved.reload
+    end
+    assert_not_equal id, saved.id, "Old ID and new ID must be different"
+  end
+
+  # Test if the historic is preserved on destructions
+  def test_destroy
+    price = prices(:prices_003)
+    count = Price.count
+    assert !count.zero?
+
+    # Destroy
+    price.pretax_amount = 158.20
+    assert price.save
+    assert_equal count + 1, Price.count
+    assert price.stopped_at.nil?
+    id = price.id
+    assert price.destroy
+    assert_equal count + 1, Price.count
+    assert_nothing_raised do
+      Price.find(id)
+    end
+    assert_nothing_raised do
+      price.reload
+    end
+    assert !price.stopped_at.nil?, "Price stopped_at must be updated if price is deleted"
   end
 end

@@ -52,6 +52,7 @@ class Price < CompanyRecord
   belongs_to :entity
   belongs_to :product
   belongs_to :tax
+  # belongs_to :supplier, :class_name => "Entity"
   has_many :outgoing_delivery_lines
   has_many :taxes
   has_many :purchase_lines
@@ -69,7 +70,6 @@ class Price < CompanyRecord
   before_validation do
     self.company_id  ||= self.product.company_id if self.product
     if self.company
-      # TODO: Specify a default currency per company
       self.currency ||= self.company.default_currency
       self.entity_id ||=  self.company.entity_id
     end
@@ -96,7 +96,7 @@ class Price < CompanyRecord
   #     end
   # end
 
-  def update # _without_callbacks
+  def update
     current_time = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
     nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:started_at=>current_time, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
@@ -105,8 +105,8 @@ class Price < CompanyRecord
     return nc
   end
 
-  def destroy # _without_callbacks
-    unless new_record?
+  def destroy
+    unless self.new_record?
       current_time = Time.now
       self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
     end
