@@ -9,34 +9,33 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require active-list
  *= require ./buttons
 */
 
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities";
+@import "config.css.scss";
 $experimental-support-for-svg: true;
 
-$fs-normal: 14px;
-$fs-small:      ceil(0.73*$fs-normal);
-$fs-large:     round(1.15*$fs-normal);
-$fs-huge:      round(1.30*$fs-normal);
-$fs-very-huge: round(1.70*$fs-normal);
+@import "active-list/minimal";
+@import "active-list/background";
+@import "active-list/theme";
+$list-line-backgrounds: ("" rgba(255, 255, 255, 0)) (".odd" rgba(255, 255, 255, 0.5)) (".even" rgba(255, 255, 255, 0.5));
+$list-column-backgrounds: ("" rgba(255, 255, 255, 0)) (".act" rgba(255, 134, 0, 0)) (".sor" rgba(0, 18, 132, 0.05));
+$list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
+.active-list[data-list-source], .active-list { 
+  @include active-list-theme;
+}
 
-$base-color: #408DC4;
-$link-color: darken($base-color, 7%);
-$text-color: darken($link-color, 80%);
 
+$icons-layout: smart;
+@import "themes/tekyla/icons/*.png";
+@include all-icons-sprites;
 
-//$base-color: #95b0e4;
-//$link-color: $base-color; /* #3162C0; /* 02C */
-
-$light-color: mix($base-color, #FFF, 50%); /* #C9D7F1 */
-
-$menu-background: #F0F0F0;
-$menu-background-hover: background-hover($menu-background);
-$menu-border: 1px solid mix($menu-background, #000000, 80%);
+$common-layout: smart;
+@import "themes/tekyla/common/*.png";
+@include all-common-sprites;
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
@@ -48,67 +47,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   /*line-height: 1.4em;*/
 }
 
-
-
-$icons-layout: smart;
-@import "themes/tekyla/icons/*.png";
-@include all-icons-sprites;
-
-$common-layout: smart;
-@import "themes/tekyla/common/*.png";
-@include all-common-sprites;
-
-@mixin left($base-name, $value) { 
-  html[dir="ltr"] & { #{$base-name}-left: $value; }
-  html[dir="rtl"] & { #{$base-name}-right: $value; }
-}
-
-@mixin right($base-name, $value) { 
-  html[dir="ltr"] & { #{$base-name}-right: $value; }
-  html[dir="rtl"] & { #{$base-name}-left: $value; }
-}
-
-@mixin text-align($dir) { 
-  @if $dir == right {
-    html[dir="ltr"] & { text-align: right; }
-    html[dir="rtl"] & { text-align: left; }    
-  } @else if $dir == left {
-    html[dir="ltr"] & { text-align: left; }
-    html[dir="rtl"] & { text-align: right; }    
-  } @else {
-    & { text-align: $dir; }
-  }
-}
-
-
-@mixin float($dir) { 
-  @if $dir == right {
-    html[dir="ltr"] & { float: right; }
-    html[dir="rtl"] & { float: left; }    
-  } @else if $dir == left {
-    html[dir="ltr"] & { float: left; }
-    html[dir="rtl"] & { float: right; }    
-  } @else {
-    & { float: $dir; }
-  }
-}
-
-
-@function background-hover($background-color: #FFF) { 
-  @return mix($background-color, $base-color, 78%);
-}
-
-
-@mixin menu-shadow { 
-  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3));
-}
-
-
-
-
-
-
-
 html { background: $menu-background; }
 fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;}
 fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: $fs-large; font-weight: bold;}
@@ -118,8 +56,8 @@ td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none; }
 a:hover { color: $link-color; text-decoration: underline;}
-a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
-a.current:hover { color: #000; }
+/*a.current:link, a.current:visited, a.current:focus { color: #000; text-decoration: none; font-weight: bold}
+a.current:hover { color: #000; }*/
 
 #body > div > .hbox > * { overflow: auto; }
 
@@ -127,12 +65,17 @@ a.current:hover { color: #000; }
 
 *[data-click], .clickable { cursor: pointer; }
 
-#wrap { padding: 8px 0; margin-top: -1px; clear: both; background: $menu-background; position: relative; z-index: 750; }
-#wrap-table {border-collapse: collapse; width: 100%;}
-#wrap-table td#side, #wrap-table td#main {vertical-align: top}
+#wrap { padding: 8px 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
+#wrap-table {
+  border-collapse: collapse; 
+  width: 100%;
+  td#side, td#main {vertical-align: top}
+}
 
-#legals { text-align: center; padding: 2px 4px; }
-#legals, #legals * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
+#legals { 
+  text-align: center; padding: 2px 4px;
+  &, & * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
+}
 
 .fields { 
   background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
@@ -149,9 +92,9 @@ a.current:hover { color: #000; }
 #about-us div table { margin: 0 auto; width: 500px; }
 
 .content { clear: both; }
-.content * { color: #000 }
-.content h1 { font-size: $fs-normal; margin: 0px 0 8px; color: #23579A; font-weight:bold; text-transform: uppercase; letter-spacing: 1px;}
-.content h2 { font-size: $fs-normal; margin: 8px 0 4px; border-bottom: 1px dotted #AAA; color: #23579A; font-weight:bold; }
+.content * { color: $text-color }
+.content h1 { font-size: $fs-normal; margin: 0px 0 8px; color: $title-color; font-weight:bold; text-transform: uppercase; letter-spacing: 1px;}
+.content h2 { font-size: $fs-normal; margin: 8px 0 4px; border-bottom: 1px dotted #AAA; color: $title-color; font-weight:bold; }
 .content h3 { font-size: $fs-normal; margin: 4px 0 2px 10px; font-weight: bold; color: #000; }
 .content pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
 .content ul { padding: 4px 2em; }
@@ -177,7 +120,7 @@ dd { margin-bottom: .2em; margin-left: 1em; }
 
 
 #side-splitter {width: 4px; background: $base-color; border-top: 4px solid $base-color; border-bottom: 4px solid $base-color;}
-#side-splitter:hover { background: #23579A; }
+#side-splitter:hover { background: $title-color; }
 html[dir="ltr"] #side-splitter:hover, html[dir="rtl"] #side-splitter.closed:hover { cursor: w-resize; }
 html[dir="ltr"] #side-splitter.closed:hover, html[dir="rtl"] #side-splitter:hover { cursor: e-resize; }
 
@@ -192,7 +135,7 @@ div#side {
   vertical-align: top;
   .sd-module { 
     padding: 4px 0;
-    border-top: 1px solid $base-color;
+    border-top: 1px solid mix($menu-background, $base-color, 60%);
     &:first-child { 
       border-top: none; 
     }
@@ -238,21 +181,18 @@ div#side {
           -moz-binding: url(../xml/ellipsis.xml#ellipsis); 
           -o-text-overflow: ellipsis; text-overflow: ellipsis; 
           &:hover {
-            @include background($light-color);
+            @include background(background-hover($menu-background));
           }          
         }
         &.current a {
           background: $base-color; 
           color: white; 
-          text-shadow: 0 0 2px #3D5C8D; 
-          font-weight: bold;
+          text-shadow: 0 0 2px mix($base-color, #000, 30%); 
+          /*font-weight: bold;*/
         }
       }
     }
-   /* &.current { background: transparentize($base-color, 0.9); }*/
-    &.history {  }
     &.help { 
-      
       #help .content { padding: 8px; }
     }
   }
@@ -261,10 +201,9 @@ div#side {
 
 
 .main { padding: 8px; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid $base-color; border-right: none; border-top: none;*/
-.main h1 { margin: 0px 0px 8px; font-size: $fs-very-huge; color: #047; font-weight: bold; }
+.main h1 { margin: 0px 0px 8px; font-size: $fs-very-huge; color: $title-color; font-weight: bold; }
 .main .subheading { margin: -4px 0 8px; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
-/*.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: #047; font-weight: bold; border-bottom: 2px solid #047; padding: 1px 0;}*/
-.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: #047; font-weight: bold;  padding: 1px 0;}
+.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
 .main .mn-index { margin-bottom: 8px; width: 200px; }
 html[dir="ltr"] .main .mn-index {float: left; margin-right: 8px; }
 html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
@@ -273,19 +212,18 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 .main .mn-index .mn-index-sub:first-child { margin: 0; }
 .main .mn-index .mn-index-sub legend { font-size: $fs-small; text-transform: uppercase; }
 .main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; line-height: 1.4em;}
-.main .mn-index .mn-index-sub a:hover { background: $light-color; }
+.main .mn-index .mn-index-sub a:hover { @include background(background-hover($desktop-background)); }
 
-.main .menu { @include border-radius(8px); background: #DBE4F6; padding:4px 6px; margin: 0 0 8px; }
+.main .menu { @include border-radius($default-border-radius); background: $cell-background; padding:4px 6px; margin: 0 0 8px; }
 /*.main .menu h2 { font-size : $fs-large; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
 .main .menu h2 { margin: 2px 0px !important; }
 .main .menu ul { padding: 4px 18px; }
 .main .menu li { list-style-type: square; padding: 1px; }
-.main .menu li { color:#047; }
+.main .menu li { }
 .main .menu.special { background: #FE9; }
 .main .menu.special a:link, .main .menu.special a:visited { color: #A60; }
 .main .menu.indicator { background: #FD8; } /*#FA3;*/
 
-/*#top { border-bottom: 1px solid #DDD; }*/
 
 #top {
   .user-bar { 
@@ -293,16 +231,15 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
     border: 1px solid rgba(255,255,255,0.32); 
     border-top: none; 
     border-bottom: none; 
-    height: 32px; 
+/*    height: 32px; */
     padding: 0; 
     position :relative; 
     vertical-align:bottom;
-    html[dir="ltr"] & { float:right; }
-    html[dir="rtl"] & { float:left; }
+    @include float(right);
     a.root { 
       display:block; 
-      height: 32px; 
-      line-height: 26px; 
+/*      height: 32px; 
+      line-height: 26px; */
       white-space: nowrap; 
       vertical-align: middle; 
       padding: 0 8px;
@@ -320,7 +257,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
       width:auto; 
       min-width: 10em; 
       background: $menu-background; 
-      @include box-shadow(0 0 5px rgba(0,0,0,0.3));
+      @include menu-shadow;
       html[dir="ltr"] & { right: -1px; }
       html[dir="rtl"] & { left: -1px; }
       li { 
@@ -346,36 +283,75 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
   }
 
   .menu-bar { 
-    height: 24px; 
-    padding: 3px 3px 0; 
+    $menu-height: $fs-normal+10px;
+    height: $menu-height; 
+    padding: 0 $fs-normal/4; 
+    margin-bottom: 1px;
 /*    background: #688ED8 image-url("themes/tekyla/shadow-top.png") bottom repeat-x; */
     @include background(#D0D0D0); 
-/*    @include background($link-color linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.15))); */
+    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));
     display: block;
-    ul { margin:0; padding: 0; }
-    li { 
-      position:relative; 
-      list-style-type:none; 
-      padding: 0;
-      @include float(left);
-      .logo-item { @include common-sprite(ekylibre); width: 74px; height: 24px; border: none; margin: 2px 2px 0; padding: 0;}
+    ul {
+      li { 
+        position:relative; 
+        list-style-type:none; 
+        padding: 0;
+        @include float(left);
+        .logo-item { @include common-sprite(ekylibre); width: 74px; height: 24px; border: none; margin: (($menu-height - 24px)/2) 2px 0; padding: 0;}
+        ul {
+          display:none; position:absolute; margin:0; top: $menu-height; padding: 2px; width:auto; min-width: 10em; z-index: 1000; background: $menu-background;
+          html[dir="ltr"] & { left: 0px; }
+          html[dir="rtl"] & { right: 0px; }
+        }
+        &.submenu { 
+          padding: 2px 4px; display:block; float: none !important;
+          &:hover { background: $menu-background-hover; }
+          a { display: block; padding: 3px 6px;}
+        }
+      }
     }
-    ul li ul {
-      display:none; position:absolute; margin:0; top: 26px; padding: 2px; width:auto; min-width: 10em; z-index: 1000; background: $menu-background; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
-      html[dir="ltr"] & { left:-1px; }
-      html[dir="rtl"] & { right:-1px; }
+    ul li:hover ul, ul li ul:hover { display:block; border: 1px solid #AAA; @include menu-shadow; }
+    a { display: block; white-space: nowrap; color: black; text-decoration: none; }
+    li.menu { 
+      $menu-text-height: $fs-normal + 2px;
+      margin: 0 0 0 1px;
+      a.menu {
+        &, & span { 
+          height: $menu-text-height;
+          line-height: $menu-text-height;
+          vertical-align: top;
+          font-weight: bold;
+          text-shadow: 1px 1px 0 white; 
+          text-shadow: 1px 1px 0 transparentize(white, 0.5); 
+          color: #555;
+        }
+        border-top: 2px solid #BBB;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+        padding: (($menu-height - 2px - $menu-text-height)/2) 8px; color: white; text-align: center; position: relative; z-index: 500;
+        &.current { 
+          background-color: $menu-background; 
+          span { color: $text-color; }
+          @include box-shadow(0 -5px 5px rgba(0,0,0,0.2)); 
+          border-color: #D50;
+          border-left: none;
+          border-right: none;
+        }
+      }
+      &.other:hover { 
+        background-color: $menu-background; 
+        @include menu-shadow;
+        a.menu {
+          span { color: $text-color; }
+          border-color: #AAA;
+          border-top-color: background-hover($base-color);
+          height: $menu-text-height + 1px;
+        }
+      }
     }
-    ul li:hover ul, ul li ul:hover { display:block; border: 1px solid #AAA; @include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5)); }
-    li.submenu { padding: 2px 4px; display:block; float: none !important;}
-    li.submenu a { display: block; padding: 3px 6px;}
-    li.submenu:hover { background: $light-color; }
-    a { display: block; white-space: nowrap; color: black; text-decoration: none; } /*background: transparent;*/
-    li.menu { margin: 0 2px; border: 1px solid transparent; border-bottom: none; @include border-top-left-radius(5px); @include border-top-right-radius(5px); }
-    li.menu a.menu { height: 25px; line-height: 25px; vertical-align: middle; padding: 2px 8px; color: white; text-align: center; position: relative; z-index: 500; text-shadow: 1px 1px 1px #3D5C8D; @include border-top-left-radius(4px); @include border-top-right-radius(4px) }
-    li.menu.other:hover { background-color: $menu-background; border-color: #AAA; @include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));}
-    li:hover a.menu.other { background-color: $menu-background; z-index: 1500; color: #000; text-shadow: -1px -1px 1px white;}
-    li a.menu.current { background-color: $menu-background; color: black; text-shadow: 0 0 2px white; @include box-shadow(0 0 5px rgba(0,0,0,0.5)); }
-
+    li:hover a.menu.other { 
+      background-color: $menu-background; z-index: 1500; color: #000; text-shadow: -1px -1px 1px white;}
+/*
     li.menu.general { 
       a.menu.general { 
         width: 20px; 
@@ -395,6 +371,8 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         @include common-sprite(home-current); 
       }
     }
+*/
+
   }
 }
 
@@ -462,7 +440,7 @@ div.td { display: table-cell; }
   vertical-align: middle; 
   color: black; 
   border: 1px solid black; 
-  @include border-radius(8px);
+  @include border-radius($default-border-radius);
   @include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
   .icon {
     display: block;
@@ -588,9 +566,9 @@ input[type="submit"]:hover, input[type="submit"]:active, input[type="submit"]:fo
 /* END */
 input[type="text"], input[type="password"], textarea, select { border: 1px solid #aaa; background: #fff; } 
 input[type="text"], input[type="password"], textarea, select { margin: 1px !important; border-width: 1px; }
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 2px solid #79e !important; margin: 0px !important; }
-input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: red !important; }
-input.invalid, textarea.invalid, select.invalid { border: 1px solid red !important; background-color: #FDD !important; } 
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 2px solid $base-color !important; margin: 0px !important; }
+input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: $invalid-color !important; }
+input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; } 
 
 
 .fore { border: 1px solid $light-color; margin: 8px 0; background: #EFE; }
@@ -599,7 +577,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 
 /*#E7E7E7*/
 
-.search { background: #CEA !important; color: #580; @include border-radius(8px); padding:4px 6px; margin: 0 0 8px; }
+.search { background: #CEA !important; color: #580; @include border-radius($default-border-radius); padding:4px 6px; margin: 0 0 8px; }
 .search table { margin: 0px auto; }
 .search .label { padding: 1px 4px; }
 .search .submit { padding: 0px 4px;}
@@ -607,7 +585,7 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid red !importa
 .search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }
 .search table tr:first-child .crit { border-top: none; }
 
-.kujaku { background: #CEA !important; color: #580; @include border-radius(8px); padding:4px 6px; margin: 0 0 8px; }
+.kujaku { background: #CEA !important; color: #580; @include border-radius($default-border-radius); padding:4px 6px; margin: 0 0 8px; }
 .kujaku table { margin: 0px auto; }
 .kujaku .label { padding: 1px 4px; }
 .kujaku .submit { padding: 0px 4px; width: 130px; text-align:center; }
@@ -671,30 +649,62 @@ html[dir="rtl"] .login table tr td.label { text-align:left !important; }
 #table.entries tr.even td{background: #A3FCFF; }
 
 
-/*all the styles used by the plugin Dyli.*/
-div.dyli_complete {width: 350px; z-index: 1000; }
-div.dyli_complete ul {border:1px solid ButtonShadow; margin:0; padding:0; list-style-type:none; }
-div.dyli_complete ul li {background-color: Menu; margin:0; padding:3px; color: MenuText; cursor: pointer; } /*$light-color*/
-div.dyli_complete ul li.selected {background-color: Highlight; color: HighlightText; }
-div.dyli_complete ul strong.highlight { margin:0; padding:0; }
-input.dyli { background: #FFF image-url("themes/tekyla/buttons/dyli.png") no-repeat; }
-html[dir="ltr"] input.dyli { background-position: right center; padding-right: 18px; }
-html[dir="rtl"] input.dyli { background-position: left center; padding-left: 18px; }
-
-.tabbox { margin: 8px 0;}
-.tabbox > .tabs  { padding: 4px 4px 0px; background: #688ED8 image-url("themes/tekyla/shadow-bottom.png") top repeat-x;}
-.tabbox > .tabs > .tab { text-decoration: none; line-height: 24px; /*background: #57D;*/ cursor: pointer; padding: 4px 8px 3px; margin: 0 6px 0 0; color: #FFF; text-shadow: 1px 1px 1px #3D5C8D; white-space: nowrap; @include border-top-left-radius(4px); @include border-top-right-radius(4px); } /*border: 1px solid #CCC; border-bottom: none;*/
-.tabbox > .tabs > .tab:hover { background: #3D5C8D }
-.tabbox > .tabs > .tab.current { color: #000; padding: 4px 6px; text-decoration: none; background: $menu-background; font-weight: bold; text-shadow: none; @include box-shadow(0 -2px 2px #3D5C8D); @include box-shadow(-2px -2px 2px #3D5C8D, 2px -2px 2px #3D5C8D);}
-.tabbox > .tabpanels {background: $menu-background; border: 1px solid #CCC; padding:8px; border-top: none; }
-.tabbox > .tabpanels > .tabpanel { display: none; } /*min-height: 200px;*/
-.tabbox > .tabpanels > .tabpanel.current { display: block; }
+.tabbox {
+  margin: 8px 0;
+  & > .tabs  { 
+    padding: 0px; 
+    & > .tab { 
+      text-decoration: none; 
+      line-height: 24px; 
+      cursor: pointer;
+      padding: 4px 6px; 
+      color: #000;
+      text-shadow: 1px 1px 0 white;
+      text-decoration: none;
+      margin: 0 6px 0 0; 
+      white-space: nowrap;
+      @include border-top-left-radius($default-border-radius);
+      @include border-top-right-radius($default-border-radius);
+      border: 1px solid mix($desktop-background, #000, 70%);
+      border-bottom: none;
+      background: $menu-background;
+      opacity: 0.5;
+      &:hover { 
+        opacity: 0.8; 
+      }
+      &.current {
+        font-weight: bold; 
+        text-shadow: none;
+        opacity: 1;
+        position: relative;
+        top: 1px;
+      }
+    }
+  }
+  & > .tabpanels {
+    @include menu-shadow;
+    background: $menu-background;
+    border: 1px solid mix($desktop-background, #000, 70%);
+    padding:8px;
+    & > .tabpanel {
+      display: none;
+      &.current { display: block; }
+    }
+  }
+  &.journals { 
+    border-bottom: 1px solid mix($desktop-background, #000, 70%);
+    @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
+    & > .tab {
+      &.special{ color: $base-color; }
+    }
+  }
+}
 
 $tree-line: 1px dotted #AAA;
 .branch { 
 
   &:hover { 
-    background-color: background-hover(); 
+    background-color: background-hover($desktop-background); 
   }
   .shift { 
     height: 15px; 
@@ -740,20 +750,6 @@ $tree-line: 1px dotted #AAA;
   html[dir="rtl"] & { margin-right: 20px; border-right: $tree-line; }
 }
 
-
-/*.branch .item  { padding: 0 0 0 16px; background: image-url("themes/tekyla/buttons/increment.png") no-repeat center left; margin: 0 0 0 10px; }*/
-/*.branch .item  { padding: 0 0 0 16px; background: image-url("themes/tekyla/buttons/increment.png") no-repeat center left; margin: 0 0 0 10px; }*/
-
-/*
-.journals.tabbox { margin-bottom: 8px; border-bottom: 1px solid #AAA; }
-.journals.tabbox .tabs { padding: 0 8px; background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; }
-.journals.tabbox .tabs .tab { background-image: image-url("themes/tekyla/shadow-top.png"); background-repeat: repeat-x; background-position: center bottom; }
-.journals.tabbox .tabs .tab.current{ background: #F7F7FF; }
-.journals.tabbox .tabs .tab.special{ color: #C00; } /*border-top: 3px solid $base-color;*/
-
-.journals.tabbox > .tabs > .tab.current{ background: #FFF; }
-.journals.tabbox > .tabs > .tab.special{ color: #FCC; }
-.journals.tabbox > .tabs > .tab.special.current { color: #C00; }
 
 tbody.lines td input { width: 95%; }
 
@@ -870,18 +866,40 @@ div.fastadd { background: #FC8; text-align:center; padding: 4px; margin: 4px 0; 
 #conditions .param { padding: 2px; border-bottom: 1px dotted #AAA; }
 #conditions .param:last-child { border-bottom:none; }
 
-table.accounts tr td.tabs { width: 16em; }
-table.accounts tr td.list, .tab-content { /*border: 4px solid #BACFE6;*/ background:#BACFE6; padding:4px; }
-.major-accounts a, .major-accounts strong { background: #DBE4F6; display: block; padding:4px 8px; margin-bottom:2px; }
-html[dir="ltr"] .major-accounts a, html[dir="ltr"] .major-accounts strong { @include border-top-left-radius(8px); @include border-bottom-left-radius(8px); }
-html[dir="rtl"] .major-accounts a, html[dir="rtl"] .major-accounts strong { @include border-top-right-radius(8px); @include border-bottom-right-radius(8px); }
-.major-accounts strong { background: #BACFE6 }
-.major-accounts > *:last-child { margin-bottom: 0 }
+table.accounts { 
+  tr { 
+    td.tabs { 
+      width: 16em; 
+      .major-accounts {
+        a, strong { 
+          background: $cell-background; display: block; padding:4px 8px; margin-bottom:2px;
+          html[dir="ltr"] & { @include border-top-left-radius($default-border-radius); @include border-bottom-left-radius($default-border-radius); }
+          html[dir="rtl"] & { @include border-top-right-radius($default-border-radius); @include border-bottom-right-radius($default-border-radius); }
+        }
+        strong { background: $cell-background-current; font-weight: bold; }
+        & > *:last-child { margin-bottom: 0 }
+      }
+    }
+  }
+}
+  
+table.accounts tr td.list, .tab-content { background: $cell-background-current; padding:4px; }
 
-.view { padding:4px; }/* background: #DBE4F6; margin: 0 0 8px; }*/
-.view span { padding:4px 8px; }
-.view a, .view strong { padding:4px 8px; margin: 0 2px; background: #DBE4F6; @include border-top-left-radius(8px); @include border-top-right-radius(8px); }
-.view strong { background: #BACFE6; margin: 0 2px; }
+.view {
+  padding:4px;
+  span { padding:4px 8px; }
+  a, strong {
+    $text-height: $fs-normal + 2px;
+    height: $text-height;
+    line-height: $text-height;
+    vertical-align: top;
+    padding: 4px 8px; 
+    margin: 0 2px; 
+    background: $cell-background; 
+    @include border-top-left-radius($default-border-radius); @include border-top-right-radius($default-border-radius); 
+  }
+  strong { background: $cell-background-current; }
+}
 
 
 .map { border: 1px solid #999; background: white; }
@@ -1092,8 +1110,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 .ui-datepicker {
   display:none;
-  background: #EEE;
-  @include background(linear-gradient(top, #EEE, #DDD));
+  background: $menu-background;
   padding: 4px;
   border: 1px solid #AAA;
   @include border-radius(3px);

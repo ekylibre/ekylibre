@@ -1,0 +1,74 @@
+/*
+ *  Main config file for the theme
+ */
+
+@mixin left($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-left: $value; }
+  html[dir="rtl"] & { #{$base-name}-right: $value; }
+}
+
+@mixin right($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-right: $value; }
+  html[dir="rtl"] & { #{$base-name}-left: $value; }
+}
+
+@mixin text-align($dir) { 
+  @if $dir == right {
+    html[dir="ltr"] & { text-align: right; }
+    html[dir="rtl"] & { text-align: left; }    
+  } @else if $dir == left {
+    html[dir="ltr"] & { text-align: left; }
+    html[dir="rtl"] & { text-align: right; }    
+  } @else {
+    & { text-align: $dir; }
+  }
+}
+
+@mixin float($dir) { 
+  @if $dir == right {
+    html[dir="ltr"] & { float: right; }
+    html[dir="rtl"] & { float: left; }    
+  } @else if $dir == left {
+    html[dir="ltr"] & { float: left; }
+    html[dir="rtl"] & { float: right; }    
+  } @else {
+    & { float: $dir; }
+  }
+}
+
+
+/*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
+@mixin menu-shadow { 
+  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3));
+}
+
+$fs-normal: 13px;
+$fs-small:      ceil(0.73*$fs-normal);
+$fs-large:     round(1.15*$fs-normal);
+$fs-huge:      round(1.30*$fs-normal);
+$fs-very-huge: round(1.70*$fs-normal);
+
+$initial-color: #688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4;*/
+$base-color: change-color($initial-color, $lightness: 53%);
+$link-color:  darken($base-color, 12%);
+$text-color:  #111;
+$title-color: darken($link-color, 11%);
+$invalid-color: red;
+$hover-transparency: 0.90;
+$hover-mask: transparentize($base-color, $hover-transparency);
+
+@function background-hover($background-color) { 
+/*  @return mix($background-color, $base-color, 78%);*/
+  @return mix($background-color, opacify($hover-mask, 1), percentage($hover-transparency));
+}
+
+//$base-color: #95b0e4;
+//$link-color: $base-color; /* #3162C0; /* 02C */
+$desktop-background: #FFFFFF;
+$light-color: mix($base-color, $desktop-background, 50%); /* #C9D7F1 */
+$menu-background: #F0F0F0; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
+$menu-background-hover: background-hover($menu-background);
+$menu-border: 1px solid mix($menu-background, #000000, 80%);
+$default-border-radius: 3px;
+$cell-background: mix($desktop-background, $base-color, 82%);
+$cell-background-current: mix($desktop-background, $base-color, 62%);

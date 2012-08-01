@@ -1,12 +1,14 @@
 @import "compass/css3";
+@import "config.css.scss";
 
 $buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: 3px;
 $buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px);
 
-$passive-bg: #E5E5E5;
-$active-bg: #688ED8;
+$passive-bg: $menu-background; /*#E5E5E5;*/
+/*$active-bg: #688ED8;*/
+$active-bg: $base-color;
 
 input[type="submit"], a.btn {
   cursor: pointer;
@@ -133,7 +135,7 @@ input[type="submit"], a.btn {
 }
 
 
-@include button($passive-bg, #688ED8);
+@include button($passive-bg, $active-bg);
 @include button(#D88E68, #D88E68, "&.important");
 
 .toolbar { 
