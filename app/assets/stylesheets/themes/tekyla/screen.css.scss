@@ -510,7 +510,8 @@ div.td { display: table-cell; }
       border-bottom: 1px dotted #999; 
     }
     ul { 
-      padding-left: 20px; 
+      padding: 4px;
+      @include left(padding, 20px); 
       li { list-style-type: square; }
     }
   }

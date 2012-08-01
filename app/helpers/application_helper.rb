@@ -950,11 +950,16 @@ module ApplicationHelper
         messages = object.errors.full_messages.map do |msg|
           content_tag(:li, msg)
         end.join.html_safe
-        contents = ''
-        contents << content_tag(:h3, header_message) unless header_message.blank?
-        contents << content_tag(:p, introduction) unless introduction.blank?
-        contents << content_tag(:ul, messages)
-        content_tag(:div, contents.html_safe, :class=>"flash error")
+        message = ""
+        message << content_tag(:h3, header_message) unless header_message.blank?
+        message << content_tag(:p, introduction) unless introduction.blank?
+        message << content_tag(:ul, messages)
+        
+        html = ''
+        html << content_tag(:div, "", :class => :icon)
+        html << content_tag(:div, message.html_safe, :class => :message)
+        html << content_tag(:div, "", :class => :end)
+        return content_tag(:div, html.html_safe, :class=>"flash error")
       end
     else
       ''
