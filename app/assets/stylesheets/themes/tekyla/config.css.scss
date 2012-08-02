@@ -68,7 +68,8 @@ $desktop-background: #FFFFFF;
 $light-color: mix($base-color, $desktop-background, 50%); /* #C9D7F1 */
 $menu-background: #F0F0F0; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
 $menu-background-hover: background-hover($menu-background);
-$menu-border: 1px solid mix($menu-background, #000000, 80%);
+$menu-border-color: mix($menu-background, #000000, 80%);
+$menu-border: 1px solid $menu-border-color;
 $default-border-radius: 3px;
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);

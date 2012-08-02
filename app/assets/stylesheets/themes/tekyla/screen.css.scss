@@ -125,8 +125,7 @@ html[dir="ltr"] #side-splitter:hover, html[dir="rtl"] #side-splitter.closed:hove
 html[dir="ltr"] #side-splitter.closed:hover, html[dir="rtl"] #side-splitter:hover { cursor: e-resize; }
 
 div#side { 
-  html[dir="ltr"] & { float: left; }
-  html[dir="rtl"] & { float: right; }
+  @include float(left);
 }
 
 #side { 
@@ -226,33 +225,43 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
 
 #top {
+  $menu-height: $fs-normal+round(0.75 * $fs-normal);
+  $menu-text-height: $fs-normal + 1px;
+  @if ($menu-text-height/2) != round($menu-text-height/2) { 
+    $menu-text-height: $menu-text-height + 1px;
+  }
   .user-bar { 
-    background: rgba(255,255,255,0.3); 
-    border: 1px solid rgba(255,255,255,0.32); 
+/*   background: rgba(255,255,255,0.3); */
+    border: $menu-border;
+    border-color: transparent;
     border-top: none; 
     border-bottom: none; 
-/*    height: 32px; */
+    height: $menu-height;
     padding: 0; 
     position :relative; 
     vertical-align:bottom;
     @include float(right);
     a.root { 
       display:block; 
-/*      height: 32px; 
-      line-height: 26px; */
+      height: $menu-text-height + 3px;
+      line-height: $menu-text-height;
       white-space: nowrap; 
-      vertical-align: middle; 
-      padding: 0 8px;
+      vertical-align: top; 
+      padding: (($menu-height - 2px - $menu-text-height)/2) 8px;
       text-decoration: none;
+      text-shadow: 1px 1px 0 white; 
+      text-shadow: 1px 1px 0 transparentize(white, 0.5); 
+      color: #555;
+      cursor: default;
     }
     .name { font-weight: bold; }
     ul { 
       display: none; 
-      border: 1px solid #AAA; 
+      border: $menu-border; 
       margin: 0; 
       padding: 2px; 
       position:absolute; 
-      top: 30px; 
+      top: $menu-height; 
       z-index: 1000; 
       width:auto; 
       min-width: 10em; 
@@ -263,15 +272,15 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
       li { 
         display: block; 
         padding: 0;
-        &:hover { background: $light-color }
+        &:hover { background: $menu-background-hover }
         a { display: block; padding: 4px 6px; white-space: nowrap; text-decoration: none; color: black;}
-        &.separator { height: 1px; padding: 0; background: #CCC; margin: 3px auto;}
+        &.separator { height: 1px; padding: 0; background: $menu-border-color; margin: 3px auto;}
         &.separator:hover, &.no-link:hover { background: transparent;}
       }
     }
     &:hover { 
       background: $menu-background; 
-      border-color: #AAA;
+      border-color: $menu-border-color;
       a.root { 
         z-index:5000; 
         position: relative; 
@@ -283,11 +292,9 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
   }
 
   .menu-bar { 
-    $menu-height: $fs-normal+10px;
     height: $menu-height; 
     padding: 0 $fs-normal/4; 
     margin-bottom: 1px;
-/*    background: #688ED8 image-url("themes/tekyla/shadow-top.png") bottom repeat-x; */
     @include background(#D0D0D0); 
     @include background(linear-gradient(top, #D0D0D0, #B9B9B9));
     display: block;
@@ -297,7 +304,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         list-style-type:none; 
         padding: 0;
         @include float(left);
-        .logo-item { @include common-sprite(ekylibre); width: 74px; height: 24px; border: none; margin: (($menu-height - 24px)/2) 2px 0; padding: 0;}
+        .logo-item { @include common-sprite(ekylibre); width: 74px; height: 24px; border: none; margin: (($menu-height - 24px)/2) 8px 0; padding: 0;}
         ul {
           display:none; position:absolute; margin:0; top: $menu-height; padding: 2px; width:auto; min-width: 10em; z-index: 1000; background: $menu-background;
           html[dir="ltr"] & { left: 0px; }
@@ -310,10 +317,9 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         }
       }
     }
-    ul li:hover ul, ul li ul:hover { display:block; border: 1px solid #AAA; @include menu-shadow; }
+    ul li:hover ul, ul li ul:hover { display:block; border: $menu-border; @include menu-shadow; }
     a { display: block; white-space: nowrap; color: black; text-decoration: none; }
     li.menu { 
-      $menu-text-height: $fs-normal + 2px;
       margin: 0 0 0 1px;
       a.menu {
         &, & span { 
@@ -333,7 +339,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
           background-color: $menu-background; 
           span { color: $text-color; }
           @include box-shadow(0 -5px 5px rgba(0,0,0,0.2)); 
-          border-color: #D50;
+          border-color: #D50; /*$menu-border-color;*/
           border-left: none;
           border-right: none;
         }
@@ -343,7 +349,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         @include menu-shadow;
         a.menu {
           span { color: $text-color; }
-          border-color: #AAA;
+          border-color: $menu-border-color;
           border-top-color: background-hover($base-color);
           height: $menu-text-height + 1px;
         }
@@ -661,7 +667,7 @@ html[dir="rtl"] .login table tr td.label { text-align:left !important; }
       color: #000;
       text-shadow: 1px 1px 0 white;
       text-decoration: none;
-      margin: 0 6px 0 0; 
+      margin: 0 4px 0 0; 
       white-space: nowrap;
       @include border-top-left-radius($default-border-radius);
       @include border-top-right-radius($default-border-radius);
@@ -694,8 +700,11 @@ html[dir="rtl"] .login table tr td.label { text-align:left !important; }
   &.journals { 
     border-bottom: 1px solid mix($desktop-background, #000, 70%);
     @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
-    & > .tab {
-      &.special{ color: $base-color; }
+    & > .tabs {
+      & > .tab {
+        &.current{ @include background($desktop-background); }
+        &.special{ color: $base-color; }
+      }
     }
   }
 }
@@ -782,10 +791,10 @@ tbody.lines td input { width: 95%; }
         text-align: center;
         color: rgba(0, 0, 0, 0.3);
         font-weight: bold;
-        padding: 1ex !important;
+        /*padding: 1ex !important;*/
       }
     }
-    tr.odd, tr.even { 
+    tr.odd, tr.even, tr.empty { 
       td { 
         padding-top: $fs-normal*0.25;
         padding-bottom: $fs-normal*0.25;
