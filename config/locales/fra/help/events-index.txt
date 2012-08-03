@@ -6,7 +6,7 @@ Ils permettent de situer dans le temps et l'espace les contacts établis avec le
 Certains évènements peuvent s'enregistrer automatiquement en fonction du [[>event_natures/index|type d'évènement]]. Cela permet de faire un suivi complet dans la liste des évènements de chaque client.
 
 ===== Gestion des évènements =====
-Il est possible de créer {{theme:buttons/create.png|créer}}, modifier {{theme:buttons/update.png|modifier}} ou même supprimer {{theme:buttons/delete.png|supprimer}}.
+Il est possible de créer {{theme:icons/new.png|créer}}, modifier {{theme:icons/edit.png|modifier}} ou même supprimer {{theme:icons/destroy.png|supprimer}}.
 
 Les évènements ne sont jamais //verrouillés// et peuvent être modifiés et/ou supprimés à tout moment.
 
