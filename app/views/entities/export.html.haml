@@ -1,6 +1,6 @@
 =form_tag({:id=>@step}, :multipart=>true, :style=>'overflow:none', :class=>"vbox flex") do
   .fields.vbox.flex{:style=>'overflow:none'}
-    .form-column{:style=>"float:left; width: 200px;"}
+    .form-column.aside
       -params[:columns] ||= {}
       -index = 0
       %p.hint=tc(:select_columns)

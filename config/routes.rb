@@ -32,7 +32,7 @@ Ekylibre::Application.routes.draw do
   # Permits to use dynamic dashboards
   match '/dashboards/:action', :controller=>"dashboards", :via=>:get, :as=>:dashboard
   match '/toggle/side' => "interfacers#toggle_side"
-  match '/toggle/submenu/:id' => "interfacers#toggle_submenu"
+  match '/toggle/submenu/:id' => "interfacers#toggle_submenu", :as => :toggle_submenu
   match '/toggle/tab/:id' => "interfacers#toggle_tab"
   match '/intf/:action', :controller=>:interfacers, :via=>:get
 
@@ -437,7 +437,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :sale_lines, :except=>[:index, :show] do
+  resources :sale_lines, :except=>[:index, :show, :new, :create] do
     collection do
       get :list
       get :detail
@@ -449,9 +449,9 @@ Ekylibre::Application.routes.draw do
     end
   end
   resources :sales do
+    resources :lines, :only => [:new, :create], :controller => :sale_lines
     collection do
       get :list
-      get :list_lines
       get :list_undelivered_lines
       get :list_subscriptions
       get :list_payment_uses
@@ -462,6 +462,7 @@ Ekylibre::Application.routes.draw do
       get :contacts
     end
     member do
+      get :list_lines
       match "cancel", :via=>[:get, :post]
       post :duplicate
       post :correct

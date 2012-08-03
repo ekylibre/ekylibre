@@ -1098,13 +1098,15 @@ module ApplicationHelper
       html_options[:size] = options[:size]||24
       html_options[:class] = options[:class].to_s
       if column.nil?
-        html_options[:class] << ' notnull' if options[:null]==false
+        html_options[:required] = true if options[:null]==false
+        # html_options[:class] << ' notnull' if options[:null]==false
         if method.to_s.match /password/
           html_options[:size] = 12
           options[:field] = :password if options[:field].nil?
         end
       else
-        html_options[:class] << ' notnull' unless column.null
+        html_options[:required] = true unless column.null or column.type == :boolean
+        # html_options[:class] << ' notnull' unless column.null
         html_options[:size] = 16 if column.type==:integer
         unless column.limit.nil?
           html_options[:size] = column.limit if column.limit<html_options[:size]

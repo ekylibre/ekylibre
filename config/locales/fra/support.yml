@@ -60,7 +60,7 @@ fra:
         xcsv: "CSV Excel"
       title: "Exporter"
       true_value: "VRAI"
-    export_as: "Exporter en %{exported}..."
+    export_as: "Exporter en %{exported}"
     items_per_page: "Éléments par page"
     menu: "Menu"
     next: "Suivant" #?

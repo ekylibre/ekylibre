@@ -123,7 +123,7 @@ class SalesController < ApplicationController
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
-  list(:lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['session[:current_sale_id]']}, :order=>:position, :export=>false, :line_class=>"((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include=>[:product, :subscriptions]) do |t|
+  list(:lines, :model=>:sale_lines, :conditions=>{:company_id=>['@current_company.id'], :sale_id=>['params[:id]']}, :order=>:position, :export=>false, :line_class=>"((RECORD.product.subscription? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include=>[:product, :subscriptions]) do |t|
     #t.column :name, :through=>:product
     t.column :position
     t.column :label

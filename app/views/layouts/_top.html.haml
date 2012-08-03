@@ -4,7 +4,7 @@
       %span.text=@current_company.name
     %ul
       %li.no-link
-        %a.mn.name
+        %a.name
           %span.icon
           %span.text=@current_user.label
       %li.separator
@@ -27,7 +27,7 @@
               %span.text=tl("menus.#{menu}")
             %ul
               -for submenu, items in submenus
-                %li.submenu
+                %li.submenu.mn.blue
                   =link_to(items[0][:url]) do
                     %span.icon
                     %span.text=tl("menus.submenus.#{submenu}")

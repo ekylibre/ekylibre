@@ -24,8 +24,8 @@
   -l.attribute :state_label
   -l.attribute :responsible, :label=>:full_name
   -l.attribute :created_on
-  -l.attribute :confirmed_on
-  -l.attribute :invoiced_on
+  -l.attribute :confirmed_on if @sale.confirmed_on?
+  -l.attribute :invoiced_on if @sale.invoiced_on?
   -l.attribute :origin, :url=>true if @sale.invoice? and @sale.origin
   -l.attribute :payment_delay, :label=>:name
   -l.attribute :nature
@@ -35,7 +35,7 @@
   -l.attribute :delivery_contact, :label=>:address
   -l.attribute :invoice_contact, :label=>:address
   -l.attribute :letter_format
-  -l.attribute :journal_entry, :url=>true
+  -l.attribute(:journal_entry, :url=>true) if @sale.journal_entry
   -if @sale.letter_format?
     -l.attribute :subject
     -l.attribute :function_title
@@ -67,13 +67,14 @@
 
 
 -if ["products", "summary", ""].include? params[:step].to_s
-  %h2=tc :incoming_payments
-  -unless @sale.unpaid_amount.zero?
-    =toolbar do |t|
-      -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id, :i18n=>{:label=>@sale.label})
-      -for payment in @sale.usable_payments
-        -t.link(tl("use_incoming_payment", :payment=>payment.label), {:action=>:create, :controller=>:incoming_payment_uses, :incoming_payment_use=>{:expense_type=>@sale.class.name, :expense_id=>@sale.id, :payment_id=>payment.id}}, :method=>:post) 
-  =list :payment_uses
+  -unless (@sale.draft? and @sale.unpaid_amount.zero?)
+    %h2=tc :incoming_payments
+    -unless @sale.unpaid_amount.zero?
+      =toolbar do |t|
+        -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id, :i18n=>{:label=>@sale.label})
+        -for payment in @sale.usable_payments
+          -t.link(tl("use_incoming_payment", :payment=>payment.label), {:action=>:create, :controller=>:incoming_payment_uses, :incoming_payment_use=>{:expense_type=>@sale.class.name, :expense_id=>@sale.id, :payment_id=>payment.id}}, :method=>:post) 
+    =list :payment_uses
 
       
 -if ["deliveries", ""].include? params[:step].to_s
