@@ -1,13 +1,12 @@
 @import "compass/css3";
 @import "config.css.scss";
 
-$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement);
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (green) (blue) (black);
 $buttons-states: hover whited active disabled normal;
-$buttons-radius: 3px;
+$buttons-radius: $default-border-radius;
 $buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px);
 
-$passive-bg: $menu-background; /*#E5E5E5;*/
-/*$active-bg: #688ED8;*/
+$passive-bg: $menu-background;
 $active-bg: $base-color;
 
 input[type="submit"], a.btn {
@@ -17,8 +16,8 @@ input[type="submit"], a.btn {
 @mixin button-normal-state($normal) {
   font-weight: bold;
   text-decoration: none;
-  border: 1px solid darken($normal, 10%);
-  border-width: 1px;
+  border: $menu-border-width solid darken($normal, 10%);
+  border-width: $menu-border-width;
   border-style: solid;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
   background: $normal;
@@ -29,7 +28,7 @@ input[type="submit"], a.btn {
 }
 
 
-@mixin button($normal: #E5E5E5, $active: #688ED8, $selector: '&') {
+@mixin button($normal, $active, $selector: '&') {
   $normal-color: darken($normal, 50%);
   $normal-shadow: lighten($normal, 20%);
   a.btn {
@@ -40,7 +39,7 @@ input[type="submit"], a.btn {
       color: $normal-color;
       @include button-normal-state($normal);
       @include inline-block;
-      height: 16px;
+      // height: 16px;
       vertical-align: middle;
       span { 
         margin: 0 2px;
@@ -50,16 +49,16 @@ input[type="submit"], a.btn {
       &, .text { 
         line-height: 1em;
         color: $normal-color;
-        @include text-shadow(1px 1px 1px $normal-shadow);
+        @include text-shadow($menu-border-width $menu-border-width 1px $normal-shadow);
       }
       .icon { 
         background-repeat: no-repeat; 
         width: 16px;
         height: 16px;
-       // display: none;
+        // display: none;
       }
       &:focus {
-        border: 1px solid $active;
+        border: $menu-border-width solid $active;
       }
       &:hover {
         @include background-image(linear-gradient(lighten($active, 8%), $active));
@@ -69,7 +68,7 @@ input[type="submit"], a.btn {
           text-decoration: none;
         }
         padding: 4px 6px;
-        border-width: 1px;
+        border-width: $menu-border-width;
       }
       &:active {
         padding: 5px 6px 3px 6px;
@@ -104,7 +103,7 @@ input[type="submit"], a.btn {
       @include inline-block;
       @include text-shadow(1px 1px 1px $normal-shadow);
       &:focus { 
-        border: 1px solid $active;
+        border: $menu-border-width solid $active;
       }
       &:hover {
         @include text-shadow(0 0 1px $normal-color);
@@ -112,7 +111,7 @@ input[type="submit"], a.btn {
         color: #FFF; 
         text-decoration: none;
         padding: 3px 6px 4px; 
-        border-width: 1px;
+        border-width: $menu-border-width;
       }
       &:active {
         padding: 4px 6px 3px 6px;
@@ -142,7 +141,7 @@ input[type="submit"], a.btn {
   margin: 0 0 8px 0;
   a.btn, input[type="submit"] { 
     @include border-radius(0);
-    margin: 0 -.5px;
+    margin: 0 -($menu-border-width/2);
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
       @include border-top-left-radius($buttons-radius);
       @include border-bottom-left-radius($buttons-radius);
@@ -161,13 +160,12 @@ input[type="submit"], a.btn {
   $format-selector: nth($format, 3);
   $format-radius: nth($format, 4);
   @each $buttons in $buttons-names { 
-    @each $button-name in $buttons { 
-      @if $button-name == default { 
-        $button-name: ""
-      } @else { 
-        $button-name: ".#{$button-name}"
+    @each $icon-name in $buttons {
+      $button-name: ".#{$icon-name}";
+      @if $icon-name == default {
+        $button-name: "";
       }
-      .btn#{$button-name}, .mn#{$button-name} {
+      .btn#{$button-name} {
         #{$format-selector} {
           @include border-radius($format-radius);
           padding: ($format-interval/6) ($format-interval/4);
@@ -189,6 +187,27 @@ input[type="submit"], a.btn {
           }
         }
       }
+      .mn.#{$icon-name} { 
+        #{$format-selector} {
+          .icon {
+            height: $format-interval*2/3;
+            width: $format-interval*2/3;
+            background: image-url($format-image) no-repeat;
+            background-position: (-$format-interval*$i) (-$format-interval*4);
+            opacity: 0.7;
+          }
+          &:hover {
+            .icon { opacity: 1; }
+          }
+          &:active {
+            .icon { opacity: 0.7; background-position: (-$format-interval*$i) (-$format-interval*1); }
+          }
+          &[disabled] {
+            .icon { opacity: 0.7; background-position: (-$format-interval*$i) (-$format-interval*3); }
+          }
+        }
+      }
+
     }
     $i: $i + 1;
   }

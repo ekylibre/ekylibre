@@ -1,6 +1,7 @@
 /*
  *  Main config file for the theme
  */
+@import "compass/utilities";
 
 @mixin left($base-name, $value) { 
   html[dir="ltr"] & { #{$base-name}-left: $value; }
@@ -37,24 +38,20 @@
 }
 
 
-/*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
-@mixin menu-shadow { 
-  @include box-shadow(0 0 4px rgba(0, 0, 0, 0.3));
-}
 
-$fs-normal: 13px;
+$fs-normal: 14px;
 $fs-small:      ceil(0.73*$fs-normal);
 $fs-large:     round(1.15*$fs-normal);
 $fs-huge:      round(1.30*$fs-normal);
 $fs-very-huge: round(1.70*$fs-normal);
 
 $initial-color: #688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4;*/
-$base-color: change-color($initial-color, $lightness: 53%);
+$base-color: change-color($initial-color, $lightness: 60%, $saturation: 50%);
 $link-color:  darken($base-color, 12%);
 $text-color:  #111;
 $title-color: darken($link-color, 11%);
 $invalid-color: red;
-$hover-transparency: 0.90;
+$hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
 
 @function background-hover($background-color) { 
@@ -65,11 +62,106 @@ $hover-mask: transparentize($base-color, $hover-transparency);
 //$base-color: #95b0e4;
 //$link-color: $base-color; /* #3162C0; /* 02C */
 $desktop-background: #FFFFFF;
+$input-background: $desktop-background;
 $light-color: mix($base-color, $desktop-background, 50%); /* #C9D7F1 */
 $menu-background: #F0F0F0; /* #3D5C8D F1F1F1 86a5e0 c8d3e9*/
 $menu-background-hover: background-hover($menu-background);
-$menu-border-color: mix($menu-background, #000000, 80%);
-$menu-border: 1px solid $menu-border-color;
-$default-border-radius: 3px;
+$menu-border-color: mix($menu-background, #000000, 87%);
+$menu-border-width: floor($fs-normal / 10);
+$menu-border: $menu-border-width solid $menu-border-color;
+$menu-width: $fs-normal * 13;
+$menu-padding: 2*$menu-border-width;
+$menu-height:      2 * ceil($fs-normal * 0.875);
+$menu-text-height: 2 * ceil($fs-normal * 0.655);
+
+$default-border-radius: round($fs-normal/5);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
+
+@mixin title($font-size) { 
+  font-size: $font-size;
+  line-height: round($font-size * 1.4);
+  font-weight: bold;
+  color: $title-color;
+}
+
+/*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
+@mixin menu-shadow { 
+  @include box-shadow(0 0 ($fs-normal/4) rgba(0, 0, 0, 0.3));
+}
+
+@mixin menu { 
+  @include background($menu-background);
+  @include menu-shadow;
+  border: $menu-border;
+  width: $menu-width;
+  padding: $menu-padding;
+}
+
+@mixin menu-item { 
+  display: block;
+  padding: 0;
+  height: $menu-height;
+  width: $menu-width;
+  list-style-type:none; 
+  &:hover { 
+    background: $menu-background-hover; 
+    @include border-radius($default-border-radius);
+  }
+  &.no-link { 
+    background: transparent;
+    cursor: default;
+    pointer-events: none;
+  }
+  a {
+    $padding: ($menu-height - $menu-text-height)/2; 
+    display: block;
+    padding: $padding;
+    &, & span { 
+      height: $menu-text-height;
+      line-height: $menu-text-height;
+      vertical-align: middle;
+    }
+    span.icon {
+      /*@include inline-block;*/
+      display: block;
+      float: left;
+      padding: 0;
+      height:16px;
+      width: 16px;
+      margin: (($menu-text-height - 16px)/2) 0;
+      @include right(margin, $padding);
+    }
+    span.text { 
+      /*@include inline-block;*/
+      display: block;
+      float: left;
+      padding: 0;
+      margin: 0;
+      width: $menu-width - 16px - 3 * $padding;
+      font-weight: normal;
+      white-space: nowrap;
+      overflow: hidden; 
+      @include ellipsis;
+    }
+  }
+}
+
+@mixin menu-separator { 
+  height: $menu-border-width; 
+  background: $menu-border-color; 
+  padding: 0; 
+  margin: $menu-padding auto;
+}
+
+@mixin incrust-shadow { 
+  @include box-shadow(0 0 7px rgba(0,0,0,0.15));
+}
+
+$icons-layout: smart;
+@import "themes/tekyla/icons/*.png";
+@include all-icons-sprites;
+
+$common-layout: smart;
+@import "themes/tekyla/common/*.png";
+@include all-common-sprites;
