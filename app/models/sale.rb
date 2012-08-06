@@ -183,8 +183,8 @@ class Sale < CompanyRecord
 
   # This method bookkeeps the sale depending on its state
   bookkeep do |b|
-    label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
-    b.journal_entry(self.company.journal(:sales), :printed_on=>self.invoiced_on, :if=>self.invoice?) do |entry|
+    b.journal_entry((self.nature.journal||self.company.journal(:sales)), :printed_on=>self.invoiced_on, :if=>(self.nature.with_accounting? and self.invoice?)) do |entry|
+      label = tc(:bookkeep, :resource=>self.state_label, :number=>self.number, :client=>self.client.full_name, :products=>(self.comment.blank? ? self.lines.collect{|x| x.label}.to_sentence : self.comment), :sale=>self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for line in self.lines
         entry.add_credit(label, (line.account||line.product.sales_account).id, line.pretax_amount) unless line.pretax_amount.zero?
