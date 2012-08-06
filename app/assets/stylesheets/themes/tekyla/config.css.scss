@@ -21,7 +21,7 @@
     html[dir="ltr"] & { text-align: left; }
     html[dir="rtl"] & { text-align: right; }    
   } @else {
-    & { text-align: $dir; }
+    html[dir="ltr"] &, html[dir="rtl"] & { text-align: $dir; }
   }
 }
 
@@ -33,7 +33,7 @@
     html[dir="ltr"] & { float: left; }
     html[dir="rtl"] & { float: right; }    
   } @else {
-    & { float: $dir; }
+    html[dir="ltr"] &, html[dir="rtl"] & { float: $dir; }
   }
 }
 
@@ -84,6 +84,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   font-weight: bold;
   color: $title-color;
 }
+
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
 @mixin menu-shadow { 

@@ -21,6 +21,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   vertical-align: middle;
   font-size: $fs-normal;
   color: $text-color;
+  @include text-align(left);
 }
 
 html { background: $menu-background; }
@@ -35,7 +36,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 
 #body > div > .hbox > * { overflow: auto; }
 
-#loading { padding: 2px; text-align: center; }
+#loading { padding: 2px; @include text-align(center); }
 
 *[data-click], .clickable { cursor: pointer; }
 
@@ -47,7 +48,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 }
 
 #legals { 
-  text-align: center; padding: 2px 4px;
+  @include text-align(center); padding: 2px 4px;
   &, & * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
 }
 
@@ -66,7 +67,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 } /*  overflow: visible; */
 
 #about-us div { padding: 64px; }
-#about-us div a { text-align: center; display: block; }
+#about-us div a { @include text-align(center); display: block; }
 #about-us div a img { border:none; }
 #about-us div table { margin: 0 auto; width: 500px; }
 
@@ -88,7 +89,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 .content p.notice { border-left: 10px solid #7A4; background: #CE8; padding: 4px 8px; }
 .content p.warning { border-left: 10px solid #FA0; background: #FD9; padding: 4px 8px; }
 .content .text-end { height: 1px; }
-.content .help-error { color: #977; text-align: center; padding: 8px;  margin: 16px 0; background:#F5EAD7; border: 1px solid #977; }
+.content .help-error { color: #977; @include text-align(center); padding: 8px;  margin: 16px 0; background:#F5EAD7; border: 1px solid #977; }
 .content .md { }
 .content .md.md-center { display:block; margin: 2px auto; }
 .content .md.md-left   { display:block; margin: 2px; float: left; }
@@ -128,7 +129,11 @@ div#side {
     .sd-title {
       padding: round($fs-normal/4);
       @include left(padding, round($fs-normal * 0.5));
-      h2 { 
+      h2 {
+        padding: 0;
+        margin: 0;
+        width: $menu-width - (2 * round($fs-normal/4)) - 1.5*12px;
+        @include ellipsis;
         font-weight: bold;
       }
       *[data-toggle-module] { 
@@ -186,7 +191,7 @@ div#side {
 
 
 .main { padding: 8px; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid $base-color; border-right: none; border-top: none;*/
-.main h1 { margin: 0px 0px 8px; @include title($fs-very-huge); }
+.main h1 { margin: 0px 0px 8px; @include title($fs-very-huge);  }
 .main .subheading { margin: 0 0 8px; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
 .main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
 .main .mn-index { margin-bottom: 8px; width: 200px; }
@@ -267,7 +272,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
   .menu-bar { 
     height: $menu-height; 
-    padding: 0 $fs-normal/4; 
+    padding: 0; 
     margin-bottom: $menu-bar-margin-bottom;
     @include background(#D0D0D0); 
     @include background(linear-gradient(top, #D0D0D0, #B9B9B9));
@@ -278,7 +283,13 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         list-style-type:none; 
         padding: 0;
         @include float(left);
-        .logo-item { @include common-sprite(ekylibre); width: 74px; height: 24px; border: none; margin: (($menu-height - 24px)/2) 8px 0; padding: 0;}
+        .logo-item { 
+          @include background(image-url("themes/tekyla/ekylibre-menu.png") no-repeat); 
+          width: 100px; height: $menu-height; 
+          @include right(margin, round($fs-normal/4)); border: none; padding: 0;
+          html[dir="ltr"] & { background-position: -12px center; }
+          html[dir="rtl"] & { background-position: 0px center; }
+        }
         ul {
           @include menu;
           display:none; position:absolute; margin:0; 
@@ -286,6 +297,9 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
           z-index: 1000; 
           html[dir="ltr"] & { left: 0px; }
           html[dir="rtl"] & { right: 0px; }
+          li { 
+            a { @include text-align(left); }
+          }
         }
         &.submenu { 
           @include menu-item;
@@ -306,14 +320,14 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
           text-shadow: $menu-border-width $menu-border-width 0 transparentize(white, 0.5); 
           color: #555;
         }
-        border-top: ($menu-border-width * 2) solid #BBB;
+        border-top: ($menu-border-width * 2) solid transparent; /* #BBB */
         border-left: $menu-border-width solid transparent;
         border-right: $menu-border-width solid transparent;
         $padding-total: ($menu-height - (2*$menu-border-width) - $menu-text-height);
         $padding-top: floor($padding-total/2);
         $padding-bottom: $padding-total - $padding-top;
         padding: $padding-top 8px $padding-bottom; 
-        color: white; text-align: center; position: relative; z-index: 500;
+        color: white; @include text-align(center); position: relative; z-index: 500;
         &.current { 
           background-color: $menu-background; 
           span { color: $text-color; }
@@ -362,9 +376,6 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 }
 
 
-html[dir="ltr"] #top .menu-bar ul li ul li a { text-align: left; }
-html[dir="rtl"] #top .menu-bar ul li ul li a { text-align: right; }
-
 
 #helpage { padding-left: 8px; }
 
@@ -402,7 +413,7 @@ table.quick td { padding: 0px 4px; }
 #company div.side { border:1px solid #EEE; padding: 2px; background: #f9f9f9; }
 #company div.side h2{ margin: 2px 0px 4px; }
 #company div.side h3{ border-bottom :1px solid #BBB; margin: 10px 6px 2px; color:#555; }
-#company div.side .label {color:#777; width: 160px; text-align:right; padding: 2px; }
+#company div.side .label {color:#777; width: 160px; @include text-align(right); padding: 2px; }
 #company div.side .value {color:#227;  padding: 2px; }
 
 .flash { 
@@ -490,8 +501,7 @@ table.formalize {
     td:last-child { border: none }
   }
 }
-table.formalize td.label { text-align:right; padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
-html[dir="rtl"] table.formalize td.label { text-align:left !important; }
+table.formalize td.label { @include text-align(right); padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
 table.formalize td.input { padding:2px 6px 2px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left:1px dashed #CCC; }
 table.formalize td [required] { border: $menu-border-width solid #33F; background-color: #EEF }
@@ -535,7 +545,8 @@ div.field.mono-choice .toolbar { margin: 0 8px; }
 .rad * { vertical-align: middle; }
 
 .actions { 
-  text-align:center; 
+  @include text-align(center);
+  input, a, span { @include text-align(center); }
   padding: round($fs-normal/4) !important; 
   background: $menu-background; 
   border-top: $menu-border;
@@ -604,7 +615,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
   border: $menu-border; 
   background: $menu-background;
   .ui-dialog & { margin: 0; padding: 0 8px;}
-  .logoban { height:80px; width: 280px; @include common-sprite(ekylong); margin: 16px auto 8px; }
+  .logoban { height:80px; width: 280px; @include common-sprite(ekylibre); margin: 16px auto 8px; }
   h2 { color:red !important; padding: 2px; text-align:center; font-size: $fs-huge; }
   p { margin:8px; }
   table { 
@@ -619,13 +630,13 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
     }
     &.browsers tr td { padding: 8px 16px; }
   }
-  &.register { padding:16px 0; text-align: center;}
+  &.register { padding:16px 0; @include text-align(center);}
 }
-#nojavascript p { font-weight: bold; text-align: center; padding: 24px; color: #c00; }
+#nojavascript p { font-weight: bold; @include text-align(center); padding: 24px; color: #c00; }
 
 
 /* Users rights */
-.right-category { text-align: center; padding: 15px 0 5px 0; font-weight: bold; }
+.right-category { @include text-align(center); padding: 15px 0 5px 0; font-weight: bold; }
 .right {  margin-left:50px; }
 
 /* entries */
@@ -647,7 +658,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
       height: $text-height;
       line-height: $text-height;
       cursor: pointer;
-      margin: 0 4px 0 0; 
+      @include right(margin, round($fs-normal/4)); 
       padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2); 
       color: #000;
       text-shadow: 1px 1px 0 white;
@@ -1035,7 +1046,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
   }
   .ui-datepicker-title { 
     padding: 4px;
-    text-align: center;
+    @include text-align(center);
     line-height: $title-line-height;
     * { font-weight: bold; }
   }
@@ -1043,7 +1054,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
     border-collapse: separate;
     border-spacing: 2px;
     th { 
-      text-align: center;
+      @include text-align(center);
       font-weight: bold;
     }
     td { 
@@ -1059,7 +1070,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
       a { 
         display: block;
         padding: 2px 4px;
-        text-align: center;
+        @include text-align(center);
       }
     }
   }
@@ -1067,7 +1078,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 
 
-input[data-datepicker] {text-align: center}
+input[data-datepicker] {@include text-align(center)}
 
 
 

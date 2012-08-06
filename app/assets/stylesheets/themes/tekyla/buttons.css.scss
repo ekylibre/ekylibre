@@ -139,6 +139,7 @@ input[type="submit"], a.btn {
 
 .toolbar { 
   margin: 0 0 8px 0;
+  @include text-align(left);
   a.btn, input[type="submit"] { 
     @include border-radius(0);
     margin: 0 -($menu-border-width/2);
