@@ -47,9 +47,9 @@ $fs-very-huge: round(1.70*$fs-normal);
 
 $initial-color: #688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4;*/
 $base-color: change-color($initial-color, $lightness: 60%, $saturation: 50%);
-$link-color:  darken($base-color, 12%);
+$link-color:  darken($base-color, 27%);
 $text-color:  #111;
-$title-color: darken($link-color, 11%);
+$title-color: darken($base-color, 40%);
 $invalid-color: red;
 $hover-transparency: 0.85;
 $hover-mask: transparentize($base-color, $hover-transparency);
@@ -75,6 +75,8 @@ $menu-height:      2 * ceil($fs-normal * 0.875);
 $menu-text-height: 2 * ceil($fs-normal * 0.655);
 
 $default-border-radius: round($fs-normal/5);
+/* Variation from center to  */
+$default-lightness-variation: 5%;
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
 
@@ -156,7 +158,7 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 }
 
 @mixin incrust-shadow { 
-  @include box-shadow(0 0 7px rgba(0,0,0,0.15));
+  @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
 $icons-layout: smart;

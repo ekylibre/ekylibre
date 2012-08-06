@@ -274,8 +274,11 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
     height: $menu-height; 
     padding: 0; 
     margin-bottom: $menu-bar-margin-bottom;
-    @include background(#D0D0D0); 
-    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));
+    $menu-bar-background: #CCC; /* #D0D0D0; */
+    @include background($menu-bar-background); 
+/*    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));*/
+    @include background-image(linear-gradient(lighten($menu-bar-background, $default-lightness-variation), darken($menu-bar-background, $default-lightness-variation)));
+/*    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));*/
     display: block;
     ul {
       li { 
@@ -683,7 +686,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
     }
   }
   & > .tabpanels {
-    @include menu-shadow;
+    @include incrust-shadow;
     background: $menu-background;
     border: $menu-border;
     padding: 8px;

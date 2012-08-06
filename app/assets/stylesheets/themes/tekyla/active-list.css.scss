@@ -24,7 +24,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         border: $menu-border;
         padding: 2px 3px;
         @include background($menu-background);
-        @include background-image(linear-gradient(lighten($menu-background, 4%), darken($menu-background, 4%)));
+        @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
         &[data-list-column-sort] { 
           .icon { 
             @include active-list-sprite(sort); 
