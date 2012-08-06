@@ -894,10 +894,6 @@ class Company < Ekylibre::Record::Base
   end
 
   
-
-#   def self.load_demo_data(locale="fr-FR", company=nil)
-#     company.load_demo_data(company) if company
-#   end
   
   def load_demo_data(language_code=nil)
     self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :title=>"SARL", :in_name=>true)

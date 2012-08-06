@@ -28,8 +28,9 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  currency            :string(3)        
-#  deprecated_amount   :decimal(19, 4)   not null
+#  current_amount      :decimal(19, 4)   
 #  depreciable_amount  :decimal(19, 4)   not null
+#  depreciated_amount  :decimal(19, 4)   not null
 #  depreciation_method :string(255)      not null
 #  description         :text             
 #  id                  :integer          not null, primary key
@@ -37,10 +38,10 @@
 #  lock_version        :integer          default(0), not null
 #  name                :string(255)      not null
 #  number              :string(255)      not null
-#  purchase_amount     :decimal(19, 4)   not null
+#  purchase_amount     :decimal(19, 4)   
 #  purchase_id         :integer          
 #  purchase_line_id    :integer          
-#  purchased_on        :date             not null
+#  purchased_on        :date             
 #  sale_id             :integer          
 #  sale_line_id        :integer          
 #  started_on          :date             not null
@@ -56,15 +57,13 @@
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
-#   deprecated_amount: 0
 #   depreciable_amount: 0
+#   depreciated_amount: 0
 #   depreciation_method: "Lorem ipsum"
 #   id: 1
 #   journal_id: 1
 #   name: "Lorem ipsum"
 #   number: "Lorem ipsum"
-#   purchase_amount: 0
-#   purchased_on: 2009-07-19
 #   started_on: 2009-07-19
 #   stopped_on: 2009-07-19
 #   updated_at: 2009-07-19 19:13:59 +02:00

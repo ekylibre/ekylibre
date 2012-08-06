@@ -22,6 +22,8 @@ arb:
       index: "العناوين البريد"
       new: "اضافة عنوان بريدي"
     assets:
+      # cede: "Cede %{name}"
+      # depreciate: "Compute depreciations of %{name}"
       # edit: "Edit asset: %{name}"
       # index: "Assets"
       # new: "New asset"

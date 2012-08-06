@@ -39,6 +39,7 @@ module Ekylibre
       :asset_id => :asset,
       :company_id => :company,
       :creator_id => :user,
+      :financial_year_id => :financial_year,
       :journal_entry_id => :journal_entry,
       :updater_id => :user
     },

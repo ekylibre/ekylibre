@@ -790,6 +790,7 @@ module ApplicationHelper
       if name.is_a?(Symbol)
         options[:default] = [] unless options[:default].is_a?(Array)
         options[:default] << "labels.#{name}".to_sym
+        options[:default] << "attributes.#{name}".to_sym
         name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options) 
       end
       @tabs << {:name=>name, :index=>(@sequence*1).to_s(36), :block=>block}

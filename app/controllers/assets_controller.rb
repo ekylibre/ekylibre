@@ -21,10 +21,9 @@ class AssetsController < ApplicationController
   manage_restfully :currency=>'@current_company.default_currency', :depreciation_method=>"'linear'"
 
   list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+    t.column :number, :url=>true
     t.column :name, :url=>true
-    t.column :purchase_amount, :currency => true
     t.column :depreciable_amount, :currency => true
-    t.column :current_amount, :type=>:decimal, :currency => true
     t.column :started_on
     t.column :stopped_on
     t.action :edit
@@ -34,11 +33,12 @@ class AssetsController < ApplicationController
   def index
   end
 
-  list(:depreciations, :model => :asset_depreciations, :conditions => {:asset_id => ['params[:id]']}) do |t|
-    t.column :amount
+  list(:depreciations, :model => :asset_depreciations, :conditions => {:asset_id => ['params[:id]']}, :order => :position) do |t|
+    t.column :amount, :currency => true
     t.column :started_on
     t.column :stopped_on
-    
+    t.column :financial_year, :url => true
+    t.column :journal_entry, :url => true    
   end
 
   # Displays details of an asset
@@ -57,6 +57,8 @@ class AssetsController < ApplicationController
 
   def depreciate
     return unless @asset = find_and_check
+    @asset.depreciate!
+    redirect_to asset_url(@asset)
   end
 
 end

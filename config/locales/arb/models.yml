@@ -842,6 +842,7 @@ arb:
     currency: "عملة"
     # currency_precision: "Currency precision"
     currency_rate: "سعر الصرف"
+    # current_amount: "Current amount"
     current_financial_year: "الفترة المحاسبية الحالية"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية"
@@ -889,8 +890,8 @@ arb:
     depositer: "الجابي" #?
     depositer_id: "الجابي" #?
     deposits: "اقتطاعات البنك"
-    # deprecated_amount: "Deprecated amount"
     # depreciable_amount: "Depreciable amount"
+    # depreciated_amount: "Depreciated amount"
     # depreciation: "Depreciation"
     # depreciation_method: "Depreciation method"
     # depreciations: "Depreciations"

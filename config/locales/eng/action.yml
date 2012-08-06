@@ -14,8 +14,8 @@ eng:
       index: "Postal areas"
       new: "Add a postal area"
     assets:
-      # cede: "Cede asset"
-      # depreciate: "Depreciate asset"
+      cede: "Cede %{name}"
+      depreciate: "Compute depreciations of %{name}"
       edit: "Edit asset: %{name}"
       index: "Assets"
       new: "New asset"

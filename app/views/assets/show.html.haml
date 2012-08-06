@@ -2,13 +2,14 @@
 =toolbar do |t|
   -t.edit(@asset)
   -t.cede(@asset)
-  -t.sell(@asset)
-  -t.depreciate(@asset)
+  -t.depreciate(@asset, :method => :post)
 
 =attributes_list(@asset) do |l|
   -l.attribute :name
   -l.attribute :description
   -l.attribute :comment
+  -l.attribute :started_on
+  -l.attribute :stopped_on
 
 =tabbox(:asset) do |tb|
   -tb.tab(:depreciations) do

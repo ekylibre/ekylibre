@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120730093920) do
+ActiveRecord::Schema.define(:version => 20120806083148) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -87,22 +87,24 @@ ActiveRecord::Schema.define(:version => 20120730093920) do
   add_index "areas", ["updater_id"], :name => "index_areas_on_updater_id"
 
   create_table "asset_depreciations", :force => true do |t|
-    t.integer  "company_id",                                                         :null => false
-    t.integer  "asset_id",                                                           :null => false
+    t.integer  "company_id",                                                          :null => false
+    t.integer  "asset_id",                                                            :null => false
     t.integer  "journal_entry_id"
-    t.boolean  "accountable",                                     :default => false, :null => false
-    t.date     "created_on",                                                         :null => false
+    t.boolean  "accountable",                                      :default => false, :null => false
+    t.date     "created_on",                                                          :null => false
     t.datetime "accounted_at"
-    t.date     "started_on",                                                         :null => false
-    t.date     "stopped_on",                                                         :null => false
+    t.date     "started_on",                                                          :null => false
+    t.date     "stopped_on",                                                          :null => false
     t.text     "depreciation"
-    t.decimal  "amount",           :precision => 19, :scale => 4,                    :null => false
+    t.decimal  "amount",            :precision => 19, :scale => 4,                    :null => false
     t.integer  "position"
-    t.datetime "created_at",                                                         :null => false
-    t.datetime "updated_at",                                                         :null => false
+    t.datetime "created_at",                                                          :null => false
+    t.datetime "updated_at",                                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    :default => 0,     :null => false
+    t.integer  "lock_version",                                     :default => 0,     :null => false
+    t.boolean  "protected",                                        :default => false, :null => false
+    t.integer  "financial_year_id"
   end
 
   add_index "asset_depreciations", ["asset_id"], :name => "index_asset_depreciations_on_asset_id"
@@ -121,18 +123,18 @@ ActiveRecord::Schema.define(:version => 20120730093920) do
     t.string   "number",                                                                         :null => false
     t.text     "description"
     t.text     "comment"
-    t.date     "purchased_on",                                                                   :null => false
+    t.date     "purchased_on"
     t.integer  "purchase_id"
     t.integer  "purchase_line_id"
     t.boolean  "ceded"
     t.date     "ceded_on"
     t.integer  "sale_id"
     t.integer  "sale_line_id"
-    t.decimal  "purchase_amount",                  :precision => 19, :scale => 4,                :null => false
+    t.decimal  "purchase_amount",                  :precision => 19, :scale => 4
     t.date     "started_on",                                                                     :null => false
     t.date     "stopped_on",                                                                     :null => false
     t.decimal  "depreciable_amount",               :precision => 19, :scale => 4,                :null => false
-    t.decimal  "deprecated_amount",                :precision => 19, :scale => 4,                :null => false
+    t.decimal  "depreciated_amount",               :precision => 19, :scale => 4,                :null => false
     t.string   "depreciation_method",                                                            :null => false
     t.datetime "created_at",                                                                     :null => false
     t.datetime "updated_at",                                                                     :null => false
@@ -140,6 +142,7 @@ ActiveRecord::Schema.define(:version => 20120730093920) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                    :default => 0, :null => false
     t.string   "currency",            :limit => 3
+    t.decimal  "current_amount",                   :precision => 19, :scale => 4
   end
 
   add_index "assets", ["account_id"], :name => "index_assets_on_account_id"
