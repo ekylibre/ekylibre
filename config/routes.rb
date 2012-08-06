@@ -64,6 +64,7 @@ Ekylibre::Application.routes.draw do
   resources :assets do
     collection do
       get :list
+      get :formize
     end
     member do
       get :cede
@@ -72,6 +73,7 @@ Ekylibre::Application.routes.draw do
       get :list_depreciations
     end
   end
+  resources :asset_depreciations, :except => [:index, :show]
   resources :bank_statements do
     collection do
       get :list
@@ -437,7 +439,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :sale_lines, :except=>[:index, :show, :new, :create] do
+  resources :sale_lines, :except=>[:index, :show] do
     collection do
       get :list
       get :detail

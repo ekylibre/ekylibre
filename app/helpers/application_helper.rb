@@ -283,7 +283,7 @@ module ApplicationHelper
     elsif attribute.to_s.match(/(^|_)currency$/)
       value = value.to_currency.label
     elsif options[:currency] and value.is_a?(Numeric)
-      value = ::I18n.localize(value, :currency=>options[:currency])
+      value = ::I18n.localize(value, :currency=>(options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) or value.is_a?(Numeric)
       value = ::I18n.localize(value)
@@ -968,6 +968,46 @@ module ApplicationHelper
   end
 
 
+  def field_set(record, options = {}, html_options = {}, &block)
+    legend = options.delete(:legend)
+    html = ""
+    if legend.is_a?(String)
+      if legend.is_a?(Symbol)
+        legend = legend.t(:default => ["labels.#{legend}".to_sym, "form.legends.#{legend}".to_sym])
+      elsif !legend.is_a?(String)
+        legend = legend.to_s
+      end
+      html << content_tag(:legend, legend)
+    end
+    html << group(record, options, &block)
+    return content_tag(:fieldset, html.html_safe, html_options)
+  end
+  
+
+
+  def group(record, options = {}, &block)
+    form = Formika.new(record)
+    return capture(form, &block)
+  end
+
+  class Formika
+
+    def initialize(record, options = {})
+      @record = record
+      @klass = record.class
+    end
+
+    
+    def field(name, options={})
+      return name.to_s
+    end
+
+    private
+
+  end
+
+
+
   class Formalize
     attr_reader :lines
 
@@ -1159,7 +1199,7 @@ module ApplicationHelper
               when :radio
                 options[:choices].collect{|x| content_tag(:span, radio_button(record, method, x[1], x[2]||{}) + " " + content_tag(:label, x[0], :for=>input_id + '_' + x[1].to_s), :class=>:rad)}.join(" ").html_safe
               when :textarea
-                text_area(record, method, :cols => options[:options][:cols]||30, :rows => options[:options][:rows]||3, :class=>(options[:options][:cols]==80 ? :code : nil))
+                text_area(record, method, :cols => options[:options][:cols]||50, :rows => options[:options][:rows]||2, :class=>(options[:options][:cols]==80 ? :code : nil))
               when :date
                 date_field(record, method, html_options)
               when :datetime
@@ -1208,7 +1248,7 @@ module ApplicationHelper
                 when :string
                   size = (options[:size]||0).to_i
                   if size>64
-                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size, :cols => 30, :rows => 3)
+                    text_area_tag(name, value, :id=>options[:id], :maxlength=>size, :cols => 50, :rows => 2)
                   else
                     text_field_tag(name, value, :id=>options[:id], :maxlength=>size, :size=>size)
                   end

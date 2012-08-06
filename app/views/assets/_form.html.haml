@@ -6,11 +6,11 @@
 
 =formalize do |f|
   -f.title :depreciation
-  -f.field :asset, :started_on, :id=>"depreciation_started_on"
-  -f.field :asset, :stopped_on
   -f.field :asset, :depreciable_amount
   -f.field :asset, :currency, :choices=>currencies
   -f.field :asset, :depreciation_method, :choices=>Asset.deprecation_methods, :field=>:radio
+  -f.field :asset, :started_on
+  -f.field :asset, :stopped_on
  
 =formalize do |f|
   -f.title :accountancy

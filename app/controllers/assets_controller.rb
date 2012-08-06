@@ -37,8 +37,9 @@ class AssetsController < ApplicationController
     t.column :amount, :currency => true
     t.column :started_on
     t.column :stopped_on
-    t.column :financial_year, :url => true
+    t.column :code, :through => :financial_year, :url => true
     t.column :journal_entry, :url => true    
+    t.action :edit
   end
 
   # Displays details of an asset

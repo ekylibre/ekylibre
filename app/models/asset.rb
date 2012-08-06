@@ -51,7 +51,7 @@
 #
 
 class Asset < CompanyRecord
-  DEPRECIATION_METHODS = ['linear', 'graduated']
+  DEPRECIATION_METHODS = ['simplified_linear', 'linear'] # graduated
   acts_as_numbered
   belongs_to :account
   belongs_to :journal
@@ -93,18 +93,24 @@ class Asset < CompanyRecord
     self.planned_depreciations.clear
 
     # Computes periods
-    cut_on = (self.company.current_financial_year.stopped_on + 1)
     starts = [self.started_on, self.stopped_on + 1]
     for depreciation in self.depreciations
       starts << depreciation.started_on
     end
-    for year in self.started_on.year..self.stopped_on.year
-      start = Date.civil(year, cut_on.month, cut_on.day)
-      if !starts.include?(start) and self.started_on <= start and start <= self.stopped_on
+    for financial_year in self.company.financial_years
+      start = financial_year.started_on
+      if self.started_on <= start and start <= self.stopped_on
         starts << start 
       end
     end
-    starts.sort!
+    cut_on = (self.company.current_financial_year.stopped_on + 1)
+    for year in self.started_on.year..self.stopped_on.year
+      start = Date.civil(year, cut_on.month, cut_on.day)
+      if self.started_on <= start and start <= self.stopped_on
+        starts << start 
+      end
+    end
+    starts = starts.uniq.sort
 
     depreciable_days = ((self.stopped_on - self.started_on) + 1).to_d
     depreciable_amount = self.depreciable_amount
@@ -128,11 +134,16 @@ class Asset < CompanyRecord
           remaining_amount -= depreciation.amount
         end 
         puts [remaining_amount, depreciation.amount].inspect
+        
+        fy = self.company.financial_years.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
+        depreciation.financial_year = fy if fy
+
         depreciation.position = position
         position += 1
         depreciation.save!
       end
     end
+    return self
   end
 
 
