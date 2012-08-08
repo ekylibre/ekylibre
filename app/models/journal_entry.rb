@@ -142,6 +142,7 @@ class JournalEntry < CompanyRecord
         self.original_currency_rate = 1
       else
         # TODO: Find a way to manage currency rates!
+        # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
         self.original_currency_rate = I18n.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate 
       end
     else

@@ -78,7 +78,9 @@ class IncomingPayment < CompanyRecord
   validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
-  
+
+  delegate :currency, :to => :mode
+
   before_validation(:on=>:create) do
     self.created_on ||= Date.today
     self.to_bank_on ||= Date.today
@@ -124,9 +126,9 @@ class IncomingPayment < CompanyRecord
   end
 
   
-  def currency
-    self.mode.cash.currency
-  end
+  # def currency
+  #   self.mode.cash.currency
+  # end
 
   def label
     tc(:label, :amount=>I18n.localize(self.amount, :currency=>self.mode.cash.currency), :date=>I18n.localize(self.to_bank_on), :mode=>self.mode.name, :usable_amount=>I18n.localize(self.unused_amount, :currency=>self.mode.cash.currency), :payer=>self.payer.full_name, :number=>self.number)

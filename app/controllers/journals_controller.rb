@@ -116,7 +116,7 @@ class JournalsController < ApplicationController
     return unless @journal = find_and_check(:journal)
     unless @journal.closable?
       notify(:no_closable_journal)
-      redirect_to :action => :journals
+      redirect_to :action => :index
       return
     end    
     if request.post?   
@@ -132,7 +132,7 @@ class JournalsController < ApplicationController
     return unless @journal = find_and_check(:journal)
     unless @journal.reopenable?
       notify(:no_reopenable_journal)
-      redirect_to :action => :journals
+      redirect_to :action => :index
       return
     end    
     if request.post?

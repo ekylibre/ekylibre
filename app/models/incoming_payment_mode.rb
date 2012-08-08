@@ -60,8 +60,10 @@ class IncomingPaymentMode < CompanyRecord
   validates_inclusion_of :with_accounting, :with_commission, :with_deposit, :in => [true, false]
   validates_presence_of :commission_base_amount, :commission_percent, :company, :name
   #]VALIDATORS]
-  validates_presence_of :depositables_account_id, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
-  validates_presence_of :cash_id
+  validates_presence_of :depositables_account, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
+  validates_presence_of :cash
+
+  delegate :currency, :to => :cash
 
   before_validation do
     if self.cash.cash?

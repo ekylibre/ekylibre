@@ -183,19 +183,16 @@ class FinancialYear < CompanyRecord
   def find_or_create_next
     year = self.next
     unless year
-      if self.company.financial_years.count == 1
-        year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> 12))
-      else
+      months = 12
+      if self.company.financial_years.count != 1
         months = 0
         x = self.started_on
         while x <= self.stopped_on.beginning_of_month
-          # raise [x, self.started_on, self.stopped_on, months].inspect if months > 20
           months += 1
           x = x >> 1
         end
-        # raise [x, self.started_on, self.stopped_on, months].inspect
-        year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months))
       end
+      year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months), :currency => self.currency)
     end
     return year
   end
