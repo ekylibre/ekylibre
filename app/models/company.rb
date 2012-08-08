@@ -130,7 +130,6 @@ class Company < Ekylibre::Record::Base
   has_many :warehouses
   belongs_to :entity
 
-
   # Sequences
   preference :assets_sequence, 'Sequence'
   preference :cash_transfers_sequence, 'Sequence'
@@ -223,7 +222,8 @@ class Company < Ekylibre::Record::Base
   has_many :usable_outgoing_payments, :class_name=>"OutgoingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
   has_many :waiting_transporters, :class_name=>"Entity", :conditions=>["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
 
-  has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>{:closed=>false}
+  has_one :first_financial_year, :class_name => "FinancialYear", :order => "started_on"
+  has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>proc{'CURRENT_DATE BETWEEN started_on AND stopped_on AND closed_on = #{connection.quoted_false}'}, :order => "started_on DESC"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -330,12 +330,29 @@ class Company < Ekylibre::Record::Base
     return self.financial_years.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
   end
 
-  def current_financial_year
-    self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
-  end
+#  def current_financial_year
+#    self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
+#  end
 
   def financial_year_at(searched_on=Date.today)
-    self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
+    year = self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
+    unless year
+      # First
+      first = self.first_financial_year
+      unless first
+        started_on = Date.today
+        first = self.financial_years.create(:started_on => started_on, :stopped_on => (started_on >> 12).end_of_month)
+      end
+      return nil if first.started_on > searched_on
+
+      # Next years
+      other = first
+      while searched_on > other.stopped_on
+        other = other.find_or_create_next
+      end 
+      return other
+    end
+    return year
   end
 
   def reconcilable_prefixes

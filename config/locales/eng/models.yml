@@ -131,6 +131,7 @@ eng:
         less_than: "%{attribute} must be less than %{count}"
         less_than_or_equal_to: "%{attribute} must be less than or equal to %{count}"
         not_a_number: "%{attribute} is not a number"
+        not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         odd: "%{attribute} must be odd"
         posterior: "The date %{attribute} must be posterior to %{to}"
@@ -141,6 +142,10 @@ eng:
         too_short: "%{attribute} is too short (minimum is %{count} characters)"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
+        asset:
+          attributes:
+            started_on:
+              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         cash:
           currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -531,6 +536,7 @@ eng:
     financial_year: "Financial year"
     financial_years: "Financial years"
     finish: "Finish"
+    # first_financial_year: "First financial year"
     first_met_on: "First met on"
     first_name: "First name"
     first_number: "First number"

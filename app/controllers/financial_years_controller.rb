@@ -26,7 +26,7 @@ class FinancialYearsController < ApplicationController
     t.column :stopped_on, :url=>true
     t.column :currency
     t.column :currency_precision
-    t.action :close, :if => '!RECORD.closed and RECORD.closable?'
+    # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :edit, :if => '!RECORD.closed'  
     t.action :destroy, :if => '!RECORD.closed'  
   end

@@ -50,6 +50,7 @@ class AssetDepreciation < CompanyRecord
   validates_inclusion_of :accountable, :protected, :in => [true, false]
   validates_presence_of :amount, :asset, :company, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
+  validates_presence_of :financial_year
   delegate :currency, :to => :asset
 
   sums :asset, :depreciations, :amount => :depreciated_amount
@@ -66,12 +67,10 @@ class AssetDepreciation < CompanyRecord
   end
 
   validate do
-    # A depreciation must be on one financial year!
-    
-    
     # A start day must be the depreciation start or a financial year start
-    # Very difficult for future years...
-    
+    unless self.started_on == self.asset.started_on or self.started_on.beginning_of_month == self.started_on
+      errors.add(:started_on, :invalid_date, :start => self.asset.started_on)
+    end
   end
   
 

@@ -165,6 +165,7 @@ class JournalEntry < CompanyRecord
   
   #
   validate do
+    # TODO: Validates number has journal's code as prefix
     return unless self.created_on
     if self.journal
       errors.add(:printed_on, :closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on

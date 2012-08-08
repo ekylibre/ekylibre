@@ -84,8 +84,17 @@ class Asset < CompanyRecord
   end
 
   validate do
-    if self.stopped_on and self.started_on
-      errors.add(:stopped_on, :less_than_or_equal_to, :count => self.stopped_on) unless self.stopped_on >= self.started_on
+    if self.started_on
+      if fy = self.company.financial_years.reorder("started_on").first
+        unless fy.started_on <= self.started_on
+          errors.add(:started_on, :greater_than_or_equal_to, :count => fy.started_on.l) 
+        end
+      end
+      if self.stopped_on
+        unless self.stopped_on >= self.started_on
+          errors.add(:started_on, :less_than_or_equal_to, :count => self.stopped_on.l)
+        end
+      end
     end
   end
 
@@ -97,21 +106,20 @@ class Asset < CompanyRecord
     for depreciation in self.depreciations
       starts << depreciation.started_on
     end
+    last = self.company.financial_year_at(self.stopped_on)
     for financial_year in self.company.financial_years
       start = financial_year.started_on
       if self.started_on <= start and start <= self.stopped_on
         starts << start 
       end
     end
-    cut_on = (self.company.current_financial_year.stopped_on + 1)
-    for year in self.started_on.year..self.stopped_on.year
-      start = Date.civil(year, cut_on.month, cut_on.day)
-      if self.started_on <= start and start <= self.stopped_on
-        starts << start 
-      end
-    end
     starts = starts.uniq.sort
+    self.send("depreciate_with_#{self.method}_method", starts)
+    return self
+  end
 
+
+  def depreciate_with_linear_method(starts)
     depreciable_days = ((self.stopped_on - self.started_on) + 1).to_d
     depreciable_amount = self.depreciable_amount
     for depreciation in self.depreciations
@@ -143,8 +151,7 @@ class Asset < CompanyRecord
         depreciation.save!
       end
     end
-    return self
+    
   end
-
 
 end

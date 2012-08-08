@@ -133,8 +133,6 @@ fra:
         exclusion: "%{attribute} est reservé"
         greater_than: "%{attribute} doit être plus grand que %{count}"
         greater_than_or_equal_to: "%{attribute} doit être plus grand ou égal à %{count}"
-        has_an_invalid_nature: "%{attribute} contient un modèle inconnu %{nature} (page %{page})" #?
-        has_an_invalid_partner: "%{attribute} contient un partenaire inconnu %{partner} (page %{page})" #?
         included_in: "La valeur de %{attribute} doit être comprise entre %{minimum} et %{maximum}"
         inclusion: "%{attribute} n’est pas inclus dans la liste"
         invalid: "%{attribute} est invalide"
@@ -143,6 +141,7 @@ fra:
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
         not_a_number: "%{attribute} n’est pas un nombre"
+        # not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         posterior: "La date %{attribute} doit être postérieure à %{to}"
@@ -153,6 +152,10 @@ fra:
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
+        asset:
+          attributes:
+            started_on:
+              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "Un ou plusieurs éléments du RIB sont incorrects."
@@ -171,7 +174,7 @@ fra:
             started_on:
               consecutive: "L’exercice comptable doit être consécutif à un autre. Il doit commencer au lendemain de la fin du précédent."
             stopped_on:
-              end_of_month: "%{attribute} doit être un date de fin de mois"
+              end_of_month: "%{attribute} doit être une date de fin de mois"
           overlap: "%{attribute} se trouve sur un exercice existant"
         journal:
           attributes:

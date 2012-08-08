@@ -179,6 +179,27 @@ class FinancialYear < CompanyRecord
     return self.company.financial_years.where(:started_on=>self.stopped_on+1).first
   end
 
+  # Find or create the next financial year based on the date of the current
+  def find_or_create_next
+    year = self.next
+    unless year
+      if self.company.financial_years.count == 1
+        year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> 12))
+      else
+        months = 0
+        x = self.started_on
+        while x <= self.stopped_on.beginning_of_month
+          # raise [x, self.started_on, self.stopped_on, months].inspect if months > 20
+          months += 1
+          x = x >> 1
+        end
+        # raise [x, self.started_on, self.stopped_on, months].inspect
+        year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months))
+      end
+    end
+    return year
+  end
+
  
   # Computes the value of list of accounts in a String
   # 123 will take all accounts 123*
