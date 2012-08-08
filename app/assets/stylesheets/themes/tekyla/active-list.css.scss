@@ -22,22 +22,21 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     thead { 
       th { 
         border: $menu-border;
-        padding: 2px 3px;
+        padding: round($fs-normal*0.2) round($fs-normal*0.4);
+        @include text-align(left);
         @include background($menu-background);
         @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
         &[data-list-column-sort] { 
           .icon { 
             @include active-list-sprite(sort); 
             @include inline-block;
-            margin: 0 2px;
+            @include left(margin, round($fs-normal*0.2));
           }
           &.sor[data-list-column-sort="desc"] .icon { 
             @include active-list-sprite(sort-down); }
           &.sor[data-list-column-sort="asc"] .icon { 
             @include active-list-sprite(sort-up); }
         }
-        & { text-align: left; }
-        html[dir="rtl"] & { text-align: right; }
         &.spe { 
           
           width: 16px;
@@ -96,18 +95,18 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     tbody { 
       tr {
         td { 
-          padding: 2px 3px;
+          padding: round($fs-normal*0.2) round($fs-normal*0.4);
           border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
           border-bottom: none;
           border-left: none;
           border-right: none;
-          &.chk,&.act, &.dld, &.bln, &.dat, &.web  { text-align:center }
-          &.dec, &.flt, &.int { 
-             & { text-align: right; }
-            html[dir="rtl"] & { text-align: left; }
+          &.chk,&.act, &.dld, &.bln, &.dat, &.web  { 
+            @include text-align(center);
+            .checkbox-true, .checkbox-false { margin: 0 auto; }
           }
+          &.dec, &.flt, &.int { @include text-align(right) }
           &.country { white-space: nowrap; }
-          &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; text-align: center; }
+          &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
         }
         &:first-child td { 
           border-top: none;
@@ -115,14 +114,13 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
       }
     }
 
-    @include list-colors(#FFFFFF);
+    @include list-colors($desktop-background);
   }
   .extras { 
     z-index: 0;
     @include background(transparentize($desktop-background, 0.7));
     .pagination { 
-        & { text-align: left; }
-       html[dir="rtl"] & { text-align: right; }
+       @include text-align(left);
        & > * { 
          margin: 0 2px;
        }

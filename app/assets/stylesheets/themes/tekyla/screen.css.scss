@@ -40,7 +40,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 
 *[data-click], .clickable { cursor: pointer; }
 
-#wrap { padding: 8px 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
+#wrap { padding: $default-gap 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
 #wrap-table {
   border-collapse: collapse; 
   width: 100%;
@@ -71,33 +71,47 @@ a:hover { color: $link-color; text-decoration: underline;}
 #about-us div a img { border:none; }
 #about-us div table { margin: 0 auto; width: 500px; }
 
-.content { clear: both; }
-.content * { color: $text-color }
-.content h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
-.content h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
-.content h3 { @include title($fs-normal); margin: 4px 0 2px 10px; color: $text-color; }
-.content pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: 8px; margin: 8px 0; }
-.content ul { padding: 4px 2em; }
-.content ul li { list-style-type: square; }
-.content ol { padding: 4px 2em; }
-.content ol li { list-style-type: decimal; }
-.content dl { padding: 0 0.1em; margin-bottom: 0.2em; }
-.content dt { margin-top: .2em; font-weight: bold; color: #210 }
-.content dd { margin-bottom: .2em; margin-left: 1em; }
-.content a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
-.content p { margin: 8px 0px; }
-.content p.notice { border-left: 10px solid #7A4; background: #CE8; padding: 4px 8px; }
-.content p.warning { border-left: 10px solid #FA0; background: #FD9; padding: 4px 8px; }
-.content .text-end { height: 1px; }
-.content .help-error { color: #977; @include text-align(center); padding: 8px;  margin: 16px 0; background:#F5EAD7; border: 1px solid #977; }
-.content .md { }
-.content .md.md-center { display:block; margin: 2px auto; }
-.content .md.md-left   { display:block; margin: 2px; float: left; }
-.content .md.md-right  { display:block; margin: 2px; float: right; }
-dl { padding: 0 0.1em; margin-bottom: 0.2em; }
-dt { margin-top: .2em; font-weight: bold; color: #210 }
-dd { margin-bottom: .2em; margin-left: 1em; }
-
+.content { 
+  $content-font-size: round($fs-normal*0.9);
+  clear: both;
+  * { 
+    vertical-align: baseline;
+    color: $text-color; line-height: 1.2em; font-size: $content-font-size; 
+  }
+  h1 { @include title($fs-normal); margin: 0px 0 8px; text-transform: uppercase; letter-spacing: 1px;}
+  h2 { @include title($fs-normal); margin: 8px 0 4px; border-bottom: $menu-border; }
+  h3 { @include title($content-font-size); margin: 4px 0 2px 10px; color: $text-color; }
+  pre { font-family: "Liberation Mono", monospace; color: #777; background: #FFF; padding: $default-gap; margin: $default-gap 0; }
+  strong { font-weight: bold; }
+  em { font-style: italic; }
+  ul, ol { 
+    padding: 0; 
+    @include left(padding, 1.3*$content-font-size);
+    margin: 0 0 $default-gap 0;
+  }
+  ul li { list-style-type: square; }
+  ol li { list-style-type: decimal; }
+  dl { 
+    padding: 0 0.1em; margin-bottom: 0.2em;
+    dt { margin-top: .2em; font-weight: bold; color: #210 }
+    dd { margin-bottom: .2em; margin-left: 1em; }
+  }
+  a img { border: $menu-border-width solid $link-color; padding: $menu-border-width; }
+  p { 
+    /*@include text-align(justify);*/
+    margin: 0 0 $default-gap 0;
+    &.notice { border-left: $default-gap solid #7A4; background: #CE8; padding: round($default-gap/2) $default-gap; }
+    &.warning { border-left: $default-gap solid #FA0; background: #FD9; padding: round($default-gap/2) $default-gap; }
+  }
+  .text-end { height: 1px; }
+  .help-error {  @include text-align(center); margin: $default-gap 0; color: mix($text-color, $menu-background, 50%); @include text-shadow($menu-border-width $menu-border-width 0 $desktop-background) }
+  .content .md {
+    display:block; 
+    &.md-center { margin: round($default-gap/2) auto; }
+    &.md-left   { margin: round($default-gap/2); @include float(left); }
+    &.md-right  { margin: round($default-gap/2); @include float(right); }
+  }
+}
 
 #side-splitter { 
   background: $base-color; 
@@ -183,18 +197,18 @@ div#side {
       }
     }
     &.help { 
-      #help .content { padding: 8px; }
+      #help .content { padding: round($fs-normal * 0.5); }
     }
   }
 }
 
 
 
-.main { padding: 8px; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid $base-color; border-right: none; border-top: none;*/
-.main h1 { margin: 0px 0px 8px; @include title($fs-very-huge);  }
-.main .subheading { margin: 0 0 8px; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
+.main { padding: $default-gap; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid $base-color; border-right: none; border-top: none;*/
+.main h1 { margin: 0px 0px $default-gap; @include title($fs-very-huge);  }
+.main .subheading { margin: 0 0 $default-gap; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
 .main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
-.main .mn-index { margin-bottom: 8px; width: 200px; }
+.main .mn-index { margin-bottom: 8px; width: $menu-width; }
 html[dir="ltr"] .main .mn-index {float: left; margin-right: 8px; }
 html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
@@ -204,10 +218,10 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 .main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; line-height: 1.4em;}
 .main .mn-index .mn-index-sub a:hover { @include background(background-hover($desktop-background)); }
 
-.main .menu { @include border-radius($default-border-radius); background: $cell-background; padding:4px 6px; margin: 0 0 8px; }
+.main .menu { @include border-radius($default-border-radius); background: $cell-background; @include incrust-shadow; padding:4px 6px; margin: 0 0 8px; }
 /*.main .menu h2 { font-size : $fs-large; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
 .main .menu h2 { margin: 2px 0px !important; }
-.main .menu ul { padding: 4px 18px; }
+.main .menu ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
 .main .menu li { list-style-type: square; padding: 1px; }
 .main .menu li { }
 .main .menu.special { background: #FE9; }
@@ -216,7 +230,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
 
 #top {
-  $menu-bar-margin-bottom: 1px;
+  $menu-bar-margin-bottom: $menu-border-width;
   .user-bar {
     border: $menu-border;
     border-color: transparent;
@@ -233,7 +247,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
       line-height: $menu-text-height;
       white-space: nowrap; 
       vertical-align: top; 
-      padding: (($menu-height - 2px - $menu-text-height)/2) 8px;
+      padding: (($menu-height - 2px - $menu-text-height)/2) $default-gap;
       text-decoration: none;
       text-shadow: $menu-border-width $menu-border-width 0 white; 
       text-shadow: $menu-border-width $menu-border-width 0 transparentize(white, 0.5); 
@@ -276,9 +290,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
     margin-bottom: $menu-bar-margin-bottom;
     $menu-bar-background: #CCC; /* #D0D0D0; */
     @include background($menu-bar-background); 
-/*    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));*/
     @include background-image(linear-gradient(lighten($menu-bar-background, $default-lightness-variation), darken($menu-bar-background, $default-lightness-variation)));
-/*    @include background(linear-gradient(top, #D0D0D0, #B9B9B9));*/
     display: block;
     ul {
       li { 
@@ -288,9 +300,9 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         @include float(left);
         .logo-item { 
           @include background(image-url("themes/tekyla/ekylibre-menu.png") no-repeat); 
-          width: 100px; height: $menu-height; 
+          width: 108px; height: $menu-height; 
           @include right(margin, round($fs-normal/4)); border: none; padding: 0;
-          html[dir="ltr"] & { background-position: -12px center; }
+          html[dir="ltr"] & { background-position: -20px center; }
           html[dir="rtl"] & { background-position: 0px center; }
         }
         ul {
@@ -312,7 +324,6 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
     ul li:hover ul, ul li ul:hover { display:block; }
     a { display: block; white-space: nowrap; color: black; text-decoration: none; }
     li.menu { 
-      margin: 0 0 0 1px;
       a.menu {
         &, & span { 
           height: $menu-text-height;
@@ -329,12 +340,12 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
         $padding-total: ($menu-height - (2*$menu-border-width) - $menu-text-height);
         $padding-top: floor($padding-total/2);
         $padding-bottom: $padding-total - $padding-top;
-        padding: $padding-top 8px $padding-bottom; 
+        padding: $padding-top $default-gap $padding-bottom; 
         color: white; @include text-align(center); position: relative; z-index: 500;
         &.current { 
           background-color: $menu-background; 
           span { color: $text-color; }
-          @include box-shadow(0 -5px 5px rgba(0,0,0,0.2)); 
+          @include box-shadow(0 -round($fs-normal/3) round($fs-normal/3) rgba(0,0,0,0.2)); 
           border-color: #D50; /*$menu-border-color;*/
           border-left: none;
           border-right: none;
@@ -380,7 +391,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
 
 
 
-#helpage { padding-left: 8px; }
+#helpage { padding-left: $default-gap; }
 
 .clearfix:after { content: "."; display:block; height:0; clear: both; visibility: hidden; }
 /* backslash hack hides from IE mac \*/
@@ -506,7 +517,7 @@ table.formalize {
 }
 table.formalize td.label { @include text-align(right); padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
 table.formalize td.input { padding:2px 6px 2px 2px; }
-table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left:1px dashed #CCC; }
+table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left: 1px dashed #CCC; }
 table.formalize td [required] { border: $menu-border-width solid #33F; background-color: #EEF }
 table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
 table.formalize td .info span    { color: #55C; }
@@ -544,8 +555,10 @@ div.field.mono-choice .toolbar { margin: 0 8px; }
   }
 }
 
-.rad { padding: 1px 4px; }
-.rad * { vertical-align: middle; }
+span.rad {
+  padding: round($fs-normal/8) round($fs-normal/4);
+  * { vertical-align: middle; ; }
+}
 
 .actions { 
   @include text-align(center);
@@ -649,7 +662,7 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 .tabbox {
-  margin: 8px 0;
+  margin: $default-gap 0;
   & > .tabs  { 
     $tabs-height: 2 * ceil($fs-normal * 0.8);
     height: $tabs-height;
@@ -689,7 +702,9 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
     @include incrust-shadow;
     background: $menu-background;
     border: $menu-border;
-    padding: 8px;
+    padding: $default-gap;
+    @include border-bottom-left-radius($default-border-radius);
+    @include border-bottom-right-radius($default-border-radius);
     & > .tabpanel {
       display: none;
       &.current { display: block; }
