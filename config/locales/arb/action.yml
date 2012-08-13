@@ -27,6 +27,7 @@ arb:
       # edit: "Edit asset: %{name}"
       # index: "Assets"
       # new: "New asset"
+      # sell: "Sell asset"
       # show: "Asset: %{name}"
     authentication:  #?
       login: "الدخول" #?

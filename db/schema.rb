@@ -116,11 +116,11 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
   add_index "asset_depreciations", ["updater_id"], :name => "index_asset_depreciations_on_updater_id"
 
   create_table "assets", :force => true do |t|
-    t.integer  "company_id",                                                                     :null => false
-    t.integer  "account_id",                                                                     :null => false
-    t.integer  "journal_id",                                                                     :null => false
-    t.string   "name",                                                                           :null => false
-    t.string   "number",                                                                         :null => false
+    t.integer  "company_id",                                                                         :null => false
+    t.integer  "account_id",                                                                         :null => false
+    t.integer  "journal_id",                                                                         :null => false
+    t.string   "name",                                                                               :null => false
+    t.string   "number",                                                                             :null => false
     t.text     "description"
     t.text     "comment"
     t.date     "purchased_on"
@@ -130,19 +130,20 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
     t.date     "ceded_on"
     t.integer  "sale_id"
     t.integer  "sale_line_id"
-    t.decimal  "purchase_amount",                  :precision => 19, :scale => 4
-    t.date     "started_on",                                                                     :null => false
-    t.date     "stopped_on",                                                                     :null => false
-    t.decimal  "depreciable_amount",               :precision => 19, :scale => 4,                :null => false
-    t.decimal  "depreciated_amount",               :precision => 19, :scale => 4,                :null => false
-    t.string   "depreciation_method",                                                            :null => false
-    t.datetime "created_at",                                                                     :null => false
-    t.datetime "updated_at",                                                                     :null => false
+    t.decimal  "purchase_amount",                      :precision => 19, :scale => 4
+    t.date     "started_on",                                                                         :null => false
+    t.date     "stopped_on",                                                                         :null => false
+    t.decimal  "depreciable_amount",                   :precision => 19, :scale => 4,                :null => false
+    t.decimal  "depreciated_amount",                   :precision => 19, :scale => 4,                :null => false
+    t.string   "depreciation_method",                                                                :null => false
+    t.datetime "created_at",                                                                         :null => false
+    t.datetime "updated_at",                                                                         :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                    :default => 0, :null => false
-    t.string   "currency",            :limit => 3
-    t.decimal  "current_amount",                   :precision => 19, :scale => 4
+    t.integer  "lock_version",                                                        :default => 0, :null => false
+    t.string   "currency",                :limit => 3
+    t.decimal  "current_amount",                       :precision => 19, :scale => 4
+    t.decimal  "depreciation_percentage",              :precision => 19, :scale => 4
   end
 
   add_index "assets", ["account_id"], :name => "index_assets_on_account_id"

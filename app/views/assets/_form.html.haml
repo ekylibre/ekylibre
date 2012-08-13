@@ -8,8 +8,14 @@
   -f.title :depreciation
   -f.field :asset, :depreciable_amount
   -f.field :asset, :currency, :choices=>currencies
-  -f.field :asset, :depreciation_method, :choices=>Asset.deprecation_methods, :field=>:radio
+  -f.field :asset, :depreciation_method, :choices=>Asset.deprecation_methods.collect{|p| [p[0], p[1], {"data-show"=>"##{p[1]}_options"}]}, :field=>:radio
   -f.field :asset, :started_on
+
+
+=formalize(:id => :simplified_linear_options) do |f|
+  -f.field :asset, :depreciation_percentage
+
+=formalize(:id => :linear_options) do |f|
   -f.field :asset, :stopped_on
  
 =formalize do |f|

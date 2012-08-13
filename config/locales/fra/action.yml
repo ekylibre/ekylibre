@@ -19,6 +19,7 @@ fra:
       edit: "Modifier l’immobilisation\_: %{name}"
       index: "Immobilisations"
       new: "Nouvelle immobilisation"
+      # sell: "Sell asset"
       show: "Immobilisation\_: %{name}"
     bank_statements:
       edit: "Modifier le relevé N°%{number}"
@@ -1500,7 +1501,7 @@ fra:
     you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer"
     you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?"
   preferences:
-    # assets_sequence: "Numeration of assets"
+    assets_sequence: "Numérotation des immobilisations"
     bank_journal: "Journal de banque par défaut"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"

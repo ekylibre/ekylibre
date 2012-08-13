@@ -431,32 +431,33 @@ table.quick td { padding: 0px 4px; }
 #company div.side .value {color:#227;  padding: 2px; }
 
 .flash { 
-  padding: 8px; 
-  margin-bottom: 8px; 
+  padding: $default-gap; 
+  margin-bottom: $default-gap; 
   vertical-align: middle; 
   color: black; 
-  border: 1px solid black; 
+  border: $menu-border; 
   @include border-radius($default-border-radius);
-  @include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
+  @include incrust-shadow;
+  $icon-size: 32px;
   .icon {
     display: block;
-    height: 32px;
-    width: 32px;
-    @include right(margin, 8px);
+    height: $icon-size;
+    width: $icon-size;
     @include float(left);
   }
-  .message { 
-    @include left(margin, 40px);
+  .message {
+    @include left(margin, $icon-size + $default-gap);
     h3 {
       font-size: $fs-normal; 
       font-weight: bold; 
-      padding: 0 0 2px; 
-      margin-bottom: 2px; 
-      border-bottom: 1px dotted #999; 
+      $gap: floor(($default-gap - $menu-border-width)/2);
+      padding: 0 0 $gap; 
+      margin-bottom: $default-gap - $menu-border-width - $gap; 
+      border-bottom: $menu-border-width dotted #999; 
     }
     ul { 
-      padding: 4px;
-      @include left(padding, 20px); 
+      padding: round($fs-normal/4);
+      @include left(padding, round(1.2*$fs-normal)); 
       li { list-style-type: square; }
     }
   }
@@ -464,36 +465,17 @@ table.quick td { padding: 0px 4px; }
     clear: both;
     height: 0;
   }
-  &.error { 
-    border-color: #D10; 
-    * { color: #D10; }
-    background-color: #FFDFD0; 
-    .icon { @include common-sprite(notification-error); }
-  }
-  &.warning {
-    border-color: #E60;
-    * { color: #E60; }
-    background-color: #FFEECC;
-    .icon { @include common-sprite(notification-warning); }
-  }
-  &.success {
-    border-color: #5A1;
-    * { color: #5A1; }
-    background-color: #EEFFCC;
-    .icon { @include common-sprite(notification-success); }
-  }
-  &.information {
-    border-color: #777;
-    * { color: #777; }
-    background-color: #F5F5F5;
-    .icon { @include common-sprite(notification-info); }
+  @each $level in (error #D10), (warning #E60), (success #591), (information #777) { 
+    $level-name: nth($level, 1);
+    $level-color: change-color(nth($level, 2), $lightness: 40%);
+    &.#{$level-name} {
+      &, & .message h3 { border-color: $level-color;}
+      * { color: $level-color; }
+      background-color: mix($level-color, $desktop-background, 10%); 
+      .icon { @include common-sprite(notification-#{$level-name}); }
+    }
   }
 }
-
-/*.errorExplanation { background: #ECA; color: #543; margin: 8px; }
-.errorExplanation { padding: 0 0 0 40px; border: 1px solid #F00; vertical-align: middle; min-height:32px; background: #FDD image-url("themes/tekyla/notification-error.png") left center no-repeat; }
-.errorExplanation h2 { color: #F00;  font-size: $fs-normal; }
-*/
 
 .checkbox-true { @include common-sprite(true); height:12px; width:12px; }
 .checkbox-false { @include common-sprite(false); height:12px; width:12px; }

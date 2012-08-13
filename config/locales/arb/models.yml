@@ -792,6 +792,7 @@ arb:
     client_accounts: "حسابات العملاء"
     client_id: "العميل" #?
     clients: "العملاء"
+    # closable_financial_year: "Closable financial year"
     closed: "تم اغلاقه"
     closed_on: "تاريخ الاغلاق"
     code: "الرمز"
@@ -899,6 +900,7 @@ arb:
     # depreciated_amount: "Depreciated amount"
     # depreciation: "Depreciation"
     # depreciation_method: "Depreciation method"
+    # depreciation_percentage: "Depreciation percentage"
     # depreciations: "Depreciations"
     description: "الوصف"
     dest_contact: "عنوان التسليم" #?
@@ -979,6 +981,7 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن"
     finish: "النهاية"
+    # first_financial_year: "First financial year"
     first_met_on: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1185,6 +1188,7 @@ arb:
     phone: "هاتف"
     photo: "صورة"
     physical: "الفرد الطبيعي"
+    # planned_depreciations: "Planned depreciations"
     planned_on: "قرر يوم"
     polygon: "متناسقين" #?
     position: "الوضع"
@@ -1221,6 +1225,7 @@ arb:
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
     prospect: "الراعي"
+    # protected: "Protected"
     published: "تم نشره"
     # purchase: "Purchase"
     # purchase_amount: "Purchase amount"
@@ -1452,6 +1457,7 @@ arb:
       depreciation_methods:
         # graduated: "Graduated"
         # linear: "Linear"
+        # simplified_linear: "Simplified linear"
     bank_statement:  #?
       error_account_children: ".لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية" #?
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?

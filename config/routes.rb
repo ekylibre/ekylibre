@@ -61,7 +61,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :assets do
+  resources :assets, :path => "financial-assets" do
     collection do
       get :list
       get :formize

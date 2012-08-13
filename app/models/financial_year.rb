@@ -95,7 +95,7 @@ class FinancialYear < CompanyRecord
   def closable?(noticed_on=nil)
     noticed_on ||= Date.today
     return false if self.closed
-    if previous=self.previous
+    if previous = self.previous
       return false if self.previous.closable?
     end
     return false unless self.journal_entries("debit != credit").empty?

@@ -141,7 +141,7 @@ fra:
         less_than: "%{attribute} doit être inférieur à %{count}"
         less_than_or_equal_to: "%{attribute} doit être inférieur ou égal à %{count}"
         not_a_number: "%{attribute} n’est pas un nombre"
-        # not_an_end_of_month: "%{attribute} must be an end of month"
+        not_an_end_of_month: "%{attribute} doit être une fin de mois"
         nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         odd: "%{attribute} doit être pair"
         posterior: "La date %{attribute} doit être postérieure à %{to}"
@@ -155,7 +155,7 @@ fra:
         asset:
           attributes:
             started_on:
-              # invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "Un ou plusieurs éléments du RIB sont incorrects."
@@ -394,6 +394,7 @@ fra:
     client_account: "Compte client associé"
     client_accounts: "Comptes clients"
     clients: "Clients"
+    closable_financial_year: "Exercice clôturable"
     closed: "Clôturé"
     closed_on: "Date de clôture"
     code: "Code"
@@ -440,7 +441,7 @@ fra:
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
-    # current_amount: "Current amount"
+    current_amount: "Montant actuel"
     current_financial_year: "Exercice comptable en cours"
     custom_field: "Champ complémentaire"
     custom_field_choices: "Choix de champ complémentaire"
@@ -483,7 +484,8 @@ fra:
     depreciable_amount: "Montant amortissable"
     depreciated_amount: "Montant amorti"
     depreciation: "Amortissement"
-    depreciation_method: "Méthode d'amortissement"
+    depreciation_method: "Méthode d’amortissement"
+    depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
     description: "Description"
     diff_less: "Droits enlevés"
@@ -551,6 +553,7 @@ fra:
     financial_year: "Exercice"
     financial_years: "Exercices"
     finish: "Fin"
+    first_financial_year: "Premier exercice"
     first_met_on: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -732,6 +735,7 @@ fra:
     phone: "Téléphone"
     photo: "Photo"
     physical: "Personne physique"
+    planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
     postcode: "Code postal"
@@ -761,6 +765,7 @@ fra:
     propagate_contacts: "Propager les contacts"
     proposer: "Parrain"
     prospect: "Prospect"
+    protected: "Protégé"
     published: "Publié"
     purchase: "Achat"
     purchase_amount: "Montant d’achat"
@@ -963,6 +968,7 @@ fra:
       depreciation_methods:
         graduated: "Dégressive"
         linear: "Linéaire"
+        simplified_linear: "Linéaire simplifiée"
     cash:
       modes:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -1036,7 +1042,7 @@ fra:
         journals:
           bank: "Banque"
           cash: "Caisse"
-          # forward: "Carried-forward"
+          forward: "À nouveaux"
           purchases: "Achats"
           sales: "Ventes"
           various: "Opérations diverses"
@@ -1048,7 +1054,7 @@ fra:
           transfer:
             name: "Virement"
         product_category_name: "Sans catégorie"
-        # purchase_nature_name: "Standard"
+        purchase_nature_name: "Standard"
         role:
           name:
             admin: "Gérant"
@@ -1056,8 +1062,8 @@ fra:
         sale_nature_name: "Vente standard"
         sequences:
           assets:
-            # name: "Numeration of assets"
-            # number_format: "A[number|7]"
+            name: "Numérotation des immobilisations"
+            number_format: "I[number|7]"
           cash_transfers:
             name: "Numérotation des virements internes"
             number_format: "VI[year|4][number|4]"

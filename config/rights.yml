@@ -1,7 +1,5 @@
 # Unused actions in rights
-#   - "assets::cede"
 #   - "assets::depreciate"
-#   - "assets::sell"
 #   - "production_chain_conveyors::create"
 #   - "production_chain_conveyors::destroy"
 #   - "production_chain_conveyors::edit"
@@ -514,7 +512,7 @@ manage_financial_years:
   - "financial_years::list_account_balances"
   - "financial_years::new"
   - "financial_years::show"
-  - "financial_years::synthesis"
+  - "financial_years::synthesis # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "financial_years::update"
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
@@ -799,7 +797,7 @@ manage_products:
   - "products::list_stocks"
   - "products::new"
   - "products::update"
-# translation missing: eng.rights.manage_purchase_natures
+# Manage purchase natures
 manage_purchase_natures:
   actions:
   - "purchase_natures::create"
