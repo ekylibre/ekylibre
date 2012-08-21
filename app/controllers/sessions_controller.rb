@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
     else
       notify_error_now(:no_authenticated)
     end
-    render :action=>:new
+    render :action => :new
   end
 
   def destroy
