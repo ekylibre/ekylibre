@@ -44,28 +44,28 @@
 
 
 class StockTransfer < CompanyRecord
+  NATURES = %w(waste transfer gain).freeze
+  acts_as_numbered
+  acts_as_stockable :quantity => '-self.quantity'
+  acts_as_stockable :second_stock_move, :warehouse => 'self.second_warehouse', :if => 'self.transfer?'
+  attr_readonly :nature
+  belongs_to :product
+  belongs_to :second_stock_move, :class_name => "StockMove"
+  belongs_to :second_warehouse, :class_name => "Warehouse"
+  belongs_to :stock_move
+  belongs_to :tracking
+  belongs_to :unit
+  belongs_to :warehouse
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :number, :allow_nil => true, :maximum => 64
   validates_presence_of :company, :nature, :number, :planned_on, :product, :quantity, :warehouse
   #]VALIDATORS]
-  NATURES = %w(waste transfer gain).freeze
-  acts_as_numbered
-  acts_as_stockable :quantity=>'-self.quantity'
-  acts_as_stockable :second_stock_move, :warehouse=>'self.second_warehouse', :if=>'self.transfer? '
-  attr_readonly :nature
-  belongs_to :product
-  belongs_to :second_stock_move, :class_name=>"StockMove"
-  belongs_to :second_warehouse, :class_name=>"Warehouse"
-  belongs_to :stock_move
-  belongs_to :tracking
-  belongs_to :unit
-  belongs_to :warehouse
   validates_presence_of :unit
-  validates_presence_of :second_warehouse, :if=>Proc.new{|x| x.transfer?}
-  validates_numericality_of :quantity, :greater_than=>0.0
-  validates_inclusion_of :nature, :in=>NATURES
+  validates_presence_of :second_warehouse, :if => Proc.new{|x| x.transfer?}
+  validates_numericality_of :quantity, :greater_than => 0.0
+  validates_inclusion_of :nature, :in => NATURES
 
   before_validation do
     self.unit_id = self.product.unit_id if self.product
@@ -83,11 +83,11 @@ class StockTransfer < CompanyRecord
       errors.add(:unit_id, :invalid) unless self.unit.convertible_to? self.product.unit
     end
     if !self.second_warehouse.nil?
-      errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.second_warehouse.name, :product=>self.product.name, :contained_product=>self.second_warehouse.product.name) unless self.second_warehouse.can_receive(self.product_id)
+      errors.add_to_base(:warehouse_can_not_receive_product, :warehouse => self.second_warehouse.name, :product => self.product.name, :contained_product => self.second_warehouse.product.name) unless self.second_warehouse.can_receive(self.product_id)
     end
     unless self.warehouse.can_receive(self.product_id)
-      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) if self.nature=="transfer"
-      errors.add_to_base(:warehouse_can_not_waste_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) if self.nature=="waste"
+      errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.nature=="transfer"
+      errors.add_to_base(:warehouse_can_not_waste_product, :warehouse => self.warehouse.name, :product => self.product.name, :contained_product => self.warehouse.product.name) if self.nature=="waste"
     end
     errors.add_to_base(:warehouses_can_not_be_identical) if self.warehouse_id == self.second_warehouse_id 
   end

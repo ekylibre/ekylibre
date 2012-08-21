@@ -45,31 +45,31 @@
 
 
 class StockMove < CompanyRecord
+  after_save :add_in_stock
+  after_destroy :remove_from_stock
+  before_update :remove_from_stock
+  belongs_to :warehouse
+  belongs_to :origin, :polymorphic => true
+  belongs_to :product
+  belongs_to :stock
+  belongs_to :tracking
+  belongs_to :unit
+  
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :generated, :virtual, :in => [true, false]
   validates_presence_of :company, :name, :planned_on, :product, :quantity, :unit, :warehouse
   #]VALIDATORS]
-  after_save :add_in_stock
-  after_destroy :remove_from_stock
-  before_update :remove_from_stock
-  belongs_to :warehouse
-  belongs_to :origin, :polymorphic=>true
-  belongs_to :product
-  belongs_to :stock
-  belongs_to :tracking
-  belongs_to :unit
-  
-  validates_presence_of :stock, :product, :warehouse, :quantity, :unit
+  validates_presence_of :stock
 
   before_validation do
     if origin
       code = [:name, :code, :number, :id].detect{|x| origin.respond_to? x}
-      self.name ||= tc('default_name', :origin=>(origin ? origin.class.model_name.human : "*"), :code=>(origin ? origin.send(code) : "*"))
+      self.name ||= tc('default_name', :origin => (origin ? origin.class.model_name.human : "*"), :code => (origin ? origin.send(code) : "*"))
     end
     unless self.stock
-      conditions = {:company_id=>self.company_id, :product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id}
+      conditions = {:company_id => self.company_id, :product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id}
       self.stock = Stock.find_by_company_id_and_product_id_and_warehouse_id_and_tracking_id(self.company_id, self.product_id, self.warehouse_id, self.tracking_id) 
       self.stock = self.company.stocks.create!(conditions) if stock.nil?
     end
@@ -83,7 +83,7 @@ class StockMove < CompanyRecord
     return true
   end
 
-  before_validation(:on=>:create) do
+  before_validation(:on => :create) do
     self.planned_on = Date.today
     return true
   end
@@ -104,14 +104,26 @@ class StockMove < CompanyRecord
 
   # Adds in stock the quantity
   def add_in_stock
-    self.reload.stock.add_quantity(self.quantity, self.unit, self.virtual)
+    stock = self.reload.stock
+    # self.reload.stock.add_quantity(self.quantity, self.unit, self.virtual)
+    qty = stock.unit.convert(self.quantity, self.unit)
+    stock.quantity += qty unless self.virtual
+    stock.virtual_quantity += qty
+    stock.save
     return true
   end
 
   # Removes from stock the old associated quantity
   def remove_from_stock
     old = self.class.find_by_id(self.id) rescue self
-    old.stock.remove_quantity(old.quantity, old.unit, old.virtual) if old and old.stock
+    if old and old.stock
+      stock = old.stock
+      # old.stock.remove_quantity(old.quantity, old.unit, old.virtual)
+      qty = -stock.unit.convert(self.quantity, self.unit)
+      stock.quantity += qty unless self.virtual
+      stock.virtual_quantity += qty
+      stock.save
+    end
     return true
   end
 

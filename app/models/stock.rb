@@ -42,19 +42,20 @@
 
 class Stock < CompanyRecord
   attr_readonly :unit_id, :product_id, :warehouse_id, :tracking_id
+  attr_protected :quantity
   belongs_to :company
   belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking
   belongs_to :unit
   has_many :moves, :class_name=>"StockMove"
-  validates_presence_of :product, :warehouse, :unit, :quantity, :virtual_quantity
-  validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :critic_quantity_min, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :company, :critic_quantity_min, :product, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :warehouse
   #]VALIDATORS]
+  validates_presence_of :unit, :quantity, :virtual_quantity
+  validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
 
   before_validation(:on=>:create) do
     self.quantity = 0
@@ -119,19 +120,19 @@ class Stock < CompanyRecord
     end
   end
 
-  protected
+  # protected
 
-  def add_quantity(quantity, unit, virtual)
-    # Convert quantity in stock unit
-    quantity = self.unit.convert(quantity, unit)
-    self.quantity += quantity unless virtual
-    self.virtual_quantity += quantity
-    self.save
-  end
+  # def add_quantity(quantity, unit, virtual)
+  #   # Convert quantity in stock unit
+  #   quantity = self.unit.convert(quantity, unit)
+  #   self.quantity += quantity unless virtual
+  #   self.virtual_quantity += quantity
+  #   self.save
+  # end
 
-  def remove_quantity(quantity, unit, virtual)
-    add_quantity(-quantity, unit, virtual)
-  end
+  # def remove_quantity(quantity, unit, virtual)
+  #   add_quantity(-quantity, unit, virtual)
+  # end
   
 end
 
