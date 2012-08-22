@@ -387,6 +387,7 @@ spa:
     # client_account: "Client account"
     # client_accounts: "Client accounts"
     # clients: "Clients"
+    # closable_financial_year: "Closable financial year"
     # closed: "Closed"
     # closed_on: "Closed on"
     # code: "Code"
@@ -402,7 +403,7 @@ spa:
     # commission_account: "Commission account"
     # commission_amount: "Commission amount"
     # commission_base_amount: "Base amount of the commission"
-    # commission_percent: "Commission percent"
+    # commission_percent: "Commission percentage"
     # commissioned_incoming_payment_modes: "Commissioned incoming payment modes"
     company: "Compañía"
     company_id: "Compañía" #?
@@ -475,6 +476,7 @@ spa:
     # depreciated_amount: "Depreciated amount"
     # depreciation: "Depreciation"
     # depreciation_method: "Depreciation method"
+    # depreciation_percentage: "Depreciation percentage"
     # depreciations: "Depreciations"
     # description: "Description"
     # diff_less: "Diff less"
@@ -540,6 +542,7 @@ spa:
     # financial_year: "Financial year"
     # financial_years: "Financial years"
     # finish: "Finish"
+    # first_financial_year: "First financial year"
     # first_met_on: "First met on"
     # first_name: "First name"
     # first_number: "First number"
@@ -713,6 +716,7 @@ spa:
     # phone: "Phone"
     # photo: "Photo"
     # physical: "Physical"
+    # planned_depreciations: "Planned depreciations"
     # planned_on: "Planned on"
     # position: "Position"
     # postcode: "Postcode"
@@ -741,6 +745,7 @@ spa:
     # propagate_contacts: "Propagate contacts"
     # proposer: "Proposer"
     # prospect: "Prospect"
+    # protected: "Protected"
     # published: "Published"
     # purchase: "Purchase"
     # purchase_amount: "Purchase amount"
@@ -771,7 +776,7 @@ spa:
     # reductible: "Reductible"
     # reduction: "Reduction"
     # reduction_origin: "Reduction origin"
-    # reduction_percent: "Reduction percent"
+    # reduction_percent: "Reduction percentage"
     # reduction_rate: "Reduction rate"
     # reduction_submissive: "Reduction submissive"
     # reductions: "Reductions"
@@ -933,6 +938,7 @@ spa:
       depreciation_methods:
         # graduated: "Graduated"
         # linear: "Linear"
+        # simplified_linear: "Simplified linear"
     bank_statement: #?
     cash:
       modes:
@@ -1373,7 +1379,7 @@ spa:
     tax:
       natures:
         # amount: "Amount"
-        # percent: "Percent"
+        # percent: "Percentage"
     tax_declaration:
       # deferment: "Deferment"
       # monthly: "Monthly"

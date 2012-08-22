@@ -14,12 +14,12 @@ eng:
       index: "Postal areas"
       new: "Add a postal area"
     assets:
-      cede: "Cede %{name}"
+      cede: "Cede %{name}" #?
       depreciate: "Compute depreciations of %{name}"
       edit: "Edit asset: %{name}"
       index: "Assets"
       new: "New asset"
-      # sell: "Sell asset"
+      sell: "Sell asset" #?
       show: "Asset: %{name}"
     bank_statements:
       edit: "Edit bank statement %{number}"
@@ -129,7 +129,6 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
-      # synthesis: "Synthesis financial year"
     help:
       index: "Help"
       show: "Help: %{title}"

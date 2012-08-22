@@ -7,6 +7,8 @@ class UpdateAssets < ActiveRecord::Migration
     change_column :assets,  :purchase_amount, :decimal, :precision=>19, :scale=>4
     change_column :assets,  :depreciable_amount, :decimal, :precision=>19, :scale=>4
     change_column :assets,  :depreciated_amount, :decimal, :precision=>19, :scale=>4
+    add_column :assets, :depreciation_percentage, :decimal, :precision=>19, :scale=>4
+
     change_column :asset_depreciations, :amount, :decimal, :precision=>19, :scale=>4
     add_column :asset_depreciations, :protected, :boolean, :null => false, :default => false
     add_column :asset_depreciations, :financial_year_id, :integer
@@ -15,6 +17,9 @@ class UpdateAssets < ActiveRecord::Migration
   def down
     remove_column :asset_depreciations, :financial_year_id
     remove_column :asset_depreciations, :protected
+    
+    remove_column :assets, :depreciation_percentage
+    remove_column :assets, :current_amount
     rename_column :assets, :depreciated_amount, :deprecated_amount
   end
 end

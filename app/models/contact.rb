@@ -73,7 +73,7 @@ class Contact < CompanyRecord
   has_many :subscriptions
   has_many :warehouses
 
-  validates_format_of :email, :with=>/^[^\s]+\@[^\s]+$/, :if=>lambda{|c| !c.email.blank?}
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>lambda{|r| !r.email.blank?}
 
   before_validation do
     if self.entity

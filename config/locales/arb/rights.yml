@@ -61,6 +61,7 @@ arb:
     manage_prices: "ادارة الاموال"
     manage_product_categories: "ادارة فئات المنتجات"
     manage_products: "ادارة المنتجات"
+    # manage_purchase_natures: "Manage purchase natures"
     manage_purchases: "ادارة المشتريات"
     manage_sale_natures: "ادارة انواع البيع"
     manage_sales: "(ادارة المبيعات (الاوامر والطلبات والاسعار"

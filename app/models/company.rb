@@ -223,7 +223,8 @@ class Company < Ekylibre::Record::Base
   has_many :waiting_transporters, :class_name=>"Entity", :conditions=>["id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)"]
 
   has_one :first_financial_year, :class_name => "FinancialYear", :order => "started_on"
-  has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>["closed = ?", false], :order => "ABS(CURRENT_DATE - started_on) DESC"
+  has_one :current_financial_year, :class_name=>"FinancialYear", :conditions=>{:closed => false}, :order => "ABS(CURRENT_DATE - started_on) DESC"
+  has_one :closable_financial_year, :class_name=>"FinancialYear", :conditions=>["closed = ? AND stopped_on < CURRENT_DATE", false], :order => "started_on"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -325,14 +326,6 @@ class Company < Ekylibre::Record::Base
   def available_users(options={})
     self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
   end
-
-  def closable_financial_year
-    return self.financial_years.find(:all, :order=>"started_on").select{|y| y.closable?}[0]
-  end
-
-#  def current_financial_year
-#    self.financial_years.find(:last, :conditions =>{:closed=>false}, :order=>"started_on ASC")
-#  end
 
   def financial_year_at(searched_on=Date.today)
     year = self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first

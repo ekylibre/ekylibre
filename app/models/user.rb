@@ -84,6 +84,7 @@ class User < CompanyRecord
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100
   validates_uniqueness_of :name, :scope=>:company_id
+  validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>lambda{|r| !r.email.blank?}
 
   # cattr_accessor :current_user
   attr_accessor :password_confirmation, :old_password

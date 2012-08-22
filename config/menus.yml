@@ -1,7 +1,5 @@
 # Unused actions in menus
-#         - "assets::cede"
 #         - "assets::depreciate"
-#         - "assets::sell"
 #         - "companies::register"
 #         - "dashboards::accountancy"
 #         - "dashboards::finances"
@@ -373,7 +371,7 @@ menus:
         - "financial_years::list_account_balances"
         - "financial_years::new"
         - "financial_years::show"
-        - "financial_years::synthesis"
+        - "financial_years::synthesis" # NONEXISTENT ACTION !!!
         - "financial_years::update"
   - finances:
     - cashes:

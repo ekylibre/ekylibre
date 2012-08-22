@@ -20,34 +20,35 @@
 # 
 # == Table: assets
 #
-#  account_id          :integer          not null
-#  ceded               :boolean          
-#  ceded_on            :date             
-#  comment             :text             
-#  company_id          :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer          
-#  currency            :string(3)        
-#  current_amount      :decimal(19, 4)   
-#  depreciable_amount  :decimal(19, 4)   not null
-#  depreciated_amount  :decimal(19, 4)   not null
-#  depreciation_method :string(255)      not null
-#  description         :text             
-#  id                  :integer          not null, primary key
-#  journal_id          :integer          not null
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  number              :string(255)      not null
-#  purchase_amount     :decimal(19, 4)   
-#  purchase_id         :integer          
-#  purchase_line_id    :integer          
-#  purchased_on        :date             
-#  sale_id             :integer          
-#  sale_line_id        :integer          
-#  started_on          :date             not null
-#  stopped_on          :date             not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer          
+#  account_id              :integer          not null
+#  ceded                   :boolean          
+#  ceded_on                :date             
+#  comment                 :text             
+#  company_id              :integer          not null
+#  created_at              :datetime         not null
+#  creator_id              :integer          
+#  currency                :string(3)        
+#  current_amount          :decimal(19, 4)   
+#  depreciable_amount      :decimal(19, 4)   not null
+#  depreciated_amount      :decimal(19, 4)   not null
+#  depreciation_method     :string(255)      not null
+#  depreciation_percentage :decimal(19, 4)   
+#  description             :text             
+#  id                      :integer          not null, primary key
+#  journal_id              :integer          not null
+#  lock_version            :integer          default(0), not null
+#  name                    :string(255)      not null
+#  number                  :string(255)      not null
+#  purchase_amount         :decimal(19, 4)   
+#  purchase_id             :integer          
+#  purchase_line_id        :integer          
+#  purchased_on            :date             
+#  sale_id                 :integer          
+#  sale_line_id            :integer          
+#  started_on              :date             not null
+#  stopped_on              :date             not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer          
 #
 
 class Asset < CompanyRecord
@@ -58,7 +59,7 @@ class Asset < CompanyRecord
   has_many :depreciations, :class_name => "AssetDepreciation", :order => :position
   has_many :planned_depreciations, :class_name => "AssetDepreciation", :order => :position, :conditions => "NOT protected OR accounted_at IS NULL", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :purchase_amount, :allow_nil => true
+  validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
   validates_presence_of :account, :company, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
@@ -80,6 +81,15 @@ class Asset < CompanyRecord
     # self.started_on ||= self.purchased_on
     self.purchase_amount ||= self.depreciable_amount
     self.purchased_on ||= self.started_on
+    if self.linear_method?
+      self.depreciation_percentage = 100.0*365.25/(self.stopped_on - self.started_on).to_f
+    elsif self.simplified_linear_method?
+      self.depreciation_percentage ||= 20
+      years = (100.0 / self.depreciation_percentage)
+      months = (years - years.floor)*12.0
+      days = (months - months.floor)*30.0
+      self.stopped_on = (self.started_on >> (12 * years.floor + months.floor)) + days.floor - 1
+    end
     self.currency = self.journal.currency
   end
 
@@ -98,6 +108,14 @@ class Asset < CompanyRecord
     end
   end
 
+  def linear_method?
+    return (self.depreciation_method == 'linear' ? true : false)
+  end
+
+  def simplified_linear_method?
+    return (self.depreciation_method == 'simplified_linear' ? true : false)
+  end
+
   def depreciate!
     self.planned_depreciations.clear
 
@@ -114,16 +132,17 @@ class Asset < CompanyRecord
       end
     end
     starts = starts.uniq.sort
-    self.send("depreciate_with_#{self.method}_method", starts)
+    self.send("depreciate_with_#{self.depreciation_method}_method", starts)
     return self
   end
 
 
+  # Depreciate using linear method
   def depreciate_with_linear_method(starts)
     depreciable_days = ((self.stopped_on - self.started_on) + 1).to_d
     depreciable_amount = self.depreciable_amount
     for depreciation in self.depreciations
-      depreciable_days  -= ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
+      depreciable_days -= ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
       depreciable_amount -= depreciation.amount
     end
       
@@ -141,7 +160,39 @@ class Asset < CompanyRecord
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end 
-        puts [remaining_amount, depreciation.amount].inspect
+        fy = self.company.financial_years.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
+        depreciation.financial_year = fy if fy
+
+        depreciation.position = position
+        position += 1
+        depreciation.save!
+      end
+    end
+    
+  end
+
+  # Depreciate using simplified linear method
+  # Years have 12 months with 30 days
+  def depreciate_with_simplified_linear_method(starts)
+    depreciable_days = self.duration
+    depreciable_amount = self.depreciable_amount
+    for depreciation in self.reload.depreciations
+      depreciable_days -= self.duration(depreciation.started_on, depreciation.stopped_on)
+      depreciable_amount -= depreciation.amount
+    end
+      
+    # Create it if not exists?
+    remaining_amount = depreciable_amount.to_d
+    position = 1
+    starts.each_with_index do |start, index|
+      unless starts[index + 1].nil? # Last
+        depreciation = self.depreciations.where(:started_on => start).first
+        unless depreciation
+          depreciation = self.depreciations.new(:started_on => start, :stopped_on => (starts[index+1]-1))
+          duration = self.duration(depreciation.started_on, depreciation.stopped_on)
+          depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
+          remaining_amount -= depreciation.amount
+        end 
         
         fy = self.company.financial_years.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
         depreciation.financial_year = fy if fy
@@ -152,6 +203,38 @@ class Asset < CompanyRecord
       end
     end
     
+  end
+
+
+  def duration(start=nil, stopp=nil)
+    start ||= self.started_on
+    stopp ||= self.stopped_on
+    days = 0
+    if self.depreciation_method == 'simplified_linear'
+      sa = ((start.day >= 30 || (start.end_of_month == start)) ? 30 : start.day)
+      so = ((stopp.day >= 30 || (stopp.end_of_month == stopp)) ? 30 : stopp.day)
+      cursor = start
+      if start == start.end_of_month or start.day >= 30
+        days += 1
+        cursor = start.end_of_month + 1
+      elsif start.month == stopp.month and start.year == stopp.year
+        days += (so - sa).to_i + 1
+        cursor = stopp
+      elsif start != start.beginning_of_month
+        days += (30 - sa).to_i + 1
+        cursor = start.end_of_month + 1
+      end
+      while (cursor < stopp.beginning_of_month)
+        cursor = cursor >> 1
+        days += 30
+      end
+      if cursor < stopp
+        days += [30, (so - cursor.day + 1)].min
+      end
+    else
+      days = (stopp - start).to_i
+    end
+    return days.to_d
   end
 
 end

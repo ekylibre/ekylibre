@@ -74,7 +74,7 @@ class FinancialYearsController < ApplicationController
     # Launch close process
     return unless @financial_year = find_and_check(:financial_year)
     if request.post?
-      params[:journal_id]=@current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
+      params[:journal_id] = @current_company.journals.create!(:nature=>"renew").id if params[:journal_id]=="0"
       if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id=>params[:journal_id])
         notify_success(:closed_financial_years)
         redirect_to(:action=>:index)
@@ -123,11 +123,6 @@ class FinancialYearsController < ApplicationController
     return unless @financial_year = find_and_check(:financial_years)
     @financial_year.destroy if @financial_year.destroyable?
     redirect_to :action => :index
-  end
-
-  def synthesis
-    # data = @current_company.current_financial_year.print_synthesis(Rails.root.join("balance_sheet.bl.xml"))
-    # raise data.inspect
   end
 
 end

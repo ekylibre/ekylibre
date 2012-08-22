@@ -12,8 +12,8 @@ if [ -n "`which zip`" ]; then
     echo " * Zip source" >> $log
     zip -r packages/${source}.zip ${app} -x *.svn* log/*.log >> $log
 else
-    echo " * No zip command. Run 'apt-get install zip'"
-    echo " * No zip command. Run 'apt-get install zip'" >> $log
+    echo " * No zip command. Run 'sudo apt-get install zip'"
+    echo " * No zip command. Run 'sudo apt-get install zip'" >> $log
 fi
 
 if [ -n "`which tar`" ]; then
@@ -22,6 +22,6 @@ if [ -n "`which tar`" ]; then
     echo " * Bzip source" >> $log
     tar cfvhj packages/${source}.tar.bz2 --exclude=.svn --exclude=log/*.log ${app} >> $log
 else
-    echo " * No tar command. Run 'apt-get install tar'"
-    echo " * No tar command. Run 'apt-get install tar'" >> $log
+    echo " * No tar command. Run 'sudo apt-get install tar'"
+    echo " * No tar command. Run 'sudo apt-get install tar'" >> $log
 fi
