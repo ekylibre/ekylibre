@@ -147,7 +147,7 @@ class AccountsController < ApplicationController
         # Load accounts
         @current_company.load_accounts(name, :locale=>locale, :reconcilable=>(params[:set_reconcilable_new_but_existing_third_accounts].to_i>0))
       end
-      redirect_to :action=>:accounts
+      redirect_to :action => :index
     end
   end
 
