@@ -1,4 +1,6 @@
 =link_to("Retour", root_url, :class => "med-button back")
+-if request.url == root_url
+  =link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")
 
 -for submenu in menus[path[0]]||[]
   -#=side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
@@ -13,5 +15,5 @@
   -url = submenu[1][0]
   =link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class => "med-button")
 
+=link_to("Configuration", dashboard_url("settings"), :class => "med-button settings")
 =link_to("Aide", "#", :class => "med-button help", "data-toggle-visibility" => "#help")
-=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")

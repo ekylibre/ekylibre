@@ -103,7 +103,7 @@ fra:
       import: "Importation de fiches"
       index: "Personnes"
       merge: "Fusionner un doublon à sa fiche d’origine"
-      new: "Création d’une nouvelle fiche client/fournisseur"
+      new: "Nouvelle fiche client/fournisseur"
       show: "Fiche\_: %{full_name}"
     entity_categories:
       edit: "Modifier la catégorie de fiche\_: %{name}"

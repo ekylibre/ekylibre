@@ -64,6 +64,7 @@ a:hover { color: $link-color; text-decoration: underline;}
   padding: 0; 
   background: $desktop-background; 
   border-bottom: 4*$menu-border-width solid $default-color-base;
+  background: mix(#FFF, $default-color-base, 98%);
   body.mod-production & { border-color: $default-color-spe; }
   body.mod-settings & { border-color: $default-color-config; }
 } /*  overflow: visible; */
@@ -118,8 +119,8 @@ a:hover { color: $link-color; text-decoration: underline;}
 #side-splitter { 
   background: $default-color-base; 
   width:         4*$menu-border-width; 
-  border-top:    4*$menu-border-width solid $default-color-base; 
-  border-bottom: 4*$menu-border-width solid $default-color-base;
+  border-top:    2*$menu-border-width solid $default-color-base; 
+  border-bottom: 2*$menu-border-width solid $default-color-base;
   body.mod-production & { border-color: $default-color-spe; background: $default-color-spe}
   body.mod-settings & { border-color: $default-color-config; background: $default-color-config }
   &:hover { 
@@ -495,14 +496,12 @@ table.formalize {
   margin-right: auto;
   width: 100%;
   tr.field td { 
-    border-bottom: $menu-border;
-    border-style: dotted;
     label { color: #555; }
     td:last-child { border: none }
   }
 }
 table.formalize td.label { @include text-align(right); padding:1px 4px; color: #555; width: 30%; border-right: 0px dotted #CCC;  }
-table.formalize td.input { padding:2px 6px 2px 2px; }
+table.formalize td.input { padding: 4px 6px 4px 2px; }
 table.formalize td.help  { text-align:left; padding:2px 2px 2px 6px; font-size: $fs-small; border-left: 1px dashed #CCC; }
 table.formalize td [required] { border: $menu-border-width solid #33F; background-color: #EEF }
 table.formalize td .info         { color: #007;  background:#CDF; padding:2px; }
@@ -555,7 +554,7 @@ span.rad {
   margin: 0;
 }
 
-input[type="text"], input[type="password"], textarea, select { border: $menu-border; background: $input-background; } 
+input[type="text"], input[type="password"], textarea, select { border: 1px solid #777; background: $input-background; @include incrust-shadow;} 
 input[type="text"], input[type="password"], textarea, select { margin: $menu-border-width !important; border-width: $menu-border-width; }
 input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 2*$menu-border-width solid $base-color !important; margin: 0px !important; }
 input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: $invalid-color !important; }
@@ -1112,7 +1111,7 @@ a.mn {
 }
 
 .big-button:link, .big-button:visited { 
-  $size: 256px;
+  $size: 200px;
  width: $size;
 /* 
   height: $size;
@@ -1134,10 +1133,12 @@ a.mn {
     padding: 0 0 $fs-normal;
   }
   .icon { 
-    height: 200px;
-    width: 200px;
+    $image-size: 0.8*$size;
+    background-size: 100%;
+    height: $image-size;
+    width: $image-size;
     display: block;
-    margin: 28px auto $fs-normal;
+    margin: (($size - $image-size)/2) auto $fs-normal;
     background-position: center center;
     background-repeat: no-repeat;
   }
@@ -1196,6 +1197,7 @@ a.mn {
   font-weight: bold;
   @include text-shadow(0 0 5px rgba(#000, 0.5));
   text-decoration: none;
+/*
   body &.back { 
     @include background(linear-gradient(top, mix(#FFF, #777, 35%), #777));
   }
@@ -1205,6 +1207,14 @@ a.mn {
   body &.logout { 
     @include background(linear-gradient(top, mix(#FFF, #D00, 35%), #D00));
   }
+  body &.settings { 
+    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));
+  }
+*/
+  body &.back, body &.help, body &.logout, body &.settings { 
+    @include background(linear-gradient(top, mix(#FFF, #800, 35%), #800));
+  }
+
 }
 
 
