@@ -12,13 +12,13 @@ Ekylibre::Application.configure do
   config.serve_static_assets = false
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.compress = false # true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
   # Generate digests for assets URLs
-  config.assets.digest = true
+  # config.assets.digest = true
 
   # Defaults to Rails.root.join("public/assets")
   # config.assets.manifest = YOUR_PATH
@@ -46,7 +46,7 @@ Ekylibre::Application.configure do
   # config.action_controller.asset_host = "http://assets.example.com"
 
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( themes/tekyla/screen.css themes/tekyla/print.css )
+  # config.assets.precompile += %w( themes/tekyla/screen.css themes/tekyla/print.css )
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
