@@ -12,26 +12,17 @@
     =javascript_include_tag :application
   -expiration = {}
   -expiration = {"timeout"=>session[:expiration], "timeout-href"=>renew_session_url(:name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
-  %body{:data=>expiration}
+  %body{:data=>expiration, :class => "mod-"+reverse_menus[0].to_s}
     #body.flex{:class=>("resizable" if resizable?)}
-      #top=top_tag
       #wrap.wrap.hbox.flex
-        -if resizable?
-          -if @current_user
-            #side.side.anchor-left{:style=>("display:none;" unless session[:side])}=side_tag
-            #side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}} 
-          #main.main.flex
-            =title_header_tag
-            =notifications_tag
-            =yield
-        -else
-          %table#wrap-table
-            %tr
-              -if @current_user
-                %td#side.side{:style=>("display:none;" unless session[:side])}=side_tag
-                %td#side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}} &nbsp;
-              %td#main.main.flex-9
-                =title_header_tag
-                =notifications_tag
-                =yield
+        #help=render :partial=>"help/search", :object=>@article
+        %table#wrap-table
+          %tr
+            -if @current_user
+              %td#side.side{:style=>("display:none;" unless session[:side])}=side_tag
+              %td#side-splitter.splitter{:data=>{"toggle"=>toggle_side_url}} &nbsp;
+            %td#main.main.flex-9
+              =title_header_tag
+              =notifications_tag
+              =yield
       #legals=legals_sentence

@@ -45,8 +45,8 @@ $fs-large:     round(1.15*$fs-normal);
 $fs-huge:      round(1.30*$fs-normal);
 $fs-very-huge: round(1.70*$fs-normal);
 
-$initial-color: #688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4;*/
-$base-color: change-color($initial-color, $lightness: 60%, $saturation: 50%);
+$initial-color: #777;  /*#601616; /*#688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4; */
+$base-color: #777; /*change-color($initial-color, $lightness: 60%, $saturation: 50%);*/
 $link-color:  darken($base-color, 27%);
 $text-color:  #111;
 $title-color: darken($base-color, 40%);
@@ -88,6 +88,12 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   color: $title-color;
 }
 
+$default-color-base: #5529dd;
+$default-color-base: darken(#3339c8, 5%);
+$default-color-spe: #dd9229;
+$default-color-spe: #193;
+$default-color-config: #dd2975;
+$default-color-config: #631;
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
 @mixin menu-shadow { 

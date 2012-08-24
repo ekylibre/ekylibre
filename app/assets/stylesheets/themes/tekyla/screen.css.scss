@@ -40,7 +40,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 
 *[data-click], .clickable { cursor: pointer; }
 
-#wrap { padding: $default-gap 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
+#wrap { padding: 0 0 $default-gap 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
 #wrap-table {
   border-collapse: collapse; 
   width: 100%;
@@ -62,8 +62,9 @@ a:hover { color: $link-color; text-decoration: underline;}
 .main { 
   padding: 0; 
   background: $desktop-background; 
-  border-top: 4*$menu-border-width solid $base-color; 
-  border-bottom: 4*$menu-border-width solid $base-color;
+  border-bottom: 4*$menu-border-width solid $default-color-base;
+  body.mod-production & { border-color: $default-color-spe; }
+  body.mod-settings & { border-color: $default-color-config; }
 } /*  overflow: visible; */
 
 #about-us div { padding: 64px; }
@@ -114,10 +115,12 @@ a:hover { color: $link-color; text-decoration: underline;}
 }
 
 #side-splitter { 
-  background: $base-color; 
+  background: $default-color-base; 
   width:         4*$menu-border-width; 
-  border-top:    4*$menu-border-width solid $base-color; 
-  border-bottom: 4*$menu-border-width solid $base-color;
+  border-top:    4*$menu-border-width solid $default-color-base; 
+  border-bottom: 4*$menu-border-width solid $default-color-base;
+  body.mod-production & { border-color: $default-color-spe; background: $default-color-spe}
+  body.mod-settings & { border-color: $default-color-config; background: $default-color-config }
   &:hover { 
     background: $title-color;
     border-color: $title-color;
@@ -365,8 +368,8 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
     li:hover a.menu.other { 
       background-color: $menu-background; z-index: 1500; color: #000; text-shadow: -1px -1px 1px white;}
 /*
-    li.menu.general { 
-      a.menu.general { 
+    li.menu.settings { 
+      a.menu.settings { 
         width: 20px; 
         color: transparent; 
         text-shadow: none; 
@@ -380,7 +383,7 @@ html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
           width: 17px; 
         }
       }
-      &:hover a.menu.general .icon, &.current a.menu.general .icon{ 
+      &:hover a.menu.settings .icon, &.current a.menu.settings .icon{ 
         @include common-sprite(home-current); 
       }
     }
@@ -1102,3 +1105,118 @@ a.mn {
   }
 
 }*/
+
+#main-menu { 
+  @include text-align(center);
+}
+
+.big-button:link, .big-button:visited { 
+  $size: 256px;
+ width: $size;
+/* 
+  height: $size;
+  line-height: $size;*/
+  @include border-radius($size/20);
+  @include box-shadow(0 0 $fs-huge rgba(#000, 0.2), 0 3px 3px rgba(#FFF, 0.3) inset);
+  font-size: 1.5*$fs-huge;
+  text-decoration: none;
+  @include inline-block;
+  .text {
+    color: white;
+    font-weight:bold;
+    @include text-shadow(0 0 5px rgba(#000, 0.5));
+    display: block;
+    text-align: center;
+    vertical-align: center;
+    overflow: hidden;
+    font-size: $fs-huge;
+    padding: 0 0 $fs-normal;
+  }
+  .icon { 
+    height: 200px;
+    width: 200px;
+    display: block;
+    margin: 28px auto $fs-normal;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+  /*@include background(image-url("themes/tekyla/menus/EKY-btn-c.png") center center no-repeat);*/
+  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));
+  margin: $fs-normal;
+  &.production { 
+    background-image: image-url("themes/tekyla/menus/EKY-btn-a.png");
+    @include background(linear-gradient(top, mix(#FFF, $default-color-spe, 35%), $default-color-spe));
+  }
+  &.settings { 
+    background-image: image-url("themes/tekyla/menus/EKY-btn-b.png");
+    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));
+  }
+  &.relations {
+    span.icon { background-image: image-url("themes/tekyla/menus/personnes.png"); }
+  }
+  &.accountancy {
+    span.icon { background-image: image-url("themes/tekyla/menus/euro.png"); }
+  }
+  &.trade, &.purchases {
+    span.icon { background-image: image-url("themes/tekyla/menus/caddie.png"); }
+  }
+  &.settings {
+    span.icon { background-image: image-url("themes/tekyla/menus/configuration.png"); }
+  }
+  &.production {
+    span.icon { background-image: image-url("themes/tekyla/menus/usine.png"); }
+  }
+  &.sales {
+    span.icon { background-image: image-url("themes/tekyla/menus/ventes.png"); }
+  }
+  &.stocks {
+    span.icon { background-image: image-url("themes/tekyla/menus/caisse.png"); }
+  }
+  &:hover { 
+    @include box-shadow(0 0 1.4*$fs-huge rgba(#000, 0.3), 0 3px 5px rgba(#FFF, 0.5) inset);
+
+  }
+}
+
+.med-button:link, .med-button:visited { 
+  display: block;
+  padding: $fs-normal*0.8 $fs-normal;
+  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));
+  body.mod-production & { 
+    @include background(linear-gradient(top, mix(#FFF, $default-color-spe, 35%), $default-color-spe));  
+  }
+  body.mod-settings & { 
+    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));  
+  }
+  margin: $default-gap;
+  @include incrust-shadow;
+  @include border-radius($default-border-radius);
+  color: white;
+  font-weight: bold;
+  @include text-shadow(0 0 5px rgba(#000, 0.5));
+  text-decoration: none;
+  body &.back { 
+    @include background(linear-gradient(top, mix(#FFF, #777, 35%), #777));
+  }
+  body &.help { 
+    @include background(linear-gradient(top, mix(#FFF, #007, 35%), #007));
+  }
+  body &.logout { 
+    @include background(linear-gradient(top, mix(#FFF, #D00, 35%), #D00));
+  }
+}
+
+
+
+#help { 
+  display: none;
+  float: left;
+  @include box-shadow(0 0 15px rgba(#000, 0.3));
+  background: white;
+  position: absolute;
+  width: 300px;
+  left:150px;
+  top:50px;
+  padding: $fs-small;
+  
+}

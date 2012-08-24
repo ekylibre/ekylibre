@@ -34,9 +34,14 @@
 # Access to the minimum
 __minimum__:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
+  - "dashboards::index"
   - "dashboards::list_my_future_events"
   - "dashboards::list_recent_events"
+  - "dashboards::purchases"
+  - "dashboards::sales"
+  - "dashboards::settings"
+  - "dashboards::stocks"
   - "dashboards::welcome"
   - "help::index"
   - "help::show"
@@ -80,7 +85,7 @@ __public__:
 # Make and reload backups
 backup_company:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "settings::backup"
   - "settings::backups"
   - "settings::restore"
@@ -93,7 +98,7 @@ build_production_chains:
 # Cancel sales_invoices
 cancel_sales_invoices:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "sales::cancel"
   - "sales::index"
   - "sales::list_creditable_lines"
@@ -111,7 +116,7 @@ close_journals:
 # Configure the options of the company
 configure_company:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "departments::create"
   - "departments::destroy"
   - "departments::edit"
@@ -164,14 +169,19 @@ consult_journal_entries:
   actions: ["dashboards::accountancy", "journals::index", "journals::show"]
 # Consult the prices
 consult_prices:
-  actions: ["dashboards::trade", "prices::index"]
+  actions:
+  - "dashboards::sales"
+  - "prices::index"
 # Consult the products
 consult_products:
-  actions: ["dashboards::trade", "products::index", "products::show"]
+  actions:
+  - "dashboards::sales"
+  - "products::index"
+  - "products::show"
 # Consult the purchases
 consult_purchases:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "purchases::index"
   - "purchases::list"
   - "purchases::list_deliveries"
@@ -182,7 +192,7 @@ consult_purchases:
 # Consult the sales
 consult_sales:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "sales::index"
   - "sales::list"
   - "sales::list_deliveries"
@@ -195,13 +205,13 @@ consult_sales:
 consult_stocks:
   actions:
   - "dashboards::list_critic_stocks"
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "stocks::index"
   - "stocks::list"
 # Consult the tracking informations
 consult_trackings:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "trackings::list_operation_lines"
   - "trackings::list_purchase_lines"
   - "trackings::list_sale_lines"
@@ -209,13 +219,18 @@ consult_trackings:
   - "trackings::show"
 # Export listings
 extract_listings:
-  actions: ["dashboards::general", "listings::extract", "listings::index"]
+  actions:
+  - "dashboards::settings"
+  - "listings::extract"
+  - "listings::index"
 # Set reduction on sales
 give_discounts_on_sales:
   actions: []
 # Import data from other software
 import_data:
-  actions: ["dashboards::general", "settings::import"]
+  actions:
+  - "dashboards::settings"
+  - "settings::import"
 # Import, export people listings
 import_export_entities:
   actions:
@@ -226,7 +241,10 @@ import_export_entities:
   - "entities::list"
 # Send mail to lists
 mail_to_listings:
-  actions: ["dashboards::general", "listings::index", "listings::mail"]
+  actions:
+  - "dashboards::settings"
+  - "listings::index"
+  - "listings::mail"
 # Manage accounts
 manage_accounts:
   actions:
@@ -291,7 +309,7 @@ manage_cash_transfers:
   - "cash_transfers::new"
   - "cash_transfers::show"
   - "cash_transfers::update"
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Manage cashes
 manage_cashes:
   actions:
@@ -305,7 +323,7 @@ manage_cashes:
   - "cashes::new"
   - "cashes::show"
   - "cashes::update"
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
 # Manage custom fields
 manage_custom_fields:
   actions:
@@ -332,7 +350,7 @@ manage_custom_fields:
 # Manage delays
 manage_delays:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "delays::create"
   - "delays::destroy"
   - "delays::edit"
@@ -344,7 +362,7 @@ manage_delays:
 # Manage deposits
 manage_deposits:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "deposits::create"
   - "deposits::destroy"
   - "deposits::edit"
@@ -372,7 +390,7 @@ manage_districts:
 # Manage document templates
 manage_document_templates:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "document_templates::create"
   - "document_templates::destroy"
   - "document_templates::duplicate"
@@ -454,7 +472,7 @@ manage_entity_links:
 # Create and update estimates
 manage_estimates:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "interfacers::search_for_available_prices"
   - "interfacers::search_for_clients"
   - "prices::find"
@@ -512,12 +530,12 @@ manage_financial_years:
   - "financial_years::list_account_balances"
   - "financial_years::new"
   - "financial_years::show"
-  - "financial_years::synthesis # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
+  - "financial_years::synthesis # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "financial_years::update"
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "incoming_delivery_modes::create"
   - "incoming_delivery_modes::destroy"
   - "incoming_delivery_modes::edit"
@@ -528,7 +546,7 @@ manage_incoming_delivery_modes:
 # Manage incoming payment modes
 manage_incoming_payment_modes:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "incoming_payment_modes::create"
   - "incoming_payment_modes::destroy"
   - "incoming_payment_modes::down"
@@ -542,7 +560,7 @@ manage_incoming_payment_modes:
 # Manage sale payments
 manage_incoming_payments:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "incoming_payment_uses::create"
   - "incoming_payment_uses::destroy"
   - "incoming_payment_uses::new"
@@ -560,7 +578,7 @@ manage_incoming_payments:
 # Manage inventories
 manage_inventories:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "inventories::create"
   - "inventories::destroy"
   - "inventories::edit"
@@ -642,7 +660,7 @@ manage_land_parcels:
 # Manage listings
 manage_listings:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "listing_nodes::create"
   - "listing_nodes::destroy"
   - "listing_nodes::edit"
@@ -712,7 +730,7 @@ manage_operations:
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "outgoing_delivery_modes::create"
   - "outgoing_delivery_modes::destroy"
   - "outgoing_delivery_modes::edit"
@@ -723,7 +741,7 @@ manage_outgoing_delivery_modes:
 # Manage disbursement modes
 manage_outgoing_payment_modes:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "outgoing_payment_modes::create"
   - "outgoing_payment_modes::destroy"
   - "outgoing_payment_modes::down"
@@ -736,7 +754,7 @@ manage_outgoing_payment_modes:
 # Manage disbursements
 manage_outgoing_payments:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "outgoing_payment_uses::create"
   - "outgoing_payment_uses::destroy"
   - "outgoing_payment_uses::new"
@@ -755,7 +773,7 @@ manage_outgoing_payments:
 # Manage prices
 manage_prices:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "prices::create"
   - "prices::destroy"
   - "prices::edit"
@@ -767,7 +785,7 @@ manage_prices:
 # Manage product categories
 manage_product_categories:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "product_categories::create"
   - "product_categories::destroy"
   - "product_categories::edit"
@@ -780,7 +798,7 @@ manage_product_categories:
 # Manage products
 manage_products:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "product_components::create"
   - "product_components::destroy"
   - "product_components::edit"
@@ -811,7 +829,7 @@ manage_purchase_natures:
 # Manage purchases
 manage_purchases:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "incoming_deliveries::confirm"
   - "incoming_deliveries::create"
   - "incoming_deliveries::destroy"
@@ -856,7 +874,7 @@ manage_purchases:
 # Manage sales natures
 manage_sale_natures:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "sale_natures::create"
   - "sale_natures::destroy"
   - "sale_natures::edit"
@@ -868,7 +886,7 @@ manage_sale_natures:
 # Manages sales
 manage_sales:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "interfacers::search_for_outgoing_delivery_contacts"
   - "outgoing_deliveries::create"
   - "outgoing_deliveries::destroy"
@@ -893,7 +911,7 @@ manage_sales:
 # Manage stock moves
 manage_stock_moves:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "stock_transfers::confirm"
   - "stock_transfers::confirm_all"
   - "stock_transfers::create"
@@ -915,7 +933,7 @@ manage_stock_moves:
 # Manage subscriptions
 manage_subscriptions:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "subscription_natures::create"
   - "subscription_natures::decrement"
   - "subscription_natures::destroy"
@@ -936,7 +954,7 @@ manage_subscriptions:
 # Manage taxes
 manage_taxes:
   actions:
-  - "dashboards::finances"
+  - "dashboards::finances # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "interfacers::search_for_collected_account"
   - "interfacers::search_for_paid_account"
   - "taxes::create"
@@ -962,7 +980,7 @@ manage_tools:
 # Manage transports
 manage_transports:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "interfacers::search_for_outgoing_deliveries"
   - "transports::create"
   - "transports::destroy"
@@ -978,7 +996,7 @@ manage_transports:
 # Manage units of measure
 manage_units:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "units::create"
   - "units::destroy"
   - "units::edit"
@@ -990,7 +1008,7 @@ manage_units:
 # Manage users
 manage_users:
   actions:
-  - "dashboards::general"
+  - "dashboards::settings"
   - "roles::create"
   - "roles::destroy"
   - "roles::edit"
@@ -1011,7 +1029,7 @@ manage_users:
 # Manage warehouses
 manage_warehouses:
   actions:
-  - "dashboards::trade"
+  - "dashboards::sales"
   - "warehouses::create"
   - "warehouses::destroy"
   - "warehouses::edit"

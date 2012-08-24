@@ -1,3 +1,5 @@
+=link_to("Retour", root_url, :class => "med-button back")
+
 -for submenu in menus[path[0]]||[]
   -#=side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
     -for url in submenu[1]
@@ -8,27 +10,8 @@
   -session[:modules] ||= {}
   -session[:modules][name.to_s] = true if ![TrueClass, FalseClass].include?(session[:modules][name.to_s].class) or unique
   -shown = session[:modules][name]
-  .sd-module{:class => "#{'collapsed' unless shown}#{' current' if path[1] == submenu[0]}"}
-    -unless unique
-      .sd-title
-        =link_to("", {:action=>:toggle_module, :controller=>:interfacers}, "data-toggle-module"=>name, :class=>(shown ? :hide : :show))
-        %h2=tl("menus.submenus.#{submenu[0]}")
-    .sd-content{:class => (unique ? 'unique' : ''), :style => (shown ? "" : "display: none")}
-      -for url in submenu[1]
-        .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}
-          =link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
+  -url = submenu[1][0]
+  =link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class => "med-button")
 
-
-
--if session[:history].is_a?(Array) and not session[:history].size.zero?
-  =side_module "history", :title=>tl("recent_historic"), :class=>:history do
-    -for page in session[:history][0..4]
-      .sd-item
-        -title=h(page[:title])
-        -infotip  = h(tl("menus.#{page[:reverse][0]}"))
-        -if page[:reverse][1].to_s != "__hidden__"
-          -infotip << " &ndash; ".html_safe+h(tl("menus.submenus.#{page[:reverse][1]}")) 
-        =link_to(page[:title], page[:url], :title=>infotip.html_safe)
-
-=side_module "help", :title=>tl("contextual_help"), :class=>:help do
-  #help.flex=render :partial=>"help/search", :object=>@article
+=link_to("Aide", "#", :class => "med-button help", "data-toggle-visibility" => "#help")
+=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")

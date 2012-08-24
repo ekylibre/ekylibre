@@ -61,7 +61,12 @@ fra:
     dashboards:
       accountancy: "Tableau de bord comptable"
       finances: "Tableau de bord financier"
+      settings: "Configuration"
       general: "Tableau de bord général"
+      index: "Menu principal" #?
+      sales: "Tableau de bord des ventes"
+      purchases: "Tableau de bord des achats"
+      stocks: "Tableau de bord des stocks"
       production: "Tableau de bord de la production"
       relations: "Tableau de bord de la gestion des relations"
       trade: "Tableau de bord de la gestion commerciale"
@@ -712,7 +717,7 @@ fra:
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque" #?
     depositable: "Complément d’information"
-    depreciation: "Ammortissement"
+    depreciation: "Ammortissement" #?
     description: "Description"
     destroy: "Supprimer"
     details: "Informations complémentaires"
@@ -888,7 +893,11 @@ fra:
       general: "Général"
       home: "Accueil"
       production: "Production"
-      relations: "Relations"
+      purchases: "Achats" #?
+      relations: "Tiers"
+      sales: "Ventes" #?
+      settings: "Configuration" #?
+      stocks: "Stocks" #?
       submenus:
         accounts: "Comptes"
         assets: "Immobilisations"
