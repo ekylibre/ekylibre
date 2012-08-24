@@ -1,7 +1,7 @@
 @import "compass/css3";
 @import "config.css.scss";
 
-$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (green) (blue) (black);
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
 $buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px);

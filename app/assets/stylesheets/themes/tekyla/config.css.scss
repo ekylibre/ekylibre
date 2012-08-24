@@ -168,10 +168,11 @@ $default-color-config: #631;
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
-$icons-layout: smart;
-@import "themes/tekyla/icons/*.png";
-@include all-icons-sprites;
 
 $common-layout: smart;
 @import "themes/tekyla/common/*.png";
 @include all-common-sprites;
+
+$icons-layout: smart;
+@import "themes/tekyla/icons/*.png";
+@include all-icons-sprites;
