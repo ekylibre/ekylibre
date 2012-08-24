@@ -57,6 +57,7 @@ class DashboardsController < ApplicationController
   end
 
   def welcome
+    redirect_to :action => :index
   end
 
 end
