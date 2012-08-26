@@ -3,17 +3,22 @@
  * listed below.
  *
  *= require_self
- *= require ./buttons
- *= require ./active-list
 */
 
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities";
+/*@import "compass/layout/sticky-footer";*/
+/*@import "bootstrap";*/
+/* These two files are imported throught chaining call
+screen -> buttons -> active-list -> config
 @import "config.css.scss";
+@import "active-list.css.scss";
+*/
+@import "buttons.css.scss";
 $experimental-support-for-svg: true;
 
-@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
@@ -25,11 +30,35 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   @include text-align(left);
 }
 
-html { background: $menu-background; }
-fieldset {padding: 4px 8px 8px; margin: 1px 1px 8px; border: 1px solid #DDD;}
-fieldset legend { padding: 0 4px;  margin: 0 0px; color: #555; font-size: $fs-large; font-weight: bold;}
-fieldset nobr { margin: 0 8px; vertical-align: middle; }
-fieldset .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
+fieldset {
+  @include border-radius($default-border-radius);
+  padding: round($default-gap/2) $default-gap $default-gap; 
+  margin: 0 0 $default-gap; 
+  border: $menu-border;
+  legend { 
+    padding: 0 round(0.25*$fs-normal);
+    color: $default-color-base;
+    font-size: $fs-large;
+    font-weight: bold;
+    vertical-align: middle;
+    .icon { display: none }
+    &[data-toggle-set] {
+      cursor: default;
+      .icon { 
+        @include inline-block;
+        width: 12px;
+        height: 12px;
+        @include right(margin, round(0.25*$fs-normal));
+      }
+      &.show .icon { @include common-sprite(toggle-show) }
+      &.show:hover .icon { @include common-sprite(toggle-show-hover) }
+      &.hide .icon { @include common-sprite(toggle-hide) }
+      &.hide:hover .icon { @include common-sprite(toggle-hide-hover) }
+    }
+  }
+  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
+}
+
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none; }
@@ -37,37 +66,79 @@ a:hover { color: $link-color; text-decoration: underline;}
 
 #body > div > .hbox > * { overflow: auto; }
 
+html { 
+  background: $menu-background;
+  height:100%;
+  body { 
+    @include display(box);
+    @include box-flex(1);
+    @include box-orient(vertical);
+    width: 100%;
+    height:100%;
+    #body { 
+      @include display(box);
+      @include box-flex(1);
+      @include box-orient(vertical);
+    }
+  }
+}
+
 #loading { padding: 2px; @include text-align(center); }
 
 *[data-click], .clickable { cursor: pointer; }
 
-#wrap { padding: 0 0 $default-gap 0; clear: both; background: $menu-background; position: relative; z-index: 750; }
-#wrap-table {
-  border-collapse: collapse; 
-  width: 100%;
-  td#side, td#main {vertical-align: top}
+#wrap { 
+  width: auto;
+  @include display(box);
+  @include box-flex(1);
+  @include box-orient(horizontal);
+  padding: 0; 
+  #main { 
+    @include display(box);
+    @include box-flex(1);
+    @include box-orient(vertical);
+    //border: 2*$menu-border-width solid $default-color-base;
+    border: 1px solid mix($menu-background, $base-color, 50%);
+    @include box-shadow(0 0 $fs-large rgba(#000, 0.2));
+    border-top: none;
+    border-right: none;
+    background: mix(#FFF, $default-color-base, 98%);
+    body.mod-production & { border-color: $default-color-spe; }
+    body.mod-settings & { border-color: $default-color-config; }
+    padding: $default-gap;
+    h1 { margin: 0px 0px $default-gap; @include title($fs-very-huge); }
+    .subheading { margin: 0 0 $default-gap; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
+    h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
+    .menu { 
+      @include border-radius($default-border-radius);
+      background: $cell-background; 
+      @include incrust-shadow; 
+      padding:4px 6px; 
+      margin: 0 0 8px;
+      h2 { margin: 2px 0px !important; }
+      ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
+      li { list-style-type: square; padding: 1px; }
+      &.special { background: #FE9; }
+      &.special a:link, &.special a:visited { color: #A60; }
+      &.indicator { background: #FD8; } /*#FA3;*/
+    }
+  }
 }
 
 #legals { 
-  @include text-align(center); padding: 2px 4px;
+  @include text-align(center); 
+  padding: round(0.5*$fs-small);
   &, & * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
 }
 
 .fields { 
   background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
+  @include columns(2);
   padding: 0 1px; 
   overflow: auto; 
 }
 
 .end { height: 8px; }
-.main { 
-  padding: 0; 
-  background: $desktop-background; 
-  border-bottom: 4*$menu-border-width solid $default-color-base;
-  background: mix(#FFF, $default-color-base, 98%);
-  body.mod-production & { border-color: $default-color-spe; }
-  body.mod-settings & { border-color: $default-color-config; }
-} /*  overflow: visible; */
 
 #about-us div { padding: 64px; }
 #about-us div a { @include text-align(center); display: block; }
@@ -131,14 +202,22 @@ a:hover { color: $link-color; text-decoration: underline;}
   }
 }
 
-div#side { 
-  @include float(left);
-}
+
 
 #side { 
   width: $menu-width; 
-  overflow: auto; 
-  vertical-align: top;
+  @include display(box);
+  @include box-orient(vertical);      
+  #side-middle { 
+    @include display(box);
+    @include box-orient(vertical);      
+    @include box-flex(1);
+  }
+  #side-footer { 
+    *:last-child { 
+      margin-bottom: 0;
+    }
+  }
   .sd-module { 
     padding: round($fs-normal/4) 0;
     border-top: $menu-border-width solid mix($menu-background, $base-color, 60%);
@@ -209,29 +288,6 @@ div#side {
 
 
 
-.main { padding: $default-gap; overflow: auto; overflow-y: scroll; /*#F7F7FF*/;  } /* border-left: 4px solid $base-color; border-right: none; border-top: none;*/
-.main h1 { margin: 0px 0px $default-gap; @include title($fs-very-huge);  }
-.main .subheading { margin: 0 0 $default-gap; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
-.main h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
-.main .mn-index { margin-bottom: 8px; width: $menu-width; }
-html[dir="ltr"] .main .mn-index {float: left; margin-right: 8px; }
-html[dir="rtl"] .main .mn-index {float: right; margin-left: 8px; }
-
-.main .mn-index .mn-index-sub { margin: 8px 0 0; padding: 0 8px; }
-.main .mn-index .mn-index-sub:first-child { margin: 0; }
-.main .mn-index .mn-index-sub legend { font-size: $fs-small; text-transform: uppercase; }
-.main .mn-index .mn-index-sub a { display: block; padding: 4px 8px; margin: 0 -8px; text-decoration:none; line-height: 1.4em;}
-.main .mn-index .mn-index-sub a:hover { @include background(background-hover($desktop-background)); }
-
-.main .menu { @include border-radius($default-border-radius); background: $cell-background; @include incrust-shadow; padding:4px 6px; margin: 0 0 8px; }
-/*.main .menu h2 { font-size : $fs-large; color: black !important; padding: 2px !important; margin: 2px 0px !important; }*/
-.main .menu h2 { margin: 2px 0px !important; }
-.main .menu ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
-.main .menu li { list-style-type: square; padding: 1px; }
-.main .menu li { }
-.main .menu.special { background: #FE9; }
-.main .menu.special a:link, .main .menu.special a:visited { color: #A60; }
-.main .menu.indicator { background: #FD8; } /*#FA3;*/
 
 
 #top {
@@ -490,6 +546,27 @@ table.quick td { padding: 0px 4px; }
 .contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:$light-color; background-color:#FEB; }
 
 
+.ika { 
+  .input { 
+    padding: round($fs-normal*0.2) 0;
+    margin: round($fs-normal*0.1) 0;    
+
+    label { 
+      min-width: 25%;
+      line-height: 1.4*$fs-normal;
+      @include inline-block;
+      white-space: nowrap;
+      @include right(margin, round($fs-normal/2));
+      &.required { 
+        abbr { color: red; }
+      }
+    }
+    input{ 
+      max-width: 65%;
+    }
+  }
+}
+
 table.formalize { 
   border-collapse: collapse;
   margin-left: auto;
@@ -554,11 +631,24 @@ span.rad {
   margin: 0;
 }
 
-input[type="text"], input[type="password"], textarea, select { border: 1px solid #777; background: $input-background; @include incrust-shadow;} 
-input[type="text"], input[type="password"], textarea, select { margin: $menu-border-width !important; border-width: $menu-border-width; }
-input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus { border: 2*$menu-border-width solid $base-color !important; margin: 0px !important; }
-input[type="text"].invalid:focus, input[type="password"].invalid:focus, textarea.invalid:focus, select.invalid:focus { border-color: $invalid-color !important; }
+input, textarea, select { 
+  border: $input-border;
+  @include border-radius(3px);
+  @include background($input-background); 
+  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.1) round($fs-normal*0.2) rgba(#000, 0.12) inset); /*incrust-shadow;*/
+  padding: $menu-border-width;
+  
+  &:focus { 
+    $color: change-color($default-color-base, $lightness: 70%);
+    @include box-shadow(0 0 0.6em rgba($color, 0.9));
+    border-color: $color;
+    &.invalid { 
+      border-color: $invalid-color !important; 
+    }
+  }
+}
 input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
+
 
 .search { background: #CEA !important; color: #580; @include border-radius($default-border-radius); padding:4px 6px; margin: 0 0 8px; }
 .search table { margin: 0px auto; }
@@ -1112,15 +1202,22 @@ a.mn {
 
 .big-button:link, .big-button:visited { 
   $size: 200px;
- width: $size;
-/* 
-  height: $size;
-  line-height: $size;*/
-  @include border-radius($size/20);
-  @include box-shadow(0 0 $fs-huge rgba(#000, 0.2), 0 3px 3px rgba(#FFF, 0.3) inset);
+  width: $size;
+  $biseau: 3px;
+  $biseau-opacity: 0.3;
+  @include border-radius($biseau*5);
+/*  @include box-shadow($biseau $biseau $biseau rgba(#FFF, $biseau-opacity) inset, (-1 * $biseau) (-1 * $biseau) $biseau rgba(#000, $biseau-opacity) inset);
+  @include background-image(linear-gradient(top, rgba(#FFF,0.3), rgba(#FFF, 0), rgba(#000, 0), rgba(#000,0.3)));*/
+  opacity: 0.8;
   font-size: 1.5*$fs-huge;
   text-decoration: none;
+  border: 2*$biseau solid #CCC;
   @include inline-block;
+  &:hover { 
+/*    @include box-shadow(0 0 1.4*$fs-huge rgba(#000, 0.3), 0 3px 5px rgba(#FFF, 0.5) inset);
+    @include box-shadow(0 5px $fs-large rgba(#000, 0.3));*/
+    opacity: 1;
+  }
   .text {
     color: white;
     font-weight:bold;
@@ -1133,7 +1230,7 @@ a.mn {
     padding: 0 0 $fs-normal;
   }
   .icon { 
-    $image-size: 0.8*$size;
+    $image-size: round(0.8*$size);
     background-size: 100%;
     height: $image-size;
     width: $image-size;
@@ -1142,54 +1239,25 @@ a.mn {
     background-position: center center;
     background-repeat: no-repeat;
   }
+  &:active { 
+    @include box-shadow($biseau $biseau $biseau rgba(#000, $biseau-opacity) inset, (-1 * $biseau) (-1 * $biseau) $biseau rgba(#FFF, $biseau-opacity) inset);
+  }
   /*@include background(image-url("themes/tekyla/menus/EKY-btn-c.png") center center no-repeat);*/
-  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));
+/*  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));*/
+  background-color: $default-color-base;
   margin: $fs-normal;
-  &.production { 
-    background-image: image-url("themes/tekyla/menus/EKY-btn-a.png");
-    @include background(linear-gradient(top, mix(#FFF, $default-color-spe, 35%), $default-color-spe));
-  }
-  &.settings { 
-    background-image: image-url("themes/tekyla/menus/EKY-btn-b.png");
-    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));
-  }
-  &.relations {
-    span.icon { background-image: image-url("themes/tekyla/menus/personnes.png"); }
-  }
-  &.accountancy {
-    span.icon { background-image: image-url("themes/tekyla/menus/euro.png"); }
-  }
-  &.trade, &.purchases {
-    span.icon { background-image: image-url("themes/tekyla/menus/caddie.png"); }
-  }
-  &.settings {
-    span.icon { background-image: image-url("themes/tekyla/menus/configuration.png"); }
-  }
-  &.production {
-    span.icon { background-image: image-url("themes/tekyla/menus/usine.png"); }
-  }
-  &.sales {
-    span.icon { background-image: image-url("themes/tekyla/menus/ventes.png"); }
-  }
-  &.stocks {
-    span.icon { background-image: image-url("themes/tekyla/menus/caisse.png"); }
-  }
-  &:hover { 
-    @include box-shadow(0 0 1.4*$fs-huge rgba(#000, 0.3), 0 3px 5px rgba(#FFF, 0.5) inset);
-
+  @each $module in (production relations accountancy purchases sales stocks) { 
+    &.#{$module} { 
+      span.icon { background-image: image-url("themes/tekyla/menus-160/#{$module}.png"); }
+    }
   }
 }
 
 .med-button:link, .med-button:visited { 
+  $transp: 40%;
   display: block;
   padding: $fs-normal*0.8 $fs-normal;
-  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));
-  body.mod-production & { 
-    @include background(linear-gradient(top, mix(#FFF, $default-color-spe, 35%), $default-color-spe));  
-  }
-  body.mod-settings & { 
-    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));  
-  }
+  @include background(mix($menu-background, $default-color-base, $transp));
   margin: $default-gap;
   @include incrust-shadow;
   @include border-radius($default-border-radius);
@@ -1197,22 +1265,22 @@ a.mn {
   font-weight: bold;
   @include text-shadow(0 0 5px rgba(#000, 0.5));
   text-decoration: none;
-/*
-  body &.back { 
-    @include background(linear-gradient(top, mix(#FFF, #777, 35%), #777));
+  &:hover { 
+    @include background($default-color-base);
   }
-  body &.help { 
-    @include background(linear-gradient(top, mix(#FFF, #007, 35%), #007));
+  body.mod-production & { 
+    @include background($default-color-spe);
+    @include background(mix($menu-background, $default-color-spe, $transp));
+    &:hover { 
+      @include background($default-color-spe);
+    }
   }
-  body &.logout { 
-    @include background(linear-gradient(top, mix(#FFF, #D00, 35%), #D00));
-  }
-  body &.settings { 
-    @include background(linear-gradient(top, mix(#FFF, $default-color-config, 35%), $default-color-config));
-  }
-*/
   body &.back, body &.help, body &.logout, body &.settings { 
-    @include background(linear-gradient(top, mix(#FFF, #800, 35%), #800));
+    @include background($default-color-config);
+    @include background(mix($menu-background, $default-color-config, $transp));
+    &:hover { 
+      @include background($default-color-config);
+    }
   }
 
 }
@@ -1225,9 +1293,11 @@ a.mn {
   @include box-shadow(0 0 15px rgba(#000, 0.3));
   background: white;
   position: absolute;
-  width: 300px;
-  left:150px;
-  top:50px;
+  width: 30*$fs-normal;
+  left:$menu-width+$fs-normal;
+  top: $fs-normal;
   padding: $fs-small;
-  
+  z-index: 10000;
+  height: 90%;
+  overflow: auto;
 }

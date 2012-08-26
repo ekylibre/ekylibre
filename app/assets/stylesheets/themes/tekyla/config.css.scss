@@ -37,6 +37,18 @@
   }
 }
 
+@mixin display($mode) { 
+  @if $mode == box { 
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+  } @else { 
+    display: $mode;
+  }
+}
+
 
 
 $fs-normal: 14px;
@@ -73,6 +85,7 @@ $menu-width: $fs-normal * 13;
 $menu-padding: 2*$menu-border-width;
 $menu-height:      2 * ceil($fs-normal * 0.875);
 $menu-text-height: 2 * ceil($fs-normal * 0.655);
+$input-border: $menu-border-width solid mix($desktop-background, $base-color, 40%);
 
 $default-border-radius: round($fs-normal/5);
 /* Variation from center to  */
@@ -88,12 +101,15 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   color: $title-color;
 }
 
+$l: 40%;
+$s: 70%;
 $default-color-base: #5529dd;
-$default-color-base: darken(#3339c8, 5%);
+$default-color-base: change-color(#37E, $lightness: $l, $saturation: $s); /*#305fc4 darken(#3339c8, 5%);*/
 $default-color-spe: #dd9229;
-$default-color-spe: #193;
+$default-color-spe: change-color(#2AA, $lightness: $l, $saturation: $s); /* 193 */
 $default-color-config: #dd2975;
-$default-color-config: #631;
+$default-color-config: #973; /* 800 */
+$default-color-spe: $default-color-base;
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
 @mixin menu-shadow { 

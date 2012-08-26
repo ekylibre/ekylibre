@@ -1,0 +1,40 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+sprites = %w(relations accountancy sales purchases stocks production)
+states = %w(normal)
+
+default_state = "normal"
+default_size = 100
+horizontal_space = 0
+vertical_space = 0
+x = default_size + horizontal_space
+y = default_size + vertical_space
+STDOUT.sync = true
+for size in [default_size, 160]
+  path = File.join(File.dirname(__FILE__), "menus")
+  path << "-#{size}" if size != default_size
+  FileUtils.mkdir_p(path)
+  puts "Exporting in #{path}:"
+  sprites.each_with_index do |sprite, b|
+    print " - #{sprite}"
+    states.each_with_index do |state, s|
+      filename  = sprite
+      filename += "_#{state}" if state != default_state
+      filename += ".png"
+      file = File.join(path, filename)
+      unless File.exist?(file)
+        cmd = "inkscape --without-gui"
+        cmd << " --export-png=#{file}"
+        cmd << " --export-area=#{b*x}:#{s*y}:#{b*x+default_size}:#{s*y+default_size}"
+        cmd << " --export-background-opacity=0"
+        cmd << " --export-width=#{size}"
+        cmd << " --export-height=#{size}" 
+        cmd << " menus.svg"
+        `#{cmd}`
+      end
+      print "."
+    end
+    puts ""
+  end
+end

@@ -384,8 +384,8 @@
     };
     // $.behave("*[data-autofocus]", "load", $.autoFocus);
     // $.behave("input[type='text']:first", "load", $.autoFocus);
-    $.behave("*:input:visible:first", "load", $.autoFocus);
-    $.behave("*[data-autofocus]:visible", "load", $.autoFocus);
+/*    $.behave("*:input:visible:first", "load", $.autoFocus);
+    $.behave("*[data-autofocus]:visible", "load", $.autoFocus);*/
 
 
     // Toggle visibility
@@ -423,6 +423,22 @@
 	$(element.data("insert-into")).each(function (index) {
 	    insertInto(this, '', '', data);
 	});
+	return false;
+    });
+
+    $(document).on("click", "[data-toggle-set]", function (event) {
+	var element = $(this), target = $(element.data("toggle-set")), shown;
+	if (element.hasClass("show")) {
+	    element.removeClass("show");
+	    element.addClass("hide");
+	    target.show();
+	    shown = 1;
+	} else {
+	    element.removeClass("hide");
+	    element.addClass("show");
+	    target.hide();
+	    shown = 0;
+	}
 	return false;
     });
 
