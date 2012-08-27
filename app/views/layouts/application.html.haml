@@ -19,6 +19,8 @@
           #side{:style=>("display:none;" unless session[:side])}=side_tag
         #main
           =title_header_tag
-          =notifications_tag
-          =yield
+          =toolbar_tag
+          #content
+            =notifications_tag
+            =yield
       #legals=legals_sentence

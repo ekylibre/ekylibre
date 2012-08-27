@@ -452,6 +452,18 @@ module ApplicationHelper
     return html.html_safe
   end
 
+  def toolbar_tag
+    html = ""
+    if action_name.to_s == "show"
+      buttons = ""
+      buttons << tool_to("???", {:action => :show}, :class => :large)
+      buttons << tool_to("???", {:action => :edit}, :class => :large)
+      buttons << tool_to("???", {:action => :destroy}, :class => :large)
+      html << content_tag(:div, buttons.html_safe, :id => :toolbar, :class => :toolbar)
+    end
+    return html.html_safe
+  end
+
 
   def notification_tag(mode)
     # content_tag(:div, flash[mode], :class=>'flash ' << mode.to_s) unless flash[mode].blank?
@@ -818,7 +830,7 @@ module ApplicationHelper
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || "icons-16"
-    options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
+    options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
     options[:class] += ' '+icon.to_s if icon
     options[:class] += ' '+options.delete(:size).to_s if options.has_key?(:size)
     link_to(url, options) do

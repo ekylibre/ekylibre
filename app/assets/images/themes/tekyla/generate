@@ -11,7 +11,7 @@ vertical_space = 8
 x = default_size + horizontal_space
 y = default_size + vertical_space
 STDOUT.sync = true
-for size in [default_size]
+for size in [12, default_size, 24]
   icons_path = File.join(File.dirname(__FILE__), "icons")
   icons_path << "-#{size}" if size != default_size
   FileUtils.mkdir_p(icons_path)

@@ -105,8 +105,26 @@ html {
     background: mix(#FFF, $default-color-base, 98%);
     body.mod-production & { border-color: $default-color-spe; }
     body.mod-settings & { border-color: $default-color-config; }
-    padding: $default-gap;
-    h1 { margin: 0px 0px $default-gap; @include title($fs-very-huge); }
+    h1.title {
+      margin: 0; 
+      @include title($fs-very-huge); 
+      background: $base-color;
+      color: white;
+      padding: round($default-gap/2) $default-gap ;
+      @include incrust-shadow;
+    }
+    #toolbar { 
+      padding: round($default-gap/2) $default-gap ;
+      margin: 0;
+      background: mix($desktop-background, $base-color, 60%);
+      .btn { 
+        .icon { margin: 0; }
+        .text { display: none; }
+      }    
+    }
+    #content { 
+      padding: $default-gap;
+    }
     .subheading { margin: 0 0 $default-gap; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
     h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
     .menu { 
