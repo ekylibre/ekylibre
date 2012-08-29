@@ -108,6 +108,25 @@ class Asset < CompanyRecord
     end
   end
 
+  before_create do
+    @auto_depreciate = true    
+  end
+
+  before_update do
+    @auto_depreciate = false
+    old = self.class.find(self.id)
+    for attr in [:depreciable_amount, :started_on, :stopped_on, :depreciation_method, :depreciation_percentage, :currency]
+      @auto_depreciate = true if self.send(attr) != old.send(attr)
+    end
+    return true
+  end
+
+  after_save do
+    self.depreciate! if @auto_depreciate
+  end
+
+  
+
   def linear_method?
     return (self.depreciation_method == 'linear' ? true : false)
   end

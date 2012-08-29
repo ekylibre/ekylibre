@@ -56,10 +56,10 @@ class AssetsController < ApplicationController
   #   return unless @asset = find_and_check
   # end
 
-  def depreciate
-    return unless @asset = find_and_check
-    @asset.depreciate!
-    redirect_to asset_url(@asset)
-  end
+  # def depreciate
+  #   return unless @asset = find_and_check
+  #   @asset.depreciate!
+  #   redirect_to asset_url(@asset)
+  # end
 
 end

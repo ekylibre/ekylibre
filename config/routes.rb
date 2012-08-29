@@ -212,6 +212,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_account_balances
+      get :list_asset_depreciations
     end
     member do
       match "close", :via=>[:get, :post]

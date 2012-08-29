@@ -12,9 +12,8 @@
   -l.attribute :closed
   -l.attribute :code
 
-%h2
-  -if @financial_year.closed
-    =tc :balance
-  -else
-    =tc :last_computed_balance
-=list :account_balances
+=tabbox(:financial_year) do |tb|
+  -tb.tab(@financial_year.closed ? :balance : :last_computed_balance) do
+    =list :account_balances
+  -tb.tab(:asset_depreciations) do
+    =list :asset_depreciations

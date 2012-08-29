@@ -42,6 +42,13 @@ class FinancialYearsController < ApplicationController
     t.column :local_credit
   end
 
+  list(:asset_depreciations, :conditions=>{:company_id=>['@current_company.id'], :financial_year_id=>['session[:current_financial_year_id]']}) do |t|
+    t.column :name, :through=>:asset, :url=>true
+    t.column :started_on
+    t.column :stopped_on
+    t.column :amount, :currency => true
+  end
+
   # Displays details of one financial year selected with +params[:id]+
   def show
     return unless @financial_year = find_and_check(:financial_year)
