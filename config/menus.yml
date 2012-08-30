@@ -1,5 +1,4 @@
 # Unused actions in menus
-#         - "assets::depreciate"
 #         - "companies::register"
 #         - "dashboards::accountancy"
 #         - "dashboards::finances"
@@ -11,6 +10,7 @@
 #         - "dashboards::relations"
 #         - "dashboards::trade"
 #         - "dashboards::welcome"
+#         - "financial_years::list_asset_depreciations"
 #         - "interfacers::autocomplete_for_area_name"
 #         - "interfacers::autocomplete_for_entity_origin"
 #         - "interfacers::autocomplete_for_event_location"

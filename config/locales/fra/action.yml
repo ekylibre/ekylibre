@@ -712,7 +712,7 @@ fra:
     deposit: "Remise en banque"
     deposit_update: "Modifier la remise en banque" #?
     depositable: "Complément d’information"
-    depreciation: "Ammortissement"
+    depreciation: "Ammortissement" #?
     description: "Description"
     destroy: "Supprimer"
     details: "Informations complémentaires"

@@ -1,5 +1,5 @@
 # Unused actions in rights
-#   - "assets::depreciate"
+#   - "financial_years::list_asset_depreciations"
 #   - "production_chain_conveyors::create"
 #   - "production_chain_conveyors::destroy"
 #   - "production_chain_conveyors::edit"
@@ -512,7 +512,6 @@ manage_financial_years:
   - "financial_years::list_account_balances"
   - "financial_years::new"
   - "financial_years::show"
-  - "financial_years::synthesis # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!! # NONEXISTENT ACTION !!!"
   - "financial_years::update"
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
