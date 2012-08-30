@@ -1,6 +1,8 @@
 jpn:
   activerecord:
     attributes:
+      asset_depreciation:
+        # asset_amount: "Accountable value"
       cash:
         # key: "BBAN key"
         # mode: "Mode"
@@ -1189,6 +1191,7 @@ jpn:
         # sale: "Creation of a sale"
         # sales_invoice: "Creation of a sales invoice"
     financial_year:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
         # double: "FY%{first_year}/%{second_year}"
         # single: "FY%{first_year}"

@@ -850,6 +850,7 @@ arb:
     general: "معلومات عامة"
     general_informations: "معلومات عامة"
     general_ledger: "دفتر الحسابات"
+    # generate: "Generate"
     give_discount: "منح خصومات"
     go: "صلاحية"
     graph_statistics: "رسومات احصائية"
@@ -1437,6 +1438,7 @@ arb:
     warehouse_update: "تعديل موقع التخزين" #?
     warehouses: "النظر بقائمة مواقع التخزين"
     weight: "الوزن"
+    # with_assets_depreciations: "With assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
     x_cashes:
       one: "حساب بنكي واحد"

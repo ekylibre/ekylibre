@@ -10,7 +10,6 @@
 #         - "dashboards::relations"
 #         - "dashboards::trade"
 #         - "dashboards::welcome"
-#         - "financial_years::list_asset_depreciations"
 #         - "interfacers::autocomplete_for_area_name"
 #         - "interfacers::autocomplete_for_entity_origin"
 #         - "interfacers::autocomplete_for_event_location"
@@ -367,11 +366,12 @@ menus:
         - "financial_years::create"
         - "financial_years::destroy"
         - "financial_years::edit"
+        - "financial_years::generate_last_journal_entry"
         - "financial_years::list"
         - "financial_years::list_account_balances"
+        - "financial_years::list_asset_depreciations"
         - "financial_years::new"
         - "financial_years::show"
-        - "financial_years::synthesis" # NONEXISTENT ACTION !!!
         - "financial_years::update"
   - finances:
     - cashes:

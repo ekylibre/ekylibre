@@ -20,9 +20,10 @@
 # 
 # == Table: assets
 #
-#  account_id              :integer          not null
+#  allocation_account_id   :integer          not null
 #  ceded                   :boolean          
 #  ceded_on                :date             
+#  charges_account_id      :integer          
 #  comment                 :text             
 #  company_id              :integer          not null
 #  created_at              :datetime         not null
@@ -54,7 +55,7 @@
 # == Fixture: assets
 #
 # assets_001:
-#   account_id: 1
+#   allocation_account_id: 1
 #   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
@@ -72,7 +73,8 @@
 #
 
 assets_001:
-  account_id: 1
+  allocation_account_id: 1
+  charges_account_id: 3
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -92,7 +94,8 @@ assets_001:
   updater_id: 1
 
 assets_002:
-  account_id: 1
+  allocation_account_id: 1
+  charges_account_id: 3
   company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1

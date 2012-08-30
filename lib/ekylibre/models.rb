@@ -25,7 +25,8 @@ module Ekylibre
       :updater_id => :user
     },
     :asset => {
-      :account_id => :account,
+      :allocation_account_id => :account,
+      :charges_account_id => :account,
       :company_id => :company,
       :creator_id => :user,
       :journal_id => :journal,
@@ -203,6 +204,7 @@ module Ekylibre
     :financial_year => {
       :company_id => :company,
       :creator_id => :user,
+      :last_journal_entry_id => :journal_entry,
       :updater_id => :user
     },
     :incoming_delivery => {

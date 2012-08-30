@@ -20,9 +20,10 @@
 # 
 # == Table: assets
 #
-#  account_id              :integer          not null
+#  allocation_account_id   :integer          not null
 #  ceded                   :boolean          
 #  ceded_on                :date             
+#  charges_account_id      :integer          
 #  comment                 :text             
 #  company_id              :integer          not null
 #  created_at              :datetime         not null
@@ -54,7 +55,8 @@
 class Asset < CompanyRecord
   DEPRECIATION_METHODS = ['simplified_linear', 'linear'] # graduated
   acts_as_numbered
-  belongs_to :account
+  belongs_to :charges_account, :class_name => "Account"
+  belongs_to :allocation_account, :class_name => "Account"
   belongs_to :journal
   has_many :depreciations, :class_name => "AssetDepreciation", :order => :position
   has_many :planned_depreciations, :class_name => "AssetDepreciation", :order => :position, :conditions => "NOT protected OR accounted_at IS NULL", :dependent => :destroy
@@ -62,7 +64,7 @@ class Asset < CompanyRecord
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :company, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
+  validates_presence_of :allocation_account, :company, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name
 

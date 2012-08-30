@@ -133,6 +133,7 @@ fra:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
+      generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}" #?
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
@@ -787,6 +788,7 @@ fra:
     general: "Informations générales"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
+    generate: "Générer"
     give_discount: "Octroyer une remise"
     go: "Valider"
     graph_statistics: "Statistiques graphiques"
@@ -1312,6 +1314,7 @@ fra:
     warehouse_update: "Modifier le lieu de stockage" #?
     warehouses: "Voir la liste des lieux de stockage"
     weight: "Poids"
+    with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes...)"
     x_cashes:
       one: "1 compte bancaire"

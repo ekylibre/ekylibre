@@ -20,25 +20,27 @@
 # 
 # == Table: asset_depreciations
 #
-#  accountable       :boolean          not null
-#  accounted_at      :datetime         
-#  amount            :decimal(19, 4)   not null
-#  asset_id          :integer          not null
-#  company_id        :integer          not null
-#  created_at        :datetime         not null
-#  created_on        :date             not null
-#  creator_id        :integer          
-#  depreciation      :text             
-#  financial_year_id :integer          
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer          
-#  lock_version      :integer          default(0), not null
-#  position          :integer          
-#  protected         :boolean          not null
-#  started_on        :date             not null
-#  stopped_on        :date             not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  accountable        :boolean          not null
+#  accounted_at       :datetime         
+#  amount             :decimal(19, 4)   not null
+#  asset_amount       :decimal(19, 4)   
+#  asset_id           :integer          not null
+#  company_id         :integer          not null
+#  created_at         :datetime         not null
+#  created_on         :date             not null
+#  creator_id         :integer          
+#  depreciated_amount :decimal(19, 4)   
+#  depreciation       :text             
+#  financial_year_id  :integer          
+#  id                 :integer          not null, primary key
+#  journal_entry_id   :integer          
+#  lock_version       :integer          default(0), not null
+#  position           :integer          
+#  protected          :boolean          not null
+#  started_on         :date             not null
+#  stopped_on         :date             not null
+#  updated_at         :datetime         not null
+#  updater_id         :integer          
 #
 class AssetDepreciation < CompanyRecord
   acts_as_list :scope => :asset_id
@@ -46,7 +48,7 @@ class AssetDepreciation < CompanyRecord
   belongs_to :financial_year
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
+  validates_numericality_of :amount, :asset_amount, :depreciated_amount, :allow_nil => true
   validates_inclusion_of :accountable, :protected, :in => [true, false]
   validates_presence_of :amount, :asset, :company, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
@@ -64,6 +66,11 @@ class AssetDepreciation < CompanyRecord
   before_validation(:on => :create) do
     self.created_on = Date.today
     self.company = self.asset.company if self.asset
+  end
+
+  before_validation do
+    self.depreciated_amount = self.asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
+    self.asset_amount = self.asset.depreciable_amount - self.depreciated_amount
   end
 
   validate do

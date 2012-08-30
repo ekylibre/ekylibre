@@ -813,6 +813,7 @@ spa:
     general: "Descripción general"
     general_informations: "Informaciones generales"
     general_ledger: "Grande libro"
+    # generate: "Generate"
     # give_discount: "Give discount"
     # go: "Go"
     # graph_statistics: "Graph statistics"
@@ -1321,6 +1322,7 @@ spa:
     warehouse_update: "Modifiar el lugar de deposito" #?
     warehouses: "Ver la lista de los lugares de deposito"
     # weight: "Weight"
+    # with_assets_depreciations: "With assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
     x_cashes:
       # one: "%{count} cash"

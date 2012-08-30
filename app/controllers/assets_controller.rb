@@ -35,11 +35,13 @@ class AssetsController < ApplicationController
 
   list(:depreciations, :model => :asset_depreciations, :conditions => {:asset_id => ['params[:id]']}, :order => :position) do |t|
     t.column :amount, :currency => true
+    t.column :asset_amount, :currency => true
+    t.column :depreciated_amount, :currency => true
     t.column :started_on
     t.column :stopped_on
     t.column :code, :through => :financial_year, :url => true
-    t.column :journal_entry, :url => true    
-    t.action :edit
+    t.column :number, :through => :journal_entry, :url => true    
+    t.action :edit, :if => "RECORD.journal_entry.nil? "
   end
 
   # Displays details of an asset

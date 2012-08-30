@@ -850,7 +850,9 @@ module ApplicationHelper
           name = args[0]
           args[1] ||= {}
           args[2] ||= {}
-          args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{})) if name.is_a? Symbol
+          if name.is_a? Symbol
+            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default=>"labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{})) 
+          end
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
           end
@@ -879,7 +881,7 @@ module ApplicationHelper
           url[:controller] ||= controller_name
           url[:action] = action
           url[:id] = record.id
-          code << tool_to(t("actions.#{url[:controller]}.#{action}", record.attributes.symbolize_keys), url, tag_options) if authorized?(url)
+          code << tool_to(t("actions.#{url[:controller]}.#{action}".to_sym, {:default=>"labels.#{action}".to_sym}.merge(record.attributes.symbolize_keys)), url, tag_options) if authorized?(url)
         end
       end
       if code.strip.length>0

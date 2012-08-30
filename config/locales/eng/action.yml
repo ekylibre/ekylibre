@@ -126,6 +126,7 @@ eng:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
       edit: "Edit new financial year"
+      # generate_last_journal_entry: "Generate last journal entry financial year"
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
@@ -721,6 +722,7 @@ eng:
     general: "General"
     general_informations: "General informations"
     general_ledger: "General ledger"
+    generate: "Generate"
     give_discount: "Give discount"
     go: "Go"
     graph_statistics: "Graph statistics"
@@ -1144,6 +1146,7 @@ eng:
       stocks: "Stocks"
     warehouses: "Warehouses"
     weight: "Weight"
+    with_assets_depreciations: "With assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases...)"
     x_cashes:
       one: "%{count} cash"

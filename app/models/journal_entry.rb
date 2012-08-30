@@ -50,6 +50,7 @@ class JournalEntry < CompanyRecord
   belongs_to :financial_year
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
+  has_many :asset_depreciations, :dependent=>:nullify
   has_many :useful_lines, :conditions=>["balance != ?", 0.0], :foreign_key=>:entry_id, :class_name=>"JournalEntryLine"
   has_many :lines, :foreign_key=>:entry_id, :dependent=>:delete_all, :class_name=>"JournalEntryLine"
   has_many :outgoing_payments, :dependent=>:nullify
@@ -58,6 +59,7 @@ class JournalEntry < CompanyRecord
   has_many :incoming_payment_uses, :dependent=>:nullify
   has_many :purchases, :dependent=>:nullify
   has_many :sales, :dependent=>:nullify
+  has_one :financial_year_as_last, :foreign_key => :last_journal_entry_id, :class_name => "FinancialYear", :dependent => :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :balance, :credit, :debit, :original_credit, :original_currency_rate, :original_debit, :allow_nil => true
   validates_length_of :original_currency, :allow_nil => true, :maximum => 3

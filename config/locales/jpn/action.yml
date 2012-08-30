@@ -748,6 +748,7 @@ jpn:
     # general: "General"
     # general_informations: "General informations"
     # general_ledger: "General ledger"
+    # generate: "Generate"
     # give_discount: "Give discount"
     # go: "Go"
     # graph_statistics: "Graph statistics"
@@ -1177,6 +1178,7 @@ jpn:
       # stocks: "Stocks"
     # warehouses: "Warehouses"
     # weight: "Weight"
+    # with_assets_depreciations: "With assets depreciations"
     # with_prints: "Include printing archives (sales invoices, purchases...)"
     x_cashes:
       # one: "%{count} cash"

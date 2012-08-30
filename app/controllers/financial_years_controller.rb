@@ -132,4 +132,15 @@ class FinancialYearsController < ApplicationController
     redirect_to :action => :index
   end
 
+  def generate_last_journal_entry
+    return unless @financial_year = find_and_check(:financial_year)
+    if request.get?
+      params[:assets_depreciations] ||= 1
+    elsif request.post?
+      @financial_year.generate_last_journal_entry(params)
+      redirect_to journal_entry_url(@financial_year.last_journal_entry)
+    end
+    t3e @financial_year.attributes    
+  end
+
 end

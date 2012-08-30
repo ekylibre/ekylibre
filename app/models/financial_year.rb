@@ -20,26 +20,28 @@
 # 
 # == Table: financial_years
 #
-#  closed             :boolean          not null
-#  code               :string(12)       not null
-#  company_id         :integer          not null
-#  created_at         :datetime         not null
-#  creator_id         :integer          
-#  currency           :string(3)        
-#  currency_precision :integer          
-#  id                 :integer          not null, primary key
-#  lock_version       :integer          default(0), not null
-#  started_on         :date             not null
-#  stopped_on         :date             not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer          
+#  closed                :boolean          not null
+#  code                  :string(12)       not null
+#  company_id            :integer          not null
+#  created_at            :datetime         not null
+#  creator_id            :integer          
+#  currency              :string(3)        
+#  currency_precision    :integer          
+#  id                    :integer          not null, primary key
+#  last_journal_entry_id :integer          
+#  lock_version          :integer          default(0), not null
+#  started_on            :date             not null
+#  stopped_on            :date             not null
+#  updated_at            :datetime         not null
+#  updater_id            :integer          
 #
 
 
 class FinancialYear < CompanyRecord
   attr_readonly :currency
-  belongs_to :company
+  belongs_to :last_journal_entry, :class_name => "JournalEntry"
   has_many :account_balances, :class_name=>"AccountBalance", :foreign_key=>:financial_year_id, :dependent=>:delete_all
+  has_many :asset_depreciations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, :allow_nil => true, :only_integer => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -265,10 +267,29 @@ class FinancialYear < CompanyRecord
     template = ::LibXML::XML::Document.file(template.to_s)
     root = template.root
     columns = []
-    
-    
-
     return "data"
+  end
+
+  # Generate last journal entry with assets depreciations (optionnally)
+  def generate_last_journal_entry(options = {})
+    unless self.last_journal_entry
+      self.create_last_journal_entry!(:printed_on => self.stopped_on, :journal_id => self.company.journal(:various).id)
+    end
+
+    # Empty journal entry
+    self.last_journal_entry.lines.clear
+
+    if options[:assets_depreciations]
+      for depreciation in self.asset_depreciations
+        name = tc(:bookkeep, :resource => Asset.model_name.human, :number => depreciation.asset.number, :name => depreciation.asset.name, :position => depreciation.position, :total => depreciation.asset.depreciations.count)
+        # Charges
+        self.last_journal_entry.add_debit(name, depreciation.asset.charges_account, depreciation.amount)
+        # Allocation
+        self.last_journal_entry.add_credit(name, depreciation.asset.allocation_account, depreciation.amount)
+        depreciation.update_attributes(:journal_entry_id => self.last_journal_entry.id)
+      end
+    end
+    return self
   end
 
 end

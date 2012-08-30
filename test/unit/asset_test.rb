@@ -20,9 +20,10 @@
 # 
 # == Table: assets
 #
-#  account_id              :integer          not null
+#  allocation_account_id   :integer          not null
 #  ceded                   :boolean          
 #  ceded_on                :date             
+#  charges_account_id      :integer          
 #  comment                 :text             
 #  company_id              :integer          not null
 #  created_at              :datetime         not null

@@ -61,7 +61,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :assets, :path => "financial-assets" do
+  resources :assets, :path => "financial_assets" do
     collection do
       get :list
       get :formize
@@ -216,6 +216,7 @@ Ekylibre::Application.routes.draw do
     end
     member do
       match "close", :via=>[:get, :post]
+      match :generate_last_journal_entry, :via=>[:get, :post]
       post :compute_balances
       get :synthesis
     end

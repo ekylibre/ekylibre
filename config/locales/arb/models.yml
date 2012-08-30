@@ -17,6 +17,8 @@ arb:
       area:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
+      asset_depreciation:
+        # asset_amount: "Accountable value"
       bank_statement:  #?
         number: "رقم" #?
         original_debit: "الدين" #?
@@ -1763,6 +1765,7 @@ arb:
         sale: "انشاء طلب بيع"
         sales_invoice: "انشاء فاتورة"
     financial_year:
+      # bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"

@@ -87,24 +87,26 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
   add_index "areas", ["updater_id"], :name => "index_areas_on_updater_id"
 
   create_table "asset_depreciations", :force => true do |t|
-    t.integer  "company_id",                                                          :null => false
-    t.integer  "asset_id",                                                            :null => false
+    t.integer  "company_id",                                                           :null => false
+    t.integer  "asset_id",                                                             :null => false
     t.integer  "journal_entry_id"
-    t.boolean  "accountable",                                      :default => false, :null => false
-    t.date     "created_on",                                                          :null => false
+    t.boolean  "accountable",                                       :default => false, :null => false
+    t.date     "created_on",                                                           :null => false
     t.datetime "accounted_at"
-    t.date     "started_on",                                                          :null => false
-    t.date     "stopped_on",                                                          :null => false
+    t.date     "started_on",                                                           :null => false
+    t.date     "stopped_on",                                                           :null => false
     t.text     "depreciation"
-    t.decimal  "amount",            :precision => 19, :scale => 4,                    :null => false
+    t.decimal  "amount",             :precision => 19, :scale => 4,                    :null => false
     t.integer  "position"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
+    t.datetime "created_at",                                                           :null => false
+    t.datetime "updated_at",                                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     :default => 0,     :null => false
-    t.boolean  "protected",                                        :default => false, :null => false
+    t.integer  "lock_version",                                      :default => 0,     :null => false
+    t.boolean  "protected",                                         :default => false, :null => false
     t.integer  "financial_year_id"
+    t.decimal  "asset_amount",       :precision => 19, :scale => 4
+    t.decimal  "depreciated_amount", :precision => 19, :scale => 4
   end
 
   add_index "asset_depreciations", ["asset_id"], :name => "index_asset_depreciations_on_asset_id"
@@ -117,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
 
   create_table "assets", :force => true do |t|
     t.integer  "company_id",                                                                         :null => false
-    t.integer  "account_id",                                                                         :null => false
+    t.integer  "allocation_account_id",                                                              :null => false
     t.integer  "journal_id",                                                                         :null => false
     t.string   "name",                                                                               :null => false
     t.string   "number",                                                                             :null => false
@@ -143,10 +145,11 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
     t.integer  "lock_version",                                                        :default => 0, :null => false
     t.string   "currency",                :limit => 3
     t.decimal  "current_amount",                       :precision => 19, :scale => 4
+    t.integer  "charges_account_id"
     t.decimal  "depreciation_percentage",              :precision => 19, :scale => 4
   end
 
-  add_index "assets", ["account_id"], :name => "index_assets_on_account_id"
+  add_index "assets", ["allocation_account_id"], :name => "index_assets_on_account_id"
   add_index "assets", ["company_id"], :name => "index_assets_on_company_id"
   add_index "assets", ["created_at"], :name => "index_assets_on_created_at"
   add_index "assets", ["creator_id"], :name => "index_assets_on_creator_id"
@@ -781,18 +784,19 @@ ActiveRecord::Schema.define(:version => 20120806083148) do
   add_index "events", ["updater_id"], :name => "index_events_on_updater_id"
 
   create_table "financial_years", :force => true do |t|
-    t.string   "code",               :limit => 12,                    :null => false
-    t.boolean  "closed",                           :default => false, :null => false
-    t.date     "started_on",                                          :null => false
-    t.date     "stopped_on",                                          :null => false
-    t.integer  "company_id",                                          :null => false
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.string   "code",                  :limit => 12,                    :null => false
+    t.boolean  "closed",                              :default => false, :null => false
+    t.date     "started_on",                                             :null => false
+    t.date     "stopped_on",                                             :null => false
+    t.integer  "company_id",                                             :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                     :default => 0,     :null => false
-    t.string   "currency",           :limit => 3
+    t.integer  "lock_version",                        :default => 0,     :null => false
+    t.string   "currency",              :limit => 3
     t.integer  "currency_precision"
+    t.integer  "last_journal_entry_id"
   end
 
   add_index "financial_years", ["code", "company_id"], :name => "index_financialyears_on_code_and_company_id", :unique => true

@@ -1,6 +1,8 @@
 eng:
   activerecord:
     attributes:
+      asset_depreciation:
+        asset_amount: "Accountable value"
       cash:
         key: "BBAN key"
         mode: "Mode"
@@ -317,6 +319,7 @@ eng:
     address: "Address"
     admin: "Admin"
     agency_code: "Agency code"
+    # allocation_account: "Allocation account"
     amount: "Amount"
     annotation: "Annotation"
     area: "Area"
@@ -325,6 +328,7 @@ eng:
     areas: "Areas"
     arrived_on: "Arrived on"
     asset: "Asset"
+    # asset_amount: "Asset amount"
     asset_depreciations: "Asset depreciations"
     assets: "Assets"
     assimilated_taxes_amount: "Assimilated taxes amount"
@@ -368,6 +372,7 @@ eng:
     ceded: "Ceded"
     ceded_on: "Ceded on"
     changes_reflected: "Changes reflected"
+    # charges_account: "Charges account"
     charges_accounts: "Charges accounts"
     check_number: "Check number"
     check_state: "Check state"
@@ -536,6 +541,7 @@ eng:
     filesize: "Filesize"
     filtered_columns: "Filtered columns"
     financial_year: "Financial year"
+    # financial_year_as_last: "Financial year as last"
     financial_years: "Financial years"
     finish: "Finish"
     first_financial_year: "First financial year"
@@ -605,6 +611,7 @@ eng:
     language: "Language"
     last_bank_statement: "Last bank statement"
     last_cweek: "Last cweek"
+    # last_journal_entry: "Last journal entry"
     last_letter: "Last letter"
     last_month: "Last month"
     last_name: "Last name"
@@ -1175,6 +1182,7 @@ eng:
         sale: "Creation of a sale"
         sales_invoice: "Creation of a sales invoice"
     financial_year:
+      bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
         double: "FY%{first_year}/%{second_year}"
         single: "FY%{first_year}"

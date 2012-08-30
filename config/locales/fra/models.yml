@@ -1,6 +1,8 @@
 fra:
   activerecord:
     attributes:
+      asset_depreciation:
+        asset_amount: "Valeur nette comptable (VNC)"
       cash:
         key: "Clé RIB"
         mode: "Mode"
@@ -21,6 +23,7 @@ fra:
       event_nature:
         duration: "Durée par défaut (en min.)"
       financial_year:
+        last_journal_entry: "Écriture de fin d'exercice" #?
         stopped_on: "Date de clôture"
       incoming_payment:
         amount: "Montant"
@@ -1209,6 +1212,7 @@ fra:
         sale: "Création d’un devis"
         sales_invoice: "Création d’une facture"
     financial_year:
+      bookkeep: "[%{resource} %{number}] Amortissement de %{name} (%{position}/%{total})"
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"

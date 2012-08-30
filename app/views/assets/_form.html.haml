@@ -21,4 +21,5 @@
 =formalize do |f|
   -f.title :accountancy
   -f.field :asset, :journal_id, :choices=>{:reflection=>:journals}, :new=>true
-  -f.field :asset, :account_id, :choices=>:account, :new=>true
+  -f.field :asset, :allocation_account_id, :choices=>:account, :new=>true
+  -f.field :asset, :charges_account_id, :choices=>:account, :new=>true
