@@ -428,15 +428,15 @@
 
     $(document).on("click", "[data-toggle-set]", function (event) {
 	var element = $(this), target = $(element.data("toggle-set")), shown;
-	if (element.hasClass("show")) {
-	    element.removeClass("show");
-	    element.addClass("hide");
-	    target.show();
+	if (element.hasClass("collapsed")) {
+	    element.removeClass("collapsed");
+	    element.addClass("not-collapsed");
+	    target.slideDown();
 	    shown = 1;
 	} else {
-	    element.removeClass("hide");
-	    element.addClass("show");
-	    target.hide();
+	    element.removeClass("not-collapsed");
+	    element.addClass("collapsed");
+	    target.slideUp();
 	    shown = 0;
 	}
 	return false;

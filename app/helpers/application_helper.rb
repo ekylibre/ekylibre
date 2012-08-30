@@ -1019,28 +1019,32 @@ module ApplicationHelper
       elsif !legend.is_a?(String)
         legend = legend.to_s
       end
-      html << content_tag(options[:legend_tag]||:legend, content_tag(:span, nil, :class => :icon) + h(legend), "data-toggle-set" => '#'+set_id, :class => (options[:collapsed] ? "show" : "hide"))
+      legend_html = ""
+      toggle_id = set_id + "-toggle"
+      legend_html << content_tag(:span, nil, :class => :icon)
+      legend_html << content_tag(:label, legend, :for => toggle_id)
+      legend_html << content_tag(:span, nil, :id => toggle_id, "data-toggle-set" => '#'+set_id, :class => (options[:collapsed] ? "collapsed" : "not-collapsed"))
+      html << content_tag(options[:legend_tag]||:div, legend_html.html_safe, :class => "legend")
     end
-    # form = Formika.new(record, :company => @current_company, :controller => controller)
+    form = Formika.new(record, :company => @current_company, :controller => controller)
     attrs = {:class => :set, :id => set_id}
     attrs[:style] = "display: none" if options[:collapsed]
-    html << content_tag(:div, simple_fields_for(record) do |f|
-                          yield(f)
-                        end, attrs) #  capture(form, &block)
+    # html << content_tag(:div, capture(form, &block), attrs)
+    html << content_tag(:div, simple_fields_for(record, &block), attrs)
     html_options[:id] ||= id if id
     if html_options[:class]
       html_options[:class] = html_options[:class].to_s + " "
     else
       html_options[:class] = ""
     end
-    html_options[:class] << "ika"
-    return content_tag(options[:tag]||(legend ? :fieldset : :div), html.html_safe, html_options)
+    html_options[:class] << "fieldset"
+    return content_tag(options[:tag]||:div, html.html_safe, html_options)
   end
 
 
   
 
-  class Formika
+  class Formika < ActionView::Helpers::FormBuilder
     include ActionView::Helpers
 
     def initialize(record, options = {})

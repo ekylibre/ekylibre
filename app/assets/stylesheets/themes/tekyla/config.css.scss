@@ -3,6 +3,14 @@
  */
 @import "compass/utilities";
 
+@mixin define-right-property($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-right: $value; }
+  html[dir="rtl"] & { #{$base-name}-left: $value; }
+}
+
+@mixin margin-right($value) { @include define-right-property(margin, $value); }
+@mixin margin-left($value)  { @include define-left-property(margin, $value); }
+
 @mixin left($base-name, $value) { 
   html[dir="ltr"] & { #{$base-name}-left: $value; }
   html[dir="rtl"] & { #{$base-name}-right: $value; }

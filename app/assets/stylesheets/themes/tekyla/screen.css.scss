@@ -29,7 +29,7 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
   color: $text-color;
   @include text-align(left);
 }
-
+/*
 fieldset {
   @include border-radius($default-border-radius);
   padding: round($default-gap/2) $default-gap $default-gap; 
@@ -58,6 +58,7 @@ fieldset {
   }
   .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
 }
+*/
 
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
@@ -97,22 +98,21 @@ html {
     @include display(box);
     @include box-flex(1);
     @include box-orient(vertical);
-    //border: 2*$menu-border-width solid $default-color-base;
-    border: 1px solid mix($menu-background, $base-color, 50%);
-    @include box-shadow(0 0 $fs-large rgba(#000, 0.2));
+//    border: 1px solid mix($menu-background, $base-color, 50%);
+//    border: 2*$menu-border-width solid $default-color-base;
+    border: 2*$menu-border-width solid $default-color-base;
+//    border: 1px solid white;
+    @include box-shadow(0 0 $fs-large rgba(#000, 0.3));
     border-top: none;
     border-right: none;
     background: mix(#FFF, $default-color-base, 98%);
     body.mod-production & { border-color: $default-color-spe; }
     body.mod-settings & { border-color: $default-color-config; }
     #header {
-      h1.title {
+      #title {
         margin: 0; 
         @include title($fs-very-huge); 
-        background: $base-color;
-        color: white;
         padding: round($default-gap/2) $default-gap ;
-        @include incrust-shadow;
       }
       #tb { 
        /* @include float(right);*/
@@ -166,10 +166,9 @@ html {
 }
 
 .fields { 
-  background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
-  @include columns(2);
+/*  background: image-url("themes/tekyla/shadow-top.png") repeat-x bottom; 
   padding: 0 1px; 
-  overflow: auto; 
+  overflow: auto; */
 }
 
 .end { height: 8px; }
@@ -580,7 +579,55 @@ table.quick td { padding: 0px 4px; }
 .contact { padding: 5px 0 8px 4px; border:0.2px solid; border-color:$light-color; background-color:#FEB; }
 
 
-.ika { 
+.fieldset { 
+/*  @include border-radius($default-border-radius);*/
+  $vertical-gap: round($default-gap*0.7);
+  padding: $vertical-gap $default-gap; 
+  margin: 0 0 $default-gap; 
+  $fieldset-border: $menu-border;
+  border: $fieldset-border;
+  @include incrust-shadow;
+  $size: $fs-large;
+  .legend { 
+    padding: 0;
+    label, span {
+      color: $default-color-base;
+      font-size: $size;
+      line-height: $size;
+    }
+    font-weight: bold;
+    vertical-align: middle;
+    .icon { 
+      @include inline-block;
+      @include icons-sprite(page);
+      height: 16px;
+      width: 16px;
+      @include margin-right(round($size/4));
+    }
+    [data-toggle-set] {
+      cursor: default;
+      @include inline-block;
+      @include float(right);
+      $tool-size: 12px;
+      width: $tool-size;
+      height: $tool-size;
+      margin: round(($size - $tool-size)/2) 0 0;
+      &.collapsed { 
+        @include common-sprite(toggle-show);
+        &:hover { @include common-sprite(toggle-show-hover) }
+      }
+      &.not-collapsed { 
+        @include common-sprite(toggle-hide);
+        &:hover { @include common-sprite(toggle-hide-hover) }
+      }
+    }
+  }
+  .set { 
+    border-top: $fieldset-border;
+    margin-top: $vertical-gap;
+    padding-top: $vertical-gap;
+  }
+  .actions { border-left: none; border-right: none; border-bottom: none; margin-top: 8px}
   .input { 
     padding: round($fs-normal*0.2) 0;
     margin: round($fs-normal*0.1) 0;    
@@ -592,7 +639,10 @@ table.quick td { padding: 0px 4px; }
       white-space: nowrap;
       @include right(margin, round($fs-normal/2));
       &.required { 
-        abbr { color: red; }
+        abbr { 
+          color: red; 
+          float: right;
+        }
       }
     }
     input{ 
@@ -1248,16 +1298,12 @@ a.mn {
   $biseau: 3px;
   $biseau-opacity: 0.3;
   @include border-radius($biseau*5);
-/*  @include box-shadow($biseau $biseau $biseau rgba(#FFF, $biseau-opacity) inset, (-1 * $biseau) (-1 * $biseau) $biseau rgba(#000, $biseau-opacity) inset);
-  @include background-image(linear-gradient(top, rgba(#FFF,0.3), rgba(#FFF, 0), rgba(#000, 0), rgba(#000,0.3)));*/
   opacity: 0.8;
   font-size: 1.5*$fs-huge;
   text-decoration: none;
   border: 2*$biseau solid #CCC;
   @include inline-block;
   &:hover { 
-/*    @include box-shadow(0 0 1.4*$fs-huge rgba(#000, 0.3), 0 3px 5px rgba(#FFF, 0.5) inset);
-    @include box-shadow(0 5px $fs-large rgba(#000, 0.3));*/
     opacity: 1;
   }
   .text {
@@ -1281,11 +1327,6 @@ a.mn {
     background-position: center center;
     background-repeat: no-repeat;
   }
-  &:active { 
-    @include box-shadow($biseau $biseau $biseau rgba(#000, $biseau-opacity) inset, (-1 * $biseau) (-1 * $biseau) $biseau rgba(#FFF, $biseau-opacity) inset);
-  }
-  /*@include background(image-url("themes/tekyla/menus/EKY-btn-c.png") center center no-repeat);*/
-/*  @include background(linear-gradient(top, mix(#FFF, $default-color-base, 35%), $default-color-base));*/
   background-color: $default-color-base;
   margin: $fs-normal;
   @each $module in (production relations accountancy purchases sales stocks) { 
@@ -1293,16 +1334,18 @@ a.mn {
       span.icon { background-image: image-url("themes/tekyla/menus-160/#{$module}.png"); }
     }
   }
+  &:active { 
+    border-color: #CCA;
+  }
 }
 
 .med-button:link, .med-button:visited { 
   $transp: 40%;
   display: block;
-  padding: $fs-normal*0.8 $fs-normal;
+  padding: $fs-normal*0.7 $fs-normal*0.9;
   @include background(mix($menu-background, $default-color-base, $transp));
-  margin: $default-gap;
+  margin: $default-gap 0;
   @include incrust-shadow;
-  @include border-radius($default-border-radius);
   color: white;
   font-weight: bold;
   @include text-shadow(0 0 5px rgba(#000, 0.5));
