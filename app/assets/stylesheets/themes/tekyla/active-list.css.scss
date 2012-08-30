@@ -16,7 +16,6 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     border-collapse: collapse;
     width: 100%;
     border: $menu-border;
-    z-index: 2;
     //@include box-shadow(0 0 7px rgba(0, 0, 0, 0.15));
     @include incrust-shadow;
     thead { 
@@ -55,7 +54,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
               @include menu-shadow;
               .list-menu-start { 
                 background-color: $menu-background; 
-                z-index:5000; 
+//                z-index:5000; 
               }
             }
             ul { 
@@ -117,7 +116,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
     @include list-colors($desktop-background);
   }
   .extras { 
-    z-index: 0;
+    // z-index: 0;
     @include background(transparentize($desktop-background, 0.7));
     .pagination { 
        @include text-align(left);

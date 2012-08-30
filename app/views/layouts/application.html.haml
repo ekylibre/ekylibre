@@ -13,13 +13,15 @@
   -expiration = {}
   -expiration = {"timeout"=>session[:expiration], "timeout-href"=>renew_session_url(:name=>@current_user.name)} if @current_user and session[:expiration].to_i>0
   %body{:data=>expiration, :class => "mod-"+reverse_menus[0].to_s}
+    =yield :popover
     #body.vbox.flex{:class=>("resizable" if resizable?)}
       #wrap.hbox
         -if @current_user
           #side{:style=>("display:none;" unless session[:side])}=side_tag
         #main
-          =title_header_tag
-          =toolbar_tag
+          #header
+            #tb.toolbar=yield :toolbar
+            %h1.title=controller.human_action_name
           #content
             =notifications_tag
             =yield

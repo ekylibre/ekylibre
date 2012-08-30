@@ -105,16 +105,32 @@ html {
     background: mix(#FFF, $default-color-base, 98%);
     body.mod-production & { border-color: $default-color-spe; }
     body.mod-settings & { border-color: $default-color-config; }
-    h1.title {
-      margin: 0; 
-      @include title($fs-very-huge); 
-      background: $base-color;
-      color: white;
-      padding: round($default-gap/2) $default-gap ;
-      @include incrust-shadow;
+    #header {
+      h1.title {
+        margin: 0; 
+        @include title($fs-very-huge); 
+        background: $base-color;
+        color: white;
+        padding: round($default-gap/2) $default-gap ;
+        @include incrust-shadow;
+      }
+      #tb { 
+       /* @include float(right);*/
+        position: absolute;
+        top: 0;
+        right: 0;
+        @include right(margin, $default-gap);
+        margin-top: $default-gap;
+        .btn { 
+          .icon { margin: 0; }
+          .text { display: none; }
+        }    
+      }
+ 
     }
     #toolbar { 
       padding: round($default-gap/2) $default-gap ;
+      @include incrust-shadow;
       margin: 0;
       background: mix($desktop-background, $base-color, 60%);
       .btn { 
@@ -667,22 +683,22 @@ input, textarea, select {
 }
 input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
 
-
+/*
 .search { background: #CEA !important; color: #580; @include border-radius($default-border-radius); padding:4px 6px; margin: 0 0 8px; }
 .search table { margin: 0px auto; }
 .search .label { padding: 1px 4px; }
 .search .submit { padding: 0px 4px;}
 .search table .crit { border-top: 1px dotted #580; padding: 1px 4px; vertical-align: middle; text-align:center; }
-/*.search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }*/
+//.search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }
 .search table tr:first-child .crit { border-top: none; }
-
+*/
 .kujaku { 
-  background: #CEA !important; 
+  background: white; 
   color: #580; 
-  @include incrust-shadow;
+  @include box-shadow(0 0 $fs-small rgba(#000, 0.5));
   @include border-radius($default-border-radius); 
-  padding:4px 6px;
-  margin: 0 0 8px; 
+  padding: $default-gap;
+  margin: 0 0 $default-gap 0; 
   table {
     margin: 0px auto;
     .crit { border-top: $menu-border-width dotted #580; padding: round($fs-normal/6) round($fs-normal/4); vertical-align: middle; text-align:center; }
@@ -690,6 +706,14 @@ input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-col
   }
   .label { padding: round($fs-normal/6) round($fs-normal/4); }
   .submit { padding: round($fs-normal/6) round($fs-normal/4); width: 10*$fs-normal; text-align:center; }
+  &.popover { 
+    display: none;
+    position: absolute;
+    right: $default-gap;
+    top: 40px;
+    z-index: 10000;
+    margin: 0;
+  }
 }
 
 

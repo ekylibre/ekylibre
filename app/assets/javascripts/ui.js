@@ -442,6 +442,16 @@
 	return false;
     });
 
+    $(document).on("mouseenter", ".btn", function (event) {
+	var button = $(this), text;
+	if (button.attr("title") == null || button.attr("title") == undefined) {
+	    text = button.find(".text:hidden").first();
+	    if (text !== null && text !== undefined) {
+		button.attr("title", text.html());
+            }
+	}
+	return true;
+    });
 
 
 })( jQuery );

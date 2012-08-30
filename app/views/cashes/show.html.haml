@@ -17,8 +17,8 @@
       -l.attribute :number
       -l.attribute :key
 
--if @cash.bank_account?
-  =tabbox(:cash) do |tb|
+=tabbox(:cash) do |tb|
+  -if @cash.bank_account?
     -tb.tab(:deposits) do
       =list(:deposits)
     -tb.tab(:bank_statements) do

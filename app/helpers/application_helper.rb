@@ -452,17 +452,17 @@ module ApplicationHelper
     return html.html_safe
   end
 
-  def toolbar_tag
-    html = ""
-    if action_name.to_s == "show"
-      buttons = ""
-      buttons << tool_to("???", {:action => :show}, :class => :large)
-      buttons << tool_to("???", {:action => :edit}, :class => :large)
-      buttons << tool_to("???", {:action => :destroy}, :class => :large)
-      html << content_tag(:div, buttons.html_safe, :id => :toolbar, :class => :toolbar)
-    end
-    return html.html_safe
-  end
+  # def toolbar_tag
+  #   html = ""
+  #   if action_name.to_s == "show"
+  #     buttons = ""
+  #     buttons << tool_to("???", {:action => :show}, :class => :large)
+  #     buttons << tool_to("???", {:action => :edit}, :class => :large)
+  #     buttons << tool_to("???", {:action => :destroy}, :class => :large)
+  #     html << content_tag(:div, buttons.html_safe, :id => :toolbar, :class => :toolbar)
+  #   end
+  #   return html.html_safe
+  # end
 
 
   def notification_tag(mode)
@@ -710,7 +710,16 @@ module ApplicationHelper
       tag << content_tag(:tr, code.html_safe)
     end
     tag = form_tag(url, :method=>:get) {content_tag(:table, tag.html_safe)}
-    return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
+    
+    id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
+
+    content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class=>"kujaku popover", :id => id))
+
+    tb = content_tag(:a, content_tag(:div, nil, :class=>:icon) + content_tag(:div, "Rechercher", :class => :text), :class => "btn search", "data-toggle-visibility" => "##{id}")
+
+    content_for(:toolbar, tb)
+
+    return ""
   end
 
   class Kujaku
@@ -767,6 +776,7 @@ module ApplicationHelper
   def tabbox(id, options={})
     tb = Tabbox.new(id)
     yield tb
+    return '' if tb.tabs.size.zero?
     tabs = ''
     taps = ''
     session[:tabbox] ||= {}
@@ -895,14 +905,22 @@ module ApplicationHelper
         end
       end
       if code.strip.length>0
-        # code = content_tag(:ul, code.html_safe) << content_tag(:div)
-        # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
-        code = content_tag(:div, code.html_safe, :class=>'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class=>:clearfix)
+        # # code = content_tag(:ul, code.html_safe) << content_tag(:div)
+        # # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
+        if @not_first_toolbar
+          code = content_tag(:div, code.html_safe, :class=>'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class=>:clearfix)
+        end
       end
     else
       raise Exception.new('No block given for toolbar')
     end
-    return code.html_safe
+    if @not_first_toolbar
+      return code.html_safe
+    else
+      content_for :toolbar, code.html_safe
+      @not_first_toolbar = true
+      return ""
+    end
   end
 
   class Toolbar
