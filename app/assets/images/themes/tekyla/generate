@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 
-icons = %w(new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement close help merge spread green blue black)
+icons = %w(new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement close help merge spread rgreen rblue rblack)
 states = %w(normal disabled active whited hover)
 
 default_state = "normal"
