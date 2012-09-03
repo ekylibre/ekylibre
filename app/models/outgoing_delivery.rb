@@ -117,7 +117,7 @@ class OutgoingDelivery < CompanyRecord
 
   # Used with list for the moment
   def quantity
-    ''
+    0
   end
 
   def contact_address

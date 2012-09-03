@@ -108,6 +108,14 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           &.country { white-space: nowrap; }
           &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
         }
+        &.child { 
+          td { 
+            &:first-child { 
+              @include left(padding, 2*$fs-normal);
+            }
+            @include opacity(0.6);
+          }
+        }
         &:first-child td { 
           border-top: none;
         }

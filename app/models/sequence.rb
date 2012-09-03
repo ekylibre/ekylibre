@@ -95,8 +95,7 @@ class Sequence < CompanyRecord
     end
     self.last_year, self.last_month, self.last_cweek = today.year, today.month, today.cweek
     raise [self.updateable?, self.destroyable?, self.errors.to_hash].inspect unless self.save
-    
-    self.compute
+    return self.compute
   end
 
 end
