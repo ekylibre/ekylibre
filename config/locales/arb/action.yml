@@ -155,6 +155,7 @@ arb:
       close: "نهاية الممارسة"
       # compute_balances: "Compute financial year balance"
       edit: "تعديل المهنة الجديدة"
+      # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "ممارسة المحاسبة"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"

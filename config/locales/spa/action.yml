@@ -153,6 +153,7 @@ spa:
       close: "Cerrado de ejercicio"
       # compute_balances: "Compute financial year balance"
       edit: "Modificar un nuevo ejercicio"
+      # generate_last_journal_entry: "Generate last journal entry of %{code}"
       index: "Exercicios contables"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"

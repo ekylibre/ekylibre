@@ -136,6 +136,7 @@ jpn:
       # close: "Close financial year: %{code}"
       # compute_balances: "Compute financial year balance"
       # edit: "Edit new financial year"
+      # generate_last_journal_entry: "Generate last journal entry of %{code}"
       # index: "Financial years"
       # new: "Open a new financial year"
       # show: "Financial year %{code}"

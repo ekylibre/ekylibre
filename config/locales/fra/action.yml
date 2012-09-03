@@ -133,7 +133,7 @@ fra:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
-      generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}" #?
+      generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
