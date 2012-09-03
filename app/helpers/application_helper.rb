@@ -528,7 +528,9 @@ module ApplicationHelper
       src = data[0].strip
       if src.match(/^theme:/)
         # src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
-        src = image_path("themes/#{@current_theme}/#{src.split(':')[1]}")
+        path = src.split(':')[1]
+        path.gsub!(/^buttons/, "icons")
+        src = image_path("themes/#{@current_theme}/#{path}")
       else
         src = image_path(src)
       end
