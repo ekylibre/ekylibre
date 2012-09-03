@@ -55,7 +55,7 @@
 events_001:
   entity_id: 1
   nature_id: 1
-  started_at: <%=t=Time.now-1.month%>
+  started_at: <%=(t=Time.now-1.month).to_s(:db)%>
   started_sec: <%=t.to_i%>
   reason: Nothing
   responsible_id: 1
@@ -69,7 +69,7 @@ events_001:
 events_002:
   entity_id: 1
   nature_id: 1
-  started_at: <%=t=Time.now-1.year%>
+  started_at: <%=(t=Time.now-1.year).to_s(:db)%>
   started_sec: <%=t.to_i%>
   reason: Nothing too
   responsible_id: 1
