@@ -23,6 +23,9 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree', '0.2.0'
 
+gem 'eventmachine', '1.0.0.rc.4'
+gem 'thin'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
