@@ -263,7 +263,6 @@ class EntitiesController < ApplicationController
   def import
     @step = params[:id].to_sym rescue :upload
     if @step == :upload
-      # @formats = Spreet.formats.collect{|f| [tg("formats.#{f}"), f]}
       @formats = [["CSV", :csv]] # , ["CSV Excel", :xcsv], ["XLS Excel", :xls], ["OpenDocument", :ods]]
       if request.post? and params[:upload]
         data, tmp = params[:upload], Rails.root.join("tmp", "uploads")
