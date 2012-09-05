@@ -1,3 +1,9 @@
+ekylibre (0.3.2.4) stable; urgency=low
+
+  * No changes in Debian version
+
+ -- Brice TEXIER <brice.texier@ekylibre.org>  Wed, 05 Sep 2012 11:03:55 +0200
+
 ekylibre (0.3.2.3) stable; urgency=low
 
   * Fixes bug on journal entries's numeration
