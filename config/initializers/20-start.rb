@@ -10,8 +10,7 @@ require 'exchanges'
 require 'templating'
 require 'activerecord'
 require 'ekylibre'
-# require 'list'
-
+require 'iconv'
 require 'csv'
 
 module Ekylibre
