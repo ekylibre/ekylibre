@@ -185,6 +185,9 @@ Section "Ekylibre" sec_ekylibre
     
     FileOpen $1 "$InstApp\migrate.cmd" "w"
     FileWrite $1 'cd "$InstApp\apps\ekylibre"$\r$\n'
+    FileWrite $1 'echo %PATH%$\r$\n'
+    FileWrite $1 'SET PATH=%PATH%;$InstApp\ruby\bin$\r$\n'
+    FileWrite $1 'echo %PATH%$\r$\n'
     FileWrite $1 '"$InstApp\ruby\bin\ruby" "$InstApp\ruby\bin\bundle" exec "$InstApp\ruby\bin\rake" db:migrate RAILS_ENV=production$\r$\n'
     FileClose $1
 
