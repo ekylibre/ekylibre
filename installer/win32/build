@@ -24,9 +24,7 @@ if [ -n "`which makensis`" ]; then
     mkdir public
     cp -r public-link/* public/
     rm public-link
-    ls -l
-    ls -l public
-    bundle install
+    bundle install --quiet
     rake assets:precompile RAILS_ENV=production
     popd
     
