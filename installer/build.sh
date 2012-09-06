@@ -86,12 +86,13 @@ do
 	rm -fr ${app}
 	mkdir ${app}
 	ln -s ${rails_root}/* $app/
-	for dir in config-* installer log private tmp ; do
+	for dir in installer log private tmp ; do
 	    rm -f $app/$dir
 	done
 	for dir in log private tmp ; do
 	    mkdir $app/$dir
 	done
+
 
 	# Build packages
 	echo " * Packages..." >> $log
