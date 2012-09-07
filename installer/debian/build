@@ -23,7 +23,6 @@ control=$debdir/control
 
 rm -fr copy
 cp -rL ${app} copy
-sed -i -e 's/gem "mysql/# gem "mysql/g' -i -e 's/gem "sqlite/# gem "sqlite/g' -i -e "s/gem 'mysql/# gem 'mysql/g" -i -e "s/gem 'sqlite/# gem 'sqlite/g" copy/Gemfile
 find copy -name .svn* -print0 | xargs -0 rm -rf
 find copy -name .git* -print0 | xargs -0 rm -rf
 find copy -name "*~"  -print0 | xargs -0 rm -rf
@@ -38,6 +37,8 @@ echo "  database: db/production.sqlite3" >> config/database.yml
 rake assets:precompile RAILS_ENV=production
 popd
 
+# Deactivates other adapters
+sed -i -e 's/gem "mysql/# gem "mysql/g' -i -e 's/gem "sqlite/# gem "sqlite/g' -i -e "s/gem 'mysql/# gem 'mysql/g" -i -e "s/gem 'sqlite/# gem 'sqlite/g" copy/Gemfile
 rm -f copy/config/database.yml
 
 cd $root
