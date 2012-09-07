@@ -25,7 +25,11 @@ if [ -n "`which makensis`" ]; then
     cp -r public-link/* public/
     rm public-link
     bundle install --quiet
+    echo "production:" > config/database.yml
+    echo "  adapter: sqlite3" >> config/database.yml
+    echo "  database: db/production.sqlite3" >> config/database.yml
     rake assets:precompile RAILS_ENV=production
+    rm -f config/database.yml
     popd
     
     files="files"
