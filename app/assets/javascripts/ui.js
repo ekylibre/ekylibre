@@ -453,5 +453,19 @@
 	return true;
     });
 
+    $(document).on("click", "a[data-target]", function (event) {
+	var selector = $(this).data('target');
+	$(selector).each(function (index) {
+	    var target = $(this);
+	    if (target.hasClass("visible")) {
+		target.removeClass("visible");
+	    } else {
+		target.addClass("visible");
+	    }
+	});
+	return false;
+    });
+
+
 
 })( jQuery );

@@ -1,0 +1,108 @@
+@import "config.css.scss";
+$break-small: 480px;
+$break-large: 768px;
+$break-huge: 1200px;
+
+@mixin single-respond-to($media) {
+  @if $media == phone {
+    @media only screen and (max-width: $break-small) { @content; }
+  }
+  @else if $media == tablet {
+    @media only screen and (min-width: $break-small + 1) and (max-width: $break-large - 1) { @content; }
+  }
+  @else if $media == desktop {
+    @media only screen and (min-width: $break-large) { @content; }
+  }
+  @else if $media == table {
+    @media only screen and (min-width: $break-huge) { @content; }
+  }
+}
+
+@mixin respond-to($media1, $media2: undefined, $media3: undefined, $media4: undefined, $media5: undefined) {
+  @include single-respond-to($media1) { @content };
+  @include single-respond-to($media2) { @content };
+  @include single-respond-to($media3) { @content };
+  @include single-respond-to($media4) { @content };
+  @include single-respond-to($media5) { @content };
+}
+
+
+html { 
+  background: $menu-background;
+  height:100%;
+  body { 
+    @include respond-to(desktop, tablet) {
+      @include display(box);
+      @include box-flex(1);
+      @include box-orient(vertical);
+      width: 100%;
+      height:100%;
+      #wrap { 
+        width: auto;
+        @include display(box);
+        @include box-flex(1);
+        @include box-orient(horizontal);
+        #side { 
+          @include display(box);
+          @include box-orient(vertical);      
+          #side-middle { 
+            @include display(box);
+            @include box-orient(vertical);      
+            @include box-flex(1);
+          }
+        }
+        #main { 
+          @include display(box);
+          @include box-flex(1);
+          @include box-orient(vertical);
+          #nav { display: none; }
+        }
+      }
+    }
+    @include respond-to(desktop) {
+      #wrap {
+        #main { 
+          .login { 
+            width: $break-small;
+            margin: round($break-small * 0.15) auto; 
+          }
+        }
+      }
+    }
+    @include respond-to(tablet) {
+      #wrap {
+        #main { 
+          .login { 
+            width: round($break-small * 0.8);
+            margin: round($break-small * 0.1) auto; 
+          }
+        }
+      }
+    }
+    @include respond-to(phone) {
+      $gap: round($default-gap * 0.5);
+      #wrap {
+        #side { 
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          display: none;
+          &.visible { 
+            display: block;
+          }
+        }
+        #main { 
+          .login { 
+            width: auto;
+            margin: $gap 0;
+          }
+          #content { 
+            padding-left: $gap;
+            padding-right: $gap;
+          }
+        }
+      }
+    }
+  }
+}

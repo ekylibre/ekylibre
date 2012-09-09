@@ -57,7 +57,7 @@ eng:
       general: "General dashboard" #?
       production: "Production dashboard"
       # purchases: "Purchases dashboard"
-      relations: "Relations dashboard"
+      relationship: "Relationship dashboard"
       # sales: "Sales dashboard"
       # settings: "Settings dashboard"
       # stocks: "Stocks dashboard"
@@ -802,7 +802,7 @@ eng:
       general: "General"
       home: "Home"
       production: "Production"
-      relations: "Relations"
+      relationship: "Relationship"
       submenus:
         accounts: "Accounts"
         assets: "Assets"

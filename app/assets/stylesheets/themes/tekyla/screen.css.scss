@@ -8,13 +8,8 @@
 @import "compass/reset";
 @import "compass/css3";
 @import "compass/utilities";
-/*@import "compass/layout/sticky-footer";*/
-/*@import "bootstrap";*/
-/* These two files are imported throught chaining call
-screen -> buttons -> active-list -> config
-@import "config.css.scss";
-@import "active-list.css.scss";
-*/
+/*@import "config.css.scss";
+@import "active-list.css.scss";*/
 @import "buttons.css.scss";
 $experimental-support-for-svg: true;
 
@@ -37,7 +32,7 @@ fieldset {
   border: $menu-border;
   legend { 
     padding: 0 round(0.25*$fs-normal);
-    color: $default-color-base;
+    color: $base-color;
     font-size: $fs-large;
     font-weight: bold;
     vertical-align: middle;
@@ -67,54 +62,40 @@ a:hover { color: $link-color; text-decoration: underline;}
 
 #body > div > .hbox > * { overflow: auto; }
 
-html { 
-  background: $menu-background;
-  height:100%;
-  body { 
-    @include display(box);
-    @include box-flex(1);
-    @include box-orient(vertical);
-    width: 100%;
-    height:100%;
-    #body { 
-      @include display(box);
-      @include box-flex(1);
-      @include box-orient(vertical);
-    }
-  }
-}
 
 #loading { padding: 2px; @include text-align(center); }
 
 *[data-click], .clickable { cursor: pointer; }
 
 #wrap { 
-  width: auto;
-  @include display(box);
-  @include box-flex(1);
-  @include box-orient(horizontal);
-  padding: 0; 
   #main { 
-    @include display(box);
-    @include box-flex(1);
-    @include box-orient(vertical);
-//    border: 1px solid mix($menu-background, $base-color, 50%);
-//    border: 2*$menu-border-width solid $default-color-base;
-    border: 2*$menu-border-width solid $default-color-base;
-//    border: 1px solid white;
-    @include box-shadow(0 0 $fs-large rgba(#000, 0.3));
+    border-bottom: 4*$menu-border-width solid $base-color;
+    /*@include box-shadow(0 0 $fs-large rgba(#000, 0.3));*/
     border-top: none;
     border-right: none;
-    background: mix(#FFF, $default-color-base, 98%);
-    body.mod-production & { border-color: $default-color-spe; }
-    body.mod-settings & { border-color: $default-color-config; }
+    background: mix(#FFF, $base-color, 98%);
+    @each $module in $modules { 
+      body.mod-#{nth($module, 1)} & { 
+        border-color: nth($module, 2);
+        background: mix(#FFF, nth($module, 2), 98%);
+      }
+    }
     #header {
+      background: $base-color;
+      @each $module in $modules { 
+        body.mod-#{nth($module, 1)} & { 
+          background: nth($module, 2);
+        }
+      }
+      
       #title {
         margin: 0; 
         @include title($fs-very-huge); 
         padding: round($default-gap/2) $default-gap ;
+        color: white;
+        @include text-shadow(0 0 $fs-small rgba(#000, 0.5));
       }
-      #tb { 
+      #toolbar { 
        /* @include float(right);*/
         position: absolute;
         top: 0;
@@ -127,16 +108,6 @@ html {
         }    
       }
  
-    }
-    #toolbar { 
-      padding: round($default-gap/2) $default-gap ;
-      @include incrust-shadow;
-      margin: 0;
-      background: mix($desktop-background, $base-color, 60%);
-      .btn { 
-        .icon { margin: 0; }
-        .text { display: none; }
-      }    
     }
     #content { 
       padding: $default-gap;
@@ -221,12 +192,12 @@ html {
 }
 
 #side-splitter { 
-  background: $default-color-base; 
+  background: $base-color; 
   width:         4*$menu-border-width; 
-  border-top:    2*$menu-border-width solid $default-color-base; 
-  border-bottom: 2*$menu-border-width solid $default-color-base;
-  body.mod-production & { border-color: $default-color-spe; background: $default-color-spe}
-  body.mod-settings & { border-color: $default-color-config; background: $default-color-config }
+  border-top:    2*$menu-border-width solid $base-color; 
+  border-bottom: 2*$menu-border-width solid $base-color;
+/*  body.mod-production & { border-color: $default-color-spe; background: $default-color-spe}
+  body.mod-settings & { border-color: $default-color-config; background: $default-color-config }*/
   &:hover { 
     background: $title-color;
     border-color: $title-color;
@@ -238,250 +209,41 @@ html {
 
 
 #side { 
-  width: $menu-width; 
-  @include display(box);
-  @include box-orient(vertical);      
-  #side-middle { 
-    @include display(box);
-    @include box-orient(vertical);      
-    @include box-flex(1);
+  /*  width: $menu-width; */
+  @include respond-to(desktop, tablet) {
+    @include border-right(4*$menu-border-width solid $base-color);
   }
+  @include respond-to(phone) {
+    @include background($desktop-background);
+    padding-bottom: $default-gap;
+    @include box-shadow(0 0 $fs-normal rgba(#000, 0.5));
+  }
+  .med-button { 
+    $flex: 0.22;
+    @include respond-to(desktop) {
+      width: round($break-large * $flex);
+    }
+    @include respond-to(tablet) {
+      width: round($break-small * $flex);
+    }
+/*    @include respond-to(phone) {
+      margin: 0;
+      @include box-shadow(none);
+    }*/
+  }
+  @each $module in $modules { 
+    body.mod-#{nth($module, 1)} & { 
+      border-color: nth($module, 2);
+    }
+  }
+
   #side-footer { 
     *:last-child { 
       margin-bottom: 0;
     }
   }
-  .sd-module { 
-    padding: round($fs-normal/4) 0;
-    border-top: $menu-border-width solid mix($menu-background, $base-color, 60%);
-    &:first-child { 
-      border-top: none; 
-    }
-    .sd-title {
-      padding: round($fs-normal/4);
-      @include left(padding, round($fs-normal * 0.5));
-      h2 {
-        padding: 0;
-        margin: 0;
-        width: $menu-width - (2 * round($fs-normal/4)) - 1.5*12px;
-        @include ellipsis;
-        font-weight: bold;
-      }
-      *[data-toggle-module] { 
-        display: block; 
-        cursor: pointer; 
-        height: 12px; 
-        width: 12px; 
-        position: relative; 
-        top: 0px; 
-        padding: 0;
-        margin: round(($fs-normal - 12px)/2) 0;
-        @include float(right);
-        &.show { @include common-sprite(toggle-show) }
-        &.show:hover { @include common-sprite(toggle-show-hover) }
-        &.hide { @include common-sprite(toggle-hide) }
-        &.hide:hover { @include common-sprite(toggle-hide-hover) }
-      }
-    }
-    .sd-content { 
-      &.unique .sd-item { 
-        font-weight: bold;
-      }
-      .sd-item {
-        padding: 0;
-        a { 
-          display: block; 
-          text-decoration: none; 
-          padding: round($fs-normal * 0.1) round($fs-normal * 0.5);
-          width: $menu-width - 2*round($fs-normal/2);
-          vertical-align: middle;
-          white-space: nowrap; 
-          overflow: hidden; 
-          line-height: round($fs-normal * 1.4);
-          @include ellipsis;
-          -moz-binding: url(../xml/ellipsis.xml#ellipsis); 
-          -o-text-overflow: ellipsis; text-overflow: ellipsis; 
-          &:hover {
-            @include background(background-hover($menu-background));
-          }          
-        }
-        &.current a {
-          background: $base-color; 
-          color: white; 
-          text-shadow: 0 0 2px mix($base-color, #000, 30%); 
-          /*font-weight: bold;*/
-        }
-      }
-    }
-    &.help { 
-      #help .content { padding: round($fs-normal * 0.5); }
-    }
-  }
 }
 
-
-
-
-
-#top {
-  $menu-bar-margin-bottom: $menu-border-width;
-  .user-bar {
-    border: $menu-border;
-    border-color: transparent;
-    border-top: none; 
-    border-bottom: none; 
-    height: $menu-height;
-    padding: 0; 
-    position :relative; 
-    vertical-align:bottom;
-    @include float(right);
-    a.root { 
-      display:block; 
-      height: $menu-text-height + 3px;
-      line-height: $menu-text-height;
-      white-space: nowrap; 
-      vertical-align: top; 
-      padding: (($menu-height - 2px - $menu-text-height)/2) $default-gap;
-      text-decoration: none;
-      text-shadow: $menu-border-width $menu-border-width 0 white; 
-      text-shadow: $menu-border-width $menu-border-width 0 transparentize(white, 0.5); 
-      color: #555;
-      cursor: default;
-    }
-    .name { .text { font-weight: bold; } }
-    ul { 
-      @include menu;
-      display: none; 
-      position:absolute; 
-      top: $menu-height - $menu-border-width + $menu-bar-margin-bottom; 
-      z-index: 1000; 
-      html[dir="ltr"] & { right: -$menu-border-width; }
-      html[dir="rtl"] & { left: -$menu-border-width; }
-      li { 
-        @include menu-item;
-        &.separator { 
-          @include menu-separator;
-        }
-      }
-    }
-    &:hover { 
-      background: $menu-background; 
-      border-color: $menu-border-color;
-      @include menu-shadow;
-      a.root { 
-        background: $menu-background;
-        z-index:5000; 
-        position: relative; 
-        top: 0; 
-      }
-      ul { display: block; }
-    }
-  }
-
-  .menu-bar { 
-    height: $menu-height; 
-    padding: 0; 
-    margin-bottom: $menu-bar-margin-bottom;
-    $menu-bar-background: #CCC; /* #D0D0D0; */
-    @include background($menu-bar-background); 
-    @include background-image(linear-gradient(lighten($menu-bar-background, $default-lightness-variation), darken($menu-bar-background, $default-lightness-variation)));
-    display: block;
-    ul {
-      li { 
-        position:relative; 
-        list-style-type:none; 
-        padding: 0;
-        @include float(left);
-        .logo-item { 
-          @include background(image-url("themes/tekyla/ekylibre-menu.png") no-repeat); 
-          width: 108px; height: $menu-height; 
-          @include right(margin, round($fs-normal/4)); border: none; padding: 0;
-          html[dir="ltr"] & { background-position: -20px center; }
-          html[dir="rtl"] & { background-position: 0px center; }
-        }
-        ul {
-          @include menu;
-          display:none; position:absolute; margin:0; 
-          top: $menu-height - $menu-border-width + $menu-bar-margin-bottom;
-          z-index: 1000; 
-          html[dir="ltr"] & { left: 0px; }
-          html[dir="rtl"] & { right: 0px; }
-          li { 
-            a { @include text-align(left); }
-          }
-        }
-        &.submenu { 
-          @include menu-item;
-        }
-      }
-    }
-    ul li:hover ul, ul li ul:hover { display:block; }
-    a { display: block; white-space: nowrap; color: black; text-decoration: none; }
-    li.menu { 
-      a.menu {
-        &, & span { 
-          height: $menu-text-height;
-          line-height: $menu-text-height;
-          vertical-align: top;
-          font-weight: bold;
-          text-shadow: $menu-border-width $menu-border-width 0 white; 
-          text-shadow: $menu-border-width $menu-border-width 0 transparentize(white, 0.5); 
-          color: #555;
-        }
-        border-top: ($menu-border-width * 2) solid transparent; /* #BBB */
-        border-left: $menu-border-width solid transparent;
-        border-right: $menu-border-width solid transparent;
-        $padding-total: ($menu-height - (2*$menu-border-width) - $menu-text-height);
-        $padding-top: floor($padding-total/2);
-        $padding-bottom: $padding-total - $padding-top;
-        padding: $padding-top $default-gap $padding-bottom; 
-        color: white; @include text-align(center); position: relative; z-index: 500;
-        &.current { 
-          background-color: $menu-background; 
-          span { color: $text-color; }
-          @include box-shadow(0 -round($fs-normal/3) round($fs-normal/3) rgba(0,0,0,0.2)); 
-          border-color: #D50; /*$menu-border-color;*/
-          border-left: none;
-          border-right: none;
-        }
-      }
-      &.other:hover { 
-        background-color: $menu-background; 
-        @include menu-shadow;
-        a.menu {
-          span { color: $text-color; }
-          border-color: $menu-border-color;
-          border-top-color: background-hover($base-color);
-          height: $menu-text-height + 1px;
-        }
-      }
-    }
-    li:hover a.menu.other { 
-      background-color: $menu-background; z-index: 1500; color: #000; text-shadow: -1px -1px 1px white;}
-/*
-    li.menu.settings { 
-      a.menu.settings { 
-        width: 20px; 
-        color: transparent; 
-        text-shadow: none; 
-        .text { display: none }
-        .icon {
-          margin-top: -4px; 
-          vertical-align: middle;
-          @include common-sprite(home); 
-          @include inline-block; 
-          height: 16px; 
-          width: 17px; 
-        }
-      }
-      &:hover a.menu.settings .icon, &.current a.menu.settings .icon{ 
-        @include common-sprite(home-current); 
-      }
-    }
-*/
-
-  }
-}
 
 
 
@@ -591,7 +353,7 @@ table.quick td { padding: 0px 4px; }
   .legend { 
     padding: 0;
     label, span {
-      color: $default-color-base;
+      color: $base-color;
       font-size: $size;
       line-height: $size;
     }
@@ -723,7 +485,7 @@ input, textarea, select {
   padding: $menu-border-width;
   
   &:focus { 
-    $color: change-color($default-color-base, $lightness: 70%);
+    $color: change-color($base-color, $lightness: 70%);
     @include box-shadow(0 0 0.6em rgba($color, 0.9));
     border-color: $color;
     &.invalid { 
@@ -733,15 +495,6 @@ input, textarea, select {
 }
 input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
 
-/*
-.search { background: #CEA !important; color: #580; @include border-radius($default-border-radius); padding:4px 6px; margin: 0 0 8px; }
-.search table { margin: 0px auto; }
-.search .label { padding: 1px 4px; }
-.search .submit { padding: 0px 4px;}
-.search table .crit { border-top: 1px dotted #580; padding: 1px 4px; vertical-align: middle; text-align:center; }
-//.search table .crit input[type="radio"], .search table .crit input[type="checkbox"] { position: relative; top: 2px }
-.search table tr:first-child .crit { border-top: none; }
-*/
 .kujaku { 
   background: white; 
   color: #580; 
@@ -792,8 +545,6 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 .login { 
-  width:500px; 
-  margin:64px auto; 
   z-index: 1000; 
   border: $menu-border; 
   background: $menu-background;
@@ -1267,39 +1018,91 @@ input[data-datepicker] {@include text-align(center)}
 
 
 
-/*
-a.mn { 
-  white-space: nowrap;
-  padding: 4px 6px;
+@mixin big-button($isize) { 
+  $image-size: $isize;
+  $font-size: $fs-huge - round((100px - $image-size) * 0.05);
+  $margin: round($image-size * 0.10);
+  $biseau: round($isize * 0.02);
+  $biseau-opacity: 0.3;
+  width: $image-size;
+  padding: $margin;
+  @include border-radius($biseau*5);
+  text-decoration: none;
+  border: 2*$biseau solid #CCC;
+  @include box-shadow(0 0 $margin rgba(#000, 0.1) inset);
   @include inline-block;
-
-  span { 
-    vertical-align: middle;
-    margin: 0 2px;
-    html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child { margin-left: 0; }
-    html[dir="rtl"] &:first-child, html[dir="ltr"] &:last-child { margin-right: 0; }
+  &:hover { 
+    opacity: 1;
+  }
+  .text {
+    color: white;
+    font-weight:bold;
+    @include text-shadow(0 0 5px rgba(#000, 0.5));
+    display: block;
+    text-align: center;
+    vertical-align: center;
+    overflow: hidden;
+    font-size: $font-size;
+    line-height: $font-size;
+    padding: 0;
+    margin-top: $margin;
   }
   .icon { 
-    background-repeat: no-repeat; 
-    width: 16px;
-    height: 16px;
-    @include inline-block;
+    background-size: 100%;
+    height: $image-size;
+    width: $image-size;
+    display: block;
+    margin: 0 auto;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
+  background-color: $base-color;
+  margin: $margin * 1.2;
+  @each $module in $modules { 
+    &.#{nth($module, 1)} { 
+      @include background(linear-gradient(top, nth($module, 2), nth($module, 2), darken(nth($module, 2), 12%)));
+      border-color: mix(#DDD, nth($module, 2), 80%);
+      span.icon { background-image: image-url("themes/tekyla/menus-#{$isize}/#{nth($module, 1)}.png"); }
+    }
+  }
+  &:active { 
+    border-color: #CCA;
+  }
+}
 
-}*/
+
 
 #main-menu { 
   @include text-align(center);
+  .big-button:link, .big-button:visited {
+    @media (min-width: 768px) { 
+      @include big-button(160px);
+    }
+    @media (max-width: 767px) { 
+      @include big-button(100px);
+    }
+    @media (max-width: 480px) { 
+      @include big-button(60px);
+    }
+  }
+
 }
 
 .big-button:link, .big-button:visited { 
+  $image-size: 160px;
+  $font-size: round($image-size * 0.12);
+  $margin: round($image-size * 0.10);
+/*  $size: $image-size
   $size: 200px;
-  width: $size;
+  $margin: round($size * 0.07);
+  $font-size: $fs-huge;
+  $image-size: $size - (3 * $margin) - $font-size;*/
   $biseau: 3px;
   $biseau-opacity: 0.3;
+  width: $image-size; /*$size - (2 * $margin);*/
+  padding: $margin;
   @include border-radius($biseau*5);
-  opacity: 0.8;
-  font-size: 1.5*$fs-huge;
+  /*opacity: 0.8;*/
   text-decoration: none;
   border: 2*$biseau solid #CCC;
   @include inline-block;
@@ -1314,20 +1117,21 @@ a.mn {
     text-align: center;
     vertical-align: center;
     overflow: hidden;
-    font-size: $fs-huge;
-    padding: 0 0 $fs-normal;
+    font-size: $font-size;
+    line-height: $font-size;
+    padding: 0;
+    margin-top: $margin;
   }
   .icon { 
-    $image-size: round(0.8*$size);
     background-size: 100%;
     height: $image-size;
     width: $image-size;
     display: block;
-    margin: (($size - $image-size)/2) auto $fs-normal;
+    margin: 0 auto;
     background-position: center center;
     background-repeat: no-repeat;
   }
-  background-color: $default-color-base;
+  background-color: $base-color;
   margin: $fs-normal;
   @each $module in (production relations accountancy purchases sales stocks) { 
     &.#{$module} { 
@@ -1342,32 +1146,32 @@ a.mn {
 .med-button:link, .med-button:visited { 
   $transp: 40%;
   display: block;
-  padding: $fs-normal*0.7 $fs-normal*0.9;
-  @include background(mix($menu-background, $default-color-base, $transp));
+  padding: $fs-normal*0.7;
+  @include background(mix($menu-background, $base-color, $transp));
   margin: $default-gap 0;
   @include incrust-shadow;
   color: white;
   font-weight: bold;
   @include text-shadow(0 0 5px rgba(#000, 0.5));
   text-decoration: none;
-  &:hover { 
-    @include background($default-color-base);
+  @include ellipsis;
+  &:hover, &:active { 
+    @include background($base-color);
   }
-  body.mod-production & { 
-    @include background($default-color-spe);
-    @include background(mix($menu-background, $default-color-spe, $transp));
-    &:hover { 
-      @include background($default-color-spe);
+  @each $module in $modules { 
+    body.mod-#{nth($module, 1)} & { 
+      @include background(mix($menu-background, nth($module, 2), $transp));
+      &:hover { 
+        @include background(nth($module, 2));
+      }
     }
   }
   body &.back, body &.help, body &.logout, body &.settings { 
-    @include background($default-color-config);
-    @include background(mix($menu-background, $default-color-config, $transp));
+    @include background(mix($menu-background, $base-color, $transp));
     &:hover { 
-      @include background($default-color-config);
+      @include background($base-color);
     }
   }
-
 }
 
 

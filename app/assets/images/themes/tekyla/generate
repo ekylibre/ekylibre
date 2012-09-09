@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 
-icons = %w(new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement close help merge spread rgreen rblue rblack)
+icons = %w(new edit destroy search validate cancel lock unlock action up down left right configure column table duplicate point mark unmark true false page spreadsheet print filter mail nomail sort check divide load logout increment decrement close help merge spread rgreen rblue rblack nav)
 states = %w(normal disabled active whited hover)
 
 default_state = "normal"
@@ -11,7 +11,7 @@ vertical_space = 8
 x = default_size + horizontal_space
 y = default_size + vertical_space
 STDOUT.sync = true
-for size in [12, default_size, 24]
+for size in [default_size]
   icons_path = File.join(File.dirname(__FILE__), "icons")
   icons_path << "-#{size}" if size != default_size
   FileUtils.mkdir_p(icons_path)

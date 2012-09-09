@@ -10,6 +10,9 @@
 
 @mixin margin-right($value) { @include define-right-property(margin, $value); }
 @mixin margin-left($value)  { @include define-left-property(margin, $value); }
+@mixin border-right($value) { @include define-right-property(border, $value); }
+@mixin border-left($value)  { @include define-left-property(border, $value); }
+
 
 @mixin left($base-name, $value) { 
   html[dir="ltr"] & { #{$base-name}-left: $value; }
@@ -57,7 +60,14 @@
   }
 }
 
-
+/* 37E */
+/*##############|                   |                   |                   |                   |                   |                   |*/
+$modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
+$modules-colors: #16D                #193                rgb(90%, 85%, 0%)   rgb(100%, 50%, 0%)  #D10                #7F4D15            ;
+$modules: ();
+@for $i from 1 through length($modules-names) { 
+  $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
+}
 
 $fs-normal: 14px;
 $fs-small:      ceil(0.73*$fs-normal);
@@ -111,13 +121,6 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
 
 $l: 40%;
 $s: 70%;
-$default-color-base: #5529dd;
-$default-color-base: change-color(#37E, $lightness: $l, $saturation: $s); /*#305fc4 darken(#3339c8, 5%);*/
-$default-color-spe: #dd9229;
-$default-color-spe: change-color(#2AA, $lightness: $l, $saturation: $s); /* 193 */
-$default-color-config: #dd2975;
-$default-color-config: #973; /* 800 */
-$default-color-spe: $default-color-base;
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
 @mixin menu-shadow { 

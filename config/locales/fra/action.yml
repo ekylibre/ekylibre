@@ -61,14 +61,14 @@ fra:
     dashboards:
       accountancy: "Tableau de bord comptable"
       finances: "Tableau de bord financier"
-      settings: "Configuration"
       general: "Tableau de bord général"
       index: "Menu principal" #?
-      sales: "Tableau de bord des ventes"
-      purchases: "Tableau de bord des achats"
-      stocks: "Tableau de bord des stocks"
       production: "Tableau de bord de la production"
-      relations: "Tableau de bord de la gestion des relations"
+      purchases: "Tableau de bord des achats" #?
+      relationship: "Tableau de bord de la gestion des relations"
+      sales: "Tableau de bord des ventes" #?
+      settings: "Configuration" #?
+      stocks: "Tableau de bord des stocks" #?
       trade: "Tableau de bord de la gestion commerciale"
       welcome: "Bienvenue dans Ekylibre"
     delays:
@@ -316,7 +316,7 @@ fra:
       propose: "Commande soumise au fournisseur"
       refuse: "Commande refusée"
       show: "Achat\_: %{number} au fournisseur %{supplier}"
-    relations:  #?
+    relationship:  #?
       index: "Gestion des relations clients et fournisseurs" #?
     roles:
       edit: "Modifier le rôle\_: %{name}"
@@ -511,7 +511,7 @@ fra:
     purchase_lines: "Lignes d’achat"
     purchase_natures: "Types d’achat"
     purchases: "Achats"
-    relations: "Relations" #?
+    relationship: "Relations" #?
     roles: "Rôles"
     sale_lines: "Lignes de vente"
     sale_natures: "Types de ventes"
@@ -894,7 +894,7 @@ fra:
       home: "Accueil"
       production: "Production"
       purchases: "Achats" #?
-      relations: "Tiers"
+      relationship: "Tiers"
       sales: "Ventes" #?
       settings: "Configuration" #?
       stocks: "Stocks" #?
@@ -1123,7 +1123,7 @@ fra:
     reflect: "Refléter"
     refresh: "Rafraîchir"
     register: "Créer une nouvelle société" #?
-    relations: "Gestion des relations clients/fournisseurs" #?
+    relationship: "Gestion des relations clients/fournisseurs" #?
     reopen: "Déclôturer"
     reopen_journal: "Déclôturer le journal"
     report: "Informations communes"
@@ -1146,7 +1146,7 @@ fra:
       finances: "Droits module Finances" #?
       management: "Droits module Commerce" #?
       production: "Droits module Production" #?
-      relations: "Droits module Relations" #?
+      relationship: "Droits module Relations" #?
       resources: "Droits module Ressources" #?
     rights: "Droits"
     role: "Rôle"

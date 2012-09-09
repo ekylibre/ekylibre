@@ -26,6 +26,7 @@ gem 'acts_as_tree', '0.2.0'
 gem 'simple_form'
 # gem 'bootstrap-sass', '~> 2.0.4.0'
 # gem 'less-rails-bootstrap'
+gem 'twitter-bootstrap-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.

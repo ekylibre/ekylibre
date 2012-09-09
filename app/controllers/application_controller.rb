@@ -235,7 +235,6 @@ class ApplicationController < ActionController::Base
   private
 
   def dialog_or_not()
-    #return (params[:dialog] ? "dialog" : "application")
     return (request.xhr? ? "dialog" : "application")
   end
   

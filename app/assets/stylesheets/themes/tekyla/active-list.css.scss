@@ -1,4 +1,4 @@
-@import "config.css.scss";
+@import "layout.css.scss";
 @import "compass/css3";
 
 @import "active-list/minimal";
@@ -22,6 +22,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
       th { 
         border: $menu-border;
         padding: round($fs-normal*0.2) round($fs-normal*0.4);
+        @include ellipsis;
         @include text-align(left);
         @include background($menu-background);
         @include background-image(linear-gradient(lighten($menu-background, $default-lightness-variation), darken($menu-background, $default-lightness-variation)));
@@ -99,6 +100,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           border-bottom: none;
           border-left: none;
           border-right: none;
+          @include ellipsis;
           &.chk,&.act, &.dld, &.bln, &.dat, &.web  { 
             @include text-align(center);
             .checkbox-true, .checkbox-false { margin: 0 auto; }

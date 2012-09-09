@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'fileutils'
 
-sprites = %w(relations accountancy sales purchases stocks production)
+sprites = %w(relationship accountancy sales purchases stocks production)
 states = %w(normal)
 
 default_state = "normal"
@@ -11,9 +11,9 @@ vertical_space = 0
 x = default_size + horizontal_space
 y = default_size + vertical_space
 STDOUT.sync = true
-for size in [default_size, 160]
+for size in [60, 100, 160]
   path = File.join(File.dirname(__FILE__), "menus")
-  path << "-#{size}" if size != default_size
+  path << "-#{size}px" # if size != default_size
   FileUtils.mkdir_p(path)
   puts "Exporting in #{path}:"
   sprites.each_with_index do |sprite, b|

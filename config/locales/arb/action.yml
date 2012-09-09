@@ -80,7 +80,7 @@ arb:
       # finances: "Finances dashboard"
       # general: "General dashboard"
       # production: "Production dashboard"
-      # relations: "Relations dashboard"
+      # relationship: "Relationship dashboard"
       # trade: "Trade dashboard"
       # welcome: "Welcome on Ekylibre"
     delays:
@@ -975,7 +975,8 @@ arb:
       general: "شركة"
       home: "إستقبال"
       production: "المنتج"
-      relations: "العلاقات"
+      relations: "العلاقات" #?
+      # relationship: "Relationship"
       submenus:
         # accounts: "Accounts"
         # assets: "Assets"
