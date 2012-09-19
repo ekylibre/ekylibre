@@ -12,7 +12,7 @@ else
 end
 
 # Copy database.yml like in real case
-system("cp -f #{here}/database.#{database}.yml #{here}/../config/database.yml")
+system("cp -f #{here}/database.#{database}.yml #{here}/../../config/database.yml")
 
 # Create Database manually
 if database == :postgresql

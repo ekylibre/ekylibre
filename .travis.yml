@@ -1,5 +1,4 @@
 rvm:
-  - 1.8.7
   - 1.9.2
   - 1.9.3
 env:
@@ -7,6 +6,6 @@ env:
   - DB=postgresql
   - DB=sqlite3
 before_script: 
-  - "ci/setup"
+  - "test/ci/setup"
   - "bundle exec rake db:migrate" #  > migrate.log
 script: "bundle exec rake test"
