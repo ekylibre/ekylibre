@@ -33,13 +33,9 @@
 # Access to the minimum
 __minimum__:
   actions:
+  - "dashboards::index"
   - "dashboards::list_my_future_events"
   - "dashboards::list_recent_events"
-  - "dashboards::purchases"
-  - "dashboards::sales"
-  - "dashboards::settings"
-  - "dashboards::settings"
-  - "dashboards::stocks"
   - "dashboards::welcome"
   - "help::index"
   - "help::show"
@@ -174,7 +170,7 @@ consult_products:
 # Consult the purchases
 consult_purchases:
   actions:
-  - "dashboards::sales"
+  - "dashboards::purchases"
   - "purchases::index"
   - "purchases::list"
   - "purchases::list_deliveries"
@@ -204,7 +200,7 @@ consult_stocks:
 # Consult the tracking informations
 consult_trackings:
   actions:
-  - "dashboards::sales"
+  - "dashboards::stocks"
   - "trackings::list_operation_lines"
   - "trackings::list_purchase_lines"
   - "trackings::list_sale_lines"
@@ -804,6 +800,7 @@ manage_products:
 # Manage purchase natures
 manage_purchase_natures:
   actions:
+  - "dashboards::settings"
   - "purchase_natures::create"
   - "purchase_natures::destroy"
   - "purchase_natures::edit"
@@ -815,7 +812,7 @@ manage_purchase_natures:
 # Manage purchases
 manage_purchases:
   actions:
-  - "dashboards::sales"
+  - "dashboards::purchases"
   - "incoming_deliveries::confirm"
   - "incoming_deliveries::create"
   - "incoming_deliveries::destroy"
@@ -860,7 +857,7 @@ manage_purchases:
 # Manage sales natures
 manage_sale_natures:
   actions:
-  - "dashboards::sales"
+  - "dashboards::settings"
   - "sale_natures::create"
   - "sale_natures::destroy"
   - "sale_natures::edit"
@@ -897,7 +894,7 @@ manage_sales:
 # Manage stock moves
 manage_stock_moves:
   actions:
-  - "dashboards::sales"
+  - "dashboards::stocks"
   - "stock_transfers::confirm"
   - "stock_transfers::confirm_all"
   - "stock_transfers::create"
@@ -966,7 +963,7 @@ manage_tools:
 # Manage transports
 manage_transports:
   actions:
-  - "dashboards::sales"
+  - "dashboards::stocks"
   - "interfacers::search_for_outgoing_deliveries"
   - "transports::create"
   - "transports::destroy"

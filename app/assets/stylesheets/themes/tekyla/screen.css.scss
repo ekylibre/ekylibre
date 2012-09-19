@@ -468,20 +468,21 @@ input, textarea, select {
   border: $input-border;
   @include border-radius(3px);
   @include background($input-background); 
-  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.1) round($fs-normal*0.2) rgba(#000, 0.12) inset); /*incrust-shadow;*/
-  padding: $menu-border-width;
+  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset); /*incrust-shadow;*/
+  padding: 4*$menu-border-width;
   
   &:focus { 
+/*
     $color: change-color($base-color, $lightness: 70%);
     @include box-shadow(0 0 0.6em rgba($color, 0.9));
     border-color: $color;
+*/
     &.invalid { 
       border-color: $invalid-color !important; 
     }
   }
 }
 input.invalid, textarea.invalid, select.invalid { border: 1px solid $invalid-color !important; background-color: #FDD !important; }
-
 .kujaku { 
   background: white; 
   color: #580; 
@@ -1196,6 +1197,13 @@ input[data-datepicker] {@include text-align(center)}
       }
       #side { 
         border-color: $color;
+      }
+    }
+    input, textarea, select { 
+      &:focus { 
+        $icolor: change-color($color, $lightness: 40%);
+        @include box-shadow(0 0 0.6em rgba($icolor, 0.7));
+        border-color: $icolor;
       }
     }
   }

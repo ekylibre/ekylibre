@@ -56,6 +56,9 @@ class DashboardsController < ApplicationController
     class_eval code
   end
 
+  def index
+  end
+
   def welcome
     redirect_to :action => :index
   end
