@@ -1,7 +1,20 @@
 /*
  *  Main config file for the theme
  */
+@import "compass/reset";
+@import "compass/css3";
 @import "compass/utilities";
+
+@mixin define-right-property($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-right: $value; }
+  html[dir="rtl"] & { #{$base-name}-left: $value; }
+}
+
+@mixin margin-right($value) { @include define-right-property(margin, $value); }
+@mixin margin-left($value)  { @include define-left-property(margin, $value); }
+@mixin border-right($value) { @include define-right-property(border, $value); }
+@mixin border-left($value)  { @include define-left-property(border, $value); }
+
 
 @mixin left($base-name, $value) { 
   html[dir="ltr"] & { #{$base-name}-left: $value; }
@@ -37,7 +50,26 @@
   }
 }
 
+@mixin display($mode) { 
+  @if $mode == box { 
+    display: -o-box;
+    display: -ms-box;
+    display: -moz-box;
+    display: -webkit-box;
+    display: box;
+  } @else { 
+    display: $mode;
+  }
+}
 
+/* 37E */
+/*##############|                   |                   |                   |                   |                   |                   |*/
+$modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
+$modules-colors: #16D                #193                rgb(90%, 85%, 0%)   rgb(100%, 50%, 0%)  #D10                #7F4D15            ;
+$modules: ();
+@for $i from 1 through length($modules-names) { 
+  $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));
+}
 
 $fs-normal: 14px;
 $fs-small:      ceil(0.73*$fs-normal);
@@ -45,8 +77,8 @@ $fs-large:     round(1.15*$fs-normal);
 $fs-huge:      round(1.30*$fs-normal);
 $fs-very-huge: round(1.70*$fs-normal);
 
-$initial-color: #688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4;*/
-$base-color: change-color($initial-color, $lightness: 60%, $saturation: 50%);
+$initial-color: #777;  /*#601616; /*#688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4; */
+$base-color: #777; /*change-color($initial-color, $lightness: 60%, $saturation: 50%);*/
 $link-color:  darken($base-color, 27%);
 $text-color:  #111;
 $title-color: darken($base-color, 40%);
@@ -73,6 +105,7 @@ $menu-width: $fs-normal * 13;
 $menu-padding: 2*$menu-border-width;
 $menu-height:      2 * ceil($fs-normal * 0.875);
 $menu-text-height: 2 * ceil($fs-normal * 0.655);
+$input-border: $menu-border-width solid mix($desktop-background, $base-color, 40%);
 
 $default-border-radius: round($fs-normal/5);
 /* Variation from center to  */
@@ -88,6 +121,8 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   color: $title-color;
 }
 
+$l: 40%;
+$s: 70%;
 
 /*@include box-shadow(0 0 5px #555); @include box-shadow(0 0 5px rgba(0,0,0,0.5));*/
 @mixin menu-shadow { 
@@ -162,10 +197,11 @@ $cell-background-current: mix($desktop-background, $base-color, 62%);
   @include box-shadow(0 0 round($fs-normal/2) rgba(0,0,0,0.15));
 }
 
-$icons-layout: smart;
-@import "themes/tekyla/icons/*.png";
-@include all-icons-sprites;
 
 $common-layout: smart;
 @import "themes/tekyla/common/*.png";
 @include all-common-sprites;
+
+$icons-layout: smart;
+@import "themes/tekyla/icons/*.png";
+@include all-icons-sprites;

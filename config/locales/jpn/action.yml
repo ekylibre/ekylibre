@@ -64,7 +64,7 @@ jpn:
       # finances: "Finances dashboard"
       # general: "General dashboard"
       # production: "Production dashboard"
-      # relations: "Relations dashboard"
+      # relationship: "Relationship dashboard"
       # trade: "Trade dashboard"
       # welcome: "Welcome on Ekylibre"
     delays:
@@ -832,7 +832,7 @@ jpn:
       # general: "General"
       # home: "Home"
       # production: "Production"
-      # relations: "Relations"
+      # relationship: "Relationship"
       submenus:
         # accounts: "Accounts"
         # assets: "Assets"

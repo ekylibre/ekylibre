@@ -1,7 +1,7 @@
 -register = !defined?(Ekylibre::DONT_REGISTER)
 -bad_browser = false
 -if request.env["HTTP_USER_AGENT"].to_s.match(/MSIE (\d+\.\d+);/)
-  -bad_browser = ($1.to_f <= 6)
+  -bad_browser = ($1.to_f <= 9)
 -if bad_browser
   #bad_browser.login{:style=>"margin: 64px;"}
     .logoban

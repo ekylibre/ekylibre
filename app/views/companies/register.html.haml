@@ -13,8 +13,8 @@
         -f.field :user, :last_name
         -f.field :user, :first_name
         -f.field :user, :name
-        -f.field :user, :password, :null=>false
-        -f.field :user, :password_confirmation, :null=>false
+        -f.field :user, :password, :required => true
+        -f.field :user, :password_confirmation, :required => true
       %table.formalize
         %tr.field
           %td.label=tc(:load_demo_data)

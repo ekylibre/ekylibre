@@ -1,10 +1,9 @@
-@import "compass/css3";
-@import "config.css.scss";
+@import "active-list.css.scss";
 
-$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack);
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
-$buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px);
+$buttons-formats: ("themes/tekyla/icons-16.png" 24px "&" $buttons-radius) ("themes/tekyla/icons-12.png" 18px "&.mini" 2px) ("themes/tekyla/icons-24.png" 36px "&.large" 4px);
 
 $passive-bg: $menu-background;
 $active-bg: $base-color;
@@ -35,11 +34,9 @@ input[type="submit"], a.btn {
     #{$selector} { 
       white-space: nowrap;
       margin: 0;
-      padding: 4px 6px;
       color: $normal-color;
       @include button-normal-state($normal);
       @include inline-block;
-      // height: 16px;
       vertical-align: middle;
       span { 
         margin: 0 2px;
@@ -53,9 +50,6 @@ input[type="submit"], a.btn {
       }
       .icon { 
         background-repeat: no-repeat; 
-        width: 16px;
-        height: 16px;
-        // display: none;
       }
       &:focus {
         border: $menu-border-width solid $active;
@@ -67,11 +61,9 @@ input[type="submit"], a.btn {
           @include text-shadow(0 0 1px $normal-color);
           text-decoration: none;
         }
-        padding: 4px 6px;
         border-width: $menu-border-width;
       }
       &:active {
-        padding: 5px 6px 3px 6px;
         @include background-image(linear-gradient($active, darken($active, 8%)));
         border-color: rgba(0, 0, 0, 0.25) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1);
         @include box-shadow(0 2px 2px rgba(0, 0, 0, 0.3) inset, 0 -2px 2px rgba(0, 0, 0, 0.05));
@@ -140,7 +132,7 @@ input[type="submit"], a.btn {
 .toolbar { 
   margin: 0 0 8px 0;
   @include text-align(left);
-  a.btn, input[type="submit"] { 
+  a.btn.large, a.btn.mini, a.btn, input[type="submit"] { 
     @include border-radius(0);
     margin: 0 -($menu-border-width/2);
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
@@ -181,6 +173,7 @@ input[type="submit"], a.btn {
             .icon { background-position: (-$format-interval*$i) (-$format-interval*1);}
           }
           &:active {
+            // padding: 5px 6px 3px 6px;
             .icon { background-position: (-$format-interval*$i) (-$format-interval*1); }
           }
           &[disabled] {

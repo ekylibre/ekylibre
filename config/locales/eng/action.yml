@@ -53,11 +53,15 @@ eng:
       sort: "Sort custom field choices"
     dashboards:
       accountancy: "Accountancy dashboard"
-      finances: "Finances dashboard"
-      general: "General dashboard"
+      finances: "Finances dashboard" #?
+      general: "General dashboard" #?
       production: "Production dashboard"
-      relations: "Relations dashboard"
-      trade: "Trade dashboard"
+      # purchases: "Purchases dashboard"
+      relationship: "Relationship dashboard"
+      # sales: "Sales dashboard"
+      # settings: "Settings dashboard"
+      # stocks: "Stocks dashboard"
+      trade: "Trade dashboard" #?
       welcome: "Welcome on Ekylibre"
     delays:
       edit: "Edit the delay: %{name}"
@@ -800,7 +804,7 @@ eng:
       general: "General"
       home: "Home"
       production: "Production"
-      relations: "Relations"
+      relationship: "Relationship"
       submenus:
         accounts: "Accounts"
         assets: "Assets"

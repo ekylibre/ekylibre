@@ -57,6 +57,11 @@ class DashboardsController < ApplicationController
   end
 
   def welcome
+    redirect_to :action => :index
+  end
+
+  def settings
+    render :inline=>'<%=render :partial=>"dashboards/settings"-%>', :layout=>dialog_or_not
   end
 
 end

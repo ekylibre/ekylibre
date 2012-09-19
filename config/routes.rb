@@ -572,7 +572,7 @@ Ekylibre::Application.routes.draw do
     end
   end
   # end
-  match "/", :controller=>"dashboards", :action=>"general", :as=>"company_root"
+  match "/", :controller=>"dashboards", :action=>"index", :as=>"company_root"
   
-  root :to => "dashboards#general"
+  root :to => "dashboards#index"
 end

@@ -1,55 +1,49 @@
-=formalize do |f|
-  -f.error :entity
-  -f.error :datum
-  -f.title :general_informations
-  -f.field :entity, :nature_id, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>true
-  -f.field :entity, :language, :choices=>languages
-  -f.field :entity, :last_name
-  -f.field :entity, :first_name
-  -f.field :entity, :active, "data-hide"=>"#dead_on_form"
-  -f.field :entity, :code
-  -f.field :entity, :prospect
-  -f.field :entity, :client, "data-show"=>"#client_form"
-  -f.field :entity, :supplier, "data-show"=>"#supplier_form"
-  -f.field :entity, :attorney, "data-show"=>"#attorney_form"
-  -f.field :entity, :transporter
-  -f.title :details
-  -f.field :entity, :country,:choices=>countries
-  -f.field :entity, :siren
-  -f.field :entity, :activity_code
-  -f.field :entity, :vat_number
-  -f.field :entity, :excise
-  -f.field :entity, :born_on
-  -f.field :entity, :dead_on, :html_options=>{:id=>"dead_on_form"}
-  -f.field :entity, :website
-  -f.field :entity, :photo
-  -f.field :entity, :comment, :field=>:textarea
-  -f.field :entity, :ean13
+=field_set(@entity, :general_informations) do |f|
+  =f.association :nature, :choices=>{:reflection=>:entity_natures, :label=>:name, :order=>:name}, :new=>true
+  =f.input :language, :collection=>languages, :as => :select
+  =f.input :last_name
+  =f.input :first_name
+  =f.input :active, "data-hide"=>"#dead_on_form"
+  =f.input :code
+  =f.input :prospect
+  =f.input :client, "data-show"=>"#client_informations"
+  =f.input :supplier, "data-show"=>"#supplier_informations"
+  =f.input :attorney, "data-show"=>"#attorney_informations"
+  =f.input :transporter
+
+=field_set(@entity, :details, :collapsed => true) do |f|
+  =f.input :country, :collection => countries
+  =f.input :siren
+  =f.input :activity_code
+  =f.input :vat_number
+  -#=f.input :excise
+  =f.input :born_on
+  =f.input :dead_on, :html_options=>{:id=>"dead_on_form"}
+  -#=f.input :website
+  =f.input :photo
+  =f.input :comment, :field=>:textarea
+  -#=f.input :ean13
   -for datum in @custom_field_data
-    -f.field datum.custom_field.name, {:datatype=>datum.custom_field.nature.to_sym, :id=>"custom_field_datum_#{datum.custom_field_id}_value", :name=>"custom_field_datum[#{datum.custom_field_id}][value]", :value=>datum.value, :size=>datum.custom_field.length_max, :options=>{:include_blank=>(datum.custom_field.required ? nil : '')}, :choices=>datum.custom_field.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
+    =f.custom_field datum.custom_field.name, {:datatype=>datum.custom_field.nature.to_sym, :id=>"custom_field_datum_#{datum.custom_field_id}_value", :name=>"custom_field_datum[#{datum.custom_field_id}][value]", :value=>datum.value, :size=>datum.custom_field.length_max, :options=>{:include_blank=>(datum.custom_field.required ? nil : '')}, :choices=>datum.custom_field.choices.find(:all, :conditions=>{:company_id=>@current_company.id}, :order=>:position).collect{|x| [x.name , x.id]}  }
 
-=formalize(:id=>:client_form) do |f|
-  -f.title :client_informations
-  -f.field :entity, :category_id, :choices=>{:reflection=>:entity_categories}, :new=>true
-  -f.field :entity, :origin, "data-autocompletion"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_entity_origin)
-  -f.field :entity, :first_met_on
-  -f.field :entity, :proposer_id, :choices=>:entities
-  -f.field :entity, :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>true
-  -f.field :entity, :vat_submissive
-  -f.field :entity, :reflation_submissive
-  -f.field :entity, :discount_rate
-  -f.field :entity, :reduction_rate
-  -f.field :entity, :authorized_payments_count
-  -f.field :entity, :deliveries_conditions, :field=>:textarea
-  -f.field :entity, :client_account_id, :choices=>:clients_accounts, :new=>{:number=>@current_company.preferred_third_clients_accounts}
+=field_set(@entity, :client_informations) do |f|
+  =f.association :category, :choices=>{:reflection=>:entity_categories}, :new=>true
+  =f.input :origin, "data-autocompletion"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_entity_origin)
+  =f.input :first_met_on
+  =f.association :proposer, :choices=>:entities
+  =f.input :responsible_id, :choices=>{:reflection=>:users, :include_blank=>tc(:no_commercial)}, :new=>true
+  =f.input :vat_submissive
+  =f.input :reflation_submissive
+  =f.input :discount_rate
+  =f.input :reduction_rate
+  =f.input :authorized_payments_count
+  =f.input :deliveries_conditions, :field=>:textarea
+  =f.input :client_account_id, :choices=>:clients_accounts, :new=>{:number=>@current_company.preferred_third_clients_accounts}
 
-=formalize(:id=>:supplier_form) do |f|
-  -f.title :supplier_informations
-  -f.field :entity, :supplier_account_id, :choices=>:suppliers_accounts, :new=>{:number=>@current_company.preferred_third_suppliers_accounts}
+=field_set(@entity, :supplier_informations) do |f|
+  =f.input :supplier_account_id, :choices=>:suppliers_accounts, :new=>{:number=>@current_company.preferred_third_suppliers_accounts}
 
-=formalize(:id=>:attorney_form) do |f|
-  -f.title :attorney
-  -f.field :entity, :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:number=>@current_company.preferred_third_attorneys_accounts}
+=field_set(@entity, :attorney_informations) do |f|
+  =f.input :attorney_account_id, :choices=>:attorneys_accounts, :new=>{:number=>@current_company.preferred_third_attorneys_accounts}
 
 =render :partial=>"contacts/coordinates_form", :locals => {:company => @current_company}
-  

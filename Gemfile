@@ -21,9 +21,13 @@ gem 'combo_box'
 gem 'formize', '>= 0.1.0'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
-gem 'acts_as_tree', '0.2.0'
+gem 'acts_as_tree'
+gem 'simple_form'
+# gem 'bootstrap-sass', '~> 2.0.4.0'
+# gem 'less-rails-bootstrap'
+gem 'twitter-bootstrap-rails'
 
-gem 'eventmachine', '1.0.0.rc.4'
+gem 'eventmachine'
 gem 'thin'
 
 # Gems used only for assets and not required

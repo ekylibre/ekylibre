@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    Ascii85 (1.0.1)
+    Ascii85 (1.0.2)
     actionmailer (3.2.8)
       actionpack (= 3.2.8)
       mail (~> 2.4.4)
@@ -35,10 +35,11 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts_as_list (0.1.8)
-    acts_as_tree (0.2.0)
+    acts_as_tree (1.1.0)
+      activerecord (>= 3.0.0)
     addressable (2.3.2)
     arel (3.0.2)
-    builder (3.0.0)
+    builder (3.0.3)
     capybara (1.1.2)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
@@ -59,6 +60,7 @@ GEM
     combo_box (0.0.11)
       jquery-rails
       rails (>= 3.1)
+    commonjs (0.2.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -78,7 +80,7 @@ GEM
     database_cleaner (0.8.0)
     diff-lcs (1.1.3)
     erubis (2.7.0)
-    eventmachine (1.0.0.rc.4)
+    eventmachine (1.0.0)
     exception_notification (2.6.1)
       actionmailer (>= 3.0.4)
     execjs (1.4.0)
@@ -98,10 +100,15 @@ GEM
     i18n-complements (0.0.4)
       i18n (>= 0.6)
     journey (1.0.4)
-    jquery-rails (2.1.1)
+    jquery-rails (2.1.2)
       railties (>= 3.1.0, < 5.0)
       thor (~> 0.14)
     json (1.7.5)
+    less (2.2.2)
+      commonjs (~> 0.2.6)
+    less-rails (2.2.3)
+      actionpack (>= 3.1)
+      less (~> 2.2.0)
     libv8 (3.3.10.4)
     libwebsocket (0.1.5)
       addressable
@@ -173,6 +180,9 @@ GEM
       libwebsocket (~> 0.1.3)
       multi_json (~> 1.0)
       rubyzip
+    simple_form (2.0.2)
+      actionpack (~> 3.0)
+      activemodel (~> 3.0)
     sprockets (2.1.3)
       hike (~> 1.2)
       rack (~> 1.0)
@@ -191,6 +201,11 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     ttfunk (1.0.3)
+    twitter-bootstrap-rails (2.1.3)
+      actionpack (>= 3.1)
+      less-rails (~> 2.2.3)
+      railties (>= 3.1)
+      therubyracer (~> 0.10.2)
     tzinfo (0.3.33)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
@@ -204,14 +219,14 @@ PLATFORMS
 DEPENDENCIES
   active-list
   acts_as_list
-  acts_as_tree (= 0.2.0)
+  acts_as_tree
   capybara
   coffee-rails (~> 3.2.1)
   combo_box
   compass-rails
   cucumber-rails
   database_cleaner
-  eventmachine (= 1.0.0.rc.4)
+  eventmachine
   exception_notification
   fastercsv
   formize (>= 0.1.0)
@@ -226,8 +241,10 @@ DEPENDENCIES
   rspec-rails
   rubyzip
   sass-rails (~> 3.2.3)
+  simple_form
   sqlite3
   state_machine
   therubyracer
   thin
+  twitter-bootstrap-rails
   uglifier (>= 1.0.3)

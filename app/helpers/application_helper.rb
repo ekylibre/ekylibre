@@ -95,11 +95,11 @@ module ApplicationHelper
     Ekylibre.reverse_menus[action]||[]
   end
 
-  LEGALS_SENTENCE = ("Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION}").freeze
+  # LEGALS_ITEMS = [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s)].join(" &ndash; ".html_safe).freeze
 
   def legals_sentence
     # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
-    LEGALS_SENTENCE
+    return [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s), h("HTML 5"), h("CSS 3")].join(" &ndash; ").html_safe
   end
 
   def choices_yes_no
@@ -452,6 +452,18 @@ module ApplicationHelper
     return html.html_safe
   end
 
+  # def toolbar_tag
+  #   html = ""
+  #   if action_name.to_s == "show"
+  #     buttons = ""
+  #     buttons << tool_to("???", {:action => :show}, :class => :large)
+  #     buttons << tool_to("???", {:action => :edit}, :class => :large)
+  #     buttons << tool_to("???", {:action => :destroy}, :class => :large)
+  #     html << content_tag(:div, buttons.html_safe, :id => :toolbar, :class => :toolbar)
+  #   end
+  #   return html.html_safe
+  # end
+
 
   def notification_tag(mode)
     # content_tag(:div, flash[mode], :class=>'flash ' << mode.to_s) unless flash[mode].blank?
@@ -516,7 +528,9 @@ module ApplicationHelper
       src = data[0].strip
       if src.match(/^theme:/)
         # src = image_path("/themes/#{@current_theme}/images/#{src.split(':')[1]}")
-        src = image_path("themes/#{@current_theme}/#{src.split(':')[1]}")
+        path = src.split(':')[1]
+        path.gsub!(/^buttons/, "icons")
+        src = image_path("themes/#{@current_theme}/#{path}")
       else
         src = image_path(src)
       end
@@ -698,7 +712,16 @@ module ApplicationHelper
       tag << content_tag(:tr, code.html_safe)
     end
     tag = form_tag(url, :method=>:get) {content_tag(:table, tag.html_safe)}
-    return content_tag(:div, tag.to_s.html_safe, :class=>:kujaku)
+    
+    id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
+
+    content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class=>"kujaku popover", :id => id))
+
+    tb = content_tag(:a, content_tag(:div, nil, :class=>:icon) + content_tag(:div, "Rechercher", :class => :text), :class => "btn search", "data-toggle-visibility" => "##{id}")
+
+    content_for(:toolbar, tb)
+
+    return ""
   end
 
   class Kujaku
@@ -755,6 +778,7 @@ module ApplicationHelper
   def tabbox(id, options={})
     tb = Tabbox.new(id)
     yield tb
+    return '' if tb.tabs.size.zero?
     tabs = ''
     taps = ''
     session[:tabbox] ||= {}
@@ -818,7 +842,7 @@ module ApplicationHelper
     raise ArgumentError.new("##{__method__} cannot use blocks") if block_given?
     icon = (options.has_key?(:tool) ? options.delete(:tool) : url.is_a?(Hash) ? url[:action] : nil)
     sprite = options.delete(:sprite) || "icons-16"
-    options[:class] = (options[:class].blank? ? 'btn' : options[:class]+' btn')
+    options[:class] = (options[:class].blank? ? 'btn' : options[:class].to_s+' btn')
     options[:class] += ' '+icon.to_s if icon
     options[:class] += ' '+options.delete(:size).to_s if options.has_key?(:size)
     link_to(url, options) do
@@ -885,14 +909,22 @@ module ApplicationHelper
         end
       end
       if code.strip.length>0
-        # code = content_tag(:ul, code.html_safe) << content_tag(:div)
-        # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
-        code = content_tag(:div, code.html_safe, :class=>'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class=>:clearfix)
+        # # code = content_tag(:ul, code.html_safe) << content_tag(:div)
+        # # code = content_tag(:h2, t(call << options[:title].to_s)) << code if options[:title]
+        if @not_first_toolbar
+          code = content_tag(:div, code.html_safe, :class=>'toolbar' + (options[:class].nil? ? '' : ' ' << options[:class].to_s)) + content_tag(:div, nil, :class=>:clearfix)
+        end
       end
     else
       raise Exception.new('No block given for toolbar')
     end
-    return code.html_safe
+    if @not_first_toolbar
+      return code.html_safe
+    else
+      content_for :toolbar, code.html_safe
+      @not_first_toolbar = true
+      return ""
+    end
   end
 
   class Toolbar
@@ -970,38 +1002,176 @@ module ApplicationHelper
   end
 
 
-  def field_set(record, options = {}, html_options = {}, &block)
-    legend = options.delete(:legend)
+  def field_set(*args, &block)
+    record, legend, options, html_options = nil, nil, {}, {}
+    if args[0].is_a?(Ekylibre::Record::Base)
+      record = args.shift
+    end
+    if args[0].is_a?(Symbol) or args[0].is_a?(String)
+      legend = args.shift
+    end
+    options = args.shift if args[0].is_a?(Hash)
+    html_options = args.shift if args[0].is_a?(Hash)
+    set_id = Time.now.to_i.to_s(36)+(100000*rand).to_i.to_s(36)
+    id = nil
     html = ""
-    if legend.is_a?(String)
+    if legend
       if legend.is_a?(Symbol)
+        id = legend
+        set_id = "#{id}-set"
         legend = legend.t(:default => ["labels.#{legend}".to_sym, "form.legends.#{legend}".to_sym])
       elsif !legend.is_a?(String)
         legend = legend.to_s
       end
-      html << content_tag(:legend, legend)
+      legend_html = ""
+      toggle_id = set_id + "-toggle"
+      legend_html << content_tag(:span, nil, :class => :icon)
+      legend_html << content_tag(:label, legend, :for => toggle_id)
+      legend_html << content_tag(:span, nil, :id => toggle_id, "data-toggle-set" => '#'+set_id, :class => (options[:collapsed] ? "collapsed" : "not-collapsed"))
+      html << content_tag(options[:legend_tag]||:div, legend_html.html_safe, :class => "legend")
     end
-    html << group(record, options, &block)
-    return content_tag(:fieldset, html.html_safe, html_options)
+    form = Formika.new(record, :company => @current_company, :controller => controller)
+    attrs = {:class => :set, :id => set_id}
+    attrs[:style] = "display: none" if options[:collapsed]
+    # html << content_tag(:div, capture(form, &block), attrs)
+    html << content_tag(:div, simple_fields_for(record, &block), attrs)
+    html_options[:id] ||= id if id
+    if html_options[:class]
+      html_options[:class] = html_options[:class].to_s + " "
+    else
+      html_options[:class] = ""
+    end
+    html_options[:class] << "fieldset"
+    return content_tag(options[:tag]||:div, html.html_safe, html_options)
   end
+
+
   
 
-
-  def group(record, options = {}, &block)
-    form = Formika.new(record)
-    return capture(form, &block)
-  end
-
-  class Formika
+  class Formika < ActionView::Helpers::FormBuilder
+    include ActionView::Helpers
 
     def initialize(record, options = {})
       @record = record
-      @klass = record.class
+      @class = record.class
+      @company = options[:company]
+      @controller = options[:controller]
     end
 
     
-    def field(name, options={})
-      return name.to_s
+    def input(name, options={}, html_options = {})
+      classes = [:field]
+      input_id = rand.to_s
+      html = ""
+
+      # input
+      column = @class.columns_hash[name.to_s]
+      input_id = @class.name.tableize.singularize << '_' << name.to_s
+      for k, v in options
+        html_options[k] = v if k.to_s.match(/^data\-/)
+      end
+      type = options[:as]
+      if name.to_s.match /password/
+        html_options[:size] ||= 12
+        type ||= :password 
+      end
+      
+      html_options[:size] = options[:size]||24
+      html_options[:class] = options[:class].to_s
+      html_options[:required] = true if options[:required]
+      if column
+        type ||= column.type
+        html_options[:required] ||= true unless column.null or type == :boolean
+        unless column.limit.nil?
+          html_options[:size] = column.limit if column.limit < html_options[:size]
+          html_options[:maxlength] = column.limit
+        end
+      end
+      html_options[:size] ||= 16 if type == :integer
+      if type == :date
+        html_options[:size] ||= 10
+      elsif type == :timestamp
+        type = :datetime
+      end
+
+      options[:options] ||= {}
+      
+      if options[:choices]
+        html_options.delete :size
+        html_options.delete :maxlength
+        rlid = options[:id]
+        if options[:choices].is_a? Array
+          type = :select if type != :radio
+        elsif options[:choices].is_a? Hash
+          type = :dyselect
+          html_options[:id] = rlid
+        elsif options[:choices].is_a? Symbol
+          type = :combo_box
+          html_options[:id] = rlid
+          # options[:options][:field_id] = rlid
+        else
+          raise ArgumentError.new("Option :choices must be Array, Symbol or Hash (got #{options[:choices].class.name})")
+        end
+      end
+
+      input = case type
+              when :password
+                password_field(@record, name, html_options)
+              when :label
+                @record.send(name)
+              when :boolean
+                check_box(@record, name, html_options)
+              when :select
+                options[:choices].insert(0, [options[:options].delete(:include_blank), '']) if options[:options][:include_blank].is_a? String
+                select(@record, name, options[:choices], options[:options], html_options)
+              when :dyselect
+                select(@record, name, @company.reflection_options(options[:choices]), options[:options], html_options.merge("data-refresh" => @controller.url_for(options[:choices].merge(:controller => :interfacers, :action => :unroll_options)), "data-id-parameter-name"=>"selected") )
+              # when :combo_box
+              #   combo_box(@record, name, options[:choices], options[:options].merge(:controller=>:interfacers), html_options)
+              when :radio
+                options[:choices].collect{|x| content_tag(:span, radio_button(@record, name, x[1], x[2]||{}) + " " + content_tag(:label, x[0], :for=>input_id + '_' + x[1].to_s), :class=>:rad)}.join(" ").html_safe
+              when :textarea, :text_area
+                text_area(@record, name, :cols => options[:options][:cols]||50, :rows => options[:options][:rows]||2, :class=>(options[:options][:cols]==80 ? :code : nil))
+              # when :date
+              #   date_field(@record, name, html_options)
+              # when :datetime
+              #   datetime_field(@record, name, html_options)
+              else
+                text_field(@record, name, html_options)
+              end
+
+      if options[:new].is_a? Symbol
+        options[:new] = {:controller => options[:new].to_s.pluralize.to_sym} 
+      elsif options[:new].is_a? TrueClass
+        options[:new] = {}
+      end
+      if options[:new].is_a?(Hash) and [:select, :dyselect, :combo_box].include?(type)
+        options[:edit] = {} unless options[:edit].is_a? Hash
+        if name.to_s.match(/_id$/) and refl = @class.reflections[name.to_s[0..-4].to_sym]
+          options[:new][:controller] ||= refl.class_name.underscore.pluralize
+          options[:edit][:controller] ||= options[:new][:controller]
+        end
+        options[:new][:action] ||= :new
+        options[:edit][:action] ||= :edit
+        if type == :select
+          input << link_to(label, options[:new], :class=>:fastadd, "data-confirm" => ::I18n.t('notifications.you_will_lose_all_your_current_data')) unless request.xhr?
+        elsif true # authorized?(options[:new])
+          data = (options[:update] ? options[:update] : rlid)
+          input << content_tag(:span, link_to(:new.t(:scope => "labels"), @controller.url_for(options[:new]), "data-new-item"=>data, :tool=>:new).html_safe, :class => "mini-toolbar")
+        end
+      end
+
+      # label
+      label = options[:label] || @class.human_attribute_name(name.to_s.gsub(/_id$/, ''))
+      html << content_tag(:label, label, :for => input_id)
+
+      html << input # text_field(@record, name)
+      return content_tag(:div,html.html_safe, :class => classes.join(" "))
+    end
+
+
+    def custom_field(label, input, options = {})
+      return content_tag(:div, name.to_s, :class => :input)
     end
 
     private
@@ -1234,7 +1404,6 @@ module ApplicationHelper
       end
       
       label = options[:label] || object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
-      label = " " if options[:options][:hide_label] 
       label = content_tag(:label, label, :for=>input_id) if object!=record
     elsif line[:field]
       label = line[:label]||'[NoLabel]'

@@ -384,8 +384,8 @@
     };
     // $.behave("*[data-autofocus]", "load", $.autoFocus);
     // $.behave("input[type='text']:first", "load", $.autoFocus);
-    $.behave("*:input:visible:first", "load", $.autoFocus);
-    $.behave("*[data-autofocus]:visible", "load", $.autoFocus);
+/*    $.behave("*:input:visible:first", "load", $.autoFocus);
+    $.behave("*[data-autofocus]:visible", "load", $.autoFocus);*/
 
 
     // Toggle visibility
@@ -422,6 +422,46 @@
 	data = element.data("insert");
 	$(element.data("insert-into")).each(function (index) {
 	    insertInto(this, '', '', data);
+	});
+	return false;
+    });
+
+    $(document).on("click", "[data-toggle-set]", function (event) {
+	var element = $(this), target = $(element.data("toggle-set")), shown;
+	if (element.hasClass("collapsed")) {
+	    element.removeClass("collapsed");
+	    element.addClass("not-collapsed");
+	    target.slideDown();
+	    shown = 1;
+	} else {
+	    element.removeClass("not-collapsed");
+	    element.addClass("collapsed");
+	    target.slideUp();
+	    shown = 0;
+	}
+	return false;
+    });
+
+    $(document).on("mouseenter", ".btn", function (event) {
+	var button = $(this), text;
+	if (button.attr("title") == null || button.attr("title") == undefined) {
+	    text = button.find(".text:hidden").first();
+	    if (text !== null && text !== undefined) {
+		button.attr("title", text.html());
+            }
+	}
+	return true;
+    });
+
+    $(document).on("click", "a[data-target]", function (event) {
+	var selector = $(this).data('target');
+	$(selector).each(function (index) {
+	    var target = $(this);
+	    if (target.hasClass("visible")) {
+		target.removeClass("visible");
+	    } else {
+		target.addClass("visible");
+	    }
 	});
 	return false;
     });

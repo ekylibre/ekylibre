@@ -25,7 +25,8 @@ module Ekylibre::Record
   class Base < ActiveRecord::Base
     self.abstract_class = true
 
-    include ActiveRecord::Acts::Tree
+    # Replaces old module: ActiveRecord::Acts::Tree
+    include ActsAsTree 
 
     # Make all models stampables
     self.stampable
