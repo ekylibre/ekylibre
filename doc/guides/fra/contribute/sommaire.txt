@@ -1,0 +1,40 @@
+"Devenir contributeur Ekylibre"
+
+h1. Objectifs
+--------------
+Comprendre et écrire du code Ruby
+Comprendre Rails et sa philosophie (MVC / DRY / REST)
+Installer un environnement de developpement
+Rédiger des spécifications,cas d'utilisation et dessins d'écrans
+Coder,tester et Livrer ses spécifications en utilisant le framework Rails à la sauce "Ekylibre"
+
+h1. Programme
+---------------
+
+h2. Jour 1 - 4H
+---------------
+Apprendre Ruby
+http://www.ruby-lang.org/fr/documentation/quickstart/
+
+Courses Ruby
+http://tryruby.org/levels/1/challenges/2
+http://rubymonk.com/
+
+h2. Jour 2 - 4H
+---------------
+Apprendre Rails
+http://french.railstutorial.org/chapters/beginning
+http://guides.rubyonrails.org/getting_started.html
+http://ymarec.developpez.com/tutoriel/rails/initiation/
+
+Courses rails
+http://railsforzombies.org/
+
+h2. Jour 3 - 4H
+---------------
+Apprendre Ekylibre
+
+
+
+Rails on Windows
+http://railsinstaller.org/
