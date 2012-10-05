@@ -8,8 +8,14 @@ Installer un environnement de developpement
 Rédiger des spécifications,cas d'utilisation et dessins d'écrans
 Coder,tester et Livrer ses spécifications en utilisant le framework Rails à la sauce "Ekylibre"
 
+h2. Pré-requis
+un compte sur http://www.codeschool.com/
+
 h1. Programme
 ---------------
+
+
+
 
 h2. Jour 1 - 4H
 ---------------
