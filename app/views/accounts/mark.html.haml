@@ -16,39 +16,40 @@
   .fields
     -for x in [:period, :started_on, :stopped_on]
       =hidden_field_tag(x, params[x])
-    %table.list
-      %thead
-        %tr
-          %th=JournalEntryLine.human_attribute_name("letter")
-          %th.act
-          %th=JournalEntry.human_attribute_name("printed_on")
-          %th=Journal.model_name.human
-          %th=JournalEntry.model_name.human
-          %th=JournalEntryLine.human_attribute_name("name")
-          %th=JournalEntryLine.human_attribute_name("debit")
-          %th=JournalEntryLine.human_attribute_name("credit")
-      %tbody
-        -for line in @account.reconcilable_entry_lines(params[:period], params[:started_on], params[:stopped_on])
-          -checked = (line.letter.blank? and (params[:journal_entry_line]||{}).keys.include?(line.id.to_s))
-          -trid, conf = "e#{line.id}", {}
-          %tr{:id=>trid, :class=>(line.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
-            %td.chk
-              -if line.letter.blank? and not line.closed?
-                =check_box_tag("journal_entry_line[#{line.id}][to_mark]", "1", checked, :id=>"journal_entry_line_#{line.id}_to_mark", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
-                -conf = {"data-click"=>"#journal_entry_line_#{line.id}_to_mark"}
-              -else
-                =line.letter
-            %td.act=link_to(image_tag(theme_button(:unmark), :border=>0), {:action=>:unmark, :id=>@account.id, :letter=>line.letter}, :method=>:post, "data-confirm" => tg(:are_you_sure)) unless line.letter.blank? or line.closed?
-            %td.dat{conf}=I18n.localize(line.entry.printed_on)
-            %td{conf}=link_to(line.journal.name, {:action=>:show, :controller=>:journals, :id=>line.journal_id}, :keep=>true)
-            %td.code{conf}=link_to(line.entry.number, {:action=>:show, :controller=>:journal_entries, :id=>line.entry_id}, :keep=>true)
-            %td{conf}=line.name
-            %td.dec.debit{conf}=number_to_accountancy(line.debit)
-            %td.dec.credit{conf}=number_to_accountancy(line.credit)
-        %tr#total.total{"data-valid-if-equality-between"=>"#total-debit, #total-credit"}
-          %th{:colspan=>6}=tg(:total)
-          %td#total-debit{"data-use"=>"tr.notice .debit"}=0
-          %td#total-credit{"data-use"=>"tr.notice .credit"}=0
+    .active-list
+      %table.list
+        %thead
+          %tr
+            %th=JournalEntryLine.human_attribute_name("letter")
+            %th.act
+            %th=JournalEntry.human_attribute_name("printed_on")
+            %th=Journal.model_name.human
+            %th=JournalEntry.model_name.human
+            %th=JournalEntryLine.human_attribute_name("name")
+            %th=JournalEntryLine.human_attribute_name("debit")
+            %th=JournalEntryLine.human_attribute_name("credit")
+        %tbody
+          -for line in @account.reconcilable_entry_lines(params[:period], params[:started_on], params[:stopped_on])
+            -checked = (line.letter.blank? and (params[:journal_entry_line]||{}).keys.include?(line.id.to_s))
+            -trid, conf = "e#{line.id}", {}
+            %tr{:id=>trid, :class=>(line.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
+              %td.chk
+                -if line.letter.blank? and not line.closed?
+                  =check_box_tag("journal_entry_line[#{line.id}][to_mark]", "1", checked, :id=>"journal_entry_line_#{line.id}_to_mark", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
+                  -conf = {"data-click"=>"#journal_entry_line_#{line.id}_to_mark"}
+                -else
+                  =line.letter
+              %td.act=link_to("labels.unmark".t, {:action=>:unmark, :id=>@account.id, :letter=>line.letter}, :class => "unmark", :method=>:post, "data-confirm" => tg(:are_you_sure)) unless line.letter.blank? or line.closed?
+              %td.dat{conf}=I18n.localize(line.entry.printed_on)
+              %td{conf}=link_to(line.journal.name, {:action=>:show, :controller=>:journals, :id=>line.journal_id}, :keep=>true)
+              %td.code{conf}=link_to(line.entry.number, {:action=>:show, :controller=>:journal_entries, :id=>line.entry_id}, :keep=>true)
+              %td{conf}=line.name
+              %td.dec.debit{conf}=number_to_accountancy(line.debit)
+              %td.dec.credit{conf}=number_to_accountancy(line.credit)
+          %tr#total.total{"data-valid-if-equality-between"=>"#total-debit, #total-credit"}
+            %th{:colspan=>6}=tg(:total)
+            %td#total-debit{"data-use"=>"tr.notice .debit"}=0
+            %td#total-credit{"data-use"=>"tr.notice .credit"}=0
     .end
   .actions=submit_tag tg(:save)
 

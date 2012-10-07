@@ -23,5 +23,3 @@ Si vous avez déjà enregistré une adresse à votre client, celle-ci apparaitra
 ==== Devis au format lettre ====
 Cocher ce champ vous permettra de **personnaliser votre devis** en ayant la possibilité de renseigner des champs tels que les civilités, introduction, conclusion...
 Autant d'**informations qui s'ajouteront à votre devis lors de son impression**.
-
-

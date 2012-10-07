@@ -49,8 +49,8 @@ class BankStatementsController < ApplicationController
     t.column :created_on, :through=>:entry, :datatype=>:date, :label=>:column
     t.column :name
     t.column :number, :through=>:account, :url=>true
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
 
   # Displays details of one bank statement selected with +params[:id]+

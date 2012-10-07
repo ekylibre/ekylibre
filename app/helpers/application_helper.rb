@@ -401,7 +401,7 @@ module ApplicationHelper
     begin
       html << capture(&block)
     rescue Exception => e
-      html << "#{h(e.class.name)}: #{h(e.message)}"
+      html << content_tag(:small, "#{e.class.name}: #{e.message}")
     end
     html << "</div>"
     html << "</div>"

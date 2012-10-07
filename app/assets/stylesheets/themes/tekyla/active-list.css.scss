@@ -254,6 +254,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         &.sort        { @include icons-sprite(sort); }
         &.table       { @include icons-sprite(table); }
         &.unchecked   { @include icons-sprite(false); }
+        &.unmark      { @include icons-sprite(unmark); }
         &.up          { @include icons-sprite(up); }
       }
      

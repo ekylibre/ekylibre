@@ -78,14 +78,14 @@ fra:
   number:
     currency:
       format:
-        delimiter: "\_"
-        format: "%n\_%u"
-        negative_format: "-%n\_%u"
+        delimiter: "%s"
+        format: "%n%s%u"
+        negative_format: "-%n%s%u"
         precision: 2
         separator: ","
         unit: "???"
     format:
-      delimiter: " "
+      delimiter: "%s"
       precision: 3
       separator: ","
     human:
