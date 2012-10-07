@@ -19,54 +19,6 @@
 # ##### END LICENSE BLOCK #####
 
 
-# require_dependency Rails.root.join("lib", "exchanges", "svf", "loader").to_s
-
-
-# module ActiveRecord
-#   class Base
-
-
-#     def merge(object, force=false)
-#       raise Exception.new("Unvalid object to merge: #{object.class}. #{self.class} expected.") if object.class != self.class
-#       reflections = self.class.reflections.collect{|k,v|  v if v.macro==:has_many}.compact
-#       if force
-#         for reflection in reflections
-#           klass = reflection.class_name.constantize 
-#           begin
-#             klass.update_all({reflection.foreign_key=>self.id}, {reflection.foreign_key=>object.id})
-#           rescue
-#             for item in object.send(reflection.name)
-#               begin
-#                 item.send(reflection.foreign_key.to_s << '=', self.id)
-#                 item.send(:update_without_callbacks)
-#               rescue
-#                 # If the item can't be attached, the item can't be.
-#                 puts item.inspect
-#                 klass.delete(item)
-#               end
-#             end
-#           end
-#         end
-#         object.delete
-#       else
-#         ActiveRecord::Base.transaction do
-#           for reflection in reflections
-#             reflection.class_name.constantize.update_all({reflection.foreign_key=>self.id}, {reflection.foreign_key=>object.id})
-#           end
-#           object.delete
-#         end
-#       end
-#       return self
-#     end
-
-#     def has_dependencies?
-
-#     end
-
-
-#   end
-# end
-
 # encoding: utf-8
 
 
@@ -446,7 +398,11 @@ module ApplicationHelper
     html << "<h2>" + (options[:title]||tl(name)) + "</h2>"
     html << "</div>"
     html << "<div class='sd-content'" + (shown ? '' : ' style="display: none"') + ">"
-    html << capture(&block)
+    begin
+      html << capture(&block)
+    rescue Exception => e
+      html << "#{h(e.class.name)}: #{h(e.message)}"
+    end
     html << "</div>"
     html << "</div>"
     return html.html_safe
