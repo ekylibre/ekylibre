@@ -411,11 +411,14 @@ table.quick td { padding: 0px 4px; }
 
 .attributes-list {
   border-collapse: collapse; width: 100%;
-  tr td { border-bottom: $menu-border; border-style : dotted;}
+  tr td { border-bottom: $menu-border; border-style : dotted; }
   .label, .value { padding: round($fs-normal/6) round($fs-normal/3);  vertical-align: middle; }
   .code { font-family: "Liberation Mono", monospace; }
   .label { color: #555; @include text-align(right);}
-  .value .string { max-height: 3em; overflow-y: auto;}
+  .value .string {
+    max-height: 3em; overflow-y: auto; 
+    &, & * { font-size: $fs-normal; line-height: $fs-normal;}
+  }
 }
 
 .desc { background: transparent; text-shadow: white 0 0 1.5px; color: black; behavior: url(/pie.htc); }
