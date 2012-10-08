@@ -228,15 +228,25 @@ class FinancialYear < CompanyRecord
     query << " AND ("+normals.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")"
     query << " AND NOT ("+excepts.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
     balance = ActiveRecord::Base.connection.select_value(query)
-    # self.balance(accounts, false)
+    return (balance.blank? ? nil : balance.to_d)
   end
 
+  # Computes and formats debit balance for an account regexp
+  # Use I18n to produce string
   def debit_balance(accounts)
-    self.balance(accounts, false)
+    if value = self.balance(accounts, false)
+      return value.l(:currency => self.currency)
+    end
+    return nil
   end
 
+  # Computes and formats credit balance for an account regexp
+  # Use I18n to produce string
   def credit_balance(accounts)
-    self.balance(accounts, true)
+    if value = self.balance(accounts, true)
+      return value.l(:currency => self.currency)
+    end
+    return nil
   end
 
 

@@ -20,16 +20,17 @@ set -e
 
 case "$1" in
     configure)
-	gem_bin_dir="`gem environment gemdir`/bin"
+	gem=gem1.9.1
+	gem_bin_dir="`${gem} environment gemdir`/bin"
 	PATH=$gem_bin_dir:$PATH
 
 	# Update Rubygems if necessary
-	versions="`gem --version`\n1.3.6.9999"
-	version="`echo -e ${versions} | sort -t '.' -g | tail -n 1`"
-	if [ ${version} = "1.3.6.9999" ]; then
-	    gem install rubygems-update --no-ri --no-rdoc
-            update_rubygems
-	fi
+	# versions="`${gem} --version`\n1.3.6.9999"
+	# version="`echo -e ${versions} | sort -t '.' -g | tail -n 1`"
+	# if [ ${version} = "1.3.6.9999" ]; then
+	#     ${gem} install rubygems-update --no-ri --no-rdoc
+        #     update_rubygems
+	# fi
 
 	# Install conf dir
 	rm -f /usr/share/ekylibre/config/database.yml
@@ -39,7 +40,9 @@ case "$1" in
 	
 	# Install log dir
 	mkdir -p /var/log/ekylibre
+	touch /var/log/ekylibre/production.log
 	chown www-data:www-data /var/log/ekylibre
+	chmod 666 /var/log/ekylibre/production.log
 	rm -fr /usr/share/ekylibre/log
 	ln -s /var/log/ekylibre /usr/share/ekylibre/log
 
@@ -65,8 +68,8 @@ case "$1" in
 	cd /usr/share/ekylibre
 
 	# Install bundler
-	if [ "`gem list -i bundler`" = "false" ]; then
-	    gem install bundler --no-ri --no-rdoc
+	if [ "`${gem} list -i bundler`" = "false" ]; then
+	    ${gem} install bundler --no-ri --no-rdoc
 	fi
 	
 	# Determine bundle command
@@ -77,15 +80,19 @@ case "$1" in
 
 	# Check gems
 	bundle install
-
+	
+	# Migrate
 	bundle exec rake db:migrate RAILS_ENV=production
+
+	# Reset sessions
+	bundle exec rake db:sessions:clear RAILS_ENV=production
 
 
 	if [ -e /etc/apache2/mods-enabled/passenger.load ]; then
 	    a2dismod passenger
 	fi
 
-	gem install rake passenger --no-ri --no-rdoc
+	${gem} install rake passenger --no-ri --no-rdoc
 
 	version=`passenger-config --version`
 	passenger-install-apache2-module -a
@@ -107,10 +114,10 @@ case "$1" in
 	# fi
 
 	# # Make sure that Rake is fully installed and usable from $PATH
-	# gem install rake --no-ri --no-rdoc
+	# ${gem} install rake --no-ri --no-rdoc
 
 	# if [ $install_passenger = "1" ]; then
-	#     gem install passenger --no-ri --no-rdoc
+	#     ${gem} install passenger --no-ri --no-rdoc
 	#     version=`passenger-config --version`
 	#     passenger-install-apache2-module -a
 	#     passenger-install-apache2-module --snippet > /etc/apache2/conf.d/passenger.conf

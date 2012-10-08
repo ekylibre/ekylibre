@@ -66,7 +66,6 @@ class JournalEntryLine < CompanyRecord
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
 
-
   state_machine :state, :initial=>:draft do
     state :draft
     state :confirmed

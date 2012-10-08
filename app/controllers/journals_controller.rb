@@ -157,8 +157,8 @@ class JournalsController < ApplicationController
     t.column :number, :through=>:account, :url=>true
     t.column :name, :through=>:account, :url=>true
     t.column :name
-    t.column :debit
-    t.column :credit
+    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
   
   # this method lists all the entries generated in draft mode.

@@ -38,8 +38,8 @@ class FinancialYearsController < ApplicationController
   list(:account_balances, :joins=>:account, :conditions=>{:company_id=>['@current_company.id'], :financial_year_id=>['session[:current_financial_year_id]']}, :order=>"number") do |t|
     t.column :number, :through=>:account, :url=>true
     t.column :name, :through=>:account, :url=>true
-    t.column :local_debit
-    t.column :local_credit
+    t.column :local_debit, :currency => "RECORD.financial_year.currency"
+    t.column :local_credit, :currency => "RECORD.financial_year.currency"
   end
 
   list(:asset_depreciations, :conditions=>{:company_id=>['@current_company.id'], :financial_year_id=>['session[:current_financial_year_id]']}) do |t|

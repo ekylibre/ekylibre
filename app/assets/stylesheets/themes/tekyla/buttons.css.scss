@@ -134,7 +134,11 @@ input[type="submit"], a.btn {
   @include text-align(left);
   a.btn.large, a.btn.mini, a.btn, input[type="submit"] { 
     @include border-radius(0);
-    margin: 0 -($menu-border-width/2);
+    margin-left: -1 * $menu-border-width;
+    z-index: 1;
+    &:first-child { 
+      margin-left: 0;
+    }
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
       @include border-top-left-radius($buttons-radius);
       @include border-bottom-left-radius($buttons-radius);
@@ -142,6 +146,10 @@ input[type="submit"], a.btn {
     html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
       @include border-top-right-radius($buttons-radius);
       @include border-bottom-right-radius($buttons-radius);
+    }
+    &:focus, &:hover, &:active { 
+      position: relative;
+      z-index: 2;
     }
   }
 }
