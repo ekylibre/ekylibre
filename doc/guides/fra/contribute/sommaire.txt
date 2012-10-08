@@ -1,21 +1,24 @@
 h1. Devenir contributeur Ekylibre
-----
+
 h2. Objectifs
+
 Comprendre et écrire du code Ruby
 Comprendre Rails et sa philosophie (MVC / DRY / REST)
 Installer un environnement de developpement
 Rédiger des spécifications,cas d'utilisation et dessins d'écrans
 Coder,tester et Livrer ses spécifications en utilisant le framework Rails à la sauce "Ekylibre"
-----
+
 h2. Pré-requis
+
 une adresse email *propre*
 un comtpe sur Gravatar https://fr.gravatar.com/
 un compte sur GitHub https://github.com/
 un compte sur http://www.codeschool.com/ (utiliser Sign up with GitHub)
-----
+
 h2. Programme
 
 h3. Jour 1 - Apprendre Ruby - 4H
+
 *Ressources*
 http://www.ruby-lang.org/fr/documentation/quickstart/
 http://rubymonk.com/
@@ -39,9 +42,24 @@ selectionner http://www.codeschool.com/courses/rails-for-zombies-redux
 *Validation*
 Obtenir le badge !https://d1ffx7ull4987f.cloudfront.net/images/courses/large_badge/18/rails-for-zombies-redux-cb1011b0ed5f8bb98c97e8e97d7faa3e.png!
 
-h3. Jour 3 - Apprendre Ekylibre - 4H
+h3. Jour 3 - Apprendre Git - 1H00
+
+*Ressources*
+http://rogerdudler.github.com/git-guide/
+http://gitimmersion.com/
+http://learn.github.com/p/intro.html
+
+*Courses*
+selectionner http://www.codeschool.com/courses/try-git
+
+*Validation*
+Obtenir le badge !https://d1ffx7ull4987f.cloudfront.net/images/achievements/large_badge/121/completed-try-git-1d5111823aae2bb9d14fbcb663998353.png!
+
+
+h3. Jour 5 - Apprendre Ekylibre - 4H
 
 ----
+
 h2. Ressources et Outils
 Rails on Windows http://railsinstaller.org/
 Inkscape http://inkscape.org/?lang=fr
