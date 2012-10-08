@@ -9,38 +9,38 @@ module Templating::Compilers
           element("template") do
             has :many, "document"
           end
-          element("document", "title"=>:string, "subject"=>:string, "author"=>:string, "keywords"=>:string) do
+          element("document", "title" => :string, "subject" => :string, "author" => :string, "keywords" => :string) do
             has :many, "page"
           end
-          element("page", "format"=>:page_format, "orientation"=>:symbol, "margin"=>:length4) do
+          element("page", "format" => :page_format, "orientation" => :symbol, "margin" => :length4) do
             has :many, "slice", "table", "iteration", "grid"
           end
-          element("slice", "height"=>:length, "bottom"=>:boolean, "margins"=>:length4) do
+          element("slice", "height" => :length, "bottom" => :boolean, "margins" => :length4) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
-          element("table", "collection!"=>:variable, "variable"=>:variable) do
+          element("table", "collection!" => :variable, "variable" => :variable) do
             has :many, "column"
           end
-          element("list", "collection!"=>:variable, "variable"=>:variable, "columns"=>:integer, "size"=>:length, "font"=>:string)
-          element("column", "label!"=>:string, "property!"=>:property, "width!"=>:length, "align"=>:symbol, "format"=>:symbol, "numeric"=>:symbol, "separator"=>:string, "delimiter"=>:string, "unit"=>:string, "precision"=>:integer, "scale"=>:integer)
-          element("set", "left"=>:length, "top"=>:length) do
+          element("list", "collection!" => :variable, "variable" => :variable, "columns" => :integer, "size" => :length, "font" => :string)
+          element("column", "label!" => :string, "property!" => :property, "width!" => :length, "align" => :symbol, "format" => :symbol, "numeric" => :symbol, "separator" => :string, "delimiter" => :string, "unit" => :string, "precision" => :integer, "scale" => :integer)
+          element("set", "left" => :length, "top" => :length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
-          element("iteration", "collection!"=>:variable, "variable!"=>:variable)
-          element("text", "value!"=>:string, "left"=>:length, "top"=>:length, "width"=>:length, "height"=>:length, "align"=>:symbol, "bold"=>:boolean, "italic"=>:boolean, "size"=>:length, "color"=>:string, "valign"=>:symbol, "border"=>:stroke, "font"=>:string, "background"=>:string, "margins"=>:length4)
-          element("rectangle", "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length, "border"=>:stroke, "background"=>:string, "radius"=>:length)
-          element("line", "path!"=>:path, "width"=>:length, "border"=>:stroke)
-          element("image", "value!"=>:string, "width"=>:length, "height"=>:length, "left"=>:length, "top"=>:length) do
+          element("iteration", "collection!" => :variable, "variable!" => :variable)
+          element("text", "value!" => :string, "left" => :length, "top" => :length, "width" => :length, "height" => :length, "align" => :symbol, "bold" => :boolean, "italic" => :boolean, "size" => :length, "color" => :string, "valign" => :symbol, "border" => :stroke, "font" => :string, "background" => :string, "margins" => :length4)
+          element("rectangle", "width" => :length, "height" => :length, "left" => :length, "top" => :length, "border" => :stroke, "background" => :string, "radius" => :length)
+          element("line", "path!" => :path, "width" => :length, "border" => :stroke)
+          element("image", "value!" => :string, "width" => :length, "height" => :length, "left" => :length, "top" => :length) do
             has :many, "set", "iteration", "text", "cell", "rectangle", "line", "image", "list"
           end
-          element("grid", "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean) do
+          element("grid", "background" => :string, "border" => :stroke, "font" => :string, "size" => :length, "bold" => :boolean, "italic" => :boolean) do
             has :many, "grid-column", "grid-row"
           end
-          element("grid-column", "width"=>:length, "align"=>:symbol, "data-type"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean)
-          element("grid-row", "align"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean) do
+          element("grid-column", "width" => :length, "align" => :symbol, "data-type" => :symbol, "background" => :string, "border" => :stroke, "font" => :string, "size" => :length, "bold" => :boolean, "italic" => :boolean)
+          element("grid-row", "align" => :symbol, "background" => :string, "border" => :stroke, "font" => :string, "size" => :length, "bold" => :boolean, "italic" => :boolean) do
             has :many, "grid-cell"
           end
-          element("grid-cell", "value"=>:string, "margin-left"=>:length, "margin-top"=>:length, "margin-right"=>:length, "margin-bottom"=>:length, "margins"=>:length4, "align"=>:symbol, "background"=>:string, "border"=>:stroke, "font"=>:string, "size"=>:length, "bold"=>:boolean, "italic"=>:boolean)
+          element("grid-cell", "value" => :string, "margin-left" => :length, "margin-top" => :length, "margin-right" => :length, "margin-bottom" => :length, "margins" => :length4, "align" => :symbol, "background" => :string, "border" => :stroke, "font" => :string, "size" => :length, "bold" => :boolean, "italic" => :boolean)
         end
 
 
@@ -65,7 +65,7 @@ module Templating::Compilers
           info = parameters_hash(document)
           info = hash_to_code(info)
           info = ', '+info unless info.blank?
-          code << "Templating::Writer.generate(:default_font=>{:name=>'Times-Roman', :size=>10}, :creator=>'Templating #{Templating.version}'#{info}#{', :debug=>true' if @mode == :debug}) do |_d|\n"
+          code << "Templating::Writer.generate(:default_font => {:name => 'Times-Roman', :size => 10}, :creator => 'Templating #{Templating.version}'#{info}#{', :debug => true' if @mode == :debug}) do |_d|\n"
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -77,7 +77,7 @@ module Templating::Compilers
         
         def hash_to_code(hash, wrapped = false)
           code = hash.collect do |k,v| 
-            ":#{k.to_s.gsub(/\-/, '_')}=>" + if v.is_a? Symbol
+            ":#{k.to_s.gsub(/\-/, '_')} => " + if v.is_a? Symbol
                                                  v.inspect
                                                elsif v.nil?
                                                  "nil"
@@ -131,11 +131,11 @@ module Templating::Compilers
               option = data[1].to_s.split('=')
               datum = case option[0]
                       when 'format'
-                        "::I18n.localize(#{datum}, :format=>:#{option[1]})"
+                        "::I18n.localize(#{datum}, :format => :#{option[1]})"
                       when 'date-format'
-                        "::I18n.localize(#{datum}, :format=>'#{option[1]}')"
+                        "::I18n.localize(#{datum}, :format => '#{option[1]}')"
                       when 'numeric'
-                        "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
+                        "number_with_precision(#{datum}, :separator => ',', :delimiter => ' ', :unit => '', :precision => 2)"
                       else
                         datum
                       end
@@ -150,7 +150,7 @@ module Templating::Compilers
           elsif [:page_format, :symbol].include?(type)
             value.inspect
           elsif type == :stroke
-            # "{:width=>#{pt_to_s(value[:width])}, :style=>#{value[:style].inspect}, :color=>#{value[:color].inspect}}"
+            # "{:width => #{pt_to_s(value[:width])}, :style => #{value[:style].inspect}, :color => #{value[:color].inspect}}"
             "'#{pt_to_s(value[:width])}pt #{value[:style]} #{value[:color]}'"
           elsif type == :path
             '['+value.collect{|p| '['+pt_to_s(p[0])+', '+pt_to_s(p[1])+']'}.join(', ')+']'
@@ -229,7 +229,7 @@ module Templating::Compilers
             children_variable = "_s"
             columns = []
             for column in element.find('./grid-column')
-              columns << {:width=>measure_to_float(column["width"]), :align=>column["align"]||:left, :valign=>column["valign"]||:top, :if=>column["if"]}
+              columns << {:width => measure_to_float(column["width"]), :align => column["align"]||:left, :valign => column["valign"]||:top, :if => column["if"]}
             end
             for row in element.find('./grid-row')
               prh = parameters_hash(row)
@@ -342,7 +342,7 @@ module Templating::Compilers
             offset = start
             element.each_element do |e|
               if e.name == 'column'
-                col = {:phash => parameters_hash(e), :attributes=>e.attributes}
+                col = {:phash => parameters_hash(e), :attributes => e.attributes}
                 col[:offset] = offset
                 col[:width] = measure_to_float(e.attributes['width'])
                 col[:align] = e.attributes["align"] || :left
@@ -356,16 +356,16 @@ module Templating::Compilers
             code << "#{variable}.slice do |#{children_variable}|\n"
             code << "  row_height = 0\n"
             for column in columns
-              code << "  _h = #{children_variable}.height_of(#{column[:phash][:label]}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])})\n"
+              code << "  _h = #{children_variable}.height_of(#{column[:phash][:label]}, :width => #{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])})\n"
               code << "  row_height = _h if _h > row_height\n"
             end
             code << "  row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
             for column in columns
-              code << "  #{children_variable}.text(#{column[:phash][:label]}, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :height=>row_height, :valign=>:center, :align=>:center, :bold=>true)\n"
-              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
+              code << "  #{children_variable}.text(#{column[:phash][:label]}, :left => #{pt_to_s(column[:offset]+cell_margin[3])}, :width => #{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :top => #{pt_to_s(cell_margin[0])}, :height => row_height, :valign => :center, :align => :center, :bold => true)\n"
+              code << "  #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke => #{stroke})\n"
               # code << "  row_height = _b.height if _b.height > row_height\n"
             end
-            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+            code << "  #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke => #{stroke})\n"
             code << "end\n"
             # Rows
             code << "for #{record} in #{collection}\n"
@@ -374,7 +374,7 @@ module Templating::Compilers
             for column in columns
               value = "#{record}."+column[:attributes][:property].gsub(/\//, '.')
               if column[:attributes]['format']
-                value = "::I18n.localize(#{value}, :format=>#{column[:phash][:format]})"
+                value = "::I18n.localize(#{value}, :format => #{column[:phash][:format]})"
                 column[:phash][:align] ||= ":center"
                 column[:align] = :center
               elsif column[:attributes]['numeric']
@@ -387,17 +387,17 @@ module Templating::Compilers
                 curr_hash[:delimiter] ||= "' '"
                 curr_hash[:unit] ||= "''"
                 curr_hash[:precision] ||= '2'
-                value = "number_to_currency(#{value}, #{hash_to_code(curr_hash, true)})"
+                value = "number_with_precision(#{value}, #{hash_to_code(curr_hash, true)})"
                 column[:phash][:align] ||= ":right"
               end
-              code << "    _b = #{children_variable}.text(#{value}.to_s, :left=>#{pt_to_s(column[:offset]+cell_margin[3])}, :top=>#{pt_to_s(cell_margin[0])}, :width=>#{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :align=>:#{column[:align]})\n"
+              code << "    _b = #{children_variable}.text(#{value}.to_s, :left => #{pt_to_s(column[:offset]+cell_margin[3])}, :top => #{pt_to_s(cell_margin[0])}, :width => #{pt_to_s(column[:width]-cell_margin[1]-cell_margin[3])}, :align => :#{column[:align]})\n"
               code << "    row_height = _b.height if _b.height > row_height\n"
             end
             code << "    row_height += #{pt_to_s(cell_margin[0]+cell_margin[2])}\n"
             for column in columns
-              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke=>#{stroke})\n"
+              code << "    #{children_variable}.line([#{pt_to_s(column[:offset])}, 0], [#{pt_to_s(column[:offset])}, row_height], :stroke => #{stroke})\n"
             end
-            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke=>#{stroke})\n"
+            code << "    #{children_variable}.line([#{pt_to_s(start)}, 0], [#{pt_to_s(offset)}, 0], [#{pt_to_s(offset)}, row_height], [#{pt_to_s(start)}, row_height], :stroke => #{stroke})\n"
             code << "  end\n"
             code << "end\n"
 

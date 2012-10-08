@@ -85,7 +85,7 @@ fra:
         separator: ","
         unit: "???"
     format:
-      delimiter: "%s"
+      delimiter: " "
       precision: 3
       separator: ","
     human:
