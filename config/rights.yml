@@ -76,6 +76,16 @@ __public__:
   - "sessions::destroy"
   - "sessions::new"
   - "sessions::renew"
+  - "animals::new"
+  - "animals::create"
+  - "animals::list"
+  - "animals::index"
+  - "animals::edit"
+  - "animal_groups::new"
+  - "animal_groups::create"
+  - "animal_groups::list"
+  - "animal_groups::index"
+  - "animal_groups::edit"
 # Make and reload backups
 backup_company:
   actions:

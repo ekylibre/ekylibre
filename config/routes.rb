@@ -56,6 +56,16 @@ Ekylibre::Application.routes.draw do
       post :unmark
     end
   end
+  resources :animals do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_groups do
+    collection do
+      get :list
+    end
+  end
   resources :areas do
     collection do
       get :list

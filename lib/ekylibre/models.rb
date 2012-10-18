@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
+  @@models = [:account, :account_balance, :animal, :animal_group, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
 
   # List of all references
   @@references = {
@@ -18,6 +18,17 @@ module Ekylibre
       :financial_year_id => :financial_year,
       :updater_id => :user
     },
+    :animal => {
+      :animal_group_id => :animal_group,
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :animal_group => {
+      :company_id => :company,
+      :creator_id => :user,
+      :updater_id => :user
+    },
     :area => {
       :company_id => :company,
       :creator_id => :user,
@@ -25,8 +36,7 @@ module Ekylibre
       :updater_id => :user
     },
     :asset => {
-      :allocation_account_id => :account,
-      :charges_account_id => :account,
+      :account_id => :account,
       :company_id => :company,
       :creator_id => :user,
       :journal_id => :journal,
@@ -204,7 +214,6 @@ module Ekylibre
     :financial_year => {
       :company_id => :company,
       :creator_id => :user,
-      :last_journal_entry_id => :journal_entry,
       :updater_id => :user
     },
     :incoming_delivery => {

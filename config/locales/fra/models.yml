@@ -225,6 +225,7 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
+      animal: "Animaux"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -332,6 +333,7 @@ fra:
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
+    animal: "Animaux"
     annotation: "Annotation"
     area: "Zone postale"
     area_measure: "Superficie"
@@ -586,6 +588,7 @@ fra:
     iban: "IBAN"
     iban_label: "IBAN"
     id: "ID"
+    ident_number: "Numéro d'identification"
     immobilizations_account: "Compte d’immobilisation" #?
     immobilizations_products: "Produits d’immobilizations"
     importance: "Importance"
@@ -848,6 +851,7 @@ fra:
     sequences: "Séquences"
     serial: "N°Lot"
     service_coeff: "Coefficient (de quantité) de service"
+    sexe: "sexe"
     sha256: "SHA256"
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?

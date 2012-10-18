@@ -9,6 +9,9 @@ fra:
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
+    animals:
+      index: "Gestion des animaux"
+      new: "Créer un animal"
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
