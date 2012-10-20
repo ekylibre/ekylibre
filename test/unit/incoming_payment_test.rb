@@ -27,7 +27,6 @@
 #  check_number          :string(255)      
 #  commission_account_id :integer          
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  created_on            :date             
 #  creator_id            :integer          

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class TaxesController < ApplicationController
+class TaxesController < AdminController
   manage_restfully :nature=>":percent"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name
     t.column :amount, :precision=>3
     t.column :nature_label

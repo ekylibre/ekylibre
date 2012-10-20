@@ -31,10 +31,10 @@
 #  client_account_id         :integer          
 #  code                      :string(64)       
 #  comment                   :text             
-#  company_id                :integer          not null
 #  country                   :string(2)        
 #  created_at                :datetime         not null
 #  creator_id                :integer          
+#  currency                  :string(255)      not null
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
 #  discount_rate             :decimal(19, 10)  
@@ -52,6 +52,7 @@
 #  locked                    :boolean          not null
 #  name                      :string(32)       
 #  nature_id                 :integer          not null
+#  of_company                :boolean          not null
 #  origin                    :string(255)      
 #  payment_delay_id          :integer          
 #  payment_mode_id           :integer          

@@ -38,6 +38,7 @@
 #         - "custom_fields::up"
 #         - "custom_fields::update"
 #         - "dashboards::accountancy"
+#         - "dashboards::index"
 #         - "dashboards::list_critic_stocks"
 #         - "dashboards::list_my_future_events"
 #         - "dashboards::list_recent_events"

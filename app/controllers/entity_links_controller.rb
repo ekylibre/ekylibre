@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EntityLinksController < ApplicationController
-  manage_restfully :entity_1_id=>'@current_company.entities.find(params[:entity_id]).id rescue 0'
+class EntityLinksController < AdminController
+  manage_restfully :entity_1_id=>'Entity.find(params[:entity_id]).id rescue 0'
 end

@@ -24,7 +24,6 @@
 #  amount        :decimal(19, 4)   not null
 #  by_default    :boolean          default(TRUE)
 #  category_id   :integer          
-#  company_id    :integer          not null
 #  created_at    :datetime         not null
 #  creator_id    :integer          
 #  currency      :string(3)        

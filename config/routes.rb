@@ -1,42 +1,44 @@
 Ekylibre::Application.routes.draw do
-  resource :session, :only=>[:new, :create, :destroy] do
+  resource :session, :only => [:new, :create, :destroy] do
     member do
-      match "renew", :via=>[:get, :post]
+      match "renew", :via => [:get, :post]
     end
   end
-  resource :company, :only=>[] do
+  resource :company, :only => [] do
     collection do
-      match "register", :via=>[:get, :post]
+      match "register", :via => [:get, :post]
     end
   end
-  resource :myself, :path=>"me", :only=>[] do
+  resource :myself, :path => "me", :only => [] do
     member do
       get :statistics
-      match "change_password", :via=>[:get, :post]
+      match "change_password", :via => [:get, :post]
     end
   end
-  resource :settings, :only=>[:edit, :update] do
+  resource :settings, :only => [:edit, :update] do
     member do
       get :about
       get :backups
       post :backup
       post :restore
-      match "import", :via=>[:get, :post]
+      match "import", :via => [:get, :post]
     end
   end
-  resources :dashboards, :only=>[] do
+  resources :dashboards, :only => [] do
     collection do
       get :welcome
     end
   end
   # Permits to use dynamic dashboards
-  match '/dashboards/:action', :controller=>"dashboards", :via=>:get, :as=>:dashboard
+  match '/dashboards/:action', :controller => "dashboards", :via => :get, :as => :dashboard
   match '/toggle/side' => "interfacers#toggle_side"
   match '/toggle/submenu/:id' => "interfacers#toggle_submenu", :as => :toggle_submenu
   match '/toggle/tab/:id' => "interfacers#toggle_tab"
-  match '/intf/:action', :controller=>:interfacers, :via=>:get
+  match '/unroll/:source/:filter/of/:model/:id' => "interfacers#unroll", :via => :get, :as => :unroll
+  match '/autocomplete/:model/:property' => "interfacers#autocomplete", :via => :get, :as => :autocomplete
+  match '/intf/:action', :controller => :interfacers, :via => :get
 
-  resources :help, :only=>[:index, :show]
+  resources :help, :only => [:index, :show]
 
   # Check that the id is an integer
   # constraints(:id => /[0-9]+/) do
@@ -49,10 +51,10 @@ Ekylibre::Application.routes.draw do
       get :list_reconciliation
       get :list_entities
       get :reconciliation
-      match "load", :via=>[:get, :post]
+      match "load", :via => [:get, :post]
     end
     member do
-      match "mark", :via=>[:get, :post]
+      match "mark", :via => [:get, :post]
       post :unmark
     end
   end
@@ -80,7 +82,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
     end
     member do
-      match "point", :via=>[:get, :post]
+      match "point", :via => [:get, :post]
     end
   end
   resources :cashes do
@@ -132,7 +134,7 @@ Ekylibre::Application.routes.draw do
       get :list_payments
       get :list_depositable_payments
       get :list_unvalidateds
-      match "unvalidateds", :via=>[:get, :post]
+      match "unvalidateds", :via => [:get, :post]
     end
   end
   # resources :deposit_lines
@@ -170,9 +172,9 @@ Ekylibre::Application.routes.draw do
       get :list_contacts
       get :list_cashes
       get :list_links
-      match "import", :via=>[:get, :post]
-      match "export", :via=>[:get, :post]
-      match "merge", :via=>[:get, :post]
+      match "import", :via => [:get, :post]
+      match "export", :via => [:get, :post]
+      match "merge", :via => [:get, :post]
     end
   end
   resources :entity_categories do
@@ -181,7 +183,7 @@ Ekylibre::Application.routes.draw do
       get :list_prices
     end
   end
-  resources :entity_links, :except=>[:index, :show]
+  resources :entity_links, :except => [:index, :show]
   resources :entity_link_natures do
     collection do
       get :list
@@ -215,8 +217,8 @@ Ekylibre::Application.routes.draw do
       get :list_asset_depreciations
     end
     member do
-      match "close", :via=>[:get, :post]
-      match :generate_last_journal_entry, :via=>[:get, :post]
+      match "close", :via => [:get, :post]
+      match :generate_last_journal_entry, :via => [:get, :post]
       post :compute_balances
       get :synthesis
     end
@@ -226,7 +228,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
     member do
-      match "confirm", :via=>[:get, :post]
+      match "confirm", :via => [:get, :post]
     end
   end
   # resources :incoming_delivery_lines
@@ -260,15 +262,15 @@ Ekylibre::Application.routes.draw do
       get :list_lines_update
     end
     member do
-      match "reflect", :via=>[:get, :post]
+      match "reflect", :via => [:get, :post]
     end
   end
   # resources :inventory_lines
   resources :journals do
     collection do
-      match "draft", :via=>[:get, :post]
-      match "bookkeep", :via=>[:get, :put, :post]
-      match "import", :via=>[:get, :post]
+      match "draft", :via => [:get, :post]
+      match "bookkeep", :via => [:get, :put, :post]
+      match "import", :via => [:get, :post]
       get :reports
       get :balance
       get :general_ledger
@@ -280,8 +282,8 @@ Ekylibre::Application.routes.draw do
       get :list_general_ledger
     end
     member do
-      match "close", :via=>[:get, :post]
-      match "reopen", :via=>[:get, :post]
+      match "close", :via => [:get, :post]
+      match "reopen", :via => [:get, :post]
     end
   end
   resources :journal_entries do
@@ -289,7 +291,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
     end
   end
-  resources :journal_entry_lines, :only=>[:new, :create]
+  resources :journal_entry_lines, :only => [:new, :create]
   resources :land_parcels do
     collection do
       get :list
@@ -297,7 +299,7 @@ Ekylibre::Application.routes.draw do
       post :merge
     end
     member do
-      match "divide", :via=>[:get, :post]
+      match "divide", :via => [:get, :post]
     end
   end
   resources :land_parcel_groups do
@@ -315,13 +317,13 @@ Ekylibre::Application.routes.draw do
     member do
       get :extract
       post :duplicate
-      match "mail", :via=>[:get, :post]
+      match "mail", :via => [:get, :post]
     end
   end
   resources :mandates do
     collection do
       get :list
-      match "configure", :via=>[:get, :post]
+      match "configure", :via => [:get, :post]
     end
   end
   resources :observations    
@@ -331,10 +333,10 @@ Ekylibre::Application.routes.draw do
       get :list_lines
       get :list_uses
       get :list_unvalidateds
-      match "unvalidateds", :via=>[:get, :post]
+      match "unvalidateds", :via => [:get, :post]
     end
   end
-  resources :operation_lines, :only=>[:new, :create]
+  resources :operation_lines, :only => [:new, :create]
   resources :operation_natures do
     collection do
       get :list
@@ -373,8 +375,8 @@ Ekylibre::Application.routes.draw do
   resources :prices do
     collection do
       get :list
-      match "export", :via=>[:get, :post]
-      match "import", :via=>[:get, :post]
+      match "export", :via => [:get, :post]
+      match "import", :via => [:get, :post]
       get :find
     end
   end
@@ -393,7 +395,7 @@ Ekylibre::Application.routes.draw do
       get :list_products
     end
   end
-  resources :product_components, :except=>[:show, :index]
+  resources :product_components, :except => [:show, :index]
   resources :production_chains do
     collection do
       get :list
@@ -413,7 +415,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :purchase_lines, :except=>[:index, :show]
+  resources :purchase_lines, :except => [:index, :show]
   resources :purchase_natures do
     collection do
       get :list
@@ -441,7 +443,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :sale_lines, :except=>[:index, :show] do
+  resources :sale_lines, :except => [:index, :show] do
     collection do
       get :list
       get :detail
@@ -467,7 +469,7 @@ Ekylibre::Application.routes.draw do
     end
     member do
       get :list_lines
-      match "cancel", :via=>[:get, :post]
+      match "cancel", :via => [:get, :post]
       post :duplicate
       post :correct
       post :propose
@@ -489,10 +491,10 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_confirm
-      match "confirm_all", :via=>[:get, :post]
+      match "confirm_all", :via => [:get, :post]
     end
     member do
-      match "confirm", :via=>[:get, :post]
+      match "confirm", :via => [:get, :post]
     end
   end
   resources :stocks do
@@ -544,8 +546,8 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_deliveries
       get :list_transportable_deliveries
-      # match "deliveries", :via=>[:get, :post]
-      # match "delivery_delete", :via=>[:get, :post]
+      # match "deliveries", :via => [:get, :post]
+      # match "delivery_delete", :via => [:get, :post]
     end
   end
   # resources :transfers
@@ -572,7 +574,7 @@ Ekylibre::Application.routes.draw do
     end
   end
   # end
-  match "/", :controller=>"dashboards", :action=>"index", :as=>"company_root"
+  match "/dashboards" => "dashboards#index", :as => "admin"
   
   root :to => "dashboards#index"
 end

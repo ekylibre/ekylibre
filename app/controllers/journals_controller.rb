@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class JournalsController < ApplicationController
-  manage_restfully :nature=>"params[:nature]||Journal.natures[0][1]", :currency=>"@current_company.default_currency"
+class JournalsController < AdminController
+  manage_restfully :nature=>"params[:nature]||Journal.natures[0][1]", :currency=>"Entity.of_company.currency"
 
   @@journal_views = ["lines", "entries", "mixed"]
   cattr_reader :journal_views
@@ -85,7 +85,7 @@ class JournalsController < ApplicationController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:code) do |t|
+  list(:order=>:code) do |t|
     t.column :name, :url=>true
     t.column :code, :url=>true
     t.column :nature_label
@@ -167,7 +167,7 @@ class JournalsController < ApplicationController
       conditions = nil
       begin
         conditions = eval(self.class.journal_entries_conditions(:with_journals=>true, :state=>:draft))
-        journal_entries = @current_company.journal_entries.find(:all, :conditions=>conditions)
+        journal_entries = JournalEntry.where(conditions)
         undone = 0
         for entry in journal_entries
           entry.confirm if entry.can_confirm?
@@ -201,7 +201,7 @@ class JournalsController < ApplicationController
       @records = {}
       for nature in @natures
         conditions = ["created_at BETWEEN ? AND ?", session[:started_on].to_time.beginning_of_day, session[:stopped_on].to_time.end_of_day]
-        @records[nature] = @current_company.send(nature.to_s.pluralize).find(:all, :conditions=>conditions)
+        @records[nature] = nature.to_s.classify.constantize.where(conditions)
       end
 
       if @step == 3
@@ -221,14 +221,13 @@ class JournalsController < ApplicationController
   
   def balance
     if params[:period]
-      @balance = @current_company.balance(params) 
+      @balance = Journal.balance(params) 
     end
   end
 
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    # code << "c=['#{JournalEntry.table_name}.company_id=?', @current_company.id]\n"
     code << light_search_conditions({:journal_entry_line=>[:name, :debit, :credit, :original_debit, :original_credit]}, :conditions=>"c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
@@ -254,8 +253,8 @@ class JournalsController < ApplicationController
 
   def reports
     # redirect_to :action=>:index
-    @document_templates = @current_company.document_templates.find(:all, :conditions=>{:family=>"accountancy", :nature=>["journal", "general_journal", "general_ledger"]}, :order=>:name)
-    @document_template = @current_company.document_templates.find_by_family_and_code("accountancy", params[:code])
+    @document_templates = DocumentTemplate.where(:family=>"accountancy", :nature=>["journal", "general_journal", "general_ledger"]).order(:name)
+    @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
     if request.xhr?
       render :partial=>'options'
       return
@@ -263,7 +262,7 @@ class JournalsController < ApplicationController
     if params[:export] == "balance"
       query  = "SELECT ''''||accounts.number, accounts.name, sum(COALESCE(journal_entry_lines.debit, 0)), sum(COALESCE(journal_entry_lines.credit, 0)), sum(COALESCE(journal_entry_lines.debit, 0)) - sum(COALESCE(journal_entry_lines.credit, 0))"
       query += " FROM #{JournalEntryLine.table_name} AS journal_entry_lines JOIN #{Account.table_name} AS accounts ON (account_id=accounts.id) JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)"
-      query += " WHERE journal_entry_lines.company_id=#{@current_company.id} AND printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
+      query += " WHERE printed_on BETWEEN #{ActiveRecord::Base.connection.quote(params[:started_on].to_date)} AND #{ActiveRecord::Base.connection.quote(params[:stopped_on].to_date)}"
       query += " GROUP BY accounts.name, accounts.number"
       query += " ORDER BY accounts.number"
       begin
@@ -280,17 +279,17 @@ class JournalsController < ApplicationController
         notify_error_now(:exception_raised, :message=>e.message)
       end
     elsif params[:export] == "isaquare"
-      path = Ekylibre::Export::AccountancySpreadsheet.generate(@current_company, params[:started_on].to_date, params[:stopped_on].to_date, @current_company.code+".ECC")
+      path = Ekylibre::Export::AccountancySpreadsheet.generate(params[:started_on].to_date, params[:stopped_on].to_date, Entity.of_company.full_name.simpleize+".ECC")
       send_file(path, :filename=>path.basename, :type=>Mime::ZIP)
     elsif params[:template]
-      template = @current_company.document_templates.find_by_code(params[:template])
+      template = DocumentTemplate.find_by_code(params[:template])
       nature = template.nature.to_sym
       if [:balance_sheet, :income_statement].include?(nature)
-        send("render_print_#{nature}", @current_company.financial_years.find_by_id(params[:financial_year_id]))
+        send("render_print_#{nature}", FinancialYear.find_by_id(params[:financial_year_id]))
       elsif [:general_journal, :general_ledger].include?(nature)
         send("render_print_#{nature}", params[:started_on], params[:stopped_on])
       elsif [:journal].include?(nature)
-        send("render_print_#{nature}", @current_company.journals.find_by_id(params[:journal_id]), params[:started_on], params[:stopped_on])
+        send("render_print_#{nature}", Journal.find_by_id(params[:journal_id]), params[:started_on], params[:stopped_on])
       end
     end
     @document_template ||= @document_templates[0]
@@ -308,7 +307,7 @@ class JournalsController < ApplicationController
       File.open(file, "wb") {|f| f.write(data.read)}
       nature = params[:nature].to_sym rescue nil
       logger.silence do
-        Exchanges.import(@current_company, nature, file)
+        Exchanges.import(nature, file)
         begin
         rescue Exception => e
           notify_error_now(:exception_raised, :message=>e.message)

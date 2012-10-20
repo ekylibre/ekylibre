@@ -21,7 +21,6 @@
 # == Table: incoming_delivery_lines
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  delivery_id      :integer          not null
@@ -55,14 +54,13 @@ class IncomingDeliveryLine < CompanyRecord
   belongs_to :warehouse
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :weight, :allow_nil => true
-  validates_presence_of :amount, :company, :delivery, :pretax_amount, :price, :product, :purchase_line, :quantity, :unit
+  validates_presence_of :amount, :delivery, :pretax_amount, :price, :product, :purchase_line, :quantity, :unit
   #]VALIDATORS]
-  validates_presence_of :product_id, :unit_id
+  validates_presence_of :product, :unit
 
   sums :delivery, :lines, :pretax_amount, :amount, "(line.product.weight||0)*line.quantity"=>:weight
 
   before_validation do
-    self.company_id = self.delivery.company_id if self.delivery
     if self.purchase_line
       self.product_id  = self.purchase_line.product_id
       self.price_id    = self.purchase_line.price.id

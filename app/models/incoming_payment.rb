@@ -27,7 +27,6 @@
 #  check_number          :string(255)      
 #  commission_account_id :integer          
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  created_on            :date             
 #  creator_id            :integer          
@@ -53,7 +52,6 @@
 class IncomingPayment < CompanyRecord
   acts_as_numbered
   belongs_to :commission_account, :class_name=>"Account"
-  belongs_to :company
   belongs_to :responsible, :class_name=>"User"
   belongs_to :deposit
   belongs_to :journal_entry
@@ -65,14 +63,14 @@ class IncomingPayment < CompanyRecord
 
   autosave :deposit
 
-  attr_readonly :company_id, :payer_id
+  attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :check_number, :mode_id, :if=>Proc.new{self.deposit and self.deposit.locked? }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, :used_amount, :allow_nil => true
   validates_length_of :account_number, :bank, :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :received, :scheduled, :in => [true, false]
-  validates_presence_of :amount, :commission_amount, :company, :mode, :to_bank_on, :used_amount
+  validates_presence_of :amount, :commission_amount, :mode, :to_bank_on, :used_amount
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_numericality_of :used_amount, :commission_amount, :greater_than_or_equal_to=>0
@@ -80,6 +78,11 @@ class IncomingPayment < CompanyRecord
   validates_presence_of :commission_account, :if=>Proc.new{|p| p.commission_amount!=0}
 
   delegate :currency, :to => :mode
+
+  default_scope order("id DESC")
+  scope :depositables, lambda { 
+    where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", true, Date.today)
+  }
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

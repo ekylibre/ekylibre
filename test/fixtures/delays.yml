@@ -22,7 +22,6 @@
 #
 #  active       :boolean          default(TRUE), not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  expression   :string(255)      not null
@@ -37,7 +36,6 @@
 #
 # delays_001:
 #   active: true
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   expression: "Lorem ipsum"
@@ -48,7 +46,6 @@
 #
 delays_001:
   active: true
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   expression: "1 an"
@@ -59,7 +56,6 @@ delays_001:
 
 delays_002:
   active: true
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   expression: "2 years"

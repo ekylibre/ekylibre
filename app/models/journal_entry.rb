@@ -21,7 +21,6 @@
 # == Table: journal_entries
 #
 #  balance                :decimal(19, 4)   default(0.0), not null
-#  company_id             :integer          not null
 #  created_at             :datetime         not null
 #  created_on             :date             not null
 #  creator_id             :integer          
@@ -46,7 +45,7 @@
 
 
 class JournalEntry < CompanyRecord
-  attr_readonly :company_id, :journal_id, :created_on
+  attr_readonly :journal_id, :created_on
   belongs_to :financial_year
   belongs_to :journal
   belongs_to :resource, :polymorphic=>true
@@ -65,7 +64,7 @@ class JournalEntry < CompanyRecord
   validates_length_of :original_currency, :allow_nil => true, :maximum => 3
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :balance, :company, :created_on, :credit, :debit, :journal, :number, :original_credit, :original_currency_rate, :original_debit, :printed_on, :state
+  validates_presence_of :balance, :created_on, :credit, :debit, :journal, :number, :original_credit, :original_currency_rate, :original_debit, :printed_on, :state
   #]VALIDATORS]
   validates_presence_of :original_currency
   validates_format_of :number, :with => /^[\dA-Z]+$/
@@ -135,10 +134,9 @@ class JournalEntry < CompanyRecord
   #
   before_validation do
     if self.journal
-      self.company_id  = self.journal.company_id 
       self.original_currency ||= self.journal.currency
     end
-    self.financial_year = (self.company ? self.company.financial_year_at(self.printed_on) : nil)
+    self.financial_year = FinancialYear.at(self.printed_on)
     if self.original_currency and self.financial_year
       if self.original_currency == self.financial_year.currency
         self.original_currency_rate = 1

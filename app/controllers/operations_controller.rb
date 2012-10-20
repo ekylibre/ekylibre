@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OperationsController < ApplicationController
+class OperationsController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>" planned_on desc, name asc") do |t|
+  list(:order=>" planned_on desc, name asc") do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>true
@@ -37,11 +37,11 @@ class OperationsController < ApplicationController
   end
 
 
-  list(:uses, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
+  list(:uses, :model=>:operation_uses, :conditions=>{:operation_id=>['session[:current_operation_id]']}, :order=>"id") do |t|
     t.column :name, :through=>:tool, :url=>true
   end
 
-  list(:lines, :model=>:operation_lines, :conditions=>{:company_id=>['@current_company.id'], :operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
+  list(:lines, :model=>:operation_lines, :conditions=>{:operation_id=>['session[:current_operation_id]']}, :order=>"direction") do |t|
     t.column :direction_label
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
@@ -65,7 +65,7 @@ class OperationsController < ApplicationController
   end
 
   def create
-    @operation = @current_company.operations.new(params[:operation])
+    @operation = Operation.new(params[:operation])
     @operation_lines = (params[:lines]||{}).values
     @operation_uses = (params[:uses]||{}).values
     redirect_to_back and return if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
@@ -106,7 +106,7 @@ class OperationsController < ApplicationController
   end
 
 
-  list(:unvalidateds, :model=>:operations, :conditions=>{:moved_on=>nil, :company_id=>['@current_company.id']}) do |t|
+  list(:unvalidateds, :model=>:operations, :conditions=>{:moved_on=>nil}) do |t|
     t.column :name 
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>true
@@ -117,11 +117,11 @@ class OperationsController < ApplicationController
   end
 
   def unvalidateds
-    @operations = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
-    notify_now(:no_unvalidated_operations) if @operations.size <= 0
+    @operations = Operation.where(:moved_on => nil)
+    notify_now(:no_unvalidated_operations) if @operations.count.zero?
     if request.post?
       for id, values in params[:unvalidateds]
-        operation = @current_company.operations.find_by_id(id)
+        operation = Operation.find_by_id(id)
         operation.make((values[:moved_on].to_date rescue Date.today)) if operation and values[:validated].to_i == 1
         #operation.update_attributes!(:moved_on=>Date.today) if operation and values[:validated].to_i == 1
       end

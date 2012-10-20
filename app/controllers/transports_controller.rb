@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class TransportsController < ApplicationController
+class TransportsController < AdminController
 
   list(:children=>:deliveries, :conditions=>light_search_conditions(:transports=>[:number, :comment], :entities=>[:code, :full_name])) do |t|
     t.column :number, :url=>true
@@ -36,7 +36,7 @@ class TransportsController < ApplicationController
   end
 
 
-  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :transport_id=>['session[:current_transport_id]']}) do |t|
+  list(:deliveries, :model=>:outgoing_deliveries, :children=>:lines, :conditions=>{:transport_id=>['session[:current_transport_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -62,7 +62,7 @@ class TransportsController < ApplicationController
 
   def self.transportable_deliveries_conditions()
     code  = ""
-    code += "c = [\"\#{OutgoingDelivery.table_name}.company_id = ?\", @current_company.id]\n"
+    code += "c = [\"1=1\"]\n"
     code += "if session[:current_transport_id].to_i > 0\n"
     code += "  c[0] += ' AND (transport_id = ? OR (transport_id IS NULL'\n"
     code += "  c << session[:current_transport_id].to_i\n"
@@ -111,7 +111,7 @@ class TransportsController < ApplicationController
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     if request.xhr?
-      if params[:transport_id] and transport = @current_company.transports.find_by_id(params[:transport_id])
+      if params[:transport_id] and transport = Transport.find_by_id(params[:transport_id])
         session[:current_transport_id] ||= transport.id
       end
       render :partial=>"deliveries_form"
@@ -121,7 +121,7 @@ class TransportsController < ApplicationController
   end
 
   def create
-    @transport = @current_company.transports.new(params[:transport])
+    @transport = Transport.new(params[:transport])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     return if save_and_redirect(@transport, :url=>{:action=>:show, :id=>'id'}) do |transport|

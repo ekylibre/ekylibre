@@ -21,7 +21,6 @@
 # == Table: operation_lines
 #
 #  area_unit_id    :integer          
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  direction       :string(4)        default("in"), not null

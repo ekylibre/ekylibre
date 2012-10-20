@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ContactsController < ApplicationController
-  manage_restfully :entity_id=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).id rescue 0", :country=>"@current_company.entities.find(params[:entity_id]||session[:current_entity_id]).country rescue @current_company.entity.country", :t3e=>{:entity=>"@contact.entity.full_name"}
+class ContactsController < AdminController
+  manage_restfully :entity_id=>"params[:entity_id]||session[:current_entity_id]", :country=>"Entity.find(params[:entity_id]||session[:current_entity_id]).country rescue Entity.of_company.country", :t3e=>{:entity=>"@contact.entity.full_name"}
 end

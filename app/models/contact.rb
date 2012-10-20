@@ -24,7 +24,6 @@
 #  area_id      :integer          
 #  by_default   :boolean          not null
 #  code         :string(4)        
-#  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -50,6 +49,17 @@
 
 
 class Contact < CompanyRecord
+  # TODO Adds contact.line_1 to give a real sense to contact
+  attr_readonly :entity_id
+  attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
+  belongs_to :area
+  belongs_to :entity
+  has_many :outgoing_deliveries
+  has_many :purchases
+  has_many :sales
+  has_many :subscriptions
+  has_many :warehouses
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :latitude, :longitude, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -60,25 +70,15 @@ class Contact < CompanyRecord
   validates_length_of :email, :line_6, :website, :allow_nil => true, :maximum => 255
   validates_length_of :address, :allow_nil => true, :maximum => 280
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :company, :entity
+  validates_presence_of :entity
   #]VALIDATORS]
-  attr_readonly :entity_id, :company_id
-  attr_readonly :name, :code, :line_2, :line_3, :line_4, :line_5, :line_6, :address, :phone, :fax, :mobile, :email, :website
-  belongs_to :area
-  belongs_to :company
-  belongs_to :entity
-  has_many :outgoing_deliveries
-  has_many :purchases
-  has_many :sales
-  has_many :subscriptions
-  has_many :warehouses
-
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>lambda{|r| !r.email.blank?}
+
+  default_scope where("deleted_at IS NULL")
 
   before_validation do
     if self.entity
       self.by_default = true if self.entity.contacts.size <= 0
-      self.company_id = self.entity.company_id
     end
     self.email.strip! if self.email.is_a? String
     if self.line_6
@@ -86,20 +86,20 @@ class Contact < CompanyRecord
       if self.line_6.blank?
         self.area_id = nil
       else
-        self.area = self.company.areas.find(:first, :conditions=>["LOWER("+self.class.connection.trim("name")+") LIKE ?", self.line_6.lower])
-        self.area = self.company.areas.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
+        self.area = Area.where("LOWER("+self.class.connection.trim("name")+") LIKE ?", self.line_6.lower).first
+        self.area = Area.create!(:name=>self.line_6, :country=>self.country) if self.area.nil?
       end
     end
-    Contact.update_all({:by_default=>false}, ["entity_id=? AND company_id=? AND id!=?", self.entity_id,self.company_id, self.id||0]) if self.by_default
+    Contact.update_all({:by_default=>false}, ["entity_id=? AND id!=?", self.entity_id, self.id||0]) if self.by_default
     self.address = self.lines
     self.website = "http://"+self.website unless self.website.blank? or self.website.match /^.+p.*\/\//
   end
 
-  # Each contact have a distinct code for a precise company.  
+  # Each contact have a distinct code  
   before_validation(:on=>:create) do    
     if self.code.blank?
       self.code = 'AAAA'
-      while Contact.count(:conditions=>["entity_id=? AND company_id=? AND code=?", self.entity_id, self.company_id, self.code]) > 0 do
+      while Contact.count(:conditions=>["entity_id=? AND code=?", self.entity_id, self.code]) > 0 do
         self.code.succ!
       end
     end
@@ -111,7 +111,7 @@ class Contact < CompanyRecord
     stamper = self.class.stamper_class.stamper rescue nil
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? User
-    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
+    nc = self.class.create!(self.attributes.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
     self.class.update_all({:deleted_at=>current_time}, {:id=>self.id})
     return nc
   end

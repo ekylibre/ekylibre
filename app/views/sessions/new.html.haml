@@ -21,23 +21,18 @@
     .logoban{:title=>Ekylibre.version}
     =form_tag(session_path(:redirect=>params[:redirect])) do
       %table
-        -if @current_company or @users
+        -if false # ::I18n.active_locales.size > 1
           %tr
-            %td.label=Company.model_name.human
-            %td.value
-              -if @users
-                =select_tag("company", options_for_select(@users.collect{|x| [x.company.name, x.company.code]}))
-              -else
-                =link_to(@current_company.name, {:action=>:new, :company=>nil})
-        -if ::I18n.active_locales.size > 1
-          %tr
-            %td.label=tc(:locale)
+            %td
+              %label=tc(:locale)
             %td.value=locale_selector
         %tr
-          %td.label=tc :username
+          %td
+            %label{:for => :name}=tc :username
           %td.input=text_field_tag :name, params[:name], :tabindex=>1, "data-autofocus"=>"true"
         %tr
-          %td.label=tc :password
+          %td
+            %label{:for => :password}=tc :password
           %td.input=password_field_tag :password, nil, :tabindex=>2
         %tr
           %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3, :class=>"important")

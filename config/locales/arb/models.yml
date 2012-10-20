@@ -738,6 +738,7 @@ arb:
     attorney_account: "حساب مساعد الوكيل"
     attorney_account_id: "حساب مساعد الوكيل" #?
     attorney_accounts: "وكلاء الحسابات"
+    # attorney_journal: "Attorney journal"
     # attorneys: "Attorneys"
     attribute_name: "اسم الصفة المميزة"
     authorized_payments_count: "عدد الدفعات المصرحة بها"

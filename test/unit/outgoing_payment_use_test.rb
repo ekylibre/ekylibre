@@ -22,7 +22,6 @@
 #
 #  accounted_at     :datetime         
 #  amount           :decimal(19, 4)   default(0.0), not null
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  downpayment      :boolean          not null

@@ -21,7 +21,6 @@
 # == Table: stock_transfers
 #
 #  comment              :text             
-#  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
 #  id                   :integer          not null, primary key
@@ -60,12 +59,14 @@ class StockTransfer < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :number, :allow_nil => true, :maximum => 64
-  validates_presence_of :company, :nature, :number, :planned_on, :product, :quantity, :warehouse
+  validates_presence_of :nature, :number, :planned_on, :product, :quantity, :warehouse
   #]VALIDATORS]
   validates_presence_of :unit
   validates_presence_of :second_warehouse, :if => Proc.new{|x| x.transfer?}
   validates_numericality_of :quantity, :greater_than => 0.0
   validates_inclusion_of :nature, :in => NATURES
+
+  scope :unconfirmeds, where(:moved_on => nil)
 
   before_validation do
     self.unit_id = self.product.unit_id if self.product

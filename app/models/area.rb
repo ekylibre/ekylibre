@@ -23,7 +23,6 @@
 #  city         :string(255)      
 #  city_name    :string(255)      
 #  code         :string(255)      
-#  company_id   :integer          not null
 #  country      :string(2)        default("??")
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -38,19 +37,15 @@
 
 
 class Area < CompanyRecord
+  belongs_to :district
+  has_many :contacts
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
   validates_length_of :city, :city_name, :code, :name, :postcode, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :postcode
+  validates_presence_of :name, :postcode
   #]VALIDATORS]
-  belongs_to :company
-  belongs_to :district
-  has_many :contacts
-
-  attr_readonly :company_id
 
   before_validation do
-    return false unless self.company
     self.name = self.name.gsub(/\s+/,' ').strip
     words = self.name.to_s.split(' ')
     start = words[0].to_s.ascii.length<=3 ? 2 : 1

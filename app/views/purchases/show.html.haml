@@ -20,7 +20,7 @@
   -l.attribute :created_on
   -l.attribute :confirmed_on
   -l.attribute :planned_on
-  -l.attribute :currency unless @purchase.currency == @current_company.default_currency
+  -l.attribute :currency unless @purchase.currency == Entity.of_company.currency
   -l.attribute :comment
   -l.attribute :delivery_contact, :label=>:address
   -l.attribute :journal_entry, :url=>true

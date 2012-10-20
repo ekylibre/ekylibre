@@ -17,11 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class PurchaseLinesController < ApplicationController
+class PurchaseLinesController < AdminController
 
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if @current_company.warehouses.size <= 0
+    if Warehouse.count.zero?
       notify_warning(:need_warehouse_to_create_purchase_line)
       redirect_to :action=>:new, :controller=>:warehouses
       return
@@ -39,7 +39,7 @@ class PurchaseLinesController < ApplicationController
 
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if @current_company.warehouses.size <= 0
+    if Warehouse.count.zero?
       notify_warning(:need_warehouse_to_create_purchase_line)
       redirect_to :action=>:new, :controller=>:warehouses
       return
@@ -51,8 +51,8 @@ class PurchaseLinesController < ApplicationController
     return unless product = find_and_check(:product, params[:purchase_line][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase.supplier_id)
-      price = @current_company.prices.find(:first, :conditions=>price_attrs)
-      price ||= @current_company.prices.create!(price_attrs.merge(:active=>true))
+      price = Price.find(:first, :conditions=>price_attrs)
+      price ||= Price.create!(price_attrs.merge(:active=>true))
       params[:purchase_line][:price_id] = price.id
     end
     @purchase_line = @purchase.lines.new(params[:purchase_line])
@@ -72,8 +72,8 @@ class PurchaseLinesController < ApplicationController
     return unless product = find_and_check(:product, params[:purchase_line][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_line.purchase.supplier_id)
-      price = @current_company.prices.find(:first, :conditions=>price_attrs)
-      price ||= @current_company.prices.create!(price_attrs.merge(:active=>true))
+      price = Price.find(:first, :conditions=>price_attrs)
+      price ||= Price.create!(price_attrs.merge(:active=>true))
       params[:purchase_line][:price_id] = price.id
     end
     if @purchase_line.update_attributes(params[:purchase_line])  

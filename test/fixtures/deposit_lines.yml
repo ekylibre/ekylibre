@@ -21,7 +21,6 @@
 # == Table: deposit_lines
 #
 #  amount       :decimal(19, 4)   default(1.0), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  deposit_id   :integer          not null
@@ -36,7 +35,6 @@
 #
 # deposit_lines_001:
 #   amount: 0
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   deposit_id: 1
@@ -47,7 +45,6 @@
 #
 deposit_lines_001:
   amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   deposit_id: 3
@@ -58,7 +55,6 @@ deposit_lines_001:
 
 deposit_lines_002:
   amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   deposit_id: 3
@@ -69,7 +65,6 @@ deposit_lines_002:
 
 deposit_lines_003:
   amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   deposit_id: 3

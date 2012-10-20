@@ -21,7 +21,6 @@
 # == Table: custom_fields
 #
 #  active       :boolean          default(TRUE), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  decimal_max  :decimal(19, 4)   

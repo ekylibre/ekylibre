@@ -20,7 +20,6 @@
 # 
 # == Table: mandates
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  entity_id    :integer          not null
@@ -37,14 +36,10 @@
 
 
 class Mandate < CompanyRecord
+  belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :family, :organization, :title, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :entity, :family, :organization, :title
+  validates_presence_of :entity, :family, :organization, :title
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :entity
-  belongs_to :company
-
   validates_presence_of :started_on, :stopped_on
-
 end

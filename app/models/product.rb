@@ -27,7 +27,6 @@
 #  code                       :string(16)       
 #  code2                      :string(64)       
 #  comment                    :text             
-#  company_id                 :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer          
 #  critic_quantity_min        :decimal(19, 4)   default(1.0)
@@ -68,9 +67,7 @@
 
 class Product < CompanyRecord
   @@natures = [:product, :service, :subscrip] # , :transfer]
-  attr_readonly :company_id
   belongs_to :purchases_account, :class_name=>"Account"
-  belongs_to :company
   belongs_to :sales_account, :class_name=>"Account"
   belongs_to :subscription_nature
   belongs_to :category, :class_name=>"ProductCategory"
@@ -88,7 +85,6 @@ class Product < CompanyRecord
   has_many :stocks
   has_many :subscriptions
   has_many :trackings
-  # has_many :units, :class_name=>"Unit", :finder_sql=>proc{ "SELECT #{Unit.table_name}.* FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)} ORDER BY coefficient, label"}, :counter_sql=>proc{ "SELECT count(*) AS count_all FROM #{Unit.table_name} WHERE company_id=#{company_id} AND base=#{connection.quote(unit.base)}" }
   has_one :default_stock, :class_name=>"Stock", :order=>:name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :number, :subscription_quantity, :allow_nil => true, :only_integer => true
@@ -99,30 +95,29 @@ class Product < CompanyRecord
   validates_length_of :code2, :allow_nil => true, :maximum => 64
   validates_length_of :catalog_name, :name, :subscription_period, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :deliverable, :for_immobilizations, :for_productions, :for_purchases, :for_sales, :published, :reduction_submissive, :stockable, :trackable, :unquantifiable, :with_tracking, :in => [true, false]
-  validates_presence_of :catalog_name, :category, :company, :name, :nature, :number, :unit
+  validates_presence_of :catalog_name, :category, :name, :nature, :number, :unit
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if=>Proc.new{|u| u.nature.to_s=="subscrip"}
   validates_presence_of :subscription_period,   :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and u.subscription_nature.period?}
   validates_presence_of :subscription_quantity, :if=>Proc.new{|u| u.nature.to_s=="subscrip" and u.subscription_nature and not u.subscription_nature.period?}
   validates_presence_of :sales_account, :if=>Proc.new{|p| p.for_sales}
   validates_presence_of  :purchases_account, :if=>Proc.new{|p| p.for_purchases}
-  validates_uniqueness_of :code, :scope=>:company_id
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :code
+  validates_uniqueness_of :name
 
-  #validates_presence_of :product_account_id
-  #validates_presence_of :charge_account_id
+  default_scope order(:name)
+  scope :availables, where(:active => true).order(:name)
+  scope :stockables, where(:stockable => true).order(:name)
 
   before_validation do
     self.code = self.name.codeize.upper if !self.name.blank? and self.code.blank?
     self.code = self.code[0..7] unless self.code.blank?
-    if self.company
-      if self.number.blank?
-        last = self.company.products.find(:first, :order=>'number DESC')
-        self.number = last.nil? ? 1 : last.number+1 
-      end
-      while self.company.products.find(:first, :conditions=>["code=? AND id!=?", self.code, self.id||0])
-        self.code.succ!
-      end
+    if self.number.blank?
+      last = self.class.reorder('number DESC').first
+      self.number = last.nil? ? 1 : last.number+1 
+    end
+    while self.class.where("code=? AND id!=?", self.code, self.id||0).first
+      self.code.succ!
     end
     self.stockable = false unless self.deliverable?
     self.trackable = false unless self.stockable?
@@ -253,7 +248,7 @@ class Product < CompanyRecord
   def add_stock_move(options={})
     return true unless self.stockable?
     incoming = options.delete(:incoming)
-    attributes = options.merge(:generated=>true, :company_id=>self.company_id)
+    attributes = options.merge(:generated=>true)
     origin = options[:origin]
     if origin.is_a? ActiveRecord::Base
       code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}

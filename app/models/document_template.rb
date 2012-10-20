@@ -25,7 +25,6 @@
 #  by_default   :boolean          default(TRUE), not null
 #  cache        :text             
 #  code         :string(32)       
-#  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -44,10 +43,9 @@
 
 
 class DocumentTemplate < CompanyRecord
-  attr_readonly :company_id
   after_save :set_by_default
+  # TODO Do we keep DocumentTemplate families ?
   cattr_reader :families, :document_natures
-  belongs_to :company
   has_many :documents, :foreign_key=>:template_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -56,10 +54,10 @@ class DocumentTemplate < CompanyRecord
   validates_length_of :nature, :allow_nil => true, :maximum => 64
   validates_length_of :filename, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :by_default, :in => [true, false]
-  validates_presence_of :company, :language, :name
+  validates_presence_of :language, :name
   #]VALIDATORS]
   validates_presence_of :filename
-  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :code
 
   include ActionView::Helpers::NumberHelper 
 
@@ -94,10 +92,17 @@ class DocumentTemplate < CompanyRecord
   # include ActionView::Helpers::NumberHelper
 
 
+  default_scope order(:name)
+  scope :of_nature, lambda { |nature|
+    raise ArgumentError.new("Unknown nature for a DocumentTemplate (got #{nature.inspect}:#{nature.class})") unless @@document_natures.keys.include?(nature.to_sym)
+    where(:nature => nature.to_s, :active => true).order(:name)
+  }
+
+
   before_validation do
     self.filename ||= 'document'
     self.cache = Templating.compile(self.source, :xil) # rescue nil
-    self.by_default = true if self.company.document_templates.find_all_by_nature_and_by_default(self.nature, true).size <= 0
+    self.by_default = true if self.class.find_all_by_nature_and_by_default(self.nature, true).size <= 0
     return true
   end
 
@@ -110,9 +115,9 @@ class DocumentTemplate < CompanyRecord
   end
 
   def set_by_default# (by_default=nil)
-    if self.nature != 'other' and DocumentTemplate.count(:conditions=>{:by_default=>true, :company_id=>self.company_id, :nature=>self.nature}) != 1
+    if self.nature != 'other' and DocumentTemplate.count(:conditions=>{:by_default=>true, :nature=>self.nature}) != 1
       DocumentTemplate.update_all({:by_default=>true}, {:id=>self.id})
-      DocumentTemplate.update_all({:by_default=>false}, ["company_id = ? and id != ? and nature = ?", self.company_id, self.id, self.nature])
+      DocumentTemplate.update_all({:by_default=>false}, ["id != ? and nature = ?", self.id, self.nature])
     end
   end
 
@@ -144,9 +149,8 @@ class DocumentTemplate < CompanyRecord
     self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
-    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
-    if self.to_archive
-      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name}, :order=>"created_at DESC")
+    if self.to_archive and owner.is_a?(ActiveRecord::Base)
+      document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document
     end
 
@@ -180,20 +184,17 @@ class DocumentTemplate < CompanyRecord
     raise ArgumentError.new("Bad number of arguments, #{args.size} for #{parameters.size}") if args.size != parameters.size
 
     parameters.each_index do |i|
-      args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
-      # args[i] = parameters[i][1].find_by_id_and_company_id(args[i].to_s.to_i, self.company_id) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and [Integer, String].include? args[i].class
+      args[i] = parameters[i][1].find_by_id(args[i].to_s.to_i) if parameters[i][1].ancestors.include?(ActiveRecord::Base) and not args[i].is_a? parameters[i][1]
       args[i] = args[i].to_date if args[i].class == String and parameters[i][1] == Date
       raise ArgumentError.new("#{parameters[i][1].name} expected, got #{args[i].inspect}") unless args[i].class == parameters[i][1]
     end
 
     # Try to find an existing archive
-    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : self.company
-    if self.to_archive
-      document = self.company.documents.find(:first, :conditions=>{:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name}, :order=>"created_at DESC")
+    if self.to_archive and args[0].class.ancestors.include?(ActiveRecord::Base)
+      document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document
     end
     
-    company = self.company
     # Build the PDF data
     begin
       pdf = eval(self.cache)
@@ -251,7 +252,7 @@ class DocumentTemplate < CompanyRecord
   end
 
   def archive(owner, data, attributes={})
-    document = self.documents.new(attributes.merge(:company_id=>owner.company_id, :owner_id=>owner.id, :owner_type=>owner.class.name))
+    document = self.documents.new(attributes.merge(:owner_id=>owner.id, :owner_type=>owner.class.name))
     method_name = [:document_name, :number, :code, :name, :id].detect{|x| owner.respond_to?(x)}
     document.printed_at = Time.now
     document.extension ||= 'bin'

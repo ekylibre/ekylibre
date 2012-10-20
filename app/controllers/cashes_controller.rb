@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CashesController < ApplicationController
+class CashesController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  list(:order=>:name) do |t|
     t.column :name, :url=>true
     t.column :nature_label
     t.column :currency
@@ -34,7 +34,7 @@ class CashesController < ApplicationController
   def index
   end
 
-  list(:bank_statements, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
+  list(:bank_statements, :conditions=>{:cash_id=>['session[:current_cash_id]']}, :order=>"started_on DESC") do |t|
     t.column :number, :url=>true
     t.column :started_on
     t.column :stopped_on
@@ -42,7 +42,7 @@ class CashesController < ApplicationController
     t.column :debit, :currency=>"RECORD.cash.currency"
   end
 
-  list(:deposits, :conditions=>{:company_id=>['@current_company.id'], :cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
+  list(:deposits, :conditions=>{:cash_id=>['session[:current_cash_id]']}, :order=>"created_on DESC") do |t|
     t.column :number, :url=>true
     t.column :created_on
     t.column :payments_count
@@ -64,14 +64,13 @@ class CashesController < ApplicationController
       render :partial=>'accountancy_form', :locals=>{:nature=>params[:nature]}
       return
     end
-    @cash = Cash.new(:mode=>"bban", :currency=>@current_company.default_currency, :nature=>"bank_account", :entity_id=>params[:entity_id]||@current_company.entity_id)
+    @cash = Cash.new(:mode=>"bban", :currency=>Entity.of_company.currency, :nature=>"bank_account", :entity_id=>params[:entity_id]||Entity.of_company.id)
     render_restfully_form
   end
 
   def create
     @cash = Cash.new(params[:cash])
-    @cash.company = @current_company
-    @cash.entity = @current_company.entities.find_by_id(@cash.entity_id)||@current_company.entity
+    @cash.entity = @cash.entity||Entity.of_company
     return if save_and_redirect(@cash)
     render_restfully_form
   end

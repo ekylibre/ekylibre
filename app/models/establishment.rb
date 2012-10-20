@@ -21,7 +21,6 @@
 # == Table: establishments
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -35,19 +34,20 @@
 
 
 class Establishment < CompanyRecord
+  attr_accessible :name, :comment, :nic
+  has_many :warehouses
+  has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nic, :allow_nil => true, :maximum => 5
   validates_length_of :name, :siret, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :nic, :siret
+  validates_presence_of :name, :nic, :siret
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :warehouses
-  has_many :users
-  validates_uniqueness_of :name,  :scope=>:company_id
-  validates_uniqueness_of :siret, :scope=>:company_id
+  validates_uniqueness_of :name
+  validates_uniqueness_of :siret
 
   before_validation do
-    self.siret = self.company.siren.to_s+self.nic.to_s if self.company
+    if eoc = Entity.of_company
+      self.siret = eoc.siren.to_s + self.nic.to_s
+    end
   end
 end

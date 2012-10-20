@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ListingNodesController < ApplicationController
+class ListingNodesController < AdminController
 
   def new
     return unless @listing_node = find_and_check(:listing_node, params[:parent_id])

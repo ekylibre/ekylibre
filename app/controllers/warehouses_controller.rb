@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class WarehousesController < ApplicationController
+class WarehousesController < AdminController
   manage_restfully :reservoir=>"params[:reservoir]"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name, :url=>true
     t.column :comment
     t.column :name, :through=>:establishment
@@ -32,10 +32,10 @@ class WarehousesController < ApplicationController
 
   # Displays the main page with the list of warehouses
   def index
-    notify_now(:need_warehouse_to_record_stock_moves) if @current_company.warehouses.count.zero?
+    notify_now(:need_warehouse_to_record_stock_moves) if Warehouse.count.zero?
   end
 
-  list(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}) do |t|
+  list(:stock_moves, :conditions=>{:warehouse_id=>['session[:current_warehouse_id]']}) do |t|
     t.column :name
     t.column :planned_on
     t.column :moved_on
@@ -47,7 +47,7 @@ class WarehousesController < ApplicationController
     # t.action :destroy,:if=>'RECORD.generated != true' 
   end
 
-  list(:stocks, :conditions=>{:company_id=>['@current_company.id'], :warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|
+  list(:stocks, :conditions=>{:warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|
     t.column :name, :through=>:product,:url=>true
     t.column :name, :through=>:tracking, :url=>true
     t.column :weight, :through=>:product, :label=>:column

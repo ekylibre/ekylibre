@@ -13,10 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
-//= require twitter/bootstrap
 //= require active-list.jquery
 //= require formize
 //= require combo_box
 //= require big-integer
 //= require scheme-number
+//= require bootstrap
 //= require_tree .

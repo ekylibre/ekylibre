@@ -2,8 +2,8 @@
   -k.text
   -# k.radio :all, :waiting, :making, :ready, :shipped
 =toolbar do |t|
-  -waiting_transporters = @current_company.waiting_transporters
-  -unless (count = @current_company.untransportered_deliveries.size).zero?
+  -waiting_transporters = Entity.necessary_transporters
+  -unless (count = OutgoingDelivery.without_transporter.count).zero?
     -t.link tl(:new_transport_of_x_deliveries, :count=>count), :action=>:new
   -for transporter in waiting_transporters
     -t.link tl(:new_transport_of_x_deliveries_for_y, :count=>transporter.waiting_deliveries.count, :transporter=>transporter.last_name), :action=>:new, :transporter_id=>transporter.id

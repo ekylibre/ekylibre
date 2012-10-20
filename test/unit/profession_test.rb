@@ -22,7 +22,6 @@
 #
 #  code         :string(255)      
 #  commercial   :boolean          
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key

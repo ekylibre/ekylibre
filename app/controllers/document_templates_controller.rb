@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class DocumentTemplatesController < ApplicationController
-  manage_restfully :country=>"@current_company.entity.country", :language=>"@current_company.entity.language"
+class DocumentTemplatesController < AdminController
+  manage_restfully :country=>"Entity.of_company.country", :language=>"Entity.of_company.language"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"nature, name") do |t|
+  list(:order=>"nature, name") do |t|
     t.column :active
     t.column :name
     t.column :code
@@ -46,7 +46,7 @@ class DocumentTemplatesController < ApplicationController
     attrs.delete("id")
     attrs.delete("lock_version")
     attrs.delete_if{|k,v| k.match(/^(cre|upd)at((e|o)r_id|ed_(at|on))/) }
-    while @current_company.document_templates.find(:first, :conditions=>{:code=>attrs["code"]})
+    while DocumentTemplate.where(:code=>attrs["code"]).first
       attrs["code"].succ!
     end
     copy = DocumentTemplate.create(attrs)
@@ -59,7 +59,8 @@ class DocumentTemplatesController < ApplicationController
   end
 
   def load
-    @current_company.load_prints
+    # FIXME: Write DocumentTemplate::load
+    DocumentTemplate.load
     notify_success(:update_is_done)
     redirect_to :action=>:index
   end

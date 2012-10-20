@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class IncomingPaymentUsesController < ApplicationController
+class IncomingPaymentUsesController < AdminController
 
   def new
     expense = nil

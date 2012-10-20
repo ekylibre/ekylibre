@@ -24,7 +24,6 @@
 #  balance           :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id :integer          
 #  comment           :text             
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  credit            :decimal(19, 4)   default(0.0), not null
@@ -50,9 +49,8 @@ class JournalEntryLine < CompanyRecord
   after_destroy :update_entry
   after_destroy :unmark
   after_update  :update_entry
-  attr_readonly :company_id, :entry_id, :journal_id, :state
+  attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
-  belongs_to :company
   belongs_to :journal
   belongs_to :entry, :class_name=>"JournalEntry"
   belongs_to :bank_statement
@@ -61,10 +59,14 @@ class JournalEntryLine < CompanyRecord
   validates_length_of :letter, :allow_nil => true, :maximum => 8
   validates_length_of :state, :allow_nil => true, :maximum => 32
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :balance, :company, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
+  validates_presence_of :account, :balance, :credit, :debit, :entry, :name, :original_credit, :original_debit, :state
   #]VALIDATORS]
   validates_presence_of :account
   # validates_uniqueness_of :letter, :scope=>:account_id, :if=>Proc.new{|x| !x.letter.blank?}
+
+  scope :between, lambda { |started_on, stopped_on|
+    joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_lines.id")
+  }
 
 
   state_machine :state, :initial=>:draft do
@@ -83,9 +85,6 @@ class JournalEntryLine < CompanyRecord
     self.original_credit ||= 0
     currency_rate = nil
     if self.entry
-      # self.draft = self.entry.draft
-      # self.closed = self.entry.closed
-      self.company_id ||= self.entry.company_id 
       self.journal_id ||= self.entry.journal_id
       currency_rate = self.entry.original_currency_rate
     end

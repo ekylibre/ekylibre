@@ -5,7 +5,6 @@ if ActiveRecord::Base.connection.adapter_name == 'SQLServer'
   AssetDepreciation.coerce_sqlserver_date :created_on, :started_on, :stopped_on
   BankStatement.coerce_sqlserver_date :started_on, :stopped_on
   CashTransfer.coerce_sqlserver_date :created_on
-  Company.coerce_sqlserver_date :born_on
   Cultivation.coerce_sqlserver_date :started_on, :stopped_on
   CustomFieldDatum.coerce_sqlserver_date :date_value
   Deposit.coerce_sqlserver_date :created_on

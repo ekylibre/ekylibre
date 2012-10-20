@@ -20,7 +20,6 @@
 # 
 # == Table: operations
 #
-#  company_id                      :integer          not null
 #  consumption                     :decimal(19, 4)   
 #  created_at                      :datetime         not null
 #  creator_id                      :integer          

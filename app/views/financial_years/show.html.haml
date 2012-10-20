@@ -5,7 +5,7 @@
   -t.generate_last_journal_entry @financial_year, attrs
   -t.print_balance_sheet @financial_year
   -t.print_income_statement @financial_year
-  -if @financial_year == @current_company.closable_financial_year
+  -if @financial_year == FinancialYear.closable
     -t.close @financial_year
 
 %h2= tc 'general_informations'

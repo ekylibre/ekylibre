@@ -22,7 +22,6 @@
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
-#  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
@@ -46,8 +45,7 @@
 
 class OutgoingDelivery < CompanyRecord
   acts_as_numbered
-  attr_readonly :company_id, :sale_id, :number
-  belongs_to :company 
+  attr_readonly :sale_id, :number
   belongs_to :contact
   belongs_to :mode, :class_name=>"OutgoingDeliveryMode"
   belongs_to :sale
@@ -59,17 +57,17 @@ class OutgoingDelivery < CompanyRecord
   validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :pretax_amount, :sale
+  validates_presence_of :amount, :pretax_amount, :sale
   #]VALIDATORS]
+  validates_presence_of :planned_on
 
   # autosave :transport
   sums :transport, :deliveries, :amount, :pretax_amount, :weight
 
-  validates_presence_of :planned_on
+  default_scope order(:planned_on, :moved_on)
+  scope :undelivereds, where(:moved_on => nil).order(:planned_on, :entity_id)
+  scope :without_transporter, where(:moved_on=>nil, :transporter_id=>nil)
 
-  before_validation(:on=>:create) do
-    self.company_id = self.sale.company_id if self.sale
-  end
 
   before_validation do
     self.transporter_id ||= self.transport.transporter_id if self.transport
@@ -94,7 +92,6 @@ class OutgoingDelivery < CompanyRecord
     # self.confirm_transfer(shipped_on)
     # self.lines.each{|l| l.confirm_move}
     for line in self.lines.find(:all, :conditions=>["quantity>0"])
-      # self.stock_moves.create!(:name=>tc(:sale, :number=>self.order.number), :quantity=>line.quantity, :warehouse_id=>line.sale_line.warehouse_id, :product_id=>line.product_id, :planned_on=>self.planned_on, :moved_on=>shipped_on, :company_id=>line.company_id, :virtual=>false, :input=>false, :origin_type=>Delivery.to_s, :origin_id=>self.id, :generated=>true)
       line.product.move_outgoing_stock(:origin=>line, :warehouse_id=>line.sale_line.warehouse_id, :planned_on=>self.planned_on, :moved_on=>shipped_on)
     end
     self.moved_on = shipped_on if self.moved_on.nil?

@@ -20,8 +20,8 @@
 # 
 # == Table: subscriptions
 #
+#  _activation  :string(255)      
 #  comment      :text             
-#  company_id   :integer          not null
 #  contact_id   :integer          
 #  created_at   :datetime         not null
 #  creator_id   :integer          

@@ -10,12 +10,10 @@
 @import "buttons.css.scss";
 $experimental-support-for-svg: true;
 
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);
-
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
   margin:0; 
   padding:0; 
-  font-family: "Open Sans", Arial, sans-serif;
+  font-family: $base-font-family;
   vertical-align: middle;
   font-size: $fs-normal;
   color: $text-color;
@@ -57,47 +55,58 @@ small, sup, sub { font-size: $fs-small; }
 a:link, a:visited, a:focus { color: $link-color; text-decoration: none; }
 a:hover { color: $link-color; text-decoration: underline;}
 
-#body > div > .hbox > * { overflow: auto; }
-
-
-#loading { padding: 2px; @include text-align(center); }
-
 *[data-click], .clickable { cursor: pointer; }
+
+html {
+/*  background: $menu-background image-url("sunset.jpg") center no-repeat fixed;*/
+  background: $menu-background;
+}
 
 #wrap { 
   #main { 
-    border-bottom: 4*$menu-border-width solid $base-color;
+    /*border-bottom: 4*$menu-border-width solid $base-color;*/
     /*@include box-shadow(0 0 $fs-large rgba(#000, 0.3));*/
-    border-top: none;
-    border-right: none;
+    @include incrust-shadow;
     background: mix(#FFF, $base-color, 98%);
     #header {
-      background: $base-color;
-      #title {
-        margin: 0; 
-        @include title($fs-very-huge); 
-        padding: round($default-gap/2) $default-gap ;
-        color: white;
-        @include text-shadow(0 0 $fs-small rgba(#000, 0.5));
-      }
+      /*background: $base-color;*/
       #toolbar { 
-       /* @include float(right);*/
+        @include float(right);
         position: absolute;
         top: 0;
         right: 0;
         @include right(margin, $default-gap);
         margin-top: $default-gap;
-        .btn { 
-          .icon { margin: 0; }
-          .text { display: none; }
+        .group { 
+          @include button-group;
+          .btn {
+            .icon { margin: 0; }
+            .text { display: none; }
+          }
         }    
+      }
+      #title {
+        margin: 0; 
+        &, & * { @include title($fs-very-huge); }
+        padding: round($default-gap/2) $default-gap ;
+        * { @include margin-right($default-gap) }
+        html body &  { 
+          .module { font-weight: normal;}
+          .separator { color: #AAA;}
+          .leaf { color: #000 }
+        }
+        /*@include text-shadow(0 0 $fs-small rgba(#000, 0.5));*/
+      }
+      #subtitle { 
+        &, & * { @include title($fs-huge); }
+        font-weight: normal; 
+        font-style: italic;
       }
  
     }
     #content { 
       padding: $default-gap;
     }
-    .subheading { margin: 0 0 $default-gap; font-size: $fs-huge; color: #AAA; font-weight: normal; font-style: italic; }
     h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
     .menu { 
       @include border-radius($default-border-radius);
@@ -118,7 +127,7 @@ a:hover { color: $link-color; text-decoration: underline;}
 #legals { 
   @include text-align(center); 
   padding: round(0.5*$fs-small);
-  &, & * { color: #AAA; font-size: $fs-small; text-shadow: 1px 1px 1px #FFF }
+  &, & * { color: $neutral-color; font-size: $fs-small;} /* text-shadow: 1px 1px 0 #FFF */
 }
 
 
@@ -187,44 +196,61 @@ a:hover { color: $link-color; text-decoration: underline;}
   }
 }
 
-#side-splitter { 
-  background: $base-color; 
-  width:         4*$menu-border-width; 
-  border-top:    2*$menu-border-width solid $base-color; 
-  border-bottom: 2*$menu-border-width solid $base-color;
-/*  body.mod-production & { border-color: $default-color-spe; background: $default-color-spe}
-  body.mod-settings & { border-color: $default-color-config; background: $default-color-config }*/
-  &:hover { 
-    background: $title-color;
-    border-color: $title-color;
-    html[dir="ltr"] &, html[dir="rtl"] &.closed { cursor: w-resize; }
-    html[dir="ltr"] &.closed, html[dir="rtl"] & { cursor: e-resize; }
-  }
-}
-
 
 
 #side { 
-  /*  width: $menu-width; */
-  @include respond-to(desktop, tablet) {
-    @include border-right(4*$menu-border-width solid $base-color);
-  }
   @include respond-to(phone) {
     @include background($desktop-background);
     padding-bottom: $default-gap;
     @include box-shadow(0 0 $fs-normal rgba(#000, 0.5));
   }
-  .med-button { 
-    $flex: 0.22;
-    @include respond-to(desktop) {
-      width: round($break-large * $flex);
+
+  ul.side-menu { 
+    margin: $default-gap;
+    $transp: 40%;
+    @include incrust-shadow;
+    @include border-radius($default-border-radius);
+    li {
+      display:block;
+      margin-top: -1 * $menu-border-width;
+      $padding: round($fs-normal*0.7);
+      a { 
+        background: white;
+        display:block;
+        padding: $padding;
+        border: $menu-border;
+        @include ellipsis;
+      }
+      &:first-child { 
+        margin-top: 0;
+        a { 
+          @include border-top-left-radius($default-border-radius);
+          @include border-top-right-radius($default-border-radius);
+        }
+      }
+      &:last-child a { 
+        @include border-bottom-left-radius($default-border-radius);
+        @include border-bottom-right-radius($default-border-radius);
+      }
+      &:hover a { 
+        background: mix(white, $menu-border-color, 80%);
+        text-decoration: none;
+      }
+      &.current { 
+        position: relative;
+        z-index: 2;
+        a {
+          background: $base-color;
+          padding: $padding + 1;
+          border: none;
+          color: white; 
+        }
+      }
     }
-    @include respond-to(tablet) {
-      width: round($break-small * $flex);
-    }
+    
   }
 
-  #side-footer { 
+  &:last-child { 
     *:last-child { 
       margin-bottom: 0;
     }
@@ -265,13 +291,6 @@ table.quick td { padding: 0px 4px; }
 
 
 .logo { width: 160px; padding:4px; background: white; border:1px solid #EEE; text-align:center; vertical-align:center; }
-
-#company { border-spacing:6px; }
-#company div.side { border:1px solid #EEE; padding: 2px; background: #f9f9f9; }
-#company div.side h2{ margin: 2px 0px 4px; }
-#company div.side h3{ border-bottom :1px solid #BBB; margin: 10px 6px 2px; color:#555; }
-#company div.side .label {color:#777; width: 160px; @include text-align(right); padding: 2px; }
-#company div.side .value {color:#227;  padding: 2px; }
 
 .flash { 
   padding: $default-gap; 
@@ -329,7 +348,7 @@ table.quick td { padding: 0px 4px; }
 
 
 .fieldset { 
-/*  @include border-radius($default-border-radius);*/
+  @include border-radius($default-border-radius);
   $vertical-gap: round($default-gap*0.7);
   padding: $vertical-gap $default-gap; 
   margin: 0 0 $default-gap; 
@@ -340,7 +359,7 @@ table.quick td { padding: 0px 4px; }
   .legend { 
     padding: 0;
     label, span {
-      color: $base-color;
+      color: $neutral-color;
       font-size: $size;
       line-height: $size;
     }
@@ -371,6 +390,10 @@ table.quick td { padding: 0px 4px; }
       }
     }
   }
+  textarea { 
+    width: 70%;
+    resize: vertical;
+  }
   .set { 
     border-top: $fieldset-border;
     margin-top: $vertical-gap;
@@ -382,7 +405,8 @@ table.quick td { padding: 0px 4px; }
     margin: round($fs-normal*0.1) 0;    
 
     label { 
-      min-width: 25%;
+      width: 25%;
+      @include float(left);
       line-height: 1.4*$fs-normal;
       @include inline-block;
       white-space: nowrap;
@@ -397,6 +421,40 @@ table.quick td { padding: 0px 4px; }
     input{ 
       max-width: 65%;
     }
+  }
+}
+
+
+.control-group { 
+  margin: round($fs-normal/3) 0;
+  padding: round($fs-normal/3) 0;
+  @include clearfix;
+  label { 
+    width: $label-width;
+    @include float(left);
+    line-height: round(1.4*$fs-normal);
+    &.required { 
+      abbr { 
+        color: red; 
+        float: right;
+      }
+    }
+  }
+  .controls {
+    $margin-left: round($label-width * 1.1);
+    @include margin-left($margin-left);
+    width: 100% - $margin-left;
+    input, select, textarea { 
+      max-width: 100% - $margin-left;
+    }
+  }
+}
+
+.input-append { 
+  @include button-group;
+  .btn { 
+    .text { display: none; }
+    .icon { margin-left: 0; margin-right: 0; }
   }
 }
 
@@ -464,19 +522,18 @@ span.rad {
   margin: 0;
 }
 
+
 input, textarea, select { 
   border: $input-border;
   @include border-radius(3px);
   @include background($input-background); 
-  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset); /*incrust-shadow;*/
+  @include box-shadow(0 0 0.7em rgba(#000, 0.1), 0 round($fs-normal*0.2) round($fs-normal*0.4) rgba(#000, 0.12) inset);
   padding: 4*$menu-border-width;
   
   &:focus { 
-/*
     $color: change-color($base-color, $lightness: 70%);
-    @include box-shadow(0 0 0.6em rgba($color, 0.9));
+    @include box-shadow(0 0 0.6em rgba($color, 0.6));
     border-color: $color;
-*/
     &.invalid { 
       border-color: $invalid-color !important; 
     }
@@ -533,9 +590,12 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 
 
 .login { 
-  z-index: 1000; 
+  @extend .well;
+/*  z-index: 1000; 
   border: $menu-border; 
   background: $menu-background;
+  margin: $fs-normal 0;
+  padding: $fs-normal;*/
   .ui-dialog & { margin: 0; padding: 0 8px;}
   .logoban { height:80px; width: 280px; @include common-sprite(ekylibre); margin: 16px auto 8px; }
   h2 { color:red !important; padding: 2px; text-align:center; font-size: $fs-huge; }
@@ -545,9 +605,12 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
     tr {
       td { 
         padding: 2px 4px;
-        &.label { @include text-align(right); }
-        &.input, &.input input { width:128px; }
-        &.button {text-align:center; padding:6px 6px 16px; }
+        label { @include text-align(right); vertical-align: middle; }
+        &.input { 
+          padding: 3px;
+          &, & input { width:128px; }
+        }
+        &.button {text-align:center; padding:6px; }
       }
     }
     &.browsers tr td { padding: 8px 16px; }
@@ -567,42 +630,46 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
 #table.entries tr.even td{background: #A3FCFF; }
 
 
+.tabs {
+  $tabs-height: 2 * ceil($fs-normal * 0.8);
+  height: $tabs-height;
+  padding: 0px; 
+  white-space: nowrap;
+  & > .tab { 
+    @include inline-block;
+    $text-height: 2 * ceil($fs-normal * 0.55);
+    height: $text-height;
+    line-height: $text-height;
+    cursor: pointer;
+    @include right(margin, round($fs-normal/4)); 
+    padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2); 
+    color: #000;
+    text-shadow: 1px 1px 0 white;
+    text-decoration: none;
+    white-space: nowrap;
+    border: $menu-border;
+    border-bottom: none;
+    @include border-top-left-radius($default-border-radius);
+    @include border-top-right-radius($default-border-radius);
+    background: $menu-background;
+    opacity: 0.5;
+    &:hover { 
+      opacity: 0.8; 
+    }
+    &.current {
+      font-weight: bold; 
+      text-shadow: none;
+      opacity: 1;
+      position: relative;
+      top: $menu-border-width;
+    }
+  }
+}
+
 .tabbox {
   margin: $default-gap 0;
   & > .tabs  { 
-    $tabs-height: 2 * ceil($fs-normal * 0.8);
-    height: $tabs-height;
-    padding: 0px; 
-    white-space: nowrap;
-    & > .tab { 
-      @include inline-block;
-      $text-height: 2 * ceil($fs-normal * 0.55);
-      height: $text-height;
-      line-height: $text-height;
-      cursor: pointer;
-      @include right(margin, round($fs-normal/4)); 
-      padding: (($tabs-height - $text-height)/2 - $menu-border-width) 6px (($tabs-height - $text-height)/2); 
-      color: #000;
-      text-shadow: 1px 1px 0 white;
-      text-decoration: none;
-      white-space: nowrap;
-      border: $menu-border;
-      border-bottom: none;
-      @include border-top-left-radius($default-border-radius);
-      @include border-top-right-radius($default-border-radius);
-      background: $menu-background;
-      opacity: 0.5;
-      &:hover { 
-        opacity: 0.8; 
-      }
-      &.current {
-        font-weight: bold; 
-        text-shadow: none;
-        opacity: 1;
-        position: relative;
-        top: $menu-border-width;
-      }
-    }
+    @extend .tabs;
   }
   & > .tabpanels {
     @include incrust-shadow;
@@ -616,17 +683,20 @@ html[dir="rtl"] .stepper td.step { background-position: left center; }
       &.current { display: block; }
     }
   }
-  &.journals { 
-    border-bottom: $menu-border-width solid mix($desktop-background, #000, 70%);
-    @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
-    & > .tabs {
-      & > .tab {
-        &.current{ @include background($desktop-background); }
-        &.special{ color: $base-color; }
-      }
-    }
+}
+
+ul#journals { 
+  border-bottom: $menu-border-width solid mix($desktop-background, #000, 70%);
+  @include background(linear-gradient(top, rgba(0,0,0,0), rgba(0,0,0,0.05)));
+  @extend .tabs;
+  @include left(padding, round($fs-normal/4));
+  & > li { 
+    @extend .tab;
+    &.current{ @include background($desktop-background); }
+    &.special{ color: $base-color; }
   }
 }
+
 
 $tree-line: 1px dotted #AAA;
 .branch { 
@@ -1131,38 +1201,6 @@ input[data-datepicker] {@include text-align(center)}
   }
 }
 
-.med-button:link, .med-button:visited { 
-  $transp: 40%;
-  display: block;
-  padding: $fs-normal*0.7;
-  @include background(mix($menu-background, $base-color, $transp));
-  margin: $default-gap 0;
-  @include incrust-shadow;
-  color: white;
-  font-weight: bold;
-  @include text-shadow(0 0 5px rgba(#000, 0.5));
-  text-decoration: none;
-  @include ellipsis;
-  &:hover, &:active { 
-    @include background($base-color);
-  }
-  @each $module in $modules { 
-    body.mod-#{nth($module, 1)} & { 
-      @include background(mix($menu-background, nth($module, 2), $transp));
-      &:hover { 
-        @include background(nth($module, 2));
-      }
-    }
-  }
-  body &.back, body &.help, body &.logout, body &.settings { 
-    @include background(mix($menu-background, $base-color, $transp));
-    &:hover { 
-      @include background($base-color);
-    }
-  }
-}
-
-
 
 #help { 
   display: none;
@@ -1190,20 +1228,11 @@ input[data-datepicker] {@include text-align(center)}
       #main {
         border-color: $color;
         background: mix(#FFF, $color, 98%);
-        a:link, a:visited, a:focus, a:hover, a:active { color: $color; }
+        /*a:link, a:visited, a:focus, a:hover, a:active { color: $color; }*/
         #header { 
-          background: $color;
+          #title { &, & * { color: $color; } }
+          #subtitle { &, & * { color: mix($desktop-background, $color, 30%); } }
         }
-      }
-      #side { 
-        border-color: $color;
-      }
-    }
-    input, textarea, select { 
-      &:focus { 
-        $icolor: change-color($color, $lightness: 40%);
-        @include box-shadow(0 0 0.6em rgba($icolor, 0.7));
-        border-color: $icolor;
       }
     }
   }

@@ -25,7 +25,6 @@
 #  ceded_on                :date             
 #  charges_account_id      :integer          
 #  comment                 :text             
-#  company_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  currency                :string(3)        
@@ -64,7 +63,7 @@ class Asset < CompanyRecord
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :allocation_account, :company, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
+  validates_presence_of :allocation_account, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name
 
@@ -97,7 +96,7 @@ class Asset < CompanyRecord
 
   validate do
     if self.started_on
-      if fy = self.company.financial_years.reorder("started_on").first
+      if fy = FinancialYear.reorder("started_on").first
         unless fy.started_on <= self.started_on
           errors.add(:started_on, :greater_than_or_equal_to, :count => fy.started_on.l) 
         end
@@ -145,8 +144,8 @@ class Asset < CompanyRecord
     for depreciation in self.depreciations
       starts << depreciation.started_on
     end
-    last = self.company.financial_year_at(self.stopped_on)
-    for financial_year in self.company.financial_years
+    last = FinancialYear.at(self.stopped_on)
+    FinancialYear.find_each do |financial_year|
       start = financial_year.started_on
       if self.started_on <= start and start <= self.stopped_on
         starts << start 
@@ -181,7 +180,7 @@ class Asset < CompanyRecord
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end 
-        fy = self.company.financial_years.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
+        fy = FinancialYear.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
         depreciation.financial_year = fy if fy
 
         depreciation.position = position
@@ -215,7 +214,7 @@ class Asset < CompanyRecord
           remaining_amount -= depreciation.amount
         end 
         
-        fy = self.company.financial_years.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
+        fy = FinancialYear.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
         depreciation.financial_year = fy if fy
 
         depreciation.position = position

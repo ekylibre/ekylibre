@@ -3,7 +3,7 @@
   -k.radio :all, :current, :unpaid
   -k.criterion do
     %label=Sale.human_attribute_name(:responsible)
-    =select_tag(:responsible_id, options_for_select([[]]+@current_company.users.collect{|u| [u.label, u.id]}, params[:responsible_id]))
+    =select_tag(:responsible_id, options_for_select([[]]+Users.collect{|u| [u.label, u.id]}, params[:responsible_id]))
 
 =toolbar do |t|
   -t.link :new

@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OutgoingPaymentsController < ApplicationController
-  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"(@current_company.entities.find(params[:payee_id]).id rescue 0)", :amount=>"params[:amount].to_f"
+class OutgoingPaymentsController < AdminController
+  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payee_id=>"params[:payee_id]", :amount=>"params[:amount].to_f"
 
   def self.outgoing_payments_conditions(options={})
     code = search_conditions(:outgoing_payments, :outgoing_payments=>[:amount, :used_amount, :check_number, :number], :entities=>[:code, :full_name])+"||=[]\n"
@@ -55,7 +55,7 @@ class OutgoingPaymentsController < ApplicationController
     session[:outgoing_payment_key]   = params[:q]||""
   end
 
-  list(:purchases, :conditions=>["#{Purchase.table_name}.company_id=? AND #{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['@current_company.id'], ['session[:current_outgoing_payment_id]']]) do |t|
+  list(:purchases, :conditions=>["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
     t.column :number, :url=>true
     t.column :description, :through=>:supplier, :url=>true
     t.column :created_on

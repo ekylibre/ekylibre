@@ -20,7 +20,6 @@
 # 
 # == Table: listing_node_items
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -34,12 +33,11 @@
 
 
 class ListingNodeItem < CompanyRecord
+  belongs_to :node, :class_name=>"ListingNode"
+  attr_readonly :node_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 8
-  validates_presence_of :company, :nature, :node
+  validates_presence_of :nature, :node
   #]VALIDATORS]
-  belongs_to :company
-  belongs_to :node, :class_name=>"ListingNode"
-  attr_readonly :company_id, :node_id
 
 end

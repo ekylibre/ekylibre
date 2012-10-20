@@ -23,7 +23,6 @@
 #  account_id          :integer          
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text             
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  entity_id           :integer          
@@ -52,9 +51,8 @@
 class SaleLine < CompanyRecord
   acts_as_list :scope=>:sale
   after_save :set_reduction
-  attr_readonly :company_id, :sale_id
+  attr_readonly :sale_id
   belongs_to :account
-  belongs_to :company
   belongs_to :entity
   belongs_to :warehouse
   belongs_to :sale
@@ -75,7 +73,7 @@ class SaleLine < CompanyRecord
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :price_amount, :quantity, :reduction_percent, :allow_nil => true
-  validates_presence_of :amount, :company, :pretax_amount, :price, :product, :quantity, :reduction_percent, :sale
+  validates_presence_of :amount, :pretax_amount, :price, :product, :quantity, :reduction_percent, :sale
   #]VALIDATORS]
   validates_presence_of :price
 
@@ -84,7 +82,6 @@ class SaleLine < CompanyRecord
   
   before_validation do
     # check_reservoir = true
-    self.company_id = self.sale.company_id if self.sale
     if not self.price and self.sale and self.product
       self.price = self.product.default_price(self.sale.client.category_id)
       # puts [sale.client.category_id, sale].inspect unless self.price
@@ -103,7 +100,7 @@ class SaleLine < CompanyRecord
     self.price_amount ||= 0
 
     if self.price_amount > 0
-      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax_id||0, :entity_id=>self.company.entity_id , :company_id=>self.company_id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
+      price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax_id||0, :entity_id=>Entity.of_company.id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
       self.price = price
     end
     
@@ -145,7 +142,7 @@ class SaleLine < CompanyRecord
     if self.warehouse
       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) unless self.warehouse.can_receive?(self.product_id)
       if self.tracking
-        stock = self.company.stocks.find(:first, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id})
+        stock = Stocks.where(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :tracking_id=>self.tracking_id).first
         errors.add_to_base(:can_not_use_this_tracking, :tracking=>self.tracking.name) if stock and stock.virtual_quantity < self.quantity
       end
     end
@@ -162,7 +159,7 @@ class SaleLine < CompanyRecord
   def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:company_id=>self.company_id, :reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :sale_id=>self.sale_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
+      reduction.attributes = {:reduction_origin_id=>self.id, :price_id=>self.price_id, :product_id=>self.product_id, :sale_id=>self.sale_id, :warehouse_id=>self.warehouse_id, :quantity=>-self.quantity*reduction_percent/100, :label=>tc('reduction_on', :product=>self.product.catalog_name, :percent=>self.reduction_percent)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -178,16 +175,16 @@ class SaleLine < CompanyRecord
   end
 
   def stock_id
-    self.company.stocks.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
+    Stock.find_by_warehouse_id_and_product_id_and_tracking_id(self.warehouse_id, self.product_id, self.tracking_id).id rescue nil
   end
 
   def stock_id=(value)
     value = value.to_i
-    if value > 0 and stock = (self.company||self.sale.company).stocks.find_by_id(value)
+    if value > 0 and stock = Stock.find_by_id(value)
       self.warehouse_id = stock.warehouse_id
       self.tracking_id = stock.tracking_id
       self.product_id  = stock.product_id
-    elsif value < 0 and warehouse = self.company.warehouses.find_by_id(value.abs)
+    elsif value < 0 and warehouse = Warehouse.find_by_id(value.abs)
       self.warehouse_id = value.abs
     end
   end
@@ -205,7 +202,7 @@ class SaleLine < CompanyRecord
 
   def new_subscription(attributes={})
     #raise Exception.new attributes.inspect
-    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :company_id=>self.company.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id, :sale_line_id=>self.id))
+    subscription = Subscription.new((attributes||{}).merge(:sale_id=>self.sale.id, :product_id=>self.product_id, :nature_id=>self.product.subscription_nature_id, :sale_line_id=>self.id))
     subscription.attributes = attributes
     product = subscription.product
     nature  = subscription.nature

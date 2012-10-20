@@ -21,7 +21,6 @@
 # == Table: accounts
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -38,39 +37,46 @@
 
 
 class Account < CompanyRecord
-  attr_readonly :company_id, :number
-  belongs_to :company
+  @@references = []
+  attr_readonly :number
   has_many :account_balances
-  has_many :attorneys, :class_name=>"Entity", :foreign_key=>:attorney_account_id
-  has_many :balances, :class_name=>"AccountBalance"
+  has_many :attorneys, :class_name => "Entity", :foreign_key => :attorney_account_id
+  has_many :balances, :class_name => "AccountBalance"
   has_many :cashes
-  has_many :clients, :class_name=>"Entity", :foreign_key=>:client_account_id
-  has_many :collected_taxes, :class_name=>"Tax", :foreign_key=>:collected_account_id
-  has_many :commissioned_incoming_payment_modes, :class_name=>"IncomingPaymentMode", :foreign_key=>:commission_account_id
-  has_many :depositables_incoming_payment_modes, :class_name=>"IncomingPaymentMode", :foreign_key=>:depositables_account_id
-  has_many :immobilizations_products, :class_name=>"Product", :foreign_key=>:immobilizations_account_id
+  has_many :clients, :class_name => "Entity", :foreign_key => :client_account_id
+  has_many :collected_taxes, :class_name => "Tax", :foreign_key => :collected_account_id
+  has_many :commissioned_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :commission_account_id
+  has_many :depositables_incoming_payment_modes, :class_name => "IncomingPaymentMode", :foreign_key => :depositables_account_id
+  has_many :immobilizations_products, :class_name => "Product", :foreign_key => :immobilizations_account_id
   has_many :journal_entry_lines
-  has_many :paid_taxes, :class_name=>"Tax", :foreign_key=>:paid_account_id
-  has_many :purchases_products, :class_name=>"Product", :foreign_key=>:purchases_account_id
+  has_many :paid_taxes, :class_name => "Tax", :foreign_key => :paid_account_id
+  has_many :purchases_products, :class_name => "Product", :foreign_key => :purchases_account_id
   has_many :purchase_lines
   has_many :sale_lines
-  has_many :sales_products, :class_name=>"Product", :foreign_key=>:sales_account_id
-  has_many :suppliers, :class_name=>"Entity", :foreign_key=>:supplier_account_id
+  has_many :sales_products, :class_name => "Product", :foreign_key => :sales_account_id
+  has_many :suppliers, :class_name => "Entity", :foreign_key => :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :last_letter, :allow_nil => true, :maximum => 8
   validates_length_of :number, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 208
   validates_length_of :label, :allow_nil => true, :maximum => 255
   validates_inclusion_of :is_debit, :reconcilable, :in => [true, false]
-  validates_presence_of :company, :label, :name, :number
+  validates_presence_of :label, :name, :number
   #]VALIDATORS]
-  validates_format_of :number, :with=>/^\d(\d(\d[0-9A-Z]*)?)?$/
-  validates_uniqueness_of :number, :scope=>:company_id
+  validates_format_of :number, :with => /^\d(\d(\d[0-9A-Z]*)?)?$/
+  validates_uniqueness_of :number
+
+  default_scope order(:number, :name)
+  scope :majors, where("number LIKE '_'").order(:number, :name)
+  scope :attorney_thirds, lambda { where('number LIKE ?', self.find_in_chart(:attorney_thirds).number+"%").order(:number, :name) }
+  scope :client_thirds,   lambda { where('number LIKE ?', self.find_in_chart(:client_thirds).number+"%").order(:number, :name) }
+  scope :supplier_thirds, lambda { where('number LIKE ?', self.find_in_chart(:supplier_thirds).number+"%").order(:number, :name) }
+
 
   # This method allows to create the parent accounts if it is necessary.
   before_validation do
     self.reconcilable = self.reconcilableable? if self.reconcilable.nil?
-    self.label = tc(:label, :number=>self.number.to_s, :name=>self.name.to_s)
+    self.label = tc(:label, :number => self.number.to_s, :name => self.name.to_s)
   end
 
   protect(:on => :destroy) do
@@ -80,6 +86,45 @@ class Account < CompanyRecord
     end
     return dependencies <= 0
   end
+
+  def self.register_usage(account)
+    account = account.to_s.underscore.to_sym
+    @@references << account unless @@references.include?(account)
+    return true
+  end
+
+  # Find account with its name in chart
+  def self.find_in_chart(name)
+    # TODO: Adds code to find account
+    return Account.first
+  end
+
+  # FinancialYear
+  register_usage :financial_year_gains
+  register_usage :financial_year_losses
+  # Purchase
+  register_usage :charges
+  # Cash
+  register_usage :banks
+  register_usage :cashes
+  # CashTransfer
+  register_usage :internal_transfers
+  # Deposit/IncomingPayment
+  register_usage :deposit_pending_payments
+  # Sale
+  register_usage :products
+  # TaxDeclaration
+  # register_usage :taxes_acquisition
+  # register_usage :taxes_assimilated
+  # register_usage :taxes_balance
+  # register_usage :taxes_payback
+  # Tax
+  register_usage :collected_taxes
+  register_usage :paid_taxes
+  # Entity
+  register_usage :attorney_thirds
+  register_usage :client_thirds
+  register_usage :supplier_thirds
 
 
   # Clean ranges of accounts
@@ -129,29 +174,47 @@ class Account < CompanyRecord
   def self.lists
     lists = {}
     for locale in ::I18n.active_locales
-      for k, v in ::I18n.translate("accounting_systems", :locale=>locale)
+      for k, v in ::I18n.translate("accounting_systems", :locale => locale)
         lists["#{locale}.#{k}"] = v[:name] unless v.nil? or v[:name].nil?
       end
     end
     return lists
   end
 
+  # Replace current chart of account with a new
+  def self.load_chart(name)
+    
+  end
+
+
+  # Returns list of reconcilable prefixes defined in preferences
+  def reconcilable_prefixes
+    return [:client, :supplier, :attorney].collect do |mode| 
+      Account.preferred('third_'+mode.to_s.pluralize+'_accounts')
+    end
+    return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
+  end
+
+  # Returns a RegExp based on reconcilable_prefixes
+  def self.reconcilable_regexp
+    return Regexp.new("^(#{Account.reconcilable_prefixes.join('|')})")
+  end
 
   # Check if the account is a third account and therefore returns if it should be reconcilable
   def reconcilableable?
-    return (self.number.to_s.match(self.company.reconcilable_regexp) ? true : false)
+    return (self.number.to_s.match(Account.reconcilable_regexp) ? true : false)
   end
   
 
   def reconcilable_entry_lines(period, started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions=>JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order=>"letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
+    self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions => JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order => "letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
   end
 
   def new_letter
     letter = self.last_letter
     letter = letter.blank? ? "AAA" : letter.succ
     self.update_column(:last_letter, letter)
-    # line = self.journal_entry_lines.find(:first, :conditions=>[self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order=>"letter DESC")
+    # line = self.journal_entry_lines.find(:first, :conditions => [self.class.connection.length(self.class.connection.trim("letter"))+" > 0"], :order => "letter DESC")
     # return (line ? line.letter.succ : "AAA")
     return letter
   end
@@ -161,28 +224,28 @@ class Account < CompanyRecord
   # if all valids mark all with a new letter or the first defined before
   def mark_entries(*journal_entries)
     ids = journal_entries.flatten.compact.collect{|e| e.id}
-    return self.mark(self.journal_entry_lines.find(:all, :conditions=>{:entry_id=>ids}).collect{|l| l.id})
+    return self.mark(self.journal_entry_lines.find(:all, :conditions => {:entry_id => ids}).collect{|l| l.id})
   end
 
   # Mark entry lines with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless all the marked lines will be balanced together
   def mark(line_ids, letter = nil)
     conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", line_ids]
-    lines = self.journal_entry_lines.find(:all, :conditions=>conditions)
+    lines = self.journal_entry_lines.find(:all, :conditions => conditions)
     return nil unless line_ids.size > 1 and lines.size == line_ids.size and lines.collect{|l| l.debit-l.credit}.sum.to_f.zero?
     letter ||= self.new_letter
-    self.journal_entry_lines.update_all({:letter=>letter}, conditions)
+    self.journal_entry_lines.update_all({:letter => letter}, conditions)
     return letter
   end
 
   # Unmark all the entry lines concerned by the +letter+
   def unmark(letter)
-    self.journal_entry_lines.update_all({:letter=>nil}, {:letter=>letter})
+    self.journal_entry_lines.update_all({:letter => nil}, {:letter => letter})
   end
 
   # Check if the balance of the entry lines of the given +letter+ is zero.
   def balanced_letter?(letter)
-    lines = self.journal_entry_lines.find(:all, :conditions=>["letter = ?", letter.to_s])
+    lines = self.journal_entry_lines.find(:all, :conditions => ["letter = ?", letter.to_s])
     return true if lines.size <= 0
     return lines.sum("debit-credit").to_f.zero? 
   end
@@ -201,51 +264,20 @@ class Account < CompanyRecord
   end
 
 
-  def journal_entry_lines_between(started_on, stopped_on)
-    self.journal_entry_lines.find(:all, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order=>"printed_on, journal_entries.id, #{JournalEntryLine.table_name}.id")
-  end
+  # def journal_entry_lines_between(started_on, stopped_on)
+  #   self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on], :order => "printed_on, journal_entries.id, #{JournalEntryLine.table_name}.id")
+  # end
 
   def journal_entry_lines_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
-    self.journal_entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
+    self.journal_entry_lines.calculate(operation, column, :joins => "JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions => ["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
 
 
-
-
-  # computes the balance for a given financial_year.
-  #  def compute(company, financial_year)
-  #     debit = self.journal_entry_lines.sum(:debit, :conditions => {:company_id => company}, :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=journal_entry_lines.entry_id AND r.financial_year_id ="+financial_year.to_s).to_f
-  #     credit = self.journal_entry_lines.sum(:credit, :conditions => {:company_id => company}, :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=journal_entry_lines.entry_id AND r.financial_year_id ="+financial_year.to_s).to_f
-  
-  #     balance = {}
-  #     unless (debit.zero? and credit.zero?) and not self.number.to_s.match /^12/
-  #       balance[:id] = self.id.to_i
-  #       balance[:number] = self.number.to_i
-  #       balance[:name] = self.name.to_s
-  #       balance[:balance] = debit - credit
-  #       if debit.zero? or credit.zero?
-  #         balance[:debit] = debit
-  #         balance[:credit] = credit
-  #       end
-  #       if not debit.zero? and not credit.zero?
-  #         if balance[:balance] > 0  
-  #           balance[:debit] = balance[:balance]
-  #           balance[:credit] = 0
-  #         else
-  #           balance[:debit] = 0
-  #           balance[:credit] = balance[:balance].abs
-  #         end
-  #       end
-  #     end
-  
-  #     balance unless balance.empty?
-  #   end
-
   # This method loads the balance for a given period.
-  def self.balance(company, from, to, list_accounts=[])
+  def self.balance(from, to, list_accounts=[])
     balance = []
-    conditions = "company_id = "+company.to_s
+    conditions = "1=1"
     if not list_accounts.empty?
       conditions += " AND "+list_accounts.collect do |account|
         "number LIKE '"+account.to_s+"%'"
@@ -259,8 +291,8 @@ class Account < CompanyRecord
     res_balance = 0
     
     for account in accounts
-      debit  = account.journal_entry_lines.sum(:debit,  :conditions =>["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
-      credit = account.journal_entry_lines.sum(:credit, :conditions =>["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
+      debit  = account.journal_entry_lines.sum(:debit,  :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
+      credit = account.journal_entry_lines.sum(:credit, :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
       
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -320,13 +352,13 @@ class Account < CompanyRecord
   end
   
   # this method loads the general ledger for all the accounts.
-  def self.ledger(company, from, to)
+  def self.ledger(from, to)
     ledger = []
-    accounts = Account.find(:all, :conditions => {:company_id => company}, :order=>"number ASC")
+    accounts = Account.find(:all, :conditions => {}, :order => "number ASC")
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
       
-      journal_entry_lines = account.journal_entry_lines.find(:all, :conditions=>["r.created_on BETWEEN ? AND ?", from, to ], :joins=>"INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id", :order=>"r.number ASC")
+      journal_entry_lines = account.journal_entry_lines.find(:all, :conditions => ["r.created_on BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id", :order => "r.number ASC")
       
       if journal_entry_lines.size > 0
         entries = []

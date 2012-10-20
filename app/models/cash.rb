@@ -27,7 +27,6 @@
 #  bank_name    :string(50)       
 #  bic          :string(16)       
 #  by_default   :boolean          not null
-#  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -55,7 +54,6 @@ class Cash < CompanyRecord
 
   attr_readonly :nature, :currency
   belongs_to :account
-  belongs_to :company
   belongs_to :entity
   belongs_to :journal
   has_many :bank_statements
@@ -72,20 +70,23 @@ class Cash < CompanyRecord
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
   validates_length_of :agency_code, :bank_code, :key, :mode, :name, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :account, :company, :journal, :mode, :name, :nature
+  validates_presence_of :account, :journal, :mode, :name, :nature
   #]VALIDATORS]
   # validates_presence_of :bank_name
   validates_inclusion_of :mode, :in=>%w( iban bban )
   validates_uniqueness_of :account_id
 
+  default_scope order(:name)
+  scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
   
   # before create a bank account, this computes automatically code iban.
   before_validation do
     self.mode.lower!
     self.mode = @@modes[0] if self.mode.blank?
-    # raise Exception.new self.mode.inspect
-    self.entity_id = self.company.entity_id if self.company
-    self.currency ||= self.company.default_currency
+    if eoc = Entity.of_company
+      self.entity_id = eoc.id
+      self.currency ||= eoc.currency
+    end
     if self.iban_mode?
       self.iban = self.iban.to_s.upper.gsub(/[^A-Z0-9]/, '')
     elsif self.bban_mode?

@@ -22,7 +22,6 @@
 #
 #  accounted_at     :datetime         
 #  amount           :decimal(19, 4)   
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  downpayment      :boolean          not null
@@ -39,8 +38,6 @@
 
 class IncomingPaymentUse < CompanyRecord
   acts_as_reconcilable :client, :payer
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :expense, :polymorphic=>true
   belongs_to :journal_entry
   belongs_to :payment, :class_name=>"IncomingPayment"
@@ -54,14 +51,10 @@ class IncomingPaymentUse < CompanyRecord
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :expense_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :downpayment, :in => [true, false]
-  validates_presence_of :company, :expense, :expense_type, :payment
+  validates_presence_of :expense, :expense_type, :payment
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_presence_of :expense, :payment
-
-  before_validation(:on=>:create) do
-    self.company_id = self.payment.company_id if self.payment
-  end
 
   before_validation do
     if self.expense and self.payment and self.amount.to_f.zero?
@@ -91,16 +84,13 @@ class IncomingPaymentUse < CompanyRecord
       end
     end
     errors.add(:expense_type, :invalid) unless @@expense_types.include? self.expense_type
-    if self.expense
-      errors.add(:expense_id, :invalid) unless self.expense.company_id = self.company_id
-    end
     errors.add_to_base(:nothing_to_pay) if self.amount <= 0 and self.downpayment == false
   end
 
   bookkeep do |b|
     label = tc(:bookkeep, :resource=>self.class.model_name.human, :expense_number=>self.expense.number, :payment_number=>self.payment.number, :attorney=>self.payment.payer.full_name, :client=>self.expense.client.full_name, :mode=>self.payment.mode.name)
     attorney, client = self.payment.payer.account(:client), self.expense.client.account(:client)
-    b.journal_entry(self.company.journal(:various), :printed_on=>self.payment.created_on, :unless=>(attorney.id == client.id)) do |entry|
+    b.journal_entry(self.payment.mode.attorney_journal, :printed_on=>self.payment.created_on, :unless=>(attorney.id == client.id)) do |entry|
       entry.add_debit(label, attorney.id, self.amount)
       entry.add_credit(label,  client.id, self.amount)
     end

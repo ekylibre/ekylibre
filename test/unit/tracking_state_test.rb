@@ -22,7 +22,6 @@
 #
 #  atmospheric_pressure         :decimal(19, 4)   
 #  comment                      :text             
-#  company_id                   :integer          not null
 #  created_at                   :datetime         not null
 #  creator_id                   :integer          
 #  examinated_at                :datetime         not null

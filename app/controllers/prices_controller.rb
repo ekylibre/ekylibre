@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class PricesController < ApplicationController
+class PricesController < AdminController
 
   list(:conditions=>prices_conditions, :order=>:product_id) do |t|
     t.column :name, :through=>:product, :url=>true
@@ -33,15 +33,15 @@ class PricesController < ApplicationController
 
   def new
     @mode = (params[:mode]||"sales").to_sym 
-    @price = Price.new(:product_id=>params[:product_id], :currency=>params[:currency]||@current_company.default_currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
+    @price = Price.new(:product_id=>params[:product_id], :currency=>params[:currency]||Entity.of_company.currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
     render_restfully_form    
   end
 
   def create
     @mode = (params[:mode]||"sales").to_sym 
-    @price = @current_company.prices.new(params[:price])
-    @price.entity_id = params[:price][:entity_id]||@current_company.entity_id
+    @price = Price.new(params[:price])
+    @price.entity_id = params[:price][:entity_id]||Entity.of_company.id
     return if save_and_redirect(@price)
     render_restfully_form    
   end
@@ -68,20 +68,20 @@ class PricesController < ApplicationController
       @product = @price.product if @price
     elsif params[:purchase_line_product_id]
       return unless @product = find_and_check(:product, params[:purchase_line_product_id])
-      @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||@current_company.entity_id) if @product
+      @price = @product.prices.find_by_active_and_by_default_and_entity_id(true, true, params[:entity_id]||Entity.of_company.id) if @product
     end
   end
 
   def edit
     return unless @price = find_and_check
-    @mode = "purchases" if @price.entity_id != @current_company.entity_id
+    @mode = "purchases" if @price.entity_id != Entity.of_company.id
     t3e @price.attributes, :product=>@price.product.name
     render_restfully_form
   end
 
   def update
     return unless @price = find_and_check
-    @mode = "purchases" if @price.entity_id != @current_company.entity_id
+    @mode = "purchases" if @price.entity_id != Entity.of_company.id
     @price.amount = 0
     return if save_and_redirect(@price, :attributes=>params[:price])
     t3e @price.attributes, :product=>@price.product.name
@@ -91,14 +91,14 @@ class PricesController < ApplicationController
   # Displays the main page with the list of prices
   def index
     @modes = ['all', 'clients', 'suppliers']
-    @suppliers = @current_company.entities.find(:all, :conditions=>{:supplier=>true})
+    @suppliers = Entity.where(:supplier=>true)
     session[:entity_id] = 0
     if request.post?
       mode = params[:price][:mode]
       if mode == "suppliers"
         session[:entity_id] = params[:price][:supply].to_i
       elsif mode == "clients"
-        session[:entity_id] = @current_company.entity_id
+        session[:entity_id] = Entity.of_company.id
       else
         session[:entity_id] = 0
       end
@@ -106,8 +106,8 @@ class PricesController < ApplicationController
   end
 
   def export
-    @products = @current_company.available_products
-    @entity_categories = @current_company.entity_categories
+    @products = Product.availables
+    @entity_categories = EntityCategory
     
     csv = ["",""]
     csv2 = ["Code Produit", "Nom"]
@@ -125,7 +125,7 @@ class PricesController < ApplicationController
         line = []
         line << [product.code, product.name]
         @entity_categories.each do |category|
-          price = @current_company.prices.find(:first, :conditions=>{:active=>true,:product_id=>product.id, :category_id=>EntityCategory.find_by_code_and_company_id(category.code, @current_company.id).id})
+          price = Price.find(:first, :conditions=>{:active=>true, :product_id=>product.id, :category_id=>EntityCategory.find_by_code(category.code).id})
           #raise Exception.new price.inspect
           if price.nil?
             line << ["","",""]
@@ -162,8 +162,8 @@ class PricesController < ApplicationController
           if i == 0
             x = 2
             while !row[x].nil?
-              entity_category = EntityCategory.find_by_code_and_company_id(row[x], @current_company.id)
-              entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1], :company_id=>@current_company.id) if entity_category.nil?
+              entity_category = EntityCategory.find_by_code(row[x])
+              entity_category = EntityCategory.create!(:code=>row[x], :name=>row[x+1]) if entity_category.nil?
               @entity_categories << entity_category
               x += 3
             end
@@ -172,15 +172,14 @@ class PricesController < ApplicationController
           if i > 1
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
-            @product = Product.find_by_code_and_company_id(row[0], @current_company.id)
+            @product = Product.find_by_code(row[0])
             for category in @entity_categories
               blank = true
-              tax = Tax.find(:first, :conditions=>{:company_id=>@current_company.id, :amount=>row[x+2].to_s.gsub(/\,/,".").to_f})
+              tax = Tax.find(:first, :conditions=>{:amount=>row[x+2].to_s.gsub(/\,/,".").to_f})
               tax_id = tax.nil? ? nil : tax.id
-              @price = Price.find(:first, :conditions=>{:product_id=>@product.id,:company_id=>@current_company.id, :category_id=>category.id, :active=>true} )
-              #raise Exception.new row.inspect+@price.inspect+@product.id.inspect+@current_company.id.inspect+category.id.inspect if i==5
+              @price = Price.find(:first, :conditions=>{:product_id=>@product.id, :category_id=>category.id, :active=>true} )
               if @price.nil? and (!row[x].nil? or !row[x+1].nil? or !row[x+2].nil?)
-                @price = Price.new(:pretax_amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount=>row[x+1].to_s.gsub(/\,/,".").to_f, :company_id=>@current_company.id, :product_id=>@product.id, :category_id=>category.id, :entity_id=>@current_company.entity_id,:currency_id=>@current_company.currencies[0].id)
+                @price = Price.new(:pretax_amount=>row[x].to_s.gsub(/\,/,".").to_f, :tax_id=>tax_id, :amount=>row[x+1].to_s.gsub(/\,/,".").to_f, :product_id=>@product.id, :category_id=>category.id, :entity_id=>Entity.of_company.id, :currency=>Entity.of_company.currency)
                 blank = false
               elsif !@price.nil?
                 blank = false

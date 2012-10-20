@@ -22,7 +22,6 @@
 #
 #  check_state         :boolean          not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  flow                :decimal(19, 4)   default(0.0), not null

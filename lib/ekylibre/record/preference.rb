@@ -93,4 +93,4 @@ module Ekylibre::Record
 
   end
 end
-Ekylibre::Record::Base.class_eval { include Ekylibre::Record::Preference }
+# Ekylibre::Record::Base.class_eval { include Ekylibre::Record::Preference }

@@ -22,7 +22,6 @@ class ApplicationHelperTest < ActionView::TestCase
 
   context 'Help controller' do
     setup do
-      @current_company = companies(:companies_001)
     end
 
 

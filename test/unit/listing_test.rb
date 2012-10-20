@@ -21,7 +21,6 @@
 # == Table: listings
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  conditions   :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          

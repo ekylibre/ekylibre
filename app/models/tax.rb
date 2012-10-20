@@ -22,7 +22,6 @@
 #
 #  amount               :decimal(19, 4)   default(0.0), not null
 #  collected_account_id :integer          
-#  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
 #  description          :text             
@@ -39,23 +38,22 @@
 
 
 class Tax < CompanyRecord
+  attr_readonly :nature #, :amount
+  belongs_to :collected_account, :class_name=>"Account"
+  belongs_to :paid_account, :class_name=>"Account"
+  has_many :prices
+  has_many :sale_lines
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :included, :reductible, :in => [true, false]
-  validates_presence_of :amount, :company, :name, :nature
+  validates_presence_of :amount, :name, :nature
   #]VALIDATORS]
-  attr_readonly :nature, :company_id #, :amount
-  belongs_to :company
-  belongs_to :collected_account, :class_name=>"Account"
-  belongs_to :paid_account, :class_name=>"Account"
-  has_many :prices
-  has_many :sale_lines
   validates_inclusion_of :nature, :in=>%w( amount percent )
-  validates_presence_of :collected_account_id
-  validates_presence_of :paid_account_id
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_presence_of :collected_account
+  validates_presence_of :paid_account
+  validates_uniqueness_of :name
   validates_numericality_of :amount, :in=>0..100, :if=>Proc.new{|x| x.percent?}
 
 

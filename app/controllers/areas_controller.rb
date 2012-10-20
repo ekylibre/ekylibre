@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AreasController < ApplicationController
-  manage_restfully :district_id=>"@current_company.districts.find(params[:district_id]).id rescue 0", :country=>"@current_company.entity.country"
+class AreasController < AdminController
+  manage_restfully :district_id=>"params[:district_id]", :country=>"Entity.of_company.country"
 
   list(:conditions=>search_conditions(:areas, :areas=>[:postcode, :name]), :order=>:name) do |t|
     t.column :name

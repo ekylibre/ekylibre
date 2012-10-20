@@ -18,22 +18,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 # 
-# == Table: companies
+# == Table: public.companies
 #
-#  born_on          :date             
-#  code             :string(16)       not null
-#  created_at       :datetime         not null
-#  creator_id       :integer          
-#  currency         :string(3)        
-#  entity_id        :integer          
-#  id               :integer          not null, primary key
-#  language         :string(255)      default("eng"), not null
-#  lock_version     :integer          default(0), not null
-#  locked           :boolean          not null
-#  name             :string(255)      not null
-#  sales_conditions :text             
-#  updated_at       :datetime         not null
-#  updater_id       :integer          
+#  code :string(16)       not null
+#  id   :integer          not null, primary key
+#  log  :text             
 #
 
 

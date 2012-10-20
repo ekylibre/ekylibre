@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AssetsController < ApplicationController
-  manage_restfully :currency=>'@current_company.default_currency', :depreciation_method=>"'linear'"
+class AssetsController < AdminController
+  manage_restfully :currency=>'Entity.of_company.currency', :depreciation_method=>"'linear'"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :number, :url=>true
     t.column :name, :url=>true
     t.column :depreciable_amount, :currency => true

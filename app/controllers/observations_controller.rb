@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ObservationsController < ApplicationController
-  manage_restfully :importance=>"'normal'", :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
+class ObservationsController < AdminController
+  manage_restfully :importance=>"'normal'", :entity_id=>"params[:entity_id]"
 end

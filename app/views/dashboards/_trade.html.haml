@@ -1,12 +1,12 @@
 =unagi do |u|
   -u.cell :indicator do
     %ul
-      -if (count = @current_company.undelivered_outgoing_deliveries.size) > 0
+      -if (count = OutgoingDelivery.undelivereds.count) > 0
         =li_link_to(tc('x_waiting_outgoing_deliveries', :count=>count), :controller=>:outgoing_deliveries, :mode=>:unconfirmed)
-      -if (count = @current_company.undelivered_incoming_deliveries.size) > 0
+      -if (count = IncomingDelivery.undelivereds.count) > 0
         =li_link_to(tc('x_waiting_incoming_deliveries', :count=>count), :controller=>:incoming_deliveries, :mode=>:unconfirmed)
-      -if (count = @current_company.unconfirmed_stock_transfers.size) > 0
+      -if (count = StockTransfer.unconfirmeds.count) > 0
         =li_link_to(tc('x_stock_transfers_to_confirm', :count=>count), :controller=>:stock_transfers, :mode=>:unconfirmed)
-  -if @current_company.critic_stocks.size > 0
+  -if Stock.critics > 0
     -u.cell :critic_stocks do
       =list :critic_stocks

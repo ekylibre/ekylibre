@@ -21,7 +21,6 @@
 # == Table: stock_moves
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  generated    :boolean          not null
@@ -59,7 +58,7 @@ class StockMove < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :origin_type, :allow_nil => true, :maximum => 255
   validates_inclusion_of :generated, :virtual, :in => [true, false]
-  validates_presence_of :company, :name, :planned_on, :product, :quantity, :unit, :warehouse
+  validates_presence_of :name, :planned_on, :product, :quantity, :unit, :warehouse
   #]VALIDATORS]
   validates_presence_of :stock
 
@@ -69,9 +68,9 @@ class StockMove < CompanyRecord
       self.name ||= tc('default_name', :origin => (origin ? origin.class.model_name.human : "*"), :code => (origin ? origin.send(code) : "*"))
     end
     unless self.stock
-      conditions = {:company_id => self.company_id, :product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id}
-      self.stock = Stock.find_by_company_id_and_product_id_and_warehouse_id_and_tracking_id(self.company_id, self.product_id, self.warehouse_id, self.tracking_id) 
-      self.stock = self.company.stocks.create!(conditions) if stock.nil?
+      conditions = {:product_id => self.product_id, :warehouse_id => self.warehouse_id, :tracking_id => self.tracking_id}
+      self.stock = Stock.find_by_product_id_and_warehouse_id_and_tracking_id(self.product_id, self.warehouse_id, self.tracking_id) 
+      self.stock = Stock.create!(conditions) if stock.nil?
     end
     self.product ||= self.stock.product
     self.warehouse ||= self.stock.warehouse

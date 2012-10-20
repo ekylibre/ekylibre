@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class StocksController < ApplicationController
+class StocksController < AdminController
   manage_restfully
 
   formize do |f|
@@ -38,7 +38,6 @@ class StocksController < ApplicationController
   def self.stocks_conditions(options={})
     code = ""
     code << "conditions = {} \n"
-    code << "conditions[:company_id] = @current_company.id\n"
     code << "conditions[:warehouse_id] = session[:warehouse_id].to_i if session[:warehouse_id].to_i > 0\n"
     code << "conditions\n"
     code
@@ -60,8 +59,8 @@ class StocksController < ApplicationController
   def index
     respond_to do |format|
       format.html do
-        notify_warning_now(:no_warehouse) if @current_company.warehouses.size.zero?
-        notify_now(:no_stocks) if @current_company.stocks.size <= 0
+        notify_warning_now(:no_warehouse) if Warehouse.count.zero?
+        notify_now(:no_stocks) if Stock.count.zero?
         session[:warehouse_id] = params[:warehouse_id]
       end
       format.pdf { render_print_stocks(params[:established_on]||Date.today) }

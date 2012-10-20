@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ListingsController < ApplicationController
+class ListingsController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name) do |t|
+  list(:order=>:name) do |t|
     t.column :name, :url=>{:action=>:edit}
     t.column :root_model_name
     t.column :comment
@@ -44,7 +44,7 @@ class ListingsController < ApplicationController
       query = @listing.query.to_s
       # FIXME: This is dirty code to solve quickly no_mail mode
       query.gsub!(" ORDER BY ", " AND ("+@listing.mail_columns.collect{|c| "#{c.name} NOT LIKE '%@%.%'" }.join(" AND ")+") ORDER BY ") if params[:mode] == "no_mail"
-      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
+      # FIXME: Manage suppression of CURRENT_COMPANY...
       first_line = []
       @listing.exportable_columns.each {|line| first_line << line.label}
       result = ActiveRecord::Base.connection.select_rows(query)
@@ -77,7 +77,6 @@ class ListingsController < ApplicationController
 
   def create
     @listing = Listing.new(params[:listing])
-    @listing.company_id = @current_company.id
     return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
     render_restfully_form
   end
@@ -109,7 +108,6 @@ class ListingsController < ApplicationController
       return
     end
     if session[:listing_mail_column] or @listing.mail_columns.size ==  1
-      query.gsub!(/CURRENT_COMPANY/i, @current_company.id.to_s)
       full_results = ActiveRecord::Base.connection.select_all(query)
       listing_mail_column = @listing.mail_columns.size == 1 ? @listing.mail_columns[0] : find_and_check(:listing_nodes, session[:listing_mail_column])
       #raise Exception.new listing_mail_column.inspect
@@ -121,7 +119,7 @@ class ListingsController < ApplicationController
     end
     if request.post?
       if params[:node]
-        session[:listing_mail_column] = ListingNode.find_by_company_id_and_key(@current_company.id, params[:node][:mail]).id
+        session[:listing_mail_column] = ListingNode.find_by_key(params[:node][:mail]).id
         redirect_to_current
       else
         session[:mail] = params.dup
@@ -146,10 +144,11 @@ class ListingsController < ApplicationController
           Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
           notify_success_now(:mails_are_sent)
         end
-        nature = @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"}).nil? ? @current_company.event_natures.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing").id : @current_company.event_natures.find(:first, :conditions=>{:usage=>"mailing"})
+	nature = EventNature.where(:usage=>"mailing").first
+        nature = EventNature.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing") if nature.nil?
         #raise Exception.new nature.inspect
-        for contact in @current_company.contacts.find(:all, :conditions=>["email IN (?) AND active = ? ", @mails, true])
-          @current_company.events.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :user_id=>@current_user.id)
+	Contact.where("email IN (?) AND active = ? ", @mails, true).find_each do |contact|
+          Event.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :user_id=>@current_user.id)
         end
         session[:listing_mail_column] = nil
       end

@@ -1,4 +1,4 @@
--@financial_year = @current_company.financial_year_at(@journal_entry.printed_on)
+-@financial_year = FinancialYear.at(@journal_entry.printed_on)
 -if !@journal_entry.valid?
   =formalize do |f|
     -f.error :journal_entry

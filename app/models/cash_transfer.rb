@@ -22,7 +22,6 @@
 #
 #  accounted_at              :datetime         
 #  comment                   :text             
-#  company_id                :integer          not null
 #  created_at                :datetime         not null
 #  created_on                :date             
 #  creator_id                :integer          
@@ -44,7 +43,6 @@
 class CashTransfer < CompanyRecord
   acts_as_numbered
   attr_readonly :number
-  belongs_to :company
   belongs_to :emitter_cash, :class_name=>"Cash"
   belongs_to :emitter_journal_entry, :class_name=>"JournalEntry"
   belongs_to :receiver_cash, :class_name=>"Cash"
@@ -52,39 +50,14 @@ class CashTransfer < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_rate, :emitter_amount, :receiver_amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :currency_rate, :emitter_amount, :emitter_cash, :number, :receiver_amount, :receiver_cash
+  validates_presence_of :currency_rate, :emitter_amount, :emitter_cash, :number, :receiver_amount, :receiver_cash
   #]VALIDATORS]
   validates_numericality_of :emitter_amount, :receiver_amount, :greater_than=>0.0
   validates_presence_of :created_on
 
   before_validation do
     self.created_on ||= Date.today
-    #self.currency ||= self.company.default_currency
-
-    # if self.currency == self.company.default_currency
-    #   if self.emitter_cash
-    #     self.emitter_currency = self.emitter_cash.currency
-    #     # TODO: Find a way to specify currency rates
-    #     self.emitter_currency_rate ||= rand # self.emitter_currency.rate
-    #   end
-    #   if self.receiver_cash
-    #     self.receiver_currency = self.receiver_cash.currency
-    #     # TODO: Find a way to specify currency rates
-    #     self.receiver_currency_rate ||= rand # self.receiver_currency.rate
-    #   end
-    # end
-
-    # if self.emitter_amount.to_f > 0
-    #   self.receiver_amount = self.emitter_amount*self.emitter_currency_rate/self.receiver_currency_rate
-    # elsif self.receiver_amount.to_f > 0
-    #   self.emitter_amount = self.receiver_amount*self.receiver_currency_rate/self.emitter_currency_rate
-    # end
-
-    if self.number.blank?
-      last = self.company.cash_transfers.find(:first, :order=>"number desc")
-      self.number = last ? last.number.succ! : '00000001'
-    end
-
+    # TODO Write test for CashTransfer
   end
 
   validate do

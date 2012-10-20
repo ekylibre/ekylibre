@@ -22,7 +22,6 @@
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
-#  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          

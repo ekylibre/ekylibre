@@ -24,7 +24,6 @@
 #  area_id      :integer          
 #  by_default   :boolean          not null
 #  code         :string(4)        
-#  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          

@@ -22,7 +22,6 @@
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
@@ -42,17 +41,16 @@
 
 
 class Transport < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
-  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :pretax_amount, :transporter
-  #]VALIDATORS]
   acts_as_numbered
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :responsible, :class_name=>"User"
   belongs_to :transporter, :class_name=>"Entity"
   has_many :deliveries, :dependent=>:nullify, :class_name=>"OutgoingDelivery"
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :pretax_amount, :transporter
+  #]VALIDATORS]
 
   before_validation(:on=>:create) do
     self.created_on ||= Date.today

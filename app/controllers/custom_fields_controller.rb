@@ -17,11 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CustomFieldsController < ApplicationController
+class CustomFieldsController < AdminController
   manage_restfully :redirect_to=>'(@custom_field.nature=="choice" ? {:action=>:show, :id=>"id"} : :back)'
   manage_restfully_list
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
+  list(:order=>:position) do |t|
     t.column :name, :url=>true
     t.column :nature_label
     t.column :required
@@ -37,7 +37,7 @@ class CustomFieldsController < ApplicationController
   def index
   end
 
-  list(:choices, :model=>:custom_field_choices, :conditions=>{:company_id=>['@current_company.id'], :custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
+  list(:choices, :model=>:custom_field_choices, :conditions=>{:custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
     t.column :name 
     t.column :value
     t.action :up, :if=>"not RECORD.first\?", :method=>:post

@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductionChainConveyorsController < ApplicationController
+class ProductionChainConveyorsController < AdminController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :source_id=>"params[:source_id]", :target_id=>"params[:target_id]"
 end

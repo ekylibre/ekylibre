@@ -21,7 +21,6 @@
 # == Table: establishments
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -36,7 +35,6 @@
 # == Fixture: establishments
 #
 # establishments_001:
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -47,7 +45,6 @@
 #   updater_id: 1
 #
 establishments_001:
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
@@ -58,7 +55,6 @@ establishments_001:
   updater_id: 1
 
 establishments_002:
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2

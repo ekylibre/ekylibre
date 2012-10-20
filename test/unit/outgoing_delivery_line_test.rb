@@ -21,7 +21,6 @@
 # == Table: outgoing_delivery_lines
 #
 #  amount        :decimal(19, 4)   default(0.0), not null
-#  company_id    :integer          not null
 #  created_at    :datetime         not null
 #  creator_id    :integer          
 #  delivery_id   :integer          not null

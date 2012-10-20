@@ -2,8 +2,8 @@
   -f.error :warehouse
   -f.title :description
   -f.field :warehouse, :name
-  -warehouses = @current_company.warehouses.find(:all, :conditions=>["id!=COALESCE(?,0)", @warehouse.id], :order=>:name)
-  -if warehouses.size>0
+  -warehouses = @warehouse.others
+  -if warehouses.count > 0
     -f.field :warehouse, :parent_id, :choices=>warehouses.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
   -f.field :warehouse, :comment, :field=>:textarea
   -if @warehouse.new_record?

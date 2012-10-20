@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductCategoriesController < ApplicationController
+class ProductCategoriesController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name, :url=>true
     t.column :comment
     t.column :catalog_name
@@ -34,7 +34,7 @@ class ProductCategoriesController < ApplicationController
   def index
   end
 
-  list(:products, :conditions=>{:company_id=>['@current_company.id'], :category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
+  list(:products, :conditions=>{:category_id=>['session[:current_product_category_id]']}, :order=>'active DESC, name') do |t|
     t.column :number
     t.column :name, :url=>true
     t.column :code, :url=>true
@@ -46,7 +46,7 @@ class ProductCategoriesController < ApplicationController
 
   # Displays details of one product category selected with +params[:id]+
   def show
-    return unless @product_category = find_and_check(:product_category)
+    return unless @product_category = find_and_check
     session[:current_product_category_id] = @product_category.id
     t3e @product_category.attributes
   end

@@ -21,7 +21,6 @@
 # == Table: entity_links
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  entity_1_id  :integer          not null
@@ -37,14 +36,18 @@
 
 
 class EntityLink < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :company, :entity_1, :entity_2, :nature
-  #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :entity_1, :class_name=>"Entity"
   belongs_to :entity_2, :class_name=>"Entity"
   belongs_to :nature, :class_name=>"EntityLinkNature"
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :entity_1, :entity_2, :nature
+  #]VALIDATORS]
+
+  default_scope where(:stopped_on => nil)
+  scope :of_entity, lambda { |entity|
+    where("stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
+  }
 
   before_validation do
     self.started_on ||= Date.today

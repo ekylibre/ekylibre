@@ -22,7 +22,6 @@
 #
 #  atmospheric_pressure         :decimal(19, 4)   
 #  comment                      :text             
-#  company_id                   :integer          not null
 #  created_at                   :datetime         not null
 #  creator_id                   :integer          
 #  examinated_at                :datetime         not null
@@ -42,14 +41,14 @@
 
 
 class TrackingState < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :atmospheric_pressure, :luminance, :net_weight, :relative_humidity, :temperature, :total_weight, :allow_nil => true
-  validates_presence_of :company, :examinated_at, :tracking
-  #]VALIDATORS]
-  attr_readonly :company_id, :tracking_id
-  belongs_to :company
+  attr_readonly :tracking_id
   belongs_to :tracking
   
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :atmospheric_pressure, :luminance, :net_weight, :relative_humidity, :temperature, :total_weight, :allow_nil => true
+  validates_presence_of :examinated_at, :tracking
+  #]VALIDATORS]
+
   @@report_columns = [:total_weight, :net_weight, :temperature, :relative_humidity, :luminance, :atmospheric_pressure, :comment]
   
   def self.report_columns

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ToolsController < ApplicationController
+class ToolsController < AdminController
   manage_restfully 
 
-  list(:operations, :model=>:operation_uses, :conditions=>{:company_id=>['@current_company.id'], :tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
+  list(:operations, :model=>:operation_uses, :conditions=>{:tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
     t.column :name,       :through=>:operation, :label=>:column, :url=>true
     t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
     t.column :moved_on,   :through=>:operation, :label=>:column
@@ -28,7 +28,7 @@ class ToolsController < ApplicationController
     t.column :duration,   :through=>:operation, :label=>:column
   end
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  list(:order=>"name") do |t|
     t.column :name, :url=>true
     t.column :text_nature
     t.column :consumption

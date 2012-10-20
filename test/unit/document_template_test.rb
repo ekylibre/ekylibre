@@ -24,7 +24,6 @@
 #  by_default   :boolean          default(TRUE), not null
 #  cache        :text             
 #  code         :string(32)       
-#  company_id   :integer          not null
 #  country      :string(2)        
 #  created_at   :datetime         not null
 #  creator_id   :integer          

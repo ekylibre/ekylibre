@@ -16,10 +16,10 @@
       =tc("created_between", :started_on=>date_field_tag("conditions[#{id}][timestamp][started_on]", Date.today-6), :stopped_on=>date_field_tag("conditions[#{id}][timestamp][stopped_on]", Date.today)).html_safe
     -if condition == "special-subscriber"
       .param
-        -for nature in @current_company.subscription_natures
+        -for nature in SubscriptionNature
           =radio_button_tag("conditions[#{id}][nature]", nature.id, params[:conditions][id][:nature] == nature.id.to_s, :id=>"conditions_#{id}_nature_#{nature.id}", "data-show"=>"#conditions_#{id}_nature_#{nature.id}_detail")
           %label{:for=>"conditions_#{id}_nature_#{nature.id}"}=h(nature.name)
-      -for nature in @current_company.subscription_natures
+      -for nature in SubscriptionNature
         %div{:id=>"conditions_#{id}_nature_#{nature.id}_detail", :style=>'display:none'}
           .param
             =check_box_tag("conditions[#{id}][#{nature.id}][use_subscribed_on]", "1", true)

@@ -13,7 +13,7 @@ module Exchanges
     }
 
 
-    def self.import(company, file, options={})
+    def self.import(file, options={})
       version = nil
       verbose = @@verbose = options.delete(:verbose)
       benchmark "Check version of #{file}" do
@@ -33,12 +33,12 @@ module Exchanges
           if isa_fy = isa.folder.financial_year
             benchmark "Import financial year #{isa_fy.started_on}/#{isa_fy.stopped_on}" do
               # Find or create financial year
-              unless fy = company.financial_years.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
-                if company.financial_years.where("? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on", isa_fy.started_on, isa_fy.stopped_on).count > 0
+              unless fy = FinancialYear.find_by_started_on_and_stopped_on(isa_fy.started_on, isa_fy.stopped_on)
+                if FinancialYear.where("? BETWEEN started_on AND stopped_on OR ? BETWEEN started_on AND stopped_on", isa_fy.started_on, isa_fy.stopped_on).count > 0
                   raise ImcompatibleDataError.new("Financial year dates overlaps existing financial years")
                 else
                   raise ImcompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != "EUR"
-                  fy = company.financial_years.create!(:started_on=>isa_fy.started_on, :stopped_on=>isa_fy.stopped_on)
+                  fy = FinancialYear.create!(:started_on=>isa_fy.started_on, :stopped_on=>isa_fy.stopped_on)
                 end
               end
 
@@ -48,8 +48,8 @@ module Exchanges
               all_accounts = {}
               benchmark "Import accounts" do
                 for isa_account in isa_fy.accounts
-                  unless account = company.accounts.find_by_number(isa_account.number)
-                    account = company.accounts.create!(:name=>(isa_account.label.blank? ? isa_account.number : isa_account.label), :number=>isa_account.number, :reconcilable=>isa_account.reconcilable, :last_letter=>isa_account.letter, :is_debit=>(isa_account.input_direction=='de' ? true : false), :comment=>isa_account.to_s)
+                  unless account = Account.find_by_number(isa_account.number)
+                    account = Account.create!(:name=>(isa_account.label.blank? ? isa_account.number : isa_account.label), :number=>isa_account.number, :reconcilable=>isa_account.reconcilable, :last_letter=>isa_account.letter, :is_debit=>(isa_account.input_direction=='de' ? true : false), :comment=>isa_account.to_s)
                   end
                   all_accounts[isa_account.number] = account.id
                 end
@@ -64,17 +64,17 @@ module Exchanges
               benchmark "Import journals" do
                 for isa_journal in isa_fy.journals.select{|j| used_journals.include?(j.code)}
                   journal = nil
-                  journals = company.journals.find_all_by_code(isa_journal.code)
+                  journals = Journal.find_all_by_code(isa_journal.code)
                   journal = journals[0] if journals.size == 1
                   unless journal
-                    journals = company.journals.where("LOWER(name) LIKE ? ", isa_journal.label.mb_chars.downcase)
+                    journals = Journal.where("LOWER(name) LIKE ? ", isa_journal.label.mb_chars.downcase)
                     journal = journals[0] if journals.size == 1
                   end
                   unless journal
-                    journals = company.journals.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.mb_chars.downcase.gsub(/\s+/, '%')+'%')
+                    journals = Journal.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.mb_chars.downcase.gsub(/\s+/, '%')+'%')
                     journal = journals[0] if journals.size == 1
                   end
-                  journal ||= company.journals.create!(:code=>isa_journal.code, :name=>(isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
+                  journal ||= Journal.create!(:code=>isa_journal.code, :name=>(isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
                   all_journals[isa_journal.code] = journal.id
                 end
               end
@@ -103,17 +103,17 @@ module Exchanges
                 for isa_entry in entries_to_import
                   entry, journal_id = nil, all_journals[isa_entry.journal]
                   unless isa_entry.number.blank?
-                    entries = company.journal_entries.where("journal_id=? AND printed_on=? AND number = ?", journal_id, isa_entry.printed_on, isa_entry.number)
+                    entries = JournalEntry.where("journal_id=? AND printed_on=? AND number = ?", journal_id, isa_entry.printed_on, isa_entry.number)
                     if entries.size == 1
                       entry = entries.first
                     else
-                      entries = company.journal_entries.where("journal_id=? AND printed_on=? AND SUBSTR(number,1,2)||SUBSTR(number,LENGTH(number)-5,6) = ?", journal_id, isa_entry.printed_on, isa_entry.number)
+                      entries = JournalEntry.where("journal_id=? AND printed_on=? AND SUBSTR(number,1,2)||SUBSTR(number,LENGTH(number)-5,6) = ?", journal_id, isa_entry.printed_on, isa_entry.number)
                       entry = entries.first if entries.size == 1
                     end
                   end
                   unless entry
                     number = "#{isa_entry.journal}#{isa_entry.code.to_s.rjust(6,'0')}"
-                    entries = company.journal_entries.find_all_by_number_and_journal_id_and_printed_on(number, journal_id, isa_entry.printed_on)
+                    entries = JournalEntry.find_all_by_number_and_journal_id_and_printed_on(number, journal_id, isa_entry.printed_on)
                     if entries.size == 1
                       entry = entries.first
                     elsif entries.size > 1
@@ -121,7 +121,7 @@ module Exchanges
                       number = number[0..255]
                     end
                     unless entry
-                      entry = company.journal_entries.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number)  # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
+                      entry = JournalEntry.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number)  # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
                       raise isa_entry.inspect+"\n"+entry.errors.full_messages.to_sentence unless entry.valid?
                     end
                   end
@@ -159,7 +159,7 @@ module Exchanges
               benchmark "Check all entries" do
                 found, expected = fy.journal_entries.size, isa_fy.entries.size
                 raise Exception.new("The count of entries is different: #{found} in database and #{expected} in file") if found != expected
-                found, expected = company.journal_entry_lines_between(fy.started_on, fy.stopped_on).size, isa_fy.entries.inject(0){|s, e| s += e.lines.size}
+                found, expected = JournalEntryLine.between(fy.started_on, fy.stopped_on).count, isa_fy.entries.inject(0){|s, e| s += e.lines.size}
                 raise Exception.new("The count of entry lines is different: #{found} in database and #{expected} in file") if found != expected
                 for entry in fy.journal_entries
                 end

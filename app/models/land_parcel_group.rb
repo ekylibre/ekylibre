@@ -22,7 +22,6 @@
 #
 #  color        :string(6)        default("000000"), not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -34,15 +33,13 @@
 
 
 class LandParcelGroup < CompanyRecord
+  has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :color, :allow_nil => true, :maximum => 6
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :color, :company, :name
+  validates_presence_of :color, :name
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :land_parcels, :foreign_key=>:group_id, :order=>:name
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 
   def area(computed_on=Date.today, unit=nil)
     sum = 0

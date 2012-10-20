@@ -17,22 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class MyselvesController < ApplicationController
+class MyselvesController < AdminController
 
   def statistics
     params[:stopped_on] = params[:stopped_on].to_date rescue Date.today
     params[:started_on] = params[:started_on].to_date rescue params[:stopped_on] << 12
-#     session[:statistics_start] ||= Date.today << 12
-#     session[:statistics_end]   ||= Date.today
-#     @sales_count = Sale.count_by_sql ["SELECT  count(*) FROM #{Sale.table_name} WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
-#     @sales_amount = Sale.count_by_sql ["SELECT sum(amount) FROM #{Sale.table_name} WHERE company_id = ? AND state != 'P' AND responsible_id = ? AND created_on BETWEEN ? AND ? ", @current_company.id, @current_user.id, session[:statistics_start], session[:statistics_end] ]
-#     @invoiced_amount = SalesInvoice.count_by_sql ["SELECT sum(sales_invoices.amount) FROM #{SalesInvoice.table_name} AS sales_invoices INNER JOIN #{Sale.table_name} AS sales ON sales.responsible_id = ? AND sales_invoices.sale_id = sales.id WHERE sales_invoices.company_id = ? AND sales_invoices.payment_on BETWEEN ? AND ? ", @current_user.id,  @current_company.id,session[:statistics_start], session[:statistics_end] ]
-#     @event_natures = EventNature.find_by_sql ["SELECT en.*, ecount, esum FROM #{EventNature.table_name} AS en LEFT JOIN (SELECT nature_id , count(id) as ecount, sum(duration) as esum FROM #{Event.table_name} WHERE started_at BETWEEN ? AND ? AND responsible_id = ? GROUP BY nature_id) as stats ON id = nature_id  WHERE company_id = ? ORDER BY name ", session[:statistics_start].to_date.beginning_of_day, session[:statistics_end].to_date.end_of_day, @current_user.id, @current_company.id]
-#     if request.post?
-#       session[:statistics_start] = params[:start].to_date
-#       session[:statistics_end] = params[:end].to_date
-#       redirect_to_current
-#     end
   end
 
   def change_password

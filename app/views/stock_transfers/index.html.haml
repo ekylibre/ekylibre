@@ -2,5 +2,5 @@
   -k.radio :all, :confirmed, :unconfirmed, :i18n_root=>"labels.criterion_modes."
 =toolbar do |t|
   -t.link :new
-  -t.link :confirm_all unless @current_company.unconfirmed_stock_transfers.size.zero?
+  -t.link :confirm_all unless StockTransfer.unconfirmeds.count.zero?
 =list

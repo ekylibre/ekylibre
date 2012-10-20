@@ -23,7 +23,6 @@
 #  accounted_at        :datetime         
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             

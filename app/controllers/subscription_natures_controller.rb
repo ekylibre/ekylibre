@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class SubscriptionNaturesController < ApplicationController
+class SubscriptionNaturesController < AdminController
   manage_restfully :nature=>"SubscriptionNature.natures.first[1]"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :children=>:products) do |t|
+  list(:children=>:products) do |t|
     t.column :name, :url=>{:id=>'nil', :action=>:index, :controller=>:subscriptions, :nature_id=>"RECORD.id"}
     t.column :nature_label, :children=>false
     t.column :actual_number, :children=>false

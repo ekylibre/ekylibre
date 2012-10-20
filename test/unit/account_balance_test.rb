@@ -21,7 +21,6 @@
 # == Table: account_balances
 #
 #  account_id        :integer          not null
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  financial_year_id :integer          not null

@@ -31,6 +31,6 @@
   -cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
   -u.cell :x_events, :count=>@current_user.events.count(:id, :conditions=>cond) do
     %ul
-      -for event_nature in @current_company.event_natures
+      -for event_nature in EventNature
         -cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
         %li=h tc(:x_events_of_nature_y, :count=>@current_user.events.count(:id, :conditions=>cond).to_i, :nature=>event_nature.name, :duration=>@current_user.events.sum(:duration, :conditions=>cond).to_i)

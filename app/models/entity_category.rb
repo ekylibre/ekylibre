@@ -22,7 +22,6 @@
 #
 #  by_default   :boolean          not null
 #  code         :string(8)        
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             
@@ -35,21 +34,19 @@
 
 
 class EntityCategory < CompanyRecord
+  has_many :active_prices, :class_name=>"Price", :foreign_key=>:category_id, :conditions=>{:active=>true}
+  has_many :entities, :foreign_key=>:category_id
+  has_many :prices, :foreign_key=>:category_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :by_default, :in => [true, false]
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :active_prices, :class_name=>"Price", :foreign_key=>:category_id, :conditions=>{:active=>true}
-  has_many :entities, :foreign_key=>:category_id
-  has_many :prices, :foreign_key=>:category_id
-  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :code
 
   before_validation do
-    EntityCategory.update_all({:by_default=>false}, ["company_id=? AND id!=?", self.company_id, self.id||0]) if self.by_default
+    EntityCategory.update_all({:by_default=>false}, ["id!=?", self.id||0]) if self.by_default
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..7]
   end

@@ -20,7 +20,6 @@
 # 
 # == Table: events
 #
-#  company_id     :integer          not null
 #  created_at     :datetime         not null
 #  creator_id     :integer          
 #  duration       :integer          
@@ -39,18 +38,15 @@
 
 
 class Event < CompanyRecord
+  belongs_to :entity
+  belongs_to :nature, :class_name=>"EventNature"
+  belongs_to :responsible, :class_name=>"User"    
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :started_sec, :allow_nil => true, :only_integer => true
   validates_length_of :location, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :entity, :nature, :responsible, :started_at, :started_sec
+  validates_presence_of :entity, :nature, :responsible, :started_at, :started_sec
   #]VALIDATORS]
-  belongs_to :company
-  belongs_to :entity
-  belongs_to :nature, :class_name=>"EventNature"
-  belongs_to :responsible, :class_name=>"User"
-    
-  validates_presence_of :responsible_id, :nature_id, :entity
-  attr_readonly :company_id
+  validates_presence_of :responsible, :nature, :entity
 
   before_validation do
     self.started_at ||= Time.now

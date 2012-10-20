@@ -22,7 +22,6 @@
 #
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text             
-#  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
@@ -43,25 +42,25 @@
 
 
 class IncomingDelivery < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :pretax_amount
-  #]VALIDATORS]
   acts_as_numbered
-  attr_readonly :company_id, :number
+  attr_readonly :number
   belongs_to :contact
-  belongs_to :company
   belongs_to :mode, :class_name=>"IncomingDeliveryMode"
   belongs_to :purchase
   has_many :lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy
   has_many :stock_moves, :as=>:origin
 
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
+  validates_length_of :currency, :allow_nil => true, :maximum => 3
+  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :pretax_amount
+  #]VALIDATORS]
   validates_presence_of :planned_on
 
+  scope :undelivereds, where(:moved_on => nil)
+
   before_validation do
-    self.company_id = self.purchase.company_id if self.purchase
     self.planned_on ||= Date.today
 #     self.pretax_amount = self.amount = self.weight = 0.0
 #     for line in self.lines

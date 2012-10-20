@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class StockTransfersController < ApplicationController
+class StockTransfersController < AdminController
   manage_restfully :nature=>"'transfer'", :planned_on=>"Date.today"
 
   list(:conditions=>moved_conditions(StockTransfer)) do |t|
@@ -46,7 +46,7 @@ class StockTransfersController < ApplicationController
     redirect_to :action=>:index, :mode=>:confirmed
   end
 
-  list(:confirm, :model=>:stock_transfers, :conditions=>{:company_id=>['@current_company.id'], :moved_on=>nil}, :order=>"planned_on") do |t|
+  list(:confirm, :model=>:stock_transfers, :conditions=>{:moved_on=>nil}, :order=>"planned_on") do |t|
     t.column :number
     t.column :nature_label
     t.column :name, :through=>:product
@@ -59,7 +59,7 @@ class StockTransfersController < ApplicationController
 
   # Confirms many transfers
   def confirm_all
-    if @current_company.unconfirmed_stock_transfers.count.zero?
+    if StockTransfer.unconfirmeds.count.zero?
       notify_error(:no_unconfirmed_stock_transfers)
       redirect_to_back
       return

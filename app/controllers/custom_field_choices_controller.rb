@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CustomFieldChoicesController < ApplicationController
+class CustomFieldChoicesController < AdminController
   manage_restfully :custom_field_id=>'params[:custom_field_id]', :destroy_to=>':controller=>:custom_fields, :action=>:show, :id=>@custom_field_choice.custom_field'
   manage_restfully_list
 end

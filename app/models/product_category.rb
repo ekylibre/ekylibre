@@ -23,7 +23,6 @@
 #  catalog_description :text             
 #  catalog_name        :string(255)      not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  id                  :integer          not null, primary key
@@ -37,19 +36,23 @@
 
 
 class ProductCategory < CompanyRecord
+  acts_as_tree
+  has_many :products
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :catalog_name, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :published, :in => [true, false]
-  validates_presence_of :catalog_name, :company, :name
+  validates_presence_of :catalog_name, :name
   #]VALIDATORS]
-  acts_as_tree
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :products
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
+
+  default_scope order(:name)
 
   before_validation do
     self.catalog_name = self.name if self.catalog_name.blank?
+  end
+
+  def others
+    self.class.where("id != COALESCE(?, 0)", self.id).reorder(:parent_id, :name)
   end
 
   def to_s

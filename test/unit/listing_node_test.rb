@@ -21,7 +21,6 @@
 # == Table: listing_nodes
 #
 #  attribute_name       :string(255)      
-#  company_id           :integer          not null
 #  condition_operator   :string(255)      
 #  condition_value      :string(255)      
 #  created_at           :datetime         not null

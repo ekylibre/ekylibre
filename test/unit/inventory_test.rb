@@ -23,7 +23,6 @@
 #  accounted_at      :datetime         
 #  changes_reflected :boolean          
 #  comment           :text             
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  created_on        :date             not null
 #  creator_id        :integer          

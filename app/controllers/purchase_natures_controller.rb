@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class PurchaseNaturesController < ApplicationController
-  manage_restfully :currency=>"@current_company.default_currency"
+class PurchaseNaturesController < AdminController
+  manage_restfully :currency=>"Entity.of_company.currency"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name, :url=>true
     t.column :active
     t.column :currency

@@ -20,7 +20,6 @@
 # 
 # == Table: operations
 #
-#  company_id                      :integer          not null
 #  consumption                     :decimal(19, 4)   
 #  created_at                      :datetime         not null
 #  creator_id                      :integer          
@@ -47,12 +46,6 @@
 
 
 class Operation < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :consumption, :duration, :hour_duration, :min_duration, :allow_nil => true
-  validates_length_of :name, :target_type, :tools_list, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :planned_on, :responsible, :started_at
-  #]VALIDATORS]
-  belongs_to :company
   belongs_to :nature, :class_name=>"OperationNature"
   belongs_to :responsible, :class_name=>"User"
   belongs_to :target, :polymorphic=>true
@@ -62,10 +55,16 @@ class Operation < CompanyRecord
   has_many :lines, :class_name=>"OperationLine", :dependent=>:destroy
   has_many :tools, :through=>:operation_uses
 
-  attr_readonly :company_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :consumption, :duration, :hour_duration, :min_duration, :allow_nil => true
+  validates_length_of :name, :target_type, :tools_list, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :planned_on, :responsible, :started_at
+  #]VALIDATORS]
+
+  default_scope order(:planned_on, :moved_on)
+  scope :unvalidateds, where(:moved_on => nil)
  
   before_validation(:on=>:create) do
-    self.company_id = self.production_chain_work_center.company_id if self.production_chain_work_center
     self.started_at = Time.now if self.started_at.nil?
   end
 
@@ -115,7 +114,7 @@ class Operation < CompanyRecord
     # Add new tools
     unless tools.nil?
       tools.each do |tool|
-        self.company.operation_uses.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
+        OperationUse.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
       end
     end
     self.reload

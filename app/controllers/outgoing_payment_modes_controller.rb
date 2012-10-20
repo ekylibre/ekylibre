@@ -17,11 +17,11 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OutgoingPaymentModesController < ApplicationController
+class OutgoingPaymentModesController < AdminController
   manage_restfully :with_accounting=>"true"
   manage_restfully_list :name
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
+  list(:order=>:position) do |t|
     t.column :name
     t.column :name, :through=>:cash, :url=>true
     t.column :with_accounting

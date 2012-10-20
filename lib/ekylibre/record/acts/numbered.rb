@@ -18,7 +18,8 @@ module Ekylibre::Record
 
           sequence = options[:sequence] || "#{self.name.underscore.pluralize}_sequence"
 
-          last = "self.company.#{self.name.underscore.pluralize}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC')"
+          # last = "#{self.name}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC')"
+          last = "#{self.name}.where('#{column} IS NOT NULL').order(#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC').first"
 
           code = ""
 
@@ -26,21 +27,15 @@ module Ekylibre::Record
 
           code << "validates_presence_of :#{column}, :if=>lambda{|r| not r.#{column}.blank?}\n"
 
-          code << "validates_uniqueness_of :#{column}, :scope=>:company_id\n"
+          code << "validates_uniqueness_of :#{column}\n"
 
-          code << "before_validation(:on=>:create) do\n"
-          code << "  if self.company\n"
-          code << "    last = #{last}\n"
-          code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-          code << "  else\n"
-          max = self.columns_hash[column.to_s].limit||64
-          code << "    self.#{column} = Time.now.to_i.to_s(36)[0..#{max-1}]\n"
-          code << "    (#{max}-self.#{column}.size).times { self.#{column} += (36*rand).to_i.to_s(36) }\n"
-          code << "  end\n"
+          code << "before_validation(:on => :create) do\n"
+          code << "  last = #{last}\n"
+          code << "  self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
           code << "  return true\n"
           code << "end\n"
 
-          code << "after_validation(:on=>:create) do\n"
+          code << "after_validation(:on => :create) do\n"
           code << "  if sequence = self.company.preferred_#{sequence}\n"
           code << "    self.#{column} = sequence.next_value\n"
           code << "  else\n"

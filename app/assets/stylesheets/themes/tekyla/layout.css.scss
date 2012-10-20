@@ -26,62 +26,61 @@ $break-huge: 1200px;
   @include single-respond-to($media5) { @content };
 }
 
+@mixin break-percent($property, $percent) { 
+  @include single-respond-to(tablet) { 
+    #{$property}: round($percent * $break-small);
+  }
+  @include single-respond-to(desktop) { 
+    #{$property}: round($percent * $break-large);
+  }
+  @include single-respond-to(table) { 
+    #{$property}: round($percent * $break-huge);
+  }
+}
 
-html { 
-  background: $menu-background;
-  height:100%;
+
+html.authentication {
+  height: 100%;
+  width: 100%;
   body { 
-    @include respond-to(desktop, tablet) {
-      @include display(box);
-      @include box-flex(1);
-      @include box-orient(vertical);
+    height: 100%;
+    width: 100%;
+  }
+}
+
+html.admin { 
+  height:100%;
+  $side-percent: 0.22;
+  &[dir="ltr"] body #wrap {
+    #side { margin-right: -100% }
+    #main { @include break-percent(margin-left, $side-percent); }
+  }
+  &[dir="rtl"] body #wrap { 
+    #side { margin-left: -100% }
+    #main { @include break-percent(margin-right, $side-percent); }
+  }
+  body { 
+    width: 100%;
+    height: 100%;
+    #wrap { 
       width: 100%;
-      height:100%;
-      #wrap { 
-        width: auto;
-        @include display(box);
-        @include box-flex(1);
-        @include box-orient(horizontal);
-        #side { 
-          @include display(box);
-          @include box-orient(vertical);      
-          #side-middle { 
-            @include display(box);
-            @include box-orient(vertical);      
-            @include box-flex(1);
-          }
-        }
-        #main { 
-          @include display(box);
-          @include box-flex(1);
-          @include box-orient(vertical);
-          #nav { display: none; }
-        }
+      display: block;
+      #side { 
+        position: absolute;
+        top: 0;
+        left: 0;
+        vertical-align: top;
+        @include break-percent(width, $side-percent);
       }
-    }
-    @include respond-to(desktop) {
-      #wrap {
-        #main { 
-          .login { 
-            width: $break-small;
-            margin: round($break-small * 0.15) auto; 
-          }
-        }
-      }
-    }
-    @include respond-to(tablet) {
-      #wrap {
-        #main { 
-          .login { 
-            width: round($break-small * 0.8);
-            margin: round($break-small * 0.1) auto; 
-          }
-        }
+      #main {
+        vertical-align: top;
+        #nav { display: none; }
       }
     }
     @include respond-to(phone) {
       $gap: round($default-gap * 0.5);
       #wrap {
+        display: block;
         #side { 
           position: absolute;
           top: 0;
@@ -93,6 +92,7 @@ html {
           }
         }
         #main { 
+          display: block;
           .login { 
             width: auto;
             margin: $gap 0;
@@ -106,3 +106,4 @@ html {
     }
   }
 }
+

@@ -13,7 +13,8 @@
     =formalize do |f|
       -f.title tg(:export)
       -f.field tg(:select_document), select_tag("export", options_for_select([[tc(:accounting_balance), "balance"], ["Format carré", "isaquare"]],  params[:export]))
-      -f.field tg(:from), date_field_tag("started_on", @current_company.current_financial_year.started_on)
-      -f.field tg(:to),   date_field_tag("stopped_on", @current_company.current_financial_year.stopped_on)
+      -year = FinancialYear.current
+      -f.field tg(:from), date_field_tag("started_on", year.started_on)
+      -f.field tg(:to),   date_field_tag("stopped_on", year.stopped_on)
     .actions=submit_tag tg(:export), :name=>nil
 

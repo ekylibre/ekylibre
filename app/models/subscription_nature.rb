@@ -22,7 +22,6 @@
 #
 #  actual_number         :integer          
 #  comment               :text             
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
 #  entity_link_nature_id :integer          
@@ -37,20 +36,20 @@
 
 
 class SubscriptionNature < CompanyRecord
+  belongs_to :entity_link_nature
+  has_many :products
+  has_many :subscriptions, :foreign_key=>:nature_id
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :reduction_rate, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :nature
+  validates_presence_of :name, :nature
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  belongs_to :entity_link_nature
-  has_many :products
-  has_many :subscriptions, :foreign_key=>:nature_id
-
   validates_numericality_of :reduction_rate, :greater_than_or_equal_to=>0, :less_than_or_equal_to=>1
+
+  default_scope order(:name)
 
   before_validation do
     self.reduction_rate ||= 0

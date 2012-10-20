@@ -6,8 +6,9 @@ gem 'rails', '3.2.8'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'mysql'
-gem 'sqlite3'
+gem 'apartment'
+# gem 'mysql'
+# gem 'sqlite3'
 
 gem 'haml'
 gem 'fastercsv'
@@ -23,11 +24,7 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'simple_form'
-# gem 'bootstrap-sass', '~> 2.0.4.0'
-# gem 'less-rails-bootstrap'
-gem 'twitter-bootstrap-rails'
 
-gem 'eventmachine'
 gem 'thin'
 
 # Gems used only for assets and not required
@@ -36,6 +33,9 @@ group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
+  gem 'bootstrap-sass'
+  # gem 'less-rails-bootstrap'
+  # gem 'twitter-bootstrap-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platform => :ruby
@@ -51,4 +51,8 @@ group :test do
   gem 'cucumber-rails', :require => false
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
+end
+
+group :development do
+  gem 'rack-mini-profiler'
 end

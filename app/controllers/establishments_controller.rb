@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EstablishmentsController < ApplicationController
+class EstablishmentsController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:nic) do |t|
+  list(:order => :nic) do |t|
     t.column :name
     t.column :nic
     t.column :siret

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class LandParcelGroupsController < ApplicationController
+class LandParcelGroupsController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  list(:order=>"name") do |t|
     t.column :name
     t.column :color
     t.column :comment

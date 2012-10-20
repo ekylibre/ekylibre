@@ -29,7 +29,7 @@
   -l.attribute :origin, :url=>true if @sale.invoice? and @sale.origin
   -l.attribute :payment_delay, :label=>:name
   -l.attribute :nature
-  -l.attribute :currency unless @sale.currency == @current_company.default_currency
+  -l.attribute :currency unless @sale.currency == Entity.of_company.currency
   -l.attribute :comment unless @sale.comment.blank?
   -l.attribute :contact, :label=>:address
   -l.attribute :delivery_contact, :label=>:address

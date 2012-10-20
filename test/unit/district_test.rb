@@ -21,7 +21,6 @@
 # == Table: districts
 #
 #  code         :string(255)      
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key

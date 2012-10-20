@@ -1,5 +1,5 @@
--unvalidateds = @current_company.operations.find(:all, :conditions=>{:moved_on=>nil})
+-unvalidateds = Operation.unvalidateds
 .menu.indicator
   %h2= tc('indicator')
   %ul
-    %li= link_to tc('x_performed_operations', :count=>unvalidateds.size), :action=>:unvalidateds, :controller=>:operations
+    %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations

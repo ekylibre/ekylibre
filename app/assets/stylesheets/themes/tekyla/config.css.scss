@@ -10,6 +10,11 @@
   html[dir="rtl"] & { #{$base-name}-left: $value; }
 }
 
+@mixin define-left-property($base-name, $value) { 
+  html[dir="ltr"] & { #{$base-name}-left: $value; }
+  html[dir="rtl"] & { #{$base-name}-right: $value; }
+}
+
 @mixin margin-right($value) { @include define-right-property(margin, $value); }
 @mixin margin-left($value)  { @include define-left-property(margin, $value); }
 @mixin border-right($value) { @include define-right-property(border, $value); }
@@ -73,13 +78,14 @@ $modules: ();
 
 $fs-normal: 14px;
 $fs-small:      ceil(0.73*$fs-normal);
-$fs-large:     round(1.15*$fs-normal);
-$fs-huge:      round(1.30*$fs-normal);
-$fs-very-huge: round(1.70*$fs-normal);
+$fs-large:     round(1.10*$fs-normal);
+$fs-huge:      round(1.20*$fs-normal);
+$fs-very-huge: round(1.40*$fs-normal);
 
-$initial-color: #777;  /*#601616; /*#688ED8; /*#7B3; 79e /*#688ED8; /*#408DC4; */
-$base-color: #777; /*change-color($initial-color, $lightness: 60%, $saturation: 50%);*/
+$neutral-color: #777;
+$base-color: #16D;
 $link-color:  darken($base-color, 27%);
+$link-color:  darken($base-color, 10%);
 $text-color:  #111;
 $title-color: darken($base-color, 40%);
 $invalid-color: red;
@@ -105,7 +111,8 @@ $menu-width: $fs-normal * 13;
 $menu-padding: 2*$menu-border-width;
 $menu-height:      2 * ceil($fs-normal * 0.875);
 $menu-text-height: 2 * ceil($fs-normal * 0.655);
-$input-border: $menu-border-width solid mix($desktop-background, $base-color, 40%);
+$input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
+$label-width: 25%;
 
 $default-border-radius: round($fs-normal/5);
 /* Variation from center to  */
@@ -205,3 +212,13 @@ $common-layout: smart;
 $icons-layout: smart;
 @import "themes/tekyla/icons/*.png";
 @include all-icons-sprites;
+
+/*@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700,700italic);*/
+$sans-font-family: 'Liberation Sans', sans-serif;
+$base-font-family: $sans-font-family;
+
+/*
+$sansFontFamily: $sans-font-family;
+@import "bootstrap";
+@import "bootstrap-responsive";
+*/

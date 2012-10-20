@@ -17,12 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class MandatesController < ApplicationController
-  manage_restfully :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0"
+class MandatesController < AdminController
+  manage_restfully :entity_id=>"params[:entity_id]"
 
   def self.mandates_conditions(options={}) 
     code = ""
-    code += "conditions = ['mandates.company_id=?', @current_company.id]\n"
+    code += "conditions = ['1=1']\n"
     code += "if session[:mandates].is_a? Hash\n"
     code += "  unless session[:mandates][:organization].blank?\n"
     code += "    conditions[0] += ' AND organization = ?'\n"
@@ -52,15 +52,15 @@ class MandatesController < ApplicationController
 
   # Displays the main page with the list of mandates
   def index
-    notify_now(:no_existing_mandates) if @current_company.mandates.size == 0
-    @organizations = @current_company.mandates.find(:all, :select=>' DISTINCT organization ')
+    notify_now(:no_existing_mandates) if Mandate.count.zero?
+    @organizations = Mandate.select(' DISTINCT organization ')
     session[:mandates] ||= {}
     session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
     session[:mandates][:viewed_on] = (params[:viewed_on]||session[:mandates][:viewed_on]).to_date rescue Date.today
   end
 
   def configure
-    notify_now(:no_existing_mandates) if @current_company.mandates.size == 0
+    notify_now(:no_existing_mandates) if Mandate.count.zero?
    
     filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
     shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
@@ -71,7 +71,7 @@ class MandatesController < ApplicationController
       notify_error_now(:specify_filter)  unless params[:columns].detect{|k,v| !v[:filter].blank?}
       return if has_notifications?
       
-      conditions = ["company_id = ?", @current_company.id]
+      conditions = ["1=1"]
       updates = "updated_at = CURRENT_TIMESTAMP"
       for p, v in params[:columns] do
         if v[:filter].to_sym != :no_filters

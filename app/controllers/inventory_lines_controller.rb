@@ -17,6 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class InventoryLinesController < ApplicationController
-
+class InventoryLinesController < AdminController
 end

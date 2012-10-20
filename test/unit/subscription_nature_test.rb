@@ -22,7 +22,6 @@
 #
 #  actual_number         :integer          
 #  comment               :text             
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
 #  entity_link_nature_id :integer          

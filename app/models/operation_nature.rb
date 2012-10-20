@@ -20,7 +20,6 @@
 # 
 # == Table: operation_natures
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             
@@ -34,12 +33,9 @@
 
 
 class OperationNature < CompanyRecord
+  has_many :operations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :target_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  belongs_to :company
-  has_many :operations
-
-  attr_readonly :company_id
 end

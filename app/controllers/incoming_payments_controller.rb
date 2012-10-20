@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class IncomingPaymentsController < ApplicationController
-  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(@current_company.entities.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
+class IncomingPaymentsController < AdminController
+  manage_restfully :to_bank_on=>"Date.today", :paid_on=>"Date.today", :responsible_id=>"@current_user.id", :payer_id=>"(Entity.find(params[:payer_id]).id rescue 0)", :amount=>"params[:amount].to_f", :bank=>"params[:bank]", :account_number=>"params[:account_number]"
 
   def self.incoming_payments_conditions(options={})
     code = search_conditions(:incoming_payments, :incoming_payments=>[:amount, :used_amount, :check_number, :number, :account_number
@@ -58,7 +58,7 @@ class IncomingPaymentsController < ApplicationController
     session[:incoming_payment_key]   = params[:q]
   end
 
-  list(:sales, :conditions=>["#{Sale.table_name}.company_id=? AND #{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['@current_company.id'], ['session[:current_incoming_payment_id]'], Sale.name], :line_class=>'RECORD.tags') do |t|
+  list(:sales, :conditions=>["#{Sale.table_name}.id IN (SELECT expense_id FROM #{IncomingPaymentUse.table_name} WHERE payment_id=? AND expense_type=?)", ['session[:current_incoming_payment_id]'], Sale.name], :line_class=>'RECORD.tags') do |t|
     t.column :number, :url=>true
     t.column :description, :through=>:client, :url=>true
     t.column :created_on

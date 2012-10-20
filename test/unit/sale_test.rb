@@ -25,7 +25,6 @@
 #  annotation          :text             
 #  client_id           :integer          not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  conclusion          :text             
 #  confirmed_on        :date             
 #  contact_id          :integer          

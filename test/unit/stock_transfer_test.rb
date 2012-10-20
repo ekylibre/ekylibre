@@ -21,7 +21,6 @@
 # == Table: stock_transfers
 #
 #  comment              :text             
-#  company_id           :integer          not null
 #  created_at           :datetime         not null
 #  creator_id           :integer          
 #  id                   :integer          not null, primary key
@@ -52,14 +51,13 @@ class StockTransferTest < ActiveSupport::TestCase
     emitter  = stocks(:stocks_001)
     receiver = stocks(:stocks_003)
     assert_equal emitter.product_id, receiver.product_id, "Emitter and receiver stocks must use the same product"
-    assert_equal emitter.company_id, receiver.company_id, "Emitter and receiver stocks must use the same company"
     unit = emitter.product.unit.name
     source_quantity = emitter.quantity
     target_quantity = receiver.quantity
     transfered_quantity = source_quantity / 2
     transfer = nil
     assert_nothing_raised do
-      transfer = emitter.company.stock_transfers.create!(:product_id => emitter.product_id, :warehouse_id => emitter.warehouse_id, :second_warehouse_id => receiver.warehouse_id, :nature => 'transfer', :quantity => transfered_quantity, :planned_on => Date.today)
+      transfer = StockTransfer.create!(:product_id => emitter.product_id, :warehouse_id => emitter.warehouse_id, :second_warehouse_id => receiver.warehouse_id, :nature => 'transfer', :quantity => transfered_quantity, :planned_on => Date.today)
     end
     assert_not_nil transfer
     assert_equal StockTransfer, transfer.class

@@ -20,7 +20,6 @@
 # 
 # == Table: sequences
 #
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
@@ -36,24 +35,26 @@
 #  period           :string(255)      default("number"), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  usage            :string(255)      
 #
 
 
 class Sequence < CompanyRecord
-  # @@periods = ['cweek', 'month', 'number', 'year']
-  @@periods = Sequence.columns_hash.keys.select{|x| x.match(/^last_/)}.collect{|x| x[5..-1] }.sort
+  @@periods = ['cweek', 'month', 'number', 'year']
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
+  # FIXME: Adds all usage for sequence? or register_usage like Account! ?
 
-  attr_readonly :company_id
-  belongs_to :company
   has_many :preferences, :as=>:record_value
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :last_cweek, :last_month, :last_number, :last_year, :number_increment, :number_start, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :number_format, :period, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :number_format, :number_increment, :number_start, :period
+  validates_length_of :name, :number_format, :period, :usage, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :number_format, :number_increment, :number_start, :period
   #]VALIDATORS]
   validates_inclusion_of :period, :in => @@periods  
-  validates_uniqueness_of :number_format, :scope=>:company_id
+  validates_uniqueness_of :number_format
+  validates_uniqueness_of :usage, :if => :used?
+
+  scope :of_usage, lambda { |usage| where(:usage => usage.to_s).order(:id) }
 
   before_validation do
     self.period ||= 'number'
@@ -63,8 +64,32 @@ class Sequence < CompanyRecord
     self.preferences.size <= 0
   end
 
+  def self.of(usage)
+    self.of_usage(usage).first
+  end
+
+  
+  def self.load_defaults
+    # FIXME: Needs to clarify between translations and usages
+    for usage in self.usages
+      unless sequence = self.find_by_usage(usage)
+        self.create(:usage => usage)
+      end
+    end
+    # for sequence, attributes in tc('default.sequences')
+    #   unless self.preferred("#{sequence}_sequence")
+    #     seq = self.sequences.create(attributes)
+    #     self.prefer!("#{sequence}_sequence", seq) if seq
+    #   end
+    # end
+  end
+  
   def self.periods
     @@periods.collect{|p| [tc("periods.#{p}"), p]}.sort{|a,b| a[0]<=>b[0]}
+  end
+
+  def used?
+    !self.usage.blank?
   end
 
   def period_name

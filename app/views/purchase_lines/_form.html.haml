@@ -11,6 +11,6 @@
 
 =formalize do |f|
   -f.title :stocks
-  -if @current_company.warehouses.size > 1
+  -if Warehouse.count > 1
     -f.field :purchase_line, :warehouse_id, :choices=>{:reflection=>:warehouses}
   -f.field :purchase_line, :tracking_serial

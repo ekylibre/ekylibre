@@ -20,7 +20,6 @@
 # 
 # == Table: roles
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -33,14 +32,12 @@
 
 
 class Role < CompanyRecord
+  has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :users
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 
   before_validation do
     self.rights_array=self.rights_array # Clean the rights
@@ -49,7 +46,7 @@ class Role < CompanyRecord
   after_validation(:on=>:update) do
     old_rights_array = []
     new_rights_array = []
-    old_rights = Role.find_by_id_and_company_id(self.id, self.company_id).rights.to_s.split(" ")
+    old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
     
     for right in old_rights
       old_rights_array << right.to_sym
@@ -61,7 +58,7 @@ class Role < CompanyRecord
     added_rights = new_rights_array-old_rights_array
     deleted_rights = old_rights_array- new_rights_array
     
-    users = User.find_all_by_role_id_and_company_id_and_admin(self.id, self.company_id, false)
+    users = User.find_all_by_role_id_and_admin(self.id, false)
     for user in users
       # puts user.rights.inspect
       user_rights_array = []

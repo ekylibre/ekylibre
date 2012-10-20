@@ -3,7 +3,7 @@
     %td
       %label=EntityLink.human_attribute_name("entity_1_id")
       =combo_box(:entity_link, :entity_1_id, :entities, :controller=>:interfacers)
-    %td=select(:entity_link, :nature_id, @current_company.entity_link_natures.collect{|n| [n.name_1_to_2, n.id]})
+    %td=select(:entity_link, :nature_id, EntityLinkNature.collect{|n| [n.name_1_to_2, n.id]})
     %td
       %label=EntityLink.human_attribute_name("entity_2_id")
       =combo_box(:entity_link, :entity_2_id, :entities, :controller=>:interfacers)

@@ -40,8 +40,8 @@ class ActiveSupport::TestCase
     old_controller = @controller
     @controller = SessionsController.new
     post :create, :name=>name, :password=>password
-    url = {:controller=>:dashboards, :action=>:general}
-    assert_redirected_to url, url.inspect
+    url = {:controller=>:dashboards, :action=>:index}
+    assert_redirected_to root_url, root_url.inspect
     assert_not_nil(session[:user_id])
     @controller = old_controller
   end

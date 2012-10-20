@@ -17,27 +17,27 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class InventoriesController < ApplicationController
+class InventoriesController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :created_on
     t.column :changes_reflected
     t.column :label, :through=>:responsible, :url=>true
     t.column :comment
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
-    t.action :reflect, :if=>'RECORD.company.inventories.find_all_by_changes_reflected(false).size <= 1 and !RECORD.changes_reflected', :image=>"action", 'data-confirm' => :are_you_sure
+    t.action :reflect, :if=>'RECORD.reflectable?', :image=>"action", 'data-confirm' => :are_you_sure
     t.action :edit,  :if=>'!RECORD.changes_reflected? '
     t.action :destroy, :if=>'!RECORD.changes_reflected? '
   end
 
   # Displays the main page with the list of inventories
   def index
-    if @current_company.stockable_products.size <= 0
+    if Product.stockables.count.zero?
       notify_now(:need_stocks_to_create_inventories)
     end    
   end
 
-  list(:lines, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['params[:id]'] }, :order=>'warehouse_id') do |t|
+  list(:lines, :model=>:inventory_lines, :conditions=>{:inventory_id=>['params[:id]'] }, :order=>'warehouse_id') do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
     t.column :name, :through=>:tracking, :url=>true
@@ -56,7 +56,7 @@ class InventoriesController < ApplicationController
     end
   end
 
-  list(:lines_create, :model=>:stocks, :conditions=>{:company_id=>['@current_company.id'] }, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+  list(:lines_create, :model=>:stocks, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
     t.column :name, :through=>:tracking, :url=>true
@@ -65,7 +65,7 @@ class InventoriesController < ApplicationController
     t.text_field :quantity
   end
 
-  list(:lines_update, :model=>:inventory_lines, :conditions=>{:company_id=>['@current_company.id'], :inventory_id=>['session[:current_inventory_id]'] }, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
+  list(:lines_update, :model=>:inventory_lines, :conditions=>{:inventory_id=>['session[:current_inventory_id]'] }, :pagination=>:none, :order=>"#{Warehouse.table_name}.name, #{Product.table_name}.name") do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:product, :url=>true
     t.column :name, :through=>:tracking, :url=>true
@@ -75,25 +75,24 @@ class InventoriesController < ApplicationController
 
 
   def new
-    if @current_company.stockable_products.size <= 0
+    if Product.stockables.count.zero?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(:responsible_id=>@current_user.id)
   end
 
   def create
-    if @current_company.stockable_products.size <= 0
+    if Product.stockables.count.zero?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if @current_company.inventories.find_all_by_changes_reflected(false).size >= 1
+    notify_warning_now(:validates_old_inventories) if Inventory.find_all_by_changes_reflected(false).size >= 1
     @inventory = Inventory.new(params[:inventory])
     params[:lines_create] ||= {}
     params[:lines_create].each{|k,v| v[:stock_id]=k}
     # raise Exception.new(params[:lines_create].inspect)
-    @inventory.company_id = @current_company.id
     if @inventory.save
       @inventory.set_lines(params[:lines_create].values)
       redirect_to :action=>:index
@@ -133,7 +132,7 @@ class InventoriesController < ApplicationController
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:lines_create].values)
         for id, attributes in (params[:lines_update]||{})
-          il = @current_company.inventory_lines.find_by_id(id).update_attributes!(attributes) 
+          il = InventoryLine.find_by_id(id).update_attributes!(attributes) 
         end
       end
       redirect_to :action=>:index

@@ -21,7 +21,7 @@
                 =content_tag(:label, klass.human_attribute_name(c.name), :for=>"columns_#{code}_check_f")
         %tr.title
           %th=CustomField.model_name.human
-        -for c in @current_company.custom_fields
+        -for c in CustomField
           -code = CustomField.name.underscore+'-id'+c.id.to_s
           -params[:columns][code] ||= {}
           %tr.field

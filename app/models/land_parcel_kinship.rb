@@ -21,7 +21,6 @@
 # == Table: land_parcel_kinships
 #
 #  child_land_parcel_id  :integer          not null
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
 #  id                    :integer          not null, primary key
@@ -34,12 +33,10 @@
 
 
 class LandParcelKinship < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :parent_land_parcel, :class_name=>"LandParcel"
   belongs_to :child_land_parcel, :class_name=>"LandParcel"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 16
-  validates_presence_of :child_land_parcel, :company, :parent_land_parcel
+  validates_presence_of :child_land_parcel, :parent_land_parcel
   #]VALIDATORS]
 end

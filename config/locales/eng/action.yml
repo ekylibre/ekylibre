@@ -55,6 +55,7 @@ eng:
       accountancy: "Accountancy dashboard"
       finances: "Finances dashboard" #?
       general: "General dashboard" #?
+      # index: "Index dashboard"
       production: "Production dashboard"
       # purchases: "Purchases dashboard"
       relationship: "Relationship dashboard"
@@ -1276,7 +1277,7 @@ eng:
     need_balanced_journal_to_tax_declaration: "All your journals must be closed and balanced at that date." #?
     need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
     need_closed_financial_year_to_declaration: "You must have a closed financial year to create a VAT return." #?
-    need_company_code_to_login: "You must select your company in order to connect with that username."
+    need_company_code_to_login: "You must select your company in order to connect with that username." #?
     need_entries_to_point: "No entry was found for the period of the bank statement."
     need_journal_to_manage_tax_declaration: "You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns." #?
     need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"

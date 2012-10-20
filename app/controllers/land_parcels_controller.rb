@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class LandParcelsController < ApplicationController
+class LandParcelsController < AdminController
   manage_restfully :started_on=>"Date.today"
 
-  list(:conditions=>["#{LandParcel.table_name}.company_id=? AND ? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['@current_company.id'], ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
+  list(:conditions=>["? BETWEEN #{LandParcel.table_name}.started_on AND COALESCE(#{LandParcel.table_name}.stopped_on, ?)", ['session[:viewed_on]'], ['session[:viewed_on]']], :order=>"name") do |t|
     t.column :name, :url=>true
     t.column :number
     t.column :area_measure, :datatype=>:decimal
@@ -39,7 +39,7 @@ class LandParcelsController < ApplicationController
     session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
   end
 
-  list(:operations, :conditions=>{:company_id=>['@current_company.id'], :target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
+  list(:operations, :conditions=>{:target_type=>LandParcel.name, :target_id=>['session[:current_land_parcel]']}, :order=>"planned_on ASC") do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>true
@@ -75,7 +75,7 @@ class LandParcelsController < ApplicationController
   end
 
   def merge
-    land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| @current_company.land_parcels.find(k.to_i)}
+    land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| LandParcel.find(k.to_i)}
     child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
     # redirect_to(:action=>:show, :id=>child.id) 
     if child

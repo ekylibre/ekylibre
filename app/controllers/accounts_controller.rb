@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AccountsController < ApplicationController
+class AccountsController < AdminController
   manage_restfully :number=>"params[:number]"
 
   def self.accounts_conditions
@@ -26,8 +26,7 @@ class AccountsController < ApplicationController
     code += "[0] += ' AND number LIKE ?'\n"
     code += "c << params[:prefix].to_s+'%'\n"
     code += "if params[:used_accounts].to_i == 1\n"
-    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+' AND je.company_id = ? AND jel.company_id = ?)'\n"
-    code += "  c += [@current_company.id, @current_company.id]\n"
+    code += "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
     code += "end\n"
     code += "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -70,7 +69,7 @@ class AccountsController < ApplicationController
     t.column :credit, :currency=>"RECORD.entry.financial_year.currency"
   end
 
-  list(:entities, :conditions=>["#{Entity.table_name}.company_id = ? AND ? IN (client_account_id, supplier_account_id, attorney_account_id)", ['@current_company.id'], ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
+  list(:entities, :conditions=>["? IN (client_account_id, supplier_account_id, attorney_account_id)", ['session[:current_account_id]']], :order=>"created_at DESC") do |t|
     t.column :code, :url=>true
     t.column :full_name, :url=>true
     t.column :label, :through=>:client_account, :url=>true
@@ -132,6 +131,8 @@ class AccountsController < ApplicationController
   def load
     if request.post?
       locale, name = params[:list].split(".")
+      
+      Account.load_chart(params[:chart])
       
       ActiveRecord::Base.transaction do
         # Unset reconcilable old third accounts

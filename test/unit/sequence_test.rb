@@ -20,7 +20,6 @@
 # 
 # == Table: sequences
 #
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
@@ -36,6 +35,7 @@
 #  period           :string(255)      default("number"), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  usage            :string(255)      
 #
 
 

@@ -23,7 +23,6 @@
 #  account_id      :integer          not null
 #  amount          :decimal(19, 4)   default(0.0), not null
 #  annotation      :text             
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
@@ -45,9 +44,8 @@
 
 class PurchaseLine < CompanyRecord
   acts_as_list :scope=>:purchase
-  attr_readonly :company_id, :purchase_id
+  attr_readonly :purchase_id
   belongs_to :account
-  belongs_to :company
   belongs_to :purchase
   belongs_to :price
   belongs_to :product
@@ -58,24 +56,21 @@ class PurchaseLine < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :allow_nil => true
   validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :amount, :company, :pretax_amount, :price, :product, :purchase, :quantity, :unit
+  validates_presence_of :account, :amount, :pretax_amount, :price, :product, :purchase, :quantity, :unit
   #]VALIDATORS]
-  validates_presence_of :pretax_amount, :price_id
-  validates_presence_of :tracking_id, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
+  validates_presence_of :pretax_amount, :price
+  validates_presence_of :tracking, :if=>Proc.new{|pol| !pol.tracking_serial.blank?}
   validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true, :if=>Proc.new{|pl| !pl.tracking_serial.blank? }
 
   sums :purchase, :lines, :pretax_amount, :amount
   
   before_validation do
-    self.company_id = self.purchase.company_id if self.purchase
     check_reservoir = true
-    self.warehouse_id = self.company.warehouses.first.id if self.company.warehouses.size == 1
+    self.warehouse_id = Warehouse.first.id if Warehouse.count == 1
     if self.price
       product = self.price.product
       if product.purchases_account.nil?
-        account_number = self.company.preferred_charges_accounts
-        product.purchases_account = self.company.accounts.find_by_number(account_number.to_s)
-        product.purchases_account = self.company.accounts.create!(:number=>account_number.to_s, :name=>::I18n.t('preferences.accountancy.major_accounts.charges')) if product.purchases_account.nil?
+        product.purchases_account = Account.find_in_chart(:charges)
         product.save!
       end
       self.account_id = product.purchases_account_id
@@ -95,8 +90,8 @@ class PurchaseLine < CompanyRecord
     unless self.tracking_serial.blank?
       producer = self.purchase.supplier
       unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-        tracking = self.company.trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        tracking = self.company.trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+        tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        tracking = Tracking.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
         self.tracking_id = tracking.id
       end
       self.tracking_serial.upper!

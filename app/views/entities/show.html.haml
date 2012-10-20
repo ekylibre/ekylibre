@@ -69,7 +69,7 @@
       -t.link(:new, :controller=>:purchases, :supplier_id=>@entity.id)
     =list(:purchases)
 
-  -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.size)) do
+  -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.count)) do
     =toolbar do |t|
       -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
     =list(:outgoing_payments)
@@ -79,8 +79,7 @@
       -t.link :new, :controller=>:events, :entity_id=>@entity.id
     =list(:events)
 
-  -el_count = @current_company.entity_links.find(:all, :conditions=>["stopped_on IS NULL AND ? IN (entity_1_id, entity_2_id)", @entity.id]).size
-  -tb.tab(tl(:x_entity_links, :count=>el_count)) do
+  -tb.tab(tl(:x_entity_links, :count=>EntityLink.of_entity(@entity).count)) do
     =toolbar do |t|
       -t.link :new, :controller=>:entity_links, :entity_id=>@entity.id
     =list(:links)

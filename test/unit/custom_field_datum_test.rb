@@ -22,7 +22,6 @@
 #
 #  boolean_value   :boolean          
 #  choice_value_id :integer          
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  custom_field_id :integer          not null

@@ -21,7 +21,6 @@
 # == Table: deposit_lines
 #
 #  amount       :decimal(19, 4)   default(1.0), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  deposit_id   :integer          not null

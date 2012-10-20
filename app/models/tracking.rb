@@ -22,7 +22,6 @@
 #
 #  active       :boolean          default(TRUE), not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -37,13 +36,7 @@
 
 
 class Tracking < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :company, :name
-  #]VALIDATORS]
   after_save :update_serials
-  belongs_to :company
   belongs_to :producer, :class_name=>"Entity"
   belongs_to :product
   has_many :outgoing_delivery_lines
@@ -54,8 +47,12 @@ class Tracking < CompanyRecord
   has_many :operation_lines
   has_many :stock_moves
   has_many :stock_transfers
-  attr_readonly :company_id
 
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :serial, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :in => [true, false]
+  validates_presence_of :name
+  #]VALIDATORS]
   validates_presence_of :name, :serial
   validates_uniqueness_of :serial, :scope=>:producer_id
 

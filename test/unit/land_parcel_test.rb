@@ -22,7 +22,6 @@
 #
 #  area_measure :decimal(19, 4)   default(0.0), not null
 #  area_unit_id :integer          
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             

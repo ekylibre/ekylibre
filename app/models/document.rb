@@ -20,7 +20,6 @@
 # 
 # == Table: documents
 #
-#  company_id    :integer          not null
 #  created_at    :datetime         not null
 #  creator_id    :integer          
 #  crypt_key     :binary           
@@ -43,20 +42,17 @@
 #
 
 class Document < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :filesize, :allow_nil => true, :only_integer => true
-  validates_length_of :crypt_mode, :extension, :filename, :nature_code, :original_name, :owner_type, :sha256, :subdir, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :crypt_mode, :original_name, :sha256
-  #]VALIDATORS]
-  belongs_to :company
   belongs_to :owner, :polymorphic=>true
   belongs_to :template, :class_name=>"DocumentTemplate"
 
   attr_accessor :archive
 
-  validates_presence_of :template_id, :subdir, :extension, :owner_type, :owner_id
-
-  attr_readonly :company_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :filesize, :allow_nil => true, :only_integer => true
+  validates_length_of :crypt_mode, :extension, :filename, :nature_code, :original_name, :owner_type, :sha256, :subdir, :allow_nil => true, :maximum => 255
+  validates_presence_of :crypt_mode, :original_name, :sha256
+  #]VALIDATORS]
+  validates_presence_of :template, :subdir, :extension, :owner
 
   before_validation do
     self.nature_code = self.template.code if self.template
@@ -78,8 +74,7 @@ class Document < CompanyRecord
   def path(strict=true)
     code = self.nature_code
     code.gsub!(/\*/, '') unless strict
-    # File.join(self.company.private_directory, code, self.subdir)
-    File.join(self.company.private_directory, "documents", code, self.subdir)
+    File.join(Settings.private_directory, "documents", code, self.subdir)
   end
 
   def file_path(strict=true)

@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class DepositsController < ApplicationController
+class DepositsController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"created_at DESC") do |t|
+  list(:order=>"created_at DESC") do |t|
     t.column :number, :url=>true
     t.column :amount, :currency=>"RECORD.cash.currency", :url=>true
     t.column :payments_count
@@ -34,11 +34,11 @@ class DepositsController < ApplicationController
 
   # Displays the main page with the list of deposits
   def index
-    notify_now(:no_depositable_payments) if @current_company.depositable_payments.size <= 0
+    notify_now(:no_depositable_payments) if IncomingPayment.depositables.count.zero?
   end
 
 
-  list(:payments, :model=>:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :deposit_id=>['session[:deposit_id]']}, :pagination=>:none, :order=>:number) do |t|
+  list(:payments, :model=>:incoming_payments, :conditions=>{:deposit_id=>['session[:deposit_id]']}, :pagination=>:none, :order=>:number) do |t|
     t.column :number, :url=>true
     t.column :full_name, :through=>:payer, :url=>true
     t.column :bank
@@ -61,7 +61,7 @@ class DepositsController < ApplicationController
   end
 
 
-  list(:depositable_payments, :model=>:incoming_payments, :conditions=>["#{IncomingPayment.table_name}.company_id=? AND (deposit_id=? OR (mode_id=? AND deposit_id IS NULL))", ['@current_company.id'], ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  list(:depositable_payments, :model=>:incoming_payments, :conditions=>["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination=>:none, :order=>"to_bank_on, created_at", :line_class=>"((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
     t.column :number, :url=>true
     t.column :full_name, :through=>:payer, :url=>true
     t.column :bank
@@ -88,10 +88,9 @@ class DepositsController < ApplicationController
     session[:payment_mode_id] = mode.id
     @deposit = Deposit.new(params[:deposit])
     @deposit.mode_id = mode.id 
-    @deposit.company_id = @current_company.id 
     if @deposit.save
       payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-      IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
+      IncomingPayment.update_all({:deposit_id=>@deposit.id}, {:id => payments})
       @deposit.refresh
       return if save_and_redirect(@deposit, :saved=>true)
     end
@@ -114,8 +113,8 @@ class DepositsController < ApplicationController
     if @deposit.update_attributes(params[:deposit])
       ActiveRecord::Base.transaction do
         payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
-        IncomingPayment.update_all({:deposit_id=>nil}, ["company_id=? AND deposit_id=?", @current_company.id, @deposit.id])
-        IncomingPayment.update_all({:deposit_id=>@deposit.id}, ["company_id=? AND id IN (?)", @current_company.id, payments])
+        IncomingPayment.update_all({:deposit_id=>nil}, {:deposit_id => @deposit.id})
+        IncomingPayment.update_all({:deposit_id=>@deposit.id}, {:id => payments})
       end
       @deposit.refresh
       return if save_and_redirect(@deposit, :saved=>true)
@@ -131,7 +130,7 @@ class DepositsController < ApplicationController
   end
 
 
-  list(:unvalidateds, :model=>:deposits, :conditions=>{:locked=>false, :company_id=>['@current_company.id']}) do |t|
+  list(:unvalidateds, :model=>:deposits, :conditions=>{:locked=>false}) do |t|
     t.column :created_on
     t.column :amount
     t.column :payments_count
@@ -140,7 +139,7 @@ class DepositsController < ApplicationController
   end
 
   def unvalidateds
-    @deposits = @current_company.deposits_to_lock
+    @deposits = Deposit.unvalidateds
     if request.post?
       for id, values in params[:unvalidateds] || {}
         return unless deposit = find_and_check(:deposit, id)
@@ -153,7 +152,7 @@ class DepositsController < ApplicationController
   protected
 
   def find_mode()
-    mode = @current_company.incoming_payment_modes.find_by_id(params[:mode_id])
+    mode = IncomingPaymentMode.find_by_id(params[:mode_id])
     if mode.nil?
       notify_warning(:need_payment_mode_to_create_deposit)
       redirect_to :action=>:index

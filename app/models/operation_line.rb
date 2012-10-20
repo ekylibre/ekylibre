@@ -21,7 +21,6 @@
 # == Table: operation_lines
 #
 #  area_unit_id    :integer          
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  direction       :string(4)        default("in"), not null
@@ -42,22 +41,21 @@
 
 
 class OperationLine < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :unit_quantity, :allow_nil => true
-  validates_length_of :direction, :allow_nil => true, :maximum => 4
-  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :direction, :operation, :quantity, :unit_quantity
-  #]VALIDATORS]
   acts_as_stockable :quantity=>'self.in? ? -self.quantity : self.quantity', :origin=>:operation  
   belongs_to :area_unit, :class_name=>"Unit"
-  belongs_to :company
   belongs_to :warehouse
   belongs_to :operation
   belongs_to :product
   belongs_to :stock_move
   belongs_to :tracking
   belongs_to :unit
-  validates_presence_of :product_id
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :quantity, :unit_quantity, :allow_nil => true
+  validates_length_of :direction, :allow_nil => true, :maximum => 4
+  validates_length_of :tracking_serial, :allow_nil => true, :maximum => 255
+  validates_presence_of :direction, :operation, :quantity, :unit_quantity
+  #]VALIDATORS]
+  validates_presence_of :product
 
   # IN operation.target or OUT of operation.target
   @@directions = ["in", "out"]
@@ -69,7 +67,6 @@ class OperationLine < CompanyRecord
     self.unit_id ||= self.product.unit_id if self.product
 
     if self.operation
-      self.company_id = self.operation.company_id
       target = self.operation.target.target
       # raise Exception.new(target.inspect)
       if target.is_a? LandParcel
@@ -81,10 +78,10 @@ class OperationLine < CompanyRecord
     if self.direction == "out"
       self.tracking_serial = self.tracking_serial.to_s.strip
       unless self.tracking_serial.blank?
-        producer = self.company.entity
+        producer = Entity.of_company
         unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-          tracking = self.company.trackings.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-          tracking = self.company.trackings.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
+          tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+          tracking = Tracking.create!(:name=>self.tracking_serial, :product_id=>self.product_id, :producer_id=>producer.id) if tracking.nil?
           self.tracking_id = tracking.id
         end
         self.tracking_serial.upper!

@@ -21,7 +21,6 @@
 # == Table: preferences
 #
 #  boolean_value     :boolean          
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  decimal_value     :decimal(19, 4)   
@@ -43,8 +42,7 @@ class Preference < CompanyRecord
   # @@natures = ['boolean', 'decimal', 'integer', 'record', 'string']
   @@natures = Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
   @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
-  attr_readonly :company_id, :user_id, :name, :nature
-  belongs_to :company
+  attr_readonly :user_id, :name, :nature
   belongs_to :user
   belongs_to :record_value, :polymorphic=>true
   # cattr_reader :reference
@@ -53,15 +51,10 @@ class Preference < CompanyRecord
   validates_numericality_of :decimal_value, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :record_value_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :nature
+  validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => @@natures
-  validates_uniqueness_of :name, :scope=>[:company_id, :user_id]
-
-
-  before_validation do
-    self.company_id = self.user.company_id if self.user
-  end
+  validates_uniqueness_of :name, :scope=>[:user_id]
 
   def self.type_to_nature(klass)
     klass = klass.to_s
@@ -76,6 +69,19 @@ class Preference < CompanyRecord
     else
       :record
     end
+  end
+
+
+  def self.get(name)
+    preference = Preference.find_by_name(name)
+    if preference.nil? and @@preferences.has_key?(name.to_s)
+        preference = #{preferences}.new(:name=>name, :nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type])
+          preference.value = @@preferences[name][:default] if @@preferences[name][:default]
+        preference.save!
+      elsif preference.nil?
+        raise ArgumentError.new('Undefined preference for #{self.name}: '+name.to_s)
+      end
+    return preference.value
   end
 
   def value
@@ -143,27 +149,27 @@ class Preference < CompanyRecord
     end
   end
 
-  def self.initialize_reference
-    @@reference = {}
-    file = File.open("#{Rails.root.to_s}/config/preferences.csv", "r")
-    file.each_line do |line|
-      unless line.match(/\#/)
-        line   = line.strip.split(",")
-        param  = line[0]
-        nature = line[1]
-        if nature
-          @@reference[param] ||= {}
-          @@reference[param][:nature] = nature
-          if nature == 'record'
-            @@reference[param][:model] = line[2].camelcase.constantize
-          else
-            @@reference[param][:default] = Preference.convert(nature, line[2])
-          end
-        end
-      end
-    end
-  end
+  # def self.initialize_reference
+  #   @@reference = {}
+  #   file = File.open("#{Rails.root.to_s}/config/preferences.csv", "r")
+  #   file.each_line do |line|
+  #     unless line.match(/\#/)
+  #       line   = line.strip.split(",")
+  #       param  = line[0]
+  #       nature = line[1]
+  #       if nature
+  #         @@reference[param] ||= {}
+  #         @@reference[param][:nature] = nature
+  #         if nature == 'record'
+  #           @@reference[param][:model] = line[2].camelcase.constantize
+  #         else
+  #           @@reference[param][:default] = Preference.convert(nature, line[2])
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
 
-  Preference.initialize_reference
+  # Preference.initialize_reference
 
 end

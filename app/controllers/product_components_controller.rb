@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductComponentsController < ApplicationController
+class ProductComponentsController < AdminController
   manage_restfully :product_id=>'params[:product_id]', :destroy_to=>':controller=>:products, :action=>:show, :id=>@product_component.product_id'
 end

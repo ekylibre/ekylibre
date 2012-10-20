@@ -21,7 +21,6 @@
 # == Table: bank_statements
 #
 #  cash_id      :integer          not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  credit       :decimal(19, 4)   default(0.0), not null

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class SettingsController < ApplicationController
+class SettingsController < AdminController
 
   def edit
     @my_company = @current_company
@@ -48,6 +48,7 @@ class SettingsController < ApplicationController
 
 
   # Simple page dedicated to backup management
+  # FIXME Rebuild backup system with SQL approach ?
   def backups
   end
 

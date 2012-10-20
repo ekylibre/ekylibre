@@ -21,7 +21,6 @@
 # == Table: districts
 #
 #  code         :string(255)      
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -33,13 +32,11 @@
 
 
 class District < CompanyRecord
+  has_many :areas
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  belongs_to :company
-  has_many :areas
-  attr_readonly :company_id
 
   def self.exportable_columns
     self.content_columns.delete_if{|c| ![:name].include?(c.name.to_sym)}

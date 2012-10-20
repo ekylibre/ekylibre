@@ -22,7 +22,6 @@
 #
 #  active       :boolean          not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  component_id :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -40,8 +39,7 @@
 
 
 class ProductComponent < CompanyRecord
-  attr_readonly :company_id, :quantity, :name, :comment
-  belongs_to :company
+  attr_readonly :quantity, :name, :comment
   belongs_to :component, :class_name=>"Product"
   belongs_to :warehouse
   belongs_to :product
@@ -49,7 +47,7 @@ class ProductComponent < CompanyRecord
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :company, :component, :name, :product, :quantity, :warehouse
+  validates_presence_of :component, :name, :product, :quantity, :warehouse
   #]VALIDATORS]
 
   autosave :product
@@ -68,7 +66,7 @@ class ProductComponent < CompanyRecord
     stamper = self.class.stamper_class.stamper rescue nil
     # raise stamper.inspect unless stamper.nil?
     stamper_id = stamper.id if stamper.is_a? User
-    nc = self.class.create!(self.attributes.delete_if{|k,v| k.to_s.match(/^company(\_id)?$/)}.merge(:company_id=>self.company_id, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
+    nc = self.class.create!(self.attributes.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
     self.class.update_all({:active=>false}, {:id=>self.id})
     return nc
   end
@@ -86,14 +84,5 @@ class ProductComponent < CompanyRecord
     end
     value = (total == (self.quantity*production_quantity))
   end
-  
-#   def stocks_move_create(params, production_id)
-#     for p in params
-#       if p[1] > 0
-#         StockMove.create!(:name=>tc('production')+" "+self.id.to_s, :quantity=>p[1], :warehouse_id=>p[0], :product_id=>self.component_id, :company_id=>self.company_id, :planned_on=>Date.today, :moved_on=>Date.today, :virtual=>true, :input=>false, :origin_type=>Production.to_s, :origin_id=>production_id)
-#       end
-#     end
-
-#   end
 
 end

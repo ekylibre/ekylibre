@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CashTransfersController < ApplicationController
+class CashTransfersController < AdminController
   manage_restfully :created_on=>'Date.today'
 
-  list(:conditions=>["#{CashTransfer.table_name}.company_id = ? ", ['@current_company.id']]) do |t|
+  list do |t|
     t.column :number, :url=>true
     t.column :emitter_amount, :currency=>"RECORD.emitter_cash.currency"
     t.column :name, :through=>:emitter_cash, :url=>true
@@ -38,7 +38,7 @@ class CashTransfersController < ApplicationController
 
   # Displays details of one cash transfer selected with +params[:id]+
   def show
-    return unless @cash_transfer = find_and_check(:cash_transfer)
+    return unless @cash_transfer = find_and_check
     t3e @cash_transfer.attributes
   end
 

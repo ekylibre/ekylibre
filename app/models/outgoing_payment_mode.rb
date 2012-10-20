@@ -20,31 +20,32 @@
 # 
 # == Table: outgoing_payment_modes
 #
-#  cash_id         :integer          
-#  company_id      :integer          not null
-#  created_at      :datetime         not null
-#  creator_id      :integer          
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  name            :string(50)       not null
-#  position        :integer          
-#  updated_at      :datetime         not null
-#  updater_id      :integer          
-#  with_accounting :boolean          not null
+#  attorney_journal_id :integer          
+#  cash_id             :integer          
+#  created_at          :datetime         not null
+#  creator_id          :integer          
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string(50)       not null
+#  position            :integer          
+#  updated_at          :datetime         not null
+#  updater_id          :integer          
+#  with_accounting     :boolean          not null
 #
 
 
 class OutgoingPaymentMode < CompanyRecord
+  acts_as_list
+  belongs_to :attorney_journal, :class_name => "Journal"
+  belongs_to :cash
+  has_many :payments, :class_name=>"OutgoingPayment", :foreign_key=>:mode_id
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 50
   validates_inclusion_of :with_accounting, :in => [true, false]
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  acts_as_list :scope=>:company_id
-  attr_readonly :company_id
-  belongs_to :cash
-  belongs_to :company
-  has_many :payments, :class_name=>"OutgoingPayment", :foreign_key=>:mode_id
+  validates_presence_of :attorney_journal, :if => :with_accounting?
 
   protect(:on => :destroy) do
     self.payments.size.zero?

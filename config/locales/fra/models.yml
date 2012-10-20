@@ -347,6 +347,7 @@ fra:
     attorney: "Mandataire"
     attorney_account: "Compte mandataire associé"
     attorney_accounts: "Comptes mandataires"
+    # attorney_journal: "Attorney journal"
     attorneys: "Mandataires"
     attribute_name: "Nom de l’attribut"
     authorized_payments_count: "Nombre d’encaissements autorisés"

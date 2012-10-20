@@ -24,7 +24,6 @@
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  cash_id          :integer          not null
 #  comment          :text             
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  created_on       :date             not null
 #  creator_id       :integer          
@@ -44,9 +43,7 @@
 
 class Deposit < CompanyRecord
   acts_as_numbered
-  attr_readonly :company_id
   belongs_to :cash
-  belongs_to :company
   belongs_to :responsible, :class_name=>"User"
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>"IncomingPaymentMode"
@@ -57,9 +54,13 @@ class Deposit < CompanyRecord
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :in_cash, :locked, :in => [true, false]
-  validates_presence_of :amount, :cash, :company, :created_on, :mode
+  validates_presence_of :amount, :cash, :created_on, :mode
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
+
+  default_scope order(:number)
+  scope :unvalidateds, where(:locked => false)
+
 
   before_validation do
     self.cash = self.mode.cash if self.mode

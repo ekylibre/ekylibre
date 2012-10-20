@@ -16,7 +16,7 @@
 # along with this program.x  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class HelpController < ApplicationController
+class HelpController < AdminController
      
   def show
     file = search_article(params[:id])

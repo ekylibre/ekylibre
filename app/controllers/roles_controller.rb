@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class RolesController < ApplicationController
+class RolesController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:name, :children=>:users) do |t|
+  list(:order=>:name, :children=>:users) do |t|
     t.column :name, :children=>:label
     t.column :diff_more, :class=>'rights more'
     t.column :diff_less, :class=>'rights less'
@@ -39,7 +39,6 @@ class RolesController < ApplicationController
 
   def create
     @role = Role.new(params[:role])
-    @role.company_id = @current_company.id
     @role.rights_array = (params[:rights]||{}).keys
     @rights = @role.rights_array
     return if save_and_redirect(@role)

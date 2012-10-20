@@ -21,7 +21,6 @@
 # == Table: custom_fields
 #
 #  active       :boolean          default(TRUE), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  decimal_max  :decimal(19, 4)   
@@ -41,7 +40,6 @@
 #
 # custom_fields_001:
 #   active: true
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -53,7 +51,6 @@
 #
 custom_fields_001:
   active: true
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
@@ -65,7 +62,6 @@ custom_fields_001:
 
 custom_fields_002:
   active: true
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2

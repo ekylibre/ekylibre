@@ -24,7 +24,6 @@
 #  balance           :decimal(19, 4)   default(0.0), not null
 #  bank_statement_id :integer          
 #  comment           :text             
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  credit            :decimal(19, 4)   default(0.0), not null
@@ -48,7 +47,6 @@
 # journal_entry_lines_001:
 #   account_id: 1
 #   balance: 0
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   credit: 0
@@ -64,7 +62,6 @@
 #
 journal_entry_lines_001:
   account_id: 1
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   credit: 0
@@ -81,7 +78,6 @@ journal_entry_lines_001:
 
 journal_entry_lines_002:
   account_id: 1
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   credit: 0

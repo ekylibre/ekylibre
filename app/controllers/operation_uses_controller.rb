@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OperationUsesController < ApplicationController
+class OperationUsesController < AdminController
 
   def new
     if request.xhr?

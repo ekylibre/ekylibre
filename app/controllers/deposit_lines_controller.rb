@@ -17,5 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class DepositLinesController < ApplicationController
+class DepositLinesController < AdminController
 end

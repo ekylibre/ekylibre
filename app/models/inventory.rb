@@ -23,7 +23,6 @@
 #  accounted_at      :datetime         
 #  changes_reflected :boolean          
 #  comment           :text             
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  created_on        :date             not null
 #  creator_id        :integer          
@@ -39,18 +38,23 @@
 
 
 class Inventory < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 16
-  validates_presence_of :company, :created_on
-  #]VALIDATORS]
   belongs_to :responsible, :class_name=>"User"
   has_many :lines, :class_name=>"InventoryLine", :dependent=>:destroy
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :number, :allow_nil => true, :maximum => 16
+  validates_presence_of :created_on
+  #]VALIDATORS]
 
   before_validation do
     self.created_on ||= Date.today
   end
 
   bookkeep :on=>:nothing do |b|
+  end
+
+  def reflectable?
+    Inventory.where("changes_reflected = ? AND created_on < ?", false, self.created_on).count.zero? and !self.changes_reflected?
   end
 
   def reflect_changes(moved_on=Date.today)
@@ -67,16 +71,10 @@ class Inventory < CompanyRecord
     self.lines.clear
     # Load (new) values
     for line in lines
-      l = self.lines.new(line.merge(:company_id=>self.company_id))
+      l = self.lines.new(line)
       l.stock_id = line[:stock_id].to_i if line[:stock_id]
       l.save!
     end
   end
-
-  # def to_inventory_line(quantity, inventory_id)
-  #   result = (self.quantity.to_f == quantity.to_f)
-  #   puts self.quantity.to_f.inspect+quantity.to_f.inspect+result.inspect
-  #   InventoryLine.create!(:product_id=>self.product_id, :warehouse_id=>self.warehouse_id, :inventory_id=>inventory_id, :theoric_quantity=>self.quantity, :quantity=>quantity, :company_id=>self.company_id)
-  # end
 
 end

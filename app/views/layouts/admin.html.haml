@@ -1,9 +1,9 @@
 -# coding: UTF-8
 !!! 5
-%html{:xmlns => "http://www.w3.org/1999/xhtml", :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2")}
+%html{:xmlns => "http://www.w3.org/1999/xhtml", :dir => t("i18n.dir"), :lang => t("i18n.iso2"), "xml:lang" => t("i18n.iso2"), :class => :admin}
   %head
     %link{:rel => "icon", :type => "image/png", :href => image_path("favicon.png")}
-    %meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0"}
+    =meta_viewport_tag
     =title_tag
     =csrf_meta_tags
     =stylesheet_link_tag :application
@@ -14,16 +14,12 @@
   %body{:data => expiration, :class => "mod-"+reverse_menus[0].to_s}
     =yield :popover
     #wrap
-      -if @current_user
-        %aside#side{:style => ("display:none;" unless session[:side])}=side_tag
+      %aside#side.visible=side_tag
       #main
         %header#header
-          %nav#toolbar.toolbar
-            -if @current_user
-              -content_for(:toolbar) do
-                =tool_to(:menu, '#', "data-target" => "#side", :tool => :nav, :id => "nav")
-            =yield(:toolbar)
-          %h1#title=controller.human_action_name
+          =main_toolbar_tag
+          =heading_tag
+          =subheading_tag
         #content
           =notifications_tag
           =yield

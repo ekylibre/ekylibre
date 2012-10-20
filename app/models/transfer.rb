@@ -23,7 +23,6 @@
 #  accounted_at     :datetime         
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :string(255)      
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
@@ -41,19 +40,18 @@
 
 
 class Transfer < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :paid_amount, :allow_nil => true
-  validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :paid_amount
-  #]VALIDATORS]
-  attr_readonly :company_id, :comment
-  belongs_to :company
+  attr_readonly :comment
   belongs_to :supplier, :class_name=>"Entity"
   belongs_to :client, :class_name=>"Entity", :foreign_key=>:supplier_id
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:supplier_id
   has_many :payment_uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
   has_many :uses, :as=>:expense, :class_name=>"IncomingPaymentUse"
 
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :amount, :paid_amount, :allow_nil => true
+  validates_length_of :comment, :label, :allow_nil => true, :maximum => 255
+  validates_presence_of :amount, :paid_amount
+  #]VALIDATORS]
   validates_presence_of :created_on, :supplier
 
   before_validation do
@@ -61,12 +59,7 @@ class Transfer < CompanyRecord
     # self.paid_amount = self.payment_uses.sum(:amount)||0
   end
 
-  #this method saves the transfer in the accountancy module.
-  bookkeep(:on=>:nothing) do |b|
-    #     b.journal_entry(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft_mode]}) do |entry|
-    #       entry.add_debit(self.supplier.full_name, self.supplier.account(:supplier), self.amount)
-    #       entry.add_credit(tc(:payable_bills), "???Compte effets a payer", self.amount)      
-    #     end
+  bookkeep(:on => :nothing) do |b|
   end
 
   alias_attribute :client_id, :supplier_id

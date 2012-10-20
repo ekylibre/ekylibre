@@ -20,7 +20,6 @@
 # 
 # == Table: tools
 #
-#  company_id   :integer          not null
 #  consumption  :decimal(19, 4)   
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -34,18 +33,17 @@
 
 
 class Tool < CompanyRecord
+  has_many :uses, :class_name=>"OperationUse"
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :consumption, :allow_nil => true
   validates_length_of :nature, :allow_nil => true, :maximum => 8
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :nature
+  validates_presence_of :name, :nature
   #]VALIDATORS]
-
-  belongs_to :company
-  has_many :uses, :class_name=>"OperationUse"
-
-  attr_readonly :company_id
-
+  
+  default_scope order(:name)
+  
   @@natures = [:tractor, :towed, :other] 
   
   def self.natures

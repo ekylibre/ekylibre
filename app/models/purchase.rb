@@ -23,7 +23,6 @@
 #  accounted_at        :datetime         
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             
@@ -52,7 +51,6 @@ class Purchase < CompanyRecord
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :currency
-  belongs_to :company
   belongs_to :delivery_contact, :class_name=>"Contact"
   belongs_to :journal_entry
   belongs_to :nature, :class_name=>"PurchaseNature"
@@ -69,10 +67,10 @@ class Purchase < CompanyRecord
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :state, :allow_nil => true, :maximum => 64
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :company, :number, :paid_amount, :payee, :pretax_amount, :supplier
+  validates_presence_of :amount, :number, :paid_amount, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_presence_of :planned_on, :created_on, :currency, :state, :nature
-  validates_uniqueness_of :number, :scope=>:company_id
+  validates_uniqueness_of :number
 
   state_machine :state, :initial => :draft do
     state :draft
@@ -109,7 +107,9 @@ class Purchase < CompanyRecord
   before_validation do
     self.created_on ||= Date.today
     self.paid_amount = self.payment_uses.sum(:amount)||0
-    self.currency ||= self.company.default_currency
+    if eoc = Entity.of_company
+      self.currency ||= eoc.currency
+    end
     self.pretax_amount = self.lines.sum(:pretax_amount)
     self.amount = self.lines.sum(:amount)
     return true
@@ -127,8 +127,7 @@ class Purchase < CompanyRecord
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    # bookkeep(action, {:journal=>self.company.journal(:purchases), :draft_mode=>options[:draft]}, :unless=>(self.lines.size.zero? or !self.shipped?)) do |entry|
-    b.journal_entry(self.company.journal(:purchases), :if=>self.invoice?) do |entry|
+    b.journal_entry(self.nature.journal, :if=>self.invoice?) do |entry|
       label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
@@ -194,10 +193,6 @@ class Purchase < CompanyRecord
     ''
   end
 
-  def last_payment
-    self.company.payments.find(:first, :conditions=>{:entity_id=>self.company.entity_id}, :order=>"paid_on desc")
-  end
-
   # Prints human name of current state
   def state_label
     tc('states.'+self.state.to_s)
@@ -205,14 +200,6 @@ class Purchase < CompanyRecord
 
   def unpaid_amount
     self.amount - self.paid_amount
-  end
-
-  def payment_entity_id
-    self.company.entity.id
-  end
-
-  def usable_payments
-    self.company.payments.find(:all, :conditions=>["COALESCE(paid_amount,0)<COALESCE(amount,0)"], :order=>"amount")
   end
 
   def status
@@ -228,7 +215,7 @@ class Purchase < CompanyRecord
   end
 
   def client_address
-    a = self.company.entity.full_name+"\n"
+    a = Entity.of_company.full_name+"\n"
     a += (self.delivery_contact.address).gsub(/\s*\,\s*/, "\n") if self.delivery_contact
     a
   end

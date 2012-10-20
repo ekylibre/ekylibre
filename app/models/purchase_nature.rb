@@ -22,7 +22,6 @@
 #
 #  active          :boolean          not null
 #  comment         :text             
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  currency        :string(3)        
@@ -41,11 +40,10 @@ class PurchaseNature < CompanyRecord
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :with_accounting, :in => [true, false]
-  validates_presence_of :company
   #]VALIDATORS]
-  validates_presence_of :journal, :if=>Proc.new{|pn| pn.with_accounting?}
+  validates_presence_of :journal, :if => :with_accounting?
   validates_presence_of :currency
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 
   validate do
     self.journal = nil unless self.with_accounting?

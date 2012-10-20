@@ -25,7 +25,6 @@
 #  amount             :decimal(19, 4)   not null
 #  asset_amount       :decimal(19, 4)   
 #  asset_id           :integer          not null
-#  company_id         :integer          not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer          

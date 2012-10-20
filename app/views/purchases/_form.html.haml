@@ -6,7 +6,7 @@
   -if @purchase.updateable?
     -f.field :purchase, :supplier_id, :choices=>:suppliers, :new=>true
     -f.field :purchase, :nature_id, :choices=>{:reflection=>:purchase_natures}, :new=>true
-    -f.field :purchase, :delivery_contact_id, :choices=>{:reflection=>:self_contacts, :label=>:address}, :new=>{:entity_id=>@current_company.entity_id}
+    -f.field :purchase, :delivery_contact_id, :choices=>{:reflection=>:self_contacts, :label=>:address}, :new=>{:entity_id=>Entity.of_company.id}
     -f.field :purchase, :planned_on
     -f.field :purchase, :reference_number
     -f.field :purchase, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}

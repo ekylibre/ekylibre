@@ -20,8 +20,8 @@
 # 
 # == Table: subscriptions
 #
+#  _activation  :string(255)      
 #  comment      :text             
-#  company_id   :integer          not null
 #  contact_id   :integer          
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -46,8 +46,6 @@
 
 class Subscription < CompanyRecord
   acts_as_numbered
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :contact
   belongs_to :entity
   belongs_to :nature, :class_name=>"SubscriptionNature"
@@ -57,9 +55,8 @@ class Subscription < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_length_of :_activation, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
-  validates_presence_of :company
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
   validates_presence_of :first_number, :last_number, :if=>Proc.new{|u| u.nature and u.nature.nature=="quantity"}
@@ -123,9 +120,7 @@ class Subscription < CompanyRecord
     #self.clean
     if self.product
       self.nature_id ||= self.product.subscription_nature_id 
-      self.company_id ||= self.product.company_id
     end
-    self.company_id ||= self.nature.company_id if self.nature
     self.valid? if self.new_record?
     self
   end

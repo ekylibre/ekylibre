@@ -21,7 +21,6 @@
 # == Table: listing_nodes
 #
 #  attribute_name       :string(255)      
-#  company_id           :integer          not null
 #  condition_operator   :string(255)      
 #  condition_value      :string(255)      
 #  created_at           :datetime         not null
@@ -47,20 +46,19 @@
 
 
 class ListingNode < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :item_nature, :allow_nil => true, :maximum => 8
-  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :exportable, :in => [true, false]
-  validates_presence_of :company, :label, :listing, :name, :nature
-  #]VALIDATORS]
   acts_as_list :scope=>:listing_id
   acts_as_tree
-  attr_readonly :company_id, :listing_id, :nature
-  belongs_to :company
+  attr_readonly :listing_id, :nature
   belongs_to :listing
   belongs_to :item_listing, :class_name=>"Listing"
   belongs_to :item_listing_node, :class_name=>"ListingNode"
   has_many :items, :class_name=>"ListingNodeItem"
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :item_nature, :allow_nil => true, :maximum => 8
+  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :exportable, :in => [true, false]
+  validates_presence_of :label, :listing, :name, :nature
+  #]VALIDATORS]
   validates_uniqueness_of :key
 
   autosave :listing
@@ -106,7 +104,6 @@ class ListingNode < CompanyRecord
   
   before_validation do
     self.listing_id = self.parent.listing_id if self.parent
-    self.company_id = self.listing.company_id if self.listing
 
     self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
     if self.root?
@@ -144,8 +141,7 @@ class ListingNode < CompanyRecord
 
   def compute_joins(sql_alias=nil)
     conditions = ""
-    # for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
-    for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?) AND company_id = ?", 'belongs_to', 'has_many', self.company_id])
+    for child in self.children.find(:all, :conditions=>["(nature = ? OR nature = ?)", 'belongs_to', 'has_many'])
       parent = sql_alias||self.name||child.parent.model.table_name
       if child.nature == "has_many" #or child.nature == "belongs_to"
         conditions += " LEFT JOIN #{child.model.table_name} AS #{child.name} ON (#{child.name}.#{child.reflection.foreign_key} = #{parent}.id)"

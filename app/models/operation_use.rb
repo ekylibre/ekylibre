@@ -20,7 +20,6 @@
 # 
 # == Table: operation_uses
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -33,23 +32,10 @@
 
 
 class OperationUse < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :company, :operation, :tool
-  #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :operation
   belongs_to :tool
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :operation, :tool
+  #]VALIDATORS]
   validates_uniqueness_of :tool_id, :scope=>[:operation_id]
-
-  before_validation do
-    self.company_id = self.operation.company_id if self.operation
-  end
-
-  validate do
-    if self.operation and self.tool
-      errors.add_to_base(:company_error) unless self.operation.company_id == self.tool.company_id
-    end
-  end
-
 end

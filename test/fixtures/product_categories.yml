@@ -23,7 +23,6 @@
 #  catalog_description :text             
 #  catalog_name        :string(255)      not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  id                  :integer          not null, primary key
@@ -39,7 +38,6 @@
 #
 # product_categories_001:
 #   catalog_name: "Lorem ipsum"
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -50,7 +48,6 @@
 #
 product_categories_001:
   catalog_name: "Lorem ipsum"
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
@@ -60,7 +57,6 @@ product_categories_001:
 
 product_categories_002:
   catalog_name: "Lorem ipsum 2"
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2

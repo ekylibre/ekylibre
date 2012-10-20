@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OutgoingDeliveryModesController < ApplicationController
+class OutgoingDeliveryModesController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name
     t.column :code
     t.column :comment

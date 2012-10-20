@@ -1,10 +1,12 @@
-#help=render :partial=>"help/search", :object=>@article
-#side-content
+-##help=render :partial=>"help/search", :object=>@article
+%ul.side-menu
   -if request.url == root_url
-    =link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")
+    %li=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")
   -else
-    =link_to("Retour", root_url, :class => "med-button back")
+    %li=link_to("Retour", root_url, :class => "med-button back")
   
+%ul.side-menu
+  -rm = reverse_menus("#{controller_name}::#{action_name}")
   -for submenu in menus[path[0]]||[]
     -#=side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
       -for url in submenu[1]
@@ -16,10 +18,10 @@
     -session[:modules][name.to_s] = true if ![TrueClass, FalseClass].include?(session[:modules][name.to_s].class) or unique
     -shown = session[:modules][name]
     -url = submenu[1][0]
-    =link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :class => "med-button")
+    %li{:class => (submenu[0] == rm[1] ? "current" : nil), :rm => rm.inspect, :sm => submenu.inspect}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
 
 #side-middle
 
-#side-footer
-  =link_to("Configuration", dashboard_url("settings"), :class => "med-button settings")
-  =link_to("Aide", "#", :class => "med-button help", "data-toggle-visibility" => "#help")
+%ul.side-menu
+  %li=link_to("Configuration", dashboard_url("settings"), :class => "med-button settings")
+  %li=link_to("Aide", "#", :class => "med-button help", "data-toggle-visibility" => "#help")

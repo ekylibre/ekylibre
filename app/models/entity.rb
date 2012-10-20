@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -31,10 +32,10 @@
 #  client_account_id         :integer          
 #  code                      :string(64)       
 #  comment                   :text             
-#  company_id                :integer          not null
 #  country                   :string(2)        
 #  created_at                :datetime         not null
 #  creator_id                :integer          
+#  currency                  :string(255)      not null
 #  dead_on                   :date             
 #  deliveries_conditions     :string(60)       
 #  discount_rate             :decimal(19, 10)  
@@ -52,6 +53,7 @@
 #  locked                    :boolean          not null
 #  name                      :string(32)       
 #  nature_id                 :integer          not null
+#  of_company                :boolean          not null
 #  origin                    :string(255)      
 #  payment_delay_id          :integer          
 #  payment_mode_id           :integer          
@@ -78,11 +80,9 @@
 
 class Entity < CompanyRecord
   acts_as_numbered :code
-  attr_readonly :company_id
   belongs_to :attorney_account, :class_name=>"Account"
   belongs_to :client_account, :class_name=>"Account"
   belongs_to :category, :class_name=>"EntityCategory"
-  belongs_to :company
   belongs_to :nature, :class_name=>"EntityNature"
   belongs_to :payment_delay, :class_name=>"Delay"
   belongs_to :payment_mode, :class_name=>"IncomingPaymentMode"
@@ -115,6 +115,11 @@ class Entity < CompanyRecord
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>"IncomingPayment", :foreign_key=>:payer_id
   has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_contact, :class_name=>"Contact", :conditions=>{:by_default=>true}
+
+  def self.of_company
+    self.where(:of_company => true).first
+  end
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :discount_rate, :reduction_rate, :allow_nil => true
   validates_length_of :country, :allow_nil => true, :maximum => 2
@@ -126,12 +131,15 @@ class Entity < CompanyRecord
   validates_length_of :activity_code, :name, :allow_nil => true, :maximum => 32
   validates_length_of :deliveries_conditions, :allow_nil => true, :maximum => 60
   validates_length_of :code, :hashed_password, :salt, :allow_nil => true, :maximum => 64
-  validates_length_of :first_name, :full_name, :last_name, :origin, :photo, :webpass, :website, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :attorney, :client, :locked, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
-  validates_presence_of :company, :full_name, :language, :last_name, :nature
+  validates_length_of :currency, :first_name, :full_name, :last_name, :origin, :photo, :webpass, :website, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :attorney, :client, :locked, :of_company, :prospect, :reflation_submissive, :supplier, :transporter, :vat_submissive, :in => [true, false]
+  validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :category
-  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :code
+
+  default_scope order(:last_name, :first_name)
+  scope :necessary_transporters, where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (moved_on IS NULL AND planned_on <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name)
 
 
   before_validation do
@@ -152,15 +160,11 @@ class Entity < CompanyRecord
       if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
         errors.add(:last_name, :missing_title, :title=>self.nature.title)
       end
-      # if not self.nature.physical and not self.first_name.blank?
-      #   errors.add(:first_name, :nature_do_not_allow_a_first_name, :nature=>self.nature.name) 
-      # end
     end
   end
     
   protect(:on => :destroy) do
-    #raise Exception.new("Can't delete entity of the company") if self.id == self.company.entity.id
-    return false if self.id == self.company.entity.id or self.sales_invoices.size > 0
+    return false if self.id == self.of_company? or self.sales_invoices.size > 0
     return true
   end
 
@@ -168,6 +172,10 @@ class Entity < CompanyRecord
     self.content_columns.delete_if{|c| [:active, :lock_version, :webpass, :soundex, :photo, :deliveries_conditions].include?(c.name.to_sym)}
   end
 
+  # Returns an entity scope for all other entities
+  def others
+    self.class.where("id != ?", (self.id || 0))
+  end
 
   def label
     self.code+'. '+self.full_name
@@ -204,11 +212,11 @@ class Entity < CompanyRecord
     raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless natures.keys.include? nature
     valid_account = self.send(natures[nature])
     if valid_account.nil?
-      prefix = self.company.preferred("third_#{nature.to_s.pluralize}_accounts")
+      prefix = Account.find_in_chart("#{nature}_thirds").number
       if self.company.prefer_use_entity_codes_for_account_numbers?
         number = prefix.to_s+self.code.to_s
-        valid_account = self.company.accounts.find_by_number(number)
-        valid_account = self.company.accounts.create(:number=>number, :name=>self.full_name, :reconcilable=>true) unless valid_account
+        valid_account = Account.find_by_number(number)
+        valid_account = Account.create(:number=>number, :name=>self.full_name, :reconcilable=>true) unless valid_account
       else
         suffix = "1"
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
@@ -216,12 +224,12 @@ class Entity < CompanyRecord
         #x=Time.now
         i = 0
         while not account.nil? do
-          account = self.company.accounts.find(:first, :conditions => ["number LIKE ?", prefix.to_s+suffix.to_s])
+          account = Account.where("number LIKE ?", prefix.to_s+suffix.to_s).first
           suffix.succ! unless account.nil?
           i=i+1
         end    
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
-        valid_account = self.company.accounts.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name, :reconcilable=>true)
+        valid_account = Account.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name, :reconcilable=>true)
       end
       self.reload.update_column("#{natures[nature]}_id", valid_account.id)
     end
@@ -234,11 +242,9 @@ class Entity < CompanyRecord
   end
 
   def add_event(nature, user_id)
-    user = self.company.users.find_by_id(user_id)
-    if user
-      event_natures = self.company.event_natures.find_all_by_usage(nature.to_s)
-      event_natures.each do |event_nature|
-        self.company.events.create!(:started_at=>Time.now, :nature_id => event_nature.id, :duration=>event_nature.duration, :entity_id=>self.id, :responsible_id=>user.id)
+    if user = User.find_by_id(user_id)
+      EventNature.find_all_by_usage(nature.to_s).each do |event_nature|
+        event_nature.create!(:started_at=>Time.now, :duration=>event_nature.duration, :entity_id=>self.id, :responsible_id=>user.id)
       end
     end
   end
@@ -248,7 +254,7 @@ class Entity < CompanyRecord
   end
 
   def max_reduction_percent(computed_on=Date.today)
-    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND #{Subscription.table_name}.company_id = ? AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE company_id=? AND state='estimate')", self.id, computed_on, self.company_id, self.company_id]).to_f*100||0.0
+    Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f*100||0.0
   end
   
   def description
@@ -259,7 +265,7 @@ class Entity < CompanyRecord
   end
 
   def merge_with(entity)
-    raise Exception.new("Base entity is not mergeable") if entity.id == entity.company.entity_id
+    raise Exception.new("Company entity is not mergeable") if entity.of_company?
     ActiveRecord::Base.transaction do
       # Classics
       for many in [:cashes, :direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_lines, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
@@ -284,6 +290,143 @@ class Entity < CompanyRecord
       entity.destroy
     end
   end
+
+
+
+
+
+  def self.importable_columns
+    columns = []
+    columns << [tc("import.dont_use"), "special-dont_use"]
+    columns << [tc("import.generate_string_custom_field"), "special-generate_string_custom_field"]
+    # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
+    cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
+    columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
+    cols = Contact.content_columns.collect{|c| c.name}.delete_if{|c| [:code, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["line_6_city", "line_6_code"]
+    columns += cols.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c), "contact-"+c]}.sort
+    columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
+    columns += ["name"].collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c), "entity_category-"+c]}.sort
+    columns += CustomField.find(:all, :conditions=>["nature in ('string')"]).collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
+    return columns
+  end
+
+
+  def self.exportable_columns
+    columns = []
+    columns += Entity.content_columns.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c.name), "entity-"+c.name]}.sort
+    columns += Contact.content_columns.collect{|c| [Contact.model_name.human+"/"+Contact.human_attribute_name(c.name), "contact-"+c.name]}.sort
+    columns += EntityNature.content_columns.collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c.name), "entity_nature-"+c.name]}.sort
+    columns += EntityCategory.content_columns.collect{|c| [EntityCategory.model_name.human+"/"+EntityCategory.human_attribute_name(c.name), "entity_category-"+c.name]}.sort
+    columns += CustomField.collect{|c| [CustomField.model_name.human+"/"+c.name, "custom_field-id"+c.id.to_s]}.sort
+    return columns
+  end
+
+
+  def self.import(file, cols, options={})
+    sheet = Ekylibre::CSV.open(file)
+    header = sheet.shift # header
+    problems = {}
+    line_index = 1
+    code  = "ActiveRecord::Base.transaction do\n"
+    unless cols[:entity_nature].is_a? Hash
+      code += "  nature = EntityNature.where('title=? OR name=?', '-', '-').first\n"
+      code += "  nature = EntityNature.create!(:title=>'', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+    end
+    unless cols[:entity_category].is_a? Hash
+      code += "  category = EntityCategory.where('name=? or code=?', '-', '-').first\n"
+      code += "  category = EntityCategory.create!(:name=>'-', :by_default=>false) unless category\n"
+    end
+    for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
+      code += "  custom_field_#{k} = CustomField.create!(:name=>#{header[k.to_i].inspect}, :active=>true, :length_max=>65536, :nature=>'string', :required=>false)\n"
+    end
+    code += "  while line = sheet.shift\n"
+    code += "    line_index += 1\n"
+    code += "    next if #{options[:ignore].collect{|x| x.to_i}.inspect}.include?(line_index)\n" if options[:ignore]
+    if cols[:entity_nature].is_a? Hash
+      code += "    nature = EntityNature.where("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+").first\n"
+      code += "    begin\n"
+      code += "      nature = EntityNature.create!("+cols[:entity_nature].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
+      code += "    rescue\n"
+      code += "      nature = EntityNature.where('abbreviation=? OR name=?', '-', '-').first\n"
+      code += "      nature = EntityNature.create!(:abbreviation=>'-', :name=>'-', :physical=>false, :in_name=>false, :active=>true) unless nature\n"
+      code += "    end unless nature\n"
+    end
+    if cols[:entity_category].is_a? Hash
+      code += "    category = EntityCategory.where("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+").first\n"
+      code += "    begin\n"
+      code += "      category = EntityCategory.create!("+cols[:entity_category].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
+      code += "    rescue\n"
+      code += "      category = EntityCategory.where('name=? or code=?', '-', '-').first\n"
+      code += "      category = EntityCategory.create!(:name=>'-', :by_default=>false) unless category\n"
+      code += "    end unless category\n"
+    end
+
+    # code += "    puts [nature, category].inspect\n"
+
+    code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language=>#{self.of_company.language.inspect}, :client=>true)\n"
+    code += "    if entity.save\n"
+    if cols[:contact].is_a? Hash
+      code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" 
+      code += "      unless contact.save\n" 
+      code += "        problems[line_index.to_s] ||= []\n"
+      code += "        problems[line_index.to_s] += contact.errors.full_messages\n"
+      code += "      end\n" 
+    end
+    for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
+      code += "      datum = entity.custom_field_data.build(:custom_field_id=>custom_field_#{k}.id, :string_value=>line[#{k}])\n"
+      code += "      unless datum.save\n" 
+      code += "        problems[line_index.to_s] ||= []\n"
+      code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+      code += "      end\n" 
+    end
+    for k, v in cols[:custom_field]||{}
+      if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
+        if custom_field.nature == 'string'
+          code += "      datum = entity.custom_field_data.build(:custom_field_id=>#{custom_field.id}, :string_value=>line[#{k}])\n"
+          code += "      unless datum.save\n" 
+          code += "        problems[line_index.to_s] ||= []\n"
+          code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
+          code += "      end\n" 
+          # elsif custom_field.nature == 'choice'
+          #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
+        end
+      end
+    end
+    code += "    else\n"
+    code += "      problems[line_index.to_s] ||= []\n"
+    code += "      problems[line_index.to_s] += entity.errors.full_messages\n"
+    code += "    end\n"
+    code += "  end\n"
+    code += "  raise ActiveRecord::Rollback\n" unless options[:no_simulation]
+    code += "end\n"
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    eval(code)
+    return {:errors=>problems, :lines_count=>line_index-1}
+  end
+
+
+
+  def self.export(find_options={})
+    entities = Entity.find(:all, find_options)
+    csv_string = Ekylibre::CSV.generate do |csv|
+      csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction", "Commentaire"]
+      entities.each do |entity|
+        contact = Contact.where(:entity_id=>entity.id, :by_default=>true, :deleted_at=>nil).first
+        line = []
+        line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
+        if !contact.nil?
+          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+        else
+          line << [ "", "", "", "", "", "", "", "", "", "", ""]
+        end
+        line << [ entity.reduction_rate.to_s.gsub(/\./,","), entity.comment]
+        csv << line.flatten
+      end
+    end
+    return csv_string
+  end
+  
+
 
 
 end 

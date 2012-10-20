@@ -20,7 +20,6 @@
 # 
 # == Table: sequences
 #
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
@@ -36,12 +35,12 @@
 #  period           :string(255)      default("number"), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer          
+#  usage            :string(255)      
 #
 #
 # == Fixture: sequences
 #
 # sequences_001:
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -54,7 +53,6 @@
 #   updater_id: 1
 #
 sequences_001:
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   number_format: "Lorem ipsum"
@@ -68,7 +66,6 @@ sequences_001:
 
 
 sequences_002:
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   number_format: "Lorem ipsum"

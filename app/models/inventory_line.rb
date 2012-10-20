@@ -20,7 +20,6 @@
 # 
 # == Table: inventory_lines
 #
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
@@ -39,12 +38,7 @@
 
 
 class InventoryLine < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
-  validates_presence_of :company, :inventory, :product, :quantity, :theoric_quantity, :warehouse
-  #]VALIDATORS]
   acts_as_stockable :quantity=>"self.quantity-self.theoric_quantity", :origin=>:inventory
-  #belongs_to :company
   belongs_to :inventory
   belongs_to :product
   belongs_to :stock_move
@@ -52,12 +46,13 @@ class InventoryLine < CompanyRecord
   belongs_to :unit
   belongs_to :warehouse
 
-  before_validation do
-    self.company_id = self.inventory.company_id if self.inventory
-  end
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
+  validates_presence_of :inventory, :product, :quantity, :theoric_quantity, :warehouse
+  #]VALIDATORS]
 
   def stock_id=(id)
-    if s = Stock.find_by_id_and_company_id(id, self.company_id)
+    if s = Stock.find_by_id(id)
       self.product_id  = s.product_id
       self.warehouse_id = s.warehouse_id
       self.tracking_id = s.tracking_id

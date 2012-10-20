@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class OutgoingDeliveriesController < ApplicationController
+class OutgoingDeliveriesController < AdminController
 
   list(:conditions=>light_search_conditions(:outgoing_deliveries=>[:number, :reference_number, :weight, :amount, :pretax_amount], :entities=>[:full_name, :code])+moved_conditions(OutgoingDelivery)) do |t|
     t.column :number, :url=>true
@@ -39,7 +39,7 @@ class OutgoingDeliveriesController < ApplicationController
   def index
   end
 
-  list(:lines, :model=>:outgoing_delivery_lines, :conditions=>{:company_id=>['@current_company.id'], :delivery_id=>['session[:current_outgoing_delivery_id]']}) do |t|
+  list(:lines, :model=>:outgoing_delivery_lines, :conditions=>{:delivery_id=>['session[:current_outgoing_delivery_id]']}) do |t|
     t.column :name, :through=>:product, :url=>true
     t.column :number, :through=>:tracking, :url=>true
     t.column :quantity

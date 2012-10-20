@@ -1,4 +1,4 @@
-class SessionsController < ApplicationController
+class SessionsController < AuthenticationController
 
   def new
     if session[:user_id]
@@ -10,18 +10,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # params.delete(:company)
-    # if user = User.authenticate(params[:name], params[:password], @current_company)
-    if user = User.authenticate(params[:name], params[:password], Company.find_by_code(params[:company]))
+    if user = User.authenticate(params[:name], params[:password])
       initialize_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
-        redirect_to params[:redirect]||{:controller=>:dashboards, :action=>:general}
+        redirect_to params[:redirect]||root_url
         return
       end
-    elsif User.count(:conditions=>{:name=>params[:name]}) > 1
-      @users = User.find(:all, :conditions=>{:name=>params[:name]}, :joins=>"JOIN #{Company.table_name} AS companies ON (companies.id=company_id)",  :order=>"companies.name")
-      notify_warning_now(:need_company_code_to_login)
     else
       notify_error_now(:no_authenticated)
     end
@@ -36,7 +31,7 @@ class SessionsController < ApplicationController
   # Permits to renew the session if expired
   def renew
     if request.post?
-      if user = User.authenticate(params[:name], params[:password], @current_company)
+      if user = User.authenticate(params[:name], params[:password])
         session[:last_query] = Time.now.to_i # Reactivate session
         # render :json=>{:dialog=>params[:dialog]}
         head :ok, :x_return_code=>"granted"

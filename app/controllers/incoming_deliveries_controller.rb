@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class IncomingDeliveriesController < ApplicationController
+class IncomingDeliveriesController < AdminController
 
   list(:conditions=>moved_conditions(IncomingDelivery)) do |t|
     t.column :number
@@ -39,7 +39,7 @@ class IncomingDeliveriesController < ApplicationController
   end
 
   def confirm
-    return unless incoming_delivery = find_and_check(:incoming_delivery)
+    return unless incoming_delivery = find_and_check
     incoming_delivery.execute if request.post?
     redirect_to :action=>:index, :mode=>:unconfirmed
   end
@@ -90,9 +90,6 @@ class IncomingDeliveriesController < ApplicationController
     return unless @incoming_delivery = find_and_check(:incoming_delivery)
     session[:current_incoming_delivery] = @incoming_delivery.id
     @purchase = @incoming_delivery.purchase
-    # return unless @purchase = find_and_check(:purchases, session[:current_purchase_id])
-    # purchase_lines = PurchaseLine.find(:all,:conditions=>{:company_id=>@current_company.id, :purchase_id=>session[:current_purchase_id]})
-    # @incoming_delivery_lines = IncomingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :incoming_delivery_id=>@incoming_delivery.id})
     @incoming_delivery_lines = @incoming_delivery.lines
     render_restfully_form(:id=>@incoming_delivery_form)
   end
@@ -101,9 +98,6 @@ class IncomingDeliveriesController < ApplicationController
     return unless @incoming_delivery = find_and_check(:incoming_delivery)
     session[:current_incoming_delivery] = @incoming_delivery.id
     @purchase = @incoming_delivery.purchase
-    # return unless @purchase = find_and_check(:purchases, session[:current_purchase_id])
-    # purchase_lines = PurchaseLine.find(:all,:conditions=>{:company_id=>@current_company.id, :purchase_id=>session[:current_purchase_id]})
-    # @incoming_delivery_lines = IncomingDeliveryLine.find(:all,:conditions=>{:company_id=>@current_company.id, :incoming_delivery_id=>@incoming_delivery.id})
     @incoming_delivery_lines = @incoming_delivery.lines
     ActiveRecord::Base.transaction do
       saved = @incoming_delivery.update_attributes!(params[:incoming_delivery])

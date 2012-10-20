@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class JournalEntriesController < ApplicationController
+class JournalEntriesController < AdminController
 
-  list(:lines, :model=>:journal_entry_lines, :conditions=>{:company_id=>['@current_company.id'], :entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
+  list(:lines, :model=>:journal_entry_lines, :conditions=>{:entry_id=>['session[:current_journal_entry_id]']}, :order=>"entry_id DESC, position") do |t|
     t.column :name
     t.column :number, :through=>:account, :url=>true
     t.column :name, :through=>:account, :url=>true
@@ -44,7 +44,6 @@ class JournalEntriesController < ApplicationController
     @journal_entry = @journal.entries.build(params[:journal_entry])
     @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
-    @journal_entry.company_id = @journal.company_id
     @journal_entry_lines = []
     if request.xhr?
       render(:partial=>'journal_entries/exchange_rate_form')

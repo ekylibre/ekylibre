@@ -22,7 +22,6 @@
 #
 #  base         :string(255)      
 #  coefficient  :decimal(19, 10)  default(1.0), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key

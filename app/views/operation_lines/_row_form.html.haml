@@ -1,7 +1,7 @@
 -line = row_form||{}
 -direction = (params[:direction]||line[:direction]||"in").to_sym
 -id='e'+Time.now.to_i.to_s(36)+rand.to_s[2..-1].to_i.to_s(36)[0..3]
--product = line[:product_id].blank? ?  nil : @current_company.products.find_by_id(line[:product_id])
+-product = line[:product_id].blank? ?  nil : Product.find_by_id(line[:product_id])
 -if line.respond_to? :errors
   -if line.errors.size > 0
     %tr{:id=>id+'-errors'}
@@ -20,5 +20,5 @@
       =select_tag("lines[#{id}][tracking_id]", (product ? options_for_select([[]]+product.trackings.collect{|x| [x.name, x.id]}, line[:tracking_id].to_i) : nil), :id=>"lines_#{id}_tracking_id", "data-refresh"=>url_for(:controller=>:interfacers, :action=>:product_trackings), "data-refresh-mode"=>"update")
     -else
       =text_field_tag("lines[#{id}][tracking_serial]", line[:tracking_serial], :size=>12)
-  %td=select_tag("lines[#{id}][warehouse_id]", options_for_select(@current_company.warehouses.collect{|x| [x.name, x.id]}, line[:warehouse_id].to_i))
+  %td=select_tag("lines[#{id}][warehouse_id]", options_for_select(Warehouse.collect{|x| [x.name, x.id]}, line[:warehouse_id].to_i))
   %td.act=link_to(image_tag(theme_button("delete"), :border=>0), "#", "data-remove"=>"##{id}, ##{id}-errors")

@@ -1,0 +1,63 @@
+@import "compass/reset";
+@import "compass/css3";
+@import "compass/utilities";
+
+$sans-font-family: "Open Sans", 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$base-font-family: $sans-font-family;
+
+$sansFontFamily: $sans-font-family;
+$baseFontSize: 13px;
+@import "bootstrap";
+@import "bootstrap-responsive";
+$grid-gutter-width: $gridGutterWidth;
+
+/* Layout */
+html {
+  height: 100%;
+  body {
+    height: 100%;
+    #wrap { 
+      #side { 
+      }
+      #main { 
+      }
+    }
+  }
+}
+
+
+#side { 
+  display: none;
+  &.visible { 
+    display: block;
+  }
+}
+
+#nav { 
+  @extend .visible-phone;
+}
+
+
+/* Other */
+html { 
+  body {
+    @include background(#DDD linear-gradient(top, #FFF, #DDD) fixed);
+    #wrap {
+      #main {
+        #header { 
+          margin-top: $grid-gutter-width;
+        }
+      }
+      #side { 
+        padding-top: $grid-gutter-width;
+      }
+    }
+    #legals { 
+      text-align: center;
+    }
+  }
+}
+
+.nav.nav-tabs.nav-stacked { 
+  background: white;
+}

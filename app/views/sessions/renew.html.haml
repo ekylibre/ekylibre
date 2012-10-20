@@ -4,9 +4,6 @@
   =form_tag({:url=>params[:url]}, {"data-dialog"=>params[:dialog]}) do
     %table
       %tr
-        %td.label=Company.model_name.human
-        %td.value=@current_company.name
-      %tr
         %td.label=tc :username
         %td.input=params[:name]
       %tr

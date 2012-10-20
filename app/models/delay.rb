@@ -24,7 +24,6 @@
 #
 #  active       :boolean          default(TRUE), not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  expression   :string(255)      not null
@@ -37,17 +36,15 @@
 
 
 class Delay < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   has_many :entities
   has_many :sales
   has_many :sale_natures
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :expression, :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :company, :expression, :name
+  validates_presence_of :expression, :name
   #]VALIDATORS]
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 
   DELAY_SEPARATOR = ', '
 

@@ -21,7 +21,6 @@
 # == Table: entity_links
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  entity_1_id  :integer          not null

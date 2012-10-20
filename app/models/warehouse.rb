@@ -21,7 +21,6 @@
 # == Table: warehouses
 #
 #  comment          :text             
-#  company_id       :integer          not null
 #  contact_id       :integer          
 #  created_at       :datetime         not null
 #  creator_id       :integer          
@@ -46,7 +45,6 @@
 class Warehouse < CompanyRecord
   acts_as_tree
   attr_readonly :reservoir
-  belongs_to :company
   belongs_to :contact
   belongs_to :establishment
   belongs_to :product
@@ -59,18 +57,23 @@ class Warehouse < CompanyRecord
   validates_numericality_of :number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity_max, :allow_nil => true
   validates_length_of :division, :name, :subdivision, :subsubdivision, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
 
-  # before_validation(:on=>:create) do
-  #   self.reservoir = true if !self.product_id.nil?
-  # end
-  
+  default_scope order(:name)
+  scope :of_product, lambda { |product|
+    where("(product_id = ? AND reservoir = ?) OR reservoir = ?", product.id, true, false)
+  }
+
+  def others
+    self.class.where("id != COALESCE(?, 0)", self.id)
+  end
+
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true
     if self.reservoir 
-      stock = Stock.find(:all, :conditions=>{:company_id=>self.company_id, :product_id=>self.product_id, :warehouse_id=>self.id}) 
+      stock = Stock.find(:all, :conditions=>{:product_id=>self.product_id, :warehouse_id=>self.id}) 
       if !stock[0].nil?
         reception = (self.product_id == product_id || stock[0].quantity <= 0)
         self.update_attributes!(:product_id=>product_id) if stock[0].quantity <= 0

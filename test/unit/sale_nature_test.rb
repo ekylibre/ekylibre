@@ -22,7 +22,6 @@
 #
 #  active                  :boolean          default(TRUE), not null
 #  comment                 :text             
-#  company_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  currency                :string(3)        
@@ -37,6 +36,7 @@
 #  payment_delay_id        :integer          not null
 #  payment_mode_complement :text             
 #  payment_mode_id         :integer          
+#  sales_conditions        :text             
 #  updated_at              :datetime         not null
 #  updater_id              :integer          
 #  with_accounting         :boolean          not null

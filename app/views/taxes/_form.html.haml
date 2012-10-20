@@ -7,7 +7,7 @@
     -f.field Tax.human_attribute_name('nature'), @tax.nature_label
     -f.field Tax.human_attribute_name('amount'), @tax.amount.to_s
   -f.field :tax, :name
-  -f.field :tax, :collected_account_id, :choices=>:collected_account, :resize=>true, :new=>{:number=>@current_company.preferred_taxes_collected_accounts}
-  -f.field :tax, :paid_account_id, :choices=>:paid_account, :resize=>true, :new=>{:number=>@current_company.preferred_taxes_paid_accounts}
+  -f.field :tax, :collected_account_id, :choices=>:collected_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:collected_taxes).number}
+  -f.field :tax, :paid_account_id, :choices=>:paid_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:paid_taxes)}
   -f.field :tax, :included
   -f.field :tax, :reductible

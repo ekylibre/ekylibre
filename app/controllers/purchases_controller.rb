@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class PurchasesController < ApplicationController
-  manage_restfully :supplier_id=>"@current_company.entities.find(params[:supplier_id]).id rescue nil", :planned_on=>"Date.today+2", :redirect_to=>'{:action=>:show, :step=>:products, :id=>"id"}'
+class PurchasesController < AdminController
+  manage_restfully :supplier_id=>"params[:supplier_id]", :planned_on=>"Date.today+2", :redirect_to=>'{:action=>:show, :step=>:products, :id=>"id"}'
 
   list(:conditions=>search_conditions(:purchase, :purchases=>[:created_on, :pretax_amount, :amount, :number, :reference_number, :comment], :entities=>[:code, :full_name]), :joins=>:supplier, :line_class=>'RECORD.state', :order=>"created_on DESC, number DESC") do |t|
     t.column :number, :url=>{:action=>:show, :step=>:default}
@@ -43,7 +43,7 @@ class PurchasesController < ApplicationController
   end
 
 
-  list(:deliveries, :model=>:incoming_deliveries, :children=>:lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
+  list(:deliveries, :model=>:incoming_deliveries, :children=>:lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
     t.column :address, :through=>:contact, :children=>:product_name
     t.column :planned_on, :children=>false
     t.column :moved_on, :children=>false
@@ -54,7 +54,7 @@ class PurchasesController < ApplicationController
     t.action :destroy, :if=>'RECORD.purchase.order? '
   end
 
-  list(:payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.company_id=? AND #{OutgoingPaymentUse.table_name}.expense_id=? ", ['@current_company.id'], ['session[:current_purchase_id]']]) do |t|
+  list(:payment_uses, :model=>:outgoing_payment_uses, :conditions=>["#{OutgoingPaymentUse.table_name}.expense_id=? ", ['session[:current_purchase_id]']]) do |t|
     t.column :number, :through=>:payment, :url=>true
     t.column :amount, :currency=>"RECORD.payment.currency", :through=>:payment, :label=>"payment_amount", :url=>true
     t.column :amount, :currency=>"RECORD.payment.currency"
@@ -64,7 +64,7 @@ class PurchasesController < ApplicationController
     t.action :destroy#, :if=>'RECORD.expense.shipped == false'
   end
 
-  list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
+  list(:undelivered_lines, :model=>:purchase_lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
     t.column :name, :through=>:product
     t.column :pretax_amount, :currency=>"RECORD.price.currency", :through=>:price
     t.column :quantity
@@ -74,7 +74,7 @@ class PurchasesController < ApplicationController
     t.column :undelivered_quantity, :datatype=>:decimal
   end
 
-  list(:lines, :model=>:purchase_lines, :conditions=>{:company_id=>['@current_company.id'], :purchase_id=>['session[:current_purchase_id]']}) do |t|
+  list(:lines, :model=>:purchase_lines, :conditions=>{:purchase_id=>['session[:current_purchase_id]']}) do |t|
     t.column :name, :through=>:product, :url=>true
     t.column :annotation
     t.column :tracking_serial

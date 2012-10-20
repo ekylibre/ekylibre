@@ -22,7 +22,6 @@
 #
 #  closed_on    :date             not null
 #  code         :string(4)        not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  currency     :string(3)        
@@ -37,7 +36,6 @@
 
 class Journal < CompanyRecord
   attr_readonly :currency
-  belongs_to :company
   # cattr_accessor :natures
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
@@ -47,15 +45,21 @@ class Journal < CompanyRecord
   validates_length_of :code, :allow_nil => true, :maximum => 4
   validates_length_of :nature, :allow_nil => true, :maximum => 16
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :closed_on, :code, :company, :name, :nature
+  validates_presence_of :closed_on, :code, :name, :nature
   #]VALIDATORS]
-  validates_uniqueness_of :code, :scope=>:company_id
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :code
+  validates_uniqueness_of :name
 
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
+  default_scope order(:name)
+  scope :used_for, lambda { |nature| 
+    raise ArgumentError.new("Journal#used_for must be one of these: #{@@natures.join(', ')}")
+    where(:nature => nature.to_s)
+  }
+
   before_validation(:on=>:create) do
-    if self.company and year = self.company.financial_years.first
+    if year = FinancialYear.first
       self.closed_on = year.started_on - 1
     else
       self.closed_on = Date.civil(1900, 12, 31)
@@ -65,7 +69,9 @@ class Journal < CompanyRecord
   # this method is called before creation or validation method.
   before_validation do
     self.name = self.nature_label if self.name.blank? and self.nature
-    self.currency ||= self.company.default_currency
+    if eoc = Entity.of_company
+      self.currency ||= eoc.currency
+    end
     # TODO: Removes default value for closed_on
     self.code = tc('natures.'+self.nature.to_s).codeize if self.code.blank?
     self.code = self.code[0..3]
@@ -73,19 +79,19 @@ class Journal < CompanyRecord
 
   validate do
     valid = false
-    for financial_year in self.company.financial_years
+    FinancialYear.find_each do |financial_year|
       valid = true if self.closed_on == financial_year.started_on-1
     end
     unless valid
       errors.add(:closed_on, :end_of_month, :closed_on=>::I18n.localize(self.closed_on)) if self.closed_on.to_date != self.closed_on.end_of_month.to_date
     end
-    if self.company and self.code.to_s.size > 0
-      errors.add(:code, :taken) if self.company.journals.find(:all, :conditions=>["id != ? AND code = ?", self.id||0, self.code.to_s[0..1]]).size > 0
+    if self.code.to_s.size > 0
+      errors.add(:code, :taken) if Journal.where("id != ? AND code = ?", self.id||0, self.code.to_s[0..1]).count > 0
     end
   end
 
   protect(:on => :destroy) do
-    self.entries.size <= 0 and self.entry_lines.size <= 0 and self.cashes.size <= 0
+    self.entries.count.zero? and self.entry_lines.count.zero? and self.cashes.count.zero?
   end
 
   # Provides a translation for the nature of the journal
@@ -96,7 +102,7 @@ class Journal < CompanyRecord
   #
   def closable?(closed_on=nil)
     closed_on ||= Date.today
-    self.class.update_all({:closed_on=>Date.civil(1900,12,31)}, {:id=>self.id}) if self.closed_on.nil?
+    self.class.update_all({:closed_on=>Date.civil(1900, 12, 31)}, {:id=>self.id}) if self.closed_on.nil?
     self.reload
     return false unless (closed_on << 1).end_of_month > self.closed_on
     return true
@@ -133,7 +139,7 @@ class Journal < CompanyRecord
   end
 
   def reopenings
-    year = self.company.current_financial_year
+    year = FinancialYear.current
     return [] if year.nil?
     array, date = [], year.started_on-1
     while date < self.closed_on
@@ -179,6 +185,76 @@ class Journal < CompanyRecord
     column = (column == :balance ? "#{JournalEntryLine.table_name}.original_debit - #{JournalEntryLine.table_name}.original_credit" : "#{JournalEntryLine.table_name}.original_#{column}")
     self.entry_lines.calculate(operation, column, :joins=>"JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)", :conditions=>["printed_on BETWEEN ? AND ? ", started_on, stopped_on])
   end
+
+
+  # Compute a balance with many options
+  # * :started_on Use journal entries printed on after started_on
+  # * :stopped_on Use journal entries printed on before stopped_on
+  # * :draft      Use draft journal entry_lines
+  # * :confirmed  Use confirmed journal entry_lines
+  # * :closed     Use closed journal entry_lines
+  # * :accounts   Select ranges of accounts
+  # * :centralize Select account's prefixe which permits to centralize
+  def self.balance(options={})
+    conn = ActiveRecord::Base.connection
+    journal_entry_lines, journal_entries, accounts = "jel", "je", "a"
+
+    journal_entries_states = ' AND '+JournalEntry.state_condition(options[:states], journal_entries)
+
+    account_range = ' AND '+Account.range_condition(options[:accounts], accounts)
+
+    # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)
+    centralize = options[:centralize].to_s.strip.split(/[^A-Z0-9]+/) # .delete_if{|x| x.blank? or !expr.match(valid_expr)}
+    options[:centralize] = centralize.join(" ")
+    centralized = centralize.collect{|c| "#{accounts}.number LIKE #{conn.quote(c+'%')}"}.join(" OR ")
+
+    from_where  = " FROM #{JournalEntryLine.table_name} AS #{journal_entry_lines} JOIN #{Account.table_name} AS #{accounts} ON (account_id=#{accounts}.id) JOIN #{JournalEntry.table_name} AS #{journal_entries} ON (entry_id=#{journal_entries}.id)"
+    from_where += " WHERE "+JournalEntry.period_condition(options[:period], options[:started_on], options[:stopped_on], journal_entries)
+
+    # Total
+    lines = []
+    query  = "SELECT '', -1, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), '#{'Z'*16}' AS skey"
+    query += from_where
+    query += journal_entries_states
+    query += account_range
+    lines += conn.select_rows(query)
+
+    # Sub-totals
+    for name, value in options.select{|k, v| k.to_s.match(/^level_\d+$/) and v.to_i == 1}
+      level = name.split(/\_/)[-1].to_i
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, level)} AS subtotal, -2, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.substr(accounts+'.number', 1, level)}||'#{'Z'*(16-level)}' AS skey"
+      query += from_where
+      query += journal_entries_states
+      query += account_range
+      query += " AND #{conn.length(accounts+'.number')} >= #{level}"
+      query += " GROUP BY subtotal"
+      lines += conn.select_rows(query)
+    end
+
+    # NOT centralized accounts (default)
+    query  = "SELECT #{accounts}.number, #{accounts}.id AS account_id, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{accounts}.number AS skey"
+    query += from_where
+    query += journal_entries_states
+    query += account_range
+    query += " AND #{conn.not_boolean(centralized)}" unless centralize.empty?
+    query += " GROUP BY #{accounts}.id, #{accounts}.number"
+    query += " ORDER BY #{accounts}.number"
+    lines += conn.select_rows(query)
+
+    # Centralized accounts
+    for prefix in centralize
+      query  = "SELECT #{conn.substr(accounts+'.number', 1, prefix.size)} AS centralize, -3, sum(COALESCE(#{journal_entry_lines}.debit, 0)), sum(COALESCE(#{journal_entry_lines}.credit, 0)), sum(COALESCE(#{journal_entry_lines}.debit, 0)) - sum(COALESCE(#{journal_entry_lines}.credit, 0)), #{conn.quote(prefix)} AS skey"
+      query += from_where
+      query += journal_entries_states
+      query += account_range
+      query += " AND #{accounts}.number LIKE #{conn.quote(prefix+'%')}"
+      query += " GROUP BY centralize"
+      lines += conn.select_rows(query)
+    end
+
+    return lines.sort{|a,b| a[5]<=>b[5]}
+  end
+
 
 end
 

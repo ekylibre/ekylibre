@@ -21,7 +21,6 @@
 # == Table: listings
 #
 #  comment      :text             
-#  company_id   :integer          not null
 #  conditions   :text             
 #  created_at   :datetime         not null
 #  creator_id   :integer          
@@ -39,12 +38,6 @@
 
 
 class Listing < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name, :root_model
-  #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
   has_many :columns, :class_name=>"ListingNode", :conditions=>["nature = ?", "column"]
   has_many :exportable_columns, :class_name=>"ListingNode", :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
   has_many :filtered_columns, :class_name=>"ListingNode", :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
@@ -52,7 +45,11 @@ class Listing < CompanyRecord
   has_many :nodes, :class_name=>"ListingNode", :dependent=>:delete_all
   has_many :reflections, :class_name=>"ListingNode", :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
-#  validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :root_model
+  #]VALIDATORS]
+  # validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
   validates_format_of :query, :conditions, :with=>/^[^\;]*$/
 
   before_validation(:on=>:update) do
@@ -87,13 +84,8 @@ class Listing < CompanyRecord
   def compute_where
     conn = self.class.connection
     c = ""
-    # Filter on company
-    if self.reflections.size > 0
-      c += self.reflections.collect do |node|
-        "COALESCE("+conn.quote_table_name(node.name)+"."+conn.quote_column_name("#{'company_' unless node.name.match("company")}id")+", CURRENT_COMPANY) = CURRENT_COMPANY"
-      end.join(" AND ")
-    else
-      #  No reflections => no columns => no conditions
+    #  No reflections => no columns => no conditions
+    unless self.reflections.size > 0
       return ""
     end
 

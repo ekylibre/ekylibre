@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductsController < ApplicationController
+class ProductsController < AdminController
 
   # management -> products_conditions
   def self.products_conditions(options={})
@@ -57,7 +57,7 @@ class ProductsController < ApplicationController
   end
 
 
-  list(:components, :model=>:product_components, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
+  list(:components, :model=>:product_components, :conditions=>{:product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :quantity
     t.column :label, :through=>[:component, :unit]
     t.column :name, :through=>:component
@@ -65,7 +65,7 @@ class ProductsController < ApplicationController
     t.action :destroy
   end
 
-  list(:prices, :conditions=>{:company_id=>['@current_company.id'], :product_id=>['session[:product_id]'], :active=>true}) do |t|
+  list(:prices, :conditions=>{:product_id=>['session[:product_id]'], :active=>true}) do |t|
     t.column :name, :through=>:entity, :url=>true
     t.column :name, :through=>:category, :url=>true
     t.column :pretax_amount, :currency => true
@@ -76,7 +76,7 @@ class ProductsController < ApplicationController
     t.action :destroy
   end
 
-  list(:stock_moves, :conditions=>{:company_id=>['@current_company.id'], :product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  list(:stock_moves, :conditions=>{:product_id =>['session[:product_id]']}, :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name
     # t.column :name, :through=>:origin
     t.column :name, :through=>:warehouse, :url=>true
@@ -88,7 +88,7 @@ class ProductsController < ApplicationController
     t.column :moved_on
   end
 
-  list(:stocks, :conditions=>['#{Stock.table_name}.company_id = ? AND #{Stock.table_name}.product_id = ?', ['@current_company.id'], ['session[:product_id]']], :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
+  list(:stocks, :conditions=>['#{Stock.table_name}.product_id = ?', ['session[:product_id]']], :line_class=>'RECORD.state', :order=>"updated_at DESC") do |t|
     t.column :name, :through=>:warehouse, :url=>true
     t.column :name, :through=>:tracking, :url=>true
     #t.column :quantity_max
@@ -112,9 +112,9 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = @current_company.products.new(params[:product])
+    @product = Product.new(params[:product])
     @product.duration = params[:product][:duration]
-    @stock = @current_company.stocks.new(params[:stock])
+    @stock = Stock.new(params[:stock])
     ActiveRecord::Base.transaction do
       saved = @product.save
       if @product.stockable and saved
@@ -154,9 +154,8 @@ class ProductsController < ApplicationController
         if @stock.new_record? and params[:product][:stockable] == "1"
           @stock = Stock.new(params[:stock])
           @stock.product_id = @product.id
-          @stock.company_id = @current_company.id 
           save = false unless @stock.save
-        elsif !@stock.new_record? and @current_company.warehouses.size > 0
+        elsif !@stock.new_record? and Warehouse.count > 0
           save = false unless @stock.add_or_update(params[:stock], @product.id)
         end
         @product.errors.add_from_record(@stock)
@@ -169,7 +168,7 @@ class ProductsController < ApplicationController
   end
 
   def change_quantities
-    @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :company_id=>@current_company.id, :product_id=>session[:product_id]})
+    @stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :product_id=>session[:product_id]})
     if @stock.nil?
       @stock = Stock.new(:quantity_min=>1, :quantity_max=>0, :critic_quantity_min=>0)
     end

@@ -1,7 +1,7 @@
 -if @current_user
   .user-bar
     %a.name.root
-      %span.text=@current_company.name
+      %span.text=Entity.of_company.full_name
     %ul
       %li.no-link
         %a.name

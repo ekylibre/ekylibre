@@ -22,7 +22,6 @@
 #
 #  accounted_at              :datetime         
 #  comment                   :text             
-#  company_id                :integer          not null
 #  created_at                :datetime         not null
 #  created_on                :date             
 #  creator_id                :integer          

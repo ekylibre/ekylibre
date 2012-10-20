@@ -21,7 +21,6 @@
 # == Table: departments
 #
 #  comment          :text             
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  id               :integer          not null, primary key
@@ -35,11 +34,10 @@
 
 
 class Department < CompanyRecord
+  has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  attr_readonly :company_id
-  has_many :users
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 end

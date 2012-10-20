@@ -17,8 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EventsController < ApplicationController
-  manage_restfully :responsible_id=>'@current_user.id', :entity_id=>"@current_company.entities.find(params[:entity_id]).id rescue 0", :nature_id=>"@current_company.event_natures.first.id rescue nil", :duration=>"@current_company.event_natures.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
+class EventsController < AdminController
+  manage_restfully :responsible_id=>'@current_user.id', :entity_id=>"Entity.find(params[:entity_id]).id rescue 0", :nature_id=>"EventNature.first.id rescue nil", :duration=>"EventNature.first.duration rescue 0", :started_at=>"Time.now.to_s(:db)"
 
   list(:conditions=>search_conditions(:events, :events=>[:duration, :location, :reason, :started_at], :users=>[:first_name, :last_name, :name], :entities=>[:full_name], :event_natures=>[:name]), :order=>"started_at DESC") do |t| # , :joins=>{:responsible=>{}, :entity=>[:nature]}
     t.column :full_name, :through=>:entity, :url=>true

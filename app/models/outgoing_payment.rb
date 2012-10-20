@@ -23,7 +23,6 @@
 #  accounted_at     :datetime         
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  check_number     :string(255)      
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  created_on       :date             
 #  creator_id       :integer          
@@ -45,8 +44,6 @@
 
 class OutgoingPayment < CompanyRecord
   acts_as_numbered
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>"OutgoingPaymentMode"
   belongs_to :payee, :class_name=>"Entity"
@@ -58,7 +55,7 @@ class OutgoingPayment < CompanyRecord
   validates_numericality_of :amount, :used_amount, :allow_nil => true
   validates_length_of :check_number, :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :delivered, :in => [true, false]
-  validates_presence_of :amount, :company, :mode, :payee, :responsible, :to_bank_on, :used_amount
+  validates_presence_of :amount, :mode, :payee, :responsible, :to_bank_on, :used_amount
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than=>0
   validates_numericality_of :used_amount, :greater_than_or_equal_to=>0

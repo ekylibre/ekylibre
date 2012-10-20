@@ -20,7 +20,6 @@
 # 
 # == Table: custom_field_choices
 #
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  custom_field_id :integer          not null
@@ -35,14 +34,14 @@
 
 
 class CustomFieldChoice < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :value, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :custom_field, :name, :value
-  #]VALIDATORS]
-  belongs_to :company
   belongs_to :custom_field
   has_many :data, :class_name=>"CustomFieldDatum", :foreign_key=>"choice_value_id"
   acts_as_list :scope=>:custom_field_id
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :value, :allow_nil => true, :maximum => 255
+  validates_presence_of :custom_field, :name, :value
+  #]VALIDATORS]
 
   before_validation do
     self.value = self.name.to_s.codeize if self.value.blank?

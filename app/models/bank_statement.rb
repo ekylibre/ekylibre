@@ -21,7 +21,6 @@
 # == Table: bank_statements
 #
 #  cash_id      :integer          not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  credit       :decimal(19, 4)   default(0.0), not null
@@ -40,13 +39,12 @@ class BankStatement < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :cash, :company, :credit, :debit, :number, :started_on, :stopped_on
+  validates_presence_of :cash, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
   belongs_to :cash
   has_many :lines, :dependent=>:nullify, :class_name=>"JournalEntryLine"
 
   before_validation do
-    self.company_id = self.cash.company_id if self.cash
     self.debit  = self.lines.sum(:original_debit)
     self.credit = self.lines.sum(:original_credit)
   end
@@ -73,10 +71,7 @@ class BankStatement < CompanyRecord
   end
 
   def eligible_lines
-    self.company.journal_entry_lines.find(:all, 
-                                          :conditions =>["bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on], 
-                                          :joins => "INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id", 
-                                          :order => "bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryLine.table_name}.position")
+    JournalEntryLine.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryLine.table_name}.position")
   end
 
 end

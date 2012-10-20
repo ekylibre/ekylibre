@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EntityLinkNaturesController < ApplicationController
+class EntityLinkNaturesController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name
     t.column :name_1_to_2
     t.column :name_2_to_1

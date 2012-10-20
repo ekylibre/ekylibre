@@ -27,7 +27,6 @@
 #  assimilated_taxes_amount :decimal(19, 4)   
 #  balance_amount           :decimal(19, 4)   
 #  collected_amount         :decimal(19, 4)   
-#  company_id               :integer          not null
 #  created_at               :datetime         not null
 #  creator_id               :integer          
 #  declared_on              :date             

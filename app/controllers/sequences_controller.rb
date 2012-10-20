@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class SequencesController < ApplicationController
+class SequencesController < AdminController
   manage_restfully :number_format=>"'[number|8]'", :last_number=>"0"
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :name
     t.column :compute
     t.column :number_format, :class=>:code
@@ -35,7 +35,7 @@ class SequencesController < ApplicationController
 
   # Load missing sequences for current company
   def load
-    @current_company.load_sequences
+    Sequence.load_defaults
     redirect_to_back
   end
 

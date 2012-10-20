@@ -22,7 +22,6 @@
 #
 #  active          :boolean          not null
 #  comment         :text             
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  currency        :string(3)        

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EntityCategoriesController < ApplicationController
+class EntityCategoriesController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
+  list do |t|
     t.column :code, :url=>true
     t.column :name, :url=>true
     t.column :description
@@ -33,7 +33,7 @@ class EntityCategoriesController < ApplicationController
   def index
   end
 
-  list(:prices, :model=>:prices, :conditions=>{:company_id=>['@current_company.id'], :active=>true, :category_id=>['session[:current_entity_category_id]']}) do |t|
+  list(:prices, :model=>:prices, :conditions=>{:active=>true, :category_id=>['session[:current_entity_category_id]']}) do |t|
     t.column :name, :through=>:product, :url=>true
     t.column :pretax_amount
     t.column :amount

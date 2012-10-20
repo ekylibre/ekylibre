@@ -56,6 +56,8 @@ input[type="submit"], a.btn {
       }
       &:hover {
         @include background-image(linear-gradient(lighten($active, 8%), $active));
+        position: relative;
+        z-index: 2;
         &, .text {
           color: #FFF; 
           @include text-shadow(0 0 1px $normal-color);
@@ -129,12 +131,18 @@ input[type="submit"], a.btn {
 @include button($passive-bg, $active-bg);
 @include button(#D88E68, #D88E68, "&.important");
 
-.toolbar { 
-  margin: 0 0 8px 0;
-  @include text-align(left);
-  a.btn.large, a.btn.mini, a.btn, input[type="submit"] { 
+/*@mixin button-group { */
+@mixin button-group() { 
+  button, a.btn.large, a.btn.mini, a.btn, input, select { 
     @include border-radius(0);
-    margin: 0 -($menu-border-width/2);
+    margin-left: -1 * $menu-border-width;
+    &:active, &:focus { 
+      position: relative;
+      z-index: 2;
+    }
+    &:first-child { 
+      margin-left: 0;
+    }
     html[dir="ltr"] &:first-child, html[dir="rtl"] &:last-child {
       @include border-top-left-radius($buttons-radius);
       @include border-bottom-left-radius($buttons-radius);
@@ -142,8 +150,14 @@ input[type="submit"], a.btn {
     html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
       @include border-top-right-radius($buttons-radius);
       @include border-bottom-right-radius($buttons-radius);
-    }
+    }    
   }
+}
+
+.toolbar { 
+  margin: 0 0 8px 0;
+  @include text-align(left);
+  @include button-group;
 }
 
 @each $format in $buttons-formats {
@@ -158,7 +172,7 @@ input[type="submit"], a.btn {
       @if $icon-name == default {
         $button-name: "";
       }
-      .btn#{$button-name} {
+      .btn#{$button-name}, .btn.btn-#{$icon-name} {
         #{$format-selector} {
           @include border-radius($format-radius);
           padding: ($format-interval/6) ($format-interval/4);
@@ -181,6 +195,7 @@ input[type="submit"], a.btn {
           }
         }
       }
+/*
       .mn.#{$icon-name} { 
         #{$format-selector} {
           .icon {
@@ -201,7 +216,7 @@ input[type="submit"], a.btn {
           }
         }
       }
-
+*/
     }
     $i: $i + 1;
   }

@@ -21,7 +21,6 @@
 # == Table: entity_natures
 #
 #  active           :boolean          default(TRUE), not null
-#  company_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer          
 #  description      :text             
@@ -38,15 +37,15 @@
 
 
 class EntityNature < CompanyRecord
-  attr_readonly :company_id
-  belongs_to :company
   has_many :entities, :foreign_key=>:nature_id 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :full_name_format, :name, :title, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in_name, :physical, :in => [true, false]
-  validates_presence_of :company, :name
+  validates_presence_of :name
   #]VALIDATORS]
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
+
+  default_scope order(:name)
 
   before_validation do
     self.in_name = false if self.physical

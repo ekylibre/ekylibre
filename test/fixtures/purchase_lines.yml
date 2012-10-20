@@ -23,7 +23,6 @@
 #  account_id      :integer          not null
 #  amount          :decimal(19, 4)   default(0.0), not null
 #  annotation      :text             
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  id              :integer          not null, primary key
@@ -47,7 +46,6 @@
 # purchase_lines_001:
 #   account_id: 1
 #   amount: 0
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -64,7 +62,6 @@ purchase_lines_001:
   account_id: 1
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
@@ -80,7 +77,6 @@ purchase_lines_002:
   account_id: 1
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
@@ -96,7 +92,6 @@ purchase_lines_003:
   account_id: 1
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 3
@@ -113,7 +108,6 @@ purchase_lines_004:
   account_id: 1
   amount: 10
   pretax_amount: 10
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 4
@@ -130,7 +124,6 @@ purchase_lines_005:
   account_id: 1
   amount: 17
   pretax_amount: 26
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 5

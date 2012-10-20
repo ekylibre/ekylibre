@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductionChainsController < ApplicationController
+class ProductionChainsController < AdminController
   manage_restfully 
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  list(:order=>"name") do |t|
     t.column :name, :url=>true
     t.column :comment
     t.action :edit
@@ -31,21 +31,21 @@ class ProductionChainsController < ApplicationController
   def index
     if params[:generate] == "sample"
       ActiveRecord::Base.transaction do
-        building = @current_company.warehouses.find(:all, :conditions=>{:reservoir=>false}).first
+        building = Warehouse.where(:reservoir=>false).first
         name = "Sample production chain (手本)"
-        pc = @current_company.production_chains.find_by_name(name)
+        pc = ProductionChain.find_by_name(name)
         pc.destroy if pc
-        pc = @current_company.production_chains.create!(:name=>name)
+        pc = ProductionChain.create!(:name=>name)
         ops = {}
         for op, long_name in {:a=>"Cooling", :b=>"Sorting", :c=>"Packaging Q1S1", :d=>"Packaging Q1S2", :e=>"Packaging Q2S1", :f=>"Packaging Q2S2", :g=>"Packaging Special Palet"}.sort{|a,b| a.to_s<=>b.to_s}
           name = long_name.split(/\s+/)[0]
-          n = @current_company.operation_natures.find_by_name(name)
-          n = @current_company.operation_natures.create!(:name=>name) if n.nil?
+          n = OperationNature.find_by_name(name)
+          n = OperationNature.create!(:name=>name) if n.nil?
           ops[op] = pc.operations.create!(:name=>long_name, :building=>building, :nature=>(long_name.match(/\s/) ? "output" : "input"), :operation_nature=>n)
         end
         us = {}
-        us[:kg] = @current_company.units.find_by_name("kg")||@current_company.units.create!(:name=>"kg", :label=>"Kilogram", :base=>"kg")
-        us[:u] = @current_company.units.find_by_name("u")||@current_company.units.create!(:name=>"u", :label=>"Unit", :base=>"")
+        us[:kg] = Unit.find_by_name("kg")||Unit.create!(:name=>"kg", :label=>"Kilogram", :base=>"kg")
+        us[:u]  = Unit.find_by_name("u") ||Unit.create!(:name=>"u", :label=>"Unit", :base=>"")
         ps = {}
         for p in [["TOMA", "Tomato (トマト)", :kg, 1],
                   ["TO11", "Tomato Q1S1 (トマト)", :kg, 1],
@@ -61,9 +61,9 @@ class ProductionChainsController < ApplicationController
                   ["STPA", "Special Tomato Palet (トマトの匣)", :u, 925] # 912.8 of tomato + palet (12kg) + film
                  ]
           k = p[0] # .lower.to_sym
-          ps[k] = @current_company.products.find_by_code(p[0])
+          ps[k] = Product.find_by_code(p[0])
           # ps[k].destroy; ps[k] = nil
-          ps[k] = @current_company.products.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>@current_company.product_categories.first, :nature=>"product", :stockable=>true) unless ps[k]
+          ps[k] = Product.create!(:name=>p[1], :code=>p[0], :unit=>us[p[2]], :weight=>p[3], :for_sales=>false, :category=>ProductCategory.first, :nature=>"product", :stockable=>true) unless ps[k]
         end
 
         for co in [ ["TOMA", nil, 0.0,  :a,   1, true],
@@ -91,7 +91,7 @@ class ProductionChainsController < ApplicationController
 
 
 
-  list(:work_centers, :model=>:production_chain_work_centers, :conditions=>{:company_id=>['@current_company.id']}, :order=>"name") do |t|
+  list(:work_centers, :model=>:production_chain_work_centers, :order=>"name") do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:operation_nature
     t.column :nature
@@ -101,7 +101,7 @@ class ProductionChainsController < ApplicationController
     t.action :destroy
   end
 
-  list(:conveyors, :model=>:production_chain_conveyors, :conditions=>{:company_id=>['@current_company.id']}, :order=>"id") do |t|
+  list(:conveyors, :model=>:production_chain_conveyors, :order=>"id") do |t|
     t.column :name, :through=>:product, :url=>true
     t.column :flow
     t.column :name, :through=>:unit

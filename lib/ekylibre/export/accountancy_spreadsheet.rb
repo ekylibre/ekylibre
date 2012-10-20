@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Ekylibre
 
   module Export
@@ -33,10 +34,10 @@ module Ekylibre
                  ]
 
 
-      def self.generate(company, started_on, stopped_on, filename=nil)
+      def self.generate(started_on, stopped_on, filename=nil)
         carre = ""
         code = ""
-        code += "for jel in company.journal_entry_lines.find(:all, :include=>[:journal, {:entry=>:currency}, :account, :bank_statement], :conditions=>['NOT (#{JournalEntryLine.table_name}.debit = 0 AND #{JournalEntryLine.table_name}.credit = 0) AND printed_on BETWEEN ? AND ?', started_on, stopped_on], :order=>'journals.name, journal_entries.number')\n"
+        code += "JournalEntryLine.includes(:journal, {:entry=>:currency}, :account, :bank_statement).where('NOT (#{JournalEntryLine.table_name}.debit = 0 AND #{JournalEntryLine.table_name}.credit = 0) AND printed_on BETWEEN ? AND ?', started_on, stopped_on).order('journals.name, journal_entries.number').find_each do |jel|\n"
         code += "      f.puts("
         for column in @@format
           if column[1].blank?
@@ -50,7 +51,7 @@ module Ekylibre
         code += '"\r\n"'+")\n"
         code += "end\n"
         ic = Iconv.new('cp1252', 'utf-8')
-        filename ||= "#{company.code}.ECC"
+        filename ||= "COMPTA.ECC"
         file = Rails.root.join("tmp", "#{filename}.zip")
 
         Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|

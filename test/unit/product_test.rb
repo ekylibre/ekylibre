@@ -27,7 +27,6 @@
 #  code                       :string(16)       
 #  code2                      :string(64)       
 #  comment                    :text             
-#  company_id                 :integer          not null
 #  created_at                 :datetime         not null
 #  creator_id                 :integer          
 #  critic_quantity_min        :decimal(19, 4)   default(1.0)

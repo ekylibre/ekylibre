@@ -20,15 +20,16 @@
 # 
 # == Table: incoming_payment_modes
 #
+#  attorney_journal_id     :integer          
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
 #  commission_percent      :decimal(19, 4)   default(0.0), not null
-#  company_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  depositables_account_id :integer          
 #  depositables_journal_id :integer          
+#  detail_payments         :boolean          not null
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  name                    :string(50)       not null
@@ -44,26 +45,30 @@
 
 class IncomingPaymentMode < CompanyRecord
   attr_readonly :cash_id
-  acts_as_list :scope=>:company_id
+  acts_as_list
+  belongs_to :attorney_journal, :class_name => "Journal"
   belongs_to :cash
-  belongs_to :company
   belongs_to :commission_account, :class_name=>"Account"
   belongs_to :depositables_account, :class_name=>"Account"
   belongs_to :depositables_journal, :class_name=>"Journal"
   has_many :depositable_payments, :class_name=>"IncomingPayment", :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
   has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
   has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
-  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")} AND company_id=#{self.company_id})'
+  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 50
-  validates_inclusion_of :with_accounting, :with_commission, :with_deposit, :in => [true, false]
-  validates_presence_of :commission_base_amount, :commission_percent, :company, :name
+  validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, :in => [true, false]
+  validates_presence_of :commission_base_amount, :commission_percent, :name
   #]VALIDATORS]
+  validates_presence_of :attorney_journal, :if => :with_accounting?
   validates_presence_of :depositables_account, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash
 
   delegate :currency, :to => :cash
+  
+  default_scope order(:position)
+  scope :depositers, where(:with_deposit => true).order(:name)
 
   before_validation do
     if self.cash.cash?

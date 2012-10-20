@@ -26,7 +26,6 @@
 #  arrived_on        :date             
 #  comment           :text             
 #  commercial        :boolean          
-#  company_id        :integer          not null
 #  connected_at      :datetime         
 #  created_at        :datetime         not null
 #  creator_id        :integer          
@@ -58,6 +57,9 @@
 require "digest/sha2"
 
 class User < CompanyRecord
+  # cattr_accessor :current_user
+  attr_accessor :password_confirmation, :old_password
+  attr_protected :hashed_password, :salt, :locked, :rights
   belongs_to :department
   belongs_to :establishment
   belongs_to :profession
@@ -78,17 +80,16 @@ class User < CompanyRecord
   validates_length_of :hashed_password, :salt, :allow_nil => true, :maximum => 64
   validates_length_of :email, :employment, :first_name, :last_name, :office, :allow_nil => true, :maximum => 255
   validates_inclusion_of :admin, :employed, :locked, :in => [true, false]
-  validates_presence_of :company, :first_name, :language, :last_name, :name, :reduction_percent, :role
+  validates_presence_of :first_name, :language, :last_name, :name, :reduction_percent, :role
   #]VALIDATORS]
   validates_presence_of :password, :password_confirmation, :if=>Proc.new{|u| u.new_record?}
   validates_confirmation_of :password
   validates_inclusion_of :reduction_percent, :in=>0..100
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
   validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, :if=>lambda{|r| !r.email.blank?}
 
-  # cattr_accessor :current_user
-  attr_accessor :password_confirmation, :old_password
-  attr_protected :hashed_password, :salt, :locked, :rights
+  default_scope order(:last_name, :first_name)
+
 
   # Needed to stamp all records
   model_stamper
@@ -103,8 +104,8 @@ class User < CompanyRecord
   
   before_validation do
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
-    if self.company
-      self.language = self.company.language if self.language.blank?
+    if entity = Entity.of_company
+      self.language = entity.language if self.language.blank?
     end
     self.reduction_percent ||= 0
     self.admin = true if self.rights.nil?
@@ -125,7 +126,7 @@ class User < CompanyRecord
   def preference(name, value=nil, nature=:string)
     p = self.preferences.find(:first, :order=>:id, :conditions=>{:name=>name})
     if p.nil?
-      p = self.preferences.new(:name=>name, :company_id=>self.company_id, :nature=>nature.to_s)
+      p = self.preferences.new(:name=>name, :nature=>nature.to_s)
       p.value = value
       p.save!
     end
@@ -166,18 +167,14 @@ class User < CompanyRecord
     end
   end
 
-  def self.authenticate(name, password, company=nil)
-    user = nil
-    if company.nil?
-      users = self.find_all_by_name(name)
-      user = users[0] if users.size == 1
-    else
-      user = self.find_by_name_and_company_id(name.to_s.downcase, company.id)
+  # Find and check user account
+  def self.authenticate(name, password)
+    if user = self.find_by_name(name.to_s.downcase)
+      if user.locked or !user.authenticated?(password.to_s)
+        user = nil 
+      end
     end
-    if user
-      user = nil if user.locked or !user.authenticated?(password.to_s)
-    end
-    user
+    return user
   end
 
   def authorization(controller_name, action_name, rights_list=nil)
@@ -198,7 +195,7 @@ class User < CompanyRecord
   end
   
   protect(:on => :destroy) do
-    self.company.users.count > 1
+    User.count > 1
   end
 
   def authenticated?(password)

@@ -23,7 +23,6 @@
 #  accounted_at        :datetime         
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  confirmed_on        :date             
 #  created_at          :datetime         not null
 #  created_on          :date             
@@ -51,7 +50,6 @@
 #
 # purchases_001:
 #   amount: 0
-#   company_id: 1
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
 #   id: 1
@@ -65,7 +63,6 @@
 purchases_001:
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
@@ -80,7 +77,6 @@ purchases_001:
 purchases_002:
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
@@ -94,7 +90,6 @@ purchases_002:
 purchases_003:
   amount: 0
   pretax_amount: 0
-  company_id: 1
   nature_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -108,7 +103,6 @@ purchases_003:
 purchases_004:
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   nature_id: 1
   creator_id: 1
@@ -123,7 +117,6 @@ purchases_004:
 purchases_005:
   amount: 0
   pretax_amount: 0
-  company_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 5

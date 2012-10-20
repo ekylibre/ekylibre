@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class UsersController < ApplicationController
+class UsersController < AdminController
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
+  list(:order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
     t.column :name, :url=>true
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
@@ -44,12 +44,12 @@ class UsersController < ApplicationController
 
   def new
     if request.xhr? and params[:mode] == "rights"
-      role = @current_company.roles.find(params[:user_role_id]) rescue nil
+      role = Role.find(params[:user_role_id]) rescue nil
       @rights = role.rights_array if role
       render :partial=>"rights_form"
     else
-      role = @current_company.roles.first
-      @user = @current_company.users.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>@current_company.entity.language)
+      role = Role.first
+      @user = User.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>Entity.of_company.language)
       @rights = role ? role.rights_array : []
       render_restfully_form
     end
@@ -57,7 +57,6 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params[:user])
-    @user.company_id = @current_company.id
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)

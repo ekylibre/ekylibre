@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ProductionChainWorkCentersController < ApplicationController
+class ProductionChainWorkCentersController < AdminController
   manage_restfully :production_chain_id=>"params[:production_chain_id]", :nature=>"(params[:nature]||'input')"
   manage_restfully_list
 

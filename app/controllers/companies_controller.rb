@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CompaniesController < ApplicationController
+class CompaniesController < AdminController
 
   def register
     if request.post?

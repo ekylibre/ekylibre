@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class EntitiesController < ApplicationController
+class EntitiesController < AdminController
 
   list(:select=>{[:contacts, :line_6]=>:line_6}, :conditions=>search_conditions(:entities, :entities=>[:code, :full_name, :website], :contacts=>[:address, :phone, :fax, :mobile, :email, :website]), :joins=>"LEFT JOIN #{Contact.table_name} AS contacts ON (entities.id=contacts.entity_id AND contacts.deleted_at IS NULL)", :order=>"entities.code") do |t|
     t.column :active, :datatype=>:boolean
@@ -36,7 +36,7 @@ class EntitiesController < ApplicationController
     session[:entity_key] = params[:q]
   end
 
-  list(:cashes, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
+  list(:cashes, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :name
     t.column :number
     t.column :iban_label
@@ -44,7 +44,7 @@ class EntitiesController < ApplicationController
     t.action :destroy
   end
 
-  list(:contacts, :conditions=>['#{Contact.table_name}.company_id = ? AND deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['@current_company.id'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
+  list(:contacts, :conditions=>['deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_on IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_contacts = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_on IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
     t.column :address, :url=>{:action=>:edit}
     t.column :phone
     t.column :fax
@@ -57,7 +57,7 @@ class EntitiesController < ApplicationController
     t.action :destroy
   end
 
-  list(:events, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
+  list(:events, :conditions=>{:entity_id=>['session[:current_entity_id]']}, :order=>"created_at DESC") do |t|
     t.column :name, :through=>:nature
     t.column :reason
     t.column :label, :through=>:responsible, :url=>true
@@ -68,7 +68,7 @@ class EntitiesController < ApplicationController
     t.action :destroy
   end
 
-  list(:incoming_payments, :conditions=>{:company_id=>['@current_company.id'], :payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  list(:incoming_payments, :conditions=>{:payer_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     t.column :number, :url=>true
     t.column :paid_on
     t.column :label, :through=>:responsible
@@ -82,7 +82,7 @@ class EntitiesController < ApplicationController
     t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
   end
 
-  list(:links, :model=>:entity_links, :conditions=>['#{EntityLink.table_name}.stopped_on IS NULL AND #{EntityLink.table_name}.company_id = ? AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['@current_company.id'], ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page=>5) do |t|
+  list(:links, :model=>:entity_links, :conditions=>['#{EntityLink.table_name}.stopped_on IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page=>5) do |t|
     t.column :description, :through=>:entity_1, :url=>true
     t.column :name_1_to_2, :through=>:nature
     t.column :description, :through=>:entity_2, :url=>true
@@ -91,7 +91,7 @@ class EntitiesController < ApplicationController
     t.action :destroy
   end
 
-  list(:mandates, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}) do |t|
+  list(:mandates, :conditions=>{:entity_id=>['session[:current_entity_id]']}) do |t|
     t.column :title
     t.column :organization, :url=>{:controller=>:mandates, :action=>:index}
     t.column :family
@@ -101,14 +101,14 @@ class EntitiesController < ApplicationController
     t.action :destroy
   end
 
-  list(:observations, :conditions=>{:company_id=>['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5) do |t|
+  list(:observations, :conditions=>{:entity_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status', :per_page=>5) do |t|
     t.column :description
     t.column :text_importance
     t.action :edit
     t.action :destroy
   end
 
-  list(:outgoing_payments, :conditions=>{:company_id=>['@current_company.id'], :payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
+  list(:outgoing_payments, :conditions=>{:payee_id=>['session[:current_entity_id]']}, :order=>"created_at DESC", :line_class=>"(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)") do |t|
     t.column :number, :url=>true
     t.column :paid_on
     t.column :label, :through=>:responsible
@@ -120,7 +120,7 @@ class EntitiesController < ApplicationController
     t.action :destroy, :if=>"RECORD.used_amount.to_f<=0"
   end
 
-  list(:purchases, :model=>:purchase, :conditions=>{:company_id=>['@current_company.id'], :supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
+  list(:purchases, :model=>:purchase, :conditions=>{:supplier_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.status') do |t|
     t.column :number, :url=>true
     t.column :created_on
     t.column :invoiced_on
@@ -133,7 +133,7 @@ class EntitiesController < ApplicationController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  list(:sales, :conditions=>{:company_id=>['@current_company.id'], :client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.tags', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
+  list(:sales, :conditions=>{:client_id=>['session[:current_entity_id]']}, :line_class=>'RECORD.tags', :children=>:lines, :per_page=>5, :order=>"created_on DESC") do |t|
     t.column :number, :url=>true, :children=>:label
     t.column :full_name, :through=>:responsible, :children=>false
     t.column :created_on, :children=>false
@@ -146,7 +146,7 @@ class EntitiesController < ApplicationController
     t.action :destroy, :if=>"RECORD.aborted? "
   end
 
-  list(:subscriptions, :conditions=>{:company_id => ['@current_company.id'], :entity_id=>['session[:current_entity_id]']}, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
+  list(:subscriptions, :conditions=>{:entity_id=>['session[:current_entity_id]']}, :order=>'stopped_on DESC, first_number DESC', :line_class=>"(RECORD.active? ? 'enough' : '')") do |t|
     t.column :number
     t.column :name, :through=>:nature
     t.column :start
@@ -175,9 +175,9 @@ class EntitiesController < ApplicationController
 
   def export
     if request.xhr?
-      render :partial=>'export_condition'
+      render :partial => 'export_condition'
     else
-      @columns = @current_company.exportable_columns
+      @columns = Entity.exportable_columns
       @conditions = ["special-subscriber"] # , "special-buyer", "special-relation"]
       @conditions += Entity.exportable_columns.collect{|c| "generic-entity-#{c.name}"}.sort
       @conditions += Contact.exportable_columns.collect{|c| "generic-contact-#{c.name}"}.sort
@@ -185,16 +185,16 @@ class EntitiesController < ApplicationController
       @conditions += ["generic-district-name"]
       if request.post?
         from  = " FROM #{Entity.table_name} AS entity"
-        from += " LEFT JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.by_default IS TRUE AND contact.deleted_at IS NULL AND contact.company_id=#{@current_company.id})"
-        from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id AND area.company_id=#{@current_company.id})"
-        from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id AND district.company_id=#{@current_company.id})"
-        where = " WHERE entity.active AND entity.company_id=#{@current_company.id}"
+        from += " LEFT JOIN #{Contact.table_name} AS contact ON (contact.entity_id=entity.id AND contact.by_default IS TRUE AND contact.deleted_at IS NULL)"
+        from += " LEFT JOIN #{Area.table_name} AS area ON (contact.area_id=area.id})"
+        from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id)"
+        where = " WHERE entity.active"
         select_array = []
         for k, v in params[:columns].select{|k,v| v[:check].to_i == 1}.sort{|a,b| a[1][:order].to_i<=>b[1][:order].to_i}
           if k.match(/^custom_field\-/)
             id = k.split('-')[1][2..-1].to_i
-            if custom_field = @current_company.custom_fields.find_by_id(id)
-              from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id} AND _c#{id}.company_id=#{@current_company.id})"
+            if custom_field = CustomField.find_by_id(id)
+              from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
               if custom_field.nature == "choice"
               select_array << [ "_cc#{id}.value AS custom_field_#{id}", v[:label]]
                 from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
@@ -210,7 +210,7 @@ class EntitiesController < ApplicationController
           code = params[:conditions].collect do |id, preferences|
             condition = preferences[:type]
             expr = if condition == "special-subscriber"
-                     if nature = @current_company.subscription_natures.find_by_id(preferences[:nature])
+                     if nature = SubscriptionNature.find_by_id(preferences[:nature])
                        subn = preferences[preferences[:nature]]
                        products = (subn[:products]||{}).select{|k,v| v.to_i==1 }.collect{|k,v| k}
                        products = "product_id IN (#{products.join(', ')})" if products.size > 0
@@ -232,7 +232,7 @@ class EntitiesController < ApplicationController
                          y = condition[:timestamp][:stopped_on].to_date rescue Date.today
                          timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
                        end
-                       "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id} AND company_id=#{@current_company.id}"+products+subscribed_on+timestamp+")"
+                       "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}"+products+subscribed_on+timestamp+")"
                      else
                        "true"
                      end
@@ -279,7 +279,7 @@ class EntitiesController < ApplicationController
       csv = Ekylibre::CSV.open(session[:entities_import_file])
       @columns = csv.shift
       @first_line = csv.shift
-      @options = @current_company.importable_columns
+      @options = Entity.importable_columns
       if request.post?
         all_columns = params[:columns].dup.delete_if{|k,v| v.match(/^special-dont_use/) or v.blank?}
         columns = params[:columns].delete_if{|k,v| v.match(/^special-/) or v.blank?}
@@ -305,11 +305,11 @@ class EntitiesController < ApplicationController
     elsif @step == :validate
       file, cols = session[:entities_import_file], session[:entities_import_cols]
       if request.post?
-        @report = @current_company.import_entities(file, cols, :no_simulation=>true, :ignore=>session[:entities_import_ignore])
+        @report = Entity.import(file, cols, :no_simulation=>true, :ignore=>session[:entities_import_ignore])
         notify_success(:importation_finished)
         redirect_to :action=>:import, :id=>:upload
       else
-        @report = @current_company.import_entities(file, cols)
+        @report = Entity.import(file, cols)
         session[:entities_import_ignore] = @report[:errors].keys
       end
     end
@@ -332,23 +332,21 @@ class EntitiesController < ApplicationController
   end
 
   def new
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
+    @custom_fields = CustomField.actives
     @custom_field_data = []    
-    @contact = @current_company.contacts.new(:country=>@current_company.entity.country)
-    @entity = @current_company.entities.new(:country=>@current_company.entity.country, :language=>@current_company.entity.language)
+    @contact = Contact.new(:country=>Entity.of_company.country)
+    @entity  =  Entity.new(:country=>Entity.of_company.country, :language=>Entity.of_company.language)
     for custom_field in @custom_fields
-      @custom_field_data << @current_company.custom_field_data.new(:entity_id=>@entity.id, :custom_field_id=>custom_field.id)
+      @custom_field_data << custom_field.data.new(:entity_id=>@entity.id)
     end
     render_restfully_form
   end
 
   def create
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
+    @custom_fields = CustomField.actives
     @custom_field_data = []
     @entity = Entity.new(params[:entity])
-    @entity.company_id = @current_company.id
     @contact = Contact.new(params[:contact])
-    @contact.company_id = @current_company.id
     for custom_field in @custom_fields
       attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
       @custom_field_data << custom_field.data.new(attributes)
@@ -382,7 +380,7 @@ class EntitiesController < ApplicationController
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
        
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})
+    @custom_fields = CustomField.actives
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
@@ -402,14 +400,13 @@ class EntitiesController < ApplicationController
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
        
-    @custom_fields = @current_company.custom_fields.find(:all, :order=>:position, :conditions=>{:active=>true})||[]
+    @custom_fields = CustomField.actives
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
     
     for custom_field in @custom_fields
       attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
       attributes[:custom_field_id] = custom_field.id
-      attributes[:company_id] = @current_company.id
       datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
       if datum
         datum.attributes = attributes 

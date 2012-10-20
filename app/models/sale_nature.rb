@@ -22,7 +22,6 @@
 #
 #  active                  :boolean          default(TRUE), not null
 #  comment                 :text             
-#  company_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  currency                :string(3)        
@@ -37,6 +36,7 @@
 #  payment_delay_id        :integer          not null
 #  payment_mode_complement :text             
 #  payment_mode_id         :integer          
+#  sales_conditions        :text             
 #  updated_at              :datetime         not null
 #  updater_id              :integer          
 #  with_accounting         :boolean          not null
@@ -54,11 +54,11 @@ class SaleNature < CompanyRecord
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :downpayment, :with_accounting, :in => [true, false]
-  validates_presence_of :company, :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
+  validates_presence_of :downpayment_minimum, :downpayment_rate, :expiration, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if=>Proc.new{|sn| sn.with_accounting?}
   validates_presence_of :currency
-  validates_uniqueness_of :name, :scope=>:company_id
+  validates_uniqueness_of :name
 
   validate do
     if self.journal

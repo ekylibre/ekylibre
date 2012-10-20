@@ -20,7 +20,6 @@
 # 
 # == Table: documents
 #
-#  company_id    :integer          not null
 #  created_at    :datetime         not null
 #  creator_id    :integer          
 #  crypt_key     :binary           

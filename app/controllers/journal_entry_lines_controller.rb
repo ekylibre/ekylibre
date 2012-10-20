@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class JournalEntryLinesController < ApplicationController
+class JournalEntryLinesController < AdminController
 
   def new
     @journal_entry_line = JournalEntryLine.new
@@ -30,14 +30,14 @@ class JournalEntryLinesController < ApplicationController
         @journal_entry_line.original_debit  = credit - debit
       end
     end
-    if params[:journal_id] and @journal = @current_company.journals.find_by_id(params[:journal_id])
+    if params[:journal_id] and @journal = Journal.find_by_id(params[:journal_id])
       if @journal.cashes.size == 1
         @journal_entry_line.account = @journal.cashes.first.account
       end
     end
     params[:printed_on] = params[:printed_on].to_date rescue nil
     if params[:printed_on]
-      @financial_year = @current_company.financial_year_at(params[:printed_on])
+      @financial_year = FinancialYear.at(params[:printed_on])
     end
     if request.xhr?
       render :partial=>"journal_entry_lines/row_form", :object=>@journal_entry_line

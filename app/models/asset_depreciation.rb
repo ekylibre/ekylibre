@@ -25,7 +25,6 @@
 #  amount             :decimal(19, 4)   not null
 #  asset_amount       :decimal(19, 4)   
 #  asset_id           :integer          not null
-#  company_id         :integer          not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer          
@@ -50,7 +49,7 @@ class AssetDepreciation < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :asset_amount, :depreciated_amount, :allow_nil => true
   validates_inclusion_of :accountable, :protected, :in => [true, false]
-  validates_presence_of :amount, :asset, :company, :created_on, :started_on, :stopped_on
+  validates_presence_of :amount, :asset, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year
   delegate :currency, :to => :asset
@@ -65,7 +64,6 @@ class AssetDepreciation < CompanyRecord
 
   before_validation(:on => :create) do
     self.created_on = Date.today
-    self.company = self.asset.company if self.asset
   end
 
   before_validation do

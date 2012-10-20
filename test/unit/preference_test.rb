@@ -21,7 +21,6 @@
 # == Table: preferences
 #
 #  boolean_value     :boolean          
-#  company_id        :integer          not null
 #  created_at        :datetime         not null
 #  creator_id        :integer          
 #  decimal_value     :decimal(19, 4)   

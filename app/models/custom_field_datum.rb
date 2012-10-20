@@ -22,7 +22,6 @@
 #
 #  boolean_value   :boolean          
 #  choice_value_id :integer          
-#  company_id      :integer          not null
 #  created_at      :datetime         not null
 #  creator_id      :integer          
 #  custom_field_id :integer          not null
@@ -39,20 +38,18 @@
 
 
 class CustomFieldDatum < CompanyRecord
-  attr_readonly :company_id, :custom_field_id, :entity_id
+  attr_readonly :custom_field_id, :entity_id
   belongs_to :choice_value, :class_name=>"CustomFieldChoice"
-  belongs_to :company
   belongs_to :custom_field
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :allow_nil => true
-  validates_presence_of :company, :custom_field, :entity
+  validates_presence_of :custom_field, :entity
   #]VALIDATORS]
-  validates_uniqueness_of :custom_field_id, :scope=>[:company_id, :entity_id]
+  validates_uniqueness_of :custom_field_id, :scope=>[:entity_id]
 
   validate do
     if custom_field = self.custom_field
-      self.company_id = self.custom_field.company_id
       errors.add_to_base(:required, :field=>custom_field.name) if custom_field.required and self.value.blank?
       unless self.value.blank?
         if custom_field.nature == 'string'

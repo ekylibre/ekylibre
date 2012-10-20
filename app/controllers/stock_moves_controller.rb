@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class StockMovesController < ApplicationController
+class StockMovesController < AdminController
   # manage_restfully :planned_on=>'Date.today'
 end

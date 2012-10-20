@@ -24,7 +24,6 @@
 #
 #  base         :string(255)      
 #  coefficient  :decimal(19, 10)  default(1.0), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key
@@ -38,20 +37,16 @@
 
 
 class Unit < CompanyRecord
+  has_many :products
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
   validates_length_of :base, :label, :allow_nil => true, :maximum => 255
-  validates_presence_of :coefficient, :company, :label, :name, :start
+  validates_presence_of :coefficient, :label, :name, :start
   #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
-  has_many :products
   validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
-  validates_uniqueness_of :name, :scope=>:company_id
-  scope :of_product, lambda { |product|
-    where(:base => product.unit.base).order(:coefficient, :label)
-  }
+  validates_uniqueness_of :name
+  scope :of_product, lambda { |product| where(:base => product.unit.base).order(:coefficient, :label) }
 
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
@@ -91,6 +86,15 @@ class Unit < CompanyRecord
 
   before_save do
     self.base = self.class.normalize(self.base) 
+  end
+
+  def self.load_defaults
+    for name, desc in self.default_units
+      unless self.find_by_name(name.to_s)
+        # FIXME Translation to move
+        self.create!(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
+      end
+    end    
   end
 
   def self.normalize(expr)

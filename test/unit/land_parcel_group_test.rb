@@ -22,7 +22,6 @@
 #
 #  color        :string(6)        default("000000"), not null
 #  comment      :text             
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  id           :integer          not null, primary key

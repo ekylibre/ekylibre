@@ -339,6 +339,7 @@ spa:
     # attorney: "Attorney"
     # attorney_account: "Attorney account"
     # attorney_accounts: "Attorney accounts"
+    # attorney_journal: "Attorney journal"
     # attorneys: "Attorneys"
     # attribute_name: "Attribute name"
     # authorized_payments_count: "Authorized payments count"

@@ -20,15 +20,16 @@
 # 
 # == Table: incoming_payment_modes
 #
+#  attorney_journal_id     :integer          
 #  cash_id                 :integer          
 #  commission_account_id   :integer          
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
 #  commission_percent      :decimal(19, 4)   default(0.0), not null
-#  company_id              :integer          not null
 #  created_at              :datetime         not null
 #  creator_id              :integer          
 #  depositables_account_id :integer          
 #  depositables_journal_id :integer          
+#  detail_payments         :boolean          not null
 #  id                      :integer          not null, primary key
 #  lock_version            :integer          default(0), not null
 #  name                    :string(50)       not null

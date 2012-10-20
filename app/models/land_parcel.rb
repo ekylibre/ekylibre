@@ -22,7 +22,6 @@
 #
 #  area_measure :decimal(19, 4)   default(0.0), not null
 #  area_unit_id :integer          
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             
@@ -39,18 +38,16 @@
 
 
 class LandParcel < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :area_measure, :allow_nil => true
-  validates_length_of :name, :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :area_measure, :company, :group, :name, :started_on
-  #]VALIDATORS]
-  attr_readonly :company_id
   belongs_to :area_unit, :class_name=>"Unit"
-  belongs_to :company
   belongs_to :group, :class_name=>"LandParcelGroup"
   has_many :operations, :as=>:target
   has_many :parent_kinships, :class_name=>"LandParcelKinship", :foreign_key=>:child_land_parcel_id, :dependent=>:destroy
   has_many :child_kinships, :class_name=>"LandParcelKinship", :foreign_key=>:parent_land_parcel_id, :dependent=>:destroy
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :area_measure, :allow_nil => true
+  validates_length_of :name, :number, :allow_nil => true, :maximum => 255
+  validates_presence_of :area_measure, :group, :name, :started_on
+  #]VALIDATORS]
   validates_presence_of :area_unit
   
   before_validation do
@@ -77,8 +74,8 @@ class LandParcel < CompanyRecord
     return false unless divided_on.is_a? Date
     return false unless divided_on > self.started_on
     for subdivision in subdivisions
-      child = self.company.land_parcels.create!(subdivision.merge(:started_on=>divided_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id))
-      self.company.land_parcel_kinships.create!(:parent_land_parcel=>self, :child_land_parcel=>child, :nature=>"divide")
+      child = LandParcel.create!(subdivision.merge(:started_on=>divided_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id))
+      LandParcelKinship.create!(:parent_land_parcel=>self, :child_land_parcel=>child, :nature=>"divide")
     end
     self.update_column(:stopped_on, divided_on)
   end
@@ -89,9 +86,9 @@ class LandParcel < CompanyRecord
     return false unless merged_on > self.started_on
     parcels, area = [self]+other_parcels, 0.0
     parcels.each{|p| area += p.area(self.area_unit) }
-    child = self.company.land_parcels.create!(:name=>parcels.collect{|p| p.name}.join("+"), :started_on=>merged_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id, :area_measure=>area)
+    child = LandParcel.create!(:name=>parcels.collect{|p| p.name}.join("+"), :started_on=>merged_on+1, :group_id=>self.group_id, :area_unit_id=>self.area_unit_id, :area_measure=>area)
     for parcel in parcels
-      self.company.land_parcel_kinships.create!(:parent_land_parcel=>parcel, :child_land_parcel=>child, :nature=>"merge")
+      LandParcelKinship.create!(:parent_land_parcel=>parcel, :child_land_parcel=>child, :nature=>"merge")
       parcel.update_column(:stopped_on, merged_on)
     end
     return child

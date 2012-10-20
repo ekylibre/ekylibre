@@ -20,7 +20,6 @@
 # 
 # == Table: production_chain_work_center_uses
 #
-#  company_id     :integer          not null
 #  created_at     :datetime         not null
 #  creator_id     :integer          
 #  id             :integer          not null, primary key
@@ -33,12 +32,9 @@
 
 
 class ProductionChainWorkCenterUse < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :company, :tool, :work_center
-  #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :work_center, :class_name=>"ProductionChainWorkCenter"
   belongs_to :tool
-  
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :tool, :work_center
+  #]VALIDATORS]
 end

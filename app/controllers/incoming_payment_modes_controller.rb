@@ -17,11 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class IncomingPaymentModesController < ApplicationController
+class IncomingPaymentModesController < AdminController
   manage_restfully :with_accounting=>"true"
   manage_restfully_list :name
 
-  list(:conditions=>{:company_id=>['@current_company.id']}, :order=>:position) do |t|
+  # TODO: Adds detail_payments and attorney_journal
+
+  list(:order=>:position) do |t|
     t.column :name
     t.column :name, :through=>:cash, :url=>true
     t.column :with_accounting
@@ -37,7 +39,7 @@ class IncomingPaymentModesController < ApplicationController
   end
 
   def reflect
-    return unless @incoming_payment_mode = find_and_check(:incoming_payment_mode)
+    return unless @incoming_payment_mode = find_and_check
     for payment in @incoming_payment_mode.unlocked_payments
       payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
     end

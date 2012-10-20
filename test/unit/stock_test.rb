@@ -20,7 +20,6 @@
 # 
 # == Table: stocks
 #
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  critic_quantity_min :decimal(19, 4)   default(0.0), not null

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class UnitsController < ApplicationController
+class UnitsController < AdminController
   manage_restfully :base=>"params[:base]"
 
-  list(:conditions=>{:company_id=>["@current_company.id"]}, :order=>:name) do |t|
+  list(:order=>:name) do |t|
     t.column :label
     t.column :name
     t.column :coefficient
@@ -35,7 +35,7 @@ class UnitsController < ApplicationController
   end
 
   def load
-    @current_company.load_units
+    Unit.load_defaults
     redirect_to :action=>:index
   end
 

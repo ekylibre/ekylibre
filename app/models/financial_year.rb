@@ -22,7 +22,6 @@
 #
 #  closed                :boolean          not null
 #  code                  :string(12)       not null
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
 #  currency              :string(3)        
@@ -47,23 +46,57 @@ class FinancialYear < CompanyRecord
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 12
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :code, :company, :started_on, :stopped_on
+  validates_presence_of :code, :started_on, :stopped_on
   #]VALIDATORS]
-  validates_uniqueness_of :code, :scope=>:company_id
+  validates_uniqueness_of :code
   validates_presence_of :currency
 
+  # This order must be the natural order
+  # It permit to find the first and the last financial year
+  default_scope order(:started_on)
+  scope :currents, where(:closed => false).reorder("ABS(CURRENT_DATE - started_on) DESC")
+  scope :closables, where("closed = ? AND stopped_on < CURRENT_DATE", false).reorder(:started_on).limit(1)
+
+  # Find or create if possible the requested financial year for the searched date
+  def self.at(searched_on = Date.today)
+    year = self.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
+    unless year
+      # First
+      first = self.reorder(:started_on).first
+      unless first
+        started_on = Date.today
+        first = self.create(:started_on => started_on, :stopped_on => (started_on >> 12).end_of_month)
+      end
+      return nil if first.started_on > searched_on
+
+      # Next years
+      other = first
+      while searched_on > other.stopped_on
+        other = other.find_or_create_next
+      end 
+      return other
+    end
+    return year
+  end
+
+  def self.current
+    self.currents.first
+  end
+
+  def self.closable
+    self.closables.first
+  end
+
   before_validation do
-    self.currency ||= self.company.currency
+    self.currency ||= Entity.of_company.currency
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
     if self.started_on and self.stopped_on and code.blank?
       self.code = self.default_code
     end
     self.code.upper!
-    if self.company
-      while self.company.financial_years.count(:conditions=>["code=? AND id!=?", self.code, self.id||0]) > 0 do
-        self.code.succ!
-      end
+    while self.class.count(:conditions=>["code=? AND id!=?", self.code, self.id||0]) > 0 do
+      self.code.succ!
     end
   end
 
@@ -73,10 +106,9 @@ class FinancialYear < CompanyRecord
       errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) unless self.started_on < self.stopped_on
       # If some financial years are already present
       id = self.id || 0
-      if self.company.financial_years.find(:all, :conditions=>["id!=?", id]).size > 0
-        # errors.add(:started_on, :consecutive) if not self.company.financial_years.find(:first, :conditions=>["id != ? AND stopped_on=?", id, self.started_on-1]) and self.company.financial_years.find(:first, :conditions=>["stopped_on < ?", self.started_on])
-        errors.add(:started_on, :overlap) if self.company.financial_years.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.started_on])
-        errors.add(:stopped_on, :overlap) if self.company.financial_years.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.stopped_on])
+      if self.class.count(:conditions=>["id!=?", id]) > 0
+        errors.add(:started_on, :overlap) if self.class.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.started_on])
+        errors.add(:stopped_on, :overlap) if self.class.find(:first, :conditions=>["id != ? AND ? BETWEEN started_on AND stopped_on", id, self.stopped_on])
       end
     end
   end
@@ -85,7 +117,7 @@ class FinancialYear < CompanyRecord
     unless conditions.nil?
       conditions = " AND ("+self.class.send(:sanitize_sql_for_conditions, conditions)+")"
     end
-    JournalEntry.find(:all, :conditions=>["company_id=? AND printed_on BETWEEN ? AND ? #{conditions}", self.company_id, self.started_on, self.stopped_on])
+    JournalEntry.find(:all, :conditions=>["printed_on BETWEEN ? AND ? #{conditions}", self.started_on, self.stopped_on])
   end
   
 
@@ -107,8 +139,8 @@ class FinancialYear < CompanyRecord
 
   def closures(noticed_on=nil)
     noticed_on ||= Date.today
-    array, first_year = [], self.company.financial_years.find(:first, :order=>"started_on")
-    if (first_year.nil? or first_year == self) and self.company.financial_years.size<=1
+    array, first_year = [], self.class.order("started_on").first
+    if (first_year.nil? or first_year == self) and self.class.count <= 1
       date = self.started_on.end_of_month
       while date < noticed_on
         array << date
@@ -122,14 +154,14 @@ class FinancialYear < CompanyRecord
 
 
   # When a financial year is closed, all the matching journals are closed too. 
- def close(to_close_on=nil, options={})
+  def close(to_close_on=nil, options={})
     return false unless self.closable?
 
     to_close_on ||= self.stopped_on
 
     ActiveRecord::Base.transaction do      
       # Close all journals to the 
-      for journal in self.company.journals.find(:all, :conditions => ["closed_on < ?", to_close_on])
+      for journal in Journal.where("closed_on < ?", to_close_on)
         raise false unless journal.close(to_close_on)
       end
 
@@ -140,15 +172,15 @@ class FinancialYear < CompanyRecord
       self.compute_balances!
 
       # Create first entry of the new year
-      if renew_journal = self.company.journals.find_by_id(options[:renew_id].to_i)
+      if renew_journal = Journal.find_by_id(options[:renew_id].to_i)
         
         if self.account_balances.size > 0
-          entry = renew_journal.entries.create!(:company_id => self.company.id, :printed_on => to_close_on+1, :currency_id => renew_journal.currency_id)
+          entry = renew_journal.entries.create!(:printed_on => to_close_on+1, :currency_id => renew_journal.currency_id)
           result   = 0
-          gains    = self.company.account(self.company.preferred_capital_gains_accounts)
-          losses   = self.company.account(self.company.preferred_capital_losses_accounts)
-          charges  = self.company.account(self.company.preferred_charges_accounts)
-          products = self.company.account(self.company.preferred_products_accounts)
+          gains    = Account.find_in_chart(:financial_year_gains)
+          losses   = Account.find_in_chart(:financial_year_losses)
+          charges  = Account.find_in_chart(:charges)
+          products = Account.find_in_chart(:products)
           
           for balance in self.account_balances.joins(:account).order("number")
             if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)
@@ -173,12 +205,12 @@ class FinancialYear < CompanyRecord
 
   # this method returns the previous financial_year.
   def previous
-    return self.company.financial_years.where(:stopped_on=>self.started_on-1).first
+    return self.class.where(:stopped_on=>self.started_on-1).first
   end
  
   # this method returns the next financial_year.
   def next
-    return self.company.financial_years.where(:started_on=>self.stopped_on+1).first
+    return self.class.where(:started_on=>self.stopped_on+1).first
   end
 
   # Find or create the next financial year based on the date of the current
@@ -186,7 +218,7 @@ class FinancialYear < CompanyRecord
     year = self.next
     unless year
       months = 12
-      if self.company.financial_years.count != 1
+      if self.class.count != 1
         months = 0
         x = self.started_on
         while x <= self.stopped_on.beginning_of_month
@@ -194,7 +226,7 @@ class FinancialYear < CompanyRecord
           x = x >> 1
         end
       end
-      year = self.company.financial_years.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months), :currency => self.currency)
+      year = self.class.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months), :currency => self.currency)
     end
     return year
   end
@@ -224,7 +256,7 @@ class FinancialYear < CompanyRecord
       balance << " ELSE #{FinancialYear.balance_expr(credit)} END"
     end
 
-    query  = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE a.company_id = #{self.company_id} AND ab.financial_year_id=#{self.id}"
+    query  = "SELECT sum(#{balance}) AS balance FROM #{AccountBalance.table_name} AS ab JOIN #{Account.table_name} AS a ON (a.id=ab.account_id) WHERE ab.financial_year_id=#{self.id}"
     query << " AND ("+normals.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")"
     query << " AND NOT ("+excepts.sort.collect{|c| "a.number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
     balance = ActiveRecord::Base.connection.select_value(query)
@@ -255,7 +287,7 @@ class FinancialYear < CompanyRecord
 
   # Re-create all account_balances record for the financial year
   def compute_balances!
-    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE jel.company_id = #{self.company_id} AND je.state != 'draft' GROUP BY account_id")
+    results = ActiveRecord::Base.connection.select_all("SELECT account_id, sum(jel.debit) AS debit, sum(jel.credit) AS credit, count(jel.id) AS count FROM #{JournalEntryLine.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (je.id = jel.entry_id AND je.printed_on BETWEEN #{self.class.connection.quote(self.started_on)} AND #{self.class.connection.quote(self.stopped_on)}) WHERE je.state != 'draft' GROUP BY account_id")
     self.account_balances.clear
     for result in results
       self.account_balances.create!(:account_id=>result["account_id"].to_i, :local_count=>result["count"].to_i, :local_credit=>result["credit"].to_f, :local_debit=>result["debit"].to_f)
@@ -273,7 +305,7 @@ class FinancialYear < CompanyRecord
   # Generate last journal entry with assets depreciations (optionnally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
-      self.create_last_journal_entry!(:printed_on => self.stopped_on, :journal_id => self.company.journal(:various).id)
+      self.create_last_journal_entry!(:printed_on => self.stopped_on, :journal_id => options[:journal_id])
     end
 
     # Empty journal entry

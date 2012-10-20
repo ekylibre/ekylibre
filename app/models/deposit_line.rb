@@ -21,7 +21,6 @@
 # == Table: deposit_lines
 #
 #  amount       :decimal(19, 4)   default(1.0), not null
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  deposit_id   :integer          not null
@@ -36,6 +35,6 @@
 class DepositLine < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :quantity, :allow_nil => true
-  validates_presence_of :amount, :company, :quantity
+  validates_presence_of :amount, :quantity
   #]VALIDATORS]
 end

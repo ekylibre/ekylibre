@@ -24,7 +24,6 @@
 #  arrived_on        :date             
 #  comment           :text             
 #  commercial        :boolean          
-#  company_id        :integer          not null
 #  connected_at      :datetime         
 #  created_at        :datetime         not null
 #  creator_id        :integer          

@@ -18,7 +18,7 @@
     #deposit
       =formalize do |f|
         -f.title :deposit
-        -f.field :incoming_payment_mode, :depositables_account_id, :choices=>{:reflection=>:payments_to_deposit_accounts}, :new=>{:number=>@current_company.preferred_financial_payments_to_deposit_accounts}, :resize=>true
+        -f.field :incoming_payment_mode, :depositables_account_id, :choices=>{:reflection=>:payments_to_deposit_accounts}, :new=>{:number=>Account.find_in_chart(:deposit_pending_payments).number}, :resize=>true
         -f.field :incoming_payment_mode, :depositables_journal_id, :choices=>{:reflection=>:journals}, :new=>true, :resize=>true
 
     #commission
@@ -26,4 +26,4 @@
         -f.title :commission
         -f.field :incoming_payment_mode, :commission_base_amount
         -f.field :incoming_payment_mode, :commission_percent
-        -f.field :incoming_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:number=>@current_company.preferred_charges_accounts}, :resize=>true
+        -f.field :incoming_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:number=>Account.find_in_chart(:charges).number}, :resize=>true

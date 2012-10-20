@@ -21,7 +21,6 @@
 # == Table: journal_entries
 #
 #  balance                :decimal(19, 4)   default(0.0), not null
-#  company_id             :integer          not null
 #  created_at             :datetime         not null
 #  created_on             :date             not null
 #  creator_id             :integer          

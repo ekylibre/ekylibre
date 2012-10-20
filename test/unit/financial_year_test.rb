@@ -22,7 +22,6 @@
 #
 #  closed                :boolean          not null
 #  code                  :string(12)       not null
-#  company_id            :integer          not null
 #  created_at            :datetime         not null
 #  creator_id            :integer          
 #  currency              :string(3)        

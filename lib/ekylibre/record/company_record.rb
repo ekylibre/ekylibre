@@ -24,11 +24,11 @@ class CompanyRecord < Ekylibre::Record::Base
 
   def self.inherited(child)
     super
-    code  = "attr_readonly :company_id\n"
-    code << "belongs_to :company\n"
+    #    code  = "attr_readonly :company_id\n"
+    #    code << "belongs_to :company\n"
     # Redundant with clean:validations
     # code << "validates_presence_of :company, :company_id"
-    child.class_eval code
+    # child.class_eval code
   end
 
 end 

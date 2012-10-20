@@ -20,7 +20,6 @@
 # 
 # == Table: stocks
 #
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  critic_quantity_min :decimal(19, 4)   default(0.0), not null
@@ -43,7 +42,6 @@
 class Stock < CompanyRecord
   attr_readonly :unit_id, :product_id, :warehouse_id, :tracking_id
   attr_protected :quantity
-  belongs_to :company
   belongs_to :warehouse
   belongs_to :product
   belongs_to :tracking
@@ -52,10 +50,12 @@ class Stock < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :critic_quantity_min, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :company, :critic_quantity_min, :product, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :warehouse
+  validates_presence_of :critic_quantity_min, :product, :quantity, :quantity_max, :quantity_min, :virtual_quantity, :warehouse
   #]VALIDATORS]
   validates_presence_of :unit, :quantity, :virtual_quantity
   validates_uniqueness_of :product_id, :scope=>[:tracking_id, :warehouse_id]
+
+  scope :critics, where('virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)')
 
   before_validation(:on=>:create) do
     self.quantity = 0
@@ -65,8 +65,7 @@ class Stock < CompanyRecord
 
   
   before_validation do
-    warehouses = self.company.warehouses
-    self.warehouse = warehouses.first if warehouses.size == 1
+    self.warehouse = Warehouse.first if Warehouse.size == 1
     if self.product
       self.unit_id ||= self.product.unit_id
       self.quantity_min = self.product.quantity_min if self.quantity_min.nil?
@@ -111,9 +110,9 @@ class Stock < CompanyRecord
   def add_or_update(params, product_id)
     params ||= {}
     product_id ||= self.product_id
-    stock = Stock.find(:first, :conditions=>{:company_id=>self.company_id, :warehouse_id=>params[:warehouse_id], :product_id=>product_id})
+    stock = Stock.find(:first, :conditions=>{:warehouse_id=>params[:warehouse_id], :product_id=>product_id})
     if stock.nil?
-      ps = Stock.new(:company_id=>self.company_id, :warehouse_id=>params[:warehouse_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
+      ps = Stock.new(:warehouse_id=>params[:warehouse_id], :product_id=>product_id, :quantity_min=>params[:quantity_min], :quantity_max=>params[:quantity_max], :critic_quantity_min=>params[:critic_quantity_min])
       ps.save
     else
       stock.update_attributes(params)

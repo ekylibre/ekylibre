@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class TrackingsController < ApplicationController
+class TrackingsController < AdminController
 
-  list(:operation_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
+  list(:operation_lines, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :order=>'operation_id') do |t|
     t.column :name, :through=>:operation, :url=>true
     t.column :direction_label
     t.column :quantity
@@ -27,21 +27,21 @@ class TrackingsController < ApplicationController
     t.column :name, :through=>:warehouse, :url=>true
   end
 
-  list(:purchase_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'purchase_id') do |t|
+  list(:purchase_lines, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :order=>'purchase_id') do |t|
     t.column :number, :through=>:purchase, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:warehouse, :url=>true
   end
 
-  list(:sale_lines, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :order=>'sale_id') do |t|
+  list(:sale_lines, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :order=>'sale_id') do |t|
     t.column :number, :through=>:sale, :url=>true
     t.column :quantity
     t.column :label, :through=>:unit
     t.column :name, :through=>:warehouse, :url=>true
   end
 
-  list(:stocks, :conditions=>{:company_id => ['@current_company.id'], :tracking_id=>['session[:current_tracking_id]']}, :line_class=>'RECORD.state') do |t|
+  list(:stocks, :conditions=>{:tracking_id=>['session[:current_tracking_id]']}, :line_class=>'RECORD.state') do |t|
     t.column :weight, :through=>:product, :label=>:column
     t.column :quantity_max
     t.column :quantity_min

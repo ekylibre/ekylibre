@@ -22,7 +22,6 @@
 #
 #  check_state         :boolean          not null
 #  comment             :text             
-#  company_id          :integer          not null
 #  created_at          :datetime         not null
 #  creator_id          :integer          
 #  flow                :decimal(19, 4)   default(0.0), not null
@@ -42,18 +41,16 @@
 
 
 class ProductionChainConveyor < CompanyRecord
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :flow, :source_quantity, :target_quantity, :allow_nil => true
-  validates_inclusion_of :check_state, :unique_tracking, :in => [true, false]
-  validates_presence_of :company, :flow, :product, :production_chain, :source_quantity, :target_quantity, :unit
-  #]VALIDATORS]
-  attr_readonly :company_id
-  belongs_to :company
   belongs_to :product
   belongs_to :production_chain
   belongs_to :source, :class_name=>"ProductionChainWorkCenter"
   belongs_to :target, :class_name=>"ProductionChainWorkCenter"
   belongs_to :unit
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :flow, :source_quantity, :target_quantity, :allow_nil => true
+  validates_inclusion_of :check_state, :unique_tracking, :in => [true, false]
+  validates_presence_of :flow, :product, :production_chain, :source_quantity, :target_quantity, :unit
+  #]VALIDATORS]
 
   @@check_events = [:none, :input, :output, :both]
   def self.check_events_list
@@ -61,7 +58,6 @@ class ProductionChainConveyor < CompanyRecord
   end
 
   before_validation do
-    self.company_id = self.production_chain.company_id if self.production_chain
     self.unit ||= self.product.unit if self.product
     self.target_quantity = 0 unless self.target
     self.source_quantity = 0 unless self.source

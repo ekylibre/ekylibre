@@ -20,7 +20,6 @@
 # 
 # == Table: observations
 #
-#  company_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer          
 #  description  :text             not null
@@ -34,23 +33,17 @@
 
 
 class Observation < CompanyRecord
-  belongs_to :company
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :importance, :allow_nil => true, :maximum => 10
-  validates_presence_of :company, :description, :entity, :importance
+  validates_presence_of :description, :entity, :importance
   #]VALIDATORS]
 
-  attr_readonly :company_id
-  
-  
   def self.importances
     [:important, :normal, :notice].collect{|x| [tc('importances.'+x.to_s), x] }
   end
 
-
   before_validation do
-    self.company ||= self.entity.company if self.entity
     self.importance ||= "notice"
   end
 
