@@ -18,6 +18,7 @@
 #
 # ##### END LICENSE BLOCK #####
 
+# encoding: utf-8
 module ApplicationHelper
   
   # def options_for_unroll(options = {})
@@ -47,7 +48,6 @@ module ApplicationHelper
   #   end
   #   return list    
   # end
-
 
   def options_for_unroll(options = {})
     filter = options[:filter].to_sym
@@ -470,7 +470,11 @@ module ApplicationHelper
     html << "<h2>" + (options[:title]||tl(name)) + "</h2>"
     html << "</div>"
     html << "<div class='sd-content'" + (shown ? '' : ' style="display: none"') + ">"
-    html << capture(&block)
+    begin
+      html << capture(&block)
+    rescue Exception => e
+      html << content_tag(:small, "#{e.class.name}: #{e.message}")
+    end
     html << "</div>"
     html << "</div>"
     return html.html_safe

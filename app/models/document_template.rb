@@ -61,9 +61,6 @@ class DocumentTemplate < CompanyRecord
 
   include ActionView::Helpers::NumberHelper 
 
-  PREAMBLE = "#1.3\n"
-
-
   @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
 
   # id is forbidden names for parameters

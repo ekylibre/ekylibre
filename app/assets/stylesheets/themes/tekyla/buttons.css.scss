@@ -136,10 +136,7 @@ input[type="submit"], a.btn {
   button, a.btn.large, a.btn.mini, a.btn, input, select { 
     @include border-radius(0);
     margin-left: -1 * $menu-border-width;
-    &:active, &:focus { 
-      position: relative;
-      z-index: 2;
-    }
+    z-index: 1;
     &:first-child { 
       margin-left: 0;
     }
@@ -150,7 +147,11 @@ input[type="submit"], a.btn {
     html[dir="ltr"] &:last-child, html[dir="rtl"] &:first-child {
       @include border-top-right-radius($buttons-radius);
       @include border-bottom-right-radius($buttons-radius);
-    }    
+    }
+    &:focus, &:hover, &:active { 
+      position: relative;
+      z-index: 2;
+    }
   }
 }
 

@@ -8,8 +8,7 @@ Homepage: http://www.ekylibre.org
 
 Package: ekylibre
 Architecture: all
-Depends: ruby (>=1.8.7), rubygems, apache2 (>=2.2.4), apache2-prefork-dev, libcurl4-openssl-dev, libopenssl-ruby, build-essential, postgresql (>=8.3), ruby-dev, zlib1g-dev, libxml2-dev, libpq-dev, libxslt1-dev
-Recommends: ruby (>=1.8.7)
+Depends: ruby1.9.1, libruby1.9.1, ruby1.9.1-dev, apache2 (>=2.2.4), apache2-prefork-dev, libcurl4-openssl-dev, build-essential, postgresql (>=8.3), zlib1g-dev, libxml2-dev, libpq-dev, libxslt1-dev
 Suggests: ttf-liberation
 Description: Simple ERP for little businesses
  Ekylibre is a simple ERP for little businesses. Ekylibre can manage companies,

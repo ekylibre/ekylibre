@@ -120,7 +120,7 @@ module Templating::Compilers
                       when 'format'
                         "(::I18n.localize(#{datum}, :format=>:#{option[1]}) rescue (#{datum}).to_s)"
                       when 'numeric'
-                        "number_to_currency(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
+                        "number_with_precision(#{datum}, :separator=>',', :delimiter=>' ', :unit=>'', :precision=>2)"
                       else
                         datum
                       end
@@ -324,7 +324,7 @@ module Templating::Compilers
                 curr_hash[:delimiter] ||= "' '"
                 curr_hash[:unit] ||= "''"
                 curr_hash[:precision] ||= '2'
-                value = "number_to_currency(#{value}, #{hash_to_code(curr_hash, true)})"
+                value = "number_with_precision(#{value}, #{hash_to_code(curr_hash, true)})"
                 column[:phash][:align] ||= ":right"
               end
               "{:value=>#{value}.to_s, :width=>#{pt_to_s(column[:width])}, :align=>:#{column[:align]}}"

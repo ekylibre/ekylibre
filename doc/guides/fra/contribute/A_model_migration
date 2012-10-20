@@ -1,0 +1,221 @@
+h1. Modeles et Migrations
+
+Nous avons un projet de gestion de troupeaux avec comme objectif l'ecran ci-dessous
+
+!https://github.com/ekylibre/ekylibre/blob/master/doc/mockups/animal_husbandry/index.png!
+
+h2. Intro
+
+Au départ, nous allons juste chercher à créer des ecrans avec les fonctions de bases (CRUD - 
+create / read / update  and delete) sur un animal.
+Nous allons donc nous baser sur le modele http://yuml.me/edit/893692a9
+
+!https://github.com/ekylibre/ekylibre/blob/master/doc/guides/fra/contribute/images/animals_yuml_model.png!
+
+Dans ce diagramme de classe, nous n'avons pas mentionné les clefs primaires ou étrangères comme company_id or animal_group_id
+Le framework le fera pour nous.
+
+bq. les clefs primaires sont identifiées par *id*
+les clefs étrangères se terminent par *_id*
+
+h2. 1 - Créer une migration
+
+Dans le but de créer nos tables dans notre base de données, nous devons ecrire une migration
+Voiçi notre première migration.
+
+>>Créer un fichier nommé 20121013140801_create_animals.rb dans db/migrate
+Nous nommons les relations avec belongs_to
+
+<pre><code class="ruby">
+#db/migrate/20121013140801_create_animals.rb
+class CreateAnimals < ActiveRecord::Migration
+  def change
+    create_table :animals do |t|
+      t.belongs_to :company,               :null=>false
+      t.belongs_to :animal_group,               :null=>false
+      t.string     :name,                  :null=>false
+      t.string     :ident_number,                :null=>false
+      t.date       :born_on,            :null=>false
+      t.string     :sexe,                :null=>false, :limit=>1, :default=>'M'
+      t.text       :description
+      t.text       :comment
+      t.date       :in_on,  :null=>false
+      t.date       :out_on, :null=>false
+      t.date       :purchased_on,          :null=>false
+      t.date       :ceded_on
+      t.stamps
+    end
+    add_stamps_indexes :animals
+    add_index :animals, :name
+    add_index :animals, :animal_group_id
+    
+    create_table :animal_groups do |t|
+       t.belongs_to :company,               :null=>false
+       t.string     :name,                  :null=>false
+       t.text       :description
+       t.text       :comment
+       t.stamps
+    end
+    add_stamps_indexes :animal_groups
+    
+  end
+end
+</code></pre>
+
+Cette migration va créer deux tables avec leurs indexations respectives
+Vous remarquerez la façon dont on donne le type du champ et ses options.
+l'indication t.stamps permet de créer automatiquement certains champs (created_at,update_at,creator_id,updater_id,lock_version)
+Pour réaliser cette migration, nous allons executer une commande en ligne de commande à la racine de l'application ekylibre
+
+>>taper
+<pre><code class="ruby">
+#in /ekylibre
+rake db:migrate
+</code></pre>
+
+Après avoir passé cette commande, regarder le fichier db/schema.rb
+C'est le fichier qui représente le schéma global de votre application, il ne faut jamais le modifer à la main car c'est Rails qui s'en charge
+Ce fichier permet, entre autre,de créer une base de données vide lors de l'appel de db:create par exemple.
+
+<pre><code class="ruby">
+  create_table "animals", :force => true do |t|
+    t.integer  "company_id",                                    :null => false
+    t.integer  "animal_group_id",                               :null => false
+    t.string   "name",                                          :null => false
+    t.string   "ident_number",                                  :null => false
+    t.date     "born_on",                                       :null => false
+    t.string   "sexe",            :limit => 1, :default => "M", :null => false
+    t.text     "description"
+    t.text     "comment"
+    t.date     "in_on",                                         :null => false
+    t.date     "out_on",                                        :null => false
+    t.date     "purchased_on",                                  :null => false
+    t.date     "ceded_on"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                 :default => 0,   :null => false
+  end
+
+  add_index "animals", ["animal_group_id"], :name => "index_animals_on_animal_group_id"
+  add_index "animals", ["created_at"], :name => "index_animals_on_created_at"
+  add_index "animals", ["creator_id"], :name => "index_animals_on_creator_id"
+  add_index "animals", ["name"], :name => "index_animals_on_name"
+  add_index "animals", ["updated_at"], :name => "index_animals_on_updated_at"
+  add_index "animals", ["updater_id"], :name => "index_animals_on_updater_id"
+</code></pre>
+
+si vous avez un champ ou une option, vous devez annuler votre migration par un "rollback"
+
+>>taper
+<pre><code class="ruby">
+#in a command line at the root of ekylibre
+rake db:rollback
+</code></pre>
+
+vous pouvez maintenant modiifer votre fichier de migration et repasser votre migration
+
+>>taper
+<pre><code class="ruby">
+#in /ekylibre
+rake db:migrate
+</code></pre>
+
+Voilà, vous connaissez maintenant les rudiments sur les migrations.
+
+bq. _*Migrations_Conventions*_
+nom du fichier - YYYYMMDDHHMMSS_action_models.rb
+nom des classes - ActionModels
+nom des tables - models
+nom des champs - t.type :name, :option1=>value1, :option2=>value2
+t.stamps permet la création des champs created_at,update_at,creator_id,updater_id,lock_version
+rake db:migrate et rake db:rollback permmettent de passer ou annuler une migration vers votre base de données
+
+bq. _*Official Doc*_
+Migrations http://guides.rubyonrails.org/migrations.html
+
+h2. 2 - Le modèle de base
+
+Maintenant que nous avons nos tables, nous allons pouvoir les "mapper" avec nos classes du modeles
+
+>>créer un fichier dans app/models qui s'appelle animal.rb
+
+<pre><code class="ruby">
+#app/models/animal.rb
+class Animal < CompanyRecord
+end
+</code></pre>
+
+>>passer la commande suivante
+<pre><code class="ruby">
+rake clean:models clean:validations
+</code></pre>
+
+vous devriez obtenir le fichier suivant,qui contient des validations automatiquement ajoutées.
+
+<pre><code class="ruby">
+#app/models/animal.rb
+class Animal < CompanyRecord
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :sexe, :allow_nil => true, :maximum => 1
+  validates_length_of :ident_number, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :born_on, :company, :ident_number, :in_on, :name, :out_on, :purchased_on, :sexe
+  #]VALIDATORS]
+end
+</code></pre>
+
+Nous n'avons plus qu'à rajouter nos relations et nos validations complémentaires
+(nous voulons un champ name unique et un champ ident_number unique pour chaque animal)
+de plus,le champ company_id ne doit pas être modifiable.
+Il ne faut jamais modifier les validations automatiques qui se situent entre les balises
+#[VALIDATORS et TO VALIDATORS]
+
+>>Ajouter les validations comme ci-dessous
+<pre><code class="ruby">
+#app/models/animal.rb
+class Animal < CompanyRecord
+  belongs_to :animal_group
+  belongs_to :company
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :sexe, :allow_nil => true, :maximum => 1
+  validates_length_of :ident_number, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :animal_group, :born_on, :company, :ident_number, :in_on, :name, :out_on, :purchased_on, :sexe
+  #]VALIDATORS]
+  attr_readonly :company_id
+  validates_uniqueness_of :name, :ident_number
+end
+</code></pre>
+
+nous avons également à faire une autre classe car nous avons une autre table
+
+>>refaite les mêmes démarches pour obtenir un fichier animal_group.rb comme ci-dessous
+
+<pre><code class="ruby">
+#app/models/animal_group.rb
+class AnimalGroup < CompanyRecord
+  belongs_to :company
+  has_many :animals
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
+  #]VALIDATORS]
+   validates_uniqueness_of :name
+end
+</code></pre>
+
+Voilà, vous connaissez maintenant les rudiments sur les modèles.
+
+bq. _*Models_Conventions*_
+nom du fichier - model.rb
+Nom de classe - Model ou ModelOne
+relations avec - belong_to :model
+validations avec - validates_uniqueness_of :column
+rake clean:models clean:validations pour générer les validations automatiques
+
+bq. _*Official Doc*_
+Associations http://guides.rubyonrails.org/association_basics.html
+Validations http://guides.rubyonrails.org/active_record_validations_callbacks.html
+
+Agrilibre - Agricultural ERP project on Ekylibre
+Copyright (C) 2012 - Author : David JOULIN

@@ -68,7 +68,6 @@ class JournalEntryLine < CompanyRecord
     joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_lines.id")
   }
 
-
   state_machine :state, :initial=>:draft do
     state :draft
     state :confirmed
