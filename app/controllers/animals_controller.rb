@@ -17,19 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalsController < ApplicationController
+class AnimalsController < AdminController
   manage_restfully
   
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :ident_number, :url=>{:action=>:show}
+  list do |t|
+    t.column :identification_number, :url=>{:action=>:show}
     t.column :name, :url=>true
-    t.column :name, :through=>:animal_group, :url=>true
+    t.column :name, :through=>:group, :url=>true
     t.column :born_on
-    t.column :sexe
+    t.column :sex
     t.column :comment
     t.column :description
-    t.column :in_on
-    t.column :out_on
+    t.column :income_on
+    t.column :outgone_on
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"

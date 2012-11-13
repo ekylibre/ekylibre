@@ -21,13 +21,11 @@
 
 
 class Animal < CompanyRecord
-  belongs_to :animal_group
-  belongs_to :company
+  belongs_to :group, :class_name => "AnimalGroup"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :sexe, :allow_nil => true, :maximum => 1
-  validates_length_of :ident_number, :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :born_on, :company, :ident_number, :in_on, :name, :out_on, :purchased_on, :sexe
+  validates_length_of :sex, :allow_nil => true, :maximum => 1
+  validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :born_on, :group, :identification_number, :income_on, :name, :outgone_on, :purchased_on, :sex
   #]VALIDATORS]
-  attr_readonly :company_id
-  validates_uniqueness_of :name, :ident_number
+  validates_uniqueness_of :name, :identification_number
 end

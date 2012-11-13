@@ -12,6 +12,8 @@ fra:
     animals:
       index: "Gestion des animaux"
       new: "Créer un animal"
+      edit: "Modifier un animal"
+      show: "animal %{name}"
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"

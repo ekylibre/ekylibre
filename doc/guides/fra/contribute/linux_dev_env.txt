@@ -6,6 +6,7 @@ h1. Procédure d'installation d'un poste de developpement Ruby / Rails / Ekylibr
 sudo apt-get -y update
 sudo apt-get -y install build-essential zlib1g-dev libssl-dev libreadline-dev libyaml-dev libcurl4-openssl-dev curl git-core python-software-properties libsqlite3-dev sqlite3 libxml2-dev libxslt-dev autoconf libc6-dev ncurses-dev automake libtool bison libmysqlclient-dev libpq-dev nodejs
 #ruby
+//voir procedure avec RVM (https://rvm.io/rvm/install)
 wget ftp://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p194.tar.gz
 tar -xvzf ruby-1.9.3-p194.tar.gz
 cd ruby-1.9.3-p194/

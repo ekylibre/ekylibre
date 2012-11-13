@@ -4,7 +4,7 @@ h2. How to
 
 h3. YML syntax
 
-escape caracter : \_
+space insecable caracter (NBSP) : \_
 using variable : %{toto}
 YML is space sensitive
 
@@ -17,6 +17,8 @@ activerecord:
 h2. 1 - Adding Translation
 
 h3. A - Title of the page
+
+@TODO : voir Brice rake clean local
 
 ex : fra.actions.animals.index is the title of the page
 
@@ -84,6 +86,8 @@ the route permit to match a request to a controller.
 
 h2. 3 - Adding right
 
+@TODO : Brice Systeme de gestion de droits à caler
+	
 <pre><code class="ruby">
 #config/rights.rb
 # Consult & create animals

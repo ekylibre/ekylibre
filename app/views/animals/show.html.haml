@@ -1,17 +1,17 @@
 =toolbar do |t|
-  /action edit d'un animal
+  -# action edit d'un animal
   -t.edit @animal
-  /action print d'un animal
+  -# action print d'un animal
   -t.print_entity @animal
-  /action destroy d'un animal avec demande de confirmation
+  -# action destroy d'un animal avec demande de confirmation
   -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
 
-=attributes_list(@animal) do |l|
-  /liste des champs à afficher
+=attributes_list(@animal) do |l| # liste des champs à afficher 
   -l.attribute :name
-  -l.attribute :sexe
-  -l.attribute :ident_number
-  -l.attribute :in_on
-  -l.attribute :out_on
+  -l.attribute :group, :url => true # on affiche l'attribut name de l'entité AnimalGroup associé par l'attribut group de l'entité courante Animal avec un lien vers ce groupe 
+  -l.attribute :sex
+  -l.attribute :identification_number
+  -l.attribute :income_on
+  -l.attribute :outgone_on
   -l.attribute :purchased_on
   -l.attribute :comment

@@ -1,14 +1,14 @@
 =field_set(@animal, :general_informations) do |f| # partie info general de l entité animal
   =f.error :animal # affiche les erreurs renvoyés par le model
   =f.hint 'Selectionner la catégorie' # affiche une infos
-  =f.association :animal_group # affiche un menu deroulant construit par la relation animal_group_id vers le champ name de l entité animal_group
+  =f.association :group, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
   =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sexe, :collection => ["M", "F"], :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :sex, :collection => ["M", "F"], :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.input :born_on
-  =f.input :ident_number
+  =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   =f.input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
 
 =field_set(@animal, :stocks_informations) do |f| # partie entrée sortie de l entité animal
-  =f.input :in_on
-  =f.input :out_on
+  =f.input :income_on
+  =f.input :outgone_on
   =f.input :purchased_on

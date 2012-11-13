@@ -21,12 +21,10 @@
 
 
 class AnimalGroup < CompanyRecord
-  belongs_to :company
-  has_many :animals
+  has_many :animals, :foreign_key => :group_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
   #]VALIDATORS]
    validates_uniqueness_of :name
-
 end

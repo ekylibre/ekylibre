@@ -11,34 +11,35 @@ Tout ce passe dans le repertoire app/controler
 
 <pre><code class="ruby">
 #app/controllers/animals_controller.rb
-class AnimalsController < ApplicationController
-  # va créer automatiquement les actions (new / update / delete / create)
+class AnimalsController < AdminController
+  
+  # va créer automatiquement les actions (new / edit / update / destroy / create)
   manage_restfully
   
   # Décrit les champs que nous voulons dans la page d'accueil des animaux
   # url=>{:action=>:show} permet de créer un lien vers la fiche de l'animal
   #:through=>:animal_group, :url=>true permet de créer un lien vers la catégorie de l'animal (autre modele)
   #t.action va créer un bouton avec l'option vers la fonction
-  list(:conditions=>{:company_id=>['@current_company.id']}) do |t|
-    t.column :ident_number, :url=>{:action=>:show}
+  list do |t|
+    t.column :identification_number, :url=>{:action=>:show}
     t.column :name, :url=>true
-    t.column :name, :through=>:animal_group, :url=>true
+    t.column :name, :through=>:group, :url=>true
     t.column :born_on
-    t.column :sexe
+    t.column :sex
     t.column :comment
     t.column :description
-    t.column :in_on
-    t.column :out_on
+    t.column :income_on
+    t.column :outgone_on
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
   
-  # Monter une liste d'animaux décrite ci-dessus
+  # Montrer une page d'accueil avec une liste d'animaux décrite ci-dessus
   def index
   end
   
-  # Montre un la fiche d'un animal identifié par son id en paramètre 
+  # Montre la fiche d'un animal identifié par son id en paramètre 
   def show
     return unless @animal = find_and_check
     session[:current_animal_id] = @animal.id   
@@ -54,7 +55,7 @@ Comme vous venez de le remarquer, nous avons juste à écrire notre fonction sho
 bq. _*Controleurs_Conventions*_
 nom de fichier - animals_controller.rb
 nom de classe - AnimalsController
-manage_restfully gère (new / update / delete / create)
+manage_restfully gère (new / edit / update / destroy / create)
 au minimum une fontion list,index et show
 
 bq. _*Official Doc*_
@@ -101,20 +102,20 @@ Nous allons ensuite créer la vue permettant de montrer un animal
 
 <pre><code class="ruby">
 =toolbar do |t|
-  /action edit d'un animal
+  -# action edit d'un animal
   -t.edit @animal
-  /action print d'un animal
+  -# action print d'un animal
   -t.print_entity @animal
-  /action destroy d'un animal avec demande de confirmation
+  -# action destroy d'un animal avec demande de confirmation
   -t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
 
-=attributes_list(@animal) do |l|
-  /liste des champs à afficher
+=attributes_list(@animal) do |l| # liste des champs à afficher 
   -l.attribute :name
-  -l.attribute :sexe
-  -l.attribute :ident_number
-  -l.attribute :in_on
-  -l.attribute :out_on
+  -l.attribute :group, :url => true # on affiche l'attribut name de l'entité AnimalGroup associé par l'attribut group de l'entité courante Animal avec un lien vers ce groupe 
+  -l.attribute :sex
+  -l.attribute :identification_number
+  -l.attribute :income_on
+  -l.attribute :outgone_on
   -l.attribute :purchased_on
   -l.attribute :comment
 </code></pre>
@@ -132,7 +133,7 @@ Nous allons ensuite créer la vue permettant de rechercher un animal
 =kujaku(:controller=>:animals, :action=>:index)
 </code></pre>
 
-On appelle notre controller pour qu'il renvoit l'action index , cad la liste des animaux avec en paramètre la variable q qui contient notre recherche
+On appelle notre controller pour qu'il renvoit l'action index , cad la liste des animaux
 
 h3. D - vue _form 
 
@@ -163,7 +164,7 @@ On affiche divers champs mis en forme grace aux composants internes dans deux pa
 
 vous devriez voir cela
 
-!https://github.com/ekylibre/ekylibre/blob/master/doc/guides/fra/contribute/images/animals_view_edit.png!
+!https://github.com/ekylibre/ekylibre/raw/master/doc/guides/fra/contribute/images/animals_view_edit.png!
 
 A ce stade, vous avez réalisé une migration , un modèle avec deux entités en relations, un controleur et les vues associés.
 Vous avez réalisé le plus dur.
@@ -176,5 +177,5 @@ bq. _*Official Doc*_
 HAML http://haml.info/
 SimpleForm https://github.com/plataformatec/simple_form
 
-Agrilibre - Agricultural ERP project on Ekylibre
+Ekylibre - Tutorial for Agricultural ERP project on Ekylibre
 Copyright (C) 2012 - Author : David JOULIN

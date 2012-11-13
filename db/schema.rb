@@ -58,7 +58,6 @@ ActiveRecord::Schema.define(:version => 20121013140801) do
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
   create_table "animal_groups", :force => true do |t|
-    t.integer  "company_id",                  :null => false
     t.string   "name",                        :null => false
     t.text     "description"
     t.text     "comment"
@@ -75,28 +74,27 @@ ActiveRecord::Schema.define(:version => 20121013140801) do
   add_index "animal_groups", ["updater_id"], :name => "index_animal_groups_on_updater_id"
 
   create_table "animals", :force => true do |t|
-    t.integer  "company_id",                                    :null => false
-    t.integer  "animal_group_id",                               :null => false
-    t.string   "name",                                          :null => false
-    t.string   "ident_number",                                  :null => false
-    t.date     "born_on",                                       :null => false
-    t.string   "sexe",            :limit => 1, :default => "M", :null => false
+    t.integer  "group_id",                                            :null => false
+    t.string   "name",                                                :null => false
+    t.string   "identification_number",                               :null => false
+    t.date     "born_on",                                             :null => false
+    t.string   "sex",                   :limit => 1, :default => "M", :null => false
     t.text     "description"
     t.text     "comment"
-    t.date     "in_on",                                         :null => false
-    t.date     "out_on",                                        :null => false
-    t.date     "purchased_on",                                  :null => false
+    t.date     "outgone_on",                                          :null => false
+    t.date     "income_on",                                           :null => false
+    t.date     "purchased_on",                                        :null => false
     t.date     "ceded_on"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                 :default => 0,   :null => false
+    t.integer  "lock_version",                       :default => 0,   :null => false
   end
 
-  add_index "animals", ["animal_group_id"], :name => "index_animals_on_animal_group_id"
   add_index "animals", ["created_at"], :name => "index_animals_on_created_at"
   add_index "animals", ["creator_id"], :name => "index_animals_on_creator_id"
+  add_index "animals", ["group_id"], :name => "index_animals_on_group_id"
   add_index "animals", ["name"], :name => "index_animals_on_name"
   add_index "animals", ["updated_at"], :name => "index_animals_on_updated_at"
   add_index "animals", ["updater_id"], :name => "index_animals_on_updater_id"
