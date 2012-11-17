@@ -71,13 +71,17 @@ class Preference < CompanyRecord
     end
   end
 
+  def self.[](name)
+    return nil
+  end
+
 
   def self.get(name)
     preference = Preference.find_by_name(name)
     if preference.nil? and @@preferences.has_key?(name.to_s)
-        preference = #{preferences}.new(:name=>name, :nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type])
-          preference.value = @@preferences[name][:default] if @@preferences[name][:default]
-        preference.save!
+      preference = self.new(:name=>name, :nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type])
+      preference.value = @@preferences[name][:default] if @@preferences[name][:default]
+      preference.save!
       elsif preference.nil?
         raise ArgumentError.new('Undefined preference for #{self.name}: '+name.to_s)
       end

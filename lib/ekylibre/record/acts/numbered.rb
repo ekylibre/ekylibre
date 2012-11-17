@@ -16,7 +16,7 @@ module Ekylibre::Record
           options = {:start=>'00000001'}.merge(options)
 
 
-          sequence = options[:sequence] || "#{self.name.underscore.pluralize}_sequence"
+          sequence = options[:sequence] || self.name.underscore.pluralize # "#{self.name.underscore.pluralize}_sequence"
 
           # last = "#{self.name}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC')"
           last = "#{self.name}.where('#{column} IS NOT NULL').order(#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC').first"
@@ -36,7 +36,7 @@ module Ekylibre::Record
           code << "end\n"
 
           code << "after_validation(:on => :create) do\n"
-          code << "  if sequence = self.company.preferred_#{sequence}\n"
+          code << "  if sequence = Sequence.of('#{sequence}')\n"
           code << "    self.#{column} = sequence.next_value\n"
           code << "  else\n"
           code << "    last = #{last}\n"

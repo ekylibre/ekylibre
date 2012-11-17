@@ -108,7 +108,7 @@ class User < CompanyRecord
       self.language = entity.language if self.language.blank?
     end
     self.reduction_percent ||= 0
-    self.admin = true if self.rights.nil?
+    # self.admin = true if self.rights.nil?
     self.rights_array = self.rights_array # Clean the rights
     return true
   end

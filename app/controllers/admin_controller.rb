@@ -73,7 +73,7 @@ class AdminController < BaseController
   def accessible?(url={})
     #puts url.inspect
     if url.is_a?(Hash)
-      url[:controller]||=controller_name 
+      url[:controller]||=self.controller_name 
       url[:action]||=:index
     end
     if @current_user
@@ -90,7 +90,7 @@ class AdminController < BaseController
 
   def self.authorized?(url={})
     if url.is_a?(Hash)
-      # url[:controller]||=controller_name 
+      # url[:controller]||=self.controller_name 
       url[:action]||=:index
     end
     if @current_user
@@ -108,7 +108,7 @@ class AdminController < BaseController
   protected  
 
   def render_restfully_form(options={})
-    operation = action_name.to_sym
+    operation = self.action_name.to_sym
     operation = (operation==:create ? :new : operation==:update ? :edit : operation)
     partial   = options[:partial]||'form'
     render(:template=>options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
@@ -236,8 +236,8 @@ class AdminController < BaseController
   # Controls access to every view in Ekylibre. 
   def authorize()
     # Get action rights
-    controller_rights = {} unless controller_rights = User.rights[controller_name.to_sym]
-    action_rights = controller_rights[action_name.to_sym]||[]
+    controller_rights = {} unless controller_rights = User.rights[self.controller_name.to_sym]
+    action_rights = controller_rights[self.action_name.to_sym]||[]
 
     # Returns if action is public
     return true if action_rights.include?(:__public__)
@@ -251,7 +251,7 @@ class AdminController < BaseController
 
     # Set session variables and check state
     session[:last_page] ||= {}
-    if request.get? and not request.xhr? and not [:sessions, :help].include?(controller_name.to_sym)
+    if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
       session[:last_url] = request.url
     end
     @article = search_article
@@ -277,7 +277,7 @@ class AdminController < BaseController
     return true if action_rights.include?(:__minimum__)
 
     # Check rights before allowing access
-    if message = @current_user.authorization(controller_name, action_name, session[:rights])
+    if message = @current_user.authorization(self.controller_name, self.action_name, session[:rights])
       if @current_user.admin
         notify_error_now(:access_denied, :reason=>message, :url=>request.url.inspect)
       else
@@ -302,7 +302,7 @@ class AdminController < BaseController
       if session[:history][1].is_a?(Hash) and session[:history][1][:url] == request.url
         session[:history].delete_at(0)
       elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:url] != request.url)
-        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{controller_name}::#{action_name}"]||[], :path=>request.path})
+        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{self.controller_name}::#{self.action_name}"]||[], :path=>request.path})
         session[:history].delete_at(31)
       end
     end
@@ -373,7 +373,7 @@ class AdminController < BaseController
     end
     if params[:profile] == "graph"
       printer = RubyProf::CallStackPrinter.new(result)
-      name = "RubyProf-#{controller_name}-#{action_name}-#{Time.now.to_i.to_s(36)}.html"
+      name = "RubyProf-#{self.controller_name}-#{self.action_name}-#{Time.now.to_i.to_s(36)}.html"
       file = File.open(Rails.root.join("public", name), "wb")
       printer.print(file)
       self.response.body.sub! "</body>", "<a href='/#{name}'>Graph</a></body>" # <div>CallTree printed in STDOUT</div>
@@ -470,7 +470,7 @@ class AdminController < BaseController
 
   # Build standard RESTful actions to manage records of a model
   def self.manage_restfully(defaults={})
-    name = controller_name
+    name = self.controller_name
     t3e = defaults.delete(:t3e)
     url = defaults.delete(:redirect_to)
     xhr = defaults.delete(:xhr)
@@ -541,7 +541,7 @@ class AdminController < BaseController
 
   # Build standard actions to manage records of a model
   def self.manage_restfully_list(order_by=:id)
-    name = controller_name
+    name = self.controller_name
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     records = model.name.underscore.pluralize

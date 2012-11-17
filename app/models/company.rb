@@ -221,8 +221,8 @@ class Company < ActiveRecord::Base
   validates_presence_of :code
   #]VALIDATORS]
   validates_uniqueness_of :code
-  validates_length_of :code, :in=>4..16
-  validates_presence_of :currency
+  validates_length_of :code, :in => 4..16
+  # validates_presence_of :currency
 
   attr_readonly :code
 
@@ -633,90 +633,169 @@ class Company < ActiveRecord::Base
 
 
 
-
   def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
     language = 'fra'
-    company = Company.new({:language=>language}.merge(company_attr))
+    currency = 'EUR'
     user = User.new(user_attr)
+    code = company_attr[:code]
 
     ActiveRecord::Base.transaction do
-      company.save!
-      company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
-      company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
-      user.company_id = company.id
-      user.role_id = company.admin_role.id
+      Sequence.load_defaults
+      Unit.load_defaults
+
+      EntityNature.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
+      EntityNature.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
+      EntityNature.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
+      undefined_nature = EntityNature.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
+      category = EntityCategory.create!(:name=>tc('default.category'))
+      firm = Entity.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>code, :currency => currency, :of_company => true)
+      firm.contacts.create!(:line_2 => "", :line_3 => "", :line_5 => "", :line_6 => "", :by_default => true)
+
+      user.admin = true
+      user.role = Role.create!(:name=>tc('default.role.name.admin'),  :rights => User.rights_list.join(' '))
+      Role.create!(:name=>tc('default.role.name.public'), :rights => '')
       user.save!
 
-      company.load_accounts(:accounting_system)
-
-      company.departments.create!(:name=>tc('default.department_name'))
-      establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
-      currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
-      company.product_categories.create(:name=>tc('default.product_category_name'))
-      company.load_units
-      company.load_sequences
-
-      user.reload
-      user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
-      user.save!
+      Account.load_chart(:accounting_system)
+      
+      Department.create!(:name=>tc('default.department_name'))
+      establishment = Establishment.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+      #   # currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
+      ProductCategory.create(:name=>tc('default.product_category_name'))
       
       for code, tax in tc("default.taxes")
-        company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>company.account(tax[:collected], tax[:name]).id, :paid_account_id=>company.account(tax[:paid], tax[:name]).id)
+        Tax.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>Account.get(tax[:collected], tax[:name]).id, :paid_account_id=>Account.get(tax[:paid], tax[:name]).id)
       end
       
-      company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
-      company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
-      company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
-      undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
-      category = company.entity_categories.create!(:name=>tc('default.category'))
-      firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>company.name)
-      company.reload
-      company.entity_id = firm.id
-      company.save!
-      company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :by_default=>true)
-      
       # loading of all the templates
-      company.load_prints
+      DocumentTemplate.load_defaults
 
       journals = {}
       for journal in [:sales, :purchases, :bank, :various, :cash]
-        j = company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency)
+        j = Journal.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency)
         # company.prefer!("#{journal}_journal", j)
         journals[journal] = j
         # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
       end
       
-      cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>journals[:cash].id)
-      baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>journal[:bank].id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
-      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id, :depositables_journal_id=>company.preferred_various_journal)
-      company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      cash = Cash.create!(:name => tc('default.cash.name.cash_box'), :nature => "cash_box", :account => Account.get("531101", "Caisse"), :journal_id => journals[:cash].id)
+      baac = Cash.create!(:name => tc('default.cash.name.bank_account'), :nature => "bank_account", :account => Account.get("512101", "Compte bancaire"), :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
+      IncomingPaymentMode.create!(:name => tc('default.incoming_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal => journals[:various])
+      IncomingPaymentMode.create!(:name => tc('default.incoming_payment_modes.check.name'), :cash_id => baac.id, :with_accounting => true, :with_deposit => true, :depositables_account_id => Account.get("5112", "Chèques à encaisser").id, :depositables_journal_id => journals[:various].id, :attorney_journal => journals[:various])
+      IncomingPaymentMode.create!(:name => tc('default.incoming_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal => journals[:various])
 
-      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
-      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
-      company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+      OutgoingPaymentMode.create!(:name => tc('default.outgoing_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal => journals[:various])
+      OutgoingPaymentMode.create!(:name => tc('default.outgoing_payment_modes.check.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal => journals[:various])
+      OutgoingPaymentMode.create!(:name => tc('default.outgoing_payment_modes.transfer.name'), :cash_id => baac.id, :with_accounting => true, :attorney_journal => journals[:various])
 
       delays = []
       ['expiration', 'standard', 'immediate'].each do |d|
-        delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+        delays << Delay.create!(:name => tc('default.delays.name.'+d), :expression => tc('default.delays.expression.'+d), :active => true)
       end
-      company.financial_years.create!(:started_on=>Date.today)
-      company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3, :currency=>currency, :with_accounting=>true, :journal=>company.preferred_sales_journal)
-      company.purchase_natures.create!(:name=>tc('default.purchase_nature_name'), :currency=>currency, :with_accounting=>true, :journal=>company.preferred_purchases_journal)
+      FinancialYear.create!(:started_on => Date.today.beginning_of_month)
+      SaleNature.create!(:name => tc('default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_rate => 0.3, :currency => currency, :with_accounting => true, :journal => journals[:sales])
+      PurchaseNature.create!(:name => tc('default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
+      
+      
+      Warehouse.create!(:name => tc('default.warehouse_name'), :establishment_id => establishment.id)
+      for nature in [:sale, :sales_invoice, :purchase]
+        EventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
+      end
+      
+      #   # Add custom_fieldary data to test
+      #   company.load_demo_data unless demo_language_code.blank?
+    end
+    return
+  end
+  
+
+
+
+
+  # def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
+  #   language = 'fra'
+  #   # company = Company.new({:language=>language}.merge(company_attr))
+  #   # company = Company.new(company_attr)
+  #   user = User.new(user_attr)
+
+  #   ActiveRecord::Base.transaction do
+  #     company.save!
+  #     company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+  #     company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
+  #     user.company_id = company.id
+  #     user.role_id = company.admin_role.id
+  #     user.save!
+
+  #     company.load_accounts(:accounting_system)
+
+  #     company.departments.create!(:name=>tc('default.department_name'))
+  #     establishment = company.establishments.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
+  #     currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
+  #     company.product_categories.create(:name=>tc('default.product_category_name'))
+  #     company.load_units
+  #     company.load_sequences
+
+  #     user.reload
+  #     user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
+  #     user.save!
+      
+  #     for code, tax in tc("default.taxes")
+  #       company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>company.account(tax[:collected], tax[:name]).id, :paid_account_id=>company.account(tax[:paid], tax[:name]).id)
+  #     end
+      
+  #     company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
+  #     company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
+  #     company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
+  #     undefined_nature = company.entity_natures.create!(:name=>'Indéfini', :title=>'', :in_name=>false, :physical=>false)
+  #     category = company.entity_categories.create!(:name=>tc('default.category'))
+  #     firm = company.entities.create!(:category_id=> category.id, :nature_id=>undefined_nature.id, :language=>language, :last_name=>company.name)
+  #     company.reload
+  #     company.entity_id = firm.id
+  #     company.save!
+  #     company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :by_default=>true)
+      
+  #     # loading of all the templates
+  #     company.load_prints
+
+  #     journals = {}
+  #     for journal in [:sales, :purchases, :bank, :various, :cash]
+  #       j = company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency)
+  #       # company.prefer!("#{journal}_journal", j)
+  #       journals[journal] = j
+  #       # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
+  #     end
+      
+  #     cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>journals[:cash].id)
+  #     baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>journal[:bank].id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
+  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true, :with_deposit=>true, :depositables_account_id=>company.account("5112", "Chèques à encaisser").id, :depositables_journal_id=>company.preferred_various_journal)
+  #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+
+  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
+  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.check.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+  #     company.outgoing_payment_modes.create!(:name=>tc('default.outgoing_payment_modes.transfer.name'), :company_id=>company.id, :cash_id=>baac.id, :with_accounting=>true)
+
+  #     delays = []
+  #     ['expiration', 'standard', 'immediate'].each do |d|
+  #       delays << company.delays.create!(:name=>tc('default.delays.name.'+d), :expression=>tc('default.delays.expression.'+d), :active=>true)
+  #     end
+  #     company.financial_years.create!(:started_on=>Date.today)
+  #     company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3, :currency=>currency, :with_accounting=>true, :journal=>company.preferred_sales_journal)
+  #     company.purchase_natures.create!(:name=>tc('default.purchase_nature_name'), :currency=>currency, :with_accounting=>true, :journal=>company.preferred_purchases_journal)
       
 
-      company.load_sequences
+  #     company.load_sequences
       
-      company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
-      for nature in [:sale, :sales_invoice, :purchase]
-        company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
-      end
+  #     company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
+  #     for nature in [:sale, :sales_invoice, :purchase]
+  #       company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
+  #     end
       
-      # Add custom_fieldary data to test
-      company.load_demo_data unless demo_language_code.blank?
-    end
-    return company, user
-  end
+  #     # Add custom_fieldary data to test
+  #     company.load_demo_data unless demo_language_code.blank?
+  #   end
+  #   return company, user
+  # end
   
 
 
@@ -726,36 +805,36 @@ class Company < ActiveRecord::Base
 
 
   # this method loads all the templates existing.
-  def load_prints
-    language = self.entity.language
-    files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
-    for family, templates in ::I18n.translate('models.company.default.document_templates')
-      for template, attributes in templates
-        next unless File.exist? files_dir.join("#{template}.xml")
-        #begin
-        File.open(files_dir.join("#{template}.xml"), "rb:UTF-8") do |f|
-          attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
-          attributes[:name] = attributes[:name].to_s
-          attributes[:nature] ||= template.to_s
-          attributes[:filename] ||= "File"
-          attributes[:to_archive] = true if attributes[:to_archive] == "true"
-          if RUBY_VERSION =~ /^1\.9/
-            attributes[:source] = f.read.force_encoding('UTF-8') 
-          else
-            attributes[:source] = f.read
-          end
-          code = attributes[:name].to_s.codeize[0..7]
-          doc = self.document_templates.find_by_code(code)
-          doc ||= self.document_templates.new
-          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
-          # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
-          doc.save!
-        end
-        #rescue
-        #end
-      end
-    end
-  end
+  # def load_prints
+  #   language = self.entity.language
+  #   files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
+  #   for family, templates in ::I18n.translate('models.company.default.document_templates')
+  #     for template, attributes in templates
+  #       next unless File.exist? files_dir.join("#{template}.xml")
+  #       #begin
+  #       File.open(files_dir.join("#{template}.xml"), "rb:UTF-8") do |f|
+  #         attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
+  #         attributes[:name] = attributes[:name].to_s
+  #         attributes[:nature] ||= template.to_s
+  #         attributes[:filename] ||= "File"
+  #         attributes[:to_archive] = true if attributes[:to_archive] == "true"
+  #         if RUBY_VERSION =~ /^1\.9/
+  #           attributes[:source] = f.read.force_encoding('UTF-8') 
+  #         else
+  #           attributes[:source] = f.read
+  #         end
+  #         code = attributes[:name].to_s.codeize[0..7]
+  #         doc = self.document_templates.find_by_code(code)
+  #         doc ||= self.document_templates.new
+  #         doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
+  #         # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
+  #         doc.save!
+  #       end
+  #       #rescue
+  #       #end
+  #     end
+  #   end
+  # end
 
   # def load_units
   #   for name, desc in Unit.default_units
@@ -777,33 +856,33 @@ class Company < ActiveRecord::Base
   #   end
   # end
 
-  def load_accounts(name, options={})
-    locale = options[:locale]
-    if (plan = ::I18n.translate("accounting_systems.#{name}", :locale=>locale)).is_a? Hash
-      ActiveRecord::Base.transaction do
-        # Destroy unused existing accounts
-        self.accounts.destroy_all
+  # def load_accounts(name, options={})
+  #   locale = options[:locale]
+  #   if (plan = ::I18n.translate("accounting_systems.#{name}", :locale=>locale)).is_a? Hash
+  #     ActiveRecord::Base.transaction do
+  #       # Destroy unused existing accounts
+  #       self.accounts.destroy_all
 
-        regexp = Account.reconcilable_regexp
+  #       regexp = Account.reconcilable_regexp
         
-        # Existing accounts
-        for account in self.reload.accounts
-          account.update_column(:reconcilable, true) if account.number.match(regexp)
-        end if options[:reconcilable]
+  #       # Existing accounts
+  #       for account in self.reload.accounts
+  #         account.update_column(:reconcilable, true) if account.number.match(regexp)
+  #       end if options[:reconcilable]
 
-        # Create new accounts
-        for num, name in plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
-          number = num.to_s[2..-1]
-          if account = self.accounts.find_by_number(number)
-            account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
-          else
-            raise number.inspect unless self.accounts.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
-          end
-        end
+  #       # Create new accounts
+  #       for num, name in plan.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+  #         number = num.to_s[2..-1]
+  #         if account = self.accounts.find_by_number(number)
+  #           account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
+  #         else
+  #           raise number.inspect unless self.accounts.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
+  #         end
+  #       end
 
-      end
-    end
-  end
+  #     end
+  #   end
+  # end
 
   
   

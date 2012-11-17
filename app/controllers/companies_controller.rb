@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class CompaniesController < AdminController
+class CompaniesController < AuthenticationController
 
   def register
     if request.post?
       language = (params[:locale].blank? ? I18n.locale||I18n.default_locale : params[:locale])
-      @my_company = Company.new(params[:my_company].merge(:language=>language.to_s))
-      @user = User.new(params[:user].merge(:company_id=>0, :role_id=>0, :language=>language.to_s))
+      @my_company = Company.new(params[:my_company]) # .merge(:language=>language.to_s))
+      @user = User.new(params[:user].merge(:role_id => 0, :language => language.to_s))
 
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
@@ -52,7 +52,7 @@ class CompaniesController < AdminController
         redirect_to :company=>nil, :locale=>params[:locale]
         return
       end
-      @my_company = Company.new(:currency=>'EUR')
+      @my_company = Company.new # (:currency => 'EUR')
       @user = User.new
     end
   end

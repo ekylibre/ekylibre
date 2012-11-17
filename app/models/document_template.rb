@@ -305,5 +305,36 @@ class DocumentTemplate < CompanyRecord
     end
   end
   
-
+  def self.load_defaults
+    language = Entity.of_company.language
+    files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
+    for family, templates in ::I18n.translate('models.company.default.document_templates')
+      for template, attributes in templates
+        next unless File.exist? files_dir.join("#{template}.xml")
+        #begin
+        File.open(files_dir.join("#{template}.xml"), "rb:UTF-8") do |f|
+          attributes[:name] ||= I18n::t('models.document_template.natures.'+template.to_s)
+          attributes[:name] = attributes[:name].to_s
+          attributes[:nature] ||= template.to_s
+          attributes[:filename] ||= "File"
+          attributes[:to_archive] = true if attributes[:to_archive] == "true"
+          if RUBY_VERSION =~ /^1\.9/
+            attributes[:source] = f.read.force_encoding('UTF-8') 
+          else
+            attributes[:source] = f.read
+          end
+          code = attributes[:name].to_s.codeize[0..7]
+          doc = self.find_by_code(code)
+          doc ||= self.new
+          doc.attributes = HashWithIndifferentAccess.new(:active=>true, :language=>language, :country=>'fr', :family=>family.to_s, :code=>code, :by_default=>false).merge(attributes)
+          # doc["source"].force_encoding!('UTF-8') if RUBY_VERSION =~ /^1\.9/
+          doc.save!
+        end
+        #rescue
+        #end
+      end
+    end
+    
+  end
+  
 end

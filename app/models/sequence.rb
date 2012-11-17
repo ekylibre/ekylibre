@@ -43,6 +43,8 @@ class Sequence < CompanyRecord
   @@periods = ['cweek', 'month', 'number', 'year']
   @@replace = Regexp.new('\[('+@@periods.join('|')+')(\|(\d+)(\|([^\]]*))?)?\]')
   # FIXME: Adds all usage for sequence? or register_usage like Account! ?
+  @@usages = ["assets", "cash_transfers", "deposits", "entities", "incoming_deliveries", "incoming_payments", "outgoing_deliveries", "outgoing_payments", "purchases", "sales_invoices", "sales", "stock_transfers", "subscriptions", "transports"]
+  cattr_reader :usages
 
   has_many :preferences, :as=>:record_value
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

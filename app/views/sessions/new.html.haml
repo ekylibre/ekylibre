@@ -36,7 +36,8 @@
           %td.input=password_field_tag :password, nil, :tabindex=>2
         %tr
           %td.button{:colspan=>2}=submit_tag(tc(:connect), :tabindex=>3, :class=>"important")
-  -if register
+
+  -#if register
     #register.login.register{:style=>"display:none"}
       =tool_to(t("actions.companies.register"), {:controller=>:companies, :action=>:register, :locale=>params[:locale]}, :tabindex=>4, :tool=>:action)
   #nojavascript.login{"data-toggle-now-with"=>"#login, #register"}

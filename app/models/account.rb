@@ -99,6 +99,13 @@ class Account < CompanyRecord
     return Account.first
   end
 
+  def self.get(number, name=nil)
+    number = number.to_s
+    account = self.find_by_number(number)
+    return account || self.create!(:number => number, :name => name || number.to_s)
+  end
+
+
   # FinancialYear
   register_usage :financial_year_gains
   register_usage :financial_year_losses
@@ -182,27 +189,54 @@ class Account < CompanyRecord
   end
 
   # Replace current chart of account with a new
-  def self.load_chart(name)
+  def self.load_chart(name, options = {})
+    locale = options[:locale]
+    if (chart = ::I18n.translate("accounting_systems.#{name}", :locale => locale)).is_a? Hash
+      ActiveRecord::Base.transaction do
+        # Destroy unused existing accounts
+        self.destroy_all
+
+        regexp = Account.reconcilable_regexp
+        
+        # Existing accounts
+        Account.find_each do |account|
+          account.update_column(:reconcilable, true) if account.number.match(regexp)
+        end if options[:reconcilable]
+
+        # Create new accounts
+        for num, name in chart.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+          number = num.to_s[2..-1]
+          if account = self.find_by_number(number)
+            account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
+          else
+            raise number.inspect unless self.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
+          end
+        end
+
+      end
+    end
+
+    
     
   end
 
 
   # Returns list of reconcilable prefixes defined in preferences
-  def reconcilable_prefixes
+  def self.reconcilable_prefixes
     return [:client, :supplier, :attorney].collect do |mode| 
-      Account.preferred('third_'+mode.to_s.pluralize+'_accounts')
+      Preference['third_'+mode.to_s.pluralize+'_accounts'].to_s
     end
     return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
   end
 
   # Returns a RegExp based on reconcilable_prefixes
   def self.reconcilable_regexp
-    return Regexp.new("^(#{Account.reconcilable_prefixes.join('|')})")
+    return Regexp.new("^(#{self.reconcilable_prefixes.join('|')})")
   end
 
   # Check if the account is a third account and therefore returns if it should be reconcilable
   def reconcilableable?
-    return (self.number.to_s.match(Account.reconcilable_regexp) ? true : false)
+    return (self.number.to_s.match(self.class.reconcilable_regexp) ? true : false)
   end
   
 
