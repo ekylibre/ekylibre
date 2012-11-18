@@ -50,26 +50,31 @@ module ApplicationHelper
   # end
 
   def options_for_unroll(options = {})
-    filter = options[:filter].to_sym
+    # TODO Fix unknown options[:model] !
+    filter = options[:filter].to_s.to_sym
     reflection = nil
-    source = if options[:source] == "self" 
-               record_model = options[:model].classify.constantize
+    model = nil
+    source = if options[:source] == "self" and options[:model]
+               record_model = options[:model].to_s.classify.constantize
                reflection = record_model.reflections[filter]
                raise Exception.new("Need :label option for unroll self:#{filter} because '#{filter}' is not a reflection") unless reflection
                model = reflection.class_name.constantize
                raise Exception.new("Bad id") unless options[:id].to_i > 0
                record_model.find(options[:id])
-             else
-               model = options[:source].classify.constantize
+             elsif options[:source]
+               model = options[:source].to_s.classify.constantize
              end
-    unless label = options[:label]
-      available_methods = (model.instance_methods + model.columns_hash.keys).collect{|x| x.to_s}
-      label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
-      raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
+    if model
+      unless label = options[:label]
+        available_methods = (model.instance_methods + model.columns_hash.keys).collect{|x| x.to_s}
+        label = [:label, :native_name, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x.to_s)}
+        raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
+      end
     end
-    list = source.send(filter).collect do |record|
-      [record.send(label), record.id]
-    end
+    
+    list = (source ? source.send(filter).collect do |record|
+              [record.send(label), record.id]
+            end : [])
     if options[:include_blank].is_a? String
       list.insert(0, [options[:include_blank], '']) 
     elsif options[:include_blank].is_a? Array
