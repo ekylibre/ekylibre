@@ -17,40 +17,37 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalGroupsController < AdminController
+class DrugsController < AdminController
   manage_restfully
   
-  list do |t|
+  list() do |t|
     t.column :name, :url=>true
+    t.column :name, :through=>:unit, :url=>true
+    t.column :name, :through=>:type, :url=>true
+    t.column :frequency
+    t.column :quantity
     t.column :comment
-    t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
   
-  list(:animals, :conditions=>{:group_id=>['session[:current_animal_group_id]']}, :order=>"name ASC") do |t|
-    t.column :name, :url=>true
-    t.column :sex
-    t.column :identification_number, :url=>{:action=>:show}
-    t.column :born_on
-  end
-  
-  list(:cares,:model=>:animal_cares, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"start_on ASC") do |t|
+  list(:animal_cares, :conditions=>{:drug_id=>['session[:current_drug_id]']}, :order=>"start_on ASC") do |t|
     t.column :name
+    t.column :name, :through=>:animal, :url=>true
     t.column :start_on
     t.column :comment
   end
   
-  # Show a list of animals
+  # Show a list of animals types
   def index
   end
   
-  # Show one Animal with params_id
+  # Show one care with params_id
   def show
-    return unless @animal_group = find_and_check
-    session[:current_animal_group_id] = @animal_group.id   
-    t3e @animal_group
+    return unless @drug = find_and_check(:drug)
+    session[:current_drug_id] = @drug.id   
+    t3e @drug
   end
   
 end

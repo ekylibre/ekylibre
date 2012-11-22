@@ -7,7 +7,7 @@ More details can be found at in the doc directory or on the official website htt
 == Contributing
 
 We encourage you to contribute to Ekylibre.
-You can learn how to contribute in Ekylibre by following our guides in doc/guides/fra/contribute
+You can learn how to contribute in Ekylibre by following our official guide https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it

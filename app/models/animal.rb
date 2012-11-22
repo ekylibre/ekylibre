@@ -21,11 +21,17 @@
 
 
 class Animal < CompanyRecord
+  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   belongs_to :group, :class_name => "AnimalGroup"
+  belongs_to :race, :class_name => "AnimalRace"
+  belongs_to :male_parent, :class_name => "Animal"
+  belongs_to :female_parent, :class_name => "Animal"
+  has_many :cares, :class_name => "AnimalCare", :foreign_key => :animal_id 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :sex, :allow_nil => true, :maximum => 1
   validates_length_of :identification_number, :name, :allow_nil => true, :maximum => 255
   validates_presence_of :born_on, :group, :identification_number, :income_on, :name, :outgone_on, :purchased_on, :sex
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number
+
 end

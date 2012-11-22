@@ -1,6 +1,16 @@
 fra:
   activerecord:
     attributes:
+      animal:
+        race: "Race"
+        female_parent: "Mère"
+        male_parent: "Père"
+      animal_group:
+        age_min: "Age minimum"
+        age_max: "Age maximum"
+        is_pregnant: "Surveillance de la gestation"
+      animal_race:
+        race_code: "code race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -334,6 +344,7 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     animal: "Animaux"
+    animal_group: "Lot"
     annotation: "Annotation"
     area: "Zone postale"
     area_measure: "Superficie"
@@ -514,6 +525,7 @@ fra:
     downpayment_rate: "Taux acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
+    drugs: "Médicaments"
     duration: "Durée"
     ean13: "Code EAN13"
     email: "Courriel (e-mail)"
@@ -525,6 +537,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
+    end_on: "Fin le"
     entities: "Personnes"
     entity: "Personne"
     entity_1: "Personne 1"
@@ -576,6 +589,7 @@ fra:
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
     future_events: "Evènements futurs"
+    genealogy: "Généalogie"
     generated: "Généré"
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -866,6 +880,7 @@ fra:
     source_quantity: "Quantité source"
     sql_type: "Type SQL"
     start: "Début"
+    start_on: "Début le"
     started_at: "Débuté à"
     started_on: "Débuté le"
     started_sec: "Date et heure (en secondes)"

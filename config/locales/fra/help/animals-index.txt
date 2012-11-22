@@ -1,0 +1,7 @@
+====== Animaux ======
+
+===== Définition =====
+
+===== Utilisation =====
+Ici, vous pouvez [[>animals/new|créer]], modifier {{theme:icons/edit.png}} ou même supprimer {{theme:icons/destroy.png}} des animaux.
+

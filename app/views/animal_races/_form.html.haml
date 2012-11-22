@@ -1,0 +1,9 @@
+=formalize do |f|
+  -f.error :animal_race
+
+=field_set(@animal_race, :general_informations) do |f|
+  =f.association :type, :as => :radio_buttons
+  =f.input :name
+  =f.input :race_code
+  =f.input :description
+  =f.input :comment

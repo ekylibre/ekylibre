@@ -13,7 +13,27 @@ fra:
       index: "Gestion des animaux"
       new: "Créer un animal"
       edit: "Modifier un animal"
-      show: "animal %{name}"
+      show: "animal\_: %{name}"
+    animal_cares:
+      index: "Gestion des soins"
+      new: "Créer un soin"
+      edit: "Modifier un soin"
+      show: "soin %{name} commencé le %{start_on}"
+    animal_care_types:
+      index: "Gestion des types de soins"
+      new: "Créer un type de soin"
+      edit: "Modifier un type de soin"
+      show: "type de soin\_: %{name}"
+    animal_groups:
+      index: "Gestion des lots d'animaux"
+      new: "Créer un lot"
+      edit: "Modifier le lot\_: %{name} "
+      show: "Lot\_: %{name}"
+    animal_races:
+      index: "Gestion des races d'animaux"
+      new: "Créer une race"
+      edit: "Modifier la race\_: %{name} "
+      show: "Race\_: %{name}"
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
@@ -600,6 +620,12 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC" #?
+    animal_group_tabbox:
+      animals: "Animaux du lot"
+      cares: "Soins réalisés sur le lot"
+    animal_tabbox:
+      cares: "Soins"
+      childrens: "Enfants"
     apply: "Appliquer"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
@@ -795,6 +821,7 @@ fra:
     from: "À partir du"
     full_name: "Client"
     future_events: "Futurs événements"
+    genealogy: "Généalogie"
     general: "Informations générales"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
@@ -893,6 +920,7 @@ fra:
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
     manual_period: "du %{start} au %{finish}"
+    medical_informations: "Informations médicales"
     meeting: "Lieu(x) de rencontre" #?
     menus:
       accountancy: "Comptabilité"
@@ -1251,6 +1279,7 @@ fra:
     target: "Cible"
     tax_declaration_create: "Ajouter une nouvelle déclaration" #?
     theoric_quantity: "Quantité théorique"
+    third_informations: "Informations tierces"
     to: "Au"
     to_bank_on: "À encaisser le"
     to_date: "Au"

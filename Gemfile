@@ -24,7 +24,7 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'simple_form'
-
+gem 'paperclip'
 gem 'thin'
 
 # Gems used only for assets and not required

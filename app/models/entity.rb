@@ -115,7 +115,7 @@ class Entity < CompanyRecord
   has_many :usable_incoming_payments, :conditions=>["used_amount < amount"], :class_name=>"IncomingPayment", :foreign_key=>:payer_id
   has_many :waiting_deliveries, :class_name=>"OutgoingDelivery", :foreign_key=>:transporter_id, :conditions=>["moved_on IS NULL AND planned_on <= CURRENT_DATE"]
   has_one :default_contact, :class_name=>"Contact", :conditions=>{:by_default=>true}
-
+  has_many :animal_cares
   def self.of_company
     self.where(:of_company => true).first
   end

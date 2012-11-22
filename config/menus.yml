@@ -670,6 +670,12 @@ menus:
         - "warehouses::show"
         - "warehouses::update"
   - production:
+    - animals:
+      - - "animals::index"
+    - animal_groups:
+      - - "animal_groups::index"
+    - animal_cares:
+      - - "animal_cares::index"
     - land_parcels:
       - - "land_parcels::index"
         - "land_parcels::create"

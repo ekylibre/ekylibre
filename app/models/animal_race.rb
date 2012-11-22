@@ -20,14 +20,12 @@
 # -- table  "animal_groups"
 
 
-class AnimalGroup < CompanyRecord
-  has_many :animals, :foreign_key => :group_id
-  has_many :animal_cares, :foreign_key => :animal_group_id
+class AnimalRace < CompanyRecord
+  has_many :animals, :foreign_key => :race_id
+  belongs_to :type, :class_name => "AnimalRaceType"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_presence_of :name, :type
   #]VALIDATORS]
-  validates_uniqueness_of :name
-     SEX=["male", "female"]
-  validates :sex, :inclusion => { :in => SEX }
+   validates_uniqueness_of :name
 end

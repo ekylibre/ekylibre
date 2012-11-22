@@ -1,0 +1,19 @@
+=formalize do |f|
+  -f.error :animal_care
+
+=field_set(@animal_care, :general_informations) do |f|
+  =f.input :name
+  =f.association :type, :as => :radio_buttons
+  =f.association :animal
+  =f.association :animal_group
+  =f.input :start_on
+  =f.input :end_on
+  =f.input :description
+  =f.input :comment
+  =f.association :entity
+  
+=field_set(@animal_care, :medical_informations) do |f|
+  =f.association :drugs, :as => :check_boxes
+  
+=field_set(@animal_care, :third_informations) do |f|
+  =f.association :entity

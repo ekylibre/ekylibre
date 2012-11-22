@@ -61,11 +61,35 @@ Ekylibre::Application.routes.draw do
   resources :animals do
     collection do
       get :list
+      get :list_cares
+      get :list_childrens
+    end
+  end
+  resources :animal_cares do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_care_types do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_races do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_race_types do
+    collection do
+      get :list
     end
   end
   resources :animal_groups do
     collection do
       get :list
+      get :list_animals
+      get :list_cares
     end
   end
   resources :areas do
@@ -166,6 +190,17 @@ Ekylibre::Application.routes.draw do
   resources :documents do
     collection do
       get :print
+    end
+  end
+  resources :drugs do
+    collection do
+      get :list
+      get :list_animal_cares
+    end
+  end
+  resources :drug_types do
+    collection do
+      get :list
     end
   end
   resources :entities do
