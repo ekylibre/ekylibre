@@ -72,7 +72,5 @@ module Ekylibre
       g.template_engine :haml
     end
 
-    # Configure Apartment switcher
-    config.middleware.use 'Apartment::Elevators::Subdomain'
   end
 end

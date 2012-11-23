@@ -6,7 +6,6 @@ gem 'rails', '3.2.9'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 gem 'pg'
-gem 'apartment'
 # gem 'mysql'
 # gem 'sqlite3'
 
@@ -34,8 +33,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'bootstrap-sass'
-  # gem 'less-rails-bootstrap'
-  # gem 'twitter-bootstrap-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer', :platform => :ruby
