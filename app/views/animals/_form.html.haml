@@ -4,7 +4,7 @@
   =f.association :group, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
   =f.association :race
   =f.input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :sex, :collection => ["M", "F"], :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  =f.input :sex, :collection => Animal::SEXES, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   =f.input :born_on, :as => :date, :end_year => Date.today.year - 40
   =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   =f.input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
