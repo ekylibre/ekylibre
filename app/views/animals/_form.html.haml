@@ -9,12 +9,13 @@
   =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   =f.input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
 
-=field_set(@animal, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
-  =f.file_field :picture, :multiple => true
+-# @todo waiting for paperclip
+-#=field_set(@animal, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
+  -#=f.file_field :picture, :multiple => true
 
 =field_set(@animal, :genealogy) do |f| # partie entrée sortie de l entité animal
-  =f.association :father, :collection => Animal.where(:sex => "M").order("name ASC")
-  =f.association :mother, :collection => Animal.where(:sex => "F").order("name ASC")
+  =f.association :father, :collection => Animal.where(:sex => "male").order("name ASC")
+  =f.association :mother, :collection => Animal.where(:sex => "female").order("name ASC")
 
 =field_set(@animal, :stocks_informations) do |f| # partie entrée sortie de l entité animal
   =f.input :income_on
