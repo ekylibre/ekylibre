@@ -87,7 +87,7 @@ class DepositsController < AdminController
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
     @deposit = Deposit.new(params[:deposit])
-    @deposit.mode_id = mode.id 
+    @deposit.mode_id = mode.id
     if @deposit.save
       payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
       IncomingPayment.update_all({:deposit_id=>@deposit.id}, {:id => payments})

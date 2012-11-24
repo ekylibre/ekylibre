@@ -23,7 +23,7 @@ module Exchanges
     def self.benchmark(text, &block)
       if @@verbose
         STDOUT.sync = true
-        @@depth ||= -1 
+        @@depth ||= -1
         @@depth += 1
         prefix = "| " * @@depth
         puts(prefix + "/ " + text)
@@ -84,7 +84,7 @@ module Exchanges
 
 
   def self.export(company, format, file, options={})
-    raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")    
+    raise NotSupportedFormat.new("Format #{format.inspect} is not supported for import")
   end
 
 

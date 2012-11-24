@@ -44,7 +44,7 @@ class WarehousesController < AdminController
     t.column :name, :through=>:product, :url=>true
     t.column :virtual
     # t.action :edit, :if=>'RECORD.generated != true'
-    # t.action :destroy,:if=>'RECORD.generated != true' 
+    # t.action :destroy,:if=>'RECORD.generated != true'
   end
 
   list(:stocks, :conditions=>{:warehouse_id=>['session[:current_warehouse_id]']}, :order=>"quantity DESC") do |t|

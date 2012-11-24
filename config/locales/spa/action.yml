@@ -16,6 +16,14 @@ spa:
       reconciliation: "Marcar con letra los cuentos"
       show: "Compte : %{number} - %{name}"
       # unmark: "Unmark account"
+    animal_care_natures: #?
+    animal_care_types: #?
+    animal_cares: #?
+    animal_groups: #?
+    animal_race_natures: #?
+    animal_race_types: #?
+    animal_races: #?
+    animals: #?
     application: #?
     areas:
       # edit: "Edit the postal area: %{name}"
@@ -110,6 +118,9 @@ spa:
       # print: "Print document template"
     documents:  #?
       print: "Impresion, exportacion" #?
+    drug_natures: #?
+    drug_types: #?
+    drugs: #?
     entities:
       # destroy: "Remove person"
       # edit: "Edit person: %{full_name}"

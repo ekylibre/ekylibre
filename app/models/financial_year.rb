@@ -1,38 +1,38 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: financial_years
 #
 #  closed                :boolean          not null
 #  code                  :string(12)       not null
 #  created_at            :datetime         not null
-#  creator_id            :integer          
-#  currency              :string(3)        
-#  currency_precision    :integer          
+#  creator_id            :integer
+#  currency              :string(3)
+#  currency_precision    :integer
 #  id                    :integer          not null, primary key
-#  last_journal_entry_id :integer          
+#  last_journal_entry_id :integer
 #  lock_version          :integer          default(0), not null
 #  started_on            :date             not null
 #  stopped_on            :date             not null
 #  updated_at            :datetime         not null
-#  updater_id            :integer          
+#  updater_id            :integer
 #
 
 
@@ -73,7 +73,7 @@ class FinancialYear < CompanyRecord
       other = first
       while searched_on > other.stopped_on
         other = other.find_or_create_next
-      end 
+      end
       return other
     end
     return year
@@ -119,7 +119,7 @@ class FinancialYear < CompanyRecord
     end
     JournalEntry.find(:all, :conditions=>["printed_on BETWEEN ? AND ? #{conditions}", self.started_on, self.stopped_on])
   end
-  
+
 
   def default_code
     tc("code."+(self.started_on.year!=self.stopped_on.year ? "double" : "single"), :first_year=>self.started_on.year, :second_year=>self.stopped_on.year)
@@ -153,14 +153,14 @@ class FinancialYear < CompanyRecord
   end
 
 
-  # When a financial year is closed, all the matching journals are closed too. 
+  # When a financial year is closed, all the matching journals are closed too.
   def close(to_close_on=nil, options={})
     return false unless self.closable?
 
     to_close_on ||= self.stopped_on
 
-    ActiveRecord::Base.transaction do      
-      # Close all journals to the 
+    ActiveRecord::Base.transaction do
+      # Close all journals to the
       for journal in Journal.where("closed_on < ?", to_close_on)
         raise false unless journal.close(to_close_on)
       end
@@ -173,7 +173,7 @@ class FinancialYear < CompanyRecord
 
       # Create first entry of the new year
       if renew_journal = Journal.find_by_id(options[:renew_id].to_i)
-        
+
         if self.account_balances.size > 0
           entry = renew_journal.entries.create!(:printed_on => to_close_on+1, :currency_id => renew_journal.currency_id)
           result   = 0
@@ -181,7 +181,7 @@ class FinancialYear < CompanyRecord
           losses   = Account.find_in_chart(:financial_year_losses)
           charges  = Account.find_in_chart(:charges)
           products = Account.find_in_chart(:products)
-          
+
           for balance in self.account_balances.joins(:account).order("number")
             if balance.account.number.to_s.match(/^(#{charges.number}|#{products.number})/)
               result += balance.balance
@@ -192,7 +192,7 @@ class FinancialYear < CompanyRecord
           end
 
           if result > 0
-            entry.lines.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0) 
+            entry.lines.create!(:account_id => losses.id, :name => losses.name, :original_debit => result, :original_credit => 0.0)
           elsif result < 0
             entry.lines.create!(:account_id => gains.id, :name => gains.name, :original_debit => 0.0, :original_credit => result.abs)
           end
@@ -207,7 +207,7 @@ class FinancialYear < CompanyRecord
   def previous
     return self.class.where(:stopped_on=>self.started_on-1).first
   end
- 
+
   # this method returns the next financial_year.
   def next
     return self.class.where(:started_on=>self.stopped_on+1).first
@@ -231,7 +231,7 @@ class FinancialYear < CompanyRecord
     return year
   end
 
- 
+
   # Computes the value of list of accounts in a String
   # 123 will take all accounts 123*
   # ^456 will remove all accounts 456*
@@ -245,7 +245,7 @@ class FinancialYear < CompanyRecord
       forceds   << code if prefix.match(/^\-?\d+[CDX]$/)
       normals   << code if prefix.match(/^\-?\d+[CDX]?$/)
     end
-    
+
     balance = FinancialYear.balance_expr(credit)
     if forceds.size > 0 or negatives.size > 0
       forceds_and_negatives = forceds & negatives
@@ -292,7 +292,7 @@ class FinancialYear < CompanyRecord
       return "(CASE WHEN #{prefix}#{columns[0]} > #{prefix}#{columns[1]} THEN #{prefix}#{columns[0]} - #{prefix}#{columns[1]} ELSE 0 END)"
     end
   end
-  
+
 
 
   # Re-create all account_balances record for the financial year
@@ -304,7 +304,7 @@ class FinancialYear < CompanyRecord
     end
     return self
   end
-  
+
   def print_synthesis(template)
     template = ::LibXML::XML::Document.file(template.to_s)
     root = template.root

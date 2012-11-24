@@ -1,6 +1,6 @@
 =toolbar do |t|
   -t.link :export
-  
+
 
 -if !@unavailable_prices.nil?
   -if !@unavailable_prices.empty?
@@ -15,4 +15,4 @@
 %h2=tc('file_to_download')
 =form_tag({}, :multipart=>true) do
   =file_field(:csv_file, :path)
-  =submit_tag('ok', :action=>:import) 
+  =submit_tag('ok', :action=>:import)

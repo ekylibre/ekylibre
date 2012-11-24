@@ -20,7 +20,7 @@
 class MandatesController < AdminController
   manage_restfully :entity_id=>"params[:entity_id]"
 
-  def self.mandates_conditions(options={}) 
+  def self.mandates_conditions(options={})
     code = ""
     code += "conditions = ['1=1']\n"
     code += "if session[:mandates].is_a? Hash\n"
@@ -61,16 +61,16 @@ class MandatesController < AdminController
 
   def configure
     notify_now(:no_existing_mandates) if Mandate.count.zero?
-   
+
     filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
-    shortcuts = { :fam => :family, :org => :organization, :tit => :title } 
+    shortcuts = { :fam => :family, :org => :organization, :tit => :title }
     @filters = filters.collect{|f,k| [tc(f), f]}.sort
 
     if request.post?
       notify_error_now(:specify_updates) unless params[:columns].detect{|k,v| !v[:update].blank?}
       notify_error_now(:specify_filter)  unless params[:columns].detect{|k,v| !v[:filter].blank?}
       return if has_notifications?
-      
+
       conditions = ["1=1"]
       updates = "updated_at = CURRENT_TIMESTAMP"
       for p, v in params[:columns] do
@@ -82,7 +82,7 @@ class MandatesController < AdminController
       end
       Mandate.update_all(updates, conditions)
     end
-    
+
   end
 
 end

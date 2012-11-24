@@ -13,7 +13,7 @@ class AddMaterialProduction < ActiveRecord::Migration
     add_column :shape_operations, :hour_duration, :decimal
     add_column :shape_operations, :min_duration,  :decimal
     add_column :shape_operations, :duration,      :decimal
-    add_column :shape_operations, :consumption,   :decimal        
+    add_column :shape_operations, :consumption,   :decimal
 
     create_table :tool_uses do |t|
       t.column :shape_operation_id,  :integer,  :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
@@ -22,7 +22,7 @@ class AddMaterialProduction < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :tool_uses
-    
+
 
   end
 

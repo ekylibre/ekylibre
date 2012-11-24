@@ -9,7 +9,7 @@
       %td.cell{:class=>("check-state" if conveyor.check_state)}
         .bmenu
           =link_to(conveyor.product.name, :controller=>:production_chain_conveyors, :action=>:edit, :id=>conveyor.id)
-          %ul 
+          %ul
             %li=tl(:x_unit_per_second, :quantity=>conveyor.flow, :unit=>conveyor.unit.readable_name)
             =li_link_to(tl(:edit), {:controller=>:production_chain_conveyors, :action=>:edit, :id=>conveyor.id}, :class=>"icon im-edit")
             =li_link_to(tl(:destroy), {:controller=>:production_chain_conveyors, :action=>:destroy, :id=>conveyor.id}, "data-confirm" => tl(:are_you_sure_you_want_to_delete), :method=>:delete, :class=>"icon im-destroy")

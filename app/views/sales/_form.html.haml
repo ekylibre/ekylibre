@@ -1,12 +1,12 @@
 =sales_steps
-=formalize do |f| 
+=formalize do |f|
   -f.error 'sale'
   -f.title :client
   -f.field :sale, :client_id, :choices=>:clients, :new=>true, "data-parameter-name"=>"client_id", "data-dependents"=>"#contacts"
 
 #contacts{:data=>{"refresh"=>url_for(:action=>:contacts), "refresh-mode"=>"update"}}=render "contacts_form"
 
-=formalize do |f| 
+=formalize do |f|
   -f.title :sales_conditions
   -f.field :sale, :nature_id, :choices=>{:reflection=>:sale_natures}, :new=>true
   -f.field :sale, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}

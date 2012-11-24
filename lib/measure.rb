@@ -5,7 +5,7 @@
      :length=>{:ref=>:m},
      :angle=>{:ref=>:rad},
    }
-   
+
    @@units = {
      :mm=>{:dimension=>:length, :factor=>0.001},
      :cm=>{:dimension=>:length, :factor=>0.01},
@@ -22,7 +22,7 @@
      :deg=>{:dimension=>:angle, :factor=>Math::PI/180},
      :rad=>{:dimension=>:angle, :factor=>1},
    }
-   
+
    class << self
 
      def units(dimension)
@@ -34,7 +34,7 @@
      end
    end
 
-   
+
    def initialize(value, unit)
      raise ArgumentError.new("Value can't be converted to float: #{value.inspect}") unless value.is_a? Numeric
      raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units.keys.include? unit
@@ -54,11 +54,11 @@
    def inspect
      self.to_s
    end
-   
+
    def to_s
      @value.to_f.to_s+@unit.to_s
    end
-   
+
    def dimension
      self.class.dimension(@unit)
    end
@@ -80,7 +80,7 @@
        @value*@@units[@unit][:factor]/@@units[unit][:factor]
      end
    end
-   
+
  end
 
 

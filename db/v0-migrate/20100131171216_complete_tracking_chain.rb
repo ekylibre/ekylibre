@@ -27,7 +27,7 @@ class CompleteTrackingChain < ActiveRecord::Migration
     add_column    :invoice_lines,     :tracking_id,              :integer
     add_column    :invoice_lines,     :location_id,              :integer
     add_column    :operations,        :target_type,              :string
-    add_column    :operations,        :target_id,                :integer 
+    add_column    :operations,        :target_id,                :integer
     execute "UPDATE #{quoted_table_name(:operations)} SET target_type='Shape', target_id=shape_id"
     remove_column :operations,        :shape_id
     rename_column :operation_lines,   :shape_operation_id,       :operation_id

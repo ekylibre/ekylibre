@@ -9,26 +9,26 @@ end
 
 def search_missing_validations(klass)
   code = ""
-  
+
   columns = klass.content_columns.delete_if{|c| !validable_column?(c)}.sort{|a,b| a.name.to_s <=> b.name.to_s}
-  
+
   cs = columns.select{|c| c.type == :integer}
   code << "  validates_numericality_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", :allow_nil => true, :only_integer => true\n" if cs.size > 0
-  
+
   cs = columns.select{|c| c.number? and c.type != :integer}
   code << "  validates_numericality_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", :allow_nil => true\n" if cs.size > 0
-  
+
   limits = columns.select{|c| c.text? and c.limit}.collect{|c| c.limit}.uniq.sort
   for limit in limits
     cs = columns.select{|c| c.text? and c.limit == limit}
     code << "  validates_length_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", :allow_nil => true, :maximum => #{limit}\n"
   end
-  
+
   cs = columns.select{|c| not c.null and c.type == :boolean}
   code << "  validates_inclusion_of "+cs.collect{|c| ":#{c.name}"}.join(', ')+", :in => [true, false]\n" if cs.size > 0 # , :message => 'activerecord.errors.messages.blank'.to_sym
-  
+
   needed = columns.select{|c| not c.null and c.type != :boolean}.collect{|c| ":#{c.name}"}
-  needed += klass.reflect_on_all_associations(:belongs_to).select do |association| 
+  needed += klass.reflect_on_all_associations(:belongs_to).select do |association|
     column = klass.columns_hash[association.foreign_key.to_s]
     raise Exception.new("Problem in #{association.active_record.name} at '#{association.macro} :#{association.name}'") if column.nil?
     !column.null and validable_column?(column)
@@ -43,7 +43,7 @@ task :validations=>:environment do
   log = File.open(Rails.root.join("log", "clean-validations.log"), "wb")
 
   models = []
-  Dir.chdir(MODEL_DIR) do 
+  Dir.chdir(MODEL_DIR) do
     models = Dir["**/*.rb"].sort
   end
 
@@ -101,12 +101,12 @@ end
 desc "Removes the validators contained betweens the tags"
 task :empty_validations do
   models = Dir[Rails.root.join("app", "models", "*.rb")].sort
-  
+
   errors = []
   models.each do |file|
     class_name = file.split(/\/\\/)[-1].sub(/\.rb$/,'').camelize
     begin
-      
+
       # Get content
       content = nil
       File.open(file, "rb:UTF-8") do |f|
@@ -129,7 +129,7 @@ task :empty_validations do
       # Save file
       File.open(file, "wb") do |f|
         f.write content
-      end      
+      end
     rescue Exception => e
       puts "Unable to adds validations on #{class_name}: #{e.message}\n"+e.backtrace.join("\n")
     end

@@ -26,7 +26,7 @@ class AreasController < AdminController
     t.column :city
     t.column :code
     t.column :name, :through=>:district
-    t.column :country    
+    t.column :country
     t.action :edit
     t.action :destroy
   end

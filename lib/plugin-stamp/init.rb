@@ -23,7 +23,7 @@ module ActiveRecord
     end
 
     def has_dependencies?
-      
+
     end
 
 

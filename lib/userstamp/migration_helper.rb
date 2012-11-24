@@ -1,10 +1,10 @@
 module Stamp
-  
+
   module TableDefinition
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethods)
     end
-    
+
     module InstanceMethods
       def stamps
         column(:created_at, :datetime, :null=>false)

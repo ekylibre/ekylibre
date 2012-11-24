@@ -27,9 +27,9 @@ module Exchanges
         benchmark "Import #{file}" do
           isa = nil
           benchmark "Parse file #{file}" do
-            isa = SVF::Isa8550.parse(file) 
+            isa = SVF::Isa8550.parse(file)
           end
-          
+
           if isa_fy = isa.folder.financial_year
             benchmark "Import financial year #{isa_fy.started_on}/#{isa_fy.stopped_on}" do
               # Find or create financial year
@@ -78,14 +78,14 @@ module Exchanges
                   all_journals[isa_journal.code] = journal.id
                 end
               end
-              
+
               entries_to_import = isa_fy.entries
               total_count = entries_to_import.size
               benchmark "Import #{total_count} entries" do
                 unused_entries = fy.journal_entries.collect{|je| je.id}.uniq.sort
                 status, start, count, interval = "", Time.now, 0, 1.00
                 next_start = start+interval
-                
+
                 # Determine which search filter is the best
                 # filters = {}
                 # filters[:number] = entries_to_import.collect{|e| e.number}
@@ -121,7 +121,7 @@ module Exchanges
                       number = number[0..255]
                     end
                     unless entry
-                      entry = JournalEntry.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number)  # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft) 
+                      entry = JournalEntry.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number)  # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft)
                       raise isa_entry.inspect+"\n"+entry.errors.full_messages.to_sentence unless entry.valid?
                     end
                   end
@@ -154,7 +154,7 @@ module Exchanges
                   JournalEntry.destroy(unused_entries)
                 end
               end
-              
+
               # Check all lines line-per-line
               benchmark "Check all entries" do
                 found, expected = fy.journal_entries.size, isa_fy.entries.size
@@ -172,7 +172,7 @@ module Exchanges
       else
         raise NotWellFormedFileError.new("Version does not seems to be supported")
       end
-      
+
     end
 
   end

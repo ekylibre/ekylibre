@@ -1,33 +1,33 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: roles
 #
 #  created_at   :datetime         not null
-#  creator_id   :integer          
+#  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  rights       :text             
+#  rights       :text
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -47,7 +47,7 @@ class Role < CompanyRecord
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
-    
+
     for right in old_rights
       old_rights_array << right.to_sym
     end
@@ -57,7 +57,7 @@ class Role < CompanyRecord
 
     added_rights = new_rights_array-old_rights_array
     deleted_rights = old_rights_array- new_rights_array
-    
+
     users = User.find_all_by_role_id_and_admin(self.id, false)
     for user in users
       # puts user.rights.inspect
@@ -65,12 +65,12 @@ class Role < CompanyRecord
       for right in user.rights.split(/\s+/)
         user_rights_array << right.to_sym
       end
-      
+
       user_rights_array.delete_if {|r| deleted_rights.include?(r) }
       for added_right in added_rights
         user_rights_array << added_right unless user_rights_array.include?(added_right)
       end
-         
+
       user.rights = ""
         for right in user_rights_array
           user.rights += right.to_s+" "

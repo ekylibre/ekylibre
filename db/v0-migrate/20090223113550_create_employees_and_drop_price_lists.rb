@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
-  def up 
+  def up
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_column    :bank_accounts,    :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_index :bank_accounts, :entity_id
@@ -10,14 +10,14 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     # Entity is automatically created for all the companies.
     execute "INSERT INTO #{quoted_table_name(:entity_natures)} (company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', #{quoted_false}, #{quoted_false}, '-', current_timestamp, current_timestamp FROM #{quoted_table_name(:companies)} AS companies LEFT JOIN #{quoted_table_name(:entity_natures)} en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
     execute "INSERT INTO #{quoted_table_name(:entities)} (company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM #{quoted_table_name(:companies)} AS companies LEFT JOIN #{quoted_table_name(:entity_natures)} en ON (en.company_id=companies.id AND en.name='Indéfini') LEFT JOIN #{quoted_table_name(:entities)} e ON (e.code=companies.code), #{quoted_table_name(:languages)} ln WHERE ln.iso2='fr' AND e.id IS NULL"
-    
+
     for company in connection.select_all("SELECT companies.id AS cid, e.id AS eid FROM #{quoted_table_name(:entities)} AS e JOIN #{quoted_table_name(:companies)} AS companies ON (e.code=companies.code and e.company_id=companies.id)")
       execute "UPDATE #{quoted_table_name(:companies)} SET entity_id=#{company['eid']} WHERE id=#{company['cid']}"
     end
     entities = connection.select_all("SELECT id, entity_id FROM #{quoted_table_name(:companies)}")
     execute "UPDATE #{quoted_table_name(:bank_accounts)} SET entity_id=CASE "+entities.collect{|x| "WHEN company_id=#{x['id']} THEN #{x['entity_id']}"}.join(" ")+" ELSE 0 END" if entities.size > 0
-    
-    add_column    :contacts,         :country,        :string,  :limit=>2    
+
+    add_column    :contacts,         :country,        :string,  :limit=>2
     add_column    :products,         :weight,         :decimal, :precision=>16, :scale=>3
     add_column    :entities,         :vat_submissive, :boolean, :null=>false,   :default=>true
     add_column    :entities,         :reflation_submissive,  :boolean, :null=>false, :default=>false
@@ -102,13 +102,13 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     add_column :prices,           :stopped_on, :date
     add_column :prices,           :deleted, :boolean, :null=>false, :default=>false
     add_column :prices,           :default, :boolean, :null=>false, :default=>true
-    
+
     remove_column :deliveries, :contact_id
     remove_column :prices, :active
     remove_column :prices, :stopped_at
     remove_column :prices, :started_at
     remove_column :prices, :entity_id
-    remove_column :prices, :currency_id 
+    remove_column :prices, :currency_id
     remove_column :products,  :price
     remove_column :products, :without_stocks
     remove_column :entities, :payments_number
@@ -125,7 +125,7 @@ class CreateEmployeesAndDropPriceLists < ActiveRecord::Migration
     remove_column :contacts, :country
     remove_column :bank_accounts, :entity_id
     remove_column :companies, :entity_id
-  
+
   end
 
 end

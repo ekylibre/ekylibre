@@ -1,7 +1,7 @@
 #
 # desc "Update fixes for SQL Server in lib/fix_sqlserver.rb"
 task :sqlserver_fixes => :environment do
-  
+
   models = models_in_file
 
   code = ""

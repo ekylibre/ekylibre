@@ -81,7 +81,7 @@ class OutgoingDeliveriesController < AdminController
     sale_lines = sale.lines.find_all_by_reduction_origin_id(nil)
     notify_warning(:no_lines_found) if sale_lines.empty?
     @outgoing_delivery_lines = []
-    @outgoing_delivery = sale.deliveries.new(params[:outgoing_delivery])      
+    @outgoing_delivery = sale.deliveries.new(params[:outgoing_delivery])
     ActiveRecord::Base.transaction do
       if saved = @outgoing_delivery.save
         puts [saved, @outgoing_delivery.errors].inspect
@@ -101,7 +101,7 @@ class OutgoingDeliveriesController < AdminController
         redirect_to_back
         return
       end
-      raise ActiveRecord::Rollback unless saved  
+      raise ActiveRecord::Rollback unless saved
     end
     render_restfully_form
   end

@@ -3,7 +3,7 @@
     %tr
       %td=SaleLine.human_attribute_name("quantity")
       -if @current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
-        %td=SaleLine.human_attribute_name("reduction_percent") 
+        %td=SaleLine.human_attribute_name("reduction_percent")
       -if product.stockable
         %td=SaleLine.human_attribute_name("stock")
     %tr

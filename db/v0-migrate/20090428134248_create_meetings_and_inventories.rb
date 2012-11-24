@@ -32,15 +32,15 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
     add_stamps_indexes :meetings
 
     create_table :stock_transfers do |t|
-      t.column :nature,       :string,   :null=>false,  :limit=>8     ## "Transfer"  "Waste" 
-      t.column :product_id,   :integer,  :null=>false,  :references=>:products,        :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :nature,       :string,   :null=>false,  :limit=>8     ## "Transfer"  "Waste"
+      t.column :product_id,   :integer,  :null=>false,  :references=>:products,        :on_delete=>:restrict, :on_update=>:restrict
       t.column :quantity,     :float,    :null=>false
-      t.column :location_id,  :integer,  :null=>false,  :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict 
-      t.column :second_location_id,      :integer,      :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :location_id,  :integer,  :null=>false,  :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict
+      t.column :second_location_id,      :integer,      :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict
       t.column :planned_on,   :date,     :null=>false
       t.column :moved_on,     :date
       t.column :comment,      :text
-      t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict
       t.stamps
     end
     add_stamps_indexes :stock_transfers
@@ -48,19 +48,19 @@ class CreateMeetingsAndInventories < ActiveRecord::Migration
     create_table :inventories do |t|
       t.column :date,         :date,     :null=>false
       t.column :comment,      :text
-      t.column :changes_reflected,       :boolean 
-      t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :changes_reflected,       :boolean
+      t.column :company_id,   :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict
       t.stamps
     end
     add_stamps_indexes :inventories
 
     create_table :inventory_lines do |t|
-      t.column :product_id,       :integer,  :null=>false,  :references=>:products,       :on_delete=>:restrict, :on_update=>:restrict 
-      t.column :location_id,      :integer,  :null=>false,  :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :product_id,       :integer,  :null=>false,  :references=>:products,       :on_delete=>:restrict, :on_update=>:restrict
+      t.column :location_id,      :integer,  :null=>false,  :references=>:stock_locations, :on_delete=>:restrict, :on_update=>:restrict
       t.column :theoric_quantity, :decimal,  :null=>false, :precision=>16, :scale=>2
       t.column :validated_quantity,:decimal, :null=>false, :precision=>16, :scale=>2
-      t.column :inventory_id,     :integer,  :null=>false,  :references=>:inventories,     :on_delete=>:restrict, :on_update=>:restrict 
-      t.column :company_id,       :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :inventory_id,     :integer,  :null=>false,  :references=>:inventories,     :on_delete=>:restrict, :on_update=>:restrict
+      t.column :company_id,       :integer,  :null=>false,  :references=>:companies,       :on_delete=>:restrict, :on_update=>:restrict
       t.stamps
     end
     add_stamps_indexes :inventory_lines

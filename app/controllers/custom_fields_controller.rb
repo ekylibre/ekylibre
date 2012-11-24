@@ -38,7 +38,7 @@ class CustomFieldsController < AdminController
   end
 
   list(:choices, :model=>:custom_field_choices, :conditions=>{:custom_field_id=>['session[:current_custom_field_id]']}, :order=>'position') do |t|
-    t.column :name 
+    t.column :name
     t.column :value
     t.action :up, :if=>"not RECORD.first\?", :method=>:post
     t.action :down, :if=>"not RECORD.last\?", :method=>:post

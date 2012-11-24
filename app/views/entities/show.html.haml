@@ -27,7 +27,7 @@
     -l.attribute :first_met_on unless @entity.first_met_on.blank?
     -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
     -l.attribute :vat_submissive
-    -l.attribute :reflation_submissive 
+    -l.attribute :reflation_submissive
     -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
     -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
     -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
@@ -42,7 +42,7 @@
   -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
     -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
 
- 
+
 =tabbox(:entity) do |tb|
   -tb.tab(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
     =toolbar do |t|

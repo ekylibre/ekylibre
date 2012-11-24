@@ -1,45 +1,45 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: journal_entry_lines
 #
 #  account_id        :integer          not null
 #  balance           :decimal(19, 4)   default(0.0), not null
-#  bank_statement_id :integer          
-#  comment           :text             
+#  bank_statement_id :integer
+#  comment           :text
 #  created_at        :datetime         not null
-#  creator_id        :integer          
+#  creator_id        :integer
 #  credit            :decimal(19, 4)   default(0.0), not null
 #  debit             :decimal(19, 4)   default(0.0), not null
 #  entry_id          :integer          not null
 #  id                :integer          not null, primary key
-#  journal_id        :integer          
-#  letter            :string(8)        
+#  journal_id        :integer
+#  letter            :string(8)
 #  lock_version      :integer          default(0), not null
 #  name              :string(255)      not null
 #  original_credit   :decimal(19, 4)   default(0.0), not null
 #  original_debit    :decimal(19, 4)   default(0.0), not null
-#  position          :integer          
+#  position          :integer
 #  state             :string(32)       default("draft"), not null
 #  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  updater_id        :integer
 #
 
 
@@ -74,7 +74,7 @@ class JournalEntryLine < CompanyRecord
     state :closed
   end
 
-  
+
   #
   before_validation do
     self.name = self.name.to_s[0..254]
@@ -94,7 +94,7 @@ class JournalEntryLine < CompanyRecord
       end
     end
   end
-    
+
   validate(:on=>:update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
@@ -105,14 +105,14 @@ class JournalEntryLine < CompanyRecord
   #
   validate do
     unless self.updateable?
-      errors.add_to_base :closed_entry_line 
+      errors.add_to_base :closed_entry_line
       return
     end
     errors.add_to_base :unvalid_amounts if self.debit != 0 and self.credit != 0
     errors.add(:debit,  :greater_or_equal_than, :count=>0) if self.debit<0
     errors.add(:credit, :greater_or_equal_than, :count=>0) if self.credit<0
   end
-  
+
   protect(:on => :update) do
     not self.closed? and self.entry and self.entry.updateable?
   end
@@ -126,7 +126,7 @@ class JournalEntryLine < CompanyRecord
     ::I18n.t('models.journal_entry.states.'+self.state.to_s)
   end
 
-  # updates the amounts to the debit and the credit 
+  # updates the amounts to the debit and the credit
   # for the matching entry.
   def update_entry
     self.entry.refresh
@@ -137,12 +137,12 @@ class JournalEntryLine < CompanyRecord
   def unmark
     self.account.unmark(self.letter) unless self.letter.blank?
   end
-  
-#   # this method allows to lock the entry_line. 
+
+#   # this method allows to lock the entry_line.
 #   def close
 #     self.update_column(:closed, true)
 #   end
-  
+
 #   def reopen
 #     self.update_column(:closed, false)
 #   end
@@ -159,7 +159,7 @@ class JournalEntryLine < CompanyRecord
     mode+="warning" if self.draft?
     mode
   end
-  
+
   #
   def resource
     if self.entry
@@ -177,13 +177,13 @@ class JournalEntryLine < CompanyRecord
       'rien'
     end
   end
-  
+
   #this method allows to fix a display color if the entry containing the entry_line is balanced or not.
-  def balanced_entry 
+  def balanced_entry
     return (self.entry.balanced? ? "balanced" : "unbalanced")
   end
 
-  # this method creates a next entry_line with an initialized value matching to the previous entry. 
+  # this method creates a next entry_line with an initialized value matching to the previous entry.
   def next(balance)
     entry_line = JournalEntryLine.new
     if balance > 0

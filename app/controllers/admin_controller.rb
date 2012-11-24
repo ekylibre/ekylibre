@@ -73,7 +73,7 @@ class AdminController < BaseController
   def accessible?(url={})
     #puts url.inspect
     if url.is_a?(Hash)
-      url[:controller]||=self.controller_name 
+      url[:controller]||=self.controller_name
       url[:action]||=:index
     end
     if @current_user
@@ -90,7 +90,7 @@ class AdminController < BaseController
 
   def self.authorized?(url={})
     if url.is_a?(Hash)
-      # url[:controller]||=self.controller_name 
+      # url[:controller]||=self.controller_name
       url[:action]||=:index
     end
     if @current_user
@@ -105,7 +105,7 @@ class AdminController < BaseController
     end
   end
 
-  protected  
+  protected
 
   def render_restfully_form(options={})
     operation = self.action_name.to_sym
@@ -155,7 +155,7 @@ class AdminController < BaseController
               url.each{|k,v| url0[k] = (v.is_a?(String) ? record.send(v) : v)}
               url = url0
             end
-            redirect_to(url) 
+            redirect_to(url)
           end
         end
         return true
@@ -171,7 +171,7 @@ class AdminController < BaseController
     for arg in args
       arg = arg.attributes if arg.respond_to?(:attributes)
       raise ArgumentError.new("Hash expected, got #{arg.class.name}:#{arg.inspect}") unless arg.is_a? Hash
-      arg.each do |k,v| 
+      arg.each do |k,v|
         @title[k.to_sym] = if v.respond_to?(:strftime) or v.is_a?(Numeric)
                              ::I18n.localize(v)
                            else
@@ -195,7 +195,7 @@ class AdminController < BaseController
   def dialog_or_not()
     return (request.xhr? ? "dialog" : "admin")
   end
-  
+
 
   # Set HTTP headers to block page caching
   def no_cache()
@@ -203,7 +203,7 @@ class AdminController < BaseController
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
     # HTTP 1.0
-    response.headers["Pragma"] = "no-cache" 
+    response.headers["Pragma"] = "no-cache"
     # HTTP 1.1 'pre-check=0, post-check=0' (IE specific)
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
   end
@@ -230,10 +230,10 @@ class AdminController < BaseController
     @current_user = nil
     @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id]
   end
-  
 
 
-  # Controls access to every view in Ekylibre. 
+
+  # Controls access to every view in Ekylibre.
   def authorize()
     # Get action rights
     controller_rights = {} unless controller_rights = User.rights[self.controller_name.to_sym]
@@ -246,7 +246,7 @@ class AdminController < BaseController
     unless @current_user
       notify_error(:access_denied, :reason=>"NOT PUBLIC", :url=>request.url.inspect)
       redirect_to_login(request.url)
-      return false 
+      return false
     end
 
     # Set session variables and check state
@@ -286,7 +286,7 @@ class AdminController < BaseController
         return false
       end
     end
-    
+
     # Returns true if authorized
     return true
   end
@@ -319,7 +319,7 @@ class AdminController < BaseController
     return "" unless percentage >= options[:threshold]
     method_info = call_info.target
     # #{(255-3*depth).to_s(16)*3}
-    
+
     html += "<div class='profile p#{call_info.parent.object_id}' style='margin-left: 8px; background: ##{(255-percentage).to_i.to_s(16)*3}; #{'display: none' unless options[:display]}'>"
     regexp = /\([^\)]+\)/
 
@@ -334,7 +334,7 @@ class AdminController < BaseController
     child_options[:depth] += 1
     child_options[:display] = (percentage >= 33 ? true : false)
     for child in call_info.children.sort{|a,b| a.line <=> b.line}
-      html += call_info_tree(child, child_options) 
+      html += call_info_tree(child, child_options)
     end
     html += "</div>"
     return html
@@ -355,7 +355,7 @@ class AdminController < BaseController
     html += "</div>"
     return html
   end
-  
+
 
   def profile()
     unless params[:profile]
@@ -364,7 +364,7 @@ class AdminController < BaseController
                      }) if params[:trace]
       yield
       set_trace_func(nil) if params[:trace]
-      return 
+      return
     end
     # require 'ruby-prof'
     RubyProf.measure_mode = RubyProf::PROCESS_TIME
@@ -398,7 +398,7 @@ class AdminController < BaseController
       self.response_body = self.response.body.sub("</body>", html + "</body>")
     end
   end
-  
+
 
 
   def search_article(article=nil)
@@ -425,7 +425,7 @@ class AdminController < BaseController
     @current_user = nil
     redirect_to(new_session_url(:redirect=>url))
   end
-  
+
   def redirect_to_back(options={})
     if params[:redirect]
       redirect_to params[:redirect], options
@@ -446,7 +446,7 @@ class AdminController < BaseController
     #   redirect_to_back
     # end
   end
-  
+
   # Autocomplete helper
   def self.autocomplete_for(model_name, method)
     item =  model_name.to_s
@@ -480,7 +480,7 @@ class AdminController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
     code = ''
-    
+
     code += "def new\n"
     values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
     code += "  @#{record_name} = #{model.name}.new(#{values})\n"
@@ -534,7 +534,7 @@ class AdminController < BaseController
     code += "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code += "end\n"
 
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}    
+    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     class_eval(code)
   end
 
@@ -547,7 +547,7 @@ class AdminController < BaseController
     records = model.name.underscore.pluralize
     raise ArgumentError.new("Unknown column for #{model.name}") unless model.columns_hash[order_by.to_s]
     code = ''
-    
+
     sort = ""
     position, conditions = "#{record_name}_position_column", "#{record_name}_conditions"
     sort += "#{position}, #{conditions} = #{record_name}.position_column, #{record_name}.scope_condition\n"
@@ -558,14 +558,14 @@ class AdminController < BaseController
     sort += "    #{model.name}.update_all({#{position}=>i+1}, {:id=>#{records}[i].id})\n"
     sort += "  end\n"
     sort += "end\n"
-    
+
     code += "def up\n"
     code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
     code += "  #{record_name}.move_higher\n"
     code += sort.gsub(/^/, "  ")
     code += "  redirect_to_current\n"
     code += "end\n"
-    
+
     code += "def down\n"
     code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
     code += "  #{record_name}.move_lower\n"
@@ -581,7 +581,7 @@ class AdminController < BaseController
 
   def self.search_conditions(model_name, columns)
     model = model_name.to_s.classify.constantize
-    columns = [columns] if [String, Symbol].include? columns.class 
+    columns = [columns] if [String, Symbol].include? columns.class
     columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
     columns.flatten!
     raise Exception.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
@@ -610,7 +610,7 @@ class AdminController < BaseController
     columns = search.collect{|t, cs| cs.collect{|c| "#{ActiveRecord::Base.connection.quote_table_name(t.is_a?(Symbol) ? t.to_s.classify.constantize.table_name : t)}.#{ActiveRecord::Base.connection.quote_column_name(c)}"}}.flatten
     code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
     code += "  kw = '%'+kw+'%'\n"
-    filters = columns.collect do |x| 
+    filters = columns.collect do |x|
       # This line is incompatible with MySQL...
       if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
         'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
@@ -707,7 +707,7 @@ class AdminController < BaseController
   # management -> prices_conditions
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
-    code += "if session[:entity_id] == 0 \n " 
+    code += "if session[:entity_id] == 0 \n "
     code += " conditions = ['#{Price.table_name}.active = ?', true] \n "
     code += "else \n "
     code += " conditions = ['#{Price.table_name}.entity_id = ? AND #{Price.table_name}.active = ?', session[:entity_id], true]"

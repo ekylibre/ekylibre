@@ -31,6 +31,6 @@ module Templating
       raise ArgumentError.new("Unsupported format of template: #{format}")
     end
   end
-  
+
 end
 

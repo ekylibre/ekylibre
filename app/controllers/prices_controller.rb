@@ -32,18 +32,18 @@ class PricesController < AdminController
   end
 
   def new
-    @mode = (params[:mode]||"sales").to_sym 
+    @mode = (params[:mode]||"sales").to_sym
     @price = Price.new(:product_id=>params[:product_id], :currency=>params[:currency]||Entity.of_company.currency, :category_id=>params[:entity_category_id]||session[:current_entity_category_id]||0)
     @price.entity_id = params[:entity_id] if params[:entity_id]
-    render_restfully_form    
+    render_restfully_form
   end
 
   def create
-    @mode = (params[:mode]||"sales").to_sym 
+    @mode = (params[:mode]||"sales").to_sym
     @price = Price.new(params[:price])
     @price.entity_id = params[:price][:entity_id]||Entity.of_company.id
     return if save_and_redirect(@price)
-    render_restfully_form    
+    render_restfully_form
   end
 
   def destroy
@@ -54,7 +54,7 @@ class PricesController < AdminController
 
   def find
     if params[:product_id] and params[:entity_id]
-      return unless product = find_and_check(:product, params[:product_id]) 
+      return unless product = find_and_check(:product, params[:product_id])
       return unless entity = find_and_check(:entity, params[:entity_id])
       @price = product.prices.find(:first, :conditions=>{:entity_id=>entity.id, :active=>true}, :order=>"by_default DESC")
       @price ||= Price.new(:category_id=>entity.category_id)
@@ -108,19 +108,19 @@ class PricesController < AdminController
   def export
     @products = Product.availables
     @entity_categories = EntityCategory
-    
+
     csv = ["",""]
     csv2 = ["Code Produit", "Nom"]
     @entity_categories.each do |category|
       csv += [category.code, category.name, ""]
       csv2 += ["HT","TTC","TVA"]
     end
-    
+
     csv_string = Ekylibre::CSV.generate_line(csv)
     csv_string += Ekylibre::CSV.generate_line(csv2)
-    
+
     csv_string += Ekylibre::CSV.generate do |csv|
-      
+
       @products.each do |product|
         line = []
         line << [product.code, product.name]
@@ -135,17 +135,17 @@ class PricesController < AdminController
         end
         csv << line.flatten
       end
-      
+
     end
-    
-    send_data csv_string,                                       
+
+    send_data csv_string,
     :type => 'text/csv; charset=iso-8859-1; header=present',
     :disposition => "attachment; filename=Tarifs.csv"
-    
+
   end
 
   def import
-    
+
     if request.post?
       if params[:csv_file].nil?
         notify_warning(:you_must_select_a_file_to_import)
@@ -168,7 +168,7 @@ class PricesController < AdminController
               x += 3
             end
           end
-          
+
           if i > 1
             puts i.to_s+"hhhhhhhhhhhhhhh"
             x = 2
@@ -217,7 +217,7 @@ class PricesController < AdminController
         end
       end
     end
-    
+
   end
 
 end

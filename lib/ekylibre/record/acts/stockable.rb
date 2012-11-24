@@ -1,7 +1,7 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Stockable #:nodoc:
-      
+
       def self.included(base)
         base.extend(ClassMethods)
       end
@@ -15,7 +15,7 @@ module Ekylibre::Record
           condition = options.delete(:if)
           origin = options.delete(:origin)
           record = self.name.underscore.to_s
-          variable = "self" # self.name.underscore # "self" || 
+          variable = "self" # self.name.underscore # "self" ||
           attributes = {}
           [:quantity, :product, :unit, :warehouse, :tracking, :moved_on].each{|a| attributes[a] = a}
           attributes.merge!(options)
@@ -41,8 +41,8 @@ module Ekylibre::Record
           code << "after_save do"+(variable == "self" ? "" : "|#{variable}|")+"\n"
           # code << "  puts \"#{self.name} (\#\{#{variable}.id\})\"\n"
           if condition
-            code << "  unless #{condition}\n" 
-            code << "    #{variable}.#{stock_move}.destroy if #{variable}.#{stock_move}\n" 
+            code << "  unless #{condition}\n"
+            code << "    #{variable}.#{stock_move}.destroy if #{variable}.#{stock_move}\n"
             code << "    return\n"
             code << "  end\n"
           end

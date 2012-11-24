@@ -34,7 +34,7 @@ class JournalsController < AdminController
     end
     filter[JournalEntry.table_name] = [:number, :debit, :credit]
     code += light_search_conditions(filter, search_options)
-    if options[:with_journals] 
+    if options[:with_journals]
       code += "\n"
       code += journals_crit("params")
     else
@@ -118,11 +118,11 @@ class JournalsController < AdminController
       notify(:no_closable_journal)
       redirect_to :action => :index
       return
-    end    
-    if request.post?   
+    end
+    if request.post?
       if @journal.close(params[:journal][:closed_on].to_date)
         notify_success(:journal_closed_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
-        redirect_to_back 
+        redirect_to_back
       end
     end
     t3e @journal.attributes
@@ -134,14 +134,14 @@ class JournalsController < AdminController
       notify(:no_reopenable_journal)
       redirect_to :action => :index
       return
-    end    
+    end
     if request.post?
       if @journal.reopen(params[:journal][:closed_on].to_date)
         notify_success(:journal_reopened_on, :closed_on=>::I18n.l(@journal.closed_on), :journal=>@journal.name)
-        redirect_to_back 
+        redirect_to_back
       end
     end
-    t3e @journal.attributes    
+    t3e @journal.attributes
   end
 
   # Displays the main page with the list of journals
@@ -160,7 +160,7 @@ class JournalsController < AdminController
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end
-  
+
   # this method lists all the entries generated in draft mode.
   def draft
     if request.post? and params[:validate]
@@ -218,10 +218,10 @@ class JournalsController < AdminController
 
   end
 
-  
+
   def balance
     if params[:period]
-      @balance = Journal.balance(params) 
+      @balance = Journal.balance(params)
     end
   end
 
@@ -249,7 +249,7 @@ class JournalsController < AdminController
   end
 
   def general_ledger
-  end  
+  end
 
   def reports
     # redirect_to :action=>:index
@@ -275,7 +275,7 @@ class JournalsController < AdminController
           end
         end
         send_data(csv_string, :filename=>'export.csv', :type=>Mime::CSV)
-      rescue Exception => e 
+      rescue Exception => e
         notify_error_now(:exception_raised, :message=>e.message)
       end
     elsif params[:export] == "isaquare"

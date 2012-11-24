@@ -7,7 +7,7 @@ module Templating::Compilers
           @elements = {}
           self.instance_eval(&block) if block_given?
         end
-        
+
         def element(name, attributes={}, content=nil, &block)
           required_attributes = {}
           for attr_name, type in attributes
@@ -90,10 +90,10 @@ module Templating::Compilers
         def read(string)
           Templating::Compilers::Xil::Schema::Attribute.read(string, @content)
         end
-        
+
       end
 
-      
+
       class Attribute
         attr_reader :name, :type
         TYPES = [:boolean, :stroke, :color, :integer, :length4, :length, :page_format, :path, :property, :string, :symbol, :variable]
@@ -153,8 +153,8 @@ module Templating::Compilers
             raise ArgumentError.new("Unreadable type: #{type.inspect}")
           end
         end
-        
-        private 
+
+        private
 
         def self.measure_to_float(string, width = (210.mm - 2 * 10.mm))
           string = string.to_s
@@ -185,6 +185,6 @@ module Templating::Compilers
 
 
     end
-    
+
   end
 end

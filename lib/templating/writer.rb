@@ -100,7 +100,7 @@ module Templating
       end
 
       protected
-      
+
       def generate
         @pen.render
       end
@@ -131,7 +131,7 @@ module Templating
       end
 
       # Normalizes color to usable form. Follow the CSS standard
-      # Accepted formats are: <name>, #L, #LL, #RGB, #RGBA, #RRGGBB, 
+      # Accepted formats are: <name>, #L, #LL, #RGB, #RGBA, #RRGGBB,
       # #RRGGBBAA, rgb(R,G,B), rgba(R,G,B,A), hsl(H,S,L), hsla(H,S,L,A)
       def normalize_color(color, with_opacity = false)
         color = color.to_s.strip.downcase
@@ -157,18 +157,18 @@ module Templating
           rgba = hsl_to_rgb(h, s, l)
         elsif color.match(/^hsla\(\s*\d+\s*\,\s*\d+\%\s*\,\s*\d+\%\s*,\s*\d(\.\d+)?\s*\)$/)
           values = color.split(/[\(\s\)\,]+/).collect{|x| x.to_f}
-          rgba = hsl_to_rgb(values[1], values[2], values[3])          
+          rgba = hsl_to_rgb(values[1], values[2], values[3])
           rgba << (values[4] > 1 ? 1 : values[4] < 0 ? 0 : values[4])
         elsif color.match(/^\#[0123456789abcdef]$/)
           rgba = [(color[1..1]*2).to_i(16).to_f/255]*3
         elsif color.match(/^\#[0123456789abcdef]{2}$/)
           rgba = [color[1..2].to_i(16).to_f/255]*3
         elsif color.match(/^\#[0123456789abcdef]{3}$/)
-          rgba = [(color[1..1]*2).to_i(16).to_f/255, 
+          rgba = [(color[1..1]*2).to_i(16).to_f/255,
                   (color[2..2]*2).to_i(16).to_f/255,
                   (color[3..3]*2).to_i(16).to_f/255]
         elsif color.match(/^\#[0123456789abcdef]{4}$/)
-          rgba = [(color[1..1]*2).to_i(16).to_f/255, 
+          rgba = [(color[1..1]*2).to_i(16).to_f/255,
                   (color[2..2]*2).to_i(16).to_f/255,
                   (color[3..3]*2).to_i(16).to_f/255,
                   (color[4..4]*2).to_i(16).to_f/255]
@@ -204,7 +204,7 @@ module Templating
         chroma = (1 - (2*l - 1).abs) * s
         second = chroma * (1 - (hp.modulo(2) - 1).abs)
         m =  l - 0.5 * chroma
-        rgb = if hp >= 5 
+        rgb = if hp >= 5
                 [chroma + m, second + m, m]
               elsif hp >= 4
                 [second + m, chroma + m, m]
@@ -265,7 +265,7 @@ module Templating
           opacity ||= 1
           stroke_opacity ||= opacity
           if opacity == 1 and stroke_opacity == 1
-            yield 
+            yield
           else
             @pen.transparent(opacity, stroke_opacity) do
               yield
@@ -309,7 +309,7 @@ module Templating
       # Add a slice with the defined options
       # @param [Hash] options The options to define the slice
       # @option options [Float] :height Default height of the slice in pt
-      # @option options [TrueClass,FalseClass] :bottom (false) Put the slice at 
+      # @option options [TrueClass,FalseClass] :bottom (false) Put the slice at
       #   the bottom of the page (It adds a filling slice before).
       def slice(options={}, &block)
         height = Slice.height(self, options, &block)
@@ -321,7 +321,7 @@ module Templating
         @done += Slice.new(self, options, &block).height
         return self
       end
-      
+
 
       # Start a new page using the default settings
       # To change the settings from a page to another, it's necessary to call {#page} again.
@@ -384,12 +384,12 @@ module Templating
         end
         return height.to_f
       end
-      
+
       # Create a slice
       # @param [Page] page The page used to print the slice
       # @param [Hash] options The options to define the slice
-      # @option options [Float] :height Defines the height of the slice. 
-      #   If the height is nil then the slice will be resized automatically else 
+      # @option options [Float] :height Defines the height of the slice.
+      #   If the height is nil then the slice will be resized automatically else
       #   the slice height is fixed and there is no resizing.
       # @option options [Float,Array] :margins (0) The margins to use for the slice.
       #   Negative values will make overflows on other slices.
@@ -467,14 +467,14 @@ module Templating
       def current_box
         @boxes_stack[@current_box]
       end
-      
+
       def resizing?
         @resizing
       end
 
       # Returns the width of the slice
       def width
-        @width 
+        @width
       end
 
       # Return the height of the slice (using delta)
@@ -616,7 +616,7 @@ module Templating
       # Write text
       # @param [String] string Text to display
       # @param [Hash] options The options to define the page properties
-      # @option options [Symbol] :align (:left) Horizontal alignment of text 
+      # @option options [Symbol] :align (:left) Horizontal alignment of text
       #   (:center, :left, :right, :justify)
       # @option options [Symbol] :valign (:top) Vertical alignment of text (:center, :top, :bottom)
       # @option options [Float] :left Left position relatively to the slice or box
@@ -652,7 +652,7 @@ module Templating
         @pen.save_graphics_state do
           @pen.save_font do
             @pen.font(options.delete(:font), :size=>options[:size]) if options[:font]
-            inner_height = (options[:height].nil? ? @pen.height_of_formatted([string], box_options) : options[:height] - margins[0] - margins [2]) #  
+            inner_height = (options[:height].nil? ? @pen.height_of_formatted([string], box_options) : options[:height] - margins[0] - margins [2]) #
             if options[:fill] or options[:stroke]
               paint(:fill=>options.delete(:fill), :stroke=>options.delete(:stroke)) do
                 if radius.zero?
@@ -761,7 +761,7 @@ module Templating
       # @option options [Float] :top (0) Top position from top paper border or parent box
       # @option options [Float] :width Width of block
       # @option options [Integer] :columns (3) Number of columns
-      # @option options [String] :font Name of the font used to write the list 
+      # @option options [String] :font Name of the font used to write the list
       # @option options [Float] :size (7) Size of the font
       # @option options [Float] :spacing (10) Space betwen columns
       def list(lines, options={})
@@ -823,15 +823,15 @@ module Templating
 
       include PenHelper
     end
-    
 
-    
+
+
     # Helper classes
 
-    
+
     class Box
       attr_reader :left, :top, :width, :height, :absolute_left, :absolute_top, :parent, :page
-      
+
       def initialize(options={})
         @left   = options[:left] || 0
         @top    = options[:top] || 0

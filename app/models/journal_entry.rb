@@ -1,46 +1,46 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: journal_entries
 #
 #  balance                :decimal(19, 4)   default(0.0), not null
 #  created_at             :datetime         not null
 #  created_on             :date             not null
-#  creator_id             :integer          
+#  creator_id             :integer
 #  credit                 :decimal(19, 4)   default(0.0), not null
 #  debit                  :decimal(19, 4)   default(0.0), not null
-#  financial_year_id      :integer          
+#  financial_year_id      :integer
 #  id                     :integer          not null, primary key
 #  journal_id             :integer          not null
 #  lock_version           :integer          default(0), not null
 #  number                 :string(255)      not null
 #  original_credit        :decimal(19, 4)   default(0.0), not null
-#  original_currency      :string(3)        
+#  original_currency      :string(3)
 #  original_currency_rate :decimal(19, 10)  default(0.0), not null
 #  original_debit         :decimal(19, 4)   default(0.0), not null
 #  printed_on             :date             not null
-#  resource_id            :integer          
-#  resource_type          :string(255)      
+#  resource_id            :integer
+#  resource_type          :string(255)
 #  state                  :string(32)       default("draft"), not null
 #  updated_at             :datetime         not null
-#  updater_id             :integer          
+#  updater_id             :integer
 #
 
 
@@ -143,7 +143,7 @@ class JournalEntry < CompanyRecord
       else
         # TODO: Find a way to manage currency rates!
         # raise self.financial_year.inspect if I18n.currencies(self.financial_year.currency).nil?
-        self.original_currency_rate = I18n.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate 
+        self.original_currency_rate = I18n.currency_rate(self.original_currency, self.financial_year.currency) # rand # self.original_currency.rate
       end
     else
       self.original_currency_rate = 1
@@ -155,15 +155,15 @@ class JournalEntry < CompanyRecord
     self.balance = self.debit - self.credit
     self.created_on = Date.today
     if self.journal and not self.number
-      self.number ||= self.journal.next_number 
+      self.number ||= self.journal.next_number
     end
-  end 
-  
+  end
+
   validate(:on=>:update) do
     old = self.class.find(self.id)
     errors.add_to_base(:entry_has_been_already_validated) if old.closed?
   end
-  
+
   #
   validate do
     # TODO: Validates number has journal's code as prefix
@@ -171,11 +171,11 @@ class JournalEntry < CompanyRecord
     if self.journal
       errors.add(:printed_on, :closed_journal, :journal=>self.journal.name, :closed_on=>::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
     end
-    unless self.financial_year 
+    unless self.financial_year
       errors.add(:printed_on, :out_of_existing_financial_year)
     end
   end
-  
+
   after_save do
     JournalEntryLine.update_all({:state=>self.state}, ["entry_id = ? AND state != ? ", self.id, self.state])
   end
@@ -201,7 +201,7 @@ class JournalEntry < CompanyRecord
   def balanced?
     self.balance.zero? # and self.lines.count > 0
   end
-  
+
   # this method computes the debit and the credit of the entry.
   def refresh
     self.reload
@@ -216,7 +216,7 @@ class JournalEntry < CompanyRecord
     ActiveRecord::Base.transaction do
       entry.save!
       for line in self.useful_lines
-        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0)) 
+        entry.send(:add!, tc(:entry_cancel, :number=>self.number, :name=>line.name), line.account, (line.debit-line.credit).abs, :credit=>(line.debit>0))
         reconcilable_accounts << line.account if line.account.reconcilable? and not reconcilable_accounts.include?(line.account)
       end
     end
@@ -239,7 +239,7 @@ class JournalEntry < CompanyRecord
       end
       self.reload if saved
       if saved and (not self.balanced? or self.lines.size.zero?)
-        self.errors.add_to_base(:unbalanced) 
+        self.errors.add_to_base(:unbalanced)
         saved = false
       end
       if saved
@@ -252,14 +252,14 @@ class JournalEntry < CompanyRecord
   end
 
 
-  
+
 #   #this method tests if all the entry_lines matching to the entry does not edited in draft mode.
 #   def normalized
 #     return (not self.lines.exists?(:draft=>true))
 #   end
 
   # Adds an entry_line with the minimum informations. It computes debit and credit with the "amount".
-  # If the amount is negative, the amount is put in the other column (debit or credit). Example: 
+  # If the amount is negative, the amount is put in the other column (debit or credit). Example:
   #   entry.add_debit("blabla", account, -65) # will put +65 in +credit+ column
   def add_debit(name, account, amount, options={})
     add!(name, account, amount, options)
@@ -296,5 +296,5 @@ class JournalEntry < CompanyRecord
     return e
   end
 
-  
+
 end

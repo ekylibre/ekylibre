@@ -56,10 +56,10 @@ module Ekylibre
 
     # Enable the asset pipeline
     config.assets.enabled = true
-    
+
     # Change default prefix for assets
     # config.assets.prefix = 'assets'
-    
+
     # Configure exception notification
     # config.middleware.use ExceptionNotifier, :email_prefix => "[ERROR] ", :sender_address => %{"notifier" <notifier@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
 

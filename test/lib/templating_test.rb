@@ -20,10 +20,10 @@ class TemplatingTest < Test::Unit::TestCase
             s.box(:left=>40, :top=>40, :height=>50, :width=>100) do
               s.text("Boxed!")
               s.box(:left=>8, :top=>32, :height=>25, :width=>72) do
-                #s.text("Re-boxed!")                
+                #s.text("Re-boxed!")
               end
               s.box(:left=>-50, :top=>72, :width=>137) do
-                #s.text("Re-boxed!")                
+                #s.text("Re-boxed!")
               end
             end
           end
@@ -46,13 +46,13 @@ class TemplatingTest < Test::Unit::TestCase
           s.rectangle(:height=>bh, :fill=>"#CCC", :top=>2*bh)
           s.rectangle(:height=>bh, :fill=>"#DDD", :top=>3*bh)
           s.rectangle(:height=>bh, :fill=>"#EEE", :top=>4*bh)
-          
+
           s.box(:left=>300, :top=>20) do
             s.rectangle(:height=>50, :width=>50, :stroke=>"5pt dotted #F00")
             s.rectangle(:height=>50, :width=>50, :stroke=>"5pt dashed #0F0", :left=>70)
             s.rectangle(:height=>50, :width=>50, :stroke=>"5pt solid  #00F", :left=>140)
           end
-          
+
           points = []
           gs = 70.0
           wl = 5
@@ -64,7 +64,7 @@ class TemplatingTest < Test::Unit::TestCase
           s.line(*(points + [{:stroke=>"1pt solid #007"}]))
 
           points = []
-          12.times do 
+          12.times do
             points << [rand(70), rand(70)]
           end
           s.polygon(*(points + [{:stroke=>"1pt dotted #700", :top=>50, :left=>200}]))

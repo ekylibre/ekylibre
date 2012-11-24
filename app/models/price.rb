@@ -1,44 +1,44 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: prices
 #
 #  active        :boolean          default(TRUE), not null
 #  amount        :decimal(19, 4)   not null
 #  by_default    :boolean          default(TRUE)
-#  category_id   :integer          
+#  category_id   :integer
 #  created_at    :datetime         not null
-#  creator_id    :integer          
-#  currency      :string(3)        
-#  entity_id     :integer          
+#  creator_id    :integer
+#  currency      :string(3)
+#  entity_id     :integer
 #  id            :integer          not null, primary key
 #  lock_version  :integer          default(0), not null
 #  pretax_amount :decimal(19, 4)   not null
 #  product_id    :integer          not null
 #  quantity_max  :decimal(19, 4)   default(0.0), not null
 #  quantity_min  :decimal(19, 4)   default(0.0), not null
-#  started_at    :datetime         
-#  stopped_at    :datetime         
+#  started_at    :datetime
+#  stopped_at    :datetime
 #  tax_id        :integer          not null
 #  updated_at    :datetime         not null
-#  updater_id    :integer          
+#  updater_id    :integer
 #  use_range     :boolean          not null
 #
 
@@ -73,7 +73,7 @@ class Price < CompanyRecord
       self.amount = self.amount.round(2)
       tax_amount = (self.tax ? self.tax.compute(self.amount, true) : 0)
       self.pretax_amount = self.amount - tax_amount.round(2)
-    else  # if self.amount.to_f >= 0 
+    else  # if self.amount.to_f >= 0
       tax_amount = (self.tax ? self.tax.compute(self.pretax_amount) : 0).to_f
       self.amount = (self.pretax_amount.to_f+tax_amount).round(2)
       self.pretax_amount = self.amount.to_f - tax_amount.round(2)
@@ -102,10 +102,10 @@ class Price < CompanyRecord
 
   def set_by_default
     if self.by_default
-      Price.update_all({:by_default=>false}, ["product_id=? AND id!=? AND entity_id=?", self.product_id, self.id||0, Entity.of_company.id]) 
+      Price.update_all({:by_default=>false}, ["product_id=? AND id!=? AND entity_id=?", self.product_id, self.id||0, Entity.of_company.id])
     end
   end
-  
+
   def refresh
     self.save
   end

@@ -17,10 +17,10 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalRaceTypesController < AdminController
+class AnimalCareNaturesController < AdminController
   manage_restfully
-  
-  list do |t|
+
+  list() do |t|
     t.column :name, :url=>true
     t.column :comment
     t.column :description
@@ -28,16 +28,16 @@ class AnimalRaceTypesController < AdminController
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
-  
-  # Show a list of animals types
+
+  # Show a list of animals natures
   def index
   end
-  
-  # Show one Animal with params_id
+
+  # Show one care with params_id
   def show
-    return unless @animal_race_type = find_and_check
-    session[:current_animal_race_type_id] = @animal_race_type.id   
-    t3e @animal_race_type
+    return unless @animal_care_nature = find_and_check
+    session[:current_animal_care_nature_id] = @animal_care_nature.id
+    t3e @animal_care_nature
   end
-  
+
 end

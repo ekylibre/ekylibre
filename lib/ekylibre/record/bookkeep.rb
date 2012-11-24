@@ -22,7 +22,7 @@ module Ekylibre::Record  #:nodoc:
         @draft = draft
       end
 
-      
+
 
       def journal_entry(journal, options={}, &block)
         column = options.delete(:column)||:journal_entry_id
@@ -54,15 +54,15 @@ module Ekylibre::Record  #:nodoc:
             yield(journal_entry)
             journal_entry.reload.confirm unless @draft
           end
-          
+
           # Set accounted columns
           @resource.class.update_all({:accounted_at=>Time.now, column=>(journal_entry ? journal_entry.id : nil)}, {:id=>@resource.id})
         end
       end
-      
+
 
     end
-    
+
     def self.included(base)
       base.extend(ClassMethods)
     end
@@ -77,7 +77,7 @@ module Ekylibre::Record  #:nodoc:
         configuration[:column] = configuration[:column].to_s
         method_name = configuration[:method_name].to_s
         core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Bookkeep::Base.next_id}"
-        
+
         unless Ekylibre::Record::Base.connection.adapter_name == "SQLServer"
           # raise Exception.new("journal_entry_id is needed for #{self.name}.bookkeep") unless columns_hash["journal_entry_id"]
           raise Exception.new("#{configuration[:column]} is needed for #{self.name}.bookkeep") unless columns_hash[configuration[:column]]
@@ -98,14 +98,14 @@ module Ekylibre::Record  #:nodoc:
         configuration[:on] = [configuration[:on]] if configuration[:on].is_a? Symbol and configuration[:on] != :nothing
         for action in Ekylibre::Record::Bookkeep::actions
           if configuration[:on].include? action
-            code += "after_#{action} do \n" 
+            code += "after_#{action} do \n"
             code += "  self.#{method_name}(:#{action}, self.company.prefer_bookkeep_in_draft?) if self.company.prefer_bookkeep_automatically?\n"
             code += "end\n"
           end
         end if configuration[:on].is_a? Array
 
         class_eval code
-        
+
         self.send(:define_method, core_method_name, block)
       end
 
@@ -115,7 +115,7 @@ module Ekylibre::Record  #:nodoc:
       def accounted?
         not self.accounted_at.nil?
       end
-    end 
+    end
 
   end
 end

@@ -1,6 +1,6 @@
 class AddListingNodeInformations < ActiveRecord::Migration
   def self.up
-    
+
     add_column :listing_nodes, :key, :string
     add_column :listing_nodes, :sql_type, :string
     add_column :listing_nodes, :condition_value, :string

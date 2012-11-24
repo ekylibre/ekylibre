@@ -38,7 +38,7 @@ def hash_count(hash)
   end
   return count
 end
-  
+
 def sort_yaml_file(filename, log=nil)
   yaml_file = Rails.root.join("config", "locales", ::I18n.locale.to_s, "#{filename}.yml")
   # translation = hash_to_yaml(yaml_to_hash(file)).strip
@@ -104,7 +104,7 @@ def hash_diff(hash, ref, depth=0)
     elsif r.nil?
       code  += "  "*depth+key.to_s+": #?\n"
     end
-  end  
+  end
   return code, count, total
 end
 
@@ -117,7 +117,7 @@ def actions_in_file(path, controller)
   File.open(path, "rb:UTF-8").each_line do |line|
     line = line.gsub(/(^\s*|\s*$)/,'')
     if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
-      actions << line.split(/def\s/)[1].gsub(/\s/,'') 
+      actions << line.split(/def\s/)[1].gsub(/\s/,'')
     elsif line.match(/^\s*formize[\s\(]+\:\w+/)
       formize = line.split(/[\s\(\)\,\:]+/)
       actions << "formize_"+formize[1]

@@ -60,7 +60,7 @@ module Templating::Compilers
               code << "#{p.attributes['name']} = args[#{i}]\n"
               i+=1
             end
-          end 
+          end
           document = template.find('document')[0]
           info = parameters_hash(document)
           info = hash_to_code(info)
@@ -73,10 +73,10 @@ module Templating::Compilers
           return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
         end
 
-        
-        
+
+
         def hash_to_code(hash, wrapped = false)
-          code = hash.collect do |k,v| 
+          code = hash.collect do |k,v|
             ":#{k.to_s.gsub(/\-/, '_')} => " + if v.is_a? Symbol
                                                  v.inspect
                                                elsif v.nil?
@@ -206,7 +206,7 @@ module Templating::Compilers
               code << compile_element(child, variable, depth).strip + "\n"
             end
           end
-          return code 
+          return code
         end
 
         def execute_children(element, variable_name, depth=0)
@@ -254,7 +254,7 @@ module Templating::Compilers
                   pcv[:margins][index] = pcv.delete("margin-#{side}") if pcv["margin-#{side}"]
                 end
                 if pcv[:margins]
-                  pch[:margins] = '['+pcv[:margins][0..3].collect{|m| m.nil? ? 'nil' : pt_to_s(m)}.join(',')+']' 
+                  pch[:margins] = '['+pcv[:margins][0..3].collect{|m| m.nil? ? 'nil' : pt_to_s(m)}.join(',')+']'
                 end
                 pch[:fill] = pch.delete(:background) if pch[:background]
                 pch[:stroke] = pch.delete(:border) if pch[:border]
@@ -297,7 +297,7 @@ module Templating::Compilers
             lines = (@mode == :debug ? "[]" : collection)
             code << "#{variable}.list(#{lines}, #{hash_to_code(phash, true)})"
 
-          elsif name == :page            
+          elsif name == :page
             # Xil 2.0 assumes that Times 10pt is default font
             phash[:size] = phash.delete(:format) || "'A4'"
             phash[:orientation] ||= ':portrait'

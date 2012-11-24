@@ -50,7 +50,7 @@ class NormalizeCurrencies < ActiveRecord::Migration
     :journal_entry_lines => {
       :currency_debit  => :original_debit,
       :currency_credit => :original_credit
-    }    
+    }
   }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
 
   TABLES = ["account_balances", "accounts", "areas", "asset_depreciations", "assets", "bank_statements", "cash_transfers", "cashes", "companies", "contacts", "cultivations", "currencies", "custom_field_choices", "custom_field_data", "custom_fields", "delays", "departments", "deposit_lines", "deposits", "districts", "document_templates", "documents", "entities", "entity_categories", "entity_link_natures", "entity_links", "entity_natures", "establishments", "event_natures", "events", "financial_years", "incoming_deliveries", "incoming_delivery_lines", "incoming_delivery_modes", "incoming_payment_modes", "incoming_payment_uses", "incoming_payments", "inventories", "inventory_lines", "journal_entries", "journal_entry_lines", "journals", "land_parcel_groups", "land_parcel_kinships", "land_parcels", "listing_node_items", "listing_nodes", "listings", "mandates", "observations", "operation_lines", "operation_natures", "operation_uses", "operations", "outgoing_deliveries", "outgoing_delivery_lines", "outgoing_delivery_modes", "outgoing_payment_modes", "outgoing_payment_uses", "outgoing_payments", "preferences", "prices", "product_categories", "product_components", "production_chain_conveyors", "production_chain_work_center_uses", "production_chain_work_centers", "production_chains", "products", "professions", "purchase_lines", "purchases", "roles", "sale_lines", "sale_natures", "sales", "sequences", "stock_moves", "stock_transfers", "stocks", "subscription_natures", "subscriptions", "tax_declarations", "taxes", "tools", "tracking_states", "trackings", "transfers", "transports", "units", "users", "warehouses"]
@@ -65,7 +65,7 @@ class NormalizeCurrencies < ActiveRecord::Migration
       currencies[code] ||= []
       currencies[code] << result['id']
     end
-    cases = if currencies.size > 0 
+    cases = if currencies.size > 0
               (lambda do |id_column|
                  "CASE " + currencies.collect do |code, ids|
                    "WHEN #{id_column} IN (#{ids.join(', ')}) THEN '#{code}'"

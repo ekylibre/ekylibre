@@ -23,9 +23,9 @@ class InterfacersController < AdminController
   def toggle_side
     # Explicit conversion
     session[:side] = (params[:splitted] == "1" ? false : true)
-    render :text=>''    
+    render :text=>''
   end
-  
+
   # Saves the state of the side bar
   def toggle_module
     # Explicit conversion
@@ -35,7 +35,7 @@ class InterfacersController < AdminController
     @current_user.preference("interface.show_modules.#{params[:module]}", true, :boolean).set(shown)
     render :text=>''
   end
-  
+
   # Saves the last selected tab in a tabbox
   def toggle_tab
     session[:tabbox] ||= {}
@@ -48,7 +48,7 @@ class InterfacersController < AdminController
     session[:view_mode] = params[:mode]
     render :text=>''
   end
-  
+
 
   def unroll
     @options = [:source, :filter, :model, :id, :label, :include_blank, :selected].inject({}) do |hash, key|

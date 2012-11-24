@@ -8,7 +8,7 @@ module MigrationHelper
       sqlite_indexes = []
       root, count = rand.to_s[2..-1].to_i.to_s(36), "a"
       Struct.new("ShortIndexName", :table, :name, :short_name)
-      
+
       suppress_messages do
         for table in tables
           for index in indexes(table)
@@ -34,7 +34,7 @@ module MigrationHelper
       end
     else
       yield
-    end  
+    end
   end
 
 end

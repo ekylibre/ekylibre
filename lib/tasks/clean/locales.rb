@@ -32,7 +32,7 @@ task :locales => :environment do
   acount = atotal = 0
 
   translation  = "#{locale}:\n"
-  
+
   # Actions
   translation += "  actions:\n"
   for controller_file in Dir[Rails.root.join("app", "controllers", "*.rb")].sort
@@ -44,7 +44,7 @@ task :locales => :environment do
       translation += "    #{controller_name}:\n"
       for action_name in translateable_actions
         name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
-        to_translate += 1 
+        to_translate += 1
         if actions.include?(action_name)
           untranslated += 1 if name.blank?
         end
@@ -91,7 +91,7 @@ task :locales => :environment do
   for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
     line = "    "
     if trans.blank?
-      untranslated += 1 
+      untranslated += 1
       line += missing_prompt
     end
     line += "#{key}: "+yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
@@ -111,7 +111,7 @@ task :locales => :environment do
   log.write "  - #{'action.yml:'.ljust(16)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total}) #{warnings.to_sentence}\n"
   atotal += to_translate
   acount += total-untranslated
-  
+
 
   # Countries
   count = sort_yaml_file :countries, log
@@ -124,7 +124,7 @@ task :locales => :environment do
   translation  = locale.to_s+":\n"
   translation << "  currencies:\n"
   to_translate, untranslated = 0, 0
-  for currency, details in currencies_ref.sort 
+  for currency, details in currencies_ref.sort
     to_translate += 1
     if currencies["currencies"][currency].blank?
       translation << "    #{missing_prompt}#{currency}: #{yaml_value(details['iso_name'])}\n"
@@ -138,7 +138,7 @@ task :locales => :environment do
   translation << "  number:\n"
   translation << "    currency:\n"
   translation << "      formats:\n"
-  for currency, details in currencies_ref.sort 
+  for currency, details in currencies_ref.sort
     x = hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
     to_translate += x
     if x > 0
@@ -161,7 +161,7 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-      
+
 
   # Models
   untranslated = 0
@@ -217,7 +217,7 @@ task :locales => :environment do
     translation += "      "
     translation += missing_prompt if definition[1] == :undefined
     translation += "#{model}: "+yaml_value(definition[0])
-    translation += " #?" if definition[1] == :unused      
+    translation += " #?" if definition[1] == :unused
     translation += "\n"
   end
   translation += "  attributes:\n"
@@ -275,7 +275,7 @@ task :locales => :environment do
   acount += count
 
 
-  
+
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
   total, count = atotal, acount
   log.write "  - Total:           #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"

@@ -8,10 +8,10 @@ lines:
     key: "VER   "
     occurrence: 1
     cells:
-      - windows_version: 
+      - windows_version:
           type: string-7
           force-default: '0200000'
-      - text_version: 
+      - text_version:
           type: string-4
           force-default: '8550'
       - remove_entry_lines: boolean
@@ -91,7 +91,7 @@ lines:
       - unit_2: string-5
       - unit_2_count: float-8.2
       - sum_sub_activities_2: boolean
-      - assignable_activity: 
+      - assignable_activity:
           type: boolean
           default: true
       - group: string-1 # boolean

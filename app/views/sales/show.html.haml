@@ -73,10 +73,10 @@
       =toolbar do |t|
         -t.link(:new, :controller=>:incoming_payment_uses, :expense_type=>:sale, :expense_id=>@sale.id, :i18n=>{:label=>@sale.label})
         -for payment in @sale.usable_payments
-          -t.link(tl("use_incoming_payment", :payment=>payment.label), {:action=>:create, :controller=>:incoming_payment_uses, :incoming_payment_use=>{:expense_type=>@sale.class.name, :expense_id=>@sale.id, :payment_id=>payment.id}}, :method=>:post) 
+          -t.link(tl("use_incoming_payment", :payment=>payment.label), {:action=>:create, :controller=>:incoming_payment_uses, :incoming_payment_use=>{:expense_type=>@sale.class.name, :expense_id=>@sale.id, :payment_id=>payment.id}}, :method=>:post)
     =list :payment_uses
 
-      
+
 -if ["deliveries", ""].include? params[:step].to_s
   -if @sale.deliverable?
     %h2=tc :undelivered

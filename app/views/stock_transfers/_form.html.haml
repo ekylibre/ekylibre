@@ -1,6 +1,6 @@
 =tracking_id = nil
 =formalize do |f|
-  -f.error :stock_transfer 
+  -f.error :stock_transfer
   -if @stock_transfer.new_record?
     -f.field :stock_transfer, :nature, :field=>:radio, :choices=>StockTransfer.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options"}]}
   -else

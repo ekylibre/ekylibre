@@ -4,16 +4,16 @@ class CreateEntityLinks < ActiveRecord::Migration
       t.column :name,            :string,   :null=>false
       t.column :name_1_to_2,     :string
       t.column :name_2_to_1,     :string
-      t.column :symmetric,       :boolean,  :null=>false, :default=>false   
+      t.column :symmetric,       :boolean,  :null=>false, :default=>false
       t.column :company_id,      :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
       t.stamps
     end
     add_stamps_indexes :entity_link_natures
     add_index :entity_link_natures, :company_id
-    add_index :entity_link_natures, :name    
+    add_index :entity_link_natures, :name
     add_index :entity_link_natures, :name_1_to_2
-    add_index :entity_link_natures, :name_2_to_1 
-    
+    add_index :entity_link_natures, :name_2_to_1
+
     create_table :entity_links do |t|
       t.column :entity1_id,      :integer,  :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
       t.column :entity2_id,      :integer,  :null=>false, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade

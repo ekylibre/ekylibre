@@ -27,7 +27,7 @@ class UpdateAssets < ActiveRecord::Migration
     remove_column :asset_depreciations, :asset_amount
     remove_column :asset_depreciations, :financial_year_id
     remove_column :asset_depreciations, :protected
-    
+
     remove_column :assets, :depreciation_percentage
     remove_column :assets, :charges_account_id
     remove_column :assets, :current_amount

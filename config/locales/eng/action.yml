@@ -9,6 +9,36 @@ eng:
       reconciliation: "Account reconciliation"
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
+    animal_care_natures:
+      # edit: "Edit animal care nature"
+      # index: "Index animal care nature"
+      # new: "New animal care nature"
+      # show: "Show animal care nature"
+    animal_cares:
+      # edit: "Edit animal care"
+      # index: "Index animal care"
+      # new: "New animal care"
+      # show: "Show animal care"
+    animal_groups:
+      # edit: "Edit animal group"
+      # index: "Index animal group"
+      # new: "New animal group"
+      # show: "Show animal group"
+    animal_race_natures:
+      # edit: "Edit animal race nature"
+      # index: "Index animal race nature"
+      # new: "New animal race nature"
+      # show: "Show animal race nature"
+    animal_races:
+      # edit: "Edit animal race"
+      # index: "Index animal race"
+      # new: "New animal race"
+      # show: "Show animal race"
+    animals:
+      # edit: "Edit animal"
+      # index: "Index animal"
+      # new: "New animal"
+      # show: "Show animal"
     areas:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
@@ -89,6 +119,16 @@ eng:
       load: "Load default document templates (overwrite the old templates)"
       new: "Add a new document template"
       print: "Print document template"
+    drug_natures:
+      # edit: "Edit drug nature"
+      # index: "Index drug nature"
+      # new: "New drug nature"
+      # show: "Show drug nature"
+    drugs:
+      # edit: "Edit drug"
+      # index: "Index drug"
+      # new: "New drug"
+      # show: "Show drug"
     entities:
       destroy: "Remove person" #?
       edit: "Edit person: %{full_name}"
@@ -411,10 +451,19 @@ eng:
   controllers:
     account_balances: "Account balances"
     accounts: "Plan of accounts"
+    # admin: "Admin"
+    # animal_care_natures: "Animal care natures"
+    # animal_cares: "Animal cares"
+    # animal_groups: "Animal groups"
+    # animal_race_natures: "Animal race natures"
+    # animal_races: "Animal races"
+    # animals: "Animals"
     application: "Application"
     areas: "Postal areas"
     assets: "Assets"
+    # authentication: "Authentication"
     bank_statements: "Bank statements"
+    # base: "Base"
     cash_transfers: "Cash transfers"
     cashes: "Cashes"
     companies: "Companies"
@@ -431,6 +480,8 @@ eng:
     districts: "Districts"
     document_templates: "Document templates"
     documents: "Documents"
+    # drug_natures: "Drug natures"
+    # drugs: "Drugs"
     entities: "People"
     entity_categories: "Person categories"
     entity_link_natures: "Link types"
@@ -1255,7 +1306,7 @@ eng:
     changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
     closed_financial_years: "The financial year has been closed successfully"
     columns_are_already_uses: "One or many columns are selected many times"
-    draft_entry_lines_are_validated: 
+    draft_entry_lines_are_validated:
       one: "One entry has been validated"
       other: "%{count} entries have been validated"
       zero: "No entries has been validated"
@@ -1317,11 +1368,11 @@ eng:
     specify_updates: "You must specify at least one field to edit"
     unavailable_model: "Inexistent %{model} (%{id})"
     unknown_action: "The requested page is unavailable (%{url})" #?
-    unknown_company: "Unknown company"
+    unknown_company: "Unknown company" #?
     unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
     update_is_done: "The update has been made"
     validates_old_inventories: "It is advisable to clear or validate uncommitted inventories before making a new"
-    x_unpointed_journal_entry_lines: 
+    x_unpointed_journal_entry_lines:
       one: "There is one entry to point"
       other: "There are %{count} entries to point"
       zero: "There are no entries to point at the moment"

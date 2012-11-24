@@ -1,38 +1,38 @@
 # -*- coding: utf-8 -*-
 
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: units
 #
-#  base         :string(255)      
+#  base         :string(255)
 #  coefficient  :decimal(19, 10)  default(1.0), not null
 #  created_at   :datetime         not null
-#  creator_id   :integer          
+#  creator_id   :integer
 #  id           :integer          not null, primary key
 #  label        :string(255)      not null
 #  lock_version :integer          default(0), not null
 #  name         :string(8)        not null
 #  start        :decimal(19, 4)   default(0.0), not null
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -52,7 +52,7 @@ class Unit < CompanyRecord
   @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
 
   def self.default_units
-    { 
+    {
       :u=> {},
       :kg=>{:base=>'kg'},
       :t=> {:base=>'kg', :coefficient=>1000},
@@ -79,14 +79,14 @@ class Unit < CompanyRecord
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
         errors.add(:base, :invalid_token, :error=>x.inspect, :accepted=>@@units.to_sentence) unless @@units.include? name
-      else  
+      else
         errors.add(:base, :invalid_at, :error=>x.inspect)
       end
     end
   end
 
   before_save do
-    self.base = self.class.normalize(self.base) 
+    self.base = self.class.normalize(self.base)
   end
 
   def self.load_defaults
@@ -95,29 +95,29 @@ class Unit < CompanyRecord
         # FIXME Translation to move
         self.create!(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
       end
-    end    
+    end
   end
 
   def self.normalize(expr)
     expression = expr.to_s.dup
     expression.strip!
-    
+
     # flatten
     flat = expression.split(/[\.\s]+/).collect do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
         raise Exception.new("Unknown unit #{name.inspect} (only base units #{@@units.join(', ')} are accepted)") unless @@units.include? name
-      else  
+      else
         raise Exception.new("Bad expression: error on #{x.inspect}")
       end
       x
     end.join(".")
-    
+
     # reduce
     exps = {}
     flat.split(/[\.\s]+/).each do |x|
       name = x.gsub(/[0-9\-]+/,'')
-      exps[name] = (exps[name]||0)+(x == name ? 1 : x.gsub(/[a-z]+/i, '').to_i) 
+      exps[name] = (exps[name]||0)+(x == name ? 1 : x.gsub(/[a-z]+/i, '').to_i)
     end
 
     # magnify

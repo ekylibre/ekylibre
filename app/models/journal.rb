@@ -1,36 +1,36 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: journals
 #
 #  closed_on    :date             not null
 #  code         :string(4)        not null
 #  created_at   :datetime         not null
-#  creator_id   :integer          
-#  currency     :string(3)        
+#  creator_id   :integer
+#  currency     :string(3)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  nature       :string(16)       not null
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -53,7 +53,7 @@ class Journal < CompanyRecord
   @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
 
   default_scope order(:name)
-  scope :used_for, lambda { |nature| 
+  scope :used_for, lambda { |nature|
     raise ArgumentError.new("Journal#used_for must be one of these: #{@@natures.join(', ')}")
     where(:nature => nature.to_s)
   }
@@ -167,7 +167,7 @@ class Journal < CompanyRecord
     return code.succ
   end
 
-  # this method searches the last entries according to a number.  
+  # this method searches the last entries according to a number.
   def last_entries(period, number_entry=:all)
     period.entries.find(:all, :order => "lpad(number,20,'0') DESC", :limit => number_entry)
   end

@@ -80,7 +80,7 @@ class AccountsController < AdminController
   # Displays details of one account selected with +params[:id]+
   def show
     return unless @account = find_and_check
-    session[:current_account_id] = @account.id   
+    session[:current_account_id] = @account.id
     t3e @account
   end
 
@@ -131,20 +131,20 @@ class AccountsController < AdminController
   def load
     if request.post?
       locale, name = params[:list].split(".")
-      
+
       Account.load_chart(params[:chart])
-      
+
       ActiveRecord::Base.transaction do
         # Unset reconcilable old third accounts
         if params[:unset_reconcilable_old_third_accounts]
           @current_company.accounts.update_all({:reconcilable=>false}, @current_company.reconcilable_prefixes.collect{|p| "number LIKE '#{p}%'"}.join(" OR "))
         end
-        
+
         # Updates prefix
         for key, data in params[:preference]
           @current_company.prefer! key, data[:value]
         end
-        
+
         # Load accounts
         @current_company.load_accounts(name, :locale=>locale, :reconcilable=>(params[:set_reconcilable_new_but_existing_third_accounts].to_i>0))
       end

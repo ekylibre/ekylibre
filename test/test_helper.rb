@@ -21,7 +21,7 @@ end
 
 
 class ActiveSupport::TestCase
-  
+
 
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
@@ -62,7 +62,7 @@ class ActionController::TestCase
       @response
     end
   end
-  
+
 
 
   def self.test_restfully_all_actions(options={})
@@ -94,7 +94,7 @@ class ActionController::TestCase
       end
 
       code << "  should 'execute :#{action}' do\n"
-      
+
       unless mode = options[action] and options[action].is_a? Symbol
         action_name = action.to_s
         mode = if action_name.match(/^(index|new)$/) # GET without ID
@@ -109,7 +109,7 @@ class ActionController::TestCase
                  :destroy
                elsif action_name.match(/^list(_\w+)?$/) # GET list
                  :list
-               elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID 
+               elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID
                  :touch
                end
       end
@@ -143,9 +143,9 @@ class ActionController::TestCase
         code << "      post :#{action}, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
-          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n" 
+          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
           code << "      post :#{action}, :#{model}=>#{model}.attributes\n"
-          code << "    end\n"          
+          code << "    end\n"
         end
       elsif mode == :update
         klass = model.classify.constantize
@@ -154,13 +154,13 @@ class ActionController::TestCase
         protected_attributes -= ["id", "type"]
 
         code << "    #{model} = #{controller}(:#{controller}_001)\n"
-        code << "    assert_nothing_raised do\n" 
+        code << "    assert_nothing_raised do\n"
         code << "      put :#{action}, :id=>#{model}.id, :#{model}=>{"+attributes.collect{|a| ":#{a}=>#{model}.#{a}"}.join(', ')+"}\n"
         code << "    end\n"
         if protected_attributes.size > 0
-          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n" 
+          code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
           code << "      put :#{action}, :id=>#{model}.id, :#{model}=>#{model}.attributes\n"
-          code << "    end\n"          
+          code << "    end\n"
         end
       elsif mode == :destroy
         code << "    assert_nothing_raised do\n"
@@ -188,7 +188,7 @@ class ActionController::TestCase
         code << "    get :#{action}, :id=>'NaID'\n"
         code << "    get :#{action}, :id=>1\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
-      elsif mode == :index_xhr 
+      elsif mode == :index_xhr
         code << "    get :#{action}\n"
         code << "    assert_response :redirect\n"
         code << "    xhr :get, :#{action}\n"
@@ -210,7 +210,7 @@ class ActionController::TestCase
 
     # code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
     class_eval(code, "#{__FILE__}:#{__LINE__}")
-    
+
   end
 end
 

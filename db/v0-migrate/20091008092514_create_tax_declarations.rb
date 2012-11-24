@@ -12,8 +12,8 @@ class CreateTaxDeclarations < ActiveRecord::Migration
       t.column :assimilated_taxes_amount, :decimal, :precision=>16, :scale=>2
       t.column :acquisition_amount, :decimal, :precision=>16, :scale=>2
       t.column :amount, :decimal, :precision=>16, :scale=>2
-      t.column :company_id, :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict 
-      t.column :financialyear_id, :integer, :references=>:financialyears, :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :company_id, :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+      t.column :financialyear_id, :integer, :references=>:financialyears, :on_delete=>:restrict, :on_update=>:restrict
       t.column :started_on, :date
       t.column :stopped_on, :date
       t.stamps
@@ -22,7 +22,7 @@ class CreateTaxDeclarations < ActiveRecord::Migration
 
    add_index :tax_declarations, :company_id
   end
-  
+
   def self.down
     drop_table :tax_declarations
   end

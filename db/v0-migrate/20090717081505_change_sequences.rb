@@ -15,7 +15,7 @@ class ChangeSequences < ActiveRecord::Migration
 
     add_column    :companies, :invoice_sequence_id, :integer
     add_column    :entities,  :siren, :string, :limit=>9
-    
+
     companies = connection.select_all("SELECT * FROM #{quoted_table_name(:companies)}")
     if companies.size > 0
       execute "UPDATE #{quoted_table_name(:entities)} SET siren=CASE "+companies.collect{|c| "WHEN company_id=#{c['id']} THEN '#{c['siren']}'"}.join(" ")+" ELSE 0 END"
@@ -23,13 +23,13 @@ class ChangeSequences < ActiveRecord::Migration
       execute "UPDATE #{quoted_table_name(:companies)} SET invoice_sequence_id=CASE "+select_all("SELECT * FROM sequences").collect{|s| "WHEN id=#{s['company_id']} THEN #{s['id']}"}.join(" ")+" ELSE 0 END"
     end
 
-    remove_column :companies, :siren    
+    remove_column :companies, :siren
   end
 
   def self.down
     add_column    :companies, :siren, :string, :limit=>9, :null=>false, :default=>"000000000"
 
-    
+
     for company in connection.select_all("SELECT * FROM #{quoted_table_name(:companies)}")
       siren = connection.select_one("SELECT siren FROM #{quoted_table_name(:entities)} WHERE id=#{company['entity_id']}")
       execute "UPDATE #{quoted_table_name(:companies)} SET siren=#{siren} WHERE id=#{company['id']}" unless siren.blank?

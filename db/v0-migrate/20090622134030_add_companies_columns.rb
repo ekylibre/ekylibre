@@ -5,7 +5,7 @@ class AddCompaniesColumns < ActiveRecord::Migration
     if (currencies = connection.select_all("SELECT id, company_id FROM #{quoted_table_name(:currencies)}")).size > 0
       execute "UPDATE #{quoted_table_name(:prices)} SET currency_id=COALESCE(currency_id, CASE "+currencies.collect{|x| "WHEN company_id=#{x['company_id']} THEN #{x['id']}"}.join+" ELSE 0 END)"
     end
-  
+
     add_column :products, :product_account_id, :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
     add_column :products, :charge_account_id,  :integer, :references=>:bank_accounts, :on_delete=>:cascade, :on_update=>:cascade
 
@@ -14,7 +14,7 @@ class AddCompaniesColumns < ActiveRecord::Migration
       ca_id = company['ca_id']
       execute "UPDATE #{quoted_table_name(:products)} SET updated_at = CURRENT_TIMESTAMP#{', product_account_id='+pa_id.to_s if pa_id}#{', charge_account_id='+ca_id.to_s if ca_id}"
     end
-    
+
     remove_index :products, :column=>:account_id
     remove_column :products, :account_id
 
@@ -23,7 +23,7 @@ class AddCompaniesColumns < ActiveRecord::Migration
     add_column :companies, :bank_journal_id, :integer, :references=>:journals, :on_delete=>:cascade, :on_update=>:cascade
 
   end
-  
+
   def self.down
     remove_column :companies, :bank_journal_id
     remove_column :companies, :purchases_journal_id

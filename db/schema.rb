@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
 
-  create_table "animal_care_types", :force => true do |t|
+  create_table "animal_care_natures", :force => true do |t|
     t.string   "name",                        :null => false
     t.text     "description"
     t.text     "comment"
@@ -68,14 +68,14 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
     t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "animal_care_types", ["created_at"], :name => "index_animal_care_types_on_created_at"
-  add_index "animal_care_types", ["creator_id"], :name => "index_animal_care_types_on_creator_id"
-  add_index "animal_care_types", ["updated_at"], :name => "index_animal_care_types_on_updated_at"
-  add_index "animal_care_types", ["updater_id"], :name => "index_animal_care_types_on_updater_id"
+  add_index "animal_care_natures", ["created_at"], :name => "index_animal_care_natures_on_created_at"
+  add_index "animal_care_natures", ["creator_id"], :name => "index_animal_care_natures_on_creator_id"
+  add_index "animal_care_natures", ["updated_at"], :name => "index_animal_care_natures_on_updated_at"
+  add_index "animal_care_natures", ["updater_id"], :name => "index_animal_care_natures_on_updater_id"
 
   create_table "animal_cares", :force => true do |t|
     t.integer  "animal_id"
-    t.integer  "type_id",                          :null => false
+    t.integer  "nature_id",                        :null => false
     t.string   "name",                             :null => false
     t.text     "description"
     t.text     "comment"
@@ -91,8 +91,12 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
     t.integer  "lock_version",      :default => 0, :null => false
   end
 
+  add_index "animal_cares", ["animal_group_id"], :name => "index_animal_cares_on_animal_group_id"
+  add_index "animal_cares", ["animal_id"], :name => "index_animal_cares_on_animal_id"
   add_index "animal_cares", ["created_at"], :name => "index_animal_cares_on_created_at"
   add_index "animal_cares", ["creator_id"], :name => "index_animal_cares_on_creator_id"
+  add_index "animal_cares", ["entity_id"], :name => "index_animal_cares_on_entity_id"
+  add_index "animal_cares", ["nature_id"], :name => "index_animal_cares_on_nature_id"
   add_index "animal_cares", ["updated_at"], :name => "index_animal_cares_on_updated_at"
   add_index "animal_cares", ["updater_id"], :name => "index_animal_cares_on_updater_id"
 
@@ -101,19 +105,22 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
     t.integer "drug_id"
   end
 
+  add_index "animal_cares_drugs", ["animal_care_id"], :name => "index_animal_cares_drugs_on_animal_care_id"
+  add_index "animal_cares_drugs", ["drug_id"], :name => "index_animal_cares_drugs_on_drug_id"
+
   create_table "animal_groups", :force => true do |t|
-    t.string   "name",                        :null => false
+    t.string   "name",                                          :null => false
     t.text     "description"
     t.text     "comment"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
+    t.integer  "lock_version",               :default => 0,     :null => false
     t.integer  "age_min"
     t.integer  "age_max"
-    t.string   "sex"
-    t.boolean  "is_pregnant"
+    t.string   "sex",          :limit => 16
+    t.boolean  "pregnant",                   :default => false, :null => false
   end
 
   add_index "animal_groups", ["created_at"], :name => "index_animal_groups_on_created_at"
@@ -121,7 +128,7 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
   add_index "animal_groups", ["updated_at"], :name => "index_animal_groups_on_updated_at"
   add_index "animal_groups", ["updater_id"], :name => "index_animal_groups_on_updater_id"
 
-  create_table "animal_race_types", :force => true do |t|
+  create_table "animal_race_natures", :force => true do |t|
     t.string   "name",                        :null => false
     t.text     "description"
     t.text     "comment"
@@ -132,17 +139,17 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
     t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "animal_race_types", ["created_at"], :name => "index_animal_race_types_on_created_at"
-  add_index "animal_race_types", ["creator_id"], :name => "index_animal_race_types_on_creator_id"
-  add_index "animal_race_types", ["updated_at"], :name => "index_animal_race_types_on_updated_at"
-  add_index "animal_race_types", ["updater_id"], :name => "index_animal_race_types_on_updater_id"
+  add_index "animal_race_natures", ["created_at"], :name => "index_animal_race_natures_on_created_at"
+  add_index "animal_race_natures", ["creator_id"], :name => "index_animal_race_natures_on_creator_id"
+  add_index "animal_race_natures", ["updated_at"], :name => "index_animal_race_natures_on_updated_at"
+  add_index "animal_race_natures", ["updater_id"], :name => "index_animal_race_natures_on_updater_id"
 
   create_table "animal_races", :force => true do |t|
-    t.integer  "type_id",                     :null => false
+    t.integer  "nature_id",                   :null => false
     t.string   "name",                        :null => false
     t.text     "description"
     t.text     "comment"
-    t.integer  "race_code"
+    t.integer  "code"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
@@ -152,29 +159,30 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
 
   add_index "animal_races", ["created_at"], :name => "index_animal_races_on_created_at"
   add_index "animal_races", ["creator_id"], :name => "index_animal_races_on_creator_id"
+  add_index "animal_races", ["nature_id"], :name => "index_animal_races_on_nature_id"
   add_index "animal_races", ["updated_at"], :name => "index_animal_races_on_updated_at"
   add_index "animal_races", ["updater_id"], :name => "index_animal_races_on_updater_id"
 
   create_table "animals", :force => true do |t|
-    t.integer  "group_id",                                            :null => false
-    t.string   "name",                                                :null => false
-    t.string   "identification_number",                               :null => false
-    t.date     "born_on",                                             :null => false
-    t.string   "sex",                   :limit => 1, :default => "M", :null => false
+    t.integer  "group_id",                                                :null => false
+    t.string   "name",                                                    :null => false
+    t.string   "identification_number",                                   :null => false
+    t.date     "born_on"
+    t.string   "sex",                   :limit => 16, :default => "male", :null => false
     t.text     "description"
     t.text     "comment"
-    t.date     "outgone_on",                                          :null => false
-    t.date     "income_on",                                           :null => false
-    t.date     "purchased_on",                                        :null => false
+    t.date     "outgone_on"
+    t.date     "income_on"
+    t.date     "purchased_on"
     t.date     "ceded_on"
-    t.datetime "created_at",                                          :null => false
-    t.datetime "updated_at",                                          :null => false
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                       :default => 0,   :null => false
+    t.integer  "lock_version",                        :default => 0,      :null => false
     t.integer  "race_id"
-    t.integer  "male_parent_id"
-    t.integer  "female_parent_id"
+    t.integer  "father_id"
+    t.integer  "mother_id"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -183,8 +191,12 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
 
   add_index "animals", ["created_at"], :name => "index_animals_on_created_at"
   add_index "animals", ["creator_id"], :name => "index_animals_on_creator_id"
+  add_index "animals", ["father_id"], :name => "index_animals_on_father_id"
   add_index "animals", ["group_id"], :name => "index_animals_on_group_id"
+  add_index "animals", ["mother_id"], :name => "index_animals_on_mother_id"
   add_index "animals", ["name"], :name => "index_animals_on_name"
+  add_index "animals", ["race_id"], :name => "index_animals_on_race_id"
+  add_index "animals", ["sex"], :name => "index_animals_on_sex"
   add_index "animals", ["updated_at"], :name => "index_animals_on_updated_at"
   add_index "animals", ["updater_id"], :name => "index_animals_on_updater_id"
 
@@ -630,7 +642,7 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
   add_index "documents", ["updated_at"], :name => "index_documents_on_updated_at"
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
 
-  create_table "drug_types", :force => true do |t|
+  create_table "drug_natures", :force => true do |t|
     t.string   "name",                        :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
@@ -639,19 +651,19 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
     t.integer  "lock_version", :default => 0, :null => false
   end
 
-  add_index "drug_types", ["created_at"], :name => "index_drug_types_on_created_at"
-  add_index "drug_types", ["creator_id"], :name => "index_drug_types_on_creator_id"
-  add_index "drug_types", ["name"], :name => "index_drug_types_on_name"
-  add_index "drug_types", ["updated_at"], :name => "index_drug_types_on_updated_at"
-  add_index "drug_types", ["updater_id"], :name => "index_drug_types_on_updater_id"
+  add_index "drug_natures", ["created_at"], :name => "index_drug_natures_on_created_at"
+  add_index "drug_natures", ["creator_id"], :name => "index_drug_natures_on_creator_id"
+  add_index "drug_natures", ["name"], :name => "index_drug_natures_on_name"
+  add_index "drug_natures", ["updated_at"], :name => "index_drug_natures_on_updated_at"
+  add_index "drug_natures", ["updater_id"], :name => "index_drug_natures_on_updater_id"
 
   create_table "drugs", :force => true do |t|
     t.integer  "unit_id"
-    t.integer  "type_id",                                                      :null => false
+    t.integer  "nature_id",                                                    :null => false
     t.string   "name",                                                         :null => false
     t.integer  "frequency",                                   :default => 1
     t.decimal  "quantity",     :precision => 19, :scale => 4, :default => 0.0
-    t.string   "comment"
+    t.text     "comment"
     t.datetime "created_at",                                                   :null => false
     t.datetime "updated_at",                                                   :null => false
     t.integer  "creator_id"
@@ -662,6 +674,8 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
   add_index "drugs", ["created_at"], :name => "index_drugs_on_created_at"
   add_index "drugs", ["creator_id"], :name => "index_drugs_on_creator_id"
   add_index "drugs", ["name"], :name => "index_drugs_on_name"
+  add_index "drugs", ["nature_id"], :name => "index_drugs_on_nature_id"
+  add_index "drugs", ["unit_id"], :name => "index_drugs_on_unit_id"
   add_index "drugs", ["updated_at"], :name => "index_drugs_on_updated_at"
   add_index "drugs", ["updater_id"], :name => "index_drugs_on_updater_id"
 

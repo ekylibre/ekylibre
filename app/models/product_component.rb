@@ -1,39 +1,39 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: product_components
 #
 #  active       :boolean          not null
-#  comment      :text             
+#  comment      :text
 #  component_id :integer          not null
 #  created_at   :datetime         not null
-#  creator_id   :integer          
+#  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  product_id   :integer          not null
 #  quantity     :decimal(19, 4)   not null
-#  started_at   :datetime         
-#  stopped_at   :datetime         
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #  warehouse_id :integer          not null
 #
 
@@ -55,8 +55,8 @@ class ProductComponent < CompanyRecord
   before_validation do
     self.name = tg(:x_units_of_product_y, :quantity=>self.quantity, :unit=>self.component.unit.name, :product=>self.component.name)
   end
-  
-  before_validation(:on=>:create) do    
+
+  before_validation(:on=>:create) do
     self.active = true
     self.started_at = Time.now
   end

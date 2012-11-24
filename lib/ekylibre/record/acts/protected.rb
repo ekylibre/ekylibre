@@ -20,7 +20,7 @@ module Ekylibre::Record
         end
 
 
-      end 
+      end
     end
   end
 end

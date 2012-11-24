@@ -18,7 +18,7 @@
 #
 
 class EntityNaturesController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list do |t|
     t.column :name

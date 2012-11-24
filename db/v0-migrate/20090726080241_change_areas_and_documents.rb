@@ -31,7 +31,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
 
     remove_column :areas, :city_id
     remove_column :contacts, :line_6_code
-    remove_column :contacts, :line_6_city    
+    remove_column :contacts, :line_6_city
     remove_column :documents, :key
 
     drop_table :cities
@@ -42,7 +42,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
     create_table :templates do |t|
       t.column :name,                   :string,   :null=>false
       t.column :content,                :text,     :null=>false
-      t.column :cache,                  :text    
+      t.column :cache,                  :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
       t.stamps
     end
@@ -68,14 +68,14 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
       t.column :insee_artmin, :string, :limit=>5
       # Nom en clair (typographie riche)
       t.column :insee_nccenr, :string, :limit=>70
-      
+
       t.column :name, :string, :null=>false
       t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
       t.stamps
     end
     add_stamps_indexes :cities
-    
+
     add_column :documents, :key, :integer
     add_column :contacts, :line_6_code, :string, :limit=>38
     add_column :contacts, :line_6_city, :string, :limit=>38
@@ -97,7 +97,7 @@ class ChangeAreasAndDocuments < ActiveRecord::Migration
     remove_column :areas, :district_id
     remove_column :areas, :country
     remove_column :contacts, :line_6
-    
+
     # It's like the table destruction because it was never used before this migration
     remove_column :documents, :template
     remove_column :documents, :subdir

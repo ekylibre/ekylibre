@@ -23,7 +23,7 @@
         %th{"colspan"=>2}=tl(:total_in_currency, :currency=>@journal.currency.to_currency.name)
         %td#entry-original-debit.decimal{"colspan"=>2, "data-use"=>"input.original-debit"}=@journal_entry.original_debit
         %td#entry-original-credit.decimal{"colspan"=>2, "data-use"=>"input.original-credit"}=@journal_entry.original_credit
-  
+
       -if @financial_year and@journal.currency != @financial_year.currency
         %tr.subtotal{"data-valid-if-equality-between"=>"#entry-debit, #entry-credit"}
           %th{"colspan"=>2}=tl(:total_in_currency, :currency=>@financial_year.currency.to_currency.name)

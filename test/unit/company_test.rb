@@ -1,28 +1,28 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: public.companies
+#
+# == Table: companies
 #
 #  code :string(16)       not null
 #  id   :integer          not null, primary key
-#  log  :text             
+#  log  :text
 #
 
 
@@ -39,7 +39,7 @@ class CompanyTest < ActiveSupport::TestCase
       @company, @user = Company.create_with_data({:name=>"Generated LTD", :code=>"gltd", :currency=>'EUR'}, {:first_name=>"Gendo", :last_name=>"IKARI", :name=>"gendo", :password=>"12345678", :password_confirmation=>"12345678"}, "fr-FR")
       assert_operator @company.id, :> , 0
     end
-    
+
     should "not be locked" do
       assert !@company.locked
       assert !@user.locked
@@ -57,7 +57,7 @@ class CompanyTest < ActiveSupport::TestCase
         else
           assert_nothing_raised do
             @company.print(:id=>template.code)
-          end        
+          end
         end
         code = ""
         assert_nothing_raised(template.source) do
@@ -131,7 +131,7 @@ class CompanyTest < ActiveSupport::TestCase
         assert_equal "invoice", @sale.state
         assert_equal Date.today, @sale.invoiced_on
       end
-      
+
       should "not be updateable" do
         amount = @sale.amount
         assert_raise ActiveModel::MassAssignmentSecurity::Error do
@@ -152,7 +152,7 @@ class CompanyTest < ActiveSupport::TestCase
         assert_nothing_raised do
           data << Digest::SHA256.hexdigest(@company.print(:id=>:sales_invoice, :sales_invoice=>@sale.id)[0])
         end
-        assert_equal data[0], data[1], "The template doesn't seem to be archived"        
+        assert_equal data[0], data[1], "The template doesn't seem to be archived"
         assert_equal data[0], data[2], "The template doesn't seem to be archived or understand Integers"
       end
 
@@ -180,6 +180,6 @@ class CompanyTest < ActiveSupport::TestCase
   end
 
 
-  
+
 
 end

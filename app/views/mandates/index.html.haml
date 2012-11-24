@@ -4,7 +4,7 @@
     =date_field_tag("viewed_on", session[:mandates][:viewed_on], :size=>8)
     %label=tc(:select_organization)
     =select_tag("organization", options_for_select([""]+@organizations.collect{|e| [e.organization.to_s, e.organization.to_s]}, session[:mandates][:organization].to_s))
-  
+
 =toolbar do |t|
   -t.link :new
   -t.link :configure

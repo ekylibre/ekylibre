@@ -148,7 +148,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_index :journal_records, :period_id
     add_index :journal_records, [:period_id, :number], :unique => true
     add_index :journal_records, :company_id
-    
+
 
     # BankAccount : Comptes bancaires
     create_table :bank_accounts do |t|
@@ -185,7 +185,7 @@ class CreateAccountancySupport < ActiveRecord::Migration
     add_stamps_indexes :bank_account_statements
     add_index :bank_account_statements, :bank_account_id
     add_index :bank_account_statements, :company_id
-    
+
     # Entry : Écriture comptable
     create_table :entries do |t|
       t.column :record_id,              :integer,  :null=>false, :references=>:journal_records, :on_delete=>:restrict, :on_update=>:cascade

@@ -77,7 +77,7 @@ class SettingsController < AdminController
     end
     render :backups
   end
-  
+
 
 
   def import
@@ -96,9 +96,9 @@ class SettingsController < AdminController
           f.readline
           owner = f.readline
           started_on = f.readline
-          started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i)          
+          started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i)
           stopped_on = f.readline
-          stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i)          
+          stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i)
           ic = Iconv.new("utf-8", "cp1252")
           begin
             ActiveRecord::Base.transaction do
@@ -146,7 +146,7 @@ class SettingsController < AdminController
         notify_error_now(:invalid_file_nature)
       end
     end
-    
+
   end
 
 

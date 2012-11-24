@@ -18,12 +18,12 @@
 #
 
 class ProfessionsController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list(:order=>:name) do |t|
-    t.column :name 
-    t.column :code 
-    t.column :rome 
+    t.column :name
+    t.column :code
+    t.column :rome
     t.column :commercial
     t.action :edit
     t.action :destroy

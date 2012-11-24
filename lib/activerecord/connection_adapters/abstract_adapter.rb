@@ -1,6 +1,6 @@
 module ActiveRecord
   module ConnectionAdapters
-    class AbstractAdapter 
+    class AbstractAdapter
       # By default, the SQL is used
       def substr(string, from, count)
         return "SUBSTR(#{string}, #{from.to_i}, #{count.to_i})"

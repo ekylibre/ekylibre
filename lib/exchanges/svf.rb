@@ -99,7 +99,7 @@ module SVF
 
   class Line
     attr_reader :name, :key, :cells, :children, :to
-    
+
     def initialize(name, key, cells, children=[], to=nil)
       @name = name.to_sym
       @key = key
@@ -107,7 +107,7 @@ module SVF
       for cell in cells
         for name, definition in cell
           unless c = Cell.new(name, definition, @key.length+@cells.inject(0){|s,c| s += c.length})
-            raise "Element #{@name} has an cell #{name} with no definition" 
+            raise "Element #{@name} has an cell #{name} with no definition"
           end
           @cells << c
         end
@@ -123,7 +123,7 @@ module SVF
         "SVF::#{prefix.to_s.classify}::Lines::#{self.class_name}"
       end
     end
-    
+
     def inspect
       i = "#{self.name}(#{self.key}) #{@cells.inspect}"
       i << "\n"+@children.collect{|c| c.inspect.gsub(/^/, '  ')}.join("\n") if @children.size > 0
@@ -170,7 +170,7 @@ module SVF
 
   class Formater
     attr_reader :name, :lines
-    
+
     def initialize(name, file)
       @name = name
       source = YAML.load_file(file)
@@ -183,7 +183,7 @@ module SVF
 
     def generate()
       code  = "module #{@name.to_s.classify}\n"
-      
+
       code << "\n  module Lines\n\n"
       for element in @lines.values
         code << compile_element(element).gsub(/^/, '    ')
@@ -228,7 +228,7 @@ module SVF
 
       code << "  # Shortcut to parse #{@name.to_s.classify} files\n"
       code << "  def self.parse(file)\n"
-      code << "    return Base.parse(file)\n"    
+      code << "    return Base.parse(file)\n"
       code << "  end\n\n"
 
       code << "end\n"
@@ -301,13 +301,13 @@ module SVF
         if line.has_children?
           code << parse_code(line.children, :file=>options[:file], :root=>sibling.line, :parents=>siblings, :all_parents=>siblings+all_parents).strip.gsub(/^/, '    ')+"\n"
         else
-          code << "    line = self.parse_line(#{options[:file]}.gets)\n"          
+          code << "    line = self.parse_line(#{options[:file]}.gets)\n"
           code << "    line_number += 1\n"
         end
         code << "  els"
       end
       if parents.size > 0
-        
+
         code << "if ["+all_parents.collect{|s| raise([s, s.line].inspect) if @lines[s.line].nil?; @lines[s.line].class_name(@name)}.sort.join(', ')+"].include?(line.class)\n"
         # code << "if "+all_parents.collect{|s| "line.is_a?(#{@lines[s.line].class_name(@name)})"}.join(" or ")+"\n"
         code << "    break\n"
@@ -361,7 +361,7 @@ module SVF
     end
     return occurrences
   end
-  
+
 
 end
 

@@ -31,8 +31,8 @@ class CompaniesController < AuthenticationController
         redirect_to_login if hash!=Ekylibre::DONT_REGISTER_PASSWORD
         return
       end
-      
-      
+
+
       # Test validity
       @user.valid? # Perform validations
       return unless @my_company.valid? and @user.errors.to_hash.delete_if{|a,e| [:company, :role].include?(a)}.keys.empty?
@@ -41,7 +41,7 @@ class CompaniesController < AuthenticationController
       if @my_company.id and @user.id
         initialize_session(@user)
         redirect_to :controller=>:dashboards, :action=>:welcome
-      end      
+      end
     else
       if session[:user_id]
         reset_session

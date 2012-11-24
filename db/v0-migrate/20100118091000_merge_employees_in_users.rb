@@ -1,12 +1,12 @@
 class MergeEmployeesInUsers < ActiveRecord::Migration
   COLUMNS = {
-    :department_id=>:integer, 
-    :establishment_id=>:integer, 
-    :arrived_on=>:date, 
+    :department_id=>:integer,
+    :establishment_id=>:integer,
+    :arrived_on=>:date,
     :departed_on=>:date,
-    :office=>:string, 
-    :comment=>:text, 
-    :profession_id=>:integer, 
+    :office=>:string,
+    :comment=>:text,
+    :profession_id=>:integer,
     :commercial=>:boolean
   }
   def self.change_ids(table, column, conv)
@@ -14,7 +14,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     casewhen =  "CASE "+conv.collect{|k, v| "WHEN #{column}=#{k} THEN #{v}"}.join(" ")+ " ELSE 0 END"
     execute "UPDATE #{quoted_table_name(table)} SET #{column}=#{casewhen}"
   end
-  
+
   def self.up
     add_column :users, :deleted_at, :timestamp
     execute "UPDATE #{quoted_table_name(:users)} SET deleted_at = updated_at WHERE deleted = #{quoted_true}"
@@ -45,14 +45,14 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     for employee in connection.select_all("SELECT * FROM #{quoted_table_name(:employees)}")
       updates = []
       hash = {}
-      COLUMNS.each do |k,v| 
+      COLUMNS.each do |k,v|
         updates << k.to_s+"="+if v == :boolean
                                 ['1', 't', 'T', 'true'].include?(employee[k.to_s]) ? quoted_true : quoted_false
                               elsif v == :integer
                                 (employee[k.to_s]||0).to_s
                               elsif v == :date
                                 quote(employee[k.to_s]||Date.civil(1970,1,1))
-                              else 
+                              else
                                 quote(employee[k.to_s])
                               end
         # hash[k] = employee[k.to_s]}
@@ -84,10 +84,10 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     drop_table :employees
 
     rename_column :entities,    :employee_id, :responsible_id
-    rename_column :events,      :employee_id, :user_id    
+    rename_column :events,      :employee_id, :user_id
     rename_column :inventories, :employee_id, :responsible_id
     rename_column :shape_operations,  :employee_id, :responsible_id
-    
+
     # raise Exception.new("Stop")
   end
 
@@ -96,7 +96,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
     rename_column :inventories, :responsible_id, :employee_id
     rename_column :events,      :user_id, :employee_id
     rename_column :entities,    :responsible_id, :employee_id
-    
+
     create_table :employees do |t|
       t.integer  "department_id",                                     :null => false
       t.integer  "establishment_id",                                  :null => false
@@ -145,7 +145,7 @@ class MergeEmployeesInUsers < ActiveRecord::Migration
       change_ids(:shape_operations,       :employee_id,    employees)
       change_ids(:transports,       :responsible_id, employees)
     end
-    
+
     remove_column :users, :employment
     remove_column :users, :employed
     for k, v in COLUMNS.stringify_keys.sort.reverse

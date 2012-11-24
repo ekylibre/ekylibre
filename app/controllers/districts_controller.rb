@@ -18,7 +18,7 @@
 #
 
 class DistrictsController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list(:children=>:areas, :conditions=>search_conditions(:districts, :districts=>[:code, :name]), :order=>:name) do |t|
     t.column :name

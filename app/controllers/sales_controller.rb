@@ -27,7 +27,7 @@ class SalesController < AdminController
     code = search_conditions(:sale, :sales=>[:pretax_amount, :amount, :number, :initial_number, :comment], :entities=>[:code, :full_name])+"||=[]\n"
     code += "unless session[:sale_state].blank?\n"
     code += "  if session[:sale_state] == 'current'\n"
-    code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n" 
+    code += "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
     code += "  elsif session[:sale_state] == 'unpaid'\n"
     code += "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
     code += "    c << false\n"
@@ -250,7 +250,7 @@ class SalesController < AdminController
     @sale = Sale.new
     if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
       if client.default_contact
-        cid = client.default_contact.id 
+        cid = client.default_contact.id
         @sale.attributes = {:contact_id=>cid, :delivery_contact_id=>cid, :invoice_contact_id=>cid}
       end
     end
@@ -399,7 +399,7 @@ class SalesController < AdminController
         end
         date += 1.month
       end
-      
+
       csv_data = Ekylibre::CSV.generate do |csv|
         csv << [Product.model_name.human, Product.human_attribute_name('code'), Product.human_attribute_name('sales_account_id')]+months
         for product in Product.order(:name)
@@ -409,7 +409,7 @@ class SalesController < AdminController
           end
           if product.active or valid
             row = [product.name, product.code, (product.sales_account ? product.sales_account.number : "?")]
-            months.size.times do |i| 
+            months.size.times do |i|
               if data[product.id.to_s][months[i]].zero?
                 row << ''
               else
@@ -420,7 +420,7 @@ class SalesController < AdminController
           end
         end
       end
-      
+
       send_data csv_data, :type=>Mime::CSV, :disposition=>'inline', :filename=>tl(source)+'.csv'
     end
   end

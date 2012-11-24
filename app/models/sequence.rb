@@ -1,32 +1,32 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: sequences
 #
 #  created_at       :datetime         not null
-#  creator_id       :integer          
+#  creator_id       :integer
 #  id               :integer          not null, primary key
-#  last_cweek       :integer          
-#  last_month       :integer          
-#  last_number      :integer          
-#  last_year        :integer          
+#  last_cweek       :integer
+#  last_month       :integer
+#  last_number      :integer
+#  last_year        :integer
 #  lock_version     :integer          default(0), not null
 #  name             :string(255)      not null
 #  number_format    :string(255)      not null
@@ -34,8 +34,8 @@
 #  number_start     :integer          default(1), not null
 #  period           :string(255)      default("number"), not null
 #  updated_at       :datetime         not null
-#  updater_id       :integer          
-#  usage            :string(255)      
+#  updater_id       :integer
+#  usage            :string(255)
 #
 
 
@@ -52,7 +52,7 @@ class Sequence < CompanyRecord
   validates_length_of :name, :number_format, :period, :usage, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :number_format, :number_increment, :number_start, :period
   #]VALIDATORS]
-  validates_inclusion_of :period, :in => @@periods  
+  validates_inclusion_of :period, :in => @@periods
   validates_uniqueness_of :number_format
   validates_uniqueness_of :usage, :if => :used?
 
@@ -70,7 +70,7 @@ class Sequence < CompanyRecord
     self.of_usage(usage).first
   end
 
-  
+
   def self.load_defaults
     # FIXME: Needs to clarify between translations and usages
     for usage in self.usages
@@ -85,7 +85,7 @@ class Sequence < CompanyRecord
     #   end
     # end
   end
-  
+
   def self.periods
     @@periods.collect{|p| [tc("periods.#{p}"), p]}.sort{|a,b| a[0]<=>b[0]}
   end
@@ -105,7 +105,7 @@ class Sequence < CompanyRecord
       key, size, pattern = $1, $3, $5
       string = (key == 'number' ? number :  today.send(key)).to_s
       size.nil? ? string : string.rjust(size.to_i, pattern||'0')
-    end    
+    end
   end
 
   def next_value
@@ -115,7 +115,7 @@ class Sequence < CompanyRecord
     if self.last_number.nil?
       self.last_number  = self.number_start
     else
-      self.last_number += self.number_increment 
+      self.last_number += self.number_increment
     end
     if period != 'number' and not self.send('last_'+period).nil?
       self.last_number = self.number_start if self.send('last_'+period) != today.send(period) or self.last_year != today.year

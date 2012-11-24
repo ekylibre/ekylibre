@@ -1,56 +1,56 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: cashes
 #
 #  account_id   :integer          not null
-#  address      :text             
-#  agency_code  :string(255)      
-#  bank_code    :string(255)      
-#  bank_name    :string(50)       
-#  bic          :string(16)       
+#  address      :text
+#  agency_code  :string(255)
+#  bank_code    :string(255)
+#  bank_name    :string(50)
+#  bic          :string(16)
 #  by_default   :boolean          not null
-#  country      :string(2)        
+#  country      :string(2)
 #  created_at   :datetime         not null
-#  creator_id   :integer          
-#  currency     :string(3)        
-#  entity_id    :integer          
-#  iban         :string(34)       
-#  iban_label   :string(48)       
+#  creator_id   :integer
+#  currency     :string(3)
+#  entity_id    :integer
+#  iban         :string(34)
+#  iban_label   :string(48)
 #  id           :integer          not null, primary key
 #  journal_id   :integer          not null
-#  key          :string(255)      
+#  key          :string(255)
 #  lock_version :integer          default(0), not null
 #  mode         :string(255)      default("IBAN"), not null
 #  name         :string(255)      not null
 #  nature       :string(16)       default("bank_account"), not null
-#  number       :string(255)      
+#  number       :string(255)
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
 class Cash < CompanyRecord
   @@natures = ["bank_account", "cash_box"]
   @@modes = ["iban", "bban"]
-  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}  
+  @@bban_translations = {:fr=>["abcdefghijklmonpqrstuvwxyz", "12345678912345678923456789"]}
 
   attr_readonly :nature, :currency
   belongs_to :account
@@ -78,7 +78,7 @@ class Cash < CompanyRecord
 
   default_scope order(:name)
   scope :bank_account_of_company, lambda { where("(entity_id IS NULL OR entity_id=?) AND nature=?", Entity.of_company.id, "bank_account") }
-  
+
   # before create a bank account, this computes automatically code iban.
   before_validation do
     self.mode.lower!
@@ -92,9 +92,9 @@ class Cash < CompanyRecord
     elsif self.bban_mode?
       self.iban = self.class.generate_iban(self.country, self.bank_code+self.agency_code+self.number+self.key)
     end
-    self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ") 
-  end  
-  
+    self.iban_label = self.iban.split(/(\w\w\w\w)/).delete_if{|k| k.empty?}.join(" ")
+  end
+
   # IBAN have to be checked before saved.
   validate do
     if self.journal
@@ -104,7 +104,7 @@ class Cash < CompanyRecord
       if self.bban_mode?
         errors.add_to_base(:unvalid_bban) unless self.class.valid_bban?(self.country, self.attributes)
       end
-      errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban) 
+      errors.add(:iban, :invalid) unless self.class.valid_iban?(self.iban)
     end
   end
 
@@ -150,7 +150,7 @@ class Cash < CompanyRecord
 
 
 
-  
+
   #this method checks if the BBAN is valid.
   def self.valid_bban?(country_code, options={})
     case cc = country_code.lower.to_sym
@@ -174,13 +174,13 @@ class Cash < CompanyRecord
    end
    return country_code+(98 - (iban.to_i.modulo 97)).to_s+bban
   end
-  
+
   #this method checks if the IBAN is valid.
-  def self.valid_iban?(iban) 
+  def self.valid_iban?(iban)
     iban = iban.to_s
     return false unless iban.length > 4
-    str = iban[4..iban.length]+iban[0..1]+"00" 
-        
+    str = iban[4..iban.length]+iban[0..1]+"00"
+
     # test the iban key
     str.each_char do |c|
       if c=~/\D/
@@ -188,11 +188,11 @@ class Cash < CompanyRecord
       end
     end
     iban_key = 98 - (str.to_i.modulo 97)
-    
+
     return (iban_key.to_i.eql? iban[2..3].to_i)
-    
+
   end
-  
+
   def formated_bban
     self.bank_code.to_s+"."+self.agency_code.to_s+"."+self.number.to_s+"."+self.key.to_s
   end

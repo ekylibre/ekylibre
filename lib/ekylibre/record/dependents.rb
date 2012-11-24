@@ -3,7 +3,7 @@ module Ekylibre::Record  #:nodoc:
     def self.included(base)
       base.send(:include, InstanceMethods)
     end
-    
+
     module InstanceMethods
       # Look for all has_one, has_many and has_and_belongs_to_many reflections
       def has_dependents?

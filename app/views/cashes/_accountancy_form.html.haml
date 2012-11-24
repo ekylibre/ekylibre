@@ -1,5 +1,5 @@
 -nature ||= (@cash ? @cash.nature : "unknown")
-=formalize do |f|  
+=formalize do |f|
   -f.title :accountancy
   -if nature == "bank_account"
     -f.field :cash, :account_id, :choices=>{:reflection=>:banks_accounts}, :new=>{:number=>Account.find_in_chart(:banks).number}

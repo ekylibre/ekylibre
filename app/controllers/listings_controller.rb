@@ -49,10 +49,10 @@ class ListingsController < AdminController
       @listing.exportable_columns.each {|line| first_line << line.label}
       result = ActiveRecord::Base.connection.select_rows(query)
       result.insert(0, first_line)
-      
+
       respond_to do |format|
         format.xml { render :xml => result.to_xml, :filename=>@listing.name.simpleize+'.xml' }
-        format.csv do        
+        format.csv do
           csv_string = Ekylibre::CSV.generate do |csv|
             for line in result
               csv << line
@@ -61,7 +61,7 @@ class ListingsController < AdminController
           send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
         end
       end
-      
+
     rescue Exception=>e
       notify_error(:fails_to_extract_listing, :message=>e.message)
       redirect_to_current
@@ -98,7 +98,7 @@ class ListingsController < AdminController
   def mail
     return unless @listing = find_and_check(:listing)
     if (query = @listing.query).blank?
-      @listing.save 
+      @listing.save
       query = @listing.query
     end
     query = query.to_s

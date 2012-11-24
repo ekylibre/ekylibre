@@ -1,56 +1,56 @@
 # -*- coding: utf-8 -*-
 
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: users
 #
 #  admin             :boolean          default(TRUE), not null
-#  arrived_on        :date             
-#  comment           :text             
-#  commercial        :boolean          
-#  connected_at      :datetime         
+#  arrived_on        :date
+#  comment           :text
+#  commercial        :boolean
+#  connected_at      :datetime
 #  created_at        :datetime         not null
-#  creator_id        :integer          
-#  departed_on       :date             
-#  department_id     :integer          
-#  email             :string(255)      
+#  creator_id        :integer
+#  departed_on       :date
+#  department_id     :integer
+#  email             :string(255)
 #  employed          :boolean          not null
-#  employment        :string(255)      
-#  establishment_id  :integer          
+#  employment        :string(255)
+#  establishment_id  :integer
 #  first_name        :string(255)      not null
-#  hashed_password   :string(64)       
+#  hashed_password   :string(64)
 #  id                :integer          not null, primary key
 #  language          :string(3)        default("???"), not null
 #  last_name         :string(255)      not null
 #  lock_version      :integer          default(0), not null
 #  locked            :boolean          not null
 #  name              :string(32)       not null
-#  office            :string(255)      
-#  profession_id     :integer          
+#  office            :string(255)
+#  profession_id     :integer
 #  reduction_percent :decimal(19, 4)   default(5.0), not null
-#  rights            :text             
+#  rights            :text
 #  role_id           :integer          not null
-#  salt              :string(64)       
+#  salt              :string(64)
 #  updated_at        :datetime         not null
-#  updater_id        :integer          
+#  updater_id        :integer
 #
 
 
@@ -101,7 +101,7 @@ class User < CompanyRecord
     def rights_list; @@rights_list; end
     def useful_rights; @@useful_rights; end
   end
-  
+
   before_validation do
     self.name = self.name.to_s.strip.downcase.gsub(/[^a-z0-9\.\_]/,'')
     if entity = Entity.of_company
@@ -121,7 +121,7 @@ class User < CompanyRecord
     self["first_name"]+' '+self["last_name"]
   end
   alias :full_name :label
-  
+
 
   def preference(name, value=nil, nature=:string)
     p = self.preferences.find(:first, :order=>:id, :conditions=>{:name=>name})
@@ -158,7 +158,7 @@ class User < CompanyRecord
   def password
     @password
   end
-  
+
   def password=(passwd)
     @password = passwd
     unless self.password.blank?
@@ -171,7 +171,7 @@ class User < CompanyRecord
   def self.authenticate(name, password)
     if user = self.find_by_name(name.to_s.downcase)
       if user.locked or !user.authenticated?(password.to_s)
-        user = nil 
+        user = nil
       end
     end
     return user
@@ -193,7 +193,7 @@ class User < CompanyRecord
   def can?(right)
     self.admin? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
-  
+
   protect(:on => :destroy) do
     User.count > 1
   end
@@ -217,13 +217,13 @@ class User < CompanyRecord
   def self.generate_password(password_length=8, mode=:normal)
     return '' if password_length.blank? or password_length<1
     case mode
-    when :dummy then 
+    when :dummy then
       letters = %w(a b c d e f g h j k m n o p q r s t u w x y 3 4 6 7 8 9)
-    when :simple then 
+    when :simple then
       letters = %w(a b c d e f g h j k m n o p q r s t u w x y A B C D E F G H J K M N P Q R T U W Y X 3 4 6 7 8 9)
-    when :normal then 
+    when :normal then
       letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9)
-    else           
+    else
       letters = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z A B C D E F G H I J K L M N O P Q R S T U V W Y X Z 0 1 2 3 4 5 6 7 8 9 _ = + - * | [ ] { } . : ; ! ? , § µ % / & < >)
     end
     letters_length = letters.length
@@ -240,7 +240,7 @@ class User < CompanyRecord
       if attributes
         attributes['actions'].each_index do |index|
           unless attributes['actions'][index].match(/\:\:/)
-            attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index] 
+            attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index]
           end
         end if attributes['actions'].is_a? Array
       end
@@ -265,7 +265,7 @@ class User < CompanyRecord
       end
     end
   end
-  
+
   User.initialize_rights
 end
 

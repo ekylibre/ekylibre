@@ -3,13 +3,13 @@
 =formalize do |f|
   -f.error :outgoing_delivery
   -f.title :infos
-  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:entity_id=>@outgoing_delivery.sale.client_id} 
+  -f.field :outgoing_delivery, :contact_id, :choices=>:outgoing_delivery_contacts, :new=>{:entity_id=>@outgoing_delivery.sale.client_id}
   -f.field :outgoing_delivery, :mode_id, :choices=>{:reflection=>:outgoing_delivery_modes}, :new=>true
   -f.field :outgoing_delivery, :planned_on
   -f.field :outgoing_delivery, :transporter_id, :choices=>{:reflection=>:transporters, :include_blank=>""}, :new=>{:controller=>:entities, :transporter=>1}
 
 %h2=OutgoingDelivery.human_attribute_name("lines")
-%table.list 
+%table.list
   %tr
     %th=OutgoingDeliveryLine.human_attribute_name(:product)
     %th=Price.human_attribute_name(:pretax_amount)

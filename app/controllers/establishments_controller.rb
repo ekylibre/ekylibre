@@ -18,7 +18,7 @@
 #
 
 class EstablishmentsController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list(:order => :nic) do |t|
     t.column :name

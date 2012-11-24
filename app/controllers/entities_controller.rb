@@ -53,7 +53,7 @@ class EntitiesController < AdminController
     t.column :website
     t.column :by_default
     t.column :code, :through=>:entity, :url=>true
-    t.action :edit  
+    t.action :edit
     t.action :destroy
   end
 
@@ -163,7 +163,7 @@ class EntitiesController < AdminController
   def show
     return unless @entity = find_and_check(:entity)
     respond_to do |format|
-      format.html do 
+      format.html do
         session[:current_entity_id] = @entity.id
         session[:my_entity] = params[:id]
         t3e @entity.attributes
@@ -219,7 +219,7 @@ class EntitiesController < AdminController
                        subscribed_on = ""
                        if subn[:use_subscribed_on]
                          subscribed_on = " AND ("+
-                           if nature.period? 
+                           if nature.period?
                              x = subn[:subscribed_on].to_date rescue Date.today
                              "'"+ActiveRecord::Base.connection.quoted_date(x)+"'"
                            else
@@ -333,7 +333,7 @@ class EntitiesController < AdminController
 
   def new
     @custom_fields = CustomField.actives
-    @custom_field_data = []    
+    @custom_field_data = []
     @contact = Contact.new(:country=>Entity.of_company.country)
     @entity  =  Entity.new(:country=>Entity.of_company.country, :language=>Entity.of_company.language)
     for custom_field in @custom_fields
@@ -351,24 +351,24 @@ class EntitiesController < AdminController
       attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
       @custom_field_data << custom_field.data.new(attributes)
     end
-    
+
     ActiveRecord::Base.transaction do
       if saved = @entity.save
         @entity.account(:client) if @entity.client?
         @entity.account(:supplier) if @entity.supplier?
         @entity.account(:attorney) if @entity.attorney?
-        
+
         for datum in @custom_field_data
           datum.entity_id = @entity.id
           saved = false unless datum.save
           @entity.errors.add_from_record(datum)
         end
-        
+
         @contact.entity_id = @entity.id
         saved = false unless @contact.save
         @entity.errors.add_from_record(@contact)
       end
-      
+
       raise ActiveRecord::Rollback unless saved
       return if save_and_redirect(@entity, :saved=>saved)
     end
@@ -379,11 +379,11 @@ class EntitiesController < AdminController
   def edit
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
-       
+
     @custom_fields = CustomField.actives
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
-    
+
     for custom_field in @custom_fields
       datum  = CustomFieldDatum.find_by_custom_field_id_and_entity_id(custom_field.id, @entity.id)
       if datum
@@ -399,44 +399,44 @@ class EntitiesController < AdminController
   def update
     return unless @entity = find_and_check(:entity)
     session[:current_entity_id] = @entity.id
-       
+
     @custom_fields = CustomField.actives
     @custom_field_data = []
     @contact = @entity.default_contact||@entity.contacts.new
-    
+
     for custom_field in @custom_fields
       attributes = (params[:custom_field_datum]||{})[custom_field.id.to_s]||{}
       attributes[:custom_field_id] = custom_field.id
       datum = CustomFieldDatum.find_by_entity_id_and_custom_field_id(@entity.id, custom_field.id)
       if datum
-        datum.attributes = attributes 
+        datum.attributes = attributes
         @custom_field_data << datum
       else
         @custom_field_data << custom_field.data.new(attributes)
       end
     end
-    
+
     ActiveRecord::Base.transaction do
       saved = @entity.update_attributes(params[:entity])
       if saved
         @entity.account(:client) if @entity.client?
         @entity.account(:supplier) if @entity.supplier?
         @entity.account(:attorney) if @entity.attorney?
-        
+
         for datum in @custom_field_data
           datum.entity_id = @entity.id
           saved = false unless datum.save
           @entity.errors.add_from_record(datum)
         end
       end
-      
+
       saved = false unless @contact.update_attributes(params[:contact])
       @entity.errors.add_from_record(@contact)
       raise ActiveRecord::Rollback unless saved
       redirect_to_back
       return
     end
-    
+
     t3e @entity.attributes
     render_restfully_form
   end
@@ -444,7 +444,7 @@ class EntitiesController < AdminController
   def destroy
     return unless @entity = find_and_check(:entity)
     if @entity.destroyable?
-      @entity.destroy 
+      @entity.destroy
     else
       notify_error(:cannot_delete_entity)
     end

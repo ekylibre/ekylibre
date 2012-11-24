@@ -5,12 +5,12 @@ class CreatePayments < ActiveRecord::Migration
       t.column :name,                   :string,   :null=>false, :limit=>50
       t.column :nature,                 :string,   :null=>false, :limit=>1, :default=>'U'        # U undefined   C check
       t.column :account_id,             :integer,  :references=>:accounts
-      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict 
+      t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
       t.stamps
     end
     add_stamps_indexes :payment_modes
     add_index :payment_modes, :company_id
-    
+
     create_table :payments do |t|
       t.column :paid_on,                :date
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>2

@@ -28,7 +28,7 @@ class UsersController < AdminController
     t.column :admin
     t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:unlock}, "false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
-    t.action :edit 
+    t.action :edit
     t.action :destroy, :if=>'RECORD.id!=@current_user.id'
   end
 

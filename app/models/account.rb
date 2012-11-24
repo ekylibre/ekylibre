@@ -1,38 +1,38 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: accounts
 #
-#  comment      :text             
+#  comment      :text
 #  created_at   :datetime         not null
-#  creator_id   :integer          
+#  creator_id   :integer
 #  id           :integer          not null, primary key
 #  is_debit     :boolean          not null
 #  label        :string(255)      not null
-#  last_letter  :string(8)        
+#  last_letter  :string(8)
 #  lock_version :integer          default(0), not null
 #  name         :string(208)      not null
 #  number       :string(16)       not null
 #  reconcilable :boolean          not null
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -135,7 +135,7 @@ class Account < CompanyRecord
 
 
   # Clean ranges of accounts
-  # Example : 1-3 41 43  
+  # Example : 1-3 41 43
   def self.clean_range_condition(range, table_name=nil)
     expression = ""
     unless range.blank?
@@ -155,7 +155,7 @@ class Account < CompanyRecord
 
 
   # Build an SQL condition to restrein accounts to some ranges
-  # Example : 1-3 41 43  
+  # Example : 1-3 41 43
   def self.range_condition(range, table_name=nil)
     conn = Account.connection
     conditions = []
@@ -197,7 +197,7 @@ class Account < CompanyRecord
         self.destroy_all
 
         regexp = Account.reconcilable_regexp
-        
+
         # Existing accounts
         Account.find_each do |account|
           account.update_column(:reconcilable, true) if account.number.match(regexp)
@@ -216,14 +216,14 @@ class Account < CompanyRecord
       end
     end
 
-    
-    
+
+
   end
 
 
   # Returns list of reconcilable prefixes defined in preferences
   def self.reconcilable_prefixes
-    return [:client, :supplier, :attorney].collect do |mode| 
+    return [:client, :supplier, :attorney].collect do |mode|
       Preference['third_'+mode.to_s.pluralize+'_accounts'].to_s
     end
     return [Configuration.third_client_accounts, Configuration.third_supplier_accounts, Configuration.third_attorney_accounts]
@@ -238,7 +238,7 @@ class Account < CompanyRecord
   def reconcilableable?
     return (self.number.to_s.match(self.class.reconcilable_regexp) ? true : false)
   end
-  
+
 
   def reconcilable_entry_lines(period, started_on, stopped_on)
     self.journal_entry_lines.find(:all, :joins => "JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)", :conditions => JournalEntry.period_condition(period, started_on, stopped_on, 'je'), :order => "letter DESC, je.number DESC, #{JournalEntryLine.table_name}.position")
@@ -281,7 +281,7 @@ class Account < CompanyRecord
   def balanced_letter?(letter)
     lines = self.journal_entry_lines.find(:all, :conditions => ["letter = ?", letter.to_s])
     return true if lines.size <= 0
-    return lines.sum("debit-credit").to_f.zero? 
+    return lines.sum("debit-credit").to_f.zero?
   end
 
   # Compute debit, credit, balance, balance_debit and balance_credit of the account
@@ -292,7 +292,7 @@ class Account < CompanyRecord
     hash[:credit] = self.journal_entry_lines.sum(:credit)
     hash[:balance_debit] = 0.0
     hash[:balance_credit] = 0.0
-    hash[:balance] = (hash[:debit]-hash[:credit]).abs 
+    hash[:balance] = (hash[:debit]-hash[:credit]).abs
     hash["balance_#{hash[:debit]>hash[:credit] ? 'debit' : 'credit'}".to_sym] = hash[:balance]
     return hash
   end
@@ -316,33 +316,33 @@ class Account < CompanyRecord
       conditions += " AND "+list_accounts.collect do |account|
         "number LIKE '"+account.to_s+"%'"
       end.join(" OR ")
-    end  
+    end
     accounts = Account.find(:all, :conditions => conditions, :order => "number ASC")
     #solde = 0
 
     res_debit = 0
     res_credit = 0
     res_balance = 0
-    
+
     for account in accounts
       debit  = account.journal_entry_lines.sum(:debit,  :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
       credit = account.journal_entry_lines.sum(:credit, :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id").to_f
-      
+
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
       compute[:number] = account.number.to_i
       compute[:name] = account.name.to_s
       compute[:debit] = debit
       compute[:credit] = credit
-      compute[:balance] = debit - credit 
+      compute[:balance] = debit - credit
 
       if debit.zero? or credit.zero?
         compute[:debit] = debit
         compute[:credit] = credit
       end
-      
+
       # if not debit.zero? and not credit.zero?
-      #         if compute[:balance] > 0  
+      #         if compute[:balance] > 0
       #           compute[:debit] = compute[:balance]
       #           compute[:credit] = 0
       #         else
@@ -350,11 +350,11 @@ class Account < CompanyRecord
       #           compute[:credit] = compute[:balance].abs
       #         end
       #       end
-      
+
       #if account.number.match /^12/
       # raise Exception.new compute[:balance].to_s
       #end
-      
+
       if account.number.match /^(6|7)/
         res_debit += compute[:debit]
         res_credit += compute[:credit]
@@ -362,11 +362,11 @@ class Account < CompanyRecord
       end
 
       #solde += compute[:balance] if account.number.match /^(6|7)/
-      #      raise Exception.new solde.to_s if account.number.match /^(6|7)/    
+      #      raise Exception.new solde.to_s if account.number.match /^(6|7)/
       balance << compute
     end
     #raise Exception.new res_balance.to_s
-    balance.each do |account| 
+    balance.each do |account|
       if res_balance > 0
         if account[:number].to_s.match /^12/
           account[:debit] += res_debit
@@ -384,16 +384,16 @@ class Account < CompanyRecord
     # raise Exception.new(balance.inspect)
     balance.compact
   end
-  
+
   # this method loads the general ledger for all the accounts.
   def self.ledger(from, to)
     ledger = []
     accounts = Account.find(:all, :conditions => {}, :order => "number ASC")
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
-      
+
       journal_entry_lines = account.journal_entry_lines.find(:all, :conditions => ["r.created_on BETWEEN ? AND ?", from, to ], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryLine.table_name}.entry_id", :order => "r.number ASC")
-      
+
       if journal_entry_lines.size > 0
         entries = []
         compute << account.number.to_i
@@ -412,12 +412,12 @@ class Account < CompanyRecord
         compute << entries
         ledger << compute
       end
-      
+
     end
 
     ledger.compact
   end
 
-  
+
 end
 

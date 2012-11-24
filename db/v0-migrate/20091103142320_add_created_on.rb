@@ -21,7 +21,7 @@ class AddCreatedOn < ActiveRecord::Migration
   end
 
   def self.down
-    
+
     add_column :purchase_orders, :invoiced, :boolean, :null=>false, :default=>false
     remove_column :document_templates, :nature
     remove_column :document_templates, :default

@@ -17,7 +17,7 @@ class ChangeBadColumnsAndIndexes < ActiveRecord::Migration
     remove_index :price_taxes, :columns=>[:price_id, :tax_id], :name => "index_#{quoted_table_name(:price_taxes)}_on_price_id_and_tax_id"
     add_index :complement_data, [:company_id, :complement_id, :entity_id], :name => "index_#{quoted_table_name(:complement_data)}_on_entity_id_and_complement_id", :unique=>true
     add_index :price_taxes, [:company_id, :price_id, :tax_id], :name => "index_#{quoted_table_name(:price_taxes)}_on_price_id_and_tax_id", :unique=>true
-    
+
     add_column :languages, :company_id, :integer
     execute "DELETE FROM #{quoted_table_name(:languages)}"
     execute "INSERT INTO #{quoted_table_name(:languages)} (name, native_name, iso2, iso3, company_id) SELECT 'French', 'Français', 'fr', 'fra', id FROM #{quoted_table_name(:companies)} AS companies"

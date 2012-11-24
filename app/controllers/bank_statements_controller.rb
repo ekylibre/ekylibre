@@ -61,7 +61,7 @@ class BankStatementsController < AdminController
   end
 
   def point
-    session[:statement] = params[:id]  if request.get? 
+    session[:statement] = params[:id]  if request.get?
     return unless @bank_statement = find_and_check(:bank_statement)
     if request.post?
       # raise Exception.new(params[:journal_entry_line].inspect)
@@ -76,7 +76,7 @@ class BankStatementsController < AdminController
     unless @journal_entry_lines.size > 0
       notify_warning(:need_entries_to_point)
       redirect_to :action=>:index
-    end    
+    end
     t3e @bank_statement.attributes, :cash => @bank_statement.cash.name
   end
 

@@ -13,7 +13,7 @@ class CreateProductStocks < ActiveRecord::Migration
     add_column :products, :quantity_min,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
     add_column :products, :critic_quantity_min, :decimal, :precision=>16, :scale=>2, :default=>1.0.to_d
     add_column :products, :quantity_max,        :decimal, :precision=>16, :scale=>2, :default=>0.0.to_d
-   
+
 
     create_table :product_stocks do |t|
       t.column :product_id,             :integer,  :null=>false, :references=>:products,  :on_delete=>:restrict, :on_update=>:restrict
@@ -26,7 +26,7 @@ class CreateProductStocks < ActiveRecord::Migration
       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:cascade,  :on_update=>:cascade
       t.stamps
     end
-    add_stamps_indexes :product_stocks 
+    add_stamps_indexes :product_stocks
     add_index :product_stocks, :company_id
 
 
@@ -39,7 +39,7 @@ class CreateProductStocks < ActiveRecord::Migration
     remove_column :products, :quantity_min
     add_column :deliveries, :delivered_on, :date
     add_column :deliveries, :shipped_on, :date
-    remove_column :deliveries, :planned_on 
+    remove_column :deliveries, :planned_on
     remove_column :deliveries, :moved_on
     remove_column :stock_moves, :input
     remove_column :sale_order_lines, :location_id

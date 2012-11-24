@@ -56,7 +56,7 @@ class CreateCompanySupport < ActiveRecord::Migration
     add_stamps_indexes :companies
     add_index :companies, :name, :unique=>true
     add_index :companies, :code, :unique=>true
-    
+
     # Parameter
     create_table :parameters do |t|
       t.column :name,                   :string,   :null=>false
@@ -95,20 +95,20 @@ class CreateCompanySupport < ActiveRecord::Migration
     create_table :templates do |t|
       t.column :name,                   :string,   :null=>false
       t.column :content,                :text,     :null=>false
-      t.column :cache,                  :text    
+      t.column :cache,                  :text
       t.column :company_id,             :integer,  :null=>false, :references=>:companies
       t.stamps
     end
     add_stamps_indexes :templates
     add_index :templates, :company_id
     add_index :templates, [:company_id, :name], :unique=>true
-    
+
     # Document
     create_table :documents do |t|
-      t.column :filename,               :string 
+      t.column :filename,               :string
       t.column :original_name,          :string, :null=>false
-      t.column :key,                    :integer 
-      t.column :filesize,               :integer 
+      t.column :key,                    :integer
+      t.column :filesize,               :integer
       t.column :crypt_key,              :binary
       t.column :crypt_mode,             :string, :null=>false
       t.column :sha256,                 :string, :null=>false

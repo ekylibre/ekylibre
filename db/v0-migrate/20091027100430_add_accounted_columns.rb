@@ -7,9 +7,9 @@ class AddAccountedColumns < ActiveRecord::Migration
     end
 
   end
-  
+
   def self.down
-    
+
     [:invoices, :sale_orders, :payments, :purchase_orders, :transfers].each do |model|
       remove_column model, :accounted
     end

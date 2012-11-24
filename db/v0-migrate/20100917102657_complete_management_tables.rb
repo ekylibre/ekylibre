@@ -80,7 +80,7 @@ class CompleteManagementTables < ActiveRecord::Migration
     add_column :transports, :number, :string
     add_column :transports, :reference_number, :string
     add_column :purchase_orders, :reference_number, :string
-    
+
     change_column :entities, :code, :string, :limit=>64
   end
 

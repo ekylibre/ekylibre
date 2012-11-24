@@ -1,30 +1,30 @@
 # -*- coding: utf-8 -*-
 
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
-# == Table: public.companies
+#
+# == Table: companies
 #
 #  code :string(16)       not null
 #  id   :integer          not null, primary key
-#  log  :text             
+#  log  :text
 #
 
 
@@ -53,7 +53,7 @@ class Company < ActiveRecord::Base
   # has_many :entity_categories
   # has_many :entity_link_natures
   # has_many :entity_links
-  # has_many :entity_natures  
+  # has_many :entity_natures
   # has_many :establishments
   # has_many :event_natures, :order=>"name"
   # has_many :events
@@ -139,7 +139,7 @@ class Company < ActiveRecord::Base
   # preference :bookkeep_automatically, 'Boolean', :default=>true
   # preference :bookkeep_in_draft, 'Boolean', :default=>true
   # # preference :detail_payments_in_deposit_bookkeeping, 'Boolean', :default=>true
-  # preference :use_entity_codes_for_account_numbers, 'Boolean', :default=>true  
+  # preference :use_entity_codes_for_account_numbers, 'Boolean', :default=>true
   # # Journals
   # # preference :bank_journal, 'Journal'
   # # preference :cash_journal, 'Journal'
@@ -228,7 +228,7 @@ class Company < ActiveRecord::Base
 
   before_validation do
     if self.code.blank?
-      self.code = self.name.to_s[0..7].simpleize 
+      self.code = self.name.to_s[0..7].simpleize
       self.code = rand.to_s[2..-1].to_i.to_s(36)[0..7] if self.code.blank?
       self.code = self.code.simpleize.upper
       while Company.count(:conditions=>["code=? AND id!=?",self.code, self.id])>0 do
@@ -315,7 +315,7 @@ class Company < ActiveRecord::Base
       other = first
       while searched_on > other.stopped_on
         other = other.find_or_create_next
-      end 
+      end
       return other
     end
     return year
@@ -334,20 +334,20 @@ class Company < ActiveRecord::Base
       #raise Exception.new nature.empty?.inspect
       #raise Exception.new nature.inspect if row == "SCEA"
       nature = EntityNature.find(:first, :conditions=>['company_id = ? AND LOWER(abbreviation) LIKE ?', self.id, row.lower]) if nature.nil?
-      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil? 
+      nature = EntityNature.create!(:name=>row, :abbreviation=>row[0..1], :in_name=>false, :physical=>true, :company_id=>self.id) if nature.nil?
     end
     nature.id
-  end 
+  end
 
   def imported_entity_category(row)
     if row.blank?
       nature = self.entity_categories.first
     else
       nature = EntityCategory.find(:first, :conditions=>['company_id = ? AND LOWER(name) LIKE ? ',self.id, row.lower])
-      nature = EntityCategory.create!(:name=>row, :by_default=>false, :company_id=>self.id) if nature.nil? 
+      nature = EntityCategory.create!(:name=>row, :by_default=>false, :company_id=>self.id) if nature.nil?
     end
     nature.id
-  end 
+  end
 
 
   # def reflection_options(options={})
@@ -362,7 +362,7 @@ class Company < ActiveRecord::Base
   #   end
   #   find_options = {} # :conditions=>"true"}
   #   if options[:order]
-  #     find_options[:order] = options[:order] 
+  #     find_options[:order] = options[:order]
   #   elsif model.columns_hash.keys.include?(options[:label].to_s)
   #     find_options[:order] = options[:label]
   #   end
@@ -371,7 +371,7 @@ class Company < ActiveRecord::Base
   #     [record.send(label), record.id]
   #   end
   #   if options[:include_blank].is_a? String
-  #     list.insert(0, [options[:include_blank], '']) 
+  #     list.insert(0, [options[:include_blank], ''])
   #   elsif options[:include_blank].is_a? Array
   #     list.insert(0, *options[:include_blank])
   #   end
@@ -480,7 +480,7 @@ class Company < ActiveRecord::Base
         zile.extract(entry, File.join(archive, entry.name))
       end
     end
-    
+
     # Parsing
     version = (ActiveRecord::Migrator.current_version rescue 0)
     puts "R> Parsing backup.xml (#{version})..."  if verbose
@@ -554,7 +554,7 @@ class Company < ActiveRecord::Base
       File.open(temporary_dir.join("restore-1.rb"), "wb") {|f| f.write(code)}  if verbose
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       eval(code)
-      
+
       # raise Exception.new(data.inspect)
       # Réorganisation des clés étrangères
       puts "R> Redifining primary keys..."  if verbose
@@ -616,7 +616,7 @@ class Company < ActiveRecord::Base
 
 
   # Search a document template and use it to compile document using preferences
-  # options[:id] permits to identify the template 
+  # options[:id] permits to identify the template
   def print(options={})
     id = options.delete(:id)
     template = if id.is_a? DocumentTemplate
@@ -657,16 +657,16 @@ class Company < ActiveRecord::Base
   #     user.save!
 
   #     Account.load_chart(:accounting_system)
-      
+
   #     Department.create!(:name=>tc('default.department_name'))
   #     establishment = Establishment.create!(:name=>tc('default.establishment_name'), :nic=>"00000")
   #     #   # currency = company.currency || 'EUR' # company.currencies.create!(:name=>'Euro', :code=>'EUR', :value_format=>'%f €', :rate=>1)
   #     ProductCategory.create(:name=>tc('default.product_category_name'))
-      
+
   #     for code, tax in tc("default.taxes")
   #       Tax.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>Account.get(tax[:collected], tax[:name]).id, :paid_account_id=>Account.get(tax[:paid], tax[:name]).id)
   #     end
-      
+
   #     # loading of all the templates
   #     DocumentTemplate.load_defaults
 
@@ -677,7 +677,7 @@ class Company < ActiveRecord::Base
   #       journals[journal] = j
   #       # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
   #     end
-      
+
   #     cash = Cash.create!(:name => tc('default.cash.name.cash_box'), :nature => "cash_box", :account => Account.get("531101", "Caisse"), :journal_id => journals[:cash].id)
   #     baac = Cash.create!(:name => tc('default.cash.name.bank_account'), :nature => "bank_account", :account => Account.get("512101", "Compte bancaire"), :journal_id => journals[:bank].id, :iban => "FR7611111222223333333333391", :mode => "iban")
   #     IncomingPaymentMode.create!(:name => tc('default.incoming_payment_modes.cash.name'), :cash_id => cash.id, :with_accounting => true, :attorney_journal => journals[:various])
@@ -695,19 +695,19 @@ class Company < ActiveRecord::Base
   #     FinancialYear.create!(:started_on => Date.today.beginning_of_month)
   #     SaleNature.create!(:name => tc('default.sale_nature_name'), :expiration_id => delays[0].id, :payment_delay_id => delays[2].id, :downpayment => false, :downpayment_minimum => 300, :downpayment_rate => 0.3, :currency => currency, :with_accounting => true, :journal => journals[:sales])
   #     PurchaseNature.create!(:name => tc('default.purchase_nature_name'), :currency => currency, :with_accounting => true, :journal => journals[:purchases])
-      
-      
+
+
   #     Warehouse.create!(:name => tc('default.warehouse_name'), :establishment_id => establishment.id)
   #     for nature in [:sale, :sales_invoice, :purchase]
   #       EventNature.create!(:duration => 10, :usage => nature.to_s, :name => tc("default.event_natures.#{nature}"))
   #     end
-      
+
   #     #   # Add custom_fieldary data to test
   #     #   company.load_demo_data unless demo_language_code.blank?
   #   end
   #   return
   # end
-  
+
 
 
 
@@ -738,11 +738,11 @@ class Company < ActiveRecord::Base
   #     user.reload
   #     user.attributes = {:employed=>true, :commercial=>true, :department_id=>company.departments.first.id, :establishment_id=>company.establishments.first.id, :employment=>'-'}
   #     user.save!
-      
+
   #     for code, tax in tc("default.taxes")
   #       company.taxes.create!(:name=>tax[:name], :nature=>(tax[:nature]||"percent"), :amount=>tax[:amount].to_f, :collected_account_id=>company.account(tax[:collected], tax[:name]).id, :paid_account_id=>company.account(tax[:paid], tax[:name]).id)
   #     end
-      
+
   #     company.entity_natures.create!(:name=>'Monsieur', :title=>'M', :physical=>true)
   #     company.entity_natures.create!(:name=>'Madame', :title=>'Mme', :physical=>true)
   #     company.entity_natures.create!(:name=>'Société Anonyme', :title=>'SA', :physical=>false)
@@ -753,7 +753,7 @@ class Company < ActiveRecord::Base
   #     company.entity_id = firm.id
   #     company.save!
   #     company.entity.contacts.create!(:company_id=>company.id, :line_2=>"", :line_3=>"", :line_5=>"", :line_6=>'12345 MAVILLE', :by_default=>true)
-      
+
   #     # loading of all the templates
   #     company.load_prints
 
@@ -764,7 +764,7 @@ class Company < ActiveRecord::Base
   #       journals[journal] = j
   #       # company.prefer!("#{journal}_journal", company.journals.create!(:name=>tc("default.journals.#{journal}"), :nature=>journal.to_s, :currency=>currency))
   #     end
-      
+
   #     cash = company.cashes.create!(:name=>tc('default.cash.name.cash_box'), :company_id=>company.id, :nature=>"cash_box", :account=>company.account("531101", "Caisse"), :journal_id=>journals[:cash].id)
   #     baac = company.cashes.create!(:name=>tc('default.cash.name.bank_account'), :company_id=>company.id, :nature=>"bank_account", :account=>company.account("512101", "Compte bancaire"), :journal_id=>journal[:bank].id, :iban=>"FR7611111222223333333333391", :mode=>"iban")
   #     company.incoming_payment_modes.create!(:name=>tc('default.incoming_payment_modes.cash.name'), :company_id=>company.id, :cash_id=>cash.id, :with_accounting=>true)
@@ -782,21 +782,21 @@ class Company < ActiveRecord::Base
   #     company.financial_years.create!(:started_on=>Date.today)
   #     company.sale_natures.create!(:name=>tc('default.sale_nature_name'), :expiration_id=>delays[0].id, :payment_delay_id=>delays[2].id, :downpayment=>false, :downpayment_minimum=>300, :downpayment_rate=>0.3, :currency=>currency, :with_accounting=>true, :journal=>company.preferred_sales_journal)
   #     company.purchase_natures.create!(:name=>tc('default.purchase_nature_name'), :currency=>currency, :with_accounting=>true, :journal=>company.preferred_purchases_journal)
-      
+
 
   #     company.load_sequences
-      
+
   #     company.warehouses.create!(:name=>tc('default.warehouse_name'), :establishment_id=>establishment.id)
   #     for nature in [:sale, :sales_invoice, :purchase]
   #       company.event_natures.create!(:duration=>10, :usage=>nature.to_s, :name=>tc("default.event_natures.#{nature}"))
   #     end
-      
+
   #     # Add custom_fieldary data to test
   #     company.load_demo_data unless demo_language_code.blank?
   #   end
   #   return company, user
   # end
-  
+
 
 
 
@@ -819,7 +819,7 @@ class Company < ActiveRecord::Base
   #         attributes[:filename] ||= "File"
   #         attributes[:to_archive] = true if attributes[:to_archive] == "true"
   #         if RUBY_VERSION =~ /^1\.9/
-  #           attributes[:source] = f.read.force_encoding('UTF-8') 
+  #           attributes[:source] = f.read.force_encoding('UTF-8')
   #         else
   #           attributes[:source] = f.read
   #         end
@@ -864,7 +864,7 @@ class Company < ActiveRecord::Base
   #       self.accounts.destroy_all
 
   #       regexp = Account.reconcilable_regexp
-        
+
   #       # Existing accounts
   #       for account in self.reload.accounts
   #         account.update_column(:reconcilable, true) if account.number.match(regexp)
@@ -884,8 +884,8 @@ class Company < ActiveRecord::Base
   #   end
   # end
 
-  
-  
+
+
   def load_demo_data(language_code=nil)
     self.entity_natures.create!(:name=>"Société A Responsabilité Limitée", :title=>"SARL", :in_name=>true)
     last_name = ["MARTIN", "DUPONT", "DURAND", "LABAT", "VILLENEUVE", "SICARD", "FRERET", "FOUCAULT", "DUPEYRON", "BORGÈS", "DUBOIS", "LEROY", "MOREL", "GUERIN", "MORIN", "ROUSSEAU", "LEMAIRE", "DUVAL", "BRUN", "FERNANDEZ", "BRETON", "LEBLANC", "DA SILVA", "CORDIER", "BRIAND", "CAMUS", "VOISIN", "LELIEVRE", "GONZALEZ"]
@@ -897,23 +897,23 @@ class Company < ActiveRecord::Base
     products = ["Salades", "Bouteille en verre 75 cl", "Bouchon liège", "Capsule CRD", "Capsule", "Étiquette", "Vin Quillet-Bont 2005", "Caisse Bois 6 btles", "Bouteille Quillet-Bont 2005 75 cl", "Caisse 6 b. Quillet-Bont 2005", "Pommes de terre", "Séjour 1 nuit", "Séjour 1 semaine 1/2 pension", "Fongicide", "Insecticide"]
     product_category_id = self.product_categories.first.id
     category_id = self.entity_categories.first.id
-    
+
     for x in 0..60
       entity = self.entities.new(indifferent_attributes)
       entity.nature_id = entity_natures[rand(entity_natures.size).to_i]
       entity.last_name = last_name[rand(last_name.size)]
-      entity.last_name = entity.nature.title.to_s+" "+entity.last_name if entity.nature.in_name 
+      entity.last_name = entity.nature.title.to_s+" "+entity.last_name if entity.nature.in_name
       entity.first_name = first_name[rand(first_name.size)] if entity.nature.physical
       entity.client = (rand() > 0.5 or rand() > 0.8)
       entity.supplier = (rand() > 0.75 or x == 0)
       entity.transporter = rand() > 0.9
-      entity.save! 
+      entity.save!
       contact = entity.contacts.create!(:company_id=>self.id, :line_4=>rand(100).to_s+" "+streets[rand(streets.size)], :line_6=>cities[rand(cities.size)], :by_default=>true)
     end
     self.entity_link_natures.create!(:name=>"Gérant - Société", :name_1_to_2=>"gère la société", :name_2_to_1=>"est une société qui a pour associé", :propagate_contacts=>true, :symmetric=>false)
     self.subscription_natures.create!(:name=>"Abonnement annuel", :nature=>"period", :reduction_rate=>0.1)
     self.event_natures.create!(:name=>"Conversation téléphonique", :duration=>10, :usage=>"manual")
-    
+
     # charge_account  = self.accounts.find_by_number("60")
     product_account = self.accounts.find_by_number("7")
     units = self.units.find(:all, :conditions=>"base IS NULL OR base in ('', 'kg', 'm3')")
@@ -923,7 +923,7 @@ class Company < ActiveRecord::Base
       product.reload
       product.prices.create!(:amount=>rand(100), :company_id=>self.id, :use_range=>false, :tax_id=>taxes[rand(taxes.size)].id, :category_id=>category_id, :entity_id=>product.name.include?("icide") ? self.entities.find(:first, :conditions=>{:supplier=>true}).id : self.entity_id)
     end
-    
+
     product = self.products.find_by_name("Caisse 6 b. Quillet-Bont 2005")
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille Quillet-Bont 2005 75 cl").id, :quantity=>6, :warehouse_id=>self.warehouses.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Caisse Bois 6 btles").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
@@ -934,9 +934,9 @@ class Company < ActiveRecord::Base
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Bouteille en verre 75 cl").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Vin Quillet-Bont 2005").id, :quantity=>0.75, :warehouse_id=>self.warehouses.first.id)
     self.product_components.create!(:active=>true, :product_id=>product.id, :component_id=>self.products.find_by_name("Capsule CRD").id, :quantity=>1, :warehouse_id=>self.warehouses.first.id)
-    
+
     self.subscriptions.create!(:nature_id=>self.subscription_natures.first.id, :started_on=>Date.today, :stopped_on=>Date.today+(365), :entity_id=>self.entities.find(:first, :conditions=>{:client=>true}).id, :suspended=>false)
-    
+
     product = self.products.find_by_name("Vin Quillet-Bont 2005")
     self.warehouses.create!(:name=>"Cuve Jupiter", :product_id=>product.id, :quantity_max=>1000, :number=>1, :reservoir=>true, :establishment_id=>self.establishments.first.id)
 

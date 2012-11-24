@@ -15,7 +15,7 @@ task :rights => :environment do
     raise "Right :#{right} must have attributes like :actions" unless attributes
     attributes['actions'].each_index do |index|
       unless attributes['actions'][index].match(/\:\:/)
-        attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index] 
+        attributes['actions'][index] = attributes['controller'].to_s+"::"+attributes['actions'][index]
       end
     end if attributes['actions'].is_a? Array
     attributes['controller'] = nil unless ref.keys.include?(attributes['controller'])

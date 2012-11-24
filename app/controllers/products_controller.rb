@@ -24,14 +24,14 @@ class ProductsController < AdminController
     code = ""
     code = light_search_conditions(:products=>[:number, :code, :code2, :name, :catalog_name, :description, :catalog_description, :ean13])+"\n"
     code += "if session[:product_state] == 'active'\n"
-    code += "  c[0] += ' AND active = ?'\n" 
+    code += "  c[0] += ' AND active = ?'\n"
     code += "  c << true\n"
     code += "elsif session[:product_state] == 'inactive'\n"
-    code += "  c[0] += ' AND active = ?'\n" 
+    code += "  c[0] += ' AND active = ?'\n"
     code += "  c << false\n"
     code += "end\n"
     code += "if session[:product_category_id].to_i > 0\n"
-    code += "  c[0] += ' AND category_id = ?'\n" 
+    code += "  c[0] += ' AND category_id = ?'\n"
     code += "  c << session[:product_category_id].to_i\n"
     code += "end\n"
     code += "c\n"
@@ -160,7 +160,7 @@ class ProductsController < AdminController
         end
         @product.errors.add_from_record(@stock)
       end
-      raise ActiveRecord::Rollback unless saved  
+      raise ActiveRecord::Rollback unless saved
     end
     return if save_and_redirect(@product, :saved=>saved)
     t3e @product.attributes

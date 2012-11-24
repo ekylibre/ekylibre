@@ -4,13 +4,13 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
   ORIGINS = {:sales_orders=>:sales_invoice_id, :sales_order_lines=>:sales_invoice_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   ORDER_LINES = {:outgoing_delivery_lines=>:order_line_id, :sales_order_lines=>:reduction_origin_id, :subscriptions=>:sales_order_line_id}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   MERGES = [:subscriptions, :outgoing_deliveries]
-  POLYMORPHICS= {:documents=>:owner, :incoming_payment_uses=>:expense, :journal_entries=>:resource, :operations=>:target, :preferences=>:record_value, :stock_moves=>:origin}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s} # :stocks=>:origin, 
+  POLYMORPHICS= {:documents=>:owner, :incoming_payment_uses=>:expense, :journal_entries=>:resource, :operations=>:target, :preferences=>:record_value, :stock_moves=>:origin}.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s} # :stocks=>:origin,
   TEMPLATES = {
     'sales_invoice/created_on' => 'sales_invoice/invoiced_on',
     'sales_invoice.sales_order' => 'sales_invoice'
   }.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}
   RENAMED_TABLES = {
-    :sales_orders=>:sales, 
+    :sales_orders=>:sales,
     :sales_order_lines=>:sale_lines,
     :sales_order_natures=>:sale_natures,
     :purchase_orders=>:purchases,
@@ -20,7 +20,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
 
   # Minimum columns
   SI = [:accounted_at, :amount, :annotation, :client_id, :company_id, :contact_id, :created_at, :creator_id, :credit, :currency_id, :downpayment_amount, :has_downpayment, :journal_entry_id, :lock_version, :lost, :number, :origin_id, :payment_delay_id, :payment_on, :pretax_amount, :sales_order_id, :updated_at, :updater_id]
-  
+
   #
   SIL = [:amount, :annotation, :company_id, :created_at, :creator_id, :entity_id, :lock_version, :order_line_id, :origin_id, :position, :pretax_amount, :price_id, :product_id, :quantity, :sales_invoice_id, :tracking_id, :updated_at, :updater_id, :warehouse_id] # , :unit_id
 
@@ -34,7 +34,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     :processing=>:order,
     :invoiced=>:invoice,
   }
-  
+
   PREFERENCES = {
     :purchase_orders_sequence => :purchases_sequence,
     :sales_orders_sequence => :sales_sequence
@@ -65,10 +65,10 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     add_column :sales_orders, :origin_id, :integer
     add_column :sales_orders, :sales_order_id, :integer
     add_column :sales_orders, :initial_number, :string, :limit=>64
-    change_column_null :sales_orders, :nature_id, true 
+    change_column_null :sales_orders, :nature_id, true
     change_column_null :sales_orders, :expiration_id, true
     change_column_null :sales_orders, :expired_on, true
-    
+
     add_column :sales_order_lines, :order_line_id, :integer
     add_column :sales_order_lines, :origin_id, :integer
     add_column :sales_order_lines, :sales_invoice_id, :integer
@@ -115,7 +115,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
         add_index table, column
       end
     end
-    
+
     # puts connection.columns(:sales_orders).collect{|c| c.name}.sort.collect{|c| c.to_sym}.inspect
     # puts connection.columns(:sales_order_lines).collect{|c| c.name}.sort.collect{|c| c.to_sym}.inspect
 
@@ -131,7 +131,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     execute "INSERT INTO #{quoted_table_name(:sales_orders)} (sales_invoice_id, initial_number, invoiced_on, rebuilt_id, "+so.join(', ')+") SELECT si.id, so.number, si.created_on, so.id, "+so.collect{|c| (si.include?(c) ? "COALESCE(si.#{c}, so.#{c})" : "so.#{c}")}.join(', ')+" FROM #{quoted_table_name(:sales_invoices)} AS si JOIN #{quoted_table_name(:sales_orders)} AS so ON (si.sales_order_id=so.id)"
     execute "INSERT INTO #{quoted_table_name(:sales_order_lines)} (sales_invoice_line_id, order_id, rebuilt_id, "+sol.join(', ')+") SELECT sil.id, so.id, sol.id, "+sol.collect{|c| "COALESCE("+(sil.include?(c) ? "sil.#{c}, " : "")+"sol.#{c}#{', '+connection.quote(defaults[c]) unless defaults[c].nil?}, NULL)"}.join(', ')+" FROM #{quoted_table_name(:sales_invoice_lines)} AS sil JOIN #{quoted_table_name(:sales_orders)} AS so ON (so.sales_invoice_id=sil.sales_invoice_id) LEFT JOIN #{quoted_table_name(:sales_order_lines)} AS sol ON (sil.order_line_id=sol.id)"
     #
-    create_table(:deletable_sales_order_lines, :force=>true, :id=>false) do |t| 
+    create_table(:deletable_sales_order_lines, :force=>true, :id=>false) do |t|
       t.column(:id, :integer)
     end
     execute "INSERT INTO #{quoted_table_name(:deletable_sales_order_lines)}(id) SELECT rebuilt_id FROM #{quoted_table_name(:sales_order_lines)} WHERE rebuilt_id IS NOT NULL"
@@ -162,7 +162,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
         suppress_messages do
           for rec in connection.select_all("SELECT DISTINCT rec.#{origin} AS osoid, so.id AS soid FROM #{quoted_table_name(table)} AS rec JOIN #{quoted_table_name(table)} AS so ON (rec.#{origin}=so.#{column})")
             execute "UPDATE #{quoted_table_name(table)} SET #{origin} = #{rec['soid']} WHERE #{origin} = #{rec['osoid']}"
-          end 
+          end
         end
       end
     end
@@ -174,7 +174,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
           for rec in connection.select_all("SELECT DISTINCT rec.#{column} AS osolid, sol.id AS solid FROM #{quoted_table_name(table)} AS rec JOIN #{quoted_table_name(:sales_order_lines)} AS sol ON (rec.#{column}=sol.rebuilt_id)")
             execute "UPDATE #{quoted_table_name(table)} SET #{column} = #{rec['solid']} WHERE #{column} = #{rec['osolid']}"
           end
-        end 
+        end
       end
     end
 
@@ -214,7 +214,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
             execute "UPDATE #{quoted_table_name(table)} SET #{column}_id = #{rec['soid']}, #{column}_type='SalesOrderLine' WHERE #{column}_id = #{rec['osoid']} and #{column}_type LIKE 'Sale%OrderLine'"
           end
         end
-      end 
+      end
     end
 
     for table, columns in TRACKINGS
@@ -269,7 +269,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     for o, n in RENAMED_TABLES
       execute "UPDATE #{quoted_table_name(:event_natures)} SET #{quote_column_name(:usage)}='#{n.to_s.singularize}' WHERE #{quote_column_name(:usage)}='#{o.to_s.singularize}'"
     end
-    
+
   end
 
   def self.down
@@ -306,7 +306,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
       end
       rename_table o, n
     end
-    
+
     create_table :sales_invoice_lines do |t|
       t.integer "order_line_id"
       t.integer "product_id", :null => false
@@ -363,10 +363,10 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     si = SI - [:sales_order_id, :nature, :payment_on]
     sil = SIL + [:unit_id] - [:sales_invoice_id, :order_line_id]
     execute "INSERT INTO #{quoted_table_name(:sales_invoices)} (sales_order_id, nature, payment_on, created_on, "+si.join(', ')+") SELECT id, CASE WHEN credit = #{quoted_true} THEN 'C' ELSE 'S' END, COALESCE(invoiced_on, created_on), COALESCE(invoiced_on, created_on), "+si.join(', ')+" FROM #{quoted_table_name(:sales_orders)} WHERE state = 'invoice'"
-    execute "INSERT INTO #{quoted_table_name(:sales_invoice_lines)} (sales_invoice_id, order_line_id, "+sil.join(', ')+") SELECT si.id, sol.id, "+sil.collect{|c| "sol.#{c}"}.join(', ')+" FROM #{quoted_table_name(:sales_order_lines)} AS sol JOIN #{quoted_table_name(:sales_invoices)} AS si ON (si.sales_order_id=sol.order_id)" 
+    execute "INSERT INTO #{quoted_table_name(:sales_invoice_lines)} (sales_invoice_id, order_line_id, "+sil.join(', ')+") SELECT si.id, sol.id, "+sil.collect{|c| "sol.#{c}"}.join(', ')+" FROM #{quoted_table_name(:sales_order_lines)} AS sol JOIN #{quoted_table_name(:sales_invoices)} AS si ON (si.sales_order_id=sol.order_id)"
 
     # Don't touch polymorphic keys because not sure to be well come
-    
+
     # Spread sales_order_id in sales_invoice_id
     for table in MERGES.reverse
       add_column table, :sales_invoice_id, :integer
@@ -387,7 +387,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     end
 
     # Order Lines: Nothing to do
-    
+
     # Origins in
     for table, column in {:sales_invoices=>:sales_order_id, :sales_invoice_lines=>:order_line_id}
       origin = :origin_id
@@ -395,7 +395,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
         suppress_messages do
           for rec in connection.select_all("SELECT DISTINCT rec.#{origin} AS osiid, si.id AS siid FROM #{quoted_table_name(table)} AS rec JOIN #{quoted_table_name(table)} AS si ON (rec.#{origin}=si.#{column})")
             execute "UPDATE #{quoted_table_name(table)} SET #{origin} = #{rec['siid']} WHERE #{origin} = #{rec['osiid']}"
-          end 
+          end
         end
       end
     end
@@ -427,7 +427,7 @@ class MergeSalesInvoicesIntoOrders < ActiveRecord::Migration
     # remove_column :sales_order_lines, :order_line_id # NOT USED for rollback
     # change_column_null :sales_orders, :expired_on, true
     # change_column_null :sales_orders, :expiration_id, true
-    # change_column_null :sales_orders, :nature_id, true 
+    # change_column_null :sales_orders, :nature_id, true
     execute "UPDATE #{quoted_table_name(:sales_orders)} SET number=COALESCE(initial_number, '**'||number||'**', '??????') WHERE state = 'invoice'"
     remove_column :sales_orders, :initial_number
     # remove_column :sales_orders, :sales_order_id # NOT USED for rollback

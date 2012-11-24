@@ -18,7 +18,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     add_column :product_stocks,  :origin_type, :string   ## productions OR purchase_orders OR stock_transfers
 
     add_column :productions, :shape_id, :integer, :references=>:shapes
-    
+
     add_column :products, :to_produce, :boolean, :null=>false, :default=>false
     execute "UPDATE #{quoted_table_name(:products)} SET to_purchase=#{quoted_true} WHERE supply_method='buy'"
     execute "UPDATE #{quoted_table_name(:products)} SET to_produce=#{quoted_true} WHERE supply_method='produce'"
@@ -51,7 +51,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
       currencies = "SELECT * FROM #{quoted_table_name(:currencies)}"
       execute "UPDATE #{quoted_table_name(:purchase_orders)} SET currency_id=CASE "+currencies.collect{|c| "WHEN company_id=#{c['company_id']} THEN #{c['id']}"}+" ELSE 0 END"
     end
-        
+
     add_column :sale_order_lines,     :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :purchase_order_lines, :tracking_id,     :integer,  :references=>:stock_trackings
     add_column :product_stocks,       :tracking_id,     :integer,  :references=>:stock_trackings
@@ -62,7 +62,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
 
     add_column :purchase_order_lines, :tracking_serial, :string
     add_column :productions,          :tracking_serial, :string
-    
+
     create_table :shape_operation_lines do |t|
       t.column :shape_operation_id,     :integer,   :null=>false, :references=>:shape_operations, :on_delete=>:cascade, :on_update=>:cascade
       t.column :product_id,             :integer,   :references=>:products
@@ -95,7 +95,7 @@ class CreateTrackingSupport < ActiveRecord::Migration
     remove_column :purchase_orders,      :currency_id
     remove_column :purchase_order_lines, :annotation
 
-    
+
     remove_column :shapes, :area_unit_id
     remove_column :shapes, :area_measure
     remove_column :shapes, :number

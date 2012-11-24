@@ -18,7 +18,7 @@
 #
 
 class DelaysController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list do |t|
     t.column :name, :url=>true

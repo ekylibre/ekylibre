@@ -62,7 +62,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_cares
-      get :list_childrens
+      get :list_children
     end
   end
   resources :animal_cares do
@@ -70,7 +70,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :animal_care_types do
+  resources :animal_care_natures do
     collection do
       get :list
     end
@@ -80,7 +80,7 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :animal_race_types do
+  resources :animal_race_natures do
     collection do
       get :list
     end
@@ -198,7 +198,7 @@ Ekylibre::Application.routes.draw do
       get :list_animal_cares
     end
   end
-  resources :drug_types do
+  resources :drug_natures do
     collection do
       get :list
     end
@@ -371,7 +371,7 @@ Ekylibre::Application.routes.draw do
       match "configure", :via => [:get, :post]
     end
   end
-  resources :observations    
+  resources :observations
   resources :operations do
     collection do
       get :list
@@ -620,6 +620,6 @@ Ekylibre::Application.routes.draw do
   end
   # end
   match "/dashboards" => "dashboards#index", :as => "admin"
-  
+
   root :to => "dashboards#index"
 end

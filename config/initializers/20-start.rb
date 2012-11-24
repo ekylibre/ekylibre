@@ -17,12 +17,12 @@ module Ekylibre
   CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
 
   @@version = nil
-  
+
   def self.version
     return @@version unless @@version.nil?
     File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[0..1].join("::")}
     return @@version
-  end  
+  end
 
   # Must return a File/Dir and not a string
   def self.private_directory
@@ -35,7 +35,7 @@ module Ekylibre
     return @@helps unless @@helps.nil?
     @@helps ||= {}
     for file in Dir[Rails.root.join("config", "locales", "*", "help", "*.txt")].sort
-      File.open(file, 'rb:UTF-8') do |f| 
+      File.open(file, 'rb:UTF-8') do |f|
         help = {:title=>f.read[/^======\s*(.*)\s*======$/, 1], :name=>file.split(/[\\\/\.]+/)[-2], :locale=>file.split(/[\\\/\.]+/)[-4].to_sym}
         unless help[:title].blank?
           @@helps[file] = help

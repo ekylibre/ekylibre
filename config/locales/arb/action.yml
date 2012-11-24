@@ -16,6 +16,14 @@ arb:
       reconciliation: "كتابة حسابات"
       show: "الحساب : %{number} - %{name}"
       # unmark: "Unmark account"
+    animal_care_natures: #?
+    animal_care_types: #?
+    animal_cares: #?
+    animal_groups: #?
+    animal_race_natures: #?
+    animal_race_types: #?
+    animal_races: #?
+    animals: #?
     application: #?
     areas:
       edit: "تعديل العنوان البريدي : %{name}"
@@ -111,6 +119,9 @@ arb:
       # print: "Print document template"
     documents:  #?
       print: "طباعة وتصدير" #?
+    drug_natures: #?
+    drug_types: #?
+    drugs: #?
     entities:
       # destroy: "Remove person"
       edit: "تعديل الملف : %{full_name}"

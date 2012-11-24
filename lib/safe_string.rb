@@ -6,7 +6,7 @@ class ::String
   MOLUSCULES = ['a','a','a','a','a','a','a','é','é','é','é','i','i','i','o','o','o','u','u','u','ss'] # Phonétique
   MEJUSCULES = ['A','A','A','A','A','A','A','E','E','E','E','I','I','I','O','O','O','U','U','U','C']  # Simplification "lisible"
   MENUSCULES = ['a','a','a','a','a','a','a','e','e','e','e','i','i','i','o','o','o','u','u','u','c']  # Simplification "lisible"
-  
+
   def translate(from, to)
     return self.dup.translate!(from, to)
   end
@@ -26,7 +26,7 @@ class ::String
     self.downcase!
     self
   end
-  
+
   def upper
     return self.dup.upper!
   end
@@ -36,7 +36,7 @@ class ::String
     self.upcase!
     self
   end
-  
+
   def ascii
     return self.translate(MINUSCULES,MENUSCULES).translate(MAJUSCULES,MEJUSCULES)
   end
@@ -56,12 +56,12 @@ class ::String
   def codeize
     return self.upper_ascii.gsub(/[^A-Z0-9]/,'')
   end
-    
+
   def pdfize
     return self.ascii.gsub(/\\W/,'_')
   end
-    
-  
+
+
   def to_ss
     ss = self.dup.to_s
     ss.downcase!
@@ -73,14 +73,14 @@ class ::String
     ss.gsub!('%',' pourcent ')
     ss.gsub!('★',' étoile ')
     ss.gsub!(/(–|-)/,' tiret ')
-    
+
     ss = ss.translate(MAJUSCULES,MOLUSCULES).translate(MINUSCULES,MOLUSCULES)
     ss += ' '
     ss.gsub!('.',' . ')
     ss.gsub!(/\'/,' ')
     ss.gsub!(/(\\|\/|\-|\_|\&|\||\,|\.|\!|\?|\*|\+|\=|\(|\)|\[|\]|\{|\}|\$|\#)/, " ")
-    
-    
+
+
     # Analyse phonétique
     ss.gsub!("y", "i")
     ss.gsub!(/(a|e|é|i|o|u)s(a|e|é|i|o|u)/, '\1z\2')
@@ -177,6 +177,6 @@ class ::String
     word.squeeze!
     steps += word +" / "
     word[0..3].strip.upcase.ljust(4," ")#+":: "+steps.dump
-  end  
-  
+  end
+
 end

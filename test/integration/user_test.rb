@@ -10,7 +10,7 @@ class UserTest < ActionController::IntegrationTest
       @user = Struct::MockedUser.new('gendo', 'secret') # users(:users_001)
       @company = companies(:companies_001)
     end
-    
+
     should "login" do
       get "session/new"
       assert_response :success
@@ -27,7 +27,7 @@ class UserTest < ActionController::IntegrationTest
         assert_redirected_to :controller=>:dashboards, :action=>:general
       end
 
-      should "change its password" do 
+      should "change its password" do
         get "me/change_password"
         assert_response :success
         post "me/change_password", :user=>{:old_password=>@user.comment, :password=>"abcdefgh", :password_confirmation=>"abcdefgh"}
@@ -48,7 +48,7 @@ class UserTest < ActionController::IntegrationTest
 
 
   context "An unknown user" do
-    
+
     should "register a new company" do
       get "company/register"
       assert_response :success

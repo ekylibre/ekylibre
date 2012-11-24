@@ -1,50 +1,50 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: sale_lines
 #
-#  account_id          :integer          
+#  account_id          :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text             
+#  annotation          :text
 #  created_at          :datetime         not null
-#  creator_id          :integer          
-#  entity_id           :integer          
+#  creator_id          :integer
+#  entity_id           :integer
 #  id                  :integer          not null, primary key
-#  label               :text             
+#  label               :text
 #  lock_version        :integer          default(0), not null
-#  origin_id           :integer          
-#  position            :integer          
+#  origin_id           :integer
+#  position            :integer
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  price_amount        :decimal(19, 4)   
+#  price_amount        :decimal(19, 4)
 #  price_id            :integer          not null
 #  product_id          :integer          not null
 #  quantity            :decimal(19, 4)   default(1.0), not null
-#  reduction_origin_id :integer          
+#  reduction_origin_id :integer
 #  reduction_percent   :decimal(19, 4)   default(0.0), not null
 #  sale_id             :integer          not null
-#  tax_id              :integer          
-#  tracking_id         :integer          
-#  unit_id             :integer          
+#  tax_id              :integer
+#  tracking_id         :integer
+#  unit_id             :integer
 #  updated_at          :datetime         not null
-#  updater_id          :integer          
-#  warehouse_id        :integer          
+#  updater_id          :integer
+#  warehouse_id        :integer
 #
 
 
@@ -79,7 +79,7 @@ class SaleLine < CompanyRecord
 
   # accepts_nested_attributes_for :subscriptions
 
-  
+
   before_validation do
     # check_reservoir = true
     if not self.price and self.sale and self.product
@@ -88,7 +88,7 @@ class SaleLine < CompanyRecord
     end
     self.product = self.price.product if self.price
     if self.product
-      self.account_id = self.product.sales_account_id 
+      self.account_id = self.product.sales_account_id
       self.unit_id = self.product.unit_id
       if self.product.stockable
         self.warehouse_id ||= self.product.stocks.first.warehouse_id if self.product.stocks.size > 0
@@ -103,12 +103,12 @@ class SaleLine < CompanyRecord
       price = Price.create!(:pretax_amount=>self.price_amount, :tax_id=>self.tax_id||0, :entity_id=>Entity.of_company.id, :active=>false, :product_id=>self.product_id, :category_id=>self.sale.client.category_id)
       self.price = price
     end
-    
+
     if self.price
       if self.reduction_origin_id.nil?
         if self.quantity
           self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-          self.amount = (self.price.amount*self.quantity).round(2) 
+          self.amount = (self.price.amount*self.quantity).round(2)
         elsif self.pretax_amount
           q = self.pretax_amount/self.price.pretax_amount
           self.quantity = q.round(2)
@@ -121,17 +121,17 @@ class SaleLine < CompanyRecord
       else
         # reduction_rate = self.sale.client.max_reduction_rate
         # self.quantity = -reduction_rate*self.reduction_origin.quantity
-        # self.amount   = -reduction_rate*self.reduction_origin.amount       
+        # self.amount   = -reduction_rate*self.reduction_origin.amount
         # self.amount_with_taxes = -reduction_rate*self.reduction_origin.amount_with_taxes
         self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-        self.amount = (self.price.amount*self.quantity).round(2) 
+        self.amount = (self.price.amount*self.quantity).round(2)
       end
     end
 
-    
+
     #     if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
     #       check_reservoir = false
-    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name, :account_id=>0, :unit_id=>self.unit_id) 
+    #       errors.add_to_base(:warehouse_can_not_transfer_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name, :account_id=>0, :unit_id=>self.unit_id)
     #     end
     #     check_reservoir
     return false if self.pretax_amount.zero? and self.amount.zero? and self.quantity.zero?
@@ -151,11 +151,11 @@ class SaleLine < CompanyRecord
     end
     # TODO validates responsible can make reduction and reduction rate is convenient
   end
-  
+
   protect(:on => :update) do
     return self.sale.draft?
   end
-  
+
   def set_reduction
     if self.reduction_percent > 0 and self.product.reduction_submissive and self.reduction_origin_id.nil?
       reduction = self.reduction || self.build_reduction
@@ -165,13 +165,13 @@ class SaleLine < CompanyRecord
       self.reduction.destroy
     end
   end
-  
+
   def undelivered_quantity
     self.quantity - self.delivery_lines.sum(:quantity)
   end
 
   def product_name
-    self.product ? self.product.name : tc(:no_product) 
+    self.product ? self.product.name : tc(:no_product)
   end
 
   def stock_id

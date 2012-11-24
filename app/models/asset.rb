@@ -1,54 +1,54 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: assets
 #
 #  allocation_account_id   :integer          not null
-#  ceded                   :boolean          
-#  ceded_on                :date             
-#  charges_account_id      :integer          
-#  comment                 :text             
+#  ceded                   :boolean
+#  ceded_on                :date
+#  charges_account_id      :integer
+#  comment                 :text
 #  created_at              :datetime         not null
-#  creator_id              :integer          
-#  currency                :string(3)        
-#  current_amount          :decimal(19, 4)   
+#  creator_id              :integer
+#  currency                :string(3)
+#  current_amount          :decimal(19, 4)
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
 #  depreciation_method     :string(255)      not null
-#  depreciation_percentage :decimal(19, 4)   
-#  description             :text             
+#  depreciation_percentage :decimal(19, 4)
+#  description             :text
 #  id                      :integer          not null, primary key
 #  journal_id              :integer          not null
 #  lock_version            :integer          default(0), not null
 #  name                    :string(255)      not null
 #  number                  :string(255)      not null
-#  purchase_amount         :decimal(19, 4)   
-#  purchase_id             :integer          
-#  purchase_line_id        :integer          
-#  purchased_on            :date             
-#  sale_id                 :integer          
-#  sale_line_id            :integer          
+#  purchase_amount         :decimal(19, 4)
+#  purchase_id             :integer
+#  purchase_line_id        :integer
+#  purchased_on            :date
+#  sale_id                 :integer
+#  sale_line_id            :integer
 #  started_on              :date             not null
 #  stopped_on              :date             not null
 #  updated_at              :datetime         not null
-#  updater_id              :integer          
+#  updater_id              :integer
 #
 
 class Asset < CompanyRecord
@@ -98,7 +98,7 @@ class Asset < CompanyRecord
     if self.started_on
       if fy = FinancialYear.reorder("started_on").first
         unless fy.started_on <= self.started_on
-          errors.add(:started_on, :greater_than_or_equal_to, :count => fy.started_on.l) 
+          errors.add(:started_on, :greater_than_or_equal_to, :count => fy.started_on.l)
         end
       end
       if self.stopped_on
@@ -110,7 +110,7 @@ class Asset < CompanyRecord
   end
 
   before_create do
-    @auto_depreciate = true    
+    @auto_depreciate = true
   end
 
   before_update do
@@ -126,7 +126,7 @@ class Asset < CompanyRecord
     self.depreciate! if @auto_depreciate
   end
 
-  
+
 
   def linear_method?
     return (self.depreciation_method == 'linear' ? true : false)
@@ -148,7 +148,7 @@ class Asset < CompanyRecord
     FinancialYear.find_each do |financial_year|
       start = financial_year.started_on
       if self.started_on <= start and start <= self.stopped_on
-        starts << start 
+        starts << start
       end
     end
     starts = starts.uniq.sort
@@ -165,7 +165,7 @@ class Asset < CompanyRecord
       depreciable_days -= ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
       depreciable_amount -= depreciation.amount
     end
-      
+
     # Create it if not exists?
     remaining_amount = depreciable_amount.to_d
     position = 1
@@ -173,13 +173,13 @@ class Asset < CompanyRecord
       unless starts[index + 1].nil? # Last
         depreciation = self.depreciations.where(:started_on => start).first
         if depreciation
-          
+
         else
           depreciation = self.depreciations.new(:started_on => start, :stopped_on => (starts[index+1]-1))
           duration = ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
-        end 
+        end
         fy = FinancialYear.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
         depreciation.financial_year = fy if fy
 
@@ -188,7 +188,7 @@ class Asset < CompanyRecord
         depreciation.save!
       end
     end
-    
+
   end
 
   # Depreciate using simplified linear method
@@ -200,7 +200,7 @@ class Asset < CompanyRecord
       depreciable_days -= self.duration(depreciation.started_on, depreciation.stopped_on)
       depreciable_amount -= depreciation.amount
     end
-      
+
     # Create it if not exists?
     remaining_amount = depreciable_amount.to_d
     position = 1
@@ -212,8 +212,8 @@ class Asset < CompanyRecord
           duration = self.duration(depreciation.started_on, depreciation.stopped_on)
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
-        end 
-        
+        end
+
         fy = FinancialYear.where("started_on <= ? AND ? <= stopped_on", depreciation.started_on, depreciation.stopped_on).first
         depreciation.financial_year = fy if fy
 
@@ -222,7 +222,7 @@ class Asset < CompanyRecord
         depreciation.save!
       end
     end
-    
+
   end
 
 

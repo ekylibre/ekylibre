@@ -98,7 +98,7 @@ class OperationsController < AdminController
     @operation_lines = (params[:lines]||{}).values
     @operation_uses = (params[:uses]||{}).values
     if @operation.save_with_uses_and_lines(@operation_uses, @operation_lines)
-      redirect_to_back 
+      redirect_to_back
       return
     end
     t3e @operation.attributes
@@ -107,7 +107,7 @@ class OperationsController < AdminController
 
 
   list(:unvalidateds, :model=>:operations, :conditions=>{:moved_on=>nil}) do |t|
-    t.column :name 
+    t.column :name
     t.column :name, :through=>:nature
     t.column :label, :through=>:responsible, :url=>true
     t.column :name, :through=>:target

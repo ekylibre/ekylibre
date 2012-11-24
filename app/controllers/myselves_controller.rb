@@ -36,8 +36,8 @@ class MyselvesController < AdminController
         end
         @user.password = @user.password_confirmation = ''
       else
-        @user.errors.add(:old_password, :invalid) 
-      end      
+        @user.errors.add(:old_password, :invalid)
+      end
     end
   end
 

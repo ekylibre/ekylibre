@@ -11,7 +11,7 @@ class CreateEmbankments < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :embankments
-    
+
     add_column :payments, :embankment_id, :integer, :references=>:payments_lists, :on_delete=>:cascade, :on_update=>:cascade
     add_column :embankments, :locked, :boolean, :null=>false, :default=>false
     add_column :bank_accounts, :address, :text

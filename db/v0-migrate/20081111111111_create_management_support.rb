@@ -2,7 +2,7 @@ class CreateManagementSupport < ActiveRecord::Migration
   def self.up
 
     # Unit (of measure)
-    create_table :units do |t|      
+    create_table :units do |t|
       t.column :name,                   :string,   :null=>false, :limit=>8
       t.column :label,                  :string,   :null=>false
       t.column :base,                   :string,   :null=>false # u g m m2 m3
@@ -13,7 +13,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     add_stamps_indexes :units
     add_index :units, [:name, :company_id], :unique=>true
     add_index :units, :company_id
-    
+
     # Shelf
     create_table :shelves do |t|
       t.column :name,                   :string,   :null=>false
@@ -31,7 +31,7 @@ class CreateManagementSupport < ActiveRecord::Migration
 
 
     # Product
-    create_table :products do |t| 
+    create_table :products do |t|
       t.column :to_purchase,            :boolean,  :null=>false, :default=>false
       t.column :to_sale,                :boolean,  :null=>false, :default=>true
       t.column :to_rent,                :boolean,  :null=>false, :default=>false
@@ -84,7 +84,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     add_index :taxes, :account_collected_id
     add_index :taxes, :account_paid_id
     add_index :taxes, :company_id
-        
+
     # PriceList
     create_table :price_lists do |t|
       t.column :name,                   :string,   :null=>false
@@ -102,7 +102,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     add_stamps_indexes :price_lists
     add_index :price_lists, [:name, :company_id], :unique=>true
     add_index :price_lists, :company_id
-        
+
     # Price
     create_table :prices do |t|
       t.column :amount,                 :decimal,  :null=>false, :precision=>16, :scale=>4
@@ -173,7 +173,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     create_table :stock_moves do |t|
       t.column :name,                   :string,   :null=>false
       t.column :planned_on,             :date,     :null=>false
-      t.column :moved_on,               :date      
+      t.column :moved_on,               :date
       t.column :quantity,               :float,    :null=>false
       t.column :comment,                :text
       t.column :second_move_id,         :integer,  :references=>:stock_moves, :on_delete=>:cascade, :on_update=>:cascade
@@ -233,7 +233,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     end
     add_stamps_indexes :sale_order_natures
     add_index :sale_order_natures, :company_id
-  
+
     # SaleOrder
     create_table :sale_orders do |t|
       t.column :client_id,              :integer,  :null=>false, :references=>:entities
@@ -263,7 +263,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     end
     add_stamps_indexes :sale_orders
     add_index :sale_orders, :company_id
-  
+
     # SaleOrderLine
     create_table :sale_order_lines do |t|
       t.column :order_id,               :integer, :null=>false, :references=>:sale_orders
@@ -319,7 +319,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     end
     add_stamps_indexes :invoice_lines
     add_index :invoice_lines, :company_id
-    
+
     # Delivery
     create_table :deliveries do |t|
       t.column :order_id,               :integer, :null=>false, :references=>:sale_orders
@@ -334,7 +334,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     end
     add_stamps_indexes :deliveries
     add_index :deliveries, :company_id
-    
+
     # DeliveryLine
     create_table :delivery_lines do |t|
       t.column :delivery_id,            :integer, :null=>false, :references=>:deliveries
@@ -368,7 +368,7 @@ class CreateManagementSupport < ActiveRecord::Migration
     end
     add_stamps_indexes :purchase_orders
     add_index :purchase_orders, :company_id
-  
+
     # PurchaseOrderLine
     create_table :purchase_order_lines do |t|
       t.column :order_id,               :integer,  :null=>false, :references=>:purchase_orders
@@ -388,7 +388,7 @@ class CreateManagementSupport < ActiveRecord::Migration
 
 
 
-  
+
   end
 
   def self.down

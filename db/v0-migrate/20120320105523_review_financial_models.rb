@@ -77,7 +77,7 @@ class ReviewFinancialModels < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:cash_transfers)} SET receiver_currency_rate=1, receiver_currency='EUR', emitter_currency='EUR', currency='EUR'"
 
     remove_column :cashes, :country
-    
+
     remove_column :financial_years, :currency_precision
   end
 end

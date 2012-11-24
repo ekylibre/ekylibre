@@ -31,7 +31,7 @@ class SplitCompanies < ActiveRecord::Migration
     # Move sales_conditions in SaleNature
     add_column :sale_natures, :sales_conditions, :text
     execute "UPDATE #{quoted_table_name(:sale_natures)} SET sales_conditions = c.sales_conditions FROM #{quoted_table_name(:companies)} AS c WHERE c.id = #{quoted_table_name(:sale_natures)}.company_id"
-    
+
     # TODO: Reorganize account preferences
 
 
@@ -57,7 +57,7 @@ class SplitCompanies < ActiveRecord::Migration
       for table in schema_tables
         if table != :sessions
           execute "CREATE TABLE #{schema}.#{table} AS SELECT * FROM #{table} WHERE company_id = #{id}"
-          execute "ALTER TABLE #{schema}.#{table} DROP COLUMN company_id" 
+          execute "ALTER TABLE #{schema}.#{table} DROP COLUMN company_id"
           execute "DELETE FROM #{table} WHERE company_id = #{id}"
         else
           execute "CREATE TABLE #{schema}.#{table} AS SELECT * FROM #{table}"

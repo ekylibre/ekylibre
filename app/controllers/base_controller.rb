@@ -36,7 +36,7 @@ class BaseController < ApplicationController
     notistore = (mode==:now ? flash.now : flash)
     notistore[:notifications] = {} unless notistore[:notifications].is_a? Hash
     notistore[:notifications][nature] = [] unless notistore[:notifications][nature].is_a? Array
-    notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)    
+    notistore[:notifications][nature] << ::I18n.t("notifications."+message.to_s, options)
   end
   def notify_error(message, options={});   notify(message, options, :error); end
   def notify_warning(message, options={}); notify(message, options, :warning); end

@@ -1,0 +1,7 @@
+=formalize do |f|
+  -f.error :animal_race_nature
+
+=field_set(@animal_race_nature, :general_informations) do |f|
+  =f.input :name
+  =f.input :description
+  =f.input :comment

@@ -30,7 +30,7 @@ class MergeAndRemoveDocumentNatures < ActiveRecord::Migration
     add_column :document_templates, :nature_id, :integer
     add_index :document_templates, [:company_id, :nature_id]
     add_index :document_templates, :nature_id
-    
+
     for nature in connection.select_all("SELECT * FROM #{quoted_table_name(:document_templates)}")
       to_archive = ["f", "false", "0", ""].include?(nature['to_archive'].to_s) ? quoted_false : quoted_true
       id = connection.insert "INSERT INTO #{quoted_table_name(:document_natures)} (created_at, updated_at, company_id, name, code, family, to_archive) SELECT CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, #{nature['company_id']}, '#{nature['name'].gsub('\'','\'\'')}', '#{nature['code'].gsub('\'','\'\'')}', '#{nature['family'].gsub('\'','\'\'')}', #{to_archive}"

@@ -12,7 +12,7 @@
   -f.field :user, :employed, "data-show"=>"#employee"
 
 #employee
-  =formalize do |f| 
+  =formalize do |f|
     -f.title User.human_attribute_name("employed")
     -f.field :user, :employment
     -f.field :user, :commercial

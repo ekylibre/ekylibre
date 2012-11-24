@@ -5,7 +5,7 @@ UNIT_DIR = File.join(Rails.root.to_s, "test/unit")
 module AnnotateModels
 
   PREFIX = "= Informations"
-  
+
   # Simple quoting for the default column value
   def self.quote(value)
     case value
@@ -36,15 +36,15 @@ module AnnotateModels
     info = header.gsub(/^/, '# ') # "# #{header}\n#\n"
     info << "# == Table: #{klass.table_name}\n#\n"
     #    info << "# Table name: #{klass.table_name}\n#\n"
-    
+
     max_size = klass.column_names.collect{|name| name.size}.max + 1
     klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
       attrs = []
       if col.default
         if col.default.is_a? Date
-          attrs << "default(CURRENT_DATE)" 
+          attrs << "default(CURRENT_DATE)"
         else
-          attrs << "default(#{quote(col.default)})" 
+          attrs << "default(#{quote(col.default)})"
         end
       end
       attrs << "not null" unless col.null
@@ -55,7 +55,7 @@ module AnnotateModels
         col_type << "(#{col.precision}, #{col.scale})"
       else
         col_type << "(#{col.limit})" if col.limit
-      end 
+      end
       info << sprintf("#  %-#{max_size}.#{max_size}s:%-16.16s %s\n", col.name, col_type, attrs.join(", "))
     end
 
@@ -106,7 +106,7 @@ module AnnotateModels
     end
     if File.exist?(file_name)
       content = File.read(file_name)
-      
+
       # Remove old schema info
 
       # old_prefix = "== Schema Information"
@@ -123,7 +123,7 @@ module AnnotateModels
       File.open(file_name, "w") { |f| f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block) }
     end
   end
-  
+
   # Given the name of an ActiveRecord class, create a schema
   # info block (basically a comment containing information
   # on the columns and their types) and put it at the front
@@ -131,7 +131,7 @@ module AnnotateModels
 
   def self.annotate(klass, header)
     info = get_schema_info(klass, header)
-    
+
     model_file_name = File.join(MODEL_DIR, klass.name.underscore + ".rb")
     annotate_one_file(model_file_name, info)
 
@@ -142,25 +142,25 @@ module AnnotateModels
     annotate_one_file(unit_file_name, info)
   end
 
-  # Return a list of the model files to annotate. If we have 
+  # Return a list of the model files to annotate. If we have
   # command line arguments, they're assumed to be either
   # the underscore or CamelCase versions of model names.
-  # Otherwise we take all the model files in the 
+  # Otherwise we take all the model files in the
   # app/models directory.
   def self.get_model_names
     #models = ARGV.dup
     #models.shift
     models = []
-    
+
     if models.empty?
-      Dir.chdir(MODEL_DIR) do 
+      Dir.chdir(MODEL_DIR) do
         models = Dir["**/*.rb"].sort
       end
     end
     models
   end
 
-  # We're passed a name of things that might be 
+  # We're passed a name of things that might be
   # ActiveRecord models. If we can find the class, and
   # if its a subclass of ActiveRecord::Base,
   # then pas it to the associated block
@@ -177,7 +177,7 @@ module AnnotateModels
 #    if version > 0
 #      header << "\n# Schema version: #{version}"
 #    end
-    
+
     errors = []
     self.get_model_names.each do |m|
       class_name = m.sub(/\.rb$/,'').camelize

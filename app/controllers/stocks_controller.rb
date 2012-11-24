@@ -33,7 +33,7 @@ class StocksController < AdminController
       s.field :quantity_max
     end
   end
-        
+
 
   def self.stocks_conditions(options={})
     code = ""

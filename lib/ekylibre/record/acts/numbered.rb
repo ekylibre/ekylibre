@@ -1,7 +1,7 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Numbered #:nodoc:
-      
+
       def self.included(base)
         base.extend(ClassMethods)
       end

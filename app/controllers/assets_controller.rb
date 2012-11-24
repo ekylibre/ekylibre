@@ -40,7 +40,7 @@ class AssetsController < AdminController
     t.column :started_on
     t.column :stopped_on
     t.column :code, :through => :financial_year, :url => true
-    t.column :number, :through => :journal_entry, :url => true    
+    t.column :number, :through => :journal_entry, :url => true
     t.action :edit, :if => "RECORD.journal_entry.nil? "
   end
 
@@ -53,7 +53,7 @@ class AssetsController < AdminController
   # def cede
   #   return unless @asset = find_and_check
   # end
-  
+
   # def sell
   #   return unless @asset = find_and_check
   # end

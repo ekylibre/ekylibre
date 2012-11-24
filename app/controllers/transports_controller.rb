@@ -52,7 +52,7 @@ class TransportsController < AdminController
   def show
     return unless @transport = find_and_check(:transports)
     respond_to do |format|
-      format.html do 
+      format.html do
         session[:current_transport_id] = @transport.id
         t3e @transport.attributes
       end

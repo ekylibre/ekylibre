@@ -9,7 +9,7 @@ class UpdateStocksData < ActiveRecord::Migration
     execute "UPDATE #{quoted_table_name(:deliveries)} SET planned_on = #{connection.quote(Date.today)}"
     execute "UPDATE #{quoted_table_name(:purchase_orders)} SET planned_on = #{connection.quote(Date.today)}"
     execute "INSERT INTO #{quoted_table_name(:stock_locations)}(company_id, account_id, name, created_at, updated_at) SELECT companies.id, a.id ,'Lieu de stockage par défaut', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quoted_table_name(:companies)} AS companies LEFT JOIN #{quoted_table_name(:accounts)} AS a ON (a.company_id=companies.id AND a.number='3')"
-    
+
     locations = connection.select_all("SELECT * from #{quoted_table_name(:stock_locations)}")
     if locations.size > 0
       locations = "CASE "+locations.collect{|x| "WHEN company_id=#{x['company_id']} THEN #{x['id']}" }.join(" ")+" ELSE 0 END"

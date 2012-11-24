@@ -37,7 +37,7 @@ class ListingNodesController < AdminController
         ln.save!
       end
     end
-    
+
     render(:partial=>"listings/reflection", :object=>@listing_node)
   end
 
@@ -58,7 +58,7 @@ class ListingNodesController < AdminController
       ln = @listing_node.children.new(:nature=>desc[0], :attribute_name=>desc[1], :label=>@listing_node.model.human_attribute_name(desc[1]))
       ln.save!
     end
-    
+
     render(:partial=>"listings/reflection", :object=>@listing_node)
   end
 

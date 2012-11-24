@@ -19,27 +19,27 @@
 
 class AnimalRacesController < AdminController
   manage_restfully
-  
+
   list do |t|
     t.column :name, :url=>true
-    t.column :name, :through=>:type, :url=>true
+    t.column :name, :through=>:nature, :url=>true
     t.column :comment
-    t.column :race_code
+    t.column :code
     t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
-  
-  # Show a list of animals types
+
+  # Show a list of animals natures
   def index
   end
-  
+
   # Show one Animal with params_id
   def show
     return unless @animal_race = find_and_check
-    session[:current_animal_race_id] = @animal_race.id   
+    session[:current_animal_race_id] = @animal_race.id
     t3e @animal_race
   end
-  
+
 end

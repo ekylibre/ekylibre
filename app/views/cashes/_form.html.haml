@@ -18,7 +18,7 @@
       -f.title @cash.nature_label
       -f.field :cash, :bank_name
       -f.field :cash, :address, :field=>:textarea
-      -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], {"data-show"=>"##{m[1]}_options"}]} 
+      -f.field :cash, :mode, :field=>:radio, :choices=>Cash.modes.collect{|m| [m[0], m[1], {"data-show"=>"##{m[1]}_options"}]}
     #bban_options
       =hidden_field_tag "cash[country]", "fr"
       =formalize do |f|
@@ -26,7 +26,7 @@
         -f.field :cash, :agency_code, :size=>10
         -f.field :cash, :number
         -f.field :cash, :key, :size=>4
-    =formalize(:id=>:iban_options) do |f|  
+    =formalize(:id=>:iban_options) do |f|
       -f.field :cash, :iban, :size=>48
       -f.field :cash, :bic
 

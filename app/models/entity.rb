@@ -1,80 +1,80 @@
 # -*- coding: utf-8 -*-
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: entities
 #
 #  active                    :boolean          default(TRUE), not null
-#  activity_code             :string(32)       
+#  activity_code             :string(32)
 #  attorney                  :boolean          not null
-#  attorney_account_id       :integer          
-#  authorized_payments_count :integer          
-#  born_on                   :date             
-#  category_id               :integer          
+#  attorney_account_id       :integer
+#  authorized_payments_count :integer
+#  born_on                   :date
+#  category_id               :integer
 #  client                    :boolean          not null
-#  client_account_id         :integer          
-#  code                      :string(64)       
-#  comment                   :text             
-#  country                   :string(2)        
+#  client_account_id         :integer
+#  code                      :string(64)
+#  comment                   :text
+#  country                   :string(2)
 #  created_at                :datetime         not null
-#  creator_id                :integer          
+#  creator_id                :integer
 #  currency                  :string(255)      not null
-#  dead_on                   :date             
-#  deliveries_conditions     :string(60)       
-#  discount_rate             :decimal(19, 10)  
-#  ean13                     :string(13)       
-#  excise                    :string(15)       
-#  first_met_on              :date             
-#  first_name                :string(255)      
+#  dead_on                   :date
+#  deliveries_conditions     :string(60)
+#  discount_rate             :decimal(19, 10)
+#  ean13                     :string(13)
+#  excise                    :string(15)
+#  first_met_on              :date
+#  first_name                :string(255)
 #  full_name                 :string(255)      not null
-#  hashed_password           :string(64)       
+#  hashed_password           :string(64)
 #  id                        :integer          not null, primary key
-#  invoices_count            :integer          
+#  invoices_count            :integer
 #  language                  :string(3)        default("???"), not null
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
-#  name                      :string(32)       
+#  name                      :string(32)
 #  nature_id                 :integer          not null
 #  of_company                :boolean          not null
-#  origin                    :string(255)      
-#  payment_delay_id          :integer          
-#  payment_mode_id           :integer          
-#  photo                     :string(255)      
-#  proposer_id               :integer          
+#  origin                    :string(255)
+#  payment_delay_id          :integer
+#  payment_mode_id           :integer
+#  photo                     :string(255)
+#  proposer_id               :integer
 #  prospect                  :boolean          not null
-#  reduction_rate            :decimal(19, 10)  
+#  reduction_rate            :decimal(19, 10)
 #  reflation_submissive      :boolean          not null
-#  responsible_id            :integer          
-#  salt                      :string(64)       
-#  siren                     :string(9)        
-#  soundex                   :string(4)        
+#  responsible_id            :integer
+#  salt                      :string(64)
+#  siren                     :string(9)
+#  soundex                   :string(4)
 #  supplier                  :boolean          not null
-#  supplier_account_id       :integer          
+#  supplier_account_id       :integer
 #  transporter               :boolean          not null
 #  updated_at                :datetime         not null
-#  updater_id                :integer          
-#  vat_number                :string(15)       
+#  updater_id                :integer
+#  vat_number                :string(15)
 #  vat_submissive            :boolean          default(TRUE), not null
-#  webpass                   :string(255)      
-#  website                   :string(255)      
+#  webpass                   :string(255)
+#  website                   :string(255)
 #
 
 
@@ -156,13 +156,13 @@ class Entity < CompanyRecord
 
   #
   validate do
-    if self.nature 
+    if self.nature
       if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
         errors.add(:last_name, :missing_title, :title=>self.nature.title)
       end
     end
   end
-    
+
   protect(:on => :destroy) do
     return false if self.id == self.of_company? or self.sales_invoices.size > 0
     return true
@@ -186,11 +186,11 @@ class Entity < CompanyRecord
     self.created_at.to_date
   end
 
-  
+
   def last_incoming_payment
     self.incoming_payments.find(:first, :order=>"updated_at DESC")
   end
-  
+
   #
   def balance
     amount = 0.0
@@ -227,7 +227,7 @@ class Entity < CompanyRecord
           account = Account.where("number LIKE ?", prefix.to_s+suffix.to_s).first
           suffix.succ! unless account.nil?
           i=i+1
-        end    
+        end
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
         valid_account = Account.create(:number=>prefix.to_s+suffix.to_s, :name=>self.full_name, :reconcilable=>true)
       end
@@ -256,7 +256,7 @@ class Entity < CompanyRecord
   def max_reduction_percent(computed_on=Date.today)
     Subscription.maximum(:reduction_rate, :joins=>"JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature_id = sn.entity_link_nature_id AND #{Subscription.table_name}.entity_id IN (entity_1_id, entity_2_id))", :conditions=>["? IN (#{Subscription.table_name}.entity_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on]).to_f*100||0.0
   end
-  
+
   def description
     desc = self.code+". "+self.full_name
     c = self.default_contact
@@ -274,7 +274,7 @@ class Entity < CompanyRecord
       end
       # Contact
       Contact.update_all(["code = '0'||SUBSTR(code, 2, 3), entity_id=?, by_default=? ", self.id, false], {:entity_id => entity.id})
-      
+
       # Add observation
       observation = "Merged entity (ID=#{entity.id}) :\n"
       for attr, value in entity.attributes.sort
@@ -366,29 +366,29 @@ class Entity < CompanyRecord
     code += "    entity = Entity.build("+cols[:entity].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+", :nature_id=>nature.id, :category_id=>category.id, :language=>#{self.of_company.language.inspect}, :client=>true)\n"
     code += "    if entity.save\n"
     if cols[:contact].is_a? Hash
-      code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" 
-      code += "      unless contact.save\n" 
+      code += "      contact = entity.contacts.build("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n"
+      code += "      unless contact.save\n"
       code += "        problems[line_index.to_s] ||= []\n"
       code += "        problems[line_index.to_s] += contact.errors.full_messages\n"
-      code += "      end\n" 
+      code += "      end\n"
     end
     for k, v in (cols[:special]||{}).select{|k,v| v == :generate_string_custom_field}
       code += "      datum = entity.custom_field_data.build(:custom_field_id=>custom_field_#{k}.id, :string_value=>line[#{k}])\n"
-      code += "      unless datum.save\n" 
+      code += "      unless datum.save\n"
       code += "        problems[line_index.to_s] ||= []\n"
       code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
-      code += "      end\n" 
+      code += "      end\n"
     end
     for k, v in cols[:custom_field]||{}
       if custom_field = CustomField.find_by_id(k.to_s[2..-1].to_i)
         if custom_field.nature == 'string'
           code += "      datum = entity.custom_field_data.build(:custom_field_id=>#{custom_field.id}, :string_value=>line[#{k}])\n"
-          code += "      unless datum.save\n" 
+          code += "      unless datum.save\n"
           code += "        problems[line_index.to_s] ||= []\n"
           code += "        problems[line_index.to_s] += datum.errors.full_messages\n"
-          code += "      end\n" 
+          code += "      end\n"
           # elsif custom_field.nature == 'choice'
-          #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash              
+          #   code += "    co = entity.contacts.create("+cols[:contact].collect{|k,v| ":#{v}=>line[#{k}]"}.join(', ')+")\n" if cols[:contact].is_a? Hash
         end
       end
     end
@@ -415,7 +415,7 @@ class Entity < CompanyRecord
         line = []
         line << ["'"+entity.code.to_s, entity.nature.name, entity.category.name, entity.name, entity.first_name]
         if !contact.nil?
-          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]  
+          line << [contact.line_2, contact.line_3, contact.line_4, contact.line_5, contact.line_6_code, contact.line_6_city, contact.phone, contact.mobile, contact.fax ,contact.email, contact.website]
         else
           line << [ "", "", "", "", "", "", "", "", "", "", ""]
         end
@@ -425,8 +425,8 @@ class Entity < CompanyRecord
     end
     return csv_string
   end
-  
 
 
 
-end 
+
+end

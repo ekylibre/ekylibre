@@ -1,10 +1,10 @@
 module Ekylibre::Record
   module Autosave #:nodoc:
-    
+
     def self.included(base)
       base.extend(ClassMethods)
     end
-    
+
     module ClassMethods
 
       def autosave(*reflections_list)

@@ -1,44 +1,44 @@
 # -*- coding: utf-8 -*-
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: document_templates
 #
 #  active       :boolean          not null
 #  by_default   :boolean          default(TRUE), not null
-#  cache        :text             
-#  code         :string(32)       
-#  country      :string(2)        
+#  cache        :text
+#  code         :string(32)
+#  country      :string(2)
 #  created_at   :datetime         not null
-#  creator_id   :integer          
-#  family       :string(32)       
-#  filename     :string(255)      
+#  creator_id   :integer
+#  family       :string(32)
+#  filename     :string(255)
 #  id           :integer          not null, primary key
 #  language     :string(3)        default("???"), not null
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature       :string(64)       
-#  source       :text             
-#  to_archive   :boolean          
+#  nature       :string(64)
+#  source       :text
+#  to_archive   :boolean
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -59,24 +59,24 @@ class DocumentTemplate < CompanyRecord
   validates_presence_of :filename
   validates_uniqueness_of :code
 
-  include ActionView::Helpers::NumberHelper 
+  include ActionView::Helpers::NumberHelper
 
-  @@families = [:company, :relations, :accountancy, :management, :production] # :resources, 
+  @@families = [:company, :relations, :accountancy, :management, :production] # :resources,
 
   # id is forbidden names for parameters
   @@document_natures = {
 #    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ]  }
 # {
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
-    :entity =>           [ [:entity, Entity] ], 
+    :entity =>           [ [:entity, Entity] ],
     :deposit =>          [ [:deposit, Deposit] ],
     :income_statement => [ [:financial_year, FinancialYear] ],
-    :inventory =>        [ [:inventory, Inventory] ], 
+    :inventory =>        [ [:inventory, Inventory] ],
     :sales_invoice =>    [ [:sales_invoice, Sale] ],
     :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ],
     :general_journal =>  [ [:started_on, Date], [:stopped_on, Date] ],
     :general_ledger =>   [ [:started_on, Date], [:stopped_on, Date] ],
-    :purchase =>         [ [:purchase, Purchase] ], 
+    :purchase =>         [ [:purchase, Purchase] ],
     :sales =>            [ [:established_on, Date] ],
     :sales_order =>      [ [:sales_order, Sale] ],
     :stocks =>           [ [:established_on, Date] ],
@@ -84,7 +84,7 @@ class DocumentTemplate < CompanyRecord
     :transport =>        [ [:transport, Transport] ]
   }
 
-  # [:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other] 
+  # [:balance, :sales_invoice, :sale, :purchase, :inventory, :transport, :deposit, :entity, :journal, :ledger, :other]
 
   # include ActionView::Helpers::NumberHelper
 
@@ -191,7 +191,7 @@ class DocumentTemplate < CompanyRecord
       document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document
     end
-    
+
     # Build the PDF data
     begin
       pdf = eval(self.cache)
@@ -233,7 +233,7 @@ class DocumentTemplate < CompanyRecord
     end
     return errors
   end
-  
+
   def compute_filename(object)
     if self.nature == "other" #||"card"
       filename = self.filename
@@ -274,7 +274,7 @@ class DocumentTemplate < CompanyRecord
     code = Templating.compile(self.source, :xil, :mode=>:debug)
     pdf = nil
     # code.split("\n").each_with_index{|l,x| puts((x+1).to_s.rjust(4)+": "+l)}
-    begin 
+    begin
       pdf = eval(code)
     rescue Exception=>e
       pdf = DocumentTemplate.error_document(e)
@@ -304,7 +304,7 @@ class DocumentTemplate < CompanyRecord
       end
     end
   end
-  
+
   def self.load_defaults
     language = Entity.of_company.language
     files_dir = Rails.root.join("config", "locales", ::I18n.locale.to_s, "prints")
@@ -319,7 +319,7 @@ class DocumentTemplate < CompanyRecord
           attributes[:filename] ||= "File"
           attributes[:to_archive] = true if attributes[:to_archive] == "true"
           if RUBY_VERSION =~ /^1\.9/
-            attributes[:source] = f.read.force_encoding('UTF-8') 
+            attributes[:source] = f.read.force_encoding('UTF-8')
           else
             attributes[:source] = f.read
           end
@@ -334,7 +334,7 @@ class DocumentTemplate < CompanyRecord
         #end
       end
     end
-    
+
   end
-  
+
 end

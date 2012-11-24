@@ -17,7 +17,7 @@
 %table.list
   %tr.total
     %th=tc(:payments_count, :mode=>@deposit.mode.name)
-    %td=@deposit.payments_count 
+    %td=@deposit.payments_count
   %tr.total.important
     %th=tc(:total)
     %td=number_to_money(@deposit.amount, @deposit.cash.currency)

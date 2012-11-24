@@ -1,47 +1,47 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: listing_nodes
 #
-#  attribute_name       :string(255)      
-#  condition_operator   :string(255)      
-#  condition_value      :string(255)      
+#  attribute_name       :string(255)
+#  condition_operator   :string(255)
+#  condition_value      :string(255)
 #  created_at           :datetime         not null
-#  creator_id           :integer          
+#  creator_id           :integer
 #  exportable           :boolean          default(TRUE), not null
 #  id                   :integer          not null, primary key
-#  item_listing_id      :integer          
-#  item_listing_node_id :integer          
-#  item_nature          :string(8)        
-#  item_value           :text             
-#  key                  :string(255)      
+#  item_listing_id      :integer
+#  item_listing_node_id :integer
+#  item_nature          :string(8)
+#  item_value           :text
+#  key                  :string(255)
 #  label                :string(255)      not null
 #  listing_id           :integer          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  nature               :string(255)      not null
-#  parent_id            :integer          
-#  position             :integer          
-#  sql_type             :string(255)      
+#  parent_id            :integer
+#  position             :integer
+#  sql_type             :string(255)
 #  updated_at           :datetime         not null
-#  updater_id           :integer          
+#  updater_id           :integer
 #
 
 
@@ -66,42 +66,42 @@ class ListingNode < CompanyRecord
   @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
 
   @@comparators = {
-    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"], 
-    :string=>["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"], 
-    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"], 
-    :boolean=>["any", "is_true", "is_false"], 
+    :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
+    :string=>["any", "begins", "finishes", "contains", "equal", "in", "not_begins", "not_finishes", "not_contains", "not_equal", "begins_cs", "finishes_cs", "contains_cs", "equal_cs", "not_begins_cs", "not_finishes_cs", "not_contains_cs", "not_equal_cs"],
+    :date=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
+    :boolean=>["any", "is_true", "is_false"],
     :unknown=>["--"]
   }
   @@corresponding_comparators = {
-    :eq=> "{{COLUMN}} = {{VALUE}}", 
-    :neq=>"{{COLUMN}} != {{VALUE}}", 
-    :gt=> "{{COLUMN}} > {{VALUE}}", 
-    :lt=> "{{COLUMN}} < {{VALUE}}", 
-    :ge=> "{{COLUMN}} >= {{VALUE}}", 
-    :le=> "{{COLUMN}} <= {{VALUE}}", 
-    :vn=> "{{COLUMN}} IS NULL", 
-    :nvn=> "{{COLUMN}} IS NOT NULL", 
-    :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}", 
-    :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}", 
-    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}", 
+    :eq=> "{{COLUMN}} = {{VALUE}}",
+    :neq=>"{{COLUMN}} != {{VALUE}}",
+    :gt=> "{{COLUMN}} > {{VALUE}}",
+    :lt=> "{{COLUMN}} < {{VALUE}}",
+    :ge=> "{{COLUMN}} >= {{VALUE}}",
+    :le=> "{{COLUMN}} <= {{VALUE}}",
+    :vn=> "{{COLUMN}} IS NULL",
+    :nvn=> "{{COLUMN}} IS NOT NULL",
+    :begins=>  "LOWER({{COLUMN}}) LIKE {{VALUE%}}",
+    :finishes=>"LOWER({{COLUMN}}) LIKE {{%VALUE}}",
+    :contains=>"LOWER({{COLUMN}}) LIKE {{%VALUE%}}",
     :equal=>   "LOWER({{COLUMN}}) = {{VALUE}}",
-    :begins_cs=>  "{{COLUMN}} LIKE {{VALUE%}}", 
-    :finishes_cs=>"{{COLUMN}} LIKE {{%VALUE}}", 
-    :contains_cs=>"{{COLUMN}} LIKE {{%VALUE%}}", 
-    :equal_cs=>   "{{COLUMN}} = {{VALUE}}", 
-    :not_begins=>  "LOWER({{COLUMN}}) NOT LIKE {{VALUE%}}", 
-    :not_finishes=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE}}", 
-    :not_contains=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE%}}", 
-    :not_equal=>   "LOWER({{COLUMN}}) != {{VALUE}}", 
-    :not_begins_cs=>  "{{COLUMN}} NOT LIKE {{VALUE%}}", 
-    :not_finishes_cs=>"{{COLUMN}} NOT LIKE {{%VALUE}}", 
-    :not_contains_cs=>"{{COLUMN}} NOT LIKE {{%VALUE%}}", 
-    :not_equal_cs=>   "{{COLUMN}} != {{VALUE}}", 
-    :is_true=> "{{COLUMN}} = {{VALUE}}", 
-    :is_false=>"{{COLUMN}} = {{VALUE}}", 
-    :in=>"{{COLUMN}} IN {{LIST}}" 
+    :begins_cs=>  "{{COLUMN}} LIKE {{VALUE%}}",
+    :finishes_cs=>"{{COLUMN}} LIKE {{%VALUE}}",
+    :contains_cs=>"{{COLUMN}} LIKE {{%VALUE%}}",
+    :equal_cs=>   "{{COLUMN}} = {{VALUE}}",
+    :not_begins=>  "LOWER({{COLUMN}}) NOT LIKE {{VALUE%}}",
+    :not_finishes=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE}}",
+    :not_contains=>"LOWER({{COLUMN}}) NOT LIKE {{%VALUE%}}",
+    :not_equal=>   "LOWER({{COLUMN}}) != {{VALUE}}",
+    :not_begins_cs=>  "{{COLUMN}} NOT LIKE {{VALUE%}}",
+    :not_finishes_cs=>"{{COLUMN}} NOT LIKE {{%VALUE}}",
+    :not_contains_cs=>"{{COLUMN}} NOT LIKE {{%VALUE%}}",
+    :not_equal_cs=>   "{{COLUMN}} != {{VALUE}}",
+    :is_true=> "{{COLUMN}} = {{VALUE}}",
+    :is_false=>"{{COLUMN}} = {{VALUE}}",
+    :in=>"{{COLUMN}} IN {{LIST}}"
   }
-  
+
   before_validation do
     self.listing_id = self.parent.listing_id if self.parent
 
@@ -117,7 +117,7 @@ class ListingNode < CompanyRecord
       #raise Exception.new self.attribute_name.inspect
       self.name = self.parent.name.underscore+"."+self.attribute_name
     end
-  end 
+  end
 
   before_validation(:on=>:create) do
     if self.reflection?
@@ -156,9 +156,9 @@ class ListingNode < CompanyRecord
   def joins
     self
   end
-  
+
   def comparators
-    #raise Exception.new self.sql_type.inspect 
+    #raise Exception.new self.sql_type.inspect
     #return @@comparators[self.sql_type.to_sym] if self.sql_type
     @@comparators[self.sql_type.to_sym].collect{|x| [I18n::t('models.listing_node.comparators.'+x),x]} if self.sql_type
   end
@@ -194,7 +194,7 @@ class ListingNode < CompanyRecord
 
 
   def compute_condition
-    
+
   end
 
   def reflection?
@@ -209,7 +209,7 @@ class ListingNode < CompanyRecord
     if self.root?
       self.listing.root_model
     else
-      self.parent.model.reflections[self.attribute_name.to_sym].class_name 
+      self.parent.model.reflections[self.attribute_name.to_sym].class_name
     end.classify.constantize rescue nil
   end
 
@@ -221,7 +221,7 @@ class ListingNode < CompanyRecord
       return self.parent.model.reflections[self.attribute_name.to_sym]
     end
   end
-  
+
   def available_nodes
     nodes = []
     return nodes unless self.reflection? and model = self.model
@@ -231,7 +231,7 @@ class ListingNode < CompanyRecord
     nodes << [tc(:reflections), model.reflections.select{|k,v| [:has_many, :belongs_to].include? v.macro}.collect{|a,b| [model.human_attribute_name(a.to_s).to_s, b.macro.to_s+"-"+a.to_s]}.sort ]
     return nodes
   end
-  
+
   def convert_sql_type(type)
     #raise Exception.new type.inspect
     if type == "decimal" or type == "integer"
@@ -266,7 +266,7 @@ class ListingNode < CompanyRecord
       else
         return tc('comparison.without_value', :comparator=>tc('comparators.'+self.condition_operator))
       end
-    else 
+    else
       return tc(:add_filter)
     end
   end

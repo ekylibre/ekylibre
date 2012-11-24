@@ -29,7 +29,7 @@ class BrowsingTest < ActionDispatch::PerformanceTest
 
       for action in useable_actions.keys.sort{|a,b| a.to_s<=>b.to_s}.delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
         # .delete_if{|x| ![:index, :show].include?(x.to_sym)}
-        
+
         action_name = action.to_s
         mode = if action_name.match(/^(index)$/) # GET without ID
                  :index
@@ -43,11 +43,11 @@ class BrowsingTest < ActionDispatch::PerformanceTest
                  :update
                elsif action_name.match(/^(destroy)$/) # DELETE with ID
                  :destroy
-               elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID 
+               elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID
                  :touch
                end
         model = controller.to_s.singularize
-      
+
         req = if mode == :index
                 "get '/#{controller}'"
               elsif mode == :new

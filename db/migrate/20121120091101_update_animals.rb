@@ -1,80 +1,93 @@
 class UpdateAnimals < ActiveRecord::Migration
   def change
-    
+
     add_column :animals, :race_id, :integer
-    add_column :animals, :male_parent_id, :integer
-    add_column :animals, :female_parent_id, :integer
-    
+    add_column :animals, :father_id, :integer
+    add_column :animals, :mother_id, :integer
+    add_index :animals, :race_id
+    add_index :animals, :father_id
+    add_index :animals, :mother_id
+
     add_column :animal_groups, :age_min, :integer
     add_column :animal_groups, :age_max, :integer
-    add_column :animal_groups, :sex, :string
-    add_column :animal_groups, :is_pregnant, :boolean
-    
+    add_column :animal_groups, :sex, :string, :limit => 16
+    add_column :animal_groups, :pregnant, :boolean, :null => false, :default => false
+
     create_table :animal_races do |t|
-       t.belongs_to :type,               :null=>false
-       t.string     :name,                  :null=>false
+       t.belongs_to :nature,             :null => false
+       t.string     :name,               :null => false
        t.text       :description
        t.text       :comment
-       t.integer    :race_code
+       t.integer    :code
        t.stamps
     end
     add_stamps_indexes :animal_races
-    
-    create_table :animal_race_types do |t|
-       t.string     :name,                  :null=>false
+    add_index :animal_races, :nature_id
+
+    create_table :animal_race_natures do |t|
+       t.string     :name,                  :null => false
        t.text       :description
        t.text       :comment
        t.stamps
     end
-    add_stamps_indexes :animal_race_types
-    
+    add_stamps_indexes :animal_race_natures
+
     create_table :animal_cares do |t|
        t.belongs_to :animal
-       t.belongs_to :type,               :null=>false
-       t.string     :name,                  :null=>false
+       t.belongs_to :nature,               :null => false
+       t.string     :name,                 :null => false
        t.text       :description
        t.text       :comment
        t.datetime   :start_on
        t.datetime   :end_on
        t.decimal    :quantity_per_care
-       t.integer    :entity_id
-       t.integer    :animal_group_id
+       t.belongs_to :entity
+       t.belongs_to :animal_group
        t.stamps
     end
     add_stamps_indexes :animal_cares
-    
-    create_table :animal_care_types do |t|
-       t.string     :name,                  :null=>false
+    add_index :animal_cares, :animal_id
+    add_index :animal_cares, :nature_id
+    add_index :animal_cares, :entity_id
+    add_index :animal_cares, :animal_group_id
+
+
+    create_table :animal_care_natures do |t|
+       t.string     :name,                  :null => false
        t.text       :description
        t.text       :comment
        t.stamps
     end
-    add_stamps_indexes :animal_care_types
-    
-        create_table :drugs do |t|
+    add_stamps_indexes :animal_care_natures
+
+    create_table :drugs do |t|
       t.belongs_to :unit
-      t.belongs_to :type, :null=>false
-      t.string :name, :null=>false
+      t.belongs_to :nature, :null => false
+      t.string  :name, :null => false
       t.integer :frequency, :default => 1
       t.decimal :quantity, :precision => 19, :scale => 4, :default => 0.0
-      t.string :comment
+      t.text    :comment
       t.stamps
     end
     add_stamps_indexes :drugs
     add_index :drugs, :name
-    
-    create_table :drug_types do |t|
-      t.string :name, :null=>false
+    add_index :drugs, :unit_id
+    add_index :drugs, :nature_id
+
+    create_table :drug_natures do |t|
+      t.string :name, :null => false
       t.stamps
     end
-    add_stamps_indexes :drug_types
-    add_index :drug_types, :name
-     
+    add_stamps_indexes :drug_natures
+    add_index :drug_natures, :name
+
     create_table :animal_cares_drugs, :id => false do |t|
-      t.integer :animal_care_id
-      t.integer :drug_id
+      t.belongs_to :animal_care
+      t.belongs_to :drug
     end
-     
+    add_index :animal_cares_drugs, :animal_care_id
+    add_index :animal_cares_drugs, :drug_id
+
   end
 
 end

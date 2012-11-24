@@ -1,6 +1,6 @@
 %fieldset.quick-add
   %legend=tc :add_quickly_a_line
-  =form_tag(:controller=>:sale_lines, :action=>:create, :sale_id => @sale.id) do 
+  =form_tag(:controller=>:sale_lines, :action=>:create, :sale_id => @sale.id) do
     %table.quick
       %tr
         %td=SaleLine.human_attribute_name("product")

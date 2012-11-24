@@ -1,39 +1,39 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: land_parcels
 #
 #  area_measure :decimal(19, 4)   default(0.0), not null
-#  area_unit_id :integer          
+#  area_unit_id :integer
 #  created_at   :datetime         not null
-#  creator_id   :integer          
-#  description  :text             
+#  creator_id   :integer
+#  description  :text
 #  group_id     :integer          not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  number       :string(255)      
+#  number       :string(255)
 #  started_on   :date             not null
-#  stopped_on   :date             
+#  stopped_on   :date
 #  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  updater_id   :integer
 #
 
 
@@ -49,7 +49,7 @@ class LandParcel < CompanyRecord
   validates_presence_of :area_measure, :group, :name, :started_on
   #]VALIDATORS]
   validates_presence_of :area_unit
-  
+
   before_validation do
     #self.master = false if self.master.nil?
     #self.polygon ||= "-"
@@ -65,7 +65,7 @@ class LandParcel < CompanyRecord
     end
   end
 
-  
+
   def divide(subdivisions, divided_on)
     if (total = subdivisions.collect{|s| s[:area_measure].to_f}.sum) != self.area_measure.to_f
       errors.add :area_measure, :invalid, :measure=>total, :expected_measure=>self.area_measure, :unit=>self.area_unit.name
@@ -79,7 +79,7 @@ class LandParcel < CompanyRecord
     end
     self.update_column(:stopped_on, divided_on)
   end
-  
+
   def merge(other_parcels, merged_on)
     return false unless other_parcels.size > 0
     return false unless merged_on.is_a? Date
@@ -93,15 +93,15 @@ class LandParcel < CompanyRecord
     end
     return child
   end
-  
-  
+
+
   def area(unit=nil)
     # return Unit.convert(self.area_measure, self.area_unit, unit)
     return self.area_unit.convert_to(self.area_measure, unit)
   end
-  
+
   def operations_on(viewed_on=Date.today)
     self.operations.find(:all, :conditions=>["(moved_on IS NULL AND planned_on=?) OR (moved_on IS NOT NULL AND moved_on=?)", viewed_on, viewed_on])
   end
-  
+
 end

@@ -17,7 +17,7 @@
           %td.export=check_box_tag(:exportable, "1", node.exportable, "data-remote"=>true, "data-url"=>url_for(:action=>:update, :controller=>:listing_nodes, :id=>node.id, :type=>"exportable"), "data-method"=>"put")
           %td.link.label{:id=>"#{node.key}_label"}
             =render(:partial=>"listing_nodes/column_label", :object=>node)
-            
+
           %td.item-tool.comparator{:id=>"#{node.key}_comparator"}=render(:partial=>"listing_nodes/comparison", :object=>node)
         -unless node.root?
           -unless node.reflection?

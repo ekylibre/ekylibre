@@ -54,7 +54,7 @@ class JournalEntriesController < AdminController
   end
 
   def create
-    return unless @journal = find_and_check(:journal, params[:journal_id])  
+    return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
     @journal_entry = @journal.entries.build(params[:journal_entry])
     @journal_entry_lines = (params[:lines]||{}).values

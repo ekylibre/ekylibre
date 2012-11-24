@@ -1,42 +1,42 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: cash_transfers
 #
-#  accounted_at              :datetime         
-#  comment                   :text             
+#  accounted_at              :datetime
+#  comment                   :text
 #  created_at                :datetime         not null
-#  created_on                :date             
-#  creator_id                :integer          
+#  created_on                :date
+#  creator_id                :integer
 #  currency_rate             :decimal(19, 10)  default(1.0), not null
 #  emitter_amount            :decimal(19, 4)   default(0.0), not null
 #  emitter_cash_id           :integer          not null
-#  emitter_journal_entry_id  :integer          
+#  emitter_journal_entry_id  :integer
 #  id                        :integer          not null, primary key
 #  lock_version              :integer          default(0), not null
 #  number                    :string(255)      not null
 #  receiver_amount           :decimal(19, 4)   default(0.0), not null
 #  receiver_cash_id          :integer          not null
-#  receiver_journal_entry_id :integer          
+#  receiver_journal_entry_id :integer
 #  updated_at                :datetime         not null
-#  updater_id                :integer          
+#  updater_id                :integer
 #
 
 
@@ -69,7 +69,7 @@ class CashTransfer < CompanyRecord
     transfer_account = self.company.account(preference.value, preference.label)
     label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :comment=>self.comment, :emitter=>self.emitter_cash.name, :receiver=>self.receiver_cash.name)
     b.journal_entry(self.emitter_cash.journal, :column=>:emitter_journal_entry_id) do |entry|
-      entry.add_debit( label, transfer_account.id, self.emitter_amount)      
+      entry.add_debit( label, transfer_account.id, self.emitter_amount)
       entry.add_credit(label, self.emitter_cash.account_id, self.emitter_amount)
     end
     b.journal_entry(self.receiver_cash.journal, :column=>:receiver_journal_entry_id) do |entry|

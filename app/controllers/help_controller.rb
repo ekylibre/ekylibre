@@ -17,7 +17,7 @@
 #
 
 class HelpController < AdminController
-     
+
   def show
     file = search_article(params[:id])
     if request.xhr?
@@ -41,10 +41,10 @@ class HelpController < AdminController
       if @key_words.size>0
         @results = []
         for file in Ekylibre.helps.keys
-          File.open(file, "rb:UTF-8") do |f| 
+          File.open(file, "rb:UTF-8") do |f|
             data = f.read
             if (match = data.scan(reg).size) > 0
-              @results << Ekylibre.helps[file].merge(:count=>match) 
+              @results << Ekylibre.helps[file].merge(:count=>match)
             end
           end
         end
@@ -58,4 +58,4 @@ class HelpController < AdminController
   end
 
 end
-   
+

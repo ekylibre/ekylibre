@@ -18,7 +18,7 @@
 #
 
 class LandParcelGroupsController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list(:order=>"name") do |t|
     t.column :name

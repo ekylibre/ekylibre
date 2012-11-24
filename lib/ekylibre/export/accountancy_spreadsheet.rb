@@ -55,7 +55,7 @@ module Ekylibre
         file = Rails.root.join("tmp", "#{filename}.zip")
 
         Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
-          zile.get_output_stream(filename) do |f| 
+          zile.get_output_stream(filename) do |f|
             eval(code)
           end
         end
@@ -68,10 +68,10 @@ module Ekylibre
       def self.fdt(date)
         date.day.to_s.rjust(2, "0")+date.month.to_s.rjust(2, "0")+date.year.to_s.rjust(4, "0")
       end
-      
+
 
     end
-    
+
   end
 
 

@@ -19,5 +19,5 @@
           %tr.child.field{:class=>style_class}
             %td.label=TrackingState.human_attribute_name(column.name)
             %td.input{:colspan=>3}=send("#{column.type==:text ? 'text_area' : 'text_field'}_tag", "states[#{conveyor.id}][#{column.name}]")
-            
-              
+
+

@@ -27,8 +27,8 @@ class FinancialYearsController < AdminController
     t.column :currency
     t.column :currency_precision
     # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
-    t.action :edit, :if => '!RECORD.closed'  
-    t.action :destroy, :if => '!RECORD.closed'  
+    t.action :edit, :if => '!RECORD.closed'
+    t.action :destroy, :if => '!RECORD.closed'
   end
 
   # Displays the main page with the list of financial years
@@ -53,15 +53,15 @@ class FinancialYearsController < AdminController
   def show
     return unless @financial_year = find_and_check
     respond_to do |format|
-      format.html do 
+      format.html do
         session[:current_financial_year_id] = @financial_year.id
         if @financial_year.closed? and @financial_year.account_balances.size.zero?
           @financial_year.compute_balances!
         end
         t3e @financial_year.attributes
       end
-      format.pdf do 
-        if params[:n] == "balance_sheet" 
+      format.pdf do
+        if params[:n] == "balance_sheet"
           render_print_balance_sheet(@financial_year)
         else
           render_print_income_statement(@financial_year)
@@ -73,7 +73,7 @@ class FinancialYearsController < AdminController
   def compute_balances
     return unless @financial_year = find_and_check
     @financial_year.compute_balances!
-    redirect_to_current    
+    redirect_to_current
   end
 
 
@@ -99,7 +99,7 @@ class FinancialYearsController < AdminController
     @financial_year.started_on = f.stopped_on+1.day unless f.nil?
     @financial_year.started_on ||= Date.today
     @financial_year.stopped_on = (@financial_year.started_on+1.year-1.day).end_of_month
-    @financial_year.code = @financial_year.default_code    
+    @financial_year.code = @financial_year.default_code
     @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
     @financial_year.currency ||= Entity.of_company.currency
     render_restfully_form
@@ -140,7 +140,7 @@ class FinancialYearsController < AdminController
       @financial_year.generate_last_journal_entry(params)
       redirect_to journal_entry_url(@financial_year.last_journal_entry)
     end
-    t3e @financial_year.attributes    
+    t3e @financial_year.attributes
   end
 
 end

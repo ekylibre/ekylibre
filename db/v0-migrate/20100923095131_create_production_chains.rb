@@ -95,7 +95,7 @@ class CreateProductionChains < ActiveRecord::Migration
     end
     add_stamps_indexes :land_parcel_groups
     add_index :land_parcel_groups, :company_id
-    
+
     create_table :land_parcel_kinships do |t|
       t.column :parent_land_parcel_id, :integer, :null=>false
       t.column :child_land_parcel_id,  :integer, :null=>false
@@ -276,7 +276,7 @@ class CreateProductionChains < ActiveRecord::Migration
     add_column :outgoing_deliveries, :number, :string
     add_column :outgoing_deliveries, :reference_number, :string
     execute "UPDATE #{quoted_table_name(:outgoing_deliveries)} SET number='00000000'"
-    
+
 
 
     # UPDATE RIGHTS
@@ -344,10 +344,10 @@ class CreateProductionChains < ActiveRecord::Migration
     rename_column :taxes, :collected_account_id, :account_collected_id
     add_column :warehouses, :account_id, :integer
     add_column :journals,   :counterpart_id, :integer
-    
+
     remove_column :outgoing_payment_modes, :position
     remove_column :incoming_payment_modes, :position
-    
+
     add_column :land_parcels, :polygon, :string
     add_column :land_parcels, :parent_id, :integer
     add_column :land_parcels, :master, :boolean, :null=>false, :default=>false

@@ -18,7 +18,7 @@
 #
 
 class EntityCategoriesController < AdminController
-  manage_restfully 
+  manage_restfully
 
   list do |t|
     t.column :code, :url=>true

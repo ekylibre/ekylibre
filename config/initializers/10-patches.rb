@@ -7,7 +7,7 @@ module Ekylibre
   module I18n
 
     module ContextualModelHelpers
-      
+
       def tl(*args)
         args[0] = 'models.'+self.name.underscore+'.'+args[0].to_s
         ::I18n.translate(*args)
@@ -22,7 +22,7 @@ module Ekylibre
     end
 
     module ContextualModelInstanceHelpers
-      
+
       def tl(*args)
         args[0] = 'models.'+self.class.name.underscore+'.'+args[0].to_s
         ::I18n.translate(*args)
@@ -57,7 +57,7 @@ module Ekylibre
       end
       alias :tc :tl
       alias :tg :tl
-      
+
       private
 
       def contextual_scope
@@ -134,7 +134,7 @@ module ::I18n
   #               format = negative_format
   #               object = object.abs
   #             end
-              
+
   #             value = object.to_s.split(/\./)
   #             integrals, decimals = value[0].to_s, value[1].to_s
   #             decimals = decimals.gsub(/0+$/, '').ljust(formatter[:precision], '0').reverse.split(/(?=\d{3})/).reverse.collect{|x| x.reverse}.join(formatter[:delimiter])
@@ -150,7 +150,7 @@ module ::I18n
   #       end
   #     end
   #     alias_method_chain :localize, :numbers
-  
+
 
   #   end
   # end
@@ -166,16 +166,16 @@ module ActiveModel
     #     def add(attribute, message = nil, options = {})
     #       message ||= :invalid
     #       raise options.inspect if options.frozen?
-    
+
     #       message = generate_message(attribute, message, options) # if message.is_a?(Symbol)
     #       self[attribute] ||= []
     #       self[attribute] << message
     #     end
-    
+
 
     def add(attribute, message = nil, options = {})
       message ||= :invalid
-      
+
       if message.is_a?(Symbol)
         message = generate_message(attribute, message, options.except(*CALLBACKS_OPTIONS))
       elsif message.is_a?(Proc)
@@ -183,7 +183,7 @@ module ActiveModel
       elsif !options.delete(:forced)
         raise ArgumentError.new("Symbol or Proc expected, #{message.inspect} received.")
       end
-      
+
       self[attribute] << message
     end
 
@@ -218,7 +218,7 @@ module ActiveModel
         full_messages += messages
       end
       full_messages
-    end 
+    end
 
   end
 end
@@ -228,7 +228,7 @@ end
 ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
   msg = instance.error_message
   error_class = 'invalid'
-  
+
   if html_tag =~ /<(input|textarea|select)[^>]+class=/
     class_attribute = html_tag =~ /class=['"]/
     html_tag.insert(class_attribute + 7, "#{error_class} ")
@@ -236,6 +236,6 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     first_whitespace = html_tag =~ /\s/
     html_tag[first_whitespace] = " class=\"#{error_class}\" "
   end
-  
+
   html_tag
 end

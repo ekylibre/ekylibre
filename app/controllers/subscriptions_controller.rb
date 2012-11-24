@@ -70,7 +70,7 @@ class SubscriptionsController < AdminController
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
     end
     @subscription_nature ||= SubscriptionNature.first
-    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil 
+    instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil
     session[:subscriptions_nature_id]  = @subscription_nature.id
     session[:subscriptions_nature_nature] = @subscription_nature.nature
     session[:subscriptions_instant] = ((instant.blank? or instant == 0) ? @subscription_nature.now : instant)
@@ -84,7 +84,7 @@ class SubscriptionsController < AdminController
     elsif params[:price_id]
       return unless price = find_and_check(:price, params[:price_id])
       if price.product.subscription?
-        nature = price.product.subscription_nature 
+        nature = price.product.subscription_nature
         attributes[:product_id] = price.product_id
       end
     end

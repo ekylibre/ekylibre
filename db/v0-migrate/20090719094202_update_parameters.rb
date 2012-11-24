@@ -10,7 +10,7 @@ class UpdateParameters < ActiveRecord::Migration
     for k, v in CONVERSIONS
       execute "UPDATE #{quoted_table_name(:parameters)} SET nature='#{v}' WHERE nature='#{k}'"
     end
-    
+
     for journal in ['sales', 'purchases', 'bank']
       execute "INSERT INTO #{quoted_table_name(:parameters)} (name, nature, record_value_type, record_value_id, company_id, created_at, updated_at) SELECT 'accountancy.default_journals.#{journal}', 'record', 'Journal', #{journal}_journal_id, id, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP FROM #{quoted_table_name(:companies)} AS companies"
     end
@@ -19,7 +19,7 @@ class UpdateParameters < ActiveRecord::Migration
     remove_index :parameters, :column=>:element_id
     remove_column :parameters, :element_id
     remove_column :parameters, :element_type
-    
+
     remove_column :companies, :sales_journal_id
     remove_column :companies, :purchases_journal_id
     remove_column :companies, :bank_journal_id
@@ -35,7 +35,7 @@ class UpdateParameters < ActiveRecord::Migration
     add_column :parameters, :element_id, :integer
     add_column :parameters, :element_type, :string
 
-    
+
     for company in connection.select_all("SELECT * FROM #{quoted_table_name(:companies)}")
       for journal in [:sales, :purchases, :bank]
         parameter = select_one("SELECT record_value_id FROM #{quoted_table_name(:parameters)} WHERE name LIKE 'accountancy.default_journals.#{journal}'")

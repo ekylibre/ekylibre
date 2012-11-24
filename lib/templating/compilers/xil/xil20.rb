@@ -55,7 +55,7 @@ module Templating::Compilers
               code << "#{p.attributes['name']} = args[#{i}]\n"
               i+=1
             end
-          end 
+          end
           document = template.find('document')[0]
           info = parameters_hash(document, nil)
           info = hash_to_code(info)
@@ -64,14 +64,14 @@ module Templating::Compilers
           code << compile_children(document, '_d').strip.gsub(/^/, '  ')+"\n"
           code << "end"
           # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')' 
+          return "# encoding: utf-8\n"+'('+(@mode==:debug ? code : code.gsub(/\s*\n\s*/, ';'))+')'
           # return "# encoding: utf-8\n"+'('+code+')'
         end
 
-        
-        
+
+
         def hash_to_code(hash, wrapped = false)
-          code = hash.collect do |k,v| 
+          code = hash.collect do |k,v|
             "#{k.inspect} => " + if v.is_a? Symbol
                                    v.inspect
                                  else
@@ -192,7 +192,7 @@ module Templating::Compilers
               code << compile_element(child, variable, depth).strip + "\n"
             end
           end
-          return code 
+          return code
         end
 
         def execute_children(element, variable_name, depth=0)
@@ -246,7 +246,7 @@ module Templating::Compilers
             end
             code << "#{variable}.list(#{lines}, #{hash_to_code(phash, true)})"
 
-          elsif name == :page            
+          elsif name == :page
             # Xil 2.0 assumes that Times 10pt is default font
             code << "#{variable}.page(:size=>#{phash[:format]}, :orientation=>#{phash[:orientation]||':portrait'}, :margins=>#{phash[:margin]||'15.mm'})"
             code << execute_children(element, "_p", depth+1)
@@ -400,14 +400,14 @@ module Templating::Compilers
               end
               options[:left] = 0
             elsif options[:align] == :center and options[:width]
-              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width]/2)})"              
+              options[:left] = "(#{options[:left]} - #{pt_to_s(options[:width]/2)})"
             elsif options[:align] == :center and !options[:width]
               if options[:left].is_a?(Numeric) and options[:left] > 0
-                options[:width] = options[:left]*2 
+                options[:width] = options[:left]*2
               elsif options[:left].is_a?(String)
                 options[:width] = "(#{options[:left]}*2)"
               end
-              options[:left] = 0              
+              options[:left] = 0
             end
             if font = options[:font]
               font = "Helvetica" if font.downcase == "helvetica"

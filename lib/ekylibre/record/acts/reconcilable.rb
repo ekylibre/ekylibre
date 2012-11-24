@@ -1,7 +1,7 @@
 module Ekylibre::Record
   module Acts #:nodoc:
     module Reconcilable #:nodoc:
-      
+
       def self.included(base)
         base.extend(ClassMethods)
       end

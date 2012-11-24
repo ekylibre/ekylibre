@@ -18,7 +18,7 @@ task :views => :environment do
       valid = true if not valid and view.match(/^_form$/) and (source.match(/^\s*def\s+(upd|cre)ate\s*$/) or source.match(/^\s*manage_restfully(\W|$)/))
       if view.match(/^_/) and not valid
         if source.match(/^[^\#]*(render|replace_html)[^\n]*partial[^\n]*#{view[1..-1]}/)
-          valid = true 
+          valid = true
         else
           for view in Dir.glob(Rails.root.join("app", "views", controller, "*.*"))
             File.open(view, "rb:UTF-8") do |f|

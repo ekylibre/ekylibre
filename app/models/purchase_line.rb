@@ -1,44 +1,44 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: purchase_lines
 #
 #  account_id      :integer          not null
 #  amount          :decimal(19, 4)   default(0.0), not null
-#  annotation      :text             
+#  annotation      :text
 #  created_at      :datetime         not null
-#  creator_id      :integer          
+#  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  position        :integer          
+#  position        :integer
 #  pretax_amount   :decimal(19, 4)   default(0.0), not null
 #  price_id        :integer          not null
 #  product_id      :integer          not null
 #  purchase_id     :integer          not null
 #  quantity        :decimal(19, 4)   default(1.0), not null
-#  tracking_id     :integer          
-#  tracking_serial :string(255)      
+#  tracking_id     :integer
+#  tracking_serial :string(255)
 #  unit_id         :integer          not null
 #  updated_at      :datetime         not null
-#  updater_id      :integer          
-#  warehouse_id    :integer          
+#  updater_id      :integer
+#  warehouse_id    :integer
 #
 
 
@@ -63,7 +63,7 @@ class PurchaseLine < CompanyRecord
   validates_uniqueness_of :tracking_serial, :scope=>:price_id, :allow_nil=>true, :if=>Proc.new{|pl| !pl.tracking_serial.blank? }
 
   sums :purchase, :lines, :pretax_amount, :amount
-  
+
   before_validation do
     check_reservoir = true
     self.warehouse_id = Warehouse.first.id if Warehouse.count == 1
@@ -82,7 +82,7 @@ class PurchaseLine < CompanyRecord
     if self.warehouse
       if self.warehouse.reservoir && self.warehouse.product_id != self.product_id
         check_reservoir = false
-        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name) 
+        errors.add_to_base(:warehouse_can_not_receive_product, :warehouse=>self.warehouse.name, :product=>self.product.name, :contained_product=>self.warehouse.product.name)
       end
     end
 
@@ -98,7 +98,7 @@ class PurchaseLine < CompanyRecord
     end
 
     check_reservoir
-  end  
+  end
 
   validate do
     # Validate that tracking serial is not used for a different product
@@ -107,7 +107,7 @@ class PurchaseLine < CompanyRecord
       errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
     end
   end
-  
+
   def name
     options = {:product=>self.product.name, :unit=>self.unit.name, :quantity=>quantity.to_s, :amount=>self.price.amount, :currency=>self.price.currency.name}
     if self.tracking
@@ -125,7 +125,7 @@ class PurchaseLine < CompanyRecord
   def taxes_amount
     self.amount - self.pretax_amount
   end
-  
+
   def designation
     d  = self.product_name
     d += "\n"+self.annotation.to_s unless self.annotation.blank?

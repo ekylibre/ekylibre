@@ -1,16 +1,14 @@
 fra:
   activerecord:
     attributes:
-      animal:
-        race: "Race"
-        female_parent: "Mère"
-        male_parent: "Père"
-      animal_group:
-        age_min: "Age minimum"
-        age_max: "Age maximum"
-        is_pregnant: "Surveillance de la gestation"
-      animal_race:
-        race_code: "code race"
+      animal:  #?
+        race: "Race" #?
+      animal_group:  #?
+        age_max: "Age maximum" #?
+        age_min: "Age minimum" #?
+        pregnant: "Surveillance de la gestation" #?
+      animal_race:  #?
+        code: "Code race" #?
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -235,7 +233,7 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
-      animal: "Animaux"
+      animal: "Animaux" #?
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -343,8 +341,10 @@ fra:
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal: "Animaux"
-    animal_group: "Lot"
+    animal: "Animaux" #?
+    # animal_cares: "Animal cares"
+    animal_group: "Lot" #?
+    # animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
     area_measure: "Superficie"
@@ -386,6 +386,7 @@ fra:
     buildings: "Bâtiments"
     by_default: "Par défaut"
     cache: "Cache"
+    # cares: "Cares"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse"
     cash_transfers: "Virements internes"
@@ -403,7 +404,7 @@ fra:
     check_state: "Vérifier l’état"
     child_kinships: "Relation enfant"
     child_land_parcel: "Sous-îlot"
-    children: "Sous-nœuds"
+    children: "Enfants"
     choice_custom_fields: "Champs personnalisables à liste"
     choice_value: "Valeur choix"
     choices: "Choix de champ complémentaire"
@@ -537,7 +538,7 @@ fra:
     employed: "Employé par la société"
     employees: "employés"
     employment: "Emploi/Rôle"
-    end_on: "Fin le"
+    end_on: "Fin le" #?
     entities: "Personnes"
     entity: "Personne"
     entity_1: "Personne 1"
@@ -568,6 +569,7 @@ fra:
     extension: "Extension"
     family: "Module"
     family_label: "Module"
+    father: "Père" #?
     fax: "Fax"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
@@ -589,7 +591,7 @@ fra:
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
     future_events: "Evènements futurs"
-    genealogy: "Généalogie"
+    genealogy: "Généalogie" #?
     generated: "Généré"
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -603,14 +605,14 @@ fra:
     iban: "IBAN"
     iban_label: "IBAN"
     id: "ID"
-    identification_number: "Numéro d'identification"
+    identification_number: "Numéro d'identification" #?
     immobilizations_account: "Compte d’immobilisation" #?
     immobilizations_products: "Produits d’immobilizations"
     importance: "Importance"
     in_cash: "En espèce"
     in_name: "Abréviation incluse dans le nom de la personne"
     included: "Incluse"
-    income_on: "entré le"
+    income_on: "Date d'entrée" #?
     incoming_deliveries: "Livraisons entrantes"
     incoming_delivery_lines: "Lignes de livraisons entrantes"
     incoming_delivery_modes: "Modes de livraisons entrantes"
@@ -687,6 +689,7 @@ fra:
     min_duration: "Minute(s)"
     mobile: "Portable"
     mode: "Mode"
+    mother: "Mère" #?
     moved_on: "Fait le"
     moves: "Mouvements"
     name: "Nom"
@@ -728,7 +731,7 @@ fra:
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payment_uses: "Parties de décaissements"
     outgoing_payments: "Décaissements"
-    outgone_on: "sortie le"
+    outgone_on: "Date de sortie" #?
     output_conveyors: "Convoyeur sortant"
     owner: "Propriétaire"
     owner_type: "Nature du propriétaire"
@@ -868,8 +871,7 @@ fra:
     sequences: "Séquences"
     serial: "N°Lot"
     service_coeff: "Coefficient (de quantité) de service"
-    sex: "sexe"
-    sexe: "sexe"
+    sex: "Sexe"
     sha256: "SHA256"
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?
@@ -880,7 +882,7 @@ fra:
     source_quantity: "Quantité source"
     sql_type: "Type SQL"
     start: "Début"
-    start_on: "Début le"
+    start_on: "Début le" #?
     started_at: "Débuté à"
     started_on: "Débuté le"
     started_sec: "Date et heure (en secondes)"
@@ -946,7 +948,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transporters: "Transporteurs"
     transports: "Transports"
-    type: "Type" #?
+    type: "Type"
     # unconfirmed_stock_transfers: "Unconfirmed stock transfers"
     # undelivered_incoming_deliveries: "Undelivered incoming deliveries"
     # undelivered_outgoing_deliveries: "Undelivered outgoing deliveries"

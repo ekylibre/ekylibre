@@ -14,7 +14,7 @@ class CreateTransfers < ActiveRecord::Migration
     end
     add_stamps_indexes :transfers
     add_index :transfers, :company_id
-    
+
     add_column :payment_parts, :expense_type, :string,  :null=>false, :default=>'UnknownModel'
     add_column :payment_parts, :expense_id,   :integer, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:payment_parts)} SET expense_type='SaleOrder', expense_id=order_id"

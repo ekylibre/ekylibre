@@ -720,6 +720,8 @@ arb:
     # allocation_account: "Allocation account"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
+    # animal_cares: "Animal cares"
+    # animals: "Animals"
     annotation: "ملاحظة"
     area: "المنطقة البريدية"
     area_id: "العنوان البريدي" #?
@@ -765,6 +767,7 @@ arb:
     # buildings: "Buildings"
     by_default: "افتراضيا"
     cache: "مخبأ"
+    # cares: "Cares"
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
     cash_journals: "الدفاتر اليومية للصناديق النقدية"
@@ -930,6 +933,7 @@ arb:
     downpayment_rate: "معدل القسط"
     draft: "المسودة" #?
     draft_mode: "نمط المسودة" #?
+    # drugs: "Drugs"
     duration: "المدة"
     ean13: "Ean13"
     email: "عنوان البريد الالكتروني"
@@ -1320,6 +1324,7 @@ arb:
     sequences: "التسلسلات"
     serial: "عدد الحصص"
     service_coeff: "معامل كمية الخدمة"
+    # sex: "Sex"
     sha256: "SHA256"
     shipped: "المستلم" #?
     shipped_on: "شحنها يوم" #?
@@ -1406,7 +1411,7 @@ arb:
     # transporter_sales: "Transporter sales"
     transporters: "ناقلات الشحن"
     transports: "وسائل النقل"
-    type: "النوع" #?
+    type: "النوع"
     # unconfirmed_stock_transfers: "Unconfirmed stock transfers"
     # undelivered_incoming_deliveries: "Undelivered incoming deliveries"
     # undelivered_outgoing_deliveries: "Undelivered outgoing deliveries"

@@ -1,68 +1,68 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: sales
 #
-#  accounted_at        :datetime         
+#  accounted_at        :datetime
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  annotation          :text             
+#  annotation          :text
 #  client_id           :integer          not null
-#  comment             :text             
-#  conclusion          :text             
-#  confirmed_on        :date             
-#  contact_id          :integer          
+#  comment             :text
+#  conclusion          :text
+#  confirmed_on        :date
+#  contact_id          :integer
 #  created_at          :datetime         not null
 #  created_on          :date             not null
-#  creator_id          :integer          
+#  creator_id          :integer
 #  credit              :boolean          not null
-#  currency            :string(3)        
-#  delivery_contact_id :integer          
+#  currency            :string(3)
+#  delivery_contact_id :integer
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
-#  expiration_id       :integer          
-#  expired_on          :date             
-#  function_title      :string(255)      
+#  expiration_id       :integer
+#  expired_on          :date
+#  function_title      :string(255)
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
-#  initial_number      :string(64)       
-#  introduction        :text             
-#  invoice_contact_id  :integer          
-#  invoiced_on         :date             
-#  journal_entry_id    :integer          
+#  initial_number      :string(64)
+#  introduction        :text
+#  invoice_contact_id  :integer
+#  invoiced_on         :date
+#  journal_entry_id    :integer
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  lost                :boolean          not null
-#  nature_id           :integer          
+#  nature_id           :integer
 #  number              :string(64)       not null
-#  origin_id           :integer          
+#  origin_id           :integer
 #  paid_amount         :decimal(19, 4)   not null
 #  payment_delay_id    :integer          not null
-#  payment_on          :date             
+#  payment_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
-#  reference_number    :string(255)      
-#  responsible_id      :integer          
+#  reference_number    :string(255)
+#  responsible_id      :integer
 #  state               :string(64)       default("O"), not null
-#  subject             :string(255)      
+#  subject             :string(255)
 #  sum_method          :string(8)        default("wt"), not null
-#  transporter_id      :integer          
+#  transporter_id      :integer
 #  updated_at          :datetime         not null
-#  updater_id          :integer          
+#  updater_id          :integer
 #
 
 
@@ -136,7 +136,7 @@ class Sale < CompanyRecord
 
 
   @@natures = [:estimate, :order, :invoice]
-  
+
   before_validation(:on => :create) do
     self.currency = self.nature.currency if self.nature
   end
@@ -154,9 +154,9 @@ class Sale < CompanyRecord
     self.created_on ||= Date.today
     self.nature ||= SaleNature.first if self.nature.nil? and SaleNature.count == 1
     if self.nature
-      self.expiration_id ||= self.nature.expiration_id 
+      self.expiration_id ||= self.nature.expiration_id
       self.expired_on ||= self.expiration.compute(self.created_on)
-      self.payment_delay_id ||= self.nature.payment_delay_id 
+      self.payment_delay_id ||= self.nature.payment_delay_id
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= self.amount*self.nature.downpayment_rate if self.amount>=self.nature.downpayment_minimum
     end
@@ -164,7 +164,7 @@ class Sale < CompanyRecord
     self.sum_method = 'wt'
     true
   end
-  
+
   before_validation(:on=>:create) do
     self.created_on = Date.today
   end
@@ -200,7 +200,7 @@ class Sale < CompanyRecord
   def has_content?
     self.lines.size > 0
   end
-  
+
   def has_content_not_deliverable?
     return false unless self.has_content?
     deliverable = false
@@ -224,7 +224,7 @@ class Sale < CompanyRecord
     self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
     return super
   end
-  
+
 
   # Create the last delivery with undelivered products if necessary.
   # The sale order is confirmed if it hasn't be done.
@@ -248,7 +248,7 @@ class Sale < CompanyRecord
   end
 
 
-  # Invoices all the products creating the delivery if necessary. 
+  # Invoices all the products creating the delivery if necessary.
   # Changes number with an invoice number saving exiting number in +initial_number+.
   def invoice(*args)
     return false unless self.can_invoice?
@@ -256,7 +256,7 @@ class Sale < CompanyRecord
     ActiveRecord::Base.transaction do
       # Set values for invoice
       self.invoiced_on = Date.today
-      self.payment_on ||= self.payment_delay.compute if self.payment_delay      
+      self.payment_on ||= self.payment_delay.compute if self.payment_delay
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)
         self.number = sequence.next_value
@@ -309,7 +309,7 @@ class Sale < CompanyRecord
     array << [:amount, self.amount]
     array << [:paid_amount, self.paid_amount]
     array << [:unpaid_amount, self.unpaid_amount]
-    array 
+    array
   end
 
 
@@ -327,7 +327,7 @@ class Sale < CompanyRecord
   def self.state_label(state)
     tc('states.'+state.to_s)
   end
-  
+
   # Prints human name of current state
   def state_label
     self.class.state_label(self.state)
@@ -372,7 +372,7 @@ class Sale < CompanyRecord
         return self.state
       end
     elsif self.credit?
-      return "disabled "+self.state      
+      return "disabled "+self.state
     end
     return self.state
   end

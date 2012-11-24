@@ -76,8 +76,8 @@ class PurchaseLinesController < AdminController
       price ||= Price.create!(price_attrs.merge(:active=>true))
       params[:purchase_line][:price_id] = price.id
     end
-    if @purchase_line.update_attributes(params[:purchase_line])  
-      redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_line.purchase_id  
+    if @purchase_line.update_attributes(params[:purchase_line])
+      redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_line.purchase_id
       return
     end
     t3e @purchase_line.attributes

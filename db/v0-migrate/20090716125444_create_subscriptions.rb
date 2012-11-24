@@ -10,7 +10,7 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :subscription_natures
-    
+
     create_table :subscriptions do |t|
       t.column :started_on,        :date
       t.column :finished_on,       :date
@@ -23,10 +23,10 @@ class CreateSubscriptions < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :subscriptions
-    
+
     add_column :products,     :subscription_quantity, :integer
     add_column :products,     :subscription_period,   :string
-    add_column :products,     :subscription_nature_id,       :integer, :references=>:subscription_natures, :on_delete=>:restrict, :on_update=>:restrict 
+    add_column :products,     :subscription_nature_id,       :integer, :references=>:subscription_natures, :on_delete=>:restrict, :on_update=>:restrict
   end
 
   def self.down

@@ -9,31 +9,34 @@ fra:
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
-    animals:
-      index: "Gestion des animaux"
-      new: "Créer un animal"
-      edit: "Modifier un animal"
-      show: "animal\_: %{name}"
-    animal_cares:
-      index: "Gestion des soins"
-      new: "Créer un soin"
-      edit: "Modifier un soin"
-      show: "soin %{name} commencé le %{start_on}"
-    animal_care_types:
-      index: "Gestion des types de soins"
-      new: "Créer un type de soin"
-      edit: "Modifier un type de soin"
-      show: "type de soin\_: %{name}"
-    animal_groups:
-      index: "Gestion des lots d'animaux"
-      new: "Créer un lot"
-      edit: "Modifier le lot\_: %{name} "
-      show: "Lot\_: %{name}"
-    animal_races:
-      index: "Gestion des races d'animaux"
-      new: "Créer une race"
-      edit: "Modifier la race\_: %{name} "
-      show: "Race\_: %{name}"
+    animal_care_natures: #?
+    animal_care_types:  #?
+      edit: "Modifier un type de soin" #?
+      index: "Gestion des types de soins" #?
+      new: "Créer un type de soin" #?
+      show: "type de soin\_: %{name}" #?
+    animal_cares:  #?
+      edit: "Modifier un soin" #?
+      index: "Gestion des soins" #?
+      new: "Créer un soin" #?
+      show: "soin %{name} commencé le %{start_on}" #?
+    animal_groups:  #?
+      edit: "Modifier le lot\_: %{name} " #?
+      index: "Gestion des lots d'animaux" #?
+      new: "Créer un lot" #?
+      show: "Lot\_: %{name}" #?
+    animal_race_natures: #?
+    animal_race_types: #?
+    animal_races:  #?
+      edit: "Modifier la race\_: %{name} " #?
+      index: "Gestion des races d'animaux" #?
+      new: "Créer une race" #?
+      show: "Race\_: %{name}" #?
+    animals:  #?
+      edit: "Modifier un animal" #?
+      index: "Gestion des animaux" #?
+      new: "Créer un animal" #?
+      show: "animal\_: %{name}" #?
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
@@ -121,6 +124,9 @@ fra:
       load: "Charger les modèles de document par défaut"
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple"
+    drug_natures: #?
+    drug_types: #?
+    drugs: #?
     entities:
       destroy: "Supprimer la fiche"
       edit: "Modifier la fiche\_: %{full_name}"
@@ -620,12 +626,12 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC" #?
-    animal_group_tabbox:
-      animals: "Animaux du lot"
-      cares: "Soins réalisés sur le lot"
-    animal_tabbox:
-      cares: "Soins"
-      childrens: "Enfants"
+    animal_group_tabbox:  #?
+      animals: "Animaux du lot" #?
+      cares: "Soins réalisés sur le lot" #?
+    animal_tabbox:  #?
+      cares: "Soins" #?
+      childrens: "Enfants" #?
     apply: "Appliquer"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
     are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
@@ -821,7 +827,7 @@ fra:
     from: "À partir du"
     full_name: "Client"
     future_events: "Futurs événements"
-    genealogy: "Généalogie"
+    genealogy: "Généalogie" #?
     general: "Informations générales"
     general_informations: "Informations générales"
     general_ledger: "Grand livre"
@@ -920,7 +926,7 @@ fra:
     mandates_filters: "Vous devez saisir au moins une valeur de recherche pour un des champs" #?
     mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification" #?
     manual_period: "du %{start} au %{finish}"
-    medical_informations: "Informations médicales"
+    medical_informations: "Informations médicales" #?
     meeting: "Lieu(x) de rencontre" #?
     menus:
       accountancy: "Comptabilité"
@@ -1279,7 +1285,7 @@ fra:
     target: "Cible"
     tax_declaration_create: "Ajouter une nouvelle déclaration" #?
     theoric_quantity: "Quantité théorique"
-    third_informations: "Informations tierces"
+    third_informations: "Informations tierces" #?
     to: "Au"
     to_bank_on: "À encaisser le"
     to_date: "Au"

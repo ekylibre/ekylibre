@@ -20,7 +20,7 @@
 
 # encoding: utf-8
 module ApplicationHelper
-  
+
   # def options_for_unroll(options = {})
   #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
   #   reflection = self.class.reflections[options[:reflection].to_sym]
@@ -33,7 +33,7 @@ module ApplicationHelper
   #   end
   #   find_options = {} # :conditions => "true"}
   #   if options[:order]
-  #     find_options[:order] = options[:order] 
+  #     find_options[:order] = options[:order]
   #   elsif model.columns_hash.keys.include?(options[:label].to_s)
   #     find_options[:order] = options[:label]
   #   end
@@ -42,11 +42,11 @@ module ApplicationHelper
   #     [record.send(label), record.id]
   #   end
   #   if options[:include_blank].is_a? String
-  #     list.insert(0, [options[:include_blank], '']) 
+  #     list.insert(0, [options[:include_blank], ''])
   #   elsif options[:include_blank].is_a? Array
   #     list.insert(0, *options[:include_blank])
   #   end
-  #   return list    
+  #   return list
   # end
 
   def options_for_unroll(options = {})
@@ -71,12 +71,12 @@ module ApplicationHelper
         raise ArgumentError.new(":label option is needed (#{model.name}(#{available_methods.inspect}):#{options.inspect})") if label.nil?
       end
     end
-    
+
     list = (source ? source.send(filter).collect do |record|
               [record.send(label), record.id]
             end : [])
     if options[:include_blank].is_a? String
-      list.insert(0, [options[:include_blank], '']) 
+      list.insert(0, [options[:include_blank], ''])
     elsif options[:include_blank].is_a? Array
       list.insert(0, *options[:include_blank])
     end
@@ -125,9 +125,9 @@ module ApplicationHelper
 
   def radio_check_box(object_name, method, options = {}, checked_value = "1", unchecked_value = "0")
     # raise Exception.new eval("@#{object_name}.#{method}").inspect
-    radio_button_tag(object_name, method, TrueClass, :id => "#{object_name}_#{method}_#{checked_value}") << " " << 
-      content_tag(:label, ::I18n.translate('general.y'), :for => "#{object_name}_#{method}_#{checked_value}") << " " << 
-      radio_button_tag(object_name, method, FalseClass, :id => "#{object_name}_#{method}_#{unchecked_value}") << " " << 
+    radio_button_tag(object_name, method, TrueClass, :id => "#{object_name}_#{method}_#{checked_value}") << " " <<
+      content_tag(:label, ::I18n.translate('general.y'), :for => "#{object_name}_#{method}_#{checked_value}") << " " <<
+      radio_button_tag(object_name, method, FalseClass, :id => "#{object_name}_#{method}_#{unchecked_value}") << " " <<
       content_tag(:label, ::I18n.translate('general.n'), :for => "#{object_name}_#{method}_#{unchecked_value}")
   end
 
@@ -182,14 +182,14 @@ module ApplicationHelper
       name         = args[0]
       options      = args[1] || {}
       html_options = args[2] || {}
-      
+
       if options.is_a? Hash
-        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options) 
+        return (html_options[:keep] ? "<a class='forbidden'>#{name}</a>".html_safe : "") unless authorized?(options)
       end
-      
+
       html_options = convert_options_to_data_attributes(options, html_options)
       url = url_for(options)
-      
+
       if html_options
         html_options = html_options.stringify_keys
         href = html_options['href']
@@ -197,7 +197,7 @@ module ApplicationHelper
       else
         tag_options = nil
       end
-      
+
       href_attr = "href=\""+url+"\"" unless href
       "<a #{href_attr}#{tag_options}>".html_safe+(name || url)+"</a>".html_safe
     end
@@ -212,7 +212,7 @@ module ApplicationHelper
       ''
     end
   end
-  
+
   def countries
     [[]]+t('countries').to_a.sort{|a, b| a[1].ascii.to_s <=> b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
   end
@@ -368,10 +368,10 @@ module ApplicationHelper
       @items << [:custom, args]
     end
 
-  end    
+  end
 
 
-  
+
   def last_page(menu)
     session[:last_page][menu.to_s]||url_for(:controller => :dashboards, :action => menu)
   end
@@ -417,7 +417,7 @@ module ApplicationHelper
   def meta_viewport_tag
     content_tag(:meta, nil, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")
   end
-  
+
   def title_tag
     r = reverse_menus
     title = if @current_user
@@ -457,7 +457,7 @@ module ApplicationHelper
   end
 
 
-  
+
   def side_tag # (submenu = self.controller.controller_name.to_sym)
     path = reverse_menus
     return '' if path.nil?
@@ -499,9 +499,9 @@ module ApplicationHelper
   end
 
   def notifications_tag
-    return notification_tag(:error) << 
-      notification_tag(:warning) << 
-      notification_tag(:success) << 
+    return notification_tag(:error) <<
+      notification_tag(:warning) <<
+      notification_tag(:success) <<
       notification_tag(:information)
   end
 
@@ -633,10 +633,10 @@ module ApplicationHelper
   #   return content
   # end
 
-  
 
 
-  # Unagi 鰻 
+
+  # Unagi 鰻
   # Flexible module management
   def unagi(options={})
     u = Unagi.new
@@ -733,7 +733,7 @@ module ApplicationHelper
       tag << content_tag(:tr, code.html_safe)
     end
     tag = form_tag(url, :method => :get) {content_tag(:table, tag.html_safe)}
-    
+
     id = Time.now.to_i.to_s(36)+(10000*rand).to_i.to_s(36)
 
     content_for(:popover, content_tag(:div, tag.to_s.html_safe, :class => "kujaku popover", :id => id))
@@ -758,14 +758,14 @@ module ApplicationHelper
     #   options = {} unless options.is_a? Hash
     #   @criteria << {:type => :mode, :modes => modes, :options => options}
     # end
-    
+
     def radio(*states)
       options = states.delete_at(-1) if states[-1].is_a? Hash
       options = {} unless options.is_a? Hash
       name = options.delete(:name)||:s
       add_criterion :radio, :name => name, :states => states, :options => options
     end
-    
+
     def text(name=nil, options={})
       name ||= :q
       add_criterion :text, :name => name, :options => options
@@ -786,7 +786,7 @@ module ApplicationHelper
     end
 
     private
-    
+
     def add_criterion(type=nil, options={})
       @criteria << options.merge(:type => type, :uid => "#{@uid}:"+@criteria.size.to_s)
     end
@@ -837,7 +837,7 @@ module ApplicationHelper
         options[:default] = [] unless options[:default].is_a?(Array)
         options[:default] << "labels.#{name}".to_sym
         options[:default] << "attributes.#{name}".to_sym
-        name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options) 
+        name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options)
       end
       @tabs << {:name => name, :index => (@sequence*1).to_s(36), :block => block}
       @sequence += 1
@@ -896,7 +896,7 @@ module ApplicationHelper
           end
           toolbar.instance_eval(&block)
         else
-          block[toolbar] 
+          block[toolbar]
         end
       end
       toolbar.link :back if options[:back]
@@ -911,7 +911,7 @@ module ApplicationHelper
           args[1] ||= {}
           args[2] ||= {}
           if name.is_a? Symbol
-            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{})) 
+            args[0] = ::I18n.t("actions.#{args[1][:controller]||controller_name}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
           end
           if name.is_a? Symbol and name!=:back
             args[1][:action] ||= name
@@ -974,7 +974,7 @@ module ApplicationHelper
     def mail(*args)
       @tools << [:mail, args]
     end
-    
+
     def print(*args)
       # TODO reactive print
       # @tools << [:print, args]
@@ -1022,7 +1022,7 @@ module ApplicationHelper
         message << content_tag(:h3, header_message) unless header_message.blank?
         message << content_tag(:p, introduction) unless introduction.blank?
         message << content_tag(:ul, messages)
-        
+
         html = ''
         html << content_tag(:div, "", :class => :icon)
         html << content_tag(:div, message.html_safe, :class => :message)
@@ -1079,7 +1079,7 @@ module ApplicationHelper
   end
 
   class IkaFormBuilder < SimpleForm::FormBuilder
-    
+
     def association(association, options={}, &block)
       options = options.dup
 
@@ -1130,7 +1130,7 @@ module ApplicationHelper
           :"#{reflection.name.to_s.singularize}_ids"
       end
 
-      # 
+      #
       id = "#{@object.class.name.underscore}_#{attribute}"
       html = input(attribute, options.merge(:reflection => reflection, :wrapper => :append)) do
         input_html = "".html_safe
@@ -1155,7 +1155,7 @@ module ApplicationHelper
       #   html << @template.link_to(:new.t(:scope => "labels"), @template.url_for(:action => :new), "data-new-item" => "test", :class => :btn)
       #   html = @template.content_tag(:div, html, :class => "input-append")
       #   # if buttons.is_a? Symbol
-      #   #   buttons = {:controller => buttons.to_s.pluralize.to_sym} 
+      #   #   buttons = {:controller => buttons.to_s.pluralize.to_sym}
       #   # elsif buttons.is_a? TrueClass
       #   #   buttons = {}
       #   # end
@@ -1177,7 +1177,7 @@ module ApplicationHelper
       # end
       return html
     end
-    
+
     def input(attribute_name, options = {}, &block)
       options[:input_html] ||= {}
       options[:input_html].update :class => 'custom'
@@ -1188,7 +1188,7 @@ module ApplicationHelper
     end
   end
 
-  
+
 
   class Formika < ActionView::Helpers::FormBuilder
     include ActionView::Helpers
@@ -1199,7 +1199,7 @@ module ApplicationHelper
       @controller = options[:controller]
     end
 
-    
+
     def input(name, options={}, html_options = {})
       classes = [:field]
       input_id = rand.to_s
@@ -1214,9 +1214,9 @@ module ApplicationHelper
       type = options[:as]
       if name.to_s.match /password/
         html_options[:size] ||= 12
-        type ||= :password 
+        type ||= :password
       end
-      
+
       html_options[:size] = options[:size]||24
       html_options[:class] = options[:class].to_s
       html_options[:required] = true if options[:required]
@@ -1236,7 +1236,7 @@ module ApplicationHelper
       end
 
       options[:options] ||= {}
-      
+
       if options[:choices]
         html_options.delete :size
         html_options.delete :maxlength
@@ -1282,7 +1282,7 @@ module ApplicationHelper
               end
 
       if options[:new].is_a? Symbol
-        options[:new] = {:controller => options[:new].to_s.pluralize.to_sym} 
+        options[:new] = {:controller => options[:new].to_s.pluralize.to_sym}
       elsif options[:new].is_a? TrueClass
         options[:new] = {}
       end
@@ -1370,11 +1370,11 @@ module ApplicationHelper
     code = ''
     controller = self.controller
     xcn = 2
-    
+
     # build HTML
     for line in form.lines
       css_class = line[:nature].to_s
-      
+
       # line
       line_code = ''
       case line[:nature]
@@ -1400,7 +1400,7 @@ module ApplicationHelper
         html_options[:class] = css_class
         code << content_tag(:tr, line_code.html_safe, html_options)
       end
-      
+
     end
     code = content_tag(:table, code.html_safe, :class => 'formalize',:id => form_options[:id])
     return code
@@ -1440,9 +1440,9 @@ module ApplicationHelper
 
       #      record = model.name.underscore.to_sym
       column = model.columns_hash[method.to_s]
-      
+
       options[:field] = :password if method.to_s.match /password/
-      
+
       input_id = object.class.name.tableize.singularize << '_' << method.to_s
 
       html_options = {}
@@ -1468,7 +1468,7 @@ module ApplicationHelper
         end
         options[:field] = :checkbox if column.type==:boolean
         if column.type==:date
-          options[:field] = :date 
+          options[:field] = :date
           html_options[:size] = 10
         elsif column.type==:datetime or column.type==:timestamp
           options[:field] = :datetime
@@ -1476,7 +1476,7 @@ module ApplicationHelper
       end
 
       options[:options] ||= {}
-      
+
       if options[:choices]
         html_options.delete :size
         html_options.delete :maxlength
@@ -1522,7 +1522,7 @@ module ApplicationHelper
               end
 
       if options[:new].is_a? Symbol
-        options[:new] = {:controller => options[:new].to_s.pluralize.to_sym} 
+        options[:new] = {:controller => options[:new].to_s.pluralize.to_sym}
       elsif options[:new].is_a? TrueClass
         options[:new] = {}
       end
@@ -1540,10 +1540,10 @@ module ApplicationHelper
           data = (options[:update] ? options[:update] : rlid)
           # input << content_tag(:span, content_tag(:span, link_to(tg(:new), options[:new], "data-new-item" => data, :class => "icon im-new").html_safe, :class => :tool).html_safe, :class => "toolbar mini-toolbar")
           input << content_tag(:span, tool_to(tg(:new), options[:new], "data-new-item" => data, :tool => :new).html_safe, :class => "mini-toolbar")
-         
+
         end
       end
-      
+
       label = options[:label] || object.class.human_attribute_name(method.to_s.gsub(/_id$/, ''))
       label = content_tag(:label, label, :for => input_id) if object!=record
     elsif line[:field]
@@ -1586,7 +1586,7 @@ module ApplicationHelper
                 else
                   text_field_tag(name, value, :id => options[:id])
                 end
-        
+
       else
         input = line[:field].to_s
       end
@@ -1597,7 +1597,7 @@ module ApplicationHelper
     fragments[:input] = input
     return fragments
   end
-  
+
 
   def translate_help(options,nature,id=nil)
     t = nil
@@ -1622,7 +1622,7 @@ module ApplicationHelper
               else
                 link_to(tc(:all_accounts), params.merge(:controller => :accounts, :action => :index, :prefix => nil))
               end
-    majors << Account.majors.collect do |account| 
+    majors << Account.majors.collect do |account|
       if params[:prefix] == account.number.to_s
         content_tag(:strong, account.label)
       else
@@ -1762,7 +1762,7 @@ module ApplicationHelper
       classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
       if step[:states].include?(state) and record.id
         classes << " usable"
-        title = link_to(title, step[:actions][0].merge(:id => record.id)) 
+        title = link_to(title, step[:actions][0].merge(:id => record.id))
       end
       code << content_tag(:td, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
       code << content_tag(:td, title, :class => classes)

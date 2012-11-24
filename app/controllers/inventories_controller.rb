@@ -34,7 +34,7 @@ class InventoriesController < AdminController
   def index
     if Product.stockables.count.zero?
       notify_now(:need_stocks_to_create_inventories)
-    end    
+    end
   end
 
   list(:lines, :model=>:inventory_lines, :conditions=>{:inventory_id=>['params[:id]'] }, :order=>'warehouse_id') do |t|
@@ -116,7 +116,7 @@ class InventoriesController < AdminController
     else
       notify_error(:changes_have_not_been_reflected)
     end
-    redirect_to :action=>:index 
+    redirect_to :action=>:index
   end
 
   def edit
@@ -132,7 +132,7 @@ class InventoriesController < AdminController
       if @inventory.update_attributes(params[:inventory])
         # @inventory.set_lines(params[:lines_create].values)
         for id, attributes in (params[:lines_update]||{})
-          il = InventoryLine.find_by_id(id).update_attributes!(attributes) 
+          il = InventoryLine.find_by_id(id).update_attributes!(attributes)
         end
       end
       redirect_to :action=>:index

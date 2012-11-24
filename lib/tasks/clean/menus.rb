@@ -6,7 +6,7 @@ task :menus => :environment do
 
   # Load file
   menus = YAML.load_file(menus_file)
-  
+
   # Load list of all actions of all controllers
   ref = actions_hash
   ref_actions = ref.collect{|c,a| a.collect{|x| "#{c}::#{x}"} }.flatten.sort
@@ -59,7 +59,7 @@ task :menus => :environment do
       end
     end
   end
-  
+
   File.open(menus_file, "wb") do |file|
     file.write yaml
   end

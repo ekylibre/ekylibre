@@ -39,7 +39,7 @@ class CreateShapeOperations < ActiveRecord::Migration
     add_stamps_indexes :shape_operation_natures
 
   end
-  
+
   def self.down
     drop_table :shape_operation_natures
     drop_table :shape_operations

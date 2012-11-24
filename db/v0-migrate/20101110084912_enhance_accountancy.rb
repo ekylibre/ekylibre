@@ -72,7 +72,7 @@ class EnhanceAccountancy < ActiveRecord::Migration
 
     add_column :accounts, :reconcilable, :boolean, :null=>false, :default=>false
 
-    add_column :journal_entries,     :state, :string, :limit=>32, :null=>false, :default=>"draft" 
+    add_column :journal_entries,     :state, :string, :limit=>32, :null=>false, :default=>"draft"
     add_column :journal_entries,     :balance, :decimal, :precision=>16, :scale=>2, :null=>false, :default=>0
     execute "UPDATE #{quoted_table_name(:journal_entries)} SET balance = (debit - credit)"
     execute "UPDATE #{quoted_table_name(:journal_entries)} SET state='confirmed'"

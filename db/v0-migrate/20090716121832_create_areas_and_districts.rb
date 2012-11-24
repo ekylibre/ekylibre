@@ -6,7 +6,7 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :districts
-    
+
     create_table :cities do |t|
       t.column :insee_cdc, :string, :limit=>1
       t.column :insee_cheflieu, :string, :limit=>1
@@ -25,14 +25,14 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.column :insee_artmin, :string, :limit=>5
       # Nom en clair (typographie riche)
       t.column :insee_nccenr, :string, :limit=>70
-      
+
       t.column :name, :string, :null=>false
       t.column :district_id, :integer, :references=>:districts, :on_delete=>:cascade, :on_update=>:cascade
       t.column :company_id, :integer, :null=>false, :references=>:companies, :on_delete=>:cascade, :on_update=>:cascade
       t.stamps
     end
     add_stamps_indexes :cities
-    
+
     create_table :areas do |t|
       t.column :postcode, :string, :null=>false
       t.column :name, :string, :null=>false
@@ -41,13 +41,13 @@ class CreateAreasAndDistricts < ActiveRecord::Migration
       t.stamps
     end
     add_stamps_indexes :areas
-    
+
     add_column :contacts, :area_id, :integer, :references=>:areas, :on_delete=>:cascade, :on_update=>:cascade
   end
-  
-  
+
+
   def self.down
-    remove_column :contacts, :area_id    
+    remove_column :contacts, :area_id
     drop_table :areas
     drop_table :cities
     drop_table :districts

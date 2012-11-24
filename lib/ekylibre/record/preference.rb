@@ -4,7 +4,7 @@ end
 
 module Ekylibre::Record
   module Preference #:nodoc:
-    
+
     def self.included(base)
       base.extend(ClassMethods)
     end

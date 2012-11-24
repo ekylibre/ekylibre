@@ -18,34 +18,34 @@
 #
 
 class AnimalsController < AdminController
-  manage_restfully :group_id=>"params[:group_id]" #, :female_parent_id=>"params[:female_parent_id]" # :multipart => true
-  
+  manage_restfully :group_id=>"params[:group_id]" #, :mother_id=>"params[:mother_id]" # :multipart => true
+
   list do |t|
     t.column :identification_number, :url=>{:action=>:show}
     t.column :name, :url=>true
     t.column :name, :through=>:group, :url=>true
     t.column :born_on
     t.column :sex
-    t.column :name, :through=>:female_parent, :url=>true
+    t.column :name, :through=>:mother, :url=>true
     t.column :income_on
     t.column :outgone_on
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
-  
+
     # Show a list of animal groups
   def index
   end
   # liste des soins de l'animal considéré
-  list(:cares,:model=>:animal_cares, :conditions=>{:animal_id=>['session[:current_animal_id]']}, :order=>"start_on ASC") do |t|
+  list(:cares, :model=>:animal_cares, :conditions=>{:animal_id=>['session[:current_animal_id]']}, :order=>"start_on ASC") do |t|
     t.column :name
     t.column :start_on
     t.column :comment
   end
-  
+
   # liste des enfants de l'animal considéré
-  list(:childrens,:model=>:animal, :conditions=>{:female_parent_id=>['session[:current_animal_id]']}, :order=>"born_on DESC") do |t|
+  list(:children, :model=>:animal, :conditions=>{:mother_id=>['session[:current_animal_id]']}, :order=>"born_on DESC") do |t|
     t.column :name, :url=>true
     t.column :born_on
     t.column :sex
@@ -54,8 +54,8 @@ class AnimalsController < AdminController
   # Show one animals with params_id
   def show
     return unless @animal = find_and_check(:animal)
-    session[:current_animal_id] = @animal.id   
+    session[:current_animal_id] = @animal.id
     t3e @animal
   end
-  
+
 end

@@ -4,7 +4,7 @@ module Ekylibre
   module Export
     module OpenDocument
       class Spreadsheet
-        
+
 
         def initialize
           @header = ""
@@ -45,9 +45,9 @@ module Ekylibre
         def generate(output)
           start = Time.now
           Zip::ZipOutputStream.open(output+".ods") do |zile|
-            
-          end        
-          
+
+          end
+
         end
 
         def self.generate(output, options={}, &block)

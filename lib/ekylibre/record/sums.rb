@@ -1,10 +1,10 @@
 module Ekylibre::Record
   module Sums #:nodoc:
-    
+
     def self.included(base)
       base.extend(ClassMethods)
     end
-    
+
     module ClassMethods
 
 
@@ -19,7 +19,7 @@ module Ekylibre::Record
           else
             raise ArgumentError.new("Unvalid type #{arg.inspect}:#{arg.class.name}")
           end
-        end          
+        end
         method_name = options.delete(:method) || "sums_#{children}_in_#{target}"
         code = ""
         callbacks = (options.delete(:callbacks) || [:after_save, :after_destroy])
@@ -39,7 +39,7 @@ module Ekylibre::Record
         class_eval code
       end
 
-      
+
     end
   end
 end
