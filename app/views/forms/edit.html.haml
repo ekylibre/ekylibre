@@ -1,6 +1,6 @@
 -form_id = options[:id]||"f"+(rand*1_000_000_000).to_i.to_s(36)
 
-=form_tag({:action=>:update}, {:id=>form_id, :style=>"overflow:none", :class=>"vbox flex"}.merge(params[:dialog] ? {"data-dialog"=>params[:dialog]} : {})) do
+=form_tag({:action=>:update}, options[:form_options].merge(:id=>form_id).merge(params[:dialog] ? {"data-dialog"=>params[:dialog]} : {})) do
   =hidden_field_tag(:_method, :put) # Needed for better layout presentation
   =render :partial=>"forms/fields", :locals=>{:operation=>operation, :partial=>partial, :options=>options}
   .actions

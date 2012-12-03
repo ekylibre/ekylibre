@@ -146,6 +146,7 @@ class DocumentTemplate < CompanyRecord
     self.save! unless self.cache.starts_with?(Templating.preamble)
 
     # Try to find an existing archive
+    owner = args[0].class.ancestors.include?(ActiveRecord::Base) ? args[0] : Company.first
     if self.to_archive and owner.is_a?(ActiveRecord::Base)
       document = Document.where(:nature_code=>self.code, :owner_id=>owner.id, :owner_type=>owner.class.name).order("created_at DESC").first
       return document.data, document.original_name if document

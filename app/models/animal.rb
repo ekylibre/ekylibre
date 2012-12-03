@@ -49,6 +49,7 @@
 
 class Animal < CompanyRecord
   SEXES = ["male", "female"]
+  attr_accessible :born_on, :ceded_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :purchased_on, :race_id, :sex
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   belongs_to :group, :class_name => "AnimalGroup"
   belongs_to :race, :class_name => "AnimalRace"
