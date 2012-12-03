@@ -6,7 +6,7 @@
   -l.attribute :consumption
   -l.attribute :usage_duration, :duration=>:minutes
   -l.attribute :remaining_duration, :duration=>:minutes
-  -#-l.image_tag :picture.url(:thumb)
+  =image_tag(@tool.picture.url(:thumb))
 
 %h2=tc(:x_operations, :count=>@tool.uses.count)
 =list(:operations)

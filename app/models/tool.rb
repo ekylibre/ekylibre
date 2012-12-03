@@ -33,6 +33,7 @@
 
 
 class Tool < CompanyRecord
+  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on
   has_many :uses, :class_name=>"OperationUse"
   belongs_to :nature, :class_name=>"ToolNature"
   belongs_to :asset, :class_name=>"Asset"
