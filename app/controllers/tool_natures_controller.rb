@@ -17,31 +17,20 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class ToolsController < AdminController
+class ToolNaturesController < AdminController
   manage_restfully
 
-  list(:operations, :model=>:operation_uses, :conditions=>{:tool_id=>['session[:current_tool_id]']}, :order=>"created_at ASC") do |t|
-    t.column :name,       :through=>:operation, :label=>:column, :url=>true
-    t.column :planned_on, :through=>:operation, :label=>:column, :datatype=>:date
-    t.column :moved_on,   :through=>:operation, :label=>:column
-    t.column :tools_list, :through=>:operation, :label=>:column
-    t.column :duration,   :through=>:operation, :label=>:column
-  end
-
-  list(:order=>"name") do |t|
+  list do |t|
     t.column :name, :url=>true
-    t.column :name, :through=>:nature, :url=>true
-    t.column :purchased_on, :datatype=>:date
-    t.column :ceded_on, :datatype=>:date
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
   # Displays details of one tool selected with +params[:id]+
   def show
-    return unless @tool = find_and_check(:tool)
-    session[:current_tool_id] = @tool.id
-    t3e @tool.attributes
+    return unless @tool_nature = find_and_check
+    session[:current_tool_nature_id] = @tool_nature.id
+    t3e @tool_nature.attributes
   end
 
   # Displays the main page with the list of tools

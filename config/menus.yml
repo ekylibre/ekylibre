@@ -755,6 +755,7 @@ menus:
         - "land_parcels::new"
         - "land_parcels::show"
         - "land_parcels::update"
+    - operations:
       - - "operations::index"
         - "operation_lines::create"
         - "operation_lines::new"
@@ -778,6 +779,8 @@ menus:
         - "operations::show"
         - "operations::unvalidateds"
         - "operations::update"
+    - tools:
+      - - "tools::index"
     - production_chains:
       - - "production_chains::index"
         - "production_chain_conveyors::create"

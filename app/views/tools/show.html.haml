@@ -2,10 +2,11 @@
   -t.edit @tool
 
 =attributes_list(@tool) do |l|
-  -l.attribute :text_nature
-  -# l.attribute :consumption
+  -l.attribute :nature
+  -l.attribute :consumption
   -l.attribute :usage_duration, :duration=>:minutes
   -l.attribute :remaining_duration, :duration=>:minutes
+  -#-l.image_tag :picture.url(:thumb)
 
 %h2=tc(:x_operations, :count=>@tool.uses.count)
 =list(:operations)

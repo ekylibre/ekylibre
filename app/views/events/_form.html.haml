@@ -1,8 +1,12 @@
 =formalize do |f|
   -f.error :event
   -f.field :event, :entity_id, :choices=>:entities, :new=>true
-  -f.field :event, :responsible_id,   :choices=>{:reflection=>:users, :label=>:label, :order=>"last_name, first_name"}, :new=>true
-  -f.field :event, :nature_id, :choices=>{:reflection=>:event_natures, :label=>:name, :order=>:name}, :new=>true, "data-dependents"=>"#event_duration", "data-parameter-name"=>"nature_id"
+
+=field_set(@event, :general_informations) do |f| # partie info general de l entité animal
+  =f.association :responsible
+  =f.association :nature
+
+=formalize do |f|
   -f.field :event, :duration, "data-refresh"=>url_for(:action=>:change_minutes, :field=>:duration), "data-refresh-mode"=>"update-value"
   -f.field :event, :location, "data-autocompletion"=>url_for(:controller=>:interfacers, :action=>:autocomplete_for_event_location)
   -f.field :event, :reason, :field=>:textarea
