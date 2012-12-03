@@ -111,6 +111,8 @@ class AdminController < BaseController
     operation = self.action_name.to_sym
     operation = (operation==:create ? :new : operation==:update ? :edit : operation)
     partial   = options[:partial]||'form'
+    options[:form_options] = {} unless options[:form_options].is_a?(Hash)
+    options[:form_options][:multipart] = true if options[:multipart]
     render(:template=>options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
   end
 
@@ -475,37 +477,49 @@ class AdminController < BaseController
     url = defaults.delete(:redirect_to)
     xhr = defaults.delete(:xhr)
     durl = defaults.delete(:destroy_to)
-    partial = defaults.delete(:partial)
-    partial = " :partial=>'#{partial}'" if partial
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
+
+
+    render_form_options = []
+    if defaults.has_key?(:partial)
+      render_form_options << ":partial => '#{defaults.delete(:partial)}'"
+    end
+    if defaults.has_key?(:multipart)
+      render_form_options << ":multipart => true" if defaults.delete(:multipart)
+    end
+    render_form = "render_restfully_form(" + render_form_options.join(", ") + ")"
+
     code = ''
 
     code += "def new\n"
-    values = defaults.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")
+    values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
+      hash[attr] = "params[:#{attr}]"
+      hash
+    end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
     code += "  @#{record_name} = #{model.name}.new(#{values})\n"
     if xhr
       code += "  if request.xhr?\n"
       code += "    render :partial=>#{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
       code += "  else\n"
-      code += "    render_restfully_form#{partial}\n"
+      code += "    #{render_form}\n"
       code += "  end\n"
     else
-      code += "  render_restfully_form#{partial}\n"
+      code += "  #{render_form}\n"
     end
     code += "end\n"
 
     code += "def create\n"
     code += "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
     code += "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
-    code += "  render_restfully_form#{partial}\n"
+    code += "  #{render_form}\n"
     code += "end\n"
 
     # this action updates an existing record with a form.
     code += "def edit\n"
     code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
     code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-    code += "  render_restfully_form#{partial}\n"
+    code += "  #{render_form}\n"
     code += "end\n"
 
     code += "def update\n"
@@ -513,7 +527,7 @@ class AdminController < BaseController
     code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
     code += "  @#{record_name}.attributes = params[:#{record_name}]\n"
     code += "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
-    code += "  render_restfully_form#{partial}\n"
+    code += "  #{render_form}\n"
     code += "end\n"
 
     # this action deletes or hides an existing record.
@@ -534,7 +548,7 @@ class AdminController < BaseController
     code += "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code += "end\n"
 
-    # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+    # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     class_eval(code)
   end
 

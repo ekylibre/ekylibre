@@ -9,9 +9,8 @@
   =f.input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   =f.input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
 
--# @todo waiting for paperclip
--#=field_set(@animal, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
-  -#=f.file_field :picture, :multiple => true
+=field_set(@animal, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
+  =f.input :picture, :multiple => true
 
 =field_set(@animal, :genealogy) do |f| # partie entrée sortie de l entité animal
   =f.association :father, :collection => Animal.where(:sex => "male").order("name ASC")
