@@ -59,8 +59,7 @@ class DocumentTemplatesController < AdminController
   end
 
   def load
-    # FIXME: Write DocumentTemplate::load
-    DocumentTemplate.load
+    DocumentTemplate.load_defaults
     notify_success(:update_is_done)
     redirect_to :action=>:index
   end
