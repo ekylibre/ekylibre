@@ -7,12 +7,13 @@
   -l.attribute :race, :url => true
   -l.attribute :group, :url => true # on affiche l'attribut name de l'entité AnimalGroup associé par l'attribut group de l'entité courante Animal avec un lien vers ce groupe
   -l.attribute :sex
+  -l.attribute :mother, :url => true
   -l.attribute :identification_number
   -l.attribute :income_on
   -l.attribute :outgone_on
   -l.attribute :purchased_on
   -l.attribute :comment
--#  -l.image_tag :picture.url(:thumb)
+  =image_tag(@animal.picture.url(:thumb))
 
 =tabbox(:animal) do |tb|
   -tb.tab(:cares) do

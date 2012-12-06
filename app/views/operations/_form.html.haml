@@ -1,45 +1,19 @@
 = formalize do |f|
   - f.error :operation
-  - f.title :infos
-  - f.field :operation, :name
-  - f.field :operation, :responsible_id, :choices=>{:reflection=>:employees}, :new=>{:employed=>1}
-  - f.field :operation, :nature_id, :choices=>{:reflection=>:operation_natures}, :new=>true
-  - f.field :operation, :target_id, :choices=>{:reflection=>:land_parcels, :include_blank=>""}, :new=>:land_parcel
-  - f.field :operation, :planned_on
-  - f.field :operation, :description, :field=>:textarea
-  - f.title :duration
-  - f.field :operation, :hour_duration
-  - f.field :operation, :min_duration
-%table.invex
-  %tr
-    %td{:valign=>:top}
-      =formalize do |f|
-        -f.title :operation_lines
-      =hidden_field_tag "operation[target_type]", LandParcel.name
-      %table.list
-        %thead
-          %tr
-            %th=OperationLine.human_attribute_name("direction")
-            %th=OperationLine.human_attribute_name("product_id")
-            %th=OperationLine.human_attribute_name("quantity")
-            %th=OperationLine.human_attribute_name("tracking_id")
-            %th=OperationLine.human_attribute_name("warehouse_id")
-            %th.act
-        %tbody#lines=render :partial=>"operation_lines/row_form", :collection=>(@operation_lines||@operation.lines)
-      =toolbar do |t|
-        -t.link :new_in_line, {:action=>:new, :controller=>:operation_lines, :direction=>:in}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
-        -t.link :new_out_line, {:action=>:new, :controller=>:operation_lines, :direction=>:out}, :remote=>true, "data-update"=>"#lines", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
 
-    %td{:style=>"width:8px"}
+=field_set(@operation, :infos) do |f|
+  =f.input :name
+  =f.association :responsible
+  =f.association :nature
+  = formalize do |f|
+    - f.field :operation, :planned_on
+    - f.field :operation, :description, :field=>:textarea
+    - f.title :duration
+    - f.field :operation, :hour_duration
+    - f.field :operation, :min_duration
 
-    %td{:valign=>:top}
-      =formalize do |f|
-        -f.title :tools
-      %table.list
-        %thead
-          %tr
-            %th=OperationUse.human_attribute_name("tool_id")
-            %th.act
-        %tbody#uses=render :partial=>"operation_uses/row_form", :collection=>(@operation_uses||@operation.uses)
-      =toolbar do |t|
-        -t.link :new, {:action=>:new, :controller=>:operation_uses}, :remote=>true, "data-update"=>"#uses", "data-update-at"=>:bottom, "data-type"=>:html, :method=>:get
+=field_set(@operation, :operations_details) do |f|
+  =formalize do |f|
+    -f.title :operation_lines
+  =hidden_field_tag "operation[target_type]", LandParcel.name
+

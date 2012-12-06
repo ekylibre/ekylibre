@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121121181102) do
+ActiveRecord::Schema.define(:version => 20121202181101) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -2213,15 +2213,41 @@ ActiveRecord::Schema.define(:version => 20121121181102) do
   add_index "taxes", ["updated_at"], :name => "index_taxes_on_updated_at"
   add_index "taxes", ["updater_id"], :name => "index_taxes_on_updater_id"
 
-  create_table "tools", :force => true do |t|
-    t.string   "name",                                                                    :null => false
-    t.string   "nature",       :limit => 8,                                               :null => false
-    t.decimal  "consumption",               :precision => 19, :scale => 4
-    t.datetime "created_at",                                                              :null => false
-    t.datetime "updated_at",                                                              :null => false
+  create_table "tool_natures", :force => true do |t|
+    t.string   "name"
+    t.string   "name_aee"
+    t.string   "code_aee"
+    t.text     "comment"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                             :default => 0, :null => false
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "tool_natures", ["created_at"], :name => "index_tool_natures_on_created_at"
+  add_index "tool_natures", ["creator_id"], :name => "index_tool_natures_on_creator_id"
+  add_index "tool_natures", ["updated_at"], :name => "index_tool_natures_on_updated_at"
+  add_index "tool_natures", ["updater_id"], :name => "index_tool_natures_on_updater_id"
+
+  create_table "tools", :force => true do |t|
+    t.string   "name",                                                               :null => false
+    t.decimal  "consumption",          :precision => 19, :scale => 4
+    t.datetime "created_at",                                                         :null => false
+    t.datetime "updated_at",                                                         :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                        :default => 0, :null => false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.text     "comment"
+    t.string   "state"
+    t.date     "purchased_on"
+    t.date     "ceded_on"
+    t.integer  "nature_id"
+    t.integer  "asset_id"
   end
 
   add_index "tools", ["created_at"], :name => "index_tools_on_created_at"

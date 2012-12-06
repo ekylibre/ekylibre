@@ -56,9 +56,10 @@ class Asset < CompanyRecord
   acts_as_numbered
   belongs_to :charges_account, :class_name => "Account"
   belongs_to :allocation_account, :class_name => "Account"
-  belongs_to :journal
+  belongs_to :journal, :class_name => "Journal"
   has_many :depreciations, :class_name => "AssetDepreciation", :order => :position
   has_many :planned_depreciations, :class_name => "AssetDepreciation", :order => :position, :conditions => "NOT protected OR accounted_at IS NULL", :dependent => :destroy
+  has_one :tool, :class_name => "Tool"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3

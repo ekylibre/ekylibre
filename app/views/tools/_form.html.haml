@@ -1,5 +1,11 @@
-= formalize do |f|
-  -f.error 'tool'
-  -f.field :tool, :name
-  -f.field :tool, :nature, :field=>:radio, :choices=>Tool.natures
-  -# f.field :tool, :consumption
+=field_set(@tool, :general_informations) do |f| # partie info general de l entité animal
+  =f.error :tool # affiche les erreurs renvoyés par le model
+  =f.hint 'Selectionner la catégorie' # affiche une infos
+  =f.association :nature, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
+  =f.input :name# affiche le champ name de l entité animal avec une infos derriere
+  =f.input :comment, :field=>:textarea # affiche le champ comment
+  
+=field_set(@tool, :assets_informations) do |f| # partie info general de l entité animal
+  =f.association :asset
+  =f.input :purchased_on
+  =f.input :ceded_on

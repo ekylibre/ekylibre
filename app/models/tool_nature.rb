@@ -32,36 +32,9 @@
 #
 
 
-class Tool < CompanyRecord
-  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on
-  has_many :uses, :class_name=>"OperationUse"
-  belongs_to :nature, :class_name=>"ToolNature"
-  belongs_to :asset, :class_name=>"Asset"
-  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
+class ToolNature < CompanyRecord
+  has_many :tools, :class_name=>"Tool"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :consumption, :allow_nil => true
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature
+  validates_length_of :code_aee, :name, :name_aee, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
-
-  default_scope order(:name)
-
-  def usage_duration_sum
-    sum = 0
-    self.uses.each do |usage|
-      sum += usage.operation.duration
-    end
-    sum/60
-  end
-
-  def usage_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
-  end
-
-  def remaining_duration
-    return Operation.sum(:duration, :conditions=>["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE tool_id=?)", self.id])
-  end
-
-
-
 end

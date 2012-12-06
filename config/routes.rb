@@ -579,6 +579,11 @@ Ekylibre::Application.routes.draw do
       get :list_operations
     end
   end
+  resources :tool_natures do
+    collection do
+      get :list
+    end
+  end
   resources :trackings do
     collection do
       get :list_stocks
