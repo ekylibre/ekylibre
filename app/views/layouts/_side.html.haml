@@ -1,27 +1,43 @@
 -##help=render :partial=>"help/search", :object=>@article
-%ul.side-menu
+
+-current_page = menus.page(controller_name, action_name)
+-menu = current_page.useful_menu
+
+-side_menu do |m|
   -if request.url == root_url
-    %li=link_to(SessionsController.human_action_name(:destroy), session_url, :method=>:delete, :class => "med-button logout")
+    -m.link(:logout, session_url, :method => :delete)
   -else
-    %li=link_to("Retour", root_url, :class => "med-button back")
+    -m.link(:back, root_url, :icon => :up)
+    -if menu and menu.hierarchy.size > 2
+      -for item in menu.hierarchy[1..-2]
+        -m.link(item.human_name, item.default_page.url_options, :icon => :up)
+    -if menu.default_page != current_page
+      -item = menu
+      -m.link(item.human_name, item.default_page.url_options, :icon => :up)
 
-%ul.side-menu
+
+-side_menu do |m|
+  -if menu
+    -for item in menu
+      -unless item.name == :settings
+        -attrs = {:active => item.in_path?(controller_name, action_name)}
+        -attrs[:icon] = :inside if item.items.size > 0
+        -m.link(item.human_name, item.default_page.url_options, attrs)
+
+
+-#side_menu do |m|
   -rm = reverse_menus("#{controller_name}::#{action_name}")
-  -for submenu in menus[path[0]]||[]
-    -#=side_module "menu.#{path[0]}.#{submenu[0]}", :title=>tl("menus.submenus.#{submenu[0]}"), :class=>(:current if path[1] == submenu[0]) do
-      -for url in submenu[1]
-        .sd-item{:class=>(:current if path[2] == "#{url[:controller]}::#{url[:action]}")}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
-
+  -# raise session[:menus].keys.inspect
+  -
+  -for submenu in session[:menus][path[0]]||[]
     -name = "menu.#{path[0]}.#{submenu[0]}"
-    -unique = (submenu[1].size - 1).zero?
-    -session[:modules] ||= {}
-    -session[:modules][name.to_s] = true if ![TrueClass, FalseClass].include?(session[:modules][name.to_s].class) or unique
-    -shown = session[:modules][name]
     -url = submenu[1][0]
-    %li{:class => (submenu[0] == rm[1] ? "current" : nil), :rm => rm.inspect, :sm => submenu.inspect}=link_to(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url])
+    -m.link(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :active => (submenu[0] == rm[1]))
 
-#side-middle
+-side_menu do |m|
+  -unless menu.hierarchy.detect{|i| i.name == :settings}
+    -m.link("labels.menus.settings".t, settings_dashboard_url)
+  -m.link(:help, "#", "data-toggle-visibility" => "#help")
 
-%ul.side-menu
-  %li=link_to("Configuration", dashboard_url("settings"), :class => "med-button settings")
-  %li=link_to("Aide", "#", :class => "med-button help", "data-toggle-visibility" => "#help")
+-if content_for?(:aside)
+  =content_for(:aside)

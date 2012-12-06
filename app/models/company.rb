@@ -300,26 +300,26 @@ class Company < ActiveRecord::Base
     self.users.find(:all, :order=>:last_name, :conditions=>{:locked=>false})
   end
 
-  def financial_year_at(searched_on=Date.today)
-    year = self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
-    unless year
-      # First
-      first = self.first_financial_year
-      unless first
-        started_on = Date.today
-        first = self.financial_years.create(:started_on => started_on, :stopped_on => (started_on >> 12).end_of_month)
-      end
-      return nil if first.started_on > searched_on
+  # def financial_year_at(searched_on=Date.today)
+  #   year = self.financial_years.where("? BETWEEN started_on AND stopped_on", searched_on).order("started_on DESC").first
+  #   unless year
+  #     # First
+  #     first = self.first_financial_year
+  #     unless first
+  #       started_on = Date.today
+  #       first = self.financial_years.create(:started_on => started_on, :stopped_on => (started_on >> 12).end_of_month)
+  #     end
+  #     return nil if first.started_on > searched_on
 
-      # Next years
-      other = first
-      while searched_on > other.stopped_on
-        other = other.find_or_create_next
-      end
-      return other
-    end
-    return year
-  end
+  #     # Next years
+  #     other = first
+  #     while searched_on > other.stopped_on
+  #       other = other.find_or_create_next
+  #     end
+  #     return other
+  #   end
+  #   return year
+  # end
 
   # Return the default currency
   def default_currency
@@ -615,20 +615,20 @@ class Company < ActiveRecord::Base
   end
 
 
-  # Search a document template and use it to compile document using preferences
-  # options[:id] permits to identify the template
-  def print(options={})
-    id = options.delete(:id)
-    template = if id.is_a? DocumentTemplate
-                 id
-               elsif id.is_a? Integer
-                 self.document_templates.find_by_id(id)
-               elsif id.is_a? String or id.is_a? Symbol
-                 self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_by_default(id.to_s, true)
-               end
-    raise Exception.new(I18n.translate("notifications.cannot_find_document_template")) unless template
-    return template.print!(options)
-  end
+  # # Search a document template and use it to compile document using preferences
+  # # options[:id] permits to identify the template
+  # def print(options={})
+  #   id = options.delete(:id)
+  #   template = if id.is_a? DocumentTemplate
+  #                id
+  #              elsif id.is_a? Integer
+  #                self.document_templates.find_by_id(id)
+  #              elsif id.is_a? String or id.is_a? Symbol
+  #                self.document_templates.find_by_code(id.to_s) || self.document_templates.find_by_nature_and_by_default(id.to_s, true)
+  #              end
+  #   raise Exception.new(I18n.translate("notifications.cannot_find_document_template")) unless template
+  #   return template.print!(options)
+  # end
 
 
 

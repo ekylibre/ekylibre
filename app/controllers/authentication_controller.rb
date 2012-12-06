@@ -33,27 +33,32 @@ class AuthenticationController < BaseController
     session[:view_mode]    = user.preference("interface.general.view_mode", "printable", :string).value
     session[:user_id]      = user.id
     # Loads modules preferences
-    session[:modules]      = {}
-    show_modules = "interface.show_modules."
-    for preference in user.preferences.where("name LIKE ?", "#{show_modules}%")
-      session[:modules][preference.name[show_modules.length..-1]] = preference.value
-    end
+    # session[:modules]      = {}
+    # show_modules = "interface.show_modules."
+    # for preference in user.preferences.where("name LIKE ?", "#{show_modules}%")
+    #   session[:modules][preference.name[show_modules.length..-1]] = preference.value
+    # end
+
     # Build and cache customized menu for all the session
-    session[:menus] = ActiveSupport::OrderedHash.new
-    for menu, submenus in Ekylibre.menus
-      fsubmenus = ActiveSupport::OrderedHash.new
-      for submenu, menuitems in submenus
-        fmenuitems = menuitems.collect do |url|
-          if user.authorization(url[:controller], url[:action], session[:rights]).nil?
-            url.merge(:url=>url_for(url))
-          else
-            nil
-          end
-        end.compact
-        fsubmenus[submenu] = fmenuitems unless fmenuitems.size.zero?
-      end
-      session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?
-    end
+    # TODO: Adds filter method to restrain menu to usable
+    
+    # session[:menu] = Ekylibre.menu # .filter_with(authorized_actions)
+
+    # session[:menus] = ActiveSupport::OrderedHash.new
+    # for menu, submenus in Ekylibre.menus
+    #   fsubmenus = ActiveSupport::OrderedHash.new
+    #   for submenu, menuitems in submenus
+    #     fmenuitems = menuitems.collect do |url|
+    #       if true # user.authorization(url[:controller], url[:action], session[:rights]).nil?
+    #         url.merge(:url=>url_for(url))
+    #       else
+    #         nil
+    #       end
+    #     end.compact
+    #     fsubmenus[submenu] = fmenuitems unless fmenuitems.size.zero?
+    #   end
+    #   session[:menus][menu] = fsubmenus unless fsubmenus.keys.size.zero?
+    # end
   end
 
 end

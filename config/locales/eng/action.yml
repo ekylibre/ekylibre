@@ -83,6 +83,7 @@ eng:
       sort: "Sort custom field choices"
     dashboards:
       accountancy: "Accountancy dashboard"
+      # config: "Config dashboard"
       finances: "Finances dashboard" #?
       general: "General dashboard" #?
       # index: "Index dashboard"

@@ -254,21 +254,21 @@ class AdminController < BaseController
     # Set session variables and check state
     session[:last_page] ||= {}
     if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
-      session[:last_url] = request.url
+      session[:last_url] = request.path
     end
     @article = search_article
     # TODO: Dynamic theme choosing
     @current_theme = "tekyla" # "zenky"
     # Check expiration
     if !session[:last_query].is_a?(Integer)
-      redirect_to_login(request.url)
+      redirect_to_login(request.path)
       return false
     elsif session[:last_query].to_i<Time.now.to_i-session[:expiration].to_i
       notify(:expired_session)
       if request.xhr?
         render :text=>"<script>window.location.replace('#{new_session_url}')</script>"
       else
-        redirect_to_login(request.url)
+        redirect_to_login(request.path)
       end
       return false
     else
@@ -281,9 +281,9 @@ class AdminController < BaseController
     # Check rights before allowing access
     if message = @current_user.authorization(self.controller_name, self.action_name, session[:rights])
       if @current_user.admin
-        notify_error_now(:access_denied, :reason=>message, :url=>request.url.inspect)
+        notify_error_now(:access_denied, :reason=>message, :url=>request.path.inspect)
       else
-        notify_error(:access_denied, :reason=>message, :url=>request.url.inspect)
+        notify_error(:access_denied, :reason=>message, :url=>request.path.inspect)
         redirect_to_back
         return false
       end
@@ -301,11 +301,11 @@ class AdminController < BaseController
   def historize()
     if @current_user and request.get? and not request.xhr? and params[:format].blank?
       session[:history] = [] unless session[:history].is_a? Array
-      if session[:history][1].is_a?(Hash) and session[:history][1][:url] == request.url
+      if session[:history][1].is_a?(Hash) and session[:history][1][:path] == request.path
         session[:history].delete_at(0)
-      elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:url] != request.url)
-        session[:history].insert(0, {:url=>request.url, :title=>self.human_action_name, :reverse=>Ekylibre.reverse_menus["#{self.controller_name}::#{self.action_name}"]||[], :path=>request.path})
-        session[:history].delete_at(31)
+      elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:path] != request.path)
+        session[:history].insert(0, {:title=>self.human_action_name, :path=>request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
+        session[:history].delete_at(30)
       end
     end
   end
@@ -422,18 +422,18 @@ class AdminController < BaseController
     return file
   end
 
-  def redirect_to_login(url=nil)
+  def redirect_to_login(url = nil)
     reset_session
     @current_user = nil
-    redirect_to(new_session_url(:redirect=>url))
+    redirect_to(new_session_url(:redirect => url))
   end
 
   def redirect_to_back(options={})
     if params[:redirect]
       redirect_to params[:redirect], options
     elsif session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
-      redirect_to session[:history][0][:url], options
-    elsif request.referer and request.referer != request.url
+      redirect_to session[:history][0][:path], options
+    elsif request.referer and request.referer != request.path
       redirect_to request.referer, options
     else
       redirect_to(:controller=>:dashboards, :action=>:general)

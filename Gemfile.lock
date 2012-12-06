@@ -254,6 +254,7 @@ DEPENDENCIES
   i18n-complements
   jquery-rails
   libxml-ruby
+  nokogiri
   paperclip
   pg
   prawn (>= 0.10.0)

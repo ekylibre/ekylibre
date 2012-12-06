@@ -1,6 +1,79 @@
 #
-desc "Update and sort menus.yml"
+
+desc "Update and sort config/menus.xml"
 task :menus => :environment do
+  print " - Menus: "
+  menu_file = Rails.root.join("config", "menu.xml")
+  
+  # Read file
+  doc = nil
+  if File.exist?(menu_file)
+    File.open(menu_file) do |f|
+      doc = Nokogiri::XML(f) do |config|
+        config.strict.nonet.noblanks
+      end
+    end
+  else
+    doc = Nokogiri::XML.new
+    doc.root = Nokogiri::XML::Node.new('menu', doc)
+  end
+
+  # Removes undefined
+  doc.xpath('//undefined').remove
+
+  ref = actions_hash
+  ref_actions = ref.collect{|c,a| a.collect{|x| "#{c}::#{x}"} }.flatten.sort
+  # puts ref.inspect
+  deleted = 0
+  unused_actions = []
+  for page in doc.xpath('//page')
+    to = page.attr("to")
+    url = to.to_s.strip.split("#")
+    if ref[url[0]]
+      page.remove_attribute('deletable')
+      ref[url[0]].delete(url[1])
+    else
+      page['deletable'] = 'true'
+      deleted += 1
+    end
+  end
+
+  
+
+
+
+
+  undefined = Nokogiri::XML::Node.new('undefined', doc)
+  for controller, actions in ref.sort
+    next unless actions.size > 0
+    menu = Nokogiri::XML::Node.new('menu', doc)
+    menu[:name] = controller
+    if first = actions.delete("index")
+      page = Nokogiri::XML::Node.new('page', doc)
+      page[:to] = "#{controller}##{first}"
+      menu.add_child(page)
+      unused_actions << page[:to]
+    end
+    for action in actions.sort
+      page = Nokogiri::XML::Node.new('page', doc)
+      page[:to] = "#{controller}##{action}"
+      menu.add_child(page)
+      unused_actions << page[:to]
+    end            
+    undefined.add_child(menu)
+  end
+
+  doc.root.add_child(undefined)
+  File.open(menu_file, 'wb') do |f|
+    f.write doc.to_s
+  end
+  print " #{unused_actions.size.to_s.rjust(3)} unused actions, #{deleted.to_s.rjust(3)} deletable actions\n"
+
+end
+
+
+desc "Update and sort menus.yml"
+task :old_menus => :environment do
   print " - Menus: "
   menus_file = Ekylibre.menus_file # Rails.root.join("config", "menus.yml")
 

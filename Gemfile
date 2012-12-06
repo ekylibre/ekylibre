@@ -25,6 +25,7 @@ gem 'acts_as_tree'
 gem 'simple_form'
 gem 'paperclip'
 gem 'thin'
+gem 'nokogiri'
 
 # Gems used only for assets and not required
 # in production environments by default.
