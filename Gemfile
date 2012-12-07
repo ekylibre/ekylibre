@@ -23,9 +23,12 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'simple_form'
-gem 'paperclip'
+gem "paperclip"
+gem 'googlecharts'
 gem 'thin'
-
+# for geo
+gem 'activerecord-postgis-adapter'
+gem 'thinreports-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -52,4 +55,5 @@ end
 
 group :development do
   gem 'rack-mini-profiler'
+  gem 'rails-erd'
 end

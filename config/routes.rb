@@ -63,6 +63,8 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_cares
       get :list_children
+      match "print", :via => [:get, :post]
+     # match "/print" => "animals#print"
     end
   end
   resources :animal_cares do

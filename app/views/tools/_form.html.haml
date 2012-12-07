@@ -4,7 +4,10 @@
   =f.association :nature, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
   =f.input :name# affiche le champ name de l entité animal avec une infos derriere
   =f.input :comment, :field=>:textarea # affiche le champ comment
-  
+
+=field_set(@tool, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
+  =f.input :picture, :multiple => true
+
 =field_set(@tool, :assets_informations) do |f| # partie info general de l entité animal
   =f.association :asset
   =f.input :purchased_on

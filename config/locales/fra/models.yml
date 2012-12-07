@@ -1214,6 +1214,7 @@ fra:
       invalid_filename: "Fichier"
       nature_do_not_allow_to_use_attributes: "La nature du modèle ne permet pas d’utiliser d’attributs"
       natures:
+        animal: "Fiche animal"
         balance: "Balance"
         balance_sheet: "Bilan comptable"
         deposit: "Remise en banque"

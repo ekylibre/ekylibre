@@ -33,11 +33,11 @@
 
 
 class Tool < CompanyRecord
-  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on
+  attr_accessible :nature_id, :asset_id, :picture, :name, :comment, :purchased_on, :ceded_on, :consumption, :state
+  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   has_many :uses, :class_name=>"OperationUse"
   belongs_to :nature, :class_name=>"ToolNature"
   belongs_to :asset, :class_name=>"Asset"
-  has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :consumption, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255

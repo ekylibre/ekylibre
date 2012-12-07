@@ -148,6 +148,7 @@ __public__:
   - "animal_races::new"
   - "animal_races::show"
   - "animals::create"
+  - "animals::print"
   - "animals::edit"
   - "animals::index"
   - "animals::list"

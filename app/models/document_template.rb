@@ -67,6 +67,7 @@ class DocumentTemplate < CompanyRecord
   @@document_natures = {
 #    :journal =>          [ [:journal, Journal], [:started_on, Date], [:stopped_on, Date] ]  }
 # {
+    :animal =>           [ [:animal, Animal]],
     :balance_sheet =>    [ [:financial_year, FinancialYear] ],
     :entity =>           [ [:entity, Entity] ],
     :deposit =>          [ [:deposit, Deposit] ],

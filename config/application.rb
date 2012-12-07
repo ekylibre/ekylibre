@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'active_record/connection_adapters/postgis_adapter/railtie'
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -31,8 +32,8 @@ module Ekylibre
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :eng
-    config.i18n.locale = :eng
+    config.i18n.default_locale = :fra
+    config.i18n.locale = :fra
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
