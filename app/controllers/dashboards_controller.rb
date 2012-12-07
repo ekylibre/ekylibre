@@ -49,10 +49,13 @@ class DashboardsController < AdminController
     t.column :name, :through=>:unit
   end
 
-  for menu, submenus in Ekylibre.menus
-    code  = "def #{menu}\n"
-    code += "  render :inline=>'<%=render :partial=>\"dashboards/#{menu}\"-%>', :layout=>dialog_or_not\n"
-    code += "end\n"
+
+  for menu in Ekylibre.menu.with_menus do
+    h = menu.hierarchy.collect{|m| m.name }[1..-1]
+    next if h.empty?
+    code  = "def " + h.join("_") + "\n"
+    code << "  render :file => 'dashboards/" + h.join("/") + "', :layout => dialog_or_not\n"
+    code << "end\n"
     class_eval code
   end
 
@@ -61,10 +64,6 @@ class DashboardsController < AdminController
 
   def welcome
     redirect_to :action => :index
-  end
-
-  def settings
-    render :inline=>'<%=render :partial=>"dashboards/settings"-%>', :layout=>dialog_or_not
   end
 
 end

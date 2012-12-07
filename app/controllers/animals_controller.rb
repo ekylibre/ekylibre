@@ -19,7 +19,8 @@
 
 class AnimalsController < AdminController
   manage_restfully :multipart => true
-
+  respond_to :html, :xml, :pdf
+  
   list do |t|
     t.column :identification_number, :url => true
     t.column :name, :url=>true
@@ -35,6 +36,13 @@ class AnimalsController < AdminController
   end
 
   # Show a list of animal groups
+  
+
+  def print
+    @animal = Animal.all
+    respond_with @animal
+  end
+
   def index
   end
 
@@ -55,9 +63,16 @@ class AnimalsController < AdminController
 
   # Show one animals with params_id
   def show
-    return unless @animal = find_and_check(:animal)
-    session[:current_animal_id] = @animal.id
-    t3e @animal
+    respond_to do |format|
+      return unless @animal = find_and_check(:animal)
+      format.html do
+        session[:current_animal_id] = @animal.id
+        t3e @animal
+      end
+      format.pdf { render_print_animal(@animal) }
+      format.json { render json: @animal }
+      format.xml { render xml: @animal }
+    end
   end
 
 end

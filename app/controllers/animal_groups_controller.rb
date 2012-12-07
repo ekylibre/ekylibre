@@ -18,6 +18,7 @@
 #
 
 class AnimalGroupsController < AdminController
+  require 'gchart'
   manage_restfully
 
   list do |t|
@@ -51,6 +52,10 @@ class AnimalGroupsController < AdminController
     return unless @animal_group = find_and_check
     session[:current_animal_group_id] = @animal_group.id
     t3e @animal_group
+    # construction d'un camenbert avec le nombre de soins pour le lot d'animaux selectionné
+    @chart = Gchart.pie_3d(:title => "Soin du groupe "+@animal_group.name,
+                        :bg => 'efefef',
+                        :data => [@animal_group.animal_cares.count])
   end
 
 end

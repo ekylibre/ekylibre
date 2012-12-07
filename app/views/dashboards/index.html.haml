@@ -1,5 +1,6 @@
 #main-menu
-  -for menu, submenus in menus
-    =link_to(last_page(menu), :class=>"big-button #{menu}", :title => tl("menus.#{menu}")) do
+  -for menu in menus
+    -next if menu.name == :settings
+    =link_to(menu.default_page.url_options, :class=>"big-button #{menu.name}", :title => tl("menus.#{menu.name}")) do
       %span.icon
-      %span.text=tl("menus.#{menu}")
+      %span.text=tl("menus.#{menu.name}")

@@ -42,8 +42,8 @@
 #
 
 class Document < CompanyRecord
-  belongs_to :owner, :polymorphic=>true
-  belongs_to :template, :class_name=>"DocumentTemplate"
+  belongs_to :owner, :polymorphic => true
+  belongs_to :template, :class_name => "DocumentTemplate"
 
   attr_accessor :archive
 

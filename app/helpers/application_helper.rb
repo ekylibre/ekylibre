@@ -85,24 +85,27 @@ module ApplicationHelper
 
 
   def authorized?(url={})
+    return true if url == "#"
     if url.is_a?(String) and url.match(/\#/)
       action = url.split("#")
       url = {:controller => action[0].to_sym, :action => action[1].to_sym}
     end
-    url[:controller]||=controller_name
+    url[:controller] ||= controller_name if url.is_a?(Hash)
     AdminController.authorized?(url)
   end
 
   # It's the menu generated for the current user
   # Therefore: No current user => No menu
   def menus
-    session[:menus]
+    Ekylibre.menu # session[:menu]
   end
 
   # Return an array of menu and submenu concerned by the action (controller#action)
   def reverse_menus(action=nil)
-    action ||= "#{self.controller.controller_name}::#{action_name}"
-    Ekylibre.reverse_menus[action]||[]
+    # action ||= "#{self.controller.controller_name}::#{action_name}"
+    # Ekylibre.reverse_menus[action]||[]
+    return []
+    Ekylibre.menu.stack(controller_name, action_name)
   end
 
   # LEGALS_ITEMS = [h("Ekylibre " + Ekylibre.version),  h("Ruby on Rails " + Rails.version),  h("Ruby "+ RUBY_VERSION.to_s)].join(" &ndash; ".html_safe).freeze
@@ -150,6 +153,9 @@ module ApplicationHelper
     return unless amount and currency
     return currency.to_currency.localize(amount, options)
   end
+
+
+
 
 
 
@@ -372,6 +378,7 @@ module ApplicationHelper
 
 
 
+
   def last_page(menu)
     session[:last_page][menu.to_s]||url_for(:controller => :dashboards, :action => menu)
   end
@@ -419,7 +426,7 @@ module ApplicationHelper
   end
 
   def title_tag
-    r = reverse_menus
+    r = [] # reverse_menus
     title = if @current_user
               code = URI::parse(request.url).host.split(".")[-3].to_s
               if r.empty?
@@ -463,6 +470,51 @@ module ApplicationHelper
     return '' if path.nil?
     render(:partial => 'layouts/side', :locals => {:path => path})
   end
+
+  def side_menu(options={}, &block)
+    return "" unless block_given?
+    menu = Menu.new
+    yield menu
+
+    html = "".html_safe
+    for args in menu.items
+      name = args[0]
+      args[1] ||= {}
+      args[2] ||= {}
+      li_options = {}
+      if args[2].delete(:active)
+        li_options[:class] = 'active'
+      end
+      if name.is_a?(Symbol)
+        kontroller = (args[1].is_a?(Hash) ? args[1][:controller] : nil) || controller_name
+        args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+      end
+      if icon = args[2].delete(:icon)
+        args[0] = h(args[0]) + ' '.html_safe + content_tag(:i, '', :class => "icon-"+icon.to_s)
+      end
+      if name.is_a? Symbol and name!=:back
+        args[1][:action] ||= name if args[1].is_a?(Hash)
+      end
+      html << content_tag(:li, link_to(*args), li_options) if authorized?(args[1])
+    end
+
+    content_for(:aside, content_tag(:ul, html.html_safe, :class => "side-menu"))
+
+    return nil
+  end
+
+  class Menu
+    attr_reader :items
+
+    def initialize
+      @items = []
+    end
+
+    def link(name, *args)
+      @items << [name, *args]
+    end
+  end
+
 
   def side_module(name, options={}, &block)
     session[:modules] ||= {}

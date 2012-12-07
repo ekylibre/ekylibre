@@ -40,73 +40,29 @@ module Ekylibre::Record
     end
 
 
-    if Rails.version.match(/^2\.3/)
 
-      def update_strictly(attribute_names = @attributes.keys)
-        self.send(:update_without_callbacks) # , attribute_names
-      end
+    # Updates the associated record with values matching those of the instance attributes.
+    # Returns the number of affected rows.
+    def update_strictly(attribute_names = @attributes.keys)
+      attributes_with_values = arel_attributes_values(false, false, attribute_names)
+      return 0 if attributes_with_values.empty?
+      klass = self.class
+      stmt = klass.unscoped.where(klass.arel_table[klass.primary_key].eq(id)).arel.compile_update(attributes_with_values)
+      klass.connection.update stmt
+    end
 
-      def create_strictly
-        self.send(:create_without_callbacks)
-      end
+    # Creates a record with values matching those of the instance attributes
+    # and returns its id.
+    def create_strictly
+      attributes_values = arel_attributes_values(!id.nil?)
 
-    elsif Rails.version.match(/^3\.0/)
+      new_id = self.class.unscoped.insert attributes_values
 
-      # Updates the associated record with values matching those of the instance attributes.
-      # Returns the number of affected rows.
-      def update_strictly(attribute_names = @attributes.keys)
-        attributes_with_values = arel_attributes_values(false, false, attribute_names)
-        return 0 if attributes_with_values.empty?
-        self.class.unscoped.where(self.class.arel_table[self.class.primary_key].eq(id)).arel.update(attributes_with_values)
-      end
+      self.id ||= new_id
 
-
-      # Creates a record with values matching those of the instance attributes
-      # and returns its id.
-      def create_strictly
-        if self.id.nil? && connection.prefetch_primary_key?(self.class.table_name)
-          self.id = connection.next_sequence_value(self.class.sequence_name)
-        end
-
-        attributes_values = arel_attributes_values
-
-        new_id = if attributes_values.empty?
-                   self.class.unscoped.insert connection.empty_insert_statement_value
-                 else
-                   self.class.unscoped.insert attributes_values
-                 end
-
-        self.id ||= new_id
-
-        @new_record = false
-        id
-      end
-
-    else
-
-      # Updates the associated record with values matching those of the instance attributes.
-      # Returns the number of affected rows.
-      def update_strictly(attribute_names = @attributes.keys)
-        attributes_with_values = arel_attributes_values(false, false, attribute_names)
-        return 0 if attributes_with_values.empty?
-        klass = self.class
-        stmt = klass.unscoped.where(klass.arel_table[klass.primary_key].eq(id)).arel.compile_update(attributes_with_values)
-        klass.connection.update stmt
-      end
-
-      # Creates a record with values matching those of the instance attributes
-      # and returns its id.
-      def create_strictly
-        attributes_values = arel_attributes_values(!id.nil?)
-
-        new_id = self.class.unscoped.insert attributes_values
-
-        self.id ||= new_id
-
-        IdentityMap.add(self) if defined?(IdentityMap) and IdentityMap.enabled?
-        @new_record = false
-        id
-      end
+      IdentityMap.add(self) if defined?(IdentityMap) and IdentityMap.enabled?
+      @new_record = false
+      id
     end
 
 

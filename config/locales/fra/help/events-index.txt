@@ -10,5 +10,5 @@ Il est possible de créer {{theme:icons/new.png|créer}}, modifier {{theme:icons
 
 Les évènements ne sont jamais //verrouillés// et peuvent être modifiés et/ou supprimés à tout moment.
 
->>> Si vous enregistrez un rendez-vous à venir, il vous sera affiché sur la [[>dashboards/relations|page d'accueil du module]].
+>>> Si vous enregistrez un rendez-vous à venir, il vous sera affiché sur la [[>dashboards/relationship|page d'accueil du module]].
 

@@ -162,11 +162,12 @@ def actions_in_file(path, controller)
       actions << prefix+'_delete'
     end
   end
-  if controller.to_s == "dashboards"
-    for menu in Ekylibre.menus.keys
-      actions << menu.to_s
-    end
-  end
+  # TODO: Reactivate dashboards
+  # if controller.to_s == "dashboards"
+  #   for menu in Ekylibre.menus.keys
+  #     actions << menu.to_s
+  #   end
+  # end
 
   return actions
 end

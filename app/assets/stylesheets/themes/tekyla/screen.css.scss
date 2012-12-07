@@ -197,6 +197,14 @@ html {
 }
 
 
+i { 
+  @include inline-block;
+  width: 16px;
+  height: 16px;
+  &.icon-up { @include icons-sprite(up) }
+  &.icon-inside { @include icons-sprite(right) }
+}
+
 
 #side { 
   @include respond-to(phone) {
@@ -213,13 +221,17 @@ html {
     li {
       display:block;
       margin-top: -1 * $menu-border-width;
-      $padding: round($fs-normal*0.7);
+      $padding: round($fs-normal*0.7) (round($fs-normal*0.7)+16px)  round($fs-normal*0.7) round($fs-normal*0.7);
       a { 
         background: white;
         display:block;
         padding: $padding;
         border: $menu-border;
         @include ellipsis;
+        i { 
+          @include float(right);
+          margin: 0 -1*(round($fs-normal*0.35)+16px) 0 0;
+        }
       }
       &:first-child { 
         margin-top: 0;
@@ -236,7 +248,7 @@ html {
         background: mix(white, $menu-border-color, 80%);
         text-decoration: none;
       }
-      &.current { 
+      &.current, &.active { 
         position: relative;
         z-index: 2;
         a {
