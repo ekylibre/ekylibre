@@ -156,6 +156,9 @@ module ApplicationHelper
 
 
 
+
+
+
   def preference(name)
     # name = self.controller.controller_name.to_s << name.to_s if name.to_s.match(/^\./)
     @current_company.preference(name)
@@ -372,6 +375,7 @@ module ApplicationHelper
     end
 
   end
+
 
 
 

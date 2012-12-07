@@ -145,7 +145,7 @@ class AdminController < BaseController
         response.headers["X-Return-Code"] = "success"
         response.headers["X-Saved-Record-Id"] = record.id.to_s
         if params[:dialog]
-          render :json=>{:id=>record.id}
+          render :json => {:id => record.id}
         else
           # TODO: notif
           if url == :back
@@ -301,12 +301,9 @@ class AdminController < BaseController
   def historize()
     if @current_user and request.get? and not request.xhr? and params[:format].blank?
       session[:history] = [] unless session[:history].is_a? Array
-      if session[:history][1].is_a?(Hash) and session[:history][1][:path] == request.path
-        session[:history].delete_at(0)
-      elsif session[:history][0].nil? or (session[:history][0].is_a?(Hash) and session[:history][0][:path] != request.path)
-        session[:history].insert(0, {:title=>self.human_action_name, :path=>request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
-        session[:history].delete_at(30)
-      end
+      session[:history].delete_if { |h| h[:path] == request.path }
+      session[:history].insert(0, {:title=>self.human_action_name, :path=>request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
+      session[:history].delete_at(30)
     end
   end
 
@@ -480,6 +477,17 @@ class AdminController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
 
+    url = "#{record_name}_url(@#{record_name})" if url.blank?
+    # if url.blank?
+    #   named_url = "#{record_name}_url"
+    #   if respond_to?(named_url)    
+    #     url = named_url+"(@#{record_name})" 
+    #   elsif
+    #     named_url = "#{record_name.pluralize}_url"
+    #     url = named_url if respond_to?(named_url)
+    #   end
+    # end
+
 
     render_form_options = []
     if defaults.has_key?(:partial)
@@ -548,7 +556,7 @@ class AdminController < BaseController
     code += "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
     code += "end\n"
 
-    # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+    code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     class_eval(code)
   end
 

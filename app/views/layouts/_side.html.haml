@@ -1,4 +1,5 @@
--##help=render :partial=>"help/search", :object=>@article
+-content_for(:popover) do
+  #help=render :partial=>"help/search", :object=>@article
 
 -current_page = menus.page(controller_name, action_name)
 -menu = current_page.useful_menu
@@ -7,7 +8,7 @@
   -if request.url == root_url
     -m.link(:logout, session_url, :method => :delete)
   -else
-    -m.link(:back, root_url, :icon => :up)
+    -m.link(:root, root_url, :icon => :up)
     -if menu and menu.hierarchy.size > 2
       -for item in menu.hierarchy[1..-2]
         -m.link(item.human_name, item.default_page.url_options, :icon => :up)
@@ -25,18 +26,11 @@
         -m.link(item.human_name, item.default_page.url_options, attrs)
 
 
--#side_menu do |m|
-  -rm = reverse_menus("#{controller_name}::#{action_name}")
-  -# raise session[:menus].keys.inspect
-  -
-  -for submenu in session[:menus][path[0]]||[]
-    -name = "menu.#{path[0]}.#{submenu[0]}"
-    -url = submenu[1][0]
-    -m.link(t("actions.#{url[:controller]}.#{url[:action]}"), url[:url], :active => (submenu[0] == rm[1]))
-
 -side_menu do |m|
   -unless menu.hierarchy.detect{|i| i.name == :settings}
-    -m.link("labels.menus.settings".t, settings_dashboard_url)
+    -expected = "settings_" + menu.hierarchy[1..-1].collect{|m| m.name}.join("_") + "_dashboard_url"
+    -url = (respond_to?(expected) ? send(expected) : settings_dashboard_url)
+    -m.link("labels.menus.settings".t, url)
   -m.link(:help, "#", "data-toggle-visibility" => "#help")
 
 -if content_for?(:aside)
