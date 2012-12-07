@@ -1,8 +1,8 @@
 -content_for(:popover) do
-  #help=render :partial=>"help/search", :object=>@article
+  #help=render :partial=>"help/search", :object => @article
 
 -current_page = menus.page(controller_name, action_name)
--menu = current_page.useful_menu
+-menu = current_page.useful_menu if current_page
 
 -side_menu do |m|
   -if request.url == root_url

@@ -241,6 +241,9 @@ class AdminController < BaseController
     controller_rights = {} unless controller_rights = User.rights[self.controller_name.to_sym]
     action_rights = controller_rights[self.action_name.to_sym]||[]
 
+    # Search help article
+    @article = search_article
+
     # Returns if action is public
     return true if action_rights.include?(:__public__)
 
@@ -256,7 +259,6 @@ class AdminController < BaseController
     if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
       session[:last_url] = request.path
     end
-    @article = search_article
     # TODO: Dynamic theme choosing
     @current_theme = "tekyla" # "zenky"
     # Check expiration
@@ -400,7 +402,7 @@ class AdminController < BaseController
 
 
 
-  def search_article(article=nil)
+  def search_article(article = nil)
     session[:help_history] = [] unless session[:help_history].is_a? [].class
     article ||= "#{self.controller_name}-#{self.action_name}"
     file = nil
