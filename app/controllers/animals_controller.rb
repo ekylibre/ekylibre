@@ -19,7 +19,6 @@
 
 class AnimalsController < AdminController
   manage_restfully :multipart => true
-  respond_to :html, :xml, :pdf
   
   list do |t|
     t.column :identification_number, :url => true
@@ -37,13 +36,14 @@ class AnimalsController < AdminController
 
   # Show a list of animal groups
   
-
-  def print
-    @animal = Animal.all
-    respond_with @animal
-  end
-
   def index
+    @animals = Animal.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @animals }
+      # Example: Basic Usage
+      format.pdf { render_animals_list(@animals) }
+    end
   end
 
   # Liste des soins de l'animal considéré
@@ -69,10 +69,30 @@ class AnimalsController < AdminController
         session[:current_animal_id] = @animal.id
         t3e @animal
       end
-      format.pdf { render_print_animal(@animal) }
       format.json { render json: @animal }
       format.xml { render xml: @animal }
+      format.pdf {
+        send_data render_to_string, filename: "animal#{@animal.id}.pdf",
+                                    type: 'application/pdf',
+                                    disposition: 'inline'
+      }
     end
   end
+  
+  def render_animals_list(animals)
+    report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'animals.tlf')
+
+    animals.each do |animal|
+      report.list.add_row do |row|
+        row.values no: animal.id, 
+                   name: animal.name
+      end
+    end
+    
+    send_data report.generate, filename: 'animals.pdf', 
+                               type: 'application/pdf', 
+                               disposition: 'attachment'
+  end
+
 
 end

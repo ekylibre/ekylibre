@@ -1,0 +1,30 @@
+====== Soins ======
+
+Les soins peuvent concerner un [[>animals/index|animal]] ou un groupe d'animaux [[>animal_groups/index|groupe d'animaux]]
+
+===== Gestion de la pharmacie =====
+
+Vous pouvez gérer une pharmacie pour votre exploitation avec la listes des [[>drugs/index|médicaments]] utilisés pour vos soins
+Cette pharmacie peut être directement liée à votre stock de produit
+
+Le type de compte est défini **à la création**. Vous ne pourrez pas le modifier une fois créé. 
+S'il n'a pas servi vous pourrez toujours le supprimer.
+
+===== Comptes bancaires =====
+Un compte bancaire est d'un compte ouvert par une banque au nom d'un particulier ou d'un commerce pour permettre à ce dernier de faire diverses opérations financières telles que déposer, retirer ou emprunter de l'argent, faire des chèques... 
+
+!!! Ne pas confondre les //comptes bancaires// et les [[>accounts/index|comptes comptables]].
+
+==== Informations nécessaires ====
+
+Pour renseigner vos informations concernant vos compte bancaires, il vous suffit de vous munir de vos **Relevés d'Identité Bancaire**.
+
+==== Gestion d'un compte bancaire ====
+
+Les comptes sont modifiables à volonté et supprimables tant qu'aucun relevés de compte bancaire n'a été pointé pour ce dernier.
+
+Vous pouvez décrire le compte bancaire et notamment la banque qui le gére. Ces informations pourront être affichées sur des documents tels que des remises en banque.
+
+===== Caisses =====
+Une caisse est une //banque personnelle//. Elle vous permet d'encaisser des règlements en espèces et/ou à encaisser à la banque (comme les chèques).
+Elle ne nécessite aucune information comme les RIB.

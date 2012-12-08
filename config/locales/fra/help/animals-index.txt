@@ -1,7 +1,19 @@
 ====== Animaux ======
 
-===== Définition =====
+===== Liste des animaux =====
 
-===== Utilisation =====
-Ici, vous pouvez [[>animals/new|créer]], modifier {{theme:icons/edit.png}} ou même supprimer {{theme:icons/destroy.png}} des animaux.
+Ici, vous pouvez [[>animals/new|créer]], modifier {{theme:icons/edit.png}} ou supprimer {{theme:icons/destroy.png}} des animaux.
 
+!!! Lors d'une naissance , il faut [[>animals/new|créer]] un nouvel animal
+
+!!! Lors d'une sortie ( vente / décès ) , il faut [[>animals/outgone|sortir]] l'animal en question et non pas le supprimer
+
+===== Calendrier =====
+
+
+
+>>> Exemple~: 411MARTIN
+
+!!! Exemple~: 411MARTIN
+
+= TEST =
