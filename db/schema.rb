@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204181101) do
+ActiveRecord::Schema.define(:version => 20121202181101) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1305,16 +1305,6 @@ ActiveRecord::Schema.define(:version => 20121204181101) do
   add_index "listings", ["root_model"], :name => "index_listings_on_root_model"
   add_index "listings", ["updated_at"], :name => "index_listings_on_updated_at"
   add_index "listings", ["updater_id"], :name => "index_listings_on_updater_id"
-
-  create_table "locations", :force => true do |t|
-    t.string   "name"
-    t.spatial  "latlon",       :limit => {:srid=>4326, :type=>"point", :geographic=>true}
-    t.datetime "created_at",                                                                              :null => false
-    t.datetime "updated_at",                                                                              :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                             :default => 0, :null => false
-  end
 
   create_table "mandates", :force => true do |t|
     t.date     "started_on"
