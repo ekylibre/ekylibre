@@ -1,12 +1,11 @@
-=formalize do |f|
-  - f.error :subscription_nature
+=field_set(@subscription_nature, :general_informations) do |f|
+  =f.error :subscription_nature
   -if @subscription_nature.new_record?
-    - f.field :subscription_nature, :nature, :field=>:radio, :choices=>SubscriptionNature.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options"}]}
+    =f.input :nature, :as => :radio_buttons, :collection => SubscriptionNature.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options"}]}
   -else
-    - f.field @subscription_nature.class.human_attribute_name("nature"), @subscription_nature.nature_label
-  - f.field :subscription_nature, :name
-  - f.field :subscription_nature, :reduction_rate
-  - f.field :subscription_nature, :entity_link_nature_id, :choices=>{:reflection=>:entity_link_natures, :include_blank=>true}, :new=>true
-  - f.field :subscription_nature, :comment, :field=>:textarea
-=formalize(:id=>:quantity_options) do |f|
-  - f.field :subscription_nature, :actual_number
+    =f.input :nature_label
+  =f.input :name
+  =f.input :reduction_rate
+  =f.association :entity_link_nature, :include_blank => true
+  =f.input :comment
+  =f.input :actual_number

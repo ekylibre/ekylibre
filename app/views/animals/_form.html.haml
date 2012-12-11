@@ -11,14 +11,15 @@
 
 =field_set(@animal, :image, :html => { :multipart => true }) do |f|# partie entrée sortie de l entité animal
   =f.input :picture, :multiple => true
+  =image_tag(@animal.picture.url(:thumb))
 
 =field_set(@animal, :genealogy) do |f| # partie entrée sortie de l entité animal
   =f.association :father, :collection => Animal.where(:sex => "male").order("name ASC")
   =f.association :mother, :collection => Animal.where(:sex => "female").order("name ASC")
 
 =field_set(@animal, :stocks_informations) do |f| # partie entrée sortie de l entité animal
-  =f.input :income_on
-  =f.input :outgone_on
-  =f.input :purchased_on
+  =f.input :income_on, :include_blank => true, :default_value => :blank
+  =f.input :outgone_on, :include_blank => true, :default_value => :blank
+  =f.input :purchased_on, :include_blank => true, :default_value => :blank
 
 
