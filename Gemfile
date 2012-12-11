@@ -2,12 +2,8 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-gem 'pg'
-# gem 'mysql'
-# gem 'sqlite3'
+gem 'activerecord-postgis-adapter'
+# gem 'activerecord-spatialite-adapter'
 
 gem 'haml'
 gem 'fastercsv'
@@ -24,12 +20,11 @@ gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'simple_form'
 gem "paperclip"
-gem 'googlecharts'
+gem "paper_trail"
 gem 'thin'
-# for geo
-gem 'activerecord-postgis-adapter'
 gem 'thinreports-rails'
 gem 'nokogiri'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -39,6 +34,7 @@ group :assets do
   gem 'bootstrap-sass'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
+  gem 'libv8', '~> 3.11.8'
   gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'
