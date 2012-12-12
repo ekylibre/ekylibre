@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211145304) do
+ActiveRecord::Schema.define(:version => 20121212181101) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -572,6 +572,31 @@ ActiveRecord::Schema.define(:version => 20121211145304) do
   add_index "deposits", ["creator_id"], :name => "index_embankments_on_creator_id"
   add_index "deposits", ["updated_at"], :name => "index_embankments_on_updated_at"
   add_index "deposits", ["updater_id"], :name => "index_embankments_on_updater_id"
+
+  create_table "diseases", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.string   "code"
+    t.string   "zone"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "diseases", ["created_at"], :name => "index_diseases_on_created_at"
+  add_index "diseases", ["creator_id"], :name => "index_diseases_on_creator_id"
+  add_index "diseases", ["name"], :name => "index_diseases_on_name"
+  add_index "diseases", ["updated_at"], :name => "index_diseases_on_updated_at"
+  add_index "diseases", ["updater_id"], :name => "index_diseases_on_updater_id"
+
+  create_table "diseases_animal_cares", :id => false, :force => true do |t|
+    t.integer "animal_care_id"
+    t.integer "disease_id"
+  end
+
+  add_index "diseases_animal_cares", ["animal_care_id"], :name => "index_diseases_animal_cares_on_animal_care_id"
+  add_index "diseases_animal_cares", ["disease_id"], :name => "index_diseases_animal_cares_on_disease_id"
 
   create_table "districts", :force => true do |t|
     t.string   "name",                        :null => false

@@ -13,6 +13,7 @@
   =f.association :entity
 
 =field_set(@animal_care, :medical_informations) do |f|
+  =f.association :diseases, :as => :check_boxes
   =f.association :drugs, :as => :check_boxes
 
 =field_set(@animal_care, :third_informations) do |f|
