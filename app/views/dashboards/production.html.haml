@@ -5,14 +5,14 @@
     %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations
 
 =dashboard(:production) do
-  -cell :placeholder
   -cell :demo_bar
   -#hbox do
-    -cell :fist_of_flame, :hidden => true
     -cell :ill_animals
     -cell :milk_temperature
   -hbox do
     -cell :last_cares
+    -cell :demo_pie
+  -hbox do
     -cell :placeholder
-  -cell :placeholder
-  -cell :placeholder
+    -cell :placeholder
+    -cell :placeholder
