@@ -46,6 +46,7 @@ Ekylibre::Application.routes.draw do
   namespace :admin do
     namespace :cells do
       resource :demo_bar_cell, :only => :show
+      resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
 
       resource :last_cares_cell, :only => :show do
