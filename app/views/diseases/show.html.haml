@@ -1,0 +1,13 @@
+=toolbar do |t|
+  -t.edit @disease
+  -t.print_entity @disease
+  -t.destroy(@disease, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @disease.destroyable?
+
+=attributes_list(@disease) do |l| # liste des champs à afficher
+  -l.attribute :name
+  -l.attribute :code
+  -l.attribute :zone
+
+=tabbox(:disease) do |tb|
+  -tb.tab(:cares) do
+    =list(:cares)
