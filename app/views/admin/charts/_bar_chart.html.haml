@@ -1,0 +1,24 @@
+-height = 200
+-w = (height * 0.2).round
+-width = values.size * w
+-count = 5
+-quantity = (values.values.max.to_f / (count*10)).round*10
+-max = count * quantity
+-k = height.to_f/max
+-axis_margin = w*0.1
+%svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :width => "100%", :height => height, :viewBox => "#{-30} 0 #{width + 30} #{height + 50*1.5 }"}
+  -# Left graduation
+  %line{:x1 => -axis_margin, :y1 => -axis_margin, :x2 => -axis_margin, :y2 => (height + axis_margin), :style => "stroke-width: 2px; stroke: #AAA;"}
+  -count.times do |index|
+    -y=quantity*k*(index+1)
+    %text{:x => -axis_margin*2, :width=>0.8*w, "text-anchor" => "end", :y => y + 5}=quantity*(count-index-1)
+    %line{:x1 => -2*axis_margin, :y1 => y, :x2 => 0, :y2 => y, :style => "stroke-width: 2px; stroke: #AAA;"}
+ 
+
+  -# Bars
+  %line{:x1 => -axis_margin, :y1 => (axis_margin+height), :x2 => (width+axis_margin), :y2 => (height + axis_margin), :style => "stroke-width: 2px; stroke: #AAA;"}
+  -values.each_with_index do |pair, index|
+    -label, value = pair[0], pair[1]
+    %rect{:x => index*w + w*0.1, :width=>0.8*w, :height => value*k, :y => (height - value*k), :fill => "#"+3.times.collect{rand(256).to_s(16).rjust(2,'0')}.join}
+    %text{:x => index*w + w*0.5, :width=>0.8*w, "text-anchor" => "end", :transform => "rotate(290, #{index*w + 0.6*w}, #{height + w*0.3})", :y => (height + w*0.3)}=label
+    
