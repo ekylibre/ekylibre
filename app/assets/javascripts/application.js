@@ -18,5 +18,11 @@
 //= require combo_box
 //= require big-integer
 //= require scheme-number
+//= require raphael
+//= require g.raphael
+//= require g.bar
+//= require g.line
+//= require g.dot.js
+//= require g.pie
 //= require bootstrap
 //= require_tree .

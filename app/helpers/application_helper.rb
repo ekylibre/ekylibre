@@ -377,6 +377,70 @@ module ApplicationHelper
   end
 
 
+  def svg(options = {}, &block)
+    return content_tag(:svg, capture(&block))
+  end
+
+
+  def cell(title, &block)
+    return content_tag(:h3, title) +
+      content_tag(:div, capture(&block), :class => "cell-content")
+  end
+
+  def dashboard(name, &block)
+    html = ""
+    return html unless block_given?
+    board = Dashboard.new(name)
+    if block.arity < 1
+      board.instance_eval(&block)
+    else
+      block[board] 
+    end
+    html << "<div class=\"dashboard dashboard-#{board.name}\">"
+    for box in board.boxes
+      count = box.size
+      next if count.zero?
+      html << "<div class=\"box box-#{count}-cells\">"
+      box.each_with_index do |cell, index|
+        html << "<div class=\"cell cell-#{index+1}\">"
+        html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell[:name]}_cells", :action => :show)+"\">"
+        html << "</div>"
+        html << "</div>"
+      end
+      html << "</div>"
+    end
+    html << "</div>"
+    return html.html_safe
+  end
+
+  class Dashboard
+    attr_reader :name, :boxes
+
+    def initialize(name)
+      @name = name
+      @boxes = []
+      @current_box = nil
+    end
+
+    def cell(name, options = {})
+      c = {:name => name, :options => options}
+      if @current_box
+        @current_box << c
+      else
+        @boxes << [c]
+      end
+    end
+
+    def hbox(&block)
+      raise Exception.new("Cannot define hbox in hbox") if @current_box
+      @current_box = []
+      block[self] if block_given?
+      @boxes << @current_box unless @current_box.empty?
+      @current_box = nil
+    end
+
+  end
+
 
 
   def last_page(menu)

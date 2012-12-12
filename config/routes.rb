@@ -43,6 +43,17 @@ Ekylibre::Application.routes.draw do
 
   resources :help, :only => [:index, :show]
 
+  namespace :admin do
+    namespace :cells do
+      resource :demo_bar_cell, :only => :show
+      resource :placeholder_cell, :only => :show
+
+      resource :last_cares_cell, :only => :show do
+        get :list, :on => :collection
+      end
+    end
+  end
+
   # Check that the id is an integer
   # constraints(:id => /[0-9]+/) do
 

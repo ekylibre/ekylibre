@@ -1148,13 +1148,13 @@ input[data-datepicker] {@include text-align(center)}
 #main-menu { 
   @include text-align(center);
   .big-button:link, .big-button:visited {
-    @media (min-width: 768px) { 
+    @media screen and (min-width: 768px) { 
       @include big-button(160px);
     }
-    @media (max-width: 767px) { 
+    @media screen and (max-width: 767px) { 
       @include big-button(100px);
     }
-    @media (max-width: 480px) { 
+    @media screen and (max-width: 480px) { 
       @include big-button(60px);
     }
   }
@@ -1233,7 +1233,54 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
+.dashboard { 
+  .box {
+    $min-width: 200px;
+    @for $i from 1 through 10 { 
+      &.box-#{ $i }-cells {
+        .cell {
+          width: (100% / $i);
+          @media screen and (max-width: 1.2*$i*$min-width) {
+            width: 100%;
+          }
+        }
+      }
+    }
+    @include clearfix;
+    .cell {
+      @include float(left);            
+      .cell-inner { 
+        &.loading { 
+          min-height: $min-width;
+          background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
+        }
+        border: 1px solid #DDD;
+        padding: 8px;
+        @include border-radius(3px);
+        margin: 8px;
+        @include box-shadow(0 0 7px rgba(#000, 0.07));
+        h3 { 
+          color: #000;
+          padding: 0 0 8px 0;
+          font-weight: bold;
+        }
+        .cell-content { 
+          height: $min-width;
+          max-width: 100%;
+        }
+      }
+      img { 
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
 
+
+[data-chart] { 
+  overflow-x: scroll;
+}
 
 @each $module in $modules { 
   $name: nth($module, 1);

@@ -1,0 +1,20 @@
+-height = 200
+-w = 50
+-mw = values.size * w
+-axis_margin =  w*0.2
+%svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :width => "100%", :height => height, :viewBox => "#{-30} 0 #{mw + 30} #{height + 50*1.5 }"}
+  -# Left graduation
+  %line{:x1 => 0, :y1 => 0, :x2 => 0, :y2 => height, :style => "stroke-width: 2px; stroke: #AAA;"}
+  -count = 5
+  -quantity = (values.values.max.to_f / (count*10)).round*10
+  -count.times do |index|
+    -next if index.zero?
+    %text{:x => -5, :width=>0.8*w, "text-anchor" => "end", :y => quantity*index}=quantity*(count-index)
+
+  -# Bars
+  %line{:x1 => 0, :y1 => , :x2 => 0, :y2 => height, :style => "stroke-width: 2px; stroke: #AAA;"}
+  -values.each_with_index do |pair, index|
+    -label, value = pair[0], pair[1]
+    %rect{:x => index*w + w*0.1, :width=>0.8*w, :height => value, :y => (height - value), :fill => "#"+3.times.collect{rand(256).to_s(16).rjust(2,'0')}.join}
+    %text{:x => index*w + w*0.5, :width=>0.8*w, "text-anchor" => "end", :transform => "rotate(290, #{index*w + 0.6*w}, #{height + w*0.3})", :y => (height + w*0.3)}=label
+    

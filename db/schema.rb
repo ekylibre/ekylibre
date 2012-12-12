@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121202181101) do
+ActiveRecord::Schema.define(:version => 20121211145304) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -1210,19 +1210,20 @@ ActiveRecord::Schema.define(:version => 20121202181101) do
   add_index "land_parcel_kinships", ["updater_id"], :name => "index_land_parcel_kinships_on_updater_id"
 
   create_table "land_parcels", :force => true do |t|
-    t.string   "name",                                                         :null => false
+    t.string   "name",                                                                                                                        :null => false
     t.text     "description"
-    t.datetime "created_at",                                                   :null => false
-    t.datetime "updated_at",                                                   :null => false
+    t.datetime "created_at",                                                                                                                  :null => false
+    t.datetime "updated_at",                                                                                                                  :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                :default => 0,   :null => false
+    t.integer  "lock_version",                                                                                               :default => 0,   :null => false
     t.string   "number"
-    t.decimal  "area_measure", :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.decimal  "area_measure",                                                                :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.integer  "area_unit_id"
-    t.date     "started_on",                                                   :null => false
+    t.date     "started_on",                                                                                                                  :null => false
     t.date     "stopped_on"
-    t.integer  "group_id",                                                     :null => false
+    t.integer  "group_id",                                                                                                                    :null => false
+    t.spatial  "shape",        :limit => {:srid=>4326, :type=>"geometry", :geographic=>true}
   end
 
   add_index "land_parcels", ["created_at"], :name => "index_shapes_on_created_at"

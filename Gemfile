@@ -32,6 +32,8 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'compass-rails'
   gem 'bootstrap-sass'
+  gem 'dojo-rails'
+  gem 'dojox-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'libv8', '~> 3.11.8'

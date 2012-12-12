@@ -147,7 +147,7 @@ class AdminController < BaseController
         if params[:dialog]
           render :json => {:id => record.id}
         else
-          # TODO: notif
+          # TODO: notify if success
           if url == :back
             redirect_to_back
           else
@@ -304,7 +304,7 @@ class AdminController < BaseController
     if @current_user and request.get? and not request.xhr? and params[:format].blank?
       session[:history] = [] unless session[:history].is_a? Array
       session[:history].delete_if { |h| h[:path] == request.path }
-      session[:history].insert(0, {:title=>self.human_action_name, :path=>request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
+      session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url=>request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
       session[:history].delete_at(30)
     end
   end
@@ -428,14 +428,15 @@ class AdminController < BaseController
   end
 
   def redirect_to_back(options={})
-    if params[:redirect]
+    session[:history].delete_at(0) if session[:history].is_a?(Array)
+    if !params[:redirect].blank?
       redirect_to params[:redirect], options
     elsif session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
       redirect_to session[:history][0][:path], options
     elsif request.referer and request.referer != request.path
       redirect_to request.referer, options
     else
-      redirect_to(:controller=>:dashboards, :action=>:general)
+      redirect_to(root_url)
     end
   end
 
@@ -479,7 +480,8 @@ class AdminController < BaseController
     record_name = name.to_s.singularize
     model = name.to_s.singularize.classify.constantize
 
-    url = "#{record_name}_url(@#{record_name})" if url.blank?
+    # url = "#{record_name}_url(@#{record_name})" if url.blank?
+
     # if url.blank?
     #   named_url = "#{record_name}_url"
     #   if respond_to?(named_url)    

@@ -43,6 +43,7 @@ class AnimalCare < CompanyRecord
   belongs_to :nature, :class_name => "AnimalCareNature"
   belongs_to :animal, :class_name => "Animal"
   belongs_to :animal_group, :class_name => "AnimalGroup"
+  # TODO: Need to explicitize entity. (Who is entity for the care ?)
   belongs_to :entity, :class_name => "Entity"
   has_and_belongs_to_many :drugs, :class_name => "Drug"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -50,4 +51,8 @@ class AnimalCare < CompanyRecord
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
+
+  # TODO: Add migration to rename these columns
+  alias_attribute :started_on, :start_on
+  alias_attribute :stopped_on, :end_on
 end
