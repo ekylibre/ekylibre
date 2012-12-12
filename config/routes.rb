@@ -188,6 +188,12 @@ Ekylibre::Application.routes.draw do
     end
   end
   # resources :deposit_lines
+  resources :diseases do
+    collection do
+      get :list
+      get :list_cares
+    end
+  end
   resources :districts do
     collection do
       get :list

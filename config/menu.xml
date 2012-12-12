@@ -852,6 +852,16 @@
         <page to="animal_races#show"/>
         <page to="animal_races#update"/>
       </menu>
+      <menu name="diseases">
+        <page to="diseases#index"/>
+        <page to="diseases#create"/>
+        <page to="diseases#destroy"/>
+        <page to="diseases#edit"/>
+        <page to="diseases#list"/>
+        <page to="diseases#new"/>
+        <page to="diseases#show"/>
+        <page to="diseases#update"/>
+      </menu>
       <menu name="drug_natures">
         <page to="drug_natures#index"/>
         <page to="drug_natures#create"/>
