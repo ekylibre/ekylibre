@@ -64,4 +64,11 @@ class Animal < CompanyRecord
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => SEXES
+  
+   # construction d'une liste permettant l'affichage des animaux dans les formulaires avec les info importantes sur leur identités
+   # @example 
+   def list_animal_full_name
+      "#{name} - #{identification_number} - #{sex}"
+   end
+   
 end
