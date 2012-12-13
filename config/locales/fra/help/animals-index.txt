@@ -6,7 +6,7 @@ Ici, vous pouvez [[>animals/new|créer]], modifier {{theme:icons/edit.png}} ou s
 
 !!! Lors d'une naissance , il faut [[>animals/new|créer]] un nouvel animal
 
-!!! Lors d'une sortie ( vente / décès ) , il faut [[>animals/outgone|sortir]] l'animal en question et non pas le supprimer
+!!! Lors d'une sortie ( vente / décès ) , il faut sortir l'animal en question et non pas le supprimer
 
 ===== Calendrier =====
 
