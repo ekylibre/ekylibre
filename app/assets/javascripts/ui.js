@@ -57,7 +57,7 @@
   };
   $(document).ready($.timedSession.startCountdown);
   $(document).ajaxStop($.timedSession.startCountdown);
-
+  
   // Set auto resizing
   $.resizeLayout = function () {
     $.layoutResizing.resize($('#body.resizable'), $(window).width(), $(window).height());
@@ -71,7 +71,7 @@
   $(document).ready($.resizeLayoutProperly);
   $(window).resize($.resizeLayoutProperly);
   $(window).bind("layout:change", $.resizeLayoutProperly);
-
+  
 
   // Splitter
   $.behave("#side-splitter[data-toggle]", "click", function () {
@@ -88,7 +88,7 @@
     return true;
   });
 
-  // TAbbox
+  // Tabbox
   $.behave(".tabbox > .tabs > .tab[data-tabbox-index]", "click", function () {
     var element = $(this), tabbox = element.closest(".tabbox");
     var index = element.attr('data-tabbox-index');
@@ -101,6 +101,19 @@
     }
     return true;
   });
+
+
+  // Beehive tab box
+  $.behave(".box-tab > ul.cell-titles > li > a.cell-title[href]", "click", function () {
+    var element = $(this), box = element.closest(".box-tab"), li = element.closest('li');
+    if (box !== null) {
+      box.find('.cell-titles li.active, .cells .cell.active').removeClass('active');
+      li.addClass('active');
+      box.find('.cells .cell'+element.attr("href")).addClass('active');
+    }
+    return false;
+  });
+
 
   // Update DOM with new system
   $.behave("*[data-update]", "ajax:success", function (event, data, status, xhr) {

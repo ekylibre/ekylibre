@@ -382,39 +382,92 @@ module ApplicationHelper
   end
 
 
-  def cell(title, &block)
-    return content_tag(:h3, title) +
-      content_tag(:div, capture(&block), :class => "cell-content")
-  end
-
-  def dashboard(name, &block)
+  def beehive(name, &block)
     html = ""
     return html unless block_given?
-    board = Dashboard.new(name)
+    board = Beehive.new(name)
     if block.arity < 1
       board.instance_eval(&block)
     else
       block[board] 
     end
-    html << "<div class=\"dashboard dashboard-#{board.name}\">"
+
+    return render(:partial => "admin/beehive", :object => board)
+
+    html << "<div class=\"beehive beehive-#{board.name}\">"
     for box in board.boxes
       count = box.size
       next if count.zero?
-      html << "<div class=\"box box-#{count}-cells\">"
-      box.each_with_index do |cell, index|
-        html << "<div class=\"cell cell-#{index+1}\">"
-        html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell[:name]}_cells", :action => :show)+"\">"
+      
+      if box.is_a?(Beehive::HorizontalBox)
+        html << "<div class=\"box box-h box-#{count}-cells\">"
+        box.each_with_index do |cell, index|
+          html << "<div class=\"cell cell-#{index+1}\">"
+          html << "<span class=\"cell-title\">" + cell.title + "</span>"
+          if cell.block?
+            html << content_tag(:div, capture(&cell.block), :class => "cell-inner")
+          else
+            html << "<div class=\"cell-inner\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
+          end
+          html << "</div>"
+        end
         html << "</div>"
+      elsif box.is_a?(Beehive::TabBox)
+        html << "<div class=\"box box-tab box-#{count}-cells\">"
+        panes = "<div class=\"box-panes\">"
+        html << "<ul>"
+        box.each_with_index do |cell, index|
+          html << "<li class=\"cell cell-#{index+1}\"><a href=\"#\">Tab</a></li>"
+          if cell.block?
+            panes << content_tag(:div, capture(&cell.block), :class => "box-pane")
+          else
+            panes << "<div class=\"box-pane\" data-cell=\""+ url_for(:controller => "admin/cells/#{cell.name}_cells", :action => :show)+"\"></div>"
+          end
+        end
+        html << "</ul>"
+        panes << "</div>"
+        html << panes
         html << "</div>"
       end
-      html << "</div>"
+
     end
     html << "</div>"
     return html.html_safe
   end
 
-  class Dashboard
+  class Beehive
     attr_reader :name, :boxes
+
+    class TabBox < Array
+      def self.short_name
+        "tab"
+      end
+    end
+
+    class HorizontalBox < Array
+      def self.short_name
+        "h"
+      end
+    end
+
+    class Cell
+      attr_reader :block, :name
+      def initialize(name, options = {}, &block)
+        @name = name
+        @options = options
+        @block = block if block_given?
+      end
+      def block?
+        !@block.nil?
+      end
+      def title
+        @options[:title] || (@name.is_a?(String) ? @name : ::I18n.t("labels.#{@name}"))
+      end
+
+      def content
+        "Content"
+      end
+    end
 
     def initialize(name)
       @name = name
@@ -422,24 +475,37 @@ module ApplicationHelper
       @current_box = nil
     end
 
-    def cell(name, options = {})
-      c = {:name => name, :options => options}
+    def cell(name, options = {}, &block)
+      c = Cell.new(name, options, &block)
       if @current_box
         @current_box << c
       else
-        @boxes << [c]
+        box = HorizontalBox.new
+        box << c
+        @boxes << box
       end
     end
 
     def hbox(&block)
-      raise Exception.new("Cannot define hbox in hbox") if @current_box
-      @current_box = []
+      raise Exception.new("Cannot define box in othre box") if @current_box
+      @current_box = HorizontalBox.new
+      block[self] if block_given?
+      @boxes << @current_box unless @current_box.empty?
+      @current_box = nil
+    end
+
+    def tabbox(&block)
+      raise Exception.new("Cannot define box in other box") if @current_box
+      @current_box = TabBox.new
       block[self] if block_given?
       @boxes << @current_box unless @current_box.empty?
       @current_box = nil
     end
 
   end
+
+
+
 
 
 
