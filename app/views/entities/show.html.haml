@@ -4,101 +4,104 @@
   -t.print_entity @entity
   -t.destroy(@entity, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @entity.destroyable?
 
-=attributes_list(@entity) do |l|
-  -l.attribute :last_name
-  -l.attribute :first_name unless @entity.first_name.blank?
-  -l.attribute :nature if @entity.nature
-  -l.attribute :code
-  -l.attribute :active
-  -l.attribute :website unless @entity.website.blank?
-  -l.custom Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
-  -l.attribute :siren unless @entity.siren.blank?
-  -l.attribute :activity_code unless @entity.activity_code.blank?
-  -l.attribute :vat_number unless @entity.vat_number.blank?
-  -l.attribute :excise unless @entity.vat_number.blank?
-  -l.attribute :born_on unless @entity.born_on.blank?
-  -l.attribute :dead_on unless @entity.dead_on.blank?
-  -l.attribute :website  unless @entity.website.blank?
-  -l.attribute :comment unless @entity.comment.blank?
-  -l.attribute :prospect
-  -l.attribute :client
-  -if @entity.client
-    -l.attribute :category, :label=>:name, :url=>true
-    -l.attribute :first_met_on unless @entity.first_met_on.blank?
-    -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
-    -l.attribute :vat_submissive
-    -l.attribute :reflation_submissive
-    -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
-    -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
-    -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
-    -l.attribute :client_account, :url=>true
-  -l.attribute :supplier
-  -if @entity.supplier
-    -l.attribute :supplier_account, :url=>true
-  -l.attribute :attorney
-  -if @entity.attorney
-    -l.attribute :attorney_account, :url=>true
-  -l.attribute :transporter
-  -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
-    -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
+=beehive(:entity) do |b|
+  -b.cell :details do
+    =attributes_list(@entity) do |l|
+      -l.attribute :last_name
+      -l.attribute :first_name unless @entity.first_name.blank?
+      -l.attribute :nature if @entity.nature
+      -l.attribute :code
+      -l.attribute :active
+      -l.attribute :website unless @entity.website.blank?
+      -l.custom Entity.human_attribute_name("country"), image_tag("countries/"+@entity.country+".png")+" "+t("countries."+@entity.country) unless @entity.country.blank?
+      -l.attribute :siren unless @entity.siren.blank?
+      -l.attribute :activity_code unless @entity.activity_code.blank?
+      -l.attribute :vat_number unless @entity.vat_number.blank?
+      -l.attribute :excise unless @entity.vat_number.blank?
+      -l.attribute :born_on unless @entity.born_on.blank?
+      -l.attribute :dead_on unless @entity.dead_on.blank?
+      -l.attribute :website  unless @entity.website.blank?
+      -l.attribute :comment unless @entity.comment.blank?
+      -l.attribute :prospect
+      -l.attribute :client
+      -if @entity.client
+        -l.attribute :category, :label=>:name, :url=>true
+        -l.attribute :first_met_on unless @entity.first_met_on.blank?
+        -l.attribute :proposer, :label=>:full_name unless @entity.proposer_id.blank?
+        -l.attribute :vat_submissive
+        -l.attribute :reflation_submissive
+        -l.attribute :reduction_rate unless @entity.reduction_rate.blank?
+        -l.attribute :authorized_payments_count unless @entity.authorized_payments_count.blank?
+        -l.attribute :deliveries_conditions unless @entity.deliveries_conditions.blank?
+        -l.attribute :client_account, :url=>true
+      -l.attribute :supplier
+      -if @entity.supplier
+        -l.attribute :supplier_account, :url=>true
+      -l.attribute :attorney
+      -if @entity.attorney
+        -l.attribute :attorney_account, :url=>true
+      -l.attribute :transporter
+      -for datum in @entity.custom_field_data.find(:all, :joins=>"JOIN custom_fields ON (custom_fields.id=custom_field_id)", :order=>"position")
+        -l.custom datum.custom_field.name, datum.value unless datum.value.to_s.blank?
 
-
-=tabbox(:entity) do |tb|
-  -tb.tab(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:subscriptions, :entity_id=>@entity.id)
-    =list(:subscriptions)
-
-  -tb.tab(tl(:x_contacts, :count=>@entity.contacts.count)) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:contacts, :entity_id=>@entity.id)
-    =list(:contacts)
-
-  -tb.tab(tl(:x_sales, :count=>@entity.sales.count)) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:sales, :client_id=>@entity.id)
-    =list(:sales)
-
-  -tb.tab(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:incoming_payments, :payer_id=>@entity.id
-    =list(:incoming_payments)
-
-  -tb.tab(tl(:x_purchases, :count=>@entity.purchases.count)) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:purchases, :supplier_id=>@entity.id)
-    =list(:purchases)
-
-  -tb.tab(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
-    =list(:outgoing_payments)
-
-  -tb.tab(tl(:x_events, :count=>@entity.events.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:events, :entity_id=>@entity.id
-    =list(:events)
-
-  -tb.tab(tl(:x_entity_links, :count=>EntityLink.of_entity(@entity).count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:entity_links, :entity_id=>@entity.id
-    =list(:links)
-
-  -tb.tab(tl(:x_observations, :count=>@entity.observations.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:observations, :entity_id=>@entity.id
-    =list(:observations)
-
-  -tb.tab(tl(:x_mandates, :count=>@entity.mandates.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:mandates, :entity_id=>@entity.id
-    =list(:mandates)
-
-  -#tb.tab(tl(:x_cashes, :count=>@entity.cashes.count)) do
-    =toolbar do |t|
-      -t.link :new, :controller=>:cashes, :entity_id=>@entity.id
-    =list(:cashes)
-
-  -if File.exist?(Rails.root.join("app", "views", "entities", "_extra.html.haml"))
-    -tb.tab("Extra") do
-      =render :partial=>"extra"
+  -# =tabbox(:entity) do |tb|
+  -b.tabbox do
+    -b.cell(tl(:x_subscriptions, :count=>@entity.subscriptions.count)) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:subscriptions, :entity_id=>@entity.id)
+      =list(:subscriptions)
+  
+    -b.cell(tl(:x_contacts, :count=>@entity.contacts.count)) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:contacts, :entity_id=>@entity.id)
+      =list(:contacts)
+  
+    -b.cell(tl(:x_sales, :count=>@entity.sales.count)) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:sales, :client_id=>@entity.id)
+      =list(:sales)
+  
+    -b.cell(tl(:x_incoming_payments, :count=>@entity.incoming_payments.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:incoming_payments, :payer_id=>@entity.id
+      =list(:incoming_payments)
+  
+    -b.cell(tl(:x_purchases, :count=>@entity.purchases.count)) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:purchases, :supplier_id=>@entity.id)
+      =list(:purchases)
+  
+    -b.cell(tl(:x_outgoing_payments, :count=>@entity.outgoing_payments.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:outgoing_payments, :payee_id=>@entity.id
+      =list(:outgoing_payments)
+  
+    -b.cell(tl(:x_events, :count=>@entity.events.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:events, :entity_id=>@entity.id
+      =list(:events)
+  
+    -b.cell(tl(:x_entity_links, :count=>EntityLink.of_entity(@entity).count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:entity_links, :entity_id=>@entity.id
+      =list(:links)
+  
+    -b.cell(tl(:x_observations, :count=>@entity.observations.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:observations, :entity_id=>@entity.id
+      =list(:observations)
+  
+    -b.cell(tl(:x_mandates, :count=>@entity.mandates.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:mandates, :entity_id=>@entity.id
+      =list(:mandates)
+  
+    -#b.cell(tl(:x_cashes, :count=>@entity.cashes.count)) do
+      =toolbar do |t|
+        -t.link :new, :controller=>:cashes, :entity_id=>@entity.id
+      =list(:cashes)
+  
+    -if File.exist?(Rails.root.join("app", "views", "entities", "_extra.html.haml"))
+      -b.cell("Extra") do
+        =render :partial=>"extra"
+  

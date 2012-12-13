@@ -1,0 +1,19 @@
+.beehive{:class => "beehive-#{beehive.name}"}
+  -beehive.boxes.each_with_index do |box, bid|
+    -count = box.size
+    -next if count.zero?
+    -box_id = 0
+    .box{:class => "box-#{box.class.short_name} box-#{count}-cells"}
+      %ul.cell-titles
+        -box.each_with_index do |cell, cid|
+          -activeness = (cid.zero? ? {:class => 'active'} : {})
+          %li{activeness}=link_to(cell.title, "#b#{bid}c#{cid}", :class => "cell-title")
+      .cells
+        -box.each_with_index do |cell, cid|
+          .cell{:id => "b#{bid}c#{cid}", :class => (cid.zero? ? ' active' : nil)}
+            .cell-inner
+              .cell-title=cell.title
+              -if cell.block?
+                .cell-content=capture(&cell.block)
+              -else
+                .cell-content{"data-cell" => url_for(:controller => "admin/cells/#{cell.name}_cells", :action => :show)}

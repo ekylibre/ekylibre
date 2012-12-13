@@ -4,15 +4,18 @@
   %ul
     %li= link_to tc('x_performed_operations', :count=>unvalidateds.count), :action=>:unvalidateds, :controller=>:operations
 
-=dashboard(:production) do
+=beehive(:production) do
   -cell :demo_bar
-  -#hbox do
-    -cell :ill_animals
-    -cell :milk_temperature
   -hbox do
     -cell :last_cares
     -cell :demo_pie
   -hbox do
     -cell :placeholder
     -cell :placeholder
+    -cell :example do
+      %h1 Direct HTML without controller
+      %span But quite easy to manage
+  -tabbox do
     -cell :placeholder
+    -cell :demo_pie
+    -cell :demo_bar

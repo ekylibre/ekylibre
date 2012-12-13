@@ -1233,47 +1233,109 @@ input[data-datepicker] {@include text-align(center)}
 }
 
 
-.dashboard { 
+.beehive { 
   .box {
-    $min-width: 200px;
-    @for $i from 1 through 10 { 
-      &.box-#{ $i }-cells {
-        .cell {
-          width: (100% / $i);
-          @media screen and (max-width: 1.2*$i*$min-width) {
-            width: 100%;
-          }
-        }
-      }
-    }
+
+    $min-width: 300px;
+    $min-height: 200px;
+    margin-top: $default-gap;
+    &:first-child { margin-top: 0; }
     @include clearfix;
+
+    .cell-titles { 
+      display: none;
+    }
+
+    .cell-title { 
+      color: #000;
+      font-weight: bold;
+      padding: round($default-gap*0.5) round($default-gap*0.6);
+      border-bottom: 1px solid #DDD;
+      background: #EEE;
+    }
+
     .cell {
-      @include float(left);            
+      @include float(left);         
+      width: 100%;
       .cell-inner { 
+        background: white;
+        border: 1px solid #DDD;
         &.loading { 
-          min-height: $min-width;
+          min-height: $min-height;
           background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
         }
-        border: 1px solid #DDD;
-        padding: 8px;
-        @include border-radius(3px);
-        margin: 8px;
-        @include box-shadow(0 0 7px rgba(#000, 0.07));
-        h3 { 
-          color: #000;
-          padding: 0 0 8px 0;
-          font-weight: bold;
-        }
         .cell-content { 
-          height: $min-width;
+          padding: $default-gap;
           max-width: 100%;
+          overflow: auto;
         }
-      }
-      img { 
-        width: 100%;
-        height: 100%;
       }
     }
+
+    @for $i from 1 through 10 { 
+      &.box-#{ $i }-cells {
+        .cell { 
+          width: (100% / $i); 
+          @if $i > 1 { 
+            .cell-content { 
+              height: min-height;
+            }
+          }
+          @media screen and (max-width: round(1.2*$i*$min-width)) {
+            margin-top: $default-gap;
+            &:first-child { margin-top: 0 }
+            width: 100%;
+            .cell-content { 
+              height: auto;
+            }
+          }
+        }
+        @media screen and (min-width: round(0.5*$i*$min-width) + 1px) {
+  
+          &.box-tab {
+            ul.cell-titles {
+              display: block;
+              li { 
+                background: white;
+                @include inline-block;
+                border: 1px solid #DDD;
+                border-bottom: none;
+                @include border-top-radius(3px);
+                opacity: 0.6;
+                a {
+                  text-decoration: none;
+                  display: block;
+                  padding: $default-gap $default-gap;
+                }
+                &.active { 
+                  opacity: 1;
+                  a { padding-bottom: $default-gap + 1px; }
+                  margin-bottom: -1px;
+                }
+              }
+            }
+            .cells { 
+              .cell {
+                display: none;
+                width: 100%;
+                margin-top : 0;
+                &.active { 
+                  display: block;
+                }
+                .cell-inner {
+                  @include border-top-radius(0);
+                }
+                .cell-title { display: none; }
+              }
+            }
+          }
+
+
+
+        }
+      }
+    }
+
   }
 }
 

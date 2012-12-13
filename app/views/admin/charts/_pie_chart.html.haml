@@ -7,4 +7,5 @@
   -for label, value in values
     -angle = 360.0*value/total
     %path{:fill => "#"+3.times.collect{rand(256).to_s(16).rjust(2,'0')}.join, :d => pie_piece_path(width/2, height/2, width/2, count, count+angle)}
+      %title=label + " : "+ value.l
     -count += angle

@@ -30,10 +30,11 @@ gem 'nokogiri'
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
+  gem 'oily_png'
   gem 'compass-rails'
   gem 'bootstrap-sass'
-  gem 'dojo-rails'
-  gem 'dojox-rails'
+  # gem 'dojo-rails'
+  # gem 'dojox-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'libv8', '~> 3.11.8'
