@@ -18,7 +18,7 @@
 #
 
 class AnimalEventsController < AdminController
-  manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
+  manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]", :treatment_id=>"params[:treatment_id]"
 
   list() do |t|
     t.column :name, :url=>true

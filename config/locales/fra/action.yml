@@ -9,34 +9,41 @@ fra:
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
-    animal_care_natures: #?
-    animal_care_types:  #?
-      edit: "Modifier un type de soin" #?
-      index: "Gestion des types de soins" #?
-      new: "Créer un type de soin" #?
-      show: "type de soin\_: %{name}" #?
-    animal_cares:  #?
-      edit: "Modifier un soin" #?
-      index: "Gestion des soins" #?
-      new: "Créer un soin" #?
-      show: "soin %{name} commencé le %{start_on}" #?
+    animals:  #?
+      edit: "Modifier un animal" #?
+      index: "Animaux" #?
+      new: "Créer un animal" #?
+      show: "animal\_: %{name}" #?
+    animal_event_types:  #?
+      edit: "Modifier un type d'évènement" #?
+      index: "Types d'évènement" #?
+      new: "Créer un type d'évènement" #?
+      show: "type d'évènement\_: %{name}" #?
+    animal_events:  #?
+      edit: "Modifier un évènement" #?
+      index: "Evènements" #?
+      new: "Créer un évènement" #?
+      show: "évènement %{name} commencé le %{started_on}" #?
     animal_groups:  #?
       edit: "Modifier le lot\_: %{name} " #?
-      index: "Gestion des lots d'animaux" #?
+      index: "Lots d'animaux" #?
       new: "Créer un lot" #?
       show: "Lot\_: %{name}" #?
     animal_race_natures: #?
-    animal_race_types: #?
+      edit: "Modifier le type de race\_: %{name} " #?
+      index: "Type de race" #?
+      new: "Créer un type de race" #?
+      show: "Type de race\_: %{name}" #?
     animal_races:  #?
       edit: "Modifier la race\_: %{name} " #?
-      index: "Gestion des races d'animaux" #?
+      index: "Races" #?
       new: "Créer une race" #?
       show: "Race\_: %{name}" #?
-    animals:  #?
-      edit: "Modifier un animal" #?
-      index: "Gestion des animaux" #?
-      new: "Créer un animal" #?
-      show: "animal\_: %{name}" #?
+    animal_treatments:  #?
+      edit: "Modifier le traitement\_: %{name} " #?
+      index: "Traitements" #?
+      new: "Créer un traitement" #?
+      show: "Traitement\_: %{name}" #?
     areas:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
@@ -114,6 +121,11 @@ fra:
       new: "Effectuer une remise"
       show: "Remise en banque %{number} du %{created_on}"
       unvalidateds: "Remises en banque non validées"
+    diseases:
+      edit: "Modifier la maladie\_: %{name}"
+      index: "Maladies"
+      new: "Nouvelle maladie"
+      show: "Maladie\_: %{name}"
     districts:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
@@ -125,8 +137,15 @@ fra:
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple"
     drug_natures: #?
-    drug_types: #?
+      edit: "Modifier le type de médicament\_: %{name}"
+      index: "Types de médicament"
+      new: "Nouveau type de médicament"
+      show: "Type de médicament\_: %{name}"
     drugs: #?
+      edit: "Modifier le médicament\_: %{name}"
+      index: "Médicaments"
+      new: "Nouveau médicament"
+      show: "Médicament\_: %{name}"
     entities:
       destroy: "Supprimer la fiche"
       edit: "Modifier la fiche\_: %{full_name}"
@@ -464,6 +483,11 @@ fra:
     accountancy: "Comptabilité" #?
     accounts: "Plan de comptes"
     application: "Application"
+    animals: "Animaux"
+    animal_groups: "Lot d'Animaux"
+    animal_events: "Evenements des Animaux"
+    animal_event_natures: "Type d'évenements des Animaux"
+    animal_treatments: "Soins des Animaux"
     areas: "Zones postales"
     assets: "Immobilisations"
     authentication: "Authentification" #?
@@ -486,6 +510,8 @@ fra:
     districts: "Zones administratives"
     document_templates: "Modèles de document"
     documents: "Documents"
+    drugs: "Médicaments"
+    diseases: "Maladies"
     entities: "Personnes"
     entity_categories: "Catégories de fiche"
     entity_link_natures: "Types de lien"
@@ -628,9 +654,9 @@ fra:
     amount_with_taxes: "Montant TTC" #?
     animal_group_tabbox:  #?
       animals: "Animaux du lot" #?
-      cares: "Soins réalisés sur le lot" #?
+      events: "Evenements réalisés sur le lot" #?
     animal_tabbox:  #?
-      cares: "Soins" #?
+      events: "Evenements" #?
       childrens: "Enfants" #?
     apply: "Appliquer"
     are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"

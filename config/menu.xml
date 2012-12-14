@@ -810,16 +810,6 @@
         <page to="operation_natures#new"/>
         <page to="operation_natures#update"/>
       </menu>
-      <menu name="animal_care_natures">
-        <page to="animal_care_natures#index"/>
-        <page to="animal_care_natures#create"/>
-        <page to="animal_care_natures#destroy"/>
-        <page to="animal_care_natures#edit"/>
-        <page to="animal_care_natures#list"/>
-        <page to="animal_care_natures#new"/>
-        <page to="animal_care_natures#show"/>
-        <page to="animal_care_natures#update"/>
-      </menu>
       <menu name="animal_groups">
         <page to="animal_groups#index"/>
         <page to="animal_groups#create"/>
@@ -827,7 +817,7 @@
         <page to="animal_groups#edit"/>
         <page to="animal_groups#list"/>
         <page to="animal_groups#list_animals"/>
-        <page to="animal_groups#list_cares"/>
+        <page to="animal_groups#list_events"/>
         <page to="animal_groups#new"/>
         <page to="animal_groups#show"/>
         <page to="animal_groups#update"/>
@@ -851,6 +841,16 @@
         <page to="animal_races#new"/>
         <page to="animal_races#show"/>
         <page to="animal_races#update"/>
+      </menu>
+      <menu name="animal_treatments">
+        <page to="animal_treatments#index"/>
+        <page to="animal_treatments#create"/>
+        <page to="animal_treatments#destroy"/>
+        <page to="animal_treatments#edit"/>
+        <page to="animal_treatments#list"/>
+        <page to="animal_treatments#new"/>
+        <page to="animal_treatments#show"/>
+        <page to="animal_treatments#update"/>
       </menu>
       <menu name="diseases">
         <page to="diseases#index"/>

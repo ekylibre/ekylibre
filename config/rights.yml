@@ -1,12 +1,4 @@
 # Unused actions in rights
-#   - "animal_care_natures::create"
-#   - "animal_care_natures::destroy"
-#   - "animal_care_natures::edit"
-#   - "animal_care_natures::index"
-#   - "animal_care_natures::list"
-#   - "animal_care_natures::new"
-#   - "animal_care_natures::show"
-#   - "animal_care_natures::update"
 #   - "animal_cares::destroy"
 #   - "animal_cares::update"
 #   - "animal_groups::destroy"

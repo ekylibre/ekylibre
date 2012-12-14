@@ -3,3 +3,24 @@
 
 =field_set(@animal_treatment, :general_informations) do |f|
   =f.input :name
+  =f.association :events
+  =f.input :started_on
+  =f.input :stopped_on
+  =f.input :prescription_number
+  =f.association :prescriptor
+  
+=field_set(@animal_treatment, :animal_informations) do |f|
+  =f.association :animals, :include_blank => true, :default_value => :blank
+  =f.association :animal_groups, :as => :check_boxes, :include_blank => true, :default_value => :blank
+
+=field_set(@animal_treatment, :disease_informations) do |f|
+  =f.association :disease, :include_blank => true, :default_value => :blank
+  
+=field_set(@animal_treatment, :drug_informations) do |f|
+  =f.association :drug, :include_blank => true, :default_value => :blank
+  =f.input :quantity
+  =f.association :unit
+  =f.input :duration
+  =f.input :per_unit
+  =f.input :duration_wait_for_milk
+  =f.input :duration_wait_for_meat
