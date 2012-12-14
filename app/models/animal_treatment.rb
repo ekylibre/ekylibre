@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: animal_cares
+# == Table: animal_treatments
 #
 #  animal_group_id   :integer
 #  animal_id         :integer
@@ -39,11 +39,12 @@
 #
 
 
-class Disease < CompanyRecord
-  has_many :diagnostics, :class_name => "Diagnostic"
-  has_many :events, :class_name => "AnimalEvent", :through => :diagnostics
-  has_many :treatments, :class_name => "AnimalTreatment"
-  has_many :drugs, :class_name => "Drug", :through => :treatments
+class AnimalTreatment < CompanyRecord
+  belongs_to :disease, :class_name => "Disease"
+  belongs_to :drug, :class_name => "Drug"
+  has_many :events, :class_name => "AnimalEvent",:foreign_key => :treatment_id
+  has_many :animals, :class_name => "Animal", :through => :events
+  has_many :animal_groups, :class_name => "AnimalGroup", :through => :events
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 end

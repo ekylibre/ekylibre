@@ -16,9 +16,9 @@
     =toolbar do |t|
       -t.link(:new, :controller=>:animals, :group_id=>@animal_group.id)
     =list(:animals)
-  -tb.tab(:cares) do
+  -tb.tab(:events) do
     =toolbar do |t|
-      -t.link(:new, :controller=>:animal_cares, :animal_group_id=>@animal_group.id)
-    =list(:cares)
+      -t.link(:new, :controller=>:animal_events, :animal_group_id=>@animal_group.id)
+    =list(:events)
     =image_tag(@chart)
 

@@ -37,9 +37,9 @@ class AnimalGroupsController < AdminController
     t.column :born_on
   end
 
-  list(:cares,:model=>:animal_cares, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"start_on ASC") do |t|
+  list(:cares,:model=>:animal_events, :conditions=>{:animal_group_id=>['session[:current_animal_group_id]']}, :order=>"start_on ASC") do |t|
     t.column :name
-    t.column :start_on
+    t.column :started_on
     t.column :comment
   end
 
@@ -55,7 +55,7 @@ class AnimalGroupsController < AdminController
     # construction d'un camenbert avec le nombre de soins pour le lot d'animaux selectionné
     @chart = Gchart.pie_3d(:title => "Soin du groupe "+@animal_group.name,
                         :bg => 'efefef',
-                        :data => [@animal_group.animal_cares.count])
+                        :data => [@animal_group.animal_events.count])
   end
 
 end

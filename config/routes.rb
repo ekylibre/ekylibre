@@ -49,7 +49,7 @@ Ekylibre::Application.routes.draw do
       resource :demo_pie_cell, :only => :show
       resource :placeholder_cell, :only => :show
 
-      resource :last_cares_cell, :only => :show do
+      resource :last_events_cell, :only => :show do
         get :list, :on => :collection
       end
     end
@@ -76,20 +76,27 @@ Ekylibre::Application.routes.draw do
   resources :animals do
     collection do
       get :list
-      get :list_cares
+      get :list_events
       get :list_children
       match "print", :via => [:get, :post]
      # match "/print" => "animals#print"
     end
   end
-  resources :animal_cares do
+  resources :animal_events do
     collection do
       get :list
     end
   end
-  resources :animal_care_natures do
+  resources :animal_event_natures do
     collection do
       get :list
+    end
+  end
+  resources :animal_groups do
+    collection do
+      get :list
+      get :list_animals
+      get :list_cares
     end
   end
   resources :animal_races do
@@ -102,11 +109,9 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :animal_groups do
+  resources :animal_treatments do
     collection do
       get :list
-      get :list_animals
-      get :list_cares
     end
   end
   resources :areas do
@@ -189,10 +194,14 @@ Ekylibre::Application.routes.draw do
     end
   end
   # resources :deposit_lines
+  resources :diagnostics do
+    collection do
+      get :list
+    end
+  end
   resources :diseases do
     collection do
       get :list
-      get :list_cares
     end
   end
   resources :districts do
@@ -218,7 +227,6 @@ Ekylibre::Application.routes.draw do
   resources :drugs do
     collection do
       get :list
-      get :list_animal_cares
     end
   end
   resources :drug_natures do

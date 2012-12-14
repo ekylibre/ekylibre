@@ -369,15 +369,15 @@
       <page to="operation_uses#create"/>
       <page to="operation_uses#new"/>
     </menu>
-    <menu name="animal_cares">
-      <page to="animal_cares#index"/>
-      <page to="animal_cares#create"/>
-      <page to="animal_cares#destroy"/>
-      <page to="animal_cares#edit"/>
-      <page to="animal_cares#list"/>
-      <page to="animal_cares#new"/>
-      <page to="animal_cares#show"/>
-      <page to="animal_cares#update"/>
+    <menu name="animal_events">
+      <page to="animal_events#index"/>
+      <page to="animal_events#create"/>
+      <page to="animal_events#destroy"/>
+      <page to="animal_events#edit"/>
+      <page to="animal_events#list"/>
+      <page to="animal_events#new"/>
+      <page to="animal_events#show"/>
+      <page to="animal_events#update"/>
     </menu>
     <menu name="animals">
       <page to="animals#index"/>
@@ -878,7 +878,6 @@
         <page to="drugs#destroy"/>
         <page to="drugs#edit"/>
         <page to="drugs#list"/>
-        <page to="drugs#list_animal_cares"/>
         <page to="drugs#new"/>
         <page to="drugs#show"/>
         <page to="drugs#update"/>
