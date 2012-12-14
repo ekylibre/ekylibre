@@ -99,6 +99,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
           border-bottom: none;
           border-left: none;
           border-right: none;
+          line-height: 16px;
           @include ellipsis;
           &.chk,&.act, &.dld, &.bln, &.dat, &.web  { 
             @include text-align(center);
@@ -215,6 +216,7 @@ $list-hover-backgrounds: ("" rgba(255, 255, 255, 0)) (":hover" $hover-mask);
         height: 16px;
         width: 16px;
         margin: 0 auto;
+        border: none;
 
         &.show { @include icons-sprite(print); }
         &.destroy { @include icons-sprite(destroy); }
