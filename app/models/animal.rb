@@ -55,7 +55,8 @@ class Animal < CompanyRecord
   belongs_to :race, :class_name => "AnimalRace"
   belongs_to :father, :class_name => "Animal"
   belongs_to :mother, :class_name => "Animal"
-  has_many :cares, :class_name => "AnimalCare", :foreign_key => :animal_id
+  has_many :events, :class_name => "AnimalEvent",:foreign_key => :animal_id
+  has_many :treatments, :class_name => "AnimalTreatment", :through => :events 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :sex, :allow_nil => true, :maximum => 16

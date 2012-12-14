@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalCareNaturesController < AdminController
+class AnimalEventNaturesController < AdminController
   manage_restfully
 
   list() do |t|
@@ -29,15 +29,15 @@ class AnimalCareNaturesController < AdminController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  # Show a list of animals natures
+  # Show a list of @animal_event_nature
   def index
   end
 
-  # Show one care with params_id
+  # Show one @animal_event_nature with params_id
   def show
-    return unless @animal_care_nature = find_and_check
-    session[:current_animal_care_nature_id] = @animal_care_nature.id
-    t3e @animal_care_nature
+    return unless @animal_event_nature = find_and_check
+    session[:current_animal_event_nature_id] = @animal_event_nature.id
+    t3e @animal_event_nature
   end
 
 end

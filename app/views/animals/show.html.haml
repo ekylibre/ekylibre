@@ -17,10 +17,10 @@
   =image_tag(@animal.picture.url(:thumb))
 
 =tabbox(:animal) do |tb|
-  -tb.tab(:cares) do
+  -tb.tab(:events) do
     =toolbar do |t|
-      -t.link(:new, :controller=>:animal_cares, :animal_id=>@animal.id)
-    =list(:cares)
+      -t.link(:new, :controller=>:animal_events, :animal_id=>@animal.id)
+    =list(:events)
   -tb.tab(:children) do
     =list(:children)
 

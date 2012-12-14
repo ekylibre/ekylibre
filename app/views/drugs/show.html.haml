@@ -10,9 +10,3 @@
   -l.attribute :comment
 -#  -l.image_tag :picture.url(:thumb)
 
-=tabbox(:drug) do |tb|
-  -tb.tab(:animal_cares) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:animal_cares, :drug_id=>@drug.id)
-    =list(:animal_cares)
-

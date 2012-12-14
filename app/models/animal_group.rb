@@ -39,7 +39,8 @@
 class AnimalGroup < CompanyRecord
   SEXES = ["male", "female"]
   has_many :animals, :foreign_key => :group_id
-  has_many :animal_cares, :foreign_key => :animal_group_id
+  has_many :events, :class_name => "AnimalEvent", :foreign_key => :animal_group_id
+  has_many :treatments, :class_name => "AnimalTreatment", :through => :events
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :age_max, :age_min, :allow_nil => true, :only_integer => true
   validates_length_of :sex, :allow_nil => true, :maximum => 16

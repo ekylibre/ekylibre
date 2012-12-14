@@ -32,13 +32,6 @@ class DrugsController < AdminController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  list(:animal_cares, :conditions=>{:drug_id=>['session[:current_drug_id]']}, :order=>"start_on ASC") do |t|
-    t.column :name
-    t.column :name, :through=>:animal, :url=>true
-    t.column :start_on
-    t.column :comment
-  end
-
   # Show a list of animals natures
   def index
   end

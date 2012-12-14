@@ -18,7 +18,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: animal_care_natures
+# == Table: animal_event_natures
 #
 #  comment      :text
 #  created_at   :datetime         not null
@@ -32,8 +32,8 @@
 #
 
 
-class AnimalCareNature < CompanyRecord
-  has_many :cares, :class_name => "AnimalCare", :foreign_key => :nature_id
+class AnimalEventNature < CompanyRecord
+  has_many :events, :class_name => "AnimalEvent", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalCaresController < AdminController
+class AnimalEventsController < AdminController
   manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
 
   list() do |t|
@@ -25,7 +25,7 @@ class AnimalCaresController < AdminController
     t.column :name, :through=>:animal, :url=>true
     t.column :name, :through=>:animal_group, :url=>true
     t.column :name, :through=>:nature, :url=>true
-    t.column :name, :through=>:entity, :url=>true
+    t.column :name, :through=>:watcher, :url=>true
     t.column :comment
     t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
@@ -33,15 +33,15 @@ class AnimalCaresController < AdminController
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  # Show a list of animals natures
+  # Show a list of @animal_event
   def index
   end
 
-  # Show one care with params_id
+  # Show one @animal_event with params_id
   def show
-    return unless @animal_care = find_and_check
-    session[:current_animal_care_id] = @animal_care.id
-    t3e @animal_care
+    return unless @animal_event = find_and_check
+    session[:current_animal_event_id] = @animal_event.id
+    t3e @animal_event
   end
 
 end

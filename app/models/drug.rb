@@ -38,7 +38,8 @@
 class Drug < CompanyRecord
   belongs_to :nature, :class_name => "DrugNature"
   belongs_to :unit
-  has_and_belongs_to_many :animal_cares, :class_name => "AnimalCare"
+  has_many :treatments, :class_name => "AnimalTreatment"
+  has_many :diseases, :class_name => "Disease", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :frequency, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
