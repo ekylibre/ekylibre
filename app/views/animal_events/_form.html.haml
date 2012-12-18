@@ -6,14 +6,16 @@
   =f.association :nature, :as => :radio_buttons
   =f.association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
   =f.association :animal_group, :include_blank => true, :default_value => :blank
+
+=field_set(@animal_event, :delays) do |f|
   =f.input :started_on
   =f.input :stopped_on, :include_blank => true, :default_value => :blank
 
-=field_set(@animal_event, :diagnostic_informations) do |f|
+=field_set(@animal_event, :care) do |f|
   =f.association :diseases, :as => :check_boxes
   
-=field_set(@animal_event, :medical_informations) do |f|
+=field_set(@animal_event, :treatment) do |f|
   =f.association :treatment, :include_blank => true, :default_value => :blank
-
-=field_set(@animal_event, :third_informations) do |f|
+  
+=field_set(@animal_event, :entity) do |f|
   =f.association :watcher, :include_blank => true, :default_value => :blank

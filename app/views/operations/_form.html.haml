@@ -1,16 +1,17 @@
 = formalize do |f|
   - f.error :operation
 
-=field_set(@operation, :infos) do |f|
+=field_set(@operation, :general_informations) do |f|
   =f.input :name
   =f.association :responsible
   =f.association :nature
-  = formalize do |f|
-    - f.field :operation, :planned_on
-    - f.field :operation, :description, :field=>:textarea
-    - f.title :duration
-    - f.field :operation, :hour_duration
-    - f.field :operation, :min_duration
+  =f.input :description, :field=>:textarea
+
+=field_set(@operation, :delays) do |f|
+  =f.input :planned_on
+  =f.input :duration
+  =f.input :hour_duration
+  =f.input :min_duration
 
 =field_set(@operation, :operations_details) do |f|
   =formalize do |f|
