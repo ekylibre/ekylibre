@@ -20,8 +20,8 @@
 #
 # == Table: warehouses
 #
+#  address_id       :integer
 #  comment          :text
-#  contact_id       :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  division         :string(255)
@@ -45,7 +45,9 @@
 class Warehouse < CompanyRecord
   acts_as_tree
   attr_readonly :reservoir
-  belongs_to :contact
+  # DEPRECATED Replace use of contact with address
+  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
+  belongs_to :address, :class_name => "EntityAddress"
   belongs_to :establishment
   belongs_to :product
   has_many :purchase_lines

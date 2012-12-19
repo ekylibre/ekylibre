@@ -20,22 +20,25 @@
 #
 # == Table: animal_treatments
 #
-#  animal_group_id   :integer
-#  animal_id         :integer
-#  comment           :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  end_on            :datetime
-#  entity_id         :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  nature_id         :integer          not null
-#  quantity_per_care :decimal(, )
-#  start_on          :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  disease_id             :integer
+#  drug_id                :integer
+#  duration               :decimal(19, 4)
+#  duration_wait_for_meat :integer
+#  duration_wait_for_milk :integer
+#  id                     :integer          not null, primary key
+#  lock_version           :integer          default(0), not null
+#  name                   :string(255)
+#  per_unit               :string(255)
+#  prescription_number    :string(255)
+#  prescriptor_id         :integer
+#  quantity               :decimal(19, 4)   default(0.0), not null
+#  started_on             :datetime
+#  stopped_on             :datetime
+#  unit_id                :integer
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 
 
@@ -46,5 +49,9 @@ class AnimalTreatment < CompanyRecord
   has_many :animals, :class_name => "Animal", :through => :events
   has_many :animal_groups, :class_name => "AnimalGroup", :through => :events
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :allow_nil => true, :only_integer => true
+  validates_numericality_of :duration, :quantity, :allow_nil => true
+  validates_length_of :name, :per_unit, :prescription_number, :allow_nil => true, :maximum => 255
+  validates_presence_of :quantity
   #]VALIDATORS]
 end

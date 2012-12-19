@@ -49,6 +49,7 @@ class ListingNode < CompanyRecord
   acts_as_list :scope=>:listing_id
   acts_as_tree
   attr_readonly :listing_id, :nature
+  enumerize :nature, :in => [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing
   belongs_to :item_listing, :class_name=>"Listing"
   belongs_to :item_listing_node, :class_name=>"ListingNode"
@@ -63,7 +64,7 @@ class ListingNode < CompanyRecord
 
   autosave :listing
 
-  @@natures = [:datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
+  @@natures = self.nature.values
 
   @@comparators = {
     :numeric=>["any", "gt", "lt", "ge", "le", "eq", "neq", "vn", "nvn"],
@@ -105,7 +106,7 @@ class ListingNode < CompanyRecord
   before_validation do
     self.listing_id = self.parent.listing_id if self.parent
 
-    self.key = 'k'+User.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
+    self.key = 'k'+Entity.send(:generate_password, 31, :normal) if self.key.nil? ## bef_val_on_cr
     if self.root?
       self.name = self.listing.root_model
     elsif self.reflection?

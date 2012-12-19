@@ -1,7 +1,4 @@
-=formalize do |f|
-  -f.error :animal_event_nature
-
-=field_set(@animal_event_nature, :general_informations) do |f|
-  =f.input :name
-  =f.input :description
-  =f.input :comment
+-field_set do
+  -input :name
+  -input :description
+  -input :comment

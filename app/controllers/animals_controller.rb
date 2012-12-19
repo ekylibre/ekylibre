@@ -19,7 +19,7 @@
 
 class AnimalsController < AdminController
   manage_restfully :multipart => true
-  
+
   list do |t|
     t.column :identification_number, :url => true
     t.column :name, :url=>true
@@ -35,7 +35,7 @@ class AnimalsController < AdminController
   end
 
   # Show a list of animal groups
-  
+
   def index
     @animals = Animal.all
     respond_to do |format|
@@ -79,19 +79,19 @@ class AnimalsController < AdminController
       }
     end
   end
-  
+
   def render_animals_list(animals)
     report = ThinReports::Report.new layout: File.join(Rails.root, 'app', 'reports', 'animals.tlf')
 
     animals.each do |animal|
       report.list.add_row do |row|
-        row.values no: animal.id, 
+        row.values no: animal.id,
                    name: animal.name
       end
     end
-    
-    send_data report.generate, filename: 'animals.pdf', 
-                               type: 'application/pdf', 
+
+    send_data report.generate, filename: 'animals.pdf',
+                               type: 'application/pdf',
                                disposition: 'attachment'
   end
 

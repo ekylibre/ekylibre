@@ -1,12 +1,11 @@
-=formalize do |f|
-  -f.error 'outgoing_payment'
-  -f.title :general_informations
-  -f.field :outgoing_payment, :payee_id, :choices=>:entities, :new=>true
-  -f.field :outgoing_payment, :amount
-  -f.field :outgoing_payment, :to_bank_on
-  -f.field :outgoing_payment, :delivered
-  -f.field :outgoing_payment, :mode_id, :choices=>{:reflection=>:outgoing_payment_modes}, :new=>true
-  -f.title :depositable
-  -f.field :outgoing_payment, :responsible_id, :choices=>{:reflection=>:users}
-  -f.field :outgoing_payment, :paid_on
-  -f.field :outgoing_payment, :check_number
+-field_set do
+  -association :payee
+  -input :amount
+  -input :to_bank_on
+  -input :delivered
+  -association :mode
+
+-field_set(:depositable_options) do
+  -association :responsible, :source => "Entity#workers"
+  -input :paid_on
+  -input :check_number

@@ -1,11 +1,8 @@
-=formalize do |f|
-  -f.error :animal_group
-
-=field_set(@animal_group, :general_informations) do |f|
-  =f.input :name
-  =f.input :description
-  =f.input :comment
-  =f.input :age_min
-  =f.input :age_max
-  =f.input :sex, :collection => AnimalGroup::SEXES, :as => :radio_buttons
-  =f.input :pregnant
+-field_set do
+  -input :name
+  -input :description
+  -input :comment
+  -input :age_min
+  -input :age_max
+  -input :sex, :collection => AnimalGroup::SEXES, :as => :radio_buttons
+  -input :pregnant

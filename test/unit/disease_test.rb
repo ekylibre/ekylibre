@@ -1,7 +1,9 @@
-# -*- coding: utf-8 -*-
+# = Informations
+#
 # == License
+#
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,8 +16,18 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: diseases
+#
+#  code         :string(255)
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#  zone         :string(255)
 #
 
-module ContactsHelper
-end

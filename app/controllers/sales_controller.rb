@@ -203,7 +203,7 @@ class SalesController < AdminController
         notify_error_now(:need_quantities_to_cancel_an_sale)
         return
       end
-      responsible = User.find_by_id(params[:sale][:responsible_id]) if params[:sale]
+      responsible = Entity.find_by_id(params[:sale][:responsible_id]) if params[:sale]
       if credit = @sale.cancel(lines, :responsible=>responsible||@current_user)
         redirect_to :action=>:show, :id=>credit.id
       end

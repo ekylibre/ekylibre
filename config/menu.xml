@@ -31,11 +31,11 @@
       <page to="entity_links#edit"/>
       <page to="entity_links#new"/>
       <page to="entity_links#update"/>
-      <page to="contacts#create"/>
-      <page to="contacts#destroy"/>
-      <page to="contacts#edit"/>
-      <page to="contacts#new"/>
-      <page to="contacts#update"/>
+      <page to="contacts#create" deletable="true"/>
+      <page to="contacts#destroy" deletable="true"/>
+      <page to="contacts#edit" deletable="true"/>
+      <page to="contacts#new" deletable="true"/>
+      <page to="contacts#update" deletable="true"/>
       <page to="observations#create"/>
       <page to="observations#destroy"/>
       <page to="observations#edit"/>
@@ -660,30 +660,29 @@
         <page to="taxes#new"/>
         <page to="taxes#update"/>
       </menu>
-    <menu name="incoming_payment_modes">
-      <page to="incoming_payment_modes#index"/>
-      <page to="incoming_payment_modes#create"/>
-      <page to="incoming_payment_modes#destroy"/>
-      <page to="incoming_payment_modes#down"/>
-      <page to="incoming_payment_modes#edit"/>
-      <page to="incoming_payment_modes#list"/>
-      <page to="incoming_payment_modes#new"/>
-      <page to="incoming_payment_modes#reflect"/>
-      <page to="incoming_payment_modes#up"/>
-      <page to="incoming_payment_modes#update"/>
-    </menu>
-    <menu name="outgoing_payment_modes">
-      <page to="outgoing_payment_modes#index"/>
-      <page to="outgoing_payment_modes#create"/>
-      <page to="outgoing_payment_modes#destroy"/>
-      <page to="outgoing_payment_modes#down"/>
-      <page to="outgoing_payment_modes#edit"/>
-      <page to="outgoing_payment_modes#list"/>
-      <page to="outgoing_payment_modes#new"/>
-      <page to="outgoing_payment_modes#up"/>
-      <page to="outgoing_payment_modes#update"/>
-    </menu>
-
+      <menu name="incoming_payment_modes">
+        <page to="incoming_payment_modes#index"/>
+        <page to="incoming_payment_modes#create"/>
+        <page to="incoming_payment_modes#destroy"/>
+        <page to="incoming_payment_modes#down"/>
+        <page to="incoming_payment_modes#edit"/>
+        <page to="incoming_payment_modes#list"/>
+        <page to="incoming_payment_modes#new"/>
+        <page to="incoming_payment_modes#reflect"/>
+        <page to="incoming_payment_modes#up"/>
+        <page to="incoming_payment_modes#update"/>
+      </menu>
+      <menu name="outgoing_payment_modes">
+        <page to="outgoing_payment_modes#index"/>
+        <page to="outgoing_payment_modes#create"/>
+        <page to="outgoing_payment_modes#destroy"/>
+        <page to="outgoing_payment_modes#down"/>
+        <page to="outgoing_payment_modes#edit"/>
+        <page to="outgoing_payment_modes#list"/>
+        <page to="outgoing_payment_modes#new"/>
+        <page to="outgoing_payment_modes#up"/>
+        <page to="outgoing_payment_modes#update"/>
+      </menu>
     </menu>
     <menu name="sales">
       <page to="dashboards#settings_sales"/>
@@ -811,14 +810,14 @@
         <page to="operation_natures#update"/>
       </menu>
       <menu name="animal_care_natures">
-        <page to="animal_care_natures#index"/>
-        <page to="animal_care_natures#create"/>
-        <page to="animal_care_natures#destroy"/>
-        <page to="animal_care_natures#edit"/>
-        <page to="animal_care_natures#list"/>
-        <page to="animal_care_natures#new"/>
-        <page to="animal_care_natures#show"/>
-        <page to="animal_care_natures#update"/>
+        <page to="animal_care_natures#index" deletable="true"/>
+        <page to="animal_care_natures#create" deletable="true"/>
+        <page to="animal_care_natures#destroy" deletable="true"/>
+        <page to="animal_care_natures#edit" deletable="true"/>
+        <page to="animal_care_natures#list" deletable="true"/>
+        <page to="animal_care_natures#new" deletable="true"/>
+        <page to="animal_care_natures#show" deletable="true"/>
+        <page to="animal_care_natures#update" deletable="true"/>
       </menu>
       <menu name="animal_groups">
         <page to="animal_groups#index"/>
@@ -896,6 +895,29 @@
     </menu>
   </menu>
   <undefined>
+    <menu name="animal_event_natures">
+      <page to="animal_event_natures#index"/>
+      <page to="animal_event_natures#create"/>
+      <page to="animal_event_natures#destroy"/>
+      <page to="animal_event_natures#edit"/>
+      <page to="animal_event_natures#list"/>
+      <page to="animal_event_natures#new"/>
+      <page to="animal_event_natures#show"/>
+      <page to="animal_event_natures#update"/>
+    </menu>
+    <menu name="animal_treatments">
+      <page to="animal_treatments#index"/>
+      <page to="animal_treatments#create"/>
+      <page to="animal_treatments#destroy"/>
+      <page to="animal_treatments#edit"/>
+      <page to="animal_treatments#list"/>
+      <page to="animal_treatments#new"/>
+      <page to="animal_treatments#show"/>
+      <page to="animal_treatments#update"/>
+    </menu>
+    <menu name="animals">
+      <page to="animals#list_events"/>
+    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>
@@ -904,6 +926,26 @@
       <page to="dashboards#list_my_future_events"/>
       <page to="dashboards#list_recent_events"/>
       <page to="dashboards#welcome"/>
+    </menu>
+    <menu name="diagnostics">
+      <page to="diagnostics#index"/>
+      <page to="diagnostics#create"/>
+      <page to="diagnostics#destroy"/>
+      <page to="diagnostics#edit"/>
+      <page to="diagnostics#list"/>
+      <page to="diagnostics#new"/>
+      <page to="diagnostics#show"/>
+      <page to="diagnostics#update"/>
+    </menu>
+    <menu name="entities">
+      <page to="entities#list_addresses"/>
+    </menu>
+    <menu name="entity_addresses">
+      <page to="entity_addresses#create"/>
+      <page to="entity_addresses#destroy"/>
+      <page to="entity_addresses#edit"/>
+      <page to="entity_addresses#new"/>
+      <page to="entity_addresses#update"/>
     </menu>
     <menu name="help">
       <page to="help#index"/>
@@ -962,6 +1004,16 @@
       <page to="sessions#destroy"/>
       <page to="sessions#new"/>
       <page to="sessions#renew"/>
+    </menu>
+    <menu name="tool_natures">
+      <page to="tool_natures#index"/>
+      <page to="tool_natures#create"/>
+      <page to="tool_natures#destroy"/>
+      <page to="tool_natures#edit"/>
+      <page to="tool_natures#list"/>
+      <page to="tool_natures#new"/>
+      <page to="tool_natures#show"/>
+      <page to="tool_natures#update"/>
     </menu>
     <menu name="trackings">
       <page to="trackings#list_operation_lines"/>

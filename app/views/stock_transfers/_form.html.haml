@@ -1,15 +1,9 @@
-=tracking_id = nil
-=formalize do |f|
-  -f.error :stock_transfer
-  -if @stock_transfer.new_record?
-    -f.field :stock_transfer, :nature, :field=>:radio, :choices=>StockTransfer.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options"}]}
-  -else
-    -f.field :stock_transfer, :nature, :field=>:label
-  -f.field :stock_transfer, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
-  -tracking_id = f.field :stock_transfer, :tracking_id
-  -f.field :stock_transfer, :quantity
-  -f.field :stock_transfer, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
-  -if @stock_transfer.new_record? or @stock_transfer.nature == "transfer"
-    -f.field :stock_transfer, :second_warehouse_id, :choices=>{:reflection=>:warehouses}, :html_options=>{:id=>:transfer_options}, :new=>true
-  -f.field :stock_transfer, :planned_on
-  -f.field :stock_transfer, :comment, :field=>:textarea
+-field_set do
+  -input :nature, :show => {:transfer => :second_warehouse}
+  -association :product, :source => "Product#availables"
+  -association :tracking
+  -input :quantity
+  -association :warehouse
+  -association :second_warehouse
+  -input :planned_on
+  -input :comment, :field => :text

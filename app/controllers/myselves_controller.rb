@@ -25,7 +25,7 @@ class MyselvesController < AdminController
   end
 
   def change_password
-    @user = User.find(session[:user_id])
+    @user = Entity.find(session[:user_id])
     if request.post?
       if @user.authenticated? params[:user][:old_password]
         @user.password = params[:user][:password]

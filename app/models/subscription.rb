@@ -20,9 +20,8 @@
 #
 # == Table: subscriptions
 #
-#  _activation  :string(255)
+#  address_id   :integer
 #  comment      :text
-#  contact_id   :integer
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  entity_id    :integer
@@ -46,16 +45,18 @@
 
 class Subscription < CompanyRecord
   acts_as_numbered
-  belongs_to :contact
+  # DEPRECATED Replace use of contact with address
+  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
+  belongs_to :address, :class_name => "EntityAddress"
   belongs_to :entity
-  belongs_to :nature, :class_name=>"SubscriptionNature"
+  belongs_to :nature, :class_name => "SubscriptionNature"
   belongs_to :product
   belongs_to :sale
   belongs_to :sale_line
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :_activation, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if=>Proc.new{|u| u.nature and u.nature.nature=="period"}
@@ -97,6 +98,9 @@ class Subscription < CompanyRecord
   validate do
     if self.contact and self.entity
       errors.add(:entity_id, :entity_must_be_the_same_as_the_contact_entity) if self.contact.entity_id!=self.entity_id
+    end
+    if self.address
+      errors.add(:address_id, :invalid) unless self.address.mail?
     end
   end
 

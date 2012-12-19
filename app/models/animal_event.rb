@@ -20,33 +20,33 @@
 #
 # == Table: animal_events
 #
-#  animal_group_id   :integer
-#  animal_id         :integer
-#  comment           :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  end_on            :datetime
-#  entity_id         :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  nature_id         :integer          not null
-#  quantity_per_care :decimal(, )
-#  start_on          :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  animal_group_id :integer
+#  animal_id       :integer
+#  comment         :text
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  description     :text
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  name            :string(255)      not null
+#  nature_id       :integer          not null
+#  started_on      :datetime
+#  stopped_on      :datetime
+#  treatment_id    :integer
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  watcher_id      :integer
 #
 
 
 class AnimalEvent < CompanyRecord
   belongs_to :nature, :class_name => "AnimalEventNature"
-  belongs_to :animal, :class_name => "Animal"
-  belongs_to :animal_group, :class_name => "AnimalGroup"
+  belongs_to :animal
+  belongs_to :animal_group
   belongs_to :treatment, :class_name => "AnimalTreatment"
   belongs_to :watcher, :class_name => "Entity"
-  has_many :diagnostics, :class_name => "Diagnostic",:foreign_key => :event_id
-  has_many :diseases, :class_name => "Disease", :through => :diagnostics
+  has_many :diagnostics, :foreign_key => :event_id
+  has_many :diseases, :through => :diagnostics
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature

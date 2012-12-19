@@ -192,7 +192,7 @@ class Account < CompanyRecord
   def self.load_chart(name, options = {})
     locale = options[:locale]
     if (chart = ::I18n.translate("accounting_systems.#{name}", :locale => locale)).is_a? Hash
-      ActiveRecord::Base.transaction do
+      Ekylibre::Record::Base.transaction do
         # Destroy unused existing accounts
         self.destroy_all
 

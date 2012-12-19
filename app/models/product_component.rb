@@ -65,7 +65,7 @@ class ProductComponent < CompanyRecord
     current_time = Time.now
     stamper = self.class.stamper_class.stamper rescue nil
     # raise stamper.inspect unless stamper.nil?
-    stamper_id = stamper.id if stamper.is_a? User
+    stamper_id = stamper.id if stamper.is_a? Entity
     nc = self.class.create!(self.attributes.merge(:created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id))
     self.class.update_all({:active=>false}, {:id=>self.id})
     return nc

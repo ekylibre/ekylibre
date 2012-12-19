@@ -30,6 +30,7 @@
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
 #  number       :string(255)
+#  shape        :spatial({:srid=>
 #  started_on   :date             not null
 #  stopped_on   :date
 #  updated_at   :datetime         not null

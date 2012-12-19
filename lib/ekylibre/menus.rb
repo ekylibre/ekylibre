@@ -15,7 +15,7 @@ module Ekylibre
         @retro = {} if @parent.nil?
         @pages = []
         @items = ActiveSupport::OrderedHash.new
-        
+
         # Adds pages
         for page in desc[:pages]
           self.add_page(page)
@@ -87,7 +87,7 @@ module Ekylibre
         if page = ancestor.page(controller, action)
           return (page.hierarchy.include?(self) ? true : false)
         else
-          return false 
+          return false
         end
       end
 
@@ -132,7 +132,7 @@ module Ekylibre
       end
 
       private
-      
+
       def self.descify_element(element)
         desc = {}
         for e in element.children
@@ -152,7 +152,7 @@ module Ekylibre
     end
 
 
-    
+
     class Page
       attr_reader :controller, :action, :id, :parent
       def initialize(parent, item)
@@ -162,7 +162,7 @@ module Ekylibre
         @action = page[1].to_sym
         @id = @controller.to_s + '#' + @action.to_s
       end
-      
+
       def hierarchy
         list = []
         if @parent
@@ -187,7 +187,7 @@ module Ekylibre
   mattr_reader :menu
   @@menu = Navigation::Menu.load_file(menu_file)
   # Adds dashboards
-  
+
 
   # mattr_reader :menus, :menus_actions, :reverse_menus
   # @@menus = ActiveSupport::OrderedHash.new

@@ -1,14 +1,14 @@
 fra:
   activerecord:
     attributes:
-      animal:  #?
-        race: "Race" #?
-      animal_group:  #?
-        age_max: "Age maximum" #?
-        age_min: "Age minimum" #?
-        pregnant: "Surveillance de la gestation" #?
-      animal_race:  #?
-        code: "Code race" #?
+      animal:
+        race: "Race"
+      animal_group:
+        age_max: "Age maximum"
+        age_min: "Age minimum"
+        pregnant: "Surveillance de la gestation"
+      animal_race:
+        code: "Code race"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -31,7 +31,7 @@ fra:
       event_nature:
         duration: "Durée par défaut (en min.)"
       financial_year:
-        last_journal_entry: "Écriture de fin d'exercice" #?
+        last_journal_entry: "Écriture de fin d'exercice"
         stopped_on: "Date de clôture"
       incoming_payment:
         amount: "Montant"
@@ -85,19 +85,19 @@ fra:
         contact: "Adresse pour le devis"
         has_downpayment: "Acompte à verser"
         lines: "Lignes de vente"
-        parts_amount: "Montant payé" #?
+        parts_amount: "Montant payé"
         payments: "Encaissements"
       sale_line:
         label: "Produit"
         price: "Produit tarifé"
       sale_nature:
         downpayment: "Avec acompte"
-      sales_invoice:  #?
-        credit: "Avoir" #?
-        lines: "Lignes de facture" #?
-        origin: "Facture d’origine" #?
-      sales_invoice_line:  #?
-        origin: "Ligne d’origine" #?
+      sales_invoice:
+        credit: "Avoir"
+        lines: "Lignes de facture"
+        origin: "Facture d’origine"
+      sales_invoice_line:
+        origin: "Ligne d’origine"
       stock:
         quantity: "Stock réel"
       stock_move:
@@ -120,7 +120,7 @@ fra:
         active: "Utilisé"
       transfer:
         amount: "Montant"
-        parts_amount: "Montant payé" #?
+        parts_amount: "Montant payé"
       unit:
         start: "Valeur à l’origine"
       user:
@@ -135,8 +135,8 @@ fra:
         accepted: "%{attribute} doit être accepté"
         blank: "%{attribute} ne peut pas être vide"
         confirmation: "%{attribute} est différent du champ de confirmation"
-        contains_blank_line: "%{attribute} contient une ligne vide" #?
-        contains_blank_page: "%{attribute} contient une page vide" #?
+        contains_blank_line: "%{attribute} contient une ligne vide"
+        contains_blank_page: "%{attribute} contient une page vide"
         currency_does_not_match: "La devise de «\_%{attribute}\_» ne correspond pas celle attendue\_: %{currency}"
         empty: "%{attribute} ne peut pas être vide"
         equal_to: "%{attribute} doit être égal à %{count}"
@@ -233,7 +233,13 @@ fra:
     models:
       account: "Compte"
       account_balance: "Balance de compte"
-      animal: "Animaux" #?
+      animal: "Animaux"
+      # animal_event: "Animal event"
+      # animal_event_nature: "Animal event nature"
+      # animal_group: "Animal group"
+      # animal_race: "Animal race"
+      # animal_race_nature: "Animal race nature"
+      # animal_treatment: "Animal treatment"
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -241,7 +247,7 @@ fra:
       cash: "Trésorerie"
       cash_transfer: "Virement interne"
       company: "Société"
-      contact: "Contact"
+      contact: "Contact" #?
       cultivation: "Culture"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
@@ -250,10 +256,15 @@ fra:
       department: "Service"
       deposit: "Remise en banque"
       deposit_line: "Ligne de remise en banque"
+      # diagnostic: "Diagnostic"
+      # disease: "Disease"
       district: "Zone administrative"
       document: "Document"
       document_template: "Modèle de document"
+      # drug: "Drug"
+      # drug_nature: "Drug nature"
       entity: "Personne"
+      # entity_address: "Entity address"
       entity_category: "Catégorie de personne"
       entity_link: "Lien de personne"
       entity_link_nature: "Nature de lien entre personnes"
@@ -317,12 +328,13 @@ fra:
       tax: "Taxe"
       tax_declaration: "Déclaration de taxes"
       tool: "Outil"
+      # tool_nature: "Tool nature"
       tracking: "Lot traçable"
       tracking_state: "État de lot"
       transfer: "Transfert"
       transport: "Transport"
       unit: "Unité"
-      user: "Utilisateur"
+      user: "Utilisateur" #?
       warehouse: "Lieu de stockage"
   attributes:
     account: "Compte comptable"
@@ -330,42 +342,46 @@ fra:
     account_number: "Numéro de compte"
     accountable: "Comptabilisable"
     accounted_at: "Date comptabilisation"
-    accounts: "Comptes"
+    accounts: "Comptes" #?
     acquisition_amount: "Montant des acquisition"
     active: "Utilisable"
     active_prices: "Prix en cours"
     activity_code: "Code APE/NAF"
     actual_number: "Numéro en cours"
     address: "Adresse"
+    # addresses: "Addresses"
     admin: "Administrateur système"
+    # age_max: "Age max"
+    # age_min: "Age min"
     agency_code: "Code guichet"
     allocation_account: "Compte de dotation"
     amount: "Montant"
-    animal: "Animaux" #?
-    # animal_cares: "Animal cares"
-    animal_group: "Lot" #?
-    # animals: "Animals"
+    animal: "Animaux"
+    animal_group: "Lot"
+    # animal_groups: "Animal groups"
+    animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
     area_measure: "Superficie"
     area_unit: "Unité de surface"
     areas: "Zones postales"
-    arrived_on: "Arrivé le"
+    arrived_on: "Arrivé le" #?
     asset: "Immobilisation"
     asset_amount: "Valeur nette comptable"
     asset_depreciations: "Dépréciations d’immobilisation"
-    assets: "Immobilisations"
+    assets: "Immobilisations" #?
     assimilated_taxes_amount: "Montant des taxes assimilées"
     atmospheric_pressure: "Pression atmosphérique"
     attorney: "Mandataire"
     attorney_account: "Compte mandataire associé"
-    attorney_accounts: "Comptes mandataires"
-    # attorney_journal: "Attorney journal"
+    attorney_accounts: "Comptes mandataires" #?
+    attorney_journal: "Attorney journal"
     attorneys: "Mandataires"
     attribute_name: "Nom de l’attribut"
     authorized_payments_count: "Nombre d’encaissements autorisés"
+    # auto_updateable_addresses: "Auto updateable addresses"
     available_prices: "Prix disponibles"
-    available_products: "Produits disponibles"
+    available_products: "Produits disponibles" #?
     available_stocks: "Stocks disponibles"
     balance: "Solde"
     balance_amount: "Solde"
@@ -378,7 +394,7 @@ fra:
     bank_statements: "Relevés de compte bancaire"
     banks_accounts: "Comptes comptables de banque"
     base: "Base"
-    bban: "RIB"
+    bban: "RIB" #?
     bic: "BIC"
     boolean_value: "Valeur booléenne"
     born_on: "Date de naissance"
@@ -386,10 +402,10 @@ fra:
     buildings: "Bâtiments"
     by_default: "Par défaut"
     cache: "Cache"
-    # cares: "Cares"
+    canal: "Canal"
     cash: "Trésorerie"
     cash_journals: "Journaux de caisse"
-    cash_transfers: "Virements internes"
+    cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse"
     catalog_description: "Description pour le catalogue"
@@ -413,13 +429,14 @@ fra:
     city_name: "Nom"
     client: "Client"
     client_account: "Compte client associé"
-    client_accounts: "Comptes clients"
+    client_accounts: "Comptes clients" #?
     clients: "Clients"
     closable_financial_year: "Exercice clôturable"
     closed: "Clôturé"
     closed_on: "Date de clôture"
     code: "Code"
     code2: "Code secondaire"
+    # code_aee: "Code aee"
     coefficient: "Coefficient"
     collected_account: "TVA collectée"
     collected_amount: "TVA brute"
@@ -433,7 +450,7 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percent: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
-    company: "Société"
+    company: "Société" #?
     component: "Produit contenu"
     components: "Composants de produit"
     compute: "Dernière valeur"
@@ -447,6 +464,7 @@ fra:
     contact: "Adresse"
     contacts: "Contacts"
     conveyors: "Convoyeurs"
+    # coordinate: "Coordinate"
     country: "Pays"
     created_at: "Date et heure de création"
     created_on: "Date de création"
@@ -456,7 +474,7 @@ fra:
     credited_quantity: "Quantité déjà passée en avoir"
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique"
-    critic_stocks: "Stocks critiques"
+    critic_stocks: "Stocks critiques" #?
     crypt_key: "Clé de cryptage"
     crypt_mode: "Mode de cryptage"
     currency: "Devise"
@@ -465,9 +483,9 @@ fra:
     current_amount: "Montant actuel"
     current_financial_year: "Exercice comptable en cours"
     custom_field: "Champ complémentaire"
-    custom_field_choices: "Choix de champ complémentaire"
+    custom_field_choices: "Choix de champ complémentaire" #?
     custom_field_data: "Données complémentaires de fiche"
-    custom_fields: "Champs complémentaires"
+    custom_fields: "Champs complémentaires" #?
     data: "Données complémentaires"
     date_value: "Valeur date"
     datetime_value: "Valeur date/heure"
@@ -477,11 +495,12 @@ fra:
     decimal_min: "Intervalle bas"
     decimal_value: "Valeur décimale"
     declared_on: "Déclarée le"
+    # default_address: "Default address"
     default_contact: "Contact par défaut"
     default_currency: "Devise par défaut"
     default_stock: "Stock par défaut"
     deferred_payment: "Crédit à reporter"
-    delays: "Délais"
+    delays: "Délais" #?
     deleted_at: "Supprimé le"
     deliverable: "Livrable"
     delivered: "Livré"
@@ -489,13 +508,15 @@ fra:
     deliveries: "Livraisons"
     deliveries_conditions: "Conditions de Livraison"
     delivery: "Livraison"
+    delivery_address: "Delivery address"
     delivery_contact: "Adresse pour la livraison"
     delivery_lines: "Lignes de livraison"
+    delivery_mail: "Delivery mail" #?
     delivery_modes: "Modes de livraison" #?
     density_label: "Densité"
-    departed_on: "Parti le"
+    departed_on: "Parti le" #?
     department: "Service"
-    departments: "Services"
+    departments: "Services" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
     depositables_account: "Compte d’attente pour les encaissements à encaisser"
@@ -509,16 +530,20 @@ fra:
     depreciation_percentage: "Pourcentage d’amortissement"
     depreciations: "Amortissements"
     description: "Description"
+    # detail_payments: "Detail payments"
+    diagnostics: "Diagnostics"
     diff_less: "Droits enlevés"
     diff_more: "Droits rajoutés"
     direct_links: "Liens directs"
     direction: "Type"
     direction_label: "Type"
-    discount_rate: "Taux d’escompte"
+    discount_rate: "Taux d’escompte" #?
+    disease: "Disease"
+    diseases: "Diseases"
     district: "Zone administrative"
-    districts: "Zones administratives"
+    districts: "Zones administratives" #?
     division: "Position X"
-    document_templates: "Modèles de document"
+    document_templates: "Modèles de document" #?
     documents: "Documents"
     downpayment: "Acompte"
     downpayment_amount: "Montant de l’acompte"
@@ -526,14 +551,18 @@ fra:
     downpayment_rate: "Taux acompte"
     draft: "Brouillard" #?
     draft_mode: "Mode brouillard" #?
+    # drug: "Drug"
     drugs: "Médicaments"
     duration: "Durée"
+    # duration_wait_for_meat: "Duration wait for meat"
+    # duration_wait_for_milk: "Duration wait for milk"
     ean13: "Code EAN13"
-    email: "Courriel (e-mail)"
+    email: "Courriel (e-mail)" #?
+    # emails: "Emails"
     emitter_amount: "Montant émis"
     emitter_cash: "Trésorerie émettrice"
-    emitter_currency: "Devise émise"
-    emitter_currency_rate: "Taux de la devise émise"
+    emitter_currency: "Devise émise" #?
+    emitter_currency_rate: "Taux de la devise émise" #?
     emitter_journal_entry: "Écriture de l’émission"
     employed: "Employé par la société"
     employees: "employés"
@@ -543,21 +572,22 @@ fra:
     entity: "Personne"
     entity_1: "Personne 1"
     entity_2: "Personne 2"
-    entity_categories: "Catégories de personne"
+    entity_categories: "Catégories de personne" #?
     entity_link_nature: "Type de lien permettant d’étendre l’abonnement"
-    entity_link_natures: "Natures de lien entre personnes"
+    entity_link_natures: "Natures de lien entre personnes" #?
     entity_links: "Liens de personne"
     entity_name: "Nom de l’abonné"
-    entity_natures: "Types de personne"
+    entity_natures: "Types de personne" #?
     entries: "Écritures"
     entry: "Écriture"
     entry_lines: "Lignes d’écritures"
     establishment: "Établissement"
-    establishments: "Établissements"
-    event_natures: "Types d’évènement"
+    establishments: "Établissements" #?
+    # event: "Event"
+    event_natures: "Types d’évènement" #?
     events: "Évènements"
     examinated_at: "Examiné le"
-    excise: "Numéro d’accises"
+    excise: "Numéro d’accises" #?
     expense: "Dépense"
     expense_type: "Type de dépense"
     expenses: "Dépenses"
@@ -569,14 +599,15 @@ fra:
     extension: "Extension"
     family: "Module"
     family_label: "Module"
-    father: "Père" #?
-    fax: "Fax"
+    father: "Père"
+    fax: "Fax" #?
+    # faxes: "Faxes"
     filename: "Nom de fichier"
     filesize: "Taille du fichier"
     filtered_columns: "Colonnes filtrées"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
-    financial_years: "Exercices"
+    financial_years: "Exercices" #?
     finish: "Fin"
     first_financial_year: "Premier exercice"
     first_met_on: "Date de la première rencontre"
@@ -587,6 +618,7 @@ fra:
     for_productions: "Produit fabriqué ou récolté"
     for_purchases: "Produit acheté"
     for_sales: "Produit vendu"
+    # frequency: "Frequency"
     full_name: "Nom complet"
     full_name_format: "Format du nom complet"
     function_title: "Civilités"
@@ -605,17 +637,17 @@ fra:
     iban: "IBAN"
     iban_label: "IBAN"
     id: "ID"
-    identification_number: "Numéro d'identification" #?
+    identification_number: "Numéro d'identification"
     immobilizations_account: "Compte d’immobilisation" #?
     immobilizations_products: "Produits d’immobilizations"
     importance: "Importance"
     in_cash: "En espèce"
     in_name: "Abréviation incluse dans le nom de la personne"
     included: "Incluse"
-    income_on: "Date d'entrée" #?
+    income_on: "Date d'entrée"
     incoming_deliveries: "Livraisons entrantes"
-    incoming_delivery_lines: "Lignes de livraisons entrantes"
-    incoming_delivery_modes: "Modes de livraisons entrantes"
+    incoming_delivery_lines: "Lignes de livraisons entrantes" #?
+    incoming_delivery_modes: "Modes de livraisons entrantes" #?
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payment_uses: "Parties d’encaissement"
     incoming_payments: "Encaissements"
@@ -624,9 +656,10 @@ fra:
     input_conveyors: "Convoyeur entrant"
     integer_value: "Valeur entière"
     introduction: "Introduction"
-    inventories: "Inventaires"
+    inventories: "Inventaires" #?
     inventory: "Inventaire"
     inventory_lines: "Lignes d’inventaire"
+    # invoice_address: "Invoice address"
     invoice_contact: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
@@ -641,11 +674,11 @@ fra:
     journal_entries: "Écritures"
     journal_entry: "Écriture"
     journal_entry_lines: "Lignes d’écritures"
-    journals: "Journaux"
+    journals: "Journaux" #?
     key: "Clé"
     label: "Libellé"
-    land_parcel_groups: "Groupe d’îlots"
-    land_parcel_kinships: "Lien de parenté entre îlots"
+    land_parcel_groups: "Groupe d’îlots" #?
+    land_parcel_kinships: "Lien de parenté entre îlots" #?
     land_parcels: "Îlots"
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
@@ -656,22 +689,23 @@ fra:
     last_name: "Nom de famille"
     last_number: "Dernier numéro"
     last_year: "Dernière année"
-    latitude: "Latitude"
+    latitude: "Latitude" #?
+    # left_on: "Left on"
     length_max: "Nombre de caractères maximum"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
-    line_2: "Destinataire - Service"
-    line_3: "Bât. - Rés. - ZI..."
-    line_4: "Numéro et libellé de la voie"
-    line_5: "Mention spéciale - Lieu dit"
-    line_6: "Code postal ET ville"
-    line_6_city: "Ville"
-    line_6_code: "Code postal"
+    line_2: "Destinataire - Service" #?
+    line_3: "Bât. - Rés. - ZI..." #?
+    line_4: "Numéro et libellé de la voie" #?
+    line_5: "Mention spéciale - Lieu dit" #?
+    line_6: "Code postal ET ville" #?
+    line_6_city: "Ville" #?
+    line_6_code: "Code postal" #?
     lines: "Lignes"
     listing: "Extraction"
-    listing_node_items: "Éléments de nœud d’extraction"
-    listing_nodes: "Nœuds d’extraction"
-    listings: "Extractions"
+    listing_node_items: "Éléments de nœud d’extraction" #?
+    listing_nodes: "Nœuds d’extraction" #?
+    listings: "Extractions" #?
     local_balance: "Solde"
     local_count: "Population"
     local_credit: "Crédit"
@@ -679,22 +713,43 @@ fra:
     location: "Location"
     lock_version: "Version"
     locked: "Verrouillé"
-    longitude: "Longitude"
+    # log: "Log"
+    # loggable: "Loggable"
+    longitude: "Longitude" #?
     lost: "En perte"
     luminance: "Luminosité"
     mail: "E-mail"
+    # mail_area: "Mail area"
+    # mail_auto_update: "Mail auto update"
     mail_columns: "Colonnes de courriel"
-    major_accounts: "Classes comptables"
+    # mail_country: "Mail country"
+    # mail_geolocation: "Mail geolocation"
+    # mail_line_1: "Mail line 1"
+    # mail_line_2: "Mail line 2"
+    # mail_line_3: "Mail line 3"
+    # mail_line_4: "Mail line 4"
+    # mail_line_5: "Mail line 5"
+    # mail_line_6: "Mail line 6"
+    # mails: "Mails"
+    major_accounts: "Classes comptables" #?
+    # managed_events: "Managed events"
+    # managed_sales: "Managed sales"
+    # managed_sales_invoices: "Managed sales invoices"
+    # managed_transports: "Managed transports"
+    # managed_unpaid_sales: "Managed unpaid sales"
     mandates: "Responsabilités"
+    # maximum_grantable_reduction_percent: "Maximum grantable reduction percent"
     min_duration: "Minute(s)"
-    mobile: "Portable"
+    mobile: "Portable" #?
+    # mobiles: "Mobiles"
     mode: "Mode"
-    mother: "Mère" #?
+    mother: "Mère"
     moved_on: "Fait le"
     moves: "Mouvements"
     name: "Nom"
     name_1_to_2: "Personne 1 ⇒ Personne 2"
     name_2_to_1: "Personne 2 ⇒ Personne 1"
+    # name_aee: "Name aee"
     nature: "Type"
     nature_code: "Code"
     nature_label: "Type"
@@ -707,12 +762,13 @@ fra:
     number_increment: "Incrément"
     number_start: "Début de la numération"
     observations: "Observations"
+    # of_company: "Of company"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
     operation: "Travail"
     operation_lines: "Intrants/sortants"
     operation_nature: "Type d’operation"
-    operation_natures: "Types de travail"
+    operation_natures: "Types de travail" #?
     operation_uses: "Utilisations d’outil"
     operations: "Travaux"
     order: "Vente" #?
@@ -727,11 +783,11 @@ fra:
     original_name: "Nom original"
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_lines: "Lignes de livraisons sortantes"
-    outgoing_delivery_modes: "Modes de livraisons sortantes"
+    outgoing_delivery_modes: "Modes de livraisons sortantes" #?
     outgoing_payment_modes: "Modes de décaissement"
     outgoing_payment_uses: "Parties de décaissements"
     outgoing_payments: "Décaissements"
-    outgone_on: "Date de sortie" #?
+    outgone_on: "Date de sortie"
     output_conveyors: "Convoyeur sortant"
     owner: "Propriétaire"
     owner_type: "Nature du propriétaire"
@@ -759,18 +815,26 @@ fra:
     payment_way: "Mode de décaissement"
     payments: "Encaissements"
     payments_count: "Nb. encaissements"
-    payments_to_deposit: "Encaissements à encaisser"
+    payments_to_deposit: "Encaissements à encaisser" #?
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser"
+    # per_unit: "Per unit"
     period: "Périodicité"
     period_name: "Périodicité"
-    phone: "Téléphone"
+    phone: "Téléphone" #?
+    # phones: "Phones"
     photo: "Photo"
     physical: "Personne physique"
+    picture_content_type: "Picture content type"
+    picture_file_name: "Picture file name"
+    picture_file_size: "Picture file size"
+    picture_updated_at: "Picture updated at"
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
     postcode: "Code postal"
     preferences: "Préférences"
+    # pregnant: "Pregnant"
+    # prescription_number: "Prescription number"
     pretax_amount: "Montant HT"
     price: "Prix"
     price_amount: "Montant HT"
@@ -779,20 +843,16 @@ fra:
     printed_on: "Datée du"
     producer: "Producteur"
     product: "Produit"
-    product_categories: "Catégories de produit"
-    product_components: "Composants de produit"
+    product_categories: "Catégories de produit" #?
+    product_components: "Composants de produit" #?
     productable_products: "Produits produisibles"
     production_chain: "Chaîne de production"
     production_chain_conveyor: "Convoyeur de chaîne de production" #?
     production_chain_work_center: "Centre d’opérations de chaîne de production"
-    # production_chain_work_center_lines: "Production chain work center lines"
-    # production_chain_work_center_uses: "Production chain work center uses"
-    # production_chain_work_centers: "Production chain work centers"
-    # production_chains: "Production chains"
     products: "Produits"
     products_accounts: "Comptes produits"
     profession: "Profession"
-    professions: "Professions"
+    professions: "Professions" #?
     propagate_contacts: "Propager les contacts"
     proposer: "Parrain"
     prospect: "Prospect"
@@ -803,7 +863,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_line: "Ligne d’achat"
     purchase_lines: "Lignes d’achat"
-    purchase_natures: "Types d’achats"
+    purchase_natures: "Types d’achats" #?
     purchased_on: "Acheté le"
     purchases: "Achats"
     purchases_account: "Compte comptable de charges"
@@ -812,6 +872,8 @@ fra:
     quantity_max: "Quantité maximum"
     quantity_min: "Quantité minimum"
     query: "Requête"
+    # race: "Race"
+    # races: "Races"
     range: "Intervalle"
     rate: "Taux de change" #?
     reason: "Motif"
@@ -819,12 +881,13 @@ fra:
     received: "Reçue"
     receiver_amount: "Montant reçu"
     receiver_cash: "Trésorerie réceptrice"
-    receiver_currency: "Devise reçue"
-    receiver_currency_rate: "Taux de la devise reçue"
+    receiver_currency: "Devise reçue" #?
+    receiver_currency_rate: "Taux de la devise reçue" #?
     receiver_journal_entry: "Écriture de la réception"
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
+    # recruited_on: "Recruited on"
     reductible: "Réductible"
     reduction: "Ligne de réduction"
     reduction_origin: "Ligne soumise à réduction"
@@ -834,7 +897,7 @@ fra:
     reductions: "Lignes de réductions"
     reference_number: "N°Référence"
     reflation_submissive: "Soumis à la relance"
-    # reflections: "Reflections"
+    reflections: "Reflections"
     relative_humidity: "Humidité relative"
     remaining_duration: "Durée d’utilisation prévue (heures)"
     required: "Obligatoire"
@@ -844,7 +907,7 @@ fra:
     responsible: "Responsable"
     rights: "Droits"
     role: "Rôle de base"
-    roles: "Rôles"
+    roles: "Rôles" #?
     rome: "Code ROME"
     root_model: "Racine"
     root_model_name: "Racine"
@@ -865,14 +928,15 @@ fra:
     second_move: "Second mouvement" #?
     second_stock_move: "Second mouvement de stock"
     second_warehouse: "Lieu de stockage du second mouvement"
-    self_bank_accounts: "Comptes bancaires en propre"
+    self_bank_accounts: "Comptes bancaires en propre" #?
     self_cashes: "Caisses en propre"
     self_contacts: "Contacts en propre"
-    sequences: "Séquences"
+    sequences: "Séquences" #?
     serial: "N°Lot"
     service_coeff: "Coefficient (de quantité) de service"
     sex: "Sexe"
     sha256: "SHA256"
+    # shape: "Shape"
     shipped: "Reçu" #?
     shipped_on: "Envoyé le" #?
     siren: "N° SIREN"
@@ -893,7 +957,7 @@ fra:
     stock_moves: "Mouvements de stock"
     stock_transfers: "Transferts ou pertes de stock"
     stockable: "Gérer les stocks"
-    stockable_products: "Produits stockables"
+    stockable_products: "Produits stockables" #?
     stocks: "Stocks de produit"
     stopped_at: "Arrêté à"
     stopped_on: "Arrêté le"
@@ -903,7 +967,7 @@ fra:
     subdivision: "Position Y"
     subject: "Objet"
     subscription_nature: "Type"
-    subscription_natures: "Types d’abonnement"
+    subscription_natures: "Types d’abonnement" #?
     subscription_period: "Période"
     subscription_quantity: "Quantité"
     subscriptions: "Abonnements"
@@ -911,28 +975,29 @@ fra:
     sum_method: "Méthode de calcul"
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
-    supplier_accounts: "Comptes fournisseurs"
+    supplier_accounts: "Comptes fournisseurs" #?
     suppliers: "Fournisseurs"
     surface_units: "Unités de surface"
     suspended: "Suspendu"
     symbol: "Symbole" #?
     symmetric: "Symétrique"
+    # symptoms: "Symptoms"
     target: "Parcelle"
     target_quantity: "Quantité cible"
     target_type: "Type de cible"
     tax: "Taxe"
-    tax_declarations: "Déclarations de taxes"
+    tax_declarations: "Déclarations de taxes" #?
     taxes: "Taxes"
     temperature: "Température"
     template: "Modèle"
     text_importance: "Importance"
-    text_nature: "Type"
+    text_nature: "Type" #?
     theoric_quantity: "Quantité théorique"
     title: "Titre"
     to: "Pour"
     to_archive: "Archiver les documents"
     to_bank_on: "À décaisser le"
-    to_deposit: "À remettre"
+    to_deposit: "À remettre" #?
     tool: "Outil"
     tools: "Outils"
     tools_list: "Matériel"
@@ -948,10 +1013,9 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transporters: "Transporteurs"
     transports: "Transports"
-    type: "Type"
-    # unconfirmed_stock_transfers: "Unconfirmed stock transfers"
-    # undelivered_incoming_deliveries: "Undelivered incoming deliveries"
-    # undelivered_outgoing_deliveries: "Undelivered outgoing deliveries"
+    # treatment: "Treatment"
+    treatments: "Treatments"
+    type: "Type" #?
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
     unit: "Unité"
@@ -959,9 +1023,8 @@ fra:
     units: "Unités"
     # unlocked_payments: "Unlocked payments"
     # unpaid_responsibles: "Unpaid responsibles"
-    unpaid_sales: "Ventes impayées"
+    unpaid_sales: "Ventes impayées" #?
     unquantifiable: "Non quantifiable"
-    # untransportered_deliveries: "Untransportered deliveries"
     # unused_conveyors: "Unused conveyors"
     updated_at: "Mis à jour le"
     updater: "Modificateur"
@@ -973,6 +1036,7 @@ fra:
     used_amount: "Montant utilisé"
     # useful_lines: "Useful lines"
     user: "Utilisateur"
+    # username: "Username"
     users: "Utilisateurs"
     uses: "Matériels utilisés"
     value: "Valeur"
@@ -982,11 +1046,12 @@ fra:
     virtual: "Virtuel"
     virtual_quantity: "Stock virtuel"
     # waiting_deliveries: "Waiting deliveries"
-    # waiting_transporters: "Waiting transporters"
     warehouse: "Lieu de stockage"
     warehouses: "Lieux de stockage"
+    # watcher: "Watcher"
     webpass: "Mot de passe web"
-    website: "Site web"
+    website: "Site web" #?
+    # websites: "Websites"
     weight: "Poids (kg)"
     with_accounting: "Passer en comptabilité"
     with_commission: "Inclure une commission"
@@ -994,6 +1059,7 @@ fra:
     with_tracking: "Avec tracabilité"
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
+    # zone: "Zone"
   models:
     account:
       label: "%{number} - %{name}"
@@ -1184,7 +1250,7 @@ fra:
         dont_use: "-- Ne pas utiliser --"
         generate_string_custom_field: "-- Créer un champ personnalisé (texte) --"
       sales: "Ventes"
-    contact:
+    contact: #?
       error_modify_contact: "Impossible de modifier un contact"
     custom_field:
       natures:
@@ -1447,6 +1513,6 @@ fra:
         other: "Autres"
         towed: "Attelage"
         tractor: "Tracteur"
-    user:
-      no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}"
+    user: #?
+      no_right_defined_for_this_part_of_the_application: "Aucun droit défini pour cette partie de l’application\_: %{controller}/%{action}" #?
       no_right_defined_for_this_part_of_the_application_and_this_user: "Vous n’avez pas accès à cette partie de l’application"

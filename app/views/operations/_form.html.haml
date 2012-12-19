@@ -1,19 +1,23 @@
-= formalize do |f|
-  - f.error :operation
+-field_set do
+  -input :name
+  -association :responsible, :source => "Entity#workers"
+  -association :nature
+  -input :planned_on
+  -input :description, :field => :text
 
-=field_set(@operation, :infos) do |f|
-  =f.input :name
-  =f.association :responsible
-  =f.association :nature
-  = formalize do |f|
-    - f.field :operation, :planned_on
-    - f.field :operation, :description, :field=>:textarea
-    - f.title :duration
-    - f.field :operation, :hour_duration
-    - f.field :operation, :min_duration
+-field_set(:duration) do
+  -input :hour_duration
+  -input :min_duration
 
-=field_set(@operation, :operations_details) do |f|
-  =formalize do |f|
-    -f.title :operation_lines
-  =hidden_field_tag "operation[target_type]", LandParcel.name
+-field_set(:products) do
+  -nested_association(:lines) do
+    -input :direction
+    -association :product
+    -input :quantity
+    -association :tracking
+    -association :warehouse
+
+-field_set(:tools) do
+  -nested_association(:uses) do
+    -association :tool
 

@@ -1,6 +1,5 @@
-=field_set(@custom_field_choice, :general_informations) do |f|
-  =f.error :custom_field_choice
-  =f.association :custom_field
-  =f.input :name
-  =f.input :value
+-field_set do |f|
+  -association :custom_field
+  -input :name
+  -input :value
 

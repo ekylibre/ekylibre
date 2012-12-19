@@ -1,11 +1,9 @@
-=formalize do |f|
-  - f.title :general
-  - f.field :product_category, :name, (@product_category.new_record? ? {"data-live-copy-to"=>"#product_category_catalog_name"} : {})
-  - f.field :product_category, :comment, :field=>:textarea
-  - product_categories = @product_category.others
-  - if product_categories.count > 0
-    - f.field :product_category, :parent_id, :choices=>product_categories.collect{|x| ["- "*x.depth+x.name, x.id]}, :options=>{:include_blank=>true}
-  - f.title :catalog
-  - f.field :product_category, :catalog_name
-  - f.field :product_category, :catalog_description, :field=>:textarea
+-# TODO Manage soft_copy_to
+-field_set do
+  -input :name, :soft_copy_to => :catalog_name
+  -input :comment, :field => :text
+  -association :parent, :source => "self#others"
+-field_set(:catalog) do
+  -input :catalog_name
+  -input :catalog_description, :field => :text
 

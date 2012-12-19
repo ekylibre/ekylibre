@@ -1,11 +1,9 @@
-=field_set(@subscription_nature, :general_informations) do |f|
-  =f.error :subscription_nature
-  -if @subscription_nature.new_record?
-    =f.input :nature, :as => :radio_buttons, :collection => SubscriptionNature.natures.collect{|n| [n[0], n[1], {"data-show"=>"##{n[1]}_options"}]}
-  -else
-    =f.input :nature_label
-  =f.input :name
-  =f.input :reduction_rate
-  =f.association :entity_link_nature, :include_blank => true
-  =f.input :comment
-  =f.input :actual_number
+-field_set do
+  -input :nature, :show => {:quantity => :number_options}
+  -input :name
+  -input :reduction_rate
+  -association :entity_link_nature
+  -input :comment, :field => :text
+
+-field_set(:number_options) do
+  -input :actual_number

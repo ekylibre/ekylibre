@@ -37,23 +37,17 @@
 
 
 class ProductionChainWorkCenter < CompanyRecord
-  acts_as_list :scope=>:production_chain
-  belongs_to :building, :class_name=>"Warehouse"
+  acts_as_list :scope => :production_chain
+  enumerize :nature, :in => [:input, :output]
+  belongs_to :building, :class_name => "Warehouse"
   belongs_to :operation_nature
   belongs_to :production_chain
-  has_many :uses,  :class_name=>"ProductionChainWorkCenterUse",  :foreign_key=>:work_center_id
-  has_many :output_conveyors, :dependent=>:nullify, :class_name=>"ProductionChainConveyor", :foreign_key=>:source_id # :as=>:source
-  has_many :input_conveyors, :dependent=>:nullify, :class_name=>"ProductionChainConveyor", :foreign_key=>:target_id # :as=>:target
+  has_many :uses,  :class_name => "ProductionChainWorkCenterUse",  :foreign_key => :work_center_id
+  has_many :output_conveyors, :dependent => :nullify, :class_name => "ProductionChainConveyor", :foreign_key => :source_id # :as => :source
+  has_many :input_conveyors, :dependent => :nullify, :class_name => "ProductionChainConveyor", :foreign_key => :target_id # :as => :target
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :building, :name, :nature, :operation_nature, :production_chain
   #]VALIDATORS]
   validates_uniqueness_of :name
-
-  @@natures = [:input, :output]
-
-  def self.natures_list
-    @@natures.collect{|x| [tc("natures.#{x}"), x.to_s]}
-  end
-
 end

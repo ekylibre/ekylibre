@@ -21,19 +21,19 @@
 # == Table: sales
 #
 #  accounted_at        :datetime
+#  address_id          :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
 #  comment             :text
 #  conclusion          :text
 #  confirmed_on        :date
-#  contact_id          :integer
 #  created_at          :datetime         not null
 #  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
 #  currency            :string(3)
-#  delivery_contact_id :integer
+#  delivery_address_id :integer
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer
 #  expired_on          :date
@@ -42,7 +42,7 @@
 #  id                  :integer          not null, primary key
 #  initial_number      :string(64)
 #  introduction        :text
-#  invoice_contact_id  :integer
+#  invoice_address_id  :integer
 #  invoiced_on         :date
 #  journal_entry_id    :integer
 #  letter_format       :boolean          default(TRUE), not null

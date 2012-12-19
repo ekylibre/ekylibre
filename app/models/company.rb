@@ -188,7 +188,7 @@ class Company < ActiveRecord::Base
   has_many :choice_custom_fields, :class_name=>"CustomField", :conditions=>{:nature=>"choice"}, :order=>"name"
   ### has_many :client_accounts, :class_name=>"Account", :order=>:number, :conditions=>conditions_proc('number LIKE #{connection.quote(self.preferred_third_clients_accounts.to_s+\'%\')}')
   ### has_many :critic_stocks, :class_name=>"Stock", :conditions=>['virtual_quantity <= quantity_min AND NOT (virtual_quantity=0 AND quantity=0 AND tracking_id IS NOT NULL)']
-  has_many :employees, :class_name=>"User", :conditions=>{:employed=>true}, :order=>'last_name, first_name'
+  has_many :employees, :class_name=>"Entity", :conditions=>{:employed=>true}, :order=>'last_name, first_name'
   ### has_many :depositable_payments, :class_name=>"IncomingPayment", :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true})')
   ### has_many :major_accounts, :class_name=>"Account", :conditions=>["number LIKE '_'"], :order=>"number"
   ### has_many :payments_to_deposit, :class_name=>"IncomingPayment", :order=>"created_on", :conditions=>conditions_proc('deposit_id IS NULL AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE company_id=#{id} AND with_deposit=#{connection.quoted_true}) AND to_bank_on >= #{connection.quote(Date.today-14)}')
@@ -206,7 +206,7 @@ class Company < ActiveRecord::Base
   ### has_many :unconfirmed_stock_transfers, :class_name=>"StockTransfer", :conditions=>{:moved_on=>nil}
   ### has_many :undelivered_incoming_deliveries, :class_name=>"IncomingDelivery", :conditions=>{:moved_on=>nil}
   ### has_many :undelivered_outgoing_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil}
-  has_many :unpaid_responsibles, :class_name=>"User", :conditions=>conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
+  has_many :unpaid_responsibles, :class_name=>"Entity", :conditions=>conditions_proc('id in (SELECT responsible_id FROM #{Sale.table_name} WHERE company_id=#{id} AND state IN (\'order\', \'invoice\') AND paid_amount < amount AND lost = #{connection.quoted_false})')
   ### has_many :untransportered_deliveries, :class_name=>"OutgoingDelivery", :conditions=>{:moved_on=>nil, :transporter_id=>nil} # without_transporter
   has_many :usable_incoming_payments, :class_name=>"IncomingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
   has_many :usable_outgoing_payments, :class_name=>"OutgoingPayment", :conditions=>conditions_proc('used_amount < amount'), :order=>'amount'
@@ -636,7 +636,7 @@ class Company < ActiveRecord::Base
   # def self.create_with_data(company_attr=nil, user_attr=nil, demo_language_code=nil)
   #   language = 'fra'
   #   currency = 'EUR'
-  #   user = User.new(user_attr)
+  #   user = Entity.new(user_attr)
   #   code = company_attr[:code]
 
   #   ActiveRecord::Base.transaction do
@@ -652,7 +652,7 @@ class Company < ActiveRecord::Base
   #     firm.contacts.create!(:line_2 => "", :line_3 => "", :line_5 => "", :line_6 => "", :by_default => true)
 
   #     user.admin = true
-  #     user.role = Role.create!(:name=>tc('default.role.name.admin'),  :rights => User.rights_list.join(' '))
+  #     user.role = Role.create!(:name=>tc('default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
   #     Role.create!(:name=>tc('default.role.name.public'), :rights => '')
   #     user.save!
 
@@ -716,11 +716,11 @@ class Company < ActiveRecord::Base
   #   language = 'fra'
   #   # company = Company.new({:language=>language}.merge(company_attr))
   #   # company = Company.new(company_attr)
-  #   user = User.new(user_attr)
+  #   user = Entity.new(user_attr)
 
   #   ActiveRecord::Base.transaction do
   #     company.save!
-  #     company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>User.rights_list.join(' '))
+  #     company.roles.create!(:name=>tc('default.role.name.admin'),  :rights=>Entity.rights_list.join(' '))
   #     company.roles.create!(:name=>tc('default.role.name.public'), :rights=>'')
   #     user.company_id = company.id
   #     user.role_id = company.admin_role.id

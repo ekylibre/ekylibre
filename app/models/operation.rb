@@ -47,7 +47,7 @@
 
 class Operation < CompanyRecord
   belongs_to :nature, :class_name=>"OperationNature"
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   belongs_to :target, :polymorphic=>true
   belongs_to :production_chain_work_center
   has_many :operation_uses, :dependent=>:destroy

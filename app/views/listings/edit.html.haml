@@ -2,23 +2,5 @@
   -t.extract @listing, :params=>{:format=>:csv}
   -t.link :mail, {}, :i18n=>{:name=>@listing.name} if @listing.mail_columns.size > 0
 
-=form_tag({:action=>:update}, {:method=>:put}) do
-  =formalize do |f|
-    -f.error :listing
-    -f.title :subtitle
-    -f.field :listing, :name
-    -f.field :listing, :conditions, :field=>:textarea, :options=>{:cols=>80}
-    -f.field :listing, :comment, :field=>:textarea
-
-  .actions
-    =submit_tag(tg(:validate))
-
-=formalize do |f|
-  -f.title :data_to_extract
-
-=render :partial=>"listings/node", :object=>@listing.root
-
-.actions
-  =link_to tg(:previous), :action=>:index
-
--#%p{:style=>'color: #808080;'}=tc(:query)+" "+@listing.query.to_s
+=master_form(:update, :method => :put)
+.fieldset=render :partial=>"listings/node", :object => @listing.root

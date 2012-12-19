@@ -20,8 +20,8 @@
 #
 # == Table: warehouses
 #
+#  address_id       :integer
 #  comment          :text
-#  contact_id       :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  division         :string(255)

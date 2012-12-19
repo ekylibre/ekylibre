@@ -1,8 +1,7 @@
-=formalize do |f|
-  -f.error :mandate
-  -f.field :mandate, :entity_id, :choices=>:entities, :new=>true
-  -f.field :mandate, :family, "data-autocompletion"=>url_for(:action=>:autocomplete_for_mandate_family, :controller=>:interfacers)
-  -f.field :mandate, :organization, "data-autocompletion"=>url_for(:action=>:autocomplete_for_mandate_organization, :controller=>:interfacers)
-  -f.field :mandate, :title, "data-autocompletion"=>url_for(:action=>:autocomplete_for_mandate_title, :controller=>:interfacers)
-  -f.field :mandate, :started_on
-  -f.field :mandate, :stopped_on
+-field_set do
+  -association :entity
+  -input :family, :autocomplete => true
+  -input :organization, :autocomplete => true
+  -input :title, :autocomplete => true
+  -input :started_on
+  -input :stopped_on

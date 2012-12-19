@@ -20,15 +20,24 @@
 #
 # == Table: tools
 #
-#  consumption  :decimal(19, 4)
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(8)        not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  asset_id             :integer
+#  ceded_on             :date
+#  comment              :text
+#  consumption          :decimal(19, 4)
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
+#  nature_id            :integer
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
+#  picture_file_size    :integer
+#  picture_updated_at   :datetime
+#  purchased_on         :date
+#  state                :string(255)
+#  updated_at           :datetime         not null
+#  updater_id           :integer
 #
 
 
@@ -39,9 +48,10 @@ class Tool < CompanyRecord
   belongs_to :nature, :class_name=>"ToolNature"
   belongs_to :asset, :class_name=>"Asset"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :consumption, :allow_nil => true
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature
+  validates_length_of :name, :picture_content_type, :picture_file_name, :state, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
   #]VALIDATORS]
 
   default_scope order(:name)

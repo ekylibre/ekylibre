@@ -28,7 +28,7 @@
 #  created_on          :date
 #  creator_id          :integer
 #  currency            :string(3)
-#  delivery_contact_id :integer
+#  delivery_address_id :integer
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date
 #  journal_entry_id    :integer

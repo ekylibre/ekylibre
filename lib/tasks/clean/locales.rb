@@ -7,7 +7,7 @@ task :locales => :environment do
 
   # Load of actions
   all_actions = {}
-  for right, attributes in YAML.load_file(User.rights_file)
+  for right, attributes in YAML.load_file(Entity.rights_file)
     for full_action in attributes['actions']
       controller, action = (full_action.match(/\:\:/) ? full_action.split(/\W+/)[0..1] : [attributes['controller'].to_s, full_action])
       all_actions[controller] ||= []
@@ -247,7 +247,7 @@ task :locales => :environment do
 
 
   # Rights
-  rights = YAML.load_file(User.rights_file)
+  rights = YAML.load_file(Entity.rights_file)
   translation  = locale.to_s+":\n"
   translation << "  rights:\n"
   untranslated = 0

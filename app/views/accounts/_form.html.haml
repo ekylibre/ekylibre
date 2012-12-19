@@ -1,10 +1,5 @@
--if @account
-  =formalize do |f|
-    -f.error :account
-    -if @account.new_record?
-      -f.field :account, :number
-    -else
-      -f.field Account.human_attribute_name("number"), @account.number
-    -f.field :account, :name
-    -f.field :account, :reconcilable
-    -f.field :account, :comment, :field=>:textarea
+-field_set do
+  -input :number
+  -input :name
+  -input :reconcilable
+  -input :comment, :field => :text

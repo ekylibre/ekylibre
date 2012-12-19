@@ -2,232 +2,255 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :animal, :animal_care, :animal_care_nature, :animal_group, :animal_race, :animal_race_nature, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :contact, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :drug, :drug_nature, :entity, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tracking, :tracking_state, :transfer, :transport, :unit, :user, :warehouse]
+  @@models = [:account, :account_balance, :animal, :animal_event, :animal_event_nature, :animal_group, :animal_race, :animal_race_nature, :animal_treatment, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :diagnostic, :disease, :district, :document, :document_template, :drug, :drug_nature, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_nature, :tracking, :tracking_state, :transfer, :transport, :unit, :warehouse]
 
   # List of all references
   @@references = {
     :account => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :account_balance => {
       :account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :financial_year_id => :financial_year,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :animal => {
-      :creator_id => :user,
-      :father_id => '',
+      :creator_id => :entity,
+      :father_id => :animal,
       :group_id => :animal_group,
-      :mother_id => '',
+      :mother_id => :animal,
       :race_id => :animal_race,
-      :updater_id => :user
+      :updater_id => :entity
     },
-    :animal_care => {
+    :animal_event => {
       :animal_group_id => :animal_group,
       :animal_id => :animal,
-      :creator_id => :user,
-      :entity_id => :entity,
-      :nature_id => '',
-      :updater_id => :user
+      :creator_id => :entity,
+      :nature_id => :animal_event_nature,
+      :treatment_id => :animal_treatment,
+      :updater_id => :entity,
+      :watcher_id => :entity
     },
-    :animal_care_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+    :animal_event_nature => {
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :animal_group => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :animal_race => {
-      :creator_id => :user,
-      :nature_id => '',
-      :updater_id => :user
+      :creator_id => :entity,
+      :nature_id => :animal_race_nature,
+      :updater_id => :entity
     },
     :animal_race_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
+    },
+    :animal_treatment => {
+      :creator_id => :entity,
+      :disease_id => :disease,
+      :drug_id => :drug,
+      :prescriptor_id => :entity,
+      :unit_id => :unit,
+      :updater_id => :entity
     },
     :area => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :district_id => :district,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :asset => {
       :allocation_account_id => :account,
       :charges_account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_id => :journal,
       :purchase_id => :purchase,
       :purchase_line_id => :purchase_line,
       :sale_id => :sale,
       :sale_line_id => :sale_line,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :asset_depreciation => {
       :asset_id => :asset,
-      :creator_id => :user,
+      :creator_id => :entity,
       :financial_year_id => :financial_year,
       :journal_entry_id => :journal_entry,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :bank_statement => {
       :cash_id => :cash,
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :cash => {
       :account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
       :journal_id => :journal,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :cash_transfer => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :emitter_cash_id => :cash,
       :emitter_journal_entry_id => :journal_entry,
       :receiver_cash_id => :cash,
       :receiver_journal_entry_id => :journal_entry,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :company => {
 
     },
-    :contact => {
-      :area_id => :area,
-      :creator_id => :user,
-      :entity_id => :entity,
-      :updater_id => :user
-    },
     :cultivation => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :custom_field => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :custom_field_choice => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :custom_field_id => :custom_field,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :custom_field_datum => {
       :choice_value_id => :custom_field_choice,
-      :creator_id => :user,
+      :creator_id => :entity,
       :custom_field_id => :custom_field,
       :entity_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :delay => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :department => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :parent_id => :department,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :deposit => {
       :cash_id => :cash,
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_entry_id => :journal_entry,
       :mode_id => :incoming_payment_mode,
-      :responsible_id => :user,
-      :updater_id => :user
+      :responsible_id => :entity,
+      :updater_id => :entity
     },
     :deposit_line => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :deposit_id => :deposit,
-      :updater_id => :user
+      :updater_id => :entity
+    },
+    :diagnostic => {
+      :creator_id => :entity,
+      :disease_id => :disease,
+      :event_id => :event,
+      :updater_id => :entity
+    },
+    :disease => {
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :district => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :document => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :owner_id => "owner_type",
       :template_id => :document_template,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :document_template => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :drug => {
-      :creator_id => :user,
-      :nature_id => '',
+      :creator_id => :entity,
+      :nature_id => :drug_nature,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :drug_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :entity => {
       :attorney_account_id => :account,
       :category_id => :entity_category,
       :client_account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
+      :department_id => :department,
+      :establishment_id => :establishment,
       :nature_id => :entity_nature,
       :payment_delay_id => :delay,
       :payment_mode_id => :incoming_payment_mode,
+      :profession_id => :profession,
       :proposer_id => :entity,
-      :responsible_id => :user,
+      :responsible_id => :entity,
+      :role_id => :role,
       :supplier_account_id => :account,
-      :updater_id => :user
+      :updater_id => :entity
+    },
+    :entity_address => {
+      :creator_id => :entity,
+      :entity_id => :entity,
+      :mail_area_id => :area,
+      :updater_id => :entity
     },
     :entity_category => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :entity_link => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_1_id => :entity,
       :entity_2_id => :entity,
       :nature_id => :entity_link_nature,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :entity_link_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :entity_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :establishment => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :event => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
       :nature_id => :event_nature,
-      :responsible_id => :user,
-      :updater_id => :user
+      :responsible_id => :entity,
+      :updater_id => :entity
     },
     :event_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :financial_year => {
-      :creator_id => :user,
-      :last_journal_entry_id => '',
-      :updater_id => :user
+      :creator_id => :entity,
+      :last_journal_entry_id => :journal_entry,
+      :updater_id => :entity
     },
     :incoming_delivery => {
-      :contact_id => :contact,
-      :creator_id => :user,
+      :address_id => :entity_address,
+      :creator_id => :entity,
       :mode_id => :incoming_delivery_mode,
       :purchase_id => :purchase,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :incoming_delivery_line => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :delivery_id => :incoming_delivery,
       :price_id => :price,
       :product_id => :product,
@@ -235,157 +258,157 @@ module Ekylibre
       :stock_move_id => :stock_move,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :incoming_delivery_mode => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :incoming_payment => {
       :commission_account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :deposit_id => :deposit,
       :journal_entry_id => :journal_entry,
       :mode_id => :incoming_payment_mode,
       :payer_id => :entity,
-      :responsible_id => :user,
-      :updater_id => :user
+      :responsible_id => :entity,
+      :updater_id => :entity
     },
     :incoming_payment_mode => {
       :attorney_journal_id => :journal,
       :cash_id => :cash,
       :commission_account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :depositables_account_id => :account,
       :depositables_journal_id => :journal,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :incoming_payment_use => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :expense_id => "expense_type",
       :journal_entry_id => :journal_entry,
       :payment_id => :incoming_payment,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :inventory => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_entry_id => :journal_entry,
-      :responsible_id => :user,
-      :updater_id => :user
+      :responsible_id => :entity,
+      :updater_id => :entity
     },
     :inventory_line => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :inventory_id => :inventory,
       :product_id => :product,
       :stock_move_id => :stock_move,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :journal => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :journal_entry => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :financial_year_id => :financial_year,
       :journal_id => :journal,
       :resource_id => "resource_type",
-      :updater_id => :user
+      :updater_id => :entity
     },
     :journal_entry_line => {
       :account_id => :account,
       :bank_statement_id => :bank_statement,
-      :creator_id => :user,
+      :creator_id => :entity,
       :entry_id => :journal_entry,
       :journal_id => :journal,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :land_parcel => {
       :area_unit_id => :unit,
-      :creator_id => :user,
+      :creator_id => :entity,
       :group_id => :land_parcel_group,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :land_parcel_group => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :land_parcel_kinship => {
       :child_land_parcel_id => :land_parcel,
-      :creator_id => :user,
+      :creator_id => :entity,
       :parent_land_parcel_id => :land_parcel,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :listing => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :listing_node => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :item_listing_id => :listing,
       :item_listing_node_id => :listing_node,
       :listing_id => :listing,
       :parent_id => :listing_node,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :listing_node_item => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :node_id => :listing_node,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :mandate => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :observation => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :operation => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :nature_id => :operation_nature,
       :production_chain_work_center_id => :production_chain_work_center,
-      :responsible_id => :user,
+      :responsible_id => :entity,
       :target_id => "target_type",
-      :updater_id => :user
+      :updater_id => :entity
     },
     :operation_line => {
       :area_unit_id => :unit,
-      :creator_id => :user,
+      :creator_id => :entity,
       :operation_id => :operation,
       :product_id => :product,
       :stock_move_id => :stock_move,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :operation_nature => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :operation_use => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :operation_id => :operation,
       :tool_id => :tool,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :outgoing_delivery => {
-      :contact_id => :contact,
-      :creator_id => :user,
+      :address_id => :entity_address,
+      :creator_id => :entity,
       :mode_id => :outgoing_delivery_mode,
       :sale_id => :sale,
       :transport_id => :transport,
       :transporter_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :outgoing_delivery_line => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :delivery_id => :outgoing_delivery,
       :price_id => :price,
       :product_id => :product,
@@ -393,147 +416,147 @@ module Ekylibre
       :stock_move_id => :stock_move,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :outgoing_delivery_mode => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :outgoing_payment => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_entry_id => :journal_entry,
       :mode_id => :outgoing_payment_mode,
       :payee_id => :entity,
-      :responsible_id => :user,
-      :updater_id => :user
+      :responsible_id => :entity,
+      :updater_id => :entity
     },
     :outgoing_payment_mode => {
       :attorney_journal_id => :journal,
       :cash_id => :cash,
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :outgoing_payment_use => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :expense_id => :purchase,
       :journal_entry_id => :journal_entry,
       :payment_id => :outgoing_payment,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :preference => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :record_value_id => "record_value_type",
-      :updater_id => :user,
+      :updater_id => :entity,
       :user_id => :user
     },
     :price => {
       :category_id => :entity_category,
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
       :product_id => :product,
       :tax_id => :tax,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :product => {
       :category_id => :product_category,
-      :creator_id => :user,
+      :creator_id => :entity,
       :immobilizations_account_id => :account,
       :purchases_account_id => :account,
       :sales_account_id => :account,
       :subscription_nature_id => :subscription_nature,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :product_category => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :parent_id => :product_category,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :product_component => {
       :component_id => :product_component,
-      :creator_id => :user,
+      :creator_id => :entity,
       :product_id => :product,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :production_chain => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :production_chain_conveyor => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :product_id => :product,
       :production_chain_id => :production_chain,
       :source_id => :land_parcel,
       :target_id => :land_parcel,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :production_chain_work_center => {
       :building_id => :warehouse,
-      :creator_id => :user,
+      :creator_id => :entity,
       :operation_nature_id => :operation_nature,
       :production_chain_id => :production_chain,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :production_chain_work_center_use => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :tool_id => :tool,
-      :updater_id => :user,
+      :updater_id => :entity,
       :work_center_id => :production_chain_work_center
     },
     :profession => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :purchase => {
-      :creator_id => :user,
-      :delivery_contact_id => :contact,
+      :creator_id => :entity,
+      :delivery_address_id => :entity_address,
       :journal_entry_id => :journal_entry,
       :nature_id => :purchase_nature,
-      :responsible_id => :user,
+      :responsible_id => :entity,
       :supplier_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :purchase_line => {
       :account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :price_id => :price,
       :product_id => :product,
       :purchase_id => :purchase,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :purchase_nature => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_id => :journal,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :role => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :sale => {
+      :address_id => :entity_address,
       :client_id => :entity,
-      :contact_id => :contact,
-      :creator_id => :user,
-      :delivery_contact_id => :contact,
+      :creator_id => :entity,
+      :delivery_address_id => :entity_address,
       :expiration_id => :delay,
-      :invoice_contact_id => :contact,
+      :invoice_address_id => :entity_address,
       :journal_entry_id => :journal_entry,
       :nature_id => :sale_nature,
       :origin_id => :sale,
       :payment_delay_id => :delay,
-      :responsible_id => :user,
+      :responsible_id => :entity,
       :transporter_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :sale_line => {
       :account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_id => :entity,
       :origin_id => :sale_line,
       :price_id => :price,
@@ -543,127 +566,125 @@ module Ekylibre
       :tax_id => :tax,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :sale_nature => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :expiration_id => :delay,
       :journal_id => :journal,
       :payment_delay_id => :delay,
       :payment_mode_id => :incoming_payment_mode,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :sequence => {
-      :creator_id => :user,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :stock => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :product_id => :product,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :stock_move => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :origin_id => "origin_type",
       :product_id => :product,
       :stock_id => :stock,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :stock_transfer => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :product_id => :product,
       :second_stock_move_id => :stock_move,
       :second_warehouse_id => :warehouse,
       :stock_move_id => :stock_move,
       :tracking_id => :tracking,
       :unit_id => :unit,
-      :updater_id => :user,
+      :updater_id => :entity,
       :warehouse_id => :warehouse
     },
     :subscription => {
-      :contact_id => :contact,
-      :creator_id => :user,
+      :address_id => :entity_address,
+      :creator_id => :entity,
       :entity_id => :entity,
       :nature_id => :subscription_nature,
       :product_id => :product,
       :sale_id => :sale,
       :sale_line_id => :sale_line,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :subscription_nature => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :entity_link_nature_id => :entity_link_nature,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :tax => {
       :collected_account_id => :account,
-      :creator_id => :user,
+      :creator_id => :entity,
       :paid_account_id => :account,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :tax_declaration => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :financial_year_id => :financial_year,
       :journal_entry_id => :journal_entry,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :tool => {
-      :creator_id => :user,
-      :updater_id => :user
+      :asset_id => :asset,
+      :creator_id => :entity,
+      :nature_id => :tool_nature,
+      :updater_id => :entity
+    },
+    :tool_nature => {
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :tracking => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :producer_id => :entity,
       :product_id => :product,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :tracking_state => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :production_chain_conveyor_id => :production_chain_conveyor,
-      :responsible_id => :user,
+      :responsible_id => :entity,
       :tracking_id => :tracking,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :transfer => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :journal_entry_id => :journal_entry,
       :supplier_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :transport => {
-      :creator_id => :user,
+      :creator_id => :entity,
       :purchase_id => :purchase,
-      :responsible_id => :user,
+      :responsible_id => :entity,
       :transporter_id => :entity,
-      :updater_id => :user
+      :updater_id => :entity
     },
     :unit => {
-      :creator_id => :user,
-      :updater_id => :user
-    },
-    :user => {
-      :creator_id => :user,
-      :department_id => :department,
-      :establishment_id => :establishment,
-      :profession_id => :profession,
-      :role_id => :role,
-      :updater_id => :user
+      :creator_id => :entity,
+      :updater_id => :entity
     },
     :warehouse => {
-      :contact_id => :contact,
-      :creator_id => :user,
+      :address_id => :entity_address,
+      :creator_id => :entity,
       :establishment_id => :establishment,
       :parent_id => :warehouse,
       :product_id => :product,
       :unit_id => :unit,
-      :updater_id => :user
+      :updater_id => :entity
     }
   }
 

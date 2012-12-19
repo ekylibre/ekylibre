@@ -1,8 +1,6 @@
-=formalize do |f|
-  -f.error :financial_year
-  -f.field :financial_year, :code
-  -if @financial_year.new_record?
-    -f.field :financial_year, :currency, :choices=>currencies
-  -f.field :financial_year, :started_on
-  -f.field :financial_year, :stopped_on
+-field_set do
+  -input :code
+  -input :currency, :source => :currencies
+  -input :started_on
+  -input :stopped_on
 

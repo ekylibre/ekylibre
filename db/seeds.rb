@@ -3,20 +3,20 @@
 # TODO: I18nize seeds !!!
 language = 'fra'
 currency = 'EUR'
-user = {}
-user[:first_name] = ENV["first_name"] || "Admin"
-user[:last_name] = ENV["last_name"] || "STRATOR"
-unless user[:name] = ENV["name"]
-  user[:name] = "admin"
-  puts "Username is: #{user[:name]}"
+entity = {:loggable => true}
+entity[:first_name] = ENV["first_name"] || "Admin"
+entity[:last_name] = ENV["last_name"] || "STRATOR"
+unless entity[:username] = ENV["username"]
+  entity[:username] = "admin"
+  puts "Username is: #{entity[:username]}"
 end
-unless user[:password] = ENV["password"]
-  user[:password] = rand(100_000_000).to_s(36)
-  puts "Password is #{user[:password]}"
+unless entity[:password] = ENV["password"]
+  entity[:password] = rand(100_000_000).to_s(36)
+  puts "Password is #{entity[:password]}"
 end
-user[:password_confirmation] = user[:password]
+entity[:password_confirmation] = entity[:password]
 
-user = User.new(user)
+entity = Entity.new(entity)
 
 company = ENV["company"] || "My Company"
 
@@ -24,18 +24,20 @@ ActiveRecord::Base.transaction do
   Sequence.load_defaults
   Unit.load_defaults
 
-  EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
+  mister = EntityNature.create!(:name => 'Monsieur', :title => 'M', :physical => true)
   EntityNature.create!(:name => 'Madame', :title => 'Mme', :physical => true)
   EntityNature.create!(:name => 'Société Anonyme', :title => 'SA', :physical => false)
   undefined_nature = EntityNature.create!(:name => 'Indéfini', :title => '', :in_name => false, :physical => false)
   category = EntityCategory.create!(:name => I18n.t('models.company.default.category'))
   firm = Entity.create!(:category_id =>  category.id, :nature_id => undefined_nature.id, :language => language, :last_name => company, :currency => currency, :of_company => true)
-  firm.contacts.create!(:line_2 => "", :line_3 => "", :line_5 => "", :line_6 => "", :by_default => true)
+  firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
 
-  user.admin = true
-  user.role = Role.create!(:name => I18n.t('models.company.default.role.name.admin'),  :rights => User.rights_list.join(' '))
+  entity.admin = true
+  entity.nature = mister
+  entity.category = category
+  entity.role = Role.create!(:name => I18n.t('models.company.default.role.name.admin'),  :rights => Entity.rights_list.join(' '))
   Role.create!(:name => I18n.t('models.company.default.role.name.public'), :rights => '')
-  user.save!
+  entity.save!
 
   Account.load_chart(:accounting_system)
 

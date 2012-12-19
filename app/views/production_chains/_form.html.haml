@@ -1,5 +1,3 @@
-=formalize do |f|
-  -f.error 'production_chain'
-  -f.title :general_informations
-  -f.field :production_chain, :name
-  -f.field :production_chain, :comment, :field=>:textarea
+-field_set do
+  -input :name
+  -input :comment, :field => :text

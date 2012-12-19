@@ -42,7 +42,7 @@
 
 class Transport < CompanyRecord
   acts_as_numbered
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   belongs_to :transporter, :class_name=>"Entity"
   has_many :deliveries, :dependent=>:nullify, :class_name=>"OutgoingDelivery"
 

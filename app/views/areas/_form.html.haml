@@ -1,6 +1,5 @@
-=formalize do |f|
-  -f.error :area
-  -f.field :area, :district_id, :choices=>:districts, :new=>true
-  -f.field :area, :name
-  -f.field :area, :code
-  -f.field :area, :country, :choices=>countries
+-field_set do
+  -association :district
+  -input :name
+  -input :code
+  -input :country, :source => :countries

@@ -1,7 +1,5 @@
-=formalize do |f|
-  -f.error :listing_node
-  -f.title :subtitle
-  -f.field :listing_node, :name
-  -f.field :listing_node, :nature, :choices=>ListingNode.natures
-  -f.field :listing_node, :label
+-field_set
+  -input :name
+  -input :nature
+  -input :label
 

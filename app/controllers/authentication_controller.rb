@@ -41,7 +41,7 @@ class AuthenticationController < BaseController
 
     # Build and cache customized menu for all the session
     # TODO: Adds filter method to restrain menu to usable
-    
+
     # session[:menu] = Ekylibre.menu # .filter_with(authorized_actions)
 
     # session[:menus] = ActiveSupport::OrderedHash.new

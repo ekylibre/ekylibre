@@ -40,6 +40,7 @@ class Journal < CompanyRecord
   has_many :cashes
   has_many :entry_lines, :class_name=>"JournalEntryLine"
   has_many :entries, :class_name=>"JournalEntry"
+  enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 4
@@ -50,7 +51,7 @@ class Journal < CompanyRecord
   validates_uniqueness_of :code
   validates_uniqueness_of :name
 
-  @@natures = [:sales, :purchases, :bank, :forward, :various, :cash]
+  @@natures = self.nature.values
 
   default_scope order(:name)
   scope :used_for, lambda { |nature|

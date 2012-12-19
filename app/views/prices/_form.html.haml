@@ -1,15 +1,14 @@
-=formalize do |f|
-  -f.error 'price'
-  -f.title :general
-  -f.field :price, :product_id, :choices=>{:reflection=>:products}, :new=>true
+-field_set do
+  -association :product
   -if @mode != :sales
-    -f.field :price, :entity_id, :choices=>:entities, :new=>true
-  -f.field :price, :by_default
+    -association :entity, :source => "Entity#suppliers"
+  -input :by_default
+
 =render :partial=>"amount_form"
 
--#  -f.field :price, :use_range, "data-show"=>"interval"
+-#  -input :use_range, "data-show"=>"interval"
 -#  #interval
 -#    =formalize do |f|
--#      -f.field :price, :quantity_min
--#      -f.field :price, :quantity_max
+-#      -input :quantity_min
+-#      -input :quantity_max
 

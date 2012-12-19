@@ -24,5 +24,6 @@
 //= require g.line
 //= require g.dot.js
 //= require g.pie
+//= require cocoon
 //= require bootstrap
 //= require_tree .

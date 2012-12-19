@@ -18,36 +18,35 @@
 #
 
 class SubscriptionsController < AdminController
-  manage_restfully :contact_id=>"Contact.find_by_entity_id(params[:entity_id]).id rescue 0", :sale_line_id=>"params[:sale_line_id]", :entity_id=>"params[:entity_id]", :nature_id=>"SubscriptionNature.first.id rescue 0", :t3e=>{:nature=>"@subscription.nature.name", :start=>"@subscription.start", :finish=>"@subscription.finish"}
+  manage_restfully :address_id => "EntityAddress.find_by_entity_id(params[:entity_id]).id rescue 0", :nature_id => "SubscriptionNature.first.id rescue 0", :t3e => {:nature => "@subscription.nature.name", :start => "@subscription.start", :finish => "@subscription.finish"}
 
   def self.subscriptions_conditions(options={})
-    code = ""
-    code += "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"
-    code += "unless session[:subscriptions_nature_id].to_i.zero?\n"
-    code += "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
-    code += "  conditions << session[:subscriptions_nature_id].to_i\n"
-    code += "end\n"
-    code += "unless session[:subscriptions_instant].nil?\n"
-    code += "  if session[:subscriptions_nature_nature] == 'quantity'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
-    code += "  elsif session[:subscriptions_nature_nature] == 'period'\n"
-    code += "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
-    code += "  end\n"
-    code += "  conditions << session[:subscriptions_instant]\n"
-    code += "end\n"
-    code += "conditions\n"
+    code  = ""
+    code << "conditions = [ \" COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state NOT IN ('invoice', 'order'))\" ]\n"
+    code << "unless session[:subscriptions_nature_id].to_i.zero?\n"
+    code << "  conditions[0] += \" AND #{Subscription.table_name}.nature_id = ?\"\n"
+    code << "  conditions << session[:subscriptions_nature_id].to_i\n"
+    code << "end\n"
+    code << "unless session[:subscriptions_instant].nil?\n"
+    code << "  if session[:subscriptions_nature_nature] == 'quantity'\n"
+    code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
+    code << "  elsif session[:subscriptions_nature_nature] == 'period'\n"
+    code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+    code << "  end\n"
+    code << "  conditions << session[:subscriptions_instant]\n"
+    code << "end\n"
+    code << "conditions\n"
     code
   end
 
-  list(:conditions=>subscriptions_conditions, :order=> "id DESC") do |t|
-    t.column :full_name, :through=>:entity, :url=>true
-    t.column :line_2, :through=>:contact, :label=>:column
-    t.column :line_3, :through=>:contact, :label=>:column
-    t.column :line_4, :through=>:contact, :label=>:column
-    t.column :line_5, :through=>:contact, :label=>:column
-    t.column :line_6_code, :through=>:contact, :label=>:column
-    t.column :line_6_city, :through=>:contact, :label=>:column
-    t.column :name, :through=>:product
+  list(:conditions => subscriptions_conditions, :order =>  "id DESC") do |t|
+    t.column :mail_line_1, :through => :address, :url => true
+    t.column :mail_line_2, :through => :address, :label => :column
+    t.column :mail_line_3, :through => :address, :label => :column
+    t.column :mail_line_4, :through => :address, :label => :column
+    t.column :mail_line_5, :through => :address, :label => :column
+    t.column :mail_line_6, :through => :address, :label => :column
+    t.column :name, :through => :product
     t.column :quantity
     t.column :start
     t.column :finish
@@ -57,13 +56,13 @@ class SubscriptionsController < AdminController
   def index
     if SubscriptionNature.count.zero?
       notify(:need_to_create_subscription_nature)
-      redirect_to :controller=>:subscription_natures
+      redirect_to :controller => :subscription_natures
       return
     end
     if request.xhr?
       return unless @subscription_nature = find_and_check(:subscription_nature, params[:nature_id])
       session[:subscriptions_instant] = @subscription_nature.now
-      render :partial=>"options"
+      render :partial => "options"
       return
     end
     if params[:nature_id]
@@ -72,7 +71,7 @@ class SubscriptionsController < AdminController
     @subscription_nature ||= SubscriptionNature.first
     instant = (@subscription_nature.period? ? params[:instant].to_date : params[:instant].to_i) rescue nil
     session[:subscriptions_nature_id]  = @subscription_nature.id
-    session[:subscriptions_nature_nature] = @subscription_nature.nature
+    session[:subscriptions_nature_nature] = @subscription_nature.nature.to_sym
     session[:subscriptions_instant] = ((instant.blank? or instant == 0) ? @subscription_nature.now : instant)
   end
 
@@ -89,12 +88,12 @@ class SubscriptionsController < AdminController
       end
     end
     if nature
-      attributes[:contact_id] = (Contact.find_by_entity_id(params[:entity_id]).id rescue 0)
+      attributes[:address_id] = (EntityAddress.find_by_entity_id(params[:entity_id]).id rescue 0)
       @subscription = nature.subscriptions.new(attributes)
       @subscription.compute_period
     end
     mode = params[:mode]||:coordinates
-    render :partial=>"#{mode}_form"
+    render :partial => "#{mode}_form"
   end
 
 end

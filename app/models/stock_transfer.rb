@@ -43,11 +43,11 @@
 
 
 class StockTransfer < CompanyRecord
-  NATURES = %w(waste transfer gain).freeze
   acts_as_numbered
   acts_as_stockable :quantity => '-self.quantity'
   acts_as_stockable :second_stock_move, :warehouse => 'self.second_warehouse', :if => 'self.transfer?'
   attr_readonly :nature
+  enumerize :nature, :in => [:waste, :transfer, :gain], :predicate => true
   belongs_to :product
   belongs_to :second_stock_move, :class_name => "StockMove"
   belongs_to :second_warehouse, :class_name => "Warehouse"
@@ -64,7 +64,7 @@ class StockTransfer < CompanyRecord
   validates_presence_of :unit
   validates_presence_of :second_warehouse, :if => Proc.new{|x| x.transfer?}
   validates_numericality_of :quantity, :greater_than => 0.0
-  validates_inclusion_of :nature, :in => NATURES
+  validates_inclusion_of :nature, :in => self.nature.values
 
   scope :unconfirmeds, where(:moved_on => nil)
 
@@ -94,17 +94,12 @@ class StockTransfer < CompanyRecord
   end
 
   def self.natures
-    NATURES.collect{|x| [tc('natures.'+x.to_s), x] }
+    self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def nature_label
     tc('natures.'+self.nature.to_s)
   end
-
-  def transfer?
-    self.nature.to_s == "transfer"
-  end
-
 
   def execute(moved_on = Date.today)
     self.class.transaction do

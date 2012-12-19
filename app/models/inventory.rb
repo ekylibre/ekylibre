@@ -38,7 +38,7 @@
 
 
 class Inventory < CompanyRecord
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   has_many :lines, :class_name=>"InventoryLine", :dependent=>:destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

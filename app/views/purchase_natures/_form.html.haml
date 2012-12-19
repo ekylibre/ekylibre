@@ -1,15 +1,12 @@
-=formalize do |f|
-  -f.title :general
-  -f.field :purchase_nature, :name
-  -f.field :purchase_nature, :active
-  -f.field :purchase_nature, :currency, :choices=>currencies
-  -f.field :purchase_nature, :with_accounting, "data-show"=>"#accountancy"
-  -f.field :purchase_nature, :comment, :field=>:textarea
+-field_set do
+  -input :name
+  -input :active
+  -input :currency, :source => :currencies
+  -input :with_accounting, :show => :accountancy
+  -input :comment, :field => :text
 
-#accountancy
-  =formalize do |f|
-    -f.title :accountancy
-    -f.field :purchase_nature, :journal_id, :choices=>{:reflection=>:journals}, :new=>{:nature=>'purchases'}, :resize=>true
+-field_set :accountancy do
+  -input :journal
 
 
 

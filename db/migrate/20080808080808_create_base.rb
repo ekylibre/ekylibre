@@ -1961,7 +1961,6 @@ class CreateBase < ActiveRecord::Migration
       t.text     "comment"
       t.string   "number"
       t.integer  "sale_line_id"
-      t.string   "_activation"
     end
 
     add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"

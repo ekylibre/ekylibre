@@ -18,24 +18,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: animal_cares
+# == Table: diseases
 #
-#  animal_group_id   :integer
-#  animal_id         :integer
-#  comment           :text
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  description       :text
-#  end_on            :datetime
-#  entity_id         :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  nature_id         :integer          not null
-#  quantity_per_care :decimal(, )
-#  start_on          :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  code         :string(255)
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  name         :string(255)      not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#  zone         :string(255)
 #
 
 
@@ -45,5 +38,7 @@ class Disease < CompanyRecord
   has_many :treatments, :class_name => "AnimalTreatment"
   has_many :drugs, :class_name => "Drug", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :code, :name, :zone, :allow_nil => true, :maximum => 255
+  validates_presence_of :name
   #]VALIDATORS]
 end

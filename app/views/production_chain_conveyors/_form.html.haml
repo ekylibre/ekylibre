@@ -1,17 +1,18 @@
-=formalize do |f|
-  -f.error 'production_chain_conveyor'
-  -f.title :general_informations
-  -f.field :production_chain_conveyor, :production_chain_id, :choices=>{:reflection=>:production_chains}
-  -#f.field :production_chain_conveyor, :name
-  -f.field :production_chain_conveyor, :comment, :field=>:textarea
-  -f.title :product
-  -f.field :production_chain_conveyor, :product_id, :choices=>{:reflection=>:products}, :new=>true
-  -f.field :production_chain_conveyor, :check_state
-  -f.field :production_chain_conveyor, :flow
-  -f.title :source
-  -f.field :production_chain_conveyor, :source_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
-  -f.field :production_chain_conveyor, :source_quantity
-  -f.field :production_chain_conveyor, :unique_tracking
-  -f.title :target
-  -f.field :production_chain_conveyor, :target_id, :choices=>{:reflection=>:production_chain_work_centers, :include_blank=>""}, :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
-  -f.field :production_chain_conveyor, :target_quantity
+-field_set do
+  -association :production_chain
+  -# input :name
+  -input :comment, :field=>:textarea
+
+-field_set :product do
+  -association :product
+  -input :check_state
+  -input :flow
+
+-field_set :source do
+  -association :source # , :buttons => {:new => {:production_chain_id => @production_chain_conveyor.production_chain_id}}
+  -input :source_quantity
+  -input :unique_tracking
+
+-field_set :target do
+  -association :target # , :new=>{:production_chain_id=>@production_chain_conveyor.production_chain_id}
+  -input :target_quantity

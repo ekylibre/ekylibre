@@ -1,22 +1,19 @@
-=formalize do |f|
-  -f.error :animal_care
+-field_set do
+  -input :name
+  -association :nature, :as => :radio_buttons
+  -association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
+  -association :animal_group, :include_blank => true, :default_value => :blank
+  -input :start_on
+  -input :end_on, :include_blank => true, :default_value => :blank
 
-=field_set(@animal_care, :general_informations) do |f|
-  =f.input :name
-  =f.association :nature, :as => :radio_buttons
-  =f.association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
-  =f.association :animal_group, :include_blank => true, :default_value => :blank
-  =f.input :start_on
-  =f.input :end_on, :include_blank => true, :default_value => :blank
+=field_set(:diagnostic_informations) do |f|
+  -association :diseases, :as => :check_boxes
+  -input :description
+  -association :entity
 
-=field_set(@animal_care, :diagnostic_informations) do |f|
-  =f.association :diseases, :as => :check_boxes
-  =f.input :description
-  =f.association :entity
+=field_set(:medical_informations) do |f|
+  -input :comment
+  -association :drugs, :as => :check_boxes
 
-=field_set(@animal_care, :medical_informations) do |f|
-  =f.input :comment
-  =f.association :drugs, :as => :check_boxes
-
-=field_set(@animal_care, :third_informations) do |f|
-  =f.association :entity
+=field_set(:third_informations) do |f|
+  -association :entity

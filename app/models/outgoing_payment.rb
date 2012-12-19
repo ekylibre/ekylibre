@@ -47,7 +47,7 @@ class OutgoingPayment < CompanyRecord
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>"OutgoingPaymentMode"
   belongs_to :payee, :class_name=>"Entity"
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   has_many :uses, :class_name=>"OutgoingPaymentUse", :foreign_key=>:payment_id, :dependent=>:destroy
   has_many :purchases, :through=>:uses
   has_many :expenses, :through=>:uses

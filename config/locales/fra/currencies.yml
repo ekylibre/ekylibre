@@ -1,39 +1,26 @@
 fra:
   currencies:
-    ADF: "Franc andorran" #?
-    ADP: "Peseta andorrane" #?
     AED: "Dirham des Émirats"
-    AFA: "Afghani" #?
     AFN: "Afghani"
     ALL: "Lek (monnaie)"
     AMD: "Dram (monnaie)"
     ANG: "Florin des Antilles néerlandaises"
     AOA: "Kwanza angolais"
-    AOK: "Kwanza" #?
-    AON: "Kwanza angolais" #?
-    AOR: "Kwanza reajustado" #?
-    ARP: "Peso argentin" #?
     ARS: "Peso argentin"
-    ATS: "Schilling autrichien" #?
     AUD: "Dollar australien"
     AWG: "Florin d'Aruba"
-    AZM: "Manat azéri" #?
     AZN: "Nouveau manat azéri"
     BAM: "Marka (monnaie)"
     BBD: "Dollar de la Barbade"
     BDT: "Taka"
-    BEF: "Franc belge" #?
-    BGL: "Lev bulgare" #?
     BGN: "Lev bulgare"
     BHD: "Dinar bahreïni"
     BIF: "Franc burundais"
     BMD: "Dollar des Bermudes"
     BND: "Dollar de Brunei"
     BOB: "Boliviano"
-    BOP: "Peso bolivien" #?
     BOV: "Mvdol"
     BRL: "Réal brésilien"
-    BRR: "Réal brésilien" #?
     BSD: "Dollar bahaméen"
     BTN: "Ngultrum"
     BWP: "Pula"
@@ -50,27 +37,18 @@ fra:
     COP: "Peso colombien"
     COU: "Unidad de valor real"
     CRC: "Colon costaricain"
-    CSD: "Dinar serbo-monténégrin" #?
-    CSK: "Couronne tchécoslovaque" #?
     CUC: "Peso cubain convertible"
     CUP: "Peso cubain"
     CVE: "Escudo cap-verdien"
-    CYP: "Livre chypriote" #?
     CZK: "Couronne tchèque"
-    DEM: "Deutsche Mark" #?
     DJF: "Franc Djibouti"
     DKK: "Couronne danoise"
     DOP: "Peso dominicain"
     DZD: "Dinar algérien"
-    ECS: "Sucre (monnaie)" #?
-    ECV: "Unidad de valor constante" #?
-    EEK: "Couronne estonienne" #?
     EGP: "Livre égyptienne"
     ERN: "Nakfa"
-    ESP: "Peseta espagnole" #?
     ETB: "Birr"
     EUR: "Euro"
-    FIM: "Markka" #?
     FJD: "Dollar fidjien"
     FKP: "Livre des Îles Malouines"
     FRF: "Franc français"
@@ -80,9 +58,7 @@ fra:
     GIP: "Livre de Gibraltar"
     GMD: "Dalasi"
     GNF: "Franc guinéen"
-    GRD: "Drachme" #?
     GTQ: "Quetzal guatémaltèque"
-    GWP: "Peso de Guinée-Bissau" #?
     GYD: "Dollar du Guyana"
     HKD: "Dollar de Hong-Kong"
     HNL: "Lempira hondurien"
@@ -90,13 +66,11 @@ fra:
     HTG: "Gourde haïtienne"
     HUF: "Forint"
     IDR: "Roupie indonésienne"
-    IEP: "Livre irlandaise" #?
     ILS: "Nouveau shekel"
     INR: "Roupie indienne"
     IQD: "Dinar irakien"
     IRR: "Rial iranien"
     ISK: "Couronne islandaise"
-    ITL: "Lire italienne" #?
     JMD: "Dollar jamaïcain"
     JOD: "Dinar jordanien"
     JPY: "Yen"
@@ -115,50 +89,38 @@ fra:
     LRD: "Dollar libérien"
     LSL: "Loti"
     LTL: "Litas"
-    LUF: "Franc luxembourgeois" #?
     LVL: "Lats letton"
-    LVR: "Rouble letton" #?
     LYD: "Dinar libyen"
     MAD: "Dirham marocain"
     MDL: "Leu moldave"
     MGA: "Ariary"
-    MGF: "Franc malgache" #?
     MKD: "Denar"
     MMK: "Kyat"
     MNT: "Tugrik"
     MOP: "Pataca"
     MRO: "Ouguiya"
-    MTL: "Lire maltaise" #?
     MUR: "Roupie mauricienne"
     MVR: "Rufiyaa"
     MWK: "Kwacha malawite"
     MXN: "Peso mexicain"
     MXV: "Unidad de inversión"
     MYR: "Ringgit"
-    MZE: "Escudo mozambicain" #?
-    MZM: "Metical" #?
     MZN: "Metical"
     NAD: "Dollar namibien"
     NGN: "Naira"
-    NIC: "Córdoba nicaraguayen" #?
     NIO: "Córdoba nicaraguayen"
-    NLG: "Florin néerlandais" #?
     NOK: "Couronne norvégienne"
     NPR: "Roupie népalaise"
     NZD: "Dollar néo-zélandais"
     OMR: "Rial omanais"
     PAB: "Balboa panaméen"
     PEN: "Nuevo sol"
-    PES: "Sol péruvien" #?
     PGK: "Kina"
     PHP: "Peso philippin"
     PKR: "Roupie pakistanaise"
     PLN: "Zloty"
-    PLZ: "Zloty" #?
-    PTE: "Escudo portugais" #?
     PYG: "Guarani (monnaie)"
     QAR: "Rial qatari"
-    ROL: "Leu roumain" #?
     RON: "Leu roumain"
     RSD: "Dinar serbe"
     RUB: "Rouble russe"
@@ -166,33 +128,23 @@ fra:
     SAR: "Riyal saoudien"
     SBD: "Dollar des îles Salomon"
     SCR: "Roupie seychelloise"
-    SDD: "Dinar soudanais" #?
     SDG: "Livre soudanaise"
-    SDP: "Livre soudanaise" #?
     SEK: "Couronne suédoise"
     SGD: "Dollar singapourien"
     SHP: "Livre de Sainte-Hélène"
-    SIT: "Tolar" #?
-    SKK: "Couronne slovaque" #?
     SLL: "Leone"
-    SML: "Lire san marinaise" #?
     SOS: "Shilling somalien"
     SRD: "Dollar surinamien"
     SSP: "Livre sud-soudanaise"
     STD: "Dobra"
-    SUB: "Rouble soviétique" #?
-    SUR: "Rouble soviétique" #?
     SVC: "Colon salvadorien"
     SYP: "Livre syrienne"
     SZL: "Lilangeni"
     THB: "Baht"
     TJS: "Somoni"
-    TMM: "Manat turkmène" #?
     TMT: "Manat turkmène"
     TND: "Dinar tunisien"
     TOP: "Pa'anga"
-    TPE: "Escudo du Timor oriental" #?
-    TRL: "Livre turque" #?
     TRY: "Livre turque"
     TTD: "Dollar de Trinité-et-Tobago"
     TWD: "Dollar taïwanais"
@@ -205,20 +157,16 @@ fra:
     UYI: "Peso uruguayen en unités indexées (URUIURUI)"
     UYU: "Peso uruguayen"
     UZS: "Sum (monnaie)"
-    VAL: "Lire vaticanne" #?
-    VEB: "Bolívar vénézuélien" #?
     VEF: "Bolívar vénézuélien"
     VND: "Dong (monnaie)"
     VUV: "Vatu"
     WST: "Tala"
     YER: "Rial yéménite"
-    YUD: "Dinar yougoslave" #?
-    YUM: "Dinar yougoslave" #?
     ZAR: "Rand"
     ZMK: "Kwacha zambien"
-    ZWD: "Dollar zimbabwéen" #?
     ZWL: "Dollar zimbabwéen"
-    ZWR: "Dollar zimbabwéen" #?
+  # Override here default formatting options for each currency IF NEEDED
+  # Ex.: number.currency.formats.XXX.format
   number:
     currency:
-      formats: #?
+      formats:

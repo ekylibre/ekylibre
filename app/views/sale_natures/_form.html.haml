@@ -1,29 +1,23 @@
-=formalize do |f|
-  -f.error :sale_nature
-  -f.title :general
-  -f.field :sale_nature, :name
-  -f.field :sale_nature, :active
-  -f.field :sale_nature, :currency, :choices=>currencies
-  -f.field :sale_nature, :downpayment, "data-show"=>"#downpayment"
-  -f.field :sale_nature, :with_accounting, "data-show"=>"#accountancy"
-  -f.field :sale_nature, :comment, :field=>:textarea
+=field_set do
+  -input :name
+  -input :active
+  -input :currency, :source => :currencies
+  -input :downpayment, :show => :downpayment
+  -input :with_accounting, :show => :accountancy
+  -input :comment, :field => :text
 
-  -f.title :incoming_payment_conditions
-  -f.field :sale_nature, :expiration_id, :choices=>{:reflection=>:delays}, :new=>true
-  -f.field :sale_nature, :payment_delay_id, :choices=>{:reflection=>:delays}, :new=>true
-  -f.field :sale_nature, :payment_mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>true
-  -f.field :sale_nature, :payment_mode_complement
+=field_set(:payment_conditions) do
+  -association :expiration
+  -association :payment_delay
+  -association :payment_mode
+  -input :payment_mode_complement
 
-#downpayment
-  =formalize do |f|
-    -f.title :downpayment
-    -f.field :sale_nature, :downpayment_minimum
-    -f.field :sale_nature, :downpayment_rate
+=field_set(:downpayment) do
+  -input :downpayment_minimum
+  -input :downpayment_rate
 
-#accountancy
-  =formalize do |f|
-    -f.title :accountancy
-    -f.field :sale_nature, :journal_id, :choices=>{:reflection=>:journals}, :new=>{:nature=>'sales'}, :resize=>true
+=field_set(:accountancy) do
+  -input :journal, :buttons => {:new => {:nature=>'sales'}}
 
 
 

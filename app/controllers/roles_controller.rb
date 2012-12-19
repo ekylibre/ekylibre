@@ -33,7 +33,7 @@ class RolesController < AdminController
 
   def new
     @role = Role.new
-    @rights = User.rights_list
+    @rights = Entity.rights_list
     render_restfully_form
   end
 

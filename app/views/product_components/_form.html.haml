@@ -1,7 +1,7 @@
-=formalize do |f|
-  -f.field :product_component, :product_id, :choices=>{:reflection=>:products}, :new=>true
-  -f.field :product_component, :component_id, :choices=>{:reflection=>:products}, :new=>true
-  -# f.field :product_component, :active
-  -f.field :product_component, :quantity
-  -f.field :product_component, :warehouse_id, :choices=>{:reflection=>:warehouses}, :new=>true
-  -f.field :product_component, :comment
+-field_set do
+  -association :product
+  -association :component
+  -# input :active
+  -input :quantity
+  -association :warehouse
+  -input :comment, :field => :text
