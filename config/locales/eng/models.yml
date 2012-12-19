@@ -520,7 +520,7 @@ eng:
     direction_label: "Direction label"
     discount_rate: "Discount rate"
     # disease: "Disease"
-    # diseases: "Diseases"
+    # diseases: "Maladies"
     district: "District"
     districts: "Districts"
     division: "X"
@@ -958,8 +958,9 @@ eng:
     transporter_sales: "Transporter sales"
     transporters: "Transporters"
     transports: "Transports"
+    # treatment: "Traitement"
     # treatments: "Treatments"
-    type: "Type"
+    type: "Type" #?
     unconfirmed_stock_transfers: "Unconfirmed stock transfers" #?
     undelivered_incoming_deliveries: "Undelivered incoming deliveries" #?
     undelivered_outgoing_deliveries: "Undelivered outgoing deliveries" #?
@@ -996,6 +997,7 @@ eng:
     waiting_transporters: "Waiting transporters" #?
     warehouse: "Warehouse"
     warehouses: "Warehouses"
+    # watcher: "Observateur"
     webpass: "Webpass"
     website: "Website"
     weight: "Weight (kg)"

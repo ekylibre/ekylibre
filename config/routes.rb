@@ -96,7 +96,7 @@ Ekylibre::Application.routes.draw do
     collection do
       get :list
       get :list_animals
-      get :list_cares
+      get :list_events
     end
   end
   resources :animal_races do

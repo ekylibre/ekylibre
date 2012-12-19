@@ -45,6 +45,8 @@
 class AnimalTreatment < CompanyRecord
   belongs_to :disease, :class_name => "Disease"
   belongs_to :drug, :class_name => "Drug"
+  belongs_to :prescriptor, :class_name => "Entity"
+  belongs_to :unit, :class_name => "Unit"
   has_many :events, :class_name => "AnimalEvent",:foreign_key => :treatment_id
   has_many :animals, :class_name => "Animal", :through => :events
   has_many :animal_groups, :class_name => "AnimalGroup", :through => :events

@@ -809,16 +809,6 @@
         <page to="operation_natures#new"/>
         <page to="operation_natures#update"/>
       </menu>
-      <menu name="animal_care_natures">
-        <page to="animal_care_natures#index" deletable="true"/>
-        <page to="animal_care_natures#create" deletable="true"/>
-        <page to="animal_care_natures#destroy" deletable="true"/>
-        <page to="animal_care_natures#edit" deletable="true"/>
-        <page to="animal_care_natures#list" deletable="true"/>
-        <page to="animal_care_natures#new" deletable="true"/>
-        <page to="animal_care_natures#show" deletable="true"/>
-        <page to="animal_care_natures#update" deletable="true"/>
-      </menu>
       <menu name="animal_groups">
         <page to="animal_groups#index"/>
         <page to="animal_groups#create"/>
@@ -826,7 +816,7 @@
         <page to="animal_groups#edit"/>
         <page to="animal_groups#list"/>
         <page to="animal_groups#list_animals"/>
-        <page to="animal_groups#list_cares"/>
+        <page to="animal_groups#list_events"/>
         <page to="animal_groups#new"/>
         <page to="animal_groups#show"/>
         <page to="animal_groups#update"/>
@@ -850,6 +840,16 @@
         <page to="animal_races#new"/>
         <page to="animal_races#show"/>
         <page to="animal_races#update"/>
+      </menu>
+      <menu name="animal_treatments">
+        <page to="animal_treatments#index"/>
+        <page to="animal_treatments#create"/>
+        <page to="animal_treatments#destroy"/>
+        <page to="animal_treatments#edit"/>
+        <page to="animal_treatments#list"/>
+        <page to="animal_treatments#new"/>
+        <page to="animal_treatments#show"/>
+        <page to="animal_treatments#update"/>
       </menu>
       <menu name="diseases">
         <page to="diseases#index"/>
@@ -904,16 +904,6 @@
       <page to="animal_event_natures#new"/>
       <page to="animal_event_natures#show"/>
       <page to="animal_event_natures#update"/>
-    </menu>
-    <menu name="animal_treatments">
-      <page to="animal_treatments#index"/>
-      <page to="animal_treatments#create"/>
-      <page to="animal_treatments#destroy"/>
-      <page to="animal_treatments#edit"/>
-      <page to="animal_treatments#list"/>
-      <page to="animal_treatments#new"/>
-      <page to="animal_treatments#show"/>
-      <page to="animal_treatments#update"/>
     </menu>
     <menu name="animals">
       <page to="animals#list_events"/>

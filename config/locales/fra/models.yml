@@ -539,7 +539,7 @@ fra:
     direction_label: "Type"
     discount_rate: "Taux d’escompte" #?
     disease: "Disease"
-    diseases: "Diseases"
+    diseases: "Maladies"
     district: "Zone administrative"
     districts: "Zones administratives" #?
     division: "Position X"
@@ -835,6 +835,7 @@ fra:
     preferences: "Préférences"
     # pregnant: "Pregnant"
     # prescription_number: "Prescription number"
+    # prescriptor: "Prescriptor"
     pretax_amount: "Montant HT"
     price: "Prix"
     price_amount: "Montant HT"
@@ -1013,9 +1014,8 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transporters: "Transporteurs"
     transports: "Transports"
-    # treatment: "Treatment"
+    treatment: "Traitement"
     treatments: "Treatments"
-    type: "Type" #?
     undelivered_quantity: "Reste à livrer"
     unique_tracking: "Numéro unique"
     unit: "Unité"
@@ -1048,7 +1048,7 @@ fra:
     # waiting_deliveries: "Waiting deliveries"
     warehouse: "Lieu de stockage"
     warehouses: "Lieux de stockage"
-    # watcher: "Watcher"
+    watcher: "Observateur"
     webpass: "Mot de passe web"
     website: "Site web" #?
     # websites: "Websites"

@@ -20,23 +20,35 @@ arb:
     animal_care_types: #?
     animal_cares: #?
     animal_event_natures: #?
-    animal_events: #?
+    animal_events:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_on}"
     animal_groups:
       # edit: "Modifier le lot\_: %{name} "
-      # index: "Gestion des lots d'animaux"
+      # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    animal_race_natures: #?
+    animal_race_natures:
+      # edit: "Modifier le type de race\_: %{name} "
+      # index: "Type de race"
+      # new: "Créer un type de race"
+      # show: "Type de race\_: %{name}"
     animal_race_types: #?
     animal_races:
       # edit: "Modifier la race\_: %{name} "
-      # index: "Gestion des races d'animaux"
+      # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
-    animal_treatments: #?
+    animal_treatments:
+      # edit: "Modifier le traitement\_: %{name} "
+      # index: "Traitements"
+      # new: "Créer un traitement"
+      # show: "Traitement\_: %{name}"
     animals:
       # edit: "Modifier un animal"
-      # index: "Gestion des animaux"
+      # index: "Animaux"
       # new: "Créer un animal"
       # show: "animal\_: %{name}"
     application: #?
@@ -127,7 +139,11 @@ arb:
       show: "اقتطاع البنك %{number} من %{created_on}"
       unvalidateds: "التأكد من اقتطاعات البنك"
     diagnostics: #?
-    diseases: #?
+    diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
     districts:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
@@ -140,9 +156,17 @@ arb:
       # print: "Imprimer un exemple"
     documents:  #?
       print: "طباعة وتصدير" #?
-    drug_natures: #?
+    drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
     drug_types: #?
-    drugs: #?
+    drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
     entities:
       # destroy: "Supprimer la fiche"
       edit: "تعديل الملف : %{full_name}"
@@ -499,6 +523,11 @@ arb:
     # account_balances: "Soldes de comptes"
     accountancy: "المحاسبة" #?
     accounts: "مخطط الحساب"
+    # animal_event_natures: "Type d'évenements des Animaux"
+    # animal_events: "Evenements des Animaux"
+    # animal_groups: "Lot d'Animaux"
+    # animal_treatments: "Soins des Animaux"
+    # animals: "Animaux"
     application: "تطبيق"
     areas: "العناوين البريد"
     # assets: "Immobilisations"
@@ -517,9 +546,11 @@ arb:
     departments: "الوظائف/المهام"
     # deposit_lines: "Lignes de remise en banque"
     deposits: "اقتطاعات البنك"
+    # diseases: "Maladies"
     districts: "المناطق الادارية"
     document_templates: "نماذج الوثيقة"
     # documents: "Documents"
+    # drugs: "Médicaments"
     entities: "سجلات الاشخاص"
     entity_categories: "انواع الملف"
     entity_link_natures: "انواع الرابط"
@@ -703,6 +734,7 @@ arb:
     canals: "التنسيق"
     cancel: "الغاء"
     cancelled: "تم الالغاء"
+    # care: "soins"
     cash: "حسابات بنكية"
     cash_create: "اضافة حساب بنكي جديد" #?
     cash_tabbox:
@@ -822,6 +854,7 @@ arb:
     download_firefox: "تحميل موزيلا فاير فوكس"
     downpayment: "شروط العربون"
     draft: "المسودات"
+    # drug: "Médicament"
     duplicate: "تكرار"
     duration: "%{hours}ساعة %{minutes}دقيقة"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -833,6 +866,7 @@ arb:
     entities_export: "CSV جميع الصادرات ضمن"
     entities_import: "CSV استيراد سجلات"
     entities_merge: "دمج السجلات"
+    # entity: "Personne"
     entity_category_create: "اضافة نوع الملف" #?
     entity_category_update: "تعديل نوع الملف"
     entity_create: "انشاء سجل جديد" #?
@@ -899,6 +933,7 @@ arb:
     give_discount: "منح خصومات"
     go: "صلاحية"
     graph_statistics: "رسومات احصائية"
+    # group: "Groupe"
     help: "المساعدة"
     hint: "تلميح&nbsp;: %{value}"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
@@ -1441,6 +1476,7 @@ arb:
       # ready: "Prêts"
       # shipped: "Expédié"
       # waiting: "En attente"
+    # treatment: "Traitement"
     unavailable:  #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?

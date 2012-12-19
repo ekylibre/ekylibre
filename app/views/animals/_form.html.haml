@@ -5,17 +5,19 @@
   -input :sex, :collection => Animal::SEXES, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   -input :born_on, :as => :date, :end_year => Date.today.year - 40
   -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
-  -input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
-
--field_set(:image, :html => { :multipart => true }) do# partie entrée sortie de l entité animal
+  -input :comment, :field => :text # affiche le champ comment formaté en zone de texte
   -input :picture, :multiple => true
-  =image_tag(@animal.picture.url(:thumb))
+=image_tag(@animal.picture.url(:thumb))
+
+-field_set(:group) do # partie entrée sortie de l entité animal
+  -association :group, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
+
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
   -association :father, :collection => Animal.where(:sex => "male").order("name ASC")
   -association :mother, :collection => Animal.where(:sex => "female").order("name ASC")
 
--field_set(:stocks_informations) do # partie entrée sortie de l entité animal
+-field_set(:stocks) do # partie entrée sortie de l entité animal
   -input :income_on, :include_blank => true, :default_value => :blank
   -input :outgone_on, :include_blank => true, :default_value => :blank
   -input :purchased_on, :include_blank => true, :default_value => :blank

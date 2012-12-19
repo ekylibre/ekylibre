@@ -1,19 +1,18 @@
--field_set do
+=field_set do
   -input :name
   -association :nature, :as => :radio_buttons
   -association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
   -association :animal_group, :include_blank => true, :default_value => :blank
-  -input :start_on
-  -input :end_on, :include_blank => true, :default_value => :blank
 
-=field_set(:diagnostic_informations) do |f|
+-field_set(:delays) do |f|
+  -input :started_on
+  -input :stopped_on, :include_blank => true, :default_value => :blank
+
+-field_set(:care) do |f|
   -association :diseases, :as => :check_boxes
-  -input :description
-  -association :entity
 
-=field_set(:medical_informations) do |f|
-  -input :comment
-  -association :drugs, :as => :check_boxes
+-field_set(:treatment) do |f|
+  -association :treatment, :include_blank => true, :default_value => :blank
 
-=field_set(:third_informations) do |f|
-  -association :entity
+-field_set(:entity) do |f|
+  -association :watcher, :include_blank => true, :default_value => :blank

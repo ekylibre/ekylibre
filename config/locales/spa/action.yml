@@ -20,23 +20,35 @@ spa:
     animal_care_types: #?
     animal_cares: #?
     animal_event_natures: #?
-    animal_events: #?
+    animal_events:
+      # edit: "Modifier un évènement"
+      # index: "Evènements"
+      # new: "Créer un évènement"
+      # show: "évènement %{name} commencé le %{started_on}"
     animal_groups:
       # edit: "Modifier le lot\_: %{name} "
-      # index: "Gestion des lots d'animaux"
+      # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
-    animal_race_natures: #?
+    animal_race_natures:
+      # edit: "Modifier le type de race\_: %{name} "
+      # index: "Type de race"
+      # new: "Créer un type de race"
+      # show: "Type de race\_: %{name}"
     animal_race_types: #?
     animal_races:
       # edit: "Modifier la race\_: %{name} "
-      # index: "Gestion des races d'animaux"
+      # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
-    animal_treatments: #?
+    animal_treatments:
+      # edit: "Modifier le traitement\_: %{name} "
+      # index: "Traitements"
+      # new: "Créer un traitement"
+      # show: "Traitement\_: %{name}"
     animals:
       # edit: "Modifier un animal"
-      # index: "Gestion des animaux"
+      # index: "Animaux"
       # new: "Créer un animal"
       # show: "animal\_: %{name}"
     application: #?
@@ -124,7 +136,11 @@ spa:
       show: "Aposto en banco %{number} del %{created_on}"
       # unvalidateds: "Remises en banque non validées"
     diagnostics: #?
-    diseases: #?
+    diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
     districts:
       # edit: "Modifier la zone administrative\_: %{name}"
       # index: "Zones administratives"
@@ -137,9 +153,17 @@ spa:
       # print: "Imprimer un exemple"
     documents:  #?
       print: "Impresion, exportacion" #?
-    drug_natures: #?
+    drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
     drug_types: #?
-    drugs: #?
+    drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
     entities:
       # destroy: "Supprimer la fiche"
       # edit: "Modifier la fiche\_: %{full_name}"
@@ -486,6 +510,11 @@ spa:
     # account_balances: "Soldes de comptes"
     accountancy: "Contabilidad" #?
     accounts: "Plan de cuento"
+    # animal_event_natures: "Type d'évenements des Animaux"
+    # animal_events: "Evenements des Animaux"
+    # animal_groups: "Lot d'Animaux"
+    # animal_treatments: "Soins des Animaux"
+    # animals: "Animaux"
     application: "Aplicación"
     # areas: "Zones postales"
     # assets: "Immobilisations"
@@ -504,9 +533,11 @@ spa:
     departments: "Servicios"
     # deposit_lines: "Lignes de remise en banque"
     deposits: "Aposto en banco"
+    # diseases: "Maladies"
     # districts: "Zones administratives"
     document_templates: "Modelos de documento"
     # documents: "Documents"
+    # drugs: "Médicaments"
     # entities: "Personnes"
     # entity_categories: "Catégories de fiche"
     # entity_link_natures: "Types de lien"
@@ -690,6 +721,7 @@ spa:
     # canals: "Coordonnées"
     # cancel: "Annuler"
     cancelled: "Pasar en activos"
+    # care: "soins"
     # cash: "Compte bancaire"
     cash_tabbox:
       bank_statements: "Leventar de cuento"
@@ -803,6 +835,7 @@ spa:
     # downpayment: "Acompte"
     draft: "Niebla"
     draft_entries: "niebla" #?
+    # drug: "Médicament"
     # duplicate: "Dupliquer"
     # duration: "Durée"
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
@@ -814,6 +847,7 @@ spa:
     # entities_export: "Tout exporter au format CSV"
     # entities_import: "Importer un fichier CSV"
     # entities_merge: "Fusionner des fiches"
+    # entity: "Personne"
     # entity_category_update: "Modifier la catégorie de fiche"
     # entity_print: "Imprimer la fiche"
     # entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
@@ -868,6 +902,7 @@ spa:
     # give_discount: "Octroyer une remise"
     # go: "Valider"
     # graph_statistics: "Statistiques graphiques"
+    # group: "Groupe"
     help: "Ayuda"
     # hint: "Astuce\_: %{value}"
     home: "Vuelta a la cogida de la ayuda"
@@ -1359,6 +1394,7 @@ spa:
       # ready: "Prêts"
       # shipped: "Expédié"
       # waiting: "En attente"
+    # treatment: "Traitement"
     # undelivered: "Reste à livrer"
     # undeposited: "Non remis en banque"
     # uninvoiced_amount: "Montant non facturé"

@@ -1,2 +1,25 @@
 -field_set do
   -input :name
+  -association :events
+  -input :started_on
+  -input :stopped_on
+  -input :prescription_number
+  -association :prescriptor
+
+-field_set(:group) do
+  -association :animals, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
+  -association :animal_groups, :as => :check_boxes, :include_blank => true, :default_value => :blank
+
+-field_set(:disease) do
+  -association :disease, :include_blank => true, :default_value => :blank
+
+-field_set(:drug) do
+  -association :drug, :include_blank => true, :default_value => :blank
+  -input :quantity
+  -association :unit
+  -input :per_unit
+
+-field_set(:delays) do
+  -input :duration_wait_for_milk
+  -input :duration_wait_for_meat
+  -input :duration

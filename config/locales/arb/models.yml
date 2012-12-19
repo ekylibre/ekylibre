@@ -940,7 +940,7 @@ arb:
     discount: "(%خصم (بنسبة  " #?
     discount_rate: "سعر الخصم"
     # disease: "Disease"
-    # diseases: "Diseases"
+    # diseases: "Maladies"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
     districts: "المناطق الادارية"
@@ -1442,8 +1442,9 @@ arb:
     # transporter_sales: "Ventes de transporteurs"
     transporters: "ناقلات الشحن"
     transports: "وسائل النقل"
+    # treatment: "Traitement"
     # treatments: "Treatments"
-    type: "النوع"
+    type: "النوع" #?
     undelivered_quantity: "يبقى للتسليم"
     # unique_tracking: "Numéro unique"
     unit: "الوحدة"
@@ -1474,6 +1475,7 @@ arb:
     warehouse: "موقع التخزين"
     warehouse_id: "موقع التخزين" #?
     warehouses: "مواقع التخزين"
+    # watcher: "Observateur"
     webpass: "كلمة مرور الموقع الااكتروني"
     website: "الموقع الالكتروني"
     weight: "الوزن"
