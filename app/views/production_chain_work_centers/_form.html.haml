@@ -1,10 +1,8 @@
-=formalize do |f|
-  -f.error 'production_chain_work_center'
-  -f.title :general_informations
-  -f.field :production_chain_work_center, :production_chain_id, :choices=>{:reflection=>:production_chains}
-  -f.field :production_chain_work_center, :name
-  -f.field :production_chain_work_center, :nature, :choices=>ProductionChainWorkCenter.natures_list
-  -f.field :production_chain_work_center, :operation_nature_id, :choices=>{:reflection=>:operation_natures}, :new=>true
-  -f.field :production_chain_work_center, :building_id, :choices=>{:reflection=>:buildings}, :new=>{:reservoir=>0}
-  -f.field :production_chain_work_center, :comment, :field=>:textarea
+-field_set do
+  -association :production_chain
+  -input :name
+  -input :nature
+  -assocaition :operation_nature
+  -association :building, :source => "Warehouse#buildings"
+  -input :comment, :field => :text
 

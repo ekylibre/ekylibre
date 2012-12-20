@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.9'
 
+gem 'pg' # Needed for some tasks
 gem 'activerecord-postgis-adapter'
 # gem 'activerecord-spatialite-adapter'
 
@@ -19,8 +20,10 @@ gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
 gem 'simple_form'
-gem "paperclip"
-gem "paper_trail"
+gem 'cocoon'
+gem 'paperclip'
+gem 'enumerize'
+# gem 'paper_trail'
 gem 'thin'
 gem 'nokogiri'
 

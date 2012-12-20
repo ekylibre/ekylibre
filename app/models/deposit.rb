@@ -44,7 +44,7 @@
 class Deposit < CompanyRecord
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   belongs_to :journal_entry
   belongs_to :mode, :class_name=>"IncomingPaymentMode"
   has_many :payments, :class_name=>"IncomingPayment", :dependent=>:nullify, :order=>"number"

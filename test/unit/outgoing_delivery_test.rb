@@ -20,9 +20,9 @@
 #
 # == Table: outgoing_deliveries
 #
+#  address_id       :integer
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text
-#  contact_id       :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string(3)

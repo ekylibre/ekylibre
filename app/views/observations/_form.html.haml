@@ -1,6 +1,5 @@
-=formalize do |f|
-  -f.error :observation
-  -f.field :observation, :entity_id, :choices=>:entities, :new=>true
-  -f.field :observation, :importance,:field=>:radio, :choices=>Observation.importances
-  -f.field :observation, :description, :field=>:textarea
+-field_set do
+  -association :entity
+  -input :importance
+  -input :description, :field => :text
 

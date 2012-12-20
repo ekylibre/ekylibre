@@ -20,7 +20,7 @@
 class AnimalsController < AdminController
   manage_restfully :multipart => true
   respond_to :html, :xml, :pdf
-   
+
   list do |t|
     t.column :identification_number, :url => true
     t.column :name, :url=>true
@@ -36,7 +36,7 @@ class AnimalsController < AdminController
   end
 
   # Show a list of animal groups
-  
+
   def index
     @animals = Animal.all
     respond_with @animals
@@ -72,5 +72,5 @@ class AnimalsController < AdminController
       format.pdf { render pdf: @animal }
     end
   end
-  
+
 end

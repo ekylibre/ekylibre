@@ -1,7 +1,6 @@
-=formalize do |f|
-  -f.error :unit
-  -f.field :unit, :label
-  -f.field :unit, :name
-  -f.field :unit, :coefficient
-  -f.field :unit, :base
-  -f.field :unit, :start
+-field_set do
+  -input :label
+  -input :name
+  -input :coefficient
+  -input :base
+  -input :start

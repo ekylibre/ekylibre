@@ -153,7 +153,6 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
-  resources :contacts
   # resources :cultivations
   # resources :currencies
   resources :custom_fields do
@@ -245,7 +244,7 @@ Ekylibre::Application.routes.draw do
       get :list_mandates
       get :list_incoming_payments
       get :list_events
-      get :list_contacts
+      get :list_addresses
       get :list_cashes
       get :list_links
       match "import", :via => [:get, :post]
@@ -253,6 +252,7 @@ Ekylibre::Application.routes.draw do
       match "merge", :via => [:get, :post]
     end
   end
+  resources :entity_addresses
   resources :entity_categories do
     collection do
       get :list

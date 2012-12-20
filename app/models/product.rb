@@ -66,7 +66,8 @@
 
 
 class Product < CompanyRecord
-  @@natures = [:product, :service, :subscrip] # , :transfer]
+  enumerize :nature, :in => [:product, :service, :subscrip], :default => :product, :predicates => true
+  @@natures = self.nature.values
   belongs_to :purchases_account, :class_name=>"Account"
   belongs_to :sales_account, :class_name=>"Account"
   belongs_to :subscription_nature

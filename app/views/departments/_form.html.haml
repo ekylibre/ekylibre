@@ -1,5 +1,3 @@
-=formalize do |f|
-  -f.error :department
-  -f.title :subtitle
-  -f.field :department, :name
-  -f.field :department, :comment, :field=>:textarea
+-field_set do
+  -input :name
+  -input :comment, :field => :text

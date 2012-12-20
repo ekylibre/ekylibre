@@ -1,13 +1,12 @@
-=formalize do |f|
-  -f.error 'document_template'
-  -f.field :document_template, :name
-  -f.field :document_template, :code
-  -f.field :document_template, :family, :choices=>DocumentTemplate.families
-  -f.field :document_template, :nature, :choices=>DocumentTemplate.natures
-  -f.field :document_template, :to_archive
-  -f.field :document_template, :by_default
-  -f.field :document_template, :active
-  -f.field :document_template, :language, :choices=>languages
-  -f.field :document_template, :country, :choices=>countries
-  -f.field :document_template, :filename
-  -f.field :document_template, :source, :field=>:textarea, :options=>{:cols=>80, :rows=>30}, :class=>:code
+-field_set do
+  -input :name
+  -input :code
+  -input :family, :choices => DocumentTemplate.families
+  -input :nature, :choices => DocumentTemplate.natures
+  -input :to_archive
+  -input :by_default
+  -input :active
+  -input :language, :source => :languages
+  -input :country,  :source => :countries
+  -input :filename
+  -input :source, :field => :text

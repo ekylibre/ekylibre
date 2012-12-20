@@ -19,7 +19,7 @@
 
 class AnimalTreatmentsController < AdminController
   manage_restfully
-  
+
   list() do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:disease, :url=>true

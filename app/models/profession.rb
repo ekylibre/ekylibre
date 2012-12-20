@@ -34,7 +34,7 @@
 
 
 class Profession < CompanyRecord
-  has_many :employees, :class_name=>"User", :conditions=>{:employed=>true}
+  has_many :employees, :class_name=>"Entity", :conditions=>{:employed=>true}
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :rome, :allow_nil => true, :maximum => 255

@@ -21,19 +21,19 @@
 # == Table: sales
 #
 #  accounted_at        :datetime
+#  address_id          :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
 #  annotation          :text
 #  client_id           :integer          not null
 #  comment             :text
 #  conclusion          :text
 #  confirmed_on        :date
-#  contact_id          :integer
 #  created_at          :datetime         not null
 #  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
 #  currency            :string(3)
-#  delivery_contact_id :integer
+#  delivery_address_id :integer
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_id       :integer
 #  expired_on          :date
@@ -42,7 +42,7 @@
 #  id                  :integer          not null, primary key
 #  initial_number      :string(64)
 #  introduction        :text
-#  invoice_contact_id  :integer
+#  invoice_address_id  :integer
 #  invoiced_on         :date
 #  journal_entry_id    :integer
 #  letter_format       :boolean          default(TRUE), not null
@@ -73,15 +73,21 @@ class Sale < CompanyRecord
   attr_protected :pretax_amount, :amount
   belongs_to :client, :class_name=>"Entity"
   belongs_to :payer, :class_name=>"Entity", :foreign_key=>:client_id
-  belongs_to :contact
-  belongs_to :delivery_contact, :class_name=>"Contact"
+  # DEPRECATED Replace use of contact with address
+  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
+  belongs_to :address, :class_name => "EntityAddress"
+  # DEPRECATED Replace use of delivery_contact with delivery_address
+  belongs_to :delivery_contact, :class_name => "EntityAddress", :foreign_key => :delivery_address_id
+  belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :expiration, :class_name=>"Delay"
-  belongs_to :invoice_contact, :class_name=>"Contact"
+  # DEPRECATED Replace use of contact with address
+  belongs_to :invoice_contact, :class_name => "EntityAddress", :foreign_key => :invoice_address_id
+  belongs_to :invoice_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
   belongs_to :nature, :class_name=>"SaleNature"
   belongs_to :origin, :class_name=>"Sale"
   belongs_to :payment_delay, :class_name=>"Delay"
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   belongs_to :transporter, :class_name=>"Entity"
   has_many :credits, :class_name=>"Sale", :foreign_key=>:origin_id
   has_many :deliveries, :class_name=>"OutgoingDelivery", :dependent=>:destroy

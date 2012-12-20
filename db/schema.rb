@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121214181101) do
+ActiveRecord::Schema.define(:version => 20121214181102) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -401,42 +401,6 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
 
   add_index "companies", ["code"], :name => "index_companies_on_code", :unique => true
 
-  create_table "contacts", :force => true do |t|
-    t.integer  "entity_id",                                      :null => false
-    t.boolean  "by_default",                  :default => false, :null => false
-    t.string   "line_2",       :limit => 38
-    t.string   "line_3",       :limit => 38
-    t.string   "line_5",       :limit => 38
-    t.string   "address",      :limit => 280
-    t.string   "phone",        :limit => 32
-    t.string   "fax",          :limit => 32
-    t.string   "mobile",       :limit => 32
-    t.string   "email"
-    t.string   "website"
-    t.float    "latitude"
-    t.float    "longitude"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                :default => 0,     :null => false
-    t.string   "country",      :limit => 2
-    t.string   "code",         :limit => 4
-    t.datetime "deleted_at"
-    t.integer  "area_id"
-    t.string   "line_6"
-    t.string   "line_4",       :limit => 48
-  end
-
-  add_index "contacts", ["by_default"], :name => "index_contacts_on_default"
-  add_index "contacts", ["code"], :name => "index_contacts_on_code"
-  add_index "contacts", ["created_at"], :name => "index_contacts_on_created_at"
-  add_index "contacts", ["creator_id"], :name => "index_contacts_on_creator_id"
-  add_index "contacts", ["deleted_at"], :name => "index_contacts_on_stopped_at"
-  add_index "contacts", ["entity_id"], :name => "index_contacts_on_entity_id"
-  add_index "contacts", ["updated_at"], :name => "index_contacts_on_updated_at"
-  add_index "contacts", ["updater_id"], :name => "index_contacts_on_updater_id"
-
   create_table "cultivations", :force => true do |t|
     t.string   "name",                                            :null => false
     t.date     "started_on",                                      :null => false
@@ -737,35 +701,32 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
   add_index "drugs", ["updater_id"], :name => "index_drugs_on_updater_id"
 
   create_table "entities", :force => true do |t|
-    t.integer  "nature_id",                                                                                  :null => false
-    t.string   "last_name",                                                                                  :null => false
+    t.integer  "nature_id",                                                                                            :null => false
+    t.string   "last_name",                                                                                            :null => false
     t.string   "first_name"
-    t.string   "full_name",                                                                                  :null => false
-    t.string   "code",                      :limit => 64
-    t.boolean  "active",                                                                  :default => true,  :null => false
+    t.string   "full_name",                                                                                            :null => false
+    t.string   "code",                                :limit => 64
+    t.boolean  "active",                                                                            :default => true,  :null => false
     t.date     "born_on"
     t.date     "dead_on"
-    t.string   "ean13",                     :limit => 13
-    t.string   "soundex",                   :limit => 4
-    t.string   "website"
-    t.boolean  "client",                                                                  :default => false, :null => false
-    t.boolean  "supplier",                                                                :default => false, :null => false
-    t.datetime "created_at",                                                                                 :null => false
-    t.datetime "updated_at",                                                                                 :null => false
+    t.string   "ean13",                               :limit => 13
+    t.string   "soundex",                             :limit => 4
+    t.boolean  "client",                                                                            :default => false, :null => false
+    t.boolean  "supplier",                                                                          :default => false, :null => false
+    t.datetime "created_at",                                                                                           :null => false
+    t.datetime "updated_at",                                                                                           :null => false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                            :default => 0,     :null => false
+    t.integer  "lock_version",                                                                      :default => 0,     :null => false
     t.integer  "client_account_id"
     t.integer  "supplier_account_id"
-    t.boolean  "vat_submissive",                                                          :default => true,  :null => false
-    t.boolean  "reflation_submissive",                                                    :default => false, :null => false
-    t.string   "deliveries_conditions",     :limit => 60
-    t.decimal  "discount_rate",                           :precision => 19, :scale => 10
-    t.decimal  "reduction_rate",                          :precision => 19, :scale => 10
+    t.boolean  "vat_submissive",                                                                    :default => true,  :null => false
+    t.boolean  "reflation_submissive",                                                              :default => false, :null => false
+    t.string   "deliveries_conditions",               :limit => 60
+    t.decimal  "reduction_rate",                                    :precision => 19, :scale => 10
     t.text     "comment"
-    t.string   "excise",                    :limit => 15
-    t.string   "vat_number",                :limit => 15
-    t.string   "country",                   :limit => 2
+    t.string   "vat_number",                          :limit => 15
+    t.string   "country",                             :limit => 2
     t.integer  "authorized_payments_count"
     t.integer  "responsible_id"
     t.integer  "proposer_id"
@@ -774,22 +735,36 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.integer  "invoices_count"
     t.date     "first_met_on"
     t.integer  "category_id"
-    t.string   "siren",                     :limit => 9
+    t.string   "siren",                               :limit => 9
     t.string   "origin"
     t.string   "webpass"
-    t.string   "activity_code",             :limit => 32
+    t.string   "activity_code",                       :limit => 32
     t.string   "photo"
-    t.boolean  "transporter",                                                             :default => false, :null => false
-    t.string   "language",                  :limit => 3,                                  :default => "???", :null => false
-    t.boolean  "prospect",                                                                :default => false, :null => false
-    t.boolean  "attorney",                                                                :default => false, :null => false
+    t.boolean  "transporter",                                                                       :default => false, :null => false
+    t.string   "language",                            :limit => 3,                                  :default => "???", :null => false
+    t.boolean  "prospect",                                                                          :default => false, :null => false
+    t.boolean  "attorney",                                                                          :default => false, :null => false
     t.integer  "attorney_account_id"
-    t.string   "name",                      :limit => 32
-    t.string   "salt",                      :limit => 64
-    t.string   "hashed_password",           :limit => 64
-    t.boolean  "locked",                                                                  :default => false, :null => false
-    t.string   "currency",                                                                                   :null => false
-    t.boolean  "of_company",                                                              :default => false, :null => false
+    t.string   "username",                            :limit => 32
+    t.string   "salt",                                :limit => 64
+    t.string   "hashed_password",                     :limit => 64
+    t.boolean  "locked",                                                                            :default => false, :null => false
+    t.string   "currency",                                                                                             :null => false
+    t.boolean  "of_company",                                                                        :default => false, :null => false
+    t.boolean  "admin",                                                                             :default => false, :null => false
+    t.date     "recruited_on"
+    t.datetime "connected_at"
+    t.date     "left_on"
+    t.integer  "department_id"
+    t.boolean  "employed",                                                                          :default => false, :null => false
+    t.string   "employment"
+    t.integer  "establishment_id"
+    t.string   "office"
+    t.integer  "profession_id"
+    t.decimal  "maximum_grantable_reduction_percent",               :precision => 19, :scale => 4
+    t.text     "rights"
+    t.integer  "role_id"
+    t.boolean  "loggable",                                                                          :default => false, :null => false
   end
 
   add_index "entities", ["code"], :name => "entities_codes"
@@ -799,6 +774,40 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
   add_index "entities", ["of_company"], :name => "index_entities_on_of_company"
   add_index "entities", ["updated_at"], :name => "index_entities_on_updated_at"
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
+
+  create_table "entity_addresses", :force => true do |t|
+    t.integer  "entity_id",                                                                 :null => false
+    t.boolean  "by_default",                                             :default => false, :null => false
+    t.string   "mail_line_2"
+    t.string   "mail_line_3"
+    t.string   "mail_line_5"
+    t.datetime "created_at",                                                                :null => false
+    t.datetime "updated_at",                                                                :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                           :default => 0,     :null => false
+    t.string   "mail_country",     :limit => 2
+    t.string   "code",             :limit => 4
+    t.datetime "deleted_at"
+    t.integer  "mail_area_id"
+    t.string   "mail_line_6"
+    t.string   "mail_line_4"
+    t.string   "canal",            :limit => 16,                                            :null => false
+    t.string   "coordinate",       :limit => 511,                                           :null => false
+    t.string   "name"
+    t.string   "mail_line_1"
+    t.spatial  "mail_geolocation", :limit => {:srid=>0, :type=>"point"}
+    t.boolean  "mail_auto_update",                                       :default => false, :null => false
+  end
+
+  add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
+  add_index "entity_addresses", ["code"], :name => "index_entity_addresses_on_code"
+  add_index "entity_addresses", ["created_at"], :name => "index_entity_addresses_on_created_at"
+  add_index "entity_addresses", ["creator_id"], :name => "index_entity_addresses_on_creator_id"
+  add_index "entity_addresses", ["deleted_at"], :name => "index_entity_addresses_on_deleted_at"
+  add_index "entity_addresses", ["entity_id"], :name => "index_entity_addresses_on_entity_id"
+  add_index "entity_addresses", ["updated_at"], :name => "index_entity_addresses_on_updated_at"
+  add_index "entity_addresses", ["updater_id"], :name => "index_entity_addresses_on_updater_id"
 
   create_table "entity_categories", :force => true do |t|
     t.string   "name",                                         :null => false
@@ -966,7 +975,7 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.decimal  "pretax_amount",                 :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",                        :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.text     "comment"
-    t.integer  "contact_id"
+    t.integer  "address_id"
     t.date     "planned_on"
     t.date     "moved_on"
     t.decimal  "weight",                        :precision => 19, :scale => 4
@@ -1493,7 +1502,7 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                 :default => 0,   :null => false
-    t.integer  "contact_id"
+    t.integer  "address_id"
     t.date     "planned_on"
     t.date     "moved_on"
     t.integer  "mode_id"
@@ -1906,7 +1915,7 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.string   "number",              :limit => 64,                                                 :null => false
     t.decimal  "pretax_amount",                     :precision => 19, :scale => 4, :default => 0.0, :null => false
     t.decimal  "amount",                            :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.integer  "delivery_contact_id"
+    t.integer  "delivery_address_id"
     t.text     "comment"
     t.datetime "created_at",                                                                        :null => false
     t.datetime "updated_at",                                                                        :null => false
@@ -2024,9 +2033,9 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.integer  "payment_delay_id",                                                                    :null => false
     t.boolean  "has_downpayment",                                                  :default => false, :null => false
     t.decimal  "downpayment_amount",                :precision => 19, :scale => 4, :default => 0.0,   :null => false
-    t.integer  "contact_id"
-    t.integer  "invoice_contact_id"
-    t.integer  "delivery_contact_id"
+    t.integer  "address_id"
+    t.integer  "invoice_address_id"
+    t.integer  "delivery_address_id"
     t.string   "subject"
     t.string   "function_title"
     t.text     "introduction"
@@ -2197,7 +2206,7 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.integer  "last_number"
     t.integer  "sale_id"
     t.integer  "product_id"
-    t.integer  "contact_id"
+    t.integer  "address_id"
     t.datetime "created_at",                                                     :null => false
     t.datetime "updated_at",                                                     :null => false
     t.integer  "creator_id"
@@ -2210,7 +2219,6 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.text     "comment"
     t.string   "number"
     t.integer  "sale_line_id"
-    t.string   "_activation"
   end
 
   add_index "subscriptions", ["created_at"], :name => "index_subscriptions_on_created_at"
@@ -2422,44 +2430,6 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
   add_index "units", ["updated_at"], :name => "index_units_on_updated_at"
   add_index "units", ["updater_id"], :name => "index_units_on_updater_id"
 
-  create_table "users", :force => true do |t|
-    t.string   "name",              :limit => 32,                                                   :null => false
-    t.string   "first_name",                                                                        :null => false
-    t.string   "last_name",                                                                         :null => false
-    t.string   "salt",              :limit => 64
-    t.string   "hashed_password",   :limit => 64
-    t.boolean  "locked",                                                         :default => false, :null => false
-    t.string   "email"
-    t.integer  "role_id",                                                                           :null => false
-    t.datetime "created_at",                                                                        :null => false
-    t.datetime "updated_at",                                                                        :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                   :default => 0,     :null => false
-    t.decimal  "reduction_percent",               :precision => 19, :scale => 4, :default => 5.0,   :null => false
-    t.boolean  "admin",                                                          :default => true,  :null => false
-    t.text     "rights"
-    t.date     "arrived_on"
-    t.text     "comment"
-    t.boolean  "commercial"
-    t.date     "departed_on"
-    t.integer  "department_id"
-    t.integer  "establishment_id"
-    t.string   "office"
-    t.integer  "profession_id"
-    t.boolean  "employed",                                                       :default => false, :null => false
-    t.string   "employment"
-    t.string   "language",          :limit => 3,                                 :default => "???", :null => false
-    t.datetime "connected_at"
-  end
-
-  add_index "users", ["created_at"], :name => "index_users_on_created_at"
-  add_index "users", ["creator_id"], :name => "index_users_on_creator_id"
-  add_index "users", ["email"], :name => "index_users_on_email"
-  add_index "users", ["role_id"], :name => "index_users_on_role_id"
-  add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
-  add_index "users", ["updater_id"], :name => "index_users_on_updater_id"
-
   create_table "warehouses", :force => true do |t|
     t.string   "name",                                                               :null => false
     t.string   "division"
@@ -2468,7 +2438,7 @@ ActiveRecord::Schema.define(:version => 20121214181101) do
     t.text     "comment"
     t.integer  "parent_id"
     t.integer  "establishment_id"
-    t.integer  "contact_id"
+    t.integer  "address_id"
     t.datetime "created_at",                                                         :null => false
     t.datetime "updated_at",                                                         :null => false
     t.integer  "creator_id"

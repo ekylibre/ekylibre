@@ -13,7 +13,7 @@
 
 #employee
   =formalize do |f|
-    -f.title User.human_attribute_name("employed")
+    -f.title Entity.human_attribute_name("employed")
     -f.field :user, :employment
     -f.field :user, :commercial
     -# f.field :user, :profession_id,  :choices=>{:reflection=>:professions}, :new=>true

@@ -4,7 +4,7 @@ desc "Update and sort config/menus.xml"
 task :menus => :environment do
   print " - Menus: "
   menu_file = Rails.root.join("config", "menu.xml")
-  
+
   # Read file
   doc = nil
   if File.exist?(menu_file)
@@ -38,7 +38,7 @@ task :menus => :environment do
     end
   end
 
-  
+
 
 
 
@@ -59,7 +59,7 @@ task :menus => :environment do
       page[:to] = "#{controller}##{action}"
       menu.add_child(page)
       unused_actions << page[:to]
-    end            
+    end
     undefined.add_child(menu)
   end
 

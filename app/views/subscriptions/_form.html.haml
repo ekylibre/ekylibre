@@ -1,10 +1,11 @@
+-# TODO Check
 =hidden_field :subscription, :sale_line_id
-=formalize do |f|
-  -f.error :subscription
-  -f.field :subscription, :nature_id, :choices=>{:reflection=>:subscription_natures}, :new=>true, "data-dependents"=>"#subscription-duration", "data-parameter-name"=>"nature_id"
-  -f.field :subscription, :quantity
-  -#f.field :subscription, :entity_id, :choices=>:entities
-  -#f.field :subscription, :sale_id
-  -#f.field :subscription, :suspended
+-field_set do
+  -association :nature
+  -input :quantity
+  -#input :entity_id, :choices=>:entities
+  -#input :sale_id
+  -#input :suspended
+
 =render :partial=>"coordinates_form"
 

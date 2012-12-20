@@ -20,9 +20,9 @@
 #
 # == Table: incoming_deliveries
 #
+#  address_id       :integer
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  comment          :text
-#  contact_id       :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  currency         :string(3)
@@ -44,7 +44,9 @@
 class IncomingDelivery < CompanyRecord
   acts_as_numbered
   attr_readonly :number
-  belongs_to :contact
+  # DEPRECATED Replace use of contact with address
+  belongs_to :contact, :class_name => "EntityAddress", :foreign_key => :address_id
+  belongs_to :address, :class_name => "EntityAddress"
   belongs_to :mode, :class_name=>"IncomingDeliveryMode"
   belongs_to :purchase
   has_many :lines, :class_name=>"IncomingDeliveryLine", :foreign_key=>:delivery_id, :dependent=>:destroy

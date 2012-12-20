@@ -18,5 +18,6 @@
 #
 
 require 'test_helper'
-class ContactsHelperTest < ActionView::TestCase
+class EntityAddressesControllerTest < ActionController::TestCase
+  test_restfully_all_actions
 end

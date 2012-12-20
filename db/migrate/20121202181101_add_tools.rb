@@ -10,7 +10,7 @@ class AddTools < ActiveRecord::Migration
       t.belongs_to :nature
       t.belongs_to :asset
     end
-    
+
     create_table :tool_natures do |t|
       t.string :name
       t.string :name_aee
@@ -20,7 +20,7 @@ class AddTools < ActiveRecord::Migration
     end
     add_stamps_indexes :tool_natures
   end
-  
+
   def down
     drop_attached_file :tools, :picture
     remove_column :tools, :comment

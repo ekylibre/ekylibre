@@ -58,7 +58,7 @@ class Role < CompanyRecord
     added_rights = new_rights_array-old_rights_array
     deleted_rights = old_rights_array- new_rights_array
 
-    users = User.find_all_by_role_id_and_admin(self.id, false)
+    users = Entity.find_all_by_role_id_and_admin(self.id, false)
     for user in users
       # puts user.rights.inspect
       user_rights_array = []
@@ -85,7 +85,7 @@ class Role < CompanyRecord
   end
 
   def rights_array=(array)
-    self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
+    self.rights = array.select{|x| Entity.rights_list.include?(x.to_sym)}.join(" ")
   end
 
   protect(:on => :destroy) do

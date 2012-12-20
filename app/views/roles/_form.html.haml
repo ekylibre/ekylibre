@@ -1,5 +1,3 @@
-=formalize do |f|
-  -f.error :role
-  -f.title :role_name
-  -f.field :role, :name
+-field_set do
+  -input :name
 =render :partial=>'users/rights_form'

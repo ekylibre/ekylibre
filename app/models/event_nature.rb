@@ -36,6 +36,7 @@
 class EventNature < CompanyRecord
   attr_readonly :name
   has_many :events, :foreign_key=>:nature_id
+  enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_length_of :usage, :allow_nil => true, :maximum => 64

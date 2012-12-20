@@ -1,11 +1,11 @@
 class UpdateDiseases< ActiveRecord::Migration
   def up
-    
+
     drop_table :animal_cares
     drop_table :animal_care_natures
     drop_table :animal_cares_drugs
     drop_table :diseases_animal_cares
-    
+
     create_table :animal_event_natures do |t|
        t.string     :name,                 :null => false
        t.text       :description
@@ -41,7 +41,7 @@ class UpdateDiseases< ActiveRecord::Migration
     add_stamps_indexes :diagnostics
     add_index :diagnostics, :event_id
     add_index :diagnostics, :disease_id
-    
+
     create_table :animal_treatments do |t|
       t.belongs_to :drug
       t.belongs_to :disease
@@ -64,13 +64,13 @@ class UpdateDiseases< ActiveRecord::Migration
     add_index :animal_treatments, :unit_id
 
   end
-  
+
   def down
-    
+
     drop_table :animal_event_natures
     drop_table :animal_events
     drop_table :diagnostics
-    drop_table :animal_treatments 
+    drop_table :animal_treatments
 
   end
 

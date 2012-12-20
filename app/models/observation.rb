@@ -33,6 +33,7 @@
 
 
 class Observation < CompanyRecord
+  enumerize :importance, :in => [:important, :normal, :notice], :default => :notice
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :importance, :allow_nil => true, :maximum => 10
@@ -40,11 +41,11 @@ class Observation < CompanyRecord
   #]VALIDATORS]
 
   def self.importances
-    [:important, :normal, :notice].collect{|x| [tc('importances.'+x.to_s), x] }
+    self.importance.values.collect{|x| [tc('importances.'+x.to_s), x] }
   end
 
   before_validation do
-    self.importance ||= "notice"
+    self.importance ||= self.class.importance.default_value
   end
 
   def text_importance
@@ -52,14 +53,7 @@ class Observation < CompanyRecord
   end
 
   def status
-    status = ""
-    case self.importance
-    when "important"
-      status = "critic"
-    when "normal"
-      status = "minimum"
-    end
-    status
+    return {:important => :critic, :normal => :minimum}[self.importance.to_sym]||self.importance.to_sym
   end
 
 end

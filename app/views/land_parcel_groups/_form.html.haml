@@ -1,6 +1,4 @@
-=formalize do |f|
-  -f.title :infos
-  -f.error :land_parcel_group
-  -f.field :land_parcel_group, :name
-  -f.field :land_parcel_group, :color
-  -f.field :land_parcel_group, :comment, :field=>:textarea
+-field_set do
+  -input :name
+  -input :color
+  -input :comment, :field => :text

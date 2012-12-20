@@ -1,3 +1,11 @@
-=formize_fields
+-field_set do
+  -association :warehouse
+  -association :product, :source => "Product#stockables"
 
+-field_set(:product_options, :depend_on=>:product) do
+  -association :unit, :buttons => {:new=>{:base=>"product.unit.base"}}
+  -association :tracking
+  -input :critic_quantity_min
+  -input :quantity_min
+  -input :quantity_max
 

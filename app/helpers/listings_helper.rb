@@ -18,4 +18,5 @@
 #
 
 module ListingsHelper
+
 end

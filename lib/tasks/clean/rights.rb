@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #
 desc "Update and sort rights.yml"
 task :rights => :environment do
@@ -8,7 +9,7 @@ task :rights => :environment do
   ref = actions_hash
 
   # Lecture du fichier existant
-  rights = YAML.load_file(User.rights_file)
+  rights = YAML.load_file(Entity.rights_file)
 
   # Expand actions
   for right, attributes in rights
@@ -72,7 +73,7 @@ task :rights => :environment do
       end
     end
   end
-  File.open(User.rights_file, "wb") do |file|
+  File.open(Entity.rights_file, "wb") do |file|
     file.write yaml
   end
 

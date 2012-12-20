@@ -23,7 +23,7 @@ class CompaniesController < AuthenticationController
     if request.post?
       language = (params[:locale].blank? ? I18n.locale||I18n.default_locale : params[:locale])
       @my_company = Company.new(params[:my_company]) # .merge(:language=>language.to_s))
-      @user = User.new(params[:user].merge(:role_id => 0, :language => language.to_s))
+      @user = Entity.new(params[:user].merge(:role_id => 0, :language => language.to_s))
 
       if defined?(Ekylibre::DONT_REGISTER)
         hash = Digest::SHA256.hexdigest(params[:register_password].to_s)
@@ -53,7 +53,7 @@ class CompaniesController < AuthenticationController
         return
       end
       @my_company = Company.new # (:currency => 'EUR')
-      @user = User.new
+      @user = Entity.new
     end
   end
 

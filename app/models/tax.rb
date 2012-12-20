@@ -38,7 +38,8 @@
 
 
 class Tax < CompanyRecord
-  attr_readonly :nature #, :amount
+  attr_readonly :nature, :amount
+  enumerize :nature, :in => [:amount, :percent], :predicates => true
   belongs_to :collected_account, :class_name=>"Account"
   belongs_to :paid_account, :class_name=>"Account"
   has_many :prices
@@ -50,7 +51,7 @@ class Tax < CompanyRecord
   validates_inclusion_of :included, :reductible, :in => [true, false]
   validates_presence_of :amount, :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in=>%w( amount percent )
+  validates_inclusion_of :nature, :in => self.nature.values
   validates_presence_of :collected_account
   validates_presence_of :paid_account
   validates_uniqueness_of :name
@@ -71,16 +72,8 @@ class Tax < CompanyRecord
     end
   end
 
-  def percent?
-    return (self.nature.to_s == "percent")
-  end
-
-  def amount?
-    self.nature == "amount"
-  end
-
   def self.natures
-     [:percent, :amount].collect{|x| [tc('natures.'+x.to_s), x] }
+    self.nature.values.collect{|x| [tc('natures.'+x.to_s), x] }
   end
 
   def nature_label

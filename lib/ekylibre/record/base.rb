@@ -28,6 +28,9 @@ module Ekylibre::Record
     # Replaces old module: ActiveRecord::Acts::Tree
     include ActsAsTree
 
+    # Permits to use enumerize in all models
+    include Enumerize
+
     # Make all models stampables
     self.stampable
 
@@ -38,8 +41,6 @@ module Ekylibre::Record
     def updateable?
       true
     end
-
-
 
     # Updates the associated record with values matching those of the instance attributes.
     # Returns the number of affected rows.
@@ -79,7 +80,7 @@ module Ekylibre::Record
       # Permits to add conditions on attr_readonly
       def attr_readonly_with_conditions(*args)
         options = args.extract_options!
-        return attr_readonly_without_conditions(args) unless options[:if]
+        return attr_readonly_without_conditions(*args) unless options[:if]
         method_name = "readonly_#{@@readonly_counter+=1}?"
         self.send(:define_method, method_name, options[:if])
         code = ""

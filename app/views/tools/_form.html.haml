@@ -1,13 +1,10 @@
-=field_set(@tool, :general_informations) do |f| # partie info general de l entité animal
-  =f.error :tool # affiche les erreurs renvoyés par le model
-  =f.hint 'Selectionner la catégorie' # affiche une infos
-  =f.association :nature, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
-  =f.input :name# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :comment, :field=>:textarea # affiche le champ comment
-  =f.input :picture, :multiple => true
-  =image_tag(@tool.picture.url(:thumb))
+-field_set do # partie info general de l entité animal
+  -association :nature # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
+  -input :name # affiche le champ name de l entité animal avec une infos derriere
+  -input :comment, :field=>:textarea # affiche le champ comment
+  -f.input :picture, :multiple => true
 
-=field_set(@tool, :asset) do |f| # partie info general de l entité animal
-  =f.association :asset
-  =f.input :purchased_on
-  =f.input :ceded_on
+-field_set(:asset) do # partie info general de l entité animal
+  -association :asset
+  -input :purchased_on
+  -input :ceded_on

@@ -1,22 +1,16 @@
-=formalize do |f|
-  -f.error :warehouse
-  -f.title :description
-  -f.field :warehouse, :name
-  -warehouses = @warehouse.others
-  -if warehouses.count > 0
-    -f.field :warehouse, :parent_id, :choices=>warehouses.collect{|x| [x.name, x.id]}, :options=>{:include_blank=>true}
-  -f.field :warehouse, :comment, :field=>:textarea
-  -if @warehouse.new_record?
-    -f.field :warehouse, :reservoir, "data-show"=>"#reservoir"
--if @warehouse.reservoir? or @warehouse.new_record?
-  =formalize(:id=>:reservoir) do |f|
-    -f.title :reservoir_informations
-    -f.field :warehouse, :product_id, :choices=>{:reflection=>:available_products}, :new=>true
-    -f.field :warehouse, :quantity_max
-    -f.field :warehouse, :number
-=formalize do |f|
-  -f.title :localization
-  -f.field :warehouse, :establishment_id, :choices=>{:reflection=>:establishments}, :new=>true
-  -f.field :warehouse, :division
-  -f.field :warehouse, :subdivision
-  -f.field :warehouse, :subsubdivision
+-field_set do
+  -input :name
+  -association :parent, :source => "self#others"
+  -input :comment, :field => :text
+  -input :reservoir, :show => :reservoir_options
+
+-field_set(:reservoir_options) do
+  -association :product, :source => "Product#availables"
+  -input :quantity_max
+  -input :number
+
+-field_set :localization do
+  -association :establishment
+  -input :division
+  -input :subdivision
+  -input :subsubdivision

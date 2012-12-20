@@ -1,7 +1,5 @@
-= formalize do |f|
-  - f.error :delay
-  - f.title :general
-  - f.field :delay, :name
-  - f.field :delay, :active
-  - f.field :delay, :expression
-  - f.field :delay, :comment, :field=>:textarea
+-field_set do
+  -input :name
+  -input :active
+  -input :expression
+  -input :comment, :field => :text

@@ -21,6 +21,7 @@
 # encoding: utf-8
 module ApplicationHelper
 
+
   # def options_for_unroll(options = {})
   #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
   #   reflection = self.class.reflections[options[:reflection].to_sym]
@@ -389,7 +390,7 @@ module ApplicationHelper
     if block.arity < 1
       board.instance_eval(&block)
     else
-      block[board] 
+      block[board]
     end
 
     return render(:partial => "admin/beehive", :object => board)
@@ -398,7 +399,7 @@ module ApplicationHelper
     for box in board.boxes
       count = box.size
       next if count.zero?
-      
+
       if box.is_a?(Beehive::HorizontalBox)
         html << "<div class=\"box box-h box-#{count}-cells\">"
         box.each_with_index do |cell, index|
@@ -1216,49 +1217,337 @@ module ApplicationHelper
     end
   end
 
+  def form_actions(&block)
+    return content_tag(:div, capture(&block), :class => "form-actions")
+  end
+
+
+  # Build the master form using all form through modules and assemblies them in one
+  # Auto manage dialog use
+  def master_form(action, options = {}, &block)
+    form_options = {}
+    form_options[:id] = options[:id] || "f"+rand(1_000_000_000).to_s(36)
+    form_options[:method] = options[:method] || :post
+    # TODO Manage multipart in automatic
+    nature = options.delete(:nature) || "form"
+    return render(:partial => "forms/form", :locals => {:form_options => form_options, :action => action, :nature => nature, :options => options, :manual_form => block})
+  end
+
+
+  FACES = {
+    # :text => :textarea
+  }
+
+
+  # This helper assemblies all form parts to generate one unique form
+  # This method use simple_form to build forms
+  def field_sets(nature = "form")
+    resource = controller.controller_name.to_s.singularize
+    composers = [nature]
+    base_directory = Rails.root.join("app", "views")
+    composers += Dir[base_directory.join("**", "#{nature}-#{resource}.html.*")].collect do |path|
+      "/" + path.relative_path_from(base_directory).to_s
+    end
+
+    # Cache this in a view method
+    method_name = "field_sets_#{resource}_#{nature}".to_sym
+    if self.respond_to?(method_name) and !Rails.env.development?
+      return send(method_name)
+    end
+
+    @field_sets = {}
+    @fields = collect_fields do
+      for partial in composers
+        # no HTML expected to be generated
+        render(:partial => partial)
+      end
+    end
+
+    # Orders
+    field_sets = @field_sets.values
+    tree = field_sets.select{|fs| fs[:before].blank? and fs[:after].blank?}
+    raise ArgumentError.new("No root form defined...") if tree.size.zero?
+    others = field_sets - tree
+    # raise [others.collect{|x| x[:name]}, tree.collect{|x| x[:name]}].inspect
+    counter = others.size + 1
+    while others.size > 0
+      break if counter.zero?
+      for other in others.reverse
+        if other[:before]
+          raise Exception.new("Unknown field set #{other[:before]}") unless @field_sets[other[:before]]
+          if fs = tree.select{|fs| fs[:name] == other[:before]}.first
+            tree.insert(tree.index(fs), others.delete(other))
+          end
+        elsif other[:after]
+          raise Exception.new("Unknown field set #{other[:after]}") unless @field_sets[other[:after]]
+          if fs = tree.select{|fs| fs[:name] == other[:after]}.first
+            tree.insert(tree.index(fs)+1, others.delete(other))
+          end
+        end
+      end
+      counter -= 1
+    end
+    raise ArgumentError.new("Field set positionning seems to loop") if counter.zero?
+
+    # Check field_set, field and association
+    default_field_set = tree.first[:name]
+    for field in @fields
+      field[:in] ||= default_field_set
+    end
+
+    fields = @fields.dup
+    roots = fields.select{|f| f[:before].blank? and f[:after].blank?}
+    raise ArgumentError.new("No root field defined...") if roots.size.zero?
+    for set in tree
+      set[:fields] = roots.select{|f| f[:in] == set[:name]}
+    end
+    others = fields - roots
+    # raise [others.collect{|x| x[:name]}, tree.collect{|x| x[:name]}].inspect
+    counter = others.size + 1
+    while others.size > 0
+      break if counter.zero?
+      for other in others.reverse
+        if other[:before]
+          ref = @fields.select{|f| f[:name] == other[:before]}.first
+          raise Exception.new("Unknown field #{other[:before]}") unless ref
+          raise Exception.new("Fields (#{other[:name]} before #{ref[:name]}) must be in the same set if you want to use :before") if ref[:in] != other[:in]
+          fs = tree.select{|fs| fs[:name] == other[:in]}.first
+          if fs[:fields].select{|f| f[:name] == other[:before]}.first
+            fs[:fields].insert(fs[:fields].index(ref), others.delete(other))
+          end
+        elsif other[:after]
+          ref = @fields.select{|f| f[:name] == other[:after]}.first
+          raise Exception.new("Unknown field #{other[:after]}") unless ref
+          raise Exception.new("Fields (#{other[:name]} after #{ref[:name]}) must be in the same set if you want to use :after") if ref[:in] != other[:in]
+          fs = tree.select{|fs| fs[:name] == other[:in]}.first
+          if fs[:fields].select{|f| f[:name] == other[:after]}.first
+            fs[:fields].insert(fs[:fields].index(ref)+1, others.delete(other))
+          end
+        end
+      end
+      counter -= 1
+    end
+    raise ArgumentError.new("Field positionning seems to loop") if counter.zero?
+
+    # Build method
+    basename = nature.to_s
+    file =  basename + ".html.haml"
+    dir = Rails.root.join("tmp", "cache", "forms", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')))
+    FileUtils.mkdir_p(dir)
+    code  = "def #{method_name}\n"
+    code << "  render(:file => '#{dir.join(basename).relative_path_from(Rails.root)}')\n"
+    code << "end\n"
+    eval(code)
+
+    haml  = "" # "-# Generated on #{Time.now.l(:locale => :eng)}\n"
+    for fs in tree
+      set_id = Time.now.to_i.to_s(36)+(1_000_000*rand).to_i.to_s(36)
+      toggle_id = set_id + "-toggle"
+      fs_name = fs[:name]
+      haml << "##{fs_name}.fieldset.form-horizontal\n"
+      haml << "  .fieldset-legend\n"
+      haml << "    %span.icon\n"
+      haml << "    %span{:for => '#{toggle_id}'}=" + (fs_name.is_a?(Symbol) ? ":#{fs_name}.t(:default => [:'labels.#{fs_name}', :'form.legends.#{fs_name}'])" : fs_name.to_s.inspect) + "\n"
+      haml << "    %span##{toggle_id}.#{fs[:collapsed] ? 'collapsed' : 'not-collapsed'}{'data-toggle-set' => '##{set_id}'}\n"
+      haml << "  ##{set_id}.fieldset-fields" + (fs[:collapsed] ? "{:style => 'display: none'}" : "") + "\n"
+      for field in fs[:fields]
+        haml << render_field(field, 2)
+      end
+    end
+
+    haml = "-# Generated on #{Time.now.l(:locale => :eng)}\n" +
+      "=simple_fields_for(@#{resource}) do |f|\n" +
+      haml.gsub(/^/, '  ')
+    # haml << h(@field_sets.inspect)
+    # return haml
+
+    File.open(dir.join(file), "wb") do |f|
+      f.write(haml)
+    end
+
+    return send(method_name)
+  end
+
 
   def field_set(*args, &block)
-    object, legend, options, html_options = nil, nil, {}, {}
-    if args[0].is_a?(Ekylibre::Record::Base)
-      object = args.shift
-    end
-    if args[0].is_a?(Symbol) or args[0].is_a?(String)
-      legend = args.shift
-    end
-    options = args.shift if args[0].is_a?(Hash)
-    html_options = args.shift if args[0].is_a?(Hash)
-    set_id = Time.now.to_i.to_s(36)+(100000*rand).to_i.to_s(36)
-    id = nil
-    html = ""
-    if legend
-      if legend.is_a?(Symbol)
-        id = legend
-        set_id = "#{id}-set"
-        legend = legend.t(:default => ["labels.#{legend}".to_sym, "form.legends.#{legend}".to_sym])
-      elsif !legend.is_a?(String)
-        legend = legend.to_s
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    name  = (args[-1].is_a?(Symbol) ? args.delete_at(-1) : :general_informations)
+    if @field_sets[name]
+      if options.size > 0 or args.size > 0
+        raise ArgumentError.new("This field_set is already defined. You can not give other parameters.")
       end
-      legend_html = ""
-      toggle_id = set_id + "-toggle"
-      legend_html << content_tag(:span, nil, :class => :icon)
-      legend_html << content_tag(:span, legend, :for => toggle_id)
-      legend_html << content_tag(:span, nil, :id => toggle_id, "data-toggle-set" => '#'+set_id, :class => (options[:collapsed] ? "collapsed" : "not-collapsed"))
-      html << content_tag(options[:legend_tag]||:div, legend_html.html_safe, :class => "legend")
-    end
-    # form = Formika.new(object, :controller => controller)
-    attrs = {:class => :set, :id => set_id}
-    attrs[:style] = "display: none" if options[:collapsed]
-    # html << content_tag(:div, capture(form, &block), attrs)
-    html << content_tag(:div, simple_fields_for(object, :builder => IkaFormBuilder, &block), attrs)
-    html_options[:id] ||= id if id
-    if html_options[:class]
-      html_options[:class] = html_options[:class].to_s + " "
     else
-      html_options[:class] = ""
+      options[:name] = name
+      if options[:before] and options[:after]
+        raise Exception.new("Cannot be before something and after other thing")
+      end
+      options[:object] = (args[-1] ? args.delete_at(-1) : (options[:object] || instance_variable_get('@' + controller.controller_name.to_s.singularize)))
+      @field_sets[name] = options
     end
-    html_options[:class] << "fieldset form-horizontal"
-    return content_tag(options[:tag]||:div, html.html_safe, html_options)
+    if block_given?
+      @current_field_set = name
+      yield
+      @current_field_set = nil
+    end
+    return nil
   end
+
+  def input(name, options = {})
+    check_field_name_before_push(name, __method__)
+    options[:in] ||= @current_field_set
+    options.merge!(:type => __method__, :name => name)
+    push_field(options)
+  end
+
+  def association(name, options = {})
+    check_field_name_before_push(name, __method__)
+    options[:in] ||= @current_field_set
+    options.merge!(:type => __method__, :name => name)
+    push_field(options)
+  end
+
+  def nested_association(name, options = {}, &block)
+    check_field_name_before_push(name, __method__)
+    options[:in] ||= @current_field_set
+    fields = (block_given? ? collect_fields(&block) : [])
+    options.merge!(:type => __method__, :name => name, :fields => fields)
+    push_field(options)
+  end
+
+  def custom_fields(options = {})
+    check_field_name_before_push(__method__, __method__)
+    options[:in] ||= @current_field_set
+    options.merge!(:type => __method__, :name => __method__)
+    push_field(options)
+  end
+
+  def check_field_name_before_push(name, type)
+    raise ArgumentError.new("Name must be a symbol") unless name.is_a?(Symbol)
+    if name == :custom_fields and name != type
+      raise ArgumentError.new("custom_fields is a key word.")
+    end
+    if @fields[0].detect{|f| f[:name] == name }
+      raise ArgumentError.new("Name #{name.inspect} has been already used")
+    end
+    return true
+  end
+
+  def push_field(field)
+    @fields[0] << field
+    return true
+  end
+
+  def collect_fields(&block)
+    @fields = [] unless @fields.is_a?(Array)
+    @fields.insert(0, [])
+    yield if block_given?
+    return @fields.delete_at(0)
+  end
+
+  def render_field(field, depth = 0)
+    options = field.dup
+    name, type = options.delete(:name), options.delete(:type)
+    return send("render_field_#{type}", name, options).strip.gsub(/^/, '  '*depth) + "\n"
+  end
+
+  def render_field_input(name, options = {})
+    source = options.delete(:source)
+    face = options.delete(:field)
+    haml  = ""
+    readonly = controller.controller_name.classify.constantize.readonly_attributes.include?(name.to_s)
+    # face ||= :select if source.is_a?(Symbol)
+    haml << "=f.input(:#{name}"
+    haml << ", :collection => #{source}" if source.is_a?(Symbol)
+    haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
+    haml << ", :input_html => {:rows => 3}" if face == :text
+    haml << ", :readonly => true" if readonly
+    haml << ")"
+    return haml
+  end
+
+  def render_field_association(name, options = {})
+    source = options.delete(:source)
+    face = options.delete(:field)
+    haml  = "=f.association(:#{name}"
+    haml << ", :collection => #{source}" if source.is_a?(Symbol)
+    haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
+    haml << ")"
+    return haml
+  end
+
+  def render_field_nested_association(name, options = {})
+    record = name.to_s.singularize
+    fs_name = options[:in]
+
+    partial  = "-# Generated automatically. Don't edit this file.\n"
+    partial << ".nested-fields\n"
+    partial << "  =link_to_remove_association 'Remove #{record}', f\n"
+    for f in options[:fields]
+      partial << render_field(f, 1)
+    end
+
+    File.open(Rails.root.join("app", "views", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')), "_#{record}_fields.html.haml"), "wb") do |f|
+      f.write partial
+    end
+    haml  = "##{fs_name}-#{name}\n"
+    haml << "  =f.simple_fields_for(:#{name}) do |#{record}|\n"
+    haml << "    =render '#{record}_fields', :f => #{record}\n"
+    haml << "  .links\n"
+    haml << "    =link_to_add_association('Add #{record}', f, :#{name})\n"
+    return haml
+  end
+
+  def render_field_custom_fields(name, options = {})
+    return '%em Custom fields'
+  end
+
+
+    # set_id = Time.now.to_i.to_s(36)+(1_000_000*rand).to_i.to_s(36)
+    # id = nil
+    # html = ""
+    # if legend
+    #   if legend.is_a?(Symbol)
+    #     id = legend
+    #     set_id = "#{id}-set"
+    #     legend = legend.t(:default => ["labels.#{legend}".to_sym, "form.legends.#{legend}".to_sym])
+    #   elsif !legend.is_a?(String)
+    #     legend = legend.to_s
+    #   end
+    #   legend_html = ""
+    #   toggle_id = set_id + "-toggle"
+    #   legend_html << content_tag(:span, nil, :class => :icon)
+    #   legend_html << content_tag(:span, legend, :for => toggle_id)
+    #   legend_html << content_tag(:span, nil, :id => toggle_id, "data-toggle-set" => '#'+set_id, :class => (options[:collapsed] ? "collapsed" : "not-collapsed"))
+    #   html << content_tag(options[:legend_tag]||:div, legend_html.html_safe, :class => "legend")
+    # end
+    # # form = Formika.new(object, :controller => controller)
+    # attrs = {:class => :set, :id => set_id}
+    # attrs[:style] = "display: none" if options[:collapsed]
+    # # html << content_tag(:div, capture(form, &block), attrs)
+    # html << content_tag(:div, simple_fields_for(object, :builder => IkaFormBuilder, &block), attrs)
+    # html_options[:id] ||= id if id
+    # if html_options[:class]
+    #   html_options[:class] = html_options[:class].to_s + " "
+    # else
+    #   html_options[:class] = ""
+    # end
+    # html_options[:class] << "fieldset form-horizontal"
+    # content_for(:field_sets, content_tag(options[:tag] || :div, html.html_safe, html_options))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   class IkaFormBuilder < SimpleForm::FormBuilder
 
@@ -1266,7 +1555,7 @@ module ApplicationHelper
       options = options.dup
 
       return simple_fields_for(*[association,
-        options.delete(:collection), options].compact, &block) if block_given?
+                                 options.delete(:collection), options].compact, &block) if block_given?
 
       raise ArgumentError, "Association cannot be used in forms not associated with an object" unless @object
 
@@ -1360,12 +1649,22 @@ module ApplicationHelper
       return html
     end
 
+    # Permits to define an input for the object
     def input(attribute_name, options = {}, &block)
       options[:input_html] ||= {}
       options[:input_html].update :class => 'custom'
       super
     end
 
+    # Permits to add all custom fields (see CustomField)
+    def custom_fields(*args)
+    end
+
+    # Permits to define a nested form
+    def nested(*args)
+    end
+
+    # Permits to define a custom field
     def custom_field(*args)
     end
   end
@@ -1615,7 +1914,7 @@ module ApplicationHelper
       options = line
 
       record.to_sym if record.is_a?(String)
-      object = record.is_a?(Symbol) ? instance_variable_get('@' << record.to_s) : record
+      object = record.is_a?(Symbol) ? instance_variable_get('@' + record.to_s) : record
       raise Exception.new("Object #{record.inspect} is " << object.inspect) if object.nil?
       model = object.class
       raise Exception.new('ModelError on object (not an ActiveRecord): ' << object.class.to_s) unless model.ancestors.include? ActiveRecord::Base # methods.include? "create"

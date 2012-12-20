@@ -1,13 +1,9 @@
-=formalize do |f|
-  -f.error :tax
-  -if @tax.new_record?
-    -f.field :tax, :nature, :field=>:radio, :choices=>Tax.natures
-    -f.field :tax, :amount
-  -else
-    -f.field Tax.human_attribute_name('nature'), @tax.nature_label
-    -f.field Tax.human_attribute_name('amount'), @tax.amount.to_s
-  -f.field :tax, :name
-  -f.field :tax, :collected_account_id, :choices=>:collected_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:collected_taxes).number}
-  -f.field :tax, :paid_account_id, :choices=>:paid_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:paid_taxes)}
-  -f.field :tax, :included
-  -f.field :tax, :reductible
+-# TODO Check
+-field_set do
+  -input :nature
+  -input :amount
+  -input :name
+  -association :collected_account # , :choices=>:collected_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:collected_taxes).number}
+  -association :paid_account # , :choices=>:paid_account, :resize=>true, :new=>{:number=>Account.find_in_chart(:paid_taxes)}
+  -input :included
+  -input :reductible

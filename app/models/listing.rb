@@ -38,6 +38,7 @@
 
 
 class Listing < CompanyRecord
+  attr_readonly :root_model
   has_many :columns, :class_name=>"ListingNode", :conditions=>["nature = ?", "column"]
   has_many :exportable_columns, :class_name=>"ListingNode", :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
   has_many :filtered_columns, :class_name=>"ListingNode", :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]

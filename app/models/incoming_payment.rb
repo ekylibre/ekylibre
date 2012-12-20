@@ -52,7 +52,7 @@
 class IncomingPayment < CompanyRecord
   acts_as_numbered
   belongs_to :commission_account, :class_name=>"Account"
-  belongs_to :responsible, :class_name=>"User"
+  belongs_to :responsible, :class_name=>"Entity"
   belongs_to :deposit
   belongs_to :journal_entry
   belongs_to :payer, :class_name=>"Entity"

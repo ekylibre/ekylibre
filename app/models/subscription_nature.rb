@@ -36,9 +36,11 @@
 
 
 class SubscriptionNature < CompanyRecord
+  attr_readonly :nature
+  enumerize :nature, :in => [:period, :quantity], :predicates => true
   belongs_to :entity_link_nature
   has_many :products
-  has_many :subscriptions, :foreign_key=>:nature_id
+  has_many :subscriptions, :foreign_key => :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
@@ -68,10 +70,6 @@ class SubscriptionNature < CompanyRecord
     tc('natures.'+self.nature.to_s)
   end
 
-  def period?
-    self.nature == "period"
-  end
-
   def now
     return (self.period? ? Date.today : self.actual_number)
   end
@@ -99,8 +97,6 @@ class SubscriptionNature < CompanyRecord
       return :last_number
     end
   end
-
-
 
 end
 

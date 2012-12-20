@@ -1,14 +1,13 @@
-=formalize do |f|
-  -f.error 'incoming_payment'
-  -f.title :general_informations
-  -f.field :incoming_payment, :payer_id, :choices=>:entities, :new=>true
-  -f.field :incoming_payment, :amount
-  -f.field :incoming_payment, :to_bank_on
-  -f.field :incoming_payment, :received
-  -f.field :incoming_payment, :mode_id, :choices=>{:reflection=>:incoming_payment_modes}, :new=>true
-  -f.title :depositable
-  -f.field :incoming_payment, :responsible_id, :choices=>{:reflection=>:users}
-  -f.field :incoming_payment, :paid_on
-  -f.field :incoming_payment, :check_number
-  -f.field :incoming_payment, :account_number
-  -f.field :incoming_payment, :bank
+-field_set do
+  -association :payer
+  -input :amount
+  -input :to_bank_on
+  -input :received
+  -association :mode
+
+-field_set(:depositable_options) do
+  -association :responsible, :source => "Entity#workers"
+  -input :paid_on
+  -input :check_number
+  -input :account_number
+  -input :bank

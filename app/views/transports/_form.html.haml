@@ -1,12 +1,10 @@
--transporter_id = nil
-=formalize do |f|
-  -f.error :transport
-  -f.title :general
-  -f.field :transport, :transporter_id, :choices=>{:reflection=>:waiting_transporters}, :new=>{:transporter=>1}, "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
-  -f.field :transport, :responsible_id, :choices=>{:reflection=>:employees, :include_blank=>""}, :new=>{:employed=>1}
-  -f.field :transport, :reference_number
-  -f.field :transport, :transport_on
-  -f.field :transport, :comment, :field=>:textarea
+-# TODO Check
+-field_set do
+  -association :transporter, :source => "Entity#waiting_transporters" # , :new=>{:transporter=>1}, "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
+  -association :responsible, :source => "Entity#workers"
+  -input :reference_number
+  -input :transport_on
+  -input :comment, :field => :text
 
 %h2=Transport.human_attribute_name(:deliveries)
 #deliveries{"data-refresh"=>url_for(:controller=>:transports, :action=>:new, :transport_id=>@transport.id), "data-refresh-mode"=>"update"}=render :partial=>"deliveries_form"

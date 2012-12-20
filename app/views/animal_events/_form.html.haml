@@ -1,21 +1,18 @@
-=formalize do |f|
-  -f.error :animal_event
+=field_set do
+  -input :name
+  -association :nature, :as => :radio_buttons
+  -association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
+  -association :animal_group, :include_blank => true, :default_value => :blank
 
-=field_set(@animal_event, :general_informations) do |f|
-  =f.input :name
-  =f.association :nature, :as => :radio_buttons
-  =f.association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
-  =f.association :animal_group, :include_blank => true, :default_value => :blank
+-field_set(:delays) do |f|
+  -input :started_on
+  -input :stopped_on, :include_blank => true, :default_value => :blank
 
-=field_set(@animal_event, :delays) do |f|
-  =f.input :started_on
-  =f.input :stopped_on, :include_blank => true, :default_value => :blank
+-field_set(:care) do |f|
+  -association :diseases, :as => :check_boxes
 
-=field_set(@animal_event, :care) do |f|
-  =f.association :diseases, :as => :check_boxes
-  
-=field_set(@animal_event, :treatment) do |f|
-  =f.association :treatment, :include_blank => true, :default_value => :blank
-  
-=field_set(@animal_event, :entity) do |f|
-  =f.association :watcher, :include_blank => true, :default_value => :blank
+-field_set(:treatment) do |f|
+  -association :treatment, :include_blank => true, :default_value => :blank
+
+-field_set(:entity) do |f|
+  -association :watcher, :include_blank => true, :default_value => :blank

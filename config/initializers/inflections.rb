@@ -17,6 +17,7 @@
 
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'tax', 'taxes'
+  inflect.irregular 'fax', 'faxes'
 end
 
 # Set pluralization active with the algorithms defined in [locale]/i18n.rb

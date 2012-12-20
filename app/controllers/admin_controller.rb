@@ -107,13 +107,14 @@ class AdminController < BaseController
 
   protected
 
-  def render_restfully_form(options={})
-    operation = self.action_name.to_sym
-    operation = (operation==:create ? :new : operation==:update ? :edit : operation)
-    partial   = options[:partial]||'form'
-    options[:form_options] = {} unless options[:form_options].is_a?(Hash)
-    options[:form_options][:multipart] = true if options[:multipart]
-    render(:template=>options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
+  def render_restfully_form(options = {})
+    # operation = self.action_name.to_sym
+    # operation = (operation == :create ? :new : operation == :update ? :edit : operation)
+    # partial   = options[:partial] || 'form'
+    # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
+    # options[:form_options][:multipart] = true if options[:multipart]
+    # render(:template => options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
+    render(:template =>"forms/#{self.action_name}")
   end
 
 
@@ -188,7 +189,7 @@ class AdminController < BaseController
   protected
 
   # def current_user
-  #   @current_user = User.find_by_id(session[:user_id]) unless @current_user
+  #   @current_user = Entity.find_by_id(session[:user_id]) unless @current_user
   #   return @current_user
   # end
 
@@ -230,7 +231,7 @@ class AdminController < BaseController
   def identify()
     # Load current_user if connected
     @current_user = nil
-    @current_user = User.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id]
+    @current_user = Entity.find(:first, :conditions=>{:id=>session[:user_id]}, :readonly=>true) if session[:user_id]
   end
 
 
@@ -238,7 +239,7 @@ class AdminController < BaseController
   # Controls access to every view in Ekylibre.
   def authorize()
     # Get action rights
-    controller_rights = {} unless controller_rights = User.rights[self.controller_name.to_sym]
+    controller_rights = {} unless controller_rights = Entity.rights[self.controller_name.to_sym]
     action_rights = controller_rights[self.action_name.to_sym]||[]
 
     # Search help article
@@ -484,8 +485,8 @@ class AdminController < BaseController
 
     # if url.blank?
     #   named_url = "#{record_name}_url"
-    #   if respond_to?(named_url)    
-    #     url = named_url+"(@#{record_name})" 
+    #   if respond_to?(named_url)
+    #     url = named_url+"(@#{record_name})"
     #   elsif
     #     named_url = "#{record_name.pluralize}_url"
     #     url = named_url if respond_to?(named_url)

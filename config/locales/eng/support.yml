@@ -63,6 +63,7 @@ eng:
     export_as: "Export as %{exported}..."
     items_per_page: "Items per page"
     menu: "Menu"
+    # next: "Suivant"
     no_records: "No records"
     pagination:
       first: "First page"
@@ -70,6 +71,7 @@ eng:
       next: "Next page"
       previous: "Previous page"
       showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
+    # previous: "Précédent"
     x_per_page:
       one: "%{count} per page"
       other: "%{count} per page"

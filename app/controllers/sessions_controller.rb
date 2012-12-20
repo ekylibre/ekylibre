@@ -10,7 +10,7 @@ class SessionsController < AuthenticationController
   end
 
   def create
-    if user = User.authenticate(params[:name], params[:password])
+    if user = Entity.authenticate(params[:name], params[:password])
       initialize_session(user)
       session[:locale] = params[:locale].to_sym unless params[:locale].blank?
       unless session[:user_id].blank?
@@ -31,7 +31,7 @@ class SessionsController < AuthenticationController
   # Permits to renew the session if expired
   def renew
     if request.post?
-      if user = User.authenticate(params[:name], params[:password])
+      if user = Entity.authenticate(params[:name], params[:password])
         session[:last_query] = Time.now.to_i # Reactivate session
         # render :json=>{:dialog=>params[:dialog]}
         head :ok, :x_return_code=>"granted"

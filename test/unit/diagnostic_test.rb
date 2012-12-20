@@ -1,7 +1,9 @@
-# -*- coding: utf-8 -*-
+# = Informations
+#
 # == License
+#
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -14,9 +16,18 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: diagnostics
+#
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  disease_id   :integer
+#  event_id     :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  symptoms     :string(255)
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
-class ContactsController < AdminController
-  manage_restfully :entity_id=>"params[:entity_id]||session[:current_entity_id]", :country=>"Entity.find(params[:entity_id]||session[:current_entity_id]).country rescue Entity.of_company.country", :t3e=>{:entity=>"@contact.entity.full_name"}
-end

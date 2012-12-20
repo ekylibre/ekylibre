@@ -1,9 +1,6 @@
-=formalize do |f|
-  -f.error :animal_race
-
-=field_set(@animal_race, :general_informations) do |f|
-  =f.association :nature, :as => :radio_buttons
-  =f.input :name
-  =f.input :code
-  =f.input :description
-  =f.input :comment
+-field_set do
+  -association :nature, :as => :radio_buttons
+  -input :name
+  -input :code
+  -input :description
+  -input :comment

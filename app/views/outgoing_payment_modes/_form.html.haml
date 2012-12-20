@@ -1,10 +1,4 @@
-=formalize do |f|
-  -f.error :outgoing_payment_mode
-  -f.title :general
-  -f.field :outgoing_payment_mode, :name
-  -f.field :outgoing_payment_mode, :with_accounting, "data-show"=>"#accountancy"
-
-#accountancy
-  =formalize do |f|
-    -f.title :accountancy
-    -f.field :outgoing_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>true
+-field_set do
+  -input :name
+  -input :with_accounting, :show => :cash
+  -association :cash, :source => "entity#cashes"

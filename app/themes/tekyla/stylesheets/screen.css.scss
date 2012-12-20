@@ -371,7 +371,7 @@ table.quick td { padding: 0px 4px; }
   border: $fieldset-border;
   @include incrust-shadow;
   $size: $fs-large;
-  .legend { 
+  .fieldset-legend { 
     padding: 0;
     label, span {
       color: $neutral-color;
@@ -405,48 +405,17 @@ table.quick td { padding: 0px 4px; }
       }
     }
   }
-  &#care .legend .icon {
-      @include icons-sprite(care);
+  @each $field_set in care, drug, general_informations, stocks, genealogy, group, treatment { 
+    &##{ $field_set } .fieldset-legend .icon {
+      @include icons-sprite($field_set);
+    }
   }
-  &#drug .legend .icon {
-      @include icons-sprite(drug);
-  }
-  &#general_informations .legend .icon {
-      @include icons-sprite(general_informations);
-  }
-  &#genealogy .legend .icon {
-      @include icons-sprite(genealogy);
-  }
-  &#group .legend .icon {
-      @include icons-sprite(group);
-  }
-  &#treatment .legend .icon {
-      @include icons-sprite(treatment);
-  }
-  &#entity .legend .icon {
-      @include icons-sprite(entity);
-  }
-  &#delays .legend .icon {
-      @include icons-sprite(delays);
-  }
-  &#stocks .legend .icon {
-      @include icons-sprite(stocks);
-  }
-  &#asset .legend .icon {
-      @include icons-sprite(asset);
-  }
-// could load one image with the name of field_set in _form.html.haml in app/views  - need to add each used field_set name in the list above
-//  @each $field_set in care, drug, general_informations, genealogy, group, treatment { 
-//  &.$field_set .legend .icon {
-//      @include icons-sprite(#{$field_set});
-//   }
-//  }
 
   textarea { 
     width: 70%;
     resize: vertical;
   }
-  .set { 
+  .fieldset-fields { 
     border-top: $fieldset-border;
     margin-top: $vertical-gap;
     padding-top: $vertical-gap;
@@ -551,7 +520,7 @@ html[dir="rtl"] div.field label.attr { text-align: left; }
 div.field.mono-choice .toolbar { margin: 0 8px; }
 
 
-.form-column{
+.form-column {
   overflow: auto;
   &.aside {
     width: $menu-width; 
@@ -565,12 +534,16 @@ span.rad {
   * { vertical-align: middle; ; }
 }
 
-.actions { 
+.form-actions { 
   @include text-align(center);
-  input, a, span { @include text-align(center); }
-  padding: round($fs-normal/4) !important; 
+  input, a, span { 
+    @include text-align(center);
+    @include margin-left($fs-normal);
+    &:first-child { @include margin-left(0) }
+  }
+  padding: round($fs-normal) !important; 
   background: $menu-background; 
-  border-top: $menu-border;
+  /*border-top: $menu-border;*/
   margin: 0;
 }
 
@@ -1272,10 +1245,12 @@ input[data-datepicker] {@include text-align(center)}
 
 .beehive { 
   .box {
-
     $min-width: 300px;
     $min-height: 200px;
+    $cell-border-width: 1px;
+    $cell-border: $cell-border-width solid #CCC;
     margin-top: $default-gap;
+    padding: 0 $cell-border-width;
     &:first-child { margin-top: 0; }
     @include clearfix;
 
@@ -1283,28 +1258,41 @@ input[data-datepicker] {@include text-align(center)}
       display: none;
     }
 
+    $cell-title-vertical-padding: round($default-gap*0.6);
+    $cell-title-horizontal-padding: round($default-gap*0.8);
     .cell-title { 
       color: #000;
       font-weight: bold;
-      padding: round($default-gap*0.5) round($default-gap*0.6);
-      border-bottom: 1px solid #DDD;
+      padding: $cell-title-vertical-padding $cell-title-horizontal-padding;
+      border: $cell-border;
       background: #EEE;
+      @include background(linear-gradient(top, #EEE, white));
+      @include border-top-radius(3px);
     }
 
     .cell {
-      @include float(left);         
+      @include float(left);
       width: 100%;
-      .cell-inner { 
-        background: white;
-        border: 1px solid #DDD;
+      .cell-inner {
+        margin-left: $default-gap;
+        @include border-radius(3px);
         &.loading { 
           min-height: $min-height;
           background: image-url("themes/tekyla/cell-loader.gif") center center no-repeat;
         }
         .cell-content { 
+          border: $cell-border;
+          border-top: none;
           padding: $default-gap;
           max-width: 100%;
           overflow: auto;
+          background: white;
+          @include border-bottom-radius(3px);
+        }
+      }
+      &:first-child { 
+        .cell-inner { 
+          margin-left: 0;
         }
       }
     }
@@ -1322,8 +1310,11 @@ input[data-datepicker] {@include text-align(center)}
             margin-top: $default-gap;
             &:first-child { margin-top: 0 }
             width: 100%;
-            .cell-content { 
-              height: auto;
+            .cell-inner {
+              margin-left: 0;
+              .cell-content { 
+                height: auto;
+              }
             }
           }
         }
@@ -1333,21 +1324,18 @@ input[data-datepicker] {@include text-align(center)}
             ul.cell-titles {
               display: block;
               li { 
-                background: white;
                 @include inline-block;
-                border: 1px solid #DDD;
-                border-bottom: none;
-                @include border-top-radius(3px);
-                opacity: 0.6;
+                padding-top: $cell-border-width;
+                opacity: 0.4;
                 a {
                   text-decoration: none;
                   display: block;
-                  padding: $default-gap $default-gap;
+                  border-bottom: none;
                 }
                 &.active { 
                   opacity: 1;
-                  a { padding-bottom: $default-gap + 1px; }
-                  margin-bottom: -1px;
+                  a { padding-bottom: $cell-title-vertical-padding + $cell-border-width; }
+                  margin-bottom: (-1 * $cell-border-width);
                 }
               }
             }
@@ -1356,11 +1344,12 @@ input[data-datepicker] {@include text-align(center)}
                 display: none;
                 width: 100%;
                 margin-top : 0;
+                border-top: $cell-border;
                 &.active { 
                   display: block;
                 }
                 .cell-inner {
-                  @include border-top-radius(0);
+                  margin-left : 0;
                 }
                 .cell-title { display: none; }
               }

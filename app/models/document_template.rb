@@ -46,6 +46,7 @@ class DocumentTemplate < CompanyRecord
   after_save :set_by_default
   # TODO Do we keep DocumentTemplate families ?
   cattr_reader :families, :document_natures
+  enumerize :family, :in => [:company, :relations, :accountancy, :management, :production], :predicates => true
   has_many :documents, :foreign_key=>:template_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, :allow_nil => true, :maximum => 2

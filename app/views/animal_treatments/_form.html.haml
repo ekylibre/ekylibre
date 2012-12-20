@@ -1,28 +1,25 @@
-=formalize do |f|
-  -f.error :animal_treatment
+-field_set do
+  -input :name
+  -association :events
+  -input :started_on
+  -input :stopped_on
+  -input :prescription_number
+  -association :prescriptor
 
-=field_set(@animal_treatment, :general_informations) do |f|
-  =f.input :name
-  =f.association :events
-  =f.input :started_on
-  =f.input :stopped_on
-  =f.input :prescription_number
-  =f.association :prescriptor
-  
-=field_set(@animal_treatment, :group) do |f|
-  =f.association :animals, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
-  =f.association :animal_groups, :as => :check_boxes, :include_blank => true, :default_value => :blank
+-field_set(:group) do
+  -association :animals, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
+  -association :animal_groups, :as => :check_boxes, :include_blank => true, :default_value => :blank
 
-=field_set(@animal_treatment, :disease) do |f|
-  =f.association :disease, :include_blank => true, :default_value => :blank
-  
-=field_set(@animal_treatment, :drug) do |f|
-  =f.association :drug, :include_blank => true, :default_value => :blank
-  =f.input :quantity
-  =f.association :unit
-  =f.input :per_unit
-  
-=field_set(@animal_treatment, :delays) do |f|
-  =f.input :duration_wait_for_milk
-  =f.input :duration_wait_for_meat
-  =f.input :duration
+-field_set(:disease) do
+  -association :disease, :include_blank => true, :default_value => :blank
+
+-field_set(:drug) do
+  -association :drug, :include_blank => true, :default_value => :blank
+  -input :quantity
+  -association :unit
+  -input :per_unit
+
+-field_set(:delays) do
+  -input :duration_wait_for_milk
+  -input :duration_wait_for_meat
+  -input :duration

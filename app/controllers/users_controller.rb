@@ -19,7 +19,7 @@
 
 class UsersController < AdminController
 
-  list(:order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
+  list(:model => :entities, :conditions => ['loggable=?', 'true']:order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
     t.column :name, :url=>true
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
@@ -49,14 +49,14 @@ class UsersController < AdminController
       render :partial=>"rights_form"
     else
       role = Role.first
-      @user = User.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>Entity.of_company.language)
+      @user = Entity.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>Entity.of_company.language)
       @rights = role ? role.rights_array : []
       render_restfully_form
     end
   end
 
   def create
-    @user = User.new(params[:user])
+    @user = Entity.new(params[:user])
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)

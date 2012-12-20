@@ -1,50 +1,72 @@
-=field_set(@entity, :general_informations) do |f|
-  -#=f.association :nature, :choices => {:reflection => :entity_natures, :label => :name, :order => :name}, :new => true
-  =f.association :nature
-  =f.input :language, :collection => languages, :as => :select
-  =f.input :last_name
-  =f.input :first_name
-  =f.input :active, "data-hide" => "#dead_on_form"
-  =f.input :code
-  =f.input :prospect
-  =f.input :client, "data-show" => "#client_informations"
-  =f.input :supplier, "data-show" => "#supplier_informations"
-  =f.input :attorney, "data-show" => "#attorney_informations"
-  =f.input :transporter
+=field_set(:major => true) do # |f|
+  =association :nature
+  =input :language, :source => :languages, :field => :select
+  =input :last_name
+  =input :first_name
+  =input :active, :hide => :dead_on
+  =input :code
+  =input :prospect
+  =input :client, :show => :client_informations
+  =input :supplier, :show => :supplier_informations
+  =input :attorney, :show => :attorney_informations
+  =input :transporter
 
-=field_set(@entity, :details, :collapsed => true) do |f|
-  =f.input :country, :collection => countries
-  =f.input :siren
-  =f.input :activity_code
-  =f.input :vat_number
-  -#=f.input :excise
-  =f.input :born_on
-  =f.input :dead_on, :html_options => {:id => "dead_on_form"}
-  -#=f.input :website
-  =f.input :photo
-  =f.input :comment, :field => :textarea
-  -#=f.input :ean13
-  -for datum in @custom_field_data
-    =f.custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
+=field_set(:details, :collapsed => true) do # |f|
+  =input :country, :source => :countries
+  =input :siren
+  =input :activity_code
+  =input :vat_number
+  =input :born_on
+  =input :dead_on
+  =input :photo
+  =input :comment, :field => :text
+  -#=input :ean13
+  =custom_fields
+  -#for datum in @custom_field_data
+    =custom_field datum.custom_field.name, {:datatype => datum.custom_field.nature.to_sym, :id => "custom_field_datum_#{datum.custom_field_id}_value", :name => "custom_field_datum[#{datum.custom_field_id}][value]", :value => datum.value, :size => datum.custom_field.length_max, :options => {:include_blank => (datum.custom_field.required ? nil : '')}, :choices => datum.custom_field.choices.collect{|x| [x.name , x.id]}  }
 
-=field_set(@entity, :client_informations) do |f|
-  =f.association :category
-  =f.input :origin, "data-autocompletion" => url_for(:controller => :interfacers, :action => :autocomplete_for_entity_origin)
-  =f.input :first_met_on
-  =f.association :proposer, :source => "self#others"
-  =f.association :responsible
-  =f.input :vat_submissive
-  =f.input :reflation_submissive
-  =f.input :discount_rate
-  =f.input :reduction_rate
-  =f.input :authorized_payments_count
-  =f.input :deliveries_conditions, :field => :textarea
-  =f.association :client_account, :source => "account#client_thirds", :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
+=field_set(:client_informations) do # |f|
+  =association :category
+  =input :origin, :autocomplete => true
+  =input :first_met_on
+  =association :proposer, :source => "self#others"
+  =association :responsible, :source => "self#others", :after => :category
+  =input :vat_submissive
+  =input :reflation_submissive
+  -#=input :discount_rate
+  =input :reduction_rate
+  =input :authorized_payments_count
+  =input :deliveries_conditions, :field => :text
+  =association :client_account, :source => "Account#client_thirds", :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
 
-=field_set(@entity, :supplier_informations) do |f|
-  =f.association :supplier_account, :source => "account#supplier_thirds", :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
+=field_set(:supplier_informations) do # |f|
+  =association :supplier_account, :source => "Account#supplier_thirds", :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
 
-=field_set(@entity, :attorney_informations) do |f|
-  =f.association :attorney_account, :source => "account#attorney_thirds", :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
+=field_set(:attorney_informations, :after => :client_informations) do # |f|
+  =association :attorney_account, :source => "Account#attorney_thirds", :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
-=render :partial => "contacts/coordinates_form"
+=field_set(:coordinates, :major => true) do # |f|
+  =nested_association(:emails) do
+    =input :canal, :value => "email", :field => :hidden
+    =input :coordinate, :field => :email
+  =nested_association(:mails) do
+    =input :canal, :value => "mail", :field => :hidden
+    =input :mail_line_1
+    =input :mail_line_2
+    =input :mail_line_3
+    =input :mail_line_4
+    =input :mail_line_5
+    =input :mail_line_6
+  =nested_association(:phones, :before => :emails) do
+    =input :canal, :value => "phone", :field => :hidden
+    =input :coordinate, :field => :tel
+  =nested_association(:mobiles) do
+    =input :canal, :value => "mobile", :field => :hidden
+    =input :coordinate, :field => :tel
+  =nested_association(:faxes) do
+    =input :canal, :value => "fax", :field => :hidden
+    =input :coordinate, :field => :tel
+  =nested_association(:websites) do
+    =input :canal, :value => "website", :field => :hidden
+    =input :coordinate, :field => :url
+-#=render :partial => "contacts/coordinates_form"

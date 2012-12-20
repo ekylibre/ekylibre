@@ -1,9 +1,7 @@
-=formalize do |f|
-  -f.error :sequence
-  -f.title :subtitle
-  -f.field :sequence, :name
-  -f.field :sequence, :number_format, :class=>:code
-  -f.field :sequence, :period, :choices=>Sequence.periods
-  -f.field :sequence, :number_increment
-  -f.field :sequence, :number_start
-  -f.field :sequence, :last_number
+-field_set do
+  -input :name
+  -input :number_format, :class=>:code
+  -input :period, :choices=>Sequence.periods
+  -input :number_increment
+  -input :number_start
+  -input :last_number

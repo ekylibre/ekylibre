@@ -37,7 +37,7 @@ Ekylibre::Application.configure do
 
   # Path to ImageMagick utility
   Paperclip.options[:command_path] = "/usr/bin/"
-  
+
   #for postgis
   script_dir = "/usr/share/postgresql/9.1/contrib/postgis-1.5"
 

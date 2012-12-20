@@ -28,7 +28,7 @@
 #  created_on          :date
 #  creator_id          :integer
 #  currency            :string(3)
-#  delivery_contact_id :integer
+#  delivery_address_id :integer
 #  id                  :integer          not null, primary key
 #  invoiced_on         :date
 #  journal_entry_id    :integer
@@ -51,17 +51,19 @@ class Purchase < CompanyRecord
   acts_as_numbered
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   attr_readonly :currency
-  belongs_to :delivery_contact, :class_name=>"Contact"
+  # DEPRECATED Replace delivery_contact with delivery_address
+  belongs_to :delivery_contact, :class_name => "EntityAddress", :foreign_key => :delivery_address_id
+  belongs_to :delivery_address, :class_name => "EntityAddress"
   belongs_to :journal_entry
-  belongs_to :nature, :class_name=>"PurchaseNature"
-  belongs_to :payee, :class_name=>"Entity", :foreign_key=>:supplier_id
-  belongs_to :supplier, :class_name=>"Entity"
-  belongs_to :responsible, :class_name=>"User"
-  has_many :lines, :class_name=>"PurchaseLine", :foreign_key=>:purchase_id
-  has_many :deliveries, :class_name=>"IncomingDelivery"
-  has_many :payment_uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
-  has_many :products, :through=>:lines, :uniq=>true
-  has_many :uses, :foreign_key=>:expense_id, :class_name=>"OutgoingPaymentUse", :dependent=>:destroy
+  belongs_to :nature, :class_name => "PurchaseNature"
+  belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
+  belongs_to :supplier, :class_name => "Entity"
+  belongs_to :responsible, :class_name => "Entity"
+  has_many :lines, :class_name => "PurchaseLine", :foreign_key => :purchase_id
+  has_many :deliveries, :class_name => "IncomingDelivery"
+  has_many :payment_uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
+  has_many :products, :through => :lines, :uniq => true
+  has_many :uses, :foreign_key => :expense_id, :class_name => "OutgoingPaymentUse", :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :paid_amount, :pretax_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
@@ -80,20 +82,20 @@ class Purchase < CompanyRecord
     state :invoice
     state :aborted
     event :propose do
-      transition :draft => :estimate, :if=>:has_content?
+      transition :draft => :estimate, :if => :has_content?
     end
     event :correct do
       transition [:estimate, :refused, :order] => :draft
     end
     event :refuse do
-      transition :estimate => :refused, :if=>:has_content?
+      transition :estimate => :refused, :if => :has_content?
     end
     event :confirm do
-      transition :estimate => :order, :if=>:has_content?
+      transition :estimate => :order, :if => :has_content?
     end
     event :invoice do
-      transition :order => :invoice, :if=>:has_content?
-      transition :estimate => :invoice, :if=>:has_content_not_deliverable?
+      transition :order => :invoice, :if => :has_content?
+      transition :estimate => :invoice, :if => :has_content_not_deliverable?
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order
@@ -127,8 +129,8 @@ class Purchase < CompanyRecord
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, :if=>self.invoice?) do |entry|
-      label = tc(:bookkeep, :resource=>self.class.model_name.human, :number=>self.number, :supplier=>self.supplier.full_name, :products=>(self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
+    b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
+      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.comment.blank? ? self.products.collect{|x| x.name}.to_sentence : self.comment))
       for line in self.lines
         entry.add_debit(label, line.product.purchases_account_id, line.pretax_amount) unless line.quantity.zero?
         entry.add_debit(label, line.price.tax.paid_account_id, line.taxes_amount) unless line.taxes_amount.zero?
@@ -172,7 +174,7 @@ class Purchase < CompanyRecord
   # Save the last date when the purchase was confirmed
   def confirm(validated_on=Date.today, *args)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(:confirmed_on=>validated_on||Date.today)
+    self.reload.update_attributes!(:confirmed_on => validated_on||Date.today)
     return super
   end
 
@@ -180,12 +182,12 @@ class Purchase < CompanyRecord
   def invoice(invoiced_on=nil, *args)
     return false unless self.can_invoice?
     invoiced_on ||= self.planned_on
-    self.reload.update_attributes!(:invoiced_on=>invoiced_on)
+    self.reload.update_attributes!(:invoiced_on => invoiced_on)
     return super
   end
 
   def label
-    self.number# tc('label', :supplier=>self.supplier.full_name.to_s, :address=>self.delivery_contact.address.to_s)
+    self.number# tc('label', :supplier => self.supplier.full_name.to_s, :address => self.delivery_contact.address.to_s)
   end
 
   # Need for use in list

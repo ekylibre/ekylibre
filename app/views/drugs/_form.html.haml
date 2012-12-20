@@ -1,9 +1,7 @@
-=field_set(@drug, :general_informations) do |f| # partie info general de l entité animal
-  =f.error :drug# affiche les erreurs renvoyés par le model
-  =f.hint 'Selectionner la catégorie' # affiche une infos
-  =f.association :nature, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
-  =f.association :unit
-  =f.input :name , :hint => "le nom de votre médicament"# affiche le champ name de l entité animal avec une infos derriere
-  =f.input :frequency
-  =f.input :quantity
-  =f.input :comment, :field=>:textarea # affiche le champ comment formaté en zone de texte
+-field_set do # partie info general de l entité animal
+  -association :nature, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
+  -association :unit
+  -input :name , :hint => "le nom de votre médicament"# affiche le champ name de l entité animal avec une infos derriere
+  -input :frequency
+  -input :quantity
+  -input :comment, :field => :text # affiche le champ comment formaté en zone de texte

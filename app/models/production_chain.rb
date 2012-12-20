@@ -50,8 +50,8 @@ class ProductionChain < CompanyRecord
       token = self.tokens.create!
       from = ProductionChainWorkCenter.find_by_id(from.to_i) unless from.is_a? ProductionChainWorkCenter
       raise ArgumentError.new("The first argument must be a ProductionChainWorkCenter") unless from.is_a? ProductionChainWorkCenter
-      responsible = User.find_by_id(responsible.to_i) unless responsible.is_a? User
-      raise ArgumentError.new("The second argument must be a User") unless responsible.is_a? User
+      responsible = Entity.find_by_id(responsible.to_i) unless responsible.is_a? Entity
+      raise ArgumentError.new("The second argument must be a Entity") unless responsible.is_a? Entity
 
       operation = Operation.create!(:name=>tc(:operation_name, :name=>from.name, :token=>token.number), :production_chain_token=>token, :nature=>from.operation_nature, :started_at=>Time.now, :planned_on=>date.today, :moved_on=>Date.today, :responsible_id=>responsible.id)
       lines = []

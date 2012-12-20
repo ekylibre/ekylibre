@@ -18,15 +18,16 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: tools
+# == Table: tool_natures
 #
-#  consumption  :decimal(19, 4)
+#  code_aee     :string(255)
+#  comment      :text
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(8)        not null
+#  name         :string(255)
+#  name_aee     :string(255)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
