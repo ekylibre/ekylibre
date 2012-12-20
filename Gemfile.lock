@@ -1,3 +1,10 @@
+GIT
+  remote: git://github.com/fortesinformatica/jasper-rails.git
+  revision: 12b875eb6d897cfdeb55d7a9d1680ea47f3b6725
+  specs:
+    jasper-rails (1.0.2)
+      rjb (>= 1.4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -187,6 +194,7 @@ GEM
       activerecord (>= 3.0.3)
       arel (>= 2.0.6)
       rgeo (>= 0.3.20)
+    rjb (1.4.3)
     rspec-core (2.12.1)
     rspec-expectations (2.12.0)
       diff-lcs (~> 1.1.3)
@@ -279,6 +287,7 @@ DEPENDENCIES
   formize (>= 0.1.0)
   haml
   i18n-complements
+  jasper-rails!
   jquery-rails
   libv8 (~> 3.3.10.4)
   libxml-ruby

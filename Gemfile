@@ -22,9 +22,10 @@ gem 'simple_form'
 gem "paperclip"
 gem "paper_trail"
 gem 'thin'
-gem 'thinreports-rails'
 gem 'nokogiri'
 
+# reporting
+gem 'thinreports-rails'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -44,6 +45,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+#gem 'jquery_mobile_rails'
 
 group :test do
   gem 'capybara'
@@ -56,4 +58,6 @@ end
 group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
+  # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
+  gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
 end
