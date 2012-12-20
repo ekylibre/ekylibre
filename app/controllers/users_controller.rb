@@ -19,12 +19,11 @@
 
 class UsersController < AdminController
 
-  list(:model => :entities, :conditions => ['loggable=?', 'true']:order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
-    t.column :name, :url=>true
+  list(:model => :entities, :conditions => ['loggable=?', 'true'], :order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
+    t.column :full_name, :url=>true
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
     t.column :name, :through=>:role, :url=>{:action=>:edit}
-    t.column :email
     t.column :admin
     t.column :employed
     t.action :locked, :actions=>{"true"=>{:action=>:unlock}, "false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
