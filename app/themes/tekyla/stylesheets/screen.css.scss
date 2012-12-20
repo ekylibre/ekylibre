@@ -405,42 +405,11 @@ table.quick td { padding: 0px 4px; }
       }
     }
   }
-  &#care .legend .icon {
-      @include icons-sprite(care);
+  @each $field_set in care, drug, general_informations, stocks, genealogy, group, treatment { 
+    &##{ $field_set } .fieldset-legend .icon {
+      @include icons-sprite($field_set);
+    }
   }
-  &#drug .legend .icon {
-      @include icons-sprite(drug);
-  }
-  &#general_informations .legend .icon {
-      @include icons-sprite(general_informations);
-  }
-  &#genealogy .legend .icon {
-      @include icons-sprite(genealogy);
-  }
-  &#group .legend .icon {
-      @include icons-sprite(group);
-  }
-  &#treatment .legend .icon {
-      @include icons-sprite(treatment);
-  }
-  &#entity .legend .icon {
-      @include icons-sprite(entity);
-  }
-  &#delays .legend .icon {
-      @include icons-sprite(delays);
-  }
-  &#stocks .legend .icon {
-      @include icons-sprite(stocks);
-  }
-  &#asset .legend .icon {
-      @include icons-sprite(asset);
-  }
-// could load one image with the name of field_set in _form.html.haml in app/views  - need to add each used field_set name in the list above
-//  @each $field_set in care, drug, general_informations, genealogy, group, treatment { 
-//  &.$field_set .legend .icon {
-//      @include icons-sprite(#{$field_set});
-//   }
-//  }
 
   textarea { 
     width: 70%;

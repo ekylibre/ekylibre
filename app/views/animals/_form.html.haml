@@ -9,10 +9,6 @@
   -input :picture, :multiple => true
 =image_tag(@animal.picture.url(:thumb))
 
--field_set(:group) do # partie entrée sortie de l entité animal
-  -association :group, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
-
-
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
   -association :father, :collection => Animal.where(:sex => "male").order("name ASC")
   -association :mother, :collection => Animal.where(:sex => "female").order("name ASC")
