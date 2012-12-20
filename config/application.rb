@@ -72,6 +72,10 @@ module Ekylibre
       g.orm             :active_record
       g.template_engine :haml
     end
+    
+    config.after_initialize do
+      JasperRails.config[:report_params]["REPORT_LOCALE"] = JasperRails::Locale.new('fr', 'FR')
+    end
 
   end
 end
