@@ -34,7 +34,7 @@
 
 
 class Department < CompanyRecord
-  has_many :users
+  has_many :employees, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name

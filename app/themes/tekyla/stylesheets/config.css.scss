@@ -70,7 +70,7 @@
 /* 37E */
 /*##############|                   |                   |                   |                   |                   |                   |*/
 $modules-names:  relationship        accountancy         sales               purchases           stocks              production         ;
-$modules-colors: #16D                #193                rgb(90%, 85%, 0%)   rgb(100%, 50%, 0%)  #D10                #7F4D15            ;
+$modules-colors: #07D                #380                #BB4                #c60                #B00                #741               ;
 $modules: ();
 @for $i from 1 through length($modules-names) { 
   $modules: append($modules, (nth($modules-names, $i) nth($modules-colors, $i)));

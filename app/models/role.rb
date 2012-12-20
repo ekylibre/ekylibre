@@ -32,7 +32,7 @@
 
 
 class Role < CompanyRecord
-  has_many :users
+  has_many :users, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name
@@ -40,10 +40,10 @@ class Role < CompanyRecord
   validates_uniqueness_of :name
 
   before_validation do
-    self.rights_array=self.rights_array # Clean the rights
+    self.rights_array = self.rights_array # Clean the rights
   end
 
-  after_validation(:on=>:update) do
+  after_validation(:on => :update) do
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")

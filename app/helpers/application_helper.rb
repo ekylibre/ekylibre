@@ -383,9 +383,10 @@ module ApplicationHelper
   end
 
 
-  def beehive(name, &block)
+  def beehive(name = nil, &block)
     html = ""
     return html unless block_given?
+    name ||= "#{controller_name}_#{action_name}".to_sym
     board = Beehive.new(name)
     if block.arity < 1
       board.instance_eval(&block)
@@ -979,54 +980,54 @@ module ApplicationHelper
 
 
 
-  # TABBOX
-  def tabbox(id, options={})
-    tb = Tabbox.new(id)
-    yield tb
-    return '' if tb.tabs.size.zero?
-    tabs = ''
-    taps = ''
-    session[:tabbox] ||= {}
-    for tab in tb.tabs
-      session[:tabbox][tb.id] ||= tab[:index]
-      style_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
-      tabs << content_tag(:span, tab[:name], :class => style_name + "tab", "data-tabbox-index" => tab[:index])
-      taps << content_tag(:div, capture(&tab[:block]).html_safe, :class => style_name + "tabpanel", "data-tabbox-index" => tab[:index])
-    end
-    return content_tag(:div, :class => options[:class]||"tabbox", :id => tb.id, "data-tabbox" => url_for(:controller => :interfacers, :action => :toggle_tab, :id => tb.id)) do
-      code  = content_tag(:div, tabs.html_safe, :class => :tabs)
-      code << content_tag(:div, taps.html_safe, :class => :tabpanels)
-      code
-    end
-  end
+  # # TABBOX
+  # def tabbox(id, options={})
+  #   tb = Tabbox.new(id)
+  #   yield tb
+  #   return '' if tb.tabs.size.zero?
+  #   tabs = ''
+  #   taps = ''
+  #   session[:tabbox] ||= {}
+  #   for tab in tb.tabs
+  #     session[:tabbox][tb.id] ||= tab[:index]
+  #     style_name = (session[:tabbox][tb.id] == tab[:index] ? "current " : "")
+  #     tabs << content_tag(:span, tab[:name], :class => style_name + "tab", "data-tabbox-index" => tab[:index])
+  #     taps << content_tag(:div, capture(&tab[:block]).html_safe, :class => style_name + "tabpanel", "data-tabbox-index" => tab[:index])
+  #   end
+  #   return content_tag(:div, :class => options[:class]||"tabbox", :id => tb.id, "data-tabbox" => url_for(:controller => :interfacers, :action => :toggle_tab, :id => tb.id)) do
+  #     code  = content_tag(:div, tabs.html_safe, :class => :tabs)
+  #     code << content_tag(:div, taps.html_safe, :class => :tabpanels)
+  #     code
+  #   end
+  # end
 
 
-  class Tabbox
-    attr_accessor :tabs, :id
+  # class Tabbox
+  #   attr_accessor :tabs, :id
 
-    def initialize(id)
-      @tabs = []
-      @id = id.to_s
-      @sequence = 0
-    end
+  #   def initialize(id)
+  #     @tabs = []
+  #     @id = id.to_s
+  #     @sequence = 0
+  #   end
 
-    # Register a tab with a block of code
-    # The name of tab use I18n searching in :
-    #   - labels.<tabbox_id>_tabbox.<tab_name>
-    #   - labels.<tab_name>
-    def tab(name, options={}, &block)
-      raise ArgumentError.new("No given block") unless block_given?
-      if name.is_a?(Symbol)
-        options[:default] = [] unless options[:default].is_a?(Array)
-        options[:default] << "labels.#{name}".to_sym
-        options[:default] << "attributes.#{name}".to_sym
-        name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options)
-      end
-      @tabs << {:name => name, :index => (@sequence*1).to_s(36), :block => block}
-      @sequence += 1
-    end
+  #   # Register a tab with a block of code
+  #   # The name of tab use I18n searching in :
+  #   #   - labels.<tabbox_id>_tabbox.<tab_name>
+  #   #   - labels.<tab_name>
+  #   def tab(name, options={}, &block)
+  #     raise ArgumentError.new("No given block") unless block_given?
+  #     if name.is_a?(Symbol)
+  #       options[:default] = [] unless options[:default].is_a?(Array)
+  #       options[:default] << "labels.#{name}".to_sym
+  #       options[:default] << "attributes.#{name}".to_sym
+  #       name = ::I18n.translate("labels.#{@id}_tabbox.#{name}", options)
+  #     end
+  #     @tabs << {:name => name, :index => (@sequence*1).to_s(36), :block => block}
+  #     @sequence += 1
+  #   end
 
-  end
+  # end
 
 
   # TOOLBAR
@@ -1225,12 +1226,15 @@ module ApplicationHelper
   # Build the master form using all form through modules and assemblies them in one
   # Auto manage dialog use
   def master_form(action, options = {}, &block)
+    nature = options.delete(:nature) || "form"
+    # Compile fields
+    fields = field_sets(nature)
+    # Prepare form
     form_options = {}
     form_options[:id] = options[:id] || "f"+rand(1_000_000_000).to_s(36)
     form_options[:method] = options[:method] || :post
-    # TODO Manage multipart in automatic
-    nature = options.delete(:nature) || "form"
-    return render(:partial => "forms/form", :locals => {:form_options => form_options, :action => action, :nature => nature, :options => options, :manual_form => block})
+    form_options[:multipart] = @_multipart
+    return render(:partial => "forms/form", :locals => {:form_options => form_options, :action => action, :nature => nature, :options => options, :manual_form => block, :fields => fields})
   end
 
 
@@ -1334,10 +1338,6 @@ module ApplicationHelper
     file =  basename + ".html.haml"
     dir = Rails.root.join("tmp", "cache", "forms", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')))
     FileUtils.mkdir_p(dir)
-    code  = "def #{method_name}\n"
-    code << "  render(:file => '#{dir.join(basename).relative_path_from(Rails.root)}')\n"
-    code << "end\n"
-    eval(code)
 
     haml  = "" # "-# Generated on #{Time.now.l(:locale => :eng)}\n"
     for fs in tree
@@ -1358,12 +1358,17 @@ module ApplicationHelper
     haml = "-# Generated on #{Time.now.l(:locale => :eng)}\n" +
       "=simple_fields_for(@#{resource}) do |f|\n" +
       haml.gsub(/^/, '  ')
-    # haml << h(@field_sets.inspect)
-    # return haml
 
     File.open(dir.join(file), "wb") do |f|
       f.write(haml)
     end
+
+    multipart = @fields.detect{|f| f[:multipart]}
+    code  = "def #{method_name}\n"
+    code << "  @_multipart = #{multipart ? 'true' : 'false'}\n"
+    code << "  return render(:file => '#{dir.join(basename).relative_path_from(Rails.root)}')\n"
+    code << "end\n"
+    eval(code)
 
     return send(method_name)
   end
@@ -1396,6 +1401,12 @@ module ApplicationHelper
     check_field_name_before_push(name, __method__)
     options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
+    model = controller.controller_name.to_s.singularize.classify.constantize
+    if column = model.columns_hash[name.to_s]
+      options[:field] ||= :text if column.type == :text
+    end
+    options[:multipart] = true if model.respond_to?(:attachment_definitions)
+
     push_field(options)
   end
 

@@ -36,7 +36,7 @@
 class Establishment < CompanyRecord
   attr_accessible :name, :comment, :nic
   has_many :warehouses
-  has_many :users
+  has_many :employees, :class_name => "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nic, :allow_nil => true, :maximum => 5
   validates_length_of :name, :siret, :allow_nil => true, :maximum => 255

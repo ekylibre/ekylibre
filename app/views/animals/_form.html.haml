@@ -2,11 +2,11 @@
   -association :group, :as => :radio_buttons # affiche un menu deroulant construit par la relation group_id vers le champ name de l entité animal_group
   -association :race
   -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
-  -input :sex, :collection => Animal::SEXES, :as => :radio_buttons # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
+  -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
   -input :born_on, :as => :date, :end_year => Date.today.year - 40
   -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
-  -input :comment, :field => :text # affiche le champ comment formaté en zone de texte
-  -input :picture, :multiple => true
+  -input :comment # affiche le champ comment formaté en zone de texte
+  -input :picture
 =image_tag(@animal.picture.url(:thumb))
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal

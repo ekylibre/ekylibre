@@ -3,22 +3,27 @@
   -t.print_entity @animal_group
   -t.destroy(@animal_group, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal_group.destroyable?
 
-=attributes_list(@animal_group) do |l| # liste des champs à afficher
-  -l.attribute :name
-  -l.attribute :comment
-  -l.attribute :age_min
-  -l.attribute :age_max
-  -l.attribute :sex
-  -l.attribute :pregnant
+=beehive do |b|
+  -b.cell :details do
+    =attributes_list(@animal_group) do |l| # liste des champs à afficher
+      -l.attribute :name
+      -l.attribute :comment
+      -l.attribute :age_min
+      -l.attribute :age_max
+      -l.attribute :sex
+      -l.attribute :pregnant
+    
+  -b.tabbox do
 
-=tabbox(:animal_group) do |tb|
-  -tb.tab(:animals) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:animals, :group_id=>@animal_group.id)
-    =list(:animals)
-  -tb.tab(:events) do
-    =toolbar do |t|
-      -t.link(:new, :controller=>:animal_events, :animal_group_id=>@animal_group.id)
-    =list(:events)
-    =image_tag(@chart)
+    -b.cell(:animals) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:animals, :group_id=>@animal_group.id)
+      =list(:animals)
 
+    -b.cell(:events) do
+      =toolbar do |t|
+        -t.link(:new, :controller=>:animal_events, :animal_group_id=>@animal_group.id)
+      =list(:events)
+      =image_tag(@chart)
+    
+    

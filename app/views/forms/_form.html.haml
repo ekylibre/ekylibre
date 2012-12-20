@@ -3,7 +3,7 @@
     =hidden_field_tag(:_method, form_options[:method])
   -if params[:redirect]
     =hidden_field_tag(:redirect, params[:redirect]) # || back_url
-  .form-fields=field_sets(nature)
+  .form-fields=fields
   -if manual_form
     =capture(&manual_form)
   =form_actions do

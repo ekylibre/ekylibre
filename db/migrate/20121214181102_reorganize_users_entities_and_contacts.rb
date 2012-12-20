@@ -763,6 +763,10 @@ class ReorganizeUsersEntitiesAndContacts < ActiveRecord::Migration
     max = select_value("SELECT MAX(id) FROM #{quoted_table_name(:entities)}")
     users = {}
     nature_id = select_value("SELECT id FROM #{quoted_table_name(:entity_natures)} ORDER BY physical DESC, id LIMIT 1")
+    if nature_id.blank?
+      execute("INSERT INTO #{quoted_table_name(:entity_natures)} (title, name, active, created_at, updated_at) VALUES ('-', '-', true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)")
+      nature_id = select_value("SELECT id FROM #{quoted_table_name(:entity_natures)} ORDER BY physical DESC, id LIMIT 1")
+    end
 
     for user in select_all("SELECT id, email FROM users")
       # Create entity for user

@@ -39,12 +39,12 @@
 
 
 class Preference < CompanyRecord
-  # @@natures = ['boolean', 'decimal', 'integer', 'record', 'string']
-  @@natures = Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0] }
-  @@conversions = {:float=>'decimal', :true_class=>'boolean', :false_class=>'boolean', :fixnum=>'integer'}
+  enumerize :nature, :in => Preference.columns_hash.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0].to_sym }, :default => :string, :predicates => true
+  @@natures = self.nature.values
+  @@conversions = {:float => :decimal, :true_class => :boolean, :false_class => :boolean, :fixnum => :integer}
   attr_readonly :user_id, :name, :nature
-  belongs_to :user
-  belongs_to :record_value, :polymorphic=>true
+  belongs_to :user, :class_name => "Entity"
+  belongs_to :record_value, :polymorphic => true
   # cattr_reader :reference
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, :allow_nil => true, :only_integer => true
@@ -54,7 +54,7 @@ class Preference < CompanyRecord
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => @@natures
-  validates_uniqueness_of :name, :scope=>[:user_id]
+  validates_uniqueness_of :name, :scope => [:user_id]
 
   def self.type_to_nature(klass)
     klass = klass.to_s
@@ -79,7 +79,7 @@ class Preference < CompanyRecord
   def self.get(name)
     preference = Preference.find_by_name(name)
     if preference.nil? and @@preferences.has_key?(name.to_s)
-      preference = self.new(:name=>name, :nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type])
+      preference = self.new(:name => name, :nature => @@preferences[name][:nature], :record_value_type => @@preferences[name][:record_value_type])
       preference.value = @@preferences[name][:default] if @@preferences[name][:default]
       preference.save!
       elsif preference.nil?
@@ -116,7 +116,7 @@ class Preference < CompanyRecord
   end
 
   def label(locale=nil)
-    ::I18n.t("preferences."+self.name, :locale=>locale)
+    ::I18n.t("preferences."+self.name, :locale => locale)
   end
 
   def record?

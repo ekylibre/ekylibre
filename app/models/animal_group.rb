@@ -37,7 +37,7 @@
 
 
 class AnimalGroup < CompanyRecord
-  SEXES = ["male", "female"]
+  enumerize :sex, :in => [:male, :female], :predicates => true
   has_many :animals, :foreign_key => :group_id
   has_many :events, :class_name => "AnimalEvent", :foreign_key => :animal_group_id
   has_many :treatments, :class_name => "AnimalTreatment", :through => :events
@@ -49,5 +49,5 @@ class AnimalGroup < CompanyRecord
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
-  validates_inclusion_of :sex, :in => SEXES
+  validates_inclusion_of :sex, :in => self.sex.values
 end

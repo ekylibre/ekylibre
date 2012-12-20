@@ -66,60 +66,65 @@ html {
   #main { 
     /*border-bottom: 4*$menu-border-width solid $base-color;*/
     /*@include box-shadow(0 0 $fs-large rgba(#000, 0.3));*/
-    @include incrust-shadow;
-    background: mix(#FFF, $base-color, 98%);
-    #header {
-      /*background: $base-color;*/
-      #toolbar { 
-        @include float(right);
-        position: absolute;
-        top: 0;
-        right: 0;
-        @include right(margin, $default-gap);
-        margin-top: $default-gap;
-        .group { 
-          @include button-group;
-          .btn {
-            .icon { margin: 0; }
-            .text { display: none; }
-          }
-        }    
-      }
-      #title {
-        margin: 0; 
-        &, & * { @include title($fs-very-huge); }
-        padding: round($default-gap/2) $default-gap ;
-        * { @include margin-right($default-gap) }
-        html body &  { 
-          .module { font-weight: normal;}
-          .separator { color: #AAA;}
-          .leaf { color: #000 }
+    padding: $default-gap;
+    #main-wrapper {
+      @include incrust-shadow;
+      background: mix(#FFF, $base-color, 98%);
+      @include border-radius(3px);
+      border: $menu-border;      
+      #header {
+        /*background: $base-color;*/
+        #toolbar { 
+          @include float(right);
+          position: absolute;
+          top: 0;
+          right: 0;
+          @include right(margin, $default-gap);
+          margin-top: $default-gap;
+          .group { 
+            @include button-group;
+            .btn {
+              .icon { margin: 0; }
+              .text { display: none; }
+            }
+          }    
         }
-        /*@include text-shadow(0 0 $fs-small rgba(#000, 0.5));*/
+        #title {
+          margin: 0; 
+          &, & * { @include title($fs-very-huge); }
+          padding: round($default-gap/2) $default-gap ;
+          * { @include margin-right($default-gap) }
+          html body &  { 
+            .module { font-weight: normal;}
+            .separator { color: #AAA;}
+            .leaf { color: #000 }
+          }
+          /*@include text-shadow(0 0 $fs-small rgba(#000, 0.5));*/
+        }
+        #subtitle { 
+          &, & * { @include title($fs-huge); }
+          font-weight: normal; 
+          font-style: italic;
+        }
+   
       }
-      #subtitle { 
-        &, & * { @include title($fs-huge); }
-        font-weight: normal; 
-        font-style: italic;
+      #content { 
+        padding: $default-gap;
       }
- 
-    }
-    #content { 
-      padding: $default-gap;
-    }
-    h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
-    .menu { 
-      @include border-radius($default-border-radius);
-      background: $cell-background; 
-      @include incrust-shadow; 
-      padding:4px 6px; 
-      margin: 0 0 8px;
-      h2 { margin: 2px 0px !important; }
-      ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
-      li { list-style-type: square; padding: 1px; }
-      &.special { background: #FE9; }
-      &.special a:link, &.special a:visited { color: #A60; }
-      &.indicator { background: #FD8; } /*#FA3;*/
+      h2 { margin: 8px 0px 4px; font-size: $fs-huge; color: $title-color; font-weight: bold;  padding: 1px 0;}
+      .menu { 
+        @include border-radius($default-border-radius);
+        background: $cell-background; 
+        @include incrust-shadow; 
+        padding:4px 6px; 
+        margin: 0 0 8px;
+        h2 { margin: 2px 0px !important; }
+        ul { padding: round($fs-normal*0.25) round($fs-normal*1.25); }
+        li { list-style-type: square; padding: 1px; }
+        &.special { background: #FE9; }
+        &.special a:link, &.special a:visited { color: #A60; }
+        &.indicator { background: #FD8; } /*#FA3;*/
+      }
     }
   }
 }
@@ -1159,10 +1164,10 @@ input[data-datepicker] {@include text-align(center)}
   @include text-align(center);
   .big-button:link, .big-button:visited {
     @media screen and (min-width: 768px) { 
-      @include big-button(160px);
+      @include big-button(100px);
     }
     @media screen and (max-width: 767px) { 
-      @include big-button(100px);
+      @include big-button(80px);
     }
     @media screen and (max-width: 480px) { 
       @include big-button(60px);
