@@ -27,8 +27,13 @@ gem 'enumerize'
 gem 'thin'
 gem 'nokogiri'
 
-# reporting
-gem 'thinreports-rails'
+# Reporting
+# gem 'thinreports-rails'
+# jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
+gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
+
+
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -61,6 +66,4 @@ end
 group :development do
   gem 'rack-mini-profiler'
   gem 'rails-erd'
-  # jasper_rails need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
-  gem 'jasper-rails', :git => 'git://github.com/fortesinformatica/jasper-rails.git'
 end
