@@ -10,10 +10,10 @@ fra:
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
     animal_event_natures:
-      # edit: "Edit animal event nature"
-      # index: "Index animal event nature"
-      # new: "New animal event nature"
-      # show: "Show animal event nature"
+      edit: "Modifier un type d'évènement"
+      index: "Type d'évènement"
+      new: "Créer un type d'évènement"
+      show: "Type d'évènement %{name}"
     animal_events:
       edit: "Modifier un évènement"
       index: "Evènements"
@@ -644,6 +644,7 @@ fra:
     amount_to_add: "Sommes à ajouter, exprimées en euros, y compris acompte congés"
     amount_to_reduce: "Sommes à imputer, exprimées en euros, y compris acompte congés"
     amount_with_taxes: "Montant TTC"
+    animal: "Animal"
     animal_group_tabbox:
       animals: "Animaux du lot"
       cares: "Soins réalisés sur le lot"
@@ -763,7 +764,7 @@ fra:
     decimal_case: "Options pour un décimal"
     default_subject: "[%{company}]"
     delay_update: "Modifier le délai"
-    delays: "Délais"
+    delay: "Délais"
     delete: "Supprimer"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
