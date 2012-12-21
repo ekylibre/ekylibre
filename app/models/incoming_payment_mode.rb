@@ -44,17 +44,17 @@
 
 
 class IncomingPaymentMode < CompanyRecord
-  attr_readonly :cash_id
+  attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :attorney_journal, :class_name => "Journal"
   belongs_to :cash
-  belongs_to :commission_account, :class_name=>"Account"
-  belongs_to :depositables_account, :class_name=>"Account"
-  belongs_to :depositables_journal, :class_name=>"Journal"
-  has_many :depositable_payments, :class_name=>"IncomingPayment", :foreign_key=>:mode_id, :conditions=>{:deposit_id=>nil}
-  has_many :entities, :dependent=>:nullify, :foreign_key=>:payment_mode_id
-  has_many :payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment"
-  has_many :unlocked_payments, :foreign_key=>:mode_id, :class_name=>"IncomingPayment", :conditions=>'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
+  belongs_to :commission_account, :class_name => "Account"
+  belongs_to :depositables_account, :class_name => "Account"
+  belongs_to :depositables_journal, :class_name => "Journal"
+  has_many :depositable_payments, :class_name => "IncomingPayment", :foreign_key => :mode_id, :conditions => {:deposit_id => nil}
+  has_many :entities, :dependent => :nullify, :foreign_key => :payment_mode_id
+  has_many :payments, :foreign_key => :mode_id, :class_name => "IncomingPayment"
+  has_many :unlocked_payments, :foreign_key => :mode_id, :class_name => "IncomingPayment", :conditions => 'journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})'
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percent, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 50
@@ -62,7 +62,7 @@ class IncomingPaymentMode < CompanyRecord
   validates_presence_of :commission_base_amount, :commission_percent, :name
   #]VALIDATORS]
   validates_presence_of :attorney_journal, :if => :with_accounting?
-  validates_presence_of :depositables_account, :if=>Proc.new{|x| x.with_deposit? and x.with_accounting? }
+  validates_presence_of :depositables_account, :if => Proc.new{|x| x.with_deposit? and x.with_accounting? }
   validates_presence_of :cash
 
   delegate :currency, :to => :cash

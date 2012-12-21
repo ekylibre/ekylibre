@@ -3,11 +3,14 @@
     =formalize do |f|
       -f.title
       -f.field tl(:accounts_to_load), select_tag("list", options_for_select(Account.lists.collect{|k,v| [v, k]}.sort))
-      -for setting in [:unset_reconcilable_old_third_accounts, :set_reconcilable_new_but_existing_third_accounts]
+      
+      -#for setting in [:unset_reconcilable_old_third_accounts, :set_reconcilable_new_but_existing_third_accounts]
         -f.field tl(setting), check_box_tag(setting, "1", params[setting])
 
-      -f.title :preferences
-      -for preference in @current_company.preferences.find(:all, :conditions=>["name LIKE ?", "%_accounts"], :order=>"name")
-        -f.field t("preferences."+preference.name), {:datatype=>preference.nature.to_sym, :model=>preference.model, :value=>preference.value, :name=>"preference[#{preference.name}][value]"}
-    .end
-  .actions=submit_tag tl(:load)
+      -preferences = Preference.where("name LIKE ?", "%_accounts").order("name")
+      -#if preferences.count > 0
+        -f.title :preferences
+        -for preference in 
+          -f.field t("preferences."+preference.name), {:datatype=>preference.nature.to_sym, :model=>preference.model, :value=>preference.value, :name=>"preference[#{preference.name}][value]"}
+  =form_actions do
+    =submit_tag tl(:load)
