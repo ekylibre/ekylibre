@@ -3,6 +3,15 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'active_record/connection_adapters/postgis_adapter/railtie'
 
+# Load JAVA env variables
+begin
+  ENV['JAVA_HOME'] = `readlink -f /usr/bin/java | sed "s:/jre/bin/java::"`.strip
+  architecture = `dpkg --print-architecture`.strip
+  ENV['LD_LIBRARY_PATH'] = "#{ENV['LD_LIBRARY_PATH']}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}/client"
+rescue
+  puts "JAVA_HOME has not been set automatically because it's not Debian here."
+end
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -71,10 +80,6 @@ module Ekylibre
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :haml
-    end
-    
-    config.after_initialize do
-      JasperRails.config[:report_params]["REPORT_LOCALE"] = JasperRails::Locale.new('fr', 'FR')
     end
 
   end
