@@ -99,6 +99,12 @@ class Account < CompanyRecord
     return Account.first
   end
 
+  # Return the number corresponding to the name
+  def self.chart_number(name)
+    return ""
+  end
+
+
   def self.get(number, name=nil)
     number = number.to_s
     account = self.find_by_number(number)
@@ -180,40 +186,42 @@ class Account < CompanyRecord
   # Find all available accounting systems in all languages
   def self.lists
     lists = {}
-    for locale in ::I18n.active_locales
-      for k, v in ::I18n.translate("accounting_systems", :locale => locale)
-        lists["#{locale}.#{k}"] = v[:name] unless v.nil? or v[:name].nil?
-      end
+    # for locale in ::I18n.active_locales
+    locale = I18n.locale
+    for k, v in ::I18n.translate("accounting_systems", :locale => locale)
+      lists["#{locale}.#{k}"] = v[:name] unless v.nil? or v[:name].nil?
     end
+    # end
     return lists
   end
 
   # Replace current chart of account with a new
   def self.load_chart(name, options = {})
-    locale = options[:locale]
+    locale = options[:locale] || I18n.locale
     if (chart = ::I18n.translate("accounting_systems.#{name}", :locale => locale)).is_a? Hash
-      Ekylibre::Record::Base.transaction do
+
+      self.transaction do
         # Destroy unused existing accounts
         self.destroy_all
 
-        regexp = Account.reconcilable_regexp
+        regexp = self.reconcilable_regexp
 
         # Existing accounts
-        Account.find_each do |account|
+        self.find_each do |account|
           account.update_column(:reconcilable, true) if account.number.match(regexp)
         end if options[:reconcilable]
 
         # Create new accounts
-        for num, name in chart.to_a.sort{|a,b| a[0].to_s<=>b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
+        for num, name in chart.to_a.sort{|a,b| a[0].to_s <=>  b[0].to_s}.select{|k, v| k.to_s.match(/^n\_/)}
           number = num.to_s[2..-1]
           if account = self.find_by_number(number)
-            account.update_attributes!(:name=>name, :reconcilable=>(options[:reconcilable] and number.match(regexp)))
+            account.update_attributes!(:name => name, :reconcilable => (options[:reconcilable] and number.match(regexp)))
           else
-            raise number.inspect unless self.create(:number=>number, :name=>name, :reconcilable=>(number.match(regexp) ? true : false))
+            raise number.inspect unless self.create(:number => number, :name => name, :reconcilable => (number.match(regexp) ? true : false))
           end
         end
-
       end
+
     end
 
 

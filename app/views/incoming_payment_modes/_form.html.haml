@@ -1,31 +1,19 @@
--# TODO Form cascading displayings
+-# TODO Manage 2+ levels of hide/show
 
-=formalize do |f|
-  -f.error :incoming_payment_mode
-  -f.title :general
-  -f.field :incoming_payment_mode, :name
-  -if @incoming_payment_mode.new_record?
-    -f.field :incoming_payment_mode, :cash_id, :choices=>{:reflection=>:cashes}, :new=>true
-  -else
-    -f.field IncomingPaymentMode.human_attribute_name(:cash), link_to(@incoming_payment_mode.cash.name, @incoming_payment_mode.cash), :field=>:label
-  -f.field :incoming_payment_mode, :with_accounting, "data-show"=>"#accountancy"
+-field_set do
+  -input :name
+  -association :cash, :source => "entity#cashes"
+  -input :with_accounting, :show => :accountancy
 
--if @incoming_payment_mode.new_record? or (@incoming_payment_mode.cash and @incoming_payment_mode.cash.bank_account?)
-  #accountancy
-    =formalize do |f|
-      -f.title :accountancy
-      -f.field :incoming_payment_mode, :with_deposit, "data-show"=>"#deposit"
-      -f.field :incoming_payment_mode, :with_commission, "data-show"=>"#commission"
+-field_set(:accountancy) do
+  -input :with_deposit, :show => :deposit
+  -input :with_commission, :show => :commission
 
-    #deposit
-      =formalize do |f|
-        -f.title :deposit
-        -f.field :incoming_payment_mode, :depositables_account_id, :choices=>{:reflection=>:payments_to_deposit_accounts}, :new=>{:number=>Account.find_in_chart(:deposit_pending_payments).number}, :resize=>true
-        -f.field :incoming_payment_mode, :depositables_journal_id, :choices=>{:reflection=>:journals}, :new=>true, :resize=>true
+-field_set(:deposit) do
+  -input :depositables_account, :source => "Account#payments_to_deposit_accounts", :new => {:number => Account.chart_number(:deposit_pending_payments)}
+  -input :depositables_journal
 
-    #commission
-      =formalize do |f|
-        -f.title :commission
-        -f.field :incoming_payment_mode, :commission_base_amount
-        -f.field :incoming_payment_mode, :commission_percent
-        -f.field :incoming_payment_mode, :commission_account_id, :choices=>{:reflection=>:charges_accounts}, :new=>{:number=>Account.find_in_chart(:charges).number}, :resize=>true
+-field_set(:commission) do
+  -input :commission_base_amount
+  -input :commission_percent
+  -input :commission_account, :source => "Account#charges_account", :new => {:number => Account.chart_number(:charges)}

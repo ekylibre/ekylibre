@@ -1,7 +1,7 @@
 eng:
   accounting_systems:
     accounting_system:
-      name: 'Accouting system'
+      name: 'Accounting system'
       n_1: 'Petty Cash'
       n_101: 'Cash on Hand (e.g. in cash registers)'
       n_102: 'Regular Checking Account' #!

@@ -47,7 +47,6 @@
 
 
 class EntityAddress < CompanyRecord
-  # TODO Adds contact.line_1 to give a real sense to contact
   attr_readonly   :entity_id, :name, :code, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6
   attr_accessible :entity_id, :name, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :by_default
   belongs_to :mail_area, :class_name => "Area"
