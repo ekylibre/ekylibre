@@ -5,7 +5,7 @@ require 'active_record/connection_adapters/postgis_adapter/railtie'
 
 # Load JAVA env variables
 begin
-  ENV['JAVA_HOME'] = `readlink -f /usr/bin/java | sed "s:/jre/bin/java::"`.strip
+  ENV['JAVA_HOME'] ||= `readlink -f /usr/bin/java | sed "s:/jre/bin/java::"`.strip
   architecture = `dpkg --print-architecture`.strip
   ENV['LD_LIBRARY_PATH'] = "#{ENV['LD_LIBRARY_PATH']}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}:#{ENV['JAVA_HOME']}/jre/lib/#{architecture}/client"
 rescue
