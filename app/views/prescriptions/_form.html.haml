@@ -1,0 +1,11 @@
+-field_set do
+  -input :name
+  -input :prescription_number
+  -input :prescripted_on
+
+-field_set(:document) do
+  -input :picture
+  =image_tag(@prescription.picture.url(:thumb))
+
+-field_set(:entity) do
+  -association :prescriptor

@@ -53,8 +53,8 @@ class Animal < CompanyRecord
   enumerize :sex, :in => [:male, :female]
   belongs_to :group, :class_name => "AnimalGroup"
   belongs_to :race, :class_name => "AnimalRace"
-  belongs_to :father, :class_name => "Animal"
-  belongs_to :mother, :class_name => "Animal"
+  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male}
+  belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
   has_many :events, :class_name => "AnimalEvent",:foreign_key => :animal_id
   has_many :treatments, :class_name => "AnimalTreatment", :through => :events
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
@@ -67,6 +67,7 @@ class Animal < CompanyRecord
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
+
 
    # construction d'une liste permettant l'affichage des animaux dans les formulaires avec les info importantes sur leur identités
    # @example

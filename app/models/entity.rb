@@ -123,8 +123,7 @@ class Entity < CompanyRecord
   has_many :custom_field_data
   has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
   has_many :events
-  # TODO rename these events due to conflict with already defined :events
-  # has_many :events, :class_name => "AnimalEvent", :foreign_key => :watcher_id
+  has_many :animal_events, :class_name => "AnimalEvent", :foreign_key => :watcher_id
   has_many :managed_events, :foreign_key => :responsible_id # as Responsible
   has_many :future_events, :class_name => "Event", :foreign_key => :responsible_id, :conditions => ["started_at >= CURRENT_TIMESTAMP"]
   has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
@@ -150,7 +149,7 @@ class Entity < CompanyRecord
   has_many :transports, :foreign_key => :transporter_id
   has_many :managed_transports, :foreign_key => :responsible_id
   has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
-  has_many :treatments, :class_name => "AnimalTreatment", :foreign_key => :prescriptor_id
+  has_many :prescriptions, :class_name => "Prescription", :foreign_key => :prescriptor_id
   has_many :managed_unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]

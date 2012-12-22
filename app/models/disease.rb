@@ -33,9 +33,10 @@
 
 
 class Disease < CompanyRecord
-  has_many :diagnostics, :class_name => "Diagnostic"
+  has_many :posologies, :class_name => "Posology", :foreign_key => :disease_id
+  has_many :diagnostics, :class_name => "Diagnostic", :foreign_key => :disease_id
   has_many :events, :class_name => "AnimalEvent", :through => :diagnostics
-  has_many :treatments, :class_name => "AnimalTreatment"
+  has_many :treatments, :class_name => "AnimalTreatment", :foreign_key => :disease_id
   has_many :drugs, :class_name => "Drug", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, :name, :zone, :allow_nil => true, :maximum => 255

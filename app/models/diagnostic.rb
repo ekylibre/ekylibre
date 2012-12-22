@@ -33,6 +33,8 @@
 
 
 class Diagnostic < CompanyRecord
+  attr_readonly :event_id, :disease_id, :symptoms
+  attr_accessible :event_id, :disease_id, :symptoms
   belongs_to :event, :class_name => "AnimalEvent"
   belongs_to :disease, :class_name => "Disease"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

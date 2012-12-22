@@ -43,17 +43,21 @@
 
 
 class AnimalTreatment < CompanyRecord
+  enumerize :per_animal_unit, :in => [:per_animal, :per_kg], default: :per_animal
+  enumerize :per_frequency_time_unit, :in => [:times_per_day, :times_per_week, :times_per_month], default: :times_per_day
+  enumerize :per_duration_time_unit, :in => [:hours, :days, :weeks, :months], default: :days
+  enumerize :duration_unit_wait_for_milk, :in => [:hours, :days], default: :days
+  enumerize :duration_unit_wait_for_meat, :in => [:hours, :days], default: :days
   belongs_to :disease, :class_name => "Disease"
   belongs_to :drug, :class_name => "Drug"
-  belongs_to :prescriptor, :class_name => "Entity"
-  belongs_to :unit, :class_name => "Unit"
-  has_many :events, :class_name => "AnimalEvent",:foreign_key => :treatment_id
-  has_many :animals, :class_name => "Animal", :through => :events
-  has_many :animal_groups, :class_name => "AnimalGroup", :through => :events
+  belongs_to :prescription, :class_name => "Prescription"
+  has_many :treatment_uses, :class_name => "AnimalTreatmentUse", :foreign_key => :treatment_id
+  has_many :events, :through => :treatment_uses
+  belongs_to :quantity_unit, :class_name => "Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :allow_nil => true, :only_integer => true
+  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :frequency, :allow_nil => true, :only_integer => true
   validates_numericality_of :duration, :quantity, :allow_nil => true
-  validates_length_of :name, :per_unit, :prescription_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :quantity
+  validates_length_of :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :name, :per_animal_unit, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
+  validates_presence_of :frequency, :quantity
   #]VALIDATORS]
 end

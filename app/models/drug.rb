@@ -38,6 +38,7 @@
 class Drug < CompanyRecord
   belongs_to :nature, :class_name => "DrugNature"
   belongs_to :unit
+  has_many :posologies, :class_name => "Posology", :foreign_key => :drug_id
   has_many :treatments, :class_name => "AnimalTreatment"
   has_many :diseases, :class_name => "Disease", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -10,10 +10,10 @@
   =image_tag(@animal.picture.url(:thumb))
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
-  -association :father, :collection => Animal.where(:sex => "male").order("name ASC")
-  -association :mother, :collection => Animal.where(:sex => "female").order("name ASC")
+  -association :father
+  -association :mother
 
--field_set(:stocks) do # partie entrée sortie de l entité animal
+-field_set(:stock) do # partie entrée sortie de l entité animal
   -input :income_on, :include_blank => true, :default_value => :blank
   -input :outgone_on, :include_blank => true, :default_value => :blank
   -input :purchased_on, :include_blank => true, :default_value => :blank

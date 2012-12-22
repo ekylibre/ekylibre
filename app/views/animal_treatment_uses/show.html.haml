@@ -1,0 +1,7 @@
+=toolbar do |t|
+  -t.edit @animal_treatment_use
+  -t.print_entity @animal_treatment_use
+  -t.destroy(@animal_treatment_use, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal_treatment_use.destroyable?
+
+=attributes_list(@animal_treatment_use) do |l|
+  -l.attribute :name

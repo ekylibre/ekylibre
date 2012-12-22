@@ -17,31 +17,28 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalEventsController < AdminController
-  manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
+class PrescriptionsController < AdminController
+  manage_restfully
 
   list() do |t|
     t.column :name, :url=>true
-    t.column :name, :through=>:animal, :url=>true
-    t.column :name, :through=>:animal_group, :url=>true
-    t.column :name, :through=>:nature, :url=>true
-    t.column :name, :through=>:watcher, :url=>true
-    t.column :comment
-    t.column :description
+    t.column :name, :through=>:prescriptor, :url=>true
+    t.column :prescription_number
+    t.column :prescripted_on
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  # Show a list of @animal_event
+  # Show a list of @prescription
   def index
   end
 
-  # Show one @animal_event with params_id
+  # Show one prescription with params_id
   def show
-    return unless @animal_event = find_and_check
-    session[:current_animal_event_id] = @animal_event.id
-    t3e @animal_event
+    return unless @prescription = find_and_check
+    session[:current_prescription_id] = @prescription.id
+    t3e @prescription
   end
 
 end

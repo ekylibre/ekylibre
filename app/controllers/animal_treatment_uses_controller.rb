@@ -17,31 +17,30 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class AnimalEventsController < AdminController
-  manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
+class AnimalTreatmentUsesController < AdminController
+  manage_restfully
 
   list() do |t|
     t.column :name, :url=>true
-    t.column :name, :through=>:animal, :url=>true
-    t.column :name, :through=>:animal_group, :url=>true
-    t.column :name, :through=>:nature, :url=>true
-    t.column :name, :through=>:watcher, :url=>true
-    t.column :comment
-    t.column :description
-    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.column :started_on, :through=>:event
+    t.column :name, :through=>:drug_allowed
+    t.column :quantity
+    t.column :name, :through=>:event, :url=>true
+    t.column :name, :through=>:treatment, :url=>true
+    t.column :quantity, :through=>:treatment
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
 
-  # Show a list of @animal_event
+  # Show a list of animal_treatment_use
   def index
   end
 
-  # Show one @animal_event with params_id
+  # Show one care with params_id
   def show
-    return unless @animal_event = find_and_check
-    session[:current_animal_event_id] = @animal_event.id
-    t3e @animal_event
+    return unless @animal_treatment_use = find_and_check
+    session[:current_animal_treatment_use_id] = @animal_treatment_use.id
+    t3e @animal_treatment_use
   end
 
 end
