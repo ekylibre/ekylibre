@@ -114,6 +114,11 @@ Ekylibre::Application.routes.draw do
       get :list
     end
   end
+  resources :animal_treatment_uses do
+    collection do
+      get :list
+    end
+  end
   resources :areas do
     collection do
       get :list
@@ -454,6 +459,11 @@ Ekylibre::Application.routes.draw do
       match "export", :via => [:get, :post]
       match "import", :via => [:get, :post]
       get :find
+    end
+  end
+  resources :prescriptions do
+    collection do
+      get :list
     end
   end
   resources :products do

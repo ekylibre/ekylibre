@@ -11,7 +11,11 @@ eng:
       unmark: "Unmark account"
     animal_care_natures: #?
     animal_cares: #?
-    animal_event_natures: #?
+    animal_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
     animal_events:
       # edit: "Modifier un évènement"
       # index: "Evènements"
@@ -32,6 +36,11 @@ eng:
       # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
+    animal_treatment_uses:
+      # edit: "Modifier la dose de traitement donnée"
+      # index: "Dose de traitement donnée"
+      # new: "Nouvelle dose de traitement"
+      # show: "Dose de traitement\_: %{name}"
     animal_treatments:
       # edit: "Modifier le traitement\_: %{name} "
       # index: "Traitements"
@@ -112,7 +121,11 @@ eng:
       new: "Add a new deposit"
       show: "Deposit %{number} on %{created_on}"
       unvalidateds: "Unvalidated deposits"
-    diagnostics: #?
+    diagnostics:
+      # edit: "Modifier un diagnostic"
+      # index: "Diagnostic"
+      # new: "Nouveau diagnostic"
+      # show: "Diagnostic\_: %{name}"
     diseases:
       # edit: "Modifier la maladie\_: %{name}"
       # index: "Maladies"
@@ -147,7 +160,9 @@ eng:
       merge: "Merge two people"
       new: "Add a new person"
       show: "Person: %{full_name}"
-    entity_addresses: #?
+    entity_addresses:
+      # edit: "Modifier une coordonnée"
+      # new: "Ajouter une coordonnée"
     entity_categories:
       edit: "Edit the person category: %{name}"
       index: "Person categories"
@@ -297,6 +312,11 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
+    prescriptions:
+      # edit: "Modifier une ordonnance"
+      # index: "Ordonnance"
+      # new: "Nouvelle ordonnance"
+      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     prices:
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}"
       export: "Export prices"
@@ -431,7 +451,11 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    tool_natures: #?
+    tool_natures:
+      # edit: "Modifier un type de matériel"
+      # index: "Type de matériel / équipement"
+      # new: "Nouveau type de matériel"
+      # show: "Type de matériel\_: %{name}"
     tools:
       edit: "Edit tool: %{name}"
       index: "Tools"
@@ -469,6 +493,9 @@ eng:
     # animal_event_natures: "Type d'évenements des Animaux"
     # animal_events: "Evenements des Animaux"
     # animal_groups: "Lot d'Animaux"
+    # animal_race_natures: "Espèces animales"
+    # animal_races: "Races"
+    # animal_treatment_uses: "Doses de traitement"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
     application: "Application"
@@ -489,12 +516,15 @@ eng:
     departments: "Departments"
     deposit_lines: "Deposit lines"
     deposits: "Deposits"
+    # diagnostics: "Diagnostics"
     # diseases: "Maladies"
     districts: "Districts"
     document_templates: "Document templates"
     documents: "Documents"
+    # drug_natures: "Types de médicaments"
     # drugs: "Médicaments"
     entities: "People"
+    # entity_addresses: "Adresses"
     entity_categories: "Person categories"
     entity_link_natures: "Link types"
     entity_links: "Entity links"
@@ -536,6 +566,7 @@ eng:
     outgoing_payment_uses: "Outgoing payment uses"
     outgoing_payments: "Disbursements"
     preferences: "Preferences"
+    # prescriptions: "Ordonnances"
     prices: "Prices"
     product_categories: "Product categories"
     product_components: "Product components"
@@ -629,6 +660,7 @@ eng:
     amount_to_add: "Total to add"
     amount_to_reduce: "Total to reduce"
     # amount_with_taxes: "Montant TTC"
+    # animal: "Animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
@@ -747,8 +779,9 @@ eng:
     debit: "Debit"
     decimal_case: "Decimal case"
     default_subject: "[%{company}]"
+    # delay: "Délais"
     delay_update: "Edit delay"
-    delays: "Delays"
+    delays: "Delays" #?
     delete: "Delete"
     deliver: "Delivered on"
     deliveries: "Deliveries"

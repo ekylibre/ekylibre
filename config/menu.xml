@@ -861,6 +861,16 @@
         <page to="animal_treatments#show"/>
         <page to="animal_treatments#update"/>
       </menu>
+      <menu name="animal_treatment_uses">
+        <page to="animal_treatment_uses#index"/>
+        <page to="animal_treatment_uses#create"/>
+        <page to="animal_treatment_uses#destroy"/>
+        <page to="animal_treatment_uses#edit"/>
+        <page to="animal_treatment_uses#list"/>
+        <page to="animal_treatment_uses#new"/>
+        <page to="animal_treatment_uses#show"/>
+        <page to="animal_treatment_uses#update"/>
+      </menu>
       <menu name="diseases">
         <page to="diseases#index"/>
         <page to="diseases#create"/>
@@ -890,6 +900,16 @@
         <page to="drugs#new"/>
         <page to="drugs#show"/>
         <page to="drugs#update"/>
+      </menu>
+      <menu name="prescriptions">
+        <page to="prescriptions#index"/>
+        <page to="prescriptions#create"/>
+        <page to="prescriptions#destroy"/>
+        <page to="prescriptions#edit"/>
+        <page to="prescriptions#list"/>
+        <page to="prescriptions#new"/>
+        <page to="prescriptions#show"/>
+        <page to="prescriptions#update"/>
       </menu>
       <menu name="tools">
         <page to="tools#index"/>
