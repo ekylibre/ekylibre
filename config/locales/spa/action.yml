@@ -19,7 +19,31 @@ spa:
     animal_care_natures: #?
     animal_care_types: #?
     animal_cares: #?
-    animal_event_natures: #?
+    animal_diagnostics:
+      # edit: "Modifier un diagnostic"
+      # index: "Diagnostic"
+      # new: "Nouveau diagnostic"
+      # show: "Diagnostic\_: %{name}"
+    animal_diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
+    animal_drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
+    animal_drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
+    animal_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
     animal_events:
       # edit: "Modifier un évènement"
       # index: "Evènements"
@@ -30,6 +54,16 @@ spa:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    animal_posologies:
+      # edit: "Modifier une posologie"
+      # index: "Posologie"
+      # new: "Nouvelle posologie"
+      # show: "Posologie\_: %{name}"
+    animal_prescriptions:
+      # edit: "Modifier une ordonnance"
+      # index: "Ordonnance"
+      # new: "Nouvelle ordonnance"
+      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     animal_race_natures:
       # edit: "Modifier le type de race\_: %{name} "
       # index: "Type de race"
@@ -41,6 +75,7 @@ spa:
       # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
+    animal_treatment_uses: #?
     animal_treatments:
       # edit: "Modifier le traitement\_: %{name} "
       # index: "Traitements"
@@ -136,11 +171,7 @@ spa:
       show: "Aposto en banco %{number} del %{created_on}"
       # unvalidateds: "Remises en banque non validées"
     diagnostics: #?
-    diseases:
-      # edit: "Modifier la maladie\_: %{name}"
-      # index: "Maladies"
-      # new: "Nouvelle maladie"
-      # show: "Maladie\_: %{name}"
+    diseases: #?
     districts:
       # edit: "Modifier la zone administrative\_: %{name}"
       # index: "Zones administratives"
@@ -153,17 +184,9 @@ spa:
       # print: "Imprimer un exemple"
     documents:  #?
       print: "Impresion, exportacion" #?
-    drug_natures:
-      # edit: "Modifier le type de médicament\_: %{name}"
-      # index: "Types de médicament"
-      # new: "Nouveau type de médicament"
-      # show: "Type de médicament\_: %{name}"
+    drug_natures: #?
     drug_types: #?
-    drugs:
-      # edit: "Modifier le médicament\_: %{name}"
-      # index: "Médicaments"
-      # new: "Nouveau médicament"
-      # show: "Médicament\_: %{name}"
+    drugs: #?
     entities:
       # destroy: "Supprimer la fiche"
       # edit: "Modifier la fiche\_: %{full_name}"
@@ -173,7 +196,9 @@ spa:
       # merge: "Fusionner un doublon à sa fiche d’origine"
       # new: "Nouvelle fiche client/fournisseur"
       # show: "Fiche\_: %{full_name}"
-    entity_addresses: #?
+    entity_addresses:
+      # edit: "Modifier une coordonnée"
+      # new: "Ajouter une coordonnée"
     entity_categories:
       # edit: "Modifier la catégorie de fiche\_: %{name}"
       # index: "Catégories de fiche"
@@ -334,7 +359,9 @@ spa:
       # index: "Décaissements"
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
+    posologies: #?
     preferences: #?
+    prescriptions: #?
     prices:
       # edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
       # export: "Exporter les prix"
@@ -471,7 +498,11 @@ spa:
       edit: "Modificar la tasa : %{name}"
       index: "Tasas"
       new: "Añadir nueva tarifa"
-    tool_natures: #?
+    tool_natures:
+      # edit: "Modifier un type de matériel"
+      # index: "Type de matériel / équipement"
+      # new: "Nouveau type de matériel"
+      # show: "Type de matériel\_: %{name}"
     tools:
       # edit: "Modifier le matériel\_: %{name}"
       # index: "Matériel"
@@ -513,6 +544,8 @@ spa:
     # animal_event_natures: "Type d'évenements des Animaux"
     # animal_events: "Evenements des Animaux"
     # animal_groups: "Lot d'Animaux"
+    # animal_race_natures: "Espèces animales"
+    # animal_races: "Races"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
     application: "Aplicación"
@@ -533,12 +566,11 @@ spa:
     departments: "Servicios"
     # deposit_lines: "Lignes de remise en banque"
     deposits: "Aposto en banco"
-    # diseases: "Maladies"
     # districts: "Zones administratives"
     document_templates: "Modelos de documento"
     # documents: "Documents"
-    # drugs: "Médicaments"
     # entities: "Personnes"
+    # entity_addresses: "Adresses"
     # entity_categories: "Catégories de fiche"
     # entity_link_natures: "Types de lien"
     # entity_links: "Liens entre personnes"
@@ -679,6 +711,7 @@ spa:
     amount_to_add: "Sumas a añadir, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_to_reduce: "Sumas a imputar, exprimadas en euros, y tambien con cantidad a cuenta vacaciones"
     amount_with_taxes: "Total de la entrega TTC"
+    # animal: "Animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
@@ -798,9 +831,9 @@ spa:
     debit: "Flujo"
     # decimal_case: "Options pour un décimal"
     default_subject: "[%{company}]"
+    # delay: "Délais"
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo"
-    # delays: "Délais"
     # delete: "Supprimer"
     # deliver: "Valider l’envoi des livraisons"
     # deliveries: "Livraisons"

@@ -18,34 +18,23 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: drugs
+# == Table: drug_natures
 #
-#  comment      :text
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  frequency    :integer          default(1)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
-#  quantity     :decimal(19, 4)   default(0.0)
-#  unit_id      :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 
 
-class Drug < CompanyRecord
-  belongs_to :nature, :class_name => "DrugNature"
-  belongs_to :unit
-  has_many :posologies, :class_name => "Posology", :foreign_key => :drug_id
-  has_many :treatments, :class_name => "AnimalTreatment"
-  has_many :diseases, :class_name => "Disease", :through => :treatments
+class AnimalDrugNature < CompanyRecord
+  has_many :drugs, :class_name => "AnimalDrug"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :frequency, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name, :nature
+  validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
 end

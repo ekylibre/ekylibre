@@ -43,14 +43,18 @@
 
 
 class AnimalTreatment < CompanyRecord
+  attr_readonly :event_id, :drug_admission_path, :treatment_id, :per_animal_unit, :quantity_unit_id, :drug_allowed_id, :quantity
+  attr_accessible :event_id, :drug_admission_path, :per_animal_unit, :quantity_unit_id, :drug_allowed_id, :quantity
   enumerize :per_animal_unit, :in => [:per_animal, :per_kg], default: :per_animal
   enumerize :per_frequency_time_unit, :in => [:times_per_day, :times_per_week, :times_per_month], default: :times_per_day
   enumerize :per_duration_time_unit, :in => [:hours, :days, :weeks, :months], default: :days
   enumerize :duration_unit_wait_for_milk, :in => [:hours, :days], default: :days
   enumerize :duration_unit_wait_for_meat, :in => [:hours, :days], default: :days
-  belongs_to :disease, :class_name => "Disease"
-  belongs_to :drug, :class_name => "Drug"
-  belongs_to :prescription, :class_name => "Prescription"
+  enumerize :drug_admission_path, :in => [:oral, :ima, :imu, :iu, :iv], default: :oral
+  belongs_to :disease, :class_name => "AnimalDisease"
+  belongs_to :drug, :class_name => "AnimalDrug"
+  belongs_to :event, :class_name => "AnimalEvent"
+  belongs_to :prescription, :class_name => "AnimalPrescription"
   has_many :treatment_uses, :class_name => "AnimalTreatmentUse", :foreign_key => :treatment_id
   has_many :events, :through => :treatment_uses
   belongs_to :quantity_unit, :class_name => "Unit"

@@ -11,6 +11,26 @@ eng:
       unmark: "Unmark account"
     animal_care_natures: #?
     animal_cares: #?
+    animal_diagnostics:
+      # edit: "Modifier un diagnostic"
+      # index: "Diagnostic"
+      # new: "Nouveau diagnostic"
+      # show: "Diagnostic\_: %{name}"
+    animal_diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
+    animal_drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
+    animal_drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
     animal_event_natures:
       # edit: "Modifier un type d'évènement"
       # index: "Type d'évènement"
@@ -26,6 +46,16 @@ eng:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    animal_posologies:
+      # edit: "Modifier une posologie"
+      # index: "Posologie"
+      # new: "Nouvelle posologie"
+      # show: "Posologie\_: %{name}"
+    animal_prescriptions:
+      # edit: "Modifier une ordonnance"
+      # index: "Ordonnance"
+      # new: "Nouvelle ordonnance"
+      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     animal_race_natures:
       # edit: "Modifier le type de race\_: %{name} "
       # index: "Type de race"
@@ -36,11 +66,7 @@ eng:
       # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
-    animal_treatment_uses:
-      # edit: "Modifier la dose de traitement donnée"
-      # index: "Dose de traitement donnée"
-      # new: "Nouvelle dose de traitement"
-      # show: "Dose de traitement\_: %{name}"
+    animal_treatment_uses: #?
     animal_treatments:
       # edit: "Modifier le traitement\_: %{name} "
       # index: "Traitements"
@@ -121,16 +147,8 @@ eng:
       new: "Add a new deposit"
       show: "Deposit %{number} on %{created_on}"
       unvalidateds: "Unvalidated deposits"
-    diagnostics:
-      # edit: "Modifier un diagnostic"
-      # index: "Diagnostic"
-      # new: "Nouveau diagnostic"
-      # show: "Diagnostic\_: %{name}"
-    diseases:
-      # edit: "Modifier la maladie\_: %{name}"
-      # index: "Maladies"
-      # new: "Nouvelle maladie"
-      # show: "Maladie\_: %{name}"
+    diagnostics: #?
+    diseases: #?
     districts:
       edit: "Edit the district: %{name}"
       index: "Districts"
@@ -141,16 +159,8 @@ eng:
       load: "Load default document templates (overwrite the old templates)"
       new: "Add a new document template"
       print: "Print document template"
-    drug_natures:
-      # edit: "Modifier le type de médicament\_: %{name}"
-      # index: "Types de médicament"
-      # new: "Nouveau type de médicament"
-      # show: "Type de médicament\_: %{name}"
-    drugs:
-      # edit: "Modifier le médicament\_: %{name}"
-      # index: "Médicaments"
-      # new: "Nouveau médicament"
-      # show: "Médicament\_: %{name}"
+    drug_natures: #?
+    drugs: #?
     entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
@@ -312,11 +322,9 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
-    prescriptions:
-      # edit: "Modifier une ordonnance"
-      # index: "Ordonnance"
-      # new: "Nouvelle ordonnance"
-      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
+    posologies: #?
+    preferences: #?
+    prescriptions: #?
     prices:
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}"
       export: "Export prices"
@@ -495,7 +503,6 @@ eng:
     # animal_groups: "Lot d'Animaux"
     # animal_race_natures: "Espèces animales"
     # animal_races: "Races"
-    # animal_treatment_uses: "Doses de traitement"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
     application: "Application"
@@ -516,13 +523,9 @@ eng:
     departments: "Departments"
     deposit_lines: "Deposit lines"
     deposits: "Deposits"
-    # diagnostics: "Diagnostics"
-    # diseases: "Maladies"
     districts: "Districts"
     document_templates: "Document templates"
     documents: "Documents"
-    # drug_natures: "Types de médicaments"
-    # drugs: "Médicaments"
     entities: "People"
     # entity_addresses: "Adresses"
     entity_categories: "Person categories"
@@ -566,7 +569,6 @@ eng:
     outgoing_payment_uses: "Outgoing payment uses"
     outgoing_payments: "Disbursements"
     preferences: "Preferences"
-    # prescriptions: "Ordonnances"
     prices: "Prices"
     product_categories: "Product categories"
     product_components: "Product components"

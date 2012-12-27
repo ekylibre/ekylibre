@@ -18,23 +18,26 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: drug_natures
+# == Table: diagnostics
 #
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  disease_id   :integer
+#  event_id     :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
+#  symptoms     :string(255)
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
 
 
-class DrugNature < CompanyRecord
-  has_many :drugs, :class_name => "Drug"
+class AnimalDiagnostic < CompanyRecord
+  attr_readonly :event_id, :disease_id, :symptoms
+  attr_accessible :event_id, :disease_id, :symptoms
+  belongs_to :event, :class_name => "AnimalEvent"
+  belongs_to :disease, :class_name => "AnimalDisease"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_length_of :corpse_location, :symptoms, :allow_nil => true, :maximum => 255
   #]VALIDATORS]
-  validates_uniqueness_of :name
 end

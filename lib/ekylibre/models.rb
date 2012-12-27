@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references
   # List of all models
-  @@models = [:account, :account_balance, :animal, :animal_event, :animal_event_nature, :animal_group, :animal_race, :animal_race_nature, :animal_treatment, :animal_treatment_use, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :diagnostic, :disease, :district, :document, :document_template, :drug, :drug_nature, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :prescription, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_nature, :tracking, :tracking_state, :transfer, :transport, :unit, :warehouse]
+  @@models = [:account, :account_balance, :animal, :animal_diagnostic, :animal_disease, :animal_drug, :animal_drug_nature, :animal_event, :animal_event_nature, :animal_group, :animal_posology, :animal_prescription, :animal_race, :animal_race_nature, :animal_treatment, :area, :asset, :asset_depreciation, :bank_statement, :cash, :cash_transfer, :company, :cultivation, :custom_field, :custom_field_choice, :custom_field_datum, :delay, :department, :deposit, :deposit_line, :district, :document, :document_template, :entity, :entity_address, :entity_category, :entity_link, :entity_link_nature, :entity_nature, :establishment, :event, :event_nature, :financial_year, :incoming_delivery, :incoming_delivery_line, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :incoming_payment_use, :inventory, :inventory_line, :journal, :journal_entry, :journal_entry_line, :land_parcel, :land_parcel_group, :land_parcel_kinship, :listing, :listing_node, :listing_node_item, :mandate, :observation, :operation, :operation_line, :operation_nature, :operation_use, :outgoing_delivery, :outgoing_delivery_line, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :outgoing_payment_use, :preference, :price, :product, :product_category, :product_component, :production_chain, :production_chain_conveyor, :production_chain_work_center, :production_chain_work_center_use, :profession, :purchase, :purchase_line, :purchase_nature, :role, :sale, :sale_line, :sale_nature, :sequence, :stock, :stock_move, :stock_transfer, :subscription, :subscription_nature, :tax, :tax_declaration, :tool, :tool_nature, :tracking, :tracking_state, :transfer, :transport, :unit, :warehouse]
 
   # List of all references
   @@references = {
@@ -21,7 +21,28 @@ module Ekylibre
       :father_id => :animal,
       :group_id => :animal_group,
       :mother_id => :animal,
+      :owner_id => '',
       :race_id => :animal_race,
+      :updater_id => :entity
+    },
+    :animal_diagnostic => {
+      :creator_id => :entity,
+      :disease_id => '',
+      :event_id => :event,
+      :updater_id => :entity
+    },
+    :animal_disease => {
+      :creator_id => :entity,
+      :updater_id => :entity
+    },
+    :animal_drug => {
+      :creator_id => :entity,
+      :nature_id => '',
+      :unit_id => :unit,
+      :updater_id => :entity
+    },
+    :animal_drug_nature => {
+      :creator_id => :entity,
       :updater_id => :entity
     },
     :animal_event => {
@@ -29,6 +50,7 @@ module Ekylibre
       :animal_id => :animal,
       :creator_id => :entity,
       :nature_id => :animal_event_nature,
+      :parent_id => :animal_event,
       :updater_id => :entity,
       :watcher_id => :entity
     },
@@ -38,6 +60,19 @@ module Ekylibre
     },
     :animal_group => {
       :creator_id => :entity,
+      :updater_id => :entity
+    },
+    :animal_posology => {
+      :animal_race_nature_id => :animal_race_nature,
+      :creator_id => :entity,
+      :disease_id => '',
+      :drug_id => '',
+      :quantity_unit_id => '',
+      :updater_id => :entity
+    },
+    :animal_prescription => {
+      :creator_id => :entity,
+      :prescriptor_id => '',
       :updater_id => :entity
     },
     :animal_race => {
@@ -53,16 +88,9 @@ module Ekylibre
       :creator_id => :entity,
       :disease_id => :disease,
       :drug_id => :drug,
+      :event_id => :event,
       :prescription_id => :prescription,
       :quantity_unit_id => '',
-      :updater_id => :entity
-    },
-    :animal_treatment_use => {
-      :creator_id => :entity,
-      :drug_allowed_id => '',
-      :event_id => :event,
-      :quantity_unit_id => '',
-      :treatment_id => '',
       :updater_id => :entity
     },
     :area => {
@@ -153,16 +181,6 @@ module Ekylibre
       :deposit_id => :deposit,
       :updater_id => :entity
     },
-    :diagnostic => {
-      :creator_id => :entity,
-      :disease_id => :disease,
-      :event_id => :event,
-      :updater_id => :entity
-    },
-    :disease => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
     :district => {
       :creator_id => :entity,
       :updater_id => :entity
@@ -174,16 +192,6 @@ module Ekylibre
       :updater_id => :entity
     },
     :document_template => {
-      :creator_id => :entity,
-      :updater_id => :entity
-    },
-    :drug => {
-      :creator_id => :entity,
-      :nature_id => :drug_nature,
-      :unit_id => :unit,
-      :updater_id => :entity
-    },
-    :drug_nature => {
       :creator_id => :entity,
       :updater_id => :entity
     },
@@ -456,11 +464,6 @@ module Ekylibre
       :record_value_id => "record_value_type",
       :updater_id => :entity,
       :user_id => :user
-    },
-    :prescription => {
-      :creator_id => :entity,
-      :prescriptor_id => '',
-      :updater_id => :entity
     },
     :price => {
       :category_id => :entity_category,

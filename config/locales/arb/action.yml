@@ -19,7 +19,31 @@ arb:
     animal_care_natures: #?
     animal_care_types: #?
     animal_cares: #?
-    animal_event_natures: #?
+    animal_diagnostics:
+      # edit: "Modifier un diagnostic"
+      # index: "Diagnostic"
+      # new: "Nouveau diagnostic"
+      # show: "Diagnostic\_: %{name}"
+    animal_diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
+    animal_drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
+    animal_drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
+    animal_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
     animal_events:
       # edit: "Modifier un évènement"
       # index: "Evènements"
@@ -30,6 +54,16 @@ arb:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    animal_posologies:
+      # edit: "Modifier une posologie"
+      # index: "Posologie"
+      # new: "Nouvelle posologie"
+      # show: "Posologie\_: %{name}"
+    animal_prescriptions:
+      # edit: "Modifier une ordonnance"
+      # index: "Ordonnance"
+      # new: "Nouvelle ordonnance"
+      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     animal_race_natures:
       # edit: "Modifier le type de race\_: %{name} "
       # index: "Type de race"
@@ -41,6 +75,7 @@ arb:
       # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
+    animal_treatment_uses: #?
     animal_treatments:
       # edit: "Modifier le traitement\_: %{name} "
       # index: "Traitements"
@@ -139,11 +174,7 @@ arb:
       show: "اقتطاع البنك %{number} من %{created_on}"
       unvalidateds: "التأكد من اقتطاعات البنك"
     diagnostics: #?
-    diseases:
-      # edit: "Modifier la maladie\_: %{name}"
-      # index: "Maladies"
-      # new: "Nouvelle maladie"
-      # show: "Maladie\_: %{name}"
+    diseases: #?
     districts:
       edit: "تعديل عنوان بريدي : %{name}"
       index: "المناطق الادارية"
@@ -156,17 +187,9 @@ arb:
       # print: "Imprimer un exemple"
     documents:  #?
       print: "طباعة وتصدير" #?
-    drug_natures:
-      # edit: "Modifier le type de médicament\_: %{name}"
-      # index: "Types de médicament"
-      # new: "Nouveau type de médicament"
-      # show: "Type de médicament\_: %{name}"
+    drug_natures: #?
     drug_types: #?
-    drugs:
-      # edit: "Modifier le médicament\_: %{name}"
-      # index: "Médicaments"
-      # new: "Nouveau médicament"
-      # show: "Médicament\_: %{name}"
+    drugs: #?
     entities:
       # destroy: "Supprimer la fiche"
       edit: "تعديل الملف : %{full_name}"
@@ -176,7 +199,9 @@ arb:
       merge: "دمج التكرار مع المافات الاصلية"
       new: "انشاء ملف جديد للعميل / للممول"
       show: "ملف: %{full_name}"
-    entity_addresses: #?
+    entity_addresses:
+      # edit: "Modifier une coordonnée"
+      # new: "Ajouter une coordonnée"
     entity_categories:
       edit: "تعديل نوع الملف : %{name}"
       index: "انواع الملف"
@@ -342,7 +367,9 @@ arb:
       index: "دفعات"
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
+    posologies: #?
     preferences: #?
+    prescriptions: #?
     prices:
       # edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
       # export: "Exporter les prix"
@@ -484,7 +511,11 @@ arb:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
-    tool_natures: #?
+    tool_natures:
+      # edit: "Modifier un type de matériel"
+      # index: "Type de matériel / équipement"
+      # new: "Nouveau type de matériel"
+      # show: "Type de matériel\_: %{name}"
     tools:
       edit: "تعديل المادة : %{name}"
       index: "مادة"
@@ -526,6 +557,8 @@ arb:
     # animal_event_natures: "Type d'évenements des Animaux"
     # animal_events: "Evenements des Animaux"
     # animal_groups: "Lot d'Animaux"
+    # animal_race_natures: "Espèces animales"
+    # animal_races: "Races"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
     application: "تطبيق"
@@ -546,12 +579,11 @@ arb:
     departments: "الوظائف/المهام"
     # deposit_lines: "Lignes de remise en banque"
     deposits: "اقتطاعات البنك"
-    # diseases: "Maladies"
     districts: "المناطق الادارية"
     document_templates: "نماذج الوثيقة"
     # documents: "Documents"
-    # drugs: "Médicaments"
     entities: "سجلات الاشخاص"
+    # entity_addresses: "Adresses"
     entity_categories: "انواع الملف"
     entity_link_natures: "انواع الرابط"
     # entity_links: "Liens entre personnes"
@@ -690,6 +722,7 @@ arb:
     amount_to_add: "جمع واضافة القيمة باليورو، بما في ذلك ايام العطل"
     amount_to_reduce: "جمع القيمة ونسبها الى اليورو، بما في ذلك ايام العطل"
     amount_with_taxes: "مجموع قيمة التسليم مع كامل الضرائب"
+    # animal: "Animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
@@ -817,9 +850,10 @@ arb:
     debit: "الدين"
     decimal_case: "خيارات للكسر العشري"
     default_subject: "[%{company}]"
+    # delay: "Délais"
     delay_create: "اضافة مهلة جديدة" #?
     delay_update: "تعديل المهلة"
-    delays: "التأخير"
+    delays: "التأخير" #?
     delete: "حذف"
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"

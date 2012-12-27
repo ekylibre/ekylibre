@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121222103002) do
+ActiveRecord::Schema.define(:version => 20121226103003) do
 
   create_table "account_balances", :force => true do |t|
     t.integer  "account_id",                                                        :null => false
@@ -56,6 +56,80 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "accounts", ["creator_id"], :name => "index_accounts_on_creator_id"
   add_index "accounts", ["updated_at"], :name => "index_accounts_on_updated_at"
   add_index "accounts", ["updater_id"], :name => "index_accounts_on_updater_id"
+
+  create_table "animal_diagnostics", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "disease_id"
+    t.string   "symptoms"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    :default => 0, :null => false
+    t.string   "corpse_location"
+  end
+
+  add_index "animal_diagnostics", ["created_at"], :name => "index_diagnostics_on_created_at"
+  add_index "animal_diagnostics", ["creator_id"], :name => "index_diagnostics_on_creator_id"
+  add_index "animal_diagnostics", ["disease_id"], :name => "index_diagnostics_on_disease_id"
+  add_index "animal_diagnostics", ["event_id"], :name => "index_diagnostics_on_event_id"
+  add_index "animal_diagnostics", ["updated_at"], :name => "index_diagnostics_on_updated_at"
+  add_index "animal_diagnostics", ["updater_id"], :name => "index_diagnostics_on_updater_id"
+
+  create_table "animal_diseases", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.string   "code"
+    t.string   "zone"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "animal_diseases", ["created_at"], :name => "index_diseases_on_created_at"
+  add_index "animal_diseases", ["creator_id"], :name => "index_diseases_on_creator_id"
+  add_index "animal_diseases", ["name"], :name => "index_diseases_on_name"
+  add_index "animal_diseases", ["updated_at"], :name => "index_diseases_on_updated_at"
+  add_index "animal_diseases", ["updater_id"], :name => "index_diseases_on_updater_id"
+
+  create_table "animal_drug_natures", :force => true do |t|
+    t.string   "name",                        :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", :default => 0, :null => false
+  end
+
+  add_index "animal_drug_natures", ["created_at"], :name => "index_drug_natures_on_created_at"
+  add_index "animal_drug_natures", ["creator_id"], :name => "index_drug_natures_on_creator_id"
+  add_index "animal_drug_natures", ["name"], :name => "index_drug_natures_on_name"
+  add_index "animal_drug_natures", ["updated_at"], :name => "index_drug_natures_on_updated_at"
+  add_index "animal_drug_natures", ["updater_id"], :name => "index_drug_natures_on_updater_id"
+
+  create_table "animal_drugs", :force => true do |t|
+    t.integer  "unit_id"
+    t.integer  "nature_id",                                                     :null => false
+    t.string   "name",                                                          :null => false
+    t.integer  "frequency",                                   :default => 1
+    t.decimal  "quantity",     :precision => 19, :scale => 4, :default => 0.0
+    t.text     "comment"
+    t.datetime "created_at",                                                    :null => false
+    t.datetime "updated_at",                                                    :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                :default => 0,    :null => false
+    t.boolean  "prescripted",                                 :default => true
+  end
+
+  add_index "animal_drugs", ["created_at"], :name => "index_drugs_on_created_at"
+  add_index "animal_drugs", ["creator_id"], :name => "index_drugs_on_creator_id"
+  add_index "animal_drugs", ["name"], :name => "index_drugs_on_name"
+  add_index "animal_drugs", ["nature_id"], :name => "index_drugs_on_nature_id"
+  add_index "animal_drugs", ["unit_id"], :name => "index_drugs_on_unit_id"
+  add_index "animal_drugs", ["updated_at"], :name => "index_drugs_on_updated_at"
+  add_index "animal_drugs", ["updater_id"], :name => "index_drugs_on_updater_id"
 
   create_table "animal_event_natures", :force => true do |t|
     t.string   "name",                        :null => false
@@ -122,6 +196,58 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "animal_groups", ["updated_at"], :name => "index_animal_groups_on_updated_at"
   add_index "animal_groups", ["updater_id"], :name => "index_animal_groups_on_updater_id"
 
+  create_table "animal_posologies", :force => true do |t|
+    t.integer  "animal_race_nature_id"
+    t.integer  "drug_id"
+    t.integer  "disease_id"
+    t.string   "description"
+    t.decimal  "quantity",                    :precision => 19, :scale => 4, :default => 0.0, :null => false
+    t.integer  "quantity_unit_id"
+    t.integer  "frequency",                                                  :default => 1,   :null => false
+    t.string   "per_frequency_time_unit"
+    t.string   "per_duration_time_unit"
+    t.integer  "duration_wait_for_meat"
+    t.integer  "duration_wait_for_milk"
+    t.string   "duration_unit_wait_for_meat"
+    t.string   "duration_unit_wait_for_milk"
+    t.string   "drug_admission_path"
+    t.datetime "created_at",                                                                  :null => false
+    t.datetime "updated_at",                                                                  :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                               :default => 0,   :null => false
+  end
+
+  add_index "animal_posologies", ["animal_race_nature_id"], :name => "index_posologies_on_animal_race_nature_id"
+  add_index "animal_posologies", ["created_at"], :name => "index_posologies_on_created_at"
+  add_index "animal_posologies", ["creator_id"], :name => "index_posologies_on_creator_id"
+  add_index "animal_posologies", ["disease_id"], :name => "index_posologies_on_disease_id"
+  add_index "animal_posologies", ["drug_id"], :name => "index_posologies_on_drug_id"
+  add_index "animal_posologies", ["updated_at"], :name => "index_posologies_on_updated_at"
+  add_index "animal_posologies", ["updater_id"], :name => "index_posologies_on_updater_id"
+
+  create_table "animal_prescriptions", :force => true do |t|
+    t.integer  "prescriptor_id"
+    t.string   "name"
+    t.string   "prescription_number"
+    t.date     "prescripted_on"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",         :default => 0, :null => false
+  end
+
+  add_index "animal_prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
+  add_index "animal_prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
+  add_index "animal_prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
+  add_index "animal_prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"
+  add_index "animal_prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
+
   create_table "animal_race_natures", :force => true do |t|
     t.string   "name",                        :null => false
     t.text     "description"
@@ -157,29 +283,6 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "animal_races", ["updated_at"], :name => "index_animal_races_on_updated_at"
   add_index "animal_races", ["updater_id"], :name => "index_animal_races_on_updater_id"
 
-  create_table "animal_treatment_uses", :force => true do |t|
-    t.integer  "event_id"
-    t.integer  "treatment_id"
-    t.string   "name"
-    t.decimal  "quantity",            :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.integer  "quantity_unit_id"
-    t.datetime "created_at",                                                          :null => false
-    t.datetime "updated_at",                                                          :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                       :default => 0,   :null => false
-    t.integer  "drug_allowed_id"
-    t.string   "per_animal_unit"
-    t.string   "drug_admission_path"
-  end
-
-  add_index "animal_treatment_uses", ["created_at"], :name => "index_animal_treatment_uses_on_created_at"
-  add_index "animal_treatment_uses", ["creator_id"], :name => "index_animal_treatment_uses_on_creator_id"
-  add_index "animal_treatment_uses", ["event_id"], :name => "index_animal_treatment_uses_on_event_id"
-  add_index "animal_treatment_uses", ["treatment_id"], :name => "index_animal_treatment_uses_on_treatment_id"
-  add_index "animal_treatment_uses", ["updated_at"], :name => "index_animal_treatment_uses_on_updated_at"
-  add_index "animal_treatment_uses", ["updater_id"], :name => "index_animal_treatment_uses_on_updater_id"
-
   create_table "animal_treatments", :force => true do |t|
     t.integer  "drug_id"
     t.integer  "disease_id"
@@ -203,6 +306,7 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
     t.string   "per_duration_time_unit"
     t.string   "duration_unit_wait_for_milk"
     t.string   "duration_unit_wait_for_meat"
+    t.integer  "event_id"
   end
 
   add_index "animal_treatments", ["created_at"], :name => "index_animal_treatments_on_created_at"
@@ -236,6 +340,8 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
+    t.string   "working_number"
+    t.integer  "owner_id"
   end
 
   add_index "animals", ["created_at"], :name => "index_animals_on_created_at"
@@ -586,41 +692,6 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "deposits", ["updated_at"], :name => "index_embankments_on_updated_at"
   add_index "deposits", ["updater_id"], :name => "index_embankments_on_updater_id"
 
-  create_table "diagnostics", :force => true do |t|
-    t.integer  "event_id"
-    t.integer  "disease_id"
-    t.string   "symptoms"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
-  end
-
-  add_index "diagnostics", ["created_at"], :name => "index_diagnostics_on_created_at"
-  add_index "diagnostics", ["creator_id"], :name => "index_diagnostics_on_creator_id"
-  add_index "diagnostics", ["disease_id"], :name => "index_diagnostics_on_disease_id"
-  add_index "diagnostics", ["event_id"], :name => "index_diagnostics_on_event_id"
-  add_index "diagnostics", ["updated_at"], :name => "index_diagnostics_on_updated_at"
-  add_index "diagnostics", ["updater_id"], :name => "index_diagnostics_on_updater_id"
-
-  create_table "diseases", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.string   "code"
-    t.string   "zone"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
-  end
-
-  add_index "diseases", ["created_at"], :name => "index_diseases_on_created_at"
-  add_index "diseases", ["creator_id"], :name => "index_diseases_on_creator_id"
-  add_index "diseases", ["name"], :name => "index_diseases_on_name"
-  add_index "diseases", ["updated_at"], :name => "index_diseases_on_updated_at"
-  add_index "diseases", ["updater_id"], :name => "index_diseases_on_updater_id"
-
   create_table "districts", :force => true do |t|
     t.string   "name",                        :null => false
     t.datetime "created_at",                  :null => false
@@ -689,44 +760,6 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "documents", ["sha256"], :name => "index_documents_on_sha256"
   add_index "documents", ["updated_at"], :name => "index_documents_on_updated_at"
   add_index "documents", ["updater_id"], :name => "index_documents_on_updater_id"
-
-  create_table "drug_natures", :force => true do |t|
-    t.string   "name",                        :null => false
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", :default => 0, :null => false
-  end
-
-  add_index "drug_natures", ["created_at"], :name => "index_drug_natures_on_created_at"
-  add_index "drug_natures", ["creator_id"], :name => "index_drug_natures_on_creator_id"
-  add_index "drug_natures", ["name"], :name => "index_drug_natures_on_name"
-  add_index "drug_natures", ["updated_at"], :name => "index_drug_natures_on_updated_at"
-  add_index "drug_natures", ["updater_id"], :name => "index_drug_natures_on_updater_id"
-
-  create_table "drugs", :force => true do |t|
-    t.integer  "unit_id"
-    t.integer  "nature_id",                                                     :null => false
-    t.string   "name",                                                          :null => false
-    t.integer  "frequency",                                   :default => 1
-    t.decimal  "quantity",     :precision => 19, :scale => 4, :default => 0.0
-    t.text     "comment"
-    t.datetime "created_at",                                                    :null => false
-    t.datetime "updated_at",                                                    :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                :default => 0,    :null => false
-    t.boolean  "prescripted",                                 :default => true
-  end
-
-  add_index "drugs", ["created_at"], :name => "index_drugs_on_created_at"
-  add_index "drugs", ["creator_id"], :name => "index_drugs_on_creator_id"
-  add_index "drugs", ["name"], :name => "index_drugs_on_name"
-  add_index "drugs", ["nature_id"], :name => "index_drugs_on_nature_id"
-  add_index "drugs", ["unit_id"], :name => "index_drugs_on_unit_id"
-  add_index "drugs", ["updated_at"], :name => "index_drugs_on_updated_at"
-  add_index "drugs", ["updater_id"], :name => "index_drugs_on_updater_id"
 
   create_table "entities", :force => true do |t|
     t.integer  "nature_id",                                                                                            :null => false
@@ -1653,36 +1686,6 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "outgoing_payments", ["updated_at"], :name => "index_purchase_payments_on_updated_at"
   add_index "outgoing_payments", ["updater_id"], :name => "index_purchase_payments_on_updater_id"
 
-  create_table "posologies", :force => true do |t|
-    t.integer  "animal_race_nature_id"
-    t.integer  "drug_id"
-    t.integer  "disease_id"
-    t.string   "description"
-    t.decimal  "quantity",                    :precision => 19, :scale => 4, :default => 0.0, :null => false
-    t.integer  "quantity_unit_id"
-    t.integer  "frequency",                                                  :default => 1,   :null => false
-    t.string   "per_frequency_time_unit"
-    t.string   "per_duration_time_unit"
-    t.integer  "duration_wait_for_meat"
-    t.integer  "duration_wait_for_milk"
-    t.string   "duration_unit_wait_for_meat"
-    t.string   "duration_unit_wait_for_milk"
-    t.string   "drug_admission_path"
-    t.datetime "created_at",                                                                  :null => false
-    t.datetime "updated_at",                                                                  :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                               :default => 0,   :null => false
-  end
-
-  add_index "posologies", ["animal_race_nature_id"], :name => "index_posologies_on_animal_race_nature_id"
-  add_index "posologies", ["created_at"], :name => "index_posologies_on_created_at"
-  add_index "posologies", ["creator_id"], :name => "index_posologies_on_creator_id"
-  add_index "posologies", ["disease_id"], :name => "index_posologies_on_disease_id"
-  add_index "posologies", ["drug_id"], :name => "index_posologies_on_drug_id"
-  add_index "posologies", ["updated_at"], :name => "index_posologies_on_updated_at"
-  add_index "posologies", ["updater_id"], :name => "index_posologies_on_updater_id"
-
   create_table "preferences", :force => true do |t|
     t.string   "name",                                                                           :null => false
     t.string   "nature",            :limit => 8,                                :default => "u", :null => false
@@ -1707,28 +1710,6 @@ ActiveRecord::Schema.define(:version => 20121222103002) do
   add_index "preferences", ["updated_at"], :name => "index_parameters_on_updated_at"
   add_index "preferences", ["updater_id"], :name => "index_parameters_on_updater_id"
   add_index "preferences", ["user_id"], :name => "index_parameters_on_user_id"
-
-  create_table "prescriptions", :force => true do |t|
-    t.integer  "prescriptor_id"
-    t.string   "name"
-    t.string   "prescription_number"
-    t.date     "prescripted_on"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",         :default => 0, :null => false
-  end
-
-  add_index "prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
-  add_index "prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
-  add_index "prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
-  add_index "prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"
-  add_index "prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
 
   create_table "prices", :force => true do |t|
     t.decimal  "pretax_amount",              :precision => 19, :scale => 4,                    :null => false

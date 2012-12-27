@@ -149,7 +149,7 @@ class Entity < CompanyRecord
   has_many :transports, :foreign_key => :transporter_id
   has_many :managed_transports, :foreign_key => :responsible_id
   has_many :transporter_sales, :foreign_key => :transporter_id, :order => "created_on desc", :class_name => "Sale"
-  has_many :prescriptions, :class_name => "Prescription", :foreign_key => :prescriptor_id
+  has_many :prescriptions, :class_name => "AnimalPrescription", :foreign_key => :prescriptor_id
   has_many :managed_unpaid_sales, :class_name => "Sale", :foreign_key => :responsible_id, :order => "created_on", :conditions => ["state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false]
   has_many :usable_incoming_payments, :conditions => ["used_amount < amount"], :class_name => "IncomingPayment", :foreign_key => :payer_id
   has_many :waiting_deliveries, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id, :conditions => ["moved_on IS NULL AND planned_on <= CURRENT_DATE"]

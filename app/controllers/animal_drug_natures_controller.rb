@@ -17,13 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class DiagnosticsController < AdminController
+class AnimalDrugNaturesController < AdminController
   manage_restfully
 
   list() do |t|
-    t.column :symptoms, :url=>true
-    t.column :name, :through=>:event, :url=>true
-    t.column :name, :through=>:disease, :url=>true
+    t.column :name, :url=>true
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
@@ -34,9 +33,9 @@ class DiagnosticsController < AdminController
 
   # Show one care with params_id
   def show
-    return unless @diagnostic = find_and_check
-    session[:current_diagnostic_id] = @diagnostic.id
-    t3e @diagnostic
+    return unless @animal_drug_nature = find_and_check
+    session[:current_animal_drug_nature_id] = @animal_drug_nature.id
+    t3e @animal_drug_nature
   end
 
 end

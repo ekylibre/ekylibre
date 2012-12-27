@@ -10,9 +10,9 @@ fra:
       animal_race:
         code: "Code race"
       animal_treatment_use:
+        drug_admission_path: "Voie d’admission"
         per_animal_unit: " / "
         quantity_unit: "Unité"
-        drug_admission_path: "Voie d’admission"
       asset_depreciation:
         asset_amount: "Valeur nette comptable (VNC)"
       cash:
@@ -238,13 +238,19 @@ fra:
       account: "Compte"
       account_balance: "Balance de compte"
       animal: "Animaux"
+      # animal_diagnostic: "Animal diagnostic"
+      # animal_disease: "Animal disease"
+      # animal_drug: "Animal drug"
+      # animal_drug_nature: "Animal drug nature"
       animal_event: "Evenements liés aux animaux"
       animal_event_nature: "Type d'évènement lié aux animaux"
       animal_group: "Lot"
+      # animal_posology: "Animal posology"
+      # animal_prescription: "Animal prescription"
       animal_race: "Race"
       animal_race_nature: "Espèce"
       animal_treatment: "Traitement"
-      animal_treatment_use: "Dose lié à un traitement"
+      animal_treatment_use: "Dose lié à un traitement" #?
       area: "Zone postale"
       asset: "Immobilisation"
       asset_depreciation: "Amortissement d’immobilisation"
@@ -261,13 +267,13 @@ fra:
       department: "Service"
       deposit: "Remise en banque"
       deposit_line: "Ligne de remise en banque"
-      diagnostic: "Diagnostic"
-      disease: "Maladie"
+      diagnostic: "Diagnostic" #?
+      disease: "Maladie" #?
       district: "Zone administrative"
       document: "Document"
       document_template: "Modèle de document"
-      drug: "Médicament"
-      drug_nature: "Type de médicament"
+      drug: "Médicament" #?
+      drug_nature: "Type de médicament" #?
       entity: "Personne"
       entity_address: "Adresse"
       entity_category: "Catégorie de personne"
@@ -308,7 +314,7 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       outgoing_payment_use: "Affectation de décaissement"
       preference: "Préférence"
-      prescription: "Ordonnance"
+      prescription: "Ordonnance" #?
       price: "Prix"
       product: "Produit"
       product_category: "Catégorie de produit"
@@ -365,6 +371,7 @@ fra:
     animal: "Animaux"
     animal_events: "Evenement des animaux"
     animal_group: "Lot"
+    # animal_race_nature: "Animal race nature"
     animals: "Animals"
     annotation: "Annotation"
     area: "Zone postale"
@@ -471,6 +478,7 @@ fra:
     contacts: "Contacts"
     conveyors: "Convoyeurs"
     # coordinate: "Coordinate"
+    # corpse_location: "Corpse location"
     country: "Pays"
     created_at: "Date et heure de création"
     created_on: "Date de création"
@@ -559,7 +567,7 @@ fra:
     draft_mode: "Mode brouillard" #?
     drug: "Médicament"
     drug_admission_path: "Drug admission path"
-    drug_allowed: "Médicament utilisable sans prescription"
+    drug_allowed: "Médicament utilisable sans prescription" #?
     drugs: "Médicaments"
     duration: "Durée"
     duration_unit_wait_for_meat: "Duration unit wait for meat"
@@ -754,6 +762,7 @@ fra:
     # mobiles: "Mobiles"
     mode: "Mode"
     mother: "Mère"
+    # moved_at: "Moved at"
     moved_on: "Fait le"
     moves: "Mouvements"
     name: "Nom"
@@ -840,9 +849,11 @@ fra:
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
+    # planned_at: "Planned at"
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     position: "Position"
+    posologies: "Posologies"
     postcode: "Code postal"
     preferences: "Préférences"
     pregnant: "Pleine"
@@ -1031,7 +1042,7 @@ fra:
     transporter_sales: "Ventes de transporteurs"
     transporters: "Transporteurs"
     transports: "Transports"
-    treatment: "Traitement"
+    treatment: "Traitement" #?
     treatment_uses: "Treatment uses"
     treatments: "Treatments"
     undelivered_quantity: "Reste à livrer"
@@ -1077,6 +1088,7 @@ fra:
     with_tracking: "Avec tracabilité"
     with_transport: "Avec transport"
     work_center: "Centre d’opération"
+    # working_number: "Working number"
     # zone: "Zone"
   models:
     account:

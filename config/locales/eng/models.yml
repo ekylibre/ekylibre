@@ -9,6 +9,10 @@ eng:
         # pregnant: "Surveillance de la gestation"
       animal_race:
         # code: "Code race"
+      animal_treatment_use:
+        # drug_admission_path: "Voie d’admission"
+        # per_animal_unit: " / "
+        # quantity_unit: "Unité"
       asset_depreciation:
         asset_amount: "Accountable value"
       cash:
@@ -813,6 +817,7 @@ eng:
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
     position: "Position"
+    # posologies: "Posologies"
     postcode: "Postcode"
     preferences: "Preferences"
     # pregnant: "Pleine"

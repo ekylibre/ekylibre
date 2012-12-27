@@ -22,7 +22,7 @@
 
 
 
-class Prescription < CompanyRecord
+class AnimalPrescription < CompanyRecord
   has_many :treatments, :class_name=>"AnimalTreatment", :foreign_key => :prescription_id
   belongs_to :prescriptor, :class_name=>"Entity"
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }

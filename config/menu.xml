@@ -391,6 +391,18 @@
       <page to="animals#show"/>
       <page to="animals#update"/>
     </menu>
+    <menu name="animal_groups">
+        <page to="animal_groups#index"/>
+        <page to="animal_groups#create"/>
+        <page to="animal_groups#destroy"/>
+        <page to="animal_groups#edit"/>
+        <page to="animal_groups#list"/>
+        <page to="animal_groups#list_animals"/>
+        <page to="animal_groups#list_events"/>
+        <page to="animal_groups#new"/>
+        <page to="animal_groups#show"/>
+        <page to="animal_groups#update"/>
+    </menu>
     <menu name="land_parcels">
       <page to="land_parcels#index"/>
       <page to="land_parcels#create"/>
@@ -809,18 +821,6 @@
         <page to="operation_natures#new"/>
         <page to="operation_natures#update"/>
       </menu>
-      <menu name="animal_groups">
-        <page to="animal_groups#index"/>
-        <page to="animal_groups#create"/>
-        <page to="animal_groups#destroy"/>
-        <page to="animal_groups#edit"/>
-        <page to="animal_groups#list"/>
-        <page to="animal_groups#list_animals"/>
-        <page to="animal_groups#list_events"/>
-        <page to="animal_groups#new"/>
-        <page to="animal_groups#show"/>
-        <page to="animal_groups#update"/>
-      </menu>
       <menu name="animal_race_natures">
         <page to="animal_race_natures#index"/>
         <page to="animal_race_natures#create"/>
@@ -861,55 +861,55 @@
         <page to="animal_treatments#show"/>
         <page to="animal_treatments#update"/>
       </menu>
-      <menu name="animal_treatment_uses">
-        <page to="animal_treatment_uses#index"/>
-        <page to="animal_treatment_uses#create"/>
-        <page to="animal_treatment_uses#destroy"/>
-        <page to="animal_treatment_uses#edit"/>
-        <page to="animal_treatment_uses#list"/>
-        <page to="animal_treatment_uses#new"/>
-        <page to="animal_treatment_uses#show"/>
-        <page to="animal_treatment_uses#update"/>
+      <menu name="animal_diseases">
+        <page to="animal_diseases#index"/>
+        <page to="animal_diseases#create"/>
+        <page to="animal_diseases#destroy"/>
+        <page to="animal_diseases#edit"/>
+        <page to="animal_diseases#list"/>
+        <page to="animal_diseases#new"/>
+        <page to="animal_diseases#show"/>
+        <page to="animal_diseases#update"/>
       </menu>
-      <menu name="diseases">
-        <page to="diseases#index"/>
-        <page to="diseases#create"/>
-        <page to="diseases#destroy"/>
-        <page to="diseases#edit"/>
-        <page to="diseases#list"/>
-        <page to="diseases#new"/>
-        <page to="diseases#show"/>
-        <page to="diseases#update"/>
+      <menu name="animal_drug_natures">
+        <page to="animal_drug_natures#index"/>
+        <page to="animal_drug_natures#create"/>
+        <page to="animal_drug_natures#destroy"/>
+        <page to="animal_drug_natures#edit"/>
+        <page to="animal_drug_natures#list"/>
+        <page to="animal_drug_natures#new"/>
+        <page to="animal_drug_natures#show"/>
+        <page to="animal_drug_natures#update"/>
       </menu>
-      <menu name="drug_natures">
-        <page to="drug_natures#index"/>
-        <page to="drug_natures#create"/>
-        <page to="drug_natures#destroy"/>
-        <page to="drug_natures#edit"/>
-        <page to="drug_natures#list"/>
-        <page to="drug_natures#new"/>
-        <page to="drug_natures#show"/>
-        <page to="drug_natures#update"/>
+      <menu name="animal_drugs">
+        <page to="animal_drugs#index"/>
+        <page to="animal_drugs#create"/>
+        <page to="animal_drugs#destroy"/>
+        <page to="animal_drugs#edit"/>
+        <page to="animal_drugs#list"/>
+        <page to="animal_drugs#new"/>
+        <page to="animal_drugs#show"/>
+        <page to="animal_drugs#update"/>
       </menu>
-      <menu name="drugs">
-        <page to="drugs#index"/>
-        <page to="drugs#create"/>
-        <page to="drugs#destroy"/>
-        <page to="drugs#edit"/>
-        <page to="drugs#list"/>
-        <page to="drugs#new"/>
-        <page to="drugs#show"/>
-        <page to="drugs#update"/>
+      <menu name="animal_posologies">
+        <page to="animal_posologies#index"/>
+        <page to="animal_posologies#create"/>
+        <page to="animal_posologies#destroy"/>
+        <page to="animal_posologies#edit"/>
+        <page to="animal_posologies#list"/>
+        <page to="animal_posologies#new"/>
+        <page to="animal_posologies#show"/>
+        <page to="animal_posologies#update"/>
       </menu>
-      <menu name="prescriptions">
-        <page to="prescriptions#index"/>
-        <page to="prescriptions#create"/>
-        <page to="prescriptions#destroy"/>
-        <page to="prescriptions#edit"/>
-        <page to="prescriptions#list"/>
-        <page to="prescriptions#new"/>
-        <page to="prescriptions#show"/>
-        <page to="prescriptions#update"/>
+      <menu name="animal_prescriptions">
+        <page to="animal_prescriptions#index"/>
+        <page to="animal_prescriptions#create"/>
+        <page to="animal_prescriptions#destroy"/>
+        <page to="animal_prescriptions#edit"/>
+        <page to="animal_prescriptions#list"/>
+        <page to="animal_prescriptions#new"/>
+        <page to="animal_prescriptions#show"/>
+        <page to="animal_prescriptions#update"/>
       </menu>
       <menu name="tools">
         <page to="tools#index"/>
@@ -934,15 +934,15 @@
       <page to="dashboards#list_recent_events"/>
       <page to="dashboards#welcome"/>
     </menu>
-    <menu name="diagnostics">
-      <page to="diagnostics#index"/>
-      <page to="diagnostics#create"/>
-      <page to="diagnostics#destroy"/>
-      <page to="diagnostics#edit"/>
-      <page to="diagnostics#list"/>
-      <page to="diagnostics#new"/>
-      <page to="diagnostics#show"/>
-      <page to="diagnostics#update"/>
+    <menu name="animal_diagnostics">
+      <page to="animal_diagnostics#index"/>
+      <page to="animal_diagnostics#create"/>
+      <page to="animal_diagnostics#destroy"/>
+      <page to="animal_diagnostics#edit"/>
+      <page to="animal_diagnostics#list"/>
+      <page to="animal_diagnostics#new"/>
+      <page to="animal_diagnostics#show"/>
+      <page to="animal_diagnostics#update"/>
     </menu>
     <menu name="entities">
       <page to="entities#list_addresses"/>
