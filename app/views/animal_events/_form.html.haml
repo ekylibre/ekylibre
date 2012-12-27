@@ -1,10 +1,12 @@
 =field_set do
   -input :name
   -association :nature, :as => :radio_buttons
-  -association :animal, :label_method => :list_animal_full_name , :value_method => :id, :include_blank => true, :default_value => :blank
-  -association :animal_group, :include_blank => true, :default_value => :blank
 
--field_set(:delays) do |f|
+-field_set(:animal) do |f|
+  -association :animal
+  -association :animal_group
+
+-field_set(:delay) do |f|
   -input :started_on
   -input :stopped_on, :include_blank => true, :default_value => :blank
 

@@ -841,6 +841,16 @@
         <page to="animal_races#show"/>
         <page to="animal_races#update"/>
       </menu>
+      <menu name="animal_event_natures">
+        <page to="animal_event_natures#index"/>
+        <page to="animal_event_natures#create"/>
+        <page to="animal_event_natures#destroy"/>
+        <page to="animal_event_natures#edit"/>
+        <page to="animal_event_natures#list"/>
+        <page to="animal_event_natures#new"/>
+        <page to="animal_event_natures#show"/>
+        <page to="animal_event_natures#update"/>
+      </menu>
       <menu name="animal_treatments">
         <page to="animal_treatments#index"/>
         <page to="animal_treatments#create"/>
@@ -895,19 +905,6 @@
     </menu>
   </menu>
   <undefined>
-    <menu name="animal_event_natures">
-      <page to="animal_event_natures#index"/>
-      <page to="animal_event_natures#create"/>
-      <page to="animal_event_natures#destroy"/>
-      <page to="animal_event_natures#edit"/>
-      <page to="animal_event_natures#list"/>
-      <page to="animal_event_natures#new"/>
-      <page to="animal_event_natures#show"/>
-      <page to="animal_event_natures#update"/>
-    </menu>
-    <menu name="animals">
-      <page to="animals#list_events"/>
-    </menu>
     <menu name="companies">
       <page to="companies#register"/>
     </menu>

@@ -7,7 +7,7 @@
   -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   -input :comment # affiche le champ comment formaté en zone de texte
   -input :picture
-=image_tag(@animal.picture.url(:thumb))
+  =image_tag(@animal.picture.url(:thumb))
 
 -field_set(:genealogy) do # partie entrée sortie de l entité animal
   -association :father, :collection => Animal.where(:sex => "male").order("name ASC")
