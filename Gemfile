@@ -46,7 +46,7 @@ group :assets do
   # gem 'dojox-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '~> 3.3.10.4'
+  gem 'libv8', '~> 3.11.8'
   gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'
