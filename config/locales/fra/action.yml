@@ -9,6 +9,26 @@ fra:
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
+    animal_diagnostics:
+      edit: "Modifier un diagnostic"
+      index: "Diagnostic"
+      new: "Nouveau diagnostic"
+      show: "Diagnostic\_: %{name}"
+    animal_diseases:
+      edit: "Modifier la maladie\_: %{name}"
+      index: "Maladies"
+      new: "Nouvelle maladie"
+      show: "Maladie\_: %{name}"
+    animal_drug_natures:
+      edit: "Modifier le type de médicament\_: %{name}"
+      index: "Types de médicament"
+      new: "Nouveau type de médicament"
+      show: "Type de médicament\_: %{name}"
+    animal_drugs:
+      edit: "Modifier le médicament\_: %{name}"
+      index: "Médicaments"
+      new: "Nouveau médicament"
+      show: "Médicament\_: %{name}"
     animal_event_natures:
       edit: "Modifier un type d'évènement"
       index: "Type d'évènement"
@@ -24,6 +44,16 @@ fra:
       index: "Lots d'animaux"
       new: "Créer un lot"
       show: "Lot\_: %{name}"
+    animal_posologies:
+      edit: "Modifier une posologie"
+      index: "Posologie"
+      new: "Nouvelle posologie"
+      show: "Posologie\_: %{name}"
+    animal_prescriptions:
+      edit: "Modifier une ordonnance"
+      index: "Ordonnance"
+      new: "Nouvelle ordonnance"
+      show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     animal_race_natures:
       edit: "Modifier le type de race\_: %{name} "
       index: "Type de race"
@@ -110,16 +140,6 @@ fra:
       new: "Effectuer une remise"
       show: "Remise en banque %{number} du %{created_on}"
       unvalidateds: "Remises en banque non validées"
-    diagnostics:
-      # edit: "Edit diagnostic"
-      # index: "Index diagnostic"
-      # new: "New diagnostic"
-      # show: "Show diagnostic"
-    diseases:
-      edit: "Modifier la maladie\_: %{name}"
-      index: "Maladies"
-      new: "Nouvelle maladie"
-      show: "Maladie\_: %{name}"
     districts:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
@@ -130,16 +150,6 @@ fra:
       load: "Charger les modèles de document par défaut"
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple"
-    drug_natures:
-      edit: "Modifier le type de médicament\_: %{name}"
-      index: "Types de médicament"
-      new: "Nouveau type de médicament"
-      show: "Type de médicament\_: %{name}"
-    drugs:
-      edit: "Modifier le médicament\_: %{name}"
-      index: "Médicaments"
-      new: "Nouveau médicament"
-      show: "Médicament\_: %{name}"
     entities:
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
@@ -150,8 +160,8 @@ fra:
       new: "Nouvelle fiche client/fournisseur"
       show: "Fiche\_: %{full_name}"
     entity_addresses:
-      # edit: "Edit entity address"
-      # new: "New entity address"
+      edit: "Modifier une coordonnée"
+      new: "Ajouter une coordonnée"
     entity_categories:
       edit: "Modifier la catégorie de fiche\_: %{name}"
       index: "Catégories de fiche"
@@ -301,6 +311,11 @@ fra:
       index: "Décaissements"
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
+    preferences:
+      # edit: "Edit preference"
+      # index: "Index preference"
+      # new: "New preference"
+      # show: "Show preference"
     prices:
       edit: "Modifie le prix %{pretax_amount}/%{amount} sur %{product}"
       export: "Exporter les prix"
@@ -436,10 +451,10 @@ fra:
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
     tool_natures:
-      # edit: "Edit tool nature"
-      # index: "Index tool nature"
-      # new: "New tool nature"
-      # show: "Show tool nature"
+      edit: "Modifier un type de matériel"
+      index: "Type de matériel / équipement"
+      new: "Nouveau type de matériel"
+      show: "Type de matériel\_: %{name}"
     tools:
       edit: "Modifier le matériel\_: %{name}"
       index: "Matériel"
@@ -475,11 +490,17 @@ fra:
     account_balances: "Soldes de comptes"
     accounts: "Plan de comptes"
     # admin: "Admin"
+    # animal_diagnostics: "Animal diagnostics"
+    # animal_diseases: "Animal diseases"
+    # animal_drug_natures: "Animal drug natures"
+    # animal_drugs: "Animal drugs"
     animal_event_natures: "Type d'évenements des Animaux"
     animal_events: "Evenements des Animaux"
     animal_groups: "Lot d'Animaux"
-    # animal_race_natures: "Animal race natures"
-    # animal_races: "Animal races"
+    # animal_posologies: "Animal posologies"
+    # animal_prescriptions: "Animal prescriptions"
+    animal_race_natures: "Espèces animales"
+    animal_races: "Races"
     animal_treatments: "Soins des Animaux"
     animals: "Animaux"
     application: "Application"
@@ -500,15 +521,11 @@ fra:
     departments: "Services"
     deposit_lines: "Lignes de remise en banque"
     deposits: "Remises en banque"
-    # diagnostics: "Diagnostics"
-    diseases: "Maladies"
     districts: "Zones administratives"
     document_templates: "Modèles de document"
     documents: "Documents"
-    # drug_natures: "Drug natures"
-    drugs: "Médicaments"
     entities: "Personnes"
-    # entity_addresses: "Entity addresses"
+    entity_addresses: "Adresses"
     entity_categories: "Catégories de fiche"
     entity_link_natures: "Types de lien"
     entity_links: "Liens entre personnes"
@@ -763,8 +780,8 @@ fra:
     debit: "Débit"
     decimal_case: "Options pour un décimal"
     default_subject: "[%{company}]"
-    delay_update: "Modifier le délai"
     delay: "Délais"
+    delay_update: "Modifier le délai"
     delete: "Supprimer"
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
@@ -1498,7 +1515,7 @@ fra:
     changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
     closed_financial_years: "L’exercice a été correctement clôturé"
     columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
-    draft_entry_lines_are_validated:
+    draft_entry_lines_are_validated: 
       one: "%{count} ligne de brouillard validée"
       other: "%{count} lignes de brouillard validées"
       zero: "Aucune ligne de brouillard validée"
@@ -1569,7 +1586,7 @@ fra:
     unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
     update_is_done: "La mise à jour a été effectuée"
     validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau"
-    x_unpointed_journal_entry_lines:
+    x_unpointed_journal_entry_lines: 
       one: "Il y a une écriture à pointer"
       other: "Il y a %{count} écritures à pointer"
       zero: "Il n’y a pas d’écritures à pointer pour l’instant"

@@ -18,27 +18,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: diseases
+# == Table: drugs
 #
-#  code         :string(255)
+#  comment      :text
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  frequency    :integer          default(1)
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
+#  nature_id    :integer          not null
+#  quantity     :decimal(19, 4)   default(0.0)
+#  unit_id      :integer
 #  updated_at   :datetime         not null
 #  updater_id   :integer
-#  zone         :string(255)
 #
 
 
-class Disease < CompanyRecord
-  has_many :diagnostics, :class_name => "Diagnostic"
-  has_many :events, :class_name => "AnimalEvent", :through => :diagnostics
+class AnimalDrug < CompanyRecord
+  belongs_to :nature, :class_name => "AnimalDrugNature"
+  belongs_to :unit
+  has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :drug_id
   has_many :treatments, :class_name => "AnimalTreatment"
-  has_many :drugs, :class_name => "Drug", :through => :treatments
+  has_many :diseases, :class_name => "AnimalDisease", :through => :treatments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :name, :zone, :allow_nil => true, :maximum => 255
-  validates_presence_of :name
+  validates_numericality_of :frequency, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_presence_of :name, :nature
   #]VALIDATORS]
+  validates_uniqueness_of :name
 end

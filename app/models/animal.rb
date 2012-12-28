@@ -49,12 +49,12 @@
 
 
 class Animal < CompanyRecord
-  attr_accessible :born_on, :ceded_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :purchased_on, :race_id, :sex
+  attr_accessible :born_on, :ceded_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :purchased_on, :race_id, :sex, :working_number
   enumerize :sex, :in => [:male, :female]
   belongs_to :group, :class_name => "AnimalGroup"
   belongs_to :race, :class_name => "AnimalRace"
-  belongs_to :father, :class_name => "Animal"
-  belongs_to :mother, :class_name => "Animal"
+  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male}
+  belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
   has_many :events, :class_name => "AnimalEvent",:foreign_key => :animal_id
   has_many :treatments, :class_name => "AnimalTreatment", :through => :events
   has_attached_file :picture, :styles => { :medium => "300x300>", :thumb => "100x100>" }
@@ -62,11 +62,12 @@ class Animal < CompanyRecord
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :sex, :allow_nil => true, :maximum => 16
-  validates_length_of :identification_number, :name, :picture_content_type, :picture_file_name, :allow_nil => true, :maximum => 255
+  validates_length_of :identification_number, :name, :picture_content_type, :picture_file_name, :working_number, :allow_nil => true, :maximum => 255
   validates_presence_of :group, :identification_number, :name, :sex
   #]VALIDATORS]
   validates_uniqueness_of :name, :identification_number
   validates_inclusion_of :sex, :in => self.sex.values
+  validates_length_of :working_number, :allow_nil => true, :maximum => 4
 
    # construction d'une liste permettant l'affichage des animaux dans les formulaires avec les info importantes sur leur identités
    # @example

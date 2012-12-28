@@ -18,4 +18,24 @@
 #
 
 class PreferencesController < AdminController
+  manage_restfully
+
+  list() do |t|
+    t.column :name, :url=>true
+    t.column :nature
+    t.action :show, :url=>{:format=>:pdf}, :image=>:print
+    t.action :edit
+    t.action :destroy, :if=>"RECORD.destroyable\?"
+  end
+
+  # Show a list of @prescription
+  def index
+  end
+
+  # Show one prescription with params_id
+  def show
+    return unless @preference = find_and_check
+    session[:current_preference_id] = @preference.id
+    t3e @preference
+  end
 end

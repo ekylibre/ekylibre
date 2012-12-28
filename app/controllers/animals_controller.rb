@@ -41,7 +41,7 @@ class AnimalsController < AdminController
     @animals = Animal.all
     respond_with @animals
   end
-  
+
   # Liste des soins de l'animal considéré
   list(:events, :model=>:animal_events, :conditions=>{:animal_id=>['session[:current_animal_id]']}, :order=>"started_on ASC") do |t|
     t.column :name, :url=>true

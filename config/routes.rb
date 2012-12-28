@@ -82,6 +82,26 @@ Ekylibre::Application.routes.draw do
      # match "/print" => "animals#print"
     end
   end
+  resources :animal_diagnostics do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_diseases do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_drugs do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_drug_natures do
+    collection do
+      get :list
+    end
+  end
   resources :animal_events do
     collection do
       get :list
@@ -97,6 +117,16 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_animals
       get :list_events
+    end
+  end
+  resources :animal_posologies do
+    collection do
+      get :list
+    end
+  end
+  resources :animal_prescriptions do
+    collection do
+      get :list
     end
   end
   resources :animal_races do
@@ -193,16 +223,6 @@ Ekylibre::Application.routes.draw do
     end
   end
   # resources :deposit_lines
-  resources :diagnostics do
-    collection do
-      get :list
-    end
-  end
-  resources :diseases do
-    collection do
-      get :list
-    end
-  end
   resources :districts do
     collection do
       get :list
@@ -221,16 +241,6 @@ Ekylibre::Application.routes.draw do
   resources :documents do
     collection do
       get :print
-    end
-  end
-  resources :drugs do
-    collection do
-      get :list
-    end
-  end
-  resources :drug_natures do
-    collection do
-      get :list
     end
   end
   resources :entities do
@@ -454,6 +464,11 @@ Ekylibre::Application.routes.draw do
       match "export", :via => [:get, :post]
       match "import", :via => [:get, :post]
       get :find
+    end
+  end
+  resources :preferences do
+    collection do
+      get :list
     end
   end
   resources :products do

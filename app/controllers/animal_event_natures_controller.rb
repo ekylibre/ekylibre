@@ -22,6 +22,7 @@ class AnimalEventNaturesController < AdminController
 
   list() do |t|
     t.column :name, :url=>true
+    t.column :description
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"

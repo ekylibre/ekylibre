@@ -41,12 +41,20 @@
 
 class AnimalEvent < CompanyRecord
   belongs_to :nature, :class_name => "AnimalEventNature"
-  belongs_to :animal
-  belongs_to :animal_group
-  belongs_to :treatment, :class_name => "AnimalTreatment"
+  belongs_to :animal, :class_name => "Animal"
+  belongs_to :animal_group, :class_name => "AnimalGroup"
+  belongs_to :parent, :class_name => "AnimalEvent"
+  has_many :treatment_uses  , :class_name => "AnimalTreatmentUse", :foreign_key => :event_id
+  has_many :treatments, :through => :treatment_uses
   belongs_to :watcher, :class_name => "Entity"
-  has_many :diagnostics, :foreign_key => :event_id
+  has_many :diagnostics,:class_name => "Diagnostic", :foreign_key => :event_id
   has_many :diseases, :through => :diagnostics
+  
+  accepts_nested_attributes_for :treatment_uses,    :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :treatments,    :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :diagnostics,    :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :diseases,    :reject_if => :all_blank, :allow_destroy => true
+  
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature

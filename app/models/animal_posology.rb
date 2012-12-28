@@ -18,24 +18,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: diagnostics
-#
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  disease_id   :integer
-#  event_id     :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  symptoms     :string(255)
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#
+# == Table: posologies
 
 
-class Diagnostic < CompanyRecord
-  belongs_to :event, :class_name => "AnimalEvent"
-  belongs_to :disease, :class_name => "Disease"
+class AnimalPosology < CompanyRecord
+  belongs_to :animal_race_nature, :class_name=>"AnimalRaceNature"
+  belongs_to :drug, :class_name=>"AnimalDrug"
+  belongs_to :disease, :class_name=>"AnimalDisease"
+  belongs_to :quantity_unit, :class_name=>"Unit"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :symptoms, :allow_nil => true, :maximum => 255
+  validates_numericality_of :duration_wait_for_meat, :duration_wait_for_milk, :frequency, :allow_nil => true, :only_integer => true
+  validates_numericality_of :quantity, :allow_nil => true
+  validates_length_of :description, :drug_admission_path, :duration_unit_wait_for_meat, :duration_unit_wait_for_milk, :per_duration_time_unit, :per_frequency_time_unit, :allow_nil => true, :maximum => 255
+  validates_presence_of :frequency, :quantity
   #]VALIDATORS]
+
 end

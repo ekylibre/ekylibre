@@ -11,7 +11,31 @@ eng:
       unmark: "Unmark account"
     animal_care_natures: #?
     animal_cares: #?
-    animal_event_natures: #?
+    animal_diagnostics:
+      # edit: "Modifier un diagnostic"
+      # index: "Diagnostic"
+      # new: "Nouveau diagnostic"
+      # show: "Diagnostic\_: %{name}"
+    animal_diseases:
+      # edit: "Modifier la maladie\_: %{name}"
+      # index: "Maladies"
+      # new: "Nouvelle maladie"
+      # show: "Maladie\_: %{name}"
+    animal_drug_natures:
+      # edit: "Modifier le type de médicament\_: %{name}"
+      # index: "Types de médicament"
+      # new: "Nouveau type de médicament"
+      # show: "Type de médicament\_: %{name}"
+    animal_drugs:
+      # edit: "Modifier le médicament\_: %{name}"
+      # index: "Médicaments"
+      # new: "Nouveau médicament"
+      # show: "Médicament\_: %{name}"
+    animal_event_natures:
+      # edit: "Modifier un type d'évènement"
+      # index: "Type d'évènement"
+      # new: "Créer un type d'évènement"
+      # show: "Type d'évènement %{name}"
     animal_events:
       # edit: "Modifier un évènement"
       # index: "Evènements"
@@ -22,6 +46,16 @@ eng:
       # index: "Lots d'animaux"
       # new: "Créer un lot"
       # show: "Lot\_: %{name}"
+    animal_posologies:
+      # edit: "Modifier une posologie"
+      # index: "Posologie"
+      # new: "Nouvelle posologie"
+      # show: "Posologie\_: %{name}"
+    animal_prescriptions:
+      # edit: "Modifier une ordonnance"
+      # index: "Ordonnance"
+      # new: "Nouvelle ordonnance"
+      # show: "Ordonnance\_: %{name} du \_: %{prescripted_on}"
     animal_race_natures:
       # edit: "Modifier le type de race\_: %{name} "
       # index: "Type de race"
@@ -32,6 +66,7 @@ eng:
       # index: "Races"
       # new: "Créer une race"
       # show: "Race\_: %{name}"
+    animal_treatment_uses: #?
     animal_treatments:
       # edit: "Modifier le traitement\_: %{name} "
       # index: "Traitements"
@@ -113,11 +148,7 @@ eng:
       show: "Deposit %{number} on %{created_on}"
       unvalidateds: "Unvalidated deposits"
     diagnostics: #?
-    diseases:
-      # edit: "Modifier la maladie\_: %{name}"
-      # index: "Maladies"
-      # new: "Nouvelle maladie"
-      # show: "Maladie\_: %{name}"
+    diseases: #?
     districts:
       edit: "Edit the district: %{name}"
       index: "Districts"
@@ -128,16 +159,8 @@ eng:
       load: "Load default document templates (overwrite the old templates)"
       new: "Add a new document template"
       print: "Print document template"
-    drug_natures:
-      # edit: "Modifier le type de médicament\_: %{name}"
-      # index: "Types de médicament"
-      # new: "Nouveau type de médicament"
-      # show: "Type de médicament\_: %{name}"
-    drugs:
-      # edit: "Modifier le médicament\_: %{name}"
-      # index: "Médicaments"
-      # new: "Nouveau médicament"
-      # show: "Médicament\_: %{name}"
+    drug_natures: #?
+    drugs: #?
     entities:
       destroy: "Remove person"
       edit: "Edit person: %{full_name}"
@@ -147,7 +170,9 @@ eng:
       merge: "Merge two people"
       new: "Add a new person"
       show: "Person: %{full_name}"
-    entity_addresses: #?
+    entity_addresses:
+      # edit: "Modifier une coordonnée"
+      # new: "Ajouter une coordonnée"
     entity_categories:
       edit: "Edit the person category: %{name}"
       index: "Person categories"
@@ -297,6 +322,9 @@ eng:
       index: "Disbursements"
       new: "Add a new disbursement"
       show: "Disbursement %{number} for %{payee}"
+    posologies: #?
+    preferences: #?
+    prescriptions: #?
     prices:
       edit: "Edit price %{pretax_amount}/%{amount} of %{product}"
       export: "Export prices"
@@ -431,7 +459,11 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    tool_natures: #?
+    tool_natures:
+      # edit: "Modifier un type de matériel"
+      # index: "Type de matériel / équipement"
+      # new: "Nouveau type de matériel"
+      # show: "Type de matériel\_: %{name}"
     tools:
       edit: "Edit tool: %{name}"
       index: "Tools"
@@ -469,6 +501,8 @@ eng:
     # animal_event_natures: "Type d'évenements des Animaux"
     # animal_events: "Evenements des Animaux"
     # animal_groups: "Lot d'Animaux"
+    # animal_race_natures: "Espèces animales"
+    # animal_races: "Races"
     # animal_treatments: "Soins des Animaux"
     # animals: "Animaux"
     application: "Application"
@@ -489,12 +523,11 @@ eng:
     departments: "Departments"
     deposit_lines: "Deposit lines"
     deposits: "Deposits"
-    # diseases: "Maladies"
     districts: "Districts"
     document_templates: "Document templates"
     documents: "Documents"
-    # drugs: "Médicaments"
     entities: "People"
+    # entity_addresses: "Adresses"
     entity_categories: "Person categories"
     entity_link_natures: "Link types"
     entity_links: "Entity links"
@@ -629,6 +662,7 @@ eng:
     amount_to_add: "Total to add"
     amount_to_reduce: "Total to reduce"
     # amount_with_taxes: "Montant TTC"
+    # animal: "Animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
@@ -747,8 +781,9 @@ eng:
     debit: "Debit"
     decimal_case: "Decimal case"
     default_subject: "[%{company}]"
+    # delay: "Délais"
     delay_update: "Edit delay"
-    delays: "Delays"
+    delays: "Delays" #?
     delete: "Delete"
     deliver: "Delivered on"
     deliveries: "Deliveries"

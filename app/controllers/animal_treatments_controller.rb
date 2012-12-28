@@ -24,8 +24,9 @@ class AnimalTreatmentsController < AdminController
     t.column :name, :url=>true
     t.column :name, :through=>:disease, :url=>true
     t.column :name, :through=>:drug, :url=>true
-    t.column :name, :through=>:prescriptor
-    t.column :started_on
+    t.column :prescription_number, :through=>:prescription
+    t.column :started_at
+    t.column :stopped_at
     t.column :duration
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
