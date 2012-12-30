@@ -19,6 +19,9 @@
 
 class EntitiesController < AdminController
 
+
+  unroll :all
+
   list(:select => {[:addresses, :mail_line_6] => :line_6}, :conditions => search_conditions(:entities, :entities => [:code, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.code") do |t|
     t.column :active, :datatype => :boolean
     t.column :code, :url => true

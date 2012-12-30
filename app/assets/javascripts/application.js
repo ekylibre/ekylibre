@@ -15,7 +15,6 @@
 //= require jquery_ujs
 //= require active-list.jquery
 //= require formize
-//= require combo_box
 //= require big-integer
 //= require scheme-number
 //= require raphael
@@ -26,4 +25,7 @@
 //= require g.pie
 //= require cocoon
 //= require bootstrap
+//= require support
+//= require selector
+//= require ui
 //= require_tree .

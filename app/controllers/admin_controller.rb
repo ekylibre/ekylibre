@@ -33,6 +33,81 @@ class AdminController < BaseController
   # local_addresses.clear
 
 
+
+  def self.unroll(name, options = {})
+    model = (options.delete(:model) || controller_name.singularize).to_s.classify.constantize
+    foreign_record  = model.name.underscore
+    foreign_records = foreign_record.pluralize
+    scope_name = options.delete(:scope) || name
+    max = options[:max] || 80
+    unless label = options.delete(:label)
+      available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
+      label = [:label, :full_name, :native_name, :title, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x)}
+    end
+    label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name}"))
+
+    columns = []
+    item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
+      ca = word[1..-2].split(":")
+      column = model.columns_hash[ca[0]]
+      columns << {column: column, name: column.name, filter: ca[1]|| "X%"} 
+      '" + item.' + column.name + '.l + "'
+    end
+
+    haml  = ""
+    haml << "-if items.count > 0\n"
+    haml << "  %ul.items-list\n"
+    haml << "    -for item in items.limit(items.count > #{(max*1.5).round} ? #{max} : #{max*2})\n"
+    haml << "      %li{'data-item-label' => #{item_label}, 'data-item-id' => item.id}\n"
+    if options[:partial]
+      haml << "        =render :partial => '#{partial}', :object => item\n"
+    else
+      haml << "        =highlight(#{item_label}, keys)\n"
+    end
+    haml << "  -if items.count > #{(max*1.5).round}\n"
+    haml << "    %span.items-status.items-status-too-many-records\n"
+    haml << "      =I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
+    haml << "-else\n"
+    haml << "  %span.items-status.items-status-empty\n"
+    haml << "    =I18n.t('labels.no_results')\n"
+
+    # Write haml in cache
+    file_name = name.to_s
+    dir = Rails.root.join("tmp", "cache", "unroll", *(self.name.underscore.gsub(/_controller$/, '').split('/')))
+    FileUtils.mkdir_p(dir)
+    File.open(dir.join("#{file_name}.html.haml"), "wb") do |f|
+      f.write(haml)
+    end
+
+    code  = "def unroll_#{name}\n"
+    code << "  conditions = []\n"
+    code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
+    code << "  if params[:id]\n"
+    code << "    conditions = {:id => params[:id]}\n"
+    code << "  elsif keys.size > 0\n"
+    code << "    conditions[0] = '('\n"
+    code << "    keys.each_with_index do |key, index|\n"
+    code << "      conditions[0] << ') AND (' if index > 0\n"
+    searchable_columns = columns.delete_if{ |c| c[:column].type == :boolean }
+    code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{column[:name]} AS VARCHAR)) LIKE ?"}.join(' OR ').inspect + "\n"
+    code << "      conditions += [" + searchable_columns.collect{|column| column[:filter].inspect.gsub('X', '" + key + "').gsub(/(^\"\"\+|\+\"\"\+|\+\"\")/, '')}.join(", ") + "]\n"
+    code << "    end\n"
+    code << "    conditions[0] << ')'\n"
+    code << "  end\n"
+    code << "  items = #{model.name}.where(conditions)#{'.' + scope_name.to_s if scope_name != :all}\n"
+    code << "  respond_to do |format|\n"
+    code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys }, :layout => false }\n"
+    code << "    format.json { render :json => items.collect{|item| {:label=>#{item_label}, :id => item.id}}.to_json }\n"
+    code << "    format.xml  { render  :xml => items.collect{|item| {:label=>#{item_label}, :id => item.id}}.to_xml }\n"
+    code << "  end\n"
+    code << "end"
+    puts code
+    class_eval(code)
+  end
+
+
+
+
   # Generate render_print_* method which send data corresponding to a nature of
   # document template. It use special method +print_fastly!+.
   for nature, parameters in DocumentTemplate.document_natures

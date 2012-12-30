@@ -609,6 +609,9 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    x_items_remain_on_y:
+      one: "%{count} élément restant."
+      other: "%{count} éléments non visibles. Affinez votre recherche."
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "-- Créer automatiquement un compte mandataire --"
     account_claims_assets: "Créances"

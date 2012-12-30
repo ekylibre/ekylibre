@@ -42,6 +42,10 @@ module Ekylibre::Record
       true
     end
 
+    def others
+      self.class.where("id != ?", self.id || -1)
+    end
+
     # Updates the associated record with values matching those of the instance attributes.
     # Returns the number of affected rows.
     def update_strictly(attribute_names = @attributes.keys)

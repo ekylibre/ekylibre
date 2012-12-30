@@ -182,7 +182,6 @@ class Entity < CompanyRecord
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
   validates_presence_of :category
-  validates_uniqueness_of :code
   validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.hashed_password.blank? and e.loggable?}
   validates_confirmation_of :password
   validates_inclusion_of :maximum_grantable_reduction_percent, :in => 0..100

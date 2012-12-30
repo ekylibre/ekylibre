@@ -29,21 +29,21 @@
   =association :category
   =input :origin, :autocomplete => true
   =input :first_met_on
-  =association :proposer, :source => "self#others"
-  =association :responsible, :source => "self#others", :after => :category
+  =association :proposer, :source => "entities#all"
+  =association :responsible, :source => "entities#employees", :after => :category
   =input :vat_submissive
   =input :reflation_submissive
   -#=input :discount_rate
   =input :reduction_rate
   =input :authorized_payments_count
   =input :deliveries_conditions, :field => :text
-  =association :client_account, :source => "Account#client_thirds", :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
+  =association :client_account, :source => "accounts#client_thirds", :buttons => {:new => {:number => Account.find_in_chart(:client_thirds).number}}
 
 =field_set(:supplier_informations) do # |f|
-  =association :supplier_account, :source => "Account#supplier_thirds", :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
+  =association :supplier_account, :source => "accounts#supplier_thirds", :buttons => {:new => {:number => Account.find_in_chart(:supplier_thirds).number}}
 
 =field_set(:attorney_informations, :after => :client_informations) do # |f|
-  =association :attorney_account, :source => "Account#attorney_thirds", :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
+  =association :attorney_account, :source => "accounts#attorney_thirds", :buttons => {:new => {:number => Account.find_in_chart(:attorney_thirds).number}}
 
 =field_set(:coordinates, :major => true) do # |f|
   =nested_association(:emails) do

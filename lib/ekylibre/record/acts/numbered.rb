@@ -18,26 +18,31 @@ module Ekylibre::Record
 
           sequence = options[:sequence] || self.name.underscore.pluralize # "#{self.name.underscore.pluralize}_sequence"
 
-          # last = "#{self.name}.find(:first, :conditions=>['#{column} IS NOT NULL'], :order=>#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC')"
-          last = "#{self.name}.where('#{column} IS NOT NULL').order(#{self.name}.connection.length('#{column}')+' DESC, #{column} DESC').first"
+          last  = "#{self.name}.where('#{column} IS NOT NULL').order('LENGTH(#{column}) DESC, #{column} DESC').first"
 
-          code = ""
+          code  = ""
 
           code << "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
 
-          code << "validates_presence_of :#{column}, :if=>lambda{|r| not r.#{column}.blank?}\n"
+          code << "validates_presence_of :#{column}, :if => lambda{ |r| not r.#{column}.blank?}\n"
 
           code << "validates_uniqueness_of :#{column}\n"
 
           code << "before_validation(:on => :create) do\n"
           code << "  last = #{last}\n"
           code << "  self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
+          code << "  while self.class.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "    self.#{column}.succ!\n"
+          code << "  end\n"
           code << "  return true\n"
           code << "end\n"
 
           code << "after_validation(:on => :create) do\n"
           code << "  if sequence = Sequence.of('#{sequence}')\n"
           code << "    self.#{column} = sequence.next_value\n"
+          code << "    while self.class.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "      self.#{column} = sequence.next_value\n"
+          code << "    end\n"
           code << "  else\n"
           code << "    last = #{last}\n"
           code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
