@@ -47,6 +47,7 @@ GEM
     acts_as_tree (1.2.0)
       activerecord (>= 3.0.0)
     addressable (2.3.2)
+    afm (0.2.0)
     arel (3.0.2)
     bootstrap-sass (2.2.2.0)
       sass (~> 3.2)
@@ -71,9 +72,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.4.0)
-    combo_box (0.0.12)
-      jquery-rails
-      rails (>= 3.1)
     compass (0.12.2)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
@@ -107,9 +105,9 @@ GEM
       faraday (>= 0.7.4, < 0.9)
     fastercsv (1.5.5)
     ffi (1.2.0)
-    formize (0.1.1)
+    formize (1.0.0)
       jquery-rails
-      rails (>= 3.1)
+      rails (>= 3.2)
     fssm (0.2.9)
     gherkin (2.11.5)
       json (>= 1.4.6)
@@ -119,7 +117,7 @@ GEM
     hike (1.2.1)
     http_parser.rb (0.5.3)
     i18n (0.6.1)
-    i18n-complements (0.0.4)
+    i18n-complements (0.0.7)
       i18n (>= 0.6)
     journey (1.0.4)
     jquery-rails (2.1.4)
@@ -147,10 +145,12 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.4.0)
       mime-types
-    pdf-reader (1.2.0)
+    pdf-reader (1.3.0)
       Ascii85 (~> 1.0.0)
+      afm (~> 0.2.0)
       hashery (~> 2.0)
       ruby-rc4
+      ttfunk
     pg (0.14.1)
     polyglot (0.3.3)
     prawn (0.12.0)
@@ -275,14 +275,13 @@ DEPENDENCIES
   capybara
   cocoon
   coffee-rails (~> 3.2.1)
-  combo_box
   compass-rails
   cucumber-rails
   database_cleaner
   enumerize
   exception_notification
   fastercsv
-  formize (>= 0.1.0)
+  formize (~> 1.0)
   haml
   i18n-complements
   jasper-rails!
