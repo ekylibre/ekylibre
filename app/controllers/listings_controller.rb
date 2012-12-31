@@ -19,14 +19,14 @@
 
 class ListingsController < AdminController
 
-  list(:order=>:name) do |t|
-    t.column :name, :url=>{:action=>:edit}
+  list(:order => :name) do |t|
+    t.column :name, :url => {:action => :edit}
     t.column :root_model_name
     t.column :comment
-    t.action :extract, :url=>{:format=>:csv}, :image=>:action
-    t.action :extract, :url=>{:format=>:csv, :mode=>:no_mail}, :if=>'RECORD.mail_columns.size > 0', :image=>:nomail
-    t.action :mail, :if=>'RECORD.mail_columns.size > 0'
-    t.action :duplicate, :method=>:post
+    t.action :extract, :url => {:format => :csv}, :image => :action
+    t.action :extract, :url => {:format => :csv, :mode => :no_mail}, :if => 'RECORD.mail_columns.size > 0', :image => :nomail
+    t.action :mail, :if => 'RECORD.mail_columns.size > 0'
+    t.action :duplicate, :method => :post
     t.action :edit
     t.action :destroy
   end
@@ -51,19 +51,19 @@ class ListingsController < AdminController
       result.insert(0, first_line)
 
       respond_to do |format|
-        format.xml { render :xml => result.to_xml, :filename=>@listing.name.simpleize+'.xml' }
+        format.xml { render :xml => result.to_xml, :filename => @listing.name.simpleize+'.xml' }
         format.csv do
           csv_string = Ekylibre::CSV.generate do |csv|
             for line in result
               csv << line
             end
           end
-          send_data(csv_string, :filename=>@listing.name.simpleize+'.csv', :type=>Mime::CSV)
+          send_data(csv_string, :filename => @listing.name.simpleize+'.csv', :type => Mime::CSV)
         end
       end
 
-    rescue Exception=>e
-      notify_error(:fails_to_extract_listing, :message=>e.message)
+    rescue Exception => e
+      notify_error(:fails_to_extract_listing, :message => e.message)
       redirect_to_current
     end
   end
@@ -77,7 +77,21 @@ class ListingsController < AdminController
 
   def create
     @listing = Listing.new(params[:listing])
-    return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
+    return if save_and_redirect(@listing, :url => {:action => :edit, :id => "id"})
+    render_restfully_form
+  end
+
+  def edit
+    return unless @listing = find_and_check(:listing)
+    t3e @listing.attributes
+    render_restfully_form
+  end
+
+  def update
+    return unless @listing = find_and_check(:listing)
+    @listing.attributes = params[:listing]
+    return if save_and_redirect(@listing, :url => {:action => :edit, :id => "id"})
+    t3e @listing.attributes
     render_restfully_form
   end
 
@@ -86,13 +100,13 @@ class ListingsController < AdminController
     if request.post? or request.delete?
       Listing.destroy(@listing.id) if @listing
     end
-    redirect_to :action=>:index
+    redirect_to :action => :index
   end
 
   def duplicate
     return unless @listing = find_and_check(:listing)
     @listing.duplicate if request.post?
-    redirect_to :action=>:index
+    redirect_to :action => :index
   end
 
   def mail
@@ -129,7 +143,7 @@ class ListingsController < AdminController
         if attachment
           # file = "#{Rails.root.to_s}/tmp/uploads/attachment_#{attachment.original_filename.gsub(/\W/,'_')}"
           # File.open(file, "wb") { |f| f.write(attachment.read)}
-          attachment = {:filename=>attachment.original_filename, :content_type=>attachment.content_type, :body=>attachment.read.dup}
+          attachment = {:filename => attachment.original_filename, :content_type => attachment.content_type, :body => attachment.read.dup}
         end
         if params[:send_test]
           results = [results[0]]
@@ -144,28 +158,16 @@ class ListingsController < AdminController
           Mailman.deliver_message(params[:from], result[listing_mail_column.label], ts[0], ts[1], attachment)
           notify_success_now(:mails_are_sent)
         end
-	nature = EventNature.where(:usage=>"mailing").first
-        nature = EventNature.create!(:name=>tc(:mailing), :duration=>5, :usage=>"mailing") if nature.nil?
+	nature = EventNature.where(:usage => "mailing").first
+        nature = EventNature.create!(:name => tc(:mailing), :duration => 5, :usage => "mailing") if nature.nil?
         #raise Exception.new nature.inspect
 	Contact.where("email IN (?) AND active = ? ", @mails, true).find_each do |contact|
-          Event.create!(:entity_id=>contact.entity_id, :started_at=>Time.now, :duration=>5, :nature_id=>nature.id, :user_id=>@current_user.id)
+          Event.create!(:entity_id => contact.entity_id, :started_at => Time.now, :duration => 5, :nature_id => nature.id, :user_id => @current_user.id)
         end
         session[:listing_mail_column] = nil
       end
     end
     t3e @listing.attributes
-  end
-
-  def edit
-    return unless @listing = find_and_check(:listing)
-    t3e @listing.attributes
-  end
-
-  def update
-    edit
-    @listing.attributes = params[:listing]
-    return if save_and_redirect(@listing, :url=>{:action=>:edit, :id=>"id"})
-    render :edit
   end
 
 end

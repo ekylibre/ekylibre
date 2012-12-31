@@ -34,7 +34,10 @@ class AdminController < BaseController
 
 
 
-  def self.unroll(name, options = {})
+  def self.unroll(*args)
+    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    name = args[-1]
+
     model = (options.delete(:model) || controller_name.singularize).to_s.classify.constantize
     foreign_record  = model.name.underscore
     foreign_records = foreign_record.pluralize
@@ -44,12 +47,13 @@ class AdminController < BaseController
       available_methods = model.columns_hash.keys.collect{|x| x.to_sym}
       label = [:label, :full_name, :native_name, :title, :name, :code, :number, :inspect].detect{|x| available_methods.include?(x)}
     end
-    label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name}"))
+    label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.is_a?(String) ? label : I18n.translate("unroll.labels." + self.name.underscore.gsub(/_controller$/, '').split('/').join(".") + ".#{name || all}"))
 
     columns = []
     item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
       ca = word[1..-2].split(":")
       column = model.columns_hash[ca[0]]
+      raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
       columns << {column: column, name: column.name, filter: ca[1]|| "X%"} 
       '" + item.' + column.name + '.l + "'
     end
@@ -72,14 +76,14 @@ class AdminController < BaseController
     haml << "    =I18n.t('labels.no_results')\n"
 
     # Write haml in cache
-    file_name = name.to_s
+    file_name = (name || "-default-").to_s
     dir = Rails.root.join("tmp", "cache", "unroll", *(self.name.underscore.gsub(/_controller$/, '').split('/')))
     FileUtils.mkdir_p(dir)
     File.open(dir.join("#{file_name}.html.haml"), "wb") do |f|
       f.write(haml)
     end
 
-    code  = "def unroll_#{name}\n"
+    code  = "def unroll#{'_' + name.to_s if name}\n"
     code << "  conditions = []\n"
     code << "  keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)\n"
     code << "  if params[:id]\n"
@@ -94,7 +98,7 @@ class AdminController < BaseController
     code << "    end\n"
     code << "    conditions[0] << ')'\n"
     code << "  end\n"
-    code << "  items = #{model.name}.where(conditions)#{'.' + scope_name.to_s if scope_name != :all}\n"
+    code << "  items = #{model.name}.where(conditions)#{'.' + scope_name.to_s if scope_name}\n"
     code << "  respond_to do |format|\n"
     code << "    format.html { render :file => '#{dir.join(file_name).relative_path_from(Rails.root)}', :locals => { :items => items, :keys => keys }, :layout => false }\n"
     code << "    format.json { render :json => items.collect{|item| {:label=>#{item_label}, :id => item.id}}.to_json }\n"
@@ -189,7 +193,7 @@ class AdminController < BaseController
     # options[:form_options] = {} unless options[:form_options].is_a?(Hash)
     # options[:form_options][:multipart] = true if options[:multipart]
     # render(:template => options[:template]||"forms/#{operation}", :locals=>{:operation=>operation, :partial=>partial, :options=>options})
-    render(:template =>"forms/#{self.action_name}")
+    render(:template =>"forms/#{self.action_name}", :locals => {:options => options})
   end
 
 
@@ -201,13 +205,13 @@ class AdminController < BaseController
       klass = model.to_s.classify.constantize
       record = klass.find_by_id(id.to_s.to_i)
     rescue
-      notify_error(:unavailable_model, :model=>model.inspect, :id=>id)
-      redirect_to_back
+      notify_error(:unavailable_model, :model => model.inspect, :id=>id)
+      redirect_to_current
       return false
     end
     if record.nil?
-      notify_error(:unavailable_model, :model=>klass.model_name.human, :id=>id)
-      redirect_to_back
+      notify_error(:unavailable_model, :model => klass.model_name.human, :id=>id)
+      redirect_to_current
     end
     return record
   end
@@ -504,10 +508,10 @@ class AdminController < BaseController
   end
 
   def redirect_to_back(options={})
-    session[:history].delete_at(0) if session[:history].is_a?(Array)
     if !params[:redirect].blank?
       redirect_to params[:redirect], options
-    elsif session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
+    elsif session[:history].is_a?(Array) and session[:history][1].is_a?(Hash)
+      session[:history].delete_at(0) unless options[:direct]
       redirect_to session[:history][0][:path], options
     elsif request.referer and request.referer != request.path
       redirect_to request.referer, options
@@ -517,12 +521,7 @@ class AdminController < BaseController
   end
 
   def redirect_to_current(options={})
-    redirect_to_back(options)
-    # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
-    #   redirect_to session[:history][0]
-    # else
-    #   redirect_to_back
-    # end
+    redirect_to_back(options.merge(:direct => true))
   end
 
   # Autocomplete helper
@@ -580,63 +579,63 @@ class AdminController < BaseController
 
     code = ''
 
-    code += "def new\n"
+    code << "def new\n"
     values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
       hash[attr] = "params[:#{attr}]"
       hash
     end.merge(defaults).collect{|k,v| ":#{k} => (#{v})"}.join(", ")
-    code += "  @#{record_name} = #{model.name}.new(#{values})\n"
+    code << "  @#{record_name} = #{model.name}.new(#{values})\n"
     if xhr
-      code += "  if request.xhr?\n"
-      code += "    render :partial=>#{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
-      code += "  else\n"
-      code += "    #{render_form}\n"
-      code += "  end\n"
+      code << "  if request.xhr?\n"
+      code << "    render :partial=>#{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
+      code << "  else\n"
+      code << "    #{render_form}\n"
+      code << "  end\n"
     else
-      code += "  #{render_form}\n"
+      code << "  #{render_form}\n"
     end
-    code += "end\n"
+    code << "end\n"
 
-    code += "def create\n"
-    code += "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
-    code += "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
-    code += "  #{render_form}\n"
-    code += "end\n"
+    code << "def create\n"
+    code << "  @#{record_name} = #{model.name}.new(params[:#{record_name}])\n"
+    code << "  return if save_and_redirect(@#{record_name}#{',  :url=>'+url if url})\n"
+    code << "  #{render_form}\n"
+    code << "end\n"
 
     # this action updates an existing record with a form.
-    code += "def edit\n"
-    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-    code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-    code += "  #{render_form}\n"
-    code += "end\n"
+    code << "def edit\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  #{render_form}\n"
+    code << "end\n"
 
-    code += "def update\n"
-    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
-    code += "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
-    code += "  @#{record_name}.attributes = params[:#{record_name}]\n"
-    code += "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
-    code += "  #{render_form}\n"
-    code += "end\n"
+    code << "def update\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "  t3e(@#{record_name}.attributes"+(t3e ? ".merge("+t3e.collect{|k,v| ":#{k}=>(#{v})"}.join(", ")+")" : "")+")\n"
+    code << "  @#{record_name}.attributes = params[:#{record_name}]\n"
+    code << "  return if save_and_redirect(@#{record_name}#{', :url=>('+url+')' if url})\n"
+    code << "  #{render_form}\n"
+    code << "end\n"
 
     # this action deletes or hides an existing record.
-    code += "def destroy\n"
-    code += "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
+    code << "def destroy\n"
+    code << "  return unless @#{record_name} = find_and_check(:#{record_name})\n"
     if model.instance_methods.include?("destroyable?")
-      code += "  if @#{record_name}.destroyable?\n"
-      code += "    #{model.name}.destroy(@#{record_name}.id)\n"
-      code += "    notify_success(:record_has_been_correctly_removed)\n"
-      code += "  else\n"
-      code += "    notify_error(:record_cannot_be_removed)\n"
-      code += "  end\n"
+      code << "  if @#{record_name}.destroyable?\n"
+      code << "    #{model.name}.destroy(@#{record_name}.id)\n"
+      code << "    notify_success(:record_has_been_correctly_removed)\n"
+      code << "  else\n"
+      code << "    notify_error(:record_cannot_be_removed)\n"
+      code << "  end\n"
     else
-      code += "  #{model.name}.destroy(@#{record_name}.id)\n"
-      code += "  notify_success(:record_has_been_correctly_removed)\n"
+      code << "  #{model.name}.destroy(@#{record_name}.id)\n"
+      code << "  notify_success(:record_has_been_correctly_removed)\n"
     end
-    # code += "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
-    code += "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
-    code += "end\n"
+    # code << "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
+    code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
+    code << "end\n"
 
-    code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+    # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     class_eval(code)
   end
 
@@ -661,19 +660,19 @@ class AdminController < BaseController
     sort += "  end\n"
     sort += "end\n"
 
-    code += "def up\n"
-    code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-    code += "  #{record_name}.move_higher\n"
-    code += sort.gsub(/^/, "  ")
-    code += "  redirect_to_current\n"
-    code += "end\n"
+    code << "def up\n"
+    code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code << "  #{record_name}.move_higher\n"
+    code << sort.gsub(/^/, "  ")
+    code << "  redirect_to_current\n"
+    code << "end\n"
 
-    code += "def down\n"
-    code += "  return unless #{record_name} = find_and_check(:#{record_name})\n"
-    code += "  #{record_name}.move_lower\n"
-    code += sort.gsub(/^/, "  ")
-    code += "  redirect_to_current\n"
-    code += "end\n"
+    code << "def down\n"
+    code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code << "  #{record_name}.move_lower\n"
+    code << sort.gsub(/^/, "  ")
+    code << "  redirect_to_current\n"
+    code << "end\n"
 
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     class_eval(code)
@@ -710,8 +709,8 @@ class AdminController < BaseController
     tables = search.keys.select{|t| !options[:except].include? t}
     code = "\n#{conditions} = ['1=1']\n"
     columns = search.collect{|t, cs| cs.collect{|c| "#{ActiveRecord::Base.connection.quote_table_name(t.is_a?(Symbol) ? t.to_s.classify.constantize.table_name : t)}.#{ActiveRecord::Base.connection.quote_column_name(c)}"}}.flatten
-    code += "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
-    code += "  kw = '%'+kw+'%'\n"
+    code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
+    code << "  kw = '%'+kw+'%'\n"
     filters = columns.collect do |x|
       # This line is incompatible with MySQL...
       if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
@@ -726,10 +725,10 @@ class AdminController < BaseController
       v = '['+v.join(', ')+']' if v.is_a? Array
       values += "+"+v
     end
-    code += "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
-    code += "  #{conditions} += #{values}\n"
-    code += "end\n"
-    code += "#{conditions}"
+    code << "  #{conditions}[0] += ' AND (#{filters.join(' OR ')})'\n"
+    code << "  #{conditions} += #{values}\n"
+    code << "end\n"
+    code << "#{conditions}"
     return code
   end
 
@@ -738,8 +737,8 @@ class AdminController < BaseController
   def self.accounts_range_crit(variable, conditions='c')
     variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    # code += "ac, #{variable}[:accounts] = \n"
-    code += "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
+    # code << "ac, #{variable}[:accounts] = \n"
+    code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
     return code
   end
 
@@ -758,12 +757,12 @@ class AdminController < BaseController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code += "c=['1=1']\n"
-    code += journal_period_crit("params")
-    code += journal_entries_states_crit("params")
-    code += accounts_range_crit("params")
-    code += journals_crit("params")
-    code += "c\n"
+    code << "c=['1=1']\n"
+    code << journal_period_crit("params")
+    code << journal_entries_states_crit("params")
+    code << accounts_range_crit("params")
+    code << journals_crit("params")
+    code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     return code # .gsub(/\s*\n\s*/, ";")
   end
@@ -773,7 +772,7 @@ class AdminController < BaseController
   def self.journal_entries_states_crit(variable, conditions='c')
     variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
+    code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
     return code
   end
 
@@ -781,7 +780,7 @@ class AdminController < BaseController
   def self.journal_period_crit(variable, conditions='c')
     variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+    code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
     return code
   end
 
@@ -789,32 +788,32 @@ class AdminController < BaseController
   def self.journals_crit(variable, conditions='c')
     variable = "session[:#{variable}]" unless variable.is_a? String
     code = ""
-    code += "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
+    code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
     return code
   end
 
   # management -> moved_conditions
   def self.moved_conditions(model, state='params[:s]')
     code = "\n"
-    code += "c||=['1=1']\n"
-    code += "if #{state}=='unconfirmed'\n"
-    code += "  c[0] += ' AND moved_on IS NULL'\n"
-    code += "elsif #{state}=='confirmed'\n"
-    code += "  c[0] += ' AND moved_on IS NOT NULL'\n"
-    code += "end\n"
-    code += "c\n"
+    code << "c||=['1=1']\n"
+    code << "if #{state}=='unconfirmed'\n"
+    code << "  c[0] += ' AND moved_on IS NULL'\n"
+    code << "elsif #{state}=='confirmed'\n"
+    code << "  c[0] += ' AND moved_on IS NOT NULL'\n"
+    code << "end\n"
+    code << "c\n"
     return code
   end
 
   # management -> prices_conditions
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
-    code += "if session[:entity_id] == 0 \n "
-    code += " conditions = ['#{Price.table_name}.active = ?', true] \n "
-    code += "else \n "
-    code += " conditions = ['#{Price.table_name}.entity_id = ? AND #{Price.table_name}.active = ?', session[:entity_id], true]"
-    code += "end \n "
-    code += "conditions \n "
+    code << "if session[:entity_id] == 0 \n "
+    code << " conditions = ['#{Price.table_name}.active = ?', true] \n "
+    code << "else \n "
+    code << " conditions = ['#{Price.table_name}.entity_id = ? AND #{Price.table_name}.active = ?', session[:entity_id], true]"
+    code << "end \n "
+    code << "conditions \n "
     code
   end
 

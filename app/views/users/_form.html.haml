@@ -1,30 +1,23 @@
-=formalize do |f|
-  -f.error :user
-  -f.title :subtitle
-  -f.field :user, :last_name
-  -f.field :user, :first_name
-  -f.field :user, :email
-  -f.field :user, :language, :choices=>languages
-  -f.field :user, :name
-  -f.field :user, :password
-  -f.field :user, :password_confirmation
-  -f.field :user, :admin, "data-hide"=>"#rights-conf"
-  -f.field :user, :employed, "data-show"=>"#employee"
+=field_set do
+  -input :last_name
+  -input :first_name
+  -input :language, :choices => :languages
+  -input :username
+  -input :password
+  -input :password_confirmation
+  -input :admin, :hide => :rights
+  -input :employed, :show => :employee
 
-#employee
-  =formalize do |f|
-    -f.title Entity.human_attribute_name("employed")
-    -f.field :user, :employment
-    -f.field :user, :commercial
-    -# f.field :user, :profession_id,  :choices=>{:reflection=>:professions}, :new=>true
-    -f.field :user, :department_id, :choices=>{:reflection=>:departments}, :new=>true
-    -f.field :user, :establishment_id, :choices=>{:reflection=>:establishments}, :new =>true
+=field_set(:employee) do
+  -input :employment
+  -# association :profession
+  -association :department
+  -association :establishment
 
-#rights-conf
-  =formalize(:id=>:show_rights) do |f|
-    -f.title :rights
-    -f.field :user, :role_id, :choices=>{:reflection=>:roles}, :new=>true, :id=>"user_role_id", "data-dependents"=>"#rights"
-    -# f.field :user, :reduction_percent
-    -# f.field :user, :free_price
-    -# f.field :user, :credits
-  #rights{"data-refresh"=>url_for(:action=>:new, :mode=>:rights), "data-refresh-mode"=>"update"}=render :partial=>"rights_form"
+=field_set(:rights) do
+  -association :role
+  -# input :reduction_percent
+  -# input :free_price
+  -# input :credits
+  -partial :rights, :depend_on => :role
+  -# #rights{"data-refresh"=>url_for(:action=>:new, :mode=>:rights), "data-refresh-mode"=>"update"}

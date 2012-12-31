@@ -18,32 +18,33 @@
 #
 
 class IncomingPaymentModesController < AdminController
-  manage_restfully :with_accounting=>"true"
+  manage_restfully :with_accounting => "true"
   manage_restfully_list :name
 
-  # TODO: Adds detail_payments and attorney_journal
+  unroll
 
-  list(:order=>:position) do |t|
+  # TODO: Adds detail_payments and attorney_journal
+  list(:order => :position) do |t|
     t.column :name
-    t.column :name, :through=>:cash, :url=>true
+    t.column :name, :through => :cash, :url => true
     t.column :with_accounting
     t.column :with_deposit
-    t.column :label, :through=>:depositables_account, :url=>true
-    t.column :name, :through=>:depositables_journal, :url=>true
+    t.column :label, :through => :depositables_account, :url => true
+    t.column :name,  :through => :depositables_journal, :url => true
     t.column :with_commission
-    t.action :up, :method=>:post, :if=>"!RECORD.first\?"
-    t.action :down, :method=>:post, :if=>"!RECORD.last\?"
-    t.action :reflect, :method=>:post, 'data-confirm' => :are_you_sure
+    t.action :up,   :method => :post, :unless => :first?
+    t.action :down, :method => :post, :unless => :last?
+    t.action :reflect, :method => :post, 'data-confirm' => :are_you_sure
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   def reflect
     return unless @incoming_payment_mode = find_and_check
     for payment in @incoming_payment_mode.unlocked_payments
-      payment.update_attributes(:commission_account_id=>nil, :commission_amount=>nil)
+      payment.update_attributes(:commission_account_id => nil, :commission_amount => nil)
     end
-    redirect_to :action=>:index
+    redirect_to :action => :index
   end
 
   # Displays the main page with the list of incoming payment modes

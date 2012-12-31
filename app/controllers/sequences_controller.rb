@@ -24,7 +24,8 @@ class SequencesController < AdminController
     t.column :name
     t.column :compute
     t.column :number_format, :class=>:code
-    t.column :period_name
+    t.column :usage
+    t.column :period
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
   end
@@ -36,7 +37,7 @@ class SequencesController < AdminController
   # Load missing sequences for current company
   def load
     Sequence.load_defaults
-    redirect_to_back
+    redirect_to_current
   end
 
 end

@@ -1,4 +1,7 @@
 -field_set do
   -input :name
-  -input :with_accounting, :show => :cash
-  -association :cash, :source => "entity#cashes"
+  -association :cash
+  -input :with_accounting, :show => :accountancy
+
+-field_set(:accountancy) do
+  -association :attorney_journal

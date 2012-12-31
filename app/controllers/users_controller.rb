@@ -19,16 +19,16 @@
 
 class UsersController < AdminController
 
-  list(:model => :entities, :conditions => ['loggable=?', 'true'], :order=>"locked, last_name", :line_class=>"(RECORD.locked ? 'critic' : '')", :per_page=>20) do |t|
+  list(:model => :entities, :conditions => {:loggable => true}, :order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
     t.column :full_name, :url=>true
     t.column :first_name, :url=>true
     t.column :last_name, :url=>true
-    t.column :name, :through=>:role, :url=>{:action=>:edit}
+    t.column :name, :through => :role, :url=>{:action => :edit}
     t.column :admin
     t.column :employed
-    t.action :locked, :actions=>{"true"=>{:action=>:unlock}, "false"=>{:action=>:lock}}, :method=>:post, :if=>'RECORD.id!=@current_user.id'
-    t.action :edit
-    t.action :destroy, :if=>'RECORD.id!=@current_user.id'
+    t.action :locked, :actions=>{"true" => {:action => :unlock}, "false" => {:action => :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'
+    t.action :edit, :controller => :users
+    t.action :destroy, :if => 'RECORD.id != current_user.id'
   end
 
   # Displays the main page with the list of users
@@ -45,12 +45,12 @@ class UsersController < AdminController
     if request.xhr? and params[:mode] == "rights"
       role = Role.find(params[:user_role_id]) rescue nil
       @rights = role.rights_array if role
-      render :partial=>"rights_form"
+      render :partial => "rights_form"
     else
       role = Role.first
       @user = Entity.new(:admin=>false, :role=>role, :employed=>params[:employed], :language=>Entity.of_company.language)
       @rights = role ? role.rights_array : []
-      render_restfully_form
+      render_restfully_form(:model => :entity)
     end
   end
 
@@ -59,18 +59,18 @@ class UsersController < AdminController
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
-    render_restfully_form
+    render_restfully_form(:model => :entity)
   end
 
   def edit
-    return unless @user = find_and_check(:user)
+    return unless @user = find_and_check(:entity)
     @rights = @user.rights_array
     t3e @user.attributes
     render_restfully_form
   end
 
   def update
-    return unless @user = find_and_check(:user)
+    return unless @user = find_and_check(:entity)
     @user.attributes = params[:user]
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
@@ -80,7 +80,7 @@ class UsersController < AdminController
   end
 
   def destroy
-    return unless @user = find_and_check(:user)
+    return unless @user = find_and_check(:entity)
     @user.destroy if @user.destroyable?
     redirect_to_back
   end

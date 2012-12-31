@@ -21,6 +21,9 @@
 # encoding: utf-8
 module ApplicationHelper
 
+  def current_user
+    controller.current_user
+  end
 
   # def options_for_unroll(options = {})
   #   raise ArgumentError.new("Need :reflection option (#{options.inspect})") unless options[:reflection].to_s.size > 0
@@ -631,7 +634,7 @@ module ApplicationHelper
       end
       if name.is_a?(Symbol)
         kontroller = (args[1].is_a?(Hash) ? args[1][:controller] : nil) || controller_name
-        args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => "labels.#{name}".to_sym}.merge(args[2].delete(:i18n)||{}))
+        args[0] = ::I18n.t("actions.#{kontroller}.#{name}".to_sym, {:default => ["labels.#{name}".to_sym]}.merge(args[2].delete(:i18n)||{}))
       end
       if icon = args[2].delete(:icon)
         args[0] = h(args[0]) + ' '.html_safe + content_tag(:i, '', :class => "icon-"+icon.to_s)
@@ -991,6 +994,12 @@ module ApplicationHelper
 
 
 
+  def field(label, input = nil, &block)
+    return content_tag(:div, content_tag(:label, label, :class => "control-label") + content_tag(:div, (block_given? ? capture(&block) : input), :class => "controls"), :class => "control-group")
+  end
+
+
+
 
   # # TABBOX
   # def tabbox(id, options={})
@@ -1237,8 +1246,9 @@ module ApplicationHelper
 
   # Build the master form using all form through modules and assemblies them in one
   # Auto manage dialog use
-  def master_form(action, options = {}, &block)
+  def master_form(action, options = {})
     nature = options.delete(:nature) || "form"
+    @master_model = (options[:model] || controller.controller_name).to_s.classify.constantize
     # Compile fields
     fields = field_sets(nature)
     # Prepare form
@@ -1246,27 +1256,29 @@ module ApplicationHelper
     form_options[:id] = options[:id] || "f"+rand(1_000_000_000).to_s(36)
     form_options[:method] = options[:method] || :post
     form_options[:multipart] = @_multipart
-    return render(:partial => "forms/form", :locals => {:form_options => form_options, :action => action, :nature => nature, :options => options, :manual_form => block, :fields => fields})
+    return render(:partial => "forms/form", :locals => {:form_options => form_options, :action => action, :nature => nature, :options => options, :fields => fields})
   end
 
 
   FACES = {
     # :text => :textarea
+    :date => :date_field
   }
 
 
   # This helper assemblies all form parts to generate one unique form
   # This method use simple_form to build forms
   def field_sets(nature = "form")
-    resource = controller.controller_name.to_s.singularize
+    resource = @master_model.name.underscore
+    kontroller = controller.controller_name.underscore.singularize
     composers = [nature]
     base_directory = Rails.root.join("app", "views")
-    composers += Dir[base_directory.join("**", "#{nature}-#{resource}.html.*")].collect do |path|
+    composers += Dir[base_directory.join("**", "#{nature}-#{kontroller}.html.*")].collect do |path|
       "/" + path.relative_path_from(base_directory).to_s
     end
 
     # Cache this in a view method
-    method_name = "field_sets_#{resource}_#{nature}".to_sym
+    method_name = "field_sets_#{kontroller}_#{nature}".to_sym
     if self.respond_to?(method_name) and !Rails.env.development?
       return send(method_name)
     end
@@ -1353,9 +1365,9 @@ module ApplicationHelper
 
     haml  = "" # "-# Generated on #{Time.now.l(:locale => :eng)}\n"
     for fs in tree
-      set_id = Time.now.to_i.to_s(36)+(1_000_000*rand).to_i.to_s(36)
-      toggle_id = set_id + "-toggle"
       fs_name = fs[:name]
+      set_id = "#{fs_name}-fields"
+      toggle_id = "#{set_id}-toggle"
       haml << "##{fs_name}.fieldset.form-horizontal\n"
       haml << "  .fieldset-legend\n"
       haml << "    %span.icon\n"
@@ -1389,40 +1401,49 @@ module ApplicationHelper
   def field_set(*args, &block)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
     name  = (args[-1].is_a?(Symbol) ? args.delete_at(-1) : "general-informations".to_sym)
-    if @field_sets[name]
-      if options.size > 0 or args.size > 0
-        raise ArgumentError.new("This field_set is already defined. You can not give other parameters.")
+    if @field_sets
+      if @field_sets[name]
+        if options.size > 0 or args.size > 0
+          raise ArgumentError.new("This field_set is already defined. You can not give other parameters.")
+        end
+      else
+        options[:name] = name
+        if options[:before] and options[:after]
+          raise Exception.new("Cannot be before something and after other thing")
+        end
+        options[:object] = (args[-1] ? args.delete_at(-1) : (options[:object] || instance_variable_get('@' + controller.controller_name.to_s.singularize)))
+        @field_sets[name] = options
       end
+      if block_given?
+        @current_field_set = name
+        yield
+        @current_field_set = nil
+      end
+      return nil
     else
-      options[:name] = name
-      if options[:before] and options[:after]
-        raise Exception.new("Cannot be before something and after other thing")
-      end
-      options[:object] = (args[-1] ? args.delete_at(-1) : (options[:object] || instance_variable_get('@' + controller.controller_name.to_s.singularize)))
-      @field_sets[name] = options
+      return content_tag(:div, content_tag(:div, content_tag(:span, "", :class => :icon) + content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym]) : name.to_s)), :class => "fieldset-legend") + content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset")
     end
-    if block_given?
-      @current_field_set = name
-      yield
-      @current_field_set = nil
-    end
-    return nil
   end
 
   def input(name, options = {})
     check_field_name_before_push(name, __method__)
     options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
-    model = controller.controller_name.to_s.singularize.classify.constantize
-    if column = model.columns_hash[name.to_s]
+    if column = @master_model.columns_hash[name.to_s]
       options[:field] ||= :text if column.type == :text
     end
-    options[:multipart] = true if model.respond_to?(:attachment_definitions)
-
+    options[:multipart] = true if @master_model.respond_to?(:attachment_definitions)
     push_field(options)
   end
 
   def association(name, options = {})
+    check_field_name_before_push(name, __method__)
+    options[:in] ||= @current_field_set
+    options.merge!(:type => __method__, :name => name)
+    push_field(options)
+  end
+
+  def partial(name, options = {})
     check_field_name_before_push(name, __method__)
     options[:in] ||= @current_field_set
     options.merge!(:type => __method__, :name => name)
@@ -1456,6 +1477,7 @@ module ApplicationHelper
   end
 
   def push_field(field)
+    field[:wrapper_id] = "#{field[:name]}-wrapper"
     @fields[0] << field
     return true
   end
@@ -1467,6 +1489,21 @@ module ApplicationHelper
     return @fields.delete_at(0)
   end
 
+  def form_element_ids(expr)
+    expr = expr.to_s.split(/[\,\s]+/) unless expr.is_a?(Array)
+    expr.collect do |id|
+      wid = if fs = @field_sets.select{|k,v| k.to_s == id.to_s}.first
+              "#"+fs[1][:name].to_s
+            elsif f = @fields.select{|f| f[:name].to_s == id.to_s}.first
+              "#"+f[:wrapper_id].to_s
+            else
+              raise Exception.new("Unable to find form element #{expr}")
+            end
+      wid
+    end.flatten.join(", ")
+  end
+
+
   def render_field(field, depth = 0)
     options = field.dup
     name, type = options.delete(:name), options.delete(:type)
@@ -1477,47 +1514,74 @@ module ApplicationHelper
     source = options.delete(:source)
     face = options.delete(:field)
     haml  = ""
-    readonly = controller.controller_name.classify.constantize.readonly_attributes.include?(name.to_s)
+    input_html = {}
+    readonly = @master_model.readonly_attributes.include?(name.to_s)
     # face ||= :select if source.is_a?(Symbol)
+    if @master_model.columns_hash[name.to_s]
+      face = :date if @master_model.columns_hash[name.to_s].type == :date
+    end
     haml << "=f.input(:#{name}"
     haml << ", :collection => #{source}" if source.is_a?(Symbol)
     haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
-    haml << ", :input_html => {:rows => 3}" if face == :text
-    haml << ", :readonly => true" if readonly
+    haml << ", :readonly => !@#{@master_model.name.underscore}.new_record?" if readonly
+    haml << ", :wrapper_html => {:id => '#{options[:wrapper_id]}'}"
+    input_html[:rows] = "3" if face == :text
+
+    if options[:hide].is_a?(Hash)
+      input_html["data-hide-if"] = "'" + options[:hide].inject({}) do |hash, pair|
+        hash[pair[0]] = form_element_ids(pair[1])
+        hash
+      end.to_json + "'"
+    elsif !options[:hide].blank?
+      input_html["data-hide"] = "'#{form_element_ids(options[:hide].to_s)}'"
+    end
+
+    if options[:show].is_a?(Hash)
+      input_html["data-show-if"] = "'" + options[:show].inject({}) do |hash, pair|
+        hash[pair[0]] = form_element_ids(pair[1])
+        hash
+      end.to_json + "'"
+    elsif !options[:show].blank?
+      input_html["data-show"] = "'#{form_element_ids(options[:show].to_s)}'"
+    end
+
+    unless input_html.empty?
+      haml << ", :input_html => {" + input_html.collect do |k,v|
+        "'#{k}' => #{v}"
+      end.join(', ') + "}"
+    end
     haml << ")"
     return haml
   end
 
   def render_field_association(name, options = {})
-    model = controller.controller_name.singularize.classify.constantize
+    model = @master_model
     reflection = model.reflections[name]
     raise ArgumentError.new("Unknown reflection :#{name} for #{model.name}") if reflection.nil?
     reflection_model = reflection.class_name.classify.constantize
-    source = options.delete(:source).to_s
-    asource = source.split('#')
-    asource[0] = reflection.class_name.pluralize if asource[0].blank?
-    selfsource = (asource[0] == "self" ? true : false)
-    asource[0] = "@#{model.name.underscore}" if selfsource
-    asource[1] = "all" if asource[1].blank?
+    source = options.delete(:source)
+    asource = []
+    if source.to_s.match("#")
+      asource = source.to_s.split('#')     
+    else
+      asource[0] = reflection.class_name.underscore.pluralize
+    end
+    asource[1] = "unroll" + (asource[1].blank? ? "" : "_" + asource[1])
     face = options.delete(:field)
     required = (options.has_key?(:required) ? options[:required] : model.validators_on(name).detect{|v| v.attributes.include?(name) and v.is_a?(ActiveModel::Validations::PresenceValidator)} ? true : false)
 
-    haml  = "##{model.name.underscore}-#{name}.control-group\n"
+    haml  = "##{options[:wrapper_id]}.control-group\n"
     haml << "  %label.control-label#{'.required' if required}{:for => 'toto'}\n"
     haml << "    %abbr{:title => 'required'} *\n" if required
     haml << "    =#{model.name}.human_attribute_name('#{reflection.name}')\n"
-    cvar = asource.join("_").underscore + "_count"
     attrs = (reflection_model.columns_hash.keys + reflection_model.instance_methods).collect{|a| a.to_sym}
     label_method = options[:label_method] || [:label, :native_name, :name, :to_s, :inspect].detect{|x| attrs.include?(x)}
     include_blank = !required
     input_id = "#{model.name.underscore}-#{reflection.name}-input"
     haml << "  .controls\n"
-    haml << "    =selector('#{model.name.underscore}', '#{reflection.name}', {:controller => '#{asource[0].underscore}', :action => :unroll_#{asource[1].underscore}}, {}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
-    # haml << "    -#{cvar} = #{asource[0]}.#{asource[1]}.count\n"
-    # haml << "    -if #{cvar} < 50\n"
-    # haml << "      =select('#{model.name.underscore}', '#{reflection.foreign_key}', #{asource[0]}.#{asource[1]}.collect{|item| [item.#{label_method}, item.id]}, {#{':include_blank => true' unless required}}, 'data-refresh' => select_options_url(:#{asource[0].underscore}, :#{asource[1].underscore}, :#{model.name.underscore}, @#{model.name.underscore}.id||'new'#{', :include_blank => true' unless required}), 'data-id-parameter-name' => 'selected', :id => '#{input_id}', :class => 'select#{' required' if required}')\n"
-    # haml << "    -else\n"
-    # haml << "      =unroll('#{model.name.underscore}', '#{reflection.foreign_key}', {:controller => :interfacers, :action => :unroll, :source => :#{asource[0].underscore}, :model => :#{model.name.underscore}, :id => @#{model.name.underscore}.id, :filter => :#{asource[1].underscore}#{', :include_blank => true' unless required}}, :id => '#{input_id}', :class => 'unroll#{' required' if required}')\n"
+    haml << "    =selector('#{model.name.underscore}', '#{reflection.name}', {:controller => '#{asource[0].underscore}', :action => :#{asource[1].underscore}}, {}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
+    haml << "    -for error in @#{model.name.underscore}.errors['#{reflection.name}']\n"
+    haml << "      %span.help-inline=error\n"
     buttons = options[:buttons] || {}
     for action in [:new] # , :edit  system actions
       if buttons[action].is_a?(FalseClass) or options[action].is_a?(FalseClass)
@@ -1543,6 +1607,15 @@ module ApplicationHelper
     return haml
   end
 
+  def render_field_partial(name, options = {})
+    partial = options[:with] || "#{name}_form"
+    haml  = ""
+    haml << "##{options[:wrapper_id]}=render(:partial => '#{partial}')\n"
+    return haml
+  end
+
+
+
   def render_field_nested_association(name, options = {})
     record = name.to_s.singularize
     fs_name = options[:in]
@@ -1557,7 +1630,7 @@ module ApplicationHelper
     File.open(Rails.root.join("app", "views", *(controller.class.name.underscore.gsub(/_controller$/, '').split('/')), "_#{record}_fields.html.haml"), "wb") do |f|
       f.write partial
     end
-    haml  = "##{fs_name}-#{name}\n"
+    haml  = "##{options[:wrapper_id]}-#{name}\n"
     haml << "  =f.simple_fields_for(:#{name}) do |#{record}|\n"
     haml << "    =render '#{record}_fields', :f => #{record}\n"
     haml << "  .links\n"

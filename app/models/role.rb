@@ -43,7 +43,7 @@ class Role < CompanyRecord
     self.rights_array = self.rights_array # Clean the rights
   end
 
-  after_validation(:on => :update) do
+  after_save(:on => :update) do
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
@@ -92,7 +92,12 @@ class Role < CompanyRecord
     self.users.size <= 0
   end
 
-  def diff_more; ''; end
-  def diff_less; ''; end
+  def diff_more
+    ''
+  end
+  
+  def diff_less
+    ''
+  end
 
 end

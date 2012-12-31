@@ -19,12 +19,12 @@
 
 class RolesController < AdminController
 
-  list(:order=>:name, :children=>:users) do |t|
-    t.column :name, :children=>:label
-    t.column :diff_more, :class=>'rights more'
-    t.column :diff_less, :class=>'rights less'
+  list(:order => :name, :children => :users) do |t|
+    t.column :name, :children => :label
+    t.column :diff_more, :class => 'rights more'
+    t.column :diff_less, :class => 'rights less'
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of roles

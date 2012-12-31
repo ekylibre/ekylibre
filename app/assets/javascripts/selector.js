@@ -30,6 +30,7 @@
             menu.prop("selectorOfMenu", selector);
             selector.after(menu);
             selector.prop("dropDownMenu", menu);
+            $.Selector.set(selector, selector.val());
             return selector;
         },
 
@@ -163,6 +164,10 @@
             if (selected[0] !== null && selected[0] !== undefined) {
                 $.Selector.select(selector, selected.data("item-id"), selected.data("item-label"));
                 return false;
+            }
+        } else if (code === 40) { // Down
+            if (menu.is(":hidden")) {
+                $.Selector.openMenu(selector);
             }
         }
         return true;

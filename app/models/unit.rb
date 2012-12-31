@@ -38,34 +38,33 @@
 
 class Unit < CompanyRecord
   has_many :products
-  has_many :drugs
+  has_many :animal_drugs
+  has_many :stock_moves
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8
   validates_length_of :base, :label, :allow_nil => true, :maximum => 255
   validates_presence_of :coefficient, :label, :name, :start
   #]VALIDATORS]
-  validates_format_of :name, :with=>/^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
+  validates_format_of :name, :with => /^[a-zA-Z][a-zA-Z0-9]*([\.\/][a-zA-Z][a-zA-Z0-9]*)?$/
   validates_uniqueness_of :name
   scope :of_product, lambda { |product| where(:base => product.unit.base).order(:coefficient, :label) }
 
-  @@units = ["m", "kg", "s", "A", "K", "mol", "cd"]
-
-  def self.default_units
-    {
-      :u=> {},
-      :kg=>{:base=>'kg'},
-      :t=> {:base=>'kg', :coefficient=>1000},
-      :m=> {:base=>'m'},
-      :km=>{:base=>'m',  :coefficient=>1000},
-      :ha=>{:base=>'m2', :coefficient=>10000},
-      :a=> {:base=>'m2', :coefficient=>100},
-      :ca=>{:base=>'m2'},
-      :l=> {:base=>'m3', :coefficient=>0.001},
-      :hl=>{:base=>'m3', :coefficient=>0.1},
-      :m3=>{:base=>'m3'}
-    }
-  end
+  SI_UNITS = ["m", "kg", "s", "A", "K", "mol", "cd"]
+  
+  DEFAULT_UNITS = {
+    :u =>  {},
+    :kg => {:base => 'kg'},
+    :t =>  {:base => 'kg', :coefficient => 1000},
+    :m =>  {:base => 'm'},
+    :km => {:base => 'm',  :coefficient => 1000},
+    :ha => {:base => 'm2', :coefficient => 10000},
+    :a =>  {:base => 'm2', :coefficient => 100},
+    :ca => {:base => 'm2'},
+    :l =>  {:base => 'm3', :coefficient => 0.001},
+    :hl => {:base => 'm3', :coefficient => 0.1},
+    :m3 => {:base => 'm3'}
+  }
 
   before_validation do
     self.name.strip!
@@ -78,9 +77,9 @@ class Unit < CompanyRecord
     self.base.to_s.split(/[\.\s]+/).each do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
-        errors.add(:base, :invalid_token, :error=>x.inspect, :accepted=>@@units.to_sentence) unless @@units.include? name
+        errors.add(:base, :invalid_token, :error => x.inspect, :accepted => SI_UNITS.to_sentence) unless SI_UNITS.include? name
       else
-        errors.add(:base, :invalid_at, :error=>x.inspect)
+        errors.add(:base, :invalid_at, :error => x.inspect)
       end
     end
   end
@@ -90,10 +89,9 @@ class Unit < CompanyRecord
   end
 
   def self.load_defaults
-    for name, desc in self.default_units
+    for name, attributes in DEFAULT_UNITS
       unless self.find_by_name(name.to_s)
-        # FIXME Translation to move
-        self.create!(:name=>name.to_s, :label=>tc('default.units.'+name.to_s), :base=>desc[:base], :coefficient=>desc[:coefficient], :start=>desc[:start])
+        self.create!(attributes.merge(:name => name.to_s, :label => tc('default.'+name.to_s)))
       end
     end
   end
@@ -106,7 +104,7 @@ class Unit < CompanyRecord
     flat = expression.split(/[\.\s]+/).collect do |x|
       if x.match(/[a-z]+(\-\d+)?/i)
         name = x.gsub(/[0-9\-]+/, '')
-        raise Exception.new("Unknown unit #{name.inspect} (only base units #{@@units.join(', ')} are accepted)") unless @@units.include? name
+        raise Exception.new("Unknown unit #{name.inspect} (only base units #{SI_UNITS.join(', ')} are accepted)") unless SI_UNITS.include? name
       else
         raise Exception.new("Bad expression: error on #{x.inspect}")
       end
@@ -127,7 +125,6 @@ class Unit < CompanyRecord
   def readable_name
     self.name.gsub('2', '²').gsub('3', '³')
   end
-
 
   def self.convert(measure, from, to=nil)
     return measure if to and to.id == from.id
@@ -158,7 +155,7 @@ class Unit < CompanyRecord
   end
 
   protect(:on => :destroy) do
-    return false
+    return true
   end
 
 end

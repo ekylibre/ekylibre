@@ -68,9 +68,11 @@ class Account < CompanyRecord
 
   default_scope order(:number, :name)
   scope :majors, where("number LIKE '_'").order(:number, :name)
-  scope :attorney_thirds, lambda { where('number LIKE ?', self.find_in_chart(:attorney_thirds).number+"%").order(:number, :name) }
-  scope :client_thirds,   lambda { where('number LIKE ?', self.find_in_chart(:client_thirds).number+"%").order(:number, :name) }
-  scope :supplier_thirds, lambda { where('number LIKE ?', self.find_in_chart(:supplier_thirds).number+"%").order(:number, :name) }
+  scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
+  scope :attorney_thirds,          lambda { where('number LIKE ?', self.chart_number(:attorney_thirds)+"%").order(:number, :name) }
+  scope :client_thirds,            lambda { where('number LIKE ?', self.chart_number(:client_thirds)+"%").order(:number, :name) }
+  scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
+  scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }
 
 
   # This method allows to create the parent accounts if it is necessary.
@@ -221,11 +223,7 @@ class Account < CompanyRecord
           end
         end
       end
-
     end
-
-
-
   end
 
 

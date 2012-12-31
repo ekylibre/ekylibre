@@ -19,6 +19,8 @@
 
 class CashesController < AdminController
 
+  unroll
+
   list(:order=>:name) do |t|
     t.column :name, :url=>true
     t.column :nature_label

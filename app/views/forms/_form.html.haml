@@ -4,8 +4,6 @@
   -if params[:redirect]
     =hidden_field_tag(:redirect, params[:redirect]) # || back_url
   .form-fields=fields
-  -if manual_form
-    =capture(&manual_form)
   =form_actions do
     =submit_tag(options[:submit]||tl(action), "data-disable-with" => tl(:please_wait))
     =link_to(options[:cancel]||tl(:cancel), :back, (params[:dialog] ? {"data-close-dialog" => params[:dialog]} : {}))

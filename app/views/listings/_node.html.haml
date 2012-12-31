@@ -10,9 +10,8 @@
             =link_to(node.label, "#", "data-toggle-visibility" => "##{node.key}")
             %span.attribute="(#{node.name})"
           %td
-            =form_tag({:controller=>:listing_nodes, :action=>:create, :parent_id=>node.id}, :remote=>true, "data-update"=>"##{node.key}", "data-type"=>:html, :class=>:content) do
-              =select_tag(:nature, grouped_options_for_select(node.available_nodes))
-              =submit_tag(tg(:add))
+            =select_tag(:nature, grouped_options_for_select(node.available_nodes), :id => "#{node.key}-nature")
+            =link_to(tg(:add), {:controller => :listing_nodes, :action => :create, :parent_id => node.id}, :remote => true, :method => :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", :class => "btn")
         -else
           %td.export=check_box_tag(:exportable, "1", node.exportable, "data-remote"=>true, "data-url"=>url_for(:action=>:update, :controller=>:listing_nodes, :id=>node.id, :type=>"exportable"), "data-method"=>"put")
           %td.link.label{:id=>"#{node.key}_label"}
@@ -23,7 +22,7 @@
           -unless node.reflection?
             %td.item-tool.position{:id=>"#{node.key}_position"}=render(:partial=>"listing_nodes/position", :object=>node)
           %td.item-tool.delete
-            =tool_to(tg(:delete), {:action=>:destroy, :controller=>:listing_nodes, :id=>node.id}, :remote=>true, "data-update"=>node.parent.key, "data-type"=>:html, :method=>:delete, :class=>"icon im-delete")
+            =tool_to(tg(:delete), {:action => :destroy, :controller => :listing_nodes, :id => node.id}, :method => :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, :class=>"icon im-delete")
 
 -if node.reflection?
   .branches{:id=>node.key}=render(:partial=>"listings/reflection", :object=>node)

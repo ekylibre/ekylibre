@@ -39,21 +39,21 @@
 
 class Listing < CompanyRecord
   attr_readonly :root_model
-  has_many :columns, :class_name=>"ListingNode", :conditions=>["nature = ?", "column"]
-  has_many :exportable_columns, :class_name=>"ListingNode", :conditions=>{:nature=>"column", :exportable=>true}, :order=>"position"
-  has_many :filtered_columns, :class_name=>"ListingNode", :conditions=>["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
-  has_many :mail_columns, :class_name=>"ListingNode", :conditions=>["name LIKE ? AND nature = ? ", '%.email', "column"]
-  has_many :nodes, :class_name=>"ListingNode", :dependent=>:delete_all
-  has_many :reflections, :class_name=>"ListingNode", :conditions=>["nature IN (?)", ["belongs_to", "has_many", "root"]]
+  has_many :columns, :class_name => "ListingNode", :conditions => ["nature = ?", "column"]
+  has_many :exportable_columns, :class_name => "ListingNode", :conditions => {:nature  => "column", :exportable => true}, :order => "position"
+  has_many :filtered_columns, :class_name => "ListingNode", :conditions => ["nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any"]
+  has_many :mail_columns, :class_name => "ListingNode", :conditions => ["name LIKE ? AND nature = ? ", '%.email', "column"]
+  has_many :nodes, :class_name => "ListingNode", :dependent => :delete_all
+  has_many :reflections, :class_name => "ListingNode", :conditions => ["nature IN (?)", ["belongs_to", "has_many", "root"]]
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :root_model, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :root_model
   #]VALIDATORS]
-  # validates_format_of :query, :with=>/\s*SELECT\s+[^\;]*/
-  validates_format_of :query, :conditions, :with=>/^[^\;]*$/
+  # validates_format_of :query, :with => /\s*SELECT\s+[^\;]*/
+  validates_format_of :query, :conditions, :with => /^[^\;]*$/
 
-  before_validation(:on=>:update) do
+  before_validation(:on => :update) do
     self.query = self.generate
   end
 
@@ -63,7 +63,7 @@ class Listing < CompanyRecord
   end
 
   def root
-    self.nodes.find_by_parent_id(nil)||self.nodes.create!(:label=>self.root_model_name, :name=>self.root_model, :nature=>"root")
+    self.nodes.find_by_parent_id(nil) || self.nodes.create!(:label => self.root_model_name, :name => self.root_model, :nature => "root")
   end
 
   def generate
@@ -98,7 +98,7 @@ class Listing < CompanyRecord
   end
 
   def duplicate
-    listing = self.class.create!(self.attributes.merge(:name=>tg(:copy_of, :source=>self.name)))
+    listing = self.class.create!(self.attributes.merge(:name => tg(:copy_of, :source => self.name)))
     self.root.duplicate(listing)
     listing.reload
     listing.save

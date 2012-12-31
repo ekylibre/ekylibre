@@ -67,9 +67,12 @@ Ekylibre::Application.routes.draw do
       get :list_reconciliation
       get :list_entities
       get :reconciliation
+      get :unroll
+      get :unroll_charges
       get :unroll_client_thirds
       get :unroll_attorney_thirds
       get :unroll_supplier_thirds
+      get :unroll_deposit_pending_payments
       match "load", :via => [:get, :post]
     end
     member do
@@ -180,6 +183,7 @@ Ekylibre::Application.routes.draw do
       get :list
       get :list_deposits
       get :list_bank_statements
+      get :unroll
     end
   end
   resources :cash_transfers do
@@ -210,6 +214,7 @@ Ekylibre::Application.routes.draw do
   resources :delays do
     collection do
       get :list
+      get :unroll
     end
   end
   resources :departments do
@@ -230,6 +235,7 @@ Ekylibre::Application.routes.draw do
   resources :districts do
     collection do
       get :list
+      get :unroll
     end
   end
   resources :document_templates do
@@ -262,7 +268,7 @@ Ekylibre::Application.routes.draw do
       get :list_cashes
       get :list_links
       get :unroll_employees
-      get :unroll_all
+      get :unroll
       match "import", :via => [:get, :post]
       match "export", :via => [:get, :post]
       match "merge", :via => [:get, :post]
@@ -271,7 +277,7 @@ Ekylibre::Application.routes.draw do
   resources :entity_addresses
   resources :entity_categories do
     collection do
-      get :unroll_all
+      get :unroll
       get :list
       get :list_prices
     end
@@ -279,12 +285,13 @@ Ekylibre::Application.routes.draw do
   resources :entity_links, :except => [:index, :show]
   resources :entity_link_natures do
     collection do
+      get :unroll
       get :list
     end
   end
   resources :entity_natures do
     collection do
-      get :unroll_all
+      get :unroll
       get :list
     end
   end
@@ -340,6 +347,7 @@ Ekylibre::Application.routes.draw do
   resources :incoming_payment_modes do
     collection do
       get :list
+      get :unroll
     end
     member do
       post :up
@@ -374,6 +382,7 @@ Ekylibre::Application.routes.draw do
       get :list_lines
       get :list_entries
       get :list_general_ledger
+      get :unroll
     end
     member do
       match "close", :via => [:get, :post]

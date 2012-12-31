@@ -1,6 +1,8 @@
-=formalize do |f|
-  -if @rights.is_a? Array
-    -for right in Entity.rights_list.sort{|a,b| t("rights.#{a}")<=>t("rights.#{b}")}
-      -f.field check_box_tag("rights[#{right}]", "1", @rights.include?(right.to_sym), :id=>"rights_#{right}"), content_tag(:label, t("rights.#{right}"), :for=>"rights_#{right}")
+-if @rights.is_a? Array
+  -for right in Entity.rights_list.sort{|a,b| t("rights.#{a}")<=>t("rights.#{b}")}
+    .control-group
+      .controls
+        =check_box_tag("rights[#{right}]", "1", @rights.include?(right.to_sym), :id => "rights-#{right}")
+        %label{:for => "rights-#{right}"}=t("rights.#{right}")
 
 
