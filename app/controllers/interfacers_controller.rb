@@ -23,7 +23,7 @@ class InterfacersController < AdminController
   def toggle_side
     # Explicit conversion
     session[:side] = (params[:splitted] == "1" ? false : true)
-    render :text=>''
+    render :text => ''
   end
 
   # Saves the state of the side bar
@@ -33,21 +33,40 @@ class InterfacersController < AdminController
     session[:modules] ||= {}
     session[:modules][params[:module]] = shown
     @current_user.preference("interface.show_modules.#{params[:module]}", true, :boolean).set(shown)
-    render :text=>''
+    render :text => ''
   end
 
   # Saves the last selected tab in a tabbox
   def toggle_tab
     session[:tabbox] ||= {}
     session[:tabbox][params['id']] = params['index']
-    render :text=>nil
+    render :text => nil
   end
 
   # Saves the view mode
   def toggle_view_mode
     session[:view_mode] = params[:mode]
-    render :text=>''
+    render :text => ''
   end
+
+  # TODO: Manage options in role and add watch dog to ensure that autocomplete must be used in rights with parameters
+  def autocomplete
+    
+  end
+
+  def select_options
+    options = [:source, :filter, :model, :id, :label, :include_blank, :selected].inject({}) do |hash, key|
+      hash[key] = params[key] if params.has_key?(key)
+      hash
+    end
+    respond_to do |format|
+      format.html { render :inline => '<%=options_for_unroll(@options)-%>' }
+    end
+  end
+
+  def search_for
+  end
+
 
 
   def unroll
@@ -65,17 +84,17 @@ class InterfacersController < AdminController
     for x in [:reflection, :order, :label, :include_blank]
       @options[x] = params[x]
     end
-    render :inline=>'<%=options_for_select(options_for_unroll(@options), params[:selected].to_i)-%>'
+    render :inline => '<%=options_for_select(options_for_unroll(@options), params[:selected].to_i)-%>'
   end
 
   def product_trackings
     return unless @product = find_and_check(:product, params[:product_id])
-    render :inline=>"<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>", :layout=>false
+    render :inline => "<%=options_for_select([['---', '']]+@product.trackings.collect{|x| [x.name, x.id]})-%>", :layout => false
   end
 
   def product_units
     return unless @product = find_and_check(:product, params[:product_id])
-    render :inline=>"<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>", :layout=>false
+    render :inline => "<%=options_for_select(@product.units.collect{|x| [x.name, x.id]})-%>", :layout => false
   end
 
 
@@ -90,25 +109,25 @@ class InterfacersController < AdminController
   end
 
 
-  search_for(:account, :columns=>["number:X%", :name])
-  search_for(:all_contacts, :contacts, :columns=>[:address], :conditions =>["deleted_at IS NULL"])
-  search_for(:attorneys_accounts, :accounts, :columns=>[:number, :name], :conditions=>[" number LIKE ?", ["Account.find_in_chart(:attorney_thirds).number.to_s+'%'"]])
-  search_for(:available_prices, :prices, :columns=>["product.code", "product.name", {:name=>:pretax_amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}, {:name=>:amount, :code=>"I18n.localize(DATUM, :currency=>RECORD.currency)"}], :joins=>[:product], :conditions=>available_prices_conditions, :order=>"products.name, prices.amount")
-  search_for(:clients_accounts, :accounts, :columns=>[:number, :name], :conditions=>["number LIKE ?", ["Account.find_in_chart(:client_thirds).number.to_s+'%'"]])
-  search_for(:client_contacts, :contacts, :columns=>[:address], :conditions=>["entity_id = ? AND deleted_at IS NULL", ['session[:current_entity_id]']])
-  search_for(:clients, :entities, :columns=>[:code, :full_name], :conditions => {:client=>true})
-  search_for(:collected_account, :account, :columns=>["number:X%", :name])
-  search_for(:districts, :columns=>[:name, :code])
-  search_for(:entities, :columns=>[:code, :full_name])
-  search_for(:incoming_delivery_contacts, :contact, :columns=>['entity.full_name', :address], :conditions =>["#{Contact.table_name}.deleted_at IS NULL AND entity.of_company"], :joins => [:entities])
-  search_for(:operation_products, :product, :columns=>[:code, :name], :conditions =>{:active=>true})
-  search_for(:outgoing_deliveries, :columns=>[:planned_on, "contact.address"], :conditions=>["transport_id IS NULL"], :joins=>[:contact])
-  search_for(:outgoing_delivery_contacts, :contacts, :columns=>['entity.full_name', :address], :conditions=>["#{Contact.table_name}.deleted_at IS NULL"], :joins=>[:entity])
-  search_for(:paid_account, :account, :columns=>["number:X%", :name])
-  search_for(:purchase_products, :product, :columns=>[:code, :name], :conditions => {:active=>true}, :order=>"name")
-  search_for(:subscription_contacts, :contact, :columns=>['entity.code', 'entity.full_name', :address], :joins=>[:entity], :conditions=>["deleted_at IS NULL"])
-  search_for(:suppliers_accounts, :accounts, :columns=>[:number, :name], :conditions=>["number LIKE ?", ["Account.find_in_chart(:supplier_thirds).number.to_s+'%'"]])
-  search_for(:suppliers, :entities, :columns=>[:code, :full_name], :conditions => {:supplier=>true}, :order=>"active DESC, last_name, first_name")
+  search_for(:account, :columns => ["number:X%", :name])
+  # search_for(:all_contacts, :contacts, :columns => [:address], :conditions  => ["deleted_at IS NULL"])
+  search_for(:attorneys_accounts, :accounts, :columns => [:number, :name], :conditions => [" number LIKE ?", ["Account.find_in_chart(:attorney_thirds).number.to_s+'%'"]])
+  search_for(:available_prices, :prices, :columns => ["product.code", "product.name", {:name => :pretax_amount, :code => "I18n.localize(DATUM, :currency => RECORD.currency)"}, {:name => :amount, :code => "I18n.localize(DATUM, :currency => RECORD.currency)"}], :joins => [:product], :conditions => available_prices_conditions, :order => "products.name, prices.amount")
+  search_for(:clients_accounts, :accounts, :columns => [:number, :name], :conditions => ["number LIKE ?", ["Account.find_in_chart(:client_thirds).number.to_s+'%'"]])
+  # search_for(:client_contacts, :contacts, :columns => [:address], :conditions => ["entity_id = ? AND deleted_at IS NULL", ['session[:current_entity_id]']])
+  search_for(:clients, :entities, :columns => [:code, :full_name], :conditions => {:client => true})
+  search_for(:collected_account, :account, :columns => ["number:X%", :name])
+  search_for(:districts, :columns => [:name, :code])
+  search_for(:entities, :columns => [:code, :full_name])
+  # search_for(:incoming_delivery_contacts, :contact, :columns => ['entity.full_name', :address], :conditions  => ["#{Contact.table_name}.deleted_at IS NULL AND entity.of_company"], :joins => [:entities])
+  search_for(:operation_products, :product, :columns => [:code, :name], :conditions  => {:active => true})
+  # search_for(:outgoing_deliveries, :columns => [:planned_on, "contact.address"], :conditions => ["transport_id IS NULL"], :joins => [:contact])
+  # search_for(:outgoing_delivery_contacts, :contacts, :columns => ['entity.full_name', :address], :conditions => ["#{Contact.table_name}.deleted_at IS NULL"], :joins => [:entity])
+  search_for(:paid_account, :account, :columns => ["number:X%", :name])
+  search_for(:purchase_products, :product, :columns => [:code, :name], :conditions => {:active => true}, :order => "name")
+  # search_for(:subscription_contacts, :contact, :columns => ['entity.code', 'entity.full_name', :address], :joins => [:entity], :conditions => ["deleted_at IS NULL"])
+  search_for(:suppliers_accounts, :accounts, :columns => [:number, :name], :conditions => ["number LIKE ?", ["Account.find_in_chart(:supplier_thirds).number.to_s+'%'"]])
+  search_for(:suppliers, :entities, :columns => [:code, :full_name], :conditions => {:supplier => true}, :order => "active DESC, last_name, first_name")
 
   autocomplete_for(:entity, :origin)
   autocomplete_for(:event, :location)

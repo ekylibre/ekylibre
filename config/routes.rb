@@ -37,7 +37,8 @@ Ekylibre::Application.routes.draw do
   match '/toggle/side' => "interfacers#toggle_side"
   match '/toggle/submenu/:id' => "interfacers#toggle_submenu", :as => :toggle_submenu
   match '/toggle/tab/:id' => "interfacers#toggle_tab"
-  match '/unroll/:source/:filter/of/:model/:id' => "interfacers#unroll", :via => :get, :as => :unroll
+
+  get '/select-options-in/:source/:filter/for/:model/:id' => "interfacers#select_options", :as => :select_options
   match '/autocomplete/:model/:property' => "interfacers#autocomplete", :via => :get, :as => :autocomplete
   match '/intf/:action', :controller => :interfacers, :via => :get
 
@@ -66,6 +67,9 @@ Ekylibre::Application.routes.draw do
       get :list_reconciliation
       get :list_entities
       get :reconciliation
+      get :unroll_client_thirds
+      get :unroll_attorney_thirds
+      get :unroll_supplier_thirds
       match "load", :via => [:get, :post]
     end
     member do
@@ -257,6 +261,8 @@ Ekylibre::Application.routes.draw do
       get :list_addresses
       get :list_cashes
       get :list_links
+      get :unroll_employees
+      get :unroll_all
       match "import", :via => [:get, :post]
       match "export", :via => [:get, :post]
       match "merge", :via => [:get, :post]
@@ -265,6 +271,7 @@ Ekylibre::Application.routes.draw do
   resources :entity_addresses
   resources :entity_categories do
     collection do
+      get :unroll_all
       get :list
       get :list_prices
     end
@@ -277,6 +284,7 @@ Ekylibre::Application.routes.draw do
   end
   resources :entity_natures do
     collection do
+      get :unroll_all
       get :list
     end
   end

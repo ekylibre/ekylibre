@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# -*- coding: utf-8 -*-
 require 'fileutils'
 require 'nokogiri'
 require 'bigdecimal'
@@ -8,6 +9,29 @@ name = "symbols"
 advx = 1000
 advy = 1000
 
+def parse_float(text)
+  value = if text.match(/^\-?\d+(\.\d+)?$/)
+            BigDecimal.new(text)
+          elsif text.match(/^\-?\d+(\.\d+)?e\-?\d+?$/)
+            a = text.split('e')
+            BigDecimal.new(text) # a[0]) * BigDecimal.new(10 ** a[1].to_i)
+          else
+            raise "What's this #{text} ? "
+          end
+  # puts "#{value}\t#{print_float(value)}"
+  return value
+end
+
+def parse_point(text)
+  point = text.split(',')
+  return parse_float(point[0]), parse_float(point[1])
+end
+
+def print_float(decimal)
+  return decimal.to_s('F')
+  BigDecimal.new(decimal,15).to_s('F')
+end
+
 
 def fit(path, width, height)
   moves = path.split(/\s/)
@@ -15,14 +39,15 @@ def fit(path, width, height)
   left, right, top, bottom = nil, nil, nil, nil
   # puts path
   for move in moves
-    next unless move.match(/^\-?\d+(\.\d+)?\,\-?\d+(\.\d+)?$/)
-    point = move.split(',').collect{|v| BigDecimal.new(v)}
-    x, y = point[0], point[1]
+    next unless move.match(/^.+\,.+$/)
+    x, y = parse_point(move)
     left   = x if   (left||x) >= x
     right  = x if  (right||x) <= x
     top    = y if    (top||y) <= y
     bottom = y if (bottom||y) >= y
   end
+  
+  return false if left.nil? or top.nil?
 
   w = right - left
   h = top - bottom
@@ -32,10 +57,9 @@ def fit(path, width, height)
 
   # Update values
   npath = moves.collect do |move|
-    if move.match(/^\-?\d+(\.\d+)?\,\-?\d+(\.\d+)?$/)
-      point = move.split(',').collect{|v| v.to_f}
-      x, y = point[0], point[1]
-      ((x-left)*kx).round(6).to_s + "," + ((y-bottom)*ky).round(6).to_s
+    if move.match(/^.+\,.+$/)
+      x, y = parse_point(move)
+      print_float((x-left)*kx) + "," + print_float(height - (y-bottom)*ky)
     else
       move
     end
@@ -46,28 +70,33 @@ end
 
 
 
-
-
+# Tidy SVG
+`./svgtidy --absolute < #{name}.svg > #{name}.cleaned.svg`
 
 
 # Open SVG
-f = File.open("#{name}.svg")
+f = File.open("#{name}.cleaned.svg")
 doc = Nokogiri::XML(f) do |config|
   config.strict.nonet.noblanks
 end
 f.close
+FileUtils.rm("#{name}.cleaned.svg")
 
 # Collect glyphs
 glyphs = []
 print "Collecting"
-doc.root.xpath('./svg:g/svg:path[@id]').each do |node|
+doc.root.xpath('./svg:g/svg:path[@id]').each do |node| # and @inkscape:label
   gname = node.attr(:id).gsub(/(^\s+|\s+$)/, '')
   if gname.match(/^[a-z][a-z\-]*[a-z]$/)
     print "."
-    glyphs << {:name => gname, :d => fit(node.attr(:d), advx, advy)}
+    if d = fit(node.attr(:d), advx, advy)
+      glyphs << {:name => gname, :d => d}
+    end
   end
 end
-puts "OK!"
+glyphs.sort!{|a,b| a[:name].to_s <=> b[:name].to_s }
+
+puts "#{glyphs.size} glyphs!"
 
 # Rewrite SVG to a font
 builder = Nokogiri::XML::Builder.new do |xml|
@@ -75,22 +104,25 @@ builder = Nokogiri::XML::Builder.new do |xml|
     xml.defs {
       xml.font(:id => "tekyfont", 'horiz-adv-x' => advx) {
         xml.send("font-face", 'font-family' => "Tekyfont", 'font-weight' => "normal", 'units-per-em' => advx) #, 'font-style' => :italic, 'cap-height' => 600,  'x-height' => 400, :ascent => 700, :descent => 300, :alphabetic => 0, :mathematical => 350, :ideographic => 400, :hanging => 500)
+        xml.send("missing-glyph", :d => glyphs[0][:d])
         glyphs.each_with_index do |glyph, i|
           xml.glyph(:unicode => i.to_s(36), :d => glyph[:d], "glyph-name" => glyph[:name])
         end
-        xml.send("missing-glyph", :d => glyph[:d])
       }
     }
   }
 end
 
-File.open("#{name}-font.svg", "wb") do |f|
+font_file = "#{name}-font.svg"
+File.open(font_file, "wb") do |f|
   f.write builder.to_xml
 end
 
 
 # Convert SVG font  to TTF, OTF and WOFF
-`fontforge -script font-convert.pe #{name}-font.svg ttf`
+`fontforge -script font-convert.pe #{font_file} ttf`
+# `fontforge -script font-convert.pe #{font_file} otf`
+# `fontforge -script font-convert.pe #{font_file} woff`
 
 
 

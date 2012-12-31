@@ -20,6 +20,8 @@
 class EntityNaturesController < AdminController
   manage_restfully
 
+  unroll :all, :label => "{name}, {title}"
+
   list do |t|
     t.column :name
     t.column :title
@@ -27,7 +29,7 @@ class EntityNaturesController < AdminController
     t.column :physical
     t.column :in_name
     t.action :edit
-    t.action :destroy, :if=>"RECORD.destroyable\?"
+    t.action :destroy, :if => "RECORD.destroyable\?"
   end
 
   # Displays the main page with the list of entity natures

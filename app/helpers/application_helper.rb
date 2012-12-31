@@ -51,7 +51,7 @@ module ApplicationHelper
   # end
 
   def options_for_unroll(options = {})
-    # TODO Fix unknown options[:model] !
+    # TODO Manage if options[:model] is unknown!
     filter = options[:filter].to_s.to_sym
     reflection = nil
     model = nil
@@ -83,6 +83,18 @@ module ApplicationHelper
     end
     return options_for_select(list, options[:selected].to_i)
   end
+
+
+  def selector(object_name, association, choices, options = {}, html_options = {})
+    object = instance_variable_get("@#{object_name}")
+    model = object.class
+    unless reflection = object.class.reflections[association.to_sym]
+      raise ArgumentError.new("Unknown reflection for #{model.name}: #{association.inspect}") 
+    end
+    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+    return text_field(object_name, reflection.foreign_key, html_options.merge('data-selector' => url_for(choices)))
+  end
+
 
 
   def authorized?(url={})
@@ -1347,7 +1359,7 @@ module ApplicationHelper
       haml << "##{fs_name}.fieldset.form-horizontal\n"
       haml << "  .fieldset-legend\n"
       haml << "    %span.icon\n"
-      haml << "    %span{:for => '#{toggle_id}'}=" + (fs_name.is_a?(Symbol) ? ":#{fs_name}.t(:default => [:'labels.#{fs_name}', :'form.legends.#{fs_name}'])" : fs_name.to_s.inspect) + "\n"
+      haml << "    %span{:for => '#{toggle_id}'}=" + (fs_name.is_a?(Symbol) ? ":'#{fs_name.to_s.gsub('-', '_')}'.t(:default => [:'labels.#{fs_name.to_s.gsub('-', '_')}', :'form.legends.#{fs_name.to_s.gsub('-', '_')}'])" : fs_name.to_s.inspect) + "\n"
       haml << "    %span##{toggle_id}.#{fs[:collapsed] ? 'collapsed' : 'not-collapsed'}{'data-toggle-set' => '##{set_id}'}\n"
       haml << "  ##{set_id}.fieldset-fields" + (fs[:collapsed] ? "{:style => 'display: none'}" : "") + "\n"
       for field in fs[:fields]
@@ -1376,7 +1388,7 @@ module ApplicationHelper
 
   def field_set(*args, &block)
     options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    name  = (args[-1].is_a?(Symbol) ? args.delete_at(-1) : :general_informations)
+    name  = (args[-1].is_a?(Symbol) ? args.delete_at(-1) : "general-informations".to_sym)
     if @field_sets[name]
       if options.size > 0 or args.size > 0
         raise ArgumentError.new("This field_set is already defined. You can not give other parameters.")
@@ -1477,12 +1489,57 @@ module ApplicationHelper
   end
 
   def render_field_association(name, options = {})
-    source = options.delete(:source)
+    model = controller.controller_name.singularize.classify.constantize
+    reflection = model.reflections[name]
+    raise ArgumentError.new("Unknown reflection :#{name} for #{model.name}") if reflection.nil?
+    reflection_model = reflection.class_name.classify.constantize
+    source = options.delete(:source).to_s
+    asource = source.split('#')
+    asource[0] = reflection.class_name.pluralize if asource[0].blank?
+    selfsource = (asource[0] == "self" ? true : false)
+    asource[0] = "@#{model.name.underscore}" if selfsource
+    asource[1] = "all" if asource[1].blank?
     face = options.delete(:field)
-    haml  = "=f.association(:#{name}"
-    haml << ", :collection => #{source}" if source.is_a?(Symbol)
-    haml << ", :as => :#{FACES[face]||face}" if face.is_a?(Symbol)
-    haml << ")"
+    required = (options.has_key?(:required) ? options[:required] : model.validators_on(name).detect{|v| v.attributes.include?(name) and v.is_a?(ActiveModel::Validations::PresenceValidator)} ? true : false)
+
+    haml  = "##{model.name.underscore}-#{name}.control-group\n"
+    haml << "  %label.control-label#{'.required' if required}{:for => 'toto'}\n"
+    haml << "    %abbr{:title => 'required'} *\n" if required
+    haml << "    =#{model.name}.human_attribute_name('#{reflection.name}')\n"
+    cvar = asource.join("_").underscore + "_count"
+    attrs = (reflection_model.columns_hash.keys + reflection_model.instance_methods).collect{|a| a.to_sym}
+    label_method = options[:label_method] || [:label, :native_name, :name, :to_s, :inspect].detect{|x| attrs.include?(x)}
+    include_blank = !required
+    input_id = "#{model.name.underscore}-#{reflection.name}-input"
+    haml << "  .controls\n"
+    haml << "    =selector('#{model.name.underscore}', '#{reflection.name}', {:controller => '#{asource[0].underscore}', :action => :unroll_#{asource[1].underscore}}, {}, :id => '#{input_id}', :class => 'selector#{' required' if required}')\n"
+    # haml << "    -#{cvar} = #{asource[0]}.#{asource[1]}.count\n"
+    # haml << "    -if #{cvar} < 50\n"
+    # haml << "      =select('#{model.name.underscore}', '#{reflection.foreign_key}', #{asource[0]}.#{asource[1]}.collect{|item| [item.#{label_method}, item.id]}, {#{':include_blank => true' unless required}}, 'data-refresh' => select_options_url(:#{asource[0].underscore}, :#{asource[1].underscore}, :#{model.name.underscore}, @#{model.name.underscore}.id||'new'#{', :include_blank => true' unless required}), 'data-id-parameter-name' => 'selected', :id => '#{input_id}', :class => 'select#{' required' if required}')\n"
+    # haml << "    -else\n"
+    # haml << "      =unroll('#{model.name.underscore}', '#{reflection.foreign_key}', {:controller => :interfacers, :action => :unroll, :source => :#{asource[0].underscore}, :model => :#{model.name.underscore}, :id => @#{model.name.underscore}.id, :filter => :#{asource[1].underscore}#{', :include_blank => true' unless required}}, :id => '#{input_id}', :class => 'unroll#{' required' if required}')\n"
+    buttons = options[:buttons] || {}
+    for action in [:new] # , :edit  system actions
+      if buttons[action].is_a?(FalseClass) or options[action].is_a?(FalseClass)
+        buttons.delete(action) 
+      elsif !buttons[action].is_a?(Hash)
+        buttons[action] = {}
+      end
+    end
+    buttons[:edit][:member] = true if buttons[:edit]
+    for action, action_options in buttons
+      buttons[action] = {} if !buttons[action].is_a?(Hash)
+    end
+    
+    item_id = "@#{reflection.foreign_key.to_s.upcase}@"
+    if buttons.size > 0
+      haml << "    %span.btn-toolbar\n"
+      for action, action_options in buttons
+        haml << "      =link_to({:controller => :#{reflection_model.name.pluralize.underscore}, :action => :#{action}" + (action_options[:member] ? ", :id => '#{item_id}'" : '') + "}, 'data-#{action}-item' => '#{input_id}'" + (action_options[:member] ? ", 'data-#{action}-item-id' => '#{item_id}'" : '') + ", :class => 'btn btn-#{action}') do\n"
+        haml << "        %span.icon\n"
+        haml << "        %span.text='labels.#{action}'.t\n"
+      end
+    end
     return haml
   end
 
@@ -1492,7 +1549,7 @@ module ApplicationHelper
 
     partial  = "-# Generated automatically. Don't edit this file.\n"
     partial << ".nested-fields\n"
-    partial << "  =link_to_remove_association 'Remove #{record}', f\n"
+    partial << "  =link_to_remove_association('labels.remove_#{record}'.t, f, :class => 'nested-remove remove-#{record.to_s.parameterize}')\n"
     for f in options[:fields]
       partial << render_field(f, 1)
     end
@@ -1504,7 +1561,7 @@ module ApplicationHelper
     haml << "  =f.simple_fields_for(:#{name}) do |#{record}|\n"
     haml << "    =render '#{record}_fields', :f => #{record}\n"
     haml << "  .links\n"
-    haml << "    =link_to_add_association('Add #{record}', f, :#{name})\n"
+    haml << "    =link_to_add_association('labels.add_#{record}'.t, f, :#{name}, :class => 'nested-add add-#{record.to_s.parameterize}')\n"
     return haml
   end
 
@@ -1820,7 +1877,7 @@ module ApplicationHelper
       @lines = []
     end
 
-    def title(value=:general_informations, options={})
+    def title(value = "general-informations".to_sym, options={})
       @lines << options.merge({:nature => :title, :value => value})
     end
 

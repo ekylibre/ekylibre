@@ -14,8 +14,7 @@ gem 'exception_notification'
 gem 'state_machine'
 gem 'i18n-complements'
 gem 'active-list'
-gem 'combo_box'
-gem 'formize', '>= 0.1.0'
+gem 'formize', '~> 1.0'
 gem 'prawn', '>= 0.10.0'
 gem 'acts_as_list'
 gem 'acts_as_tree'
@@ -46,7 +45,7 @@ group :assets do
   # gem 'dojox-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  gem 'libv8', '~> 3.3.10.4'
+  gem 'libv8', '~> 3.11.8'
   gem 'therubyracer', :platform => :ruby
 
   gem 'uglifier', '>= 1.0.3'

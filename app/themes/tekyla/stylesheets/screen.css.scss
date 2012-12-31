@@ -410,7 +410,7 @@ table.quick td { padding: 0px 4px; }
       }
     }
   }
-  @each $field_set in care, drug, delay, document, general_informations, stock, animal, vegetable, entity, asset, genealogy, group, treatment { 
+  @each $field_set in care, drug, delay, document, general-informations, stock, animal, vegetable, entity, asset, genealogy, group, treatment { 
     &##{ $field_set } .fieldset-legend .icon {
       @include icons-sprite($field_set);
     }
@@ -430,7 +430,7 @@ table.quick td { padding: 0px 4px; }
     padding: round($fs-normal*0.2) 0;
     margin: round($fs-normal*0.1) 0;    
 
-    label { 
+    .control-label { 
       width: 25%;
       @include float(left);
       line-height: 1.4*$fs-normal;
@@ -455,7 +455,7 @@ table.quick td { padding: 0px 4px; }
   margin: round($fs-normal/3) 0;
   padding: round($fs-normal/3) 0;
   @include clearfix;
-  label { 
+  .control-label { 
     width: $label-width;
     @include float(left);
     line-height: round(1.4*$fs-normal);
@@ -944,7 +944,33 @@ html[dir="ltr"] input[data-unroll] { background-position: right center; padding-
 html[dir="rtl"] input[data-unroll] { background-position: left center; padding-left: 18px; }
 */
 
-
+.items-menu {
+  position: absolute;
+  @include float(left);
+  background: white;
+  border: 1px solid #AAA;
+  z-index: 2;
+  .items-list { 
+    max-height: 400px;
+    min-width: 350px;
+    overflow-y: auto;
+    li { 
+      padding: 8px;
+      *, & * { vertical-align: baseline; }
+      strong { font-weight: bold }
+      &.selected { 
+        background: rgba($base-color, 0.2);
+        cursor: pointer;
+      }
+    }
+  }
+  .items-status { 
+    display: block;
+    padding: 8px;
+    background: #EFE; 
+    font-style: italic;
+  }
+}
 
 .ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
 
@@ -1391,4 +1417,12 @@ input[data-datepicker] {@include text-align(center)}
       }
     }
   }
+}
+
+
+.control-group.hidden { 
+  display: none;
+}
+.nested-remove { 
+  @include float(right);
 }
