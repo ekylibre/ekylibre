@@ -49,11 +49,13 @@
 
 
 class Animal < CompanyRecord
-  attr_accessible :born_on, :ceded_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :purchased_on, :race_id, :sex, :working_number
+  attr_accessible :is_reproductor, :income_reasons, :outgone_reasons, :is_external, :born_on, :comment, :description, :father_id, :mother_id, :group_id, :identification_number, :income_on, :name, :outgone_on, :picture, :race_id, :sex, :working_number
   enumerize :sex, :in => [:male, :female]
+  enumerize :income_reasons, :in => [:birth, :purchase, :housing, :other], :default=> :birth
+  enumerize :outgone_reasons, :in => [:dead, :sale, :autoconsumption, :other], :default=> :sale
   belongs_to :group, :class_name => "AnimalGroup"
   belongs_to :race, :class_name => "AnimalRace"
-  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male}
+  belongs_to :father, :class_name => "Animal", :conditions => {:sex => :male, :is_reproductor => 'true'}
   belongs_to :mother, :class_name => "Animal", :conditions => {:sex => :female}
   has_many :events, :class_name => "AnimalEvent",:foreign_key => :animal_id
   has_many :treatments, :class_name => "AnimalTreatment", :through => :events
@@ -74,5 +76,4 @@ class Animal < CompanyRecord
    def list_animal_full_name
       "#{name} - #{identification_number} - #{sex}"
    end
-
 end

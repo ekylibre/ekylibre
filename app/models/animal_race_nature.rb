@@ -33,7 +33,7 @@
 
 
 class AnimalRaceNature < CompanyRecord
-  has_many :posologies, :class_name => "Posology", :foreign_key => :animal_race_nature_id
+  has_many :posologies, :class_name => "AnimalPosology", :foreign_key => :animal_race_nature_id
   has_many :races, :class_name => "AnimalRace", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :allow_nil => true, :maximum => 255

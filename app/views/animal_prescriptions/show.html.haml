@@ -1,7 +1,12 @@
 =toolbar do |t|
-  -t.edit @prescription
-  -t.print_entity @prescription
-  -t.destroy(@prescription, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @prescription.destroyable?
+  -t.edit @animal_prescription
+  -t.print_entity @animal_prescription
+  -t.destroy(@animal_prescription, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal_prescription.destroyable?
 
-=attributes_list(@prescription) do |l|
+=attributes_list(@animal_prescription) do |l|
   -l.attribute :name
+
+=beehive do |b|
+  -b.cell :details do
+    -if @animal_prescription.picture.exists?
+      =image_tag(@animal_prescription.picture.url(:medium))

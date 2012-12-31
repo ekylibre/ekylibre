@@ -38,7 +38,7 @@
 
 class Unit < CompanyRecord
   has_many :products
-  has_many :drugs
+  has_many :drugs, :class_name => "AnimalDrug"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :coefficient, :start, :allow_nil => true
   validates_length_of :name, :allow_nil => true, :maximum => 8

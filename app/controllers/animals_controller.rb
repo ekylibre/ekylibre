@@ -18,18 +18,17 @@
 #
 
 class AnimalsController < AdminController
-  manage_restfully :multipart => true
-  respond_to :html, :xml, :pdf
-
+  manage_restfully
+  respond_to :xml, :json , :pdf, :html
+  
   list do |t|
-    t.column :identification_number, :url => true
+    t.column :working_number, :url => true
     t.column :name, :url=>true
     t.column :name, :through=>:group, :url=>true
     t.column :born_on
     t.column :sex
     t.column :name, :through=>:mother, :url=>true
-    t.column :income_on
-    t.column :outgone_on
+    t.column :name, :through=>:father, :url=>true
     t.action :show, :url=>{:format=>:pdf}, :image=>:print
     t.action :edit
     t.action :destroy, :if=>"RECORD.destroyable\?"
@@ -38,8 +37,13 @@ class AnimalsController < AdminController
   # Show a list of animal groups
 
   def index
-    @animals = Animal.all
-    respond_with @animals
+    @animal = Animal.all
+    respond_to do |format|
+      format.json { render json: @animal }
+      format.xml { render xml: @animal , :include => [:race , :father, :mother]}
+      format.pdf { render pdf: @animal }
+      format.html
+    end
   end
 
   # Liste des soins de l'animal considéré

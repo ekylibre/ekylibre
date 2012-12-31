@@ -1,8 +1,8 @@
 =toolbar do |t|
-  -t.edit @drug_nature
-  -t.destroy(@drug_nature, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @drug_nature.destroyable?
+  -t.edit @animal_drug_nature
+  -t.destroy(@animal_drug_nature, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal_drug_nature.destroyable?
 
-=attributes_list(@drug_nature) do |l| # liste des champs à afficher
+=attributes_list(@animal_drug_nature) do |l| # liste des champs à afficher
   -l.attribute :name
 
 

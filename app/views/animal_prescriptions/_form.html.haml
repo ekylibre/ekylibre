@@ -5,7 +5,7 @@
 
 -field_set(:document) do
   -input :picture
-  =image_tag(@prescription.picture.url(:thumb))
+  =image_tag(@animal_prescription.picture.url(:thumb))
 
 -field_set(:entity) do
   -association :prescriptor

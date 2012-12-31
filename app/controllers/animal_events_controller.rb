@@ -19,7 +19,8 @@
 
 class AnimalEventsController < AdminController
   manage_restfully :animal_id=>"params[:animal_id]", :animal_group_id=>"params[:animal_group_id]"
-
+  respond_to :pdf, :html, :xml
+  
   list() do |t|
     t.column :name, :url=>true
     t.column :name, :through=>:animal, :url=>true
@@ -34,7 +35,20 @@ class AnimalEventsController < AdminController
   end
 
   # Show a list of @animal_event
+  # @TODO FIX Jasperreport gem calling method to work with format pdf
   def index
+    @animal_event = AnimalEvent.all
+    respond_to do |format|
+     format.json { render json: @animal_event }
+     format.xml { render xml: @animal_event , :include => [
+       :animal,
+       :diagnostics,
+       :diseases,
+       :treatments => { :include => [:drug, :quantity_unit, :prescription]}
+       ] }
+     format.pdf { render pdf: @animal_event }
+     format.html
+     end
   end
 
   # Show one @animal_event with params_id

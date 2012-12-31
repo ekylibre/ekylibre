@@ -10,25 +10,24 @@
 -field_set(:delay) do |f|
   -input :planned_at
   -input :moved_at
-  -input :started_at
-  -input :stopped_at, :include_blank => true, :default_value => :blank
 
 -field_set(:care) do |f|
   =nested_association(:diagnostics) do
     =input :symptoms
+    =input :corpse_location
     =association :disease
   
 -field_set(:treatment) do |f|
   =nested_association(:treatments) do
-    =association :drug
-    =association :disease
-  =nested_association(:treatment_uses) do
-    =input :name
-    =association :drug_allowed
+    =input :started_at
     =input :quantity
     =association :quantity_unit
-    =input :per_animal_unit
-    =input :drug_admission_path
+    =association :drug
+    =association :prescription
+    -input :duration_wait_for_milk
+    -input :duration_unit_wait_for_milk
+    -input :duration_wait_for_meat
+    -input :duration_unit_wait_for_meat
 
 -field_set(:entity) do |f|
   -association :watcher, :include_blank => true, :default_value => :blank

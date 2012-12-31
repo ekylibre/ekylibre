@@ -3,7 +3,8 @@
   -association :race
   -input :name , :hint => "le nom de votre animal"# affiche le champ name de l entité animal avec une infos derriere
   -input :sex # affiche le champ sexe sous forme de radio avec une collection de proposition (M ou F) de l entité animal
-  -input :born_on, :as => :date, :end_year => Date.today.year - 40
+  -input :is_reproductor
+  -input :born_on
   -input :working_number
   -input :identification_number, :placeholder => 'FR + DEPT + 8 chiffres'
   -input :comment # affiche le champ comment formaté en zone de texte
@@ -15,8 +16,10 @@
   -association :mother
 
 -field_set(:stock) do # partie entrée sortie de l entité animal
-  -input :income_on, :include_blank => true, :default_value => :blank
+  -input :is_external
+  -input :income_on
+  -input :income_reasons
   -input :outgone_on, :include_blank => true, :default_value => :blank
-  -input :purchased_on, :include_blank => true, :default_value => :blank
+  -input :outgone_reasons, :include_blank => true, :default_value => :blank
 
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cares_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cares_list" language="groovy" columnCount="2" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="401" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.1"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
@@ -12,7 +12,7 @@
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<queryString language="xPath">
-		<![CDATA[/animals/animal]]>
+		<![CDATA[/animals/animal[is-external='false']]]>
 	</queryString>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[name]]></fieldDescription>
@@ -44,11 +44,24 @@
 	<field name="updated-at" class="java.util.Date">
 		<fieldDescription><![CDATA[updated-at]]></fieldDescription>
 	</field>
+	<field name="working-number" class="java.lang.String">
+		<fieldDescription><![CDATA[working-number]]></fieldDescription>
+	</field>
+	<field name="race-name" class="java.lang.String">
+		<fieldDescription><![CDATA[race/name]]></fieldDescription>
+	</field>
+	<field name="father-name" class="java.lang.String">
+		<fieldDescription><![CDATA[father/name]]></fieldDescription>
+	</field>
+	<field name="mother-name" class="java.lang.String">
+		<fieldDescription><![CDATA[mother/name]]></fieldDescription>
+	</field>
+	<sortField name="working-number" order="Descending"/>
 	<sortField name="born-on" order="Descending"/>
-	<variable name="name_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
-		<variableExpression><![CDATA[$F{name}]]></variableExpression>
+	<variable name="id_1" class="java.lang.Integer" resetType="Group" resetGroup="year" calculation="Count">
+		<variableExpression><![CDATA[$F{id}]]></variableExpression>
 	</variable>
-	<group name="year">
+	<group name="year" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{born-on}.getYear()+1900]]></groupExpression>
 		<groupHeader>
 			<band height="29">
@@ -65,17 +78,12 @@
 					<textFieldExpression><![CDATA[$F{born-on}.getYear()+1900]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="28" width="843" height="1" forecolor="#7F4D15"/>
+					<reportElement uuid="5abae6f2-281f-493a-b567-f347b80e42b3" x="-21" y="28" width="421" height="1" forecolor="#7F4D15"/>
 				</line>
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="39">
-				<textField evaluationTime="Group" evaluationGroup="year" isBlankWhenNull="true">
-					<reportElement uuid="6a0c9c02-c468-4a6a-aed1-b9137ba4e578" x="131" y="10" width="114" height="20"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$V{name_1}]]></textFieldExpression>
-				</textField>
+			<band height="88">
 				<staticText>
 					<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="10" y="10" width="121" height="20"/>
 					<textElement verticalAlignment="Middle">
@@ -83,6 +91,11 @@
 					</textElement>
 					<text><![CDATA[Total naissance :]]></text>
 				</staticText>
+				<textField evaluationTime="Group" evaluationGroup="year">
+					<reportElement uuid="9272f55e-4ea7-4a42-9e94-e425cbe67701" x="131" y="10" width="77" height="20"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{id_1}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupFooter>
 	</group>
@@ -129,96 +142,116 @@
 	</pageHeader>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="113" y="0" width="54" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[né(e) le]]></text>
+			</staticText>
 			<line>
-				<reportElement uuid="1a8fa9c0-eac8-4ea0-a29e-72273e994335" positionType="FixRelativeToBottom" x="1" y="21" width="802" height="1"/>
+				<reportElement uuid="1a8fa9c0-eac8-4ea0-a29e-72273e994335" positionType="FixRelativeToBottom" x="0" y="20" width="802" height="2"/>
 				<graphicElement>
 					<pen lineWidth="0.5" lineColor="#999999"/>
 				</graphicElement>
 			</line>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="0" y="1" width="100" height="19"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="0" y="0" width="73" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<text><![CDATA[nom]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="100" y="1" width="145" height="19"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="73" y="0" width="40" height="22"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
-				<text><![CDATA[n° de travail]]></text>
+				<text><![CDATA[n°]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="245" y="1" width="101" height="19"/>
-				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
-				</textElement>
-				<text><![CDATA[né(e) le]]></text>
-			</staticText>
-			<staticText>
-				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="345" y="1" width="44" height="19"/>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="167" y="0" width="41" height="22"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans"/>
 				</textElement>
 				<text><![CDATA[sexe]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="02843812-3783-4468-8558-dbe4d51e281c" style="Column header" x="389" y="1" width="214" height="19"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[Description]]></text>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="208" y="0" width="68" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[mère]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="64d5984e-984b-4926-ab37-28c3932f22f3" style="Column header" x="603" y="1" width="100" height="19"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Saisie le]]></text>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="276" y="0" width="53" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[père]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="85c694e5-fe09-413a-98b5-1926f417330b" style="Column header" x="703" y="1" width="100" height="19"/>
-				<textElement verticalAlignment="Middle"/>
-				<text><![CDATA[Mis à jour le]]></text>
+				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="329" y="0" width="71" height="22"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[race]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="21" splitType="Stretch">
-			<textField>
-				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" x="1" y="0" width="100" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" x="101" y="0" width="144" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{identification-number}]]></textFieldExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="42865504-0435-4a06-9df0-2151563c4fea" x="208" y="0" width="68" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{mother-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" x="245" y="1" width="100" height="20"/>
-				<textElement verticalAlignment="Middle"/>
+				<reportElement uuid="b8637e72-0dab-486c-980e-630dbe469547" x="113" y="0" width="54" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{born-on}]]></textFieldExpression>
 			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0850cafe-2771-4d68-aa3e-3ac65ab93627" x="329" y="0" width="71" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{race-name}.toLowerCase()]]></textFieldExpression>
+			</textField>
 			<textField>
-				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" x="345" y="0" width="56" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement uuid="e39cad02-7296-4b15-be64-83e1005f9da2" x="1" y="0" width="72" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{name}.toLowerCase()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="14106f98-080d-4ea6-9add-6ce992833746" x="73" y="0" width="40" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{working-number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a38d906a-cdce-41e6-8ec3-ca0b9b9f65b6" x="167" y="0" width="41" height="21"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[( $F{sex} == 'female' ? "F" : "M" )]]></textFieldExpression>
 			</textField>
 			<line>
-				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="801" height="1"/>
+				<reportElement uuid="09a03d97-1c8c-4a8b-85a3-1868d25e2f8a" x="2" y="20" width="398" height="1"/>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement uuid="cc0e1971-4945-41cd-ad5c-1dd08bfe6989" x="389" y="0" width="213" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-				<reportElement uuid="71e42ddf-fc03-4404-a61b-3204ee41df5e" x="602" y="1" width="100" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{created-at}]]></textFieldExpression>
-			</textField>
-			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-				<reportElement uuid="a32ad9a2-e7b6-4dbc-a83e-3f3257b7f7f5" x="702" y="1" width="100" height="20"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{updated-at}]]></textFieldExpression>
+				<reportElement uuid="dba1a483-6562-4082-a5d2-a0dd845fe182" x="276" y="0" width="53" height="21"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{father-name}.toLowerCase()]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -269,8 +302,7 @@
 							<textField>
 								<reportElement uuid="a2d756c8-f47d-4ced-a84a-21170fb52af5" style="Crosstab Data Text" x="0" y="0" width="70" height="25"/>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[
-( $V{sex} == 'female' ? "Femelle" : "Mâle" )]]></textFieldExpression>
+								<textFieldExpression><![CDATA[( $V{sex} == 'female' ? "Femelle" : "Mâle" )]]></textFieldExpression>
 							</textField>
 						</cellContents>
 					</crosstabRowHeader>

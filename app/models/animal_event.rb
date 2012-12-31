@@ -41,16 +41,17 @@
 
 class AnimalEvent < CompanyRecord
   belongs_to :nature, :class_name => "AnimalEventNature"
-  belongs_to :animal, :class_name => "Animal"
+  belongs_to :animal, :class_name => "Animal", :conditions => ["is_external = ? AND (outgone_on IS NULL or outgone_on > ?)", false, Time.now]
   belongs_to :animal_group, :class_name => "AnimalGroup"
   belongs_to :parent, :class_name => "AnimalEvent"
-  has_many :treatment_uses  , :class_name => "AnimalTreatmentUse", :foreign_key => :event_id
-  has_many :treatments, :through => :treatment_uses
+  has_many :treatments , :class_name => "AnimalTreatment", :foreign_key => :event_id
   belongs_to :watcher, :class_name => "Entity"
-  has_many :diagnostics,:class_name => "Diagnostic", :foreign_key => :event_id
+  has_many :diagnostics,:class_name => "AnimalDiagnostic", :foreign_key => :event_id
   has_many :diseases, :through => :diagnostics
+  has_many :drugs, :through => :treatments
+  has_many :prescriptions, :through => :treatments
+  belongs_to :quantity_unit, :class_name => "Unit"
   
-  accepts_nested_attributes_for :treatment_uses,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :treatments,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :diagnostics,    :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :diseases,    :reject_if => :all_blank, :allow_destroy => true
